@@ -51,7 +51,7 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
 
     const selectedAnswerIndex = currentAnswerState?.selectedAnswerIndex ?? null;
     const isAnswered = currentAnswerState?.isAnswered ?? false;
-    const correctAnswers = service.correctAnswers;
+    const correctAnswers = service.getCorrectAnswers();
 
     const [feedback, setFeedback] = useState<QuizFeedback>({
         visible: false,
