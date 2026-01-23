@@ -18,7 +18,7 @@ import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
 export class QuizService {
     private lesson: QuizLesson;
     private currentQuestionIndex: number;
-    private correctAnswers: number;
+    public correctAnswers: number;
     private answerStates: Map<string, QuizAnswerState>;
     private startTime: number;
 
