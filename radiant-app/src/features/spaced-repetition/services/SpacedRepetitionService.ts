@@ -231,6 +231,45 @@ export class SpacedRepetitionService {
     }
 
     /**
+     * Get card state for a specific lesson
+     */
+    static async getCardState(lessonId: QuizLessonId): Promise<SRCardState | null> {
+        try {
+            const store = await this.loadStore();
+            const persistedCard = store.cards[lessonId];
+
+            if (!persistedCard) {
+                return null;
+            }
+
+            return this.deserializeCard(persistedCard);
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting card state:', error);
+            return null;
+        }
+    }
+
+    /**
+     * Get all lessons that are due for review
+     * @param now Optional date to check against (defaults to current time)
+     */
+    static async getDueLessons(now?: Date): Promise<QuizLessonId[]> {
+        try {
+            const store = await this.loadStore();
+            const checkDate = now || new Date();
+
+            return Object.values(store.cards)
+                .map((card) => this.deserializeCard(card))
+                .filter((card) => card.nextReviewAt <= checkDate)
+                .sort((a, b) => a.nextReviewAt.getTime() - b.nextReviewAt.getTime())
+                .map((card) => card.lessonId);
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting due lessons:', error);
+            return [];
+        }
+    }
+
+    /**
      * Get all cards due for review
      */
     static async getDueCards(): Promise<SRCardState[]> {
