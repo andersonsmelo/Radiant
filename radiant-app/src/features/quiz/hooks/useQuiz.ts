@@ -5,7 +5,7 @@
  * Manages quiz state and exposes UI-friendly interface
  */
 
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import type {
     QuizLesson,
     QuizQuestion,
@@ -14,6 +14,7 @@ import type {
     QuizFeedback,
 } from '../../../types/quiz';
 import { QuizService } from '../services/QuizService';
+import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 
 interface UseQuizState {
     currentQuestion: QuizQuestion | null;
@@ -97,6 +98,18 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
         });
         forceUpdate((n) => n + 1);
     }, [service]);
+
+    // Record quiz result to spaced repetition when quiz is completed
+    useEffect(() => {
+        if (result) {
+            try {
+                SpacedRepetitionService.recordQuizResult(result);
+            } catch (error) {
+                console.error('[useQuiz] Error recording quiz result to SR:', error);
+                // Don't crash UI - spaced repetition is not critical to quiz flow
+            }
+        }
+    }, [result]);
 
     return {
         currentQuestion,
