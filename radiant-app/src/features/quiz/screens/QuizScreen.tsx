@@ -85,35 +85,11 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [] }: QuizScre
         }
     }, [mode, lessonIds, currentLessonIndex]);
 
-    const {
-        currentQuestion,
-        progress,
-        selectedAnswerIndex,
-        isAnswered,
-        correctAnswers,
-        feedback,
-        isFinished,
-        result,
-        selectAnswer,
-        next,
-        reset,
-    } = useQuiz(currentLesson || MOCK_LESSON);
-
-    // Handle lesson completion in review mode
-    useEffect(() => {
-        if (mode === 'review' && isFinished && result) {
-            const hasMoreLessons = currentLessonIndex < lessonIds.length - 1;
-
-            if (!hasMoreLessons) {
-                setAllReviewsComplete(true);
-            }
-        }
-    }, [mode, isFinished, result, currentLessonIndex, lessonIds.length]);
-
     const handleNextLesson = () => {
         if (currentLessonIndex < lessonIds.length - 1) {
             setCurrentLessonIndex(currentLessonIndex + 1);
             setLoading(true);
+            // Reset will happen automatically when QuizUI remounts with new key
         }
     };
 
@@ -156,10 +132,51 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [] }: QuizScre
         );
     }
 
+    // Wrap quiz UI in a keyed component to force remount when lesson changes
+    const quizKey = mode === 'review' ? `review-${currentLessonIndex}` : 'normal';
+
+    return (
+        <QuizUI
+            key={quizKey}
+            lesson={currentLesson || MOCK_LESSON}
+            mode={mode}
+            currentLessonIndex={currentLessonIndex}
+            totalLessons={lessonIds.length}
+            onNextLesson={handleNextLesson}
+            onFinishReview={handleFinishReview}
+        />
+    );
+}
+
+interface QuizUIProps {
+    lesson: QuizLesson;
+    mode: 'normal' | 'review';
+    currentLessonIndex: number;
+    totalLessons: number;
+    onNextLesson: () => void;
+    onFinishReview: () => void;
+}
+
+function QuizUI({ lesson, mode, currentLessonIndex, totalLessons, onNextLesson, onFinishReview }: QuizUIProps) {
+    const {
+        currentQuestion,
+        progress,
+        selectedAnswerIndex,
+        isAnswered,
+        correctAnswers,
+        feedback,
+        isFinished,
+        result,
+        selectAnswer,
+        next,
+        reset,
+    } = useQuiz(lesson);
+
+    // Render lesson completion screen
     if (isFinished && result) {
         const scorePercentage = Math.round((result.correctAnswers / result.totalQuestions) * 100);
         const passed = scorePercentage >= 70;
-        const hasMoreLessons = mode === 'review' && currentLessonIndex < lessonIds.length - 1;
+        const hasMoreLessons = mode === 'review' && currentLessonIndex < totalLessons - 1;
 
         return (
             <SafeAreaView style={styles.container}>
@@ -184,16 +201,16 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [] }: QuizScre
 
                     {mode === 'review' && (
                         <Text style={styles.reviewProgress}>
-                            Lição {currentLessonIndex + 1} de {lessonIds.length}
+                            Lição {currentLessonIndex + 1} de {totalLessons}
                         </Text>
                     )}
 
                     {hasMoreLessons ? (
-                        <Pressable style={styles.primaryButton} onPress={handleNextLesson}>
+                        <Pressable style={styles.primaryButton} onPress={onNextLesson}>
                             <Text style={styles.primaryButtonText}>Próxima Lição</Text>
                         </Pressable>
                     ) : (
-                        <Pressable style={styles.primaryButton} onPress={mode === 'review' ? handleFinishReview : reset}>
+                        <Pressable style={styles.primaryButton} onPress={mode === 'review' ? onFinishReview : reset}>
                             <Text style={styles.primaryButtonText}>
                                 {mode === 'review' ? 'Finalizar Revisão' : 'Reiniciar Quiz'}
                             </Text>
@@ -210,16 +227,18 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [] }: QuizScre
         );
     }
 
+    // Render active quiz
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.lessonTitle}>{currentLesson?.title || MOCK_LESSON.title}</Text>
+                <Text style={styles.lessonTitle}>{lesson.title}</Text>
                 <Text style={styles.progressText}>
                     Questão {progress.currentQuestionIndex + 1} de {progress.totalQuestions}
                 </Text>
                 {mode === 'review' && (
                     <Text style={styles.reviewModeLabel}>
-                        Modo Revisão • Lição {currentLessonIndex + 1}/{lessonIds.length}
+                        Modo Revisão • Lição {currentLessonIndex + 1}/{totalLessons}
                     </Text>
                 )}
             </View>
