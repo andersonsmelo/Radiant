@@ -3,14 +3,15 @@
 /**
  * QuizScreen — Main quiz interface
  * Orchestrates the quiz flow using useQuiz hook
+ * Supports both normal and review modes
  */
 
-import React from 'react';
-import { View, Text, StyleSheet, Pressable, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Pressable, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import { useQuiz } from '../hooks/useQuiz';
 import { QuizQuestion } from '../components/QuizQuestion';
 import { QuizFeedback } from '../components/QuizFeedback';
-import type { QuizLesson } from '../../../types/quiz';
+import type { QuizLesson, QuizLessonId } from '../../../types/quiz';
 
 // Temporary mock lesson for development
 const MOCK_LESSON: QuizLesson = {
@@ -60,7 +61,30 @@ const MOCK_LESSON: QuizLesson = {
     ],
 };
 
-export default function QuizScreen() {
+interface QuizScreenProps {
+    mode?: 'normal' | 'review';
+    lessonIds?: QuizLessonId[];
+}
+
+export default function QuizScreen({ mode = 'normal', lessonIds = [] }: QuizScreenProps) {
+    const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+    const [currentLesson, setCurrentLesson] = useState<QuizLesson | null>(null);
+    const [loading, setLoading] = useState(mode === 'review');
+    const [allReviewsComplete, setAllReviewsComplete] = useState(false);
+
+    // Load lesson data (in review mode, fetch from lessonIds)
+    useEffect(() => {
+        if (mode === 'review' && lessonIds.length > 0) {
+            // TODO: Load lesson data from lessonIds[currentLessonIndex]
+            // For now, use mock lesson
+            setCurrentLesson(MOCK_LESSON);
+            setLoading(false);
+        } else {
+            setCurrentLesson(MOCK_LESSON);
+            setLoading(false);
+        }
+    }, [mode, lessonIds, currentLessonIndex]);
+
     const {
         currentQuestion,
         progress,
@@ -73,16 +97,76 @@ export default function QuizScreen() {
         selectAnswer,
         next,
         reset,
-    } = useQuiz(MOCK_LESSON);
+    } = useQuiz(currentLesson || MOCK_LESSON);
+
+    // Handle lesson completion in review mode
+    useEffect(() => {
+        if (mode === 'review' && isFinished && result) {
+            const hasMoreLessons = currentLessonIndex < lessonIds.length - 1;
+
+            if (!hasMoreLessons) {
+                setAllReviewsComplete(true);
+            }
+        }
+    }, [mode, isFinished, result, currentLessonIndex, lessonIds.length]);
+
+    const handleNextLesson = () => {
+        if (currentLessonIndex < lessonIds.length - 1) {
+            setCurrentLessonIndex(currentLessonIndex + 1);
+            setLoading(true);
+        }
+    };
+
+    const handleFinishReview = () => {
+        // TODO: Navigate back to HomeScreen
+        console.log('Review complete! Returning to home...');
+    };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#0A84FF" />
+                    <Text style={styles.loadingText}>Carregando lição...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
+    if (allReviewsComplete) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.summaryContainer}>
+                    <Text style={styles.summaryTitle}>Revisão Concluída!</Text>
+
+                    <View style={styles.scoreCard}>
+                        <Text style={styles.scoreLabel}>Lições Revisadas</Text>
+                        <Text style={styles.scoreValue}>{lessonIds.length}</Text>
+                    </View>
+
+                    <Text style={styles.resultMessage}>
+                        ✓ Todas as revisões foram concluídas
+                    </Text>
+
+                    <Pressable style={styles.primaryButton} onPress={handleFinishReview}>
+                        <Text style={styles.primaryButtonText}>Voltar ao Início</Text>
+                    </Pressable>
+                </View>
+            </SafeAreaView>
+        );
+    }
 
     if (isFinished && result) {
         const scorePercentage = Math.round((result.correctAnswers / result.totalQuestions) * 100);
         const passed = scorePercentage >= 70;
+        const hasMoreLessons = mode === 'review' && currentLessonIndex < lessonIds.length - 1;
 
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.summaryContainer}>
-                    <Text style={styles.summaryTitle}>Quiz Concluído!</Text>
+                    <Text style={styles.summaryTitle}>
+                        {mode === 'review' ? 'Lição Revisada!' : 'Quiz Concluído!'}
+                    </Text>
 
                     <View style={styles.scoreCard}>
                         <Text style={styles.scoreLabel}>Sua Pontuação</Text>
@@ -98,13 +182,29 @@ export default function QuizScreen() {
                         {passed ? '✓ Aprovado!' : '✗ Não aprovado'}
                     </Text>
 
-                    <Pressable style={styles.primaryButton} onPress={reset}>
-                        <Text style={styles.primaryButtonText}>Reiniciar Quiz</Text>
-                    </Pressable>
+                    {mode === 'review' && (
+                        <Text style={styles.reviewProgress}>
+                            Lição {currentLessonIndex + 1} de {lessonIds.length}
+                        </Text>
+                    )}
 
-                    <Pressable style={styles.secondaryButton} onPress={() => { }}>
-                        <Text style={styles.secondaryButtonText}>Sair</Text>
-                    </Pressable>
+                    {hasMoreLessons ? (
+                        <Pressable style={styles.primaryButton} onPress={handleNextLesson}>
+                            <Text style={styles.primaryButtonText}>Próxima Lição</Text>
+                        </Pressable>
+                    ) : (
+                        <Pressable style={styles.primaryButton} onPress={mode === 'review' ? handleFinishReview : reset}>
+                            <Text style={styles.primaryButtonText}>
+                                {mode === 'review' ? 'Finalizar Revisão' : 'Reiniciar Quiz'}
+                            </Text>
+                        </Pressable>
+                    )}
+
+                    {mode === 'normal' && (
+                        <Pressable style={styles.secondaryButton} onPress={() => { }}>
+                            <Text style={styles.secondaryButtonText}>Sair</Text>
+                        </Pressable>
+                    )}
                 </View>
             </SafeAreaView>
         );
@@ -113,10 +213,15 @@ export default function QuizScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.lessonTitle}>{MOCK_LESSON.title}</Text>
+                <Text style={styles.lessonTitle}>{currentLesson?.title || MOCK_LESSON.title}</Text>
                 <Text style={styles.progressText}>
                     Questão {progress.currentQuestionIndex + 1} de {progress.totalQuestions}
                 </Text>
+                {mode === 'review' && (
+                    <Text style={styles.reviewModeLabel}>
+                        Modo Revisão • Lição {currentLessonIndex + 1}/{lessonIds.length}
+                    </Text>
+                )}
             </View>
 
             <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer}>
@@ -150,6 +255,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#000000',
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#8E8E93',
+        marginTop: 16,
+    },
     header: {
         padding: 20,
         borderBottomWidth: 1,
@@ -165,6 +281,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
         color: '#8E8E93',
+    },
+    reviewModeLabel: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: '#0A84FF',
+        marginTop: 4,
     },
     content: {
         flex: 1,
@@ -234,13 +356,20 @@ const styles = StyleSheet.create({
     resultMessage: {
         fontSize: 20,
         fontWeight: '600',
-        marginBottom: 40,
+        marginBottom: 16,
+        color: '#34C759',
     },
     passedMessage: {
         color: '#34C759',
     },
     failedMessage: {
         color: '#FF453A',
+    },
+    reviewProgress: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: '#8E8E93',
+        marginBottom: 24,
     },
     primaryButton: {
         width: '100%',
