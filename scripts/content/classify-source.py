@@ -258,6 +258,15 @@ DEFAULT_TRACKS = {
     "galaxy-anatomia": ("planet-torax", "star-coluna"),
 }
 
+PLANET_STAR_IDS = {
+    "planet-formacao-imagem": ["star-artefatos-basicos"],
+    "planet-radiopacidade": ["star-dose-radiacao"],
+    "planet-padroes-pulmonares": ["star-sindrome-alveolar"],
+    "planet-patologia-toracica": ["star-pneumotorax"],
+    "planet-torax": ["star-coluna"],
+    "planet-abdomen": ["star-pelve"],
+}
+
 
 def read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -298,14 +307,17 @@ def rank_scores(scores: dict[str, float]) -> list[tuple[str, float]]:
     return sorted(scores.items(), key=lambda item: (-item[1], item[0]))
 
 
-def confidence_from_scores(scores: dict[str, float]) -> tuple[float, str, float, float]:
+def confidence_from_scores(
+    scores: dict[str, float],
+    fallback_id: str,
+) -> tuple[float, str, float, float]:
     ranking = rank_scores(scores)
     top_id, top_score = ranking[0]
     runner_up_score = ranking[1][1] if len(ranking) > 1 else 0.0
     total = sum(scores.values())
 
     if total <= 0:
-        return 0.35, top_id, top_score, runner_up_score
+        return 0.35, fallback_id, scores.get(fallback_id, 0.0), 0.0
 
     strength = top_score / total
     gap = max(top_score - runner_up_score, 0.0)
@@ -314,7 +326,11 @@ def confidence_from_scores(scores: dict[str, float]) -> tuple[float, str, float,
     return confidence, top_id, top_score, runner_up_score
 
 
-def best_match(normalized_text: str, rules: list[tuple[str, float]]) -> tuple[str, float, list[str], float]:
+def best_match(
+    normalized_text: str,
+    rules: list[tuple[str, list[tuple[str, float]]]],
+    fallback_id: str,
+) -> tuple[str, float, list[str], float]:
     scores = {}
     matches_by_id = {}
     for target_id, target_rules in rules:
@@ -322,23 +338,37 @@ def best_match(normalized_text: str, rules: list[tuple[str, float]]) -> tuple[st
         scores[target_id] = score
         matches_by_id[target_id] = matches
 
-    confidence, best_id, top_score, runner_up_score = confidence_from_scores(scores)
+    confidence, best_id, top_score, runner_up_score = confidence_from_scores(scores, fallback_id)
     return best_id, confidence, matches_by_id[best_id], runner_up_score
 
 
-def classify_excerpt(excerpt: dict) -> dict:
+def classify_excerpt(excerpt: dict, default_galaxy_id: str = "galaxy-fisica") -> dict:
     normalized_text = normalize_text(excerpt["text"])
     galaxy_scores = {
         galaxy_id: score_rules(normalized_text, rules)[0]
         for galaxy_id, rules in GALAXY_RULES.items()
     }
-    galaxy_confidence, galaxy_id, _, galaxy_runner_up = confidence_from_scores(galaxy_scores)
+    galaxy_confidence, galaxy_id, _, galaxy_runner_up = confidence_from_scores(
+        galaxy_scores,
+        default_galaxy_id,
+    )
     galaxy_matches = score_rules(normalized_text, GALAXY_RULES[galaxy_id])[1]
 
     planet_rules = list(PLANET_RULES[galaxy_id].items())
-    planet_id, planet_confidence, planet_matches, planet_runner_up = best_match(normalized_text, planet_rules)
-    star_rules = list(STAR_RULES[galaxy_id].items())
-    star_id, star_confidence, star_matches, star_runner_up = best_match(normalized_text, star_rules)
+    default_planet_id, default_star_id = DEFAULT_TRACKS[galaxy_id]
+    planet_id, planet_confidence, planet_matches, planet_runner_up = best_match(
+        normalized_text,
+        planet_rules,
+        default_planet_id,
+    )
+    star_ids_for_planet = PLANET_STAR_IDS[planet_id]
+    star_rules = [(star_id, STAR_RULES[galaxy_id][star_id]) for star_id in star_ids_for_planet]
+    star_fallback_id = default_star_id if default_star_id in star_ids_for_planet else star_ids_for_planet[0]
+    star_id, star_confidence, star_matches, star_runner_up = best_match(
+        normalized_text,
+        star_rules,
+        star_fallback_id,
+    )
 
     combined_confidence = round(
         min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
@@ -365,6 +395,7 @@ def classify_excerpt(excerpt: dict) -> dict:
         "starId": star_id,
         "confidence": combined_confidence,
         "decisionReason": decision_reason,
+        "needsReview": needs_review,
         "reviewStatus": review_status,
         "matchedSignals": {
             "galaxy": galaxy_matches,
@@ -415,13 +446,17 @@ def classify_source(
     update_index: bool = True,
 ) -> dict:
     source = load_source_entry(repo_root, source_slug)
+    extraction_job = read_json(
+        repo_root / CONTENT_ROOT_NAME / "extrações" / source_slug / "extraction-job.json"
+    )
     excerpts = load_excerpts(repo_root, source_slug)
     taxonomy = load_taxonomy(repo_root)
+    default_galaxy_id = extraction_job.get("targetGalaxyIds", ["galaxy-fisica"])[0]
 
     classifications = []
     review_ids: list[str] = []
     for excerpt in excerpts:
-        record = classify_excerpt(excerpt)
+        record = classify_excerpt(excerpt, default_galaxy_id=default_galaxy_id)
         if record["galaxyId"] not in taxonomy["galaxy_ids"]:
             raise ValueError(f"Unknown galaxy {record['galaxyId']} for excerpt {excerpt['id']}")
         if record["planetId"] not in taxonomy["planet_ids"]:

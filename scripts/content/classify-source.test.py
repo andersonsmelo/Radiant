@@ -34,6 +34,23 @@ class ClassifySourceTests(unittest.TestCase):
         self.assertGreater(record["confidence"], 0.7)
         self.assertEqual(record["reviewStatus"], "approved")
 
+    def test_classify_excerpt_fallback_uses_aligned_default_tracks(self):
+        excerpt = {
+            "id": "excerpt:test-fallback",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 1,
+            "pageEnd": 1,
+            "text": "Fundamentos de Radiologia 2017.2",
+        }
+
+        record = MODULE.classify_excerpt(excerpt, default_galaxy_id="galaxy-fisica")
+
+        self.assertEqual(record["galaxyId"], "galaxy-fisica")
+        self.assertEqual(record["planetId"], "planet-formacao-imagem")
+        self.assertEqual(record["starId"], "star-artefatos-basicos")
+        self.assertTrue(record["needsReview"])
+        self.assertEqual(record["reviewStatus"], "needs-review")
+
     def test_classify_source_writes_pilot_bundle(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             result = MODULE.classify_source(
@@ -58,6 +75,15 @@ class ClassifySourceTests(unittest.TestCase):
             self.assertEqual(result["classificationCount"], len(excerpts))
             self.assertGreater(bundle["needsReviewCount"], 0)
             self.assertTrue(any(item["reviewStatus"] == "needs-review" for item in bundle["classifications"]))
+            self.assertTrue(
+                all(
+                    not (
+                        item["planetId"] == "planet-abdomen"
+                        and item["starId"] == "star-coluna"
+                    )
+                    for item in bundle["classifications"]
+                )
+            )
 
 
 if __name__ == "__main__":

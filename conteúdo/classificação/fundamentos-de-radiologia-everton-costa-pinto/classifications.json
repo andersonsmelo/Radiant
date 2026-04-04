@@ -13,11 +13,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -43,9 +44,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.822,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['tomografia computadorizada', 'equipamentos', 'proteção', 'protecao', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['tomografia computadorizada', 'ressonância', 'ressonancia', 'equipamentos']; star star-dose-radiacao from matches ['proteção', 'protecao', 'segurança', 'seguranca'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.825,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['tomografia computadorizada', 'equipamentos', 'proteção', 'protecao', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['tomografia computadorizada', 'ressonância', 'ressonancia', 'equipamentos']; star star-artefatos-basicos from matches ['equipamentos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -63,10 +65,7 @@
           "equipamentos"
         ],
         "star": [
-          "proteção",
-          "protecao",
-          "segurança",
-          "seguranca"
+          "equipamentos"
         ]
       },
       "candidateScores": {
@@ -76,7 +75,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 12.4,
-        "starRunnerUpScore": 3.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -91,6 +90,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.978,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'equipamento', 'equipamentos', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'angiografia', 'software', 'equipamento', 'equipamentos', 'aparelhos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelhos', 'software'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -139,6 +139,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['segurança', 'seguranca']; planet planet-radiopacidade from matches ['segurança', 'seguranca']; star star-dose-radiacao from matches ['segurança', 'seguranca'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -176,6 +177,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.65,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -206,6 +208,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamentos', 'aparelhos']; star star-artefatos-basicos from matches ['equipamentos', 'aparelhos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -245,6 +248,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.65,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -270,11 +274,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -303,6 +308,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.665,
       "decisionReason": "Galaxy galaxy-fisica from matches ['matéria', 'materia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -335,9 +341,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
-      "starId": "star-artefatos-basicos",
+      "starId": "star-dose-radiacao",
       "confidence": 0.854,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-dose-radiacao from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -372,9 +379,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
-      "starId": "star-artefatos-basicos",
+      "starId": "star-dose-radiacao",
       "confidence": 0.854,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['absorção', 'absorcao', 'nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['absorção', 'absorcao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -411,9 +419,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
-      "starId": "star-artefatos-basicos",
+      "starId": "star-dose-radiacao",
       "confidence": 0.854,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-dose-radiacao from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -448,9 +457,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.862,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['núcleo', 'nucleo', 'radioatividade', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.855,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['núcleo', 'nucleo', 'radioatividade', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -471,9 +481,7 @@
           "filme"
         ],
         "star": [
-          "dose",
-          "radiação",
-          "radiacao"
+          "filme"
         ]
       },
       "candidateScores": {
@@ -483,7 +491,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 8.0,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -498,6 +506,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.662,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radioatividade']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -528,6 +537,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radioatividade', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -571,6 +581,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -610,9 +621,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.908,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.926,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-artefatos-basicos from matches ['aparelhos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -634,8 +646,7 @@
           "aparelhos"
         ],
         "star": [
-          "radiação",
-          "radiacao"
+          "aparelhos"
         ]
       },
       "candidateScores": {
@@ -645,7 +656,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 6.2,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -655,15 +666,18 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
-      "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.512,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-radiopacidade from matches ['atividade']; star star-dose-radiacao from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
-        "planet": [],
+        "planet": [
+          "atividade"
+        ],
         "star": []
       },
       "candidateScores": {
@@ -688,6 +702,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.885,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'meia vida', 'atividade']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -729,15 +744,19 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
-      "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.539,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-radiopacidade from matches ['meia vida', 'atividade']; star star-dose-radiacao from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
-        "planet": [],
+        "planet": [
+          "meia vida",
+          "atividade"
+        ],
         "star": []
       },
       "candidateScores": {
@@ -762,6 +781,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.96,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tubo']; star star-artefatos-basicos from matches ['tela'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -801,9 +821,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.878,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'física', 'fisica', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.896,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'física', 'fisica', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'aparelhos']; star star-artefatos-basicos from matches ['aparelhos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -822,8 +843,7 @@
           "aparelhos"
         ],
         "star": [
-          "radiação",
-          "radiacao"
+          "aparelhos"
         ]
       },
       "candidateScores": {
@@ -833,7 +853,7 @@
           "galaxy-anatomia": 4.8
         },
         "planetRunnerUpScore": 4.4,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -848,6 +868,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.818,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'angiografia']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -880,9 +901,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.94,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tubo']; star star-dose-radiacao from matches ['ionização', 'ionizacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.814,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tubo']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -896,10 +918,7 @@
           "raios-x",
           "tubo"
         ],
-        "star": [
-          "ionização",
-          "ionizacao"
-        ]
+        "star": []
       },
       "candidateScores": {
         "galaxies": {
@@ -920,9 +939,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.914,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.932,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-artefatos-basicos from matches ['aparelhos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -940,8 +960,7 @@
           "aparelhos"
         ],
         "star": [
-          "radiação",
-          "radiacao"
+          "aparelhos"
         ]
       },
       "candidateScores": {
@@ -951,7 +970,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 4.4,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -966,6 +985,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.954,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-radiopacidade from matches ['ionização', 'ionizacao', 'efeitos', 'radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao', 'efeitos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1020,6 +1040,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.923,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'ionização', 'ionizacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'absorção', 'absorcao', 'ionização', 'ionizacao', 'efeitos']; star star-dose-radiacao from matches ['dose', 'ionização', 'ionizacao', 'efeitos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1065,6 +1086,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.846,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'efeitos', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'efeitos'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1107,6 +1129,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.935,
       "decisionReason": "Galaxy galaxy-fisica from matches ['dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1139,8 +1162,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.955,
+      "confidence": 0.962,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'equipamentos', 'dose', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['dose', 'proteção', 'protecao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'proteção', 'protecao', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1173,7 +1197,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 4.2,
-        "starRunnerUpScore": 3.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1186,8 +1210,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.859,
+      "confidence": 0.922,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'atividade']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1212,7 +1237,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.8,
-        "starRunnerUpScore": 5.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1222,11 +1247,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -1255,6 +1281,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.956,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento']; planet planet-formacao-imagem from matches ['equipamento']; star star-artefatos-basicos from matches ['equipamento'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1288,8 +1315,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.941,
+      "confidence": 0.969,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['absorção', 'absorcao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1317,7 +1345,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 2.0,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1332,6 +1360,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'meia vida']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1370,6 +1399,7 @@
       "starId": "star-coluna",
       "confidence": 0.771,
       "decisionReason": "Galaxy galaxy-anatomia from matches ['pulmão', 'pulmao']; planet planet-torax from matches ['pulmão', 'pulmao']; star star-coluna from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1404,6 +1434,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.956,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao', 'meia vida']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1444,8 +1475,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.784,
+      "confidence": 0.79,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1476,7 +1508,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.8,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1488,9 +1520,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.919,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos', 'tubo']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.92,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos', 'tubo']; star star-artefatos-basicos from matches ['aparelhos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1508,9 +1541,7 @@
           "tubo"
         ],
         "star": [
-          "dose",
-          "radiação",
-          "radiacao"
+          "aparelhos"
         ]
       },
       "candidateScores": {
@@ -1520,7 +1551,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 8.0,
-        "starRunnerUpScore": 2.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1535,6 +1566,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.918,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1570,6 +1602,7 @@
       "starId": "star-pneumotorax",
       "confidence": 0.728,
       "decisionReason": "Galaxy galaxy-patologias from matches ['tumor']; planet planet-patologia-toracica from matches ['tumor']; star star-pneumotorax from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1602,6 +1635,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.946,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1637,9 +1671,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.919,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'detector', 'feixe', 'tubo']; star star-dose-radiacao from matches ['dose'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.956,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'detector', 'feixe', 'tubo']; star star-artefatos-basicos from matches ['detector'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1657,7 +1692,7 @@
           "tubo"
         ],
         "star": [
-          "dose"
+          "detector"
         ]
       },
       "candidateScores": {
@@ -1667,7 +1702,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.6,
-        "starRunnerUpScore": 2.4
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -1677,11 +1712,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -1710,6 +1746,7 @@
       "starId": "star-coluna",
       "confidence": 0.79,
       "decisionReason": "Galaxy galaxy-anatomia from matches ['coluna', 'crânio', 'cranio']; planet planet-torax from matches ['coluna']; star star-coluna from matches ['coluna'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1746,6 +1783,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.665,
       "decisionReason": "Galaxy galaxy-fisica from matches ['átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1779,6 +1817,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.931,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['aparelho']; star star-artefatos-basicos from matches ['aparelho'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1813,6 +1852,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.665,
       "decisionReason": "Galaxy galaxy-fisica from matches ['núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -1839,15 +1879,19 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
-      "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.539,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
-        "planet": [],
+        "planet": [
+          "ressonância",
+          "ressonancia"
+        ],
         "star": []
       },
       "candidateScores": {
@@ -1867,11 +1911,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -1900,6 +1945,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.781,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1932,6 +1978,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.799,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -1966,6 +2013,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.799,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2000,6 +2048,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.799,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2032,8 +2081,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.927,
+      "confidence": 0.946,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2056,7 +2106,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 1.4,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2069,8 +2119,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.927,
+      "confidence": 0.946,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2093,7 +2144,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 1.4,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2106,8 +2157,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.823,
+      "confidence": 0.886,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2130,7 +2182,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.8,
-        "starRunnerUpScore": 5.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2145,6 +2197,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.947,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'segurança', 'seguranca']; planet planet-radiopacidade from matches ['segurança', 'seguranca', 'ionização', 'ionizacao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['segurança', 'seguranca', 'radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2191,11 +2244,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -2224,6 +2278,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'co 60'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2262,11 +2317,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -2293,8 +2349,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
       "starId": "star-artefatos-basicos",
-      "confidence": 0.947,
+      "confidence": 0.967,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'aparelho', 'filme', 'feixe']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelho', 'filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2330,7 +2387,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 4.4,
-        "starRunnerUpScore": 5.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2343,8 +2400,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.838,
+      "confidence": 0.897,
       "decisionReason": "Galaxy galaxy-fisica from matches ['equipamentos', 'dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2365,7 +2423,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 2.4,
-        "starRunnerUpScore": 3.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2380,6 +2438,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.92,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamento', 'equipamentos', 'aparelho', 'aparelhos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelho', 'aparelhos', 'mesa'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2418,16 +2477,22 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
-      "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.641,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['aparelhos']; star star-artefatos-basicos from matches ['aparelhos', 'mesa'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
-        "planet": [],
-        "star": []
+        "planet": [
+          "aparelhos"
+        ],
+        "star": [
+          "aparelhos",
+          "mesa"
+        ]
       },
       "candidateScores": {
         "galaxies": {
@@ -2449,8 +2514,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
       "starId": "star-artefatos-basicos",
-      "confidence": 0.904,
+      "confidence": 0.963,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'filme', 'tubo']; star star-artefatos-basicos from matches ['equipamento', 'filme', 'mesa'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2482,7 +2548,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 4.4,
-        "starRunnerUpScore": 5.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2497,6 +2563,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamento', 'equipamentos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2535,6 +2602,7 @@
       "starId": "star-coluna",
       "confidence": 0.829,
       "decisionReason": "Galaxy galaxy-anatomia from matches ['tórax', 'torax']; planet planet-torax from matches ['tórax', 'torax']; star star-coluna from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2566,9 +2634,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.893,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'proteção', 'protecao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'equipamentos', 'aparelhos', 'filme']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.943,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'proteção', 'protecao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'equipamentos', 'aparelhos', 'filme']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelhos', 'filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2590,10 +2659,10 @@
           "filme"
         ],
         "star": [
-          "proteção",
-          "protecao",
-          "radiação",
-          "radiacao"
+          "equipamento",
+          "equipamentos",
+          "aparelhos",
+          "filme"
         ]
       },
       "candidateScores": {
@@ -2603,7 +2672,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 10.8,
-        "starRunnerUpScore": 10.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2618,6 +2687,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.96,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'feixe']; star star-artefatos-basicos from matches ['mesa'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2654,9 +2724,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
-      "starId": "star-artefatos-basicos",
-      "confidence": 0.869,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'acessório', 'acessorio', 'dose', 'imagem']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao']; star star-artefatos-basicos from matches ['acessório', 'acessorio', 'filme', 'grade', 'mesa'].",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.919,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'acessório', 'acessorio', 'dose', 'imagem']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2673,11 +2744,9 @@
           "radiacao"
         ],
         "star": [
-          "acessório",
-          "acessorio",
-          "filme",
-          "grade",
-          "mesa"
+          "dose",
+          "radiação",
+          "radiacao"
         ]
       },
       "candidateScores": {
@@ -2687,7 +2756,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 5.6,
-        "starRunnerUpScore": 9.399999999999999
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2700,8 +2769,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
       "starId": "star-artefatos-basicos",
-      "confidence": 0.892,
+      "confidence": 0.956,
       "decisionReason": "Galaxy galaxy-fisica from matches ['matéria', 'materia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'filme', 'feixe', 'tubo']; star star-artefatos-basicos from matches ['equipamento', 'filme', 'grade', 'mesa'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2737,7 +2807,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 6.8,
-        "starRunnerUpScore": 8.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2752,6 +2822,7 @@
       "starId": "star-coluna",
       "confidence": 0.942,
       "decisionReason": "Galaxy galaxy-anatomia from matches ['coluna']; planet planet-torax from matches ['coluna']; star star-coluna from matches ['coluna'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2786,6 +2857,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'equipamento', 'acessório', 'acessorio', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'aparelho', 'filme']; star star-artefatos-basicos from matches ['equipamento', 'acessório', 'acessorio', 'aparelho', 'filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2834,6 +2906,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.909,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2864,16 +2937,22 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
-      "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.632,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['filme']; star star-artefatos-basicos from matches ['filme', 'mesa'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
-        "planet": [],
-        "star": []
+        "planet": [
+          "filme"
+        ],
+        "star": [
+          "filme",
+          "mesa"
+        ]
       },
       "candidateScores": {
         "galaxies": {
@@ -2892,11 +2971,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -2920,11 +3000,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -2950,9 +3031,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.896,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['segurança', 'seguranca'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.929,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme', 'tela'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -2967,8 +3049,8 @@
           "filme"
         ],
         "star": [
-          "segurança",
-          "seguranca"
+          "filme",
+          "tela"
         ]
       },
       "candidateScores": {
@@ -2978,7 +3060,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 6.0,
-        "starRunnerUpScore": 3.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -2993,6 +3075,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.854,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3025,8 +3108,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.971,
+      "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3049,7 +3133,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 0.0,
-        "starRunnerUpScore": 1.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3064,6 +3148,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3101,6 +3186,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.98,
       "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3133,11 +3219,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -3161,11 +3248,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -3191,9 +3279,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.919,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'equipamento']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'aparelho', 'feixe']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.939,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'equipamento']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'aparelho', 'feixe']; star star-artefatos-basicos from matches ['equipamento', 'aparelho'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3214,10 +3303,8 @@
           "feixe"
         ],
         "star": [
-          "radiação",
-          "radiacao",
-          "ionização",
-          "ionizacao"
+          "equipamento",
+          "aparelho"
         ]
       },
       "candidateScores": {
@@ -3227,7 +3314,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 10.0,
-        "starRunnerUpScore": 5.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3242,6 +3329,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.888,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'proteção', 'protecao', 'imagem']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3288,6 +3376,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.917,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-radiopacidade from matches ['ionização', 'ionizacao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3333,9 +3422,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.936,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.81,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3351,10 +3441,7 @@
           "raios x",
           "raios-x"
         ],
-        "star": [
-          "radiação",
-          "radiacao"
-        ]
+        "star": []
       },
       "candidateScores": {
         "galaxies": {
@@ -3375,9 +3462,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.919,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme', 'tubo']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.909,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme', 'tubo']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3398,10 +3486,7 @@
           "tubo"
         ],
         "star": [
-          "radiação",
-          "radiacao",
-          "ionização",
-          "ionizacao"
+          "filme"
         ]
       },
       "candidateScores": {
@@ -3411,7 +3496,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 10.0,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3423,9 +3508,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.826,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'filme']; star star-dose-radiacao from matches ['dose'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.852,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3437,7 +3523,7 @@
           "filme"
         ],
         "star": [
-          "dose"
+          "filme"
         ]
       },
       "candidateScores": {
@@ -3447,7 +3533,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.6,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3459,9 +3545,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.893,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'raios x', 'raios-x', 'dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['dose'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.961,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'raios x', 'raios-x', 'dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme', 'tela'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3478,7 +3565,8 @@
           "filme"
         ],
         "star": [
-          "dose"
+          "filme",
+          "tela"
         ]
       },
       "candidateScores": {
@@ -3488,7 +3576,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.6,
-        "starRunnerUpScore": 3.6
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3503,6 +3591,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.964,
       "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'formação da imagem', 'formacao da imagem', 'raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3545,6 +3634,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.665,
       "decisionReason": "Galaxy galaxy-fisica from matches ['átomo', 'atomo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -3576,6 +3666,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.964,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3610,11 +3701,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -3641,8 +3733,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.944,
+      "confidence": 0.952,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose', 'imagem']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3669,7 +3762,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.8,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3680,10 +3773,11 @@
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
+      "planetId": "planet-torax",
       "starId": "star-coluna",
       "confidence": 0.559,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['anatomia']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['anatomia']; planet planet-torax from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [
@@ -3714,6 +3808,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.964,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3751,6 +3846,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.964,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3788,6 +3884,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.964,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3822,11 +3919,12 @@
       "taxonomyVersion": "mvp-2026-04-04",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-anatomia",
-      "planetId": "planet-abdomen",
-      "starId": "star-coluna",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": true,
       "reviewStatus": "needs-review",
       "matchedSignals": {
         "galaxy": [],
@@ -3853,8 +3951,9 @@
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-radiopacidade",
       "starId": "star-dose-radiacao",
-      "confidence": 0.868,
+      "confidence": 0.886,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'física', 'fisica', 'imagem']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3880,7 +3979,7 @@
           "galaxy-anatomia": 0.0
         },
         "planetRunnerUpScore": 3.8,
-        "starRunnerUpScore": 2.0
+        "starRunnerUpScore": 0.0
       }
     },
     {
@@ -3895,6 +3994,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.854,
       "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3928,9 +4028,10 @@
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-formacao-imagem",
-      "starId": "star-dose-radiacao",
-      "confidence": 0.936,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.81,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -3943,10 +4044,7 @@
           "raios x",
           "raios-x"
         ],
-        "star": [
-          "radiação",
-          "radiacao"
-        ]
+        "star": []
       },
       "candidateScores": {
         "galaxies": {
@@ -3970,6 +4068,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.781,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -4002,6 +4101,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.781,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -4034,6 +4134,7 @@
       "starId": "star-artefatos-basicos",
       "confidence": 0.781,
       "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
@@ -4066,6 +4167,7 @@
       "starId": "star-dose-radiacao",
       "confidence": 0.966,
       "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'segurança', 'seguranca', 'imagem']; planet planet-radiopacidade from matches ['segurança', 'seguranca', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['segurança', 'seguranca', 'radiação', 'radiacao'].",
+      "needsReview": false,
       "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [

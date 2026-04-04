@@ -5,19 +5,23 @@
   "required": [
     "id",
     "sourceExcerptId",
+    "sourceSlug",
     "galaxyId",
     "planetId",
     "starId",
     "confidence",
-    "decisionReason"
+    "decisionReason",
+    "reviewStatus"
   ],
   "properties": {
     "id": { "type": "string" },
     "sourceExcerptId": { "type": "string" },
+    "sourceSlug": { "type": "string" },
     "galaxyId": { "type": "string" },
     "planetId": { "type": "string" },
     "starId": { "type": "string" },
     "confidence": { "type": "number" },
-    "decisionReason": { "type": "string" }
+    "decisionReason": { "type": "string" },
+    "reviewStatus": { "type": "string" }
   }
 }

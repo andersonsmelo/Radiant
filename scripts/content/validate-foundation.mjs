@@ -38,6 +38,8 @@ export function validateFoundation() {
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
   const starIds = new Set(estrelas.map((item) => item.id));
+  const planetsById = new Map(planetas.map((item) => [item.id, item]));
+  const starsById = new Map(estrelas.map((item) => [item.id, item]));
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
   const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
   const classificationStatuses = classificationIndex.jobs.map((job) => job.status);
@@ -168,6 +170,19 @@ export function validateFoundation() {
           }
           if (!starIds.has(record.starId)) {
             errors.push(`Classification ${record.id} references unknown star ${record.starId}`);
+          }
+          const classifiedPlanet = planetsById.get(record.planetId);
+          const classifiedStar = starsById.get(record.starId);
+          if (classifiedPlanet && classifiedPlanet.galaxyId !== record.galaxyId) {
+            errors.push(`Classification ${record.id} uses planet ${record.planetId} outside galaxy ${record.galaxyId}`);
+          }
+          if (classifiedStar) {
+            if (classifiedStar.galaxyId !== record.galaxyId) {
+              errors.push(`Classification ${record.id} uses star ${record.starId} outside galaxy ${record.galaxyId}`);
+            }
+            if (classifiedStar.parentPlanetId !== record.planetId) {
+              errors.push(`Classification ${record.id} uses star ${record.starId} outside planet ${record.planetId}`);
+            }
           }
           if (record.sourceSlug !== job.sourceSlug) {
             errors.push(`Classification ${record.id} references the wrong source slug`);
