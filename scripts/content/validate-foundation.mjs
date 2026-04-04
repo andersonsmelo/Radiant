@@ -11,6 +11,14 @@ function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(absolutePath, 'utf8'));
 }
 
+function readJsonIfExists(relativePath) {
+  const absolutePath = path.join(contentRoot, relativePath);
+  if (!fs.existsSync(absolutePath)) {
+    return null;
+  }
+  return JSON.parse(fs.readFileSync(absolutePath, 'utf8'));
+}
+
 export function validateFoundation() {
   const errors = [];
   const sourceIndex = readJson('fontes/index.json');
@@ -29,6 +37,10 @@ export function validateFoundation() {
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
+  const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
+  let extractedJobCount = 0;
+  let extractedPageCount = 0;
+  let extractedExcerptCount = 0;
 
   for (const planeta of planetas) {
     if (!galaxyIds.has(planeta.galaxyId)) {
@@ -49,6 +61,50 @@ export function validateFoundation() {
     if (!sourceIds.has(job.sourceId)) {
       errors.push(`Extraction job ${job.id} references unknown source ${job.sourceId}`);
     }
+    if (job.status === 'extracted') {
+      extractedJobCount += 1;
+      const artifactDir = path.join('extrações', job.sourceSlug);
+      const jobRecord = readJsonIfExists(path.join(artifactDir, 'extraction-job.json'));
+      const pagesRecord = readJsonIfExists(path.join(artifactDir, 'pages.json'));
+      const excerptsRecord = readJsonIfExists(path.join(artifactDir, 'excerpts.json'));
+
+      if (!jobRecord) {
+        errors.push(`Extraction job ${job.id} is missing its job record`);
+      } else if (jobRecord.status !== 'extracted') {
+        errors.push(`Extraction job ${job.id} record is not marked extracted`);
+      } else if (job.artifacts) {
+        if (jobRecord.artifacts?.pageCount !== job.artifacts.pageCount) {
+          errors.push(`Extraction job ${job.id} page count does not match its record`);
+        }
+        if (jobRecord.artifacts?.excerptCount !== job.artifacts.excerptCount) {
+          errors.push(`Extraction job ${job.id} excerpt count does not match its record`);
+        }
+      }
+
+      if (!pagesRecord) {
+        errors.push(`Extraction job ${job.id} is missing pages.json`);
+      } else {
+        extractedPageCount += pagesRecord.pages.length;
+        if (pagesRecord.sourceSlug !== job.sourceSlug) {
+          errors.push(`Extraction pages for ${job.id} reference the wrong source slug`);
+        }
+        if (job.artifacts?.pageCount !== pagesRecord.pages.length) {
+          errors.push(`Extraction pages for ${job.id} do not match the recorded page count`);
+        }
+      }
+
+      if (!excerptsRecord) {
+        errors.push(`Extraction job ${job.id} is missing excerpts.json`);
+      } else {
+        extractedExcerptCount += excerptsRecord.excerpts.length;
+        if (excerptsRecord.sourceSlug !== job.sourceSlug) {
+          errors.push(`Extraction excerpts for ${job.id} reference the wrong source slug`);
+        }
+        if (job.artifacts?.excerptCount !== excerptsRecord.excerpts.length) {
+          errors.push(`Extraction excerpts for ${job.id} do not match the recorded excerpt count`);
+        }
+      }
+    }
   }
 
   for (const schema of schemas) {
@@ -67,6 +123,10 @@ export function validateFoundation() {
       sourceCount: sourceIndex.sources.length,
       extractionJobCount: extractionIndex.jobs.length,
       sourceSlugs: sourceIndex.sources.map((item) => item.slug),
+      extractionStatuses,
+      extractedJobCount,
+      extractedPageCount,
+      extractedExcerptCount,
       galaxyCount: galaxias.length,
       planetCount: planetas.length,
       starCount: estrelas.length,
