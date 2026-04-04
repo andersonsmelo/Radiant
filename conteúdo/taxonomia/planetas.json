@@ -1,0 +1,56 @@
+[
+  {
+    "id": "planet-torax",
+    "galaxyId": "galaxy-anatomia",
+    "slug": "torax",
+    "title": "Tórax",
+    "description": "Trilha longa principal para anatomia torácica em imagem.",
+    "trackKind": "long-form",
+    "status": "planned"
+  },
+  {
+    "id": "planet-abdomen",
+    "galaxyId": "galaxy-anatomia",
+    "slug": "abdomen",
+    "title": "Abdome",
+    "description": "Trilha longa principal para anatomia abdominal em imagem.",
+    "trackKind": "long-form",
+    "status": "planned"
+  },
+  {
+    "id": "planet-formacao-imagem",
+    "galaxyId": "galaxy-fisica",
+    "slug": "formacao-da-imagem",
+    "title": "Formação da Imagem",
+    "description": "Base física para entender geração e interpretação do exame.",
+    "trackKind": "long-form",
+    "status": "planned"
+  },
+  {
+    "id": "planet-radiopacidade",
+    "galaxyId": "galaxy-fisica",
+    "slug": "radiopacidade-e-densidade",
+    "title": "Radiopacidade e Densidade",
+    "description": "Trilha longa sobre contraste, atenuação e densidade visual.",
+    "trackKind": "long-form",
+    "status": "planned"
+  },
+  {
+    "id": "planet-padroes-pulmonares",
+    "galaxyId": "galaxy-patologias",
+    "slug": "padroes-pulmonares",
+    "title": "Padrões Pulmonares",
+    "description": "Trilha longa sobre leitura de padrões de imagem torácica.",
+    "trackKind": "long-form",
+    "status": "planned"
+  },
+  {
+    "id": "planet-patologia-toracica",
+    "galaxyId": "galaxy-patologias",
+    "slug": "patologia-toracica-basica",
+    "title": "Patologia Torácica Básica",
+    "description": "Trilha longa de alterações torácicas frequentes.",
+    "trackKind": "long-form",
+    "status": "planned"
+  }
+]

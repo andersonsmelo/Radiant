@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Classification Record",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceExcerptId",
+    "galaxyId",
+    "planetId",
+    "starId",
+    "confidence",
+    "decisionReason"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "sourceExcerptId": { "type": "string" },
+    "galaxyId": { "type": "string" },
+    "planetId": { "type": "string" },
+    "starId": { "type": "string" },
+    "confidence": { "type": "number" },
+    "decisionReason": { "type": "string" }
+  }
+}

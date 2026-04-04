@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Extraction Record",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceId",
+    "sourceType",
+    "chapterLabel",
+    "pageStart",
+    "pageEnd",
+    "excerpt",
+    "confidence"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "sourceId": { "type": "string" },
+    "sourceType": { "type": "string" },
+    "chapterLabel": { "type": "string" },
+    "pageStart": { "type": "integer" },
+    "pageEnd": { "type": "integer" },
+    "excerpt": { "type": "string" },
+    "confidence": { "type": "number" }
+  }
+}

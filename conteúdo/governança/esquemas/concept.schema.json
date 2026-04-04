@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Concept",
+  "type": "object",
+  "required": [
+    "id",
+    "slug",
+    "title",
+    "galaxyId",
+    "definition",
+    "sourceExcerptIds"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "slug": { "type": "string" },
+    "title": { "type": "string" },
+    "galaxyId": { "type": "string" },
+    "definition": { "type": "string" },
+    "sourceExcerptIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

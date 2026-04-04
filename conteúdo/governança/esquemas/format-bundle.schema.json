@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Format Bundle",
+  "type": "object",
+  "required": [
+    "id",
+    "formatType",
+    "conceptIds",
+    "sourceExcerptIds",
+    "payload"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "formatType": { "type": "string" },
+    "conceptIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sourceExcerptIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "payload": { "type": "object" }
+  }
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "galaxy-anatomia",
+    "slug": "anatomia",
+    "title": "Anatomia",
+    "description": "Grandes estruturas anatômicas e organização visual do corpo em imagem.",
+    "status": "active"
+  },
+  {
+    "id": "galaxy-fisica",
+    "slug": "fisica",
+    "title": "Física",
+    "description": "Princípios físicos da formação da imagem e leitura técnica do exame.",
+    "status": "active"
+  },
+  {
+    "id": "galaxy-patologias",
+    "slug": "patologias",
+    "title": "Patologias",
+    "description": "Padrões, síndromes e alterações de imagem em contextos clínicos.",
+    "status": "active"
+  }
+]
