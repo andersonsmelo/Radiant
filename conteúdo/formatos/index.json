@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "generate:microlições:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "formatType": "microlições",
+      "status": "generated",
+      "strategy": "deterministic-concept-format-v1",
+      "artifacts": {
+        "bundles": "formatos/microlições/fundamentos-de-radiologia-everton-costa-pinto/bundles.json",
+        "bundleCount": 16,
+        "needsReviewCount": 7
+      }
+    },
+    {
+      "id": "generate:quizzes:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "formatType": "quizzes",
+      "status": "generated",
+      "strategy": "deterministic-concept-format-v1",
+      "artifacts": {
+        "bundles": "formatos/quizzes/fundamentos-de-radiologia-everton-costa-pinto/bundles.json",
+        "bundleCount": 16,
+        "needsReviewCount": 7
+      }
+    }
+  ]
+}

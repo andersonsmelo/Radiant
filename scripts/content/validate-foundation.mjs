@@ -54,7 +54,11 @@ export function validateFoundation() {
   let conceptJobCount = 0;
   let conceptRecordCount = 0;
   let conceptNeedsReviewCount = 0;
+  let formatJobCount = 0;
+  let formatBundleCount = 0;
+  let formatNeedsReviewCount = 0;
   const classificationById = new Map();
+  const conceptById = new Map();
   const excerptById = new Map();
 
   for (const job of extractionIndex.jobs) {
@@ -271,6 +275,7 @@ export function validateFoundation() {
           }
 
           for (const record of conceptsRecord.concepts) {
+            conceptById.set(record.id, record);
             if (record.sourceSlug !== job.sourceSlug) {
               errors.push(`Concept ${record.id} references the wrong source slug`);
             }
@@ -347,6 +352,161 @@ export function validateFoundation() {
     }
   }
 
+  const formatIndex = readJsonIfExists('formatos/index.json');
+  if (formatIndex) {
+    const formatJobs = Array.isArray(formatIndex.jobs) ? formatIndex.jobs : [];
+    const seenFormatBundleIds = new Set();
+
+    for (const job of formatJobs) {
+      if (!sourceIds.has(job.sourceId)) {
+        errors.push(`Format job ${job.id} references unknown source ${job.sourceId}`);
+      }
+      if (job.status === 'generated') {
+        formatJobCount += 1;
+        const artifactDir = path.join('formatos', job.formatType, job.sourceSlug);
+        const jobRecord = readJsonIfExists(path.join(artifactDir, 'format-job.json'));
+        const bundlesRecord = readJsonIfExists(path.join(artifactDir, 'bundles.json'));
+        const conceptsRecord = readJsonIfExists(path.join('conceitos', job.sourceSlug, 'concepts.json'));
+        const excerptsRecord = readJsonIfExists(path.join('extrações', job.sourceSlug, 'excerpts.json'));
+
+        if (!jobRecord) {
+          errors.push(`Format job ${job.id} is missing its job record`);
+        } else if (jobRecord.status !== 'generated') {
+          errors.push(`Format job ${job.id} record is not marked generated`);
+        } else if (job.artifacts) {
+          if (jobRecord.artifacts?.bundleCount !== job.artifacts.bundleCount) {
+            errors.push(`Format job ${job.id} bundle count does not match its record`);
+          }
+          if (jobRecord.artifacts?.needsReviewCount !== job.artifacts.needsReviewCount) {
+            errors.push(`Format job ${job.id} review count does not match its record`);
+          }
+        }
+
+        if (!bundlesRecord) {
+          errors.push(`Format job ${job.id} is missing bundles.json`);
+        } else if (!conceptsRecord) {
+          errors.push(`Format job ${job.id} is missing the concepts it should convert`);
+        } else if (!excerptsRecord) {
+          errors.push(`Format job ${job.id} is missing the excerpts it should trace back to`);
+        } else {
+          const conceptRecordsById = new Map(conceptsRecord.concepts.map((item) => [item.id, item]));
+          const excerptRecordsById = new Map(excerptsRecord.excerpts.map((item) => [item.id, item]));
+
+          if (bundlesRecord.sourceSlug !== job.sourceSlug) {
+            errors.push(`Bundles for ${job.id} reference the wrong source slug`);
+          }
+          if (bundlesRecord.sourceId !== job.sourceId) {
+            errors.push(`Bundles for ${job.id} reference the wrong source id`);
+          }
+          if (bundlesRecord.formatType !== job.formatType) {
+            errors.push(`Bundles for ${job.id} reference the wrong format type`);
+          }
+          if (job.artifacts?.bundleCount !== bundlesRecord.bundleCount) {
+            errors.push(`Bundles for ${job.id} do not match the recorded bundle count`);
+          }
+          if (bundlesRecord.bundleCount !== bundlesRecord.bundles.length) {
+            errors.push(`Bundles for ${job.id} has a mismatched bundleCount`);
+          }
+          if (bundlesRecord.needsReviewCount !== bundlesRecord.bundles.filter((bundle) => bundle.reviewStatus === 'needs-review').length) {
+            errors.push(`Bundles for ${job.id} has a mismatched needsReviewCount`);
+          }
+
+          const seenConceptIds = new Set();
+          for (const bundle of bundlesRecord.bundles) {
+            const conceptId = bundle.conceptIds?.[0];
+            const concept = conceptId ? conceptRecordsById.get(conceptId) : null;
+            const payload = bundle.payload ?? {};
+
+            formatBundleCount += 1;
+            seenFormatBundleIds.add(bundle.id);
+
+            if (bundle.sourceId !== job.sourceId) {
+              errors.push(`Format bundle ${bundle.id} references the wrong source id`);
+            }
+            if (bundle.sourceSlug !== job.sourceSlug) {
+              errors.push(`Format bundle ${bundle.id} references the wrong source slug`);
+            }
+            if (bundle.formatType !== job.formatType) {
+              errors.push(`Format bundle ${bundle.id} references the wrong format type`);
+            }
+            if (!['approved', 'needs-review'].includes(bundle.reviewStatus)) {
+              errors.push(`Format bundle ${bundle.id} has an invalid review status ${bundle.reviewStatus}`);
+            }
+            if (!conceptId) {
+              errors.push(`Format bundle ${bundle.id} is missing a concept reference`);
+            } else if (!concept) {
+              errors.push(`Format bundle ${bundle.id} references unknown concept ${conceptId}`);
+            } else {
+              if (seenConceptIds.has(conceptId)) {
+                errors.push(`Format bundle ${bundle.id} duplicates concept ${conceptId}`);
+              }
+              seenConceptIds.add(conceptId);
+
+              if (bundle.conceptIds.length !== 1) {
+                errors.push(`Format bundle ${bundle.id} should reference exactly one concept`);
+              }
+              if (payload.conceptId !== conceptId) {
+                errors.push(`Format bundle ${bundle.id} payload conceptId does not match its bundle concept`);
+              }
+              if (payload.conceptTitle !== concept.title) {
+                errors.push(`Format bundle ${bundle.id} payload conceptTitle does not match concept ${conceptId}`);
+              }
+              if (JSON.stringify(bundle.sourceExcerptIds) !== JSON.stringify(concept.sourceExcerptIds)) {
+                errors.push(`Format bundle ${bundle.id} does not preserve the concept excerpt provenance`);
+              }
+              for (const sourceExcerptId of bundle.sourceExcerptIds) {
+                if (!excerptRecordsById.has(sourceExcerptId)) {
+                  errors.push(`Format bundle ${bundle.id} references unknown excerpt ${sourceExcerptId}`);
+                }
+              }
+            }
+
+            if (bundle.reviewStatus === 'needs-review') {
+              formatNeedsReviewCount += 1;
+            }
+
+            if (bundle.formatType === 'microlições') {
+              if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
+                errors.push(`Format bundle ${bundle.id} micro-lesson payload must have four blocks`);
+              }
+            } else if (bundle.formatType === 'quizzes') {
+              if (!Array.isArray(payload.questions) || payload.questions.length !== 2) {
+                errors.push(`Format bundle ${bundle.id} quiz payload must have two questions`);
+              } else {
+                for (const question of payload.questions) {
+                  if (question.type !== 'multiple-choice') {
+                    errors.push(`Format bundle ${bundle.id} has an unsupported question type`);
+                  }
+                  if (!Array.isArray(question.choices) || question.choices.length !== 4) {
+                    errors.push(`Format bundle ${bundle.id} has a quiz question without four choices`);
+                  }
+                  const choiceIds = new Set((question.choices ?? []).map((choice) => choice.id));
+                  if (!choiceIds.has(question.correctChoiceId)) {
+                    errors.push(`Format bundle ${bundle.id} has a quiz question with an invalid correctChoiceId`);
+                  }
+                }
+              }
+            }
+          }
+
+          if (seenConceptIds.size !== conceptsRecord.concepts.length) {
+            errors.push(`Format job ${job.id} does not cover every normalized concept`);
+          }
+        }
+      }
+    }
+
+    if (formatIndex.version !== 1) {
+      errors.push('Format index has an unexpected version');
+    }
+    if (formatJobs.length !== 2) {
+      errors.push('Format index should expose exactly two generated jobs for the pilot');
+    }
+    if (seenFormatBundleIds.size !== 32) {
+      errors.push('Format index does not cover the expected bundle set for the pilot');
+    }
+  }
+
   for (const schema of schemas) {
     if (!schema.title) {
       errors.push('Schema is missing title');
@@ -376,6 +536,11 @@ export function validateFoundation() {
       conceptStatuses,
       conceptRecordCount,
       conceptNeedsReviewCount,
+      formatJobCount,
+      formatBundleCount,
+      formatNeedsReviewCount,
+      formatStatuses: formatIndex ? formatIndex.jobs.map((job) => job.status) : [],
+      formatTypes: formatIndex ? formatIndex.jobs.map((job) => job.formatType) : [],
       classificationSourceSlugs: classificationIndex.jobs.map((job) => job.sourceSlug),
       galaxyCount: galaxias.length,
       planetCount: planetas.length,

@@ -35,3 +35,4 @@ O sistema já consegue:
 - extrair a obra piloto em páginas e trechos
 - classificar os trechos da obra piloto contra a taxonomia MVP
 - consolidar a obra piloto em conceitos canônicos rastreáveis
+- gerar os primeiros formatos pedagógicos a partir desses conceitos

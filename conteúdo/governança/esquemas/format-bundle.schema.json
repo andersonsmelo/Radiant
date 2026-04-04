@@ -5,13 +5,27 @@
   "required": [
     "id",
     "formatType",
+    "title",
+    "sourceId",
+    "sourceSlug",
+    "taxonomyVersion",
+    "generationStrategy",
     "conceptIds",
     "sourceExcerptIds",
+    "reviewStatus",
     "payload"
   ],
   "properties": {
     "id": { "type": "string" },
-    "formatType": { "type": "string" },
+    "formatType": {
+      "type": "string",
+      "enum": ["microlições", "quizzes"]
+    },
+    "title": { "type": "string" },
+    "sourceId": { "type": "string" },
+    "sourceSlug": { "type": "string" },
+    "taxonomyVersion": { "type": "string" },
+    "generationStrategy": { "type": "string" },
     "conceptIds": {
       "type": "array",
       "items": { "type": "string" }
@@ -19,6 +33,10 @@
     "sourceExcerptIds": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "reviewStatus": {
+      "type": "string",
+      "enum": ["approved", "needs-review"]
     },
     "payload": { "type": "object" }
   }
