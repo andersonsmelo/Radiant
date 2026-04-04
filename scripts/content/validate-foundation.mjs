@@ -23,6 +23,7 @@ export function validateFoundation() {
   const errors = [];
   const sourceIndex = readJson('fontes/index.json');
   const extractionIndex = readJson('extrações/index.json');
+  const classificationIndex = readJson('classificação/index.json');
   const galaxias = readJson('taxonomia/galaxias.json');
   const planetas = readJson('taxonomia/planetas.json');
   const estrelas = readJson('taxonomia/estrelas.json');
@@ -36,11 +37,16 @@ export function validateFoundation() {
 
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
+  const starIds = new Set(estrelas.map((item) => item.id));
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
   const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
+  const classificationStatuses = classificationIndex.jobs.map((job) => job.status);
   let extractedJobCount = 0;
   let extractedPageCount = 0;
   let extractedExcerptCount = 0;
+  let classifiedJobCount = 0;
+  let classificationRecordCount = 0;
+  let needsReviewCount = 0;
 
   for (const planeta of planetas) {
     if (!galaxyIds.has(planeta.galaxyId)) {
@@ -107,6 +113,84 @@ export function validateFoundation() {
     }
   }
 
+  for (const job of classificationIndex.jobs) {
+    if (!sourceIds.has(job.sourceId)) {
+      errors.push(`Classification job ${job.id} references unknown source ${job.sourceId}`);
+    }
+    if (job.status === 'classified') {
+      classifiedJobCount += 1;
+      const artifactDir = path.join('classificação', job.sourceSlug);
+      const jobRecord = readJsonIfExists(path.join(artifactDir, 'classification-job.json'));
+      const classificationsRecord = readJsonIfExists(path.join(artifactDir, 'classifications.json'));
+      const excerptsRecord = readJsonIfExists(path.join('extrações', job.sourceSlug, 'excerpts.json'));
+
+      if (!jobRecord) {
+        errors.push(`Classification job ${job.id} is missing its job record`);
+      } else if (jobRecord.status !== 'classified') {
+        errors.push(`Classification job ${job.id} record is not marked classified`);
+      } else if (job.artifacts) {
+        if (jobRecord.artifacts?.classificationCount !== job.artifacts.classificationCount) {
+          errors.push(`Classification job ${job.id} count does not match its record`);
+        }
+        if (jobRecord.artifacts?.needsReviewCount !== job.artifacts.needsReviewCount) {
+          errors.push(`Classification job ${job.id} review count does not match its record`);
+        }
+      }
+
+      if (!classificationsRecord) {
+        errors.push(`Classification job ${job.id} is missing classifications.json`);
+      } else if (!excerptsRecord) {
+        errors.push(`Classification job ${job.id} is missing the extracted excerpts it should classify`);
+      } else {
+        const excerptIds = new Set(excerptsRecord.excerpts.map((item) => item.id));
+        const seenExcerptIds = new Set();
+        classificationRecordCount += classificationsRecord.classifications.length;
+
+        if (classificationsRecord.sourceSlug !== job.sourceSlug) {
+          errors.push(`Classifications for ${job.id} reference the wrong source slug`);
+        }
+        if (job.artifacts?.classificationCount !== classificationsRecord.classificationCount) {
+          errors.push(`Classifications for ${job.id} do not match the recorded classification count`);
+        }
+        if (classificationsRecord.classificationCount !== classificationsRecord.classifications.length) {
+          errors.push(`Classifications for ${job.id} has a mismatched classificationCount`);
+        }
+
+        for (const record of classificationsRecord.classifications) {
+          if (!excerptIds.has(record.sourceExcerptId)) {
+            errors.push(`Classification ${record.id} references unknown excerpt ${record.sourceExcerptId}`);
+          }
+          if (!galaxyIds.has(record.galaxyId)) {
+            errors.push(`Classification ${record.id} references unknown galaxy ${record.galaxyId}`);
+          }
+          if (!planetIds.has(record.planetId)) {
+            errors.push(`Classification ${record.id} references unknown planet ${record.planetId}`);
+          }
+          if (!starIds.has(record.starId)) {
+            errors.push(`Classification ${record.id} references unknown star ${record.starId}`);
+          }
+          if (record.sourceSlug !== job.sourceSlug) {
+            errors.push(`Classification ${record.id} references the wrong source slug`);
+          }
+          if (!['approved', 'needs-review'].includes(record.reviewStatus)) {
+            errors.push(`Classification ${record.id} has an invalid review status ${record.reviewStatus}`);
+          }
+          if (seenExcerptIds.has(record.sourceExcerptId)) {
+            errors.push(`Classification ${record.id} duplicates excerpt ${record.sourceExcerptId}`);
+          }
+          seenExcerptIds.add(record.sourceExcerptId);
+          if (record.reviewStatus === 'needs-review') {
+            needsReviewCount += 1;
+          }
+        }
+
+        if (seenExcerptIds.size !== excerptIds.size) {
+          errors.push(`Classification job ${job.id} does not cover every extracted excerpt`);
+        }
+      }
+    }
+  }
+
   for (const schema of schemas) {
     if (!schema.title) {
       errors.push('Schema is missing title');
@@ -127,6 +211,12 @@ export function validateFoundation() {
       extractedJobCount,
       extractedPageCount,
       extractedExcerptCount,
+      classificationJobCount: classificationIndex.jobs.length,
+      classificationStatuses,
+      classifiedJobCount,
+      classificationRecordCount,
+      needsReviewCount,
+      classificationSourceSlugs: classificationIndex.jobs.map((job) => job.sourceSlug),
       galaxyCount: galaxias.length,
       planetCount: planetas.length,
       starCount: estrelas.length,

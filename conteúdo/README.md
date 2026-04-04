@@ -32,3 +32,5 @@ O sistema já consegue:
 - registrar uma obra como fonte
 - indexar a fonte em JSON
 - abrir um job de extração pendente para a obra piloto
+- extrair a obra piloto em páginas e trechos
+- classificar os trechos da obra piloto contra a taxonomia MVP

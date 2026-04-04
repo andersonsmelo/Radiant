@@ -1,0 +1,48 @@
+{
+  "id": "classify:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "status": "classified",
+  "strategy": "deterministic-keyword-v1",
+  "inputArtifacts": {
+    "excerpts": "conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/excerpts.json",
+    "pages": "conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/pages.json"
+  },
+  "artifacts": {
+    "classifications": "classifications.json",
+    "classificationCount": 109,
+    "needsReviewCount": 30
+  },
+  "reviewQueueExcerptIds": [
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1",
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2"
+  ]
+}

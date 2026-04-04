@@ -1,0 +1,4102 @@
+{
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "strategy": "deterministic-keyword-v1",
+  "taxonomyVersion": "mvp-2026-04-04",
+  "classificationCount": 109,
+  "needsReviewCount": 30,
+  "classifications": [
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.822,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['tomografia computadorizada', 'equipamentos', 'proteção', 'protecao', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['tomografia computadorizada', 'ressonância', 'ressonancia', 'equipamentos']; star star-dose-radiacao from matches ['proteção', 'protecao', 'segurança', 'seguranca'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "tomografia computadorizada",
+          "equipamentos",
+          "proteção",
+          "protecao",
+          "segurança",
+          "seguranca"
+        ],
+        "planet": [
+          "tomografia computadorizada",
+          "ressonância",
+          "ressonancia",
+          "equipamentos"
+        ],
+        "star": [
+          "proteção",
+          "protecao",
+          "segurança",
+          "seguranca"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.8,
+          "galaxy-patologias": 6.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 12.4,
+        "starRunnerUpScore": 3.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.978,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'equipamento', 'equipamentos', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'angiografia', 'software', 'equipamento', 'equipamentos', 'aparelhos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelhos', 'software'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "equipamentos",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "angiografia",
+          "software",
+          "equipamento",
+          "equipamentos",
+          "aparelhos"
+        ],
+        "star": [
+          "equipamento",
+          "equipamentos",
+          "aparelhos",
+          "software"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 13.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 1.8,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['segurança', 'seguranca']; planet planet-radiopacidade from matches ['segurança', 'seguranca']; star star-dose-radiacao from matches ['segurança', 'seguranca'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "segurança",
+          "seguranca"
+        ],
+        "planet": [
+          "segurança",
+          "seguranca"
+        ],
+        "star": [
+          "segurança",
+          "seguranca"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.65,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "energia"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamentos', 'aparelhos']; star star-artefatos-basicos from matches ['equipamentos', 'aparelhos'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "equipamentos"
+        ],
+        "planet": [
+          "equipamentos",
+          "aparelhos"
+        ],
+        "star": [
+          "equipamentos",
+          "aparelhos"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.65,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "energia"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.665,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['matéria', 'materia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "matéria",
+          "materia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 16.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.854,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 15.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.854,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['absorção', 'absorcao', 'nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [
+          "absorção",
+          "absorcao",
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 15.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.854,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-radiopacidade from matches ['nêutrons', 'neutrons']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 15.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.862,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['núcleo', 'nucleo', 'radioatividade', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "núcleo",
+          "nucleo",
+          "radioatividade",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "dose",
+          "física",
+          "fisica"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 29.7,
+          "galaxy-patologias": 6.4,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 8.0,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.662,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radioatividade']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "radioatividade"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.5,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radioatividade', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "núcleo",
+          "nucleo",
+          "radioatividade",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 18.5,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 15.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.908,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "aparelhos"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 34.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 6.2,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.885,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'meia vida', 'atividade']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "meia vida",
+          "atividade"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 29.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 7.6,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.96,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'núcleo', 'nucleo', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tubo']; star star-artefatos-basicos from matches ['tela'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "tubo"
+        ],
+        "star": [
+          "tela"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 23.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.878,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'física', 'fisica', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "física",
+          "fisica",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "aparelhos"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 19.799999999999997,
+          "galaxy-patologias": 6.0,
+          "galaxy-anatomia": 4.8
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.818,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'angiografia']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "angiografia"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 8.4,
+          "galaxy-patologias": 3.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.94,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tubo']; star star-dose-radiacao from matches ['ionização', 'ionizacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "tubo"
+        ],
+        "star": [
+          "ionização",
+          "ionizacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 14.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 5.6,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.914,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "aparelhos"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 22.2,
+          "galaxy-patologias": 3.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.954,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-radiopacidade from matches ['ionização', 'ionizacao', 'efeitos', 'radiação', 'radiacao', 'nêutrons', 'neutrons']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao', 'efeitos'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao"
+        ],
+        "planet": [
+          "ionização",
+          "ionizacao",
+          "efeitos",
+          "radiação",
+          "radiacao",
+          "nêutrons",
+          "neutrons"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "ionização",
+          "ionizacao",
+          "efeitos"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 33.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 7.6,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.923,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'ionização', 'ionizacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'absorção', 'absorcao', 'ionização', 'ionizacao', 'efeitos']; star star-dose-radiacao from matches ['dose', 'ionização', 'ionizacao', 'efeitos'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "ionização",
+          "ionizacao",
+          "dose"
+        ],
+        "planet": [
+          "dose",
+          "absorção",
+          "absorcao",
+          "ionização",
+          "ionizacao",
+          "efeitos"
+        ],
+        "star": [
+          "dose",
+          "ionização",
+          "ionizacao",
+          "efeitos"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 10.4,
+          "galaxy-patologias": 6.4,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.846,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'efeitos', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'efeitos'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "planet": [
+          "dose",
+          "efeitos",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao",
+          "efeitos"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 7.8,
+          "galaxy-patologias": 6.4,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.935,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "dose"
+        ],
+        "planet": [
+          "dose"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.955,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'equipamentos', 'dose', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['dose', 'proteção', 'protecao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'proteção', 'protecao', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "equipamentos",
+          "dose",
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "dose",
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "dose",
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 13.000000000000002,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.2,
+        "starRunnerUpScore": 3.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.859,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'atividade']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "atividade"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.8,
+        "starRunnerUpScore": 5.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.956,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento']; planet planet-formacao-imagem from matches ['equipamento']; star star-artefatos-basicos from matches ['equipamento'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "equipamento"
+        ],
+        "planet": [
+          "equipamento"
+        ],
+        "star": [
+          "equipamento"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 4.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.941,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'matéria', 'materia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['absorção', 'absorcao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "absorção",
+          "absorcao",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 13.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 2.0,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao', 'meia vida']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "meia vida"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-torax",
+      "starId": "star-coluna",
+      "confidence": 0.771,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['pulmão', 'pulmao']; planet planet-torax from matches ['pulmão', 'pulmao']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "pulmão",
+          "pulmao"
+        ],
+        "planet": [
+          "pulmão",
+          "pulmao"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 5.2
+        },
+        "planetRunnerUpScore": 5.2,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.956,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao', 'meia vida']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "planet": [
+          "dose",
+          "radiação",
+          "radiacao",
+          "meia vida"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 10.8,
+          "galaxy-patologias": 2.6,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.784,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao",
+          "co 60"
+        ],
+        "star": [
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao",
+          "co 60"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.6,
+          "galaxy-patologias": 9.4,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.8,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.919,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'aparelhos', 'tubo']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "dose"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "aparelhos",
+          "tubo"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 19.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 8.0,
+        "starRunnerUpScore": 2.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.918,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "dose"
+        ],
+        "planet": [
+          "dose"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 4.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 1.8,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-patologias",
+      "planetId": "planet-patologia-toracica",
+      "starId": "star-pneumotorax",
+      "confidence": 0.728,
+      "decisionReason": "Galaxy galaxy-patologias from matches ['tumor']; planet planet-patologia-toracica from matches ['tumor']; star star-pneumotorax from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "tumor"
+        ],
+        "planet": [
+          "tumor"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.8,
+          "galaxy-patologias": 3.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.946,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.0,
+          "galaxy-patologias": 3.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.919,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'dose']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'tomografia computadorizada', 'detector', 'feixe', 'tubo']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "tomografia computadorizada",
+          "dose"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "tomografia computadorizada",
+          "detector",
+          "feixe",
+          "tubo"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 14.200000000000001,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.6,
+        "starRunnerUpScore": 2.4
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-torax",
+      "starId": "star-coluna",
+      "confidence": 0.79,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['coluna', 'crânio', 'cranio']; planet planet-torax from matches ['coluna']; star star-coluna from matches ['coluna'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "coluna",
+          "crânio",
+          "cranio"
+        ],
+        "planet": [
+          "coluna"
+        ],
+        "star": [
+          "coluna"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 7.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 7.6
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.665,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['átomo', 'atomo', 'núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.931,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia']; planet planet-formacao-imagem from matches ['aparelho']; star star-artefatos-basicos from matches ['aparelho'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia"
+        ],
+        "planet": [
+          "aparelho"
+        ],
+        "star": [
+          "aparelho"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.665,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['núcleo', 'nucleo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "núcleo",
+          "nucleo"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.781,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.799,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "ressonância",
+          "ressonancia"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.799,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "ressonância",
+          "ressonancia"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.799,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "ressonância",
+          "ressonancia"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.927,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 1.4,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.927,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 1.4,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.823,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.8,
+        "starRunnerUpScore": 5.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.947,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'segurança', 'seguranca']; planet planet-radiopacidade from matches ['segurança', 'seguranca', 'ionização', 'ionizacao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['segurança', 'seguranca', 'radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao",
+          "segurança",
+          "seguranca"
+        ],
+        "planet": [
+          "segurança",
+          "seguranca",
+          "ionização",
+          "ionizacao",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "segurança",
+          "seguranca",
+          "radiação",
+          "radiacao",
+          "ionização",
+          "ionizacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 23.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 9.4,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'co 60'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "planet": [
+          "dose",
+          "radiação",
+          "radiacao",
+          "co 60"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao",
+          "co 60"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 10.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.947,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'aparelho', 'filme', 'feixe']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelho', 'filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "equipamentos",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "equipamentos",
+          "aparelho",
+          "filme",
+          "feixe"
+        ],
+        "star": [
+          "equipamento",
+          "equipamentos",
+          "aparelho",
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 18.999999999999996,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 5.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.838,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['equipamentos', 'dose']; planet planet-radiopacidade from matches ['dose']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "equipamentos",
+          "dose"
+        ],
+        "planet": [
+          "dose"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.4000000000000004,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 2.4,
+        "starRunnerUpScore": 3.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.92,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamento', 'equipamentos', 'aparelho', 'aparelhos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos', 'aparelho', 'aparelhos', 'mesa'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "equipamento",
+          "equipamentos"
+        ],
+        "planet": [
+          "equipamento",
+          "equipamentos",
+          "aparelho",
+          "aparelhos"
+        ],
+        "star": [
+          "equipamento",
+          "equipamentos",
+          "aparelho",
+          "aparelhos",
+          "mesa"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.199999999999999,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 2.8
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.904,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'filme', 'tubo']; star star-artefatos-basicos from matches ['equipamento', 'filme', 'mesa'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "filme",
+          "tubo"
+        ],
+        "star": [
+          "equipamento",
+          "filme",
+          "mesa"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 17.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 5.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'equipamento', 'equipamentos']; planet planet-formacao-imagem from matches ['equipamento', 'equipamentos']; star star-artefatos-basicos from matches ['equipamento', 'equipamentos'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "equipamento",
+          "equipamentos"
+        ],
+        "planet": [
+          "equipamento",
+          "equipamentos"
+        ],
+        "star": [
+          "equipamento",
+          "equipamentos"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.199999999999999,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-torax",
+      "starId": "star-coluna",
+      "confidence": 0.829,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['tórax', 'torax']; planet planet-torax from matches ['tórax', 'torax']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "tórax",
+          "torax"
+        ],
+        "planet": [
+          "tórax",
+          "torax"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 6.4
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.893,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'equipamentos', 'proteção', 'protecao']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'equipamentos', 'aparelhos', 'filme']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "equipamentos",
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "equipamentos",
+          "aparelhos",
+          "filme"
+        ],
+        "star": [
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 21.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 10.8,
+        "starRunnerUpScore": 10.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.96,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'feixe']; star star-artefatos-basicos from matches ['mesa'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "feixe"
+        ],
+        "star": [
+          "mesa"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.869,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'acessório', 'acessorio', 'dose', 'imagem']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao']; star star-artefatos-basicos from matches ['acessório', 'acessorio', 'filme', 'grade', 'mesa'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "acessório",
+          "acessorio",
+          "dose",
+          "imagem"
+        ],
+        "planet": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "acessório",
+          "acessorio",
+          "filme",
+          "grade",
+          "mesa"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 5.6,
+        "starRunnerUpScore": 9.399999999999999
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.892,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['matéria', 'materia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'equipamento', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'filme', 'feixe', 'tubo']; star star-artefatos-basicos from matches ['equipamento', 'filme', 'grade', 'mesa'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "matéria",
+          "materia",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "filme",
+          "feixe",
+          "tubo"
+        ],
+        "star": [
+          "equipamento",
+          "filme",
+          "grade",
+          "mesa"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 22.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 6.8,
+        "starRunnerUpScore": 8.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-torax",
+      "starId": "star-coluna",
+      "confidence": 0.942,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['coluna']; planet planet-torax from matches ['coluna']; star star-coluna from matches ['coluna'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "coluna"
+        ],
+        "planet": [
+          "coluna"
+        ],
+        "star": [
+          "coluna"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 2.8
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'equipamento', 'acessório', 'acessorio', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'equipamento', 'aparelho', 'filme']; star star-artefatos-basicos from matches ['equipamento', 'acessório', 'acessorio', 'aparelho', 'filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "acessório",
+          "acessorio",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "aparelho",
+          "filme"
+        ],
+        "star": [
+          "equipamento",
+          "acessório",
+          "acessorio",
+          "aparelho",
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 14.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.909,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.896,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'segurança', 'seguranca']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['segurança', 'seguranca'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "segurança",
+          "seguranca"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "segurança",
+          "seguranca"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.000000000000002,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 6.0,
+        "starRunnerUpScore": 3.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.854,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 8.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.971,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "proteção",
+          "protecao"
+        ],
+        "star": [
+          "proteção",
+          "protecao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 1.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "proteção",
+          "protecao"
+        ],
+        "star": [
+          "proteção",
+          "protecao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.98,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao']; star star-dose-radiacao from matches ['proteção', 'protecao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "proteção",
+          "protecao"
+        ],
+        "star": [
+          "proteção",
+          "protecao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.919,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'equipamento']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'equipamento', 'aparelho', 'feixe']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao",
+          "equipamento"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "aparelho",
+          "feixe"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "ionização",
+          "ionizacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 24.6,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 10.0,
+        "starRunnerUpScore": 5.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.888,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x', 'proteção', 'protecao', 'imagem']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "proteção",
+          "protecao",
+          "imagem"
+        ],
+        "planet": [
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "proteção",
+          "protecao",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 19.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 10.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.917,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'átomo', 'atomo', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao']; planet planet-radiopacidade from matches ['ionização', 'ionizacao', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "átomo",
+          "atomo",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao"
+        ],
+        "planet": [
+          "ionização",
+          "ionizacao",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "ionização",
+          "ionizacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 29.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 7.6,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.936,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'núcleo', 'nucleo', 'radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 23.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.919,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'radiação', 'radiacao', 'raios x', 'raios-x', 'ionização', 'ionizacao', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme', 'tubo']; star star-dose-radiacao from matches ['radiação', 'radiacao', 'ionização', 'ionizacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização",
+          "ionizacao",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "filme",
+          "tubo"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "ionização",
+          "ionizacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 24.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 10.0,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.826,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'filme']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "dose",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "filme"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 3.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.6,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.893,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'raios x', 'raios-x', 'dose', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme']; star star-dose-radiacao from matches ['dose'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "raios x",
+          "raios-x",
+          "dose",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "dose"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 14.600000000000001,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.6,
+        "starRunnerUpScore": 3.6
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.964,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['energia', 'raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'formação da imagem', 'formacao da imagem', 'raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "energia",
+          "raios x",
+          "raios-x",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "formação da imagem",
+          "formacao da imagem",
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.665,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['átomo', 'atomo']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "átomo",
+          "atomo"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 6.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.964,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.944,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose', 'imagem']; planet planet-radiopacidade from matches ['dose', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "dose",
+          "imagem"
+        ],
+        "planet": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "dose",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.2,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.8,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.559,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['anatomia']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [
+          "anatomia"
+        ],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 3.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.964,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 8.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.964,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 8.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.964,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "física",
+          "fisica"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "filme"
+        ],
+        "star": [
+          "filme"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 12.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-anatomia",
+      "planetId": "planet-abdomen",
+      "starId": "star-coluna",
+      "confidence": 0.35,
+      "decisionReason": "Galaxy galaxy-anatomia from matches ['fallback']; planet planet-abdomen from matches ['fallback']; star star-coluna from matches ['fallback'].",
+      "reviewStatus": "needs-review",
+      "matchedSignals": {
+        "galaxy": [],
+        "planet": [],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 0.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.868,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'física', 'fisica', 'imagem']; planet planet-radiopacidade from matches ['radiação', 'radiacao']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "física",
+          "fisica",
+          "imagem"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 11.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 3.8,
+        "starRunnerUpScore": 2.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.854,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'imagem']; planet planet-formacao-imagem from matches ['imagem', 'raios x', 'raios-x']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "imagem"
+        ],
+        "planet": [
+          "imagem",
+          "raios x",
+          "raios-x"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 9.8,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.936,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'raios x', 'raios-x']; planet planet-formacao-imagem from matches ['raios x', 'raios-x']; star star-dose-radiacao from matches ['radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x"
+        ],
+        "star": [
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 14.399999999999999,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 4.4,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.781,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.781,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "confidence": 0.781,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['imagem']; planet planet-formacao-imagem from matches ['imagem']; star star-artefatos-basicos from matches ['fallback'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "imagem"
+        ],
+        "planet": [
+          "imagem"
+        ],
+        "star": []
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 1.4,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 0.0,
+        "starRunnerUpScore": 0.0
+      }
+    },
+    {
+      "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1",
+      "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "classifierVersion": "deterministic-keyword-v1",
+      "strategy": "deterministic-keyword-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "confidence": 0.966,
+      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'segurança', 'seguranca', 'imagem']; planet planet-radiopacidade from matches ['segurança', 'seguranca', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['segurança', 'seguranca', 'radiação', 'radiacao'].",
+      "reviewStatus": "approved",
+      "matchedSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "segurança",
+          "seguranca",
+          "imagem"
+        ],
+        "planet": [
+          "segurança",
+          "seguranca",
+          "radiação",
+          "radiacao"
+        ],
+        "star": [
+          "segurança",
+          "seguranca",
+          "radiação",
+          "radiacao"
+        ]
+      },
+      "candidateScores": {
+        "galaxies": {
+          "galaxy-fisica": 11.0,
+          "galaxy-patologias": 0.0,
+          "galaxy-anatomia": 0.0
+        },
+        "planetRunnerUpScore": 2.4,
+        "starRunnerUpScore": 0.0
+      }
+    }
+  ]
+}

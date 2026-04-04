@@ -1,0 +1,519 @@
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import unicodedata
+from pathlib import Path
+
+
+CONTENT_ROOT_NAME = "conteúdo"
+CLASSIFIER_VERSION = "deterministic-keyword-v1"
+TAXONOMY_VERSION = "mvp-2026-04-04"
+
+
+GALAXY_RULES: dict[str, list[tuple[str, float]]] = {
+    "galaxy-fisica": [
+        ("energia", 3.0),
+        ("matéria", 2.4),
+        ("materia", 2.4),
+        ("átomo", 3.0),
+        ("atomo", 3.0),
+        ("núcleo", 3.0),
+        ("nucleo", 3.0),
+        ("radioatividade", 3.5),
+        ("radiação", 3.0),
+        ("radiacao", 3.0),
+        ("raios x", 4.2),
+        ("raio x", 4.2),
+        ("raios-x", 4.2),
+        ("ionização", 2.8),
+        ("ionizacao", 2.8),
+        ("tomografia computadorizada", 4.0),
+        ("equipamento", 1.6),
+        ("equipamentos", 1.6),
+        ("acessório", 1.6),
+        ("acessorio", 1.6),
+        ("dose", 1.8),
+        ("proteção", 1.8),
+        ("protecao", 1.8),
+        ("segurança", 1.8),
+        ("seguranca", 1.8),
+        ("física", 2.0),
+        ("fisica", 2.0),
+        ("imagem", 1.4),
+    ],
+    "galaxy-patologias": [
+        ("patologia", 3.0),
+        ("patológica", 3.0),
+        ("patologica", 3.0),
+        ("pneumonia", 3.4),
+        ("tumor", 3.0),
+        ("tumores", 3.0),
+        ("fratura", 3.0),
+        ("fraturas", 3.0),
+        ("câncer", 3.2),
+        ("cancer", 3.2),
+        ("síndrome", 3.0),
+        ("sindrome", 3.0),
+        ("lesão", 3.0),
+        ("lesao", 3.0),
+        ("pneumotórax", 3.4),
+        ("pneumotorax", 3.4),
+        ("alveolar", 3.0),
+        ("pulmonar", 2.6),
+        ("pulmonares", 2.6),
+    ],
+    "galaxy-anatomia": [
+        ("anatomia", 3.0),
+        ("tórax", 3.2),
+        ("torax", 3.2),
+        ("abdome", 3.0),
+        ("abdômen", 3.0),
+        ("abdomen", 3.0),
+        ("pelve", 2.8),
+        ("coluna", 2.8),
+        ("costela", 2.8),
+        ("costelas", 2.8),
+        ("ossos", 2.4),
+        ("osso", 2.4),
+        ("crânio", 2.4),
+        ("cranio", 2.4),
+        ("pulmão", 2.6),
+        ("pulmao", 2.6),
+    ],
+}
+
+
+PLANET_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
+    "galaxy-fisica": {
+        "planet-formacao-imagem": [
+            ("imagem", 2.4),
+            ("formação da imagem", 4.4),
+            ("formacao da imagem", 4.4),
+            ("raios x", 3.8),
+            ("raio x", 3.8),
+            ("raios-x", 3.8),
+            ("tomografia computadorizada", 4.2),
+            ("ressonância", 3.0),
+            ("ressonancia", 3.0),
+            ("angiografia", 2.8),
+            ("software", 1.8),
+            ("equipamento", 2.4),
+            ("equipamentos", 2.4),
+            ("aparelho", 2.0),
+            ("aparelhos", 2.0),
+            ("detector", 1.8),
+            ("filme", 1.4),
+            ("feixe", 1.8),
+            ("tubo", 1.6),
+        ],
+        "planet-radiopacidade": [
+            ("dose", 3.6),
+            ("proteção", 3.2),
+            ("protecao", 3.2),
+            ("segurança", 3.0),
+            ("seguranca", 3.0),
+            ("atenuação", 3.2),
+            ("atenuacao", 3.2),
+            ("absorção", 3.0),
+            ("absorcao", 3.0),
+            ("ionização", 2.8),
+            ("ionizacao", 2.8),
+            ("efeitos", 2.4),
+            ("radiação", 2.2),
+            ("radiacao", 2.2),
+            ("nêutrons", 2.4),
+            ("neutrons", 2.4),
+            ("meia vida", 2.0),
+            ("atividade", 1.8),
+            ("co 60", 2.0),
+        ],
+    },
+    "galaxy-patologias": {
+        "planet-padroes-pulmonares": [
+            ("pneumonia", 4.4),
+            ("pulmonar", 3.2),
+            ("pulmão", 3.2),
+            ("pulmao", 3.2),
+            ("alveolar", 3.6),
+            ("intersticial", 3.2),
+            ("edema", 2.8),
+            ("consolidação", 2.8),
+            ("consolidacao", 2.8),
+            ("atelectasia", 2.8),
+            ("espessamento", 2.0),
+        ],
+        "planet-patologia-toracica": [
+            ("tumor", 4.0),
+            ("tumores", 4.0),
+            ("fratura", 3.8),
+            ("fraturas", 3.8),
+            ("câncer", 4.0),
+            ("cancer", 4.0),
+            ("lesão", 3.6),
+            ("lesao", 3.6),
+            ("nódulo", 3.2),
+            ("nodulo", 3.2),
+            ("pneumotórax", 4.2),
+            ("pneumotorax", 4.2),
+            ("mediastino", 2.6),
+        ],
+    },
+    "galaxy-anatomia": {
+        "planet-torax": [
+            ("tórax", 4.8),
+            ("torax", 4.8),
+            ("costela", 3.0),
+            ("costelas", 3.0),
+            ("pulmão", 3.2),
+            ("pulmao", 3.2),
+            ("mediastino", 2.6),
+            ("coluna", 2.4),
+        ],
+        "planet-abdomen": [
+            ("abdome", 4.6),
+            ("abdômen", 4.6),
+            ("abdomen", 4.6),
+            ("pelve", 4.0),
+            ("bacia", 3.4),
+            ("visceral", 2.4),
+            ("intestino", 2.6),
+            ("fígado", 2.6),
+            ("figado", 2.6),
+        ],
+    },
+}
+
+
+STAR_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
+    "galaxy-fisica": {
+        "star-artefatos-basicos": [
+            ("equipamento", 3.0),
+            ("equipamentos", 3.0),
+            ("acessório", 2.8),
+            ("acessorio", 2.8),
+            ("aparelho", 2.6),
+            ("aparelhos", 2.6),
+            ("filme", 2.0),
+            ("detector", 2.4),
+            ("grade", 2.0),
+            ("diafragma", 2.0),
+            ("mesa", 1.6),
+            ("tela", 1.6),
+            ("software", 1.8),
+        ],
+        "star-dose-radiacao": [
+            ("dose", 3.8),
+            ("proteção", 3.4),
+            ("protecao", 3.4),
+            ("segurança", 3.2),
+            ("seguranca", 3.2),
+            ("radiação", 2.8),
+            ("radiacao", 2.8),
+            ("ionização", 2.8),
+            ("ionizacao", 2.8),
+            ("efeitos", 2.4),
+            ("co 60", 2.0),
+        ],
+    },
+    "galaxy-patologias": {
+        "star-sindrome-alveolar": [
+            ("síndrome", 4.0),
+            ("sindrome", 4.0),
+            ("alveolar", 4.2),
+            ("pneumonia", 3.8),
+            ("pulmonar", 3.0),
+            ("pulmão", 3.0),
+            ("pulmao", 3.0),
+        ],
+        "star-pneumotorax": [
+            ("pneumotórax", 4.4),
+            ("pneumotorax", 4.4),
+            ("pleural", 2.8),
+            ("colapso", 2.4),
+        ],
+    },
+    "galaxy-anatomia": {
+        "star-coluna": [
+            ("coluna", 4.0),
+            ("vertebra", 3.0),
+            ("vértebra", 3.0),
+            ("torácica", 3.0),
+            ("toracica", 3.0),
+        ],
+        "star-pelve": [
+            ("pelve", 4.0),
+            ("bacia", 3.4),
+            ("quadril", 3.0),
+            ("coxal", 2.2),
+        ],
+    },
+}
+
+
+DEFAULT_TRACKS = {
+    "galaxy-fisica": ("planet-formacao-imagem", "star-artefatos-basicos"),
+    "galaxy-patologias": ("planet-patologia-toracica", "star-pneumotorax"),
+    "galaxy-anatomia": ("planet-torax", "star-coluna"),
+}
+
+
+def read_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def normalize_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFD", value)
+    normalized = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
+    normalized = normalized.lower()
+    normalized = re.sub(r"[^a-z0-9]+", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized
+
+
+def phrase_pattern(phrase: str) -> re.Pattern[str]:
+    parts = [re.escape(part) for part in normalize_text(phrase).split()]
+    if not parts:
+        return re.compile(r"$^")
+    return re.compile(r"\b" + r"\s+".join(parts) + r"\b")
+
+
+def score_rules(normalized_text: str, rules: list[tuple[str, float]]) -> tuple[float, list[str]]:
+    score = 0.0
+    matches: list[str] = []
+    for phrase, weight in rules:
+        if phrase_pattern(phrase).search(normalized_text):
+            score += weight
+            matches.append(phrase)
+    return score, matches
+
+
+def rank_scores(scores: dict[str, float]) -> list[tuple[str, float]]:
+    return sorted(scores.items(), key=lambda item: (-item[1], item[0]))
+
+
+def confidence_from_scores(scores: dict[str, float]) -> tuple[float, str, float, float]:
+    ranking = rank_scores(scores)
+    top_id, top_score = ranking[0]
+    runner_up_score = ranking[1][1] if len(ranking) > 1 else 0.0
+    total = sum(scores.values())
+
+    if total <= 0:
+        return 0.35, top_id, top_score, runner_up_score
+
+    strength = top_score / total
+    gap = max(top_score - runner_up_score, 0.0)
+    confidence = 0.45 + (strength * 0.35) + (min(gap, 4.0) * 0.05)
+    confidence = round(min(confidence, 0.98), 3)
+    return confidence, top_id, top_score, runner_up_score
+
+
+def best_match(normalized_text: str, rules: list[tuple[str, float]]) -> tuple[str, float, list[str], float]:
+    scores = {}
+    matches_by_id = {}
+    for target_id, target_rules in rules:
+        score, matches = score_rules(normalized_text, target_rules)
+        scores[target_id] = score
+        matches_by_id[target_id] = matches
+
+    confidence, best_id, top_score, runner_up_score = confidence_from_scores(scores)
+    return best_id, confidence, matches_by_id[best_id], runner_up_score
+
+
+def classify_excerpt(excerpt: dict) -> dict:
+    normalized_text = normalize_text(excerpt["text"])
+    galaxy_scores = {
+        galaxy_id: score_rules(normalized_text, rules)[0]
+        for galaxy_id, rules in GALAXY_RULES.items()
+    }
+    galaxy_confidence, galaxy_id, _, galaxy_runner_up = confidence_from_scores(galaxy_scores)
+    galaxy_matches = score_rules(normalized_text, GALAXY_RULES[galaxy_id])[1]
+
+    planet_rules = list(PLANET_RULES[galaxy_id].items())
+    planet_id, planet_confidence, planet_matches, planet_runner_up = best_match(normalized_text, planet_rules)
+    star_rules = list(STAR_RULES[galaxy_id].items())
+    star_id, star_confidence, star_matches, star_runner_up = best_match(normalized_text, star_rules)
+
+    combined_confidence = round(
+        min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
+        3,
+    )
+    needs_review = combined_confidence < 0.7 or (galaxy_runner_up > 0 and (galaxy_scores[galaxy_id] - galaxy_runner_up) < 2.0)
+    review_status = "needs-review" if needs_review else "approved"
+
+    decision_reason = (
+        f"Galaxy {galaxy_id} from matches {galaxy_matches or ['fallback']}; "
+        f"planet {planet_id} from matches {planet_matches or ['fallback']}; "
+        f"star {star_id} from matches {star_matches or ['fallback']}."
+    )
+
+    return {
+        "id": f"classification:{excerpt['id']}",
+        "sourceExcerptId": excerpt["id"],
+        "sourceSlug": excerpt["sourceSlug"],
+        "taxonomyVersion": TAXONOMY_VERSION,
+        "classifierVersion": CLASSIFIER_VERSION,
+        "strategy": CLASSIFIER_VERSION,
+        "galaxyId": galaxy_id,
+        "planetId": planet_id,
+        "starId": star_id,
+        "confidence": combined_confidence,
+        "decisionReason": decision_reason,
+        "reviewStatus": review_status,
+        "matchedSignals": {
+            "galaxy": galaxy_matches,
+            "planet": planet_matches,
+            "star": star_matches,
+        },
+        "candidateScores": {
+            "galaxies": galaxy_scores,
+            "planetRunnerUpScore": planet_runner_up,
+            "starRunnerUpScore": star_runner_up,
+        },
+    }
+
+
+def load_source_entry(repo_root: Path, source_slug: str) -> dict:
+    source_index = read_json(repo_root / CONTENT_ROOT_NAME / "fontes" / "index.json")
+    for source in source_index["sources"]:
+        if source["slug"] == source_slug:
+            return source
+    raise ValueError(f"Unknown source slug: {source_slug}")
+
+
+def load_excerpts(repo_root: Path, source_slug: str) -> list[dict]:
+    excerpts_path = repo_root / CONTENT_ROOT_NAME / "extrações" / source_slug / "excerpts.json"
+    payload = read_json(excerpts_path)
+    return payload["excerpts"]
+
+
+def load_taxonomy(repo_root: Path) -> dict:
+    taxonomy_root = repo_root / CONTENT_ROOT_NAME / "taxonomia"
+    galaxies = read_json(taxonomy_root / "galaxias.json")
+    planets = read_json(taxonomy_root / "planetas.json")
+    stars = read_json(taxonomy_root / "estrelas.json")
+    return {
+        "galaxies": galaxies,
+        "planets": planets,
+        "stars": stars,
+        "galaxy_ids": {item["id"] for item in galaxies},
+        "planet_ids": {item["id"] for item in planets},
+        "star_ids": {item["id"] for item in stars},
+    }
+
+
+def classify_source(
+    source_slug: str,
+    repo_root: Path,
+    output_dir: Path,
+    update_index: bool = True,
+) -> dict:
+    source = load_source_entry(repo_root, source_slug)
+    excerpts = load_excerpts(repo_root, source_slug)
+    taxonomy = load_taxonomy(repo_root)
+
+    classifications = []
+    review_ids: list[str] = []
+    for excerpt in excerpts:
+        record = classify_excerpt(excerpt)
+        if record["galaxyId"] not in taxonomy["galaxy_ids"]:
+            raise ValueError(f"Unknown galaxy {record['galaxyId']} for excerpt {excerpt['id']}")
+        if record["planetId"] not in taxonomy["planet_ids"]:
+            raise ValueError(f"Unknown planet {record['planetId']} for excerpt {excerpt['id']}")
+        if record["starId"] not in taxonomy["star_ids"]:
+            raise ValueError(f"Unknown star {record['starId']} for excerpt {excerpt['id']}")
+        classifications.append(record)
+        if record["reviewStatus"] == "needs-review":
+            review_ids.append(record["sourceExcerptId"])
+
+    bundle = {
+        "sourceSlug": source_slug,
+        "sourceId": source["id"],
+        "strategy": CLASSIFIER_VERSION,
+        "taxonomyVersion": TAXONOMY_VERSION,
+        "classificationCount": len(classifications),
+        "needsReviewCount": len(review_ids),
+        "classifications": classifications,
+    }
+
+    job_record = {
+        "id": f"classify:{source_slug}",
+        "sourceId": source["id"],
+        "sourceSlug": source_slug,
+        "status": "classified",
+        "strategy": CLASSIFIER_VERSION,
+        "inputArtifacts": {
+            "excerpts": f"conteúdo/extrações/{source_slug}/excerpts.json",
+            "pages": f"conteúdo/extrações/{source_slug}/pages.json",
+        },
+        "artifacts": {
+            "classifications": "classifications.json",
+            "classificationCount": len(classifications),
+            "needsReviewCount": len(review_ids),
+        },
+        "reviewQueueExcerptIds": review_ids,
+    }
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_json(output_dir / "classifications.json", bundle)
+    write_json(output_dir / "classification-job.json", job_record)
+
+    classification_index_path = repo_root / CONTENT_ROOT_NAME / "classificação" / "index.json"
+    if update_index:
+        classification_index = {"version": 1, "jobs": []}
+        if classification_index_path.exists():
+            classification_index = read_json(classification_index_path)
+
+        jobs = [job for job in classification_index.get("jobs", []) if job.get("id") != job_record["id"]]
+        jobs.append(
+            {
+                "id": job_record["id"],
+                "sourceId": job_record["sourceId"],
+                "sourceSlug": job_record["sourceSlug"],
+                "status": job_record["status"],
+                "strategy": job_record["strategy"],
+                "artifacts": {
+                    "classifications": f"classificação/{source_slug}/classifications.json",
+                    "classificationCount": len(classifications),
+                    "needsReviewCount": len(review_ids),
+                },
+            }
+        )
+        classification_index["jobs"] = sorted(jobs, key=lambda job: job["id"])
+        write_json(classification_index_path, classification_index)
+
+    return {
+        "sourceSlug": source_slug,
+        "classificationCount": len(classifications),
+        "needsReviewCount": len(review_ids),
+        "classificationIndexPath": str(classification_index_path),
+        "outputDir": str(output_dir),
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source-slug", required=True)
+    parser.add_argument("--output-dir")
+    parser.add_argument("--repo-root")
+    args = parser.parse_args()
+
+    script_root = Path(args.repo_root) if args.repo_root else Path(__file__).resolve().parents[2]
+    output_dir = (
+        Path(args.output_dir)
+        if args.output_dir
+        else script_root / CONTENT_ROOT_NAME / "classificação" / args.source_slug
+    )
+
+    result = classify_source(args.source_slug, script_root, output_dir, update_index=True)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

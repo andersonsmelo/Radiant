@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "classify:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "status": "classified",
+      "strategy": "deterministic-keyword-v1",
+      "artifacts": {
+        "classifications": "classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json",
+        "classificationCount": 109,
+        "needsReviewCount": 30
+      }
+    }
+  ]
+}
