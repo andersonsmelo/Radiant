@@ -13,10 +13,14 @@ GENERATOR_VERSION = "deterministic-concept-format-v1"
 TAXONOMY_VERSION = "mvp-2026-04-04"
 
 
-FORMAT_DISPLAY_NAMES = {
-    "microlições": "Microlições",
-    "quizzes": "Quizzes",
+FORMAT_TITLES = {
+    "microlições": "Microlição",
+    "quizzes": "Quiz",
+    "reviews": "Revisão",
+    "casos": "Caso",
 }
+
+FORMAT_TYPES = tuple(FORMAT_TITLES.keys())
 
 
 def read_json(path: Path) -> dict:
@@ -113,12 +117,8 @@ def collect_dominant_signals(concept: dict) -> list[str]:
     return dedupe(ordered)
 
 
-def build_microlesson_bundle(
-    source: dict,
-    concept: dict,
-    excerpt_lookup: dict[str, dict],
-) -> dict:
-    source_pages = sorted(
+def build_source_pages(concept: dict, excerpt_lookup: dict[str, dict]) -> list[int]:
+    return sorted(
         {
             page
             for source_excerpt_id in concept["sourceExcerptIds"]
@@ -128,8 +128,31 @@ def build_microlesson_bundle(
             )
         }
     )
+
+
+def build_evidence_block(source_pages: list[int], source_excerpt_count: int) -> dict:
+    return {
+        "id": "evidence",
+        "type": "evidence",
+        "title": "Evidência",
+        "bullets": [
+            f"Trechos-base: {format_page_ranges(source_pages)}",
+            f"Fontes associadas: {source_excerpt_count}",
+        ],
+    }
+
+
+def build_bundle_title(format_type: str, concept_title: str) -> str:
+    return f"{FORMAT_TITLES[format_type]}: {concept_title}"
+
+
+def build_microlesson_bundle(
+    source: dict,
+    concept: dict,
+    excerpt_lookup: dict[str, dict],
+) -> dict:
+    source_pages = build_source_pages(concept, excerpt_lookup)
     dominant_signals = collect_dominant_signals(concept)
-    pages_label = format_page_ranges(source_pages)
 
     objective = (
         f"Reconhecer {concept['title'].lower()} dentro da galáxia "
@@ -159,17 +182,14 @@ def build_microlesson_bundle(
             "id": "evidence",
             "type": "evidence",
             "title": "Evidência",
-            "bullets": [
-                f"Trechos-base: {pages_label}",
-                f"Fontes associadas: {len(concept['sourceExcerptIds'])}",
-            ],
+            "bullets": build_evidence_block(source_pages, len(concept["sourceExcerptIds"]))["bullets"],
         },
     ]
 
     return {
         "id": f"format:microlições:{source['slug']}:{concept['slug']}",
         "formatType": "microlições",
-        "title": f"Microlição: {concept['title']}",
+        "title": build_bundle_title("microlições", concept["title"]),
         "sourceId": source["id"],
         "sourceSlug": source["slug"],
         "taxonomyVersion": concept["taxonomyVersion"],
@@ -182,6 +202,67 @@ def build_microlesson_bundle(
             "conceptTitle": concept["title"],
             "objective": objective,
             "summary": concept["definition"],
+            "sourcePages": source_pages,
+            "blocks": blocks,
+        },
+    }
+
+
+def build_review_bundle(
+    source: dict,
+    concept: dict,
+    excerpt_lookup: dict[str, dict],
+) -> dict:
+    source_pages = build_source_pages(concept, excerpt_lookup)
+    dominant_signals = collect_dominant_signals(concept)
+    key_signals = dominant_signals[:4]
+    if not key_signals:
+        key_signals = [concept["title"]]
+
+    blocks = [
+        {
+            "id": "prompt",
+            "type": "prompt",
+            "title": "Pergunta",
+            "text": f"Como relembrar {concept['title'].lower()}?",
+        },
+        {
+            "id": "recall",
+            "type": "recall",
+            "title": "Reforço",
+            "text": concept["definition"],
+        },
+        {
+            "id": "signals",
+            "type": "signals",
+            "title": "Gatilhos",
+            "bullets": key_signals,
+        },
+        {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": build_evidence_block(source_pages, len(concept["sourceExcerptIds"]))["bullets"],
+        },
+    ]
+
+    return {
+        "id": f"format:reviews:{source['slug']}:{concept['slug']}",
+        "formatType": "reviews",
+        "title": build_bundle_title("reviews", concept["title"]),
+        "sourceId": source["id"],
+        "sourceSlug": source["slug"],
+        "taxonomyVersion": concept["taxonomyVersion"],
+        "generationStrategy": GENERATOR_VERSION,
+        "reviewStatus": concept["reviewStatus"],
+        "conceptIds": [concept["id"]],
+        "sourceExcerptIds": concept["sourceExcerptIds"],
+        "payload": {
+            "conceptId": concept["id"],
+            "conceptTitle": concept["title"],
+            "reviewPrompt": f"Revise {concept['title'].lower()} em uma passada curta.",
+            "summary": concept["definition"],
+            "keySignals": key_signals,
             "sourcePages": source_pages,
             "blocks": blocks,
         },
@@ -228,16 +309,7 @@ def build_quiz_bundle(
     concepts: list[dict],
     excerpt_lookup: dict[str, dict],
 ) -> dict:
-    source_pages = sorted(
-        {
-            page
-            for source_excerpt_id in concept["sourceExcerptIds"]
-            for page in range(
-                excerpt_lookup[source_excerpt_id]["pageStart"],
-                excerpt_lookup[source_excerpt_id]["pageEnd"] + 1,
-            )
-        }
-    )
+    source_pages = build_source_pages(concept, excerpt_lookup)
     dominant_signals = collect_dominant_signals(concept)
     title_distractors = build_distractor_pool(concepts, concept, "title")
     signal_distractors = build_distractor_pool(concepts, concept, "signal")
@@ -261,7 +333,7 @@ def build_quiz_bundle(
     return {
         "id": f"format:quizzes:{source['slug']}:{concept['slug']}",
         "formatType": "quizzes",
-        "title": f"Quiz: {concept['title']}",
+        "title": build_bundle_title("quizzes", concept["title"]),
         "sourceId": source["id"],
         "sourceSlug": source["slug"],
         "taxonomyVersion": concept["taxonomyVersion"],
@@ -275,6 +347,70 @@ def build_quiz_bundle(
             "sourcePages": source_pages,
             "questions": questions,
             "explanation": concept["definition"],
+        },
+    }
+
+
+def build_case_bundle(
+    source: dict,
+    concept: dict,
+    excerpt_lookup: dict[str, dict],
+) -> dict:
+    source_pages = build_source_pages(concept, excerpt_lookup)
+    dominant_signals = collect_dominant_signals(concept)
+    key_signals = dominant_signals[:3]
+    if not key_signals:
+        key_signals = [concept["title"]]
+
+    signal_phrase = ", ".join(key_signals[:2]) if len(key_signals) >= 2 else key_signals[0]
+    blocks = [
+        {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": (
+                f"Em um caso curto de radiologia, a equipe observa pistas como {signal_phrase} "
+                f"e precisa enquadrá-las em {concept['title'].lower()}."
+            ),
+        },
+        {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?",
+        },
+        {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": concept["definition"],
+        },
+        {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": build_evidence_block(source_pages, len(concept["sourceExcerptIds"]))["bullets"],
+        },
+    ]
+
+    return {
+        "id": f"format:casos:{source['slug']}:{concept['slug']}",
+        "formatType": "casos",
+        "title": build_bundle_title("casos", concept["title"]),
+        "sourceId": source["id"],
+        "sourceSlug": source["slug"],
+        "taxonomyVersion": concept["taxonomyVersion"],
+        "generationStrategy": GENERATOR_VERSION,
+        "reviewStatus": concept["reviewStatus"],
+        "conceptIds": [concept["id"]],
+        "sourceExcerptIds": concept["sourceExcerptIds"],
+        "payload": {
+            "conceptId": concept["id"],
+            "conceptTitle": concept["title"],
+            "casePrompt": f"Analise o caso e relacione-o a {concept['title'].lower()}.",
+            "keySignals": key_signals,
+            "sourcePages": source_pages,
+            "blocks": blocks,
         },
     }
 
@@ -301,14 +437,18 @@ def generate_format_layer(
         format_index = {"version": 1, "jobs": []}
 
     summary = {}
-    for format_type in ("microlições", "quizzes"):
+    for format_type in FORMAT_TYPES:
         bundles = []
         review_ids = []
         for concept in concepts:
             if format_type == "microlições":
                 bundle = build_microlesson_bundle(source, concept, excerpt_lookup)
-            else:
+            elif format_type == "quizzes":
                 bundle = build_quiz_bundle(source, concept, concepts, excerpt_lookup)
+            elif format_type == "reviews":
+                bundle = build_review_bundle(source, concept, excerpt_lookup)
+            else:
+                bundle = build_case_bundle(source, concept, excerpt_lookup)
             bundles.append(bundle)
             if bundle["reviewStatus"] == "needs-review":
                 review_ids.append(bundle["id"])

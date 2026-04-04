@@ -41,6 +41,12 @@ export function validateFoundation() {
   const starIds = new Set(estrelas.map((item) => item.id));
   const planetsById = new Map(planetas.map((item) => [item.id, item]));
   const starsById = new Map(estrelas.map((item) => [item.id, item]));
+  const supportedFormatTypes = new Set(['microlições', 'quizzes', 'reviews', 'casos']);
+  const expectedBlockTypes = {
+    'microlições': ['objective', 'summary', 'signals', 'evidence'],
+    'reviews': ['prompt', 'recall', 'signals', 'evidence'],
+    'casos': ['case', 'question', 'answer', 'evidence'],
+  };
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
   const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
   const classificationStatuses = classificationIndex.jobs.map((job) => job.status);
@@ -363,6 +369,9 @@ export function validateFoundation() {
       }
       if (job.status === 'generated') {
         formatJobCount += 1;
+        if (!supportedFormatTypes.has(job.formatType)) {
+          errors.push(`Format job ${job.id} references unknown format type ${job.formatType}`);
+        }
         const artifactDir = path.join('formatos', job.formatType, job.sourceSlug);
         const jobRecord = readJsonIfExists(path.join(artifactDir, 'format-job.json'));
         const bundlesRecord = readJsonIfExists(path.join(artifactDir, 'bundles.json'));
@@ -468,6 +477,35 @@ export function validateFoundation() {
             if (bundle.formatType === 'microlições') {
               if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
                 errors.push(`Format bundle ${bundle.id} micro-lesson payload must have four blocks`);
+              } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
+                errors.push(`Format bundle ${bundle.id} micro-lesson payload has an unexpected block structure`);
+              }
+            } else if (bundle.formatType === 'reviews') {
+              if (typeof payload.reviewPrompt !== 'string' || payload.reviewPrompt.length === 0) {
+                errors.push(`Format bundle ${bundle.id} review payload is missing a review prompt`);
+              }
+              if (!Array.isArray(payload.keySignals) || payload.keySignals.length === 0) {
+                errors.push(`Format bundle ${bundle.id} review payload is missing key signals`);
+              }
+              if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
+                errors.push(`Format bundle ${bundle.id} review payload must have four blocks`);
+              } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
+                errors.push(`Format bundle ${bundle.id} review payload has an unexpected block structure`);
+              }
+            } else if (bundle.formatType === 'casos') {
+              if (typeof payload.casePrompt !== 'string' || payload.casePrompt.length === 0) {
+                errors.push(`Format bundle ${bundle.id} case payload is missing a case prompt`);
+              }
+              if (!Array.isArray(payload.keySignals) || payload.keySignals.length === 0) {
+                errors.push(`Format bundle ${bundle.id} case payload is missing key signals`);
+              }
+              if (typeof payload.blocks?.[1]?.text !== 'string') {
+                errors.push(`Format bundle ${bundle.id} case payload is missing the question block`);
+              }
+              if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
+                errors.push(`Format bundle ${bundle.id} case payload must have four blocks`);
+              } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
+                errors.push(`Format bundle ${bundle.id} case payload has an unexpected block structure`);
               }
             } else if (bundle.formatType === 'quizzes') {
               if (!Array.isArray(payload.questions) || payload.questions.length !== 2) {
@@ -499,10 +537,10 @@ export function validateFoundation() {
     if (formatIndex.version !== 1) {
       errors.push('Format index has an unexpected version');
     }
-    if (formatJobs.length !== 2) {
-      errors.push('Format index should expose exactly two generated jobs for the pilot');
+    if (formatJobs.length !== 4) {
+      errors.push('Format index should expose exactly four generated jobs for the pilot');
     }
-    if (seenFormatBundleIds.size !== 32) {
+    if (seenFormatBundleIds.size !== 64) {
       errors.push('Format index does not cover the expected bundle set for the pilot');
     }
   }

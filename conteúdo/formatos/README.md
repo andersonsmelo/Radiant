@@ -10,6 +10,8 @@ O primeiro ciclo do pipeline já chega até aqui com o livro-piloto `Fundamentos
 
 - `microlições/`
 - `quizzes/`
+- `reviews/`
+- `casos/`
 
 ## Regras
 
