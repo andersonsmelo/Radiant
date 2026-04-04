@@ -6,17 +6,38 @@
     "id",
     "slug",
     "title",
+    "sourceId",
+    "sourceSlug",
     "galaxyId",
+    "planetId",
+    "starId",
     "definition",
-    "sourceExcerptIds"
+    "sourceExcerptIds",
+    "confidence",
+    "reviewStatus"
   ],
   "properties": {
     "id": { "type": "string" },
     "slug": { "type": "string" },
     "title": { "type": "string" },
+    "sourceId": { "type": "string" },
+    "sourceSlug": { "type": "string" },
     "galaxyId": { "type": "string" },
+    "planetId": { "type": "string" },
+    "starId": { "type": "string" },
     "definition": { "type": "string" },
+    "taxonomyVersion": { "type": "string" },
+    "normalizationStrategy": { "type": "string" },
+    "confidence": { "type": "number" },
+    "reviewStatus": {
+      "type": "string",
+      "enum": ["approved", "needs-review"]
+    },
     "sourceExcerptIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sourceClassificationIds": {
       "type": "array",
       "items": { "type": "string" }
     }

@@ -7,8 +7,8 @@ Raiz editorial do Radiant para transformar livros e materiais em uma base de con
 - `fontes/`: obras e materiais brutos
 - `extrações/`: trechos extraídos das fontes
 - `classificação/`: mapeamento de trechos para taxonomia
+- `conceitos/`: conhecimento consolidado em conceitos canônicos
 - `taxonomia/`: galáxias, planetas e estrelas
-- `conceitos/`: conhecimento consolidado
 - `formatos/`: artefatos pedagógicos gerados
 - `governança/`: contratos, critérios e regras editoriais
 
@@ -34,3 +34,4 @@ O sistema já consegue:
 - abrir um job de extração pendente para a obra piloto
 - extrair a obra piloto em páginas e trechos
 - classificar os trechos da obra piloto contra a taxonomia MVP
+- consolidar a obra piloto em conceitos canônicos rastreáveis

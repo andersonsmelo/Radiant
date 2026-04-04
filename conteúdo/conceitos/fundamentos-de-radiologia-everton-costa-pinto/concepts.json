@@ -1,0 +1,876 @@
+{
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "strategy": "deterministic-page-cluster-v1",
+  "taxonomyVersion": "mvp-2026-04-04",
+  "conceptCount": 16,
+  "needsReviewCount": 7,
+  "concepts": [
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "acessorios-radiologicos",
+      "title": "Acessórios radiológicos",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Reúne os acessórios e suportes radiológicos usados para posicionamento, contenção, proteção e apoio operacional do exame.",
+      "confidence": 0.922,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "imagem",
+          "equipamento",
+          "acessório"
+        ],
+        "planet": [
+          "filme",
+          "imagem",
+          "raios x",
+          "raios-x",
+          "equipamento"
+        ],
+        "star": [
+          "filme",
+          "equipamento",
+          "acessório",
+          "acessorio",
+          "aparelho"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "aplicacoes-radioisotopicas-e-medicina-nuclear",
+      "title": "Aplicações radioisotópicas e medicina nuclear",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Agrupa as aplicações dos radioisótopos em diagnóstico, terapia, indústria e estudos funcionais, com destaque para medicina nuclear.",
+      "confidence": 0.951,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "energia",
+          "dose",
+          "equipamento"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "meia vida",
+          "dose",
+          "equipamento"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "dose",
+          "equipamento",
+          "proteção"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "componentes-basicos-do-equipamento",
+      "title": "Componentes básicos do equipamento",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Agrupa os elementos estruturais do equipamento radiológico, como cabeçote, colimação, feixe, mesa e estativa.",
+      "confidence": 0.964,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "imagem"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "equipamento",
+          "filme",
+          "imagem"
+        ],
+        "star": [
+          "equipamento",
+          "filme",
+          "mesa",
+          "equipamentos",
+          "aparelhos"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "energia-e-materia",
+      "title": "Energia e matéria",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Agrupa a base conceitual sobre energia, matéria e conversão de energia que prepara o leitor para compreender os fenômenos físicos da radiologia.",
+      "confidence": 0.936,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "energia",
+          "matéria",
+          "materia",
+          "equipamentos"
+        ],
+        "planet": [
+          "equipamentos",
+          "aparelhos"
+        ],
+        "star": [
+          "equipamentos",
+          "aparelhos"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "equipamentos-de-radiologia-convencional",
+      "title": "Equipamentos de radiologia convencional",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Consolida os trechos sobre equipamento fixo, equipamento móvel e a operação básica dos sistemas de radiologia convencional.",
+      "confidence": 0.943,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "equipamento",
+          "equipamentos",
+          "radiação",
+          "radiacao",
+          "raios x"
+        ],
+        "planet": [
+          "equipamento",
+          "equipamentos",
+          "imagem",
+          "raios x",
+          "raios-x"
+        ],
+        "star": [
+          "equipamento",
+          "equipamentos",
+          "mesa",
+          "aparelho",
+          "filme"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "estrutura-da-materia-e-nucleo-atomico",
+      "title": "Estrutura da matéria e núcleo atômico",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Consolida a explicação sobre átomo, núcleo, prótons, nêutrons, isótopos e fissão nuclear como fundamento da física aplicada ao livro.",
+      "confidence": 0.85,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "átomo",
+          "atomo",
+          "núcleo",
+          "nucleo",
+          "energia"
+        ],
+        "planet": [
+          "nêutrons",
+          "neutrons",
+          "absorção",
+          "absorcao"
+        ],
+        "star": []
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "interacao-das-radiacoes-e-protecao-radiologica",
+      "title": "Interação das radiações e proteção radiológica",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Consolida os trechos sobre interação da radiação com matéria, dose, exposição ocupacional, proteção e blindagem radiológica.",
+      "confidence": 0.979,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "dose",
+          "proteção",
+          "protecao"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "dose",
+          "proteção",
+          "protecao"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "dose",
+          "proteção",
+          "protecao"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "preservacao-de-alimentos-por-irradicao",
+      "title": "Preservação de alimentos por irradiação",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Agrupa o uso da radiação na conservação e tratamento de alimentos, com foco em finalidade, aplicação e efeito tecnológico.",
+      "confidence": 0.94,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "radiação",
+          "radiacao",
+          "raios x",
+          "raios-x",
+          "ionização"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "segurança",
+          "seguranca",
+          "ionização"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "segurança",
+          "seguranca",
+          "ionização"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "processamento-radiografico",
+      "title": "Processamento radiográfico",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Consolida os trechos sobre processamento, revelação, fixação e formação/armazenamento da imagem radiográfica.",
+      "confidence": 0.925,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "imagem",
+          "energia",
+          "átomo"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "imagem",
+          "filme",
+          "formação da imagem"
+        ],
+        "star": [
+          "filme",
+          "dose",
+          "radiação",
+          "radiacao"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "producao-dos-raios-x",
+      "title": "Produção dos raios X",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Agrupa a explicação sobre como o tubo e seus componentes produzem raios X a partir da aceleração e da interação de elétrons.",
+      "confidence": 0.925,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "energia",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "imagem",
+          "filme",
+          "radiação"
+        ],
+        "star": [
+          "filme",
+          "radiação",
+          "radiacao",
+          "equipamento",
+          "aparelho"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "profissao-e-atuacao-do-tecnico-em-radiologia",
+      "title": "Profissão e atuação do técnico em radiologia",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Consolida os trechos introdutórios sobre o papel do técnico em radiologia, sua rotina de trabalho e sua atuação no fluxo de diagnóstico por imagem.",
+      "confidence": 0.924,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "equipamentos",
+          "segurança",
+          "seguranca",
+          "tomografia computadorizada",
+          "proteção"
+        ],
+        "planet": [
+          "equipamentos",
+          "tomografia computadorizada",
+          "ressonância",
+          "ressonancia",
+          "imagem"
+        ],
+        "star": [
+          "equipamentos",
+          "equipamento",
+          "aparelhos",
+          "software",
+          "segurança"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "qualidade-de-imagem",
+      "title": "Qualidade de imagem",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Reúne os critérios técnicos de qualidade da imagem radiográfica, incluindo contraste, densidade, distorção e velamento.",
+      "confidence": 0.908,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "imagem",
+          "raios x",
+          "raios-x",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "imagem",
+          "filme",
+          "radiação"
+        ],
+        "star": [
+          "filme",
+          "radiação",
+          "radiacao",
+          "segurança",
+          "seguranca"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "radioatividade-particulas-e-atividade",
+      "title": "Radioatividade, partículas e atividade",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-radiopacidade",
+      "starId": "star-dose-radiacao",
+      "definition": "Reúne os trechos sobre descoberta da radioatividade, emissão de radiações, partículas associadas e efeitos biológicos da atividade nuclear.",
+      "confidence": 0.927,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "núcleo",
+          "nucleo",
+          "radiação",
+          "radiacao",
+          "energia"
+        ],
+        "planet": [
+          "radiação",
+          "radiacao",
+          "atividade",
+          "raios x",
+          "raios-x"
+        ],
+        "star": [
+          "radiação",
+          "radiacao",
+          "filme",
+          "aparelhos"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "raios-x-descoberta-e-propriedades",
+      "title": "Raios X: descoberta e propriedades",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Agrupa a origem histórica dos raios X, suas propriedades básicas e a relação entre radiação e produção de imagem diagnóstica.",
+      "confidence": 0.904,
+      "reviewStatus": "approved",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "energia",
+          "radiação",
+          "radiacao"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "tubo",
+          "aparelhos",
+          "imagem"
+        ],
+        "star": [
+          "aparelhos",
+          "tela"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "ressonancia-magnetica",
+      "title": "Ressonância magnética",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Reúne a base física da ressonância magnética, o comportamento dos prótons e a leitura do sinal em campo magnético.",
+      "confidence": 0.852,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "imagem",
+          "energia",
+          "núcleo",
+          "nucleo",
+          "radiação"
+        ],
+        "planet": [
+          "ressonância",
+          "ressonancia",
+          "imagem",
+          "aparelho",
+          "radiação"
+        ],
+        "star": [
+          "aparelho",
+          "radiação",
+          "radiacao"
+        ]
+      }
+    },
+    {
+      "id": "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "tomografia-computadorizada",
+      "title": "Tomografia computadorizada",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "normalizationStrategy": "deterministic-page-cluster-v1",
+      "galaxyId": "galaxy-fisica",
+      "planetId": "planet-formacao-imagem",
+      "starId": "star-artefatos-basicos",
+      "definition": "Consolida os trechos sobre aquisição de projeções, reconstrução e funcionamento básico da tomografia computadorizada.",
+      "confidence": 0.912,
+      "reviewStatus": "needs-review",
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "sourceClassificationIds": [
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "dominantSignals": {
+        "galaxy": [
+          "raios x",
+          "raios-x",
+          "tomografia computadorizada",
+          "dose",
+          "coluna"
+        ],
+        "planet": [
+          "raios x",
+          "raios-x",
+          "tomografia computadorizada",
+          "detector",
+          "feixe"
+        ],
+        "star": [
+          "detector",
+          "coluna"
+        ]
+      }
+    }
+  ]
+}

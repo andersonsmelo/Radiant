@@ -15,11 +15,15 @@ test('foundation taxonomy is internally consistent', () => {
   assert.equal(result.summary.classifiedJobCount, 1);
   assert.equal(result.summary.classificationRecordCount, 109);
   assert.equal(result.summary.needsReviewCount, 30);
+  assert.equal(result.summary.conceptJobCount, 1);
+  assert.equal(result.summary.conceptRecordCount, 16);
+  assert.equal(result.summary.conceptNeedsReviewCount, 7);
   assert.deepEqual(result.summary.sourceSlugs, [
     'fundamentos-de-radiologia-everton-costa-pinto',
   ]);
   assert.deepEqual(result.summary.extractionStatuses, ['extracted']);
   assert.deepEqual(result.summary.classificationStatuses, ['classified']);
+  assert.deepEqual(result.summary.conceptStatuses, ['normalized']);
   assert.deepEqual(result.summary.classificationSourceSlugs, [
     'fundamentos-de-radiologia-everton-costa-pinto',
   ]);

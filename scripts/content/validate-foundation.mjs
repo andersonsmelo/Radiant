@@ -24,6 +24,7 @@ export function validateFoundation() {
   const sourceIndex = readJson('fontes/index.json');
   const extractionIndex = readJson('extrações/index.json');
   const classificationIndex = readJson('classificação/index.json');
+  const conceptIndex = readJsonIfExists('conceitos/index.json');
   const galaxias = readJson('taxonomia/galaxias.json');
   const planetas = readJson('taxonomia/planetas.json');
   const estrelas = readJson('taxonomia/estrelas.json');
@@ -43,12 +44,29 @@ export function validateFoundation() {
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
   const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
   const classificationStatuses = classificationIndex.jobs.map((job) => job.status);
+  const conceptStatuses = conceptIndex ? conceptIndex.jobs.map((job) => job.status) : [];
   let extractedJobCount = 0;
   let extractedPageCount = 0;
   let extractedExcerptCount = 0;
   let classifiedJobCount = 0;
   let classificationRecordCount = 0;
   let needsReviewCount = 0;
+  let conceptJobCount = 0;
+  let conceptRecordCount = 0;
+  let conceptNeedsReviewCount = 0;
+  const classificationById = new Map();
+  const excerptById = new Map();
+
+  for (const job of extractionIndex.jobs) {
+    if (job.status === 'extracted') {
+      const excerptsRecord = readJsonIfExists(path.join('extrações', job.sourceSlug, 'excerpts.json'));
+      if (excerptsRecord) {
+        for (const excerpt of excerptsRecord.excerpts) {
+          excerptById.set(excerpt.id, excerpt);
+        }
+      }
+    }
+  }
 
   for (const planeta of planetas) {
     if (!galaxyIds.has(planeta.galaxyId)) {
@@ -159,6 +177,7 @@ export function validateFoundation() {
         }
 
         for (const record of classificationsRecord.classifications) {
+          classificationById.set(record.id, record);
           if (!excerptIds.has(record.sourceExcerptId)) {
             errors.push(`Classification ${record.id} references unknown excerpt ${record.sourceExcerptId}`);
           }
@@ -206,6 +225,128 @@ export function validateFoundation() {
     }
   }
 
+  if (conceptIndex) {
+    for (const job of conceptIndex.jobs) {
+      if (!sourceIds.has(job.sourceId)) {
+        errors.push(`Concept job ${job.id} references unknown source ${job.sourceId}`);
+      }
+      if (job.status === 'normalized') {
+        conceptJobCount += 1;
+        const artifactDir = path.join('conceitos', job.sourceSlug);
+        const jobRecord = readJsonIfExists(path.join(artifactDir, 'concept-job.json'));
+        const conceptsRecord = readJsonIfExists(path.join(artifactDir, 'concepts.json'));
+        const classificationsRecord = readJsonIfExists(path.join('classificação', job.sourceSlug, 'classifications.json'));
+
+        if (!jobRecord) {
+          errors.push(`Concept job ${job.id} is missing its job record`);
+        } else if (jobRecord.status !== 'normalized') {
+          errors.push(`Concept job ${job.id} record is not marked normalized`);
+        } else if (job.artifacts) {
+          if (jobRecord.artifacts?.conceptCount !== job.artifacts.conceptCount) {
+            errors.push(`Concept job ${job.id} count does not match its record`);
+          }
+          if (jobRecord.artifacts?.needsReviewCount !== job.artifacts.needsReviewCount) {
+            errors.push(`Concept job ${job.id} review count does not match its record`);
+          }
+        }
+
+        if (!conceptsRecord) {
+          errors.push(`Concept job ${job.id} is missing concepts.json`);
+        } else if (!classificationsRecord) {
+          errors.push(`Concept job ${job.id} is missing the classifications it should consolidate`);
+        } else {
+          const classifiedExcerptIds = new Set(classificationsRecord.classifications.map((item) => item.sourceExcerptId));
+          const seenExcerptIds = new Set();
+          const seenClassificationIds = new Set();
+          conceptRecordCount += conceptsRecord.concepts.length;
+
+          if (conceptsRecord.sourceSlug !== job.sourceSlug) {
+            errors.push(`Concepts for ${job.id} reference the wrong source slug`);
+          }
+          if (job.artifacts?.conceptCount !== conceptsRecord.conceptCount) {
+            errors.push(`Concepts for ${job.id} do not match the recorded concept count`);
+          }
+          if (conceptsRecord.conceptCount !== conceptsRecord.concepts.length) {
+            errors.push(`Concepts for ${job.id} has a mismatched conceptCount`);
+          }
+
+          for (const record of conceptsRecord.concepts) {
+            if (record.sourceSlug !== job.sourceSlug) {
+              errors.push(`Concept ${record.id} references the wrong source slug`);
+            }
+            if (!sourceIds.has(record.sourceId)) {
+              errors.push(`Concept ${record.id} references unknown source ${record.sourceId}`);
+            }
+            if (!galaxyIds.has(record.galaxyId)) {
+              errors.push(`Concept ${record.id} references unknown galaxy ${record.galaxyId}`);
+            }
+            if (!planetIds.has(record.planetId)) {
+              errors.push(`Concept ${record.id} references unknown planet ${record.planetId}`);
+            }
+            if (!starIds.has(record.starId)) {
+              errors.push(`Concept ${record.id} references unknown star ${record.starId}`);
+            }
+            const conceptPlanet = planetsById.get(record.planetId);
+            const conceptStar = starsById.get(record.starId);
+            if (conceptPlanet && conceptPlanet.galaxyId !== record.galaxyId) {
+              errors.push(`Concept ${record.id} uses planet ${record.planetId} outside galaxy ${record.galaxyId}`);
+            }
+            if (conceptStar) {
+              if (conceptStar.galaxyId !== record.galaxyId) {
+                errors.push(`Concept ${record.id} uses star ${record.starId} outside galaxy ${record.galaxyId}`);
+              }
+              if (conceptStar.parentPlanetId !== record.planetId) {
+                errors.push(`Concept ${record.id} uses star ${record.starId} outside planet ${record.planetId}`);
+              }
+            }
+            if (!['approved', 'needs-review'].includes(record.reviewStatus)) {
+              errors.push(`Concept ${record.id} has an invalid review status ${record.reviewStatus}`);
+            }
+            if (typeof record.confidence !== 'number' || record.confidence < 0 || record.confidence > 1) {
+              errors.push(`Concept ${record.id} has an invalid confidence value`);
+            }
+            if ((record.sourceClassificationIds ?? []).length !== record.sourceExcerptIds.length) {
+              errors.push(`Concept ${record.id} does not keep a 1:1 excerpt/classification provenance chain`);
+            }
+            for (const sourceExcerptId of record.sourceExcerptIds) {
+              if (seenExcerptIds.has(sourceExcerptId)) {
+                errors.push(`Concept ${record.id} duplicates excerpt ${sourceExcerptId}`);
+              }
+              if (!excerptById.has(sourceExcerptId)) {
+                errors.push(`Concept ${record.id} references unknown extracted excerpt ${sourceExcerptId}`);
+              }
+              if (!classifiedExcerptIds.has(sourceExcerptId)) {
+                errors.push(`Concept ${record.id} references unknown excerpt ${sourceExcerptId}`);
+              }
+              seenExcerptIds.add(sourceExcerptId);
+            }
+            for (const sourceClassificationId of record.sourceClassificationIds ?? []) {
+              const classificationRecord = classificationById.get(sourceClassificationId);
+              if (!classificationRecord) {
+                errors.push(`Concept ${record.id} references unknown classification ${sourceClassificationId}`);
+              } else if (classificationRecord.sourceSlug !== job.sourceSlug) {
+                errors.push(`Concept ${record.id} references classification ${sourceClassificationId} from the wrong source`);
+              } else if (!record.sourceExcerptIds.includes(classificationRecord.sourceExcerptId)) {
+                errors.push(`Concept ${record.id} does not align classification ${sourceClassificationId} with its excerpt`);
+              }
+              if (seenClassificationIds.has(sourceClassificationId)) {
+                errors.push(`Concept ${record.id} duplicates classification ${sourceClassificationId}`);
+              }
+              seenClassificationIds.add(sourceClassificationId);
+            }
+            if (record.reviewStatus === 'needs-review') {
+              conceptNeedsReviewCount += 1;
+            }
+          }
+
+          if (seenExcerptIds.size !== classifiedExcerptIds.size) {
+            errors.push(`Concept job ${job.id} does not cover every classified excerpt`);
+          }
+        }
+      }
+    }
+  }
+
   for (const schema of schemas) {
     if (!schema.title) {
       errors.push('Schema is missing title');
@@ -231,6 +372,10 @@ export function validateFoundation() {
       classifiedJobCount,
       classificationRecordCount,
       needsReviewCount,
+      conceptJobCount,
+      conceptStatuses,
+      conceptRecordCount,
+      conceptNeedsReviewCount,
       classificationSourceSlugs: classificationIndex.jobs.map((job) => job.sourceSlug),
       galaxyCount: galaxias.length,
       planetCount: planetas.length,
