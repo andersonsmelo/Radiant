@@ -1,0 +1,26 @@
+{
+  "id": "generate:reviews:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "formatType": "reviews",
+  "status": "generated",
+  "strategy": "deterministic-concept-format-v1",
+  "taxonomyVersion": "mvp-2026-04-04",
+  "inputArtifacts": {
+    "concepts": "conteúdo/conceitos/fundamentos-de-radiologia-everton-costa-pinto/concepts.json"
+  },
+  "artifacts": {
+    "bundles": "bundles.json",
+    "bundleCount": 16,
+    "needsReviewCount": 7
+  },
+  "reviewQueueBundleIds": [
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+    "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+  ]
+}

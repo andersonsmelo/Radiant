@@ -369,8 +369,8 @@ def build_case_bundle(
             "type": "case",
             "title": "Caso",
             "text": (
-                f"Em um caso curto de radiologia, a equipe observa pistas como {signal_phrase} "
-                f"e precisa enquadrá-las em {concept['title'].lower()}."
+                f"Em um caso curto de radiologia, a equipe observa pistas como {signal_phrase}. "
+                f"Depois, precisa enquadrá-las em {concept['title'].lower()}."
             ),
         },
         {

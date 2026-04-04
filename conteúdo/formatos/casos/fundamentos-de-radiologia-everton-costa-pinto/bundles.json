@@ -1,0 +1,1091 @@
+{
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "formatType": "casos",
+  "generationStrategy": "deterministic-concept-format-v1",
+  "taxonomyVersion": "mvp-2026-04-04",
+  "bundleCount": 16,
+  "needsReviewCount": 7,
+  "bundles": [
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia",
+      "formatType": "casos",
+      "title": "Caso: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "conceptTitle": "Profissão e atuação do técnico em radiologia",
+        "casePrompt": "Analise o caso e relacione-o a profissão e atuação do técnico em radiologia.",
+        "keySignals": [
+          "equipamentos",
+          "equipamento",
+          "aparelhos"
+        ],
+        "sourcePages": [
+          1,
+          2,
+          3
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como equipamentos, equipamento. Depois, precisa enquadrá-las em profissão e atuação do técnico em radiologia."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida os trechos introdutórios sobre o papel do técnico em radiologia, sua rotina de trabalho e sua atuação no fluxo de diagnóstico por imagem."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 1-3",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+      "formatType": "casos",
+      "title": "Caso: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+        "conceptTitle": "Energia e matéria",
+        "casePrompt": "Analise o caso e relacione-o a energia e matéria.",
+        "keySignals": [
+          "equipamentos",
+          "aparelhos",
+          "energia"
+        ],
+        "sourcePages": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como equipamentos, aparelhos. Depois, precisa enquadrá-las em energia e matéria."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa a base conceitual sobre energia, matéria e conversão de energia que prepara o leitor para compreender os fenômenos físicos da radiologia."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 4-7",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico",
+      "formatType": "casos",
+      "title": "Caso: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico",
+        "conceptTitle": "Estrutura da matéria e núcleo atômico",
+        "casePrompt": "Analise o caso e relacione-o a estrutura da matéria e núcleo atômico.",
+        "keySignals": [
+          "nêutrons",
+          "neutrons",
+          "absorção"
+        ],
+        "sourcePages": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como nêutrons, neutrons. Depois, precisa enquadrá-las em estrutura da matéria e núcleo atômico."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida a explicação sobre átomo, núcleo, prótons, nêutrons, isótopos e fissão nuclear como fundamento da física aplicada ao livro."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 8-11",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+      "formatType": "casos",
+      "title": "Caso: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+        "conceptTitle": "Radioatividade, partículas e atividade",
+        "casePrompt": "Analise o caso e relacione-o a radioatividade, partículas e atividade.",
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "filme"
+        ],
+        "sourcePages": [
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como radiação, radiacao. Depois, precisa enquadrá-las em radioatividade, partículas e atividade."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Reúne os trechos sobre descoberta da radioatividade, emissão de radiações, partículas associadas e efeitos biológicos da atividade nuclear."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 12-16",
+              "Fontes associadas: 8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades",
+      "formatType": "casos",
+      "title": "Caso: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades",
+        "conceptTitle": "Raios X: descoberta e propriedades",
+        "casePrompt": "Analise o caso e relacione-o a raios x: descoberta e propriedades.",
+        "keySignals": [
+          "aparelhos",
+          "tela",
+          "raios x"
+        ],
+        "sourcePages": [
+          17,
+          18,
+          19,
+          20
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como aparelhos, tela. Depois, precisa enquadrá-las em raios x: descoberta e propriedades."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa a origem histórica dos raios X, suas propriedades básicas e a relação entre radiação e produção de imagem diagnóstica."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 17-20",
+              "Fontes associadas: 5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica",
+      "formatType": "casos",
+      "title": "Caso: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica",
+        "conceptTitle": "Interação das radiações e proteção radiológica",
+        "casePrompt": "Analise o caso e relacione-o a interação das radiações e proteção radiológica.",
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "sourcePages": [
+          21,
+          22,
+          23,
+          24,
+          25,
+          57,
+          58,
+          59
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como radiação, radiacao. Depois, precisa enquadrá-las em interação das radiações e proteção radiológica."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida os trechos sobre interação da radiação com matéria, dose, exposição ocupacional, proteção e blindagem radiológica."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 21-25, p. 57-59",
+              "Fontes associadas: 10"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear",
+      "formatType": "casos",
+      "title": "Caso: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "conceptTitle": "Aplicações radioisotópicas e medicina nuclear",
+        "casePrompt": "Analise o caso e relacione-o a aplicações radioisotópicas e medicina nuclear.",
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "sourcePages": [
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          39,
+          40
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como radiação, radiacao. Depois, precisa enquadrá-las em aplicações radioisotópicas e medicina nuclear."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa as aplicações dos radioisótopos em diagnóstico, terapia, indústria e estudos funcionais, com destaque para medicina nuclear."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 26-32, p. 39-40",
+              "Fontes associadas: 12"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+      "formatType": "casos",
+      "title": "Caso: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+        "conceptTitle": "Tomografia computadorizada",
+        "casePrompt": "Analise o caso e relacione-o a tomografia computadorizada.",
+        "keySignals": [
+          "detector",
+          "coluna",
+          "raios x"
+        ],
+        "sourcePages": [
+          33,
+          34
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como detector, coluna. Depois, precisa enquadrá-las em tomografia computadorizada."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida os trechos sobre aquisição de projeções, reconstrução e funcionamento básico da tomografia computadorizada."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 33-34",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+      "formatType": "casos",
+      "title": "Caso: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+        "conceptTitle": "Ressonância magnética",
+        "casePrompt": "Analise o caso e relacione-o a ressonância magnética.",
+        "keySignals": [
+          "aparelho",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          35,
+          36,
+          37,
+          38
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como aparelho, radiação. Depois, precisa enquadrá-las em ressonância magnética."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Reúne a base física da ressonância magnética, o comportamento dos prótons e a leitura do sinal em campo magnético."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 35-38",
+              "Fontes associadas: 9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+      "formatType": "casos",
+      "title": "Caso: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+        "conceptTitle": "Preservação de alimentos por irradiação",
+        "casePrompt": "Analise o caso e relacione-o a preservação de alimentos por irradiação.",
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "segurança"
+        ],
+        "sourcePages": [
+          41,
+          42
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como radiação, radiacao. Depois, precisa enquadrá-las em preservação de alimentos por irradiação."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa o uso da radiação na conservação e tratamento de alimentos, com foco em finalidade, aplicação e efeito tecnológico."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 41-42",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional",
+      "formatType": "casos",
+      "title": "Caso: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional",
+        "conceptTitle": "Equipamentos de radiologia convencional",
+        "casePrompt": "Analise o caso e relacione-o a equipamentos de radiologia convencional.",
+        "keySignals": [
+          "equipamento",
+          "equipamentos",
+          "mesa"
+        ],
+        "sourcePages": [
+          43,
+          44,
+          45,
+          46
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como equipamento, equipamentos. Depois, precisa enquadrá-las em equipamentos de radiologia convencional."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida os trechos sobre equipamento fixo, equipamento móvel e a operação básica dos sistemas de radiologia convencional."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 43-46",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento",
+      "formatType": "casos",
+      "title": "Caso: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento",
+        "conceptTitle": "Componentes básicos do equipamento",
+        "casePrompt": "Analise o caso e relacione-o a componentes básicos do equipamento.",
+        "keySignals": [
+          "equipamento",
+          "filme",
+          "mesa"
+        ],
+        "sourcePages": [
+          47,
+          48,
+          49
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como equipamento, filme. Depois, precisa enquadrá-las em componentes básicos do equipamento."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa os elementos estruturais do equipamento radiológico, como cabeçote, colimação, feixe, mesa e estativa."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 47-49",
+              "Fontes associadas: 5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+      "formatType": "casos",
+      "title": "Caso: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+        "conceptTitle": "Acessórios radiológicos",
+        "casePrompt": "Analise o caso e relacione-o a acessórios radiológicos.",
+        "keySignals": [
+          "filme",
+          "equipamento",
+          "acessório"
+        ],
+        "sourcePages": [
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          60
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como filme, equipamento. Depois, precisa enquadrá-las em acessórios radiológicos."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Reúne os acessórios e suportes radiológicos usados para posicionamento, contenção, proteção e apoio operacional do exame."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 50-55, p. 60",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico",
+      "formatType": "casos",
+      "title": "Caso: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico",
+        "conceptTitle": "Processamento radiográfico",
+        "casePrompt": "Analise o caso e relacione-o a processamento radiográfico.",
+        "keySignals": [
+          "filme",
+          "dose",
+          "radiação"
+        ],
+        "sourcePages": [
+          56,
+          61,
+          66,
+          67,
+          68,
+          69
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como filme, dose. Depois, precisa enquadrá-las em processamento radiográfico."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Consolida os trechos sobre processamento, revelação, fixação e formação/armazenamento da imagem radiográfica."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 56, p. 61, p. 66-69",
+              "Fontes associadas: 8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x",
+      "formatType": "casos",
+      "title": "Caso: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x",
+        "conceptTitle": "Produção dos raios X",
+        "casePrompt": "Analise o caso e relacione-o a produção dos raios x.",
+        "keySignals": [
+          "filme",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          62,
+          63,
+          64,
+          65
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como filme, radiação. Depois, precisa enquadrá-las em produção dos raios x."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Agrupa a explicação sobre como o tubo e seus componentes produzem raios X a partir da aceleração e da interação de elétrons."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 62-65",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem",
+      "formatType": "casos",
+      "title": "Caso: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem",
+        "conceptTitle": "Qualidade de imagem",
+        "casePrompt": "Analise o caso e relacione-o a qualidade de imagem.",
+        "keySignals": [
+          "filme",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          70,
+          71,
+          72,
+          73,
+          74,
+          75
+        ],
+        "blocks": [
+          {
+            "id": "case",
+            "type": "case",
+            "title": "Caso",
+            "text": "Em um caso curto de radiologia, a equipe observa pistas como filme, radiação. Depois, precisa enquadrá-las em qualidade de imagem."
+          },
+          {
+            "id": "question",
+            "type": "question",
+            "title": "Pergunta",
+            "text": "Qual conceito canônico melhor explica esse caso?"
+          },
+          {
+            "id": "answer",
+            "type": "answer",
+            "title": "Resposta",
+            "text": "Reúne os critérios técnicos de qualidade da imagem radiográfica, incluindo contraste, densidade, distorção e velamento."
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 70-75",
+              "Fontes associadas: 11"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
