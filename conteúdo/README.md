@@ -20,3 +20,15 @@ Nada entra em `formatos/` sem passar por:
 2. extração
 3. classificação
 4. conceito
+
+## Obra piloto atual
+
+- `Fundamentos de Radiologia` (`source:fundamentos-de-radiologia-everton-costa-pinto`)
+
+## Fase atual
+
+O sistema já consegue:
+
+- registrar uma obra como fonte
+- indexar a fonte em JSON
+- abrir um job de extração pendente para a obra piloto

@@ -13,6 +13,8 @@ function readJson(relativePath) {
 
 export function validateFoundation() {
   const errors = [];
+  const sourceIndex = readJson('fontes/index.json');
+  const extractionIndex = readJson('extrações/index.json');
   const galaxias = readJson('taxonomia/galaxias.json');
   const planetas = readJson('taxonomia/planetas.json');
   const estrelas = readJson('taxonomia/estrelas.json');
@@ -26,6 +28,7 @@ export function validateFoundation() {
 
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
+  const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
 
   for (const planeta of planetas) {
     if (!galaxyIds.has(planeta.galaxyId)) {
@@ -42,6 +45,12 @@ export function validateFoundation() {
     }
   }
 
+  for (const job of extractionIndex.jobs) {
+    if (!sourceIds.has(job.sourceId)) {
+      errors.push(`Extraction job ${job.id} references unknown source ${job.sourceId}`);
+    }
+  }
+
   for (const schema of schemas) {
     if (!schema.title) {
       errors.push('Schema is missing title');
@@ -55,6 +64,9 @@ export function validateFoundation() {
     ok: errors.length === 0,
     errors,
     summary: {
+      sourceCount: sourceIndex.sources.length,
+      extractionJobCount: extractionIndex.jobs.length,
+      sourceSlugs: sourceIndex.sources.map((item) => item.slug),
       galaxyCount: galaxias.length,
       planetCount: planetas.length,
       starCount: estrelas.length,
