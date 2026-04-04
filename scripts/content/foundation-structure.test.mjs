@@ -33,3 +33,12 @@ test('content foundation skeleton exists', () => {
     );
   }
 });
+
+test('canonical docs reference the content foundation', () => {
+  const readme = fs.readFileSync(path.join(repoRoot, 'README.md'), 'utf8');
+  const contentPipeline = fs.readFileSync(path.join(repoRoot, 'docs/CONTENT_PIPELINE.md'), 'utf8');
+
+  assert.match(readme, /conteúdo\//);
+  assert.match(contentPipeline, /conteúdo\//);
+  assert.match(contentPipeline, /validate-foundation\.mjs/);
+});
