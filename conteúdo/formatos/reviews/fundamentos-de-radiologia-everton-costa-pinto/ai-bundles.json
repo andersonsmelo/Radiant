@@ -1,0 +1,579 @@
+{
+  "version": 1,
+  "generationStrategy": "claude-code-local-v1",
+  "bundles": [
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Qual órgão registra o técnico em radiologia?",
+          "back": "CONTER — Conselho Federal de Técnicos em Radiologia. O registro é obrigatório para exercício legal."
+        },
+        {
+          "front": "Quem é responsável pela proteção radiológica durante o exame?",
+          "back": "O técnico em radiologia, que deve aplicar o princípio ALARA e usar todos os recursos de blindagem disponíveis."
+        },
+        {
+          "front": "O técnico pode interpretar e laudar imagens?",
+          "back": "Não. Interpretação e laudo são atribuições exclusivas do médico radiologista. O técnico executa o exame."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Qual a relação entre frequência e energia em raios X?",
+          "back": "Diretamente proporcional: E = hf. Maior frequência = maior energia = maior penetração."
+        },
+        {
+          "front": "Por que ossos aparecem mais claros que tecidos moles na radiografia?",
+          "back": "Ossos absorvem mais raios X (maior número atômico do cálcio), menos fótons chegam ao detector → região mais clara."
+        },
+        {
+          "front": "O que gera contraste na imagem radiológica?",
+          "back": "A diferença de absorção de raios X entre os diferentes tecidos do corpo."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "O que é número atômico (Z)?",
+          "back": "Número de prótons no núcleo. Define o elemento químico e é único para cada elemento."
+        },
+        {
+          "front": "O que são isótopos?",
+          "back": "Átomos do mesmo elemento (mesmo Z) com número de nêutrons diferente, podendo ser estáveis ou radioativos."
+        },
+        {
+          "front": "Por que alguns núcleos são radioativos?",
+          "back": "Porque a relação prótons/nêutrons torna o núcleo instável, levando-o a emitir radiação para atingir equilíbrio."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quais são os três tipos de emissão radioativa?",
+          "back": "Alfa (α): núcleo de hélio; Beta (β): elétron; Gama (γ): fóton eletromagnético de alta energia."
+        },
+        {
+          "front": "O que é meia-vida (T½)?",
+          "back": "Tempo para a atividade de uma amostra radioativa reduzir à metade. Após 10 T½, restam menos de 0,1%."
+        },
+        {
+          "front": "Qual a unidade de atividade radioativa?",
+          "back": "Becquerel (Bq): 1 Bq = 1 desintegração por segundo. Unidade anterior: Curie (Ci); 1 Ci = 3,7 × 10¹⁰ Bq."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quem descobriu os raios X e quando?",
+          "back": "Wilhelm Conrad Röntgen, em 8 de novembro de 1895, em Würzburg, Alemanha."
+        },
+        {
+          "front": "Cite três propriedades dos raios X relevantes para a radiologia.",
+          "back": "Propagação em linha reta; penetração variável conforme o material; ionização da matéria; invisibilidade; efeito fotográfico."
+        },
+        {
+          "front": "Por que raios X são considerados radiação ionizante?",
+          "back": "Porque possuem energia suficiente para remover elétrons de átomos e moléculas, podendo causar danos ao material biológico."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quais são os três pilares da proteção radiológica?",
+          "back": "Tempo (minimizar), Distância (maximizar) e Blindagem (usar EPI e barreiras de chumbo)."
+        },
+        {
+          "front": "O que significa ALARA?",
+          "back": "As Low As Reasonably Achievable — manter a dose tão baixa quanto razoavelmente possível."
+        },
+        {
+          "front": "Lei do inverso do quadrado: o que acontece com a dose ao dobrar a distância?",
+          "back": "A dose cai para 1/4. Exemplo: 1m → 2m: dose ÷ 4."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Qual o radioisótopo mais usado em diagnóstico de medicina nuclear?",
+          "back": "Tecnécio-99m (⁹⁹ᵐTc): T½ = 6h, emite gama 140 keV. Ligado a traçadores específicos para cada órgão."
+        },
+        {
+          "front": "Qual a diferença entre uso diagnóstico e terapêutico de radioisótopos?",
+          "back": "Diagnóstico: detecta emissão externa (câmera de cintilação). Terapia: usa emissão beta para destruir células doentes (ex: I-131 em tireoide)."
+        },
+        {
+          "front": "O que é um traçador em medicina nuclear?",
+          "back": "Molécula que o organismo metaboliza de forma conhecida, marcada com radioisótopo para permitir detecção externa de sua distribuição."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quais são os valores HU para ar, água e osso cortical?",
+          "back": "Ar: −1000 HU | Água: 0 HU | Osso cortical: +700 a +3000 HU."
+        },
+        {
+          "front": "O que é pitch na TC?",
+          "back": "Relação entre o avanço da mesa por rotação e a colimação total do feixe. Pitch > 1 aumenta velocidade e reduz dose; pitch < 1 aumenta cobertura e dose."
+        },
+        {
+          "front": "O que a janela (window) define na visualização da TC?",
+          "back": "A faixa de valores HU exibida na escala de cinzas. Muda como os dados são vistos, não os dados em si."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "RM usa radiação ionizante?",
+          "back": "Não. RM usa campo magnético e pulsos de radiofrequência. Não há raios X nem radiação ionizante."
+        },
+        {
+          "front": "O que é T1 e T2 na RM?",
+          "back": "T1: relaxamento longitudinal — gordura brilhante, útil para anatomia. T2: relaxamento transversal — líquidos brilhantes, útil para patologia."
+        },
+        {
+          "front": "Por que implantes ferromagnéticos são contraindicados na RM?",
+          "back": "O campo magnético intenso pode deslocar o implante, aquecer condutores metálicos e interferir no funcionamento de dispositivos eletrônicos."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Irradiação torna o alimento radioativo?",
+          "back": "Não. Raios gama não induzem radioatividade nos alimentos. O processo destrói microrganismos sem depositar radiação."
+        },
+        {
+          "front": "Qual símbolo identifica alimentos irradiados?",
+          "back": "Radura — símbolo internacional obrigatório em embalagens de alimentos irradiados no Brasil (ANVISA RDC 21/2001)."
+        },
+        {
+          "front": "Qual a unidade de dose absorvida usada na irradiação de alimentos?",
+          "back": "Gray (Gy): 1 Gy = 1 joule de energia absorvida por quilograma de alimento."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Qual a diferença entre equipamento fixo e portátil?",
+          "back": "Fixo: maior potência, sala blindada, melhor qualidade; portátil: menor potência, móvel para beira de leito, indicado quando o paciente não pode ser transportado."
+        },
+        {
+          "front": "Para que serve o fluoroscópio?",
+          "back": "Imagem em tempo real para exames dinâmicos (deglutição, cistografia) e procedimentos intervencionistas (cateterismo, colocação de stents)."
+        },
+        {
+          "front": "Por que exames de fluoroscopia geram mais dose que radiografias?",
+          "back": "Porque o feixe é contínuo durante minutos, enquanto a radiografia usa uma exposição única de milissegundos."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Qual material é usado no anodo do tubo de raios X e por quê?",
+          "back": "Tungstênio (Z=74): alto ponto de fusão (3422°C), alta eficiência na conversão de energia cinética em raios X."
+        },
+        {
+          "front": "O que controla o kVp e o que ele afeta?",
+          "back": "kVp = tensão entre catodo e anodo. Controla a ENERGIA dos fótons: maior kVp → maior penetração e menor contraste."
+        },
+        {
+          "front": "Qual a diferença entre CR e DR?",
+          "back": "CR: placa de fósforo reutilizável, lida por laser. DR: detector de estado sólido integrado ao equipamento, leitura instantânea e maior eficiência."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quando usar grade antidifusora?",
+          "back": "Em regiões do corpo com espessura maior que 10 cm (abdômen, pelve, crânio) e quando há alto grau de espalhamento esperado (altos kVp)."
+        },
+        {
+          "front": "O que é relação de grade?",
+          "back": "Razão entre a altura das lâminas de chumbo e o espaçamento entre elas. Grades de maior relação (ex: 12:1) filtram mais espalhamento mas exigem maior precisão de alinhamento."
+        },
+        {
+          "front": "Para que servem os acessórios de posicionamento?",
+          "back": "Manter o paciente imóvel na posição correta durante a exposição, evitando borrão por movimento e necessidade de repetição."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Quais as etapas do processamento analógico de filmes?",
+          "back": "Revelação → Fixação → Lavagem → Secagem. Cada etapa tem temperatura e tempo específicos."
+        },
+        {
+          "front": "Como funciona o leitor de CR?",
+          "back": "Laser estimula a placa de fósforo, que libera luz proporcional à energia armazenada pelos raios X. A luz é captada por fotodetector e convertida em sinal digital."
+        },
+        {
+          "front": "O que é névoa (fog) em processamento radiográfico?",
+          "back": "Enegrecimento não desejado do filme por exposição acidental à luz, temperatura elevada de revelação ou filme vencido."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "O que é Bremsstrahlung?",
+          "back": "Radiação de freamento: elétrons desacelerados pelo campo nuclear do anodo emitem fótons de energia variada — forma o espectro contínuo de raios X."
+        },
+        {
+          "front": "O que é radiação característica?",
+          "back": "Emitida quando elétron da camada interna é ejectado e substituído por elétron de camada mais externa. Energia fixa, característica do material (W: ~69 keV na camada K)."
+        },
+        {
+          "front": "Por que o anodo é rotativo?",
+          "back": "Para distribuir o calor gerado (>99% da energia dos elétrons) em área maior, evitando fusão do tungstênio."
+        }
+      ]
+    },
+    {
+      "id": "format:reviews:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem:ai",
+      "formatType": "reviews",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Revisão: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": [
+        {
+          "front": "Como o kVp afeta o contraste da imagem?",
+          "back": "kVp alto → menor contraste (Compton predomina, menos dependente do tecido). kVp baixo → maior contraste (fotoelétrico predomina, muito dependente do Z)."
+        },
+        {
+          "front": "Quais fatores afetam a nitidez geométrica?",
+          "back": "Tamanho do foco (menor = mais nítido), DFD (maior = mais nítido), DOD (menor = mais nítido) e ausência de movimento do paciente."
+        },
+        {
+          "front": "O que é ruído na imagem radiológica?",
+          "back": "Variação aleatória do sinal por quantidade insuficiente de fótons (baixo mAs). Aparece como granulação ou 'snow' na imagem digital."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "generationStrategy": "claude-code-local-v1",
+  "bundles": [
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você compreendeu o papel e os limites da sua futura profissão — um ponto de partida essencial para uma carreira ética e segura. Conhecer onde começa e onde termina a sua responsabilidade protege você, o paciente e a equipe.",
+        "connection": "Na prática, saber exatamente o que é sua atribuição evita conflitos legais, garante a qualidade do atendimento e fortalece a confiança do médico no seu trabalho.",
+        "encouragement": "Agora que você sabe quem você é nessa equipe, é hora de aprender como o seu equipamento funciona."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você entendeu o princípio físico que fundamenta toda a radiologia: a interação seletiva entre energia e matéria. Esse é o alicerce de tudo que você vai aprender a seguir.",
+        "connection": "Toda vez que você ajustar o kVp no painel do equipamento, estará diretamente controlando a energia dos fótons e, com isso, o contraste e a penetração da imagem.",
+        "encouragement": "Com essa base sólida, você está pronto para entender a estrutura da matéria em nível atômico."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você dominou a base estrutural da matéria — o ponto de partida para entender tanto a geração dos raios X quanto a radioatividade e a medicina nuclear.",
+        "connection": "Quando você ajustar os parâmetros do tubo de raios X, estará interagindo diretamente com os elétrons e o núcleo dos átomos do alvo metálico.",
+        "encouragement": "Agora você está pronto para entender o que acontece quando esses átomos instáveis se transformam — o universo da radioatividade."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você entendeu como os átomos instáveis se transformam e como medir essa transformação — um conhecimento essencial para trabalhar com materiais radioativos com segurança.",
+        "connection": "Calcular meia-vida é uma habilidade prática que você vai usar sempre que trabalhar com radioisótopos em medicina nuclear ou precisar estimar a decadência de uma fonte de calibração.",
+        "encouragement": "Siga em frente — os próximos conceitos vão mostrar como essa radiação foi descoberta e quais suas propriedades práticas."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você conhece agora a origem e as propriedades da principal ferramenta do seu trabalho. Cada imagem radiológica que você fizer carrega o legado de uma descoberta acidental que mudou a medicina.",
+        "connection": "Quando você ajustar os parâmetros para um paciente mais corpulento ou mais magro, estará aplicando exatamente o conhecimento sobre a penetração diferenciada dos raios X na matéria.",
+        "encouragement": "O próximo passo é entender como esses raios X interagem com os tecidos — e quais cuidados isso exige de você."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você aprendeu a proteger a si mesmo e ao paciente — a habilidade mais importante de toda a sua carreira. Cada decisão que você toma na sala de raios X tem consequências diretas para a saúde de quem está ao seu redor.",
+        "connection": "Na prática, aplicar ALARA significa questionar cada exposição: é necessária? Pode ser feita com menos dose? O paciente está protegido? Essas perguntas vão guiar seu trabalho todos os dias.",
+        "encouragement": "Agora que você domina a proteção, está preparado para explorar as aplicações mais sofisticadas da radiação na medicina nuclear."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você entendeu como a radioatividade, que antes parecia apenas um risco, se transforma em uma ferramenta diagnóstica e terapêutica poderosa nas mãos certas.",
+        "connection": "Em serviços de medicina nuclear, você será o profissional que manipula, administra e descarta esses radioisótopos — e o conhecimento sobre sua física é o que garante a segurança de todos.",
+        "encouragement": "Agora vamos explorar como essas técnicas evoluíram para sistemas de imagem tridimensional como a tomografia."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você compreendeu como a TC reconstrói o corpo em fatias — uma das tecnologias mais revolucionárias da medicina moderna. Saber ajustar janelas e interpretar HU é parte do seu papel como técnico.",
+        "connection": "No trabalho diário em TC, você vai selecionar protocolos, ajustar janelas para revisão técnica e garantir que as imagens estejam com qualidade antes de liberar para o radiologista.",
+        "encouragement": "Agora vamos explorar outra modalidade que não usa raios X mas usa campos magnéticos — a ressonância magnética."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você agora entende o fundamento de uma das tecnologias mais sofisticadas da medicina moderna — sem usar um único raios X. Esse conhecimento vai destacar você na prática clínica.",
+        "connection": "Ao realizar triagem de segurança antes de cada RM, você estará aplicando diretamente o que aprendeu: identificar implantes ferromagnéticos é uma responsabilidade que protege vidas.",
+        "encouragement": "Continue — agora vamos ver como a radiação é usada fora da medicina, na conservação de alimentos."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você ampliou sua visão da radiação para além da medicina — ela também protege alimentos e contribui para a segurança alimentar global. Esse é o tipo de conhecimento que diferencia um técnico completo.",
+        "connection": "Quando pacientes ou familiares perguntarem sobre riscos da radiação, você vai ter o repertório para explicar com clareza o que é risco real e o que é percepção equivocada.",
+        "encouragement": "Voltemos agora ao seu campo principal: os equipamentos de radiologia convencional que você vai operar todos os dias."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você mapeou os equipamentos que vai encontrar no seu dia a dia como técnico. Saber qual equipamento usar e em qual situação é o que torna um exame seguro e eficiente.",
+        "connection": "Ao escolher o equipamento certo para cada paciente, você está diretamente contribuindo para a qualidade do diagnóstico e para a minimização da dose.",
+        "encouragement": "Agora vamos descer ao nível dos componentes — entender cada peça dentro desses equipamentos."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você agora conhece o interior do equipamento que vai operar todos os dias — uma máquina que converte eletricidade em imagem diagnóstica em milissegundos.",
+        "connection": "Entender cada componente permite que você identifique falhas, justifique ajustes técnicos e comunique problemas ao engenheiro de manutenção com precisão.",
+        "encouragement": "Agora vamos ver os acessórios que complementam esse equipamento para cada tipo de exame."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você dominou os acessórios — os detalhes que diferenciam um exame bem feito de um exame apenas realizado. No cotidiano da radiologia, são esses detalhes que garantem segurança e qualidade.",
+        "connection": "Cada acessório que você usar consciente e rotineiramente representa uma decisão ativa de proteção do paciente e de melhoria da imagem diagnóstica.",
+        "encouragement": "O próximo passo é entender o que acontece depois da exposição: o processamento radiográfico."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você entendeu como a imagem sai do equipamento e chega ao radiologista — seja pela química do filme ou pela física dos detectores digitais. Esse conhecimento é fundamental para manter a qualidade.",
+        "connection": "Manter as placas de CR limpas, calibrar periodicamente os detectores DR e controlar a temperatura das processadoras analógicas são responsabilidades diretas do técnico no controle de qualidade.",
+        "encouragement": "Agora vamos aprender como os raios X são efetivamente produzidos no tubo — o processo que inicia tudo."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você desvendou o processo que acontece dentro do tubo em frações de segundo — e que está na base de cada imagem diagnóstica produzida desde 1895.",
+        "connection": "Entender por que o anodo aquece permite que você planeje séries de exames sem sobrecarregar o equipamento, prolongando sua vida útil e evitando atrasos no atendimento.",
+        "encouragement": "Com toda essa base técnica construída, chegou a hora de aprender o que faz uma imagem ser boa ou ruim: a qualidade de imagem."
+      }
+    },
+    {
+      "id": "format:rewards:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem:ai",
+      "formatType": "rewards",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Recompensa: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "message": "Você completou o ciclo completo da imagem radiológica: da produção dos raios X ao processamento e agora à avaliação da qualidade final. Isso é o que torna um técnico excelente — não só executar o exame, mas entender cada fator que determina seu resultado.",
+        "connection": "Toda vez que você analisar uma imagem antes de entregá-la ao radiologista, estará aplicando exatamente esses critérios: o contraste está adequado? A nitidez é suficiente? Há borramento ou ruído excessivo?",
+        "encouragement": "Parabéns — você concluiu os fundamentos de radiologia. O próximo passo é transformar esse conhecimento em prática clínica excelente."
+      }
+    }
+  ]
+}

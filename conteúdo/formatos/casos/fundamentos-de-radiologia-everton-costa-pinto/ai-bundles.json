@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "generationStrategy": "claude-code-local-v1",
+  "bundles": [
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico recém-formado, 22 anos, inicia estágio em clínica radiológica. No primeiro dia, o médico está ausente e um paciente solicita que o técnico explique o que viu na imagem do tórax.",
+        "finding": "A imagem do tórax mostra uma opacidade no lobo inferior direito, claramente visível na radiografia em PA. O técnico identifica a alteração, mas percebe que o paciente aguarda uma explicação diagnóstica.",
+        "question": "O que o técnico deve fazer nesta situação e por quê, considerando os limites legais da sua atuação profissional?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Estudante de radiologia, durante aula prática, observa que em uma radiografia de abdômen, os ossos aparecem bem brancos, os tecidos moles em tons de cinza e as alças intestinais com ar aparecem quase pretas.",
+        "finding": "A imagem mostra claramente três densidades distintas: osso (branco), partes moles (cinza) e ar (preto). A diferença de tonalidades é nítida e reproduzível.",
+        "question": "Explique por que essas três estruturas apresentam densidades radiológicas tão diferentes, relacionando com a interação entre energia dos raios X e a composição da matéria."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Em uma aula de medicina nuclear, o professor explica que o tecnécio-99m (⁹⁹ᵐTc, Z=43) é o radioisótopo mais usado em cintilografias no Brasil, enquanto o tecnécio estável (⁹⁹Tc) não tem aplicação clínica.",
+        "finding": "Ambos os isótopos têm 43 prótons, mas o ⁹⁹ᵐTc possui excesso de energia no núcleo que é liberado sob forma de raios gama, permitindo sua detecção por câmera de cintilação. O ⁹⁹Tc estável não emite radiação detectável.",
+        "question": "Com base na estrutura atômica, explique por que o ⁹⁹ᵐTc é radioativo e emite radiação, enquanto o ⁹⁹Tc estável não o faz, sendo ambos o mesmo elemento químico."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Em um serviço de medicina nuclear, um frasco de iodo-131 com atividade de 2000 MBq chega ao setor na segunda-feira às 8h. A meia-vida do I-131 é de 8 dias. Um paciente será tratado na quarta-feira às 8h.",
+        "finding": "O técnico registra a atividade e precisa calcular o valor correto para o momento da administração, já que a atividade diminui continuamente com o decaimento radioativo.",
+        "question": "Que atividade o técnico deve registrar para o momento da administração (48 horas após o recebimento) e como ele deve calcular esse valor usando o conceito de meia-vida?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico recebe para radiografia um paciente com obesidade grau III (IMC 42). A radiografia de tórax realizada com os parâmetros padrão do serviço resultou em imagem muito escura, sem contraste adequado.",
+        "finding": "A imagem está subexposta: os raios X não penetraram adequadamente a espessura de tecidos moles, chegando com pouca intensidade ao detector. As estruturas pulmonares mal se distinguem do mediastino.",
+        "question": "Relacionando com as propriedades dos raios X, que ajuste técnico o técnico deve fazer para obter uma imagem de qualidade neste paciente e por quê?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico de 30 anos trabalha em serviço de hemodinâmica, realizando procedimentos de cateterismo cardíaco sob fluoroscopia. Nas últimas semanas, está ficando próximo à mesa durante os procedimentos sem usar avental de chumbo, alegando desconforto com o equipamento.",
+        "finding": "O dosímetro do técnico registrou dose acumulada no último trimestre de 6 mSv, próxima ao limite recomendado de 5 mSv/trimestre. O serviço registra em média 3 procedimentos por dia, cada um com 8-12 minutos de fluoroscopia.",
+        "question": "Com base nos princípios de proteção radiológica, que medidas imediatas e de longo prazo você recomendaria para este técnico, e por que cada uma delas é necessária?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Paciente feminina, 55 anos, com nódulo tireoidiano detectado por ultrassom. A endocrinologista solicita cintilografia de tireoide com iodo-131 para avaliar se o nódulo é hiperfuncionante (quente) ou hipofuncionante (frio).",
+        "finding": "Na cintilografia realizada 24h após administração oral de ¹³¹I, o nódulo aparece como uma área de captação aumentada em relação ao tecido tireoidiano normal, sugerindo nódulo hiperfuncionante autônomo.",
+        "question": "Explique por que a cintilografia é mais adequada que a radiografia convencional para avaliar a função do nódulo tireoidiano e qual propriedade do I-131 permite essa avaliação."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Paciente masculino, 68 anos, com dor torácica aguda. O médico solicita angio-TC de aorta com contraste para descartar dissecção aórtica. Ao revisar as imagens, o técnico percebe que escolheu janela de pulmão por engano.",
+        "finding": "Com janela de pulmão (nível −700 HU, largura 1500 HU), a aorta e os vasos mediastinais estão mal definidos — os tecidos moles e o contraste endovenoso aparecem saturados em branco.",
+        "question": "Que ajuste de janela o técnico deve aplicar para avaliar adequadamente a aorta e qual seria o nível e largura recomendados para estruturas vasculares com contraste?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Paciente masculino, 45 anos, com dor lombar crônica, chega para RM de coluna lombar. No questionário pré-exame, declara ter colocado um stent coronariano há 2 anos e um clipe cirúrgico intracraniano há 10 anos.",
+        "finding": "O técnico identifica duas situações distintas: stents coronarianos modernos são geralmente RM-seguros após 6 semanas de colocação; clipes intracranianos antigos podem ser ferromagnéticos e representar risco de deslocamento.",
+        "question": "Qual deve ser a conduta do técnico nesta situação, e quais informações específicas ele precisa levantar sobre cada implante antes de prosseguir com o exame?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Nutricionista de um hospital oncológico questiona o técnico em radiologia sobre a segurança de oferecer frutas irradiadas para pacientes neutropênicos pós-quimioterapia. Ela tem receio de que o alimento irradiado possa expor os pacientes à radiação.",
+        "finding": "O cardápio hospitalar inclui morangos com rótulo de radura e indica que foram tratados com 2 kGy de radiação gama para eliminação de fungos — essencial para pacientes com imunossupressão.",
+        "question": "Como o técnico deve explicar à nutricionista por que o alimento irradiado é seguro para esses pacientes e não representa risco de exposição à radiação?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Paciente masculino, 72 anos, com dificuldade para deglutir. O médico solicita videofluoroscopia da deglutição. O técnico precisa selecionar o equipamento e o protocolo adequados.",
+        "finding": "O fluoroscópio da sala de radiologia digestiva é o equipamento indicado. O exame requer que o paciente engula meio de contraste (bário) enquanto o técnico e o médico observam em tempo real o trajeto do contraste da boca ao esôfago.",
+        "question": "Que cuidados específicos de proteção radiológica o técnico deve adotar durante uma videofluoroscopia, considerando que o feixe fica ativo durante vários minutos?"
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico realiza radiografia de coluna lombar em AP e percebe que a imagem está com densidade muito baixa (muito clara), mesmo tendo usado os parâmetros do protocolo do serviço. O kVp está em 75 kV e o mAs em 32.",
+        "finding": "Ao verificar o equipamento, o técnico nota que a lâmpada de filamento do catodo está piscando intermitentemente — sinal de que o filamento pode estar com defeito e emitindo elétrons de forma irregular.",
+        "question": "Relacionando com os componentes do equipamento, explique por que um filamento defeituoso causaria imagens subexpostas e qual componente do sistema de geração deve ser verificado e solicitado para manutenção."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico realiza radiografia de pelve em AP em paciente adulta, 35 anos, e percebe que se esqueceu de utilizar o protetor gonadal. A imagem foi obtida, está de boa qualidade técnica e as gônadas estavam próximas ao campo irradiado.",
+        "finding": "A imagem foi realizada sem proteção gonadal em paciente em idade fértil. O médico solicitante precisa da imagem para diagnóstico de quadril — a área de interesse está totalmente incluída e a imagem tem qualidade diagnóstica adequada.",
+        "question": "O técnico deve repetir a exposição para incluir o protetor gonadal? Justifique sua decisão com base nos princípios de proteção radiológica."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Clínica de radiologia migrou de filme para CR há 6 meses. Técnico veterano relata que algumas imagens de tórax estão saindo com manchas circulares de alta densidade — artefatos não vistos na época do filme.",
+        "finding": "As manchas aparecem em posições variáveis entre exames. O técnico observa que as placas de CR não estão sendo limpas regularmente, e sujeira e resíduos nas placas estão criando artefatos na imagem digital.",
+        "question": "Relacionando com o processo de leitura das placas de CR, explique por que sujeira nas placas causa artefatos circulares e qual procedimento de manutenção o serviço deve implementar."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico realiza série de radiografias de crânio (6 incidências) em sequência rápida e percebe que o equipamento emite sinal sonoro de 'sobrecarga térmica' e trava a emissão. O anodo estava a temperatura máxima permitida.",
+        "finding": "O equipamento travou como proteção automática contra superaquecimento do anodo. O técnico esperou 5 minutos para o anodo resfriar, mas o médico está aguardando as imagens urgentemente.",
+        "question": "Explique por que o anodo aquece durante a produção de raios X e quais medidas o técnico poderia ter adotado para evitar a sobrecarga térmica durante a série de exames."
+      }
+    },
+    {
+      "id": "format:casos:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem:ai",
+      "formatType": "casos",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Caso: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "scenario": "Técnico realiza radiografia de tórax em PA de paciente adulto corpulento. A imagem resultante mostra pouco contraste entre mediastino e parênquima pulmonar, e estruturas vasculares hilares estão pouco definidas.",
+        "finding": "O protocolo usado foi de 80 kVp e 6 mAs com grade 10:1. A imagem está com contraste reduzido — mediastino e pulmões têm tonalidades muito semelhantes — e há algum grau de véu sobre toda a imagem.",
+        "question": "Identifique os dois problemas de qualidade desta imagem (contraste e véu) e proponha ajustes técnicos específicos para corrigir cada um deles."
+      }
+    }
+  ]
+}

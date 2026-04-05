@@ -1,0 +1,499 @@
+{
+  "version": 1,
+  "generationStrategy": "claude-code-local-v1",
+  "bundles": [
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "O técnico em radiologia executa exames de imagem com segurança, dentro dos limites legais da profissão regulamentada pelo CONTER.",
+        "assertions": [
+          "O registro no CONTER é obrigatório para exercer a profissão de técnico em radiologia",
+          "O técnico é responsável pelo posicionamento, parâmetros técnicos e proteção radiológica",
+          "A interpretação diagnóstica das imagens é atribuição exclusiva do médico radiologista",
+          "A supervisão médica é requisito legal para o exercício das atividades do técnico"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Raios X são ondas eletromagnéticas cuja energia determina a interação com a matéria e, consequentemente, o contraste da imagem.",
+        "assertions": [
+          "A energia do fóton é proporcional à frequência: E = hf (equação de Planck)",
+          "Tecidos com maior número atômico absorvem mais raios X e aparecem mais claros na imagem",
+          "O contraste radiológico resulta das diferenças de absorção entre os tecidos",
+          "Raios X pertencem ao espectro eletromagnético e se propagam à velocidade da luz"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "O átomo é composto por núcleo (prótons + nêutrons) e elétrons; a instabilidade nuclear gera radioatividade.",
+        "assertions": [
+          "O número atômico (Z) = número de prótons e define o elemento químico",
+          "Isótopos: mesmo Z, diferente número de nêutrons; podem ser estáveis ou radioativos",
+          "Núcleos instáveis emitem radiação espontaneamente para atingir estado de menor energia",
+          "Elétrons nas camadas externas participam das ligações químicas e da emissão de raios X característicos"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Radioatividade é a emissão espontânea de partículas ou radiação por núcleos instáveis; a atividade decai de forma previsível pela meia-vida.",
+        "assertions": [
+          "Partícula alfa tem menor penetração; gama tem maior penetração entre as emissões radioativas",
+          "Atividade mede-se em Becquerel: 1 Bq = 1 desintegração/segundo",
+          "Meia-vida define o ritmo de decaimento; é característica de cada radioisótopo",
+          "Após 10 meias-vidas, a atividade é praticamente desprezível (<0,1% do valor inicial)"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Os raios X, descobertos por Röntgen em 1895, são radiação eletromagnética ionizante com penetração variável, base de toda a radiologia diagnóstica.",
+        "assertions": [
+          "Röntgen descobriu os raios X em 1895 e recebeu o Nobel de Física em 1901",
+          "Raios X são invisíveis, ionizantes e se propagam em linha reta à velocidade da luz",
+          "A penetração diferenciada nos tecidos é o fundamento da formação da imagem radiológica",
+          "A ionização causada pelos raios X é o motivo da necessidade de proteção radiológica"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "A interação dos raios X com a matéria (fotoelétrico, Compton) gera dose ao paciente; a proteção radiológica segue o princípio ALARA com tempo, distância e blindagem.",
+        "assertions": [
+          "Efeito fotoelétrico: absorção total do fóton — predomina em tecidos densos e baixas energias",
+          "Efeito Compton: espalhamento do fóton — predomina em diagnóstico e gera radiação secundária",
+          "ALARA exige minimizar tempo de exposição, maximizar distância e usar blindagem adequada",
+          "Dobrar a distância reduz a dose a 1/4 (lei do inverso do quadrado da distância)"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "A medicina nuclear usa radioisótopos ligados a traçadores para avaliar função metabólica dos órgãos em diagnóstico e para terapia dirigida.",
+        "assertions": [
+          "Medicina nuclear avalia função e metabolismo — complementar, não substituta da radiologia anatômica",
+          "⁹⁹ᵐTc é o radioisótopo diagnóstico mais usado: T½ 6h, emissão gama de 140 keV",
+          "I-131 (beta + gama) é usado para terapia de hipertireoidismo e câncer diferenciado de tireoide",
+          "Câmeras de cintilação (gama câmeras) detectam a emissão gama do traçador para formar a imagem"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "A TC reconstrói cortes anatômicos a partir de projeções de raios X em múltiplos ângulos; a densidade é expressa em Unidades Hounsfield e a janela define a visualização.",
+        "assertions": [
+          "TC usa rotação do tubo de raios X ao redor do paciente para adquirir projeções angulares",
+          "Unidades Hounsfield (HU): escala padronizada; ar = −1000, água = 0, osso cortical = +700 a +3000",
+          "A janela (nível e largura em HU) não altera os dados, apenas a forma de exibi-los",
+          "Pitch afeta velocidade de aquisição, cobertura e dose ao paciente"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "A RM usa campo magnético e radiofrequência (sem ionização) para gerar contraste entre tecidos com base nos tempos de relaxamento T1 e T2 dos prótons.",
+        "assertions": [
+          "RM não usa radiação ionizante — baseada em campo magnético (B₀) e radiofrequência",
+          "T1: tempos curtos de relaxamento → gordura brilhante; T2: tempos longos → líquidos brilhantes",
+          "Implantes ferromagnéticos são contraindicação absoluta ou condicional, exigindo avaliação prévia",
+          "RM é superior aos raios X para tecidos moles: cérebro, medula, cartilagens, ligamentos"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "A irradiação de alimentos usa radiação ionizante controlada para conservação, sem tornar o produto radioativo, regulamentada pela ANVISA.",
+        "assertions": [
+          "Alimentos irradiados não se tornam radioativos — raios gama não induzem ativação nuclear",
+          "Doses em Gray (Gy): baixas (≤1 kGy) para brotação; médias (1-10 kGy) para patógenos; altas (>10 kGy) para esterilização",
+          "O símbolo radura é obrigatório na embalagem de alimentos irradiados no Brasil",
+          "Processo aprovado pela OMS, FAO e IAEA como seguro para consumo humano"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Equipamentos de radiologia convencional incluem sistemas fixos (rotina), portáteis (beira de leito) e fluoroscópios (tempo real), todos baseados nos mesmos componentes fundamentais.",
+        "assertions": [
+          "Equipamento fixo tem maior potência e melhor qualidade de imagem; indica-se para rotina em sala blindada",
+          "Equipamento portátil é usado quando o paciente não pode ser transportado; menor potência e qualidade",
+          "Fluoroscópio produz imagem em tempo real: maior dose ao paciente e equipe",
+          "Todos os equipamentos compartilham gerador, tubo de raios X, colimador e detector"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "O equipamento de raios X é composto por gerador de alta tensão, tubo (catodo + anodo), colimador e sistema de detecção; kVp controla energia e mAs controla quantidade.",
+        "assertions": [
+          "Catodo (filamento de tungstênio aquecido) emite elétrons por emissão termiônica",
+          "Anodo de tungstênio converte energia cinética dos elétrons em raios X (menos de 1% em eficiência)",
+          "kVp determina energia dos fótons e contraste; mAs determina quantidade de fótons e densidade",
+          "Detectores DR modernos substituem filmes e CR com maior eficiência quântica e menor dose"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Acessórios radiológicos (grades, colimadores, protetores, posicionadores) são parte do sistema de qualidade e proteção do exame, sendo responsabilidade do técnico selecioná-los adequadamente.",
+        "assertions": [
+          "Grades antidifusoras filtram espalhamento entre paciente e detector, melhorando contraste",
+          "Colimadores restringem o campo ao mínimo necessário, reduzindo dose e espalhamento",
+          "Proteção gonadal é indicada quando as gônadas estão próximas ao campo irradiado sem comprometer o diagnóstico",
+          "Acessórios de posicionamento reduzem movimento, melhoram reprodutibilidade e evitam repetições"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Processamento transforma a imagem latente em imagem visível: analógico usa química (revelação/fixação); digital usa leitura eletrônica (CR por laser, DR por detecção direta).",
+        "assertions": [
+          "Revelação: reduz AgBr exposto a prata metálica, tornando a imagem visível",
+          "Fixação: remove cristais não expostos, tornando a imagem permanente e estável à luz",
+          "CR usa placa de fósforo relida por laser; DR usa detector de estado sólido com sinal elétrico direto",
+          "Sistemas digitais permitem pós-processamento sem nova exposição do paciente"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Raios X são produzidos por Bremsstrahlung (espectro contínuo) e radiação característica quando elétrons acelerados colidem com o anodo de tungstênio.",
+        "assertions": [
+          "Bremsstrahlung: elétrons desacelerados emitem espectro contínuo de raios X — mecanismo predominante",
+          "Radiação característica: emissão de fótons com energias fixas específicas do tungstênio (~69 keV camada K)",
+          "Menos de 1% da energia dos elétrons converte-se em raios X; o restante é calor no anodo",
+          "Anodo rotativo distribui o calor em área maior, permitindo maior capacidade de carga (mAs)"
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem:ai",
+      "formatType": "checkpoints",
+      "generationStrategy": "claude-code-local-v1",
+      "title": "Checkpoint: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "reviewStatus": "pending",
+      "qualityScore": null,
+      "generatedAt": "2026-04-05T12:23:27.866189+00:00",
+      "aiContent": {
+        "summary": "Qualidade de imagem equilibra contraste (kVp), densidade (mAs), nitidez (foco, DFD, movimento) e ruído (dose), sempre visando a menor dose com diagnóstico adequado.",
+        "assertions": [
+          "kVp controla o contraste: baixo kVp = alto contraste; alto kVp = baixo contraste",
+          "mAs controla a densidade/brilho e o ruído: baixo mAs = imagem clara e ruidosa",
+          "Nitidez geométrica melhora com foco menor, maior DFD e menor DOD",
+          "Radiação espalhada cria véu sobre a imagem, reduzindo o contraste — grades e colimação minimizam esse efeito"
+        ]
+      }
+    }
+  ]
+}
