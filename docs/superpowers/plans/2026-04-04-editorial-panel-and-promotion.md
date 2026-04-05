@@ -1113,9 +1113,8 @@ OPENAI_API_KEY=<key> python scripts/content/generate-embeddings.py
 ANTHROPIC_API_KEY=<key> python scripts/content/suggest-dependencies.py
 python scripts/content/build-learning-sequence.py
 
-# Plano 2 — Geração AI
-ANTHROPIC_API_KEY=<key> python scripts/content/ai-generate-formats.py
-OPENAI_API_KEY=<key> python scripts/content/evaluate-bundles.py
+# Plano 2 — Geração AI (split Claude/OpenAI)
+ANTHROPIC_API_KEY=<key> OPENAI_API_KEY=<key> python3 scripts/content/ai-generate-formats.py
 
 # Plano 3 — Painel + Promoção
 node scripts/content/promote-to-catalog.mjs
