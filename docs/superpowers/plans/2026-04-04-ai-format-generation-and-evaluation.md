@@ -1,12 +1,22 @@
-# Templates de Geração AI e LLM-as-judge — Plano de Implementação
+# Templates de Geração AI com Split Claude / OpenAI — Plano de Implementação
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Substituir os bundles pedagógicos determinísticos (que usam só a definição do conceito) por conteúdo gerado via Claude Sonnet, usando templates versionados por tipo de formato. Após a geração, avaliar a qualidade de cada bundle com GPT-4o-mini como juiz e marcar automaticamente os que passam no threshold como `approved`.
+**Goal:** Substituir os bundles pedagógicos determinísticos por conteúdo gerado por IA usando templates versionados, alternando entre Claude Sonnet (formatos narrativos) e GPT-4o-mini (formatos estruturados) — usando apenas tokens dos planos já contratados. Todos os bundles gerados começam como `needs-review`; o gate de qualidade é o painel editorial (Plano 3), não um LLM-as-judge.
 
-**Architecture:** Dois novos scripts Python (`ai-generate-formats.py`, `evaluate-bundles.py`) operam sobre os artefatos existentes em `conteúdo/`. O gerador lê `learning-sequence.json` para processar os conceitos na ordem pedagógica correta e escreve em `formatos/<tipo>/<source>/ai-bundles.json` — separado dos bundles determinísticos existentes. O avaliador lê os ai-bundles e atualiza `reviewStatus` e `qualityScore` in-place.
+**Architecture:** Um script Python (`ai-generate-formats.py`) opera sobre os artefatos existentes em `conteúdo/`. Lê `learning-sequence.json` para processar conceitos na ordem pedagógica e escreve em `formatos/<tipo>/<source>/ai-bundles.json`. Roteia chamadas para Claude (microlições, casos, rewards) ou OpenAI (quizzes, reviews, checkpoints) com base no formato.
 
 **Tech Stack:** Python 3.11+, Anthropic SDK (`claude-sonnet-4-6`), OpenAI SDK (`gpt-4o-mini`), pipeline de scripts existente.
+
+**Split de modelos:**
+| Formato | Modelo | Justificativa |
+|---|---|---|
+| `microlições` | Claude Sonnet 4.6 | Narrativa pedagógica |
+| `casos` | Claude Sonnet 4.6 | Criatividade de cenário clínico |
+| `rewards` | Claude Sonnet 4.6 | Texto motivacional com nuance |
+| `quizzes` | GPT-4o-mini | Output estruturado, 4 alternativas |
+| `reviews` | GPT-4o-mini | Cards frente/verso, estrutura fixa |
+| `checkpoints` | GPT-4o-mini | Lista de afirmações, estrutura simples |
 
 > Este é o **Plano 2 de 3**. Requer os artefatos do Plano 1 (`learning-sequence.json`). Plano 3 cobre Painel Editorial Web + Script de Promoção.
 
@@ -22,10 +32,8 @@
 | `conteúdo/governança/prompt-templates/caso-clinico.md` | Criar | Prompt para geração de casos clínicos |
 | `conteúdo/governança/prompt-templates/checkpoint.md` | Criar | Prompt para geração de checkpoints |
 | `conteúdo/governança/prompt-templates/reward.md` | Criar | Prompt para geração de rewards |
-| `scripts/content/ai-generate-formats.py` | Criar | Gerador AI com Claude Sonnet |
+| `scripts/content/ai-generate-formats.py` | Criar | Gerador AI com split Claude / OpenAI por formato |
 | `scripts/content/ai-generate-formats.test.py` | Criar | Testes do gerador |
-| `scripts/content/evaluate-bundles.py` | Criar | Avaliador de qualidade com GPT-4o-mini |
-| `scripts/content/evaluate-bundles.test.py` | Criar | Testes do avaliador |
 
 ---
 
@@ -387,7 +395,7 @@ if __name__ == "__main__":
 - [ ] **Step 2.2: Rodar e confirmar que falha**
 
 ```bash
-python -m pytest scripts/content/ai-generate-formats.test.py -v
+python3 scripts/content/ai-generate-formats.test.py -v
 ```
 
 Expected: FAIL.
@@ -405,13 +413,14 @@ import json
 from pathlib import Path
 
 import anthropic
+import openai
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTENT_ROOT = REPO_ROOT / "conteúdo"
 FORMATS_ROOT = CONTENT_ROOT / "formatos"
 TEMPLATES_DIR = CONTENT_ROOT / "governança" / "prompt-templates"
 SEQUENCE_PATH = CONTENT_ROOT / "governança" / "learning-sequence.json"
-GENERATOR_VERSION = "ai-claude-sonnet-v1"
+GENERATOR_VERSION = "ai-split-v1"
 
 FORMAT_TYPES = ["microlições", "quizzes", "reviews", "casos", "checkpoints", "rewards"]
 
@@ -431,6 +440,16 @@ TEMPLATE_FILES = {
     "casos": "caso-clinico.md",
     "checkpoints": "checkpoint.md",
     "rewards": "reward.md",
+}
+
+# Claude handles narrative formats; OpenAI handles structured formats
+FORMAT_PROVIDERS = {
+    "microlições": "claude",
+    "casos": "claude",
+    "rewards": "claude",
+    "quizzes": "openai",
+    "reviews": "openai",
+    "checkpoints": "openai",
 }
 
 _reader_spec = importlib.util.spec_from_file_location(
@@ -528,14 +547,39 @@ def call_claude(prompt: str, client: anthropic.Anthropic) -> dict | list:
     return json.loads(message.content[0].text)
 
 
+def call_openai(prompt: str, client) -> dict | list:
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=1024,
+    )
+    return json.loads(response.choices[0].message.content)
+
+
+def call_model(
+    prompt: str,
+    format_type: str,
+    claude_client: anthropic.Anthropic,
+    openai_client,
+) -> dict | list:
+    provider = FORMAT_PROVIDERS[format_type]
+    if provider == "claude":
+        return call_claude(prompt, claude_client)
+    return call_openai(prompt, openai_client)
+
+
 def run(format_type: str | None = None) -> None:
-    client = anthropic.Anthropic()
+    import openai as openai_lib
+
+    claude_client = anthropic.Anthropic()
+    openai_client = openai_lib.OpenAI()
     concepts = load_ordered_concepts()
     types_to_run = [format_type] if format_type else FORMAT_TYPES
 
     for fmt in types_to_run:
         template = load_template(fmt)
-        print(f"\n{fmt}:")
+        provider = FORMAT_PROVIDERS[fmt]
+        print(f"\n{fmt} [{provider}]:")
         generated = 0
         skipped = 0
         for concept in concepts:
@@ -543,7 +587,7 @@ def run(format_type: str | None = None) -> None:
                 skipped += 1
                 continue
             prompt = build_prompt(template, concept)
-            ai_content = call_claude(prompt, client)
+            ai_content = call_model(prompt, fmt, claude_client, openai_client)
             bundle = build_ai_bundle(fmt, concept, ai_content)
             append_bundle(fmt, concept["sourceSlug"], bundle)
             print(f"  + {concept['slug']}")
@@ -563,17 +607,18 @@ if __name__ == "__main__":
 - [ ] **Step 2.4: Rodar e confirmar que passa**
 
 ```bash
-python -m pytest scripts/content/ai-generate-formats.test.py -v
+python3 scripts/content/ai-generate-formats.test.py -v
 ```
 
 Expected: PASS — 12 tests passing.
 
-- [ ] **Step 2.5: Testar execução real (requer `ANTHROPIC_API_KEY`)**
+- [ ] **Step 2.5: Testar execução real (requer `ANTHROPIC_API_KEY` e `OPENAI_API_KEY`)**
 
-Testar com um único formato para verificar antes de gerar tudo:
+Testar com um único formato Claude e um único formato OpenAI:
 
 ```bash
-ANTHROPIC_API_KEY=<key> python scripts/content/ai-generate-formats.py --format microlições
+ANTHROPIC_API_KEY=<key> OPENAI_API_KEY=<key> python3 scripts/content/ai-generate-formats.py --format microlições
+ANTHROPIC_API_KEY=<key> OPENAI_API_KEY=<key> python3 scripts/content/ai-generate-formats.py --format quizzes
 ```
 
 Expected output example:
@@ -610,297 +655,45 @@ git commit -m "feat: add AI-powered format generator using Claude Sonnet with pr
 
 ---
 
-### Task 3: Avaliador de qualidade LLM-as-judge (`evaluate-bundles.py`)
-
-**Files:**
-- Create: `scripts/content/evaluate-bundles.py`
-- Create: `scripts/content/evaluate-bundles.test.py`
-
-- [ ] **Step 3.1: Escrever o teste primeiro**
-
-Criar `scripts/content/evaluate-bundles.test.py`:
-
-```python
-import importlib.util
-import json
-import tempfile
-import unittest
-from pathlib import Path
-
-SCRIPT_PATH = Path(__file__).with_name("evaluate-bundles.py")
-SPEC = importlib.util.spec_from_file_location("evaluate_bundles", SCRIPT_PATH)
-MODULE = importlib.util.module_from_spec(SPEC)
-assert SPEC.loader is not None
-SPEC.loader.exec_module(MODULE)
-
-
-class QualityThresholdTests(unittest.TestCase):
-    def test_threshold_constant_is_070(self):
-        self.assertEqual(MODULE.QUALITY_THRESHOLD, 0.70)
-
-    def test_apply_quality_status_approved_above_threshold(self):
-        bundle = {"id": "test", "formatType": "microlições", "reviewStatus": "pending", "qualityScore": None}
-        scores = {"clarity": 0.85, "coherence": 0.80, "format_adherence": 0.75}
-        result = MODULE.apply_quality_status(bundle, scores)
-        self.assertEqual(result["reviewStatus"], "approved")
-        self.assertGreaterEqual(result["qualityScore"], 0.70)
-
-    def test_apply_quality_status_needs_review_below_threshold(self):
-        bundle = {"id": "test", "formatType": "microlições", "reviewStatus": "pending", "qualityScore": None}
-        scores = {"clarity": 0.50, "coherence": 0.55, "format_adherence": 0.60}
-        result = MODULE.apply_quality_status(bundle, scores)
-        self.assertEqual(result["reviewStatus"], "needs-review")
-
-    def test_apply_quality_status_at_boundary_070(self):
-        bundle = {"id": "test", "formatType": "microlições", "reviewStatus": "pending", "qualityScore": None}
-        scores = {"clarity": 0.70, "coherence": 0.70, "format_adherence": 0.70}
-        result = MODULE.apply_quality_status(bundle, scores)
-        self.assertEqual(result["reviewStatus"], "approved")
-
-    def test_apply_quality_status_adds_breakdown(self):
-        bundle = {"id": "test", "formatType": "microlições", "reviewStatus": "pending", "qualityScore": None}
-        scores = {"clarity": 0.80, "coherence": 0.75, "format_adherence": 0.85}
-        result = MODULE.apply_quality_status(bundle, scores)
-        self.assertIn("qualityBreakdown", result)
-        self.assertIn("clarity", result["qualityBreakdown"])
-
-    def test_apply_quality_status_quality_score_is_average(self):
-        bundle = {"id": "test", "formatType": "microlições", "reviewStatus": "pending", "qualityScore": None}
-        scores = {"clarity": 0.80, "coherence": 0.70, "format_adherence": 0.90}
-        result = MODULE.apply_quality_status(bundle, scores)
-        expected_avg = round((0.80 + 0.70 + 0.90) / 3, 3)
-        self.assertAlmostEqual(result["qualityScore"], expected_avg, places=3)
-
-
-class LoadPendingBundlesTests(unittest.TestCase):
-    def test_returns_empty_list_when_no_files(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            result = MODULE.load_pending_bundles(Path(tmpdir))
-        self.assertEqual(result, [])
-
-    def test_returns_only_pending_bundles(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "microlições" / "test-source"
-            path.mkdir(parents=True)
-            bundles = [
-                {"id": "b1", "reviewStatus": "pending"},
-                {"id": "b2", "reviewStatus": "approved"},
-                {"id": "b3", "reviewStatus": "pending"},
-            ]
-            (path / "ai-bundles.json").write_text(
-                json.dumps({"version": 1, "bundles": bundles}), encoding="utf-8"
-            )
-            result = MODULE.load_pending_bundles(Path(tmpdir))
-        pending_ids = [r["bundle"]["id"] for r in result]
-        self.assertIn("b1", pending_ids)
-        self.assertIn("b3", pending_ids)
-        self.assertNotIn("b2", pending_ids)
-
-    def test_result_includes_file_path(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "quizzes" / "test-source"
-            path.mkdir(parents=True)
-            (path / "ai-bundles.json").write_text(
-                json.dumps({"version": 1, "bundles": [{"id": "b1", "reviewStatus": "pending"}]}),
-                encoding="utf-8",
-            )
-            result = MODULE.load_pending_bundles(Path(tmpdir))
-        self.assertIn("path", result[0])
-        self.assertIn("ai-bundles.json", str(result[0]["path"]))
-
-
-if __name__ == "__main__":
-    unittest.main()
-```
-
-- [ ] **Step 3.2: Rodar e confirmar que falha**
-
-```bash
-python -m pytest scripts/content/evaluate-bundles.test.py -v
-```
-
-Expected: FAIL.
-
-- [ ] **Step 3.3: Implementar `evaluate-bundles.py`**
-
-Criar `scripts/content/evaluate-bundles.py`:
-
-```python
-from __future__ import annotations
-
-import json
-from datetime import datetime, timezone
-from pathlib import Path
-
-from openai import OpenAI
-
-REPO_ROOT = Path(__file__).resolve().parents[2]
-CONTENT_ROOT = REPO_ROOT / "conteúdo"
-FORMATS_ROOT = CONTENT_ROOT / "formatos"
-QUALITY_THRESHOLD = 0.70
-
-_SYSTEM_PROMPT = (
-    "Você é um avaliador especialista em qualidade de material didático de radiologia. "
-    "Avalie o bundle pedagógico fornecido. "
-    "Responda APENAS com um objeto JSON válido, sem texto fora do JSON."
-)
-
-
-def apply_quality_status(bundle: dict, scores: dict) -> dict:
-    avg = sum(scores.values()) / len(scores)
-    return {
-        **bundle,
-        "qualityScore": round(avg, 3),
-        "qualityBreakdown": {k: round(v, 3) for k, v in scores.items()},
-        "reviewStatus": "approved" if avg >= QUALITY_THRESHOLD else "needs-review",
-        "evaluatedAt": datetime.now(timezone.utc).isoformat(),
-    }
-
-
-def load_pending_bundles(formats_root: Path = FORMATS_ROOT) -> list[dict]:
-    """Return list of dicts with keys: bundle, path, index."""
-    result = []
-    for ai_bundles_path in formats_root.glob("*/*/ai-bundles.json"):
-        data = json.loads(ai_bundles_path.read_text(encoding="utf-8"))
-        for i, bundle in enumerate(data["bundles"]):
-            if bundle.get("reviewStatus") == "pending":
-                result.append({"bundle": bundle, "path": ai_bundles_path, "index": i})
-    return result
-
-
-def evaluate_bundle(bundle: dict, client: OpenAI) -> dict:
-    prompt = (
-        f"Avalie este bundle pedagógico de radiologia:\n\n"
-        f"Tipo: {bundle['formatType']}\n"
-        f"Conteúdo gerado: {json.dumps(bundle.get('aiContent', {}), ensure_ascii=False)}\n\n"
-        f"Retorne um objeto JSON com exatamente estas três chaves:\n"
-        f'"clarity": número 0.0-1.0 (clareza e acessibilidade do conteúdo para estudantes de radiologia),\n'
-        f'"coherence": número 0.0-1.0 (coerência do conteúdo com um conceito educacional de radiologia),\n'
-        f'"format_adherence": número 0.0-1.0 (aderência ao formato esperado para {bundle["formatType"]})'
-    )
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": _SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        max_tokens=256,
-    )
-    return json.loads(response.choices[0].message.content)
-
-
-def save_updated_bundle(entry: dict, updated_bundle: dict) -> None:
-    path: Path = entry["path"]
-    idx: int = entry["index"]
-    data = json.loads(path.read_text(encoding="utf-8"))
-    data["bundles"][idx] = updated_bundle
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
-
-
-def run() -> None:
-    client = OpenAI()
-    pending = load_pending_bundles()
-
-    if not pending:
-        print("No pending bundles to evaluate.")
-        return
-
-    print(f"Evaluating {len(pending)} pending bundles...")
-    approved = 0
-    needs_review = 0
-
-    for entry in pending:
-        bundle = entry["bundle"]
-        scores = evaluate_bundle(bundle, client)
-        updated = apply_quality_status(bundle, scores)
-        save_updated_bundle(entry, updated)
-        status = updated["reviewStatus"]
-        score = updated["qualityScore"]
-        print(f"  {bundle['id'].split(':')[-2]} [{bundle['formatType']}]: {score:.2f} → {status}")
-        if status == "approved":
-            approved += 1
-        else:
-            needs_review += 1
-
-    print(f"\nDone: {approved} approved, {needs_review} needs-review (threshold: {QUALITY_THRESHOLD})")
-
-
-if __name__ == "__main__":
-    run()
-```
-
-- [ ] **Step 3.4: Rodar e confirmar que passa**
-
-```bash
-python -m pytest scripts/content/evaluate-bundles.test.py -v
-```
-
-Expected: PASS — 9 tests passing.
-
-- [ ] **Step 3.5: Testar execução real (requer `OPENAI_API_KEY` e ai-bundles.json existentes)**
-
-```bash
-OPENAI_API_KEY=<key> python scripts/content/evaluate-bundles.py
-```
-
-Expected output example:
-```
-Evaluating 16 pending bundles...
-  profissao-e-atuacao [microlições]: 0.84 → approved
-  energia-e-materia [microlições]: 0.76 → approved
-  ...
-Done: 13 approved, 3 needs-review (threshold: 0.7)
-```
-
-Verificar bundles atualizados:
-
-```bash
-python3 -c "
-import json
-from pathlib import Path
-data = json.load(open('conteúdo/formatos/microlições/fundamentos-de-radiologia-everton-costa-pinto/ai-bundles.json'))
-for b in data['bundles'][:3]:
-    print(f\"{b['id'].split(':')[-2]}: {b['reviewStatus']} (score={b.get('qualityScore')})\")
-"
-```
-
-- [ ] **Step 3.6: Commit**
-
-```bash
-git add scripts/content/evaluate-bundles.py scripts/content/evaluate-bundles.test.py
-git commit -m "feat: add LLM-as-judge bundle evaluator with quality threshold"
-```
-
----
-
 ## Validação ponta a ponta do Plano 2
 
-Rodar a suíte completa do plano:
+Rodar a suíte de testes do plano:
 
 ```bash
-python -m pytest \
-  scripts/content/ai-generate-formats.test.py \
-  scripts/content/evaluate-bundles.test.py \
-  -v
+python3 scripts/content/ai-generate-formats.test.py -v
 ```
 
-Expected: todos passando.
+Expected: 12 tests passing.
 
-Pipeline completo do Plano 2:
+Pipeline completo do Plano 2 (ambas as chaves necessárias):
 
 ```bash
-# Gerar todos os formatos AI (requer ANTHROPIC_API_KEY)
-ANTHROPIC_API_KEY=<key> python scripts/content/ai-generate-formats.py
-
-# Avaliar todos os bundles gerados (requer OPENAI_API_KEY)
-OPENAI_API_KEY=<key> python scripts/content/evaluate-bundles.py
+ANTHROPIC_API_KEY=<key> OPENAI_API_KEY=<key> python3 scripts/content/ai-generate-formats.py
 ```
 
 Estado esperado após execução:
 
 | Artefato | Verificação |
 |---|---|
-| `formatos/microlições/<source>/ai-bundles.json` | 16 bundles, reviewStatus não é "pending" |
-| `formatos/quizzes/<source>/ai-bundles.json` | 16 bundles, questões com 4 opções e explicação |
-| Bundles approved | qualityScore >= 0.70 |
-| Bundles needs-review | qualityScore < 0.70, visíveis no painel (Plano 3) |
+| `formatos/microlições/<source>/ai-bundles.json` | Bundles com `reviewStatus: "pending"`, prontos para o painel editorial |
+| `formatos/quizzes/<source>/ai-bundles.json` | Bundles com questões de 4 opções e explicação |
+| `formatos/casos/<source>/ai-bundles.json` | Bundles com `scenario`, `finding`, `question` |
+| `generationStrategy` | `"ai-split-v1"` em todos os arquivos |
+
+Verificar um bundle gerado:
+
+```bash
+python3 -c "
+import json
+from pathlib import Path
+import glob
+files = list(Path('conteúdo/formatos/microlições').glob('*/ai-bundles.json'))
+if files:
+    data = json.load(open(files[0]))
+    b = data['bundles'][0]
+    print('ID:', b['id'])
+    print('Status:', b['reviewStatus'])
+    print('Strategy:', data['generationStrategy'])
+    print('Content keys:', list(b['aiContent'].keys()))
+"
+```
