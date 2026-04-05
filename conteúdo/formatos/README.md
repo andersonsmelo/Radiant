@@ -12,6 +12,8 @@ O primeiro ciclo do pipeline já chega até aqui com o livro-piloto `Fundamentos
 - `quizzes/`
 - `reviews/`
 - `casos/`
+- `checkpoints/`
+- `rewards/`
 
 ## Regras
 

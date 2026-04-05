@@ -15,6 +15,19 @@
       }
     },
     {
+      "id": "generate:checkpoints:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "formatType": "checkpoints",
+      "status": "generated",
+      "strategy": "deterministic-concept-format-v1",
+      "artifacts": {
+        "bundles": "formatos/checkpoints/fundamentos-de-radiologia-everton-costa-pinto/bundles.json",
+        "bundleCount": 16,
+        "needsReviewCount": 7
+      }
+    },
+    {
       "id": "generate:microlições:fundamentos-de-radiologia-everton-costa-pinto",
       "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
       "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
@@ -49,6 +62,19 @@
       "strategy": "deterministic-concept-format-v1",
       "artifacts": {
         "bundles": "formatos/reviews/fundamentos-de-radiologia-everton-costa-pinto/bundles.json",
+        "bundleCount": 16,
+        "needsReviewCount": 7
+      }
+    },
+    {
+      "id": "generate:rewards:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "formatType": "rewards",
+      "status": "generated",
+      "strategy": "deterministic-concept-format-v1",
+      "artifacts": {
+        "bundles": "formatos/rewards/fundamentos-de-radiologia-everton-costa-pinto/bundles.json",
         "bundleCount": 16,
         "needsReviewCount": 7
       }
