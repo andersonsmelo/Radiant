@@ -1,0 +1,1299 @@
+{
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "formatType": "checkpoints",
+  "generationStrategy": "deterministic-concept-format-v1",
+  "taxonomyVersion": "mvp-2026-04-04",
+  "bundleCount": 16,
+  "needsReviewCount": 7,
+  "bundles": [
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Profissão e atuação do técnico em radiologia",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p2:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p3:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "conceptTitle": "Profissão e atuação do técnico em radiologia",
+        "checkpointPrompt": "Complete o checkpoint de profissão e atuação do técnico em radiologia antes de seguir.",
+        "completionCriteria": [
+          "Reconhece profissão e atuação do técnico em radiologia sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como equipamentos, equipamento."
+        ],
+        "keySignals": [
+          "equipamentos",
+          "equipamento",
+          "aparelhos"
+        ],
+        "sourcePages": [
+          1,
+          2,
+          3
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina profissão e atuação do técnico em radiologia."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece profissão e atuação do técnico em radiologia sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como equipamentos, equipamento."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "equipamentos",
+              "equipamento",
+              "aparelhos"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 1-3",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Energia e matéria",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p4:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p5:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p6:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:energia-e-materia",
+        "conceptTitle": "Energia e matéria",
+        "checkpointPrompt": "Complete o checkpoint de energia e matéria antes de seguir.",
+        "completionCriteria": [
+          "Reconhece energia e matéria sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como equipamentos, aparelhos."
+        ],
+        "keySignals": [
+          "equipamentos",
+          "aparelhos",
+          "energia"
+        ],
+        "sourcePages": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina energia e matéria."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece energia e matéria sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como equipamentos, aparelhos."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "equipamentos",
+              "aparelhos",
+              "energia"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 4-7",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Estrutura da matéria e núcleo atômico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p8:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p9:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p10:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p11:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:estrutura-da-materia-e-nucleo-atomico",
+        "conceptTitle": "Estrutura da matéria e núcleo atômico",
+        "checkpointPrompt": "Complete o checkpoint de estrutura da matéria e núcleo atômico antes de seguir.",
+        "completionCriteria": [
+          "Reconhece estrutura da matéria e núcleo atômico sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como nêutrons, neutrons."
+        ],
+        "keySignals": [
+          "nêutrons",
+          "neutrons",
+          "absorção"
+        ],
+        "sourcePages": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina estrutura da matéria e núcleo atômico."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece estrutura da matéria e núcleo atômico sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como nêutrons, neutrons."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "nêutrons",
+              "neutrons",
+              "absorção"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 8-11",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Radioatividade, partículas e atividade",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p12:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p13:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p14:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:radioatividade-particulas-e-atividade",
+        "conceptTitle": "Radioatividade, partículas e atividade",
+        "checkpointPrompt": "Complete o checkpoint de radioatividade, partículas e atividade antes de seguir.",
+        "completionCriteria": [
+          "Reconhece radioatividade, partículas e atividade sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como radiação, radiacao."
+        ],
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "filme"
+        ],
+        "sourcePages": [
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina radioatividade, partículas e atividade."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece radioatividade, partículas e atividade sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como radiação, radiacao."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "radiação",
+              "radiacao",
+              "filme"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 12-16",
+              "Fontes associadas: 8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Raios X: descoberta e propriedades",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p17:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p18:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p19:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p20:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:raios-x-descoberta-e-propriedades",
+        "conceptTitle": "Raios X: descoberta e propriedades",
+        "checkpointPrompt": "Complete o checkpoint de raios x: descoberta e propriedades antes de seguir.",
+        "completionCriteria": [
+          "Reconhece raios x: descoberta e propriedades sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como aparelhos, tela."
+        ],
+        "keySignals": [
+          "aparelhos",
+          "tela",
+          "raios x"
+        ],
+        "sourcePages": [
+          17,
+          18,
+          19,
+          20
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina raios x: descoberta e propriedades."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece raios x: descoberta e propriedades sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como aparelhos, tela."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "aparelhos",
+              "tela",
+              "raios x"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 17-20",
+              "Fontes associadas: 5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Interação das radiações e proteção radiológica",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p21:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p22:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p24:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p57:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p58:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p59:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:interacao-das-radiacoes-e-protecao-radiologica",
+        "conceptTitle": "Interação das radiações e proteção radiológica",
+        "checkpointPrompt": "Complete o checkpoint de interação das radiações e proteção radiológica antes de seguir.",
+        "completionCriteria": [
+          "Reconhece interação das radiações e proteção radiológica sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como radiação, radiacao."
+        ],
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "sourcePages": [
+          21,
+          22,
+          23,
+          24,
+          25,
+          57,
+          58,
+          59
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina interação das radiações e proteção radiológica."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece interação das radiações e proteção radiológica sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como radiação, radiacao."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "radiação",
+              "radiacao",
+              "dose"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 21-25, p. 57-59",
+              "Fontes associadas: 10"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Aplicações radioisotópicas e medicina nuclear",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p26:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p27:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p28:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p29:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p31:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p39:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p40:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "conceptTitle": "Aplicações radioisotópicas e medicina nuclear",
+        "checkpointPrompt": "Complete o checkpoint de aplicações radioisotópicas e medicina nuclear antes de seguir.",
+        "completionCriteria": [
+          "Reconhece aplicações radioisotópicas e medicina nuclear sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como radiação, radiacao."
+        ],
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "dose"
+        ],
+        "sourcePages": [
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          39,
+          40
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina aplicações radioisotópicas e medicina nuclear."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece aplicações radioisotópicas e medicina nuclear sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como radiação, radiacao."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "radiação",
+              "radiacao",
+              "dose"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 26-32, p. 39-40",
+              "Fontes associadas: 12"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Tomografia computadorizada",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p33:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:tomografia-computadorizada",
+        "conceptTitle": "Tomografia computadorizada",
+        "checkpointPrompt": "Complete o checkpoint de tomografia computadorizada antes de seguir.",
+        "completionCriteria": [
+          "Reconhece tomografia computadorizada sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como detector, coluna."
+        ],
+        "keySignals": [
+          "detector",
+          "coluna",
+          "raios x"
+        ],
+        "sourcePages": [
+          33,
+          34
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina tomografia computadorizada."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece tomografia computadorizada sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como detector, coluna."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "detector",
+              "coluna",
+              "raios x"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 33-34",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Ressonância magnética",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p35:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c3",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p37:c4",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p38:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:ressonancia-magnetica",
+        "conceptTitle": "Ressonância magnética",
+        "checkpointPrompt": "Complete o checkpoint de ressonância magnética antes de seguir.",
+        "completionCriteria": [
+          "Reconhece ressonância magnética sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como aparelho, radiação."
+        ],
+        "keySignals": [
+          "aparelho",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          35,
+          36,
+          37,
+          38
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina ressonância magnética."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece ressonância magnética sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como aparelho, radiação."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "aparelho",
+              "radiação",
+              "radiacao"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 35-38",
+              "Fontes associadas: 9"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Preservação de alimentos por irradiação",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p41:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p42:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:preservacao-de-alimentos-por-irradicao",
+        "conceptTitle": "Preservação de alimentos por irradiação",
+        "checkpointPrompt": "Complete o checkpoint de preservação de alimentos por irradiação antes de seguir.",
+        "completionCriteria": [
+          "Reconhece preservação de alimentos por irradiação sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como radiação, radiacao."
+        ],
+        "keySignals": [
+          "radiação",
+          "radiacao",
+          "segurança"
+        ],
+        "sourcePages": [
+          41,
+          42
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina preservação de alimentos por irradiação."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece preservação de alimentos por irradiação sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como radiação, radiacao."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "radiação",
+              "radiacao",
+              "segurança"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 41-42",
+              "Fontes associadas: 4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Equipamentos de radiologia convencional",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p43:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p45:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p46:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:equipamentos-de-radiologia-convencional",
+        "conceptTitle": "Equipamentos de radiologia convencional",
+        "checkpointPrompt": "Complete o checkpoint de equipamentos de radiologia convencional antes de seguir.",
+        "completionCriteria": [
+          "Reconhece equipamentos de radiologia convencional sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como equipamento, equipamentos."
+        ],
+        "keySignals": [
+          "equipamento",
+          "equipamentos",
+          "mesa"
+        ],
+        "sourcePages": [
+          43,
+          44,
+          45,
+          46
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina equipamentos de radiologia convencional."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece equipamentos de radiologia convencional sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como equipamento, equipamentos."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "equipamento",
+              "equipamentos",
+              "mesa"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 43-46",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Componentes básicos do equipamento",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p47:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p48:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:componentes-basicos-do-equipamento",
+        "conceptTitle": "Componentes básicos do equipamento",
+        "checkpointPrompt": "Complete o checkpoint de componentes básicos do equipamento antes de seguir.",
+        "completionCriteria": [
+          "Reconhece componentes básicos do equipamento sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como equipamento, filme."
+        ],
+        "keySignals": [
+          "equipamento",
+          "filme",
+          "mesa"
+        ],
+        "sourcePages": [
+          47,
+          48,
+          49
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina componentes básicos do equipamento."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece componentes básicos do equipamento sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como equipamento, filme."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "equipamento",
+              "filme",
+              "mesa"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 47-49",
+              "Fontes associadas: 5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Acessórios radiológicos",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p50:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p51:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p52:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p53:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p54:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:acessorios-radiologicos",
+        "conceptTitle": "Acessórios radiológicos",
+        "checkpointPrompt": "Complete o checkpoint de acessórios radiológicos antes de seguir.",
+        "completionCriteria": [
+          "Reconhece acessórios radiológicos sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como filme, equipamento."
+        ],
+        "keySignals": [
+          "filme",
+          "equipamento",
+          "acessório"
+        ],
+        "sourcePages": [
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          60
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina acessórios radiológicos."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece acessórios radiológicos sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como filme, equipamento."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "filme",
+              "equipamento",
+              "acessório"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 50-55, p. 60",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Processamento radiográfico",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "needs-review",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p56:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p66:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p68:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:processamento-radiografico",
+        "conceptTitle": "Processamento radiográfico",
+        "checkpointPrompt": "Complete o checkpoint de processamento radiográfico antes de seguir.",
+        "completionCriteria": [
+          "Reconhece processamento radiográfico sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como filme, dose."
+        ],
+        "keySignals": [
+          "filme",
+          "dose",
+          "radiação"
+        ],
+        "sourcePages": [
+          56,
+          61,
+          66,
+          67,
+          68,
+          69
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina processamento radiográfico."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece processamento radiográfico sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como filme, dose."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "filme",
+              "dose",
+              "radiação"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 56, p. 61, p. 66-69",
+              "Fontes associadas: 8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Produção dos raios X",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p62:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p63:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p64:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p65:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:producao-dos-raios-x",
+        "conceptTitle": "Produção dos raios X",
+        "checkpointPrompt": "Complete o checkpoint de produção dos raios x antes de seguir.",
+        "completionCriteria": [
+          "Reconhece produção dos raios x sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como filme, radiação."
+        ],
+        "keySignals": [
+          "filme",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          62,
+          63,
+          64,
+          65
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina produção dos raios x."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece produção dos raios x sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como filme, radiação."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "filme",
+              "radiação",
+              "radiacao"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 62-65",
+              "Fontes associadas: 7"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "format:checkpoints:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem",
+      "formatType": "checkpoints",
+      "title": "Checkpoint: Qualidade de imagem",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "taxonomyVersion": "mvp-2026-04-04",
+      "generationStrategy": "deterministic-concept-format-v1",
+      "reviewStatus": "approved",
+      "conceptIds": [
+        "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem"
+      ],
+      "sourceExcerptIds": [
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p70:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p72:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p73:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c1",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p74:c2",
+        "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p75:c1"
+      ],
+      "payload": {
+        "conceptId": "concept:fundamentos-de-radiologia-everton-costa-pinto:qualidade-de-imagem",
+        "conceptTitle": "Qualidade de imagem",
+        "checkpointPrompt": "Complete o checkpoint de qualidade de imagem antes de seguir.",
+        "completionCriteria": [
+          "Reconhece qualidade de imagem sem trocar a estrela de referência.",
+          "Explica o conceito em uma frase curta usando a definição canônica.",
+          "Aponta sinais como filme, radiação."
+        ],
+        "keySignals": [
+          "filme",
+          "radiação",
+          "radiacao"
+        ],
+        "sourcePages": [
+          70,
+          71,
+          72,
+          73,
+          74,
+          75
+        ],
+        "blocks": [
+          {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": "Antes de avançar, valide se você realmente domina qualidade de imagem."
+          },
+          {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": [
+              "Reconhece qualidade de imagem sem trocar a estrela de referência.",
+              "Explica o conceito em uma frase curta usando a definição canônica.",
+              "Aponta sinais como filme, radiação."
+            ]
+          },
+          {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": [
+              "filme",
+              "radiação",
+              "radiacao"
+            ]
+          },
+          {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": [
+              "Trechos-base: p. 70-75",
+              "Fontes associadas: 11"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
