@@ -27,6 +27,8 @@ Estado prático atual:
 - o app já possui bootstrap de sessão com estados explícitos de loading/erro, fila local de sync com retry e flush idempotente e operação local-first mesmo sob falha remota;
 - `radiant-app/src/app` é a árvore oficial de rotas; a pasta legada `radiant-app/app` não é a raiz vigente do produto;
 - a `Learning Road V2` já possui `Journey Home`, `Lesson Flow`, `Checkpoint` e `Reward` dedicados atrás de flag;
+- a `Learning Road V2` agora lê as trilhas do catálogo runtime e suporta seleção real entre `Fundamentos`, `Tórax` e `Abdome`;
+- o progresso da jornada usa `journey-progress.v2`, com progresso persistido por trilha e migração segura do store legado `journey-progress.v1`;
 - a tela `Progresso` permanece como superfície operacional útil para homologação e agora concentra também o reset local da Learning Road V2 em builds não-produtivas;
 - o runtime de App Store já mede `first_value_moment_reached`, tenta `rating prompt` nos momentos elegíveis e evita empilhar review prompt com paywall na mesma sessão de sucesso;
 - o paywall contextual já roda em `reward`, `quiz` e `checkpoint`, com captura local-first de interesse de upgrade e telemetria de `paywall_view`, `paywall_cta_tap` e `paywall_outcome`;
@@ -41,6 +43,7 @@ Estado prático atual:
 - existe agora um fluxo oficial de snapshot operacional via `npm run app-store:ops-save`, `npm run app-store:ops-check` e `npm run app-store:ops-check:strict`;
 - o bypass de beta gate para homologação (`ios:v2`) está ativo para não bloquear o fluxo de prova operacional.
 - a fundação editorial em `conteúdo/` completou o ciclo ponta a ponta: geração → aprovação → promoção → integração no app.
+- a Wave 1 de expansão de trilhas está refletida no app, no painel editorial, na API de catálogo e nos smokes locais.
 
 Estado editorial atual:
 
@@ -52,6 +55,9 @@ Estado editorial atual:
 - `96` bundles gerados e aprovados — `0` em `needs-review`;
 - `catalog-payload.json` v1.0.0 promovido com todos os `96` bundles;
 - `16` lições AI ativas no catálogo do app como track primário (`radiant-app/src/data/ai-lessons.ts`);
+- `3` trilhas prioritárias expostas no manifesto runtime: `Fundamentos`, `Tórax` e `Abdome`;
+- prontidão Wave 1 derivada dos bundles aprovados: `18/18` lições prontas nas três trilhas prioritárias;
+- o mesmo catálogo promovido agora também já gera o seed remoto da API em `radiant-api/sql/003_seed_editorial_catalog.sql`;
 - validação oficial da fundação editorial via `node scripts/content/validate-foundation.mjs`.
 
 Bloqueios operacionais atuais verificados:
@@ -120,6 +126,7 @@ Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repe
     content/
       promote-to-catalog.mjs
       sync-catalog-to-app.mjs
+      sync-catalog-to-api.mjs
       generate-local-bundles.py
       validate-foundation.mjs
   tools/
@@ -135,6 +142,7 @@ Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repe
   radiant-api/
     deploy/
     sql/
+      003_seed_editorial_catalog.sql  ← AUTO-GENERATED from catalog-payload
     src/
 ```
 
@@ -149,6 +157,7 @@ Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repe
 - Status de execução atualizado (2026-04-03): [docs/EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
 - Status de execução atualizado (2026-04-04): [docs/EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
 - Status de execução atualizado (2026-04-05): [docs/EXECUTION_STATUS_2026-04-05.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-05.md)
+- Status de execução atualizado (2026-04-09): [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
 - Regras de engenharia e mapa da documentação: [docs/README.md](/Users/anderson/Documents/Radiant/docs/README.md)
 - Plano de implementação: [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md)
 - Fundação editorial de conteúdo: [conteúdo/README.md](/Users/anderson/Documents/Radiant/conteúdo/README.md)
@@ -174,6 +183,8 @@ Pontos principais:
 - sistema oficial do mascote `Pixel` com resolver de assets e hero compartilhado entre superfícies principais;
 - `src/app/` como router root oficial;
 - nova jornada V2 com rotas dedicadas `/learn`, `/checkpoint`, `/reward`, `/quiz` e `/review`;
+- prateleira `Trilhas disponíveis` na `Journey Home`, conectada ao catálogo e à seleção real de trilha;
+- store local de progresso da jornada por trilha, preservando avanço ao alternar entre trilhas;
 - superfícies técnicas controladas por ambiente, sem depender de telas de debug para uso normal;
 - camada de App Store já operacional no runtime com:
   - `first_value_moment_reached`;
@@ -202,7 +213,7 @@ Pontos principais:
   - `EXPO_PUBLIC_ENABLE_BETA_GATE`
   - `EXPO_PUBLIC_BETA_INVITE_CODE`
 
-O endpoint remoto de catálogo já existe para smoke e operação, mas o app continua tratando o catálogo local como fonte oficial até haver paridade completa do manifesto remoto consumido pelo cliente.
+O endpoint remoto de catálogo já existe para smoke e operação. O catálogo promovido em `conteúdo/` agora já sincroniza tanto os artefatos locais do app quanto o seed remoto da API, enquanto o cliente continua local-first e só troca para o remoto quando a flag estiver habilitada.
 
 Qualidade e release do app:
 
