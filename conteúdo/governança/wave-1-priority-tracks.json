@@ -1,0 +1,53 @@
+{
+  "version": "wave-1-2026-04-09",
+  "tracks": [
+    {
+      "id": "track-radiology-foundations",
+      "slug": "fundamentos",
+      "title": "Fundamentos",
+      "priority": 1,
+      "goal": "Fechar a base do app para onboarding e primeiras sessoes.",
+      "description": "Base inicial para onboarding, contexto e primeiras sessoes.",
+      "lessonIds": [
+        "lesson-1",
+        "lesson-2",
+        "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "ai-lesson:energia-e-materia",
+        "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+        "ai-lesson:radioatividade-particulas-e-atividade",
+        "ai-lesson:raios-x-descoberta-e-propriedades"
+      ]
+    },
+    {
+      "id": "track-thorax-patterns",
+      "slug": "torax",
+      "title": "Tórax",
+      "priority": 2,
+      "goal": "Abrir a primeira expansao com leitura de padroes de alto valor percebido.",
+      "description": "Expansao guiada com foco em padroes, visao seccional e leitura toracica.",
+      "lessonIds": [
+        "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+        "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "ai-lesson:tomografia-computadorizada",
+        "ai-lesson:ressonancia-magnetica",
+        "ai-lesson:equipamentos-de-radiologia-convencional",
+        "ai-lesson:componentes-basicos-do-equipamento"
+      ]
+    },
+    {
+      "id": "track-abdomen-essentials",
+      "slug": "abdome",
+      "title": "Abdome",
+      "priority": 3,
+      "goal": "Completar a cesta inicial com uma progressao coerente para a expansao.",
+      "description": "Bloco de suporte para consolidar leitura aplicada e acabamento do catalogo.",
+      "lessonIds": [
+        "ai-lesson:preservacao-de-alimentos-por-irradicao",
+        "ai-lesson:acessorios-radiologicos",
+        "ai-lesson:processamento-radiografico",
+        "ai-lesson:producao-dos-raios-x",
+        "ai-lesson:qualidade-de-imagem"
+      ]
+    }
+  ]
+}

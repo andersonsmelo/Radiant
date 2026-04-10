@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "extract:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "status": "extracted",
+      "strategy": "pypdf-embedded-text",
+      "artifacts": {
+        "pages": "extrações/fundamentos-de-radiologia-everton-costa-pinto/pages.json",
+        "excerpts": "extrações/fundamentos-de-radiologia-everton-costa-pinto/excerpts.json",
+        "pageCount": 75,
+        "excerptCount": 109
+      }
+    }
+  ]
+}

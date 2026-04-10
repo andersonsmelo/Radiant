@@ -1,0 +1,23 @@
+{
+  "version": "wave-1-2026-04-09",
+  "tracks": [
+    {
+      "trackId": "track-radiology-foundations",
+      "bundlesReady": 0,
+      "bundlesInReview": 0,
+      "bundlesBlocked": 0
+    },
+    {
+      "trackId": "track-thorax-patterns",
+      "bundlesReady": 0,
+      "bundlesInReview": 0,
+      "bundlesBlocked": 0
+    },
+    {
+      "trackId": "track-abdomen-essentials",
+      "bundlesReady": 0,
+      "bundlesInReview": 0,
+      "bundlesBlocked": 0
+    }
+  ]
+}

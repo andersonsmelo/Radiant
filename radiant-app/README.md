@@ -92,6 +92,7 @@ Estado atual:
 - Home alternativa da trilha em `src/features/journey/screens/JourneyHomeScreen.tsx`;
 - prateleira `Trilhas disponíveis` em `src/features/journey/components/JourneyTrackShelf.tsx`;
 - cards acionáveis de trilha em `src/features/journey/components/JourneyTrackCard.tsx`;
+- estado inline de trilha pausada quando não existe próximo nó elegível para abrir;
 - `lesson-flow` declarativo já remodelado visualmente em `src/features/lesson-flow/*`;
 - `checkpoint` dedicado navegável pela rota `/checkpoint`;
 - `reward` dedicado navegável pela rota `/reward`;
@@ -103,6 +104,7 @@ Status funcional:
 - a flag continua desligada por padrão;
 - com a flag ativa, a Home troca para a trilha nova;
 - a Home mostra as trilhas disponíveis e abre o próximo nó real da trilha selecionada;
+- quando não houver próximo nó elegível, a Home mantém a trilha ativa e explica o estado no próprio fluxo;
 - cada trilha monta sua própria definição de nós a partir das lições do catálogo;
 - `checkpoint` já possui flow dedicado e persiste conclusão localmente;
 - `reward` já possui flow dedicado e persiste a conquista localmente;
@@ -398,11 +400,12 @@ Esse reset limpa o estado local relevante para repetir o smoke:
 2. A rota inicial cai na `Journey Home`.
 3. A seção `Trilhas disponíveis` mostra `Fundamentos`, `Tórax` e `Abdome`.
 4. Tocar em uma trilha muda a trilha ativa e abre o próximo nó elegível.
-5. O `Lesson Flow` avança sem travar.
-6. O `Checkpoint` conclui e libera o próximo passo.
-7. `Quiz` e `Review` continuam navegáveis dentro do chrome V2.
-8. Fechar e reabrir o app preserva o progresso local por trilha.
-9. A aba `Progresso` mostra `Sync remoto: desativado` sem erro operacional.
+5. Se a trilha não tiver próximo nó elegível, a `Journey Home` mostra o estado inline sem `Alert`.
+6. O `Lesson Flow` avança sem travar.
+7. O `Checkpoint` conclui e libera o próximo passo.
+8. `Quiz` e `Review` continuam navegáveis dentro do chrome V2.
+9. Fechar e reabrir o app preserva o progresso local por trilha.
+10. A aba `Progresso` mostra `Sync remoto: desativado` sem erro operacional.
 
 ### Evidências mínimas
 
@@ -410,6 +413,7 @@ Capture pelo menos estas telas durante a homologação:
 
 - `Journey Home`
 - `Journey Home` com prateleira de trilhas
+- `Journey Home` com estado inline de trilha sem próximo passo
 - `Lesson Flow`
 - `Checkpoint` concluído
 
@@ -478,6 +482,7 @@ Esse preflight valida:
 Estado operacional atual:
 
 - homologação em simulador já é viável com `xcodebuild` e `simctl` funcionando localmente;
+- a build iOS nativa já foi revalidada em `iPhone 17` com `expo run:ios` e `ios:v2` conectando no bundle atual;
 - smoke principal de produto já está documentado com captura de `cold start`, `auth restore`, `quiz`, `review`, `journey` e `progresso/sync`;
 - o próximo gap de release continua sendo a validação completa em dispositivo real e o fechamento do fluxo Apple de distribuição.
 

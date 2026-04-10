@@ -41,11 +41,24 @@ export type QuizQuestion = {
   hint?: string;
 };
 
+export type QuizLessonJourneyStageCopy = {
+  questionIndex?: number;
+  contextBody?: string;
+  teachBody?: string;
+  reinforceBody?: string;
+};
+
+export type QuizLessonJourneyCopy = {
+  intro?: QuizLessonJourneyStageCopy;
+  review?: QuizLessonJourneyStageCopy;
+};
+
 export type QuizLesson = {
   id: QuizLessonId;
   title: string;
   difficulty: QuizDifficulty;
   questions: QuizQuestion[];
+  journey?: QuizLessonJourneyCopy;
 };
 
 export type QuizAnswerState = {

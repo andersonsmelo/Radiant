@@ -4,14 +4,31 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./*",
+        "./src/*"
       ]
     }
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "expo-env.d.ts",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "constants/**/*.ts",
+    "constants/**/*.tsx",
+    "hooks/**/*.ts",
+    "hooks/**/*.tsx",
+    "scripts/**/*.ts",
+    "scripts/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "docs",
+    "dist",
+    "coverage",
+    ".expo",
+    "**/* 2.*"
   ]
 }

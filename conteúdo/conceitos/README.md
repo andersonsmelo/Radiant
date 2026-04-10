@@ -19,3 +19,9 @@ Esta pasta guarda os conceitos canônicos consolidados a partir dos trechos já 
 ## Obra piloto atual
 
 - `Fundamentos de Radiologia` (`source:fundamentos-de-radiologia-everton-costa-pinto`)
+
+Snapshot atual do piloto:
+
+- `16` conceitos canônicos
+- `7` itens em `needs-review`
+- todos os conceitos preservam `sourceExcerptIds` e `sourceClassificationIds`

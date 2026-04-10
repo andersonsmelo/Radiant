@@ -46,5 +46,8 @@ export function registerSource({ inputPath }) {
     fileSizeBytes: stats ? stats.size : 0,
     ingestionStatus: 'registered',
     extractionStatus: 'pending',
+    classificationStatus: 'pending',
+    conceptStatus: 'pending',
+    formatStatus: 'pending',
   };
 }

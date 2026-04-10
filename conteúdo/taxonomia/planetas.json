@@ -11,7 +11,7 @@
   {
     "id": "planet-abdomen",
     "galaxyId": "galaxy-anatomia",
-    "slug": "abdomen",
+    "slug": "abdome",
     "title": "Abdome",
     "description": "Trilha longa principal para anatomia abdominal em imagem.",
     "trackKind": "long-form",

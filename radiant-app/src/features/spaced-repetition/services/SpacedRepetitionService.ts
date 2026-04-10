@@ -270,6 +270,53 @@ export class SpacedRepetitionService {
     }
 
     /**
+     * Returns all lesson ids that have any tracked SR card.
+     * Used by migration layers that need a stable notion of "already studied".
+     */
+    static async getTrackedLessonIds(): Promise<QuizLessonId[]> {
+        try {
+            const store = await this.loadStore();
+            return Object.keys(store.cards);
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting tracked lesson ids:', error);
+            return [];
+        }
+    }
+
+    static async getAllCards(): Promise<SRCardState[]> {
+        try {
+            const store = await this.loadStore();
+            return Object.values(store.cards).map((card) => this.deserializeCard(card));
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting all cards:', error);
+            return [];
+        }
+    }
+
+    static async getLatestRatingsByLesson(): Promise<Partial<Record<QuizLessonId, SRRating>>> {
+        try {
+            const store = await this.loadStore();
+            const latestByLesson: Partial<Record<QuizLessonId, SRReviewRecordPersisted>> = {};
+
+            for (const record of store.reviewHistory) {
+                const existing = latestByLesson[record.lessonId];
+                if (!existing || new Date(record.reviewedAt).getTime() >= new Date(existing.reviewedAt).getTime()) {
+                    latestByLesson[record.lessonId] = record;
+                }
+            }
+
+            return Object.fromEntries(
+                Object.entries(latestByLesson)
+                    .filter((entry): entry is [string, SRReviewRecordPersisted] => Boolean(entry[1]))
+                    .map(([lessonId, record]) => [lessonId, record.rating])
+            ) as Partial<Record<QuizLessonId, SRRating>>;
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting latest ratings by lesson:', error);
+            return {};
+        }
+    }
+
+    /**
      * Get all cards due for review
      */
     static async getDueCards(): Promise<SRCardState[]> {
@@ -298,6 +345,15 @@ export class SpacedRepetitionService {
         } catch (error) {
             console.error('[SpacedRepetitionService] Error getting due count:', error);
             return 0;
+        }
+    }
+
+    static async reset(): Promise<void> {
+        try {
+            await AsyncStorage.removeItem(SR_STORAGE_KEYS.SCHEDULE_STORE);
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error resetting store:', error);
+            throw error;
         }
     }
 }

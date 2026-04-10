@@ -41,8 +41,10 @@ export function JourneyTrackShelf({
       </View>
 
       <ScrollView
+        testID="journey-track-shelf"
         horizontal
         showsHorizontalScrollIndicator={false}
+        accessibilityLabel="Trilhas disponíveis do catálogo Radiant"
         contentContainerStyle={styles.trackList}
       >
         {tracks.map((track) => (

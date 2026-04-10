@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..', '..');
 const contentRoot = path.join(repoRoot, 'conteúdo');
+const wave1PriorityTracksPath = path.join(repoRoot, 'conteúdo', 'governança', 'wave-1-priority-tracks.json');
 
 function readJson(relativePath) {
   const absolutePath = path.join(contentRoot, relativePath);
@@ -19,15 +20,23 @@ function readJsonIfExists(relativePath) {
   return JSON.parse(fs.readFileSync(absolutePath, 'utf8'));
 }
 
+function pushMissingFile(errors, absolutePath, label) {
+  if (!fs.existsSync(absolutePath)) {
+    errors.push(`Missing ${label} at ${path.relative(repoRoot, absolutePath)}`);
+  }
+}
+
 export function validateFoundation() {
   const errors = [];
   const sourceIndex = readJson('fontes/index.json');
   const extractionIndex = readJson('extrações/index.json');
   const classificationIndex = readJson('classificação/index.json');
   const conceptIndex = readJsonIfExists('conceitos/index.json');
+  const formatIndex = readJsonIfExists('formatos/index.json');
   const galaxias = readJson('taxonomia/galaxias.json');
   const planetas = readJson('taxonomia/planetas.json');
   const estrelas = readJson('taxonomia/estrelas.json');
+  const wave1PriorityTracks = readJsonIfExists('governança/wave-1-priority-tracks.json');
   const schemaPaths = [
     'governança/esquemas/extraction-record.schema.json',
     'governança/esquemas/classification-record.schema.json',
@@ -39,18 +48,26 @@ export function validateFoundation() {
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
   const starIds = new Set(estrelas.map((item) => item.id));
+  const taxonomySlugs = {
+    galaxies: new Set(galaxias.map((item) => item.slug)),
+    planets: new Set(planetas.map((item) => item.slug)),
+    stars: new Set(estrelas.map((item) => item.slug)),
+  };
   const planetsById = new Map(planetas.map((item) => [item.id, item]));
   const starsById = new Map(estrelas.map((item) => [item.id, item]));
-  const supportedFormatTypes = new Set(['microlições', 'quizzes', 'reviews', 'casos']);
+  const supportedFormatTypes = new Set(['microlições', 'quizzes', 'reviews', 'casos', 'checkpoints', 'rewards']);
   const expectedBlockTypes = {
     'microlições': ['objective', 'summary', 'signals', 'evidence'],
     'reviews': ['prompt', 'recall', 'signals', 'evidence'],
     'casos': ['case', 'question', 'answer', 'evidence'],
+    'checkpoints': ['checkpoint', 'criteria', 'signals', 'evidence'],
+    'rewards': ['reward', 'reason', 'next-step', 'evidence'],
   };
   const sourceIds = new Set(sourceIndex.sources.map((item) => item.id));
   const extractionStatuses = extractionIndex.jobs.map((job) => job.status);
   const classificationStatuses = classificationIndex.jobs.map((job) => job.status);
   const conceptStatuses = conceptIndex ? conceptIndex.jobs.map((job) => job.status) : [];
+  const formatStatuses = formatIndex ? formatIndex.jobs.map((job) => job.status) : [];
   let extractedJobCount = 0;
   let extractedPageCount = 0;
   let extractedExcerptCount = 0;
@@ -66,6 +83,28 @@ export function validateFoundation() {
   const classificationById = new Map();
   const conceptById = new Map();
   const excerptById = new Map();
+  const extractionJobsBySourceId = new Map();
+  const classificationJobsBySourceId = new Map();
+  const conceptJobsBySourceId = new Map();
+  const formatJobsBySourceId = new Map();
+
+  for (const job of extractionIndex.jobs) {
+    extractionJobsBySourceId.set(job.sourceId, job);
+  }
+
+  for (const job of classificationIndex.jobs) {
+    classificationJobsBySourceId.set(job.sourceId, job);
+  }
+
+  for (const job of conceptIndex?.jobs ?? []) {
+    conceptJobsBySourceId.set(job.sourceId, job);
+  }
+
+  for (const job of formatIndex?.jobs ?? []) {
+    const jobs = formatJobsBySourceId.get(job.sourceId) ?? [];
+    jobs.push(job);
+    formatJobsBySourceId.set(job.sourceId, jobs);
+  }
 
   for (const job of extractionIndex.jobs) {
     if (job.status === 'extracted') {
@@ -90,6 +129,124 @@ export function validateFoundation() {
     }
     if (!planetIds.has(estrela.parentPlanetId)) {
       errors.push(`Star ${estrela.id} references unknown parent planet ${estrela.parentPlanetId}`);
+    }
+  }
+
+  pushMissingFile(errors, wave1PriorityTracksPath, 'wave 1 priority track contract');
+
+  if (wave1PriorityTracks) {
+    if (wave1PriorityTracks.version !== 'wave-1-2026-04-09') {
+      errors.push(`Wave 1 priority track contract has an unexpected version: ${wave1PriorityTracks.version}`);
+    }
+
+    if (!Array.isArray(wave1PriorityTracks.tracks) || wave1PriorityTracks.tracks.length < 3) {
+      errors.push('Wave 1 priority track contract must expose at least three tracks');
+    } else {
+      const seenTrackIds = new Set();
+      const seenTrackSlugs = new Set();
+
+      for (const track of wave1PriorityTracks.tracks) {
+        if (typeof track.id !== 'string' || track.id.length === 0) {
+          errors.push('Wave 1 priority track contract includes a track without an id');
+        }
+        if (typeof track.slug !== 'string' || track.slug.length === 0) {
+          errors.push(`Wave 1 track ${track.id ?? 'unknown'} is missing a slug`);
+        }
+        if (typeof track.title !== 'string' || track.title.length === 0) {
+          errors.push(`Wave 1 track ${track.id ?? 'unknown'} is missing a title`);
+        }
+        if (typeof track.goal !== 'string' || track.goal.length === 0) {
+          errors.push(`Wave 1 track ${track.id ?? 'unknown'} is missing a goal`);
+        }
+        if (typeof track.description !== 'string' || track.description.length === 0) {
+          errors.push(`Wave 1 track ${track.id ?? 'unknown'} is missing a description`);
+        }
+        if (!Array.isArray(track.lessonIds) || track.lessonIds.length === 0) {
+          errors.push(`Wave 1 track ${track.id ?? 'unknown'} must expose at least one lesson id`);
+        }
+        if (seenTrackIds.has(track.id)) {
+          errors.push(`Wave 1 priority track contract duplicates track id ${track.id}`);
+        }
+        if (seenTrackSlugs.has(track.slug)) {
+          errors.push(`Wave 1 priority track contract duplicates track slug ${track.slug}`);
+        }
+
+        seenTrackIds.add(track.id);
+        seenTrackSlugs.add(track.slug);
+      }
+
+      if (!taxonomySlugs.galaxies.has('fundamentos')) {
+        errors.push('Taxonomy galaxias.json is missing the fundamentos slug for wave 1');
+      }
+      if (!taxonomySlugs.planets.has('torax')) {
+        errors.push('Taxonomy planetas.json is missing the torax slug for wave 1');
+      }
+      if (!taxonomySlugs.planets.has('abdome')) {
+        errors.push('Taxonomy planetas.json is missing the abdome slug for wave 1');
+      }
+      if (!taxonomySlugs.stars.has('fundamentos')) {
+        errors.push('Taxonomy estrelas.json is missing the fundamentos slug for wave 1');
+      }
+      if (!taxonomySlugs.stars.has('torax')) {
+        errors.push('Taxonomy estrelas.json is missing the torax slug for wave 1');
+      }
+      if (!taxonomySlugs.stars.has('abdome')) {
+        errors.push('Taxonomy estrelas.json is missing the abdome slug for wave 1');
+      }
+    }
+  }
+
+  for (const source of sourceIndex.sources) {
+    const sourceRecord = readJsonIfExists(path.join('fontes', source.slug, 'source.json'));
+    const extractionJob = extractionJobsBySourceId.get(source.id);
+    const classificationJob = classificationJobsBySourceId.get(source.id);
+    const conceptJob = conceptJobsBySourceId.get(source.id);
+    const formatJobs = formatJobsBySourceId.get(source.id) ?? [];
+    const expectedExtractionStatus = extractionJob?.status ?? 'pending';
+    const expectedClassificationStatus = classificationJob?.status ?? 'pending';
+    const expectedConceptStatus = conceptJob?.status ?? 'pending';
+    const expectedFormatStatus = formatJobs.length > 0 && formatJobs.every((job) => job.status === 'generated')
+      ? 'generated'
+      : 'pending';
+
+    if (!sourceRecord) {
+      errors.push(`Source ${source.id} is missing fontes/${source.slug}/source.json`);
+      continue;
+    }
+
+    for (const field of ['id', 'slug', 'title', 'sourceType', 'relativePath']) {
+      if (sourceRecord[field] !== source[field]) {
+        errors.push(`Source ${source.id} has a mismatched ${field} between index.json and source.json`);
+      }
+    }
+
+    if (sourceRecord.ingestionStatus !== source.ingestionStatus) {
+      errors.push(`Source ${source.id} has a mismatched ingestionStatus between index.json and source.json`);
+    }
+    if (sourceRecord.extractionStatus !== source.extractionStatus) {
+      errors.push(`Source ${source.id} has a mismatched extractionStatus between index.json and source.json`);
+    }
+    if (sourceRecord.classificationStatus !== source.classificationStatus) {
+      errors.push(`Source ${source.id} has a mismatched classificationStatus between index.json and source.json`);
+    }
+    if (sourceRecord.conceptStatus !== source.conceptStatus) {
+      errors.push(`Source ${source.id} has a mismatched conceptStatus between index.json and source.json`);
+    }
+    if (sourceRecord.formatStatus !== source.formatStatus) {
+      errors.push(`Source ${source.id} has a mismatched formatStatus between index.json and source.json`);
+    }
+
+    if (source.extractionStatus !== expectedExtractionStatus) {
+      errors.push(`Source ${source.id} declares extractionStatus ${source.extractionStatus} but jobs resolve to ${expectedExtractionStatus}`);
+    }
+    if (source.classificationStatus !== expectedClassificationStatus) {
+      errors.push(`Source ${source.id} declares classificationStatus ${source.classificationStatus} but jobs resolve to ${expectedClassificationStatus}`);
+    }
+    if (source.conceptStatus !== expectedConceptStatus) {
+      errors.push(`Source ${source.id} declares conceptStatus ${source.conceptStatus} but jobs resolve to ${expectedConceptStatus}`);
+    }
+    if (source.formatStatus !== expectedFormatStatus) {
+      errors.push(`Source ${source.id} declares formatStatus ${source.formatStatus} but jobs resolve to ${expectedFormatStatus}`);
     }
   }
 
@@ -358,7 +515,6 @@ export function validateFoundation() {
     }
   }
 
-  const formatIndex = readJsonIfExists('formatos/index.json');
   if (formatIndex) {
     const formatJobs = Array.isArray(formatIndex.jobs) ? formatIndex.jobs : [];
     const seenFormatBundleIds = new Set();
@@ -507,6 +663,36 @@ export function validateFoundation() {
               } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
                 errors.push(`Format bundle ${bundle.id} case payload has an unexpected block structure`);
               }
+            } else if (bundle.formatType === 'checkpoints') {
+              if (typeof payload.checkpointPrompt !== 'string' || payload.checkpointPrompt.length === 0) {
+                errors.push(`Format bundle ${bundle.id} checkpoint payload is missing a prompt`);
+              }
+              if (!Array.isArray(payload.completionCriteria) || payload.completionCriteria.length === 0) {
+                errors.push(`Format bundle ${bundle.id} checkpoint payload is missing completion criteria`);
+              }
+              if (!Array.isArray(payload.keySignals) || payload.keySignals.length === 0) {
+                errors.push(`Format bundle ${bundle.id} checkpoint payload is missing key signals`);
+              }
+              if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
+                errors.push(`Format bundle ${bundle.id} checkpoint payload must have four blocks`);
+              } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
+                errors.push(`Format bundle ${bundle.id} checkpoint payload has an unexpected block structure`);
+              }
+            } else if (bundle.formatType === 'rewards') {
+              if (typeof payload.rewardLabel !== 'string' || payload.rewardLabel.length === 0) {
+                errors.push(`Format bundle ${bundle.id} reward payload is missing a label`);
+              }
+              if (typeof payload.motivation !== 'string' || payload.motivation.length === 0) {
+                errors.push(`Format bundle ${bundle.id} reward payload is missing motivation`);
+              }
+              if (typeof payload.nextStep !== 'string' || payload.nextStep.length === 0) {
+                errors.push(`Format bundle ${bundle.id} reward payload is missing the next step`);
+              }
+              if (!Array.isArray(payload.blocks) || payload.blocks.length !== 4) {
+                errors.push(`Format bundle ${bundle.id} reward payload must have four blocks`);
+              } else if (JSON.stringify(payload.blocks.map((block) => block.type)) !== JSON.stringify(expectedBlockTypes[bundle.formatType])) {
+                errors.push(`Format bundle ${bundle.id} reward payload has an unexpected block structure`);
+              }
             } else if (bundle.formatType === 'quizzes') {
               if (!Array.isArray(payload.questions) || payload.questions.length !== 2) {
                 errors.push(`Format bundle ${bundle.id} quiz payload must have two questions`);
@@ -537,10 +723,10 @@ export function validateFoundation() {
     if (formatIndex.version !== 1) {
       errors.push('Format index has an unexpected version');
     }
-    if (formatJobs.length !== 4) {
-      errors.push('Format index should expose exactly four generated jobs for the pilot');
+    if (formatJobs.length !== 6) {
+      errors.push('Format index should expose exactly six generated jobs for the pilot');
     }
-    if (seenFormatBundleIds.size !== 64) {
+    if (seenFormatBundleIds.size !== 96) {
       errors.push('Format index does not cover the expected bundle set for the pilot');
     }
   }
@@ -561,6 +747,10 @@ export function validateFoundation() {
       sourceCount: sourceIndex.sources.length,
       extractionJobCount: extractionIndex.jobs.length,
       sourceSlugs: sourceIndex.sources.map((item) => item.slug),
+      sourceExtractionStatuses: sourceIndex.sources.map((item) => item.extractionStatus),
+      sourceClassificationStatuses: sourceIndex.sources.map((item) => item.classificationStatus),
+      sourceConceptStatuses: sourceIndex.sources.map((item) => item.conceptStatus),
+      sourceFormatStatuses: sourceIndex.sources.map((item) => item.formatStatus),
       extractionStatuses,
       extractedJobCount,
       extractedPageCount,
@@ -577,13 +767,14 @@ export function validateFoundation() {
       formatJobCount,
       formatBundleCount,
       formatNeedsReviewCount,
-      formatStatuses: formatIndex ? formatIndex.jobs.map((job) => job.status) : [],
+      formatStatuses,
       formatTypes: formatIndex ? formatIndex.jobs.map((job) => job.formatType) : [],
       classificationSourceSlugs: classificationIndex.jobs.map((job) => job.sourceSlug),
       galaxyCount: galaxias.length,
       planetCount: planetas.length,
       starCount: estrelas.length,
       galaxyIds: galaxias.map((item) => item.id),
+      wave1PriorityTrackIds: wave1PriorityTracks?.tracks?.map((track) => track.id) ?? [],
       schemaTitles: schemas.map((schema) => schema.title),
     },
   };

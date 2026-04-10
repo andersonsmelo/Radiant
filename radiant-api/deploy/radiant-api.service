@@ -1,0 +1,20 @@
+[Unit]
+Description=Radiant API
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=radiant
+Group=radiant
+WorkingDirectory=/srv/apps/radiant/radiant-api
+Environment=NODE_ENV=production
+Environment=PORT=3100
+Environment=HOST=127.0.0.1
+EnvironmentFile=/srv/apps/radiant/radiant-api/.env
+ExecStart=/usr/bin/env node dist/server.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "radiant-app",
+    "name": "Radiant",
     "slug": "radiant-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,9 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ascendcreative.radiant",
+      "buildNumber": "1",
+      "usesNonExemptEncryption": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserNotificationUsageDescription": "Radiant usa notificações para lembrar revisões e metas diárias de estudo."
+      }
     },
     "android": {
+      "package": "com.ascendcreative.radiant",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -28,6 +37,14 @@
     "plugins": [
       "expo-router",
       [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#0A84FF",
+          "defaultChannel": "study-reminders"
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
@@ -38,11 +55,26 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "@sentry/react-native"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "appEnv": "production",
+      "router": {},
+      "eas": {
+        "projectId": "9c56e062-b004-4c54-b646-8b9e90770103"
+      }
+    },
+    "owner": "hashi1802",
+    "updates": {
+      "url": "https://u.expo.dev/9c56e062-b004-4c54-b646-8b9e90770103"
     }
   }
 }

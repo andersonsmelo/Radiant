@@ -195,7 +195,12 @@ export default function JourneyHomeScreen() {
     <SafeAreaView style={styles.screen}>
       {loading ? (
         <View style={styles.centered}>
-          <ActivityIndicator size="large" color={colors.primary} />
+          <ActivityIndicator
+            size="large"
+            color={colors.primary}
+            accessibilityRole="progressbar"
+            accessibilityLabel="Carregando jornada"
+          />
         </View>
       ) : (
         <ScrollView
@@ -247,7 +252,7 @@ export default function JourneyHomeScreen() {
           ) : null}
 
           {error ? (
-            <SurfaceCard variant="solid" style={styles.errorCard}>
+            <SurfaceCard variant="solid" style={styles.errorCard} accessibilityRole="alert">
               <Text style={styles.errorText}>{error}</Text>
             </SurfaceCard>
           ) : null}
@@ -269,6 +274,8 @@ export default function JourneyHomeScreen() {
             }}
             disabled={!snapshot?.nextRecommendedNode || !canOpenNode(snapshot.nextRecommendedNode)}
             style={styles.cta}
+            accessibilityLabel={continueLabel}
+            accessibilityHint="Abre o próximo passo elegível da trilha ativa."
           >
             {continueLabel}
           </AppButton>

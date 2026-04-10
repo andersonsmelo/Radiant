@@ -1,0 +1,52 @@
+{
+  "cli": {
+    "version": ">= 12.6.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "development",
+        "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "true",
+        "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "true",
+        "EXPO_PUBLIC_ENABLE_BETA_GATE": "true",
+        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false"
+      }
+    },
+    "development-simulator": {
+      "extends": "development",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "preview",
+        "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "true",
+        "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "true",
+        "EXPO_PUBLIC_ENABLE_BETA_GATE": "true",
+        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "true"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "production",
+        "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "false",
+        "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "false",
+        "EXPO_PUBLIC_ENABLE_BETA_GATE": "false",
+        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "true"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {}
+    }
+  }
+}

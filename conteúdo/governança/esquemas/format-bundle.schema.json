@@ -19,7 +19,7 @@
     "id": { "type": "string" },
     "formatType": {
       "type": "string",
-      "enum": ["microlições", "quizzes"]
+      "enum": ["microlições", "quizzes", "reviews", "casos", "checkpoints", "rewards"]
     },
     "title": { "type": "string" },
     "sourceId": { "type": "string" },

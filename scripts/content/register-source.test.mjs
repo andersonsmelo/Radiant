@@ -22,4 +22,9 @@ test('registerSource normalizes metadata for the pilot book', () => {
   assert.equal(result.authorLabel, 'Everton Costa Pinto');
   assert.equal(result.fileExists, true);
   assert.equal(result.fileSizeBytes > 0, true);
+  assert.equal(result.ingestionStatus, 'registered');
+  assert.equal(result.extractionStatus, 'pending');
+  assert.equal(result.classificationStatus, 'pending');
+  assert.equal(result.conceptStatus, 'pending');
+  assert.equal(result.formatStatus, 'pending');
 });

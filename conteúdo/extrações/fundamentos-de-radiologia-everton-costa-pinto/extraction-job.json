@@ -1,0 +1,21 @@
+{
+  "id": "extract:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "sourceSlug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "status": "extracted",
+  "strategy": "pypdf-embedded-text",
+  "targetGalaxyIds": [
+    "galaxy-fisica",
+    "galaxy-anatomia"
+  ],
+  "artifacts": {
+    "pages": "pages.json",
+    "excerpts": "excerpts.json",
+    "pageCount": 75,
+    "excerptCount": 109
+  },
+  "notes": [
+    "Primeiro job de extração da base editorial",
+    "Extração executada com texto embutido via pypdf"
+  ]
+}

@@ -12,3 +12,9 @@ Esta pasta guarda a camada editorial que liga `extrações/` à `taxonomia/`.
 ## Estado atual
 
 O livro-piloto `Fundamentos de Radiologia` é a primeira obra destinada a receber classificação completa nesta camada.
+
+Snapshot atual do piloto:
+
+- `109` registros de classificação
+- `30` itens em `needs-review`
+- consistência `galáxia -> planeta -> estrela` validada pelo pipeline

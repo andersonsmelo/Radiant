@@ -18,6 +18,8 @@ FORMAT_TITLES = {
     "quizzes": "Quiz",
     "reviews": "Revisão",
     "casos": "Caso",
+    "checkpoints": "Checkpoint",
+    "rewards": "Recompensa",
 }
 
 FORMAT_TYPES = tuple(FORMAT_TITLES.keys())
@@ -415,6 +417,140 @@ def build_case_bundle(
     }
 
 
+def build_checkpoint_bundle(
+    source: dict,
+    concept: dict,
+    excerpt_lookup: dict[str, dict],
+) -> dict:
+    source_pages = build_source_pages(concept, excerpt_lookup)
+    dominant_signals = collect_dominant_signals(concept)
+    key_signals = dominant_signals[:3]
+    if not key_signals:
+        key_signals = [concept["title"]]
+
+    completion_criteria = [
+        f"Reconhece {concept['title'].lower()} sem trocar a estrela de referência.",
+        f"Explica o conceito em uma frase curta usando a definição canônica.",
+        f"Aponta sinais como {', '.join(key_signals[:2])}.",
+    ]
+
+    blocks = [
+        {
+            "id": "checkpoint",
+            "type": "checkpoint",
+            "title": "Checkpoint",
+            "text": f"Antes de avançar, valide se você realmente domina {concept['title'].lower()}.",
+        },
+        {
+            "id": "criteria",
+            "type": "criteria",
+            "title": "Critérios",
+            "bullets": completion_criteria,
+        },
+        {
+            "id": "signals",
+            "type": "signals",
+            "title": "Sinais esperados",
+            "bullets": key_signals,
+        },
+        {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": build_evidence_block(source_pages, len(concept["sourceExcerptIds"]))["bullets"],
+        },
+    ]
+
+    return {
+        "id": f"format:checkpoints:{source['slug']}:{concept['slug']}",
+        "formatType": "checkpoints",
+        "title": build_bundle_title("checkpoints", concept["title"]),
+        "sourceId": source["id"],
+        "sourceSlug": source["slug"],
+        "taxonomyVersion": concept["taxonomyVersion"],
+        "generationStrategy": GENERATOR_VERSION,
+        "reviewStatus": concept["reviewStatus"],
+        "conceptIds": [concept["id"]],
+        "sourceExcerptIds": concept["sourceExcerptIds"],
+        "payload": {
+            "conceptId": concept["id"],
+            "conceptTitle": concept["title"],
+            "checkpointPrompt": f"Complete o checkpoint de {concept['title'].lower()} antes de seguir.",
+            "completionCriteria": completion_criteria,
+            "keySignals": key_signals,
+            "sourcePages": source_pages,
+            "blocks": blocks,
+        },
+    }
+
+
+def build_reward_bundle(
+    source: dict,
+    concept: dict,
+    excerpt_lookup: dict[str, dict],
+) -> dict:
+    source_pages = build_source_pages(concept, excerpt_lookup)
+    dominant_signals = collect_dominant_signals(concept)
+    key_signal = dominant_signals[0] if dominant_signals else concept["title"]
+    reward_label = f"Selo {concept['title']}"
+    motivation = (
+        f"Você consolidou {concept['title'].lower()} e já reconhece pistas como {key_signal.lower()}."
+    )
+    next_step = (
+        f"Use esse ganho para avançar da estrela {concept['starId'].replace('star-', '').replace('-', ' ')} "
+        "para o próximo bloco relacionado."
+    )
+
+    blocks = [
+        {
+            "id": "reward",
+            "type": "reward",
+            "title": "Recompensa",
+            "text": reward_label,
+        },
+        {
+            "id": "reason",
+            "type": "reason",
+            "title": "Por que você ganhou isso",
+            "text": motivation,
+        },
+        {
+            "id": "next-step",
+            "type": "next-step",
+            "title": "Próximo passo",
+            "text": next_step,
+        },
+        {
+            "id": "evidence",
+            "type": "evidence",
+            "title": "Evidência",
+            "bullets": build_evidence_block(source_pages, len(concept["sourceExcerptIds"]))["bullets"],
+        },
+    ]
+
+    return {
+        "id": f"format:rewards:{source['slug']}:{concept['slug']}",
+        "formatType": "rewards",
+        "title": build_bundle_title("rewards", concept["title"]),
+        "sourceId": source["id"],
+        "sourceSlug": source["slug"],
+        "taxonomyVersion": concept["taxonomyVersion"],
+        "generationStrategy": GENERATOR_VERSION,
+        "reviewStatus": concept["reviewStatus"],
+        "conceptIds": [concept["id"]],
+        "sourceExcerptIds": concept["sourceExcerptIds"],
+        "payload": {
+            "conceptId": concept["id"],
+            "conceptTitle": concept["title"],
+            "rewardLabel": reward_label,
+            "motivation": motivation,
+            "nextStep": next_step,
+            "sourcePages": source_pages,
+            "blocks": blocks,
+        },
+    }
+
+
 def write_json_artifact(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     write_json(path, payload)
@@ -447,8 +583,12 @@ def generate_format_layer(
                 bundle = build_quiz_bundle(source, concept, concepts, excerpt_lookup)
             elif format_type == "reviews":
                 bundle = build_review_bundle(source, concept, excerpt_lookup)
-            else:
+            elif format_type == "casos":
                 bundle = build_case_bundle(source, concept, excerpt_lookup)
+            elif format_type == "checkpoints":
+                bundle = build_checkpoint_bundle(source, concept, excerpt_lookup)
+            else:
+                bundle = build_reward_bundle(source, concept, excerpt_lookup)
             bundles.append(bundle)
             if bundle["reviewStatus"] == "needs-review":
                 review_ids.append(bundle["id"])

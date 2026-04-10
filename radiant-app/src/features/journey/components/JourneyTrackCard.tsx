@@ -38,9 +38,12 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
 
   return (
     <Pressable
+      testID={`journey-track-${track.slug}`}
       onPress={() => onPress(track)}
       accessibilityRole="button"
-      accessibilityLabel={`${track.title}. ${lessonCount} lições. ${getStateCopy(state)}.`}
+      accessibilityLabel={`${track.title}. ${lessonCount} lições. ${getStateCopy(state)}. ${isActive ? `${progressPercent}% concluída.` : 'Catálogo pronto.'}`}
+      accessibilityHint={isActive ? 'Abre o próximo passo elegível desta trilha.' : 'Troca para esta trilha e abre o próximo passo elegível.'}
+      accessibilityState={{ selected: isActive }}
       style={({ pressed }) => [
         styles.card,
         isActive && styles.cardActive,

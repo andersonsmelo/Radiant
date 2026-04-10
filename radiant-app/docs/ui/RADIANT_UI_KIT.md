@@ -69,6 +69,24 @@ Design system reference for the Radiant mobile application.
 - **Medium**: `12px` - Buttons, cards
 - **Large**: `16px` - Large cards, containers
 
+## Motion
+
+### Duration
+- **Quick**: `200ms` - Micro-interactions, hover states
+- **Normal**: `300ms` - Standard transitions
+- **Smooth**: `400ms` - Smooth state changes
+- **Celebrate**: `600ms` - Success animations, rewards
+
+### Easing
+- **Standard**: `ease-in-out` - Default easing
+- **Enter**: `ease-out` - Elements entering
+- **Exit**: `ease-in` - Elements exiting
+
+### Animation Patterns
+- **Fade In**: Opacity 0 → 1
+- **Subtle Glow**: Shadow with primary color at low opacity
+- **Scale**: 0.95 → 1 for gentle emphasis
+
 ## Components
 
 ### Buttons

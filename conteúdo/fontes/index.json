@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "slug": "fundamentos-de-radiologia-everton-costa-pinto",
+      "title": "Fundamentos de Radiologia",
+      "sourceType": "pdf",
+      "authorLabel": "Everton Costa Pinto",
+      "relativePath": "conteúdo/02.-Fundamentos-de-radiologia-Autor-Everton-Costa-Pinto.pdf",
+      "ingestionStatus": "registered",
+      "extractionStatus": "extracted",
+      "classificationStatus": "classified",
+      "conceptStatus": "normalized",
+      "formatStatus": "generated"
+    }
+  ]
+}

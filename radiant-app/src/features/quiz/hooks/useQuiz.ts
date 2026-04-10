@@ -13,8 +13,13 @@ import type {
     QuizProgress,
     QuizFeedback,
 } from '../../../types/quiz';
+import type { XpAward } from '../../../types/gamification';
 import { QuizService } from '../services/QuizService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
+import { SyncQueueService } from '../../sync/SyncQueueService';
+import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 
 interface UseQuizState {
     currentQuestion: QuizQuestion | null;
@@ -25,6 +30,10 @@ interface UseQuizState {
     feedback: QuizFeedback;
     isFinished: boolean;
     result: QuizResult | null;
+    xpAward: XpAward | null;
+    dailyGoalJustCompleted: boolean;
+    hearts: number;
+    maxHearts: number;
 }
 
 interface UseQuizActions {
@@ -35,7 +44,15 @@ interface UseQuizActions {
 
 export type UseQuizReturn = UseQuizState & UseQuizActions;
 
-export function useQuiz(lesson: QuizLesson): UseQuizReturn {
+const MAX_HEARTS_DEFAULT = 5;
+
+type JourneyCompletionMode = 'none' | 'lesson' | 'review';
+
+export function useQuiz(
+    lesson: QuizLesson,
+    options: { journeyCompletionMode?: JourneyCompletionMode } = {}
+): UseQuizReturn {
+    const journeyCompletionMode = options.journeyCompletionMode ?? 'none';
     const serviceRef = useRef<QuizService>(new QuizService(lesson));
     const [, forceUpdate] = useState(0);
 
@@ -58,6 +75,18 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
         isCorrect: false,
         explanation: '',
     });
+    const [xpAward, setXpAward] = useState<XpAward | null>(null);
+    const [dailyGoalJustCompleted, setDailyGoalJustCompleted] = useState<boolean>(false);
+    const [hearts, setHearts] = useState<number>(MAX_HEARTS_DEFAULT);
+    const [maxHearts, setMaxHearts] = useState<number>(MAX_HEARTS_DEFAULT);
+
+    // Load hearts on mount
+    useEffect(() => {
+        GamificationService.getSnapshot().then((snap) => {
+            setHearts(snap.hearts);
+            setMaxHearts(snap.maxHearts);
+        });
+    }, []);
 
     const result = useMemo(() => {
         if (isFinished) {
@@ -75,8 +104,16 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
             const feedbackResult = service.submitAnswer(answerIndex);
             setFeedback(feedbackResult);
             forceUpdate((n) => n + 1);
+
+            // Lose a heart on wrong answer (not in review mode)
+            if (!feedbackResult.isCorrect && journeyCompletionMode !== 'review') {
+                GamificationService.loseHeart().then((snap) => {
+                    setHearts(snap.hearts);
+                    setMaxHearts(snap.maxHearts);
+                });
+            }
         },
-        [isAnswered, service]
+        [isAnswered, service, journeyCompletionMode]
     );
 
     const next = useCallback(() => {
@@ -86,6 +123,8 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
             isCorrect: false,
             explanation: '',
         });
+        setXpAward(null);
+        setDailyGoalJustCompleted(false);
         forceUpdate((n) => n + 1);
     }, [service]);
 
@@ -96,20 +135,69 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
             isCorrect: false,
             explanation: '',
         });
+        setXpAward(null);
+        setDailyGoalJustCompleted(false);
         forceUpdate((n) => n + 1);
     }, [service]);
 
     // Record quiz result to spaced repetition when quiz is completed
     useEffect(() => {
         if (result) {
+            (async () => {
+                try {
+                    await SpacedRepetitionService.recordQuizResult(result);
+                    await SyncQueueService.enqueueLessonProgressFromQuizResult(result);
+
+                    const cardState = await SpacedRepetitionService.getCardState(result.lessonId);
+                    if (cardState) {
+                        await SyncQueueService.enqueueReviewCard(cardState);
+                    }
+
+                    await SyncQueueService.flush();
+                } catch (error) {
+                    console.error('[useQuiz] Error syncing quiz result:', error);
+                }
+            })();
+
+            // Record gamification award (XP/Streak)
             try {
-                SpacedRepetitionService.recordQuizResult(result);
+                GamificationService.recordQuizCompletion(result).then(({ award }) => {
+                    setXpAward(award);
+                });
             } catch (error) {
-                console.error('[useQuiz] Error recording quiz result to SR:', error);
-                // Don't crash UI - spaced repetition is not critical to quiz flow
+                console.error('[useQuiz] Error recording gamification:', error);
+            }
+
+            // Record daily goal completion
+            try {
+                // Get snapshot before recording this quiz
+                DailyGoalService.getSnapshot().then((beforeSnapshot) => {
+                    const wasNotCompleted = !beforeSnapshot.isCompleted;
+
+                    // Record the quiz completion
+                    DailyGoalService.recordQuizCompletion(result.answeredAt).then((afterSnapshot) => {
+                        // Only set flag if this quiz caused the transition to completed
+                        if (wasNotCompleted && afterSnapshot.isCompleted) {
+                            setDailyGoalJustCompleted(true);
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('[useQuiz] Error recording daily goal:', error);
+            }
+
+            if (journeyCompletionMode !== 'none') {
+                const completionPromise =
+                    journeyCompletionMode === 'review'
+                        ? JourneyProgressService.markReviewNodeCompleted(result.lessonId)
+                        : JourneyProgressService.markLessonNodeCompleted(result.lessonId);
+
+                completionPromise.catch((error) => {
+                    console.error('[useQuiz] Error syncing journey progress:', error);
+                });
             }
         }
-    }, [result]);
+    }, [result, journeyCompletionMode]);
 
     return {
         currentQuestion,
@@ -120,6 +208,10 @@ export function useQuiz(lesson: QuizLesson): UseQuizReturn {
         feedback,
         isFinished,
         result,
+        xpAward,
+        dailyGoalJustCompleted,
+        hearts,
+        maxHearts,
         selectAnswer,
         next,
         reset,

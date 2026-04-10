@@ -1,0 +1,17 @@
+{
+  "id": "source:fundamentos-de-radiologia-everton-costa-pinto",
+  "slug": "fundamentos-de-radiologia-everton-costa-pinto",
+  "title": "Fundamentos de Radiologia",
+  "authorLabel": "Everton Costa Pinto",
+  "sourceType": "pdf",
+  "relativePath": "conteúdo/02.-Fundamentos-de-radiologia-Autor-Everton-Costa-Pinto.pdf",
+  "ingestionStatus": "registered",
+  "extractionStatus": "extracted",
+  "classificationStatus": "classified",
+  "conceptStatus": "normalized",
+  "formatStatus": "generated",
+  "notes": [
+    "Obra piloto para validar o pipeline editorial",
+    "Livro alinhado ao núcleo de fundamentos do MVP"
+  ]
+}

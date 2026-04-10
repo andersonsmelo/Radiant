@@ -8,9 +8,9 @@
   },
   {
     "id": "galaxy-fisica",
-    "slug": "fisica",
-    "title": "Física",
-    "description": "Princípios físicos da formação da imagem e leitura técnica do exame.",
+    "slug": "fundamentos",
+    "title": "Fundamentos",
+    "description": "Base do app para onboarding, primeiras sessoes e leitura inicial do produto.",
     "status": "active"
   },
   {
