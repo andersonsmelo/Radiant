@@ -5,12 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { StatItem } from '../../../components/ui/StatItem';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
+import { HUD } from '../../../ui/components/HUD';
+import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
-import { colors } from '../../../ui/theme';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import type { GamificationSnapshot } from '../../../types/gamification';
+import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
 import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
@@ -70,6 +73,12 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
   const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
   const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
   const [paywallSubmitting, setPaywallSubmitting] = useState(false);
+
+  const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+
+  useEffect(() => {
+    void GamificationService.getSnapshot().then(setGamification);
+  }, []);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -167,298 +176,240 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      </SafeAreaView>
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <SafeAreaView style={styles.safe}>
+          <View style={styles.centered}>
+            <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+          </View>
+        </SafeAreaView>
+      </View>
     );
   }
 
   if (!checkpointNode || !activeUnit) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <View style={[layout.container, styles.emptyState]}>
-          <SurfaceCard variant="solid" style={styles.emptyCard}>
-            <Text style={styles.emptyTitle}>Checkpoint indisponível</Text>
-            <Text style={styles.emptyBody}>
-              Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
-            </Text>
-            <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
-              Voltar para jornada
-            </AppButton>
-          </SurfaceCard>
-        </View>
-      </SafeAreaView>
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <SafeAreaView style={styles.safe}>
+          <View style={[layout.container, styles.emptyState]}>
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyTitle}>Checkpoint indisponível</Text>
+              <Text style={styles.emptyBody}>
+                Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
+              </Text>
+              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+                Voltar para jornada
+              </AppButton>
+            </View>
+          </View>
+        </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.headerRow}>
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel="Voltar"
-            style={styles.iconButton}
-          >
-            <MaterialIcons name="close" size={24} color={colors.textPrimary} />
-          </Pressable>
-          <Text style={styles.headerLabel}>Checkpoint</Text>
-          <View style={styles.iconSpacer} />
-        </View>
-
-        <SurfaceCard variant="glass" style={styles.heroCard}>
-          <PixelHeroSplit
-            eyebrow="Radiology Journey"
-            message={completed
-              ? 'Checkpoint fechado. A próxima etapa já está liberada.'
-              : 'Antes de avançar, valida este trecho da unidade e trava a base.'}
-            ringValue={completedPrimaryNodes}
-            ringTotal={totalPrimaryNodes}
-            ringLabel="Blocos concluídos"
-            state={completed ? 'celebrate' : 'guide'}
-            tier={completed ? 'advanced' : 'intermediate'}
-            accessibilityLabel="Pixel apresentando o checkpoint"
-          />
-
-          <View style={styles.heroFooter}>
-            <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
-            <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
+    <View style={styles.root}>
+      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <HUD
+          totalXp={gamification?.totalXp ?? 0}
+          streakDays={gamification?.streakDays ?? 0}
+          hearts={gamification?.hearts ?? 5}
+          maxHearts={gamification?.maxHearts ?? 5}
+        />
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <View style={styles.headerRow}>
+            <Pressable
+              onPress={() => router.back()}
+              accessibilityRole="button"
+              accessibilityLabel="Voltar"
+              style={styles.iconButton}
+            >
+              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+            </Pressable>
+            <Text style={styles.headerLabel}>Checkpoint</Text>
+            <View style={styles.iconSpacer} />
           </View>
-        </SurfaceCard>
 
-        <SurfaceCard variant="solid" style={styles.sectionCard}>
-          <Text style={styles.sectionTitle}>{checkpointNode.title}</Text>
-          <Text style={styles.sectionBody}>
-            {checkpointNode.description ?? 'Feche este marco para liberar o próximo trecho da trilha.'}
-          </Text>
-
-          <View style={styles.statsList}>
-            <StatItem
-              icon={<MaterialIcons name="task-alt" size={20} color={colors.primary} />}
-              label="Progresso"
-              value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos-base concluídos`}
+          <View style={styles.heroCard}>
+            <PixelHeroSplit
+              eyebrow="Jornada de Radiologia"
+              message={completed
+                ? 'Checkpoint fechado. A próxima etapa já está liberada.'
+                : 'Antes de avançar, valida este trecho da unidade e trava a base.'}
+              ringValue={completedPrimaryNodes}
+              ringTotal={Math.max(totalPrimaryNodes, 1)}
+              ringLabel="Blocos concluídos"
+              state={completed ? 'celebrate' : 'guide'}
+              tier={completed ? 'advanced' : 'intermediate'}
+              accessibilityLabel="Pixel apresentando o checkpoint"
             />
-            <StatItem
-              icon={<MaterialIcons name="refresh" size={20} color={colors.primary} />}
-              label="Revisão"
-              value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando esta etapa'}
-            />
-            <StatItem
-              icon={<MaterialIcons name="bolt" size={20} color={colors.primary} />}
-              label="Destravamento"
-              value={completed ? 'Próximo nó já liberado' : 'Concluir este checkpoint libera a próxima lição'}
-            />
+            <View style={styles.heroFooter}>
+              <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
+              <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
+            </View>
           </View>
-        </SurfaceCard>
 
-        {error ? (
-          <SurfaceCard variant="solid" style={styles.errorCard}>
-            <Text style={styles.errorText}>{error}</Text>
-          </SurfaceCard>
-        ) : null}
+          <View style={styles.sectionCard}>
+            <Text style={styles.sectionTitle}>{checkpointNode.title}</Text>
+            <Text style={styles.sectionBody}>
+              {checkpointNode.description ?? 'Feche este marco para liberar o próximo trecho da trilha.'}
+            </Text>
+            <View style={styles.statsList}>
+              <GalaxyStatRow
+                icon={<MaterialIcons name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Progresso"
+                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos-base concluídos`}
+              />
+              <GalaxyStatRow
+                icon={<MaterialIcons name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Revisão"
+                value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando esta etapa'}
+              />
+              <GalaxyStatRow
+                icon={<MaterialIcons name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Destravamento"
+                value={completed ? 'Próximo nó já liberado' : 'Concluir este checkpoint libera a próxima lição'}
+              />
+            </View>
+          </View>
 
-        {paywallOffer ? (
-          <PaywallOfferCard
-            offer={paywallOffer}
-            submitting={paywallSubmitting}
-            onPrimary={() => {
-              if (paywallSubmitting) {
-                return;
-              }
+          {error ? (
+            <View style={styles.errorCard}>
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+          ) : null}
 
-              void (async () => {
-                try {
-                  setPaywallSubmitting(true);
-                  const interest = await UpgradeInterestService.captureInterest(paywallOffer, {
-                    lessonId: checkpointNode.id,
-                  });
-                  await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: checkpointNode.id });
-                  setPaywallFeedback(
-                    interest.email
-                      ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
-                      : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
-                  );
-                } catch (cause) {
-                  console.error('[CheckpointScreen] Failed to capture paywall interest:', cause);
-                  setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
-                } finally {
-                  setPaywallOffer(null);
-                  setPaywallSubmitting(false);
-                }
-              })();
-            }}
-            onDismiss={() => {
-              if (paywallSubmitting) {
-                return;
-              }
-              void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: checkpointNode.id });
-              setPaywallOffer(null);
-            }}
-          />
-        ) : null}
+          {paywallOffer ? (
+            <PaywallOfferCard
+              offer={paywallOffer}
+              submitting={paywallSubmitting}
+              onPrimary={() => {
+                if (paywallSubmitting) { return; }
+                void (async () => {
+                  try {
+                    setPaywallSubmitting(true);
+                    const interest = await UpgradeInterestService.captureInterest(paywallOffer, { lessonId: checkpointNode.id });
+                    await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: checkpointNode.id });
+                    setPaywallFeedback(
+                      interest.email
+                        ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
+                        : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
+                    );
+                  } catch (cause) {
+                    console.error('[CheckpointScreen] Failed to capture paywall interest:', cause);
+                    setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
+                  } finally {
+                    setPaywallOffer(null);
+                    setPaywallSubmitting(false);
+                  }
+                })();
+              }}
+              onDismiss={() => {
+                if (paywallSubmitting) { return; }
+                void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: checkpointNode.id });
+                setPaywallOffer(null);
+              }}
+            />
+          ) : null}
 
-        {paywallFeedback ? (
-          <SurfaceCard variant="solid" style={styles.messageCard}>
-            <Text style={styles.messageText}>{paywallFeedback}</Text>
-          </SurfaceCard>
-        ) : null}
+          {paywallFeedback ? (
+            <View style={styles.messageCard}>
+              <Text style={styles.messageText}>{paywallFeedback}</Text>
+            </View>
+          ) : null}
 
-        <SurfaceCard variant="elevated" style={styles.actionCard}>
-          <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para validar esta etapa?'}</Text>
-          <Text style={styles.actionBody}>
-            {completed
-              ? 'Seu progresso foi sincronizado localmente e a jornada já recalculou o melhor próximo passo.'
-              : 'O checkpoint não muda o modelo pedagógico. Ele apenas consolida a etapa atual e protege a progressão da trilha.'}
-          </Text>
-
-          {completed ? (
-            <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
-              {nextAction.label}
-            </AppButton>
-          ) : (
-            <>
-              <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
-                {submitting ? 'Concluindo checkpoint...' : 'Concluir checkpoint'}
+          <View style={styles.actionCard}>
+            <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para validar esta etapa?'}</Text>
+            <Text style={styles.actionBody}>
+              {completed
+                ? 'Seu progresso foi sincronizado localmente e a jornada já recalculou o melhor próximo passo.'
+                : 'O checkpoint não muda o modelo pedagógico. Ele apenas consolida a etapa atual e protege a progressão da trilha.'}
+            </Text>
+            {completed ? (
+              <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
+                {nextAction.label}
               </AppButton>
-              <AppButton
-                onPress={() => router.replace('/(tabs)')}
-                variant="secondary"
-                style={styles.fullWidthButton}
-              >
-                Voltar para jornada
-              </AppButton>
-            </>
-          )}
-        </SurfaceCard>
-      </ScrollView>
-    </SafeAreaView>
+            ) : (
+              <>
+                <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
+                  {submitting ? 'Concluindo checkpoint...' : 'Concluir checkpoint'}
+                </AppButton>
+                <AppButton
+                  onPress={() => router.replace('/(tabs)')}
+                  variant="ghost"
+                  style={styles.fullWidthButton}
+                  textStyle={{ color: galaxyColors.textSecondary }}
+                >
+                  Voltar para jornada
+                </AppButton>
+              </>
+            )}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
-const ICON_BUTTON_SIZE = space.s6 + space.s4;
-const SCREEN_MAX_WIDTH = 720;
+const ICON_BUTTON_SIZE = 36;
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  centered: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    padding: space.s3,
-    gap: space.s3,
-    paddingBottom: space.s5,
-  },
-  headerRow: {
-    ...layout.rowBetween,
-    width: '100%',
-    maxWidth: SCREEN_MAX_WIDTH,
-    alignSelf: 'center',
-  },
+  root: { flex: 1, backgroundColor: galaxyColors.background },
+  safe: { flex: 1 },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
+  headerRow: { ...layout.rowBetween, width: '100%' },
   iconButton: {
-    width: ICON_BUTTON_SIZE,
-    height: ICON_BUTTON_SIZE,
-    borderRadius: radius.rXl,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.surfaceGlass,
-    borderWidth: 1,
-    borderColor: colors.borderSoft,
+    width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE, borderRadius: radius.rXl,
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.07)', borderWidth: 1, borderColor: galaxyColors.border,
   },
-  iconSpacer: {
-    width: ICON_BUTTON_SIZE,
-    height: ICON_BUTTON_SIZE,
-  },
-  headerLabel: {
-    ...typography.body,
-    color: colors.textPrimary,
-    fontWeight: '800',
-  },
+  iconSpacer: { width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE },
+  headerLabel: { fontSize: 13, fontWeight: '800', color: 'rgba(255,255,255,0.35)', letterSpacing: 3, textTransform: 'uppercase' },
   heroCard: {
-    gap: space.s3,
-    overflow: 'hidden',
+    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
+    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s3, overflow: 'hidden',
   },
   heroFooter: {
-    backgroundColor: 'rgba(255,255,255,0.58)',
-    borderRadius: radius.rLg,
-    paddingHorizontal: space.s3,
-    paddingVertical: space.s2,
-    gap: space.s0,
+    backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: radius.rMd,
+    paddingHorizontal: space.s3, paddingVertical: space.s2, gap: space.s0,
   },
   heroFooterLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    fontSize: 11, fontWeight: '600', color: galaxyColors.textSecondary,
+    textTransform: 'uppercase', letterSpacing: 0.8,
   },
-  heroFooterValue: {
-    ...typography.h3,
-    color: colors.textPrimary,
-  },
+  heroFooterValue: { ...typography.h3, color: galaxyColors.textPrimary },
   sectionCard: {
-    gap: space.s2,
+    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
+    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s2,
   },
-  sectionTitle: {
-    ...typography.h3,
-    color: colors.textPrimary,
-  },
-  sectionBody: {
-    ...typography.bodyRegular,
-    color: colors.textSecondary,
-  },
-  statsList: {
-    gap: space.s2,
-  },
+  sectionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+  sectionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  statsList: { gap: space.s2, marginTop: space.s1 },
   actionCard: {
-    gap: space.s2,
+    backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: radius.rLg,
+    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s2,
   },
-  actionTitle: {
-    ...typography.h3,
-    color: colors.textPrimary,
-  },
-  actionBody: {
-    ...typography.bodyRegular,
-    color: colors.textSecondary,
-  },
-  fullWidthButton: {
-    width: '100%',
-  },
+  actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+  actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  fullWidthButton: { width: '100%' },
   errorCard: {
-    borderColor: colors.danger,
+    backgroundColor: 'rgba(255,59,48,0.10)', borderRadius: radius.rMd,
+    borderWidth: 1, borderColor: 'rgba(255,59,48,0.25)', padding: space.s3,
   },
-  errorText: {
-    ...typography.bodyRegular,
-    color: colors.danger,
-  },
+  errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
   messageCard: {
-    borderColor: colors.borderStrong,
+    backgroundColor: galaxyColors.surfaceMuted, borderRadius: radius.rMd,
+    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3,
   },
-  messageText: {
-    ...typography.bodyRegular,
-    color: colors.textPrimary,
-  },
-  emptyState: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+  messageText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  emptyState: { flex: 1, justifyContent: 'center', padding: space.s3 },
   emptyCard: {
-    gap: space.s3,
+    backgroundColor: galaxyColors.surface, borderRadius: radius.rLg,
+    borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3, gap: space.s3,
   },
-  emptyTitle: {
-    ...typography.h3,
-    color: colors.textPrimary,
-    textAlign: 'center',
-  },
-  emptyBody: {
-    ...typography.bodyRegular,
-    color: colors.textSecondary,
-    textAlign: 'center',
-  },
+  emptyTitle: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
+  emptyBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary, textAlign: 'center' },
 });

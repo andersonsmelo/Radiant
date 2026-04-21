@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
 type JourneyHeroProps = {
@@ -18,13 +17,12 @@ export function JourneyHero({
   dailyGoalCompleted,
   dailyGoalTarget,
   message,
-  trackLabel = 'Radiology Journey',
+  trackLabel = 'Jornada de Radiologia',
 }: JourneyHeroProps) {
   return (
-    <SurfaceCard variant="glass" style={styles.card}>
+    <View style={styles.card}>
       <View style={styles.glowPrimary} />
       <View style={styles.glowSecondary} />
-
       <PixelHeroSplit
         eyebrow={trackLabel}
         message={message}
@@ -35,21 +33,25 @@ export function JourneyHero({
         tier="intermediate"
         accessibilityLabel="Pixel guiando a jornada"
       />
-
       <View style={styles.footerRow}>
         <Text style={styles.footerLabel}>Unidade ativa</Text>
         <Text style={styles.footerValue}>{unitTitle}</Text>
       </View>
-    </SurfaceCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    overflow: 'hidden',
-    gap: space.s3,
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     paddingTop: space.s4,
     paddingBottom: space.s4,
+    gap: space.s3,
+    overflow: 'hidden',
   },
   glowPrimary: {
     position: 'absolute',
@@ -58,8 +60,8 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 999,
-    backgroundColor: colors.highlight,
-    opacity: 0.75,
+    backgroundColor: galaxyColors.ctaGradientEnd,
+    opacity: 0.08,
   },
   glowSecondary: {
     position: 'absolute',
@@ -68,25 +70,26 @@ const styles = StyleSheet.create({
     width: 220,
     height: 220,
     borderRadius: 999,
-    backgroundColor: colors.accent,
-    opacity: 0.18,
+    backgroundColor: '#7B61FF',
+    opacity: 0.06,
   },
   footerRow: {
-    backgroundColor: 'rgba(255,255,255,0.58)',
+    backgroundColor: 'rgba(255,255,255,0.06)',
     borderRadius: radius.rLg,
     paddingHorizontal: space.s3,
     paddingVertical: space.s2,
     gap: 4,
   },
   footerLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 11,
+    fontWeight: '600',
+    color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   footerValue: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     fontSize: 22,
   },
 });

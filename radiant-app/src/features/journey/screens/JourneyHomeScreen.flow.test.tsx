@@ -52,42 +52,24 @@ jest.mock('../../../components/ui/AppButton', () => {
   };
 });
 
-jest.mock('../../../components/ui/StatItem', () => {
-  const React = require('react');
-  const { Text, View } = require('react-native');
+jest.mock('../../../ui/components/StarfieldBackground', () => ({
+  StarfieldBackground: () => null,
+}));
 
-  return {
-    StatItem: ({ label, value }: { label: string; value: string }) => (
-      <View>
-        <Text>{label}</Text>
-        <Text>{value}</Text>
-      </View>
-    ),
-  };
-});
+jest.mock('../../../ui/components/HUD', () => ({
+  HUD: () => null,
+}));
 
-jest.mock('../../../components/ui/SurfaceCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    SurfaceCard: ({
-      children,
-      accessibilityRole,
-      accessibilityLabel,
-      testID,
-    }: {
-      children: React.ReactNode;
-      accessibilityRole?: string;
-      accessibilityLabel?: string;
-      testID?: string;
-    }) => (
-      <View testID={testID} accessibilityRole={accessibilityRole} accessibilityLabel={accessibilityLabel}>
-        {children}
-      </View>
-    ),
-  };
-});
+jest.mock('../../gamification/services/GamificationService', () => ({
+  GamificationService: {
+    getSnapshot: jest.fn().mockResolvedValue({
+      totalXp: 80,
+      streakDays: 2,
+      hearts: 5,
+      maxHearts: 5,
+    }),
+  },
+}));
 
 jest.mock('../components/JourneyHero', () => {
   const React = require('react');

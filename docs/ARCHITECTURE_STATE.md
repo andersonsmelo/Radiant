@@ -24,6 +24,7 @@ Contratos vigentes:
 - `JourneyProgressStore` usa `journey-progress.v2`, com `activeTrackId` no store e um bucket `tracks[trackId]` para cada progresso.
 - progresso legado `journey-progress.v1` é migrado para o bucket da trilha padrão quando possível.
 - `JourneyHomeScreen` expõe a prateleira `Trilhas disponíveis` e abre o próximo nó real da trilha tocada.
+- quando a trilha ativa não tem próximo nó elegível, `JourneyHomeScreen` responde com estado inline e mantém o contexto da trilha ativa.
 
 Trilhas prioritárias expostas no catálogo app/API:
 

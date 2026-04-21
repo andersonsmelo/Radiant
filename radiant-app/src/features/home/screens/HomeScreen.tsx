@@ -7,13 +7,12 @@ import { router, useFocusEffect } from 'expo-router';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
-import { Card } from '../../../components/ui/Card';
-import { PrimaryButton } from '../../../components/ui/PrimaryButton';
-import { StatPill } from '../../../components/ui/StatPill';
+import { AppButton } from '../../../components/ui/AppButton';
 import type { QuizLessonId } from '../../../types/quiz';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import { space, typography, layout } from '../../../ui/styles';
+import { galaxyColors } from '../../../ui/theme';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
 import { CharacterSlot } from '../../../ui/characters/CharacterSlot';
 import { TelemetryService } from '../../telemetry/TelemetryService';
@@ -29,18 +28,6 @@ import { PushService } from '../../push/services/PushService';
 import { PushOptInCard } from '../../push/components/PushOptInCard';
 
 const ENABLE_CHARACTER = true;
-
-const COLORS = {
-    background: '#000000',
-    cardBackground: '#1C1C1E',
-    secondaryBackground: '#2C2C2E',
-    primaryText: '#FFFFFF',
-    secondaryText: '#8E8E93',
-    primary: '#0A84FF',
-    success: '#34C759',
-    error: '#FF453A',
-    warning: '#FF9F0A',
-};
 
 export default function HomeScreen() {
     const [dueCount, setDueCount] = useState<number>(0);
@@ -167,7 +154,7 @@ export default function HomeScreen() {
 
             {loading ? (
                 <View style={[layout.center, { flex: 1 }]}>
-                    <ActivityIndicator size="large" color={COLORS.primary} />
+                    <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
                 </View>
             ) : (
                 <ScrollView
@@ -195,9 +182,9 @@ export default function HomeScreen() {
 
                     {dailyGoalState?.isCompleted && (
                         <Animated.View style={goalBannerStyle}>
-                            <Card variant="compact" style={styles.goalCompletedBanner}>
+                            <View style={styles.goalCompletedBanner}>
                                 <Text style={styles.goalCompletedText}>🎯 Meta do dia concluída</Text>
-                            </Card>
+                            </View>
                         </Animated.View>
                     )}
 
@@ -225,9 +212,14 @@ export default function HomeScreen() {
                         />
                     </Animated.View>
 
-                    <PrimaryButton onPress={handleContinueLearning} style={styles.secondaryButton}>
+                    <AppButton
+                        onPress={handleContinueLearning}
+                        variant="ghost"
+                        style={styles.secondaryButton}
+                        textStyle={{ color: galaxyColors.textSecondary }}
+                    >
                         Continuar aprendendo
-                    </PrimaryButton>
+                    </AppButton>
                 </ScrollView>
             )}
         </SafeAreaView>
@@ -272,18 +264,23 @@ type IntroCardProps = {
 
 function IntroCard({ onStart, onSkip }: IntroCardProps) {
     return (
-        <Card style={styles.introCard}>
+        <View style={styles.introCard}>
             <Text style={styles.introTitle}>Bem-vindo ao Radiant</Text>
             <Text style={styles.introBody}>
                 Aprenda radiologia com revisões inteligentes e progresso real.
             </Text>
-            <PrimaryButton onPress={onStart} style={styles.button}>
+            <AppButton onPress={onStart} style={styles.button}>
                 Começar
-            </PrimaryButton>
-            <PrimaryButton onPress={onSkip} style={styles.secondaryButton} textStyle={styles.secondaryButtonText}>
+            </AppButton>
+            <AppButton
+                onPress={onSkip}
+                variant="ghost"
+                style={styles.secondaryButton}
+                textStyle={{ color: galaxyColors.textSecondary }}
+            >
                 Pular introdução
-            </PrimaryButton>
-        </Card>
+            </AppButton>
+        </View>
     );
 }
 
@@ -293,15 +290,15 @@ type ClosureCardProps = {
 
 function ClosureCard({ onDismiss }: ClosureCardProps) {
     return (
-        <Card style={styles.closureCard}>
+        <View style={styles.closureCard}>
             <Text style={styles.closureTitle}>Sua jornada começou 🚀</Text>
             <Text style={styles.closureBody}>
                 Agora o Radiant se adapta ao seu ritmo. Continue revisando para manter suas chamas acesas.
             </Text>
-            <PrimaryButton onPress={onDismiss} style={styles.button}>
+            <AppButton onPress={onDismiss} style={styles.button}>
                 Entendi
-            </PrimaryButton>
-        </Card>
+            </AppButton>
+        </View>
     );
 }
 
@@ -319,16 +316,21 @@ function StatsSection({ gamificationState, dailyGoalState }: StatsSectionProps) 
         <View style={styles.statsRow}>
             {gamificationState ? (
                 <>
-                    <StatPill label="XP" value={gamificationState.totalXp} style={styles.statPill} />
-                    <StatPill label="Sequência" value={`${gamificationState.streakDays}d`} style={styles.statPill} />
+                    <View style={styles.statPill}>
+                        <Text style={styles.statPillLabel}>XP</Text>
+                        <Text style={styles.statPillValue}>{gamificationState.totalXp}</Text>
+                    </View>
+                    <View style={styles.statPill}>
+                        <Text style={styles.statPillLabel}>Sequência</Text>
+                        <Text style={styles.statPillValue}>{gamificationState.streakDays}d</Text>
+                    </View>
                 </>
             ) : null}
             {dailyGoalState ? (
-                <StatPill
-                    label="Meta"
-                    value={`${dailyGoalState.completedToday}/${dailyGoalState.goalPerDay}`}
-                    style={styles.statPill}
-                />
+                <View style={styles.statPill}>
+                    <Text style={styles.statPillLabel}>Meta</Text>
+                    <Text style={styles.statPillValue}>{dailyGoalState.completedToday}/{dailyGoalState.goalPerDay}</Text>
+                </View>
             ) : null}
         </View>
     );
@@ -343,17 +345,17 @@ type HealthSectionProps = {
 function HealthSection({ healthScore, showHealthDetails, onToggleDetails }: HealthSectionProps) {
     if (!healthScore) {
         return (
-            <Card style={styles.healthCard}>
+            <View style={styles.healthCard}>
                 <Text style={styles.healthTitle}>Ritmo</Text>
                 <Text style={styles.healthPlaceholder}>
                     Use o Radiant por mais alguns dias para calcular seu ritmo.
                 </Text>
-            </Card>
+            </View>
         );
     }
 
     return (
-        <Card style={styles.healthCard}>
+        <View style={styles.healthCard}>
             <View style={styles.healthHeader}>
                 <Text style={styles.healthTitle}>Ritmo</Text>
                 <View style={[styles.healthBadge, getHealthBadgeStyle(healthScore.label)]}>
@@ -366,13 +368,14 @@ function HealthSection({ healthScore, showHealthDetails, onToggleDetails }: Heal
                 <Text style={styles.healthMicrocopy}>{healthScore.microcopy}</Text>
             </View>
 
-            <PrimaryButton
+            <AppButton
                 onPress={onToggleDetails}
+                variant="ghost"
                 style={styles.healthDetailsBtn}
                 textStyle={styles.healthDetailsButtonText}
             >
                 {showHealthDetails ? 'Ocultar detalhes' : 'Ver detalhes'}
-            </PrimaryButton>
+            </AppButton>
 
             {showHealthDetails ? (
                 <View style={styles.healthDetails}>
@@ -390,7 +393,7 @@ function HealthSection({ healthScore, showHealthDetails, onToggleDetails }: Heal
                     ) : null}
                 </View>
             ) : null}
-        </Card>
+        </View>
     );
 }
 
@@ -402,7 +405,7 @@ function AlertBanner({ alert }: AlertBannerProps) {
     const isCritical = alert.level === 'critical';
 
     return (
-        <Card
+        <View
             style={[
                 styles.alertCard,
                 isCritical ? styles.alertCardCritical : styles.alertCardInformational,
@@ -411,7 +414,7 @@ function AlertBanner({ alert }: AlertBannerProps) {
             <Text style={styles.alertTitle}>
                 {alert.mascotState.toUpperCase()}: {alert.message}
             </Text>
-        </Card>
+        </View>
     );
 }
 
@@ -423,7 +426,7 @@ type ReviewSectionProps = {
 
 function ReviewSection({ dueCount, onboardingStage, onStartReview }: ReviewSectionProps) {
     return (
-        <Card style={styles.reviewCard}>
+        <View style={styles.reviewCard}>
             <Text style={styles.reviewLabel}>Revisões pendentes</Text>
             <Text style={styles.reviewCount}>{dueCount}</Text>
 
@@ -431,23 +434,23 @@ function ReviewSection({ dueCount, onboardingStage, onStartReview }: ReviewSecti
                 <Text style={styles.inlineHelper}>Revisões rápidas mantêm o conhecimento vivo.</Text>
             ) : null}
 
-            <PrimaryButton
+            <AppButton
                 onPress={onStartReview}
                 disabled={dueCount === 0}
                 style={styles.button}
             >
                 Iniciar revisão
-            </PrimaryButton>
-        </Card>
+            </AppButton>
+        </View>
     );
 }
 
 function getHealthBadgeStyle(label: string) {
     switch (label) {
-        case 'excellent': return { backgroundColor: 'rgba(52, 199, 89, 0.2)' }; // Success
-        case 'strong': return { backgroundColor: 'rgba(10, 132, 255, 0.2)' };   // Primary
-        case 'consistent': return { backgroundColor: 'rgba(255, 159, 10, 0.2)' }; // Warning
-        default: return { backgroundColor: COLORS.secondaryBackground };
+        case 'excellent': return { backgroundColor: 'rgba(52, 199, 89, 0.2)' };
+        case 'strong': return { backgroundColor: 'rgba(48, 96, 255, 0.2)' };
+        case 'consistent': return { backgroundColor: 'rgba(255, 159, 10, 0.2)' };
+        default: return { backgroundColor: 'rgba(255,255,255,0.07)' };
     }
 }
 
@@ -473,14 +476,14 @@ function renderHealthRow(label: string, value: number, max: number) {
 const styles = StyleSheet.create({
     screen: {
         ...layout.screen,
-        backgroundColor: COLORS.background,
+        backgroundColor: galaxyColors.background,
         padding: space.none,
     },
     header: {
         paddingHorizontal: space.s4,
         paddingVertical: space.s5,
         borderBottomWidth: 1,
-        borderBottomColor: COLORS.secondaryBackground,
+        borderBottomColor: galaxyColors.border,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -490,55 +493,53 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     introCard: {
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: galaxyColors.ctaGradientEnd,
         padding: space.s5,
         alignItems: 'center',
-        backgroundColor: COLORS.cardBackground,
-        borderWidth: 1,
-        borderColor: COLORS.primary,
+        gap: space.s3,
     },
     introTitle: {
         ...typography.h2,
-        color: COLORS.primaryText,
-        marginBottom: space.s3,
+        color: galaxyColors.textPrimary,
         textAlign: 'center',
     },
     introBody: {
         ...typography.body,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
         textAlign: 'center',
-        marginBottom: space.s5,
     },
     closureCard: {
-        marginBottom: space.s5,
-        padding: space.s5,
-        backgroundColor: 'rgba(52, 199, 89, 0.1)',
+        backgroundColor: 'rgba(52, 199, 89, 0.08)',
+        borderRadius: 16,
         borderWidth: 1,
-        borderColor: COLORS.success,
+        borderColor: '#34C759',
+        padding: space.s5,
+        gap: space.s3,
     },
     closureTitle: {
         ...typography.h2,
-        color: COLORS.success,
-        marginBottom: space.s2,
+        color: '#34C759',
     },
     closureBody: {
         ...typography.body,
-        color: COLORS.primaryText,
-        marginBottom: space.s4,
+        color: galaxyColors.textPrimary,
     },
     inlineHelper: {
         ...typography.caption,
-        color: COLORS.primary,
-        marginBottom: space.s4,
+        color: galaxyColors.ctaGradientEnd,
         textAlign: 'center',
         fontStyle: 'italic',
     },
     title: {
         ...typography.h1,
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
     },
     headerStatus: {
         ...typography.caption,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
         marginTop: space.s1,
     },
     content: {
@@ -552,113 +553,143 @@ const styles = StyleSheet.create({
     },
     statPill: {
         flex: 1,
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
+        paddingVertical: space.s2,
+        paddingHorizontal: space.s3,
+        alignItems: 'center',
+        gap: 2,
+    },
+    statPillLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: galaxyColors.textSecondary,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+    },
+    statPillValue: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: galaxyColors.textPrimary,
     },
     goalCompletedBanner: {
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
+        padding: space.s3,
         alignItems: 'center',
     },
     goalCompletedText: {
         fontSize: 16,
         fontWeight: '600',
-        color: COLORS.success,
+        color: '#34C759',
     },
     reviewCard: {
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
+        padding: space.s4,
         alignItems: 'center',
+        gap: space.s2,
     },
     reviewLabel: {
         fontSize: 16,
         fontWeight: '500',
-        color: COLORS.secondaryText,
-        marginBottom: space.s2,
+        color: galaxyColors.textSecondary,
     },
     reviewCount: {
         fontSize: 64,
         fontWeight: '700',
-        color: COLORS.primary,
-        marginBottom: space.s5,
+        color: galaxyColors.ctaGradientEnd,
     },
     button: {
         width: '100%',
     },
     secondaryButton: {
         width: '100%',
-        backgroundColor: COLORS.secondaryBackground,
     },
     healthCard: {
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
         padding: space.s4,
+        gap: space.s3,
     },
     healthHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: space.s3,
     },
     healthTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
     },
     healthBadge: {
         paddingHorizontal: space.s2,
         paddingVertical: 2,
         borderRadius: 4,
-        backgroundColor: COLORS.secondaryBackground,
+        backgroundColor: 'rgba(255,255,255,0.07)',
     },
     healthBadgeText: {
         fontSize: 12,
         fontWeight: '600',
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
     },
     healthMain: {
-        marginBottom: space.s4,
+        gap: space.s1,
     },
     healthScoreBig: {
         fontSize: 48,
         fontWeight: '800',
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
         letterSpacing: -1,
     },
     healthMicrocopy: {
         fontSize: 14,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
         lineHeight: 20,
     },
     healthDetailsBtn: {
-        backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: COLORS.secondaryBackground,
+        borderColor: galaxyColors.border,
         height: 36,
-        marginBottom: 0,
     },
     healthDetailsButtonText: {
         fontSize: 13,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
     },
     healthDetails: {
-        marginTop: space.s4,
-        paddingTop: space.s4,
+        marginTop: space.s2,
+        paddingTop: space.s3,
         borderTopWidth: 1,
-        borderTopColor: COLORS.secondaryBackground,
+        borderTopColor: galaxyColors.border,
+        gap: space.s1,
     },
     healthRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: space.s1,
     },
     healthRowLabel: {
         fontSize: 13,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
     },
     healthRowValue: {
         fontSize: 13,
         fontWeight: '600',
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
     },
     healthPenaltyText: {
-        color: COLORS.error,
+        color: '#FF453A',
     },
     healthPlaceholder: {
         fontSize: 14,
-        color: COLORS.secondaryText,
+        color: galaxyColors.textSecondary,
         fontStyle: 'italic',
         marginTop: space.s2,
     },
@@ -682,23 +713,22 @@ const styles = StyleSheet.create({
     sectionBlock: {
         marginBottom: space.none,
     },
-    secondaryButtonText: {
-        color: COLORS.secondaryText,
-    },
     alertCard: {
+        borderRadius: 12,
         borderWidth: 1,
+        padding: space.s3,
     },
     alertCardCritical: {
         backgroundColor: 'rgba(255, 69, 58, 0.1)',
-        borderColor: COLORS.error,
+        borderColor: '#FF453A',
     },
     alertCardInformational: {
-        backgroundColor: 'rgba(10, 132, 255, 0.1)',
-        borderColor: COLORS.primary,
+        backgroundColor: 'rgba(48, 96, 255, 0.1)',
+        borderColor: galaxyColors.ctaGradientEnd,
     },
     alertTitle: {
         ...typography.body,
-        color: COLORS.primaryText,
+        color: galaxyColors.textPrimary,
         fontWeight: '700',
     },
 });

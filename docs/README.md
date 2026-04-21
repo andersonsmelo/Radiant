@@ -92,6 +92,7 @@ As specs definem como uma área do produto deve se comportar e quais contratos a
 - o plano complementar define a ordem de execução e rollout técnico;
 - a implementação atual já possui fundação local atrás de flag no app, com trilhas de catálogo visíveis e selecionáveis;
 - o progresso da jornada é versionado como `journey-progress.v2` e preserva progresso separado por trilha.
+- o fallback para trilha sem próximo nó elegível agora é inline na `Journey Home`, sem `Alert` modal.
 
 ## Estado arquitetural vigente
 
@@ -131,3 +132,4 @@ ADRs definem por que a arquitetura está assim.
 - a `Learning Road` só deve ser considerada fluxo principal quando a flag estiver ligada e as trilhas prioritárias estiverem homologadas ponta a ponta.
 - o baseline editorial promovido para runtime deve manter app e API alinhados via `sync-catalog-to-app.mjs` e `sync-catalog-to-api.mjs`.
 - mudanças no motor de jornada devem preservar migração local de progresso e manter alternância de trilha sem apagar progresso anterior.
+- estados vazios da jornada devem priorizar continuidade visual no fluxo principal e evitar modais sem ação corretiva imediata.

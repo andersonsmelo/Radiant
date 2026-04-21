@@ -6,6 +6,8 @@ Em 2026-04-09, a Wave 1 avançou de catálogo editorial pronto para experiência
 
 A `Learning Road V2` agora expõe as trilhas prioritárias do catálogo, permite selecionar uma trilha real e preserva progresso local separado por trilha.
 
+Na rodada mais recente, a build iOS nativa foi revalidada em simulador e o retorno para trilhas sem próximo nó elegível saiu do `Alert` modal e passou para um estado inline na `Journey Home`.
+
 ## O que foi feito
 
 ### App mobile
@@ -14,6 +16,7 @@ A `Learning Road V2` agora expõe as trilhas prioritárias do catálogo, permite
 - `JourneyTrackShelf` e `JourneyTrackCard` exibem `Fundamentos`, `Tórax` e `Abdome`;
 - tocar em uma trilha chama `JourneyProgressService.selectTrack(track.id)`;
 - a trilha selecionada abre o próximo nó elegível real, sem ficar limitada a um aviso de preview;
+- quando não existe próximo nó elegível, a `Journey Home` mantém a trilha ativa e explica o estado inline na própria tela;
 - evento tipado `journey_track_selected` foi adicionado ao contrato de telemetria.
 
 ### Motor de jornada
@@ -65,6 +68,21 @@ CI=1 ./node_modules/.bin/jest --runInBand --forceExit --verbose src/ui/__tests__
 
 Resultado: `10` testes passando no recorte de motion e jornada.
 
+### Simulador iOS
+
+```bash
+cd radiant-app
+npm run ios:doctor
+npx expo run:ios --device "iPhone 17"
+npm run ios:v2
+```
+
+Resultado:
+
+- build nativa concluída com sucesso no simulador;
+- `Journey Home` carregada a partir do bundle atual;
+- fallback de trilha sem próximo passo validado no runtime sem modal de interrupção.
+
 ### Conteúdo e QA
 
 ```bash
@@ -96,7 +114,7 @@ Higiene aplicada nesta rodada:
 
 ## Próximos passos
 
-1. Homologar no simulador iOS a troca real entre `Fundamentos`, `Tórax` e `Abdome`.
-2. Definir UX de retorno para trilhas sem próximo nó elegível além do alerta atual.
-3. Separar staging por pacote: app journey, conteúdo/QA, API contrato, documentação.
-4. Preparar PR com checklist de validação e sem artefatos `.next` ou cache.
+1. Fechar a homologação manual do tap-flow completo entre `Fundamentos`, `Tórax` e `Abdome` sobre a build já validada.
+2. Abrir PR do pacote principal já commitado, sem misturar o restante do workspace.
+3. Repetir o smoke Wave 1 depois do próximo sync editorial para manter app e API alinhados.
+4. Refinar estados vazios secundários da jornada se aparecerem gaps na homologação manual.

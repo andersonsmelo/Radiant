@@ -33,7 +33,22 @@ e aprendizado aplicável à prática real.
 
 ---
 
-## 5. Escopo do MVP
+## 5. App Store Impact
+
+- Sinal principal impactado:
+- Hipótese de ganho:
+- Risco para `D7`, nota média ou estabilidade:
+- Mercado afetado: `pt-BR` | `en-US` | ambos
+- Plano de medição:
+- Janela de leitura:
+- Melhora discoverability?
+- Melhora conversão?
+- Melhora hábito?
+- Protege reputação técnica?
+
+---
+
+## 6. Escopo do MVP
 
 ### INCLUI
 - 1 trilha inicial (ex: CXR + CT básico)
@@ -53,7 +68,7 @@ e aprendizado aplicável à prática real.
 
 ---
 
-## 6. Fluxo Principal do Usuário
+## 7. Fluxo Principal do Usuário
 1. Abre o app
 2. Realiza uma microlição sem login
 3. Recebe feedback imediato
@@ -63,7 +78,7 @@ e aprendizado aplicável à prática real.
 
 ---
 
-## 7. Métricas de Sucesso (MVP)
+## 8. Métricas de Sucesso (MVP)
 - Retenção D7 ≥ 20%
 - Retenção D30 ≥ 15%
 - Conversão Free → Premium ≥ 10%
@@ -72,13 +87,15 @@ e aprendizado aplicável à prática real.
 
 ---
 
-## 8. Restrições
+## 9. Restrições
 - Código simples e modular
 - Zero overengineering
 - Conteúdo médico revisado
 - IA usada apenas como executora técnica
+- Mudanças que afetem iOS precisam declarar impacto em discoverability,
+  conversão, hábito ou reputação técnica
 
 ---
 
-## 9. Fora de Escopo
+## 10. Fora de Escopo
 Tudo que não está explicitamente listado neste documento.

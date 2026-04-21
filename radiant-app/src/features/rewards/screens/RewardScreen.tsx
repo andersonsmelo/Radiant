@@ -5,12 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { StatItem } from '../../../components/ui/StatItem';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
+import { HUD } from '../../../ui/components/HUD';
+import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
-import { colors } from '../../../ui/theme';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import type { GamificationSnapshot } from '../../../types/gamification';
+import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
@@ -89,6 +92,11 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
   const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
   const [paywallSubmitting, setPaywallSubmitting] = useState(false);
+  const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+
+  useEffect(() => {
+    void GamificationService.getSnapshot().then(setGamification);
+  }, []);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -187,184 +195,201 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      </SafeAreaView>
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <SafeAreaView style={styles.safe}>
+          <View style={styles.centered}>
+            <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+          </View>
+        </SafeAreaView>
+      </View>
     );
   }
 
   if (!rewardNode || !activeUnit) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <View style={[layout.container, styles.emptyState]}>
-          <SurfaceCard variant="solid" style={styles.emptyCard}>
-            <Text style={styles.emptyTitle}>Conquista indisponível</Text>
-            <Text style={styles.emptyBody}>
-              Nenhuma recompensa está elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
-            </Text>
-            <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
-              Voltar para jornada
-            </AppButton>
-          </SurfaceCard>
-        </View>
-      </SafeAreaView>
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <SafeAreaView style={styles.safe}>
+          <View style={styles.emptyState}>
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyTitle}>Conquista indisponível</Text>
+              <Text style={styles.emptyBody}>
+                Nenhuma recompensa está elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
+              </Text>
+              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+                Voltar para jornada
+              </AppButton>
+            </View>
+          </View>
+        </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.headerRow}>
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel="Voltar"
-            style={styles.iconButton}
-          >
-            <MaterialIcons name="close" size={24} color={colors.textPrimary} />
-          </Pressable>
-          <Text style={styles.headerLabel}>Reward</Text>
-          <View style={styles.iconSpacer} />
-        </View>
-
-        <SurfaceCard variant="glass" style={styles.heroCard}>
-          <PixelHeroSplit
-            eyebrow="Learning Road"
-            message={rewardCompleted
-              ? 'Conquista registrada. A jornada recalculou o próximo passo e manteve tudo salvo no fluxo local.'
-              : 'Feche esse marco agora para sinalizar a virada de etapa e manter a trilha consistente.'}
-            ringValue={completedPrimaryNodes}
-            ringTotal={Math.max(totalPrimaryNodes, 1)}
-            ringLabel="Marcos concluídos"
-            state={rewardCompleted ? 'celebrate' : 'happy'}
-            tier={rewardCompleted ? 'advanced' : 'intermediate'}
-            accessibilityLabel="Pixel apresentando a conquista da jornada"
-          />
-
-          <View style={styles.heroFooter}>
-            <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
-            <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
+    <View style={styles.root}>
+      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <HUD
+          totalXp={gamification?.totalXp ?? 0}
+          streakDays={gamification?.streakDays ?? 0}
+          hearts={gamification?.hearts ?? 5}
+          maxHearts={gamification?.maxHearts ?? 5}
+        />
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <View style={styles.headerRow}>
+            <Pressable
+              onPress={() => router.back()}
+              accessibilityRole="button"
+              accessibilityLabel="Voltar"
+              style={styles.iconButton}
+            >
+              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+            </Pressable>
+            <Text style={styles.headerLabel}>Reward</Text>
+            <View style={styles.iconSpacer} />
           </View>
-        </SurfaceCard>
 
-        <SurfaceCard variant="solid" style={styles.sectionCard}>
-          <Text style={styles.sectionTitle}>{rewardNode.title}</Text>
-          <Text style={styles.sectionBody}>
-            {rewardNode.description ?? 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.'}
-          </Text>
-
-          <View style={styles.statsList}>
-            <StatItem
-              icon={<MaterialIcons name="emoji-events" size={20} color={colors.primary} />}
-              label="Status"
-              value={rewardCompleted ? 'Conquista registrada localmente' : 'Pronta para ser coletada'}
+          <View style={styles.heroCard}>
+            <PixelHeroSplit
+              eyebrow="Learning Road"
+              message={rewardCompleted
+                ? 'Conquista registrada. A jornada recalculou o próximo passo e manteve tudo salvo no fluxo local.'
+                : 'Feche esse marco agora para sinalizar a virada de etapa e manter a trilha consistente.'}
+              ringValue={completedPrimaryNodes}
+              ringTotal={Math.max(totalPrimaryNodes, 1)}
+              ringLabel="Marcos concluídos"
+              state={rewardCompleted ? 'celebrate' : 'happy'}
+              tier={rewardCompleted ? 'advanced' : 'intermediate'}
+              accessibilityLabel="Pixel apresentando a conquista da jornada"
             />
-            <StatItem
-              icon={<MaterialIcons name="task-alt" size={20} color={colors.primary} />}
-              label="Progresso"
-              value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`}
-            />
-            <StatItem
-              icon={<MaterialIcons name="refresh" size={20} color={colors.primary} />}
-              label="Revisão"
-              value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
-            />
+            <View style={styles.heroFooter}>
+              <Text style={styles.heroFooterLabel}>Unidade ativa</Text>
+              <Text style={styles.heroFooterValue}>{activeUnit.title}</Text>
+            </View>
           </View>
-        </SurfaceCard>
 
-        {error ? (
-          <SurfaceCard variant="solid" style={styles.errorCard}>
-            <Text style={styles.errorText}>{error}</Text>
-          </SurfaceCard>
-        ) : null}
+          <View style={styles.sectionCard}>
+            <Text style={styles.sectionTitle}>{rewardNode.title}</Text>
+            <Text style={styles.sectionBody}>
+              {rewardNode.description ?? 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.'}
+            </Text>
 
-        {paywallOffer ? (
-          <PaywallOfferCard
-            offer={paywallOffer}
-            submitting={paywallSubmitting}
-            onPrimary={() => {
-              if (paywallSubmitting) {
-                return;
-              }
+            <View style={styles.statsList}>
+              <GalaxyStatRow
+                icon={<MaterialIcons name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Status"
+                value={rewardCompleted ? 'Conquista registrada localmente' : 'Pronta para ser coletada'}
+              />
+              <GalaxyStatRow
+                icon={<MaterialIcons name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Progresso"
+                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`}
+              />
+              <GalaxyStatRow
+                icon={<MaterialIcons name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
+                label="Revisão"
+                value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
+              />
+            </View>
+          </View>
 
-              void (async () => {
-                try {
-                  setPaywallSubmitting(true);
-                  const interest = await UpgradeInterestService.captureInterest(paywallOffer, {
-                    lessonId: rewardNode.id,
-                  });
-                  await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: rewardNode.id });
-                  setPaywallFeedback(
-                    interest.email
-                      ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
-                      : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
-                  );
-                } catch (cause) {
-                  console.error('[RewardScreen] Failed to capture paywall interest:', cause);
-                  setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
-                } finally {
-                  setPaywallOffer(null);
-                  setPaywallSubmitting(false);
+          {error ? (
+            <View style={styles.errorCard}>
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+          ) : null}
+
+          {paywallOffer ? (
+            <PaywallOfferCard
+              offer={paywallOffer}
+              submitting={paywallSubmitting}
+              onPrimary={() => {
+                if (paywallSubmitting) {
+                  return;
                 }
-              })();
-            }}
-            onDismiss={() => {
-              if (paywallSubmitting) {
-                return;
-              }
-              void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: rewardNode.id });
-              setPaywallOffer(null);
-            }}
-          />
-        ) : null}
 
-        {paywallFeedback ? (
-          <SurfaceCard variant="solid" style={styles.messageCard}>
-            <Text style={styles.messageText}>{paywallFeedback}</Text>
-          </SurfaceCard>
-        ) : null}
+                void (async () => {
+                  try {
+                    setPaywallSubmitting(true);
+                    const interest = await UpgradeInterestService.captureInterest(paywallOffer, {
+                      lessonId: rewardNode.id,
+                    });
+                    await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: rewardNode.id });
+                    setPaywallFeedback(
+                      interest.email
+                        ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
+                        : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
+                    );
+                  } catch (cause) {
+                    console.error('[RewardScreen] Failed to capture paywall interest:', cause);
+                    setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
+                  } finally {
+                    setPaywallOffer(null);
+                    setPaywallSubmitting(false);
+                  }
+                })();
+              }}
+              onDismiss={() => {
+                if (paywallSubmitting) {
+                  return;
+                }
+                void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: rewardNode.id });
+                setPaywallOffer(null);
+              }}
+            />
+          ) : null}
 
-        <SurfaceCard variant="elevated" style={styles.actionCard}>
-          <Text style={styles.actionTitle}>{rewardCompleted ? 'Reward concluído' : 'Pronto para coletar essa conquista?'}</Text>
-          <Text style={styles.actionBody}>
-            {rewardCompleted
-              ? 'A trilha já registrou esse marco e deixou o próximo passo preparado para você continuar sem retrabalho.'
-              : 'Essa ação não cria inventário nem badge complexa neste ciclo. Ela apenas fecha o marco da unidade e registra a progressão no estado local.'}
-          </Text>
+          {paywallFeedback ? (
+            <View style={styles.messageCard}>
+              <Text style={styles.messageText}>{paywallFeedback}</Text>
+            </View>
+          ) : null}
 
-          {rewardCompleted ? (
-            <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
-              {nextAction.label}
-            </AppButton>
-          ) : (
-            <>
-              <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
-                {submitting ? 'Registrando conquista...' : 'Receber conquista'}
+          <View style={styles.actionCard}>
+            <Text style={styles.actionTitle}>{rewardCompleted ? 'Reward concluído' : 'Pronto para coletar essa conquista?'}</Text>
+            <Text style={styles.actionBody}>
+              {rewardCompleted
+                ? 'A trilha já registrou esse marco e deixou o próximo passo preparado para você continuar sem retrabalho.'
+                : 'Essa ação não cria inventário nem badge complexa neste ciclo. Ela apenas fecha o marco da unidade e registra a progressão no estado local.'}
+            </Text>
+
+            {rewardCompleted ? (
+              <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
+                {nextAction.label}
               </AppButton>
-              <AppButton
-                onPress={() => router.replace('/(tabs)')}
-                variant="secondary"
-                style={styles.fullWidthButton}
-              >
-                Voltar para jornada
-              </AppButton>
-            </>
-          )}
-        </SurfaceCard>
-      </ScrollView>
-    </SafeAreaView>
+            ) : (
+              <>
+                <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
+                  {submitting ? 'Registrando conquista...' : 'Receber conquista'}
+                </AppButton>
+                <AppButton
+                  onPress={() => router.replace('/(tabs)')}
+                  variant="ghost"
+                  style={styles.fullWidthButton}
+                  textStyle={{ color: galaxyColors.textSecondary }}
+                >
+                  Voltar para jornada
+                </AppButton>
+              </>
+            )}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
-const ICON_BUTTON_SIZE = space.s6 + space.s4;
-const SCREEN_MAX_WIDTH = 720;
+const ICON_BUTTON_SIZE = 36;
 
 const styles = StyleSheet.create({
-  screen: {
+  root: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: galaxyColors.background,
+  },
+  safe: {
+    flex: 1,
   },
   centered: {
     flex: 1,
@@ -379,8 +404,7 @@ const styles = StyleSheet.create({
   headerRow: {
     ...layout.rowBetween,
     width: '100%',
-    maxWidth: SCREEN_MAX_WIDTH,
-    alignSelf: 'center',
+    paddingHorizontal: space.s1,
   },
   iconButton: {
     width: ICON_BUTTON_SIZE,
@@ -388,97 +412,130 @@ const styles = StyleSheet.create({
     borderRadius: radius.rXl,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.surfaceGlass,
+    backgroundColor: 'rgba(255,255,255,0.07)',
     borderWidth: 1,
-    borderColor: colors.borderSoft,
+    borderColor: galaxyColors.border,
   },
   iconSpacer: {
     width: ICON_BUTTON_SIZE,
     height: ICON_BUTTON_SIZE,
   },
   headerLabel: {
-    ...typography.body,
-    color: colors.textPrimary,
+    fontSize: 13,
     fontWeight: '800',
+    color: 'rgba(255,255,255,0.35)',
+    letterSpacing: 3,
+    textTransform: 'uppercase',
   },
   heroCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s3,
     overflow: 'hidden',
   },
   heroFooter: {
-    backgroundColor: 'rgba(255,255,255,0.58)',
-    borderRadius: radius.rLg,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderRadius: radius.rMd,
     paddingHorizontal: space.s3,
     paddingVertical: space.s2,
     gap: space.s0,
   },
   heroFooterLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 11,
+    fontWeight: '600',
+    color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   heroFooterValue: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   sectionCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s2,
   },
   sectionTitle: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   sectionBody: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
   statsList: {
     gap: space.s2,
+    marginTop: space.s1,
   },
   actionCard: {
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s2,
   },
   actionTitle: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   actionBody: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
   fullWidthButton: {
     width: '100%',
   },
   errorCard: {
-    borderColor: colors.danger,
+    backgroundColor: 'rgba(255,59,48,0.10)',
+    borderRadius: radius.rMd,
+    borderWidth: 1,
+    borderColor: 'rgba(255,59,48,0.25)',
+    padding: space.s3,
   },
   errorText: {
     ...typography.bodyRegular,
-    color: colors.danger,
+    color: '#FF6B6B',
   },
   messageCard: {
-    borderColor: colors.borderStrong,
+    backgroundColor: galaxyColors.surfaceMuted,
+    borderRadius: radius.rMd,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
   },
   messageText: {
     ...typography.bodyRegular,
-    color: colors.textPrimary,
+    color: galaxyColors.textSecondary,
   },
   emptyState: {
     flex: 1,
     justifyContent: 'center',
+    padding: space.s3,
   },
   emptyCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s3,
   },
   emptyTitle: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     textAlign: 'center',
   },
   emptyBody: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
 });

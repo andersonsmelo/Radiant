@@ -4,10 +4,10 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { LessonFlowService } from '../services/LessonFlowService';
 import type { LessonBlock, MultipleChoicePayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
 import { TeachStepRenderer } from '../renderers/TeachStepRenderer';
@@ -78,7 +78,7 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
     const progress = totalSteps > 0 ? (stepIndex + 1) / totalSteps : 0;
     const lessonTitle = useMemo(() => {
         if (!block) {
-            return 'Lesson Flow';
+            return 'Fluxo da Lição';
         }
 
         const contextStep = block.steps.find((step) => step.step.type === 'context');
@@ -169,103 +169,110 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
 
     if (loading) {
         return (
-            <SafeAreaView style={styles.screen}>
-                <View style={styles.centered}>
-                    <ActivityIndicator size="large" color={colors.primary} />
-                </View>
-            </SafeAreaView>
+            <View style={styles.root}>
+                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <SafeAreaView style={styles.safe}>
+                    <View style={styles.centered}>
+                        <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+                    </View>
+                </SafeAreaView>
+            </View>
         );
     }
 
     if (error || !block || !currentStep) {
         return (
-            <SafeAreaView style={styles.screen}>
-                <View style={styles.centered}>
-                    <SurfaceCard variant="solid" style={styles.errorCard}>
-                        <Text style={styles.errorText}>{error ?? 'Bloco inválido.'}</Text>
-                    </SurfaceCard>
-                    <AppButton onPress={exitLesson}>Voltar para a trilha</AppButton>
-                </View>
-            </SafeAreaView>
+            <View style={styles.root}>
+                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <SafeAreaView style={styles.safe}>
+                    <View style={styles.centered}>
+                        <View style={styles.errorCard}>
+                            <Text style={styles.errorText}>{error ?? 'Bloco inválido.'}</Text>
+                        </View>
+                        <AppButton onPress={exitLesson}>Voltar para a trilha</AppButton>
+                    </View>
+                </SafeAreaView>
+            </View>
         );
     }
 
     return (
-        <SafeAreaView style={styles.screen}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <View style={styles.headerTopRow}>
-                        <Pressable
-                            onPress={exitLesson}
-                            style={styles.closeButton}
-                            accessibilityRole="button"
-                            accessibilityLabel="Fechar lição"
-                        >
-                            <MaterialIcons name="close" size={24} color={colors.textSecondary} />
-                        </Pressable>
+        <View style={styles.root}>
+            <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+            <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <View style={styles.headerTopRow}>
+                            <Pressable
+                                onPress={exitLesson}
+                                style={styles.closeButton}
+                                accessibilityRole="button"
+                                accessibilityLabel="Fechar lição"
+                            >
+                                <MaterialIcons name="close" size={24} color={galaxyColors.textSecondary} />
+                            </Pressable>
+                        </View>
+                        <LessonFlowProgressHeader
+                            title={lessonTitle}
+                            currentStep={stepIndex + 1}
+                            totalSteps={totalSteps}
+                            progressPercent={progress * 100}
+                        />
                     </View>
-                    <LessonFlowProgressHeader
-                        title={lessonTitle}
-                        currentStep={stepIndex + 1}
-                        totalSteps={totalSteps}
-                        progressPercent={progress * 100}
-                    />
+
+                    <ScrollView
+                        style={styles.scroll}
+                        contentContainerStyle={styles.scrollContent}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <LessonVisualPanel hint={panelHint} caption={panelCaption} />
+
+                        <View style={styles.contentCard}>
+                            {currentStep.step.type === 'context' ? (
+                                <ContextStepRenderer payload={currentStep.step.payload} />
+                            ) : null}
+
+                            {currentStep.step.type === 'teach' ? (
+                                <TeachStepRenderer payload={currentStep.step.payload} />
+                            ) : null}
+
+                            {currentStep.step.type === 'multiple-choice' ? (
+                                <MultipleChoiceStepRenderer
+                                    payload={multipleChoicePayload!}
+                                    selectedOptionId={selectedOptionId}
+                                    onSelect={(optionId) => handleSelectOption(multipleChoicePayload!, optionId)}
+                                    locked={Boolean(selectedOptionId)}
+                                />
+                            ) : null}
+
+                            {currentStep.step.type === 'reinforce' ? (
+                                <ReinforceStepRenderer
+                                    payload={currentStep.step.payload}
+                                    answeredCorrectly={answeredCorrectly}
+                                    explanation={answerExplanation}
+                                />
+                            ) : null}
+
+                            {currentStep.step.type === 'advance' ? (
+                                <AdvanceStepRenderer payload={currentStep.step.payload} />
+                            ) : null}
+                        </View>
+                    </ScrollView>
+
+                    <View style={styles.footer}>
+                        <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
+                            {isLastStep ? 'Concluir e voltar' : 'Continuar'}
+                        </AppButton>
+                    </View>
                 </View>
-
-                <ScrollView
-                    style={styles.scroll}
-                    contentContainerStyle={styles.scrollContent}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <LessonVisualPanel hint={panelHint} caption={panelCaption} />
-
-                    <SurfaceCard variant="solid" style={styles.contentCard}>
-                        {currentStep.step.type === 'context' ? (
-                            <ContextStepRenderer payload={currentStep.step.payload} />
-                        ) : null}
-
-                        {currentStep.step.type === 'teach' ? (
-                            <TeachStepRenderer payload={currentStep.step.payload} />
-                        ) : null}
-
-                        {currentStep.step.type === 'multiple-choice' ? (
-                            <MultipleChoiceStepRenderer
-                                payload={multipleChoicePayload!}
-                                selectedOptionId={selectedOptionId}
-                                onSelect={(optionId) => handleSelectOption(multipleChoicePayload!, optionId)}
-                                locked={Boolean(selectedOptionId)}
-                            />
-                        ) : null}
-
-                        {currentStep.step.type === 'reinforce' ? (
-                            <ReinforceStepRenderer
-                                payload={currentStep.step.payload}
-                                answeredCorrectly={answeredCorrectly}
-                                explanation={answerExplanation}
-                            />
-                        ) : null}
-
-                        {currentStep.step.type === 'advance' ? (
-                            <AdvanceStepRenderer payload={currentStep.step.payload} />
-                        ) : null}
-                    </SurfaceCard>
-                </ScrollView>
-
-                <View style={styles.footer}>
-                    <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
-                        {isLastStep ? 'Concluir e voltar' : 'Continuar'}
-                    </AppButton>
-                </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: colors.background,
-    },
+    root: { flex: 1, backgroundColor: galaxyColors.background },
+    safe: { flex: 1 },
     centered: {
         flex: 1,
         justifyContent: 'center',
@@ -291,7 +298,7 @@ const styles = StyleSheet.create({
         width: 44,
         height: 44,
         borderRadius: 999,
-        backgroundColor: colors.surfaceGlass,
+        backgroundColor: 'rgba(255,255,255,0.07)',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -304,23 +311,33 @@ const styles = StyleSheet.create({
         gap: space.s3,
     },
     contentCard: {
+        backgroundColor: galaxyColors.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
+        padding: space.s3,
         gap: space.s3,
     },
     footer: {
         paddingHorizontal: space.s3,
         paddingTop: space.s2,
         paddingBottom: space.s3,
-        backgroundColor: 'rgba(245, 250, 255, 0.94)',
+        backgroundColor: 'rgba(3,3,13,0.92)',
     },
     primaryAction: {
         width: '100%',
     },
     errorCard: {
+        backgroundColor: 'rgba(255,59,48,0.10)',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: 'rgba(255,59,48,0.25)',
+        padding: space.s3,
         width: '100%',
     },
     errorText: {
         ...typography.bodyRegular,
-        color: colors.danger,
+        color: '#FF6B6B',
         textAlign: 'center',
     },
 });

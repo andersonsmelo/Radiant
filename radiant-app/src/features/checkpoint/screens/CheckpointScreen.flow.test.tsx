@@ -36,23 +36,24 @@ jest.mock('../../../components/ui/PixelHeroSplit', () => {
   };
 });
 
-jest.mock('../../../components/ui/StatItem', () => {
-  const React = require('react');
-  const { View } = require('react-native');
+jest.mock('../../../ui/components/StarfieldBackground', () => ({
+  StarfieldBackground: () => null,
+}));
 
-  return {
-    StatItem: () => <View />,
-  };
-});
+jest.mock('../../../ui/components/HUD', () => ({
+  HUD: () => null,
+}));
 
-jest.mock('../../../components/ui/SurfaceCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    SurfaceCard: ({ children }: { children: React.ReactNode }) => <View>{children}</View>,
-  };
-});
+jest.mock('../../gamification/services/GamificationService', () => ({
+  GamificationService: {
+    getSnapshot: jest.fn().mockResolvedValue({
+      totalXp: 120,
+      streakDays: 3,
+      hearts: 5,
+      maxHearts: 5,
+    }),
+  },
+}));
 
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {

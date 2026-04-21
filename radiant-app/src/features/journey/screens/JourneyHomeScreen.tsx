@@ -9,10 +9,12 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../services/JourneyNodeRouting';
 import { AppButton } from '../../../components/ui/AppButton';
-import { StatItem } from '../../../components/ui/StatItem';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
-import { colors } from '../../../ui/theme';
-import { space, typography } from '../../../ui/styles';
+import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
+import { HUD } from '../../../ui/components/HUD';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import type { GamificationSnapshot } from '../../../types/gamification';
+import { galaxyColors } from '../../../ui/theme';
+import { radius, space, typography } from '../../../ui/styles';
 import { JourneyHero } from '../components/JourneyHero';
 import { JourneyMap } from '../components/JourneyMap';
 import { JourneyTrackShelf } from '../components/JourneyTrackShelf';
@@ -37,12 +39,46 @@ function statusLabel(node: JourneyNode): string {
   }
 }
 
+// ── GalaxyStatRow ─────────────────────────────────────────────────
+interface GalaxyStatRowProps {
+  icon?: React.ReactNode;
+  label: string;
+  value: string;
+}
+
+function GalaxyStatRow({ icon, label, value }: GalaxyStatRowProps) {
+  return (
+    <View style={galaxyStatRowStyles.row}>
+      {icon ? <View style={galaxyStatRowStyles.icon}>{icon}</View> : null}
+      <View style={galaxyStatRowStyles.textBlock}>
+        <Text style={galaxyStatRowStyles.label}>{label}</Text>
+        <Text style={galaxyStatRowStyles.value}>{value}</Text>
+      </View>
+    </View>
+  );
+}
+
+const galaxyStatRowStyles = StyleSheet.create({
+  row: { flexDirection: 'row', alignItems: 'center', gap: space.s2 },
+  icon: { width: 28, alignItems: 'center', justifyContent: 'center' },
+  textBlock: { flexDirection: 'row', alignItems: 'baseline', flexWrap: 'wrap', gap: 6, flex: 1 },
+  label: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: galaxyColors.textSecondary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  value: { fontSize: 14, fontWeight: '700', color: galaxyColors.textPrimary },
+});
+
 export default function JourneyHomeScreen() {
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [dailyGoalSnapshot, setDailyGoalSnapshot] = useState<DailyGoalSnapshot | null>(null);
   const [catalogManifest, setCatalogManifest] = useState<LessonCatalogManifest | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -58,7 +94,7 @@ export default function JourneyHomeScreen() {
       setCatalogManifest(nextCatalogManifest);
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
-      setError('Nao foi possivel carregar a Learning Road.');
+      setError('Não foi possível carregar a jornada.');
     } finally {
       setLoading(false);
     }
@@ -68,6 +104,7 @@ export default function JourneyHomeScreen() {
     useCallback(() => {
       void TelemetryService.track('screen_view', { screen: 'journey_home' });
       void loadSnapshot();
+      void GamificationService.getSnapshot().then(setGamification);
     }, [loadSnapshot])
   );
 
@@ -192,145 +229,140 @@ export default function JourneyHomeScreen() {
   }, [openNode, snapshot]);
 
   return (
-    <SafeAreaView style={styles.screen}>
-      {loading ? (
-        <View style={styles.centered}>
-          <ActivityIndicator
-            size="large"
-            color={colors.primary}
-            accessibilityRole="progressbar"
-            accessibilityLabel="Carregando jornada"
-          />
-        </View>
-      ) : (
-        <ScrollView
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-          contentInsetAdjustmentBehavior="always"
-        >
-          <JourneyHero
-            unitTitle={currentUnit?.title ?? 'Sua trilha'}
-            dailyGoalCompleted={dailyGoalSnapshot?.completedToday ?? 0}
-            dailyGoalTarget={dailyGoalSnapshot?.goalPerDay ?? 1}
-            message={heroMessage}
-          />
-
-          <SurfaceCard variant="solid" style={styles.summaryCard}>
-            <Text style={styles.summaryTitle}>Foco de hoje</Text>
-            <View style={styles.summaryList}>
-              <StatItem
-                icon={<MaterialIcons name="flag" size={20} color={colors.primary} />}
-                label="Próximo"
-                value={recommendedNodeMeta}
-              />
-              <StatItem
-                icon={<MaterialIcons name="account-tree" size={20} color={colors.primary} />}
-                label="Nós ativos"
-                value={`${actionableNodeCount} passos elegíveis nesta unidade`}
-              />
-              <StatItem
-                icon={<MaterialIcons name="offline-bolt" size={20} color={colors.primary} />}
-                label="Sync"
-                value="Modo local-first ativo, com progresso protegido mesmo sem rede"
-              />
-            </View>
-          </SurfaceCard>
-
-          <JourneyTrackShelf
-            tracks={catalogManifest?.tracks ?? []}
-            lessons={catalogManifest?.lessons ?? []}
-            activeTrackId={snapshot?.progress.activeTrackId ?? 'track-radiology-foundations'}
-            activeProgressPercent={activeTrackProgressPercent}
-            onTrackPress={openTrack}
-          />
-
-          {noNextStepMessage ? (
-            <SurfaceCard variant="solid" style={styles.messageCard}>
-              <Text style={styles.messageTitle}>Trilha pausada por agora</Text>
-              <Text style={styles.messageText}>{noNextStepMessage}</Text>
-            </SurfaceCard>
-          ) : null}
-
-          {error ? (
-            <SurfaceCard variant="solid" style={styles.errorCard} accessibilityRole="alert">
-              <Text style={styles.errorText}>{error}</Text>
-            </SurfaceCard>
-          ) : null}
-
-          {snapshot && currentUnit ? (
-            <JourneyMap
-              units={snapshot.track.units}
-              recommendedNodeId={snapshot.nextRecommendedNode?.id}
-              onNodePress={(node) => void openNode(node)}
-              isNodeDisabled={(node) => !canOpenNode(node)}
+    <View style={styles.root}>
+      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <HUD
+          totalXp={gamification?.totalXp ?? 0}
+          streakDays={gamification?.streakDays ?? 0}
+          hearts={gamification?.hearts ?? 5}
+          maxHearts={gamification?.maxHearts ?? 5}
+        />
+        {loading ? (
+          <View style={styles.centered}>
+            <ActivityIndicator
+              size="large"
+              color={galaxyColors.ctaGradientEnd}
+              accessibilityRole="progressbar"
+              accessibilityLabel="Carregando jornada"
             />
-          ) : null}
-
-          <AppButton
-            onPress={() => {
-              if (snapshot?.nextRecommendedNode) {
-                void openNode(snapshot.nextRecommendedNode);
-              }
-            }}
-            disabled={!snapshot?.nextRecommendedNode || !canOpenNode(snapshot.nextRecommendedNode)}
-            style={styles.cta}
-            accessibilityLabel={continueLabel}
-            accessibilityHint="Abre o próximo passo elegível da trilha ativa."
+          </View>
+        ) : (
+          <ScrollView
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            contentInsetAdjustmentBehavior="always"
           >
-            {continueLabel}
-          </AppButton>
-        </ScrollView>
-      )}
-    </SafeAreaView>
+            <JourneyHero
+              unitTitle={currentUnit?.title ?? 'Sua trilha'}
+              dailyGoalCompleted={dailyGoalSnapshot?.completedToday ?? 0}
+              dailyGoalTarget={dailyGoalSnapshot?.goalPerDay ?? 1}
+              message={heroMessage}
+            />
+
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryTitle}>Foco de hoje</Text>
+              <View style={styles.summaryList}>
+                <GalaxyStatRow
+                  icon={<MaterialIcons name="flag" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  label="Próximo"
+                  value={recommendedNodeMeta}
+                />
+                <GalaxyStatRow
+                  icon={<MaterialIcons name="account-tree" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  label="Nós ativos"
+                  value={`${actionableNodeCount} passos elegíveis nesta unidade`}
+                />
+                <GalaxyStatRow
+                  icon={<MaterialIcons name="offline-bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  label="Sync"
+                  value="Modo local-first ativo, com progresso protegido mesmo sem rede"
+                />
+              </View>
+            </View>
+
+            <JourneyTrackShelf
+              tracks={catalogManifest?.tracks ?? []}
+              lessons={catalogManifest?.lessons ?? []}
+              activeTrackId={snapshot?.progress.activeTrackId ?? 'track-radiology-foundations'}
+              activeProgressPercent={activeTrackProgressPercent}
+              onTrackPress={openTrack}
+            />
+
+            {noNextStepMessage ? (
+              <View style={styles.messageCard}>
+                <Text style={styles.messageTitle}>Trilha pausada por agora</Text>
+                <Text style={styles.messageText}>{noNextStepMessage}</Text>
+              </View>
+            ) : null}
+
+            {error ? (
+              <View style={styles.errorCard} accessibilityRole="alert">
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            ) : null}
+
+            {snapshot && currentUnit ? (
+              <JourneyMap
+                units={snapshot.track.units}
+                recommendedNodeId={snapshot.nextRecommendedNode?.id}
+                onNodePress={(node) => void openNode(node)}
+                isNodeDisabled={(node) => !canOpenNode(node)}
+              />
+            ) : null}
+
+            <AppButton
+              onPress={() => {
+                if (snapshot?.nextRecommendedNode) {
+                  void openNode(snapshot.nextRecommendedNode);
+                }
+              }}
+              disabled={!snapshot?.nextRecommendedNode || !canOpenNode(snapshot.nextRecommendedNode)}
+              style={styles.cta}
+              accessibilityLabel={continueLabel}
+              accessibilityHint="Abre o próximo passo elegível da trilha ativa."
+            >
+              {continueLabel}
+            </AppButton>
+          </ScrollView>
+        )}
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  centered: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    padding: space.s3,
-    gap: space.s3,
-    paddingBottom: space.s5,
-  },
+  root: { flex: 1, backgroundColor: galaxyColors.background },
+  safe: { flex: 1 },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
   summaryCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s2,
   },
-  summaryTitle: {
-    ...typography.h3,
-    color: colors.textPrimary,
-  },
-  summaryList: {
-    gap: space.s2,
-  },
+  summaryTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+  summaryList: { gap: space.s2 },
   messageCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s1,
-    borderColor: colors.borderSoft,
   },
-  messageTitle: {
-    ...typography.body,
-    color: colors.textPrimary,
-    fontWeight: '700',
-  },
-  messageText: {
-    ...typography.bodyRegular,
-    color: colors.textSecondary,
-  },
+  messageTitle: { ...typography.body, color: galaxyColors.textPrimary, fontWeight: '700' },
+  messageText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   errorCard: {
-    borderColor: colors.danger,
+    backgroundColor: 'rgba(255,59,48,0.10)',
+    borderRadius: radius.rMd,
+    borderWidth: 1,
+    borderColor: 'rgba(255,59,48,0.25)',
+    padding: space.s3,
   },
-  errorText: {
-    ...typography.bodyRegular,
-    color: colors.danger,
-  },
-  cta: {
-    marginTop: space.s1,
-  },
+  errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
+  cta: { marginTop: space.s1 },
 });

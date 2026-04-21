@@ -75,26 +75,12 @@ jest.mock('../../../components/ui/ProgressRing', () => {
   };
 });
 
-jest.mock('../../../components/ui/StatItem', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    StatItem: () => <View />,
-  };
-});
-
-jest.mock('../../../components/ui/SurfaceCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    SurfaceCard: ({ children }: { children: React.ReactNode }) => <View>{children}</View>,
-  };
-});
-
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
+}));
+
+jest.mock('../../../ui/components/StarfieldBackground', () => ({
+  StarfieldBackground: () => null,
 }));
 
 jest.mock('../../push/components/PushOptInCard', () => ({
@@ -164,20 +150,14 @@ jest.mock('../../sync/SyncQueueService', () => ({
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
     getSnapshot: jest.fn().mockResolvedValue({
+      totalXp: 120,
+      streakDays: 3,
       hearts: 5,
       maxHearts: 5,
     }),
-    loseHeart: jest.fn().mockResolvedValue({
-      hearts: 4,
-      maxHearts: 5,
-    }),
+    loseHeart: jest.fn().mockResolvedValue({ hearts: 4, maxHearts: 5 }),
     recordQuizCompletion: jest.fn().mockResolvedValue({
-      award: {
-        baseXp: 10,
-        bonusXp: 2,
-        totalXpAwarded: 12,
-        reason: 'quiz_complete',
-      },
+      award: { baseXp: 10, bonusXp: 2, totalXpAwarded: 12, reason: 'quiz_complete' },
     }),
   },
 }));

@@ -5,7 +5,22 @@ Descrever claramente o que esta feature faz e por que ela existe.
 
 ---
 
-## 2. Arquivos Envolvidos
+## 2. App Store Impact
+
+- Sinal principal impactado:
+- Hipótese de ganho:
+- Risco para `D7`, nota média ou estabilidade:
+- Mercado afetado: `pt-BR` | `en-US` | ambos
+- Plano de medição:
+- Janela de leitura:
+- Melhora discoverability?
+- Melhora conversão?
+- Melhora hábito?
+- Protege reputação técnica?
+
+---
+
+## 3. Arquivos Envolvidos
 
 ### Arquivos a CRIAR
 - src/[path]/[file].ts
@@ -16,7 +31,7 @@ Descrever claramente o que esta feature faz e por que ela existe.
 
 ---
 
-## 3. Estrutura de Pastas
+## 4. Estrutura de Pastas
 Descrever onde a feature vive no projeto.
 
 Exemplo:
@@ -31,7 +46,7 @@ src/
 
 ---
 
-## 4. Fluxo da Feature (Passo a Passo)
+## 5. Fluxo da Feature (Passo a Passo)
 1. Usuário inicia a feature
 2. Sistema carrega dados necessários
 3. Usuário interage
@@ -41,7 +56,7 @@ src/
 
 ---
 
-## 5. Estruturas de Dados
+## 6. Estruturas de Dados
 
 ### Exemplo
 ```ts
@@ -55,7 +70,7 @@ type Lesson = {
 
 ---
 
-## 6. Regras de Negócio
+## 7. Regras de Negócio
 Definir regras claras. Sem exceções implícitas.
 
 Exemplo:
@@ -64,7 +79,7 @@ Exemplo:
 
 ---
 
-## 7. Lógica Principal (Pseudo-código)
+## 8. Lógica Principal (Pseudo-código)
 ```
 IF answer_correct
   increase XP
@@ -78,25 +93,29 @@ END
 
 ---
 
-## 8. UI / UX (comportamento)
+## 9. UI / UX (comportamento)
 - Feedback imediato (<500ms)
 - Mensagens curtas e encorajadoras
 - Nenhuma animação obrigatória no MVP
+- Se a mudança tocar iOS, explicitar impacto em discoverability, conversão,
+  hábito ou reputação técnica
 
 ---
 
-## 9. Limitações do MVP
+## 10. Limitações do MVP
 O que conscientemente NÃO será feito agora.
 
 ---
 
-## 10. Critérios de Aceitação
+## 11. Critérios de Aceitação
 - Feature funciona conforme regras descritas
 - Nenhum comportamento implícito
 - Código modular e legível
 - Sem dependências desnecessárias
+- Possui plano mínimo de medição
+- Não contradiz o App Store Operating System
 
 ---
 
-## 11. Fora de Escopo
+## 12. Fora de Escopo
 Qualquer comportamento não descrito neste documento.

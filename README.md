@@ -29,6 +29,7 @@ Estado prático atual:
 - a `Learning Road V2` já possui `Journey Home`, `Lesson Flow`, `Checkpoint` e `Reward` dedicados atrás de flag;
 - a `Learning Road V2` agora lê as trilhas do catálogo runtime e suporta seleção real entre `Fundamentos`, `Tórax` e `Abdome`;
 - o progresso da jornada usa `journey-progress.v2`, com progresso persistido por trilha e migração segura do store legado `journey-progress.v1`;
+- a `Journey Home` já responde inline quando a trilha ativa não tem próximo nó elegível, sem modal de interrupção;
 - a tela `Progresso` permanece como superfície operacional útil para homologação e agora concentra também o reset local da Learning Road V2 em builds não-produtivas;
 - o runtime de App Store já mede `first_value_moment_reached`, tenta `rating prompt` nos momentos elegíveis e evita empilhar review prompt com paywall na mesma sessão de sucesso;
 - o paywall contextual já roda em `reward`, `quiz` e `checkpoint`, com captura local-first de interesse de upgrade e telemetria de `paywall_view`, `paywall_cta_tap` e `paywall_outcome`;
@@ -36,6 +37,7 @@ Estado prático atual:
 - o cliente já possui `eas.json`, identificadores mobile, workflow de qualidade e comando agregado `npm run quality`;
 - o tooling Apple local voltou a operar para validação em simulador, incluindo `xcodebuild` e `simctl`;
 - a homologação iOS no simulador já é viável para checagem de runtime e captura de screenshots;
+- em 2026-04-09, a build iOS nativa da jornada foi revalidada em `iPhone 17` com o bundle atual;
 - Expo/EAS já está autenticado e o projeto mobile já foi vinculado no dashboard Expo;
 - existe agora um fluxo dedicado de smoke local da Learning Road V2 via `npm run ios:v2`, sem depender de backend remoto;
 - em 2026-04-01, a validação técnica do war room fechou com `PASS=13 FAIL=0`;
