@@ -1,5 +1,7 @@
 import { ThemeProvider } from '@react-navigation/native';
+import { useFonts, Sora_400Regular, Sora_500Medium, Sora_600SemiBold, Sora_700Bold, Sora_800ExtraBold } from '@expo-google-fonts/sora';
 import { router, Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
@@ -23,12 +25,25 @@ import { colors, navigationTheme } from '../ui/theme';
 import { layout, space, typography } from '../ui/styles';
 
 initializeObservability();
+SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
 
 function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    'Sora-Regular': Sora_400Regular,
+    'Sora-Medium': Sora_500Medium,
+    'Sora-SemiBold': Sora_600SemiBold,
+    'Sora-Bold': Sora_700Bold,
+    'Sora-ExtraBold': Sora_800ExtraBold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
   const shouldEnforceBetaGate = AppConfig.ENABLE_BETA_GATE && !AppConfig.SHOW_DEV_TOOLS;
   const [isBetaUnlocked, setIsBetaUnlocked] = useState(false);
   const [startupPhase, setStartupPhase] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -89,6 +104,8 @@ function RootLayout() {
       active = false;
     };
   }, [bootstrapAttempt, shouldEnforceBetaGate]);
+
+  if (!fontsLoaded) return null;
 
   if (startupPhase === 'loading') {
     return (
