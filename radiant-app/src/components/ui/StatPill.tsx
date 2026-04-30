@@ -1,54 +1,53 @@
-// src/components/ui/StatPill.tsx
-
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../ui/theme';
+import { fontFamily } from '../../ui/styles';
 
 interface StatPillProps {
-    label: string;
-    value: string | number;
-    style?: ViewStyle;
+  icon: React.ReactNode;
+  value: string;
+  color: string;
+  dark?: boolean;
 }
 
-const COLORS = {
-    cardBackground: '#1C1C1E',
-    primaryText: '#FFFFFF',
-    secondaryText: '#8E8E93',
-};
-
-const SPACING = {
-    xs: 4,
-    lg: 16,
-};
-
-const RADIUS = {
-    medium: 12,
-};
-
-export function StatPill({ label, value, style }: StatPillProps) {
-    return (
-        <View style={[styles.container, style]}>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value}</Text>
-        </View>
-    );
+export function StatPill({ icon, value, color, dark = false }: StatPillProps) {
+  return (
+    <View style={[styles.pill, dark ? styles.pillDark : styles.pillLight]}>
+      <View style={{ flexShrink: 0 }}>{icon}</View>
+      <Text style={[styles.value, { color: dark ? '#ffffff' : colors.textPrimary }]}>
+        {value}
+      </Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: COLORS.cardBackground,
-        borderRadius: RADIUS.medium,
-        padding: SPACING.lg,
-        alignItems: 'center',
-    },
-    label: {
-        fontSize: 14,
-        fontWeight: '500',
-        color: COLORS.secondaryText,
-        marginBottom: SPACING.xs,
-    },
-    value: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: COLORS.primaryText,
-    },
+  pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    height: 30,
+    paddingHorizontal: 11,
+    borderRadius: 10,
+  },
+  pillLight: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: 'rgba(20,35,63,0.08)',
+    shadowColor: '#14233F',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 0,
+    elevation: 1,
+  },
+  pillDark: {
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
+  },
+  value: {
+    fontFamily: fontFamily.soraBold,
+    fontSize: 13,
+    letterSpacing: -0.1,
+  },
 });

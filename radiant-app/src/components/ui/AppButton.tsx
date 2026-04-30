@@ -1,144 +1,135 @@
 import React from 'react';
-import {
-  Animated,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-  type AccessibilityState,
-} from 'react-native';
-import { usePressScale } from '../../ui/motion';
-import { colors, shadows } from '../../ui/theme';
-import { radius, space, typography } from '../../ui/styles';
+import { StyleSheet, Text, Pressable, ViewStyle, TextStyle, StyleProp } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import { colors } from '../../ui/theme';
+import { fontFamily } from '../../ui/styles';
+import { duration, easing } from '../../ui/motion';
 
-type AppButtonVariant = 'primary' | 'secondary' | 'ghost';
+type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
 
 interface AppButtonProps {
-  onPress: () => void;
-  children: React.ReactNode;
-  variant?: AppButtonVariant;
+  label?: string;
+  /** @deprecated Use label instead */
+  children?: React.ReactNode;
+  onPress?: () => void;
+  variant?: Variant;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  leftSlot?: React.ReactNode;
-  rightSlot?: React.ReactNode;
+  icon?: React.ReactNode;
+  fullWidth?: boolean;
   accessibilityLabel?: string;
   accessibilityHint?: string;
-  accessibilityState?: AccessibilityState;
-  testID?: string;
 }
 
 export function AppButton({
-  onPress,
+  label,
   children,
+  onPress,
   variant = 'primary',
   disabled = false,
   style,
   textStyle,
-  leftSlot,
-  rightSlot,
-  accessibilityLabel,
-  accessibilityHint,
-  accessibilityState,
-  testID,
+  icon,
+  fullWidth = true,
 }: AppButtonProps) {
-  const press = usePressScale();
-  const variantStyle = BUTTON_VARIANTS[variant];
+  const resolvedLabel = label ?? (typeof children === 'string' ? children : '');
+  const scale = useSharedValue(1);
+
+  const animStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const onPressIn = () => {
+    scale.value = withTiming(0.97, { duration: duration.micro, easing: easing.out });
+  };
+  const onPressOut = () => {
+    scale.value = withTiming(1.0, { duration: duration.micro, easing: easing.out });
+  };
 
   return (
-    <Pressable
-      testID={testID}
-      onPress={onPress}
-      disabled={disabled}
-      accessibilityRole="button"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityHint={accessibilityHint}
-      accessibilityState={{ disabled, ...accessibilityState }}
-      onPressIn={() => !disabled && press.onPressIn()}
-      onPressOut={() => !disabled && press.onPressOut()}
-      style={[styles.pressable, style]}
-    >
-      <Animated.View
+    <Animated.View style={[animStyle, fullWidth && { width: '100%' }, style]}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        disabled={disabled}
         style={[
-          styles.button,
-          variantStyle.container,
-          press.animatedStyle,
-          disabled && styles.buttonDisabled,
+          styles.base,
+          variant === 'primary' && styles.primary,
+          variant === 'galaxy' && styles.galaxy,
+          variant === 'secondary' && styles.secondary,
+          variant === 'ghost' && styles.ghost,
+          disabled && styles.disabled,
         ]}
       >
-        {leftSlot ? <View style={styles.slot}>{leftSlot}</View> : null}
-        <Text style={[styles.label, variantStyle.label, disabled && styles.labelDisabled, textStyle]}>
-          {children}
+        {icon != null && icon}
+        <Text
+          style={[
+            styles.label,
+            variant === 'secondary' && styles.labelSecondary,
+            variant === 'ghost' && styles.labelGhost,
+            textStyle,
+          ]}
+        >
+          {resolvedLabel}
         </Text>
-        {rightSlot ? <View style={styles.slot}>{rightSlot}</View> : null}
-      </Animated.View>
-    </Pressable>
+      </Pressable>
+    </Animated.View>
   );
 }
 
-const BUTTON_VARIANTS: Record<AppButtonVariant, { container: ViewStyle; label: TextStyle }> = {
+const styles = StyleSheet.create({
+  base: {
+    height: 56,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    paddingHorizontal: 24,
+  },
   primary: {
-    container: {
-      backgroundColor: colors.primary,
-      borderWidth: 1,
-      borderColor: 'rgba(255,255,255,0.18)',
-      ...shadows.soft,
-    },
-    label: {
-      color: '#FFFFFF',
-    },
+    backgroundColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.45,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  galaxy: {
+    backgroundColor: '#1535E8',
+    shadowColor: '#3DCAE8',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.55,
+    shadowRadius: 20,
+    elevation: 10,
   },
   secondary: {
-    container: {
-      backgroundColor: colors.surfaceGlass,
-      borderWidth: 1,
-      borderColor: colors.borderSoft,
-    },
-    label: {
-      color: colors.textPrimary,
-    },
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
   },
   ghost: {
-    container: {
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-    },
-    label: {
-      color: colors.textSecondary,
-    },
+    backgroundColor: 'transparent',
   },
-};
-
-const styles = StyleSheet.create({
-  pressable: {
-    width: '100%',
-  },
-  button: {
-    minHeight: 56,
-    borderRadius: radius.rXl,
-    paddingHorizontal: space.s4,
-    paddingVertical: space.s2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space.s2,
-  },
-  buttonDisabled: {
-    opacity: 0.55,
+  disabled: {
+    opacity: 0.45,
   },
   label: {
-    ...typography.body,
-    fontWeight: '700',
-    textAlign: 'center',
+    fontFamily: fontFamily.soraExtraBold,
+    fontSize: 16,
+    color: '#ffffff',
+    letterSpacing: -0.1,
   },
-  labelDisabled: {
-    color: colors.textTertiary,
+  labelSecondary: {
+    color: '#ffffff',
   },
-  slot: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  labelGhost: {
+    color: colors.primary,
   },
 });
