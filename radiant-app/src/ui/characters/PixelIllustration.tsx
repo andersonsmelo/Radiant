@@ -1,5 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Animated, {
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { Image } from 'expo-image';
 import type { CharacterSize, CharacterState, CharacterTier } from './types';
 import { resolvePixelAsset } from './pixelAssets';
@@ -228,8 +235,87 @@ export function PixelIllustration({
   const shouldShowFace = !asset.isDedicated;
   const shouldShowParticles = !asset.isDedicated && stateSpec.showParticles;
 
+  const translateY = useSharedValue(0);
+  const scale = useSharedValue(1);
+  const rotate = useSharedValue(0);
+
+  useEffect(() => {
+    // Reset to defaults first
+    translateY.value = 0;
+    scale.value = 1;
+    rotate.value = 0;
+
+    switch (state) {
+      case 'idle':
+        translateY.value = withRepeat(
+          withSequence(
+            withTiming(-8, { duration: 2250 }),
+            withTiming(0, { duration: 2250 }),
+          ), -1, false
+        );
+        break;
+      case 'happy':
+        translateY.value = withRepeat(
+          withSequence(
+            withTiming(-8, { duration: 1500 }),
+            withTiming(0, { duration: 1500 }),
+          ), -1, false
+        );
+        scale.value = 1.03;
+        break;
+      case 'guide':
+        translateY.value = withRepeat(
+          withSequence(
+            withTiming(-8, { duration: 2500 }),
+            withTiming(0, { duration: 2500 }),
+          ), -1, false
+        );
+        rotate.value = -3;
+        break;
+      case 'thinking':
+        translateY.value = withRepeat(
+          withSequence(
+            withTiming(-8, { duration: 3000 }),
+            withTiming(0, { duration: 3000 }),
+          ), -1, false
+        );
+        rotate.value = 4;
+        scale.value = 0.97;
+        break;
+      case 'celebrate':
+        scale.value = withRepeat(
+          withSequence(
+            withTiming(1.08, { duration: 600 }),
+            withTiming(1, { duration: 600 }),
+          ), -1, false
+        );
+        break;
+      case 'oops':
+        translateY.value = withRepeat(
+          withSequence(
+            withTiming(-6, { duration: 180 }),
+            withTiming(6, { duration: 180 }),
+            withTiming(-4, { duration: 180 }),
+            withTiming(4, { duration: 180 }),
+            withTiming(0, { duration: 180 }),
+          ), -1, false
+        );
+        rotate.value = -2;
+        scale.value = 0.96;
+        break;
+    }
+  }, [state]);
+
+  const animStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateY: translateY.value },
+      { scale: scale.value },
+      { rotate: `${rotate.value}deg` },
+    ],
+  }));
+
   return (
-    <View style={[styles.frame, { width: dimension, height: Math.round(dimension * 1.38) }]}>
+    <Animated.View style={[styles.frame, { width: dimension, height: Math.round(dimension * 1.38) }, animStyle]}>
       <View
         style={[
           styles.haloPrimary,
@@ -347,11 +433,6 @@ export function PixelIllustration({
           {
             width: dimension,
             height: Math.round(dimension * 1.48),
-            transform: [
-              { translateY: stateSpec.imageOffsetY },
-              { rotate: stateSpec.imageRotation },
-              { scale: stateSpec.imageScale },
-            ],
           },
         ]}
       />
@@ -376,7 +457,7 @@ export function PixelIllustration({
           ))}
         </>
       ) : null}
-    </View>
+    </Animated.View>
   );
 }
 
