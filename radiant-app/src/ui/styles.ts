@@ -122,3 +122,28 @@ export const layout = StyleSheet.create({
 });
 
 export { colors, gradients, shadows };
+
+// ============================================================================
+// FONT FAMILY TOKENS
+// ============================================================================
+export const fontFamily = {
+  sora: 'Sora-Regular',
+  soraMedium: 'Sora-Medium',
+  soraSemiBold: 'Sora-SemiBold',
+  soraBold: 'Sora-Bold',
+  soraExtraBold: 'Sora-ExtraBold',
+};
+
+// ============================================================================
+// TEXT STYLE TOKENS
+// ============================================================================
+export const textStyles = {
+  h1: { fontFamily: 'Sora-ExtraBold', fontSize: 40, lineHeight: 46, letterSpacing: -1 } as const,
+  h2: { fontFamily: 'Sora-ExtraBold', fontSize: 28, lineHeight: 34, letterSpacing: -0.6 } as const,
+  h3: { fontFamily: 'Sora-Bold', fontSize: 22, lineHeight: 28, letterSpacing: -0.4 } as const,
+  body: { fontFamily: 'Sora-Medium', fontSize: 15, lineHeight: 22 } as const,
+  bodyStrong: { fontFamily: 'Sora-Bold', fontSize: 15, lineHeight: 22 } as const,
+  caption: { fontFamily: 'Sora-SemiBold', fontSize: 13, lineHeight: 18, letterSpacing: 0.1 } as const,
+  micro: { fontFamily: 'Sora-Bold', fontSize: 11, lineHeight: 14, letterSpacing: 1, textTransform: 'uppercase' } as const,
+  label: { fontFamily: 'Sora-Bold', fontSize: 10, lineHeight: 14, letterSpacing: 1, textTransform: 'uppercase' } as const,
+};

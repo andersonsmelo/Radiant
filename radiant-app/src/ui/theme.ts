@@ -17,8 +17,8 @@ export const colors = {
   accentStrong: '#1FAFDD',
   highlight: '#A6EFFF',
   textPrimary: '#14233F',
-  textSecondary: '#4C638B',
-  textTertiary: '#7A90B4',
+  textSecondary: '#5B6B85',
+  textTertiary: '#93A0B8',
   success: '#1A9C71',
   successSoft: '#E6FFF6',
   warning: '#D79022',
@@ -28,6 +28,14 @@ export const colors = {
   shadow: 'rgba(45, 97, 188, 0.16)',
   shadowStrong: 'rgba(38, 87, 172, 0.26)',
   rail: '#D9E7FB',
+
+  // New Layout extensions
+  primary2: '#3D6BFF',
+  accent2: '#6FE0F2',
+  bg2: '#EAF2FF',
+  border: '#E3ECF7',
+  border2: '#D6E0EE',
+  streak: '#FF6B2C',
 } as const;
 
 export const gradients = {
@@ -98,6 +106,15 @@ export const galaxyColors = {
   nodeLocked: 'rgba(255, 255, 255, 0.04)',
   ctaGradientStart: '#1535E8',
   ctaGradientEnd: '#3060FF',
+
+  // Galaxy mode extended
+  galaxyBg2: '#07091c',
+  galaxyBg3: '#0D1230',
+  galaxySurface2: 'rgba(255,255,255,0.08)',
+  galaxyBorder2: 'rgba(255,255,255,0.16)',
+  galaxyGlow: 'rgba(61,202,232,0.55)',
+  galaxyCtaStart: '#1535E8',
+  galaxyCtaEnd: '#3060FF',
 } as const;
 
 export const galaxyNavigationTheme: Theme = {

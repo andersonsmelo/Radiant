@@ -20,8 +20,9 @@ export const duration = {
 // EASING FUNCTIONS
 // ============================================================================
 export const easing = {
-    out: Easing.out(Easing.cubic),
-    inOut: Easing.inOut(Easing.cubic),
+    out: Easing.bezier(0.22, 1, 0.36, 1),
+    spring: Easing.bezier(0.34, 1.56, 0.64, 1),
+    inOut: Easing.bezier(0.4, 0, 0.2, 1),
 };
 
 export const motionPreset = {
