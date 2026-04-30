@@ -143,9 +143,12 @@ export function StarfieldBackground({
   }, [starCount]);
 
   const defaultNebulas: NebulaConfig[] = [
-    { color: 'rgba(40, 60, 200, 0.12)', x: -0.1, y: -0.05, w: 280, h: 200 },
-    { color: 'rgba(80, 20, 120, 0.1)',  x: 0.65,  y: 0.5,  w: 240, h: 180 },
-    { color: 'rgba(20, 80, 180, 0.08)', x: 0.1,  y: 0.7,  w: 200, h: 160 },
+    // Cyan nebula — top-left (design: rgba(61,202,232) accent)
+    { color: 'rgba(61,202,232,0.06)',  x: 0.05, y: 0.05, w: 320, h: 220 },
+    // Blue nebula — bottom-right (design: rgba(33,85,255) primary)
+    { color: 'rgba(33,85,255,0.10)',   x: 0.55, y: 0.60, w: 280, h: 200 },
+    // Deep indigo — centre fill for depth
+    { color: 'rgba(21, 30, 100, 0.08)', x: 0.2,  y: 0.35, w: 240, h: 180 },
   ];
 
   const allNebulas = [...defaultNebulas, ...extraNebulas];
