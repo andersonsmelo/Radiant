@@ -9,7 +9,7 @@ const TAB_COLORS = {
   background: '#03030d',
   surface: 'rgba(10,10,30,0.92)',
   border: 'rgba(255,255,255,0.08)',
-  active: '#4D7FFF',
+  active: '#2155FF',
   inactive: 'rgba(255,255,255,0.35)',
 };
 
@@ -53,20 +53,20 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={24} name="house.fill" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="galaxy"
         options={{
           title: 'Galáxia',
           tabBarIcon: ({ color }) => (
             <IconSymbol size={24} name="sparkles" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="missions"
-        options={{
-          title: 'Missões',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="bolt.fill" color={color} />
           ),
         }}
       />
@@ -80,9 +80,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="missions"
         options={{
-          href: null,
+          title: 'Missões',
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={24} name="bolt.fill" color={color} />
+          ),
         }}
       />
     </Tabs>
