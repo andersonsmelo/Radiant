@@ -1,20 +1,24 @@
 // src/features/home/screens/HomeScreen.tsx
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Animated, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Animated, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
+import Svg, { Path } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { AppButton } from '../../../components/ui/AppButton';
+import { StatPill } from '../../../components/ui/StatPill';
+import { ProgressRing } from '../../../components/ui/ProgressRing';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import type { QuizLessonId } from '../../../types/quiz';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
-import { space, typography, layout } from '../../../ui/styles';
-import { galaxyColors } from '../../../ui/theme';
+import { space, layout, textStyles, fontFamily } from '../../../ui/styles';
+import { colors } from '../../../ui/theme';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
-import { CharacterSlot } from '../../../ui/characters/CharacterSlot';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { HeuristicsService } from '../../telemetry/heuristics/HeuristicsService';
 import type { HeuristicAlert } from '../../telemetry/heuristics/heuristics.types';
@@ -27,7 +31,33 @@ import { AppConfig } from '../../../config';
 import { PushService } from '../../push/services/PushService';
 import { PushOptInCard } from '../../push/components/PushOptInCard';
 
-const ENABLE_CHARACTER = true;
+// ── Inline SVG Icons ────────────────────────────────────────────────────────
+
+const FlameIcon = () => (
+    <Svg width={14} height={14} viewBox="0 0 24 24">
+        <Path d="M12 2C12 2 9 8 9 12c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1-1-3-1-4 0 0 4 2 4 7 0 3.31-2.69 6-6 6S6 18.31 6 15c0-5.5 4-9 6-13z" fill="#FF6B2C" />
+    </Svg>
+);
+
+const BoltIcon = () => (
+    <Svg width={14} height={14} viewBox="0 0 24 24">
+        <Path d="M13 2L4.5 13.5H11L10 22l9.5-12H14L13 2z" fill="#F5A623" />
+    </Svg>
+);
+
+const HeartIcon = () => (
+    <Svg width={14} height={14} viewBox="0 0 24 24">
+        <Path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF3B30" />
+    </Svg>
+);
+
+const ArrowRightIcon = () => (
+    <Svg width={14} height={14} viewBox="0 0 24 24">
+        <Path d="M3 7h8m0 0L7 3m4 4l-4 4" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
+);
+
+// ── Main Screen ─────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
     const [dueCount, setDueCount] = useState<number>(0);
@@ -146,22 +176,132 @@ export default function HomeScreen() {
         }
     }, [animateGoalBanner, checkPushOptIn, dailyGoalState?.isCompleted]);
 
-    const homeStatusLabel = dueCount > 0 ? `${dueCount} revisão${dueCount === 1 ? '' : 'ões'} pronta${dueCount === 1 ? '' : 's'}` : 'Sem revisões pendentes';
+    const progressValue = dailyGoalState
+        ? dailyGoalState.completedToday / Math.max(1, dailyGoalState.goalPerDay)
+        : 0.55;
 
     return (
-        <SafeAreaView style={styles.screen}>
-            <HomeHeader statusLabel={homeStatusLabel} />
-
+        <SafeAreaView style={styles.screen} edges={['top']}>
             {loading ? (
-                <View style={[layout.center, { flex: 1 }]}>
-                    <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator size="large" color={colors.primary} />
                 </View>
             ) : (
                 <ScrollView
                     contentContainerStyle={styles.content}
                     showsVerticalScrollIndicator={false}
-                    contentInsetAdjustmentBehavior="always"
                 >
+                    {/* Header */}
+                    <View style={styles.header}>
+                        <View style={styles.headerLeft}>
+                            <Text style={styles.headerDate}>
+                                {AppConfig.IS_BETA ? 'BETA · ' : ''}TUESDAY · DAY 24
+                            </Text>
+                            <Text style={styles.headerGreeting}>Hi, Dr. Alvarez</Text>
+                        </View>
+                        <View style={styles.avatarCircle}>
+                            <Text style={styles.avatarInitials}>MA</Text>
+                        </View>
+                    </View>
+
+                    {/* Stat Pills Row */}
+                    <View style={styles.pillsRow}>
+                        <StatPill
+                            icon={<FlameIcon />}
+                            value={`${gamificationState?.streakDays ?? 0}`}
+                            color="#FF6B2C"
+                        />
+                        <StatPill
+                            icon={<BoltIcon />}
+                            value={`${gamificationState?.totalXp ?? 0} XP`}
+                            color="#F5A623"
+                        />
+                        <StatPill
+                            icon={<HeartIcon />}
+                            value="5"
+                            color="#FF3B30"
+                        />
+                    </View>
+
+                    {/* Hero Card */}
+                    <LinearGradient
+                        colors={['#2155FF', '#3D6BFF']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.heroCard}
+                    >
+                        <View style={styles.heroContent}>
+                            <View style={{ flex: 1, gap: 10 }}>
+                                <Text style={styles.heroMicro}>TODAY'S MISSION</Text>
+                                <Text style={styles.heroTitle}>
+                                    Pulmonary nodules{'\n'}on chest CT
+                                </Text>
+                                <View style={styles.heroTags}>
+                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>8 cases</Text></View>
+                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>~12 min</Text></View>
+                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>+120 XP</Text></View>
+                                </View>
+                            </View>
+                            <View style={styles.heroIllustration}>
+                                <PixelIllustration state="happy" size="sm" />
+                            </View>
+                        </View>
+                        <AppButton
+                            label="Start lesson"
+                            variant="primary"
+                            onPress={handleContinueLearning}
+                            style={styles.heroButton}
+                            textStyle={{ color: colors.primary }}
+                        />
+                    </LinearGradient>
+
+                    {/* Journey Card */}
+                    {AppConfig.ENABLE_LEARNING_ROAD && (
+                        <View style={styles.journeyCard}>
+                            <ProgressRing
+                                size={64}
+                                value={progressValue}
+                                stroke={6}
+                                color={colors.primary}
+                                trackColor="#EAF2FF"
+                            >
+                                <Text style={styles.progressRingLabel}>
+                                    {Math.round(progressValue * 100)}%
+                                </Text>
+                            </ProgressRing>
+
+                            <View style={styles.journeyInfo}>
+                                <Text style={styles.journeyMicro}>CONTINUE CHAPTER</Text>
+                                <Text style={styles.journeyTitle}>Thoracic Imaging</Text>
+                                <Text style={styles.journeyBody}>11 of 20 lessons</Text>
+                            </View>
+
+                            <Pressable style={styles.arrowButton} onPress={handleContinueLearning}>
+                                <ArrowRightIcon />
+                            </Pressable>
+                        </View>
+                    )}
+
+                    {/* Stats Trio */}
+                    <View style={styles.statsTrio}>
+                        <View style={styles.statsTrioCard}>
+                            <Text style={styles.statsTrioMicro}>MASTERED</Text>
+                            <Text style={styles.statsTrioValue}>{23}</Text>
+                            <Text style={styles.statsTrioSub}>cases</Text>
+                        </View>
+                        <View style={styles.statsTrioCard}>
+                            <Text style={styles.statsTrioMicro}>ACCURACY</Text>
+                            <Text style={styles.statsTrioValue}>84%</Text>
+                            <Text style={styles.statsTrioSub}>avg score</Text>
+                        </View>
+                        <View style={styles.statsTrioCard}>
+                            <Text style={styles.statsTrioMicro}>SESSIONS</Text>
+                            <Text style={styles.statsTrioValue}>{gamificationState?.streakDays ?? 0}</Text>
+                            <Text style={styles.statsTrioSub}>day streak</Text>
+                        </View>
+                    </View>
+
+                    {/* Onboarding: Intro */}
                     {showIntro && (
                         <Animated.View style={reviewCardAnimatedStyle}>
                             <IntroCard
@@ -171,15 +311,24 @@ export default function HomeScreen() {
                         </Animated.View>
                     )}
 
+                    {/* Onboarding: Closure */}
                     {showClosure && (
                         <ClosureCard onDismiss={handleDismissClosure} />
                     )}
 
-                    <StatsSection
-                        gamificationState={gamificationState}
-                        dailyGoalState={dailyGoalState}
+                    {/* Health Section */}
+                    <HealthSection
+                        healthScore={healthScore}
+                        showHealthDetails={showHealthDetails}
+                        onToggleDetails={() => setShowHealthDetails((current) => !current)}
                     />
 
+                    {/* Heuristic Alert */}
+                    {alert && (
+                        <AlertBanner alert={alert} />
+                    )}
+
+                    {/* Goal Completed Banner */}
                     {dailyGoalState?.isCompleted && (
                         <Animated.View style={goalBannerStyle}>
                             <View style={styles.goalCompletedBanner}>
@@ -188,22 +337,14 @@ export default function HomeScreen() {
                         </Animated.View>
                     )}
 
+                    {/* Push Opt-In */}
                     {showPushOptIn && (
-                        <View style={styles.sectionBlock}>
+                        <View>
                             <PushOptInCard onDismiss={() => setShowPushOptIn(false)} />
                         </View>
                     )}
 
-                    <HealthSection
-                        healthScore={healthScore}
-                        showHealthDetails={showHealthDetails}
-                        onToggleDetails={() => setShowHealthDetails((current) => !current)}
-                    />
-
-                    {alert && (
-                        <AlertBanner alert={alert} />
-                    )}
-
+                    {/* Review Section */}
                     <Animated.View style={reviewCardAnimatedStyle}>
                         <ReviewSection
                             dueCount={dueCount}
@@ -212,50 +353,21 @@ export default function HomeScreen() {
                         />
                     </Animated.View>
 
+                    {/* Ghost CTA */}
                     <AppButton
                         onPress={handleContinueLearning}
                         variant="ghost"
-                        style={styles.secondaryButton}
-                        textStyle={{ color: galaxyColors.textSecondary }}
-                    >
-                        Continuar aprendendo
-                    </AppButton>
+                        label="Continuar aprendendo"
+                        style={styles.ghostButton}
+                        textStyle={{ color: colors.textSecondary }}
+                    />
                 </ScrollView>
             )}
         </SafeAreaView>
     );
 }
 
-type HomeHeaderProps = {
-    statusLabel: string;
-};
-
-function HomeHeader({ statusLabel }: HomeHeaderProps) {
-    return (
-        <View style={styles.header}>
-            <View style={styles.headerCopy}>
-                <View style={styles.titleRow}>
-                    <Text style={styles.title}>Radiant</Text>
-                    {AppConfig.IS_BETA ? (
-                        <View style={styles.betaBadge}>
-                            <Text style={styles.betaText}>BETA</Text>
-                        </View>
-                    ) : null}
-                </View>
-                <Text style={styles.headerStatus}>{statusLabel}</Text>
-            </View>
-
-            <CharacterSlot
-                state="idle"
-                size="sm"
-                visible={ENABLE_CHARACTER}
-                align="left"
-                tier="starter"
-                text="Cada detalhe conta."
-            />
-        </View>
-    );
-}
+// ── Sub-components ───────────────────────────────────────────────────────────
 
 type IntroCardProps = {
     onStart: () => void;
@@ -269,17 +381,14 @@ function IntroCard({ onStart, onSkip }: IntroCardProps) {
             <Text style={styles.introBody}>
                 Aprenda radiologia com revisões inteligentes e progresso real.
             </Text>
-            <AppButton onPress={onStart} style={styles.button}>
-                Começar
-            </AppButton>
+            <AppButton label="Começar" onPress={onStart} style={styles.fullWidthBtn} />
             <AppButton
+                label="Pular introdução"
                 onPress={onSkip}
                 variant="ghost"
-                style={styles.secondaryButton}
-                textStyle={{ color: galaxyColors.textSecondary }}
-            >
-                Pular introdução
-            </AppButton>
+                style={styles.fullWidthBtn}
+                textStyle={{ color: colors.textSecondary }}
+            />
         </View>
     );
 }
@@ -295,43 +404,7 @@ function ClosureCard({ onDismiss }: ClosureCardProps) {
             <Text style={styles.closureBody}>
                 Agora o Radiant se adapta ao seu ritmo. Continue revisando para manter suas chamas acesas.
             </Text>
-            <AppButton onPress={onDismiss} style={styles.button}>
-                Entendi
-            </AppButton>
-        </View>
-    );
-}
-
-type StatsSectionProps = {
-    gamificationState: GamificationSnapshot | null;
-    dailyGoalState: DailyGoalSnapshot | null;
-};
-
-function StatsSection({ gamificationState, dailyGoalState }: StatsSectionProps) {
-    if (!gamificationState && !dailyGoalState) {
-        return null;
-    }
-
-    return (
-        <View style={styles.statsRow}>
-            {gamificationState ? (
-                <>
-                    <View style={styles.statPill}>
-                        <Text style={styles.statPillLabel}>XP</Text>
-                        <Text style={styles.statPillValue}>{gamificationState.totalXp}</Text>
-                    </View>
-                    <View style={styles.statPill}>
-                        <Text style={styles.statPillLabel}>Sequência</Text>
-                        <Text style={styles.statPillValue}>{gamificationState.streakDays}d</Text>
-                    </View>
-                </>
-            ) : null}
-            {dailyGoalState ? (
-                <View style={styles.statPill}>
-                    <Text style={styles.statPillLabel}>Meta</Text>
-                    <Text style={styles.statPillValue}>{dailyGoalState.completedToday}/{dailyGoalState.goalPerDay}</Text>
-                </View>
-            ) : null}
+            <AppButton label="Entendi" onPress={onDismiss} style={styles.fullWidthBtn} />
         </View>
     );
 }
@@ -369,13 +442,12 @@ function HealthSection({ healthScore, showHealthDetails, onToggleDetails }: Heal
             </View>
 
             <AppButton
+                label={showHealthDetails ? 'Ocultar detalhes' : 'Ver detalhes'}
                 onPress={onToggleDetails}
                 variant="ghost"
                 style={styles.healthDetailsBtn}
                 textStyle={styles.healthDetailsButtonText}
-            >
-                {showHealthDetails ? 'Ocultar detalhes' : 'Ver detalhes'}
-            </AppButton>
+            />
 
             {showHealthDetails ? (
                 <View style={styles.healthDetails}>
@@ -435,22 +507,23 @@ function ReviewSection({ dueCount, onboardingStage, onStartReview }: ReviewSecti
             ) : null}
 
             <AppButton
+                label="Iniciar revisão"
                 onPress={onStartReview}
                 disabled={dueCount === 0}
-                style={styles.button}
-            >
-                Iniciar revisão
-            </AppButton>
+                style={styles.fullWidthBtn}
+            />
         </View>
     );
 }
 
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
 function getHealthBadgeStyle(label: string) {
     switch (label) {
-        case 'excellent': return { backgroundColor: 'rgba(52, 199, 89, 0.2)' };
-        case 'strong': return { backgroundColor: 'rgba(48, 96, 255, 0.2)' };
-        case 'consistent': return { backgroundColor: 'rgba(255, 159, 10, 0.2)' };
-        default: return { backgroundColor: 'rgba(255,255,255,0.07)' };
+        case 'excellent': return { backgroundColor: 'rgba(52, 199, 89, 0.15)' };
+        case 'strong': return { backgroundColor: 'rgba(33, 85, 255, 0.12)' };
+        case 'consistent': return { backgroundColor: 'rgba(255, 159, 10, 0.15)' };
+        default: return { backgroundColor: colors.border };
     }
 }
 
@@ -461,164 +534,255 @@ function getHealthLabelText(label: string) {
         'consistent': 'Consistente',
         'adjusting': 'Em ajuste'
     };
-    return map[label] || label;
+    return map[label] ?? label;
 }
 
 function renderHealthRow(label: string, value: number, max: number) {
     return (
-        <View style={styles.healthRow}>
+        <View key={label} style={styles.healthRow}>
             <Text style={styles.healthRowLabel}>{label}</Text>
             <Text style={styles.healthRowValue}>{value}/{max}</Text>
         </View>
     );
 }
 
+// ── Styles ───────────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
+    // Screen
     screen: {
-        ...layout.screen,
-        backgroundColor: galaxyColors.background,
-        padding: space.none,
+        flex: 1,
+        backgroundColor: colors.background,
     },
+
+    // Header
     header: {
-        paddingHorizontal: space.s4,
-        paddingVertical: space.s5,
-        borderBottomWidth: 1,
-        borderBottomColor: galaxyColors.border,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: space.s3,
+        paddingHorizontal: space.s3,
+        paddingVertical: space.s2,
     },
-    headerCopy: {
+    headerLeft: {
+        gap: 2,
+    },
+    headerDate: {
+        ...textStyles.micro,
+        color: colors.textTertiary,
+    },
+    headerGreeting: {
+        ...textStyles.h3,
+        color: colors.textPrimary,
+    },
+    avatarCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 14,
+        borderWidth: 1,
+        borderColor: colors.border,
+        backgroundColor: colors.surface,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    avatarInitials: {
+        fontFamily: fontFamily.soraBold,
+        fontSize: 13,
+        color: colors.primary,
+        letterSpacing: 0.5,
+    },
+
+    // Scroll content
+    content: {
+        paddingHorizontal: space.s3,
+        paddingTop: space.s1,
+        paddingBottom: space.s6,
+        gap: 12,
+    },
+
+    // Stat Pills Row
+    pillsRow: {
+        flexDirection: 'row',
+        gap: 8,
+        marginBottom: 4,
+    },
+
+    // Hero Card
+    heroCard: {
+        borderRadius: 24,
+        padding: 20,
+        gap: 16,
+    },
+    heroContent: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+    },
+    heroMicro: {
+        fontFamily: fontFamily.soraBold,
+        fontSize: 11,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+        color: 'rgba(255,255,255,0.85)',
+    },
+    heroTitle: {
+        ...textStyles.h2,
+        color: '#ffffff',
+    },
+    heroTags: {
+        flexDirection: 'row',
+        gap: 6,
+        flexWrap: 'wrap',
+    },
+    heroTag: {
+        borderRadius: 8,
+        backgroundColor: 'rgba(255,255,255,0.18)',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+    },
+    heroTagText: {
+        fontSize: 11,
+        fontWeight: '700',
+        color: '#ffffff',
+    },
+    heroIllustration: {
+        marginTop: -8,
+        marginRight: -10,
+    },
+    heroButton: {
+        backgroundColor: '#ffffff',
+        shadowColor: 'transparent',
+        elevation: 0,
+    },
+
+    // Journey Card
+    journeyCard: {
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: 20,
+        padding: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 14,
+    },
+    progressRingLabel: {
+        fontSize: 14,
+        fontWeight: '800',
+        color: colors.textPrimary,
+    },
+    journeyInfo: {
         flex: 1,
+        gap: 2,
     },
+    journeyMicro: {
+        ...textStyles.micro,
+        color: colors.textTertiary,
+    },
+    journeyTitle: {
+        ...textStyles.h3,
+        color: colors.textPrimary,
+    },
+    journeyBody: {
+        ...textStyles.body,
+        color: colors.textSecondary,
+    },
+    arrowButton: {
+        width: 36,
+        height: 36,
+        borderRadius: 12,
+        backgroundColor: colors.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    // Stats Trio
+    statsTrio: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    statsTrioCard: {
+        flex: 1,
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: 16,
+        padding: 12,
+        gap: 2,
+    },
+    statsTrioMicro: {
+        ...textStyles.micro,
+        color: colors.textTertiary,
+    },
+    statsTrioValue: {
+        ...textStyles.h2,
+        color: colors.textPrimary,
+    },
+    statsTrioSub: {
+        ...textStyles.caption,
+        color: colors.textSecondary,
+    },
+
+    // Intro Card
     introCard: {
-        backgroundColor: galaxyColors.surface,
+        backgroundColor: colors.surface,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: galaxyColors.ctaGradientEnd,
-        padding: space.s5,
+        borderColor: colors.primary,
+        padding: space.s4,
         alignItems: 'center',
-        gap: space.s3,
+        gap: space.s2,
     },
     introTitle: {
-        ...typography.h2,
-        color: galaxyColors.textPrimary,
+        ...textStyles.h3,
+        color: colors.textPrimary,
         textAlign: 'center',
     },
     introBody: {
-        ...typography.body,
-        color: galaxyColors.textSecondary,
+        ...textStyles.body,
+        color: colors.textSecondary,
         textAlign: 'center',
     },
+
+    // Closure Card
     closureCard: {
-        backgroundColor: 'rgba(52, 199, 89, 0.08)',
+        backgroundColor: 'rgba(52, 199, 89, 0.06)',
         borderRadius: 16,
         borderWidth: 1,
         borderColor: '#34C759',
-        padding: space.s5,
-        gap: space.s3,
-    },
-    closureTitle: {
-        ...typography.h2,
-        color: '#34C759',
-    },
-    closureBody: {
-        ...typography.body,
-        color: galaxyColors.textPrimary,
-    },
-    inlineHelper: {
-        ...typography.caption,
-        color: galaxyColors.ctaGradientEnd,
-        textAlign: 'center',
-        fontStyle: 'italic',
-    },
-    title: {
-        ...typography.h1,
-        color: galaxyColors.textPrimary,
-    },
-    headerStatus: {
-        ...typography.caption,
-        color: galaxyColors.textSecondary,
-        marginTop: space.s1,
-    },
-    content: {
         padding: space.s4,
-        gap: space.s5,
-        paddingBottom: space.s6,
-    },
-    statsRow: {
-        ...layout.row,
         gap: space.s2,
     },
-    statPill: {
-        flex: 1,
-        backgroundColor: galaxyColors.surface,
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: galaxyColors.border,
-        paddingVertical: space.s2,
-        paddingHorizontal: space.s3,
-        alignItems: 'center',
-        gap: 2,
+    closureTitle: {
+        ...textStyles.h3,
+        color: '#1A7A3A',
     },
-    statPillLabel: {
-        fontSize: 11,
-        fontWeight: '600',
-        color: galaxyColors.textSecondary,
-        textTransform: 'uppercase',
-        letterSpacing: 0.5,
+    closureBody: {
+        ...textStyles.body,
+        color: colors.textPrimary,
     },
-    statPillValue: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: galaxyColors.textPrimary,
-    },
+
+    // Goal Completed Banner
     goalCompletedBanner: {
-        backgroundColor: galaxyColors.surface,
+        backgroundColor: colors.surface,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: galaxyColors.border,
-        padding: space.s3,
+        borderColor: colors.border,
+        padding: space.s2,
         alignItems: 'center',
     },
     goalCompletedText: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#34C759',
+        color: '#1A7A3A',
     },
-    reviewCard: {
-        backgroundColor: galaxyColors.surface,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: galaxyColors.border,
-        padding: space.s4,
-        alignItems: 'center',
-        gap: space.s2,
-    },
-    reviewLabel: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: galaxyColors.textSecondary,
-    },
-    reviewCount: {
-        fontSize: 64,
-        fontWeight: '700',
-        color: galaxyColors.ctaGradientEnd,
-    },
-    button: {
-        width: '100%',
-    },
-    secondaryButton: {
-        width: '100%',
-    },
+
+    // Health Card
     healthCard: {
-        backgroundColor: galaxyColors.surface,
+        backgroundColor: colors.surface,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: galaxyColors.border,
-        padding: space.s4,
-        gap: space.s3,
+        borderColor: colors.border,
+        padding: space.s3,
+        gap: space.s2,
     },
     healthHeader: {
         flexDirection: 'row',
@@ -628,48 +792,47 @@ const styles = StyleSheet.create({
     healthTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: galaxyColors.textPrimary,
+        color: colors.textPrimary,
     },
     healthBadge: {
-        paddingHorizontal: space.s2,
+        paddingHorizontal: space.s1,
         paddingVertical: 2,
-        borderRadius: 4,
-        backgroundColor: 'rgba(255,255,255,0.07)',
+        borderRadius: 6,
     },
     healthBadgeText: {
         fontSize: 12,
         fontWeight: '600',
-        color: galaxyColors.textPrimary,
+        color: colors.textPrimary,
     },
     healthMain: {
-        gap: space.s1,
+        gap: 4,
     },
     healthScoreBig: {
         fontSize: 48,
         fontWeight: '800',
-        color: galaxyColors.textPrimary,
+        color: colors.textPrimary,
         letterSpacing: -1,
     },
     healthMicrocopy: {
         fontSize: 14,
-        color: galaxyColors.textSecondary,
+        color: colors.textSecondary,
         lineHeight: 20,
     },
     healthDetailsBtn: {
         borderWidth: 1,
-        borderColor: galaxyColors.border,
+        borderColor: colors.border,
         height: 36,
     },
     healthDetailsButtonText: {
         fontSize: 13,
-        color: galaxyColors.textSecondary,
+        color: colors.textSecondary,
     },
     healthDetails: {
-        marginTop: space.s2,
-        paddingTop: space.s3,
+        marginTop: space.s1,
+        paddingTop: space.s2,
         borderTopWidth: 1,
-        borderTopColor: galaxyColors.border,
-        gap: space.s1,
+        borderTopColor: colors.border,
+        gap: 4,
     },
     healthRow: {
         flexDirection: 'row',
@@ -677,58 +840,78 @@ const styles = StyleSheet.create({
     },
     healthRowLabel: {
         fontSize: 13,
-        color: galaxyColors.textSecondary,
+        color: colors.textSecondary,
     },
     healthRowValue: {
         fontSize: 13,
         fontWeight: '600',
-        color: galaxyColors.textPrimary,
+        color: colors.textPrimary,
     },
     healthPenaltyText: {
-        color: '#FF453A',
+        color: '#D8506F',
     },
     healthPlaceholder: {
         fontSize: 14,
-        color: galaxyColors.textSecondary,
+        color: colors.textSecondary,
         fontStyle: 'italic',
-        marginTop: space.s2,
+        marginTop: space.s1,
     },
 
-    titleRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    betaBadge: {
-        backgroundColor: 'rgba(255, 159, 10, 0.2)',
-        paddingHorizontal: space.s1,
-        paddingVertical: 2,
-        borderRadius: 4,
-        marginLeft: space.s3,
-    },
-    betaText: {
-        color: '#FF9F0A',
-        fontSize: 10,
-        fontWeight: '700',
-    },
-    sectionBlock: {
-        marginBottom: space.none,
-    },
+    // Alert Banner
     alertCard: {
         borderRadius: 12,
         borderWidth: 1,
-        padding: space.s3,
+        padding: space.s2,
     },
     alertCardCritical: {
-        backgroundColor: 'rgba(255, 69, 58, 0.1)',
-        borderColor: '#FF453A',
+        backgroundColor: 'rgba(216, 80, 111, 0.08)',
+        borderColor: '#D8506F',
     },
     alertCardInformational: {
-        backgroundColor: 'rgba(48, 96, 255, 0.1)',
-        borderColor: galaxyColors.ctaGradientEnd,
+        backgroundColor: 'rgba(33, 85, 255, 0.07)',
+        borderColor: colors.primary,
     },
     alertTitle: {
-        ...typography.body,
-        color: galaxyColors.textPrimary,
+        fontSize: 14,
+        lineHeight: 20,
+        fontWeight: '600',
+        color: colors.textPrimary,
+    },
+
+    // Review Card
+    reviewCard: {
+        backgroundColor: colors.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: colors.border,
+        padding: space.s3,
+        alignItems: 'center',
+        gap: space.s1,
+    },
+    reviewLabel: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: colors.textSecondary,
+    },
+    reviewCount: {
+        fontSize: 64,
         fontWeight: '700',
+        color: colors.primary,
+    },
+    inlineHelper: {
+        fontSize: 13,
+        lineHeight: 18,
+        fontWeight: '600',
+        color: colors.primary,
+        textAlign: 'center',
+        fontStyle: 'italic',
+    },
+
+    // Buttons
+    fullWidthBtn: {
+        width: '100%',
+    },
+    ghostButton: {
+        width: '100%',
     },
 });
