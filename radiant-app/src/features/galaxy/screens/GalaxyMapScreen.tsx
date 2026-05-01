@@ -4,6 +4,7 @@
  * Galáxias como blobs espirais flutuando no espaço escuro.
  */
 
+import { BlurView } from 'expo-blur';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -14,6 +15,8 @@ import {
   Text,
   View,
 } from 'react-native';
+import { AppButton } from '../../../components/ui/AppButton';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -239,15 +242,31 @@ export default function GalaxyMapScreen() {
               onPress={handleGalaxyPress}
             />
           ))}
+
+          {/* Pixel guide near active galaxy */}
+          {activeGalaxy && (
+            <View
+              style={{
+                position: 'absolute',
+                left: activeGalaxy.mapPosition.x * SCREEN_W + 30,
+                top: activeGalaxy.mapPosition.y * MAP_H - 60,
+                zIndex: 10,
+              }}
+            >
+              <PixelIllustration state="guide" size="sm" />
+            </View>
+          )}
         </View>
 
-        {/* CTA fixo */}
-        <View style={styles.ctaArea}>
-          <Pressable style={styles.ctaBtn} onPress={handleCTA}>
-            <Text style={styles.ctaBtnText}>{ctaLabel}</Text>
-          </Pressable>
+        {/* CTA fixo — glass card */}
+        <BlurView intensity={18} tint="dark" style={styles.ctaArea}>
+          <AppButton
+            label={ctaLabel}
+            onPress={handleCTA}
+            variant="galaxy"
+          />
           {!!ctaHint && <Text style={styles.ctaHint}>{ctaHint}</Text>}
-        </View>
+        </BlurView>
       </SafeAreaView>
     </View>
   );
@@ -314,25 +333,11 @@ const styles = StyleSheet.create({
   },
   ctaArea: {
     paddingHorizontal: 20,
-    paddingBottom: 100, // espaço para a tab bar flutuante
-    paddingTop: 8,
-    backgroundColor: 'transparent',
-  },
-  ctaBtn: {
-    backgroundColor: '#1b47ff',
-    borderRadius: 18,
-    paddingVertical: 14,
-    alignItems: 'center',
-    shadowColor: 'rgba(27,71,255,0.6)',
-    shadowOpacity: 1,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 8,
-  },
-  ctaBtnText: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#fff',
+    paddingBottom: 110,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.08)',
+    overflow: 'hidden',
   },
   ctaHint: {
     fontSize: 11,
