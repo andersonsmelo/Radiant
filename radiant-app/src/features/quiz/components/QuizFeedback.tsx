@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     borderColor: colors.success,
   },
   incorrectCard: {
-    backgroundColor: colors.warningSoft,
-    borderColor: colors.warning,
+    backgroundColor: '#FCEAEF',
+    borderColor: '#D8506F',
   },
   header: {
     flexDirection: 'row',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     color: colors.success,
   },
   incorrectText: {
-    color: colors.warning,
+    color: '#9E2E48',
   },
   badge: {
     borderRadius: radius.rXl,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(26, 156, 113, 0.12)',
   },
   incorrectBadge: {
-    backgroundColor: 'rgba(215, 144, 34, 0.12)',
+    backgroundColor: 'rgba(216,80,111,0.12)',
   },
   badgeText: {
     ...typography.micro,

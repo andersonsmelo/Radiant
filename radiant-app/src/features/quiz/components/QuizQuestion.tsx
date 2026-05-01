@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
+import { XrayPanel } from '../../../components/ui/XrayPanel';
 import { UI_CONFIG } from '../../../constants/quiz';
 import type { QuizQuestion as QuizQuestionModel } from '../../../types/quiz';
 import { useCardEnter } from '../../../ui/motion';
@@ -10,6 +11,7 @@ import { radius, space, typography } from '../../../ui/styles';
 interface QuizQuestionProps {
   question: QuizQuestionModel;
   selectedAnswerIndex: number | null;
+  correctAnswerIndex?: number;
   isAnswered: boolean;
   onSelectAnswer: (answerIndex: number) => void;
 }
@@ -17,6 +19,7 @@ interface QuizQuestionProps {
 export function QuizQuestion({
   question,
   selectedAnswerIndex,
+  correctAnswerIndex,
   isAnswered,
   onSelectAnswer,
 }: QuizQuestionProps) {
@@ -37,13 +40,16 @@ export function QuizQuestion({
           <Text style={styles.prompt}>{question.prompt}</Text>
         </View>
 
-        {question.type === 'image' && question.imageUrl ? (
-          <Image source={{ uri: question.imageUrl }} style={styles.image} resizeMode="contain" />
+        {question.type === 'image' ? (
+          <XrayPanel height={220} highlight={{ x: 230, y: 110, r: 18 }} />
         ) : null}
 
         <View style={styles.optionsContainer}>
           {question.options.map((option, index) => {
-            const isSelected = selectedAnswerIndex === index;
+            const isSelectedOption = selectedAnswerIndex === index;
+            const isCorrectOption = correctAnswerIndex !== undefined && correctAnswerIndex === index;
+            const isWrongSelected = isAnswered && isSelectedOption && !isCorrectOption;
+            const isCorrectHighlight = isAnswered && isCorrectOption;
 
             return (
               <Pressable
@@ -54,12 +60,14 @@ export function QuizQuestion({
                 accessibilityLabel={option.label}
                 style={({ pressed }) => [
                   styles.optionButton,
-                  isSelected && styles.optionButtonSelected,
+                  isSelectedOption && !isAnswered && styles.optionButtonSelected,
+                  isCorrectHighlight && styles.optionButtonCorrect,
+                  isWrongSelected && styles.optionButtonWrong,
                   pressed && !isAnswered && styles.optionButtonPressed,
                 ]}
               >
-                <View style={[styles.optionMarker, isSelected && styles.optionMarkerSelected]} />
-                <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>{option.label}</Text>
+                <View style={[styles.optionMarker, isSelectedOption && styles.optionMarkerSelected]} />
+                <Text style={[styles.optionText, isSelectedOption && styles.optionTextSelected]}>{option.label}</Text>
               </Pressable>
             );
           })}
@@ -113,6 +121,14 @@ const styles = StyleSheet.create({
   },
   optionButtonPressed: {
     opacity: 0.72,
+  },
+  optionButtonCorrect: {
+    backgroundColor: '#E5F7EF',
+    borderColor: '#1A9C71',
+  },
+  optionButtonWrong: {
+    backgroundColor: '#FCEAEF',
+    borderColor: '#D8506F',
   },
   optionMarker: {
     width: space.s2,

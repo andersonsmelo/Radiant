@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
@@ -405,6 +406,19 @@ function QuizSession({
           compact
         />
         <View style={[layout.container, styles.activeLayout]}>
+          {/* Progress bar */}
+          <View style={styles.progressTrack}>
+            <LinearGradient
+              colors={['#2155FF', '#3DCAE8']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={[
+                styles.progressBar,
+                { width: `${Math.min(100, ((progress.currentQuestionIndex + 1) / Math.max(1, progress.totalQuestions)) * 100)}%` as any },
+              ]}
+            />
+          </View>
+
           <View style={styles.headerRow}>
             <Pressable
               onPress={() => router.replace('/(tabs)')}
@@ -444,6 +458,7 @@ function QuizSession({
               <QuizQuestion
                 question={currentQuestion}
                 selectedAnswerIndex={selectedAnswerIndex}
+                correctAnswerIndex={currentQuestion.correctAnswerIndex}
                 isAnswered={isAnswered}
                 onSelectAnswer={selectAnswer}
               />
@@ -566,4 +581,17 @@ const styles = StyleSheet.create({
   scrollArea: { flex: 1 },
   scrollContent: { gap: space.s2, paddingBottom: space.s2 },
   footer: { paddingBottom: space.s1 },
+  progressTrack: {
+    height: 10,
+    backgroundColor: '#EAF2FF',
+    borderRadius: 999,
+    marginHorizontal: 20,
+    marginBottom: 8,
+    overflow: 'hidden',
+  },
+  progressBar: {
+    height: 10,
+    borderRadius: 999,
+    alignSelf: 'flex-start',
+  },
 });
