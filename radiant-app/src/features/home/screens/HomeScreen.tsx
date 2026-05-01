@@ -233,6 +233,7 @@ export default function HomeScreen() {
                         <View style={styles.heroContent}>
                             <View style={{ flex: 1, gap: 10 }}>
                                 <Text style={styles.heroMicro}>TODAY'S MISSION</Text>
+                                {/* TODO: Wire to real lesson-of-the-day from LessonService */}
                                 <Text style={styles.heroTitle}>
                                     Pulmonary nodules{'\n'}on chest CT
                                 </Text>
@@ -272,6 +273,7 @@ export default function HomeScreen() {
 
                             <View style={styles.journeyInfo}>
                                 <Text style={styles.journeyMicro}>CONTINUE CHAPTER</Text>
+                                {/* TODO: Wire to real chapter progress from LearningRoadService */}
                                 <Text style={styles.journeyTitle}>Thoracic Imaging</Text>
                                 <Text style={styles.journeyBody}>11 of 20 lessons</Text>
                             </View>
@@ -284,6 +286,7 @@ export default function HomeScreen() {
 
                     {/* Stats Trio */}
                     <View style={styles.statsTrio}>
+                        {/* TODO: Wire mastered count and accuracy to GamificationService / StatsService */}
                         <View style={styles.statsTrioCard}>
                             <Text style={styles.statsTrioMicro}>MASTERED</Text>
                             <Text style={styles.statsTrioValue}>{23}</Text>
