@@ -571,7 +571,7 @@ const styles = StyleSheet.create({
         color: colors.textTertiary,
     },
     headerGreeting: {
-        ...textStyles.h3,
+        ...textStyles.h2,
         color: colors.textPrimary,
     },
     avatarCircle: {
