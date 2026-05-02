@@ -1,5 +1,5 @@
-# 🏗 SCREEN_ARCHETYPES.md — Radiant (v1)
-Status: ✅ Oficial (congelado)
+# 🏗 SCREEN_ARCHETYPES.md — Radiant (v2)
+Status: ✅ Oficial — atualizado em v1.2.0 (2026-05-02)
 Escopo: Definição estrutural das telas do Radiant.
 
 > **Objetivo:**
@@ -30,80 +30,139 @@ Aplicáveis a **todos** os arquétipos:
 2. **Foco Único:** Cada tela tem **um** objetivo claro.
 3. **Ação Primária Única:** Apenas um botão/CTA primário por estado visual.
 4. **Motion de Suporte:** Animações guiam o olho ou celebram; nunca decoram sem propósito.
-5. **Personagem Contextual:** A presença de Lux é regulada pelo arquétipo (nunca "jogado" na tela).
+5. **Personagem Contextual:** A presença de Pixel é regulada pelo arquétipo (nunca "jogado" na tela).
 
 ---
 
-## 3) Arquétipos Oficiais (v1)
+## 3) Arquétipos Oficiais (v2)
 
 ### A) Dashboard Screen
 **Exemplos:** `HomeScreen`
 **Intento:** Visão geral, motivação, ponto de partida.
+**Modo visual:** Light (`#F5FAFF`)
 **Estrutura:**
-- Cabeçalho claro (Saudação + Stats).
-- Cards informativos (Stats, Banner).
-- CTA de entrada para Fluxos.
+- Cabeçalho (data micro + saudação Sora ExtraBold + avatar).
+- Linha de StatPills (XP, streak, coração).
+- Hero card com LinearGradient e Pixel mascote.
+- Cards informativos (Journey, Stats).
 **Ritmo Vertical:** `layout.stackMd` (respiro generoso).
 **Motion:**
-- Entrada em cascata (`stagger`) dos cards.
-**Lux (Personagem):**
+- Entrada em cascata (`stagger`) dos cards via Reanimated.
+**Pixel (Personagem):**
 - **Permitido:** Sim.
-- **Posição:** Topo (Cabeçalho/Slot).
-- **Estado:** Idle, Greeting, Thinking.
+- **Posição:** Dentro do hero card.
+- **Estado:** `happy`, `guide`.
 **Anti-padrões:**
-- Textos longos.
+- Textos longos sem hierarquia.
 - Múltiplas ações de igual peso.
 
 ### B) Flow Screen
 **Exemplos:** `QuizScreen`, `ReviewScreen`
 **Intento:** Progresso focado, imersão, passo-a-passo.
+**Modo visual:** Light (`#F5FAFF`)
 **Estrutura:**
-- Barra de progresso / Top info discreto.
-- Cartão de Conteúdo (Centralizado visualmente).
-- Área de Input / Resposta.
+- Barra de progresso LinearGradient no topo (track `#EAF2FF`).
+- Cartão de Conteúdo (`QuizQuestion` com `XrayPanel` para questões de imagem).
+- `QuizFeedback` drawer após resposta.
 - Rodapé com CTA de avanço.
 **Ritmo Vertical:** `layout.stackSm` ou customizado para densidade.
 **Motion:**
-- Transições de entrada/saída laterais ou fade+scale.
-- Feedback imediato (Shake, Pulse).
-**Lux (Personagem):**
+- `useCardEnter` na entrada de cada questão.
+- `useShakeError` no feedback negativo.
+- `useScalePop` no feedback positivo.
+**Pixel (Personagem):**
 - **Restrito:** Geralmente ausente para não distrair.
-- **Exceção:** Feedback imediato (ex: celebrar acerto difícil), mas deve sair em seguida.
 **Anti-padrões:**
 - Botões de saída no meio do fluxo (use o `X` no topo).
 - Elementos piscando ou competindo por atenção.
 
-### C) Summary Screen
-**Exemplos:** `QuizSummary`, `ReviewFinish`
-**Intento:** Fechamento, recompensa, reflexão.
+### C) Summary / Reward Screen
+**Exemplos:** `RewardScreen`, `CheckpointScreen` (estado `completed`)
+**Intento:** Fechamento, recompensa, celebração.
+**Modo visual:** Dark (`#03030D`) para Reward; Light gradient (`#EAF2FF → #F5FAFF`) para Checkpoint.
 **Estrutura:**
-- Grande indicador de sucesso (Icon / Motion / Score).
-- Resumo de métricas (XP, Accuracy).
-- CTA de "Voltar" ou "Próximo".
-**Ritmo Vertical:** `layout.stackMd` e `layout.center` (frequente).
+- `StarfieldBackground` ou `LinearGradient` de fundo.
+- `Confetti` component ativo.
+- `PixelIllustration` state `celebrate` como herói visual.
+- Achievement card com badge dourado, título, XP box.
+- CTA primário + ação secundária ghost.
+**Ritmo Vertical:** Flex column com `ScrollView` (safe em iPhone SE).
 **Motion:**
-- Celebração (Confetti, Scale-up, Sparkles).
-- Entrada sequencial de stats.
-**Lux (Personagem):**
+- `Confetti` com 30–50 partículas.
+- XP counter animado (incremento por setInterval).
+- Reanimated `withDelay/withTiming` nos cards de recompensa.
+**Pixel (Personagem):**
 - **Encorajado:** Sim.
-- **Estado:** Happy, Excited, Celebrate.
+- **Estado:** `celebrate`.
 **Anti-padrões:**
-- Mostrar erros detalhados sem solicitação (foco no positivo).
-- Botões pequenos demais.
+- Layout 100% absolute sem ScrollView fallback.
+- Mostrar erros detalhados (foco no positivo).
 
-### D) Utility Screen
-**Exemplos:** `TelemetryDebugScreen`, `Settings` (futuro)
+### D) Map Screen
+**Exemplos:** `GalaxyMapScreen`
+**Intento:** Navegação espacial, escolha de destino.
+**Modo visual:** Dark (`#03030D`)
+**Estrutura:**
+- `StarfieldBackground` com `extraNebulas` das galáxias.
+- Mapa posicional absoluto com galáxias como `GalaxyBlob`.
+- SVG `<Line>` para trilhas pontilhadas entre galáxias.
+- `PixelIllustration` state `guide` próximo à galáxia ativa.
+- `BlurView` glass CTA fixo no rodapé.
+**Motion:**
+- `withSpring` no press de cada `GalaxyCard`.
+**Pixel (Personagem):**
+- **Permitido:** Próximo à galáxia ativa.
+- **Estado:** `guide`.
+**Anti-padrões:**
+- ScrollView (mapa é posicional, não linear).
+- CTA primário sem BlurView no contexto dark.
+
+### E) Stats Screen
+**Exemplos:** `ProgressScreen`, `MissionsScreen`
+**Intento:** Acompanhamento, motivação contínua, missões.
+**Modo visual:** Light (`#F5FAFF`)
+**Estrutura (Progress):**
+- Header "YOUR STATS / Progress".
+- Streak calendar (7 tiles com LinearGradient fire).
+- Accuracy bar chart (8 barras, flex height).
+- 2×2 stats grid + topics mastered list.
+**Estrutura (Missions):**
+- Header com badge de tempo restante.
+- Streak banner LinearGradient `#FF8A4C → #FF6B2C`.
+- Seções Daily / Weekly com `MissionCard` (progresso flex, XP badge).
+**Motion:** Mínimo — apenas feedback de toque.
+**Pixel (Personagem):** **Ausente** neste arquétipo.
+**Anti-padrões:**
+- Dark mode nessas telas.
+- `%` strings em StyleSheet (usar flex para barras de progresso).
+
+### F) Onboarding Screen
+**Exemplos:** `onboarding/index.tsx`, `onboarding/value.tsx`, `onboarding/goal.tsx`
+**Intento:** Ativação, apresentação de valor, personalização.
+**Modo visual:** Dark nas duas primeiras (`#03030D`); Light na última (`#F5FAFF`).
+**Estrutura:**
+- Welcome: `StarfieldBackground` + Pixel `guide` lg + `BlurView` speech bubble + dots de paginação.
+- Value: 3 `FeatureCard` com stagger `withDelay` (0/120/240ms).
+- Goal: seleção de especialidade + meta diária + CTA `router.replace('/(tabs)')`.
+**Motion:** `withDelay/withTiming` nos cards; `withSpring` nos toggles de seleção.
+**Pixel (Personagem):**
+- **Welcome:** state `guide`, size `lg`.
+- **Value:** state `happy`, size `sm`, canto inferior direito.
+**Anti-padrões:**
+- Mais de 3 telas de onboarding.
+- Conteúdo que não pode ser pulado.
+
+### G) Utility Screen
+**Exemplos:** `TelemetryDebugScreen`, seção de dev tools em `ProgressScreen`
 **Intento:** Informação densa, configuração, diagnóstico.
+**Modo visual:** Light (seção embutida) ou Dark (tela isolada).
 **Estrutura:**
 - Listas longas, tabelas ou seções densas.
 - Scroll vertical mandatório.
-**Ritmo Vertical:** `layout.stackSm`.
-**Motion:**
-- Mínimo/Nulo. Apenas feedback de toque.
-**Lux (Personagem):**
-- **Proibido:** Não faz sentido narrativo.
+**Motion:** Mínimo/Nulo. Apenas feedback de toque.
+**Pixel (Personagem):** **Proibido.**
 **Anti-padrões:**
-- Espaçamento exagerado (o foco é densidade de dados).
+- Espaçamento exagerado.
 - Motion decorativo.
 
 ---
@@ -116,7 +175,7 @@ screen
   container + stackMd
     Header (Row)
       Title
-      LuxSlot
+      PixelSlot
     StatsRow (Row / Grid)
     InfoCard (Banner)
     MainActionCard (Center Action)
@@ -142,7 +201,7 @@ screen
     SuccessIcon / Graphic
     MainScore (H1)
     StatsGrid (Row)
-    LuxFeedback (Optional)
+    PixelFeedback (Optional)
     Footer
       FinishButton
 ```
@@ -158,13 +217,20 @@ screen
 
 ---
 
-## 6) Character (Lux) Placement Rules
+## 6) Character (Pixel) Placement Rules
 
-- **Onde:** Sempre em um `CharacterSlot` definido ou área reservada. Nunca flutuando sobre texto.
-- **States:**
-  - `Idle/Greeting`: Apenas Dashboard.
-  - `Thinking/Hint`: Apenas Flow (se solicitado).
-  - `Celebrate`: Apenas Summary.
+- **Onde:** Sempre em um `PixelSlot` definido ou área reservada. Nunca flutuando sobre texto de conteúdo.
+- **Componente:** `<PixelIllustration state="..." size="sm|md|lg" />`
+- **States por Arquétipo:**
+  - `idle` / `guide`: Dashboard, Map, Onboarding Welcome.
+  - `happy`: Dashboard hero card, Onboarding Value.
+  - `thinking`: Flow (se solicitado por dica).
+  - `celebrate`: Summary/Reward, Checkpoint completed.
+  - `oops`: Flow — feedback de erro grave (uso esparso).
+- **Sizes:**
+  - `sm` (~60 pt): rodapé de onboarding, próximo a galáxia ativa.
+  - `md` (~90 pt): hero card da Home.
+  - `lg` (~120 pt): herói em Summary/Reward.
 - **Gating:** Se o usuário desativar "Personagem", o layout não deve quebrar (o slot colapsa ou exibe vazio elegante).
 
 ---

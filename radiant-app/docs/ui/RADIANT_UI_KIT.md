@@ -1,282 +1,371 @@
-# Radiant UI Kit
+# Radiant UI Kit — v2.0
 
 Design system reference for the Radiant mobile application.
+Reflects the **New Layout wave** shipped in v1.2.0 (2026-05-02).
 
-## Color Palette
+---
 
-### Background Colors
-- **Primary Background**: `#000000` - Main app background
-- **Secondary Background**: `#1C1C1E` - Cards, elevated surfaces
-- **Tertiary Background**: `#2C2C2E` - Secondary buttons, disabled states
+## Visão Geral
 
-### Text Colors
-- **Primary Text**: `#FFFFFF` - Main content
-- **Secondary Text**: `#8E8E93` - Labels, secondary information
-- **Tertiary Text**: `#3A3A3C` - Dividers, subtle elements
+O Radiant tem **dois contextos visuais** que coexistem:
 
-### Accent Colors
-- **Primary Blue**: `#0A84FF` - Primary actions, links, progress
-- **Success Green**: `#34C759` - Success states, correct answers, achievements
-- **Error Red**: `#FF453A` - Errors, incorrect answers, warnings
+| Contexto | Telas | Background |
+|---|---|---|
+| **Light** | Home, Quiz, Progress, Missions, Checkpoint, Onboarding | `#F5FAFF` |
+| **Dark (Space)** | Galaxy Map, Reward | `#03030D` |
 
-### Semantic Colors
-- **Correct/Pass**: `#34C759`
-- **Incorrect/Fail**: `#FF453A`
-- **Info/Highlight**: `#0A84FF`
+---
 
-## Typography
+## Paleta de Cores
 
-### Font Sizes
-- **Extra Large**: `64px` - Score displays, large numbers
-- **Title**: `48px` - App title
-- **Large Title**: `32px` - Section headers
-- **Headline**: `24px` - Card titles, XP awards
-- **Body Large**: `20px` - Result messages
-- **Body**: `18px` - Buttons, primary content
-- **Callout**: `16px` - Labels, secondary content
-- **Caption**: `14px` - Small labels, metadata
-- **Small**: `12px` - Fine print, badges
+Fonte canônica: `src/ui/theme.ts` (`colors`, `galaxyColors`, `gradients`).
 
-### Font Weights
-- **Regular**: `400`
-- **Medium**: `500`
-- **Semibold**: `600`
-- **Bold**: `700`
-- **Extra Bold**: `800`
+### Light — Backgrounds
+| Token | Valor | Uso |
+|---|---|---|
+| `colors.background` | `#F5FAFF` | Root de telas light |
+| `colors.backgroundSecondary` | `#EAF4FF` | Seções alternadas |
+| `colors.bg2` | `#EAF2FF` | Gradient endpoint (Checkpoint) |
+| `colors.surface` | `#FFFFFF` | Cards, modais |
+| `colors.surfaceMuted` | `#F3F8FF` | Superfície sutil |
 
-## Spacing
+### Dark (Space) — Backgrounds
+| Token | Valor | Uso |
+|---|---|---|
+| `galaxyColors.background` | `#03030D` | Root de telas escuras |
+| `galaxyColors.surface` | `rgba(255,255,255,0.06)` | Cards no espaço |
+| `galaxyColors.surfaceMuted` | `rgba(255,255,255,0.03)` | Superfície ultra-sutil |
 
-### Padding/Margin Scale
-- **XS**: `4px`
-- **SM**: `8px`
-- **MD**: `12px`
-- **LG**: `16px`
-- **XL**: `20px`
-- **2XL**: `24px`
-- **3XL**: `32px`
-- **4XL**: `40px`
-- **5XL**: `60px`
+### Textos
+| Token | Valor | Uso |
+|---|---|---|
+| `colors.textPrimary` | `#14233F` | Títulos, conteúdo principal (light) |
+| `colors.textSecondary` | `#5B6B85` | Subtítulos, labels (light) |
+| `colors.textTertiary` | `#93A0B8` | Captions, eyebrows (light) |
+| `galaxyColors.textPrimary` | `#FFFFFF` | Títulos (dark) |
+| `galaxyColors.textSecondary` | `rgba(255,255,255,0.50)` | Labels (dark) |
 
-### Common Patterns
-- **Card Padding**: `32px` (large cards), `16px` (compact cards)
-- **Screen Padding**: `20px`
-- **Button Height**: `56px`
-- **Gap Between Elements**: `16px` - `24px`
+### Ação / Marca
+| Token | Valor | Uso |
+|---|---|---|
+| `colors.primary` | `#2155FF` | CTA principal, links |
+| `colors.primary2` | `#3D6BFF` | Gradiente companheiro do primary |
+| `colors.accent` | `#3DCAE8` | Destaques, accents cyan |
+| `colors.streak` | `#FF6B2C` | Streak, fogo |
 
-## Border Radius
+### Semânticas
+| Token | Valor | Uso |
+|---|---|---|
+| `colors.success` | `#1A9C71` | Respostas corretas, conquistas |
+| `colors.successSoft` | `#E6FFF6` | Background de feedback correto |
+| `colors.danger` | `#D8506F` | Erros, respostas erradas |
+| `colors.dangerSoft` | `#FFF0F4` | Background de feedback errado |
+| `colors.warning` | `#D79022` | Avisos, XP badges |
+| `colors.warningSoft` | `#FFF6DF` | Background de avisos |
 
-- **Small**: `8px` - Small elements
-- **Medium**: `12px` - Buttons, cards
-- **Large**: `16px` - Large cards, containers
+### Bordas
+| Token | Valor |
+|---|---|
+| `colors.border` | `#E3ECF7` |
+| `colors.borderSoft` | `rgba(57,111,219,0.14)` |
+| `colors.borderStrong` | `#7CB8FF` |
+| `galaxyColors.border` | `rgba(255,255,255,0.10)` |
 
-## Motion
-
-### Duration
-- **Quick**: `200ms` - Micro-interactions, hover states
-- **Normal**: `300ms` - Standard transitions
-- **Smooth**: `400ms` - Smooth state changes
-- **Celebrate**: `600ms` - Success animations, rewards
-
-### Easing
-- **Standard**: `ease-in-out` - Default easing
-- **Enter**: `ease-out` - Elements entering
-- **Exit**: `ease-in` - Elements exiting
-
-### Animation Patterns
-- **Fade In**: Opacity 0 → 1
-- **Subtle Glow**: Shadow with primary color at low opacity
-- **Scale**: 0.95 → 1 for gentle emphasis
-
-## Components
-
-### Buttons
-
-#### Primary Button
+### Gradientes
 ```typescript
-{
-  height: 56,
-  borderRadius: 12,
-  backgroundColor: '#0A84FF',
-  color: '#FFFFFF',
-  fontSize: 18,
-  fontWeight: '600',
-}
-```
+gradients.hero          // ['#FFFFFF', '#D8F6FF', '#7EDFFF']
+gradients.primaryButton // ['#1B47FF', '#2F71FF']
+gradients.cyanGlow      // ['#C7F8FF', '#75DEFF']
+gradients.journeyTrack  // ['#3BC8E8', '#4A78FF']
 
-#### Secondary Button
-```typescript
-{
-  height: 56,
-  borderRadius: 12,
-  backgroundColor: '#2C2C2E',
-  color: '#FFFFFF',
-  fontSize: 18,
-  fontWeight: '600',
-}
-```
-
-#### Disabled State
-```typescript
-{
-  backgroundColor: '#2C2C2E',
-  opacity: 0.5,
-  color: '#8E8E93',
-}
-```
-
-### Cards
-
-#### Standard Card
-```typescript
-{
-  backgroundColor: '#1C1C1E',
-  borderRadius: 16,
-  padding: 32,
-}
-```
-
-#### Compact Card
-```typescript
-{
-  backgroundColor: '#1C1C1E',
-  borderRadius: 12,
-  padding: 16,
-}
-```
-
-### Score Display
-```typescript
-{
-  fontSize: 64,
-  fontWeight: '700',
-  color: '#34C759', // Pass
-  color: '#FF453A', // Fail
-}
-```
-
-### XP Award Container
-```typescript
-{
-  backgroundColor: 'rgba(10, 132, 255, 0.1)',
-  borderRadius: 12,
-  padding: 16,
-}
-```
-
-### Progress Text
-```typescript
-{
-  fontSize: 14,
-  fontWeight: '500',
-  color: '#8E8E93',
-}
-```
-
-## Layout Patterns
-
-### Screen Structure
-```
-SafeAreaView (flex: 1, backgroundColor: '#000000')
-  ├─ Header (padding: 20, borderBottom: 1px #2C2C2E)
-  ├─ Content (flex: 1)
-  └─ Footer (padding: 20, borderTop: 1px #2C2C2E)
-```
-
-### Summary Screen
-```
-SafeAreaView
-  └─ Container (flex: 1, justifyContent: center, padding: 20)
-      ├─ Title (fontSize: 32, marginBottom: 40)
-      ├─ Score Card (marginBottom: 24)
-      ├─ Result Message (marginBottom: 16)
-      ├─ XP Award (marginBottom: 24)
-      ├─ Daily Goal Message (marginBottom: 24)
-      ├─ Progress Info (marginBottom: 24)
-      └─ Action Buttons (gap: 12)
-```
-
-## Accessibility
-
-### Contrast Ratios
-- **Primary Text on Background**: 21:1 (AAA)
-- **Secondary Text on Background**: 4.5:1 (AA)
-- **Primary Button**: 4.5:1 (AA)
-
-### Touch Targets
-- **Minimum Size**: `44px × 44px`
-- **Recommended Button Height**: `56px`
-
-## Dark Mode
-
-Radiant uses a dark-first design approach:
-- All colors are optimized for dark mode
-- High contrast for readability
-- Reduced eye strain with dark backgrounds
-- Vibrant accent colors for important actions
-
-## Usage Guidelines
-
-### Do's
-✅ Use semantic colors for their intended purpose  
-✅ Maintain consistent spacing using the scale  
-✅ Keep text hierarchy clear with size and weight  
-✅ Use high contrast for important information  
-✅ Provide visual feedback for all interactions
-
-### Don'ts
-❌ Don't use arbitrary colors outside the palette  
-❌ Don't use font sizes not in the scale  
-❌ Don't reduce button heights below 56px  
-❌ Don't use low contrast text on dark backgrounds  
-❌ Don't mix different border radius values in the same context
-
-## Examples
-
-### Daily Goal Display
-```typescript
-{
-  backgroundColor: '#1C1C1E',
-  borderRadius: 12,
-  padding: 16,
-  fontSize: 16,
-  fontWeight: '600',
-  color: '#FFFFFF',
-}
-```
-
-### Success Message
-```typescript
-{
-  fontSize: 18,
-  fontWeight: '600',
-  color: '#34C759',
-  textAlign: 'center',
-}
-```
-
-### Gamification Stats
-```typescript
-Container: {
-  flexDirection: 'row',
-  backgroundColor: '#1C1C1E',
-  borderRadius: 12,
-  padding: 16,
-}
-
-Label: {
-  fontSize: 14,
-  color: '#8E8E93',
-}
-
-Value: {
-  fontSize: 20,
-  fontWeight: '700',
-  color: '#FFFFFF',
-}
+// Galaxy específicos (hardcoded nos componentes)
+streak banner    // ['#FF8A4C', '#FF6B2C']
+accuracy bar     // ['#3DCAE8', '#2155FF']
+hero card        // ['#2155FF', '#3D6BFF']
+checkpoint bg    // ['#EAF2FF', '#F5FAFF']
 ```
 
 ---
 
-**Version**: 1.0  
-**Last Updated**: 2026-01-26  
-**Maintained by**: Radiant Development Team
+## Tipografia
+
+Fonte canônica: `src/ui/styles.ts` (`typography`) + `src/ui/theme.ts` (`fontFamily`, `textStyles`).
+
+### Família
+- **Sora** (Google Fonts) — usada para display/headlines
+  - `fontFamily.sora` — Regular 400
+  - `fontFamily.soraSemiBold` — SemiBold 600
+  - `fontFamily.soraBold` — Bold 700
+  - `fontFamily.soraExtraBold` — ExtraBold 800
+- **System** — usada para body text e UI
+
+### Escala (`typography.*`)
+| Token | fontSize | lineHeight | fontWeight |
+|---|---|---|---|
+| `h1` | 40 | 46 | 800 |
+| `h2` | 32 | 38 | 800 |
+| `h3` | 24 | 30 | 700 |
+| `body` | 16 | 24 | 600 |
+| `bodyRegular` | 16 | 24 | 400 |
+| `caption` | 13 | 18 | 600 |
+| `micro` | 12 | 16 | 600 |
+
+### Padrões de UI
+```
+Eyebrow/Label: 10–11px, fontWeight 800, color textTertiary, letterSpacing 0.08em, textTransform 'uppercase'
+Screen title:  26px, fontWeight 800, color textPrimary, letterSpacing -0.02em
+Card title:    14px, fontWeight 800, color textPrimary
+```
+
+---
+
+## Espaçamento
+
+Fonte: `src/ui/styles.ts` (`space`).
+
+| Token | Valor | Equivalência |
+|---|---|---|
+| `space.s0` | 4 | XS |
+| `space.s1` | 8 | SM |
+| `space.s2` | 12 | MD |
+| `space.s3` | 16 | LG |
+| `space.s4` | 20 | XL |
+| `space.s5` | 24 | 2XL |
+| `space.s6` | 32 | 3XL |
+
+**Padrões comuns:**
+- `paddingHorizontal` de telas: `20`
+- `gap` entre cards: `12–14`
+- `paddingBottom` de ScrollView (acima de tab bar): `120`
+
+---
+
+## Border Radius
+
+Fonte: `src/ui/styles.ts` (`radius`).
+
+| Token | Valor | Uso |
+|---|---|---|
+| `radius.rSm` | 8 | Badges, small elements |
+| `radius.rMd` | 12 | Botões, chips |
+| `radius.rLg` | 16 | Cards padrão |
+| `radius.rXl` | 20 | Cards grandes, modais |
+
+Valores adicionais usados localmente: `borderRadius: 14` (mission cards), `borderRadius: 18` (streak banner).
+
+---
+
+## Sombras
+
+Fonte: `src/ui/theme.ts` (`shadows`).
+
+```typescript
+shadows.soft  // shadowRadius 18, offset {0,10}  — cards light
+shadows.card  // shadowRadius 24, offset {0,12}  — cards elevados
+shadows.glow  // shadowRadius 18, offset {0,0}   — glow highlights
+```
+
+**Padrão para cards brancos (light):**
+```typescript
+shadowColor: '#14233F', shadowOpacity: 0.06, shadowRadius: 8, shadowOffset: {width:0, height:2}
+```
+
+**Padrão para cards com acento de cor:**
+```typescript
+shadowColor: colors.primary, shadowOpacity: 0.18, shadowRadius: 20, shadowOffset: {width:0, height:8}
+```
+
+---
+
+## Componentes de UI
+
+### AppButton (`src/components/ui/AppButton.tsx`)
+```typescript
+<AppButton
+  label="Texto do botão"      // OU children string
+  onPress={() => {}}
+  variant="primary"           // 'primary' | 'galaxy' | 'ghost'
+  disabled={false}
+/>
+```
+- `primary` — azul `#2155FF`, texto branco
+- `galaxy` — gradiente `['#1B47FF','#2F71FF']`, para telas dark
+- `ghost` — transparente, borda sutil
+
+### StatPill (`src/ui/components/StatPill.tsx`)
+```typescript
+<StatPill icon={<SvgIcon />} value="2 840" label="XP" />
+```
+Usado no HUD e no header da Home.
+
+### ProgressRing (`src/ui/components/ProgressRing.tsx`)
+```typescript
+<ProgressRing value={0.72} size={72} strokeWidth={6} color={colors.primary} />
+```
+Animado via Reanimated 4 (`withSpring`).
+
+### XrayPanel (`src/components/ui/XrayPanel.tsx`)
+```typescript
+<XrayPanel height={220} highlight={{ x: 230, y: 110, r: 18 }} />
+```
+SVG de raio-X estilizado. Usado em questões de tipo `'image'`.
+
+### Confetti (`src/components/ui/Confetti.tsx`)
+```typescript
+<Confetti count={30} run={true} />
+```
+Partículas coloridas animadas via Reanimated. `run` inicia/reinicia a animação.
+
+### PixelIllustration (`src/ui/characters/PixelIllustration.tsx`)
+```typescript
+<PixelIllustration state="idle" size="md" />
+// state: 'idle' | 'happy' | 'guide' | 'thinking' | 'celebrate' | 'oops'
+// size: 'sm' | 'md' | 'lg'
+```
+Mascote Pixel com animações state-driven via Reanimated 4.
+
+### StarfieldBackground (`src/ui/components/StarfieldBackground.tsx`)
+```typescript
+<StarfieldBackground />
+// Opcional: backgroundColor, starCount, extraNebulas
+```
+Fundo escuro com estrelas e nebulosas. Usado apenas em telas dark (Galaxy, Reward).
+
+### HUD (`src/ui/components/HUD.tsx`)
+```typescript
+<HUD totalXp={snap.totalXp} streakDays={snap.streakDays} hearts={snap.hearts} maxHearts={snap.maxHearts} />
+```
+Barra de status com XP + streak + corações. Usada em telas dark.
+
+### GalaxyBlob (`src/features/galaxy/components/GalaxyBlob.tsx`)
+```typescript
+<GalaxyBlob size={80} colorPrimary="#3DCAE8" />
+```
+Blob SVG orgânico para representar galáxias no mapa.
+
+---
+
+## Telas e Contextos Visuais
+
+| Tela | Arquivo | Modo | Background |
+|---|---|---|---|
+| Home | `features/home/screens/HomeScreen.tsx` | Light | `#F5FAFF` |
+| Galaxy Map | `features/galaxy/screens/GalaxyMapScreen.tsx` | Dark | `#03030D` |
+| Lesson/Quiz | `features/quiz/screens/QuizScreen.tsx` | Light | `colors.background` |
+| Reward | `features/rewards/screens/RewardScreen.tsx` | Dark | `#03030D` |
+| Progress | `features/progress/screens/ProgressScreen.tsx` | Light | `#F5FAFF` |
+| Missions | `features/galaxy/screens/MissionsScreen.tsx` | Light | `#F5FAFF` |
+| Checkpoint | `features/checkpoint/screens/CheckpointScreen.tsx` | Light (celebration) / Dark (main) | Gradient / `galaxyColors.background` |
+| Onboarding Welcome | `app/onboarding/index.tsx` | Dark | `#03030D` |
+| Onboarding Value | `app/onboarding/value.tsx` | Dark | `#03030D` |
+| Onboarding Goal | `app/onboarding/goal.tsx` | Light | `#F5FAFF` |
+
+---
+
+## Motion
+
+Fonte: `src/ui/motion.ts`.
+
+### Easings
+```typescript
+easing.spring   // withSpring padrão — entrada de elementos
+easing.snappy   // withTiming 200ms ease-out — micro-interações
+easing.smooth   // withTiming 350ms ease-in-out — transições de estado
+easing.enter    // withTiming 300ms ease-out — elementos entrando
+easing.exit     // withTiming 200ms ease-in — elementos saindo
+```
+
+### Hooks de Animação
+```typescript
+useCardEnter()   // fadeIn + translateY — entrada de cards
+useScalePop()    // scale 0.9 → 1 com spring — feedback positivo
+useShakeError()  // shake horizontal — feedback de erro
+```
+
+### Pixel — Animações por Estado
+| State | Animação |
+|---|---|
+| `idle` | Float suave ↑↓ (2250ms/ciclo) |
+| `happy` | Scale pulse contínuo |
+| `guide` | Float mais rápido |
+| `thinking` | Tilt -8° |
+| `celebrate` | Scale pop repetido (600ms/ciclo) |
+| `oops` | Shake + tilt fixo -2° |
+
+---
+
+## Layout Patterns
+
+### Tela Light padrão
+```
+<View style={{ flex: 1, backgroundColor: colors.background }}>
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 120 }}>
+      {/* conteúdo */}
+    </ScrollView>
+  </SafeAreaView>
+</View>
+```
+
+### Tela Dark padrão
+```
+<View style={{ flex: 1, backgroundColor: galaxyColors.background }}>
+  <StarfieldBackground />
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <HUD ... />
+    {/* conteúdo */}
+  </SafeAreaView>
+</View>
+```
+
+### Card padrão (light)
+```typescript
+{
+  backgroundColor: '#FFFFFF',
+  borderRadius: 16,
+  borderWidth: 1,
+  borderColor: colors.border,        // '#E3ECF7'
+  padding: 16,
+  shadowColor: '#14233F',
+  shadowOpacity: 0.06,
+  shadowRadius: 8,
+  shadowOffset: { width: 0, height: 2 },
+}
+```
+
+### Progress bar com flex (sem % strings)
+```tsx
+// track
+<View style={{ height: 8, borderRadius: 4, backgroundColor: '#EAF2FF', overflow: 'hidden', flexDirection: 'row' }}>
+  <LinearGradient
+    colors={['#2155FF', '#3DCAE8']}
+    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+    style={{ flex: progress }}      // progress = 0..1
+  />
+  {progress < 1 && <View style={{ flex: 1 - progress }} />}
+</View>
+```
+
+---
+
+## Regras de Implementação
+
+### Do's ✅
+- Usar tokens (`colors.*`, `space.*`, `radius.*`, `typography.*`) em vez de valores arbitrários
+- `SafeAreaView` com `edges={['top']}` em todas as telas
+- `flex` para progress bars — nunca `width: '65%'` em StyleSheet
+- `expo-linear-gradient` para gradientes — nunca `background: 'linear-gradient()'`
+- `react-native-svg` para ícones/shapes — nunca SVG inline sem wrapper
+
+### Don'ts ❌
+- `%` strings em `StyleSheet.create()` (exceto em contextos específicos de Reanimated)
+- `backdropFilter: blur()` — usar `BlurView` do `expo-blur`
+- Cores hardcoded que existem como tokens
+- Motion decorativo sem propósito funcional
+- `StarfieldBackground` em telas light
+
+---
+
+**Versão**: 2.0
+**Atualizado**: 2026-05-02
+**Corresponde à release**: v1.2.0 — Design System Wave
