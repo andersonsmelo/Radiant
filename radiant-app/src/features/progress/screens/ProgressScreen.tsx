@@ -285,15 +285,7 @@ function TopicsMasteredList() {
                         <Text style={styles.topicName}>{topic.name}</Text>
                         {/* Progress bar */}
                         <View style={styles.progressTrack}>
-                            <View
-                                style={[
-                                    styles.progressFill,
-                                    {
-                                        width: `${Math.round(topic.mastery * 100)}%` as `${number}%`,
-                                        backgroundColor: topic.color,
-                                    },
-                                ]}
-                            />
+                            <View style={{ flex: topic.mastery, height: 6, borderRadius: 3, backgroundColor: topic.color }} />
                         </View>
                     </View>
                     <Text style={styles.topicPercent}>{Math.round(topic.mastery * 100)}%</Text>
@@ -1002,7 +994,6 @@ const styles = StyleSheet.create({
     },
     bar: {
         borderRadius: 4,
-        width: '100%',
     },
     chartFooterLabel: {
         fontSize: 9,
@@ -1076,10 +1067,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#EAF2FF',
         borderRadius: 3,
         overflow: 'hidden',
-    },
-    progressFill: {
-        height: 6,
-        borderRadius: 3,
+        flexDirection: 'row',
+        marginTop: 6,
     },
     topicPercent: {
         fontSize: 13,
@@ -1214,7 +1203,7 @@ const styles = StyleSheet.create({
     },
     statCard: {
         flex: 1,
-        minWidth: '44%',
+        minWidth: 140,
         backgroundColor: D.surface,
         borderRadius: 16,
         borderWidth: 1,
