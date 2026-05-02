@@ -152,6 +152,7 @@ function RootLayout() {
     <ThemeProvider value={navigationTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
         <Stack.Screen name="learn" options={{ headerShown: false }} />
         <Stack.Screen name="checkpoint" options={{ headerShown: false }} />
         <Stack.Screen name="reward" options={{ headerShown: false }} />
