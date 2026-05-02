@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -22,24 +23,23 @@ import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
-import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
-import { HUD } from '../../../ui/components/HUD';
+import { colors } from '../../../ui/theme'; // for reference only
 
-// ── Paleta ───────────────────────────────────────────────────────
+// ── Paleta (light mode) ──────────────────────────────────────────
 
 const D = {
-    bg: '#03030d',
-    surface: 'rgba(255,255,255,0.05)',
-    surfaceAlt: 'rgba(255,255,255,0.08)',
-    border: 'rgba(255,255,255,0.10)',
-    text: '#FFFFFF',
-    textSec: 'rgba(255,255,255,0.50)',
-    textTert: 'rgba(255,255,255,0.30)',
-    success: '#50DC64',
+    bg: '#F5FAFF',
+    surface: '#FFFFFF',
+    surfaceAlt: 'rgba(33,85,255,0.07)',
+    border: '#E3ECF7',
+    text: '#14233F',
+    textSec: '#5B6B85',
+    textTert: '#93A0B8',
+    success: '#1A9C71',
     warning: '#F5A623',
     error: '#FF6B6B',
-    primary: '#4D7FFF',
-    inputBg: 'rgba(255,255,255,0.07)',
+    primary: '#2155FF',
+    inputBg: '#FFFFFF',
 };
 
 // ── Componentes locais ───────────────────────────────────────────
@@ -124,6 +124,183 @@ function getApiHealthErrorLabel(error: unknown): string {
     }
 
     return error instanceof Error ? error.message : 'falha de conexão';
+}
+
+// ── Static data for new visual sections ─────────────────────────
+
+const STREAK_DATA = [true, true, true, true, true, true, false];
+const STREAK_DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const ACCURACY_DATA = [62, 68, 71, 76, 72, 80, 84, 84];
+
+interface Topic {
+    name: string;
+    mastery: number;
+    color: string;
+}
+
+const TOPICS: Topic[] = [
+    { name: 'Anatomia do Tórax', mastery: 1.0, color: '#1A9C71' },
+    { name: 'Padrões Pulmonares', mastery: 0.96, color: '#1A9C71' },
+    { name: 'Nódulos Pulmonares', mastery: 0.55, color: '#3DCAE8' },
+    { name: 'Silhueta Cardíaca', mastery: 0.32, color: '#F5A623' },
+];
+
+// ── New visual sections ──────────────────────────────────────────
+
+function StreakCalendarCard() {
+    const maxBar = 100;
+
+    return (
+        <View style={styles.whiteCard}>
+            {/* Header row */}
+            <View style={styles.rowBetween}>
+                <View>
+                    <View style={styles.rowCenter}>
+                        <Text style={styles.streakNumber}>🔥 12 days</Text>
+                    </View>
+                    <Text style={styles.streakSub}>Best streak ever</Text>
+                </View>
+                <View style={styles.onFireBadge}>
+                    <Text style={styles.onFireText}>ON FIRE</Text>
+                </View>
+            </View>
+
+            {/* 7 day tiles */}
+            <View style={styles.streakRow}>
+                {STREAK_DATA.map((active, idx) => (
+                    <View key={idx} style={styles.streakTileWrapper}>
+                        {active ? (
+                            <LinearGradient
+                                colors={['#FF8A4C', '#FF6B2C']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 0, y: 1 }}
+                                style={styles.streakTile}
+                            >
+                                <Text style={styles.streakTileEmoji}>🔥</Text>
+                            </LinearGradient>
+                        ) : (
+                            <View style={[styles.streakTile, styles.streakTileInactive]}>
+                                <Text style={styles.streakTileEmoji}> </Text>
+                            </View>
+                        )}
+                        <Text style={styles.streakDayLabel}>{STREAK_DAYS[idx]}</Text>
+                    </View>
+                ))}
+            </View>
+        </View>
+    );
+}
+
+function AccuracyChartCard() {
+    const maxVal = Math.max(...ACCURACY_DATA);
+
+    return (
+        <View style={styles.whiteCard}>
+            {/* Header row */}
+            <View style={styles.rowBetween}>
+                <View>
+                    <Text style={styles.sectionLabel}>ACCURACY</Text>
+                    <View style={styles.rowCenter}>
+                        <Text style={styles.accuracyNumber}>84%</Text>
+                        <Text style={styles.accuracyDelta}>+12% ↑</Text>
+                    </View>
+                </View>
+                <Text style={styles.sectionLabel}>last 8 weeks</Text>
+            </View>
+
+            {/* Bar chart */}
+            <View style={styles.chartContainer}>
+                {ACCURACY_DATA.map((val, idx) => {
+                    const heightPercent = val / maxVal;
+                    const isLast = idx === ACCURACY_DATA.length - 1;
+                    return (
+                        <View key={idx} style={styles.barWrapper}>
+                            {isLast ? (
+                                <LinearGradient
+                                    colors={['#3DCAE8', '#2155FF']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 0, y: 1 }}
+                                    style={[
+                                        styles.bar,
+                                        { height: 100 * heightPercent },
+                                    ]}
+                                />
+                            ) : (
+                                <LinearGradient
+                                    colors={['rgba(33,85,255,0.4)', 'rgba(33,85,255,0.15)']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 0, y: 1 }}
+                                    style={[
+                                        styles.bar,
+                                        { height: 100 * heightPercent },
+                                    ]}
+                                />
+                            )}
+                        </View>
+                    );
+                })}
+            </View>
+
+            {/* Footer */}
+            <View style={styles.rowBetween}>
+                <Text style={styles.chartFooterLabel}>WK 1</Text>
+                <Text style={styles.chartFooterLabel}>WK 8</Text>
+            </View>
+        </View>
+    );
+}
+
+function StatsGrid({ totalXp }: { totalXp: number }) {
+    return (
+        <View style={styles.statsGridNew}>
+            {/* TOTAL XP */}
+            <View style={styles.statsGridCard}>
+                <Text style={styles.statsGridLabel}>TOTAL XP</Text>
+                <Text style={styles.statsGridValue}>⚡ {totalXp}</Text>
+                <Text style={styles.statsGridSub}>Lv 7 · Resident</Text>
+            </View>
+
+            {/* SESSIONS */}
+            <View style={styles.statsGridCard}>
+                <Text style={styles.statsGridLabel}>SESSIONS</Text>
+                <Text style={styles.statsGridValue}>47</Text>
+                <Text style={styles.statsGridSub}>este mês</Text>
+            </View>
+        </View>
+    );
+}
+
+function TopicsMasteredList() {
+    return (
+        <View>
+            {/* Section header */}
+            <View style={[styles.rowBetween, { marginBottom: 10 }]}>
+                <Text style={styles.sectionLabel}>TOPICS MASTERED</Text>
+                <Text style={styles.topicsSeeAll}>23 →</Text>
+            </View>
+
+            {TOPICS.map((topic, idx) => (
+                <View key={idx} style={[styles.topicCard, idx < TOPICS.length - 1 && { marginBottom: 10 }]}>
+                    <View style={{ flex: 1, marginRight: 12 }}>
+                        <Text style={styles.topicName}>{topic.name}</Text>
+                        {/* Progress bar */}
+                        <View style={styles.progressTrack}>
+                            <View
+                                style={[
+                                    styles.progressFill,
+                                    {
+                                        width: `${Math.round(topic.mastery * 100)}%` as `${number}%`,
+                                        backgroundColor: topic.color,
+                                    },
+                                ]}
+                            />
+                        </View>
+                    </View>
+                    <Text style={styles.topicPercent}>{Math.round(topic.mastery * 100)}%</Text>
+                </View>
+            ))}
+        </View>
+    );
 }
 
 // ── Tela principal ───────────────────────────────────────────────
@@ -426,293 +603,269 @@ export default function ProgressScreen() {
                 : D.textSec;
 
     return (
-        <View style={styles.root}>
-            <StarfieldBackground backgroundColor={D.bg} starCount={80} />
-            <SafeAreaView style={styles.safe} edges={['top']}>
-                <HUD
-                    totalXp={snapshot?.totalXp ?? 0}
-                    streakDays={snapshot?.streakDays ?? 0}
-                    hearts={snapshot?.hearts ?? 5}
-                    maxHearts={snapshot?.maxHearts ?? 5}
-                />
+        <SafeAreaView style={styles.root} edges={['top']}>
+            <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={styles.content}
+                showsVerticalScrollIndicator={false}
+            >
+                {/* ── Header ── */}
+                <Text style={styles.screenEyebrow}>YOUR STATS</Text>
+                <Text style={styles.screenTitle}>Progress</Text>
 
-                <ScrollView
-                    style={styles.scroll}
-                    contentContainerStyle={styles.content}
-                    showsVerticalScrollIndicator={false}
-                >
-                    {/* Header */}
-                    <Text style={styles.screenTitle}>Progresso</Text>
-                    <Text style={styles.screenSubtitle}>Sua jornada pelo universo Radiant</Text>
+                {/* ── Streak Calendar ── */}
+                <StreakCalendarCard />
 
-                    {/* Stats principais */}
-                    <View style={styles.statsGrid}>
-                        <StatCard
-                            icon="⚡"
-                            label="XP Total"
-                            value={(snapshot?.totalXp ?? 0).toLocaleString()}
-                            accent="#F5A623"
-                        />
-                        <StatCard
-                            icon="🔥"
-                            label="Sequência"
-                            value={`${snapshot?.streakDays ?? 0}d`}
-                            accent="#FF6B6B"
-                        />
-                        <StatCard
-                            icon="🔄"
-                            label="Revisões"
-                            value={String(dueCount)}
-                            accent="#4D7FFF"
-                        />
-                        <StatCard
-                            icon="📖"
-                            label="Lições"
-                            value={String(lessons.length)}
-                            accent="#50DC64"
-                        />
-                    </View>
+                {/* ── Accuracy Chart ── */}
+                <AccuracyChartCard />
 
-                    {/* Catálogo local */}
+                {/* ── 2×2 Stats Grid ── */}
+                <StatsGrid totalXp={snapshot?.totalXp ?? 0} />
+
+                {/* ── Topics Mastered ── */}
+                <View style={styles.whiteCard}>
+                    <TopicsMasteredList />
+                </View>
+
+                {/* ── Catálogo local ── */}
+                <GlassCard>
+                    <CardTitle>Catálogo local</CardTitle>
+                    <CardRow label="Trilhas" value={String(tracks.length)} />
+                    <CardRow label="Versão" value={LessonCatalogService.getCatalogVersion()} />
+                    <CardRow label="Fonte" value={LessonCatalogService.getCatalogSourceLabel()} />
+                    <CardRow
+                        label="Lição inicial"
+                        value={LessonCatalogService.getInitialLesson()?.title ?? 'indisponível'}
+                    />
+                </GlassCard>
+
+                {/* ── Homologação (dev tools) ── */}
+                {showDeveloperTools ? (
                     <GlassCard>
-                        <CardTitle>Catálogo local</CardTitle>
-                        <CardRow label="Trilhas" value={String(tracks.length)} />
-                        <CardRow label="Versão" value={LessonCatalogService.getCatalogVersion()} />
-                        <CardRow label="Fonte" value={LessonCatalogService.getCatalogSourceLabel()} />
+                        <CardTitle>Homologação iOS V2</CardTitle>
                         <CardRow
-                            label="Lição inicial"
-                            value={LessonCatalogService.getInitialLesson()?.title ?? 'indisponível'}
+                            label="Learning Road"
+                            value={AppConfig.ENABLE_LEARNING_ROAD ? 'ativada' : 'desativada'}
                         />
+                        <CardRow
+                            label="Beta Gate"
+                            value={AppConfig.ENABLE_BETA_GATE ? 'ativo' : 'bypass local'}
+                        />
+                        <CardRow
+                            label="Sync remoto"
+                            value={AppConfig.ENABLE_REMOTE_SYNC ? 'ativado' : 'desativado'}
+                        />
+                        <CardRow
+                            label="Telemetry Debug"
+                            value={AppConfig.ENABLE_TELEMETRY_DEBUG_SCREEN ? 'ativo' : 'desativado'}
+                        />
+                        <View style={styles.btnGroup}>
+                            <ActionButton
+                                onPress={handleResetHomologationState}
+                                disabled={resettingLocalState || submitting || syncing}
+                                variant="secondary"
+                            >
+                                {resettingLocalState ? 'Resetando...' : 'Resetar estado local da V2'}
+                            </ActionButton>
+                            <ActionButton
+                                onPress={() => router.replace('/(tabs)')}
+                                variant="ghost"
+                            >
+                                Abrir Journey Home
+                            </ActionButton>
+                        </View>
                     </GlassCard>
+                ) : null}
 
-                    {/* Homologação (dev tools) */}
+                {/* ── Conta e sincronização ── */}
+                <GlassCard>
+                    <CardTitle>Conta e sincronização</CardTitle>
+                    <CardRow
+                        label="Modo"
+                        value={remoteSyncAvailable ? 'sync remoto disponível' : 'local-first'}
+                    />
+                    <CardRow label="Pendentes" value={String(syncQueueCount)} />
+                    <CardRow label="Em retry" value={String(syncRetryingCount)} />
+
                     {showDeveloperTools ? (
-                        <GlassCard>
-                            <CardTitle>Homologação iOS V2</CardTitle>
+                        <>
                             <CardRow
-                                label="Learning Road"
-                                value={AppConfig.ENABLE_LEARNING_ROAD ? 'ativada' : 'desativada'}
+                                label="API"
+                                value={isApiConfigured() ? AppConfig.API_BASE_URL : 'não configurada'}
                             />
-                            <CardRow
-                                label="Beta Gate"
-                                value={AppConfig.ENABLE_BETA_GATE ? 'ativo' : 'bypass local'}
-                            />
-                            <CardRow
-                                label="Sync remoto"
-                                value={AppConfig.ENABLE_REMOTE_SYNC ? 'ativado' : 'desativado'}
-                            />
-                            <CardRow
-                                label="Telemetry Debug"
-                                value={AppConfig.ENABLE_TELEMETRY_DEBUG_SCREEN ? 'ativo' : 'desativado'}
-                            />
-                            <View style={styles.btnGroup}>
+                            <CardRow label="Health API" value={apiHealthLabel} />
+                            {lastQueueError ? (
+                                <Text style={[styles.cardRowValue, { color: D.warning, marginTop: 4 }]}>
+                                    Último erro: {lastQueueError}
+                                </Text>
+                            ) : null}
+                        </>
+                    ) : (
+                        <Text style={styles.cardHint}>
+                            O estudo continua funcionando localmente mesmo sem rede ou autenticação ativa.
+                        </Text>
+                    )}
+
+                    {isAuthenticated ? (
+                        <View style={styles.btnGroup}>
+                            <View style={styles.authBadge}>
+                                <View style={styles.authDot} />
+                                <Text style={styles.authBadgeText}>
+                                    {authSession?.user.email}
+                                </Text>
+                            </View>
+                            <ActionButton
+                                onPress={handleFlushSync}
+                                disabled={syncing || submitting}
+                            >
+                                {syncing ? 'Sincronizando...' : 'Sincronizar agora'}
+                            </ActionButton>
+                            <ActionButton
+                                onPress={handleLogout}
+                                disabled={submitting || syncing}
+                                variant="secondary"
+                            >
+                                Sair
+                            </ActionButton>
+                            {showDeveloperTools ? (
                                 <ActionButton
-                                    onPress={handleResetHomologationState}
-                                    disabled={resettingLocalState || submitting || syncing}
-                                    variant="secondary"
-                                >
-                                    {resettingLocalState ? 'Resetando...' : 'Resetar estado local da V2'}
-                                </ActionButton>
-                                <ActionButton
-                                    onPress={() => router.replace('/(tabs)')}
+                                    onPress={handleCheckApiHealth}
+                                    disabled={apiChecking || submitting || syncing}
                                     variant="ghost"
                                 >
-                                    Abrir Journey Home
+                                    {apiChecking ? 'Testando API...' : 'Testar API'}
                                 </ActionButton>
+                            ) : null}
+                        </View>
+                    ) : (
+                        <View style={styles.btnGroup}>
+                            <View style={styles.authModeRow}>
+                                <TouchableOpacity
+                                    onPress={() => setAuthMode('login')}
+                                    style={[
+                                        styles.modeTab,
+                                        authMode === 'login' && styles.modeTabActive,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.modeTabText,
+                                            authMode === 'login' && styles.modeTabTextActive,
+                                        ]}
+                                    >
+                                        Entrar
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => setAuthMode('register')}
+                                    style={[
+                                        styles.modeTab,
+                                        authMode === 'register' && styles.modeTabActive,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.modeTabText,
+                                            authMode === 'register' && styles.modeTabTextActive,
+                                        ]}
+                                    >
+                                        Criar conta
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
-                        </GlassCard>
+
+                            <TextInput
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                keyboardType="email-address"
+                                placeholder="Email"
+                                placeholderTextColor={D.textSec}
+                                value={email}
+                                onChangeText={setEmail}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                secureTextEntry
+                                placeholder="Senha ou nova senha"
+                                placeholderTextColor={D.textSec}
+                                value={password}
+                                onChangeText={setPassword}
+                                style={styles.input}
+                            />
+
+                            <TextInput
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                placeholder="Token de reset (opcional até confirmar)"
+                                placeholderTextColor={D.textSec}
+                                value={resetToken}
+                                onChangeText={setResetToken}
+                                style={styles.input}
+                            />
+
+                            <ActionButton
+                                onPress={handleAuthSubmit}
+                                disabled={submitting || syncing}
+                            >
+                                {submitting
+                                    ? authMode === 'login'
+                                        ? 'Entrando...'
+                                        : 'Criando conta...'
+                                    : authMode === 'login'
+                                      ? 'Entrar para sincronizar'
+                                      : 'Criar conta e sincronizar'}
+                            </ActionButton>
+
+                            <ActionButton
+                                onPress={handlePasswordResetRequest}
+                                disabled={submitting || syncing}
+                                variant="secondary"
+                            >
+                                {submitting ? 'Processando...' : 'Solicitar reset de senha'}
+                            </ActionButton>
+
+                            <ActionButton
+                                onPress={handlePasswordResetConfirm}
+                                disabled={submitting || syncing || !resetToken.trim()}
+                                variant="ghost"
+                            >
+                                Confirmar reset com token
+                            </ActionButton>
+
+                            {showDeveloperTools ? (
+                                <ActionButton
+                                    onPress={handleCheckApiHealth}
+                                    disabled={apiChecking || submitting || syncing}
+                                    variant="ghost"
+                                >
+                                    {apiChecking ? 'Testando API...' : 'Testar API'}
+                                </ActionButton>
+                            ) : null}
+                        </View>
+                    )}
+
+                    {statusMessage ? (
+                        <Text style={[styles.statusMessage, { color: statusColor }]}>
+                            {statusMessage}
+                        </Text>
                     ) : null}
 
-                    {/* Conta e sincronização */}
-                    <GlassCard>
-                        <CardTitle>Conta e sincronização</CardTitle>
-                        <CardRow
-                            label="Modo"
-                            value={remoteSyncAvailable ? 'sync remoto disponível' : 'local-first'}
-                        />
-                        <CardRow label="Pendentes" value={String(syncQueueCount)} />
-                        <CardRow label="Em retry" value={String(syncRetryingCount)} />
-
-                        {showDeveloperTools ? (
-                            <>
-                                <CardRow
-                                    label="API"
-                                    value={isApiConfigured() ? AppConfig.API_BASE_URL : 'não configurada'}
-                                />
-                                <CardRow label="Health API" value={apiHealthLabel} />
-                                {lastQueueError ? (
-                                    <Text style={[styles.cardRowValue, { color: D.warning, marginTop: 4 }]}>
-                                        Último erro: {lastQueueError}
-                                    </Text>
-                                ) : null}
-                            </>
-                        ) : (
-                            <Text style={styles.cardHint}>
-                                O estudo continua funcionando localmente mesmo sem rede ou autenticação ativa.
-                            </Text>
-                        )}
-
-                        {isAuthenticated ? (
-                            <View style={styles.btnGroup}>
-                                <View style={styles.authBadge}>
-                                    <View style={styles.authDot} />
-                                    <Text style={styles.authBadgeText}>
-                                        {authSession?.user.email}
-                                    </Text>
-                                </View>
-                                <ActionButton
-                                    onPress={handleFlushSync}
-                                    disabled={syncing || submitting}
-                                >
-                                    {syncing ? 'Sincronizando...' : 'Sincronizar agora'}
-                                </ActionButton>
-                                <ActionButton
-                                    onPress={handleLogout}
-                                    disabled={submitting || syncing}
-                                    variant="secondary"
-                                >
-                                    Sair
-                                </ActionButton>
-                                {showDeveloperTools ? (
-                                    <ActionButton
-                                        onPress={handleCheckApiHealth}
-                                        disabled={apiChecking || submitting || syncing}
-                                        variant="ghost"
-                                    >
-                                        {apiChecking ? 'Testando API...' : 'Testar API'}
-                                    </ActionButton>
-                                ) : null}
-                            </View>
-                        ) : (
-                            <View style={styles.btnGroup}>
-                                <View style={styles.authModeRow}>
-                                    <TouchableOpacity
-                                        onPress={() => setAuthMode('login')}
-                                        style={[
-                                            styles.modeTab,
-                                            authMode === 'login' && styles.modeTabActive,
-                                        ]}
-                                    >
-                                        <Text
-                                            style={[
-                                                styles.modeTabText,
-                                                authMode === 'login' && styles.modeTabTextActive,
-                                            ]}
-                                        >
-                                            Entrar
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={() => setAuthMode('register')}
-                                        style={[
-                                            styles.modeTab,
-                                            authMode === 'register' && styles.modeTabActive,
-                                        ]}
-                                    >
-                                        <Text
-                                            style={[
-                                                styles.modeTabText,
-                                                authMode === 'register' && styles.modeTabTextActive,
-                                            ]}
-                                        >
-                                            Criar conta
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                                <TextInput
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    keyboardType="email-address"
-                                    placeholder="Email"
-                                    placeholderTextColor={D.textSec}
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    style={styles.input}
-                                />
-                                <TextInput
-                                    secureTextEntry
-                                    placeholder="Senha ou nova senha"
-                                    placeholderTextColor={D.textSec}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    style={styles.input}
-                                />
-
-                                <TextInput
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    placeholder="Token de reset (opcional até confirmar)"
-                                    placeholderTextColor={D.textSec}
-                                    value={resetToken}
-                                    onChangeText={setResetToken}
-                                    style={styles.input}
-                                />
-
-                                <ActionButton
-                                    onPress={handleAuthSubmit}
-                                    disabled={submitting || syncing}
-                                >
-                                    {submitting
-                                        ? authMode === 'login'
-                                            ? 'Entrando...'
-                                            : 'Criando conta...'
-                                        : authMode === 'login'
-                                          ? 'Entrar para sincronizar'
-                                          : 'Criar conta e sincronizar'}
-                                </ActionButton>
-
-                                <ActionButton
-                                    onPress={handlePasswordResetRequest}
-                                    disabled={submitting || syncing}
-                                    variant="secondary"
-                                >
-                                    {submitting ? 'Processando...' : 'Solicitar reset de senha'}
-                                </ActionButton>
-
-                                <ActionButton
-                                    onPress={handlePasswordResetConfirm}
-                                    disabled={submitting || syncing || !resetToken.trim()}
-                                    variant="ghost"
-                                >
-                                    Confirmar reset com token
-                                </ActionButton>
-
-                                {showDeveloperTools ? (
-                                    <ActionButton
-                                        onPress={handleCheckApiHealth}
-                                        disabled={apiChecking || submitting || syncing}
-                                        variant="ghost"
-                                    >
-                                        {apiChecking ? 'Testando API...' : 'Testar API'}
-                                    </ActionButton>
-                                ) : null}
-                            </View>
-                        )}
-
-                        {statusMessage ? (
-                            <Text style={[styles.statusMessage, { color: statusColor }]}>
-                                {statusMessage}
-                            </Text>
-                        ) : null}
-
-                        {showDeveloperTools ? (
-                            <ActionButton onPress={handleRemoteSyncHelp} variant="ghost">
-                                Ver requisitos do sync remoto
-                            </ActionButton>
-                        ) : null}
-                    </GlassCard>
-
                     {showDeveloperTools ? (
-                        <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">
-                            Abrir Telemetry Debug
+                        <ActionButton onPress={handleRemoteSyncHelp} variant="ghost">
+                            Ver requisitos do sync remoto
                         </ActionButton>
                     ) : null}
+                </GlassCard>
 
-                    <View style={{ height: 120 }} />
-                </ScrollView>
-            </SafeAreaView>
-        </View>
+                {showDeveloperTools ? (
+                    <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">
+                        Abrir Telemetry Debug
+                    </ActionButton>
+                ) : null}
+
+                <View style={{ height: 120 }} />
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -720,54 +873,223 @@ export default function ProgressScreen() {
 
 const styles = StyleSheet.create({
     root: { flex: 1, backgroundColor: D.bg },
-    safe: { flex: 1 },
     scroll: { flex: 1 },
     content: { paddingHorizontal: 20, paddingBottom: 24 },
 
-    screenTitle: {
-        fontSize: 28,
-        fontWeight: '800',
-        color: D.text,
+    // ── Page header ──
+    screenEyebrow: {
+        fontSize: 11,
+        color: D.textTert,
+        letterSpacing: 0.08 * 11,
+        textTransform: 'uppercase',
         marginTop: 16,
-        letterSpacing: -0.5,
     },
-    screenSubtitle: {
-        fontSize: 13,
-        color: D.textSec,
-        marginTop: 4,
-        marginBottom: 24,
-    },
-
-    // Stats
-    statsGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
+    screenTitle: {
+        fontSize: 26,
+        fontWeight: '700',
+        color: D.text,
+        letterSpacing: -0.02 * 26,
+        marginTop: 2,
         marginBottom: 20,
     },
-    statCard: {
-        flex: 1,
-        minWidth: '44%',
+
+    // ── White card (shared base) ──
+    whiteCard: {
         backgroundColor: D.surface,
-        borderRadius: 16,
+        borderRadius: 20,
+        padding: 16,
+        marginBottom: 14,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+
+    // ── Streak calendar ──
+    rowBetween: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    rowCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    streakNumber: {
+        fontSize: 28,
+        fontWeight: '700',
+        color: D.text,
+    },
+    streakSub: {
+        fontSize: 12,
+        color: D.textSec,
+        marginTop: 2,
+    },
+    onFireBadge: {
+        backgroundColor: 'rgba(255,107,44,0.1)',
         borderWidth: 1,
-        padding: 14,
+        borderColor: 'rgba(255,107,44,0.25)',
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+    },
+    onFireText: {
+        fontSize: 11,
+        fontWeight: '700',
+        color: '#FF6B2C',
+        letterSpacing: 0.5,
+    },
+    streakRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 14,
+    },
+    streakTileWrapper: {
         alignItems: 'center',
         gap: 4,
     },
-    statIcon: { fontSize: 22 },
-    statValue: {
-        fontSize: 20,
-        fontWeight: '800',
-        letterSpacing: -0.5,
+    streakTile: {
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    statLabel: {
-        fontSize: 11,
-        color: D.textSec,
-        fontWeight: '500',
+    streakTileInactive: {
+        backgroundColor: '#EAF2FF',
+    },
+    streakTileEmoji: {
+        fontSize: 16,
+    },
+    streakDayLabel: {
+        fontSize: 10,
+        fontWeight: '700',
+        color: D.textTert,
     },
 
-    // Cards
+    // ── Accuracy chart ──
+    sectionLabel: {
+        fontSize: 11,
+        color: D.textTert,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+        marginBottom: 2,
+    },
+    accuracyNumber: {
+        fontSize: 28,
+        fontWeight: '700',
+        color: D.text,
+    },
+    accuracyDelta: {
+        fontSize: 13,
+        color: '#1A9C71',
+        marginLeft: 8,
+        fontWeight: '600',
+    },
+    chartContainer: {
+        height: 100,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        gap: 5,
+        marginVertical: 12,
+    },
+    barWrapper: {
+        flex: 1,
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        height: 100,
+    },
+    bar: {
+        borderRadius: 4,
+        width: '100%',
+    },
+    chartFooterLabel: {
+        fontSize: 9,
+        fontWeight: '700',
+        color: D.textTert,
+        textTransform: 'uppercase',
+    },
+
+    // ── Stats grid 2x2 ──
+    statsGridNew: {
+        flexDirection: 'row',
+        gap: 12,
+        marginBottom: 14,
+    },
+    statsGridCard: {
+        flex: 1,
+        backgroundColor: D.surface,
+        borderRadius: 16,
+        padding: 14,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    statsGridLabel: {
+        fontSize: 10,
+        color: D.textTert,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+        marginBottom: 4,
+    },
+    statsGridValue: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: D.text,
+    },
+    statsGridSub: {
+        fontSize: 11,
+        color: D.textSec,
+        marginTop: 2,
+    },
+
+    // ── Topics mastered ──
+    topicsSeeAll: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: '#2155FF',
+    },
+    topicCard: {
+        backgroundColor: D.surface,
+        borderRadius: 14,
+        padding: 12,
+        paddingHorizontal: 14,
+        flexDirection: 'row',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.04,
+        shadowRadius: 4,
+        elevation: 1,
+    },
+    topicName: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: D.text,
+        marginBottom: 6,
+    },
+    progressTrack: {
+        height: 6,
+        backgroundColor: '#EAF2FF',
+        borderRadius: 3,
+        overflow: 'hidden',
+    },
+    progressFill: {
+        height: 6,
+        borderRadius: 3,
+    },
+    topicPercent: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: D.text,
+        minWidth: 36,
+        textAlign: 'right',
+    },
+
+    // ── GlassCard (legacy sections, light-styled) ──
     card: {
         backgroundColor: D.surface,
         borderRadius: 16,
@@ -806,7 +1128,7 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
 
-    // Buttons
+    // ── Buttons ──
     btnGroup: { gap: 10, marginTop: 12 },
     btn: {
         height: 48,
@@ -821,12 +1143,12 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
 
-    // Auth
+    // ── Auth ──
     authBadge: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-        backgroundColor: 'rgba(80,220,100,0.10)',
+        backgroundColor: 'rgba(26,156,113,0.10)',
         borderRadius: 10,
         paddingHorizontal: 12,
         paddingVertical: 8,
@@ -844,7 +1166,7 @@ const styles = StyleSheet.create({
     },
     authModeRow: {
         flexDirection: 'row',
-        backgroundColor: D.surface,
+        backgroundColor: D.surfaceAlt,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: D.border,
@@ -881,5 +1203,34 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 4,
         lineHeight: 18,
+    },
+
+    // unused references suppressed — kept for type compatibility
+    statsGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+        marginBottom: 20,
+    },
+    statCard: {
+        flex: 1,
+        minWidth: '44%',
+        backgroundColor: D.surface,
+        borderRadius: 16,
+        borderWidth: 1,
+        padding: 14,
+        alignItems: 'center',
+        gap: 4,
+    },
+    statIcon: { fontSize: 22 },
+    statValue: {
+        fontSize: 20,
+        fontWeight: '800',
+        letterSpacing: -0.5,
+    },
+    statLabel: {
+        fontSize: 11,
+        color: D.textSec,
+        fontWeight: '500',
     },
 });
