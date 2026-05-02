@@ -212,69 +212,66 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
   }
 
   if (completed) {
-    const xpLabel = gamification?.totalXp != null ? `+${gamification.totalXp} XP earned` : '+75 XP earned';
     return (
-      <View style={styles.root}>
+      <View style={{ flex: 1 }}>
         <LinearGradient
           colors={['#EAF2FF', '#F5FAFF']}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={StyleSheet.absoluteFill}
         />
-        {/* Radial glow */}
-        <View
-          style={{
-            position: 'absolute',
-            top: -100,
-            left: 0,
-            right: 0,
-            alignSelf: 'center',
-            width: 600,
-            height: 300,
-            borderRadius: 300,
-            backgroundColor: 'rgba(33,85,255,0.10)',
-          }}
-        />
+        {/* Radial glow backdrop */}
+        <View style={styles.celebrationGlow} />
         <Confetti count={30} run={completed} />
-        {/* Pixel mascot hero */}
-        <View
-          style={{
-            position: 'absolute',
-            top: 80,
-            alignSelf: 'center',
-            zIndex: 4,
-          }}
-        >
-          <PixelIllustration state="celebrate" size="lg" />
-        </View>
-        {/* Achievement card */}
-        <View style={styles.celebrationCard}>
-          {/* Gold badge */}
-          <LinearGradient
-            colors={['#F5A623', '#FF8A4C']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.celebrationBadge}
+        <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+          <ScrollView
+            contentContainerStyle={styles.celebrationContent}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
           >
-            <Text style={styles.celebrationBadgeEmoji}>⭐</Text>
-          </LinearGradient>
-          <Text style={styles.celebrationEyebrow}>ACHIEVEMENT UNLOCKED</Text>
-          <Text style={styles.celebrationTitle}>{checkpointNode?.title ?? 'Sharp Eye'}</Text>
-          <Text style={styles.celebrationDescription}>
-            {checkpointNode?.description ?? 'Você completou esta etapa da trilha com sucesso.'}
-          </Text>
-          <View style={styles.celebrationXpBox}>
-            <Text style={styles.celebrationXpEmoji}>⚡</Text>
-            <Text style={styles.celebrationXpText}>{xpLabel}</Text>
-          </View>
-        </View>
-        {/* CTA buttons */}
-        <View style={styles.celebrationCtas}>
-          <AppButton label="Continue" onPress={nextAction.action} />
-          <Pressable onPress={() => {}} style={styles.celebrationShareButton}>
-            <Text style={styles.celebrationShareText}>Share with cohort</Text>
-          </Pressable>
-        </View>
+            {/* Pixel mascot */}
+            <View style={styles.celebrationPixelContainer}>
+              <PixelIllustration state="celebrate" size="lg" />
+            </View>
+
+            {/* Achievement card */}
+            <View style={styles.celebrationCard}>
+              {/* Gold badge */}
+              <LinearGradient
+                colors={['#F5A623', '#FF8A4C']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.celebrationBadge}
+              >
+                <Text style={styles.celebrationBadgeEmoji}>⭐</Text>
+              </LinearGradient>
+
+              <Text style={styles.celebrationEyebrow}>ACHIEVEMENT UNLOCKED</Text>
+              <Text style={styles.celebrationTitle}>
+                {checkpointNode?.title ?? 'Sharp Eye'}
+              </Text>
+              <Text style={styles.celebrationDescription}>
+                {checkpointNode?.description ?? 'Você completou esta etapa da trilha com sucesso.'}
+              </Text>
+
+              {/* XP box */}
+              <View style={styles.celebrationXpBox}>
+                <Text style={styles.celebrationXpEmoji}>⚡</Text>
+                <Text style={styles.celebrationXpText}>
+                  {gamification?.totalXp != null ? `+${gamification.totalXp} XP` : '+75 XP earned'}
+                </Text>
+              </View>
+            </View>
+
+            {/* CTAs */}
+            <View style={styles.celebrationCtas}>
+              <AppButton label="Continue" onPress={nextAction.action} />
+              <Pressable onPress={() => {}} style={styles.celebrationShareButton}>
+                <Text style={styles.celebrationShareText}>Share with cohort</Text>
+              </Pressable>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
       </View>
     );
   }
@@ -483,22 +480,39 @@ const styles = StyleSheet.create({
   },
   emptyTitle: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
   emptyBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary, textAlign: 'center' },
-  celebrationCard: {
+  celebrationGlow: {
     position: 'absolute',
-    top: 280,
-    left: 24,
-    right: 24,
-    zIndex: 5,
+    top: -100,
+    alignSelf: 'center',
+    width: 500,
+    height: 300,
+    borderRadius: 250,
+    backgroundColor: 'rgba(33,85,255,0.10)',
+  },
+  celebrationContent: {
+    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingBottom: 40,
+    alignItems: 'center',
+    gap: 20,
+  },
+  celebrationPixelContainer: {
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  celebrationCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#B8D2FF',
     padding: 20,
     alignItems: 'center',
+    alignSelf: 'stretch',
     shadowColor: '#2155FF',
     shadowOpacity: 0.18,
     shadowRadius: 20,
     shadowOffset: { width: 0, height: 8 },
+    gap: 6,
   },
   celebrationBadge: {
     width: 64,
@@ -506,16 +520,18 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 12,
+    marginBottom: 6,
   },
-  celebrationBadgeEmoji: { fontSize: 28, color: '#FFFFFF' },
+  celebrationBadgeEmoji: {
+    fontSize: 28,
+  },
   celebrationEyebrow: {
     fontSize: 11,
     fontWeight: '800',
     color: '#F5A623',
     letterSpacing: 2,
     textTransform: 'uppercase',
-    marginBottom: 6,
+    textAlign: 'center',
   },
   celebrationTitle: {
     fontSize: 24,
@@ -524,7 +540,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 28,
     textAlign: 'center',
-    marginBottom: 6,
   },
   celebrationDescription: {
     fontSize: 13,
@@ -532,31 +547,41 @@ const styles = StyleSheet.create({
     color: '#5B6B85',
     lineHeight: 18,
     textAlign: 'center',
-    marginBottom: 14,
   },
   celebrationXpBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
     backgroundColor: '#FFF6E3',
     borderRadius: 14,
     borderWidth: 1,
     borderColor: 'rgba(245,166,35,0.30)',
     paddingHorizontal: 14,
     paddingVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
     alignSelf: 'stretch',
-    justifyContent: 'center',
+    marginTop: 8,
   },
-  celebrationXpEmoji: { fontSize: 16 },
-  celebrationXpText: { fontSize: 14, fontWeight: '800', color: '#B57218' },
+  celebrationXpEmoji: {
+    fontSize: 16,
+  },
+  celebrationXpText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#B57218',
+  },
   celebrationCtas: {
-    position: 'absolute',
-    bottom: 56,
-    left: 20,
-    right: 20,
-    zIndex: 5,
+    alignSelf: 'stretch',
     gap: 12,
   },
-  celebrationShareButton: { alignItems: 'center' },
-  celebrationShareText: { fontSize: 13, fontWeight: '700', color: '#5B6B85', textAlign: 'center' },
+  celebrationShareButton: {
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  celebrationShareText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#5B6B85',
+    textAlign: 'center',
+  },
 });
