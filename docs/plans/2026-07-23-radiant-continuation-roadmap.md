@@ -10,6 +10,24 @@
 
 ---
 
+## Progresso de execução — atualizado em 2026-07-23
+
+| Faixa | Estado | Evidência |
+|---|---|---|
+| Tasks 0–3 | concluídas | baseline documental, quality gates e Visual QA recuperados (`3942714`, `97b2c89`) |
+| Tasks 4–6 | concluídas | Home e Progresso usam contratos locais e copy honesta (`c2f37ad` → `0ad57b4`) |
+| Task 7 | concluída | tokens semânticos light/galaxy e migração de controles (`3d92ffc`, `78fe3bb`) |
+| Task 8 | concluída | Storybook isolado do entrypoint de produção (`8ea561c`) |
+| Task 9 | concluída em código | semântica de interação, foco e preferência de movimento (`5467b15`) |
+| Task 10 | harness concluído; evidência de device pendente | flows Maestro, perfil `e2e-test` e runbook (`25667b1`); não há Maestro CLI nem simulador/emulador disponível neste checkout |
+| Tasks 11–16 | pendentes | aguardam a saída real em device e as decisões de produto/infraestrutura descritas abaixo |
+
+Estado dos gates locais após Task 10: 27 suítes e 71 testes passam; `npm run quality` passa com 54 warnings legados e zero erros; Visual QA estrito registra zero regressões, 122 achados no baseline e 2 exceções delimitadas.
+
+O status operacional canônico está em [`docs/EXECUTION_STATUS_2026-07-23.md`](../EXECUTION_STATUS_2026-07-23.md). Os blocos de tarefa abaixo preservam o plano original como histórico de execução; esta tabela prevalece sobre verbos no futuro dentro daquele texto.
+
+---
+
 ## 1. Resumo executivo
 
 O próximo passo não é redesenhar novamente o Radiant. A base visual v1.2 já existe e deve ser preservada. O problema prioritário é tornar verdadeira, coerente e verificável a experiência que a interface promete.
@@ -29,7 +47,7 @@ Ordem de execução:
 - O produto é um aplicativo premium de microaprendizagem em radiologia, com sessões de 2 a 5 minutos, casos, revisão espaçada e gamificação séria.
 - O MVP não inclui DICOM completo, upload do usuário, comunidade, ranking global, certificação ou vídeos longos.
 - A linguagem visual atual é intencionalmente mista: superfícies claras para Home, Quiz, Progresso, Missões e Checkpoint; superfícies escuras para Galáxia e Recompensa.
-- O branch atual contém a implementação v1.2.0 e está 20 commits à frente do remoto. Há artefatos não rastreados que pertencem ao usuário e não devem ser omitidos ou sobrescritos.
+- O branch atual contém a implementação v1.2.0 acrescida das Tasks 0–10 executadas nesta continuação. Há artefatos não rastreados que pertencem ao usuário e não devem ser omitidos ou sobrescritos.
 - O aplicativo deve continuar útil sem API. O remoto é um aprimoramento futuro, não uma dependência para abrir, aprender, revisar e acompanhar progresso.
 - Dados clínicos, identidade do usuário, métricas de estudo e telemetria não podem ser inventados para preencher a UI.
 - Acessibilidade, legibilidade, redução de movimento e testes em dispositivo fazem parte da definição de pronto.
@@ -39,7 +57,7 @@ Ordem de execução:
 ### 3.1 Git e artefatos
 
 - Branch: `codex/wave1-hardening-api-smoke`.
-- HEAD/tag: `b5b0967`, `v1.2.0`.
+- HEAD/tag: `25667b1`; base de release histórica `b5b0967`, `v1.2.0`.
 - Artefatos não rastreados preservados:
   - `Mascote.png`
   - `New Layout/`
@@ -52,16 +70,16 @@ Ordem de execução:
 | Gate | Resultado atual | Evidência |
 |---|---:|---|
 | `radiant-app` typecheck | PASS | TypeScript sem erros |
-| `radiant-app` lint/quality | FAIL | 3 erros, 60 warnings |
-| `radiant-app` testes | FAIL | 17 suites passam, 3 falham; 44/47 testes passam |
-| Visual QA estrito | FAIL | 126 achados, 106 de alta prioridade |
+| `radiant-app` lint/quality | PASS | 54 warnings legados, zero erros; typecheck, contratos e Visual QA passam |
+| `radiant-app` testes | PASS | 27 suítes; 71 testes |
+| Visual QA estrito | PASS com dívida | zero regressões; 122 achados no baseline e 2 exceções delimitadas |
 | `radiant-api` testes | PASS | 13 testes |
 | `radiant-api` build | PASS | build TypeScript concluído |
 | Validação de conteúdo | PASS com dívida | 42 itens ainda marcados para revisão de formato |
 | Smoke local | PASS | sync, app, API local, conteúdo e editorial |
 | Smoke remoto read-only | FAIL | `/health`, `/ready` e catálogo retornam HTTP 502 |
 
-Falhas específicas a resolver primeiro:
+Falhas específicas resolvidas nas Tasks 0–3:
 
 - Apostrophes sem escape em:
   - `radiant-app/src/app/onboarding/index.tsx`
@@ -74,7 +92,7 @@ Falhas específicas a resolver primeiro:
 
 ### 3.3 Verdade do produto
 
-`radiant-app/src/features/home/screens/HomeScreen.tsx` contém dados de demonstração apresentados como fatos:
+Antes das Tasks 4–6, `radiant-app/src/features/home/screens/HomeScreen.tsx` continha dados de demonstração apresentados como fatos. O estado atual deriva missão, progresso, gamificação e estados vazios dos serviços locais; não devem ser reintroduzidos valores fictícios.
 
 - data fixa e saudação fictícia;
 - missão clínica fixa;
@@ -84,7 +102,7 @@ Falhas específicas a resolver primeiro:
 - cinco corações fixos, embora o snapshot real já exponha `hearts`;
 - CTA que abre `/quiz` sem resolver a próxima atividade elegível.
 
-`radiant-app/src/features/progress/screens/ProgressScreen.tsx` também contém uma segunda camada demonstrativa: sequência semanal fixa, streak de 12 dias, oito semanas de precisão inventada, delta `+12%`, nível fixo e domínio de tópicos predefinido. Esses elementos devem ser substituídos por valores derivados ou por estados honestos, nunca por novos placeholders.
+`radiant-app/src/features/progress/screens/ProgressScreen.tsx` também foi migrado para valores derivados ou estados honestos. Métricas ausentes não devem voltar como placeholders numéricos.
 
 ### 3.4 Verdade operacional
 
