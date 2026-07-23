@@ -7,6 +7,11 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..
 export function buildWave1Checks({ includeRemote = true } = {}) {
   const checks = [
     {
+      id: 'documentation-contract',
+      command: 'node',
+      args: ['scripts/qa/docs-contract.mjs'],
+    },
+    {
       id: 'sync-catalog-app',
       command: 'node',
       args: ['scripts/content/sync-catalog-to-app.mjs'],

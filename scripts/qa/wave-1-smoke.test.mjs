@@ -7,6 +7,7 @@ test('wave 1 smoke defines app, content and platform checks', () => {
   const ids = checks.map((check) => check.id);
 
   assert.deepEqual(ids, [
+    'documentation-contract',
     'sync-catalog-app',
     'sync-catalog-api',
     'content-foundation',
@@ -21,6 +22,7 @@ test('wave 1 smoke can skip remote API checks for local-only preflight', () => {
   const ids = checks.map((check) => check.id);
 
   assert.deepEqual(ids, [
+    'documentation-contract',
     'sync-catalog-app',
     'sync-catalog-api',
     'content-foundation',
@@ -30,7 +32,9 @@ test('wave 1 smoke can skip remote API checks for local-only preflight', () => {
 });
 
 test('wave 1 smoke marks executor failures without aborting remaining checks', () => {
-  const checks = buildWave1Checks({ includeRemote: false }).slice(0, 2);
+  const checks = buildWave1Checks({ includeRemote: false }).filter((check) =>
+    ['sync-catalog-app', 'sync-catalog-api'].includes(check.id)
+  );
   const results = runWave1Smoke({
     checks,
     executor: (check) => ({

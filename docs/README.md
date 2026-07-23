@@ -12,21 +12,22 @@ Este projeto segue o workflow Specification Driven Development (SDD).
 
 ## Mapa canônico de verdade
 
-- Estado arquitetural consolidado: [ARCHITECTURE_STATE.md](/Users/anderson/Documents/Radiant/docs/ARCHITECTURE_STATE.md)
-- Sistema operacional de App Store: [APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Documents/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
-- Status de execução do programa: [EXECUTION_STATUS_2026-03-29.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-29.md)
-- Status de execução atualizado: [EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
-- Status de execução atualizado: [EXECUTION_STATUS_2026-04-01.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-01.md)
-- Status de execução atualizado: [EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
-- Status de execução atualizado: [EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
-- Status de execução atualizado: [EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
-- Plano técnico vigente: [IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md)
-- Pipeline editorial de conteúdo: [CONTENT_PIPELINE.md](/Users/anderson/Documents/Radiant/docs/CONTENT_PIPELINE.md)
-- Plano de war room para aprovação de orçamento: [WAR_ROOM_PLAN_2026-04-01.md](/Users/anderson/Documents/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md)
-- Evidências de simulador do war room: [evidence/smoke-2026-04-01/README.md](/Users/anderson/Documents/Radiant/docs/evidence/smoke-2026-04-01/README.md)
-- Snapshot operacional de App Store: [radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md](/Users/anderson/Documents/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md)
-- Política de higiene do repositório: [REPO_HYGIENE.md](/Users/anderson/Documents/Radiant/docs/REPO_HYGIENE.md)
-- Política de escala pós-lançamento: [SCALE_TRIGGERS.md](/Users/anderson/Documents/Radiant/docs/SCALE_TRIGGERS.md), [CAPACITY_REVIEW.md](/Users/anderson/Documents/Radiant/docs/CAPACITY_REVIEW.md), [ADR-api-growth-path.md](/Users/anderson/Documents/Radiant/docs/ADR-api-growth-path.md)
+- Estado arquitetural consolidado: [ARCHITECTURE_STATE.md](/Users/anderson/Developer/Radiant/docs/ARCHITECTURE_STATE.md)
+- Sistema operacional de App Store: [APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
+- Status de execução do programa: [EXECUTION_STATUS_2026-03-29.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-03-29.md)
+- Status de execução atualizado: [EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
+- Status de execução atualizado: [EXECUTION_STATUS_2026-04-01.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md)
+- Status de execução atualizado: [EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
+- Status de execução atualizado: [EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
+- Status de execução atualizado: [EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
+- Status de execução canônico atual: [EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md)
+- Plano técnico vigente: [IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
+- Pipeline editorial de conteúdo: [CONTENT_PIPELINE.md](/Users/anderson/Developer/Radiant/docs/CONTENT_PIPELINE.md)
+- Plano de war room para aprovação de orçamento: [WAR_ROOM_PLAN_2026-04-01.md](/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md)
+- Evidências de simulador do war room: [evidence/smoke-2026-04-01/README.md](/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md)
+- Snapshot operacional de App Store: [radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md](/Users/anderson/Developer/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md)
+- Política de higiene do repositório: [REPO_HYGIENE.md](/Users/anderson/Developer/Radiant/docs/REPO_HYGIENE.md)
+- Política de escala pós-lançamento: [SCALE_TRIGGERS.md](/Users/anderson/Developer/Radiant/docs/SCALE_TRIGGERS.md), [CAPACITY_REVIEW.md](/Users/anderson/Developer/Radiant/docs/CAPACITY_REVIEW.md), [ADR-api-growth-path.md](/Users/anderson/Developer/Radiant/docs/ADR-api-growth-path.md)
 
 ## Como ler esta documentação
 
@@ -48,18 +49,18 @@ Observação operacional:
 
 ### Produto
 
-- [PRD.md](/Users/anderson/Documents/Radiant/docs/PRD.md)
-- [EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
+- [PRD.md](/Users/anderson/Developer/Radiant/docs/PRD.md)
+- [EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
 
 Define o que o produto é, para quem existe e quais resultados ele precisa gerar.
 
 ### Plano executivo
 
-- [IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md)
-- [CONTENT_PIPELINE.md](/Users/anderson/Documents/Radiant/docs/CONTENT_PIPELINE.md)
-- [APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Documents/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
-- [radiant-app/docs/release/APP_STORE_WAR_ROOM_TEMPLATE.md](/Users/anderson/Documents/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_TEMPLATE.md)
-- [radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md](/Users/anderson/Documents/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md)
+- [IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
+- [CONTENT_PIPELINE.md](/Users/anderson/Developer/Radiant/docs/CONTENT_PIPELINE.md)
+- [APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
+- [radiant-app/docs/release/APP_STORE_WAR_ROOM_TEMPLATE.md](/Users/anderson/Developer/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_TEMPLATE.md)
+- [radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md](/Users/anderson/Developer/Radiant/radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md)
 
 Define a ordem de implementação, fases, critérios de saída e a arquitetura-alvo atual.
 
@@ -67,21 +68,21 @@ Para a trilha editorial, o estado operacional atual já inclui um livro-piloto c
 
 ### ADRs
 
-- [ADR-vps-backend.md](/Users/anderson/Documents/Radiant/docs/ADR-vps-backend.md)
-- [ADR-auth-sync.md](/Users/anderson/Documents/Radiant/docs/ADR-auth-sync.md)
-- [ADR-routing.md](/Users/anderson/Documents/Radiant/docs/ADR-routing.md)
-- [ADR-backend.md](/Users/anderson/Documents/Radiant/docs/ADR-backend.md)
+- [ADR-vps-backend.md](/Users/anderson/Developer/Radiant/docs/ADR-vps-backend.md)
+- [ADR-auth-sync.md](/Users/anderson/Developer/Radiant/docs/ADR-auth-sync.md)
+- [ADR-routing.md](/Users/anderson/Developer/Radiant/docs/ADR-routing.md)
+- [ADR-backend.md](/Users/anderson/Developer/Radiant/docs/ADR-backend.md)
 
 Os ADRs registram decisões arquiteturais. `ADR-backend.md` permanece apenas como histórico da decisão inicial e foi substituído pelo ADR do backend self-hosted no VPS.
 
 ### Specs
 
-- [specs/quiz.spec.md](/Users/anderson/Documents/Radiant/docs/specs/quiz.spec.md)
-- [specs/spaced-repetition.spec.md](/Users/anderson/Documents/Radiant/docs/specs/spaced-repetition.spec.md)
-- [specs/gamification.spec.md](/Users/anderson/Documents/Radiant/docs/specs/gamification.spec.md)
-- [specs/annotation.spec.md](/Users/anderson/Documents/Radiant/docs/specs/annotation.spec.md)
-- [specs/learning-road-redesign.spec.md](/Users/anderson/Documents/Radiant/docs/specs/learning-road-redesign.spec.md)
-- [specs/learning-road-redesign.plan.md](/Users/anderson/Documents/Radiant/docs/specs/learning-road-redesign.plan.md)
+- [specs/quiz.spec.md](/Users/anderson/Developer/Radiant/docs/specs/quiz.spec.md)
+- [specs/spaced-repetition.spec.md](/Users/anderson/Developer/Radiant/docs/specs/spaced-repetition.spec.md)
+- [specs/gamification.spec.md](/Users/anderson/Developer/Radiant/docs/specs/gamification.spec.md)
+- [specs/annotation.spec.md](/Users/anderson/Developer/Radiant/docs/specs/annotation.spec.md)
+- [specs/learning-road-redesign.spec.md](/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.spec.md)
+- [specs/learning-road-redesign.plan.md](/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.plan.md)
 
 As specs definem como uma área do produto deve se comportar e quais contratos a implementação precisa respeitar.
 
@@ -125,7 +126,7 @@ ADRs definem por que a arquitetura está assim.
 - sync remoto nunca pode bloquear o loop principal de estudo;
 - toda iniciativa que afete iOS precisa carregar um bloco `App Store Impact`;
 - telas e ações técnicas de debug devem ficar restritas a builds de desenvolvimento, preview ou homologação;
-- o baseline de validação do cliente é `npm run quality` dentro de [`radiant-app/`](/Users/anderson/Documents/Radiant/radiant-app);
+- o baseline de validação do cliente é `npm run quality` dentro de [`radiant-app/`](/Users/anderson/Developer/Radiant/radiant-app);
 - o baseline de validação editorial é `node scripts/content/validate-foundation.mjs` na raiz do repositório;
 - homologação iOS em simulador exige tooling Apple funcional no ambiente local, incluindo Xcode CLI e `simctl`;
 - build distribuível/TestFlight exige, além do Expo/EAS, uma Apple ID associada a um team válido no Apple Developer Program;

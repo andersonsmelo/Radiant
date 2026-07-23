@@ -12,6 +12,8 @@ Radiant é hoje um app mobile local-first com backend próprio no VPS. O estado 
 - Learning Road V2 com rollout controlado por flag, trilhas de catálogo selecionáveis e progresso local por trilha;
 - `Pixel` como nome canônico do mascote nos docs atuais.
 
+O app mantém esse contrato local-first porque a API pública conhecida está inativa e retorna HTTP 502. O estado operacional atual está registrado em [EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md); reativar infraestrutura exige uma decisão e uma execução separadas.
+
 ## Learning Road V2 — Estado 2026-04-09
 
 A jornada V2 deixou de ser apenas uma unidade local inicial e passou a usar o catálogo runtime como fonte de trilhas.
@@ -38,31 +40,32 @@ Regra arquitetural: alternar trilhas nunca deve apagar progresso já conquistado
 
 | Tema | Fonte |
 | --- | --- |
-| Visão do produto | [docs/PRD.md](/Users/anderson/Documents/Radiant/docs/PRD.md) |
-| Regras de engenharia | [docs/README.md](/Users/anderson/Documents/Radiant/docs/README.md) |
-| Sistema operacional de App Store | [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Documents/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md) |
-| Status de execução | [docs/EXECUTION_STATUS_2026-03-29.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-29.md) |
-| Plano executivo | [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md) |
-| Runtime do app | [radiant-app/README.md](/Users/anderson/Documents/Radiant/radiant-app/README.md) |
-| Runtime da API | [radiant-api/README.md](/Users/anderson/Documents/Radiant/radiant-api/README.md) |
-| Status 2026-04-09 | [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-09.md) |
-| Política de beta do app | [radiant-app/docs/BETA_SCOPE.md](/Users/anderson/Documents/Radiant/radiant-app/docs/BETA_SCOPE.md) |
-| Critérios de saída da beta | [radiant-app/docs/BETA_EXIT_CRITERIA.md](/Users/anderson/Documents/Radiant/radiant-app/docs/BETA_EXIT_CRITERIA.md) |
-| Sistema do personagem | [radiant-app/docs/CHARACTER_SYSTEM_SPEC.md](/Users/anderson/Documents/Radiant/radiant-app/docs/CHARACTER_SYSTEM_SPEC.md) |
-| Métricas do produto | [radiant-app/docs/PRODUCT_METRICS_V1_1.md](/Users/anderson/Documents/Radiant/radiant-app/docs/PRODUCT_METRICS_V1_1.md) |
-| Política de higiene | [docs/REPO_HYGIENE.md](/Users/anderson/Documents/Radiant/docs/REPO_HYGIENE.md) |
-| Política de escala | [docs/SCALE_TRIGGERS.md](/Users/anderson/Documents/Radiant/docs/SCALE_TRIGGERS.md) e [docs/CAPACITY_REVIEW.md](/Users/anderson/Documents/Radiant/docs/CAPACITY_REVIEW.md) |
+| Visão do produto | [docs/PRD.md](/Users/anderson/Developer/Radiant/docs/PRD.md) |
+| Regras de engenharia | [docs/README.md](/Users/anderson/Developer/Radiant/docs/README.md) |
+| Sistema operacional de App Store | [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md) |
+| Status de execução atual | [docs/EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md) |
+| Plano executivo | [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md) |
+| Runtime do app | [radiant-app/README.md](/Users/anderson/Developer/Radiant/radiant-app/README.md) |
+| Runtime da API | [radiant-api/README.md](/Users/anderson/Developer/Radiant/radiant-api/README.md) |
+| Status 2026-04-09 | [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md) |
+| Política de beta do app | [radiant-app/docs/BETA_SCOPE.md](/Users/anderson/Developer/Radiant/radiant-app/docs/BETA_SCOPE.md) |
+| Critérios de saída da beta | [radiant-app/docs/BETA_EXIT_CRITERIA.md](/Users/anderson/Developer/Radiant/radiant-app/docs/BETA_EXIT_CRITERIA.md) |
+| Sistema do personagem | [radiant-app/docs/CHARACTER_SYSTEM_SPEC.md](/Users/anderson/Developer/Radiant/radiant-app/docs/CHARACTER_SYSTEM_SPEC.md) |
+| Métricas do produto | [radiant-app/docs/PRODUCT_METRICS_V1_1.md](/Users/anderson/Developer/Radiant/radiant-app/docs/PRODUCT_METRICS_V1_1.md) |
+| Política de higiene | [docs/REPO_HYGIENE.md](/Users/anderson/Developer/Radiant/docs/REPO_HYGIENE.md) |
+| Política de escala | [docs/SCALE_TRIGGERS.md](/Users/anderson/Developer/Radiant/docs/SCALE_TRIGGERS.md) e [docs/CAPACITY_REVIEW.md](/Users/anderson/Developer/Radiant/docs/CAPACITY_REVIEW.md) |
 
 ## Precedência documental
 
 Quando houver conflito entre documentos, a ordem de verdade é:
 
-1. `radiant-app/README.md` e `radiant-api/README.md` para comportamento em runtime.
-2. `docs/IMPLEMENTATION_PLAN.md` para estado do programa e da arquitetura-alvo.
-3. `docs/APP_STORE_OPERATING_SYSTEM.md` para decisões que afetem distribuição,
+1. `docs/EXECUTION_STATUS_2026-07-23.md` para estado operacional presente.
+2. `radiant-app/README.md` e `radiant-api/README.md` para comportamento em runtime.
+3. `docs/IMPLEMENTATION_PLAN.md` para estado do programa e da arquitetura-alvo.
+4. `docs/APP_STORE_OPERATING_SYSTEM.md` para decisões que afetem distribuição,
    App Store, growth iOS e gates relacionados.
-4. `docs/ADR-*.md` para decisões estruturais.
-5. Docs de beta, métricas e personagem para intenção de produto, desde que não contradigam o runtime atual.
+5. `docs/ADR-*.md` para decisões estruturais.
+6. Docs de beta, métricas e personagem para intenção de produto, desde que não contradigam o runtime atual.
 
 ## Regras de consistência
 

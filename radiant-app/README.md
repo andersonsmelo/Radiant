@@ -255,9 +255,9 @@ Estado operacional validado em **2026-04-01**:
 - `expo-dev-client` configurado para o fluxo de simulador.
 - war-room técnico reexecutado com resultado `PASS=13 FAIL=0`;
 - pacote de evidências de simulador consolidado em:
-  - `/Users/anderson/Documents/Radiant/docs/evidence/smoke-2026-04-01/README.md`.
+  - `/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md`.
 
-Perfis principais em [`eas.json`](/Users/anderson/Documents/Radiant/radiant-app/eas.json):
+Perfis principais em [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json):
 
 - `development`
 - `development-simulator`
@@ -421,18 +421,18 @@ Capture pelo menos estas telas durante a homologação:
 
 O app já possui scaffolding explícito para distribuição:
 
-- [`eas.json`](/Users/anderson/Documents/Radiant/radiant-app/eas.json) com perfis `development`, `preview` e `production`;
+- [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json) com perfis `development`, `preview` e `production`;
 - perfil `development-simulator` para gerar build de iOS Simulator via EAS;
-- identificadores mobile em [`app.json`](/Users/anderson/Documents/Radiant/radiant-app/app.json):
+- identificadores mobile em [`app.json`](/Users/anderson/Developer/Radiant/radiant-app/app.json):
   - iOS `com.ascendcreative.radiant`
   - Android `com.ascendcreative.radiant`
-- workflow de qualidade em [`.github/workflows/radiant-app-quality.yml`](/Users/anderson/Documents/Radiant/.github/workflows/radiant-app-quality.yml).
+- workflow de qualidade em [`.github/workflows/radiant-app-quality.yml`](/Users/anderson/Developer/Radiant/.github/workflows/radiant-app-quality.yml).
 
 ### Soft launch iOS
 
-- [`radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md`](/Users/anderson/Documents/Radiant/radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md)
-- [`radiant-app/docs/release/APP_STORE_METADATA.md`](/Users/anderson/Documents/Radiant/radiant-app/docs/release/APP_STORE_METADATA.md)
-- [`radiant-app/docs/release/TESTFLIGHT_SMOKE.md`](/Users/anderson/Documents/Radiant/radiant-app/docs/release/TESTFLIGHT_SMOKE.md)
+- [`radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md)
+- [`radiant-app/docs/release/APP_STORE_METADATA.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/APP_STORE_METADATA.md)
+- [`radiant-app/docs/release/TESTFLIGHT_SMOKE.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/TESTFLIGHT_SMOKE.md)
 
 Uso esperado dos perfis:
 
@@ -491,7 +491,7 @@ Estado operacional atual:
 Para validar app + API em uma única rotina, rode no diretório raiz do monorepo:
 
 ```bash
-bash /Users/anderson/Documents/Radiant/scripts/launch-war-room.sh
+bash /Users/anderson/Developer/Radiant/scripts/launch-war-room.sh
 ```
 
 Resultado esperado atual: `PASS=13 FAIL=0`.
@@ -511,18 +511,18 @@ Prioridades imediatas:
 
 ## Documentação
 
-- PRD: `/Users/anderson/Documents/Radiant/docs/PRD.md`
-- Plano de implementação: `/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md`
-- ADR backend: `/Users/anderson/Documents/Radiant/docs/ADR-backend.md`
-- ADR auth/sync: `/Users/anderson/Documents/Radiant/docs/ADR-auth-sync.md`
-- ADR backend VPS: `/Users/anderson/Documents/Radiant/docs/ADR-vps-backend.md`
-- ADR routing: `/Users/anderson/Documents/Radiant/docs/ADR-routing.md`
-- Status de execução 2026-04-01: `/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
-- Status de execução 2026-04-09: `/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
-- Plano de war room: `/Users/anderson/Documents/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md`
-- Evidências de smoke: `/Users/anderson/Documents/Radiant/docs/evidence/smoke-2026-04-01/README.md`
-- Specs: `/Users/anderson/Documents/Radiant/docs/specs`
-- Spec Learning Road: `/Users/anderson/Documents/Radiant/docs/specs/learning-road-redesign.spec.md`
-- Plano Learning Road: `/Users/anderson/Documents/Radiant/docs/specs/learning-road-redesign.plan.md`
-- Regras visuais e de UX: `/Users/anderson/Documents/Radiant/radiant-app/docs`
-- Design system Stitch / rollout visual: `/Users/anderson/Documents/Radiant/radiant-app/docs/STITCH_REDESIGN_SYSTEM.md`
+- PRD: `/Users/anderson/Developer/Radiant/docs/PRD.md`
+- Plano de implementação: `/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md`
+- ADR backend: `/Users/anderson/Developer/Radiant/docs/ADR-backend.md`
+- ADR auth/sync: `/Users/anderson/Developer/Radiant/docs/ADR-auth-sync.md`
+- ADR backend VPS: `/Users/anderson/Developer/Radiant/docs/ADR-vps-backend.md`
+- ADR routing: `/Users/anderson/Developer/Radiant/docs/ADR-routing.md`
+- Status de execução 2026-04-01: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
+- Status de execução 2026-04-09: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
+- Plano de war room: `/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md`
+- Evidências de smoke: `/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md`
+- Specs: `/Users/anderson/Developer/Radiant/docs/specs`
+- Spec Learning Road: `/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.spec.md`
+- Plano Learning Road: `/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.plan.md`
+- Regras visuais e de UX: `/Users/anderson/Developer/Radiant/radiant-app/docs`
+- Design system Stitch / rollout visual: `/Users/anderson/Developer/Radiant/radiant-app/docs/STITCH_REDESIGN_SYSTEM.md`

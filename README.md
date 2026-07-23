@@ -4,8 +4,8 @@ Radiant é um aplicativo mobile educacional de radiologia, local-first, com foco
 
 O repositório está organizado em dois blocos principais:
 
-- [`radiant-app/`](/Users/anderson/Documents/Radiant/radiant-app): cliente mobile em Expo/React Native
-- [`radiant-api/`](/Users/anderson/Documents/Radiant/radiant-api): backend próprio em Fastify/PostgreSQL para autenticação e sincronização
+- [`radiant-app/`](/Users/anderson/Developer/Radiant/radiant-app): cliente mobile em Expo/React Native
+- [`radiant-api/`](/Users/anderson/Developer/Radiant/radiant-api): backend próprio em Fastify/PostgreSQL para autenticação e sincronização
 
 ## Estado atual
 
@@ -22,7 +22,7 @@ Direção técnica vigente:
 Estado prático atual:
 
 - `radiant-api` já possui runbook de provisionamento e operação para VPS;
-- o backend está publicado e respondendo em `https://api.radiant.ascendcreative.com.br`;
+- a API pública conhecida em `https://api.radiant.ascendcreative.com.br` está inativa e retorna HTTP 502; o caminho principal do app continua local-first;
 - migrações SQL são cumulativas e já incluem seed mínimo de catálogo;
 - o app já possui bootstrap de sessão com estados explícitos de loading/erro, fila local de sync com retry e flush idempotente e operação local-first mesmo sob falha remota;
 - `radiant-app/src/app` é a árvore oficial de rotas; a pasta legada `radiant-app/app` não é a raiz vigente do produto;
@@ -54,7 +54,7 @@ Estado editorial atual:
 - `109` registros de classificação, com `30` itens em `needs-review`;
 - `16` conceitos canônicos, com `7` itens em `needs-review`;
 - `6` formatos pedagógicos gerados (`microlições`, `quizzes`, `reviews`, `casos`, `checkpoints` e `rewards`);
-- `96` bundles gerados e aprovados — `0` em `needs-review`;
+- `96` bundles gerados; a validação atual ainda aponta `42` bundles/formatações em `needs-review`;
 - `catalog-payload.json` v1.0.0 promovido com todos os `96` bundles;
 - `16` lições AI ativas no catálogo do app como track primário (`radiant-app/src/data/ai-lessons.ts`);
 - `3` trilhas prioritárias expostas no manifesto runtime: `Fundamentos`, `Tórax` e `Abdome`;
@@ -65,7 +65,7 @@ Estado editorial atual:
 Bloqueios operacionais atuais verificados:
 
 - o smoke local iOS da V2 já funciona em simulador;
-- a API pública já responde com DNS e HTTPS;
+- a API pública conhecida está inativa e retorna HTTP 502; nenhuma correção remota foi executada neste checkout;
 - o build distribuível via EAS agora está bloqueado apenas por ausência de team Apple Developer na conta autenticada;
 - o build de simulador iOS em nuvem está em andamento no EAS como fallback operacional.
 
@@ -95,18 +95,18 @@ Recorte do workspace local nesse momento:
 
 Os artefatos staged verificados nesse retrato foram:
 
-- [README.md](/Users/anderson/Documents/Radiant/README.md)
-- [docs/ADR-vps-backend.md](/Users/anderson/Documents/Radiant/docs/ADR-vps-backend.md)
-- [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md)
-- [radiant-api/README.md](/Users/anderson/Documents/Radiant/radiant-api/README.md)
-- [radiant-api/deploy/VPS_SETUP.md](/Users/anderson/Documents/Radiant/radiant-api/deploy/VPS_SETUP.md)
+- [README.md](/Users/anderson/Developer/Radiant/README.md)
+- [docs/ADR-vps-backend.md](/Users/anderson/Developer/Radiant/docs/ADR-vps-backend.md)
+- [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
+- [radiant-api/README.md](/Users/anderson/Developer/Radiant/radiant-api/README.md)
+- [radiant-api/deploy/VPS_SETUP.md](/Users/anderson/Developer/Radiant/radiant-api/deploy/VPS_SETUP.md)
 
 Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repetir a verificação de `fetch`, commit e diff antes de servir como base de decisão operacional.
 
 ## Estrutura do repositório
 
 ```text
-/Users/anderson/Documents/Radiant
+/Users/anderson/Developer/Radiant
   docs/
     PRD.md
     IMPLEMENTATION_PLAN.md
@@ -150,31 +150,32 @@ Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repe
 
 ## Documentação principal
 
-- Produto: [docs/PRD.md](/Users/anderson/Documents/Radiant/docs/PRD.md)
-- Estado arquitetural consolidado: [docs/ARCHITECTURE_STATE.md](/Users/anderson/Documents/Radiant/docs/ARCHITECTURE_STATE.md)
-- Sistema operacional de App Store: [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Documents/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
-- Status de execução do programa (2026-03-29): [docs/EXECUTION_STATUS_2026-03-29.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-29.md)
-- Status de execução atualizado (2026-03-30): [docs/EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
-- Status de execução atualizado (2026-04-01): [docs/EXECUTION_STATUS_2026-04-01.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-01.md)
-- Status de execução atualizado (2026-04-03): [docs/EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
-- Status de execução atualizado (2026-04-04): [docs/EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
-- Status de execução atualizado (2026-04-05): [docs/EXECUTION_STATUS_2026-04-05.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-05.md)
-- Status de execução atualizado (2026-04-09): [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
-- Regras de engenharia e mapa da documentação: [docs/README.md](/Users/anderson/Documents/Radiant/docs/README.md)
-- Plano de implementação: [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Documents/Radiant/docs/IMPLEMENTATION_PLAN.md)
-- Fundação editorial de conteúdo: [conteúdo/README.md](/Users/anderson/Documents/Radiant/conteúdo/README.md)
-- Pipeline editorial e estado do catálogo-base: [docs/CONTENT_PIPELINE.md](/Users/anderson/Documents/Radiant/docs/CONTENT_PIPELINE.md)
-- Plano operacional para war room de lançamento (2026-04-01): [docs/WAR_ROOM_PLAN_2026-04-01.md](/Users/anderson/Documents/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md)
-- Pacote de evidências do smoke de simulador (2026-04-01): [docs/evidence/smoke-2026-04-01/README.md](/Users/anderson/Documents/Radiant/docs/evidence/smoke-2026-04-01/README.md)
-- ADR de backend vigente: [docs/ADR-vps-backend.md](/Users/anderson/Documents/Radiant/docs/ADR-vps-backend.md)
-- ADR de auth/sync: [docs/ADR-auth-sync.md](/Users/anderson/Documents/Radiant/docs/ADR-auth-sync.md)
-- ADR de routing: [docs/ADR-routing.md](/Users/anderson/Documents/Radiant/docs/ADR-routing.md)
-- Higiene do repositório: [docs/REPO_HYGIENE.md](/Users/anderson/Documents/Radiant/docs/REPO_HYGIENE.md)
-- Política de escala pós-lançamento: [docs/SCALE_TRIGGERS.md](/Users/anderson/Documents/Radiant/docs/SCALE_TRIGGERS.md), [docs/CAPACITY_REVIEW.md](/Users/anderson/Documents/Radiant/docs/CAPACITY_REVIEW.md), [docs/ADR-api-growth-path.md](/Users/anderson/Documents/Radiant/docs/ADR-api-growth-path.md)
+- Produto: [docs/PRD.md](/Users/anderson/Developer/Radiant/docs/PRD.md)
+- Estado arquitetural consolidado: [docs/ARCHITECTURE_STATE.md](/Users/anderson/Developer/Radiant/docs/ARCHITECTURE_STATE.md)
+- Sistema operacional de App Store: [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md)
+- Status de execução do programa (2026-03-29): [docs/EXECUTION_STATUS_2026-03-29.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-03-29.md)
+- Status de execução atualizado (2026-03-30): [docs/EXECUTION_STATUS_2026-03-30.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-03-30.md)
+- Status de execução atualizado (2026-04-01): [docs/EXECUTION_STATUS_2026-04-01.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md)
+- Status de execução atualizado (2026-04-03): [docs/EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
+- Status de execução atualizado (2026-04-04): [docs/EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
+- Status de execução atualizado (2026-04-05): [docs/EXECUTION_STATUS_2026-04-05.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-05.md)
+- Status de execução atualizado (2026-04-09): [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
+- Status canônico atual (2026-07-23): [docs/EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md)
+- Regras de engenharia e mapa da documentação: [docs/README.md](/Users/anderson/Developer/Radiant/docs/README.md)
+- Plano de implementação: [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
+- Fundação editorial de conteúdo: [conteúdo/README.md](/Users/anderson/Developer/Radiant/conteúdo/README.md)
+- Pipeline editorial e estado do catálogo-base: [docs/CONTENT_PIPELINE.md](/Users/anderson/Developer/Radiant/docs/CONTENT_PIPELINE.md)
+- Plano operacional para war room de lançamento (2026-04-01): [docs/WAR_ROOM_PLAN_2026-04-01.md](/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md)
+- Pacote de evidências do smoke de simulador (2026-04-01): [docs/evidence/smoke-2026-04-01/README.md](/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md)
+- ADR de backend vigente: [docs/ADR-vps-backend.md](/Users/anderson/Developer/Radiant/docs/ADR-vps-backend.md)
+- ADR de auth/sync: [docs/ADR-auth-sync.md](/Users/anderson/Developer/Radiant/docs/ADR-auth-sync.md)
+- ADR de routing: [docs/ADR-routing.md](/Users/anderson/Developer/Radiant/docs/ADR-routing.md)
+- Higiene do repositório: [docs/REPO_HYGIENE.md](/Users/anderson/Developer/Radiant/docs/REPO_HYGIENE.md)
+- Política de escala pós-lançamento: [docs/SCALE_TRIGGERS.md](/Users/anderson/Developer/Radiant/docs/SCALE_TRIGGERS.md), [docs/CAPACITY_REVIEW.md](/Users/anderson/Developer/Radiant/docs/CAPACITY_REVIEW.md), [docs/ADR-api-growth-path.md](/Users/anderson/Developer/Radiant/docs/ADR-api-growth-path.md)
 
 ## Aplicativo mobile
 
-O cliente vive em [radiant-app/](/Users/anderson/Documents/Radiant/radiant-app).
+O cliente vive em [radiant-app/](/Users/anderson/Developer/Radiant/radiant-app).
 
 Pontos principais:
 
@@ -226,17 +227,17 @@ Qualidade e release do app:
 - `npm run app-store:ops-check` valida o snapshot em modo advisory;
 - `npm run app-store:ops-check:strict` transforma esse snapshot em gate real de release;
 - o smoke V2 agora inclui a navegação `Journey -> Lesson/Checkpoint -> Reward -> próximo nó`;
-- [`.github/workflows/radiant-app-quality.yml`](/Users/anderson/Documents/Radiant/.github/workflows/radiant-app-quality.yml) valida o app em CI;
-- [`radiant-app/eas.json`](/Users/anderson/Documents/Radiant/radiant-app/eas.json) define perfis `development`, `preview` e `production`.
+- [`.github/workflows/radiant-app-quality.yml`](/Users/anderson/Developer/Radiant/.github/workflows/radiant-app-quality.yml) valida o app em CI;
+- [`radiant-app/eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json) define perfis `development`, `preview` e `production`.
 
 Documentação específica do app:
 
-- [radiant-app/README.md](/Users/anderson/Documents/Radiant/radiant-app/README.md)
-- [radiant-app/docs/](/Users/anderson/Documents/Radiant/radiant-app/docs)
+- [radiant-app/README.md](/Users/anderson/Developer/Radiant/radiant-app/README.md)
+- [radiant-app/docs/](/Users/anderson/Developer/Radiant/radiant-app/docs)
 
 ## Backend
 
-O backend vive em [radiant-api/](/Users/anderson/Documents/Radiant/radiant-api).
+O backend vive em [radiant-api/](/Users/anderson/Developer/Radiant/radiant-api).
 
 Escopo atual:
 
@@ -262,12 +263,12 @@ Infraestrutura explicitamente não suportada:
 
 Artefatos de deploy para VPS:
 
-- [radiant-api/deploy/radiant-api.service](/Users/anderson/Documents/Radiant/radiant-api/deploy/radiant-api.service)
-- [radiant-api/deploy/radiant-api.nginx.conf](/Users/anderson/Documents/Radiant/radiant-api/deploy/radiant-api.nginx.conf)
-- [radiant-api/deploy/deploy.sh](/Users/anderson/Documents/Radiant/radiant-api/deploy/deploy.sh)
-- [radiant-api/deploy/smoke-test.sh](/Users/anderson/Documents/Radiant/radiant-api/deploy/smoke-test.sh)
-- [radiant-api/deploy/rollback.sh](/Users/anderson/Documents/Radiant/radiant-api/deploy/rollback.sh)
-- [radiant-api/deploy/VPS_SETUP.md](/Users/anderson/Documents/Radiant/radiant-api/deploy/VPS_SETUP.md)
+- [radiant-api/deploy/radiant-api.service](/Users/anderson/Developer/Radiant/radiant-api/deploy/radiant-api.service)
+- [radiant-api/deploy/radiant-api.nginx.conf](/Users/anderson/Developer/Radiant/radiant-api/deploy/radiant-api.nginx.conf)
+- [radiant-api/deploy/deploy.sh](/Users/anderson/Developer/Radiant/radiant-api/deploy/deploy.sh)
+- [radiant-api/deploy/smoke-test.sh](/Users/anderson/Developer/Radiant/radiant-api/deploy/smoke-test.sh)
+- [radiant-api/deploy/rollback.sh](/Users/anderson/Developer/Radiant/radiant-api/deploy/rollback.sh)
+- [radiant-api/deploy/VPS_SETUP.md](/Users/anderson/Developer/Radiant/radiant-api/deploy/VPS_SETUP.md)
 
 ## Regras de trabalho
 
