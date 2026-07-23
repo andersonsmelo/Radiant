@@ -6,17 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
-import { GamificationService } from '../../gamification/services/GamificationService';
-import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StatPill } from '../../../components/ui/StatPill';
 import { ProgressRing } from '../../../components/ui/ProgressRing';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
-import type { QuizLessonId } from '../../../types/quiz';
-import type { GamificationSnapshot } from '../../../types/gamification';
-import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
-import { space, layout, textStyles, fontFamily } from '../../../ui/styles';
+import type { HomeDashboardViewModel } from '../home.types';
+import { localHomeDashboardService } from '../services/createLocalHomeDashboardService';
+import { space, textStyles, fontFamily } from '../../../ui/styles';
 import { colors } from '../../../ui/theme';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
 import { TelemetryService } from '../../telemetry/TelemetryService';
@@ -60,10 +56,7 @@ const ArrowRightIcon = () => (
 // ── Main Screen ─────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
-    const [dueCount, setDueCount] = useState<number>(0);
-    const [dueLessonIds, setDueLessonIds] = useState<QuizLessonId[]>([]);
-    const [gamificationState, setGamificationState] = useState<GamificationSnapshot | null>(null);
-    const [dailyGoalState, setDailyGoalState] = useState<DailyGoalSnapshot | null>(null);
+    const [dashboard, setDashboard] = useState<HomeDashboardViewModel | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [alert, setAlert] = useState<HeuristicAlert | null>(null);
     const [healthScore, setHealthScore] = useState<HealthScore | null>(null);
@@ -78,21 +71,15 @@ export default function HomeScreen() {
     const loadData = useCallback(async () => {
         try {
             setLoading(true);
-            const [dueLessons, snapshot, dailyGoal, score] = await Promise.all([
-                SpacedRepetitionService.getDueLessons(),
-                GamificationService.getSnapshot(),
-                DailyGoalService.getSnapshot(),
+            const [nextDashboard, score] = await Promise.all([
+                localHomeDashboardService.getDashboard(),
                 HealthScoreService.getScore(),
             ]);
-            setDueLessonIds(dueLessons);
-            setDueCount(dueLessons.length);
-            setGamificationState(snapshot);
-            setDailyGoalState(dailyGoal);
+            setDashboard(nextDashboard);
             setHealthScore(score);
         } catch (error) {
             console.error('[HomeScreen] Error loading data:', error);
-            setDueLessonIds([]);
-            setDueCount(0);
+            setDashboard(null);
         } finally {
             setLoading(false);
         }
@@ -127,17 +114,12 @@ export default function HomeScreen() {
         }, [loadData])
     );
 
-    const handleStartReview = useCallback(() => {
-        if (dueLessonIds.length === 0) {
-            return;
-        }
-
-        router.push('/review' as any);
-    }, [dueLessonIds.length]);
-
     const handleContinueLearning = useCallback(() => {
-        router.push('/quiz' as any);
-    }, []);
+        const action = dashboard?.mission?.action;
+        if (!action) return;
+        if (action.kind === 'review') router.push('/review');
+        if (action.kind === 'learn' && action.nodeId && action.blockId) router.push({ pathname: '/learn', params: { nodeId: action.nodeId, blockId: action.blockId } });
+    }, [dashboard?.mission?.action]);
 
     const { animateIn: animateGoalBanner, style: goalBannerStyle } = useFadeInUp();
     const { animateIn: animateReviewCard, animatedStyle: reviewCardAnimatedStyle } = useCardEnter();
@@ -152,7 +134,6 @@ export default function HomeScreen() {
             setShowClosure(OnboardingService.shouldShowClosure());
         });
 
-        void loadData();
         PushService.onAppOpen(); // Reset backoff on valuable engagement
         void checkHeuristics();
         animateReviewCard();
@@ -170,15 +151,13 @@ export default function HomeScreen() {
     }, []);
 
     useEffect(() => {
-        if (dailyGoalState?.isCompleted) {
+        if (dashboard && dashboard.dailyGoal.completed >= dashboard.dailyGoal.target) {
             animateGoalBanner();
             void checkPushOptIn();
         }
-    }, [animateGoalBanner, checkPushOptIn, dailyGoalState?.isCompleted]);
+    }, [animateGoalBanner, checkPushOptIn, dashboard]);
 
-    const progressValue = dailyGoalState
-        ? dailyGoalState.completedToday / Math.max(1, dailyGoalState.goalPerDay)
-        : 0.55;
+    const progressValue = dashboard ? dashboard.dailyGoal.completed / Math.max(1, dashboard.dailyGoal.target) : 0;
 
     return (
         <SafeAreaView style={styles.screen} edges={['top']}>
@@ -195,12 +174,12 @@ export default function HomeScreen() {
                     <View style={styles.header}>
                         <View style={styles.headerLeft}>
                             <Text style={styles.headerDate}>
-                                {AppConfig.IS_BETA ? 'BETA · ' : ''}TUESDAY · DAY 24
+                                {AppConfig.IS_BETA ? 'BETA · ' : ''}{dashboard?.dateLabel ?? '—'}
                             </Text>
-                            <Text style={styles.headerGreeting}>Hi, Dr. Alvarez</Text>
+                            <Text style={styles.headerGreeting}>{dashboard?.greeting ?? 'Olá'}</Text>
                         </View>
                         <View style={styles.avatarCircle}>
-                            <Text style={styles.avatarInitials}>MA</Text>
+                            <Text style={styles.avatarInitials}>{dashboard?.avatarInitials ?? '—'}</Text>
                         </View>
                     </View>
 
@@ -208,17 +187,17 @@ export default function HomeScreen() {
                     <View style={styles.pillsRow}>
                         <StatPill
                             icon={<FlameIcon />}
-                            value={`${gamificationState?.streakDays ?? 0}`}
+                            value={`${dashboard?.streakDays ?? 0}`}
                             color="#FF6B2C"
                         />
                         <StatPill
                             icon={<BoltIcon />}
-                            value={`${gamificationState?.totalXp ?? 0} XP`}
+                            value={`${dashboard?.totalXp ?? 0} XP`}
                             color="#F5A623"
                         />
                         <StatPill
                             icon={<HeartIcon />}
-                            value="5"
+                            value={`${dashboard?.hearts.current ?? 0}/${dashboard?.hearts.maximum ?? 0}`}
                             color="#FF3B30"
                         />
                     </View>
@@ -235,12 +214,12 @@ export default function HomeScreen() {
                                 <Text style={styles.heroMicro}>MISSÃO DE HOJE</Text>
                                 {/* TODO: Conectar à lição do dia resolvida pelo catálogo. */}
                                 <Text style={styles.heroTitle}>
-                                    Pulmonary nodules{'\n'}on chest CT
+                                    {dashboard?.mission?.title ?? 'Nenhuma atividade elegível agora'}
                                 </Text>
                                 <View style={styles.heroTags}>
-                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>8 cases</Text></View>
-                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>~12 min</Text></View>
-                                    <View style={styles.heroTag}><Text style={styles.heroTagText}>+120 XP</Text></View>
+                                    {dashboard?.mission?.caseCount !== null && dashboard?.mission?.caseCount !== undefined ? <View style={styles.heroTag}><Text style={styles.heroTagText}>{dashboard.mission.caseCount} casos</Text></View> : null}
+                                    {dashboard?.mission?.durationMinutes !== null && dashboard?.mission?.durationMinutes !== undefined ? <View style={styles.heroTag}><Text style={styles.heroTagText}>~{dashboard.mission.durationMinutes} min</Text></View> : null}
+                                    {dashboard?.mission?.xpReward !== null && dashboard?.mission?.xpReward !== undefined ? <View style={styles.heroTag}><Text style={styles.heroTagText}>+{dashboard.mission.xpReward} XP</Text></View> : null}
                                 </View>
                             </View>
                             <View style={styles.heroIllustration}>
@@ -248,9 +227,10 @@ export default function HomeScreen() {
                             </View>
                         </View>
                         <AppButton
-                            label="Start lesson"
+                            label={dashboard?.mission?.action.kind === 'review' ? 'Iniciar revisão' : 'Iniciar atividade'}
                             variant="primary"
                             onPress={handleContinueLearning}
+                            disabled={!dashboard?.mission}
                             style={styles.heroButton}
                             textStyle={{ color: colors.primary }}
                         />
@@ -274,8 +254,8 @@ export default function HomeScreen() {
                             <View style={styles.journeyInfo}>
                                 <Text style={styles.journeyMicro}>CONTINUE CHAPTER</Text>
                                 {/* TODO: Wire to real chapter progress from LearningRoadService */}
-                                <Text style={styles.journeyTitle}>Thoracic Imaging</Text>
-                                <Text style={styles.journeyBody}>11 of 20 lessons</Text>
+                                <Text style={styles.journeyTitle}>{dashboard?.mission?.title ?? 'Sua jornada'}</Text>
+                                <Text style={styles.journeyBody}>{dashboard ? `${dashboard.dailyGoal.completed} de ${dashboard.dailyGoal.target} atividades hoje` : 'Sem dados de progresso'}</Text>
                             </View>
 
                             <Pressable style={styles.arrowButton} onPress={handleContinueLearning}>
@@ -289,17 +269,17 @@ export default function HomeScreen() {
                         {/* TODO: Wire mastered count and accuracy to GamificationService / StatsService */}
                         <View style={styles.statsTrioCard}>
                             <Text style={styles.statsTrioMicro}>MASTERED</Text>
-                            <Text style={styles.statsTrioValue}>{23}</Text>
+                            <Text style={styles.statsTrioValue}>{dashboard?.masteredCases ?? '—'}</Text>
                             <Text style={styles.statsTrioSub}>cases</Text>
                         </View>
                         <View style={styles.statsTrioCard}>
                             <Text style={styles.statsTrioMicro}>ACCURACY</Text>
-                            <Text style={styles.statsTrioValue}>84%</Text>
+                            <Text style={styles.statsTrioValue}>{dashboard?.accuracyPercent === null || dashboard?.accuracyPercent === undefined ? '—' : `${dashboard.accuracyPercent}%`}</Text>
                             <Text style={styles.statsTrioSub}>avg score</Text>
                         </View>
                         <View style={styles.statsTrioCard}>
                             <Text style={styles.statsTrioMicro}>SESSIONS</Text>
-                            <Text style={styles.statsTrioValue}>{gamificationState?.streakDays ?? 0}</Text>
+                            <Text style={styles.statsTrioValue}>{dashboard?.streakDays ?? 0}</Text>
                             <Text style={styles.statsTrioSub}>day streak</Text>
                         </View>
                     </View>
@@ -332,7 +312,7 @@ export default function HomeScreen() {
                     )}
 
                     {/* Goal Completed Banner */}
-                    {dailyGoalState?.isCompleted && (
+                    {dashboard && dashboard.dailyGoal.completed >= dashboard.dailyGoal.target && (
                         <Animated.View style={goalBannerStyle}>
                             <View style={styles.goalCompletedBanner}>
                                 <Text style={styles.goalCompletedText}>🎯 Meta do dia concluída</Text>
@@ -350,9 +330,9 @@ export default function HomeScreen() {
                     {/* Review Section */}
                     <Animated.View style={reviewCardAnimatedStyle}>
                         <ReviewSection
-                            dueCount={dueCount}
+                            dueCount={dashboard?.dueReviewCount ?? 0}
                             onboardingStage={onboardingStage}
-                            onStartReview={handleStartReview}
+                            onStartReview={handleContinueLearning}
                         />
                     </Animated.View>
 
