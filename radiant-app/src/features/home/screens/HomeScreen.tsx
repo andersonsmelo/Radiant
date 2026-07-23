@@ -13,7 +13,7 @@ import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import type { HomeDashboardViewModel } from '../home.types';
 import { localHomeDashboardService } from '../services/createLocalHomeDashboardService';
 import { space, textStyles, fontFamily } from '../../../ui/styles';
-import { colors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { HeuristicsService } from '../../telemetry/heuristics/HeuristicsService';
@@ -26,6 +26,8 @@ import type { OnboardingStage } from '../../onboarding/onboarding.types';
 import { AppConfig } from '../../../config';
 import { PushService } from '../../push/services/PushService';
 import { PushOptInCard } from '../../push/components/PushOptInCard';
+
+const light = semanticColors.light;
 
 // ── Inline SVG Icons ────────────────────────────────────────────────────────
 
@@ -163,7 +165,7 @@ export default function HomeScreen() {
         <SafeAreaView style={styles.screen} edges={['top']}>
             {loading ? (
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <ActivityIndicator size="large" color={colors.primary} />
+                    <ActivityIndicator size="large" color={light.actionPrimary} />
                 </View>
             ) : (
                 <ScrollView
@@ -232,7 +234,7 @@ export default function HomeScreen() {
                             onPress={handleContinueLearning}
                             disabled={!dashboard?.mission}
                             style={styles.heroButton}
-                            textStyle={{ color: colors.primary }}
+                            textStyle={{ color: light.actionPrimary }}
                         />
                     </LinearGradient>
 
@@ -243,7 +245,7 @@ export default function HomeScreen() {
                                 size={64}
                                 value={progressValue}
                                 stroke={6}
-                                color={colors.primary}
+                                color={light.actionPrimary}
                                 trackColor="#EAF2FF"
                             >
                                 <Text style={styles.progressRingLabel}>
@@ -342,7 +344,7 @@ export default function HomeScreen() {
                         variant="ghost"
                         label="Continuar aprendendo"
                         style={styles.ghostButton}
-                        textStyle={{ color: colors.textSecondary }}
+                        textStyle={{ color: light.textSecondary }}
                     />
                 </ScrollView>
             )}
@@ -370,7 +372,7 @@ function IntroCard({ onStart, onSkip }: IntroCardProps) {
                 onPress={onSkip}
                 variant="ghost"
                 style={styles.fullWidthBtn}
-                textStyle={{ color: colors.textSecondary }}
+                textStyle={{ color: light.textSecondary }}
             />
         </View>
     );
@@ -506,7 +508,7 @@ function getHealthBadgeStyle(label: string) {
         case 'excellent': return { backgroundColor: 'rgba(52, 199, 89, 0.15)' };
         case 'strong': return { backgroundColor: 'rgba(33, 85, 255, 0.12)' };
         case 'consistent': return { backgroundColor: 'rgba(255, 159, 10, 0.15)' };
-        default: return { backgroundColor: colors.border };
+        default: return { backgroundColor: light.border };
     }
 }
 
@@ -535,7 +537,7 @@ const styles = StyleSheet.create({
     // Screen
     screen: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: light.surface,
     },
 
     // Header
@@ -551,26 +553,26 @@ const styles = StyleSheet.create({
     },
     headerDate: {
         ...textStyles.micro,
-        color: colors.textTertiary,
+        color: light.textTertiary,
     },
     headerGreeting: {
         ...textStyles.h2,
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     avatarCircle: {
         width: 40,
         height: 40,
         borderRadius: 14,
         borderWidth: 1,
-        borderColor: colors.border,
-        backgroundColor: colors.surface,
+        borderColor: light.border,
+        backgroundColor: light.surfaceElevated,
         alignItems: 'center',
         justifyContent: 'center',
     },
     avatarInitials: {
         fontFamily: fontFamily.soraBold,
         fontSize: 13,
-        color: colors.primary,
+        color: light.actionPrimary,
         letterSpacing: 0.5,
     },
 
@@ -638,9 +640,9 @@ const styles = StyleSheet.create({
 
     // Journey Card
     journeyCard: {
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         borderRadius: 20,
         padding: 16,
         flexDirection: 'row',
@@ -650,7 +652,7 @@ const styles = StyleSheet.create({
     progressRingLabel: {
         fontSize: 14,
         fontWeight: '800',
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     journeyInfo: {
         flex: 1,
@@ -658,21 +660,21 @@ const styles = StyleSheet.create({
     },
     journeyMicro: {
         ...textStyles.micro,
-        color: colors.textTertiary,
+        color: light.textTertiary,
     },
     journeyTitle: {
         ...textStyles.h3,
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     journeyBody: {
         ...textStyles.body,
-        color: colors.textSecondary,
+        color: light.textSecondary,
     },
     arrowButton: {
         width: 36,
         height: 36,
         borderRadius: 12,
-        backgroundColor: colors.primary,
+        backgroundColor: light.actionPrimary,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -684,44 +686,44 @@ const styles = StyleSheet.create({
     },
     statsTrioCard: {
         flex: 1,
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         borderRadius: 16,
         padding: 12,
         gap: 2,
     },
     statsTrioMicro: {
         ...textStyles.micro,
-        color: colors.textTertiary,
+        color: light.textTertiary,
     },
     statsTrioValue: {
         ...textStyles.h2,
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     statsTrioSub: {
         ...textStyles.caption,
-        color: colors.textSecondary,
+        color: light.textSecondary,
     },
 
     // Intro Card
     introCard: {
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: colors.primary,
+        borderColor: light.borderFocus,
         padding: space.s4,
         alignItems: 'center',
         gap: space.s2,
     },
     introTitle: {
         ...textStyles.h3,
-        color: colors.textPrimary,
+        color: light.textPrimary,
         textAlign: 'center',
     },
     introBody: {
         ...textStyles.body,
-        color: colors.textSecondary,
+        color: light.textSecondary,
         textAlign: 'center',
     },
 
@@ -740,15 +742,15 @@ const styles = StyleSheet.create({
     },
     closureBody: {
         ...textStyles.body,
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
 
     // Goal Completed Banner
     goalCompletedBanner: {
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         padding: space.s2,
         alignItems: 'center',
     },
@@ -760,10 +762,10 @@ const styles = StyleSheet.create({
 
     // Health Card
     healthCard: {
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         padding: space.s3,
         gap: space.s2,
     },
@@ -775,7 +777,7 @@ const styles = StyleSheet.create({
     healthTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     healthBadge: {
         paddingHorizontal: space.s1,
@@ -785,7 +787,7 @@ const styles = StyleSheet.create({
     healthBadgeText: {
         fontSize: 12,
         fontWeight: '600',
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     healthMain: {
         gap: 4,
@@ -793,28 +795,28 @@ const styles = StyleSheet.create({
     healthScoreBig: {
         fontSize: 48,
         fontWeight: '800',
-        color: colors.textPrimary,
+        color: light.textPrimary,
         letterSpacing: -1,
     },
     healthMicrocopy: {
         fontSize: 14,
-        color: colors.textSecondary,
+        color: light.textSecondary,
         lineHeight: 20,
     },
     healthDetailsBtn: {
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         height: 36,
     },
     healthDetailsButtonText: {
         fontSize: 13,
-        color: colors.textSecondary,
+        color: light.textSecondary,
     },
     healthDetails: {
         marginTop: space.s1,
         paddingTop: space.s2,
         borderTopWidth: 1,
-        borderTopColor: colors.border,
+        borderTopColor: light.border,
         gap: 4,
     },
     healthRow: {
@@ -823,19 +825,19 @@ const styles = StyleSheet.create({
     },
     healthRowLabel: {
         fontSize: 13,
-        color: colors.textSecondary,
+        color: light.textSecondary,
     },
     healthRowValue: {
         fontSize: 13,
         fontWeight: '600',
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
     healthPenaltyText: {
-        color: '#D8506F',
+        color: light.statusError,
     },
     healthPlaceholder: {
         fontSize: 14,
-        color: colors.textSecondary,
+        color: light.textSecondary,
         fontStyle: 'italic',
         marginTop: space.s1,
     },
@@ -848,25 +850,25 @@ const styles = StyleSheet.create({
     },
     alertCardCritical: {
         backgroundColor: 'rgba(216, 80, 111, 0.08)',
-        borderColor: '#D8506F',
+        borderColor: light.statusError,
     },
     alertCardInformational: {
         backgroundColor: 'rgba(33, 85, 255, 0.07)',
-        borderColor: colors.primary,
+        borderColor: light.borderFocus,
     },
     alertTitle: {
         fontSize: 14,
         lineHeight: 20,
         fontWeight: '600',
-        color: colors.textPrimary,
+        color: light.textPrimary,
     },
 
     // Review Card
     reviewCard: {
-        backgroundColor: colors.surface,
+        backgroundColor: light.surfaceElevated,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: light.border,
         padding: space.s3,
         alignItems: 'center',
         gap: space.s1,
@@ -874,18 +876,18 @@ const styles = StyleSheet.create({
     reviewLabel: {
         fontSize: 16,
         fontWeight: '500',
-        color: colors.textSecondary,
+        color: light.textSecondary,
     },
     reviewCount: {
         fontSize: 64,
         fontWeight: '700',
-        color: colors.primary,
+        color: light.actionPrimary,
     },
     inlineHelper: {
         fontSize: 13,
         lineHeight: 18,
         fontWeight: '600',
-        color: colors.primary,
+        color: light.actionPrimary,
         textAlign: 'center',
         fontStyle: 'italic',
     },

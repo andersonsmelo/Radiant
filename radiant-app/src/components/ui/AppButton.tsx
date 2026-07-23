@@ -5,11 +5,14 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { colors } from '../../ui/theme';
+import { semanticColors } from '../../ui/semantic-colors';
 import { fontFamily } from '../../ui/styles';
 import { duration, easing } from '../../ui/motion';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
+
+const light = semanticColors.light;
+const galaxy = semanticColors.galaxy;
 
 interface AppButtonProps {
   label?: string;
@@ -94,25 +97,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   primary: {
-    backgroundColor: colors.primary,
-    shadowColor: colors.primary,
+    backgroundColor: light.actionPrimary,
+    shadowColor: light.actionPrimary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.45,
     shadowRadius: 16,
     elevation: 8,
   },
   galaxy: {
-    backgroundColor: '#1535E8',
-    shadowColor: '#3DCAE8',
+    backgroundColor: galaxy.actionPrimary,
+    shadowColor: galaxy.statusInformation,
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.55,
     shadowRadius: 20,
     elevation: 10,
   },
   secondary: {
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: galaxy.surfaceElevated,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.18)',
+    borderColor: galaxy.borderFocus,
   },
   ghost: {
     backgroundColor: 'transparent',
@@ -123,13 +126,13 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: fontFamily.soraExtraBold,
     fontSize: 16,
-    color: '#ffffff',
+    color: light.textOnAccent,
     letterSpacing: -0.1,
   },
   labelSecondary: {
-    color: '#ffffff',
+    color: galaxy.textPrimary,
   },
   labelGhost: {
-    color: colors.primary,
+    color: light.actionPrimary,
   },
 });

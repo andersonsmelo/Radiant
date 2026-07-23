@@ -6,10 +6,11 @@ import Animated, {
   useAnimatedProps,
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
-import { colors } from '../../ui/theme';
+import { semanticColors } from '../../ui/semantic-colors';
 import { duration, easing } from '../../ui/motion';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const light = semanticColors.light;
 
 interface ProgressRingProps {
   size?: number;
@@ -31,8 +32,8 @@ export function ProgressRing({
   value = 0.6,
   total,
   stroke = 8,
-  color = colors.primary,
-  trackColor = 'rgba(20,35,63,0.08)',
+  color = light.actionPrimary,
+  trackColor = light.border,
   children,
   animate = true,
 }: ProgressRingProps) {
