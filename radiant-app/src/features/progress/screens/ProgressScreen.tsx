@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -23,7 +22,6 @@ import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
-import { colors } from '../../../ui/theme'; // for reference only
 
 // ── Paleta (light mode) ──────────────────────────────────────────
 
@@ -100,16 +98,6 @@ function ActionButton({
     );
 }
 
-function StatCard({ icon, label, value, accent }: { icon: string; label: string; value: string; accent: string }) {
-    return (
-        <View style={[styles.statCard, { borderColor: accent + '30' }]}>
-            <Text style={styles.statIcon}>{icon}</Text>
-            <Text style={[styles.statValue, { color: accent }]}>{value}</Text>
-            <Text style={styles.statLabel}>{label}</Text>
-        </View>
-    );
-}
-
 function getApiHealthErrorLabel(error: unknown): string {
     if (error instanceof ApiError) {
         if (error.code === 'timeout') {
@@ -126,145 +114,29 @@ function getApiHealthErrorLabel(error: unknown): string {
     return error instanceof Error ? error.message : 'falha de conexão';
 }
 
-// ── Static data for new visual sections ─────────────────────────
-
-const STREAK_DATA = [true, true, true, true, true, true, false];
-const STREAK_DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-const ACCURACY_DATA = [62, 68, 71, 76, 72, 80, 84, 84];
-
-interface Topic {
-    name: string;
-    mastery: number;
-    color: string;
-}
-
-const TOPICS: Topic[] = [
-    { name: 'Anatomia do Tórax', mastery: 1.0, color: '#1A9C71' },
-    { name: 'Padrões Pulmonares', mastery: 0.96, color: '#1A9C71' },
-    { name: 'Nódulos Pulmonares', mastery: 0.55, color: '#3DCAE8' },
-    { name: 'Silhueta Cardíaca', mastery: 0.32, color: '#F5A623' },
-];
-
-// ── New visual sections ──────────────────────────────────────────
-
-function StreakCalendarCard() {
-    const maxBar = 100;
-
-    return (
-        <View style={styles.whiteCard}>
-            {/* Header row */}
-            <View style={styles.rowBetween}>
-                <View>
-                    <View style={styles.rowCenter}>
-                        <Text style={styles.streakNumber}>🔥 12 days</Text>
-                    </View>
-                    <Text style={styles.streakSub}>Best streak ever</Text>
-                </View>
-                <View style={styles.onFireBadge}>
-                    <Text style={styles.onFireText}>ON FIRE</Text>
-                </View>
-            </View>
-
-            {/* 7 day tiles */}
-            <View style={styles.streakRow}>
-                {STREAK_DATA.map((active, idx) => (
-                    <View key={idx} style={styles.streakTileWrapper}>
-                        {active ? (
-                            <LinearGradient
-                                colors={['#FF8A4C', '#FF6B2C']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 0, y: 1 }}
-                                style={styles.streakTile}
-                            >
-                                <Text style={styles.streakTileEmoji}>🔥</Text>
-                            </LinearGradient>
-                        ) : (
-                            <View style={[styles.streakTile, styles.streakTileInactive]}>
-                                <Text style={styles.streakTileEmoji}> </Text>
-                            </View>
-                        )}
-                        <Text style={styles.streakDayLabel}>{STREAK_DAYS[idx]}</Text>
-                    </View>
-                ))}
-            </View>
-        </View>
-    );
+function StreakCalendarCard({ streakDays }: { streakDays: number }) {
+    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><Text style={styles.streakNumber}>🔥 {streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
 }
 
 function AccuracyChartCard() {
-    const maxVal = Math.max(...ACCURACY_DATA);
-
-    return (
-        <View style={styles.whiteCard}>
-            {/* Header row */}
-            <View style={styles.rowBetween}>
-                <View>
-                    <Text style={styles.sectionLabel}>ACCURACY</Text>
-                    <View style={styles.rowCenter}>
-                        <Text style={styles.accuracyNumber}>84%</Text>
-                        <Text style={styles.accuracyDelta}>+12% ↑</Text>
-                    </View>
-                </View>
-                <Text style={styles.sectionLabel}>last 8 weeks</Text>
-            </View>
-
-            {/* Bar chart */}
-            <View style={styles.chartContainer}>
-                {ACCURACY_DATA.map((val, idx) => {
-                    const heightPercent = val / maxVal;
-                    const isLast = idx === ACCURACY_DATA.length - 1;
-                    return (
-                        <View key={idx} style={styles.barWrapper}>
-                            {isLast ? (
-                                <LinearGradient
-                                    colors={['#3DCAE8', '#2155FF']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 0, y: 1 }}
-                                    style={[
-                                        styles.bar,
-                                        { height: 100 * heightPercent },
-                                    ]}
-                                />
-                            ) : (
-                                <LinearGradient
-                                    colors={['rgba(33,85,255,0.4)', 'rgba(33,85,255,0.15)']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 0, y: 1 }}
-                                    style={[
-                                        styles.bar,
-                                        { height: 100 * heightPercent },
-                                    ]}
-                                />
-                            )}
-                        </View>
-                    );
-                })}
-            </View>
-
-            {/* Footer */}
-            <View style={styles.rowBetween}>
-                <Text style={styles.chartFooterLabel}>WK 1</Text>
-                <Text style={styles.chartFooterLabel}>WK 8</Text>
-            </View>
-        </View>
-    );
+    return <View style={styles.whiteCard} accessibilityLabel="Sem tentativas avaliadas"><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>Sem tentativas avaliadas ainda.</Text></View>;
 }
 
-function StatsGrid({ totalXp }: { totalXp: number }) {
+function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number }) {
     return (
         <View style={styles.statsGridNew}>
             {/* TOTAL XP */}
             <View style={styles.statsGridCard}>
                 <Text style={styles.statsGridLabel}>TOTAL XP</Text>
                 <Text style={styles.statsGridValue}>⚡ {totalXp}</Text>
-                <Text style={styles.statsGridSub}>Lv 7 · Resident</Text>
+                <Text style={styles.statsGridSub}>XP acumulado</Text>
             </View>
 
-            {/* SESSIONS */}
+            {/* Revisões pendentes */}
             <View style={styles.statsGridCard}>
-                <Text style={styles.statsGridLabel}>SESSIONS</Text>
-                <Text style={styles.statsGridValue}>47</Text>
-                <Text style={styles.statsGridSub}>este mês</Text>
+                <Text style={styles.statsGridLabel}>REVISÕES</Text>
+                <Text style={styles.statsGridValue}>{dueCount}</Text>
+                <Text style={styles.statsGridSub}>pendentes agora</Text>
             </View>
         </View>
     );
@@ -275,22 +147,10 @@ function TopicsMasteredList() {
         <View>
             {/* Section header */}
             <View style={[styles.rowBetween, { marginBottom: 10 }]}>
-                <Text style={styles.sectionLabel}>TOPICS MASTERED</Text>
-                <Text style={styles.topicsSeeAll}>23 →</Text>
+                <Text style={styles.sectionLabel}>TÓPICOS</Text>
             </View>
 
-            {TOPICS.map((topic, idx) => (
-                <View key={idx} style={[styles.topicCard, idx < TOPICS.length - 1 && { marginBottom: 10 }]}>
-                    <View style={{ flex: 1, marginRight: 12 }}>
-                        <Text style={styles.topicName}>{topic.name}</Text>
-                        {/* Progress bar */}
-                        <View style={styles.progressTrack}>
-                            <View style={{ flex: topic.mastery, height: 6, borderRadius: 3, backgroundColor: topic.color }} />
-                        </View>
-                    </View>
-                    <Text style={styles.topicPercent}>{Math.round(topic.mastery * 100)}%</Text>
-                </View>
-            ))}
+            <Text style={styles.streakSub}>Ainda não há evidência suficiente para indicar domínio por tópico.</Text>
         </View>
     );
 }
@@ -349,7 +209,6 @@ export default function ProgressScreen() {
         }, [load])
     );
 
-    const lessons = LessonCatalogService.listLessons();
     const tracks = LessonCatalogService.listTracks();
     const remoteSyncAvailable = AppConfig.ENABLE_REMOTE_SYNC && isApiConfigured();
     const isAuthenticated = Boolean(authSession?.user?.id);
@@ -602,17 +461,17 @@ export default function ProgressScreen() {
                 showsVerticalScrollIndicator={false}
             >
                 {/* ── Header ── */}
-                <Text style={styles.screenEyebrow}>YOUR STATS</Text>
-                <Text style={styles.screenTitle}>Progress</Text>
+                <Text style={styles.screenEyebrow}>SEU PROGRESSO</Text>
+                <Text style={styles.screenTitle}>Progresso</Text>
 
                 {/* ── Streak Calendar ── */}
-                <StreakCalendarCard />
+                <StreakCalendarCard streakDays={snapshot?.streakDays ?? 0} />
 
                 {/* ── Accuracy Chart ── */}
                 <AccuracyChartCard />
 
                 {/* ── 2×2 Stats Grid ── */}
-                <StatsGrid totalXp={snapshot?.totalXp ?? 0} />
+                <StatsGrid totalXp={snapshot?.totalXp ?? 0} dueCount={dueCount} />
 
                 {/* ── Topics Mastered ── */}
                 <View style={styles.whiteCard}>
