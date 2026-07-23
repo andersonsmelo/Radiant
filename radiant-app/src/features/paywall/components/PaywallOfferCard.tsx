@@ -27,7 +27,7 @@ export function PaywallOfferCard({ offer, onPrimary, onDismiss, submitting = fal
         {offer.description} Esta oferta só aparece depois de valor percebido e sem bloquear seu fluxo principal.
       </Text>
 
-      <AppButton onPress={onPrimary} disabled={submitting} style={styles.button}>
+      <AppButton onPress={onPrimary} loading={submitting} style={styles.button}>
         {submitting ? 'Registrando interesse...' : 'Quero saber quando abrir'}
       </AppButton>
 

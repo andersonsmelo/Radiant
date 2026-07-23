@@ -42,6 +42,9 @@ export default function OnboardGoalScreen() {
                 <Pressable
                   key={s.id}
                   onPress={() => setPicked(s.id)}
+                  accessibilityRole="radio"
+                  accessibilityLabel={`${s.label}, ${s.sub}`}
+                  accessibilityState={{ selected: on }}
                   style={[styles.specialtyItem, on && styles.specialtyItemActive]}
                 >
                   <View style={[styles.specialtyEmoji, on && styles.specialtyEmojiActive]}>
@@ -65,6 +68,9 @@ export default function OnboardGoalScreen() {
                 <Pressable
                   key={g.id}
                   onPress={() => setGoal(g.id)}
+                  accessibilityRole="radio"
+                  accessibilityLabel={`${g.label} por dia, ritmo ${g.sub}`}
+                  accessibilityState={{ selected: on }}
                   style={[styles.goalOption, on && styles.goalOptionActive]}
                 >
                   <Text style={[styles.goalTime, on && styles.goalTimeActive]}>{g.label}</Text>

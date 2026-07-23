@@ -43,7 +43,13 @@ export default function OnboardWelcomeScreen() {
               <View key={i} style={[styles.dot, i === 0 && styles.dotActive]} />
             ))}
           </View>
-          <Pressable onPress={() => router.replace('/(tabs)')}>
+          <Pressable
+            onPress={() => router.replace('/(tabs)')}
+            accessibilityRole="button"
+            accessibilityLabel="Entrar"
+            accessibilityHint="Abre o aplicativo sem concluir a introdução."
+            style={styles.signinAction}
+          >
             <Text style={styles.signinText}>
               Already have an account? <Text style={styles.signinLink}>Sign in</Text>
             </Text>
@@ -146,5 +152,9 @@ const styles = StyleSheet.create({
   signinLink: {
     color: '#3DCAE8',
     fontWeight: '700',
+  },
+  signinAction: {
+    minHeight: 44,
+    justifyContent: 'center',
   },
 });

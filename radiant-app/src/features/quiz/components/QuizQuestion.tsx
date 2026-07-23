@@ -58,6 +58,8 @@ export function QuizQuestion({
                 disabled={isAnswered}
                 accessibilityRole="button"
                 accessibilityLabel={option.label}
+                accessibilityHint={isAnswered ? 'Resposta bloqueada após o envio.' : 'Seleciona esta resposta.'}
+                accessibilityState={{ selected: isSelectedOption, disabled: isAnswered }}
                 style={({ pressed }) => [
                   styles.optionButton,
                   isSelectedOption && !isAnswered && styles.optionButtonSelected,

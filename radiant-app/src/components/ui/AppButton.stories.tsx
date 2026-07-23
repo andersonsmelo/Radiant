@@ -26,6 +26,10 @@ export const Disabled: Story = {
   args: { disabled: true, label: 'Indisponível agora' },
 };
 
+export const Loading: Story = {
+  args: { loading: true, label: 'Salvando progresso' },
+};
+
 export const LongLabel: Story = {
   args: { label: 'Continuar a revisão de casos de tórax com prioridade clínica' },
 };

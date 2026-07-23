@@ -4,8 +4,9 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Animated, Easing } from 'react-native';
+import { useCallback, useRef } from 'react';
+import { Animated, Easing } from 'react-native';
+import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
 
 // ============================================================================
 // DURATION TOKENS (milliseconds)
@@ -42,35 +43,6 @@ export const motionPreset = {
 
 export function resolveMotionValue<T>(animatedValue: T, reducedMotionValue: T, reducedMotionEnabled: boolean): T {
     return reducedMotionEnabled ? reducedMotionValue : animatedValue;
-}
-
-function useReducedMotionPreference() {
-    const [reducedMotionEnabled, setReducedMotionEnabled] = useState(false);
-
-    useEffect(() => {
-        let mounted = true;
-
-        AccessibilityInfo.isReduceMotionEnabled()
-            .then((enabled) => {
-                if (mounted) {
-                    setReducedMotionEnabled(enabled);
-                }
-            })
-            .catch(() => {
-                if (mounted) {
-                    setReducedMotionEnabled(false);
-                }
-            });
-
-        const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReducedMotionEnabled);
-
-        return () => {
-            mounted = false;
-            subscription.remove();
-        };
-    }, []);
-
-    return reducedMotionEnabled;
 }
 
 // ============================================================================

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, Pressable, ViewStyle, TextStyle, StyleProp } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, Pressable, ViewStyle, TextStyle, StyleProp } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,19 +8,21 @@ import Animated, {
 import { semanticColors } from '../../ui/semantic-colors';
 import { fontFamily } from '../../ui/styles';
 import { duration, easing } from '../../ui/motion';
+import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
 
 const light = semanticColors.light;
 const galaxy = semanticColors.galaxy;
 
-interface AppButtonProps {
+export interface AppButtonProps {
   label?: string;
   /** @deprecated Use label instead */
   children?: React.ReactNode;
   onPress?: () => void;
   variant?: Variant;
   disabled?: boolean;
+  loading?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   icon?: React.ReactNode;
@@ -35,12 +37,18 @@ export function AppButton({
   onPress,
   variant = 'primary',
   disabled = false,
+  loading = false,
   style,
   textStyle,
   icon,
   fullWidth = true,
+  accessibilityLabel,
+  accessibilityHint,
 }: AppButtonProps) {
   const resolvedLabel = label ?? (typeof children === 'string' ? children : '');
+  const isDisabled = disabled || loading;
+  const reducedMotionEnabled = useReducedMotionPreference();
+  const [focused, setFocused] = useState(false);
   const scale = useSharedValue(1);
 
   const animStyle = useAnimatedStyle(() => ({
@@ -48,9 +56,18 @@ export function AppButton({
   }));
 
   const onPressIn = () => {
+    if (reducedMotionEnabled) {
+      return;
+    }
+
     scale.value = withTiming(0.97, { duration: duration.micro, easing: easing.out });
   };
   const onPressOut = () => {
+    if (reducedMotionEnabled) {
+      scale.value = 1;
+      return;
+    }
+
     scale.value = withTiming(1.0, { duration: duration.micro, easing: easing.out });
   };
 
@@ -60,16 +77,24 @@ export function AppButton({
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
-        disabled={disabled}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        disabled={isDisabled}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel ?? resolvedLabel}
+        accessibilityHint={accessibilityHint}
+        accessibilityState={{ disabled: isDisabled, busy: loading }}
         style={[
           styles.base,
           variant === 'primary' && styles.primary,
           variant === 'galaxy' && styles.galaxy,
           variant === 'secondary' && styles.secondary,
           variant === 'ghost' && styles.ghost,
-          disabled && styles.disabled,
+          isDisabled && styles.disabled,
+          focused && (variant === 'galaxy' || variant === 'secondary' ? styles.focusGalaxy : styles.focusLight),
         ]}
       >
+        {loading ? <ActivityIndicator size="small" color={variant === 'secondary' ? galaxy.textPrimary : light.textOnAccent} /> : null}
         {icon != null && icon}
         <Text
           style={[
@@ -122,6 +147,14 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.45,
+  },
+  focusLight: {
+    borderWidth: 3,
+    borderColor: light.borderFocus,
+  },
+  focusGalaxy: {
+    borderWidth: 3,
+    borderColor: galaxy.borderFocus,
   },
   label: {
     fontFamily: fontFamily.soraExtraBold,

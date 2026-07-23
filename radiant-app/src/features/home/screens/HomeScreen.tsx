@@ -260,7 +260,13 @@ export default function HomeScreen() {
                                 <Text style={styles.journeyBody}>{dashboard ? `${dashboard.dailyGoal.completed} de ${dashboard.dailyGoal.target} atividades hoje` : 'Sem dados de progresso'}</Text>
                             </View>
 
-                            <Pressable style={styles.arrowButton} onPress={handleContinueLearning}>
+                            <Pressable
+                                style={styles.arrowButton}
+                                onPress={handleContinueLearning}
+                                accessibilityRole="button"
+                                accessibilityLabel="Continuar atividade"
+                                accessibilityHint="Abre a próxima atividade recomendada."
+                            >
                                 <ArrowRightIcon />
                             </Pressable>
                         </View>
@@ -671,8 +677,8 @@ const styles = StyleSheet.create({
         color: light.textSecondary,
     },
     arrowButton: {
-        width: 36,
-        height: 36,
+        width: 44,
+        height: 44,
         borderRadius: 12,
         backgroundColor: light.actionPrimary,
         alignItems: 'center',
