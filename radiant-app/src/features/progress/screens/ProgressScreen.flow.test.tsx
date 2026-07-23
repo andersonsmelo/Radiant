@@ -215,7 +215,7 @@ describe('ProgressScreen flow', () => {
     renderWithProviders(<ProgressScreen />);
 
     expect(await screen.findByText('🔥 3 dias')).toBeTruthy();
-    expect(screen.getByLabelText('Sem tentativas avaliadas')).toBeTruthy();
+    expect(screen.getByLabelText('Sem tentativas avaliadas ainda.')).toBeTruthy();
     expect(screen.getByText('Ainda não há evidência suficiente para indicar domínio por tópico.')).toBeTruthy();
     expect(screen.queryByText('84%')).toBeNull();
     expect(screen.queryByText('Lv 7 · Resident')).toBeNull();
