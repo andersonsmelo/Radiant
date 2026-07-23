@@ -25,6 +25,8 @@ export const colors = {
   warningSoft: '#FFF6DF',
   danger: '#D8506F',
   dangerSoft: '#FFF0F4',
+  critical: '#B51D44',
+  disabled: '#D6E0EE',
   shadow: 'rgba(45, 97, 188, 0.16)',
   shadowStrong: 'rgba(38, 87, 172, 0.26)',
   rail: '#D9E7FB',
@@ -106,6 +108,9 @@ export const galaxyColors = {
   nodeLocked: 'rgba(255, 255, 255, 0.04)',
   ctaGradientStart: '#1535E8',
   ctaGradientEnd: '#3060FF',
+  ctaPressed: '#1027B5',
+  critical: '#FF8298',
+  disabled: 'rgba(255, 255, 255, 0.20)',
 
   // Galaxy mode extended
   galaxyBg2: '#07091c',

@@ -18,7 +18,31 @@ O Radiant tem **dois contextos visuais** que coexistem:
 
 ## Paleta de Cores
 
-Fonte canônica: `src/ui/theme.ts` (`colors`, `galaxyColors`, `gradients`).
+Primitivos canônicos: `src/ui/theme.ts` (`colors`, `galaxyColors`, `gradients`).
+Componentes novos ou migrados devem consumir os contratos em `src/ui/semantic-colors.ts`, sem escolher valores brutos.
+
+### Contratos semânticos
+
+`semanticColors.light` e `semanticColors.galaxy` preservam os dois contextos visuais do Radiant. Cada um cobre as mesmas funções: `surface`, `surfaceElevated`, `surfaceInverted`; `textPrimary`, `textSecondary`, `textTertiary`, `textOnAccent`, `textCritical`; `border`, `borderFocus`, `borderDisabled`; `actionPrimary`, `actionPrimaryPressed`; `statusSuccess`, `statusWarning`, `statusError`, `statusInformation` e `reward`.
+
+Use o contexto da tela, não uma conversão automática light/dark:
+
+```typescript
+import { semanticColors } from '@/src/ui/semantic-colors';
+
+const light = semanticColors.light;
+const galaxy = semanticColors.galaxy;
+
+// Light: cards e CTAs da Home
+backgroundColor: light.surfaceElevated;
+color: light.textPrimary;
+
+// Galaxy: recompensa, HUD e mapas no espaço
+backgroundColor: galaxy.surface;
+color: galaxy.textPrimary;
+```
+
+Os pares críticos de texto são testados em AA: texto principal e crítico sobre a superfície, e texto sobre CTA em ambos os contextos.
 
 ### Light — Backgrounds
 | Token | Valor | Uso |

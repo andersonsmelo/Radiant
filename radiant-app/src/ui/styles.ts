@@ -7,6 +7,7 @@
 
 import { StyleSheet } from 'react-native';
 import { colors, gradients, shadows } from './theme';
+import { semanticColors } from './semantic-colors';
 
 // ============================================================================
 // SPACING CONSTANTS
@@ -121,7 +122,7 @@ export const layout = StyleSheet.create({
     },
 });
 
-export { colors, gradients, shadows };
+export { colors, gradients, semanticColors, shadows };
 
 // ============================================================================
 // FONT FAMILY TOKENS
