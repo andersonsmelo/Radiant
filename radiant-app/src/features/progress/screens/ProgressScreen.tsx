@@ -22,6 +22,7 @@ import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+import { productCopy } from '../../../ui/copy/pt-BR';
 
 // ── Paleta (light mode) ──────────────────────────────────────────
 
@@ -119,7 +120,7 @@ function StreakCalendarCard({ streakDays }: { streakDays: number }) {
 }
 
 function AccuracyChartCard() {
-    return <View style={styles.whiteCard} accessibilityLabel="Sem tentativas avaliadas"><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>Sem tentativas avaliadas ainda.</Text></View>;
+    return <View style={styles.whiteCard} accessibilityLabel={productCopy.noEvaluatedAttempts}><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>{productCopy.noEvaluatedAttempts}</Text></View>;
 }
 
 function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number }) {
@@ -150,7 +151,7 @@ function TopicsMasteredList() {
                 <Text style={styles.sectionLabel}>TÓPICOS</Text>
             </View>
 
-            <Text style={styles.streakSub}>Ainda não há evidência suficiente para indicar domínio por tópico.</Text>
+            <Text style={styles.streakSub}>{productCopy.noLearningEvidence}</Text>
         </View>
     );
 }
