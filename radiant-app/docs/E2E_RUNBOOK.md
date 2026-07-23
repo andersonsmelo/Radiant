@@ -11,9 +11,10 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
 
 ## Current execution state
 
-On 2026-07-23 the workspace had no `maestro` binary and no available iOS or
-Android virtual device. The flows and their static contract test are committed,
-but no device PASS is claimed until this runbook is executed on each platform.
+On 2026-07-23 the local environment was prepared with Maestro 2.7.0, an iOS
+26.5 simulator and an Android API 36 emulator. The flows and their static
+contract test are committed, but no device PASS is claimed: an `e2e-test` build
+has not yet been installed and no YAML has run on either platform.
 
 The dated environment inventory and per-platform execution matrix live in
 [`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md).
