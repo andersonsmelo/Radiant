@@ -1,0 +1,26 @@
+appId: com.ascendcreative.radiant
+name: Local progress persists after an offline relaunch
+tags:
+  - offline
+  - local-first
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- assertVisible: Fundamentos de Radiologia
+- tapOn: Continuar
+- tapOn: Continuar
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+- setAirplaneMode: true
+- killApp
+- launchApp
+- assertVisible: Foco de hoje
+- assertVisible: Abrir checkpoint
+- setAirplaneMode: false

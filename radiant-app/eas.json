@@ -21,6 +21,17 @@
         "simulator": true
       }
     },
+    "e2e-test": {
+      "extends": "development",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "development",
+        "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "false",
+        "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "false",
+        "EXPO_PUBLIC_ENABLE_BETA_GATE": "false",
+        "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
+        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false"
+      }
+    },
     "preview": {
       "distribution": "internal",
       "channel": "preview",

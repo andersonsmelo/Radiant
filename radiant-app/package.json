@@ -21,9 +21,10 @@
     "test:flows": "jest --runInBand src/features/progress/screens/ProgressScreen.flow.test.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/review/screens/ReviewScreen.flow.test.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
     "test:qa": "node --test scripts/visual-qa.test.mjs",
     "test:storybook-config": "node --test scripts/storybook-config.test.mjs",
+    "test:maestro-contract": "node --test scripts/maestro-contract.test.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
-    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run visual:qa:strict",
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run visual:qa:strict",
     "storybook": "STORYBOOK_ENABLED=true expo start",
     "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
     "storybook:android": "STORYBOOK_ENABLED=true expo start --android"

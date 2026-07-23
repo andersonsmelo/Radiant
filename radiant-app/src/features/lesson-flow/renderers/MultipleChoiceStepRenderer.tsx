@@ -29,6 +29,11 @@ export function MultipleChoiceStepRenderer({
                             key={option.id}
                             onPress={() => onSelect(option.id)}
                             disabled={locked}
+                            testID={`lesson-option-${option.id}`}
+                            accessibilityRole="button"
+                            accessibilityLabel={option.label}
+                            accessibilityHint={locked ? 'Resposta bloqueada após a seleção.' : 'Seleciona esta resposta.'}
+                            accessibilityState={{ selected, disabled: locked }}
                             style={[
                                 styles.option,
                                 selected && styles.optionSelected,

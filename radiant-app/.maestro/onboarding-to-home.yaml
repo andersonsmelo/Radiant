@@ -1,0 +1,26 @@
+appId: com.ascendcreative.radiant
+name: Onboarding to local-first home
+tags:
+  - smoke
+  - onboarding
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- openLink:
+    link: radiantapp://onboarding
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: Open
+- assertVisible: WELCOME TO RADIANT
+- tapOn: Get started →
+- assertVisible: WHY RADIANT
+- tapOn: Continue →
+- assertVisible: STEP 3 OF 4
+- tapOn: Chest & thorax, 120 cases
+- tapOn: 10 min por dia, ritmo Steady
+- tapOn: Build my plan →
+- assertVisible: Foco de hoje
