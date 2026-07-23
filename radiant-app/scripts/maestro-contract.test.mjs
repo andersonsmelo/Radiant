@@ -65,3 +65,26 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
   assert.match(source, /accessibilityRole="button"/);
   assert.match(source, /accessibilityState=\{\{ selected, disabled: locked \}\}/);
 });
+
+test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
+  const [runbook, evidenceIndex, baseline] = await Promise.all([
+    readAppFile('docs/E2E_RUNBOOK.md'),
+    readAppFile('docs/evidence/README.md'),
+    readAppFile('docs/evidence/2026-07-23-device-e2e-baseline.md'),
+  ]);
+
+  assert.match(runbook, /docs\/evidence\/2026-07-23-device-e2e-baseline\.md/);
+  assert.match(evidenceIndex, /environment-blocked/);
+  assert.match(evidenceIndex, /app-failed/);
+  assert.match(evidenceIndex, /passed/);
+
+  for (const platform of ['iOS', 'Android']) {
+    assert.match(baseline, new RegExp(`\\| ${platform} \\|`));
+  }
+
+  assert.match(baseline, /environment-blocked/);
+  assert.match(baseline, /app-failed/);
+  assert.match(baseline, /passed/);
+  assert.match(baseline, /pr[ée]-condi[çc][ãa]o/i);
+  assert.doesNotMatch(baseline, /E2E (?:aprovad[oa]|PASS)/i);
+});

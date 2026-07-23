@@ -15,6 +15,12 @@ On 2026-07-23 the workspace had no `maestro` binary and no available iOS or
 Android virtual device. The flows and their static contract test are committed,
 but no device PASS is claimed until this runbook is executed on each platform.
 
+The dated environment inventory and per-platform execution matrix live in
+[`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md).
+Its states are defined in [`docs/evidence/README.md`](evidence/README.md):
+`environment-blocked`, `app-failed`, and `passed`. A static contract, local
+build, or YAML inspection never promotes a platform to `passed`.
+
 ## Prerequisites
 
 1. Install the Maestro CLI following its official installation guide.
@@ -63,10 +69,11 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 ## Sign-off matrix
 
-| Platform | Device/runtime | Build | Onboarding | Critical path | Offline relaunch | Owner/date |
-|---|---|---|---:|---:|---:|---|
-| iOS | pending | `e2e-test` | pending | pending | pending | |
-| Android | pending | `e2e-test` | pending | pending | pending | |
+| Platform | Device/runtime | Build | Onboarding | Critical path | Offline relaunch | Status | Owner/date |
+|---|---|---|---:|---:|---:|---|---|
+| iOS | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-23 |
+| Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-23 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
-both local rows are recorded as passing and its cost/privacy review is approved.
+both local rows are recorded as `passed` in dated evidence and its cost/privacy
+review is approved.
