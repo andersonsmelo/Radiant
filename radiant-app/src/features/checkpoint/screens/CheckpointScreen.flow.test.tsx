@@ -155,6 +155,6 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith('checkpoint-1');
     });
 
-    expect(await screen.findByText('Checkpoint concluído')).toBeTruthy();
+    expect(await screen.findByText('Etapa validada.')).toBeTruthy();
   });
 });

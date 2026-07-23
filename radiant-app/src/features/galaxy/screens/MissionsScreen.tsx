@@ -160,7 +160,7 @@ export default function MissionsScreen() {
           <View style={styles.headerRow}>
             <View>
               <Text style={styles.headerLabel}>MISSIONS</Text>
-              <Text style={styles.headerTitle}>Today's challenges</Text>
+              <Text style={styles.headerTitle}>Desafios de hoje</Text>
             </View>
             {/* Clock badge */}
             <View style={styles.clockBadge}>

@@ -35,6 +35,7 @@ jest.mock('../../lib/api', () => ({
 jest.mock('../telemetry/TelemetryService', () => ({
   TelemetryService: {
     track: jest.fn().mockResolvedValue(undefined),
+    setUserContext: jest.fn().mockResolvedValue(undefined),
   },
 }));
 
@@ -47,6 +48,9 @@ jest.mock('./LocalAccountMigrationService', () => ({
 const mockedStorage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 const mockedApiRequest = apiRequest as jest.MockedFunction<typeof apiRequest>;
 const mockedTelemetryTrack = TelemetryService.track as jest.MockedFunction<typeof TelemetryService.track>;
+const mockedTelemetrySetUserContext = TelemetryService.setUserContext as jest.MockedFunction<
+  typeof TelemetryService.setUserContext
+>;
 const mockedLocalAccountMigrationService =
   LocalAccountMigrationService as jest.Mocked<typeof LocalAccountMigrationService>;
 
@@ -95,6 +99,10 @@ describe('AuthService', () => {
       mode: 'login',
     });
     expect(mockedTelemetryTrack).toHaveBeenCalledWith('auth_login_success', { provider: 'email' });
+    expect(mockedTelemetrySetUserContext).toHaveBeenCalledWith({
+      id: 'user-1',
+      email: 'user@example.com',
+    });
   });
 
   it('registers, persists the session, and triggers local-state migration', async () => {
@@ -118,6 +126,10 @@ describe('AuthService', () => {
     ).toHaveBeenCalledWith(session);
     expect(mockedTelemetryTrack).toHaveBeenCalledWith('auth_register_success', {
       provider: 'email',
+    });
+    expect(mockedTelemetrySetUserContext).toHaveBeenCalledWith({
+      id: 'user-2',
+      email: 'new@example.com',
     });
   });
 

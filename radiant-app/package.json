@@ -18,10 +18,11 @@
     "lint": "eslint src components constants hooks scripts eslint.config.js",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "test:flows": "jest --runInBand src/features/progress/screens/ProgressScreen.flow.test.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/review/screens/ReviewScreen.flow.test.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
+    "test:flows": "jest --runInBand src/features/progress/screens/ProgressScreen.flow.test.tsx src/features/quiz/screens/QuizScreen.flow.test.tsx src/features/review/screens/ReviewScreen.flow.test.tsx src/features/rewards/screens/RewardScreen.flow.test.tsx src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
+    "test:qa": "node --test scripts/visual-qa.test.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
-    "quality": "npm run lint && npm run typecheck && npm run visual:qa"
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run visual:qa:strict"
   },
   "dependencies": {
     "@expo-google-fonts/sora": "^0.4.2",

@@ -232,8 +232,8 @@ export default function HomeScreen() {
                     >
                         <View style={styles.heroContent}>
                             <View style={{ flex: 1, gap: 10 }}>
-                                <Text style={styles.heroMicro}>TODAY'S MISSION</Text>
-                                {/* TODO: Wire to real lesson-of-the-day from LessonService */}
+                                <Text style={styles.heroMicro}>MISSÃO DE HOJE</Text>
+                                {/* TODO: Conectar à lição do dia resolvida pelo catálogo. */}
                                 <Text style={styles.heroTitle}>
                                     Pulmonary nodules{'\n'}on chest CT
                                 </Text>

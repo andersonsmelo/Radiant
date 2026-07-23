@@ -20,7 +20,7 @@ export default function OnboardWelcomeScreen() {
 
         {/* Speech bubble */}
         <BlurView intensity={14} tint="dark" style={styles.speechBubble}>
-          <Text style={styles.speechText}>Hi, I'm Pixel — your study companion</Text>
+          <Text style={styles.speechText}>Olá, eu sou o Pixel - seu companheiro de estudos</Text>
         </BlurView>
 
         {/* Title block */}
