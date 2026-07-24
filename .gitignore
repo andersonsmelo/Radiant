@@ -28,3 +28,12 @@ web-build/
 # Apple / Xcode
 DerivedData/
 *.xcuserstate
+
+# loop:runtime:start
+.loop/runs/
+.loop/cache/
+.loop/brain-sessions/
+.loop/bootstrap/
+.loop/local.json
+.loop/write.lock
+# loop:runtime:end
