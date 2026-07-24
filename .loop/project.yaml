@@ -1,0 +1,123 @@
+schemaVersion: 1
+projectId: radiant
+name: Radiant
+brainPath: /Users/anderson/Documents/obsidian/Cerebro/Developer/Radiant
+context:
+  includes:
+    - AGENTS.md
+    - README.md
+    - docs/README.md
+    - docs/PRD.md
+    - docs/ARCHITECTURE_STATE.md
+    - docs/CONTENT_PIPELINE.md
+    - docs/EXECUTION_STATUS_2026-07-23.md
+    - docs/plans/2026-07-23-radiant-continuation-roadmap.md
+    - radiant-app/README.md
+    - radiant-app/package.json
+    - radiant-app/app.json
+    - radiant-app/eas.json
+    - radiant-app/docs/BETA_SCOPE.md
+    - radiant-app/docs/BETA_EXIT_CRITERIA.md
+    - radiant-app/docs/ACCESSIBILITY_QA_V1.md
+    - radiant-app/docs/E2E_RUNBOOK.md
+    - radiant-api/README.md
+    - radiant-api/package.json
+  excludes:
+    - .git
+    - .loop/runs
+    - .loop/cache
+    - .loop/brain-sessions
+    - .loop/bootstrap
+    - node_modules
+    - dist
+    - coverage
+    - .expo
+    - radiant-app/.maestro/artifacts
+    - radiant-app/ios/Pods
+writePolicy:
+  allowedRoots:
+    - src
+    - scripts
+    - docs
+    - .github/workflows
+    - README.md
+    - AGENTS.md
+    - .gitignore
+    - .nvmrc
+    - radiant-app/src
+    - radiant-app/scripts
+    - radiant-app/docs
+    - radiant-app/.maestro
+    - radiant-app/.rnstorybook
+    - radiant-app/README.md
+    - radiant-app/package.json
+    - radiant-app/package-lock.json
+    - radiant-app/app.json
+    - radiant-app/eas.json
+    - radiant-app/tsconfig.json
+    - radiant-app/jest.config.cjs
+    - radiant-app/metro.config.js
+    - radiant-api/src
+    - radiant-api/scripts
+    - radiant-api/deploy
+    - radiant-api/sql
+    - radiant-api/README.md
+    - radiant-api/package.json
+    - radiant-api/package-lock.json
+    - radiant-api/tsconfig.json
+    - radiant-api/eslint.config.cjs
+    - tools/editorial-panel/app
+    - tools/editorial-panel/lib
+    - tools/editorial-panel/package.json
+    - tools/editorial-panel/package-lock.json
+    - conteúdo/classificação
+    - conteúdo/conceitos
+    - conteúdo/formatos
+    - conteúdo/governança
+    - conteúdo/taxonomia
+    - .loop/project.yaml
+validators:
+  - id: docs-contract
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      scripts/qa/docs-contract.mjs
+    timeoutMs: 120000
+  - id: content-foundation
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      scripts/content/validate-foundation.mjs
+    timeoutMs: 120000
+  - id: content-wave1
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/wave-1-priority-tracks.test.mjs
+    timeoutMs: 120000
+  - id: app-quality
+    command: cd radiant-app &&
+      PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality
+    timeoutMs: 180000
+  - id: app-test
+    command: cd radiant-app &&
+      PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test --
+      --runInBand --no-cache
+    timeoutMs: 180000
+  - id: api-lint
+    command: cd radiant-api &&
+      PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      DOTENV_CONFIG_PATH=/dev/null npm run lint
+    timeoutMs: 120000
+  - id: api-typecheck
+    command: cd radiant-api &&
+      PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      DOTENV_CONFIG_PATH=/dev/null npm run typecheck
+    timeoutMs: 120000
+  - id: api-test
+    command: cd radiant-api &&
+      PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      DOTENV_CONFIG_PATH=/dev/null NODE_ENV=test CI=1 npm test
+    timeoutMs: 120000
+  - id: brain-links
+    command: PATH=/Users/anderson/.local/bin:/usr/bin:/bin loop brain validate-links
+    timeoutMs: 120000
+limits:
+  maxValidationCycles: 5
+  maxNoProgressCycles: 3
