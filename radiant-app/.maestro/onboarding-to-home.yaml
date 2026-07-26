@@ -8,6 +8,21 @@ tags:
     clearState: true
     permissions:
       all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
 - openLink:
     link: radiantapp://onboarding
 - runFlow:
@@ -15,6 +30,11 @@ tags:
       visible: 'Open'
     commands:
       - tapOn: Open
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
 - assertVisible: WELCOME TO RADIANT
 - tapOn: Get started →
 - assertVisible: WHY RADIANT

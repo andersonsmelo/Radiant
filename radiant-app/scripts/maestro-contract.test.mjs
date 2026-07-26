@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -39,14 +39,72 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
 
   assert.match(flows[0], /radiantapp:\/\/onboarding/);
   assert.match(flows[1], /lesson-option-q1:option:1/);
-  assert.match(flows[1], /Receber conquista/);
-  assert.match(flows[2], /setAirplaneMode: true/);
-  assert.match(flows[2], /setAirplaneMode: false/);
+  // The critical path ends at Progresso. The reward node is unlocked only after
+  // the LAST lesson of the catalog-generated track (7 lessons), so it is not
+  // reachable in a smoke run — asserting it here would encode an unrunnable flow.
+  assert.match(flows[1], /- tapOn: 'Progresso, tab\.\*'/);
+  assert.match(flows[1], /- assertVisible: PROGRESSO/);
+  assert.doesNotMatch(flows[1], /Receber conquista/);
+  // setAirplaneMode takes enabled/disabled; the boolean form fails to parse.
+  assert.match(flows[2], /setAirplaneMode: enabled/);
+  assert.match(flows[2], /setAirplaneMode: disabled/);
+  assert.doesNotMatch(flows[2], /setAirplaneMode: (?:true|false)/);
+});
+
+test('keeps every below-the-fold action reachable before it is tapped', async () => {
+  // Primary actions are AppButtons, which set accessibilityRole plus
+  // accessibilityLabel on the Pressable. iOS collapses the subtree, so the node
+  // exposes accessibilityText and no text attribute: scrollUntilVisible's
+  // `element.text` never resolves against them, while visible/tapOn do match.
+  // Guarded repeat-scroll is the pattern that works; keep it in place.
+  const flow = await readAppFile('.maestro/learning-critical-path.yaml');
+
+  for (const label of ['Abrir checkpoint', 'Concluir checkpoint', 'Continue']) {
+    assert.match(
+      flow,
+      new RegExp(`while:\\n\\s+notVisible: ${label}\\n\\s+commands:\\n\\s+- scroll`),
+      `expected a guarded scroll before tapping "${label}"`
+    );
+  }
+});
+
+test('keeps icon glyphs out of the accessibility tree', async () => {
+  // Icon fonts render private-use codepoints, so an exposed glyph is announced
+  // as an unreadable character. DecorativeIcon hides them; importing
+  // MaterialIcons directly in a screen puts them back on the tree.
+  const wrapper = await readAppFile('src/components/ui/DecorativeIcon.tsx');
+
+  assert.match(wrapper, /accessibilityElementsHidden/);
+  assert.match(wrapper, /importantForAccessibility="no-hide-descendants"/);
+  assert.match(wrapper, /accessible=\{false\}/);
+
+  const offenders = [];
+  for (const dir of ['src/features', 'src/app']) {
+    for (const entry of await readdir(path.join(appRoot, dir), { recursive: true })) {
+      if (!/\.tsx$/.test(entry) || /\.test\.tsx$/.test(entry)) continue;
+      const source = await readAppFile(path.join(dir, entry));
+      if (/@expo\/vector-icons\/MaterialIcons/.test(source)) offenders.push(`${dir}/${entry}`);
+    }
+  }
+
+  assert.deepEqual(offenders, [], 'these files import MaterialIcons directly instead of DecorativeIcon');
+});
+
+test('never lets a route fall back to the native header', async () => {
+  // An undeclared route inheriting the default header renders its raw path as
+  // the title and the previous route id as the back label — leaking
+  // "onboarding/index" and "(tabs)" onto the screen and into VoiceOver.
+  const layout = await readAppFile('src/app/_layout.tsx');
+
+  assert.match(layout, /<Stack screenOptions=\{\{ headerShown: false \}\}>/);
 });
 
 test('keeps the e2e build local-first and bypasses the beta gate', async () => {
   const eas = JSON.parse(await readAppFile('eas.json'));
-  const environment = eas.build['e2e-test']?.env;
+  const profile = eas.build['e2e-test'];
+  const environment = profile?.env;
+
+  assert.equal(profile?.developmentClient, false);
 
   assert.deepEqual(environment, {
     EXPO_PUBLIC_APP_ENV: 'development',
@@ -54,6 +112,7 @@ test('keeps the e2e build local-first and bypasses the beta gate', async () => {
     EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN: 'false',
     EXPO_PUBLIC_ENABLE_BETA_GATE: 'false',
     EXPO_PUBLIC_ENABLE_LEARNING_ROAD: 'true',
+    EXPO_PUBLIC_ENABLE_PUSH: 'false',
     EXPO_PUBLIC_ENABLE_REMOTE_SYNC: 'false',
   });
 });

@@ -1,5 +1,5 @@
 appId: com.ascendcreative.radiant
-name: Local-first learning path through reward and progress
+name: Local-first learning path through checkpoint and progress
 tags:
   - critical-path
   - local-first
@@ -8,38 +8,101 @@ tags:
     clearState: true
     permissions:
       all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
 - openLink:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
 - assertVisible: Fundamentos de Radiologia
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: lesson-option-q1:option:1
 - tapOn: Continuar
-- assertVisible: Fixe este ponto
+# Reinforce step after an answered question shows the answer feedback
+# ("Resposta correta"/"Vamos reforçar"), not the payload title. Assert the
+# always-present last-step footer action instead.
+- assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: Foco de hoje
+# The home CTA renders after the full journey map, far below the fold. It is an
+# AppButton, which sets accessibilityRole+accessibilityLabel on the Pressable,
+# so iOS collapses the inner Text and the node exposes only accessibilityText.
+# scrollUntilVisible's `element.text` matches the text attribute only and never
+# resolves here; `visible`/`tapOn` do match accessibilityText, so scroll with a
+# guarded repeat instead.
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
 - tapOn: Abrir checkpoint
 - assertVisible: Checkpoint
+# Same pattern on every screen below: the footer action sits past the fold, and
+# the guarded repeat is a no-op when the element is already visible.
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
 - tapOn: Concluir checkpoint
 - assertVisible: ACHIEVEMENT UNLOCKED
+- repeat:
+    times: 15
+    while:
+      notVisible: Continue
+    commands:
+      - scroll
 - tapOn: Continue
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
-- assertVisible: A principal vantagem da TC em relação à radiografia simples é:
+- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-ct-q3:option:2
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: lesson-option-ct-q3:option:2
 - tapOn: Continuar
-- assertVisible: Fixe este ponto
+- assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: Foco de hoje
-- tapOn: Receber conquista
-- assertVisible: Conquista inicial
-- tapOn: Receber conquista
-- assertVisible: Reward concluído
-- tapOn: Progresso
+# The reward node is deliberately NOT covered here. The active track is
+# generated from the catalog (7 lessons), not from defaultTrack.ts (2 lessons),
+# and JourneyDefinitionService unlocks the reward only after the LAST lesson —
+# so the achievement stays "Bloqueado" at this point and is unreachable in a
+# smoke run. This flow proves the local-first loop through progress instead:
+# lesson -> checkpoint -> achievement -> next lesson -> progress.
+# The tab exposes the full VoiceOver label ("Progresso, tab, 3 of 4") and
+# Maestro matches the whole string, so anchor with a regex.
+- tapOn: 'Progresso, tab.*'
 - assertVisible: PROGRESSO

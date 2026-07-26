@@ -8,19 +8,53 @@ tags:
     clearState: true
     permissions:
       all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
 - openLink:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
 - assertVisible: Fundamentos de Radiologia
 - tapOn: Continuar
 - tapOn: Continuar
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: lesson-option-q1:option:1
 - tapOn: Continuar
 - tapOn: Concluir e voltar
 - assertVisible: Foco de hoje
-- setAirplaneMode: true
+# setAirplaneMode takes enabled/disabled, not a boolean — `true` fails to parse.
+- setAirplaneMode: enabled
 - killApp
 - launchApp
 - assertVisible: Foco de hoje
+# The CTA sits past the fold, below the journey map, so scroll before asserting
+# that the restored progress advanced the next step to the checkpoint.
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
 - assertVisible: Abrir checkpoint
-- setAirplaneMode: false
+- setAirplaneMode: disabled
