@@ -12,12 +12,43 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
 ## Current execution state
 
 On 2026-07-23 the local environment was prepared with Maestro 2.7.0, an iOS
-26.5 simulator and an Android API 36 emulator. The flows and their static
-contract test are committed, but no device PASS is claimed: an `e2e-test` build
-has not yet been installed and no YAML has run on either platform.
+26.5 simulator and an Android API 36 emulator. A local Release build equivalent
+to `e2e-test` was installed on iOS: onboarding passed, while the critical path
+failed after the first quiz because `Fixe este ponto` was not visible. Offline
+relaunch and every Android flow remained unexecuted. No device PASS was claimed.
 
-The dated environment inventory and per-platform execution matrix live in
-[`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md).
+On 2026-07-26 the `Fixe este ponto` block was root-caused to two defects: a real
+layout defect (the lower answer options rendered below the scroll fold, under the
+fixed footer, so their taps hit the disabled button and selection never
+registered) and a wrong assertion (the reinforce step shows answer feedback,
+`Resposta correta`/`Vamos reforçar`, never the payload title on the answered
+path). Both were fixed — the visual panel was made less dominant so options stay
+reachable, and the flow now centers options before tapping and asserts
+`Concluir e voltar`.
+
+Reconciling the rest of the critical path on 2026-07-26 surfaced three further
+causes. First, another real layout defect: the tab bar is absolutely positioned
+(~86pt of floating chrome), so it does not inset scroll content, and the home
+reserved only 24pt — the primary CTA was permanently clipped under the bar for
+real users. A shared `tabBarClearance` constant now covers it. Second, a
+selector incompatibility: `AppButton` sets `accessibilityRole` plus
+`accessibilityLabel` on the Pressable, so iOS collapses the subtree and the node
+exposes `accessibilityText` with no `text` attribute — `scrollUntilVisible`
+matches `element.text` and never resolves against these, while `visible`/`tapOn`
+do match. Flows now use a `repeat` guarded by `while: notVisible` before each
+footer action. Third, the flow's tail targeted `defaultTrack.ts` (2 lessons),
+but the running track is generated from the catalog (7 lessons) and unlocks the
+reward only after the last lesson, so the achievement is unreachable in a smoke
+run; the flow now ends at Progresso and the reward node has no E2E coverage.
+
+With those fixes, all three flows pass on iOS in one suite run
+(`3/3 Flows Passed in 8m 44s`), so iOS is `passed`. Android is still
+`environment-blocked` — no local build was produced or installed.
+
+The dated environment inventory and first-run matrix live in
+[`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md);
+the 2026-07-26 root cause, fixes and updated matrix live in
+[`docs/evidence/2026-07-26-device-e2e-followup.md`](evidence/2026-07-26-device-e2e-followup.md).
 Its states are defined in [`docs/evidence/README.md`](evidence/README.md):
 `environment-blocked`, `app-failed`, and `passed`. A static contract, local
 build, or YAML inspection never promotes a platform to `passed`.
@@ -27,16 +58,19 @@ build, or YAML inspection never promotes a platform to `passed`.
 1. Install the Maestro CLI following its official installation guide.
 2. Start an iOS simulator or Android emulator, or attach an authorized test
    device. Confirm it is visible to the relevant platform tooling.
-3. Build/install the `e2e-test` development client. It disables the beta gate,
-   enables the learning road and keeps remote sync off:
+3. Build/install a local `e2e-test` build. The profile disables the Dev Client,
+   beta gate, push and remote sync, while enabling the learning road. Do not use
+   EAS cloud, submission or a release profile for this validation:
 
    ```sh
    eas build --profile e2e-test --platform ios
    eas build --profile e2e-test --platform android
    ```
 
-   For a local native build, use the same six `EXPO_PUBLIC_*` values from the
-   `e2e-test` profile before invoking the Expo platform command.
+   For a local native build, use the same seven `EXPO_PUBLIC_*` values from the
+   `e2e-test` profile before invoking the Expo platform command. A Release
+   simulator build is acceptable when it embeds the local test bundle and does
+   not start a development server.
 
 ## Validate before running
 
@@ -72,8 +106,8 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 | Platform | Device/runtime | Build | Onboarding | Critical path | Offline relaunch | Status | Owner/date |
 |---|---|---|---:|---:|---:|---|---|
-| iOS | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-23 |
-| Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-23 |
+| iOS | see dated evidence | local Release equivalent | passed | passed (reward node not covered) | passed | passed — 3/3 flows in one suite run | engineering / 2026-07-26 |
+| Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-26 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy

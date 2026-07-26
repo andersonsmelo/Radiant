@@ -29,6 +29,23 @@ npm run quality
 The semantic color tests also protect the defined text, focus and status-token
 contrast pairs. Functional flow tests cover the learning screens separately.
 
+## Latest run of the manual checklist
+
+Executed on 2026-07-26 against the local Release build on iOS 26.5. Items 1, 3
+and 4 passed with captured evidence. The two defects found — decorative icons
+exposed with their raw font codepoint, and Expo Router route paths leaking into
+the navigation header — were fixed and reverified on device the same day, and
+both are now covered by the contract test.
+
+The gate remains unapproved for a different reason: item 2 needs VoiceOver with
+audio and item 5 needs a web build, and neither has been done. Details, method
+and the fix: [`docs/evidence/2026-07-26-accessibility-gate2.md`](evidence/2026-07-26-accessibility-gate2.md).
+
+Two enforced contracts follow from that run and are worth stating here:
+decorative icons must go through `DecorativeIcon`, never `MaterialIcons`
+directly; and the root `Stack` hides headers by default, so a new route cannot
+silently inherit the native one.
+
 ## Release-candidate manual checklist
 
 1. Enable Reduce Motion in iOS or Android accessibility settings, reopen a
