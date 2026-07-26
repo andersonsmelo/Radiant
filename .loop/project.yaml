@@ -34,6 +34,9 @@ context:
     - .expo
     - radiant-app/.maestro/artifacts
     - radiant-app/ios/Pods
+    - radiant-app/ios/build
+    - radiant-app/android/build
+    - radiant-app/android/app/build
 writePolicy:
   allowedRoots:
     - src
