@@ -10,7 +10,7 @@ context:
     - docs/PRD.md
     - docs/ARCHITECTURE_STATE.md
     - docs/CONTENT_PIPELINE.md
-    - docs/EXECUTION_STATUS_2026-07-23.md
+    - docs/EXECUTION_STATUS_2026-07-26.md
     - docs/plans/2026-07-23-radiant-continuation-roadmap.md
     - radiant-app/README.md
     - radiant-app/package.json

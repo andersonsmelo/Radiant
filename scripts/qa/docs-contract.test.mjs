@@ -49,7 +49,7 @@ test('flags the same editorial claim when Markdown code marks surround the value
 test('accepts an honest local-first status statement', () => {
   assert.deepEqual(
     inspectDocument({
-      relativePath: 'docs/EXECUTION_STATUS_2026-07-23.md',
+      relativePath: 'docs/EXECUTION_STATUS_2026-07-26.md',
       content: 'O app funciona local-first. A API pública conhecida está inativa e retorna HTTP 502.',
     }),
     []

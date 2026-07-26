@@ -12,7 +12,7 @@ Radiant é hoje um app mobile local-first com backend próprio no VPS. O estado 
 - Learning Road V2 com rollout controlado por flag, trilhas de catálogo selecionáveis e progresso local por trilha;
 - `Pixel` como nome canônico do mascote nos docs atuais.
 
-O app mantém esse contrato local-first porque a API pública conhecida está inativa e retorna HTTP 502. O estado operacional atual está registrado em [EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md); reativar infraestrutura exige uma decisão e uma execução separadas.
+O app mantém esse contrato local-first porque a API pública conhecida está inativa e retorna HTTP 502. O estado operacional atual está registrado em [EXECUTION_STATUS_2026-07-26.md](EXECUTION_STATUS_2026-07-26.md); reativar infraestrutura exige uma decisão e uma execução separadas.
 
 ## Learning Road V2 — Estado 2026-04-09
 
@@ -43,7 +43,7 @@ Regra arquitetural: alternar trilhas nunca deve apagar progresso já conquistado
 | Visão do produto | [docs/PRD.md](/Users/anderson/Developer/Radiant/docs/PRD.md) |
 | Regras de engenharia | [docs/README.md](/Users/anderson/Developer/Radiant/docs/README.md) |
 | Sistema operacional de App Store | [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md) |
-| Status de execução atual | [docs/EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md) |
+| Status de execução atual | [docs/EXECUTION_STATUS_2026-07-26.md](EXECUTION_STATUS_2026-07-26.md) |
 | Plano executivo | [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md) |
 | Runtime do app | [radiant-app/README.md](/Users/anderson/Developer/Radiant/radiant-app/README.md) |
 | Runtime da API | [radiant-api/README.md](/Users/anderson/Developer/Radiant/radiant-api/README.md) |
@@ -59,7 +59,7 @@ Regra arquitetural: alternar trilhas nunca deve apagar progresso já conquistado
 
 Quando houver conflito entre documentos, a ordem de verdade é:
 
-1. `docs/EXECUTION_STATUS_2026-07-23.md` para estado operacional presente.
+1. `docs/EXECUTION_STATUS_2026-07-26.md` para estado operacional presente.
 2. `radiant-app/README.md` e `radiant-api/README.md` para comportamento em runtime.
 3. `docs/IMPLEMENTATION_PLAN.md` para estado do programa e da arquitetura-alvo.
 4. `docs/APP_STORE_OPERATING_SYSTEM.md` para decisões que afetem distribuição,

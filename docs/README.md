@@ -20,7 +20,7 @@ Este projeto segue o workflow Specification Driven Development (SDD).
 - Status de execução atualizado: [EXECUTION_STATUS_2026-04-03.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-03.md)
 - Status de execução atualizado: [EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
 - Status de execução atualizado: [EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
-- Status de execução canônico atual: [EXECUTION_STATUS_2026-07-23.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md)
+- Status de execução canônico atual: [EXECUTION_STATUS_2026-07-26.md](EXECUTION_STATUS_2026-07-26.md)
 - Plano técnico vigente: [IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
 - Pipeline editorial de conteúdo: [CONTENT_PIPELINE.md](/Users/anderson/Developer/Radiant/docs/CONTENT_PIPELINE.md)
 - Plano de war room para aprovação de orçamento: [WAR_ROOM_PLAN_2026-04-01.md](/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md)

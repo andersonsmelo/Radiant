@@ -519,9 +519,10 @@ Prioridades imediatas:
 - ADR routing: `/Users/anderson/Developer/Radiant/docs/ADR-routing.md`
 - Status de execução 2026-04-01: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
 - Status de execução 2026-04-09: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
-- Status canônico atual: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-07-23.md`
+- Status canônico atual: [`docs/EXECUTION_STATUS_2026-07-26.md`](../docs/EXECUTION_STATUS_2026-07-26.md)
 - Gate de acessibilidade: `/Users/anderson/Developer/Radiant/radiant-app/docs/ACCESSIBILITY_QA_V1.md`
 - Runbook E2E local-first: `/Users/anderson/Developer/Radiant/radiant-app/docs/E2E_RUNBOOK.md`
+- Evidências datadas de device (E2E e acessibilidade): [`docs/evidence/README.md`](docs/evidence/README.md)
 - Plano de war room: `/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md`
 - Evidências de smoke: `/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md`
 - Specs: `/Users/anderson/Developer/Radiant/docs/specs`
