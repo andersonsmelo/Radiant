@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import type { PaywallOffer } from '../PaywallService';
@@ -18,7 +18,7 @@ export function PaywallOfferCard({ offer, onPrimary, onDismiss, submitting = fal
   return (
     <SurfaceCard variant="elevated" style={styles.card}>
       <View style={styles.header}>
-        <MaterialIcons name="workspace-premium" size={20} color={colors.primary} />
+        <DecorativeIcon name="workspace-premium" size={20} color={colors.primary} />
         <Text style={styles.eyebrow}>Radiant Plus</Text>
       </View>
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon, type DecorativeIconName } from '../../../components/ui/DecorativeIcon';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { JourneyNode } from '../../../types/journey';
 import { colors, shadows } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
-type MaterialIconName = React.ComponentProps<typeof MaterialIcons>['name'];
+type MaterialIconName = DecorativeIconName;
 
 function getNodeCopy(node: JourneyNode): { icon: MaterialIconName; label: string } {
   switch (node.type) {
@@ -75,7 +75,7 @@ export function JourneyNodeCard({
         ]}
       >
         <View style={styles.iconTile}>
-          <MaterialIcons name={meta.icon} size={22} color={colors.primary} />
+          <DecorativeIcon name={meta.icon} size={22} color={colors.primary} />
         </View>
 
         <View style={styles.content}>

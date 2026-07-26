@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -107,7 +107,7 @@ export default function ReviewScreen() {
                 accessibilityLabel="Fechar revisão"
                 style={styles.iconButton}
               >
-                <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+                <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
               </Pressable>
               <Text style={styles.headerLabel}>Revisão</Text>
               <View style={styles.iconSpacer} />
@@ -132,17 +132,17 @@ export default function ReviewScreen() {
               <Text style={styles.sectionTitle}>Como essa sessão funciona</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Formato"
                   value="Uma pergunta por item, resposta rápida e rating direto"
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="timeline" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="timeline" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Objetivo"
                   value="Consolidar memória antes de puxar conteúdo novo"
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Recompensa"
                   value="XP só entra quando você realmente acerta"
                 />
@@ -191,7 +191,7 @@ export default function ReviewScreen() {
                 accessibilityLabel="Fechar revisão"
                 style={styles.iconButton}
               >
-                <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+                <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
               </Pressable>
               <Text style={styles.headerLabel}>Revisão</Text>
               <View style={styles.iconSpacer} />
@@ -216,17 +216,17 @@ export default function ReviewScreen() {
               <Text style={styles.sectionTitle}>Resultado da sessão</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Itens"
                   value={`${totalItems} concluídos nesta rodada`}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="stars" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="stars" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="XP"
                   value={`+${sessionXp} XP confirmado`}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="sync" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="sync" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Estado"
                   value="Cards já atualizados no fluxo local-first"
                 />
@@ -273,7 +273,7 @@ export default function ReviewScreen() {
               accessibilityLabel="Fechar revisão"
               style={styles.iconButton}
             >
-              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
             <Text style={styles.headerLabel}>Revisão</Text>
             <Text style={styles.headerProgressText}>{progressValue}/{Math.max(totalItems, 1)}</Text>

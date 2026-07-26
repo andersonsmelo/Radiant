@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -209,7 +209,7 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
                                 accessibilityRole="button"
                                 accessibilityLabel="Fechar lição"
                             >
-                                <MaterialIcons name="close" size={24} color={galaxyColors.textSecondary} />
+                                <DecorativeIcon name="close" size={24} color={galaxyColors.textSecondary} />
                             </Pressable>
                         </View>
                         <LessonFlowProgressHeader

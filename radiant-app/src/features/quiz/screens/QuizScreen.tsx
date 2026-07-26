@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -251,7 +251,7 @@ function QuizSession({
                 accessibilityLabel="Fechar quiz"
                 style={styles.iconButton}
               >
-                <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+                <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
               </Pressable>
               <Text style={styles.headerLabel}>{mode === 'review' ? 'Quiz de Revisão' : 'Quiz'}</Text>
               <View style={styles.iconSpacer} />
@@ -276,17 +276,17 @@ function QuizSession({
               <Text style={styles.sectionTitle}>Resumo da tentativa</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="check-circle" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="check-circle" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Acerto"
                   value={`${result.correctAnswers} de ${result.totalQuestions} corretas`}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Estado"
                   value={passed ? 'Checkpoint pedagógico aprovado' : 'Reforço recomendado antes de seguir'}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="XP"
                   value={xpAward ? `+${xpAward.totalXpAwarded} XP registrados` : 'Sem XP adicional nesta tentativa'}
                 />
@@ -426,7 +426,7 @@ function QuizSession({
               accessibilityLabel="Fechar quiz"
               style={styles.iconButton}
             >
-              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
             <Text style={styles.headerLabel}>{mode === 'review' ? 'Quiz de Revisão' : 'Quiz'}</Text>
             <Text style={styles.headerProgressText}>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -294,7 +294,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
               accessibilityLabel="Voltar"
               style={styles.iconButton}
             >
-              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
             <Text style={styles.headerLabel}>Checkpoint</Text>
             <View style={styles.iconSpacer} />
@@ -326,17 +326,17 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
             </Text>
             <View style={styles.statsList}>
               <GalaxyStatRow
-                icon={<MaterialIcons name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Progresso"
                 value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos-base concluídos`}
               />
               <GalaxyStatRow
-                icon={<MaterialIcons name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Revisão"
                 value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando esta etapa'}
               />
               <GalaxyStatRow
-                icon={<MaterialIcons name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Destravamento"
                 value={completed ? 'Próximo nó já liberado' : 'Concluir este checkpoint libera a próxima lição'}
               />

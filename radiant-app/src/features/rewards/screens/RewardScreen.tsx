@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -262,7 +262,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
               accessibilityLabel="Voltar"
               style={styles.iconButton}
             >
-              <MaterialIcons name="close" size={22} color={galaxyColors.textPrimary} />
+              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
             <Text style={styles.headerLabel}>Reward</Text>
             <View style={styles.iconSpacer} />
@@ -295,17 +295,17 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
 
             <View style={styles.statsList}>
               <GalaxyStatRow
-                icon={<MaterialIcons name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Status"
                 value={rewardCompleted ? 'Conquista registrada localmente' : 'Pronta para ser coletada'}
               />
               <GalaxyStatRow
-                icon={<MaterialIcons name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Progresso"
                 value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos da unidade concluídos`}
               />
               <GalaxyStatRow
-                icon={<MaterialIcons name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
+                icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Revisão"
                 value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando a trilha'}
               />

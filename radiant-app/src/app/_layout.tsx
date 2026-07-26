@@ -150,16 +150,28 @@ function RootLayout() {
 
   return (
     <ThemeProvider value={navigationTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-        <Stack.Screen name="learn" options={{ headerShown: false }} />
-        <Stack.Screen name="checkpoint" options={{ headerShown: false }} />
-        <Stack.Screen name="reward" options={{ headerShown: false }} />
-        <Stack.Screen name="quiz" options={{ headerShown: false }} />
-        <Stack.Screen name="review" options={{ headerShown: false }} />
-        <Stack.Screen name="telemetry" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+      {/*
+        Every screen here draws its own header, so hiding it is the default
+        rather than something each route opts into. A route that is not
+        declared below — `onboarding/index`, `galaxy/[galaxyId]` — used to fall
+        back to the native header, which renders its raw route path as the
+        title and the previous route id as the back-button label. That leaks
+        `onboarding/index` and `(tabs)` both onto the screen and into the
+        accessibility tree.
+      */}
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="onboarding" />
+        <Stack.Screen name="learn" />
+        <Stack.Screen name="checkpoint" />
+        <Stack.Screen name="reward" />
+        <Stack.Screen name="quiz" />
+        <Stack.Screen name="review" />
+        <Stack.Screen name="telemetry" />
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: 'modal', title: 'Modal', headerShown: true }}
+        />
       </Stack>
       <StatusBar style="dark" />
     </ThemeProvider>

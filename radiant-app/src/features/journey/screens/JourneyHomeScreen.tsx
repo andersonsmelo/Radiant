@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
@@ -14,7 +14,7 @@ import { HUD } from '../../../ui/components/HUD';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space, typography } from '../../../ui/styles';
+import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { JourneyHero } from '../components/JourneyHero';
 import { JourneyMap } from '../components/JourneyMap';
 import { JourneyTrackShelf } from '../components/JourneyTrackShelf';
@@ -264,17 +264,17 @@ export default function JourneyHomeScreen() {
               <Text style={styles.summaryTitle}>Foco de hoje</Text>
               <View style={styles.summaryList}>
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="flag" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="flag" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Próximo"
                   value={recommendedNodeMeta}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="account-tree" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="account-tree" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Nós ativos"
                   value={`${actionableNodeCount} passos elegíveis nesta unidade`}
                 />
                 <GalaxyStatRow
-                  icon={<MaterialIcons name="offline-bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
+                  icon={<DecorativeIcon name="offline-bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Sync"
                   value="Modo local-first ativo, com progresso protegido mesmo sem rede"
                 />
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: galaxyColors.background },
   safe: { flex: 1 },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
+  content: { padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
   summaryCard: {
     backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,

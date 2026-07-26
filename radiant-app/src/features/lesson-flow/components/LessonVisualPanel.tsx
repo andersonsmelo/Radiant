@@ -1,5 +1,5 @@
 import React from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
@@ -20,7 +20,7 @@ export function LessonVisualPanel({ hint, caption }: LessonVisualPanelProps) {
       <View style={styles.imageFrame}>
         <Image source={LESSON_VISUAL} contentFit="cover" style={styles.image} />
         <View style={styles.hotspot}>
-          <MaterialIcons name="search" size={30} color="#FFFFFF" />
+          <DecorativeIcon name="search" size={30} color="#FFFFFF" />
         </View>
         <Text style={styles.hotspotLabel}>Tap to inspect</Text>
       </View>
@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
   imageFrame: {
     borderRadius: 24,
     overflow: 'hidden',
-    minHeight: 280,
+    minHeight: 180,
     backgroundColor: colors.surfaceStrong,
   },
   image: {
     width: '100%',
-    height: 280,
+    height: 180,
   },
   hotspot: {
     position: 'absolute',

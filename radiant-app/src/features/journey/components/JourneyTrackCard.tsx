@@ -1,11 +1,11 @@
 import React from 'react';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { DecorativeIcon, type DecorativeIconName } from '../../../components/ui/DecorativeIcon';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { LearningTrack } from '../../content/content.types';
 import { colors, shadows } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
-type MaterialIconName = React.ComponentProps<typeof MaterialIcons>['name'];
+type MaterialIconName = DecorativeIconName;
 
 type JourneyTrackState = 'active' | 'available';
 
@@ -52,7 +52,7 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
     >
       <View style={styles.header}>
         <View style={[styles.iconTile, isActive && styles.iconTileActive]}>
-          <MaterialIcons name={getTrackIcon(track.slug)} size={22} color={isActive ? '#FFFFFF' : colors.primary} />
+          <DecorativeIcon name={getTrackIcon(track.slug)} size={22} color={isActive ? '#FFFFFF' : colors.primary} />
         </View>
         <View style={[styles.badge, isActive ? styles.badgeActive : styles.badgeReady]}>
           <Text style={[styles.badgeText, isActive ? styles.badgeTextActive : styles.badgeTextReady]}>

@@ -24,6 +24,20 @@ export const space = {
 };
 
 // ============================================================================
+// FLOATING TAB BAR CLEARANCE
+// ============================================================================
+// The tab bar in src/app/(tabs)/_layout.tsx is absolutely positioned, so it
+// floats over scroll content instead of insetting it. Scrollable tab screens
+// must reserve this much bottom padding, otherwise their last element renders
+// underneath the bar and can never be fully seen or tapped.
+export const tabBar = {
+    height: 72,
+    bottomOffset: 14,
+};
+
+export const tabBarClearance = tabBar.height + tabBar.bottomOffset + space.s3;
+
+// ============================================================================
 // BORDER RADIUS CONSTANTS
 // ============================================================================
 export const radius = {
