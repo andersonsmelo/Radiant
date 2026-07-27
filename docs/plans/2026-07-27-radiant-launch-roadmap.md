@@ -192,8 +192,19 @@ código.
 
 - **D1 [P0]** ADR da estratégia de API (Task 15): auditoria read-only e
   decisão entre manter local-first puro, catálogo remoto, ou catálogo+auth+
-  sync. Enquanto não decidida: `ENABLE_REMOTE_SYNC=false` também no perfil
-  `production` do `eas.json` (hoje está `true`, o que contradiz a API inativa).
+  sync. **Parte de configuração concluída em 2026-07-27**, com uma correção
+  importante da premissa original deste plano: eu havia registrado que
+  `ENABLE_REMOTE_SYNC=true` em produção geraria UX quebrada. Isso estava
+  errado. `EXPO_PUBLIC_API_BASE_URL` não é definida em nenhum perfil do
+  `eas.json`, e tanto o `SyncQueueService` quanto a tela de Progresso exigem
+  `isApiConfigured()` além da flag — o sync já era inerte em todo build. O que
+  existia de verdade era desonestidade de configuração: o painel de
+  homologação anunciava "Sync remoto: ativado" enquanto nada sincronizava.
+  Feito: os perfis `preview` e `production` passam a declarar
+  `ENABLE_REMOTE_SYNC=false`, que é o estado real enquanto a API responde 502
+  (reconfirmado por smoke público read-only em 2026-07-27), e o painel passa a
+  exibir o estado efetivo (`ligado, sem API configurada` quando a flag está
+  ligada sem API). Resta a ADR de estratégia da API, que é decisão de produto.
 - **D2 [P0]** Contrato de telemetria/privacidade (Task 16): allowlist de
   eventos, proibições (PII, conteúdo clínico), scrub no Sentry. É insumo
   direto dos privacy labels (iOS) e data safety (Play).
@@ -283,7 +294,7 @@ código.
 | Closed test do Play atrasar M5 (testadores insuficientes/queda abaixo de 12) | Alta | A1 decidida já; A6 recruta 14+; monitorar opt-in diário durante os 14 dias |
 | E2E Android exigir mais ciclos que o previsto (primeiro prebuild) | Alta | Janela de 2 semanas em C; seletores por accessibility label já estáveis no iOS |
 | Rejeição na App Review (metadados/privacidade/disclaimer médico) | Média | E2–E4 revisados contra as guidelines; categoria Educação; disclaimer explícito; sem login obrigatório |
-| `ENABLE_REMOTE_SYNC=true` em produção com API 502 gerar UX quebrada no beta | Alta | D1 corrige o perfil antes do primeiro build de produção |
+| ~~`ENABLE_REMOTE_SYNC=true` em produção com API 502 gerar UX quebrada~~ | Descartado | Premissa errada: sem `API_BASE_URL` em nenhum perfil, o sync já era inerte. O risco real era de configuração desonesta, corrigido em D1 |
 | Evidência de E2E não cobrir o caminho de produção por divergência de feature flag | Confirmado | B0: decidir qual Home lança e reexecutar o E2E no perfil que reflete produção |
 | Verificação de conta/D-U-N-S travar M0 | Média | Iniciar na semana 1; caminho pessoal como fallback aceitando o custo do closed test |
 | Runtime version/OTA mal configurados após primeiro build | Média | D5 congela política antes de F1/F2; nunca alterar `runtimeVersion` sem novo build |

@@ -506,7 +506,13 @@ export default function ProgressScreen() {
                         />
                         <CardRow
                             label="Sync remoto"
-                            value={AppConfig.ENABLE_REMOTE_SYNC ? 'ativado' : 'desativado'}
+                            value={
+                                remoteSyncAvailable
+                                    ? 'ativado'
+                                    : AppConfig.ENABLE_REMOTE_SYNC
+                                      ? 'ligado, sem API configurada'
+                                      : 'desativado'
+                            }
                         />
                         <CardRow
                             label="Telemetry Debug"

@@ -4,7 +4,7 @@ import ProgressScreen from './ProgressScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { AuthService } from '../../auth/AuthService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
-import { ApiError, apiRequest } from '../../../lib/api';
+import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 
 jest.mock('expo-router', () => ({
   router: {
@@ -219,5 +219,19 @@ describe('ProgressScreen flow', () => {
     expect(screen.getByText('Ainda não há evidência suficiente para indicar domínio por tópico.')).toBeTruthy();
     expect(screen.queryByText('84%')).toBeNull();
     expect(screen.queryByText('Lv 7 · Resident')).toBeNull();
+  });
+
+  it('does not report remote sync as active when no API is configured', async () => {
+    // A flag ligada sozinha não habilita sync: SyncQueueService também exige
+    // isApiConfigured(). O painel de homologação existe para registrar o que a
+    // build faz, então anunciar "ativado" quando nada sincroniza torna a
+    // evidência de homologação falsa.
+    (isApiConfigured as jest.Mock).mockReturnValue(false);
+
+    renderWithProviders(<ProgressScreen />);
+
+    await screen.findByText('🔥 3 dias');
+    expect(screen.queryByText('ativado')).toBeNull();
+    expect(screen.getByText('ligado, sem API configurada')).toBeTruthy();
   });
 });
