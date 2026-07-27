@@ -259,10 +259,10 @@ function QuizSession({
 
             <View style={styles.heroCard}>
               <PixelHeroSplit
-                eyebrow={mode === 'review' ? 'Consolidação' : 'Avaliação rápida'}
+                eyebrow={mode === 'review' ? 'Revisão' : 'Quiz'}
                 message={passed
-                  ? 'Base consolidada. O aprendizado desta etapa foi registrado e a trilha já pode avançar.'
-                  : 'O resultado ainda não está estável. Vale repetir agora antes de acumular ruído.'}
+                  ? 'Mandou bem! Você fixou essa etapa e já pode seguir em frente.'
+                  : 'Faltou pouco. Errar faz parte de aprender a ler imagem — bora tentar de novo?'}
                 ringValue={scorePercentage}
                 ringTotal={100}
                 ringLabel="Aproveitamento"
@@ -282,13 +282,13 @@ function QuizSession({
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Estado"
-                  value={passed ? 'Checkpoint pedagógico aprovado' : 'Reforço recomendado antes de seguir'}
+                  label="Resultado"
+                  value={passed ? 'Aprovado nesta etapa' : 'Vale reforçar antes de seguir'}
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="XP"
-                  value={xpAward ? `+${xpAward.totalXpAwarded} XP registrados` : 'Sem XP adicional nesta tentativa'}
+                  value={xpAward ? `+${xpAward.totalXpAwarded} XP nesta tentativa` : 'Sem XP nesta tentativa'}
                 />
               </View>
             </View>

@@ -1,27 +1,57 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { StarfieldBackground } from '../../ui/components/StarfieldBackground';
 import { AppButton } from '../../components/ui/AppButton';
+import { space } from '../../ui/styles';
+import { LessonCatalogService } from '../../features/content/services/LessonCatalogService';
+import { DailyGoalService } from '../../features/daily-goal/services/DailyGoalService';
 
-const SPECIALTIES = [
-  { id: 0, label: 'Chest & thorax', sub: '120 cases', emoji: '🫁' },
-  { id: 1, label: 'Neuroradiology', sub: '95 cases', emoji: '🧠' },
-  { id: 2, label: 'Musculoskeletal', sub: '88 cases', emoji: '🦴' },
-  { id: 3, label: 'Abdominal', sub: '76 cases', emoji: '🫀' },
-  { id: 4, label: 'Cardiac imaging', sub: '62 cases', emoji: '❤️' },
-];
+type TrackPreview = {
+  id: string;
+  title: string;
+  lessonCount: number;
+  emoji: string;
+};
 
-const GOALS = [
-  { id: 'l', label: '5 min', sub: 'Light' },
-  { id: 'm', label: '10 min', sub: 'Steady' },
-  { id: 'h', label: '20 min', sub: 'Intense' },
-];
+const TRACK_EMOJI: Record<string, string> = {
+  'track-radiology-foundations': '🩻',
+  'track-thorax-patterns': '🫁',
+  'track-abdomen-essentials': '🫀',
+};
 
 export default function OnboardGoalScreen() {
-  const [picked, setPicked] = useState(1);
-  const [goal, setGoal] = useState('m');
+  const [tracks, setTracks] = useState<TrackPreview[]>([]);
+  const [goalPerDay, setGoalPerDay] = useState<number | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    void (async () => {
+      try {
+        await LessonCatalogService.bootstrap();
+        const goal = await DailyGoalService.getSnapshot();
+        if (!active) return;
+
+        setTracks(
+          LessonCatalogService.listTracks().map((track) => ({
+            id: track.id,
+            title: track.title,
+            lessonCount: track.lessonIds?.length ?? 0,
+            emoji: TRACK_EMOJI[track.id] ?? '🧠',
+          }))
+        );
+        setGoalPerDay(goal.goalPerDay);
+      } catch (error) {
+        console.error('[OnboardGoalScreen] Failed to load catalog preview:', error);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -30,65 +60,64 @@ export default function OnboardGoalScreen() {
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
 
           <View style={styles.header}>
-            <Text style={styles.eyebrow}>STEP 3 OF 4</Text>
-            <Text style={styles.headline}>Where do you want{'\n'}to focus first?</Text>
-            <Text style={styles.subtext}>You can switch tracks any time.</Text>
+            <Text style={styles.eyebrow}>PASSO 3 DE 3</Text>
+            <Text style={styles.headline}>O que te espera{'\n'}na sua jornada</Text>
+            <Text style={styles.subtext}>
+              Você começa pelos fundamentos e pode trocar de trilha quando quiser.
+            </Text>
           </View>
 
-          <View style={styles.specialtyList}>
-            {SPECIALTIES.map(s => {
-              const on = picked === s.id;
-              return (
-                <Pressable
-                  key={s.id}
-                  onPress={() => setPicked(s.id)}
-                  accessibilityRole="radio"
-                  accessibilityLabel={`${s.label}, ${s.sub}`}
-                  accessibilityState={{ selected: on }}
-                  style={[styles.specialtyItem, on && styles.specialtyItemActive]}
-                >
-                  <View style={[styles.specialtyEmoji, on && styles.specialtyEmojiActive]}>
-                    <Text style={{ fontSize: 20 }}>{s.emoji}</Text>
+          <View style={styles.trackList}>
+            {tracks.map((track, index) => (
+              <View
+                key={track.id}
+                style={[styles.trackItem, index === 0 && styles.trackItemFirst]}
+                accessibilityRole="text"
+                accessibilityLabel={
+                  index === 0
+                    ? `${track.title}, ${track.lessonCount} ${track.lessonCount === 1 ? 'lição' : 'lições'}. Você começa por aqui.`
+                    : `${track.title}, ${track.lessonCount} ${track.lessonCount === 1 ? 'lição' : 'lições'}.`
+                }
+              >
+                <View style={[styles.trackEmoji, index === 0 && styles.trackEmojiFirst]}>
+                  <Text style={{ fontSize: 20 }}>{track.emoji}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.trackLabel}>{track.title}</Text>
+                  <Text style={styles.trackSub}>
+                    {track.lessonCount} {track.lessonCount === 1 ? 'lição' : 'lições'}
+                  </Text>
+                </View>
+                {index === 0 && (
+                  <View style={styles.startHereBadge}>
+                    <Text style={styles.startHereText}>COMEÇA AQUI</Text>
                   </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.specialtyLabel}>{s.label}</Text>
-                    <Text style={styles.specialtySub}>{s.sub}</Text>
-                  </View>
-                  {on && <View style={styles.selectedDot} />}
-                </Pressable>
-              );
-            })}
+                )}
+              </View>
+            ))}
           </View>
 
-          <Text style={styles.goalLabel}>DAILY GOAL</Text>
-          <View style={styles.goalRow}>
-            {GOALS.map(g => {
-              const on = goal === g.id;
-              return (
-                <Pressable
-                  key={g.id}
-                  onPress={() => setGoal(g.id)}
-                  accessibilityRole="radio"
-                  accessibilityLabel={`${g.label} por dia, ritmo ${g.sub}`}
-                  accessibilityState={{ selected: on }}
-                  style={[styles.goalOption, on && styles.goalOptionActive]}
-                >
-                  <Text style={[styles.goalTime, on && styles.goalTimeActive]}>{g.label}</Text>
-                  <Text style={[styles.goalSub, on && styles.goalSubActive]}>{g.sub}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          {goalPerDay !== null && (
+            <View style={styles.goalCard}>
+              <Text style={styles.goalLabel}>SUA META DIÁRIA</Text>
+              <Text style={styles.goalValue}>
+                {goalPerDay === 1 ? '1 quiz por dia' : `${goalPerDay} quizzes por dia`}
+              </Text>
+              <Text style={styles.goalSub}>
+                É o suficiente para manter a sequência viva. Leva cerca de cinco minutos.
+              </Text>
+            </View>
+          )}
 
           <AppButton
-            label="Build my plan →"
+            label="Começar a estudar"
             onPress={() => router.replace('/(tabs)')}
             variant="galaxy"
             style={{ marginTop: 24 }}
           />
 
           <View style={[styles.dots, { marginTop: 16, alignSelf: 'center' }]}>
-            {[0,1,2,3].map(i => (
+            {[0,1,2].map(i => (
               <View key={i} style={[styles.dot, i === 2 && styles.dotActive]} />
             ))}
           </View>
@@ -116,8 +145,8 @@ const styles = StyleSheet.create({
     fontSize: 13, fontWeight: '500',
     color: 'rgba(255,255,255,0.55)', marginTop: 6,
   },
-  specialtyList: { gap: 8, marginBottom: 24 },
-  specialtyItem: {
+  trackList: { gap: 8, marginBottom: 24 },
+  trackItem: {
     backgroundColor: 'rgba(255,255,255,0.04)',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.10)',
@@ -128,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  specialtyItemActive: {
+  trackItemFirst: {
     backgroundColor: 'rgba(33,85,255,0.18)',
     borderColor: '#3DCAE8',
     shadowColor: '#3DCAE8',
@@ -136,39 +165,41 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 0 },
   },
-  specialtyEmoji: {
+  trackEmoji: {
     width: 40, height: 40, borderRadius: 11,
     backgroundColor: 'rgba(255,255,255,0.06)',
     alignItems: 'center', justifyContent: 'center',
   },
-  specialtyEmojiActive: {
+  trackEmojiFirst: {
     backgroundColor: 'rgba(61,202,232,0.18)',
   },
-  specialtyLabel: { fontSize: 15, fontWeight: '700', color: '#fff' },
-  specialtySub: { fontSize: 12, fontWeight: '500', color: 'rgba(255,255,255,0.5)', marginTop: 1 },
-  selectedDot: {
-    width: 8, height: 8, borderRadius: 4,
-    backgroundColor: '#3DCAE8',
+  trackLabel: { fontSize: 15, fontWeight: '700', color: '#fff' },
+  trackSub: { fontSize: 12, fontWeight: '500', color: 'rgba(255,255,255,0.5)', marginTop: 1 },
+  startHereBadge: {
+    backgroundColor: 'rgba(61,202,232,0.18)',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  startHereText: {
+    fontSize: 10, fontWeight: '800', color: '#3DCAE8', letterSpacing: 0.5,
+  },
+  goalCard: {
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.10)',
+    borderRadius: 16,
+    padding: 16,
   },
   goalLabel: {
     fontSize: 11, fontWeight: '800', color: 'rgba(255,255,255,0.5)',
-    letterSpacing: 0.1, textTransform: 'uppercase', marginBottom: 8,
+    letterSpacing: 0.1, textTransform: 'uppercase', marginBottom: space.s1,
   },
-  goalRow: { flexDirection: 'row', gap: 8 },
-  goalOption: {
-    flex: 1, borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)',
-    paddingVertical: 12, alignItems: 'center',
+  goalValue: { fontSize: 20, fontWeight: '800', color: '#fff' },
+  goalSub: {
+    fontSize: 12, fontWeight: '500',
+    color: 'rgba(255,255,255,0.55)', marginTop: 4, lineHeight: 17,
   },
-  goalOptionActive: {
-    backgroundColor: 'rgba(33,85,255,0.22)',
-    borderColor: '#3DCAE8',
-  },
-  goalTime: { fontSize: 18, fontWeight: '800', color: 'rgba(255,255,255,0.6)' },
-  goalTimeActive: { color: '#fff' },
-  goalSub: { fontSize: 11, fontWeight: '600', color: 'rgba(255,255,255,0.35)', marginTop: 2 },
-  goalSubActive: { color: '#3DCAE8' },
   dots: { flexDirection: 'row', gap: 6 },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.2)' },
   dotActive: { width: 22, backgroundColor: '#3DCAE8' },

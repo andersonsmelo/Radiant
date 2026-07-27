@@ -39,6 +39,22 @@ function statusLabel(node: JourneyNode): string {
   }
 }
 
+/** Nome humano do tipo de etapa — o enum interno nunca aparece na tela. */
+function nodeTypeLabel(node: JourneyNode): string {
+  switch (node.type) {
+    case 'lesson':
+      return 'Lição';
+    case 'review':
+      return 'Revisão';
+    case 'checkpoint':
+      return 'Checkpoint';
+    case 'reward':
+      return 'Conquista';
+    default:
+      return 'Etapa';
+  }
+}
+
 // ── GalaxyStatRow ─────────────────────────────────────────────────
 interface GalaxyStatRowProps {
   icon?: React.ReactNode;
@@ -164,7 +180,7 @@ export default function JourneyHomeScreen() {
 
   const heroMessage = useMemo(() => {
     if (!snapshot?.nextRecommendedNode) {
-      return 'Você fechou o trecho disponível. Assim que houver um novo passo elegível, Pixel te puxa de volta para a trilha.';
+      return 'Você chegou ao fim do conteúdo disponível por aqui. Assim que abrir um passo novo, eu te aviso.';
     }
 
     if (snapshot.nextRecommendedNode.type === 'review' || snapshot.nextRecommendedNode.status === 'due-review') {
@@ -172,11 +188,11 @@ export default function JourneyHomeScreen() {
     }
 
     if (snapshot.nextRecommendedNode.type === 'checkpoint') {
-      return 'Você fechou a lição atual. Agora valide o trecho da unidade antes de puxar o próximo conteúdo.';
+      return 'Você fechou a lição. Agora é a hora do checkpoint para firmar o que aprendeu.';
     }
 
     if (snapshot.nextRecommendedNode.type === 'reward') {
-      return 'Boa. Antes de puxar o próximo trecho, colete a conquista que fecha esse marco da unidade.';
+      return 'Muito bem! Recolha a conquista que você acabou de desbloquear.';
     }
 
     return `Você está indo bem. O próximo passo da sua trilha é ${snapshot.nextRecommendedNode.title.toLowerCase()}.`;
@@ -201,7 +217,7 @@ export default function JourneyHomeScreen() {
       return 'Nenhum conteúdo elegível agora';
     }
 
-    return `${snapshot.nextRecommendedNode.type} · ${statusLabel(snapshot.nextRecommendedNode)}`;
+    return `${nodeTypeLabel(snapshot.nextRecommendedNode)} · ${statusLabel(snapshot.nextRecommendedNode)}`;
   }, [snapshot]);
 
   const noNextStepMessage = useMemo(() => {
@@ -211,7 +227,7 @@ export default function JourneyHomeScreen() {
 
     const activeTrackTitle = activeCatalogTrack?.title ?? currentUnit?.title ?? 'Esta trilha';
 
-    return `${activeTrackTitle} está pronta no catálogo, mas não há um nó elegível para abrir agora. Você pode acompanhar por aqui e trocar de trilha assim que quiser.`;
+    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Escolha outra trilha abaixo para continuar estudando agora.`;
   }, [activeCatalogTrack?.title, currentUnit?.title, snapshot]);
 
   const openTrack = useCallback(async (track: LearningTrack) => {
@@ -270,13 +286,17 @@ export default function JourneyHomeScreen() {
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="account-tree" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Nós ativos"
-                  value={`${actionableNodeCount} passos elegíveis nesta unidade`}
+                  label="Disponível agora"
+                  value={
+                    actionableNodeCount === 1
+                      ? '1 passo liberado nesta unidade'
+                      : `${actionableNodeCount} passos liberados nesta unidade`
+                  }
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="offline-bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Sync"
-                  value="Modo local-first ativo, com progresso protegido mesmo sem rede"
+                  label="Offline"
+                  value="Seu progresso fica salvo no aparelho, mesmo sem internet"
                 />
               </View>
             </View>

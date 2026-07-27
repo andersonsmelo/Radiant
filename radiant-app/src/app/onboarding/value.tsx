@@ -11,18 +11,18 @@ import { PixelIllustration } from '../../ui/characters/PixelIllustration';
 const ITEMS = [
   {
     color: '#3DCAE8',
-    title: 'Spaced, not crammed',
-    sub: 'Adaptive review brings tough cases back at the right moment.',
+    title: 'Espaçado, não decorado',
+    sub: 'A revisão adaptativa traz os casos difíceis de volta na hora certa.',
   },
   {
     color: '#F5A623',
-    title: 'Real radiology cases',
-    sub: 'Plain films, CT, and MRI from real teaching libraries.',
+    title: 'Casos reais de radiologia',
+    sub: 'Radiografia, tomografia e ressonância de acervos de ensino.',
   },
   {
     color: '#1A9C71',
-    title: 'Five minutes a day',
-    sub: 'Bite-sized sessions. Streaks. Visible progress.',
+    title: 'Cinco minutos por dia',
+    sub: 'Sessões curtas, sequência diária e progresso visível.',
   },
 ];
 
@@ -62,8 +62,8 @@ export default function OnboardValueScreen() {
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
 
         <View style={styles.header}>
-          <Text style={styles.eyebrow}>WHY RADIANT</Text>
-          <Text style={styles.headline}>Built for the way{'\n'}residents actually learn.</Text>
+          <Text style={styles.eyebrow}>POR QUE O RADIANT</Text>
+          <Text style={styles.headline}>Feito para como{'\n'}você aprende de verdade.</Text>
         </View>
 
         <View style={styles.cards}>
@@ -79,13 +79,13 @@ export default function OnboardValueScreen() {
 
         <View style={styles.ctaBlock}>
           <AppButton
-            label="Continue →"
+            label="Continuar"
             onPress={() => router.push('/onboarding/goal')}
             variant="galaxy"
             style={{ marginBottom: 14 }}
           />
           <View style={styles.dots}>
-            {[0,1,2,3].map(i => (
+            {[0,1,2].map(i => (
               <View key={i} style={[styles.dot, i === 1 && styles.dotActive]} />
             ))}
           </View>

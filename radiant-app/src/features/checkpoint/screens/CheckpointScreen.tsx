@@ -296,8 +296,8 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
             <PixelHeroSplit
               eyebrow="Jornada de Radiologia"
               message={completed
-                ? 'Checkpoint fechado. A próxima etapa já está liberada.'
-                : 'Antes de avançar, valida este trecho da unidade e trava a base.'}
+                ? 'Checkpoint concluído! A próxima etapa já está liberada.'
+                : 'Vamos conferir o que você aprendeu antes de seguir para a próxima etapa.'}
               ringValue={completedPrimaryNodes}
               ringTotal={Math.max(totalPrimaryNodes, 1)}
               ringLabel="Blocos concluídos"
@@ -320,17 +320,19 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
               <GalaxyStatRow
                 icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Progresso"
-                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} marcos-base concluídos`}
+                value={`${completedPrimaryNodes} de ${totalPrimaryNodes} etapas concluídas`}
               />
               <GalaxyStatRow
                 icon={<DecorativeIcon name="refresh" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Revisão"
-                value={dueReviewCount > 0 ? `${dueReviewCount} revisão pendente nesta unidade` : 'Nenhuma revisão crítica bloqueando esta etapa'}
+                value={dueReviewCount > 0
+                  ? `${dueReviewCount} ${dueReviewCount === 1 ? 'revisão pendente' : 'revisões pendentes'} nesta unidade`
+                  : 'Nenhuma revisão pendente'}
               />
               <GalaxyStatRow
                 icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                label="Destravamento"
-                value={completed ? 'Próximo nó já liberado' : 'Concluir este checkpoint libera a próxima lição'}
+                label="O que vem depois"
+                value={completed ? 'Próxima etapa já liberada' : 'Concluir este checkpoint libera a próxima lição'}
               />
             </View>
           </View>
@@ -381,11 +383,11 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
           ) : null}
 
           <View style={styles.actionCard}>
-            <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para validar esta etapa?'}</Text>
+            <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para fechar esta etapa?'}</Text>
             <Text style={styles.actionBody}>
               {completed
-                ? 'Seu progresso foi sincronizado localmente e a jornada já recalculou o melhor próximo passo.'
-                : 'O checkpoint não muda o modelo pedagógico. Ele apenas consolida a etapa atual e protege a progressão da trilha.'}
+                ? 'Seu progresso está salvo e o próximo passo já está preparado.'
+                : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
             </Text>
             {completed ? (
               <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>

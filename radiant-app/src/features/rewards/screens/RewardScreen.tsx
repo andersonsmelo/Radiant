@@ -271,16 +271,16 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
             >
               <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
             </Pressable>
-            <Text style={styles.headerLabel}>Reward</Text>
+            <Text style={styles.headerLabel}>Conquista</Text>
             <View style={styles.iconSpacer} />
           </View>
 
           <View style={styles.heroCard}>
             <PixelHeroSplit
-              eyebrow="Learning Road"
+              eyebrow="Jornada de Radiologia"
               message={rewardCompleted
-                ? 'Conquista registrada. A jornada recalculou o próximo passo e manteve tudo salvo no fluxo local.'
-                : 'Feche esse marco agora para sinalizar a virada de etapa e manter a trilha consistente.'}
+                ? 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
+                : 'Você chegou até aqui. Recolha sua conquista antes de seguir.'}
               ringValue={completedPrimaryNodes}
               ringTotal={Math.max(totalPrimaryNodes, 1)}
               ringLabel="Marcos concluídos"
@@ -304,7 +304,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
               <GalaxyStatRow
                 icon={<DecorativeIcon name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Status"
-                value={rewardCompleted ? 'Conquista registrada localmente' : 'Pronta para ser coletada'}
+                value={rewardCompleted ? 'Salva no seu progresso' : 'Pronta para ser coletada'}
               />
               <GalaxyStatRow
                 icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -408,11 +408,11 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           ) : null}
 
           <View style={styles.actionCard}>
-            <Text style={styles.actionTitle}>{rewardCompleted ? 'Reward concluído' : 'Pronto para coletar essa conquista?'}</Text>
+            <Text style={styles.actionTitle}>{rewardCompleted ? 'Conquista registrada' : 'Pronto para coletar essa conquista?'}</Text>
             <Text style={styles.actionBody}>
               {rewardCompleted
-                ? 'A trilha já registrou esse marco e deixou o próximo passo preparado para você continuar sem retrabalho.'
-                : 'Essa ação não cria inventário nem badge complexa neste ciclo. Ela apenas fecha o marco da unidade e registra a progressão no estado local.'}
+                ? 'Seu progresso está salvo e o próximo passo já está esperando por você.'
+                : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
             </Text>
 
             {rewardCompleted ? (

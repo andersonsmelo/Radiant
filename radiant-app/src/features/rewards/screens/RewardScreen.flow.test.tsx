@@ -171,6 +171,6 @@ describe('RewardScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith('reward-1');
     });
 
-    expect(await screen.findByText('Reward concluído')).toBeTruthy();
+    expect(await screen.findByText('Conquista registrada')).toBeTruthy();
   });
 });

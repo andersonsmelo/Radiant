@@ -146,7 +146,7 @@ describe('CheckpointScreen flow', () => {
     renderWithProviders(<CheckpointScreen nodeId="checkpoint-1" />);
 
     await waitFor(() => {
-      expect(screen.getByText('Pronto para validar esta etapa?')).toBeTruthy();
+      expect(screen.getByText('Pronto para fechar esta etapa?')).toBeTruthy();
     });
 
     fireEvent.press(screen.getByText('Concluir checkpoint'));

@@ -25,33 +25,33 @@ export default function OnboardWelcomeScreen() {
 
         {/* Title block */}
         <View style={styles.titleBlock}>
-          <Text style={styles.eyebrow}>WELCOME TO RADIANT</Text>
-          <Text style={styles.headline}>Read like a{'\n'}radiologist</Text>
-          <Text style={styles.subtext}>Five minutes a day. Real cases. Spaced repetition that sticks.</Text>
+          <Text style={styles.eyebrow}>BEM-VINDO AO RADIANT</Text>
+          <Text style={styles.headline}>Aprenda a ler{'\n'}como radiologista</Text>
+          <Text style={styles.subtext}>Cinco minutos por dia. Casos reais. Revisão espaçada que fixa de verdade.</Text>
         </View>
 
         {/* CTA + dots */}
         <View style={styles.ctaBlock}>
           <AppButton
-            label="Get started →"
+            label="Começar"
             onPress={() => router.push('/onboarding/value')}
             variant="galaxy"
             style={{ marginBottom: 14 }}
           />
           <View style={styles.dots}>
-            {[0,1,2,3].map(i => (
+            {[0,1,2].map(i => (
               <View key={i} style={[styles.dot, i === 0 && styles.dotActive]} />
             ))}
           </View>
           <Pressable
             onPress={() => router.replace('/(tabs)')}
             accessibilityRole="button"
-            accessibilityLabel="Entrar"
-            accessibilityHint="Abre o aplicativo sem concluir a introdução."
+            accessibilityLabel="Pular introdução"
+            accessibilityHint="Vai direto para o app, sem concluir a introdução."
             style={styles.signinAction}
           >
             <Text style={styles.signinText}>
-              Already have an account? <Text style={styles.signinLink}>Sign in</Text>
+              Já conhece o Radiant? <Text style={styles.signinLink}>Pular introdução</Text>
             </Text>
           </Pressable>
         </View>
