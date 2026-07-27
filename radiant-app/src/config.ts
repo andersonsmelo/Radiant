@@ -30,7 +30,10 @@ export const AppConfig = {
     SHOW_DEV_TOOLS: __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DEV_TOOLS, false),
     ENABLE_TELEMETRY_DEBUG_SCREEN:
         __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN, false),
-    ENABLE_LEARNING_ROAD: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEARNING_ROAD, false),
+    // A Learning Road é a home oficial (ADR 2026-07-27). O default acompanha a
+    // produção de propósito: quando ele divergia, o E2E validava uma tela que o
+    // build distribuído não renderizava. A flag permanece como kill switch.
+    ENABLE_LEARNING_ROAD: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEARNING_ROAD, true),
 
     // kill switches (safety)
     ENABLE_REVIEW: true,

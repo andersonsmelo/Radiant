@@ -149,11 +149,17 @@ código.
      validou a Home da trilha — uma tela que o usuário de produção não vê.
   3. O `.env` local também liga a flag, então o desenvolvimento manual observa
      a mesma tela do E2E, e não a de produção.
-  Decisão de produto necessária antes de M4: a v1.3 lança com a Learning Road
-  (ligar a flag em `preview`/`production` e reexecutar o E2E) ou com a
-  `HomeScreen` clássica (e então o E2E precisa cobrir a tela certa)? Registrar
-  em ADR. Enquanto não decidido, nenhuma evidência de E2E vale para o caminho
-  de produção.
+  **Decidida em 2026-07-27: a v1.3 lança com a Learning Road** — ver
+  [ADR da home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md).
+  A flag passou a ser declarada em `development`, `preview` e `production`, e o
+  default em `src/config.ts` virou `true` para que nenhum build divirja do que
+  é distribuído. Com isso a evidência de E2E de 2026-07-26 volta a valer para o
+  caminho de produção. Restam duas pontas:
+  - **B0.1 [P0]** reexecutar os três flows Maestro sob o perfil `preview`, que
+    agora reflete produção, e registrar a evidência.
+  - **B0.2 [P1]** atualizar a seção "Learning Road" do `radiant-app/README.md`,
+    que ainda a descreve como redesign em andamento, e planejar a remoção da
+    `HomeScreen` morta depois do beta.
 - **B2 [P1]** Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos
   sem hifenização no meio da palavra.
 - **B3 [P0]** Gate 2 item 5: build web + navegação por teclado automatizável.

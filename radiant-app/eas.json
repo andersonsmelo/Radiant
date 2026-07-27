@@ -12,6 +12,7 @@
         "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "true",
         "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "true",
         "EXPO_PUBLIC_ENABLE_BETA_GATE": "true",
+        "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false"
       }
     },
@@ -42,6 +43,7 @@
         "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "true",
         "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "true",
         "EXPO_PUBLIC_ENABLE_BETA_GATE": "true",
+        "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "true"
       }
     },
@@ -53,6 +55,7 @@
         "EXPO_PUBLIC_ENABLE_DEV_TOOLS": "false",
         "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "false",
         "EXPO_PUBLIC_ENABLE_BETA_GATE": "false",
+        "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "true"
       }
     }
