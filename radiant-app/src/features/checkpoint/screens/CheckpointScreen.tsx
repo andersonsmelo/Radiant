@@ -241,29 +241,26 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
                 <Text style={styles.celebrationBadgeEmoji}>⭐</Text>
               </LinearGradient>
 
-              <Text style={styles.celebrationEyebrow}>ACHIEVEMENT UNLOCKED</Text>
+              <Text style={styles.celebrationEyebrow}>CONQUISTA DESBLOQUEADA</Text>
               <Text style={styles.celebrationTitle}>
-                {checkpointNode?.title ?? 'Sharp Eye'}
+                {checkpointNode?.title ?? 'Checkpoint concluído'}
               </Text>
               <Text style={styles.celebrationDescription}>
                 {checkpointNode?.description ?? 'Você completou esta etapa da trilha com sucesso.'}
               </Text>
 
-              {/* XP box */}
-              <View style={styles.celebrationXpBox}>
-                <Text style={styles.celebrationXpEmoji}>⚡</Text>
-                <Text style={styles.celebrationXpText}>
-                  {gamification?.totalXp != null ? `+${gamification.totalXp} XP` : '+75 XP earned'}
-                </Text>
-              </View>
+              {/* XP box — total real acumulado */}
+              {gamification?.totalXp != null && (
+                <View style={styles.celebrationXpBox}>
+                  <Text style={styles.celebrationXpEmoji}>⚡</Text>
+                  <Text style={styles.celebrationXpText}>XP total: {gamification.totalXp}</Text>
+                </View>
+              )}
             </View>
 
             {/* CTAs */}
             <View style={styles.celebrationCtas}>
-              <AppButton label="Continue" onPress={nextAction.action} />
-              <Pressable onPress={() => {}} style={styles.celebrationShareButton}>
-                <Text style={styles.celebrationShareText}>Share with cohort</Text>
-              </Pressable>
+              <AppButton label={nextAction.label} onPress={nextAction.action} />
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -568,15 +565,5 @@ const styles = StyleSheet.create({
   celebrationCtas: {
     alignSelf: 'stretch',
     gap: 12,
-  },
-  celebrationShareButton: {
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  celebrationShareText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: galaxyColors.textSecondary,
-    textAlign: 'center',
   },
 });

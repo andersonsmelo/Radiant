@@ -10,7 +10,7 @@ import type { QuizResult } from '../../../types/quiz';
 
 const MAX_HEARTS = 5;
 /** Intervalo em ms para recarregar 1 coração (30 minutos) */
-const HEART_REFILL_INTERVAL_MS = 30 * 60 * 1000;
+export const HEART_REFILL_INTERVAL_MS = 30 * 60 * 1000;
 
 const DEFAULT_STORE: GamificationStore = {
     totalXp: 0,
@@ -123,6 +123,12 @@ class GamificationServiceImpl {
             lastActiveDate: store.lastActiveDate,
             hearts: store.hearts,
             maxHearts: store.maxHearts,
+            heartsNextRefillAt:
+                store.hearts < store.maxHearts && store.heartsLastRefillAt
+                    ? new Date(
+                          new Date(store.heartsLastRefillAt).getTime() + HEART_REFILL_INTERVAL_MS
+                      ).toISOString()
+                    : null,
         };
     }
 

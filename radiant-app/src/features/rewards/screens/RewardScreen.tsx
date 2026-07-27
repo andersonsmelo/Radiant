@@ -168,10 +168,17 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   useEffect(() => {
     if (!rewardCompleted) return;
 
-    const xpTotal = gamification?.totalXp ?? 145;
+    // Conta até o XP TOTAL real do aluno — o rótulo do card deixa claro que é
+    // acumulado, não um ganho desta conquista (nós de reward não concedem XP).
+    const xpTotal = gamification?.totalXp ?? 0;
+    if (xpTotal <= 0) {
+      setDisplayXp(0);
+      return;
+    }
     let n = 0;
+    const step = Math.max(1, Math.ceil(xpTotal / 40));
     const id = setInterval(() => {
-      n += 6;
+      n += step;
       if (n >= xpTotal) { n = xpTotal; clearInterval(id); }
       setDisplayXp(n);
     }, 18);
@@ -314,7 +321,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
 
           {rewardCompleted && (
             <View style={styles.rewardStack}>
-              {/* XP card */}
+              {/* XP card — total real acumulado */}
               <View style={styles.xpCard}>
                 <View style={styles.xpIcon}>
                   <Svg width={20} height={20} viewBox="0 0 24 24">
@@ -322,39 +329,29 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                   </Svg>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.rewardCardLabel}>XP EARNED</Text>
-                  <Text style={styles.xpValue}>+{displayXp} XP</Text>
-                </View>
-                <View style={styles.streakBadge}>
-                  <Text style={styles.streakBadgeText}>2× streak</Text>
+                  <Text style={styles.rewardCardLabel}>XP TOTAL</Text>
+                  <Text style={styles.xpValue}>{displayXp} XP</Text>
                 </View>
               </View>
 
-              {/* Streak card */}
-              <View style={styles.streakCard}>
-                <View style={styles.streakIcon}>
-                  <Svg width={16} height={16} viewBox="0 0 24 24">
-                    <Path d="M12 2C12 2 9 8 9 12c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1-1-3-1-4 0 0 4 2 4 7 0 3.31-2.69 6-6 6S6 18.31 6 15c0-5.5 4-9 6-13z" fill="#FF8A4C"/>
-                  </Svg>
+              {/* Streak card — estado real */}
+              {(gamification?.streakDays ?? 0) > 0 && (
+                <View style={styles.streakCard}>
+                  <View style={styles.streakIcon}>
+                    <Svg width={16} height={16} viewBox="0 0 24 24">
+                      <Path d="M12 2C12 2 9 8 9 12c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1-1-3-1-4 0 0 4 2 4 7 0 3.31-2.69 6-6 6S6 18.31 6 15c0-5.5 4-9 6-13z" fill="#FF8A4C"/>
+                    </Svg>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.rewardCardTitle}>
+                      {(gamification?.streakDays ?? 0) === 1
+                        ? 'Sequência de 1 dia mantida'
+                        : `Sequência de ${gamification?.streakDays} dias mantida`}
+                    </Text>
+                    <Text style={styles.rewardCardSub}>Volte amanhã para continuar</Text>
+                  </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.rewardCardTitle}>{gamification?.streakDays ?? 0}-day streak maintained</Text>
-                  <Text style={styles.rewardCardSub}>Keep it alive tomorrow</Text>
-                </View>
-              </View>
-
-              {/* Level card */}
-              <View style={styles.levelCard}>
-                <View style={styles.levelIcon}>
-                  <Svg width={16} height={16} viewBox="0 0 24 24">
-                    <Path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z" fill="#3DCAE8"/>
-                  </Svg>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.rewardCardTitle}>Level up — Resident</Text>
-                  <Text style={styles.rewardCardSub}>320 XP to Senior Resident</Text>
-                </View>
-              </View>
+              )}
             </View>
           )}
 
@@ -636,17 +633,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     letterSpacing: -0.02,
   },
-  streakBadge: {
-    backgroundColor: 'rgba(245,166,35,0.20)',
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  streakBadgeText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#F5A623',
-  },
   streakCard: {
     backgroundColor: 'rgba(255,107,44,0.15)',
     borderWidth: 1,
@@ -663,25 +649,6 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 11,
     backgroundColor: 'rgba(255,107,44,0.25)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  levelCard: {
-    backgroundColor: 'rgba(61,202,232,0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(61,202,232,0.35)',
-    borderRadius: 18,
-    padding: 12,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  levelIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 11,
-    backgroundColor: 'rgba(61,202,232,0.25)',
     alignItems: 'center',
     justifyContent: 'center',
   },

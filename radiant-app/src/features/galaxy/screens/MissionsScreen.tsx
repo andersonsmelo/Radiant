@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,54 +6,88 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
+import { DailyGoalService } from '@/src/features/daily-goal/services/DailyGoalService';
+import { SpacedRepetitionService } from '@/src/features/spaced-repetition/services/SpacedRepetitionService';
 import type { GamificationSnapshot } from '@/src/types/gamification';
+import type { DailyGoalSnapshot } from '@/src/types/dailyGoal';
+import { formatLocalDateKey } from '@/src/constants/dailyGoal';
 import { galaxyColors } from '@/src/ui/theme';
 import { semanticColors } from '@/src/ui/semantic-colors';
-import { tabBarClearance } from '@/src/ui/styles';
+import { space, tabBarClearance } from '@/src/ui/styles';
 
 const galaxy = semanticColors.galaxy;
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Relógio real até o reset do dia ─────────────────────────────────────────
 
-const DAILY_MISSIONS = [
-  { id: 'd1', title: 'Earn 100 XP today',    cur: 65, goal: 100, xp: 30,  icon: '⚡' },
-  { id: 'd2', title: 'Answer 3 in a row',     cur: 3,  goal: 3,  xp: 15,  icon: '🎯', done: true },
-  { id: 'd3', title: 'Complete 1 lesson',     cur: 0,  goal: 1,  xp: 25,  icon: '🧠' },
-];
+function msUntilMidnight(now: Date): number {
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  return midnight.getTime() - now.getTime();
+}
 
-const WEEKLY_MISSIONS = [
-  { id: 'w1', title: 'Maintain a 7-day streak', cur: 6, goal: 7, xp: 100, icon: '🔥' },
-  { id: 'w2', title: 'Master 3 new topics',     cur: 1, goal: 3, xp: 150, icon: '⭐' },
-];
+function formatHoursMinutes(ms: number): string {
+  const totalMinutes = Math.max(0, Math.floor(ms / 60000));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hours}h ${minutes.toString().padStart(2, '0')}m`;
+}
 
-// ─── HeartRefillTimer (preserved) ────────────────────────────────────────────
+function useDailyResetCountdown(): string {
+  const [label, setLabel] = useState(() => formatHoursMinutes(msUntilMidnight(new Date())));
 
-function HeartRefillTimer({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
+  useEffect(() => {
+    const tick = () => setLabel(formatHoursMinutes(msUntilMidnight(new Date())));
+    const interval = setInterval(tick, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return label;
+}
+
+// ─── HeartRefillTimer (recarga real do GamificationService) ──────────────────
+
+function HeartRefillTimer({
+  nextRefillAt,
+  onElapsed,
+}: {
+  nextRefillAt: string | null | undefined;
+  onElapsed: () => void;
+}) {
   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
 
   useEffect(() => {
-    if (hearts >= maxHearts) {
+    if (!nextRefillAt) {
       setSecondsLeft(null);
       return;
     }
-    const REFILL_MS = 30 * 60 * 1000;
+
+    const target = new Date(nextRefillAt).getTime();
+    let elapsedFired = false;
+
     const tick = () => {
-      setSecondsLeft((prev) => {
-        if (prev === null) return REFILL_MS / 1000;
-        if (prev <= 1) return REFILL_MS / 1000;
-        return prev - 1;
-      });
+      const remaining = Math.ceil((target - Date.now()) / 1000);
+      if (remaining <= 0) {
+        setSecondsLeft(0);
+        if (!elapsedFired) {
+          elapsedFired = true;
+          onElapsed();
+        }
+        return;
+      }
+      setSecondsLeft(remaining);
     };
+
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [hearts, maxHearts]);
+  }, [nextRefillAt, onElapsed]);
 
-  if (hearts >= maxHearts || secondsLeft === null) return null;
+  if (!nextRefillAt || secondsLeft === null || secondsLeft <= 0) return null;
 
   const mins = Math.floor(secondsLeft / 60);
   const secs = secondsLeft % 60;
@@ -61,17 +95,7 @@ function HeartRefillTimer({ hearts, maxHearts }: { hearts: number; maxHearts: nu
 
   return (
     <View style={styles.refillTimer}>
-      <Text style={styles.refillTimerText}>💗 Next heart in {padded}</Text>
-    </View>
-  );
-}
-
-// ─── XP Badge (shared) ───────────────────────────────────────────────────────
-
-function XpBadge({ xp }: { xp: number }) {
-  return (
-    <View style={styles.xpBadge}>
-      <Text style={styles.xpBadgeText}>+{xp}</Text>
+      <Text style={styles.refillTimerText}>💗 Próximo coração em {padded}</Text>
     </View>
   );
 }
@@ -81,45 +105,43 @@ function XpBadge({ xp }: { xp: number }) {
 type Mission = {
   id: string;
   title: string;
-  cur: number;
-  goal: number;
-  xp: number;
   icon: string;
-  done?: boolean;
+  done: boolean;
+  /** Progresso numérico real; omitido para missões binárias */
+  progress?: { cur: number; goal: number };
+  /** Linha de detalhe quando não há fração de progresso */
+  detail?: string;
 };
 
-function MissionCard({ title, cur, goal, xp, icon, done }: Mission) {
-  const isDone = done === true || cur >= goal;
-  const fillRatio = Math.min(cur / goal, 1);
+function MissionCard({ title, icon, done, progress, detail }: Mission) {
+  const fillRatio = progress ? Math.min(progress.cur / Math.max(progress.goal, 1), 1) : done ? 1 : 0;
+  const progressLabel = progress ? `${progress.cur} / ${progress.goal}` : detail;
 
   return (
-    <View style={[styles.missionCard, isDone && { opacity: 0.7 }]}>
+    <View
+      style={[styles.missionCard, done && { opacity: 0.7 }]}
+      accessibilityRole="text"
+      accessibilityLabel={`${title}. ${done ? 'Concluída.' : progressLabel ?? 'Pendente.'}`}
+    >
       {/* Left icon box */}
-      <View style={[styles.missionIconBox, isDone ? styles.missionIconBoxDone : styles.missionIconBoxPending]}>
-        <Text style={styles.missionIconText}>{isDone ? '✓' : icon}</Text>
+      <View style={[styles.missionIconBox, done ? styles.missionIconBoxDone : styles.missionIconBoxPending]}>
+        <Text style={[styles.missionIconText, done && styles.missionCheckText]}>{done ? '✓' : icon}</Text>
       </View>
 
       {/* Right content */}
       <View style={styles.missionContent}>
-        {/* Title row */}
-        <View style={styles.missionTitleRow}>
-          <Text
-            style={[
-              styles.missionTitle,
-              isDone && styles.missionTitleDone,
-            ]}
-            numberOfLines={1}
-          >
-            {title}
-          </Text>
-          <XpBadge xp={xp} />
-        </View>
+        <Text
+          style={[styles.missionTitle, done && styles.missionTitleDone]}
+          numberOfLines={1}
+        >
+          {title}
+        </Text>
 
         {/* Progress bar */}
         <View style={styles.progressTrack}>
           <View style={{ flex: fillRatio, borderRadius: 4, overflow: 'hidden', height: 8 }}>
             <LinearGradient
-              colors={isDone ? ['#34C88F', galaxy.statusSuccess] : [galaxyColors.ctaGradientEnd, galaxy.statusInformation]}
+              colors={done ? ['#34C88F', galaxy.statusSuccess] : [galaxyColors.ctaGradientEnd, galaxy.statusInformation]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={{ flex: 1 }}
@@ -131,7 +153,7 @@ function MissionCard({ title, cur, goal, xp, icon, done }: Mission) {
         </View>
 
         {/* Progress label */}
-        <Text style={styles.progressLabel}>{cur} / {goal}</Text>
+        {progressLabel ? <Text style={styles.progressLabel}>{progressLabel}</Text> : null}
       </View>
     </View>
   );
@@ -141,17 +163,94 @@ function MissionCard({ title, cur, goal, xp, icon, done }: Mission) {
 
 export default function MissionsScreen() {
   const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
+  const [dailyGoal, setDailyGoal] = useState<DailyGoalSnapshot | null>(null);
+  const [dueCount, setDueCount] = useState<number | null>(null);
+
+  const resetCountdown = useDailyResetCountdown();
+
+  const load = useCallback(async () => {
+    try {
+      const [gamification, goal, due] = await Promise.all([
+        GamificationService.getSnapshot(),
+        DailyGoalService.getSnapshot(),
+        SpacedRepetitionService.getDueCount(),
+      ]);
+      setSnapshot(gamification);
+      setDailyGoal(goal);
+      setDueCount(due);
+    } catch (error) {
+      console.error('[MissionsScreen] Failed to load mission data:', error);
+    }
+  }, []);
 
   useEffect(() => {
-    GamificationService.getSnapshot().then(setSnapshot);
-  }, []);
+    void load();
+  }, [load]);
+
+  useFocusEffect(
+    useCallback(() => {
+      void load();
+    }, [load])
+  );
 
   const hearts = snapshot?.hearts ?? 5;
   const maxHearts = snapshot?.maxHearts ?? 5;
+  const streakDays = snapshot?.streakDays ?? 0;
 
-  const dailyDoneCount = DAILY_MISSIONS.filter(
-    (m) => m.done === true || m.cur >= m.goal,
-  ).length;
+  const studiedToday = useMemo(() => {
+    const todayKey = formatLocalDateKey(new Date());
+    return (
+      (dailyGoal?.completedToday ?? 0) > 0 ||
+      snapshot?.lastActiveDate === todayKey
+    );
+  }, [dailyGoal?.completedToday, snapshot?.lastActiveDate]);
+
+  const missions = useMemo<Mission[]>(() => {
+    const list: Mission[] = [];
+
+    if (dailyGoal) {
+      list.push({
+        id: 'daily-goal',
+        title:
+          dailyGoal.goalPerDay === 1
+            ? 'Complete 1 quiz hoje'
+            : `Complete ${dailyGoal.goalPerDay} quizzes hoje`,
+        icon: '⚡',
+        done: dailyGoal.isCompleted,
+        progress: { cur: dailyGoal.completedToday, goal: dailyGoal.goalPerDay },
+      });
+    }
+
+    if (dueCount !== null) {
+      list.push({
+        id: 'reviews',
+        title: 'Deixe as revisões em dia',
+        icon: '🎯',
+        done: dueCount === 0,
+        detail:
+          dueCount === 0
+            ? 'Nenhuma revisão pendente'
+            : `${dueCount} ${dueCount === 1 ? 'revisão pendente' : 'revisões pendentes'} agora`,
+      });
+    }
+
+    list.push({
+      id: 'streak',
+      title:
+        streakDays > 1
+          ? `Proteja a sequência de ${streakDays} dias`
+          : 'Comece uma sequência hoje',
+      icon: '🔥',
+      done: studiedToday,
+      detail: studiedToday
+        ? 'Protegida por hoje'
+        : 'Complete um quiz para proteger',
+    });
+
+    return list;
+  }, [dailyGoal, dueCount, streakDays, studiedToday]);
+
+  const doneCount = missions.filter((m) => m.done).length;
 
   return (
     <View style={styles.root}>
@@ -164,33 +263,48 @@ export default function MissionsScreen() {
           {/* ── Header ── */}
           <View style={styles.headerRow}>
             <View>
-              <Text style={styles.headerLabel}>MISSIONS</Text>
+              <Text style={styles.headerLabel}>MISSÕES</Text>
               <Text style={styles.headerTitle}>Desafios de hoje</Text>
             </View>
-            {/* Clock badge */}
-            <View style={styles.clockBadge}>
+            {/* Tempo real até o reset diário (meia-noite local) */}
+            <View
+              style={styles.clockBadge}
+              accessibilityLabel={`O dia reinicia em ${resetCountdown}`}
+            >
               <Svg width={11} height={11} viewBox="0 0 11 11">
                 <Circle cx="5.5" cy="5.5" r="4.5" stroke={galaxyColors.xpColor} strokeWidth="1.4" fill="none" />
                 <Path d="M5.5 3v3l2 1" stroke={galaxyColors.xpColor} strokeWidth="1.4" strokeLinecap="round" fill="none" />
               </Svg>
-              <Text style={styles.clockText}>14h 22m</Text>
+              <Text style={styles.clockText}>{resetCountdown}</Text>
             </View>
           </View>
 
-          {/* ── Streak banner ── */}
-          <View style={styles.streakShadowWrapper}>
+          {/* ── Streak banner (estado real) ── */}
+          <View style={[styles.streakShadowWrapper, studiedToday && styles.streakShadowWrapperCalm]}>
             <LinearGradient
-              colors={['#FF8A4C', '#FF6B2C']}
+              colors={studiedToday ? ['#1535E8', '#3060FF'] : ['#FF8A4C', '#FF6B2C']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.streakBanner}
             >
               <View style={styles.streakIconBox}>
-                <Text style={styles.streakEmoji}>🔥</Text>
+                <Text style={styles.streakEmoji}>{studiedToday ? '✨' : '🔥'}</Text>
               </View>
               <View style={styles.streakTextCol}>
-                <Text style={styles.streakTitle}>Complete all 3 to keep your streak</Text>
-                <Text style={styles.streakSubtitle}>Streak shield expires at midnight</Text>
+                <Text style={styles.streakTitle}>
+                  {studiedToday
+                    ? streakDays > 1
+                      ? `Sequência de ${streakDays} dias protegida por hoje`
+                      : 'Você já estudou hoje'
+                    : streakDays > 1
+                      ? `Estude hoje para manter ${streakDays} dias de sequência`
+                      : 'Comece uma sequência hoje'}
+                </Text>
+                <Text style={styles.streakSubtitle}>
+                  {studiedToday
+                    ? 'Volte amanhã para continuar de onde parou'
+                    : `A sequência zera à meia-noite — faltam ${resetCountdown}`}
+                </Text>
               </View>
             </LinearGradient>
           </View>
@@ -198,42 +312,32 @@ export default function MissionsScreen() {
           {/* ── Daily section header ── */}
           <View style={styles.sectionHeaderRow}>
             <Text style={styles.sectionLabel}>
-              DAILY · {dailyDoneCount}/{DAILY_MISSIONS.length} DONE
+              HOJE · {doneCount}/{missions.length} CONCLUÍDAS
             </Text>
-            <View style={styles.xpBadge}>
-              <Text style={styles.xpBadgeText}>+70 XP TOTAL</Text>
-            </View>
           </View>
 
-          {/* ── Daily missions ── */}
+          {/* ── Missões (dados reais) ── */}
           <View style={styles.missionList}>
-            {DAILY_MISSIONS.map((m) => (
+            {missions.map((m) => (
               <MissionCard key={m.id} {...m} />
             ))}
           </View>
 
-          {/* ── Weekly section header ── */}
-          <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionLabel}>THIS WEEK</Text>
-            <Text style={styles.sectionRight}>3d left</Text>
-          </View>
-
-          {/* ── Weekly missions ── */}
-          <View style={styles.missionList}>
-            {WEEKLY_MISSIONS.map((m) => (
-              <MissionCard key={m.id} {...m} />
-            ))}
-          </View>
-
-          {/* ── Hearts footer (preserved) ── */}
+          {/* ── Hearts footer ── */}
           <View style={styles.heartsSection}>
             <View style={styles.heartsSectionHeader}>
-              <Text style={styles.heartsSectionTitle}>❤️ Lives</Text>
-              <HeartRefillTimer hearts={hearts} maxHearts={maxHearts} />
+              <Text style={styles.heartsSectionTitle}>❤️ Vidas</Text>
+              <HeartRefillTimer
+                nextRefillAt={snapshot?.heartsNextRefillAt}
+                onElapsed={load}
+              />
             </View>
-            <View style={styles.heartsRow}>
+            <View
+              style={styles.heartsRow}
+              accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
+            >
               {Array.from({ length: maxHearts }).map((_, i) => (
-                <Text key={i} style={styles.heartIcon}>
+                <Text key={i} style={styles.heartIcon} importantForAccessibility="no">
                   {i < hearts ? '❤️' : '🤍'}
                 </Text>
               ))}
@@ -241,7 +345,7 @@ export default function MissionsScreen() {
             {hearts === 0 && (
               <View style={styles.heartsWarning}>
                 <Text style={styles.heartsWarningText}>
-                  No lives left! Wait for a refill or complete reviews to continue.
+                  Sem vidas por agora. Aguarde a recarga ou faça revisões — elas nunca são bloqueadas.
                 </Text>
               </View>
             )}
@@ -309,6 +413,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 14 },
     elevation: 12,
   },
+  streakShadowWrapperCalm: {
+    shadowColor: '#3060FF',
+    shadowOpacity: 0.45,
+  },
   streakBanner: {
     borderRadius: 18,
     overflow: 'hidden',
@@ -356,26 +464,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 0.08 * 11,
   },
-  sectionRight: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: galaxyColors.textSecondary,
-  },
-
-  // XP badge (reused for both section badge and card badge)
-  xpBadge: {
-    backgroundColor: 'rgba(245,166,35,0.12)',
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderWidth: 1,
-    borderColor: 'rgba(245,166,35,0.25)',
-  },
-  xpBadgeText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: galaxyColors.xpColor,
-  },
 
   // Mission cards
   missionList: { gap: 10 },
@@ -406,16 +494,12 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(61,202,232,0.28)',
   },
   missionIconText: { fontSize: 20 },
-  missionContent: { flex: 1 },
-  missionTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 8,
-    marginBottom: 6,
+  missionCheckText: {
+    color: galaxyColors.background,
+    fontWeight: '800',
   },
+  missionContent: { flex: 1, gap: space.s1 },
   missionTitle: {
-    flex: 1,
     fontSize: 14,
     fontWeight: '700',
     color: galaxyColors.textPrimary,
@@ -437,10 +521,9 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: galaxyColors.textSecondary,
-    marginTop: 4,
   },
 
-  // Hearts (preserved)
+  // Hearts
   heartsSection: {
     backgroundColor: galaxyColors.surface,
     borderRadius: 16,

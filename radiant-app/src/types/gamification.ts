@@ -34,6 +34,11 @@ export interface GamificationSnapshot {
     lastActiveDate: string | null;
     hearts: number;
     maxHearts: number;
+    /**
+     * ISO timestamp da próxima recarga passiva de coração, ou null quando os
+     * corações estão cheios. Opcional para não quebrar mocks existentes.
+     */
+    heartsNextRefillAt?: string | null;
 }
 
 /**
