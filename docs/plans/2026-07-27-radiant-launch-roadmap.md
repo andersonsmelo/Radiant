@@ -132,8 +132,28 @@ código.
 
 ### Onda B — Qualidade pendente (M1) — engenharia, já autorizada no status
 
-- **B1 [P0]** Corrigir `ProgressScreen` (`paddingBottom: 24` →
-  `tabBarClearance`).
+- **B1 [P0]** ~~Corrigir `ProgressScreen`~~ **Concluída em 2026-07-27.** O
+  escopo real era maior: a correção de 86d1867 aplicou `tabBarClearance` apenas
+  ao `JourneyHomeScreen`, e o defeito seguia vivo em quatro telas —
+  `HomeScreen` (32pt), `ProgressScreen` (24pt), `MissionsScreen` (120pt mágico)
+  e `GalaxyMapScreen` (110pt mágico). As quatro passaram a usar a constante e o
+  contrato virou teste estrutural em
+  `radiant-app/scripts/tab-bar-clearance-contract.test.mjs`, ligado ao
+  `npm run quality`.
+- **B0 [P0] — NOVO, bloqueia o beta.** A flag `ENABLE_LEARNING_ROAD` tem
+  default `false` e **não é definida nos perfis `development`, `preview` nem
+  `production`** do `eas.json`; só o perfil `e2e-test` a liga. Consequências
+  verificadas em 2026-07-27:
+  1. Um build de produção renderiza `HomeScreen`, não `JourneyHomeScreen`.
+  2. Todo o E2E em device de 2026-07-26 rodou sob `e2e-test`, ou seja,
+     validou a Home da trilha — uma tela que o usuário de produção não vê.
+  3. O `.env` local também liga a flag, então o desenvolvimento manual observa
+     a mesma tela do E2E, e não a de produção.
+  Decisão de produto necessária antes de M4: a v1.3 lança com a Learning Road
+  (ligar a flag em `preview`/`production` e reexecutar o E2E) ou com a
+  `HomeScreen` clássica (e então o E2E precisa cobrir a tela certa)? Registrar
+  em ADR. Enquanto não decidido, nenhuma evidência de E2E vale para o caminho
+  de produção.
 - **B2 [P1]** Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos
   sem hifenização no meio da palavra.
 - **B3 [P0]** Gate 2 item 5: build web + navegação por teclado automatizável.
@@ -258,6 +278,7 @@ código.
 | E2E Android exigir mais ciclos que o previsto (primeiro prebuild) | Alta | Janela de 2 semanas em C; seletores por accessibility label já estáveis no iOS |
 | Rejeição na App Review (metadados/privacidade/disclaimer médico) | Média | E2–E4 revisados contra as guidelines; categoria Educação; disclaimer explícito; sem login obrigatório |
 | `ENABLE_REMOTE_SYNC=true` em produção com API 502 gerar UX quebrada no beta | Alta | D1 corrige o perfil antes do primeiro build de produção |
+| Evidência de E2E não cobrir o caminho de produção por divergência de feature flag | Confirmado | B0: decidir qual Home lança e reexecutar o E2E no perfil que reflete produção |
 | Verificação de conta/D-U-N-S travar M0 | Média | Iniciar na semana 1; caminho pessoal como fallback aceitando o custo do closed test |
 | Runtime version/OTA mal configurados após primeiro build | Média | D5 congela política antes de F1/F2; nunca alterar `runtimeVersion` sem novo build |
 | Pesquisa (Task 12) achar P0/P1 tarde | Média | D6 começa junto do beta, não depois; gate de M5 inclui P0/P1 de pesquisa |

@@ -12,7 +12,7 @@ import { ProgressRing } from '../../../components/ui/ProgressRing';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import type { HomeDashboardViewModel } from '../home.types';
 import { localHomeDashboardService } from '../services/createLocalHomeDashboardService';
-import { space, textStyles, fontFamily } from '../../../ui/styles';
+import { space, tabBarClearance, textStyles, fontFamily } from '../../../ui/styles';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
 import { TelemetryService } from '../../telemetry/TelemetryService';
@@ -586,7 +586,7 @@ const styles = StyleSheet.create({
     content: {
         paddingHorizontal: space.s3,
         paddingTop: space.s1,
-        paddingBottom: space.s6,
+        paddingBottom: tabBarClearance,
         gap: 12,
     },
 

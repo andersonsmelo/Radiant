@@ -23,6 +23,7 @@ import { AppConfig } from '../../../config';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
+import { tabBarClearance } from '../../../ui/styles';
 
 // ── Paleta (light mode) ──────────────────────────────────────────
 
@@ -726,7 +727,7 @@ export default function ProgressScreen() {
 const styles = StyleSheet.create({
     root: { flex: 1, backgroundColor: D.bg },
     scroll: { flex: 1 },
-    content: { paddingHorizontal: 20, paddingBottom: 24 },
+    content: { paddingHorizontal: 20, paddingBottom: tabBarClearance },
 
     // ── Page header ──
     screenEyebrow: {

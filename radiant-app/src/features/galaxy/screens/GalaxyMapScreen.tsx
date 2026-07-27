@@ -32,6 +32,7 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import type { RadiantGalaxy } from '../../../types/galaxy';
 import { GALAXY_CATALOG, getActiveGalaxy, getActiveBody } from '../../../data/galaxy-catalog';
 import { galaxyColors } from '../../../ui/theme';
+import { tabBarClearance } from '../../../ui/styles';
 
 // ── Constantes ───────────────────────────────────────────────
 
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
   },
   ctaArea: {
     paddingHorizontal: 20,
-    paddingBottom: 110,
+    paddingBottom: tabBarClearance,
     paddingTop: 16,
     borderTopWidth: 1,
     borderTopColor: 'rgba(255,255,255,0.08)',

@@ -11,6 +11,7 @@ import Svg, { Circle, Path } from 'react-native-svg';
 
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { GamificationSnapshot } from '@/src/types/gamification';
+import { tabBarClearance } from '@/src/ui/styles';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#F5FAFF' },
   safe: { flex: 1 },
   scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingBottom: 120 },
+  scrollContent: { paddingHorizontal: 20, paddingBottom: tabBarClearance },
 
   // Header
   headerRow: {
