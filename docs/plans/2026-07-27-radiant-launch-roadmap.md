@@ -257,7 +257,15 @@ código.
   mapeamento para privacy labels (iOS) e data safety (Play). **Verificado:** hoje
   nenhuma propriedade de telemetria sai do device (analytics remoto off, Sentry
   off em `production`). Destrava **E3** (preencher as fichas das lojas).
-- **D3 [P0]** Checklist de release v1.3 + matriz real-device (Task 16).
+- **D3 [P0]** ~~Checklist de release v1.3 + matriz real-device (Task 16)~~
+  **Concluída em 2026-07-27.** Checklist go/no-go em
+  [`docs/release/CHECKLIST_RELEASE_V1.3.md`](../release/CHECKLIST_RELEASE_V1.3.md),
+  cobrindo qualidade/a11y, versionamento (D5), E2E + matriz real-device (iOS
+  6,7"/6,1", iPad condicional, Android compacto/médio, com os checks por linha),
+  privacidade/telemetria, metadados de loja, contas/submissão e pós-lançamento —
+  cada item com estado (✅/⏳/⛔) e link para a task detalhada, mais um resumo dos
+  bloqueios de submissão. É o checklist que se percorre antes de cada submissão,
+  não uma reescrita do roadmap.
 - **D4 [P0]** Gate editorial: triar os 42 itens `formatNeedsReview` (aceitar
   com motivo, corrigir ou remover do caminho público).
 - **D5 [P1]** Congelar versionamento: definir `1.3.0`, alinhar
