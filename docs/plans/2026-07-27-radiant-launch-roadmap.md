@@ -205,9 +205,22 @@ código.
   Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
 - **B5 [P1]** Cobrir o nó de reward com E2E (track de 7 lições ou fixture de
   track curto no perfil `e2e-test`).
-- **B6 [P1]** Resolver a pendência de produto: onboarding em instalação limpa
-  (confirmar intenção; se defeito, corrigir e cobrir com flow de instalação
-  limpa).
+- **B6 [P1]** ~~Onboarding em instalação limpa~~ **Investigada em 2026-07-27.**
+  Não é defeito de runtime: "instalação limpa → Home" é consequência correta da
+  Learning Road ser a home (a home já recebe o usuário com o Pixel e destaca o
+  próximo passo — casa com a copy "é só abrir e estudar"). A investigação revelou
+  **código morto de onboarding**, não uma armadilha: (1) o wizard
+  `src/app/onboarding/*` é protótipo inacabado — conteúdo em inglês que não bate
+  com o catálogo pt-BR, especialidades falsas hardcoded, **não persiste nada**
+  (escolhas descartadas no "Build my plan →") e **nenhuma tela de produção navega
+  até ele** (só deep link); (2) o onboarding suave (`OnboardingService`
+  intro/closure) está fiado só na `HomeScreen` clássica morta, então nunca aparece
+  na Learning Road. **Recomendação (confirmar com Anderson):** manter o onboarding
+  frictionless da Learning Road na v1.3 (sem wizard) e **remover o wizard + o
+  onboarding suave junto com a `HomeScreen`** (ver plano estendido no
+  `radiant-app/README.md`); se um setup guiado for desejado no futuro, o wizard
+  precisa ser reconstruído (pt-BR, catálogo real, persistindo as escolhas).
+  **Nenhuma correção de runtime é necessária para lançar.**
 - **B7 [P2]** Reduzir warnings de lint por domínio (meta: 54 → ≤ 20) sem
   supressões globais.
 

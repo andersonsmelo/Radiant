@@ -157,6 +157,27 @@ estável, sem necessidade de rollback):
 Enquanto o rollback for necessário, a flag e a `HomeScreen` ficam; a remoção é
 uma única passada mecânica depois que o caminho de reversão puder ser aposentado.
 
+**Onboarding órfão (investigado na task B6, 2026-07-27).** A adoção da Learning
+Road deixou duas superfícies de onboarding sem uso em produção, que saem na mesma
+limpeza:
+
+- O **onboarding suave** (`OnboardingService`, cartão de intro no Dia 0 e banner
+  de encerramento no Dia 7) é consumido **apenas** pela `HomeScreen` clássica.
+  A Learning Road não o fia, então ele nunca aparece em produção. Sai junto com a
+  `HomeScreen`; se o intro/closure for desejado na Learning Road, ele precisa ser
+  reconectado à `JourneyHomeScreen` de propósito.
+- O **wizard de onboarding** em `src/app/onboarding/*` (welcome → especialidade →
+  meta) é um **protótipo inacabado**: conteúdo em inglês que não bate com o
+  catálogo pt-BR, especialidades hardcoded fictícias e **não persiste as escolhas**
+  (o "Build my plan →" só faz `router.replace('/(tabs)')`). Nenhuma tela de
+  produção navega até ele — só o deep link `radiantapp://onboarding`. Deve ser
+  **removido** (rotas `onboarding/index`, `onboarding/value`, `onboarding/goal`)
+  ou, se um setup guiado for desejado, **reconstruído** como feature real (pt-BR,
+  trilhas do catálogo, persistindo especialidade e meta diária).
+
+Confirmação de produto pendente: "instalação limpa → Home" é o comportamento
+intencional da v1.3 (sem wizard bloqueante); a remoção acima assume esse rumo.
+
 ## Sistema visual V2
 
 O app agora usa uma camada visual clara e progress-driven inspirada na direção `Radiology Journey` da segunda versão do Stitch.

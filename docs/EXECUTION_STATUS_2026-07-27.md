@@ -77,7 +77,7 @@ O projeto passou a ser trabalhado por várias IAs em sessões independentes. O c
 5. **API pública inativa.** A ADR de estratégia da API continua pendente e é decisão de produto.
 6. **Contas de loja inexistentes.** Apple Developer e Play Console ainda não foram criadas; é o item de maior latência do plano de lançamento.
 7. ~~**`JourneyMap` com tema incorreto.**~~ Corrigido em 2026-07-27 (task B2): os componentes do mapa passaram a usar `galaxyColors` (antes usavam a paleta clara `colors` dentro da tela escura) e o ícone foi empilhado acima do texto, eliminando a quebra de rótulo no meio da palavra. Guarda estrutural em `scripts/maestro-contract.test.mjs`; verificado no build web a 375px.
-8. **Onboarding em instalação limpa.** Com o app recém-instalado e aberto sem deep link, a primeira tela é a Home; falta confirmar se é intencional.
+8. ~~**Onboarding em instalação limpa.**~~ Investigado em 2026-07-27 (task B6): não é defeito. "Instalação limpa → Home" é o comportamento correto da Learning Road (a home recebe o usuário sem wizard). O wizard `src/app/onboarding/*` é protótipo morto (inglês, não persiste nada, só deep link) e o onboarding suave está preso à `HomeScreen` clássica morta. Recomendação: manter frictionless na v1.3 e remover ambos junto com a `HomeScreen`. Confirmação de produto pendente; nenhuma correção de runtime bloqueia o lançamento.
 
 ## Dívidas rastreadas
 
