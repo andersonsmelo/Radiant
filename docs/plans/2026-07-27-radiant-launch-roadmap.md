@@ -164,9 +164,12 @@ código.
   caminho de produção. Restam duas pontas:
   - **B0.1 [P0]** reexecutar os três flows Maestro sob o perfil `preview`, que
     agora reflete produção, e registrar a evidência.
-  - **B0.2 [P1]** atualizar a seção "Learning Road" do `radiant-app/README.md`,
-    que ainda a descreve como redesign em andamento, e planejar a remoção da
-    `HomeScreen` morta depois do beta.
+  - **B0.2 [P1]** ~~atualizar a seção "Learning Road" do `radiant-app/README.md`~~
+    **Concluída em 2026-07-27.** A seção deixou de descrever a Learning Road como
+    redesign em andamento e passou a tratá-la como a home de produção entregue da
+    v1.3 (sem o enquadramento "primeiro slice / rollout V2"), e ganhou um plano
+    explícito de remoção da `HomeScreen` morta pós-beta (branch de flag em
+    `(tabs)/index.tsx`, arquivos da `HomeScreen` e a flag `ENABLE_LEARNING_ROAD`).
 - **B2 [P1]** ~~Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos~~
   **Concluída em 2026-07-27.** Os dois defeitos tinham a mesma origem: os
   componentes do mapa (`JourneyMap`, `JourneyNodeCard`, `JourneyMapHeader`)

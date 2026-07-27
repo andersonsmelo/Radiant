@@ -89,7 +89,7 @@ Estado atual:
 - persistência local versionada para progresso da jornada (`journey-progress.v2`);
 - progresso separado por trilha, preservado ao alternar entre `Fundamentos`, `Tórax` e `Abdome`;
 - migração segura do store legado `journey-progress.v1` para o bucket da trilha padrão;
-- Home alternativa da trilha em `src/features/journey/screens/JourneyHomeScreen.tsx`;
+- Home de produção (Learning Road) em `src/features/journey/screens/JourneyHomeScreen.tsx`;
 - prateleira `Trilhas disponíveis` em `src/features/journey/components/JourneyTrackShelf.tsx`;
 - cards acionáveis de trilha em `src/features/journey/components/JourneyTrackCard.tsx`;
 - estado inline de trilha pausada quando não existe próximo nó elegível para abrir;
@@ -108,12 +108,12 @@ Status funcional:
 - cada trilha monta sua própria definição de nós a partir das lições do catálogo;
 - `checkpoint` já possui flow dedicado e persiste conclusão localmente;
 - `reward` já possui flow dedicado e persiste a conquista localmente;
-- `review` e `quiz` mantêm a engine atual, mas com chrome e superfícies do redesign V2;
-- `reward` agora fecha o ciclo dedicado da jornada e entra no smoke V2.
+- `review` e `quiz` mantêm a engine atual, com o chrome e as superfícies atuais;
+- `reward` fecha o ciclo dedicado da jornada e entra no smoke do fluxo crítico.
 
-### Rollout V2 implementado
+### Telas entregues da Learning Road
 
-Primeiro slice efetivamente entregue do redesign:
+As telas que compõem a home de produção e o fluxo crítico da v1.3:
 
 - `Journey Home`
 - `Journey Track Shelf`
@@ -135,6 +135,27 @@ Arquivos principais deste rollout:
 - `src/features/rewards/screens/RewardScreen.tsx`
 - `src/features/review/screens/ReviewScreen.tsx`
 - `src/features/quiz/screens/QuizScreen.tsx`
+
+### Remoção da `HomeScreen` clássica (pós-beta)
+
+A `HomeScreen` clássica não é mais a home do produto: ela só é montada quando
+`EXPO_PUBLIC_ENABLE_LEARNING_ROAD` é desligada, que hoje é o caminho de rollback.
+Ela permanece no código apenas como esse kill switch e é dívida rastreada — deve
+sair depois que o beta estabilizar a Learning Road em produção.
+
+Plano de remoção (executar quando o beta confirmar a Learning Road como home
+estável, sem necessidade de rollback):
+
+1. Remover o branch de flag em `src/app/(tabs)/index.tsx`, deixando a rota
+   renderizar `JourneyHomeScreen` diretamente.
+2. Excluir `src/features/home/screens/HomeScreen.tsx` e
+   `src/features/home/screens/HomeScreen.flow.test.tsx`.
+3. Retirar a flag `ENABLE_LEARNING_ROAD` de `src/config.ts` e dos perfis do
+   `eas.json` (o comportamento passa a ser fixo, não mais configurável).
+4. Atualizar esta seção e o exemplo de rollback abaixo, que deixa de existir.
+
+Enquanto o rollback for necessário, a flag e a `HomeScreen` ficam; a remoção é
+uma única passada mecânica depois que o caminho de reversão puder ser aposentado.
 
 ## Sistema visual V2
 
