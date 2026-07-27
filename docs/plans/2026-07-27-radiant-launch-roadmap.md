@@ -274,9 +274,15 @@ código.
 - **E1 [P0]** Screenshots por dispositivo: iPhone 6,7"/6,5" (e 13" iPad se
   mantiver `supportsTablet: true` — decidir; desligar tablet reduz escopo de
   QA e screenshots), Android phone + feature graphic 1024×500.
-- **E2 [P0]** Textos de loja pt-BR: nome, subtítulo/short description,
-  descrição longa, keywords, notas de release; disclaimer educacional ("não
-  substitui orientação médica profissional").
+- **E2 [P0]** ~~Textos de loja pt-BR~~ **Rascunho pronto em 2026-07-27** em
+  [`docs/store/textos-loja-pt-BR.md`](../store/textos-loja-pt-BR.md): nome,
+  subtítulo (App Store, 3 opções) / título (Play), descrição curta (Play),
+  texto promocional, descrição longa, keywords e notas de release da v1.3, tudo
+  dentro dos limites de caracteres, mais o disclaimer educacional. Decisões:
+  categoria **Educação**, gratuito no lançamento (freemium futuro, sem prometer
+  "grátis para sempre"), ângulo de método (trilha + revisão espaçada). Sem
+  alegação médica/clínica e sem números inventados. **Pendente:** aprovação de
+  Anderson (escolher variantes), reserva do nome (A3) e revisão de domínio.
 - **E3 [P0]** Privacy labels (App Store Connect) e Data safety (Play) — 
   derivados de D2; declarar Sentry (crash data) e o que mais a allowlist
   permitir.
