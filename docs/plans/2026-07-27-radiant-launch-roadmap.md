@@ -38,8 +38,9 @@ Fonte: [status canônico 2026-07-27](../EXECUTION_STATUS_2026-07-27.md).
 
 **Aberto (bloqueadores conhecidos):**
 
-1. Gate 2 de acessibilidade: item 2 (anúncio único VoiceOver, exige humano com
-   áudio) e item 5 (navegação por teclado, exige build web).
+1. Gate 2 de acessibilidade: resta o item 2 (anúncio único VoiceOver, exige
+   humano com áudio, task B4). O item 5 (navegação por teclado) foi fechado em
+   2026-07-27 com a build web (task B3).
 2. Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
    Android.
 3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
@@ -167,7 +168,16 @@ código.
     `HomeScreen` morta depois do beta.
 - **B2 [P1]** Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos
   sem hifenização no meio da palavra.
-- **B3 [P0]** Gate 2 item 5: build web + navegação por teclado automatizável.
+- **B3 [P0]** ~~Gate 2 item 5: build web + navegação por teclado~~ **Concluída em
+  2026-07-27.** Build web estática gerada (`npx expo export --platform web`; o
+  `app.json` já usa `web.output: static`) e o fluxo crítico (Learning Road →
+  lição → quiz → onboarding/entrar) percorrido só por teclado. Ordem de foco
+  lógica, foco visível em todos os controles (anel `outline: auto` do navegador +
+  borda 3px do `AppButton`), sem armadilhas de foco (a Home cicla e fecha; a rota
+  de lição contém o foco) e alvos ≥ 44px (atalho da Home 56px, ação de entrar
+  44px). Evidência:
+  [`radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](../../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
+  Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).
 - **B4 [P0]** Gate 2 item 2: sessão humana de VoiceOver com áudio (agendar com
   Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
 - **B5 [P1]** Cobrir o nó de reward com E2E (track de 7 lições ou fixture de

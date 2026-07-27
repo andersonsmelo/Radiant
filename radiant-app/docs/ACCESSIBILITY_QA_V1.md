@@ -37,9 +37,20 @@ exposed with their raw font codepoint, and Expo Router route paths leaking into
 the navigation header — were fixed and reverified on device the same day, and
 both are now covered by the contract test.
 
-The gate remains unapproved for a different reason: item 2 needs VoiceOver with
-audio and item 5 needs a web build, and neither has been done. Details, method
-and the fix: [`docs/evidence/2026-07-26-accessibility-gate2.md`](evidence/2026-07-26-accessibility-gate2.md).
+Item 5 (keyboard navigation) was closed on 2026-07-27: the static web build was
+generated (`npx expo export --platform web`) and the critical flow — Learning
+Road home → lesson → quiz → onboarding/sign-in — was traversed with the keyboard
+only. Focus order is logical, every focusable control shows a visible focus ring
+(browser `outline: auto` amber; the `AppButton` adds its own 3px focus border),
+there are no focus traps (the home cycles and wraps; the pushed lesson route
+contains focus to its own controls), and every control meets the 44px target —
+the Home shortcut at 56px and the sign-in action at 44px. Method, the full
+per-screen focus tables and the tooling caveat about keyboard activation:
+[`docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
+
+The gate remains unapproved for one remaining reason: item 2 needs VoiceOver
+with audio and has not been done (task B4). Details, method and the fix for the
+2026-07-26 device run: [`docs/evidence/2026-07-26-accessibility-gate2.md`](evidence/2026-07-26-accessibility-gate2.md).
 
 Two enforced contracts follow from that run and are worth stating here:
 decorative icons must go through `DecorativeIcon`, never `MaterialIcons`

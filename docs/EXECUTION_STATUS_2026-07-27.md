@@ -50,7 +50,7 @@ Commit: `0bf3332`.
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 |
 | E2E iOS em device | não reexecutado | válido para a Learning Road, mas colhido sob `e2e-test` |
 | E2E Android | não executado | `radiant-app/android/` continua inexistente |
-| Gate 2 de acessibilidade | PARCIAL | itens 1, 3 e 4 com evidência; 2 e 5 abertos |
+| Gate 2 de acessibilidade | PARCIAL (4/5) | itens 1, 3, 4 e 5 com evidência; só o item 2 aberto |
 
 ## Planejamento de lançamento
 
@@ -70,7 +70,7 @@ O projeto passou a ser trabalhado por várias IAs em sessões independentes. O c
 
 ## Bloqueios do app
 
-1. **Gate 2 sem aprovação.** Item 2 (anúncio único no VoiceOver) exige humano com áudio; item 5 (navegação por teclado) exige build web e é automatizável. Nenhum dos dois foi feito.
+1. **Gate 2 sem aprovação.** Item 5 (navegação por teclado) foi fechado em 2026-07-27 com a build web estática e verificação de teclado do fluxo crítico (ordem de foco, foco visível, ausência de armadilha, alvos ≥ 44px) — ver [evidência](../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md). Resta o item 2 (anúncio único no VoiceOver), que exige humano com áudio (task B4).
 2. **E2E não reexecutado sob perfil de produção.** Os três flows precisam rodar sob `preview`, que agora reflete produção, para que a evidência de device valide o que será distribuído.
 3. **Android sem projeto nativo.** `expo prebuild` nunca foi executado; a matriz de smoke cobre só iOS.
 4. **Nó de reward sem cobertura E2E.** O track ativo vem do catálogo (7 lições) e a conquista só destrava após a última lição.
@@ -93,8 +93,8 @@ Sobre as referências absolutas: o contrato de documentação bane apenas o cami
 
 ## Próxima sequência sugerida
 
-1. **B3** — Gate 2 item 5: build web e navegação por teclado. Único P0 restante sem dependência de conta, hardware ou decisão de produto.
-2. **B0.1** — reexecutar os três flows Maestro sob o perfil `preview` e registrar a evidência.
+1. ~~**B3** — Gate 2 item 5: build web e navegação por teclado.~~ **Concluída em 2026-07-27.** Restou apenas o item 2 do Gate 2 (task B4), que depende de sessão humana de VoiceOver.
+2. **B0.1** — reexecutar os três flows Maestro sob o perfil `preview` e registrar a evidência. Passa a ser o próximo P0 de engenharia sem dependência externa.
 3. **B2** e **B5** — `JourneyMap` e cobertura E2E do nó de reward.
 4. **Onda A** — contas de loja, quando a autorização financeira sair; **A4** (política de privacidade) pode ser escrita antes das contas.
 5. **Onda C** — Android, a partir do `expo prebuild`.
