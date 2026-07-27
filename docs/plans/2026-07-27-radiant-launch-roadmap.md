@@ -45,9 +45,10 @@ Fonte: [status canônico 2026-07-27](../EXECUTION_STATUS_2026-07-27.md).
    Android.
 3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
    produção em 2026-07-27 (task B0.1).
-4. `JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
-   palavra (task B2). O defeito de folga da tab bar foi resolvido em todas as
-   telas roláveis nesta data (task B1).
+4. ~~`JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
+   palavra (task B2).~~ Corrigido em 2026-07-27 (task B2): tema `galaxyColors` e
+   rótulos quebrando só em limite de palavra. O defeito de folga da tab bar foi
+   resolvido em todas as telas roláveis nesta data (task B1).
 5. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
    final).
 6. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
@@ -166,8 +167,18 @@ código.
   - **B0.2 [P1]** atualizar a seção "Learning Road" do `radiant-app/README.md`,
     que ainda a descreve como redesign em andamento, e planejar a remoção da
     `HomeScreen` morta depois do beta.
-- **B2 [P1]** Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos
-  sem hifenização no meio da palavra.
+- **B2 [P1]** ~~Corrigir `JourneyMap`: tema escuro correto e quebra de rótulos~~
+  **Concluída em 2026-07-27.** Os dois defeitos tinham a mesma origem: os
+  componentes do mapa (`JourneyMap`, `JourneyNodeCard`, `JourneyMapHeader`)
+  usavam a paleta clara `colors` e o `SurfaceCard` claro, mas só renderizam
+  dentro do `JourneyHomeScreen` escuro — saía um card branco no fundo escuro.
+  Passaram a usar `galaxyColors` e um container próprio (padrão do `JourneyHero`,
+  não o `SurfaceCard` compartilhado). A quebra no meio da palavra vinha do card
+  do zig-zag com o ícone inline comendo a largura; o ícone foi empilhado acima do
+  texto e o card alargado, dando largura para o texto quebrar só em limite de
+  palavra. Guarda estrutural nova em
+  `scripts/maestro-contract.test.mjs`: esses componentes devem usar
+  `galaxyColors`, nunca a paleta clara. Verificado no build web a 375px.
 - **B3 [P0]** ~~Gate 2 item 5: build web + navegação por teclado~~ **Concluída em
   2026-07-27.** Build web estática gerada (`npx expo export --platform web`; o
   `app.json` já usa `web.output: static`) e o fluxo crítico (Learning Road →

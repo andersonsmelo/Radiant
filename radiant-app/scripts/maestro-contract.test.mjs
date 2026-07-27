@@ -90,6 +90,28 @@ test('keeps icon glyphs out of the accessibility tree', async () => {
   assert.deepEqual(offenders, [], 'these files import MaterialIcons directly instead of DecorativeIcon');
 });
 
+test('keeps the journey map on the dark galaxy theme it renders inside', async () => {
+  // JourneyMap and its children render only inside JourneyHomeScreen, which is a
+  // dark galaxy screen. Importing the light `colors` token makes them render a
+  // white card with dark text on the dark background — the exact defect fixed in
+  // B2. The rule: these components use `galaxyColors`, never the light `colors`.
+  const files = [
+    'src/features/journey/components/JourneyMap.tsx',
+    'src/features/journey/components/JourneyNodeCard.tsx',
+    'src/features/journey/components/JourneyMapHeader.tsx',
+  ];
+
+  for (const file of files) {
+    const source = await readAppFile(file);
+    assert.match(source, /\bgalaxyColors\b/, `${file} must theme with galaxyColors`);
+    assert.doesNotMatch(
+      source,
+      /\bcolors\b/,
+      `${file} must not use the light \`colors\` theme inside the dark journey screen`
+    );
+  }
+});
+
 test('never lets a route fall back to the native header', async () => {
   // An undeclared route inheriting the default header renders its raw path as
   // the title and the previous route id as the back label — leaking

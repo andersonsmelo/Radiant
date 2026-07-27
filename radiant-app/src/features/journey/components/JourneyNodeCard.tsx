@@ -2,8 +2,10 @@ import React from 'react';
 import { DecorativeIcon, type DecorativeIconName } from '../../../components/ui/DecorativeIcon';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { JourneyNode } from '../../../types/journey';
-import { colors, shadows } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+
+const accent = galaxyColors.ctaGradientEnd;
 
 type MaterialIconName = DecorativeIconName;
 
@@ -75,12 +77,12 @@ export function JourneyNodeCard({
         ]}
       >
         <View style={styles.iconTile}>
-          <DecorativeIcon name={meta.icon} size={22} color={colors.primary} />
+          <DecorativeIcon name={meta.icon} size={22} color={accent} />
         </View>
 
         <View style={styles.content}>
           <Text style={styles.typeLabel}>{meta.label}</Text>
-          <Text style={styles.title}>{node.title}</Text>
+          <Text style={styles.title} numberOfLines={3}>{node.title}</Text>
           <Text style={styles.metaText}>{isRecommended ? 'Próximo passo' : getStatusCopy(node)}</Text>
         </View>
       </Pressable>
@@ -112,14 +114,13 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 999,
-    backgroundColor: colors.surface,
+    backgroundColor: galaxyColors.background,
     borderWidth: 4,
-    borderColor: colors.primary,
-    ...shadows.glow,
+    borderColor: accent,
   },
   recommendedRing: {
-    borderColor: colors.primary,
-    shadowColor: colors.primary,
+    borderColor: accent,
+    shadowColor: accent,
     shadowOpacity: 0.18,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 8 },
@@ -129,28 +130,28 @@ const styles = StyleSheet.create({
     opacity: 0.45,
   },
   card: {
-    width: '43%',
+    width: '45%',
     minHeight: 96,
-    backgroundColor: colors.surfaceGlass,
+    backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,
     borderWidth: 1,
-    borderColor: colors.borderSoft,
-    padding: space.s2,
-    gap: space.s2,
-    flexDirection: 'row',
-    alignItems: 'center',
+    borderColor: galaxyColors.border,
+    padding: space.s1,
+    gap: space.s1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
   },
   cardLeft: {
-    marginRight: '57%',
+    marginRight: '55%',
   },
   cardRight: {
-    marginLeft: '57%',
+    marginLeft: '55%',
   },
   cardRecommended: {
-    borderColor: colors.primary,
+    borderColor: accent,
     borderWidth: 2,
-    backgroundColor: colors.surface,
-    shadowColor: colors.primary,
+    backgroundColor: galaxyColors.surfaceActive,
+    shadowColor: accent,
     shadowOpacity: 0.12,
     shadowRadius: 20,
     shadowOffset: { width: 0, height: 12 },
@@ -166,27 +167,26 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: radius.rMd,
-    backgroundColor: colors.surfaceStrong,
+    backgroundColor: galaxyColors.surfaceActive,
     alignItems: 'center',
     justifyContent: 'center',
   },
   content: {
-    flex: 1,
     gap: 2,
   },
   typeLabel: {
     ...typography.micro,
-    color: colors.textTertiary,
+    color: galaxyColors.textTertiary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   title: {
     ...typography.body,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     fontWeight: '800',
   },
   metaText: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
 });

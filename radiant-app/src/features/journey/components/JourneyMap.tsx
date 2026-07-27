@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { JourneyNode, JourneyUnit } from '../../../types/journey';
-import { SurfaceCard } from '../../../components/ui/SurfaceCard';
-import { colors } from '../../../ui/theme';
-import { space } from '../../../ui/styles';
+import { galaxyColors } from '../../../ui/theme';
+import { radius, space } from '../../../ui/styles';
 import { JourneyNodeCard } from './JourneyNodeCard';
 import { JourneyMapHeader } from './JourneyMapHeader';
 
@@ -16,7 +15,7 @@ type JourneyMapProps = {
 
 export function JourneyMap({ units, recommendedNodeId, onNodePress, isNodeDisabled }: JourneyMapProps) {
   return (
-    <SurfaceCard variant="elevated" style={styles.card}>
+    <View style={styles.card}>
       <JourneyMapHeader
         title="Seu próximo trecho"
         subtitle="A trilha prioriza clareza no mobile e sempre destaca a melhor próxima ação."
@@ -40,12 +39,17 @@ export function JourneyMap({ units, recommendedNodeId, onNodePress, isNodeDisabl
           </View>
         </View>
       ))}
-    </SurfaceCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
     gap: space.s3,
   },
   unitSection: {
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
   unitTitle: {
     fontSize: 16,
     lineHeight: 24,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     fontWeight: '800',
   },
   mapShell: {
@@ -70,6 +74,6 @@ const styles = StyleSheet.create({
     width: 8,
     marginLeft: -4,
     borderRadius: 999,
-    backgroundColor: colors.rail,
+    backgroundColor: galaxyColors.spine,
   },
 });

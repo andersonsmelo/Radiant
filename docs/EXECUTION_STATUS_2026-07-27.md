@@ -76,7 +76,7 @@ O projeto passou a ser trabalhado por várias IAs em sessões independentes. O c
 4. **Nó de reward sem cobertura E2E.** O track ativo vem do catálogo (7 lições) e a conquista só destrava após a última lição.
 5. **API pública inativa.** A ADR de estratégia da API continua pendente e é decisão de produto.
 6. **Contas de loja inexistentes.** Apple Developer e Play Console ainda não foram criadas; é o item de maior latência do plano de lançamento.
-7. **`JourneyMap` com tema incorreto.** Renderiza em tema claro dentro da tela escura e quebra rótulos no meio da palavra.
+7. ~~**`JourneyMap` com tema incorreto.**~~ Corrigido em 2026-07-27 (task B2): os componentes do mapa passaram a usar `galaxyColors` (antes usavam a paleta clara `colors` dentro da tela escura) e o ícone foi empilhado acima do texto, eliminando a quebra de rótulo no meio da palavra. Guarda estrutural em `scripts/maestro-contract.test.mjs`; verificado no build web a 375px.
 8. **Onboarding em instalação limpa.** Com o app recém-instalado e aberto sem deep link, a primeira tela é a Home; falta confirmar se é intencional.
 
 ## Dívidas rastreadas

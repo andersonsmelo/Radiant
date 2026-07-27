@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 
 type JourneyMapHeaderProps = {
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
     },
     title: {
         ...typography.h3,
-        color: colors.textPrimary,
+        color: galaxyColors.textPrimary,
     },
     subtitle: {
         ...typography.bodyRegular,
-        color: colors.textSecondary,
+        color: galaxyColors.textSecondary,
     },
 });
