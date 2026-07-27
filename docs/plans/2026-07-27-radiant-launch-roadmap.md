@@ -129,7 +129,16 @@ código.
   caso indisponível na App Store).
 - **A4 [P0]** Publicar política de privacidade em URL pública (pt-BR, com
   seção de dados locais, telemetria e contato). Bloqueia preenchimento de
-  privacy labels e data safety.
+  privacy labels e data safety. **Rascunho pronto em 2026-07-27** em
+  [`docs/legal/politica-de-privacidade.md`](../legal/politica-de-privacidade.md),
+  fundamentado num levantamento do que o app realmente coleta (insumo do D2):
+  controlador Anderson Melo (pessoa física); local-first sem conta obrigatória;
+  telemetria só no dispositivo; notificações locais sem push token; crash
+  reporting (Sentry) coberto como opcional, hoje desligado no perfil
+  `production`; Expo Updates como único terceiro ativo. **Pendente:** revisão
+  jurídica, definição do e-mail/entidade final e **hospedagem em URL pública**
+  (preencher «URL_PÚBLICA_DA_POLÍTICA»). Só então destrava E3 (privacy labels /
+  data safety).
 - **A5 [P1]** Configurar `eas submit`: chave de service account do Play +
   App Store Connect API key; preencher o bloco `submit` do `eas.json` (hoje só
   tem `ios: {}`).
