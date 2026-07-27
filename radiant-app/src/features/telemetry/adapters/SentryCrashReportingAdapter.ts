@@ -1,12 +1,14 @@
 import * as Sentry from '@sentry/react-native';
 import type { CrashReportingAdapter } from './CrashReportingAdapter';
+import { sanitizeTelemetryProps } from '../sanitizeTelemetryProps';
 
 export function createSentryCrashReportingAdapter(): CrashReportingAdapter {
     return {
         capture: async (error, context) => {
             Sentry.withScope((scope) => {
-                if (context) {
-                    scope.setContext('radiant', context);
+                const safeContext = sanitizeTelemetryProps(context);
+                if (safeContext && Object.keys(safeContext).length > 0) {
+                    scope.setContext('radiant', safeContext);
                 }
 
                 if (error instanceof Error) {
@@ -26,7 +28,7 @@ export function createSentryCrashReportingAdapter(): CrashReportingAdapter {
                 category: 'telemetry',
                 level: 'info',
                 message,
-                data,
+                data: sanitizeTelemetryProps(data),
             });
         },
     };

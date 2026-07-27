@@ -243,9 +243,20 @@ código.
   (reconfirmado por smoke público read-only em 2026-07-27), e o painel passa a
   exibir o estado efetivo (`ligado, sem API configurada` quando a flag está
   ligada sem API). Resta a ADR de estratégia da API, que é decisão de produto.
-- **D2 [P0]** Contrato de telemetria/privacidade (Task 16): allowlist de
-  eventos, proibições (PII, conteúdo clínico), scrub no Sentry. É insumo
-  direto dos privacy labels (iOS) e data safety (Play).
+- **D2 [P0]** ~~Contrato de telemetria/privacidade (Task 16)~~ **Concluída em
+  2026-07-27.** Contrato em
+  [`docs/legal/CONTRATO_TELEMETRIA.md`](../legal/CONTRATO_TELEMETRIA.md), com:
+  (a) allowlist de eventos já imposta em tempo de compilação pelo tipo
+  `TelemetryEventName`; (b) proibições de propriedades (PII, credenciais,
+  conteúdo clínico) em `sanitizeTelemetryProps.ts`, com mecanismo de exceção
+  revisada (`REVIEWED_SAFE_KEYS`, hoje só `tokenPreviewAvailable`, um booleano);
+  (c) imposição por teste de contrato (`telemetry-privacy-contract.test.ts`, no
+  gate `app-test`) que varre as chamadas `track()` e falha em chave proibida;
+  (d) scrub no adapter do Sentry (breadcrumb + context passam por
+  `sanitizeTelemetryProps`; `sendDefaultPii=false`, user só `id`). Inclui o
+  mapeamento para privacy labels (iOS) e data safety (Play). **Verificado:** hoje
+  nenhuma propriedade de telemetria sai do device (analytics remoto off, Sentry
+  off em `production`). Destrava **E3** (preencher as fichas das lojas).
 - **D3 [P0]** Checklist de release v1.3 + matriz real-device (Task 16).
 - **D4 [P0]** Gate editorial: triar os 42 itens `formatNeedsReview` (aceitar
   com motivo, corrigir ou remover do caminho público).
