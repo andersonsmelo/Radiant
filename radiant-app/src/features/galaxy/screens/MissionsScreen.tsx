@@ -11,7 +11,11 @@ import Svg, { Circle, Path } from 'react-native-svg';
 
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { GamificationSnapshot } from '@/src/types/gamification';
+import { galaxyColors } from '@/src/ui/theme';
+import { semanticColors } from '@/src/ui/semantic-colors';
 import { tabBarClearance } from '@/src/ui/styles';
+
+const galaxy = semanticColors.galaxy;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -115,7 +119,7 @@ function MissionCard({ title, cur, goal, xp, icon, done }: Mission) {
         <View style={styles.progressTrack}>
           <View style={{ flex: fillRatio, borderRadius: 4, overflow: 'hidden', height: 8 }}>
             <LinearGradient
-              colors={isDone ? ['#1A9C71', '#20B484'] : ['#2155FF', '#3DCAE8']}
+              colors={isDone ? ['#34C88F', galaxy.statusSuccess] : [galaxyColors.ctaGradientEnd, galaxy.statusInformation]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={{ flex: 1 }}
@@ -166,8 +170,8 @@ export default function MissionsScreen() {
             {/* Clock badge */}
             <View style={styles.clockBadge}>
               <Svg width={11} height={11} viewBox="0 0 11 11">
-                <Circle cx="5.5" cy="5.5" r="4.5" stroke="#2155FF" strokeWidth="1.4" fill="none" />
-                <Path d="M5.5 3v3l2 1" stroke="#2155FF" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+                <Circle cx="5.5" cy="5.5" r="4.5" stroke={galaxyColors.xpColor} strokeWidth="1.4" fill="none" />
+                <Path d="M5.5 3v3l2 1" stroke={galaxyColors.xpColor} strokeWidth="1.4" strokeLinecap="round" fill="none" />
               </Svg>
               <Text style={styles.clockText}>14h 22m</Text>
             </View>
@@ -251,7 +255,7 @@ export default function MissionsScreen() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#F5FAFF' },
+  root: { flex: 1, backgroundColor: galaxyColors.background },
   safe: { flex: 1 },
   scroll: { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingBottom: tabBarClearance },
@@ -266,14 +270,14 @@ const styles = StyleSheet.create({
   headerLabel: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#93A0B8',
+    color: galaxyColors.textSecondary,
     letterSpacing: 0.08 * 11,
     textTransform: 'uppercase',
   },
   headerTitle: {
     fontSize: 26,
     fontWeight: '800',
-    color: '#14233F',
+    color: galaxyColors.textPrimary,
     letterSpacing: -0.02 * 26,
     marginTop: 2,
   },
@@ -281,10 +285,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: galaxyColors.hudPill,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#E3ECF7',
+    borderColor: galaxyColors.hudPillBorder,
     paddingHorizontal: 10,
     paddingVertical: 6,
     marginTop: 4,
@@ -292,7 +296,7 @@ const styles = StyleSheet.create({
   clockText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#5B6B85',
+    color: galaxyColors.textSecondary,
   },
 
   // Streak banner
@@ -348,14 +352,14 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#93A0B8',
+    color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.08 * 11,
   },
   sectionRight: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#5B6B85',
+    color: galaxyColors.textSecondary,
   },
 
   // XP badge (reused for both section badge and card badge)
@@ -370,7 +374,7 @@ const styles = StyleSheet.create({
   xpBadgeText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#F5A623',
+    color: galaxyColors.xpColor,
   },
 
   // Mission cards
@@ -379,16 +383,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: galaxyColors.surface,
     borderRadius: 14,
     padding: 14,
     borderWidth: 1,
-    borderColor: '#E3ECF7',
-    shadowColor: '#14233F',
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    borderColor: galaxyColors.border,
   },
   missionIconBox: {
     width: 44,
@@ -399,12 +398,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   missionIconBoxDone: {
-    backgroundColor: '#1A9C71',
-    borderColor: '#1A9C71',
+    backgroundColor: galaxy.statusSuccess,
+    borderColor: galaxy.statusSuccess,
   },
   missionIconBoxPending: {
-    backgroundColor: 'rgba(33,85,255,0.10)',
-    borderColor: 'rgba(33,85,255,0.18)',
+    backgroundColor: 'rgba(61,202,232,0.12)',
+    borderColor: 'rgba(61,202,232,0.28)',
   },
   missionIconText: { fontSize: 20 },
   missionContent: { flex: 1 },
@@ -419,11 +418,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     fontWeight: '700',
-    color: '#14233F',
+    color: galaxyColors.textPrimary,
   },
   missionTitleDone: {
     textDecorationLine: 'line-through',
-    textDecorationColor: '#93A0B8',
+    textDecorationColor: galaxyColors.textSecondary,
   },
 
   // Progress bar
@@ -431,24 +430,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#EAF2FF',
+    backgroundColor: galaxyColors.spine,
     overflow: 'hidden',
   },
   progressLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#5B6B85',
+    color: galaxyColors.textSecondary,
     marginTop: 4,
   },
 
   // Hearts (preserved)
   heartsSection: {
-    backgroundColor: 'rgba(20,35,63,0.04)',
+    backgroundColor: galaxyColors.surface,
     borderRadius: 16,
     padding: 16,
     marginTop: 24,
     borderWidth: 1,
-    borderColor: '#E3ECF7',
+    borderColor: galaxyColors.border,
   },
   heartsSectionHeader: {
     flexDirection: 'row',
@@ -459,7 +458,7 @@ const styles = StyleSheet.create({
   heartsSectionTitle: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#14233F',
+    color: galaxyColors.textPrimary,
   },
   heartsRow: {
     flexDirection: 'row',
@@ -474,7 +473,7 @@ const styles = StyleSheet.create({
   },
   refillTimerText: {
     fontSize: 12,
-    color: '#FF6B6B',
+    color: galaxyColors.critical,
     fontWeight: '600',
   },
   heartsWarning: {
@@ -485,7 +484,7 @@ const styles = StyleSheet.create({
   },
   heartsWarningText: {
     fontSize: 12,
-    color: '#FF6B6B',
+    color: galaxyColors.critical,
     lineHeight: 18,
   },
 });

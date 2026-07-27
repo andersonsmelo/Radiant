@@ -213,13 +213,8 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
 
   if (completed) {
     return (
-      <View style={{ flex: 1 }}>
-        <LinearGradient
-          colors={['#EAF2FF', '#F5FAFF']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={StyleSheet.absoluteFill}
-        />
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
         {/* Radial glow backdrop */}
         <View style={styles.celebrationGlow} />
         <Confetti count={30} run={completed} />
@@ -467,7 +462,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,59,48,0.10)', borderRadius: radius.rMd,
     borderWidth: 1, borderColor: 'rgba(255,59,48,0.25)', padding: space.s3,
   },
-  errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
+  errorText: { ...typography.bodyRegular, color: galaxyColors.critical },
   messageCard: {
     backgroundColor: galaxyColors.surfaceMuted, borderRadius: radius.rMd,
     borderWidth: 1, borderColor: galaxyColors.border, padding: space.s3,
@@ -487,7 +482,7 @@ const styles = StyleSheet.create({
     width: 500,
     height: 300,
     borderRadius: 250,
-    backgroundColor: 'rgba(33,85,255,0.10)',
+    backgroundColor: 'rgba(48,96,255,0.16)',
   },
   celebrationContent: {
     paddingHorizontal: 24,
@@ -501,17 +496,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   celebrationCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: galaxyColors.galaxySurface2,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#B8D2FF',
+    borderColor: galaxyColors.borderActive,
     padding: 20,
     alignItems: 'center',
     alignSelf: 'stretch',
-    shadowColor: '#2155FF',
-    shadowOpacity: 0.18,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 8 },
+    shadowColor: galaxyColors.galaxyGlow,
+    shadowOpacity: 0.35,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 0 },
     gap: 6,
   },
   celebrationBadge: {
@@ -528,7 +523,7 @@ const styles = StyleSheet.create({
   celebrationEyebrow: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#F5A623',
+    color: galaxyColors.xpColor,
     letterSpacing: 2,
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -536,7 +531,7 @@ const styles = StyleSheet.create({
   celebrationTitle: {
     fontSize: 24,
     fontWeight: '800',
-    color: '#14233F',
+    color: galaxyColors.textPrimary,
     letterSpacing: -0.5,
     lineHeight: 28,
     textAlign: 'center',
@@ -544,7 +539,7 @@ const styles = StyleSheet.create({
   celebrationDescription: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#5B6B85',
+    color: galaxyColors.textSecondary,
     lineHeight: 18,
     textAlign: 'center',
   },
@@ -553,7 +548,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    backgroundColor: '#FFF6E3',
+    backgroundColor: 'rgba(245,166,35,0.12)',
     borderRadius: 14,
     borderWidth: 1,
     borderColor: 'rgba(245,166,35,0.30)',
@@ -568,7 +563,7 @@ const styles = StyleSheet.create({
   celebrationXpText: {
     fontSize: 14,
     fontWeight: '800',
-    color: '#B57218',
+    color: galaxyColors.xpColor,
   },
   celebrationCtas: {
     alignSelf: 'stretch',
@@ -581,7 +576,7 @@ const styles = StyleSheet.create({
   celebrationShareText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#5B6B85',
+    color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
 });

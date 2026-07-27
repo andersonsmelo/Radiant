@@ -23,23 +23,27 @@ import { AppConfig } from '../../../config';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { tabBarClearance } from '../../../ui/styles';
 
-// ── Paleta (light mode) ──────────────────────────────────────────
+// ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
+// textTert mapeia para textSecondary de propósito: o token tertiary
+// reprova contraste WCAG (2.3:1) e será recalibrado no passe de tipografia.
 
 const D = {
-    bg: '#F5FAFF',
-    surface: '#FFFFFF',
-    surfaceAlt: 'rgba(33,85,255,0.07)',
-    border: '#E3ECF7',
-    text: '#14233F',
-    textSec: '#5B6B85',
-    textTert: '#93A0B8',
-    success: '#1A9C71',
-    warning: '#F5A623',
-    error: '#FF6B6B',
-    primary: '#2155FF',
-    inputBg: '#FFFFFF',
+    bg: galaxyColors.background,
+    surface: galaxyColors.surface,
+    surfaceAlt: galaxyColors.surfaceActive,
+    border: galaxyColors.border,
+    text: galaxyColors.textPrimary,
+    textSec: galaxyColors.textSecondary,
+    textTert: galaxyColors.textSecondary,
+    success: semanticColors.galaxy.statusSuccess,
+    warning: galaxyColors.xpColor,
+    error: galaxyColors.critical,
+    primary: galaxyColors.ctaGradientStart,
+    inputBg: galaxyColors.surfaceMuted,
 };
 
 // ── Componentes locais ───────────────────────────────────────────
@@ -722,7 +726,6 @@ export default function ProgressScreen() {
                     </ActionButton>
                 ) : null}
 
-                <View style={{ height: 120 }} />
             </ScrollView>
         </SafeAreaView>
     );
@@ -758,11 +761,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 16,
         marginBottom: 14,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 8,
-        elevation: 3,
+        borderWidth: 1,
+        borderColor: D.border,
     },
 
     // ── Streak calendar ──
@@ -770,10 +770,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-    },
-    rowCenter: {
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     streakNumber: {
         fontSize: 28,
@@ -784,47 +780,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: D.textSec,
         marginTop: 2,
-    },
-    onFireBadge: {
-        backgroundColor: 'rgba(255,107,44,0.1)',
-        borderWidth: 1,
-        borderColor: 'rgba(255,107,44,0.25)',
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        paddingVertical: 4,
-    },
-    onFireText: {
-        fontSize: 11,
-        fontWeight: '700',
-        color: '#FF6B2C',
-        letterSpacing: 0.5,
-    },
-    streakRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 14,
-    },
-    streakTileWrapper: {
-        alignItems: 'center',
-        gap: 4,
-    },
-    streakTile: {
-        width: 36,
-        height: 36,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    streakTileInactive: {
-        backgroundColor: '#EAF2FF',
-    },
-    streakTileEmoji: {
-        fontSize: 16,
-    },
-    streakDayLabel: {
-        fontSize: 10,
-        fontWeight: '700',
-        color: D.textTert,
     },
 
     // ── Accuracy chart ──
@@ -840,34 +795,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: D.text,
     },
-    accuracyDelta: {
-        fontSize: 13,
-        color: '#1A9C71',
-        marginLeft: 8,
-        fontWeight: '600',
-    },
-    chartContainer: {
-        height: 100,
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        gap: 5,
-        marginVertical: 12,
-    },
-    barWrapper: {
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'flex-end',
-        height: 100,
-    },
-    bar: {
-        borderRadius: 4,
-    },
-    chartFooterLabel: {
-        fontSize: 9,
-        fontWeight: '700',
-        color: D.textTert,
-        textTransform: 'uppercase',
-    },
 
     // ── Stats grid 2x2 ──
     statsGridNew: {
@@ -880,11 +807,8 @@ const styles = StyleSheet.create({
         backgroundColor: D.surface,
         borderRadius: 16,
         padding: 14,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 8,
-        elevation: 3,
+        borderWidth: 1,
+        borderColor: D.border,
     },
     statsGridLabel: {
         fontSize: 10,
@@ -904,48 +828,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
     },
 
-    // ── Topics mastered ──
-    topicsSeeAll: {
-        fontSize: 13,
-        fontWeight: '700',
-        color: '#2155FF',
-    },
-    topicCard: {
-        backgroundColor: D.surface,
-        borderRadius: 14,
-        padding: 12,
-        paddingHorizontal: 14,
-        flexDirection: 'row',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.04,
-        shadowRadius: 4,
-        elevation: 1,
-    },
-    topicName: {
-        fontSize: 14,
-        fontWeight: '700',
-        color: D.text,
-        marginBottom: 6,
-    },
-    progressTrack: {
-        height: 6,
-        backgroundColor: '#EAF2FF',
-        borderRadius: 3,
-        overflow: 'hidden',
-        flexDirection: 'row',
-        marginTop: 6,
-    },
-    topicPercent: {
-        fontSize: 13,
-        fontWeight: '700',
-        color: D.text,
-        minWidth: 36,
-        textAlign: 'right',
-    },
-
-    // ── GlassCard (legacy sections, light-styled) ──
+    // ── GlassCard (legacy sections) ──
     card: {
         backgroundColor: D.surface,
         borderRadius: 16,
@@ -1004,7 +887,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-        backgroundColor: 'rgba(26,156,113,0.10)',
+        backgroundColor: 'rgba(93,227,174,0.12)',
         borderRadius: 10,
         paddingHorizontal: 12,
         paddingVertical: 8,
@@ -1059,34 +942,5 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 4,
         lineHeight: 18,
-    },
-
-    // unused references suppressed — kept for type compatibility
-    statsGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
-        marginBottom: 20,
-    },
-    statCard: {
-        flex: 1,
-        minWidth: 140,
-        backgroundColor: D.surface,
-        borderRadius: 16,
-        borderWidth: 1,
-        padding: 14,
-        alignItems: 'center',
-        gap: 4,
-    },
-    statIcon: { fontSize: 22 },
-    statValue: {
-        fontSize: 20,
-        fontWeight: '800',
-        letterSpacing: -0.5,
-    },
-    statLabel: {
-        fontSize: 11,
-        color: D.textSec,
-        fontWeight: '500',
     },
 });

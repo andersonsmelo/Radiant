@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   footer: { paddingBottom: space.s1 },
   progressTrack: {
     height: 10,
-    backgroundColor: '#EAF2FF',
+    backgroundColor: galaxyColors.spine,
     borderRadius: 999,
     marginHorizontal: 20,
     marginBottom: 8,
