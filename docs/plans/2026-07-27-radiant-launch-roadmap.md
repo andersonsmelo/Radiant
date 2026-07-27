@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-26.md). As Tasks 11–16 do
+> [status canônico](../EXECUTION_STATUS_2026-07-27.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,15 +20,17 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: [status canônico 2026-07-26](../EXECUTION_STATUS_2026-07-26.md).
+Fonte: [status canônico 2026-07-27](../EXECUTION_STATUS_2026-07-27.md).
 
 **Sólido:**
 
 - App local-first funcional; catálogo, progresso e revisão funcionam sem API.
 - v1.2.1 alinhada entre `package.json` e `app.json`; `runtimeVersion` por
   `appVersion`; nenhum build publicado ainda (mudanças de versão ainda livres).
-- Qualidade: 27 suítes / 71 testes PASS; `npm run quality` PASS; E2E iOS em
-  device PASS (3/3 flows Maestro); Gate 2 de acessibilidade parcial (3/5).
+- Qualidade: 27 suítes / 71 testes PASS; `npm run quality` PASS; Gate 2 de
+  acessibilidade parcial (3/5).
+- E2E iOS em device PASS (3/3 flows Maestro), com a ressalva do item 3 dos
+  bloqueadores: a evidência foi colhida sob o perfil `e2e-test`.
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
 - Expo SDK 54 / RN 0.81 → target Android API 36 por padrão, o que já atende o
@@ -40,18 +42,21 @@ Fonte: [status canônico 2026-07-26](../EXECUTION_STATUS_2026-07-26.md).
    áudio) e item 5 (navegação por teclado, exige build web).
 2. Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
    Android.
-3. `ProgressScreen` com `paddingBottom: 24` (mesmo defeito que cortava o CTA da
-   Home); `JourneyMap` renderiza tema claro em tela escura e quebra rótulos.
-4. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
+3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
+   produção em 2026-07-27 (task B0.1).
+4. `JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
+   palavra (task B2). O defeito de folga da tab bar foi resolvido em todas as
+   telas roláveis nesta data (task B1).
+5. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
    final).
-5. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
+6. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
    Task 15).
-6. Onboarding não aparece em instalação limpa — pendente de confirmação de
+7. Onboarding não aparece em instalação limpa — pendente de confirmação de
    intenção.
-7. Dívidas rastreadas: 54 warnings de lint, 122 achados visuais no baseline,
+8. Dívidas rastreadas: 54 warnings de lint, 122 achados visuais no baseline,
    42 itens editoriais `formatNeedsReview`, 121 referências com caminho
    absoluto da máquina em docs.
-8. **Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
+9. **Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
    confirmada no plano, sem metadados, screenshots, política de privacidade
    hospedada, privacy labels, data safety, ou submissão de qualquer build.
 

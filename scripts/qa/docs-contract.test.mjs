@@ -1,6 +1,28 @@
 import assert from 'node:assert/strict';
+import { readdirSync } from 'node:fs';
+import path from 'node:path';
 import test from 'node:test';
-import { inspectDocument } from './docs-contract.mjs';
+import { fileURLToPath } from 'node:url';
+import { CURRENT_STATE_DOCUMENTS, inspectDocument } from './docs-contract.mjs';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+
+test('governs the newest execution status as a current-state document', () => {
+  // Cada data de execução cria um snapshot novo e aposenta o anterior. Se a
+  // lista de documentos governados não acompanhar, o contrato passa a validar
+  // um estado histórico e para de checar o que está em vigor — a forma mais
+  // silenciosa de o documento canônico voltar a divergir da realidade.
+  const newest = readdirSync(path.join(repoRoot, 'docs'))
+    .filter((name) => /^EXECUTION_STATUS_\d{4}-\d{2}-\d{2}\.md$/.test(name))
+    .sort()
+    .at(-1);
+
+  assert.ok(newest, 'expected at least one EXECUTION_STATUS_<date>.md in docs/');
+  assert.ok(
+    CURRENT_STATE_DOCUMENTS.includes(`docs/${newest}`),
+    `docs/${newest} is the newest execution status but is not a governed current-state document`,
+  );
+});
 
 test('flags the legacy Radiant workspace path in a current-state document', () => {
   const violations = inspectDocument({

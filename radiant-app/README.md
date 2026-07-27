@@ -76,7 +76,7 @@ Estado runtime do catálogo em 2026-04-09:
 
 ## Learning Road
 
-O redesign principal do produto está em andamento por trás da flag `EXPO_PUBLIC_ENABLE_LEARNING_ROAD`.
+A Learning Road é a **home oficial do produto** desde 2026-07-27 e é o que lança na v1.3 — ver [ADR da home de produção](../docs/adr/ADR-2026-07-27-learning-road-como-home.md). A flag `EXPO_PUBLIC_ENABLE_LEARNING_ROAD` deixou de ser um interruptor de redesign em andamento e passou a ser um **kill switch de rollback**: seu default é `true` e ela é declarada em `development`, `preview` e `production`. Desligá-la restaura a `HomeScreen` clássica, que permanece no código apenas para essa reversão e deve ser removida depois do beta.
 
 Estado atual:
 
@@ -101,8 +101,8 @@ Estado atual:
 
 Status funcional:
 
-- a flag continua desligada por padrão;
-- com a flag ativa, a Home troca para a trilha nova;
+- a flag é ligada por padrão e em todos os perfis do `eas.json`; desligá-la é rollback, não configuração normal;
+- a Home do produto é a trilha; a `HomeScreen` clássica só aparece com a flag desligada;
 - a Home mostra as trilhas disponíveis e abre o próximo nó real da trilha selecionada;
 - quando não houver próximo nó elegível, a Home mantém a trilha ativa e explica o estado no próprio fluxo;
 - cada trilha monta sua própria definição de nós a partir das lições do catálogo;
@@ -347,10 +347,10 @@ EXPO_PUBLIC_ENABLE_CRASH_REPORTING=true
 EXPO_PUBLIC_SENTRY_DSN=https://examplePublicKey@o0.ingest.sentry.io/0
 ```
 
-Exemplo para validar localmente a nova jornada:
+Exemplo para reproduzir localmente a `HomeScreen` clássica (caminho de rollback):
 
 ```dotenv
-EXPO_PUBLIC_ENABLE_LEARNING_ROAD=true
+EXPO_PUBLIC_ENABLE_LEARNING_ROAD=false
 ```
 
 ## Homologação iOS local da Learning Road V2
@@ -519,7 +519,7 @@ Prioridades imediatas:
 - ADR routing: `/Users/anderson/Developer/Radiant/docs/ADR-routing.md`
 - Status de execução 2026-04-01: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
 - Status de execução 2026-04-09: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
-- Status canônico atual: [`docs/EXECUTION_STATUS_2026-07-26.md`](../docs/EXECUTION_STATUS_2026-07-26.md)
+- Status canônico atual: [`docs/EXECUTION_STATUS_2026-07-27.md`](../docs/EXECUTION_STATUS_2026-07-27.md)
 - Gate de acessibilidade: `/Users/anderson/Developer/Radiant/radiant-app/docs/ACCESSIBILITY_QA_V1.md`
 - Runbook E2E local-first: `/Users/anderson/Developer/Radiant/radiant-app/docs/E2E_RUNBOOK.md`
 - Evidências datadas de device (E2E e acessibilidade): [`docs/evidence/README.md`](docs/evidence/README.md)

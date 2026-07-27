@@ -160,7 +160,7 @@ Como esse retrato é temporal, qualquer comparação nova com o GitHub deve repe
 - Status de execução atualizado (2026-04-04): [docs/EXECUTION_STATUS_2026-04-04.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-04.md)
 - Status de execução atualizado (2026-04-05): [docs/EXECUTION_STATUS_2026-04-05.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-05.md)
 - Status de execução atualizado (2026-04-09): [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md)
-- Status canônico atual (2026-07-26): [docs/EXECUTION_STATUS_2026-07-26.md](docs/EXECUTION_STATUS_2026-07-26.md)
+- Status canônico atual (2026-07-27): [docs/EXECUTION_STATUS_2026-07-27.md](docs/EXECUTION_STATUS_2026-07-27.md)
 - Regras de engenharia e mapa da documentação: [docs/README.md](/Users/anderson/Developer/Radiant/docs/README.md)
 - Plano de implementação: [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md)
 - Fundação editorial de conteúdo: [conteúdo/README.md](/Users/anderson/Developer/Radiant/conteúdo/README.md)
