@@ -20,7 +20,14 @@ export function LessonVisualPanel({ hint, caption }: LessonVisualPanelProps) {
     // até lá a superfície galaxy é sobrescrita em styles.card.
     <SurfaceCard variant="solid" style={styles.card}>
       <View style={styles.imageFrame}>
-        <Image source={LESSON_VISUAL} contentFit="cover" style={styles.image} />
+        <Image
+          source={LESSON_VISUAL}
+          contentFit="cover"
+          style={styles.image}
+          accessible
+          accessibilityRole="image"
+          accessibilityLabel="Ilustração de um painel de raio-X para examinar"
+        />
         <View style={styles.hotspot}>
           <DecorativeIcon name="search" size={30} color="#FFFFFF" />
         </View>
