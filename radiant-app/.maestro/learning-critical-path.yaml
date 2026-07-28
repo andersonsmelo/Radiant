@@ -72,14 +72,18 @@ tags:
     commands:
       - scroll
 - tapOn: Concluir checkpoint
-- assertVisible: ACHIEVEMENT UNLOCKED
+# A celebração do checkpoint foi migrada para pt-BR em 2026-07-27 (commit
+# fb1af1f): a tarja passou de inglês para "CONQUISTA DESBLOQUEADA" e o CTA
+# deixou de ser um rótulo fixo — agora é o próximo nó recomendado. Depois deste
+# checkpoint o próximo nó é uma lição, então o rótulo é "Abrir próxima lição".
+- assertVisible: CONQUISTA DESBLOQUEADA
 - repeat:
     times: 15
     while:
-      notVisible: Continue
+      notVisible: Abrir próxima lição
     commands:
       - scroll
-- tapOn: Continue
+- tapOn: Abrir próxima lição
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave

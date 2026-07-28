@@ -65,13 +65,45 @@ test('keeps every below-the-fold action reachable before it is tapped', async ()
   // Guarded repeat-scroll is the pattern that works; keep it in place.
   const flow = await readAppFile('.maestro/learning-critical-path.yaml');
 
-  for (const label of ['Abrir checkpoint', 'Concluir checkpoint', 'Continue']) {
+  for (const label of ['Abrir checkpoint', 'Concluir checkpoint', 'Abrir próxima lição']) {
     assert.match(
       flow,
       new RegExp(`while:\\n\\s+notVisible: ${label}\\n\\s+commands:\\n\\s+- scroll`),
       `expected a guarded scroll before tapping "${label}"`
     );
   }
+});
+
+test('ties the celebration assertions to the copy CheckpointScreen actually renders', async () => {
+  // Duas vezes seguidas o flow crítico afirmou texto que a tela já não mostrava:
+  // a migração pt-BR de 2026-07-27 trocou a tarja da celebração e substituiu o
+  // CTA fixo pelo rótulo do próximo nó, e o contrato seguiu verde porque só lia
+  // o YAML. Uma asserção sobre o texto de um artefato confirma o que alguém
+  // escreveu, nunca o que a tela renderiza — então ancore as duas strings na
+  // fonte, que é o único lado que o device vê.
+  const [flow, screen] = await Promise.all([
+    readAppFile('.maestro/learning-critical-path.yaml'),
+    readAppFile('src/features/checkpoint/screens/CheckpointScreen.tsx'),
+  ]);
+
+  const eyebrow = screen.match(/styles\.celebrationEyebrow\}>([^<]+)</)?.[1].trim();
+  assert.ok(eyebrow, 'expected CheckpointScreen to render a celebration eyebrow');
+  assert.match(
+    flow,
+    new RegExp(`^- assertVisible: ${eyebrow}$`, 'm'),
+    `the critical path must assert the eyebrow the screen renders ("${eyebrow}")`
+  );
+
+  // O CTA da celebração é o rótulo do próximo nó recomendado, não um literal da
+  // tela de celebração: o flow só pode tocar num rótulo que resolveNextAction
+  // realmente produz.
+  const tapped = flow.slice(flow.indexOf(`- assertVisible: ${eyebrow}`)).match(/^- tapOn: (.+)$/m)?.[1];
+  assert.ok(tapped, 'expected a tap after the celebration assertion');
+  assert.match(
+    screen,
+    new RegExp(`label: '${tapped}'`),
+    `"${tapped}" is not a label resolveNextAction can return`
+  );
 });
 
 test('keeps icon glyphs out of the accessibility tree', async () => {

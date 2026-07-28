@@ -51,14 +51,32 @@ assertions had already gone stale: the 2026-07-27 wizard migration to pt-BR left
 the flow asserting English strings (`WELCOME TO RADIANT`, `STEP 3 OF 4`), so the
 2026-07-26 `3/3` iOS pass predates that drift. Its replacement,
 `boot-to-home.yaml`, asserts the stable pt-BR home (`Foco de hoje`) after a clean
-install. The new flow passes the static Maestro contract but has **not** had a
-`preview`-profile device run: producing that build is `environment-blocked` here
-(no local CocoaPods, EAS cloud disallowed), so B0.1 stays open. On 2026-07-28 the
-current code was verified under a **dev-client** (Expo Go) as a supplement — the
-app boots straight to `Foco de hoje` and the `radiantapp://onboarding` deep link
-now resolves to an Unmatched Route — but per this doc's rules a dev-client run
-never promotes iOS to `passed`. See
-[`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md).
+install.
+
+B0.1 closed for iOS on 2026-07-28: `3/3 Flows Passed in 6m 52s` against a local
+**Release** simulator build of the current commit, with the JS bundle embedded
+and no development server. A missing CocoaPods install had been read as "no local
+build is possible" — it only blocks `expo run:ios`; `xcodebuild` over an already
+consistent `Pods/` needs no `pod`. The reproducible recipe and both runs of the
+day are in
+[`docs/evidence/2026-07-28-e2e-local-release.md`](evidence/2026-07-28-e2e-local-release.md).
+
+The first run of that suite failed 1/3, and the cause was the same drift class as
+the retired onboarding smoke: commit `fb1af1f` (2026-07-27) migrated the
+checkpoint celebration to pt-BR — `CONQUISTA DESBLOQUEADA` replacing
+`ACHIEVEMENT UNLOCKED`, and the fixed `Continue` CTA replaced by the next
+recommended node's label — while `learning-critical-path.yaml` went on asserting
+the English strings and the static contract stayed green, because it reads the
+YAML rather than the screen. The flow now asserts the real strings, and the
+contract gained a guard that **extracts the eyebrow from `CheckpointScreen.tsx`**
+and requires the flow to assert exactly it, plus requires the tapped label to be
+one `resolveNextAction` can return. A content assertion over an artifact confirms
+what someone wrote; anchoring it to the source is what makes it track the screen.
+
+The dev-client verification of the same day
+([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
+remains a supplement only — per this doc's rules a dev-client run never promotes
+iOS to `passed`, and it is not what promoted it here.
 
 The dated environment inventory and first-run matrix live in
 [`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md);
@@ -121,7 +139,7 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 | Platform | Device/runtime | Build | Boot-to-home | Critical path | Offline relaunch | Status | Owner/date |
 |---|---|---|---:|---:|---:|---|---|
-| iOS | see dated evidence | local Release equivalent | pending (flow repointed 2026-07-28) | passed (reward node not covered) | passed | boot-to-home pending device re-run (B0.1); critical-path + offline passed 2026-07-26 | engineering / 2026-07-28 |
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 6m 52s`, 2026-07-28, one suite run | engineering / 2026-07-28 |
 | Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-26 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after

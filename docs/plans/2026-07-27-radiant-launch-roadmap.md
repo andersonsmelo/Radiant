@@ -174,8 +174,18 @@ código.
   default em `src/config.ts` virou `true` para que nenhum build divirja do que
   é distribuído. Com isso a evidência de E2E de 2026-07-26 volta a valer para o
   caminho de produção. Restam duas pontas:
-  - **B0.1 [P0]** reexecutar os três flows Maestro sob o perfil `preview`, que
-    agora reflete produção, e registrar a evidência.
+  - **B0.1 [P0]** ~~reexecutar os três flows Maestro sob o perfil `preview`, que
+    agora reflete produção, e registrar a evidência.~~ **Concluída para iOS em
+    2026-07-28:** `3/3 Flows Passed in 6m 52s` sobre build Release local com
+    bundle embutido (equivalente ao `e2e-test`: sem dev client, sem Metro). A
+    execução anterior do mesmo dia falhou 1/3 — o `learning-critical-path` ainda
+    afirmava a tarja em inglês da celebração de checkpoint, que o commit
+    `fb1af1f` migrou para pt-BR junto com a troca do CTA fixo pelo rótulo do
+    próximo nó. O flow foi repontado e o contrato ganhou uma guarda que extrai a
+    string da própria `CheckpointScreen.tsx`, para que a mesma deriva não volte a
+    passar verde. Evidência e receita de build em
+    [`radiant-app/docs/evidence/2026-07-28-e2e-local-release.md`](../../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
+    **Android permanece `environment-blocked`** (sem `expo prebuild`).
   - **B0.2 [P1]** ~~atualizar a seção "Learning Road" do `radiant-app/README.md`~~
     **Concluída em 2026-07-27.** A seção deixou de descrever a Learning Road como
     redesign em andamento e passou a tratá-la como a home de produção entregue da

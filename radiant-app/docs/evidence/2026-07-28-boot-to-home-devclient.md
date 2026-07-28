@@ -1,9 +1,28 @@
 # Verificação de runtime — boot-to-home (dev-client) — 2026-07-28
 
+> **Conclusão corrigida no mesmo dia.** Este documento classificou iOS como
+> `environment-blocked`, e a classificação estava errada: um build local **era**
+> produzível. O registro válido de B0.1 é
+> [`2026-07-28-e2e-local-release.md`](2026-07-28-e2e-local-release.md) — iOS
+> `passed`, `3/3 Flows Passed in 6m 52s`. O que segue permanece como o que de
+> fato se observou sob dev-client, mais o erro de leitura que produziu a
+> classificação errada.
+
 **Task:** B0.1 (reexecutar os três flows Maestro sob o perfil `preview`).
-**Resultado do dia:** iOS `environment-blocked` para o build `preview`; verificação
-de runtime **dev-client** do código atual anexada como suplemento — **não** promove
+**Resultado do dia (superado):** iOS `environment-blocked`; verificação de
+runtime **dev-client** do código atual anexada como suplemento — **não** promove
 a `passed` (ver "Estados permitidos" no [README](README.md)).
+
+## Por que a classificação estava errada
+
+`pod` ausente quebra `expo run:ios`, e daí concluiu-se que nenhum build local era
+possível. A conclusão não foi verificada: o projeto nativo em `ios/` estava
+completo, com `Podfile.lock` idêntico a `Pods/Manifest.lock`, e `xcodebuild`
+sobre Pods já instalados não precisa de `pod`. Uma pré-condição foi checada (a
+CLI ausente) e tratada como se fosse a única; o build saiu na mesma máquina, no
+mesmo dia, sem instalar nada. `environment-blocked` exige que a pré-condição
+faltante seja real — verifique o caminho alternativo antes de declarar o
+bloqueio.
 
 ## Contexto
 
@@ -52,17 +71,15 @@ o perfil `preview`. Esta verificação confirma que a remoção do onboarding e 
 premissa do novo flow valem no código atual; **não** substitui o pass de device
 sob `preview` que B0.1 exige.
 
-## Estado por plataforma
+## Estado por plataforma (superado no mesmo dia)
 
-- **iOS:** `environment-blocked` — build `preview`/`e2e-test` do código atual não
-  instalável nesta sessão (sem CocoaPods; EAS cloud vedado). Runtime do código
-  atual verificado sob dev-client (acima), sem promoção a `passed`.
+- **iOS:** ~~`environment-blocked`~~ → **`passed`**. Ver
+  [`2026-07-28-e2e-local-release.md`](2026-07-28-e2e-local-release.md): build
+  Release local do commit atual, `3/3 Flows Passed in 6m 52s`.
 - **Android:** `environment-blocked` — sem projeto nativo / build (inalterado
   desde 2026-07-26).
 
 **Responsável:** engenharia — 2026-07-28.
-**Próxima ação:** produzir um build `e2e-test`/`preview` do commit atual (CocoaPods
-local **ou** máquina com toolchain nativa **ou** EAS mediante revisão de
-custo/privacidade), instalar no simulador e rodar `.maestro/boot-to-home.yaml`,
-`.maestro/learning-critical-path.yaml` e `.maestro/offline-relaunch.yaml`,
-registrando o resultado datado.
+**Próxima ação:** cumprida nesta data — o build local foi produzido com
+`xcodebuild` sobre os Pods instalados e a suíte rodou; a receita está no registro
+que substitui este.

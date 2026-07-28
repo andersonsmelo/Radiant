@@ -28,6 +28,11 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   — `app-failed`: 3 de 5 itens passaram; D1 e D2 corrigidos e reverificados em
   device; itens 2 e 5 seguem abertos.
 - [boot-to-home (dev-client) — 2026-07-28](2026-07-28-boot-to-home-devclient.md)
-  — B0.1: iOS `environment-blocked` para o build `preview` (sem CocoaPods; EAS
-  vedado); runtime do código atual verificado sob dev-client (boot → "Foco de
-  hoje"; `/onboarding` → Unmatched Route), sem promoção a `passed`.
+  — suplemento de runtime sob dev-client (boot → "Foco de hoje"; `/onboarding` →
+  Unmatched Route). **Sua conclusão de `environment-blocked` foi corrigida no
+  mesmo dia**; mantido pelo trilho de correção.
+- [E2E em device, build Release local — 2026-07-28](2026-07-28-e2e-local-release.md)
+  — B0.1 fechada para iOS: `passed`, `3/3 Flows Passed in 6m 52s` sobre build
+  Release local com bundle embutido, com receita de build reprodutível. Android
+  segue `environment-blocked`. Registra também a deriva EN→pt-BR que fez
+  `learning-critical-path` falhar na primeira execução do dia.

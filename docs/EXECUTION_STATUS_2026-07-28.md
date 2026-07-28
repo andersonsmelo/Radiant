@@ -73,7 +73,7 @@ no roadmap e no checklist de release.
 | contrato de documentação | PASS | executado a cada run — desde 2026-07-28 o validador roda também `docs-contract.test.mjs`, a guarda que exige o status mais novo entre os documentos governados |
 | validadores do Loop | PASS | 9 de 9 no run desta data |
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 (sem reexecução nesta data; estado inalterado) |
-| E2E boot (dev-client, iOS sim) | PARCIAL | boot → "Foco de hoje" e `/onboarding` → Unmatched Route verificados em runtime no código atual via Expo Go. **Não** é pass de `preview` (build `preview` `environment-blocked`, task B0.1) — evidência em [`docs/evidence/2026-07-28-boot-to-home-devclient.md`](../radiant-app/docs/evidence/2026-07-28-boot-to-home-devclient.md) |
+| E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS; Android segue `environment-blocked`. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
 
 ## Bloqueios do app (inalterados desde 07-27)
 
@@ -83,12 +83,16 @@ Os bloqueios de lançamento não mudaram nesta data; o detalhe de cada um está 
 
 1. **Gate 2 sem aprovação.** Resta o item 2 (anúncio único no VoiceOver, exige
    sessão humana com áudio — task B4). Os itens 1, 3, 4 e 5 têm evidência.
-2. **E2E não reexecutado sob perfil de produção** (task B0.1) — `environment-blocked`:
-   o build `preview`/`e2e-test` do código atual não é produzível nesta máquina
-   (sem CocoaPods; EAS cloud vedado). Em 2026-07-28 o código atual foi verificado
-   sob **dev-client** (Expo Go): boot → "Foco de hoje" e `/onboarding` morto
-   (Unmatched Route) — o que **não** promove a `passed`. Evidência em
-   [`docs/evidence/2026-07-28-boot-to-home-devclient.md`](../radiant-app/docs/evidence/2026-07-28-boot-to-home-devclient.md).
+2. ~~**E2E não reexecutado sob perfil de produção** (task B0.1)~~ — **resolvido
+   para iOS em 2026-07-28.** O bloqueio era um erro de leitura: `pod` ausente
+   quebra `expo run:ios`, mas não `xcodebuild` sobre os Pods já instalados. Um
+   build Release local do commit atual (bundle embutido, sem servidor de
+   desenvolvimento) rodou a suíte inteira: `3/3 Flows Passed in 6m 52s`. A
+   primeira execução do dia falhou 1/3 por asserção obsoleta em inglês no
+   `learning-critical-path` — deriva EN→pt-BR do commit `fb1af1f`, corrigida com
+   uma guarda de contrato ancorada na fonte da tela. Evidência em
+   [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
+   **Android continua `environment-blocked`** (item 3).
 3. **Android sem projeto nativo** (`expo prebuild` nunca executado).
 4. **Nó de reward sem cobertura E2E** (task B5).
 5. **API pública inativa** — ADR de estratégia da API pendente (decisão de
