@@ -18,7 +18,7 @@ import type { DailyGoalSnapshot } from '@/src/types/dailyGoal';
 import { formatLocalDateKey } from '@/src/constants/dailyGoal';
 import { galaxyColors } from '@/src/ui/theme';
 import { semanticColors } from '@/src/ui/semantic-colors';
-import { space, tabBarClearance } from '@/src/ui/styles';
+import { space, tabBarClearance, typography } from '@/src/ui/styles';
 import { AnimatedProgressBar } from '@/src/components/ui/AnimatedProgressBar';
 
 const galaxy = semanticColors.galaxy;
@@ -369,17 +369,15 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   headerLabel: {
-    fontSize: 11,
-    fontWeight: '800',
+    ...typography.label,
     color: galaxyColors.textSecondary,
     letterSpacing: 0.08 * 11,
     textTransform: 'uppercase',
   },
   headerTitle: {
-    fontSize: 26,
-    fontWeight: '800',
+    ...typography.h3,
     color: galaxyColors.textPrimary,
-    letterSpacing: -0.02 * 26,
+    letterSpacing: -0.02 * 24,
     marginTop: 2,
   },
   clockBadge: {
@@ -395,8 +393,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   clockText: {
-    fontSize: 12,
-    fontWeight: '700',
+    ...typography.micro,
     color: galaxyColors.textSecondary,
   },
 
@@ -434,14 +431,12 @@ const styles = StyleSheet.create({
   streakEmoji: { fontSize: 28 },
   streakTextCol: { flex: 1 },
   streakTitle: {
-    fontSize: 16,
-    fontWeight: '800',
+    ...typography.bodyStrong,
     color: '#FFFFFF',
     letterSpacing: -0.01 * 16,
   },
   streakSubtitle: {
-    fontSize: 12,
-    fontWeight: '600',
+    ...typography.micro,
     color: 'rgba(255,255,255,0.85)',
     marginTop: 1,
   },
@@ -455,8 +450,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   sectionLabel: {
-    fontSize: 11,
-    fontWeight: '800',
+    ...typography.label,
     color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.08 * 11,
@@ -497,8 +491,7 @@ const styles = StyleSheet.create({
   },
   missionContent: { flex: 1, gap: space.s1 },
   missionTitle: {
-    fontSize: 14,
-    fontWeight: '700',
+    ...typography.bodyStrong,
     color: galaxyColors.textPrimary,
   },
   missionTitleDone: {
@@ -515,8 +508,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   progressLabel: {
-    fontSize: 11,
-    fontWeight: '700',
+    ...typography.micro,
     color: galaxyColors.textSecondary,
   },
 
@@ -536,8 +528,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   heartsSectionTitle: {
-    fontSize: 14,
-    fontWeight: '700',
+    ...typography.bodyStrong,
     color: galaxyColors.textPrimary,
   },
   heartsRow: {
@@ -552,9 +543,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   refillTimerText: {
-    fontSize: 12,
+    ...typography.micro,
     color: galaxyColors.critical,
-    fontWeight: '600',
   },
   heartsWarning: {
     marginTop: 12,
@@ -563,7 +553,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   heartsWarningText: {
-    fontSize: 12,
+    ...typography.micro,
     color: galaxyColors.critical,
     lineHeight: 18,
   },
