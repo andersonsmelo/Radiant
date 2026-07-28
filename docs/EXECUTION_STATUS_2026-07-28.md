@@ -181,9 +181,31 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    - **Pendente:** o `TouchableOpacity` "Agora não" do `PushOptInCard` sem
      `accessibilityRole="button"` (não tocado por estar na área de push que outra
      sessão edita) e o item 2 do Gate 2 (sessão humana de VoiceOver, task B4).
-5. **Assets:** ~3,0 MB duplicados — os 6 estados do mascote são o mesmo arquivo
+5. ~~**Assets:** ~3,0 MB duplicados — os 6 estados do mascote são o mesmo arquivo
    (md5 idêntico), `pixel_core.png` tem 2,16 MB e serve sm/md/lg, e há cópia
-   byte-a-byte em `Mascote.png` na raiz (untracked).
+   byte-a-byte em `Mascote.png` na raiz (untracked).~~ **Concluída em 2026-07-28**
+   — **2,9 MB removidos** do bundle (3,2 MB → 268 KB na pasta de personagens):
+   - **Os 6 "estados do mascote" não eram do mascote.** Eram `lux_*.png` em
+     `src/ui/characters/assets/lux/`, cujo próprio README dizia "retained only as
+     historical reference / no longer the active mascot source of truth", com
+     **zero referências no código** — nenhum `require`, nenhum manifesto. 6
+     arquivos idênticos de 172 KB (md5 `393f26ed…`) + README, ≈1,0 MB, apagados.
+     O git preserva o histórico, que é o que "referência histórica" significa num
+     repositório versionado.
+   - **`pixel_core.png` reexportado de 1024×1536 (2,2 MB) para 576×864 (257 KB).**
+     576 é o maior tamanho que o app consegue pintar: `PIXEL_SIZE_MAP.lg` = 176pt,
+     o maior `imageScale` do `PixelIllustration` é 1,06, e 176 × 1,06 × 3 (@3x)
+     ≈ 560px. O resto eram bytes que nenhuma tela renderiza. Verificado no
+     simulador no maior render alcançável (`state="guide" size="lg"`): sem perda
+     visível. A regra ficou escrita no README da pasta, junto do gatilho para
+     revisá-la (só subir junto com `PIXEL_SIZE_MAP`).
+   - **O seam da arte futura não foi tocado:** o registry `PIXEL_DEDICATED_ASSETS`
+     em `pixelAssets.ts` e o contrato de nomes em `assets/pixel/README.md`
+     continuam de pé — é ali que renders dedicados por estado/tier entram, não
+     nos arquivos legados.
+   - **Pendente (fora do escopo desta execução):** `Mascote.png` na raiz do
+     repositório continua **untracked**; é arquivo do usuário, não do app, e não
+     entra em bundle nenhum. Apagar é decisão dele.
 6. **`HomeScreen`** é a única tela ainda 100% light (53 refs claras, 0 galaxy) —
    candidata a remoção junto com o código de rollback pós-beta.
    **Correção de leitura (2026-07-28):** ela **não é código morto**.
