@@ -48,44 +48,78 @@ export const radius = {
 };
 
 // ============================================================================
-// TYPOGRAPHY STYLES
+// TYPOGRAPHY STYLES — escala única do produto
 // ============================================================================
-// Font sizes and weights only - colors are set per screen
+// Sora é a fonte da marca e é carregada em src/app/_layout.tsx. Antes destes
+// tokens ela quase não aparecia: as telas consomem `typography` (100 usos) e
+// só `textStyles` (13 usos) declarava fontFamily. Uma escala só, com a família
+// declarada por papel, faz a marca aparecer em todo o app.
+//
+// `fontWeight` continua declarado porque alguns consumidores o sobrescrevem;
+// no iOS a família nomeada prevalece, então o corte correto é preservado.
+// Cores continuam por tela.
 export const typography = StyleSheet.create({
     h1: {
+        fontFamily: 'Sora-ExtraBold',
         fontSize: 40,
         lineHeight: 46,
+        letterSpacing: -1,
         fontWeight: '800',
     },
     h2: {
+        fontFamily: 'Sora-ExtraBold',
         fontSize: 32,
         lineHeight: 38,
+        letterSpacing: -0.6,
         fontWeight: '800',
     },
     h3: {
+        fontFamily: 'Sora-Bold',
         fontSize: 24,
         lineHeight: 30,
+        letterSpacing: -0.4,
         fontWeight: '700',
     },
     body: {
+        fontFamily: 'Sora-SemiBold',
         fontSize: 16,
         lineHeight: 24,
         fontWeight: '600',
     },
+    bodyStrong: {
+        fontFamily: 'Sora-Bold',
+        fontSize: 16,
+        lineHeight: 24,
+        fontWeight: '700',
+    },
     bodyRegular: {
+        fontFamily: 'Sora-Regular',
         fontSize: 16,
         lineHeight: 24,
         fontWeight: '400',
     },
     caption: {
+        fontFamily: 'Sora-SemiBold',
         fontSize: 13,
         lineHeight: 18,
+        letterSpacing: 0.1,
         fontWeight: '600',
     },
     micro: {
+        fontFamily: 'Sora-SemiBold',
         fontSize: 12,
         lineHeight: 16,
         fontWeight: '600',
+    },
+    // Rótulo em caixa alta: tracking aberto porque maiúsculas encostam no
+    // espaçamento padrão.
+    label: {
+        fontFamily: 'Sora-Bold',
+        fontSize: 11,
+        lineHeight: 14,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+        fontWeight: '700',
     },
 });
 
@@ -150,15 +184,19 @@ export const fontFamily = {
 };
 
 // ============================================================================
-// TEXT STYLE TOKENS
+// TEXT STYLE TOKENS (compatibilidade)
 // ============================================================================
+// `textStyles` existia como uma SEGUNDA escala, com tamanhos próprios (h2 28 vs
+// 32, body 15 vs 16, micro 11 vs 12). Duas escalas concorrentes produzem
+// hierarquia embaçada, então os papéis agora derivam de `typography` — há uma
+// escala só. Preferir `typography` em código novo.
 export const textStyles = {
-  h1: { fontFamily: 'Sora-ExtraBold', fontSize: 40, lineHeight: 46, letterSpacing: -1 } as const,
-  h2: { fontFamily: 'Sora-ExtraBold', fontSize: 28, lineHeight: 34, letterSpacing: -0.6 } as const,
-  h3: { fontFamily: 'Sora-Bold', fontSize: 22, lineHeight: 28, letterSpacing: -0.4 } as const,
-  body: { fontFamily: 'Sora-Medium', fontSize: 15, lineHeight: 22 } as const,
-  bodyStrong: { fontFamily: 'Sora-Bold', fontSize: 15, lineHeight: 22 } as const,
-  caption: { fontFamily: 'Sora-SemiBold', fontSize: 13, lineHeight: 18, letterSpacing: 0.1 } as const,
-  micro: { fontFamily: 'Sora-Bold', fontSize: 11, lineHeight: 14, letterSpacing: 1, textTransform: 'uppercase' } as const,
-  label: { fontFamily: 'Sora-Bold', fontSize: 10, lineHeight: 14, letterSpacing: 1, textTransform: 'uppercase' } as const,
+  h1: typography.h1,
+  h2: typography.h2,
+  h3: typography.h3,
+  body: typography.bodyRegular,
+  bodyStrong: typography.bodyStrong,
+  caption: typography.caption,
+  micro: typography.label,
+  label: typography.label,
 };

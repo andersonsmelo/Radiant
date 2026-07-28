@@ -18,13 +18,21 @@ export const colors = {
   highlight: '#A6EFFF',
   textPrimary: '#14233F',
   textSecondary: '#5B6B85',
-  textTertiary: '#93A0B8',
+  // 4.53:1 sobre background e 4.76:1 sobre surface. O valor anterior (#93A0B8)
+  // reprovava WCAG AA em todos os contextos (2.51:1).
+  textTertiary: '#64748B',
+  // Vivos: usados como preenchimento (badges, dots, barras), nunca como texto.
   success: '#1A9C71',
   successSoft: '#E6FFF6',
   warning: '#D79022',
   warningSoft: '#FFF6DF',
   danger: '#D8506F',
   dangerSoft: '#FFF0F4',
+  // Escuros: mesmos papéis quando o valor vira TEXTO sobre fundo claro.
+  // Os vivos acima reprovam AA como texto (3.31 / 2.53 / 3.78).
+  successText: '#137051',
+  warningText: '#8F5A0B',
+  dangerText: '#C13355',
   critical: '#B51D44',
   disabled: '#D6E0EE',
   shadow: 'rgba(45, 97, 188, 0.16)',
@@ -96,7 +104,9 @@ export const galaxyColors = {
   borderActive: 'rgba(255, 255, 255, 0.22)',
   textPrimary: '#FFFFFF',
   textSecondary: 'rgba(255, 255, 255, 0.55)',
-  textTertiary: 'rgba(255, 255, 255, 0.28)',
+  // 4.61:1 sobre o fundo galaxy e 4.68:1 sobre surface. O valor anterior
+  // (0.28) reprovava WCAG AA até para texto grande (2.34:1).
+  textTertiary: 'rgba(255, 255, 255, 0.46)',
   spine: 'rgba(255, 255, 255, 0.12)',
   hudPill: 'rgba(255, 255, 255, 0.07)',
   hudPillBorder: 'rgba(255, 255, 255, 0.10)',

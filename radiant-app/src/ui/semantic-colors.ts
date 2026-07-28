@@ -45,11 +45,13 @@ export const semanticColors = {
     borderDisabled: colors.disabled,
     actionPrimary: colors.primary,
     actionPrimaryPressed: colors.primaryStrong,
-    statusSuccess: colors.success,
-    statusWarning: colors.warning,
-    statusError: colors.danger,
+    // Papéis de status aqui são cor de TEXTO: usam os cortes escuros que
+    // passam WCAG AA sobre fundo claro. Para preenchimento, use colors.*.
+    statusSuccess: colors.successText,
+    statusWarning: colors.warningText,
+    statusError: colors.dangerText,
     statusInformation: colors.primary,
-    reward: colors.warning,
+    reward: colors.warningText,
   },
   galaxy: {
     surface: galaxyColors.background,

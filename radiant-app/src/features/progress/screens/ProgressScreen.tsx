@@ -28,8 +28,7 @@ import { semanticColors } from '../../../ui/semantic-colors';
 import { tabBarClearance } from '../../../ui/styles';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
-// textTert mapeia para textSecondary de propósito: o token tertiary
-// reprova contraste WCAG (2.3:1) e será recalibrado no passe de tipografia.
+// Alias de tokens: nenhum valor próprio de cor vive nesta tela.
 
 const D = {
     bg: galaxyColors.background,
@@ -38,7 +37,7 @@ const D = {
     border: galaxyColors.border,
     text: galaxyColors.textPrimary,
     textSec: galaxyColors.textSecondary,
-    textTert: galaxyColors.textSecondary,
+    textTert: galaxyColors.textTertiary,
     success: semanticColors.galaxy.statusSuccess,
     warning: galaxyColors.xpColor,
     error: galaxyColors.critical,
