@@ -132,10 +132,36 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
      contra o nome da galáxia passar a ser por cor/borda, não por tamanho.
    - ⏳ **Resta** o texto de `HomeScreen` e do onboarding — ver o item 6, que
      corrige a leitura de "código morto".
-3. **Passo "Verificar" antes de commitar a resposta do quiz:** hoje tocar numa
+3. ~~**Passo "Verificar" antes de commitar a resposta do quiz:** hoje tocar numa
    alternativa já submete e já custa uma vida, sem confirmação nem desfazer
    (`useQuiz.ts:99-126`), e a perda do coração não produz sinal visual ou tátil
-   (`HUD.tsx:32-48`).
+   (`HUD.tsx:32-48`).~~ **Redirecionado e entregue em 2026-07-28** — o achado era
+   verdadeiro no código e irrelevante no app alcançável. Quatro fatos verificados
+   antes de escrever qualquer linha:
+   - **`/quiz` é inalcançável pela UI.** Nada no app navega para a rota; só
+     `src/app/_layout.tsx` a declara, e um deep link a abriria. `QuizScreen` e
+     `useQuiz` estão no mesmo estado do onboarding (ver item 6).
+   - **O loop vivo já tinha o passo de confirmação.** As lições vão por `/learn`
+     → `LessonFlowScreen` → `MultipleChoiceStepRenderer`, onde tocar numa opção
+     só seleciona e o "Continuar" do rodapé é que avança — exatamente o padrão
+     que a auditoria pedia. É o caminho que o Maestro exercita.
+   - **O defeito real estava na outra metade da queixa:** `locked={Boolean(selectedOptionId)}`
+     congelava a escolha no primeiro toque, então quem errasse o alvo não podia
+     trocar antes de confirmar (a dica de a11y dizia "Resposta bloqueada após a
+     seleção"). **Corrigido:** a alternativa é trocável enquanto o passo está na
+     tela, o `locked` saiu do renderer e as dicas de a11y passaram a descrever o
+     estado real ("Selecionada. Toque em outra alternativa para trocar antes de
+     continuar"). O contrato do Maestro, que travava a assinatura antiga
+     (`disabled: locked`), passou a proibir o oposto — reintroduzir `disabled`
+     ali seria voltar a impedir a troca. Coberto por
+     `LessonFlowScreen.flow.test.tsx` (novo, 2 casos: a troca é possível; o que
+     vale é a última seleção) e verificado no simulador com Maestro: errar →
+     corrigir → "Resposta correta".
+   - **Nenhuma vida é perdida no app alcançável.** `GamificationService.loseHeart()`
+     só é chamado em `useQuiz.ts:119`, então os corações do HUD nunca descem no
+     caminho vivo. O sinal visual de perda de vida **não foi implementado** por
+     isso: não haveria o que sinalizar. Levar a economia de vidas para o
+     lesson-flow é decisão de produto em aberto.
 4. ~~**A11y:** o HUD lê "coração vermelho" 5× em 5 telas; 21 componentes com zero
    props de a11y; nenhum `accessibilityRole="header"` no app inteiro.~~
    **Concluída em 2026-07-28** (commits `e8aec51`, `68d9196`, `7d9a374`):

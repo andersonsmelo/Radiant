@@ -11,14 +11,15 @@ type MultipleChoiceStepRendererProps = {
     payload: MultipleChoicePayload;
     selectedOptionId?: string;
     onSelect: (optionId: string) => void;
-    locked: boolean;
 };
 
+// Selecionar não confirma: enquanto o passo está na tela, a escolha continua
+// trocável e nada foi commitado. Quem confirma é o "Continuar" do rodapé — por
+// isso não existe estado travado aqui.
 export function MultipleChoiceStepRenderer({
     payload,
     selectedOptionId,
     onSelect,
-    locked,
 }: MultipleChoiceStepRendererProps) {
     return (
         <View style={styles.container}>
@@ -31,12 +32,15 @@ export function MultipleChoiceStepRenderer({
                         <Pressable
                             key={option.id}
                             onPress={() => onSelect(option.id)}
-                            disabled={locked}
                             testID={`lesson-option-${option.id}`}
                             accessibilityRole="button"
                             accessibilityLabel={option.label}
-                            accessibilityHint={locked ? 'Resposta bloqueada após a seleção.' : 'Seleciona esta resposta.'}
-                            accessibilityState={{ selected, disabled: locked }}
+                            accessibilityHint={
+                                selected
+                                    ? 'Selecionada. Toque em outra alternativa para trocar antes de continuar.'
+                                    : 'Seleciona esta resposta. Você confirma em Continuar.'
+                            }
+                            accessibilityState={{ selected }}
                             style={[
                                 styles.option,
                                 selected && styles.optionSelected,

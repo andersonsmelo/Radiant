@@ -241,7 +241,6 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
                                     payload={multipleChoicePayload!}
                                     selectedOptionId={selectedOptionId}
                                     onSelect={(optionId) => handleSelectOption(multipleChoicePayload!, optionId)}
-                                    locked={Boolean(selectedOptionId)}
                                 />
                             ) : null}
 

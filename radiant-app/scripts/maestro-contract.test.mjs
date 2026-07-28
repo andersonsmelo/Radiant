@@ -144,7 +144,11 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
 
   assert.match(source, /testID=\{`lesson-option-\$\{option\.id\}`\}/);
   assert.match(source, /accessibilityRole="button"/);
-  assert.match(source, /accessibilityState=\{\{ selected, disabled: locked \}\}/);
+  // A alternativa não trava depois do primeiro toque: quem confirma é o
+  // "Continuar" do rodapé, então o estado exposto é só `selected`. O contrato
+  // proíbe reintroduzir `disabled` aqui — seria voltar a impedir a troca.
+  assert.match(source, /accessibilityState=\{\{ selected \}\}/);
+  assert.doesNotMatch(source, /disabled=\{/);
 });
 
 test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
