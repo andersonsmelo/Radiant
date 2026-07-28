@@ -153,15 +153,13 @@ function RootLayout() {
       {/*
         Every screen here draws its own header, so hiding it is the default
         rather than something each route opts into. A route that is not
-        declared below — `onboarding/index`, `galaxy/[galaxyId]` — used to fall
-        back to the native header, which renders its raw route path as the
-        title and the previous route id as the back-button label. That leaks
-        `onboarding/index` and `(tabs)` both onto the screen and into the
-        accessibility tree.
+        declared below — e.g. `galaxy/[galaxyId]` — used to fall back to the
+        native header, which renders its raw route path as the title and the
+        previous route id as the back-button label. That leaks the route path
+        and `(tabs)` both onto the screen and into the accessibility tree.
       */}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="onboarding" />
         <Stack.Screen name="learn" />
         <Stack.Screen name="checkpoint" />
         <Stack.Screen name="reward" />

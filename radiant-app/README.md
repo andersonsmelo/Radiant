@@ -158,8 +158,9 @@ Enquanto o rollback for necessário, a flag e a `HomeScreen` ficam; a remoção 
 uma única passada mecânica depois que o caminho de reversão puder ser aposentado.
 
 **Onboarding órfão (investigado na task B6, 2026-07-27).** A adoção da Learning
-Road deixou duas superfícies de onboarding sem uso em produção, que saem na mesma
-limpeza:
+Road deixou duas superfícies de onboarding sem uso em produção. O **wizard** já
+foi removido (2026-07-28, ver abaixo); o **onboarding suave** ainda depende da
+`HomeScreen` e sai junto com ela:
 
 - O **onboarding suave** (`OnboardingService`, cartão de intro no Dia 0 e banner
   de encerramento no Dia 7) é consumido **apenas** pela `HomeScreen` clássica.
@@ -167,13 +168,17 @@ limpeza:
   `HomeScreen`; se o intro/closure for desejado na Learning Road, ele precisa ser
   reconectado à `JourneyHomeScreen` de propósito.
 - O **wizard de onboarding** em `src/app/onboarding/*` (welcome → especialidade →
-  meta) é um **protótipo inacabado**: conteúdo em inglês que não bate com o
-  catálogo pt-BR, especialidades hardcoded fictícias e **não persiste as escolhas**
-  (o "Build my plan →" só faz `router.replace('/(tabs)')`). Nenhuma tela de
-  produção navega até ele — só o deep link `radiantapp://onboarding`. Deve ser
-  **removido** (rotas `onboarding/index`, `onboarding/value`, `onboarding/goal`)
-  ou, se um setup guiado for desejado, **reconstruído** como feature real (pt-BR,
-  trilhas do catálogo, persistindo especialidade e meta diária).
+  meta) era um **protótipo inacabado** que **não persistia as escolhas** (o
+  "Build my plan →" só fazia `router.replace('/(tabs)')`) e que nenhuma tela de
+  produção navegava — só o deep link `radiantapp://onboarding`. **Removido em
+  2026-07-28**: as rotas `onboarding/index`, `onboarding/value`, `onboarding/goal`
+  e o `Stack.Screen name="onboarding"` fantasma do `_layout` (a rota real era
+  `onboarding/index`, então o Metro o acusava a cada boot). O smoke
+  `onboarding-to-home.yaml`, que dirigia esse wizard e já afirmava strings em
+  inglês tornadas obsoletas pela migração pt-BR de 07-27, foi repontado para
+  `boot-to-home.yaml` (instalação limpa → `Foco de hoje`). Se um setup guiado for
+  desejado no futuro, deve ser **reconstruído** como feature real (pt-BR, trilhas
+  do catálogo, persistindo especialidade e meta diária).
 
 Confirmação de produto pendente: "instalação limpa → Home" é o comportamento
 intencional da v1.3 (sem wizard bloqueante); a remoção acima assume esse rumo.

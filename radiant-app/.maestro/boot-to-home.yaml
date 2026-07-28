@@ -1,8 +1,8 @@
 appId: com.ascendcreative.radiant
-name: Onboarding to local-first home
+name: Clean install boots straight to the local-first home
 tags:
   - smoke
-  - onboarding
+  - local-first
 ---
 - launchApp:
     clearState: true
@@ -23,24 +23,9 @@ tags:
       visible: 'Connected to:'
     commands:
       - tapOn: Close
-- openLink:
-    link: radiantapp://onboarding
-- runFlow:
-    when:
-      visible: 'Open'
-    commands:
-      - tapOn: Open
-- runFlow:
-    when:
-      visible: 'Abrir com “Radiant”?'
-    commands:
-      - tapOn: Abrir
-- assertVisible: WELCOME TO RADIANT
-- tapOn: Get started →
-- assertVisible: WHY RADIANT
-- tapOn: Continue →
-- assertVisible: STEP 3 OF 4
-- tapOn: Chest & thorax, 120 cases
-- tapOn: 10 min por dia, ritmo Steady
-- tapOn: Build my plan →
+# A clean install (clearState) has no blocking wizard: v1.3 opens directly on the
+# Learning Road home. The retired onboarding smoke deep-linked into an unfinished
+# prototype that was removed on 2026-07-28; this flow proves what actually
+# mattered — a fresh install reaches the local-first home — against a stable
+# pt-BR assertion.
 - assertVisible: Foco de hoje

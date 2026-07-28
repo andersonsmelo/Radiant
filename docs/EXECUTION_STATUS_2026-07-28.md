@@ -215,11 +215,22 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    (`HomeScreen.flow.test.tsx`, que roda com o flag desligado). Removê-la é
    remover o rollback: decisão de produto, prevista para depois do beta, não
    faxina de código.
-   O onboarding é outro caso: `src/app/onboarding/{index,value,goal}.tsx` só é
-   alcançado por `push` interno entre as próprias telas — nada no app navega
-   para `/onboarding` — e o `_layout` ainda declara um `Stack.Screen name="onboarding"`
-   inexistente, que o Metro reporta como aviso a cada boot. É inalcançável na
-   prática, mas a remoção também é decisão do usuário, não desta execução.
+   O onboarding (wizard) era outro caso e **foi removido em 2026-07-28** por
+   decisão do usuário. `src/app/onboarding/{index,value,goal}.tsx` era um
+   protótipo inacabado (não persistia escolhas; `Build my plan →` só fazia
+   `router.replace('/(tabs)')`) que nenhuma tela navegava — só o deep link
+   `radiantapp://onboarding` — e o `_layout` declarava um `Stack.Screen
+   name="onboarding"` inexistente (a rota real era `onboarding/index`) que o
+   Metro acusava a cada boot. Removidos: as três rotas, o `Stack.Screen`
+   fantasma e 8 allowances órfãs do `visual-qa-policy.json`. O smoke
+   `onboarding-to-home.yaml` — que dirigia o wizard e já afirmava strings em
+   inglês obsoletas desde a migração pt-BR de 07-27 (logo, o "3/3 iOS" de 07-26 é
+   anterior a essa deriva) — foi repontado para `boot-to-home.yaml` (instalação
+   limpa → `Foco de hoje`, sem deep link), com o contrato do Maestro exigindo a
+   nova forma; **o device run do novo flow pertence a B0.1**. `ENABLE_ONBOARDING`
+   foi mantido de propósito: é kill switch do onboarding *suave*
+   (`OnboardingService`), vivo atrás da `HomeScreen`. A `HomeScreen` em si **não
+   foi tocada** — segue como rollback vivo, remoção prevista para pós-beta.
 7. ~~**`npm test` fora de `npm run quality`:** hoje o `ios:preflight` não roda a
    suíte Jest. Decidir se entra no gate.~~ **Decidido e aplicado em 2026-07-28:**
    entra. A suíte Jest roda dentro do `npm run quality`

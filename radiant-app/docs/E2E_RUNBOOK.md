@@ -2,8 +2,8 @@
 
 The `.maestro` workspace covers the real local-first route, not a mocked API:
 
-- `onboarding-to-home.yaml`: deep-link onboarding, selects preferences and
-  reaches the learning-road home.
+- `boot-to-home.yaml`: a clean install (`clearState`) boots straight to the
+  learning-road home (`Foco de hoje`) — v1.3 has no blocking wizard.
 - `learning-critical-path.yaml`: completes both seeded lessons, checkpoint,
   reward and reaches Progress.
 - `offline-relaunch.yaml`: completes a local lesson, relaunches with airplane
@@ -44,6 +44,16 @@ run; the flow now ends at Progresso and the reward node has no E2E coverage.
 With those fixes, all three flows pass on iOS in one suite run
 (`3/3 Flows Passed in 8m 44s`), so iOS is `passed`. Android is still
 `environment-blocked` — no local build was produced or installed.
+
+On 2026-07-28 the onboarding wizard (`src/app/onboarding/*`) was removed as an
+unfinished, unreachable prototype, and `onboarding-to-home.yaml` was retired. Its
+assertions had already gone stale: the 2026-07-27 wizard migration to pt-BR left
+the flow asserting English strings (`WELCOME TO RADIANT`, `STEP 3 OF 4`), so the
+2026-07-26 `3/3` iOS pass predates that drift. Its replacement,
+`boot-to-home.yaml`, asserts the stable pt-BR home (`Foco de hoje`) after a clean
+install. The new flow passes the static Maestro contract but has **not** been
+device-run yet — that device pass belongs to task B0.1, so the iOS boot row below
+is `pending`.
 
 The dated environment inventory and first-run matrix live in
 [`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md);
@@ -89,7 +99,7 @@ the assertion with a coordinate tap.
 ## Execute
 
 ```sh
-maestro test .maestro/onboarding-to-home.yaml
+maestro test .maestro/boot-to-home.yaml
 maestro test .maestro/learning-critical-path.yaml
 maestro test .maestro/offline-relaunch.yaml
 ```
@@ -104,9 +114,9 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 ## Sign-off matrix
 
-| Platform | Device/runtime | Build | Onboarding | Critical path | Offline relaunch | Status | Owner/date |
+| Platform | Device/runtime | Build | Boot-to-home | Critical path | Offline relaunch | Status | Owner/date |
 |---|---|---|---:|---:|---:|---|---|
-| iOS | see dated evidence | local Release equivalent | passed | passed (reward node not covered) | passed | passed — 3/3 flows in one suite run | engineering / 2026-07-26 |
+| iOS | see dated evidence | local Release equivalent | pending (flow repointed 2026-07-28) | passed (reward node not covered) | passed | boot-to-home pending device re-run (B0.1); critical-path + offline passed 2026-07-26 | engineering / 2026-07-28 |
 | Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-26 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after

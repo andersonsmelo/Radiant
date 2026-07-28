@@ -24,7 +24,7 @@ test('keeps Maestro discovery explicit and artifact output untracked', async () 
 
 test('keeps each shipped flow tied to the installed mobile identifier', async () => {
   const flowNames = [
-    'onboarding-to-home.yaml',
+    'boot-to-home.yaml',
     'learning-critical-path.yaml',
     'offline-relaunch.yaml',
   ];
@@ -37,7 +37,13 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
     assert.match(flow, /- launchApp:/);
   }
 
-  assert.match(flows[0], /radiantapp:\/\/onboarding/);
+  // The boot smoke proves a clean install reaches the local-first home. It
+  // deliberately does NOT deep-link onboarding: v1.3 has no blocking wizard, and
+  // the retired onboarding-to-home.yaml drove an unfinished prototype removed on
+  // 2026-07-28. Keep the deep-link out and the stable home assertion in.
+  assert.match(flows[0], /clearState: true/);
+  assert.match(flows[0], /assertVisible: Foco de hoje/);
+  assert.doesNotMatch(flows[0], /radiantapp:\/\/onboarding/);
   assert.match(flows[1], /lesson-option-q1:option:1/);
   // The critical path ends at Progresso. The reward node is unlocked only after
   // the LAST lesson of the catalog-generated track (7 lessons), so it is not
@@ -114,8 +120,9 @@ test('keeps the journey map on the dark galaxy theme it renders inside', async (
 
 test('never lets a route fall back to the native header', async () => {
   // An undeclared route inheriting the default header renders its raw path as
-  // the title and the previous route id as the back label — leaking
-  // "onboarding/index" and "(tabs)" onto the screen and into VoiceOver.
+  // the title and the previous route id as the back label — leaking the route
+  // path (e.g. "galaxy/[galaxyId]") and "(tabs)" onto the screen and into
+  // VoiceOver.
   const layout = await readAppFile('src/app/_layout.tsx');
 
   assert.match(layout, /<Stack screenOptions=\{\{ headerShown: false \}\}>/);
