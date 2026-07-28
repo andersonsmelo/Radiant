@@ -91,13 +91,19 @@ Os bloqueios de lançamento não mudaram nesta data; o detalhe de cada um está 
 
 ## Próxima sequência sugerida
 
-Em ordem de valor, do backlog da 2ª auditoria de design (todas ainda não
-sinalizadas como feitas):
+Em ordem de valor, do backlog da 2ª auditoria de design. Os itens 1 e 4 foram
+entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
 
-1. **Guarda anti-regressão de identidade:** proibir `import { colors }` (paleta
-   clara) em `src/features/**` e `src/app/**`. É o que teria pego os dois P0 de
-   design desde o começo; o teste de contraste atual valida tokens **isolados**,
-   não composições — esse é o ponto cego.
+1. ~~**Guarda anti-regressão de identidade:** proibir `import { colors }` (paleta
+   clara) em `src/features/**` e `src/app/**`.~~ **Concluída em 2026-07-28**
+   (commit `3b367db`). Teste de contrato estrutural
+   `radiant-app/scripts/identity-palette-contract.test.mjs`, ligado ao
+   `npm run quality`, falha se qualquer arquivo de `features/**` ou `app/**`
+   importar a paleta clara `colors` de `ui/theme` (`galaxyColors`/`semanticColors`
+   seguem permitidos). Fecha o ponto cego do contraste, que valida tokens
+   **isolados**, não composições. Provado que morde: apontou os 2 únicos
+   ofensores (`PaywallOfferCard` e o `StartupScreen` de `app/_layout`), ambos já
+   em telas galaxy, que foram migrados para `galaxyColors` no mesmo commit.
 2. **Migrar telas para `typography.*`:** ~55% do dimensionamento de texto ainda
    usa `fontSize` numérico (153 ocorrências contra 125 usos de token), então boa
    parte do app renderiza em fonte de sistema, não em Sora. Piores: `HomeScreen`,
@@ -106,8 +112,25 @@ sinalizadas como feitas):
    alternativa já submete e já custa uma vida, sem confirmação nem desfazer
    (`useQuiz.ts:99-126`), e a perda do coração não produz sinal visual ou tátil
    (`HUD.tsx:32-48`).
-4. **A11y:** o HUD lê "coração vermelho" 5× em 5 telas; 21 componentes com zero
-   props de a11y; nenhum `accessibilityRole="header"` no app inteiro.
+4. ~~**A11y:** o HUD lê "coração vermelho" 5× em 5 telas; 21 componentes com zero
+   props de a11y; nenhum `accessibilityRole="header"` no app inteiro.~~
+   **Concluída em 2026-07-28** (commits `e8aec51`, `68d9196`, `7d9a374`):
+   - **HUD** (`src/ui/components/HUD.tsx`, presente em 9 telas): vidas viram um
+     rótulo único "`<n>` de `<m>` vidas" (antes 5× "coração vermelho"), pills de
+     XP/streak rotulados e emoji decorativo suprimido; contrato travado em
+     `HUD.test.tsx`.
+   - **`accessibilityRole="header"`:** 13 no total, onde antes havia **zero** —
+     2 headers compartilhados (`JourneyMapHeader`, `LessonFlowProgressHeader`) e
+     11 títulos de tela (Progress, Missions, GalaxyInterior, GalaxyMap,
+     PlanetInterior, Checkpoint, Reward, Quiz, 2× Review, JourneyHome).
+   - **"21 componentes sem a11y":** survey por-ocorrência mostrou que o número
+     estava superestimado — `DecorativeIcon` já se esconde do leitor, o mascote
+     `PixelIllustration` já tem `accessibilityLabel`, e não há botão só-de-ícone
+     sem label. A única `<Image>` sem descrição do app era o `LessonVisualPanel`,
+     rotulada agora.
+   - **Pendente:** o `TouchableOpacity` "Agora não" do `PushOptInCard` sem
+     `accessibilityRole="button"` (não tocado por estar na área de push que outra
+     sessão edita) e o item 2 do Gate 2 (sessão humana de VoiceOver, task B4).
 5. **Assets:** ~3,0 MB duplicados — os 6 estados do mascote são o mesmo arquivo
    (md5 idêntico), `pixel_core.png` tem 2,16 MB e serve sm/md/lg, e há cópia
    byte-a-byte em `Mascote.png` na raiz (untracked).
