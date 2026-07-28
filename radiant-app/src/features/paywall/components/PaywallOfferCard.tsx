@@ -4,7 +4,7 @@ import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import type { PaywallOffer } from '../PaywallService';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 
 type PaywallOfferCardProps = {
@@ -16,9 +16,9 @@ type PaywallOfferCardProps = {
 
 export function PaywallOfferCard({ offer, onPrimary, onDismiss, submitting = false }: PaywallOfferCardProps) {
   return (
-    <SurfaceCard variant="elevated" style={styles.card}>
+    <SurfaceCard variant="galaxyElevated" style={styles.card}>
       <View style={styles.header}>
-        <DecorativeIcon name="workspace-premium" size={20} color={colors.primary} />
+        <DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />
         <Text style={styles.eyebrow}>Radiant Plus</Text>
       </View>
 
@@ -49,18 +49,18 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     fontWeight: '800',
     textTransform: 'uppercase',
   },
   title: {
     ...typography.body,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     fontWeight: '800',
   },
   body: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     lineHeight: 20,
   },
   button: {

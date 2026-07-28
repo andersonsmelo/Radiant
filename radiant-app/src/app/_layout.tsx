@@ -21,7 +21,7 @@ import {
 import { AppConfig } from '../config';
 import { AppButton } from '../components/ui/AppButton';
 import { SurfaceCard } from '../components/ui/SurfaceCard';
-import { colors, navigationTheme } from '../ui/theme';
+import { galaxyColors, navigationTheme } from '../ui/theme';
 import { layout, space, typography } from '../ui/styles';
 
 initializeObservability();
@@ -191,8 +191,8 @@ function StartupScreen({ title, body, tone, onRetry }: StartupScreenProps) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={[layout.container, layout.center, styles.content]}>
-        <SurfaceCard contentStyle={styles.cardContent} variant="glass" style={styles.card}>
-          {tone === 'loading' ? <ActivityIndicator size="large" color={colors.primary} /> : null}
+        <SurfaceCard contentStyle={styles.cardContent} variant="galaxy" style={styles.card}>
+          {tone === 'loading' ? <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} /> : null}
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.body}>{body}</Text>
           {tone === 'error' && onRetry ? (
@@ -219,7 +219,7 @@ function StartupScreen({ title, body, tone, onRetry }: StartupScreenProps) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: galaxyColors.background,
   },
   content: {
     flex: 1,
@@ -236,12 +236,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     textAlign: 'center',
   },
   body: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
   button: {
@@ -252,6 +252,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   secondaryButtonText: {
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
 });
