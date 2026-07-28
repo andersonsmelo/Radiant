@@ -106,18 +106,32 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    em telas galaxy, que foram migrados para `galaxyColors` no mesmo commit.
 2. **Migrar telas para `typography.*`:** ~55% do dimensionamento de texto ainda
    usava `fontSize` numérico (153 ocorrências contra 125 usos de token), então boa
-   parte do app renderia em fonte de sistema, não em Sora. **Em andamento
-   (2026-07-28):**
+   parte do app renderia em fonte de sistema, não em Sora. **Telas vivas
+   concluídas em 2026-07-28:**
    - ✅ `MissionsScreen` (commit `8b974e5`) e ✅ `ProgressScreen` (commit
      `d6e9809`) migradas (12 e 18 estilos), **verificadas por screenshot no
      simulador** (antes/depois); zero `fontSize` numérico restante nelas.
+   - ✅ `GalaxyMapScreen` (4), `GalaxyInteriorScreen` (6) e
+     `PlanetInteriorScreen` (11) migradas nesta data, também **verificadas por
+     screenshot antes/depois no simulador** (mapa, interior da galáxia e trilha
+     do planeta). Snap de fora-de-escala: títulos de tela 20/22 → `h3` (24),
+     rótulos uppercase 8/10/13 → `label` (11), textos de 10–12 em caixa normal →
+     `micro`, 13 → `caption`, 16 → `bodyRegular`.
    - **Aprendizado:** o token `typography.label` tem `textTransform: 'uppercase'`
      — use-o só em rótulos maiúsculos; para 11–12px em caixa normal use
      `micro`/`caption` (senão o texto vira maiúscula indevida). Snap de tamanhos
      fora-de-escala documentado nos commits.
-   - ⏳ **Restam** (ainda 100% fonte de sistema): `PlanetInteriorScreen` (11),
-     `GalaxyInteriorScreen` (6), `GalaxyMapScreen` (4). `HomeScreen` e o
-     onboarding são código morto (remover, não migrar).
+   - **Convenção fixada:** glifos de ícone (chevron `‹`, `✓`) e emojis **não**
+     recebem token — são desenho, não texto, e a métrica da Sora deslocaria o
+     alinhamento. São as únicas ocorrências de `fontSize` numérico que sobram nas
+     telas migradas.
+   - **Efeito colateral aceito:** a Sora é mais larga que a fonte de sistema no
+     mesmo corpo, então rótulos curtos de nó (`maxWidth` 90–120) passaram a
+     quebrar em duas linhas com mais frequência. O badge "EM ANDAMENTO" do mapa
+     subiu de 8 para 11px: ganho real de legibilidade, ao custo de a hierarquia
+     contra o nome da galáxia passar a ser por cor/borda, não por tamanho.
+   - ⏳ **Resta** o texto de `HomeScreen` e do onboarding — ver o item 6, que
+     corrige a leitura de "código morto".
 3. **Passo "Verificar" antes de commitar a resposta do quiz:** hoje tocar numa
    alternativa já submete e já custa uma vida, sem confirmação nem desfazer
    (`useQuiz.ts:99-126`), e a perda do coração não produz sinal visual ou tátil
@@ -146,6 +160,18 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    byte-a-byte em `Mascote.png` na raiz (untracked).
 6. **`HomeScreen`** é a única tela ainda 100% light (53 refs claras, 0 galaxy) —
    candidata a remoção junto com o código de rollback pós-beta.
+   **Correção de leitura (2026-07-28):** ela **não é código morto**.
+   `src/app/(tabs)/index.tsx` a entrega quando `AppConfig.ENABLE_LEARNING_ROAD`
+   é falso, e o flag tem default `true` em `src/config.ts:36` — ou seja, é o
+   caminho de rollback vivo da Learning Road, com teste dedicado
+   (`HomeScreen.flow.test.tsx`, que roda com o flag desligado). Removê-la é
+   remover o rollback: decisão de produto, prevista para depois do beta, não
+   faxina de código.
+   O onboarding é outro caso: `src/app/onboarding/{index,value,goal}.tsx` só é
+   alcançado por `push` interno entre as próprias telas — nada no app navega
+   para `/onboarding` — e o `_layout` ainda declara um `Stack.Screen name="onboarding"`
+   inexistente, que o Metro reporta como aviso a cada boot. É inalcançável na
+   prática, mas a remoção também é decisão do usuário, não desta execução.
 7. **`npm test` fora de `npm run quality`:** hoje o `ios:preflight` não roda a
    suíte Jest. Decidir se entra no gate.
 

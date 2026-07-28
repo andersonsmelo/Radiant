@@ -28,6 +28,7 @@ import type { CelestialBody } from '@/src/types/galaxy';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
+import { typography } from '@/src/ui/styles';
 import { PlanetBody } from '../components/PlanetBody';
 
 
@@ -252,6 +253,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Glifos de ícone (chevron, emoji) ficam fora da escala tipográfica:
+  // são desenho, não texto, e a métrica da Sora deslocaria o alinhamento.
   backIcon: {
     fontSize: 24,
     color: '#fff',
@@ -261,14 +264,12 @@ const styles = StyleSheet.create({
   headerTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   headerEmoji: { fontSize: 22 },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: '800',
+    ...typography.h3,
     color: '#FFFFFF',
-    letterSpacing: -0.5,
   },
 
   subtitle: {
-    fontSize: 12,
+    ...typography.micro,
     color: 'rgba(255,255,255,0.40)',
     paddingHorizontal: 20,
     marginTop: 4,
@@ -291,15 +292,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bodyLabel: {
+    ...typography.micro,
     marginTop: 8,
-    fontSize: 11,
-    fontWeight: '600',
     color: 'rgba(255,255,255,0.75)',
     textAlign: 'center',
     maxWidth: 90,
   },
   bodyLabelLocked: { color: 'rgba(255,255,255,0.30)' },
-  bodyLabelActive: { color: '#FFFFFF', fontWeight: '700' },
+  bodyLabelActive: { color: '#FFFFFF', fontFamily: 'Sora-Bold', fontWeight: '700' },
   nodeBadge: {
     marginTop: 4,
     backgroundColor: 'rgba(255,255,255,0.10)',
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   nodeBadgeText: {
-    fontSize: 10,
+    ...typography.micro,
     color: 'rgba(255,255,255,0.50)',
   },
 });

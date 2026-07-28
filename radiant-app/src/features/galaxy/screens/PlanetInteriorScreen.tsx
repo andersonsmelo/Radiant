@@ -31,6 +31,7 @@ import type { JourneyNode } from '@/src/types/journey';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
+import { typography } from '@/src/ui/styles';
 import { PlanetBody } from '../components/PlanetBody';
 
 const { width: SCREEN_W } = Dimensions.get('window');
@@ -305,6 +306,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Glifos de ícone (chevron, ✓, emoji) ficam fora da escala tipográfica:
+  // são desenho, não texto, e a métrica da Sora deslocaria o alinhamento.
   backIcon: {
     fontSize: 24,
     color: '#fff',
@@ -313,15 +316,12 @@ const styles = StyleSheet.create({
   },
   headerInfo: { flex: 1 },
   galaxyLabel: {
-    fontSize: 12,
+    ...typography.micro,
     color: 'rgba(255,255,255,0.45)',
-    fontWeight: '500',
   },
   bodyTitle: {
-    fontSize: 20,
-    fontWeight: '800',
+    ...typography.h3,
     color: '#FFFFFF',
-    letterSpacing: -0.4,
   },
 
   heroArea: {
@@ -337,9 +337,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   heroBadgeText: {
-    fontSize: 12,
+    ...typography.micro,
     color: 'rgba(255,255,255,0.6)',
-    fontWeight: '600',
   },
 
   trail: { flex: 1 },
@@ -357,10 +356,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   noHeartsText: {
-    fontSize: 13,
+    ...typography.caption,
     color: '#FF6B6B',
     textAlign: 'center',
-    lineHeight: 18,
   },
 
   nodeRow: {
@@ -395,14 +393,14 @@ const styles = StyleSheet.create({
   },
   lockIcon: { fontSize: 16 },
   nodeTitle: {
+    ...typography.micro,
     marginTop: 6,
-    fontSize: 12,
-    fontWeight: '600',
     textAlign: 'center',
     maxWidth: 120,
   },
   nodeTitleActive: {
-    fontSize: 13,
+    ...typography.caption,
+    fontFamily: 'Sora-Bold',
     fontWeight: '800',
   },
 
@@ -413,7 +411,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   emptyText: {
-    fontSize: 16,
+    ...typography.bodyRegular,
     color: 'rgba(255,255,255,0.50)',
     textAlign: 'center',
   },

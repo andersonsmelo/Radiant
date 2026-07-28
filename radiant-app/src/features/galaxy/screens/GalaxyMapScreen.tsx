@@ -32,7 +32,7 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import type { RadiantGalaxy } from '../../../types/galaxy';
 import { GALAXY_CATALOG, getActiveGalaxy, getActiveBody } from '../../../data/galaxy-catalog';
 import { galaxyColors } from '../../../ui/theme';
-import { tabBarClearance } from '../../../ui/styles';
+import { tabBarClearance, typography } from '../../../ui/styles';
 
 // ── Constantes ───────────────────────────────────────────────
 
@@ -290,8 +290,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   appTitle: {
-    fontSize: 13,
-    fontWeight: '800',
+    ...typography.label,
+    // Wordmark: tracking mais aberto que o do token, é assinatura de marca.
     letterSpacing: 3,
     color: 'rgba(255,255,255,0.35)',
   },
@@ -310,10 +310,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   galaxyLabel: {
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
+    ...typography.label,
     color: 'rgba(255,255,255,0.5)',
     textAlign: 'center',
   },
@@ -327,10 +324,8 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
   activeBadgeText: {
-    fontSize: 8,
-    fontWeight: '800',
+    ...typography.label,
     color: '#7ab8ff',
-    letterSpacing: 0.5,
   },
   ctaArea: {
     paddingHorizontal: 20,
@@ -341,7 +336,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   ctaHint: {
-    fontSize: 11,
+    ...typography.micro,
     color: 'rgba(255,255,255,0.28)',
     textAlign: 'center',
     marginTop: 5,
