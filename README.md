@@ -220,7 +220,10 @@ O endpoint remoto de catálogo já existe para smoke e operação. O catálogo p
 
 Qualidade e release do app:
 
-- `npm run quality` executa lint, typecheck e visual QA;
+- `npm run quality` executa lint, typecheck, os testes de contrato estrutural
+  (Storybook, Maestro, easing, folga da tab bar, contraste, paleta de
+  identidade), a suíte Jest e o visual QA estrito — é o gate completo do app,
+  num comando só;
 - `npm run ios:doctor` valida o ambiente Apple local;
 - `npm run ios:v2` sobe o simulador com a combinação oficial de flags para homologação local da V2;
 - `npm run app-store:ops-save` salva o snapshot exportado da tela de debug em `radiant-app/docs/release/APP_STORE_WAR_ROOM_LATEST.md`;

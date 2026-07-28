@@ -28,7 +28,7 @@
     "test:identity-palette-contract": "node --test scripts/identity-palette-contract.test.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
-    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run visual:qa:strict",
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test -- --runInBand && npm run visual:qa:strict",
     "storybook": "STORYBOOK_ENABLED=true expo start",
     "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
     "storybook:android": "STORYBOOK_ENABLED=true expo start --android"

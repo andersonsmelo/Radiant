@@ -220,8 +220,18 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    para `/onboarding` — e o `_layout` ainda declara um `Stack.Screen name="onboarding"`
    inexistente, que o Metro reporta como aviso a cada boot. É inalcançável na
    prática, mas a remoção também é decisão do usuário, não desta execução.
-7. **`npm test` fora de `npm run quality`:** hoje o `ios:preflight` não roda a
-   suíte Jest. Decidir se entra no gate.
+7. ~~**`npm test` fora de `npm run quality`:** hoje o `ios:preflight` não roda a
+   suíte Jest. Decidir se entra no gate.~~ **Decidido e aplicado em 2026-07-28:**
+   entra. A suíte Jest roda dentro do `npm run quality`
+   (`npm run test -- --runInBand`, depois dos contratos estruturais e antes do
+   visual QA estrito — os contratos são baratos e falham em menos de 1s cada, a
+   suíte é o passo caro, então o gate ainda dá o retorno rápido primeiro).
+   Motivo: o Loop já executava `app-test` como validador separado, ou seja a
+   suíte já era obrigatória de fato; o que faltava era o `ios:preflight` — o
+   caminho humano — enxergar a mesma barra. **Custo medido, não estimado:** o
+   gate completo passou de ~12,5s para **19,5s**. O README da raiz descrevia o
+   gate como "lint, typecheck e visual QA", desatualizado desde os testes de
+   contrato; passou a listar o conteúdo real.
 
 Além do backlog de design, a sequência de lançamento do roadmap segue válida:
 B0.1 (reexecutar E2E sob `preview`), B4 (VoiceOver), B5 (reward E2E) e a Onda A
