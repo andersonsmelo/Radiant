@@ -105,9 +105,19 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
    ofensores (`PaywallOfferCard` e o `StartupScreen` de `app/_layout`), ambos já
    em telas galaxy, que foram migrados para `galaxyColors` no mesmo commit.
 2. **Migrar telas para `typography.*`:** ~55% do dimensionamento de texto ainda
-   usa `fontSize` numérico (153 ocorrências contra 125 usos de token), então boa
-   parte do app renderiza em fonte de sistema, não em Sora. Piores: `HomeScreen`,
-   `MissionsScreen`, `ProgressScreen`, `PlanetInteriorScreen`, onboarding.
+   usava `fontSize` numérico (153 ocorrências contra 125 usos de token), então boa
+   parte do app renderia em fonte de sistema, não em Sora. **Em andamento
+   (2026-07-28):**
+   - ✅ `MissionsScreen` (commit `8b974e5`) e ✅ `ProgressScreen` (commit
+     `d6e9809`) migradas (12 e 18 estilos), **verificadas por screenshot no
+     simulador** (antes/depois); zero `fontSize` numérico restante nelas.
+   - **Aprendizado:** o token `typography.label` tem `textTransform: 'uppercase'`
+     — use-o só em rótulos maiúsculos; para 11–12px em caixa normal use
+     `micro`/`caption` (senão o texto vira maiúscula indevida). Snap de tamanhos
+     fora-de-escala documentado nos commits.
+   - ⏳ **Restam** (ainda 100% fonte de sistema): `PlanetInteriorScreen` (11),
+     `GalaxyInteriorScreen` (6), `GalaxyMapScreen` (4). `HomeScreen` e o
+     onboarding são código morto (remover, não migrar).
 3. **Passo "Verificar" antes de commitar a resposta do quiz:** hoje tocar numa
    alternativa já submete e já custa uma vida, sem confirmação nem desfazer
    (`useQuiz.ts:99-126`), e a perda do coração não produz sinal visual ou tátil
