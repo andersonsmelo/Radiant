@@ -281,10 +281,16 @@ código.
   não uma reescrita do roadmap.
 - **D4 [P0]** Gate editorial: triar os 42 itens `formatNeedsReview` (aceitar
   com motivo, corrigir ou remover do caminho público).
-- **D5 [P1]** Congelar versionamento: definir `1.3.0`, alinhar
+- **D5 [P1]** ~~Congelar versionamento: definir `1.3.0`, alinhar
   `ios.buildNumber`/`android.versionCode` e documentar a política de
-  `runtimeVersion` — depois do primeiro build publicado, mudanças deixam de
-  ser livres (alerta do status 2026-07-26).
+  `runtimeVersion`~~ **Concluída em 2026-07-28.** `radiant-app/package.json` e
+  `radiant-app/app.json` foram de `1.2.1` para `1.3.0` (alinhados entre si),
+  `ios.buildNumber` de `"1"` para `"2"` e `android.versionCode` de `1` para `2`.
+  A política `runtimeVersion: appVersion` já estava documentada aqui e no
+  checklist de release; a runtime passa a `1.3.0` junto com a versão. Nenhum
+  build publicado ainda, então a mudança ainda é livre — depois do primeiro
+  build de F1/F2 deixa de ser (alerta do status 2026-07-26). Registrado no
+  [status canônico de 2026-07-28](../EXECUTION_STATUS_2026-07-28.md).
 - **D6 [P1]** Pesquisa com usuários (Task 12) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
 - **D7 [P2]** Converter as 121 referências absolutas de docs para caminhos
