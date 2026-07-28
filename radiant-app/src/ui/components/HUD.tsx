@@ -20,18 +20,41 @@ interface HUDProps {
 
 // ── Sub-componentes ───────────────────────────────────────────
 
-function HUDPill({ icon, value, color }: { icon: string; value: string; color: string }) {
+function HUDPill({
+  icon,
+  value,
+  color,
+  accessibilityLabel,
+}: {
+  icon: string;
+  value: string;
+  color: string;
+  accessibilityLabel: string;
+}) {
+  // O par ícone+valor é lido como um único nó ("1.234 XP"), não como o emoji
+  // decorativo seguido do número solto.
   return (
-    <View style={styles.pill}>
-      <Text style={styles.pillIcon}>{icon}</Text>
-      <Text style={[styles.pillValue, { color }]}>{value}</Text>
+    <View style={styles.pill} accessible accessibilityRole="text" accessibilityLabel={accessibilityLabel}>
+      <Text style={styles.pillIcon} importantForAccessibility="no">
+        {icon}
+      </Text>
+      <Text style={[styles.pillValue, { color }]} importantForAccessibility="no">
+        {value}
+      </Text>
     </View>
   );
 }
 
 function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
+  // Um rótulo único ("3 de 5 vidas") em vez de cinco emojis lidos como
+  // "coração vermelho" repetidamente. Mesmo padrão do MissionsScreen.
   return (
-    <View style={styles.heartsRow}>
+    <View
+      style={styles.heartsRow}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
+    >
       {Array.from({ length: maxHearts }, (_, i) => (
         <Text
           key={i}
@@ -39,6 +62,7 @@ function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: numbe
             styles.heartIcon,
             i >= hearts && styles.heartEmpty,
           ]}
+          importantForAccessibility="no"
         >
           {i < hearts ? '❤️' : '🤍'}
         </Text>
@@ -61,8 +85,18 @@ export function HUD({ totalXp, streakDays, hearts, maxHearts = 5, compact = fals
   return (
     <View style={styles.container}>
       <View style={styles.leftGroup}>
-        <HUDPill icon="⚡" value={totalXp.toLocaleString()} color={galaxyColors.xpColor} />
-        <HUDPill icon="🔥" value={`${streakDays}d`} color={galaxyColors.streakColor} />
+        <HUDPill
+          icon="⚡"
+          value={totalXp.toLocaleString()}
+          color={galaxyColors.xpColor}
+          accessibilityLabel={`${totalXp.toLocaleString()} XP`}
+        />
+        <HUDPill
+          icon="🔥"
+          value={`${streakDays}d`}
+          color={galaxyColors.streakColor}
+          accessibilityLabel={`${streakDays} ${streakDays === 1 ? 'dia' : 'dias'} de sequência`}
+        />
       </View>
       <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
     </View>

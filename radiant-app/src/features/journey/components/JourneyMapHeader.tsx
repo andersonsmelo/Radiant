@@ -11,7 +11,7 @@ type JourneyMapHeaderProps = {
 export function JourneyMapHeader({ title, subtitle }: JourneyMapHeaderProps) {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title} accessibilityRole="header">{title}</Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
     );

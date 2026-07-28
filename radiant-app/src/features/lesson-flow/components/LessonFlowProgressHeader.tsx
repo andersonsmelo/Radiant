@@ -20,7 +20,7 @@ export function LessonFlowProgressHeader({
     return (
         <View style={styles.container}>
             <View style={styles.topRow}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title} accessibilityRole="header">{title}</Text>
                 <Text style={styles.badge}>
                     {currentStep}/{totalSteps}
                 </Text>
