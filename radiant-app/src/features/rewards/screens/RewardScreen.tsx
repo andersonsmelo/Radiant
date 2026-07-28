@@ -282,7 +282,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           </View>
 
           <View style={styles.sectionCard}>
-            <Text style={styles.sectionTitle}>{rewardNode.title}</Text>
+            <Text style={styles.sectionTitle} accessibilityRole="header">{rewardNode.title}</Text>
             <Text style={styles.sectionBody}>
               {rewardNode.description ?? 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.'}
             </Text>

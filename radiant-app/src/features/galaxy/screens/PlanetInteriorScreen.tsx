@@ -235,7 +235,7 @@ export default function PlanetInteriorScreen() {
           </TouchableOpacity>
           <View style={styles.headerInfo}>
             <Text style={styles.galaxyLabel}>{galaxy.emoji} {galaxy.title}</Text>
-            <Text style={styles.bodyTitle}>{body.title}</Text>
+            <Text style={styles.bodyTitle} accessibilityRole="header">{body.title}</Text>
           </View>
         </View>
 

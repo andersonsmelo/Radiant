@@ -129,7 +129,7 @@ export default function ReviewScreen() {
             </Animated.View>
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Como essa sessão funciona</Text>
+              <Text style={styles.sectionTitle} accessibilityRole="header">Como essa sessão funciona</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -213,7 +213,7 @@ export default function ReviewScreen() {
             </Animated.View>
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Resultado da sessão</Text>
+              <Text style={styles.sectionTitle} accessibilityRole="header">Resultado da sessão</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}

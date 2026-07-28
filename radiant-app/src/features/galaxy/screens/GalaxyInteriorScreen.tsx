@@ -205,7 +205,7 @@ export default function GalaxyInteriorScreen() {
           </TouchableOpacity>
           <View style={styles.headerTitleRow}>
             <Text style={styles.headerEmoji}>{galaxy.emoji}</Text>
-            <Text style={styles.headerTitle}>{galaxy.title}</Text>
+            <Text style={styles.headerTitle} accessibilityRole="header">{galaxy.title}</Text>
           </View>
         </View>
 

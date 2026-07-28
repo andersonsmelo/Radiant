@@ -304,7 +304,7 @@ function QuizSession({
             ) : null}
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Resumo da tentativa</Text>
+              <Text style={styles.sectionTitle} accessibilityRole="header">Resumo da tentativa</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="check-circle" size={20} color={galaxyColors.ctaGradientEnd} />}

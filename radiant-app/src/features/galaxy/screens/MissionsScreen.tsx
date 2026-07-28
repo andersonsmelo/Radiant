@@ -261,7 +261,7 @@ export default function MissionsScreen() {
           <View style={styles.headerRow}>
             <View>
               <Text style={styles.headerLabel}>MISSÕES</Text>
-              <Text style={styles.headerTitle}>Desafios de hoje</Text>
+              <Text style={styles.headerTitle} accessibilityRole="header">Desafios de hoje</Text>
             </View>
             {/* Tempo real até o reset diário (meia-noite local) */}
             <View

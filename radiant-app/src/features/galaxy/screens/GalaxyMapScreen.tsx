@@ -185,7 +185,7 @@ export default function GalaxyMapScreen() {
       <SafeAreaView style={styles.safe} edges={['top']}>
         {/* Status bar */}
         <View style={styles.statusBar}>
-          <Text style={styles.appTitle}>RADIANT</Text>
+          <Text style={styles.appTitle} accessibilityRole="header">RADIANT</Text>
         </View>
 
         {/* HUD */}

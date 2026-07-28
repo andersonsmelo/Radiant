@@ -277,7 +277,7 @@ export default function JourneyHomeScreen() {
             />
 
             <View style={styles.summaryCard}>
-              <Text style={styles.summaryTitle}>Foco de hoje</Text>
+              <Text style={styles.summaryTitle} accessibilityRole="header">Foco de hoje</Text>
               <View style={styles.summaryList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="flag" size={20} color={galaxyColors.ctaGradientEnd} />}

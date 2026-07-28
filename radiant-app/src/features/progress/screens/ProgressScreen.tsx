@@ -467,7 +467,7 @@ export default function ProgressScreen() {
             >
                 {/* ── Header ── */}
                 <Text style={styles.screenEyebrow}>SEU PROGRESSO</Text>
-                <Text style={styles.screenTitle}>Progresso</Text>
+                <Text style={styles.screenTitle} accessibilityRole="header">Progresso</Text>
 
                 {/* ── Streak Calendar ── */}
                 <StreakCalendarCard streakDays={snapshot?.streakDays ?? 0} />

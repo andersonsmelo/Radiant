@@ -317,7 +317,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
           </View>
 
           <View style={styles.sectionCard}>
-            <Text style={styles.sectionTitle}>{checkpointNode.title}</Text>
+            <Text style={styles.sectionTitle} accessibilityRole="header">{checkpointNode.title}</Text>
             <Text style={styles.sectionBody}>
               {checkpointNode.description ?? 'Feche este marco para liberar o próximo trecho da trilha.'}
             </Text>
