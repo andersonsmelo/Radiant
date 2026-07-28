@@ -10,7 +10,7 @@ export const CURRENT_STATE_DOCUMENTS = [
   'README.md',
   'docs/README.md',
   'docs/ARCHITECTURE_STATE.md',
-  'docs/EXECUTION_STATUS_2026-07-27.md',
+  'docs/EXECUTION_STATUS_2026-07-28.md',
   'radiant-app/README.md',
 ];
 

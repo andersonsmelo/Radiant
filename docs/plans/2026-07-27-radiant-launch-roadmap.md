@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-27.md). As Tasks 11–16 do
+> [status canônico](../EXECUTION_STATUS_2026-07-28.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,7 +20,10 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: [status canônico 2026-07-27](../EXECUTION_STATUS_2026-07-27.md).
+Fonte: [status canônico 2026-07-28](../EXECUTION_STATUS_2026-07-28.md) — o
+snapshot de 07-27 permanece como histórico. A seção abaixo descreve o estado
+verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
+1.3.0, tipografia, lesson-flow, assets e gate) estão no status canônico.
 
 **Sólido:**
 

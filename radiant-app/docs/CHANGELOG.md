@@ -9,18 +9,26 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 ## [Não lançado]
 
 ### Corrigido
+- **Alternativa da lição trava no primeiro toque** — `MultipleChoiceStepRenderer` recebia `locked={Boolean(selectedOptionId)}`, então quem tocasse a opção errada não podia corrigir antes do "Continuar", e a dica de a11y ainda anunciava "Resposta bloqueada após a seleção". A escolha passa a ser trocável enquanto o passo está na tela — quem confirma é o rodapé. O contrato do Maestro, que exigia a assinatura antiga, passou a **proibir** `disabled` no renderer (`fe254d9`)
 - **Folga da tab bar em todas as telas roláveis** — `HomeScreen`, `ProgressScreen`, `MissionsScreen` e `GalaxyMapScreen` reservavam folga própria (32pt, 24pt, 120pt e 110pt) contra os 102pt da barra flutuante, deixando o último elemento sob a barra. As quatro passam a derivar de `tabBarClearance`, e a regra virou teste de contrato em `scripts/tab-bar-clearance-contract.test.mjs`, ligado ao `npm run quality` (`a9846a2`)
 - **Estado efetivo do sync remoto na homologação** — o painel exibia `Sync remoto: ativado` a partir da flag crua, mas o sync também exige `isApiConfigured()`; passa a distinguir `ativado`, `ligado, sem API configurada` e `desativado` (`0bf3332`)
 
 ### Alterado
+- **Escala tipográfica única (Sora) nas telas da galáxia** — `GalaxyMapScreen`, `GalaxyInteriorScreen` e `PlanetInteriorScreen` dimensionavam texto com `fontSize` numérico, ou seja renderizavam em fonte de sistema, não na fonte da marca. As três passam a consumir `typography.*`, junto de `MissionsScreen` e `ProgressScreen`. Convenção fixada: glifo de ícone (chevron, check) e emoji **não** recebem token — são desenho, não texto (`524f935`, `8b974e5`, `d6e9809`)
+- **Suíte Jest dentro do `npm run quality`** — o Loop já rodava `app-test` como validador separado, então a suíte já era obrigatória em toda entrega; o `ios:preflight`, caminho humano, não a via. Gate completo passou de ~12,5s para 19,5s (`1d0e633`)
+
 - **Learning Road é a home oficial** — `EXPO_PUBLIC_ENABLE_LEARNING_ROAD` era ligada apenas no perfil `e2e-test`, então builds de produção renderizavam a `HomeScreen` clássica enquanto o E2E validava o `JourneyHomeScreen`. A flag passa a ser declarada em `development`, `preview` e `production`, com default `true`, e vira kill switch de rollback ([ADR](../../docs/adr/ADR-2026-07-27-learning-road-como-home.md), `c4122e1`)
 - **`ENABLE_REMOTE_SYNC=false` em `preview` e `production`** — estado real enquanto a API pública responde HTTP 502 (`0bf3332`)
+
+### Removido
+- **2,9 MB de assets mortos e superdimensionados** — `src/ui/characters/assets/lux/` (6 PNGs idênticos, README declarando-a legada, zero referências no código) apagada, e `pixel_core.png` reexportado de 1024×1536 (2,2 MB) para 576×864 (257 KB), que é o maior tamanho que o app consegue pintar (`PIXEL_SIZE_MAP.lg` 176pt × `imageScale` 1,06 × 3). O registry `PIXEL_DEDICATED_ASSETS`, onde arte dedicada entra, ficou intacto (`8b0dfe9`)
 
 ### Documentação
 - Roadmap de lançamento nas lojas com 6 marcos e ~35 tasks priorizadas, e requisitos de App Store e Google Play pesquisados em 2026-07-27
 - ADRs de contas de loja (Play pessoal, Apple individual) e da home de produção
 - Protocolo de coordenação multi-IA no `AGENTS.md`
-- Status canônico promovido para [`docs/EXECUTION_STATUS_2026-07-27.md`](../../docs/EXECUTION_STATUS_2026-07-27.md)
+- Status canônico promovido para [`docs/EXECUTION_STATUS_2026-07-27.md`](../../docs/EXECUTION_STATUS_2026-07-27.md) e, em 2026-07-28, para [`docs/EXECUTION_STATUS_2026-07-28.md`](../../docs/EXECUTION_STATUS_2026-07-28.md)
+- **Ponteiros canônicos e a guarda que os vigia** — `docs/README.md`, o roadmap de lançamento e `context.includes` do `.loop/project.yaml` ainda apontavam para o snapshot de 07-27. Pior: `scripts/qa/docs-contract.mjs` governava o documento aposentado, então o contrato de documentação validava o status **antigo** desde que o de 07-28 nasceu. Existia teste para exatamente isso (`docs-contract.test.mjs`, "governs the newest execution status"), vermelho e sem executor — agora ligado ao validador `docs-contract`
 
 > A versão `1.2.1` alinhou `package.json` e `app.json` em 2026-07-26 sem entrada própria neste changelog; as correções acima ainda não foram versionadas.
 

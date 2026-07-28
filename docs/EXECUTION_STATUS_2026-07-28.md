@@ -68,9 +68,9 @@ no roadmap e no checklist de release.
 
 | Verificação | Estado | Resultado |
 | --- | --- | --- |
-| `npm run quality` | PASS | lint, typecheck, visual QA e contratos (Storybook, Maestro, easing, clearance, contraste) — reexecutado sob o run do Loop desta data |
-| testes do app (`npm test`) | PASS | suíte Jest reexecutada sob o run do Loop |
-| contrato de documentação | PASS | executado a cada run |
+| `npm run quality` | PASS | lint, typecheck, contratos estruturais (Storybook, Maestro, easing, clearance, contraste, paleta), **suíte Jest** e visual QA estrito — 19,5s, gate completo num comando só desde o item 7 |
+| testes do app (`npm test`) | PASS | suíte Jest; roda como validador `app-test` do Loop **e** dentro do `quality` |
+| contrato de documentação | PASS | executado a cada run — desde 2026-07-28 o validador roda também `docs-contract.test.mjs`, a guarda que exige o status mais novo entre os documentos governados |
 | validadores do Loop | PASS | 9 de 9 no run desta data |
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 (sem reexecução nesta data; estado inalterado) |
 
@@ -236,6 +236,30 @@ entregues em 2026-07-28 (marcados abaixo); os demais seguem abertos.
 Além do backlog de design, a sequência de lançamento do roadmap segue válida:
 B0.1 (reexecutar E2E sob `preview`), B4 (VoiceOver), B5 (reward E2E) e a Onda A
 (contas de loja).
+
+## Documentação alinhada ao estado real (2026-07-28)
+
+Passagem de documentação depois das quatro entregas desta data. O achado que
+justifica registrar isto em vez de tratar como faxina:
+
+**O contrato de documentação estava validando o documento aposentado.**
+`scripts/qa/docs-contract.mjs` governava `EXECUTION_STATUS_2026-07-27.md`, então
+todas as regras que ele aplica (caminho de workspace legado, alegação de API
+disponível, dívida editorial zerada) rodavam contra o snapshot histórico e nunca
+contra o status canônico. Existia teste para exatamente essa classe de erro —
+`scripts/qa/docs-contract.test.mjs`, *"governs the newest execution status as a
+current-state document"* — e ele estava **vermelho**: nenhum script, gate ou
+validador o executava. Guarda sem executor é documentação, não guarda. O
+validador `docs-contract` do Loop passa a rodar o teste antes do contrato.
+
+Além disso, três ponteiros canônicos ainda apontavam para 07-27 e passaram a
+apontar para 07-28: `docs/README.md`, o cabeçalho e a seção "Onde estamos hoje"
+do [roadmap de lançamento](plans/2026-07-27-radiant-launch-roadmap.md), e
+`context.includes` do `.loop/project.yaml` — este último decidia que status as
+próximas sessões de IA leriam como verdade.
+
+As quatro entregas desta data também foram registradas no
+[CHANGELOG do app](../radiant-app/docs/CHANGELOG.md), que não as tinha.
 
 ## Coordenação entre múltiplas IAs
 
