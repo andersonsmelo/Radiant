@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
+import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 
 type LessonFlowProgressHeaderProps = {
     title: string;
@@ -24,9 +25,13 @@ export function LessonFlowProgressHeader({
                     {currentStep}/{totalSteps}
                 </Text>
             </View>
-            <View style={styles.track}>
-                <View style={[styles.fill, { width: `${Math.max(10, progressPercent)}%` }]} />
-            </View>
+            {/* Antes era uma View com width em porcentagem: o avanço entre os
+                passos da lição saltava em vez de animar. */}
+            <AnimatedProgressBar
+                ratio={Math.max(10, progressPercent) / 100}
+                height={10}
+                accessibilityLabel={`Passo ${currentStep} de ${totalSteps}`}
+            />
         </View>
     );
 }
@@ -43,22 +48,11 @@ const styles = StyleSheet.create({
     },
     title: {
         ...typography.h3,
-        color: colors.textPrimary,
+        color: galaxyColors.textPrimary,
         flex: 1,
     },
     badge: {
         ...typography.caption,
-        color: colors.textSecondary,
-    },
-    track: {
-        height: 10,
-        borderRadius: 999,
-        backgroundColor: colors.surfaceMuted,
-        overflow: 'hidden',
-    },
-    fill: {
-        height: '100%',
-        borderRadius: 999,
-        backgroundColor: colors.primary,
+        color: galaxyColors.textSecondary,
     },
 });

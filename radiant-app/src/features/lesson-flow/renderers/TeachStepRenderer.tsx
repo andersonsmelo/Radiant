@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { TeachPayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 
 export function TeachStepRenderer({ payload }: { payload: TeachPayload }) {
@@ -20,17 +21,16 @@ const styles = StyleSheet.create({
     },
     eyebrow: {
         ...typography.caption,
-        color: colors.primary,
+        color: semanticColors.galaxy.statusInformation,
         textTransform: 'uppercase',
         letterSpacing: 1,
     },
     title: {
-        ...typography.body,
-        color: colors.textPrimary,
-        fontSize: 22,
+        ...typography.h3,
+        color: galaxyColors.textPrimary,
     },
     body: {
         ...typography.bodyRegular,
-        color: colors.textSecondary,
+        color: galaxyColors.textSecondary,
     },
 });

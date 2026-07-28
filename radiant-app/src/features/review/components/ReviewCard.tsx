@@ -3,7 +3,10 @@ import { Animated, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { useCardEnter, useShakeError } from '../../../ui/motion';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
+
+const galaxy = semanticColors.galaxy;
 import { radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
 
@@ -105,13 +108,13 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   prompt: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   contentArea: {
     flex: 1,
@@ -127,43 +130,43 @@ const styles = StyleSheet.create({
     minHeight: space.s6,
     paddingHorizontal: space.s3,
     borderRadius: radius.rLg,
-    backgroundColor: colors.surfaceMuted,
+    backgroundColor: galaxyColors.surfaceMuted,
     borderWidth: 1,
-    borderColor: colors.borderSoft,
+    borderColor: galaxyColors.border,
   },
   optionBullet: {
     width: space.s1,
     height: space.s1,
     borderRadius: radius.rSm,
-    backgroundColor: colors.textTertiary,
+    backgroundColor: galaxyColors.textTertiary,
   },
   optionText: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     flex: 1,
   },
   answerShell: {
     gap: space.s2,
     padding: space.s3,
     borderRadius: radius.rLg,
-    backgroundColor: colors.successSoft,
+    backgroundColor: 'rgba(93,227,174,0.16)',
     borderWidth: 1,
-    borderColor: colors.borderStrong,
+    borderColor: galaxyColors.borderActive,
   },
   answerLabel: {
     ...typography.caption,
-    color: colors.success,
+    color: galaxy.statusSuccess,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   answerText: {
     ...typography.body,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     fontWeight: '800',
   },
   explanation: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
   footer: {
     gap: space.s2,
@@ -179,13 +182,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   attentionButton: {
-    backgroundColor: colors.warningSoft,
-    borderColor: colors.warning,
+    backgroundColor: 'rgba(245,166,35,0.16)',
+    borderColor: galaxyColors.xpColor,
   },
   attentionButtonText: {
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   successButton: {
-    backgroundColor: colors.success,
+    backgroundColor: galaxy.statusSuccess,
   },
 });

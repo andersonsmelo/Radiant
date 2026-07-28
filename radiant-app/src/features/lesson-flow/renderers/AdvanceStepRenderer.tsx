@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { AdvancePayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 
 export function AdvanceStepRenderer({ payload }: { payload: AdvancePayload }) {
@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     },
     title: {
         ...typography.h2,
-        color: colors.textPrimary,
+        color: galaxyColors.textPrimary,
     },
     body: {
         ...typography.bodyRegular,
-        color: colors.textSecondary,
+        color: galaxyColors.textSecondary,
     },
 });

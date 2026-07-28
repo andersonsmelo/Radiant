@@ -5,7 +5,10 @@ import { XrayPanel } from '../../../components/ui/XrayPanel';
 import { UI_CONFIG } from '../../../constants/quiz';
 import type { QuizQuestion as QuizQuestionModel } from '../../../types/quiz';
 import { useCardEnter } from '../../../ui/motion';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
+
+const galaxy = semanticColors.galaxy;
 import { radius, space, typography } from '../../../ui/styles';
 
 interface QuizQuestionProps {
@@ -32,7 +35,7 @@ export function QuizQuestion({
 
   return (
     <Animated.View style={cardEnter.animatedStyle}>
-      <SurfaceCard variant="elevated" style={styles.card}>
+      <SurfaceCard variant="galaxy" style={styles.card}>
         <View style={styles.header}>
           <Text style={styles.eyebrow}>
             {question.type === 'image' ? 'Questão guiada por imagem' : 'Questão de múltipla escolha'}
@@ -88,19 +91,19 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
   prompt: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   image: {
     width: '100%',
     height: UI_CONFIG.IMAGE_MAX_HEIGHT,
     borderRadius: radius.rLg,
-    backgroundColor: colors.surfaceMuted,
+    backgroundColor: galaxyColors.surfaceMuted,
   },
   optionsContainer: {
     gap: space.s2,
@@ -108,9 +111,9 @@ const styles = StyleSheet.create({
   optionButton: {
     minHeight: UI_CONFIG.BUTTON_HEIGHT,
     borderRadius: radius.rLg,
-    backgroundColor: colors.surfaceMuted,
+    backgroundColor: galaxyColors.surfaceMuted,
     borderWidth: 1,
-    borderColor: colors.borderSoft,
+    borderColor: galaxyColors.border,
     paddingHorizontal: space.s3,
     paddingVertical: space.s2,
     flexDirection: 'row',
@@ -118,35 +121,36 @@ const styles = StyleSheet.create({
     gap: space.s2,
   },
   optionButtonSelected: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primaryStrong,
+    backgroundColor: galaxyColors.ctaGradientStart,
+    borderColor: galaxy.statusInformation,
   },
   optionButtonPressed: {
     opacity: 0.72,
   },
+  // Tintas translúcidas: as versões sólidas viravam blocos claros na revelação.
   optionButtonCorrect: {
-    backgroundColor: '#E5F7EF',
-    borderColor: '#1A9C71',
+    backgroundColor: 'rgba(93,227,174,0.16)',
+    borderColor: galaxy.statusSuccess,
   },
   optionButtonWrong: {
-    backgroundColor: '#FCEAEF',
-    borderColor: '#D8506F',
+    backgroundColor: 'rgba(255,130,152,0.16)',
+    borderColor: galaxyColors.critical,
   },
   optionMarker: {
     width: space.s2,
     height: space.s2,
     borderRadius: radius.rSm,
     borderWidth: 2,
-    borderColor: colors.borderStrong,
-    backgroundColor: colors.surface,
+    borderColor: galaxyColors.borderActive,
+    backgroundColor: 'transparent',
   },
   optionMarkerSelected: {
     borderColor: '#FFFFFF',
-    backgroundColor: colors.highlight,
+    backgroundColor: '#FFFFFF',
   },
   optionText: {
     ...typography.bodyRegular,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     flex: 1,
   },
   optionTextSelected: {

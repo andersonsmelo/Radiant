@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { ReinforcePayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
 type ReinforceStepRendererProps = {
@@ -15,15 +15,23 @@ export function ReinforceStepRenderer({
     answeredCorrectly,
     explanation,
 }: ReinforceStepRendererProps) {
+    // Tintas translúcidas sobre o fundo galaxy: as versões "soft" da paleta
+    // clara viravam blocos brancos no meio da lição.
     const backgroundColor =
         answeredCorrectly === true
-            ? colors.successSoft
+            ? 'rgba(93,227,174,0.12)'
             : answeredCorrectly === false
-                ? colors.warningSoft
-                : colors.surfaceMuted;
+                ? 'rgba(245,166,35,0.12)'
+                : galaxyColors.surface;
+    const borderColor =
+        answeredCorrectly === true
+            ? 'rgba(93,227,174,0.30)'
+            : answeredCorrectly === false
+                ? 'rgba(245,166,35,0.30)'
+                : galaxyColors.border;
 
     return (
-        <View style={[styles.card, { backgroundColor }]}>
+        <View style={[styles.card, { backgroundColor, borderColor }]}>
             <Text style={styles.title}>
                 {answeredCorrectly === true
                     ? 'Resposta correta'
@@ -39,16 +47,16 @@ export function ReinforceStepRenderer({
 const styles = StyleSheet.create({
     card: {
         borderRadius: radius.rLg,
+        borderWidth: 1,
         padding: space.s4,
         gap: space.s2,
     },
     title: {
-        ...typography.body,
-        color: colors.textPrimary,
-        fontSize: 22,
+        ...typography.h3,
+        color: galaxyColors.textPrimary,
     },
     body: {
         ...typography.bodyRegular,
-        color: colors.textSecondary,
+        color: galaxyColors.textSecondary,
     },
 });

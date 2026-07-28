@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { SpeechBubble } from '../../../components/ui/SpeechBubble';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 
 const LESSON_VISUAL = require('../assets/lesson-xray-panel.png');
@@ -16,13 +16,15 @@ interface LessonVisualPanelProps {
 
 export function LessonVisualPanel({ hint, caption }: LessonVisualPanelProps) {
   return (
-    <SurfaceCard variant="elevated" style={styles.card}>
+    // TODO(tema): usar variant="galaxy" quando SurfaceCard ganhar a variante;
+    // até lá a superfície galaxy é sobrescrita em styles.card.
+    <SurfaceCard variant="solid" style={styles.card}>
       <View style={styles.imageFrame}>
         <Image source={LESSON_VISUAL} contentFit="cover" style={styles.image} />
         <View style={styles.hotspot}>
           <DecorativeIcon name="search" size={30} color="#FFFFFF" />
         </View>
-        <Text style={styles.hotspotLabel}>Tap to inspect</Text>
+        <Text style={styles.hotspotLabel}>Toque para examinar</Text>
       </View>
 
       <SpeechBubble text={hint} style={styles.hintBubble} />
@@ -34,12 +36,14 @@ export function LessonVisualPanel({ hint, caption }: LessonVisualPanelProps) {
 const styles = StyleSheet.create({
   card: {
     gap: space.s3,
+    backgroundColor: galaxyColors.surface,
+    borderColor: galaxyColors.border,
   },
   imageFrame: {
     borderRadius: 24,
     overflow: 'hidden',
     minHeight: 180,
-    backgroundColor: colors.surfaceStrong,
+    backgroundColor: galaxyColors.surfaceMuted,
   },
   image: {
     width: '100%',
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
   },
   caption: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
     textAlign: 'center',
     marginHorizontal: space.s1,
   },

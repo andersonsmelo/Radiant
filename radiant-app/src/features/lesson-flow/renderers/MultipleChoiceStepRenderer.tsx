@@ -1,8 +1,11 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MultipleChoicePayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+
+const galaxy = semanticColors.galaxy;
 
 type MultipleChoiceStepRendererProps = {
     payload: MultipleChoicePayload;
@@ -53,28 +56,25 @@ const styles = StyleSheet.create({
         gap: space.s3,
     },
     prompt: {
-        ...typography.body,
-        color: colors.textPrimary,
-        fontSize: 21,
+        ...typography.h3,
+        color: galaxyColors.textPrimary,
     },
     options: {
         gap: space.s2,
     },
     option: {
-        backgroundColor: colors.surfaceMuted,
+        backgroundColor: galaxyColors.surface,
         borderWidth: 1,
-        borderColor: colors.borderSoft,
+        borderColor: galaxyColors.border,
         borderRadius: radius.rLg,
         padding: space.s3,
     },
     optionSelected: {
-        backgroundColor: colors.surface,
-        borderColor: colors.borderStrong,
+        backgroundColor: galaxyColors.surfaceActive,
+        borderColor: galaxy.statusInformation,
     },
     optionLabel: {
-        color: colors.textSecondary,
-        fontSize: 16,
-        fontWeight: '600',
-        lineHeight: 22,
+        ...typography.body,
+        color: galaxyColors.textPrimary,
     },
 });

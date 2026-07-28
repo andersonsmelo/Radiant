@@ -2,7 +2,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { LearningTrack, LessonCatalogSummary } from '../../content/content.types';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 import { JourneyTrackCard } from './JourneyTrackCard';
 
@@ -31,7 +32,7 @@ export function JourneyTrackShelf({
   }
 
   return (
-    <SurfaceCard variant="elevated" contentStyle={styles.cardContent}>
+    <SurfaceCard variant="galaxy" contentStyle={styles.cardContent}>
       <View style={styles.header}>
         <Text style={styles.eyebrow}>Catálogo Radiant</Text>
         <Text style={styles.title}>Trilhas disponíveis</Text>
@@ -71,18 +72,18 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     ...typography.micro,
-    color: colors.primary,
+    color: semanticColors.galaxy.statusInformation,
     fontWeight: '800',
     letterSpacing: 0.8,
     textTransform: 'uppercase',
   },
   title: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   subtitle: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
   trackList: {
     gap: space.s2,

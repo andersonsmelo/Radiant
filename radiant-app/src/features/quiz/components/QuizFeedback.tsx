@@ -4,8 +4,11 @@ import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { FEEDBACK_MESSAGES } from '../../../constants/quiz';
 import { useScalePop, useShakeError } from '../../../ui/motion';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
+
+const galaxy = semanticColors.galaxy;
 
 interface QuizFeedbackProps {
   isCorrect: boolean;
@@ -32,7 +35,7 @@ export function QuizFeedback({ isCorrect, explanation }: QuizFeedbackProps) {
         !isCorrect && shakeError.style,
       ]}
     >
-      <SurfaceCard variant="solid" style={[styles.card, isCorrect ? styles.correctCard : styles.incorrectCard]}>
+      <SurfaceCard variant="galaxy" style={[styles.card, isCorrect ? styles.correctCard : styles.incorrectCard]}>
         <View style={styles.header}>
           {/* O mascote reage à resposta. Ele existia só nos resumos: nos
               momentos em que um personagem de aprendizado importa — acertar e
@@ -70,12 +73,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.rLg,
   },
   correctCard: {
-    backgroundColor: colors.successSoft,
-    borderColor: colors.success,
+    backgroundColor: 'rgba(93,227,174,0.14)',
+    borderColor: galaxy.statusSuccess,
   },
   incorrectCard: {
-    backgroundColor: '#FCEAEF',
-    borderColor: '#D8506F',
+    backgroundColor: 'rgba(255,130,152,0.14)',
+    borderColor: galaxyColors.critical,
   },
   header: {
     flexDirection: 'row',
@@ -90,10 +93,10 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   correctText: {
-    color: colors.success,
+    color: galaxy.statusSuccess,
   },
   incorrectText: {
-    color: '#9E2E48',
+    color: galaxyColors.critical,
   },
   badge: {
     borderRadius: radius.rXl,
@@ -101,19 +104,19 @@ const styles = StyleSheet.create({
     paddingVertical: space.s1,
   },
   correctBadge: {
-    backgroundColor: 'rgba(26, 156, 113, 0.12)',
+    backgroundColor: 'rgba(93,227,174,0.16)',
   },
   incorrectBadge: {
-    backgroundColor: 'rgba(216,80,111,0.12)',
+    backgroundColor: 'rgba(255,130,152,0.16)',
   },
   badgeText: {
     ...typography.micro,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     textTransform: 'uppercase',
     letterSpacing: 0.6,
   },
   explanation: {
     ...typography.bodyRegular,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
 });

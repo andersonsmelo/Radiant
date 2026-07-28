@@ -2,7 +2,10 @@ import React from 'react';
 import { DecorativeIcon, type DecorativeIconName } from '../../../components/ui/DecorativeIcon';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { LearningTrack } from '../../content/content.types';
-import { colors, shadows } from '../../../ui/theme';
+import { galaxyColors, shadows } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
+
+const galaxy = semanticColors.galaxy;
 import { radius, space, typography } from '../../../ui/styles';
 
 type MaterialIconName = DecorativeIconName;
@@ -52,7 +55,7 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
     >
       <View style={styles.header}>
         <View style={[styles.iconTile, isActive && styles.iconTileActive]}>
-          <DecorativeIcon name={getTrackIcon(track.slug)} size={22} color={isActive ? '#FFFFFF' : colors.primary} />
+          <DecorativeIcon name={getTrackIcon(track.slug)} size={22} color={isActive ? '#FFFFFF' : galaxyColors.ctaGradientEnd} />
         </View>
         <View style={[styles.badge, isActive ? styles.badgeActive : styles.badgeReady]}>
           <Text style={[styles.badgeText, isActive ? styles.badgeTextActive : styles.badgeTextReady]}>
@@ -90,14 +93,14 @@ const styles = StyleSheet.create({
     minHeight: 188,
     borderRadius: radius.rXl,
     borderWidth: 1,
-    borderColor: colors.borderSoft,
-    backgroundColor: colors.surfaceGlass,
+    borderColor: galaxyColors.border,
+    backgroundColor: galaxyColors.surface,
     padding: space.s3,
     gap: space.s3,
   },
   cardActive: {
-    borderColor: colors.primary,
-    backgroundColor: colors.surface,
+    borderColor: galaxyColors.ctaGradientEnd,
+    backgroundColor: galaxyColors.surfaceActive,
     ...shadows.card,
   },
   cardPressed: {
@@ -112,12 +115,12 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: radius.rMd,
-    backgroundColor: colors.surfaceStrong,
+    backgroundColor: galaxyColors.surfaceMuted,
     alignItems: 'center',
     justifyContent: 'center',
   },
   iconTileActive: {
-    backgroundColor: colors.primary,
+    backgroundColor: galaxyColors.ctaGradientEnd,
   },
   badge: {
     borderRadius: 999,
@@ -125,31 +128,31 @@ const styles = StyleSheet.create({
     paddingVertical: space.s0,
   },
   badgeActive: {
-    backgroundColor: colors.highlight,
+    backgroundColor: galaxy.statusInformation,
   },
   badgeReady: {
-    backgroundColor: colors.successSoft,
+    backgroundColor: 'rgba(93,227,174,0.16)',
   },
   badgeText: {
     ...typography.micro,
     fontWeight: '800',
   },
   badgeTextActive: {
-    color: colors.primaryStrong,
+    color: galaxy.statusInformation,
   },
   badgeTextReady: {
-    color: colors.success,
+    color: galaxy.statusSuccess,
   },
   copy: {
     gap: space.s1,
   },
   title: {
     ...typography.h3,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
   },
   description: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: galaxyColors.textSecondary,
   },
   footer: {
     flexDirection: 'row',
@@ -158,20 +161,20 @@ const styles = StyleSheet.create({
   },
   meta: {
     ...typography.micro,
-    color: colors.textTertiary,
+    color: galaxyColors.textTertiary,
   },
   progressTrack: {
     height: 8,
     borderRadius: 999,
-    backgroundColor: colors.surfaceStrong,
+    backgroundColor: galaxyColors.surfaceMuted,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
     borderRadius: 999,
-    backgroundColor: colors.primary,
+    backgroundColor: galaxyColors.ctaGradientEnd,
   },
   progressFillReady: {
-    backgroundColor: colors.success,
+    backgroundColor: galaxy.statusSuccess,
   },
 });

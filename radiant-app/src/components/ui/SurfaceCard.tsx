@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, type AccessibilityRole } from 'react-native';
 import { radius, space } from '../../ui/styles';
-import { colors, shadows } from '../../ui/theme';
+import { colors, galaxyColors, shadows } from '../../ui/theme';
 
-type SurfaceCardVariant = 'solid' | 'glass' | 'elevated';
+/**
+ * `galaxy` e `galaxyElevated` são as variantes do produto: a identidade oficial
+ * é galaxy dark (ADR-2026-07-27). As variantes claras existem para superfícies
+ * fora do produto (Storybook, ferramentas) e não devem aparecer em telas.
+ */
+type SurfaceCardVariant = 'galaxy' | 'galaxyElevated' | 'solid' | 'glass' | 'elevated';
 
 interface SurfaceCardProps {
   children: React.ReactNode;
@@ -37,6 +42,16 @@ export function SurfaceCard({
 }
 
 const VARIANTS: Record<SurfaceCardVariant, ViewStyle> = {
+  galaxy: {
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+  },
+  galaxyElevated: {
+    backgroundColor: galaxyColors.galaxySurface2,
+    borderWidth: 1,
+    borderColor: galaxyColors.borderActive,
+  },
   solid: {
     backgroundColor: colors.surface,
     borderWidth: 1,

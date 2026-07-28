@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
-import { colors } from '../../ui/theme';
+import { galaxyColors } from '../../ui/theme';
 import { radius, space, typography } from '../../ui/styles';
 
 interface SpeechBubbleProps {
@@ -10,6 +10,12 @@ interface SpeechBubbleProps {
   textStyle?: StyleProp<TextStyle>;
 }
 
+/**
+ * O balão do Pixel usava vidro branco (`colors.surfaceGlass`) e texto escuro —
+ * e aparece em todo `PixelHeroSplit`, ou seja, em Journey, Quiz, Reward,
+ * Checkpoint e Review. Era a maior superfície clara sobrevivente dentro do
+ * app galaxy.
+ */
 export function SpeechBubble({ text, align = 'left', style, textStyle }: SpeechBubbleProps) {
   return (
     <View style={[styles.wrapper, align === 'right' && styles.wrapperRight, style]}>
@@ -29,31 +35,30 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   bubble: {
-    backgroundColor: colors.surfaceGlass,
+    backgroundColor: galaxyColors.galaxySurface2,
     borderRadius: radius.rLg,
     paddingHorizontal: space.s3,
     paddingVertical: space.s2,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.7)',
+    borderColor: galaxyColors.borderActive,
   },
   bubbleRight: {
     alignSelf: 'flex-end',
   },
   text: {
     ...typography.body,
-    color: colors.textPrimary,
+    color: galaxyColors.textPrimary,
     lineHeight: 24,
-    fontWeight: '600',
   },
   tail: {
     position: 'absolute',
     bottom: 10,
     width: 18,
     height: 18,
-    backgroundColor: colors.surfaceGlass,
+    backgroundColor: galaxyColors.galaxySurface2,
     borderLeftWidth: 1,
     borderBottomWidth: 1,
-    borderColor: 'rgba(255,255,255,0.7)',
+    borderColor: galaxyColors.borderActive,
     transform: [{ rotate: '45deg' }],
   },
   tailLeft: {

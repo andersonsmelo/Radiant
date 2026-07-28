@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { ContextPayload } from '../../../types/lessonFlow';
-import { colors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
+
+const galaxy = semanticColors.galaxy;
 
 export function ContextStepRenderer({ payload }: { payload: ContextPayload }) {
     return (
@@ -20,16 +23,16 @@ const styles = StyleSheet.create({
     },
     eyebrow: {
         ...typography.caption,
-        color: colors.primary,
+        color: galaxy.statusInformation,
         textTransform: 'uppercase',
         letterSpacing: 1,
     },
     title: {
         ...typography.h2,
-        color: colors.textPrimary,
+        color: galaxyColors.textPrimary,
     },
     body: {
         ...typography.bodyRegular,
-        color: colors.textSecondary,
+        color: galaxyColors.textSecondary,
     },
 });
