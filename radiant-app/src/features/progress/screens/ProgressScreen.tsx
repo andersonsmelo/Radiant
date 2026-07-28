@@ -25,7 +25,7 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { tabBarClearance } from '../../../ui/styles';
+import { tabBarClearance, typography } from '../../../ui/styles';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
 // Alias de tokens: nenhum valor próprio de cor vive nesta tela.
@@ -739,17 +739,16 @@ const styles = StyleSheet.create({
 
     // ── Page header ──
     screenEyebrow: {
-        fontSize: 11,
+        ...typography.label,
         color: D.textTert,
         letterSpacing: 0.08 * 11,
         textTransform: 'uppercase',
         marginTop: 16,
     },
     screenTitle: {
-        fontSize: 26,
-        fontWeight: '700',
+        ...typography.h3,
         color: D.text,
-        letterSpacing: -0.02 * 26,
+        letterSpacing: -0.02 * 24,
         marginTop: 2,
         marginBottom: 20,
     },
@@ -771,27 +770,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     streakNumber: {
-        fontSize: 28,
-        fontWeight: '700',
+        ...typography.h2,
         color: D.text,
     },
     streakSub: {
-        fontSize: 12,
+        ...typography.micro,
         color: D.textSec,
         marginTop: 2,
     },
 
     // ── Accuracy chart ──
     sectionLabel: {
-        fontSize: 11,
+        ...typography.label,
         color: D.textTert,
         textTransform: 'uppercase',
         letterSpacing: 0.5,
         marginBottom: 2,
     },
     accuracyNumber: {
-        fontSize: 28,
-        fontWeight: '700',
+        ...typography.h2,
         color: D.text,
     },
 
@@ -810,19 +807,18 @@ const styles = StyleSheet.create({
         borderColor: D.border,
     },
     statsGridLabel: {
-        fontSize: 10,
+        ...typography.label,
         color: D.textTert,
         textTransform: 'uppercase',
         letterSpacing: 0.5,
         marginBottom: 4,
     },
     statsGridValue: {
-        fontSize: 24,
-        fontWeight: '700',
+        ...typography.h3,
         color: D.text,
     },
     statsGridSub: {
-        fontSize: 11,
+        ...typography.micro,
         color: D.textSec,
         marginTop: 2,
     },
@@ -838,8 +834,7 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     cardTitle: {
-        fontSize: 14,
-        fontWeight: '700',
+        ...typography.bodyStrong,
         color: D.text,
         marginBottom: 4,
     },
@@ -849,18 +844,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cardRowLabel: {
-        fontSize: 12,
+        ...typography.micro,
         color: D.textSec,
     },
     cardRowValue: {
-        fontSize: 12,
+        ...typography.micro,
         color: D.text,
-        fontWeight: '500',
         flexShrink: 1,
         textAlign: 'right',
     },
     cardHint: {
-        fontSize: 12,
+        ...typography.micro,
         color: D.textTert,
         lineHeight: 18,
         marginTop: 4,
@@ -876,8 +870,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     btnText: {
-        fontSize: 14,
-        fontWeight: '700',
+        ...typography.bodyStrong,
         color: '#FFFFFF',
     },
 
@@ -898,9 +891,8 @@ const styles = StyleSheet.create({
         backgroundColor: D.success,
     },
     authBadgeText: {
-        fontSize: 12,
+        ...typography.micro,
         color: D.success,
-        fontWeight: '600',
     },
     authModeRow: {
         flexDirection: 'row',
@@ -920,8 +912,7 @@ const styles = StyleSheet.create({
         backgroundColor: D.primary,
     },
     modeTabText: {
-        fontSize: 13,
-        fontWeight: '600',
+        ...typography.caption,
         color: D.textSec,
     },
     modeTabTextActive: {
@@ -935,10 +926,10 @@ const styles = StyleSheet.create({
         backgroundColor: D.inputBg,
         color: D.text,
         paddingHorizontal: 14,
-        fontSize: 15,
+        ...typography.bodyRegular,
     },
     statusMessage: {
-        fontSize: 12,
+        ...typography.micro,
         marginTop: 4,
         lineHeight: 18,
     },
