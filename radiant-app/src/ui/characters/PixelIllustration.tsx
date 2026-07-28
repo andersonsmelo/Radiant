@@ -12,6 +12,7 @@ import type { CharacterSize, CharacterState, CharacterTier } from './types';
 import { resolvePixelAsset } from './pixelAssets';
 import { colors } from '../theme';
 import { radius, space } from '../styles';
+import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 
 /**
  * Largura renderizada de cada tamanho. Exportado porque quem coloca o Pixel
@@ -245,12 +246,40 @@ export function PixelIllustration({
   const translateY = useSharedValue(0);
   const scale = useSharedValue(1);
   const rotate = useSharedValue(0);
+  const reducedMotion = useReducedMotionPreference();
 
   useEffect(() => {
     // Reset to defaults first
     translateY.value = 0;
     scale.value = 1;
     rotate.value = 0;
+
+    // Com reduced motion o Pixel adota a POSE de cada estado (inclinação,
+    // escala) sem os loops infinitos de flutuar, pulsar e tremer. A expressão
+    // do personagem sobrevive; o movimento perpétuo, não.
+    if (reducedMotion) {
+      switch (state) {
+        case 'happy':
+          scale.value = 1.03;
+          break;
+        case 'guide':
+          rotate.value = -3;
+          break;
+        case 'thinking':
+          rotate.value = 4;
+          scale.value = 0.97;
+          break;
+        case 'celebrate':
+          scale.value = 1.08;
+          break;
+        case 'oops':
+          rotate.value = -2;
+          break;
+        default:
+          break;
+      }
+      return;
+    }
 
     switch (state) {
       case 'idle':
@@ -311,7 +340,7 @@ export function PixelIllustration({
         scale.value = 0.96;
         break;
     }
-  }, [state]);
+  }, [state, reducedMotion]);
 
   const animStyle = useAnimatedStyle(() => ({
     transform: [

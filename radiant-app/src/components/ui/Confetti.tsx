@@ -8,6 +8,8 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 
+import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
+
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const COLORS = ['#2155FF', '#3DCAE8', '#F5A623', '#1A9C71', '#FFFFFF', '#6FE0F2'];
 
@@ -86,7 +88,15 @@ export function Confetti({ count = 50, run = true }: ConfettiProps) {
     [count],
   );
 
+  const reducedMotion = useReducedMotionPreference();
+
   if (!run) return null;
+
+  // Confete é puramente decorativo: com reduced motion ligado ele não tem
+  // versão reduzida que faça sentido — dezenas de peças caindo é exatamente o
+  // que a preferência pede para não acontecer. A celebração continua existindo
+  // no texto e no estado do mascote.
+  if (reducedMotion) return null;
 
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="none">

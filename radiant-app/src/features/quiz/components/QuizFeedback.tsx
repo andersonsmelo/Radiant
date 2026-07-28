@@ -3,6 +3,7 @@ import { Animated, StyleSheet, Text, View } from 'react-native';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { FEEDBACK_MESSAGES } from '../../../constants/quiz';
 import { useScalePop, useShakeError } from '../../../ui/motion';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { colors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -33,9 +34,22 @@ export function QuizFeedback({ isCorrect, explanation }: QuizFeedbackProps) {
     >
       <SurfaceCard variant="solid" style={[styles.card, isCorrect ? styles.correctCard : styles.incorrectCard]}>
         <View style={styles.header}>
-          <Text style={[styles.title, isCorrect ? styles.correctText : styles.incorrectText]}>
-            {isCorrect ? FEEDBACK_MESSAGES.CORRECT : FEEDBACK_MESSAGES.INCORRECT}
-          </Text>
+          {/* O mascote reage à resposta. Ele existia só nos resumos: nos
+              momentos em que um personagem de aprendizado importa — acertar e
+              errar — a tela não tinha ninguém. */}
+          <PixelIllustration
+            state={isCorrect ? 'happy' : 'oops'}
+            size="sm"
+            tier="intermediate"
+            accessibilityLabel={
+              isCorrect ? 'Pixel comemorando o acerto' : 'Pixel acompanhando o erro'
+            }
+          />
+          <View style={styles.headerCopy}>
+            <Text style={[styles.title, isCorrect ? styles.correctText : styles.incorrectText]}>
+              {isCorrect ? FEEDBACK_MESSAGES.CORRECT : FEEDBACK_MESSAGES.INCORRECT}
+            </Text>
+          </View>
           <View style={[styles.badge, isCorrect ? styles.correctBadge : styles.incorrectBadge]}>
             <Text style={styles.badgeText}>{isCorrect ? 'Mantém' : 'Reforçar'}</Text>
           </View>
@@ -66,8 +80,10 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     gap: space.s2,
+  },
+  headerCopy: {
+    flex: 1,
   },
   title: {
     ...typography.body,

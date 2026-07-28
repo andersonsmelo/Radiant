@@ -22,6 +22,10 @@ import { PushService } from '../../push/services/PushService';
 import { QuizFeedback } from '../components/QuizFeedback';
 import { QuizQuestion } from '../components/QuizQuestion';
 import { useQuiz } from '../hooks/useQuiz';
+import { Confetti } from '../../../components/ui/Confetti';
+import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
+import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
+import { hapticCelebrate } from '../../../ui/feedback/haptics';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
 import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
@@ -218,6 +222,19 @@ function QuizSession({
     }
   }, [celebrationFade, celebrationPop, dailyGoalJustCompleted, helperFade, summaryHelper, xpAward]);
 
+  // O fim do quiz é o momento mais repetido do produto e era o único sem
+  // nenhuma celebração: nem confete, nem contagem de XP, nem vibração.
+  const quizPassed =
+    isFinished && result
+      ? Math.round((result.correctAnswers / result.totalQuestions) * 100) >= QUIZ_THRESHOLDS.PASSING_SCORE
+      : false;
+
+  useEffect(() => {
+    if (quizPassed) {
+      hapticCelebrate();
+    }
+  }, [quizPassed]);
+
   const checkPushOptIn = async () => {
     const canShow = await PushService.getOptIn();
     if (canShow === null) {
@@ -236,6 +253,7 @@ function QuizSession({
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <Confetti count={40} run={passed} />
         <SafeAreaView style={styles.safe} edges={['top']}>
           <HUD
             totalXp={gamification?.totalXp ?? 0}
@@ -271,6 +289,19 @@ function QuizSession({
                 accessibilityLabel="Pixel apresentando o resultado do quiz"
               />
             </View>
+
+            {xpAward && xpAward.totalXpAwarded > 0 ? (
+              <View style={styles.xpCelebration}>
+                <Text style={styles.xpCelebrationLabel}>XP CONQUISTADO</Text>
+                <AnimatedCounter
+                  value={xpAward.totalXpAwarded}
+                  prefix="+"
+                  suffix=" XP"
+                  style={styles.xpCelebrationValue}
+                  accessibilityLabel={`Você ganhou ${xpAward.totalXpAwarded} XP nesta tentativa`}
+                />
+              </View>
+            ) : null}
 
             <View style={styles.sectionCard}>
               <Text style={styles.sectionTitle}>Resumo da tentativa</Text>
@@ -406,18 +437,13 @@ function QuizSession({
           compact
         />
         <View style={[layout.container, styles.activeLayout]}>
-          {/* Progress bar */}
-          <View style={styles.progressTrack}>
-            <LinearGradient
-              colors={['#2155FF', '#3DCAE8']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={[
-                styles.progressBar,
-                { width: `${Math.min(100, ((progress.currentQuestionIndex + 1) / Math.max(1, progress.totalQuestions)) * 100)}%` as any },
-              ]}
-            />
-          </View>
+          {/* Progresso do quiz: anima entre as questões em vez de saltar. */}
+          <AnimatedProgressBar
+            ratio={(progress.currentQuestionIndex + 1) / Math.max(1, progress.totalQuestions)}
+            height={10}
+            style={styles.progressTrack}
+            accessibilityLabel={`Questão ${progress.currentQuestionIndex + 1} de ${progress.totalQuestions}`}
+          />
 
           <View style={styles.headerRow}>
             <Pressable
@@ -581,13 +607,23 @@ const styles = StyleSheet.create({
   scrollArea: { flex: 1 },
   scrollContent: { gap: space.s2, paddingBottom: space.s2 },
   footer: { paddingBottom: space.s1 },
+  xpCelebration: {
+    alignItems: 'center',
+    gap: space.s0,
+    paddingVertical: space.s2,
+  },
+  xpCelebrationLabel: {
+    ...typography.label,
+    color: galaxyColors.textSecondary,
+  },
+  xpCelebrationValue: {
+    ...typography.h1,
+    color: galaxyColors.xpColor,
+    textAlign: 'center',
+  },
   progressTrack: {
-    height: 10,
-    backgroundColor: galaxyColors.spine,
-    borderRadius: 999,
     marginHorizontal: 20,
     marginBottom: 8,
-    overflow: 'hidden',
   },
   progressBar: {
     height: 10,

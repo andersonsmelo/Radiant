@@ -15,6 +15,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { galaxyColors } from '../theme';
+import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -47,14 +48,23 @@ interface StarProps {
   maxOpacity: number;
   duration: number;
   delay: number;
+  reducedMotion: boolean;
 }
 
 const Star = React.memo(function Star({
-  x, y, size, minOpacity, maxOpacity, duration, delay,
+  x, y, size, minOpacity, maxOpacity, duration, delay, reducedMotion,
 }: StarProps) {
-  const opacity = useSharedValue(minOpacity);
+  // Com reduced motion a estrela fica parada num brilho intermediário: o céu
+  // continua estrelado, sem o cintilar infinito.
+  const restingOpacity = (minOpacity + maxOpacity) / 2;
+  const opacity = useSharedValue(reducedMotion ? restingOpacity : minOpacity);
 
   useEffect(() => {
+    if (reducedMotion) {
+      opacity.value = restingOpacity;
+      return;
+    }
+
     opacity.value = withDelay(
       delay,
       withRepeat(
@@ -66,7 +76,7 @@ const Star = React.memo(function Star({
         false,
       ),
     );
-  }, []);
+  }, [reducedMotion]);
 
   const style = useAnimatedStyle(() => ({ opacity: opacity.value }));
 
@@ -120,8 +130,10 @@ export function StarfieldBackground({
   starCount = 90,
 }: StarfieldBackgroundProps) {
 
+  const reducedMotion = useReducedMotionPreference();
+
   // Gera estrelas deterministicamente (sem re-render)
-  const stars = useMemo<StarProps[]>(() => {
+  const stars = useMemo<Omit<StarProps, 'reducedMotion'>[]>(() => {
     // seed simples para reprodutibilidade
     const rng = (seed: number) => {
       const x = Math.sin(seed) * 10000;
@@ -161,7 +173,7 @@ export function StarfieldBackground({
       ))}
       {/* Stars */}
       {stars.map((s, i) => (
-        <Star key={`star-${i}`} {...s} />
+        <Star key={`star-${i}`} {...s} reducedMotion={reducedMotion} />
       ))}
     </View>
   );

@@ -190,27 +190,11 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     );
   }
 
-  if (!checkpointNode || !activeUnit) {
-    return (
-      <View style={styles.root}>
-        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        <SafeAreaView style={styles.safe}>
-          <View style={[layout.container, styles.emptyState]}>
-            <View style={styles.emptyCard}>
-              <Text style={styles.emptyTitle}>Checkpoint indisponível</Text>
-              <Text style={styles.emptyBody}>
-                Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
-              </Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
-                Voltar para jornada
-              </AppButton>
-            </View>
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
-
+  // A celebração vem ANTES do estado vazio de propósito. Sem nodeId explícito,
+  // `checkpointNode` vem de findFallbackCheckpoint, que só procura nós
+  // disponíveis ou ativos — ao concluir, o nó vira 'completed' e some da busca.
+  // Na ordem anterior, quem terminava o checkpoint caía em "Checkpoint
+  // indisponível" e a celebração era inalcançável nesse caminho.
   if (completed) {
     return (
       <View style={styles.root}>
@@ -263,6 +247,27 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
               <AppButton label={nextAction.label} onPress={nextAction.action} />
             </View>
           </ScrollView>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  if (!checkpointNode || !activeUnit) {
+    return (
+      <View style={styles.root}>
+        <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+        <SafeAreaView style={styles.safe}>
+          <View style={[layout.container, styles.emptyState]}>
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyTitle}>Checkpoint indisponível</Text>
+              <Text style={styles.emptyBody}>
+                Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
+              </Text>
+              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+                Voltar para jornada
+              </AppButton>
+            </View>
+          </View>
         </SafeAreaView>
       </View>
     );

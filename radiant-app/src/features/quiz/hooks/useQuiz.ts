@@ -20,6 +20,7 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { hapticError, hapticSuccess } from '../../../ui/feedback/haptics';
 
 interface UseQuizState {
     currentQuestion: QuizQuestion | null;
@@ -104,6 +105,14 @@ export function useQuiz(
             const feedbackResult = service.submitAnswer(answerIndex);
             setFeedback(feedbackResult);
             forceUpdate((n) => n + 1);
+
+            // O toque acontece junto com a resposta, não depois dela: é o
+            // retorno mais imediato que o app consegue dar.
+            if (feedbackResult.isCorrect) {
+                hapticSuccess();
+            } else {
+                hapticError();
+            }
 
             // Lose a heart on wrong answer (not in review mode)
             if (!feedbackResult.isCorrect && journeyCompletionMode !== 'review') {

@@ -6,6 +6,8 @@ import { router } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import { AppButton } from '../../../components/ui/AppButton';
 import { Confetti } from '../../../components/ui/Confetti';
+import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
+import { hapticCelebrate } from '../../../ui/feedback/haptics';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
@@ -95,7 +97,6 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
   const [paywallSubmitting, setPaywallSubmitting] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
-  const [displayXp, setDisplayXp] = useState(0);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
@@ -166,24 +167,10 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const nextAction = useMemo(() => resolveNextAction(snapshot), [snapshot]);
 
   useEffect(() => {
-    if (!rewardCompleted) return;
-
-    // Conta até o XP TOTAL real do aluno — o rótulo do card deixa claro que é
-    // acumulado, não um ganho desta conquista (nós de reward não concedem XP).
-    const xpTotal = gamification?.totalXp ?? 0;
-    if (xpTotal <= 0) {
-      setDisplayXp(0);
-      return;
+    if (rewardCompleted) {
+      hapticCelebrate();
     }
-    let n = 0;
-    const step = Math.max(1, Math.ceil(xpTotal / 40));
-    const id = setInterval(() => {
-      n += step;
-      if (n >= xpTotal) { n = xpTotal; clearInterval(id); }
-      setDisplayXp(n);
-    }, 18);
-    return () => clearInterval(id);
-  }, [rewardCompleted, gamification?.totalXp]);
+  }, [rewardCompleted]);
 
   const handleComplete = useCallback(async () => {
     if (!rewardNode || rewardCompleted) {
@@ -330,7 +317,12 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.rewardCardLabel}>XP TOTAL</Text>
-                  <Text style={styles.xpValue}>{displayXp} XP</Text>
+                  <AnimatedCounter
+                    value={gamification?.totalXp ?? 0}
+                    suffix=" XP"
+                    style={styles.xpValue}
+                    accessibilityLabel={`XP total acumulado: ${gamification?.totalXp ?? 0}`}
+                  />
                 </View>
               </View>
 

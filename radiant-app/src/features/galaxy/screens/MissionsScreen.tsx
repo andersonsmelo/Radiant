@@ -19,6 +19,7 @@ import { formatLocalDateKey } from '@/src/constants/dailyGoal';
 import { galaxyColors } from '@/src/ui/theme';
 import { semanticColors } from '@/src/ui/semantic-colors';
 import { space, tabBarClearance } from '@/src/ui/styles';
+import { AnimatedProgressBar } from '@/src/components/ui/AnimatedProgressBar';
 
 const galaxy = semanticColors.galaxy;
 
@@ -137,20 +138,16 @@ function MissionCard({ title, icon, done, progress, detail }: Mission) {
           {title}
         </Text>
 
-        {/* Progress bar */}
-        <View style={styles.progressTrack}>
-          <View style={{ flex: fillRatio, borderRadius: 4, overflow: 'hidden', height: 8 }}>
-            <LinearGradient
-              colors={done ? ['#34C88F', galaxy.statusSuccess] : [galaxyColors.ctaGradientEnd, galaxy.statusInformation]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={{ flex: 1 }}
-            />
-          </View>
-          {fillRatio < 1 && (
-            <View style={{ flex: 1 - fillRatio }} />
-          )}
-        </View>
+        {/* Progresso da missão: anima ao avançar em vez de saltar. */}
+        <AnimatedProgressBar
+          ratio={fillRatio}
+          colors={
+            done
+              ? ['#34C88F', galaxy.statusSuccess]
+              : [galaxyColors.ctaGradientEnd, galaxy.statusInformation]
+          }
+          accessibilityLabel={progressLabel ? `${title}: ${progressLabel}` : title}
+        />
 
         {/* Progress label */}
         {progressLabel ? <Text style={styles.progressLabel}>{progressLabel}</Text> : null}
