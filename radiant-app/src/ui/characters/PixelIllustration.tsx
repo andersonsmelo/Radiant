@@ -13,11 +13,18 @@ import { resolvePixelAsset } from './pixelAssets';
 import { colors } from '../theme';
 import { radius, space } from '../styles';
 
-const SIZE_MAP: Record<CharacterSize, number> = {
+/**
+ * Largura renderizada de cada tamanho. Exportado porque quem coloca o Pixel
+ * ao lado de texto precisa reservar a coluna: sem isso o conteúdo irmão fica
+ * com a sobra e o texto quebra no meio da palavra.
+ */
+export const PIXEL_SIZE_MAP: Record<CharacterSize, number> = {
   sm: 60,
   md: 108,
   lg: 176,
 };
+
+const SIZE_MAP = PIXEL_SIZE_MAP;
 
 const GRID_LINES = Array.from({ length: 6 }, (_, index) => index);
 const PARTICLES = [

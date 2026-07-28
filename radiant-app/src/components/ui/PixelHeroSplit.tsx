@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle, useWindowDimensions } from 'react-native';
-import { PixelIllustration } from '../../ui/characters/PixelIllustration';
+import { PIXEL_SIZE_MAP, PixelIllustration } from '../../ui/characters/PixelIllustration';
 import type { CharacterSize, CharacterState, CharacterTier } from '../../ui/characters/types';
 import { space, typography } from '../../ui/styles';
-import { colors } from '../../ui/theme';
+import { colors, galaxyColors } from '../../ui/theme';
 import { ProgressRing } from './ProgressRing';
 import { SpeechBubble } from './SpeechBubble';
 
@@ -45,9 +45,14 @@ export function PixelHeroSplit({
   const { width } = useWindowDimensions();
   const isCompact = width < compactBreakpoint;
 
+  // A coluna do personagem é fixada na largura da própria ilustração. Sem isso
+  // o eyebrow (caixa alta, com tracking) define a largura intrínseca da coluna,
+  // rouba o espaço do irmão e o texto do balão quebra no meio da palavra.
+  const characterWidth = PIXEL_SIZE_MAP[isCompact ? compactIllustrationSize : illustrationSize];
+
   return (
     <View style={[styles.topRow, isCompact && styles.topRowCompact, style]}>
-      <View style={[styles.characterColumn, isCompact && styles.characterColumnCompact]}>
+      <View style={[styles.characterColumn, { width: characterWidth }]}>
         <Text style={styles.eyebrow}>{eyebrow}</Text>
         <PixelIllustration
           state={state}
@@ -62,9 +67,14 @@ export function PixelHeroSplit({
         <ProgressRing
           value={ringValue}
           total={ringTotal}
-          label={ringLabel}
           size={isCompact ? compactRingSize : ringSize}
-        />
+          accessibilityLabel={ringLabel}
+        >
+          {/* O anel existe para mostrar um número. A prop `label` era ignorada
+              pelo componente, então todos os anéis do app apareciam vazios. */}
+          <Text style={styles.ringValue}>{ringValue}</Text>
+          <Text style={styles.ringTotal}>de {ringTotal}</Text>
+        </ProgressRing>
       </View>
     </View>
   );
@@ -82,9 +92,6 @@ const styles = StyleSheet.create({
   characterColumn: {
     gap: space.s1,
     alignItems: 'flex-start',
-  },
-  characterColumnCompact: {
-    width: 124,
   },
   contentColumn: {
     flex: 1,
@@ -106,5 +113,13 @@ const styles = StyleSheet.create({
   },
   bubbleCompact: {
     minHeight: 88,
+  },
+  ringValue: {
+    ...typography.h3,
+    color: galaxyColors.textPrimary,
+  },
+  ringTotal: {
+    ...typography.micro,
+    color: galaxyColors.textSecondary,
   },
 });

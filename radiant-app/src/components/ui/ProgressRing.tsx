@@ -4,13 +4,15 @@ import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedProps,
+  Easing,
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 import { semanticColors } from '../../ui/semantic-colors';
-import { duration, easing } from '../../ui/motion';
+import { duration } from '../../ui/motion';
+import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const light = semanticColors.light;
+const galaxy = semanticColors.galaxy;
 
 interface ProgressRingProps {
   size?: number;
@@ -23,7 +25,14 @@ interface ProgressRingProps {
   trackColor?: string;
   children?: React.ReactNode;
   animate?: boolean;
-  /** @deprecated use children to overlay content */
+  /** Descreve o que o anel mede; sem isso o leitor de tela não anuncia nada. */
+  accessibilityLabel?: string;
+  /**
+   * Nome do que o anel mede. Antes era declarado e descartado no
+   * destructuring, então todo `label` passado sumia sem aviso — inclusive o do
+   * hero. Agora alimenta o rótulo acessível quando `accessibilityLabel` não
+   * vem. Para conteúdo visível no centro, use `children`.
+   */
   label?: string;
 }
 
@@ -32,29 +41,50 @@ export function ProgressRing({
   value = 0.6,
   total,
   stroke = 8,
-  color = light.actionPrimary,
-  trackColor = light.border,
+  color = galaxy.statusInformation,
+  trackColor = galaxy.border,
   children,
   animate = true,
+  accessibilityLabel,
+  label,
 }: ProgressRingProps) {
+  const resolvedAccessibilityLabel = accessibilityLabel ?? label;
   const normalized = total != null ? Math.min(1, Math.max(0, value / Math.max(1, total))) : value;
   const r = (size - stroke) / 2;
   const circumference = 2 * Math.PI * r;
-  const progress = useSharedValue(animate ? 0 : normalized);
+  const reducedMotion = useReducedMotionPreference();
+  const shouldAnimate = animate && !reducedMotion;
+  const progress = useSharedValue(shouldAnimate ? 0 : normalized);
 
   useEffect(() => {
+    // Com reduced motion o anel salta direto para o valor final: o número
+    // continua correto, só o preenchimento não é encenado.
+    if (!shouldAnimate) {
+      progress.value = normalized;
+      return;
+    }
+
     progress.value = withTiming(normalized, {
       duration: duration.celebrate,
-      easing: easing.spring,
+      easing: Easing.bezier(0.34, 1.56, 0.64, 1),
     });
-  }, [normalized]);
+  }, [normalized, shouldAnimate]);
 
   const animatedProps = useAnimatedProps(() => ({
     strokeDashoffset: circumference * (1 - progress.value),
   }));
 
   return (
-    <View style={{ width: size, height: size }}>
+    <View
+      style={{ width: size, height: size }}
+      accessibilityRole="progressbar"
+      accessibilityLabel={resolvedAccessibilityLabel}
+      accessibilityValue={
+        total != null
+          ? { min: 0, max: total, now: value }
+          : { min: 0, max: 100, now: Math.round(normalized * 100) }
+      }
+    >
       <Svg
         width={size}
         height={size}
