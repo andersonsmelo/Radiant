@@ -27,3 +27,7 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
 - [Gate 2 de acessibilidade — 2026-07-26](2026-07-26-accessibility-gate2.md)
   — `app-failed`: 3 de 5 itens passaram; D1 e D2 corrigidos e reverificados em
   device; itens 2 e 5 seguem abertos.
+- [boot-to-home (dev-client) — 2026-07-28](2026-07-28-boot-to-home-devclient.md)
+  — B0.1: iOS `environment-blocked` para o build `preview` (sem CocoaPods; EAS
+  vedado); runtime do código atual verificado sob dev-client (boot → "Foco de
+  hoje"; `/onboarding` → Unmatched Route), sem promoção a `passed`.

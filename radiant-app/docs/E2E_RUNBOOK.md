@@ -51,9 +51,14 @@ assertions had already gone stale: the 2026-07-27 wizard migration to pt-BR left
 the flow asserting English strings (`WELCOME TO RADIANT`, `STEP 3 OF 4`), so the
 2026-07-26 `3/3` iOS pass predates that drift. Its replacement,
 `boot-to-home.yaml`, asserts the stable pt-BR home (`Foco de hoje`) after a clean
-install. The new flow passes the static Maestro contract but has **not** been
-device-run yet — that device pass belongs to task B0.1, so the iOS boot row below
-is `pending`.
+install. The new flow passes the static Maestro contract but has **not** had a
+`preview`-profile device run: producing that build is `environment-blocked` here
+(no local CocoaPods, EAS cloud disallowed), so B0.1 stays open. On 2026-07-28 the
+current code was verified under a **dev-client** (Expo Go) as a supplement — the
+app boots straight to `Foco de hoje` and the `radiantapp://onboarding` deep link
+now resolves to an Unmatched Route — but per this doc's rules a dev-client run
+never promotes iOS to `passed`. See
+[`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md).
 
 The dated environment inventory and first-run matrix live in
 [`docs/evidence/2026-07-23-device-e2e-baseline.md`](evidence/2026-07-23-device-e2e-baseline.md);
