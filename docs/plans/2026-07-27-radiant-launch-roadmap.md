@@ -185,7 +185,14 @@ código.
     string da própria `CheckpointScreen.tsx`, para que a mesma deriva não volte a
     passar verde. Evidência e receita de build em
     [`radiant-app/docs/evidence/2026-07-28-e2e-local-release.md`](../../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
-    **Android permanece `environment-blocked`** (sem `expo prebuild`).
+    **Android rodou pela primeira vez em 2026-07-28 e ficou `app-failed`**, não
+    mais `environment-blocked`: `expo prebuild --platform android --no-install`,
+    APK Release e emulador `Radiant_Pixel_9_API_36` produziram **2/3** —
+    `boot-to-home` e `offline-relaunch` verdes, `learning-critical-path` vermelho
+    em `tapOn: 'Progresso, tab.*'`, seletor que afirma o formato de
+    acessibilidade que só o iOS compõe. A mesma execução revelou dois defeitos de
+    ícone exclusivos do Android (ver bloqueio 4 do status canônico). Evidência em
+    [`radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md`](../../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md).
   - **B0.2 [P1]** ~~atualizar a seção "Learning Road" do `radiant-app/README.md`~~
     **Concluída em 2026-07-27.** A seção deixou de descrever a Learning Road como
     redesign em andamento e passou a tratá-la como a home de produção entregue da

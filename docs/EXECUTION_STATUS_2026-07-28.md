@@ -73,11 +73,14 @@ no roadmap e no checklist de release.
 | contrato de documentação | PASS | executado a cada run — desde 2026-07-28 o validador roda também `docs-contract.test.mjs`, a guarda que exige o status mais novo entre os documentos governados |
 | validadores do Loop | PASS | 9 de 9 no run desta data |
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 (sem reexecução nesta data; estado inalterado) |
-| E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS; Android segue `environment-blocked`. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
+| E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
+| E2E em device (Android, emulador, APK Release) | PARCIAL | **2/3** — `boot-to-home` (1m13s) e `offline-relaunch` (6m39s) passaram; `learning-critical-path` falhou em `tapOn: 'Progresso, tab.*'`, seletor que afirma o formato de acessibilidade do iOS. Primeira execução do app em Android; estado `app-failed`, não `environment-blocked`. Evidência em [`docs/evidence/2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md) |
 
-## Bloqueios do app (inalterados desde 07-27)
+## Bloqueios do app
 
-Os bloqueios de lançamento não mudaram nesta data; o detalhe de cada um está no
+Dois mudaram nesta data: o E2E de iOS fechou (item 2) e o Android saiu de "sem
+projeto nativo" para `app-failed`, trazendo junto um bloqueio novo (item 4). O
+detalhe dos demais está no
 [status de 07-27](EXECUTION_STATUS_2026-07-27.md) e no
 [roadmap de lançamento](plans/2026-07-27-radiant-launch-roadmap.md):
 
@@ -92,12 +95,28 @@ Os bloqueios de lançamento não mudaram nesta data; o detalhe de cada um está 
    `learning-critical-path` — deriva EN→pt-BR do commit `fb1af1f`, corrigida com
    uma guarda de contrato ancorada na fonte da tela. Evidência em
    [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
-   **Android continua `environment-blocked`** (item 3).
-3. **Android sem projeto nativo** (`expo prebuild` nunca executado).
-4. **Nó de reward sem cobertura E2E** (task B5).
-5. **API pública inativa** — ADR de estratégia da API pendente (decisão de
+   **Android rodou pela primeira vez nesta data e ficou `app-failed`** (item 3).
+3. **Android `app-failed`** — deixou de ser "sem projeto nativo" em 2026-07-28.
+   O `expo prebuild` rodou, o APK Release foi buildado e instalado no emulador
+   `Radiant_Pixel_9_API_36`, e a suíte deu **2/3**: `boot-to-home` e
+   `offline-relaunch` passaram, o `learning-critical-path` falhou no último passo
+   porque `tapOn: 'Progresso, tab.*'` afirma o formato que só o iOS compõe. É a
+   primeira execução do app em Android. Evidência, receita de build e os dumps de
+   hierarquia das duas plataformas em
+   [`docs/evidence/2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md).
+4. **Dois defeitos de ícone só no Android** (descobertos na execução acima).
+   `components/ui/icon-symbol.tsx`, o fallback Android/web do `IconSymbol`,
+   mapeia só dois dos quatro ícones da tab bar: Galáxia e Missões ficam **sem
+   ícone**, e Home e Progresso vazam um codepoint de uso privado da fonte para o
+   nome acessível, que o TalkBack anuncia como caractere ilegível. O contrato
+   `keeps icon glyphs out of the accessibility tree` não pega porque varre
+   `src/features` e `src/app`, e o arquivo está em `components/ui/`. **O arquivo
+   fica fora de `writePolicy.allowedRoots`**, então corrigir exige antes ampliar
+   a política — decisão pendente.
+5. **Nó de reward sem cobertura E2E** (task B5).
+6. **API pública inativa** — ADR de estratégia da API pendente (decisão de
    produto).
-6. **Contas de loja inexistentes** (Onda A).
+7. **Contas de loja inexistentes** (Onda A).
 
 ## Próxima sequência sugerida
 

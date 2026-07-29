@@ -73,6 +73,19 @@ and requires the flow to assert exactly it, plus requires the tapped label to be
 one `resolveNextAction` can return. A content assertion over an artifact confirms
 what someone wrote; anchoring it to the source is what makes it track the screen.
 
+Android ran for the first time on 2026-07-28 and came out `app-failed`, not
+`environment-blocked`: `expo prebuild` had genuinely never run, but the toolchain
+was installed, and the project was generated, built and installed on the same
+machine without adding anything. Two of three flows passed on an emulator against
+a local Release APK; `learning-critical-path` failed on its last step because
+`tapOn: 'Progresso, tab.*'` asserts the shape iOS composes for a tab
+(`"<label>, tab, N of 4"`), which Android does not produce. Fixing it changes the
+flow **and** the contract that pins the old literal, and both platforms must be
+re-run afterwards — not just the one that was red. The same run also surfaced two
+Android-only product defects in the shared `IconSymbol` fallback. Recipe,
+hierarchy dumps for both platforms and the defects are in
+[`docs/evidence/2026-07-28-android-e2e-first-run.md`](evidence/2026-07-28-android-e2e-first-run.md).
+
 The dev-client verification of the same day
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
 remains a supplement only — per this doc's rules a dev-client run never promotes
@@ -140,7 +153,7 @@ maestro test .maestro --format junit --output maestro-results.xml
 | Platform | Device/runtime | Build | Boot-to-home | Critical path | Offline relaunch | Status | Owner/date |
 |---|---|---|---:|---:|---:|---|---|
 | iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 6m 52s`, 2026-07-28, one suite run | engineering / 2026-07-28 |
-| Android | see dated evidence | `e2e-test` | pending | pending | pending | environment-blocked | engineering / 2026-07-26 |
+| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | passed | failed (iOS-shaped tab selector) | passed | app-failed — 2/3, 2026-07-28, first Android run ever | engineering / 2026-07-28 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy

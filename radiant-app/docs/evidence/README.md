@@ -31,6 +31,11 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   — suplemento de runtime sob dev-client (boot → "Foco de hoje"; `/onboarding` →
   Unmatched Route). **Sua conclusão de `environment-blocked` foi corrigida no
   mesmo dia**; mantido pelo trilho de correção.
+- [E2E em device, Android, primeira execução — 2026-07-28](2026-07-28-android-e2e-first-run.md)
+  — Android `app-failed`: 2/3 flows passaram em emulador com APK Release; o
+  `learning-critical-path` falhou por seletor de aba acoplado ao formato de
+  acessibilidade do iOS. Traz a receita de build Android e dois defeitos de
+  ícone que só o Android revela.
 - [E2E em device, build Release local — 2026-07-28](2026-07-28-e2e-local-release.md)
   — B0.1 fechada para iOS: `passed`, `3/3 Flows Passed in 6m 52s` sobre build
   Release local com bundle embutido, com receita de build reprodutível. Android
