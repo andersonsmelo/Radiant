@@ -1,3 +1,8 @@
 flows:
   - "*.yaml"
-testOutputDir: artifacts
+# Resolvido contra o cwd da invocação (`File(valor).toPath()` na CLI), nunca
+# contra este diretório: rodando de `radiant-app/`, como manda o E2E_RUNBOOK, um
+# `artifacts` pelado caía em `radiant-app/artifacts/` — fora do .gitignore e do
+# context.excludes do Loop. O prefixo `.maestro/` ancora a saída no único
+# caminho que o repositório já declara ignorado.
+testOutputDir: .maestro/artifacts

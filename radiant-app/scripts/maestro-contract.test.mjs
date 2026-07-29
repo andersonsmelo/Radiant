@@ -18,8 +18,27 @@ test('keeps Maestro discovery explicit and artifact output untracked', async () 
   ]);
 
   assert.match(config, /flows:\n\s+- "\*\.yaml"/);
-  assert.match(config, /testOutputDir: artifacts/);
-  assert.match(gitignore, /^\.maestro\/artifacts\/$/m);
+
+  // A CLI resolve testOutputDir com `File(valor).toPath()`, ou seja contra o cwd
+  // da invocação — nunca contra este diretório. O runbook manda rodar de
+  // `radiant-app`, então o valor é um caminho relativo a esta pasta e precisa
+  // cair sob uma regra deste .gitignore. Afirmar os dois literais em separado,
+  // como a versão anterior fazia, deixou `artifacts` e `.maestro/artifacts/`
+  // divergirem em silêncio: os dois assertos passavam enquanto as execuções
+  // despejavam 296MB num diretório que aparecia como untracked no git status.
+  // O contrato agora é o acoplamento, não cada lado.
+  const testOutputDir = config.match(/^testOutputDir: (.+)$/m)?.[1].trim();
+  assert.ok(testOutputDir, 'expected .maestro/config.yaml to declare testOutputDir');
+  assert.doesNotMatch(
+    testOutputDir,
+    /^[/~]|(^|\/)\.\.(\/|$)/,
+    'testOutputDir must stay relative to radiant-app and must not escape it'
+  );
+  assert.match(
+    gitignore,
+    new RegExp(`^${testOutputDir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/$`, 'm'),
+    `radiant-app/.gitignore must ignore "${testOutputDir}/", the directory Maestro writes runs to`
+  );
 });
 
 test('keeps each shipped flow tied to the installed mobile identifier', async () => {

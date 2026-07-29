@@ -29,15 +29,23 @@ context:
     - .loop/cache
     - .loop/brain-sessions
     - .loop/bootstrap
+    - .claude/worktrees
     - node_modules
     - dist
     - coverage
     - .expo
+    - radiant-app/node_modules
+    - radiant-app/dist
+    - radiant-app/coverage
+    - radiant-app/.expo
     - radiant-app/.maestro/artifacts
-    - radiant-app/ios/Pods
-    - radiant-app/ios/build
-    - radiant-app/android/build
-    - radiant-app/android/app/build
+    - radiant-app/ios
+    - radiant-app/android
+    - radiant-api/node_modules
+    - radiant-api/dist
+    - radiant-api/coverage
+    - tools/editorial-panel/node_modules
+    - tools/editorial-panel/.next
 writePolicy:
   allowedRoots:
     - src
