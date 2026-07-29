@@ -65,6 +65,17 @@ rejeitada por abandonar a identidade única recém-fixada.
 ### Enquadramento
 
 O Pixel ocupa ~62% da largura, centrado, com a cabeça acima do centro geométrico.
+
+> **Nota de 2026-07-29 — a altura é a dimensão que restringe.** O Pixel é retrato
+> (L/A = 0,725 medido na arte-fonte), então "62% da largura" projetam **85,6% de
+> altura**. Quem implementar isto deve derivar a altura da regra de largura, e não
+> escrever os dois números — foi assim que o gerador e esta spec divergiram na
+> primeira tentativa (o gerador usou 78% de altura, que são 56,5% de largura).
+>
+> A regra desta spec foi **confirmada por observação** e mantida: renderizadas as
+> duas leituras a 1024, 180 sob a squircle do iPhone, 120, 80 e 48px, o
+> enquadramento de 62% mantém o rosto legível nos tamanhos pequenos — que é onde
+> um ícone é julgado — sem que a antena seja cortada pela máscara.
 Verificado em 2026-07-29 que esse enquadramento sobrevive à máscara circular do
 launcher (área visível de 72 de 108 dp), com a barra do jaleco raspando a borda
 inferior — o reenquadramento fino é trabalho da implementação.
@@ -115,6 +126,38 @@ que é o que preserva a leitura do rosto em uma cor só.
   (`galaxyColors.background`) e `dark.backgroundColor` `#000000` → **`#03030d`**.
   Os dois modos passam a ser o mesmo fundo porque a ADR de 2026-07-27 fixou o
   galaxy dark como identidade **única** — o app não tem modo light.
+- Plugin `expo-notifications`: `icon` deixa de apontar para
+  `./assets/images/icon.png` e passa a apontar para
+  **`./assets/images/notification-icon.png`**, um asset novo.
+
+  **Por que é um asset dedicado, e não o `icon.png`.** Esta superfície tinha
+  escapado do levantamento inicial dos defeitos: o `icon.png` cabeado aqui é o
+  mesmo arquivo que carrega a grade de construção, então a grade viaja para a
+  barra de status junto com o resto. Mas há um segundo problema, independente da
+  grade e mais grave: o Android renderiza o ícone pequeno de notificação usando
+  **apenas o canal alpha**, como silhueta tingida pelo sistema. O `icon.png` é
+  deliberadamente **sem alpha** (a Apple rejeita ícone com alpha, e o contrato
+  assere `alpha: false` para ele). Um arquivo totalmente opaco tratado como
+  máscara de alpha não tem o que recortar — a silhueta resultante é o retângulo
+  inteiro.
+
+  Ou seja: os requisitos das duas superfícies são **mutuamente exclusivos** —
+  App Store exige ausência de alpha, notificação Android exige que o alpha seja
+  a forma. Nenhum arquivo satisfaz os dois, e é por isso que a correção é um
+  derivado próprio, não um reapontamento.
+
+  O asset é gerado pela mesma função que produz a camada monocromática (silhueta
+  branca sobre transparente, derivada do alpha da arte-mestra), com dois ajustes:
+  **96×96** em vez de 432×432, e preenchimento maior — a notificação não tem a
+  zona segura de 66% que o *themed icon* do Android 13+ impõe, então o glifo pode
+  ocupar mais do quadro sem ser cortado.
+
+  **Limite honesto desta seção:** que o retângulo sólido é o resultado está
+  deduzido da regra de silhueta do Android somado ao `alpha: false` medido no
+  `icon.png` — não foi observado em device. A evidência de Nível 2 é que fecha
+  essa afirmação; até lá ela é hipótese fundamentada, não fato observado. O que
+  **é** fato medido: a superfície existia fora do escopo do plano e o arquivo
+  cabeado nela não tem alpha.
 
 ## 4. Pré-requisito de escopo
 
@@ -132,13 +175,16 @@ que só amplia a política — não pode ser embutido no run que a política aut
 especificação da plataforma: dimensão exata, presença ou ausência de alpha, peso.
 
 **Nível 2 — em device.** Instalar no emulador e capturar o que só existe em
-runtime: ícone no launcher sob máscara real, splash de abertura, e ícone no tema
-dinâmico do Android 13+. Evidência datada em `radiant-app/docs/evidence/`.
+runtime: ícone no launcher sob máscara real, splash de abertura, ícone no tema
+dinâmico do Android 13+, e **o ícone pequeno na barra de status com uma
+notificação real disparada** — é a única forma de confirmar (ou refutar) a
+hipótese do retângulo sólido, e de verificar que a silhueta nova permanece
+legível a 24 dp. Evidência datada em `radiant-app/docs/evidence/`.
 
 **Nível 3 — contrato.** Um `icon-assets-contract.test.mjs` ligado ao
 `npm run quality`, travando:
 
-- dimensões e política de alpha de cada um dos sete arquivos;
+- dimensões e política de alpha de cada um dos oito arquivos;
 - o monocromático salvo como PNG cinza+alpha (color type 4) — invariante
   auto-imposta do nosso pipeline de geração, não requisito de Android ou Play (o
   sistema decodifica o PNG e usa o alpha como máscara de tint independente do

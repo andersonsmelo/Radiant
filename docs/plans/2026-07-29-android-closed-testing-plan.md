@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo, focado. Complementa (não substitui) o
 > [roadmap de lançamento 2026-07-27](2026-07-27-radiant-launch-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-28.md). Este documento recorta a
+> [status canônico](../EXECUTION_STATUS_2026-07-29.md). Este documento recorta a
 > **fatia Android** do roadmap e a sequencia para um único objetivo: subir o
 > primeiro build ao closed testing do Play e iniciar o relógio de 14 dias.
 
@@ -81,12 +81,53 @@ em F2.
 | --- | --- | --- | --- |
 | **L2.1 (A2)** | Criar/verificar conta Play Console (pagamento aprovado); concluir verificação de identidade antes da janela BR de 30/09/2026. | Anderson | Conta ativa e verificada. |
 | **L2.2 (A3)** | Criar o app no console com `com.ascendcreative.radiant`; reservar o nome "Radiant" (ter plano B de nome). | Anderson | App criado; nome reservado. |
-| **L2.3 (A4)** | **Hospedar** a política de privacidade (rascunho pronto) em URL pública pt-BR; preencher a URL nos metadados. | Anderson (hospedagem); eu finalizo o texto | URL pública ativa. Destrava L2.5. |
+| **L2.3 (A4)** | ~~Hospedar a política de privacidade~~ **CONCLUÍDA em 2026-07-29** — publicada e verificada de fora. Falta só colar a URL nos metadados do console. | Anderson (hospedagem); eu finalizei o texto | ✅ `https://saudediagnostica.com/radiant/privacidade/` → HTTP 200. Destrava L2.5. |
 | **L2.4 (A5)** | Configurar `eas submit` Android: service-account key do Play + bloco `submit.production.android` no `eas.json` (hoje só há `ios: {}`). | Eu (config) + Anderson (gera a key no console) | `eas submit --platform android` pronto para uso. |
 | **L2.5 (E3)** | Data Safety no Play (derivado do contrato D2: hoje nada de telemetria sai do device; Sentry off em produção). | Eu preparo as respostas; Anderson preenche | Ficha Data Safety completa. |
 | **L2.6 (E4)** | Classificação etária / questionário de conteúdo; categoria **Educação** (evita escrutínio de app médico). | Eu preparo as respostas; Anderson preenche | Rating emitido. |
-| **L2.7 (E1)** | Screenshots Android (phone) + **feature graphic 1024×500**. | Eu capturo via emulador/device e monto o feature graphic | Assets no formato/qtde exigidos. |
-| **L2.8 (E5)** | Página de suporte + e-mail de contato (obrigatórios na ficha). | Anderson (e-mail/entidade); eu preparo a página | Contato e página publicados. |
+| **L2.7 (E1)** | ~~Três assets gráficos obrigatórios da ficha do Play~~ **CONCLUÍDA em 2026-07-29** — ícone 512×512, feature graphic 1024×500 e 6 screenshots de telefone, todos gerados e travados. | Eu | ✅ Contrato de assets **11/11**, rodando no `npm run quality`. Inventário em [`ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). |
+| **L2.8 (E5)** | ~~Página de suporte + e-mail de contato~~ **CONCLUÍDA em 2026-07-29** — publicada e verificada de fora. | Anderson (e-mail/entidade); eu preparei a página | ✅ `https://saudediagnostica.com/radiant/suporte/` → HTTP 200; contato `anderson.smelo94@gmail.com`. |
+
+> **URLs canônicas para colar nos consoles — use a versão COM barra final.**
+> `https://saudediagnostica.com/radiant/privacidade/` e
+> `https://saudediagnostica.com/radiant/suporte/` devolvem **HTTP 200 direto, sem
+> redirecionamento**. As mesmas URLs sem barra final funcionam, mas custam um
+> `301`; colar a forma canônica evita que um revisor veja um salto desnecessário.
+>
+> **Verificação independente de 2026-07-29** (medida de fora, não relatada):
+> ambas em 200 `text/html`; corpo servido **byte a byte idêntico** à fonte em
+> `docs/legal/` (SHA-256 conferidos); UTF-8 válido com acentuação intacta e
+> `<meta charset>` dentro dos primeiros 1024 bytes; **zero scripts e zero
+> recursos externos**, logo não há consent wall escondendo o texto; sem
+> `noindex` e sem bloqueio de `/radiant/` no `robots.txt`; sem barra final é
+> exatamente **um** salto 301 para a canônica.
+>
+> **Risco aberto, não bloqueante:** o código que publica as páginas está na
+> branch `codex/radiant-legal-pages` do repositório do site, na **PR #39 ainda
+> sem merge**. As páginas estão no ar (subiram por FTPS), mas um redeploy a
+> partir da branch principal pode removê-las — e a revisão das lojas pode
+> acontecer semanas depois. **Mergear a PR #39** antes de submeter.
+
+> **Correção de 2026-07-29 — L2.7 listava dois assets; o Play exige três.**
+> A ficha da loja não fecha sem o **ícone 512×512** (PNG 32-bit **com** alpha,
+> ≤ 1024 KB), além do **feature graphic 1024×500** (**sem** alpha) e de **≥ 2
+> screenshots de telefone**. A versão anterior desta linha omitia o ícone, o que
+> deixaria L2.7 "concluída" com a ficha ainda incompleta e F2 bloqueado no
+> console.
+>
+> Duas restrições que já custaram retrabalho e ficam registradas aqui:
+>
+> - **Proporção máxima de screenshot é 2:1.** A resolução nativa do emulador
+>   Pixel 9 é 1080×2424 = **2,24:1** e **seria recusada**. Capturar com
+>   `adb shell wm size 1080x1920` (9:16 exato) e devolver com `wm size reset`.
+> - **Alpha tem regras opostas no mesmo lote:** obrigatório no ícone 512,
+>   proibido no feature graphic e nos screenshots.
+>
+> Os três assets são produzidos pelo
+> [plano do ícone da marca](../superpowers/plans/2026-07-29-icone-do-app.md)
+> (Tasks 3 e 5) e travados pelo contrato
+> `radiant-app/scripts/icon-assets-contract.test.mjs`. **L2.7 depende desse
+> plano** — não é trabalho independente de console.
 
 ### Trilha 3 — Engenharia (paridade Android) · dono: eu (C5 é humano)
 

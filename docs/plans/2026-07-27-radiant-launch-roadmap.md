@@ -130,18 +130,27 @@ código.
 - **A3 [P0]** Criar o app nas duas consoles com
   `com.ascendcreative.radiant`; reservar nome "Radiant" (ter plano B de nome
   caso indisponível na App Store).
-- **A4 [P0]** Publicar política de privacidade em URL pública (pt-BR, com
-  seção de dados locais, telemetria e contato). Bloqueia preenchimento de
-  privacy labels e data safety. **Rascunho pronto em 2026-07-27** em
+- **A4 [P0]** ~~Publicar política de privacidade em URL pública~~ **CONCLUÍDA em
+  2026-07-29**: no ar em `https://saudediagnostica.com/radiant/privacidade/`
+  (HTTP 200, corpo byte a byte idêntico à fonte, verificado de fora). Junto com
+  ela subiu a página de suporte (**E5**) em
+  `https://saudediagnostica.com/radiant/suporte/`. Detalhe da verificação e o
+  risco da PR não mergeada no
+  [plano de closed testing](2026-07-29-android-closed-testing-plan.md), L2.3/L2.8.
+  Resta colar as duas URLs nos consoles — o que destrava privacy labels e data
+  safety. O texto (pt-BR, com seção de dados locais, telemetria e contato) foi
+  escrito em 2026-07-27 em
   [`docs/legal/politica-de-privacidade.md`](../legal/politica-de-privacidade.md),
   fundamentado num levantamento do que o app realmente coleta (insumo do D2):
   controlador Anderson Melo (pessoa física); local-first sem conta obrigatória;
   telemetria só no dispositivo; notificações locais sem push token; crash
   reporting (Sentry) coberto como opcional, hoje desligado no perfil
-  `production`; Expo Updates como único terceiro ativo. **Pendente:** revisão
-  jurídica, definição do e-mail/entidade final e **hospedagem em URL pública**
-  (preencher «URL_PÚBLICA_DA_POLÍTICA»). Só então destrava E3 (privacy labels /
-  data safety).
+  `production`; Expo Updates como único terceiro ativo. **Resolvido desde
+  então:** a hospedagem (URL acima) e o e-mail/entidade — o texto publicado
+  declara Anderson Melo como controlador, contato `anderson.smelo94@gmail.com`.
+  **Continua pendente:** revisão jurídica do texto, que é a única ressalva
+  restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
+  o que foi declarado no Data Safety.
 - **A5 [P1]** Configurar `eas submit`: chave de service account do Play +
   App Store Connect API key; preencher o bloco `submit` do `eas.json` (hoje só
   tem `ios: {}`).
@@ -325,9 +334,21 @@ código.
 
 ### Onda E — Assets e metadados de loja (paralela a C/D)
 
-- **E1 [P0]** Screenshots por dispositivo: iPhone 6,7"/6,5" (e 13" iPad se
-  mantiver `supportsTablet: true` — decidir; desligar tablet reduz escopo de
-  QA e screenshots), Android phone + feature graphic 1024×500.
+- **E1 [P0]** **Android CONCLUÍDO em 2026-07-29** — os três assets gráficos do Play
+  existem, travados pelo contrato (11/11, dentro do `npm run quality`):
+  [`docs/store/ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). Evidência em device
+  do ícone da marca em
+  [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md).
+  **Ressalva:** os screenshots mostram progresso zerado (XP 0) — válidos e honestos,
+  mas vitrine fraca; decisão do dono pendente. **Falta ainda o lado iOS.** Escopo
+  original: Screenshots por dispositivo: iPhone 6,7"/6,5" (iPad **desligado**
+  na v1.3 — `supportsTablet: false`, decidido em 2026-07-29, o que remove os
+  screenshots de tablet do escopo), Android phone + os **três** assets gráficos
+  obrigatórios do Play. **Correção de 2026-07-29:** são três, não dois — **ícone
+  512×512** (PNG 32-bit **com** alpha, ≤ 1024 KB), **feature graphic 1024×500**
+  (**sem** alpha) e **≥ 2 screenshots de telefone**. Screenshot tem teto de
+  proporção **2:1**: o nativo do emulador Pixel 9 (1080×2424 = 2,24:1) **seria
+  recusado**; capturar em 1080×1920.
 - **E2 [P0]** ~~Textos de loja pt-BR~~ **Rascunho pronto em 2026-07-27** em
   [`docs/store/textos-loja-pt-BR.md`](../store/textos-loja-pt-BR.md): nome,
   subtítulo (App Store, 3 opções) / título (Play), descrição curta (Play),
@@ -343,9 +364,42 @@ código.
 - **E4 [P0]** Classificação etária/questionários de conteúdo nas duas
   consoles; categoria (Educação ou Medicina — recomendação: Educação, evita
   escrutínio de app médico).
-- **E5 [P1]** Página de suporte + e-mail de contato (obrigatórios nas fichas).
-- **E6 [P2]** Ícone e assets finais revisados (ícone 1024 sem alfa para iOS;
-  adaptive icon Android já configurado).
+- **E5 [P1]** ~~Página de suporte + e-mail de contato~~ **CONCLUÍDA em
+  2026-07-29**: no ar em `https://saudediagnostica.com/radiant/suporte/`
+  (HTTP 200, verificado de fora), com contato `anderson.smelo94@gmail.com`.
+  Resta colar a URL nos consoles. Ver A4 e L2.8.
+- **E6 [~~P2~~ → P0] — CONCLUÍDA em 2026-07-29.** As 6 tasks do
+  [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md) foram
+  entregues: gerador determinístico, oito derivados, `app.json` alinhado, assets
+  de loja fechados e evidência em device (3 de 4 provas —
+  [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md)).
+  Contrato de assets em **11/11**, dentro do `npm run quality`. Ressalvas abertas:
+  a prova do *themed icon* precisa de aparelho real, e o enquadramento da spec
+  (62% da largura) diverge do implementado (78% da altura) — decisão do dono.
+
+  ~~Ícone e assets finais
+  revisados~~ → **Ícone e assets finais refeitos.** A revisão preparatória da
+  ficha do Play encontrou **três defeitos reais**, não ajustes cosméticos:
+  1. A **grade de construção do design está embutida na arte** de `icon.png`
+     **e** de `android-icon-background.png`. Como `app.json` não declara
+     `ios.icon`, `icon.png` é o ícone da App Store e da tela inicial do iPhone.
+     Armadilha registrada: inspecionar só a camada *foreground* (que está limpa)
+     leva à conclusão errada de que o Android está ok — o adaptive icon é a
+     **composição** das duas camadas, e a de fundo tinha o mesmo defeito.
+  2. `splash-icon.png` **não é a marca**: é um placeholder de alvo em blueprint,
+     exibido a 200 px sobre fundo **branco** em todo cold start, contra a
+     [ADR de identidade galaxy dark](../adr/ADR-2026-07-27-identidade-visual-galaxy-dark.md).
+  3. O **"A" em chevron é da Ascend Creative**, não do Radiant.
+
+  **Decisão aprovada pelo dono (2026-07-29):** o mascote **Pixel** vira a marca —
+  corpo inteiro sobre gradiente galaxy elevado (`#0D1230` centro → `#07091c`
+  borda), com o rosto simplificado como forma reduzida na camada monocromática.
+  Spec em
+  [`2026-07-29-icone-do-app-design.md`](../superpowers/specs/2026-07-29-icone-do-app-design.md),
+  execução em
+  [`2026-07-29-icone-do-app.md`](../superpowers/plans/2026-07-29-icone-do-app.md)
+  (6 tasks; 1 e 2 concluídas). E6 deixou de ser P2 porque **bloqueia E1/L2.7**:
+  os assets de loja saem da mesma arte-mestra.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 

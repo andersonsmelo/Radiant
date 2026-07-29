@@ -4,7 +4,7 @@
 
 **Goal:** Substituir o "A" da Ascend Creative pelo mascote Pixel como marca do Radiant em todos os assets de ícone, eliminando a grade de construção embutida na arte e o placeholder de blueprint do splash.
 
-**Architecture:** Uma arte-mestra 1024×1024 gerada por script determinístico a partir de `radiant-app/assets/brand/pixel-master.png`; todos os sete derivados saem dela. Um contrato em Node puro lê o cabeçalho IHDR de cada PNG e trava dimensão, política de alpha e peso — sem dependência nova. A conformidade estrutural é verificada por teste; a adequação da arte, por evidência em emulador.
+**Architecture:** Uma arte-mestra 1024×1024 gerada por script determinístico a partir de `radiant-app/assets/brand/pixel-master.png`; todos os oito derivados saem dela. Um contrato em Node puro lê o cabeçalho IHDR de cada PNG e trava dimensão, política de alpha e peso — sem dependência nova. A conformidade estrutural é verificada por teste; a adequação da arte, por evidência em emulador.
 
 **Tech Stack:** Python 3 + Pillow (geração, operação rara e local), Node 20 + `node --test` (contrato, roda no `npm run quality`), Expo SDK 54 / `app.json`, Loop CLI como plano de controle.
 
@@ -242,10 +242,21 @@ git commit -m "test(assets): contrato de icones e assets de loja, ainda fora do 
 **Files:**
 - Create: `scripts/assets/build-icons.py`
 - Create: `scripts/assets/README.md`
+- Modify: `radiant-app/scripts/icon-assets-contract.test.mjs` (entrada do `notification-icon.png` — ver Step 1b)
 
 **Interfaces:**
 - Consumes: `radiant-app/assets/brand/pixel-master.png` (Task 1).
-- Produces: os sete PNGs que a Task 2 verifica. CLI: `python3 scripts/assets/build-icons.py --out-app radiant-app/assets/images --out-store docs/store/assets`.
+- Produces: os oito PNGs que a Task 2 verifica. CLI: `python3 scripts/assets/build-icons.py --out-app radiant-app/assets/images --out-store docs/store/assets`.
+
+> **Emenda de 2026-07-29 — oitavo asset: `notification-icon.png`.** O levantamento
+> original dos defeitos não olhou o plugin `expo-notifications`, que cabeia
+> `icon: "./assets/images/icon.png"`. Duas consequências: a grade de construção
+> viaja para a barra de status, e — pior — o Android usa **só o canal alpha** do
+> ícone pequeno como máscara, enquanto o `icon.png` é deliberadamente **sem
+> alpha** (exigência oposta da App Store, travada no contrato como
+> `alpha: false`). As duas superfícies têm requisitos mutuamente exclusivos, então
+> a correção é um derivado próprio. Racional completo na spec, seção "Mudanças em
+> `app.json`".
 
 - [ ] **Step 1: Escrever o gerador**
 
@@ -308,10 +319,15 @@ def compose_master(body):
     return out, piece, (x, y)
 
 
-def monochrome_layer(body, size=432):
-    """Silhueta da cabeca em cinza+alpha, derivada do mesmo alpha da arte-mestra."""
+def monochrome_layer(body, size=432, fill=0.72):
+    """Silhueta da cabeca em cinza+alpha, derivada do mesmo alpha da arte-mestra.
+
+    `fill` e a fracao do quadro ocupada pelo glifo. O padrao 0.72 respeita a zona
+    segura do themed icon do Android 13+ (66%). O icone de notificacao nao tem
+    essa zona segura e usa um fill maior.
+    """
     head = body.crop((0, 0, body.width, int(body.height * HEAD_FRAC)))
-    tw = int(size * 0.72)
+    tw = int(size * fill)
     scale = tw / head.width
     head = head.resize((tw, int(head.height * scale)), Image.LANCZOS)
     alpha = head.getchannel("A").point(lambda v: 255 if v > 90 else 0)
@@ -354,6 +370,15 @@ def main():
         os.path.join(a.out_app, "android-icon-monochrome.png"), "PNG", optimize=True
     )
 
+    # Icone pequeno de notificacao Android: o sistema usa APENAS o canal alpha como
+    # mascara e tinge o resultado, entao o arquivo precisa ser silhueta branca sobre
+    # transparente. O icon.png NAO serve: e sem alpha por exigencia da App Store, e
+    # uma mascara totalmente opaca vira um retangulo solido. Fill maior que o do
+    # themed icon porque a notificacao nao tem a zona segura de 66%.
+    monochrome_layer(body, size=96, fill=0.92).save(
+        os.path.join(a.out_app, "notification-icon.png"), "PNG", optimize=True
+    )
+
     master.convert("RGBA").save(os.path.join(a.out_app, "splash-icon.png"), "PNG", optimize=True)
     master.convert("RGBA").resize((48, 48), Image.LANCZOS).save(
         os.path.join(a.out_app, "favicon.png"), "PNG", optimize=True
@@ -374,6 +399,41 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+- [ ] **Step 1b: Travar o oitavo asset no contrato**
+
+O contrato da Task 2 conhece sete arquivos. Adicionar o oitavo em
+`radiant-app/scripts/icon-assets-contract.test.mjs`, na lista `ASSETS`, logo após
+a entrada do `favicon.png`:
+
+```js
+  { file: 'radiant-app/assets/images/notification-icon.png', w: 96, h: 96, alpha: true },
+```
+
+E estender o teste estrutural do monocromático para cobrir os dois arquivos que
+saem em modo LA, já que a garantia é a mesma — o `notification-icon.png` só
+cumpre seu papel se o alpha for a forma:
+
+```js
+for (const [rel, size] of [
+  ['radiant-app/assets/images/android-icon-monochrome.png', 432],
+  ['radiant-app/assets/images/notification-icon.png', 96],
+]) {
+  test(`camada de silhueta e estruturalmente monocromatica: ${rel}`, () => {
+    // ...mesmo corpo do teste atual, com `rel` e `size` no lugar dos literais
+  });
+}
+```
+
+Rodar o arquivo direto e observar o vermelho novo — o asset ainda não existe
+neste ponto do Step:
+
+```bash
+cd radiant-app && node --test scripts/icon-assets-contract.test.mjs
+```
+
+Expected: FAIL incluindo `notification-icon.png: ausente`. O contrato continua
+**fora** do `npm run quality` até a Task 5, então o gate não quebra.
 
 - [ ] **Step 2: Documentar o pré-requisito de toolchain**
 
@@ -429,7 +489,7 @@ git commit -m "feat(marca): Pixel vira o icone do app, gerado de uma arte-mestra
 - Modify: `radiant-app/app.json`
 
 **Interfaces:**
-- Consumes: os assets da Task 3.
+- Consumes: os assets da Task 3, **incluindo `notification-icon.png`**.
 - Produces: nada consumido por tasks seguintes.
 
 - [ ] **Step 1: Ler os valores atuais**
@@ -441,20 +501,34 @@ import json
 d = json.load(open('radiant-app/app.json'))['expo']
 print('adaptiveIcon.backgroundColor:', d['android']['adaptiveIcon']['backgroundColor'])
 print('splash:', [p for p in d['plugins'] if isinstance(p, list) and p[0] == 'expo-splash-screen'])
+print('notifications:', [p for p in d['plugins'] if isinstance(p, list) and p[0] == 'expo-notifications'])
 "
 ```
 
-Expected: `#E6F4FE` e `backgroundColor: "#ffffff"` com `dark.backgroundColor: "#000000"`.
+Expected: `#E6F4FE`; `backgroundColor: "#ffffff"` com `dark.backgroundColor: "#000000"`;
+e `expo-notifications` com `icon: "./assets/images/icon.png"`.
 
-- [ ] **Step 2: Trocar as três cores**
+- [ ] **Step 2: Trocar as três cores e o ícone de notificação**
 
 Em `radiant-app/app.json`:
 
 - `expo.android.adaptiveIcon.backgroundColor`: `"#E6F4FE"` → `"#07091c"`
 - no plugin `expo-splash-screen`: `"backgroundColor": "#ffffff"` → `"#03030d"`
 - no mesmo plugin: `"dark": { "backgroundColor": "#000000" }` → `"dark": { "backgroundColor": "#03030d" }`
+- no plugin `expo-notifications`: `"icon": "./assets/images/icon.png"` →
+  `"icon": "./assets/images/notification-icon.png"`
 
-Os dois modos ficam iguais de propósito: a ADR fixou identidade única, o app não tem modo light.
+Os dois modos de splash ficam iguais de propósito: a ADR fixou identidade única, o app não tem modo light.
+
+**Sobre o quarto item — não é troca cosmética.** O `icon.png` é sem alpha por
+exigência da App Store, e o Android usa só o alpha do ícone pequeno como máscara.
+Reapontar para o asset dedicado corrige duas coisas de uma vez: tira a grade de
+construção da barra de status e dá ao sistema uma silhueta de verdade para
+recortar. Ver a spec, seção "Mudanças em `app.json`".
+
+Deixar o `color` do plugin como está (`#0A84FF`): ele tinge a silhueta e não faz
+parte deste recorte — se a cor precisar mudar para casar com o galaxy dark, isso é
+decisão de identidade e vira item próprio, com evidência em device.
 
 - [ ] **Step 3: Rodar o gate**
 
@@ -630,7 +704,7 @@ adb install -r app/build/outputs/apk/release/app-release.apk
 
 O prebuild regenera `gradle.properties`; a memória da JVM já está travada pelo config plugin `plugins/with-gradle-memory.js`, então não é preciso editar nada à mão.
 
-- [ ] **Step 2: Capturar as três provas de runtime**
+- [ ] **Step 2: Capturar as quatro provas de runtime**
 
 ```bash
 # launcher: volta para a home e fotografa a gaveta
@@ -645,9 +719,33 @@ adb exec-out screencap -p > /tmp/evid-splash.png
 
 A terceira prova — ícone no tema dinâmico do Android 13+ — é manual: Ajustes → Papel de parede e estilo → ícones temáticos, e então fotografar a home. É o único jeito de ver a camada monocromática renderizada de verdade.
 
+A quarta prova — **ícone pequeno na barra de status** — exige uma notificação real
+na tela, porque é o sistema que aplica a máscara de alpha e o tint. Disparar um
+lembrete pelo próprio app (ou agendar um para daqui a poucos segundos), deixar a
+notificação aparecer, e então:
+
+```bash
+adb exec-out screencap -p > /tmp/evid-notificacao.png
+```
+
+Esta prova tem um papel que as outras não têm: ela **testa uma hipótese, não só
+confirma um asset**. O plano afirma que o `icon.png` (sem alpha) renderizaria como
+retângulo sólido — isso foi deduzido da regra de silhueta do Android, nunca
+observado. Se a captura mostrar a silhueta do Pixel legível, a correção está
+provada. Se mostrar qualquer outra coisa, é o diagnóstico que estava errado, e
+isso precisa ser escrito na evidência em vez de silenciado. Vale capturar a
+notificação **antes** da correção também, se o APK anterior ainda estiver à mão —
+um antes/depois fecha a questão sem depender de argumento.
+
 - [ ] **Step 3: Escrever a evidência datada**
 
-Registrar em `radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md`: os três screenshots, a receita de build acima, o `versionName`/`versionCode` do APK verificado, e o veredito por prova. Seguir o formato das evidências vizinhas em `radiant-app/docs/evidence/`.
+Registrar em `radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md`: os quatro screenshots, a receita de build acima, o `versionName`/`versionCode` do APK verificado, e o veredito por prova. Seguir o formato das evidências vizinhas em `radiant-app/docs/evidence/`.
+
+No veredito da quarta prova, dizer explicitamente se a hipótese do retângulo
+sólido se confirmou ou não. Uma hipótese que atravessa spec, plano e correção sem
+nunca ser medida é exatamente o tipo de afirmação que a próxima sessão herda como
+fato — e o plano inteiro existe porque isso já aconteceu antes com "o launcher
+Android está limpo".
 
 - [ ] **Step 4: Sinalizar as tasks no roadmap e no plano**
 
