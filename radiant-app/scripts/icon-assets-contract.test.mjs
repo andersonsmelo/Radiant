@@ -54,6 +54,7 @@ const ASSETS = [
   { file: 'radiant-app/assets/images/android-icon-background.png', w: 512, h: 512, alpha: true },
   { file: 'radiant-app/assets/images/splash-icon.png', w: 1024, h: 1024, alpha: true },
   { file: 'radiant-app/assets/images/favicon.png', w: 48, h: 48, alpha: true },
+  { file: 'radiant-app/assets/images/notification-icon.png', w: 96, h: 96, alpha: true },
   { file: 'docs/store/assets/play-icon-512.png', w: 512, h: 512, alpha: true, maxBytes: 1024 * 1024 },
   { file: 'docs/store/assets/feature-graphic.png', w: 1024, h: 500, alpha: false },
 ];
@@ -77,25 +78,35 @@ for (const asset of ASSETS) {
   });
 }
 
-test('camada monocromatica e estruturalmente monocromatica', () => {
-  const abs = path.join(REPO_ROOT, 'radiant-app/assets/images/android-icon-monochrome.png');
-  assert.ok(fs.existsSync(abs), 'android-icon-monochrome.png: ausente');
-  const h = readPngHeader(abs);
-  assert.equal(h.width, 432);
-  assert.equal(h.height, 432);
-  // color type 4 (cinza + alpha) nao e exigencia de Android nem de Play: o sistema
-  // decodifica o PNG e usa o alpha como mascara de tint, independente do encoding.
-  // E invariante auto-imposta do nosso pipeline (o gerador emite modo LA, que sai
-  // como color type 4 naturalmente), escolhida porque verificar a estrutura do
-  // arquivo e barato, enquanto confirmar R=G=B pixel a pixel em Node puro exigiria
-  // implementar inflate para decodificar o PNG.
-  assert.equal(
-    h.colorType,
-    4,
-    'monochrome deve ser PNG cinza+alpha (color type 4) — convencao do nosso ' +
-      'pipeline de geracao, nao requisito de plataforma'
-  );
-});
+// As duas camadas de silhueta saem da mesma funcao do gerador, em modo LA, e
+// dependem da mesma garantia: o alpha e a forma. Uma so delas sendo verificada
+// deixaria a outra livre para regredir para RGBA sem ninguem notar.
+const SILHOUETTE_LAYERS = [
+  { file: 'radiant-app/assets/images/android-icon-monochrome.png', size: 432 },
+  { file: 'radiant-app/assets/images/notification-icon.png', size: 96 },
+];
+
+for (const layer of SILHOUETTE_LAYERS) {
+  test(`camada de silhueta e estruturalmente monocromatica: ${layer.file}`, () => {
+    const abs = path.join(REPO_ROOT, layer.file);
+    assert.ok(fs.existsSync(abs), `${layer.file}: ausente`);
+    const h = readPngHeader(abs);
+    assert.equal(h.width, layer.size, `${layer.file}: largura`);
+    assert.equal(h.height, layer.size, `${layer.file}: altura`);
+    // color type 4 (cinza + alpha) nao e exigencia de Android nem de Play: o sistema
+    // decodifica o PNG e usa o alpha como mascara de tint, independente do encoding.
+    // E invariante auto-imposta do nosso pipeline (o gerador emite modo LA, que sai
+    // como color type 4 naturalmente), escolhida porque verificar a estrutura do
+    // arquivo e barato, enquanto confirmar R=G=B pixel a pixel em Node puro exigiria
+    // implementar inflate para decodificar o PNG.
+    assert.equal(
+      h.colorType,
+      4,
+      `${layer.file}: deve ser PNG cinza+alpha (color type 4) — convencao do nosso ` +
+        'pipeline de geracao, nao requisito de plataforma'
+    );
+  });
+}
 
 test('screenshots da loja respeitam o teto de proporcao do Play', () => {
   const dir = path.join(REPO_ROOT, 'docs/store/assets/screenshots');

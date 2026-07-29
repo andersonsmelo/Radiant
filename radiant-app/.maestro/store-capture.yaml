@@ -1,0 +1,123 @@
+appId: com.ascendcreative.radiant
+name: Store screenshot capture
+tags:
+  - store
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+
+# A home limpa nao entra na vitrine: XP e sequencia aparecem zerados. A trilha e
+# percorrida primeiro e a home e capturada no fim, ja com progresso real.
+- assertVisible: Foco de hoje
+
+# CTA da home fica abaixo da dobra, e o repeat guardado para no instante em que o
+# elemento entra na arvore — o que no emulador rapido o deixa sob a tab bar
+# flutuante. O scroll extra levanta o CTA antes do tap.
+# Scroll FIXO, sem condicao. Um `repeat ... while notVisible` reavalia a condicao
+# a cada volta, e cada reavaliacao dumpa a arvore — sobre o fundo galactico, que
+# anima sem parar, o dump espera o idle e pode levar minutos por iteracao (medido:
+# uma execucao passou aqui em <1min, outra ficou 20min presa no mesmo ponto).
+# O CTA renderiza DEPOIS do mapa inteiro da jornada, no fim da pagina: com 3
+# rolagens a tela ainda estava em 'Seu proximo trecho' (verificado no screenshot
+# de falha do Maestro). 12 leva ao fim; rolar alem do fim e no-op.
+- repeat:
+    times: 12
+    commands:
+      - scroll
+- tapOn: Continuar jornada
+
+- assertVisible: Fundamentos de Radiologia
+- takeScreenshot: shots/02-licao
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+
+- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- takeScreenshot: shots/03-quiz
+# A 1080x1920 a alternativa ja nasce visivel e a lista nao rola mais, entao
+# scrollUntilVisible com centerElement+100% falha por nao conseguir centralizar —
+# "element not found" ali e afirmacao sobre o matcher, nao sobre o elemento
+# (verificado: o id esta na arvore, em y1382-1534 de 1920). Rola so se precisar.
+- runFlow:
+    when:
+      notVisible:
+        id: lesson-option-q1:option:1
+    commands:
+      - scrollUntilVisible:
+          element:
+            id: lesson-option-q1:option:1
+          direction: DOWN
+          visibilityPercentage: 60
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+
+- assertVisible: Foco de hoje
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- takeScreenshot: shots/04-checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+
+- assertVisible: CONQUISTA DESBLOQUEADA
+- takeScreenshot: shots/05-conquista
+
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+- assertVisible: Princípios de Tomografia Computadorizada
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+# A 1080x1920 a alternativa ja nasce visivel e a lista nao rola mais, entao
+# scrollUntilVisible com centerElement+100% falha por nao conseguir centralizar —
+# "element not found" ali e afirmacao sobre o matcher, nao sobre o elemento
+# (verificado: o id esta na arvore, em y1382-1534 de 1920). Rola so se precisar.
+- runFlow:
+    when:
+      notVisible:
+        id: lesson-option-ct-q3:option:2
+    commands:
+      - scrollUntilVisible:
+          element:
+            id: lesson-option-ct-q3:option:2
+          direction: DOWN
+          visibilityPercentage: 60
+- tapOn:
+    id: lesson-option-ct-q3:option:2
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+
+# Agora sim: home com progresso preenchido.
+- assertVisible: Foco de hoje
+- takeScreenshot: shots/01-home
+
+# Aba de progresso. Seletor ancorado: um `.*Progresso.*` solto casa antes com a
+# legenda da home "Seu progresso fica salvo no aparelho...".
+- tapOn: '^Progresso(, tab.*)?$'
+- assertVisible: PROGRESSO
+- takeScreenshot: shots/06-progresso
