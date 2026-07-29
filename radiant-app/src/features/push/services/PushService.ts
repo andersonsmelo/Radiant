@@ -2,7 +2,6 @@
  * src/features/push/services/PushService.ts
  */
 
-import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PushConfig } from '../../../config/push';
 import { TelemetryService } from '../../telemetry/TelemetryService';
@@ -22,16 +21,28 @@ const KEYS = {
 
 type BackoffLevel = 'normal' | 'light' | 'strong' | 'silent';
 
-// Configure local notifications handler
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: false,
-        shouldSetBadge: false,
-        shouldShowBanner: true,
-        shouldShowList: true,
-    }),
-});
+let notificationsModule: Promise<typeof import('expo-notifications')> | null = null;
+let notificationHandlerConfigured = false;
+
+async function getNotifications() {
+    notificationsModule ??= import('expo-notifications');
+    const Notifications = await notificationsModule;
+
+    if (!notificationHandlerConfigured) {
+        Notifications.setNotificationHandler({
+            handleNotification: async () => ({
+                shouldShowAlert: true,
+                shouldPlaySound: false,
+                shouldSetBadge: false,
+                shouldShowBanner: true,
+                shouldShowList: true,
+            }),
+        });
+        notificationHandlerConfigured = true;
+    }
+
+    return Notifications;
+}
 
 class PushServiceImpl {
     /**
@@ -56,7 +67,10 @@ class PushServiceImpl {
 
     async requestPermissionIfNeeded(): Promise<string> {
         let status = 'unknown';
+        if (!PushConfig.ENABLE_PUSH) return status;
+
         try {
+            const Notifications = await getNotifications();
             const { status: existingStatus } = await Notifications.getPermissionsAsync();
             status = existingStatus;
 
@@ -118,6 +132,7 @@ class PushServiceImpl {
         // 2. Check Permission
         // We do a quick check or trust local storage. Let's trust local first for speed, or async check.
         // For robustness, verify actual expo permission.
+        const Notifications = await getNotifications();
         const { status } = await Notifications.getPermissionsAsync();
         if (status !== 'granted') {
             await this.logDecision(context.reason, 'skipped_no_permission');
@@ -231,6 +246,7 @@ class PushServiceImpl {
             TelemetryService.track(type === 'review' ? 'push_would_send_review' : 'push_would_send_goal');
             await this.logDecision('shadow_schedule', `would_schedule_${type}_${targetTime.toLocaleTimeString()}`);
         } else {
+            const Notifications = await getNotifications();
             // Real Schedule
             await Notifications.cancelAllScheduledNotificationsAsync(); // Enforce 1 pending max
             await Notifications.scheduleNotificationAsync({
@@ -249,6 +265,9 @@ class PushServiceImpl {
     }
 
     async cancelAll() {
+        if (!PushConfig.ENABLE_PUSH) return;
+
+        const Notifications = await getNotifications();
         await Notifications.cancelAllScheduledNotificationsAsync();
         TelemetryService.track('push_cancel_all');
     }

@@ -4,10 +4,11 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  Easing,
 } from 'react-native-reanimated';
 import { semanticColors } from '../../ui/semantic-colors';
 import { fontFamily } from '../../ui/styles';
-import { duration, easing } from '../../ui/motion';
+import { duration } from '../../ui/motion';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
@@ -60,7 +61,10 @@ export function AppButton({
       return;
     }
 
-    scale.value = withTiming(0.97, { duration: duration.micro, easing: easing.out });
+    scale.value = withTiming(0.97, {
+      duration: duration.micro,
+      easing: Easing.bezier(0.22, 1, 0.36, 1),
+    });
   };
   const onPressOut = () => {
     if (reducedMotionEnabled) {
@@ -68,7 +72,10 @@ export function AppButton({
       return;
     }
 
-    scale.value = withTiming(1.0, { duration: duration.micro, easing: easing.out });
+    scale.value = withTiming(1.0, {
+      duration: duration.micro,
+      easing: Easing.bezier(0.22, 1, 0.36, 1),
+    });
   };
 
   return (

@@ -126,6 +126,14 @@ jest.mock('../../telemetry/TelemetryService', () => ({
   },
 }));
 
+// O primeiro teste do arquivo paga um custo único de ~900ms dentro da janela do
+// findByTestId: o mount pós-carregamento monta componentes do react-native que são
+// carregados sob demanda (ScrollView, Pressable etc.) e, sob `--no-cache`, cada um
+// passa pelo transform do Babel nesse momento. Com `--runInBand` e contenção de CI,
+// isso excede intermitentemente o timeout padrão de 1000ms. Os mocks já são
+// determinísticos; o atraso é ambiental, então damos folga apenas à primeira espera.
+const FIRST_RENDER_TIMEOUT_MS = 4000;
+
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedTelemetryService = TelemetryService as jest.Mocked<typeof TelemetryService>;
 const mockedRouter = router as jest.Mocked<typeof router>;
@@ -245,7 +253,7 @@ describe('JourneyHomeScreen track flow', () => {
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    const thoraxTrack = await screen.findByTestId('journey-track-torax');
+    const thoraxTrack = await screen.findByTestId('journey-track-torax', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
     fireEvent.press(thoraxTrack);
 
     await waitFor(() => {
@@ -279,7 +287,7 @@ describe('JourneyHomeScreen track flow', () => {
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    const abdomenTrack = await screen.findByTestId('journey-track-abdome');
+    const abdomenTrack = await screen.findByTestId('journey-track-abdome', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
     fireEvent.press(abdomenTrack);
 
     await waitFor(() => {
