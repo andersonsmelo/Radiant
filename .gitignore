@@ -29,6 +29,16 @@ web-build/
 DerivedData/
 *.xcuserstate
 
+# Credenciais de loja — NUNCA versionar.
+# Regra sem prefixo de caminho: casa um diretorio "credentials" em qualquer
+# profundidade, entao vale para radiant-app/, radiant-api/ e o que vier depois.
+# O EAS Submit espera a chave da service account do Play em
+# radiant-app/credentials/play-service-account.json (ver docs/store/EAS_SUBMIT_SETUP.md).
+credentials/
+*.p8
+play-service-account*.json
+app-store-connect-api-key*.json
+
 # loop:runtime:start
 .loop/runs/
 .loop/cache/
