@@ -4,10 +4,6 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-// eslint.config.js so declara globals Node completos em **/metro.config.js;
-// scripts/*.mjs cai no bloco geral, que tem `process` mas nao `Buffer`.
-/* global Buffer */
-
 const APP_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_ROOT = path.resolve(APP_ROOT, '..');
 
@@ -25,7 +21,24 @@ export function readPngHeader(absPath) {
   );
   const colorType = buf.readUInt8(25);
   // tRNS da transparencia a um PNG sem canal alpha; conta como alpha.
-  const hasTrns = buf.includes(Buffer.from('tRNS', 'ascii'));
+  // Percorre a cadeia real de chunks (comprimento + tipo + dados + CRC) a partir
+  // do fim da assinatura, em vez de buscar 'tRNS' por substring no buffer inteiro:
+  // uma busca por substring tambem varre o stream comprimido do IDAT, onde uma
+  // coincidencia acidental de 4 bytes e possivel e cresce conforme mais assets
+  // entram no contrato.
+  let hasTrns = false;
+  let offset = 8;
+  while (offset + 8 <= buf.length) {
+    const chunkLength = buf.readUInt32BE(offset);
+    const chunkType = buf.toString('ascii', offset + 4, offset + 8);
+    if (chunkType === 'tRNS') {
+      hasTrns = true;
+    }
+    if (chunkType === 'IEND') {
+      break;
+    }
+    offset += 8 + chunkLength + 4; // comprimento + tipo, depois dados + CRC
+  }
   return {
     width: buf.readUInt32BE(16),
     height: buf.readUInt32BE(20),
@@ -70,9 +83,18 @@ test('camada monocromatica e estruturalmente monocromatica', () => {
   const h = readPngHeader(abs);
   assert.equal(h.width, 432);
   assert.equal(h.height, 432);
-  // color type 4 = cinza + alpha: garante monocromia pela estrutura do arquivo,
-  // sem precisar decodificar pixel. Mais forte e mais barato que varrer R=G=B.
-  assert.equal(h.colorType, 4, 'monochrome deve ser PNG cinza+alpha (color type 4)');
+  // color type 4 (cinza + alpha) nao e exigencia de Android nem de Play: o sistema
+  // decodifica o PNG e usa o alpha como mascara de tint, independente do encoding.
+  // E invariante auto-imposta do nosso pipeline (o gerador emite modo LA, que sai
+  // como color type 4 naturalmente), escolhida porque verificar a estrutura do
+  // arquivo e barato, enquanto confirmar R=G=B pixel a pixel em Node puro exigiria
+  // implementar inflate para decodificar o PNG.
+  assert.equal(
+    h.colorType,
+    4,
+    'monochrome deve ser PNG cinza+alpha (color type 4) — convencao do nosso ' +
+      'pipeline de geracao, nao requisito de plataforma'
+  );
 });
 
 test('screenshots da loja respeitam o teto de proporcao do Play', () => {

@@ -139,7 +139,11 @@ dinâmico do Android 13+. Evidência datada em `radiant-app/docs/evidence/`.
 `npm run quality`, travando:
 
 - dimensões e política de alpha de cada um dos sete arquivos;
-- o monocromático sendo de fato monocromático (R=G=B em todo pixel opaco);
+- o monocromático salvo como PNG cinza+alpha (color type 4) — invariante
+  auto-imposta do nosso pipeline de geração, não requisito de Android ou Play (o
+  sistema decodifica o PNG e usa o alpha como máscara de tint independente do
+  encoding). Verificar a estrutura do arquivo é barato; confirmar R=G=B pixel a
+  pixel em Node puro exigiria implementar inflate;
 - o ícone da ficha do Play dentro de 1024 KB;
 - o feature graphic em 1024×500 sem alpha;
 - screenshots de loja com proporção máxima de 2:1 (o teto do Play — a resolução
