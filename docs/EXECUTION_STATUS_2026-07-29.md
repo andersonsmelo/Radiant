@@ -109,10 +109,15 @@ inventário dos assets em [`ASSETS_DE_LOJA.md`](store/ASSETS_DE_LOJA.md).
 Três correções ao plano apareceram durante a execução, cada uma achada **medindo
 ou renderizando**, não lendo:
 
-- **Enquadramento por largura não serve a sujeito retrato.** O Pixel tem
-  L/A = 0,725, então os "~62% da largura" da spec projetam **85,6% de altura** e
-  encostam a antena na borda. O gerador amarra à altura (78%). **A spec ainda diz
-  62% da largura — divergência conhecida, decisão do dono pendente.**
+- **Enquadramento: a spec estava certa, a primeira implementação não.** O Pixel é
+  retrato (L/A = 0,725), então os "~62% da largura" da spec projetam **85,6% de
+  altura** — a altura é a dimensão que restringe. O gerador chegou a usar 78% de
+  altura, escolha feita olhando a comparação a 360px; renderizando nos tamanhos
+  reais (1024, 180 sob a squircle, 120, 80 e 48px), o enquadramento menor perde a
+  legibilidade do rosto, que é a parte reconhecível da marca. **Resolvido a favor
+  da spec.** O gerador agora expressa `BODY_WIDTH_FRAC = 0.62` e **deriva** a
+  altura do aspecto real: dois números para o mesmo enquadramento divergem no
+  primeiro dia em que a arte mudar de proporção, que foi como isto começou.
 - **A camada monocromática derivada só do alpha sairia como blob sem rosto.** No
   master, olhos e sorriso são pixels ciano **opacos** sobre a tela escura, não
   furos no alpha. Os glifos são extraídos por cor e subtraídos da silhueta.
@@ -306,6 +311,20 @@ desenvolvimento; não entram no bundle distribuído.
 
 ## Árvore de trabalho
 
-Os quatro arquivos de 26–27/07 (`AppButton.tsx`, `config/push.ts`,
-`PushService.ts`, `JourneyHomeScreen.flow.test.tsx`) foram **adotados** — ver §6.
-Um deles é pré-requisito do gate verde, então não são descartáveis.
+Todo o trabalho desta data está **commitado** na branch
+`codex/wave1-hardening-api-smoke`, em cinco commits (`297b2d4`, `ddb4d85`,
+`63b0dab`, `27302d9`, `e02e158`). Os quatro arquivos de 26–27/07 foram **adotados**
+no primeiro deles — ver §6. **Nada foi empurrado**; a branch está 99 commits à
+frente de `origin/main`.
+
+Os commits foram ordenados para que **nenhum estado intermediário deixe o gate
+vermelho**: os órfãos primeiro, porque o `AppButton` corrige o contrato de easing;
+o contrato de assets só entra no `quality` no commit seguinte, no mesmo commit em
+que os oito assets passam a existir. O `npm run quality` foi rodado **depois** de
+tudo commitado e sai `0` — o verde agora é propriedade do repositório, não da
+árvore de trabalho de quem rodou.
+
+Seguem não rastreados, **intocados e sem decisão**, por não pertencerem a esta
+execução: `.impeccable/`, `New Layout/`, `docs/NOVO_VPS.md`, os dois planos
+`2026-07-23-radiant-pending-resolution-*` e
+`docs/superpowers/plans/2026-04-30-design-system-final.md`.

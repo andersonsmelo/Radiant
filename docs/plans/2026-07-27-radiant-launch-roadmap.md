@@ -373,9 +373,10 @@ código.
   entregues: gerador determinístico, oito derivados, `app.json` alinhado, assets
   de loja fechados e evidência em device (3 de 4 provas —
   [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md)).
-  Contrato de assets em **11/11**, dentro do `npm run quality`. Ressalvas abertas:
-  a prova do *themed icon* precisa de aparelho real, e o enquadramento da spec
-  (62% da largura) diverge do implementado (78% da altura) — decisão do dono.
+  Contrato de assets em **11/11**, dentro do `npm run quality`. O enquadramento
+  foi resolvido a favor da spec (62% da largura), com o gerador derivando a altura
+  do aspecto real. **Ressalva aberta:** a prova do *themed icon* do Android 13+
+  precisa de aparelho real — uma captura da gaveta com o tema ligado basta.
 
   ~~Ícone e assets finais
   revisados~~ → **Ícone e assets finais refeitos.** A revisão preparatória da
