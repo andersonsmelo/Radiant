@@ -4,7 +4,7 @@
 
 **Goal:** Substituir o "A" da Ascend Creative pelo mascote Pixel como marca do Radiant em todos os assets de ícone, eliminando a grade de construção embutida na arte e o placeholder de blueprint do splash.
 
-**Architecture:** Uma arte-mestra 1024×1024 gerada por script determinístico a partir de `Mascote.png`; todos os sete derivados saem dela. Um contrato em Node puro lê o cabeçalho IHDR de cada PNG e trava dimensão, política de alpha e peso — sem dependência nova. A conformidade estrutural é verificada por teste; a adequação da arte, por evidência em emulador.
+**Architecture:** Uma arte-mestra 1024×1024 gerada por script determinístico a partir de `radiant-app/assets/brand/pixel-master.png`; todos os sete derivados saem dela. Um contrato em Node puro lê o cabeçalho IHDR de cada PNG e trava dimensão, política de alpha e peso — sem dependência nova. A conformidade estrutural é verificada por teste; a adequação da arte, por evidência em emulador.
 
 **Tech Stack:** Python 3 + Pillow (geração, operação rara e local), Node 20 + `node --test` (contrato, roda no `npm run quality`), Expo SDK 54 / `app.json`, Loop CLI como plano de controle.
 
@@ -18,21 +18,22 @@
 - **Enquadramento:** Pixel ocupa ~62% da largura, centrado, cabeça acima do centro geométrico.
 - **Alpha — regras opostas no mesmo lote:** `icon.png` **sem** alpha (a Apple rejeita); `play-icon-512.png` **com** alpha 32-bit e ≤ 1024 KB; feature graphic **sem** alpha.
 - **Loop:** toda alteração passa por `run start → context build → step begin → editar → validate → step finish → memory write → run close`. Nunca encadear `memory write && run close`. Summary do MemoryCandidateV1 ≤ 1000 chars.
-- **Fonte da arte:** `Mascote.png` na raiz do repo (1024×1536, RGBA). Hoje é **untracked** — a Task 1 resolve isso.
+- **Fonte da arte:** `radiant-app/assets/brand/pixel-master.png` (1024×1536, RGBA). Hoje o arquivo existe como `Mascote.png` na raiz do repo e está **untracked** — a Task 1 move e versiona. A raiz do repo não serve: `writePolicy.allowedRoots` enumera arquivos soltos de raiz um a um, e abrir uma exceção nova para arte é pior que guardá-la junto dos demais assets do app.
+- **Gate:** nenhum commit pode deixar `npm run quality` vermelho (roadmap §10). O contrato da Task 2 é criado e observado vermelho **rodando o arquivo de teste direto**, e só é ligado ao `quality` na Task 5, quando todos os assets existem.
 
 ---
 
 ### Task 1: Alargar o writePolicy e versionar a arte-fonte
 
-Transação própria e ordenada: a política é lida quando o escopo é checado, então widening não pode viver no mesmo run que ele autoriza. `Mascote.png` entra junto porque é a fonte de verdade da arte e hoje está fora do git — sem ela o gerador não é reprodutível.
+Transação própria e ordenada: a política é lida quando o escopo é checado, então widening não pode viver no mesmo run que ele autoriza. A arte-fonte entra junto porque é a fonte de verdade e hoje está fora do git — sem ela o gerador não é reprodutível.
 
 **Files:**
 - Modify: `.loop/project.yaml` (bloco `writePolicy.allowedRoots`)
-- Create: `Mascote.png` no controle de versão (o arquivo já existe no disco, untracked)
+- Create: `radiant-app/assets/brand/pixel-master.png` (movido de `Mascote.png` na raiz, hoje untracked)
 
 **Interfaces:**
 - Consumes: nada.
-- Produces: permissão de escrita em `radiant-app/assets` para todas as tasks seguintes; `Mascote.png` rastreado.
+- Produces: permissão de escrita em `radiant-app/assets` para todas as tasks seguintes; a arte-fonte rastreada em `radiant-app/assets/brand/pixel-master.png`.
 
 - [ ] **Step 1: Confirmar que a raiz está mesmo ausente**
 
@@ -73,10 +74,28 @@ loop run close --run <run-id>
 
 Expected: `VALIDATION_PASSED`. Sem memória durável aqui — é mudança de política, não aprendizado; feche o run bem-sucedido sem inventar uma.
 
-- [ ] **Step 5: Versionar a arte-fonte e commitar**
+- [ ] **Step 5: Mover a arte-fonte para dentro da raiz permitida**
+
+O `git mv` não se aplica: o arquivo nunca esteve rastreado. Mover no disco e adicionar no destino.
 
 ```bash
-git add .loop/project.yaml Mascote.png
+cd /Users/anderson/Developer/Radiant
+mkdir -p radiant-app/assets/brand
+mv Mascote.png radiant-app/assets/brand/pixel-master.png
+python3 -c "
+from PIL import Image
+im = Image.open('radiant-app/assets/brand/pixel-master.png')
+print('arte-fonte:', im.size, im.mode)
+assert im.size == (1024, 1536) and im.mode == 'RGBA', 'arte-fonte fora do esperado'
+"
+```
+
+Expected: `arte-fonte: (1024, 1536) RGBA`
+
+- [ ] **Step 6: Commitar**
+
+```bash
+git add .loop/project.yaml radiant-app/assets/brand/pixel-master.png
 git commit -m "chore(loop): permite escrita em radiant-app/assets e versiona a arte-fonte do Pixel"
 ```
 
@@ -86,13 +105,14 @@ git commit -m "chore(loop): permite escrita em radiant-app/assets e versiona a a
 
 O contrato vem antes dos assets: hoje `docs/store/assets/play-icon-512.png` não existe, então o teste nasce vermelho por um motivo real, não fabricado.
 
+O contrato **não** é ligado ao `npm run quality` aqui: ele reprovaria, e nenhum commit pode deixar o gate vermelho (Global Constraints). A Task 5 faz a ligação quando todos os assets existem. O vermelho do TDD continua real — é observado rodando o arquivo de teste direto, que é exatamente o que o `loop-development` prescreve para vermelho planejado, e não gasta ciclo de `loop validate`.
+
 **Files:**
 - Create: `radiant-app/scripts/icon-assets-contract.test.mjs`
-- Modify: `radiant-app/package.json` (script `quality`)
 
 **Interfaces:**
 - Consumes: nada.
-- Produces: `readPngHeader(absPath) -> { width, height, colorType, hasAlpha, bytes }`, consumido por nenhuma outra task (o contrato é folha), mas as Tasks 3–6 precisam passar nele.
+- Produces: `readPngHeader(absPath) -> { width, height, colorType, hasAlpha, bytes }`, consumido por nenhuma outra task (o contrato é folha), mas as Tasks 3–6 precisam passar nele. A Task 5 liga este arquivo ao `quality`.
 
 - [ ] **Step 1: Escrever o teste que falha**
 
@@ -198,33 +218,21 @@ cd radiant-app && node --test scripts/icon-assets-contract.test.mjs
 
 Expected: FAIL. Pelo menos `docs/store/assets/play-icon-512.png: ausente`, `docs/store/assets/feature-graphic.png: ausente` e `docs/store/assets/screenshots: ausente`.
 
-- [ ] **Step 3: Ligar ao gate**
+- [ ] **Step 3: Confirmar que o gate continua verde**
 
-Em `radiant-app/package.json`, adicionar em `scripts`, seguindo o padrão dos contratos vizinhos:
-
-```json
-"test:icon-assets-contract": "node --test scripts/icon-assets-contract.test.mjs"
-```
-
-E inserir a chamada no `quality`, logo após `test:identity-palette-contract` (agrupa com os contratos de identidade visual, antes da suíte Jest):
-
-```
-... && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test -- --runInBand && npm run visual:qa:strict
-```
-
-- [ ] **Step 4: Confirmar que o gate agora reprova**
+O contrato existe mas ainda não está ligado, então o gate não pode ter mudado de estado.
 
 ```bash
 cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npm run quality
 ```
 
-Expected: FAIL, pelo contrato novo. Esse é o vermelho planejado — não gaste ciclo de `loop validate` nele; observe direto, como manda o loop-development.
+Expected: PASS. Se reprovar, algo fora desta task quebrou — investigue antes de commitar.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add radiant-app/scripts/icon-assets-contract.test.mjs radiant-app/package.json
-git commit -m "test(assets): contrato de icones e assets de loja, vermelho ate a arte nova existir"
+git add radiant-app/scripts/icon-assets-contract.test.mjs
+git commit -m "test(assets): contrato de icones e assets de loja, ainda fora do gate"
 ```
 
 ---
@@ -236,7 +244,7 @@ git commit -m "test(assets): contrato de icones e assets de loja, vermelho ate a
 - Create: `scripts/assets/README.md`
 
 **Interfaces:**
-- Consumes: `Mascote.png` (Task 1).
+- Consumes: `radiant-app/assets/brand/pixel-master.png` (Task 1).
 - Produces: os sete PNGs que a Task 2 verifica. CLI: `python3 scripts/assets/build-icons.py --out-app radiant-app/assets/images --out-store docs/store/assets`.
 
 - [ ] **Step 1: Escrever o gerador**
@@ -247,7 +255,8 @@ Criar `scripts/assets/build-icons.py`:
 #!/usr/bin/env python3
 """Gera todos os assets de icone do Radiant a partir de uma unica arte-mestra.
 
-Fonte: Mascote.png na raiz do repo. Tokens: galaxyColors (radiant-app/src/ui/theme.ts).
+Fonte: radiant-app/assets/brand/pixel-master.png.
+Tokens: galaxyColors (radiant-app/src/ui/theme.ts).
 Spec: docs/superpowers/specs/2026-07-29-icone-do-app-design.md
 """
 import argparse
@@ -261,8 +270,11 @@ BODY_WIDTH_FRAC = 0.62     # o Pixel ocupa ~62% da largura
 HEAD_FRAC = 0.42           # fracao superior do corpo que e a cabeca
 
 
+SOURCE_ART = os.path.join("radiant-app", "assets", "brand", "pixel-master.png")
+
+
 def load_body(repo_root):
-    src = Image.open(os.path.join(repo_root, "Mascote.png")).convert("RGBA")
+    src = Image.open(os.path.join(repo_root, SOURCE_ART)).convert("RGBA")
     # recorta pelo alpha solido: o halo de alpha baixo alargaria o bbox
     solid = src.getchannel("A").point(lambda v: 255 if v > 40 else 0)
     return src.crop(solid.getbbox())
@@ -471,6 +483,7 @@ Os screenshots de 2026-07-29 pararam em 7 de 11 telas: o flow falhou em `lesson-
 - Create: `docs/store/ASSETS_DE_LOJA.md`
 - Create: `radiant-app/.maestro/store-capture.yaml`
 - Create: `scripts/assets/normalize-screenshots.py`
+- Modify: `radiant-app/package.json` (liga o contrato da Task 2 ao `quality`)
 
 **Interfaces:**
 - Consumes: o contrato da Task 2.
@@ -557,19 +570,35 @@ python3 scripts/assets/normalize-screenshots.py \
 
 O feature graphic reusa a arte-mestra e a fonte Sora que o app já carrega (`radiant-app/node_modules/@expo-google-fonts/sora`). 1024×500, RGB sem alpha. O bloco de texto começa em x=116, não x=68: algumas superfícies do Play recortam para 16:9, comendo 68 px de cada lado, e no recorte o wordmark encostava na borda.
 
-- [ ] **Step 6: Rodar o contrato completo**
+- [ ] **Step 6: Ligar o contrato ao gate**
 
-```bash
-cd radiant-app && node --test scripts/icon-assets-contract.test.mjs
+Agora que todos os assets existem, o contrato da Task 2 pode entrar no `quality` sem deixá-lo vermelho. Em `radiant-app/package.json`, adicionar em `scripts`, seguindo o padrão dos contratos vizinhos:
+
+```json
+"test:icon-assets-contract": "node --test scripts/icon-assets-contract.test.mjs"
 ```
 
-Expected: PASS em todos os casos, inclusive `screenshots` e `feature-graphic.png`.
+E inserir a chamada no `quality`, logo após `test:identity-palette-contract` (agrupa com os contratos de identidade visual, antes da suíte Jest):
 
-- [ ] **Step 7: Commit**
+```
+... && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test -- --runInBand && npm run visual:qa:strict
+```
+
+- [ ] **Step 7: Rodar o gate completo**
 
 ```bash
-git add docs/store/assets/ docs/store/ASSETS_DE_LOJA.md
-git commit -m "feat(loja): fecha os assets graficos da ficha do Play"
+cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npm run quality
+```
+
+Expected: PASS, agora incluindo o contrato de assets — `screenshots` e `feature-graphic.png` inclusive. Este é o passo que fecha o ciclo TDD aberto na Task 2.
+
+- [ ] **Step 8: Commit**
+
+```bash
+git add docs/store/assets/ docs/store/ASSETS_DE_LOJA.md \
+        radiant-app/.maestro/store-capture.yaml scripts/assets/normalize-screenshots.py \
+        radiant-app/package.json
+git commit -m "feat(loja): fecha os assets graficos da ficha e liga o contrato ao gate"
 ```
 
 ---
