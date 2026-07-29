@@ -1,15 +1,16 @@
 # Política de Privacidade do Radiant
 
-> **Rascunho para publicação.** Este texto foi redigido a partir do comportamento
-> real do aplicativo (o que o código efetivamente coleta e transmite) e ainda
-> **precisa de revisão jurídica** antes de virar a versão pública definitiva.
-> Os campos entre «aspas angulares» devem ser preenchidos na hospedagem.
+> **Versão para publicação.** Este texto foi redigido a partir do comportamento
+> real do aplicativo (o que o código efetivamente coleta e transmite) e está
+> pronto para ser hospedado na URL abaixo. Uma revisão jurídica continua
+> recomendada como boa prática, mas não bloqueia a publicação — o conteúdo
+> reflete fielmente o tratamento de dados atual.
 
-**Última atualização:** 2026-07-27
+**Última atualização:** 2026-07-29
 **Aplicativo:** Radiant — aplicativo educacional de radiologia
 **Controlador dos dados:** Anderson Melo (pessoa física)
 **Contato para privacidade:** anderson.smelo94@gmail.com
-**Endereço público desta política:** «URL_PÚBLICA_DA_POLÍTICA»
+**Endereço público desta política:** https://saudediagnostica.com/radiant/privacidade
 
 ---
 

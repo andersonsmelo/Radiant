@@ -67,7 +67,12 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   // The critical path ends at Progresso. The reward node is unlocked only after
   // the LAST lesson of the catalog-generated track (7 lessons), so it is not
   // reachable in a smoke run — asserting it here would encode an unrunnable flow.
-  assert.match(flows[1], /- tapOn: 'Progresso, tab\.\*'/);
+  // The tab selector is anchored to the tab's accessible name on both platforms
+  // (iOS "Progresso, tab, 3 of 4", Android "Progresso"). It must stay anchored:
+  // a loose `.*Progresso.*` also matches the home caption "Seu progresso fica
+  // salvo..." — Maestro matches case-insensitively — and taps it instead, which
+  // broke both platforms on 2026-07-28. The iOS-only literal broke Android.
+  assert.match(flows[1], /- tapOn: '\^Progresso\(, tab\.\*\)\?\$'/);
   assert.match(flows[1], /- assertVisible: PROGRESSO/);
   assert.doesNotMatch(flows[1], /Receber conquista/);
   // setAirplaneMode takes enabled/disabled; the boolean form fails to parse.
@@ -89,6 +94,15 @@ test('keeps every below-the-fold action reachable before it is tapped', async ()
       flow,
       new RegExp(`while:\\n\\s+notVisible: ${label}\\n\\s+commands:\\n\\s+- scroll`),
       `expected a guarded scroll before tapping "${label}"`
+    );
+    // The guarded repeat stops with the CTA under the floating tab bar on a fast
+    // Android emulator (CTA y2212-2277 vs tab bar y2198-2387), so the tap lands
+    // on the bar. A top-level lift-scroll must immediately precede the tap to
+    // move the CTA clear — removing it reintroduces the occluded tap.
+    assert.match(
+      flow,
+      new RegExp(`\\n- scroll\\n- tapOn: ${label}`),
+      `expected a lift-scroll immediately before tapping "${label}" to clear the floating tab bar`
     );
   }
 });
@@ -135,12 +149,27 @@ test('keeps icon glyphs out of the accessibility tree', async () => {
   assert.match(wrapper, /importantForAccessibility="no-hide-descendants"/);
   assert.match(wrapper, /accessible=\{false\}/);
 
+  // DecorativeIcon and icon-symbol ARE the sanctioned icon-font wrappers: they
+  // import MaterialIcons on purpose and hide the glyph from the a11y tree. Every
+  // other component must render through them. Scan both component roots too, not
+  // just the feature/app screens — the Android blank-icon/glyph-in-name defect
+  // (2026-07-28) lived in components/ui/icon-symbol.tsx, which the old scan of
+  // src/features + src/app never reached. src/components is included for the same
+  // reason: DecorativeIcon lives there, so leaving it unscanned would open the
+  // symmetric blind spot.
+  const ICON_FONT_WRAPPERS = new Set([
+    'components/ui/icon-symbol.tsx',
+    'src/components/ui/DecorativeIcon.tsx',
+  ]);
+
   const offenders = [];
-  for (const dir of ['src/features', 'src/app']) {
+  for (const dir of ['components', 'src/components', 'src/features', 'src/app']) {
     for (const entry of await readdir(path.join(appRoot, dir), { recursive: true })) {
       if (!/\.tsx$/.test(entry) || /\.test\.tsx$/.test(entry)) continue;
-      const source = await readAppFile(path.join(dir, entry));
-      if (/@expo\/vector-icons\/MaterialIcons/.test(source)) offenders.push(`${dir}/${entry}`);
+      const relative = `${dir}/${entry}`;
+      if (ICON_FONT_WRAPPERS.has(relative)) continue;
+      const source = await readAppFile(relative);
+      if (/@expo\/vector-icons\/MaterialIcons/.test(source)) offenders.push(relative);
     }
   }
 

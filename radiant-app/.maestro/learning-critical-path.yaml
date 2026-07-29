@@ -61,6 +61,13 @@ tags:
       notVisible: Abrir checkpoint
     commands:
       - scroll
+# The guarded repeat stops the moment the CTA enters the tree, which on a fast
+# Android emulator leaves it resting UNDER the floating tab bar (measured: CTA at
+# y2212-2277 vs tab bar y2198-2387), so a bare tapOn lands on the bar and the
+# checkpoint never opens. One more scroll lifts the CTA clear of the bar before
+# the tap. (iOS and slower Androids happened to leave it tappable; this makes it
+# deterministic on both.)
+- scroll
 - tapOn: Abrir checkpoint
 - assertVisible: Checkpoint
 # Same pattern on every screen below: the footer action sits past the fold, and
@@ -71,6 +78,8 @@ tags:
       notVisible: Concluir checkpoint
     commands:
       - scroll
+# Lift the CTA clear of the floating tab bar before tapping (see note above).
+- scroll
 - tapOn: Concluir checkpoint
 # A celebração do checkpoint foi migrada para pt-BR em 2026-07-27 (commit
 # fb1af1f): a tarja passou de inglês para "CONQUISTA DESBLOQUEADA" e o CTA
@@ -83,6 +92,8 @@ tags:
       notVisible: Abrir próxima lição
     commands:
       - scroll
+# Lift the CTA clear of the floating tab bar before tapping (see note above).
+- scroll
 - tapOn: Abrir próxima lição
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
@@ -106,7 +117,12 @@ tags:
 # so the achievement stays "Bloqueado" at this point and is unreachable in a
 # smoke run. This flow proves the local-first loop through progress instead:
 # lesson -> checkpoint -> achievement -> next lesson -> progress.
-# The tab exposes the full VoiceOver label ("Progresso, tab, 3 of 4") and
-# Maestro matches the whole string, so anchor with a regex.
-- tapOn: 'Progresso, tab.*'
+# The tab's accessible name differs per platform: iOS composes
+# "Progresso, tab, 3 of 4" while Android exposes just "Progresso" (maestro
+# hierarchy, both platforms, 2026-07-28). Anchor the selector to the tab: a
+# loose `.*Progresso.*` also matches the home caption "Seu progresso fica salvo
+# no aparelho..." — Maestro matches case-insensitively and that caption sits
+# above the tab in the tree, so the tap lands on the caption and Progresso never
+# opens (it broke both platforms). `^Progresso(, tab.*)?$` matches only the tab.
+- tapOn: '^Progresso(, tab.*)?$'
 - assertVisible: PROGRESSO

@@ -86,6 +86,19 @@ Android-only product defects in the shared `IconSymbol` fallback. Recipe,
 hierarchy dumps for both platforms and the defects are in
 [`docs/evidence/2026-07-28-android-e2e-first-run.md`](evidence/2026-07-28-android-e2e-first-run.md).
 
+Android closed on 2026-07-29: `3/3 Flows Passed in 11m 48s`, and iOS was re-run on the
+same corrected flows (`3/3 in 7m 32s`), so both platforms are `passed`. Two real E2E
+defects were fixed: the tab selector was anchored to `^Progresso(, tab.*)?$` (the
+iOS-only literal broke Android; a loose `.*Progresso.*` broke both by matching the home
+caption "Seu progresso..." under case-insensitive matching), and the below-the-fold CTAs
+were getting a lift-scroll before each tap because the guarded repeat left them resting
+under the floating tab bar on a fast emulator (measured CTA y2212-2277 vs tab bar
+y2198-2387), so the tap hit the bar. A host-memory finding also mattered: running the iOS
+simulator and the Android emulator together on a 16 GB host thrashes swap and makes the
+emulator crawl — run one platform at a time. Both contract regressions are pinned in
+`scripts/maestro-contract.test.mjs`. Full detail in
+[`docs/evidence/2026-07-29-android-e2e-close.md`](evidence/2026-07-29-android-e2e-close.md).
+
 The dev-client verification of the same day
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
 remains a supplement only — per this doc's rules a dev-client run never promotes
@@ -153,7 +166,7 @@ maestro test .maestro --format junit --output maestro-results.xml
 | Platform | Device/runtime | Build | Boot-to-home | Critical path | Offline relaunch | Status | Owner/date |
 |---|---|---|---:|---:|---:|---|---|
 | iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 6m 52s`, 2026-07-28, one suite run | engineering / 2026-07-28 |
-| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | passed | failed (iOS-shaped tab selector) | passed | app-failed — 2/3, 2026-07-28, first Android run ever | engineering / 2026-07-28 |
+| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 11m 48s`, 2026-07-29 | engineering / 2026-07-29 |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy

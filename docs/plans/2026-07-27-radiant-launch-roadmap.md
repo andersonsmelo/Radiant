@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-28.md). As Tasks 11–16 do
+> [status canônico](../EXECUTION_STATUS_2026-07-29.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,7 +20,7 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: [status canônico 2026-07-28](../EXECUTION_STATUS_2026-07-28.md) — o
+Fonte: [status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md) — o
 snapshot de 07-27 permanece como histórico. A seção abaixo descreve o estado
 verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 1.3.0, tipografia, lesson-flow, assets e gate) estão no status canônico.
@@ -193,6 +193,9 @@ código.
     acessibilidade que só o iOS compõe. A mesma execução revelou dois defeitos de
     ícone exclusivos do Android (ver bloqueio 4 do status canônico). Evidência em
     [`radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md`](../../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md).
+    **Fechado em 2026-07-29: Android `passed`, 3/3 (`11m 48s`); iOS reconfirmado 3/3.**
+    Com isso **B0.1 fica concluída nas duas plataformas** — ver
+    [`radiant-app/docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
   - **B0.2 [P1]** ~~atualizar a seção "Learning Road" do `radiant-app/README.md`~~
     **Concluída em 2026-07-27.** A seção deixou de descrever a Learning Road como
     redesign em andamento e passou a tratá-la como a home de produção entregue da
@@ -251,8 +254,12 @@ código.
 - **C2 [P0]** Smoke manual em emulador: navegação completa, edge-to-edge,
   predictive back (hoje `predictiveBackGestureEnabled: false` — validar a
   escolha sob target 36), teclado, fontes ampliadas.
-- **C3 [P0]** Os 3 flows Maestro PASS em emulador Android (com rodadas de
-  ajuste de seletor esperadas).
+- **C3 [P0]** ~~Os 3 flows Maestro PASS em emulador Android~~ **Concluída em
+  2026-07-29:** `3/3 Flows Passed in 11m 48s` no emulador `Radiant_Pixel_9_API_36`
+  (iOS reconfirmado 3/3). Exigiu dois defeitos de E2E (seletor de aba ancorado
+  `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e a
+  resolução de uma causa ambiental (RAM do host de 16GB). Evidência em
+  [`radiant-app/docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
 - **C4 [P1]** Rodar os flows em ≥ 1 device Android físico (compacto ou médio,
   conforme matriz da Task 16).
 - **C5 [P1]** TalkBack: repetir o checklist do Gate 2 no Android.
@@ -310,7 +317,7 @@ código.
   checklist de release; a runtime passa a `1.3.0` junto com a versão. Nenhum
   build publicado ainda, então a mudança ainda é livre — depois do primeiro
   build de F1/F2 deixa de ser (alerta do status 2026-07-26). Registrado no
-  [status canônico de 2026-07-28](../EXECUTION_STATUS_2026-07-28.md).
+  [status canônico de 2026-07-29](../EXECUTION_STATUS_2026-07-29.md).
 - **D6 [P1]** Pesquisa com usuários (Task 12) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
 - **D7 [P2]** Converter as 121 referências absolutas de docs para caminhos

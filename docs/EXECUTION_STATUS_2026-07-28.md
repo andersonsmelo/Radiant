@@ -1,5 +1,10 @@
 # Radiant — Execution Status (2026-07-28)
 
+> **Histórico.** Substituído por
+> [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md) como estado
+> canônico em 2026-07-29 (E2E fechado nas duas plataformas + aceleração de
+> lançamento). Mantido como snapshot.
+
 ## Status canônico atual
 
 O Radiant é um aplicativo educacional de radiologia **local-first**. O app abre,
@@ -74,7 +79,7 @@ no roadmap e no checklist de release.
 | validadores do Loop | PASS | 9 de 9 no run desta data |
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 (sem reexecução nesta data; estado inalterado) |
 | E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
-| E2E em device (Android, emulador, APK Release) | PARCIAL | **2/3** — `boot-to-home` (1m13s) e `offline-relaunch` (6m39s) passaram; `learning-critical-path` falhou em `tapOn: 'Progresso, tab.*'`, seletor que afirma o formato de acessibilidade do iOS. Primeira execução do app em Android; estado `app-failed`, não `environment-blocked`. Evidência em [`docs/evidence/2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md) |
+| E2E em device (Android, emulador, APK Release) | PASS | **3/3** — `3/3 Flows Passed in 11m 48s` (2026-07-29). Fechado corrigindo dois defeitos de E2E (seletor de aba ancorado `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e uma causa ambiental (sim iOS + emulador Android esgotavam a RAM do host de 16GB). iOS reconfirmado 3/3 sobre os mesmos flows. Evidência em [`docs/evidence/2026-07-29-android-e2e-close.md`](../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md) |
 
 ## Bloqueios do app
 
@@ -96,14 +101,16 @@ detalhe dos demais está no
    uma guarda de contrato ancorada na fonte da tela. Evidência em
    [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
    **Android rodou pela primeira vez nesta data e ficou `app-failed`** (item 3).
-3. **Android `app-failed`** — deixou de ser "sem projeto nativo" em 2026-07-28.
-   O `expo prebuild` rodou, o APK Release foi buildado e instalado no emulador
-   `Radiant_Pixel_9_API_36`, e a suíte deu **2/3**: `boot-to-home` e
-   `offline-relaunch` passaram, o `learning-critical-path` falhou no último passo
-   porque `tapOn: 'Progresso, tab.*'` afirma o formato que só o iOS compõe. É a
-   primeira execução do app em Android. Evidência, receita de build e os dumps de
-   hierarquia das duas plataformas em
-   [`docs/evidence/2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md).
+3. ~~**Android `app-failed`**~~ — **resolvido em 2026-07-29: Android `passed`, 3/3.**
+   Após o prebuild/APK Release de 2026-07-28 (que deu 2/3), o fechamento exigiu dois
+   defeitos de E2E — seletor de aba ancorado `^Progresso(, tab.*)?$` (o literal só-iOS
+   quebrava o Android; um `.*Progresso.*` quebrava os dois ao casar a legenda "Seu
+   progresso…") e um lift-scroll antes dos CTAs abaixo da dobra, que ficavam oclusos sob
+   a tab bar flutuante no emulador rápido — mais uma causa ambiental (sim iOS + emulador
+   Android esgotavam a RAM do host de 16GB; rodar uma plataforma por vez). `3/3 Flows
+   Passed in 11m 48s`; iOS reconfirmado 3/3. Ambas as regressões travadas em
+   `maestro-contract.test.mjs`. Evidência em
+   [`docs/evidence/2026-07-29-android-e2e-close.md`](../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
 4. ~~**Dois defeitos de ícone só no Android**~~ — **corrigidos em 2026-07-28 e
    verificados em device.** Em `components/ui/icon-symbol.tsx`, o cast
    `as Record<SymbolViewProps['name'], ...>` alargava as chaves aceitas para
@@ -114,9 +121,11 @@ detalhe dos demais está no
    renderizar via `DecorativeIcon`, então os glifos saíram do nome acessível das
    abas Home e Progresso. `writePolicy.allowedRoots` ganhou
    `radiant-app/components` e `radiant-app/plugins`, pré-requisito da correção.
-   **Resta** alargar o contrato `keeps icon glyphs out of the accessibility
-   tree` para varrer `components/` — hoje ele só olha `src/features` e
-   `src/app`, que é por onde o defeito passou.
+   **Feito em 2026-07-29:** o contrato `keeps icon glyphs out of the accessibility
+   tree` passou a varrer também `components/` e `src/components/` (antes só
+   `src/features` e `src/app`, o ponto cego por onde o defeito passou), excluindo os
+   dois wrappers sancionados que legitimamente importam ícones (`icon-symbol.tsx`,
+   `DecorativeIcon.tsx`) — senão o próprio primitivo se auto-marcaria.
 5. **Nó de reward sem cobertura E2E** (task B5).
 6. **API pública inativa** — ADR de estratégia da API pendente (decisão de
    produto).
