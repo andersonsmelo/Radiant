@@ -43,9 +43,20 @@ O valor gerado pelo prebuild (`-Xmx2048m -XX:MaxMetaspaceSize=512m`) **não
 basta**: `:expo-updates:kspReleaseKotlin` morre com
 `java.lang.OutOfMemoryError: Metaspace`, e o Gradle então trava no shutdown em
 vez de encerrar — o sintoma é um build parado com CPU zerada, não uma mensagem
-de erro. **Este ajuste é perdido a cada `expo prebuild`**; torná-lo durável
-exige declarar `expo-build-properties` no `app.json`, o que é decisão de
-configuração do projeto e não foi feito aqui.
+de erro.
+
+**Isso deixou de ser um ajuste manual em 2026-07-28.** O valor agora vem do
+config plugin `plugins/with-gradle-memory.js`, registrado no `app.json`, então o
+`expo prebuild` regenera o `gradle.properties` **com** ele — verificado rodando
+o prebuild de novo e conferindo o arquivo gerado. Editar o arquivo à mão não
+funcionava como solução: ele é gerado, e todo prebuild restaurava em silêncio o
+valor que quebra o build.
+
+`expo-build-properties` **não** resolve isto e não foi instalado: o schema das
+opções Android da linha SDK 54 (0.14.8) é um conjunto fixo e tipado, sem
+`gradleProperties` nem `jvmargs`. Seria uma dependência nova sem efeito. O
+`withGradleProperties` do `@expo/config-plugins`, já dependência do Expo, faz o
+trabalho sem adicionar pacote.
 
 ```sh
 cd radiant-app/android
@@ -121,6 +132,42 @@ das duas pastas. A guarda tem ponto cego no componente compartilhado — que é
 justamente onde um defeito de ícone atinge todas as telas de uma vez.
 
 Ambos são de Android e não apareceriam no roteiro de VoiceOver da task B4.
+
+### Correção — 2026-07-28, verificada em device
+
+A causa do defeito 1 não era o mapa incompleto, e sim o cast que o acompanhava:
+`const MAPPING = {...} as Record<SymbolViewProps['name'], ...>` alargava
+`keyof typeof MAPPING` para **todos** os nomes de SF Symbol. O chamador pedia
+`sparkles`, o typecheck passava, e em runtime `MAPPING[name]` era `undefined`.
+O cast desligava exatamente a checagem que teria pego isso na compilação.
+
+O cast virou `satisfies Partial<Record<...>>`: o objeto continua validado contra
+os nomes de SF Symbol, mas `keyof` volta a ser só as chaves definidas. **A
+guarda morde** — removendo o mapeamento de `sparkles`, o typecheck falha no
+ponto de uso (`src/app/(tabs)/_layout.tsx(69,35): error TS2322`). Ícone sem
+mapeamento passou de tela em branco a erro de compilação. Os dois mapeamentos
+faltantes entraram (`sparkles` → `auto-awesome`, `bolt.fill` → `bolt`), e o
+`IconSymbol` passou a renderizar via `DecorativeIcon`, que já existia e aplica
+as props que tiram o glifo da árvore.
+
+Rebuild e nova leitura da árvore no emulador:
+
+| Aba | antes | depois |
+| --- | --- | --- |
+| Home | `<U+E88A>, Home` | `Home` |
+| Galáxia | `Galáxia` (sem ícone) | `Galáxia` (com ícone) |
+| Progresso | `<U+E26B>, Progresso` | `Progresso` |
+| Missões | `Missões` (sem ícone) | `Missões` (com ícone) |
+
+Os nós de glifo que restam na árvore estão todos com
+`important-for-accessibility=false` — desenham, o TalkBack pula. E apareceram
+dois codepoints novos exatamente onde antes não havia nada, que é a assinatura
+dos dois ícones que voltaram a renderizar; confirmado também por screenshot da
+tab bar.
+
+**Pendente:** alargar o contrato de glifos para varrer `components/`, hoje fora
+do alcance dele. `writePolicy.allowedRoots` foi ampliada nesta data com
+`radiant-app/components` e `radiant-app/plugins`, que era o pré-requisito.
 
 ## Estado por plataforma
 

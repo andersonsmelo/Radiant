@@ -57,6 +57,8 @@ writePolicy:
     - .gitignore
     - .nvmrc
     - radiant-app/src
+    - radiant-app/components
+    - radiant-app/plugins
     - radiant-app/scripts
     - radiant-app/docs
     - radiant-app/.maestro

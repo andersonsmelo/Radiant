@@ -344,6 +344,24 @@ Para homologação iOS antes de build distribuível:
 - `npm run ios:preflight` executa qualidade do app e o check do ambiente iOS em sequência;
 - `npm run ios:v2` sobe o simulador com a combinação oficial de flags da Learning Road V2.
 
+Para build Android local (usado no E2E de 2026-07-28, o primeiro do projeto):
+
+- `CI=1 npx expo prebuild --platform android --no-install` gera `android/`.
+  **O `--no-install` é obrigatório** — sem ele o prebuild roda o gerenciador de
+  pacotes e mexe no `package-lock.json`, que é versionado.
+- `./gradlew assembleRelease` dentro de `android/`, com as sete variáveis
+  `EXPO_PUBLIC_*` do perfil `e2e-test` exportadas, produz um APK Release com o
+  bundle JS embutido — sem dev client e sem Metro.
+- A memória da JVM do Gradle vem do config plugin
+  [`plugins/with-gradle-memory.js`](plugins/with-gradle-memory.js), registrado
+  em `app.json`. O valor gerado por padrão pelo prebuild não basta: o KSP do
+  `expo-updates` estoura o metaspace, e o Gradle **trava no shutdown sem
+  imprimir a causa** — o sintoma é um build parado, não um erro. Como o
+  `gradle.properties` é gerado, ajustá-lo à mão não sobrevive ao próximo
+  prebuild; por isso o plugin. `expo-build-properties` não cobre este caso.
+- Receita completa e resultado da suíte em
+  [`docs/evidence/2026-07-28-android-e2e-first-run.md`](docs/evidence/2026-07-28-android-e2e-first-run.md).
+
 Para release iOS em nuvem:
 
 - build sem team Apple: `eas build --platform ios --profile development-simulator`

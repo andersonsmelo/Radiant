@@ -56,7 +56,8 @@
           }
         }
       ],
-      "@sentry/react-native"
+      "@sentry/react-native",
+      "./plugins/with-gradle-memory"
     ],
     "experiments": {
       "typedRoutes": true,

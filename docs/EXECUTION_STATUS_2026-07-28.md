@@ -104,15 +104,19 @@ detalhe dos demais está no
    primeira execução do app em Android. Evidência, receita de build e os dumps de
    hierarquia das duas plataformas em
    [`docs/evidence/2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md).
-4. **Dois defeitos de ícone só no Android** (descobertos na execução acima).
-   `components/ui/icon-symbol.tsx`, o fallback Android/web do `IconSymbol`,
-   mapeia só dois dos quatro ícones da tab bar: Galáxia e Missões ficam **sem
-   ícone**, e Home e Progresso vazam um codepoint de uso privado da fonte para o
-   nome acessível, que o TalkBack anuncia como caractere ilegível. O contrato
-   `keeps icon glyphs out of the accessibility tree` não pega porque varre
-   `src/features` e `src/app`, e o arquivo está em `components/ui/`. **O arquivo
-   fica fora de `writePolicy.allowedRoots`**, então corrigir exige antes ampliar
-   a política — decisão pendente.
+4. ~~**Dois defeitos de ícone só no Android**~~ — **corrigidos em 2026-07-28 e
+   verificados em device.** Em `components/ui/icon-symbol.tsx`, o cast
+   `as Record<SymbolViewProps['name'], ...>` alargava as chaves aceitas para
+   todos os nomes de SF Symbol, então pedir um ícone não mapeado passava no
+   typecheck e renderizava nada — Galáxia e Missões ficavam sem ícone. Virou
+   `satisfies Partial<Record<...>>`, e agora ícone sem mapeamento é erro de
+   compilação (provado removendo um mapeamento). O `IconSymbol` passou a
+   renderizar via `DecorativeIcon`, então os glifos saíram do nome acessível das
+   abas Home e Progresso. `writePolicy.allowedRoots` ganhou
+   `radiant-app/components` e `radiant-app/plugins`, pré-requisito da correção.
+   **Resta** alargar o contrato `keeps icon glyphs out of the accessibility
+   tree` para varrer `components/` — hoje ele só olha `src/features` e
+   `src/app`, que é por onde o defeito passou.
 5. **Nó de reward sem cobertura E2E** (task B5).
 6. **API pública inativa** — ADR de estratégia da API pendente (decisão de
    produto).
