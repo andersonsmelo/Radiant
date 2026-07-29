@@ -63,6 +63,7 @@ writePolicy:
     - radiant-app/docs
     - radiant-app/.maestro
     - radiant-app/.rnstorybook
+    - radiant-app/assets
     - radiant-app/README.md
     - radiant-app/package.json
     - radiant-app/package-lock.json
