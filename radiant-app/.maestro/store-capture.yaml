@@ -92,20 +92,18 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
-# A 1080x1920 a alternativa ja nasce visivel e a lista nao rola mais, entao
-# scrollUntilVisible com centerElement+100% falha por nao conseguir centralizar —
-# "element not found" ali e afirmacao sobre o matcher, nao sobre o elemento
-# (verificado: o id esta na arvore, em y1382-1534 de 1920). Rola so se precisar.
-- runFlow:
-    when:
-      notVisible:
-        id: lesson-option-ct-q3:option:2
-    commands:
-      - scrollUntilVisible:
-          element:
-            id: lesson-option-ct-q3:option:2
-          direction: DOWN
-          visibilityPercentage: 60
+# Scroll de elevacao FIXO, sem guarda. A versao anterior usava
+# `runFlow when notVisible: scrollUntilVisible`, e a guarda e inutil aqui porque
+# o Maestro nao modela OCLUSAO: no iPhone 16 Plus (932pt de altura) a alternativa
+# fica em y850-932, dentro da tela e na arvore — logo "visivel" para a guarda —
+# mas por baixo do CTA "Continuar" flutuante. A guarda pulava, o tap caia no
+# botao desabilitado e o flow parava no passo 3/4 (medido em 2026-07-30).
+# E o mesmo defeito ja corrigido no Android em 2026-07-29 para os CTAs abaixo da
+# dobra oclusos pela tab bar: visibilidade nao e o mesmo que tocabilidade.
+# No Android a 1080x1920 a lista nao rola mais neste ponto, entao o scroll e
+# no-op e a alternativa segue em y1382-1534 — por isso um scroll fixo serve as
+# duas plataformas, enquanto a guarda so servia a uma.
+- scroll
 - tapOn:
     id: lesson-option-ct-q3:option:2
 - tapOn: Continuar
