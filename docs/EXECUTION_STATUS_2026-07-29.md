@@ -166,7 +166,7 @@ listava apenas screenshots e feature graphic; faltava o **ícone 512×512** (PNG
 32-bit com alpha, ≤ 1024 KB). Corrigido no plano e **os três existem** desde esta
 data — L2.7 concluída.
 
-**Duas ressalvas abertas:**
+**Duas ressalvas — a 1 fechada no Android em 2026-07-30, a 2 ainda aberta:**
 
 1. **Screenshots com progresso zerado — causa investigada em 2026-07-29, e não é
    vitrine fraca: é defeito.** Primeiro, uma precisão: os dois zeros não vêm da
@@ -206,20 +206,57 @@ data — L2.7 concluída.
    revisão paga quando estava vencida, e o card do SM-2 é reavaliado nos dois
    casos. `npm run quality` verde em cada commit, mais os nove validadores do Loop.
 
-   **A evidência em device NÃO foi obtida, e a ressalva de vitrine continua
-   aberta.** Dois fatos bloqueiam: (1) **não há JDK neste host** — `java -version`
-   falha com "Unable to locate a Java Runtime", não há Android Studio nem JDK
-   instalado, então `./gradlew assembleRelease` não roda; (2) o APK release
-   instalado é de **2026-07-29 18:56**, quinze horas antes do primeiro commit
-   desta mudança, logo capturar a vitrine com ele mostraria `XP total: 0` e seria
-   uma medição falsa do estado atual. Teste verde prova a regra; só a captura
-   prova a vitrine. **Próximo passo:** instalar um JDK 17, rebuildar com o env do
-   perfil **production** (não o de E2E), apagar
-   `android/app/build/generated/assets/createBundleReleaseJsAndAssets` antes —
-   o Gradle não invalida cache por variável de ambiente — e rodar
-   `.maestro/store-capture.yaml` com `adb shell wm size 1080x1920`.
-   Ao conferir: `REVISÕES` só sai de zero **depois** que o SM-2 vencer o primeiro
-   card, então zero ali logo após a conclusão continua correto e não é regressão.
+   **A evidência em device foi OBTIDA em 2026-07-30 e a ressalva de vitrine está
+   FECHADA no lado Android.** `XP total: 18` na celebração do checkpoint, `⚡ 36`
+   e `🔥 1d` no cabeçalho da home, `TOTAL XP 36` na aba de progresso — medidos
+   sobre APK Release do perfil **production** construído às 11:41 e instalado às
+   11:43:05, portanto posterior a todos os commits da mudança. Evidência completa,
+   receita reproduzível e limites em
+   [`2026-07-30-laco-xp-device.md`](../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md).
+   Os 18 XP por lição são o valor **previsto** pela §5 da spec (uma questão por
+   bloco → acurácia 0 ou 100% → `10 + 8`), não um número solto; duas lições no
+   flow dão 36. `REVISÕES` continua em `0` e isso **está correto**: o contador
+   conta cards *vencidos*, e o SM-2 só vence o primeiro depois do intervalo
+   inicial — a mudança garante que o card **nasce**, não que já esteja vencido.
+
+   **A redação anterior desta ressalva estava errada e a correção importa mais que
+   o conserto.** Ela afirmava que a captura estava bloqueada porque **"não há JDK
+   neste host"**. Há: um **JDK 17.0.19 instalado desde 2026-04-22** em
+   `~/.jdks/jdk-17.0.19+10`, com `~/.zshrc` exportando `JAVA_HOME` e prefixando o
+   `PATH` **desde 2026-07-26** — quatro dias antes da sessão que declarou o
+   bloqueio. `./gradlew assembleRelease` sai `BUILD SUCCESSFUL in 48s`. As quatro
+   checagens que sustentavam a conclusão não eram independentes: o `/usr/bin/java`
+   do macOS delega a `/usr/libexec/java_home`, que consulta **apenas**
+   `/Library/Java/JavaVirtualMachines` e `~/Library/Java/JavaVirtualMachines` —
+   três das quatro repetem a mesma lista, a quarta acrescenta o Homebrew, e
+   nenhuma enxerga `~/.jdks`. O acordo entre elas era uma medição repetida, não
+   uma confirmação. O repositório já continha a contraprova desde 2026-07-28:
+   [`2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md)
+   registra "Maestro 2.7.0; **JDK 17**" e um APK Release de 122 MB construído com
+   ele. **Regra que fica:** um bloqueio que suspende trabalho planejado se
+   estabelece por probe positivo no consumidor (`./gradlew -version`), nunca por
+   acúmulo de negativas da mesma família — e negativas não corroboram umas às
+   outras quando compartilham o mecanismo de resolução.
+
+   **Achado novo na mesma tela, e RESOLVIDO na mesma data:** o screenshot que
+   provou o conserto mostrava `TOTAL XP ⚡ 36` ao lado de `PRECISÃO — / Sem
+   tentativas avaliadas ainda.` e de `TÓPICOS / Ainda não há evidência
+   suficiente…`. Era a **mesma classe de defeito**, em três camadas:
+   `AccuracyChartCard()` e `TopicsMasteredList()` não recebiam props e
+   renderizavam o estado-vazio incondicionalmente; `LearningStatsService`, que
+   computa exatamente esses valores e tem teste unitário, tinha **zero
+   consumidores**; e `LearningAttempt`/`getAttempts` apareciam, em todo o `src/`,
+   apenas no próprio serviço e no seu teste.
+
+   **Corrigido:** novo `LearningAttemptsRepository` persiste as tentativas em
+   `AsyncStorage` (teto de 500); o `LessonOutcomeService` grava a tentativa
+   **mesmo quando não premia** — refazer lição não paga XP, mas continua sendo
+   informação sobre memória — e resolve elegibilidade e unidade numa única
+   leitura do snapshot; o `ProgressScreen` consome o serviço que já existia.
+   `topicId` é o `unitId` do nó: `QuizLesson` não carrega tópico, e a unidade é o
+   único agrupador que o domínio tem — o rótulo exibido é o **título** da
+   unidade. O teste novo foi verificado **por reversão**: devolvendo o card ao
+   hardcoded, só ele falha e os outros seis seguem verdes.
 2. **A prova do *themed icon* do Android 13+ não foi obtida.** O toggle existe na
    árvore e não alterna nesta imagem de emulador (Google APIs, sem o launcher
    completo do Pixel). Fecha com um aparelho real; uma captura basta.
@@ -276,7 +313,13 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | gate transacional do Loop | PASS | nove validadores verdes em cada um dos seis runs; cada run fechou com memória validada |
 | suíte de `lesson-flow` | PASS | 16/16 — 11 do `LessonOutcomeService`, 5 do `LessonFlowScreen` |
 | cobertura da corrida de estado | PASS | verificada por reversão: trocando o valor local pelo estado, o teste novo falha com `{}` contra `{ 'step-final-choice': true }` |
-| evidência em device do laço de XP | **NÃO OBTIDA** | não há JDK neste host (`java -version` falha), então o build release não roda; o APK instalado antecede a mudança em quinze horas. Ver §4, ressalva 1 |
+| evidência em device do laço de XP | **PASS** | `XP total: 18` no checkpoint, `⚡ 36`/`🔥 1d` na home, `TOTAL XP 36` no progresso, sobre APK Release **production** instalado às 11:43:05 — posterior a todos os commits. Ver §4, ressalva 1 e [a evidência](../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md) |
+| build release Android local | **PASS** | `BUILD SUCCESSFUL in 48s` com o JDK 17.0.19 em `~/.jdks` — o "não há JDK neste host" registrado antes nesta mesma tabela era falso; ver §4, ressalva 1 |
+| bundle do APK contém a mudança | **PASS** | `LessonOutcomeService` ×4 no bundle extraído de dentro do APK, com dois controles negativos em `0` na mesma invocação |
+| cards PRECISÃO e TÓPICOS (achado novo) | **PASS — corrigido** | `PRECISÃO 100%` e `TÓPICOS Fundamentos — 100% · 2 lições` nas três resoluções; teste novo verificado por reversão; gate completo verde (110 testes) |
+| E1 — lado iOS (6,7" e 6,5") | **PASS** | `EXIT=0` no iPhone 16 Plus (**1290×2796**) e no iPhone 11 Pro Max (**1242×2688**), sobre build Release com env **production**. Ver [a evidência](../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md) |
+| `store-capture.yaml` — oclusão do CTA | **corrigido** | guarda `notVisible` trocada por scroll fixo: no iPhone a alternativa ficava em `y850–932` de 932pt, visível para o predicado e por baixo do CTA flutuante, e o tap caía no botão desabilitado |
+| Android após a correção do flow | **PASS** | reexecutado **depois** da mudança no flow compartilhado, `EXIT=0`, seis screenshots — sem regressão |
 
 ## Bloqueios do lançamento
 
@@ -303,9 +346,12 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
 8. ~~**Assets de ícone e de loja** — único bloqueio de engenharia restante.~~
    **RESOLVIDO em 2026-07-29** (§4): as 6 tasks do plano do ícone entregues,
    contrato 11/11 dentro do `npm run quality`, L2.7/E1 fechadas no lado Android.
-   **Não há mais bloqueio de engenharia no caminho crítico.** Restam duas
-   ressalvas não bloqueantes (screenshots com XP zerado e a prova do themed icon)
-   e o **lado iOS de E1**, que continua pendente.
+   **Não há mais bloqueio de engenharia no caminho crítico.** Em 2026-07-30
+   fecharam: a ressalva dos screenshots com XP zerado (§4, ressalva 1), o **lado
+   iOS de E1** nos dois buckets (6,7" e 6,5") e o achado dos cards
+   `PRECISÃO`/`TÓPICOS`. **Resta uma única pendência de engenharia:** a prova do
+   *themed icon* do Android 13+, que exige aparelho real e não pode ser fechada
+   neste host.
 
 ## Próxima sequência sugerida
 

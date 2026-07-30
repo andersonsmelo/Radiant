@@ -339,14 +339,24 @@ código.
   [`docs/store/ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). Evidência em device
   do ícone da marca em
   [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md).
-  **Ressalva, atualizada em 2026-07-30:** os screenshots mostram progresso zerado
-  (XP 0), e a causa foi investigada — **não era vitrine fraca, era defeito**. Em
-  produção o laço de gamificação não tinha escritor alcançável: XP, sequência,
-  revisões e meta diária ficavam permanentemente em zero. **Corrigido** nos
-  commits `ab40bb1..056ffe1`, com gate verde. **A ressalva só fecha com a
-  recaptura**, que está bloqueada por falta de JDK no host — ver §4 do
-  [status canônico](../EXECUTION_STATUS_2026-07-29.md). **Falta ainda o lado
-  iOS.** Escopo
+  **Ressalva, FECHADA no Android em 2026-07-30:** os screenshots mostravam
+  progresso zerado (XP 0), e a causa foi investigada — **não era vitrine fraca,
+  era defeito**. Em produção o laço de gamificação não tinha escritor alcançável:
+  XP, sequência, revisões e meta diária ficavam permanentemente em zero.
+  **Corrigido** nos commits `ab40bb1..056ffe1`, com gate verde, e **recapturado em
+  device em 2026-07-30**: `XP total: 18` no checkpoint, `⚡ 36`/`🔥 1d` na home,
+  `TOTAL XP 36` no progresso — ver
+  [a evidência](../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md).
+  A recaptura estava registrada como bloqueada por falta de JDK no host; **isso
+  era falso** — o JDK 17 está instalado desde 2026-04-22 e o build sai em 48s
+  (§4 do [status canônico](../EXECUTION_STATUS_2026-07-29.md)).
+  **O lado iOS também fechou em 2026-07-30**, nos dois buckets: iPhone 16 Plus
+  (6,7", 1290×2796) e iPhone 11 Pro Max (6,5", 1242×2688), ambos `EXIT=0` sobre
+  build Release com env **production**. A mesma captura expôs e resolveu, no
+  mesmo dia, os cards `PRECISÃO` e `TÓPICOS` sem dado por trás, e um defeito de
+  oclusão no `store-capture.yaml` que travava o iOS. Evidência em
+  [`2026-07-30-e1-store-capture.md`](../../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md).
+  **E1 está fechado nas duas plataformas** (iPad segue desligado na v1.3). Escopo
   original: Screenshots por dispositivo: iPhone 6,7"/6,5" (iPad **desligado**
   na v1.3 — `supportsTablet: false`, decidido em 2026-07-29, o que remove os
   screenshots de tablet do escopo), Android phone + os **três** assets gráficos

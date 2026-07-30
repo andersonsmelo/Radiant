@@ -3,9 +3,14 @@
 - **Data:** 2026-07-29 (investigação e decisões de escopo) / 2026-07-30 (redação
   e a correção da §5) — a sessão atravessou a virada do dia
 - **Decisor:** Anderson (product owner), em sessão de brainstorming assistida
-- **Status:** **implementada em 2026-07-30** (commits `ab40bb1..056ffe1`), gate
-  completo verde. **Evidência em device pendente** — ver §8 e a ressalva 1 da §4
-  do status canônico
+- **Status:** **implementada e verificada em device em 2026-07-30** (commits
+  `ab40bb1..056ffe1`), gate completo verde. **Evidência em device OBTIDA** no
+  Android — `XP total: 18` no checkpoint e `TOTAL XP 36` no progresso, o valor
+  que a §5 previa. Ver
+  [`2026-07-30-laco-xp-device.md`](../../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md),
+  §8 e a ressalva 1 da §4 do status canônico. Duas coisas seguem abertas: o lado
+  **iOS** não foi recapturado, e a captura expôs que os cards `PRECISÃO` e
+  `TÓPICOS` da mesma tela não têm dado por trás (fora do escopo desta spec)
 - **Plano:** [2026-07-30-laco-xp-revisoes.md](../plans/2026-07-30-laco-xp-revisoes.md)
 - **Relacionados:** [status canônico 2026-07-29](../../EXECUTION_STATUS_2026-07-29.md) (§4, ressalva 1),
   [roadmap de lançamento](../../plans/2026-07-27-radiant-launch-roadmap.md)
@@ -224,8 +229,16 @@ Mais um teste de fluxo do `LessonFlowScreen` provando que a conclusão chama o
 serviço **antes** da marcação do nó.
 
 Encerramento real da ressalva de vitrine: recapturar os screenshots de loja
-depois disso e conferir que `XP total` e `REVISÕES` deixaram de ser zero. Isso é
-evidência em device, posterior e separada dos testes.
+depois disso e conferir que `XP total` deixou de ser zero. Isso é evidência em
+device, posterior e separada dos testes.
+
+**Correção deste critério, feita em 2026-07-30 ao obter a evidência:** a redação
+original exigia que `XP total` **e** `REVISÕES` deixassem de ser zero. Exigir isso
+de `REVISÕES` está errado e reprovaria uma captura correta. `REVISÕES` conta cards
+**vencidos**, e o SM-2 só vence o primeiro depois do intervalo inicial — logo após
+concluir a lição o valor certo é `0`. O que esta mudança garante é que o card
+**nasce**; vê-lo vencido exigiria captura em outro dia. O critério válido é
+`XP total > 0`, e ele foi atendido (`18` no checkpoint, `36` acumulados).
 
 ## 9. Fora de escopo
 
