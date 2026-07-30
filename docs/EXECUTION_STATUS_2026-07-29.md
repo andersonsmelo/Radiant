@@ -321,7 +321,8 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | `store-capture.yaml` — oclusão do CTA | **corrigido** | guarda `notVisible` trocada por scroll fixo: no iPhone a alternativa ficava em `y850–932` de 932pt, visível para o predicado e por baixo do CTA flutuante, e o tap caía no botão desabilitado |
 | Android após a correção do flow | **PASS** | reexecutado **depois** da mudança no flow compartilhado, `EXIT=0`, seis screenshots — sem regressão |
 | screenshots publicáveis do Play | **regerados** | os seis em `docs/store/assets/screenshots/` eram de 2026-07-29 18:00 e mostravam o estado defeituoso; regerados da captura pós-correção, 6 × 1080×1920 (1,778:1). A ressalva de vitrine em `ASSETS_DE_LOJA.md` está fechada |
-| screenshots de iPhone para a App Store | **PENDENTE** | capturados nos dois buckets, mas o `normalize-screenshots.py` só conhece as regras do Play. Normalizar o lado iOS é pré-requisito da submissão à App Store, não à do Play |
+| screenshots de iPhone para a App Store | **PASS — fechado** | os doze PNGs publicáveis existem em `docs/store/assets/screenshots-ios-67/` (1290×2796) e `screenshots-ios-65/` (1242×2688). O `normalize-screenshots.py` não "só conhecia" as regras do Play — seu `MAX_RATIO = 2.0` **reprovava** os doze arquivos (2,167:1 e 2,164:1); virou `--spec` obrigatório com validação de tamanho exato por bucket. Contrato de assets de 11 → **14 testes**, verificados por reversão |
+| `RUNBOOK_PLAY_CONSOLE.md` — bloqueios obsoletos | **corrigido** | a seção "o que este runbook NÃO destrava" afirmava `docs/store/assets/` vazio e `adaptiveIcon.backgroundColor` = `#E6F4FE`; medidos em `98261a4`: **oito arquivos** e **`#07091c`**. Os dois bloqueios fecharam em 07-29, mas o runbook — que é o documento que **manda o dono agir** — seguiu mandando adiar o upload do AAB, gatilho do relógio de 14 dias. Fechar um bloqueio precisa varrer os documentos de instrução, não só os de estado |
 
 ## Bloqueios do lançamento
 
@@ -351,9 +352,19 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
    **Não há mais bloqueio de engenharia no caminho crítico.** Em 2026-07-30
    fecharam: a ressalva dos screenshots com XP zerado (§4, ressalva 1), o **lado
    iOS de E1** nos dois buckets (6,7" e 6,5") e o achado dos cards
-   `PRECISÃO`/`TÓPICOS`. **Resta uma única pendência de engenharia:** a prova do
-   *themed icon* do Android 13+, que exige aparelho real e não pode ser fechada
-   neste host.
+   `PRECISÃO`/`TÓPICOS`. A redação anterior dizia "resta uma única pendência de
+   engenharia" e **se contradizia** com a linha "screenshots de iPhone para a App
+   Store — PENDENTE" da tabela de verificações desta mesma data. Eram **duas**.
+   A segunda foi **fechada em 2026-07-30**: os doze PNGs dos buckets 6,7" e 6,5"
+   existem como assets e estão travados no contrato (11 → 14 testes).
+
+   **Resta uma pendência de engenharia** — e agora o número foi obtido por
+   varredura, não herdado: a **prova do *themed icon* do Android 13+**, que exige
+   aparelho real e não pode ser fechada neste host.
+
+   *Um quantificador ("única", "todas", "nenhuma") só se verifica por varredura;
+   verificar cada fato citado não verifica a agregação sobre eles, e um
+   superlativo errado custa mais que um fato errado porque encerra a busca.*
 
 ## Próxima sequência sugerida
 

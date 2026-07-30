@@ -356,7 +356,14 @@ código.
   mesmo dia, os cards `PRECISÃO` e `TÓPICOS` sem dado por trás, e um defeito de
   oclusão no `store-capture.yaml` que travava o iOS. Evidência em
   [`2026-07-30-e1-store-capture.md`](../../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md).
-  **E1 está fechado nas duas plataformas** (iPad segue desligado na v1.3). Escopo
+  **E1 está fechado nas duas plataformas** (iPad segue desligado na v1.3).
+  **Complemento de 2026-07-30:** as capturas de iPhone deixaram de ser só
+  evidência e viraram **assets publicáveis** — `docs/store/assets/screenshots-ios-67/`
+  (1290×2796) e `screenshots-ios-65/` (1242×2688), seis telas cada. O
+  `normalize-screenshots.py` passou a exigir `--spec`, porque o teto de 2:1 do
+  Play **reprovava** os doze arquivos; o contrato de assets foi de 11 para 14
+  testes, travando tamanho exato por bucket e paridade de telas entre eles.
+  Escopo
   original: Screenshots por dispositivo: iPhone 6,7"/6,5" (iPad **desligado**
   na v1.3 — `supportsTablet: false`, decidido em 2026-07-29, o que remove os
   screenshots de tablet do escopo), Android phone + os **três** assets gráficos

@@ -118,3 +118,28 @@ tópico, e a unidade é o único agrupador que o domínio realmente tem.
   partem de `clearState: true`, que é o caso favorável.
 - Os assets aqui são **evidência**, não os arquivos finais da ficha: o recorte e
   a seleção dos seis por bucket continuam sendo passo de publicação.
+
+## 6. Normalização para a App Store — feita em 2026-07-30, depois desta captura
+
+As capturas cruas dos dois buckets foram normalizadas para assets publicáveis em
+`docs/store/assets/screenshots-ios-67/` (1290×2796) e `screenshots-ios-65/`
+(1242×2688), seis telas cada, RGB sem alpha.
+
+O bloqueio registrado como "o `normalize-screenshots.py` só conhece as regras do
+Play" estava **mais brando que a medição**: o script não era neutro em relação ao
+iOS — seu `MAX_RATIO = 2.0`, que é regra do Google, **reprovava** os doze
+arquivos, já que 1290×2796 = 2,167:1 e 1242×2688 = 2,164:1. Medido rodando o
+`--spec play` contra a captura de 6,7": as seis linhas saem como recusa explícita
+de proporção, e o diretório de destino **não é criado**.
+
+As duas lojas medem coisas diferentes — o Play mede *proporção*, a App Store mede
+*tamanho exato* —, então a regra virou parâmetro `--spec` em vez de um `if`
+implícito sobre as dimensões. Um segundo defeito apareceu no mesmo arquivo: ele
+apagava o diretório de saída **antes** de validar qualquer arquivo, de modo que um
+`--spec` errado destruía a saída boa e só depois falhava. Corrigido para avaliar
+todo o conjunto primeiro; provado por reversão — destino com 6 arquivos sobrevive
+intacto a uma execução que falha.
+
+Os três testes novos do contrato de assets (11 → 14) travam tamanho exato por
+bucket e **paridade de telas entre os dois buckets**, porque a verificação de
+tamanho passa num bucket que tenha telas a menos: tamanho não enxerga ausência.

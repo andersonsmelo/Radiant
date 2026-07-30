@@ -124,3 +124,41 @@ test('screenshots da loja respeitam o teto de proporcao do Play', () => {
     assert.equal(h.hasAlpha, false, `${shot}: o Play nao aceita alpha em screenshot`);
   }
 });
+
+// A App Store mede TAMANHO EXATO por bucket, nao proporcao — e o teto de 2:1 do
+// Play acima REPROVA os dois buckets de iPhone (2,167:1 e 2,164:1). Sao regras
+// mutuamente exclusivas sobre a mesma classe de asset, entao cada uma tem sua
+// pasta e sua assercao; uma unica regra "de screenshot" nao poderia valer para as
+// duas lojas.
+const BUCKETS_IOS = [
+  { dir: 'docs/store/assets/screenshots-ios-67', w: 1290, h: 2796, rotulo: '6,7" (iPhone 16 Plus)' },
+  { dir: 'docs/store/assets/screenshots-ios-65', w: 1242, h: 2688, rotulo: '6,5" (iPhone 11 Pro Max)' },
+];
+
+for (const bucket of BUCKETS_IOS) {
+  test(`screenshots do bucket ${bucket.rotulo} tem o tamanho exato da App Store`, () => {
+    const dir = path.join(REPO_ROOT, bucket.dir);
+    assert.ok(fs.existsSync(dir), `${bucket.dir}: ausente`);
+    const shots = fs.readdirSync(dir).filter((f) => f.endsWith('.png'));
+    assert.ok(shots.length >= 1, `${bucket.dir}: a App Store exige ao menos 1 screenshot`);
+    for (const shot of shots) {
+      const h = readPngHeader(path.join(dir, shot));
+      assert.equal(
+        `${h.width}x${h.height}`,
+        `${bucket.w}x${bucket.h}`,
+        `${bucket.dir}/${shot}: ${h.width}x${h.height} nao e o tamanho do bucket ${bucket.rotulo}`
+      );
+      assert.equal(h.hasAlpha, false, `${bucket.dir}/${shot}: screenshot de loja nao leva alpha`);
+    }
+  });
+}
+
+test('os dois buckets de iPhone cobrem o mesmo conjunto de telas', () => {
+  // Um bucket com telas a menos passa nas assercoes de tamanho acima e ainda
+  // assim entrega vitrines divergentes nas duas fichas. A verificacao de tamanho
+  // nao enxerga ausencia — so varredura enxerga.
+  const [a, b] = BUCKETS_IOS.map((bucket) =>
+    fs.readdirSync(path.join(REPO_ROOT, bucket.dir)).filter((f) => f.endsWith('.png')).sort()
+  );
+  assert.deepEqual(a, b, 'os buckets 6,7" e 6,5" divergem no conjunto de telas capturadas');
+});

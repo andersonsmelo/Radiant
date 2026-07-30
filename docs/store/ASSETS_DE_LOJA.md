@@ -40,8 +40,14 @@ cd radiant-app && perl -e 'alarm 1500; exec @ARGV' maestro --platform android te
 ```
 
 ```bash
-python3 scripts/assets/normalize-screenshots.py --src "$(ls -td ~/.maestro/tests/*/ | head -1)Store screenshot capture/takeScreenshot/shots" --out docs/store/assets/screenshots
+python3 scripts/assets/normalize-screenshots.py --spec play --src "$(ls -td ~/.maestro/tests/*/ | head -1)Store screenshot capture/takeScreenshot/shots" --out docs/store/assets/screenshots
 ```
+
+O `--spec` é obrigatório desde 2026-07-30, e a razão não é organização: **o teto
+de 2:1 do Play reprova os dois buckets de iPhone** (1290×2796 = 2,167:1 e
+1242×2688 = 2,164:1). As duas lojas medem coisas diferentes — o Play mede
+*proporção*, a App Store mede *tamanho exato* — então uma regra só não serve às
+duas, e rodar o spec errado não degrada a saída: ela recusa tudo.
 
 E devolva a resolução ao terminar: `adb shell wm size reset`.
 
@@ -52,6 +58,11 @@ E devolva a resolução ao terminar: `adb shell wm size reset`.
   `wm size 1080x1920` (9:16 exato) antes do flow. O
   `normalize-screenshots.py` recusa qualquer arquivo fora da faixa em vez de
   gravar e deixar o erro para a revisão da loja.
+- **O normalizador avaliava depois de destruir.** A versão anterior apagava o
+  diretório de saída (`rmtree`) **antes** de validar qualquer arquivo, então um
+  `--spec`/`--src` errado apagava a saída boa que já estava lá e só então
+  falhava. Corrigido em 2026-07-30: avalia todos os candidatos primeiro, e só
+  toca no destino quando o conjunto inteiro passa.
 - **O Maestro grava em `~/.maestro/tests/<run>/…/takeScreenshot/shots/`**, não no
   diretório de trabalho. Esse caminho sobrevive entre sessões — as capturas de uma
   sessão anterior foram recuperadas de lá depois de terem sido dadas como perdidas.
@@ -106,14 +117,42 @@ captura posterior às duas correções, e agora mostram `⚡ 36`, `🔥 1d`,
 loja tem de mostrar o que o usuário realmente recebe. Foi exatamente ela que
 transformou "vitrine fraca" em "defeito a corrigir" em vez de "recortar melhor".
 
-## Lado iOS — capturado, ainda não normalizado para a App Store
+## Lado iOS — normalizado e travado no contrato (2026-07-30)
 
-Esta pasta e o `normalize-screenshots.py` atendem **apenas o Play**: o teto 2:1 e
-a faixa de lado 320–3840 são regras do Google. O iOS foi capturado em 2026-07-30
-nos dois buckets — iPhone 16 Plus (6,7", **1290×2796**) e iPhone 11 Pro Max
-(6,5", **1242×2688**), ambos `EXIT=0` — mas os arquivos vivem como **evidência**
-em `radiant-app/docs/evidence/2026-07-30-e1-store/`, não como assets publicáveis.
+Esta pasta atende **apenas o Play**: o teto 2:1 e a faixa de lado 320–3840 são
+regras do Google. O iOS foi capturado em 2026-07-30 nos dois buckets — iPhone 16
+Plus (6,7", **1290×2796**) e iPhone 11 Pro Max (6,5", **1242×2688**), ambos
+`EXIT=0` — mas os arquivos vivem como **evidência** em
+`radiant-app/docs/evidence/2026-07-30-e1-store/`, não como assets publicáveis.
 
-A App Store tem buckets e proporções próprios, e o script atual não os conhece.
-Normalizar o lado iOS é trabalho separado, ainda **não feito**, e é pré-requisito
-da submissão à App Store — não da submissão ao Play.
+**O que mudou em 2026-07-30:** o `normalize-screenshots.py` deixou de atender só
+o Play. Ele passou a exigir `--spec` e a implementar `ios-67` e `ios-65` como
+validação de **tamanho exato**, porque a App Store mede tamanho e o Play mede
+proporção. Antes disso o script não era neutro em relação ao iOS — o `MAX_RATIO`
+de 2,0 **reprovava** os doze arquivos, já que 1290×2796 = 2,167:1 e
+1242×2688 = 2,164:1.
+
+**Feito em 2026-07-30:** os doze PNGs publicáveis foram gerados das capturas
+cruas e vivem agora como assets, não como evidência:
+
+| Bucket | Pasta | Tamanho | Origem |
+| --- | --- | --- | --- |
+| 6,7" | `docs/store/assets/screenshots-ios-67/` | 1290×2796 | `~/.maestro/tests/2026-07-30_145305/` |
+| 6,5" | `docs/store/assets/screenshots-ios-65/` | 1242×2688 | `~/.maestro/tests/2026-07-30_151618/` |
+
+Seis telas em cada, todos RGB sem alpha. Reprodução:
+
+```bash
+python3 scripts/assets/normalize-screenshots.py --spec ios-67 --src "$HOME/.maestro/tests/2026-07-30_145305/Store screenshot capture/takeScreenshot/shots" --out docs/store/assets/screenshots-ios-67
+```
+
+**Travados no contrato**, não deixados como artefato de uma execução só:
+`icon-assets-contract.test.mjs` foi de 11 para **14 testes**, com uma asserção de
+**tamanho exato** por bucket e uma terceira que exige que os dois buckets cubram
+**o mesmo conjunto de telas** — porque a verificação de tamanho passa num bucket
+que tem telas a menos, e só varredura enxerga ausência. As três verificadas por
+reversão: apontando o bucket 6,7" para a pasta do Play, **só** esse teste falha e
+os outros treze seguem verdes.
+
+Resta **selecionar** quais das seis telas vão em cada ficha — passo de publicação,
+não de engenharia.
