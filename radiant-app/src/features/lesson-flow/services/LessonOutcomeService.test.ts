@@ -6,6 +6,7 @@ import { SpacedRepetitionService } from '../../spaced-repetition/services/Spaced
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { LessonOutcomeService } from './LessonOutcomeService';
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -32,11 +33,16 @@ jest.mock('../../sync/SyncQueueService', () => ({
     },
 }));
 
+jest.mock('../../progress/services/LearningAttemptsRepository', () => ({
+    LearningAttemptsRepository: { append: jest.fn() },
+}));
+
 const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
 const mockedSpacedRepetition = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
 const mockedDailyGoal = DailyGoalService as jest.Mocked<typeof DailyGoalService>;
 const mockedJourney = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedSyncQueue = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
+const mockedAttempts = LearningAttemptsRepository as jest.Mocked<typeof LearningAttemptsRepository>;
 
 const block: LessonBlock = {
     id: 'block:lesson-1:intro',
@@ -130,6 +136,9 @@ describe('LessonOutcomeService', () => {
             isCompleted: false,
             dateKey: '2026-07-30',
         });
+        // clearAllMocks zera chamadas, não implementações — reafirmar aqui evita
+        // que a resolução vaze (ou falte) conforme a ordem dos describes.
+        mockedAttempts.append.mockResolvedValue(undefined);
     });
 
     it('premia a primeira conclusão de um nó de lição e reavalia o card', async () => {
@@ -317,6 +326,77 @@ describe('LessonOutcomeService', () => {
 
         expect(outcome.rewarded).toBe(true);
         expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+
+        errorSpy.mockRestore();
+    });
+
+    it('grava a tentativa usando a unidade do nó como tópico', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+            answeredAt: new Date('2026-07-30T12:00:00.000Z'),
+        });
+
+        expect(mockedAttempts.append).toHaveBeenCalledWith({
+            lessonId: 'lesson-1',
+            topicId: 'unit-1',
+            correctAnswers: 1,
+            totalQuestions: 1,
+            completedAt: '2026-07-30T12:00:00.000Z',
+        });
+    });
+
+    it('grava a tentativa mesmo quando a conclusão não premia', async () => {
+        // Refazer uma lição não paga XP, mas continua sendo informação sobre
+        // memória — a acurácia tem de enxergar a tentativa.
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson', completedNodeIds: ['node:lesson-1'] })
+        );
+
+        const outcome = await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': false },
+            answeredAt: new Date('2026-07-30T12:00:00.000Z'),
+        });
+
+        expect(outcome.rewarded).toBe(false);
+        expect(mockedAttempts.append).toHaveBeenCalledWith(
+            expect.objectContaining({ lessonId: 'lesson-1', topicId: 'unit-1', correctAnswers: 0 })
+        );
+    });
+
+    it('não grava tentativa quando o nó não existe na trilha', async () => {
+        // Sem nó não há unidade, e inventar um tópico contaminaria o domínio.
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:outro', nodeType: 'lesson' }));
+        const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:inexistente',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(mockedAttempts.append).not.toHaveBeenCalled();
+
+        warnSpy.mockRestore();
+    });
+
+    it('falha ao gravar a tentativa não propaga nem impede a premiação', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedAttempts.append.mockRejectedValue(new Error('disco cheio'));
+        const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        const outcome = await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(outcome.rewarded).toBe(true);
 
         errorSpy.mockRestore();
     });

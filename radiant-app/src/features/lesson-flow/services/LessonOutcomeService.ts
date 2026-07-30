@@ -18,6 +18,7 @@ import { SpacedRepetitionService } from '../../spaced-repetition/services/Spaced
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -37,10 +38,11 @@ class LessonOutcomeServiceImpl {
         // A elegibilidade vem PRIMEIRO: gravar o recall avança o intervalo do
         // SM-2 e o card deixa de estar vencido, então na ordem inversa uma
         // revisão vencida nunca pagaria.
-        const rewarded = await this.isRewardable(input.nodeId);
+        const { rewarded, topicId } = await this.resolveNode(input.nodeId);
         const result = this.toQuizResult(input);
 
         await this.recordRecall(result);
+        await this.recordAttempt(result, topicId);
         await this.enqueueSync(result);
 
         if (!rewarded) {
@@ -51,7 +53,13 @@ class LessonOutcomeServiceImpl {
         return { award, rewarded: true };
     }
 
-    private async isRewardable(nodeId: string): Promise<boolean> {
+    /**
+     * Resolve, numa única leitura do snapshot, se a conclusão premia e a qual
+     * unidade o nó pertence. A unidade é o agrupador que o domínio realmente
+     * tem: `QuizLesson` não carrega tópico, então usar `unitId` evita inventar
+     * uma taxonomia que ninguém mantém.
+     */
+    private async resolveNode(nodeId: string): Promise<{ rewarded: boolean; topicId: string | null }> {
         try {
             const snapshot = await JourneyProgressService.getSnapshot();
             const node = snapshot.track.units
@@ -60,18 +68,41 @@ class LessonOutcomeServiceImpl {
 
             if (!node) {
                 console.warn(`[LessonOutcomeService] Nó desconhecido "${nodeId}"; nada será premiado.`);
-                return false;
+                return { rewarded: false, topicId: null };
             }
+
+            const topicId = node.unitId ?? null;
 
             if (node.type === 'review') {
-                return snapshot.progress.pendingReviewNodeIds.includes(nodeId);
+                return { rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId };
             }
 
-            return !snapshot.progress.completedNodeIds.includes(nodeId);
+            return { rewarded: !snapshot.progress.completedNodeIds.includes(nodeId), topicId };
         } catch (error) {
             // Falhar para "não premiar" é o lado seguro: nunca paga duas vezes.
             console.error('[LessonOutcomeService] Falha ao resolver elegibilidade:', error);
-            return false;
+            return { rewarded: false, topicId: null };
+        }
+    }
+
+    /**
+     * Grava a tentativa que alimenta a acurácia. Roda mesmo quando a conclusão
+     * não premia: refazer uma lição não paga XP, mas continua sendo informação
+     * sobre memória.
+     */
+    private async recordAttempt(result: QuizResult, topicId: string | null): Promise<void> {
+        if (!topicId) return;
+
+        try {
+            await LearningAttemptsRepository.append({
+                lessonId: result.lessonId,
+                topicId,
+                correctAnswers: result.correctAnswers,
+                totalQuestions: result.totalQuestions,
+                completedAt: result.answeredAt.toISOString(),
+            });
+        } catch (error) {
+            console.error('[LessonOutcomeService] Falha ao registrar tentativa:', error);
         }
     }
 

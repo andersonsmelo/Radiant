@@ -16,7 +16,10 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { AuthService } from '../../auth/AuthService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
+import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { IosHomologationService } from '../services/IosHomologationService';
+import { LearningStatsService, type LearningStatsSnapshot } from '../services/LearningStatsService';
+import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
@@ -123,8 +126,28 @@ function StreakCalendarCard({ streakDays }: { streakDays: number }) {
     return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><Text style={styles.streakNumber}>🔥 {streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
 }
 
-function AccuracyChartCard() {
-    return <View style={styles.whiteCard} accessibilityLabel={productCopy.noEvaluatedAttempts}><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>{productCopy.noEvaluatedAttempts}</Text></View>;
+function AccuracyChartCard({ stats }: { stats: LearningStatsSnapshot | null }) {
+    const accuracy = stats?.accuracyPercent ?? null;
+
+    if (accuracy === null) {
+        return <View style={styles.whiteCard} accessibilityLabel={productCopy.noEvaluatedAttempts}><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>{productCopy.noEvaluatedAttempts}</Text></View>;
+    }
+
+    // A precisão recente só é dita quando difere da total; repetir o mesmo
+    // número em duas linhas não informa nada.
+    const recent = stats?.recentAccuracyPercent ?? null;
+    const subtitle =
+        recent !== null && recent !== accuracy
+            ? `${recent}% nos últimos 7 dias`
+            : 'Sobre todas as tentativas avaliadas.';
+
+    return (
+        <View style={styles.whiteCard} accessibilityLabel={`Precisão de ${accuracy} por cento`}>
+            <Text style={styles.sectionLabel}>PRECISÃO</Text>
+            <Text style={styles.accuracyNumber}>{accuracy}%</Text>
+            <Text style={styles.streakSub}>{subtitle}</Text>
+        </View>
+    );
 }
 
 function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number }) {
@@ -147,7 +170,15 @@ function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number })
     );
 }
 
-function TopicsMasteredList() {
+function TopicsMasteredList({
+    stats,
+    topicLabels,
+}: {
+    stats: LearningStatsSnapshot | null;
+    topicLabels: Record<string, string>;
+}) {
+    const topics = stats?.topicMastery ?? [];
+
     return (
         <View>
             {/* Section header */}
@@ -155,7 +186,21 @@ function TopicsMasteredList() {
                 <Text style={styles.sectionLabel}>TÓPICOS</Text>
             </View>
 
-            <Text style={styles.streakSub}>{productCopy.noLearningEvidence}</Text>
+            {topics.length === 0 ? (
+                <Text style={styles.streakSub}>{productCopy.noLearningEvidence}</Text>
+            ) : (
+                topics.map((topic) => (
+                    <View key={topic.topicId} style={styles.rowBetween}>
+                        {/* O rótulo cai para o id só se a unidade sumir da trilha —
+                            preferível a esconder a linha e perder o dado. */}
+                        <Text style={styles.streakSub}>{topicLabels[topic.topicId] ?? topic.topicId}</Text>
+                        <Text style={styles.streakSub}>
+                            {topic.accuracyPercent}% · {topic.completedCases}
+                            {topic.completedCases === 1 ? ' lição' : ' lições'}
+                        </Text>
+                    </View>
+                ))
+            )}
         </View>
     );
 }
@@ -180,6 +225,8 @@ export default function ProgressScreen() {
     const [apiChecking, setApiChecking] = useState(false);
     const [lastQueueError, setLastQueueError] = useState<string | null>(null);
     const [resettingLocalState, setResettingLocalState] = useState(false);
+    const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
+    const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
 
     const load = useCallback(async () => {
         try {
@@ -200,6 +247,24 @@ export default function ProgressScreen() {
             setLastQueueError(queueSummary.lastError);
         } catch (error) {
             console.error('[ProgressScreen] Failed to load progress data:', error);
+        }
+
+        // Bloco próprio: acurácia é informação secundária e uma falha aqui não
+        // pode zerar XP, sequência e revisões, que já foram carregados acima.
+        try {
+            const stats = await new LearningStatsService({
+                getAttempts: () => LearningAttemptsRepository.getAll(),
+            }).getSnapshot();
+            setLearningStats(stats);
+
+            if (stats.topicMastery.length > 0) {
+                const journey = await JourneyProgressService.getSnapshot();
+                setTopicLabels(
+                    Object.fromEntries(journey.track.units.map((unit) => [unit.id, unit.title]))
+                );
+            }
+        } catch (error) {
+            console.error('[ProgressScreen] Failed to load learning stats:', error);
         }
     }, []);
 
@@ -473,14 +538,14 @@ export default function ProgressScreen() {
                 <StreakCalendarCard streakDays={snapshot?.streakDays ?? 0} />
 
                 {/* ── Accuracy Chart ── */}
-                <AccuracyChartCard />
+                <AccuracyChartCard stats={learningStats} />
 
                 {/* ── 2×2 Stats Grid ── */}
                 <StatsGrid totalXp={snapshot?.totalXp ?? 0} dueCount={dueCount} />
 
                 {/* ── Topics Mastered ── */}
                 <View style={styles.whiteCard}>
-                    <TopicsMasteredList />
+                    <TopicsMasteredList stats={learningStats} topicLabels={topicLabels} />
                 </View>
 
                 {/* ── Catálogo local ── */}

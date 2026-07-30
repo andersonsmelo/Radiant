@@ -5,6 +5,8 @@ import { renderWithProviders } from '../../../test/renderWithProviders';
 import { AuthService } from '../../auth/AuthService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
+import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
+import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 
 jest.mock('expo-router', () => ({
   router: {
@@ -26,6 +28,14 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
+}));
+
+jest.mock('../services/LearningAttemptsRepository', () => ({
+  LearningAttemptsRepository: { getAll: jest.fn() },
+}));
+
+jest.mock('../../journey/services/JourneyProgressService', () => ({
+  JourneyProgressService: { getSnapshot: jest.fn() },
 }));
 
 jest.mock('../../content/services/LessonCatalogService', () => ({
@@ -122,6 +132,8 @@ jest.mock('../../telemetry/TelemetryService', () => ({
 
 const mockedAuthService = AuthService as jest.Mocked<typeof AuthService>;
 const mockedSyncQueueService = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
+const mockedLearningAttempts = LearningAttemptsRepository as jest.Mocked<typeof LearningAttemptsRepository>;
+const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedApiRequest = apiRequest as jest.MockedFunction<typeof apiRequest>;
 
 describe('ProgressScreen flow', () => {
@@ -134,6 +146,12 @@ describe('ProgressScreen flow', () => {
       lastError: null,
       oldestPendingAt: null,
     });
+    // clearAllMocks zera chamadas, não implementações. Reafirmar o default aqui
+    // impede que um teste que grava tentativas vaze para os seguintes.
+    mockedLearningAttempts.getAll.mockResolvedValue([]);
+    mockedJourneyProgress.getSnapshot.mockResolvedValue({
+      track: { id: 'track-1', title: 'Trilha', initialUnitId: 'unit-1', units: [{ id: 'unit-1', title: 'Fundamentos', nodes: [] }] },
+    } as never);
   });
 
   it('allows login and flushes the sync queue', async () => {
@@ -219,6 +237,36 @@ describe('ProgressScreen flow', () => {
     expect(screen.getByText('Ainda não há evidência suficiente para indicar domínio por tópico.')).toBeTruthy();
     expect(screen.queryByText('84%')).toBeNull();
     expect(screen.queryByText('Lv 7 · Resident')).toBeNull();
+  });
+
+  it('mostra precisão e domínio por tópico quando há tentativas gravadas', async () => {
+    // Este é o defeito de 2026-07-30: a tela exibia XP acumulado ao lado de
+    // "sem tentativas avaliadas", porque os dois cards eram hardcoded.
+    mockedLearningAttempts.getAll.mockResolvedValue([
+      { lessonId: 'lesson-1', topicId: 'unit-1', correctAnswers: 1, totalQuestions: 1, completedAt: '2026-07-30T12:00:00.000Z' },
+      { lessonId: 'lesson-2', topicId: 'unit-1', correctAnswers: 0, totalQuestions: 1, completedAt: '2026-07-30T12:05:00.000Z' },
+    ]);
+
+    renderWithProviders(<ProgressScreen />);
+
+    expect(await screen.findByText('50%')).toBeTruthy();
+    expect(screen.queryByLabelText('Sem tentativas avaliadas ainda.')).toBeNull();
+    // O rótulo vem do título da unidade na trilha, não do id cru.
+    expect(screen.getByText('Fundamentos')).toBeTruthy();
+    expect(screen.queryByText('Ainda não há evidência suficiente para indicar domínio por tópico.')).toBeNull();
+  });
+
+  it('mantém XP e sequência quando a leitura de tentativas falha', async () => {
+    // Acurácia é secundária: a falha dela não pode zerar o que já carregou.
+    mockedLearningAttempts.getAll.mockRejectedValue(new Error('storage indisponível'));
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    renderWithProviders(<ProgressScreen />);
+
+    expect(await screen.findByText('🔥 3 dias')).toBeTruthy();
+    expect(screen.getByLabelText('Sem tentativas avaliadas ainda.')).toBeTruthy();
+
+    errorSpy.mockRestore();
   });
 
   it('does not report remote sync as active when no API is configured', async () => {
