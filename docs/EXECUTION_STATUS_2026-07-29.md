@@ -449,9 +449,23 @@ sessão da tarde, que obteve a evidência em device e fechou E1 (§4, ressalva 1
 | `f7b602a` | captura de loja: guarda de visibilidade → scroll fixo (oclusão do CTA) |
 | `873c81a` | E1 fechado nas duas plataformas e a correção do bloqueio de JDK inexistente |
 
-**Nada foi empurrado**; a branch está **109 commits** à frente de `origin/main`
-(recontado em 2026-07-30 16:17 — o número dito aqui antes, 105, já estava velho
-quando foi escrito, porque o próprio commit que o escrevia o incrementava).
+**Nada foi empurrado.** A branch estava **109 commits** à frente de `origin/main`
+**medidos em `873c81a`** — ancorado num hash de propósito.
+
+Uma contagem de commits escrita como fato solto **se auto-invalida no ato**: o
+commit que a grava incrementa aquilo que ela mede. Foi o que aconteceu duas
+vezes seguidas aqui — a redação anterior dizia 105 e já nascia errada, e a que a
+corrigiu para 109 virou 110 no mesmo instante em que foi commitada. Ancorada a
+um hash, a frase permanece verdadeira para sempre. Para o valor de agora:
+
+```sh
+git rev-list --count origin/main..HEAD
+```
+
+A regra vale para todo número derivado do próprio repositório: ou se ancora à
+revisão em que foi medido, ou se troca pelo comando que o recalcula. O que não
+serve é um número nu — ele não decai como estado, ele nasce errado e ganha
+autoridade por repetição.
 
 Os commits foram ordenados para que **nenhum estado intermediário deixe o gate
 vermelho**: os órfãos primeiro, porque o `AppButton` corrige o contrato de easing;
