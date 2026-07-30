@@ -17,6 +17,7 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { SyncQueueService } from '../../sync/SyncQueueService';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -40,6 +41,7 @@ class LessonOutcomeServiceImpl {
         const result = this.toQuizResult(input);
 
         await this.recordRecall(result);
+        await this.enqueueSync(result);
 
         if (!rewarded) {
             return { award: null, rewarded: false };
@@ -91,6 +93,24 @@ class LessonOutcomeServiceImpl {
             await SpacedRepetitionService.recordQuizResult(result);
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao registrar recall:', error);
+        }
+    }
+
+    private async enqueueSync(result: QuizResult): Promise<void> {
+        // A API pública está em 502. Enfileirar mantém o card local e o remoto
+        // convergentes quando ela voltar, e falhar aqui não pode derrubar a
+        // conclusão da lição.
+        try {
+            await SyncQueueService.enqueueLessonProgressFromQuizResult(result);
+
+            const cardState = await SpacedRepetitionService.getCardState(result.lessonId);
+            if (cardState) {
+                await SyncQueueService.enqueueReviewCard(cardState);
+            }
+
+            await SyncQueueService.flush();
+        } catch (error) {
+            console.error('[LessonOutcomeService] Falha ao enfileirar sincronização:', error);
         }
     }
 

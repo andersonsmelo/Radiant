@@ -1,9 +1,11 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { JourneySnapshot } from '../../../types/journey';
+import type { SRCardState } from '../../../types/spacedRepetition';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { SyncQueueService } from '../../sync/SyncQueueService';
 import { LessonOutcomeService } from './LessonOutcomeService';
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -11,7 +13,7 @@ jest.mock('../../gamification/services/GamificationService', () => ({
 }));
 
 jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
-    SpacedRepetitionService: { recordQuizResult: jest.fn() },
+    SpacedRepetitionService: { recordQuizResult: jest.fn(), getCardState: jest.fn() },
 }));
 
 jest.mock('../../daily-goal/services/DailyGoalService', () => ({
@@ -22,10 +24,19 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
     JourneyProgressService: { getSnapshot: jest.fn() },
 }));
 
+jest.mock('../../sync/SyncQueueService', () => ({
+    SyncQueueService: {
+        enqueueLessonProgressFromQuizResult: jest.fn(),
+        enqueueReviewCard: jest.fn(),
+        flush: jest.fn(),
+    },
+}));
+
 const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
 const mockedSpacedRepetition = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
 const mockedDailyGoal = DailyGoalService as jest.Mocked<typeof DailyGoalService>;
 const mockedJourney = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
+const mockedSyncQueue = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
 
 const block: LessonBlock = {
     id: 'block:lesson-1:intro',
@@ -48,6 +59,16 @@ const block: LessonBlock = {
             contract: { id: 'lesson-1-question', type: 'multiple-choice', completionRule: 'answered', retryRule: 'allow_continue', branching: 'none' },
         },
     ],
+};
+
+const cardFixture: SRCardState = {
+    lessonId: 'lesson-1',
+    easeFactor: 2.5,
+    interval: 1,
+    repetitions: 1,
+    nextReviewAt: new Date('2026-07-31T00:00:00.000Z'),
+    lastReviewedAt: new Date('2026-07-30T00:00:00.000Z'),
+    createdAt: new Date('2026-07-30T00:00:00.000Z'),
 };
 
 function snapshotWith(overrides: {
@@ -247,5 +268,56 @@ describe('LessonOutcomeService', () => {
 
         expect(outcome.rewarded).toBe(false);
         expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
+    });
+
+    it('enfileira progresso e card e dá flush', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedSpacedRepetition.getCardState.mockResolvedValue(cardFixture);
+        mockedSyncQueue.enqueueLessonProgressFromQuizResult.mockResolvedValue(undefined);
+        mockedSyncQueue.enqueueReviewCard.mockResolvedValue(undefined);
+        mockedSyncQueue.flush.mockResolvedValue(undefined);
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(mockedSyncQueue.enqueueLessonProgressFromQuizResult).toHaveBeenCalledTimes(1);
+        expect(mockedSyncQueue.enqueueReviewCard).toHaveBeenCalledTimes(1);
+        expect(mockedSyncQueue.flush).toHaveBeenCalledTimes(1);
+    });
+
+    it('não enfileira card quando não há card state', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedSpacedRepetition.getCardState.mockResolvedValue(null);
+        mockedSyncQueue.enqueueLessonProgressFromQuizResult.mockResolvedValue(undefined);
+        mockedSyncQueue.flush.mockResolvedValue(undefined);
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(mockedSyncQueue.enqueueReviewCard).not.toHaveBeenCalled();
+    });
+
+    it('falha de sincronização não propaga nem impede a premiação', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedSpacedRepetition.getCardState.mockResolvedValue(cardFixture);
+        mockedSyncQueue.enqueueLessonProgressFromQuizResult.mockRejectedValue(new Error('API 502'));
+        const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        const outcome = await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(outcome.rewarded).toBe(true);
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+
+        errorSpy.mockRestore();
     });
 });
