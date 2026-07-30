@@ -10,7 +10,8 @@ contrato `radiant-app/scripts/icon-assets-contract.test.mjs` e o contrato roda n
 | --- | --- | --- | --- |
 | Ícone da ficha | [`assets/play-icon-512.png`](assets/play-icon-512.png) | 512×512, PNG 32-bit **com** alpha, ≤ 1024 KB | ✅ 126 KB |
 | Feature graphic | [`assets/feature-graphic.png`](assets/feature-graphic.png) | 1024×500, **sem** alpha | ✅ |
-| Screenshots de telefone | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1) |
+| Screenshots de telefone (Play) | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1), **regerados em 2026-07-30** |
+| Screenshots de iPhone (App Store) | — | buckets 6,7" e 6,5" | ⚠️ **capturados, não normalizados** — ver a seção do lado iOS |
 
 ## Como regerar
 
@@ -76,15 +77,43 @@ E devolva a resolução ao terminar: `adb shell wm size reset`.
   screenshot de loja tem de mostrar o que o usuário recebe. Também é preciso
   `SENTRY_DISABLE_AUTO_UPLOAD=true`, sem o qual o build falha no upload.
 
-## Ressalva aberta — progresso zerado nos screenshots
+## Ressalva do progresso zerado — FECHADA em 2026-07-30
 
-O plano pedia capturar a home **depois** de percorrer a trilha, para que XP e
-sequência aparecessem preenchidos. O flow faz isso, mas o resultado ainda mostra
-`XP total: 0`, `REVISÕES 0` e "Sem tentativas avaliadas ainda": completar uma
-lição, um checkpoint e uma segunda lição não acumulou XP visível.
+A redação anterior desta seção dizia que os screenshots mostravam `XP total: 0`,
+`REVISÕES 0` e "Sem tentativas avaliadas ainda", que eram "honestos e válidos"
+mas uma vitrine fraca, e que a causa **não fora investigada** — com decisão
+pendente do dono entre aceitar, estender o flow ou investigar.
 
-Os screenshots são **honestos e válidos** — é o que um usuário vê nos primeiros
-minutos — e passam no contrato. Mas são uma vitrine fraca, e a causa do XP zerado
-não foi investigada. **Decisão pendente do dono:** aceitar como está, estender o
-flow até acumular progresso de verdade, ou tratar o XP zerado como defeito a
-investigar antes de recapturar.
+Investigada, e não era vitrine fraca: **eram dois defeitos**.
+
+1. **O laço de gamificação não tinha escritor alcançável em produção.** Os três
+   escritores viviam no hook `useQuiz`, servido por uma rota para a qual nada no
+   app navega. XP, sequência, revisões e meta diária ficavam permanentemente em
+   zero. Corrigido em `ab40bb1..056ffe1` com o `LessonOutcomeService`.
+2. **Os cards `PRECISÃO` e `TÓPICOS` eram hardcoded**, sem dado por trás:
+   `LearningStatsService` tinha zero consumidores e nada gravava
+   `LearningAttempt`. Corrigido em `233f4b0`.
+
+Os seis arquivos desta pasta foram **regerados em 2026-07-30** a partir da
+captura posterior às duas correções, e agora mostram `⚡ 36`, `🔥 1d`,
+`PRECISÃO 100%` e `TÓPICOS Fundamentos — 100% · 2 lições`. Os anteriores, de
+2026-07-29 18:00, mostravam o estado defeituoso.
+
+**Não há decisão pendente do dono nesta seção.** Evidência em
+[`2026-07-30-e1-store-capture.md`](../../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md).
+
+**O que continua verdadeiro da redação antiga:** a regra de que um screenshot de
+loja tem de mostrar o que o usuário realmente recebe. Foi exatamente ela que
+transformou "vitrine fraca" em "defeito a corrigir" em vez de "recortar melhor".
+
+## Lado iOS — capturado, ainda não normalizado para a App Store
+
+Esta pasta e o `normalize-screenshots.py` atendem **apenas o Play**: o teto 2:1 e
+a faixa de lado 320–3840 são regras do Google. O iOS foi capturado em 2026-07-30
+nos dois buckets — iPhone 16 Plus (6,7", **1290×2796**) e iPhone 11 Pro Max
+(6,5", **1242×2688**), ambos `EXIT=0` — mas os arquivos vivem como **evidência**
+em `radiant-app/docs/evidence/2026-07-30-e1-store/`, não como assets publicáveis.
+
+A App Store tem buckets e proporções próprios, e o script atual não os conhece.
+Normalizar o lado iOS é trabalho separado, ainda **não feito**, e é pré-requisito
+da submissão à App Store — não da submissão ao Play.

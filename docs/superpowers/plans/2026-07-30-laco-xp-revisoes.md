@@ -10,6 +10,23 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-29-laco-xp-revisoes-design.md`](../specs/2026-07-29-laco-xp-revisoes-design.md)
 
+**Status: CONCLUÍDO em 2026-07-30.** As seis tasks entregues em
+`ab40bb1..056ffe1`, evidência em device obtida na mesma data
+([`2026-07-30-laco-xp-device.md`](../../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md)):
+`XP total: 18` no checkpoint e `TOTAL XP 36` no progresso, o valor previsto pela
+§5 da spec.
+
+**Duas coisas apareceram depois deste plano e não estavam nele:**
+
+1. A **evidência em device** foi registrada como bloqueada por ausência de JDK no
+   host. O bloqueio **não existia** — ver §4 do
+   [status canônico](../../EXECUTION_STATUS_2026-07-29.md).
+2. A captura que provou o conserto expôs, na **mesma tela**, os cards `PRECISÃO`
+   e `TÓPICOS` com a mesma classe de defeito que este plano corrigiu — leitor sem
+   dado por trás. Corrigido em `233f4b0`, fora do escopo desta spec. A lição:
+   quando uma classe de defeito é caracterizada, vale varrer a superfície inteira
+   onde ela apareceu antes de declarar o trabalho fechado.
+
 ## Global Constraints
 
 - Trabalhe sempre dentro de `radiant-app/`. O gate do projeto é `npm run quality`, rodado de `radiant-app/`.

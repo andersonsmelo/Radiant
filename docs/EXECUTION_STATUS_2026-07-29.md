@@ -309,7 +309,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 
 | Verificação | Estado | Resultado |
 | --- | --- | --- |
-| `npm run quality` | PASS | rodado em cada um dos cinco commits do dia |
+| `npm run quality` | PASS | rodado em cada um dos **nove** commits do dia, e ao final **sobre o estado commitado** — 0 arquivos rastreados modificados, 32 suites, 110 testes |
 | gate transacional do Loop | PASS | nove validadores verdes em cada um dos seis runs; cada run fechou com memória validada |
 | suíte de `lesson-flow` | PASS | 16/16 — 11 do `LessonOutcomeService`, 5 do `LessonFlowScreen` |
 | cobertura da corrida de estado | PASS | verificada por reversão: trocando o valor local pelo estado, o teste novo falha com `{}` contra `{ 'step-final-choice': true }` |
@@ -320,6 +320,8 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | E1 — lado iOS (6,7" e 6,5") | **PASS** | `EXIT=0` no iPhone 16 Plus (**1290×2796**) e no iPhone 11 Pro Max (**1242×2688**), sobre build Release com env **production**. Ver [a evidência](../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md) |
 | `store-capture.yaml` — oclusão do CTA | **corrigido** | guarda `notVisible` trocada por scroll fixo: no iPhone a alternativa ficava em `y850–932` de 932pt, visível para o predicado e por baixo do CTA flutuante, e o tap caía no botão desabilitado |
 | Android após a correção do flow | **PASS** | reexecutado **depois** da mudança no flow compartilhado, `EXIT=0`, seis screenshots — sem regressão |
+| screenshots publicáveis do Play | **regerados** | os seis em `docs/store/assets/screenshots/` eram de 2026-07-29 18:00 e mostravam o estado defeituoso; regerados da captura pós-correção, 6 × 1080×1920 (1,778:1). A ressalva de vitrine em `ASSETS_DE_LOJA.md` está fechada |
+| screenshots de iPhone para a App Store | **PENDENTE** | capturados nos dois buckets, mas o `normalize-screenshots.py` só conhece as regras do Play. Normalizar o lado iOS é pré-requisito da submissão à App Store, não à do Play |
 
 ## Bloqueios do lançamento
 
@@ -432,7 +434,8 @@ Em 2026-07-29, sete commits (`297b2d4`, `ddb4d85`, `63b0dab`, `27302d9`,
 `e02e158`, `d9529fe` e o de assets), com os quatro arquivos de 26–27/07
 **adotados** no primeiro deles — ver §6.
 
-Em **2026-07-30**, mais cinco, todos do laço de gamificação (§4, ressalva 1):
+Em **2026-07-30**, mais **nove** — cinco do laço de gamificação e quatro da
+sessão da tarde, que obteve a evidência em device e fechou E1 (§4, ressalva 1):
 
 | Commit | O quê |
 | --- | --- |
@@ -441,8 +444,14 @@ Em **2026-07-30**, mais cinco, todos do laço de gamificação (§4, ressalva 1)
 | `91dfb5d` | `LessonFlowScreen` chama o serviço **antes** de `markNodeCompleted` |
 | `056ffe1` | cobre a corrida de estado que os testes anteriores não pegavam |
 | `f7f36e8` | spec, plano e este status |
+| `621b3a7` | corrige o que a sessão da manhã tornou falso no status e no roadmap |
+| `233f4b0` | `LearningAttemptsRepository` — liga `PRECISÃO` e `TÓPICOS` a dado real |
+| `f7b602a` | captura de loja: guarda de visibilidade → scroll fixo (oclusão do CTA) |
+| `873c81a` | E1 fechado nas duas plataformas e a correção do bloqueio de JDK inexistente |
 
-**Nada foi empurrado**; a branch está **105 commits** à frente de `origin/main`.
+**Nada foi empurrado**; a branch está **109 commits** à frente de `origin/main`
+(recontado em 2026-07-30 16:17 — o número dito aqui antes, 105, já estava velho
+quando foi escrito, porque o próprio commit que o escrevia o incrementava).
 
 Os commits foram ordenados para que **nenhum estado intermediário deixe o gate
 vermelho**: os órfãos primeiro, porque o `AppButton` corrige o contrato de easing;
