@@ -159,13 +159,60 @@ listava apenas screenshots e feature graphic; faltava o **ícone 512×512** (PNG
 32-bit com alpha, ≤ 1024 KB). Corrigido no plano e **os três existem** desde esta
 data — L2.7 concluída.
 
-**Duas ressalvas abertas, ambas decisão do dono:**
+**Duas ressalvas abertas:**
 
-1. **Screenshots com progresso zerado.** O flow percorre lição, checkpoint e uma
-   segunda lição antes de capturar a home, exatamente para não mostrar zeros — e
-   ainda assim o resultado exibe `XP total: 0` e `REVISÕES 0`. São honestos,
-   válidos e passam no contrato, mas são vitrine fraca. **A causa do XP não
-   acumular não foi investigada.**
+1. **Screenshots com progresso zerado — causa investigada em 2026-07-29, e não é
+   vitrine fraca: é defeito.** Primeiro, uma precisão: os dois zeros não vêm da
+   home. `XP total:` é a celebração do `CheckpointScreen` e `REVISÕES` é a aba de
+   progresso — a mitigação do flow (percorrer a trilha antes de fotografar a
+   home) não podia afetar o shot do checkpoint, capturado no meio da trilha por
+   construção.
+
+   **Em produção o laço de gamificação não tem escritor alcançável.** Os três
+   escritores de estado vivem no hook `useQuiz`, que só roda em `QuizScreen`,
+   servida pela rota `/quiz` — e **nada no app navega para `/quiz`**. O player que
+   os usuários percorrem (`LessonFlowScreen`) conclui chamando apenas
+   `JourneyProgressService`; não há uma referência a gamificação, repetição
+   espaçada ou meta diária em todo `src/features/lesson-flow/`. São quatro
+   contadores parados pelo mesmo buraco: **XP**, **sequência** (`updateStreak` só
+   roda dentro de `recordQuizCompletion`), **revisões pendentes** (nenhum card
+   nasce, então nenhum nó de revisão vence) e **meta diária** (lida por
+   `MissionsScreen`, `JourneyHomeScreen` e `PushService`). Contra isso há doze
+   call sites de `getSnapshot()`, três deles em código inalcançável — **nove
+   leitores em telas alcançáveis**, e é essa assimetria que faz a feature parecer
+   viva com dados vazios.
+
+   A porta da revisão **já existe** na própria trilha (nós `node:review:<lessonId>`
+   com conteúdo real em `defaultBlocks.ts`, status `due-review` derivado do
+   agendador, conclusão idempotente). O laço inteiro está construído e parado numa
+   chamada que ninguém faz. Spec aprovada pelo dono em
+   [`2026-07-29-laco-xp-revisoes-design.md`](superpowers/specs/2026-07-29-laco-xp-revisoes-design.md),
+   plano em [`2026-07-30-laco-xp-revisoes.md`](superpowers/plans/2026-07-30-laco-xp-revisoes.md).
+   Corações ficam **fora** desse escopo por decisão do dono: `canStartLesson()`
+   tem zero call sites, então hoje eles não bloqueiam nada.
+
+   **Implementado em 2026-07-30**, commits `ab40bb1..056ffe1` — `LessonOutcomeService`
+   em `src/features/lesson-flow/services/`, paridade de sincronização, e o
+   `LessonFlowScreen` chamando o serviço **antes** de `markNodeCompleted` (a ordem
+   importa: a elegibilidade lê `completedNodeIds` e `pendingReviewNodeIds`, que a
+   marcação altera). Prêmio por tipo de nó: lição paga na primeira conclusão,
+   revisão paga quando estava vencida, e o card do SM-2 é reavaliado nos dois
+   casos. `npm run quality` verde em cada commit, mais os nove validadores do Loop.
+
+   **A evidência em device NÃO foi obtida, e a ressalva de vitrine continua
+   aberta.** Dois fatos bloqueiam: (1) **não há JDK neste host** — `java -version`
+   falha com "Unable to locate a Java Runtime", não há Android Studio nem JDK
+   instalado, então `./gradlew assembleRelease` não roda; (2) o APK release
+   instalado é de **2026-07-29 18:56**, quinze horas antes do primeiro commit
+   desta mudança, logo capturar a vitrine com ele mostraria `XP total: 0` e seria
+   uma medição falsa do estado atual. Teste verde prova a regra; só a captura
+   prova a vitrine. **Próximo passo:** instalar um JDK 17, rebuildar com o env do
+   perfil **production** (não o de E2E), apagar
+   `android/app/build/generated/assets/createBundleReleaseJsAndAssets` antes —
+   o Gradle não invalida cache por variável de ambiente — e rodar
+   `.maestro/store-capture.yaml` com `adb shell wm size 1080x1920`.
+   Ao conferir: `REVISÕES` só sai de zero **depois** que o SM-2 vencer o primeiro
+   card, então zero ali logo após a conclusão continua correto e não é regressão.
 2. **A prova do *themed icon* do Android 13+ não foi obtida.** O toggle existe na
    árvore e não alterna nesta imagem de emulador (Google APIs, sem o launcher
    completo do Pixel). Fecha com um aparelho real; uma captura basta.
@@ -299,6 +346,12 @@ O valor vinha de um default implícito. **Corrigido:** declarado como `true` em
 default `true` e está ligada em produção. `HomeScreen` é o fallback morto — com
 três TODOs de "ligar contadores reais" e sua própria suíte de testes sendo
 mantida. **Não corrigido**, decisão pendente.
+
+*Acoplamento a registrar antes de qualquer deleção* (descoberto em 2026-07-29, ao
+investigar a ressalva 1 da §4): essa tela é hoje o **único** `router.push('/review')`
+do código. Apagá-la remove a última rota para a tela dedicada de revisão — que já
+era inalcançável em produção por esse mesmo motivo. A revisão que o usuário
+alcança é outra implementação, a da trilha, e ela não passa por `/review`.
 
 **Passivo de lint: 62 warnings, 0 erros.** 37 `no-require-imports`, 9
 `exhaustive-deps`, 6 `array-type`, 5 `no-unused-vars`, 4 `import/first`. Só 10
