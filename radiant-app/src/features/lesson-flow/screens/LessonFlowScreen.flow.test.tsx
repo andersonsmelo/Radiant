@@ -5,9 +5,11 @@ import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { LessonFlowService } from '../services/LessonFlowService';
 
 const mockedOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
+const mockedLessonFlowService = LessonFlowService as jest.Mocked<typeof LessonFlowService>;
 
 jest.mock('expo-router', () => ({
   router: {
@@ -114,6 +116,58 @@ const blockFixture: LessonBlock = {
   ],
 };
 
+// Fixture deliberadamente diferente de blockFixture: aqui o passo interativo
+// (multiple-choice) É o último do bloco (contexto -> escolha). Arity 2, uma
+// única etapa interativa, contexto antes da interação, sem reinforce — passa
+// em LessonFlowService.validateBlock (2 a 4 passos). Em blockFixture o passo
+// interativo é o PRIMEIRO, então o "Continuar" final roda depois de um ciclo
+// de render inteiro, com o estado já assentado; aqui, confirmar e concluir
+// acontecem na MESMA chamada de handleContinue — é essa corrida que este
+// bloco existe para exercitar.
+const lastStepInteractiveFixture: LessonBlock = {
+  id: 'block-2',
+  lessonId: 'lesson-2',
+  steps: [
+    {
+      step: {
+        type: 'context',
+        payload: {
+          title: 'Antes de responder',
+          body: 'Observe a imagem com atenção.',
+        },
+      },
+      contract: {
+        id: 'step-context',
+        type: 'context',
+        completionRule: 'displayed',
+        retryRule: 'allow_continue',
+        branching: 'none',
+      },
+    },
+    {
+      step: {
+        type: 'multiple-choice',
+        payload: {
+          prompt: 'Qual padrão radiográfico está presente?',
+          options: [
+            { id: 'opt-a', label: 'Pneumotórax' },
+            { id: 'opt-b', label: 'Consolidação alveolar' },
+          ],
+          correctOptionId: 'opt-b',
+          explanation: 'A opacidade focal com broncograma aéreo sugere consolidação alveolar.',
+        },
+      },
+      contract: {
+        id: 'step-final-choice',
+        type: 'multiple-choice',
+        completionRule: 'answered',
+        retryRule: 'retry_same_step',
+        branching: 'none',
+      },
+    },
+  ],
+};
+
 describe('LessonFlowScreen — escolha da alternativa', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -169,6 +223,12 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     mockedOutcome.recordCompletion.mockResolvedValue({ award: null, rewarded: true });
     mockedJourneyProgress.markNodeCompleted.mockClear();
     mockedJourneyProgress.markNodeCompleted.mockResolvedValue(undefined as never);
+    // mockClear() não apaga um mockReturnValue já configurado, então este
+    // describe só passava isolado por acidente: dependia da ordem de
+    // execução do arquivo (o beforeEach de "escolha da alternativa" roda
+    // primeiro e deixa getBlockById apontando para blockFixture). Setando
+    // aqui também, este bloco fica correto rodando sozinho.
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
   });
 
   it('registra a conclusão com a escolha confirmada antes de marcar o nó', async () => {
@@ -228,5 +288,36 @@ describe('LessonFlowScreen — registro da conclusão', () => {
 
     const input = mockedOutcome.recordCompletion.mock.calls[0][0];
     expect(input.confirmedAnswers).toEqual({ 'step-choice': false });
+  });
+
+  it('usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco', async () => {
+    // blockFixture nunca exercita a corrida de estado: nele o passo
+    // interativo é o PRIMEIRO, então o "Continuar" final acontece depois de
+    // um ciclo de render inteiro, com confirmedAnswers já assentado. Aqui,
+    // com lastStepInteractiveFixture, confirmar e concluir acontecem na
+    // MESMA chamada de handleContinue. Sem este teste, reverter a chamada ao
+    // serviço de nextConfirmed (valor local) para confirmedAnswers (variável
+    // de estado ainda não atualizada) — desfazendo exatamente a correção que
+    // esta tarefa existe para fazer — continuaria passando em todos os
+    // outros testes deste arquivo.
+    mockedLessonFlowService.getBlockById.mockReturnValue(lastStepInteractiveFixture);
+
+    renderWithProviders(<LessonFlowScreen blockId="block-2" nodeId="node-2" />);
+
+    // "Antes de responder" também é usado como título do cabeçalho (a tela
+    // usa o título do passo de contexto como fallback de lessonTitle), então
+    // aparece duas vezes na árvore — o corpo do texto é o localizador único.
+    expect(await screen.findByText('Observe a imagem com atenção.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+
+    await waitFor(() => expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1));
+
+    const input = mockedOutcome.recordCompletion.mock.calls[0][0];
+    expect(input.confirmedAnswers).toEqual({ 'step-final-choice': true });
   });
 });
