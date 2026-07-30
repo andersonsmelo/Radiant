@@ -127,17 +127,39 @@ Detalhe do fluxo de submissão em [`EAS_SUBMIT_SETUP.md`](EAS_SUBMIT_SETUP.md).
 
 ## O que este runbook NÃO destrava
 
-Depois de tudo acima, a ficha **ainda não fecha**, por dois motivos de engenharia:
+> **Os dois bloqueios de engenharia que esta seção listava foram resolvidos em
+> 2026-07-29, e a seção passou um dia mandando adiar o primeiro upload de AAB —
+> que é o gatilho do relógio de 14 dias do closed test.** Corrigido em
+> 2026-07-30. Estado medido em `98261a4`:
 
-1. **Os três assets gráficos obrigatórios não existem** — ícone 512×512, feature
-   graphic 1024×500 e ≥2 screenshots de telefone. `docs/store/assets/` está vazio.
-   Saem das Tasks 3 e 5 do
-   [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md).
-2. **Não suba build antes da Task 4 do plano do ícone.** Hoje
-   `android.adaptiveIcon.backgroundColor` em `app.json` é `#E6F4FE` — um azul
-   **claro**, herdado do template, que contraria a ADR de identidade galaxy dark e
-   o valor `#07091c` da spec. Um AAB feito agora carimba o ícone errado, e o
-   package name fica fixado junto.
+| O que esta seção afirmava | Estado medido |
+| --- | --- |
+| "os três assets gráficos obrigatórios não existem; `docs/store/assets/` está vazio" | **falso** — os três existem: [`play-icon-512.png`](assets/play-icon-512.png), [`feature-graphic.png`](assets/feature-graphic.png) e seis screenshots em `assets/screenshots/`, todos 1080×1920 (1,778:1, dentro do teto 2:1 do Play) |
+| "`android.adaptiveIcon.backgroundColor` é `#E6F4FE`, herdado do template" | **falso** — é `#07091c`, o valor da spec ([`app.json`](../../radiant-app/app.json)) |
 
-Ou seja: **crie o app, preencha a ficha textual e gere a chave agora** — nada disso
-depende dos assets. Deixe o primeiro upload de AAB para depois das Tasks 3–5.
+As 6 tasks do [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md)
+fecharam em 2026-07-29 e o contrato de assets roda **11/11** dentro do
+`npm run quality`. **Não há mais motivo de engenharia para adiar o upload do AAB.**
+
+Faça tudo deste runbook agora — criar o app, preencher a ficha textual, colar as
+duas URLs, responder Data Safety e gerar a chave — e suba o AAB quando as contas
+permitirem.
+
+O que ainda gate a **publicação** não sai deste runbook e não é código:
+
+1. **Verificação de acesso a dispositivo da conta Play** — exige **aparelho
+   Android real**; o emulador é imagem "Google APIs" sem Play Store.
+2. **≥ 12 testadores opted-in por 14 dias consecutivos** — o item de maior
+   latência do caminho crítico. Kit pronto em
+   [`TESTER_INVITE_KIT.md`](TESTER_INVITE_KIT.md).
+
+**Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
+Android 13+ continua pendente e também exige aparelho real — uma captura da
+gaveta com o tema ligado basta (§4 do
+[status canônico](../EXECUTION_STATUS_2026-07-29.md)).
+
+> **Por que esta seção envelheceu:** o bloqueio foi fechado no status canônico e
+> no roadmap, que **descrevem** estado; ninguém varreu os documentos que
+> **mandam um humano agir**. Um status desatualizado engana quem lê; um runbook
+> desatualizado faz alguém não fazer o trabalho, e o custo aparece como latência,
+> não como erro. Ao fechar um bloqueio, varra os dois gêneros de documento.
