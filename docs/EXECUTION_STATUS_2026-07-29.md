@@ -1,4 +1,11 @@
-# Radiant — Execution Status (2026-07-29)
+# Radiant — Execution Status (2026-07-29, estendido em 2026-07-30)
+
+> Este documento continua sendo o **status canônico**. Ele foi estendido em
+> 2026-07-30 com o conserto do laço de gamificação (§4, ressalva 1) em vez de dar
+> origem a um `EXECUTION_STATUS_2026-07-30.md`: oito arquivos apontam para este
+> nome, incluindo `scripts/qa/docs-contract.mjs` e `.loop/project.yaml`, e um
+> ponteiro canônico decai no instante em que o alvo é substituído. Trocar o nome
+> exige varrer quem aponta para ele — trabalho que ainda não se justifica.
 
 ## Status canônico atual
 
@@ -261,6 +268,16 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | contrato de assets de ícone | **PASS — 11/11** | Ciclo TDD fechado: nasceu vermelho na Task 2 (4/9 falhando por motivo real) e fechou na Task 5, quando os oito assets passaram a existir. Agora roda dentro do `npm run quality` |
 | evidência em device do ícone | **PASS parcial — 3 de 4 provas** | Launcher, splash e ícone de notificação verificados no aparelho. A prova do *themed icon* do Android 13+ não foi obtida nesta imagem de emulador |
 
+### Verificações de 2026-07-30
+
+| Verificação | Estado | Resultado |
+| --- | --- | --- |
+| `npm run quality` | PASS | rodado em cada um dos cinco commits do dia |
+| gate transacional do Loop | PASS | nove validadores verdes em cada um dos seis runs; cada run fechou com memória validada |
+| suíte de `lesson-flow` | PASS | 16/16 — 11 do `LessonOutcomeService`, 5 do `LessonFlowScreen` |
+| cobertura da corrida de estado | PASS | verificada por reversão: trocando o valor local pelo estado, o teste novo falha com `{}` contra `{ 'step-final-choice': true }` |
+| evidência em device do laço de XP | **NÃO OBTIDA** | não há JDK neste host (`java -version` falha), então o build release não roda; o APK instalado antecede a mudança em quinze horas. Ver §4, ressalva 1 |
+
 ## Bloqueios do lançamento
 
 O caminho crítico é **administrativo/loja** e quase todo ação do usuário — mas
@@ -364,11 +381,22 @@ desenvolvimento; não entram no bundle distribuído.
 
 ## Árvore de trabalho
 
-Todo o trabalho desta data está **commitado** na branch
-`codex/wave1-hardening-api-smoke`, em cinco commits (`297b2d4`, `ddb4d85`,
-`63b0dab`, `27302d9`, `e02e158`). Os quatro arquivos de 26–27/07 foram **adotados**
-no primeiro deles — ver §6. **Nada foi empurrado**; a branch está 99 commits à
-frente de `origin/main`.
+Todo o trabalho está **commitado** na branch `codex/wave1-hardening-api-smoke`.
+Em 2026-07-29, sete commits (`297b2d4`, `ddb4d85`, `63b0dab`, `27302d9`,
+`e02e158`, `d9529fe` e o de assets), com os quatro arquivos de 26–27/07
+**adotados** no primeiro deles — ver §6.
+
+Em **2026-07-30**, mais cinco, todos do laço de gamificação (§4, ressalva 1):
+
+| Commit | O quê |
+| --- | --- |
+| `ab40bb1` | `LessonOutcomeService` — premiação por tipo de nó e registro do recall |
+| `df33be8` | paridade de sincronização, com falha de API não derrubando a conclusão |
+| `91dfb5d` | `LessonFlowScreen` chama o serviço **antes** de `markNodeCompleted` |
+| `056ffe1` | cobre a corrida de estado que os testes anteriores não pegavam |
+| `f7f36e8` | spec, plano e este status |
+
+**Nada foi empurrado**; a branch está **105 commits** à frente de `origin/main`.
 
 Os commits foram ordenados para que **nenhum estado intermediário deixe o gate
 vermelho**: os órfãos primeiro, porque o `AppButton` corrige o contrato de easing;

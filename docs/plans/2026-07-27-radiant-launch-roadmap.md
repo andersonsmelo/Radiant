@@ -339,8 +339,14 @@ código.
   [`docs/store/ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). Evidência em device
   do ícone da marca em
   [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md).
-  **Ressalva:** os screenshots mostram progresso zerado (XP 0) — válidos e honestos,
-  mas vitrine fraca; decisão do dono pendente. **Falta ainda o lado iOS.** Escopo
+  **Ressalva, atualizada em 2026-07-30:** os screenshots mostram progresso zerado
+  (XP 0), e a causa foi investigada — **não era vitrine fraca, era defeito**. Em
+  produção o laço de gamificação não tinha escritor alcançável: XP, sequência,
+  revisões e meta diária ficavam permanentemente em zero. **Corrigido** nos
+  commits `ab40bb1..056ffe1`, com gate verde. **A ressalva só fecha com a
+  recaptura**, que está bloqueada por falta de JDK no host — ver §4 do
+  [status canônico](../EXECUTION_STATUS_2026-07-29.md). **Falta ainda o lado
+  iOS.** Escopo
   original: Screenshots por dispositivo: iPhone 6,7"/6,5" (iPad **desligado**
   na v1.3 — `supportsTablet: false`, decidido em 2026-07-29, o que remove os
   screenshots de tablet do escopo), Android phone + os **três** assets gráficos
