@@ -15,6 +15,7 @@ import { MultipleChoiceStepRenderer } from '../renderers/MultipleChoiceStepRende
 import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
 import { AdvanceStepRenderer } from '../renderers/AdvanceStepRenderer';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { LessonVisualPanel } from '../components/LessonVisualPanel';
 import { LessonFlowProgressHeader } from '../components/LessonFlowProgressHeader';
 
@@ -31,6 +32,7 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
     const [selectedOptionId, setSelectedOptionId] = useState<string | undefined>();
     const [answeredCorrectly, setAnsweredCorrectly] = useState<boolean | undefined>();
     const [answerExplanation, setAnswerExplanation] = useState<string | undefined>();
+    const [confirmedAnswers, setConfirmedAnswers] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         let alive = true;
@@ -152,10 +154,27 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
             return;
         }
 
+        // A escolha vale no instante do "Continuar", não no toque: trocar de
+        // alternativa antes de confirmar não penaliza. O valor local é
+        // obrigatório — setConfirmedAnswers é assíncrono e no último passo o
+        // estado ainda não conteria esta resposta.
+        let nextConfirmed = confirmedAnswers;
+        if (currentStep.step.type === 'multiple-choice') {
+            const correct = selectedOptionId === currentStep.step.payload.correctOptionId;
+            nextConfirmed = { ...confirmedAnswers, [currentStep.contract.id]: correct };
+            setConfirmedAnswers(nextConfirmed);
+        }
+
         if (!isLastStep) {
             setStepIndex((value) => value + 1);
             return;
         }
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId,
+            confirmedAnswers: nextConfirmed,
+        });
 
         await JourneyProgressService.markNodeCompleted(nodeId);
         await JourneyProgressService.setCurrentNode(null);

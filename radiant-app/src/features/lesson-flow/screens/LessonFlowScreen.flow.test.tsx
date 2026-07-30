@@ -1,8 +1,13 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
+import { LessonOutcomeService } from '../services/LessonOutcomeService';
+import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+
+const mockedOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
+const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 
 jest.mock('expo-router', () => ({
   router: {
@@ -55,6 +60,12 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
 jest.mock('../services/LessonFlowService', () => ({
   LessonFlowService: {
     getBlockById: jest.fn(),
+  },
+}));
+
+jest.mock('../services/LessonOutcomeService', () => ({
+  LessonOutcomeService: {
+    recordCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
   },
 }));
 
@@ -145,5 +156,77 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     // errou e corrigiu antes de confirmar vê o reforço de acerto.
     expect(await screen.findByText('Resposta correta')).toBeTruthy();
     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.')).toBeTruthy();
+  });
+});
+
+describe('LessonFlowScreen — registro da conclusão', () => {
+  beforeEach(() => {
+    // Este describe não compartilha o beforeEach de "escolha da alternativa"
+    // (escopo é por describe), e o arquivo não zera mocks globalmente entre
+    // testes — sem isto, a contagem de chamadas de recordCompletion do
+    // primeiro teste vaza para o segundo.
+    mockedOutcome.recordCompletion.mockClear();
+    mockedOutcome.recordCompletion.mockResolvedValue({ award: null, rewarded: true });
+    mockedJourneyProgress.markNodeCompleted.mockClear();
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue(undefined as never);
+  });
+
+  it('registra a conclusão com a escolha confirmada antes de marcar o nó', async () => {
+    const order: string[] = [];
+    mockedOutcome.recordCompletion.mockImplementation(async () => {
+      order.push('outcome');
+      return { award: null, rewarded: true };
+    });
+    // markNodeCompleted devolve JourneySnapshot na assinatura real, e a tela
+    // ignora o retorno — daí o cast, que só existe para não montar um snapshot
+    // inteiro num teste que mede ordem de chamada.
+    mockedJourneyProgress.markNodeCompleted.mockImplementation(async () => {
+      order.push('markNodeCompleted');
+      return undefined as never;
+    });
+
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    // Erra, corrige, e só então confirma: vale a escolha confirmada.
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText('Resposta correta')).toBeTruthy();
+    // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+
+    await waitFor(() => expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1));
+
+    const input = mockedOutcome.recordCompletion.mock.calls[0][0];
+    expect(input.nodeId).toBe('node-1');
+    expect(input.block.lessonId).toBe('lesson-1');
+    expect(input.confirmedAnswers).toEqual({ 'step-choice': true });
+
+    // O serviço tem de rodar antes da marcação: a elegibilidade lê
+    // completedNodeIds e pendingReviewNodeIds, que a marcação altera.
+    expect(order).toEqual(['outcome', 'markNodeCompleted']);
+  });
+
+  it('registra escolha confirmada incorreta como incorreta', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    // Confirma a alternativa errada e segue até o fim do bloco. A asserção é
+    // sobre o que o serviço recebeu, não sobre o texto do reforço: o título de
+    // erro do ReinforceStepRenderer ("Vamos reforçar") é igual ao
+    // payload.title da fixture, então casá-lo não provaria nada.
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Continuar'));
+    // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    await waitFor(() => expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1));
+
+    const input = mockedOutcome.recordCompletion.mock.calls[0][0];
+    expect(input.confirmedAnswers).toEqual({ 'step-choice': false });
   });
 });
