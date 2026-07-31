@@ -174,7 +174,7 @@ não no upload.
 | "`android.adaptiveIcon.backgroundColor` é `#E6F4FE`, herdado do template" | **falso** — é `#07091c`, o valor da spec ([`app.json`](../../radiant-app/app.json)) |
 
 As 6 tasks do [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md)
-fecharam em 2026-07-29 e o contrato de assets roda **11/11** dentro do
+fecharam em 2026-07-29 e o contrato de assets roda **14/14** dentro do
 `npm run quality`. **Não há mais motivo de engenharia para adiar o upload do AAB.**
 
 Faça tudo deste runbook agora — criar o app, preencher a ficha textual, colar as

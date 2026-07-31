@@ -151,9 +151,13 @@ código.
   **Continua pendente:** revisão jurídica do texto, que é a única ressalva
   restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
   o que foi declarado no Data Safety.
-- **A5 [P1]** Configurar `eas submit`: chave de service account do Play +
-  App Store Connect API key; preencher o bloco `submit` do `eas.json` (hoje só
-  tem `ios: {}`).
+- **A5 [P1]** Configurar `eas submit`. **O bloco `submit.production.android` do
+  `eas.json` foi preenchido em 2026-07-29** (`serviceAccountKeyPath`, `track`,
+  `releaseStatus`) — a redação anterior desta task, "hoje só tem `ios: {}`",
+  deixou de valer naquela data. `radiant-app/credentials/` existe, vazio e
+  protegido pelo `.gitignore` da raiz. **Continua pendente:** gerar a
+  service-account key do Play no console, e a **App Store Connect API key** —
+  `submit.production.ios` segue `{}`.
 - **A6 [P1]** Recrutar ≥ 14 testadores (12 é o mínimo do Play; margem para
   churn) — alinhado ao recrutamento da Task 12 (5–8 participantes de pesquisa
   podem vir do mesmo pool).
@@ -335,7 +339,8 @@ código.
 ### Onda E — Assets e metadados de loja (paralela a C/D)
 
 - **E1 [P0]** **Android CONCLUÍDO em 2026-07-29** — os três assets gráficos do Play
-  existem, travados pelo contrato (11/11, dentro do `npm run quality`):
+  existem, travados pelo contrato (11/11 àquela data, **14/14** hoje, dentro do
+  `npm run quality`):
   [`docs/store/ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). Evidência em device
   do ícone da marca em
   [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md).
@@ -396,7 +401,8 @@ código.
   entregues: gerador determinístico, oito derivados, `app.json` alinhado, assets
   de loja fechados e evidência em device (3 de 4 provas —
   [`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md)).
-  Contrato de assets em **11/11**, dentro do `npm run quality`. O enquadramento
+  Contrato de assets em **11/11** àquela data — **14/14** desde 2026-07-30 —,
+  dentro do `npm run quality`. O enquadramento
   foi resolvido a favor da spec (62% da largura), com o gerador derivando a altura
   do aspecto real. **Ressalva aberta:** a prova do *themed icon* do Android 13+
   precisa de aparelho real — uma captura da gaveta com o tema ligado basta.

@@ -107,9 +107,11 @@ Spec aprovada em
 execução em 6 tasks no
 [plano do ícone](superpowers/plans/2026-07-29-icone-do-app.md).
 
-**As 6 tasks do plano foram concluídas nesta data.** O contrato de assets está em
-**11/11** e roda dentro do `npm run quality`; o bloqueio de engenharia do
-lançamento foi encerrado. Evidência em device em
+**As 6 tasks do plano foram concluídas nesta data.** O contrato de assets fechou
+em **11/11** nesta data e roda dentro do `npm run quality`; o bloqueio de
+engenharia do lançamento foi encerrado. *(O contrato cresceu depois: em
+2026-07-30 foi para **14/14**, ao travar os dois buckets de screenshot de iPhone.
+O `11/11` acima fica como o valor medido em 07-29.)* Evidência em device em
 [`2026-07-29-icone-marca-pixel.md`](../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md),
 inventário dos assets em [`ASSETS_DE_LOJA.md`](store/ASSETS_DE_LOJA.md).
 
@@ -153,7 +155,9 @@ asset**, e essa superfície não é um asset — é uma referência no `app.json
   de chunks PNG, travando dimensão, política de alpha, peso do ícone 512 e o
   teto de proporção 2:1 dos screenshots. **Ligado ao `npm run quality` na Task 5**,
   quando todos os assets passaram a existir — nenhum commit deixou o gate vermelho
-  (roadmap §10). Hoje trava **oito** assets e roda **11/11**.
+  (roadmap §10). Hoje trava **oito** assets — contados rodando o próprio
+  contrato em 2026-07-31 — e roda **14/14**, depois de ganhar em 07-30 as três
+  asserções dos buckets de iPhone.
 
 **Limite explícito do contrato:** ele pega violação de especificação, não arte
 inadequada — **não** teria pego a grade de construção, que passa em qualquer
@@ -321,6 +325,8 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | `store-capture.yaml` — oclusão do CTA | **corrigido** | guarda `notVisible` trocada por scroll fixo: no iPhone a alternativa ficava em `y850–932` de 932pt, visível para o predicado e por baixo do CTA flutuante, e o tap caía no botão desabilitado |
 | Android após a correção do flow | **PASS** | reexecutado **depois** da mudança no flow compartilhado, `EXIT=0`, seis screenshots — sem regressão |
 | screenshots publicáveis do Play | **regerados** | os seis em `docs/store/assets/screenshots/` eram de 2026-07-29 18:00 e mostravam o estado defeituoso; regerados da captura pós-correção, 6 × 1080×1920 (1,778:1). A ressalva de vitrine em `ASSETS_DE_LOJA.md` está fechada |
+| instrução de segurança da service-account key | **corrigida (07-31)** | `EAS_SUBMIT_SETUP.md` mandava conferir a proteção da chave no `radiant-app/.gitignore`. Esse arquivo tem `*.p8` mas **não** `credentials/`; quem ignora a chave JSON é o `.gitignore` da **raiz, linha 37**. Seguir a instrução levaria a olhar o arquivo errado e concluir que a proteção sumiu, no instante anterior a baixar um segredo. Trocado por `git check-ignore -v`, que interroga o resolvedor em vez de ler uma das fontes que ele consulta |
+| documentação varrida por função (07-31) | **atualizada** | O `11/11` do contrato estava repetido em **quatro** documentos e o checklist de release seguia parado em 07-27, com quinze itens marcados pendentes que já tinham fechado. Corrigidas só as afirmações em **presente** — tabelas datadas registram o que foi medido naquele dia e alterá-las falsificaria histórico |
 | screenshots de iPhone para a App Store | **PASS — fechado** | os doze PNGs publicáveis existem em `docs/store/assets/screenshots-ios-67/` (1290×2796) e `screenshots-ios-65/` (1242×2688). O `normalize-screenshots.py` não "só conhecia" as regras do Play — seu `MAX_RATIO = 2.0` **reprovava** os doze arquivos (2,167:1 e 2,164:1); virou `--spec` obrigatório com validação de tamanho exato por bucket. Contrato de assets de 11 → **14 testes**, verificados por reversão |
 | `RUNBOOK_PLAY_CONSOLE.md` — bloqueios obsoletos | **corrigido** | a seção "o que este runbook NÃO destrava" afirmava `docs/store/assets/` vazio e `adaptiveIcon.backgroundColor` = `#E6F4FE`; medidos em `98261a4`: **oito arquivos** e **`#07091c`**. Os dois bloqueios fecharam em 07-29, mas o runbook — que é o documento que **manda o dono agir** — seguiu mandando adiar o upload do AAB, gatilho do relógio de 14 dias. Fechar um bloqueio precisa varrer os documentos de instrução, não só os de estado |
 
@@ -348,7 +354,8 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
    fora do caminho crítico do lançamento local-first).
 8. ~~**Assets de ícone e de loja** — único bloqueio de engenharia restante.~~
    **RESOLVIDO em 2026-07-29** (§4): as 6 tasks do plano do ícone entregues,
-   contrato 11/11 dentro do `npm run quality`, L2.7/E1 fechadas no lado Android.
+   contrato em 11/11 àquela data (hoje **14/14**) dentro do `npm run quality`,
+   L2.7/E1 fechadas no lado Android.
    **Não há mais bloqueio de engenharia no caminho crítico.** Em 2026-07-30
    fecharam: a ressalva dos screenshots com XP zerado (§4, ressalva 1), o **lado
    iOS de E1** nos dois buckets (6,7" e 6,5") e o achado dos cards
@@ -459,6 +466,17 @@ sessão da tarde, que obteve a evidência em device e fechou E1 (§4, ressalva 1
 | `233f4b0` | `LearningAttemptsRepository` — liga `PRECISÃO` e `TÓPICOS` a dado real |
 | `f7b602a` | captura de loja: guarda de visibilidade → scroll fixo (oclusão do CTA) |
 | `873c81a` | E1 fechado nas duas plataformas e a correção do bloqueio de JDK inexistente |
+| `5b7c6a0` | regenera os screenshots publicáveis e recontagem do que envelheceu |
+| `98261a4` | ancora a contagem de commits a um hash em vez de deixá-la nua |
+| `7f72973` | runbook do Play — remove os dois bloqueios que já não existiam |
+| `6a9f9d6` | normalizador aprende as regras da App Store; para de apagar o destino antes de validar |
+| `6f0009f` | doze screenshots de iPhone + contrato de assets de 11 para 14 testes |
+
+E em **2026-07-31**:
+
+| Commit | O quê |
+| --- | --- |
+| `2b2b85e` | instrução de segurança apontava o `.gitignore` errado antes de baixar a chave |
 
 **Nada foi empurrado.** A branch estava **109 commits** à frente de `origin/main`
 **medidos em `873c81a`** — ancorado num hash de propósito.
