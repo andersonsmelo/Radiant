@@ -27,6 +27,99 @@
 - **`releaseStatus: "draft"`** deixa o build como rascunho no console (você promove
   manualmente), evitando publicação acidental.
 
+## O upload de source maps do Sentry derrubava todo build limpo
+
+**Descoberto em 2026-07-31, no primeiro build Android da história do projeto.** O
+plugin Gradle do `@sentry/react-native` roda uma task de upload de source maps em
+**todo build de release**, e ela falhava:
+
+```
+INFO   Loaded file referenced by SENTRY_PROPERTIES (android/sentry.properties)
+error: An organization ID or slug is required (provide with --org)
+```
+
+A configuração que ela espera não existia em lugar nenhum: o `app.json` declara o
+plugin como a string `"@sentry/react-native"`, sem `organization` nem `project`; o
+`android/sentry.properties` gerado registra em comentários que cai em `SENTRY_ORG`,
+`SENTRY_PROJECT` e `SENTRY_AUTH_TOKEN`; e nenhum perfil do `eas.json` definia
+qualquer uma delas.
+
+**Correção:** `SENTRY_DISABLE_AUTO_UPLOAD: "true"` nos perfis **`preview` e
+`production`** — os que produzem release para distribuição. Verificado localmente:
+com a variável, a task sai `SKIPPED` e o build sai `BUILD SUCCESSFUL`; sem ela,
+falha. O teste foi feito **apagando antes**
+`android/app/build/generated/assets/createBundleReleaseJsAndAssets`, para que o
+bundle fosse regerado — sem isso, o Gradle reaproveita o cache e a task de upload
+nem roda.
+
+**Por que isso passou despercebido até o primeiro build na nuvem:** o
+`BUILD SUCCESSFUL in 48s` registrado em 2026-07-30 era um build com o bundle em
+cache, e a task de upload só roda quando o bundle é regerado. O EAS constrói sempre
+do zero, então foi o primeiro a expor a falha. Um verde local com cache não é
+evidência sobre um build limpo.
+
+**Para builds locais de release**, exporte a variável na mesma invocação — ela não
+está no `eas.json` local nem no `android/gradle.properties` (que é gerado pelo
+prebuild e não sobrevive):
+
+```sh
+cd radiant-app/android && ANDROID_HOME="$HOME/Library/Android/sdk" \
+  JAVA_HOME="$HOME/.jdks/jdk-17.0.19+10/Contents/Home" \
+  SENTRY_DISABLE_AUTO_UPLOAD=true ./gradlew assembleRelease
+```
+
+**Por que o perfil `e2e-test` ficou de fora, de propósito:** o contrato
+`scripts/maestro-contract.test.mjs` fixa o `env` desse perfil com `deepStrictEqual`,
+para impedir que uma flag entre sem ser notada e invalide a evidência de E2E — foi
+essa a classe de defeito que já obrigou a refazer o E2E antes. Acrescentar a
+variável lá reprovaria o gate, e **enfraquecer o contrato para acomodar a mudança
+seria o caminho errado**: a assertividade exaustiva é o valor dele. Além disso, o
+`SENTRY_DISABLE_AUTO_UPLOAD` é variável de **build**, não de runtime, e o env desse
+perfil descreve o que o app enxerga. Os builds de E2E são **locais**
+(`./gradlew assembleRelease`) e não leem o `eas.json`, então nada fica quebrado.
+*Ressalva registrada:* quem um dia rodar `eas build --profile e2e-test` na nuvem
+baterá na mesma falha do Sentry — exporte a variável ou trate o contrato primeiro.
+
+**Isto não desliga o Sentry em runtime** — ele já estava desligado
+(`ENABLE_CRASH_REPORTING` tem default `false` e não é declarado em nenhum perfil).
+O que a variável desliga é o **envio de source maps em tempo de build**, que só faz
+sentido quando existe uma organização Sentry para recebê-los.
+
+**Pendência que isto cria:** a task **F6** do roadmap prevê monitorar crash-free
+≥99% pelo Sentry depois do lançamento. Para isso, alguém precisa criar organização e
+projeto no Sentry e guardar o `SENTRY_AUTH_TOKEN` como segredo do EAS. É
+pré-requisito do F6, não do closed test.
+
+## O `versionCode` é governado pelo servidor, não pelo `app.json`
+
+O `eas.json` declara `cli.appVersionSource: "remote"` e o perfil `production` usa
+`autoIncrement: true`. Com isso o **EAS mantém o contador de `versionCode` no
+servidor** e o incrementa a cada build.
+
+Medido em 2026-07-31, no primeiro build Android da história do projeto: o
+`app.json` dizia `versionCode: 2` e o build saiu com **`versionCode: 3`**.
+
+Consequência prática: **o `android.versionCode` do `app.json` virou decorativo.**
+Editá-lo não muda o que sai no AAB, e lê-lo para responder "qual é o versionCode
+atual" dá a resposta errada. Para o valor real:
+
+```sh
+cd radiant-app && npx eas-cli build:list --platform android --limit 1 --json
+```
+
+O `version` (1.3.0) continua vindo do `app.json`, e com ele o `runtimeVersion`
+pela política `appVersion`. Só o `versionCode` migrou para o servidor.
+
+## Track fechado: `alpha`
+
+O teste fechado criado em 2026-07-31 se chama **`alpha`** — nome que o próprio Play
+Console atribui. É o valor de `--track`. O `track: "internal"` do `eas.json`
+permanece deliberado para o primeiro upload de validação de pipeline.
+
+**A key não bloqueia o primeiro upload:** o `.aab` pode ser enviado à mão pelo
+console (Teste fechado → Versões → Criar nova versão). O `eas submit` é automação,
+não pré-requisito — e essa distinção tira a geração da chave do caminho crítico.
+
 ## Android — o que Anderson precisa fazer
 
 1. **Criar o app** com o package `com.ascendcreative.radiant`. A conta Play Console
