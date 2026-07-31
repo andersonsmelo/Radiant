@@ -8,6 +8,12 @@
  * Regra de premiação (spec §3): nó de lição paga só na primeira conclusão; nó de
  * revisão paga sempre que estava vencido. Quem decide se uma revisão está
  * vencida é o SM-2, não o usuário — por isso a revisão não é farmável.
+ *
+ * Consequência decidida e registrada: uma conclusão anterior à v1.3 (quando o laço
+ * de gamificação ainda não tinha escritor alcançável) nunca é paga, e **não existe
+ * backfill** — ver `docs/adr/ADR-2026-07-31-progresso-anterior-nao-retroativo.md`.
+ * Antes de propor uma migração aqui, leia o ADR: ele mede a população afetada e
+ * explica em que momento o mecanismo passa a ser necessário.
  */
 
 import type { LessonBlock } from '../../../types/lessonFlow';
