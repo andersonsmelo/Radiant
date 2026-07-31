@@ -1,11 +1,22 @@
 # Radiant — Execution Status (2026-07-29, estendido em 2026-07-30)
 
 > Este documento continua sendo o **status canônico**. Ele foi estendido em
-> 2026-07-30 com o conserto do laço de gamificação (§4, ressalva 1) em vez de dar
-> origem a um `EXECUTION_STATUS_2026-07-30.md`: oito arquivos apontam para este
-> nome, incluindo `scripts/qa/docs-contract.mjs` e `.loop/project.yaml`, e um
-> ponteiro canônico decai no instante em que o alvo é substituído. Trocar o nome
-> exige varrer quem aponta para ele — trabalho que ainda não se justifica.
+> 2026-07-30 e de novo em 2026-07-31, em vez de dar origem a arquivos novos: um
+> ponteiro canônico decai no instante em que o alvo é substituído, e trocar o nome
+> exige varrer quem aponta para ele.
+>
+> **Recontado em 2026-07-31: são 14 arquivos, não oito** — `.loop/project.yaml`,
+> `scripts/qa/docs-contract.mjs`, `docs/README.md`, o roadmap de lançamento, o plano
+> de closed testing, o checklist de release, os dois runbooks de loja, dois ADRs,
+> dois planos e uma spec de `superpowers/`, e uma evidência em
+> `radiant-app/docs/`. O número "oito" era verdadeiro quando foi escrito e envelheceu
+> sozinho; o argumento que ele sustenta ficou **mais forte**, não mais fraco. Para o
+> valor de agora:
+>
+> ```sh
+> grep -rl "EXECUTION_STATUS_2026-07-29" --include='*.md' --include='*.mjs' \
+>   --include='*.yaml' --include='*.json' . | grep -v node_modules
+> ```
 
 ## Status canônico atual
 
@@ -411,9 +422,25 @@ Roadmap de lançamento vigente:
 [2026-07-27](plans/2026-07-27-radiant-launch-roadmap.md), e o recorte focado
 Android em
 [2026-07-29 — plano de closed testing](plans/2026-07-29-android-closed-testing-plan.md).
-Ordem de valor: (a) criar/verificar a conta Play e **iniciar o recrutamento de
-testadores hoje**; (b) hospedar as duas páginas; (c) fechar as sessões humanas de
-a11y; (d) disparar builds + `eas submit` quando as contas estiverem prontas.
+**Reescrita em 2026-07-31, à tarde.** A ordem anterior — criar/verificar a conta,
+hospedar as páginas, disparar builds — está inteiramente cumprida, e mantê-la
+escrita mandaria alguém refazer trabalho feito. A sequência agora é:
+
+1. **Subir o AAB no track fechado `alpha` e PROMOVER a release.** É o único passo
+   entre hoje e o relógio começar. A release sobe como rascunho e fica parada até
+   ser promovida.
+2. **Recrutar os testadores** — ≥12 opted-in, meta de 14–16 para absorver churn. É
+   o item de maior latência e **o único bloqueio de publicação que resta**. Coletar
+   a conta Google **do aparelho** de cada pessoa, não "o e-mail".
+3. **Copiar o link de opt-in**, que só existe depois da release publicada, e
+   disparar os convites.
+4. **Mergear a PR #39** do site antes de submeter, e remedir as duas URLs legais na
+   véspera — elas estão no ar só por FTPS.
+5. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.
+
+Fora do caminho: a prova do *themed icon* (precisa de aparelho real), as sessões
+humanas de a11y, a triagem do gate editorial (D4) e a configuração do Sentry, que é
+pré-requisito do F6 e não do beta.
 
 ## Coordenação entre múltiplas IAs
 
@@ -522,11 +549,21 @@ sessão da tarde, que obteve a evidência em device e fechou E1 (§4, ressalva 1
 | `6a9f9d6` | normalizador aprende as regras da App Store; para de apagar o destino antes de validar |
 | `6f0009f` | doze screenshots de iPhone + contrato de assets de 11 para 14 testes |
 
-E em **2026-07-31**:
+E em **2026-07-31**, sete commits — dois pela manhã e cinco à tarde:
 
 | Commit | O quê |
 | --- | --- |
 | `2b2b85e` | instrução de segurança apontava o `.gitignore` errado antes de baixar a chave |
+| `f2fddcb` | varredura da documentação por função; desfaz os bloqueios fantasmas do checklist |
+| `fe7cb2a` | alarga `writePolicy` para o `eslint.config.js` — transação própria, anterior ao que autoriza |
+| `83e2b5f` | **desliga o upload do Sentry, que derrubava todo build limpo** — é o commit que destravou o lançamento |
+| `1c68bb5` | lint 65 → 9, medindo por regra e por arquivo (B7 fechada) |
+| `352d0b9` | os dois ADRs do dia, a triagem do D4 e o plano da `HomeScreen` |
+| `f106d26` | corrige o que a execução ao vivo no Play Console provou falso |
+
+**Nada foi empurrado.** A branch está **121 commits à frente** de `origin/main`
+**medidos em `f106d26`**. Para o valor de agora:
+`git rev-list --count origin/main..HEAD`.
 
 **Nada foi empurrado.** A branch estava **109 commits** à frente de `origin/main`
 **medidos em `873c81a`** — ancorado num hash de propósito.

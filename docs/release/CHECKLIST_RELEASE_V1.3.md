@@ -10,7 +10,16 @@
 > Legenda: ✅ feito · ⏳ pendente · ⛔ bloqueado (dependência externa) ·
 > 🔁 refazer sob perfil de produção.
 
-**Última atualização:** 2026-07-31 · **Alvo:** v1.3.0
+**Última atualização:** revisado em `f106d26` (2026-07-31, tarde) · **Alvo:** v1.3.0
+
+> **Por que a marca de atualização é um hash, e não uma data.** A revisão anterior
+> deste checklist também dizia "2026-07-31" — foi feita na manhã daquele dia, no
+> commit `f2fddcb`. À tarde, cinco itens desta lista voltaram a estar errados: a
+> conta foi verificada, o app foi criado, o AAB passou a existir. **Data em
+> granularidade de dia não distingue duas revisões do mesmo dia**, e um checklist de
+> go/no-go é exatamente onde essa ambiguidade custa. Ancorado a um hash, o leitor
+> sabe contra qual estado do repositório esta lista foi conferida — a mesma regra
+> que este projeto já aplica a contagens.
 
 > **Por que esta revisão foi grande.** O checklist ficou parado em 2026-07-27
 > enquanto o status canônico e os planos avançaram quatro dias. Quinze itens
@@ -101,8 +110,16 @@ fontes ampliadas · sem vazamento de rota no header.
   no ar porque subiram por FTPS; um redeploy da main pode removê-las. Marcar a PR
   como *ready for review*, mergear antes de submeter, e **remedir as duas URLs na
   véspera** — o estado de uma URL pública decai sozinho.
-- [ ] ⏳ Decidir se o **relatório de falhas (Sentry)** entra ligado no beta; se
-  sim, declarar Crash Data nas fichas (ver mapeamento no contrato).
+- [ ] ⛔ **Sentry: não há organização nem projeto configurado.** Medido em
+  2026-07-31: o `app.json` declara o plugin sem `organization`/`project`, o
+  `sentry.properties` gerado cai em variáveis de ambiente e nenhum perfil do
+  `eas.json` as definia — o upload de source maps **derrubava todo build limpo**.
+  Foi desligado (`SENTRY_DISABLE_AUTO_UPLOAD`) para destravar o lançamento; o
+  Sentry já estava off em runtime (`ENABLE_CRASH_REPORTING` default `false`).
+  Ligar o crash reporting no beta **exige antes** criar organização e projeto e
+  guardar o auth token como segredo do EAS. Se for ligado, declarar Crash Data nas
+  fichas (mapeamento no contrato de telemetria). É também pré-requisito do **F6**,
+  que promete monitorar crash-free ≥ 99%.
 - [ ] ⏳ Snapshot de war room de homologação, se for usar sign-off estrito:
   `npm run app-store:ops-check:strict` exige
   `docs/release/APP_STORE_WAR_ROOM_LATEST.md`.
@@ -139,27 +156,40 @@ fontes ampliadas · sem vazamento de rota no header.
 ## 6. Contas e submissão (M0 → M4)
 
 - [x] ✅ Tipo de conta decidido: Play pessoal + Apple individual (task **A1**).
-- [ ] ⛔ **Play Console: a conta EXISTE** (tipo Pessoal, "Saúde Diagnóstica",
-  `anderson.smelo94@gmail.com`), mas a **verificação de acesso a dispositivo**
-  está pendente e **exige aparelho Android real** — o emulador local é imagem
-  "Google APIs" sem Play Store.
-- [ ] ⛔ **Apple Developer: estado DESCONHECIDO** (task **A2**). Nenhum documento
-  deste repositório registra que a conta existe; o status detalha a conta Play e
-  **cala sobre a Apple**. São US$ 99/ano mais verificação de identidade, com
-  latência própria. **Confirmar com Anderson antes de planejar o lado iOS** —
-  ausência de registro não é evidência de ausência, nem de existência.
-- [ ] ⛔ Criar o app nas duas consoles com `com.ascendcreative.radiant` e
-  reservar o nome "Radiant" (task **A3**). Runbook com os valores prontos para
-  colar: [`RUNBOOK_PLAY_CONSOLE.md`](../store/RUNBOOK_PLAY_CONSOLE.md).
-- [ ] ⛔ `eas submit` (task **A5**) — **o bloco Android já está configurado** no
-  `eas.json` (`serviceAccountKeyPath`, `track`, `releaseStatus`) e
-  `radiant-app/credentials/` existe, vazio e protegido pelo `.gitignore` da raiz.
-  Falta **gerar a chave** no console. O lado **iOS segue `{}`**: falta a App Store
-  Connect API key.
-- [ ] ⛔ Recrutar ≥ 14 testadores para o closed test do Play (task **A6**).
-- [ ] ⛔ Build `production` iOS → TestFlight (task **F1**).
-- [ ] ⛔ Build `production` Android (AAB) → closed testing, **12+ opted-in por 14
-  dias consecutivos** (task **F2**) — piso do caminho crítico.
+- [x] ✅ **Play Console: conta paga e VERIFICADA.** A verificação de acesso a
+  dispositivo — que exigia aparelho Android real e bloqueava a publicação por
+  **qualquer** caminho — foi concluída em 2026-07-31.
+- [ ] ⏸️ **Apple Developer: fora de escopo por decisão do dono (2026-07-31).** O
+  lançamento foca só no Android; o lado Apple está **adiado, não cancelado**, e
+  nada de iOS deve ser executado até a decisão ser revertida. *Registro do que foi
+  medido:* existe neste host uma sessão autenticada do portal Apple Developer
+  (`~/.app-store/auth/`), de 2026-03-30, sob um e-mail **diferente** do contato
+  declarado na política. Isso **não** estabelece membresia paga — Apple ID gratuito
+  também loga no portal, e o build de 2026-03-30 era de **simulador**, que não
+  exige assinatura. Ver [ADR de conta e premium](../adr/ADR-2026-07-31-conta-e-premium.md).
+- [x] ✅ **App criado no Play Console** em 2026-07-31 com o título
+  `Radiant — Radiologia` e o pacote `com.ascendcreative.radiant` (task **A3**).
+  O identificador é digitado **na criação** e é irreversível. Ficha, assets e
+  Conteúdo do app preenchidos. Runbook:
+  [`RUNBOOK_PLAY_CONSOLE.md`](../store/RUNBOOK_PLAY_CONSOLE.md).
+- [ ] ⏳ `eas submit` (task **A5**) — **não está no caminho crítico.** Descoberto em
+  2026-07-31: a service-account key **não é pré-requisito do primeiro upload**; o
+  `.aab` vai à mão pelo console. O `eas submit` é automação. Gerar a chave quando
+  convier. O lado **iOS segue `{}`**, e permanece fora de escopo.
+- [ ] ⛔ Recrutar ≥ 14 testadores para o closed test do Play (task **A6**) —
+  **o único bloqueio de publicação que resta.**
+- [ ] ⏸️ Build `production` iOS → TestFlight (task **F1**) — fora de escopo.
+- [x] ✅ **Build `production` Android (AAB) — EXISTE.** Primeiro artefato
+  distribuível da história do projeto, `versionCode 4`, gerado em 2026-07-31 e
+  verificado por dentro (`com.ascendcreative.radiant`, `1.3.0`, com controle
+  negativo). O primeiro build falhou e a causa foi o upload de source maps do
+  Sentry sem organização configurada — ver
+  [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md).
+- [ ] ⏳ **Subir o AAB no track fechado `alpha` e PROMOVER a release** (task
+  **F2**). A release sobe como rascunho (`releaseStatus: draft`) e fica parada até
+  ser promovida. O relógio de **12+ opted-in por 14 dias consecutivos** — piso do
+  caminho crítico — só começa com a release *live* e os testadores dentro. Nem no
+  upload, nem na promoção isolada: nas duas coisas juntas.
 
 ## 7. Lançamento e pós (M5)
 
