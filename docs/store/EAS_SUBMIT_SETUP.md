@@ -29,15 +29,24 @@
 
 ## Android — o que Anderson precisa fazer
 
-1. **Criar a conta Play Console** (pagamento já aprovado) e o app com o package
-   `com.ascendcreative.radiant`.
+1. **Criar o app** com o package `com.ascendcreative.radiant`. A conta Play Console
+   **já existe** (tipo Pessoal, "Saúde Diagnóstica" — §3 do
+   [status canônico](../EXECUTION_STATUS_2026-07-29.md)); o que continua pendente
+   nela é a **verificação de acesso a dispositivo**, que exige aparelho Android real.
 2. **Gerar a service-account key** (JSON) para o `eas submit`:
    - Play Console → **Configurações → Acesso à API** → vincular/criar um projeto
      Google Cloud → criar uma **conta de serviço** → conceder acesso no Play Console
      (permissão de **release** nos tracks de teste) → gerar uma **chave JSON**.
 3. **Colocar a chave** em `radiant-app/credentials/play-service-account.json`.
-   - ⚠️ **Nunca commitar essa chave.** Confirme que `credentials/` está no
-     `radiant-app/.gitignore` antes de baixar o arquivo (ver nota abaixo).
+   - ⚠️ **Nunca commitar essa chave.** Antes de baixar o arquivo, confirme a
+     proteção **perguntando ao git**, não lendo um arquivo:
+
+     ```bash
+     cd /Users/anderson/Developer/Radiant && git check-ignore -v radiant-app/credentials/play-service-account.json
+     ```
+
+     A saída esperada é `.gitignore:37:credentials/`. Se **nada for impresso**,
+     pare e avise — a regra sumiu.
 4. **Submeter** (depois de ter um AAB de `production` buildado via EAS):
    ```sh
    eas submit --platform android --profile production
@@ -74,7 +83,21 @@
 
 ## Nota de segurança
 
-- `credentials/play-service-account.json` e qualquer `.p8`/`.json` de credencial de
-  loja são **segredos**. Garanta que o diretório `credentials/` esteja ignorado no
-  `radiant-app/.gitignore` antes de colocar os arquivos. O scanner de segredos do Loop
-  bloqueia commits de chaves, mas a primeira linha de defesa é o `.gitignore`.
+`credentials/play-service-account.json` e qualquer `.p8`/`.json` de credencial de
+loja são **segredos**. O scanner do Loop bloqueia commits de chaves, mas a primeira
+linha de defesa é o `.gitignore`.
+
+**A regra que protege a chave vive no `.gitignore` da RAIZ, linha 37 (`credentials/`),
+não no `radiant-app/.gitignore`.** A redação anterior desta nota mandava conferir no
+`radiant-app/.gitignore`, que tem `*.p8` mas **não** tem `credentials/` — quem
+seguisse a instrução olharia o arquivo errado, não encontraria a regra e concluiria
+que a proteção não existe, no exato momento anterior a baixar um segredo.
+
+Por isso a verificação é `git check-ignore -v`, e não a leitura de um arquivo: ela
+pergunta ao git qual regra de qual arquivo está de fato valendo, o que nenhuma
+leitura de `.gitignore` isolado responde. Um `.gitignore` pode existir, ser lido,
+parecer errado e ainda assim não ser o que decide.
+
+A regra fica em **um** lugar de propósito. Duplicá-la no `radiant-app/.gitignore`
+como "defesa em profundidade" cria duas fontes para o mesmo fato, que divergem no
+primeiro dia em que alguém editar uma delas.

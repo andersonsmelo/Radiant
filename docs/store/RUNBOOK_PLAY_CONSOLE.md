@@ -125,6 +125,42 @@ Detalhe do fluxo de submissão em [`EAS_SUBMIT_SETUP.md`](EAS_SUBMIT_SETUP.md).
 
 ---
 
+## Parte 6 — O relógio de 14 dias só corre no track fechado
+
+Este é o ponto onde é fácil perder duas semanas sem perceber, então ele fica aqui,
+no documento que você executa, e não só no guia de submissão.
+
+O requisito do Play para conta Pessoal é **≥12 testadores opted-in por 14 dias
+consecutivos em CLOSED TESTING**. Duas configurações precisam estar certas para
+esse relógio começar a andar:
+
+| Configuração | Valor no `eas.json` hoje | O que isso faz |
+| --- | --- | --- |
+| `track` | `internal` | Internal testing — **não conta** para os 14 dias |
+| `releaseStatus` | `draft` | Sobe como rascunho — **ninguém recebe** até você promover |
+
+**Os dois valores são deliberados**, não descuido: internal testing sobe na hora e
+sem revisão, então serve para validar o pipeline de submissão antes de qualquer
+coisa contar. A sequência pretendida é subir no internal, confirmar que o `eas
+submit` funciona, e só então promover para o track fechado.
+
+O que **não** funciona é rodar `eas submit --profile production` uma vez e ficar
+esperando o relógio: com esses dois valores, ele não começou.
+
+Para o upload que de fato inicia a contagem:
+
+```bash
+cd /Users/anderson/Developer/Radiant/radiant-app && eas submit --platform android --profile production --track <nome-do-track-fechado>
+```
+
+O `<nome-do-track-fechado>` é o que você criar no console em **Teste → Teste
+fechado**. Depois do upload, ainda é preciso **promover a release** (o
+`releaseStatus: draft` a deixa parada) e **adicionar os testadores**. O relógio
+começa quando a release está live no track fechado com os testadores dentro —
+não no upload.
+
+---
+
 ## O que este runbook NÃO destrava
 
 > **Os dois bloqueios de engenharia que esta seção listava foram resolvidos em
