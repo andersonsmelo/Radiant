@@ -5,7 +5,6 @@ import { SyncQueueService } from '../sync/SyncQueueService';
 import { SpacedRepetitionService } from '../spaced-repetition/services/SpacedRepetitionService';
 import { TelemetryService } from '../telemetry/TelemetryService';
 import type { AuthSession } from './types';
-import type { QuizLessonId } from '../../types/quiz';
 import type { SRRating } from '../../types/spacedRepetition';
 
 type MigrationState = Record<string, string>;

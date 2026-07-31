@@ -140,7 +140,6 @@ export function StarfieldBackground({
       return x - Math.floor(x);
     };
     return Array.from({ length: starCount }, (_, i) => {
-      const r = rng(i + 1);
       const size = rng(i * 3 + 1) < 0.65 ? 1 : rng(i * 7) < 0.5 ? 2 : 3;
       return {
         x: rng(i * 13 + 5),

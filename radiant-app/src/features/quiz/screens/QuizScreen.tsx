@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';

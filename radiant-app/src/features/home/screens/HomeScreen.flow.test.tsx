@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';

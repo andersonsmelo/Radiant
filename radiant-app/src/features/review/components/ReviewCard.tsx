@@ -5,10 +5,10 @@ import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { useCardEnter, useShakeError } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-
-const galaxy = semanticColors.galaxy;
 import { radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
+
+const galaxy = semanticColors.galaxy;
 
 interface ReviewCardProps {
   question: QuizQuestion;

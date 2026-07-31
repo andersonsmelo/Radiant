@@ -29,13 +29,13 @@ export interface AppStoreOpsSummary {
     latestUpgradeInterestEmail: string | null;
     paywallTapRate: number;
     suggestedDecision: 'escalar' | 'iterar' | 'conter' | 'reverter';
-    recentEvents: Array<{
+    recentEvents: {
         name: TelemetryEventName;
         ts: number;
         outcome?: string;
         trigger?: string;
         entrySurface?: string;
-    }>;
+    }[];
 }
 
 class AppStoreOpsServiceImpl {
@@ -133,12 +133,12 @@ class AppStoreOpsServiceImpl {
         ].join('\n');
     }
 
-    private count(events: Array<{ name: TelemetryEventName }>, target: TelemetryEventName): number {
+    private count(events: { name: TelemetryEventName }[], target: TelemetryEventName): number {
         return events.filter((event) => event.name === target).length;
     }
 
     private countOutcome(
-        events: Array<{ name: TelemetryEventName; props?: Record<string, unknown> }>,
+        events: { name: TelemetryEventName; props?: Record<string, unknown> }[],
         outcome: string
     ): number {
         return events.filter(

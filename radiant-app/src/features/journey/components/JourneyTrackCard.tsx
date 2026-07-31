@@ -4,9 +4,9 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { LearningTrack } from '../../content/content.types';
 import { galaxyColors, shadows } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
+import { radius, space, typography } from '../../../ui/styles';
 
 const galaxy = semanticColors.galaxy;
-import { radius, space, typography } from '../../../ui/styles';
 
 type MaterialIconName = DecorativeIconName;
 

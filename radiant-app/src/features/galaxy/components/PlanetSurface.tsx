@@ -29,10 +29,10 @@ interface PlanetSurfaceProps {
 
 interface SurfaceConfig {
   baseGradient: [string, string, string]; // light, mid, dark
-  bands: Array<{ y: number; h: number; color: string; opacity: number }>;
-  spots?: Array<{ cx: number; cy: number; rx: number; ry: number; color: string; opacity: number }>;
+  bands: { y: number; h: number; color: string; opacity: number }[];
+  spots?: { cx: number; cy: number; rx: number; ry: number; color: string; opacity: number }[];
   icecap?: { ry: number; opacity: number };
-  craters?: Array<{ cx: number; cy: number; r: number; opacity: number }>;
+  craters?: { cx: number; cy: number; r: number; opacity: number }[];
 }
 
 const SURFACE_CONFIGS: Record<PlanetSurfaceType, SurfaceConfig> = {

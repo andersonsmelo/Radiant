@@ -24,7 +24,7 @@ interface PieceConfig {
   color: string;
 }
 
-interface PieceProps extends PieceConfig {}
+type PieceProps = PieceConfig;
 
 function ConfettiPiece({ x, cx, rot, dur, delay, size, isCircle, color }: PieceProps) {
   const translateY = useSharedValue(-20);

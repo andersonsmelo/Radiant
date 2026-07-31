@@ -10,7 +10,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   Dimensions,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   View,

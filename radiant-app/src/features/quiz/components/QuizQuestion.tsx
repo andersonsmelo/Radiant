@@ -7,9 +7,9 @@ import type { QuizQuestion as QuizQuestionModel } from '../../../types/quiz';
 import { useCardEnter } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
+import { radius, space, typography } from '../../../ui/styles';
 
 const galaxy = semanticColors.galaxy;
-import { radius, space, typography } from '../../../ui/styles';
 
 interface QuizQuestionProps {
   question: QuizQuestionModel;

@@ -7,7 +7,6 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 
 const ALL_LOCAL_LESSONS = [...AI_LESSONS, ...LESSONS];
 const LOCAL_LESSONS_BY_ID = new Map(ALL_LOCAL_LESSONS.map((lesson) => [lesson.id, lesson] as const));
-const LOCAL_LESSON_IDS = new Set(ALL_LOCAL_LESSONS.map((lesson) => lesson.id));
 
 function createLocalManifest(): LessonCatalogManifest {
     return {
