@@ -17,7 +17,7 @@ Limites de caracteres respeitados: nome/subtítulo/título 30; short description
 
 ## Nome do app
 
-**Radiant** (13). Plano B de nome caso indisponível na App Store é tratado na
+**Radiant** (7). Plano B de nome caso indisponível na App Store é tratado na
 task A3; sugestões de reserva: `Radiant: Radiologia`, `Radiant Radiology`.
 
 ## Subtítulo (App Store, ≤30) — 3 opções
@@ -29,7 +29,12 @@ task A3; sugestões de reserva: `Radiant: Radiologia`, `Radiant Radiology`.
 
 ## Título (Google Play, ≤30)
 
-**Radiant — Radiologia** (21). Alternativa: **Radiant: Estudar Radiologia** (28).
+**Radiant — Radiologia** (20). Alternativa: **Radiant: Estudar Radiologia** (27).
+
+> Este é o valor do campo "Nome do app" **no Google Play** — o mesmo campo que a
+> tela de criação do app pede e que a ficha reexibe. O `Radiant` puro acima é o nome
+> da App Store. Confundir os dois foi o que levou o valor errado a ser digitado no
+> console em 2026-07-31.
 
 ## Descrição curta (Google Play, ≤80) — 2 opções
 
@@ -47,6 +52,12 @@ espaçada que fixam o conteúdo. Funciona offline e sem login — estude no seu 
 ---
 
 ## Descrição longa (App Store e Google Play, ≤4000)
+
+> **O texto abaixo está em Markdown; o campo do Play não renderiza Markdown.** Colar
+> como está publica os `**` literais na ficha. Antes de colar, converta: remova os
+> asteriscos, ponha os títulos de seção em caixa alta e troque os `-` de lista por
+> `•`. O conteúdo é o mesmo — só a marcação sai. Convertido assim, o texto tem
+> **1605** caracteres.
 
 **Radiant é um app para estudar radiologia com método — no seu ritmo, em qualquer
 lugar.**

@@ -330,6 +330,36 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | screenshots de iPhone para a App Store | **PASS — fechado** | os doze PNGs publicáveis existem em `docs/store/assets/screenshots-ios-67/` (1290×2796) e `screenshots-ios-65/` (1242×2688). O `normalize-screenshots.py` não "só conhecia" as regras do Play — seu `MAX_RATIO = 2.0` **reprovava** os doze arquivos (2,167:1 e 2,164:1); virou `--spec` obrigatório com validação de tamanho exato por bucket. Contrato de assets de 11 → **14 testes**, verificados por reversão |
 | `RUNBOOK_PLAY_CONSOLE.md` — bloqueios obsoletos | **corrigido** | a seção "o que este runbook NÃO destrava" afirmava `docs/store/assets/` vazio e `adaptiveIcon.backgroundColor` = `#E6F4FE`; medidos em `98261a4`: **oito arquivos** e **`#07091c`**. Os dois bloqueios fecharam em 07-29, mas o runbook — que é o documento que **manda o dono agir** — seguiu mandando adiar o upload do AAB, gatilho do relógio de 14 dias. Fechar um bloqueio precisa varrer os documentos de instrução, não só os de estado |
 
+### Verificações de 2026-07-31
+
+| Verificação | Estado | Resultado |
+| --- | --- | --- |
+| app criado no Play Console (L2.2 / A3) | **FEITO** | criado nesta data pelo dono, com o título **`Radiant — Radiologia`** — confirmado na barra do console. O identificador de pacote foi fixado nesse ato e é **irreversível**; conferir em Configurações → Detalhes do app que ele é `com.ascendcreative.radiant` antes do primeiro upload de AAB |
+| `RUNBOOK_PLAY_CONSOLE.md` — campo de pacote | **corrigido** | o runbook afirmava que o identificador de pacote **não é digitado na criação do app**. É — o campo está na tela de criação, com "Ver disponibilidade", e é o único campo irreversível dela. Nenhuma varredura deste repositório poderia ter pego isso: é afirmação sobre a UI de um terceiro, que muda sem emitir sinal do lado de cá. O runbook passou a marcar esse gênero de afirmação como "confira na tela" e a nunca afirmar a **ausência** de um campo |
+| `RUNBOOK_PLAY_CONSOLE.md` — nome do app | **corrigido** | Parte 1 mandava digitar `Radiant` e Parte 2 mandava `Radiant — Radiologia` **no mesmo campo do console**, desde o dia em que o arquivo foi escrito. O dono seguiu a Parte 1 e digitou o valor errado. A varredura de 07-30, feita **por função** de documento, não pega esta classe: as duas seções são instrução, as duas estão em presente e as duas parecem certas isoladas. Agora há uma tabela única de campos, referenciada pelas demais seções |
+| `TESTER_INVITE_KIT.md` — sequência do opt-in | **corrigido** | o passo a passo mandava criar o track, adicionar e-mails e "copiar o link de opt-in". Esse link **só existe depois que uma release está ativa no track fechado** — seguir o kit levaria a procurar um link inexistente e concluir que algo quebrou. Separado no que dá para adiantar sem build (levantar pessoas, criar track, criar Grupo do Google) e o que exige a release promovida |
+| `TESTER_INVITE_KIT.md` — conta do aparelho | **corrigido** | o kit dizia "basta a conta Google deles" sem dizer **qual**: o e-mail cadastrado precisa ser a conta logada na Play Store **do aparelho**. Aceitar numa conta com o celular logado em outra faz a ficha não aparecer, sem erro nem aviso — e some da contagem de opted-in igual a uma desistência |
+| progresso anterior não pago retroativamente | **decidido — sem código** | A pendência vinha redigida em termos de população ("quem já concluiu lições nunca receberá XP"). A regra foi confirmada no código, o que prova o **mecanismo** e nada sobre existir alguém excluído. O registro de builds do EAS mostra **um único build em toda a história do projeto** (2026-03-30, iOS simulador, perfil de desenvolvimento, distribuição interna, do commit `128d70b`): nenhuma distribuição, nenhum usuário. A população afetada é o aparelho do dono. Decisão em [ADR-2026-07-31](adr/ADR-2026-07-31-progresso-anterior-nao-retroativo.md): sem backfill; o risco real é a primeira mudança de regra de gamificação **depois** de haver testadores com progresso |
+| conta de usuário e premium | **decidido — sem código** | O dono questionou o posicionamento "sem conta" da ficha, por conta da assinatura premium. Medido: o `AuthService` e o bloco de login do `ProgressScreen` são **inertes no build distribuído** (condicionados a `isApiConfigured()`, e nenhum perfil define `EXPO_PUBLIC_API_BASE_URL`), há `UpgradeInterestService`, uma flag `ENABLE_REVENUECAT` com **zero consumidores** e **nenhuma dependência de billing** instalada. Decisão em [ADR-2026-07-31](adr/ADR-2026-07-31-conta-e-premium.md): v1.3 lança sem conta, premium na v1.4. **Fica em aberto e precisa ser decidido antes do primeiro assinante:** Play Billing puro (sem conta própria, suficiente enquanto for só Android) ou conta própria + billing |
+| cópia de loja — recontagem dos limites | **corrigido** | Três contagens de caracteres estavam erradas na fonte: `Radiant` marcado **13** quando são **7**, `Radiant — Radiologia` marcado **21** quando são **20**, `Radiant: Estudar Radiologia` marcado **28** quando são **27**. As demais (27, 29, 28, 70, 74, 95) conferiram. O `21` chegou a ser propagado para o runbook na correção da manhã desta data e foi consertado no mesmo run — número em documento não decai como estado: nasce errado e ganha autoridade por repetição |
+| descrição longa em Markdown num campo que não renderiza | **corrigido** | a fonte está em Markdown e o runbook mandava colar "a seção inteira" no campo do Play, que **não renderiza Markdown** — a ficha pública sairia com os `**` literais. Fonte e runbook passaram a exigir a conversão para texto limpo (1605 caracteres) |
+| ficha da loja preenchida | **FEITO** | nome, descrição breve (70/80), descrição completa (1605/4000), ícone 512, feature graphic e os seis screenshots enviados. A descrição precisou ser **convertida de Markdown para texto limpo** — o campo do Play não renderiza Markdown |
+| Conteúdo do app (Data Safety, classificação, público-alvo) | **relatado FEITO pelo dono** | "totalmente classificado no console, não tem bloqueios" (2026-07-31). Não medido por mim — a autoridade é a seção "Visão geral da publicação" do console |
+| track de teste fechado | **criado — chama `alpha`** | nome atribuído pelo próprio Play Console ("Teste fechado - Alpha"). É o valor real de `--track`; o `eas.json` mantém `track: "internal"`, deliberado para o primeiro upload de validação de pipeline |
+| primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) |
+| por que o gate local não pegou | **explicado** | o `BUILD SUCCESSFUL in 48s` de 2026-07-30 foi feito com o bundle **em cache**, e a task de upload do Sentry só roda quando o bundle é regerado. O EAS constrói sempre do zero, então foi o primeiro a expor a falha. **Um verde local com cache não é evidência sobre um build limpo** — a armadilha do cache do Gradle já estava registrada neste repositório e cobrava aqui |
+| keystore de assinatura Android | **criada** | gerada pelo EAS no build que falhou e **persiste no servidor** — é ela que assinará todas as atualizações do app. Não se refaz no próximo build |
+| tamanho do archive enviado ao EAS | **anomalia aberta** | 856 MB, 4m09s de upload, contra **24 MB em 557 arquivos** de conteúdo não ignorado em todo o repositório. Não existe `.easignore`. **Não foi estabelecido** que isso causou a falha — a causa é o Sentry — mas é custo real por build e permanece a investigar |
+| `versionCode` — quem governa | **descoberto** | `cli.appVersionSource: "remote"` + `autoIncrement` fazem o **EAS manter o contador no servidor**. O `app.json` dizia `2` e o build saiu `3`. O `android.versionCode` do `app.json` **virou decorativo**: editá-lo não muda o AAB, e lê-lo para responder "qual é o versionCode" dá resposta errada. O valor real sai de `eas build:list` |
+| service-account key no caminho crítico | **corrigido** | ela **não** é pré-requisito do primeiro upload: o `.aab` pode ser arrastado direto no console. O `eas submit` é automação. Isso tira a chave do caminho crítico do relógio de 14 dias |
+| passivo de lint (B7) | **65 → 11, meta era ≤20** | Os **62** de 30/07 já não valiam: recontados, eram **65**. Medindo por regra **e por arquivo**, **40 não eram dívida** — 37 `no-require-imports` dentro de fábricas `jest.mock()`, onde `require()` é obrigatório pela içagem do Jest, e 3 em arquivos que se declaram gerados (`storybook.requires.ts`, `.expo/types/router.d.ts`). Corrigidos os 16 mecânicos; o `eslint.config.js` passou a ignorar os gerados e a desligar a regra **só em `**/*.test.ts(x)`**, com a razão no próprio arquivo — a regra segue valendo em produção. Restam **9** `exhaustive-deps` (exigem julgamento por caso) e **2** diretivas `eslint-disable` órfãs. Alargar `writePolicy` para o `eslint.config.js` foi transação própria e anterior |
+| PR #39 do site (páginas legais) | **ainda draft** | terceira remedição nesta data, sem alteração desde 2026-07-29 17:42Z. Segue como o maior risco por unidade de esforço: as URLs já estão coladas na ficha do Play e sobrevivem apenas por FTPS |
+| D4 — gate editorial, triado | **medido** | Os **42** `formatNeedsReview` são **7 conceitos × 6 formatos** (mesmo conjunto nos seis, motivo vazio nos 42 — estado herdado, não julgado por item). Os 7 conceitos derivam da proporção de excertos sinalizados (todos ≥33%; todos os 9 aprovados ≤25%). A unidade atômica são **30 excertos**, e **8 moram em conceitos aprovados**, invisíveis a uma triagem na camada dos bundles. A dúvida **não é editorial**: vem do classificador `deterministic-keyword-v1` caindo em *fallback* — 13 dos 30 sem sinal nos três níveis da taxonomia, confiança média 0,52 contra 0,91 dos aprovados. Triagem completa em [`docs/content/2026-07-31-d4-triagem-editorial.md`](content/2026-07-31-d4-triagem-editorial.md) |
+| verificação de acesso a dispositivo da conta Play | **CONCLUÍDA** | relatada pelo dono em 2026-07-31. Exigia aparelho Android real (o emulador local é imagem "Google APIs" sem Play Store) e era o bloqueio que impedia a publicação por qualquer caminho. Com ela fechada, o que separa o app da produção é o closed test: AAB no track `alpha`, ≥12 testadores opted-in e 14 dias consecutivos |
+| prova do *themed icon* do Android 13+ | **segue pendente** | mesma exigência de aparelho real, e o aparelho usado na verificação já não está disponível. **Não bloqueia o closed test** — é ressalva de qualidade. Fecha com uma captura da gaveta de apps com ícones temáticos ligados, sobre o APK de release instalado por `adb` |
+| smoke público da API | FAIL esperado | `/health` e `/ready` seguem em **502**, remedidos nesta data. Inalterado, fora do caminho crítico |
+| PR #39 do site (páginas legais) | **ainda draft** | remedida nesta data: `OPEN`, `MERGEABLE`, `mergeStateStatus CLEAN`, **`isDraft true`**, sem alteração desde 2026-07-29 17:42Z. Draft bloqueia merge independentemente de `mergeable`. As páginas seguem no ar por FTPS; um redeploy da branch principal do site pode removê-las |
+
 ## Bloqueios do lançamento
 
 O caminho crítico é **administrativo/loja** e quase todo ação do usuário — mas
@@ -338,8 +368,10 @@ seção: os **assets de ícone e de loja** (§4). Sem eles a ficha do Play não 
 e `icon.png` como está iria para a App Store com a grade de construção visível.
 É trabalho meu, em execução, e não depende de conta nem de testadores:
 
-1. **Verificação da conta Play** — precisa de um **aparelho Android real** (o
-   emulador não serve).
+1. ~~**Verificação da conta Play** — precisa de um **aparelho Android real**.~~
+   **CONCLUÍDA em 2026-07-31**, relatada pelo dono. Era o item que bloqueava a
+   publicação independentemente de qualquer teste: sem ela, nenhum caminho levava à
+   produção. Deixa de ser bloqueio.
 2. ~~**Hospedar** a política de privacidade e a página de suporte no domínio.~~
    **RESOLVIDO em 2026-07-29** — ver §5. Sobra apenas colar as duas URLs nos
    consoles, o que faz parte do item 3.
@@ -428,7 +460,25 @@ O valor vinha de um default implícito. **Corrigido:** declarado como `true` em
 é `ENABLE_LEARNING_ROAD ? <JourneyHomeScreen /> : <HomeScreen />`, e a flag tem
 default `true` e está ligada em produção. `HomeScreen` é o fallback morto — com
 três TODOs de "ligar contadores reais" e sua própria suíte de testes sendo
-mantida. **Não corrigido**, decisão pendente.
+mantida. **Decidido em 2026-07-31 (opção A), execução pós-beta.** Apagar a `HomeScreen` e a
+flag `ENABLE_LEARNING_ROAD`, **mantendo `/review` viva**. Plano em
+[`2026-07-31-remover-homescreen-morta.md`](superpowers/plans/2026-07-31-remover-homescreen-morta.md).
+
+Duas premissas herdadas caíram na medição desta data: (a) `ReviewScreen` **não é
+protótipo** — o `useReview` está ligado a `SpacedRepetitionService`,
+`LessonCatalogService`, `GamificationService`, fila de sync e telemetria; é uma
+implementação completa e inalcançável, e o `features/review/data/mockData.ts` é
+órfão, sem referência na tela nem no hook; (b) o wizard `src/app/onboarding/*` que a
+B6 manda remover junto **já não existe** — sobrou o `OnboardingService`, que tem um
+segundo consumidor vivo em `IosHomologationService.ts:62` e não morre com a
+`HomeScreen`.
+
+Por isso `/review` fica. O gatilho para revisitar é explícito: se o feedback do beta
+pedir revisão avulsa, ela vira candidata a **ativação**, não a deleção. E o valor
+real da limpeza não é a tela — é a flag, declarada com o mesmo valor nos quatro
+perfis do `eas.json` mais o default, fingindo uma configurabilidade que não existe.
+A execução é pós-beta porque toca o binário e obriga a novo build e novo E2E, na
+única janela em que a estabilidade é o requisito.
 
 *Acoplamento a registrar antes de qualquer deleção* (descoberto em 2026-07-29, ao
 investigar a ressalva 1 da §4): essa tela é hoje o **único** `router.push('/review')`

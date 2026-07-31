@@ -27,28 +27,60 @@ a chave ficaria rastreável pelo git.
 
 ---
 
+## Como ler este runbook
+
+Ele mistura dois tipos de afirmação, e eles envelhecem de formas diferentes:
+
+- **Valores nossos** (identificadores, URLs, textos) — vêm de um arquivo-fonte
+  deste repositório, que é sempre quem manda. Se o runbook divergir da fonte,
+  a fonte vence.
+- **Descrições da tela do Play Console** — são de um produto de terceiros que muda
+  sem nos avisar. Trate-as como **"confira na tela"**, nunca como fato. Onde este
+  documento disser que um campo está em tal lugar, o que vale é o que você vê.
+
+**Nunca confie neste documento sobre a *ausência* de um campo.** Em 2026-07-31 ele
+afirmava que o identificador de pacote não era digitado na criação do app; era —
+e é o único campo irreversível daquela tela.
+
+---
+
 ## Parte 1 — Criar o app
 
-Play Console → **Criar app**.
+Play Console → **Criar app**. Os valores dos campos, todos:
 
-| Campo | Valor |
-| --- | --- |
-| Nome do app | `Radiant` |
-| Idioma padrão | Português (Brasil) — `pt-BR` |
-| App ou jogo | **App** |
-| Gratuito ou pago | **Gratuito** |
+| Campo | Valor | Reversível? |
+| --- | --- | --- |
+| Nome do app | `Radiant — Radiologia` | sim, em Presença na loja |
+| Nome do pacote | `com.ascendcreative.radiant` | **não, nunca mais** |
+| Idioma padrão | Português (Brasil) — `pt-BR` | sim |
+| App ou jogo | **App** | sim |
+| Gratuito ou pago | **Gratuito** | só até a publicação |
 
-> **Sobre o nome:** `Radiant` tem 13 caracteres e cabe no limite de 30. Se estiver
-> indisponível, os planos B decididos são `Radiant: Radiologia` ou
-> `Radiant Radiology` — **escolha um e me avise**, porque o nome aparece na copy da
-> ficha e em `app.json`, e os dois precisam concordar.
+Esta tabela é a **única** fonte destes valores dentro deste runbook; as seções
+seguintes referenciam-na em vez de repetir os valores. Duas tabelas para o mesmo
+campo divergem no primeiro dia em que alguém editar uma delas — foi exatamente o
+que aconteceu aqui, e o valor errado chegou a ser digitado no console.
 
-**Package name:** `com.ascendcreative.radiant`
+**Sobre o nome:** `Radiant — Radiologia` (20 caracteres, limite 30) é o **título
+do Google Play** decidido em
+[`textos-loja-pt-BR.md`](textos-loja-pt-BR.md#título-google-play-30). O `Radiant`
+puro, que aparece na mesma fonte, é o nome da **App Store** — não é o valor desta
+tela. Se o nome estiver indisponível, os planos B decididos são
+`Radiant: Radiologia` ou `Radiant Radiology`; escolha um e avise, porque o nome
+aparece na copy da ficha e em `app.json`, e os dois precisam concordar.
 
-O package não é digitado na criação do app — ele é fixado no **primeiro upload de
-AAB** e depois **não pode ser alterado nunca mais**. Confira que o build que você
-subir foi feito com esse identificador (é o que está em
-[`radiant-app/app.json`](../../radiant-app/app.json)).
+**Sobre o pacote:** `com.ascendcreative.radiant` é o que está em
+[`radiant-app/app.json`](../../radiant-app/app.json). Use o **"Ver
+disponibilidade"** ao lado do campo: o identificador é único globalmente no Play.
+Depois de criado o app ele **não pode ser alterado nunca mais** — errar aqui só se
+conserta criando outro app do zero. Confira também que o AAB que você subir foi
+construído com esse mesmo identificador.
+
+**Proteção automática:** a tela oferece adicionar uma verificação de instalador ao
+código do app, ligada por padrão. **Deixe ligada** — não custa nada e não afeta
+quem instala pela loja. Consequência a não esquecer: o artefato entregue pela Play
+Store deixa de ser byte a byte o AAB que você subiu, então evidência colhida sobre
+um APK local **não** vale automaticamente para o que o usuário recebe.
 
 ---
 
@@ -59,9 +91,9 @@ Valores travados, prontos para colar. Fonte:
 
 | Campo | Limite | Valor a colar |
 | --- | --- | --- |
-| **Nome do app** | 30 | `Radiant — Radiologia` |
+| **Nome do app** | 30 | já preenchido na criação — ver a tabela da Parte 1 |
 | **Descrição breve** | 80 | `Trilha guiada de radiologia com quizzes e revisão. Offline, sem conta.` |
-| **Descrição completa** | 4000 | a seção "Descrição longa" de [`textos-loja-pt-BR.md`](textos-loja-pt-BR.md), inteira |
+| **Descrição completa** | 4000 | a seção "Descrição longa" de [`textos-loja-pt-BR.md`](textos-loja-pt-BR.md), inteira — **convertida de Markdown para texto limpo**, porque o campo do Play não renderiza Markdown e publicaria os `**` literais. Instrução de conversão na própria fonte |
 
 **Categoria:** `Educação`. Decisão travada — **não** escolher Medicina, que atrai
 escrutínio de app clínico e exige justificativas que o Radiant não precisa dar.
@@ -139,6 +171,10 @@ esse relógio começar a andar:
 | `track` | `internal` | Internal testing — **não conta** para os 14 dias |
 | `releaseStatus` | `draft` | Sobe como rascunho — **ninguém recebe** até você promover |
 
+> **O track fechado deste app se chama `alpha`** — medido no console em 2026-07-31,
+> quando o teste fechado foi criado. É esse o valor do `--track`, não um nome a
+> inventar. O Google cria o track já nomeado; a tela mostra "Teste fechado - Alpha".
+
 **Os dois valores são deliberados**, não descuido: internal testing sobe na hora e
 sem revisão, então serve para validar o pipeline de submissão antes de qualquer
 coisa contar. A sequência pretendida é subir no internal, confirmar que o `eas
@@ -150,14 +186,17 @@ esperando o relógio: com esses dois valores, ele não começou.
 Para o upload que de fato inicia a contagem:
 
 ```bash
-cd /Users/anderson/Developer/Radiant/radiant-app && eas submit --platform android --profile production --track <nome-do-track-fechado>
+cd /Users/anderson/Developer/Radiant/radiant-app && eas submit --platform android --profile production --track alpha
 ```
 
-O `<nome-do-track-fechado>` é o que você criar no console em **Teste → Teste
-fechado**. Depois do upload, ainda é preciso **promover a release** (o
-`releaseStatus: draft` a deixa parada) e **adicionar os testadores**. O relógio
-começa quando a release está live no track fechado com os testadores dentro —
-não no upload.
+Depois do upload, ainda é preciso **promover a release** (o `releaseStatus: draft`
+a deixa parada) e **adicionar os testadores**. O relógio começa quando a release
+está live no track fechado com os testadores dentro — não no upload.
+
+**A service-account key não é pré-requisito do primeiro upload.** Ela automatiza o
+envio via `eas submit`; o `.aab` pode ser arrastado direto no console, em
+**Teste fechado → Versões → Criar nova versão**. Se a chave estiver atrasada, ela
+não segura o relógio — gere depois.
 
 ---
 
@@ -183,11 +222,11 @@ permitirem.
 
 O que ainda gate a **publicação** não sai deste runbook e não é código:
 
-1. **Verificação de acesso a dispositivo da conta Play** — exige **aparelho
-   Android real**; o emulador é imagem "Google APIs" sem Play Store.
+1. ~~**Verificação de acesso a dispositivo da conta Play**~~ — **CONCLUÍDA em
+   2026-07-31.** Deixou de gatear a publicação.
 2. **≥ 12 testadores opted-in por 14 dias consecutivos** — o item de maior
-   latência do caminho crítico. Kit pronto em
-   [`TESTER_INVITE_KIT.md`](TESTER_INVITE_KIT.md).
+   latência do caminho crítico, e **o único bloqueio de publicação que resta**.
+   Kit pronto em [`TESTER_INVITE_KIT.md`](TESTER_INVITE_KIT.md).
 
 **Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
 Android 13+ continua pendente e também exige aparelho real — uma captura da
