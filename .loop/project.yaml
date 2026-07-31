@@ -72,6 +72,7 @@ writePolicy:
     - radiant-app/tsconfig.json
     - radiant-app/jest.config.cjs
     - radiant-app/metro.config.js
+    - radiant-app/eslint.config.js
     - radiant-api/src
     - radiant-api/scripts
     - radiant-api/deploy
