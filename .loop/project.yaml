@@ -93,6 +93,9 @@ writePolicy:
     - conteúdo/governança
     - conteúdo/mídia
     - conteúdo/taxonomia
+    - Conteúdo/fontes
+    - Conteúdo/governança
+    - Conteúdo/mídia
     - .loop/project.yaml
 validators:
   - id: docs-contract
