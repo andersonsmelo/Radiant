@@ -60,15 +60,16 @@ antes**.
 
 ## 3. As três trilhas (executam em paralelo)
 
-O gargalo é o closed test (14 dias) + o recrutamento de testadores, que **ainda
-não começou**. Por isso não serializamos: três trilhas correm juntas e convergem
-em F2.
+O gargalo continua sendo o closed test (14 dias) + o recrutamento de testadores.
+Em 2026-08-01, há **13 contas válidas vinculadas** ao track `alpha`, sem opt-ins
+comprovados; falta pelo menos uma conta para a margem operacional de 14. As três
+trilhas continuam convergindo em F2.
 
 ### Trilha 1 — Testadores (o maior gargalo) · dono: Anderson
 
 | Task | Descrição | Critério de saída |
 | --- | --- | --- |
-| **T1.1 (A6)** | Recrutar **≥14** testadores (12 é o mínimo do Play; margem p/ churn). Pool pode se sobrepor à pesquisa da Task 12. | Lista de ≥14 e-mails/contas Google confirmados como dispostos a opt-in. |
+| **T1.1 (A6) — EM ANDAMENTO, 13/14** | Recrutar **≥14** testadores (12 é o mínimo do Play; margem p/ churn). Pool pode se sobrepor à pesquisa da Task 12. Em 2026-08-01, 13 contas estão vinculadas; vínculo ainda não prova opt-in. | Lista de ≥14 contas Google confirmadas como dispostas a opt-in. |
 | **T1.2** | Preparar o convite + instruções de opt-in (link do closed test, como aceitar, o que testar). **Eu preparo o texto e a planilha de acompanhamento; Anderson envia.** | Convite pronto e planilha de opt-in criada. |
 | **T1.3** | Após o build subir (F2), garantir 12+ opt-in efetivo e **monitorar diariamente** (queda abaixo de 12 zera a contagem de dias). | 12+ opted-in por 14 dias consecutivos. |
 

@@ -9,6 +9,7 @@ import { LearningAttemptsRepository } from '../services/LearningAttemptsReposito
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 
 jest.mock('expo-router', () => ({
+  Link: ({ children }: { children: React.ReactNode }) => children,
   router: {
     replace: jest.fn(),
     push: jest.fn(),
@@ -281,5 +282,13 @@ describe('ProgressScreen flow', () => {
     await screen.findByText('🔥 3 dias');
     expect(screen.queryByText('ativado')).toBeNull();
     expect(screen.getByText('ligado, sem API configurada')).toBeTruthy();
+  });
+
+  it('keeps legal help available in the progress screen', async () => {
+    renderWithProviders(<ProgressScreen />);
+
+    expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Central de Suporte' })).toBeTruthy();
   });
 });

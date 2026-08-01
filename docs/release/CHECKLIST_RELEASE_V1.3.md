@@ -103,13 +103,18 @@ fontes ampliadas · sem vazamento de rota no header.
   do device (analytics off, Sentry off, sync off).
 - [x] ✅ Política de privacidade **hospedada em URL pública** (task **A4**) —
   `https://saudediagnostica.com/radiant/privacidade/`, **HTTP 200 remedido em
-  2026-07-31 08:47**. Não bloqueia mais E3.
+  2026-08-01**. Não bloqueia mais E3.
   **Risco aberto:** o código que a publica vive na PR **#39** de
   `andersonsmelo/saude-diagnostica-home`, que está **OPEN mas em DRAFT** — draft
   bloqueia merge no GitHub independentemente de estar mergeable. As páginas estão
   no ar porque subiram por FTPS; um redeploy da main pode removê-las. Marcar a PR
   como *ready for review*, mergear antes de submeter, e **remedir as duas URLs na
   véspera** — o estado de uma URL pública decai sozinho.
+- [x] ✅ Política de Privacidade e Central de Suporte disponíveis **dentro do
+  app** — cartão sempre visível **Ajuda e informações** na aba Progresso, URLs
+  HTTPS centralizadas, papéis/dicas acessíveis e falha do navegador contida. As
+  4 suítes focadas passaram com 14 testes em 2026-08-01. A abertura em iPhone
+  físico e o VoiceOver continuam pendentes e não são inferidos desses testes.
 - [ ] ⛔ **Sentry: não há organização nem projeto configurado.** Medido em
   2026-07-31: o `app.json` declara o plugin sem `organization`/`project`, o
   `sentry.properties` gerado cai em variáveis de ambiente e nenhum perfil do
@@ -144,7 +149,8 @@ fontes ampliadas · sem vazamento de rota no header.
   (task **E4**) — feito nas consoles, exige conta.
 - [x] ✅ Página de suporte + e-mail de contato (task **E5**) —
   `https://saudediagnostica.com/radiant/suporte/`, HTTP 200 remedido em
-  2026-07-31 08:47; contato `anderson.smelo94@gmail.com`. Mesmo risco da PR #39.
+  2026-08-01; contato publicado na página. Mesmo risco da PR #39. O destino
+  também está disponível no cartão interno **Ajuda e informações**.
 - [x] ✅ Ícone da marca (task **E6**) — as 6 tasks do plano do ícone entregues em
   2026-07-29; o mascote **Pixel** virou a marca. `icon.png` é sem alpha por
   exigência da Apple e o `notification-icon.png` existe porque os requisitos das
@@ -159,41 +165,45 @@ fontes ampliadas · sem vazamento de rota no header.
 - [x] ✅ **Play Console: conta paga e VERIFICADA.** A verificação de acesso a
   dispositivo — que exigia aparelho Android real e bloqueava a publicação por
   **qualquer** caminho — foi concluída em 2026-07-31.
-- [ ] ⏸️ **Apple Developer: fora de escopo por decisão do dono (2026-07-31).** O
-  lançamento foca só no Android; o lado Apple está **adiado, não cancelado**, e
-  nada de iOS deve ser executado até a decisão ser revertida. *Registro do que foi
-  medido:* existe neste host uma sessão autenticada do portal Apple Developer
-  (`~/.app-store/auth/`), de 2026-03-30, sob um e-mail **diferente** do contato
-  declarado na política. Isso **não** estabelece membresia paga — Apple ID gratuito
-  também loga no portal, e o build de 2026-03-30 era de **simulador**, que não
-  exige assinatura. Ver [ADR de conta e premium](../adr/ADR-2026-07-31-conta-e-premium.md).
+- [x] ✅ **Apple Developer ativo e App Store Connect acessível.** Em 2026-08-01,
+  a adesão individual foi comprovada por Certificates, Identifiers & Profiles e
+  pelo acesso ao App Store Connect; termos aceitos. App ID explícito e ficha iOS
+  criados com `com.ascendcreative.radiant`, nome `Radiant — Radiologia` e versão
+  `1.3.0`, ainda em **Preparar para envio**.
 - [x] ✅ **App criado no Play Console** em 2026-07-31 com o título
   `Radiant — Radiologia` e o pacote `com.ascendcreative.radiant` (task **A3**).
   O identificador é digitado **na criação** e é irreversível. Ficha, assets e
   Conteúdo do app preenchidos. Runbook:
   [`RUNBOOK_PLAY_CONSOLE.md`](../store/RUNBOOK_PLAY_CONSOLE.md).
-- [ ] ⏳ `eas submit` (task **A5**) — **não está no caminho crítico.** Descoberto em
-  2026-07-31: a service-account key **não é pré-requisito do primeiro upload**; o
-  `.aab` vai à mão pelo console. O `eas submit` é automação. Gerar a chave quando
-  convier. O lado **iOS segue `{}`**, e permanece fora de escopo.
+- [ ] ⏳ `eas submit` (task **A5**) — **iOS configurado e comprovado em
+  2026-08-01:** `ascAppId`, certificado, provisioning profile e App Store
+  Connect API key foram configurados pelo EAS, que submeteu o build `1.3.0 (4)`.
+  A task permanece aberta somente pela automação Android: a service-account key
+  do Play não é pré-requisito do primeiro upload e continua pendente.
 - [ ] ⛔ Recrutar ≥ 14 testadores para o closed test do Play (task **A6**) —
-  **o único bloqueio de publicação que resta.**
-- [ ] ⏸️ Build `production` iOS → TestFlight (task **F1**) — fora de escopo.
+  **13/14 contas vinculadas em 2026-08-01; falta pelo menos uma para a margem
+  planejada.** Os opt-ins ainda não foram comprovados.
+- [ ] ⏳ Build `production` iOS → TestFlight (task **F1**) — **build `1.3.0 (4)`
+  pronta no TestFlight em 2026-08-01**, com distribuição automática no grupo
+  interno `Radiant Internal` (1 tester, 1 build). **Instalação física, versão,
+  build e lançamento confirmados** por consulta sanitizada ao CoreDevice. Restam
+  smoke dos links no iPhone físico, sessão humana de VoiceOver, metadata, privacy
+  labels, classificação e informações de revisão. F1 não fecha apenas com a
+  instalação e o lançamento.
 - [x] ✅ **Build `production` Android (AAB) — EXISTE.** Primeiro artefato
   distribuível da história do projeto, `versionCode 4`, gerado em 2026-07-31 e
   verificado por dentro (`com.ascendcreative.radiant`, `1.3.0`, com controle
   negativo). O primeiro build falhou e a causa foi o upload de source maps do
   Sentry sem organização configurada — ver
   [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md).
-- [ ] 🟢 **Release Android `1.3.0 (4)` publicada no track fechado `alpha`; lista
-  de testadores em revisão** (task **F2**). Em 2026-07-31 às 15:45, o Play
-  publicou as 12 mudanças e passou a mostrar a faixa como `Ativo` e a versão
+- [ ] 🟢 **Release Android `1.3.0 (4)` publicada no track fechado `alpha`; 13
+  testadores vinculados e opt-in pendente** (task **F2**). Em 2026-07-31 às
+  15:45, o Play publicou as 12 mudanças e passou a mostrar a faixa como `Ativo` e a versão
   disponível para testadores selecionados. A lista `Radiant Alpha — 31/07/2026`
-  foi substituída usando a fonte em texto e o Play aceitou as 12 contas,
-  mantendo-a selecionada no track; nenhum endereço foi persistido no
-  repositório. A mudança de testadores já foi enviada à revisão. F2 permanece
-  aberto: faltam os 12 opt-ins; o relógio exige **12+ opted-in por 14 dias
-  consecutivos**.
+  permanece selecionada no track; em 2026-08-01, a fonte completa foi importada,
+  validada e salva, e o Console confirmou 13 usuários sem alteração pendente na
+  página da faixa. Nenhum endereço foi persistido no repositório. F2 permanece
+  aberto: é necessário comprovar **12+ opted-in por 14 dias consecutivos**.
 
 ## 7. Lançamento e pós (M5)
 
@@ -202,7 +212,7 @@ fontes ampliadas · sem vazamento de rota no header.
 - [ ] ⛔ Monitorar Sentry crash-free ≥ 99%, reviews e funil de onboarding nas 2
   primeiras semanas (task **F6**).
 
-## Resumo de bloqueios de submissão (recontado em 2026-07-31)
+## Resumo de bloqueios de submissão (recontado em 2026-08-01)
 
 Ordenado por **latência**, que é o que decide a sequência — não por gravidade.
 
@@ -211,14 +221,12 @@ Ordenado por **latência**, que é o que decide a sequência — não por gravid
    track fechado**: `eas.json` tem `track: "internal"` e `releaseStatus: "draft"`,
    os dois deliberados, e com eles a contagem não começa. Ver Parte 6 do
    [runbook](../store/RUNBOOK_PLAY_CONSOLE.md).
-2. **Verificação de acesso a dispositivo da conta Play** — exige **aparelho
-   Android real**. Trava o item 1.
-3. **Conta Apple Developer** (A2) — estado desconhecido; se não existir, vira o
-   segundo item mais lento.
-4. **Criar os apps nas consoles** (A3) + **service-account key** (A5).
-5. **Sessões humanas de a11y**: VoiceOver (B4) e TalkBack (C5).
-6. **Classificação etária / questionários** (E4) — exigem conta.
-7. **Matriz real-device** (C4): 1 Android físico; as linhas iPhone.
+2. **Smoke do build iOS `1.3.0 (4)` pelo TestFlight** — instalação e lançamento
+   no iPhone foram confirmados; abertura dos links legais e VoiceOver ainda não.
+3. **Metadata e declarações das lojas**: privacy labels, classificação etária,
+   informações de revisão e questionários ainda precisam de fechamento.
+4. **Sessões humanas de a11y**: VoiceOver (B4) e TalkBack (C5).
+5. **Matriz real-device** (C4): 1 Android físico; as linhas iPhone.
 
 **Saíram da lista desde 2026-07-27**, todas com evidência no
 [status canônico](../EXECUTION_STATUS_2026-07-29.md): versionamento congelado

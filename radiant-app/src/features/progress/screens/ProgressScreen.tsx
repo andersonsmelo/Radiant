@@ -20,6 +20,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { IosHomologationService } from '../services/IosHomologationService';
 import { LearningStatsService, type LearningStatsSnapshot } from '../services/LearningStatsService';
 import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
+import { LegalLinksCard } from '../components/LegalLinksCard';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
@@ -783,6 +784,9 @@ export default function ProgressScreen() {
                         </ActionButton>
                     ) : null}
                 </GlassCard>
+
+                {/* ── Ajuda e informações ── */}
+                <LegalLinksCard />
 
                 {showDeveloperTools ? (
                     <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">

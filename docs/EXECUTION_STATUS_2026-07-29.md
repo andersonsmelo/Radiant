@@ -1,7 +1,7 @@
-# Radiant — Execution Status (2026-07-29, estendido em 2026-07-30)
+# Radiant — Execution Status (2026-07-29, estendido até 2026-08-01)
 
 > Este documento continua sendo o **status canônico**. Ele foi estendido em
-> 2026-07-30 e de novo em 2026-07-31, em vez de dar origem a arquivos novos: um
+> 2026-07-30, 2026-07-31 e 2026-08-01, em vez de dar origem a arquivos novos: um
 > ponteiro canônico decai no instante em que o alvo é substituído, e trocar o nome
 > exige varrer quem aponta para ele.
 >
@@ -389,7 +389,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | Conteúdo do app (Data Safety, classificação, público-alvo) | **relatado FEITO pelo dono** | "totalmente classificado no console, não tem bloqueios" (2026-07-31). Não medido por mim — a autoridade é a seção "Visão geral da publicação" do console |
 | track de teste fechado | **criado — chama `alpha`** | nome atribuído pelo próprio Play Console ("Teste fechado - Alpha"). É o valor real de `--track`; o `eas.json` mantém `track: "internal"`, deliberado para o primeiro upload de validação de pipeline |
 | release Android `1.3.0 (4)` no track `alpha` | **PUBLICADA — track ATIVO** | AAB aceito pelo Play em 2026-07-31; distribuição configurada para **Brasil**. A checagem automática bloqueou o primeiro envio por falta da declaração de ID de publicidade. O manifesto efetivo do AAB não contém `com.google.android.gms.permission.AD_ID` e o app não inclui SDK de anúncios; a declaração foi respondida **Não**, salva e revalidada. As 12 mudanças foram aprovadas e publicadas em 2026-07-31 às 15:45; o Console passou a mostrar `Versão disponível para testadores selecionados`, `Última versão: 1.3.0 (4)` e faixa `Ativo`. |
-| testadores do track `alpha` | **12 VÁLIDOS VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` foi criada sem registrar endereços no repositório. Depois da reconciliação da fonte em texto, o Play aceitou os 11 endereços originais e, em seguida, a 12ª conta adicionada, mantendo a lista selecionada no track. A mudança de testadores já havia sido enviada à revisão. F2 ainda não fecha: cada pessoa precisa concluir o opt-in e é necessário manter ≥12 participantes por 14 dias consecutivos. |
+| testadores do track `alpha` | **13 VÁLIDOS VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` permanece selecionada no track sem registrar endereços no repositório. Em 2026-08-01, a fonte completa com 13 contas foi importada, validada sem rejeições e salva; o Console passou a mostrar 13 usuários e nenhum salvamento pendente na página da faixa. A meta operacional de A6 continua em ≥14 para absorver churn. F2 ainda não fecha: é necessário comprovar ≥12 opt-ins e manter esse piso por 14 dias consecutivos. |
 | primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) |
 | por que o gate local não pegou | **explicado** | o `BUILD SUCCESSFUL in 48s` de 2026-07-30 foi feito com o bundle **em cache**, e a task de upload do Sentry só roda quando o bundle é regerado. O EAS constrói sempre do zero, então foi o primeiro a expor a falha. **Um verde local com cache não é evidência sobre um build limpo** — a armadilha do cache do Gradle já estava registrada neste repositório e cobrava aqui |
 | keystore de assinatura Android | **criada** | gerada pelo EAS no build que falhou e **persiste no servidor** — é ela que assinará todas as atualizações do app. Não se refaz no próximo build |
@@ -403,6 +403,20 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | prova do *themed icon* do Android 13+ | **segue pendente** | mesma exigência de aparelho real, e o aparelho usado na verificação já não está disponível. **Não bloqueia o closed test** — é ressalva de qualidade. Fecha com uma captura da gaveta de apps com ícones temáticos ligados, sobre o APK de release instalado por `adb` |
 | smoke público da API | FAIL esperado | `/health` e `/ready` seguem em **502**, remedidos nesta data. Inalterado, fora do caminho crítico |
 | PR #39 do site (páginas legais) | **ainda draft** | remedida nesta data: `OPEN`, `MERGEABLE`, `mergeStateStatus CLEAN`, **`isDraft true`**, sem alteração desde 2026-07-29 17:42Z. Draft bloqueia merge independentemente de `mergeable`. As páginas seguem no ar por FTPS; um redeploy da branch principal do site pode removê-las |
+
+### Verificações de 2026-08-01 — Apple Developer e App Store Connect
+
+| Verificação | Estado | Resultado |
+| --- | --- | --- |
+| adesão ao Apple Developer Program | **ATIVA** | a compra foi confirmada primeiro, mas a ativação só foi considerada concluída quando Certificates, Identifiers & Profiles abriu sem bloqueio e o App Store Connect passou a reconhecer a conta; os termos do App Store Connect foram aceitos pelo dono |
+| App ID iOS | **CRIADO** | identificador explícito `com.ascendcreative.radiant`, descrição `Radiant`, sem capacidades opcionais habilitadas no cadastro |
+| app no App Store Connect (A3) | **CRIADO — PREPARAR PARA ENVIO** | plataforma iOS, idioma principal pt-BR, acesso total, SKU interno `RADIANT-IOS-001` e nome público `Radiant — Radiologia`, igual ao Android; `Radiant` foi recusado por indisponibilidade |
+| versão iOS da ficha | **1.3.0 SALVA** | o App Store Connect criou a ficha como `1.0`; o campo foi corrigido para a versão canônica `1.3.0`, salvo e confirmado após recarregar a página |
+| links legais dentro do app | **IMPLEMENTADOS — TESTES AUTOMATIZADOS PASS** | a aba Progresso ganhou o cartão sempre visível **Ajuda e informações**, com Política de Privacidade e Central de Suporte em papéis acessíveis de link; os destinos foram remedidos em HTTP 200 nesta data e 4 suítes focadas passaram com 14 testes. Abertura real em iPhone e sessão humana de VoiceOver continuam pendentes; esta linha não as substitui |
+| credenciais e automação iOS no EAS (A5) | **CONFIGURADAS** | certificado Apple Distribution, provisioning profile e chave da API do App Store Connect foram criados pelo fluxo autenticado do EAS; `submit.production.ios.ascAppId` foi configurado sem persistir segredos no repositório |
+| build de produção iOS / TestFlight (F1) | **1.3.0 (4) — PRONTA PARA ENVIO** | o build terminou no EAS, foi submetido ao App Store Connect e saiu de processamento no TestFlight com o estado **Pronta para envio** |
+| grupo interno TestFlight | **ATIVO — 1 TESTER / 1 BUILD** | o grupo `Radiant Internal` está com distribuição automática, uma conta interna vinculada e o build 4; vínculo não comprova instalação, abertura nem smoke no iPhone |
+| instalação física do build TestFlight | **CONFIRMADA — 1.3.0 (4)** | após a instalação pelo TestFlight relatada pelo dono, o inventário sanitizado do CoreDevice confirmou `com.ascendcreative.radiant`, versão `1.3.0`, build `4`, e o lançamento do app terminou com sucesso. Essa evidência não confirma a navegação dos links nem a sessão humana de VoiceOver |
 
 ## Bloqueios do lançamento
 
@@ -419,13 +433,22 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
 2. ~~**Hospedar** a política de privacidade e a página de suporte no domínio.~~
    **RESOLVIDO em 2026-07-29** — ver §5. Sobra apenas colar as duas URLs nos
    consoles, o que faz parte do item 3.
-3. **Criar o app** no Play Console (`com.ascendcreative.radiant`) + preencher
-   fichas com o material já preparado; gerar a **service-account key** do Play.
-4. **Recrutar ≥12 testadores** para o closed test — o item de **maior latência**
-   (relógio de 14 dias); kit de convite pronto.
+3. ~~**Criar os apps** nas duas consoles com `com.ascendcreative.radiant`.~~
+   **CONCLUÍDO:** Play em 2026-07-31 e App Store Connect em 2026-08-01. Restam
+   preencher a ficha iOS e privacy labels/classificação. A chave do App Store
+   Connect e o envio automático pelo EAS foram configurados; a chave de
+   automação do Play continua pendente e não bloqueia o upload manual.
+4. **Concluir o recrutamento de ≥14 testadores** para o closed test — 13 contas
+   estão vinculadas, falta pelo menos uma para a margem de churn; depois ainda é
+   necessário comprovar ≥12 opt-ins e cumprir o relógio de 14 dias. Kit de
+   convite pronto.
 5. **Sessões humanas de acessibilidade**: VoiceOver (B4) e TalkBack Android (C5).
-6. **Builds de produção** (F1 iOS/TestFlight, F2 Android/AAB) — disparados quando
-   as contas existirem (evita travar `runtimeVersion` antes da hora).
+6. **Smoke do build iOS/TestFlight (F1)** — o build de produção `1.3.0 (4)` já
+   está **Pronta para envio** no TestFlight; instalação, versão, build e abertura
+   no iPhone físico foram confirmados em 2026-08-01. Restam abrir os dois destinos
+   legais, executar a sessão humana de VoiceOver e reconciliar a metadata
+   reviewer-facing. O Maestro não anexou ao aparelho físico; esses gates de UI
+   não foram inferidos do lançamento bem-sucedido.
 7. **API pública inativa** (502) — ADR de estratégia pendente (decisão de produto,
    fora do caminho crítico do lançamento local-first).
 8. ~~**Assets de ícone e de loja** — único bloqueio de engenharia restante.~~
@@ -459,17 +482,25 @@ Android em
 hospedar as páginas, disparar builds — está inteiramente cumprida, e mantê-la
 escrita mandaria alguém refazer trabalho feito. A sequência agora é:
 
-1. ~~**Publicar o AAB no track fechado `alpha`.**~~ **CONCLUÍDO em
+1. ~~**Instalar pelo TestFlight o build iOS `1.3.0 (4)` no iPhone físico.**~~
+   **CONCLUÍDO em 2026-08-01:** versão, build e lançamento confirmados por
+   consulta sanitizada ao CoreDevice. **Próximo:** executar o smoke dos links
+   legais e fechar a sessão humana de VoiceOver em separado, sem inferi-los do
+   lançamento nem dos testes automatizados.
+2. **Completar a ficha iOS**: metadata reviewer-facing, privacy labels,
+   classificação etária e informações de revisão, selecionando o build somente
+   depois do smoke físico.
+3. ~~**Publicar o AAB no track fechado `alpha`.**~~ **CONCLUÍDO em
    2026-07-31:** versão `1.3.0 (4)` disponível para testadores selecionados e
    faixa marcada como `Ativo`.
-2. **Obter o opt-in das 12 contas aceitas** e, de preferência, recrutar mais
-   2–4 contas para absorver churn. Coletar a conta Google **do aparelho** de
+4. **Obter o opt-in das 13 contas vinculadas** e recrutar pelo menos mais uma
+   conta para atingir a margem operacional de 14. Coletar a conta Google **do aparelho** de
    cada pessoa, não apenas um endereço de contato.
-3. **Confirmar a conclusão da revisão da vinculação da lista** e então disparar
-   o link de opt-in disponível no Console aos testadores aceitos.
-4. **Mergear a PR #39** do site e remedir as duas URLs legais antes da submissão
+5. **Disparar o link de opt-in disponível no Console** às 13 contas vinculadas e
+   acompanhar quem concluiu a adesão; vínculo na lista não comprova opt-in.
+6. **Mergear a PR #39** do site e remedir as duas URLs legais antes da submissão
    para produção — elas estão no ar só por FTPS.
-5. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.
+7. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.
 
 Fora do caminho: a prova do *themed icon* (precisa de aparelho real), as sessões
 humanas de a11y, a triagem do gate editorial (D4) e a configuração do Sentry, que é

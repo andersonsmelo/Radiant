@@ -130,9 +130,13 @@ código.
   **Lado Play CONCLUÍDO em 2026-07-31:** a conta já era paga e a **verificação de
   acesso a dispositivo Android** — que exigia aparelho real e bloqueava a publicação
   por qualquer caminho — foi concluída nesta data.
-  **Decisão do dono em 2026-07-31: o lançamento foca só no Android.** A conta Play
-  está paga; o lado Apple fica **adiado**, não cancelado, e nada de iOS deve ser
-  executado até essa decisão ser revertida.
+  **Lado Apple CONCLUÍDO em 2026-08-01:** o dono reverteu explicitamente a pausa
+  de iOS, aderiu ao Apple Developer Program individual e aceitou os termos do
+  App Store Connect. A ativação foi comprovada de forma independente pelo acesso
+  a Certificates, Identifiers & Profiles e ao App Store Connect; a confirmação
+  de compra isolada não foi tratada como prova de ativação.
+  **Histórico:** em 2026-07-31 o dono havia decidido focar só no Android e adiar,
+  sem cancelar, o lado Apple; essa pausa terminou em 2026-08-01.
   *Estado da conta Apple, medido em 2026-07-31 e registrado porque nenhum documento
   registrava:* existe neste host uma sessão autenticada do portal Apple Developer
   (`~/.app-store/auth/`), de **2026-03-30**, sob um e-mail **diferente** do contato
@@ -147,7 +151,12 @@ código.
   [`textos-loja-pt-BR.md`](../store/textos-loja-pt-BR.md); o `Radiant` puro é o nome
   da App Store, e o runbook mandava digitá-lo por engano). O identificador de pacote
   é digitado **na criação** e é irreversível — conferir em Configurações → Detalhes
-  do app antes do primeiro AAB. **App Store: adiada** junto com A2.
+  do app antes do primeiro AAB.
+  **App Store: CONCLUÍDA em 2026-08-01** — App ID explícito registrado com o mesmo
+  bundle ID e registro iOS criado em pt-BR com o nome `Radiant — Radiologia`, o
+  mesmo título público do Android, porque `Radiant` estava indisponível. O SKU
+  interno é `RADIANT-IOS-001`; a versão inicial automática `1.0` foi corrigida e
+  persistida como `1.3.0`, ainda em **Preparar para envio**.
 - **A4 [P0]** ~~Publicar política de privacidade em URL pública~~ **CONCLUÍDA em
   2026-07-29**: no ar em `https://saudediagnostica.com/radiant/privacidade/`
   (HTTP 200, corpo byte a byte idêntico à fonte, verificado de fora). Junto com
@@ -166,6 +175,12 @@ código.
   `production`; Expo Updates como único terceiro ativo. **Resolvido desde
   então:** a hospedagem (URL acima) e o e-mail/entidade — o texto publicado
   declara Anderson Melo como controlador, contato `anderson.smelo94@gmail.com`.
+  **Link interno concluído em 2026-08-01:** a aba Progresso agora oferece o cartão
+  sempre visível **Ajuda e informações**, com Política de Privacidade e Central
+  de Suporte em links acessíveis, URLs centralizadas e falha de abertura contida.
+  As 4 suítes focadas passaram com 14 testes e os dois destinos foram remedidos
+  em HTTP 200; abertura em iPhone físico e VoiceOver permanecem gates humanos de
+  F1/B4, não evidência produzida por esses testes.
   **Continua pendente:** revisão jurídica do texto, que é a única ressalva
   restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
   o que foi declarado no Data Safety.
@@ -173,12 +188,16 @@ código.
   `eas.json` foi preenchido em 2026-07-29** (`serviceAccountKeyPath`, `track`,
   `releaseStatus`) — a redação anterior desta task, "hoje só tem `ios: {}`",
   deixou de valer naquela data. `radiant-app/credentials/` existe, vazio e
-  protegido pelo `.gitignore` da raiz. **Continua pendente:** gerar a
-  service-account key do Play no console, e a **App Store Connect API key** —
-  `submit.production.ios` segue `{}`.
-- **A6 [P1]** Recrutar ≥ 14 testadores (12 é o mínimo do Play; margem para
-  churn) — alinhado ao recrutamento da Task 12 (5–8 participantes de pesquisa
-  podem vir do mesmo pool).
+  protegido pelo `.gitignore` da raiz. **Lado iOS concluído em 2026-08-01:**
+  `submit.production.ios.ascAppId` foi configurado; certificado de distribuição,
+  provisioning profile e App Store Connect API key foram criados pelo EAS; o
+  build `1.3.0 (4)` foi submetido e ficou pronto no TestFlight. **Continua
+  pendente apenas no lado da automação:** gerar a service-account key do Play.
+- **A6 [P1 — EM ANDAMENTO, 13/14 VINCULADOS EM 2026-08-01]** Recrutar ≥ 14
+  testadores (12 é o mínimo do Play; margem para churn) — alinhado ao
+  recrutamento da Task 12 (5–8 participantes de pesquisa podem vir do mesmo
+  pool). Falta pelo menos uma conta para a margem planejada; vínculo não equivale
+  a opt-in.
 
 ### Onda B — Qualidade pendente (M1) — engenharia, já autorizada no status
 
@@ -506,15 +525,27 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0]** Build `production` iOS via EAS → TestFlight (revisão beta da
-  Apple); distribuir aos testadores.
-- **F2 [P0] — RELEASE LIVE; TESTADORES EM REVISÃO (2026-07-31).** Build
+- **F1 [P0 — EM ANDAMENTO; BUILD `1.3.0 (4)` PRONTA NO TESTFLIGHT EM
+  2026-08-01]** Build `production` iOS via EAS → TestFlight (revisão beta da
+  Apple); distribuir aos testadores. O upload saiu de processamento, o build 4
+  ficou **Pronta para envio** e foi ligado automaticamente ao grupo interno
+  `Radiant Internal`, observado com 1 tester e 1 build. O pré-requisito dos
+  links legais também está concluído: cartão interno testado na aba Progresso e
+  destinos públicos remedidos em HTTP 200. **Instalação física confirmada em
+  2026-08-01:** depois da instalação pelo TestFlight, o CoreDevice confirmou o
+  bundle esperado, versão `1.3.0`, build `4`, e lançou o app com sucesso. **Restam**
+  smoke dos links no iPhone físico, sessão humana de VoiceOver e reconciliação da
+  metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico;
+  F1 permanece aberta até existirem essas evidências de UI.
+- **F2 [P0] — RELEASE LIVE; 13 TESTADORES VINCULADOS; OPT-IN PENDENTE
+  (2026-08-01).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
   `Ativo`. A lista `Radiant Alpha — 31/07/2026` foi substituída a partir da
-  fonte em texto, tem 12 contas aceitas e permanece selecionada no track; a
-  mudança de testadores já foi submetida à revisão. Nenhum dado pessoal foi
-  persistido no repositório. A task só fecha quando as 12+ contas concluírem o
-  opt-in e a contagem completar 14 dias consecutivos (conta pessoal).
+  fonte completa, tem 13 contas válidas e permanece selecionada no track. Em
+  2026-08-01, o Console confirmou 13 usuários após salvar a lista e mostrou a
+  página da faixa sem alteração pendente. Nenhum dado pessoal foi persistido no
+  repositório. A task só fecha quando houver ≥12 opt-ins e a contagem completar
+  14 dias consecutivos (conta pessoal).
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
