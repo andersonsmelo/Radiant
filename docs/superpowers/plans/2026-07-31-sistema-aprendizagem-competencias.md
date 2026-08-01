@@ -10,9 +10,10 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2 e **4** concluídas;
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** e **5** concluídas;
 infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
-autorizados. Próxima: **Task 5** (contrato `LearningActivityV2`).
+autorizados. Próxima: **Task 6** (adaptar blocos legados sem reescrever o
+catálogo).
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -296,7 +297,35 @@ git commit -m "feat(content): define curriculo por competencias"
 
 ---
 
-### Task 5: Introduzir o contrato `LearningActivityV2`
+### Task 5: Introduzir o contrato `LearningActivityV2` — CONCLUÍDA
+
+**Concluída em 2026-08-01.** 18 testes novos passam e a suíte inteira de
+`lesson-flow` fecha em **38 testes, 3 suítes** — o caminho legado continua com o
+mesmo comportamento, validado por exceção e com a regra de exatamente uma
+múltipla escolha por bloco.
+
+Quatro decisões que o plano não fixava:
+
+- **A validação v2 devolve lista; a legada continua lançando.** Conteúdo
+  educacional é revisado em lote antes da promoção, e um validador que lança na
+  primeira violação esconde as outras vinte do revisor. O formato `{ path, rule }`
+  é o mesmo dos validadores em `scripts/content/`, para que uma violação
+  signifique a mesma coisa dos dois lados do pipeline editorial.
+- **`EvidenceKind` reusa o vocabulário exato do grafo de competências.** Se o app
+  e o conteúdo divergirem nesses quatro nomes, a evidência produzida deixa de
+  casar com o domínio medido — e a divergência apareceria só ao calcular
+  domínio, tarde demais.
+- **Coordenadas de `hotspot` e `risk-hunt` usam a mesma regra normalizada do
+  manifesto de mídia** (0–1, com `x+width ≤ 1`). São o mesmo conceito em dois
+  lugares do pipeline; duas definições divergiriam no primeiro asset recortado.
+- **`correctOrder` precisa ser permutação exata dos itens.** Uma ordem que
+  repete ou omite item aceita mais de uma resposta "certa", e aí a evidência
+  registrada deixa de significar alguma coisa sobre o aluno.
+
+*O contrato v2 ainda não tem consumidor no player — isso é a Task 6 (adaptador do
+legado) e a Task 9 (registro de renderizadores). Introduzir o contrato antes do
+consumidor é a ordem do plano, e não um descuido: é o contrato que permite as
+duas tasks seguintes rodarem sem reescrever o catálogo.*
 
 **Files:**
 - Create: `radiant-app/src/types/learningActivity.ts`

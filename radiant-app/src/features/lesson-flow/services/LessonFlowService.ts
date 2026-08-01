@@ -1,4 +1,6 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
+import type { LearningActivityV2, ValidationIssue } from '../../../types/learningActivity';
+import { validateLearningActivity } from '../../../types/learningActivity';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 
 function validateBlock(block: LessonBlock): void {
@@ -52,6 +54,15 @@ class LessonFlowServiceImpl {
 
         validateBlock(block);
         return block;
+    }
+
+    /**
+     * Entrada v2. Devolve a lista de violações em vez de lançar, ao contrário do
+     * caminho legado acima: o comportamento legado não muda, e os dois contratos
+     * ficam alcançáveis pelo mesmo serviço durante a migração.
+     */
+    validateActivity(activity: LearningActivityV2): ValidationIssue[] {
+        return validateLearningActivity(activity);
     }
 }
 

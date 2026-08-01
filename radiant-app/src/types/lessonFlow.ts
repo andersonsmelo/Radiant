@@ -1,3 +1,14 @@
+/**
+ * Contrato **legado** do player de lições: exatamente uma múltipla escolha por
+ * bloco, validado por exceção em `LessonFlowService`.
+ *
+ * Permanece intacto e em uso — as 18 atividades do catálogo dependem dele
+ * durante toda a migração. O contrato que o sucede é `LearningActivityV2`, em
+ * [`./learningActivity.ts`](./learningActivity.ts); os dois convivem até que um
+ * adaptador converta o catálogo, e nenhuma entrega precisa reescrevê-lo inteiro
+ * de uma vez.
+ */
+
 export type ContextPayload = {
     eyebrow?: string;
     title: string;
