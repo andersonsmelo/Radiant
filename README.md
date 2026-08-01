@@ -35,11 +35,15 @@ Fundações entregues em 2026-07-31:
 - lote atual com 0 ativos aprovados e 5 candidatos rejeitados; o status é
   `awaiting-authorized-assets`.
 
+Em 2026-08-01 entrou o **currículo por competências**: 30 competências em 6
+unidades, com schema, grafo de pré-requisitos sem ciclos e validador próprio
+ligado ao gate de conteúdo.
+
 Essa frente continua em ordem no
-[`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
-A próxima ação é fornecer um primeiro lote de imagens educacionais com
-autorização e anonimização verificáveis; o grafo das 30 competências começa
-somente depois desse gate.
+[`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md),
+e a próxima task é o contrato de atividades `LearningActivityV2`. Segue pendente,
+em paralelo e sem bloquear o currículo, fornecer um primeiro lote de imagens
+educacionais com autorização e anonimização verificáveis.
 
 ## Estrutura
 

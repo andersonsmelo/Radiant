@@ -472,9 +472,13 @@ código.
   Anderson (escolher variantes), reserva do nome (A3) e revisão de domínio.
   **Confirmado em 2026-07-31:** o posicionamento "sem conta" fica na v1.3 porque
   descreve o binário distribuído — o bloco de login existe no código mas é inerte
-  sem `EXPO_PUBLIC_API_BASE_URL`. Conta e assinatura premium ficam para a **v1.4**,
-  com o modelo de cobrança ainda em aberto (Play Billing puro vs. conta própria):
+  sem `EXPO_PUBLIC_API_BASE_URL`. Conta e assinatura premium ficam para a **v1.4**:
   ver [ADR-2026-07-31 — conta e premium](../adr/ADR-2026-07-31-conta-e-premium.md).
+  **Fechado em 2026-08-01:** o modelo de cobrança deixou de estar em aberto e é
+  **conta própria + billing**, porque o produto passou a ter as duas plataformas e
+  o direito de acesso precisa atravessá-las — ver
+  [ADR-2026-08-01 — modelo de entitlement](../adr/ADR-2026-08-01-modelo-de-entitlement-premium.md).
+  Nada disso muda a v1.3.
   Na mesma data, três contagens de caracteres da fonte foram recontadas e
   corrigidas, e ficou registrado que a descrição longa precisa ser **convertida de
   Markdown para texto limpo** antes de colar no console.

@@ -10,9 +10,13 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1 e 2 concluídas; infraestrutura
-da Task 3 concluída, aguardando o primeiro lote de ativos autorizados; Task 4 não
-iniciada.
+**Status:** em execução desde 2026-07-31. Tasks 1, 2 e **4** concluídas;
+infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
+autorizados. Próxima: **Task 5** (contrato `LearningActivityV2`).
+
+*A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
+decisão de direitos" e "currículo com 30 competências válido" como condições
+irmãs do mesmo gate, não como etapas em sequência.*
 
 **Evidência atual:** `library-catalog.json` registra 41 PDFs, 36 fontes únicas e
 5 duplicatas; direitos = 4 `authorized`, 15 `reference-only`, 17 `blocked`.
