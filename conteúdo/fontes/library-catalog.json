@@ -1,0 +1,967 @@
+{
+  "schemaVersion": 1,
+  "decisionRevision": "2026-07-31",
+  "summary": {
+    "pdfFileCount": 41,
+    "uniqueSourceCount": 36,
+    "duplicateFileCount": 5
+  },
+  "sources": [
+    {
+      "id": "library-source:40a4062ebff20fc9",
+      "sha256": "40a4062ebff20fc9af93b8b89710d44a7b8ef556ab5c534e3e0bc03eb42e9bda",
+      "primaryPath": "Conteúdo/01.-Radiodiagn-stico-e-procedimentos-Radiol-gicos-Autor-Atena-Editora.pdf",
+      "paths": [
+        "Conteúdo/01.-Radiodiagn-stico-e-procedimentos-Radiol-gicos-Autor-Atena-Editora.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 8303959,
+      "title": "Radiodiagnóstico e Procedimentos Radiológicos",
+      "contributors": [
+        "Atena Editora"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2019",
+      "license": {
+        "status": "uncertain",
+        "label": "Copyright notice only; no reusable license found in the PDF",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:f375049d4e936d05",
+      "sha256": "f375049d4e936d05122eb68919b034b4178e2fbb77ba9c86190c66f671b59af5",
+      "primaryPath": "Conteúdo/02.-Fundamentos-de-radiologia-Autor-Everton-Costa-Pinto.pdf",
+      "paths": [
+        "Conteúdo/02.-Fundamentos-de-radiologia-Autor-Everton-Costa-Pinto.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 4810364,
+      "title": "Fundamentos de Radiologia",
+      "contributors": [
+        "Everton Costa Pinto"
+      ],
+      "edition": "unknown",
+      "publicationDate": "unknown",
+      "license": {
+        "status": "uncertain",
+        "label": "No rights or license notice found in the PDF",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:8c602d3d35767ee1",
+      "sha256": "8c602d3d35767ee1c81943c202cf9f720e68913b982071b91a2bc411c02cef0c",
+      "primaryPath": "Conteúdo/0250.pdf",
+      "paths": [
+        "Conteúdo/0250.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 4465036,
+      "title": "Mamografia: da prática ao controle",
+      "contributors": [
+        "Ministério da Saúde",
+        "Instituto Nacional de Câncer"
+      ],
+      "edition": "1a edição",
+      "publicationDate": "2007",
+      "license": {
+        "status": "verified",
+        "label": "Reprodução total ou parcial permitida com citação da fonte",
+        "url": null
+      },
+      "rightsClass": "authorized",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference",
+        "verbatim-excerpt"
+      ],
+      "decisionBasis": "The copyright page explicitly permits total or partial reproduction when the source is cited; commercial reuse remains disabled conservatively."
+    },
+    {
+      "id": "library-source:54cfbf652832d2be",
+      "sha256": "54cfbf652832d2beaef7f2e6aadde40baa2d4183e8de6ed15e6e6909827dc6b8",
+      "primaryPath": "Conteúdo/03.-Radiologia-Odontol-gica-Autor-Acervo-de-Recursos-Educacionais-em-Sa-de.pdf",
+      "paths": [
+        "Conteúdo/03.-Radiologia-Odontol-gica-Autor-Acervo-de-Recursos-Educacionais-em-Sa-de.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 2895368,
+      "title": "Princípios de interpretação radiográfica odontológica",
+      "contributors": [
+        "UNA-SUS/UFMA"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2014",
+      "license": {
+        "status": "verified",
+        "label": "Reprodução parcial ou total com citação, vedados venda e fins comerciais",
+        "url": null
+      },
+      "rightsClass": "authorized",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference",
+        "verbatim-excerpt"
+      ],
+      "decisionBasis": "The copyright page explicitly permits partial or total noncommercial reproduction with attribution."
+    },
+    {
+      "id": "library-source:23709ef5715b4798",
+      "sha256": "23709ef5715b479896c9dfb2d9b8823c86983a4f579c20cc9c5a07c481ea903b",
+      "primaryPath": "Conteúdo/04.-Manual-de-boas-Pr-ticas-Da-Especialidade-de-Radiologia-Autor-Sociedade-Portuguesa-de-Radiologia-e-Medicina-Nuclear.pdf",
+      "paths": [
+        "Conteúdo/04.-Manual-de-boas-Pr-ticas-Da-Especialidade-de-Radiologia-Autor-Sociedade-Portuguesa-de-Radiologia-e-Medicina-Nuclear.pdf",
+        "Conteúdo/12.-Manual-de-boas-Pr-ticas-Da-Especialidade-de-Radiologia-Autor-Portal-Regional-de-la-BVS.pdf"
+      ],
+      "duplicatePaths": [
+        "Conteúdo/12.-Manual-de-boas-Pr-ticas-Da-Especialidade-de-Radiologia-Autor-Portal-Regional-de-la-BVS.pdf"
+      ],
+      "fileSizeBytes": 259245,
+      "title": "Manual de Boas Práticas da Especialidade de Radiologia",
+      "contributors": [
+        "Sociedade Portuguesa de Radiologia e Medicina Nuclear"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2009",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:683c4aa963286e98",
+      "sha256": "683c4aa963286e984634e66c4bcd139f0a80f69ac108b5cd5bad699d74306a3b",
+      "primaryPath": "Conteúdo/05.-Apostila-de-t-cnicas-radiol-gicas-Autor-Unicless.pdf",
+      "paths": [
+        "Conteúdo/05.-Apostila-de-t-cnicas-radiol-gicas-Autor-Unicless.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 4324127,
+      "title": "Apostila Completa de Técnicas Radiológicas",
+      "contributors": [
+        "Unicless"
+      ],
+      "edition": "unknown",
+      "publicationDate": "unknown",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:6834fe39680a9126",
+      "sha256": "6834fe39680a9126ebd42806ddaca6a40c956f0f50964940890d9bd95ba8361a",
+      "primaryPath": "Conteúdo/09.-O-b-sico-que-todo-Generalista-deve-saber-sobre-Radiologia-Autor-Radiologia-com-Did-tica.pdf",
+      "paths": [
+        "Conteúdo/09.-O-b-sico-que-todo-Generalista-deve-saber-sobre-Radiologia-Autor-Radiologia-com-Did-tica.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 2852483,
+      "title": "O básico que todo generalista deve saber sobre Radiologia",
+      "contributors": [
+        "Radiologia com Didática"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2016",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:97d584a97d4b3d34",
+      "sha256": "97d584a97d4b3d34bb3a91868210d68a21d3e0104b375e877ed277f488ef2fcb",
+      "primaryPath": "Conteúdo/978-65-5889-854-2.pdf",
+      "paths": [
+        "Conteúdo/978-65-5889-854-2.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 20852331,
+      "title": "Guia Básico de Mamografia: passo a passo para interpretação do exame",
+      "contributors": [
+        "Yuri Costa Anjos",
+        "Diego Dias Freire Carvalho",
+        "Helder Castelo Branco Diniz Magalhães",
+        "Mauro Marques Lopes"
+      ],
+      "edition": "1a edição",
+      "publicationDate": "2024",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-ND 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The verified license forbids derivatives and commercial use, so the work may only support factual consultation."
+    },
+    {
+      "id": "library-source:13061c0646359ce5",
+      "sha256": "13061c0646359ce570142c5d26c1f8f06067c7da26686d0b3e4f940bdad4203a",
+      "primaryPath": "Conteúdo/978-65-87196-21-3.pdf",
+      "paths": [
+        "Conteúdo/978-65-87196-21-3.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 58189505,
+      "title": "Anatomia Radiológica Básica Ilustrada: Tórax - Campos Pleuropulmonares",
+      "contributors": [
+        "Luigi Ferreira e Silva",
+        "Gabriel Iury Sousa Barros de Souza",
+        "Alexandre Ferreira da Silva"
+      ],
+      "edition": "1a edição",
+      "publicationDate": "2020",
+      "license": {
+        "status": "conflicting",
+        "label": "Conflicting CC BY 4.0 and restrictive notice",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked because the PDF simultaneously labels the work CC BY 4.0 and states that alteration and commercial use are forbidden."
+    },
+    {
+      "id": "library-source:e6d818b4f59db3b8",
+      "sha256": "e6d818b4f59db3b87ccb95a76a63c7c11c027f3a2b7f6a4fc043c9269f340bee",
+      "primaryPath": "Conteúdo/ANATOMIA-EM-RADIOLOGIA_light.pdf",
+      "paths": [
+        "Conteúdo/ANATOMIA-EM-RADIOLOGIA_light.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 6850726,
+      "title": "Anatomia em Radiologia",
+      "contributors": [
+        "Fernando Henrique"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2019",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:874706db504b06fd",
+      "sha256": "874706db504b06fd22f7e6d046d95c5024a1a374995cf31152f0ca81d484da84",
+      "primaryPath": "Conteúdo/ATLAS-RADIOGRAFICO-ILUSTRADO.pdf",
+      "paths": [
+        "Conteúdo/ATLAS-RADIOGRAFICO-ILUSTRADO.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 11298271,
+      "title": "Atlas Radiográfico Ilustrado",
+      "contributors": [
+        "Editora Caminhar"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2022",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The book is expressly all-rights-reserved; embedded third-party Creative Commons images do not license the compilation."
+    },
+    {
+      "id": "library-source:bcee6864a2125f88",
+      "sha256": "bcee6864a2125f88e1a40293f02149d802b8a9cde6dc98dd0d4ca3404c1b9504",
+      "primaryPath": "Conteúdo/Apostila-de-Fisica_2008.pdf",
+      "paths": [
+        "Conteúdo/Apostila-de-Fisica_2008.pdf",
+        "Conteúdo/Princ-pios-de-F-sica-em-Radiodiagn-stico-J-lio-C-sar-de-A.-C.-R.-Soares.pdf"
+      ],
+      "duplicatePaths": [
+        "Conteúdo/Princ-pios-de-F-sica-em-Radiodiagn-stico-J-lio-C-sar-de-A.-C.-R.-Soares.pdf"
+      ],
+      "fileSizeBytes": 2899318,
+      "title": "Princípios de Física em Radiodiagnóstico",
+      "contributors": [
+        "Júlio César de A. C. R. Soares"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2008",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:1ef342c4e0a34d4d",
+      "sha256": "1ef342c4e0a34d4d91843cc100510a49b93373d2ee77309212d52e91a3b5d2d6",
+      "primaryPath": "Conteúdo/Atlas-de-Anatomia-Radiografica.pdf",
+      "paths": [
+        "Conteúdo/Atlas-de-Anatomia-Radiografica.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 7603163,
+      "title": "Atlas de Anatomia Radiográfica",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2014",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:ed36a480d512d69a",
+      "sha256": "ed36a480d512d69a88762ffb878d12eee1abc70503e42bb261648161e222487a",
+      "primaryPath": "Conteúdo/Atualiza-o-em-Mamografia-para-T-cnicos-em-Radiologia-INCA.pdf",
+      "paths": [
+        "Conteúdo/Atualiza-o-em-Mamografia-para-T-cnicos-em-Radiologia-INCA.pdf",
+        "Conteúdo/atualizacao_mamografia_tecnicos_radiologia_2ed_rev_autal.pdf"
+      ],
+      "duplicatePaths": [
+        "Conteúdo/atualizacao_mamografia_tecnicos_radiologia_2ed_rev_autal.pdf"
+      ],
+      "fileSizeBytes": 3344738,
+      "title": "Atualização em Mamografia para Técnicos em Radiologia",
+      "contributors": [
+        "Ministério da Saúde",
+        "INCA"
+      ],
+      "edition": "2a edição revista e atualizada",
+      "publicationDate": "2019",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+      },
+      "rightsClass": "authorized",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference",
+        "adaptation",
+        "verbatim-excerpt"
+      ],
+      "decisionBasis": "The copyright page explicitly publishes the work under CC BY-NC-SA 4.0 and permits partial or total reproduction with attribution."
+    },
+    {
+      "id": "library-source:738310926ce7902a",
+      "sha256": "738310926ce7902a95c85ff8dc88b42a9f6e38afd0b9905b4684c6d931c6a6f6",
+      "primaryPath": "Conteúdo/Caderno de apoio ao estudo de anatomia humana_final-2.pdf",
+      "paths": [
+        "Conteúdo/Caderno de apoio ao estudo de anatomia humana_final-2.pdf",
+        "Conteúdo/Caderno de apoio ao estudo de anatomia humana_final.pdf"
+      ],
+      "duplicatePaths": [
+        "Conteúdo/Caderno de apoio ao estudo de anatomia humana_final.pdf"
+      ],
+      "fileSizeBytes": 7100328,
+      "title": "Caderno de apoio ao estudo de anatomia humana",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2024",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The PDF expressly reserves all rights and provides no reusable license."
+    },
+    {
+      "id": "library-source:ae2ad0132ee5dad9",
+      "sha256": "ae2ad0132ee5dad9d471c838c238ceb4e32b2a36de4ffb5d553024ba6842d793",
+      "primaryPath": "Conteúdo/FISIOLOGIA HUMANA EBOOK - 978-65-992205-4-8.pdf",
+      "paths": [
+        "Conteúdo/FISIOLOGIA HUMANA EBOOK - 978-65-992205-4-8.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 3969307,
+      "title": "Fisiologia Humana",
+      "contributors": [
+        "UNIPAC"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2021",
+      "license": {
+        "status": "restricted",
+        "label": "Reproduction prohibited",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The PDF expressly prohibits total or partial reproduction."
+    },
+    {
+      "id": "library-source:dbab0597e125ea3f",
+      "sha256": "dbab0597e125ea3fd1547b57e183e027f6b02d76cae864ae872f8cfa8f8092f9",
+      "primaryPath": "Conteúdo/Fisiologia-Humana.pdf",
+      "paths": [
+        "Conteúdo/Fisiologia-Humana.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 17843066,
+      "title": "Fisiologia Humana",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2014",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:a5300e7c0232cdb0",
+      "sha256": "a5300e7c0232cdb02921fa100b33939aa186114134702a3b07d8bc3e3bfeafb6",
+      "primaryPath": "Conteúdo/Livro-Novo-Anatomia.pdf",
+      "paths": [
+        "Conteúdo/Livro-Novo-Anatomia.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 13954858,
+      "title": "Livro de Anatomia",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2014",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:b88bc9b2f449ae00",
+      "sha256": "b88bc9b2f449ae00c16bf2d94e342d2124fb744da7d6471912dd380467348f38",
+      "primaryPath": "Conteúdo/Manual_pratico_de_pos-processamento_de_imagens_em_.pdf",
+      "paths": [
+        "Conteúdo/Manual_pratico_de_pos-processamento_de_imagens_em_.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 2069011,
+      "title": "Manual Prático de Pós-processamento de Imagens",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2024",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:3c9c04605d56622e",
+      "sha256": "3c9c04605d56622e64d91d69ae8231746e05834ef81d9360bb0fcbc607d525e5",
+      "primaryPath": "Conteúdo/NOÇÕES+BÁSICAS+DE+ANATOMIA+HUMANA.pdf",
+      "paths": [
+        "Conteúdo/NOÇÕES+BÁSICAS+DE+ANATOMIA+HUMANA.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 18732602,
+      "title": "Noções Básicas do Estudo da Anatomia Humana",
+      "contributors": [
+        "André Luiz Fidelis Lima",
+        "Isabel Comassetto"
+      ],
+      "edition": "1a edição",
+      "publicationDate": "2022",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+      },
+      "rightsClass": "authorized",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference",
+        "adaptation",
+        "verbatim-excerpt"
+      ],
+      "decisionBasis": "The copyright page explicitly permits noncommercial use, distribution, and reproduction with attribution under CC BY-NC 4.0."
+    },
+    {
+      "id": "library-source:4e4b0508bd01fd83",
+      "sha256": "4e4b0508bd01fd839315218c51d50c0fc1d797d134c40879e15230c70e873455",
+      "primaryPath": "Conteúdo/RADIOLOGIA-CONVENCIONAL-2.pdf",
+      "paths": [
+        "Conteúdo/RADIOLOGIA-CONVENCIONAL-2.pdf",
+        "Conteúdo/RADIOLOGIA-CONVENCIONAL.pdf"
+      ],
+      "duplicatePaths": [
+        "Conteúdo/RADIOLOGIA-CONVENCIONAL.pdf"
+      ],
+      "fileSizeBytes": 2866649,
+      "title": "Radiologia Convencional",
+      "contributors": [
+        "European Society of Radiology"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2024",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-ND 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The verified license forbids derivatives and commercial use."
+    },
+    {
+      "id": "library-source:7d41001450d87b25",
+      "sha256": "7d41001450d87b25bb410b520cee96729ccd5d01be0a7b62cc11eb3581a9e755",
+      "primaryPath": "Conteúdo/RESSONANCIA-MAGNETICA-1.pdf",
+      "paths": [
+        "Conteúdo/RESSONANCIA-MAGNETICA-1.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 4204381,
+      "title": "Ressonância Magnética",
+      "contributors": [
+        "European Society of Radiology"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2024",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-ND 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The verified license forbids derivatives and commercial use."
+    },
+    {
+      "id": "library-source:c76eca66f1426df9",
+      "sha256": "c76eca66f1426df9c3f6453c13ad650a1565b7f5c88821c03c5e6d9324ed456e",
+      "primaryPath": "Conteúdo/Radiologia_Bsica_Chen_2._ed._-_www.meulivro.biz.pdf",
+      "paths": [
+        "Conteúdo/Radiologia_Bsica_Chen_2._ed._-_www.meulivro.biz.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 75660007,
+      "title": "Radiologia Básica",
+      "contributors": [
+        "Michael Y. M. Chen",
+        "Thomas L. Pope",
+        "David J. Ott"
+      ],
+      "edition": "2a edição",
+      "publicationDate": "2012",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved; reproduction prohibited",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial textbook with an explicit prohibition on duplication or reproduction."
+    },
+    {
+      "id": "library-source:72d5c73d355392d8",
+      "sha256": "72d5c73d355392d8b4baa60dea1785118759ca801fb0fc902250a1bcfe5ab155",
+      "primaryPath": "Conteúdo/Ressoncia_magntica_Westbrook_4._ed._-_www.meulivro.biz.pdf",
+      "paths": [
+        "Conteúdo/Ressoncia_magntica_Westbrook_4._ed._-_www.meulivro.biz.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 110926247,
+      "title": "Ressonância Magnética: Aplicações Práticas",
+      "contributors": [
+        "Catherine Westbrook"
+      ],
+      "edition": "4a edição",
+      "publicationDate": "2015",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved; reproduction prohibited",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial textbook with an explicit prohibition on duplication or reproduction."
+    },
+    {
+      "id": "library-source:0025e96f41e63e50",
+      "sha256": "0025e96f41e63e506160cd3209e3232119e80ee3e5d6a91c0031e8658187b632",
+      "primaryPath": "Conteúdo/TOMOGRAFIA-COMPUTADORIZADA-1.pdf",
+      "paths": [
+        "Conteúdo/TOMOGRAFIA-COMPUTADORIZADA-1.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 3654891,
+      "title": "Tomografia Computadorizada",
+      "contributors": [
+        "European Society of Radiology"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2024",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-ND 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The verified compilation license forbids derivatives and commercial use."
+    },
+    {
+      "id": "library-source:5e4b116bfb0a62c6",
+      "sha256": "5e4b116bfb0a62c623744d3ebab92d9317230ddf7e4c24680c243dc499220269",
+      "primaryPath": "Conteúdo/atlas sobotta vol. 2.pdf",
+      "paths": [
+        "Conteúdo/atlas sobotta vol. 2.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 151081450,
+      "title": "Atlas de Anatomia Humana Sobotta - Volume 2",
+      "contributors": [
+        "Johannes Sobotta"
+      ],
+      "edition": "unknown",
+      "publicationDate": "unknown",
+      "license": {
+        "status": "restricted",
+        "label": "Commercial work; no reusable license verified",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial anatomy atlas retained only for factual consultation with original wording."
+    },
+    {
+      "id": "library-source:f41b86153a9e6571",
+      "sha256": "f41b86153a9e6571968ab5d72a196c8873cec1514bf8f27e8aad54a1aa33fd97",
+      "primaryPath": "Conteúdo/ciencia-radiologica-para-tecnologos-fisica-biologia-e-protecao-bushong-9a-ed.-3.pdf",
+      "paths": [
+        "Conteúdo/ciencia-radiologica-para-tecnologos-fisica-biologia-e-protecao-bushong-9a-ed.-3.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 39743133,
+      "title": "Ciência Radiológica para Tecnólogos: Física, Biologia e Proteção",
+      "contributors": [
+        "Stewart Carlyle Bushong"
+      ],
+      "edition": "9a edição",
+      "publicationDate": "2016",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial textbook whose copyright page expressly reserves all rights."
+    },
+    {
+      "id": "library-source:6536355f1edb8943",
+      "sha256": "6536355f1edb8943bc173ef6d9d2d7ac6fccae8f2acfeabc6ec98b6986ce77d4",
+      "primaryPath": "Conteúdo/eBook-ESR-Imagem-da-Mama.pdf",
+      "paths": [
+        "Conteúdo/eBook-ESR-Imagem-da-Mama.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 8095064,
+      "title": "Imagem da Mama",
+      "contributors": [
+        "European Society of Radiology"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2025",
+      "license": {
+        "status": "verified",
+        "label": "CC BY-NC-ND 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The verified license forbids derivatives and commercial use."
+    },
+    {
+      "id": "library-source:4bf522f57b8348f5",
+      "sha256": "4bf522f57b8348f5286c1d4f5a7cf6f1585d03ab913abe9bab4bd401578fd801",
+      "primaryPath": "Conteúdo/evolucao-e-a-importancia.pdf",
+      "paths": [
+        "Conteúdo/evolucao-e-a-importancia.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 546863,
+      "title": "Evolução e importância da radiologia",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2020",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:6768d33d814e6b40",
+      "sha256": "6768d33d814e6b40f37223756273bb796b9f0b2cabbb3852faa4aac7493c1ccb",
+      "primaryPath": "Conteúdo/guyton-e-hall-tratado-de-fisiol-john-e.-hall-13-ed-4.pdf",
+      "paths": [
+        "Conteúdo/guyton-e-hall-tratado-de-fisiol-john-e.-hall-13-ed-4.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 63453501,
+      "title": "Guyton e Hall: Tratado de Fisiologia Médica",
+      "contributors": [
+        "John E. Hall"
+      ],
+      "edition": "13a edição",
+      "publicationDate": "2016",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial textbook whose copyright page expressly reserves all rights."
+    },
+    {
+      "id": "library-source:f6f724ccb0ceccd6",
+      "sha256": "f6f724ccb0ceccd6192f8285ffec4f0a9318e0984d0a3b3eebb19ce150905180",
+      "primaryPath": "Conteúdo/mmPL6rMp5vmPCRpmYH84Kbm.pdf",
+      "paths": [
+        "Conteúdo/mmPL6rMp5vmPCRpmYH84Kbm.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 542053,
+      "title": "Material identificado pelo arquivo mmPL6rMp5vmPCRpmYH84Kbm",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2009",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:5dfdd69295e9fa32",
+      "sha256": "5dfdd69295e9fa327d1af7e1f92726cb519537f1986baaba77fbc1e86d264fed",
+      "primaryPath": "Conteúdo/radiologia-caso-a-caso-2015-ricardo-mell.pdf",
+      "paths": [
+        "Conteúdo/radiologia-caso-a-caso-2015-ricardo-mell.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 225385,
+      "title": "Radiologia Caso a Caso",
+      "contributors": [
+        "Ricardo Mell"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2015",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:084308fab0fdd614",
+      "sha256": "084308fab0fdd614d97ec0a24256108467096fdc95b904a955793304c2c0db52",
+      "primaryPath": "Conteúdo/radiologia-me-ananda-amaral-santos-carolina-cintra-gomes-e-me-ismar-nery-neto.pdf",
+      "paths": [
+        "Conteúdo/radiologia-me-ananda-amaral-santos-carolina-cintra-gomes-e-me-ismar-nery-neto.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 5910097,
+      "title": "Radiologia",
+      "contributors": [
+        "Ananda Amaral Santos",
+        "Carolina Cintra Gomes",
+        "Ismar Nery Neto"
+      ],
+      "edition": "unknown",
+      "publicationDate": "2018",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:2c3abf0530f3efad",
+      "sha256": "2c3abf0530f3efaddf761f8e4603cb8b2e3cca2abee1664b22a8da487b2f046d",
+      "primaryPath": "Conteúdo/radiologialivro-produto-alexandre-t-2015.pdf",
+      "paths": [
+        "Conteúdo/radiologialivro-produto-alexandre-t-2015.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 14865493,
+      "title": "Radiologia",
+      "contributors": [
+        "Alexandre T."
+      ],
+      "edition": "unknown",
+      "publicationDate": "2015",
+      "license": {
+        "status": "uncertain",
+        "label": "No explicit reusable license verified",
+        "url": null
+      },
+      "rightsClass": "blocked",
+      "commercialUse": false,
+      "allowedUses": [],
+      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+    },
+    {
+      "id": "library-source:66c82ace8c7040c9",
+      "sha256": "66c82ace8c7040c9da74cc6e8a0467b72ead90d04364bea9e1d4aad82132fc99",
+      "primaryPath": "Conteúdo/toaz.info-radiologia-basica-pr_25451707b4577a17835562034ef3a69c.pdf",
+      "paths": [
+        "Conteúdo/toaz.info-radiologia-basica-pr_25451707b4577a17835562034ef3a69c.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 34478117,
+      "title": "Radiologia Básica",
+      "contributors": [],
+      "edition": "unknown",
+      "publicationDate": "2014",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved; reproduction prohibited",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "The PDF expressly reserves all rights and prohibits reproduction."
+    },
+    {
+      "id": "library-source:7ce99f1679346fe5",
+      "sha256": "7ce99f1679346fe54496e17b795dc2048fec9bffc7b302b8577e13aaef194a69",
+      "primaryPath": "Conteúdo/toaz.info-tratado-de-posicionamento-radiografico-e-anatomia-associada-8-ediao-pr_ef7a7a39b9c5a58ee095fdeca329d3b5.pdf",
+      "paths": [
+        "Conteúdo/toaz.info-tratado-de-posicionamento-radiografico-e-anatomia-associada-8-ediao-pr_ef7a7a39b9c5a58ee095fdeca329d3b5.pdf"
+      ],
+      "duplicatePaths": [],
+      "fileSizeBytes": 96384752,
+      "title": "Tratado de Posicionamento Radiográfico e Anatomia Associada",
+      "contributors": [
+        "Kenneth L. Bontrager",
+        "John P. Lampignano"
+      ],
+      "edition": "8a edição",
+      "publicationDate": "2016",
+      "license": {
+        "status": "restricted",
+        "label": "All rights reserved",
+        "url": null
+      },
+      "rightsClass": "reference-only",
+      "commercialUse": false,
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Commercial textbook whose copyright page expressly reserves all rights."
+    }
+  ]
+}

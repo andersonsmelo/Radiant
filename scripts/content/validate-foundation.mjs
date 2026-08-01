@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateLibraryCatalog } from './catalog-library-sources.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..', '..');
@@ -37,13 +38,22 @@ export function validateFoundation() {
   const planetas = readJson('taxonomia/planetas.json');
   const estrelas = readJson('taxonomia/estrelas.json');
   const wave1PriorityTracks = readJsonIfExists('governança/wave-1-priority-tracks.json');
+  const libraryCatalog = readJsonIfExists('fontes/library-catalog.json');
   const schemaPaths = [
     'governança/esquemas/extraction-record.schema.json',
     'governança/esquemas/classification-record.schema.json',
     'governança/esquemas/concept.schema.json',
     'governança/esquemas/format-bundle.schema.json',
+    'governança/esquemas/library-source.schema.json',
   ];
   const schemas = schemaPaths.map(readJson);
+
+  if (!libraryCatalog) {
+    errors.push('Missing governed library catalog at conteúdo/fontes/library-catalog.json');
+  } else {
+    const libraryValidation = validateLibraryCatalog(libraryCatalog);
+    errors.push(...libraryValidation.errors.map((error) => `Library catalog: ${error}`));
+  }
 
   const galaxyIds = new Set(galaxias.map((item) => item.id));
   const planetIds = new Set(planetas.map((item) => item.id));
@@ -775,6 +785,9 @@ export function validateFoundation() {
       starCount: estrelas.length,
       galaxyIds: galaxias.map((item) => item.id),
       wave1PriorityTrackIds: wave1PriorityTracks?.tracks?.map((track) => track.id) ?? [],
+      libraryPdfFileCount: libraryCatalog?.summary?.pdfFileCount ?? 0,
+      uniqueSourceCount: libraryCatalog?.summary?.uniqueSourceCount ?? 0,
+      duplicateFileCount: libraryCatalog?.summary?.duplicateFileCount ?? 0,
       schemaTitles: schemas.map((schema) => schema.title),
     },
   };

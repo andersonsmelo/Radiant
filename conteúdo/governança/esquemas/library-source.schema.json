@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Library Source",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "sha256",
+    "primaryPath",
+    "paths",
+    "duplicatePaths",
+    "fileSizeBytes",
+    "title",
+    "contributors",
+    "edition",
+    "publicationDate",
+    "license",
+    "rightsClass",
+    "commercialUse",
+    "allowedUses",
+    "decisionBasis"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^library-source:[a-f0-9]{16}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "primaryPath": { "type": "string", "minLength": 1 },
+    "paths": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "duplicatePaths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "fileSizeBytes": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "contributors": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "edition": { "type": "string", "minLength": 1 },
+    "publicationDate": { "type": "string", "minLength": 1 },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "label", "url"],
+      "properties": {
+        "status": { "enum": ["verified", "restricted", "uncertain", "conflicting"] },
+        "label": { "type": "string", "minLength": 1 },
+        "url": { "type": ["string", "null"] }
+      }
+    },
+    "rightsClass": { "enum": ["authorized", "reference-only", "blocked"] },
+    "commercialUse": { "type": "boolean" },
+    "allowedUses": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["factual-reference", "adaptation", "verbatim-excerpt", "image-reuse"] }
+    },
+    "decisionBasis": { "type": "string", "minLength": 1 }
+  }
+}

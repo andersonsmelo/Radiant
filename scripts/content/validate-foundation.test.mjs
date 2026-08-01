@@ -21,6 +21,9 @@ test('foundation taxonomy is internally consistent', () => {
   assert.equal(result.summary.formatJobCount, 6);
   assert.equal(result.summary.formatBundleCount, 96);
   assert.equal(result.summary.formatNeedsReviewCount, 42);
+  assert.equal(result.summary.libraryPdfFileCount, 41);
+  assert.equal(result.summary.uniqueSourceCount, 36);
+  assert.equal(result.summary.duplicateFileCount, 5);
   assert.deepEqual(result.summary.sourceSlugs, [
     'fundamentos-de-radiologia-everton-costa-pinto',
   ]);
@@ -55,5 +58,6 @@ test('governance schemas expose the required contract fields', () => {
     'Classification Record',
     'Concept',
     'Format Bundle',
+    'Library Source',
   ]);
 });
