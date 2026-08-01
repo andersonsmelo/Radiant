@@ -88,8 +88,10 @@ writePolicy:
     - tools/editorial-panel/package-lock.json
     - conteúdo/classificação
     - conteúdo/conceitos
+    - conteúdo/fontes
     - conteúdo/formatos
     - conteúdo/governança
+    - conteúdo/mídia
     - conteúdo/taxonomia
     - .loop/project.yaml
 validators:
