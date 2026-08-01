@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "batchId": "unit-1-authorized-media-v1",
+  "status": "awaiting-authorized-assets",
+  "reviewedAt": "2026-07-31",
+  "items": [],
+  "rejectedCandidates": [
+    {
+      "assetPath": "Conteúdo/Captura de Tela 2026-04-03 à(s) 09.20.31.png",
+      "rules": [
+        "contains-personal-data",
+        "not-educational-derived-asset"
+      ]
+    },
+    {
+      "assetPath": "Conteúdo/Captura de Tela 2026-04-03 à(s) 09.21.35.png",
+      "rules": [
+        "contains-personal-data",
+        "contains-financial-data",
+        "not-educational-derived-asset"
+      ]
+    },
+    {
+      "assetPath": "Conteúdo/PHOTO-2026-04-02-20-37-31.jpg",
+      "rules": [
+        "contains-personal-data",
+        "not-educational-derived-asset"
+      ]
+    },
+    {
+      "assetPath": "Conteúdo/PHOTO-2026-04-02-20-41-17.jpg",
+      "rules": [
+        "contains-financial-data",
+        "not-educational-derived-asset"
+      ]
+    },
+    {
+      "assetPath": "Conteúdo/capa_2014_amazon.jpg",
+      "rules": [
+        "contains-identifiable-person",
+        "unverified-rights",
+        "not-educational-derived-asset"
+      ]
+    }
+  ]
+}

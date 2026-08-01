@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Educational Media Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "batchId", "status", "reviewedAt", "items", "rejectedCandidates"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "batchId": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["ready", "awaiting-authorized-assets"] },
+    "reviewedAt": { "type": "string", "format": "date" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "assetPath", "sha256", "modality", "region", "authorizationRef", "anonymization", "altText", "hotspots"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9:-]*$" },
+          "assetPath": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "modality": { "enum": ["radiograph", "ct", "mri", "mammography", "illustration", "photograph"] },
+          "region": { "type": "string", "minLength": 1 },
+          "authorizationRef": { "type": "string", "pattern": "^authorization:[a-z0-9][a-z0-9:-]*$" },
+          "anonymization": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "method", "verifiedAt", "verifiedByRole"],
+            "properties": {
+              "status": { "const": "verified" },
+              "method": { "type": "string", "minLength": 1 },
+              "verifiedAt": { "type": "string", "format": "date" },
+              "verifiedByRole": { "type": "string", "minLength": 1 }
+            }
+          },
+          "altText": { "type": "string", "minLength": 10 },
+          "hotspots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "label", "x", "y", "width", "height"],
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "label": { "type": "string", "minLength": 1 },
+                "x": { "type": "number", "minimum": 0, "maximum": 1 },
+                "y": { "type": "number", "minimum": 0, "maximum": 1 },
+                "width": { "type": "number", "minimum": 0, "maximum": 1 },
+                "height": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "rejectedCandidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["assetPath", "rules"],
+        "properties": {
+          "assetPath": { "type": "string", "minLength": 1 },
+          "rules": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "contains-personal-data",
+                "contains-financial-data",
+                "contains-identifiable-person",
+                "unverified-rights",
+                "not-educational-derived-asset",
+                "anonymization-not-verified"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

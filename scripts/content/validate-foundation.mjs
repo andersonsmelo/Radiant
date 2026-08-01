@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateLibraryCatalog } from './catalog-library-sources.mjs';
+import { validateMediaManifestStructure } from './validate-media-manifest.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..', '..');
@@ -39,6 +40,8 @@ export function validateFoundation() {
   const estrelas = readJson('taxonomia/estrelas.json');
   const wave1PriorityTracks = readJsonIfExists('governança/wave-1-priority-tracks.json');
   const libraryCatalog = readJsonIfExists('fontes/library-catalog.json');
+  const mediaManifest = readJsonIfExists('mídia/manifest.json');
+  const mediaManifestSchema = readJsonIfExists('governança/esquemas/media-manifest.schema.json');
   const schemaPaths = [
     'governança/esquemas/extraction-record.schema.json',
     'governança/esquemas/classification-record.schema.json',
@@ -53,6 +56,23 @@ export function validateFoundation() {
   } else {
     const libraryValidation = validateLibraryCatalog(libraryCatalog);
     errors.push(...libraryValidation.errors.map((error) => `Library catalog: ${error}`));
+  }
+
+  if (!mediaManifestSchema) {
+    errors.push('Missing media manifest schema');
+  } else if (mediaManifestSchema.title !== 'Educational Media Manifest'
+    || !Array.isArray(mediaManifestSchema.required)
+    || mediaManifestSchema.required.length === 0) {
+    errors.push('Media manifest schema is missing its required contract');
+  }
+
+  let mediaSummary = { status: 'missing', itemCount: 0, verifiedAnonymizationCount: 0, rejectedCandidateCount: 0 };
+  if (!mediaManifest) {
+    errors.push('Missing governed media manifest at conteúdo/mídia/manifest.json');
+  } else {
+    const mediaValidation = validateMediaManifestStructure(mediaManifest);
+    mediaSummary = mediaValidation.summary;
+    errors.push(...mediaValidation.errors.map((error) => `Media manifest: ${error.path} ${error.rule}`));
   }
 
   const galaxyIds = new Set(galaxias.map((item) => item.id));
@@ -788,6 +808,10 @@ export function validateFoundation() {
       libraryPdfFileCount: libraryCatalog?.summary?.pdfFileCount ?? 0,
       uniqueSourceCount: libraryCatalog?.summary?.uniqueSourceCount ?? 0,
       duplicateFileCount: libraryCatalog?.summary?.duplicateFileCount ?? 0,
+      mediaManifestStatus: mediaSummary.status,
+      mediaItemCount: mediaSummary.itemCount,
+      verifiedMediaAnonymizationCount: mediaSummary.verifiedAnonymizationCount,
+      rejectedMediaCandidateCount: mediaSummary.rejectedCandidateCount,
       schemaTitles: schemas.map((schema) => schema.title),
     },
   };
