@@ -1,76 +1,97 @@
-# Radiant Architecture State
+# Radiant — estado arquitetural
 
-## Estado atual do produto
+## Produto vigente
 
-Radiant é hoje um app mobile local-first com backend próprio no VPS. O estado vigente combina:
+Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso e
+revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
+para autenticação e sincronização, mas a API pública conhecida está registrada
+como inativa (HTTP 502) no
+[`status canônico`](EXECUTION_STATUS_2026-07-29.md) e não faz parte do caminho
+crítico do teste fechado.
 
-- cliente Expo/React Native em `radiant-app/`;
-- backend Fastify/PostgreSQL em `radiant-api/`;
-- auth própria com JWT de acesso e refresh token;
-- rate limiting básico no backend para contenção de abuso;
-- fila local de sync com fallback offline;
-- Learning Road V2 com rollout controlado por flag, trilhas de catálogo selecionáveis e progresso local por trilha;
-- `Pixel` como nome canônico do mascote nos docs atuais.
+Componentes principais:
 
-O app mantém esse contrato local-first porque a API pública conhecida está inativa e retorna HTTP 502. O estado operacional atual está registrado em [EXECUTION_STATUS_2026-07-27.md](EXECUTION_STATUS_2026-07-27.md); reativar infraestrutura exige uma decisão e uma execução separadas.
+- `radiant-app/src/app`: única árvore oficial de rotas;
+- `LessonCatalogService`: fachada do catálogo local/remoto;
+- `JourneyDefinitionService`: projeta trilhas do catálogo para a jornada;
+- `JourneyProgressService`: mantém seleção e progresso por trilha;
+- `LessonOutcomeService`: registra resultado, XP e evidência de conclusão;
+- `Conteúdo/`: pipeline editorial com proveniência;
+- `radiant-api/`: auth, sync e catálogo remoto opcional.
 
-## Learning Road V2 — Estado 2026-04-09
+## Jornada atual
 
-A jornada V2 deixou de ser apenas uma unidade local inicial e passou a usar o catálogo runtime como fonte de trilhas.
+A Learning Road V2 usa `journey-progress.v2`, preserva progresso separado por
+trilha e migra o store legado quando possível. O catálogo runtime expõe
+Fundamentos, Tórax e Abdome; as 18 atividades existentes continuam sendo o
+baseline compatível durante a evolução.
 
-Contratos vigentes:
+Regra arquitetural: alternar trilhas não apaga progresso, uma falha de sync não
+bloqueia o estudo e estados vazios devem manter continuidade no fluxo principal.
 
-- `LessonCatalogService` continua sendo a fachada runtime para catálogo local/remoto.
-- `JourneyDefinitionService.getTrackDefinition(trackId?)` monta uma definição de jornada para uma trilha específica do catálogo.
-- `JourneyProgressService.selectTrack(trackId)` alterna a trilha ativa e retorna o próximo snapshot elegível.
-- `JourneyProgressStore` usa `journey-progress.v2`, com `activeTrackId` no store e um bucket `tracks[trackId]` para cada progresso.
-- progresso legado `journey-progress.v1` é migrado para o bucket da trilha padrão quando possível.
-- `JourneyHomeScreen` expõe a prateleira `Trilhas disponíveis` e abre o próximo nó real da trilha tocada.
-- quando a trilha ativa não tem próximo nó elegível, `JourneyHomeScreen` responde com estado inline e mantém o contexto da trilha ativa.
+## Evolução por competências
 
-Trilhas prioritárias expostas no catálogo app/API:
+A decisão de 2026-07-31 introduz um contrato de atividade v2 com renderizadores
+reutilizáveis, tentativas estruturadas e domínio por competência. A Galáxia
+deverá se tornar uma projeção da mesma jornada canônica, não uma segunda árvore
+de progresso. O catálogo legado será preservado por adaptador durante a
+migração.
 
-- `track-radiology-foundations` — Fundamentos;
-- `track-thorax-patterns` — Tórax;
-- `track-abdomen-essentials` — Abdome.
+Fluxo-alvo:
 
-Regra arquitetural: alternar trilhas nunca deve apagar progresso já conquistado em outra trilha.
+```text
+fonte + decisão de direitos
+          ↓
+conceito + competência + atividade
+          ↓
+revisão humana da unidade
+          ↓
+catálogo canônico
+     ↙          ↘
+jornada        Galáxia
+     ↓
+tentativa → domínio → revisão espaçada
+```
 
-## Fontes canônicas de verdade
+Estado de implementação:
 
-| Tema | Fonte |
+- governança das novas raízes editoriais: concluída;
+- catálogo dos 36 documentos únicos: concluído;
+- validação do manifesto de mídia: concluída;
+- primeiro lote de mídia aprovado: pendente (`0` aprovados, `5` rejeitados);
+- grafo curricular e motor de atividades v2: não iniciados.
+
+## Contratos editoriais
+
+- `Conteúdo/fontes/library-catalog.json`: inventário por SHA-256 e decisão de
+  direitos;
+- `Conteúdo/mídia/manifest.json`: autorização, anonimização, acessibilidade e
+  regiões interativas;
+- `Conteúdo/governança/catalog-payload.json`: catálogo promovido legado;
+- `scripts/content/validate-foundation.mjs`: gate agregado;
+- `scripts/content/validate-media-manifest.mjs`: gate específico de mídia.
+
+Fonte `reference-only` serve somente para consulta factual e redação original.
+Fonte `blocked` não alimenta conteúdo. Nenhum ativo de imagem entra no app sem
+autorização e anonimização verificadas.
+
+## Fontes de verdade
+
+| Tema | Documento |
 | --- | --- |
-| Visão do produto | [docs/PRD.md](/Users/anderson/Developer/Radiant/docs/PRD.md) |
-| Regras de engenharia | [docs/README.md](/Users/anderson/Developer/Radiant/docs/README.md) |
-| Sistema operacional de App Store | [docs/APP_STORE_OPERATING_SYSTEM.md](/Users/anderson/Developer/Radiant/docs/APP_STORE_OPERATING_SYSTEM.md) |
-| Status de execução atual | [docs/EXECUTION_STATUS_2026-07-27.md](EXECUTION_STATUS_2026-07-27.md) |
-| Plano executivo | [docs/IMPLEMENTATION_PLAN.md](/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md) |
-| Runtime do app | [radiant-app/README.md](/Users/anderson/Developer/Radiant/radiant-app/README.md) |
-| Runtime da API | [radiant-api/README.md](/Users/anderson/Developer/Radiant/radiant-api/README.md) |
-| Status 2026-04-09 | [docs/EXECUTION_STATUS_2026-04-09.md](/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md) |
-| Política de beta do app | [radiant-app/docs/BETA_SCOPE.md](/Users/anderson/Developer/Radiant/radiant-app/docs/BETA_SCOPE.md) |
-| Critérios de saída da beta | [radiant-app/docs/BETA_EXIT_CRITERIA.md](/Users/anderson/Developer/Radiant/radiant-app/docs/BETA_EXIT_CRITERIA.md) |
-| Sistema do personagem | [radiant-app/docs/CHARACTER_SYSTEM_SPEC.md](/Users/anderson/Developer/Radiant/radiant-app/docs/CHARACTER_SYSTEM_SPEC.md) |
-| Métricas do produto | [radiant-app/docs/PRODUCT_METRICS_V1_1.md](/Users/anderson/Developer/Radiant/radiant-app/docs/PRODUCT_METRICS_V1_1.md) |
-| Política de higiene | [docs/REPO_HYGIENE.md](/Users/anderson/Developer/Radiant/docs/REPO_HYGIENE.md) |
-| Política de escala | [docs/SCALE_TRIGGERS.md](/Users/anderson/Developer/Radiant/docs/SCALE_TRIGGERS.md) e [docs/CAPACITY_REVIEW.md](/Users/anderson/Developer/Radiant/docs/CAPACITY_REVIEW.md) |
-
-## Precedência documental
-
-Quando houver conflito entre documentos, a ordem de verdade é:
-
-1. `docs/EXECUTION_STATUS_2026-07-27.md` para estado operacional presente.
-2. `radiant-app/README.md` e `radiant-api/README.md` para comportamento em runtime.
-3. `docs/IMPLEMENTATION_PLAN.md` para estado do programa e da arquitetura-alvo.
-4. `docs/APP_STORE_OPERATING_SYSTEM.md` para decisões que afetem distribuição,
-   App Store, growth iOS e gates relacionados.
-5. `docs/ADR-*.md` para decisões estruturais.
-6. Docs de beta, métricas e personagem para intenção de produto, desde que não contradigam o runtime atual.
+| Estado operacional | [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md) |
+| Produto | [`PRD.md`](PRD.md) |
+| Roadmap | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |
+| Pipeline editorial | [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md) |
+| Runtime do app | [`../radiant-app/README.md`](../radiant-app/README.md) |
+| Runtime da API | [`../radiant-api/README.md`](../radiant-api/README.md) |
+| Decisão educacional | [`adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md) |
 
 ## Regras de consistência
 
-- Nenhum documento de beta pode descrever o produto como pré-auth ou sem sync quando o runtime já não está nesse estado.
-- Nenhuma spec de personagem pode usar um nome diferente do nome canônico atual sem marcar o texto como histórico.
-- O README raiz deve apontar para esta página como mapa canônico.
-- Nenhuma iniciativa iOS deve existir sem referência ao bloco `App Store Impact`.
-- Drift entre docs deve ser corrigido no documento de menor precedência, não normalizado como ambiguidade.
+- o status canônico governa o presente; snapshots anteriores são históricos;
+- arquivos gerados do catálogo não são editados manualmente;
+- promoção exige proveniência, revisão e validadores verdes;
+- vidas não podem bloquear novas lições;
+- nenhuma mudança de binário entra no closed test sem repetir os gates de
+  release aplicáveis.

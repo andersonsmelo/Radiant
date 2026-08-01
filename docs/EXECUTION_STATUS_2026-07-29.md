@@ -5,10 +5,11 @@
 > ponteiro canônico decai no instante em que o alvo é substituído, e trocar o nome
 > exige varrer quem aponta para ele.
 >
-> **Recontado em 2026-07-31: são 14 arquivos, não oito** — `.loop/project.yaml`,
+> **Recontado em 2026-07-31: são 17 arquivos, não oito** — `.loop/project.yaml`,
 > `scripts/qa/docs-contract.mjs`, `docs/README.md`, o roadmap de lançamento, o plano
 > de closed testing, o checklist de release, os dois runbooks de loja, dois ADRs,
-> dois planos e uma spec de `superpowers/`, e uma evidência em
+> mais o ADR, o plano e a spec do sistema de aprendizagem, dois planos anteriores
+> e uma spec anterior de `superpowers/`, e uma evidência em
 > `radiant-app/docs/`. O número "oito" era verdadeiro quando foi escrito e envelheceu
 > sozinho; o argumento que ele sustenta ficou **mais forte**, não mais fraco. Para o
 > valor de agora:
@@ -34,6 +35,36 @@ ponto em que só falta a ação do usuário (contas, hospedagem, testadores).
 A API pública em `api.radiant.ascendcreative.com.br` permanece **inativa** (HTTP
 502) e **não está no caminho crítico** do lançamento — o produto lançável é
 local-first. Esta execução não tocou VPS, DNS, proxy, banco ou serviço remoto.
+
+### Sistema educacional v2 — fundações em execução
+
+Em 2026-07-31, Anderson aprovou o desenho da próxima expansão educacional. O
+público inicial é o estudante iniciante de técnico em radiologia; a primeira
+trilha é **Fundamentos e Segurança Radiológica**, com sessão de 3–5 minutos,
+currículo espiral por competência, jogos visuais reutilizáveis, revisão humana
+por unidade e aprendizagem/retenção como métrica primária. Vidas não bloqueiam
+estudo e ranking global fica fora da primeira fase.
+
+As duas primeiras tasks foram concluídas em 2026-07-31. A política Loop passou a
+autorizar as raízes editoriais necessárias e o inventário determinístico
+catalogou 41 PDFs, 36 únicos e cinco duplicatas por SHA-256. A revisão de direitos
+classificou 4 fontes como `authorized`, 15 como `reference-only` e 17 como
+`blocked`.
+
+A infraestrutura da Task 3 também foi entregue: schema, manifesto e validadores
+de mídia agora bloqueiam ativos sem autorização, anonimização verificada,
+descrição acessível ou integridade de arquivo. O primeiro lote, porém, **não está
+pronto**: o manifesto permanece `awaiting-authorized-assets`, com 0 ativos
+aprovados e 5 candidatos rejeitados. Esses arquivos não foram movidos nem
+apagados. A Task 4, grafo das 30 competências, ainda não começou para preservar a
+ordem do plano.
+
+A decisão está na
+[`ADR-2026-07-31`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md), a
+arquitetura na
+[`spec aprovada`](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
+e a sequência executável no
+[`plano de implementação`](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
 
 ## O que mudou desde 2026-07-28
 
@@ -357,6 +388,8 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | ficha da loja preenchida | **FEITO** | nome, descrição breve (70/80), descrição completa (1605/4000), ícone 512, feature graphic e os seis screenshots enviados. A descrição precisou ser **convertida de Markdown para texto limpo** — o campo do Play não renderiza Markdown |
 | Conteúdo do app (Data Safety, classificação, público-alvo) | **relatado FEITO pelo dono** | "totalmente classificado no console, não tem bloqueios" (2026-07-31). Não medido por mim — a autoridade é a seção "Visão geral da publicação" do console |
 | track de teste fechado | **criado — chama `alpha`** | nome atribuído pelo próprio Play Console ("Teste fechado - Alpha"). É o valor real de `--track`; o `eas.json` mantém `track: "internal"`, deliberado para o primeiro upload de validação de pipeline |
+| release Android `1.3.0 (4)` no track `alpha` | **PUBLICADA — track ATIVO** | AAB aceito pelo Play em 2026-07-31; distribuição configurada para **Brasil**. A checagem automática bloqueou o primeiro envio por falta da declaração de ID de publicidade. O manifesto efetivo do AAB não contém `com.google.android.gms.permission.AD_ID` e o app não inclui SDK de anúncios; a declaração foi respondida **Não**, salva e revalidada. As 12 mudanças foram aprovadas e publicadas em 2026-07-31 às 15:45; o Console passou a mostrar `Versão disponível para testadores selecionados`, `Última versão: 1.3.0 (4)` e faixa `Ativo`. |
+| testadores do track `alpha` | **12 VÁLIDOS VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` foi criada sem registrar endereços no repositório. Depois da reconciliação da fonte em texto, o Play aceitou os 11 endereços originais e, em seguida, a 12ª conta adicionada, mantendo a lista selecionada no track. A mudança de testadores já havia sido enviada à revisão. F2 ainda não fecha: cada pessoa precisa concluir o opt-in e é necessário manter ≥12 participantes por 14 dias consecutivos. |
 | primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) |
 | por que o gate local não pegou | **explicado** | o `BUILD SUCCESSFUL in 48s` de 2026-07-30 foi feito com o bundle **em cache**, e a task de upload do Sentry só roda quando o bundle é regerado. O EAS constrói sempre do zero, então foi o primeiro a expor a falha. **Um verde local com cache não é evidência sobre um build limpo** — a armadilha do cache do Gradle já estava registrada neste repositório e cobrava aqui |
 | keystore de assinatura Android | **criada** | gerada pelo EAS no build que falhou e **persiste no servidor** — é ela que assinará todas as atualizações do app. Não se refaz no próximo build |
@@ -426,16 +459,16 @@ Android em
 hospedar as páginas, disparar builds — está inteiramente cumprida, e mantê-la
 escrita mandaria alguém refazer trabalho feito. A sequência agora é:
 
-1. **Subir o AAB no track fechado `alpha` e PROMOVER a release.** É o único passo
-   entre hoje e o relógio começar. A release sobe como rascunho e fica parada até
-   ser promovida.
-2. **Recrutar os testadores** — ≥12 opted-in, meta de 14–16 para absorver churn. É
-   o item de maior latência e **o único bloqueio de publicação que resta**. Coletar
-   a conta Google **do aparelho** de cada pessoa, não "o e-mail".
-3. **Copiar o link de opt-in**, que só existe depois da release publicada, e
-   disparar os convites.
-4. **Mergear a PR #39** do site antes de submeter, e remedir as duas URLs legais na
-   véspera — elas estão no ar só por FTPS.
+1. ~~**Publicar o AAB no track fechado `alpha`.**~~ **CONCLUÍDO em
+   2026-07-31:** versão `1.3.0 (4)` disponível para testadores selecionados e
+   faixa marcada como `Ativo`.
+2. **Obter o opt-in das 12 contas aceitas** e, de preferência, recrutar mais
+   2–4 contas para absorver churn. Coletar a conta Google **do aparelho** de
+   cada pessoa, não apenas um endereço de contato.
+3. **Confirmar a conclusão da revisão da vinculação da lista** e então disparar
+   o link de opt-in disponível no Console aos testadores aceitos.
+4. **Mergear a PR #39** do site e remedir as duas URLs legais antes da submissão
+   para produção — elas estão no ar só por FTPS.
 5. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.
 
 Fora do caminho: a prova do *themed icon* (precisa de aparelho real), as sessões

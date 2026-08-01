@@ -508,8 +508,13 @@ código.
 
 - **F1 [P0]** Build `production` iOS via EAS → TestFlight (revisão beta da
   Apple); distribuir aos testadores.
-- **F2 [P0]** Build `production` Android (AAB) via EAS → closed testing track;
-  atingir 12+ opted-in e manter 14 dias consecutivos (se conta pessoal).
+- **F2 [P0] — RELEASE LIVE; TESTADORES EM REVISÃO (2026-07-31).** Build
+  `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
+  `Ativo`. A lista `Radiant Alpha — 31/07/2026` foi substituída a partir da
+  fonte em texto, tem 12 contas aceitas e permanece selecionada no track; a
+  mudança de testadores já foi submetida à revisão. Nenhum dado pessoal foi
+  persistido no repositório. A task só fecha quando as 12+ contas concluírem o
+  opt-in e a contagem completar 14 dias consecutivos (conta pessoal).
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
@@ -534,6 +539,33 @@ código.
   onde acontecer. Detalhe em [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md).
 - **F7 [P2]** Retrospectiva + atualizar status canônico e brain (aprendizados
   validados de lançamento).
+
+### Onda G — Sistema educacional por competências (em execução)
+
+Esta onda é a continuação de produto aprovada em 2026-07-31. Ela não altera o
+estado do closed test atual e não autoriza publicar novo binário. Spec:
+[`2026-07-31-sistema-aprendizagem-competencias-design.md`](../superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md);
+execução:
+[`2026-07-31-sistema-aprendizagem-competencias.md`](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
+
+- **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
+  revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
+- **G1 [P0 — EM ANDAMENTO]** Governar fontes e mídia. Tasks 1 e 2 concluídas:
+  raízes autorizadas, 36 PDFs únicos classificados (4 `authorized`, 15
+  `reference-only`, 17 `blocked`). A infraestrutura da Task 3 está concluída,
+  mas o lote segue `awaiting-authorized-assets`, com 0 imagens aprovadas e 5
+  candidatas rejeitadas. O grafo das 30 competências (Task 4) não começou; G1
+  fecha somente após mídia autorizada e currículo validados.
+- **G2 [P0]** Construir o motor de atividades v2 preservando as 18 atividades
+  legadas; registrar evidência e domínio por competência.
+- **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
+  bloqueio de lições por vidas.
+- **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
+  sessões de 3–5 minutos, quatro interações e checkpoint revisado.
+- **G5 [P0]** Rodar beta pedagógico com checkpoint, revisão posterior,
+  acessibilidade e P0/P1 zerados antes de expandir.
+- **G6 [P1]** Produzir unidades 2–6 em lotes, com no máximo um novo tipo de jogo
+  por unidade e promoção condicionada a revisão.
 
 ## 7. Recursos necessários
 

@@ -185,11 +185,15 @@ fontes ampliadas · sem vazamento de rota no header.
   negativo). O primeiro build falhou e a causa foi o upload de source maps do
   Sentry sem organização configurada — ver
   [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md).
-- [ ] ⏳ **Subir o AAB no track fechado `alpha` e PROMOVER a release** (task
-  **F2**). A release sobe como rascunho (`releaseStatus: draft`) e fica parada até
-  ser promovida. O relógio de **12+ opted-in por 14 dias consecutivos** — piso do
-  caminho crítico — só começa com a release *live* e os testadores dentro. Nem no
-  upload, nem na promoção isolada: nas duas coisas juntas.
+- [ ] 🟢 **Release Android `1.3.0 (4)` publicada no track fechado `alpha`; lista
+  de testadores em revisão** (task **F2**). Em 2026-07-31 às 15:45, o Play
+  publicou as 12 mudanças e passou a mostrar a faixa como `Ativo` e a versão
+  disponível para testadores selecionados. A lista `Radiant Alpha — 31/07/2026`
+  foi substituída usando a fonte em texto e o Play aceitou as 12 contas,
+  mantendo-a selecionada no track; nenhum endereço foi persistido no
+  repositório. A mudança de testadores já foi enviada à revisão. F2 permanece
+  aberto: faltam os 12 opt-ins; o relógio exige **12+ opted-in por 14 dias
+  consecutivos**.
 
 ## 7. Lançamento e pós (M5)
 

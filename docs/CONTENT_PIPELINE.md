@@ -1,96 +1,94 @@
-# Content Pipeline
+# Pipeline editorial do Radiant
 
-## Goal
+## Objetivo
 
-Keep lesson content versioned, reviewable, and safe to ship incrementally.
+Manter conteúdo educacional versionado, rastreável, revisável e seguro para
+promoção incremental ao app e à API.
 
-## Editorial Foundation
+`Conteúdo/` é a raiz editorial canônica. Todo artefato pedagógico deve preservar
+proveniência até fonte, trecho e conceito. A expansão por competências acrescenta
+decisões explícitas de direitos e mídia antes da produção de novas unidades.
 
-- The repository root `conteúdo/` is now the canonical editorial workspace for raw sources, extracted excerpts, taxonomy, concepts, generated formats, and governance contracts.
-- `scripts/content/validate-foundation.mjs` is the zero-dependency integrity check for the editorial foundation.
-- Future ingestion and generation steps must extend this foundation instead of bypassing it with ad-hoc lesson files.
+## Estado validado em 2026-07-31
 
-## Current Editorial State
+### Pipeline legado promovido
 
-As of 2026-04-09, the first real source completes the full editorial-to-runtime flow:
+- 1 obra piloto processada;
+- 75 páginas e 109 trechos extraídos;
+- 109 classificações, 30 em `needs-review`;
+- 16 conceitos, 7 em `needs-review`;
+- 96 bundles em seis formatos, com 42 marcações `needs-review` derivadas;
+- 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome;
+- catálogo promovido sincronizável para app e seed da API.
 
-- source: `Fundamentos de Radiologia` (`source:fundamentos-de-radiologia-everton-costa-pinto`)
-- source status: `extracted -> classified -> normalized -> generated -> approved -> promoted -> synced-app -> synced-api`
-- extracted artifacts: `75` pages and `109` excerpts
-- classified artifacts: `109` records, `30` marked `needs-review`
-- concept artifacts: `16` canonical concepts, `7` marked `needs-review`
-- generated format types: `microlições`, `quizzes`, `reviews`, `casos`, `checkpoints`, `rewards`
-- generated bundles: `96` total — all approved
-- `conteúdo/governança/catalog-payload.json` v1.0.0 promoted
-- `16` AI quiz lessons active in the app (`radiant-app/src/data/ai-lessons.ts`)
-- Wave 1 priority tracks defined in `conteúdo/governança/wave-1-priority-tracks.json`
-- Wave 1 readiness derived from approved quiz bundles: `18/18` lessons ready across `Fundamentos`, `Tórax`, and `Abdome`
-- `radiant-api/sql/003_seed_editorial_catalog.sql` now mirrors the same promoted quiz catalog for the remote manifest
+### Nova biblioteca
 
-## Editorial Flow
+- 41 PDFs no disco;
+- 36 fontes únicas e 5 duplicatas detectadas por SHA-256;
+- 4 fontes `authorized`;
+- 15 fontes `reference-only`;
+- 17 fontes `blocked`.
 
-1. Register a source in `conteúdo/fontes/`.
-2. Extract machine-readable pages and excerpts into `conteúdo/extrações/`.
-3. Classify every excerpt against `galáxia -> planeta -> estrela`.
-4. Normalize classified excerpts into canonical concepts.
-5. Generate pedagogical bundles from concepts into `conteúdo/formatos/**/ai-bundles.json`.
-6. Review and approve bundles via the editorial panel (`tools/editorial-panel/`, port 3001).
-7. Promote approved bundles: `node scripts/content/promote-to-catalog.mjs`
-8. Sync catalog to app: `node scripts/content/sync-catalog-to-app.mjs`
-9. Sync catalog to API seed: `node scripts/content/sync-catalog-to-api.mjs`
-10. Validate the editorial chain: `node scripts/content/validate-foundation.mjs`
+O catálogo está em `Conteúdo/fontes/library-catalog.json`. `reference-only`
+autoriza apenas consulta factual com redação original; `blocked` impede qualquer
+derivação editorial até nova decisão humana documentada.
 
-Every generated artifact must preserve provenance back to `conceptIds` and `sourceExcerptIds`.
+### Mídia
 
-## Tools
+`Conteúdo/mídia/manifest.json` está em
+`awaiting-authorized-assets`: há 0 ativos aprovados e 5 candidatos rejeitados.
+O validador exige autorização, SHA-256, modalidade, região, descrição acessível,
+anonimização verificada e hotspots normalizados quando aplicáveis. O manifesto
+verde sem itens confirma a integridade do gate, não a prontidão do lote.
 
-| Script | Purpose |
-|---|---|
-| `scripts/content/validate-foundation.mjs` | Integrity check for the editorial foundation |
-| `scripts/content/promote-to-catalog.mjs` | Collects approved bundles → `catalog-payload.json` |
-| `scripts/content/sync-catalog-to-app.mjs` | Converts `catalog-payload.json` → `ai-lessons.ts` + `ai-catalog.ts` |
-| `scripts/content/sync-catalog-to-api.mjs` | Converts `catalog-payload.json` → `radiant-api/sql/003_seed_editorial_catalog.sql` |
-| `scripts/content/generate-local-bundles.py` | Generates `ai-bundles.json` for all 16 concepts × 6 formats |
-| `scripts/content/wave-1-priority-tracks.test.mjs` | Guards the priority-track contract for Wave 1 |
-| `scripts/qa/wave-1-smoke.mjs` | Runs local Wave 1 smoke checks across content, API contract, and editorial status |
-| `tools/editorial-panel/` | Next.js web UI for bundle review, graph validation, and promotion |
+## Fluxo vigente
 
-## Source of Truth
+1. Inventariar fonte e calcular SHA-256.
+2. Registrar licença, uso comercial, usos permitidos e decisão humana.
+3. Extrair páginas e trechos somente de fonte permitida para o uso pretendido.
+4. Classificar trechos e normalizar conceitos.
+5. Gerar bundles pedagógicos preservando proveniência.
+6. Revisar e aprovar no painel editorial.
+7. Promover com `scripts/content/promote-to-catalog.mjs`.
+8. Sincronizar app e seed da API.
+9. Validar a cadeia completa.
 
-- `conteúdo/governança/catalog-payload.json` is the promoted editorial catalog (versioned, format-grouped).
-- `radiant-app/src/data/ai-lessons.ts` and `ai-catalog.ts` are auto-generated from it — do not edit by hand.
-- `radiant-api/sql/003_seed_editorial_catalog.sql` is also auto-generated from it — do not edit by hand.
-- `radiant-app/src/data/lessons.ts` and `catalog.ts` remain the seed content and manifest that merge both.
-- `radiant-app/src/data/catalog.ts` is also the source of runtime learning tracks for `JourneyDefinitionService`.
-- `conteúdo/governança/wave-1-priority-tracks.json` defines which tracks must be visible and ready in the app for Wave 1.
-- `LessonCatalogService` is the runtime facade used by screens and lesson flows.
-- `RemoteCatalogService` is the runtime path for server-driven catalog refreshes when the flag is enabled.
+Para o sistema por competências, antes dos passos 3–8 também é obrigatório:
 
-## Runtime Flow
+1. aprovar o lote de mídia no manifesto;
+2. mapear atividade para competência observável;
+3. revisar a unidade como lote completo;
+4. provar checkpoint e retenção antes de expandir para a unidade seguinte.
 
-1. The app boots with the local catalog (AI lessons + seed lessons merged in `catalog.ts`).
-2. `JourneyDefinitionService` converts the selected catalog track into journey units and nodes.
-3. `JourneyProgressService` persists progress per track through `journey-progress.v2`.
-4. The promoted editorial quiz track is mirrored into the backend seed through `radiant-api/sql/003_seed_editorial_catalog.sql`.
-5. If remote content is enabled, the app attempts a non-blocking refresh against `/v1/content/catalog`.
-6. If the remote payload is invalid or unavailable, the app falls back to local content.
-7. Screens continue reading through `LessonCatalogService` regardless of source.
+## Ferramentas
 
-## Relationship Between Editorial And Runtime Catalogs
+| Comando | Finalidade |
+| --- | --- |
+| `node scripts/content/catalog-library-sources.mjs` | gera o inventário determinístico da biblioteca |
+| `node scripts/content/validate-foundation.mjs` | valida a fundação editorial agregada |
+| `node scripts/content/validate-media-manifest.mjs` | valida autorização e anonimização da mídia |
+| `node scripts/content/promote-to-catalog.mjs` | promove bundles aprovados |
+| `node scripts/content/sync-catalog-to-app.mjs` | gera artefatos do catálogo local |
+| `node scripts/content/sync-catalog-to-api.mjs` | gera o seed remoto correspondente |
+| `node --test scripts/content/wave-1-priority-tracks.test.mjs` | protege as trilhas da Wave 1 |
+| `node scripts/qa/wave-1-smoke.mjs` | verifica o fluxo local da Wave 1 |
 
-- `conteúdo/` is the canonical editorial build pipeline.
-- `radiant-app/src/data/ai-*.ts` are the generated runtime artifacts from the editorial pipeline.
-- `radiant-api/sql/003_seed_editorial_catalog.sql` is the generated backend mirror of the promoted quiz track.
-- `radiant-app/src/data/lessons.ts` and `catalog.ts` are the hand-authored seed layer.
-- `/v1/content/catalog` is the remote runtime manifest path exposed by the API.
-- Runtime promotion from `conteúdo/` into app/API catalogs should happen only after editorial validation and intentional QA.
+## Fontes de verdade
 
-## Publishing Rules
+- `Conteúdo/fontes/library-catalog.json`: inventário e direitos da nova
+  biblioteca;
+- `Conteúdo/mídia/manifest.json`: ativos aprovados e candidatos rejeitados;
+- `Conteúdo/governança/catalog-payload.json`: catálogo legado promovido;
+- `Conteúdo/governança/wave-1-priority-tracks.json`: trilhas prioritárias;
+- `radiant-app/src/data/ai-lessons.ts` e `ai-catalog.ts`: artefatos gerados;
+- `radiant-api/sql/003_seed_editorial_catalog.sql`: espelho gerado para a API.
 
-- Never replace local content with an invalid remote payload.
-- Every catalog update should preserve a stable `version`.
-- The initial lesson must always resolve to an existing lesson id.
-- If a lesson ships custom Learning Road copy, include it under `payload.journey`.
-- Editorial changes should be considered publishable only when `scripts/content/validate-foundation.mjs` returns `ok: true`.
-- After any bundle approval cycle, run both `sync-catalog-to-app.mjs` and `sync-catalog-to-api.mjs` before committing to keep app and API aligned.
-- For Wave 1 releases, run `node --test scripts/content/wave-1-priority-tracks.test.mjs` and `node scripts/qa/wave-1-smoke.mjs` before declaring the catalog ready.
+## Regras de publicação
+
+- nunca copiar texto ou imagem de obra comercial sem permissão compatível;
+- nunca inferir autorização pelo nome ou pela origem aparente do arquivo;
+- nunca promover mídia sem manifesto e anonimização verificadas;
+- nunca substituir o catálogo local por payload remoto inválido;
+- nunca editar manualmente os artefatos gerados do app ou da API;
+- depois de aprovar bundles, sincronizar app e API antes do commit;
+- declarar o catálogo pronto somente com os gates correspondentes executados.

@@ -1,5 +1,10 @@
 # Radiant — Product Requirements Document (PRD)
 
+> **Estado:** requisitos-base vigentes. A evolução educacional por competências
+> foi aprovada em 2026-07-31 e está sendo implementada de forma incremental; ver
+> a [spec normativa](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
+> e o [status canônico](EXECUTION_STATUS_2026-07-29.md).
+
 ## 1. Visão do Produto
 
 Radiant é um aplicativo educacional gamificado premium focado em **Radiologia**, projetado para transformar o estudo técnico em um **hábito diário**, com retenção de longo prazo e aplicação prática real.
@@ -155,3 +160,26 @@ Qualquer funcionalidade não explicitamente descrita neste documento está fora 
 
 > O Radiant não ensina para passar em prova.
 > Ele treina para pensar como radiologista.
+
+---
+
+## 14. Evolução aprovada — aprendizagem por competências
+
+A primeira expansão após o baseline do MVP atende estudantes iniciantes de
+técnico em radiologia na trilha **Fundamentos e Segurança Radiológica**.
+
+Contratos de produto aprovados:
+
+- sessões principais de 3–5 minutos;
+- currículo espiral com 30 competências em seis unidades;
+- tentativa ativa, feedback causal, aplicação visual e recuperação posterior;
+- checkpoint por unidade com gate específico para erros críticos de segurança;
+- domínio e retenção como métricas primárias de aprendizagem;
+- XP e sequência como apoio, sem punição severa;
+- vidas nunca bloqueiam estudo;
+- ranking global fora da primeira fase;
+- conteúdo e mídia promovidos somente após direitos, proveniência, anonimização
+  e revisão humana.
+
+Esta seção define intenção de produto. Estado, sequência e bloqueios pertencem
+ao roadmap e ao status canônico, não a este PRD.
