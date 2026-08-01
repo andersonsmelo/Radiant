@@ -180,9 +180,11 @@ fontes ampliadas · sem vazamento de rota no header.
   Connect API key foram configurados pelo EAS, que submeteu o build `1.3.0 (4)`.
   A task permanece aberta somente pela automação Android: a service-account key
   do Play não é pré-requisito do primeiro upload e continua pendente.
-- [ ] ⛔ Recrutar ≥ 14 testadores para o closed test do Play (task **A6**) —
-  **13/14 contas vinculadas em 2026-08-01; falta pelo menos uma para a margem
-  planejada.** Os opt-ins ainda não foram comprovados.
+- [x] ✅ Recrutar ≥ 14 testadores para o closed test do Play (task **A6**) —
+  **CONCLUÍDA em 2026-08-01**, relatada pelo dono: ≥14 contas vinculadas, margem
+  de churn atingida. Não medida no repositório, que não persiste endereços; a
+  autoridade é a página da faixa no Console. **Os opt-ins seguem não
+  comprovados** — esse é o gate F2, e é outro item desta lista.
 - [ ] ⏳ Build `production` iOS → TestFlight (task **F1**) — **build `1.3.0 (4)`
   pronta no TestFlight em 2026-08-01**, com distribuição automática no grupo
   interno `Radiant Internal` (1 tester, 1 build). **Instalação física, versão,
@@ -196,14 +198,15 @@ fontes ampliadas · sem vazamento de rota no header.
   negativo). O primeiro build falhou e a causa foi o upload de source maps do
   Sentry sem organização configurada — ver
   [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md).
-- [ ] 🟢 **Release Android `1.3.0 (4)` publicada no track fechado `alpha`; 13
+- [ ] 🟢 **Release Android `1.3.0 (4)` publicada no track fechado `alpha`; ≥14
   testadores vinculados e opt-in pendente** (task **F2**). Em 2026-07-31 às
   15:45, o Play publicou as 12 mudanças e passou a mostrar a faixa como `Ativo` e a versão
   disponível para testadores selecionados. A lista `Radiant Alpha — 31/07/2026`
-  permanece selecionada no track; em 2026-08-01, a fonte completa foi importada,
-  validada e salva, e o Console confirmou 13 usuários sem alteração pendente na
-  página da faixa. Nenhum endereço foi persistido no repositório. F2 permanece
-  aberto: é necessário comprovar **12+ opted-in por 14 dias consecutivos**.
+  permanece selecionada no track; em 2026-08-01 a fonte foi importada e salva, e
+  mais tarde na mesma data o dono relatou o recrutamento concluído com ≥14 contas
+  vinculadas. Nenhum endereço foi persistido no repositório. **F2 permanece
+  aberto, e o que falta não é recrutamento:** é comprovar **12+ opted-in por 14
+  dias consecutivos**.
 
 ## 7. Lançamento e pós (M5)
 

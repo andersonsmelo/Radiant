@@ -392,7 +392,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | Conteúdo do app (Data Safety, classificação, público-alvo) | **relatado FEITO pelo dono** | "totalmente classificado no console, não tem bloqueios" (2026-07-31). Não medido por mim — a autoridade é a seção "Visão geral da publicação" do console |
 | track de teste fechado | **criado — chama `alpha`** | nome atribuído pelo próprio Play Console ("Teste fechado - Alpha"). É o valor real de `--track`; o `eas.json` mantém `track: "internal"`, deliberado para o primeiro upload de validação de pipeline |
 | release Android `1.3.0 (4)` no track `alpha` | **PUBLICADA — track ATIVO** | AAB aceito pelo Play em 2026-07-31; distribuição configurada para **Brasil**. A checagem automática bloqueou o primeiro envio por falta da declaração de ID de publicidade. O manifesto efetivo do AAB não contém `com.google.android.gms.permission.AD_ID` e o app não inclui SDK de anúncios; a declaração foi respondida **Não**, salva e revalidada. As 12 mudanças foram aprovadas e publicadas em 2026-07-31 às 15:45; o Console passou a mostrar `Versão disponível para testadores selecionados`, `Última versão: 1.3.0 (4)` e faixa `Ativo`. |
-| testadores do track `alpha` | **13 VÁLIDOS VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` permanece selecionada no track sem registrar endereços no repositório. Em 2026-08-01, a fonte completa com 13 contas foi importada, validada sem rejeições e salva; o Console passou a mostrar 13 usuários e nenhum salvamento pendente na página da faixa. A meta operacional de A6 continua em ≥14 para absorver churn. F2 ainda não fecha: é necessário comprovar ≥12 opt-ins e manter esse piso por 14 dias consecutivos. |
+| testadores do track `alpha` | **≥14 VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` permanece selecionada no track sem registrar endereços no repositório. Em 2026-08-01, a fonte completa com 13 contas foi importada, validada sem rejeições e salva. **Mais tarde na mesma data o dono relatou o recrutamento concluído, com ≥14 contas vinculadas** — atingindo a margem de churn planejada e fechando **A6/T1.1**. *Relatado, não medido por mim: o repositório não persiste endereços por decisão de privacidade, então a autoridade é a página da faixa no Console, e o número exato sai de lá.* **F2 segue aberta** — vínculo não é opt-in: é necessário comprovar ≥12 adesões efetivas e manter esse piso por 14 dias consecutivos. O relógio ainda não começou. |
 | primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) |
 | por que o gate local não pegou | **explicado** | o `BUILD SUCCESSFUL in 48s` de 2026-07-30 foi feito com o bundle **em cache**, e a task de upload do Sentry só roda quando o bundle é regerado. O EAS constrói sempre do zero, então foi o primeiro a expor a falha. **Um verde local com cache não é evidência sobre um build limpo** — a armadilha do cache do Gradle já estava registrada neste repositório e cobrava aqui |
 | keystore de assinatura Android | **criada** | gerada pelo EAS no build que falhou e **persiste no servidor** — é ela que assinará todas as atualizações do app. Não se refaz no próximo build |
@@ -453,10 +453,12 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
    preencher a ficha iOS e privacy labels/classificação. A chave do App Store
    Connect e o envio automático pelo EAS foram configurados; a chave de
    automação do Play continua pendente e não bloqueia o upload manual.
-4. **Concluir o recrutamento de ≥14 testadores** para o closed test — 13 contas
-   estão vinculadas, falta pelo menos uma para a margem de churn; depois ainda é
-   necessário comprovar ≥12 opt-ins e cumprir o relógio de 14 dias. Kit de
-   convite pronto.
+4. ~~**Concluir o recrutamento de ≥14 testadores** para o closed test.~~
+   **CONCLUÍDO em 2026-08-01**, relatado pelo dono: ≥14 contas vinculadas, margem
+   de churn atingida. **O que resta é outro gate:** comprovar ≥12 opt-ins
+   efetivos e cumprir os 14 dias consecutivos. Kit de convite pronto. Este é
+   agora o item de **maior latência** do lançamento — nada acelera um relógio de
+   dias consecutivos, e ele só começa quando as adesões existirem.
 5. **Sessões humanas de acessibilidade**: VoiceOver (B4) e TalkBack Android (C5).
 6. **Smoke do build iOS/TestFlight (F1)** — o build de produção `1.3.0 (4)` já
    está **Pronta para envio** no TestFlight; instalação, versão, build e abertura
@@ -508,11 +510,14 @@ escrita mandaria alguém refazer trabalho feito. A sequência agora é:
 3. ~~**Publicar o AAB no track fechado `alpha`.**~~ **CONCLUÍDO em
    2026-07-31:** versão `1.3.0 (4)` disponível para testadores selecionados e
    faixa marcada como `Ativo`.
-4. **Obter o opt-in das 13 contas vinculadas** e recrutar pelo menos mais uma
-   conta para atingir a margem operacional de 14. Coletar a conta Google **do aparelho** de
-   cada pessoa, não apenas um endereço de contato.
-5. **Disparar o link de opt-in disponível no Console** às 13 contas vinculadas e
-   acompanhar quem concluiu a adesão; vínculo na lista não comprova opt-in.
+4. ~~**Recrutar e vincular ≥14 contas.**~~ **CONCLUÍDO em 2026-08-01**, relatado
+   pelo dono. Fica valendo a advertência do kit para qualquer conta que entre
+   depois: o endereço cadastrado precisa ser a conta Google **do aparelho** da
+   pessoa, não apenas um endereço de contato — aceitar numa conta com o celular
+   logado em outra faz a ficha não aparecer, sem erro nem aviso.
+5. **Disparar o link de opt-in do Console** às contas vinculadas e acompanhar
+   quem concluiu a adesão. **É o próximo passo real do lançamento.** Vínculo na
+   lista não comprova opt-in, e é o opt-in que inicia o relógio.
 6. **Mergear a PR #39** do site e remedir as duas URLs legais antes da submissão
    para produção — elas estão no ar só por FTPS.
 7. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.
