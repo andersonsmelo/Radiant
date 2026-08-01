@@ -218,7 +218,37 @@ git commit -m "feat(content): valida midia autorizada e anonimizada"
 
 ---
 
-### Task 4: Versionar o currículo e o grafo de competências
+### Task 4: Versionar o currículo e o grafo de competências — CONCLUÍDA
+
+**Concluída em 2026-08-01.** Medido pelo próprio validador: `unitCount: 6`,
+`competencyCount: 30`, `cycleCount: 0`, `rootCount: 2`, `orphanCount: 0`,
+`criticalSafetyCount: 10`. Dezessete testes passam e os nove validadores do Loop
+fecharam verdes no run que entregou o trabalho.
+
+Três decisões que o plano não fixava e que ficam registradas aqui:
+
+- **`order` e `prerequisiteIds` são independentes.** O primeiro é a rota
+  recomendada de estudo, o segundo é a dependência conceitual. A spec já
+  autorizava misturar unidades em revisões, então tratar a ordem como se fosse a
+  dependência engessaria exatamente o que a trilha espiral precisa fazer. O grafo
+  tem **duas raízes** (`atribuicoes-e-limites` e `estrutura-atomica-e-ionizacao`)
+  por consequência disso, e não por omissão.
+- **Objetivo observável é validado por lista de recusa, não de permissão.** Uma
+  lista de permissão teria de crescer a cada unidade nova e reprovaria verbo
+  legítimo por omissão; o conjunto de verbos de estado interno (`entender`,
+  `saber`, `conhecer`, `compreender`) é pequeno e estável. O verbo pode vir
+  seguido de vírgula — objetivos compostos como "registrar, comunicar e escalar"
+  são a redação da própria spec, e a primeira versão do validador os reprovava.
+- **`criticalSafety` carrega o critério junto.** O arquivo declara
+  `criticalSafetyCriterion` no topo, porque a marcação governa a regra de
+  checkpoint "nenhum erro crítico de segurança" e, sem o critério escrito, cada
+  revisor aplicaria um limiar diferente. São **10 de 30** competências marcadas:
+  as cinco de Proteção Radiológica, quatro da Unidade 1 e o equilíbrio entre
+  qualidade, repetição e exposição da Unidade 5.
+
+*O gate da Fase 0 pede "currículo com 30 competências válido" ao lado da decisão
+de direitos de mídia — são condições irmãs do mesmo gate, não etapas em
+sequência. Esta task não dependia do primeiro lote de mídia autorizada.*
 
 **Files:**
 - Create: `conteúdo/governança/esquemas/competency.schema.json`

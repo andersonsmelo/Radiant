@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "trackId": "track:fundamentos-e-seguranca-radiologica",
+  "trackTitle": "Fundamentos e Segurança Radiológica",
+  "version": "foundations-safety-2026-08-01",
+  "criticalSafetyCriterion": "Verdadeiro quando o erro produz risco direto ao paciente, à equipe ou ao acompanhante — exposição desnecessária, procedimento no paciente ou na região errada, ou omissão em interromper e escalar. Lacuna conceitual sem consequência física imediata é falsa, ainda que seja pré-requisito de uma competência crítica.",
+  "units": [
+    {
+      "id": "unit:profissao-e-cultura-de-seguranca",
+      "slug": "profissao-e-cultura-de-seguranca",
+      "order": 1,
+      "title": "Profissão e cultura de segurança",
+      "competencies": [
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites",
+          "slug": "atribuicoes-e-limites",
+          "order": 1,
+          "objective": "reconhecer atribuições e limites do técnico em radiologia",
+          "criticalSafety": true,
+          "prerequisiteIds": [],
+          "evidenceMethods": ["guided-practice", "independent-recall", "delayed-retention"]
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:identificacao-preparo-e-comunicacao",
+          "slug": "identificacao-preparo-e-comunicacao",
+          "order": 2,
+          "objective": "confirmar identificação, preparo e comunicação segura com o paciente",
+          "criticalSafety": true,
+          "prerequisiteIds": ["competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites"],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:checklist-e-condicoes-inseguras",
+          "slug": "checklist-e-condicoes-inseguras",
+          "order": 3,
+          "objective": "aplicar checklist e reconhecer condições inseguras",
+          "criticalSafety": true,
+          "prerequisiteIds": ["competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites"],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:confidencialidade-e-etica",
+          "slug": "confidencialidade-e-etica",
+          "order": 4,
+          "objective": "proteger confidencialidade e agir eticamente",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites"],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:registro-e-escalonamento-de-incidentes",
+          "slug": "registro-e-escalonamento-de-incidentes",
+          "order": 5,
+          "objective": "registrar, comunicar e escalar incidentes pelo canal adequado",
+          "criticalSafety": true,
+          "prerequisiteIds": ["competency:profissao-e-cultura-de-seguranca:checklist-e-condicoes-inseguras"],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        }
+      ]
+    },
+    {
+      "id": "unit:materia-energia-e-radiacao",
+      "slug": "materia-energia-e-radiacao",
+      "order": 2,
+      "title": "Matéria, energia e radiação",
+      "competencies": [
+        {
+          "id": "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao",
+          "slug": "estrutura-atomica-e-ionizacao",
+          "order": 1,
+          "objective": "relacionar estrutura atômica, ionização e estabilidade",
+          "criticalSafety": false,
+          "prerequisiteIds": [],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+          "slug": "ionizante-e-nao-ionizante",
+          "order": 2,
+          "objective": "distinguir radiação ionizante de não ionizante",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia",
+          "slug": "frequencia-comprimento-e-energia",
+          "order": 3,
+          "objective": "relacionar frequência, comprimento de onda e energia do fóton",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:raios-x-no-espectro",
+          "slug": "raios-x-no-espectro",
+          "order": 4,
+          "objective": "reconhecer o lugar dos raios X no espectro eletromagnético",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+            "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:atenuacao-como-ponte",
+          "slug": "atenuacao-como-ponte",
+          "order": 5,
+          "objective": "usar atenuação como ponte para formação da imagem",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        }
+      ]
+    },
+    {
+      "id": "unit:producao-dos-raios-x",
+      "slug": "producao-dos-raios-x",
+      "order": 3,
+      "title": "Produção dos raios X",
+      "competencies": [
+        {
+          "id": "competency:producao-dos-raios-x:componentes-do-tubo",
+          "slug": "componentes-do-tubo",
+          "order": 1,
+          "objective": "localizar e explicar os componentes essenciais do tubo",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:producao-dos-raios-x:emissao-aceleracao-desaceleracao",
+          "slug": "emissao-aceleracao-desaceleracao",
+          "order": 2,
+          "objective": "ordenar emissão termiônica, aceleração e desaceleração de elétrons",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:producao-dos-raios-x:componentes-do-tubo",
+            "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:producao-dos-raios-x:freamento-e-caracteristica",
+          "slug": "freamento-e-caracteristica",
+          "order": 3,
+          "objective": "distinguir radiação de freamento e característica em nível introdutório",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:producao-dos-raios-x:emissao-aceleracao-desaceleracao",
+            "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:producao-dos-raios-x:kvp-mas-e-exposicao",
+          "slug": "kvp-mas-e-exposicao",
+          "order": 4,
+          "objective": "relacionar kVp e mAs a energia, quantidade e exposição",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:producao-dos-raios-x:freamento-e-caracteristica"],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:producao-dos-raios-x:filtracao-colimacao-e-gerador",
+          "slug": "filtracao-colimacao-e-gerador",
+          "order": 5,
+          "objective": "explicar as funções de filtração, colimação e gerador",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:producao-dos-raios-x:componentes-do-tubo",
+            "competency:producao-dos-raios-x:kvp-mas-e-exposicao"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        }
+      ]
+    },
+    {
+      "id": "unit:interacao-e-formacao-da-imagem",
+      "slug": "interacao-e-formacao-da-imagem",
+      "order": 4,
+      "title": "Interação e formação da imagem",
+      "competencies": [
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:fotoeletrico-e-compton",
+          "slug": "fotoeletrico-e-compton",
+          "order": 1,
+          "objective": "diferenciar efeito fotoelétrico e espalhamento Compton",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:materia-energia-e-radiacao:atenuacao-como-ponte",
+            "competency:producao-dos-raios-x:kvp-mas-e-exposicao"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:radiopacidade-por-atenuacao",
+          "slug": "radiopacidade-por-atenuacao",
+          "order": 2,
+          "objective": "prever radiopacidade a partir de atenuação diferencial",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:interacao-e-formacao-da-imagem:fotoeletrico-e-compton",
+            "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:detector-e-formacao-da-imagem",
+          "slug": "detector-e-formacao-da-imagem",
+          "order": 3,
+          "objective": "explicar como o detector transforma exposição em imagem",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:interacao-e-formacao-da-imagem:radiopacidade-por-atenuacao"],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:espalhamento-e-contraste",
+          "slug": "espalhamento-e-contraste",
+          "order": 4,
+          "objective": "reconhecer como espalhamento prejudica contraste",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:interacao-e-formacao-da-imagem:fotoeletrico-e-compton",
+            "competency:interacao-e-formacao-da-imagem:detector-e-formacao-da-imagem"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:tecido-densidade-e-aparencia",
+          "slug": "tecido-densidade-e-aparencia",
+          "order": 5,
+          "objective": "interpretar relações básicas entre tecido, densidade e aparência",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:interacao-e-formacao-da-imagem:radiopacidade-por-atenuacao",
+            "competency:interacao-e-formacao-da-imagem:detector-e-formacao-da-imagem"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        }
+      ]
+    },
+    {
+      "id": "unit:parametros-e-qualidade",
+      "slug": "parametros-e-qualidade",
+      "order": 5,
+      "title": "Parâmetros e qualidade",
+      "competencies": [
+        {
+          "id": "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia",
+          "slug": "efeitos-de-kvp-mas-e-distancia",
+          "order": 1,
+          "objective": "prever efeitos básicos de kVp, mAs e distância",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:producao-dos-raios-x:kvp-mas-e-exposicao",
+            "competency:interacao-e-formacao-da-imagem:detector-e-formacao-da-imagem"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:parametros-e-qualidade:sid-oid-foco-magnificacao-nitidez",
+          "slug": "sid-oid-foco-magnificacao-nitidez",
+          "order": 2,
+          "objective": "relacionar SID, OID e foco a magnificação e nitidez",
+          "criticalSafety": false,
+          "prerequisiteIds": ["competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia"],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato",
+          "slug": "contraste-resolucao-ruido-artefato",
+          "order": 3,
+          "objective": "distinguir contraste, resolução, ruído e artefato",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:interacao-e-formacao-da-imagem:espalhamento-e-contraste",
+            "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall"]
+        },
+        {
+          "id": "competency:parametros-e-qualidade:checklist-de-adequacao-da-imagem",
+          "slug": "checklist-de-adequacao-da-imagem",
+          "order": 4,
+          "objective": "aplicar um checklist de adequação da imagem",
+          "criticalSafety": false,
+          "prerequisiteIds": [
+            "competency:parametros-e-qualidade:sid-oid-foco-magnificacao-nitidez",
+            "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer"]
+        },
+        {
+          "id": "competency:parametros-e-qualidade:equilibrio-qualidade-repeticao-exposicao",
+          "slug": "equilibrio-qualidade-repeticao-exposicao",
+          "order": 5,
+          "objective": "equilibrar qualidade, repetição e exposição sem decorar uma receita fixa",
+          "criticalSafety": true,
+          "prerequisiteIds": [
+            "competency:parametros-e-qualidade:checklist-de-adequacao-da-imagem",
+            "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        }
+      ]
+    },
+    {
+      "id": "unit:protecao-radiologica",
+      "slug": "protecao-radiologica",
+      "order": 6,
+      "title": "Proteção radiológica",
+      "competencies": [
+        {
+          "id": "competency:protecao-radiologica:justificacao-otimizacao-e-limites",
+          "slug": "justificacao-otimizacao-e-limites",
+          "order": 1,
+          "objective": "aplicar justificação, otimização e limites no nível apropriado ao iniciante",
+          "criticalSafety": true,
+          "prerequisiteIds": [
+            "competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites",
+            "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+          ],
+          "evidenceMethods": ["guided-practice", "independent-recall", "delayed-retention"]
+        },
+        {
+          "id": "competency:protecao-radiologica:tempo-distancia-e-blindagem",
+          "slug": "tempo-distancia-e-blindagem",
+          "order": 2,
+          "objective": "usar tempo, distância e blindagem em cenários práticos",
+          "criticalSafety": true,
+          "prerequisiteIds": [
+            "competency:protecao-radiologica:justificacao-otimizacao-e-limites",
+            "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        },
+        {
+          "id": "competency:protecao-radiologica:colimacao-filtracao-e-reducao",
+          "slug": "colimacao-filtracao-e-reducao",
+          "order": 3,
+          "objective": "relacionar colimação e filtração à redução de exposição desnecessária",
+          "criticalSafety": true,
+          "prerequisiteIds": [
+            "competency:protecao-radiologica:justificacao-otimizacao-e-limites",
+            "competency:producao-dos-raios-x:filtracao-colimacao-e-gerador"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        },
+        {
+          "id": "competency:protecao-radiologica:protecao-paciente-equipe-acompanhante",
+          "slug": "protecao-paciente-equipe-acompanhante",
+          "order": 4,
+          "objective": "distinguir proteção do paciente, equipe e acompanhante",
+          "criticalSafety": true,
+          "prerequisiteIds": ["competency:protecao-radiologica:tempo-distancia-e-blindagem"],
+          "evidenceMethods": ["guided-practice", "independent-recall", "delayed-retention"]
+        },
+        {
+          "id": "competency:protecao-radiologica:interrupcao-monitoramento-escalonamento",
+          "slug": "interrupcao-monitoramento-escalonamento",
+          "order": 5,
+          "objective": "reconhecer situações que exigem interrupção, monitoramento ou escalonamento",
+          "criticalSafety": true,
+          "prerequisiteIds": [
+            "competency:protecao-radiologica:protecao-paciente-equipe-acompanhante",
+            "competency:profissao-e-cultura-de-seguranca:registro-e-escalonamento-de-incidentes",
+            "competency:parametros-e-qualidade:equilibrio-qualidade-repeticao-exposicao"
+          ],
+          "evidenceMethods": ["guided-practice", "applied-transfer", "delayed-retention"]
+        }
+      ]
+    }
+  ]
+}

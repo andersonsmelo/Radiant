@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateLibraryCatalog } from './catalog-library-sources.mjs';
+import { validateCompetencyGraph } from './validate-competencies.mjs';
 import { validateMediaManifestStructure } from './validate-media-manifest.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -42,6 +43,8 @@ export function validateFoundation() {
   const libraryCatalog = readJsonIfExists('fontes/library-catalog.json');
   const mediaManifest = readJsonIfExists('mídia/manifest.json');
   const mediaManifestSchema = readJsonIfExists('governança/esquemas/media-manifest.schema.json');
+  const competencyGraph = readJsonIfExists('governança/foundations-safety-competencies.json');
+  const competencySchema = readJsonIfExists('governança/esquemas/competency.schema.json');
   const schemaPaths = [
     'governança/esquemas/extraction-record.schema.json',
     'governança/esquemas/classification-record.schema.json',
@@ -64,6 +67,25 @@ export function validateFoundation() {
     || !Array.isArray(mediaManifestSchema.required)
     || mediaManifestSchema.required.length === 0) {
     errors.push('Media manifest schema is missing its required contract');
+  }
+
+  if (!competencySchema) {
+    errors.push('Missing competency schema at conteúdo/governança/esquemas/competency.schema.json');
+  } else if (competencySchema.title !== 'Competency Track'
+    || !Array.isArray(competencySchema.required)
+    || competencySchema.required.length === 0) {
+    errors.push('Competency schema is missing its required contract');
+  }
+
+  let competencySummary = {
+    trackId: null, unitCount: 0, competencyCount: 0, criticalSafetyCount: 0, cycleCount: 0, orphanCount: 0,
+  };
+  if (!competencyGraph) {
+    errors.push('Missing competency graph at conteúdo/governança/foundations-safety-competencies.json');
+  } else {
+    const competencyValidation = validateCompetencyGraph(competencyGraph);
+    competencySummary = competencyValidation.summary;
+    errors.push(...competencyValidation.errors.map((error) => `Competency graph: ${error.path} ${error.rule}`));
   }
 
   let mediaSummary = { status: 'missing', itemCount: 0, verifiedAnonymizationCount: 0, rejectedCandidateCount: 0 };
@@ -808,6 +830,12 @@ export function validateFoundation() {
       libraryPdfFileCount: libraryCatalog?.summary?.pdfFileCount ?? 0,
       uniqueSourceCount: libraryCatalog?.summary?.uniqueSourceCount ?? 0,
       duplicateFileCount: libraryCatalog?.summary?.duplicateFileCount ?? 0,
+      competencyTrackId: competencySummary.trackId,
+      competencyUnitCount: competencySummary.unitCount,
+      competencyCount: competencySummary.competencyCount,
+      criticalSafetyCompetencyCount: competencySummary.criticalSafetyCount,
+      competencyCycleCount: competencySummary.cycleCount,
+      orphanCompetencyCount: competencySummary.orphanCount,
       mediaManifestStatus: mediaSummary.status,
       mediaItemCount: mediaSummary.itemCount,
       verifiedMediaAnonymizationCount: mediaSummary.verifiedAnonymizationCount,
