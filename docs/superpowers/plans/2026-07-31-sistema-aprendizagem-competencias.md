@@ -10,10 +10,9 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** e **5** concluídas;
-infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
-autorizados. Próxima: **Task 6** (adaptar blocos legados sem reescrever o
-catálogo).
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5** e **6**
+concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote de
+ativos autorizados. Próxima: **Task 7** (registrar evidência por interação).
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -371,7 +370,39 @@ git commit -m "feat(learning): define contrato de atividade v2"
 
 ---
 
-### Task 6: Adaptar blocos legados sem reescrever o catálogo
+### Task 6: Adaptar blocos legados sem reescrever o catálogo — CONCLUÍDA
+
+**Concluída em 2026-08-02.** 12 testes novos; `lesson-flow` fecha em **50 testes,
+4 suítes**, e a paridade de fluxos (`npm run test:flows`) passa em **6 suítes, 15
+testes, sem atualizar snapshot algum**. Os quatro blocos reais do catálogo
+adaptam sem uma violação sequer, cada um preservando o número e a ordem das telas.
+
+Três decisões que o plano não fixava, e uma correção de escopo:
+
+- **A competência do conteúdo legado é sintética, com prefixo
+  `competency:legacy:`.** Lição antiga não foi escrita contra o currículo, então
+  não se sabe qual competência ela mede. Atribuir uma competência real inventaria
+  um dado que depois contamina o cálculo de domínio — e contaminaria de forma
+  invisível, porque o número sairia plausível. O prefixo mantém a evidência
+  rastreável e separável.
+- **`criticalSafety` do legado é `false`, não indefinido.** Conteúdo legado nunca
+  passou por classificação de segurança. `true` inventaria criticidade e
+  indefinido violaria a exigência de o campo ser explícito.
+- **`reinforce` e `advance` viram ambos `closing`.** Um papel v2 por tipo legado
+  faria o contrato novo espelhar o que ele veio substituir. O que se perderia na
+  fusão — o `tone` do reforço e a imagem do `teach` — foi preservado como campo
+  opcional da apresentação, então nenhuma informação de renderização se perde.
+- **Correção de escopo:** a task também alterou `src/types/learningActivity.ts`,
+  que o plano não listava. Foram duas mudanças que só a chegada do legado
+  revelou: `EvidenceKind` ganhou `legacy-lesson-recall` **separado** dos quatro
+  métodos do currículo (via `AuthoredEvidenceKind`, que segue espelhando o grafo),
+  e o corpo da apresentação virou opcional, porque o contrato legado permite uma
+  tela de `advance` só com título.
+
+**O adaptador é fiel, não corretivo.** Um bloco legado de dois passos — que o
+contrato legado permite e o v2 não — sai com dois passos e é reprovado pelo
+validador. Há teste para isso. Preencher o buraco faria passar escondendo a
+incompatibilidade exatamente onde ela precisa aparecer.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/services/LegacyLessonAdapter.ts`

@@ -19,18 +19,40 @@ export type ValidationIssue = {
     rule: string;
 };
 
-/** Mesmo vocabulário do grafo de competências, em `conteúdo/governança`. */
-export type EvidenceKind =
+/**
+ * Os quatro métodos de evidência que o currículo planeja. Espelham exatamente
+ * `evidenceMethods` do grafo de competências, em `conteúdo/governança` — se as
+ * duas listas divergirem, a evidência produzida deixa de casar com o domínio
+ * medido, e isso só apareceria ao calcular domínio, tarde demais.
+ */
+export type AuthoredEvidenceKind =
     | 'guided-practice'
     | 'independent-recall'
     | 'applied-transfer'
     | 'delayed-retention';
 
-export const EVIDENCE_KINDS: readonly EvidenceKind[] = [
+/**
+ * Marcador de migração, **fora** do vocabulário do currículo de propósito.
+ * Conteúdo legado nunca foi escrito contra uma competência, então a evidência
+ * que ele produz não é nenhum dos quatro métodos acima — é apenas "acertou uma
+ * questão de lição antiga". Manter isto separado obriga o cálculo de domínio a
+ * decidir explicitamente o que fazer com evidência legada, em vez de absorvê-la
+ * por engano como se fosse prática deliberada.
+ */
+export type LegacyEvidenceKind = 'legacy-lesson-recall';
+
+export type EvidenceKind = AuthoredEvidenceKind | LegacyEvidenceKind;
+
+export const AUTHORED_EVIDENCE_KINDS: readonly AuthoredEvidenceKind[] = [
     'guided-practice',
     'independent-recall',
     'applied-transfer',
     'delayed-retention',
+];
+
+export const EVIDENCE_KINDS: readonly EvidenceKind[] = [
+    ...AUTHORED_EVIDENCE_KINDS,
+    'legacy-lesson-recall',
 ];
 
 /** Vocabulário herdado do contrato legado, preservado de propósito. */
@@ -147,8 +169,15 @@ export type LearningInteractionV2 =
 
 export type PresentationPayload = {
     title: string;
-    body: string;
+    /**
+     * Opcional: uma tela de fechamento pode ser só título ("Avance"), e o
+     * contrato legado já permite isso. Exigir corpo aqui reprovaria conteúdo
+     * legítimo que o adaptador precisa converter sem inventar texto.
+     */
+    body?: string;
+    eyebrow?: string;
     imageRef?: string;
+    tone?: 'positive' | 'neutral' | 'corrective';
 };
 
 export type LearningStepV2 =
@@ -344,7 +373,7 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             if (!PRESENTATION_ROLES.has(step.role)) {
                 push(issues, stepId, 'invalid-presentation-role');
             }
-            if (!isFilled(step.payload?.title) || !isFilled(step.payload?.body)) {
+            if (!isFilled(step.payload?.title)) {
                 push(issues, stepId, 'incomplete-presentation');
             }
         } else {

@@ -1,6 +1,7 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2, ValidationIssue } from '../../../types/learningActivity';
 import { validateLearningActivity } from '../../../types/learningActivity';
+import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 
 function validateBlock(block: LessonBlock): void {
@@ -63,6 +64,24 @@ class LessonFlowServiceImpl {
      */
     validateActivity(activity: LearningActivityV2): ValidationIssue[] {
         return validateLearningActivity(activity);
+    }
+
+    /**
+     * Devolve o bloco legado já convertido em atividade v2.
+     *
+     * A busca no catálogo mora aqui, e não no adaptador, que é puro de propósito.
+     * O caminho legado (`getBlockById`) continua existindo e inalterado: as duas
+     * leituras convivem, e nenhuma tela precisa migrar de uma vez.
+     */
+    getActivityById(blockId: string): LearningActivityV2 | null {
+        const block = JourneyDefinitionService.getBlockById(blockId);
+
+        if (!block) {
+            return null;
+        }
+
+        validateBlock(block);
+        return adaptLegacyBlock(block);
     }
 }
 
