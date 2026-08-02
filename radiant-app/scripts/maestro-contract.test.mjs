@@ -238,6 +238,60 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
   assert.doesNotMatch(source, /disabled=\{/);
 });
 
+test('ties the first-run flow to the copy WelcomeFlowScreen actually renders', async () => {
+  // A mesma classe de defeito já ocorreu duas vezes neste projeto (a migração
+  // pt-BR de 2026-07-27 quebrou o wizard smoke e depois a celebração do
+  // checkpoint) porque um flow verde afirmava texto que a tela já não
+  // renderizava, e o contrato só lia o YAML. Uma asserção sobre o texto de um
+  // artefato confirma o que alguém escreveu, nunca o que a tela renderiza —
+  // então ancore as strings do first-run na fonte, o único lado que o device vê.
+  const [screen, flow, subflow] = await Promise.all([
+    readAppFile('src/features/first-run/screens/WelcomeFlowScreen.tsx'),
+    readAppFile('.maestro/first-run.yaml'),
+    readAppFile('.maestro/subflows/dismiss-first-run.yaml'),
+  ]);
+
+  const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const slidesBlock = screen.match(/const SLIDES: SlideSpec\[\] = \[([\s\S]*?)\n\];/)?.[1];
+  assert.ok(slidesBlock, 'expected a SLIDES array in WelcomeFlowScreen.tsx');
+
+  const titles = [...slidesBlock.matchAll(/title: '([^']+)'/g)].map((match) => match[1]);
+  assert.equal(titles.length, 3, 'expected three slide titles in SLIDES');
+
+  const footnote = slidesBlock.match(/footnote:\s*\n\s*'([^']+)'/)?.[1];
+  assert.ok(footnote, 'expected the third slide to declare a footnote');
+
+  for (const copy of [...titles, footnote]) {
+    assert.match(
+      flow,
+      new RegExp(`^- assertVisible: '${escapeForRegExp(copy)}'$`, 'm'),
+      `expected .maestro/first-run.yaml to assertVisible the screen's copy ("${copy}")`
+    );
+  }
+
+  const skipLabel = screen.match(/<Pressable[\s\S]*?accessibilityLabel="([^"]+)"[\s\S]*?styles\.skip/)?.[1];
+  assert.ok(skipLabel, 'expected the skip Pressable to declare an accessibilityLabel');
+
+  const escapedSkipLabel = escapeForRegExp(skipLabel);
+  assert.match(
+    subflow,
+    new RegExp(`visible: '${escapedSkipLabel}'`),
+    `expected dismiss-first-run.yaml to guard on the skip control's accessibilityLabel ("${skipLabel}")`
+  );
+  assert.match(
+    subflow,
+    new RegExp(`tapOn: '${escapedSkipLabel}'`),
+    `expected dismiss-first-run.yaml to tap the skip control by its accessibilityLabel ("${skipLabel}")`
+  );
+
+  // ENABLE_LEARNING_ROAD é true em todos os perfis do eas.json e por default, e a
+  // HomeScreen clássica (única consumidora do card Day-0) nunca renderiza — a
+  // ausência da chave @radiant/first_run_v1 é o único gatilho real da
+  // apresentação. Sem clearState, o flow passaria vacuamente na segunda execução.
+  assert.match(flow, /clearState: true/);
+});
+
 test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
   const [runbook, evidenceIndex, baseline] = await Promise.all([
     readAppFile('docs/E2E_RUNBOOK.md'),

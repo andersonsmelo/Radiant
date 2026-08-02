@@ -1,5 +1,5 @@
 appId: com.ascendcreative.radiant
-name: Clean install boots straight to the local-first home
+name: Clean install passes through the first-run welcome and reaches the local-first home
 tags:
   - smoke
   - local-first
@@ -23,6 +23,7 @@ tags:
       visible: 'Connected to:'
     commands:
       - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
 # A clean install (clearState) has no blocking wizard: v1.3 opens directly on the
 # Learning Road home. The retired onboarding smoke deep-linked into an unfinished
 # prototype that was removed on 2026-07-28; this flow proves what actually

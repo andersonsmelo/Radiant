@@ -7,6 +7,7 @@ tags:
     clearState: true
     permissions:
       all: deny
+- runFlow: subflows/dismiss-first-run.yaml
 
 # A home limpa nao entra na vitrine: XP e sequencia aparecem zerados. A trilha e
 # percorrida primeiro e a home e capturada no fim, ja com progresso real.

@@ -1,0 +1,28 @@
+appId: com.ascendcreative.radiant
+name: First-run welcome presents Pixel and reaches the home
+tags:
+  - smoke
+  - first-run
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- assertVisible: 'Oi, eu sou o Pixel.'
+- tapOn: 'Continuar'
+- assertVisible: 'Trilha, quiz e revisão.'
+- tapOn: 'Continuar'
+- assertVisible: 'Funciona offline, sem conta.'
+- assertVisible: 'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
+- tapOn: 'Começar'
+- assertNotVisible: 'Oi, eu sou o Pixel.'
