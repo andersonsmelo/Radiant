@@ -428,6 +428,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | modelo de entitlement do premium | **DECIDIDO — conta própria + billing** | A Decisão 2 do ADR de 07-31 recomendava Play Billing puro sob a premissa "enquanto o produto for só Android". Essa premissa caiu em **2026-08-01**, quando o App ID, o app no App Store Connect e o build no TestFlight passaram a existir. O critério do próprio ADR — se o direito de acesso atravessa plataforma — resolve então pela **Opção B**. Billing de loja restaura apenas dentro do próprio ecossistema; ligar Android e iOS exige identidade própria. Decisão em [ADR-2026-08-01](adr/ADR-2026-08-01-modelo-de-entitlement-premium.md) |
 | ordem obrigatória da v1.4 | **FIXADA** | API de pé (hoje 502) → conta (login, perfil, exclusão exigida pelo Play + URL pública) → refazer Data Safety, privacy labels, política publicada e classificação → billing nas duas lojas. Billing é o último elo. A frente educacional **não** depende dessa cadeia |
 | Task 4 — currículo por competências | **CONCLUÍDA** | 30 competências em 6 unidades, schema, validador com 17 testes ligado ao `validate-foundation`. Medido pelo validador: `unitCount 6`, `competencyCount 30`, `cycleCount 0`, `rootCount 2`, `orphanCount 0`, `criticalSafetyCount 10`. Nove validadores do Loop verdes, memória validada |
+| convites de opt-in aos testadores | **ENVIADOS em 2026-08-02** | Relatado pelo dono; cobrança de quem não aceitou já prevista. Não medido por mim — a contagem de opted-in é observável apenas na página da faixa do Console. **F2 continua aberta e o relógio de 14 dias ainda não começou:** ele conta do **dia-1**, o primeiro dia em que a contagem atinge 12, que é uma data distinta da do envio e precisa ser anotada no dia em que ocorrer |
 | Task 5 — contrato `LearningActivityV2` | **CONCLUÍDA** | União discriminada dos oito tipos de interação da biblioteca, sessão de 3–6 passos com 1–4 interações, e `validateLearningActivity` puro devolvendo `{ path, rule }` — mesmo formato dos validadores de `scripts/content/`. 18 testes novos; suíte de `lesson-flow` em **38 testes, 3 suítes**, com o caminho legado inalterado. O contrato ainda **não tem consumidor no player**: isso é a Task 6 (adaptador) e a Task 9 (renderizadores) |
 | trabalho validado porém não commitado | **RECONCILIADO** | A sessão de iOS/links legais fechou seus runs às 18:43 com evidência validada e **nunca commitou** — o repositório não registrava um marco inteiro. Revalidado sobre a árvore encontrada (`docs-contract`, `content-foundation`, `content-wave1`, media manifest e `npm run quality` com **117 testes**) e commitado em `be3a647`. *Run fechado não é trabalho entregue: o estado do run e o estado do repositório são dois relógios, e só o segundo é lido pela próxima sessão* |
 | armadilha de escopo do Loop na árvore de conteúdo | **DIAGNOSTICADA** | Os aliases `Conteúdo/*` do `writePolicy` estão em normalização Unicode **mista** — `Conteúdo` em NFD, `governança` em NFC. Digitar o caminho em NFC puro dá `INVALID_SCOPE`; normalizar para NFD puro também; declarar a forma minúscula passa no `step begin` e falha no `step finish` com `OUT_OF_SCOPE_CHANGE`, porque a detecção reporta o caminho físico do macOS. Custou um run em `needs_human` **depois** dos nove validadores verdes. Contorno: copiar a string exata de `declaredFiles` de um run anterior que escreveu ali |
@@ -516,9 +517,14 @@ escrita mandaria alguém refazer trabalho feito. A sequência agora é:
    depois: o endereço cadastrado precisa ser a conta Google **do aparelho** da
    pessoa, não apenas um endereço de contato — aceitar numa conta com o celular
    logado em outra faz a ficha não aparecer, sem erro nem aviso.
-5. **Disparar o link de opt-in do Console** às contas vinculadas e acompanhar
-   quem concluiu a adesão. **É o próximo passo real do lançamento.** Vínculo na
-   lista não comprova opt-in, e é o opt-in que inicia o relógio.
+5. ~~**Disparar o link de opt-in do Console** às contas vinculadas.~~
+   **ENVIADO em 2026-08-02**, relatado pelo dono, com uma cobrança já prevista na
+   sequência. **O que resta é acompanhamento diário, não envio.** Duas datas
+   diferentes importam a partir daqui e não devem ser confundidas: a do envio
+   (2026-08-02) e a do **dia-1**, que é o primeiro dia em que a contagem de
+   opted-in do Console atinge 12. O relógio de 14 dias conta a partir do dia-1, e
+   **ele ainda não começou**. Registrar essa data no dia em que acontecer: ela é
+   observável só no Console e não se recupera depois.
 6. **Mergear a PR #39** do site e remedir as duas URLs legais antes da submissão
    para produção — elas estão no ar só por FTPS.
 7. **14 dias consecutivos** com a contagem acima de 12, monitorada diariamente.

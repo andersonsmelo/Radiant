@@ -72,7 +72,7 @@ convergindo em F2.
 | --- | --- | --- |
 | **T1.1 (A6) — CONCLUÍDA em 2026-08-01** | ~~Recrutar **≥14** testadores (12 é o mínimo do Play; margem p/ churn). Pool pode se sobrepor à pesquisa da Task 12.~~ Relatado pelo dono: ≥14 contas vinculadas ao track, margem de churn atingida. Não medido no repositório, que não persiste endereços; a autoridade é a página da faixa no Console. | ✅ Lista de ≥14 contas vinculadas. **T1.3 permanece aberta** — vínculo não prova opt-in. |
 | **T1.2** | Preparar o convite + instruções de opt-in (link do closed test, como aceitar, o que testar). **Eu preparo o texto e a planilha de acompanhamento; Anderson envia.** | Convite pronto e planilha de opt-in criada. |
-| **T1.3** | Após o build subir (F2), garantir 12+ opt-in efetivo e **monitorar diariamente** (queda abaixo de 12 zera a contagem de dias). | 12+ opted-in por 14 dias consecutivos. |
+| **T1.3 — EM ANDAMENTO desde 2026-08-02** | Convites com o link de opt-in **enviados em 2026-08-02** (relatado pelo dono); cobrança de quem não aceitou já prevista. Resta garantir 12+ opt-in efetivo e **monitorar diariamente** (queda abaixo de 12 zera a contagem de dias). **Anotar a data do dia-1** — o primeiro dia em que o Console mostrar 12 opted-in — porque é dela que os 14 dias contam, e ela não é recuperável depois. | 12+ opted-in por 14 dias consecutivos. |
 
 > Começa **hoje**, antes e independentemente do código — é o item de maior
 > latência do plano.
