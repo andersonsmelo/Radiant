@@ -73,9 +73,15 @@ function RootLayout() {
         // inline: a retry re-runs this effect, and calling bootstrap() again
         // before the first call's storage read resolves would fire a second
         // `first_run_started` telemetry event (bootstrap() only guards against
-        // re-entrancy after it has already finished once).
+        // re-entrancy after it has already finished once). On rejection the
+        // ref is cleared before rethrowing, so a settled, failed promise is
+        // never reused — a retry after a failed bootstrap calls it fresh
+        // instead of being stuck replaying the same rejection forever.
         if (!firstRunBootstrapRef.current) {
-          firstRunBootstrapRef.current = FirstRunService.bootstrap();
+          firstRunBootstrapRef.current = FirstRunService.bootstrap().catch((error) => {
+            firstRunBootstrapRef.current = null;
+            throw error;
+          });
         }
 
         await Promise.all([
