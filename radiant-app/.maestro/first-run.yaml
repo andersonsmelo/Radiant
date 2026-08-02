@@ -18,11 +18,11 @@ tags:
       visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
     commands:
       - tapOn: Continue
-- assertVisible: 'Oi, eu sou o Pixel.'
+- assertVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
 - tapOn: 'Continuar'
-- assertVisible: 'Trilha, quiz e revisão.'
+- assertVisible: '^Tela 2 de 3\. Trilha, quiz e revisão\..*$'
 - tapOn: 'Continuar'
-- assertVisible: 'Funciona offline, sem conta.'
-- assertVisible: 'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
+- assertVisible: '^Tela 3 de 3\. Funciona offline, sem conta\..*$'
+- assertVisible: '.*Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.$'
 - tapOn: 'Começar'
-- assertNotVisible: 'Oi, eu sou o Pixel.'
+- assertNotVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
