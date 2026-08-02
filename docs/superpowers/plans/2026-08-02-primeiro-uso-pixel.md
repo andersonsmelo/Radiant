@@ -1083,12 +1083,20 @@ tags:
 - assertVisible: 'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
 - tapOn: 'Começar'
 - assertNotVisible: 'Oi, eu sou o Pixel.'
-# Esta é a prova de ponta a ponta de que o card Day-0 não recebe a pessoa uma
-# segunda vez com as mesmas boas-vindas. O teste unitário da Task 2 prova que
-# `dismissIntro` foi CHAMADO — prova sobre a chamada, não sobre a tela. Só a
-# asserção abaixo, na Learning Road real, prova o efeito.
-- assertNotVisible: 'Bem-vindo ao Radiant'
 ```
+
+> **Correção de 2026-08-02 — não acrescente a asserção do card Day-0.**
+> Uma versão anterior deste passo mandava fechar o flow com
+> `assertNotVisible: 'Bem-vindo ao Radiant'`, apresentada como prova de ponta a
+> ponta de que o card Day-0 não recebe a pessoa uma segunda vez. Medição
+> posterior mostrou que essa asserção **passaria vacuamente**:
+> `ENABLE_LEARNING_ROAD` é `true` por default e nos quatro perfis do `eas.json`,
+> então a `HomeScreen` clássica — única consumidora do card — nunca renderiza. O
+> texto não estaria na tela porque a tela inteira não existe, e não porque a
+> apresentação o dispensou. Uma asserção que passa pelo motivo errado é pior que
+> nenhuma: cria confiança sem cobertura. Se essa proteção for desejada no futuro,
+> ela exige um caso que force `ENABLE_LEARNING_ROAD=false`. Ver
+> [`ADR-2026-08-02`](../../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
 
 - [ ] **Step 5: Rodar os flows**
 

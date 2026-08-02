@@ -55,9 +55,20 @@ aparece em documento algum do projeto:
    que resolve a variante devolve o mesmo arquivo para todas as combinações. A
    apresentação não pode se apoiar em expressões diferentes do mascote;
    diferenciação entre telas vem de escala, posição, cópia e movimento.
-2. **O card Day-0 já dá as boas-vindas.** É o mesmo trabalho que a apresentação
-   nova faz, com quase a mesma frase. Sem tratamento, a pessoa é recebida duas
-   vezes seguidas com o mesmo texto.
+2. **O card Day-0 já dá as boas-vindas** — mas hoje ele nunca chega à tela.
+   *(Correção de 2026-08-02, posterior à aprovação deste design.)* O texto do
+   card é quase idêntico ao da apresentação nova, e este design foi escrito
+   afirmando que sem tratamento a pessoa seria recebida duas vezes seguidas.
+   **A afirmação era falsa.** Medido: `ENABLE_LEARNING_ROAD` tem default `true`
+   em `radiant-app/src/config.ts:36` e vale `"true"` nos quatro perfis do
+   `eas.json`, então `HomeRoute` sempre renderiza a `JourneyHomeScreen` e a
+   `HomeScreen` clássica — **única** consumidora do card Day-0 — não renderiza em
+   nenhum build distribuído. A duplicação temida não existe.
+   A chamada `OnboardingService.dismissIntro()` **permanece**, com o motivo
+   corrigido: ela é seguro contra a flag ser desligada. Se
+   `ENABLE_LEARNING_ROAD` voltar a `false`, a `HomeScreen` clássica volta e o card
+   apareceria para quem acabou de ver a apresentação. Ver
+   [`ADR-2026-08-02`](../../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
 
 ---
 
@@ -119,8 +130,10 @@ isso — ele já existe nas instalações antigas e as excluiria.
 ### Saída e reentrada
 
 Concluir e pular escrevem a mesma chave, com `exitReason` diferente. **Os dois
-também chamam `OnboardingService.dismissIntro()`**, resolvendo a duplicação do
-card Day-0.
+também chamam `OnboardingService.dismissIntro()`** — não porque o card Day-0
+apareça hoje (não aparece: ver a correção acima), mas como seguro contra
+`ENABLE_LEARNING_ROAD` ser desligada, o que traria a `HomeScreen` clássica e o
+card de volta.
 
 `WelcomeFlowScreen` é componente de apresentação puro com `onFinish(reason)`.
 Isso dá dois pontos de montagem sem duplicar código:
