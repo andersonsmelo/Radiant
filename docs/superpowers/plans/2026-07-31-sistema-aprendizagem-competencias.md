@@ -10,9 +10,10 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5**, **6** e **7**
-concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote de
-ativos autorizados. Próxima: **Task 8** (calcular domínio por competência).
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5**, **6**, **7** e
+**8** concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote
+de ativos autorizados. Próxima: **Task 9** (registro de renderizadores e estado do
+player) — a primeira que produz algo visível na tela.
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -514,7 +515,52 @@ git commit -m "feat(mastery): registra evidencias estruturadas"
 
 ---
 
-### Task 8: Calcular domínio por competência
+### Task 8: Calcular domínio por competência — CONCLUÍDA
+
+**Concluída em 2026-08-02.** 20 testes no cálculo e 8 no repositório; `npm run
+quality` fecha em **40 suítes e 195 testes**.
+
+`calculateCompetencyMastery` é pura e determinística: não lê relógio, não lê
+storage, não conhece catálogo. Isso não é purismo — é o que torna uma regra
+pedagógica auditável. Sem relógio interno, o mesmo conjunto de evidências sempre
+produz o mesmo estado, e discordar do resultado vira discutir os limiares em vez
+de caçar não-determinismo.
+
+**A decisão que a task existia para forçar:** evidência legada é **ignorada por
+padrão**. Marcá-la de forma separável na Task 6 serviu exatamente para isto —
+lição antiga não foi escrita contra o currículo, então sua evidência não sabe
+qual competência mede, e somá-la produziria um número plausível e errado. O pior
+tipo de erro, porque não parece errado. Contá-la exige `includeLegacyEvidence`
+explícito, nunca um default.
+
+Quatro decisões de modelo:
+
+- **Pontua tipos distintos de evidência, não tentativas.** Repetir a mesma
+  prática dez vezes não demonstra mais domínio que fazê-la uma vez; evidência
+  nova vem de mudar o tipo de demanda. Pesos: guiada 0,15 · independente 0,30 ·
+  aplicação 0,25 · retenção 0,30. Guiada pesa menos porque acertar com apoio
+  demonstra menos que recuperar sozinho depois de um intervalo.
+- **Bloqueio nunca promove.** Os gates só puxam para baixo. Estado alto só se
+  alcança acumulando evidência de tipos diferentes.
+- **O gate crítico de segurança é assimétrico de propósito.** Erro recente numa
+  competência comum rebaixa **um nível**; numa competência crítica, **trava em
+  `practicing`**. Errar sobre blindagem não é o mesmo que errar sobre um
+  conceito, e o checkpoint da unidade depende dessa distinção.
+- **`blockedBy` viaja no resultado.** A spec proíbe que o algoritmo esconda do
+  aluno por que algo não avançou; sem esse campo, o motivo existiria só dentro da
+  função.
+
+*Migração vazia:* ausência significa `not-started`, e o repositório lê **apenas a
+própria chave** — há teste para isso. Nada infere domínio a partir de XP, nó
+concluído ou sequência, coerente com o ADR de progresso não retroativo.
+
+*Correção de escopo:* mais uma chave em `src/constants/storageKeys.ts`, que o
+plano não listava.
+
+*Cuidado de ponto flutuante que virou defeito real durante a implementação:*
+`0,15 + 0,30 + 0,25` sai `0,6999999999999999` em JS e reprovava no limiar de
+`0,7` um percurso que deveria aprovar. Apareceria como "às vezes não sobe de
+nível". A soma é arredondada a três casas.
 
 **Files:**
 - Create: `radiant-app/src/types/mastery.ts`
