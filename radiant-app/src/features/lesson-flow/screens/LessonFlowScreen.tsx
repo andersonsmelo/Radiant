@@ -6,12 +6,14 @@ import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { LessonFlowService } from '../services/LessonFlowService';
-import type { LessonBlock, MultipleChoicePayload } from '../../../types/lessonFlow';
+import { adaptLegacyBlock } from '../services/LegacyLessonAdapter';
+import { useLearningActivity } from '../hooks/useLearningActivity';
+import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
+import type { LessonBlock } from '../../../types/lessonFlow';
 import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
 import { TeachStepRenderer } from '../renderers/TeachStepRenderer';
-import { MultipleChoiceStepRenderer } from '../renderers/MultipleChoiceStepRenderer';
 import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
 import { AdvanceStepRenderer } from '../renderers/AdvanceStepRenderer';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -28,11 +30,13 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
     const [block, setBlock] = useState<LessonBlock | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [stepIndex, setStepIndex] = useState(0);
-    const [selectedOptionId, setSelectedOptionId] = useState<string | undefined>();
-    const [answeredCorrectly, setAnsweredCorrectly] = useState<boolean | undefined>();
-    const [answerExplanation, setAnswerExplanation] = useState<string | undefined>();
-    const [confirmedAnswers, setConfirmedAnswers] = useState<Record<string, boolean>>({});
+
+    // O bloco legado continua sendo o que vai para o outcome, sem uma linha de
+    // diferença: a atividade v2 existe aqui para o percurso e para a interação.
+    // Trocar o que o outcome recebe seria mexer no caminho que paga XP e agenda
+    // revisão, e essa mudança não pertence a uma task de desacoplamento de UI.
+    const activity = useMemo(() => (block ? adaptLegacyBlock(block) : null), [block]);
+    const player = useLearningActivity(activity);
 
     useEffect(() => {
         let alive = true;
@@ -74,10 +78,12 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         };
     }, [blockId, nodeId]);
 
+    const { stepIndex, totalSteps, isLastStep, progress } = player;
+    // O passo legado, alinhado por índice com o v2 — o adaptador converte um
+    // passo em exatamente um passo, na mesma ordem, e há teste para isso. É ele
+    // que alimenta os renderizadores de apresentação e a copy do painel, que
+    // esta task não pode alterar.
     const currentStep = block?.steps[stepIndex];
-    const totalSteps = block?.steps.length ?? 0;
-    const isLastStep = stepIndex === totalSteps - 1;
-    const progress = totalSteps > 0 ? (stepIndex + 1) / totalSteps : 0;
     const lessonTitle = useMemo(() => {
         if (!block) {
             return 'Fluxo da Lição';
@@ -91,20 +97,10 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         return block.lessonId;
     }, [block]);
 
-    const multipleChoicePayload =
-        currentStep?.step.type === 'multiple-choice' ? currentStep.step.payload : null;
-
-    const canContinue = useMemo(() => {
-        if (!currentStep) {
-            return false;
-        }
-
-        if (currentStep.step.type === 'multiple-choice') {
-            return Boolean(selectedOptionId);
-        }
-
-        return true;
-    }, [currentStep, selectedOptionId]);
+    const canContinue = player.canContinue;
+    const currentInteraction = player.currentStep?.kind === 'interaction'
+        ? player.currentStep.interaction
+        : null;
 
     const panelHint = useMemo(() => {
         if (!currentStep) {
@@ -143,30 +139,19 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         }
     }, [currentStep]);
 
-    const handleSelectOption = (payload: MultipleChoicePayload, optionId: string) => {
-        setSelectedOptionId(optionId);
-        setAnsweredCorrectly(optionId === payload.correctOptionId);
-        setAnswerExplanation(payload.explanation);
-    };
-
     const handleContinue = async () => {
         if (!block || !currentStep || !canContinue) {
             return;
         }
 
         // A escolha vale no instante do "Continuar", não no toque: trocar de
-        // alternativa antes de confirmar não penaliza. O valor local é
-        // obrigatório — setConfirmedAnswers é assíncrono e no último passo o
-        // estado ainda não conteria esta resposta.
-        let nextConfirmed = confirmedAnswers;
-        if (currentStep.step.type === 'multiple-choice') {
-            const correct = selectedOptionId === currentStep.step.payload.correctOptionId;
-            nextConfirmed = { ...confirmedAnswers, [currentStep.contract.id]: correct };
-            setConfirmedAnswers(nextConfirmed);
-        }
+        // alternativa antes de confirmar não penaliza. `confirm()` devolve o
+        // mapa novo em vez de deixar a tela ler o estado — `setState` é
+        // assíncrono e no último passo o estado ainda não conteria esta
+        // resposta.
+        const nextConfirmed = player.confirm();
 
         if (!isLastStep) {
-            setStepIndex((value) => value + 1);
             return;
         }
 
@@ -255,19 +240,19 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
                                 <TeachStepRenderer payload={currentStep.step.payload} />
                             ) : null}
 
-                            {currentStep.step.type === 'multiple-choice' ? (
-                                <MultipleChoiceStepRenderer
-                                    payload={multipleChoicePayload!}
-                                    selectedOptionId={selectedOptionId}
-                                    onSelect={(optionId) => handleSelectOption(multipleChoicePayload!, optionId)}
+                            {currentInteraction ? (
+                                <ActivityInteractionRenderer
+                                    interaction={currentInteraction}
+                                    value={player.value}
+                                    onChange={player.setValue}
                                 />
                             ) : null}
 
                             {currentStep.step.type === 'reinforce' ? (
                                 <ReinforceStepRenderer
                                     payload={currentStep.step.payload}
-                                    answeredCorrectly={answeredCorrectly}
-                                    explanation={answerExplanation}
+                                    answeredCorrectly={player.lastFeedback?.correct}
+                                    explanation={player.lastFeedback?.message}
                                 />
                             ) : null}
 

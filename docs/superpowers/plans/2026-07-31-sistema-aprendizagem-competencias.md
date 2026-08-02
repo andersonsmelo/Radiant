@@ -10,10 +10,10 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5**, **6**, **7** e
-**8** concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote
-de ativos autorizados. Próxima: **Task 9** (registro de renderizadores e estado do
-player) — a primeira que produz algo visível na tela.
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** concluídas;
+infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
+autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis) — é ela
+que registra os sete tipos de interação que ainda não têm renderizador.
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -599,7 +599,39 @@ git commit -m "feat(mastery): calcula dominio por competencia"
 
 ---
 
-### Task 9: Criar registro de renderizadores e estado do player
+### Task 9: Criar registro de renderizadores e estado do player — CONCLUÍDA
+
+**Concluída em 2026-08-02.** 16 testes novos; `npm run quality` fecha em **42
+suítes e 211 testes**, e a paridade de fluxos em 6 suítes / 15 testes.
+
+**A evidência mais forte é o que não mudou:** o `LessonFlowScreen.flow.test.tsx`
+passou **sem uma linha alterada**. Ele trava troca de alternativa antes de
+confirmar, revelação do reforço, ordem entre `recordCompletion` e
+`markNodeCompleted`, e o uso da resposta confirmada quando o passo interativo é o
+último. O refactor atravessou tudo isso sem tocar no teste.
+
+Três decisões de risco:
+
+- **O bloco legado continua sendo o que vai para o outcome.** A atividade v2
+  existe na tela para o percurso e para a interação; trocar o que o outcome
+  recebe mexeria no caminho que paga XP e agenda revisão, e isso não pertence a
+  uma task de desacoplamento de UI. Os ids batem porque o adaptador os preserva.
+- **Apresentação continua nos renderizadores existentes, pelo passo legado
+  alinhado por índice.** A copy do painel distingue `reinforce` de `advance`, e o
+  v2 funde os dois em `closing` — renderizar a apresentação pelo v2 mudaria a
+  copy, que a task proíbe. O alinhamento 1:1 é garantido pelo adaptador e tem
+  teste.
+- **Tipo sem renderizador não derruba a lição.** Conteúdo é versionado
+  separadamente do app, então um binário antigo pode encontrar um tipo que não
+  conhece. Lançar perderia a sessão inteira por causa de uma tela; o registro
+  devolve um aviso e a lição segue.
+
+*Reversão verificada (Step 4):* trocando o retorno de `confirm()` pelo estado
+anterior, **três** testes falham, incluindo o da corrida. Restaurado, 11/11.
+
+*O registro declara que só `multiple-choice` tem renderizador hoje* — os outros
+sete tipos do contrato entram na Task 10, e `isInteractionTypeRegistered` existe
+para que essa lacuna seja consultável em vez de descoberta em runtime.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx`
