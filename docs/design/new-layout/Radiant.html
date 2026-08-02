@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Radiant — Hi-fi screens</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="tokens.css"/>
+<style>
+  html, body { margin: 0; padding: 0; background: #EEF3FB; font-family: 'Sora', system-ui; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="screens.jsx"></script>
+<script type="text/babel" src="screens2.jsx"></script>
+
+<script type="text/babel">
+const { DesignCanvas, DCSection, DCArtboard, IOSDevice } = window;
+
+// Wrap a screen in an iPhone 14 Pro frame (393×852 logical).
+function Phone({ children, dark = false }) {
+  return (
+    <IOSDevice width={393} height={852} dark={dark}>
+      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+        {children}
+      </div>
+    </IOSDevice>
+  );
+}
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="onboarding" title="Onboarding" subtitle="Welcome → value → specialty/goal → account">
+        <DCArtboard id="onb-1" label="01 · Welcome" width={393} height={852}>
+          <Phone dark><ScreenOnboardWelcome/></Phone>
+        </DCArtboard>
+        <DCArtboard id="onb-2" label="02 · Value props" width={393} height={852}>
+          <Phone dark><ScreenOnboardValue/></Phone>
+        </DCArtboard>
+        <DCArtboard id="onb-3" label="03 · Specialty + goal" width={393} height={852}>
+          <Phone dark><ScreenOnboardGoal/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="home" title="Home / Dashboard" subtitle="Daily mission, streak, XP, and journey progress">
+        <DCArtboard id="home-light" label="Light · default" width={393} height={852}>
+          <Phone><ScreenHome dark={false}/></Phone>
+        </DCArtboard>
+        <DCArtboard id="home-galaxy" label="Galaxy · dark" width={393} height={852}>
+          <Phone dark><ScreenHome dark={true}/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="galaxy" title="Galaxy / Journey Map" subtitle="Spatial progression — completed, current, locked, boss">
+        <DCArtboard id="galaxy-map" label="Galaxy mode" width={393} height={852}>
+          <Phone dark><ScreenGalaxy/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="lesson" title="Lesson / Question Flow" subtitle="X-ray + multiple choice with feedback states">
+        <DCArtboard id="lesson-idle" label="A · Idle (interactive — tap an answer)" width={393} height={852}>
+          <Phone><ScreenLesson initialState="idle"/></Phone>
+        </DCArtboard>
+        <DCArtboard id="lesson-correct" label="B · Correct feedback" width={393} height={852}>
+          <Phone><ScreenLesson initialState="correct"/></Phone>
+        </DCArtboard>
+        <DCArtboard id="lesson-wrong" label="C · Wrong feedback" width={393} height={852}>
+          <Phone><ScreenLesson initialState="wrong"/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="checkpoint" title="Checkpoint / Milestone" subtitle="Mid-flow achievement moment — Pixel celebrate, badge, XP">
+        <DCArtboard id="checkpoint-light" label="Checkpoint" width={393} height={852}>
+          <Phone><ScreenCheckpoint/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="reward" title="Reward / Completion" subtitle="Pixel celebrate · XP counter · streak · level-up">
+        <DCArtboard id="reward-galaxy" label="Galaxy reward" width={393} height={852}>
+          <Phone dark><ScreenReward/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="progress" title="Progress" subtitle="Streak calendar · accuracy · mastered topics">
+        <DCArtboard id="progress-light" label="Progress" width={393} height={852}>
+          <Phone><ScreenProgress/></Phone>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="missions" title="Missions" subtitle="Daily + weekly missions with XP rewards">
+        <DCArtboard id="missions-light" label="Missions" width={393} height={852}>
+          <Phone><ScreenMissions/></Phone>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
