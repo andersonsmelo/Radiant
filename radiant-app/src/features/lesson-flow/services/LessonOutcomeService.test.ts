@@ -7,6 +7,7 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { LessonOutcomeService } from './LessonOutcomeService';
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -37,12 +38,17 @@ jest.mock('../../progress/services/LearningAttemptsRepository', () => ({
     LearningAttemptsRepository: { append: jest.fn() },
 }));
 
+jest.mock('../../mastery/repositories/LearningEvidenceRepository', () => ({
+    LearningEvidenceRepository: { append: jest.fn() },
+}));
+
 const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
 const mockedSpacedRepetition = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
 const mockedDailyGoal = DailyGoalService as jest.Mocked<typeof DailyGoalService>;
 const mockedJourney = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedSyncQueue = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
 const mockedAttempts = LearningAttemptsRepository as jest.Mocked<typeof LearningAttemptsRepository>;
+const mockedEvidence = LearningEvidenceRepository as jest.Mocked<typeof LearningEvidenceRepository>;
 
 const block: LessonBlock = {
     id: 'block:lesson-1:intro',
@@ -388,6 +394,114 @@ describe('LessonOutcomeService', () => {
     it('falha ao gravar a tentativa não propaga nem impede a premiação', async () => {
         mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
         mockedAttempts.append.mockRejectedValue(new Error('disco cheio'));
+        const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        const outcome = await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(outcome.rewarded).toBe(true);
+
+        errorSpy.mockRestore();
+    });
+});
+
+describe('LessonOutcomeService — evidência por interação', () => {
+    beforeEach(() => {
+        // Este describe é irmão do de cima, não filho: o beforeEach dele não roda
+        // aqui, e sem limpar os mocks as contagens de chamada acumulam entre os
+        // dois blocos.
+        jest.clearAllMocks();
+        mockedAttempts.append.mockResolvedValue(undefined);
+        mockedGamification.recordQuizCompletion.mockResolvedValue({
+            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
+            award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
+        });
+        mockedDailyGoal.recordQuizCompletion.mockResolvedValue({
+            goalPerDay: 3,
+            completedToday: 1,
+            isCompleted: false,
+            dateKey: '2026-08-02',
+        });
+        mockedEvidence.append.mockResolvedValue({ accepted: true, issues: [] });
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }),
+        );
+    });
+
+    it('grava uma evidência por interação, com competência e tipo vindos do adaptador', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+            answeredAt: new Date('2026-08-02T12:00:00.000Z'),
+        });
+
+        expect(mockedEvidence.append).toHaveBeenCalledTimes(1);
+        expect(mockedEvidence.append).toHaveBeenCalledWith({
+            activityId: 'activity:legacy:block:lesson-1:intro',
+            interactionId: 'lesson-1-question',
+            competencyId: 'competency:legacy:lesson-1',
+            evidenceKind: 'legacy-lesson-recall',
+            outcome: 'correct',
+            hintUsed: false,
+            durationBand: 'unknown',
+            contentVersion: 'legacy-lesson-catalog',
+            recordedAt: '2026-08-02T12:00:00.000Z',
+        });
+    });
+
+    it('registra incorrect quando a escolha confirmada não estava certa', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': false },
+            answeredAt: new Date('2026-08-02T12:00:00.000Z'),
+        });
+
+        expect(mockedEvidence.append).toHaveBeenCalledWith(
+            expect.objectContaining({ outcome: 'incorrect' }),
+        );
+    });
+
+    it('usa faixa de duração e dica informadas, quando o player as medir', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+            answeredAt: new Date('2026-08-02T12:00:00.000Z'),
+            durationBandByInteraction: { 'lesson-1-question': '10-30s' },
+            hintUsedByInteraction: { 'lesson-1-question': true },
+        });
+
+        expect(mockedEvidence.append).toHaveBeenCalledWith(
+            expect.objectContaining({ durationBand: '10-30s', hintUsed: true }),
+        );
+    });
+
+    it('grava evidência mesmo quando a conclusão não premia', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({
+                nodeId: 'node:lesson-1',
+                nodeType: 'lesson',
+                completedNodeIds: ['node:lesson-1'],
+            }),
+        );
+
+        const outcome = await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(outcome.rewarded).toBe(false);
+        expect(mockedEvidence.append).toHaveBeenCalledTimes(1);
+    });
+
+    it('não derruba a conclusão quando a gravação de evidência falha', async () => {
+        mockedEvidence.append.mockRejectedValue(new Error('storage indisponível'));
         const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
         const outcome = await LessonOutcomeService.recordCompletion({

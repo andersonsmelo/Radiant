@@ -10,4 +10,5 @@ export const STORAGE_KEYS = {
     AUTH_MIGRATION_STATE: '@radiant:auth_migration_v1',
     UPGRADE_INTEREST: '@radiant:upgrade_interest_v1',
     LEARNING_ATTEMPTS: '@radiant:learning_attempts_v1',
+    LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
 } as const;

@@ -10,9 +10,9 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5** e **6**
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4**, **5**, **6** e **7**
 concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote de
-ativos autorizados. Próxima: **Task 7** (registrar evidência por interação).
+ativos autorizados. Próxima: **Task 8** (calcular domínio por competência).
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -438,7 +438,42 @@ git commit -m "feat(learning): adapta licoes legadas ao motor v2"
 
 ---
 
-### Task 7: Registrar evidência por interação
+### Task 7: Registrar evidência por interação — CONCLUÍDA
+
+**Concluída em 2026-08-02.** 15 testes no repositório e 5 na integração; `npm run
+quality` fecha em **38 suítes e 167 testes**, contra 117 antes da Task 5.
+
+**A proteção de privacidade é estrutural antes de ser verificação.** A spec proíbe
+registrar resposta livre, imagem clínica ou identificador de paciente. A defesa
+principal não é uma varredura de conteúdo: é que **não existe campo para prosa**.
+Os nove campos da allowlist são ids com forma fixa, enums e um timestamp ISO — uma
+resposta escrita pelo aluno não tem onde caber, mesmo que alguém tente enfiá-la.
+A varredura de URI e de marcador clínico é a segunda camada, para o caso de um id
+ser construído a partir de dado que não deveria estar ali.
+
+Três decisões que o plano não fixava:
+
+- **Escrita recusa, infraestrutura engole.** Registro inválido não é gravado e a
+  chamada devolve as violações — gravar primeiro e limpar depois significaria que
+  o dado proibido existiu em disco, e num app local-first "depois" pode ser
+  nunca. Já falha de AsyncStorage vira log e não propaga, porque evidência é
+  informação secundária e não pode derrubar a conclusão de uma lição.
+- **A validação roda também na leitura.** Um registro pode ter vindo de uma versão
+  anterior do contrato ou de escrita manual; ler sem revalidar reintroduziria
+  exatamente o que a escrita recusou.
+- **Duração é faixa, nunca milissegundo.** Tempo exato de resposta é traço
+  comportamental fino demais para o valor que entrega; a faixa basta para
+  distinguir reconhecimento imediato de esforço, que é a única leitura que o
+  domínio faz dela. Quando o player não mede, grava `unknown` — o registro
+  honesto de "não medido", nunca um valor plausível inventado.
+
+*Correção de escopo:* a task também alterou `src/constants/storageKeys.ts`, que o
+plano não listava, para a chave versionada do repositório.
+
+*A competência e o tipo de evidência vêm do **adaptador** da Task 6, não de uma
+segunda leitura do bloco. Derivar isso aqui de novo criaria uma segunda definição
+da mesma regra, e as duas divergiriam no dia em que o catálogo tivesse atividade
+v2 nativa.*
 
 **Files:**
 - Create: `radiant-app/src/types/learningEvidence.ts`

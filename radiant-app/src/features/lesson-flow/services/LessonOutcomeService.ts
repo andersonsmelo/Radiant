@@ -25,6 +25,9 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
+import { adaptLegacyBlock } from './LegacyLessonAdapter';
+import type { DurationBand } from '../../../types/learningEvidence';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -32,6 +35,14 @@ export type LessonOutcomeInput = {
     /** stepId do passo interativo → a escolha confirmada estava correta */
     confirmedAnswers: Record<string, boolean>;
     answeredAt?: Date;
+    /**
+     * Opcionais porque o player legado não os mede. Declarados desde já para que
+     * o motor v2 possa preenchê-los sem mudar este contrato — e ausentes viram
+     * `unknown`/`false`, que é o registro honesto de "não medido", nunca um
+     * valor plausível inventado.
+     */
+    durationBandByInteraction?: Record<string, DurationBand>;
+    hintUsedByInteraction?: Record<string, boolean>;
 };
 
 export type LessonOutcome = {
@@ -49,6 +60,7 @@ class LessonOutcomeServiceImpl {
 
         await this.recordRecall(result);
         await this.recordAttempt(result, topicId);
+        await this.recordEvidence(input, result);
         await this.enqueueSync(result);
 
         if (!rewarded) {
@@ -109,6 +121,43 @@ class LessonOutcomeServiceImpl {
             });
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao registrar tentativa:', error);
+        }
+    }
+
+    /**
+     * Grava uma evidência por interação, e não uma por lição.
+     *
+     * A competência e o tipo de evidência saem do **adaptador**, não de uma
+     * segunda leitura do bloco: é ele que sabe que conteúdo legado produz
+     * `legacy-lesson-recall` sob competência sintética. Derivar isso aqui de
+     * novo criaria uma segunda definição da mesma regra, e as duas divergiriam
+     * no dia em que o catálogo começasse a ter atividade v2 nativa.
+     *
+     * Best-effort como o resto: evidência não pode derrubar a conclusão.
+     */
+    private async recordEvidence(input: LessonOutcomeInput, result: QuizResult): Promise<void> {
+        try {
+            const activity = adaptLegacyBlock(input.block);
+            const recordedAt = result.answeredAt.toISOString();
+
+            for (const step of activity.steps) {
+                if (step.kind !== 'interaction') continue;
+
+                const { interaction } = step;
+                await LearningEvidenceRepository.append({
+                    activityId: activity.id,
+                    interactionId: interaction.id,
+                    competencyId: interaction.competencyIds[0],
+                    evidenceKind: interaction.evidenceKind,
+                    outcome: input.confirmedAnswers[interaction.id] === true ? 'correct' : 'incorrect',
+                    hintUsed: input.hintUsedByInteraction?.[interaction.id] ?? false,
+                    durationBand: input.durationBandByInteraction?.[interaction.id] ?? 'unknown',
+                    contentVersion: activity.provenance.contentVersion,
+                    recordedAt,
+                });
+            }
+        } catch (error) {
+            console.error('[LessonOutcomeService] Falha ao registrar evidência:', error);
         }
     }
 
