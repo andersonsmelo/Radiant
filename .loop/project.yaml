@@ -25,6 +25,7 @@ context:
     - radiant-api/package.json
   excludes:
     - .git
+    - .superpowers
     - .loop/runs
     - .loop/cache
     - .loop/brain-sessions
