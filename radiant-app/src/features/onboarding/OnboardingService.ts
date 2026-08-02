@@ -5,8 +5,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { OnboardingState, OnboardingStage } from './onboarding.types';
 import { TelemetryService } from '../telemetry/TelemetryService';
-import { TelemetryPropKeys } from '../telemetry/telemetry.constants';
-import { AppConfig } from '../../config';
+import { resolveAppStoreProps } from '../telemetry/appStoreProps';
 
 const STORE_KEY = '@radiant/onboarding';
 
@@ -43,7 +42,7 @@ class OnboardingServiceImpl {
                     startedAt: Date.now(),
                 };
                 await this.save();
-                TelemetryService.track('onboarding_start', this.getAppStoreProps('onboarding'));
+                TelemetryService.track('onboarding_start', resolveAppStoreProps('onboarding'));
             }
             this.initialized = true;
         } catch (e) {
@@ -91,7 +90,7 @@ class OnboardingServiceImpl {
     async dismissIntro(): Promise<void> {
         this.state.dismissedIntro = true;
         await this.save();
-        TelemetryService.track('onboarding_dismissed_intro', this.getAppStoreProps('onboarding'));
+        TelemetryService.track('onboarding_dismissed_intro', resolveAppStoreProps('onboarding'));
     }
 
     /**
@@ -102,7 +101,7 @@ class OnboardingServiceImpl {
         const now = Date.now();
         const hadReachedValue = Boolean(this.state.firstQuizAt || this.state.firstReviewAt);
         const actionProps = {
-            ...this.getAppStoreProps('onboarding'),
+            ...resolveAppStoreProps('onboarding'),
             action,
         };
 
@@ -132,7 +131,7 @@ class OnboardingServiceImpl {
     async complete(): Promise<void> {
         this.state.completed = true;
         await this.save();
-        TelemetryService.track('onboarding_complete', this.getAppStoreProps('onboarding'));
+        TelemetryService.track('onboarding_complete', resolveAppStoreProps('onboarding'));
     }
 
     /**
@@ -160,30 +159,6 @@ class OnboardingServiceImpl {
         }
     }
 
-    private getAppStoreProps(entrySurface: string): Record<string, string> {
-        const locale = this.resolveLocale();
-        const market = this.resolveMarket(locale);
-
-        return {
-            [TelemetryPropKeys.LOCALE]: locale,
-            [TelemetryPropKeys.MARKET]: market,
-            [TelemetryPropKeys.ENTRY_SURFACE]: entrySurface,
-            [TelemetryPropKeys.BUILD_CHANNEL]: AppConfig.APP_ENV,
-        };
-    }
-
-    private resolveLocale(): string {
-        try {
-            return Intl.DateTimeFormat().resolvedOptions().locale || 'unknown';
-        } catch {
-            return 'unknown';
-        }
-    }
-
-    private resolveMarket(locale: string): string {
-        const [, region] = locale.split('-');
-        return region?.toUpperCase() ?? 'unknown';
-    }
 
     /** Debug only */
     async reset() {
