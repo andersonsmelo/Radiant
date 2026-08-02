@@ -790,12 +790,14 @@ export default function ProgressScreen() {
                 </GlassCard>
 
                 {/* ── Ajuda e informações ── */}
-                <LegalLinksCard />
-
-                <AppButton
-                    label="Rever apresentação"
-                    variant="ghost"
-                    onPress={() => setShowWelcomeReplay(true)}
+                <LegalLinksCard
+                    footer={
+                        <AppButton
+                            label="Rever apresentação"
+                            variant="ghost"
+                            onPress={() => setShowWelcomeReplay(true)}
+                        />
+                    }
                 />
 
                 <Modal

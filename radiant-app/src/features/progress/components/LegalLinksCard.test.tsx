@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
+import { Text } from 'react-native';
 
 import { LEGAL_LINKS } from '../../../config/legal';
 import { LegalLinksCard } from './LegalLinksCard';
@@ -34,5 +35,11 @@ describe('LegalLinksCard', () => {
     render(<LegalLinksCard />);
 
     expect(screen.getByRole('header', { name: 'Ajuda e informações' })).toBeTruthy();
+  });
+
+  it('renderiza a ação extra dentro do card', () => {
+    render(<LegalLinksCard footer={<Text>Rever apresentação</Text>} />);
+
+    expect(screen.getByText('Rever apresentação')).toBeTruthy();
   });
 });

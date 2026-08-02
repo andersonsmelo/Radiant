@@ -8,7 +8,12 @@ import { radius, space, typography } from '../../../ui/styles';
 
 const links = [LEGAL_LINKS.privacy, LEGAL_LINKS.support];
 
-export function LegalLinksCard() {
+interface LegalLinksCardProps {
+  /** Ação extra renderizada dentro do card, abaixo dos links. */
+  footer?: React.ReactNode;
+}
+
+export function LegalLinksCard({ footer }: LegalLinksCardProps = {}) {
   return (
     <View style={styles.card}>
       <Text style={styles.title} accessibilityRole="header">
@@ -43,6 +48,8 @@ export function LegalLinksCard() {
           </ExternalLink>
         ))}
       </View>
+
+      {footer ? <View style={styles.footer}>{footer}</View> : null}
     </View>
   );
 }
@@ -94,5 +101,10 @@ const styles = StyleSheet.create({
   arrow: {
     ...typography.bodyStrong,
     color: galaxyColors.textSecondary,
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: galaxyColors.border,
+    paddingTop: space.s2,
   },
 });
