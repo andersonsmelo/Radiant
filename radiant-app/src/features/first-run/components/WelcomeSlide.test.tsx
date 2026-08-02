@@ -71,4 +71,22 @@ describe('WelcomeSlide', () => {
         expect(label.endsWith('. ')).toBe(false);
         expect(label.trim().endsWith('.')).toBe(true);
     });
+
+    it('não duplica pontuação quando um segmento já termina em ponto final', () => {
+        renderWithProviders(
+            <WelcomeSlide
+                title="Oi, eu sou o Pixel."
+                body="Vou estudar radiologia com você"
+                pixelSize="lg"
+                pixelAccessibilityLabel="Pixel, o mascote do Radiant, acenando"
+                stepLabel="Tela 1 de 3"
+            />
+        );
+
+        const group = screen.getByLabelText(/Tela 1 de 3/);
+        const label = group.props.accessibilityLabel as string;
+
+        expect(label).not.toContain('..');
+        expect(label).not.toContain(' .');
+    });
 });

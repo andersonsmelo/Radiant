@@ -28,8 +28,18 @@ export function WelcomeSlide({
     // estava dentro. Sem compor o rótulo aqui, VoiceOver só ouve o
     // `stepLabel` e perde o título, o corpo e — na terceira tela — o aviso
     // legal. O rótulo do grupo reconstrói essa cópia, na ordem em que é lida
-    // visualmente.
-    const groupLabel = [stepLabel, title, body, footnote].filter(Boolean).join('. ');
+    // visualmente. Segmentos que já terminam em pontuação final (`.`, `!`,
+    // `?`) só levam um espaço até o próximo — juntar com `'. '` também nesses
+    // casos duplicaria o ponto e VoiceOver leria a pausa duas vezes.
+    const groupLabel = [stepLabel, title, body, footnote]
+        .filter(Boolean)
+        .reduce((label, part) => {
+            if (!label) {
+                return part as string;
+            }
+            const separator = /[.!?]$/.test(label) ? ' ' : '. ';
+            return `${label}${separator}${part}`;
+        }, '');
 
     return (
         <View style={styles.slide} accessible accessibilityLabel={groupLabel}>
