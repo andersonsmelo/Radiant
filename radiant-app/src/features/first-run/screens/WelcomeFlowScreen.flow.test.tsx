@@ -65,6 +65,18 @@ describe('WelcomeFlowScreen', () => {
         expect(onFinish).toHaveBeenCalledWith('skipped', 3);
     });
 
+    it('expõe o disclaimer educacional para tecnologia assistiva na última tela', () => {
+        renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
+
+        fireEvent.press(screen.getByLabelText('Continuar'));
+        fireEvent.press(screen.getByLabelText('Continuar'));
+
+        const group = screen.getByLabelText(/Tela 3 de 3/);
+        expect(group.props.accessibilityLabel).toContain(
+            'Radiant é um app educacional. Não substitui avaliação, diagnóstico ou conduta médica profissional.'
+        );
+    });
+
     it('avisa cada tela vista, para a telemetria medir onde a pessoa sai', () => {
         const onStepViewed = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} onStepViewed={onStepViewed} />);

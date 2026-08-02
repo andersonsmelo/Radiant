@@ -23,8 +23,16 @@ export function WelcomeSlide({
     pixelAccessibilityLabel,
     stepLabel,
 }: WelcomeSlideProps) {
+    // `accessible` no container colapsa a subárvore inteira num único nó de
+    // acessibilidade no iOS, e o `accessibilityLabel` substitui tudo que
+    // estava dentro. Sem compor o rótulo aqui, VoiceOver só ouve o
+    // `stepLabel` e perde o título, o corpo e — na terceira tela — o aviso
+    // legal. O rótulo do grupo reconstrói essa cópia, na ordem em que é lida
+    // visualmente.
+    const groupLabel = [stepLabel, title, body, footnote].filter(Boolean).join('. ');
+
     return (
-        <View style={styles.slide} accessible accessibilityLabel={stepLabel}>
+        <View style={styles.slide} accessible accessibilityLabel={groupLabel}>
             <PixelIllustration
                 state="guide"
                 size={pixelSize}
