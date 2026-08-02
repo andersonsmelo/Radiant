@@ -1,9 +1,12 @@
 # Radiant — Execution Status (2026-07-29, estendido até 2026-08-01)
 
-> Este documento continua sendo o **status canônico**. Ele foi estendido em
-> 2026-07-30, 2026-07-31 e 2026-08-01, em vez de dar origem a arquivos novos: um
-> ponteiro canônico decai no instante em que o alvo é substituído, e trocar o nome
-> exige varrer quem aponta para ele.
+> Este documento foi substituído por
+> [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md) como
+> **status canônico**. Ele havia sido estendido em 2026-07-30, 2026-07-31 e
+> 2026-08-01, em vez de dar origem a arquivos novos: um ponteiro canônico
+> decai no instante em que o alvo é substituído, e trocar o nome exige varrer
+> quem aponta para ele — o alerta abaixo vale para o sucessor também, na
+> próxima vez que ele for substituído.
 >
 > **Recontado em 2026-07-31: são 17 arquivos, não oito** — `.loop/project.yaml`,
 > `scripts/qa/docs-contract.mjs`, `docs/README.md`, o roadmap de lançamento, o plano

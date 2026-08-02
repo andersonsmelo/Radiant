@@ -83,22 +83,25 @@ Matriz de sign-off atualizada em
    passando a exigir a forma ancorada **derivada de `SLIDES`** (lida direto de
    `WelcomeFlowScreen.tsx`) e a proibir a forma antiga. Commit `728ca8d`.
 
-### Pendência aberta — `store-capture.yaml`, atribuída a geometria de aparelho
+### Pendência aberta — `store-capture.yaml`, atribuída à guarda de visibilidade do primeiro quiz
 
 `store-capture.yaml` falhou na seleção da alternativa do quiz. **Não é
 regressão desta branch:** o diff desta branch nesse arquivo é uma linha (o
-passo de dispensa da apresentação), o flow avançou ~20 passos depois desse
-ponto antes de falhar, e a causa é a mesma classe de oclusão que o commit
-`f7b602a` corrigiu com uma rolagem fixa calibrada para iPhone 16 Plus e iPhone
-11 Pro Max — esta execução foi num iPhone 17 Pro, de geometria diferente. O
-flow irmão `learning-critical-path.yaml`, que faz a mesma asserção mas usa
-rolagem adaptativa (`scrollUntilVisible`/`centerElement`), passou no mesmo
-aparelho minutos antes. A rolagem calibrada não foi tocada — ajustá-la às
-cegas arrisca quebrar a captura nos aparelhos onde ela hoje produz os
-screenshots de loja publicados. Fica como pendência: revalidar ou recalibrar
-`store-capture.yaml` para iPhone 17 Pro (ou outro aparelho do conjunto
-calibrado) antes de depender dele para novos screenshots a partir deste
-simulador.
+passo de dispensa da apresentação), e o ponto onde o flow de fato falhou — no
+primeiro quiz, logo depois dos dois primeiros screenshots — usa o padrão
+`runFlow when notVisible → scrollUntilVisible`, exatamente o padrão que o
+commit `f7b602a` já havia **removido** do segundo quiz por ser cego a
+oclusão: o Maestro não modela oclusão, o elemento fica "visível" para a
+guarda mesmo por baixo do CTA flutuante, a guarda pula a rolagem e o toque
+cai no botão errado — a assinatura exata do `0%` selecionado registrado na
+falha. A rolagem fixa calibrada para iPhone 16 Plus e iPhone 11 Pro Max fica
+no **segundo** quiz, passos depois do ponto onde o flow parou, e **nunca foi
+alcançada** nesta execução. O flow irmão `learning-critical-path.yaml`, que
+faz a mesma asserção, também usa `scrollUntilVisible`; a diferença real é que
+o irmão não tem a guarda `runFlow when notVisible` e usa `centerElement: true`
+em vez de `visibilityPercentage: 60`. Fica como pendência: revisar a guarda do
+primeiro quiz em `store-capture.yaml` antes de depender dele para novos
+screenshots a partir deste simulador.
 
 ## Herdado do documento substituído (não reverificado nesta sessão)
 

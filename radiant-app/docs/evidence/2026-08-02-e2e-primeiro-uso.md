@@ -5,8 +5,9 @@
 Road).
 **Resultado:** iOS — `first-run.yaml`, `boot-to-home.yaml`,
 `learning-critical-path.yaml` e `offline-relaunch.yaml` **`passed`**;
-`store-capture.yaml` **`app-failed`**, com atribuição a geometria de aparelho
-(ver seção própria). **Android não foi executado nesta sessão.**
+`store-capture.yaml` **`app-failed`**, com atribuição à guarda de visibilidade
+do primeiro quiz (ver seção própria). **Android não foi executado nesta
+sessão.**
 
 ## Contexto
 
@@ -98,36 +99,47 @@ entrar por onde ele não olha. Commit `728ca8d`.
 
 ## A falha do `store-capture.yaml`, com a atribuição
 
-Falhou em `assertVisible: Concluir e voltar`, na seleção da alternativa do
-quiz. **Não é regressão desta branch.** A evidência para essa atribuição:
+Falhou na seleção da alternativa do quiz. **Não é regressão desta branch.** A
+evidência para essa atribuição:
 
 - O diff inteiro desta branch nesse arquivo é **uma linha** no topo — o
   `runFlow` do subflow de dispensa da apresentação — verificado com
   `git diff 34e432e..HEAD -- radiant-app/.maestro/store-capture.yaml`.
 - O subflow de dispensa executou e completou (a apresentação foi pulada sem
   erro). O flow passou por `Foco de hoje`, 12 rolagens, `Continuar jornada`,
-  abriu a lição e tirou dois screenshots. A falha acontece cerca de 20 passos
-  **depois** desse ponto, bem adiante do trecho que esta branch tocou.
+  abriu a lição e tirou dois screenshots (`02-licao`, `03-quiz`). A falha
+  aconteceu logo em seguida, no primeiro quiz — antes do checkpoint
+  (`04-checkpoint`, que nunca saiu) — bem adiante do trecho que esta branch
+  tocou.
 - O dump da hierarquia no momento da falha mostra o quiz parado com `0%`
   selecionado: o toque na alternativa não registrou.
-- É a classe de oclusão que o commit `f7b602a` já havia corrigido, mas com uma
-  **rolagem fixa calibrada** para iPhone 16 Plus e iPhone 11 Pro Max — a
-  execução desta sessão foi num **iPhone 17 Pro**, de geometria de tela
-  diferente, fora do conjunto para o qual a rolagem foi calibrada.
-- O irmão `learning-critical-path.yaml`, que faz a mesma asserção de conclusão
-  do quiz mas usa `scrollUntilVisible` com `centerElement: true` (rolagem
-  adaptativa, não fixa), **passou** no mesmo aparelho minutos antes.
+- O passo que de fato falhou usa o padrão `runFlow when notVisible →
+  scrollUntilVisible` na primeira alternativa do quiz
+  (`lesson-option-q1:option:1`) — exatamente o padrão que o commit `f7b602a`
+  **removeu** do segundo quiz (`lesson-option-ct-q3:option:2`). A mensagem
+  daquele commit explica por que esse padrão é cego: o Maestro não modela
+  oclusão, então o elemento está na árvore e portanto "visível" para a
+  guarda, mas por baixo do CTA flutuante; a guarda pula a rolagem e o toque
+  cai no botão errado. O quiz parado com `0%` selecionado é a assinatura
+  exata desse defeito. Esse bloco é anterior a esta branch.
+- A rolagem fixa calibrada para iPhone 16 Plus e iPhone 11 Pro Max está no
+  **segundo** quiz (`lesson-option-ct-q3:option:2`), passos depois do ponto
+  onde o flow falhou — **nunca foi alcançada** nesta execução.
+- O irmão `learning-critical-path.yaml` faz a mesma asserção de conclusão do
+  quiz e também usa `scrollUntilVisible` — a diferença real não é fixa vs.
+  adaptativa: o irmão **não tem a guarda** `runFlow when notVisible` (chama
+  `scrollUntilVisible` incondicionalmente) e usa `centerElement: true` em vez
+  de `visibilityPercentage: 60`.
 
-A rolagem calibrada de `store-capture.yaml` **não foi tocada** nesta sessão:
-ajustá-la às cegas arrisca quebrar a captura nos aparelhos onde ela hoje
-funciona (iPhone 16 Plus, iPhone 11 Pro Max) e produz os screenshots de loja
-publicados.
+A recalibração da rolagem fixa do segundo quiz em `store-capture.yaml` **não
+foi tocada** nesta sessão e não é o que corrige esta pendência: essa rolagem
+está correta e nunca chegou a executar.
 
-**Pendência aberta, atribuída a geometria de aparelho, não à apresentação de
-primeiro uso:** `store-capture.yaml` precisa ser revalidado ou recalibrado
-especificamente para iPhone 17 Pro (ou outro aparelho do conjunto calibrado)
-antes de se apoiar nele para gerar novos screenshots de loja a partir deste
-simulador.
+**Pendência aberta, atribuída à guarda `runFlow when notVisible` do primeiro
+quiz, não à apresentação de primeiro uso:** `store-capture.yaml` precisa
+revisar essa guarda — removendo a condição de visibilidade, seguindo o mesmo
+raciocínio já aplicado ao segundo quiz pelo commit `f7b602a` — antes de se
+apoiar nele para gerar novos screenshots de loja.
 
 ## Estado por plataforma
 
@@ -135,8 +147,8 @@ simulador.
   `learning-critical-path.yaml` e `offline-relaunch.yaml` — simulador
   `Radiant iPhone 17 Pro` / iOS 26.5, build Release local (bundle embutido, sem
   servidor de desenvolvimento), Maestro 2.7.0, commit `728ca8d`, 2026-08-02.
-  `store-capture.yaml`: `app-failed`, pendência aberta (geometria de aparelho,
-  não regressão desta branch).
+  `store-capture.yaml`: `app-failed`, pendência aberta (guarda de
+  visibilidade do primeiro quiz, não regressão desta branch).
 - **Android:** **não revalidado contra a apresentação de primeiro uso nesta
   sessão.** O estado anterior conhecido (`passed`, 2026-07-29, antes da
   apresentação existir) não cobre os flows que hoje atravessam o gate de
@@ -146,6 +158,7 @@ Screenshots e artefatos do runner ficam fora do Git por política
 (`.maestro/artifacts/`).
 
 **Responsável:** engenharia — 2026-08-02.
-**Próxima ação:** revalidar ou recalibrar `store-capture.yaml` para a
-geometria do iPhone 17 Pro; rodar a suíte completa em Android contra a
-apresentação de primeiro uso.
+**Próxima ação:** revisar a guarda `runFlow when notVisible` do primeiro quiz
+em `store-capture.yaml` (o mesmo padrão que o commit `f7b602a` já removeu do
+segundo); rodar a suíte completa em Android contra a apresentação de primeiro
+uso.

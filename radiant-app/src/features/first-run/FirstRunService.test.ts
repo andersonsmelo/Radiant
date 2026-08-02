@@ -14,11 +14,15 @@ jest.mock('../telemetry/TelemetryService', () => ({
 }));
 
 jest.mock('../onboarding/OnboardingService', () => ({
-    OnboardingService: { dismissIntro: jest.fn().mockResolvedValue(undefined) },
+    OnboardingService: {
+        init: jest.fn().mockResolvedValue(undefined),
+        dismissIntro: jest.fn().mockResolvedValue(undefined),
+    },
 }));
 
 const mockedStorage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 const telemetryTrack = TelemetryService.track as jest.MockedFunction<typeof TelemetryService.track>;
+const onboardingInit = OnboardingService.init as jest.MockedFunction<typeof OnboardingService.init>;
 const dismissIntro = OnboardingService.dismissIntro as jest.MockedFunction<
     typeof OnboardingService.dismissIntro
 >;
@@ -75,12 +79,54 @@ describe('FirstRunService', () => {
         expect(dismissIntro).toHaveBeenCalledTimes(1);
     });
 
-    it('mostra uma vez para instalação antiga, que não tem a chave nova', async () => {
+    it('inicializa o onboarding antes de dispensar o card Day-0, numa instalação limpa', async () => {
+        // Instalação limpa: nem a chave do first-run nem a do onboarding existem.
         mockedStorage.getItem.mockResolvedValue(null);
 
         await FirstRunService.bootstrap();
+        await FirstRunService.markSeen('completed', 3);
 
+        // dismissIntro() grava o state do OnboardingService direto em disco. Se
+        // init() não rodar antes, essa gravação parte do DEFAULT_STATE
+        // (startedAt: null) e sequestra o "first launch ever" para sempre.
+        expect(onboardingInit).toHaveBeenCalledTimes(1);
+        expect(dismissIntro).toHaveBeenCalledTimes(1);
+        expect(onboardingInit.mock.invocationCallOrder[0]).toBeLessThan(
+            dismissIntro.mock.invocationCallOrder[0]
+        );
+    });
+
+    it('mostra a apresentação para instalação antiga (já tem onboarding, mas não a chave nova) e preserva o startedAt ao sair', async () => {
+        // Instalação antiga real: o onboarding já rodou e tem startedAt gravado;
+        // só a chave do first-run é que nunca existiu.
+        mockedStorage.getItem.mockImplementation(async (key: string) => {
+            if (key === '@radiant/first_run_v1') return null;
+            if (key === '@radiant/onboarding') {
+                return JSON.stringify({
+                    startedAt: 1700000000000,
+                    dismissedIntro: false,
+                    firstQuizAt: null,
+                    firstReviewAt: null,
+                    completed: false,
+                });
+            }
+            return null;
+        });
+
+        await FirstRunService.bootstrap();
         expect(FirstRunService.shouldShowWelcome()).toBe(true);
+
+        await FirstRunService.markSeen('completed', 3);
+
+        // A prova de que o startedAt antigo sobrevive: init() (que carregaria o
+        // startedAt já gravado) precisa acontecer antes de dismissIntro() (que
+        // grava por cima do state em memória). Chamar dismissIntro() sem init()
+        // antes apagaria esse startedAt e devolveria 'graduated' para sempre.
+        expect(onboardingInit).toHaveBeenCalledTimes(1);
+        expect(dismissIntro).toHaveBeenCalledTimes(1);
+        expect(onboardingInit.mock.invocationCallOrder[0]).toBeLessThan(
+            dismissIntro.mock.invocationCallOrder[0]
+        );
     });
 
     it('não mostra quando a chave já existe com saída registrada', async () => {

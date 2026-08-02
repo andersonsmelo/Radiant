@@ -122,26 +122,35 @@ through the welcome first. All four existing flows gained a
 `subflows/dismiss-first-run.yaml` step, and a new `first-run.yaml` flow asserts
 the welcome itself. Device execution surfaced two real defects, both already
 fixed: `WelcomeSlide`'s `accessible` container collapsed the whole slide into
-one VoiceOver node on iOS, hiding title, body, illustration label and the
+one VoiceOver node on iOS, hiding the step position, title, body and the
 store-required disclaimer from screen readers (fixed by composing the group
-label from all four, commits `1a8fd59`/`b3f5684`); and Maestro's selector is a
+label from position, title, body and footnote, commits `1a8fd59`/`b3f5684`;
+the illustration's `accessibilityLabel` still isn't part of that composition,
+so it remains collapsed by the grouping — a known gap, not scheduled); and
+Maestro's selector is a
 full-match regex, so the old bare-title pattern stopped matching once the
 label carried the full composed phrase (fixed by anchoring `first-run.yaml` on
 the real group-label shape, with `scripts/maestro-contract.test.mjs` now
 deriving the expected anchored pattern from `WelcomeFlowScreen.tsx`'s own
 `SLIDES` array and rejecting the old bare-title form, commit `728ca8d`).
 iOS is `passed` for `first-run`, `boot-to-home`, `learning-critical-path` and
-`offline-relaunch`. `store-capture.yaml` failed on this run's iPhone 17 Pro
-simulator — attributed to device geometry, not to the welcome: the diff this
-branch made to that file is one line (the dismiss-first-run step), the flow
-ran ~20 steps past that point before failing, and its fixed-scroll occlusion
-guard (commit `f7b602a`) was calibrated for iPhone 16 Plus and iPhone 11 Pro
-Max, not iPhone 17 Pro — while the sibling `learning-critical-path`, which
-uses adaptive `scrollUntilVisible`/`centerElement` instead of a fixed scroll,
-passed on the same device minutes earlier. **Android was not re-run against
-the welcome in this session** — its 2026-07-29 `passed` state predates the
-gate and does not cover it. Full detail, recipe and the `store-capture`
-attribution are in
+`offline-relaunch`. `store-capture.yaml` failed on this run — not to the
+welcome: the diff this branch made to that file is one line (the
+dismiss-first-run step). The step that actually failed, in the first quiz,
+uses the `runFlow when notVisible → scrollUntilVisible` guard — the exact
+pattern commit `f7b602a` already removed from the second quiz, because
+Maestro doesn't model occlusion: the element sits in the tree and reads as
+"visible" to the guard while it's actually under the floating CTA, so the
+guard skips the scroll and the tap lands on the wrong control. The quiz
+stalled at `0%` selected is that defect's signature. The fixed scroll
+calibrated for iPhone 16 Plus and iPhone 11 Pro Max lives in the **second**
+quiz, steps past where the flow actually failed, and was never reached this
+run. The sibling `learning-critical-path` makes the same assertion and also
+uses `scrollUntilVisible` — the real difference is that the sibling has no
+`runFlow when notVisible` guard and uses `centerElement: true` instead of
+`visibilityPercentage: 60`. **Android was not re-run against the welcome in
+this session** — its 2026-07-29 `passed` state predates the gate and does not
+cover it. Full detail, recipe and the `store-capture` attribution are in
 [`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).
 
 The dev-client verification of 2026-07-28
@@ -211,15 +220,15 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 | Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Status | Owner/date |
 |---|---|---|---:|---:|---:|---:|---:|---|---|
-| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed | passed (reward node not covered) | passed | **app-failed** — device-geometry attribution, not a regression of this branch | 4/5 flows passed — `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` all green; `store-capture` failed on quiz-answer selection, commit `728ca8d`, 2026-08-02 | engineering / 2026-08-02 |
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed | passed (reward node not covered) | passed | **app-failed** — attributed to the first quiz's `notVisible` visibility guard, not a regression of this branch | 4/5 flows passed — `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` all green; `store-capture` failed on quiz-answer selection, commit `728ca8d`, 2026-08-02 | engineering / 2026-08-02 |
 | Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | **not re-run** | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | not re-run | **not revalidated against the first-run welcome.** The `3/3 Flows Passed in 11m 48s` result is real but was measured before the welcome existed and does not exercise it. | engineering / 2026-07-29 (stale w.r.t. the welcome) |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy
 review is approved.
 
-**Open item:** `store-capture.yaml` needs revalidation or scroll recalibration
-for iPhone 17 Pro geometry (or an equivalent device in the calibrated set)
-before it is relied on again to produce store screenshots from this simulator.
-Full attribution in
+**Open item:** `store-capture.yaml` needs its first quiz's `runFlow when
+notVisible` guard reviewed (the same occlusion-blind pattern commit
+`f7b602a` already removed from the second quiz) before it is relied on again
+to produce store screenshots from this simulator. Full attribution in
 [`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).

@@ -73,6 +73,13 @@ class FirstRunServiceImpl {
             console.error('[FirstRunService] Falha ao gravar o estado:', error);
         }
 
+        // dismissIntro() grava this.state direto em disco. Sem init() antes,
+        // this.state ainda é o DEFAULT_STATE (startedAt: null), e essa gravação
+        // seria a primeira da vida do app na chave do onboarding — sequestrando
+        // o "first launch ever" que o init() detecta e derrubando onboarding_start,
+        // getStage() e o encerramento de Dia 7 para sempre.
+        await OnboardingService.init();
+
         // O card Day-0 da Learning Road dá as mesmas boas-vindas. Sem isto, quem
         // acabou de ver a apresentação é recebido de novo com a mesma frase.
         await OnboardingService.dismissIntro();
