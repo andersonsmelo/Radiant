@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
     Alert,
+    Modal,
     ScrollView,
     StyleSheet,
     Text,
@@ -11,6 +12,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 
+import { AppButton } from '../../../components/ui/AppButton';
+import WelcomeFlowScreen from '../../first-run/screens/WelcomeFlowScreen';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
@@ -228,6 +231,7 @@ export default function ProgressScreen() {
     const [resettingLocalState, setResettingLocalState] = useState(false);
     const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
     const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
+    const [showWelcomeReplay, setShowWelcomeReplay] = useState(false);
 
     const load = useCallback(async () => {
         try {
@@ -787,6 +791,21 @@ export default function ProgressScreen() {
 
                 {/* ── Ajuda e informações ── */}
                 <LegalLinksCard />
+
+                <AppButton
+                    label="Rever apresentação"
+                    variant="ghost"
+                    onPress={() => setShowWelcomeReplay(true)}
+                />
+
+                <Modal
+                    visible={showWelcomeReplay}
+                    animationType="slide"
+                    onRequestClose={() => setShowWelcomeReplay(false)}
+                >
+                    {/* Aqui `onFinish` só fecha: rever não pode reescrever o estado de primeiro uso. */}
+                    <WelcomeFlowScreen onFinish={() => setShowWelcomeReplay(false)} />
+                </Modal>
 
                 {showDeveloperTools ? (
                     <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">
