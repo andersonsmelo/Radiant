@@ -39,11 +39,26 @@ Em 2026-08-01 entrou o **currículo por competências**: 30 competências em 6
 unidades, com schema, grafo de pré-requisitos sem ciclos e validador próprio
 ligado ao gate de conteúdo.
 
+Em 2026-08-02 entrou o **motor de aprendizagem v2**, do contrato ao player:
+
+- `LearningActivityV2`, união discriminada dos oito tipos de interação da
+  biblioteca, em sessões de 3 a 6 passos;
+- adaptador que converte o catálogo legado sem reescrevê-lo, preservando número e
+  ordem das telas;
+- evidência estruturada por interação, com contrato de privacidade sem campo para
+  texto livre;
+- domínio por competência, puro e determinístico, com `mastered` bloqueado sem
+  retenção e gate crítico de segurança;
+- player desacoplado dos tipos de atividade, por registro de renderizadores.
+
+Nada disso mudou a lição que o usuário vê — foi esse o objetivo. O que muda a
+tela é a próxima etapa, os **jogos**: hoje só `multiple-choice` tem renderizador.
+
 Essa frente continua em ordem no
-[`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md),
-e a próxima task é o contrato de atividades `LearningActivityV2`. Segue pendente,
-em paralelo e sem bloquear o currículo, fornecer um primeiro lote de imagens
-educacionais com autorização e anonimização verificáveis.
+[`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
+Segue pendente fornecer um primeiro lote de imagens educacionais com autorização
+e anonimização verificáveis — sem ele, os jogos que dependem de imagem não têm
+com o que ser construídos.
 
 ## Estrutura
 

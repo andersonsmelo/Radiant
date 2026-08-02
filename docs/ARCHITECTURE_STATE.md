@@ -16,6 +16,11 @@ Componentes principais:
 - `JourneyDefinitionService`: projeta trilhas do catálogo para a jornada;
 - `JourneyProgressService`: mantém seleção e progresso por trilha;
 - `LessonOutcomeService`: registra resultado, XP e evidência de conclusão;
+- `LegacyLessonAdapter`: converte bloco legado em atividade v2, puro e 1:1;
+- `ActivityRendererRegistry` + `useLearningActivity`: player desacoplado dos
+  tipos de atividade, com contrato único `interaction/value/onChange`;
+- `LearningEvidenceRepository`: evidência estruturada por interação;
+- `CompetencyMasteryService`: domínio por competência, puro e determinístico;
 - `Conteúdo/`: pipeline editorial com proveniência;
 - `radiant-api/`: auth, sync e catálogo remoto opcional.
 
@@ -53,13 +58,33 @@ jornada        Galáxia
 tentativa → domínio → revisão espaçada
 ```
 
-Estado de implementação:
+Estado de implementação (a autoridade é o status canônico; esta lista é
+conveniência e decai):
 
 - governança das novas raízes editoriais: concluída;
 - catálogo dos 36 documentos únicos: concluído;
 - validação do manifesto de mídia: concluída;
-- primeiro lote de mídia aprovado: pendente (`0` aprovados, `5` rejeitados);
-- grafo curricular e motor de atividades v2: não iniciados.
+- primeiro lote de mídia aprovado: **pendente** — é decisão de direitos do dono,
+  não trabalho de código, e é o que bloqueia os jogos visuais;
+- grafo curricular de 30 competências: **concluído**;
+- contrato `LearningActivityV2` e adaptador do catálogo legado: **concluídos**;
+- evidência estruturada por interação e domínio por competência: **concluídos**;
+- registro de renderizadores e player desacoplado: **concluído**;
+- renderizadores dos sete tipos restantes de interação: **pendentes** — hoje só
+  `multiple-choice` está registrado, e `isInteractionTypeRegistered` torna essa
+  lacuna consultável em vez de descoberta em runtime.
+
+Duas propriedades que o motor v2 já garante e convém não perder de vista ao
+evoluí-lo:
+
+- **O caminho legado segue intacto.** `LessonBlock` continua validado por exceção
+  com exatamente uma múltipla escolha por bloco, e é o bloco legado — não a
+  atividade adaptada — que vai para o `LessonOutcomeService`. As 18 atividades do
+  catálogo funcionam durante toda a migração.
+- **Evidência legada é rastreável e separável.** Conteúdo antigo produz
+  `legacy-lesson-recall` sob competência sintética `competency:legacy:*`, e o
+  cálculo de domínio a **ignora por padrão** — lição antiga não foi escrita contra
+  o currículo, então sua evidência não sabe qual competência mede.
 
 ## Contratos editoriais
 
@@ -81,7 +106,8 @@ autorização e anonimização verificadas.
 | --- | --- |
 | Estado operacional | [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md) |
 | Produto | [`PRD.md`](PRD.md) |
-| Roadmap | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |
+| Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
+| Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |
 | Pipeline editorial | [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md) |
 | Runtime do app | [`../radiant-app/README.md`](../radiant-app/README.md) |
 | Runtime da API | [`../radiant-api/README.md`](../radiant-api/README.md) |

@@ -53,11 +53,12 @@ Quando documentos divergirem, use esta ordem:
 - spec: [`superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 - execução: [`superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md`](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md)
 
-O estado de 2026-08-01 é: Tasks 1, 2 e 4 concluídas; infraestrutura da Task 3
-concluída; lote de mídia ainda sem ativos aprovados; próxima é a Task 5. O
-currículo não dependia do lote de mídia — o gate da Fase 0 pede as duas coisas
-como condições irmãs. A autoridade sobre este estado é o status canônico; a linha
-acima é conveniência e decai.
+O estado de 2026-08-02 é: Tasks 1, 2 e **4 a 9** concluídas; infraestrutura da
+Task 3 concluída; lote de mídia ainda sem ativos aprovados; próxima é a **Task
+10** (jogos acessíveis). Nada dessa frente dependia do lote de mídia — o gate da
+Fase 0 pede as duas coisas como condições irmãs —, mas os jogos que usam imagem
+dependem, e o lote é decisão de direitos do dono. A autoridade sobre este estado
+é o status canônico; a linha acima é conveniência e decai.
 
 ### Conta, premium e monetização
 
