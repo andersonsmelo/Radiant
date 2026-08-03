@@ -31,15 +31,25 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 - ~~v1.2.1~~ **1.3.1 (build 3)** em 2026-08-03, alinhada entre `package.json` e
   `app.json`; `runtimeVersion` por `appVersion`; nenhum build publicado ainda
   (mudanças de versão ainda livres).
-- Qualidade: ~~27 suítes / 71 testes PASS~~ **48 suítes / 245 testes PASS** em
-  2026-08-03; `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) —
-  segue parcial, ver item 1 dos bloqueadores.
+- Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
+  **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
+  `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) — segue
+  parcial, ver item 1 dos bloqueadores. O item 1 do checklist manual do Gate 2
+  (Reduce Motion) ganhou cobertura de código nas telas de galáxia nesta data;
+  a passagem manual segue pendente com o resto do gate.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
   plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
   da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
   Android e `store-capture` nas duas — eram defeitos dos flows, anteriores a esse
   trabalho, e foram corrigidos e remedidos. A ressalva do item 3 dos bloqueadores continua valendo: a
-  evidência foi colhida sob o perfil `e2e-test`, não sob `preview`.
+  evidência foi colhida sob o perfil `e2e-test`, não sob configuração equivalente
+  a produção.
+  **⚠️ Acrescentado em 2026-08-03 (terceira sessão): essa evidência agora precede
+  o HEAD.** Ela foi medida em `da877b2`, e desde então 11 commits tocaram
+  `_layout.tsx`, `AppButton.tsx` (todo botão do app), `useQuiz.ts`, `HUD.tsx` e as
+  quatro telas de galáxia. Nada indica regressão — `quality` e os contratos do
+  Maestro passam —, mas a suíte precisa ser reexecutada antes de o `5/5` valer
+  para submissão, e essa reexecução é o momento natural de fechar o item 3.
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
 - Expo SDK 54 / RN 0.81 → target Android API 36 por padrão, o que já atende o

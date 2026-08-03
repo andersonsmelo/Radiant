@@ -403,6 +403,49 @@ a intenção de quem escreveu a configuração, não o que o programa faz — e 
 que exibe a declaração como se fosse o estado mente com a autoridade de um
 instrumento.
 
+## Adendo 2026-08-03 (terceira sessão) — refinamento de microinterações e movimento
+
+Trabalho de design sobre o app já validado, não sobre bloqueador de lançamento.
+Diagnóstico completo, placar e o que ficou aberto em
+[`docs/design/2026-08-03-diagnostico-microinteracoes.md`](design/2026-08-03-diagnostico-microinteracoes.md).
+
+### O que mudou de comportamento
+
+1. **A perda de vida deixou de ser silenciosa.** `hapticLifeLost` (`Heavy`)
+   separado do `hapticError` (`Warning`) — o antigo disparava idêntico tendo ou
+   não custado uma vida, inclusive no modo revisão, onde nada é cobrado. Some-se
+   `useLossPulse` na camada de motion e a animação do coração que esvaziou.
+   Commit `fde484e`.
+2. **As quatro superfícies animadas da galáxia respeitam reduced motion**
+   (`PlanetBody`, `PlanetInteriorScreen`, `GalaxyInteriorScreen`,
+   `GalaxyMapScreen`). O princípio aplicado foi **tirar o movimento, não a
+   informação**: o glow distingue planeta ativo/concluído/comum a olho nu, então
+   sob a preferência ele assenta no repouso do próprio ciclo em vez de zerar.
+   Commit `94d7e4c`.
+3. **Retorno tátil nas ações de ênfase**, via `AppButton` (24 consumidores) e
+   não espalhado pelos 26 arquivos com elementos tocáveis — `primary` e `galaxy`
+   vibram, `secondary` e `ghost` não. Commit `6b3dcc3`.
+
+Suíte: **49 suítes / 267 testes**, `loop validate` 9/9 em cada um dos runs.
+
+### ⚠️ A evidência E2E de 5/5 agora precede o código
+
+**Este é o item operacional desta seção, e o único que muda decisão.** O
+`5/5` nas duas plataformas foi medido em `da877b2`. Desde então há **11 commits**
+e eles tocam, entre outros, `src/app/_layout.tsx`, `AppButton.tsx` — que é **todo
+botão do app** —, `useQuiz.ts`, `HUD.tsx` e as quatro telas de galáxia.
+
+Nada indica regressão: `npm run quality` passa, os contratos do Maestro passam, e
+háptico não altera seletor. Mas **a evidência de device deixou de descrever o
+HEAD**, e a matriz de sign-off do `E2E_RUNBOOK` foi anotada nesse sentido.
+Antes de tratar o `5/5` como válido para submissão, a suíte precisa ser
+reexecutada — e essa reexecução é o momento natural de fechar também o item 3
+dos bloqueadores, rodando sob configuração equivalente a produção
+(`APP_ENV=production`, `ENABLE_PUSH=true`), que nunca foi exercitada.
+
+Esta é a mesma classe de defasagem que fez a task C3 dizer "3 flows" por seis
+dias: o trabalho estava certo, a sinalização é que envelheceu.
+
 ## Herdado do documento substituído (não reverificado nesta sessão)
 
 Todo o estado de preparação de lançamento — contas de desenvolvedor Play

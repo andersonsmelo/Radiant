@@ -240,6 +240,20 @@ maestro test .maestro --format junit --output maestro-results.xml
 | iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release, version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (304s, reward node not covered) | passed (160s) | passed (416s, after the fix in `da877b2`) | **5/5** — commits `68bd097`..`da877b2`, 2026-08-03. Detail in [`2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md) | engineering / 2026-08-03 |
 | Android | `Radiant_Pixel_9_API_36` emulator / API 36 | local Release APK, version **1.3.1 (3)** verified via `dumpsys package` | passed (284s) | passed (640s) | passed (1698s) | passed (1077s, after the fix in `970ffb6`) | passed (557s, after the fix in `da877b2`) | **5/5** — took four rounds; the first was invalidated by host thrash, and the second and third exposed two real flow defects, both fixed rather than worked around. Same evidence document | engineering / 2026-08-03 |
 
+> **⚠️ This matrix predates the current HEAD (noted 2026-08-03, third session).**
+> Both rows were measured at `da877b2`. Since then **11 commits** have landed,
+> touching `src/app/_layout.tsx`, `AppButton.tsx` — which is **every button in
+> the app** — `useQuiz.ts`, `HUD.tsx` and the four galaxy screens, as part of a
+> microinteraction and motion refinement (`fde484e`, `94d7e4c`, `6b3dcc3`).
+>
+> Nothing suggests a regression: `npm run quality` passes, the Maestro contracts
+> pass, and haptics do not change selectors. But per this document's own rule —
+> a static contract never promotes a platform — **these rows describe code that
+> is no longer what ships.** Re-run before treating `5/5` as valid for
+> submission, and use that run to close blocker item 3 by measuring under a
+> production-equivalent configuration (`APP_ENV=production`, `ENABLE_PUSH=true`),
+> which no device evidence has ever covered.
+
 Android times are 4–20× the iOS ones on this host. That ratio is a property of
 the machine, not of the app — see the host note below before reading a timeout
 as a defect.

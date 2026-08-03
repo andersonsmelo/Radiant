@@ -61,7 +61,16 @@ silently inherit the native one.
 
 1. Enable Reduce Motion in iOS or Android accessibility settings, reopen a
    lesson, quiz and review flow, and confirm that entry, shake, scale and
-   press effects do not move content.
+   press effects do not move content. **Also walk the galaxy surfaces** — the
+   map, a galaxy interior and a planet interior. Until 2026-08-03 those four
+   screens ignored the preference entirely (continuous `withRepeat` glow loops,
+   staggered entries, press recoil); they now honour it, and the rule applied
+   was **remove the motion, not the information**: the glow is what separates an
+   active planet from a completed and an ordinary one by eye, so under the
+   preference it settles at its cycle's resting value instead of going to zero.
+   Confirm that distinction still reads with motion reduced — if every planet
+   looks alike, the preference has erased state, which is a defect. Covered in
+   code by `PlanetBody.test.tsx`; the walkthrough is what verifies it on device.
 2. With VoiceOver or TalkBack, move through AppButton controls. Confirm names,
    hints and disabled/busy state are announced once and in the expected order.
 3. In a quiz, confirm the selected answer and the post-submit locked state are
