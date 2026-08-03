@@ -18,6 +18,7 @@ class FirstRunServiceImpl {
     private state: FirstRunState = { ...DEFAULT_STATE };
     private initialized = false;
     private inFlight: Promise<void> | null = null;
+    private startedTracked = false;
 
     /**
      * A AUSÊNCIA da chave é o gatilho. É isso que faz uma instalação antiga —
@@ -59,10 +60,6 @@ class FirstRunServiceImpl {
         }
 
         this.initialized = true;
-
-        if (this.shouldShowWelcome()) {
-            void TelemetryService.track('first_run_started', resolveAppStoreProps(ENTRY_SURFACE));
-        }
     }
 
     /**
@@ -77,11 +74,35 @@ class FirstRunServiceImpl {
         return this.state.exitedAt === null;
     }
 
+    /**
+     * `first_run_started` sai daqui, e não do `bootstrap()`, **de propósito.**
+     *
+     * O `bootstrap()` roda no `Promise.all` de abertura, antes de o beta gate
+     * ser avaliado no render. Emitir ali significa "o app leu uma chave de
+     * disco", não "alguém começou o primeiro uso": quem é barrado pelo gate
+     * gerava um `started` sem nenhum `step_viewed`, inflando o topo do funil.
+     *
+     * A apresentação só monta **depois** do gate (o `_layout` retorna a tela do
+     * gate antes do ramo da apresentação), e o passo 1 é visto no mesmo instante
+     * em que ela monta. Emitir a partir daqui, uma vez só, torna o evento
+     * consciente do gate por construção, sem o `_layout` precisar saber de
+     * telemetria — e garante a ordem `started` → `step_viewed`, que um efeito no
+     * pai não garantiria: efeito de filho roda antes de efeito de pai.
+     */
     markStepViewed(step: number): void {
+        this.trackStartedOnce();
+
         void TelemetryService.track('first_run_step_viewed', {
             ...resolveAppStoreProps(ENTRY_SURFACE),
             step,
         });
+    }
+
+    private trackStartedOnce(): void {
+        if (this.startedTracked) return;
+        this.startedTracked = true;
+
+        void TelemetryService.track('first_run_started', resolveAppStoreProps(ENTRY_SURFACE));
     }
 
     async markSeen(reason: FirstRunExitReason, step: number): Promise<void> {
@@ -120,6 +141,7 @@ class FirstRunServiceImpl {
         this.state = { ...DEFAULT_STATE };
         this.initialized = false;
         this.inFlight = null;
+        this.startedTracked = false;
         try {
             await AsyncStorage.removeItem(STORE_KEY);
         } catch {

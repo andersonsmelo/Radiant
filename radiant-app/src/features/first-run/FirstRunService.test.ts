@@ -40,9 +40,31 @@ describe('FirstRunService', () => {
         await FirstRunService.bootstrap();
 
         expect(FirstRunService.shouldShowWelcome()).toBe(true);
-        expect(telemetryTrack).toHaveBeenCalledWith(
-            'first_run_started',
-            expect.objectContaining({ entry_surface: 'first_run' })
+    });
+
+    it('bootstrap() NÃO emite first_run_started: ler o disco não é começar o primeiro uso', async () => {
+        // O bootstrap roda antes de o beta gate ser avaliado. Emitir ali fazia
+        // quem e barrado gerar um `started` sem nenhum `step_viewed`, inflando o
+        // topo do funil. O evento agora sai quando a apresentacao e de fato
+        // vista — o que so acontece depois do gate.
+        await FirstRunService.bootstrap();
+
+        expect(
+            telemetryTrack.mock.calls.filter(([event]) => event === 'first_run_started')
+        ).toHaveLength(0);
+    });
+
+    it('first_run_started sai na primeira tela vista, uma vez só, e antes do step_viewed', async () => {
+        await FirstRunService.bootstrap();
+
+        FirstRunService.markStepViewed(1);
+        FirstRunService.markStepViewed(2);
+        FirstRunService.markStepViewed(3);
+
+        const events = telemetryTrack.mock.calls.map(([event]) => event);
+        expect(events.filter((e) => e === 'first_run_started')).toHaveLength(1);
+        expect(events.indexOf('first_run_started')).toBeLessThan(
+            events.indexOf('first_run_step_viewed')
         );
     });
 
@@ -135,12 +157,12 @@ describe('FirstRunService', () => {
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
     });
 
-    it('dois bootstrap() concorrentes emitem first_run_started uma vez só', async () => {
+    it('dois bootstrap() concorrentes leem o disco uma vez só', async () => {
         // A guarda `initialized` sozinha nao cobre concorrencia: ela e checada
-        // antes do await, entao duas chamadas paralelas passam as duas e o
-        // evento sai em duplicata. Hoje o unico call site e protegido pelo
-        // useRef do _layout — este teste prende a garantia no servico, que e
-        // onde ela precisa morar se aparecer um segundo call site.
+        // antes do await, entao duas chamadas paralelas passam as duas. Hoje o
+        // unico call site e protegido pelo useRef do _layout — este teste prende
+        // a garantia no servico, que e onde ela precisa morar se aparecer um
+        // segundo call site.
         mockedStorage.getItem.mockImplementation(
             () => new Promise((resolve) => setTimeout(() => resolve(null), 10))
         );
@@ -148,9 +170,6 @@ describe('FirstRunService', () => {
         await Promise.all([FirstRunService.bootstrap(), FirstRunService.bootstrap()]);
 
         expect(mockedStorage.getItem).toHaveBeenCalledTimes(1);
-        expect(
-            telemetryTrack.mock.calls.filter(([event]) => event === 'first_run_started')
-        ).toHaveLength(1);
     });
 
     it('não propaga falha de gravação em markSeen(), e ainda dispensa o card Day-0', async () => {

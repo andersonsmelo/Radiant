@@ -213,6 +213,11 @@ describe('gate de abertura em RootLayout', () => {
     ).toBeTruthy();
     expect(screen.queryByTestId('welcome-finish')).toBeNull();
     expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    // O topo do funil não pode existir para quem foi barrado. `first_run_started`
+    // viaja junto do primeiro `markStepViewed()` justamente para herdar esta
+    // garantia: nenhum passo visto, nenhum `started`.
+    expect(FirstRunService.markStepViewed).not.toHaveBeenCalled();
   });
 
   it('dev tools desarmam o gate mesmo com ENABLE_BETA_GATE ligado — e é essa a combinação de todos os perfis do eas.json', async () => {

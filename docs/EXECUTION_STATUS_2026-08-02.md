@@ -176,8 +176,32 @@ consciente do gate — não a uma onda de correção de fim de branch.
 > `false`. **Nenhum dos cinco perfis do `eas.json` aplica o beta gate**, logo
 > ninguém é barrado e nenhum funil está inflado hoje. O defeito acorda no dia em
 > que existir um perfil com `ENABLE_BETA_GATE=true` e `ENABLE_DEV_TOOLS=false` —
-> e é aí que ele custa. Mantido aberto por isso, com prioridade menor do que a
-> redação anterior sugeria.
+> e é aí que ele custa.
+
+> **ENCERRADO em 2026-08-03 (segunda sessão), e a razão de fazer agora foi o
+> custo de esperar.** A redação acima o mantinha aberto por pertencer "a um
+> desenho de telemetria consciente do gate, não a uma onda de correção de fim de
+> branch" — argumento correto. O que mudou a conta é que a correção **altera o
+> significado de um evento de funil**, e esse tipo de mudança fica mais caro a
+> cada dia de dado coletado. Hoje o dado é praticamente inexistente (2 testadores
+> no closed test, nenhuma build pública), então o custo de migração é ~zero e só
+> sobe. Adiar por prudência estava, na prática, comprando a versão cara do mesmo
+> trabalho.
+>
+> **O que mudou:** `bootstrap()` deixou de emitir `first_run_started` e passou a
+> ser leitura de estado pura. O evento agora sai de `markStepViewed()`, uma vez
+> só. Isso não é um detalhe de implementação — é o que torna o evento consciente
+> do gate **por construção**: a apresentação só monta depois do gate (o `_layout`
+> retorna a tela do gate antes do ramo da apresentação), e o passo 1 é visto no
+> instante em que ela monta. Quem é barrado não vê passo nenhum e portanto não
+> gera `started`.
+>
+> Emitir de um `useEffect` no `_layout` teria parecido mais limpo e estaria
+> **errado na ordem**: efeito de filho roda antes de efeito de pai, então
+> `step_viewed` chegaria antes de `started` e inverteria o funil que a correção
+> existe para consertar. Coberto por três testes — `bootstrap()` não emite; o
+> evento sai uma vez e antes do primeiro `step_viewed`; e, sob o gate negando
+> acesso, `markStepViewed` nunca é chamado.
 
 **2. `onStepViewed` é uma arrow inline no call site do `_layout`.**
 Uma função nova a cada render, e ela está nas dependências do `useEffect` que
