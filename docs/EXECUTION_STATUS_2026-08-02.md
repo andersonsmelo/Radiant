@@ -103,6 +103,68 @@ em vez de `visibilityPercentage: 60`. Fica como pendência: revisar a guarda do
 primeiro quiz em `store-capture.yaml` antes de depender dele para novos
 screenshots a partir deste simulador.
 
+### Outras pendências abertas, com a razão de cada uma ter ficado aberta
+
+Acrescentado em 2026-08-03, ao encerrar a execução. Estes itens foram triados
+pela revisão final da branch e **deliberadamente** não corrigidos; até aqui
+existiam apenas no ledger de execução, que é `.gitignore`. Não são dívida
+esquecida: cada um tem uma razão, e é a razão que decide se ainda vale quando
+alguém reabrir o assunto.
+
+**1. `first_run_started` é emitido antes de o beta gate ser avaliado.**
+`FirstRunService.bootstrap()` roda dentro do `Promise.all` de abertura, e é ali
+que o evento sai; o gate só é avaliado no render. Em perfis com
+`EXPO_PUBLIC_ENABLE_BETA_GATE=true` — dois dos quatro do `eas.json` — quem é
+barrado gera um `first_run_started` sem nenhum `first_run_step_viewed`
+correspondente, e o funil de aquisição fica com um topo inflado. A **ordem de
+renderização está correta** (o gate precede a apresentação); é só a telemetria
+que precede o gate. Não foi corrigido porque a correção muda a semântica de
+`bootstrap()` e o teste que a afirma, e pertence a um desenho de telemetria
+consciente do gate — não a uma onda de correção de fim de branch.
+
+**2. `onStepViewed` é uma arrow inline no call site do `_layout`.**
+Uma função nova a cada render, e ela está nas dependências do `useEffect` que
+emite `first_run_step_viewed`. Hoje é inócuo: o `RootLayout` não re-renderiza
+enquanto a apresentação está montada, e o projeto não usa `StrictMode`
+(verificado). Qualquer estado novo no `RootLayout` reemite o evento do mesmo
+passo. É o mesmo risco de duplicata que o `useRef` do `bootstrap()` existe para
+conter, deixado aberto no vizinho.
+
+**3. O `accessibilityLabel` da ilustração do Pixel segue colapsado.**
+A correção de acessibilidade compôs o rótulo do grupo com posição, título, corpo
+e nota de rodapé — **não** com o rótulo da ilustração, que continua inalcançável
+por leitor de tela por causa do agrupamento. Foi escolha consciente: incluí-lo
+mudaria a string que `scripts/maestro-contract.test.mjs` ancora
+(`Tela {i} de {N}. {título}`) e derrubaria o flow recém-validado em dispositivo.
+A perda é pequena porque título e corpo já dizem o que a ilustração mostra.
+Registrado também no [`E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
+
+**4. Minors de qualidade das tasks de implementação.** Nenhum bloqueia o merge;
+a revisão final triou cada um como "segue aberto":
+
+- `bootstrap()` do `FirstRunService` não tem guarda de reentrância própria — está
+  mitigado no único call site, pelo `useRef` do `_layout`;
+- `shouldShowWelcome()` chamado antes de `bootstrap()` devolve `true` por padrão
+  seguro, sem comentário que documente a escolha;
+- falha de `setItem` dentro de `markSeen()` não tem teste cobrindo (o erro já é
+  engolido e o pior caso é a apresentação voltar uma vez);
+- `dot`/`dotActive` do indicador de passo usam literais em vez de tokens — vem do
+  próprio plano, e está coberto por baseline datada em
+  `radiant-app/scripts/visual-qa-policy.json`;
+- falta caso de teste para pular a partir da **segunda** tela (a primeira e a
+  terceira estão cobertas; o passo é `index + 1`, sem ramo próprio);
+- a combinação `ENABLE_BETA_GATE=true` com `SHOW_DEV_TOOLS=true` não tem teste (é
+  um `&&`, e os dois lados já têm caso);
+- concorrência real de dois `bootstrap()` paralelos segue sem teste, por não haver
+  gatilho no app hoje;
+- duas linhas em branco consecutivas sobrando em `OnboardingService.ts`.
+
+**Item encerrado por premissa falsa**, registrado para ninguém recarregá-lo: a
+suspeita de que o `<Modal>` do React Native montaria a subárvore do
+`WelcomeFlowScreen` mesmo com `visible={false}`. A fonte do RN foi lida:
+`render()` devolve `null` quando o modal não deve aparecer. O componente **não**
+monta a cada render do `ProgressScreen`.
+
 ## Herdado do documento substituído (não reverificado nesta sessão)
 
 Todo o estado de preparação de lançamento — contas de desenvolvedor Play
