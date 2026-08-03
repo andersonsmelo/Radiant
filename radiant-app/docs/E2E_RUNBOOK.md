@@ -221,8 +221,12 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 | Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Status | Owner/date |
 |---|---|---|---:|---:|---:|---:|---:|---|---|
-| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed | passed (reward node not covered) | passed | **app-failed** — attributed to the first quiz's `notVisible` visibility guard, not a regression of this branch | 4/5 flows passed — `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` all green; `store-capture` failed on quiz-answer selection, commit `728ca8d`, 2026-08-02 | engineering / 2026-08-02 |
-| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | **not re-run** | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | not re-run | **not revalidated against the first-run welcome.** The `3/3 Flows Passed in 11m 48s` result is real but was measured before the welcome existed and does not exercise it. | engineering / 2026-07-29 (stale w.r.t. the welcome) |
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release, version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (304s, reward node not covered) | passed (160s) | **app-failed** (180s) — the first quiz's `notVisible` visibility guard, not a regression | 4/5 — commit `68bd097`, 2026-08-03. Detail in [`2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md) | engineering / 2026-08-03 |
+| Android | `Radiant_Pixel_9_API_36` emulator / API 36 | local Release APK, version **1.3.1 (3)** verified via `dumpsys package` | passed (284s) | passed (640s) | passed (1698s) | passed (1077s, after the fix in `970ffb6`) | **app-failed** (3269s, round 1); **aborted** in round 2 after 1h02m stuck in the guarded repeat — aborted is not failed | 4/5 — took three rounds; the first was invalidated by host thrash, and the second exposed a real flow defect only Android reveals. Same evidence document | engineering / 2026-08-03 |
+
+Android times are 4–20× the iOS ones on this host. That ratio is a property of
+the machine, not of the app — see the host note below before reading a timeout
+as a defect.
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy
@@ -231,5 +235,28 @@ review is approved.
 **Open item:** `store-capture.yaml` needs its first quiz's `runFlow when
 notVisible` guard reviewed (the same occlusion-blind pattern commit
 `f7b602a` already removed from the second quiz) before it is relied on again
-to produce store screenshots from this simulator. Full attribution in
+to produce store screenshots from this simulator. It is the only red flow on
+either platform, and the cause is the same on both. Full attribution in
 [`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).
+
+## Host budget — read this before attributing an Android timeout
+
+Measured on 2026-08-03: with **only** the Android emulator running — no build,
+no iOS simulator — this 16 GB host sits at ~130 MB free RAM and **3.6 GB of its
+4 GB swap** in use. The older rule ("run one platform at a time") is necessary
+but not sufficient. Android needs an exclusive window here:
+
+1. no concurrent Gradle build, and run `./gradlew --stop` after building — the
+   daemon outlives the build and keeps holding memory;
+2. no iOS simulator booted (`xcrun simctl shutdown all`);
+3. compare each flow's wall time against this document's baseline **before**
+   attributing a failure to the app. On 2026-08-03 a `boot-to-home` that
+   normally takes 73s took 640s, and three flows failed on timeouts that
+   vanished once memory was freed. A flow that takes 54 minutes is telling you
+   about the machine, not about a selector.
+
+Also, the emulator is normally started with `-no-snapshot-save`, so it reverts
+to the last saved snapshot on boot — including the previously installed APK.
+**Reinstall and re-check the version before measuring.** On 2026-08-03 the
+emulator came back up with 1.3.0 while the run under test was 1.3.1; only an
+explicit `dumpsys package` check caught it.

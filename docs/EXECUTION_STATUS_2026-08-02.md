@@ -165,6 +165,72 @@ suspeita de que o `<Modal>` do React Native montaria a subárvore do
 `render()` devolve `null` quando o modal não deve aparecer. O componente **não**
 monta a cada render do `ProgressScreen`.
 
+## Adendo 2026-08-03 — versão 1.3.1 e E2E medido nas duas plataformas
+
+Acrescentado a este documento em vez de criar um `EXECUTION_STATUS_2026-08-03`
+de propósito: é o mesmo corpo de trabalho, com um dia de diferença, e criar um
+sucessor obrigaria a mover de novo os seis ponteiros que apontam para o status
+canônico — churn que já produziu um achado de revisão nesta mesma linha de
+trabalho. Se o próximo marco for de outro assunto, aí sim ele merece documento
+próprio.
+
+### Versão
+
+`1.3.0` → **`1.3.1`**, build/`versionCode` `2` → `3` (commit `68bd097`).
+
+Escolhido `1.3.1` e não `1.4.0` deliberadamente: o roadmap de lançamento e o
+`ADR-2026-08-02` reservam a **v1.4** para o elo de conta e o premium, que este
+trabalho não entrega. Subir para `1.4.0` consumiria o número que aqueles
+documentos usam para outro marco.
+
+A versão foi conferida **no binário instalado**, não só no `app.json`: iOS
+`CFBundleShortVersionString 1.3.1`, Android `versionName=1.3.1` via
+`dumpsys package`.
+
+### E2E — as duas plataformas, 4 de 5 cada
+
+| Plataforma | Verdes | Vermelho |
+| --- | --- | --- |
+| iOS 26.5 (iPhone 17 Pro) | `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` | `store-capture` |
+| Android API 36 (Pixel 9) | os mesmos quatro | `store-capture` |
+
+**O Android deixou de estar não revalidado.** A linha anterior deste documento
+dizia que o `passed` de 2026-07-29 era anterior à apresentação e não a
+exercitava; agora foi medido contra ela.
+
+Detalhe completo, com tempos, as três rodadas do Android e as atribuições, em
+[`radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md`](../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+
+### Um defeito de flow corrigido, que só o Android expôs
+
+`offline-relaunch` dava dois `tapOn: Continuar` seguidos e emendava direto num
+`scrollUntilVisible`. No Maestro, `assertVisible` **é** a espera: sem ela a
+rolagem começava antes de o passo do quiz existir na árvore e estourava o
+timeout. No iOS nunca apareceu — a tela monta em ~0,1s. No Android, ~5× mais
+lento, falhou 2 de 2, enquanto o flow irmão, que já intercalava as asserções,
+passou no mesmo emulador e na mesma execução.
+
+Corrigido em `970ffb6`, com um contrato novo que exige `assertVisible` antes de
+todo `scrollUntilVisible` nesses flows. O contrato prende a **espera**, não o
+tempo: subir o timeout esconderia o defeito e manteria uma corrida que o iOS
+ganha e o Android perde.
+
+### O que continua vermelho, e por quê
+
+`store-capture` falha nas **duas** plataformas, pela mesma causa e por defeito
+**anterior** a este trabalho: a guarda `runFlow when notVisible` do primeiro
+quiz é cega a oclusão. Não é consequência da apresentação de primeiro uso nem da
+1.3.1. Segue como pendência aberta, já descrita acima.
+
+### Achado de infraestrutura
+
+Com **apenas** o emulador Android rodando, este host de 16 GB fica com ~130 MB de
+RAM livre e 3,6 GB dos 4 GB de swap em uso. Três falhas da primeira rodada Android
+eram timeouts que sumiram ao liberar memória. A regra "não rode as duas
+plataformas juntas" virou, no `E2E_RUNBOOK`, um orçamento explícito de host — com
+o corolário de que **num host sob pressão, um timeout não prova defeito**:
+compare o tempo do flow com a linha de base antes de atribuir causa.
+
 ## Herdado do documento substituído (não reverificado nesta sessão)
 
 Todo o estado de preparação de lançamento — contas de desenvolvedor Play
