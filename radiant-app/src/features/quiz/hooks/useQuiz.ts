@@ -20,7 +20,7 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
-import { hapticError, hapticSuccess } from '../../../ui/feedback/haptics';
+import { hapticError, hapticLifeLost, hapticSuccess } from '../../../ui/feedback/haptics';
 
 interface UseQuizState {
     currentQuestion: QuizQuestion | null;
@@ -79,6 +79,12 @@ export function useQuiz(
     const [xpAward, setXpAward] = useState<XpAward | null>(null);
     const [dailyGoalJustCompleted, setDailyGoalJustCompleted] = useState<boolean>(false);
     const [hearts, setHearts] = useState<number>(MAX_HEARTS_DEFAULT);
+    // Espelho em ref porque `selectAnswer` não tem `hearts` nas dependências —
+    // ler o state pelo closure entregaria o valor da renderização em que o
+    // callback foi criado, e a comparação "caiu?" sairia errada exatamente
+    // depois da primeira perda.
+    const heartsRef = useRef(hearts);
+    heartsRef.current = hearts;
     const [maxHearts, setMaxHearts] = useState<number>(MAX_HEARTS_DEFAULT);
 
     // Load hearts on mount
@@ -116,9 +122,29 @@ export function useQuiz(
 
             // Lose a heart on wrong answer (not in review mode)
             if (!feedbackResult.isCorrect && journeyCompletionMode !== 'review') {
+                // Capturado ANTES da escrita: comparar depois contra o ref
+                // dependeria de o re-render ainda não ter reatribuído o espelho,
+                // o que é verdade hoje por causa do batching do React e deixaria
+                // a corretude apoiada num detalhe de agendamento.
+                const heartsBefore = heartsRef.current;
+
                 GamificationService.loseHeart().then((snap) => {
                     setHearts(snap.hearts);
                     setMaxHearts(snap.maxHearts);
+
+                    // O único evento punitivo do app passava em silêncio: o
+                    // contador trocava e nada mais. O `hapticError` acima é o
+                    // mesmo no modo revisão, onde nada é cobrado — então ele
+                    // sinaliza "errou", nunca "custou".
+                    //
+                    // Disparado aqui, e não junto do erro, de propósito: a
+                    // sequência "errou" → "e custou uma vida" é o que encena a
+                    // perda. Os dois no mesmo tick viram uma vibração só.
+                    // Condicionado à queda real do contador, para não vibrar
+                    // quando já se está em zero e não há mais o que perder.
+                    if (snap.hearts < heartsBefore) {
+                        hapticLifeLost();
+                    }
                 });
             }
         },

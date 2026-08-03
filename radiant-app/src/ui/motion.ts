@@ -272,8 +272,60 @@ export function useCardEnter(customDuration?: number) {
     return { opacity, translateY, animatedStyle, animateIn, reset };
 }
 
+/**
+ * Pulso de perda — o único movimento punitivo do vocabulário.
+ *
+ * Incha e recolhe: `1 → 1.35 → 1`. Serve ao momento em que algo é **tirado** da
+ * pessoa (hoje, uma vida no quiz), que até aqui acontecia sem sinal visual
+ * nenhum — o contador simplesmente trocava.
+ *
+ * Por que não reusar os existentes: `useScalePop` entra de 0.98 para 1 e é
+ * chegada, não perda; `useShakeError` é o vocabulário de *erro*, e errar não é
+ * a mesma coisa que perder — no modo revisão erra-se sem custo. Um movimento
+ * próprio é o que separa os dois eventos.
+ *
+ * A escala passa de 1 de propósito: encolher leria como "sumindo", e o coração
+ * não some, ele esvazia. Duração `micro` na ida e `ui` na volta — a ida chama
+ * atenção, a volta devolve a tela; a HIG pede movimento breve em interações que
+ * se repetem, e esta se repete várias vezes por sessão.
+ */
+export function useLossPulse() {
+    const scale = useRef(new Animated.Value(1)).current;
+    const reducedMotionEnabled = useReducedMotionPreference();
+
+    const animateIn = useCallback(() => {
+        if (reducedMotionEnabled) {
+            scale.setValue(1);
+            return;
+        }
+
+        scale.setValue(1);
+        Animated.sequence([
+            Animated.timing(scale, {
+                toValue: 1.35,
+                duration: duration.micro,
+                easing: easing.out,
+                useNativeDriver: true,
+            }),
+            Animated.timing(scale, {
+                toValue: 1,
+                duration: duration.ui,
+                easing: easing.out,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [reducedMotionEnabled, scale]);
+
+    const animatedStyle = {
+        transform: [{ scale }],
+    };
+
+    return { scale, animatedStyle, animateIn };
+}
+
 export const createFadeInUp = useFadeInUp;
 export const createScalePop = useScalePop;
 export const createShakeError = useShakeError;
 export const createPressScale = usePressScale;
 export const createCardEnter = useCardEnter;
+export const createLossPulse = useLossPulse;
