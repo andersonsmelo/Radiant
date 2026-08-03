@@ -122,8 +122,9 @@ through the welcome first. All four existing flows gained a
 `subflows/dismiss-first-run.yaml` step, and a new `first-run.yaml` flow asserts
 the welcome itself. Device execution surfaced two real defects, both already
 fixed: `WelcomeSlide`'s `accessible` container collapsed the whole slide into
-one VoiceOver node on iOS, hiding the step position, title, body and the
-store-required disclaimer from screen readers (fixed by composing the group
+one VoiceOver node on iOS, leaving only the step position audible and hiding
+the title, body, illustration label and the store-required disclaimer from
+screen readers (fixed by composing the group
 label from position, title, body and footnote, commits `1a8fd59`/`b3f5684`;
 the illustration's `accessibilityLabel` still isn't part of that composition,
 so it remains collapsed by the grouping — a known gap, not scheduled); and
@@ -134,15 +135,15 @@ the real group-label shape, with `scripts/maestro-contract.test.mjs` now
 deriving the expected anchored pattern from `WelcomeFlowScreen.tsx`'s own
 `SLIDES` array and rejecting the old bare-title form, commit `728ca8d`).
 iOS is `passed` for `first-run`, `boot-to-home`, `learning-critical-path` and
-`offline-relaunch`. `store-capture.yaml` failed on this run — not to the
-welcome: the diff this branch made to that file is one line (the
-dismiss-first-run step). The step that actually failed, in the first quiz,
-uses the `runFlow when notVisible → scrollUntilVisible` guard — the exact
-pattern commit `f7b602a` already removed from the second quiz, because
-Maestro doesn't model occlusion: the element sits in the tree and reads as
-"visible" to the guard while it's actually under the floating CTA, so the
-guard skips the scroll and the tap lands on the wrong control. The quiz
-stalled at `0%` selected is that defect's signature. The fixed scroll
+`offline-relaunch`. `store-capture.yaml` failed on this run's iPhone 17 Pro
+simulator — not due to the welcome: the diff this branch made to that file is
+one line (the dismiss-first-run step). The step that actually failed, in the
+first quiz, uses the `runFlow when notVisible → scrollUntilVisible` guard —
+the exact pattern commit `f7b602a` already removed from the second quiz,
+because Maestro doesn't model occlusion: the element sits in the tree and
+reads as "visible" to the guard while it's actually under the floating CTA,
+so the guard skips the scroll and the tap lands on the wrong control. The
+quiz stalled at `0%` selected is that defect's signature. The fixed scroll
 calibrated for iPhone 16 Plus and iPhone 11 Pro Max lives in the **second**
 quiz, steps past where the flow actually failed, and was never reached this
 run. The sibling `learning-critical-path` makes the same assertion and also

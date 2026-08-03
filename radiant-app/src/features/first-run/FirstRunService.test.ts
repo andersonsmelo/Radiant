@@ -96,11 +96,17 @@ describe('FirstRunService', () => {
         );
     });
 
-    it('mostra a apresentação para instalação antiga (já tem onboarding, mas não a chave nova) e preserva o startedAt ao sair', async () => {
-        // Instalação antiga real: o onboarding já rodou e tem startedAt gravado;
-        // só a chave do first-run é que nunca existiu.
+    it('a chave nova é o único gatilho: instalação antiga com onboarding gravado ainda vê a apresentação', async () => {
+        // Instalação antiga: o onboarding já rodou e tem estado no disco; só a
+        // chave do first-run é que nunca existiu. O que este caso prova é o
+        // gatilho — que a decisão olha `@radiant/first_run_v1` e nada mais.
+        //
+        // Ele NÃO prova que o startedAt do onboarding sobrevive: o
+        // OnboardingService está mockado neste arquivo, então o efeito em disco
+        // não é observável daqui. Essa prova, com controle negativo, vive em
+        // OnboardingService.test.ts; o par com o caso de ordem acima é o que
+        // fecha a garantia.
         mockedStorage.getItem.mockImplementation(async (key: string) => {
-            if (key === '@radiant/first_run_v1') return null;
             if (key === '@radiant/onboarding') {
                 return JSON.stringify({
                     startedAt: 1700000000000,
@@ -114,19 +120,9 @@ describe('FirstRunService', () => {
         });
 
         await FirstRunService.bootstrap();
+
+        expect(mockedStorage.getItem).toHaveBeenCalledWith('@radiant/first_run_v1');
         expect(FirstRunService.shouldShowWelcome()).toBe(true);
-
-        await FirstRunService.markSeen('completed', 3);
-
-        // A prova de que o startedAt antigo sobrevive: init() (que carregaria o
-        // startedAt já gravado) precisa acontecer antes de dismissIntro() (que
-        // grava por cima do state em memória). Chamar dismissIntro() sem init()
-        // antes apagaria esse startedAt e devolveria 'graduated' para sempre.
-        expect(onboardingInit).toHaveBeenCalledTimes(1);
-        expect(dismissIntro).toHaveBeenCalledTimes(1);
-        expect(onboardingInit.mock.invocationCallOrder[0]).toBeLessThan(
-            dismissIntro.mock.invocationCallOrder[0]
-        );
     });
 
     it('não mostra quando a chave já existe com saída registrada', async () => {

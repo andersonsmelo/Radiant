@@ -22,14 +22,14 @@
 >   --include='*.yaml' --include='*.json' . | grep -v node_modules
 > ```
 
-## Status canônico atual
+## Status canônico nesta data (snapshot substituído)
 
 O Radiant é um aplicativo educacional de radiologia **local-first**. O app abre,
 oferece catálogo local, registra progresso e permite revisão mesmo quando a API
 remota está ausente.
 
-Este documento substitui [`EXECUTION_STATUS_2026-07-28.md`](EXECUTION_STATUS_2026-07-28.md)
-como estado canônico; o snapshot anterior permanece histórico. Ele registra duas
+Este documento substituiu [`EXECUTION_STATUS_2026-07-28.md`](EXECUTION_STATUS_2026-07-28.md)
+como estado canônico à época; o snapshot anterior permanece histórico. Ele registra duas
 mudanças de estado desta data: (1) o **E2E do fluxo crítico fechou nas duas
 plataformas** (iOS 3/3 e Android 3/3), encerrando B0.1/C3/M2; e (2) uma **ofensiva
 de aceleração de lançamento** que deixou toda a preparação de loja pronta até o
