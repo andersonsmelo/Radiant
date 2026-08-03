@@ -573,9 +573,23 @@ export default function ProgressScreen() {
                             label="Learning Road"
                             value={AppConfig.ENABLE_LEARNING_ROAD ? 'ativada' : 'desativada'}
                         />
+                        {/*
+                          O gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`
+                          (`_layout.tsx`), e este painel só existe sob
+                          `SHOW_DEV_TOOLS` — logo "ativo" é inalcançável aqui por
+                          construção, e a flag crua anunciava exatamente o
+                          contrário do que a build faz. Mesma correção de
+                          honestidade já aplicada à linha de sync abaixo.
+                        */}
                         <CardRow
                             label="Beta Gate"
-                            value={AppConfig.ENABLE_BETA_GATE ? 'ativo' : 'bypass local'}
+                            value={
+                                AppConfig.ENABLE_BETA_GATE && !AppConfig.SHOW_DEV_TOOLS
+                                    ? 'ativo'
+                                    : AppConfig.ENABLE_BETA_GATE
+                                      ? 'ligado, bypass por dev tools'
+                                      : 'desativado'
+                            }
                         />
                         <CardRow
                             label="Sync remoto"

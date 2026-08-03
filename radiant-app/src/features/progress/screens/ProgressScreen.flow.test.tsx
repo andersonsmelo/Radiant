@@ -7,6 +7,7 @@ import { SyncQueueService } from '../../sync/SyncQueueService';
 import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { AppConfig } from '../../../config';
 
 jest.mock('expo-router', () => ({
   Link: ({ children }: { children: React.ReactNode }) => children,
@@ -282,6 +283,25 @@ describe('ProgressScreen flow', () => {
     await screen.findByText('🔥 3 dias');
     expect(screen.queryByText('ativado')).toBeNull();
     expect(screen.getByText('ligado, sem API configurada')).toBeTruthy();
+  });
+
+  it('does not report the beta gate as active while dev tools bypass it', async () => {
+    // Mesma classe de defeito de honestidade do teste acima, na linha vizinha. O
+    // gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS` (`_layout.tsx`), e
+    // este painel só renderiza sob `SHOW_DEV_TOOLS` — então, no único contexto em
+    // que a linha é visível, o gate está sempre bypassado. Ler a flag crua fazia
+    // o painel anunciar "ativo" justamente para quem foi ali buscar evidência.
+    AppConfig.ENABLE_BETA_GATE = true;
+
+    try {
+      renderWithProviders(<ProgressScreen />);
+
+      await screen.findByText('🔥 3 dias');
+      expect(screen.queryByText('ativo')).toBeNull();
+      expect(screen.getByText('ligado, bypass por dev tools')).toBeTruthy();
+    } finally {
+      AppConfig.ENABLE_BETA_GATE = false;
+    }
   });
 
   it('keeps legal help available in the progress screen', async () => {

@@ -73,16 +73,48 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    a suíte roda em emulador: **5 de 5 flows verdes** sobre APK Release local da
    versão 1.3.1, incluindo a apresentação de primeiro uso. Evidência em
    [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
-3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
-   produção em 2026-07-27 (task B0.1).
+3. E2E ainda não reexecutado sob o perfil `preview`~~, que passou a refletir
+   produção em 2026-07-27 (task B0.1)~~.
    **Reverificado em 2026-08-03: segue aberto.** Toda a evidência de device,
    inclusive a das duas plataformas desta data, foi colhida sob `e2e-test`. A
    única menção a `preview` está em
    [`2026-07-28-boot-to-home-devclient.md`](../../radiant-app/docs/evidence/2026-07-28-boot-to-home-devclient.md),
    que é verificação em dev-client — e o `E2E_RUNBOOK` é explícito em que uma
-   execução em dev-client **nunca** promove plataforma. Item de maior peso agora:
-   o `e2e-test` desliga o beta gate, então nenhum flow exercita o caminho em que
-   `first_run_started` é emitido antes de o gate ser avaliado.
+   execução em dev-client **nunca** promove plataforma.
+   ~~Item de maior peso agora: o `e2e-test` desliga o beta gate, então nenhum
+   flow exercita o caminho em que `first_run_started` é emitido antes de o gate
+   ser avaliado.~~
+
+   > **Premissa corrigida em 2026-08-03 (segunda revisão do dia).** O
+   > **predicado** deste item continua verdadeiro — o E2E de fato nunca rodou sob
+   > `preview` —, mas as duas frases riscadas acima são falsas, e a segunda foi
+   > acrescentada pela própria reverificação de mais cedo. Medido no `eas.json` e
+   > no site de composição da flag:
+   >
+   > - O gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`
+   >   (`src/app/_layout.tsx`), com
+   >   `SHOW_DEV_TOOLS = __DEV__ || ENABLE_DEV_TOOLS` (`src/config.ts`). O
+   >   `preview` declara **as duas** ligadas, então ele **também não aplica o
+   >   gate**; o `production` declara `ENABLE_BETA_GATE=false`. **Nenhum dos cinco
+   >   perfis do `eas.json` aplica o beta gate.** Rodar sob `preview` não
+   >   exercitaria o caminho barrado, e portanto não fecha o buraco que a frase
+   >   riscada dizia fechar.
+   > - "`preview` reflete produção" nasce em
+   >   [`EXECUTION_STATUS_2026-07-27.md`](../EXECUTION_STATUS_2026-07-27.md),
+   >   **escopada a uma flag**: naquele dia `ENABLE_LEARNING_ROAD` passou a ser
+   >   declarada em `preview` e `production`. A frase viajou sem o escopo. Em
+   >   `ENABLE_DEV_TOOLS`, `ENABLE_TELEMETRY_DEBUG_SCREEN` e `ENABLE_BETA_GATE`,
+   >   quem coincide com `production` é o **`e2e-test`**, não o `preview`.
+   >
+   > **O eixo real deste item**, e o que ele deve pedir daqui em diante: o
+   > `e2e-test` difere de `production` em `EXPO_PUBLIC_APP_ENV`
+   > (`development` vs `production`) e `EXPO_PUBLIC_ENABLE_PUSH` (`false` vs
+   > `true`). O `APP_ENV` não é cosmético: ele desliga o selo BETA da home
+   > (`HomeScreen.tsx`) e é a única condição em que o `RatingPromptService` não
+   > retorna cedo (`APP_ENV !== 'production'` → early return), ou seja, **o
+   > prompt de avaliação só existe em produção e nunca foi exercitado em
+   > device**. Fechar este item é rodar a suíte sob essa configuração — não sob
+   > `preview`, que é um proxy pior que o já usado.
 4. ~~`JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
    palavra (task B2).~~ Corrigido em 2026-07-27 (task B2): tema `galaxyColors` e
    rótulos quebrando só em limite de palavra. O defeito de folga da tab bar foi

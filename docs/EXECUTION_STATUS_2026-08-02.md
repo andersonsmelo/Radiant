@@ -158,14 +158,26 @@ alguém reabrir o assunto.
 
 **1. `first_run_started` é emitido antes de o beta gate ser avaliado.**
 `FirstRunService.bootstrap()` roda dentro do `Promise.all` de abertura, e é ali
-que o evento sai; o gate só é avaliado no render. Em perfis com
+que o evento sai; o gate só é avaliado no render. ~~Em perfis com
 `EXPO_PUBLIC_ENABLE_BETA_GATE=true` — dois dos quatro do `eas.json` — quem é
 barrado gera um `first_run_started` sem nenhum `first_run_step_viewed`
-correspondente, e o funil de aquisição fica com um topo inflado. A **ordem de
+correspondente, e o funil de aquisição fica com um topo inflado.~~ A **ordem de
 renderização está correta** (o gate precede a apresentação); é só a telemetria
 que precede o gate. Não foi corrigido porque a correção muda a semântica de
 `bootstrap()` e o teste que a afirma, e pertence a um desenho de telemetria
 consciente do gate — não a uma onda de correção de fim de branch.
+
+> **Impacto reclassificado em 2026-08-03: o defeito é latente, não ativo.** A
+> frase riscada media a flag declarada, e não o gate aplicado. O valor que vale é
+> `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS` (`src/app/_layout.tsx`), com
+> `SHOW_DEV_TOOLS = __DEV__ || ENABLE_DEV_TOOLS` (`src/config.ts`): os dois
+> perfis que ligam o gate (`development`, `preview`) ligam **também** o
+> `ENABLE_DEV_TOOLS`, e os outros (`e2e-test`, `production`) declaram o gate
+> `false`. **Nenhum dos cinco perfis do `eas.json` aplica o beta gate**, logo
+> ninguém é barrado e nenhum funil está inflado hoje. O defeito acorda no dia em
+> que existir um perfil com `ENABLE_BETA_GATE=true` e `ENABLE_DEV_TOOLS=false` —
+> e é aí que ele custa. Mantido aberto por isso, com prioridade menor do que a
+> redação anterior sugeria.
 
 **2. `onStepViewed` é uma arrow inline no call site do `_layout`.**
 Uma função nova a cada render, e ela está nas dependências do `useEffect` que
@@ -326,6 +338,46 @@ eram timeouts que sumiram ao liberar memória. A regra "não rode as duas
 plataformas juntas" virou, no `E2E_RUNBOOK`, um orçamento explícito de host — com
 o corolário de que **num host sob pressão, um timeout não prova defeito**:
 compare o tempo do flow com a linha de base antes de atribuir causa.
+
+## Adendo 2026-08-03 (segunda sessão) — o beta gate não é aplicado por nenhum perfil
+
+Achado ao reler os bloqueadores para escolher o próximo trabalho. Três documentos
+raciocinavam sobre `EXPO_PUBLIC_ENABLE_BETA_GATE` pelo **valor declarado** no
+`eas.json`, inclusive contando perfis. O valor que vale é composto:
+
+```
+shouldEnforceBetaGate = ENABLE_BETA_GATE && !SHOW_DEV_TOOLS   // src/app/_layout.tsx
+SHOW_DEV_TOOLS        = __DEV__ || ENABLE_DEV_TOOLS           // src/config.ts
+```
+
+| Perfil | `BETA_GATE` | `DEV_TOOLS` | Gate aplicado? |
+| --- | --- | --- | --- |
+| `development` | `true` | `true` | **não** |
+| `development-simulator` | herda | herda | **não** |
+| `e2e-test` | `false` | `false` | **não** |
+| `preview` | `true` | `true` | **não** |
+| `production` | `false` | `false` | **não** |
+
+**Nenhum dos cinco aplica o gate.** Consequências já propagadas: o item 1 de
+"Outras pendências abertas" foi reclassificado como latente, e a premissa do item
+3 dos bloqueadores do roadmap foi corrigida — rodar E2E sob `preview` não
+exercita o caminho barrado, porque `preview` também não aplica o gate.
+
+Corrigido nesta data um defeito real que caía da mesma leitura: o painel de
+homologação do `ProgressScreen` exibia `Beta Gate: ativo` a partir da flag crua.
+Como o painel só renderiza sob `SHOW_DEV_TOOLS` e o gate só é aplicado sem ele,
+**"ativo" era inalcançável por construção** — a linha anunciava o contrário do que
+a build fazia, exatamente para quem abria o painel em busca de evidência. É a
+mesma classe de defeito de honestidade corrigida em 2026-07-27 para o `Sync
+remoto`, que é a linha **imediatamente abaixo** dela e já mostrava o estado
+efetivo. Agora exibe três estados (`ativo` / `ligado, bypass por dev tools` /
+`desativado`), com teste irmão do que cobre o sync.
+
+A regra que este caso acrescenta à da seção anterior: **um valor declarado só é o
+comportamento quando nada o compõe.** Onde há composição, contar declarações mede
+a intenção de quem escreveu a configuração, não o que o programa faz — e a tela
+que exibe a declaração como se fosse o estado mente com a autoridade de um
+instrumento.
 
 ## Herdado do documento substituído (não reverificado nesta sessão)
 
