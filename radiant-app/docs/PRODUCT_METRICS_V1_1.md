@@ -46,6 +46,17 @@ Se o usuário retorna ao app após o primeiro uso.
 - Eventos `app_open`
 - Comparação por data (YYYY-MM-DD)
 
+> **⚠️ Nenhum dado histórico existe para esta métrica (registrado em
+> 2026-08-03).** O evento `app_open` tinha um único ponto de emissão, na home
+> legada, que ficou inalcançável quando a Learning Road virou a home oficial.
+> Nenhuma build emitiu o evento nessa janela, então retenção D+1/D+3/D+7 e
+> **Review Stickiness** — que divide por `dias_ativos`, derivado do mesmo evento
+> — nunca tiveram numerador nem denominador reais. Junto com ele faltava
+> `markDayOpen()`, que é onde `cohort.installDate` nasce: sem coorte, não há
+> nem a data-base da comparação. Os dois voltaram nesta data pelo hook
+> `useAppOpenLifecycle`. A série começa do zero em 2026-08-03; qualquer leitura
+> anterior a essa data é ausência de coleta, não ausência de uso.
+
 **Metas iniciais**
 - 🟢 D+1 ≥ 40%
 - 🟡 D+1 entre 25–39%

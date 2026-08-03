@@ -15,7 +15,7 @@ import { localHomeDashboardService } from '../services/createLocalHomeDashboardS
 import { space, tabBarClearance, textStyles, fontFamily } from '../../../ui/styles';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
-import { TelemetryService } from '../../telemetry/TelemetryService';
+import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { HeuristicsService } from '../../telemetry/heuristics/HeuristicsService';
 import type { HeuristicAlert } from '../../telemetry/heuristics/heuristics.types';
 import { HEURISTICS_CONSTANTS } from '../../telemetry/heuristics/heuristics.constants';
@@ -58,6 +58,11 @@ const ArrowRightIcon = () => (
 // ── Main Screen ─────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
+    // Esta tela é o fallback do kill switch `ENABLE_LEARNING_ROAD`. Ela consome
+    // o mesmo hook que a Learning Road para que desligar a flag não volte a
+    // mover a responsabilidade pela abertura de um lugar para outro.
+    useAppOpenLifecycle();
+
     const [dashboard, setDashboard] = useState<HomeDashboardViewModel | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [alert, setAlert] = useState<HeuristicAlert | null>(null);
@@ -127,16 +132,12 @@ export default function HomeScreen() {
     const { animateIn: animateReviewCard, animatedStyle: reviewCardAnimatedStyle } = useCardEnter();
 
     useEffect(() => {
-        TelemetryService.track('app_open');
-        TelemetryService.markDayOpen();
-
         void OnboardingService.init().then(() => {
             setOnboardingStage(OnboardingService.getStage());
             setShowIntro(OnboardingService.shouldShowIntro());
             setShowClosure(OnboardingService.shouldShowClosure());
         });
 
-        PushService.onAppOpen(); // Reset backoff on valuable engagement
         void checkHeuristics();
         animateReviewCard();
     }, [animateReviewCard, checkHeuristics, loadData]);

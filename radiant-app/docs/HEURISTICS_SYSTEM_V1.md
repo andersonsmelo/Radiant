@@ -47,6 +47,20 @@ Executado:
 - Ao finalizar Review
 - 1x/dia no primeiro app_open
 
+> **⚠️ "Ao abrir o app" segue sem fiação na home atual (registrado em
+> 2026-08-03).** A avaliação na abertura era disparada por um `checkHeuristics()`
+> local da home legada, que ficou inalcançável com a Learning Road. Em
+> 2026-08-03 o restante do bloco de abertura foi migrado para o hook
+> `useAppOpenLifecycle` — `app_open`, `markDayOpen()` e o reset de backoff de
+> push —, mas a chamada das heurísticas **ficou deliberadamente de fora**: ela
+> renderiza nudges, e religá-la muda o que o usuário vê na home, o que é decisão
+> de produto e não correção de telemetria. Enquanto isso não for decidido, os
+> gatilhos que valem são "ao finalizar Quiz" e "ao finalizar Review".
+>
+> A regra **H3** depende de `ultimo_app_open`, que lê o mesmo evento: ela ficou
+> permanentemente falsa na janela em que o evento não era emitido, e volta a ser
+> avaliável a partir de 2026-08-03 — mas só nos gatilhos que ainda existem.
+
 ---
 
 ## 3️⃣ Heurísticas Essenciais (v1)

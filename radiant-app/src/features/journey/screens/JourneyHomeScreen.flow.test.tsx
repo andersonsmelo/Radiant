@@ -122,7 +122,12 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
 jest.mock('../../telemetry/TelemetryService', () => ({
   TelemetryService: {
     track: jest.fn().mockResolvedValue(undefined),
+    markDayOpen: jest.fn().mockResolvedValue(undefined),
   },
+}));
+
+jest.mock('../../push/services/PushService', () => ({
+  PushService: { onAppOpen: jest.fn().mockResolvedValue(undefined) },
 }));
 
 // O primeiro teste do arquivo paga um custo único de ~900ms dentro da janela do
@@ -239,6 +244,22 @@ describe('JourneyHomeScreen track flow', () => {
       )
     );
     mockedJourneyProgressService.setCurrentNode.mockResolvedValue(undefined as any);
+  });
+
+  it('emits app_open, because this screen is the reachable home', async () => {
+    // A home oficial responde pela abertura do app. Enquanto o evento vivia só
+    // na `HomeScreen` legada — que `(tabs)/index.tsx` só renderiza com
+    // `ENABLE_LEARNING_ROAD=false`, e nenhum perfil declara isso —,
+    // `countEvents('app_open')` era zero para sempre e travava os gates do
+    // prompt de avaliação e do paywall em `insufficient_sessions`. Esta
+    // asserção existe para que trocar a home de novo falhe aqui.
+    renderWithProviders(<JourneyHomeScreen />);
+
+    await waitFor(() => {
+      expect(mockedTelemetryService.track).toHaveBeenCalledWith('app_open');
+    });
+
+    expect(mockedTelemetryService.markDayOpen).toHaveBeenCalledTimes(1);
   });
 
   it('opens the next eligible lesson when selecting Tórax', async () => {

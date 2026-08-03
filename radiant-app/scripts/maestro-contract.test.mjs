@@ -402,7 +402,12 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
   // Atenção: isto NÃO proíbe `repeat ... while: notVisible` sobre os CTAs de
   // rodapé — esses são exigidos pelo teste de alcançabilidade acima e não
   // envolvem `scrollUntilVisible`.
-  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml', 'store-capture.yaml']) {
+  for (const name of [
+    'learning-critical-path.yaml',
+    'offline-relaunch.yaml',
+    'store-capture.yaml',
+    'rating-prompt.yaml',
+  ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
     lines.forEach((line, index) => {
@@ -414,5 +419,69 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
         `${name}:${index + 1}: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against`
       );
     });
+  }
+});
+
+test('ties the rating-prompt flow to the eligibility gate it exists to reach', async () => {
+  // Este flow existe por um único motivo: alcançar o gate
+  // `countEvents('app_open') >= MIN_APP_OPENS` do `RatingPromptService`, que
+  // nenhum outro flow atinge — quatro abrem o app uma vez e o
+  // `offline-relaunch`, duas. Se alguém subir o mínimo no serviço e o flow
+  // continuar com o mesmo número de aberturas, ele passa a medir um gate que
+  // não é mais o do produto, e passa verde enquanto o prompt fica bloqueado.
+  // Por isso o número vem da fonte, nunca de um literal repetido aqui.
+  const [service, flow] = await Promise.all([
+    readAppFile('src/services/RatingPromptService.ts'),
+    readAppFile('.maestro/rating-prompt.yaml'),
+  ]);
+
+  const minAppOpens = Number(service.match(/const MIN_APP_OPENS = (\d+);/)?.[1]);
+  assert.ok(
+    Number.isInteger(minAppOpens) && minAppOpens > 0,
+    'expected RatingPromptService.ts to declare MIN_APP_OPENS'
+  );
+
+  assert.match(flow, new RegExp(`^appId: ${appId}$`, 'm'));
+
+  const launches = flow.match(/^- launchApp\b/gm) ?? [];
+  assert.ok(
+    launches.length >= minAppOpens,
+    `.maestro/rating-prompt.yaml must launch the app at least MIN_APP_OPENS (${minAppOpens}) times to reach eligibility; it launches ${launches.length}`
+  );
+
+  // Só a primeira abertura limpa o estado. As outras precisam preservá-lo — é o
+  // estado que acumula a contagem, e um `clearState` a mais a zera sem que nada
+  // falhe: o flow seguiria verde medindo um gate que nunca abriu.
+  const clearingLaunches = flow.match(/clearState: true/g) ?? [];
+  assert.equal(
+    clearingLaunches.length,
+    1,
+    'rating-prompt.yaml must clear state exactly once — the later launches accumulate the app_open count'
+  );
+
+  // O gate exige também `first_value_moment_reached`, emitido por
+  // `OnboardingService.markAction` no primeiro `quiz_complete` com nota de
+  // aprovação. Sem completar um quiz, o flow pararia em `value_not_reached` e o
+  // vermelho se leria como falha da contagem de aberturas.
+  assert.match(
+    flow,
+    /lesson-option-q1:option:1/,
+    'rating-prompt.yaml must complete a passing quiz — first_value_moment_reached gates the prompt too'
+  );
+
+  // A prova do diálogo é do iOS e só dele. O AVD do projeto usa imagem
+  // `google_apis`, sem Play Store, e mesmo com imagem de Play Store o in-app
+  // review é no-op documentado para APK instalado por sideload. Uma asserção do
+  // diálogo sem guarda de plataforma tornaria o Android vermelho por limite de
+  // ambiente, que é a atribuição errada.
+  for (const [index, line] of flow.split('\n').entries()) {
+    const platform = line.match(/^\s*platform:\s*(\S+)/)?.[1];
+    if (!platform) continue;
+
+    assert.equal(
+      platform,
+      'iOS',
+      `rating-prompt.yaml:${index + 1}: the store-review dialog is only observable on iOS here — platform guards in this flow must be iOS`
+    );
   }
 });

@@ -19,6 +19,7 @@ import { JourneyHero } from '../components/JourneyHero';
 import { JourneyMap } from '../components/JourneyMap';
 import { JourneyTrackShelf } from '../components/JourneyTrackShelf';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { LearningTrack, LessonCatalogManifest } from '../../content/content.types';
 
@@ -89,6 +90,11 @@ const galaxyStatRowStyles = StyleSheet.create({
 });
 
 export default function JourneyHomeScreen() {
+  // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
+  // na `HomeScreen` legada — inalcançável com `ENABLE_LEARNING_ROAD=true` —,
+  // `app_open` nunca era emitido e `cohort.installDate` nunca nascia.
+  useAppOpenLifecycle();
+
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [dailyGoalSnapshot, setDailyGoalSnapshot] = useState<DailyGoalSnapshot | null>(null);
   const [catalogManifest, setCatalogManifest] = useState<LessonCatalogManifest | null>(null);

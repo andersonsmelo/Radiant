@@ -17,6 +17,17 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
 - `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
   relaunches with airplane mode enabled, then confirms the persisted
   checkpoint is still available.
+- `rating-prompt.yaml`: the only flow that reaches the store-review prompt's
+  eligibility gate. `RatingPromptService` requires `countEvents('app_open') >=
+  MIN_APP_OPENS` (3), and every other flow opens the app once — twice for
+  `offline-relaunch` — so the prompt always stopped at `insufficient_sessions`
+  and had never been exercised on a device. This flow completes a passing quiz
+  (which emits `first_value_moment_reached`, the gate's other precondition),
+  relaunches twice without clearing state, then completes a second quiz.
+  **It requires a production-equivalent build**: eligibility returns
+  `blocked: non_production_build` whenever `APP_ENV !== 'production'`, and the
+  `e2e-test` profile declares `development`. The dialog assertion is iOS-only
+  and is pinned by the contract — see "Rating prompt" below.
 - `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
   by `when: visible`) that taps "Pular apresentação" only if the first-run
   welcome is on screen. Flows that already ran once without `clearState` never
@@ -280,6 +291,37 @@ sibling does not have.
 `scripts/maestro-contract.test.mjs` now requires every `scrollUntilVisible` to be
 a top-level step, never nested under a conditional. This pattern had already bitten
 twice, on different platforms, and came back once after being fixed in one place.
+
+## Rating prompt — what a green run here can and cannot claim
+
+Added 2026-08-03, with the flow. Read this before recording a row for
+`rating-prompt.yaml`.
+
+The prompt's own gate was never the only thing blocking it. `app_open` had a
+single emission site, in the legacy `HomeScreen`, which `(tabs)/index.tsx`
+renders only when `ENABLE_LEARNING_ROAD` is false — and no profile declares
+that. **The event was never emitted in any build**, so `countEvents('app_open')`
+was permanently 0 and no number of relaunches could have made the prompt
+eligible. Fixed the same day by moving the app-open lifecycle into
+`useAppOpenLifecycle`, consumed by both homes. A flow written before that fix
+would have gone red for a reason in the app, not in the flow.
+
+Two bounds on what the flow proves:
+
+1. **The dialog is only observable on iOS here.** The project's AVD
+   (`Radiant_Pixel_9_API_36`) uses the `google_apis` system image, with no Play
+   Store, so `StoreReview.isAvailableAsync()` is false and Android ends at
+   `deferred: store_review_unavailable`. Swapping in a Play Store image does not
+   fix it either: Play's in-app review is a documented no-op for a sideloaded
+   APK. Android proof needs an install from a closed track — that is task C4,
+   not this suite. The contract enforces that every `platform:` guard in this
+   flow is `iOS`, so the Android row can never go red for an environment limit.
+2. **The iOS assertion must be anchored to a hierarchy read, not guessed.** The
+   dialog is a system surface. Per this document's own rule, run
+   `maestro hierarchy` at the eligibility moment and anchor the assertion to the
+   real shape. Until that read happens the flow deliberately stops at a
+   screenshot: it proves three opens and two quizzes survive a
+   production-configured build, and claims nothing about the dialog.
 
 ## Host budget — read this before attributing an Android timeout
 

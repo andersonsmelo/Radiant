@@ -1,0 +1,130 @@
+appId: com.ascendcreative.radiant
+name: Rating prompt becomes eligible after three app opens
+tags:
+  - rating-prompt
+  - production-config
+---
+# Este flow existe porque o `RatingPromptService` tem um gate que nenhum outro
+# flow alcança: `countEvents('app_open') >= MIN_APP_OPENS` (3). Os cinco flows
+# existentes abrem o app uma vez (o `offline-relaunch`, duas), então o prompt
+# sempre parava em `insufficient_sessions` e nunca foi exercitado em device.
+#
+# Exige build sob configuração equivalente a produção: `evaluateEligibility()`
+# retorna `blocked: non_production_build` quando `APP_ENV !== 'production'`, e
+# o perfil `e2e-test` declara `development`. Use as sete variáveis do
+# `e2e-test` com `EXPO_PUBLIC_APP_ENV=production` e
+# `EXPO_PUBLIC_ENABLE_PUSH=true`.
+#
+# ── Abertura 1 ──────────────────────────────────────────────────────────────
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
+# Completar um quiz com nota de aprovação é o que emite
+# `first_value_moment_reached`, via `OnboardingService.markAction`. É
+# pré-requisito do prompt tanto quanto a contagem de aberturas, e sem ele o
+# gate para em `value_not_reached` — um vermelho que se leria como falha da
+# contagem.
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: Fundamentos de Radiologia
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+# Voltar à home é o que fecha a abertura 1: a Learning Road é quem emite
+# `app_open`, desde que o bloco de ciclo de vida deixou de viver na home legada.
+- assertVisible: Foco de hoje
+#
+# ── Abertura 2 ──────────────────────────────────────────────────────────────
+# Sem `clearState`: o estado precisa sobreviver, é ele que acumula a contagem.
+- launchApp
+- assertVisible: Foco de hoje
+#
+# ── Abertura 3 ──────────────────────────────────────────────────────────────
+- launchApp
+- assertVisible: Foco de hoje
+#
+# Com três aberturas contadas e o momento de valor já atingido, o próximo
+# `quiz_complete` com nota de aprovação torna o prompt elegível. Reabrimos a
+# mesma lição pelo deep link: o gate lê a contagem e o momento de valor, não
+# o ineditismo da lição.
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: Fundamentos de Radiologia
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- takeScreenshot: rating-prompt-eligibility-moment
+#
+# ⚠️ A asserção do diálogo do StoreReview ainda NÃO está aqui, de propósito.
+# O diálogo do iOS é uma superfície do sistema, e este projeto não afirma
+# seletor que não foi lido em `maestro hierarchy` no aparelho — foi assim que
+# a apresentação de primeiro uso quebrou em 2026-08-02, com um contrato verde
+# afirmando texto que a tela não renderizava. A asserção entra ancorada na
+# forma real, depois da primeira execução, sob:
+#
+#   - runFlow:
+#       when:
+#         platform: iOS
+#       commands:
+#         - assertVisible: <forma lida na hierarquia>
+#
+# O Android não recebe essa asserção em nenhuma hipótese: o AVD
+# `Radiant_Pixel_9_API_36` usa imagem `google_apis`, sem Play Store, então
+# `StoreReview.isAvailableAsync()` é falso e o caminho termina em
+# `deferred: store_review_unavailable`. Mesmo com imagem de Play Store, o
+# in-app review do Play é no-op documentado para APK instalado por sideload:
+# prova em Android exige instalação por faixa interna (task C4).
+#
+# Até lá, o valor deste flow é determinístico e já vale: ele é o único que
+# leva a contagem de aberturas a 3 e prova que o app atravessa três aberturas
+# e dois quizzes sem quebrar sob configuração de produção.
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
