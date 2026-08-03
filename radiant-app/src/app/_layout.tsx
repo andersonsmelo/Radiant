@@ -3,7 +3,7 @@ import { useFonts, Sora_400Regular, Sora_500Medium, Sora_600SemiBold, Sora_700Bo
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
@@ -53,6 +53,17 @@ function RootLayout() {
   const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
   const firstRunBootstrapRef = useRef<Promise<void> | null>(null);
+
+  // Estável de propósito: `WelcomeFlowScreen` tem esta função nas dependências
+  // do `useEffect` que emite `first_run_step_viewed`. Como arrow inline, cada
+  // render do `RootLayout` criava uma identidade nova e reemitia o evento do
+  // MESMO passo. Hoje seria inócuo — o `RootLayout` não re-renderiza enquanto a
+  // apresentação está montada e o projeto não usa `StrictMode` —, mas é o mesmo
+  // risco de duplicata que o `useRef` acima existe para conter, e qualquer
+  // estado novo aqui o acordaria.
+  const handleStepViewed = useCallback((step: number) => {
+    FirstRunService.markStepViewed(step);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -181,7 +192,7 @@ function RootLayout() {
             void FirstRunService.markSeen(reason, step);
             setShowWelcome(false);
           }}
-          onStepViewed={(step) => FirstRunService.markStepViewed(step)}
+          onStepViewed={handleStepViewed}
         />
         <StatusBar style="dark" />
       </ThemeProvider>

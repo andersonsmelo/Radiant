@@ -54,6 +54,19 @@ describe('WelcomeFlowScreen', () => {
         expect(onFinish).toHaveBeenCalledWith('skipped', 1);
     });
 
+    it('pula da segunda tela registrando o passo 2', () => {
+        // A primeira e a terceira ja estavam cobertas, e o passo reportado e
+        // `index + 1` sem ramo proprio — mas era exatamente essa aritmetica que
+        // ficava sem asserção no meio, onde um off-by-one nao aparece nas pontas.
+        const onFinish = jest.fn();
+        renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
+
+        fireEvent.press(screen.getByLabelText('Continuar'));
+        fireEvent.press(screen.getByLabelText('Pular apresentação'));
+
+        expect(onFinish).toHaveBeenCalledWith('skipped', 2);
+    });
+
     it('pula da última tela registrando o passo 3', () => {
         const onFinish = jest.fn();
         renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);

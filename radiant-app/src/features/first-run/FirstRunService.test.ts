@@ -135,6 +135,42 @@ describe('FirstRunService', () => {
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
     });
 
+    it('dois bootstrap() concorrentes emitem first_run_started uma vez só', async () => {
+        // A guarda `initialized` sozinha nao cobre concorrencia: ela e checada
+        // antes do await, entao duas chamadas paralelas passam as duas e o
+        // evento sai em duplicata. Hoje o unico call site e protegido pelo
+        // useRef do _layout — este teste prende a garantia no servico, que e
+        // onde ela precisa morar se aparecer um segundo call site.
+        mockedStorage.getItem.mockImplementation(
+            () => new Promise((resolve) => setTimeout(() => resolve(null), 10))
+        );
+
+        await Promise.all([FirstRunService.bootstrap(), FirstRunService.bootstrap()]);
+
+        expect(mockedStorage.getItem).toHaveBeenCalledTimes(1);
+        expect(
+            telemetryTrack.mock.calls.filter(([event]) => event === 'first_run_started')
+        ).toHaveLength(1);
+    });
+
+    it('não propaga falha de gravação em markSeen(), e ainda dispensa o card Day-0', async () => {
+        // O erro ja era engolido de proposito — o pior caso e a apresentacao
+        // voltar uma vez. O que faltava era prender que engolir NAO aborta o
+        // resto do metodo: sem isso, uma futura reordenacao poderia deixar o
+        // onboarding sem init/dismiss quando o disco falha.
+        await FirstRunService.bootstrap();
+        mockedStorage.setItem.mockRejectedValueOnce(new Error('disco cheio'));
+
+        await expect(FirstRunService.markSeen('skipped', 2)).resolves.toBeUndefined();
+
+        expect(OnboardingService.init).toHaveBeenCalled();
+        expect(OnboardingService.dismissIntro).toHaveBeenCalled();
+        expect(telemetryTrack).toHaveBeenCalledWith(
+            'first_run_skipped',
+            expect.objectContaining({ step: 2 })
+        );
+    });
+
     it('não trava a abertura quando a leitura do armazenamento falha', async () => {
         mockedStorage.getItem.mockRejectedValue(new Error('storage indisponível'));
 

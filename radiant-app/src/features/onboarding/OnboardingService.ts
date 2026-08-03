@@ -159,7 +159,6 @@ class OnboardingServiceImpl {
         }
     }
 
-
     /** Debug only */
     async reset() {
         await AsyncStorage.removeItem(STORE_KEY);

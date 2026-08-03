@@ -17,6 +17,7 @@ const DEFAULT_STATE: FirstRunState = {
 class FirstRunServiceImpl {
     private state: FirstRunState = { ...DEFAULT_STATE };
     private initialized = false;
+    private inFlight: Promise<void> | null = null;
 
     /**
      * A AUSÊNCIA da chave é o gatilho. É isso que faz uma instalação antiga —
@@ -26,6 +27,23 @@ class FirstRunServiceImpl {
     async bootstrap(): Promise<void> {
         if (this.initialized) return;
 
+        // `initialized` sozinho e checado ANTES do await, entao duas chamadas
+        // concorrentes passam as duas e `first_run_started` sai em duplicata.
+        // O unico call site hoje ja se protege com um useRef no `_layout`, mas
+        // essa garantia mora no chamador; aqui ela vale para qualquer chamador.
+        // Em falha, o campo e limpo antes de propagar, para que uma retentativa
+        // nao fique presa reproduzindo a mesma rejeicao.
+        if (this.inFlight) return this.inFlight;
+
+        this.inFlight = this.load().catch((error) => {
+            this.inFlight = null;
+            throw error;
+        });
+
+        return this.inFlight;
+    }
+
+    private async load(): Promise<void> {
         try {
             const stored = await AsyncStorage.getItem(STORE_KEY);
             if (stored) {
@@ -47,6 +65,14 @@ class FirstRunServiceImpl {
         }
     }
 
+    /**
+     * Chamado antes de `bootstrap()`, devolve `true` — o `DEFAULT_STATE` tem
+     * `exitedAt: null`. É o lado seguro **de propósito**: no pior caso alguém
+     * revê a apresentação, enquanto o default oposto a esconderia de uma
+     * instalação limpa, que é justamente quem precisa vê-la. O `_layout` só
+     * consulta depois do `bootstrap()`; este comentário existe para o segundo
+     * chamador, que não terá esse contexto.
+     */
     shouldShowWelcome(): boolean {
         return this.state.exitedAt === null;
     }
@@ -93,6 +119,7 @@ class FirstRunServiceImpl {
     async resetForTests(): Promise<void> {
         this.state = { ...DEFAULT_STATE };
         this.initialized = false;
+        this.inFlight = null;
         try {
             await AsyncStorage.removeItem(STORE_KEY);
         } catch {

@@ -215,6 +215,27 @@ describe('gate de abertura em RootLayout', () => {
     expect(screen.queryByTestId('stack-root')).toBeNull();
   });
 
+  it('dev tools desarmam o gate mesmo com ENABLE_BETA_GATE ligado — e é essa a combinação de todos os perfis do eas.json', async () => {
+    // `shouldEnforceBetaGate = ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`. Os dois
+    // lados ja tinham caso proprio; faltava o `&&`. Nao e hipotetico: medido em
+    // 2026-08-03, os dois perfis do `eas.json` que ligam o gate ligam TAMBEM o
+    // DEV_TOOLS, entao nenhum perfil aplica o gate. Este teste prende esse fato
+    // — se um perfil futuro quiser barrar de verdade, ele precisa desligar as
+    // dev tools, e e aqui que isso fica dito.
+    AppConfig.ENABLE_BETA_GATE = true;
+    AppConfig.SHOW_DEV_TOOLS = true;
+    (BetaService.checkAccess as jest.Mock).mockResolvedValue(false);
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+
+    renderWithProviders(<RootLayout />);
+
+    expect(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    ).toBeTruthy();
+    expect(screen.queryByTestId('beta-gate')).toBeNull();
+    expect(BetaService.checkAccess).not.toHaveBeenCalled();
+  });
+
   it('uma vez liberado o acesso ao beta, a apresentação aparece no lugar do gate', async () => {
     AppConfig.ENABLE_BETA_GATE = true;
     AppConfig.SHOW_DEV_TOOLS = false;
