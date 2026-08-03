@@ -83,7 +83,15 @@ Evidência completa, receita reproduzível e detalhe da atribuição em
 Matriz de sign-off atualizada em
 [`radiant-app/docs/E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
 
-### Dois defeitos achados pela execução em dispositivo, ambos corrigidos
+### Três defeitos achados pela execução em dispositivo, todos corrigidos
+
+> **O terceiro foi acrescentado em 2026-08-03.** Ele foi achado e corrigido em
+> 2026-08-02 (`90a1377`), dentro deste mesmo corpo de trabalho, mas não chegou a
+> nenhum documento: existia apenas no comentário do código e no seu teste. Uma
+> sessão de 2026-08-03 o encontrou num prompt de continuidade não versionado e
+> constatou que essa era a única cópia narrativa. Como a correção já estava
+> aplicada, o defeito não se reanunciava — este registro existe para que a razão
+> dele sobreviva à perda daquele prompt.
 
 1. **Acessibilidade — defeito de produto.** `<View accessible
    accessibilityLabel={stepLabel}>` no `WelcomeSlide` colapsava a subárvore
@@ -100,6 +108,20 @@ Matriz de sign-off atualizada em
    forma real do rótulo, com o contrato estático (`maestro-contract.test.mjs`)
    passando a exigir a forma ancorada **derivada de `SLIDES`** (lida direto de
    `WelcomeFlowScreen.tsx`) e a proibir a forma antiga. Commit `728ca8d`.
+3. **Onboarding sequestrado por `markSeen()` — defeito de produto.**
+   `FirstRunService.markSeen()` chamava `OnboardingService.dismissIntro()` sem
+   `init()` antes. O `dismissIntro()` grava o estado direto em disco, e sem o
+   `init()` esse estado ainda é o default, com `startedAt: null`. Em instalação
+   limpa — o caminho que a própria apresentação de primeiro uso criou — essa era
+   a primeira gravação da vida do app na chave do onboarding, e ela matava
+   `onboarding_start`, o estágio do coach (`getStage()` passa a responder
+   `graduated` para sempre) e o encerramento de Dia 7. Como o defeito nº 1, era
+   invisível para a suíte: o teste mockava o `OnboardingService` e só afirmava
+   que `dismissIntro` fora chamado, sem afirmar ordem. Corrigido com
+   `await OnboardingService.init()` antes do `dismissIntro()`, teste de ordem via
+   `invocationCallOrder` e cobertura própria no `OnboardingService`. Commits
+   `90a1377` e `dfa8bdb`. Detalhe em
+   [`2026-08-02-e2e-primeiro-uso.md`](../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
 
 ### ~~Pendência aberta~~ — `store-capture.yaml`, atribuída à guarda de visibilidade do primeiro quiz
 

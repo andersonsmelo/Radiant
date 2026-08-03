@@ -61,10 +61,15 @@ o binário real do Node.
 | `offline-relaunch.yaml` | passou |
 | `store-capture.yaml` | **falhou** — ver "A falha do `store-capture.yaml`" abaixo |
 
-## Os dois defeitos que a execução em dispositivo achou
+## Os três defeitos que a execução em dispositivo achou
 
-Ambos já corrigidos e commitados antes do fechamento desta evidência — registro
+Todos já corrigidos e commitados antes do fechamento desta evidência — registro
 como achados da execução, não como pendências.
+
+*(O terceiro foi acrescentado a esta evidência em 2026-08-03. Ele foi achado e
+corrigido em 2026-08-02, no mesmo corpo de trabalho, mas nunca chegou a nenhum
+documento — existia só no comentário do código e no seu teste. A seção dizia
+"dois" por isso.)*
 
 ### 1. Acessibilidade — defeito de produto no `WelcomeSlide`
 
@@ -96,6 +101,28 @@ rótulo do grupo (`^Tela N de M\. <título>\..*$`), e o contrato estático
 proibir a forma antiga (o título isolado, sem o prefixo `Tela N de M`) — um
 contrato que só aceita o formato novo deixa essa mesma regressão voltar a
 entrar por onde ele não olha. Commit `728ca8d`.
+
+### 3. `markSeen()` dispensava o card Day-0 sem inicializar o onboarding
+
+`FirstRunService.markSeen()` chamava `OnboardingService.dismissIntro()` **sem
+`OnboardingService.init()` antes**. O `dismissIntro()` grava `this.state` direto
+em disco; sem o `init()`, `this.state` ainda é o `DEFAULT_STATE`, com
+`startedAt: null`. Numa instalação limpa — exatamente o caminho que a
+apresentação de primeiro uso criou — essa era a **primeira gravação da vida do
+app** na chave do onboarding, e ela sequestrava o "first launch ever" que o
+`init()` detecta: `onboarding_start` nunca disparava, `getStage()` respondia
+`graduated` para sempre (ele testa `!this.state.startedAt`), e o encerramento de
+Dia 7 morria junto.
+
+O defeito é do mesmo tipo que o nº 1: **a suíte não podia vê-lo**. O teste de
+`markSeen()` mockava o `OnboardingService` inteiro e afirmava apenas que
+`dismissIntro` fora chamado uma vez — um dublê que nunca é consultado sobre
+ordem não reclama de ordem errada.
+
+Corrigido inserindo `await OnboardingService.init()` antes do `dismissIntro()`
+(`FirstRunService.ts:81`), com comentário no código explicando a razão. O teste
+passou a afirmar a **ordem** via `invocationCallOrder`, e o `OnboardingService`
+ganhou cobertura própria do caso. Commits `90a1377` e `dfa8bdb`.
 
 ## A falha do `store-capture.yaml`, com a atribuição
 
