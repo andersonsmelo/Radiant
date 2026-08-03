@@ -7,6 +7,14 @@ jest.mock('../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: () => false,
 }));
 
+jest.mock('../../ui/feedback/haptics', () => ({
+  hapticTap: jest.fn(),
+}));
+
+const { hapticTap } = jest.requireMock('../../ui/feedback/haptics') as {
+  hapticTap: jest.Mock;
+};
+
 describe('AppButton accessibility contract', () => {
   it('exposes its label, hint, role and focus treatment to assistive technology', () => {
     const { getByRole } = render(
@@ -36,5 +44,55 @@ describe('AppButton accessibility contract', () => {
 
     fireEvent.press(button);
     expect(onPress).not.toHaveBeenCalled();
+  });
+});
+
+// Retorno tátil por ênfase. `hapticTap` existia exportado e sem chamador; a
+// saída errada seria vibrar em todo tocável, que é o *feedback overload* — se
+// tudo vibra, a vibração deixa de significar.
+describe('AppButton — retorno tátil', () => {
+  beforeEach(() => {
+    hapticTap.mockClear();
+  });
+
+  it.each(['primary', 'galaxy'] as const)(
+    'vibra na variante %s, que é a ação principal da tela',
+    (variant) => {
+      const { getByRole } = render(
+        <AppButton label="Continuar" variant={variant} onPress={jest.fn()} />,
+      );
+
+      fireEvent.press(getByRole('button', { name: 'Continuar' }));
+      expect(hapticTap).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it.each(['secondary', 'ghost'] as const)(
+    'não vibra na variante %s, que é alternativa ou saída',
+    (variant) => {
+      const { getByRole } = render(
+        <AppButton label="Agora não" variant={variant} onPress={jest.fn()} />,
+      );
+
+      fireEvent.press(getByRole('button', { name: 'Agora não' }));
+      expect(hapticTap).not.toHaveBeenCalled();
+    },
+  );
+
+  it('não vibra quando o botão está desabilitado', () => {
+    const { getByRole } = render(
+      <AppButton label="Continuar" disabled onPress={jest.fn()} />,
+    );
+
+    fireEvent.press(getByRole('button', { name: 'Continuar' }));
+    expect(hapticTap).not.toHaveBeenCalled();
+  });
+
+  it('continua chamando o onPress de quem consome, e só uma vez', () => {
+    const onPress = jest.fn();
+    const { getByRole } = render(<AppButton label="Continuar" onPress={onPress} />);
+
+    fireEvent.press(getByRole('button', { name: 'Continuar' }));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });
