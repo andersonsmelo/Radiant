@@ -28,12 +28,17 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 **Sólido:**
 
 - App local-first funcional; catálogo, progresso e revisão funcionam sem API.
-- v1.2.1 alinhada entre `package.json` e `app.json`; `runtimeVersion` por
-  `appVersion`; nenhum build publicado ainda (mudanças de versão ainda livres).
-- Qualidade: 27 suítes / 71 testes PASS; `npm run quality` PASS; Gate 2 de
-  acessibilidade parcial (3/5).
-- E2E iOS em device PASS (3/3 flows Maestro), com a ressalva do item 3 dos
-  bloqueadores: a evidência foi colhida sob o perfil `e2e-test`.
+- ~~v1.2.1~~ **1.3.1 (build 3)** em 2026-08-03, alinhada entre `package.json` e
+  `app.json`; `runtimeVersion` por `appVersion`; nenhum build publicado ainda
+  (mudanças de versão ainda livres).
+- Qualidade: ~~27 suítes / 71 testes PASS~~ **48 suítes / 245 testes PASS** em
+  2026-08-03; `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) —
+  segue parcial, ver item 1 dos bloqueadores.
+- ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
+  plataformas em 2026-08-03: iOS 4/5 e Android 4/5**, sobre builds Release locais
+  da 1.3.1. O único vermelho é o `store-capture`, nas duas, por defeito anterior
+  a esse trabalho. A ressalva do item 3 dos bloqueadores continua valendo: a
+  evidência foi colhida sob o perfil `e2e-test`, não sob `preview`.
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
 - Expo SDK 54 / RN 0.81 → target Android API 36 por padrão, o que já atende o
@@ -41,29 +46,82 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 
 **Aberto (bloqueadores conhecidos):**
 
+> **Reconciliado em 2026-08-03.** Esta lista é de 2026-07-27 e três dos nove
+> itens tinham deixado de ser verdade sem que ninguém os riscasse — ela dizia
+> "zero E2E Android" e "onboarding pendente de confirmação" para quem fosse
+> decidir hoje. Os itens 2, 7 e 9 foram riscados com a correção datada, e os
+> números do item 8 foram remedidos. Os itens **1, 3, 5 e 6 foram reverificados
+> e continuam verdadeiros** — não estão aqui por inércia.
+>
+> O padrão é o do item 4: riscar o texto original e anexar a correção com data.
+> O registro do que se acreditava em 2026-07-27 tem valor; sobrescrevê-lo não.
+
 1. Gate 2 de acessibilidade: resta o item 2 (anúncio único VoiceOver, exige
    humano com áudio, task B4). O item 5 (navegação por teclado) foi fechado em
    2026-07-27 com a build web (task B3).
-2. Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
-   Android.
+   **Reverificado em 2026-08-03: segue aberto** — o
+   `radiant-app/docs/ACCESSIBILITY_QA_V1.md` continua marcando o gate como não
+   aprovado por esse item. Vale reordenar a prioridade: em 2026-08-02 um defeito
+   real de VoiceOver (a apresentação inteira colapsada num único nó, com o aviso
+   legal da ficha da loja inalcançável por leitor de tela) foi encontrado por uma
+   asserção de E2E falhando — não pelo gate, que existe para pegar exatamente
+   isso e não rodou.
+2. ~~Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
+   Android.~~ **Falso desde 2026-07-28, e medido de novo em 2026-08-03.** O
+   projeto nativo é gerado por `expo prebuild --platform android --no-install` e
+   a suíte roda em emulador: **4 de 5 flows verdes** sobre APK Release local da
+   versão 1.3.1, incluindo a apresentação de primeiro uso. Evidência em
+   [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
 3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
    produção em 2026-07-27 (task B0.1).
+   **Reverificado em 2026-08-03: segue aberto.** Toda a evidência de device,
+   inclusive a das duas plataformas desta data, foi colhida sob `e2e-test`. A
+   única menção a `preview` está em
+   [`2026-07-28-boot-to-home-devclient.md`](../../radiant-app/docs/evidence/2026-07-28-boot-to-home-devclient.md),
+   que é verificação em dev-client — e o `E2E_RUNBOOK` é explícito em que uma
+   execução em dev-client **nunca** promove plataforma. Item de maior peso agora:
+   o `e2e-test` desliga o beta gate, então nenhum flow exercita o caminho em que
+   `first_run_started` é emitido antes de o gate ser avaliado.
 4. ~~`JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
    palavra (task B2).~~ Corrigido em 2026-07-27 (task B2): tema `galaxyColors` e
    rótulos quebrando só em limite de palavra. O defeito de folga da tab bar foi
    resolvido em todas as telas roláveis nesta data (task B1).
 5. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
    final).
+   **Reverificado em 2026-08-03: segue aberto** — nenhum flow do `.maestro`
+   afirma o nó, e o `maestro-contract.test.mjs` **proíbe** afirmá-lo no caminho
+   crítico, porque ali ele seria inalcançável. Fechar este item exige um caso que
+   percorra as sete lições, não uma asserção a mais no flow existente.
 6. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
    Task 15).
-7. Onboarding não aparece em instalação limpa — pendente de confirmação de
-   intenção.
-8. Dívidas rastreadas: 54 warnings de lint, 122 achados visuais no baseline,
-   42 itens editoriais `formatNeedsReview`, 121 referências com caminho
-   absoluto da máquina em docs.
-9. **Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
+   **Reverificado em 2026-08-03: segue aberto** — o `scripts/qa/docs-contract.mjs`
+   reprova qualquer documento que afirme a API disponível, o que trava o estado
+   canônico em inativa até a decisão existir.
+7. ~~Onboarding não aparece em instalação limpa — pendente de confirmação de
+   intenção.~~ **Resolvido em 2026-08-02.** A confirmação veio e está em
+   [`ADR-2026-08-02`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md): o
+   dono separou **wizard de setup** (segue removido) de **apresentação** (foi
+   aprovada e construída). Instalação limpa agora vê três telas puláveis
+   narradas pelo Pixel antes da Learning Road; o gatilho é a ausência da chave
+   `@radiant/first_run_v1`, então instalação já existente vê uma vez. Detalhe no
+   item B6 mais abaixo.
+8. Dívidas rastreadas. ~~54 warnings de lint, 122 achados visuais no baseline,~~
+   42 itens editoriais `formatNeedsReview`, ~~121 referências com caminho
+   absoluto da máquina em docs.~~ **Remedido em 2026-08-03:** **11** warnings de
+   lint (a B7 fechou em 2026-07-31), **83** achados visuais — dos quais 81 em
+   baseline datada e 2 exceções de arquétipo, com **zero regressões** — e **59**
+   ocorrências de caminho absoluto, em 13 arquivos. Os 42 itens editoriais
+   **não** foram remedidos nesta data e seguem como o número herdado.
+9. ~~**Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
    confirmada no plano, sem metadados, screenshots, política de privacidade
-   hospedada, privacy labels, data safety, ou submissão de qualquer build.
+   hospedada, privacy labels, data safety, ou submissão de qualquer build.~~
+   **Desatualizado desde 2026-07-30.** A preparação de loja foi feita: os doze
+   screenshots publicáveis de iPhone existem em `docs/store/assets/`, com
+   contrato de assets verificado por reversão, e há kit de convite de testadores.
+   O que **continua aberto** neste item é a submissão em si — nenhum build foi
+   enviado a nenhuma loja. Ver `EXECUTION_STATUS_2026-07-29.md` §2 para o que já
+   está pronto, e trate este item como "submissão pendente", não como "trilha
+   inexistente".
 
 ## 3. Estratégia
 
