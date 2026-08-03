@@ -145,6 +145,12 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    baseline datada e 2 exceções de arquétipo, com **zero regressões** — e **59**
    ocorrências de caminho absoluto, em 13 arquivos. Os 42 itens editoriais
    **não** foram remedidos nesta data e seguem como o número herdado.
+   **Atualizado em 2026-08-03 (segunda sessão):** das 59 ocorrências, as **5 que
+   viviam em documentos operacionais foram corrigidas** (duas delas eram links
+   markdown quebrados, não questão de estilo) e as **54 restantes ficam por
+   decisão**: são blocos de comando de planos e evidências fechados, onde o
+   caminho absoluto é registro do que foi executado. Ver a task D7. Os 42 itens
+   editoriais são a D4, cuja triagem mostrou que a unidade real são 30 excertos.
 9. ~~**Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
    confirmada no plano, sem metadados, screenshots, política de privacidade
    hospedada, privacy labels, data safety, ou submissão de qualquer build.~~
@@ -436,8 +442,19 @@ código.
 
 ### Onda C — Paridade Android (M2)
 
-- **C1 [P0]** `expo prebuild` Android; build local com JDK/SDK documentados;
-  registrar runbook em `radiant-app/docs/E2E_RUNBOOK.md`.
+- **C1 [P0]** ~~`expo prebuild` Android; build local com JDK/SDK documentados;
+  registrar runbook em `radiant-app/docs/E2E_RUNBOOK.md`.~~
+  **CONCLUÍDA em 2026-07-28, marcada só em 2026-08-03.** O `expo prebuild
+  --platform android --no-install` rodou, o APK Release local foi construído e
+  instalado em emulador, e a receita reproduzível ficou em
+  [`2026-07-28-android-e2e-first-run.md`](../../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md),
+  com o `E2E_RUNBOOK` recebendo os pré-requisitos e o orçamento de host.
+  *Por que ficou sem marca por seis dias:* o bloqueador 2 desta mesma página foi
+  riscado em 2026-07-28 com a evidência correta, mas a task que o implementava
+  não foi tocada no mesmo run — as duas afirmam o mesmo fato e só uma foi
+  atualizada. É o modo de falha que o `AGENTS.md` descreve: trabalho não
+  sinalizado é tratado como não feito pela próxima sessão, e três sessões
+  releram este item como aberto.
 - **C2 [P0]** Smoke manual em emulador: navegação completa, edge-to-edge,
   predictive back (hoje `predictiveBackGestureEnabled: false` — validar a
   escolha sob target 36), teclado, fontes ampliadas.
@@ -447,6 +464,11 @@ código.
   `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e a
   resolução de uma causa ambiental (RAM do host de 16GB). Evidência em
   [`radiant-app/docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
+  **Superada em 2026-08-03: são 5 flows, não 3, e as duas plataformas fecham
+  5/5** sobre builds Release locais da 1.3.1 — a suíte ganhou `first-run` e
+  `store-capture` desde esta marcação. Ver
+  [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+  A ressalva do bloqueador 3 continua valendo: tudo foi colhido sob `e2e-test`.
 - **C4 [P1]** Rodar os flows em ≥ 1 device Android físico (compacto ou médio,
   conforme matriz da Task 16).
 - **C5 [P1]** TalkBack: repetir o checklist do Gate 2 no Android.
@@ -455,9 +477,14 @@ código.
 
 ### Onda D — Prontidão de release (M3) — Tasks 15 e 16 do roadmap anterior
 
-- **D1 [P0]** ADR da estratégia de API (Task 15): auditoria read-only e
+- **D1 [P0 — PARCIAL: configuração feita, ADR pendente]** ADR da estratégia de
+  API (Task 15): auditoria read-only e
   decisão entre manter local-first puro, catálogo remoto, ou catálogo+auth+
-  sync. **Parte de configuração concluída em 2026-07-27**, com uma correção
+  sync. *(Estado promovido ao cabeçalho em 2026-08-03: a prosa já dizia "resta a
+  ADR" na última linha, mas o cabeçalho não dizia nada, e uma varredura deste
+  documento classificou a task como concluída. A convenção da página é marcar o
+  estado no cabeçalho — ver F1 e F2 —, porque é o cabeçalho que é lido ao
+  triar.)* **Parte de configuração concluída em 2026-07-27**, com uma correção
   importante da premissa original deste plano: eu havia registrado que
   `ENABLE_REMOTE_SYNC=true` em produção geraria UX quebrada. Isso estava
   errado. `EXPO_PUBLIC_API_BASE_URL` não é definida em nenhum perfil do
@@ -524,8 +551,36 @@ código.
   [status canônico de 2026-07-29](../EXECUTION_STATUS_2026-07-29.md).
 - **D6 [P1]** Pesquisa com usuários (Task 12) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
-- **D7 [P2]** Converter as 121 referências absolutas de docs para caminhos
-  relativos (limpeza mecânica; melhora o repo para colaboradores).
+- **D7 [P2]** ~~Converter as 121 referências absolutas de docs para caminhos
+  relativos (limpeza mecânica; melhora o repo para colaboradores).~~
+  **CONCLUÍDA em 2026-08-03, com o escopo medido em vez de contado.** A
+  contagem virou 59 ocorrências em 13 arquivos, mas "converter todas" era a
+  tarefa errada: **54 delas estão dentro de blocos de comando de planos e
+  evidências já fechados** (`2026-04-16-galaxy-unification`,
+  `2026-07-31-remover-homescreen-morta`, os planos de 2026-07-23, as evidências
+  de device). Ali o caminho absoluto **é o registro do que foi de fato
+  executado naquele host**; reescrevê-lo não melhora o repo, falsifica a
+  memória — a mesma razão pela qual esta página risca e data em vez de
+  sobrescrever.
+
+  O trabalho real eram **5 ocorrências em 3 documentos vivos**, todas feitas
+  nesta data:
+  - `radiant-app/docs/release/APP_STORE_METADATA.md` — dois links markdown
+    **quebrados**, apontando para `/Users/anderson/Documents/Radiant/...`, que é
+    o caminho **anterior** do projeto. Não eram feiura de portabilidade: eram
+    links mortos num documento de ficha de loja. Agora relativos ao diretório.
+  - `docs/store/RUNBOOK_PLAY_CONSOLE.md` (2) e `docs/store/EAS_SUBMIT_SETUP.md`
+    (1) — comandos de runbook vivo, agora `cd "$(git rev-parse --show-toplevel)"`,
+    portátil e ainda explícito sobre o diretório.
+
+  Fica **deliberadamente sem tocar**: `docs/NOVO_VPS.md:41`, que aponta para
+  outro projeto (`Developer/Novo VPS`) e é uma referência cruzada legítima, não
+  um caminho do Radiant.
+
+  A regra que este item ensina: **um item de limpeza medido por `grep -c` conta
+  ocorrências, não trabalho.** Antes de executar uma limpeza mecânica, separe as
+  ocorrências que são estado vivo das que são registro histórico — só as
+  primeiras são para mexer, e a diferença não aparece na contagem.
 
 ### Onda E — Assets e metadados de loja (paralela a C/D)
 

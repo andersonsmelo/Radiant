@@ -6,9 +6,9 @@ Este arquivo resume a camada operacional de metadata e aponta para a matriz
 bilíngue oficial.
 
 - matriz canônica:
-  [`APP_STORE_LISTING_MATRIX.md`](/Users/anderson/Documents/Radiant/radiant-app/docs/release/APP_STORE_LISTING_MATRIX.md)
+  [`APP_STORE_LISTING_MATRIX.md`](APP_STORE_LISTING_MATRIX.md)
 - política de timing de review e monetização:
-  [`RATING_AND_PAYWALL_TIMING.md`](/Users/anderson/Documents/Radiant/radiant-app/docs/release/RATING_AND_PAYWALL_TIMING.md)
+  [`RATING_AND_PAYWALL_TIMING.md`](RATING_AND_PAYWALL_TIMING.md)
 
 ## Metadata base `pt-BR`
 

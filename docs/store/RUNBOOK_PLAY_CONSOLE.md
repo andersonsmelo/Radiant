@@ -19,7 +19,7 @@ data no `.gitignore` da raiz, junto de `*.p8` e dos nomes de arquivo de chave.
 Antes de baixar a chave, confirme que a proteção está de pé:
 
 ```bash
-cd /Users/anderson/Developer/Radiant && git check-ignore -v radiant-app/credentials/play-service-account.json
+cd "$(git rev-parse --show-toplevel)" && git check-ignore -v radiant-app/credentials/play-service-account.json
 ```
 
 Se esse comando **não imprimir nada**, pare e avise — significa que a regra sumiu e
@@ -186,7 +186,7 @@ esperando o relógio: com esses dois valores, ele não começou.
 Para o upload que de fato inicia a contagem:
 
 ```bash
-cd /Users/anderson/Developer/Radiant/radiant-app && eas submit --platform android --profile production --track alpha
+cd "$(git rev-parse --show-toplevel)/radiant-app" && eas submit --platform android --profile production --track alpha
 ```
 
 Depois do upload, ainda é preciso **promover a release** (o `releaseStatus: draft`

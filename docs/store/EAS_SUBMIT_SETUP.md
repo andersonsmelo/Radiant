@@ -135,7 +135,7 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
      proteção **perguntando ao git**, não lendo um arquivo:
 
      ```bash
-     cd /Users/anderson/Developer/Radiant && git check-ignore -v radiant-app/credentials/play-service-account.json
+     cd "$(git rev-parse --show-toplevel)" && git check-ignore -v radiant-app/credentials/play-service-account.json
      ```
 
      A saída esperada é `.gitignore:37:credentials/`. Se **nada for impresso**,
