@@ -2,12 +2,27 @@
 
 The `.maestro` workspace covers the real local-first route, not a mocked API:
 
-- `boot-to-home.yaml`: a clean install (`clearState`) boots straight to the
-  learning-road home (`Foco de hoje`) — v1.3 has no blocking wizard.
-- `learning-critical-path.yaml`: completes both seeded lessons, checkpoint,
-  reward and reaches Progress.
-- `offline-relaunch.yaml`: completes a local lesson, relaunches with airplane
-  mode enabled, then confirms the persisted checkpoint is still available.
+- `first-run.yaml`: a clean install (`clearState`) now lands on the first-run
+  welcome — three skippable screens narrated by the Pixel mascot — before the
+  learning-road home. This flow asserts the welcome copy itself: each slide's
+  group-accessibility label, the footnote disclaimer on the last screen, and
+  that the welcome is gone after tapping "Começar".
+- `boot-to-home.yaml`: a clean install (`clearState`) passes through the
+  first-run welcome (dismissed via the `subflows/dismiss-first-run.yaml`
+  subflow) and reaches the learning-road home (`Foco de hoje`). **A clean
+  install no longer boots straight to the home** — see the 2026-08-02 entry
+  below.
+- `learning-critical-path.yaml`: dismisses first-run, then completes both
+  seeded lessons, checkpoint, reward and reaches Progress.
+- `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
+  relaunches with airplane mode enabled, then confirms the persisted
+  checkpoint is still available.
+- `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
+  by `when: visible`) that taps "Pular apresentação" only if the first-run
+  welcome is on screen. Flows that already ran once without `clearState` never
+  see the welcome, so an unconditional tap would fail on them. Included by
+  every flow above except `first-run.yaml` itself, which asserts the welcome
+  directly.
 
 ## Current execution state
 
@@ -99,7 +114,47 @@ emulator crawl — run one platform at a time. Both contract regressions are pin
 `scripts/maestro-contract.test.mjs`. Full detail in
 [`docs/evidence/2026-07-29-android-e2e-close.md`](evidence/2026-07-29-android-e2e-close.md).
 
-The dev-client verification of the same day
+On 2026-08-02 the first-run welcome (three skippable screens narrated by the
+Pixel mascot, gated on the absence of the `@radiant/first_run_v1` key) started
+intercepting every clean install before the learning-road home. `boot-to-home`
+no longer describes what it asserts on its own: a clean install now passes
+through the welcome first. All four existing flows gained a
+`subflows/dismiss-first-run.yaml` step, and a new `first-run.yaml` flow asserts
+the welcome itself. Device execution surfaced two real defects, both already
+fixed: `WelcomeSlide`'s `accessible` container collapsed the whole slide into
+one VoiceOver node on iOS, leaving only the step position audible and hiding
+the title, body, illustration label and the store-required disclaimer from
+screen readers (fixed by composing the group
+label from position, title, body and footnote, commits `1a8fd59`/`b3f5684`;
+the illustration's `accessibilityLabel` still isn't part of that composition,
+so it remains collapsed by the grouping — a known gap, not scheduled); and
+Maestro's selector is a
+full-match regex, so the old bare-title pattern stopped matching once the
+label carried the full composed phrase (fixed by anchoring `first-run.yaml` on
+the real group-label shape, with `scripts/maestro-contract.test.mjs` now
+deriving the expected anchored pattern from `WelcomeFlowScreen.tsx`'s own
+`SLIDES` array and rejecting the old bare-title form, commit `728ca8d`).
+iOS is `passed` for `first-run`, `boot-to-home`, `learning-critical-path` and
+`offline-relaunch`. `store-capture.yaml` failed on this run's iPhone 17 Pro
+simulator — not due to the welcome: the diff this branch made to that file is
+one line (the dismiss-first-run step). The step that actually failed, in the
+first quiz, uses the `runFlow when notVisible → scrollUntilVisible` guard —
+the exact pattern commit `f7b602a` already removed from the second quiz,
+because Maestro doesn't model occlusion: the element sits in the tree and
+reads as "visible" to the guard while it's actually under the floating CTA,
+so the guard skips the scroll and the tap lands on the wrong control. The
+quiz stalled at `0%` selected is that defect's signature. The fixed scroll
+calibrated for iPhone 16 Plus and iPhone 11 Pro Max lives in the **second**
+quiz, steps past where the flow actually failed, and was never reached this
+run. The sibling `learning-critical-path` makes the same assertion and also
+uses `scrollUntilVisible` — the real difference is that the sibling has no
+`runFlow when notVisible` guard and uses `centerElement: true` instead of
+`visibilityPercentage: 60`. **Android was not re-run against the welcome in
+this session** — its 2026-07-29 `passed` state predates the gate and does not
+cover it. Full detail, recipe and the `store-capture` attribution are in
+[`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).
+
+The dev-client verification of 2026-07-28
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
 remains a supplement only — per this doc's rules a dev-client run never promotes
 iOS to `passed`, and it is not what promoted it here.
@@ -148,6 +203,7 @@ the assertion with a coordinate tap.
 ## Execute
 
 ```sh
+maestro test .maestro/first-run.yaml
 maestro test .maestro/boot-to-home.yaml
 maestro test .maestro/learning-critical-path.yaml
 maestro test .maestro/offline-relaunch.yaml
@@ -163,11 +219,17 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 ## Sign-off matrix
 
-| Platform | Device/runtime | Build | Boot-to-home | Critical path | Offline relaunch | Status | Owner/date |
-|---|---|---|---:|---:|---:|---|---|
-| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 6m 52s`, 2026-07-28, one suite run | engineering / 2026-07-28 |
-| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | passed | passed (reward node not covered) | passed | passed — `3/3 Flows Passed in 11m 48s`, 2026-07-29 | engineering / 2026-07-29 |
+| Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Status | Owner/date |
+|---|---|---|---:|---:|---:|---:|---:|---|---|
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release equivalent (embedded bundle) | passed | passed | passed (reward node not covered) | passed | **app-failed** — attributed to the first quiz's `notVisible` visibility guard, not a regression of this branch | 4/5 flows passed — `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` all green; `store-capture` failed on quiz-answer selection, commit `728ca8d`, 2026-08-02 | engineering / 2026-08-02 |
+| Android | `Radiant_Pixel_9_API_36` emulator | local Release APK (embedded bundle) | **not re-run** | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | passed (2026-07-29, pre-dates the welcome gate) | not re-run | **not revalidated against the first-run welcome.** The `3/3 Flows Passed in 11m 48s` result is real but was measured before the welcome existed and does not exercise it. | engineering / 2026-07-29 (stale w.r.t. the welcome) |
 
 No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy
 review is approved.
+
+**Open item:** `store-capture.yaml` needs its first quiz's `runFlow when
+notVisible` guard reviewed (the same occlusion-blind pattern commit
+`f7b602a` already removed from the second quiz) before it is relied on again
+to produce store screenshots from this simulator. Full attribution in
+[`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).

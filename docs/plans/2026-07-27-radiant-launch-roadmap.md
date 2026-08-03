@@ -296,6 +296,20 @@ código.
   `radiant-app/README.md`); se um setup guiado for desejado no futuro, o wizard
   precisa ser reconstruído (pt-BR, catálogo real, persistindo as escolhas).
   **Nenhuma correção de runtime é necessária para lançar.**
+  **Confirmação do dono registrada em 2026-08-02 —
+  [`ADR-2026-08-02`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).**
+  A confirmação que este item pedia veio, e separou duas coisas que a
+  recomendação acima juntava: **wizard de setup** (coleta preferências) e
+  **apresentação** (explica o produto). A remoção do wizard segue valendo. A
+  apresentação foi **aprovada e construída**: três telas puláveis narradas pelo
+  Pixel, antes da Learning Road. Duas consequências para quem ler este item
+  depois: (1) "instalação limpa → Home" **deixou de ser verdade** — agora é
+  instalação limpa → apresentação → Home, e os flows Maestro precisam atravessá-la;
+  (2) a parte da recomendação que manda **remover o onboarding suave
+  (`OnboardingService`) junto com a `HomeScreen` clássica** continua em aberto e
+  **não** foi decidida pelo ADR — mas o novo `FirstRunService` chama
+  `OnboardingService.dismissIntro()`, então remover o serviço exige tratar essa
+  chamada no mesmo run.
 - **B7 [P2]** ~~Reduzir warnings de lint por domínio sem supressões globais~~
   **CONCLUÍDA em 2026-07-31: 65 → 11 warnings, 0 erros.** Meta era ≤ 20.
 

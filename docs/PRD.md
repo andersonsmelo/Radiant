@@ -3,7 +3,7 @@
 > **Estado:** requisitos-base vigentes. A evolução educacional por competências
 > foi aprovada em 2026-07-31 e está sendo implementada de forma incremental; ver
 > a [spec normativa](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
-> e o [status canônico](EXECUTION_STATUS_2026-07-29.md).
+> e o [status canônico](EXECUTION_STATUS_2026-08-02.md).
 
 ## 1. Visão do Produto
 

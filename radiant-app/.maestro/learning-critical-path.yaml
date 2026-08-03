@@ -23,6 +23,7 @@ tags:
       visible: 'Connected to:'
     commands:
       - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
 - openLink:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
 - runFlow:

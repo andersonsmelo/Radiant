@@ -52,7 +52,7 @@ const RULES = [
         id: 'R5', severity: 'warning', description: 'Character Misuse', regex: /(CharacterSlot|PixelIllustration)/g,
         check: (_match, _content, file) => {
             if (file.includes(`${path.sep}ui${path.sep}characters${path.sep}`)) return null;
-            const allowed = ['Home', 'Start', 'Finish', 'Intro', 'Summary', 'Character', 'Checkpoint', 'Quiz', 'Review', 'JourneyHero', 'PixelIllustration'];
+            const allowed = ['Home', 'Start', 'Finish', 'Intro', 'Welcome', 'Summary', 'Character', 'Checkpoint', 'Quiz', 'Review', 'JourneyHero', 'PixelIllustration'];
             return allowed.some((name) => path.basename(file).includes(name))
                 ? null
                 : { signature: 'character-usage', msg: `Character usage in potential non-standard screen: ${path.basename(file)}. verify archetype rules.` };

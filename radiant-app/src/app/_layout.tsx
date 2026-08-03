@@ -3,7 +3,7 @@ import { useFonts, Sora_400Regular, Sora_500Medium, Sora_600SemiBold, Sora_700Bo
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
@@ -12,6 +12,8 @@ import { BetaService } from '../features/beta/BetaService';
 import BetaGateScreen from '../features/beta/screens/BetaGateScreen';
 import { AuthService } from '../features/auth/AuthService';
 import { LessonCatalogService } from '../features/content/services/LessonCatalogService';
+import { FirstRunService } from '../features/first-run/FirstRunService';
+import WelcomeFlowScreen from '../features/first-run/screens/WelcomeFlowScreen';
 import { SyncQueueService } from '../features/sync/SyncQueueService';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
@@ -49,6 +51,8 @@ function RootLayout() {
   const [startupPhase, setStartupPhase] = useState<'loading' | 'ready' | 'error'>('loading');
   const [startupError, setStartupError] = useState<string | null>(null);
   const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const firstRunBootstrapRef = useRef<Promise<void> | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -65,13 +69,31 @@ function RootLayout() {
 
         setIsBetaUnlocked(granted);
 
+        // FirstRunService.bootstrap() is cached in a ref rather than invoked
+        // inline: a retry re-runs this effect, and calling bootstrap() again
+        // before the first call's storage read resolves would fire a second
+        // `first_run_started` telemetry event (bootstrap() only guards against
+        // re-entrancy after it has already finished once). On rejection the
+        // ref is cleared before rethrowing, so a settled, failed promise is
+        // never reused — a retry after a failed bootstrap calls it fresh
+        // instead of being stuck replaying the same rejection forever.
+        if (!firstRunBootstrapRef.current) {
+          firstRunBootstrapRef.current = FirstRunService.bootstrap().catch((error) => {
+            firstRunBootstrapRef.current = null;
+            throw error;
+          });
+        }
+
         await Promise.all([
           AuthService.bootstrap(),
           LessonCatalogService.bootstrap(),
+          firstRunBootstrapRef.current,
         ]);
         if (!active) {
           return;
         }
+
+        setShowWelcome(FirstRunService.shouldShowWelcome());
 
         void SyncQueueService.flush();
         void TelemetryService.track('bootstrap_complete', {
@@ -143,6 +165,24 @@ function RootLayout() {
     return (
       <ThemeProvider value={navigationTheme}>
         <BetaGateScreen onUnlock={() => setIsBetaUnlocked(true)} />
+        <StatusBar style="dark" />
+      </ThemeProvider>
+    );
+  }
+
+  // Ordem: loading → error → beta gate → apresentação → Stack. O beta gate vem
+  // antes porque é controle de acesso: não se apresenta o produto a quem ainda
+  // não foi liberado a entrar.
+  if (showWelcome) {
+    return (
+      <ThemeProvider value={navigationTheme}>
+        <WelcomeFlowScreen
+          onFinish={(reason, step) => {
+            void FirstRunService.markSeen(reason, step);
+            setShowWelcome(false);
+          }}
+          onStepViewed={(step) => FirstRunService.markStepViewed(step)}
+        />
         <StatusBar style="dark" />
       </ThemeProvider>
     );

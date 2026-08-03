@@ -1,0 +1,10 @@
+appId: com.ascendcreative.radiant
+name: Dispensa a apresentação de primeiro uso
+---
+# Condicional de propósito: os flows que já rodaram uma vez sem clearState não
+# veem a apresentação, e um tapOn incondicional falharia neles.
+- runFlow:
+    when:
+      visible: 'Pular apresentação'
+    commands:
+      - tapOn: 'Pular apresentação'

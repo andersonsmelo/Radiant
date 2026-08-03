@@ -50,3 +50,8 @@ app-store-connect-api-key*.json
 
 # Saida da ferramenta de critica de UI: regenera a cada execucao e nao e fonte.
 .impeccable/
+
+# Artefatos de execucao assistida (ledger, briefs, relatorios, diffs de revisao).
+# Sao registro de processo de uma execucao especifica, nao fonte do produto: o
+# historico do git e o registro duravel.
+.superpowers/

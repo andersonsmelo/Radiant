@@ -1,9 +1,12 @@
 # Radiant — Execution Status (2026-07-29, estendido até 2026-08-01)
 
-> Este documento continua sendo o **status canônico**. Ele foi estendido em
-> 2026-07-30, 2026-07-31 e 2026-08-01, em vez de dar origem a arquivos novos: um
-> ponteiro canônico decai no instante em que o alvo é substituído, e trocar o nome
-> exige varrer quem aponta para ele.
+> Este documento foi substituído por
+> [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md) como
+> **status canônico**. Ele havia sido estendido em 2026-07-30, 2026-07-31 e
+> 2026-08-01, em vez de dar origem a arquivos novos: um ponteiro canônico
+> decai no instante em que o alvo é substituído, e trocar o nome exige varrer
+> quem aponta para ele — o alerta abaixo vale para o sucessor também, na
+> próxima vez que ele for substituído.
 >
 > **Recontado em 2026-07-31: são 17 arquivos, não oito** — `.loop/project.yaml`,
 > `scripts/qa/docs-contract.mjs`, `docs/README.md`, o roadmap de lançamento, o plano
@@ -19,14 +22,14 @@
 >   --include='*.yaml' --include='*.json' . | grep -v node_modules
 > ```
 
-## Status canônico atual
+## Status canônico nesta data (snapshot substituído)
 
 O Radiant é um aplicativo educacional de radiologia **local-first**. O app abre,
 oferece catálogo local, registra progresso e permite revisão mesmo quando a API
 remota está ausente.
 
-Este documento substitui [`EXECUTION_STATUS_2026-07-28.md`](EXECUTION_STATUS_2026-07-28.md)
-como estado canônico; o snapshot anterior permanece histórico. Ele registra duas
+Este documento substituiu [`EXECUTION_STATUS_2026-07-28.md`](EXECUTION_STATUS_2026-07-28.md)
+como estado canônico à época; o snapshot anterior permanece histórico. Ele registra duas
 mudanças de estado desta data: (1) o **E2E do fluxo crítico fechou nas duas
 plataformas** (iOS 3/3 e Android 3/3), encerrando B0.1/C3/M2; e (2) uma **ofensiva
 de aceleração de lançamento** que deixou toda a preparação de loja pronta até o

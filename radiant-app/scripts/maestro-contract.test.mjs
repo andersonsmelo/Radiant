@@ -238,6 +238,102 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
   assert.doesNotMatch(source, /disabled=\{/);
 });
 
+test('ties the first-run flow to the copy WelcomeFlowScreen actually renders', async () => {
+  // A mesma classe de defeito já ocorreu duas vezes neste projeto (a migração
+  // pt-BR de 2026-07-27 quebrou o wizard smoke e depois a celebração do
+  // checkpoint) porque um flow verde afirmava texto que a tela já não
+  // renderizava, e o contrato só lia o YAML. Uma asserção sobre o texto de um
+  // artefato confirma o que alguém escreveu, nunca o que a tela renderiza —
+  // então ancore as strings do first-run na fonte, o único lado que o device vê.
+  //
+  // Desde a correção de a11y do WelcomeSlide, o grupo de acessibilidade compõe
+  // o rótulo como "Tela N de M. {título} {corpo}..." (ver WelcomeSlide.tsx):
+  // o título nunca existe isolado no nó. Um `assertVisible` com o título cru
+  // deixou de casar — o Maestro exige correspondência total — e passou a
+  // "passar" vazio só porque o contrato lia o YAML, não o dispositivo. O
+  // contrato agora exige o prefixo "Tela N de M" ancorado E proíbe
+  // explicitamente o formato antigo, para que essa regressão não volte por um
+  // caminho que ele não olha.
+  const [screen, flow, subflow] = await Promise.all([
+    readAppFile('src/features/first-run/screens/WelcomeFlowScreen.tsx'),
+    readAppFile('.maestro/first-run.yaml'),
+    readAppFile('.maestro/subflows/dismiss-first-run.yaml'),
+  ]);
+
+  const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const slidesBlock = screen.match(/const SLIDES: SlideSpec\[\] = \[([\s\S]*?)\n\];/)?.[1];
+  assert.ok(slidesBlock, 'expected a SLIDES array in WelcomeFlowScreen.tsx');
+
+  const titles = [...slidesBlock.matchAll(/title: '([^']+)'/g)].map((match) => match[1]);
+  assert.ok(titles.length > 0, 'expected at least one slide title in SLIDES');
+
+  const footnote = slidesBlock.match(/footnote:\s*\n\s*'([^']+)'/)?.[1];
+  assert.ok(footnote, 'expected the third slide to declare a footnote');
+
+  // N vem do próprio array, nunca de um literal cravado: um slide a mais ou a
+  // menos em SLIDES não pode silenciosamente destravar este contrato.
+  const slideCount = titles.length;
+
+  titles.forEach((title, index) => {
+    const step = index + 1;
+
+    // O padrão precisa começar por "Tela {step} de {slideCount}\. " seguido do
+    // título com os metacaracteres escapados, ancorado em `^` e fechado por
+    // `.*$` — é o único jeito de casar contra o rótulo de grupo, que continua
+    // com o corpo do slide depois do título.
+    const expectedAssertion = `- assertVisible: '^Tela ${step} de ${slideCount}\\. ${escapeForRegExp(title)}.*$'`;
+    assert.match(
+      flow,
+      new RegExp(`^${escapeForRegExp(expectedAssertion)}$`, 'm'),
+      `expected .maestro/first-run.yaml to assertVisible slide ${step} anchored on "Tela ${step} de ${slideCount}. ${title}"`
+    );
+
+    // Formato antigo proibido explicitamente: o título sozinho, sem a âncora
+    // "Tela N de M", é exatamente o padrão que passou a casar vácuo depois da
+    // correção de a11y (o nó nunca mais expõe o título isolado). Só exigir o
+    // formato novo, sem banir o antigo, deixaria a regressão voltar por um
+    // caminho que este contrato não olha.
+    const bareAssertion = `- assertVisible: '${title}'`;
+    assert.doesNotMatch(
+      flow,
+      new RegExp(`^${escapeForRegExp(bareAssertion)}$`, 'm'),
+      `first-run.yaml must not assertVisible the bare slide title "${title}" without the "Tela N de M" anchor`
+    );
+  });
+
+  // O aviso legal é exigência da ficha da loja e mora no fim do rótulo da
+  // tela 3: âncora só no fim (`.*` no começo, `$` no fim), separado da
+  // asserção do título para falhar sozinho quando sumir.
+  const expectedFootnoteAssertion = `- assertVisible: '.*${escapeForRegExp(footnote)}$'`;
+  assert.match(
+    flow,
+    new RegExp(`^${escapeForRegExp(expectedFootnoteAssertion)}$`, 'm'),
+    `expected .maestro/first-run.yaml to assertVisible the footnote anchored at the end ("${footnote}")`
+  );
+
+  const skipLabel = screen.match(/<Pressable[\s\S]*?accessibilityLabel="([^"]+)"[\s\S]*?styles\.skip/)?.[1];
+  assert.ok(skipLabel, 'expected the skip Pressable to declare an accessibilityLabel');
+
+  const escapedSkipLabel = escapeForRegExp(skipLabel);
+  assert.match(
+    subflow,
+    new RegExp(`visible: '${escapedSkipLabel}'`),
+    `expected dismiss-first-run.yaml to guard on the skip control's accessibilityLabel ("${skipLabel}")`
+  );
+  assert.match(
+    subflow,
+    new RegExp(`tapOn: '${escapedSkipLabel}'`),
+    `expected dismiss-first-run.yaml to tap the skip control by its accessibilityLabel ("${skipLabel}")`
+  );
+
+  // ENABLE_LEARNING_ROAD é true em todos os perfis do eas.json e por default, e a
+  // HomeScreen clássica (única consumidora do card Day-0) nunca renderiza — a
+  // ausência da chave @radiant/first_run_v1 é o único gatilho real da
+  // apresentação. Sem clearState, o flow passaria vacuamente na segunda execução.
+  assert.match(flow, /clearState: true/);
+});
+
 test('requires dated per-platform device evidence before any e2e pass is claimed', async () => {
   const [runbook, evidenceIndex, baseline] = await Promise.all([
     readAppFile('docs/E2E_RUNBOOK.md'),
