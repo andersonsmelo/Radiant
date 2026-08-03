@@ -29,6 +29,7 @@ import { StarfieldBackground } from '../../../ui/components/StarfieldBackground'
 import { HUD } from '../../../ui/components/HUD';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { RadiantGalaxy } from '../../../types/galaxy';
+import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
 import { GALAXY_CATALOG, getActiveGalaxy, getActiveBody } from '../../../data/galaxy-catalog';
 import { galaxyColors } from '../../../ui/theme';
 import { tabBarClearance, typography } from '../../../ui/styles';
@@ -49,13 +50,17 @@ function GalaxyCard({ galaxy, onPress }: GalaxyCardProps) {
   const scale = useSharedValue(1);
   const isLocked = galaxy.status === 'locked';
   const isActive = galaxy.status === 'active';
+  const reducedMotion = useReducedMotionPreference();
 
   const animStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
   const handlePressIn = () => {
-    if (!isLocked) scale.value = withSpring(0.94);
+    // Mesma convenção do `usePressScale` da camada de motion, que já trava o
+    // recuo de toque sob reduced motion. Aqui o feedback de que o toque pegou
+    // continua existindo pelo `activeOpacity` do próprio TouchableOpacity.
+    if (!isLocked && !reducedMotion) scale.value = withSpring(0.94);
   };
   const handlePressOut = () => {
     scale.value = withSpring(1);

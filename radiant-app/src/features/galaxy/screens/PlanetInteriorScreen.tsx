@@ -28,6 +28,7 @@ import { getGalaxyById } from '@/src/data/galaxy-catalog';
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { CelestialBody } from '@/src/types/galaxy';
 import type { JourneyNode } from '@/src/types/journey';
+import { useReducedMotionPreference } from '@/src/ui/accessibility/useReducedMotionPreference';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
@@ -71,11 +72,23 @@ function LessonNode({
   const isActive = node.status === 'active' || node.status === 'resumable';
   const isLocked = node.status === 'locked';
   const isDone = node.status === 'completed';
+  const reducedMotion = useReducedMotionPreference();
 
   // Glow pulsante para nó ativo
   const glowOpacity = useSharedValue(isActive ? 0.5 : 0);
 
   useEffect(() => {
+    if (reducedMotion) {
+      // A entrada em cascata (`index * 60`) é escada: cada nó chega num tempo
+      // diferente. Sob reduced motion todos já nascem no destino — a lista
+      // aparece pronta em vez de se montar.
+      scale.value = 1;
+      opacity.value = 1;
+      // O glow segue marcando o nó ativo, parado no ponto alto do ciclo.
+      glowOpacity.value = isActive ? 0.9 : 0;
+      return;
+    }
+
     setTimeout(() => {
       scale.value = withSpring(1, { damping: 14 });
       opacity.value = withTiming(1, { duration: 250 });
@@ -91,7 +104,7 @@ function LessonNode({
         true,
       );
     }
-  }, []);
+  }, [reducedMotion]);
 
   const entryStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value * pressScale.value }],
@@ -112,7 +125,7 @@ function LessonNode({
     <Animated.View style={[styles.nodeRow, { transform: [{ translateX: offsetX }] }, entryStyle]}>
       <TouchableOpacity
         onPress={isLocked ? undefined : onPress}
-        onPressIn={() => { if (!isLocked) pressScale.value = withSpring(0.90); }}
+        onPressIn={() => { if (!isLocked && !reducedMotion) pressScale.value = withSpring(0.90); }}
         onPressOut={() => { pressScale.value = withSpring(1); }}
         activeOpacity={isLocked ? 1 : 0.75}
       >

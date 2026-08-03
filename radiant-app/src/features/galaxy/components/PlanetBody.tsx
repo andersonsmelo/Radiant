@@ -16,6 +16,7 @@ import Animated, {
 import { Ellipse, Svg } from 'react-native-svg';
 import type { CelestialBody, CelestialBodySize } from '../../../types/galaxy';
 import { PlanetSurface } from './PlanetSurface';
+import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
 
 // ── Mapeamento de tamanho ────────────────────────────────────
 
@@ -41,6 +42,7 @@ export function PlanetBody({ body, sizeOverride }: PlanetBodyProps) {
   const isActive = status === 'active';
   const isLocked = status === 'locked';
   const isCompleted = status === 'completed';
+  const reducedMotion = useReducedMotionPreference();
 
   // Glow externo animado
   const glowOpacity = useSharedValue(isActive ? 0.4 : isCompleted ? 0.55 : 0.2);
@@ -50,6 +52,19 @@ export function PlanetBody({ body, sizeOverride }: PlanetBodyProps) {
   const pulseScale = useSharedValue(1);
 
   useEffect(() => {
+    if (reducedMotion) {
+      // Tira o MOVIMENTO, não a informação. O glow é o que diferencia planeta
+      // ativo, concluído e comum a olho nu; zerá-lo apagaria o estado junto com
+      // a animação. Aqui cada status assenta no valor de repouso do seu próprio
+      // ciclo, então a tela continua legível — só para de respirar.
+      glowOpacity.value = isActive ? 0.85 : isCompleted ? 0.7 : 0.2;
+      glowScale.value = 1;
+      // O anel de pulso é puramente decorativo: não carrega estado, some.
+      pulseOpacity.value = 0;
+      pulseScale.value = 1;
+      return;
+    }
+
     if (isActive) {
       // Glow pulsante para planeta ativo
       glowOpacity.value = withRepeat(
@@ -103,7 +118,7 @@ export function PlanetBody({ body, sizeOverride }: PlanetBodyProps) {
         false,
       );
     }
-  }, [status]);
+  }, [status, reducedMotion]);
 
   const glowStyle = useAnimatedStyle(() => ({
     opacity: glowOpacity.value,

@@ -26,6 +26,7 @@ import { getGalaxyById } from '@/src/data/galaxy-catalog';
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { CelestialBody } from '@/src/types/galaxy';
 import type { GamificationSnapshot } from '@/src/types/gamification';
+import { useReducedMotionPreference } from '@/src/ui/accessibility/useReducedMotionPreference';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
 import { typography } from '@/src/ui/styles';
@@ -55,14 +56,22 @@ function BodyCard({
   const opacity = useSharedValue(0);
   const pressScale = useSharedValue(1);
   const isLocked = body.status === 'locked';
+  const reducedMotion = useReducedMotionPreference();
 
   useEffect(() => {
+    if (reducedMotion) {
+      // Sem a cascata de `index * 80`: os corpos já nascem no lugar.
+      scale.value = 1;
+      opacity.value = 1;
+      return;
+    }
+
     const delay = index * 80;
     setTimeout(() => {
       scale.value = withSpring(1, { damping: 14, stiffness: 100 });
       opacity.value = withTiming(1, { duration: 300 });
     }, delay);
-  }, []);
+  }, [reducedMotion]);
 
   const entryStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value * pressScale.value }],
@@ -70,7 +79,7 @@ function BodyCard({
   }));
 
   const handlePressIn = () => {
-    if (!isLocked) pressScale.value = withSpring(0.92, { damping: 12 });
+    if (!isLocked && !reducedMotion) pressScale.value = withSpring(0.92, { damping: 12 });
   };
   const handlePressOut = () => {
     pressScale.value = withSpring(1, { damping: 12 });
