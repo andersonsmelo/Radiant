@@ -534,11 +534,34 @@ código.
     caindo em *fallback* (13 sem sinal nos três níveis), confiança média 0,52 contra
     0,91 dos aprovados. É posicionamento na taxonomia, não correção clínica.
 
-  **Próximo passo (não decidido):** estender a cobertura de palavras-chave da
+  ~~**Próximo passo (não decidido):** estender a cobertura de palavras-chave da
   taxonomia e reclassificar, medindo quanto da população cai sem intervenção humana;
-  só o resíduo vai para o revisor de domínio. Alocar revisor de radiologia antes
+  só o resíduo vai para o revisor de domínio.~~ Alocar revisor de radiologia antes
   disso é usá-lo para consertar dicionário. O gate não bloqueia o closed test —
   bloqueia a produção.
+
+  **Medido em 2026-08-03, e o passo riscado acima teria piorado o dado.** A
+  medição está em
+  [`2026-08-03-d4-medicao-cobertura-taxonomia.md`](../content/2026-08-03-d4-medicao-cobertura-taxonomia.md).
+  O vocabulário **é** pequeno (111 palavras-chave; 20 de 21 termos de domínio
+  sondados não têm regra), mas estendê-lo não resolveria: **os 109 excertos
+  cabem em 4 folhas de taxonomia**, 103 deles em duas, e a `mvp-2026-04-04` tem
+  6 planetas e 6 estrelas — todos `planned` — descrevendo tórax e abdome,
+  enquanto a fonte é um módulo de curso técnico (processamento radiográfico,
+  acessórios de sala, medicina nuclear, RM, irradiação de alimentos). **Os sete
+  conceitos sinalizados não têm nó de destino.** Acrescentar palavras-chave
+  moveria os itens de `needs-review` para "aprovado" **no endereço errado**,
+  derrubando o único sinal de que eles não têm endereço.
+
+  **A decisão do dono mudou de pergunta.** Não é mais "estender o vocabulário, e
+  por quem"; é: *a taxonomia de lançamento recebe nós para o material de curso
+  técnico, ou esta fonte fica fora do currículo de lançamento?* Isso liga a D4
+  diretamente à **G1**, cujo grafo das 30 competências não começou e é onde esses
+  nós existiriam — as duas são o mesmo buraco visto de dois lados.
+
+  Achado lateral: **4 dos 30 são defeito de extração**, não de classificação
+  (fragmentos com menos de 80 caracteres; um deles é a palavra `são` sozinha).
+  Essa fatia é trabalho de pipeline e não sai nem por taxonomia nem por revisor.
 - **D5 [P1]** ~~Congelar versionamento: definir `1.3.0`, alinhar
   `ios.buildNumber`/`android.versionCode` e documentar a política de
   `runtimeVersion`~~ **Concluída em 2026-07-28.** `radiant-app/package.json` e
