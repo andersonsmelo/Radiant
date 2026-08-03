@@ -459,15 +459,48 @@ test('ties the rating-prompt flow to the eligibility gate it exists to reach', a
     'rating-prompt.yaml must clear state exactly once — the later launches accumulate the app_open count'
   );
 
-  // O gate exige também `first_value_moment_reached`, emitido por
-  // `OnboardingService.markAction` no primeiro `quiz_complete` com nota de
-  // aprovação. Sem completar um quiz, o flow pararia em `value_not_reached` e o
-  // vermelho se leria como falha da contagem de aberturas.
+  // `maybePromptForReview` é chamado por `QuizScreen` (rota `/quiz`),
+  // `ReviewScreen` e `RewardScreen` — nunca pelo lesson-flow da rota `/learn`.
+  // A primeira versão deste flow completou a lição e passou verde sem tocar o
+  // call site: a telemetria do aparelho não trouxe um único evento
+  // `rating_prompt_*`. O contrato prende a rota, que é o que faz o flow medir
+  // o que o nome dele diz.
   assert.match(
     flow,
-    /lesson-option-q1:option:1/,
-    'rating-prompt.yaml must complete a passing quiz — first_value_moment_reached gates the prompt too'
+    /radiantapp:\/\/quiz\?lessonId=/,
+    'rating-prompt.yaml must drive the /quiz route — /learn never reaches maybePromptForReview'
   );
+
+  // O gate exige `first_value_moment_reached`, emitido no primeiro
+  // `quiz_complete`, e o `QuizScreen` retorna antes de chamar o prompt quando a
+  // nota fica abaixo de PASSING_SCORE. Então o flow precisa **acertar**, e as
+  // respostas certas vêm da fonte do conteúdo: editar `lessons.ts` sem editar o
+  // flow tornaria a nota insuficiente e o vermelho se leria como falha do gate.
+  const lessons = await readAppFile('src/data/lessons.ts');
+  const lessonOne = lessons.slice(lessons.indexOf("id: 'lesson-1'"));
+  const questionsBlock = lessonOne.slice(0, lessonOne.indexOf("id: 'lesson-2'"));
+
+  const correctLabels = [];
+  const questionRe = /options:\s*\[([\s\S]*?)\][\s\S]*?correctAnswerIndex:\s*(\d+)/g;
+  let match;
+  while ((match = questionRe.exec(questionsBlock)) !== null) {
+    const labels = [...match[1].matchAll(/label:\s*'([^']+)'/g)].map((m) => m[1]);
+    const correct = labels[Number(match[2])];
+    if (correct) correctLabels.push(correct);
+  }
+
+  assert.ok(
+    correctLabels.length >= 3,
+    `expected to derive lesson-1 answers from lessons.ts; got ${correctLabels.length}`
+  );
+
+  for (const label of correctLabels) {
+    assert.match(
+      flow,
+      new RegExp(`^- tapOn: ${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm'),
+      `rating-prompt.yaml must tap "${label}" — it is the answer lessons.ts marks correct, and a failing score skips the prompt entirely`
+    );
+  }
 
   // A prova do diálogo é do iOS e só dele. O AVD do projeto usa imagem
   // `google_apis`, sem Play Store, e mesmo com imagem de Play Store o in-app

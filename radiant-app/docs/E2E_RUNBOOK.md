@@ -21,9 +21,12 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   eligibility gate. `RatingPromptService` requires `countEvents('app_open') >=
   MIN_APP_OPENS` (3), and every other flow opens the app once — twice for
   `offline-relaunch` — so the prompt always stopped at `insufficient_sessions`
-  and had never been exercised on a device. This flow completes a passing quiz
-  (which emits `first_value_moment_reached`, the gate's other precondition),
-  relaunches twice without clearing state, then completes a second quiz.
+  and had never been exercised on a device. It drives the **`/quiz` route**, not
+  `/learn`: the prompt's call sites are `QuizScreen`, `ReviewScreen` and
+  `RewardScreen`, and the lesson-flow reaches none of them. It completes a
+  passing quiz (which emits `first_value_moment_reached`, the gate's other
+  precondition), relaunches twice without clearing state, then completes a
+  second quiz.
   **It requires a production-equivalent build**: eligibility returns
   `blocked: non_production_build` whenever `APP_ENV !== 'production'`, and the
   `e2e-test` profile declares `development`. The dialog assertion is iOS-only
@@ -316,12 +319,38 @@ Two bounds on what the flow proves:
    APK. Android proof needs an install from a closed track — that is task C4,
    not this suite. The contract enforces that every `platform:` guard in this
    flow is `iOS`, so the Android row can never go red for an environment limit.
-2. **The iOS assertion must be anchored to a hierarchy read, not guessed.** The
-   dialog is a system surface. Per this document's own rule, run
-   `maestro hierarchy` at the eligibility moment and anchor the assertion to the
-   real shape. Until that read happens the flow deliberately stops at a
-   screenshot: it proves three opens and two quizzes survive a
-   production-configured build, and claims nothing about the dialog.
+2. **The iOS assertion is anchored to a hierarchy read, done 2026-08-03.** The
+   dialog is a system surface: `SKStoreReviewController` exposes no `text`
+   attribute, only `accessibilityText` — `assertVisible` matches that. The node
+   read on the simulator is `Curtindo o app Radiant?`, and the flow escapes the
+   `?` because Maestro's selector is a full-match regex: unescaped, `t?` makes
+   the "t" optional and the literal `?` has nothing to match. Do not anchor on
+   the subtitle — it contains a non-breaking space in "App Store".
+
+**The first version of this flow was green and measured nothing.** It completed
+the *lesson* (`/learn`) instead of the *quiz* (`/quiz`), and
+`maybePromptForReview` is called only by `QuizScreen`, `ReviewScreen` and
+`RewardScreen` — never by the lesson-flow. The flow passed, and the device's own
+telemetry had not a single `rating_prompt_*` event. What caught it was reading
+AsyncStorage out of the simulator container, not the flow's exit code. The
+contract now pins the `/quiz` deep link and derives the three correct answers
+from `src/data/lessons.ts`, because a failing score makes `QuizScreen` return
+before it ever calls the prompt — the red would have read as a gate failure.
+
+**Reading the device's telemetry is the strongest evidence this suite produces.**
+`RatingPromptService` records its own decision, with the reason. Pull
+`RCTAsyncLocalStorage_V1` from the container
+(`xcrun simctl get_app_container <UDID> com.ascendcreative.radiant data`) and
+read `telemetry.events.v1`. The 2026-08-03 run recorded, in order:
+`first_value_moment_reached` → `rating_prompt_blocked (insufficient_sessions)` →
+`rating_prompt_eligible` → `rating_prompt_shown`, every event carrying
+`build_channel=production`.
+
+That `build_channel` is also **the only reliable proof that the build ran under
+production configuration.** The bundle is Hermes, so its string table cannot
+tell you which literal was inlined for `EXPO_PUBLIC_APP_ENV`; `buildProps`
+writes `AppConfig.APP_ENV` into every prompt event, so the device tells you
+what a `strings` grep cannot.
 
 ## Host budget — read this before attributing an Android timeout
 
