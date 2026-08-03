@@ -10,6 +10,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | App | Expo/React Native; catálogo e progresso funcionam offline |
 | Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; 14 contas vinculadas e 2 opt-ins observados; faltam ≥10 opt-ins e a janela de 14 dias |
 | iOS | build `1.3.0 (4)` pronta no TestFlight, instalada e aberta no iPhone; smoke dos links e VoiceOver pendentes |
+| E2E local | Maestro 5/5 nas duas plataformas sobre builds Release locais da **1.3.1 (3)**, em 2026-08-03 — versão diferente da que está nas lojas, e colhido sob o perfil `e2e-test`, que desliga o beta gate |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
 | Sistema educacional v2 | governança de fontes concluída; gate de mídia implementado; primeiro lote autorizado ainda pendente |

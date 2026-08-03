@@ -154,6 +154,22 @@ this session** — its 2026-07-29 `passed` state predates the gate and does not
 cover it. Full detail, recipe and the `store-capture` attribution are in
 [`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).
 
+On 2026-08-03 the suite was re-run on version **1.3.1 (3)** and **both platforms
+now pass all five flows** — the paragraph above is the record of 2026-08-02 and
+its "Android was not re-run" clause no longer describes the present. Getting
+there took four rounds and surfaced two real flow defects plus one host problem,
+all of them older than the first-run welcome. `offline-relaunch` chained two
+`tapOn: Continuar` straight into a `scrollUntilVisible`; in Maestro
+`assertVisible` **is** the wait, so the scroll began before the quiz step
+existed in the tree — invisible on iOS at ~0.1s per screen, fatal on Android at
+~5× that (`970ffb6`). `store-capture`'s first quiz still carried the
+occlusion-blind guard and was fixed with the same fixed scroll the second quiz
+already used (`da877b2`). The host problem is documented under "Host budget"
+below; three of the first round's failures were timeouts that vanished once
+memory was freed. Both fixes are pinned by contracts, and the full account —
+including the trap where the emulator silently reverted to 1.3.0 — is in
+[`docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+
 The dev-client verification of 2026-07-28
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
 remains a supplement only — per this doc's rules a dev-client run never promotes
@@ -221,8 +237,8 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 | Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Status | Owner/date |
 |---|---|---|---:|---:|---:|---:|---:|---|---|
-| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release, version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (304s, reward node not covered) | passed (160s) | **app-failed** (180s) — the first quiz's `notVisible` visibility guard, not a regression | 4/5 — commit `68bd097`, 2026-08-03. Detail in [`2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md) | engineering / 2026-08-03 |
-| Android | `Radiant_Pixel_9_API_36` emulator / API 36 | local Release APK, version **1.3.1 (3)** verified via `dumpsys package` | passed (284s) | passed (640s) | passed (1698s) | passed (1077s, after the fix in `970ffb6`) | **app-failed** (3269s, round 1); **aborted** in round 2 after 1h02m stuck in the guarded repeat — aborted is not failed | 4/5 — took three rounds; the first was invalidated by host thrash, and the second exposed a real flow defect only Android reveals. Same evidence document | engineering / 2026-08-03 |
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release, version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (304s, reward node not covered) | passed (160s) | passed (416s, after the fix in `da877b2`) | **5/5** — commits `68bd097`..`da877b2`, 2026-08-03. Detail in [`2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md) | engineering / 2026-08-03 |
+| Android | `Radiant_Pixel_9_API_36` emulator / API 36 | local Release APK, version **1.3.1 (3)** verified via `dumpsys package` | passed (284s) | passed (640s) | passed (1698s) | passed (1077s, after the fix in `970ffb6`) | passed (557s, after the fix in `da877b2`) | **5/5** — took four rounds; the first was invalidated by host thrash, and the second and third exposed two real flow defects, both fixed rather than worked around. Same evidence document | engineering / 2026-08-03 |
 
 Android times are 4–20× the iOS ones on this host. That ratio is a property of
 the machine, not of the app — see the host note below before reading a timeout
@@ -232,12 +248,24 @@ No EAS workflow or cloud execution is enabled by this change. Add it only after
 both local rows are recorded as `passed` in dated evidence and its cost/privacy
 review is approved.
 
-**Open item:** `store-capture.yaml` needs its first quiz's `runFlow when
-notVisible` guard reviewed (the same occlusion-blind pattern commit
-`f7b602a` already removed from the second quiz) before it is relied on again
-to produce store screenshots from this simulator. It is the only red flow on
-either platform, and the cause is the same on both. Full attribution in
-[`docs/evidence/2026-08-02-e2e-primeiro-uso.md`](evidence/2026-08-02-e2e-primeiro-uso.md).
+~~**Open item:** `store-capture.yaml` needs its first quiz's `runFlow when
+notVisible` guard reviewed.~~ **Closed on 2026-08-03 (`da877b2`).** The guard
+was replaced by the same fixed `- scroll` that commit `f7b602a` had already put
+in the second quiz of the same file — scrolling past the end is a no-op, so a
+fixed scroll serves both the screen that cannot scroll and the screen that
+occludes, while the guard only ever served one. Measured green on both platforms
+(iOS 416s, Android 557s).
+
+The guard was **not** an oversight, and that matters for whoever reads this
+next: it existed because at 1080×1920 the option is already visible and the list
+no longer scrolls, where `scrollUntilVisible` with `centerElement` fails to
+centre. Copying the sibling flow's pattern would have reintroduced that. Read
+the comment above a guard before removing it — it may exist for a case the
+sibling does not have.
+
+`scripts/maestro-contract.test.mjs` now requires every `scrollUntilVisible` to be
+a top-level step, never nested under a conditional. This pattern had already bitten
+twice, on different platforms, and came back once after being fixed in one place.
 
 ## Host budget — read this before attributing an Android timeout
 

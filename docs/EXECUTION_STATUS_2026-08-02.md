@@ -70,12 +70,13 @@ embutido, sem servidor de desenvolvimento), simulador `Radiant iPhone 17 Pro`
 | `boot-to-home.yaml` | passou |
 | `learning-critical-path.yaml` | passou |
 | `offline-relaunch.yaml` | passou |
-| `store-capture.yaml` | **falhou** — ver "Pendência" abaixo |
+| `store-capture.yaml` | **falhou** nesta data — corrigido e verde em 2026-08-03, ver adendo |
 
 **Android não foi executado nesta sessão.** O estado `passed` de 2026-07-29
 (`3/3 Flows Passed in 11m 48s`) é anterior à existência da apresentação e não
 a cobre — a linha Android da matriz de sign-off precisa ser lida como **não
-revalidada** contra este trabalho.
+revalidada** contra este trabalho. *(Deixou de valer em 2026-08-03: o Android foi
+medido contra a apresentação e fecha 5 de 5. Ver o adendo abaixo.)*
 
 Evidência completa, receita reproduzível e detalhe da atribuição em
 [`radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md`](../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
@@ -100,7 +101,12 @@ Matriz de sign-off atualizada em
    passando a exigir a forma ancorada **derivada de `SLIDES`** (lida direto de
    `WelcomeFlowScreen.tsx`) e a proibir a forma antiga. Commit `728ca8d`.
 
-### Pendência aberta — `store-capture.yaml`, atribuída à guarda de visibilidade do primeiro quiz
+### ~~Pendência aberta~~ — `store-capture.yaml`, atribuída à guarda de visibilidade do primeiro quiz
+
+> **Encerrada em 2026-08-03 (`da877b2`).** A atribuição abaixo estava correta e a
+> guarda foi substituída pelo `scroll` fixo; o flow passa nas duas plataformas.
+> O texto segue como registro datado do diagnóstico. Ver o adendo de 2026-08-03,
+> mais abaixo.
 
 `store-capture.yaml` falhou na seleção da alternativa do quiz. **Não é
 regressão desta branch:** o diff desta branch nesse arquivo é uma linha (o
@@ -204,12 +210,12 @@ A versão foi conferida **no binário instalado**, não só no `app.json`: iOS
 `CFBundleShortVersionString 1.3.1`, Android `versionName=1.3.1` via
 `dumpsys package`.
 
-### E2E — as duas plataformas, 4 de 5 cada
+### E2E — as duas plataformas, **5 de 5 cada**
 
-| Plataforma | Verdes | Vermelho |
-| --- | --- | --- |
-| iOS 26.5 (iPhone 17 Pro) | `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch` | `store-capture` |
-| Android API 36 (Pixel 9) | os mesmos quatro | `store-capture` |
+| Plataforma | Resultado |
+| --- | --- |
+| iOS 26.5 (iPhone 17 Pro) | `first-run`, `boot-to-home`, `learning-critical-path`, `offline-relaunch`, `store-capture` — todos verdes |
+| Android API 36 (Pixel 9) | os mesmos cinco, todos verdes |
 
 **O Android deixou de estar não revalidado.** A linha anterior deste documento
 dizia que o `passed` de 2026-07-29 era anterior à apresentação e não a
@@ -232,12 +238,24 @@ todo `scrollUntilVisible` nesses flows. O contrato prende a **espera**, não o
 tempo: subir o timeout esconderia o defeito e manteria uma corrida que o iOS
 ganha e o Android perde.
 
-### O que continua vermelho, e por quê
+### O `store-capture` também fechou, ainda em 2026-08-03
 
-`store-capture` falha nas **duas** plataformas, pela mesma causa e por defeito
-**anterior** a este trabalho: a guarda `runFlow when notVisible` do primeiro
-quiz é cega a oclusão. Não é consequência da apresentação de primeiro uso nem da
-1.3.1. Segue como pendência aberta, já descrita acima.
+Ele era o último vermelho, nas duas plataformas, pela mesma causa e por defeito
+**anterior** a este trabalho: a guarda `runFlow when notVisible` do primeiro quiz
+é cega a oclusão. Corrigido em `da877b2` e medido verde nos dois lados — iOS
+416s, Android 557s.
+
+A guarda **não era descuido**, e isso é o que vale carregar adiante: ela existia
+porque a 1080×1920 a alternativa já nasce visível e a lista não rola, e ali um
+`scrollUntilVisible` com `centerElement` falha por não conseguir centralizar.
+Copiar o padrão do flow irmão teria reintroduzido esse defeito. A saída estava
+dentro do próprio arquivo — o commit `f7b602a` já resolvera o mesmo problema no
+**segundo** quiz com um `scroll` fixo, que é no-op onde não há para onde rolar e
+levanta o elemento onde ele está ocluso. O contrato agora exige
+`scrollUntilVisible` como passo de topo, nunca sob condicional.
+
+Com isso, **a pendência da seção anterior está encerrada** — ela descreve o
+estado de 2026-08-02 e permanece como registro datado, não como item aberto.
 
 ### Achado de infraestrutura
 

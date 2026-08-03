@@ -35,9 +35,10 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
   2026-08-03; `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) —
   segue parcial, ver item 1 dos bloqueadores.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
-  plataformas em 2026-08-03: iOS 4/5 e Android 4/5**, sobre builds Release locais
-  da 1.3.1. O único vermelho é o `store-capture`, nas duas, por defeito anterior
-  a esse trabalho. A ressalva do item 3 dos bloqueadores continua valendo: a
+  plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
+  da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
+  Android e `store-capture` nas duas — eram defeitos dos flows, anteriores a esse
+  trabalho, e foram corrigidos e remedidos. A ressalva do item 3 dos bloqueadores continua valendo: a
   evidência foi colhida sob o perfil `e2e-test`, não sob `preview`.
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
@@ -69,7 +70,7 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 2. ~~Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
    Android.~~ **Falso desde 2026-07-28, e medido de novo em 2026-08-03.** O
    projeto nativo é gerado por `expo prebuild --platform android --no-install` e
-   a suíte roda em emulador: **4 de 5 flows verdes** sobre APK Release local da
+   a suíte roda em emulador: **5 de 5 flows verdes** sobre APK Release local da
    versão 1.3.1, incluindo a apresentação de primeiro uso. Evidência em
    [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
 3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
