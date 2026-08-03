@@ -385,3 +385,34 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
     });
   }
 });
+
+test('never lets a scroll-until-visible hide behind a visibility guard', async () => {
+  // `runFlow when notVisible: <id>` envolvendo um `scrollUntilVisible` já mordeu
+  // duas vezes, em plataformas diferentes: o Maestro não modela OCLUSÃO, então o
+  // elemento está na árvore e lê como "visível" para a guarda enquanto está por
+  // baixo do CTA flutuante. A guarda pula a rolagem, o tap cai no botão errado, e
+  // o flow para com o quiz em 0% selecionado — no iPhone 16 Plus em 2026-07-30
+  // (segundo quiz, corrigido em f7b602a) e no iPhone 17 Pro em 2026-08-02/03
+  // (primeiro quiz). O remédio nos dois casos foi um `- scroll` fixo: rolar além
+  // do fim é no-op, então ele serve à tela que não rola E à que oclui, enquanto a
+  // guarda só servia a uma.
+  //
+  // O contrato exige que todo `scrollUntilVisible` seja passo de topo. Aninhá-lo
+  // sob qualquer condicional o traz de volta para dentro de uma guarda.
+  // Atenção: isto NÃO proíbe `repeat ... while: notVisible` sobre os CTAs de
+  // rodapé — esses são exigidos pelo teste de alcançabilidade acima e não
+  // envolvem `scrollUntilVisible`.
+  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml', 'store-capture.yaml']) {
+    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
+
+    lines.forEach((line, index) => {
+      if (!/scrollUntilVisible:/.test(line) || /^\s*#/.test(line)) return;
+
+      assert.match(
+        line,
+        /^- scrollUntilVisible:/,
+        `${name}:${index + 1}: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against`
+      );
+    });
+  }
+});

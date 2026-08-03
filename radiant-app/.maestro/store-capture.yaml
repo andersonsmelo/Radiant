@@ -37,20 +37,22 @@ tags:
 
 - assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
 - takeScreenshot: shots/03-quiz
-# A 1080x1920 a alternativa ja nasce visivel e a lista nao rola mais, entao
-# scrollUntilVisible com centerElement+100% falha por nao conseguir centralizar —
-# "element not found" ali e afirmacao sobre o matcher, nao sobre o elemento
-# (verificado: o id esta na arvore, em y1382-1534 de 1920). Rola so se precisar.
-- runFlow:
-    when:
-      notVisible:
-        id: lesson-option-q1:option:1
-    commands:
-      - scrollUntilVisible:
-          element:
-            id: lesson-option-q1:option:1
-          direction: DOWN
-          visibilityPercentage: 60
+# Scroll de elevacao FIXO, sem guarda — mesma correcao que o segundo quiz deste
+# arquivo ja recebeu em f7b602a, aplicada aqui em 2026-08-03.
+#
+# A versao anterior usava `runFlow when notVisible: scrollUntilVisible`. A guarda
+# nasceu de um problema real: a 1080x1920 a alternativa ja nasce visivel e a
+# lista nao rola mais, entao um scrollUntilVisible com centerElement falha por
+# nao conseguir centralizar. Mas ela e cega a OCLUSAO, que e o outro caso: no
+# iPhone 17 Pro a alternativa esta na arvore e portanto "visivel" para a guarda,
+# so que por baixo do CTA flutuante — a guarda pulava a rolagem, o tap caia no
+# botao desabilitado, e o flow parava com o quiz em 0% selecionado (medido em
+# 2026-08-02 e de novo em 2026-08-03).
+#
+# O scroll fixo serve aos dois casos porque rolar alem do fim e no-op: onde a
+# lista nao rola ele nao faz nada, onde a alternativa esta oclusa ele a levanta.
+# A guarda so servia a um. Visibilidade nao e tocabilidade.
+- scroll
 - tapOn:
     id: lesson-option-q1:option:1
 - tapOn: Continuar
