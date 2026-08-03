@@ -33,7 +33,16 @@ tags:
       - tapOn: Abrir
 - assertVisible: Fundamentos de Radiologia
 - tapOn: Continuar
+# As duas asserções abaixo não são redundantes com o tap anterior: no Maestro,
+# `assertVisible` é a espera. Sem elas, dois `tapOn: Continuar` seguidos emendam
+# direto no `scrollUntilVisible`, que começa a rolar antes de o passo do quiz
+# existir na árvore e estoura o timeout de 20s. No iOS isso nunca aparecia
+# porque a tela renderiza em ~0,1s; no Android, ~5x mais lento, o flow falhou
+# 2 de 2 (2026-08-03) enquanto o irmão learning-critical-path, que já tinha
+# estas esperas, passou no mesmo emulador e na mesma execução.
+- assertVisible: Ideia-chave
 - tapOn: Continuar
+- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
 - scrollUntilVisible:
     element:
       id: lesson-option-q1:option:1

@@ -356,3 +356,32 @@ test('requires dated per-platform device evidence before any e2e pass is claimed
   assert.match(baseline, /pr[ée]-condi[çc][ãa]o/i);
   assert.doesNotMatch(baseline, /E2E (?:aprovad[oa]|PASS)/i);
 });
+
+test('makes every scroll-until-visible wait for the screen it is about to scroll', async () => {
+  // No Maestro, `assertVisible` É a espera. Dois `tapOn` seguidos emendando num
+  // `scrollUntilVisible` fazem a rolagem começar antes de o passo existir na
+  // árvore, e o scroll estoura o timeout procurando um elemento que ainda não
+  // renderizou. No iOS isso nunca aparecia — a tela monta em ~0,1s. No Android,
+  // ~5x mais lento, `offline-relaunch` falhou 2 de 2 em 2026-08-03 exatamente
+  // aqui, enquanto `learning-critical-path`, que já intercalava as asserções,
+  // passou no mesmo emulador e na mesma execução. O contrato prende a espera,
+  // não o tempo: aumentar o timeout esconderia o defeito em vez de removê-lo.
+  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml']) {
+    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
+
+    lines.forEach((line, index) => {
+      if (!/^- scrollUntilVisible:/.test(line)) return;
+
+      const previousCommand = lines
+        .slice(0, index)
+        .reverse()
+        .find((candidate) => /^\S/.test(candidate) && !candidate.startsWith('#'));
+
+      assert.match(
+        previousCommand ?? '',
+        /^- assertVisible:/,
+        `${name}:${index + 1}: scrollUntilVisible must be preceded by an assertVisible — that assertion is what makes Maestro wait for the screen to render before scrolling`
+      );
+    });
+  }
+});
