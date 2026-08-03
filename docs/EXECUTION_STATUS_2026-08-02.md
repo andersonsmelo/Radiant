@@ -446,6 +446,70 @@ dos bloqueadores, rodando sob configuração equivalente a produção
 Esta é a mesma classe de defasagem que fez a task C3 dizer "3 flows" por seis
 dias: o trabalho estava certo, a sinalização é que envelheceu.
 
+## Adendo 2026-08-03 (quarta sessão) — E2E sob produção, 6/6, e um evento que nunca era emitido
+
+Esta seção fecha a ressalva da seção anterior: **a evidência E2E voltou a
+descrever o HEAD**, e pela primeira vez foi colhida sob configuração equivalente
+a produção. Detalhe completo em
+[`radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md`](../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
+
+### O achado que mudou o trabalho antes de ele começar
+
+O item 3 dos bloqueadores justificava a rodada dizendo que *"o prompt de
+avaliação só existe em produção e nunca foi exercitado em device"*. Ao rastrear
+o gate antes de declarar escopo, o motivo real apareceu: `RatingPromptService`
+conta `app_open`, e **esse evento tinha um único ponto de emissão, na
+`HomeScreen` legada** — que `(tabs)/index.tsx` só renderiza com
+`ENABLE_LEARNING_ROAD=false`, e nenhum dos cinco perfis declara isso. O evento
+**nunca foi emitido em build nenhuma**. O prompt não estava "não exercitado";
+estava inalcançável.
+
+Com ele tinham ficado para trás outros três comportamentos do mesmo bloco de
+abertura:
+
+| Perdido | Consequência |
+| --- | --- |
+| `track('app_open')` | prompt e paywall travados em `insufficient_sessions` |
+| `markDayOpen()` | único inicializador de `cohort.installDate` — paywall somava `missing_install_date`, e D1/D7 nunca tiveram base |
+| `PushService.onAppOpen()` | backoff de push nunca resetava |
+| `checkHeuristics()` | superfície de heurísticas nunca rodava na home |
+
+Três documentos afirmavam o evento como emitido, inclusive o
+[`CONTRATO_TELEMETRIA.md`](legal/CONTRATO_TELEMETRIA.md), que é o contrato legal.
+A divergência foi de **completude no sentido seguro**: coletou-se menos do que o
+anunciado, nunca mais. Os três primeiros foram migrados para o hook
+`useAppOpenLifecycle`, consumido pelas duas homes (`f499714`). O
+`checkHeuristics` ficou **deliberadamente de fora** — renderiza nudges, e
+religá-lo é decisão de produto com efeito visível na home, dentro justamente da
+rodada que existe para certificá-la.
+
+### Placar
+
+Seis flows, duas plataformas, todos verdes, sob `APP_ENV=production` e
+`ENABLE_PUSH=true` — as únicas duas diferenças de runtime entre `e2e-test` e
+`production`. Versão 1.3.1 (3) conferida nos binários instalados dos dois lados.
+O flow novo, `rating-prompt`, é o único que alcança `MIN_APP_OPENS`.
+
+No iOS o diálogo do `SKStoreReviewController` apareceu e foi afirmado. No Android
+o gate abriu igual, e só a chamada ao `ReviewManager` do Play falhou — prova de
+diálogo em Android exige faixa fechada (C4).
+
+### Duas coisas que valem além desta rodada
+
+1. **Um flow verde pode não tocar o código que existe para medir.** A primeira
+   versão do `rating-prompt` completava a lição em vez do quiz e passou; a
+   telemetria do aparelho não tinha um único evento `rating_prompt_*`. Quem
+   denunciou foi ler o armazenamento local do dispositivo, não o exit code.
+2. **A telemetria do aparelho é a prova da configuração da build.** O bundle é
+   Hermes, então `strings` não distingue a literal inlinada. Todo evento do
+   prompt carrega `build_channel`, e ele veio `production` nas duas plataformas.
+
+### O que isto **não** fecha
+
+A F2 segue aberta e continua sendo o caminho crítico: faltam opt-ins do closed
+test, e nenhum trabalho de engenharia os encurta. O B4 (VoiceOver com áudio)
+também segue pendente — exige humano.
+
 ## Herdado do documento substituído (não reverificado nesta sessão)
 
 Todo o estado de preparação de lançamento — contas de desenvolvedor Play

@@ -44,12 +44,13 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
   trabalho, e foram corrigidos e remedidos. A ressalva do item 3 dos bloqueadores continua valendo: a
   evidência foi colhida sob o perfil `e2e-test`, não sob configuração equivalente
   a produção.
-  **⚠️ Acrescentado em 2026-08-03 (terceira sessão): essa evidência agora precede
-  o HEAD.** Ela foi medida em `da877b2`, e desde então 11 commits tocaram
-  `_layout.tsx`, `AppButton.tsx` (todo botão do app), `useQuiz.ts`, `HUD.tsx` e as
-  quatro telas de galáxia. Nada indica regressão — `quality` e os contratos do
-  Maestro passam —, mas a suíte precisa ser reexecutada antes de o `5/5` valer
-  para submissão, e essa reexecução é o momento natural de fechar o item 3.
+  ~~**⚠️ Acrescentado em 2026-08-03 (terceira sessão): essa evidência agora precede
+  o HEAD.**~~ **Resolvido em 2026-08-03 (quarta sessão): a suíte foi reexecutada
+  no HEAD e sob configuração equivalente a produção — `6/6` no iOS e `6/6` no
+  Android**, com um flow a mais que os cinco anteriores. Os 11 commits do
+  refinamento de microinterações não regrediram nada, e o item 3 dos bloqueadores
+  fechou na mesma rodada. Evidência em
+  [`2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
 - Expo SDK 54 / RN 0.81 → target Android API 36 por padrão, o que já atende o
@@ -116,6 +117,21 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    >   `ENABLE_DEV_TOOLS`, `ENABLE_TELEMETRY_DEBUG_SCREEN` e `ENABLE_BETA_GATE`,
    >   quem coincide com `production` é o **`e2e-test`**, não o `preview`.
    >
+   > **✅ ENCERRADO em 2026-08-03 (quarta sessão).** A suíte foi medida sob
+   > `APP_ENV=production` e `ENABLE_PUSH=true` nas duas plataformas: **6/6 no iOS
+   > e 6/6 no Android**, incluindo um flow novo (`rating-prompt`) que é o único a
+   > alcançar `MIN_APP_OPENS`. Evidência em
+   > [`2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
+   >
+   > **A premissa do item também estava errada, e de um jeito que importa.** Ele
+   > dizia que o prompt de avaliação "nunca foi exercitado em device". O motivo
+   > não era falta de execução: `RatingPromptService` conta `app_open`, e esse
+   > evento tinha um único emissor, na home legada, inalcançável desde que a
+   > Learning Road virou a home oficial. **Nenhuma build o emitia**, então o
+   > prompt era inalcançável, não apenas não medido. Corrigido em `f499714`.
+   > Nenhuma rodada de device teria fechado este item sem essa correção — a lição
+   > é que "nunca medido" e "impossível" produzem exatamente a mesma evidência.
+
    > **O eixo real deste item**, e o que ele deve pedir daqui em diante: o
    > `e2e-test` difere de `production` em `EXPO_PUBLIC_APP_ENV`
    > (`development` vs `production`) e `EXPO_PUBLIC_ENABLE_PUSH` (`false` vs

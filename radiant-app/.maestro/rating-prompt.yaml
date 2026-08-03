@@ -103,11 +103,14 @@ tags:
 # correspondência total: sem a barra, `t?` tornaria o "t" opcional e o literal
 # `?` do título não teria com o que casar.
 #
-# Só iOS. O AVD do projeto usa imagem `google_apis`, sem Play Store, então
-# `StoreReview.isAvailableAsync()` é falso e o Android termina em
-# `deferred: store_review_unavailable`. Mesmo com imagem de Play Store, o
-# in-app review do Play é no-op para APK instalado por sideload — prova em
-# Android exige faixa fechada (task C4).
+# Só iOS — mas não pela razão que parecia. Medido no emulador `google_apis` em
+# 2026-08-03: `StoreReview.isAvailableAsync()` devolve **verdadeiro** e o gate
+# abre igual ao iOS (`rating_prompt_eligible`). Quem falha é a chamada seguinte,
+# ao `ReviewManager` do Play, que devolve
+# `deferred: "Android ReviewManager task was not successful"`. Ou seja: o
+# caminho do app é o mesmo nas duas plataformas, e só o serviço da loja
+# difere. Prova de diálogo em Android exige instalação por faixa fechada do
+# Play (task C4), não uma imagem de emulador diferente.
 - runFlow:
     when:
       platform: iOS

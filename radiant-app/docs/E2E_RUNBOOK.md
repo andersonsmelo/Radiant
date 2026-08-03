@@ -249,24 +249,26 @@ maestro test .maestro --format junit --output maestro-results.xml
 
 ## Sign-off matrix
 
-| Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Status | Owner/date |
-|---|---|---|---:|---:|---:|---:|---:|---|---|
-| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release, version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (304s, reward node not covered) | passed (160s) | passed (416s, after the fix in `da877b2`) | **5/5** — commits `68bd097`..`da877b2`, 2026-08-03. Detail in [`2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md) | engineering / 2026-08-03 |
-| Android | `Radiant_Pixel_9_API_36` emulator / API 36 | local Release APK, version **1.3.1 (3)** verified via `dumpsys package` | passed (284s) | passed (640s) | passed (1698s) | passed (1077s, after the fix in `970ffb6`) | passed (557s, after the fix in `da877b2`) | **5/5** — took four rounds; the first was invalidated by host thrash, and the second and third exposed two real flow defects, both fixed rather than worked around. Same evidence document | engineering / 2026-08-03 |
+| Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Rating prompt | Status | Owner/date |
+|---|---|---|---:|---:|---:|---:|---:|---:|---|---|
+| iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release under **production configuration** (`APP_ENV=production`, `ENABLE_PUSH=true`), version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (312s, reward node not covered) | passed (155s) | passed (402s) | passed (210s, dialog asserted) | **6/6** — measured at `b9c77f4`, 2026-08-03. Detail in [`2026-08-03-e2e-producao-rating-prompt.md`](evidence/2026-08-03-e2e-producao-rating-prompt.md) | engineering / 2026-08-03 |
+| Android | `Radiant_Pixel_9_API_36` emulator / API 36, `google_apis` image | local Release APK, same production configuration, version **1.3.1 (3)** verified via `dumpsys package` | passed (73s) | passed (36s) | passed (239s) | passed (247s) | passed (918s) | passed (471s, dialog not asserted — see "Rating prompt") | **6/6** — same evidence document | engineering / 2026-08-03 |
 
-> **⚠️ This matrix predates the current HEAD (noted 2026-08-03, third session).**
-> Both rows were measured at `da877b2`. Since then **11 commits** have landed,
-> touching `src/app/_layout.tsx`, `AppButton.tsx` — which is **every button in
-> the app** — `useQuiz.ts`, `HUD.tsx` and the four galaxy screens, as part of a
-> microinteraction and motion refinement (`fde484e`, `94d7e4c`, `6b3dcc3`).
->
-> Nothing suggests a regression: `npm run quality` passes, the Maestro contracts
-> pass, and haptics do not change selectors. But per this document's own rule —
-> a static contract never promotes a platform — **these rows describe code that
-> is no longer what ships.** Re-run before treating `5/5` as valid for
-> submission, and use that run to close blocker item 3 by measuring under a
-> production-equivalent configuration (`APP_ENV=production`, `ENABLE_PUSH=true`),
-> which no device evidence has ever covered.
+> **This matrix describes the current HEAD, and is the first measured under a
+> production-equivalent configuration.** The previous rows were taken at
+> `da877b2` under the `e2e-test` profile and had fallen 11 commits behind; both
+> gaps are closed here. The delta that mattered was two runtime flags —
+> `APP_ENV` and `ENABLE_PUSH` — and the proof that they were actually in the
+> build is `build_channel=production` on every rating-prompt event read back
+> from the devices, not a `strings` grep of a Hermes bundle.
+
+**Four of the five existing Android flows came in 2–7× faster than the
+2026-08-03 baseline**, which confirms the host finding of that day rather than
+contradicting it: those numbers were measured with the machine in swap.
+`store-capture` is the exception — 918s against 557s, while its neighbours fell
+— and it is recorded as **unattributed**: it passed with no step retries, and
+being the only flow that takes seven screenshots is a correlation, not a
+demonstrated cause.
 
 Android times are 4–20× the iOS ones on this host. That ratio is a property of
 the machine, not of the app — see the host note below before reading a timeout
@@ -311,14 +313,19 @@ would have gone red for a reason in the app, not in the flow.
 
 Two bounds on what the flow proves:
 
-1. **The dialog is only observable on iOS here.** The project's AVD
-   (`Radiant_Pixel_9_API_36`) uses the `google_apis` system image, with no Play
-   Store, so `StoreReview.isAvailableAsync()` is false and Android ends at
-   `deferred: store_review_unavailable`. Swapping in a Play Store image does not
-   fix it either: Play's in-app review is a documented no-op for a sideloaded
-   APK. Android proof needs an install from a closed track — that is task C4,
-   not this suite. The contract enforces that every `platform:` guard in this
-   flow is `iOS`, so the Android row can never go red for an environment limit.
+1. **The dialog is only observable on iOS here — and the reason is not the one
+   you would guess.** Measured on 2026-08-03 on the `google_apis` emulator:
+   `StoreReview.isAvailableAsync()` returns **true**, the gate opens exactly as
+   it does on iOS (`rating_prompt_eligible`), and the failure comes one step
+   later, from Play's `ReviewManager`, recorded as
+   `deferred: "Android ReviewManager task was not successful"`. The prediction
+   written before that run — that Android would stop at
+   `store_review_unavailable` for lack of a Play Store — was wrong in mechanism,
+   and the device corrected it. The app's own path is identical on both
+   platforms; only the store service differs. Android proof needs an install
+   from a closed track (task C4), not a different emulator image. The contract
+   enforces that every `platform:` guard in this flow is `iOS`, so the Android
+   row can never go red for a store-service limit.
 2. **The iOS assertion is anchored to a hierarchy read, done 2026-08-03.** The
    dialog is a system surface: `SKStoreReviewController` exposes no `text`
    attribute, only `accessibilityText` — `assertVisible` matches that. The node

@@ -41,3 +41,19 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   Release local com bundle embutido, com receita de build reprodutível. Android
   segue `environment-blocked`. Registra também a deriva EN→pt-BR que fez
   `learning-critical-path` falhar na primeira execução do dia.
+- [E2E da apresentação de primeiro uso — 2026-08-02](2026-08-02-e2e-primeiro-uso.md)
+  — iOS 4/5 sobre build Release local da 1.3.0; `store-capture` vermelho por
+  guarda cega a oclusão, anterior àquele trabalho. Registra os três defeitos que
+  só a execução em dispositivo expôs, incluindo o colapso de acessibilidade do
+  `WelcomeSlide`. **Indexado retroativamente em 2026-08-03.**
+- [E2E da 1.3.1 nas duas plataformas — 2026-08-03](2026-08-03-e2e-1.3.1-ios-android.md)
+  — iOS e Android `passed` 5/5 sobre builds Release locais da 1.3.1, sob o perfil
+  `e2e-test`. Traz o orçamento de host (16 GB é marginal para Android) e a
+  armadilha do emulador voltar ao APK anterior. **Indexado retroativamente em
+  2026-08-03.**
+- [E2E sob configuração de produção — 2026-08-03](2026-08-03-e2e-producao-rating-prompt.md)
+  — iOS e Android `passed` **6/6**, primeira evidência colhida com
+  `APP_ENV=production` e `ENABLE_PUSH=true`. Fecha o item 3 dos bloqueadores e a
+  defasagem entre a evidência e o HEAD. Traz o flow `rating-prompt`, a leitura da
+  telemetria do próprio aparelho como método de verificação, e a correção de uma
+  previsão errada sobre por que o Android não mostra o diálogo.
