@@ -8,7 +8,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | Frente | Estado verificado |
 | --- | --- |
 | App | Expo/React Native; catálogo e progresso funcionam offline |
-| Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; 13 contas vinculadas, opt-ins e janela de 14 dias ainda pendentes |
+| Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; 14 contas vinculadas e 2 opt-ins observados; faltam ≥10 opt-ins e a janela de 14 dias |
 | iOS | build `1.3.0 (4)` pronta no TestFlight, instalada e aberta no iPhone; smoke dos links e VoiceOver pendentes |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |

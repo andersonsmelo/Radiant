@@ -253,11 +253,11 @@ código.
   pendente apenas no lado da automação:** gerar a service-account key do Play.
 - **A6 [P1]** ~~Recrutar ≥ 14 testadores (12 é o mínimo do Play; margem para
   churn) — alinhado ao recrutamento da Task 12 (5–8 participantes de pesquisa
-  podem vir do mesmo pool).~~ **CONCLUÍDA em 2026-08-01**, relatada pelo dono:
-  ≥14 contas vinculadas ao track `alpha`, margem de churn atingida. Não medida
-  por mim — o repositório não persiste endereços por decisão de privacidade, e a
-  autoridade é a página da faixa no Console. **A6 fecha aqui; F2 não.** Vínculo
-  não equivale a opt-in, e é o opt-in que inicia o relógio de 14 dias.
+  podem vir do mesmo pool).~~ **CONCLUÍDA e verificada em 2026-08-03:** a página
+  da faixa no Play Console mostrou 14 contas vinculadas ao track `alpha`,
+  confirmando a margem de churn. O repositório não persiste endereços por
+  decisão de privacidade. **A6 fecha aqui; F2 não.** O painel mostrou apenas 2
+  opt-ins, e é o opt-in que inicia o relógio de 14 dias.
 
 ### Onda B — Qualidade pendente (M1) — engenharia, já autorizada no status
 
@@ -615,16 +615,16 @@ código.
   smoke dos links no iPhone físico, sessão humana de VoiceOver e reconciliação da
   metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico;
   F1 permanece aberta até existirem essas evidências de UI.
-- **F2 [P0] — RELEASE LIVE; ≥14 TESTADORES VINCULADOS; OPT-IN PENDENTE
-  (2026-08-01).** Build
+- **F2 [P0] — RELEASE LIVE; 14 TESTADORES VINCULADOS; 2 OPT-INS OBSERVADOS;
+  14 DIAS PENDENTES (2026-08-03).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
   `Ativo`. A lista `Radiant Alpha — 31/07/2026` foi substituída a partir da fonte
-  completa e permanece selecionada no track; ainda em 2026-08-01 o dono relatou o
-  recrutamento concluído, com ≥14 contas vinculadas. Nenhum dado pessoal foi
-  persistido no repositório, então a autoridade sobre o número é a página da
-  faixa no Console. **Com A6 fechada, o único caminho restante para F2 é o
-  opt-in:** a task só fecha quando houver ≥12 adesões efetivas e a contagem
-  completar 14 dias consecutivos (conta pessoal).
+  completa e permanece selecionada no track. Em 2026-08-03, o Console confirmou
+  14 contas vinculadas e o painel mostrou 2 testadores participando no momento.
+  Nenhum dado pessoal foi persistido no repositório. **Com A6 fechada, faltam
+  pelo menos 10 opt-ins para F2 atingir o piso:** a task só fecha quando houver
+  ≥12 adesões efetivas e a contagem completar 14 dias consecutivos (conta
+  pessoal).
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).

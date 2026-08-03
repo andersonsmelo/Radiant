@@ -12,6 +12,11 @@ lançamento (Play Console, App Store Connect, testadores, entitlement,
 currículo v2), o documento substituído continua sendo a fonte — nada ali foi
 invalidado por este trabalho.
 
+**Exceção atualizada em 2026-08-03:** o estado do closed test Android foi
+reverificado diretamente no Play Console e está registrado na seção própria
+abaixo. Essa evidência mais recente substitui, somente para a contagem de contas
+vinculadas e opt-ins, o estado herdado de 2026-07-29.
+
 ## Status canônico atual
 
 O Radiant é um aplicativo educacional de radiologia **local-first**. O app
@@ -20,6 +25,18 @@ quando a API remota está ausente. A API pública em
 `api.radiant.ascendcreative.com.br` permanece **inativa** (HTTP 502) — estado
 herdado do documento substituído, **não reverificado nesta sessão** — e não
 está no caminho crítico do lançamento local-first.
+
+## Atualização operacional de 2026-08-03 — closed test Android
+
+O Play Console confirmou a faixa fechada `alpha` como ativa, com a versão
+`1.3.0 (4)`. A lista selecionada foi medida com **14 contas vinculadas**, o que
+confirma a margem operacional da task A6. O painel do app mostrou separadamente
+**2 testadores participando no momento**.
+
+Vínculo não equivale a opt-in. Portanto, **A6 está concluída, mas F2 permanece
+aberta**: faltam pelo menos 10 opt-ins para atingir o piso de 12 e, a partir
+desse piso, comprovar 14 dias consecutivos sem cair abaixo dele. Nenhum endereço
+de testador foi persistido ou reproduzido no repositório.
 
 ## O que mudou nesta data — apresentação de primeiro uso do Pixel
 
