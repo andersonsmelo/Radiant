@@ -210,6 +210,45 @@ suspeita de que o `<Modal>` do React Native montaria a subárvore do
 `render()` devolve `null` quando o modal não deve aparecer. O componente **não**
 monta a cada render do `ProgressScreen`.
 
+### Dois falsos positivos de configuração, verificados — não recarregar
+
+Acrescentado em 2026-08-03. Uma sessão leu o `radiant-app/eas.json` enquanto
+trabalhava na F2, apontou dois "defeitos" e reportou os dois **antes** de
+procurar a razão deles na documentação. Ambos são deliberados e já estavam
+registrados. Ficam aqui porque a leitura errada é natural — o `eas.json` não
+carrega a razão dentro de si, e quem chega pela F2 não passa pelos runbooks de
+loja no caminho.
+
+1. **`submit.production.android.track` diz `internal`, e o closed test roda na
+   faixa `alpha`.** Parece apontar para a faixa errada. **É deliberado:** o fluxo
+   é subir em internal para validar o pipeline e **promover** para a faixa
+   fechada no Console. Documentado em
+   [`docs/store/RUNBOOK_PLAY_CONSOLE.md`](store/RUNBOOK_PLAY_CONSOLE.md), seção
+   *"Parte 6 — O relógio de 14 dias só corre no track fechado"*, que diz na
+   tabela que internal **não conta** para os 14 dias e afirma logo abaixo que
+   *"os dois valores são deliberados"*; também em
+   [`docs/store/EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) e na linha do
+   *track de teste fechado* da tabela final de
+   [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md).
+   Mudar o `track` para `alpha` desfaria uma decisão tomada com contexto que o
+   arquivo não expressa.
+2. **O `versionCode`/`buildNumber` do `app.json` (hoje `3`) não é o que vai para
+   a loja.** O `eas.json` declara `cli.appVersionSource: "remote"` e o perfil
+   `production` usa `autoIncrement`: o contador vive no servidor do EAS, e o
+   campo do `app.json` é **decorativo** — editá-lo não muda o AAB, e lê-lo para
+   responder "qual é o versionCode" dá resposta errada. O valor real sai de
+   `eas build:list`. Já registrado na linha *"`versionCode` — quem governa"* da
+   tabela final de
+   [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md).
+   O `3` **é** verdadeiro para as builds Release **locais**, que são as que
+   geraram o E2E 5/5 — daí a confusão: o número é real, só não é o da loja.
+
+A regra que os dois casos ensinam, e que vale além deles: **a ausência de
+explicação onde você procurou não é evidência de escolha não considerada.** Antes
+de classificar um valor de configuração como defeito, procure o valor literal na
+prosa do repositório — é onde a intenção mora, e é a superfície que as
+ferramentas de código nunca tocam.
+
 ## Adendo 2026-08-03 — versão 1.3.1 e E2E medido nas duas plataformas
 
 Acrescentado a este documento em vez de criar um `EXECUTION_STATUS_2026-08-03`
