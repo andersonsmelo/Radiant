@@ -350,7 +350,11 @@ código.
   contrato virou teste estrutural em
   `radiant-app/scripts/tab-bar-clearance-contract.test.mjs`, ligado ao
   `npm run quality`.
-- **B0 [P0] — NOVO, bloqueia o beta.** A flag `ENABLE_LEARNING_ROAD` tem
+- **B0 [P0 — RESOLVIDA em 2026-07-27; ponta B0.2 aberta]** ~~NOVO, bloqueia o
+  beta.~~ *(Estado promovido ao cabeçalho em 2026-08-04, pela mesma razão da D1:
+  a resolução já estava no corpo, mas o cabeçalho seguia dizendo "bloqueia o
+  beta" para quem triasse a lista. É o cabeçalho que é lido.)*
+  A flag `ENABLE_LEARNING_ROAD` tinha
   default `false` e **não é definida nos perfis `development`, `preview` nem
   `production`** do `eas.json`; só o perfil `e2e-test` a liga. Consequências
   verificadas em 2026-07-27:
@@ -359,6 +363,16 @@ código.
      validou a Home da trilha — uma tela que o usuário de produção não vê.
   3. O `.env` local também liga a flag, então o desenvolvimento manual observa
      a mesma tela do E2E, e não a de produção.
+  > **O que fechar esta task custou, descoberto só em 2026-08-03.** Ligar a
+  > Learning Road em todos os perfis é o que tornou a `HomeScreen` legada
+  > inalcançável — e era nela que vivia o **único** emissor de `app_open`, junto
+  > com `markDayOpen()` e o reset de backoff de push. A correção era certa e o
+  > efeito colateral foi invisível por sete dias: nenhum teste falhou, nenhum
+  > contrato reprovou, e três documentos seguiram afirmando o evento como
+  > emitido. Corrigido em `f499714`. **A lição que vale além desta task:** quando
+  > uma decisão torna uma tela inalcançável, o que morre com ela não é só a tela
+  > — é todo comportamento que só existia ali, e nada no arnês avisa.
+
   **Decidida em 2026-07-27: a v1.3 lança com a Learning Road** — ver
   [ADR da home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md).
   A flag passou a ser declarada em `development`, `preview` e `production`, e o
