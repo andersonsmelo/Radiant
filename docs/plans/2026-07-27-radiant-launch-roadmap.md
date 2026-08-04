@@ -550,6 +550,16 @@ código.
   (reconfirmado por smoke público read-only em 2026-07-27), e o painel passa a
   exibir o estado efetivo (`ligado, sem API configurada` quando a flag está
   ligada sem API). Resta a ADR de estratégia da API, que é decisão de produto.
+  **Rascunho pronto em 2026-08-04:**
+  [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md) — estado medido
+  (502 reconfirmado; gateway de pé, upstream fora), as três opções e o que cada
+  uma arrasta. **Aguarda apenas a linha do decisor.** Dois achados que a redação
+  desta task não continha: a API **já está escrita e testada** (949 linhas de
+  rotas), então a decisão é subir ou arquivar, não construir; e "local-first puro"
+  **não é opção livre**, porque contradiz o `ADR-2026-08-01`, que decidiu conta
+  própria para o premium. O rascunho também recomenda **decidir isto antes da
+  E3**: contas mudam as respostas de privacy labels e Data safety, e responder
+  E3 antes significa provavelmente respondê-la duas vezes.
 - **D2 [P0]** ~~Contrato de telemetria/privacidade (Task 16)~~ **Concluída em
   2026-07-27.** Contrato em
   [`docs/legal/CONTRATO_TELEMETRIA.md`](../legal/CONTRATO_TELEMETRIA.md), com:
