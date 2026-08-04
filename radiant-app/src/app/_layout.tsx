@@ -148,7 +148,7 @@ function RootLayout() {
           body="Carregando seu progresso local e validando o estado do aplicativo."
           tone="loading"
         />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </ThemeProvider>
     );
   }
@@ -167,7 +167,7 @@ function RootLayout() {
             setBootstrapAttempt((current) => current + 1);
           }}
         />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </ThemeProvider>
     );
   }
@@ -176,7 +176,7 @@ function RootLayout() {
     return (
       <ThemeProvider value={navigationTheme}>
         <BetaGateScreen onUnlock={() => setIsBetaUnlocked(true)} />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </ThemeProvider>
     );
   }
@@ -194,7 +194,7 @@ function RootLayout() {
           }}
           onStepViewed={handleStepViewed}
         />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </ThemeProvider>
     );
   }
@@ -222,7 +222,7 @@ function RootLayout() {
           options={{ presentation: 'modal', title: 'Modal', headerShown: true }}
         />
       </Stack>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
     </ThemeProvider>
   );
 }

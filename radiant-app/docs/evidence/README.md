@@ -57,3 +57,9 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   defasagem entre a evidência e o HEAD. Traz o flow `rating-prompt`, a leitura da
   telemetria do próprio aparelho como método de verificação, e a correção de uma
   previsão errada sobre por que o Android não mostra o diálogo.
+- [Smoke instrumentado da C2, Android — 2026-08-03](2026-08-03-c2-smoke-android.md)
+  — `app-failed` na medição: a barra de status do sistema era conteúdo escuro
+  sobre fundo escuro (1,02:1) em todas as telas e nas duas plataformas, defeito
+  também assado nos seis screenshots publicáveis do Play. Corrigido na mesma
+  data. Registra o item "teclado" como **não aplicável**, com a razão, e valida a
+  escolha de `predictiveBackGestureEnabled: false` por medição.

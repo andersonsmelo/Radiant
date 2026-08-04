@@ -175,3 +175,44 @@ test('existe uma única escala tipográfica e ela usa a fonte da marca', async (
     'textStyles não pode declarar tamanhos próprios — deve derivar de typography',
   );
 });
+
+test('keeps the system status bar legible against the surface the app actually paints', async () => {
+  // Achado da C2 em 2026-08-03, no emulador API 36: relógio, Wi-Fi, sinal e
+  // bateria estavam pretos sobre `#03030d`. Com `edgeToEdgeEnabled: true` o app
+  // desenha atrás da barra do sistema, então o estilo do conteúdo dela é
+  // responsabilidade do app — e estava em `dark`, que no `expo-status-bar`
+  // significa conteúdo ESCURO, o valor para fundo CLARO. O defeito não era
+  // intermitente: valia para toda tela, nas duas plataformas, e foi assado nos
+  // seis screenshots publicáveis do Play, que o contrato de assets aprova
+  // porque mede dimensão e presença, nunca legibilidade.
+  //
+  // A regra não repete o literal "light": ela deriva da luminância do fundo
+  // real. Se o app um dia virar claro, o contrato passa a exigir "dark"
+  // sozinho, em vez de fossilizar a decisão de hoje.
+  const [theme, layout] = await Promise.all([
+    readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8'),
+    readFile(path.join(appRoot, 'src/app/_layout.tsx'), 'utf8'),
+  ]);
+
+  const galaxyBlock = theme.slice(theme.indexOf('galaxyColors'));
+  const background = galaxyBlock.match(/background:\s*'(#[0-9a-fA-F]{3,6})'/)?.[1];
+  assert.ok(background, 'expected galaxyColors to declare a background colour');
+
+  const surface = parseHex(background);
+  const lightContentRatio = contrastRatio(parseHex('#FFFFFF'), surface);
+  const darkContentRatio = contrastRatio(parseHex('#000000'), surface);
+  const required = lightContentRatio >= darkContentRatio ? 'light' : 'dark';
+
+  const declared = [...layout.matchAll(/<StatusBar style="(\w+)"/g)].map((m) => m[1]);
+  assert.ok(declared.length > 0, 'expected _layout.tsx to declare a StatusBar style');
+
+  for (const [index, style] of declared.entries()) {
+    assert.equal(
+      style,
+      required,
+      `StatusBar #${index + 1} declares "${style}" over ${background}: light content reads at ` +
+        `${lightContentRatio.toFixed(2)}:1 and dark content at ${darkContentRatio.toFixed(2)}:1, ` +
+        `so the app must ask for "${required}" content`
+    );
+  }
+});

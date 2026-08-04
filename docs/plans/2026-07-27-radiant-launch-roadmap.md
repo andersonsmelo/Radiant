@@ -481,9 +481,19 @@ código.
   atualizada. É o modo de falha que o `AGENTS.md` descreve: trabalho não
   sinalizado é tratado como não feito pela próxima sessão, e três sessões
   releram este item como aberto.
-- **C2 [P0]** Smoke manual em emulador: navegação completa, edge-to-edge,
+- **C2 [P0]** ~~Smoke manual em emulador: navegação completa, edge-to-edge,
   predictive back (hoje `predictiveBackGestureEnabled: false` — validar a
-  escolha sob target 36), teclado, fontes ampliadas.
+  escolha sob target 36), teclado, fontes ampliadas.~~ **Executada em 2026-08-03**,
+  instrumentada em vez de manual — quatro dos cinco itens são observáveis por
+  Maestro + `adb`, e o quinto não tem objeto. Evidência em
+  [`2026-08-03-c2-smoke-android.md`](../../radiant-app/docs/evidence/2026-08-03-c2-smoke-android.md).
+  Achou **um defeito real**: a barra de status do sistema era conteúdo escuro
+  sobre `#03030d` (1,02:1), em todas as telas e nas duas plataformas, e estava
+  assado nos seis screenshots publicáveis do Play. Corrigido na mesma data, com
+  contrato que deriva o valor exigido da luminância do fundo. **Teclado ficou
+  como não aplicável**: nenhuma das quatro `TextInput` do código é alcançável na
+  configuração distribuída. Segue aberto, fora desta task: o `eyebrow` do
+  `JourneyHero` quebra no meio da palavra a 2× de escala.
 - **C3 [P0]** ~~Os 3 flows Maestro PASS em emulador Android~~ **Concluída em
   2026-07-29:** `3/3 Flows Passed in 11m 48s` no emulador `Radiant_Pixel_9_API_36`
   (iOS reconfirmado 3/3). Exigiu dois defeitos de E2E (seletor de aba ancorado
