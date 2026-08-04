@@ -817,8 +817,8 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0 — EM ANDAMENTO; `1.3.1 (5)` ENTREGUE À APPLE EM 2026-08-04 13:50;
-  PROCESSAMENTO NÃO OBSERVADO]** Build `production` iOS via EAS →
+- **F1 [P0 — EM ANDAMENTO; `1.3.1 (5)` PRONTA PARA ENVIO NO TESTFLIGHT;
+  GRUPO INTERNO VINCULADO]** Build `production` iOS via EAS →
   TestFlight (revisão beta da Apple); distribuir aos testadores.
 
   > **Desfecho da submissão, medido em 2026-08-04.** A submissão
@@ -827,11 +827,17 @@ código.
   > de compilação e 8 segundos de fila de build. Quem for planejar uma
   > submissão: a espera cara está aqui, não no build.
   >
-  > **Isso confirma entrega, não disponibilidade.** O processamento da Apple é
-  > o que move a build para "Pronta para envio", e ele não foi observado — exige
-  > o App Store Connect. Os dois gates humanos que faltam (smoke dos links no
-  > iPhone físico pelo roteiro novo, cenário 5, e a sessão de VoiceOver da B4)
-  > continuam bloqueados até existir build instalável.
+  > **Processamento Apple observado às 14:30 BRT de 2026-08-04.** O App Store
+  > Connect mostrou a versão `1.3.1`, compilação `5`, como **Pronta para envio**,
+  > com expiração em 90 dias e já vinculada ao grupo `Radiant Internal`.
+  > **É observação do dono no console, não medição de ferramenta** — nenhuma
+  > automação alcança esse estado daqui, e reverificar significa abrir o console
+  > de novo.
+  > Cancelar ou redisparar foi descartado porque duplicaria uma entrega que já
+  > concluiu corretamente. A F1 avançou pela submissão e pelo processamento;
+  > continuam pendentes o smoke dos links no iPhone físico pelo roteiro novo
+  > (cenário 5), a sessão de VoiceOver da B4 e a reconciliação da metadata e das
+  > declarações da ficha.
   >
   > **Ferramenta:** `eas submission:list` **não existe**, em versão nenhuma do
   > `eas-cli` — quem tentar verificar por ali vai ler um "command not found"

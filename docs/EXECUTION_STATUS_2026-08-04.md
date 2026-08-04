@@ -151,7 +151,7 @@ iPhone físico, sessão de VoiceOver e reconciliação da ficha — dois exigem
 aparelho, e fazê-los nessa build seria medir a versão **sem** a tela onde o
 último defeito real de VoiceOver apareceu.
 
-Build `1.3.1 (5)` enfileirada nesta data: `46bd86fd-7600-4b98-b60a-119658866279`.
+Build `1.3.1 (5)` criada nesta data: `46bd86fd-7600-4b98-b60a-119658866279`.
 
 **Entregue às 13:50 de 2026-08-04.** A submissão `5218f0ac-dbc7-4fb6-895c-b70404a47ec3`
 fechou em `FINISHED` com `error: null`, depois de **~2h12 disparada** — quase
@@ -159,11 +159,21 @@ tudo em `IN_QUEUE`, sem nenhum arquivo de log até o fim. O contraste vale
 registrar: a build **compilou em 6 minutos** e esperou 8 segundos na fila de
 build. A fila cara deste projeto não é a de compilação, é a de submissão.
 
-**O que isso não diz.** `eas submit` confirma a entrega do binário à Apple, e
-nada além. O processamento da Apple vem depois e é ele que move a build para
-"Pronta para envio" no TestFlight. Enquanto esse estado não for observado no App
-Store Connect, **a F1 não avançou** — os dois gates humanos que faltam continuam
-esperando uma build instalável.
+**Processamento Apple confirmado às 14:30 BRT de 2026-08-04.** O App Store
+Connect mostrou a versão `1.3.1`, compilação `5`, como **Pronta para envio**, com
+expiração em 90 dias e já vinculada ao grupo interno `Radiant Internal`.
+
+*Procedência, porque este projeto distingue o que foi medido do que foi visto:*
+esta leitura é **observação do dono no console**, não medição de ferramenta, e
+não deixa artefato. Nenhuma automação alcança esse estado daqui — a submissão foi
+autenticada por credencial que vive no servidor do EAS, não há chave `.p8` da App
+Store Connect no ambiente, e o `eas.json` declara apenas `ascAppId`. Quem
+reverificar vai reverificar do mesmo jeito: abrindo o console.
+Cancelar ou redisparar foi descartado: produziria uma submissão duplicada depois
+de a entrega original ter concluído corretamente. A dependência de processamento
+da F1 está encerrada; continuam pendentes o smoke dos links no iPhone físico, a
+sessão humana de VoiceOver e a reconciliação da metadata e das declarações da
+ficha.
 
 *Nota de ferramenta, para quem for verificar isto de novo:* **não existe**
 `eas submission:list`. Nem no `eas-cli` 16.32.0 que o projeto fixa, nem no 21.5.0
