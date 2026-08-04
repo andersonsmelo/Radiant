@@ -316,7 +316,14 @@ código.
   **Continua pendente:** revisão jurídica do texto, que é a única ressalva
   restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
   o que foi declarado no Data Safety.
-- **A5 [P1]** Configurar `eas submit`. **O bloco `submit.production.android` do
+- **A5 [P1]** Configurar `eas submit`. **Reduzida a um único passo, e ele é
+  humano (medido em 2026-08-04):** o procedimento está completo e executável em
+  [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md), com o track correto
+  (`alpha`) e a verificação de proteção do `.gitignore` reconferida. Falta apenas
+  **gerar a service-account key** no Play Console e colocá-la em
+  `radiant-app/credentials/` — a pasta existe e está vazia. Nada disso bloqueia
+  publicar: o AAB vai pelo console à mão, e o `eas submit` é automação. **O bloco
+  `submit.production.android` do
   `eas.json` foi preenchido em 2026-07-29** (`serviceAccountKeyPath`, `track`,
   `releaseStatus`) — a redação anterior desta task, "hoje só tem `ios: {}`",
   deixou de valer naquela data. `radiant-app/credentials/` existe, vazio e

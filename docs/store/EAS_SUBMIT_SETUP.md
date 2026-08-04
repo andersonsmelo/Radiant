@@ -122,10 +122,13 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 
 ## Android — o que Anderson precisa fazer
 
-1. **Criar o app** com o package `com.ascendcreative.radiant`. A conta Play Console
-   **já existe** (tipo Pessoal, "Saúde Diagnóstica" — §3 do
-   [status canônico](../EXECUTION_STATUS_2026-07-29.md)); o que continua pendente
-   nela é a **verificação de acesso a dispositivo**, que exige aparelho Android real.
+1. ~~**Criar o app** com o package `com.ascendcreative.radiant`.~~ **Concluído em
+   2026-07-31** (task A3): o app existe como `Radiant — Radiologia`. A conta Play
+   Console é tipo Pessoal, "Saúde Diagnóstica" — §3 do
+   [status canônico](../EXECUTION_STATUS_2026-07-29.md). ~~O que continua pendente
+   nela é a **verificação de acesso a dispositivo**, que exige aparelho Android
+   real.~~ **Também concluída em 2026-07-31** (task A2); deixou de gatear a
+   publicação. Este passo fica aqui como registro — não há nada a fazer nele.
 2. **Gerar a service-account key** (JSON) para o `eas submit`:
    - Play Console → **Configurações → Acesso à API** → vincular/criar um projeto
      Google Cloud → criar uma **conta de serviço** → conceder acesso no Play Console
@@ -144,10 +147,20 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
    ```sh
    eas submit --platform android --profile production
    ```
-   Para o track fechado do 12×14:
+   Para o track fechado do 12×14 — **o track deste app chama-se `alpha`**, medido
+   no console em 2026-07-31; não é um nome a inventar:
    ```sh
-   eas submit --platform android --profile production --track <track-fechado>
+   eas submit --platform android --profile production --track alpha
    ```
+
+> **Estado em 2026-08-04:** `radiant-app/credentials/` existe e está **vazio** —
+> a key nunca foi gerada, então o passo 2 é o único que resta e ele é seu. A
+> proteção do `.gitignore` foi reverificada nesta data e responde exatamente
+> `.gitignore:37:credentials/`, como o passo 3 espera.
+>
+> Nada disso bloqueia subir a build: o AAB pode ir pelo console. Há um
+> `1.3.1 (6)` pronto, e ele é o primeiro que inclui a correção da barra de status
+> — o `1.3.1 (5)` do mesmo dia **precede** essa correção e não deve ser usado.
 
 ## iOS — o que Anderson precisa fazer
 
