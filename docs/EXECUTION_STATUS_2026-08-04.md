@@ -117,6 +117,61 @@ Esta é a terceira vez que essa defasagem aparece. O padrão não é descuido: t
 correção depois da medição a recria. A saída estrutural seria medir imediatamente
 antes de submeter, e não tratar a matriz como estado durável.
 
+## Adendo 2026-08-04 (segunda sessão) — a trilha iOS descrevia um app que não foi construído
+
+### A build no TestFlight ficou para trás do produto
+
+A build distribuída é a `1.3.0 (4)` (EAS `f8d1d949`, 2026-08-01 18:04). Desde ela
+são **54 commits, 35 de código**, e ela **precede a apresentação de primeiro uso
+inteira**, a correção da barra de status, a integridade da conquista e o
+`useAppOpenLifecycle`. Os três itens que faltavam na F1 — smoke dos links no
+iPhone físico, sessão de VoiceOver e reconciliação da ficha — dois exigem
+aparelho, e fazê-los nessa build seria medir a versão **sem** a tela onde o
+último defeito real de VoiceOver apareceu.
+
+Build `1.3.1 (5)` enfileirada nesta data: `46bd86fd-7600-4b98-b60a-119658866279`.
+
+**Correção de contador, que a tabela de builds acima não deixa explícita:** os
+`(5)` e `(6)` daquela tabela são **AABs Android**. O contador iOS está em **4** —
+o EAS mantém um por plataforma. A próxima iOS é `1.3.1 (5)`; a próxima Android,
+`(7)`.
+
+*Medido de passagem:* o arquivo enviado ao EAS tem **856 MB**, confirmado no
+upload desta build. O item do `.easignore` segue aberto e segue sendo decisão do
+dono, por exigir alargar `writePolicy.allowedRoots`.
+
+### Quatro documentos de release mandavam executar o impossível
+
+`radiant-app/docs/release/` estava em 2026-04-09 (`847a12d`). O roteiro de smoke
+do TestFlight mandava **fazer login** (bloco inerte sem `EXPO_PUBLIC_API_BASE_URL`,
+que nenhum perfil declara), **inspecionar fila e status de sync**
+(`ENABLE_REMOTE_SYNC=false` em produção), **ligar o perfil da jornada V2** (a
+Learning Road é a home em todos os perfis desde o ADR de 2026-07-27) e **completar
+até o nó de reward** (inalcançável sem as sete lições). O checklist de soft launch
+pedia layout e smoke de tablet, com `supportsTablet: false` desde 2026-07-29.
+
+E a ficha declarava à App Review duas capacidades ausentes — entrar com conta e
+retomar sincronização —, além de um subtítulo pt-BR de **46 caracteres** contra o
+teto de **30**, que nunca poderia ser digitado no console. Ninguém tinha medido o
+comprimento.
+
+**Por que sobreviveu quatro meses:** o `docs-contract` governava só os cinco
+documentos de estado. É a terceira aparição da mesma regra neste projeto — o
+contrato aprova o que ele mede, e o de assets já tinha aprovado 18 screenshots
+ilegíveis por medir dimensão e presença.
+
+Agora ele governa os quatro documentos de `release/`, com as capacidades
+**derivadas** do `eas.json` e do `app.json`: quando login, sync ou tablet passarem
+a existir, a guarda correspondente some sozinha em vez de virar literal
+envelhecida. Um documento novo nessa pasta precisa ser classificado como
+instrucional ou registro, senão o teste falha.
+
+**Uma consequência que vale carregar:** a guarda casa com a afirmação onde quer
+que ela apareça, e **não distingue citação histórica de declaração viva** — o
+próprio cabeçalho que registrava as frases retiradas reprovou o contrato. As
+frases passaram a ser descritas, não citadas. Abrir exceção para texto citado
+seria abrir a porta que a guarda existe para fechar.
+
 ## Aberto
 
 1. **F2** — opt-ins do closed test. 14 vinculadas, 2 participando; faltam ≥10

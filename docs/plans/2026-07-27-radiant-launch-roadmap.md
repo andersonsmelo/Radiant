@@ -791,9 +791,33 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0 — EM ANDAMENTO; BUILD `1.3.0 (4)` PRONTA NO TESTFLIGHT EM
-  2026-08-01]** Build `production` iOS via EAS → TestFlight (revisão beta da
-  Apple); distribuir aos testadores. O upload saiu de processamento, o build 4
+- **F1 [P0 — EM ANDAMENTO; A BUILD NO TESTFLIGHT DEIXOU DE DESCREVER O PRODUTO;
+  `1.3.1 (5)` ENFILEIRADA EM 2026-08-04]** Build `production` iOS via EAS →
+  TestFlight (revisão beta da Apple); distribuir aos testadores.
+
+  > **Medido em 2026-08-04, e reordena o que falta.** A build no TestFlight é a
+  > `1.3.0 (4)` (EAS `f8d1d949`, iniciada em 2026-08-01 18:04). Desde ela são
+  > **54 commits, 35 de código**, e ela **precede a apresentação de primeiro uso
+  > inteira** (`aaa88da` em diante, 2026-08-02 14:31), a correção da barra de
+  > status (`b62f529`), a integridade da conquista (`130d8ea`) e o
+  > `useAppOpenLifecycle` (`f499714`). Gastar a sessão humana de VoiceOver nela
+  > mediria justamente a versão **sem** a tela onde o último defeito real de
+  > VoiceOver apareceu. Nova build enfileirada nesta data:
+  > `46bd86fd-7600-4b98-b60a-119658866279`.
+  >
+  > **O contador iOS está em 4, não em 6.** Os `(5)` e `(6)` citados no estado de
+  > builds são **AABs Android**: o EAS mantém um contador por plataforma. A
+  > próxima iOS sai `1.3.1 (5)`; a próxima Android, `(7)`.
+  >
+  > **Os documentos que esta task mandaria executar estavam vencidos desde
+  > 2026-04-09** (`847a12d`) e foram reconciliados nesta data. O roteiro de smoke
+  > mandava fazer login, inspecionar fila de sync, ligar um "perfil da jornada
+  > V2" e completar até o nó de reward — quatro passos impossíveis no binário —,
+  > e as notas para o revisor declaravam à App Review duas capacidades ausentes.
+  > O `scripts/qa/docs-contract.mjs` passou a governar os quatro documentos de
+  > `radiant-app/docs/release/`, derivando as capacidades do `eas.json` e do
+  > `app.json`. **Por que sobreviveu quatro meses:** o contrato governava só os
+  > cinco documentos de estado — ele aprovava o que media. O upload saiu de processamento, o build 4
   ficou **Pronta para envio** e foi ligado automaticamente ao grupo interno
   `Radiant Internal`, observado com 1 tester e 1 build. O pré-requisito dos
   links legais também está concluído: cartão interno testado na aba Progresso e
