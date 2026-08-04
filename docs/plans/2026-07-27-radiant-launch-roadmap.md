@@ -431,9 +431,35 @@ código.
   Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).
 - **B4 [P0]** Gate 2 item 2: sessão humana de VoiceOver com áudio (agendar com
   Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
-- **B5 [P1]** ~~Cobrir o nó de reward com E2E~~ **Parcialmente concluída em 2026-08-04** — deep link cobre a tela e o estado bloqueado; a regra de destravamento (7 lições) segue aberta. Ver item 5 dos bloqueadores. A alternativa registrada em
-  2026-07-27 — track de 7 lições ou fixture de track curto no perfil
-  `e2e-test` — segue valendo para fechar a metade restante.
+- **B5 [P1 — ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO]** Cobrir o nó de
+  reward com E2E. O deep link cobre a tela e o estado bloqueado
+  (`reward-locked.yaml`, medido em 2026-08-04).
+
+  > **Escrito em 2026-08-04:** `reward-unlock.yaml` percorre as sete lições e os
+  > seis checkpoints e coleta a conquista, e `scripts/maestro-contract.test.mjs`
+  > o governa. **Não foi executado em aparelho** — por isso a task continua
+  > aberta e não recebeu risco. Custo esperado da execução: ~16 min no iOS e
+  > ~13 no Android, mais build e instalação, em janela exclusiva de host.
+  >
+  > **A escolha de rota foi medida, e a enumeração de 2026-07-27 tinha uma
+  > lacuna.** Existia uma terceira via: a trilha `Abdome`, de 5 lições,
+  > alcançável pela prateleira de trilhas (`selectTrack`), sem código de teste e
+  > exercitando os mesmos ramos. Ela pouparia ~5 min por plataforma, mas
+  > apontaria para outro nó — com as sete lições os dois flows ficam sobre o
+  > **mesmo** `node:reward:fundamentos:final`, um provando bloqueado e o outro
+  > destravado. A fixture ficou fora por um motivo mais forte que o registrado:
+  > com 2 lições ela cai no ramo `lessonCount <= 2` de `rewardNodeId()`, que
+  > constrói um id que produção nunca constrói; seriam necessárias **3** para os
+  > ramos coincidirem, e ainda assim custaria uma flag de teste no binário.
+  >
+  > **Contrato mutado, duas guardas não mordiam.** Uma real: "Receber conquista"
+  > é o rótulo do CTA da home **e** do botão de coleta, então uma asserção de
+  > presença ficava verde mesmo removendo a chegada pela home — a única parte
+  > que prova a regra. A outra foi um falso verde: a mutação nunca chegou a
+  > aplicar por escape errado de shell. **Guarda não exercitada se parece com
+  > guarda aprovada.** Detalhe e o achado sobre o `?` sem escape em
+  > `reward-locked.yaml` estão em
+  > [`E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
 - **B6 [P1]** ~~Onboarding em instalação limpa~~ **Investigada em 2026-07-27.**
   Não é defeito de runtime: "instalação limpa → Home" é consequência correta da
   Learning Road ser a home (a home já recebe o usuário com o Pixel e destaca o

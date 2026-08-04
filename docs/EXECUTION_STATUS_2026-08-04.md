@@ -205,8 +205,12 @@ seria abrir a porta que a guarda existe para fechar.
 3. **A5** — resta gerar a service-account key. `radiant-app/credentials/` está
    vazia. Não bloqueia publicar: o AAB vai pelo console.
 4. **B4**, **C4/C5**, **E3/E4** — exigem humano ou hardware.
-5. **B5** — fechada só no escopo de deep link; a regra de destravamento (7
-   lições) segue sem cobertura.
+5. **B5** — o deep link cobre a tela e o estado bloqueado. A regra de
+   destravamento **ganhou flow em 2026-08-04** (`reward-unlock.yaml`: sete
+   lições, seis checkpoints, coleta, contrato mutado com seis mutações
+   vermelhas), mas **não foi executada em aparelho** — a task segue aberta, e
+   por esta razão e não por falta de código. Custo da execução: ~16 min iOS,
+   ~13 min Android, em janela exclusiva de host.
 6. Menores registrados: `checkHeuristics()` sem fiação; `eyebrow` do
    `JourneyHero` quebrando no meio da palavra a 2× de escala; e o arquivo enviado
    ao EAS com 856 MB, que um `.easignore` resolveria — mas
