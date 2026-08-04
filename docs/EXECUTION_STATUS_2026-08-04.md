@@ -153,6 +153,25 @@ aparelho, e fazê-los nessa build seria medir a versão **sem** a tela onde o
 
 Build `1.3.1 (5)` enfileirada nesta data: `46bd86fd-7600-4b98-b60a-119658866279`.
 
+**Entregue às 13:50 de 2026-08-04.** A submissão `5218f0ac-dbc7-4fb6-895c-b70404a47ec3`
+fechou em `FINISHED` com `error: null`, depois de **~2h12 disparada** — quase
+tudo em `IN_QUEUE`, sem nenhum arquivo de log até o fim. O contraste vale
+registrar: a build **compilou em 6 minutos** e esperou 8 segundos na fila de
+build. A fila cara deste projeto não é a de compilação, é a de submissão.
+
+**O que isso não diz.** `eas submit` confirma a entrega do binário à Apple, e
+nada além. O processamento da Apple vem depois e é ele que move a build para
+"Pronta para envio" no TestFlight. Enquanto esse estado não for observado no App
+Store Connect, **a F1 não avançou** — os dois gates humanos que faltam continuam
+esperando uma build instalável.
+
+*Nota de ferramenta, para quem for verificar isto de novo:* **não existe**
+`eas submission:list`. Nem no `eas-cli` 16.32.0 que o projeto fixa, nem no 21.5.0
+atual — o `submit` não tem subcomando de listagem em versão nenhuma, e o
+`build:view` não traz submissões. O estado foi medido pela API que o próprio
+`eas-cli` embute: `BuildQuery.withSubmissionsByIdAsync`, autenticada pelo
+`SessionManager` dele, que lê a sessão já existente sem expor o segredo.
+
 **Correção de contador, que a tabela de builds acima não deixa explícita:** os
 `(5)` e `(6)` daquela tabela são **AABs Android**. O contador iOS está em **4** —
 o EAS mantém um por plataforma. A próxima iOS é `1.3.1 (5)`; a próxima Android,
