@@ -407,6 +407,7 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
     'offline-relaunch.yaml',
     'store-capture.yaml',
     'rating-prompt.yaml',
+    'reward-locked.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
@@ -515,6 +516,47 @@ test('ties the rating-prompt flow to the eligibility gate it exists to reach', a
       platform,
       'iOS',
       `rating-prompt.yaml:${index + 1}: the store-review dialog is only observable on iOS here — platform guards in this flow must be iOS`
+    );
+  }
+});
+
+test('ties the locked-reward flow to the node id the app actually builds', async () => {
+  // O flow alcança o nó de reward por deep link, e o id não é um literal
+  // escolhido: ele é montado por `rewardNodeId()` sobre o slug da primeira
+  // trilha do catálogo. Trocar o slug do catálogo, ou o formato do id, sem
+  // trocar o flow produziria um deep link que não resolve — e `findReward`
+  // cairia no fallback, que exige nó DESBLOQUEADO. O flow ficaria vermelho
+  // dizendo "não achei a conquista", que é a atribuição errada.
+  const [flow, definition, catalog] = await Promise.all([
+    readAppFile('.maestro/reward-locked.yaml'),
+    readAppFile('src/features/journey/services/JourneyDefinitionService.ts'),
+    readAppFile('src/data/catalog.ts'),
+  ]);
+
+  const shape = definition.match(/return `node:reward:\$\{trackSegment\}:final`;/);
+  assert.ok(shape, 'expected rewardNodeId to build `node:reward:<slug>:final`');
+
+  const firstSlug = catalog.match(/"slug":\s*"([^"]+)"/)?.[1];
+  assert.ok(firstSlug, 'expected catalog.ts to declare a first track slug');
+
+  // `slugSegment` fica com o último segmento separado por hífen.
+  const segment = firstSlug.split('-').filter(Boolean).pop() ?? firstSlug;
+  const expected = encodeURIComponent(`node:reward:${segment}:final`);
+
+  assert.match(
+    flow,
+    new RegExp(`radiantapp://reward\\?nodeId=${expected}`, 'i'),
+    `reward-locked.yaml must deep-link the id the app builds today (node:reward:${segment}:final)`
+  );
+
+  // A ausência do botão é o que o flow existe para provar. Uma asserção
+  // positiva a mais não substitui estas: sem elas o flow passaria mesmo que a
+  // coleta voltasse a ser oferecida para um nó bloqueado.
+  for (const forbidden of ['Receber conquista', 'Pronto para coletar essa conquista?']) {
+    assert.match(
+      flow,
+      new RegExp(`^- assertNotVisible: ${forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm'),
+      `reward-locked.yaml must assert "${forbidden}" is absent — that absence is the defect guard`
     );
   }
 });

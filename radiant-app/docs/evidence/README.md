@@ -63,3 +63,9 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   também assado nos seis screenshots publicáveis do Play. Corrigido na mesma
   data. Registra o item "teclado" como **não aplicável**, com a razão, e valida a
   escolha de `predictiveBackGestureEnabled: false` por medição.
+- [B5 — cobertura do nó de reward por deep link — 2026-08-04](2026-08-04-b5-reward-deep-link.md)
+  — iOS e Android `passed` com `reward-locked.yaml`. Escrever a cobertura achou
+  um defeito de integridade antes de existir flow: conquista bloqueada exibida
+  como coletável, com o botão gravando `markNodeCompleted` por deep link.
+  Corrigido primeiro, coberto depois. Registra que a **regra de destravamento
+  segue sem cobertura** e duas armadilhas de seletor da tela.

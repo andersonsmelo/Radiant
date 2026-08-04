@@ -150,6 +150,29 @@ const completedSnapshot = {
   nextRecommendedNode: null,
 } as any;
 
+const lockedSnapshot = {
+  track: {
+    units: [
+      {
+        id: 'unit-1',
+        title: 'Unidade 1',
+        nodes: [
+          { id: 'lesson-1', type: 'lesson', status: 'available', unitId: 'unit-1' },
+          {
+            id: 'reward-1',
+            type: 'reward',
+            status: 'locked',
+            title: 'Conquista do módulo',
+            description: 'Recompensa ainda bloqueada.',
+            unitId: 'unit-1',
+          },
+        ],
+      },
+    ],
+  },
+  nextRecommendedNode: null,
+} as any;
+
 describe('RewardScreen flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -172,5 +195,36 @@ describe('RewardScreen flow', () => {
     });
 
     expect(await screen.findByText('Conquista registrada')).toBeTruthy();
+  });
+
+  it('does not offer collection for a reward reached while still locked', async () => {
+    // `findReward` resolve por id sem olhar status, de proposito. O efeito
+    // colateral e que `radiantapp://reward?nodeId=...` -- esquema invocavel de
+    // fora do app -- alcanca um no bloqueado. Ate 2026-08-04 a tela dizia
+    // "Pronta para ser coletada" com zero marcos concluidos e o botao gravava a
+    // conquista da unidade. Estes dois testes existem para que o caminho de
+    // coleta nunca volte a ignorar o status.
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(lockedSnapshot);
+
+    renderWithProviders(<RewardScreen nodeId="reward-1" />);
+
+    expect(await screen.findByText('Esta conquista ainda não abriu')).toBeTruthy();
+    expect(screen.queryByText('Receber conquista')).toBeNull();
+    expect(screen.queryByText('Pronto para coletar essa conquista?')).toBeNull();
+    expect(screen.getByText('Bloqueada até a unidade fechar')).toBeTruthy();
+  });
+
+  it('never marks a locked reward completed, even if the collect path is reached', async () => {
+    // Contraprova da guarda de defesa em profundidade: mesmo sem o botao na
+    // tela, o caminho de gravacao precisa recusar. Gravar progressao e
+    // irreversivel, e quem chega por deep link chega por fora do controle do app.
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(lockedSnapshot);
+
+    renderWithProviders(<RewardScreen nodeId="reward-1" />);
+
+    await screen.findByText('Esta conquista ainda não abriu');
+
+    expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+    expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
   });
 });

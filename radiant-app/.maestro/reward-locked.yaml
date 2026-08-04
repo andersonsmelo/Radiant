@@ -1,0 +1,80 @@
+appId: com.ascendcreative.radiant
+name: Locked reward reached by deep link cannot be collected
+tags:
+  - reward
+  - deep-link
+---
+# O nó de reward não tinha cobertura E2E (item 5 dos bloqueadores, aberto desde
+# 2026-07-27). A trilha ativa é gerada do catálogo, com 7 lições, e a conquista
+# só destrava depois da última — inalcançável num smoke. O `learning-critical-path`
+# até **proíbe** afirmá-la, por isso mesmo.
+#
+# Este flow cobre o nó pelo outro lado: `radiantapp://reward?nodeId=...`.
+# `findReward` resolve por id **sem** olhar status, de propósito — é o que
+# permite abrir uma conquista específica —, então o deep link alcança o nó ainda
+# bloqueado. E o esquema é invocável de fora do app.
+#
+# ⚠️ O que este flow prova, e o que ele NÃO prova: ele prova que a tela existe,
+# roteia, mostra o estado bloqueado com honestidade e **não oferece coleta**.
+# Ele NÃO prova a regra de destravamento — isso exigiria percorrer as sete
+# lições, que segue sem cobertura e está registrado como tal.
+#
+# Até 2026-08-04 esta tela dizia "Pronta para ser coletada" com 0 de 14 marcos
+# concluídos, e o botão gravava `markNodeCompleted`: dava para colher a conquista
+# da unidade sem estudar nada. As asserções abaixo são a guarda desse defeito.
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow: subflows/dismiss-first-run.yaml
+- assertVisible: Foco de hoje
+# Instalação limpa: a conquista da unidade está bloqueada, porque nenhuma lição
+# foi concluída. O id vem de `rewardNodeId()` em JourneyDefinitionService, sobre
+# o slug da primeira trilha do catálogo — o contrato deriva e confere os dois.
+- openLink:
+    link: "radiantapp://reward?nodeId=node%3Areward%3Afundamentos%3Afinal"
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: Conquista da unidade
+- assertVisible: Bloqueada até a unidade fechar
+# O card de ação fica abaixo da dobra. Rolar até ele **antes** das asserções de
+# ausência não é conveniência: sem isso, `assertNotVisible` passaria por o card
+# não estar na tela, e o flow provaria nada. A ausência só é evidência quando o
+# lugar onde o botão apareceria está sendo olhado.
+#
+# Usa `repeat ... while: notVisible`, e não `scrollUntilVisible`, por uma razão
+# medida em 2026-08-04: nesta tela **todos** os nós expõem `accessibilityText`
+# com `text` vazio, e `scrollUntilVisible` casa com `element.text`, nunca com
+# `accessibilityText`. A rolagem até acontecia; o que falhava era a confirmação.
+# É a mesma armadilha que o runbook documenta para `AppButton` — aqui ela vale
+# até para `<Text>` comum, porque o agrupamento de acessibilidade colapsa a
+# subárvore. `visible`/`notVisible` casam com `accessibilityText`, então a guarda
+# do `repeat` resolve onde o `scrollUntilVisible` não resolve.
+- repeat:
+    times: 10
+    while:
+      notVisible: 'Esta conquista ainda não abriu'
+    commands:
+      - scroll
+- assertVisible: Esta conquista ainda não abriu
+# A ausência é o ponto do flow: sem botão de coletar, não há caminho de UI para
+# gravar a conquista.
+- assertNotVisible: Receber conquista
+- assertNotVisible: Pronto para coletar essa conquista?
+# A saída oferecida devolve à jornada, em vez de deixar a pessoa presa numa tela
+# que ela alcançou por um link.
+- tapOn: Voltar para jornada
+- assertVisible: Foco de hoje

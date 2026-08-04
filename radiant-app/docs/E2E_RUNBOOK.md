@@ -31,6 +31,15 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   `blocked: non_production_build` whenever `APP_ENV !== 'production'`, and the
   `e2e-test` profile declares `development`. The dialog assertion is iOS-only
   and is pinned by the contract — see "Rating prompt" below.
+- `reward-locked.yaml`: covers the reward node from the only side a smoke can
+  reach it. The node unlocks on `requiresNodeIds: [node:<last lesson>]` and the
+  active track has 7 lessons, so the achievement is unreachable in a smoke —
+  `learning-critical-path` even forbids asserting it. This flow deep-links
+  `radiantapp://reward?nodeId=…` instead, because `findReward` resolves by id
+  **without** checking status. It asserts the locked state and, above all, the
+  **absence** of the collect button. **It does not prove the unlock rule**; that
+  half stays uncovered. See
+  [`2026-08-04-b5-reward-deep-link.md`](evidence/2026-08-04-b5-reward-deep-link.md).
 - `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
   by `when: visible`) that taps "Pular apresentação" only if the first-run
   welcome is on screen. Flows that already ran once without `clearState` never
@@ -269,6 +278,26 @@ contradicting it: those numbers were measured with the machine in swap.
 — and it is recorded as **unattributed**: it passed with no step retries, and
 being the only flow that takes seven screenshots is a correlation, not a
 demonstrated cause.
+
+### Added 2026-08-04 — `reward-locked.yaml`
+
+| Platform | Result |
+| --- | ---: |
+| iOS (`Radiant iPhone 17 Pro`) | passed (82s) |
+| Android (`Radiant_Pixel_9_API_36`) | passed (81s) |
+
+Measured on local Release builds of 1.3.1 under production configuration, after
+the fix in this same date. **Writing this flow found a real defect first**: the
+screen showed a locked reward as "Pronta para ser coletada" at 0 of 14
+milestones, and its collect button wrote `markNodeCompleted` — reachable by a
+deep link, from outside the app. Had the flow been written before the fix, the
+contract would now be defending that defect.
+
+Two selector traps measured here, both worth carrying: `scrollUntilVisible` is
+unusable on this screen (every node exposes `accessibilityText` with an empty
+`text`, and `scrollUntilVisible` matches `element.text` only — use a
+`repeat ... while: notVisible` guard instead), and scrolling to the action card
+**before** asserting absence is what makes the absence mean anything.
 
 Android times are 4–20× the iOS ones on this host. That ratio is a property of
 the machine, not of the app — see the host note below before reading a timeout

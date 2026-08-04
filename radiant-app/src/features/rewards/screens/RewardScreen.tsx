@@ -164,6 +164,19 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }, [activeUnit]);
 
   const rewardCompleted = completed || rewardNode?.status === 'completed';
+  // `findReward` resolve por id SEM olhar status, de propósito: é o que permite
+  // abrir a tela de uma conquista específica. O efeito colateral é que um deep
+  // link (`radiantapp://reward?nodeId=...`) alcança um nó ainda bloqueado — e o
+  // esquema é invocável de fora do app. Até 2026-08-04 a tela dizia "Pronta para
+  // ser coletada" com 0 de 14 marcos e o botão de coletar gravava
+  // `markNodeCompleted`, entregando a conquista da unidade sem estudo nenhum.
+  // A assimetria estava dentro do próprio arquivo: `loadSnapshot` já checava
+  // status antes de mover o nó atual; só o caminho de coleta não checava.
+  const rewardLocked =
+    !!rewardNode &&
+    !rewardCompleted &&
+    rewardNode.status !== 'available' &&
+    rewardNode.status !== 'active';
   const nextAction = useMemo(() => resolveNextAction(snapshot), [snapshot]);
 
   useEffect(() => {
@@ -173,7 +186,10 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }, [rewardCompleted]);
 
   const handleComplete = useCallback(async () => {
-    if (!rewardNode || rewardCompleted) {
+    // A guarda de `rewardLocked` é defesa em profundidade: a UI já não oferece o
+    // botão para um nó bloqueado, mas quem chega aqui por deep link chega por um
+    // caminho que o app não controla, e gravar progressão é irreversível.
+    if (!rewardNode || rewardCompleted || rewardLocked) {
       return;
     }
 
@@ -201,7 +217,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [rewardCompleted, rewardNode]);
+  }, [rewardCompleted, rewardLocked, rewardNode]);
 
   if (loading) {
     return (
@@ -291,7 +307,13 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
               <GalaxyStatRow
                 icon={<DecorativeIcon name="emoji-events" size={20} color={galaxyColors.ctaGradientEnd} />}
                 label="Status"
-                value={rewardCompleted ? 'Salva no seu progresso' : 'Pronta para ser coletada'}
+                value={
+                  rewardCompleted
+                    ? 'Salva no seu progresso'
+                    : rewardLocked
+                      ? 'Bloqueada até a unidade fechar'
+                      : 'Pronta para ser coletada'
+                }
               />
               <GalaxyStatRow
                 icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -400,14 +422,26 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           ) : null}
 
           <View style={styles.actionCard}>
-            <Text style={styles.actionTitle}>{rewardCompleted ? 'Conquista registrada' : 'Pronto para coletar essa conquista?'}</Text>
+            <Text style={styles.actionTitle}>
+              {rewardCompleted
+                ? 'Conquista registrada'
+                : rewardLocked
+                  ? 'Esta conquista ainda não abriu'
+                  : 'Pronto para coletar essa conquista?'}
+            </Text>
             <Text style={styles.actionBody}>
               {rewardCompleted
                 ? 'Seu progresso está salvo e o próximo passo já está esperando por você.'
-                : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
+                : rewardLocked
+                  ? 'Ela abre quando os marcos da unidade forem concluídos. O progresso acima mostra quanto falta.'
+                  : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
             </Text>
 
-            {rewardCompleted ? (
+            {rewardLocked ? (
+              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+                Voltar para jornada
+              </AppButton>
+            ) : rewardCompleted ? (
               <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
                 {nextAction.label}
               </AppButton>

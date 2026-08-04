@@ -145,9 +145,18 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    palavra (task B2).~~ Corrigido em 2026-07-27 (task B2): tema `galaxyColors` e
    rótulos quebrando só em limite de palavra. O defeito de folga da tab bar foi
    resolvido em todas as telas roláveis nesta data (task B1).
-5. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
-   final).
-   **Reverificado em 2026-08-03: segue aberto** — nenhum flow do `.maestro`
+5. ~~Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
+   final).~~ **Fechado no escopo de deep link em 2026-08-04** pelo flow
+   `reward-locked.yaml`, verde nas duas plataformas (iOS 82s, Android 81s).
+   Escrever a cobertura achou um defeito real antes de existir flow: a tela
+   mostrava conquista bloqueada como "Pronta para ser coletada" com 0 de 14
+   marcos, e o botão gravava `markNodeCompleted` — alcançável por deep link, de
+   fora do app. Corrigido primeiro, coberto depois, porque um flow escrito antes
+   teria feito o contrato **defender** o defeito. Evidência em
+   [`2026-08-04-b5-reward-deep-link.md`](../../radiant-app/docs/evidence/2026-08-04-b5-reward-deep-link.md).
+   **A metade que continua aberta:** a regra de destravamento, que exigiria
+   percorrer as sete lições, segue sem cobertura.
+   ~~**Reverificado em 2026-08-03: segue aberto**~~ — nenhum flow do `.maestro`
    afirma o nó, e o `maestro-contract.test.mjs` **proíbe** afirmá-lo no caminho
    crítico, porque ali ele seria inalcançável. Fechar este item exige um caso que
    percorra as sete lições, não uma asserção a mais no flow existente.
@@ -401,8 +410,9 @@ código.
   Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).
 - **B4 [P0]** Gate 2 item 2: sessão humana de VoiceOver com áudio (agendar com
   Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
-- **B5 [P1]** Cobrir o nó de reward com E2E (track de 7 lições ou fixture de
-  track curto no perfil `e2e-test`).
+- **B5 [P1]** ~~Cobrir o nó de reward com E2E~~ **Parcialmente concluída em 2026-08-04** — deep link cobre a tela e o estado bloqueado; a regra de destravamento (7 lições) segue aberta. Ver item 5 dos bloqueadores. A alternativa registrada em
+  2026-07-27 — track de 7 lições ou fixture de track curto no perfil
+  `e2e-test` — segue valendo para fechar a metade restante.
 - **B6 [P1]** ~~Onboarding em instalação limpa~~ **Investigada em 2026-07-27.**
   Não é defeito de runtime: "instalação limpa → Home" é consequência correta da
   Learning Road ser a home (a home já recebe o usuário com o Pixel e destaca o
