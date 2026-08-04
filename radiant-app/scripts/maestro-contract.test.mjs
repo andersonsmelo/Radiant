@@ -366,7 +366,7 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
   // aqui, enquanto `learning-critical-path`, que já intercalava as asserções,
   // passou no mesmo emulador e na mesma execução. O contrato prende a espera,
   // não o tempo: aumentar o timeout esconderia o defeito em vez de removê-lo.
-  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml']) {
+  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml', 'reward-unlock.yaml']) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
     lines.forEach((line, index) => {
@@ -408,6 +408,7 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
     'store-capture.yaml',
     'rating-prompt.yaml',
     'reward-locked.yaml',
+    'reward-unlock.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
@@ -557,6 +558,171 @@ test('ties the locked-reward flow to the node id the app actually builds', async
       flow,
       new RegExp(`^- assertNotVisible: ${forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm'),
       `reward-locked.yaml must assert "${forbidden}" is absent — that absence is the defect guard`
+    );
+  }
+});
+
+// Os dois literais do catálogo são gerados (JSON puro dentro de um `.ts`), então
+// dá para lê-los sem transpilar. A anotação de tipo traz `[]` antes do `=`, e é
+// por isso que a fatia ancora no `=` e não no primeiro colchete.
+function sliceJsonLiteral(source, constName) {
+  const start = source.indexOf(constName);
+  assert.notEqual(start, -1, `expected catalog.ts to declare ${constName}`);
+
+  const open = source.indexOf('[', source.indexOf('=', start));
+  let depth = 0;
+
+  for (let index = open; index < source.length; index += 1) {
+    if (source[index] === '[') depth += 1;
+    if (source[index] === ']') {
+      depth -= 1;
+      if (depth === 0) return JSON.parse(source.slice(open, index + 1));
+    }
+  }
+
+  throw new Error(`could not slice ${constName} from catalog.ts`);
+}
+
+test('keeps the unlock-rule flow walking the whole track the catalog declares', async () => {
+  // Este flow existe para provar a metade que o `reward-locked` declara não
+  // provar: que a conquista abre DEPOIS da última lição, e não antes. Tudo que
+  // ele afirma sai do tamanho da trilha, então o contrato precisa derivar esse
+  // tamanho da mesma fonte que o app usa. Se alguém acrescentar uma lição ao
+  // catálogo, o flow passa a descrever uma trilha que não existe — e sem este
+  // teste isso só apareceria queimando uma janela de aparelho.
+  const [flow, catalog, home, rewardScreen] = await Promise.all([
+    readAppFile('.maestro/reward-unlock.yaml'),
+    readAppFile('src/data/catalog.ts'),
+    readAppFile('src/features/journey/screens/JourneyHomeScreen.tsx'),
+    readAppFile('src/features/rewards/screens/RewardScreen.tsx'),
+  ]);
+
+  const tracks = sliceJsonLiteral(catalog, 'const WAVE1_TRACKS');
+  const links = sliceJsonLiteral(catalog, 'const WAVE1_LESSON_LINKS');
+  const track = tracks[0];
+  const ordered = links
+    .filter((link) => link.trackId === track.id)
+    .sort((left, right) => left.order - right.order);
+  const lessonCount = ordered.length;
+
+  assert.ok(lessonCount >= 3, 'the unlock rule is only meaningful on a track with more than two lessons');
+
+  // `buildUnit` cria um checkpoint para toda lição menos a última e um reward
+  // no fim, então a unidade tem `2 * lessonCount` nós primários — é esse o
+  // denominador que a tela mostra. O numerador antes da coleta é ele menos um.
+  const totalPrimaryNodes = lessonCount * 2;
+
+  assert.match(
+    rewardScreen,
+    /value=\{`\$\{completedPrimaryNodes\} de \$\{totalPrimaryNodes\} marcos da unidade concluídos`\}/,
+    'RewardScreen must still render the milestone counter this flow anchors on'
+  );
+
+  for (const [completed, why] of [
+    [totalPrimaryNodes - 1, 'antes da coleta: todas as lições e checkpoints, menos o próprio reward'],
+    [totalPrimaryNodes, 'depois da coleta: é o que separa "o botão apareceu" de "a coleta gravou"'],
+  ]) {
+    assert.match(
+      flow,
+      new RegExp(`^- assertVisible: ${completed} de ${totalPrimaryNodes} marcos da unidade concluídos$`, 'm'),
+      `reward-unlock.yaml must assert "${completed} de ${totalPrimaryNodes} marcos da unidade concluídos" — ${why}`
+    );
+  }
+
+  // Uma lição a mais no catálogo é um checkpoint a mais no caminho. Contar os
+  // toques é o que faz o flow acompanhar a trilha em vez de descrever a de
+  // ontem — e é a checagem que fica vermelha primeiro quando o currículo cresce.
+  const countSteps = (pattern) => (flow.match(pattern) ?? []).length;
+
+  assert.equal(
+    countSteps(/^- tapOn: Concluir e voltar$/gm),
+    lessonCount,
+    `reward-unlock.yaml must finish exactly ${lessonCount} lessons — one per lesson the catalog puts in "${track.id}"`
+  );
+  assert.equal(
+    countSteps(/^- tapOn: Concluir checkpoint$/gm),
+    lessonCount - 1,
+    `reward-unlock.yaml must clear exactly ${lessonCount - 1} checkpoints — buildUnit creates one per lesson except the last`
+  );
+
+  // As lições geradas expõem o id da pergunta como `<lessonId>:qN`, então a
+  // ordem dos testIDs no arquivo tem de ser a ordem do catálogo. Uma troca de
+  // ordem no catálogo quebraria a cadeia de destravamento sem quebrar nenhuma
+  // asserção de texto.
+  const generatedLessonIds = ordered.map((link) => link.lessonId).filter((id) => id.startsWith('ai-lesson:'));
+  let cursor = 0;
+
+  for (const lessonId of generatedLessonIds) {
+    const marker = `lesson-option-${lessonId}:q`;
+    const at = flow.indexOf(marker, cursor);
+
+    assert.notEqual(
+      at,
+      -1,
+      `reward-unlock.yaml must answer "${lessonId}" in catalog order — expected "${marker}" after position ${cursor}`
+    );
+    cursor = at + marker.length;
+  }
+
+  // O rótulo do CTA é a regra falando: `continueLabel` só devolve este literal
+  // quando o nó recomendado é do tipo reward, e o reward só é recomendado com
+  // `requiresNodeIds: [node:<última lição>]` satisfeito. Pinado à fonte porque
+  // um rótulo renomeado deixaria o flow verde tocando outro botão qualquer.
+  const rewardLabel = home.match(/if \(nextNode\.type === 'reward'\) \{\s*return '([^']+)';/)?.[1];
+  assert.ok(rewardLabel, 'expected JourneyHomeScreen.continueLabel to name the reward CTA');
+
+  // O rótulo aparece duas vezes com papéis diferentes: primeiro é o CTA da home,
+  // que só existe porque a regra foi satisfeita, e depois é o botão de coleta na
+  // própria tela. Contar é o que separa os dois — uma asserção de presença fica
+  // verde com qualquer um deles, e foi assim que uma mutação que removia a
+  // chegada pela home passou despercebida ao escrever este teste.
+  assert.equal(
+    countSteps(new RegExp(`^- tapOn: ${rewardLabel}$`, 'gm')),
+    2,
+    `reward-unlock.yaml must tap "${rewardLabel}" twice: once as the home CTA that only appears when the rule is satisfied, once as the collect button on the reward screen`
+  );
+
+  // A guarda estrutural do flow. Alcançar o reward por deep link provaria de
+  // novo o que o `reward-locked` já prova e deixaria a regra descoberta — sem
+  // nada ficando vermelho, que é a forma cara de perder cobertura.
+  //
+  // Só os passos contam: o cabeçalho do flow cita o esquema justamente para
+  // explicar por que ele não é usado, e uma guarda cega a comentários proibiria
+  // o arquivo de dizer o que faz.
+  const executableFlow = flow
+    .split('\n')
+    .filter((line) => !/^\s*#/.test(line))
+    .join('\n');
+
+  assert.doesNotMatch(
+    executableFlow,
+    /radiantapp:\/\/reward/,
+    'reward-unlock.yaml must not deep-link the reward — arriving by the product path IS the assertion'
+  );
+
+  // O par: o mesmo `GalaxyStatRow`, o mesmo nó, os dois estados. Se um dia a
+  // tela parar de distinguir, um dos dois flows fica vermelho.
+  const lockedLabel = rewardScreen.match(/\? '(Bloqueada[^']+)'/)?.[1];
+  const readyLabel = rewardScreen.match(/: '(Pronta para ser coletada)'/)?.[1];
+  assert.ok(lockedLabel && readyLabel, 'expected RewardScreen to name both the locked and the collectable status');
+  assert.match(
+    flow,
+    new RegExp(`^- assertVisible: ${readyLabel}$`, 'm'),
+    `reward-unlock.yaml must assert "${readyLabel}" — the mirror of what reward-locked.yaml asserts about the same node`
+  );
+
+  // O seletor do Maestro é regex de casamento total: um `?` sem barra torna a
+  // letra anterior opcional e deixa o literal sem nada para casar, então a
+  // asserção passa a descrever uma tela que não existe. Numa asserção positiva
+  // isso fica vermelho em device; numa negativa, passa em silêncio para sempre.
+  for (const [index, line] of flow.split('\n').entries()) {
+    const asserted = line.match(/^\s*(?:- )?assertVisible: '?(.+?)'?$/)?.[1];
+    if (!asserted) continue;
+
+    assert.doesNotMatch(
+      asserted,
+      /(?<!\\)\?/,
+      `reward-unlock.yaml:${index + 1}: escape the "?" — Maestro selectors are full-match regexes, so an unescaped one silently changes what is being asserted`
     );
   }
 });

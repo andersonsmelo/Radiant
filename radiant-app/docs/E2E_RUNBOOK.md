@@ -40,6 +40,22 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   **absence** of the collect button. **It does not prove the unlock rule**; that
   half stays uncovered. See
   [`2026-08-04-b5-reward-deep-link.md`](evidence/2026-08-04-b5-reward-deep-link.md).
+- `reward-unlock.yaml`: the other half of the reward node — the unlock rule
+  itself, which `reward-locked.yaml` states it does not prove. It walks the
+  whole active track: 7 lessons chained by 6 checkpoints, lesson → checkpoint →
+  lesson, and only then does the achievement become collectable. **It is
+  forbidden from deep-linking the reward** (the contract enforces it): arriving
+  by `radiantapp://reward` would re-prove what the sibling already proves and
+  leave the rule uncovered with nothing going red. It arrives by the product
+  path instead — the home CTA, whose label comes from `continueLabel`, and the
+  checkpoint CTA, from `resolveNextAction`. The assertion that carries the flow
+  is that label: `continueLabel` returns "Receber conquista" **only** when the
+  recommended node is a reward, and the reward is recommended only once
+  `requiresNodeIds: [node:<last lesson>]` is satisfied — the six earlier lessons
+  each produced "Abrir checkpoint" instead. It then collects and asserts the
+  milestone counter moved from 13 of 14 to 14 of 14, which is what separates
+  "the button appeared" from "the collect wrote". **Not yet run on a device —
+  see the sign-off note below.**
 - `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
   by `when: visible`) that taps "Pular apresentação" only if the first-run
   welcome is on screen. Flows that already ran once without `clearState` never
@@ -361,6 +377,54 @@ sibling does not have.
 `scripts/maestro-contract.test.mjs` now requires every `scrollUntilVisible` to be
 a top-level step, never nested under a conditional. This pattern had already bitten
 twice, on different platforms, and came back once after being fixed in one place.
+
+### Added 2026-08-04 — `reward-unlock.yaml`, written but **not yet measured**
+
+| Platform | Result |
+| --- | ---: |
+| iOS | **not run** — no device evidence exists |
+| Android | **not run** — no device evidence exists |
+
+This is a deliberate, recorded gap, not an omission. The flow is written and the
+contract governs it; what does not exist yet is a device run, and by this
+document's own rule nothing but a device run promotes a platform. It closes the
+half that `reward-locked.yaml` explicitly left open on 2026-08-04, so B5 stays
+open until both rows above are filled in dated evidence.
+
+**Expected cost, so the host window can be budgeted:** 7 lessons and 6
+checkpoints is ~3.2× `learning-critical-path`, which measured 312s on iOS and
+239s on Android — so roughly 16 and 13 minutes respectively, plus build and
+install. Read the host budget note below before running Android.
+
+**What the contract already proves without a device**, because a contract that
+never goes red is the failure this project has paid for three times — every one
+of these was mutation-tested on 2026-08-04, and each mutation was confirmed to
+turn the contract red:
+
+- removing a lesson or a checkpoint from the path;
+- miscounting the milestone total (it is derived as `2 × lessonCount` from the
+  catalog: 7 lessons + 6 checkpoints + the reward);
+- reaching the reward screen without the home CTA that only the satisfied rule
+  produces — the label appears **twice**, as the home CTA and as the collect
+  button, so the contract counts occurrences instead of asserting presence;
+- deep-linking the reward;
+- answering the generated lessons out of catalog order;
+- leaving a `?` unescaped in an assertion. Maestro selectors are full-match
+  regexes: unescaped, `a?` makes the preceding letter optional and the literal
+  `?` has nothing to match, so the assertion silently starts describing a screen
+  that does not exist. On a positive assertion that goes red on a device; on a
+  negative one it passes forever.
+
+**A finding this raised, outside the flow's own scope:** the same unescaped-`?`
+problem is present in `reward-locked.yaml`, whose
+`assertNotVisible: Pronto para coletar essa conquista?` can never match the
+string the screen renders — so that half of its defect guard cannot fail. Its
+sibling assertion, `assertNotVisible: Receber conquista`, is exact and does
+work, so the guard is weakened rather than absent. The contract at
+`scripts/maestro-contract.test.mjs` currently **requires** that unescaped form,
+so fixing the flow means fixing the contract with it. Recorded here rather than
+fixed, because neither file was in the declared scope of the run that wrote
+this.
 
 ## Rating prompt — what a green run here can and cannot claim
 
