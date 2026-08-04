@@ -10,8 +10,23 @@ contrato `radiant-app/scripts/icon-assets-contract.test.mjs` e o contrato roda n
 | --- | --- | --- | --- |
 | Ícone da ficha | [`assets/play-icon-512.png`](assets/play-icon-512.png) | 512×512, PNG 32-bit **com** alpha, ≤ 1024 KB | ✅ 126 KB |
 | Feature graphic | [`assets/feature-graphic.png`](assets/feature-graphic.png) | 1024×500, **sem** alpha | ✅ |
-| Screenshots de telefone (Play) | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1), **regerados em 2026-07-30** |
+| Screenshots de telefone (Play) | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1), **regerados em 2026-08-03** com a barra de status legível |
 | Screenshots de iPhone (App Store) | — | buckets 6,7" e 6,5" | ⚠️ **capturados, não normalizados** — ver a seção do lado iOS |
+
+> **Por que foram regerados em 2026-08-03.** Os seis anteriores traziam a barra
+> de status do sistema em conteúdo escuro sobre `#03030d` — relógio, Wi-Fi, sinal
+> e bateria a **1,02:1** de contraste, praticamente invisíveis. A causa era
+> `<StatusBar style="dark" />` no `_layout.tsx` (no `expo-status-bar`, `dark`
+> significa conteúdo escuro, o valor para fundo claro), e com
+> `edgeToEdgeEnabled: true` o app desenha atrás da barra. Corrigido em `b62f529`.
+>
+> **O contrato de assets aprovava os arquivos defeituosos**, e isso é o que vale
+> carregar: ele mede dimensão, proporção, peso e presença — nunca legibilidade.
+> Um asset pode passar em todo contrato que existe e ainda assim estar errado
+> para o olho humano. O achado veio do smoke da C2, não de um validador.
+>
+> Os buckets de iPhone tinham o mesmo defeito e foram tratados na mesma data;
+> ver a seção do lado iOS.
 
 ## Como regerar
 
