@@ -117,6 +117,28 @@ Esta é a terceira vez que essa defasagem aparece. O padrão não é descuido: t
 correção depois da medição a recria. A saída estrutural seria medir imediatamente
 antes de submeter, e não tratar a matriz como estado durável.
 
+### Quantificada em 2026-08-04 — a lacuna é de registro, não de cobertura
+
+O aviso acima está certo como regra e vinha sendo lido como bloqueio. Medido:
+
+| Mudou desde a matriz | Onde já foi exercitado em device |
+| --- | --- |
+| `b62f529` — `_layout.tsx`, 10 linhas, o estilo da barra de status | o `store-capture` rodou verde nas **duas** plataformas *depois* dele, para regerar os 18 assets de loja (iOS 448s no bucket 6,5"). Esse flow atravessa home → lição → quiz → checkpoint → tela de conquista → progresso |
+| `130d8ea` — `RewardScreen.tsx`, 46 linhas, a guarda da conquista bloqueada | `reward-locked` verde nos dois lados **nesse commit** (iOS 82s, Android 81s) |
+| `RewardScreen.flow.test.tsx` | só teste |
+
+São os **únicos** arquivos do app tocados desde `b9c77f4`, e **o código do app em
+HEAD é idêntico ao de `130d8ea`**: tudo depois dele é documentação
+(`git diff 130d8ea..HEAD -- radiant-app/src radiant-app/components
+radiant-app/app.json radiant-app/eas.json radiant-app/package.json` volta vazio).
+Toda mudança posterior à matriz tem evidência de aparelho; o que não existe é um
+placar colhido num commit só.
+
+**A consequência prática é não reexecutar agora.** Reexecutar hoje recria a mesma
+lacuna com o próximo commit — foi exatamente assim que o padrão se repetiu três
+vezes. A janela de host se gasta imediatamente antes da submissão à loja (F4).
+Distribuir no TestFlight não é bloqueado por isto.
+
 ## Adendo 2026-08-04 (segunda sessão) — a trilha iOS descrevia um app que não foi construído
 
 ### A build no TestFlight ficou para trás do produto

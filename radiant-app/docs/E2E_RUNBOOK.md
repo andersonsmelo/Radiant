@@ -278,6 +278,26 @@ maestro test .maestro --format junit --output maestro-results.xml
 > every fix made after a measurement recreates it. The structural answer is to
 > measure immediately before submitting and stop treating this matrix as durable
 > state.
+>
+> **Quantified 2026-08-04, because "precedes HEAD" is read as a blocker and this
+> one is not.** The gap is a missing *consolidated row*, not missing coverage:
+>
+> | Since the matrix | Device evidence |
+> |---|---|
+> | `b62f529` — `_layout.tsx`, 10 lines, the status-bar style | `store-capture` ran green on **both** platforms *after* it, to regenerate the 18 store assets (iOS 448s on the 6.5" bucket). That flow walks home → lesson → quiz → checkpoint → reward screen → progress |
+> | `130d8ea` — `RewardScreen.tsx`, 46 lines, the locked-reward guard | `reward-locked` green on both platforms **at that commit** (iOS 82s, Android 81s) |
+> | `RewardScreen.flow.test.tsx` | test-only |
+>
+> Those are the only app files touched since `b9c77f4`, and **the app code at
+> HEAD is byte-identical to `130d8ea`** — everything after it is documentation
+> (`git diff 130d8ea..HEAD -- src components app.json eas.json package.json` is
+> empty). So every post-matrix change has been exercised on a device; what does
+> not exist is one score collected at a single commit.
+>
+> The practical consequence: **do not re-run to close this now.** Re-running
+> today recreates the same gap with the next commit — that is exactly how the
+> pattern repeated three times. Spend the host window immediately before the
+> store submission (F4). TestFlight distribution is not gated by it.
 
 > **Measured 2026-08-03 — the first run under a production-equivalent
 > configuration.** The previous rows were taken at
