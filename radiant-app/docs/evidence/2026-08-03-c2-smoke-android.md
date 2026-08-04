@@ -83,8 +83,30 @@ home para o launcher, sem rota presa nem estado perdido. **Não há defeito
 funcional**; o que se perde é a animação preditiva do Android. A escolha se
 sustenta — agora por medição, não por inércia.
 
-## Consequência operacional
+## Consequência operacional — resolvida na mesma data
 
-Os seis screenshots do Play precisam ser recapturados com a correção, e o AAB
-`1.3.1 (5)` gerado mais cedo nesta data **precede a correção**. Quem for subir
-para a faixa fechada deve usar a build seguinte, não aquela.
+O defeito não cobria seis imagens, e sim **dezoito**: os dois buckets de iPhone
+tinham o mesmo problema. Todos os três conjuntos foram regerados em 2026-08-03,
+com a correção:
+
+| Conjunto | Aparelho | Tamanho | Tempo da captura |
+| --- | --- | --- | ---: |
+| Play | emulador API 36 a `wm size 1080x1920` | 1080×1920 | 820s |
+| App Store 6,7" | simulador iPhone 16 Plus | 1290×2796 | 398s |
+| App Store 6,5" | simulador iPhone 11 Pro Max | 1242×2688 | 448s |
+
+O AAB `1.3.1 (5)`, gerado mais cedo nesta data, **precede a correção** e não deve
+ser usado. A build que a substitui é a `1.3.1 (6)`.
+
+Duas notas do pipeline, medidas aqui:
+
+1. **A primeira captura logo após `wm size` falhou, e não era defeito de flow.**
+   O `tapOn: Continuar jornada` caiu na tab bar, o que parecia a mesma oclusão que
+   já mordeu este projeto duas vezes. A hierarquia desmentiu: o CTA ficava em
+   y1505–1652 com a tab bar em y1729 — 77px de folga. Era transitório de
+   redimensionamento, e a reexecução com o aparelho assentado passou. Registrado
+   porque a "correção" pela hipótese teria acrescentado uma regra permanente ao
+   contrato do Maestro para um defeito inexistente.
+2. **Os simuladores da receita de 2026-07-30 não existiam mais.** Foram recriados
+   como *device types* no runtime iOS 26.5 e renderizam os tamanhos exatos. O
+   `normalize-screenshots.py` é validador, não conversor.
