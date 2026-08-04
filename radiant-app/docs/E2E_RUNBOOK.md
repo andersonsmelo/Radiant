@@ -263,8 +263,24 @@ maestro test .maestro --format junit --output maestro-results.xml
 | iOS | `Radiant iPhone 17 Pro` / iOS 26.5 | local Release under **production configuration** (`APP_ENV=production`, `ENABLE_PUSH=true`), version **1.3.1 (3)** verified in the installed binary | passed (47s) | passed (28s) | passed (312s, reward node not covered) | passed (155s) | passed (402s) | passed (210s, dialog asserted) | **6/6** — measured at `b9c77f4`, 2026-08-03. Detail in [`2026-08-03-e2e-producao-rating-prompt.md`](evidence/2026-08-03-e2e-producao-rating-prompt.md) | engineering / 2026-08-03 |
 | Android | `Radiant_Pixel_9_API_36` emulator / API 36, `google_apis` image | local Release APK, same production configuration, version **1.3.1 (3)** verified via `dumpsys package` | passed (73s) | passed (36s) | passed (239s) | passed (247s) | passed (918s) | passed (471s, dialog not asserted — see "Rating prompt") | **6/6** — same evidence document | engineering / 2026-08-03 |
 
-> **This matrix describes the current HEAD, and is the first measured under a
-> production-equivalent configuration.** The previous rows were taken at
+> **⚠️ Superseded on 2026-08-04 — this matrix precedes HEAD again.** The six
+> rows were measured at `b9c77f4`. Since then two product fixes landed:
+> `b62f529` (system status bar, which touches `_layout.tsx` — the root of every
+> screen) and `130d8ea` (locked reward could be collected by deep link). The
+> suite is also **7 flows** now, not 6: `reward-locked.yaml` was measured
+> separately at `130d8ea`.
+>
+> Nothing suggests a regression — `npm run quality` passes and every contract
+> passes — but this document's own rule holds: a static contract never promotes
+> a platform. **Re-run before treating the score as valid for submission.**
+>
+> This is the third time the gap appears, and the pattern is not carelessness:
+> every fix made after a measurement recreates it. The structural answer is to
+> measure immediately before submitting and stop treating this matrix as durable
+> state.
+
+> **Measured 2026-08-03 — the first run under a production-equivalent
+> configuration.** The previous rows were taken at
 > `da877b2` under the `e2e-test` profile and had fallen 11 commits behind; both
 > gaps are closed here. The delta that mattered was two runtime flags —
 > `APP_ENV` and `ENABLE_PUSH` — and the proof that they were actually in the

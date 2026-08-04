@@ -1,5 +1,10 @@
 # Radiant — Execution Status (2026-08-02)
 
+> **⚠️ SUBSTITUÍDO em 2026-08-04** por
+> [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md). Este
+> documento permanece como histórico datado — inclusive seus quatro adendos —
+> e não deve ser lido como estado atual.
+
 Este documento **substitui [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md)**
 como estado canônico. O snapshot anterior — estendido em 2026-07-30, 07-31 e
 08-01 com todo o histórico de preparação de lançamento (loja, contas de

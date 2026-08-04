@@ -20,7 +20,7 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md) para estado
+1. [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md) para estado
    operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
@@ -41,7 +41,7 @@ Quando documentos divergirem, use esta ordem:
 - [`PRD.md`](PRD.md)
 - [`ARCHITECTURE_STATE.md`](ARCHITECTURE_STATE.md)
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md)
+- [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md)
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)

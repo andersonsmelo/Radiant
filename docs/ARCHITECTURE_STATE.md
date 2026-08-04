@@ -6,7 +6,7 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](EXECUTION_STATUS_2026-08-02.md) e não faz parte do caminho
+[`status canônico`](EXECUTION_STATUS_2026-08-04.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
@@ -104,7 +104,7 @@ autorização e anonimização verificadas.
 
 | Tema | Documento |
 | --- | --- |
-| Estado operacional | [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md) |
+| Estado operacional | [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md) |
 | Produto | [`PRD.md`](PRD.md) |
 | Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
 | Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |

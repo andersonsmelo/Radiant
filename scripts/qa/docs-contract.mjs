@@ -10,7 +10,10 @@ export const CURRENT_STATE_DOCUMENTS = [
   'README.md',
   'docs/README.md',
   'docs/ARCHITECTURE_STATE.md',
-  'docs/EXECUTION_STATUS_2026-08-02.md',
+  // O snapshot mais recente governa; o anterior sai da lista ao ser substituído,
+  // senão o contrato passa a validar histórico e para de checar o que está em
+  // vigor. O teste irmão afirma exatamente esse acoplamento.
+  'docs/EXECUTION_STATUS_2026-08-04.md',
   'radiant-app/README.md',
 ];
 
