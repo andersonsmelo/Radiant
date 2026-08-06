@@ -25,7 +25,9 @@ local.
 
 O ledger operacional vive em `.superpowers/sdd/<plano>/progress.md`, que é
 **ignorado pelo git**. Esta seção existe porque ela é a única parte versionada
-do estado — quem clonar o repositório não vê o ledger.
+do estado — quem clonar o repositório não vê o ledger. O estado canônico do
+projeto inteiro está em
+[`EXECUTION_STATUS_2026-08-06.md`](../../EXECUTION_STATUS_2026-08-06.md).
 
 | Tarefa | Commit | Estado |
 | --- | --- | --- |
@@ -36,11 +38,14 @@ do estado — quem clonar o repositório não vê o ledger.
 | 3 — ancorador | `872d5e5` | concluída |
 | 4 — mapa entre grafos | `abef952`, corrigida em `23d23fa` | concluída após fix round 1, revisão limpa |
 | 5 — validador content-anchoring | `d73962f`, corrigida em `c61bad7` | concluída após fix round 1, revisão limpa |
-| 6 — motor local e calibração | `0a36fa1` | **PARCIAL — Steps 1 a 4 entregues; Steps 5 e 6 bloqueados** |
-| 7 e 8 | — | não iniciadas |
+| 6 — motor local e calibração | `0a36fa1`, revisada em `3dd3ba0` | **Steps 1 a 4 entregues; Steps 5 e 6 bloqueados** |
+| 7 — classificação consulta o mapa | `a9ad1ce` | concluída |
+| 8 — fila de amostragem humana | `740067f` | concluída |
+| revisão final de branch | fix wave nesta seção | 2 Críticos e 5 Importantes, todos corrigidos |
 
 Fora do plano, no mesmo intervalo: `521421f` editou os textos de decisão do
-mapa por aprovação do dono.
+mapa por aprovação do dono; `592d0ca` e `0e2e9f1` corrigiram o handoff e a ordem
+do ritual de memória no `AGENTS.md`.
 
 ### O que a Task 4 e a Task 5 aprenderam
 
@@ -63,6 +68,72 @@ que prova que o módulo está ausente, não que cada guarda reprova o que
 promete. A prova real exige neutralizar um ramo por vez sobre o código **já
 verde** e mostrar que exatamente aquele teste fica vermelho. Foi assim que as
 quatro guardas da Task 5 foram provadas, e é assim que as próximas devem ser.
+
+### Tabela de mutação — versionada porque prosa decai em silêncio
+
+A revisão final de branch encontrou o motivo de esta tabela existir. A
+"Definição de pronto" afirmava quatro guardas provadas por mutação, e **uma
+delas não estava provada**: o teste `MUTACAO: afirmacao sem excerto reprova`
+casava a **contagem** de erros (`assert.equal(erros.length, 1)`) em vez da
+mensagem. Com `if (!claim.excerptId)` neutralizado, a afirmação escorregava
+para `porId.get(null)` → `undefined` → o ramo `!linha`, que empurra
+`"excerto fora do manifesto: null"`. Ainda havia exatamente um erro, então a
+asserção de contagem continuava satisfeita — **pelo ramo errado**. Reproduzido
+antes de fechado: com a asserção antiga e a guarda neutralizada, a suíte dava
+**5 pass / 0 fail**.
+
+A lição que generaliza: **asserção que conta não identifica**. Um teste de
+guarda tem de casar a mensagem daquela guarda, senão qualquer outro ramo que
+também produza um erro o satisfaz.
+
+Varredura completa, um ramo por vez, sobre o código já verde, restaurando
+byte-idêntico (sha256 conferido) depois de cada mutação:
+
+| # | Ramo neutralizado | Arquivo | Teste que fica vermelho | Vermelhos |
+| --- | --- | --- | --- | --- |
+| 1 | `if (!claim.excerptId)` → `if (false)` | `validate-content-anchoring.mjs` | `MUTACAO: afirmacao sem excerto reprova` | 1/5 |
+| 2 | `if (!linha)` → `if (false)` | `validate-content-anchoring.mjs` | `MUTACAO: excerto fora do manifesto reprova` | 1/5 |
+| 3 | `linha.rightsClass !== 'authorized'` → `false` | `validate-content-anchoring.mjs` | `MUTACAO: excerto nao autorizado reprova` | 1/5 |
+| 4 | `linha.hash !== claim.hash` → `false` | `validate-content-anchoring.mjs` | `MUTACAO: hash divergente reprova` | 1/5 |
+| 5 | `!taxonomyIds.has(...)` → `false` | `validate-taxonomy-map.mjs` | `acusa taxonomia inexistente` | 1/5 |
+| 6 | `!catalogIds.has(...)` → `false` | `validate-taxonomy-map.mjs` | `acusa catalogo inexistente mesmo com taxonomyId null` | 1/5 |
+| 7 | `startsWith('ai-lesson:') && !mapeados.has(...)` → `false` | `validate-taxonomy-map.mjs` | `acusa no de catalogo sem entrada no mapa` | 1/5 |
+| 8 | `estado == "mapped"` → `estado != "pending"` | `destination-state.py` | `test_particao_manda_taxonomia_desconhecida_para_pendentes` | 1/5 |
+| 9 | `max(0, min(...))` → `min(...)` | `calibration-report.py` | `test_distribuicao_acomoda_similaridade_negativa` | 1/7 |
+| 10 | `corte = round(rate * BUCKETS)` → `corte = BUCKETS` | `sampling-queue.py` | `test_taxa_do_teto_escrito_nao_seleciona_ninguem` **e** `test_taxa_parcial_exclui_pelo_menos_uma_aula` | 2/6 |
+
+As quatro guardas da "Definição de pronto" são as linhas **1, 4, 3 e 7**, nesta
+ordem: afirmação sem excerto, hash divergente, excerto não autorizado, nó fora
+do mapa.
+
+**A linha 10 é a única que não isola**, e a honestidade sobre isso importa mais
+do que a tabela ficar uniforme: `rate=0.0` não é um ramo próprio, é um valor de
+borda do mesmo `_bucket(lid) < corte` que o teste de taxa parcial já exercita.
+Neste conjunto de fixtures o menor bucket é 17, então nenhuma mutação distingue
+`rate=0.0` de `rate=0.017`. O teste existe porque `0.0` é exatamente o que
+`effective_rate(ceiling_written=True)` devolve — caminho vivo, não hipotético — e
+prega a composição inteira; não porque haja um ramo separado a provar.
+
+Quem reexecutar o plano deve **refazer esta varredura**, não confiar na tabela:
+ela registra um resultado, e resultado registrado envelhece. O que não envelhece
+é o procedimento.
+
+### As seis suítes Python não eram rodadas por nada
+
+Achado da mesma revisão, e o de maior alcance depois da tabela. O
+`.loop/project.yaml` não tinha validador para nenhum `.test.py`, e
+`.github/workflows/` só carrega os fluxos de api e app. **A metade de ancoragem
+e manifesto do pipeline — seis suítes — estava inteiramente fora do gate**: dava
+para quebrar `build-manifest`, `anchor-lesson` ou `sampling-queue` e fechar um run
+com `loop validate` verde.
+
+Entrou o validador **`content-python`**, que roda as seis num laço e propaga a
+falha (`estado=1`) sem parar na primeira — conferido nos dois sentidos: verde sai
+0, com a primeira suíte quebrada sai 1 **e as seis ainda reportam**. O
+`loop validate` passou de 10 para **11 validadores**.
+
+O `content-anchoring` foi corrigido junto, pela mesma razão: ele encadeava duas
+invocações com `&&`, que esconde a segunda quando a primeira falha.
 
 ### O que está bloqueado, e em quem
 
@@ -87,13 +158,29 @@ documentado deixa `planned`, e isso é trabalho novo, fora deste plano.
 
 ### Como retomar
 
-A Task 6 **não passou por revisão de tarefa** — a sessão acabou antes. Quem
-retomar começa por aí: revisão escopada do commit `0a36fa1`, depois Tasks 7 e
-8, depois a revisão final de branch, que também não rodou. Os briefs das
-Tasks 7 e 8 já estão extraídos em
-`.superpowers/sdd/2026-08-06-producao-continua-de-aulas/`. O processo é
-`superpowers:subagent-driven-development`, e o embrulho de transação
-(`scripts/loop/abrir.mjs` / `fechar.mjs`) continua obrigatório.
+**As nove tarefas fecharam, e a revisão final de branch já rodou.** Não há
+tarefa deste plano a executar. O que resta não é implementação pendente — são
+três coisas de naturezas diferentes, e confundi-las é o erro a evitar:
+
+1. **Bloqueado no dono, não em código:** a Task 6, Steps 5 e 6. Ollama não está
+   instalado nesta máquina (sem binário no `PATH`, nada em `127.0.0.1:11434`), e
+   o Step 6 exige janela exclusiva de host. Sem isso não há limiar calibrado, e
+   sem limiar a reprovação automática não liga.
+   `scripts/content/ai-generate-formats.py` segue intocado de propósito.
+2. **Trabalho do próximo plano:** a fiação da cadeia. Os três pontos estão
+   nomeados em "O que este plano não faz" — o mapa sem leitor, a ponte de classe
+   de direitos sem produtor, e o validador que valida testes em vez de dados.
+   **Não os trate como defeito deste plano**: são o recorte que ele
+   deliberadamente não fez.
+3. **Decisão de escopo, do dono:** os 16 nós seguem com `taxonomyId: null`. Este
+   plano **produz a lista**; ele não decide.
+
+Quem for escrever o próximo plano começa lendo
+[`EXECUTION_STATUS_2026-08-06.md`](../../EXECUTION_STATUS_2026-08-06.md), depois
+a seção "O que este plano não faz" abaixo, e depois a tabela de mutação acima —
+que é o contrato de qualidade a manter, não um registro histórico. O processo
+continua sendo `superpowers:subagent-driven-development`, e o embrulho de
+transação (`scripts/loop/abrir.mjs` / `fechar.mjs`) continua obrigatório.
 
 ### O que a execução ensinou, e que muda o despacho
 
@@ -151,6 +238,18 @@ nenhum defeito de transação, com menos da metade das chamadas de ferramenta.
 - **Teste Node:** `node --test scripts/content/<nome>.test.mjs`.
 - **Id de excerto:** `excerpt:<sourceSlug>:p<página>:c<chunk>` — formato já
   emitido por `build_excerpts` em `extract-source.py:64`.
+- **Id de taxonomia:** `star-<slug>` — **forma nua, sem prefixo**, exatamente
+  como o campo `id` de `Conteúdo/taxonomia/estrelas.json`: `star-coluna`,
+  `star-pelve`, `star-artefatos-basicos`, `star-dose-radiacao`,
+  `star-sindrome-alveolar`, `star-pneumotorax`. É o valor que `taxonomyId`
+  carrega em `content-manifest/taxonomy-catalog-map.json`.
+  *(Pinado em 2026-08-06 pela revisão final de branch. Havia duas convenções em
+  desacordo: o arquivo real usava `star-<slug>` e as fixtures dos testes usavam
+  `estrela:<slug>`. Nada forçava a decisão porque os 16 `taxonomyId` são `null`
+  e os conjuntos de ids são injetados nos testes — o desacordo só apareceria
+  para quem preenchesse o primeiro id de verdade, na forma do arquivo real,
+  colhendo `mapa aponta para taxonomia inexistente: star-dose-radiacao`. As
+  fixtures foram alinhadas à fonte real; a fonte não mudou.)*
 - **Classes de direitos:** `authorized`, `reference-only`, `blocked` —
   definidas em `scripts/content/catalog-library-sources.mjs:11`, indexadas pelo
   SHA-256 do arquivo-fonte.
@@ -777,9 +876,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { mapErrors } from './validate-taxonomy-map.mjs';
 
+// Ids na convenção real das duas fontes: `star-<slug>` nu para taxonomia (ver
+// Global Constraints). O par é fixture, não decisão de currículo.
 const base = {
-  map: [{ taxonomyId: 'estrela:raios-x', catalogId: 'ai-lesson:producao-dos-raios-x' }],
-  taxonomyIds: new Set(['estrela:raios-x']),
+  map: [{ taxonomyId: 'star-artefatos-basicos', catalogId: 'ai-lesson:producao-dos-raios-x' }],
+  taxonomyIds: new Set(['star-artefatos-basicos']),
   catalogIds: new Set(['ai-lesson:producao-dos-raios-x']),
 };
 
@@ -790,7 +891,7 @@ test('mapa integro nao acusa erro', () => {
 test('acusa taxonomia inexistente', () => {
   const erros = mapErrors({ ...base, taxonomyIds: new Set() });
   assert.equal(erros.length, 1);
-  assert.match(erros[0], /estrela:raios-x/);
+  assert.match(erros[0], /taxonomia inexistente: star-artefatos-basicos/);
 });
 
 test('acusa no de catalogo sem entrada no mapa', () => {
@@ -799,9 +900,13 @@ test('acusa no de catalogo sem entrada no mapa', () => {
     catalogIds: new Set(['ai-lesson:producao-dos-raios-x', 'ai-lesson:orfao']),
   });
   assert.equal(erros.length, 1);
-  assert.match(erros[0], /ai-lesson:orfao/);
+  assert.match(erros[0], /catalogo sem entrada no mapa: ai-lesson:orfao/);
 });
 ```
+
+> **Toda asserção de guarda casa a mensagem, nunca só a contagem.** Contar erro
+> não prova guarda: outro ramo que também empurre um erro satisfaz a contagem. É
+> o defeito que a revisão final encontrou na Task 5 — ver a tabela de mutação.
 
 - [ ] **Step 2: Rodar para ver falhar**
 
@@ -937,20 +1042,21 @@ test('aula com toda afirmacao ancorada passa', () => {
   assert.deepEqual(anchoringErrors({ aula, manifesto }), []);
 });
 
+// Cada teste casa a MENSAGEM, nunca a contagem — ver a nota abaixo.
 test('MUTACAO: afirmacao sem excerto reprova', () => {
   const aula = { claims: [{ excerptId: null, hash: null }] };
-  assert.equal(anchoringErrors({ aula, manifesto }).length, 1);
+  assert.match(anchoringErrors({ aula, manifesto })[0], /afirmacao sem excerto/);
 });
 
 test('MUTACAO: hash divergente reprova', () => {
   const aula = { claims: [{ excerptId: 'excerpt:fundamentos:p12:c1', hash: 'zzz' }] };
-  assert.match(anchoringErrors({ aula, manifesto })[0], /hash/);
+  assert.match(anchoringErrors({ aula, manifesto })[0], /hash divergente/);
 });
 
 test('MUTACAO: excerto nao autorizado reprova', () => {
   const restrito = [{ id: 'excerpt:x:p1:c1', hash: 'abc', rightsClass: 'reference-only' }];
   const aula = { claims: [{ excerptId: 'excerpt:x:p1:c1', hash: 'abc' }] };
-  assert.match(anchoringErrors({ aula, manifesto: restrito })[0], /autoriza/);
+  assert.match(anchoringErrors({ aula, manifesto: restrito })[0], /sem autorizacao de direitos/);
 });
 
 test('MUTACAO: excerto fora do manifesto reprova', () => {
@@ -958,6 +1064,15 @@ test('MUTACAO: excerto fora do manifesto reprova', () => {
   assert.match(anchoringErrors({ aula, manifesto })[0], /excerto fora do manifesto/);
 });
 ```
+
+*(Corrigido de novo em 2026-08-06, pela revisão final de branch: o teste
+`MUTACAO: afirmacao sem excerto reprova` casava `assert.equal(erros.length, 1)`. Com a
+guarda `if (!claim.excerptId)` neutralizada, a afirmação escorregava para
+`porId.get(null)` → `undefined` → o ramo `!linha`, que empurra `"excerto fora do
+manifesto: null"` — ainda exatamente um erro, então a suíte seguia **5/5 verde com a
+guarda morta**. Asserção que conta não identifica: qualquer outro ramo que também
+produza um erro a satisfaz. As três asserções acima passaram a casar a mensagem, e a
+varredura de mutação virou tabela versionada no topo deste plano.)*
 
 *(Corrigido em 2026-08-06: a redação original desta lista tinha apenas três testes
 `MUTACAO:`, cobrindo afirmação sem excerto, hash divergente e excerto sem autorização de
@@ -1023,15 +1138,21 @@ Em `.loop/project.yaml`, depois de `content-wave1`:
 ```yaml
   - id: content-anchoring
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
-      --test scripts/content/validate-content-anchoring.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
-      node --test scripts/content/validate-taxonomy-map.test.mjs
+      --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs
     timeoutMs: 120000
 ```
+
+*(Corrigido em 2026-08-06 pela revisão final de branch: a redação anterior encadeava
+duas invocações de `node --test` com `&&`, e o `&&` **esconde os diagnósticos da
+segunda suíte quando a primeira fica vermelha** — quem lê o relatório do validador vê
+metade do problema. `node --test` aceita vários arquivos numa invocação só, roda as
+duas e reporta ambas. Valida exatamente o mesmo, sem a cegueira.)*
 
 - [ ] **Step 6: Provar que o validador entrou**
 
 Run: `loop validate --run <runId>` num run qualquer
-Expected: **10** validadores, todos `passed`.
+Expected: **11** validadores, todos `passed` (10 depois desta Task; o 11º,
+`content-python`, entrou na onda de fix da revisão final).
 
 - [ ] **Step 7: Commit**
 
@@ -1085,10 +1206,20 @@ class CalibrationReportTest(unittest.TestCase):
     def test_separacao_zero_quando_populacoes_se_confundem(self):
         self.assertAlmostEqual(MODULE.separation([0.5], [0.5]), 0.0)
 
+    def test_distribuicao_acomoda_similaridade_negativa(self):
+        faixas = MODULE.distribution([-0.5, 0.3], buckets=10)
+        self.assertEqual(faixas["0.0-0.1"], 1)
+        self.assertEqual(faixas["0.3-0.4"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()
 ```
+
+*(Acrescentado em 2026-08-06 pela revisão final de branch: `distribution` grampeava
+só o topo. `distribution([-0.5, 0.3])` levantava `KeyError: '-0.5--0.4'`, e o Step 6
+— a leva de calibração, sob janela exclusiva de host — é exatamente onde a população
+crua com órfãs entraria. Linha 9 da tabela de mutação.)*
 
 - [ ] **Step 2: Rodar para ver falhar**
 
@@ -1109,7 +1240,11 @@ def distribution(similarities: list[float], buckets: int = 10) -> dict[str, int]
         f"{i / buckets:.1f}-{(i + 1) / buckets:.1f}": 0 for i in range(buckets)
     }
     for valor in similarities:
-        indice = min(int(valor * buckets), buckets - 1)
+        # Grampo nos DOIS extremos. Cosseno vive em [-1, 1], e a leva de
+        # calibração consome a população crua, órfãs incluídas: sem o `max(0,
+        # ...)`, `distribution([-0.5])` estoura `KeyError: '-0.5--0.4'` e
+        # derruba a leva no meio de uma janela exclusiva de host.
+        indice = max(0, min(int(valor * buckets), buckets - 1))
         faixas[f"{indice / buckets:.1f}-{(indice + 1) / buckets:.1f}"] += 1
     return faixas
 
@@ -1201,32 +1336,51 @@ MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
-MAPEADOS = {"estrela:raios-x"}
+# Forma nua `star-<slug>` — ver Global Constraints.
+MAPEADOS = {"star-artefatos-basicos"}
 
 
 class DestinationStateTest(unittest.TestCase):
     def test_no_mapeado(self):
-        self.assertEqual(MODULE.destination_state("estrela:raios-x", MAPEADOS), "mapped")
+        self.assertEqual(
+            MODULE.destination_state("star-artefatos-basicos", MAPEADOS), "mapped"
+        )
 
     def test_sem_taxonomia_decidida_e_pendente(self):
         self.assertEqual(MODULE.destination_state(None, MAPEADOS), "pending")
 
     def test_taxonomia_desconhecida(self):
-        self.assertEqual(MODULE.destination_state("estrela:sumida", MAPEADOS), "unknown")
+        self.assertEqual(MODULE.destination_state("star-sumida", MAPEADOS), "unknown")
 
     def test_particao_separa_pendentes_de_classificados(self):
         classificados = [
-            {"excerptId": "excerpt:a:p1:c1", "taxonomyId": "estrela:raios-x"},
+            {"excerptId": "excerpt:a:p1:c1", "taxonomyId": "star-artefatos-basicos"},
             {"excerptId": "excerpt:b:p2:c1", "taxonomyId": None},
         ]
         resultado = MODULE.partition(classificados, MAPEADOS)
         self.assertEqual(len(resultado["withDestination"]), 1)
         self.assertEqual(resultado["pendingTaxonomy"][0]["excerptId"], "excerpt:b:p2:c1")
 
+    def test_particao_manda_taxonomia_desconhecida_para_pendentes(self):
+        classificados = [
+            {"excerptId": "excerpt:c:p3:c1", "taxonomyId": "star-sumida"},
+        ]
+        resultado = MODULE.partition(classificados, MAPEADOS)
+        self.assertEqual(resultado["withDestination"], [])
+        self.assertEqual(resultado["pendingTaxonomy"][0]["excerptId"], "excerpt:c:p3:c1")
+
 
 if __name__ == "__main__":
     unittest.main()
 ```
+
+*(Acrescentado em 2026-08-06 pela revisão final de branch: nenhum teste roteava um
+item `"unknown"` por `partition`. Com `estado == "mapped"` mutado para
+`estado != "pending"`, a suíte seguia 4/4 verde — `partition` recolhe os dois estados
+que `destination_state` acabou de separar, e nada acusava. O teste acima prega onde o
+`unknown` cai **hoje**; a pergunta de desenho — três listas em vez de duas — está
+registrada em "Questões de desenho para o próximo plano". Linha 8 da tabela de
+mutação.)*
 
 - [ ] **Step 2: Rodar para ver falhar**
 
@@ -1250,6 +1404,11 @@ def partition(classified: list[dict], mapped_taxonomy_ids: set[str]) -> dict:
     com_destino, pendentes = [], []
     for item in classified:
         estado = destination_state(item.get("taxonomyId"), mapped_taxonomy_ids)
+        # ATENÇÃO: esta linha recolhe "pending" (decisão de escopo) e "unknown"
+        # (erro de integridade de dado) na MESMA lista — os dois estados que
+        # `destination_state` acabou de separar. É deliberado, não descuido: o
+        # contrato de duas chaves vem deste Step. A divisão em três vias está
+        # registrada em "Questões de desenho para o próximo plano".
         (com_destino if estado == "mapped" else pendentes).append(item)
     return {"withDestination": com_destino, "pendingTaxonomy": pendentes}
 ```
@@ -1322,10 +1481,22 @@ class SamplingQueueTest(unittest.TestCase):
         self.assertGreater(len(selecionadas), 0)
         self.assertLess(len(selecionadas), len(AULAS))
 
+    def test_taxa_do_teto_escrito_nao_seleciona_ninguem(self):
+        taxa = MODULE.effective_rate(ceiling_written=True)
+        self.assertEqual(taxa, 0.0)
+        self.assertEqual(MODULE.selected_for_review(AULAS, taxa), [])
+
 
 if __name__ == "__main__":
     unittest.main()
 ```
+
+*(Acrescentado em 2026-08-06 pela revisão final de branch: `rate=0.0` não era
+exercitado, e não é valor hipotético — é exatamente o que
+`effective_rate(ceiling_written=True)` devolve. O teste prega a composição inteira,
+para que a consequência de virar a flag cedo demais — **zero** revisão humana, o
+inverso da falha que a função existe para impedir — fique escrita num teste. Ver a
+linha 10 da tabela de mutação, e a ressalva de que ela é a única que não isola.)*
 
 *(Corrigido em 2026-08-06: a redação original desta lista tinha apenas três testes,
 cobrindo `effective_rate(ceiling_written=False)`, a determinicidade e a taxa total.
@@ -1403,9 +1574,63 @@ nó fora do mapa) provadas por mutação que falhou antes de passar.
 
 ## O que este plano não faz
 
+**Não fia a cadeia.** Este é o recorte mais importante desta seção, e a revisão
+final de branch pediu que ele fosse dito com todas as letras, porque a "Definição
+de pronto" acima, lida sozinha, sugere um pipeline funcionando. Não é o que
+existe. **Todo módulo entregue é função pura importada apenas pelo próprio
+teste.** Em concreto, três pontas soltas, nomeadas para que ninguém precise
+redescobri-las:
+
+1. **O mapa não tem leitor.** `content-manifest/taxonomy-catalog-map.json` não é
+   lido por nenhum código do repositório — nem pelo validador que existe para
+   protegê-lo. `mapErrors` recebe `map`, `taxonomyIds` e `catalogIds` de quem
+   chama, e ninguém chama. Consequência exata: **o detector de deriva não detecta
+   deriva.** Ele está correto e provado por mutação; simplesmente nunca recebe os
+   dois grafos reais.
+2. **A ponte de classe de direitos não tem produtor.** O dicionário `allowed` de
+   `anchor_report` e a `rightsClass` de `manifest_line` são ambos fornecidos pelo
+   chamador, e chamador não existe. A regra crítica de segurança do plano — **"só
+   `authorized` ancora"** — está implementada e provada, mas **nada a alimenta**.
+   Construir o `authorized_index` que liga o manifesto ao ancorador é trabalho do
+   próximo plano; não improvise um aqui.
+3. **O validador `content-anchoring` valida testes, não dados.** Ele roda
+   `node --test`. Quando o `loop validate` reporta 11 validadores aprovados, isso
+   significa **"os testes unitários passam"**, e não "o conteúdo está ancorado".
+   Nenhuma aula real passou por nenhuma destas guardas ainda.
+
+Ler isto como defeito seria o erro simétrico: é **andaime provado peça a peça**,
+que é exatamente o que este plano se propôs a entregar. O que não se pode é ler a
+"Definição de pronto" como se a cadeia estivesse ligada.
+
+Além disso:
+
 - Não decide o escopo da taxonomia. Ele **produz a lista** `pendingTaxonomy`
   que a decisão precisa.
 - Não liga a reprovação automática. O limiar só existe depois da Task 6, e
   ligá-lo é a primeira tarefa do plano seguinte.
 - Não toca no funil de assinatura nem na camada de agente/MCP. São os
   subprojetos C, D e a camada B, registrados como fora de escopo na spec.
+
+## Questões de desenho para o próximo plano
+
+Levantadas pela revisão final de branch. São **perguntas de desenho**, não
+defeitos a corrigir em silêncio — mudar qualquer uma delas é decisão, e decisão
+pertence a um plano, não a uma onda de fix.
+
+- **`partition` deveria devolver três listas, não duas?** Hoje ela recolhe em
+  `pendingTaxonomy` os dois estados que `destination_state` acabou de separar:
+  `"pending"` (taxonomia ainda não decidida — decisão de escopo, o dono resolve)
+  e `"unknown"` (taxonomia preenchida mas ausente do mapa — erro de integridade
+  de dado, alguém resolve corrigindo o dado). São condições de naturezas
+  diferentes e donos diferentes, e **a premissa declarada da Task 7 é justamente
+  que juntar condições distintas numa lista só custou duas correções de rumo na
+  D4** — o mesmo defeito, um nível acima. O contrato de duas chaves veio do Step
+  3 deste plano e foi mantido de propósito na onda de fix; o que entrou foi o
+  teste que prega onde o `unknown` cai hoje
+  (`test_particao_manda_taxonomia_desconhecida_para_pendentes`, linha 8 da tabela
+  de mutação) e um comentário no ponto do roteamento. O teste **vai falhar de
+  propósito** no dia em que a divisão em três vias entrar — é o alarme, não um
+  obstáculo.
+- **O gatilho de reabertura do candidato adiado não dispara.** Está em prosa
+  dentro de um JSON. A versão forte seria o validador reprovar quando uma estrela
+  com candidato documentado deixa `status: planned`.

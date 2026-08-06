@@ -1,5 +1,12 @@
 # Radiant — Execution Status (2026-08-04)
 
+> **SUBSTITUÍDO.** O estado canônico agora é
+> [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md). Em
+> particular, a seção "Produção contínua de aulas" abaixo está **desatualizada**:
+> ela diz que a Task 4 está reprovada e que as tarefas 5 a 8 não começaram, e as
+> nove tarefas fecharam no mesmo dia. Leia o sucessor antes de agir sobre esta
+> página.
+
 Este documento **substitui [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md)**
 como estado canônico.
 

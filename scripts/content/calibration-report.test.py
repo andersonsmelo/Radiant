@@ -33,6 +33,14 @@ class CalibrationReportTest(unittest.TestCase):
         faixas = MODULE.distribution([0.0], buckets=10)
         self.assertEqual(faixas["0.0-0.1"], 1)
 
+    def test_distribuicao_acomoda_similaridade_negativa(self):
+        # Cosseno vive em [-1, 1]. Sem o `max(0, ...)` esta chamada estourava
+        # `KeyError: '-0.5--0.4'` — e a leva de calibracao, que roda em janela
+        # exclusiva de host sobre a populacao crua, morreria no meio.
+        faixas = MODULE.distribution([-0.5, 0.3], buckets=10)
+        self.assertEqual(faixas["0.0-0.1"], 1)
+        self.assertEqual(faixas["0.3-0.4"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

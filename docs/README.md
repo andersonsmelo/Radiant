@@ -20,7 +20,7 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md) para estado
+1. [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md) para estado
    operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
@@ -44,7 +44,7 @@ Quando documentos divergirem, use esta ordem:
   estados que decide se o próximo passo abre, em dois diagramas ancorados no
   código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md)
+- [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md)
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
@@ -94,7 +94,7 @@ dependem, e o lote é decisão de direitos do dono. A autoridade sobre este esta
 
 ## Histórico
 
-`EXECUTION_STATUS_2026-07-29.md` e anteriores são snapshots substituídos. Planos
+`EXECUTION_STATUS_2026-08-04.md` e anteriores são snapshots substituídos. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 

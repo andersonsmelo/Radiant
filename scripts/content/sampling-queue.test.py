@@ -32,6 +32,16 @@ class SamplingQueueTest(unittest.TestCase):
         self.assertGreater(len(selecionadas), 0)
         self.assertLess(len(selecionadas), len(AULAS))
 
+    def test_taxa_do_teto_escrito_nao_seleciona_ninguem(self):
+        # `rate=0.0` nao e valor hipotetico: e exatamente o que
+        # `effective_rate(ceiling_written=True)` devolve, entao o caminho e
+        # vivo. Prega a composicao inteira para que a consequencia de virar a
+        # flag — zero revisao humana — fique escrita num teste, e nao so na
+        # docstring.
+        taxa = MODULE.effective_rate(ceiling_written=True)
+        self.assertEqual(taxa, 0.0)
+        self.assertEqual(MODULE.selected_for_review(AULAS, taxa), [])
+
 
 if __name__ == "__main__":
     unittest.main()
