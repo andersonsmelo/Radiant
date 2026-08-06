@@ -34,31 +34,66 @@ do estado — quem clonar o repositório não vê o ledger.
 | 2 — embeddings por excerto | `49a5597` | concluída, após 1 fix round |
 | 2.5 — embrulho da transação | `581702c` | concluída |
 | 3 — ancorador | `872d5e5` | concluída |
-| 4 — mapa entre grafos | `abef952` | **REPROVADA na revisão — não retome como pronta** |
-| 5 a 8 | — | não iniciadas |
+| 4 — mapa entre grafos | `abef952`, corrigida em `23d23fa` | concluída após fix round 1, revisão limpa |
+| 5 — validador content-anchoring | `d73962f`, corrigida em `c61bad7` | concluída após fix round 1, revisão limpa |
+| 6 — motor local e calibração | `0a36fa1` | **PARCIAL — Steps 1 a 4 entregues; Steps 5 e 6 bloqueados** |
+| 7 e 8 | — | não iniciadas |
 
-### Os dois achados Críticos abertos da Task 4
+Fora do plano, no mesmo intervalo: `521421f` editou os textos de decisão do
+mapa por aprovação do dono.
 
-1. **`mapErrors` mascara erro de catálogo inexistente quando `taxonomyId` é
-   `null`.** O `continue` que ignora a checagem de taxonomia pula também a de
-   catálogo. Reproduzido: `mapErrors({map:[{taxonomyId:null,catalogId:'ai-lesson:fantasma'}], taxonomyIds:new Set(), catalogIds:new Set()})`
-   devolve `[]` quando deveria acusar. O `continue` deve pular **apenas** a
-   checagem de taxonomia, e falta teste cobrindo `null` + catálogo inválido.
-   Observação de autoria: o código defeituoso está no **Step 5 do próprio
-   brief** — o implementador seguiu o plano à risca. Corrija o plano junto.
-2. **A conclusão "16 de 16 sem correspondência" não foi verificada
-   sistematicamente.** Foram examinados só os 3 pares com slug coincidente, e a
-   rejeição foi generalizada para os 16. O revisor encontrou um candidato real
-   deixado de fora: `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica`
-   contra `star-dose-radiacao` ("Dose e Segurança", trilha sobre exposição e
-   proteção). A decisão pode continuar sendo `null`, mas precisa ser **decisão
-   examinada e escrita**, não omissão.
+### O que a Task 4 e a Task 5 aprenderam
+
+Os dois achados da Task 4 foram corrigidos: `mapErrors` agora acusa catálogo
+inexistente mesmo quando `taxonomyId` é `null`, com teste cobrindo o caso, e o
+Step 5 do plano foi emendado para não reintroduzir o defeito. O exame do mapa
+passou a ser sistemático — 16 nós × 6 estrelas, 96 pares, com um campo
+`rationale` por entrada registrando a estrela considerada e o veredito. A
+Task 5 registrou o validador `content-anchoring` no Loop (o `loop validate`
+passou a reportar 10 validadores) e teve um fix round próprio: o ramo
+"excerto fora do manifesto" era guarda sem teste, e a lacuna foi provada antes
+de fechada — com o ramo neutralizado, a suíte antiga de quatro testes seguia
+verde.
+
+### A regra de mutação, dita com precisão
+
+O plano mandava ver vermelho no Step 2 e verde no Step 4 e chamava isso de
+prova de mutação. Não é: o vermelho do Step 2 vem de `Cannot find module`,
+que prova que o módulo está ausente, não que cada guarda reprova o que
+promete. A prova real exige neutralizar um ramo por vez sobre o código **já
+verde** e mostrar que exatamente aquele teste fica vermelho. Foi assim que as
+quatro guardas da Task 5 foram provadas, e é assim que as próximas devem ser.
+
+### O que está bloqueado, e em quem
+
+A Task 6 parou nos Steps 5 e 6 porque **Ollama não está instalado nesta
+máquina** — não há binário e nada responde em `127.0.0.1:11434`. Instalar o
+runtime e baixar o modelo é decisão do dono do projeto, e o Step 6 ainda exige
+janela exclusiva de host, que disputa a máquina com a B5 Android.
+`scripts/content/ai-generate-formats.py` segue intocado de propósito; nenhum
+stub foi deixado no lugar.
+
+### A decisão de currículo que ficou registrada
+
+Os 16 nós continuam com `taxonomyId: null`, mas dois casos deixaram de ser
+equivalentes: `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
+`star-dose-radiacao` é candidato real, adiado com gatilho de reabertura
+escrito — volta à mesa quando a estrela sair de `status: planned`;
+`ai-lesson:qualidade-de-imagem` × `star-artefatos-basicos` foi examinado e
+**rejeitado**, porque o único indício era a string do id. Registre também a
+ressalva: o gatilho está em prosa dentro de um JSON e não dispara sozinho; a
+versão forte seria o validador reprovar quando uma estrela com candidato
+documentado deixa `planned`, e isso é trabalho novo, fora deste plano.
 
 ### Como retomar
 
-Fix round 1 da Task 4 com os dois achados acima, depois revisão escopada, e só
-então as Tasks 5 a 8. O processo completo está em
-`superpowers:subagent-driven-development`.
+A Task 6 **não passou por revisão de tarefa** — a sessão acabou antes. Quem
+retomar começa por aí: revisão escopada do commit `0a36fa1`, depois Tasks 7 e
+8, depois a revisão final de branch, que também não rodou. Os briefs das
+Tasks 7 e 8 já estão extraídos em
+`.superpowers/sdd/2026-08-06-producao-continua-de-aulas/`. O processo é
+`superpowers:subagent-driven-development`, e o embrulho de transação
+(`scripts/loop/abrir.mjs` / `fechar.mjs`) continua obrigatório.
 
 ### O que a execução ensinou, e que muda o despacho
 
