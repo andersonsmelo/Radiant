@@ -304,6 +304,32 @@ próprio cabeçalho que registrava as frases retiradas reprovou o contrato. As
 frases passaram a ser descritas, não citadas. Abrir exceção para texto citado
 seria abrir a porta que a guarda existe para fechar.
 
+## Entrega: onde este trabalho está, em 2026-08-06
+
+Toda a onda de 2026-08-03 a 2026-08-06 está commitada e empurrada em
+`codex/wave1-hardening-api-smoke`, e aberta para a `main` no **PR #1**
+(`https://github.com/andersonsmelo/Radiant/pull/1`): 30 commits, 84 arquivos,
+`+4835/−336`. A `main` estava **30 commits atrás e zero à frente** — não há
+divergência a resolver, só revisão e merge.
+
+Os dois últimos commits fecham o dia: `94abbac` leva as fichas de loja
+(classificação etária e copy) e `0ca60b0` leva o smoke físico, o relatório de
+evidência da F1 e a recontagem do Gate 2. A narrativa da ficha viaja no segundo
+porque ela e o texto da F1 ocupam o mesmo trecho do status e do roadmap — não há
+como separá-las por hunk, e a mensagem do commit diz isso em vez de deixar a
+divisão parecer mais limpa do que é.
+
+**Vale registrar por que esta seção existe.** As três sessões de 2026-08-05 e
+06 fecharam run com evidência validada e **nenhuma delas commitou**: a árvore
+chegou à revisão desta data com sete arquivos modificados de três sessões
+diferentes, e um `git status` sozinho teria atribuído todos à última. Foi o
+`before/` do checkpoint de cada run que separou a autoria. É a **segunda
+ocorrência** do mesmo padrão — a primeira está registrada em
+[`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md) como
+"trabalho validado porém não commitado", e é dela que vem a regra do `AGENTS.md`
+de tratar trabalho não sinalizado como não feito. Run fechado e repositório são
+dois relógios; só o segundo é lido pela próxima sessão.
+
 ## Aberto
 
 1. **F2** — opt-ins do closed test. 14 vinculadas, 2 participando; faltam ≥10

@@ -20,17 +20,33 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: [status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md) — o
-snapshot de 07-27 permanece como histórico. A seção abaixo descreve o estado
-verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
-1.3.0, tipografia, lesson-flow, assets e gate) estão no status canônico.
+Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
+**[status canônico 2026-08-04](../EXECUTION_STATUS_2026-08-04.md)** — ponteiro
+corrigido em 2026-08-06; o de 07-29 já era histórico e esta linha ainda mandava
+a próxima sessão para ele. Os snapshots anteriores permanecem como registro. A
+seção abaixo descreve o estado verificado em 07-27; as entregas de 07-28
+(identidade de design, versionamento 1.3.0, tipografia, lesson-flow, assets e
+gate) estão no status canônico.
+
+**Onde o trabalho está (2026-08-06):** tudo commitado e empurrado em
+`codex/wave1-hardening-api-smoke`, aberto para a `main` no
+[PR #1](https://github.com/andersonsmelo/Radiant/pull/1) — 30 commits, sem
+divergência com a `main` (30 à frente, zero atrás). Enquanto o PR não fechar, a
+branch é a fonte, não a `main`.
 
 **Sólido:**
 
 - App local-first funcional; catálogo, progresso e revisão funcionam sem API.
-- ~~v1.2.1~~ **1.3.1 (build 3)** em 2026-08-03, alinhada entre `package.json` e
-  `app.json`; `runtimeVersion` por `appVersion`; nenhum build publicado ainda
-  (mudanças de versão ainda livres).
+- ~~v1.2.1~~ **1.3.1** em 2026-08-03, alinhada entre `package.json` e
+  `app.json`; `runtimeVersion` por `appVersion`. ~~Nenhum build publicado ainda
+  (mudanças de versão ainda livres).~~ **Falso desde 2026-08-04: mudanças de
+  versão deixaram de ser livres.** A `1.3.1 (5)` está instalável no TestFlight e
+  a Android `1.3.0 (4)` está no track fechado; mexer na versão agora quebra a
+  continuidade das duas fichas e da contagem de opt-ins da F2. Cuidado ao ler o
+  `app.json`: ele declara `buildNumber: 3`, e isso **não é o que está
+  publicado** — o `eas.json` usa `appVersionSource: remote` com
+  `autoIncrement`, então o contador vive no servidor do EAS e o arquivo local
+  fica para trás por construção.
 - Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
   **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
   `npm run quality` PASS; Gate 2 de acessibilidade parcial — ~~(3/5)~~ ~~(4/5)~~
