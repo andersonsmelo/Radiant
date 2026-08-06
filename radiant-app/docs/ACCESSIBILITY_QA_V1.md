@@ -51,7 +51,16 @@ the Home shortcut at 56px and the sign-in action at 44px. Method, the full
 per-screen focus tables and the tooling caveat about keyboard activation:
 [`docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
 
-**The gate stands at 4/5 approved: items 1, 3, 4 and 5. Only item 2 is open.**
+**The gate is approved — 5/5, on 2026-08-06.** Item 2 was closed last, and it
+closed as a **decision**, not as a full audible pass: name, role/position, hint
+and disabled were heard on real controls; the busy state was accepted through
+the `AppButton` unit contract **because no reachable control in the shipped
+build can produce it**. The trade is written down, with a reopen trigger, in
+[`docs/evidence/2026-08-06-b4-voiceover-item2.md`](evidence/2026-08-06-b4-voiceover-item2.md)
+— if `EXPO_PUBLIC_ENABLE_PAYWALL` is ever declared in a profile, or any other
+`AppButton` receives `loading`, item 2 deserves a fresh pass.
+
+The paragraphs below record how each item got there.
 
 Item 1 was reopened on 2026-08-05 and **closed again on 2026-08-06 with its own
 device pass** — the fastest way to settle a bookkeeping dispute is to go and
@@ -77,11 +86,21 @@ One limit worth carrying: no planet in the account is **completed**, so the
 distinction verified was active × available × locked. A completed state, when it
 first exists, deserves its own look.
 
-Item 2 still needs a complete VoiceOver pass (task B4). A physical-iPhone
+Item 2 (task B4) closed on 2026-08-06, over two sessions. A physical-iPhone
 session on 2026-08-05 heard tab names/positions/roles and the disabled state of
-`Confirmar reset com token` once, with no spontaneous repetition. That closes the ambiguity between a
-single structured announcement and duplicate speech, but the session did not
-transcribe a hint or activate a genuinely busy control. Details:
+`Confirmar reset com token` once, with no spontaneous repetition; on 2026-08-06
+the home CTA — the only `AppButton` in the product carrying a hint — announced
+`Fazer revisão`, then `botão`, then *"Abre o próximo passo elegível da trilha
+ativa"*, each once and in that order. That closes both the duplication doubt and
+the hint requirement on the only control that can carry it.
+
+What no session could produce is the **busy** state, and that is a property of
+the build: the one `AppButton` that ever receives `loading` sits behind
+`ENABLE_PAYWALL`, declared in no profile. Item 2 therefore closes with three
+elements heard and one covered by the component's unit contract — stated as the
+trade it is, with a reopen trigger, in
+[`docs/evidence/2026-08-06-b4-voiceover-item2.md`](evidence/2026-08-06-b4-voiceover-item2.md).
+The 08-05 half of the evidence is in
 [`docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md`](evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 
 The earlier method and the fixes from the 2026-07-26 device run remain in

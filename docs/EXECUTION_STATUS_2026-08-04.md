@@ -229,12 +229,27 @@ uma vez `Galáxia, aba 2 de 4, botão`, `Progresso, aba 3 de 4, botão` e
 `Confirmar reset com token, escurecido`. Isso confirma nome, estrutura e estado
 desabilitado e resolve a dúvida de duplicação nesses controles. Não foi
 transcrita uma dica nem ativado um `AppButton` realmente ocupado, ambos pedidos
-pelo item 2 do Gate 2. A F1 permanece aberta somente por essa evidência auditiva
-incompleta; não há falha nova do binário que justifique cancelar ou redisparar.
+pelo item 2 do Gate 2. Àquela altura a F1 permanecia aberta somente por essa
+evidência auditiva incompleta; não há falha nova do binário que justifique
+cancelar ou redisparar. **Isso mudou em 2026-08-06: o item 2 fechou (B4) e a F1
+perdeu o último bloqueio de evidência** — resta a ação humana no console,
+`Adicionar para revisão`, que é a F4.
 Relatório completo em
 [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 
-**Gate 2 voltou a 4/5 em 2026-08-06 — desta vez com evidência própria.** O item
+**Gate 2 APROVADO (5/5) em 2026-08-06, e a F1 perdeu o último bloqueio.** O
+item 2 fechou no mesmo dia do item 1, **com ressalva escrita**: nome, função,
+dica e desabilitado foram ouvidos em controles reais — o CTA da home anunciou
+`Fazer revisão`, `botão` e a dica, cada um uma vez e nessa ordem —, mas o
+**estado ocupado não é produzível nesta build** e ficou coberto pelo contrato
+unitário do `AppButton`. É troca, não equivalência, e tem gatilho de
+reabertura: se `EXPO_PUBLIC_ENABLE_PAYWALL` for declarada em algum perfil, ou
+outro `AppButton` receber `loading`, o item volta à mesa
+([evidência](../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md)).
+**Consequência operacional:** o lado iOS não tem mais pendência de evidência; o
+próximo passo da F1 é humano e é o `Adicionar para revisão` da F4.
+
+**Item 1: como ele voltou a 4/5 antes disso, com evidência própria.** O item
 1 foi reaberto na véspera pela recontagem abaixo e **fechado no dia seguinte com
 uma caminhada nova em iPhone físico**: nada se move nas três telas da galáxia,
 tocar num planeta abre sem animação, e a distinção entre planeta ativo,

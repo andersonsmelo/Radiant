@@ -49,13 +49,13 @@ branch é a fonte, não a `main`.
   fica para trás por construção.
 - Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
   **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
-  `npm run quality` PASS; Gate 2 de acessibilidade parcial — ~~(3/5)~~
-  ~~(4/5)~~ ~~(3/5) recontado em 2026-08-05~~ **(4/5) em 2026-08-06, agora com
-  evidência própria**: aprovados os itens 1, 3, 4 e 5; aberto só o item 2
-  (**B4**). O item 1 foi reaberto em 08-05 pela recontagem — o critério havia
-  crescido em 08-03 e a passagem de 07-26 não podia cobri-lo — e **fechado em
-  08-06 com nova caminhada em iPhone**, que é a forma barata de resolver
-  disputa de contabilidade: medir de novo.
+  `npm run quality` PASS; Gate 2 de acessibilidade ~~parcial (3/5)~~ ~~(4/5)~~
+  ~~(3/5) recontado em 2026-08-05~~ ~~(4/5) em 2026-08-06~~ **APROVADO (5/5) em
+  2026-08-06**. O item 1 foi reaberto em 08-05 pela recontagem — o critério
+  havia crescido em 08-03 e a passagem de 07-26 não podia cobri-lo — e fechado
+  em 08-06 com nova caminhada em iPhone. O item 2 fechou no mesmo dia **com
+  ressalva escrita**: o estado ocupado não é produzível nesta build e ficou
+  coberto pelo contrato unitário, com gatilho de reabertura. Ver B4 e B8.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
   plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
   da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
@@ -87,10 +87,11 @@ branch é a fonte, não a `main`.
 > O padrão é o do item 4: riscar o texto original e anexar a correção com data.
 > O registro do que se acreditava em 2026-07-27 tem valor; sobrescrevê-lo não.
 
-1. Gate 2 de acessibilidade: ~~resta o item 2~~ ~~restam os itens 1 e 2,
-   recontagem de 2026-08-05~~ **resta o item 2 (B4) — o item 1 fechou em
-   2026-08-06**. O item 5 (navegação por teclado) foi fechado em
-   2026-07-27 com a build web (task B3).
+1. ~~Gate 2 de acessibilidade: resta o item 2~~ ~~restam os itens 1 e 2,
+   recontagem de 2026-08-05~~ **DEIXOU DE SER BLOQUEADOR EM 2026-08-06: o Gate 2
+   está aprovado, 5/5** — item 1 fechado por caminhada nova (B8) e item 2
+   fechado com a ressalva do estado ocupado (B4). O item 5 (navegação por
+   teclado) já estava fechado em 2026-07-27 com a build web (task B3).
    O item 1 (Reduce Motion) tinha voltado a aberto sem que nada regredisse — a
    passagem de 07-26 mediu só a animação de entrada no caminho da lição e o
    critério cresceu em 08-03 para exigir a galáxia. **A caminhada nova foi feita
@@ -267,7 +268,7 @@ Fontes: ver §9.
 | Marco | Meta | Critério de saída | Alvo |
 | --- | --- | --- | --- |
 | **M0 — Contas e fundações de loja** | Contas ativas e verificadas nas duas lojas | Apple Developer + Play Console verificados; app criado nas duas consoles; decisão pessoal vs organização registrada | Semana 1–2 (até ~2026-08-10) |
-| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | Itens 1, 2 e 5 do Gate 2 com evidência (o item 1 voltou ao critério em 2026-08-05, task B8); ProgressScreen/JourneyMap corrigidos; reward coberto por E2E | Semana 2–3 |
+| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | **Gate 2 aprovado 5/5 em 2026-08-06** (itens 1 e 2 fechados por B8 e B4, este com a ressalva do estado ocupado); ProgressScreen/JourneyMap corrigidos; reward coberto por E2E — **falta só o lado Android da B5** | Semana 2–3 |
 | **M2 — Paridade Android** | Fluxo crítico PASS em Android | `expo prebuild` + build local; 3 flows Maestro PASS em emulador e 1 device físico | Semana 3–5 |
 | **M3 — Prontidão de release** | Contratos de privacidade, telemetria e release prontos | Task 16 concluída: matriz real-device, contrato de telemetria, checklist v1.3, Sentry configurado; ADR da API registrada (Task 15) | Semana 5–6 |
 | **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12) iniciada | Semana 6–9 |
@@ -472,20 +473,29 @@ código.
   2026-08-05: o gate fica em 3/5 (itens 3, 4 e 5), porque o item 1 teve seu
   critério ampliado em 2026-08-03 e precisa de nova passagem manual.** A
   entrega da B3 em si não mudou.
-- **B4 [P0 — EM ANDAMENTO; A DICA TEM UM ALVO ÚNICO E O ESTADO OCUPADO NÃO
-  EXISTE NA BUILD — DECISÃO PENDENTE]** Gate 2 item 2:
-  sessão humana de VoiceOver com áudio. Em 2026-08-05, abas e um `AppButton`
-  desabilitado anunciaram nome, estrutura e estado uma vez.
-  **Medido em 2026-08-06, antes de agendar aparelho:** a dica tem **um** alvo no
-  produto inteiro — o CTA da home (`JourneyHomeScreen`), porque todos os outros
-  controles com dica são `Pressable` e não contam para este item. E o estado
-  ocupado **não tem alvo nenhum**: o único `AppButton` que recebe `loading` está
-  no `PaywallOfferCard`, que só renderiza com oferta, e `ENABLE_PAYWALL` não é
-  declarada em nenhum perfil do `eas.json` (default `false`). Mesmo ligada, a
-  janela ocupada dura milissegundos e termina desmontando o botão. **Mesma
-  classe da B0** — flag ausente dos perfis de produção. Restam três saídas, a
-  decisão é do dono, e a recomendada é o harness na tela de dev-tools; as três
-  estão em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`.
+- **B4 [P0 — ~~EM ANDAMENTO; A DICA TEM UM ALVO ÚNICO E O ESTADO OCUPADO NÃO
+  EXISTE NA BUILD — DECISÃO PENDENTE~~ CONCLUÍDA EM 2026-08-06, COM RESSALVA
+  ESCRITA]** Gate 2 item 2 fechado: nome, função, dica e desabilitado ouvidos em
+  controles reais — o CTA da home anunciou `Fazer revisão`, `botão` e a dica,
+  cada um uma vez e nessa ordem. O **estado ocupado** foi aceito pelo contrato
+  unitário do `AppButton` porque **não é produzível nesta build**, e isso está
+  registrado como troca, não como equivalência, com **gatilho de reabertura**:
+  se `EXPO_PUBLIC_ENABLE_PAYWALL` for declarada em algum perfil, ou outro
+  `AppButton` receber `loading`, o item merece passagem nova.
+  [`2026-08-06-b4-voiceover-item2.md`](../../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md).
+  **Com isso o Gate 2 está aprovado (5/5) e a F1 perde seu último bloqueio.**
+
+  > **Diagnóstico que fechou a task, medido em 2026-08-06 antes de agendar
+  > aparelho.** A dica tem **um** alvo no produto inteiro — o CTA da home
+  > (`JourneyHomeScreen`), porque todos os outros controles com dica são
+  > `Pressable` e não contam para este item. E o estado ocupado **não tem alvo
+  > nenhum**: o único `AppButton` que recebe `loading` está no
+  > `PaywallOfferCard`, que só renderiza com oferta, e `ENABLE_PAYWALL` não é
+  > declarada em nenhum perfil do `eas.json` (default `false`). Mesmo ligada, a
+  > janela ocupada dura milissegundos e termina desmontando o botão. **Mesma
+  > classe da B0** — flag ausente dos perfis de produção. Medir isso primeiro
+  > evitou uma sessão de device inteira gasta procurando um estado que o binário
+  > não produz.
 - **B5 [P1 — ~~ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO~~ iOS EXECUTADO E
   `passed` EM 2026-08-06; RESTA O ANDROID]** Cobrir o nó de
   reward com E2E. O deep link cobre a tela e o estado bloqueado
@@ -1027,6 +1037,9 @@ código.
   metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico.
   **Atualização de 2026-08-05:** metadata e smoke fecharam; F1 permanece aberta
   somente pela parte não amostrada do VoiceOver descrita acima.
+  **Atualização de 2026-08-06: essa parte fechou (B4), e com ela o Gate 2
+  inteiro.** A F1 não tem mais bloqueio de evidência — o que falta é a ação
+  humana no console: **Adicionar para revisão** (F4), que segue não acionado.
 - **F2 [P0] — RELEASE LIVE; 14 TESTADORES VINCULADOS; 2 OPT-INS OBSERVADOS;
   14 DIAS PENDENTES (2026-08-03).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
