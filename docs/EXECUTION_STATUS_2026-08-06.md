@@ -45,7 +45,7 @@ ritual de memória no `AGENTS.md`.
 
 A **revisão final de branch** rodou depois da Task 8 e encontrou dois achados
 Críticos e cinco Importantes. Todos foram corrigidos numa onda única de fix,
-registrada na seção seguinte.
+`a39c37c`, detalhada na seção seguinte.
 
 ### O que a revisão final encontrou, e o que mudou
 

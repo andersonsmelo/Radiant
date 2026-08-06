@@ -41,7 +41,7 @@ projeto inteiro está em
 | 6 — motor local e calibração | `0a36fa1`, revisada em `3dd3ba0` | **Steps 1 a 4 entregues; Steps 5 e 6 bloqueados** |
 | 7 — classificação consulta o mapa | `a9ad1ce` | concluída |
 | 8 — fila de amostragem humana | `740067f` | concluída |
-| revisão final de branch | fix wave nesta seção | 2 Críticos e 5 Importantes, todos corrigidos |
+| revisão final de branch | `a39c37c` | 2 Críticos e 5 Importantes, todos corrigidos |
 
 Fora do plano, no mesmo intervalo: `521421f` editou os textos de decisão do
 mapa por aprovação do dono; `592d0ca` e `0e2e9f1` corrigiram o handoff e a ordem
