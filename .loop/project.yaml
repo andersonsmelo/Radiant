@@ -113,6 +113,11 @@ validators:
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
       --test scripts/content/wave-1-priority-tracks.test.mjs
     timeoutMs: 120000
+  - id: content-anchoring
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/validate-content-anchoring.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node --test scripts/content/validate-taxonomy-map.test.mjs
+    timeoutMs: 120000
   - id: app-quality
     command: cd radiant-app &&
       PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
