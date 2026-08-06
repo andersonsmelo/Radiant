@@ -331,6 +331,28 @@ próprio cabeçalho que registrava as frases retiradas reprovou o contrato. As
 frases passaram a ser descritas, não citadas. Abrir exceção para texto citado
 seria abrir a porta que a guarda existe para fechar.
 
+## Produção contínua de aulas — desenho, plano e execução parcial (2026-08-06)
+
+Uma frente nova abriu nesta data e está **parcialmente executada**. O diagnóstico
+que a motivou: a D4 não esperava decisão de currículo, esperava **um mapa entre
+dois grafos que ninguém sabia que eram dois** — o catálogo wave-1 (o que embarca,
+com nós `ai-lesson:` desde abril) e a taxonomia de competências (que o
+classificador mira, com planetas e estrelas em `planned`).
+
+- Desenho: [`specs/2026-08-06-producao-continua-de-aulas-design.md`](superpowers/specs/2026-08-06-producao-continua-de-aulas-design.md)
+- Plano e **estado da execução tarefa a tarefa**:
+  [`plans/2026-08-06-producao-continua-de-aulas.md`](superpowers/plans/2026-08-06-producao-continua-de-aulas.md)
+
+Concluídas as tarefas 0 a 3 e a 2.5; a **Task 4 está reprovada na revisão** com
+dois achados Críticos, e as tarefas 5 a 8 não começaram. Quem retomar deve ler a
+seção "Estado da execução" no topo do plano — o ledger operacional é ignorado
+pelo git e não sobrevive a um clone.
+
+Decisões travadas no desenho: a IA gera a partir da taxonomia; **toda afirmação
+ancora em excerto autorizado**, com amostragem humana; os dois grafos ficam
+ligados por mapa versionado e validador; o motor de geração é **local**, sem
+custo por token.
+
 ## Entrega: onde este trabalho está, em 2026-08-06
 
 Toda a onda de 2026-08-03 a 2026-08-06 está commitada e empurrada em

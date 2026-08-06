@@ -21,6 +21,61 @@ local.
 
 **Spec:** [`2026-08-06-producao-continua-de-aulas-design.md`](../specs/2026-08-06-producao-continua-de-aulas-design.md)
 
+## Estado da execução em 2026-08-06 — leia antes de retomar
+
+O ledger operacional vive em `.superpowers/sdd/<plano>/progress.md`, que é
+**ignorado pelo git**. Esta seção existe porque ela é a única parte versionada
+do estado — quem clonar o repositório não vê o ledger.
+
+| Tarefa | Commit | Estado |
+| --- | --- | --- |
+| 0 — policy | `afcb002` | concluída |
+| 1 — manifesto | `299430f` | concluída |
+| 2 — embeddings por excerto | `49a5597` | concluída, após 1 fix round |
+| 2.5 — embrulho da transação | `581702c` | concluída |
+| 3 — ancorador | `872d5e5` | concluída |
+| 4 — mapa entre grafos | `abef952` | **REPROVADA na revisão — não retome como pronta** |
+| 5 a 8 | — | não iniciadas |
+
+### Os dois achados Críticos abertos da Task 4
+
+1. **`mapErrors` mascara erro de catálogo inexistente quando `taxonomyId` é
+   `null`.** O `continue` que ignora a checagem de taxonomia pula também a de
+   catálogo. Reproduzido: `mapErrors({map:[{taxonomyId:null,catalogId:'ai-lesson:fantasma'}], taxonomyIds:new Set(), catalogIds:new Set()})`
+   devolve `[]` quando deveria acusar. O `continue` deve pular **apenas** a
+   checagem de taxonomia, e falta teste cobrindo `null` + catálogo inválido.
+   Observação de autoria: o código defeituoso está no **Step 5 do próprio
+   brief** — o implementador seguiu o plano à risca. Corrija o plano junto.
+2. **A conclusão "16 de 16 sem correspondência" não foi verificada
+   sistematicamente.** Foram examinados só os 3 pares com slug coincidente, e a
+   rejeição foi generalizada para os 16. O revisor encontrou um candidato real
+   deixado de fora: `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica`
+   contra `star-dose-radiacao` ("Dose e Segurança", trilha sobre exposição e
+   proteção). A decisão pode continuar sendo `null`, mas precisa ser **decisão
+   examinada e escrita**, não omissão.
+
+### Como retomar
+
+Fix round 1 da Task 4 com os dois achados acima, depois revisão escopada, e só
+então as Tasks 5 a 8. O processo completo está em
+`superpowers:subagent-driven-development`.
+
+### O que a execução ensinou, e que muda o despacho
+
+As três primeiras tarefas falharam **na transação e nenhuma no código** — memória
+por contradição do plano, `INVALID_ARGUMENT` (flag `--task` ausente) lido como
+CLI quebrada, e transação aberta depois da edição. Por isso existe a Task 2.5.
+**Use sempre o embrulho:**
+
+```sh
+node scripts/loop/abrir.mjs "<descrição>" <arquivo>...   # imprime o runId
+node scripts/loop/fechar.mjs <runId>
+```
+
+`abrir` precede a criação de qualquer arquivo — é o `step begin` que grava o
+checkpoint. Depois que o embrulho passou a ser usado, a Task 3 fechou sem
+nenhum defeito de transação, com menos da metade das chamadas de ferramenta.
+
 ## Global Constraints
 
 - **Toda alteração passa por run do Loop:** `loop run start` → `loop context
