@@ -306,7 +306,7 @@ alfabética existente:
 loop validate --run <runId>
 loop step finish --run <runId>
 ```
-Expected: 9/9 validadores `passed`.
+Expected: 11/11 validadores `passed`.
 
 - [ ] **Step 5: Commit**
 
@@ -841,7 +841,7 @@ def anchor_report(claims, excerpt_vectors, allowed):
 - [ ] **Step 4: Rodar para ver passar**
 
 Run: `python3 scripts/content/anchor-lesson.test.py`
-Expected: `OK` com 3 testes.
+Expected: `OK` com 4 testes.
 
 - [ ] **Step 5: Commit**
 
@@ -1258,7 +1258,7 @@ def separation(anchored: list[float], orphan: list[float]) -> float:
 - [ ] **Step 4: Rodar para ver passar**
 
 Run: `python3 scripts/content/calibration-report.test.py`
-Expected: `OK` com 3 testes.
+Expected: `OK` com 4 testes.
 
 - [ ] **Step 5: Trocar o motor por Ollama**
 
@@ -1416,7 +1416,7 @@ def partition(classified: list[dict], mapped_taxonomy_ids: set[str]) -> dict:
 - [ ] **Step 4: Rodar para ver passar**
 
 Run: `python3 scripts/content/destination-state.test.py`
-Expected: `OK` com 4 testes.
+Expected: `OK` com 5 testes.
 
 - [ ] **Step 5: Commit**
 
@@ -1550,11 +1550,13 @@ def selected_for_review(lesson_ids: list[str], rate: float) -> list[str]:
 - [ ] **Step 4: Rodar para ver passar**
 
 Run: `python3 scripts/content/sampling-queue.test.py`
-Expected: `OK` com 5 testes.
+Expected: `OK` com 6 testes.
 
 *(Corrigido em 2026-08-06: a expectativa original dizia "3 testes" porque a lista do
 Step 1 só cobria três ramos. Com os dois testes novos — `test_com_teto_escrito_a_taxa_e_zero`
-e `test_taxa_parcial_exclui_pelo_menos_uma_aula` — a contagem correta é 5.)*
+e `test_taxa_parcial_exclui_pelo_menos_uma_aula` — a contagem subiu para 5, e depois para
+6 com `test_taxa_do_teto_escrito_nao_seleciona_ninguem`, acrescentado pela revisão final de
+branch e descrito na nota logo acima.)*
 
 - [ ] **Step 5: Commit**
 
