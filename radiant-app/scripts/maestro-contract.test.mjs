@@ -7,6 +7,17 @@ import { fileURLToPath } from 'node:url';
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const appId = 'com.ascendcreative.radiant';
 
+// Os flows que rolam até um elemento. Lista explícita, e não varredura do
+// diretório, porque um flow novo que role deve entrar aqui por decisão — é
+// nesta lista que as duas regras de `scrollUntilVisible` pegam.
+const MAESTRO_FLOWS_WITH_SCROLL = [
+  'learning-critical-path.yaml',
+  'offline-relaunch.yaml',
+  'reward-locked.yaml',
+  'reward-unlock.yaml',
+  'store-capture.yaml',
+];
+
 async function readAppFile(relativePath) {
   return readFile(path.join(appRoot, relativePath), 'utf8');
 }
@@ -381,6 +392,40 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
         previousCommand ?? '',
         /^- assertVisible:/,
         `${name}:${index + 1}: scrollUntilVisible must be preceded by an assertVisible — that assertion is what makes Maestro wait for the screen to render before scrolling`
+      );
+    });
+  }
+});
+
+test('makes every scroll-until-visible state the visibility bar it is measured by', async () => {
+  // O Maestro exige 100% de visibilidade por PADRÃO, e nenhum flow declarava
+  // isso. Em 2026-08-06 o `reward-unlock` falhou no Android em
+  // `lesson-option-…:estrutura-da-materia-e-nucleo-atomico:q1:option:0` com o
+  // elemento na tela e clicável: um brilho decorativo — não clicável e com
+  // `important-for-accessibility=false` — cobria ~11% dos bounds da opção, e a
+  // régua herdada transformou 89% de visibilidade em reprovação. A sonda no
+  // aparelho fechou o diagnóstico: `assertVisible` e `tapOn` do MESMO id
+  // passaram, e o scroll passou com 80%.
+  //
+  // A regra aqui não é "aceite menos"; é "declare a régua". Um valor herdado
+  // não é decisão de ninguém e some da revisão, e a diferença entre 100 e 89
+  // decidiu uma execução de 15 minutos. Onde 100 passa, 100 fica escrito.
+  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
+    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
+
+    lines.forEach((line, index) => {
+      if (!/^- scrollUntilVisible:/.test(line)) return;
+
+      const block = [];
+      for (let cursor = index + 1; cursor < lines.length; cursor += 1) {
+        if (/^\S/.test(lines[cursor])) break;
+        block.push(lines[cursor]);
+      }
+
+      assert.match(
+        block.join('\n'),
+        /^\s+visibilityPercentage:\s*\d+\s*$/m,
+        `${name}:${index + 1}: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer overlaps the target`
       );
     });
   }

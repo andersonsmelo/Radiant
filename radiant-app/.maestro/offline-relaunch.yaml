@@ -48,6 +48,7 @@ tags:
       id: lesson-option-q1:option:1
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 100
 - tapOn:
     id: lesson-option-q1:option:1
 - tapOn: Continuar

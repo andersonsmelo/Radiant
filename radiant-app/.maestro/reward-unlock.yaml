@@ -64,11 +64,18 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+# A régua é declarada, não herdada. O Maestro pede 100% por padrão, e em
+# 2026-08-06 isso reprovou uma opção que estava na tela e clicável: um brilho
+# decorativo cobria ~11% dos bounds no Android, medido na árvore no instante da
+# falha. `assertVisible` e `tapOn` do mesmo id passaram, e o scroll passou a
+# 80%. 80 é margem sobre os 89% medidos — não é "aceitar menos", é parar de
+# medir com uma régua que ninguém escolheu.
 - scrollUntilVisible:
     element:
       id: 'lesson-option-q1:option:1'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-q1:option:1'
 - tapOn: Continuar
@@ -127,6 +134,7 @@ tags:
       id: 'lesson-option-ct-q3:option:2'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ct-q3:option:2'
 - tapOn: Continuar
@@ -173,6 +181,7 @@ tags:
       id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
 - tapOn: Continuar
@@ -219,6 +228,7 @@ tags:
       id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
 - tapOn: Continuar
@@ -265,6 +275,7 @@ tags:
       id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
 - tapOn: Continuar
@@ -311,6 +322,7 @@ tags:
       id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
 - tapOn: Continuar
@@ -360,6 +372,7 @@ tags:
       id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
 - tapOn: Continuar
