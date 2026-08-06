@@ -32,7 +32,7 @@
   {
     "taxonomyId": null,
     "catalogId": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
-    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca, descricao 'exposicao, protecao e leitura segura do exame'); candidato real por sobreposicao tematica direta entre 'protecao radiologica' e a descricao da estrela. Mantido null porque decidir esse vinculo liga um alvo do classificador a um no de taxonomia ainda em status 'planned', e o plano nao decide escopo de taxonomia — decisao do dono do projeto. Reportado como concern nesta rodada."
+    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca, descricao 'exposicao, protecao e leitura segura do exame'); candidato real por sobreposicao tematica direta entre 'protecao radiologica' e a descricao da estrela. Mantido null porque a estrela ainda nao existe como trilha entregue — status 'planned' — e mapear hoje ligaria um no do catalogo a uma promessa de curriculo. Reabrir quando star-dose-radiacao sair de status 'planned'."
   },
   {
     "taxonomyId": null,
@@ -57,7 +57,7 @@
   {
     "taxonomyId": null,
     "catalogId": "ai-lesson:qualidade-de-imagem",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (o id sugere 'artefatos basicos', tema adjacente a qualidade de imagem, embora slug/titulo registrados sejam 'fundamentos' generico); candidato secundario genuino, de confianca menor que o de ai-lesson:interacao-das-radiacoes-e-protecao-radiologica. Mantido null porque a descricao registrada da estrela ('conceitos basicos e leitura inicial') nao confirma foco em artefatos/qualidade e a estrela segue em status 'planned'. Reportado como concern nesta rodada."
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; examinado e rejeitado. O unico vestigio a favor era a string do id ('artefatos-basicos'), enquanto o titulo registrado da estrela e 'Fundamentos' e a descricao e 'Trilha curta sobre conceitos basicos e leitura inicial' — nenhum dos dois menciona artefato ou qualidade de imagem. O id e artefato de nomenclatura; titulo e descricao sao o registro. Inferir assunto a partir do id e o mesmo erro que produziu a conclusao ruim da primeira rodada, quando coincidencia de slug foi lida como parentesco tematico."
   },
   {
     "taxonomyId": null,
