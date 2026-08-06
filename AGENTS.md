@@ -32,19 +32,46 @@ toda sessão de IA segue este contrato:
 
 ### Ao terminar trabalho material
 
-1. Todo run de escrita fecha com evidência de validação (`loop validate`) e
-   `loop run close`; aprendizado durável vira memória validada via
-   `loop memory write` — nunca edição manual do vault do Obsidian.
+1. Todo run de escrita fecha nesta ordem, e ela não é negociável porque é a
+   máquina de estados da CLI:
 
-   Três armadilhas do fechamento, todas custaram registro perdido aqui:
-   - o **resumo da memória tem teto de 1000 caracteres**. Acima disso o comando
-     recusa com `MEMORY_EVIDENCE_INVALID`, um código que nomeia a evidência
-     enquanto a restrição violada é o tamanho — conte antes de enviar;
-   - **nunca encadeie `loop run close` depois de `loop memory write`.** A CLI
-     reporta erro no corpo do JSON com status de saída **zero**, então o `&&`
-     não protege: em 2026-08-06 a memória falhou, o run fechou em seguida e o
-     aprendizado não pôde mais ser gravado. Extraia o `code` e falhe
-     explicitamente;
+   ```
+   loop validate  →  loop step finish  →  [loop memory write]  →  loop run close
+     (validating)      (succeeded)          (memory_written)        (closed)
+   ```
+
+   `loop memory write` **exige o run em `state: succeeded`**, e o único comando
+   que produz esse estado é `loop step finish` (`src/engine.ts:356`); `validate`
+   sozinho deixa o run em `validating`. Gravar memória logo após validar falha
+   sempre. O passo de memória é opcional — entra só quando a tarefa produziu
+   aprendizado durável; sem ele, `succeeded → closed` é transição válida.
+   Nunca edite o vault do Obsidian à mão.
+
+   Quatro armadilhas do fechamento, todas custaram registro perdido aqui:
+   - **`MEMORY_EVIDENCE_INVALID` tem quatro causas, checadas nesta ordem**
+     (`src/memory.ts`): run fora de `succeeded` (linha 26), resumo vazio ou
+     acima de **1000 caracteres** (33), evidência ausente ou reprovada (44) e
+     lista de evidência vazia (52). A primeira mascara as demais — leia o campo
+     de detalhe da resposta (`{ state }`) antes de suspeitar do tamanho. O
+     código nomeia a evidência em todos os quatro casos, e em três deles mente;
+   - **nunca encadeie os comandos do fechamento com `&&`.** A CLI reporta erro
+     no corpo do JSON com status de saída **zero**, então o `&&` não protege:
+     em 2026-08-06 a memória falhou, o run fechou em seguida e o aprendizado não
+     pôde mais ser gravado. Extraia o `code` de cada resposta e falhe
+     explicitamente. Esta regra é sobre o **operador**, não sobre a ordem —
+     `memory_written → closed` é transição legal (`src/state-machine.ts:21`), e
+     ler esta proibição como regra de sequência foi o que inverteu o ritual e
+     travou um run em 2026-08-06;
+   - **abra sempre pelo embrulho** — `node scripts/loop/abrir.mjs "<descrição>"
+     <arquivo>...`, antes de criar qualquer arquivo. Para fechar, o embrulho
+     serve **só quando não há memória a gravar**: `fechar.mjs` encadeia
+     `validate` → `step finish` → `run close` e fecha o run incondicionalmente,
+     sem passo de memória. Tarefa com aprendizado durável **não pode** fechar
+     por ele — depois de `run close` não existe transição para
+     `memory_written`, e o aprendizado se perde. Nesse caso rode `validate` e
+     `step finish` (soltos ou pelo embrulho até ali), depois
+     `loop memory write`, e só então `loop run close`, checando o `code` de
+     cada resposta;
    - `loop validate` dispara jest, lint e typecheck. **Não valide enquanto um
      E2E estiver rodando** — mediu-se 2,3× de desaceleração no emulador, e o
      flow morre em timeout que parece defeito do app.

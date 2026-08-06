@@ -115,18 +115,34 @@ nenhum defeito de transação, com menos da metade das chamadas de ferramenta.
 
 - **Toda alteração passa por run do Loop:** `loop run start` → `loop context
   build` → `loop step begin --files <cada arquivo>` → editar → `loop validate` →
-  `loop step finish` → `loop run close`.
+  `loop step finish` → `[loop memory write]` → `loop run close`.
+- **`loop memory write` exige o run em `state: succeeded`**, e só
+  `loop step finish` produz esse estado (`src/engine.ts:356`); `validate` deixa
+  o run em `validating`. Gravar memória logo após validar falha sempre.
+  *(Corrigido em 2026-08-06: a ordem anterior omitia onde a memória entra, e a
+  omissão foi preenchida pela leitura errada da proibição abaixo — custou um
+  run travado.)*
 - **`loop memory write` entra apenas quando a tarefa produz aprendizado
   durável** — a skill `loop-development` diz, com todas as letras, *"If no
   durable learning exists, close the successful run without inventing one"*.
   Tarefa mecânica (alargar uma policy, renomear um símbolo) fecha sem memória;
   descoberta que a próxima sessão pagaria para não redescobrir merece memória.
+  Sem memória, `succeeded → closed` é transição válida.
   *(Corrigido em 2026-08-06: a redação anterior exigia memória em toda
   alteração, contradizendo a skill. A revisão da Task 0 pegou a contradição.)*
-- **Nunca encadeie `loop run close` depois de `loop memory write`.** A CLI
-  reporta erro no corpo do JSON com status de saída zero; extraia o `code` e
-  falhe explicitamente.
-- **O resumo da memória tem teto de 1000 caracteres.** Conte antes de enviar.
+- **Nunca encadeie os comandos de fechamento com `&&`.** A CLI reporta erro no
+  corpo do JSON com status de saída zero; extraia o `code` e falhe
+  explicitamente. Esta regra é sobre o **operador**, não sobre a ordem:
+  `memory_written → closed` é transição legal (`src/state-machine.ts:21`).
+- **`fechar.mjs` não serve para tarefa com memória.** Ele encadeia
+  `validate` → `step finish` → `run close` e fecha incondicionalmente; depois de
+  `closed` não há transição para `memory_written`. Com aprendizado a gravar,
+  rode os passos até `step finish`, depois `memory write`, depois `run close`.
+- **`MEMORY_EVIDENCE_INVALID` tem quatro causas** checadas em ordem
+  (`src/memory.ts`): estado do run (26), resumo vazio ou acima de **1000
+  caracteres** (33), evidência ausente ou reprovada (44), lista de evidência
+  vazia (52). A primeira mascara as demais — leia o `{ state }` da resposta
+  antes de suspeitar do tamanho.
 - **Nunca rode geração, E2E e validação ao mesmo tempo.** Host de 16 GB; medida
   de 2026-08-06 mostrou 2,3× de desaceleração no emulador sob carga concorrente.
 - **Teste Python:** arquivo irmão `<script>.test.py`, `unittest`, carregado por
