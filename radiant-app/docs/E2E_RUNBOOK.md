@@ -262,6 +262,27 @@ maestro test .maestro/first-run.yaml
 maestro test .maestro/boot-to-home.yaml
 maestro test .maestro/learning-critical-path.yaml
 maestro test .maestro/offline-relaunch.yaml
+maestro test .maestro/reward-locked.yaml
+maestro test .maestro/reward-unlock.yaml
+```
+
+The two reward flows are a pair and only mean something together: one asserts
+the node refuses collection while locked, the other that it yields after the
+seventh lesson, and both point at the same `node:reward:fundamentos:final`.
+`reward-unlock` is the long one — 170 steps, roughly 15 minutes — and it must
+not be shortened by deep-linking to the reward, which is what its sibling
+already covers.
+
+**Prove the binary before trusting the run.** On 2026-08-06 `npx expo run:ios`
+failed on this host for a missing CocoaPods CLI while the shell still reported
+success (the build had been chained with diagnostics by `;`, so the status came
+from the last element), and a build from two days earlier was still installed on
+the simulator. Running the flow there would have produced a genuine `passed`
+against the wrong binary. Use the `xcodebuild` path above, then check that the
+installed bundle carries the timestamp of the build you just made:
+
+```sh
+xcrun simctl get_app_container <UDID> com.ascendcreative.radiant app
 ```
 
 Run each flow once on an iOS simulator and once on an Android emulator. Keep

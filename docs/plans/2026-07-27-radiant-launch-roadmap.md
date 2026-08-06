@@ -382,10 +382,15 @@ código.
   contrato virou teste estrutural em
   `radiant-app/scripts/tab-bar-clearance-contract.test.mjs`, ligado ao
   `npm run quality`.
-- **B0 [P0 — RESOLVIDA em 2026-07-27; ponta B0.2 aberta]** ~~NOVO, bloqueia o
+- **B0 [P0 — RESOLVIDA em 2026-07-27, ~~ponta B0.2 aberta~~ INCLUSIVE A B0.2]**
+  ~~NOVO, bloqueia o
   beta.~~ *(Estado promovido ao cabeçalho em 2026-08-04, pela mesma razão da D1:
   a resolução já estava no corpo, mas o cabeçalho seguia dizendo "bloqueia o
-  beta" para quem triasse a lista. É o cabeçalho que é lido.)*
+  beta" para quem triasse a lista. É o cabeçalho que é lido. **Corrigido de novo
+  em 2026-08-06:** o cabeçalho ainda anunciava a ponta B0.2 como aberta, mas ela
+  está riscada e marcada concluída em 2026-07-27 no corpo — terceira ocorrência
+  do mesmo defeito nesta página, e a segunda em que o cabeçalho envelhece
+  sozinho depois que o corpo é atualizado.)*
   A flag `ENABLE_LEARNING_ROAD` tinha
   default `false` e **não é definida nos perfis `development`, `preview` nem
   `production`** do `eas.json`; só o perfil `e2e-test` a liga. Consequências
@@ -469,9 +474,21 @@ código.
   desabilitado anunciaram nome, estrutura e estado uma vez; faltam uma dica e
   um estado ocupado real para fechar o roteiro em
   `radiant-app/docs/ACCESSIBILITY_QA_V1.md`.
-- **B5 [P1 — ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO]** Cobrir o nó de
+- **B5 [P1 — ~~ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO~~ iOS EXECUTADO E
+  `passed` EM 2026-08-06; RESTA O ANDROID]** Cobrir o nó de
   reward com E2E. O deep link cobre a tela e o estado bloqueado
   (`reward-locked.yaml`, medido em 2026-08-04).
+
+  > **Executado no iOS em 2026-08-06: `passed`, 170 passos, 0 falhas.** Sobre
+  > build local Release do perfil `e2e-test` no simulador
+  > `Radiant iPhone 17 Pro — iOS 26.5`, com o contrato do flow verde (16
+  > asserções) antes de rodar. A regra foi provada pelo caminho do produto — o
+  > CTA `Receber conquista` só apareceu na home depois da sétima lição — e a
+  > contagem virou de `13 de 14` para `14 de 14` marcos com a coleta. Evidência,
+  > incluindo como a identidade da build foi verificada antes de medir:
+  > [`2026-08-06-b5-reward-unlock-ios.md`](../../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md).
+  > **Falta o Android** (~13 min em janela exclusiva de host); enquanto ele não
+  > rodar, a task não fecha.
 
   > **Escrito em 2026-08-04:** `reward-unlock.yaml` percorre as sete lições e os
   > seis checkpoints e coleta a conquista, e `scripts/maestro-contract.test.mjs`

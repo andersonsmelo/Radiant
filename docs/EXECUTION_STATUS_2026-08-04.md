@@ -342,7 +342,12 @@ dois relógios; só o segundo é lido pela próxima sessão.
    vazia. Não bloqueia publicar: o AAB vai pelo console.
 4. **B4** — avançou em iPhone físico, mas ainda falta ouvir dica e estado
    ocupado; **C4/C5**, **E3** e o lado Play de **E4** exigem humano ou hardware.
-5. **B5** — o deep link cobre a tela e o estado bloqueado. A regra de
+5. **B5** — **iOS executado e `passed` em 2026-08-06** (170 passos, 0 falhas,
+   build local Release `e2e-test` no simulador; `13 de 14` → `14 de 14` marcos
+   com a coleta, pelo caminho do produto —
+   [evidência](../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md)).
+   **Resta o Android**, ~13 min em janela exclusiva de host; a task não fecha
+   antes disso. O deep link cobre a tela e o estado bloqueado. A regra de
    destravamento **ganhou flow em 2026-08-04** (`reward-unlock.yaml`: sete
    lições, seis checkpoints, coleta, contrato mutado com seis mutações
    vermelhas), mas **não foi executada em aparelho** — a task segue aberta, e
