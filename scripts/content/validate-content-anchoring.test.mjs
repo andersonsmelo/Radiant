@@ -26,3 +26,8 @@ test('MUTACAO: excerto nao autorizado reprova', () => {
   const aula = { claims: [{ excerptId: 'excerpt:x:p1:c1', hash: 'abc' }] };
   assert.match(anchoringErrors({ aula, manifesto: restrito })[0], /autoriza/);
 });
+
+test('MUTACAO: excerto fora do manifesto reprova', () => {
+  const aula = { claims: [{ excerptId: 'excerpt:fantasma:p1:c1', hash: 'abc' }] };
+  assert.match(anchoringErrors({ aula, manifesto })[0], /excerto fora do manifesto/);
+});

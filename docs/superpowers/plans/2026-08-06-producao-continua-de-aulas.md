@@ -901,7 +901,22 @@ test('MUTACAO: excerto nao autorizado reprova', () => {
   const aula = { claims: [{ excerptId: 'excerpt:x:p1:c1', hash: 'abc' }] };
   assert.match(anchoringErrors({ aula, manifesto: restrito })[0], /autoriza/);
 });
+
+test('MUTACAO: excerto fora do manifesto reprova', () => {
+  const aula = { claims: [{ excerptId: 'excerpt:fantasma:p1:c1', hash: 'abc' }] };
+  assert.match(anchoringErrors({ aula, manifesto })[0], /excerto fora do manifesto/);
+});
 ```
+
+*(Corrigido em 2026-08-06: a redação original desta lista tinha apenas três testes
+`MUTACAO:`, cobrindo afirmação sem excerto, hash divergente e excerto sem autorização de
+direitos. O Step 3 sempre teve um quarto ramo — `!linha`, "excerto fora do manifesto" —
+mas nenhum teste o exercitava, muito menos por mutação. A revisão da Task 5 (fix round 1)
+confirmou a lacuna: com o ramo `!linha` neutralizado, a suíte de três `MUTACAO:` originais
+continuava a passar 4/4, ou seja, a guarda podia quebrar sem que nada acusasse — o mesmo
+padrão do defeito de 2026-08-04 citado na spec do projeto. O teste
+`MUTACAO: excerto fora do manifesto reprova` acima fecha essa lacuna; quem reexecutar este
+plano deve escrevê-lo junto dos outros três desde o Step 1.)*
 
 - [ ] **Step 2: Rodar para ver falhar**
 
@@ -942,9 +957,13 @@ export function anchoringErrors({ aula, manifesto }) {
 - [ ] **Step 4: Rodar para ver passar**
 
 Run: `node --test scripts/content/validate-content-anchoring.test.mjs`
-Expected: 4 `pass`, 0 `fail`. **As três mutações precisam ter falhado no Step 2
+Expected: 5 `pass`, 0 `fail`. **As quatro mutações precisam ter falhado no Step 2
 e passado agora** — se alguma passou já no Step 2, a guarda não morde e o teste
 está errado.
+
+*(Corrigido em 2026-08-06: a expectativa original dizia "4 pass" porque a lista de
+testes do Step 1 só cobria três mutações. Com o quarto teste — `MUTACAO: excerto fora
+do manifesto reprova` — a contagem correta é 5.)*
 
 - [ ] **Step 5: Registrar o validador no Loop**
 
