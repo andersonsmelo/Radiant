@@ -2,13 +2,20 @@
 
 > Copy para App Store (iOS) e Google Play, fundamentada nas features reais do app
 > (trilha guiada, quizzes, revisão espaçada, offline, sem conta, gamificação).
-> **Sem alegações médicas, sem números/depoimentos inventados.** Pendente de
-> aprovação de Anderson e de revisão antes da submissão.
+> **Sem alegações médicas, sem números/depoimentos inventados.** Nome, subtítulo
+> opção 1 e descrição curta opção 1 **aprovados por Anderson em 2026-08-05**.
+> A revisão final do disclaimer antes da submissão continua recomendada.
 
 **Decisões travadas:** categoria **Educação**; gratuito no lançamento (freemium
 no futuro — a copy não promete "grátis para sempre" nem cita recursos premium que
 ainda não existem); ângulo principal: **método de estudo** (trilha guiada +
 revisão espaçada), com **offline/local-first** como diferencial forte.
+
+**Aprovação do dono (2026-08-05):** nome público **Radiant — Radiologia**,
+subtítulo App Store **Radiologia: estude e revise** e descrição curta Google Play
+**Trilha guiada de radiologia com quizzes e revisão. Offline, sem conta.** A
+aprovação fecha a escolha das variantes; não prova que a descrição curta já foi
+digitada no Play Console.
 
 Limites de caracteres respeitados: nome/subtítulo/título 30; short description
 (Play) 80; keywords (App Store) 100; descrição 4000.
@@ -17,29 +24,32 @@ Limites de caracteres respeitados: nome/subtítulo/título 30; short description
 
 ## Nome do app
 
-**Radiant** (7). Plano B de nome caso indisponível na App Store é tratado na
-task A3; sugestões de reserva: `Radiant: Radiologia`, `Radiant Radiology`.
+**Radiant — Radiologia** (20). O `Radiant` puro estava indisponível na App Store;
+o nome público aprovado em 2026-08-05 preserva o registro criado na A3 e alinha
+as duas lojas.
 
 ## Subtítulo (App Store, ≤30) — 3 opções
 
-1. **Radiologia: estude e revise** (27) — *recomendado.* Diz o domínio e o método
-   (estudo + revisão) direto; casa com o ângulo travado.
+1. **Radiologia: estude e revise** (27) — **aprovado em 2026-08-05.** Diz o
+   domínio e o método (estudo + revisão) direto; casa com o ângulo travado.
 2. **Aprenda radiologia por trilha** (29) — enfatiza a trilha guiada.
 3. **Radiologia: trilha e quizzes** (28) — enfatiza prática (quizzes).
 
 ## Título (Google Play, ≤30)
 
-**Radiant — Radiologia** (20). Alternativa: **Radiant: Estudar Radiologia** (27).
+**Radiant — Radiologia** (20) — **aprovado em 2026-08-05.** Alternativa
+histórica: **Radiant: Estudar Radiologia** (27).
 
 > Este é o valor do campo "Nome do app" **no Google Play** — o mesmo campo que a
-> tela de criação do app pede e que a ficha reexibe. O `Radiant` puro acima é o nome
-> da App Store. Confundir os dois foi o que levou o valor errado a ser digitado no
-> console em 2026-07-31.
+> tela de criação do app pede e que a ficha reexibe. Desde a resolução da A3, é
+> também o nome da App Store: o `Radiant` puro estava indisponível. Confundir o
+> nome desejado com o registro efetivamente reservado foi o que levou o valor
+> errado a ser digitado no console em 2026-07-31.
 
 ## Descrição curta (Google Play, ≤80) — 2 opções
 
-1. **Trilha guiada de radiologia com quizzes e revisão. Offline, sem conta.** (70)
-   — *recomendada.*
+1. **Trilha guiada de radiologia com quizzes e revisão. Offline, sem conta.**
+   (70) — **aprovada em 2026-08-05.**
 2. **Estude radiologia por trilha: lições, quizzes e revisão. Funciona offline.**
    (74)
 
@@ -147,6 +157,8 @@ Texto curto, para metadados/onboarding quando couber:
 
 ## Pendências para Anderson
 
-1. Aprovar/ajustar a variante de subtítulo, descrição curta e nome.
-2. Confirmar a reserva do nome "Radiant" (A3) e o plano B.
+1. ~~Aprovar/ajustar a variante de subtítulo, descrição curta e nome.~~
+   **Concluída em 2026-08-05** com nome `Radiant — Radiologia` e as opções 1.
+2. ~~Confirmar a reserva do nome "Radiant" (A3) e o plano B.~~ **Concluída:** o
+   nome puro estava indisponível e o registro usa `Radiant — Radiologia`.
 3. Revisar o disclaimer com um revisor de domínio, se possível.
