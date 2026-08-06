@@ -49,12 +49,13 @@ branch é a fonte, não a `main`.
   fica para trás por construção.
 - Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
   **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
-  `npm run quality` PASS; Gate 2 de acessibilidade parcial — ~~(3/5)~~ ~~(4/5)~~
-  **(3/5) recontado em 2026-08-05**: aprovados os itens 3, 4 e 5; abertos o 1 e
-  o 2. O item 1 (Reduce Motion) ganhou cobertura de código nas telas de galáxia
-  em 2026-08-03 e, na mesma data, o critério manual passou a exigir percorrer
-  essas telas — o que a passagem de 2026-07-26 não podia ter coberto. Ver item 1
-  dos bloqueadores.
+  `npm run quality` PASS; Gate 2 de acessibilidade parcial — ~~(3/5)~~
+  ~~(4/5)~~ ~~(3/5) recontado em 2026-08-05~~ **(4/5) em 2026-08-06, agora com
+  evidência própria**: aprovados os itens 1, 3, 4 e 5; aberto só o item 2
+  (**B4**). O item 1 foi reaberto em 08-05 pela recontagem — o critério havia
+  crescido em 08-03 e a passagem de 07-26 não podia cobri-lo — e **fechado em
+  08-06 com nova caminhada em iPhone**, que é a forma barata de resolver
+  disputa de contabilidade: medir de novo.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
   plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
   da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
@@ -86,17 +87,19 @@ branch é a fonte, não a `main`.
 > O padrão é o do item 4: riscar o texto original e anexar a correção com data.
 > O registro do que se acreditava em 2026-07-27 tem valor; sobrescrevê-lo não.
 
-1. Gate 2 de acessibilidade: ~~resta o item 2~~ **restam os itens 1 e 2,
-   recontagem de 2026-08-05**. O item 2 (anúncio único VoiceOver) exige humano
-   com áudio, task B4. O item 5 (navegação por teclado) foi fechado em
+1. Gate 2 de acessibilidade: ~~resta o item 2~~ ~~restam os itens 1 e 2,
+   recontagem de 2026-08-05~~ **resta o item 2 (B4) — o item 1 fechou em
+   2026-08-06**. O item 5 (navegação por teclado) foi fechado em
    2026-07-27 com a build web (task B3).
-   **O item 1 (Reduce Motion) voltou a aberto sem que nada regredisse:** sua
-   passagem de 2026-07-26 mediu a animação de entrada no caminho da lição e
-   dizia, na própria evidência, que shake, scale e press não foram medidos. Em
-   2026-08-03 o critério cresceu para exigir a caminhada pela galáxia — e as
-   quatro superfícies só passaram a honrar a preferência naquele mesmo dia. Uma
-   passagem anterior não pode cobrir um critério posterior sobre código que
-   ainda não existia; falta uma caminhada nova em device.
+   O item 1 (Reduce Motion) tinha voltado a aberto sem que nada regredisse — a
+   passagem de 07-26 mediu só a animação de entrada no caminho da lição e o
+   critério cresceu em 08-03 para exigir a galáxia. **A caminhada nova foi feita
+   em 08-06 e passou:** nada se move, tocar abre sem animação, e a distinção
+   entre planeta ativo, disponível e bloqueado sobrevive à preferência, medida
+   contra uma captura de base tirada antes de ligá-la
+   ([evidência](../../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md)).
+   **O item 2 é o único aberto, e não fecha caminhando** — ver B4: o estado
+   ocupado não é produzível nesta build, e a saída é decisão do dono.
    **Reverificado em 2026-08-03: segue aberto** — o
    `radiant-app/docs/ACCESSIBILITY_QA_V1.md` continua marcando o gate como não
    aprovado por esse item. Vale reordenar a prioridade: em 2026-08-02 um defeito
@@ -593,17 +596,25 @@ código.
   recontar em vez de citar qualquer número desta linha:
   `cd radiant-app && npx eslint . --format json`.
 
-- **B8 [P1 — ABERTA; CRIADA EM 2026-08-05 PELA RECONTAGEM DO GATE]** Gate 2
-  item 1: refazer a caminhada manual de Reduce Motion em device, agora no
-  escopo ampliado — mapa da galáxia, interior de galáxia e interior de planeta,
-  além de shake, scale e press, que a passagem de 2026-07-26 declarou não ter
-  medido. O critério de aprovação inclui a distinção visual sob a preferência: o
-  brilho deve repousar no valor de descanso do ciclo, não ir a zero; se todos os
-  planetas ficarem iguais, a preferência apagou estado e isso é defeito. A
-  cobertura de código existe desde 2026-08-03 (`PlanetBody.test.tsx`); o que
-  falta é a passagem humana. Roteiro em
-  [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
-  Pode ser executada junto da B4, no mesmo aparelho e na mesma sessão.
+- **B8 [P1 — ~~ABERTA; CRIADA EM 2026-08-05 PELA RECONTAGEM DO GATE~~
+  CONCLUÍDA EM 2026-08-06]** Gate 2 item 1: caminhada manual de Reduce Motion em
+  iPhone físico, no escopo ampliado, **`passed`**. Nada se move sozinho nas três
+  telas, tocar num planeta abre sem animação, e a distinção de estado sobrevive
+  à preferência — verificada contra uma captura de base tirada **antes** de
+  ligá-la, porque uma tela sóbria parece correta sozinha. O que a passagem não
+  prova está escrito na evidência: nenhum planeta concluído existe na conta,
+  então o par testado foi ativo × disponível × bloqueado.
+  [`2026-08-06-b8-reduce-motion-iphone.md`](../../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md).
+
+  > **Critério original, mantido porque é ele que a passagem cumpriu:** mapa da
+  > galáxia, interior de galáxia e interior de planeta, além de shake, scale e
+  > press, que a passagem de 2026-07-26 declarou não ter medido. A aprovação
+  > exige a distinção visual sob a preferência — o brilho repousa no valor de
+  > descanso do ciclo, não vai a zero; se todos os planetas ficassem iguais, a
+  > preferência teria apagado estado, e isso seria defeito. A cobertura de
+  > código existe desde 2026-08-03 (`PlanetBody.test.tsx`) e a passagem humana
+  > foi feita em 2026-08-06. Roteiro em
+  > [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
 
 ### Onda C — Paridade Android (M2)
 

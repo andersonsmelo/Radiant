@@ -51,18 +51,31 @@ the Home shortcut at 56px and the sign-in action at 44px. Method, the full
 per-screen focus tables and the tooling caveat about keyboard activation:
 [`docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
 
-**The gate stands at 3/5 approved: items 3, 4 and 5. Two items are open, not
-one.**
+**The gate stands at 4/5 approved: items 1, 3, 4 and 5. Only item 2 is open.**
 
-Item 1 was reopened on 2026-08-05 by re-reading its own evidence. The checklist
-text was widened on 2026-08-03 to require walking the galaxy map, a galaxy
-interior and a planet interior — and those four surfaces only began honouring
-the preference that same day (`fix(a11y): respeita reduced motion nas quatro
-superficies da galaxia`, 2026-08-03). A manual pass recorded a week earlier
-cannot cover a criterion added afterwards over code that did not yet exist, so
-item 1 needs a fresh device walk covering the galaxy surfaces and the
-shake/scale/press effects. This is a bookkeeping correction, not a regression:
-nothing that was measured stopped being true.
+Item 1 was reopened on 2026-08-05 and **closed again on 2026-08-06 with its own
+device pass** — the fastest way to settle a bookkeeping dispute is to go and
+measure. It had been reopened because the checklist text was widened on
+2026-08-03 to require walking the galaxy map, a galaxy interior and a planet
+interior, and those four surfaces only began honouring the preference that same
+day (`fix(a11y): respeita reduced motion nas quatro superficies da galaxia`); a
+manual pass recorded a week earlier could not cover a criterion added afterwards
+over code that did not yet exist.
+
+The new pass walked all three surfaces on the TestFlight build with the
+preference on. Nothing moves on its own, tapping a planet opens with no
+animation, and — the part that actually decides this item — **the state
+distinction survives**: compared against a baseline capture taken with the
+preference off, the active galaxy keeps its lit halo and stays the brightest of
+the four, and inside `Anatomia` the active, available and locked planets remain
+distinguishable by eye. The glow settles at its resting value instead of going
+to zero, which is what the checklist demands. Evidence, including what the pass
+does **not** prove:
+[`docs/evidence/2026-08-06-b8-reduce-motion-iphone.md`](evidence/2026-08-06-b8-reduce-motion-iphone.md).
+
+One limit worth carrying: no planet in the account is **completed**, so the
+distinction verified was active × available × locked. A completed state, when it
+first exists, deserves its own look.
 
 Item 2 still needs a complete VoiceOver pass (task B4). A physical-iPhone
 session on 2026-08-05 heard tab names/positions/roles and the disabled state of

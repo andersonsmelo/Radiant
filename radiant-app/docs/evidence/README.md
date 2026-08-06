@@ -46,6 +46,9 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   guarda cega a oclusão, anterior àquele trabalho. Registra os três defeitos que
   só a execução em dispositivo expôs, incluindo o colapso de acessibilidade do
   `WelcomeSlide`. **Indexado retroativamente em 2026-08-03.**
+- [B8 — Reduce Motion em iPhone físico — 2026-08-06](2026-08-06-b8-reduce-motion-iphone.md)
+  — item 1 do Gate 2 `passed` no escopo ampliado: nada se move e a distinção
+  entre planeta ativo, disponível e bloqueado sobrevive à preferência.
 - [B5 — `reward-unlock` no iOS — 2026-08-06](2026-08-06-b5-reward-unlock-ios.md)
   — 170 passos, 0 falhas, sobre build local Release `e2e-test` no simulador. A
   regra de destravamento provada pelo caminho do produto; Android pendente.

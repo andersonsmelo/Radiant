@@ -234,7 +234,19 @@ incompleta; não há falha nova do binário que justifique cancelar ou redispara
 Relatório completo em
 [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 
-**Gate 2 recontado para 3/5 em 2026-08-05, sem regressão.** A revisão desta data
+**Gate 2 voltou a 4/5 em 2026-08-06 — desta vez com evidência própria.** O item
+1 foi reaberto na véspera pela recontagem abaixo e **fechado no dia seguinte com
+uma caminhada nova em iPhone físico**: nada se move nas três telas da galáxia,
+tocar num planeta abre sem animação, e a distinção entre planeta ativo,
+disponível e bloqueado sobrevive à preferência — medida contra uma captura de
+base tirada **antes** de ligá-la, porque uma tela sóbria parece correta sozinha.
+Aprovados: itens 1, 3, 4 e 5. Aberto: só o item 2 (**B4**), que não fecha
+caminhando. Evidência em
+[`2026-08-06-b8-reduce-motion-iphone.md`](../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md);
+a **B8** está concluída. Resolver disputa de contabilidade medindo de novo saiu
+mais barato do que discuti-la.
+
+**A recontagem que provocou isso, registrada em 2026-08-05, sem regressão.** A revisão desta data
 encontrou o roadmap dizendo `4/5` na mesma frase em que dizia que a passagem
 manual do item 1 seguia pendente. Lendo a evidência do item 1: ela mediu a
 animação de entrada no caminho da lição em 2026-07-26 e declarou que shake,
