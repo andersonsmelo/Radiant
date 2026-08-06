@@ -801,7 +801,7 @@ grep -o "ai-lesson:[a-z0-9-]*" "Conteúdo/governança/wave-1-priority-tracks.jso
 
 Nó de catálogo cuja contraparte de taxonomia ainda não existe entra com
 `"taxonomyId": null` — é a lista que alimenta a decisão de escopo da D4.
-Acrescente **primeiro** este teste, veja falhar, e só então o `continue`:
+Acrescente **primeiro** estes dois testes, veja falhar, e só então o ajuste:
 
 ```javascript
 test('entrada sem taxonomia ainda nao decidida nao e erro', () => {
@@ -812,16 +812,42 @@ test('entrada sem taxonomia ainda nao decidida nao e erro', () => {
   });
   assert.deepEqual(erros, []);
 });
+
+test('acusa catalogo inexistente mesmo com taxonomyId null', () => {
+  const erros = mapErrors({
+    map: [{ taxonomyId: null, catalogId: 'ai-lesson:fantasma' }],
+    taxonomyIds: new Set(),
+    catalogIds: new Set(),
+  });
+  assert.equal(erros.length, 1);
+  assert.match(erros[0], /ai-lesson:fantasma/);
+});
 ```
 
-O ajuste em `mapErrors`, dentro do laço sobre `map`, antes das duas checagens:
+O ajuste em `mapErrors`, dentro do laço sobre `map`, substituindo as duas
+checagens originais: o `taxonomyId === null` pula **somente** a checagem de
+taxonomia — a checagem de catálogo e o `mapeados.add` continuam valendo para
+toda entrada, inclusive as com `taxonomyId: null`.
 
 ```javascript
-    if (entrada.taxonomyId === null) {
-      mapeados.add(entrada.catalogId);
-      continue;
+    if (entrada.taxonomyId !== null && !taxonomyIds.has(entrada.taxonomyId)) {
+      erros.push(`mapa aponta para taxonomia inexistente: ${entrada.taxonomyId}`);
     }
+    if (!catalogIds.has(entrada.catalogId)) {
+      erros.push(`mapa aponta para catalogo inexistente: ${entrada.catalogId}`);
+    }
+    mapeados.add(entrada.catalogId);
 ```
+
+*(Corrigido em 2026-08-06: a redação anterior usava `if (entrada.taxonomyId
+=== null) { mapeados.add(...); continue; }`, e o `continue` pulava também a
+checagem de catálogo — `mapErrors` devolvia `[]` para uma entrada com
+`taxonomyId: null` e `catalogId` inexistente, quando deveria acusar. A
+revisão da Task 4 (fix round 1) encontrou o defeito reproduzido com
+`mapErrors({map:[{taxonomyId:null,catalogId:'ai-lesson:fantasma'}],
+taxonomyIds:new Set(),catalogIds:new Set()})`. A forma acima e o teste de
+`null` + catálogo inválido substituem o bloco original para que quem
+reexecutar este plano não reintroduza o defeito.)*
 
 - [ ] **Step 6: Commit**
 

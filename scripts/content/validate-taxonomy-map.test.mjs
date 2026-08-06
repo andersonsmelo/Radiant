@@ -35,3 +35,13 @@ test('entrada sem taxonomia ainda nao decidida nao e erro', () => {
   });
   assert.deepEqual(erros, []);
 });
+
+test('acusa catalogo inexistente mesmo com taxonomyId null', () => {
+  const erros = mapErrors({
+    map: [{ taxonomyId: null, catalogId: 'ai-lesson:fantasma' }],
+    taxonomyIds: new Set(),
+    catalogIds: new Set(),
+  });
+  assert.equal(erros.length, 1);
+  assert.match(erros[0], /ai-lesson:fantasma/);
+});

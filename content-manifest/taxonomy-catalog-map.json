@@ -1,18 +1,82 @@
 [
-  { "taxonomyId": null, "catalogId": "ai-lesson:acessorios-radiologicos" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:componentes-basicos-do-equipamento" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:energia-e-materia" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:estrutura-da-materia-e-nucleo-atomico" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:preservacao-de-alimentos-por-irradicao" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:processamento-radiografico" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:producao-dos-raios-x" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:qualidade-de-imagem" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:radioatividade-particulas-e-atividade" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:raios-x-descoberta-e-propriedades" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:ressonancia-magnetica" },
-  { "taxonomyId": null, "catalogId": "ai-lesson:tomografia-computadorizada" }
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:acessorios-radiologicos",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos, planet-formacao-imagem); nao sustenta, pois acessorios fisicos de equipamento nao fazem parte do escopo de 'conceitos basicos e leitura inicial' da trilha, e nenhuma das 6 estrelas cobre o dominio de acessorios/equipamento."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca); nao sustenta, pois a licao trata de aplicacoes da medicina nuclear (uso diagnostico/terapeutico de radioisotopos), nao de protecao radiologica ou leitura segura de exposicao, que e o foco descrito da estrela."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:componentes-basicos-do-equipamento",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos, planet-formacao-imagem); nao sustenta, pois a estrela e descrita como conceitos basicos e leitura inicial (interpretacao de imagem), enquanto a licao e sobre a anatomia interna do equipamento, dominio distinto."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:energia-e-materia",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos); nao sustenta com confianca — a licao e fisica geral pre-raios X (agrupada em track-radiology-foundations com lesson-1/lesson-2), enquanto a estrela esta ancorada no planeta 'formacao de imagem', escopo mais estreito que nao inclui fisica geral."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:componentes-basicos-do-equipamento — trata de equipamento fisico, nao de conceitos de formacao/leitura de imagem."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:energia-e-materia — fisica nuclear basica nao e escopo de 'formacao de imagem'."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca, descricao 'exposicao, protecao e leitura segura do exame'); candidato real por sobreposicao tematica direta entre 'protecao radiologica' e a descricao da estrela. Mantido null porque decidir esse vinculo liga um alvo do classificador a um no de taxonomia ainda em status 'planned', e o plano nao decide escopo de taxonomia — decisao do dono do projeto. Reportado como concern nesta rodada."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:preservacao-de-alimentos-por-irradicao",
+    "rationale": "Nenhuma estrela plausivel: as 6 estrelas cobrem anatomia (torax/abdome), fisica de formacao de imagem, dose/protecao ao paciente e padroes patologicos pulmonares; a licao trata de irradiacao industrial de alimentos, dominio fora desse escopo clinico."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:processamento-radiografico",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos/formacao de imagem); nao sustenta com confianca — processamento radiografico pode gerar artefatos de imagem, mas a descricao registrada da estrela fala de 'conceitos basicos e leitura inicial', nao de processamento tecnico de filme/chapa."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:producao-dos-raios-x",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta — producao de raios X e fisica/equipamento, fora do escopo de 'conceitos basicos e leitura inicial' de imagem."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+    "rationale": "Nenhuma estrela plausivel: as 6 estrelas tratam de anatomia, fisica de imagem, dose/protecao e padroes patologicos; nenhuma cobre orientacao profissional ou de carreira."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:qualidade-de-imagem",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (o id sugere 'artefatos basicos', tema adjacente a qualidade de imagem, embora slug/titulo registrados sejam 'fundamentos' generico); candidato secundario genuino, de confianca menor que o de ai-lesson:interacao-das-radiacoes-e-protecao-radiologica. Mantido null porque a descricao registrada da estrela ('conceitos basicos e leitura inicial') nao confirma foco em artefatos/qualidade e a estrela segue em status 'planned'. Reportado como concern nesta rodada."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:radioatividade-particulas-e-atividade",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:energia-e-materia e ai-lesson:estrutura-da-materia-e-nucleo-atomico — fisica basica de radioatividade nao e 'formacao de imagem'."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:raios-x-descoberta-e-propriedades",
+    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta — a licao e historico e propriedades gerais dos raios X, sem relacao com conceitos de formacao/leitura de imagem nem com os demais temas (anatomia, dose, patologia) das outras estrelas."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:ressonancia-magnetica",
+    "rationale": "Nenhuma estrela plausivel com confianca: a licao e sobre a modalidade RM em geral, sem recorte anatomico de torax/abdome nem foco em dose/protecao ou padrao patologico especifico das 6 estrelas."
+  },
+  {
+    "taxonomyId": null,
+    "catalogId": "ai-lesson:tomografia-computadorizada",
+    "rationale": "Nenhuma estrela plausivel com confianca: a licao e sobre a modalidade TC em geral. O catalogo agrupa essa licao na trilha de prioridade 'Torax' (track-thorax-patterns) e essa trilha compartilha slug 'torax' com star-coluna, mas e coincidencia de slug de rollout do wave-1, nao de conteudo — a licao nao e especificamente sobre anatomia toracica, entao nenhuma das 6 estrelas sustenta a correspondencia."
+  }
 ]
