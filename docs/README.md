@@ -40,6 +40,9 @@ Quando documentos divergirem, use esta ordem:
 
 - [`PRD.md`](PRD.md)
 - [`ARCHITECTURE_STATE.md`](ARCHITECTURE_STATE.md)
+- [`CLIENT_FLOW.md`](CLIENT_FLOW.md) — o caminho da pessoa no app e a máquina de
+  estados que decide se o próximo passo abre, em dois diagramas ancorados no
+  código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
 - [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md)
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
