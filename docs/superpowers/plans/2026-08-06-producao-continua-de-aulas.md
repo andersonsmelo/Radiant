@@ -25,7 +25,14 @@ local.
 
 - **Toda alteração passa por run do Loop:** `loop run start` → `loop context
   build` → `loop step begin --files <cada arquivo>` → editar → `loop validate` →
-  `loop step finish` → `loop memory write` → `loop run close`.
+  `loop step finish` → `loop run close`.
+- **`loop memory write` entra apenas quando a tarefa produz aprendizado
+  durável** — a skill `loop-development` diz, com todas as letras, *"If no
+  durable learning exists, close the successful run without inventing one"*.
+  Tarefa mecânica (alargar uma policy, renomear um símbolo) fecha sem memória;
+  descoberta que a próxima sessão pagaria para não redescobrir merece memória.
+  *(Corrigido em 2026-08-06: a redação anterior exigia memória em toda
+  alteração, contradizendo a skill. A revisão da Task 0 pegou a contradição.)*
 - **Nunca encadeie `loop run close` depois de `loop memory write`.** A CLI
   reporta erro no corpo do JSON com status de saída zero; extraia o `code` e
   falhe explicitamente.
