@@ -35,6 +35,19 @@ toda sessão de IA segue este contrato:
 1. Todo run de escrita fecha com evidência de validação (`loop validate`) e
    `loop run close`; aprendizado durável vira memória validada via
    `loop memory write` — nunca edição manual do vault do Obsidian.
+
+   Três armadilhas do fechamento, todas custaram registro perdido aqui:
+   - o **resumo da memória tem teto de 1000 caracteres**. Acima disso o comando
+     recusa com `MEMORY_EVIDENCE_INVALID`, um código que nomeia a evidência
+     enquanto a restrição violada é o tamanho — conte antes de enviar;
+   - **nunca encadeie `loop run close` depois de `loop memory write`.** A CLI
+     reporta erro no corpo do JSON com status de saída **zero**, então o `&&`
+     não protege: em 2026-08-06 a memória falhou, o run fechou em seguida e o
+     aprendizado não pôde mais ser gravado. Extraia o `code` e falhe
+     explicitamente;
+   - `loop validate` dispara jest, lint e typecheck. **Não valide enquanto um
+     E2E estiver rodando** — mediu-se 2,3× de desaceleração no emulador, e o
+     flow morre em timeout que parece defeito do app.
 2. Marque no roadmap a task executada (como feito com A1) no mesmo run que
    entrega o trabalho, para que a próxima IA veja o estado sem arqueologia.
 3. Mudanças de estado operacional (gates, versões, bloqueios) pertencem ao

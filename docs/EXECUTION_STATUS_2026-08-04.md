@@ -384,7 +384,17 @@ dois relógios; só o segundo é lido pela próxima sessão.
    O deep link já cobria a tela e o estado bloqueado; o que faltava era a regra,
    e ela agora está provada num lado.
 
-   **Resta o Android, e o custo estava errado por quase uma ordem de
+   **Resta o Android, com três tentativas frustradas em 2026-08-06 e nenhuma
+   delas por defeito do produto:** (1) parou no passo 103 numa régua de
+   visibilidade herdada do padrão do Maestro — diagnosticada, corrigida e pinada
+   no contrato; (2) parou no passo 4 com o emulador sumindo do `adb`; (3) parou
+   no passo 34 num timeout sob disputa de host **criada por mim**, ao rodar
+   `loop validate` durante o flow. A terceira foi medida, não suposta: 2,47
+   min/passo contra 1,07 com o host ocioso, 2,3× mais lento, e o passo que
+   falhou havia passado na primeira corrida sob critério mais rígido. O runbook
+   ganhou a regra que faltava — suíte de teste também é carga concorrente.
+
+   **O custo estava errado por quase uma ordem de
    grandeza.** Medido neste host: ~1 min por passo no emulador — 103 passos
    consumiram ~110 minutos. Os 170 passos são **horas**, não os ~13 min que o
    roadmap prometia, e a janela exclusiva precisa ser planejada assim. Duas

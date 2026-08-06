@@ -540,11 +540,22 @@ but not sufficient. Android needs an exclusive window here:
 1. no concurrent Gradle build, and run `./gradlew --stop` after building — the
    daemon outlives the build and keeps holding memory;
 2. no iOS simulator booted (`xcrun simctl shutdown all`);
-3. compare each flow's wall time against this document's baseline **before**
+3. **no test or validation suite either** — this rule was missing until
+   2026-08-06 and the omission cost a run. `loop validate` fires jest, lint and
+   typecheck; three of those during a `reward-unlock` execution took it from
+   **1.07 min/step** (idle host, 103 steps in 110 minutes) to **2.47 min/step**
+   (34 steps in 84 minutes), a **2.3× slowdown**, and the flow died on a
+   `scrollUntilVisible` timeout at a step that had passed in the idle run under
+   a *stricter* visibility bar. The earlier wording banned Gradle and the iOS
+   simulator by name, which reads as an exhaustive list; it is not. Anything
+   that competes for the 16 GB counts, documentation runs included;
+4. compare each flow's wall time against this document's baseline **before**
    attributing a failure to the app. On 2026-08-03 a `boot-to-home` that
    normally takes 73s took 640s, and three flows failed on timeouts that
    vanished once memory was freed. A flow that takes 54 minutes is telling you
-   about the machine, not about a selector.
+   about the machine, not about a selector. This rule worked on 2026-08-06: the
+   per-step comparison is what separated "the app broke" from "I loaded the
+   machine", and it took one division to do it.
 
 Also, the emulator is normally started with `-no-snapshot-save`, so it reverts
 to the last saved snapshot on boot — including the previously installed APK.
