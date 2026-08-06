@@ -351,6 +351,167 @@ git commit -m "feat(conteudo): embeddings por excerto, invalidados por hash"
 
 ---
 
+### Task 2.5: Embrulhar o ritual de transação
+
+Inserida em 2026-08-06, depois de **três tarefas seguidas** falharem na
+transação e nenhuma no código: a Task 0 pulou a memória por contradição do
+próprio plano, a Task 1 leu `INVALID_ARGUMENT` (flag `--task` ausente) como CLI
+quebrada e commitou fora de run, e a Task 2 abriu o run **depois** de editar,
+declarando só um dos dois arquivos. Três agentes, três erros diferentes, zero
+erros de lógica — o que descarta desatenção e aponta para a estrutura: o
+entregável vem especificado com assinatura e código literal, o procedimento vem
+como prosa numa seção global. Esta tarefa transforma o procedimento em comando.
+
+**Files:**
+- Create: `scripts/loop/envelope.mjs`
+- Create: `scripts/loop/envelope.test.mjs`
+- Create: `scripts/loop/abrir.mjs`
+- Create: `scripts/loop/fechar.mjs`
+
+**Interfaces:**
+- Produces:
+  - `parseEnvelope(stdout: string) -> { code: string, runId: string | null }` —
+    lê o JSON que a CLI imprime.
+  - `assertCode(envelope, expected: string) -> void` — **lança** quando o código
+    difere. É o coração da tarefa: a CLI devolve erro no corpo com status de
+    saída **zero**, então `&&` não protege e só uma checagem explícita protege.
+  - `abrir.mjs` — `node scripts/loop/abrir.mjs "<descrição>" <arquivo>...`
+    encadeia `run start --task` → `context build` → `step begin --files`,
+    abortando no primeiro código inesperado, e imprime o `runId`.
+  - `fechar.mjs` — `node scripts/loop/fechar.mjs <runId>` encadeia `validate` →
+    `step finish` → `run close`, abortando do mesmo jeito.
+
+Memória validada **não** entra no `fechar`: ela é opcional por decisão, e
+embutir no fechamento reintroduziria o encadeamento que a regra proíbe.
+
+- [ ] **Step 1: Escrever o teste que falha**
+
+```javascript
+// scripts/loop/envelope.test.mjs
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { parseEnvelope, assertCode } from './envelope.mjs';
+
+test('extrai code e runId do envelope', () => {
+  const env = parseEnvelope('{"code":"RUN_CREATED","runId":"run-1","ok":true}');
+  assert.equal(env.code, 'RUN_CREATED');
+  assert.equal(env.runId, 'run-1');
+});
+
+test('runId ausente vira null em vez de undefined', () => {
+  assert.equal(parseEnvelope('{"code":"STEP_STARTED"}').runId, null);
+});
+
+test('assertCode lanca quando o codigo diverge', () => {
+  const env = parseEnvelope('{"code":"MEMORY_EVIDENCE_INVALID"}');
+  assert.throws(() => assertCode(env, 'MEMORY_WRITTEN'), /MEMORY_EVIDENCE_INVALID/);
+});
+
+test('assertCode passa quando o codigo confere', () => {
+  assert.doesNotThrow(() => assertCode(parseEnvelope('{"code":"RUN_CLOSED"}'), 'RUN_CLOSED'));
+});
+
+test('saida que nao e JSON vira erro legivel, nao stack trace', () => {
+  assert.throws(() => parseEnvelope('command not found'), /envelope ilegivel/);
+});
+```
+
+- [ ] **Step 2: Rodar para ver falhar**
+
+Run: `node --test scripts/loop/envelope.test.mjs`
+Expected: FAIL — `Cannot find module './envelope.mjs'`.
+
+- [ ] **Step 3: Implementar o mínimo**
+
+```javascript
+// scripts/loop/envelope.mjs
+export function parseEnvelope(stdout) {
+  let dados;
+  try {
+    dados = JSON.parse(stdout);
+  } catch {
+    throw new Error(`envelope ilegivel da CLI do Loop: ${stdout.slice(0, 200)}`);
+  }
+  return { code: dados.code, runId: dados.runId ?? null };
+}
+
+export function assertCode(envelope, expected) {
+  if (envelope.code !== expected) {
+    throw new Error(
+      `esperado ${expected}, veio ${envelope.code} — a CLI reporta erro no corpo com saida zero`
+    );
+  }
+}
+```
+
+- [ ] **Step 4: Rodar para ver passar**
+
+Run: `node --test scripts/loop/envelope.test.mjs`
+Expected: 5 `pass`, 0 `fail`.
+
+- [ ] **Step 5: Escrever os dois executáveis**
+
+```javascript
+// scripts/loop/abrir.mjs
+import { execFileSync } from 'node:child_process';
+import { parseEnvelope, assertCode } from './envelope.mjs';
+
+const [descricao, ...arquivos] = process.argv.slice(2);
+if (!descricao || arquivos.length === 0) {
+  console.error('uso: node scripts/loop/abrir.mjs "<descricao>" <arquivo>...');
+  process.exit(2);
+}
+
+const loop = (args) => parseEnvelope(execFileSync('loop', args, { encoding: 'utf8' }));
+
+const criado = loop(['run', 'start', '--task', descricao]);
+assertCode(criado, 'RUN_CREATED');
+const runId = criado.runId;
+
+assertCode(loop(['context', 'build', '--run', runId]), 'CONTEXT_READY');
+
+const declaracao = ['step', 'begin', '--run', runId];
+for (const arquivo of arquivos) declaracao.push('--files', arquivo);
+assertCode(loop(declaracao), 'STEP_STARTED');
+
+console.log(runId);
+```
+
+```javascript
+// scripts/loop/fechar.mjs
+import { execFileSync } from 'node:child_process';
+import { parseEnvelope, assertCode } from './envelope.mjs';
+
+const runId = process.argv[2];
+if (!runId) {
+  console.error('uso: node scripts/loop/fechar.mjs <runId>');
+  process.exit(2);
+}
+
+const loop = (args) => parseEnvelope(execFileSync('loop', args, { encoding: 'utf8' }));
+
+assertCode(loop(['validate', '--run', runId]), 'VALIDATION_PASSED');
+assertCode(loop(['step', 'finish', '--run', runId]), 'STEP_SUCCEEDED');
+assertCode(loop(['run', 'close', '--run', runId]), 'RUN_CLOSED');
+
+console.log(`run ${runId} fechado com validacao aprovada`);
+```
+
+- [ ] **Step 6: Provar que o embrulho funciona na própria tarefa**
+
+Feche **esta** tarefa com `node scripts/loop/fechar.mjs <runId>` em vez dos três
+comandos soltos. Se o embrulho não conseguir fechar o próprio run que o criou,
+ele não serve para as seis tarefas seguintes.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add scripts/loop/
+git commit -m "feat(loop): abrir e fechar transacao em um comando, com checagem de envelope"
+```
+
+---
+
 ### Task 3: Ancorador em modo registro
 
 Modo registro é o da leva de calibração: devolve a similaridade de cada
