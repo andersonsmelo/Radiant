@@ -469,11 +469,20 @@ código.
   2026-08-05: o gate fica em 3/5 (itens 3, 4 e 5), porque o item 1 teve seu
   critério ampliado em 2026-08-03 e precisa de nova passagem manual.** A
   entrega da B3 em si não mudou.
-- **B4 [P0 — EM ANDAMENTO; AMOSTRA FÍSICA SEM DUPLICAÇÃO]** Gate 2 item 2:
+- **B4 [P0 — EM ANDAMENTO; A DICA TEM UM ALVO ÚNICO E O ESTADO OCUPADO NÃO
+  EXISTE NA BUILD — DECISÃO PENDENTE]** Gate 2 item 2:
   sessão humana de VoiceOver com áudio. Em 2026-08-05, abas e um `AppButton`
-  desabilitado anunciaram nome, estrutura e estado uma vez; faltam uma dica e
-  um estado ocupado real para fechar o roteiro em
-  `radiant-app/docs/ACCESSIBILITY_QA_V1.md`.
+  desabilitado anunciaram nome, estrutura e estado uma vez.
+  **Medido em 2026-08-06, antes de agendar aparelho:** a dica tem **um** alvo no
+  produto inteiro — o CTA da home (`JourneyHomeScreen`), porque todos os outros
+  controles com dica são `Pressable` e não contam para este item. E o estado
+  ocupado **não tem alvo nenhum**: o único `AppButton` que recebe `loading` está
+  no `PaywallOfferCard`, que só renderiza com oferta, e `ENABLE_PAYWALL` não é
+  declarada em nenhum perfil do `eas.json` (default `false`). Mesmo ligada, a
+  janela ocupada dura milissegundos e termina desmontando o botão. **Mesma
+  classe da B0** — flag ausente dos perfis de produção. Restam três saídas, a
+  decisão é do dono, e a recomendada é o harness na tela de dev-tools; as três
+  estão em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`.
 - **B5 [P1 — ~~ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO~~ iOS EXECUTADO E
   `passed` EM 2026-08-06; RESTA O ANDROID]** Cobrir o nó de
   reward com E2E. O deep link cobre a tela e o estado bloqueado
@@ -487,8 +496,14 @@ código.
   > contagem virou de `13 de 14` para `14 de 14` marcos com a coleta. Evidência,
   > incluindo como a identidade da build foi verificada antes de medir:
   > [`2026-08-06-b5-reward-unlock-ios.md`](../../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md).
-  > **Falta o Android** (~13 min em janela exclusiva de host); enquanto ele não
-  > rodar, a task não fecha.
+  > **Falta o Android**, e o custo estimado estava errado por quase uma ordem
+  > de grandeza. ~~~13 min~~ **Medido em 2026-08-06 neste host: ~1 min por
+  > passo** — 103 passos consumiram ~110 minutos antes de a corrida parar. Os
+  > 170 passos do flow são **horas**, não minutos, e a janela precisa ser
+  > planejada assim. A primeira tentativa parou numa régua de visibilidade
+  > (corrigida, ver `test:maestro-contract`) e a segunda morreu com o emulador
+  > sumindo do `adb` depois de 4 passos, num host de 16 GB. Enquanto o Android
+  > não rodar inteiro, a task não fecha.
 
   > **Escrito em 2026-08-04:** `reward-unlock.yaml` percorre as sete lições e os
   > seis checkpoints e coleta a conquista, e `scripts/maestro-contract.test.mjs`

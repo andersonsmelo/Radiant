@@ -273,6 +273,27 @@ seventh lesson, and both point at the same `node:reward:fundamentos:final`.
 not be shortened by deep-linking to the reward, which is what its sibling
 already covers.
 
+**Declare the visibility bar; never inherit it.** `scrollUntilVisible` defaults
+to demanding **100%** visibility. On 2026-08-06 that failed `reward-unlock` on
+Android at an option that was on screen and tappable: a decorative glow —
+non-clickable, `important-for-accessibility=false`, like all 78 nodes of that
+layer — covered ~11% of the option's bounds, and 89% became a red after 103
+steps. `assertVisible` and `tapOn` on the same id passed, and the scroll passed
+at 80%. iOS never tripped it because its composition differs. The contract now
+requires every `scrollUntilVisible` to state `visibilityPercentage`: 100 where
+the inherited bar already passed, 80 on the option scrolls of `reward-unlock`.
+An inherited default is a decision nobody made, and it surfaces as a
+platform-specific failure hours into a run.
+
+**Budget the Android run in hours, not minutes.** Measured on 2026-08-06 on
+this host: roughly **one minute per step** on the emulator — 103 steps took
+~110 minutes. `reward-unlock` is 170 steps, so plan the exclusive host window
+accordingly; the earlier "~13 min" figure in the roadmap was off by nearly an
+order of magnitude. The emulator is also fragile under contention: a second
+attempt died with `device 'emulator-5554' not found` four steps in. Run it with
+nothing else competing for the 16 GB, and check `adb devices` before trusting a
+short run.
+
 **Prove the binary before trusting the run.** On 2026-08-06 `npx expo run:ios`
 failed on this host for a missing CocoaPods CLI while the shell still reported
 success (the build had been chained with diagnostics by `;`, so the status came

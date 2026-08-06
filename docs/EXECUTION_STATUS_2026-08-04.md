@@ -340,19 +340,32 @@ dois relógios; só o segundo é lido pela próxima sessão.
    contas mudam privacy labels e Data safety.
 3. **A5** — resta gerar a service-account key. `radiant-app/credentials/` está
    vazia. Não bloqueia publicar: o AAB vai pelo console.
-4. **B4** — avançou em iPhone físico, mas ainda falta ouvir dica e estado
-   ocupado; **C4/C5**, **E3** e o lado Play de **E4** exigem humano ou hardware.
-5. **B5** — **iOS executado e `passed` em 2026-08-06** (170 passos, 0 falhas,
-   build local Release `e2e-test` no simulador; `13 de 14` → `14 de 14` marcos
-   com a coleta, pelo caminho do produto —
-   [evidência](../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md)).
-   **Resta o Android**, ~13 min em janela exclusiva de host; a task não fecha
-   antes disso. O deep link cobre a tela e o estado bloqueado. A regra de
-   destravamento **ganhou flow em 2026-08-04** (`reward-unlock.yaml`: sete
-   lições, seis checkpoints, coleta, contrato mutado com seis mutações
-   vermelhas), mas **não foi executada em aparelho** — a task segue aberta, e
-   por esta razão e não por falta de código. Custo da execução: ~16 min iOS,
-   ~13 min Android, em janela exclusiva de host.
+4. **B4** — avançou em iPhone físico, e em 2026-08-06 o que falta ficou medido
+   antes de gastar aparelho: a **dica** tem um alvo único no produto (o CTA da
+   home) e o **estado ocupado não é produzível nesta build** — o único
+   `AppButton` com `loading` vive atrás de `ENABLE_PAYWALL`, que não é declarada
+   em nenhum perfil do `eas.json`, e a janela ocupada duraria milissegundos
+   antes de o botão desmontar. Mesma classe da B0. **Decisão pendente do dono**
+   entre fechar o item pelo contrato unitário ou construir o harness na tela de
+   dev-tools (recomendado); as três saídas estão em
+   [`ACCESSIBILITY_QA_V1.md`](../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+   **C4/C5**, **E3** e o lado Play de **E4** exigem humano ou hardware.
+5. **B5** — **iOS executado e `passed` em 2026-08-06**: 170 passos, 0 falhas,
+   build local Release `e2e-test` no simulador, com `13 de 14` → `14 de 14`
+   marcos na coleta e chegada pelo caminho do produto
+   ([evidência](../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md)).
+   O deep link já cobria a tela e o estado bloqueado; o que faltava era a regra,
+   e ela agora está provada num lado.
+
+   **Resta o Android, e o custo estava errado por quase uma ordem de
+   grandeza.** Medido neste host: ~1 min por passo no emulador — 103 passos
+   consumiram ~110 minutos. Os 170 passos são **horas**, não os ~13 min que o
+   roadmap prometia, e a janela exclusiva precisa ser planejada assim. Duas
+   tentativas pararam por motivos diferentes e nenhum deles é o produto: a
+   primeira numa régua de visibilidade herdada do padrão do Maestro (diagnosticada,
+   corrigida e pinada no `test:maestro-contract`), a segunda com o emulador
+   sumindo do `adb` depois de 4 passos, num host de 16 GB. A task não fecha
+   antes de o Android rodar inteiro.
 6. Menores registrados: `checkHeuristics()` sem fiação; `eyebrow` do
    `JourneyHero` quebrando no meio da palavra a 2× de escala; e o arquivo enviado
    ao EAS com 856 MB, que um `.easignore` resolveria — mas

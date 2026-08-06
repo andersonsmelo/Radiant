@@ -95,6 +95,9 @@ silently inherit the native one.
    code by `PlanetBody.test.tsx`; the walkthrough is what verifies it on device.
 2. With VoiceOver or TalkBack, move through AppButton controls. Confirm names,
    hints and disabled/busy state are announced once and in the expected order.
+   **Read "What item 2 can and cannot reach" below before booking device time** —
+   two of the four things this line asks for have exactly one target in the
+   product, and one of them has none.
 3. In a quiz, confirm the selected answer and the post-submit locked state are
    communicated without relying on color.
 4. In onboarding, confirm exactly one specialty and one daily goal are exposed
@@ -102,3 +105,46 @@ silently inherit the native one.
 5. In web preview with keyboard navigation, confirm every focusable control
    has a visible focus treatment and that the Home shortcut and sign-in action
    remain at least 44 by 44 px.
+
+## What item 2 can and cannot reach — measured 2026-08-06
+
+Item 2 asks for four things: name, hint, disabled and busy. The first three
+have been heard on real controls. The fourth cannot be produced by walking the
+shipped app, and that is a fact about the build, not a missing session.
+
+**Hint — exactly one target.** The only `AppButton` in product code carrying an
+`accessibilityHint` is the home CTA in
+[`JourneyHomeScreen`](../src/features/journey/screens/JourneyHomeScreen.tsx):
+label `{continueLabel}`, hint *"Abre o próximo passo elegível da trilha
+ativa."*. Every other hint-bearing control — track cards, quiz answers, lesson
+choices, the legal links on Progresso — is a `Pressable`, so none of them
+exercises this line. Whoever runs the pass should go straight to the home CTA.
+
+**Busy — no target at all.** The single `AppButton` that ever receives
+`loading` (and therefore `accessibilityState.busy`) is inside
+`PaywallOfferCard`. It renders only on `CheckpointScreen`, only when
+`PaywallService` returns an offer — and `evaluateEligibility()` returns
+`blocked / paywall_disabled` unless `AppConfig.ENABLE_PAYWALL` is on.
+`EXPO_PUBLIC_ENABLE_PAYWALL` is declared in **no** build profile of `eas.json`,
+and `src/config.ts` defaults it to `false`. Even with the flag on, the busy
+window is two local AsyncStorage awaits — milliseconds — and it ends by setting
+the offer to `null`, which unmounts the button instead of returning it to idle.
+There is nothing for a screen reader to announce.
+
+This is the same defect class as B0: a flag that is not declared in the
+production profiles. The item was never "not yet executed"; it was
+**unreachable**, and a device session would have spent a morning discovering
+that.
+
+**Three ways out, and the third is the honest one:**
+
+- **(a)** Close the item on what exists — name, position, role and disabled
+  heard on real controls, plus the `AppButton` unit contract covering `busy`.
+  Costs nothing, but the gate starts accepting a unit contract where it asked
+  for an audible announcement.
+- **(b)** Change the product so the state becomes audible. Wrong on its face:
+  altering behaviour to satisfy a gate, and it would need an artificial delay.
+- **(c)** Exercise it through a harness — an `AppButton` held in `loading` on
+  the dev-tools screen the app already has. Measures exactly what the item
+  wants, the component announcing its state once, without touching the product
+  path. **Not yet built; this is the open decision.**
