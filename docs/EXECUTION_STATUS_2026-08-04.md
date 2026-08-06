@@ -164,16 +164,97 @@ Connect mostrou a versão `1.3.1`, compilação `5`, como **Pronta para envio**,
 expiração em 90 dias e já vinculada ao grupo interno `Radiant Internal`.
 
 *Procedência, porque este projeto distingue o que foi medido do que foi visto:*
-esta leitura é **observação do dono no console**, não medição de ferramenta, e
-não deixa artefato. Nenhuma automação alcança esse estado daqui — a submissão foi
-autenticada por credencial que vive no servidor do EAS, não há chave `.p8` da App
-Store Connect no ambiente, e o `eas.json` declara apenas `ascAppId`. Quem
-reverificar vai reverificar do mesmo jeito: abrindo o console.
+esta leitura veio da interface autenticada do App Store Connect — observada pelo
+dono e reconfirmada nesta sessão —, não da API. Não há chave `.p8` da App Store
+Connect no ambiente, e o `eas.json` declara apenas `ascAppId`; reverificar exige
+abrir novamente a interface do console.
 Cancelar ou redisparar foi descartado: produziria uma submissão duplicada depois
 de a entrega original ter concluído corretamente. A dependência de processamento
-da F1 está encerrada; continuam pendentes o smoke dos links no iPhone físico, a
-sessão humana de VoiceOver e a reconciliação da metadata e das declarações da
-ficha.
+da F1 está encerrada. A metadata e as declarações foram reconciliadas em
+2026-08-05, conforme abaixo. Àquela altura ainda faltavam o smoke dos links no
+iPhone físico e a sessão humana de VoiceOver; a coleta posterior da mesma data
+está registrada abaixo.
+
+**Ficha iOS parcialmente reconciliada às 15:40 BRT de 2026-08-04.** O registro
+público passou de `1.3.0` para `1.3.1`, recebeu a build `5`, a URL de suporte, a
+categoria **Educação** e liberação manual. Os seis screenshots de iPhone 6,5"
+foram enviados um a um e persistiram, após recarga, na ordem narrativa
+`home -> lição -> quiz -> checkpoint -> conquista -> progresso`; o console
+declarou que reutilizará esse conjunto nos demais tamanhos e idiomas selecionados.
+
+**Copy aprovada e persistida em 2026-08-05.** Anderson aprovou o nome público
+`Radiant — Radiologia`, o subtítulo opção 1 e a descrição curta Google Play
+opção 1. A fonte de copy foi reconciliada. No App Store Connect, o subtítulo
+`Radiologia: estude e revise`, o texto promocional, a descrição longa convertida
+para texto limpo e as keywords foram salvos e continuaram presentes após
+recarga; os seis screenshots também conservaram a ordem aprovada. A descrição
+curta do Play está aprovada, mas esta sessão não afirma que foi digitada naquele
+console.
+
+**Declarações e contato persistidos em 2026-08-05.** Anderson confirmou que o app
+contém conteúdo de terceiros e que detém os direitos necessários. Na classificação
+Apple, atestou `Informações médicas ou sobre tratamentos` como **Pouco frequente**;
+todo o restante ficou em `Nenhum`/`Não`, coerente com o binário. O console calculou
+`13+` em 172 países ou regiões e `12+` no Brasil e na Coreia do Sul, sem
+substituição manual. Copyright `2026 Anderson Melo` e os quatro campos de contato
+da revisão foram salvos e sobreviveram à recarga. O estado incorreto de login
+obrigatório foi desmarcado, coerente com o app sem conta; notas do revisor seguem
+vazias. Nenhum dado pessoal de contato foi copiado para a documentação.
+
+O botão **Adicionar para revisão** está disponível, mas não foi acionado. O
+pré-voo físico de 2026-08-05 encontrou **zero iPhones com túnel CoreDevice ativo**,
+portanto naquele momento smoke e VoiceOver estavam sem execução — não
+reprovados. A ausência de túnel neste host não impediu a execução humana
+posterior diretamente no iPhone.
+
+**Smoke físico do TestFlight concluído em 2026-08-05.** Anderson confirmou no
+binário instalado `1.3.1 (5)` e executou os sete cenários do roteiro em iPhone
+físico. Passaram: apresentação de primeiro uso sem repetição no relaunch, barra
+de status legível, lição/checkpoint com conquista e `20 XP`, deep link da
+conquista bloqueada sem botão de coleta, os dois links legais com retorno ao
+app, e relaunch com modo avião e Wi-Fi desligado preservando `20 XP`, sequência
+de `1 dia` e catálogo local. O prompt de avaliação não apareceu cedo; sua
+ausência não reprova porque a Apple controla a exibição.
+
+A coleta também encontrou um defeito **no critério**, não no app: o roteiro
+exigia `REVISÕES > 0` logo após concluir. O contador mostra somente cards
+vencidos, e **a verificação no código em 2026-08-05** fecha a questão:
+`recordQuizResult` cria o card e aplica o SM-2 na mesma chamada, com todo ramo
+terminando em intervalo ≥ 1 dia, então nenhum card é persistido vencido — nem
+quando o aluno erra tudo. Portanto `REVISÕES 0` no mesmo dia é o resultado
+correto. O roteiro foi reconciliado e nenhuma correção de código foi aplicada.
+
+**VoiceOver avançou, mas B4 não fecha por amostragem incompleta.** Foram ouvidos
+uma vez `Galáxia, aba 2 de 4, botão`, `Progresso, aba 3 de 4, botão` e
+`Confirmar reset com token, escurecido`. Isso confirma nome, estrutura e estado
+desabilitado e resolve a dúvida de duplicação nesses controles. Não foi
+transcrita uma dica nem ativado um `AppButton` realmente ocupado, ambos pedidos
+pelo item 2 do Gate 2. A F1 permanece aberta somente por essa evidência auditiva
+incompleta; não há falha nova do binário que justifique cancelar ou redisparar.
+Relatório completo em
+[`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
+
+**Gate 2 recontado para 3/5 em 2026-08-05, sem regressão.** A revisão desta data
+encontrou o roadmap dizendo `4/5` na mesma frase em que dizia que a passagem
+manual do item 1 seguia pendente. Lendo a evidência do item 1: ela mediu a
+animação de entrada no caminho da lição em 2026-07-26 e declarou que shake,
+scale e press não foram medidos — e em 2026-08-03 o critério do item cresceu
+para exigir a caminhada pelas quatro superfícies da galáxia, que só naquele dia
+passaram a honrar a preferência. Uma passagem não pode cobrir um critério
+posterior sobre código que ainda não existia. Aprovados: itens 3, 4 e 5.
+Abertos: item 1 (nova task **B8**) e item 2 (**B4**). Nada que havia sido medido
+deixou de valer; o que mudou foi a contabilidade. O critério do marco **M1**
+passou a citar os três itens.
+
+**O runbook de classificação deixou de prometer `4+` em 2026-08-05.** A
+documentação oficial vigente da Apple define conteúdo médico/de tratamento por
+diagnóstico ou orientação de manejo e transforma `Infrequente` em `13+` global /
+`A12` no Brasil e `Frequente` em `16+` / `A16`. O binário contém conteúdo
+radiológico e referências diagnósticas, embora não dê aconselhamento clínico.
+Por isso a resposta e a declaração de direitos foram tratadas como atestações
+humanas, não inferências da automação. Anderson as forneceu em 2026-08-05 e o
+console persistiu ambas. O runbook foi corrigido para não transportar a resposta
+entre Apple e IARC/Play.
 
 *Nota de ferramenta, para quem for verificar isto de novo:* **não existe**
 `eas submission:list`. Nem no `eas-cli` 16.32.0 que o projeto fixa, nem no 21.5.0
@@ -233,7 +314,8 @@ seria abrir a porta que a guarda existe para fechar.
    contas mudam privacy labels e Data safety.
 3. **A5** — resta gerar a service-account key. `radiant-app/credentials/` está
    vazia. Não bloqueia publicar: o AAB vai pelo console.
-4. **B4**, **C4/C5**, **E3/E4** — exigem humano ou hardware.
+4. **B4** — avançou em iPhone físico, mas ainda falta ouvir dica e estado
+   ocupado; **C4/C5**, **E3** e o lado Play de **E4** exigem humano ou hardware.
 5. **B5** — o deep link cobre a tela e o estado bloqueado. A regra de
    destravamento **ganhou flow em 2026-08-04** (`reward-unlock.yaml`: sete
    lições, seis checkpoints, coleta, contrato mutado com seis mutações

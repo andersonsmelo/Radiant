@@ -33,10 +33,12 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
   (mudanças de versão ainda livres).
 - Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
   **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
-  `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) — segue
-  parcial, ver item 1 dos bloqueadores. O item 1 do checklist manual do Gate 2
-  (Reduce Motion) ganhou cobertura de código nas telas de galáxia nesta data;
-  a passagem manual segue pendente com o resto do gate.
+  `npm run quality` PASS; Gate 2 de acessibilidade parcial — ~~(3/5)~~ ~~(4/5)~~
+  **(3/5) recontado em 2026-08-05**: aprovados os itens 3, 4 e 5; abertos o 1 e
+  o 2. O item 1 (Reduce Motion) ganhou cobertura de código nas telas de galáxia
+  em 2026-08-03 e, na mesma data, o critério manual passou a exigir percorrer
+  essas telas — o que a passagem de 2026-07-26 não podia ter coberto. Ver item 1
+  dos bloqueadores.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
   plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
   da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
@@ -68,9 +70,17 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 > O padrão é o do item 4: riscar o texto original e anexar a correção com data.
 > O registro do que se acreditava em 2026-07-27 tem valor; sobrescrevê-lo não.
 
-1. Gate 2 de acessibilidade: resta o item 2 (anúncio único VoiceOver, exige
-   humano com áudio, task B4). O item 5 (navegação por teclado) foi fechado em
+1. Gate 2 de acessibilidade: ~~resta o item 2~~ **restam os itens 1 e 2,
+   recontagem de 2026-08-05**. O item 2 (anúncio único VoiceOver) exige humano
+   com áudio, task B4. O item 5 (navegação por teclado) foi fechado em
    2026-07-27 com a build web (task B3).
+   **O item 1 (Reduce Motion) voltou a aberto sem que nada regredisse:** sua
+   passagem de 2026-07-26 mediu a animação de entrada no caminho da lição e
+   dizia, na própria evidência, que shake, scale e press não foram medidos. Em
+   2026-08-03 o critério cresceu para exigir a caminhada pela galáxia — e as
+   quatro superfícies só passaram a honrar a preferência naquele mesmo dia. Uma
+   passagem anterior não pode cobrir um critério posterior sobre código que
+   ainda não existia; falta uma caminhada nova em device.
    **Reverificado em 2026-08-03: segue aberto** — o
    `radiant-app/docs/ACCESSIBILITY_QA_V1.md` continua marcando o gate como não
    aprovado por esse item. Vale reordenar a prioridade: em 2026-08-02 um defeito
@@ -78,6 +88,11 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    legal da ficha da loja inalcançável por leitor de tela) foi encontrado por uma
    asserção de E2E falhando — não pelo gate, que existe para pegar exatamente
    isso e não rodou.
+   **Avançou em iPhone físico em 2026-08-05, mas continua aberto:** nome,
+   posição/função e estado desabilitado foram ouvidos uma vez em controles
+   reais, sem repetição espontânea. Não foi transcrita uma dica nem ativado um
+   estado ocupado real, então a amostra não promove o item inteiro. Evidência em
+   [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 2. ~~Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
    Android.~~ **Falso desde 2026-07-28, e medido de novo em 2026-08-03.** O
    projeto nativo é gerado por `expo prebuild --platform android --no-install` e
@@ -233,7 +248,7 @@ Fontes: ver §9.
 | Marco | Meta | Critério de saída | Alvo |
 | --- | --- | --- | --- |
 | **M0 — Contas e fundações de loja** | Contas ativas e verificadas nas duas lojas | Apple Developer + Play Console verificados; app criado nas duas consoles; decisão pessoal vs organização registrada | Semana 1–2 (até ~2026-08-10) |
-| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | Itens 2 e 5 do Gate 2 com evidência; ProgressScreen/JourneyMap corrigidos; reward coberto por E2E | Semana 2–3 |
+| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | Itens 1, 2 e 5 do Gate 2 com evidência (o item 1 voltou ao critério em 2026-08-05, task B8); ProgressScreen/JourneyMap corrigidos; reward coberto por E2E | Semana 2–3 |
 | **M2 — Paridade Android** | Fluxo crítico PASS em Android | `expo prebuild` + build local; 3 flows Maestro PASS em emulador e 1 device físico | Semana 3–5 |
 | **M3 — Prontidão de release** | Contratos de privacidade, telemetria e release prontos | Task 16 concluída: matriz real-device, contrato de telemetria, checklist v1.3, Sentry configurado; ADR da API registrada (Task 15) | Semana 5–6 |
 | **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12) iniciada | Semana 6–9 |
@@ -311,8 +326,9 @@ código.
   sempre visível **Ajuda e informações**, com Política de Privacidade e Central
   de Suporte em links acessíveis, URLs centralizadas e falha de abertura contida.
   As 4 suítes focadas passaram com 14 testes e os dois destinos foram remedidos
-  em HTTP 200; abertura em iPhone físico e VoiceOver permanecem gates humanos de
-  F1/B4, não evidência produzida por esses testes.
+  em HTTP 200. **A abertura em iPhone físico passou em 2026-08-05**, nos dois
+  destinos e com retorno ao app; VoiceOver avançou, mas B4 permanece aberta por
+  amostragem auditiva incompleta. Evidência no relatório físico da F1.
   **Continua pendente:** revisão jurídica do texto, que é a única ressalva
   restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
   o que foi declarado no Data Safety.
@@ -428,9 +444,15 @@ código.
   de lição contém o foco) e alvos ≥ 44px (atalho da Home 56px, ação de entrar
   44px). Evidência:
   [`radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](../../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
-  Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).
-- **B4 [P0]** Gate 2 item 2: sessão humana de VoiceOver com áudio (agendar com
-  Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
+  ~~Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).~~ **Corrigido em
+  2026-08-05: o gate fica em 3/5 (itens 3, 4 e 5), porque o item 1 teve seu
+  critério ampliado em 2026-08-03 e precisa de nova passagem manual.** A
+  entrega da B3 em si não mudou.
+- **B4 [P0 — EM ANDAMENTO; AMOSTRA FÍSICA SEM DUPLICAÇÃO]** Gate 2 item 2:
+  sessão humana de VoiceOver com áudio. Em 2026-08-05, abas e um `AppButton`
+  desabilitado anunciaram nome, estrutura e estado uma vez; faltam uma dica e
+  um estado ocupado real para fechar o roteiro em
+  `radiant-app/docs/ACCESSIBILITY_QA_V1.md`.
 - **B5 [P1 — ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO]** Cobrir o nó de
   reward com E2E. O deep link cobre a tela e o estado bloqueado
   (`reward-locked.yaml`, medido em 2026-08-04).
@@ -522,6 +544,18 @@ código.
   havia contornado a mesma regra arquivo a arquivo antes. Para o valor de agora,
   recontar em vez de citar qualquer número desta linha:
   `cd radiant-app && npx eslint . --format json`.
+
+- **B8 [P1 — ABERTA; CRIADA EM 2026-08-05 PELA RECONTAGEM DO GATE]** Gate 2
+  item 1: refazer a caminhada manual de Reduce Motion em device, agora no
+  escopo ampliado — mapa da galáxia, interior de galáxia e interior de planeta,
+  além de shake, scale e press, que a passagem de 2026-07-26 declarou não ter
+  medido. O critério de aprovação inclui a distinção visual sob a preferência: o
+  brilho deve repousar no valor de descanso do ciclo, não ir a zero; se todos os
+  planetas ficarem iguais, a preferência apagou estado e isso é defeito. A
+  cobertura de código existe desde 2026-08-03 (`PlanetBody.test.tsx`); o que
+  falta é a passagem humana. Roteiro em
+  [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+  Pode ser executada junto da B4, no mesmo aparelho e na mesma sessão.
 
 ### Onda C — Paridade Android (M2)
 
@@ -775,7 +809,15 @@ código.
   permitir.
 - **E4 [P0]** Classificação etária/questionários de conteúdo nas duas
   consoles; categoria (Educação ou Medicina — recomendação: Educação, evita
-  escrutínio de app médico).
+  escrutínio de app médico). **Apple concluída em 2026-08-05; IARC/Play ainda
+  separado.** O runbook antigo
+  combinava "referências médicas: sim" com resultado `4+`, o que diverge da
+  taxonomia Apple vigente. A Apple atribui `13+` global / `A12` no Brasil a
+  informação médica ou de tratamento infrequente e `16+` / `A16` quando
+  frequente. Anderson atestou **Pouco frequente** e confirmou deter os direitos
+  necessários sobre o conteúdo de terceiros. O App Store Connect persistiu as
+  duas declarações e calculou `13+` em 172 países ou regiões e `12+` no Brasil e
+  na Coreia do Sul. Apple e IARC/Play permanecem contratos separados.
 - **E5 [P1]** ~~Página de suporte + e-mail de contato~~ **CONCLUÍDA em
   2026-07-29**: no ar em `https://saudediagnostica.com/radiant/suporte/`
   (HTTP 200, verificado de fora), com contato `anderson.smelo94@gmail.com`.
@@ -817,8 +859,8 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0 — EM ANDAMENTO; `1.3.1 (5)` PRONTA PARA ENVIO NO TESTFLIGHT;
-  GRUPO INTERNO VINCULADO]** Build `production` iOS via EAS →
+- **F1 [P0 — EM ANDAMENTO; `1.3.1 (5)` NO TESTFLIGHT; FICHA iOS PERSISTIDA;
+  SMOKE FÍSICO PASS; VOICEOVER PARCIAL]** Build `production` iOS via EAS →
   TestFlight (revisão beta da Apple); distribuir aos testadores.
 
   > **Desfecho da submissão, medido em 2026-08-04.** A submissão
@@ -830,14 +872,63 @@ código.
   > **Processamento Apple observado às 14:30 BRT de 2026-08-04.** O App Store
   > Connect mostrou a versão `1.3.1`, compilação `5`, como **Pronta para envio**,
   > com expiração em 90 dias e já vinculada ao grupo `Radiant Internal`.
-  > **É observação do dono no console, não medição de ferramenta** — nenhuma
-  > automação alcança esse estado daqui, e reverificar significa abrir o console
-  > de novo.
+  > É leitura da interface autenticada do App Store Connect — observada pelo
+  > dono e reconfirmada nesta sessão —, não da API; reverificar exige abrir o
+  > console novamente.
   > Cancelar ou redisparar foi descartado porque duplicaria uma entrega que já
   > concluiu corretamente. A F1 avançou pela submissão e pelo processamento;
-  > continuam pendentes o smoke dos links no iPhone físico pelo roteiro novo
-  > (cenário 5), a sessão de VoiceOver da B4 e a reconciliação da metadata e das
-  > declarações da ficha.
+  > naquele momento continuavam pendentes o smoke dos links no iPhone físico
+  > pelo roteiro novo (cenário 5), a sessão de VoiceOver da B4 e a reconciliação
+  > da metadata e das declarações da ficha.
+  >
+  > **Ficha parcialmente reconciliada às 15:40 BRT.** Versão pública `1.3.1`,
+  > build `5`, URL de suporte, categoria Educação e liberação manual foram
+  > persistidas. Os seis screenshots 6,5" também persistiram após recarga na
+  > ordem `home -> lição -> quiz -> checkpoint -> conquista -> progresso`, com
+  > reutilização declarada pelo console nos demais tamanhos/idiomas selecionados.
+  > Continuam vazios subtítulo, texto promocional, descrição, keywords e
+  > copyright. A fonte de copy ainda pede aprovação do dono; o bloco do revisor
+  > voltou após recarga a login obrigatório marcado e notas vazias, com os quatro
+  > campos de contato também vazios. Direitos de conteúdo e classificação etária
+  > seguem sem configuração. O pré-voo encontrou zero iPhones com túnel CoreDevice
+  > ativo, então smoke e VoiceOver continuam não executados.
+  >
+  > **Copy aprovada e persistida em 2026-08-05.** O dono aprovou
+  > `Radiant — Radiologia`, o subtítulo opção 1 e a descrição curta Google Play
+  > opção 1; a fonte foi reconciliada. Na ficha iOS, subtítulo, texto promocional,
+  > descrição longa em texto limpo e keywords persistiram após recarga, sem mudar
+  > a ordem dos seis screenshots. A descrição curta do Play está aprovada, mas
+  > não foi declarada como preenchida no console. Continuam abertos copyright,
+  > contato/notas da revisão, direitos de conteúdo e classificação etária. A
+  > declaração de direitos foi aberta apenas para leitura e nenhuma opção foi
+  > selecionada. O pré-voo repetido nesta data ainda encontrou zero iPhones com
+  > túnel CoreDevice ativo.
+  >
+  > **Declarações, copyright e contato persistidos em 2026-08-05.** O dono
+  > confirmou conteúdo de terceiros com os direitos necessários e classificou
+  > informação médica/de tratamento como **Pouco frequente**; os demais itens
+  > ficaram em `Nenhum`/`Não`. O console calculou `13+` em 172 países ou regiões
+  > e `12+` no Brasil e na Coreia do Sul, sem substituição manual. Copyright e os
+  > quatro campos de contato do revisor sobreviveram à recarga; os valores de
+  > contato não foram copiados para este documento. `Início de sessão obrigatório`
+  > foi desmarcado, coerente com o app sem conta. O botão **Adicionar para revisão**
+  > ficou disponível, mas não foi acionado. Naquele momento restavam na F1 as
+  > evidências em iPhone físico: smoke dos links e VoiceOver.
+  >
+  > **Smoke físico concluído em 2026-08-05; VoiceOver parcial.** Anderson leu
+  > `1.3.1 (5)` no binário e os sete cenários funcionais passaram: primeira
+  > abertura, barra de status, laço de estudo, relaunch totalmente offline,
+  > links legais, ausência de prompt precoce e conquista bloqueada sem coleta.
+  > O roteiro estava errado ao exigir `REVISÕES > 0` no mesmo dia: o contador
+  > mostra cards vencidos, e o primeiro só vence após o intervalo inicial do
+  > SM-2. `REVISÕES 0` não é regressão e não autoriza patch.
+  >
+  > No VoiceOver, nomes/posição/função das abas e o estado `escurecido` do reset
+  > foram ouvidos uma vez. Como nenhuma dica foi transcrita e nenhum controle
+  > realmente ocupado foi ativado, B4 — e portanto F1 — continua aberta por
+  > evidência incompleta, não por falha do app. Relatório:
+  > [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
+  > **Adicionar para revisão** continua reservado para F4 e não foi acionado.
   >
   > **Ferramenta:** `eas submission:list` **não existe**, em versão nenhuma do
   > `eas-cli` — quem tentar verificar por ali vai ler um "command not found"
@@ -874,8 +965,9 @@ código.
   2026-08-01:** depois da instalação pelo TestFlight, o CoreDevice confirmou o
   bundle esperado, versão `1.3.0`, build `4`, e lançou o app com sucesso. **Restam**
   smoke dos links no iPhone físico, sessão humana de VoiceOver e reconciliação da
-  metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico;
-  F1 permanece aberta até existirem essas evidências de UI.
+  metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico.
+  **Atualização de 2026-08-05:** metadata e smoke fecharam; F1 permanece aberta
+  somente pela parte não amostrada do VoiceOver descrita acima.
 - **F2 [P0] — RELEASE LIVE; 14 TESTADORES VINCULADOS; 2 OPT-INS OBSERVADOS;
   14 DIAS PENDENTES (2026-08-03).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está

@@ -31,11 +31,14 @@ contrast pairs. Functional flow tests cover the learning screens separately.
 
 ## Latest run of the manual checklist
 
-Executed on 2026-07-26 against the local Release build on iOS 26.5. Items 1, 3
-and 4 passed with captured evidence. The two defects found — decorative icons
-exposed with their raw font codepoint, and Expo Router route paths leaking into
-the navigation header — were fixed and reverified on device the same day, and
-both are now covered by the contract test.
+Executed on 2026-07-26 against the local Release build on iOS 26.5. Items 3 and
+4 passed with captured evidence. Item 1 passed **only for the scope the
+checklist had that day** — the entry animation on the lesson path, measured by
+frame stability; shake, scale and press were explicitly not measured, and the
+galaxy surfaces were not part of the item yet. The two defects found —
+decorative icons exposed with their raw font codepoint, and Expo Router route
+paths leaking into the navigation header — were fixed and reverified on device
+the same day, and both are now covered by the contract test.
 
 Item 5 (keyboard navigation) was closed on 2026-07-27: the static web build was
 generated (`npx expo export --platform web`) and the critical flow — Learning
@@ -48,9 +51,28 @@ the Home shortcut at 56px and the sign-in action at 44px. Method, the full
 per-screen focus tables and the tooling caveat about keyboard activation:
 [`docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
 
-The gate remains unapproved for one remaining reason: item 2 needs VoiceOver
-with audio and has not been done (task B4). Details, method and the fix for the
-2026-07-26 device run: [`docs/evidence/2026-07-26-accessibility-gate2.md`](evidence/2026-07-26-accessibility-gate2.md).
+**The gate stands at 3/5 approved: items 3, 4 and 5. Two items are open, not
+one.**
+
+Item 1 was reopened on 2026-08-05 by re-reading its own evidence. The checklist
+text was widened on 2026-08-03 to require walking the galaxy map, a galaxy
+interior and a planet interior — and those four surfaces only began honouring
+the preference that same day (`fix(a11y): respeita reduced motion nas quatro
+superficies da galaxia`, 2026-08-03). A manual pass recorded a week earlier
+cannot cover a criterion added afterwards over code that did not yet exist, so
+item 1 needs a fresh device walk covering the galaxy surfaces and the
+shake/scale/press effects. This is a bookkeeping correction, not a regression:
+nothing that was measured stopped being true.
+
+Item 2 still needs a complete VoiceOver pass (task B4). A physical-iPhone
+session on 2026-08-05 heard tab names/positions/roles and the disabled state of
+`Confirmar reset com token` once, with no spontaneous repetition. That closes the ambiguity between a
+single structured announcement and duplicate speech, but the session did not
+transcribe a hint or activate a genuinely busy control. Details:
+[`docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md`](evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
+
+The earlier method and the fixes from the 2026-07-26 device run remain in
+[`docs/evidence/2026-07-26-accessibility-gate2.md`](evidence/2026-07-26-accessibility-gate2.md).
 
 Two enforced contracts follow from that run and are worth stating here:
 decorative icons must go through `DecorativeIcon`, never `MaterialIcons`

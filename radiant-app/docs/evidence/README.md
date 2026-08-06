@@ -46,6 +46,8 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   guarda cega a oclusão, anterior àquele trabalho. Registra os três defeitos que
   só a execução em dispositivo expôs, incluindo o colapso de acessibilidade do
   `WelcomeSlide`. **Indexado retroativamente em 2026-08-03.**
+- [TestFlight 1.3.1 (5) em iPhone físico — 2026-08-05](2026-08-05-testflight-1.3.1-build-5-iphone.md)
+  — smoke funcional `passed`; VoiceOver parcial, com B4 ainda aberta.
 - [E2E da 1.3.1 nas duas plataformas — 2026-08-03](2026-08-03-e2e-1.3.1-ios-android.md)
   — iOS e Android `passed` 5/5 sobre builds Release locais da 1.3.1, sob o perfil
   `e2e-test`. Traz o orçamento de host (16 GB é marginal para Android) e a

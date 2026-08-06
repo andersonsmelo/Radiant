@@ -45,8 +45,16 @@
 - percorra contexto → ideia-chave → questão → reforço e use "Concluir e voltar";
 - abra o checkpoint e conclua: a celebração mostra `CONQUISTA DESBLOQUEADA` e o
   CTA leva ao próximo nó recomendado;
-- a aba Progresso mostra XP, sequência e revisões com valores diferentes de zero
-  — zero aqui já foi defeito real de produção, não vitrine fraca.
+- a aba Progresso mostra XP e sequência com valores diferentes de zero;
+- `REVISÕES` conta somente cards **já vencidos** (`getDueLessons` filtra
+  `nextReviewAt <= agora`). O valor esperado no mesmo dia é `0`, e o motivo é
+  mais forte do que "o intervalo ainda não venceu": `recordQuizResult` cria o
+  card **e aplica o SM-2 na mesma chamada**, e todo ramo — inclusive o de
+  falha — termina com intervalo ≥ 1 dia (`INITIAL_INTERVALS[0]`,
+  `MIN_INTERVAL_DAYS`). Nenhum card é persistido vencido. Isso vale também
+  quando o aluno erra tudo. Comprovar uma revisão pendente exige outra data ou
+  avanço controlado do relógio; exigir `REVISÕES > 0` aqui reprovava uma captura
+  correta.
 
 ## Cenário 4 — relaunch offline
 
