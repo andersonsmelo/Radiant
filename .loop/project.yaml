@@ -87,6 +87,7 @@ writePolicy:
     - tools/editorial-panel/lib
     - tools/editorial-panel/package.json
     - tools/editorial-panel/package-lock.json
+    - content-manifest
     - conteúdo/classificação
     - conteúdo/conceitos
     - conteúdo/fontes
