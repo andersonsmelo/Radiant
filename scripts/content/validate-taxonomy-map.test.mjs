@@ -107,3 +107,86 @@ test('MUTACAO: main devolve 1 quando o mapa aponta para taxonomia inexistente', 
   });
   assert.equal(main(raiz), 1);
 });
+
+// ════════════════════════════════════════════════════════════════════════
+// Dado real — o eixo técnico da taxonomia
+// Os testes acima usam fixture; os daqui para baixo leem os arquivos do
+// repositório. Fixture prova que a função funciona; dado real prova que o
+// currículo está montado.
+// ════════════════════════════════════════════════════════════════════════
+
+import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
+
+const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+function lerReal(...partes) {
+  return JSON.parse(readFileSync(path.join(RAIZ, ...partes), 'utf8'));
+}
+
+// A galáxia de destino de cada planeta do eixo técnico. Escrito à mão porque é
+// a decisão de currículo, não uma derivação: `galaxy-fisica` recebe dois e
+// `galaxy-tecnologia` recebe quatro.
+const PLANETAS_DO_EIXO_TECNICO = {
+  'planet-fisica-da-radiacao': 'galaxy-fisica',
+  'planet-producao-e-protecao': 'galaxy-fisica',
+  'planet-equipamento': 'galaxy-tecnologia',
+  'planet-modalidades': 'galaxy-tecnologia',
+  'planet-imagem-na-pratica': 'galaxy-tecnologia',
+  'planet-profissao-e-aplicacoes': 'galaxy-tecnologia',
+};
+
+test('galaxy-tecnologia existe, ativa, com o titulo que o app ja reservou', () => {
+  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
+  const tecnologia = galaxias.find((g) => g.id === 'galaxy-tecnologia');
+  assert.ok(tecnologia, 'galaxy-tecnologia ausente de galaxias.json');
+  assert.equal(tecnologia.status, 'active');
+  // O titulo nao e livre: galaxy-catalog.ts:204 ja embarca este id com este
+  // titulo, travado e vazio. Divergir aqui recria a divergencia que a decisao
+  // do dono resolveu de graca.
+  assert.equal(tecnologia.title, 'Tecnologia em Imagem');
+});
+
+test('os seis planetas do eixo tecnico existem, ativos, na galaxia certa', () => {
+  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const porId = new Map(planetas.map((p) => [p.id, p]));
+
+  for (const [planetaId, galaxiaId] of Object.entries(PLANETAS_DO_EIXO_TECNICO)) {
+    const planeta = porId.get(planetaId);
+    assert.ok(planeta, `planeta ausente de planetas.json: ${planetaId}`);
+    assert.equal(planeta.galaxyId, galaxiaId, `${planetaId} na galaxia errada`);
+    // Nasce 'active' porque as licoes existem e embarcam hoje. Os dois planetas
+    // de interpretacao seguem 'planned' e sao a contraprova viva desta regra.
+    assert.equal(planeta.status, 'active', `${planetaId} deveria nascer active`);
+    assert.equal(planeta.trackKind, 'long-form');
+  }
+});
+
+test('os planetas de interpretacao seguem planned, intocados', () => {
+  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const porId = new Map(planetas.map((p) => [p.id, p]));
+  for (const id of ['planet-formacao-imagem', 'planet-radiopacidade']) {
+    assert.equal(porId.get(id)?.status, 'planned', `${id} nao devia ter mudado`);
+  }
+});
+
+test('toda galaxyId de planeta resolve numa galaxia existente', () => {
+  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
+  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const idsDeGalaxia = new Set(galaxias.map((g) => g.id));
+  for (const planeta of planetas) {
+    assert.ok(
+      idsDeGalaxia.has(planeta.galaxyId),
+      `${planeta.id} aponta para galaxia inexistente ${planeta.galaxyId}`,
+    );
+  }
+});
+
+test('slugs de galaxia e de planeta seguem unicos dentro do proprio arquivo', () => {
+  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
+  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const slugsDeGalaxia = galaxias.map((g) => g.slug);
+  const slugsDePlaneta = planetas.map((p) => p.slug);
+  assert.equal(new Set(slugsDeGalaxia).size, slugsDeGalaxia.length);
+  assert.equal(new Set(slugsDePlaneta).size, slugsDePlaneta.length);
+});

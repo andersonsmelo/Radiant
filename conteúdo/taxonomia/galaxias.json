@@ -19,5 +19,12 @@
     "title": "Patologias",
     "description": "Padrões, síndromes e alterações de imagem em contextos clínicos.",
     "status": "active"
+  },
+  {
+    "id": "galaxy-tecnologia",
+    "slug": "tecnologia-em-imagem",
+    "title": "Tecnologia em Imagem",
+    "description": "Equipamento, modalidades e prática técnica que produzem o exame.",
+    "status": "active"
   }
 ]
