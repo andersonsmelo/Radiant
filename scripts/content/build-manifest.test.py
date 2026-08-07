@@ -45,5 +45,56 @@ class BuildManifestTest(unittest.TestCase):
         self.assertEqual(ids, sorted(ids))
 
 
+CATALOGO = {
+    "schemaVersion": 1,
+    "sources": [
+        {
+            "id": "library-source:autorizada",
+            "primaryPath": "Conteúdo/Fonte-Autorizada.pdf",
+            "rightsClass": "authorized",
+            "commercialUse": False,
+        },
+        {
+            "id": "library-source:bloqueada",
+            "primaryPath": "Conteúdo/Fonte-Bloqueada.pdf",
+            "rightsClass": "blocked",
+            "commercialUse": False,
+        },
+    ],
+}
+
+
+def slug_simples(nome):
+    return nome.rsplit(".", 1)[0].lower().replace("-", "-")
+
+
+class FiltroDeDireitosTest(unittest.TestCase):
+    def setUp(self):
+        self.direitos = MODULE.rights_by_slug(CATALOGO, slug_simples)
+        self.autorizado = dict(EXCERPT, id="excerpt:a:p1:c1", sourceSlug="fonte-autorizada")
+        self.bloqueado = dict(EXCERPT, id="excerpt:b:p1:c1", sourceSlug="fonte-bloqueada")
+        self.orfao = dict(EXCERPT, id="excerpt:o:p1:c1", sourceSlug="fonte-que-nao-esta-no-catalogo")
+
+    def test_fonte_bloqueada_nao_gera_linha(self):
+        linhas, _ = MODULE.partition_excerpts([self.autorizado, self.bloqueado], self.direitos)
+        self.assertEqual([l["id"] for l in linhas], ["excerpt:a:p1:c1"])
+
+    def test_descarte_nomeia_a_fonte_e_o_motivo(self):
+        _, descartes = MODULE.partition_excerpts([self.bloqueado], self.direitos)
+        self.assertEqual(len(descartes), 1)
+        self.assertEqual(descartes[0]["sourceId"], "library-source:bloqueada")
+        self.assertEqual(descartes[0]["rightsClass"], "blocked")
+        self.assertIn("nao autorizada", descartes[0]["motivo"])
+
+    def test_fonte_ausente_do_catalogo_e_descarte_com_motivo_proprio(self):
+        linhas, descartes = MODULE.partition_excerpts([self.orfao], self.direitos)
+        self.assertEqual(linhas, [])
+        self.assertIn("ausente do catalogo", descartes[0]["motivo"])
+
+    def test_a_linha_aceita_carrega_a_classe_da_fonte(self):
+        linhas, _ = MODULE.partition_excerpts([self.autorizado], self.direitos)
+        self.assertEqual(linhas[0]["rightsClass"], "authorized")
+
+
 if __name__ == "__main__":
     unittest.main()
