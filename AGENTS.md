@@ -47,7 +47,7 @@ toda sessão de IA segue este contrato:
    aprendizado durável; sem ele, `succeeded → closed` é transição válida.
    Nunca edite o vault do Obsidian à mão.
 
-   Cinco armadilhas do fechamento, todas custaram registro perdido aqui:
+   Seis armadilhas do fechamento, todas custaram registro perdido aqui:
    - **`MEMORY_EVIDENCE_INVALID` tem quatro causas, checadas nesta ordem**
      (`src/memory.ts`): run fora de `succeeded` (linha 26), resumo vazio ou
      acima de **1000 caracteres** (33), evidência ausente ou reprovada (44) e
@@ -75,6 +75,24 @@ toda sessão de IA segue este contrato:
    - `loop validate` dispara jest, lint e typecheck. **Não valide enquanto um
      E2E estiver rodando** — mediu-se 2,3× de desaceleração no emulador, e o
      flow morre em timeout que parece defeito do app;
+   - **A baseline do run inclui a sujeira que já existia na abertura, então
+     DESFAZER também é mudança.** Medido em 2026-08-07, e custou um run inteiro:
+     um arquivo rastreado fora de `writePolicy.allowedRoots` foi modificado
+     **antes** do `abrir.mjs`, a baseline o capturou modificado, e o
+     `git checkout` que o restaurou — feito justamente para deixar o escopo
+     limpo — contou como mudança fora de escopo. `step finish` devolveu
+     `OUT_OF_SCOPE_CHANGE`, o run caiu em `needs_human` e a memória dele se
+     perdeu. O guarda compara **contra a abertura**, não contra o `HEAD`: para
+     ele, sujo→limpo e limpo→sujo são o mesmo delta. A regra preventiva é uma
+     linha antes de abrir qualquer run:
+
+     ```bash
+     git status --porcelain
+     ```
+
+     Se aparecer arquivo que você não vai declarar, resolva **antes** de abrir —
+     comitando, revertendo ou deixando quieto de propósito. Depois de aberto,
+     tanto mexer quanto desmexer custa o run.
    - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
      Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
      não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica
