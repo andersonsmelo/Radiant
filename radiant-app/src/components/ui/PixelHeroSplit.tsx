@@ -25,6 +25,13 @@ interface PixelHeroSplitProps {
   compactRingSize?: number;
 }
 
+// A coluna do personagem tem largura fixa (ver `characterWidth` abaixo), então o
+// eyebrow não tem para onde crescer: num ajuste de fonte grande do sistema ele
+// passa a quebrar dentro da palavra. O teto vale SÓ para este rótulo, que é
+// decorativo e repete informação disponível em outro lugar da tela — a mensagem
+// do balão e o resto do app seguem acompanhando o ajuste por inteiro.
+const ESCALA_MAXIMA_DO_EYEBROW = 1.5;
+
 export function PixelHeroSplit({
   eyebrow,
   message,
@@ -53,7 +60,9 @@ export function PixelHeroSplit({
   return (
     <View style={[styles.topRow, isCompact && styles.topRowCompact, style]}>
       <View style={[styles.characterColumn, { width: characterWidth }]}>
-        <Text style={styles.eyebrow}>{eyebrow}</Text>
+        <Text style={styles.eyebrow} maxFontSizeMultiplier={ESCALA_MAXIMA_DO_EYEBROW}>
+          {eyebrow}
+        </Text>
         <PixelIllustration
           state={state}
           size={isCompact ? compactIllustrationSize : illustrationSize}
