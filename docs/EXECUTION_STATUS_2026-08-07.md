@@ -346,6 +346,23 @@ jurídico, e está em aberto.**
 
 ## Aberto
 
+**Esta lista é um recorte, e o recorte é: a frente de trabalho viva mais o que
+espera decisão do dono.** Ela **não** é o inventário do lançamento. O registro
+completo do backlog é o roadmap, e há P0 abertos lá que não aparecem aqui —
+`E3` (privacy labels e data safety, que depende do `D1`), `E4` (classificação
+etária), `D4` (gate editorial, que não bloqueia o closed test e bloqueia a
+produção) e `F3`–`F5`, além de `C4`–`C6` e `D6`. Quem quiser a conta completa
+lê o roadmap:
+
+```bash
+grep -n '^- \*\*[A-F][0-9]' docs/plans/2026-07-27-radiant-launch-roadmap.md
+```
+
+Esta frase existe porque uma lista curada e uma lista exaustiva têm a mesma
+aparência: a ausência de um item é indistinguível da inexistência dele, e o
+recorte é a única informação que o leitor não consegue recuperar olhando para a
+lista.
+
 **Decisões do dono, sem trabalho de engenharia pendente:**
 
 1. **D1** — a linha do decisor no ADR da estratégia de API. Antes da E3.
@@ -383,29 +400,36 @@ jurídico, e está em aberto.**
 
 **Engenharia, com host ou janela:**
 
-10. **O `main()` de `anchor-lesson.py` não é mordido por teste nenhum.** Achado
-    da revisão da Task 5, medido: com `return 0` fixo no lugar de
-    `return 0 if relatorio["unanchored"] == 0 else 1`, os 11 testes da suíte
-    seguem verdes. Não há defeito hoje — o runner está correto no dado real e o
-    artefato em disco é reprodutível byte a byte. É lacuna de **regressão**: um
-    dia alguém quebra a fiação entre `load_allowed` e `resolve_anchors` e a
-    suíte não reclama. Fecha com dois testes no molde dos que a Task 6 já tem,
-    chamando `main()` sobre uma árvore de fixture: um que exige `0` com tudo
-    ancorado e um que exige `1` com um `excerptId` fora do manifesto. Trabalho
-    de engenharia pequeno, sem decisão do dono pendente.
-11. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
+10. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
     durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
     concorrente, e o flow morre em timeout que parece defeito do app.
-12. **Menor do `eyebrow`** — `fontScale` em `PixelHeroSplit`, com teste.
-13. **Harness de acessibilidade no dev-tools** — upgrade opcional sobre a B4 já
-    fechada; fecharia o gatilho de reabertura e a B0.
-14. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
+11. **Harness de acessibilidade no dev-tools** — upgrade opcional sobre a B4 já
+    fechada; fecharia o gatilho de reabertura e a B0. **Adiado por decisão do
+    dono em 2026-08-07:** nada no caminho crítico depende dele, e o caminho
+    crítico é a F2, que é humana.
+12. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
+    segundo caso de `PixelHeroSplit.test.tsx` afirma que a mensagem do balão
+    **não** carrega teto de escala. Provar que ele morde exigiria pôr um teto em
+    `SpeechBubble.tsx`, fora do escopo declarado daquele run. Fica para a
+    próxima vez que `SpeechBubble` for tocado — e está escrito aqui porque um
+    teste de guarda não provado é indistinguível de um teste vazio.
+13. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
     **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
     excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
     futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
 
+- ~~O `main()` de `anchor-lesson.py` sem mordida~~ — fechado com três casos que
+  chamam `main()` sobre árvore de fixture. O antes e o depois estão medidos:
+  com `return 0` fixo eram **zero** vermelhos e passaram a ser **1**; com
+  `load_allowed` devolvendo `{}` era **1** vermelho e passaram a ser **3**, e os
+  dois novos são os que exercitam a fiação `load_allowed → resolve_anchors` —
+  a composição que o `main()` faz e que nenhum teste cobria.
+- ~~Menor do `eyebrow`~~ — corrigido com teto de escala **só** no rótulo
+  decorativo, escolha do dono entre três formas. O balão e o resto do app seguem
+  acompanhando o ajuste do sistema por inteiro, e há um segundo teste travando
+  esse escopo — cuja mordida, porém, não foi provada; virou o item 12 acima.
 - ~~Revisar a Task 5 e executar a Task 6~~ — feitos, nesta ordem. A revisão rodou
   a prova de mutação que faltava e produziu um achado próprio, que virou o item
   10 acima; a Task 6 entrou em `cb795e1` com o validador rodado fora do gate
