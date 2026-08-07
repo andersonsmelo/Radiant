@@ -1,0 +1,45 @@
+{
+  "lessonId": "ai-lesson:qualidade-de-imagem",
+  "claims": [
+    {
+      "id": "claim:qualidade-de-imagem:1",
+      "claim": "A qualidade física de uma imagem mamográfica depende de dois fatores combinados: o contraste entre tecidos e a nitidez dos detalhes registrados.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p46:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:2",
+      "claim": "Para revelar sinais de câncer de mama como microcalcificações, a mamografia precisa captar estruturas de aproximadamente 100 μm.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p47:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:3",
+      "claim": "Um dispositivo de controle automático de exposição é obrigatório em mamógrafos porque o técnico não consegue estimar com confiança, apenas visualmente, quanto o feixe de raios X é atenuado pela mama da paciente.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p52:c2"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:4",
+      "claim": "O sensor do controle automático de exposição precisa ter posição regulável para poder ficar sob a área com mais tecido glandular nos exames de rotina.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p53:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:5",
+      "claim": "Exames com ampliação geométrica usam ponto focal de 0,1 mm, menor que o de 0,3 mm dos exames convencionais, para compensar a perda de nitidez que a própria ampliação introduz.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p54:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:6",
+      "claim": "Quanto mais inclinado o gráfico que relaciona densidade ótica e exposição no sistema filme-tela, maior é o contraste percebido na mamografia resultante.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p55:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:7",
+      "claim": "O sistema filme-tela intensificadora consegue distinguir estruturas mamárias em uma resolução de até 12 pares de linha por milímetro, o bastante para mostrar espículas e microcalcificações.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p57:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:8",
+      "claim": "A faixa de tons de cinza que o sistema filme-tela consegue registrar é mais estreita do que a do detector digital usado em mamografia.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p57:c2"
+    }
+  ]
+}
