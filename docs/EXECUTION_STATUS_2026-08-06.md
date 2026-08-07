@@ -166,8 +166,27 @@ hora; a trava virou de processo.
 
 ## Aberto
 
-Os seis itens da seção "Aberto" do documento substituído continuam abertos e não
-foram reverificados. Acrescenta-se a eles, desta frente:
+> **Correção de 2026-08-07 — esta frase estava errada, e custou uma decisão do
+> dono.** O texto abaixo dizia que "os seis itens da seção Aberto do documento
+> substituído continuam abertos e não foram reverificados". Reverificados agora,
+> um a um, contra o **roadmap**, que é o sistema de registro desses itens e não
+> este documento:
+>
+> | Item | Estado real em 2026-08-07 |
+> | --- | --- |
+> | F2 — opt-ins do closed test | **Aberto.** Humano, caminho crítico |
+> | D1 — ADR da estratégia de API | **Aberto.** Aguardando a linha do decisor |
+> | A5 — service-account key | **Aberto.** Humano, um passo só |
+> | B4 — acessibilidade em aparelho | **CONCLUÍDA em 2026-08-06**, pelo contrato unitário do `AppButton`, com ressalva escrita e gatilho de reabertura. Com ela o **Gate 2 está 5/5** e a F1 perdeu o último bloqueio |
+> | B5 — E2E do nó de reward | **iOS `passed` em 2026-08-06; resta o Android** |
+> | Menores | ver abaixo — dois dos três estavam descritos errado |
+>
+> A lição, para quem escrever o próximo documento canônico: um rótulo de "não
+> reverificado" **anota** o texto, não impede ninguém de usá-lo como fato. Uma
+> seção herdada deve nomear, por item, onde a verificação seria feita.
+
+Dos seis itens herdados, seguem abertos F2, D1, A5 e o lado Android da B5.
+Acrescenta-se a eles, desta frente:
 
 1. **Task 6, Steps 5 e 6** — bloqueados no dono: instalar Ollama e conceder a
    janela exclusiva de host. Enquanto isso não acontece, não há limiar
@@ -297,8 +316,28 @@ de chamar `setAlert`.
 
 O item verdadeiro, portanto, não é de engenharia e sim **decisão de produto**:
 desligar o shadow mode liga nudges visíveis na home. É o mesmo par que
-`app_open`, e a nota em `useAppOpenLifecycle.ts:46` já o enquadrava assim — a
-divergência estava só no menor herdado.
+`app_open`, e a nota em `useAppOpenLifecycle.ts` já o enquadrava assim — a
+divergência estava só no menor herdado. **Continua em aberto**, aguardando o
+dono; ao contrário do `app_open`, não foi decidido em 2026-08-07.
+
+### Os outros dois menores herdados
+
+**`.easignore` e os 856 MB: a premissa não se reproduz.** O item pedia uma
+decisão de alargar `writePolicy.allowedRoots` para criar
+`radiant-app/.easignore`. Medido em 2026-08-07: o repositório inteiro tem
+**26,3 MB rastreados** (9,0 MB em `radiant-app`), e `.maestro/artifacts` — os
+439 MB de artefatos de E2E — **já está ignorado** na linha 47 do
+`radiant-app/.gitignore` e não é rastreado. Num upload baseado em git, um
+`.easignore` não mudaria nada. **Não gaste a decisão de alargar a policy nesta
+premissa**: os 856 MB precisam ser remedidos num upload real do EAS antes de
+qualquer coisa. Se se confirmarem, a causa é outra e ainda não foi encontrada.
+
+**`eyebrow` do `JourneyHero` a 2× de escala: real, e ainda aberto.** O commit
+`a371641` (2026-07-28) consertou o **balão de fala** fixando a largura da coluna
+do personagem em `PixelHeroSplit`. O eyebrow em si — caixa alta, `letterSpacing:
+1`, dentro dessa coluna de largura fixa que não cresce com `fontScale` — não foi
+tocado, e não há teste cobrindo escala de fonte no componente. O menor é
+distinto do que `a371641` fechou.
 
 **Pré-existente, não introduzido aqui:** `buildInitialProgress`
 (`JourneyProgressService.ts:302`) semeia `completedNodeIds` a partir de
@@ -310,25 +349,30 @@ que resta para satisfazer a regra sem estudo.
 
 ### Pendências abertas em 2026-08-07
 
-- **`app_open` e a transição segundo-plano → primeiro-plano: decisão de produto
-  em aberto.** A correção entregou a versão conservadora (latch de processo: N
-  lançamentos do processo → N eventos; remontagem → nenhum evento extra). A
-  re-revisão confirmou que o gate lê `countEvents('app_open')` do store
-  persistido, então a contagem hoje é estritamente ≤ a de antes — o gate **não**
-  ficou mais fácil de abrir. Contar o retorno do segundo plano definiria o que é
-  uma sessão para o gate de avaliação da loja e poderia afrouxá-lo. Não
-  implementado de propósito.
+- **`app_open` e a transição segundo-plano → primeiro-plano: DECIDIDO em
+  2026-08-07 — fica conservador.** Abertura é lançamento de processo; o retorno
+  do segundo plano não conta. O latch de processo entregue é a forma final, não
+  um estágio. A re-revisão havia confirmado que o gate lê
+  `countEvents('app_open')` do store persistido, então a contagem é estritamente
+  ≤ a de antes e o gate **não** ficou mais fácil de abrir. Mudar isso agora é
+  mudança de produto deliberada, com ADR — não a resolução de uma pendência.
+  Registrado também em `useAppOpenLifecycle.ts`.
 
-- **Task 6, Steps 5 e 6 — o bloqueio tem número.** Medido em 2026-08-07: Apple
-  M5, 16 GB de RAM, 10 núcleos, macOS 27.0, **15 GB livres de 460 GB**. O
-  gargalo é disco antes de memória: um modelo 7–9B quantizado em Q4 ocupa ~5 GB
-  e cabe; 12–14B em Q4 ocupa ~8–9 GB e deixa o sistema no limite. O plano fixa
-  `127.0.0.1:11434`, porta do Ollama, que **não está instalado** (sem binário no
-  `PATH`, sem `/Applications/Ollama.app`). Há 6,4 GB de pesos em
-  `~/.lmstudio/models`, mas o app do LM Studio não está em `/Applications` nem
-  em `~/Applications` e nada responde em 1234 — antes de escolher o runtime,
-  vale conferir o que esses 6,4 GB são e se ainda servem. Manter dois runtimes
-  com cópias dos mesmos pesos não cabe no espaço livre.
+- **Task 6, Steps 5 e 6 — caminho escolhido em 2026-08-07: Ollama, depois de
+  liberar o órfão.** Medido: Apple M5, 16 GB de RAM, 10 núcleos, macOS 27.0,
+  **15 GB livres de 460 GB**. O gargalo é disco antes de memória: 7–9B em Q4
+  ocupa ~5 GB e cabe; 12–14B em Q4 ocupa ~8–9 GB e deixa o sistema no limite.
+
+  Os 6,4 GB em `~/.lmstudio/models` são **um único modelo órfão**,
+  `gemma-4-E4B-it-MLX-4bit`, em formato **MLX** — que o Ollama não lê, porque
+  ele usa GGUF; não há nenhum `.gguf` na máquina. E o LM Studio **não está
+  instalado**: sem app em `/Applications` nem `~/Applications`, sem processo,
+  sem resposta em 1234. São **8,7 GB de `~/.lmstudio` sem runtime**.
+
+  Decisão do dono: apagar o órfão (ação dele, não do agente) e seguir com
+  Ollama, que é o que o plano já fixa em `127.0.0.1:11434`. Isso leva o espaço
+  livre para ~23,7 GB, onde um 7–9B Q4 cabe com folga e ainda sobra host para a
+  janela de E2E. **Pendente do dono:** apagar `~/.lmstudio` e instalar o Ollama.
 
 - **Acesso a `~/Documents`: restaurado.** Foi revogado pelo macOS em 2026-08-07,
   no meio de uma sessão, e derrubou o validador `brain-links` — logo, todo

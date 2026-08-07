@@ -38,10 +38,14 @@ import { TelemetryService } from '../TelemetryService';
  * Contar `background → foreground` como abertura é decisão de PRODUTO, não de
  * engenharia: define o que conta como sessão para o gate da loja, e pode tornar
  * o gate mais fácil de abrir do que é hoje (uma pessoa que alterna entre apps
- * cinco vezes numa sessão acumularia cinco aberturas). Enquanto essa decisão
- * não é tomada, vale a leitura conservadora — abertura é lançamento de
- * processo. O flow `rating-prompt.yaml` continua alcançando o gate: ele faz
- * três `launchApp`, e cada um é um processo novo.
+ * cinco vezes numa sessão acumularia cinco aberturas). O flow
+ * `rating-prompt.yaml` continua alcançando o gate: ele faz três `launchApp`, e
+ * cada um é um processo novo.
+ *
+ * **Decidido pelo dono em 2026-08-07: fica a leitura conservadora.** Abertura é
+ * lançamento de processo, e o retorno do segundo plano não conta. Isto deixou
+ * de ser uma pendência — mudá-lo agora é mudança de produto deliberada, com
+ * ADR, não a resolução de algo que ficou em aberto.
  *
  * `checkHeuristics()` também ficou de fora, desde a extração. Ele renderiza
  * nudges, e religá-lo é decisão de produto com efeito visível na home; está
