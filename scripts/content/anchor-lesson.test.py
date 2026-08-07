@@ -1,7 +1,12 @@
+import contextlib
 import importlib.util
+import io
 import json
+import sys
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 SCRIPT_PATH = Path(__file__).with_name("anchor-lesson.py")
 SPEC = importlib.util.spec_from_file_location("anchor_lesson", SCRIPT_PATH)
@@ -112,6 +117,67 @@ class ResolveAnchorsTest(unittest.TestCase):
         claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}]
         r = MODULE.resolve_anchors(claims, self.allowed)
         self.assertNotIn("similarity", r["claims"][0])
+
+
+class MainDoRunnerTest(unittest.TestCase):
+    """O codigo de saida do processo e a unica superficie pela qual o gate
+    decide, e ate 2026-08-07 nenhum teste o media: trocar o retorno de `main`
+    por `return 0` fixo deixava os 11 testes desta suite VERDES. Cobertura de
+    funcao pura nao se propaga para o invólucro que a chama."""
+
+    def arvore(self, manifesto, claims):
+        raiz = Path(tempfile.mkdtemp(prefix="ancoragem-"))
+        (raiz / "manifest.jsonl").write_text(
+            "".join(json.dumps(linha, ensure_ascii=False) + "\n" for linha in manifesto),
+            encoding="utf-8",
+        )
+        (raiz / "claims.json").write_text(
+            json.dumps({"lessonId": "ai-lesson:x", "claims": claims}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        return raiz
+
+    def rodar(self, raiz):
+        argv = [
+            "anchor-lesson.py",
+            "--claims",
+            str(raiz / "claims.json"),
+            "--manifest",
+            str(raiz / "manifest.jsonl"),
+            "--out",
+            str(raiz / "saida.json"),
+        ]
+        with mock.patch.object(sys, "argv", argv), contextlib.redirect_stdout(io.StringIO()):
+            return MODULE.main()
+
+    def test_main_devolve_0_quando_toda_claim_esta_ancorada(self):
+        raiz = self.arvore(
+            [{"id": "excerpt:a:p1:c1", "hash": "h1", "rightsClass": "authorized"}],
+            [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}],
+        )
+        self.assertEqual(self.rodar(raiz), 0)
+
+    def test_main_devolve_1_quando_alguma_claim_fica_sem_ancora(self):
+        raiz = self.arvore(
+            [{"id": "excerpt:a:p1:c1", "hash": "h1", "rightsClass": "authorized"}],
+            [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:fantasma:p9:c9"}],
+        )
+        self.assertEqual(self.rodar(raiz), 1)
+
+    def test_main_carimba_no_arquivo_o_hash_vigente_do_manifesto(self):
+        # A fiacao load_allowed -> resolve_anchors so e exercitada aqui. Os casos
+        # de ResolveAnchorsTest injetam `allowed` como literal e nunca chamam
+        # load_allowed, e foi por isso que neutralizar load_allowed derrubou um
+        # teste em vez dos dois que o plano previa.
+        raiz = self.arvore(
+            [{"id": "excerpt:a:p1:c1", "hash": "h1", "rightsClass": "authorized"}],
+            [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}],
+        )
+        self.rodar(raiz)
+        saida = json.loads((raiz / "saida.json").read_text(encoding="utf-8"))
+        self.assertEqual(saida["lessonId"], "ai-lesson:x")
+        self.assertEqual(saida["claims"][0]["hash"], "h1")
+        self.assertEqual(saida["unanchored"], 0)
 
 
 if __name__ == "__main__":
