@@ -454,7 +454,23 @@ lista.
 
 **Decisões do dono, sem trabalho de engenharia pendente:**
 
-- **`checkHeuristics`** — ligar os nudges ou manter em shadow mode.
+- **`checkHeuristics`** — ligar os nudges ou manter em shadow mode. **A decisão
+  ficou decidível em 2026-08-07**, e antes disso não era: a pergunta pressupunha
+  que as heurísticas funcionavam, e a premissa nunca tinha sido verificada. O
+  dono optou por **consertar antes de decidir**, e o conserto está feito:
+  - **a H3 media o próprio lançamento e nunca podia disparar.**
+    `useAppOpenLifecycle` grava `app_open` na linha 64 da `HomeScreen` e
+    `checkHeuristics` roda no efeito da 141, então `getLastAppOpen()` devolvia o
+    evento recém-gravado e `Date.now()` menos ele dava ~0, contra limiar de 48h.
+    O log de shadow mode imprime só o id do alerta — a **ausência** da H3 não
+    aparecia em lugar nenhum. Corrigido com `getPreviousAppOpen()`: `app_open` é
+    latcheado por processo, então o intervalo entre os dois últimos é o tempo
+    fora;
+  - **`HeuristicsService` não tinha teste nenhum.** Agora tem 14, e os cinco
+    limiares mordem, um a um.
+
+  O `SHADOW_MODE` **continua ligado**. O que falta agora é só a decisão de
+  produto, e ela passou a ser sobre nudges que fazem o que dizem.
 - **Escopo da taxonomia** — os 16 nós seguem com `taxonomyId: null`. O mapa
   registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
   `star-dose-radiacao` como candidato real **adiado**, com gatilho de
