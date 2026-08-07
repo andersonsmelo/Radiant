@@ -54,3 +54,56 @@ test('acusa catalogo inexistente mesmo com taxonomyId null', () => {
   assert.equal(erros.length, 1);
   assert.match(erros[0], /catalogo inexistente: ai-lesson:fantasma/);
 });
+
+import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { loadInputs, main } from './validate-taxonomy-map.mjs';
+
+function arvoreDeFixture({ map, galaxias, planetas, estrelas, tracks }) {
+  const raiz = mkdtempSync(path.join(tmpdir(), 'taxonomia-'));
+  mkdirSync(path.join(raiz, 'content-manifest'), { recursive: true });
+  mkdirSync(path.join(raiz, 'Conteúdo', 'taxonomia'), { recursive: true });
+  mkdirSync(path.join(raiz, 'Conteúdo', 'governança'), { recursive: true });
+
+  const escrever = (relativo, valor) =>
+    writeFileSync(path.join(raiz, relativo), JSON.stringify(valor), 'utf8');
+
+  escrever(path.join('content-manifest', 'taxonomy-catalog-map.json'), map);
+  escrever(path.join('Conteúdo', 'taxonomia', 'galaxias.json'), galaxias);
+  escrever(path.join('Conteúdo', 'taxonomia', 'planetas.json'), planetas);
+  escrever(path.join('Conteúdo', 'taxonomia', 'estrelas.json'), estrelas);
+  escrever(path.join('Conteúdo', 'governança', 'wave-1-priority-tracks.json'), { version: 1, tracks });
+  return raiz;
+}
+
+const FIXTURE_VALIDA = {
+  map: [{ taxonomyId: 'star-torax', catalogId: 'ai-lesson:qualidade-de-imagem', rationale: 'x' }],
+  galaxias: [{ id: 'galaxy-anatomia' }],
+  planetas: [{ id: 'planet-torax' }],
+  estrelas: [{ id: 'star-torax' }],
+  tracks: [{ id: 'track-a', lessonIds: ['ai-lesson:qualidade-de-imagem', 'lesson-1'] }],
+};
+
+test('loadInputs une os tres arquivos de taxonomia num so conjunto', () => {
+  const { taxonomyIds } = loadInputs(arvoreDeFixture(FIXTURE_VALIDA));
+  assert.deepEqual([...taxonomyIds].sort(), ['galaxy-anatomia', 'planet-torax', 'star-torax']);
+});
+
+test('loadInputs colhe catalogIds da uniao de lessonIds, com e sem prefixo', () => {
+  const { catalogIds } = loadInputs(arvoreDeFixture(FIXTURE_VALIDA));
+  assert.equal(catalogIds.has('ai-lesson:qualidade-de-imagem'), true);
+  assert.equal(catalogIds.has('lesson-1'), true);
+});
+
+test('MUTACAO: main devolve 0 quando o mapa fecha', () => {
+  assert.equal(main(arvoreDeFixture(FIXTURE_VALIDA)), 0);
+});
+
+test('MUTACAO: main devolve 1 quando o mapa aponta para taxonomia inexistente', () => {
+  const raiz = arvoreDeFixture({
+    ...FIXTURE_VALIDA,
+    map: [{ taxonomyId: 'star-fantasma', catalogId: 'ai-lesson:qualidade-de-imagem', rationale: 'x' }],
+  });
+  assert.equal(main(raiz), 1);
+});
