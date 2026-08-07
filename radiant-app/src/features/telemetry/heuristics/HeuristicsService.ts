@@ -34,6 +34,7 @@ class HeuristicsServiceImpl {
 
         // 1. Gather Data
         const lastAppOpenTs = await TelemetryService.getLastAppOpen();
+        const previousAppOpenTs = await TelemetryService.getPreviousAppOpen();
         const history = await TelemetryService.getHistory(C.HISTORY_DAYS);
 
         const activeDaysLast7 = history.days.length; // Approximate, assuming TelemetryService returns only existing entries
@@ -56,7 +57,18 @@ class HeuristicsServiceImpl {
         });
 
         // Computed Metrics
-        const hoursSinceLastOpen = lastAppOpenTs ? (Date.now() - lastAppOpenTs) / (1000 * 60 * 60) : 0;
+        // Ausência ANTES desta sessão: o intervalo entre os dois últimos
+        // lançamentos. Media-se `Date.now() - lastAppOpenTs` até 2026-08-07, e
+        // isso era ~0 sempre — `useAppOpenLifecycle` grava `app_open` na linha
+        // 64 da HomeScreen e `checkHeuristics` roda no efeito da linha 141, de
+        // modo que o "último" open era o do próprio lançamento em curso. Com
+        // limiar de 48h, a H3 não tinha como disparar, e o log de shadow mode
+        // imprime só o id do alerta — a AUSÊNCIA dela não aparecia em lugar
+        // nenhum. Sem open anterior (primeiro lançamento) não há intervalo.
+        const hoursAbsentBeforeSession =
+            lastAppOpenTs && previousAppOpenTs
+                ? (lastAppOpenTs - previousAppOpenTs) / (1000 * 60 * 60)
+                : 0;
         const reviewRatio = activeDaysLast7 > 0 ? (reviewDaysLast7 / activeDaysLast7) : 0;
         const avgReviewDuration = totalReviewCount > 0 ? (totalReviewDuration / totalReviewCount) : 0;
         const goalConsistency = activeDaysLast7 > 0 ? (goalCompleteDaysLast7 / activeDaysLast7) : 0;
@@ -67,7 +79,7 @@ class HeuristicsServiceImpl {
         // 2. Evaluate Heuristics (Priority Order)
 
         // H3: Habit Break (CRITICAL)
-        if (!alert && hoursSinceLastOpen > C.THRESHOLDS.H3_HABIT_BREAK_HOURS) {
+        if (!alert && hoursAbsentBeforeSession > C.THRESHOLDS.H3_HABIT_BREAK_HOURS) {
             alert = {
                 id: 'H3',
                 level: 'critical',
@@ -75,7 +87,7 @@ class HeuristicsServiceImpl {
                 message: 'Vamos retomar com algo rápido?',
                 suggestedAction: 'continue_learning', // or start_review based on implementation preference
                 createdAt: Date.now(),
-                context: { hoursAbsent: hoursSinceLastOpen.toFixed(1) }
+                context: { hoursAbsent: hoursAbsentBeforeSession.toFixed(1) }
             };
         }
 
