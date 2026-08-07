@@ -28,7 +28,7 @@ import { getGalaxyById } from '@/src/data/galaxy-catalog';
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { CelestialBody } from '@/src/types/galaxy';
 import type { JourneyNode } from '@/src/types/journey';
-import { useReducedMotionPreference } from '@/src/ui/accessibility/useReducedMotionPreference';
+import { useReducedMotionPreferenceState } from '@/src/ui/accessibility/useReducedMotionPreference';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
@@ -55,7 +55,7 @@ const NODE_STATUS_COLOR: Record<JourneyNode['status'], string> = {
 
 // ── Nó de lição ─────────────────────────────────────────────────
 
-function LessonNode({
+export function LessonNode({
   node,
   index,
   onPress,
@@ -72,12 +72,20 @@ function LessonNode({
   const isActive = node.status === 'active' || node.status === 'resumable';
   const isLocked = node.status === 'locked';
   const isDone = node.status === 'completed';
-  const reducedMotion = useReducedMotionPreference();
+  const { reducedMotionEnabled: reducedMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
 
   // Glow pulsante para nó ativo
   const glowOpacity = useSharedValue(isActive ? 0.5 : 0);
 
   useEffect(() => {
+    // Enquanto a preferência é desconhecida, nada é agendado e nenhum laço
+    // começa. A consulta é assíncrona e a primeira renderização acontece antes
+    // dela: com `index * 60`, os primeiros nós entravam animados ANTES de a
+    // resposta chegar. Um quadro de espera custa menos que a preferência.
+    if (!motionResolved) {
+      return;
+    }
+
     if (reducedMotion) {
       // A entrada em cascata (`index * 60`) é escada: cada nó chega num tempo
       // diferente. Sob reduced motion todos já nascem no destino — a lista
@@ -89,7 +97,7 @@ function LessonNode({
       return;
     }
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       scale.value = withSpring(1, { damping: 14 });
       opacity.value = withTiming(1, { duration: 250 });
     }, index * 60);
@@ -104,7 +112,11 @@ function LessonNode({
         true,
       );
     }
-  }, [reducedMotion]);
+
+    // Sem limpeza, o timeout sobrevivia à re-execução do efeito e à
+    // desmontagem — a cascata disparava depois de a preferência ter virado.
+    return () => clearTimeout(timeout);
+  }, [motionResolved, reducedMotion, index, isActive]);
 
   const entryStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value * pressScale.value }],
