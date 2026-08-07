@@ -471,26 +471,6 @@ lista.
 
   O `SHADOW_MODE` **continua ligado**. O que falta agora é só a decisão de
   produto, e ela passou a ser sobre nudges que fazem o que dizem.
-- **Escopo da taxonomia — DECIDIDO no rumo, com desenho aguardando aprovação.**
-  Em 2026-08-07 o dono escolheu **a taxonomia cresce para o eixo técnico**, mais
-  três decisões de forma: nó significa currículo **entregue** (os do eixo técnico
-  nascem `active`), **estender `galaxy-fisica` + uma galáxia nova**, e **não
-  criar estrelas** — estrela é trilha curta e não há nenhuma produzida.
-
-  O desenho está escrito em
-  [`docs/superpowers/specs/2026-08-07-taxonomia-eixo-tecnico-design.md`](superpowers/specs/2026-08-07-taxonomia-eixo-tecnico-design.md)
-  como **rascunho não aprovado**: 6 planetas novos, nenhuma estrela, as 16 lições
-  atribuídas uma a uma. **A conversa parou na pergunta de aprovação**, em dois
-  julgamentos que precisam do seu sim: onde fica
-  `preservacao-de-alimentos-por-irradicao`, e se vale quebrar o ritmo de 2
-  planetas por galáxia. **Nada foi implementado.**
-
-  O que a decisão já destravou como entendimento: há **dois currículos** no
-  repositório — a taxonomia organiza *interpretação de imagem*, as 16 lições
-  ensinam *operar o equipamento* —, e é por isso que os 16 mapeavam para `null`.
-  Quando o desenho for aprovado e executado, o **D4** ganha destino e a **Task 4
-  da G1** ganha base.
-
 **Ações que só o dono executa:**
 
 - **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
@@ -660,6 +640,26 @@ lista.
   antes de entrar nele. **A fiação da cadeia de conteúdo está concluída** — só a
   Task 3 (embeddings) segue adiada, e ela não bloqueia nada.
 
+- ~~**Escopo da taxonomia**~~ — o desenho foi **aprovado pelo dono em
+  2026-08-07** e está implementado. Os dois julgamentos que seguravam a
+  aprovação foram decididos: `preservacao-de-alimentos-por-irradicao` fica em
+  `planet-profissao-e-aplicacoes`, e `galaxy-fisica` passa de 2 para 4
+  planetas. Uma **terceira decisão** apareceu sem ter sido perguntada antes,
+  porque medir as premissas do desenho a revelou: `galaxy-tecnologia` **já
+  existia** em `radiant-app/src/data/galaxy-catalog.ts:204`, travada e vazia,
+  com o título "Tecnologia em Imagem" — a decisão foi preencher esse slot e
+  herdar o título, em vez de criar um id novo.
+
+  Implementado e commitado: `895d625` (a galáxia e os seis planetas) e
+  `7e1cd25` (as 16 atribuições). O critério de saída está cumprido —
+  `node scripts/content/validate-taxonomy-map.mjs` devolve zero
+  `taxonomyId: null`, com `taxonomyIds` subindo de 15 para 22. O **D4** ganha
+  destino, e a **Task 4 da G1** ganha base — fato, não condição futura; se o
+  D4 fecha é revisão editorial à parte, que este item não faz.
+
+  **O que mudou é governança, não produto:** nada fora dos validadores lê
+  estes arquivos, e as telas do app leem `galaxy-catalog.ts`. Não há mudança
+  visível para o usuário nesta entrega.
 - ~~Seção 1 do design da fiação~~ — aprovada pelo dono, com relatório de descarte.
 - ~~`.loop/project.yaml` aponta para o documento errado~~ — corrigido em
   `53b6a89`. **O bloqueio registrado era falso:** `.loop/project.yaml` **está**

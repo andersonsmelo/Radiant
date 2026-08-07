@@ -25,18 +25,26 @@ Há **dois currículos** no repositório e eles não se encontram:
 | **As 16 lições `ai-lesson:`** | Curso técnico: profissão, física da radiação, produção de raios X, equipamento, TC, RM, medicina nuclear, processamento, qualidade de imagem |
 
 As lições ensinam *como a máquina funciona e como operá-la*; a taxonomia organiza
-*como ler a imagem resultante*. Por isso **os 16 mapeiam para `null`**, e os
-`rationale` do mapa dizem isso literalmente — *"nenhuma das 6 estrelas cobre o
-domínio de acessórios/equipamento"*.
+*como ler a imagem resultante*. Por isso **os 16 mapeavam para `null`**, e os
+`rationale` do mapa diziam isso literalmente — *"nenhuma das 6 estrelas cobre o
+domínio de acessórios/equipamento"*. Essa frase era o `rationale` de 2026-08-07;
+a execução reescreveu todos os 16, e a string não existe mais em nenhum lugar do
+repositório.
 
-Medições que sustentam o desenho, todas de 2026-08-07 salvo indicação:
+Medições que sustentam o desenho — **estado medido em 2026-08-07, antes deste
+desenho ser executado**, salvo indicação em contrário. É o estado que
+justificou a decisão, não o estado atual: a execução mudou os dois pontos
+marcados abaixo. Para o estado corrente, rode
+`node scripts/content/validate-taxonomy-map.mjs`.
 
 - **Só 1 dos 16 era candidato real** a um nó existente:
   `interacao-das-radiacoes-e-protecao-radiologica` × `star-dose-radiacao`.
   Mantido `null` por princípio — a estrela é `status: planned`, e mapear ligaria
   catálogo a promessa de currículo.
-- **Todos os planetas e estrelas estão `planned`.** Só as 3 galáxias são
-  `active`. O eixo de interpretação é planejado e não construído.
+- **Todos os planetas e estrelas estavam `planned`.** Só as 3 galáxias eram
+  `active`. O eixo de interpretação era planejado e não construído. **Isto
+  mudou com a execução:** a nova galáxia e os seis planetas novos nasceram
+  `active` — ver "Decisões do dono" abaixo.
 - **O eixo técnico é construído e não mapeado:** as 16 lições embarcam hoje, numa
   trilha só, `track-ai-fundamentos` — *"Fundamentos de Radiologia (IA)"* — em
   ordem pedagógica. Nada está quebrado para o usuário.

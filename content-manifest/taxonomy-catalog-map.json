@@ -15,14 +15,14 @@
     "rationale": "Anatomia interna do aparelho de radiologia convencional. Mesmo planeta de acessorios e do equipamento completo, que juntos descrevem a maquina."
   },
   {
-    "taxonomyId": "planet-equipamento",
-    "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional",
-    "rationale": "O aparelho de radiologia convencional visto por inteiro. E a licao de entrada do planeta; componentes e acessorios a detalham."
-  },
-  {
     "taxonomyId": "planet-fisica-da-radiacao",
     "catalogId": "ai-lesson:energia-e-materia",
     "rationale": "Fisica geral pre-raios X. Fica em Fisica da Radiacao e nao em Formacao da Imagem, porque o planeta de formacao pertence ao eixo de interpretacao e segue planned."
+  },
+  {
+    "taxonomyId": "planet-equipamento",
+    "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional",
+    "rationale": "O aparelho de radiologia convencional visto por inteiro. E a licao de entrada do planeta; componentes e acessorios a detalham."
   },
   {
     "taxonomyId": "planet-fisica-da-radiacao",
