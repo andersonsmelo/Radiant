@@ -8,6 +8,7 @@ import {
   chavesForaDoContrato,
   excertosCopiadosPorHash,
   claimsCopiadasDaFonte,
+  fontesEmArquivosRastreados,
   main,
 } from './validate-no-verbatim.mjs';
 
@@ -105,7 +106,59 @@ test('claim que reformula o mesmo fato passa', () => {
 });
 
 // ---------------------------------------------------------------------------
-// 4. O runner.
+// 4. A arvore rastreada INTEIRA. As tres checagens acima olham content-manifest,
+//    que e o que a cadeia produz. Em 2026-08-07 apareceu texto de fonte `blocked`
+//    rastreado em `conteúdo/extrações/`, commitado antes da politica existir, e
+//    nenhuma delas o alcancava: o ADR afirmava a garantia no nivel do
+//    repositorio e a varredura rodava num diretorio. Um verde prova a assercao
+//    no dominio em que rodou, e o dominio nao viaja junto com o resultado.
+// ---------------------------------------------------------------------------
+
+test('MUTACAO: arquivo rastreado fora de content-manifest com texto de fonte reprova', () => {
+  const erros = fontesEmArquivosRastreados({
+    arquivos: [{ caminho: 'conteúdo/extrações/x/excerpts.json', conteudo: `{"text": "${TEXTO_DA_FONTE}"}` }],
+    textos: [TEXTO_DA_FONTE],
+  });
+  assert.match(erros[0], /conteúdo\/extrações\/x\/excerpts\.json/);
+});
+
+test('a mensagem nomeia o arquivo, que e onde o operador precisa agir', () => {
+  const erros = fontesEmArquivosRastreados({
+    arquivos: [{ caminho: 'docs/nota.md', conteudo: `contexto ${TEXTO_DA_FONTE} fim` }],
+    textos: [TEXTO_DA_FONTE],
+  });
+  assert.equal(erros.length, 1);
+  assert.match(erros[0], /docs\/nota\.md/);
+});
+
+test('arquivo rastreado que so fala SOBRE a fonte passa', () => {
+  const erros = fontesEmArquivosRastreados({
+    arquivos: [
+      { caminho: 'docs/nota.md', conteudo: 'A obra trata de resolucao espacial e contraste.' },
+    ],
+    textos: [TEXTO_DA_FONTE],
+  });
+  assert.deepEqual(erros, []);
+});
+
+test('coincidencia curta demais nao acusa: e vocabulario tecnico, nao copia', () => {
+  const erros = fontesEmArquivosRastreados({
+    arquivos: [{ caminho: 'docs/nota.md', conteudo: 'resolucao espacial' }],
+    textos: ['resolucao espacial'],
+  });
+  assert.deepEqual(erros, []);
+});
+
+test('a varredura ignora diferenca de espaco em branco e caixa', () => {
+  const erros = fontesEmArquivosRastreados({
+    arquivos: [{ caminho: 'docs/nota.md', conteudo: TEXTO_DA_FONTE.toUpperCase().replace(/ /g, '\n  ') }],
+    textos: [TEXTO_DA_FONTE],
+  });
+  assert.equal(erros.length, 1);
+});
+
+// ---------------------------------------------------------------------------
+// 5. O runner.
 // ---------------------------------------------------------------------------
 
 function arvore({ manifesto, aula }) {
