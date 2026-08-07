@@ -310,7 +310,39 @@ os testes unitários; o novo roda o validador contra o dado em disco. Os dois
 medem coisas diferentes, e o `loop validate` desta entrega executou os **12**
 validadores com `passed`, o novo entre eles.
 
-### O eixo comercial dos direitos, e ninguém o lê
+### O eixo comercial dos direitos — RESOLVIDO ainda em 2026-08-07
+
+**A seção abaixo descreve o problema como ele foi diagnosticado, e ela está
+correta no diagnóstico e errada na conclusão.** O item foi fechado no mesmo dia
+pelo [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
+e o motivo é que a premissa da pergunta nunca tinha sido verificada: **a cadeia
+não embarca verbatim em lugar nenhum.** `manifest.jsonl` guarda ponteiro e hash,
+`.anchored.json` guarda claim original mais ponteiro e hash, e o texto das fontes
+só existe em `Conteúdo/extrações/`, fora do git. A decisão escalada era sobre uma
+capacidade que o sistema não exerce.
+
+Três coisas mudaram junto, e as três estão no gate:
+
+- o código passa a ler **`allowedUses`**, não `commercialUse`. Ancorar exige
+  `factual-reference`, checado no filtro de entrada e em `anchoringErrors`;
+- o validador `content-no-verbatim` reprova artefato rastreado que carregue texto
+  de fonte, por contrato de chaves, coincidência de hash e substring contra o
+  material bruto. Rodado contra o dado real: 296 excertos, 405 textos lidos, zero
+  erros — **as 8 claims do piloto não são cópia literal**, o que dá conferência de
+  máquina à regra da Task 4 que só tinha conferência humana;
+- conferido **na fonte primária**, e não no nosso próprio catálogo: o
+  `commercialUse: false` do INCA *Mamografia: da prática ao controle* é precaução
+  nossa. A página 3 da obra diz apenas *"É permitida a reprodução total ou parcial
+  desta obra, desde que citada a fonte"* — sem cláusula não-comercial. E a fonte
+  do piloto é CC BY-NC-**SA** 4.0: o *Compartilha Igual* é a restrição mais afiada
+  das quatro, e ninguém a tinha nomeado. Ele não morde referência factual; morde
+  adaptação.
+
+**A frase "se a resposta for não, a cadeia inteira precisa de fontes diferentes"
+não se sustenta.** As fontes servem para o que a cadeia faz.
+
+O texto original do diagnóstico segue abaixo, porque a medição que ele carrega
+continua válida e é o que sustenta o ADR.
 
 Medido em 2026-08-07 e registrado no spec: o código consulta um único campo do
 registro de direitos, `rightsClass`, e a mensagem de erro fala em "autorização de
@@ -371,24 +403,24 @@ lista.
    registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
    `star-dose-radiacao` como candidato real **adiado**, com gatilho de
    reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
-4. **O eixo comercial dos direitos.** As 4 fontes `authorized` são todas
-   `commercialUse: false`, e nenhum código lê esse campo. Decide se excerto
-   verbatim pode ser embarcado num app com entitlement premium. **Novo em
-   2026-08-07**, e é a decisão de maior alcance da lista: se a resposta for não,
-   a cadeia inteira precisa de fontes diferentes.
-
 **Ações que só o dono executa:**
 
-5. **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
+4. **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
    (`gemma-4-E4B-it-MLX-4bit`). Confirmado em 2026-08-07 pelo próprio `lms`:
    *"daemon is not running and no valid installation could be found"*. Leva o
    espaço livre de 15 GB para ~23,7 GB.
-6. **Instalar o Ollama e um modelo de embedding.** O plano fixa
+5. **Instalar o Ollama e um modelo de embedding.** O plano fixa
    `127.0.0.1:11434`. **Já não bloqueia a cadeia de conteúdo** — a fiação fechou
    sem motor. Desbloqueia a Task 3 (embeddings) e a ancoragem por similaridade.
-7. **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
+6. **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
    engenharia o encurta.
-8. **A5** — gerar a service-account key no Play Console.
+7. **A5** — gerar a service-account key no Play Console.
+8. **Enviar o pedido de autorização ao INCA.** Rascunho pronto em
+   [`docs/content/2026-08-07-pedido-de-autorizacao-inca.md`](content/2026-08-07-pedido-de-autorizacao-inca.md),
+   com o destinatário deliberadamente em branco — o canal precisa ser conferido
+   no site do Instituto antes. **Não bloqueia nada**, por decisão registrada no
+   [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md);
+   converte incerteza futura em documento arquivado, por um e-mail.
 9. **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** Conte com
    `git log --oneline '@{upstream}..HEAD'` — e note que este documento **não**
    fixa o número de propósito: uma contagem escrita aqui envelhece no commit
@@ -419,6 +451,19 @@ lista.
     futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~O eixo comercial dos direitos~~ — era a decisão de maior alcance da lista e
+  **caiu por premissa falsa**: a cadeia não embarca verbatim, e a decisão pedida
+  era sobre uma capacidade que o sistema não exerce. Fechado pelo
+  [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
+  com o código passando a ler `allowedUses`, o não-vazamento virando gate
+  (`content-no-verbatim`) e os termos das duas obras do INCA conferidos contra a
+  página de direitos dos PDFs. **A lição custa registro:** um item pendente
+  carrega três afirmações independentes, não duas — **estado**, **bloqueio** e a
+  **premissa da própria pergunta**. As duas primeiras estavam certas; a terceira
+  nunca foi checada, e foi ela que manteve uma tarefa de engenharia pequena
+  travada no topo da lista como impasse jurídico. Escalar a um humano é a operação
+  mais cara da lista: prove que a capacidade existe antes de pedir a decisão.
 
 - ~~O `main()` de `anchor-lesson.py` sem mordida~~ — fechado com três casos que
   chamam `main()` sobre árvore de fixture. O antes e o depois estão medidos:
