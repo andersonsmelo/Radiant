@@ -100,6 +100,21 @@ writePolicy:
     - Conteúdo/fontes
     - Conteúdo/governança
     - Conteúdo/mídia
+    # `Conteúdo/taxonomia` entrou em 2026-08-07, por run proprio e anterior,
+    # como manda o comentario de `conteúdo/extrações` logo abaixo. A lista
+    # tinha deste diretorio so a grafia do INDICE DO GIT — minuscula e em NFC
+    # — enquanto os tres irmaos acima ja estavam na grafia do DISCO, que e
+    # maiuscula e em NFD. Sao dois eixos de diferenca, nao um.
+    #
+    # O efeito era uma transacao impossivel de abrir certo: `pathIsWritable`
+    # (Loop, src/project.ts) compara byte a byte, entao declarar o caminho
+    # como o disco o soletra reprovava com INVALID_SCOPE no `step begin`; e
+    # declarar como o git o soletra, que passa no begin, e exatamente o que
+    # devolveu OUT_OF_SCOPE_CHANGE no `step finish` e custou um run em
+    # 2026-08-07 — o guarda do fim compara contra o disco. As duas grafias
+    # ficam: o indice ainda carrega a minuscula, e um checkout pode
+    # materializa-la.
+    - Conteúdo/taxonomia
     # `conteúdo/extrações` esteve aqui em 2026-08-07, por uma janela de dois
     # commits (a5d9cc8 e adee209) e um proposito unico: retirar do indice do git
     # o texto de fonte `blocked` que estava rastreado desde 847a12d. Cumprido o
