@@ -162,6 +162,18 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
       setSubmitting(true);
       const nextSnapshot = await JourneyProgressService.markNodeCompleted(checkpointNode.id);
       setSnapshot(nextSnapshot);
+
+      // A recusa da guarda não é uma exceção: `markNodeCompleted` devolve o
+      // snapshot inalterado. Sem olhar o resultado, a tela comemorava uma
+      // conquista que não foi gravada — antes da guarda a comemoração era
+      // verdadeira porque a escrita sempre acontecia. Quem decide se houve
+      // conquista é o snapshot que voltou, não o fato de a chamada ter
+      // retornado.
+      if (!nextSnapshot.progress.completedNodeIds.includes(checkpointNode.id)) {
+        setError('Nao foi possivel concluir o checkpoint agora.');
+        return;
+      }
+
       setCompleted(true);
       const offer = await PaywallService.maybePresentOffer({
         trigger: 'checkpoint_complete',

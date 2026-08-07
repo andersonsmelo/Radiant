@@ -23,6 +23,7 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { JourneyRecommendationService } from '../../journey/services/JourneyRecommendationService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
@@ -90,6 +91,24 @@ class LessonOutcomeServiceImpl {
             }
 
             const topicId = node.unitId ?? null;
+
+            // A autorização mora aqui pelo mesmo motivo que mora em
+            // `markNodeCompleted`: este também é um ponto de escrita — XP,
+            // sequência e meta diária. A tela chama os dois em sequência, e
+            // guardar só o segundo piorou o primeiro: com o nó recusado nunca
+            // entrando em `completedNodeIds`, o predicado de reincidência
+            // abaixo nunca fecha, e o mesmo deep link pagaria para sempre.
+            //
+            // A régua é `unlockRule`, não o status cru, e a checagem vem antes
+            // do despacho por tipo — as duas coisas espelham `markNodeCompleted`
+            // de propósito: duas réguas diferentes para a mesma pergunta
+            // voltariam a divergir.
+            if (!JourneyRecommendationService.isNodeUnlocked(node, snapshot.progress)) {
+                console.warn(
+                    `[LessonOutcomeService] Nó "${nodeId}" não está destravado; nada será premiado.`
+                );
+                return { rewarded: false, topicId };
+            }
 
             if (node.type === 'review') {
                 return { rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId };

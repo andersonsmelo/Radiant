@@ -226,18 +226,55 @@ O cabeçalho do próprio `LessonOutcomeService` documenta a restrição de ordem
 forma correta é a segunda: o caminho de pagamento consulta o mesmo predicado
 `isNodeUnlocked`.
 
+**Corrigido em 2026-08-07 pela segunda forma.** `LessonOutcomeService.resolveNode`
+consulta `JourneyRecommendationService.isNodeUnlocked` antes do despacho por
+tipo — mesma régua e mesma posição que `markNodeCompleted`, de propósito: duas
+réguas para a mesma pergunta voltariam a divergir. A reavaliação do card e o
+registro da tentativa continuam acontecendo na recusa, porque recusar o
+pagamento não é recusar a informação.
+
 **Menor — celebração em conclusão recusada.**
 [`CheckpointScreen.tsx:163`](../radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx)
-chama `setCompleted(true)` incondicionalmente depois do serviço, então um
-checkpoint recusado ainda exibe "CONQUISTA DESBLOQUEADA". Só por deep link, sem
+chamava `setCompleted(true)` incondicionalmente depois do serviço, então um
+checkpoint recusado ainda exibia "CONQUISTA DESBLOQUEADA". Só por deep link, sem
 dano a dado. Antes da correção a celebração era verdadeira porque a escrita
-acontecia; agora é mentira.
+acontecia; depois dela virou mentira. **Corrigido em 2026-08-07:** a recusa da
+guarda não é exceção — `markNodeCompleted` devolve o snapshot inalterado —, então
+a tela passou a comparar o nó com o snapshot que voltou e cair no estado de erro
+que já existia.
+
+Corrigir isso exigiu reescrever o teste que **fixava o defeito**:
+`JourneyNodeCompletionGuard.test.tsx` afirmava a comemoração falsa e registrava
+em comentário que "corrigir isso é outra decisão". Um teste de contrato que fixa
+a forma defeituosa transforma a correção em regressão aparente.
+
+No caminho, um dublê desonesto: o fixture `completedSnapshot` de
+`CheckpointScreen.flow.test.tsx` não tinha campo `progress`, então a checagem
+nova estourava e o **caminho feliz passava pelo `catch`** — verde pelo ramo
+oposto ao que o teste diz cobrir. O fixture ganhou o `progress` que o serviço
+real devolve.
+
+### Prova de mutação da correção de 2026-08-07
+
+Um ramo por vez, sobre código já verde, revertido e conferido com `git diff`:
+
+| Ramo neutralizado | Teste que fica vermelho |
+| --- | --- |
+| Guarda `isNodeUnlocked` em `LessonOutcomeService.resolveNode` | `não premia um nó cuja regra de desbloqueio não está satisfeita` e `recusa todas as vezes, e não só a primeira` (2 vermelhos; as duas contraprovas seguem verdes) |
+| Checagem do snapshot em `CheckpointScreen.handleComplete` | `markNodeCompleted authorization boundary › recusa o checkpoint bloqueado alcançado pela tela de checkpoint` |
+
+As contraprovas que impedem a guarda de virar "nada mais paga" são
+`premia quando a mesma regra está satisfeita` e
+`reavalia o card mesmo quando a autorização recusa o pagamento`.
 
 **Menor — teste que não pode falhar.** Em `PlanetInteriorScreen.test.tsx:135` e
 no equivalente de `GalaxyInteriorScreen`, o caso "não deixa o timeout sobreviver
 à virada da preferência" começa com `resolved: false`, então nada chegou a ser
 agendado e a remoção do `clearTimeout` não o derruba. O requisito de limpeza
 segue coberto pelo teste de desmontagem; este caso duplica o do gate.
+**Não corrigido em 2026-08-07** — ficou fora do escopo escolhido para a onda, e
+segue aberto. Não há risco de produto: é um teste que não mede o que promete,
+não um defeito no app.
 
 **Pré-existente, não introduzido aqui:** `buildInitialProgress`
 (`JourneyProgressService.ts:302`) semeia `completedNodeIds` a partir de

@@ -339,12 +339,14 @@ describe('markNodeCompleted authorization boundary', () => {
     const completeButton = await screen.findByText('Concluir checkpoint');
     fireEvent.press(completeButton);
 
-    // A tela comemora de qualquer jeito — ela não olha status, e corrigir isso
-    // é outra decisão. Esperar pela comemoração é o que garante que a escrita
-    // já aconteceu (ou foi recusada) antes de olhar o armazenamento.
+    // A tela não pode comemorar o que foi recusado. Ela compara o nó com o
+    // snapshot que o serviço devolveu e cai no estado de erro que já existia,
+    // e é esse estado que serve de ponto de sincronia: ele só aparece depois
+    // de a escrita ter ido e voltado.
     await waitFor(() => {
-      expect(screen.getByText('CONQUISTA DESBLOQUEADA')).toBeTruthy();
+      expect(screen.getByText('Nao foi possivel concluir o checkpoint agora.')).toBeTruthy();
     });
+    expect(screen.queryByText('CONQUISTA DESBLOQUEADA')).toBeNull();
 
     const progress = storedTrack();
     expect(progress.completedNodeIds).not.toContain(CHECKPOINT_NODE_ID);

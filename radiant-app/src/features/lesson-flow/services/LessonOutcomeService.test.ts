@@ -1,5 +1,5 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
-import type { JourneySnapshot } from '../../../types/journey';
+import type { JourneySnapshot, UnlockRule } from '../../../types/journey';
 import type { SRCardState } from '../../../types/spacedRepetition';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
@@ -88,6 +88,7 @@ function snapshotWith(overrides: {
     nodeType: 'lesson' | 'review';
     completedNodeIds?: string[];
     pendingReviewNodeIds?: string[];
+    unlockRule?: UnlockRule;
 }): JourneySnapshot {
     return {
         track: {
@@ -107,6 +108,7 @@ function snapshotWith(overrides: {
                             lessonId: 'lesson-1',
                             blockId: block.id,
                             status: 'available',
+                            ...(overrides.unlockRule ? { unlockRule: overrides.unlockRule } : {}),
                         },
                     ],
                 },
@@ -513,5 +515,100 @@ describe('LessonOutcomeService — evidência por interação', () => {
         expect(outcome.rewarded).toBe(true);
 
         errorSpy.mockRestore();
+    });
+
+    describe('autorização do pagamento', () => {
+        // A guarda de conquista mora em JourneyProgressService.markNodeCompleted,
+        // que a tela chama DEPOIS deste serviço. Como o nó recusado nunca entra
+        // em completedNodeIds, o predicado de reincidência (`!includes(nodeId)`)
+        // nunca fecha e o mesmo deep link pagaria para sempre. Por isso a
+        // autorização precisa existir também aqui: este serviço é a outra
+        // escrita do mesmo fluxo.
+        const lockedRule: UnlockRule = { requiresNodeIds: ['node:checkpoint-1'] };
+
+        it('não premia um nó cuja regra de desbloqueio não está satisfeita', async () => {
+            mockedJourney.getSnapshot.mockResolvedValue(
+                snapshotWith({ nodeId: 'node:reward-1', nodeType: 'lesson', unlockRule: lockedRule })
+            );
+            const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+            const outcome = await LessonOutcomeService.recordCompletion({
+                block,
+                nodeId: 'node:reward-1',
+                confirmedAnswers: { 'lesson-1-question': true },
+            });
+
+            expect(outcome.rewarded).toBe(false);
+            expect(outcome.award).toBeNull();
+            expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
+            expect(mockedDailyGoal.recordQuizCompletion).not.toHaveBeenCalled();
+
+            warnSpy.mockRestore();
+        });
+
+        it('recusa todas as vezes, e não só a primeira', async () => {
+            // O defeito não era pagar uma vez: era pagar sempre, porque a recusa
+            // da conquista impede o nó de entrar na lista que desligava o
+            // pagamento. Três tentativas, zero pagamentos.
+            mockedJourney.getSnapshot.mockResolvedValue(
+                snapshotWith({ nodeId: 'node:reward-1', nodeType: 'lesson', unlockRule: lockedRule })
+            );
+            const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+            for (let tentativa = 0; tentativa < 3; tentativa += 1) {
+                const outcome = await LessonOutcomeService.recordCompletion({
+                    block,
+                    nodeId: 'node:reward-1',
+                    confirmedAnswers: { 'lesson-1-question': true },
+                });
+                expect(outcome.rewarded).toBe(false);
+            }
+
+            expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
+
+            warnSpy.mockRestore();
+        });
+
+        it('premia quando a mesma regra está satisfeita', async () => {
+            // Contraprova: sem ela, uma guarda que recusasse tudo passaria nos
+            // dois testes acima.
+            mockedJourney.getSnapshot.mockResolvedValue(
+                snapshotWith({
+                    nodeId: 'node:reward-1',
+                    nodeType: 'lesson',
+                    unlockRule: lockedRule,
+                    completedNodeIds: ['node:checkpoint-1'],
+                })
+            );
+
+            const outcome = await LessonOutcomeService.recordCompletion({
+                block,
+                nodeId: 'node:reward-1',
+                confirmedAnswers: { 'lesson-1-question': true },
+            });
+
+            expect(outcome.rewarded).toBe(true);
+            expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        });
+
+        it('reavalia o card mesmo quando a autorização recusa o pagamento', async () => {
+            // Recusar o pagamento não é recusar a informação: o recall aconteceu
+            // e o SM-2 precisa saber, igual à lição refeita.
+            mockedJourney.getSnapshot.mockResolvedValue(
+                snapshotWith({ nodeId: 'node:reward-1', nodeType: 'lesson', unlockRule: lockedRule })
+            );
+            const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+            await LessonOutcomeService.recordCompletion({
+                block,
+                nodeId: 'node:reward-1',
+                confirmedAnswers: { 'lesson-1-question': true },
+            });
+
+            expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
+            expect(mockedAttempts.append).toHaveBeenCalledTimes(1);
+
+            warnSpy.mockRestore();
+        });
     });
 });

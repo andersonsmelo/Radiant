@@ -132,6 +132,11 @@ const completedSnapshot = {
       },
     ],
   },
+  // O `progress` não é decoração: a tela lê `completedNodeIds` para saber se a
+  // conquista foi mesmo gravada, porque a guarda de autorização recusa
+  // devolvendo o snapshot inalterado em vez de lançar. Sem este campo o dublê
+  // fazia a tela estourar e o caminho feliz passava pelo `catch`.
+  progress: { completedNodeIds: ['lesson-1', 'checkpoint-1'], pendingSyncEvents: [] },
   nextRecommendedNode: null,
 } as any;
 
