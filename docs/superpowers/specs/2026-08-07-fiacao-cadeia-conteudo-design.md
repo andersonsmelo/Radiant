@@ -24,10 +24,24 @@ Medido em 2026-08-07 contra o código e o disco, não contra documento herdado.
 ### As pontas são quatro, e a quarta não existe
 
 **Ponta A — taxonomia.** Fiação real e pequena. `mapErrors` precisa de `map`,
-`taxonomyIds` e `catalogIds`; os três estão em disco
-(`content-manifest/taxonomy-catalog-map.json` com 16 entradas,
-`Conteúdo/taxonomia/{estrelas,planetas,galaxias}.json`,
-`Conteúdo/governança/catalog-payload.json`). Falta o ponto de entrada.
+`taxonomyIds` e `catalogIds`; os três estão em disco:
+
+| Entrada | Arquivo | Medido |
+| --- | --- | --- |
+| `map` | `content-manifest/taxonomy-catalog-map.json` | 16 entradas, chaves `taxonomyId`/`catalogId`/`rationale` |
+| `taxonomyIds` | `Conteúdo/taxonomia/{galaxias,planetas,estrelas}.json` | 3 + 6 + 6 objetos, cada um com `id` |
+| `catalogIds` | `Conteúdo/governança/wave-1-priority-tracks.json` | 3 tracks, união de `lessonIds` = **18 ids, dos quais 16 com prefixo `ai-lesson:`** (`lesson-1` e `lesson-2` não têm o prefixo, e `mapErrors` só exige entrada no mapa para os que têm) |
+
+Falta o ponto de entrada.
+
+> **Correção de 2026-08-07, depois da primeira versão deste spec.** A fonte de
+> `catalogIds` estava escrita como `Conteúdo/governança/catalog-payload.json`,
+> herdado do documento de estado. É o arquivo errado: ele tem 209 KB e um
+> `tracks` indexado por tipo de conteúdo (`casos`, `checkpoints`, `microlições`,
+> `quizzes`, `reviews`), e **nenhum** identificador `ai-lesson:`. Os 16 vivem em
+> `wave-1-priority-tracks.json`. O erro sobreviveu ao self-review porque a
+> conferência que fiz foi de **existência** do arquivo, não de conteúdo — e
+> existência só responde à pergunta "o arquivo existe".
 
 **Ponta B — manifesto de excertos.** O `rightsClass` **tem** produtor real:
 `Conteúdo/fontes/library-catalog.json` classifica 36 fontes — 17 `blocked`,
@@ -151,7 +165,13 @@ As claims do piloto precisam de vetor, então passam pelo mesmo embedder do
 runner 3.
 
 **Ponta A é independente.** `validate-taxonomy-map.mjs` ganha `main()` que carrega
-os três arquivos que já estão em disco. Não depende do piloto e pode ir antes.
+os três arquivos da tabela da Ponta A. Não depende do piloto e pode ir antes.
+
+Uma restrição que vale para ela e não para o resto: dois dos três arquivos vivem
+sob `Conteúdo/`, que está em `.git/info/exclude`. O runner da Ponta A roda
+localmente e no `loop validate`, mas **não** em CI, porque as entradas dele não
+são versionadas. Os artefatos da cadeia principal não têm esse problema: nascem
+em `content-manifest/`, que é rastreado.
 
 ### 2.2 Quando o validador estrito entra no gate
 
