@@ -80,5 +80,39 @@ class ClaimsDoPilotoTest(unittest.TestCase):
                 )
 
 
+class LoadAllowedTest(unittest.TestCase):
+    def test_allowed_liga_id_ao_hash_do_manifesto(self):
+        linhas = [
+            {"id": "excerpt:a:p1:c1", "hash": "h1", "rightsClass": "authorized"},
+            {"id": "excerpt:b:p2:c1", "hash": "h2", "rightsClass": "authorized"},
+        ]
+        self.assertEqual(
+            MODULE.load_allowed(linhas), {"excerpt:a:p1:c1": "h1", "excerpt:b:p2:c1": "h2"}
+        )
+
+
+class ResolveAnchorsTest(unittest.TestCase):
+    def setUp(self):
+        self.allowed = {"excerpt:a:p1:c1": "h1"}
+
+    def test_carimba_o_hash_vigente_do_manifesto(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertEqual(r["claims"][0]["hash"], "h1")
+        self.assertEqual(r["claims"][0]["excerptId"], "excerpt:a:p1:c1")
+        self.assertEqual(r["unanchored"], 0)
+
+    def test_excerto_fora_do_manifesto_conta_como_nao_ancorado(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:fantasma:p9:c9"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertIsNone(r["claims"][0]["hash"])
+        self.assertEqual(r["unanchored"], 1)
+
+    def test_a_saida_nao_carrega_similarity(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertNotIn("similarity", r["claims"][0])
+
+
 if __name__ == "__main__":
     unittest.main()
