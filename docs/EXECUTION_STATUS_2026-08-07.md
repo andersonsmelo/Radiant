@@ -54,7 +54,8 @@ separadamente) e `declaredFiles` conferido contra os arquivos do commit — com
 | `7006d9c` | **Task 4** — as 8 claims do piloto, escritas à mão |
 | `b76c30b` | Task 4, rodada 1: testes restaurados e claims sem ancoragem fiel corrigidas |
 | `97c01d2` | Task 4, rodada 2: a paráfrase que tinha sido realocada em vez de removida |
-| `1a815f4` | **Task 5** — ancoragem por resolução de hash. **Não revisada**, ver abaixo |
+| `1a815f4` | **Task 5** — ancoragem por resolução de hash. Entrou **não revisada**; revisada em 2026-08-07, ver abaixo |
+| `cb795e1` | **Task 6** — o validador estrito de ancoragem entra no gate. **A cadeia fecha** |
 
 ### A re-revisão da onda voltou, e quase se perdeu
 
@@ -173,12 +174,21 @@ consertou o **balão de fala**, fixando a largura da coluna do personagem em
 coluna de largura fixa que não cresce com `fontScale` — não foi tocado, e não há
 teste de escala de fonte no componente.
 
-## Fiação da cadeia de conteúdo — brainstorming FECHADO, 4 de 6 tasks entregues
+## Fiação da cadeia de conteúdo — FECHADA, 5 das 6 tasks entregues
 
-**Estado: spec aprovado e commitado, plano escrito, Tasks 1, 2, 4 e 5 entregues.
-Falta a revisão da Task 5 e a Task 6 inteira.** O gate do
-`superpowers:brainstorming` foi vencido em 2026-08-07; o do
-`superpowers:writing-plans` também.
+**Estado: spec aprovado e commitado, plano escrito, Tasks 1, 2, 4, 5 e 6
+entregues, e a Task 5 revisada. A única não entregue é a Task 3 (embeddings),
+adiada por decisão do dono.** A cadeia roda ponta a ponta em dado real e o
+validador estrito está no gate. O gate do `superpowers:brainstorming` foi vencido
+em 2026-08-07; o do `superpowers:writing-plans` também.
+
+A cadeia viva, em um comando por elo — extrair → manifesto → claims → ancorar →
+validar. O último elo é o que o `loop validate` executa a cada run, como
+`content-anchoring-data`:
+
+```bash
+node scripts/content/validate-content-anchoring.mjs
+```
 
 - Spec: [`docs/superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md`](superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md)
 - Plano: [`docs/superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md`](superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md)
@@ -232,20 +242,73 @@ seguem funções puras com testes, sem ponto de entrada, até existir motor loca
 fonte `blocked` que já estava extraída em disco — e o descarte deles é o teste de
 aceitação da decisão de filtrar na entrada.
 
-### A lacuna: a Task 5 não foi revisada
+### A lacuna da Task 5 foi paga: a revisão rodou, e achou uma coisa
 
-O commit `1a815f4` entrou na branch **sem revisão**. O implementador foi
+O commit `1a815f4` entrou na branch **sem revisão** — o implementador foi
 interrompido durante o `loop validate`, com zero validadores concluídos, e o
-controlador fechou o run (`validating → closed`) para liberar o lock de escritor,
-que estava bloqueando toda outra sessão de IA.
+controlador fechou o run (`validating → closed`) para liberar o lock de escritor.
+A dívida foi paga em 2026-08-07, antes de a Task 6 começar. A prova de mutação do
+Step 7 do plano rodou, e o resultado foi comparado item a item com o previsto:
 
-O que se sabe sobre ele: **11 testes verdes** (os 7 anteriores mais 4 novos), diff
-**puramente aditivo** (92 inserções, zero remoções), `cosine`, `best_anchor` e
-`anchor_report` intactos, e a saída com as chaves exatas que a Task 6 espera.
+| Mutação | Previsto pelo plano | Observado |
+| --- | --- | --- |
+| `if hash_vigente is None:` → `if False:` | 1 vermelho, `test_excerto_fora_do_manifesto_conta_como_nao_ancorado` | **Confere.** 1 vermelho, e na asserção certa (`unanchored`, não `hash`) |
+| `load_allowed` devolvendo `{}` | **2** vermelhos | **Diverge: 1.** Só `test_allowed_liga_id_ao_hash_do_manifesto` |
+| `main()` → `return 0` fixo (**não estava no plano**) | — | **Zero vermelhos. Os 11 seguem verdes** |
 
-O que **não** se sabe: se os testes novos mordem. A prova de mutação do Step 7 do
-plano não foi executada, e nenhum revisor leu o diff. **A próxima sessão revisa a
-Task 5 antes de seguir para a Task 6.**
+As duas divergências são a mesma coisa vista de dois ângulos, e a segunda é o
+achado real. `test_carimba_o_hash_vigente_do_manifesto` não fica vermelho porque
+ele injeta o `allowed` como literal no próprio caso e **nunca chama
+`load_allowed`** — a mutação não podia alcançá-lo. A composição
+`load_allowed → resolve_anchors`, que é exatamente o que o `main()` faz, não tem
+teste nenhum. E a terceira passada mede a consequência: **o código de saída do
+runner da Task 5 não é mordido por teste algum.** Ele pode declarar sucesso sobre
+uma aula não ancorada e a suíte inteira fica verde.
+
+Isso **não** é defeito de comportamento — o runner está correto no dado real,
+verificado nesta revisão: `unanchored: 0`, saída 0, e o artefato commitado é
+**byte a byte idêntico** ao que o runner reproduz hoje, o que prova que ele é
+saída de máquina e não arquivo escrito à mão. É lacuna de regressão, e está na
+lista de "Aberto" abaixo com o teste que a fecha.
+
+O resto do que se sabia se confirmou: 11 testes verdes, diff puramente aditivo,
+`cosine`, `best_anchor` e `anchor_report` intactos.
+
+**Lição, e ela generaliza para todo runner deste repositório:** cobertura de
+função pura não se propaga para o invólucro que a chama. O valor que o processo
+devolve é a única superfície pela qual o gate decide, e é a mais fácil de deixar
+sem teste justamente por parecer trivial. A prova de mutação de um runner inclui
+o **retorno do ponto de entrada**, não só os ramos das funções que ele chama.
+
+### A Task 6 fechou a cadeia, e a ordem foi respeitada
+
+O commit `cb795e1` deu `main()` ao `validate-content-anchoring.mjs` e **só então**
+pôs o validador no `.loop/project.yaml`, como `content-anchoring-data`. A ordem
+não era negociável: o validador rodou **fora** do gate contra o dado real
+primeiro — 1 aula, 296 excertos, `porAula` vazio, saída 0 — porque um validador
+que reprova, posto no gate, trava `loop validate` para todas as IAs do projeto.
+
+Ausência de dado reprova: com zero aulas ancoradas, `main()` devolve 1. Verde só
+pode significar "validei dados"; um validador que passa por vacuidade mente para
+o gate exatamente enquanto a cadeia estiver quebrada, que é quando ele precisaria
+falar.
+
+Duas provas de mutação, previsto e observado conferidos:
+
+| Mutação | Observado |
+| --- | --- |
+| `if (aulas.length === 0)` → `if (false)` | **1 vermelho de 8**, o da aula ausente. Os outros sete verdes |
+| `return total === 0 ? 0 : 1` → `return 0` | **1 vermelho de 8**, o do hash divergente |
+
+A segunda passada não estava no plano. Ela entrou porque a revisão da Task 5,
+feita imediatamente antes, mediu a lacuna descrita acima — e o achado de uma task
+virou instrumento na task seguinte. Aqui o retorno **é** mordido: a Task 6 não
+herda o defeito da Task 5.
+
+O validador `content-anchoring` existente **fica**. Ele roda `node --test` sobre
+os testes unitários; o novo roda o validador contra o dado em disco. Os dois
+medem coisas diferentes, e o `loop validate` desta entrega executou os **12**
+validadores com `passed`, o novo entre eles.
 
 ### O eixo comercial dos direitos, e ninguém o lê
 
@@ -320,8 +383,16 @@ jurídico, e está em aberto.**
 
 **Engenharia, com host ou janela:**
 
-10. **Revisar a Task 5 e executar a Task 6** — o próximo passo da fiação. Ver o
-    prompt de continuidade abaixo.
+10. **O `main()` de `anchor-lesson.py` não é mordido por teste nenhum.** Achado
+    da revisão da Task 5, medido: com `return 0` fixo no lugar de
+    `return 0 if relatorio["unanchored"] == 0 else 1`, os 11 testes da suíte
+    seguem verdes. Não há defeito hoje — o runner está correto no dado real e o
+    artefato em disco é reprodutível byte a byte. É lacuna de **regressão**: um
+    dia alguém quebra a fiação entre `load_allowed` e `resolve_anchors` e a
+    suíte não reclama. Fecha com dois testes no molde dos que a Task 6 já tem,
+    chamando `main()` sobre uma árvore de fixture: um que exige `0` com tudo
+    ancorado e um que exige `1` com um `excerptId` fora do manifesto. Trabalho
+    de engenharia pequeno, sem decisão do dono pendente.
 11. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
     durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
     concorrente, e o flow morre em timeout que parece defeito do app.
@@ -334,6 +405,12 @@ jurídico, e está em aberto.**
     futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~Revisar a Task 5 e executar a Task 6~~ — feitos, nesta ordem. A revisão rodou
+  a prova de mutação que faltava e produziu um achado próprio, que virou o item
+  10 acima; a Task 6 entrou em `cb795e1` com o validador rodado fora do gate
+  antes de entrar nele. **A fiação da cadeia de conteúdo está concluída** — só a
+  Task 3 (embeddings) segue adiada, e ela não bloqueia nada.
 
 - ~~Seção 1 do design da fiação~~ — aprovada pelo dono, com relatório de descarte.
 - ~~`.loop/project.yaml` aponta para o documento errado~~ — corrigido em
