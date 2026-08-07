@@ -21,6 +21,15 @@ export function anchoringErrors({ aula, manifesto }) {
       erros.push(`excerto sem autorizacao de direitos: ${claim.excerptId}`);
       continue;
     }
+    // Segundo eixo, independente do primeiro. Ancorar e usar o excerto como
+    // REFERENCIA: a claim e escrita original e o excerto e a prova. Reproduzir
+    // o trecho ou adapta-lo sao direitos diferentes e mais caros, e nao sao
+    // exercidos aqui — por isso a checagem e por `factual-reference`, e nao por
+    // `commercialUse`, que o catalogo registra e nenhum consumidor lia.
+    if (!(linha.allowedUses ?? []).includes('factual-reference')) {
+      erros.push(`fonte nao permite uso como referencia factual: ${claim.excerptId}`);
+      continue;
+    }
     if (linha.hash !== claim.hash) {
       erros.push(`hash divergente para ${claim.excerptId}: fonte mudou desde a ancoragem`);
     }

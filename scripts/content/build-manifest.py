@@ -10,16 +10,24 @@ from pathlib import Path
 MANIFEST_FIELDS = ("id", "sourceSlug", "pageStart", "pageEnd")
 MOTIVO_SEM_CATALOGO = "fonte ausente do catalogo de direitos"
 MOTIVO_SEM_AUTORIZACAO = "classe de direitos nao autorizada"
+MOTIVO_SEM_REFERENCIA_FACTUAL = "fonte nao permite uso como referencia factual"
+
+# Ancorar uma afirmacao num excerto e usa-lo como REFERENCIA: a claim e escrita
+# original e o excerto e a prova, nao o conteudo entregue. `verbatim-excerpt` e
+# `adaptation` sao direitos diferentes e mais caros, e a cadeia de hoje nao
+# exerce nenhum dos dois — nada do texto da fonte entra em artefato rastreado.
+USO_DE_REFERENCIA_FACTUAL = "factual-reference"
 
 
 def excerpt_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def manifest_line(excerpt: dict, rights_class: str) -> dict:
+def manifest_line(excerpt: dict, rights_class: str, allowed_uses: list[str]) -> dict:
     line = {field: excerpt[field] for field in MANIFEST_FIELDS}
     line["hash"] = excerpt_hash(excerpt["text"])
     line["rightsClass"] = rights_class
+    line["allowedUses"] = list(allowed_uses)
     return line
 
 
@@ -37,7 +45,11 @@ def rights_by_slug(catalog: dict, normalize) -> dict[str, dict]:
         tabela[slug] = {
             "sourceId": fonte["id"],
             "rightsClass": fonte["rightsClass"],
-            "commercialUse": fonte.get("commercialUse"),
+            # `commercialUse` era o unico campo de direitos que viajava daqui, e
+            # nao tinha um unico leitor a jusante: era validado na escrita do
+            # catalogo e nunca mais lido. `allowedUses` e o eixo que decide o
+            # que pode ser feito com o excerto, entao e ele que viaja.
+            "allowedUses": list(fonte.get("allowedUses") or []),
         }
     return tabela
 
@@ -69,7 +81,18 @@ def partition_excerpts(excerpts: list[dict], rights: dict) -> tuple[list[dict], 
                 }
             )
             continue
-        linhas.append(manifest_line(excerpt, info["rightsClass"]))
+        if USO_DE_REFERENCIA_FACTUAL not in info["allowedUses"]:
+            descartes.append(
+                {
+                    "excerptId": excerpt["id"],
+                    "sourceSlug": excerpt["sourceSlug"],
+                    "sourceId": info["sourceId"],
+                    "rightsClass": info["rightsClass"],
+                    "motivo": MOTIVO_SEM_REFERENCIA_FACTUAL,
+                }
+            )
+            continue
+        linhas.append(manifest_line(excerpt, info["rightsClass"], info["allowedUses"]))
     return linhas, descartes
 
 

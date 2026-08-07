@@ -6,7 +6,12 @@ import path from 'node:path';
 import { anchoringErrors, main } from './validate-content-anchoring.mjs';
 
 const manifesto = [
-  { id: 'excerpt:fundamentos:p12:c1', hash: 'abc', rightsClass: 'authorized' },
+  {
+    id: 'excerpt:fundamentos:p12:c1',
+    hash: 'abc',
+    rightsClass: 'authorized',
+    allowedUses: ['factual-reference', 'verbatim-excerpt'],
+  },
 ];
 
 test('aula com toda afirmacao ancorada passa', () => {
@@ -31,9 +36,27 @@ test('MUTACAO: hash divergente reprova', () => {
 });
 
 test('MUTACAO: excerto nao autorizado reprova', () => {
-  const restrito = [{ id: 'excerpt:x:p1:c1', hash: 'abc', rightsClass: 'reference-only' }];
+  const restrito = [
+    { id: 'excerpt:x:p1:c1', hash: 'abc', rightsClass: 'reference-only', allowedUses: [] },
+  ];
   const aula = { claims: [{ excerptId: 'excerpt:x:p1:c1', hash: 'abc' }] };
   assert.match(anchoringErrors({ aula, manifesto: restrito })[0], /sem autorizacao de direitos/);
+});
+
+// `rightsClass` e `allowedUses` sao eixos independentes. Esta fonte passa na
+// classe e ainda assim nao pode sustentar afirmacao: o direito que ela concede
+// e outro. Inferir o segundo eixo do primeiro foi o defeito que este caso trava,
+// e a mensagem precisa nomear o USO, nao a classe — senao o operador vai
+// procurar o erro no lugar errado do catalogo.
+test('MUTACAO: excerto de fonte que nao permite referencia factual reprova', () => {
+  const soAdaptacao = [
+    { id: 'excerpt:x:p1:c1', hash: 'abc', rightsClass: 'authorized', allowedUses: ['adaptation'] },
+  ];
+  const aula = { claims: [{ excerptId: 'excerpt:x:p1:c1', hash: 'abc' }] };
+  assert.match(
+    anchoringErrors({ aula, manifesto: soAdaptacao })[0],
+    /nao permite uso como referencia factual/,
+  );
 });
 
 test('MUTACAO: excerto fora do manifesto reprova', () => {
@@ -71,9 +94,20 @@ test('MUTACAO: main devolve 1 quando nao ha aula ancorada nenhuma', () => {
   assert.equal(main(raiz), 1);
 });
 
+// As duas linhas de manifesto abaixo carregam `allowedUses` de proposito. Sem
+// ele, o caso do caminho feliz reprova e o caso do hash divergente passa a
+// devolver 1 pela causa errada — um teste que casa so o codigo de saida nao
+// distingue "reprovou pelo hash" de "reprovou por direitos".
+const LINHA_PERMITIDA = {
+  id: 'excerpt:a:p1:c1',
+  hash: 'h1',
+  rightsClass: 'authorized',
+  allowedUses: ['factual-reference'],
+};
+
 test('MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada', () => {
   const raiz = arvoreComAula({
-    manifesto: [{ id: 'excerpt:a:p1:c1', hash: 'h1', rightsClass: 'authorized' }],
+    manifesto: [LINHA_PERMITIDA],
     aula: { lessonId: 'ai-lesson:x', claims: [{ claim: 'x', excerptId: 'excerpt:a:p1:c1', hash: 'h1' }] },
   });
   assert.equal(main(raiz), 0);
@@ -81,7 +115,7 @@ test('MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada', () 
 
 test('MUTACAO: main devolve 1 quando o hash do excerto mudou desde a ancoragem', () => {
   const raiz = arvoreComAula({
-    manifesto: [{ id: 'excerpt:a:p1:c1', hash: 'OUTRO', rightsClass: 'authorized' }],
+    manifesto: [{ ...LINHA_PERMITIDA, hash: 'OUTRO' }],
     aula: { lessonId: 'ai-lesson:x', claims: [{ claim: 'x', excerptId: 'excerpt:a:p1:c1', hash: 'h1' }] },
   });
   assert.equal(main(raiz), 1);

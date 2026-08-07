@@ -27,7 +27,7 @@ class BuildManifestTest(unittest.TestCase):
         self.assertNotEqual(primeiro, segundo)
 
     def test_linha_nao_carrega_o_texto(self):
-        linha = MODULE.manifest_line(EXCERPT, "authorized")
+        linha = MODULE.manifest_line(EXCERPT, "authorized", ["factual-reference"])
         self.assertNotIn("text", linha)
         self.assertEqual(linha["hash"], MODULE.excerpt_hash(EXCERPT["text"]))
         self.assertEqual(linha["rightsClass"], "authorized")
@@ -37,8 +37,8 @@ class BuildManifestTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             destino = Path(tmp) / "excerpts.jsonl"
             MODULE.write_manifest(
-                [MODULE.manifest_line(EXCERPT, "authorized"),
-                 MODULE.manifest_line(outro, "authorized")],
+                [MODULE.manifest_line(EXCERPT, "authorized", ["factual-reference"]),
+                 MODULE.manifest_line(outro, "authorized", ["factual-reference"])],
                 destino,
             )
             ids = [json.loads(l)["id"] for l in destino.read_text().splitlines()]
@@ -53,12 +53,25 @@ CATALOGO = {
             "primaryPath": "Conteúdo/Fonte-Autorizada.pdf",
             "rightsClass": "authorized",
             "commercialUse": False,
+            "allowedUses": ["factual-reference", "verbatim-excerpt"],
         },
         {
             "id": "library-source:bloqueada",
             "primaryPath": "Conteúdo/Fonte-Bloqueada.pdf",
             "rightsClass": "blocked",
             "commercialUse": False,
+            "allowedUses": [],
+        },
+        # Autorizada na classe e ainda assim proibida de sustentar afirmacao.
+        # A combinacao nao existe no catalogo real de hoje, e existe aqui porque
+        # `rightsClass` e `allowedUses` sao eixos independentes: inferir o
+        # segundo do primeiro foi exatamente o defeito que este run corrige.
+        {
+            "id": "library-source:so-consulta",
+            "primaryPath": "Conteúdo/Fonte-So-Consulta.pdf",
+            "rightsClass": "authorized",
+            "commercialUse": True,
+            "allowedUses": ["adaptation"],
         },
     ],
 }
@@ -94,6 +107,32 @@ class FiltroDeDireitosTest(unittest.TestCase):
     def test_a_linha_aceita_carrega_a_classe_da_fonte(self):
         linhas, _ = MODULE.partition_excerpts([self.autorizado], self.direitos)
         self.assertEqual(linhas[0]["rightsClass"], "authorized")
+
+    def test_a_linha_aceita_carrega_os_usos_permitidos_da_fonte(self):
+        # `commercialUse` era o unico campo de direitos que o codigo carregava, e
+        # ninguem a jusante o lia. `allowedUses` e o que decide o que pode ser
+        # feito com o excerto, entao e ele que viaja com a linha.
+        linhas, _ = MODULE.partition_excerpts([self.autorizado], self.direitos)
+        self.assertEqual(linhas[0]["allowedUses"], ["factual-reference", "verbatim-excerpt"])
+
+    def test_fonte_sem_referencia_factual_nao_gera_linha(self):
+        so_consulta = dict(EXCERPT, id="excerpt:s:p1:c1", sourceSlug="fonte-so-consulta")
+        linhas, descartes = MODULE.partition_excerpts([so_consulta], self.direitos)
+        self.assertEqual(linhas, [])
+        self.assertEqual(descartes[0]["rightsClass"], "authorized")
+        self.assertIn("referencia factual", descartes[0]["motivo"])
+
+    def test_o_descarte_por_uso_nomeia_causa_diferente_do_descarte_por_classe(self):
+        # Os tres motivos precisam ser distinguiveis: um teste que casasse a
+        # contagem ficaria verde com qualquer um dos ramos morto, e a mensagem e
+        # a unica coisa que diz ao operador ONDE consertar — no catalogo de
+        # direitos, na classe, ou no `excerptId` da claim.
+        so_consulta = dict(EXCERPT, id="excerpt:s:p1:c1", sourceSlug="fonte-so-consulta")
+        _, descartes = MODULE.partition_excerpts(
+            [self.bloqueado, self.orfao, so_consulta], self.direitos
+        )
+        motivos = {d["motivo"] for d in descartes}
+        self.assertEqual(len(motivos), 3, f"motivos colidiram: {motivos}")
 
 
 if __name__ == "__main__":
