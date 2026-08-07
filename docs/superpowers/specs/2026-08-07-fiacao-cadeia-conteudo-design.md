@@ -151,18 +151,40 @@ Todos seguem o padrão já existente em `extract-source.py`: `argparse`, `main()
 | --- | --- | --- | --- |
 | 1 | `extract-source.py` *(já tem entrada)* | PDF do piloto | `Conteúdo/extrações/<slug>/{pages,excerpts}.json` |
 | 2 | `build-manifest.py` **+ `main()`** | excerpts + `library-catalog.json` | `content-manifest/excerpts/manifest.jsonl` + `descartes.json` |
-| 3 | `embed-excerpts.py` **+ `main()`** | manifesto + textos | `content-manifest/embeddings/*.json` |
-| 4 | *(à mão)* | — | `content-manifest/lessons/<aula>.claims.json` |
-| 5 | `anchor-lesson.py` **+ `main()`** | claims + embeddings + manifesto | `content-manifest/lessons/<aula>.anchored.json` |
+| 3 | `embed-excerpts.py` — **adiado**, ver abaixo | — | — |
+| 4 | *(à mão)* | excertos do piloto | `content-manifest/lessons/<aula>.claims.json`, cada claim já com seu `excerptId` |
+| 5 | `anchor-lesson.py` **+ `main()`** | claims + manifesto | `content-manifest/lessons/<aula>.anchored.json` |
 | 6 | `validate-content-anchoring.mjs` **+ `main()`** | aula ancorada + manifesto | nada; sai não-zero se houver erro |
 
-O runner 2 é onde a decisão da Seção 1 mora. O runner 5 monta o `allowed` que
-`anchor_report` exige, que é exatamente `{excerptId: hash}` lido do manifesto —
-assim a autorização e o hash entram na ancoragem pela mesma porta, e não por
-duas.
+O runner 2 é onde a decisão da Seção 1 mora. O runner 5 resolve o `hash` de cada
+`excerptId` contra o manifesto — assim a autorização e o hash entram na aula
+ancorada pela mesma porta, e não por duas.
 
-As claims do piloto precisam de vetor, então passam pelo mesmo embedder do
-runner 3.
+### A cadeia fecha sem motor de embedding
+
+> **Decisão do dono, 2026-08-07: rodar somente local.** Medido no mesmo dia:
+> `ollama` não está instalado, nada responde em `127.0.0.1:11434`, não há `torch`
+> nem `sentence-transformers`, e o `lms` do LM Studio responde *"daemon is not
+> running and no valid installation could be found"*. O modelo de 8,7 GB em
+> `~/.lmstudio` é `gemma-4-E4B-it`, um instruct — não serviria como embedder
+> nem com runtime.
+
+Isso não bloqueia a cadeia, porque **`anchoringErrors` nunca lê um vetor**. As
+quatro checagens dele são: a claim tem `excerptId`; o `excerptId` está no
+manifesto; a linha é `authorized`; o hash bate. Similaridade não entra em
+nenhuma.
+
+Os embeddings existem para `anchor_report` **descobrir** qual excerto sustenta
+cada claim. O piloto não precisa descobrir: são 5–10 afirmações escritas por um
+humano que está lendo os excertos, e esse humano atribui o `excerptId` direto.
+Para esse volume a atribuição humana é **mais** confiável que busca por cosseno,
+não menos — similaridade acha o excerto mais parecido, não o que sustenta a
+afirmação.
+
+`embed-excerpts.py` e `anchor_report` permanecem funções puras com testes, sem
+ponto de entrada. Ganham runner quando existir um motor de embedding local, e a
+cadeia viva será o instrumento contra o qual medi-lo — o mesmo raciocínio que já
+adiou o extrator de claims por LLM.
 
 **Ponta A é independente.** `validate-taxonomy-map.mjs` ganha `main()` que carrega
 os três arquivos da tabela da Ponta A. Não depende do piloto e pode ir antes.

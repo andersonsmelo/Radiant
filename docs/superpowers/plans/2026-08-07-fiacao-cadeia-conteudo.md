@@ -4,9 +4,9 @@
 
 **Goal:** dar ponto de entrada às funções puras de conteúdo entregues pelas Tasks 1–8 e produzir o primeiro dado real ancorado, para que o validador estrito passe a ter o que validar.
 
-**Architecture:** nenhuma função pura muda. Cada uma ganha um runner fino no mesmo arquivo — carregadores testáveis mais um `main()` — seguindo o padrão que já existe em `extract-source.py`. A cadeia roda em sequência: extrair → manifesto (filtrado por direitos) → embeddings → claims à mão → ancorar → validar. O validador estrito só entra no `.loop/project.yaml` na última task, quando já existe dado real para ele reprovar ou aprovar.
+**Architecture:** nenhuma função pura muda. Cada uma ganha um runner fino no mesmo arquivo — carregadores testáveis mais um `main()` — seguindo o padrão que já existe em `extract-source.py`. A cadeia roda em sequência: extrair → manifesto (filtrado por direitos) → claims à mão com `excerptId` → resolver os hashes → validar. Nenhum passo toca a rede. O validador estrito só entra no `.loop/project.yaml` na última task, quando já existe dado real para ele reprovar ou aprovar.
 
-**Tech Stack:** Python 3 (`pypdf==6.9.2`, `openai==1.75.0`, `unittest`), Node 20 (`node --test`), CLI `loop`.
+**Tech Stack:** Python 3 (`pypdf==6.9.2`, `unittest`), Node 20 (`node --test`), CLI `loop`. Nada de cliente de IA nesta passada.
 
 **Spec:** [`docs/superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md`](../specs/2026-08-07-fiacao-cadeia-conteudo-design.md)
 
@@ -36,17 +36,26 @@
 | `scripts/content/build-manifest.test.py` | testes do filtro de direitos e do relatório de descarte | 2 |
 | `content-manifest/excerpts/manifest.jsonl` | manifesto de excertos citáveis (rastreado) | 2 |
 | `content-manifest/excerpts/descartes.json` | quem ficou de fora e por quê (rastreado) | 2 |
-| `scripts/content/embed-excerpts.py` | funções puras (inalteradas) + `embed_missing` + `main` | 3 |
-| `scripts/content/embed-excerpts.test.py` | teste de reaproveitamento com dublê de embedder | 3 |
-| `content-manifest/lessons/<aula>.claims.json` | afirmações humanas do piloto (rastreado) | 4 |
-| `scripts/content/anchor-lesson.py` | funções puras (inalteradas) + `load_allowed` + `main` | 5 |
-| `scripts/content/anchor-lesson.test.py` | teste de `load_allowed` e do relatório | 5 |
+| `content-manifest/lessons/<aula>.claims.json` | afirmações humanas do piloto, cada uma com seu `excerptId` (rastreado) | 4 |
+| `scripts/content/anchor-lesson.py` | funções puras (inalteradas) + `load_allowed` + `resolve_anchors` + `main` | 5 |
+| `scripts/content/anchor-lesson.test.py` | testes de `load_allowed`, `resolve_anchors` e da forma das claims | 4, 5 |
 | `content-manifest/lessons/<aula>.anchored.json` | saída da ancoragem (rastreado) | 5 |
 | `scripts/content/validate-content-anchoring.mjs` | `anchoringErrors` (puro, inalterado) + `loadLesson` + `main` | 6 |
 | `scripts/content/validate-content-anchoring.test.mjs` | testes existentes + testes do runner | 6 |
 | `.loop/project.yaml` | novo validador `content-anchoring-data` | 6 |
 
-`content-manifest/embeddings/` **não é versionado** — os vetores são deriváveis do texto mais o modelo, `needs_embedding` já invalida por hash, e `anchoringErrors` não lê vetor nenhum. Task 3 acrescenta a linha ao `.gitignore`. Versioná-los somaria alguns MB por fonte a um repositório de 26,3 MB sem comprar nenhuma garantia.
+> **Task 3 adiada em 2026-08-07, por decisão do dono de rodar somente local.**
+> Não há motor de embedding disponível na máquina — medido: `ollama` ausente,
+> nada em `127.0.0.1:11434`, sem `torch` nem `sentence-transformers`, e o `lms`
+> do LM Studio sem daemon instalado; o modelo de 8,7 GB em `~/.lmstudio` é um
+> instruct, não um embedder. A cadeia fecha assim mesmo, porque
+> **`anchoringErrors` nunca lê um vetor**: ele checa `excerptId` presente,
+> pertencimento ao manifesto, `rightsClass` e hash. Os embeddings serviam apenas
+> para `anchor_report` **descobrir** a âncora por similaridade, e num piloto de
+> 5–10 claims escritas à mão o humano que lê os excertos atribui o `excerptId`
+> melhor do que o cosseno. `embed-excerpts.py` e `anchor_report` seguem funções
+> puras com testes, sem runner, até existir motor local — e nada em
+> `content-manifest/embeddings/` chega a ser criado nesta passada.
 
 ---
 
@@ -466,233 +475,88 @@ Confira `code == VALIDATION_PASSED`. Depois, em chamadas separadas e conferindo 
 
 ---
 
-### Task 3: Runner dos embeddings de excerto
+### Task 3: Runner dos embeddings de excerto — ADIADA
 
-**Files:**
-- Modify: `scripts/content/embed-excerpts.py` (hoje 30 linhas), `.gitignore`
-- Test: `scripts/content/embed-excerpts.test.py`
+**Não execute esta task.** Adiada em 2026-08-07 por decisão do dono de rodar
+somente local, e não há motor de embedding na máquina. A justificativa completa,
+com as medições, está na seção "File Structure" acima.
 
-**Interfaces:**
-- Consumes: `content-manifest/excerpts/manifest.jsonl` da Task 2 — lê `id` e `hash` de cada linha.
-- Produces: `embed_missing(lines: list[dict], texts: dict[str, str], root: Path, embed: Callable[[str], list[float]]) -> dict` com as chaves `embedded` e `skipped`; arquivos em `content-manifest/embeddings/<id com ':' virado '_'>.json` no formato `{"excerptId", "hash", "embedding"}` que a Task 5 consome.
+O que fica pendente, para quando existir um embedder local: dar `main()` a
+`scripts/content/embed-excerpts.py` (reaproveitando por hash via `needs_embedding`),
+acrescentar `content-manifest/embeddings/` ao `.gitignore`, e dar `main()` à
+ancoragem por similaridade de `anchor_report` em `anchor-lesson.py`. As duas
+funções continuam puras e testadas; o que falta é ponto de entrada, e a cadeia
+viva desta passada será o instrumento contra o qual medir a similaridade quando
+ela entrar.
 
-- [ ] **Step 1: Abrir o run do Loop**
-
-```bash
-node scripts/loop/abrir.mjs "Runner de embeddings de excerto com reaproveitamento por hash" scripts/content/embed-excerpts.py scripts/content/embed-excerpts.test.py .gitignore
-```
-
-- [ ] **Step 2: Escrever os testes que falham**
-
-Acrescente a `scripts/content/embed-excerpts.test.py`:
-
-```python
-class EmbedMissingTest(unittest.TestCase):
-    def setUp(self):
-        self.linhas = [{"id": "excerpt:a:p1:c1", "hash": "h1"}]
-        self.textos = {"excerpt:a:p1:c1": "Os raios X foram descobertos em 1895."}
-
-    def test_primeira_passada_chama_e_segunda_reaproveita(self):
-        chamadas = []
-
-        def embed(texto):
-            chamadas.append(texto)
-            return [0.1, 0.2, 0.3]
-
-        with tempfile.TemporaryDirectory() as tmp:
-            raiz = Path(tmp)
-            primeiro = MODULE.embed_missing(self.linhas, self.textos, raiz, embed)
-            # A prova de que o recurso EXISTIU, antes de afirmar que ele sumiu.
-            self.assertEqual(primeiro["embedded"], 1)
-            self.assertEqual(len(chamadas), 1)
-
-            segundo = MODULE.embed_missing(self.linhas, self.textos, raiz, embed)
-            self.assertEqual(segundo["skipped"], 1)
-            self.assertEqual(segundo["embedded"], 0)
-            self.assertEqual(len(chamadas), 1)
-
-    def test_hash_diferente_reembeda(self):
-        chamadas = []
-
-        def embed(texto):
-            chamadas.append(texto)
-            return [0.1]
-
-        with tempfile.TemporaryDirectory() as tmp:
-            raiz = Path(tmp)
-            MODULE.embed_missing(self.linhas, self.textos, raiz, embed)
-            self.assertEqual(len(chamadas), 1)
-            MODULE.embed_missing(
-                [{"id": "excerpt:a:p1:c1", "hash": "h2"}], self.textos, raiz, embed
-            )
-            self.assertEqual(len(chamadas), 2)
-
-    def test_excerto_sem_texto_estoura_em_vez_de_embedar_vazio(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaises(KeyError):
-                MODULE.embed_missing(self.linhas, {}, Path(tmp), lambda t: [0.1])
-```
-
-- [ ] **Step 3: Rodar os testes para verificar que falham**
-
-Run: `python3 scripts/content/embed-excerpts.test.py`
-Expected: FAIL com `AttributeError: module 'embed_excerpts' has no attribute 'embed_missing'`
-
-- [ ] **Step 4: Implementar**
-
-Acrescente a `scripts/content/embed-excerpts.py`:
-
-```python
-import argparse
-import sys
-
-from openai import OpenAI
-
-MODELO_DE_EMBEDDING = "text-embedding-3-small"
-
-
-def embed_missing(lines: list[dict], texts: dict[str, str], root: Path, embed) -> dict:
-    embedded, skipped = 0, 0
-    for line in lines:
-        if not needs_embedding(line["id"], line["hash"], root):
-            skipped += 1
-            continue
-        save_excerpt_embedding(line["id"], line["hash"], embed(texts[line["id"]]), root)
-        embedded += 1
-    return {"embedded": embedded, "skipped": skipped}
-
-
-def load_manifest(path: Path) -> list[dict]:
-    return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
-
-
-def load_texts(extractions: Path) -> dict[str, str]:
-    textos: dict[str, str] = {}
-    for arquivo in sorted(extractions.glob("*/excerpts.json")):
-        for excerpt in json.loads(arquivo.read_text(encoding="utf-8"))["excerpts"]:
-            textos[excerpt["id"]] = excerpt["text"]
-    return textos
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--manifest", required=True)
-    parser.add_argument("--extractions", required=True)
-    parser.add_argument("--out-dir", required=True)
-    args = parser.parse_args()
-
-    cliente = OpenAI()
-
-    def embed(texto: str) -> list[float]:
-        return cliente.embeddings.create(model=MODELO_DE_EMBEDDING, input=texto).data[0].embedding
-
-    linhas = load_manifest(Path(args.manifest))
-    if not linhas:
-        print(json.dumps({"erro": "manifesto vazio"}, ensure_ascii=False))
-        return 1
-
-    resumo = embed_missing(linhas, load_texts(Path(args.extractions)), Path(args.out_dir), embed)
-    print(json.dumps({"linhas": len(linhas), **resumo}, ensure_ascii=False))
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
-
-`embed_missing` recebe `embed` por parâmetro justamente para que o teste passe um dublê e nenhuma suíte toque a rede.
-
-- [ ] **Step 5: Rodar os testes para verificar que passam**
-
-Run: `python3 scripts/content/embed-excerpts.test.py`
-Expected: PASS, todos.
-
-- [ ] **Step 6: Manter os vetores fora do versionamento**
-
-Acrescente ao `.gitignore` da raiz:
-
-```
-content-manifest/embeddings/
-```
-
-- [ ] **Step 7: Rodar o runner contra o dado real**
-
-```bash
-python3 scripts/content/embed-excerpts.py --manifest content-manifest/excerpts/manifest.jsonl --extractions "Conteúdo/extrações" --out-dir content-manifest/embeddings
-```
-
-Precisa de `OPENAI_API_KEY` no ambiente. Expected: `embedded` igual ao número de linhas do manifesto e `skipped: 0`. Rode **de novo** e confirme `embedded: 0`, `skipped` igual ao total — é o reaproveitamento funcionando em dado real, e é barato de conferir.
-
-- [ ] **Step 8: Prova de mutação**
-
-Troque `if not needs_embedding(...)` por `if False:` e rode `python3 scripts/content/embed-excerpts.test.py`.
-Expected: `test_primeira_passada_chama_e_segunda_reaproveita` vermelho na asserção `segundo["skipped"] == 1`; `test_hash_diferente_reembeda` continua **verde** (ele conta chamadas crescentes). Restaure e confirme. Registre as duas passadas.
-
-- [ ] **Step 9: Commit**
-
-```bash
-git add scripts/content/embed-excerpts.py scripts/content/embed-excerpts.test.py .gitignore
-git commit -m "feat(conteudo): ponto de entrada dos embeddings de excerto"
-```
-
-- [ ] **Step 10: Fechar o run** — sem memória
-
-```bash
-node scripts/loop/fechar.mjs <runId>
-```
-
----
+**A cadeia segue da Task 2 direto para a Task 4.**
 
 ### Task 4: Claims do piloto, escritas à mão
 
 Esta task **não tem código de produção**. O entregável é dado, e a validação é de forma.
 
 **Files:**
-- Create: `content-manifest/lessons/<aulaEscolhida>.claims.json`
+- Create: `content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json`
 - Test: `scripts/content/anchor-lesson.test.py` (só o teste de forma; o runner vem na Task 5)
 
 **Interfaces:**
-- Consumes: `content-manifest/excerpts/manifest.jsonl` (para saber quais excertos existem) e os textos em `Conteúdo/extrações/`.
-- Produces: arquivo no formato `{"lessonId": str, "claims": [{"id": str, "claim": str}]}`. A Task 5 acrescenta `vector` a cada claim em memória; o arquivo em disco **não** guarda vetor.
+- Consumes: `content-manifest/excerpts/manifest.jsonl` (296 linhas, todas do piloto) e os textos em `Conteúdo/extrações/atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca/excerpts.json`.
+- Produces: arquivo no formato `{"lessonId": str, "claims": [{"id": str, "claim": str, "excerptId": str}]}`. A Task 5 resolve o `hash` de cada `excerptId` contra o manifesto. O arquivo em disco **não** guarda hash nem vetor: hash é derivado, e derivado escrito à mão envelhece errado.
 
-- [ ] **Step 1: Escolher a aula do piloto** — decisão humana, não do implementador
+O nó do catálogo é `ai-lesson:qualidade-de-imagem`, escolhido pelo dono em 2026-08-07. Nenhum dos 16 nós `ai-lesson:` é de mamografia, que é o assunto da fonte; este é o mais próximo porque o texto do INCA tem seção substancial de controle de qualidade.
 
-Os 16 nós `ai-lesson:` do catálogo **não incluem mamografia**, que é o assunto da fonte do piloto. Quem escrever as claims escolhe o nó mais próximo e registra a escolha no relatório da task. Recomendação: `ai-lesson:qualidade-de-imagem`, porque o texto do INCA tem seção substancial de controle de qualidade e os excertos vão sustentar afirmações sobre isso. Alternativa defensável: `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica`.
-
-Se nenhum nó servir, **pare e reporte** em vez de forçar: um piloto ancorado no nó errado produz dado real e conclusão falsa, que é pior que não ter dado.
-
-- [ ] **Step 2: Abrir o run do Loop**
+- [ ] **Step 1: Abrir o run do Loop**
 
 ```bash
-node scripts/loop/abrir.mjs "Claims escritas a mao para o piloto de ancoragem" content-manifest/lessons/<aulaEscolhida>.claims.json scripts/content/anchor-lesson.test.py
+node scripts/loop/abrir.mjs "Claims escritas a mao para o piloto de ancoragem" content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json scripts/content/anchor-lesson.test.py
 ```
 
-- [ ] **Step 3: Escrever 5 a 10 afirmações contra excertos reais**
+- [ ] **Step 2: Ler os excertos e escrever 5 a 10 afirmações**
 
-Leia os excertos do piloto em `Conteúdo/extrações/atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca/excerpts.json` e escreva afirmações que o texto **sustente**. Formato:
+Leia `Conteúdo/extrações/atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca/excerpts.json` e escolha excertos que sustentem afirmações sobre qualidade de imagem. Para cada afirmação, registre o `id` do excerto que a sustenta — ele tem a forma `excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p<N>:c<M>`.
 
 ```json
 {
   "lessonId": "ai-lesson:qualidade-de-imagem",
   "claims": [
-    { "id": "claim:qualidade-de-imagem:1", "claim": "O controle de qualidade em mamografia inclui avaliação periódica do equipamento." }
+    {
+      "id": "claim:qualidade-de-imagem:1",
+      "claim": "O controle de qualidade em mamografia inclui avaliação periódica do equipamento.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p42:c1"
+    }
   ]
 }
 ```
 
-Regras: afirmação factual e verificável, uma ideia por claim, sem número que o texto não traga, e **sem copiar frase do original** — a claim é afirmação, o excerto é a prova.
+Regras, e cada uma existe porque o contrário produz dado real com conclusão falsa:
 
-- [ ] **Step 4: Escrever o teste de forma**
+- A afirmação é factual e verificável, uma ideia por claim.
+- **Sem número que o excerto não traga.** Se o texto não diz o valor, a claim não diz.
+- **Sem copiar frase do original.** A claim é afirmação; o excerto é a prova. Copiar transforma a claim numa citação e a ancoragem em tautologia.
+- O `excerptId` tem de existir no manifesto. Se o excerto que você quer não está lá, ele é de fonte não autorizada — escolha outro, não force.
 
-Crie `scripts/content/anchor-lesson.test.py` se não existir, ou acrescente:
+- [ ] **Step 3: Escrever o teste de forma**
+
+Crie `scripts/content/anchor-lesson.test.py` com o preâmbulo de `importlib` copiado de `build-manifest.test.py`, apontando para `anchor-lesson.py`, e acrescente:
 
 ```python
 class ClaimsDoPilotoTest(unittest.TestCase):
-    def test_arquivo_de_claims_tem_a_forma_que_o_runner_espera(self):
-        caminho = Path(__file__).resolve().parents[2] / "content-manifest" / "lessons"
-        arquivos = sorted(caminho.glob("*.claims.json"))
-        self.assertTrue(arquivos, "nenhum arquivo de claims encontrado")
-        for arquivo in arquivos:
+    def setUp(self):
+        raiz = Path(__file__).resolve().parents[2]
+        self.pasta = raiz / "content-manifest" / "lessons"
+        self.manifesto = {
+            json.loads(l)["id"]
+            for l in (raiz / "content-manifest" / "excerpts" / "manifest.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if l.strip()
+        }
+
+    def test_ha_pelo_menos_um_arquivo_de_claims(self):
+        self.assertTrue(sorted(self.pasta.glob("*.claims.json")))
+
+    def test_forma_do_arquivo_de_claims(self):
+        for arquivo in sorted(self.pasta.glob("*.claims.json")):
             dados = json.loads(arquivo.read_text(encoding="utf-8"))
             self.assertTrue(dados["lessonId"].startswith("ai-lesson:"))
             self.assertGreaterEqual(len(dados["claims"]), 5)
@@ -700,23 +564,36 @@ class ClaimsDoPilotoTest(unittest.TestCase):
             ids = [c["id"] for c in dados["claims"]]
             self.assertEqual(len(ids), len(set(ids)), "ids de claim repetidos")
             for c in dados["claims"]:
-                self.assertNotIn("vector", c, "o arquivo em disco nao guarda vetor")
                 self.assertTrue(c["claim"].strip())
+                self.assertNotIn("hash", c, "hash e derivado; a Task 5 resolve")
+                self.assertNotIn("vector", c, "o arquivo em disco nao guarda vetor")
+
+    def test_todo_excerptId_existe_no_manifesto(self):
+        for arquivo in sorted(self.pasta.glob("*.claims.json")):
+            dados = json.loads(arquivo.read_text(encoding="utf-8"))
+            for c in dados["claims"]:
+                self.assertIn(
+                    c["excerptId"],
+                    self.manifesto,
+                    f"{c['id']} aponta para excerto fora do manifesto",
+                )
 ```
 
-- [ ] **Step 5: Rodar o teste**
+O terceiro teste é o que impede o defeito mais provável desta task: um `excerptId` digitado com o número de página errado passa despercebido até a Task 6, e lá aparece como "excerto fora do manifesto" sem dizer que a causa foi um dedo trocado.
+
+- [ ] **Step 4: Rodar o teste**
 
 Run: `python3 scripts/content/anchor-lesson.test.py`
-Expected: PASS.
+Expected: PASS, os três.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add content-manifest/lessons/ scripts/content/anchor-lesson.test.py
 git commit -m "feat(conteudo): claims do piloto escritas a mao sobre fonte autorizada"
 ```
 
-- [ ] **Step 7: Fechar o run** — sem memória
+- [ ] **Step 6: Fechar o run** — sem memória
 
 ```bash
 node scripts/loop/fechar.mjs <runId>
@@ -726,22 +603,28 @@ node scripts/loop/fechar.mjs <runId>
 
 ### Task 5: Runner da ancoragem
 
+Sem motor de embedding (Task 3 adiada), a ancoragem é resolução de hash, não busca por similaridade: o `excerptId` já veio escolhido pelo humano na Task 4, e o runner só precisa provar que ele está no manifesto e carimbar o hash vigente.
+
 **Files:**
 - Modify: `scripts/content/anchor-lesson.py` (hoje 36 linhas)
 - Test: `scripts/content/anchor-lesson.test.py`
-- Create (rastreado): `content-manifest/lessons/<aula>.anchored.json`
+- Create (rastreado): `content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json`
 
 **Interfaces:**
-- Consumes: manifesto da Task 2 (`id`, `hash`), embeddings da Task 3 (`{"excerptId","hash","embedding"}`), claims da Task 4 (`{"lessonId","claims":[{"id","claim"}]}`).
-- Produces: `load_allowed(manifest_lines: list[dict]) -> dict[str, str]` mapeando `excerptId -> hash`; `main() -> int`; arquivo `{"lessonId", "claims": [...], "unanchored": int}` que a Task 6 valida. `anchor_report` permanece inalterada.
+- Consumes: manifesto da Task 2 (`id`, `hash`), claims da Task 4 (`{"lessonId","claims":[{"id","claim","excerptId"}]}`).
+- Produces: `load_allowed(manifest_lines: list[dict]) -> dict[str, str]` mapeando `excerptId -> hash`; `resolve_anchors(claims: list[dict], allowed: dict[str, str]) -> dict` no formato `{"claims": [{"claim", "excerptId", "hash"}], "unanchored": int}`; `main() -> int`. `cosine`, `best_anchor` e `anchor_report` permanecem **inalteradas e sem runner**.
+
+O formato de saída de `resolve_anchors` é deliberadamente o mesmo de `anchor_report` menos o campo `similarity`, para que a Task 6 e o `anchoringErrors` não precisem saber qual dos dois produziu o arquivo.
 
 - [ ] **Step 1: Abrir o run do Loop**
 
 ```bash
-node scripts/loop/abrir.mjs "Runner da ancoragem de claims em excertos autorizados" scripts/content/anchor-lesson.py scripts/content/anchor-lesson.test.py content-manifest/lessons
+node scripts/loop/abrir.mjs "Runner da ancoragem por resolucao de hash" scripts/content/anchor-lesson.py scripts/content/anchor-lesson.test.py content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json
 ```
 
 - [ ] **Step 2: Escrever os testes que falham**
+
+Acrescente a `scripts/content/anchor-lesson.test.py`:
 
 ```python
 class LoadAllowedTest(unittest.TestCase):
@@ -754,15 +637,28 @@ class LoadAllowedTest(unittest.TestCase):
             MODULE.load_allowed(linhas), {"excerpt:a:p1:c1": "h1", "excerpt:b:p2:c1": "h2"}
         )
 
-    def test_relatorio_so_ancora_no_que_esta_em_allowed(self):
-        vetores = {"excerpt:a:p1:c1": [1.0, 0.0], "excerpt:fora:p1:c1": [0.0, 1.0]}
-        allowed = {"excerpt:a:p1:c1": "h1"}
-        claims = [{"claim": "x", "vector": [0.0, 1.0]}]
-        relatorio = MODULE.anchor_report(claims, vetores, allowed)
-        # o vetor da claim aponta para o excerto FORA do allowed; ainda assim
-        # a ancora tem de cair no unico permitido, e nunca no de fora.
-        self.assertEqual(relatorio["claims"][0]["excerptId"], "excerpt:a:p1:c1")
-        self.assertEqual(relatorio["claims"][0]["hash"], "h1")
+
+class ResolveAnchorsTest(unittest.TestCase):
+    def setUp(self):
+        self.allowed = {"excerpt:a:p1:c1": "h1"}
+
+    def test_carimba_o_hash_vigente_do_manifesto(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertEqual(r["claims"][0]["hash"], "h1")
+        self.assertEqual(r["claims"][0]["excerptId"], "excerpt:a:p1:c1")
+        self.assertEqual(r["unanchored"], 0)
+
+    def test_excerto_fora_do_manifesto_conta_como_nao_ancorado(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:fantasma:p9:c9"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertIsNone(r["claims"][0]["hash"])
+        self.assertEqual(r["unanchored"], 1)
+
+    def test_a_saida_nao_carrega_similarity(self):
+        claims = [{"id": "claim:1", "claim": "x", "excerptId": "excerpt:a:p1:c1"}]
+        r = MODULE.resolve_anchors(claims, self.allowed)
+        self.assertNotIn("similarity", r["claims"][0])
 ```
 
 - [ ] **Step 3: Rodar os testes para verificar que falham**
@@ -780,28 +676,28 @@ import json
 import sys
 from pathlib import Path
 
-from openai import OpenAI
-
-MODELO_DE_EMBEDDING = "text-embedding-3-small"
-
 
 def load_allowed(manifest_lines: list[dict]) -> dict[str, str]:
     return {linha["id"]: linha["hash"] for linha in manifest_lines}
 
 
-def load_excerpt_vectors(root: Path) -> dict[str, list[float]]:
-    vetores: dict[str, list[float]] = {}
-    for arquivo in sorted(root.glob("*.json")):
-        dados = json.loads(arquivo.read_text(encoding="utf-8"))
-        vetores[dados["excerptId"]] = dados["embedding"]
-    return vetores
+def resolve_anchors(claims: list[dict], allowed: dict[str, str]) -> dict:
+    linhas, sem_ancora = [], 0
+    for claim in claims:
+        excerpt_id = claim["excerptId"]
+        hash_vigente = allowed.get(excerpt_id)
+        if hash_vigente is None:
+            sem_ancora += 1
+        linhas.append(
+            {"claim": claim["claim"], "excerptId": excerpt_id, "hash": hash_vigente}
+        )
+    return {"claims": linhas, "unanchored": sem_ancora}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--claims", required=True)
     parser.add_argument("--manifest", required=True)
-    parser.add_argument("--embeddings", required=True)
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
 
@@ -811,22 +707,8 @@ def main() -> int:
         for l in Path(args.manifest).read_text(encoding="utf-8").splitlines()
         if l.strip()
     ]
-    allowed = load_allowed(linhas)
-    vetores = load_excerpt_vectors(Path(args.embeddings))
+    relatorio = resolve_anchors(aula["claims"], load_allowed(linhas))
 
-    cliente = OpenAI()
-    claims = [
-        {
-            "claim": c["claim"],
-            "id": c["id"],
-            "vector": cliente.embeddings.create(
-                model=MODELO_DE_EMBEDDING, input=c["claim"]
-            ).data[0].embedding,
-        }
-        for c in aula["claims"]
-    ]
-
-    relatorio = anchor_report(claims, vetores, allowed)
     saida = {"lessonId": aula["lessonId"], **relatorio}
     destino = Path(args.out)
     destino.parent.mkdir(parents=True, exist_ok=True)
@@ -834,38 +716,44 @@ def main() -> int:
 
     print(
         json.dumps(
-            {"lessonId": aula["lessonId"], "claims": len(claims), "unanchored": relatorio["unanchored"]},
+            {
+                "lessonId": aula["lessonId"],
+                "claims": len(relatorio["claims"]),
+                "unanchored": relatorio["unanchored"],
+            },
             ensure_ascii=False,
         )
     )
     return 0 if relatorio["unanchored"] == 0 else 1
-```
 
-`anchor_report` devolve `claim` e não o `id` da claim; a saída fica com o texto, que é o que o validador precisa para o humano localizar o problema. Não mude `anchor_report` para carregar o `id` — isso é mudança de função pura já testada, e não é necessário nesta task.
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
 
 - [ ] **Step 5: Rodar os testes para verificar que passam**
 
 Run: `python3 scripts/content/anchor-lesson.test.py`
-Expected: PASS, todos.
+Expected: PASS, todos — inclusive os três da Task 4.
 
 - [ ] **Step 6: Rodar o runner contra o dado real**
 
 ```bash
-python3 scripts/content/anchor-lesson.py --claims content-manifest/lessons/<aula>.claims.json --manifest content-manifest/excerpts/manifest.jsonl --embeddings content-manifest/embeddings --out content-manifest/lessons/<aula>.anchored.json
+python3 scripts/content/anchor-lesson.py --claims content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json --manifest content-manifest/excerpts/manifest.jsonl --out content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json
 ```
 
-Expected: `unanchored: 0`. Se não for zero, **não baixe a régua**: significa que alguma claim não encontrou excerto de apoio, e a correção é reescrever a claim (Task 4), não afrouxar o runner.
+Expected: `unanchored: 0`. Se não for zero, **não baixe a régua**: algum `excerptId` da Task 4 não está no manifesto, e a correção é o `excerptId`, não o runner.
 
 - [ ] **Step 7: Prova de mutação**
 
-Troque `load_allowed` para devolver `{}` e rode os testes.
-Expected: `test_allowed_liga_id_ao_hash_do_manifesto` e `test_relatorio_so_ancora_no_que_esta_em_allowed` vermelhos. Restaure e confirme o verde.
+Troque `if hash_vigente is None:` por `if False:` e rode os testes.
+Expected: `test_excerto_fora_do_manifesto_conta_como_nao_ancorado` vermelho na asserção de `unanchored`; os outros verdes. Restaure e confirme o verde geral. Depois troque `load_allowed` para devolver `{}`: espere `test_allowed_liga_id_ao_hash_do_manifesto` e `test_carimba_o_hash_vigente_do_manifesto` vermelhos. Registre as quatro passadas.
 
 - [ ] **Step 8: Commit**
 
 ```bash
 git add scripts/content/anchor-lesson.py scripts/content/anchor-lesson.test.py content-manifest/lessons/
-git commit -m "feat(conteudo): ponto de entrada da ancoragem de claims"
+git commit -m "feat(conteudo): ponto de entrada da ancoragem por resolucao de hash"
 ```
 
 - [ ] **Step 9: Fechar o run** — com memória (primeira aula ancorada em dado real), seguindo o ritual do Step 10 da Task 2
@@ -1059,4 +947,4 @@ Crie `docs/EXECUTION_STATUS_2026-<data>.md` dizendo qual documento substitui, re
 - O eixo comercial dos direitos. As 4 fontes `authorized` são todas `commercialUse: false` e nenhum código lê esse campo. Não bloqueia a cadeia; bloqueia embarcar excerto verbatim num app com entitlement premium, e é decisão do dono.
 - O escopo dos 16 nós de taxonomia (`taxonomyId: null`). A Task 1 pode expor erros do mapa; o plano manda **reportar**, não consertar.
 
-**Dependências entre tasks:** 1 é independente e pode ir em qualquer momento. 2 → 3 → 5 → 6 é uma cadeia estrita. 4 depende de 2 (precisa dos excertos reais para escrever claims sustentáveis) e bloqueia 5.
+**Dependências entre tasks:** 1 é independente e pode ir em qualquer momento. **3 está adiada.** A cadeia estrita é 2 → 4 → 5 → 6: a 4 precisa dos excertos e do manifesto da 2 para escolher `excerptId` que exista, e a 5 precisa das claims da 4.
