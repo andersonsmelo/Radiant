@@ -1,8 +1,11 @@
 # Eixo técnico da taxonomia — design
 
-**Status:** ⚠️ **RASCUNHO — apresentado ao dono em 2026-08-07 e NÃO aprovado.**
-A conversa terminou na pergunta de aprovação. Nada foi implementado, e nada deve
-ser implementado antes que este documento seja aprovado.
+**Status:** ✅ **APROVADO pelo dono em 2026-08-07.** Os dois julgamentos que
+seguravam o documento foram decididos — ver *"Os dois julgamentos"* abaixo — e
+uma premissa foi corrigida na medição que precedeu a aprovação: existem **dois
+catálogos** deste universo, e este desenho raciocinava sobre um. Ver *"Os dois
+catálogos"*. Implementação pelo
+[plano de 2026-08-07](../plans/2026-08-07-taxonomia-eixo-tecnico.md).
 
 Ele existe porque o desenho estava inteiro no contexto de uma sessão, que é o
 armazenamento menos durável da pilha — a mesma lição que abriu o
@@ -64,7 +67,7 @@ galaxy-fisica  (active, existente)
   planet-fisica-da-radiacao      ACTIVE    ← 4 lições
   planet-producao-e-protecao     ACTIVE    ← 2 lições
 
-galaxy-tecnologia  (ACTIVE, nova)
+galaxy-tecnologia  (ACTIVE, id já reservado no app — título "Tecnologia em Imagem")
   planet-equipamento             ACTIVE    ← 3 lições
   planet-modalidades             ACTIVE    ← 3 lições
   planet-imagem-na-pratica       ACTIVE    ← 2 lições
@@ -88,19 +91,59 @@ planeta tem `id`, `galaxyId`, `slug`, `title`, `description`, `trackKind:
 
 4 + 2 + 3 + 3 + 2 + 2 = **16**.
 
-## Os dois julgamentos que precisam de aprovação explícita
+## Os dois catálogos — a premissa que a medição corrigiu
 
-**Estes são os pontos em que a conversa parou**, e são a razão de este documento
-não estar aprovado:
+Medido em 2026-08-07, antes da aprovação. Há **duas** descrições deste universo,
+e elas não se encontram:
 
-1. **`preservacao-de-alimentos-por-irradicao` não é imagem nem equipamento.** É
-   aplicação não-médica da radiação. Foi posta com `profissao` sob "profissão e
-   aplicações", o rótulo mais honesto encontrado. A alternativa considerada era
-   forçá-la na física.
-2. **`galaxy-fisica` passa de 2 para 4 planetas**, quebrando o ritmo de 2 por
-   galáxia que as três galáxias existentes seguem. A alternativa era criar uma
-   segunda galáxia de física, recusada porque a fronteira entre "física da
-   radiação" e "formação de imagem" seria sutil demais para o usuário.
+| | `Conteúdo/taxonomia/*.json` | `radiant-app/src/data/galaxy-catalog.ts` |
+| --- | --- | --- |
+| Quem lê | só validadores (`validate-foundation`, `validate-taxonomy-map`, testes) | as três telas de galáxia — **é o que o usuário vê** |
+| Galáxias | anatomia, fisica, patologias | anatomia, fisica, **casos**, **tecnologia** |
+| Título de `galaxy-fisica` | "Fundamentos" | "Física Radiológica" |
+| Planetas | 2 + 2 + 2 | 5 corpos em anatomia, **0 nas outras três** |
+
+Três consequências, e as três entraram nas decisões abaixo:
+
+1. **`galaxy-tecnologia` não é um id novo.** Já existe em
+   `radiant-app/src/data/galaxy-catalog.ts:204`, com título *"Tecnologia em
+   Imagem"*, emoji, cor, posição no mapa, `status: 'locked'` e `bodies: []` — um
+   slot reservado esperando exatamente este conteúdo. O passo não é *criar*, é
+   *preencher*.
+2. **O "ritmo de 2 planetas por galáxia" vale num arquivo e já está quebrado no
+   outro** — e o custo é só estético: `GalaxyInteriorScreen.tsx:244` itera
+   `galaxy.bodies` sem contagem fixa, e a única sensibilidade a tamanho é o
+   `if (available.length < 2)` da linha 152, que só decide desenhar as linhas de
+   conexão. Nenhum layout depende de serem dois.
+3. **O argumento que recusou a segunda galáxia de física falava do usuário e se
+   apoiava no id.** O usuário nunca vê `galaxy-fisica`; vê "Fundamentos" ou
+   "Física Radiológica". Sob "Fundamentos", os quatro planetas cabem sem
+   fronteira sutil nenhuma.
+
+**Consequência boa para o risco de executar:** como o app lê o outro arquivo, nó
+nascendo `active` aqui **não muda nada para o usuário hoje**. Este desenho move a
+governança, não o produto. A reconciliação dos dois catálogos é trabalho próprio,
+não escopado aqui.
+
+## Os dois julgamentos — DECIDIDOS em 2026-08-07
+
+**Estes eram os pontos em que a conversa parou.** Ambos aprovados pelo dono, com
+a medição acima na mesa:
+
+1. **`preservacao-de-alimentos-por-irradicao` fica em
+   `planet-profissao-e-aplicacoes`.** É aplicação não-médica da radiação — nem
+   imagem nem equipamento. O planeta já se chama "profissão e aplicações", então
+   ela não é exceção escondida: o nome do planeta declara que ali cabe aplicação.
+   A alternativa considerada, forçá-la na física, foi recusada.
+2. **`galaxy-fisica` passa de 2 para 4 planetas.** O custo é estético e
+   pedagógico, e nada mais — medido no renderizador, acima. A alternativa de uma
+   segunda galáxia de física foi recusada: além da fronteira sutil, ela levaria o
+   JSON a 5 galáxias contra 4 no app, **ampliando** a divergência entre os dois
+   catálogos em vez de reduzi-la.
+3. **`galaxy-tecnologia` preenche o slot existente e herda o título "Tecnologia
+   em Imagem".** Decisão tomada junto, já com a descoberta do slot. Converte uma
+   divergência em convergência de graça: no dia em que os catálogos forem
+   unificados, esta galáxia já bate nos dois lados.
 
 ## O que não muda
 
@@ -114,8 +157,21 @@ do catálogo; `catalog-payload.json` não é alterado.
 node scripts/content/validate-taxonomy-map.mjs
 ```
 
-Sai de **16 `taxonomyId: null` para zero**, com `errors: []`, e `taxonomyIds`
-sobe de **15 para 21**.
+Sai de **16 `taxonomyId: null` para zero**, com `errors: []`.
+
+Linha de base medida em 2026-08-07, rodando o comando acima **antes** de
+qualquer mudança:
+
+```json
+{ "mapEntries": 16, "taxonomyIds": 15, "catalogIds": 18, "errors": [] }
+```
+
+E `taxonomyIds` sobe por soma explícita: **15 hoje + 1 galáxia + 6 planetas =
+22**. *(Correção de 2026-08-07: a primeira versão deste documento dizia "15 para
+21" — a conta somou os seis filhos e esqueceu o pai. Um critério de saída parece
+consequência mecânica do que ficou decidido acima, e por isso escapa da
+conferência que o mesmo número receberia como premissa. `mapEntries` e
+`catalogIds` não mudam: nenhuma lição entra ou sai.)*
 
 ## Fora deste desenho
 
