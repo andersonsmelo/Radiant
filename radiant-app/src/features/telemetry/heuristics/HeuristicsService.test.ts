@@ -24,20 +24,42 @@ const telemetria = TelemetryService as unknown as {
 
 const HORA = 60 * 60 * 1000;
 
+/**
+ * Os dublês são tipados pelo que as heurísticas realmente leem do histórico, e
+ * não por `any`: um fixture frouxo aqui esconderia mudança de forma no
+ * `TelemetryService` — que é exatamente o acoplamento que estes testes vigiam.
+ */
+interface DiaDublê {
+  reviewed: boolean;
+  goalMet: boolean;
+}
+
+interface MétricasDublê {
+  totals: { reviewDurationMs: number };
+  eventCounts: Record<string, number>;
+}
+
+interface Cenário {
+  days?: DiaDublê[];
+  daily?: MétricasDublê[];
+  ultimoOpen?: number | null;
+  openAnterior?: number | null;
+}
+
 /** Um dia de atividade, com os campos que as heurísticas realmente leem. */
-function dia({ reviewed = false, goalMet = false } = {}) {
+function dia({ reviewed = false, goalMet = false } = {}): DiaDublê {
   return { reviewed, goalMet };
 }
 
 /** Métricas diárias, na forma que `evaluateToday` consome. */
-function metricas({ reviewDurationMs = 0, reviews = 0, learns = 0 } = {}) {
+function metricas({ reviewDurationMs = 0, reviews = 0, learns = 0 } = {}): MétricasDublê {
   return {
     totals: { reviewDurationMs },
     eventCounts: { review_complete: reviews, learn_complete: learns },
   };
 }
 
-function cenario({ days = [], daily = [], ultimoOpen = null, openAnterior = null }) {
+function cenario({ days = [], daily = [], ultimoOpen = null, openAnterior = null }: Cenário) {
   telemetria.getLastAppOpen.mockResolvedValue(ultimoOpen);
   telemetria.getPreviousAppOpen.mockResolvedValue(openAnterior);
   telemetria.getHistory.mockResolvedValue({ days, daily });
@@ -66,7 +88,7 @@ describe('H3 — quebra de hábito', () => {
 
     expect(alerta?.id).toBe('H3');
     expect(alerta?.level).toBe('critical');
-    expect(Number(alerta?.context.hoursAbsent)).toBeCloseTo(72, 0);
+    expect(Number(alerta?.context?.hoursAbsent)).toBeCloseTo(72, 0);
   });
 
   it('MUTACAO: mede o INTERVALO entre lancamentos, nao o tempo desde o ultimo', async () => {
