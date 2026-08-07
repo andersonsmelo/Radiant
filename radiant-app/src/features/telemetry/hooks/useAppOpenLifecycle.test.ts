@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native';
 import { PushService } from '../../push/services/PushService';
 import { TelemetryService } from '../TelemetryService';
-import { useAppOpenLifecycle } from './useAppOpenLifecycle';
+import { useAppOpenLifecycle, __resetAppOpenForTests } from './useAppOpenLifecycle';
 
 jest.mock('../TelemetryService', () => ({
     TelemetryService: {
@@ -16,12 +16,22 @@ jest.mock('../../push/services/PushService', () => ({
     },
 }));
 
+/**
+ * Reencena um LANÇAMENTO DE PROCESSO. É o único jeito honesto de testar a
+ * propriedade que interessa: a trava vive no módulo, então zerá-la é o
+ * equivalente em teste a matar e reabrir o app.
+ */
+function relaunchProcess(): void {
+    __resetAppOpenForTests();
+}
+
 describe('useAppOpenLifecycle', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        relaunchProcess();
     });
 
-    it('emite app_open uma vez por montagem', () => {
+    it('emite app_open no lançamento do processo', () => {
         renderHook(() => useAppOpenLifecycle());
 
         expect(TelemetryService.track).toHaveBeenCalledTimes(1);
@@ -44,10 +54,6 @@ describe('useAppOpenLifecycle', () => {
     });
 
     it('não reemite quando o consumidor re-renderiza', () => {
-        // A versão inline na home legada tinha callbacks de identidade instável
-        // nas dependências do efeito. Cada mudança reemitia `app_open`, e a
-        // contagem que libera o prompt de avaliação e o paywall subia sem que
-        // ninguém tivesse aberto o app.
         const { rerender } = renderHook(() => useAppOpenLifecycle());
 
         rerender({});
@@ -58,14 +64,45 @@ describe('useAppOpenLifecycle', () => {
         expect(PushService.onAppOpen).toHaveBeenCalledTimes(1);
     });
 
-    it('conta uma abertura por montagem, que é a semântica que os gates leem', () => {
-        // Três montagens = três `app_open`. É o que faz o `MIN_APP_OPENS = 3`
-        // do RatingPromptService ser alcançável, e o que o flow Maestro
-        // exercita com três relaunches.
+    it('não reemite quando a home REMONTA dentro do mesmo processo', () => {
+        // Esta é a propriedade que a versão anterior não tinha, e o defeito que
+        // ela deixou passar. `LessonFlowScreen` e a tela de conquista fazem
+        // `router.replace('/(tabs)')` ao concluir: a home remonta a cada lição
+        // terminada. Contando por montagem, três lições numa sessão abriam o
+        // gate de `MIN_APP_OPENS = 3` do `RatingPromptService` sem ninguém ter
+        // aberto o app três vezes.
         renderHook(() => useAppOpenLifecycle()).unmount();
         renderHook(() => useAppOpenLifecycle()).unmount();
         renderHook(() => useAppOpenLifecycle());
 
+        expect(TelemetryService.track).toHaveBeenCalledTimes(1);
+        expect(TelemetryService.markDayOpen).toHaveBeenCalledTimes(1);
+        expect(PushService.onAppOpen).toHaveBeenCalledTimes(1);
+    });
+
+    it('não reemite quando as duas homes montam o hook no mesmo processo', () => {
+        // `HomeScreen` e `JourneyHomeScreen` consomem o mesmo hook. A trava é de
+        // módulo justamente para que dois consumidores não virem duas aberturas.
+        renderHook(() => useAppOpenLifecycle());
+        renderHook(() => useAppOpenLifecycle());
+
+        expect(TelemetryService.track).toHaveBeenCalledTimes(1);
+    });
+
+    it('conta uma abertura por LANÇAMENTO DE PROCESSO — N lançamentos, N eventos', () => {
+        // É o que faz o `MIN_APP_OPENS = 3` do RatingPromptService ser
+        // alcançável, e é o que o flow Maestro exercita: `rating-prompt.yaml`
+        // faz três `launchApp`, e cada um é um processo novo.
+        renderHook(() => useAppOpenLifecycle()).unmount();
+
+        relaunchProcess();
+        renderHook(() => useAppOpenLifecycle()).unmount();
+
+        relaunchProcess();
+        renderHook(() => useAppOpenLifecycle());
+
         expect(TelemetryService.track).toHaveBeenCalledTimes(3);
+        expect(TelemetryService.markDayOpen).toHaveBeenCalledTimes(3);
+        expect(PushService.onAppOpen).toHaveBeenCalledTimes(3);
     });
 });
