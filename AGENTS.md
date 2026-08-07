@@ -47,7 +47,7 @@ toda sessão de IA segue este contrato:
    aprendizado durável; sem ele, `succeeded → closed` é transição válida.
    Nunca edite o vault do Obsidian à mão.
 
-   Quatro armadilhas do fechamento, todas custaram registro perdido aqui:
+   Cinco armadilhas do fechamento, todas custaram registro perdido aqui:
    - **`MEMORY_EVIDENCE_INVALID` tem quatro causas, checadas nesta ordem**
      (`src/memory.ts`): run fora de `succeeded` (linha 26), resumo vazio ou
      acima de **1000 caracteres** (33), evidência ausente ou reprovada (44) e
@@ -74,7 +74,21 @@ toda sessão de IA segue este contrato:
      cada resposta;
    - `loop validate` dispara jest, lint e typecheck. **Não valide enquanto um
      E2E estiver rodando** — mediu-se 2,3× de desaceleração no emulador, e o
-     flow morre em timeout que parece defeito do app.
+     flow morre em timeout que parece defeito do app;
+   - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
+     Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
+     não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica
+     invisível. A causa observada em 2026-08-07 foi o macOS revogar o acesso a
+     `~/Documents` no meio da sessão: `scandir` do vault do Obsidian devolve
+     `EPERM`, e como `brain-links` é um dos 11 validadores, **`loop validate`
+     reprova e nenhum run fecha**. Diagnóstico em um comando: `ls ~/Documents`
+     — se der "Operation not permitted", o problema é permissão do sistema, não
+     do Loop, e **nenhum run deve ser aberto nesse estado**, porque ele prende
+     o lock de escritor sem poder fechar. Correção: Ajustes do Sistema →
+     Privacidade e Segurança → Arquivos e Pastas (ou Acesso Total ao Disco)
+     para o app que roda o agente; é do dono, o agente não resolve. Para ver o
+     erro real por trás do genérico, chame a função direto:
+     `node -e "const { brainSessionStart } = await import('<loop>/dist/src/brain-engine.js'); ..."`.
 2. Marque no roadmap a task executada (como feito com A1) no mesmo run que
    entrega o trabalho, para que a próxima IA veja o estado sem arqueologia.
 3. Mudanças de estado operacional (gates, versões, bloqueios) pertencem ao

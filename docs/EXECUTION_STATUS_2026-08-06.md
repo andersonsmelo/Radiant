@@ -187,3 +187,98 @@ entitlement premium (ADR-2026-08-01), currículo v2, versões e matriz de sign-o
 está em [`EXECUTION_STATUS_2026-08-04.md`](EXECUTION_STATUS_2026-08-04.md) e, antes
 dele, em [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md). Nada
 ali foi tocado por este trabalho.
+
+## Atualização de 2026-08-07
+
+### A re-revisão da onda de correção retornou, e encontrou uma quebra nova
+
+A re-revisão independente da onda `78d7f0d..91445e4` **fechou**. Ela confirmou os
+seis achados por mutação — um ramo por vez, sobre código já verde, numa cópia
+fora do checkout — e a tabela dela bate com a do relatório da onda em todas as
+linhas comparáveis.
+
+E encontrou um defeito **que a onda introduziu**, verificado de novo aqui contra
+o código antes de ser escrito nesta página:
+
+**Importante — pagamento repetível de XP em nó recusado.**
+[`LessonFlowScreen.tsx:158`](../radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx)
+chama `LessonOutcomeService.recordCompletion` **antes** de `markNodeCompleted`.
+O pagamento é decidido por `rewarded = !completedNodeIds.includes(nodeId)`
+(`LessonOutcomeService.resolveNode`) e `GamificationService.recordQuizCompletion`
+não desduplica. Como a guarda nova impede o nó recusado de entrar em
+`completedNodeIds`, o mesmo deep link paga XP, sequência e meta diária **todas as
+vezes**; antes da correção pagava uma vez só. A conquista não vaza — a guarda
+segura o que se propôs a segurar —, mas a correção converteu um vazamento único
+em ilimitado. Medido pela re-revisão executando o deep link três vezes contra os
+serviços reais: `completedNodeIds` limpo, `recordQuizCompletion` chamado 3×.
+
+A causa é de forma, não de descuido: o princípio da correção Crítica — "a
+autorização mora onde a escrita acontece" — foi aplicado a **uma** das duas
+escritas do mesmo fluxo. A varredura enumerou exaustivamente os cinco caminhos
+que chegam à escrita guardada e não perguntou o que mais escreve no mesmo call
+site.
+
+**Atenção ao aplicar a correção:** a re-revisão oferece duas formas e **a
+primeira está errada**. Inverter a ordem para `markNodeCompleted` antes de
+`recordCompletion` quebra todo o caminho feliz — com o nó já em
+`completedNodeIds`, `rewarded` vira `false` e nenhuma conclusão legítima paga.
+O cabeçalho do próprio `LessonOutcomeService` documenta a restrição de ordem. A
+forma correta é a segunda: o caminho de pagamento consulta o mesmo predicado
+`isNodeUnlocked`.
+
+**Menor — celebração em conclusão recusada.**
+[`CheckpointScreen.tsx:163`](../radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx)
+chama `setCompleted(true)` incondicionalmente depois do serviço, então um
+checkpoint recusado ainda exibe "CONQUISTA DESBLOQUEADA". Só por deep link, sem
+dano a dado. Antes da correção a celebração era verdadeira porque a escrita
+acontecia; agora é mentira.
+
+**Menor — teste que não pode falhar.** Em `PlanetInteriorScreen.test.tsx:135` e
+no equivalente de `GalaxyInteriorScreen`, o caso "não deixa o timeout sobreviver
+à virada da preferência" começa com `resolved: false`, então nada chegou a ser
+agendado e a remoção do `clearTimeout` não o derruba. O requisito de limpeza
+segue coberto pelo teste de desmontagem; este caso duplica o do gate.
+
+**Pré-existente, não introduzido aqui:** `buildInitialProgress`
+(`JourneyProgressService.ts:302`) semeia `completedNodeIds` a partir de
+`SpacedRepetitionService.getTrackedLessonIds()` sem checar a cadeia. Se o
+progresso de uma trilha for reconstruído depois de lições estudadas por
+`radiantapp://quiz?lessonId=…`, um nó de última lição pode satisfazer a regra de
+desbloqueio do reward sem o checkpoint. Estreito e multi-passo, mas é o caminho
+que resta para satisfazer a regra sem estudo.
+
+### Pendências abertas em 2026-08-07
+
+- **`app_open` e a transição segundo-plano → primeiro-plano: decisão de produto
+  em aberto.** A correção entregou a versão conservadora (latch de processo: N
+  lançamentos do processo → N eventos; remontagem → nenhum evento extra). A
+  re-revisão confirmou que o gate lê `countEvents('app_open')` do store
+  persistido, então a contagem hoje é estritamente ≤ a de antes — o gate **não**
+  ficou mais fácil de abrir. Contar o retorno do segundo plano definiria o que é
+  uma sessão para o gate de avaliação da loja e poderia afrouxá-lo. Não
+  implementado de propósito.
+
+- **Task 6, Steps 5 e 6 — o bloqueio tem número.** Medido em 2026-08-07: Apple
+  M5, 16 GB de RAM, 10 núcleos, macOS 27.0, **15 GB livres de 460 GB**. O
+  gargalo é disco antes de memória: um modelo 7–9B quantizado em Q4 ocupa ~5 GB
+  e cabe; 12–14B em Q4 ocupa ~8–9 GB e deixa o sistema no limite. O plano fixa
+  `127.0.0.1:11434`, porta do Ollama, que **não está instalado** (sem binário no
+  `PATH`, sem `/Applications/Ollama.app`). Há 6,4 GB de pesos em
+  `~/.lmstudio/models`, mas o app do LM Studio não está em `/Applications` nem
+  em `~/Applications` e nada responde em 1234 — antes de escolher o runtime,
+  vale conferir o que esses 6,4 GB são e se ainda servem. Manter dois runtimes
+  com cópias dos mesmos pesos não cabe no espaço livre.
+
+- **Acesso a `~/Documents`: restaurado.** Foi revogado pelo macOS em 2026-08-07,
+  no meio de uma sessão, e derrubou o validador `brain-links` — logo, todo
+  fechamento de run. Está lendo normalmente desde então. A armadilha e o
+  diagnóstico de um comando ficaram registrados em `AGENTS.md`, na lista de
+  armadilhas do fechamento, porque o sintoma (`INTERNAL_ERROR` com `data`
+  vazio) não aponta para a causa.
+
+- **Um resultado de agente em segundo plano quase se perdeu.** A re-revisão
+  acima retornou 28 segundos depois de a sessão anterior escrever, num handoff,
+  que ela "ainda não retornou"; a sessão então terminou por limite de uso e o
+  veredito ficou só no transcript. Ao despachar verificação em segundo plano,
+  peça ao agente que **grave o resultado em disco** e registre no handoff onde
+  ele vai aparecer, em vez do estado de espera.
