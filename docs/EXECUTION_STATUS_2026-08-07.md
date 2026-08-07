@@ -230,17 +230,71 @@ seguem funções puras com testes, sem ponto de entrada, até existir motor loca
 
 ### O que a cadeia produziu, em dado real
 
-| Artefato | Números |
+**Os números desta seção envelheceram em menos de um dia** — a correção do
+extrator, mais abaixo, levou o manifesto de 296 para 282 linhas na mesma data.
+Ficou a lição que este documento já aplicava aos commits e não aplicava aqui:
+**contagem corrente não vai para documento durável; vai o comando que a mede.**
+Os dois comandos abaixo reproduzem a tabela inteira a qualquer momento, e são os
+mesmos que o `loop validate` executa:
+
+```bash
+node scripts/content/validate-content-anchoring.mjs && node scripts/content/validate-no-verbatim.mjs
+```
+
+| Artefato | O que é, com o número **medido em 2026-08-07 e sujeito a envelhecer** |
 | --- | --- |
-| `content-manifest/excerpts/manifest.jsonl` | **296 linhas**, todas `authorized`, todas do piloto INCA |
-| `content-manifest/excerpts/descartes.json` | **109 descartes**, todos de `library-source:f375049d4e936d05` (`blocked`), com o motivo nomeando a classe |
+| `content-manifest/excerpts/manifest.jsonl` | Ponteiro e hash por excerto citável — nunca o texto. 282 linhas, todas `authorized`, todas do piloto INCA |
+| `content-manifest/excerpts/descartes.json` | Quem ficou de fora e por quê. 109 descartes, todos de `library-source:f375049d4e936d05` (`blocked`), com o motivo nomeando a classe |
 | `content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json` | **8 claims** humanas, cada uma com seu `excerptId` |
 | `content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json` | 8 claims, **`unanchored: 0`** |
 | Validador de taxonomia, contra o dado real | 16 entradas de mapa, 15 ids de taxonomia, 18 de catálogo, **zero erros** |
 
-405 excertos foram lidos para produzir as 296 linhas. Os 109 que sobraram são a
+391 excertos foram lidos para produzir as 282 linhas. Os 109 que sobraram são a
 fonte `blocked` que já estava extraída em disco — e o descarte deles é o teste de
-aceitação da decisão de filtrar na entrada.
+aceitação da decisão de filtrar na entrada. **A extração dessa fonte `blocked`
+não foi regerada de propósito**, pelo motivo descrito no item 1 de "Aberto": os
+arquivos dela estão rastreados em git, fora de `writePolicy.allowedRoots`, e
+mexer neles é decisão do dono.
+
+### O extrator emitia órfão no fim da página, e a D4 já tinha visto isso
+
+A triagem editorial da **D4** registrou em 2026-08-03 um achado lateral: *4 dos
+30 excertos problemáticos eram defeito de extração, não de classificação.* O
+achado ficou lá, sem dono, porque a D4 inteira depende de uma decisão de
+taxonomia. Medido na cadeia viva em 2026-08-07, o mesmo defeito estava dentro do
+piloto.
+
+**A causa não era o divisor de frases.** `chunk_text` enche gulosamente até o
+teto e emite o resto **incondicionalmente, sem piso**: toda página de
+`k × max_chars + ε` produzia um órfão de tamanho ε.
+
+| Medida, antes da correção | Valor |
+| --- | --- |
+| Excertos extraídos da fonte do piloto | 405 |
+| Abaixo de 80 caracteres | 19 |
+| Deles, que eram o **último** pedaço da página | **19 de 19** |
+| Deles, único pedaço da página (página curta de verdade) | 1 |
+| Claims do piloto ancoradas num deles | **0 de 8** |
+
+O caso mais limpo: a página 33 tem 1401 caracteres e virava `[1398, 3]` — um
+excerto de **três caracteres**.
+
+Corrigido reencostando o resto no pedaço anterior, de onde ele veio. Depois:
+**282 excertos, 1 toco** — e o que sobrou é a página 181, o colofão, que é uma
+página curta inteira e não artefato. A aula ancorada saiu **byte a byte
+idêntica**, confirmando por outro caminho a medição de raio de alcance.
+
+**Por que agora e não depois:** os tocos eram inertes porque quem escolheu os
+`excerptId` à mão os evitou. Quando a **Task 3** entrar e a ancoragem virar
+similaridade, o cosseno **não** vai evitá-los — texto curto produz similaridade
+ruidosa e alta, e eles seriam as primeiras âncoras alcançadas.
+
+Achado lateral do achado: **`extract-source.test.py` existia e não estava no
+validador `content-python`.** Seus testes nunca haviam rodado no gate. Entrou
+agora, com `skipUnless` no caso que lê PDF — sem essa guarda, o `loop validate`
+do projeto inteiro passaria a depender de material fora do versionamento, e o
+skip **declara** a ausência, porque um caso que não rodou não pode parecer um que
+passou.
 
 ### A lacuna da Task 5 foi paga: a revisão rodou, e achou uma coisa
 
@@ -395,6 +449,33 @@ aparência: a ausência de um item é indistinguível da inexistência dele, e o
 recorte é a única informação que o leitor não consegue recuperar olhando para a
 lista.
 
+**URGENTE, e a urgência tem prazo:**
+
+0. **Há texto verbatim de uma fonte `blocked` rastreado em git.** Descoberto em
+   2026-08-07 ao regerar a extração.
+   `conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/` tem
+   `excerpts.json`, `pages.json` e `extraction-job.json` **rastreados**,
+   commitados em `847a12d` — antes de `Conteúdo/` entrar em
+   `.git/info/exclude`. Só o `excerpts.json` carrega **106.308 caracteres** de
+   texto da fonte. A fonte é `library-source:f375049d4e936d05`:
+   `rightsClass: blocked`, `allowedUses: []`, licença *"No rights or license
+   notice found in the PDF"* — a classe mais restritiva do catálogo.
+
+   **O prazo:** a branch ainda **não foi enviada**. Tirar isso do histórico é
+   barato agora e caro depois do push, porque remover do `HEAD` não remove do
+   histórico. Decida antes de enviar.
+
+   **Por que nenhum validador pegou** — e isto é correção de uma afirmação
+   minha, escrita hoje: o `content-no-verbatim` varre **`content-manifest/`**, e
+   o [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md)
+   afirma a garantia no nível do **repositório**. A afirmação era mais larga que
+   a verificação. A correção do validador — varrer toda a árvore rastreada, não
+   um diretório — é engenharia pequena e está no item 12.
+
+   **Por que não consertei:** `conteúdo/extrações` não está em
+   `writePolicy.allowedRoots`. Alargar a policy para me desbloquear é
+   exatamente o que o contrato do Loop proíbe fazer em silêncio.
+
 **Decisões do dono, sem trabalho de engenharia pendente:**
 
 1. **D1** — a linha do decisor no ADR da estratégia de API. Antes da E3.
@@ -439,13 +520,18 @@ lista.
     fechada; fecharia o gatilho de reabertura e a B0. **Adiado por decisão do
     dono em 2026-08-07:** nada no caminho crítico depende dele, e o caminho
     crítico é a F2, que é humana.
-12. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
+12. **`content-no-verbatim` varre um diretório e a garantia é do repositório.**
+    Ele checa `content-manifest/`; o item 0 acima mostra que texto de fonte pode
+    estar em qualquer lugar da árvore rastreada. A correção é trocar a raiz da
+    varredura por `git ls-files` e manter as três checagens. Pequena, e é o que
+    teria pego o item 0 sozinho.
+13. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
     segundo caso de `PixelHeroSplit.test.tsx` afirma que a mensagem do balão
     **não** carrega teto de escala. Provar que ele morde exigiria pôr um teto em
     `SpeechBubble.tsx`, fora do escopo declarado daquele run. Fica para a
     próxima vez que `SpeechBubble` for tocado — e está escrito aqui porque um
     teste de guarda não provado é indistinguível de um teste vazio.
-13. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
+14. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
     **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
     excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
     futura se o adjetivo cai.
