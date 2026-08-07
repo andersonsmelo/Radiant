@@ -3,37 +3,37 @@
   "claims": [
     {
       "id": "claim:qualidade-de-imagem:1",
-      "claim": "A qualidade física de uma imagem mamográfica depende de dois fatores combinados: o contraste entre tecidos e a nitidez dos detalhes registrados.",
+      "claim": "O contraste radiográfico e a resolução espacial estão entre os requisitos técnicos que definem a qualidade física de uma imagem mamográfica.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p46:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:2",
-      "claim": "Para revelar sinais de câncer de mama como microcalcificações, a mamografia precisa captar estruturas de aproximadamente 100 μm.",
+      "claim": "Para revelar sinais de câncer de mama como microcalcificações, é desejável que a mamografia capte estruturas de aproximadamente 100 μm.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p47:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:3",
-      "claim": "Um dispositivo de controle automático de exposição é obrigatório em mamógrafos porque o técnico não consegue estimar com confiança, apenas visualmente, quanto o feixe de raios X é atenuado pela mama da paciente.",
+      "claim": "A presença obrigatória do CAE em todo mamógrafo compensa uma limitação humana: a atenuação do feixe pela mama de uma paciente não pode ser calculada com confiança apenas a olho pelo técnico.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p52:c2"
     },
     {
       "id": "claim:qualidade-de-imagem:4",
-      "claim": "O sensor do controle automático de exposição precisa ter posição regulável para poder ficar sob a área com mais tecido glandular nos exames de rotina.",
+      "claim": "O sensor do CAE tem posição regulável para poder ficar atrás da região de interesse; nos exames de rotina, essa região da mama costuma concentrar mais tecido glandular.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p53:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:5",
-      "claim": "Exames com ampliação geométrica usam ponto focal de 0,1 mm, menor que o de 0,3 mm dos exames convencionais, para compensar a perda de nitidez que a própria ampliação introduz.",
+      "claim": "Exames com ampliação geométrica usam ponto focal de 0,1 mm, valor menor que os 0,3 mm citados no texto, para compensar a perda de resolução espacial que a própria ampliação introduz.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p54:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:6",
-      "claim": "Quanto mais inclinado o gráfico que relaciona densidade ótica e exposição no sistema filme-tela, maior é o contraste percebido na mamografia resultante.",
+      "claim": "A curva característica do sistema filme-tela reúne, num único gráfico, tanto a sensibilidade do receptor de imagem quanto as características de contraste do filme.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p55:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:7",
-      "claim": "O sistema filme-tela intensificadora consegue distinguir estruturas mamárias em uma resolução de até 12 pares de linha por milímetro, o bastante para mostrar espículas e microcalcificações.",
+      "claim": "O padrão de nitidez do sistema filme-tela intensificadora chega a 12 pares de linha por milímetro, fino o bastante para que espículas e microcalcificações apareçam na imagem — uma das razões de essa tecnologia permanecer em uso.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p57:c1"
     },
     {
