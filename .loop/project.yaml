@@ -130,6 +130,7 @@ validators:
     timeoutMs: 120000
   - id: content-python
     command: PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py
+      scripts/content/extract-source.test.py
       scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py
       scripts/content/calibration-report.test.py scripts/content/destination-state.test.py
       scripts/content/sampling-queue.test.py; do python3 "$suite" || estado=1; done;

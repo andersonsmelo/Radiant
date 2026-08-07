@@ -19,6 +19,14 @@ def normalize_source_slug(filename: str) -> str:
     return stem
 
 
+# Abaixo disto um pedaco deixa de ser excerto e vira toco: curto demais para
+# sustentar afirmacao, e — quando a ancoragem por similaridade entrar — curto o
+# bastante para casar com quase tudo, porque texto curto produz cosseno ruidoso
+# e alto. O piso e a mesma regua que a triagem editorial da D4 usou em
+# 2026-08-03 para separar defeito de extracao de duvida de classificacao.
+MIN_CHARS = 80
+
+
 def chunk_text(text: str, max_chars: int = 1400) -> list[str]:
     words = text.split()
     if not words:
@@ -36,7 +44,22 @@ def chunk_text(text: str, max_chars: int = 1400) -> list[str]:
             current.append(word)
 
     if current:
-        chunks.append(" ".join(current))
+        resto = " ".join(current)
+        # O laco guloso fecha o pedaco ao encostar no teto e emite o que sobrou,
+        # seja qual for o tamanho: toda pagina de `k * max_chars + epsilon`
+        # produzia um orfao de epsilon caracteres. Medido em 2026-08-07 na fonte
+        # do piloto — 19 de 405 excertos abaixo do piso, e 19 de 19 eram o
+        # ultimo pedaco da pagina; uma pagina de 1401 caracteres virava
+        # [1398, 3]. O resto pertence ao pedaco anterior — e a continuacao da
+        # mesma frase, cortada por aritmetica e nao por sentido. Reencosta-lo
+        # preserva o conteudo e elimina o toco; o preco e o teto virar suave,
+        # limitado por construcao a `max_chars + MIN_CHARS`.
+        if chunks and len(resto) < MIN_CHARS:
+            chunks[-1] = f"{chunks[-1]} {resto}"
+        else:
+            # Sem pedaco anterior nao ha para onde reencostar, e um texto curto
+            # sozinho e a pagina inteira — divisor de secao, nao artefato.
+            chunks.append(resto)
 
     return chunks
 
