@@ -23,12 +23,12 @@
     },
     {
       "id": "claim:qualidade-de-imagem:5",
-      "claim": "Exames com ampliação geométrica usam ponto focal de 0,1 mm, valor menor que os 0,3 mm citados no texto, para compensar a perda de resolução espacial que a própria ampliação introduz.",
+      "claim": "Exames com ampliação geométrica usam ponto focal de 0,1 mm, valor menor que 0,3 mm, para compensar a perda de resolução espacial que a própria ampliação introduz.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p54:c1"
     },
     {
       "id": "claim:qualidade-de-imagem:6",
-      "claim": "A curva característica do sistema filme-tela reúne, num único gráfico, tanto a sensibilidade do receptor de imagem quanto as características de contraste do filme.",
+      "claim": "Um filme com latitude maior tolera uma faixa mais ampla de exposições sem sair da densidade ótica útil ao diagnóstico.",
       "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p55:c1"
     },
     {
