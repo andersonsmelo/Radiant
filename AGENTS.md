@@ -47,7 +47,7 @@ toda sessão de IA segue este contrato:
    aprendizado durável; sem ele, `succeeded → closed` é transição válida.
    Nunca edite o vault do Obsidian à mão.
 
-   Seis armadilhas do fechamento, todas custaram registro perdido aqui:
+   Sete armadilhas do fechamento, todas custaram registro perdido aqui:
    - **`MEMORY_EVIDENCE_INVALID` tem quatro causas, checadas nesta ordem**
      (`src/memory.ts`): run fora de `succeeded` (linha 26), resumo vazio ou
      acima de **1000 caracteres** (33), evidência ausente ou reprovada (44) e
@@ -93,6 +93,16 @@ toda sessão de IA segue este contrato:
      Se aparecer arquivo que você não vai declarar, resolva **antes** de abrir —
      comitando, revertendo ou deixando quieto de propósito. Depois de aberto,
      tanto mexer quanto desmexer custa o run.
+   - **Declare o caminho como o SISTEMA DE ARQUIVOS o soletra, não como o git.**
+     Medido em 2026-08-07, e custou o segundo run do mesmo dia: o índice do git
+     carrega `conteúdo/extrações/…` em minúscula, vindo de um commit antigo; o
+     disco soletra `Conteúdo/extrações/…` com maiúscula. Num sistema de arquivos
+     indiferente a caixa os dois abrem o mesmo arquivo, mas o guarda de escopo
+     compara **texto**: declarado em minúscula, ele reporta
+     `OUT_OF_SCOPE_CHANGE` na versão maiúscula do mesmo caminho, e o run cai em
+     `needs_human`. Antes de declarar caminho com acento ou caixa divergente,
+     confira com `ls` como o disco o escreve — `git ls-files` responde outra
+     pergunta.
    - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
      Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
      não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica

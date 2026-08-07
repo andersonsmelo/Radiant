@@ -100,13 +100,12 @@ writePolicy:
     - Conteúdo/fontes
     - Conteúdo/governança
     - Conteúdo/mídia
-    # Alargado em 2026-08-07, autorizado pelo dono, com um proposito so: retirar
-    # do indice do git os artefatos de extracao que carregam texto de fonte
-    # `blocked`, commitados em 847a12d antes de `Conteudo/` entrar no
-    # `.git/info/exclude`. Esta entrada NAO autoriza versionar extracao nova: o
-    # diretorio segue em `context.excludes`, e artefato de extracao e subproduto
-    # local. Estreitar de volta depois da remocao e limpeza legitima.
-    - conteúdo/extrações
+    # `conteúdo/extrações` esteve aqui em 2026-08-07, por uma janela de dois
+    # commits (a5d9cc8 e adee209) e um proposito unico: retirar do indice do git
+    # o texto de fonte `blocked` que estava rastreado desde 847a12d. Cumprido o
+    # proposito, a entrada saiu. Artefato de extracao e subproduto local — se
+    # precisar entrar de novo, entra pela mesma porta: run proprio, anterior, e
+    # com o motivo escrito.
     - .loop/project.yaml
 validators:
   - id: docs-contract

@@ -449,33 +449,6 @@ aparência: a ausência de um item é indistinguível da inexistência dele, e o
 recorte é a única informação que o leitor não consegue recuperar olhando para a
 lista.
 
-**URGENTE, e a urgência tem prazo:**
-
-0. **Há texto verbatim de uma fonte `blocked` rastreado em git.** Descoberto em
-   2026-08-07 ao regerar a extração.
-   `conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/` tem
-   `excerpts.json`, `pages.json` e `extraction-job.json` **rastreados**,
-   commitados em `847a12d` — antes de `Conteúdo/` entrar em
-   `.git/info/exclude`. Só o `excerpts.json` carrega **106.308 caracteres** de
-   texto da fonte. A fonte é `library-source:f375049d4e936d05`:
-   `rightsClass: blocked`, `allowedUses: []`, licença *"No rights or license
-   notice found in the PDF"* — a classe mais restritiva do catálogo.
-
-   **O prazo:** a branch ainda **não foi enviada**. Tirar isso do histórico é
-   barato agora e caro depois do push, porque remover do `HEAD` não remove do
-   histórico. Decida antes de enviar.
-
-   **Por que nenhum validador pegou** — e isto é correção de uma afirmação
-   minha, escrita hoje: o `content-no-verbatim` varre **`content-manifest/`**, e
-   o [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md)
-   afirma a garantia no nível do **repositório**. A afirmação era mais larga que
-   a verificação. A correção do validador — varrer toda a árvore rastreada, não
-   um diretório — é engenharia pequena e está no item 12.
-
-   **Por que não consertei:** `conteúdo/extrações` não está em
-   `writePolicy.allowedRoots`. Alargar a policy para me desbloquear é
-   exatamente o que o contrato do Loop proíbe fazer em silêncio.
-
 **Decisões do dono, sem trabalho de engenharia pendente:**
 
 1. **D1** — a linha do decisor no ADR da estratégia de API. Antes da E3.
@@ -538,6 +511,35 @@ lista.
     futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~Texto verbatim de fonte `blocked` rastreado em git~~ — **retirado do índice**
+  em `adee209`, com a policy alargada e estreitada de volta em runs próprios
+  (`a5d9cc8` e o desta entrega). Medido antes e depois, varrendo **toda** a
+  árvore rastreada contra 375 amostras de excerto: **694 arquivos / 2 com texto
+  de fonte → 692 / 0**. Dos 7 arquivos rastreados sob a pasta, só
+  `excerpts.json` e `pages.json` carregavam texto; os outros cinco são metadado
+  do pipeline e ficaram.
+
+  **Duas correções de afirmações escritas por mim horas antes, e as duas
+  importam mais que o conserto:**
+
+  1. **"O prazo é o push" estava errado.** `847a12d` já estava em `origin/main`
+     **e** na branch, e o repositório é **público** no GitHub. Não era "decida
+     antes de enviar" — já estava publicado. A verificação que faltou é uma
+     linha: `git branch -r --contains <sha>`. Escrever urgência com prazo é
+     escrever uma afirmação sobre o mundo, e ela precisa da mesma checagem que
+     qualquer outra.
+  2. **A garantia do ADR era mais larga que a verificação que a sustentava.** O
+     `content-no-verbatim` varre `content-manifest/`; o ADR afirma "nenhum
+     artefato rastreado". Um verde prova a asserção **no domínio em que rodou**,
+     e o domínio não viaja junto com o resultado. Fechar essa lacuna é o item 12,
+     ainda aberto.
+
+  **Decisão do dono:** parar o sangramento sem reescrever histórico. O texto
+  permanece no histórico público — remover do `HEAD` não remove do histórico, e
+  reescrever `main` público quebra clones e forks sem garantir expurgo dos
+  objetos no GitHub. **Tratar como já exposto** é a leitura correta, e a
+  avaliação que sobra é de risco, não de apagamento.
 
 - ~~O eixo comercial dos direitos~~ — era a decisão de maior alcance da lista e
   **caiu por premissa falsa**: a cadeia não embarca verbatim, e a decisão pedida
