@@ -114,6 +114,56 @@ Ligar as três coisas é trabalho do próximo plano e está declarado fora de es
 deste, na seção "O que este plano não faz". Nada aqui deve ser lido como conteúdo
 verificado: o que existe é o andaime, provado peça a peça.
 
+## Onda de correção da revisão de 40 commits (2026-08-07)
+
+Uma revisão de 40 commits que entraram sem revisão devolveu uma Crítica e cinco
+Importantes. Todas foram corrigidas numa onda só, na mesma branch. Nada aqui
+altera o estado de M1 nem o das tasks abertas — é dívida de correção, não avanço
+de marco.
+
+**Crítica — a autorização de conquista não fechava a fronteira.** Um commit
+anterior afirmava impedir que uma conquista bloqueada fosse coletada por deep
+link, e pôs a guarda na TELA de recompensa. A escrita seguia desguarnecida:
+`JourneyProgressService.markNodeCompleted` validava apenas que o nó EXISTE
+(`findNode`), nunca seu status nem sua `unlockRule`. Três caminhos chegavam à
+escrita sem passar pela tela — `/learn` repassa `params.nodeId` verbatim de
+`src/app/learn.tsx` até `LessonFlowScreen`, `CheckpointScreen` filtra por tipo e
+não por status, e o serviço é público. O deep link
+`radiantapp://learn?nodeId=<reward bloqueado>&blockId=<bloco de lição real>`
+gravava a conquista da unidade em `completedNodeIds` e emitia `reward_awarded`.
+
+A autorização passou para onde a escrita acontece. A régua é a `unlockRule`
+derivada por `JourneyRecommendationService` — não uma cópia da regra, e não o
+status cru: um nó de revisão fora da fila do dia lê como `locked` sem estar
+bloqueado, e recusá-lo quebraria a conclusão de revisão, que é legítima. As
+guardas de tela ficaram, agora como defesa em profundidade real.
+`JourneyNodeCompletionGuard.test.tsx` alcança a guarda pelos três caminhos, e
+cada um foi verificado vermelho com a guarda removida, falhando na escrita
+persistida — não no log.
+
+**Importantes.** (1) O `assertNotVisible` de `reward-locked.yaml` não podia
+falhar por um `?` sem escape, e o contrato **exigia** a forma quebrada; o
+contrato passou a afirmar a propriedade e a varredura cobre as quatro chaves de
+seletor em todos os flows. (2) O teste da guarda de recompensa nunca apertava
+nada; a decisão virou função (`canCollectReward`), invocável, e apagá-la fica
+vermelho. (3) A régua de visibilidade de `lesson-option-q1:option:1` divergia
+entre flows (100 × 80 no mesmo elemento da mesma tela); as três foram para o
+valor medido, com contrato de régua única. (4) O gate de reduced motion podia
+perder a corrida — a preferência resolve assíncrona e as cascatas de entrada
+(`index * 80`, `index * 60`) agendavam na primeira passada — e vazava timeout
+sem limpeza; o hook ganhou estado indeterminado, as duas telas passaram a adiar
+até saber, e as duas ganharam teste. (5) `app_open` significava "o componente da
+home montou", e a home remonta a cada `router.replace('/(tabs)')` de lição
+concluída — o gate de `MIN_APP_OPENS = 3` do prompt de avaliação abria antes da
+hora; a trava virou de processo.
+
+> **Decisão de produto deixada em aberto, de propósito.** Contar
+> `background → foreground` como abertura define o que é uma sessão para o gate
+> da loja e **pode tornar o gate mais fácil** do que é hoje. Sem essa decisão,
+> vale a leitura conservadora: abertura é lançamento de processo. O
+> `rating-prompt.yaml` continua alcançando o gate — três `launchApp`, três
+> processos.
+
 ## Aberto
 
 Os seis itens da seção "Aberto" do documento substituído continuam abertos e não

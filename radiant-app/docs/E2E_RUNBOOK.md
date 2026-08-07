@@ -279,11 +279,23 @@ Android at an option that was on screen and tappable: a decorative glow —
 non-clickable, `important-for-accessibility=false`, like all 78 nodes of that
 layer — covered ~11% of the option's bounds, and 89% became a red after 103
 steps. `assertVisible` and `tapOn` on the same id passed, and the scroll passed
-at 80%. iOS never tripped it because its composition differs. The contract now
-requires every `scrollUntilVisible` to state `visibilityPercentage`: 100 where
-the inherited bar already passed, 80 on the option scrolls of `reward-unlock`.
-An inherited default is a decision nobody made, and it surfaces as a
-platform-specific failure hours into a run.
+at 80%. iOS never tripped it because its composition differs. The contract
+requires every `scrollUntilVisible` to state `visibilityPercentage`.
+
+**One bar per selector — corrected on 2026-08-07.** Declaring the bar was only
+half the rule, and the half that was written down left a contradiction
+standing: `learning-critical-path.yaml` and `offline-relaunch.yaml` demanded
+100% of `lesson-option-q1:option:1` while `reward-unlock.yaml` demanded 80% of
+the **same element on the same screen**, with the measurement above written in
+a comment three lines away. Two rulers for one element is not platform
+tolerance — it is a contradiction that only shows up by burning a device
+window, and which flow pays is decided by run order. All three now sit at the
+measured-safe 80, and a second contract assertion
+(`keeps one visibility bar per selector across every flow`) makes the
+divergence impossible to reintroduce: whoever measures a different number
+changes every site at once, which is the review the silent divergence never
+had. An inherited default is a decision nobody made; two declared defaults are
+a decision made twice, differently.
 
 **Budget the Android run in hours, not minutes.** Measured on 2026-08-06 on
 this host: roughly **one minute per step** on the emulator — 103 steps took
@@ -457,16 +469,37 @@ turn the contract red:
   that does not exist. On a positive assertion that goes red on a device; on a
   negative one it passes forever.
 
-**A finding this raised, outside the flow's own scope:** the same unescaped-`?`
-problem is present in `reward-locked.yaml`, whose
-`assertNotVisible: Pronto para coletar essa conquista?` can never match the
-string the screen renders — so that half of its defect guard cannot fail. Its
-sibling assertion, `assertNotVisible: Receber conquista`, is exact and does
-work, so the guard is weakened rather than absent. The contract at
-`scripts/maestro-contract.test.mjs` currently **requires** that unescaped form,
-so fixing the flow means fixing the contract with it. Recorded here rather than
-fixed, because neither file was in the declared scope of the run that wrote
-this.
+**A finding this raised, outside the flow's own scope — CLOSED on 2026-08-07:**
+the same unescaped-`?` problem was present in `reward-locked.yaml`, whose
+`assertNotVisible: Pronto para coletar essa conquista?` could never match the
+string the screen renders — so that half of its defect guard could not fail. Its
+sibling assertion, `assertNotVisible: Receber conquista`, is exact and did
+work, so the guard was weakened rather than absent. The contract at
+`scripts/maestro-contract.test.mjs` **required** that unescaped form, so the
+contract was enforcing the bug: escaping the flow made the contract go red.
+
+What closed it, and why in that shape:
+
+- the flow now asserts `'Pronto para coletar essa conquista\?'`, and every
+  other unescaped `?` in every flow was escaped in the same pass — including
+  the `runFlow when: visible: 'Abrir com “Radiant”\?'` guards, which failed the
+  other way (the deep-link dialog was never tapped, and the next assertion took
+  the blame);
+- the contract stopped freezing the literal line. It now derives both forbidden
+  strings from `RewardScreen.tsx` and asserts the **property**: this element
+  carries a negative assertion, and that assertion escapes its `?`. A contract
+  that only accepts today's text does not survive tomorrow's correction — this
+  one does;
+- the `?` scan was widened from one key in one flow (`assertVisible` in
+  `reward-unlock.yaml`) to the four selector keys — `assertVisible`,
+  `assertNotVisible`, `visible`, `notVisible` — across every flow in the
+  directory, discovered by listing rather than by an explicit list, so a new
+  flow is born covered. `tapOn` stays out on purpose: two flows use a
+  deliberate regex there (`^Progresso(, tab.*)?$`).
+
+Both new assertions were mutation-tested on 2026-08-07: unescaping the `?` in
+`reward-locked.yaml` turns the scan red, and the property assertion turns red
+with it.
 
 ## Rating prompt — what a green run here can and cannot claim
 

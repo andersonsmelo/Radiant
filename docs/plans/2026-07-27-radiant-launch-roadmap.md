@@ -543,6 +543,19 @@ código.
   > guarda aprovada.** Detalhe e o achado sobre o `?` sem escape em
   > `reward-locked.yaml` estão em
   > [`E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
+
+  > **Os dois achados registrados-e-não-corrigidos fecharam em 2026-08-07**,
+  > numa onda de correção de revisão de código. O `?` sem escape de
+  > `reward-locked.yaml` estava sendo **exigido** pelo contrato, que congelava a
+  > linha literal: o contrato passou a afirmar a propriedade (este elemento
+  > carrega asserção negativa, e ela escapa o `?`), derivada de
+  > `RewardScreen.tsx`, e a varredura de `?` cobre agora as quatro chaves de
+  > seletor em todos os flows do diretório. A régua de visibilidade tinha uma
+  > contradição do mesmo tipo: 100% em `learning-critical-path` e
+  > `offline-relaunch` contra 80% em `reward-unlock`, sobre o **mesmo** id na
+  > mesma tela — as três foram para 80, e uma segunda asserção de contrato exige
+  > uma régua por seletor. Nada disso muda o que falta na B5: **o Android segue
+  > não executado.**
 - **B6 [P1]** ~~Onboarding em instalação limpa~~ **Investigada em 2026-07-27.**
   Não é defeito de runtime: "instalação limpa → Home" é consequência correta da
   Learning Road ser a home (a home já recebe o usuário com o Pixel e destaca o
