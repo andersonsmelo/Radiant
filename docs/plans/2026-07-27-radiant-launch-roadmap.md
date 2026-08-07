@@ -686,7 +686,16 @@ código.
 
 ### Onda D — Prontidão de release (M3) — Tasks 15 e 16 do roadmap anterior
 
-- **D1 [P0 — PARCIAL: configuração feita, ADR pendente]** ADR da estratégia de
+- **D1 [P0 — ADR DECIDIDA em 2026-08-07: opção B, só catálogo remoto. Resta a
+  implantação]** A decisão está assinada em
+  [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md): sobem
+  `/health`, `/ready` e `/v1/content/catalog`; não sobem contas nem sync. **Nada
+  foi implantado ainda** — o domínio segue em 502 até que a implantação
+  aconteça, e ela é a próxima unidade de trabalho desta task. Três medições de
+  2026-08-07 sustentaram a escolha e estão no ADR: o fallback para o catálogo
+  embarcado já existe em `RemoteCatalogService`, a superfície de B não exige
+  banco nem VPS, e a dependência da E3 vale para a v1.4 e não para a v1.3, porque
+  o binário submetido não alcança API nenhuma. ADR da estratégia de
   API (Task 15): auditoria read-only e
   decisão entre manter local-first puro, catálogo remoto, ou catálogo+auth+
   sync. *(Estado promovido ao cabeçalho em 2026-08-03: a prosa já dizia "resta a

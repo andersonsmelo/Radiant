@@ -252,9 +252,12 @@ node scripts/content/validate-content-anchoring.mjs && node scripts/content/vali
 391 excertos foram lidos para produzir as 282 linhas. Os 109 que sobraram são a
 fonte `blocked` que já estava extraída em disco — e o descarte deles é o teste de
 aceitação da decisão de filtrar na entrada. **A extração dessa fonte `blocked`
-não foi regerada de propósito**, pelo motivo descrito no item 1 de "Aberto": os
-arquivos dela estão rastreados em git, fora de `writePolicy.allowedRoots`, e
-mexer neles é decisão do dono.
+não foi regerada** na passada que corrigiu o extrator, porque os arquivos dela
+estavam rastreados em git e fora de `writePolicy.allowedRoots` — ver *"Texto
+verbatim de fonte `blocked` rastreado em git"* entre os fechados. Depois da
+remoção, regerá-la virou trabalho comum e sem impedimento; ela segue com a
+divisão antiga até que alguém rode o extrator de novo, e isso não afeta o
+manifesto, porque nenhum excerto dessa fonte entra nele.
 
 ### O extrator emitia órfão no fim da página, e a D4 já tinha visto isso
 
@@ -451,61 +454,83 @@ lista.
 
 **Decisões do dono, sem trabalho de engenharia pendente:**
 
-1. **D1** — a linha do decisor no ADR da estratégia de API. Antes da E3.
-2. **`checkHeuristics`** — ligar os nudges ou manter em shadow mode.
-3. **Escopo da taxonomia** — os 16 nós seguem com `taxonomyId: null`. O mapa
-   registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
-   `star-dose-radiacao` como candidato real **adiado**, com gatilho de
-   reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
+- **`checkHeuristics`** — ligar os nudges ou manter em shadow mode.
+- **Escopo da taxonomia** — os 16 nós seguem com `taxonomyId: null`. O mapa
+  registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
+  `star-dose-radiacao` como candidato real **adiado**, com gatilho de
+  reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
 
 **Ações que só o dono executa:**
 
-4. **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
-   (`gemma-4-E4B-it-MLX-4bit`). Confirmado em 2026-08-07 pelo próprio `lms`:
-   *"daemon is not running and no valid installation could be found"*. Leva o
-   espaço livre de 15 GB para ~23,7 GB.
-5. **Instalar o Ollama e um modelo de embedding.** O plano fixa
-   `127.0.0.1:11434`. **Já não bloqueia a cadeia de conteúdo** — a fiação fechou
-   sem motor. Desbloqueia a Task 3 (embeddings) e a ancoragem por similaridade.
-6. **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
-   engenharia o encurta.
-7. **A5** — gerar a service-account key no Play Console.
-8. **Enviar o pedido de autorização ao INCA.** Rascunho pronto em
-   [`docs/content/2026-08-07-pedido-de-autorizacao-inca.md`](content/2026-08-07-pedido-de-autorizacao-inca.md),
-   com o destinatário deliberadamente em branco — o canal precisa ser conferido
-   no site do Instituto antes. **Não bloqueia nada**, por decisão registrada no
-   [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md);
-   converte incerteza futura em documento arquivado, por um e-mail.
-9. **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** Conte com
-   `git log --oneline '@{upstream}..HEAD'` — e note que este documento **não**
-   fixa o número de propósito: uma contagem escrita aqui envelhece no commit
-   seguinte, inclusive no commit que a escreveu. O upstream é
-   `origin/codex/wave1-hardening-api-smoke`, **não** `main`, que nem existe como
-   ref local: `git log main..HEAD` devolve erro, e a mesma medição contra um ref
-   inexistente devolveria vazio **com sucesso** — a negativa mais perigosa deste
-   repositório, porque parece "nada a enviar".
+- **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
+  (`gemma-4-E4B-it-MLX-4bit`). Confirmado em 2026-08-07 pelo próprio `lms`:
+  *"daemon is not running and no valid installation could be found"*. Leva o
+  espaço livre de 15 GB para ~23,7 GB.
+- **Instalar o Ollama e um modelo de embedding.** O plano fixa
+  `127.0.0.1:11434`. **Já não bloqueia a cadeia de conteúdo** — a fiação fechou
+  sem motor. Desbloqueia a Task 3 (embeddings) e a ancoragem por similaridade.
+- **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
+  engenharia o encurta.
+- **A5** — gerar a service-account key no Play Console.
+- **Enviar o pedido de autorização ao INCA.** Rascunho pronto em
+  [`docs/content/2026-08-07-pedido-de-autorizacao-inca.md`](content/2026-08-07-pedido-de-autorizacao-inca.md),
+  com o destinatário deliberadamente em branco — o canal precisa ser conferido
+  no site do Instituto antes. **Não bloqueia nada**, por decisão registrada no
+  [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md);
+  converte incerteza futura em documento arquivado, por um e-mail.
+- **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** Conte com
+  `git log --oneline '@{upstream}..HEAD'` — e note que este documento **não**
+  fixa o número de propósito: uma contagem escrita aqui envelhece no commit
+  seguinte, inclusive no commit que a escreveu. O upstream é
+  `origin/codex/wave1-hardening-api-smoke`, **não** `main`, que nem existe como
+  ref local: `git log main..HEAD` devolve erro, e a mesma medição contra um ref
+  inexistente devolveria vazio **com sucesso** — a negativa mais perigosa deste
+  repositório, porque parece "nada a enviar".
 
 **Engenharia, com host ou janela:**
 
-10. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
-    durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
-    concorrente, e o flow morre em timeout que parece defeito do app.
-11. **Harness de acessibilidade no dev-tools** — upgrade opcional sobre a B4 já
-    fechada; fecharia o gatilho de reabertura e a B0. **Adiado por decisão do
-    dono em 2026-08-07:** nada no caminho crítico depende dele, e o caminho
-    crítico é a F2, que é humana.
-12. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
-    segundo caso de `PixelHeroSplit.test.tsx` afirma que a mensagem do balão
-    **não** carrega teto de escala. Provar que ele morde exigiria pôr um teto em
-    `SpeechBubble.tsx`, fora do escopo declarado daquele run. Fica para a
-    próxima vez que `SpeechBubble` for tocado — e está escrito aqui porque um
-    teste de guarda não provado é indistinguível de um teste vazio.
-13. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
-    **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
-    excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
-    futura se o adjetivo cai.
+- **Implantar o catálogo remoto — a D1 virou trabalho.** Decidida a **opção B**
+  em 2026-08-07 ([`ADR-2026-08-04`](adr/ADR-2026-08-04-estrategia-da-api.md)):
+  sobem `/health`, `/ready` e `/v1/content/catalog`; não sobem contas nem sync.
+  **Nada foi implantado** — o domínio segue em 502. A superfície não exige banco
+  nem estado: são três GETs essencialmente estáticos, e o fallback para o
+  catálogo embarcado já existe em `RemoteCatalogService`, então endpoint fora do
+  ar degrada para "conteúdo da última release". Não está no caminho crítico da
+  F2 nem da submissão.
+- **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
+  durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
+  concorrente, e o flow morre em timeout que parece defeito do app.
+- **Harness de acessibilidade no dev-tools** — upgrade opcional sobre a B4 já
+  fechada; fecharia o gatilho de reabertura e a B0. **Adiado por decisão do
+  dono em 2026-08-07:** nada no caminho crítico depende dele, e o caminho
+  crítico é a F2, que é humana.
+- **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
+  segundo caso de `PixelHeroSplit.test.tsx` afirma que a mensagem do balão
+  **não** carrega teto de escala. Provar que ele morde exigiria pôr um teto em
+  `SpeechBubble.tsx`, fora do escopo declarado daquele run. Fica para a
+  próxima vez que `SpeechBubble` for tocado — e está escrito aqui porque um
+  teste de guarda não provado é indistinguível de um teste vazio.
+- **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
+  **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
+  excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
+  futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~**D1** — a linha do decisor no ADR da estratégia de API~~ — **decidida:
+  opção B, só catálogo remoto.** O [`ADR-2026-08-04`](adr/ADR-2026-08-04-estrategia-da-api.md)
+  saiu de rascunho e está assinado. Três medições feitas na hora de instruir a
+  decisão mudaram o peso que o próprio ADR dava às opções, e estão registradas
+  nele: o fallback para o catálogo embarcado **já existe** em
+  `RemoteCatalogService` (endpoint morto = conteúdo da última release, não app
+  quebrado); a superfície de B **não exige banco nem VPS** (três GETs
+  essencialmente estáticos); e a dependência da **E3** vale para a v1.4 e **não**
+  para a v1.3, porque `EXPO_PUBLIC_API_BASE_URL` não existe em nenhum perfil do
+  `eas.json` e o binário submetido não alcança API nenhuma — as privacy labels da
+  v1.3 seriam "não coleta" sob qualquer das três opções. **A E3 pode ser
+  respondida agora**, com o conteúdo que ela sempre teve por conta própria: o
+  Sentry coleta dados de crash independentemente desta decisão. O que sobra da D1
+  é implantação, e está entre os abertos acima.
 
 - ~~`content-no-verbatim` varre um diretório~~ — a raiz da varredura passou a ser
   **`git ls-files`**, o próprio sistema de registro, e não um caminho escolhido à
@@ -552,8 +577,9 @@ lista.
   2. **A garantia do ADR era mais larga que a verificação que a sustentava.** O
      `content-no-verbatim` varre `content-manifest/`; o ADR afirma "nenhum
      artefato rastreado". Um verde prova a asserção **no domínio em que rodou**,
-     e o domínio não viaja junto com o resultado. Fechar essa lacuna é o item 12,
-     ainda aberto.
+     e o domínio não viaja junto com o resultado. **A lacuna foi fechada no
+     mesmo dia**, trocando a raiz da varredura por `git ls-files` — ver
+     *"`content-no-verbatim` varre um diretório"* entre os fechados abaixo.
 
   **Decisão do dono:** parar o sangramento sem reescrever histórico. O texto
   permanece no histórico público — remover do `HEAD` não remove do histórico, e
@@ -583,7 +609,11 @@ lista.
 - ~~Menor do `eyebrow`~~ — corrigido com teto de escala **só** no rótulo
   decorativo, escolha do dono entre três formas. O balão e o resto do app seguem
   acompanhando o ajuste do sistema por inteiro, e há um segundo teste travando
-  esse escopo — cuja mordida, porém, não foi provada; virou o item 12 acima.
+  esse escopo — cuja mordida, porém, não foi provada; segue aberto como
+  *"A trava de escopo do teste do `eyebrow`"*. **Referências por nome, e não por
+  número**: os itens desta seção deixaram de ser numerados em 2026-08-07, depois
+  que "item 12" mudou de significado duas vezes no mesmo dia e deixou duas
+  referências apontando para a coisa errada.
 - ~~Revisar a Task 5 e executar a Task 6~~ — feitos, nesta ordem. A revisão rodou
   a prova de mutação que faltava e produziu um achado próprio, que virou o item
   10 acima; a Task 6 entrou em `cb795e1` com o validador rodado fora do gate
