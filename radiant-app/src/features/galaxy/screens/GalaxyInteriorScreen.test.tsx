@@ -132,11 +132,20 @@ describe('BodyCard — entrada em cascata e preferência de movimento', () => {
   });
 
   it('não deixa o timeout sobreviver à virada da preferência', () => {
-    // O vazamento: o efeito antigo não devolvia limpeza, então o timeout
-    // agendado na passada indeterminada disparava depois de a preferência ter
-    // virado — animando exatamente para quem pediu para não ver animação.
-    mockedPreference.mockReturnValue({ reducedMotionEnabled: false, resolved: false });
+    // O vazamento: o efeito antigo não devolvia limpeza, então o timeout já
+    // agendado disparava depois de a preferência ter virado — animando
+    // exatamente para quem pediu para não ver animação.
+    //
+    // A primeira passada precisa AGENDAR. Com `resolved: false` o efeito volta
+    // antes do `setTimeout` e não haveria o que limpar: o caso passaria pelo
+    // gate e não conseguiria falhar, duplicando o teste de preferência
+    // indeterminada. Então começa resolvida e sem redução.
+    mockedPreference.mockReturnValue({ reducedMotionEnabled: false, resolved: true });
     const view = renderCard();
+
+    // Meio caminho até o disparo: agendado, ainda não vencido.
+    jest.advanceTimersByTime(CASCADE_DELAY_MS / 2);
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
 
     mockedPreference.mockReturnValue({ reducedMotionEnabled: true, resolved: true });
     view.rerender(<BodyCard body={body} index={CASCADE_INDEX} onPress={jest.fn()} />);

@@ -133,8 +133,18 @@ describe('LessonNode — entrada em cascata e preferência de movimento', () => 
   });
 
   it('não deixa o timeout sobreviver à virada da preferência', () => {
-    mockedPreference.mockReturnValue({ reducedMotionEnabled: false, resolved: false });
+    // A primeira passada precisa AGENDAR, senão não há o que limpar e o caso
+    // não consegue falhar: com `resolved: false` o efeito volta antes do
+    // `setTimeout` e o teste passaria pelo gate, duplicando o caso acima.
+    // Então: resolvida e sem redução (a cascata é agendada), a preferência
+    // vira antes de o timeout vencer, e o que a limpeza tem de garantir é que
+    // ele nunca dispare.
+    mockedPreference.mockReturnValue({ reducedMotionEnabled: false, resolved: true });
     const view = renderNode();
+
+    // Meio caminho até o disparo: agendado, ainda não vencido.
+    jest.advanceTimersByTime(CASCADE_DELAY_MS / 2);
+    expect(reanimated.withSpring).not.toHaveBeenCalled();
 
     mockedPreference.mockReturnValue({ reducedMotionEnabled: true, resolved: true });
     view.rerender(

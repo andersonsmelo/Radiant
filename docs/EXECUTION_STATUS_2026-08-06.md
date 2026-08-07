@@ -272,9 +272,33 @@ no equivalente de `GalaxyInteriorScreen`, o caso "não deixa o timeout sobrevive
 à virada da preferência" começa com `resolved: false`, então nada chegou a ser
 agendado e a remoção do `clearTimeout` não o derruba. O requisito de limpeza
 segue coberto pelo teste de desmontagem; este caso duplica o do gate.
-**Não corrigido em 2026-08-07** — ficou fora do escopo escolhido para a onda, e
-segue aberto. Não há risco de produto: é um teste que não mede o que promete,
-não um defeito no app.
+
+**Corrigido em 2026-08-07, e a alegação foi medida antes.** Com a limpeza
+`return () => clearTimeout(timeout)` removida dos dois componentes:
+
+| Forma do teste | Resultado sob a mesma mutação |
+| --- | --- |
+| Antiga (`resolved: false` na primeira passada) | **2 vermelhos**, ambos de desmontagem. Os dois casos "virada da preferência" seguiram **verdes com a limpeza morta** |
+| Nova (`resolved: true, reducedMotionEnabled: false`, avança meio caminho, então vira) | **4 vermelhos** — os dois de virada e os dois de desmontagem |
+
+A primeira passada agora **agenda**, que é a condição sem a qual não há o que
+limpar. Sem ela o caso voltava pelo `if (!motionResolved) return` e media o
+gate, duplicando o teste de preferência indeterminada — verde nos dois lados.
+
+### Um item herdado descrevia o defeito errado
+
+O menor registrado em `EXECUTION_STATUS_2026-08-04.md` como "`checkHeuristics()`
+sem fiação" **está errado como enunciado**, e o enunciado manda a próxima sessão
+procurar uma fiação que existe. `checkHeuristics` é chamado no `useEffect` de
+montagem de `HomeScreen.tsx:141`, e está lá desde `847a12d` — anterior àquele
+documento. O que o segura é `HEURISTICS_CONSTANTS.SHADOW_MODE: true`
+(`heuristics.constants.ts:16`): ele avalia o alerta do dia, loga e retorna antes
+de chamar `setAlert`.
+
+O item verdadeiro, portanto, não é de engenharia e sim **decisão de produto**:
+desligar o shadow mode liga nudges visíveis na home. É o mesmo par que
+`app_open`, e a nota em `useAppOpenLifecycle.ts:46` já o enquadrava assim — a
+divergência estava só no menor herdado.
 
 **Pré-existente, não introduzido aqui:** `buildInitialProgress`
 (`JourneyProgressService.ts:302`) semeia `completedNodeIds` a partir de
