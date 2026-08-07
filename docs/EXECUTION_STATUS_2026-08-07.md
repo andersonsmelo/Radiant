@@ -484,6 +484,7 @@ lista.
    registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
    `star-dose-radiacao` como candidato real **adiado**, com gatilho de
    reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
+
 **Ações que só o dono executa:**
 
 4. **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
