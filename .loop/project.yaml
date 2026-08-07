@@ -123,6 +123,11 @@ validators:
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
       scripts/content/validate-content-anchoring.mjs
     timeoutMs: 120000
+  - id: content-no-verbatim
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node scripts/content/validate-no-verbatim.mjs
+    timeoutMs: 120000
   - id: content-python
     command: PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py
       scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py
