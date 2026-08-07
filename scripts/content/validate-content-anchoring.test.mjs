@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { anchoringErrors } from './validate-content-anchoring.mjs';
+import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { anchoringErrors, main } from './validate-content-anchoring.mjs';
 
 const manifesto = [
   { id: 'excerpt:fundamentos:p12:c1', hash: 'abc', rightsClass: 'authorized' },
@@ -36,4 +39,50 @@ test('MUTACAO: excerto nao autorizado reprova', () => {
 test('MUTACAO: excerto fora do manifesto reprova', () => {
   const aula = { claims: [{ excerptId: 'excerpt:fantasma:p1:c1', hash: 'abc' }] };
   assert.match(anchoringErrors({ aula, manifesto })[0], /excerto fora do manifesto/);
+});
+
+// A partir daqui, o runner. Os testes acima medem a funcao pura; estes medem o
+// valor que o processo devolve, que e a unica superficie pela qual o gate do
+// Loop decide. Uma funcao pura coberta nao cobre o invólucro que a chama.
+
+function arvoreComAula({ manifesto: linhas, aula }) {
+  const raiz = mkdtempSync(path.join(tmpdir(), 'ancoragem-'));
+  mkdirSync(path.join(raiz, 'content-manifest', 'lessons'), { recursive: true });
+  mkdirSync(path.join(raiz, 'content-manifest', 'excerpts'), { recursive: true });
+
+  writeFileSync(
+    path.join(raiz, 'content-manifest', 'excerpts', 'manifest.jsonl'),
+    linhas.map((linha) => JSON.stringify(linha)).join('\n') + '\n',
+    'utf8',
+  );
+  writeFileSync(
+    path.join(raiz, 'content-manifest', 'lessons', 'piloto.anchored.json'),
+    JSON.stringify(aula),
+    'utf8',
+  );
+  return raiz;
+}
+
+test('MUTACAO: main devolve 1 quando nao ha aula ancorada nenhuma', () => {
+  const raiz = mkdtempSync(path.join(tmpdir(), 'ancoragem-'));
+  mkdirSync(path.join(raiz, 'content-manifest', 'lessons'), { recursive: true });
+  mkdirSync(path.join(raiz, 'content-manifest', 'excerpts'), { recursive: true });
+  writeFileSync(path.join(raiz, 'content-manifest', 'excerpts', 'manifest.jsonl'), '', 'utf8');
+  assert.equal(main(raiz), 1);
+});
+
+test('MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada', () => {
+  const raiz = arvoreComAula({
+    manifesto: [{ id: 'excerpt:a:p1:c1', hash: 'h1', rightsClass: 'authorized' }],
+    aula: { lessonId: 'ai-lesson:x', claims: [{ claim: 'x', excerptId: 'excerpt:a:p1:c1', hash: 'h1' }] },
+  });
+  assert.equal(main(raiz), 0);
+});
+
+test('MUTACAO: main devolve 1 quando o hash do excerto mudou desde a ancoragem', () => {
+  const raiz = arvoreComAula({
+    manifesto: [{ id: 'excerpt:a:p1:c1', hash: 'OUTRO', rightsClass: 'authorized' }],
+    aula: { lessonId: 'ai-lesson:x', claims: [{ claim: 'x', excerptId: 'excerpt:a:p1:c1', hash: 'h1' }] },
+  });
+  assert.equal(main(raiz), 1);
 });
