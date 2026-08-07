@@ -45,7 +45,7 @@ tags:
     link: "radiantapp://reward?nodeId=node%3Areward%3Afundamentos%3Afinal"
 - runFlow:
     when:
-      visible: 'Abrir com “Radiant”?'
+      visible: 'Abrir com “Radiant”\?'
     commands:
       - tapOn: Abrir
 - assertVisible: Conquista da unidade
@@ -73,7 +73,7 @@ tags:
 # A ausência é o ponto do flow: sem botão de coletar, não há caminho de UI para
 # gravar a conquista.
 - assertNotVisible: Receber conquista
-- assertNotVisible: Pronto para coletar essa conquista?
+- assertNotVisible: 'Pronto para coletar essa conquista\?'
 # A saída oferecida devolve à jornada, em vez de deixar a pessoa presa numa tela
 # que ela alcançou por um link.
 - tapOn: Voltar para jornada

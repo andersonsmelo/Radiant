@@ -35,7 +35,7 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 
-- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - takeScreenshot: shots/03-quiz
 # Scroll de elevacao FIXO, sem guarda — mesma correcao que o segundo quiz deste
 # arquivo ja recebeu em f7b602a, aplicada aqui em 2026-08-03.

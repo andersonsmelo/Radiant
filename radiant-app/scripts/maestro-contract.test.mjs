@@ -18,8 +18,51 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'store-capture.yaml',
 ];
 
+// As chaves do Maestro que recebem um SELETOR — todas casam por regex de
+// correspondência total, então todas carregam a mesma armadilha do `?`.
+// `tapOn` fica de fora de propósito: dois flows usam regex intencional ali
+// (`^Progresso(, tab.*)?$`), e proibir o `?` lá proibiria a regex.
+const SELECTOR_KEYS = ['assertVisible', 'assertNotVisible', 'visible', 'notVisible'];
+const UNESCAPED_QUESTION_MARK = /(?<!\\)\?/;
+
 async function readAppFile(relativePath) {
   return readFile(path.join(appRoot, relativePath), 'utf8');
+}
+
+async function listMaestroFlows() {
+  const entries = await readdir(path.join(appRoot, '.maestro'), { withFileTypes: true });
+
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.yaml') && entry.name !== 'config.yaml')
+    .map((entry) => entry.name)
+    .sort();
+}
+
+/**
+ * Todos os seletores de um flow, com a linha em que aparecem. Varre o
+ * diretório inteiro em vez de uma lista: um flow novo nasce coberto, e a
+ * armadilha do `?` não espera decisão de ninguém para valer.
+ */
+function maestroSelectors(flow) {
+  const found = [];
+
+  flow.split('\n').forEach((line, index) => {
+    if (/^\s*#/.test(line)) return;
+
+    const match = line.match(/^\s*(?:- )?([A-Za-z]+):\s*(\S.*?)\s*$/);
+    if (!match || !SELECTOR_KEYS.includes(match[1])) return;
+
+    const raw = match[2];
+    const selector = /^'.*'$/.test(raw) || /^".*"$/.test(raw) ? raw.slice(1, -1) : raw;
+
+    found.push({ key: match[1], selector, line: index + 1 });
+  });
+
+  return found;
+}
+
+function unescapeSelector(selector) {
+  return selector.replace(/\\(.)/g, '$1');
 }
 
 test('keeps Maestro discovery explicit and artifact output untracked', async () => {
@@ -598,11 +641,34 @@ test('ties the locked-reward flow to the node id the app actually builds', async
   // A ausência do botão é o que o flow existe para provar. Uma asserção
   // positiva a mais não substitui estas: sem elas o flow passaria mesmo que a
   // coleta voltasse a ser oferecida para um nó bloqueado.
-  for (const forbidden of ['Receber conquista', 'Pronto para coletar essa conquista?']) {
-    assert.match(
-      flow,
-      new RegExp(`^- assertNotVisible: ${forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm'),
+  //
+  // O contrato exige a PROPRIEDADE, não a linha: "este elemento carrega uma
+  // asserção negativa, e ela está escapada corretamente". A versão anterior
+  // congelava o literal — inclusive o `?` sem barra —, e por isso *exigia* a
+  // forma quebrada: corrigir o flow deixava o contrato vermelho. Um contrato
+  // que só aceita o texto de hoje não sobrevive à próxima correção; um que
+  // aceita a propriedade sobrevive.
+  const rewardScreen = await readAppFile('src/features/rewards/screens/RewardScreen.tsx');
+  const collectLabel = rewardScreen.match(/: '(Receber conquista)'/)?.[1];
+  const collectPrompt = rewardScreen.match(/: '(Pronto para coletar[^']+)'/)?.[1];
+  assert.ok(
+    collectLabel && collectPrompt,
+    'expected RewardScreen to name both the collect button and the collect prompt'
+  );
+
+  const negatives = maestroSelectors(flow).filter((entry) => entry.key === 'assertNotVisible');
+
+  for (const forbidden of [collectLabel, collectPrompt]) {
+    const match = negatives.find((entry) => unescapeSelector(entry.selector) === forbidden);
+
+    assert.ok(
+      match,
       `reward-locked.yaml must assert "${forbidden}" is absent — that absence is the defect guard`
+    );
+    assert.doesNotMatch(
+      match.selector,
+      UNESCAPED_QUESTION_MARK,
+      `reward-locked.yaml:${match.line}: the negative assertion for "${forbidden}" must escape its "?" — unescaped it can never match, so the guard passes forever, including when the element IS visible`
     );
   }
 });
@@ -756,18 +822,85 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
     `reward-unlock.yaml must assert "${readyLabel}" — the mirror of what reward-locked.yaml asserts about the same node`
   );
 
+});
+
+test('escapes every "?" in every selector of every flow', async () => {
   // O seletor do Maestro é regex de casamento total: um `?` sem barra torna a
   // letra anterior opcional e deixa o literal sem nada para casar, então a
-  // asserção passa a descrever uma tela que não existe. Numa asserção positiva
-  // isso fica vermelho em device; numa negativa, passa em silêncio para sempre.
-  for (const [index, line] of flow.split('\n').entries()) {
-    const asserted = line.match(/^\s*(?:- )?assertVisible: '?(.+?)'?$/)?.[1];
-    if (!asserted) continue;
+  // asserção passa a descrever uma tela que não existe.
+  //
+  // A assimetria é o que torna isto caro: numa asserção POSITIVA a falha é
+  // barulhenta — fica vermelha na primeira execução em aparelho. Numa
+  // NEGATIVA ela é silenciosa e permanente: `assertNotVisible` com padrão
+  // impossível passa sempre, inclusive quando o elemento está visível. Era
+  // esse o caso de `reward-locked.yaml`, cuja metade do guarda-defeito não
+  // podia falhar — e o contrato, congelando o literal, *exigia* a forma
+  // quebrada.
+  //
+  // A varredura cobre o diretório inteiro e as quatro chaves de seletor, não
+  // um flow e uma chave: a versão anterior olhava só `assertVisible` em
+  // `reward-unlock.yaml`, e o defeito estava no arquivo ao lado.
+  for (const name of await listMaestroFlows()) {
+    const flow = await readAppFile(`.maestro/${name}`);
 
-    assert.doesNotMatch(
-      asserted,
-      /(?<!\\)\?/,
-      `reward-unlock.yaml:${index + 1}: escape the "?" — Maestro selectors are full-match regexes, so an unescaped one silently changes what is being asserted`
+    for (const entry of maestroSelectors(flow)) {
+      assert.doesNotMatch(
+        entry.selector,
+        UNESCAPED_QUESTION_MARK,
+        `${name}:${entry.line}: escape the "?" in this ${entry.key} selector — Maestro selectors are full-match regexes, so an unescaped one silently changes what is being matched (on a negative assertion it can never fail)`
+      );
+    }
+  }
+});
+
+test('keeps one visibility bar per selector across every flow', async () => {
+  // Em 2026-08-06 o mesmo `lesson-option-q1:option:1`, na mesma tela, era
+  // exigido a 100% por dois flows e a 80% por um terceiro — este último com o
+  // comentário registrando que um brilho decorativo cobre ~11% dos bounds no
+  // Android e que 100 custou uma execução de 15 minutos. Duas réguas para o
+  // mesmo elemento não é tolerância a plataforma: é uma contradição que só se
+  // manifesta queimando janela de aparelho, e o flow que perde é sorteado pela
+  // ordem de execução.
+  //
+  // O contrato não escolhe o número — ele exige que só exista um. Quem medir
+  // outro valor muda todos os lugares de uma vez, que é a revisão que a
+  // divergência silenciosa nunca teve.
+  const bars = new Map();
+
+  for (const name of await listMaestroFlows()) {
+    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
+
+    lines.forEach((line, index) => {
+      if (!/^- scrollUntilVisible:/.test(line)) return;
+
+      const block = [];
+      for (let cursor = index + 1; cursor < lines.length; cursor += 1) {
+        if (/^\S/.test(lines[cursor])) break;
+        block.push(lines[cursor]);
+      }
+
+      const body = block.join('\n');
+      const selector = body.match(/^\s+id:\s*'?([^'\n]+?)'?\s*$/m)?.[1];
+      const percentage = body.match(/^\s+visibilityPercentage:\s*(\d+)\s*$/m)?.[1];
+
+      if (!selector || !percentage) return;
+
+      if (!bars.has(selector)) {
+        bars.set(selector, []);
+      }
+      bars.get(selector).push({ name, line: index + 1, percentage });
+    });
+  }
+
+  for (const [selector, occurrences] of bars) {
+    const distinct = [...new Set(occurrences.map((entry) => entry.percentage))];
+
+    assert.equal(
+      distinct.length,
+      1,
+      `"${selector}" is scrolled to with ${distinct.join(' and ')} across ${occurrences
+        .map((entry) => `${entry.name}:${entry.line} (${entry.percentage})`)
+        .join(', ')} — the same element on the same screen must carry the same visibility bar in every flow`
     );
   }
 });
