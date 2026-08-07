@@ -471,10 +471,25 @@ lista.
 
   O `SHADOW_MODE` **continua ligado**. O que falta agora é só a decisão de
   produto, e ela passou a ser sobre nudges que fazem o que dizem.
-- **Escopo da taxonomia** — os 16 nós seguem com `taxonomyId: null`. O mapa
-  registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
-  `star-dose-radiacao` como candidato real **adiado**, com gatilho de
-  reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
+- **Escopo da taxonomia — DECIDIDO no rumo, com desenho aguardando aprovação.**
+  Em 2026-08-07 o dono escolheu **a taxonomia cresce para o eixo técnico**, mais
+  três decisões de forma: nó significa currículo **entregue** (os do eixo técnico
+  nascem `active`), **estender `galaxy-fisica` + uma galáxia nova**, e **não
+  criar estrelas** — estrela é trilha curta e não há nenhuma produzida.
+
+  O desenho está escrito em
+  [`docs/superpowers/specs/2026-08-07-taxonomia-eixo-tecnico-design.md`](superpowers/specs/2026-08-07-taxonomia-eixo-tecnico-design.md)
+  como **rascunho não aprovado**: 6 planetas novos, nenhuma estrela, as 16 lições
+  atribuídas uma a uma. **A conversa parou na pergunta de aprovação**, em dois
+  julgamentos que precisam do seu sim: onde fica
+  `preservacao-de-alimentos-por-irradicao`, e se vale quebrar o ritmo de 2
+  planetas por galáxia. **Nada foi implementado.**
+
+  O que a decisão já destravou como entendimento: há **dois currículos** no
+  repositório — a taxonomia organiza *interpretação de imagem*, as 16 lições
+  ensinam *operar o equipamento* —, e é por isso que os 16 mapeavam para `null`.
+  Quando o desenho for aprovado e executado, o **D4** ganha destino e a **Task 4
+  da G1** ganha base.
 
 **Ações que só o dono executa:**
 
@@ -513,6 +528,15 @@ lista.
   catálogo embarcado já existe em `RemoteCatalogService`, então endpoint fora do
   ar degrada para "conteúdo da última release". Não está no caminho crítico da
   F2 nem da submissão.
+- **`wave-1-priority-tracks.json` põe lições em trilhas onde elas não
+  pertencem.** Descoberto em 2026-08-07. `track-abdomen-essentials` contém
+  `ai-lesson:preservacao-de-alimentos-por-irradicao`, e `track-thorax-patterns`
+  não tem nada de tórax — as 16 lições do curso técnico foram distribuídas em
+  ordem de origem por trilhas com nome de anatomia. **Não afeta o usuário:** o
+  bundle embarca uma trilha só e coerente, `track-ai-fundamentos`. Mas é o
+  arquivo que o validador de taxonomia lê como catálogo, então o mapa é
+  computado contra uma organização incoerente. Trabalho pequeno, sem decisão
+  pendente.
 - **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
   durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
   concorrente, e o flow morre em timeout que parece defeito do app.
