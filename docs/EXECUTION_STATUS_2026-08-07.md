@@ -22,9 +22,16 @@ sistema de registro deles. A tabela está em "Situação real dos itens herdados
 
 ## O que fechou em 2026-08-07
 
-Quatro commits sobre `91445e4`, todos com run do Loop fechado no ritual completo
-(`validate` → `step finish` → `memory write` → `run close`, com o `code` de cada
-resposta conferido) e `declaredFiles` conferido contra os arquivos do commit.
+Duas ondas. A primeira, sobre `91445e4`, fechou a re-revisão da onda de correção.
+A segunda, sobre `9681db6`, tirou a fiação da cadeia de conteúdo do brainstorming
+e entregou quatro das seis tasks do plano.
+
+Todos os runs fecharam no ritual completo (`validate` → `step finish` →
+`memory write` → `run close`, com o `code` de cada resposta conferido
+separadamente) e `declaredFiles` conferido contra os arquivos do commit — com
+**uma exceção declarada**, o `1a815f4`, explicada abaixo.
+
+### Primeira onda — a re-revisão
 
 | Commit | O quê |
 | --- | --- |
@@ -32,6 +39,22 @@ resposta conferido) e `declaredFiles` conferido contra os arquivos do commit.
 | `ca1cc59` | Pagamento repetível de XP em nó recusado — a quebra que a onda de correção introduziu |
 | `ad79def` | O caso de teste de limpeza que não agendava nada, e portanto não media limpeza |
 | `0c351dd` | As decisões do dono bancadas em documento, e a correção da seção "Aberto" |
+
+### Segunda onda — a fiação da cadeia
+
+| Commit | O quê |
+| --- | --- |
+| `6b4f8c1` | Spec do design, com as Seções 1 e 2 aprovadas pelo dono |
+| `88eb50e` | Plano de implementação, seis tasks |
+| `90d4432` | **Task 1** — ponto de entrada do validador de mapa de taxonomia |
+| `7315072` | **Task 2** — manifesto de excertos com filtro de direitos na entrada |
+| `6f1e7cf` | Correção do plano: a extração rodava dentro da janela do run |
+| `53b6a89` | `.loop/project.yaml` — ponteiro de status vencido e extrações fora do escopo vigiado |
+| `738b113` | Reestruturação: a cadeia fecha sem motor de embedding |
+| `7006d9c` | **Task 4** — as 8 claims do piloto, escritas à mão |
+| `b76c30b` | Task 4, rodada 1: testes restaurados e claims sem ancoragem fiel corrigidas |
+| `97c01d2` | Task 4, rodada 2: a paráfrase que tinha sido realocada em vez de removida |
+| `1a815f4` | **Task 5** — ancoragem por resolução de hash. **Não revisada**, ver abaixo |
 
 ### A re-revisão da onda voltou, e quase se perdeu
 
@@ -106,7 +129,12 @@ que o antigo estava quebrado. Uma mutação aplicada às duas formas prova as du
 | --- | --- |
 | `app_open` e a transição segundo-plano → primeiro-plano | **Fica conservador.** Abertura é lançamento de processo. O latch de processo é a forma final, não um estágio. Mudar isso agora é mudança de produto com ADR, não resolução de pendência |
 | Task 6, Steps 5 e 6 — motor local | **Ollama, depois de liberar o órfão.** Pendente do dono: apagar `~/.lmstudio` e instalar o runtime |
-| Fiação da cadeia de conteúdo | **Começar pelo brainstorming e plano.** Em andamento — ver a seção própria |
+| Fiação da cadeia de conteúdo | **Começar pelo brainstorming e plano.** Feito: spec e plano commitados, 4 de 6 tasks entregues |
+| Seção 1 do design — onde o `rightsClass` filtra | **Na entrada, com relatório de descarte.** Fonte não-`authorized` não gera linha; `descartes.json` registra quem caiu e por quê |
+| Motor de IA na cadeia de conteúdo | **Rodar somente local.** E como não há motor local instalado, a cadeia fechou **sem motor nenhum** — o validador nunca leu um vetor |
+| Aula do piloto | **`ai-lesson:qualidade-de-imagem`**, entre os 16 nós `ai-lesson:`. Nenhum é de mamografia; este é o mais próximo |
+| `.loop/project.yaml` | **Corrigir os dois pontos** — ponteiro de status e escopo das extrações. Feito em `53b6a89` |
+| Task 5 interrompida, verde e sem commit | **Commitar como não revisada**, com a lacuna declarada na mensagem e no status |
 | B4 — harness de acessibilidade | Nada a decidir: a task fechou em 2026-08-06. Construir o harness segue possível como **upgrade opcional**, que fecharia o gatilho de reabertura e a B0 junto. Não iniciado |
 
 ## Situação real dos itens herdados
@@ -145,88 +173,113 @@ consertou o **balão de fala**, fixando a largura da coluna do personagem em
 coluna de largura fixa que não cresce com `fontScale` — não foi tocado, e não há
 teste de escala de fonte no componente.
 
-## Fiação da cadeia de conteúdo — brainstorming EM ANDAMENTO
+## Fiação da cadeia de conteúdo — brainstorming FECHADO, 4 de 6 tasks entregues
 
-**Estado: Seção 1 do design apresentada, aguardando aprovação do dono. Seção 2
-não apresentada. Nenhum spec escrito, nenhum código tocado.** O gate do
-`superpowers:brainstorming` não foi vencido.
+**Estado: spec aprovado e commitado, plano escrito, Tasks 1, 2, 4 e 5 entregues.
+Falta a revisão da Task 5 e a Task 6 inteira.** O gate do
+`superpowers:brainstorming` foi vencido em 2026-08-07; o do
+`superpowers:writing-plans` também.
 
-O levantamento, porém, está feito e **muda o enunciado do problema**. Vale mais
-que o design em si, e é o que a próxima sessão deve herdar.
+- Spec: [`docs/superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md`](superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md)
+- Plano: [`docs/superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md`](superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md)
 
-### A linha divide exatamente onde o plano começou
-
-Varredura de ponto de entrada em todos os scripts de conteúdo:
-
-| Entregue pelas Tasks 1–8 | Pré-existente |
-| --- | --- |
-| `anchor-lesson.py`, `build-manifest.py`, `calibration-report.py`, `destination-state.py`, `embed-excerpts.py`, `sampling-queue.py`, `validate-content-anchoring.mjs`, `validate-taxonomy-map.mjs` — **nenhum tem ponto de entrada** | `extract-source.py`, `generate-embeddings.py`, `promote-to-catalog.mjs`, `validate-foundation.mjs`, `validate-media-manifest.mjs` e os demais — **todos têm** |
-
-Não falta "um leitor aqui e um produtor ali". O plano entregou uma
-**biblioteca**; o pipeline anterior é **executável**.
-
-### As pontas são quatro, não três, e a quarta não existe
-
-**Ponta A — taxonomia. Fiação real, pequena.** `mapErrors` precisa de `map`,
-`taxonomyIds` e `catalogIds`, e os três existem em disco:
-`content-manifest/taxonomy-catalog-map.json` (16 entradas),
-`Conteúdo/taxonomia/{estrelas,planetas,galaxias}.json` e
-`Conteúdo/governança/catalog-payload.json`. Falta o ponto de entrada.
-
-**Ponta B — manifesto de excertos. Fiação, média.** O `rightsClass` **tem**
-produtor real, ao contrário do que o documento anterior dizia: o
-`Conteúdo/fontes/library-catalog.json` classifica as 36 fontes —
-17 `blocked`, 15 `reference-only` e **4 `authorized`**, todas com
-`verbatim-excerpt` licenciado e arquivo presente em disco. O trabalho é dar
-entrada a `build-manifest.py` e carregar a classe da fonte até o excerto.
-
-**Ponta C — as `claims`. Não é fiação: não existe.** Os únicos lugares no
-repositório que mencionam `claims` são os dois consumidores. Nada as produz.
-`anchor_report` recebe claims **já com texto e vetor** e atribui o `excerptId`
-por similaridade — ele ancora a afirmação, não a descobre. E
-`ai-generate-formats.py` produz quizzes, revisões e checkpoints, não afirmações
-ancoráveis. Sem produtor de claims, a maquinaria de ancoragem não tem entrada,
-nunca. **É a ponta que sustenta as outras duas, e é a única que o documento
-anterior não lista.**
-
-**Ponta D — o validador.** `content-anchoring` roda `node --test` sobre dois
-arquivos de teste. "11 validadores passaram" significa "os testes unitários
-passam", não "o conteúdo está ancorado".
-
-### O Ollama não bloqueia a cadeia
-
-Medido: `generate-embeddings.py` usa `text-embedding-3-small` da OpenAI, e
-`ai-generate-formats.py` usa Claude para narrativa e `gpt-4o-mini` para formatos
-estruturados. Ambos remotos. E `anchoringErrors` **não olha similaridade** — só
-excerto presente, pertencimento ao manifesto, `rightsClass` e hash —, então
-nenhum limiar calibrado é necessário para fechar a cadeia. O motor local da
-Task 6 é economia e privacidade, **não pré-requisito da fiação**.
-
-### Decisões já tomadas dentro do brainstorming
+### As decisões que fecharam o desenho
 
 | Pergunta | Decisão |
 | --- | --- |
-| O validador ligado a dado real leria zero aulas e passaria verde por vacuidade. O que fazer? | **Reprovar até existir dado.** Verde passa a significar "validei dados", nunca "não achei dados" |
-| Mas isso trava todo `loop validate` até o dado existir. Como sair do impasse? | **A fiação produz o primeiro dado real.** Só então o validador estrito entra no `project.yaml`, já com o que validar |
-| As claims não têm produtor. Por onde? | **Piloto com claims escritas à mão.** Uma aula, fonte autorizada, 5–10 afirmações humanas contra excertos reais. Zero capacidade nova de IA. O extrator por LLM fica para um plano seguinte, já com a cadeia viva para medi-lo contra |
+| Onde o `rightsClass` filtra o manifesto? | **Na entrada, com relatório de descarte.** Fonte não-`authorized` não gera linha |
+| O validador leria zero aulas e passaria verde por vacuidade | **Reprovar até existir dado.** Verde significa "validei dados" |
+| As claims não têm produtor | **Piloto com claims escritas à mão**, sobre a fonte INCA |
+| Qual nó do catálogo o piloto ancora? | **`ai-lesson:qualidade-de-imagem`** — nenhum dos 16 nós é de mamografia, e este é o mais próximo |
+| Sem motor de embedding local, a cadeia para? | **Não.** Ver a seção própria abaixo |
 
-### Onde parou, exatamente
+A pergunta sobre filtrar na entrada foi respondida com a premissa remedida contra
+o código: o ramo `rightsClass !== 'authorized'` do validador realmente fica
+inalcançável no dado real, mas **a proteção não some — ela troca de nome**. A
+condição passa a cair no ramo anterior, `excerto fora do manifesto`, e o ramo
+original continua provado por mutação com fixture sintético. A escolha não era
+entre ter e não ter a guarda; era sobre qual mensagem nomeia a causa.
 
-A **Seção 1** do design foi apresentada e cobre: cada função pura ganha um runner
-fino que carrega dado real, chama a função e sai não-zero em erro; os artefatos
-que passam a existir em `content-manifest/` (`excerpts/`, `embeddings/`,
-`lessons/*.claims.json`, `lessons/*.anchored.json`); e a decisão de que o
-`rightsClass` viaja da fonte para o excerto no nascimento do excerto e nunca é
-recalculado — com fontes não-`authorized` **não gerando linha**, em vez de
-gerarem linha que o validador depois recusa. O piloto usaria
-`library-source:ed36a480d512d69a` (INCA, mamografia, CC BY-NC-SA).
+### A cadeia fecha sem motor de embedding
 
-A pergunta feita ao dono, e ainda sem resposta: se filtrar os direitos na
-**entrada** do manifesto está certo, sabendo que isso deixa o validador com um
-ramo que, no dado real, nunca dispara.
+Decisão do dono no meio da execução: **rodar somente local.** Medido na máquina
+no mesmo dia — `ollama` não instalado, nada em `127.0.0.1:11434`, sem `torch`
+nem `sentence-transformers`, e o `lms` do LM Studio responde *"daemon is not
+running and no valid installation could be found"*. O modelo de 8,7 GB em
+`~/.lmstudio` é `gemma-4-E4B-it`, um instruct — não serviria como embedder nem
+com runtime.
 
-A **Seção 2** — pontos de entrada, momento de o validador estrito entrar no
-gate, e testes com prova de mutação — não foi apresentada.
+Isso não bloqueou nada, porque **`anchoringErrors` nunca lê um vetor**. Ele checa
+`excerptId` presente, pertencimento ao manifesto, `rightsClass` e hash.
+Similaridade não entra em nenhuma das quatro. Os embeddings serviam só para
+`anchor_report` **descobrir** a âncora — e num piloto de 8 claims escritas à mão,
+quem lê os excertos atribui o `excerptId` melhor que o cosseno.
+
+**Task 3 (embeddings) fica adiada.** `embed-excerpts.py` e `anchor_report`
+seguem funções puras com testes, sem ponto de entrada, até existir motor local.
+
+### O que a cadeia produziu, em dado real
+
+| Artefato | Números |
+| --- | --- |
+| `content-manifest/excerpts/manifest.jsonl` | **296 linhas**, todas `authorized`, todas do piloto INCA |
+| `content-manifest/excerpts/descartes.json` | **109 descartes**, todos de `library-source:f375049d4e936d05` (`blocked`), com o motivo nomeando a classe |
+| `content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json` | **8 claims** humanas, cada uma com seu `excerptId` |
+| `content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json` | 8 claims, **`unanchored: 0`** |
+| Validador de taxonomia, contra o dado real | 16 entradas de mapa, 15 ids de taxonomia, 18 de catálogo, **zero erros** |
+
+405 excertos foram lidos para produzir as 296 linhas. Os 109 que sobraram são a
+fonte `blocked` que já estava extraída em disco — e o descarte deles é o teste de
+aceitação da decisão de filtrar na entrada.
+
+### A lacuna: a Task 5 não foi revisada
+
+O commit `1a815f4` entrou na branch **sem revisão**. O implementador foi
+interrompido durante o `loop validate`, com zero validadores concluídos, e o
+controlador fechou o run (`validating → closed`) para liberar o lock de escritor,
+que estava bloqueando toda outra sessão de IA.
+
+O que se sabe sobre ele: **11 testes verdes** (os 7 anteriores mais 4 novos), diff
+**puramente aditivo** (92 inserções, zero remoções), `cosine`, `best_anchor` e
+`anchor_report` intactos, e a saída com as chaves exatas que a Task 6 espera.
+
+O que **não** se sabe: se os testes novos mordem. A prova de mutação do Step 7 do
+plano não foi executada, e nenhum revisor leu o diff. **A próxima sessão revisa a
+Task 5 antes de seguir para a Task 6.**
+
+### O eixo comercial dos direitos, e ninguém o lê
+
+Medido em 2026-08-07 e registrado no spec: o código consulta um único campo do
+registro de direitos, `rightsClass`, e a mensagem de erro fala em "autorização de
+direitos" — o assunto inteiro. O catálogo registra **dois** eixos. As quatro
+fontes `authorized` têm **todas `commercialUse: false`** (CC BY-NC-SA 4.0,
+CC BY-NC 4.0, "vedados venda e fins comerciais", "reprodução com citação"), e
+`commercialUse` **não tem um único leitor a jusante**: é validado na escrita do
+catálogo e nunca mais lido.
+
+Não bloqueia a cadeia. Bloqueia *embarcar* excerto verbatim num app com
+entitlement premium (ADR-2026-08-01). **É decisão do dono, com contorno
+jurídico, e está em aberto.**
+
+### Três defeitos de processo que esta onda pagou
+
+1. **A extração rodava dentro da janela do run.** `Conteúdo/extrações/` está fora
+   do git mas **`.gitignore` não é `context.excludes`** — são listas
+   independentes, e o guarda de escopo compara o repositório inteiro contra a
+   baseline da abertura. `step finish` devolveu `OUT_OF_SCOPE_CHANGE`, o run caiu
+   em `needs_human` e prendeu o lock. De `needs_human` **não existe transição
+   para `memory_written`**: o aprendizado daquele run se perdeu e teve de ser
+   regravado noutro. Corrigido no plano e no `project.yaml`.
+2. **Um palpite viajou dentro do bloco reservado ao que foi verificado.** O
+   despacho de um subagente afirmava que um arquivo de teste "provavelmente não
+   existe ainda". Ele existia, com quatro testes verdes — entre eles a guarda de
+   que excerto não autorizado nunca vira âncora. O subagente obedeceu e os
+   apagou; a revisão pegou. Incerteza não pode compartilhar canal com "eu
+   conferi".
+3. **Existência não é conteúdo.** O spec afirmava que `catalogIds` vinha de
+   `catalog-payload.json`, herdado do documento anterior. A conferência feita foi
+   `ls` no caminho. O arquivo existe e não tem **nenhum** id `ai-lesson:` — os 16
+   vivem em `wave-1-priority-tracks.json`. Corrigido no spec e no plano.
 
 ## Aberto
 
@@ -238,32 +291,58 @@ gate, e testes com prova de mutação — não foi apresentada.
    registra `ai-lesson:interacao-das-radiacoes-e-protecao-radiologica` ×
    `star-dose-radiacao` como candidato real **adiado**, com gatilho de
    reabertura escrito em prosa dentro do JSON — e prosa não dispara sozinha.
-4. **Seção 1 do design da fiação** — aprovar, corrigir ou recusar.
+4. **O eixo comercial dos direitos.** As 4 fontes `authorized` são todas
+   `commercialUse: false`, e nenhum código lê esse campo. Decide se excerto
+   verbatim pode ser embarcado num app com entitlement premium. **Novo em
+   2026-08-07**, e é a decisão de maior alcance da lista: se a resposta for não,
+   a cadeia inteira precisa de fontes diferentes.
 
 **Ações que só o dono executa:**
 
 5. **Apagar `~/.lmstudio`** — 8,7 GB de um modelo MLX órfão
-   (`gemma-4-E4B-it-MLX-4bit`), sem runtime instalado em lugar nenhum. Leva o
+   (`gemma-4-E4B-it-MLX-4bit`). Confirmado em 2026-08-07 pelo próprio `lms`:
+   *"daemon is not running and no valid installation could be found"*. Leva o
    espaço livre de 15 GB para ~23,7 GB.
-6. **Instalar o Ollama** — o plano fixa `127.0.0.1:11434`.
+6. **Instalar o Ollama e um modelo de embedding.** O plano fixa
+   `127.0.0.1:11434`. **Já não bloqueia a cadeia de conteúdo** — a fiação fechou
+   sem motor. Desbloqueia a Task 3 (embeddings) e a ancoragem por similaridade.
 7. **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
    engenharia o encurta.
 8. **A5** — gerar a service-account key no Play Console.
-9. **`.loop/project.yaml` aponta para o documento errado.** O `context.includes`
-   lista `docs/EXECUTION_STATUS_2026-08-06.md`, que este documento substitui, e
-   `.loop` **não está** em `writePolicy.allowedRoots` — nenhum agente consegue
-   corrigir sem alargar a policy. Enquanto não for corrigido, toda sessão de
-   cérebro carrega o estado superado como contexto.
+9. **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** São **16**
+   à frente de `origin/codex/wave1-hardening-api-smoke`, o upstream da branch —
+   não de `main`, que nem existe como ref local. Medir isso com
+   `git log main..HEAD` devolve **erro**, e medir com um ref que não existe
+   devolveria vazio com sucesso, que é a negativa mais perigosa deste
+   repositório. Use `git log '@{upstream}..HEAD'`.
 
 **Engenharia, com host ou janela:**
 
-10. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
+10. **Revisar a Task 5 e executar a Task 6** — o próximo passo da fiação. Ver o
+    prompt de continuidade abaixo.
+11. **B5 Android** — janela exclusiva de host, horas. Não validar nem gerar
     durante o flow: mediu-se 2,3× de desaceleração no emulador sob carga
     concorrente, e o flow morre em timeout que parece defeito do app.
-11. **Fiação da cadeia** — o brainstorming acima, retomando na Seção 1.
 12. **Menor do `eyebrow`** — `fontScale` em `PixelHeroSplit`, com teste.
 13. **Harness de acessibilidade no dev-tools** — upgrade opcional sobre a B4 já
     fechada; fecharia o gatilho de reabertura e a B0.
+14. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
+    **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
+    excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
+    futura se o adjetivo cai.
+
+**Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~Seção 1 do design da fiação~~ — aprovada pelo dono, com relatório de descarte.
+- ~~`.loop/project.yaml` aponta para o documento errado~~ — corrigido em
+  `53b6a89`. **O bloqueio registrado era falso:** `.loop/project.yaml` **está**
+  em `writePolicy.allowedRoots`, como entrada nominal própria, ainda que o
+  diretório `.loop` não esteja. O item ficou dias na lista do dono por um
+  impedimento que um `grep` na própria policy derrubava. A lição está registrada
+  em "Três defeitos de processo" acima, e generaliza: **um item pendente carrega
+  estado E bloqueio, e são afirmações independentes, com sistemas de registro
+  diferentes.** Reverificar o estado não toca a frase que explica por que
+  ninguém pode agir.
 
 ## Herdado, não reverificado
 
