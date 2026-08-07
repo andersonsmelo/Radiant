@@ -23,6 +23,7 @@
 - **Fixture de dublê é tipado, nunca `as any`.**
 - **Um teste de reaproveitamento só mede reaproveitamento se a primeira passada TIVER chamado.** Afirmar que o recurso existiu antes de afirmar que ele sumiu.
 - **`Conteúdo/` está em `.git/info/exclude`**; `content-manifest/` é rastreado. Artefato que precisa ser auditável nasce em `content-manifest/`.
+- **Todo passo que gera subproduto fora de `writePolicy.allowedRoots` roda ANTES do `abrir.mjs`.** O guarda de escopo do Loop compara o repositório inteiro contra a baseline tirada na abertura do run, e `.gitignore` **não** é `context.excludes` — um arquivo pode estar fora do git e ainda assim derrubar `step finish` com `OUT_OF_SCOPE_CHANGE`. Medido em 2026-08-07 na primeira execução da Task 2. De `needs_human` não existe transição para `memory_written`: o run só pode ser fechado ou revertido, e o aprendizado dele se perde.
 - **Guarda de entrypoint em ESM:** usar `pathToFileURL(process.argv[1]).href`, **nunca** `file://${process.argv[1]}` — os caminhos deste repositório têm acento e o segundo quebra silenciosamente.
 
 ## File Structure
@@ -229,13 +230,18 @@ node scripts/loop/fechar.mjs <runId>
 - Consumes: nada de tasks anteriores.
 - Produces: `rights_by_slug(catalog: dict, normalize: Callable[[str], str]) -> dict[str, dict]`; `partition_excerpts(excerpts: list[dict], rights: dict) -> tuple[list[dict], list[dict]]` devolvendo `(linhas_de_manifesto, descartes)`; `main() -> int`. As linhas de manifesto têm as chaves `id`, `sourceSlug`, `pageStart`, `pageEnd`, `hash`, `rightsClass` — Task 3 e Task 5 leem exatamente `id` e `hash`.
 
-- [ ] **Step 1: Abrir o run do Loop**
+- [ ] **Step 1: Extrair o PDF do piloto — ANTES de abrir o run**
 
-```bash
-node scripts/loop/abrir.mjs "Runner do manifesto de excertos com filtro de direitos na entrada" scripts/content/build-manifest.py scripts/content/build-manifest.test.py content-manifest/excerpts/manifest.jsonl content-manifest/excerpts/descartes.json
-```
-
-- [ ] **Step 2: Extrair o PDF do piloto**
+> **Corrigido em 2026-08-07, depois de a primeira execução travar aqui.** Este
+> passo vinha **depois** do `abrir.mjs`, e isso derruba o run: o extrator escreve
+> `pages.json` e `excerpts.json` em `Conteúdo/extrações/<slug>/`, que não está em
+> `context.excludes` nem em `writePolicy.allowedRoots`. O guarda de escopo do
+> Loop vigia o repositório inteiro durante a janela de edição — e `.gitignore`
+> não é `context.excludes`, são duas listas independentes. `loop step finish`
+> devolveu `OUT_OF_SCOPE_CHANGE`, o run caiu em `needs_human`, e de lá **não há
+> transição para `memory_written`**: o aprendizado do run se perde e o lock de
+> escritor fica preso até alguém fechar à mão. A extração é subproduto fora da
+> política, então ela roda **fora da transação**.
 
 O runner precisa de excertos, e a única extração existente é de fonte `blocked`. Rode o extrator, que **já tem ponto de entrada**:
 
@@ -245,7 +251,13 @@ python3 scripts/content/extract-source.py --source "Conteúdo/Atualiza-o-em-Mamo
 
 Expected: JSON com `sourceSlug`, `pageCount` e `excerptCount`. Confira que o `sourceSlug` impresso é `atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca` — ele é derivado do nome do arquivo por `normalize_source_slug` e é a chave que liga o excerto ao catálogo de direitos. Se sair diferente, **use o valor impresso** e ajuste o `--output-dir`; não force o nome.
 
-Nada disso entra em git: `Conteúdo/` está excluído.
+Nada disso entra em git: `Conteúdo/` está excluído — e, como o passo roda antes do `abrir.mjs`, os arquivos já existem na baseline do run e não contam como mudança.
+
+- [ ] **Step 2: Abrir o run do Loop**
+
+```bash
+node scripts/loop/abrir.mjs "Runner do manifesto de excertos com filtro de direitos na entrada" scripts/content/build-manifest.py scripts/content/build-manifest.test.py content-manifest/excerpts/manifest.jsonl content-manifest/excerpts/descartes.json
+```
 
 - [ ] **Step 3: Escrever os testes que falham**
 
