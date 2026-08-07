@@ -190,3 +190,76 @@ test('slugs de galaxia e de planeta seguem unicos dentro do proprio arquivo', ()
   assert.equal(new Set(slugsDeGalaxia).size, slugsDeGalaxia.length);
   assert.equal(new Set(slugsDePlaneta).size, slugsDePlaneta.length);
 });
+
+// Distribuicao aprovada pelo dono em 2026-08-07. Escrita por extenso, e nao
+// derivada do arquivo, porque um teste que le a mesma fonte que valida nao
+// testa nada.
+const ATRIBUICOES = {
+  'planet-fisica-da-radiacao': [
+    'ai-lesson:energia-e-materia',
+    'ai-lesson:estrutura-da-materia-e-nucleo-atomico',
+    'ai-lesson:radioatividade-particulas-e-atividade',
+    'ai-lesson:raios-x-descoberta-e-propriedades',
+  ],
+  'planet-producao-e-protecao': [
+    'ai-lesson:interacao-das-radiacoes-e-protecao-radiologica',
+    'ai-lesson:producao-dos-raios-x',
+  ],
+  'planet-equipamento': [
+    'ai-lesson:acessorios-radiologicos',
+    'ai-lesson:componentes-basicos-do-equipamento',
+    'ai-lesson:equipamentos-de-radiologia-convencional',
+  ],
+  'planet-modalidades': [
+    'ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear',
+    'ai-lesson:ressonancia-magnetica',
+    'ai-lesson:tomografia-computadorizada',
+  ],
+  'planet-imagem-na-pratica': [
+    'ai-lesson:processamento-radiografico',
+    'ai-lesson:qualidade-de-imagem',
+  ],
+  'planet-profissao-e-aplicacoes': [
+    'ai-lesson:preservacao-de-alimentos-por-irradicao',
+    'ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia',
+  ],
+};
+
+test('nenhuma licao do catalogo segue sem destino de taxonomia', () => {
+  const mapa = lerReal('content-manifest', 'taxonomy-catalog-map.json');
+  const semDestino = mapa.filter((e) => e.taxonomyId === null).map((e) => e.catalogId);
+  assert.deepEqual(semDestino, [], `entradas ainda nulas: ${semDestino.join(', ')}`);
+});
+
+test('todo taxonomyId do mapa real resolve num no de taxonomia real', () => {
+  const { map, taxonomyIds } = loadInputs(RAIZ);
+  for (const entrada of map) {
+    if (entrada.taxonomyId === null) continue;
+    assert.ok(
+      taxonomyIds.has(entrada.taxonomyId),
+      `${entrada.catalogId} aponta para ${entrada.taxonomyId}, que nao existe`,
+    );
+  }
+});
+
+test('as 16 licoes caem exatamente nos planetas aprovados', () => {
+  const mapa = lerReal('content-manifest', 'taxonomy-catalog-map.json');
+  const observado = {};
+  for (const entrada of mapa) {
+    (observado[entrada.taxonomyId] ??= []).push(entrada.catalogId);
+  }
+  for (const planeta of Object.keys(observado)) observado[planeta].sort();
+  assert.deepEqual(observado, ATRIBUICOES);
+});
+
+test('toda entrada do mapa carrega rationale nao vazio', () => {
+  const mapa = lerReal('content-manifest', 'taxonomy-catalog-map.json');
+  for (const entrada of mapa) {
+    assert.equal(typeof entrada.rationale, 'string');
+    assert.ok(entrada.rationale.length > 0, `rationale vazio em ${entrada.catalogId}`);
+  }
+});
+
+test('MUTACAO: main devolve 0 contra o repositorio real', () => {
+  assert.equal(main(RAIZ), 0);
+});

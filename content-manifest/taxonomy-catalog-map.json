@@ -1,82 +1,82 @@
 [
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-equipamento",
     "catalogId": "ai-lesson:acessorios-radiologicos",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos, planet-formacao-imagem); nao sustenta, pois acessorios fisicos de equipamento nao fazem parte do escopo de 'conceitos basicos e leitura inicial' da trilha, e nenhuma das 6 estrelas cobre o dominio de acessorios/equipamento."
+    "rationale": "Acessorios sao parte do aparato fisico do exame, junto de aparelho e componentes. O planeta reune o equipamento como objeto; a licao descreve os acessorios que o acompanham."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-modalidades",
     "catalogId": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
-    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca); nao sustenta, pois a licao trata de aplicacoes da medicina nuclear (uso diagnostico/terapeutico de radioisotopos), nao de protecao radiologica ou leitura segura de exposicao, que e o foco descrito da estrela."
+    "rationale": "Medicina nuclear e uma modalidade de imagem, ao lado de TC e RM. O recorte do planeta e a modalidade como tecnica propria, nao a fisica que a sustenta."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-equipamento",
     "catalogId": "ai-lesson:componentes-basicos-do-equipamento",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos, planet-formacao-imagem); nao sustenta, pois a estrela e descrita como conceitos basicos e leitura inicial (interpretacao de imagem), enquanto a licao e sobre a anatomia interna do equipamento, dominio distinto."
+    "rationale": "Anatomia interna do aparelho de radiologia convencional. Mesmo planeta de acessorios e do equipamento completo, que juntos descrevem a maquina."
   },
   {
-    "taxonomyId": null,
-    "catalogId": "ai-lesson:energia-e-materia",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos); nao sustenta com confianca — a licao e fisica geral pre-raios X (agrupada em track-radiology-foundations com lesson-1/lesson-2), enquanto a estrela esta ancorada no planeta 'formacao de imagem', escopo mais estreito que nao inclui fisica geral."
-  },
-  {
-    "taxonomyId": null,
+    "taxonomyId": "planet-equipamento",
     "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:componentes-basicos-do-equipamento — trata de equipamento fisico, nao de conceitos de formacao/leitura de imagem."
+    "rationale": "O aparelho de radiologia convencional visto por inteiro. E a licao de entrada do planeta; componentes e acessorios a detalham."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-fisica-da-radiacao",
+    "catalogId": "ai-lesson:energia-e-materia",
+    "rationale": "Fisica geral pre-raios X. Fica em Fisica da Radiacao e nao em Formacao da Imagem, porque o planeta de formacao pertence ao eixo de interpretacao e segue planned."
+  },
+  {
+    "taxonomyId": "planet-fisica-da-radiacao",
     "catalogId": "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:energia-e-materia — fisica nuclear basica nao e escopo de 'formacao de imagem'."
+    "rationale": "Fisica nuclear basica, pre-requisito de radioatividade. Mesmo planeta de energia e materia, com quem forma a base do eixo tecnico."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-producao-e-protecao",
     "catalogId": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
-    "rationale": "Estrela mais proxima considerada: star-dose-radiacao (Dose e Seguranca, descricao 'exposicao, protecao e leitura segura do exame'); candidato real por sobreposicao tematica direta entre 'protecao radiologica' e a descricao da estrela. Mantido null porque a estrela ainda nao existe como trilha entregue — status 'planned' — e mapear hoje ligaria um no do catalogo a uma promessa de curriculo. Reabrir quando star-dose-radiacao sair de status 'planned'."
+    "rationale": "Interacao da radiacao com a materia e sua contencao. Fica com producao dos raios X porque as duas descrevem o feixe: uma como ele nasce, outra o que ele faz e como se protege dele. A estrela star-dose-radiacao segue planned e continua sem receber mapeamento, pela regra de nao ligar catalogo a promessa de curriculo."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-profissao-e-aplicacoes",
     "catalogId": "ai-lesson:preservacao-de-alimentos-por-irradicao",
-    "rationale": "Nenhuma estrela plausivel: as 6 estrelas cobrem anatomia (torax/abdome), fisica de formacao de imagem, dose/protecao ao paciente e padroes patologicos pulmonares; a licao trata de irradiacao industrial de alimentos, dominio fora desse escopo clinico."
+    "rationale": "Aplicacao nao-medica da radiacao — nem imagem nem equipamento. Julgamento aprovado pelo dono em 2026-08-07: o planeta se chama Profissao e Aplicacoes e sua descricao nomeia aplicacoes nao-medicas, entao a licao nao e excecao escondida. A alternativa considerada, forcar na fisica, foi recusada."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-imagem-na-pratica",
     "catalogId": "ai-lesson:processamento-radiografico",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos (Fundamentos/formacao de imagem); nao sustenta com confianca — processamento radiografico pode gerar artefatos de imagem, mas a descricao registrada da estrela fala de 'conceitos basicos e leitura inicial', nao de processamento tecnico de filme/chapa."
+    "rationale": "Etapa tecnica entre a exposicao e a imagem pronta. Fica com qualidade de imagem, com quem forma o par do que se faz depois do disparo."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-producao-e-protecao",
     "catalogId": "ai-lesson:producao-dos-raios-x",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta — producao de raios X e fisica/equipamento, fora do escopo de 'conceitos basicos e leitura inicial' de imagem."
+    "rationale": "Como o feixe e produzido. E a licao de entrada do planeta; interacao e protecao completam o ciclo do feixe."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-profissao-e-aplicacoes",
     "catalogId": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
-    "rationale": "Nenhuma estrela plausivel: as 6 estrelas tratam de anatomia, fisica de imagem, dose/protecao e padroes patologicos; nenhuma cobre orientacao profissional ou de carreira."
+    "rationale": "Orientacao profissional e de carreira, sem paralelo nos demais planetas. Da nome ao planeta junto das aplicacoes nao-medicas."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-imagem-na-pratica",
     "catalogId": "ai-lesson:qualidade-de-imagem",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; examinado e rejeitado. O unico vestigio a favor era a string do id ('artefatos-basicos'), enquanto o titulo registrado da estrela e 'Fundamentos' e a descricao e 'Trilha curta sobre conceitos basicos e leitura inicial' — nenhum dos dois menciona artefato ou qualidade de imagem. O id e artefato de nomenclatura; titulo e descricao sao o registro. Inferir assunto a partir do id e o mesmo erro que produziu a conclusao ruim da primeira rodada, quando coincidencia de slug foi lida como parentesco tematico."
+    "rationale": "Fatores tecnicos que decidem a qualidade do resultado. E a aula do piloto de ancoragem, e o planeta a poe ao lado do processamento, que e onde varios desses fatores agem."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-fisica-da-radiacao",
     "catalogId": "ai-lesson:radioatividade-particulas-e-atividade",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta pelo mesmo motivo de ai-lesson:energia-e-materia e ai-lesson:estrutura-da-materia-e-nucleo-atomico — fisica basica de radioatividade nao e 'formacao de imagem'."
+    "rationale": "Radioatividade e atividade, continuacao direta de estrutura da materia. Base fisica do eixo tecnico, anterior a qualquer equipamento."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-fisica-da-radiacao",
     "catalogId": "ai-lesson:raios-x-descoberta-e-propriedades",
-    "rationale": "Estrela mais proxima considerada: star-artefatos-basicos; nao sustenta — a licao e historico e propriedades gerais dos raios X, sem relacao com conceitos de formacao/leitura de imagem nem com os demais temas (anatomia, dose, patologia) das outras estrelas."
+    "rationale": "Historico e propriedades gerais dos raios X. Fecha a base fisica e antecede a producao do feixe, que fica no planeta seguinte."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-modalidades",
     "catalogId": "ai-lesson:ressonancia-magnetica",
-    "rationale": "Nenhuma estrela plausivel com confianca: a licao e sobre a modalidade RM em geral, sem recorte anatomico de torax/abdome nem foco em dose/protecao ou padrao patologico especifico das 6 estrelas."
+    "rationale": "Modalidade propria, ao lado de TC e medicina nuclear. Sem recorte anatomico, o que a mantem fora das galaxias de interpretacao."
   },
   {
-    "taxonomyId": null,
+    "taxonomyId": "planet-modalidades",
     "catalogId": "ai-lesson:tomografia-computadorizada",
-    "rationale": "Nenhuma estrela plausivel com confianca: a licao e sobre a modalidade TC em geral. O catalogo agrupa essa licao na trilha de prioridade 'Torax' (track-thorax-patterns) e essa trilha compartilha slug 'torax' com star-coluna, mas e coincidencia de slug de rollout do wave-1, nao de conteudo — a licao nao e especificamente sobre anatomia toracica, entao nenhuma das 6 estrelas sustenta a correspondencia."
+    "rationale": "Modalidade propria. O catalogo a agrupa na trilha de prioridade Torax, mas isso e coincidencia de rollout do wave-1 e nao de conteudo — a licao e sobre a tecnica, nao sobre anatomia toracica."
   }
 ]
