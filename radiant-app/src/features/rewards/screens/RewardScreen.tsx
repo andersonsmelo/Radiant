@@ -56,6 +56,29 @@ function findReward(snapshot: JourneySnapshot | null, nodeId?: string): JourneyN
   return findFallbackReward(snapshot);
 }
 
+/**
+ * A decisão de coleta, isolada da tela.
+ *
+ * Ela é exportada porque o ramo de coleta é INALCANÇÁVEL pela UI quando o nó
+ * está bloqueado — o mesmo booleano decide se o botão existe e se o handler
+ * grava —, e um teste que só renderiza a tela bloqueada passa sem tocar a
+ * guarda: era exatamente esse o teste que existia aqui, e apagar a condição do
+ * handler o deixava verde. Como função, a regra pode ser invocada diretamente,
+ * e apagá-la fica vermelho.
+ *
+ * `findReward` resolve por id SEM olhar status, de propósito: é o que permite
+ * abrir a tela de uma conquista específica. O efeito colateral é que um deep
+ * link (`radiantapp://reward?nodeId=...`) alcança um nó ainda bloqueado — e o
+ * esquema é invocável de fora do app.
+ */
+export function canCollectReward(rewardNode: JourneyNode | null, alreadyCompleted: boolean): boolean {
+  if (!rewardNode || alreadyCompleted) {
+    return false;
+  }
+
+  return rewardNode.status === 'available' || rewardNode.status === 'active';
+}
+
 function resolveNextAction(snapshot: JourneySnapshot | null) {
   const nextNode = snapshot?.nextRecommendedNode;
 
@@ -164,19 +187,12 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }, [activeUnit]);
 
   const rewardCompleted = completed || rewardNode?.status === 'completed';
-  // `findReward` resolve por id SEM olhar status, de propósito: é o que permite
-  // abrir a tela de uma conquista específica. O efeito colateral é que um deep
-  // link (`radiantapp://reward?nodeId=...`) alcança um nó ainda bloqueado — e o
-  // esquema é invocável de fora do app. Até 2026-08-04 a tela dizia "Pronta para
-  // ser coletada" com 0 de 14 marcos e o botão de coletar gravava
-  // `markNodeCompleted`, entregando a conquista da unidade sem estudo nenhum.
-  // A assimetria estava dentro do próprio arquivo: `loadSnapshot` já checava
-  // status antes de mover o nó atual; só o caminho de coleta não checava.
-  const rewardLocked =
-    !!rewardNode &&
-    !rewardCompleted &&
-    rewardNode.status !== 'available' &&
-    rewardNode.status !== 'active';
+  // Até 2026-08-04 a tela dizia "Pronta para ser coletada" com 0 de 14 marcos e
+  // o botão de coletar gravava `markNodeCompleted`, entregando a conquista da
+  // unidade sem estudo nenhum. A assimetria estava dentro do próprio arquivo:
+  // `loadSnapshot` já checava status antes de mover o nó atual; só o caminho de
+  // coleta não checava. Render e handler agora leem a MESMA função.
+  const rewardLocked = !!rewardNode && !rewardCompleted && !canCollectReward(rewardNode, rewardCompleted);
   const nextAction = useMemo(() => resolveNextAction(snapshot), [snapshot]);
 
   useEffect(() => {
@@ -186,10 +202,11 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   }, [rewardCompleted]);
 
   const handleComplete = useCallback(async () => {
-    // A guarda de `rewardLocked` é defesa em profundidade: a UI já não oferece o
-    // botão para um nó bloqueado, mas quem chega aqui por deep link chega por um
-    // caminho que o app não controla, e gravar progressão é irreversível.
-    if (!rewardNode || rewardCompleted || rewardLocked) {
+    // Defesa em profundidade: a autorização de verdade vive em
+    // `JourneyProgressService.markNodeCompleted`, onde a escrita acontece e
+    // onde todos os caminhos passam. Esta é a segunda camada, na porta que a
+    // UI abre.
+    if (!rewardNode || !canCollectReward(rewardNode, rewardCompleted)) {
       return;
     }
 
@@ -217,7 +234,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [rewardCompleted, rewardLocked, rewardNode]);
+  }, [rewardCompleted, rewardNode]);
 
   if (loading) {
     return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
-import RewardScreen from './RewardScreen';
+import RewardScreen, { canCollectReward } from './RewardScreen';
+import type { JourneyNode } from '../../../types/journey';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 
@@ -226,5 +227,44 @@ describe('RewardScreen flow', () => {
 
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
     expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
+  });
+
+  describe('canCollectReward — a decisão que o handler de coleta consulta', () => {
+    // O teste anterior renderiza a tela bloqueada e afirma que nada gravou. Ele
+    // NAO alcanca a guarda: sem apertar nada, o caminho de coleta nunca roda, e
+    // apagar a condicao do handler o deixava verde. A regra vive numa funcao
+    // justamente para poder ser invocada — o ramo de coleta e inalcancavel pela
+    // UI quando o no esta bloqueado, porque o mesmo booleano decide se o botao
+    // existe e se o handler grava.
+    //
+    // A autorizacao de verdade e a de
+    // `JourneyProgressService.markNodeCompleted`, provada em
+    // JourneyNodeCompletionGuard.test.tsx por cada caminho que alcanca a
+    // escrita. Esta aqui e a segunda camada.
+    const node = (status: JourneyNode['status']): JourneyNode =>
+      ({ id: 'reward-1', unitId: 'unit-1', type: 'reward', title: 'Conquista', status }) as JourneyNode;
+
+    it('recusa um no bloqueado', () => {
+      expect(canCollectReward(node('locked'), false)).toBe(false);
+    });
+
+    it('recusa todo status que nao seja disponivel ou ativo', () => {
+      for (const status of ['locked', 'completed', 'due-review', 'resumable'] as const) {
+        expect(canCollectReward(node(status), false)).toBe(false);
+      }
+    });
+
+    it('recusa quando a conquista ja foi coletada nesta sessao', () => {
+      expect(canCollectReward(node('available'), true)).toBe(false);
+    });
+
+    it('recusa quando nao ha no resolvido', () => {
+      expect(canCollectReward(null, false)).toBe(false);
+    });
+
+    it('aceita o no disponivel e o ativo, senao a correcao vira "nada coleta"', () => {
+      expect(canCollectReward(node('available'), false)).toBe(true);
+      expect(canCollectReward(node('active'), false)).toBe(true);
+    });
   });
 });

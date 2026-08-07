@@ -72,6 +72,27 @@ function isUnitComplete(unit: JourneyUnit): boolean {
 }
 
 export class JourneyRecommendationService {
+    /**
+     * O status de um nó é DERIVADO, nunca armazenado. Quem precisar autorizar
+     * uma escrita tem de perguntar aqui em vez de reimplementar a regra: uma
+     * segunda cópia de `unlockRuleSatisfied` divergiria da primeira no dia em
+     * que a regra mudasse, e a divergência apareceria como uma conquista
+     * entregue sem estudo.
+     */
+    static resolveNodeStatus(node: JourneyNodeDefinition, progress: JourneyProgress): JourneyNode['status'] {
+        return resolveNodeStatus(node, progress);
+    }
+
+    /**
+     * A regra de destravamento isolada do status. Um nó de revisão fora da fila
+     * do dia lê como 'locked' sem que nada esteja bloqueado — ele só não está
+     * vencido —, então quem autoriza escrita precisa das duas respostas para
+     * não confundir "ainda não abriu" com "não é a hora".
+     */
+    static isNodeUnlocked(node: JourneyNodeDefinition, progress: JourneyProgress): boolean {
+        return unlockRuleSatisfied(node, progress);
+    }
+
     static resolveTrack(track: JourneyTrackDefinition, progress: JourneyProgress): JourneyTrack {
         return {
             ...track,
