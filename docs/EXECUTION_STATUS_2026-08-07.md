@@ -309,12 +309,14 @@ jurídico, e está em aberto.**
 7. **F2** — os opt-ins do closed test. Caminho crítico; nenhum trabalho de
    engenharia o encurta.
 8. **A5** — gerar a service-account key no Play Console.
-9. **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** São **16**
-   à frente de `origin/codex/wave1-hardening-api-smoke`, o upstream da branch —
-   não de `main`, que nem existe como ref local. Medir isso com
-   `git log main..HEAD` devolve **erro**, e medir com um ref que não existe
-   devolveria vazio com sucesso, que é a negativa mais perigosa deste
-   repositório. Use `git log '@{upstream}..HEAD'`.
+9. **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** Conte com
+   `git log --oneline '@{upstream}..HEAD'` — e note que este documento **não**
+   fixa o número de propósito: uma contagem escrita aqui envelhece no commit
+   seguinte, inclusive no commit que a escreveu. O upstream é
+   `origin/codex/wave1-hardening-api-smoke`, **não** `main`, que nem existe como
+   ref local: `git log main..HEAD` devolve erro, e a mesma medição contra um ref
+   inexistente devolveria vazio **com sucesso** — a negativa mais perigosa deste
+   repositório, porque parece "nada a enviar".
 
 **Engenharia, com host ou janela:**
 
