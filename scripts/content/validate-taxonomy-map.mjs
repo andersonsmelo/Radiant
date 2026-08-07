@@ -63,6 +63,9 @@ export function main(root = process.cwd()) {
   return erros.length === 0 ? 0 : 1;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+// Mesma guarda que o resto dos validadores do repositorio: sem ela,
+// `pathToFileURL(undefined)` lanca quando o modulo e importado por um contexto
+// sem script de entrada.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   process.exit(main());
 }

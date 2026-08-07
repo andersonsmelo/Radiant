@@ -494,23 +494,43 @@ lista.
     fechada; fecharia o gatilho de reabertura e a B0. **Adiado por decisão do
     dono em 2026-08-07:** nada no caminho crítico depende dele, e o caminho
     crítico é a F2, que é humana.
-12. **`content-no-verbatim` varre um diretório e a garantia é do repositório.**
-    Ele checa `content-manifest/`; o item 0 acima mostra que texto de fonte pode
-    estar em qualquer lugar da árvore rastreada. A correção é trocar a raiz da
-    varredura por `git ls-files` e manter as três checagens. Pequena, e é o que
-    teria pego o item 0 sozinho.
-13. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
+12. **A trava de escopo do teste do `eyebrow` não teve a mordida provada.** O
     segundo caso de `PixelHeroSplit.test.tsx` afirma que a mensagem do balão
     **não** carrega teto de escala. Provar que ele morde exigiria pôr um teto em
     `SpeechBubble.tsx`, fora do escopo declarado daquele run. Fica para a
     próxima vez que `SpeechBubble` for tocado — e está escrito aqui porque um
     teste de guarda não provado é indistinguível de um teste vazio.
-14. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
+13. **Claim `:5` do piloto** rotula os 0,1 mm como "exames com ampliação
     **geométrica**". O adjetivo vem de `p53:c1`, excerto vizinho, e não do
     excerto ancorado `p54:c1`. O núcleo está sustentado; decidir numa passagem
     futura se o adjetivo cai.
 
 **Fechados em 2026-08-07, que estavam nesta lista:**
+
+- ~~`content-no-verbatim` varre um diretório~~ — a raiz da varredura passou a ser
+  **`git ls-files`**, o próprio sistema de registro, e não um caminho escolhido à
+  mão: caminho escolhido à mão só encontra o que já se esperava encontrar. Dado
+  real: **692 arquivos rastreados varridos, 391 textos de extração, zero erros,
+  em 0,4 s.**
+
+  **A prova não é afirmação.** A checagem nova foi rodada sobre o conteúdo do
+  arquivo **como ele estava em `adee209^`**, o commit anterior à remoção, e
+  devolveu 1 erro nomeando o caminho. Ela teria pego o vazamento sozinha.
+
+  Dois números, e a diferença importa: a assinatura procurada tem 120 caracteres,
+  mas o piso para um excerto **entrar** na varredura é 80 — que é o piso que o
+  extrator passou a garantir no mesmo dia. Usar 120 nos dois lugares foi o
+  primeiro rascunho, e deixava de fora todo excerto entre 80 e 120; os testes
+  pegaram.
+
+  Achado lateral: a guarda de entrypoint `process.argv[1] &&` **já era o padrão
+  da casa** — `validate-foundation`, `validate-competencies`,
+  `validate-media-manifest` e `catalog-library-sources` a tinham. O trecho do
+  plano da fiação a omitiu, e os dois validadores nascidos dele ficavam
+  impossíveis de importar por qualquer contexto sem script de entrada.
+  Restaurada, com teste em processo filho — dentro do `node --test` o `argv[1]`
+  está sempre preenchido, então um caso in-process passaria verde com a guarda
+  morta.
 
 - ~~Texto verbatim de fonte `blocked` rastreado em git~~ — **retirado do índice**
   em `adee209`, com a policy alargada e estreitada de volta em runs próprios

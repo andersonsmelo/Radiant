@@ -80,6 +80,10 @@ export function main(root = process.cwd()) {
   return total === 0 ? 0 : 1;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+// A guarda `process.argv[1] &&` e o padrao da casa — `validate-foundation.mjs`,
+// `validate-competencies.mjs`, `validate-media-manifest.mjs` e
+// `catalog-library-sources.mjs` ja a tinham. O trecho do plano da fiacao a
+// omitiu, e sem ela `pathToFileURL(undefined)` lanca no import.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   process.exit(main());
 }

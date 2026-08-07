@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { spawnSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { anchoringErrors, main } from './validate-content-anchoring.mjs';
 
 const manifesto = [
@@ -111,6 +113,21 @@ test('MUTACAO: main devolve 0 quando toda claim de toda aula esta ancorada', () 
     aula: { lessonId: 'ai-lesson:x', claims: [{ claim: 'x', excerptId: 'excerpt:a:p1:c1', hash: 'h1' }] },
   });
   assert.equal(main(raiz), 0);
+});
+
+// `process.argv[1]` e indefinido num contexto sem script de entrada, e sem a
+// guarda `pathToFileURL` lanca no momento do import — o modulo fica impossivel
+// de importar por qualquer ferramenta que nao seja `node arquivo.mjs`. Precisa
+// de processo filho: dentro do `node --test` o argv[1] esta sempre preenchido,
+// entao um caso in-process passaria verde com a guarda morta.
+test('MUTACAO: o modulo pode ser importado por um contexto sem script de entrada', () => {
+  const modulo = pathToFileURL(
+    path.join(import.meta.dirname, 'validate-content-anchoring.mjs'),
+  ).href;
+  const r = spawnSync(process.execPath, ['--input-type=module', '-e', `await import('${modulo}')`], {
+    encoding: 'utf8',
+  });
+  assert.equal(r.status, 0, r.stderr);
 });
 
 test('MUTACAO: main devolve 1 quando o hash do excerto mudou desde a ancoragem', () => {
