@@ -206,11 +206,37 @@ com teste próprio.
    Medido contra os 109 excertos reais: **`needs-review` cai de 30 para 22**, e
    **45 registros passam a ter `starId` nulo** — os planetas sem estrela ficaram
    alcançáveis;
-3. ⬜ **regeneração** — alargar a policy em run próprio (duas raízes:
-   `Conteúdo/classificação` e `Conteúdo/extrações`, ambas só na grafia minúscula
-   do git hoje), reexecutar extrator **e** classificador na mesma passada, e
-   remedir. **A medição acima é dry-run:** `classifications.json` no disco ainda
-   é a antiga, de 79/30.
+3. ✅ **regeneração da classificação** — feita em 2026-08-08.
+   `classifications.json` no disco passou de **79/30 para 87/22**, com 45
+   registros no eixo técnico e 45 com `starId` nulo. `validate-foundation` em 0.
+
+4. ❌ **a reextração NÃO pode ser feita, e a razão corrige um erro que está nos
+   documentos desde 2026-08-03.**
+
+   A triagem da D4 registrou os 4 fragmentos abaixo de 80 caracteres como
+   "defeito de extração, trabalho de pipeline, some sem decisão de ninguém". Eu
+   repeti isso na medição da manhã. **É falso, e foi medido executando.**
+
+   Reextrair leva 109 excertos a 105 e zera os fragmentos — o conserto do
+   extrator funciona. Mas `validate-foundation` reprovou com 18 erros, porque
+   `conteúdo/conceitos/` e `conteúdo/formatos/` **citam nominalmente** os
+   excertos que sumiram: `p41:c2` e `p42:c2` sustentam o conceito de preservação
+   de alimentos, `p71:c2` o de qualidade de imagem, `p33:c2` o de tomografia. Os
+   órfãos são **load-bearing**: sustentam a proveniência de lições que já
+   embarcam.
+
+   Restaurado rodando o extrator com `MIN_CHARS = 0` num rascunho fora do
+   repositório, o que reproduz exatamente a forma anterior — 109 excertos, os
+   quatro ids de volta.
+
+   **Isto não é uma limpeza de pipeline; é regeneração de conteúdo.** Tirar os
+   fragmentos exige re-derivar conceitos e bundles de formato, que são as lições
+   geradas. Fica como item próprio, com esse escopo declarado, e **não** como
+   "trabalho pequeno".
+
+**Pendência operacional:** a janela de escrita aberta em `4b28bd5` para
+`Conteúdo/extrações` e `Conteúdo/classificação` **precisa ser fechada** em run
+próprio, como o comentário no `project.yaml` promete.
 
 **O achado que vale mais que o número, e quase me fez enviar a versão errada.**
 Um primeiro vocabulário, mais agressivo, levava `needs-review` de 30 para **17** —
