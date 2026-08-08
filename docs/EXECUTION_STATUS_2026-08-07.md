@@ -247,7 +247,7 @@ node scripts/content/validate-content-anchoring.mjs && node scripts/content/vali
 | `content-manifest/excerpts/descartes.json` | Quem ficou de fora e por quê. 109 descartes, todos de `library-source:f375049d4e936d05` (`blocked`), com o motivo nomeando a classe |
 | `content-manifest/lessons/ai-lesson-qualidade-de-imagem.claims.json` | **8 claims** humanas, cada uma com seu `excerptId` |
 | `content-manifest/lessons/ai-lesson-qualidade-de-imagem.anchored.json` | 8 claims, **`unanchored: 0`** |
-| Validador de taxonomia, contra o dado real | 16 entradas de mapa, 15 ids de taxonomia, 18 de catálogo, **zero erros** |
+| Validador de taxonomia, contra o dado real | 16 entradas de mapa, ~~15~~ **22** ids de taxonomia, 18 de catálogo, **zero erros** — o número subiu em 2026-08-08 com a execução do eixo técnico, e o cabeçalho desta tabela já avisava que ele envelheceria |
 
 391 excertos foram lidos para produzir as 282 linhas. Os 109 que sobraram são a
 fonte `blocked` que já estava extraída em disco — e o descarte deles é o teste de

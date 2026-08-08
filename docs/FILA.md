@@ -252,18 +252,26 @@ O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de 
 dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
 pedia para não fazer ao contrário.
 
-### 4. Dívidas de teste declaradas, que hoje são indistinguíveis de teste vazio
+### 4. ~~Dívidas de teste declaradas~~ — TODAS FECHADAS em 2026-08-08
 
-**Estado:** aberto. **Bloqueio:** nenhum. **Dono:** agente.
+**Estado:** concluída. **Dono:** agente.
 
-- a trava de escopo do teste do `eyebrow` não teve a mordida provada; provar
-  exige pôr um teto em `SpeechBubble.tsx`, e fica para a próxima vez que ele for
-  tocado;
-- `EXECUTION_STATUS_2026-08-07.md:250` diz "15 ids de taxonomia", vencido desde
-  a execução do eixo técnico — o cabeçalho declara que a tabela envelhece, mas o
-  número está errado;
-- a claim `:5` do piloto rotula os 0,1 mm como "ampliação **geométrica**", e o
-  adjetivo vem do excerto vizinho, não do ancorado.
+**A mordida do `eyebrow` está provada.** O segundo caso de
+`PixelHeroSplit.test.tsx` afirma que a mensagem do balão **não** carrega teto de
+escala, e ninguém tinha verificado que ele morde — um teste de guarda não provado
+é indistinguível de um teste vazio. A mutação rodou fora de qualquer run:
+`maxFontSizeMultiplier={1.5}` na mensagem do `SpeechBubble`, **1 vermelho** no
+caso da mensagem e o caso do eyebrow **segue verde**, revertido em seguida. Não
+exigiu mudar o produto — a dívida era a prova, não um teto.
+
+**O número vencido caiu.** `EXECUTION_STATUS_2026-08-07.md` dizia "15 ids de
+taxonomia"; são **22** desde a execução do eixo técnico.
+
+**O adjetivo sem âncora saiu.** A claim `:5` dizia "ampliação **geométrica**".
+Medido nos dois excertos: o ancorado, `p54:c1`, diz apenas *"A ampliação"* e
+carrega os números inteiros — 0,1 mm contra 0,3 mm, e a razão. *"Ampliação
+geométrica"* aparece só em `p53:c1`, o vizinho. O núcleo se sustentava, o
+adjetivo não. Removido e reancorado: 8 claims, `unanchored: 0`.
 
 ---
 
