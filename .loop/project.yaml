@@ -115,28 +115,14 @@ writePolicy:
     # ficam: o indice ainda carrega a minuscula, e um checkout pode
     # materializa-la.
     - Conteúdo/taxonomia
-    # JANELA TEMPORARIA, aberta em 2026-08-08 para regerar a fonte do piloto
-    # `fundamentos-de-radiologia-everton-costa-pinto`. O extrator foi corrigido
-    # em 2026-08-07 e a extracao dela nunca foi refeita, entao os quatro
-    # fragmentos abaixo de 80 caracteres seguem no disco. Reextrair leva 109
-    # excertos a 105 e zera os fragmentos, mas muda as fronteiras — o que
-    # invalida classifications.json, chaveado por sourceExcerptId. As duas
-    # raizes entram JUNTAS porque a operacao e uma so.
-    #
-    # Por que `extracoes` entra mesmo com excerpts.json e pages.json nao
-    # rastreados: `extraction-job.json` E rastreado e guarda excerptCount, e
-    # validate-foundation.mjs:348 compara esse numero com o tamanho real do
-    # arquivo. Deixa-lo em 109 com 105 no disco REPROVA O GATE para todas as
-    # IAs do projeto.
-    #
-    # Grafia derivada de readdir, nunca digitada: o disco e MISTO por
-    # componente — `Conteudo` em NFD, `extracoes` e `classificacao` em NFC.
-    # Digitar produz tudo NFC e nao casa.
-    #
-    # As duas saem quando a regeracao fechar, pela mesma porta do alargamento
-    # anterior: run proprio e motivo escrito.
-    - Conteúdo/extrações
-    - Conteúdo/classificação
+    # A janela de 2026-08-08 para `extracoes` e `classificacao` foi ABERTA em
+    # 4b28bd5 e FECHADA aqui, cumprido o proposito. O que ela entregou: a
+    # classificacao do piloto regerada com o eixo tecnico, de 79/30 para 87/22.
+    # O que ela provou impossivel: a reextracao. Os quatro fragmentos abaixo de
+    # 80 caracteres sao load-bearing — `conceitos` e `formatos` citam p41:c2,
+    # p42:c2, p71:c2 e p33:c2 nominalmente, e sem eles validate-foundation
+    # reprova com 18 erros. Tira-los e regeneracao de conteudo, nao limpeza.
+    # Reclassificar de novo reabre `classificacao` pela mesma porta.
     # `conteúdo/extrações` esteve aqui em 2026-08-07, por uma janela de dois
     # commits (a5d9cc8 e adee209) e um proposito unico: retirar do indice do git
     # o texto de fonte `blocked` que estava rastreado desde 847a12d. Cumprido o
