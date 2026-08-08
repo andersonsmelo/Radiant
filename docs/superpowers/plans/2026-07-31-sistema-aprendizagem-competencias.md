@@ -782,25 +782,28 @@ Somados pela spec de 2026-08-08, e nenhum deles é opcional:
   todos os casos). É esse teste que autoriza a task a entrar antes de existir
   conteúdo v2.
 
-**Step 2: Rodar focados**
+**Steps 2 a 5 — delegados**
 
-Run: `cd radiant-app && npx jest src/features/spaced-repetition src/features/journey/services/JourneyRecommendationService.test.ts --runInBand`
-
-**Step 3: Implementar serviço paralelo**
-
-Não migrar cartões antigos destrutivamente. Usar chave e schema novos.
-
-**Step 4: Integrar recomendação explicável**
-
-Cada recomendação retorna `reason: due-review | weak-competency | next-new`.
-
-**Step 5: Quality e commit**
-
-```bash
-cd radiant-app && npm run quality
-git add src/features/spaced-repetition src/features/journey
-git commit -m "feat(mastery): agenda revisoes por competencia"
-```
+> **Esta task é implementada por um plano próprio:**
+> [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md),
+> em seis tasks com código de teste real e blocos de interface. **Ele é a fonte;
+> o que está acima é a decisão, não o procedimento.** Se os dois divergirem,
+> vale o plano de 2026-08-08 e esta seção deve ser corrigida.
+>
+> A delegação é deliberada. As outras 17 tasks deste arquivo estão em nível de
+> esboço, e expandir só esta produziria uma seção muito maior que as irmãs; e
+> descrever o mesmo trabalho em dois lugares é exatamente o que faz uma sessão
+> seguinte reespecificar o que já estava especificado.
+>
+> O que o plano delegado entrega, em ordem: tipos e constantes com a invariante
+> do limiar; o modelo de memória puro; o serviço com quarentena e relógio
+> fechado; o resolver de nó para competência; e a recomendação explicável com a
+> guarda de regressão que autoriza tudo isso a entrar antes de existir conteúdo
+> v2.
+>
+> Uma consequência a não esquecer: **`weak-competency` fica declarado no tipo e
+> não é emitido** enquanto todo domínio for `not-started`. Emiti-lo hoje poria
+> uma explicação falsa na tela. Ele entra na Task 12.
 
 ---
 
