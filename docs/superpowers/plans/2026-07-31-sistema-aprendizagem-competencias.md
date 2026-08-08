@@ -10,6 +10,11 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
+**Spec de emenda (Task 11):**
+[`docs/superpowers/specs/2026-08-08-agendador-por-competencia-design.md`](../specs/2026-08-08-agendador-por-competencia-design.md)
+— fecha o algoritmo do agendador por competência, que esta spec deixara em
+aberto, e registra o teto de domínio medido no currículo.
+
 **Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** concluídas;
 infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
 autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis) — é ela
@@ -719,18 +724,63 @@ git commit -m "feat(learning): adiciona quatro interacoes acessiveis"
 
 ### Task 11: Agendar revisão e reforço por competência
 
+> **Algoritmo decidido em 2026-08-08:**
+> [`2026-08-08-agendador-por-competencia-design.md`](../specs/2026-08-08-agendador-por-competencia-design.md).
+> Esta task nomeava só critérios de comportamento e deixava o algoritmo em
+> aberto; a spec o fecha com um modelo de estabilidade/dificuldade em vez de
+> SM-2, porque `easeFactor` não conhece o tempo decorrido e por isso não sabe
+> premiar a recuperação feita quando o conteúdo já ia sendo esquecido.
+>
+> Três decisões daquela spec que mudam esta task, e que devem ser lidas antes de
+> implementar:
+>
+> 1. **O agendador decide o tipo da evidência que a revisão produz** —
+>    `delayed-retention` quando o decorrido passa do limiar e a competência a
+>    admite, `independent-recall` caso contrário. É assim que ele alimenta o
+>    bloqueio `missing-retention` do motor de domínio.
+> 2. **Invariante `minIntervalDays × 24 ≥ delayedRetentionMinHours`**, travada por
+>    teste. Sem ela, uma revisão agendada pode acontecer cedo demais e não contar
+>    como retenção — falha silenciosa.
+> 3. **O teto do currículo é deliberado.** `mastered` é inalcançável nas 30
+>    competências e 20 delas travam em `practicing`, porque só as 10
+>    `criticalSafety` admitem `delayed-retention`. O agendador serve memória para
+>    as 30; a UI exibe o teto alcançável. `CompetencyMasteryService` não muda.
+
 **Files:**
+- Create: `radiant-app/src/features/spaced-repetition/models/memoryModel.ts`
+- Test: `radiant-app/src/features/spaced-repetition/models/memoryModel.test.ts`
+- Create: `radiant-app/src/constants/competencyReview.ts`
 - Create: `radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.ts`
 - Test: `radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.test.ts`
-- Modify: `radiant-app/src/features/spaced-repetition/services/SpacedRepetitionService.ts`
+- Create: `radiant-app/src/features/journey/services/JourneyNodeCompetencyResolver.ts`
+- Test: `radiant-app/src/features/journey/services/JourneyNodeCompetencyResolver.test.ts`
 - Modify: `radiant-app/src/features/journey/services/JourneyRecommendationService.ts`
 - Test: `radiant-app/src/features/journey/services/JourneyRecommendationService.test.ts`
+
+> **`SpacedRepetitionService` saiu da lista.** A spec mantém o caminho por lição
+> intocado — chave, schema e algoritmo — e o novo serviço roda em paralelo, que é
+> o que o Step 3 abaixo já mandava fazer. Modificá-lo era contradição da própria
+> task.
 
 **Step 1: Escrever testes vermelhos**
 
 Competência nova recebe primeira revisão; retenção expande intervalo; erro ou
 dica reduz intervalo; crítico de segurança recebe reforço antes de avançar;
 lições legadas continuam consultando o cartão por lição.
+
+Somados pela spec de 2026-08-08, e nenhum deles é opcional:
+
+- **a invariante** `minIntervalDays × 24 ≥ delayedRetentionMinHours`, assertada
+  sobre as constantes;
+- **revisar mais tarde consolida mais** — mesmo acerto, recuperabilidade menor,
+  ganho de estabilidade maior. É o teste cuja falha significa que trocar de
+  algoritmo não valeu a pena;
+- **relógio falha fechado** — retrocedido, data ilegível ou decorrido zero nunca
+  concedem `delayed-retention`;
+- **guarda de regressão:** com o catálogo atual, só legado, a saída de
+  `JourneyRecommendationService` é idêntica à de hoje (`reason: 'next-new'` em
+  todos os casos). É esse teste que autoriza a task a entrar antes de existir
+  conteúdo v2.
 
 **Step 2: Rodar focados**
 
