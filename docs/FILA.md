@@ -91,15 +91,49 @@ novo é criado e nenhuma promessa nova é feita.
 **Fora deste item, e continua do dono:** destravar `galaxy-casos`, que não tem
 conteúdo nenhum.
 
-### 2. `wave-1-priority-tracks.json` põe lições em trilhas onde elas não pertencem
+### 2. Trilhas com nome de anatomia entregando curso técnico — MENTIRA CORRIGIDA em 2026-08-08, reagrupamento ADIADO
 
-**Estado:** aberto. **Bloqueio:** nenhum. **Dono:** agente.
+**Estado:** a parte visível está corrigida; o reagrupamento continua aberto.
+**Bloqueio:** migração de progresso — descrito abaixo. **Dono:** agente para a
+migração; dono se quiser rever a redação dos títulos.
 
-`track-abdomen-essentials` contém `ai-lesson:preservacao-de-alimentos-por-irradicao`
-e `track-thorax-patterns` não tem nada de tórax — as 16 lições foram distribuídas
-em ordem de origem por trilhas com nome de anatomia. Não afeta o usuário (o
-bundle embarca uma trilha só), mas é o arquivo que o validador de taxonomia lê
-como catálogo, então o mapa é computado contra uma organização incoerente.
+**Duas afirmações da versão anterior deste item estavam erradas, e as duas
+importam.**
+
+*"Não afeta o usuário — o bundle embarca uma trilha só."* Falso. `AI_TRACK` só é
+lido pelo próprio `ai-catalog.ts`; o app lê `LESSON_CATALOG`, gerado a partir
+deste arquivo, e `LessonCatalogService.getTracks` alimenta ProgressScreen,
+JourneyHomeScreen, home e quiz. O usuário via uma trilha chamada **"Abdome"
+contendo preservação de alimentos por irradiação**.
+
+*"Trabalho pequeno, sem decisão pendente."* Falso, e perigoso.
+`JourneyDefinitionService` deriva ids de nó assim:
+
+```
+node:checkpoint:<track.slug>[:<lessonId>]   // a forma muda se lessonCount deixa de ser 2
+node:reward:<track.slug>[:final]            // a forma muda se lessonCount passa de 2
+```
+
+Esses ids ficam salvos em `completedNodeIds`. **Reagrupar as lições muda a
+contagem por trilha e portanto muda os ids**, órfãnando checkpoints e
+recompensas já concluídos de quem já usa o app. E o `id` da primeira trilha é a
+chave do progresso de jornada
+(`DEFAULT_JOURNEY_TRACK_DEFINITION.id = LESSON_CATALOG.tracks[0]?.id`).
+
+**O que foi feito:** só `title`, `goal` e `description` — display puro. `id`,
+`slug`, `priority` e `lessonIds` ficaram **byte a byte intactos**, então nenhum
+id de nó mudou. As trilhas passaram a se chamar *Fundamentos de Radiologia*,
+*Radiação, Modalidades e Equipamento* e *Prática, Qualidade e Profissão*.
+
+**Dívida declarada, de propósito:** os slugs seguem `fundamentos`/`torax`/
+`abdome` — pinados pelo contrato em `wave-1-priority-tracks.test.mjs` e
+load-bearing para id de nó. Um slug `torax` sob o título *"Radiação, Modalidades
+e Equipamento"* é incoerente para quem lê o código, e invisível para o usuário.
+Corrigir exige migração de progresso, que é trabalho próprio.
+
+**Texto de produto:** os três títulos são meus, não seus. Se a redação não for a
+que você quer, é troca de uma linha em `Conteúdo/governança/wave-1-priority-tracks.json`
+seguida de `node scripts/content/sync-catalog-to-app.mjs`.
 
 ### 3. D4 — a passada editorial, que agora tem destino
 

@@ -12,8 +12,8 @@ const WAVE1_TRACKS: LearningTrack[] = [
   {
     "id": "track-radiology-foundations",
     "slug": "fundamentos",
-    "title": "Fundamentos",
-    "description": "Base inicial para onboarding, contexto e primeiras sessoes.",
+    "title": "Fundamentos de Radiologia",
+    "description": "Base física da radiação e primeiras lições do curso técnico: energia, matéria, núcleo atômico, radioatividade e a descoberta dos raios X.",
     "lessonIds": [
       "lesson-1",
       "lesson-2",
@@ -27,8 +27,8 @@ const WAVE1_TRACKS: LearningTrack[] = [
   {
     "id": "track-thorax-patterns",
     "slug": "torax",
-    "title": "Tórax",
-    "description": "Expansao guiada com foco em padroes, visao seccional e leitura toracica.",
+    "title": "Radiação, Modalidades e Equipamento",
+    "description": "Proteção radiológica, medicina nuclear, tomografia, ressonância magnética e o equipamento de radiologia convencional com seus componentes.",
     "lessonIds": [
       "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
       "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
@@ -41,8 +41,8 @@ const WAVE1_TRACKS: LearningTrack[] = [
   {
     "id": "track-abdomen-essentials",
     "slug": "abdome",
-    "title": "Abdome",
-    "description": "Bloco de suporte para consolidar leitura aplicada e acabamento do catalogo.",
+    "title": "Prática, Qualidade e Profissão",
+    "description": "Produção dos raios X, processamento radiográfico, qualidade de imagem, aplicações não-médicas da radiação e a atuação do técnico em radiologia.",
     "lessonIds": [
       "ai-lesson:preservacao-de-alimentos-por-irradicao",
       "ai-lesson:acessorios-radiologicos",
