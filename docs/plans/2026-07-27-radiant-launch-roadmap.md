@@ -896,8 +896,18 @@ código.
   corrigidas, e ficou registrado que a descrição longa precisa ser **convertida de
   Markdown para texto limpo** antes de colar no console.
 - **E3 [P0]** Privacy labels (App Store Connect) e Data safety (Play) — 
-  derivados de D2; declarar Sentry (crash data) e o que mais a allowlist
-  permitir.
+  derivados de D2. **A instrução "declarar Sentry (crash data)" está errada para
+  o binário que embarca, medido em 2026-08-08.** `bootstrap.ts:10` exige
+  `ENABLE_CRASH_REPORTING && SENTRY_DSN`, e o perfil `production` do `eas.json`
+  não define nenhuma das duas: a primeira cai no default `false`, a segunda em
+  string vazia. Somado a `EXPO_PUBLIC_API_BASE_URL` ausente nos cinco perfis,
+  `ENABLE_REMOTE_SYNC = false`, push que só pede permissão e **nunca** obtém
+  token, e armazenamento local, a resposta ao questionário é
+  **"Data Not Collected"**. Folha campo a campo, com evidência por linha, em
+  [`docs/store/2026-08-08-ios-preflight.md`](../store/2026-08-08-ios-preflight.md).
+  **Não depende da D1** — o binário da v1.3 não alcança API alguma. Única
+  checagem que exige o console: `npx eas secret:list`, porque `EXPO_PUBLIC_*`
+  pode vir de segredo do EAS.
 - **E4 [P0]** Classificação etária/questionários de conteúdo nas duas
   consoles; categoria (Educação ou Medicina — recomendação: Educação, evita
   escrutínio de app médico). **Apple concluída em 2026-08-05; IARC/Play ainda

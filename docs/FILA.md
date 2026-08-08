@@ -34,7 +34,38 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ---
 
-## AGENTE — executável agora, sem humano
+## PRIORIDADE — o lançamento iOS, que não espera o relógio do Android
+
+Reordenado em 2026-08-08. O **12 testadores × 14 dias** é exigência do **Google
+Play** para conta pessoal; a Apple não tem equivalente. F3, F4 e F5 do roadmap
+misturam as duas lojas, e os itens do Play não travam a App Store.
+
+Enquanto o relógio do Android não começa, **o iOS pode ser submetido**.
+
+| Passo | Dono | Estado |
+| --- | --- | --- |
+| Privacy labels no App Store Connect | dono | folha pronta, resposta é **"Data Not Collected"** |
+| Build nova (`1.3.1 (6)`) | dono | recomendada: a `(5)` está 21 commits de app atrás |
+| **Adicionar para revisão** | dono | botão disponível desde 2026-08-05, nunca acionado |
+| App Review 24–48h → liberação manual | Apple, depois dono | — |
+
+Folha de transcrição campo a campo, com a evidência de cada resposta:
+[`store/2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
+
+Gate de release medido em 2026-08-08: `tsc` exit 0, `eslint` 0 erros, **jest 56
+suítes / 330 testes**. Evidência de aparelho fechada — smoke em 2026-08-05, B4
+em 2026-08-06, Gate 2 em 5/5.
+
+**Não há trabalho de agente neste caminho.** As três ações são de console e de
+conta. O que um agente podia fazer — rodar o gate, apurar as respostas do
+questionário, conferir versionamento — está feito.
+
+---
+
+## AGENTE — a fila está vazia
+
+Os quatro itens abaixo fecharam em 2026-08-08. O que sobra de forma agentável
+está listado no fim, com o que cada um espera.
 
 ### 1. ~~O mapa de galáxias está vazio~~ — CONCLUÍDA em 2026-08-08
 
