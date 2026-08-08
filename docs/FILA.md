@@ -210,8 +210,31 @@ com teste próprio.
    `classifications.json` no disco passou de **79/30 para 87/22**, com 45
    registros no eixo técnico e 45 com `starId` nulo. `validate-foundation` em 0.
 
-4. ❌ **a reextração NÃO pode ser feita, e a razão corrige um erro que está nos
-   documentos desde 2026-08-03.**
+4. ✅ **a reextração FOI feita em 2026-08-08**, depois que a conclusão abaixo
+   caiu na medição. **105 excertos, zero fragmentos abaixo de 80 caracteres,
+   `needs-review` em 19.** O texto abaixo fica como registro do erro.
+
+   **O que eu concluí, e por que estava errado.** Vendo os 18 erros do
+   `validate-foundation`, inferi que remover os fragmentos exigiria re-derivar
+   conceitos e formatos — as lições geradas — e portanto motor de IA local.
+   **Inferi, não medi.** O conserto do extrator **funde** o órfão no pedaço
+   anterior da mesma página; não o descarta. Medido nos quatro: o texto do órfão
+   está **contido** no `c1` da extração nova, e as contagens fecham
+   (1392 + 51 → 1444). E nas **76 ocorrências em lista, em 17 arquivos
+   rastreados, todas** vinham acompanhadas do irmão `c1`.
+
+   Então remover o id órfão não perdeu proveniência nenhuma: o texto segue
+   citado, dentro do irmão. Era **remapeamento de referência**, não regeneração
+   de conteúdo — e não precisou de Ollama nem de motor nenhum.
+
+   Duas armadilhas do remapeamento, ambas achadas pelo gate e não pela revisão:
+   os conceitos citam o mesmo excerto em **duas formas de id** — `excerpt:…` e
+   `classification:excerpt:…` —, e limpar só a primeira deixa a cadeia de
+   proveniência 1:1 quebrada; e `Conteúdo/extrações/index.json` carrega uma
+   **cópia** do `extraction-job`, então atualizar só o job deixa os dois em
+   desacordo.
+
+   *Registro do erro original:*
 
    A triagem da D4 registrou os 4 fragmentos abaixo de 80 caracteres como
    "defeito de extração, trabalho de pipeline, some sem decisão de ninguém". Eu

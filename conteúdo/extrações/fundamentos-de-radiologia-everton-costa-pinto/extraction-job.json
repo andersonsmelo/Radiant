@@ -12,10 +12,11 @@
     "pages": "pages.json",
     "excerpts": "excerpts.json",
     "pageCount": 75,
-    "excerptCount": 109
+    "excerptCount": 105
   },
   "notes": [
     "Primeiro job de extração da base editorial",
-    "Extração executada com texto embutido via pypdf"
+    "Extração executada com texto embutido via pypdf",
+    "Reextraido em 2026-08-08 com o piso de 80 caracteres: os quatro fragmentos curtos foram fundidos no pedaco anterior da mesma pagina, e as referencias a eles foram remapeadas para o irmao c1, que ja era co-citado em todas as 76 ocorrencias."
   ]
 }
