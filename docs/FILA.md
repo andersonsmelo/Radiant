@@ -135,13 +135,47 @@ Corrigir exige migração de progresso, que é trabalho próprio.
 que você quer, é troca de uma linha em `Conteúdo/governança/wave-1-priority-tracks.json`
 seguida de `node scripts/content/sync-catalog-to-app.mjs`.
 
-### 3. D4 — a passada editorial, que agora tem destino
+### 3. D4 — remedida em 2026-08-08, e agora são três fatias com donos diferentes
 
-**Estado:** aberto, P0, bloqueia produção. **Bloqueio:** *morto desde
-2026-08-07* — a causa registrada era "destino faltando", e o destino existe.
-**Dono:** agente para a triagem; dono só se a triagem exigir decisão editorial.
+**Estado:** aberto, P0, bloqueia produção — mas decomposta.
+**Bloqueio:** trocou de lugar, não morreu. **Dono:** agente nas duas primeiras
+fatias; revisor de domínio só na terceira.
 
-Medição de origem: `docs/content/2026-07-31-d4-triagem-editorial.md`.
+Medição: [`2026-08-08-d4-destino-existe.md`](content/2026-08-08-d4-destino-existe.md).
+
+O bloqueio registrado era "os sete conceitos não têm nó de destino", e ele caiu
+em 2026-08-07 com o eixo técnico. Mas **`scripts/content/classify-source.py`
+carrega a taxonomia hardcoded em Python**, versão `mvp-2026-04-04`, e não conhece
+`galaxy-tecnologia` nem os seis planetas novos. É a **terceira cópia** da mesma
+estrutura; as outras duas já foram reconciliadas. O bloqueio não morreu — mudou
+de lugar, e agora é ferramenta que não enxerga o destino, não destino ausente.
+
+Os 30 `needs-review` medidos contra o eixo técnico:
+
+| Fatia | Tamanho | Quem resolve |
+| --- | --- | --- |
+| Achariam destino com o classificador enxergando o eixo técnico | **19** | agente |
+| Fragmento de extração abaixo de 80 caracteres, o menor com 3 | **4** | agente |
+| Resíduo real, sinal fraco ou nenhum | **~7** | revisor de domínio |
+
+Os 4 fragmentos seguem no disco porque **a extração desta fonte nunca foi
+regerada** depois da correção do extrator em 2026-08-07. Reexecutar o extrator os
+elimina sem decisão de ninguém.
+
+**Próximos dois itens de agente, nesta ordem:**
+
+1. reexecutar o extrator sobre `fundamentos-de-radiologia-everton-costa-pinto`
+   e remedir — é o mais barato e reduz a população antes de mexer em regra;
+2. estender `classify-source.py` para o eixo técnico e reclassificar.
+
+**Obstáculo operacional do passo 2:** `Conteúdo/classificação` está em
+`writePolicy.allowedRoots` **só na grafia minúscula do índice do git**, e o disco
+soletra com maiúscula em NFD. Regerar exige alargar a policy em run próprio e
+anterior, como foi feito para `Conteúdo/taxonomia`.
+
+O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de o
+dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
+pedia para não fazer ao contrário.
 
 ### 4. Dívidas de teste declaradas, que hoje são indistinguíveis de teste vazio
 
