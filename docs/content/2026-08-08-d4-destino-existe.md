@@ -91,6 +91,37 @@ que a triagem de 2026-07-31 já dizia ser usá-lo para consertar dicionário. Ag
 o revisor recebe **7 itens**, não 30, e recebe depois de o dicionário estar
 consertado.
 
+## O que trava a fatia de 19, medido depois
+
+A fatia de 19 não é "estender o vocabulário". Medido em 2026-08-08, na segunda
+passada, há **uma incompatibilidade de contrato** entre o classificador e a
+taxonomia aprovada:
+
+| Onde | O que diz |
+| --- | --- |
+| `Conteúdo/governança/esquemas/classification-record.schema.json` | `starId` é **obrigatório** e do tipo `string` — não aceita nulo |
+| `validate-foundation.mjs:409` | reprova classificação cujo `starId` não exista na taxonomia |
+| `classify-source.py:classify_excerpt` | indexa `PLANET_STAR_IDS[planet_id]` e `star_ids_for_planet[0]` **sem fallback** |
+| Decisão do dono, 2026-08-07 | *"Os planetas novos ganham estrela? **Não.**"* |
+
+Um excerto **não consegue pousar num planeta técnico**: o contrato exige que ele
+chegue a uma estrela, e por decisão não existe estrela ali. As duas saídas são:
+
+1. **tornar `starId` nulável** — muda schema, validador e a forma dos 109
+   registros. É engenharia, não decisão de produto;
+2. **criar estrelas para os seis planetas** — contradiz uma decisão aprovada, e
+   pela razão que a própria decisão dá: estrela é trilha curta complementar, e
+   não há nenhuma produzida. Criá-las seria criar promessa de currículo.
+
+A saída 1 é a única compatível com o que foi decidido.
+
+Há ainda um detalhe numérico que morde junto: a confiança combinada é
+`0.5·galáxia + 0.3·planeta + 0.2·estrela`. Sem a parcela da estrela, planeta
+sem estrela ficaria **sistematicamente abaixo** do limiar de 0,7 e cairia em
+`needs-review` por construção — o oposto do objetivo. A fórmula precisa
+renormalizar para `0.625·galáxia + 0.375·planeta` quando não há camada de
+estrela, e isso precisa de teste próprio.
+
 ## O que este documento deliberadamente não faz
 
 **Não estende o classificador nem reclassifica.** A medição precede a

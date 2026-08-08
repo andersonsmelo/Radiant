@@ -162,16 +162,50 @@ Os 4 fragmentos seguem no disco porque **a extração desta fonte nunca foi
 regerada** depois da correção do extrator em 2026-08-07. Reexecutar o extrator os
 elimina sem decisão de ninguém.
 
-**Próximos dois itens de agente, nesta ordem:**
+**A ordem que este item declarava estava errada, e eu a escrevi.** Dizia
+"reexecutar o extrator primeiro, porque é o mais barato". Medido em 2026-08-08:
+não é. `excerpts.json` e `pages.json` não são rastreados, mas
+`extraction-job.json` é, e `Conteúdo/extrações` foi **deliberadamente removido**
+de `allowedRoots` com motivo escrito no próprio `project.yaml`. Reextrair também
+muda as fronteiras de excerto, o que invalida `classifications.json` — rastreado,
+e sob a mesma armadilha de grafia. As duas fatias de agente **compartilham a
+parte cara**, então fazer a extração primeiro reclassifica duas vezes.
 
-1. reexecutar o extrator sobre `fundamentos-de-radiologia-everton-costa-pinto`
-   e remedir — é o mais barato e reduz a população antes de mexer em regra;
-2. estender `classify-source.py` para o eixo técnico e reclassificar.
+É a Observação #195 mordendo o texto de quem a escreveu: estimei "barato" sem
+medir, uma iteração depois de registrar que o campo tamanho é o que convida a
+verificar menos.
 
-**Obstáculo operacional do passo 2:** `Conteúdo/classificação` está em
-`writePolicy.allowedRoots` **só na grafia minúscula do índice do git**, e o disco
-soletra com maiúscula em NFD. Regerar exige alargar a policy em run próprio e
-anterior, como foi feito para `Conteúdo/taxonomia`.
+**A fatia de 19 tem um bloqueio de contrato, achado em 2026-08-08.** Não é
+vocabulário:
+
+- o schema `classification-record` exige `starId` como `string`, **não nulável**;
+- `validate-foundation.mjs:409` reprova `starId` que não exista na taxonomia;
+- `classify_excerpt` indexa `PLANET_STAR_IDS[planet_id]` e `[0]` sem fallback;
+- e o dono decidiu que **os planetas novos não ganham estrela**.
+
+Um excerto não consegue pousar num planeta técnico. A única saída compatível com
+a decisão aprovada é **tornar `starId` nulável** — schema, validador,
+classificador e a forma dos 109 registros. Criar estrelas resolveria o contrato
+contradizendo a decisão, e pela razão que a decisão dá: estrela é trilha curta e
+não há nenhuma produzida.
+
+Detalhe numérico que morde junto: a confiança é
+`0.5·galáxia + 0.3·planeta + 0.2·estrela`. Sem a parcela da estrela, planeta sem
+estrela cai abaixo do limiar de 0,7 **por construção** e vira `needs-review` —
+o oposto do objetivo. Precisa renormalizar para `0.625·galáxia + 0.375·planeta`,
+com teste próprio.
+
+**Ordem corrigida, uma coisa de cada vez:**
+
+1. **contrato** — `starId` nulável no schema, no `validate-foundation` e no
+   `classify_excerpt`, com a renormalização da confiança e teste de mutação em
+   cada uma das duas formas;
+2. **vocabulário** — `galaxy-tecnologia` e os seis planetas em
+   `classify-source.py`, com `TAXONOMY_VERSION` novo;
+3. **regeneração** — alargar a policy em run próprio (duas raízes:
+   `Conteúdo/classificação` e `Conteúdo/extrações`, ambas só na grafia minúscula
+   do git hoje), reexecutar extrator **e** classificador na mesma passada, e
+   remedir os 30.
 
 O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de o
 dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
