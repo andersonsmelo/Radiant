@@ -86,5 +86,83 @@ class ClassifySourceTests(unittest.TestCase):
             )
 
 
+    # ── Camada de estrela opcional ────────────────────────────────────────
+    # Os planetas do eixo tecnico nao tem estrela (decisao do dono, 2026-08-07).
+    # Antes desta mudanca, classify_excerpt indexava PLANET_STAR_IDS[planet_id] e
+    # [0] sem fallback, entao um planeta sem estrela era inalcancavel: estourava
+    # antes de poder receber classificacao.
+
+    def _planeta_sem_estrela(self):
+        """Registra um planeta sem estrela na galaxia de fisica, so para o teste."""
+        MODULE.PLANET_RULES["galaxy-fisica"]["planet-sem-estrela-teste"] = [
+            ("bucky", 6.0),
+            ("colimador", 6.0),
+            ("chassi", 6.0),
+        ]
+        self.addCleanup(
+            MODULE.PLANET_RULES["galaxy-fisica"].pop, "planet-sem-estrela-teste", None
+        )
+
+    def test_planeta_sem_estrela_recebe_classificacao_com_star_id_nulo(self):
+        self._planeta_sem_estrela()
+        excerpt = {
+            "id": "excerpt:test-sem-estrela",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 9,
+            "pageEnd": 9,
+            "text": (
+                "O bucky, o colimador e o chassi sao componentes do equipamento de "
+                "radiacao ionizante usados na producao de raios X do aparelho."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        self.assertEqual(record["planetId"], "planet-sem-estrela-teste")
+        self.assertIsNone(record["starId"])
+        self.assertIn("sem estrela", record["decisionReason"])
+
+    def test_confianca_renormaliza_sem_a_parcela_da_estrela(self):
+        """Sem renormalizar, o teto vira 0.8 do merecido e o limiar e 0.7:
+        planeta sem estrela cairia em needs-review por construcao."""
+        self._planeta_sem_estrela()
+        excerpt = {
+            "id": "excerpt:test-renormaliza",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 9,
+            "pageEnd": 9,
+            "text": (
+                "O bucky, o colimador e o chassi sao componentes do equipamento de "
+                "radiacao ionizante usados na producao de raios X do aparelho."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        # A prova de que a renormalizacao aconteceu: a confianca supera o que a
+        # soma NAO renormalizada poderia produzir. Sem estrela, 0.5*g + 0.3*p
+        # nunca passa de 0.8, mesmo com galaxia e planeta perfeitos.
+        self.assertGreater(record["confidence"], 0.8)
+        self.assertEqual(record["reviewStatus"], "approved")
+
+    def test_planeta_com_estrela_segue_intocado(self):
+        """Contraprova: o caminho antigo nao pode ter mudado de comportamento."""
+        excerpt = {
+            "id": "excerpt:test-com-estrela",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 4,
+            "pageEnd": 4,
+            "text": (
+                "ENERGIA. A energia pode ser definida como capacidade de realizar "
+                "trabalho, com raios X, tomografia computadorizada e equipamentos de imagem."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        self.assertEqual(record["planetId"], "planet-formacao-imagem")
+        self.assertIsNotNone(record["starId"])
+        self.assertEqual(record["starId"], "star-artefatos-basicos")
+
 if __name__ == "__main__":
     unittest.main()

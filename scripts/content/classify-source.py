@@ -361,26 +361,49 @@ def classify_excerpt(excerpt: dict, default_galaxy_id: str = "galaxy-fisica") ->
         planet_rules,
         default_planet_id,
     )
-    star_ids_for_planet = PLANET_STAR_IDS[planet_id]
-    star_rules = [(star_id, STAR_RULES[galaxy_id][star_id]) for star_id in star_ids_for_planet]
-    star_fallback_id = default_star_id if default_star_id in star_ids_for_planet else star_ids_for_planet[0]
-    star_id, star_confidence, star_matches, star_runner_up = best_match(
-        normalized_text,
-        star_rules,
-        star_fallback_id,
-    )
+    # A camada de estrela e OPCIONAL. Os planetas do eixo tecnico nao tem
+    # estrela, por decisao do dono em 2026-08-07, e antes disto a indexacao
+    # direta em PLANET_STAR_IDS[planet_id] e em [0] tornava esses planetas
+    # inalcancaveis: a classificacao estourava antes de poder pousar neles.
+    star_ids_for_planet = PLANET_STAR_IDS.get(planet_id, [])
 
-    combined_confidence = round(
-        min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
-        3,
-    )
+    if star_ids_for_planet:
+        star_rules = [(star_id, STAR_RULES[galaxy_id][star_id]) for star_id in star_ids_for_planet]
+        star_fallback_id = (
+            default_star_id if default_star_id in star_ids_for_planet else star_ids_for_planet[0]
+        )
+        star_id, star_confidence, star_matches, star_runner_up = best_match(
+            normalized_text,
+            star_rules,
+            star_fallback_id,
+        )
+        combined_confidence = round(
+            min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
+            3,
+        )
+    else:
+        star_id, star_confidence, star_matches, star_runner_up = None, 0.0, [], 0.0
+        # RENORMALIZA. Reaproveitar 0.5/0.3 sem a parcela de 0.2 poria todo
+        # planeta sem estrela num teto de 0.8 do que ele mereceria, e o limiar de
+        # needs_review e 0.7 — planeta sem estrela cairia em revisao POR
+        # CONSTRUCAO, que e o oposto do objetivo de dar destino a eles.
+        # 0.5/0.8 = 0.625 e 0.3/0.8 = 0.375.
+        combined_confidence = round(
+            min(0.98, (galaxy_confidence * 0.625) + (planet_confidence * 0.375)),
+            3,
+        )
     needs_review = combined_confidence < 0.7 or (galaxy_runner_up > 0 and (galaxy_scores[galaxy_id] - galaxy_runner_up) < 2.0)
     review_status = "needs-review" if needs_review else "approved"
 
+    star_reason = (
+        f"star {star_id} from matches {star_matches or ['fallback']}."
+        if star_id is not None
+        else "sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada."
+    )
     decision_reason = (
         f"Galaxy {galaxy_id} from matches {galaxy_matches or ['fallback']}; "
         f"planet {planet_id} from matches {planet_matches or ['fallback']}; "
-        f"star {star_id} from matches {star_matches or ['fallback']}."
+        f"{star_reason}"
     )
 
     return {
