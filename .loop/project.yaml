@@ -115,20 +115,12 @@ writePolicy:
     # ficam: o indice ainda carrega a minuscula, e um checkout pode
     # materializa-la.
     - Conteúdo/taxonomia
-    # JANELA 2, aberta em 2026-08-08. A janela 1 concluiu que a reextracao era
-    # impossivel porque conceitos e formatos citam os quatro orfaos. Medido
-    # depois, e a conclusao estava errada: o conserto do extrator FUNDE o orfao
-    # no irmao anterior, nao o descarta. Verificado nos quatro — o texto do
-    # orfao esta contido no c1 novo — e nas 76 ocorrencias em lista, TODAS
-    # acompanhadas do irmao c1. Remover o id orfao nao perde proveniencia
-    # nenhuma: o texto segue citado, dentro do irmao. Nao e regeneracao de
-    # conteudo, e remapeamento de referencia, e nao precisa de motor de IA.
-    #
-    # As quatro raizes saem quando a operacao fechar. Grafia de readdir.
-    - Conteúdo/extrações
-    - Conteúdo/classificação
-    - Conteúdo/conceitos
-    - Conteúdo/formatos
+    # A janela 2 de 2026-08-08 foi ABERTA e FECHADA no mesmo dia. Entregou a
+    # saida dos quatro orfaos de extracao: 109 excertos viram 105, zero abaixo
+    # de 80 caracteres, needs-review em 19. Nao precisou de motor de IA — o
+    # conserto do extrator funde o orfao no irmao anterior, e as 76 referencias
+    # a ele ja vinham acompanhadas do irmao, entao foi remapeamento e nao
+    # regeneracao. Reabrir e pela mesma porta: run proprio e motivo escrito.
     # A janela de 2026-08-08 para `extracoes` e `classificacao` foi ABERTA em
     # 4b28bd5 e FECHADA aqui, cumprido o proposito. O que ela entregou: a
     # classificacao do piloto regerada com o eixo tecnico, de 79/30 para 87/22.

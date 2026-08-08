@@ -103,6 +103,17 @@ toda sessão de IA segue este contrato:
      `needs_human`. Antes de declarar caminho com acento ou caixa divergente,
      confira com `ls` como o disco o escreve — `git ls-files` responde outra
      pergunta.
+   - **`context.excludes` NÃO isenta do guarda de escopo — as duas listas
+     respondem a perguntas diferentes.** Medido em 2026-08-08, e custou um run:
+     `Conteúdo/extrações` está em `context.excludes` **e** fora do git, e mesmo
+     assim `step finish` devolveu `OUT_OF_SCOPE_CHANGE` nomeando
+     `excerpts.json` — que não é rastreado — e `index.json`. O `excludes` decide
+     o que entra no **contexto** montado para a IA; o guarda compara o
+     **repositório inteiro** contra a baseline da abertura, e não consulta essa
+     lista. A armadilha anterior desta seção diz que `.gitignore` não é
+     `context.excludes`; a lição que faltava é que **nenhum dos dois** protege
+     do guarda. Só `--files` protege: **declare todo caminho que a operação vai
+     tocar, inclusive subproduto local e arquivo não rastreado.**
    - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
      Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
      não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica
