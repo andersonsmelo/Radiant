@@ -1201,11 +1201,11 @@ describe('motivo da recomendação', () => {
         expect(snapshot.recommendationReason).toBe('next-new');
     });
 
-    it('GUARDA DE REGRESSÃO: omitir o parâmetro dá o mesmo resultado que passar lista vazia', () => {
+    it('GUARDA DE REGRESSÃO: omitir o parâmetro é o mesmo que não ter vencidas', () => {
         const semParametro = JourneyRecommendationService.computeSnapshot(defaultTrack, progressoInicial());
-        const comVazia = JourneyRecommendationService.computeSnapshot(defaultTrack, progressoInicial(), []);
 
-        expect(semParametro).toEqual(comVazia);
+        expect(semParametro.recommendationReason).toBe('next-new');
+        expect(semParametro.nextRecommendedNode?.id).toBe('node:lesson-1');
     });
 
     it('GUARDA DE REGRESSÃO: o nó recomendado não muda por causa do parâmetro novo', () => {
@@ -1359,58 +1359,121 @@ evidência continua sendo do autor, por `interaction.evidenceKind`.
 
 - [ ] **Step 1: Escrever os testes vermelhos**
 
+Este arquivo **mocka dependências no nível do módulo** com `jest.mock`, e não
+com `jest.spyOn`. Siga o padrão dele: acrescente o mock junto dos outros, no
+topo do arquivo.
+
 ```ts
-// acrescentar a radiant-app/src/features/lesson-flow/services/LessonOutcomeService.test.ts
+// junto dos demais jest.mock, no topo de
+// radiant-app/src/features/lesson-flow/services/LessonOutcomeService.test.ts
+jest.mock('../../spaced-repetition/services/CompetencyReviewService', () => ({
+    CompetencyReviewService: { observeExposure: jest.fn(), recordReview: jest.fn() },
+}));
+```
+
+```ts
+// junto das demais constantes mockedX
 import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 
+const mockedReview = CompetencyReviewService as jest.Mocked<typeof CompetencyReviewService>;
+```
+
+O `block` do topo do arquivo tem **uma** interação. Para provar "uma observação
+por competência, não uma por interação" é preciso um bloco com duas, e como o
+adaptador legado mapeia toda interação de uma lição para a mesma competência
+sintética, duas interações têm de produzir **uma** chamada:
+
+```ts
+// no topo do describe novo
+const blocoComDuasInteracoes: LessonBlock = {
+    ...block,
+    steps: [
+        ...block.steps,
+        {
+            step: {
+                type: 'multiple-choice',
+                payload: {
+                    prompt: 'Segunda pergunta',
+                    options: [
+                        { id: 'a', label: 'Certa', correct: true },
+                        { id: 'b', label: 'Errada', correct: false },
+                    ],
+                },
+            },
+            contract: {
+                id: 'lesson-1-question-2',
+                type: 'multiple-choice',
+                completionRule: 'answered',
+                retryRule: 'allow_continue',
+                branching: 'none',
+            },
+        },
+    ],
+};
+```
+
+> **Nota para quem implementa:** se o formato de `step`/`contract` acima não
+> casar com o `LessonBlock` real do arquivo, copie a forma da segunda entrada de
+> `block.steps` — a que já é `multiple-choice` — e troque só o `id`. A estrutura
+> do bloco é do arquivo, não deste plano.
+
+```ts
 describe('alimentação do agendador por competência', () => {
-    afterEach(() => {
-        jest.restoreAllMocks();
+    beforeEach(() => {
+        mockedReview.observeExposure.mockReset();
+        mockedReview.observeExposure.mockResolvedValue(undefined);
     });
 
     it('observa uma vez por competência, não uma por interação', async () => {
-        const espia = jest.spyOn(CompetencyReviewService, 'observeExposure').mockResolvedValue();
+        await LessonOutcomeService.record({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+        });
 
-        await registrarLicaoLegadaComDuasInteracoes();
-
-        expect(espia).toHaveBeenCalledTimes(1);
+        expect(mockedReview.observeExposure).toHaveBeenCalledTimes(1);
     });
 
     it('marca acerto só quando todas as interações da competência acertaram', async () => {
-        const espia = jest.spyOn(CompetencyReviewService, 'observeExposure').mockResolvedValue();
+        await LessonOutcomeService.record({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': false },
+        });
 
-        await registrarLicaoLegadaComUmErro();
-
-        expect(espia).toHaveBeenCalledWith(
-            expect.objectContaining({ grade: expect.objectContaining({ outcome: 'incorrect' }) }),
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(
+            expect.objectContaining({ grade: { outcome: 'incorrect', hintUsed: false } }),
         );
     });
 
     it('marca dica quando qualquer interação da competência usou dica', async () => {
-        const espia = jest.spyOn(CompetencyReviewService, 'observeExposure').mockResolvedValue();
+        await LessonOutcomeService.record({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+            hintUsedByInteraction: { 'lesson-1-question-2': true },
+        });
 
-        await registrarLicaoLegadaComDica();
-
-        expect(espia).toHaveBeenCalledWith(
-            expect.objectContaining({ grade: expect.objectContaining({ hintUsed: true }) }),
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(
+            expect.objectContaining({ grade: { outcome: 'correct', hintUsed: true } }),
         );
     });
 
     it('não derruba a conclusão da atividade quando a observação falha', async () => {
-        jest.spyOn(CompetencyReviewService, 'observeExposure')
-            .mockRejectedValue(new Error('storage'));
+        mockedReview.observeExposure.mockRejectedValue(new Error('storage'));
 
-        await expect(registrarLicaoLegadaComDuasInteracoes()).resolves.not.toThrow();
+        await expect(LessonOutcomeService.record({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+        })).resolves.not.toThrow();
     });
 });
 ```
 
-> **Nota para quem implementa:** os quatro helpers `registrarLicaoLegada*`
-> montam um `LessonOutcomeInput` a partir de um bloco do catálogo legado e
-> chamam `LessonOutcomeService.record(...)`, variando `confirmedAnswers` e
-> `hintUsedByInteraction`. Escreva-os no topo do `describe`, seguindo o formato
-> de entrada que os testes já existentes neste arquivo usam para montar
-> `LessonOutcomeInput`.
+> **Nota para quem implementa:** se o método público não se chamar `record`,
+> use o nome que os testes já existentes deste arquivo invocam. O contrato de
+> entrada é `LessonOutcomeInput`, definido em `LessonOutcomeService.ts:33`.
 
 - [ ] **Step 2: Rodar e ver falhar**
 
