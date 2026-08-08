@@ -36,9 +36,33 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ## AGENTE — executável agora, sem humano
 
-### 1. O mapa de galáxias está vazio, e o conteúdo que o encheria existe
+### 1. ~~O mapa de galáxias está vazio~~ — CONCLUÍDA em 2026-08-08
 
-**Estado:** aberto. **Bloqueio:** nenhum. **Dono:** agente.
+**Estado:** concluída. **Bloqueio:** nunca houve. **Dono:** agente.
+
+As 16 lições entraram no mapa, em 6 planetas sob 2 galáxias. `galaxy-fisica` e
+`galaxy-tecnologia` saíram de `available`/`locked` para `active` — antes eram
+cascas vazias.
+
+**A causa foi tratada, não só o sintoma.** A divergência entre os dois catálogos
+existia porque `ai-catalog.ts` é **gerado** e `galaxy-catalog.ts` era escrito à
+mão, com o vínculo lição→planeta mantido nos dois lugares. Agora a linha está em
+outro lugar: **fato de governança é gerado, decisão de design é escrita à mão.**
+`sync-catalog-to-app.mjs` passou a emitir `galaxy-nodes.ts` a partir do mapa de
+taxonomia; cor, superfície e posição continuam autorais em `galaxy-catalog.ts`.
+
+Sete testes em `galaxy-nodes.test.ts`, e dois deles mordem de verdade — provado
+por mutação: com `nodesOf` devolvendo `[]`, os cinco restantes seguem verdes
+**vaziamente**, porque um mapa sem conteúdo satisfaz toda asserção sobre o
+conteúdo dele. Quem pega o módulo gerado deixar de ser consumido é só o par que
+compara gerado × mapa.
+
+Ordem dentro do planeta vem da sequência pedagógica da trilha, não do mapa, que
+é alfabético por id. Nós nascem `available` de propósito: as 16 já eram
+alcançáveis pela trilha plana, e nascer `locked` **reduziria** o acesso — o mapa
+acrescenta caminho, não fecha o que existe.
+
+**Continua do dono:** destravar `galaxy-casos`, que segue sem conteúdo nenhum.
 
 Medido em 2026-08-08:
 

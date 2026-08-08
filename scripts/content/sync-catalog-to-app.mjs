@@ -28,6 +28,15 @@ const WAVE1_PRIORITY_TRACKS_PATH = path.join(
 const AI_LESSONS_PATH = path.join(ROOT, "radiant-app/src/data/ai-lessons.ts");
 const AI_CATALOG_PATH = path.join(ROOT, "radiant-app/src/data/ai-catalog.ts");
 const APP_CATALOG_PATH = path.join(ROOT, "radiant-app/src/data/catalog.ts");
+const TAXONOMY_MAP_PATH = path.join(
+  ROOT,
+  "content-manifest/taxonomy-catalog-map.json"
+);
+const PLANETS_PATH = path.join(ROOT, "Conteúdo/taxonomia/planetas.json");
+const GALAXY_NODES_PATH = path.join(
+  ROOT,
+  "radiant-app/src/data/galaxy-nodes.ts"
+);
 
 function renderAiLessons(lessons) {
   const json = JSON.stringify(lessons, null, 2);
@@ -134,14 +143,98 @@ export const LESSON_CATALOG: LessonCatalogManifest = {
 `;
 }
 
+/**
+ * O vínculo lição→planeta é FATO DE GOVERNANÇA e por isso é gerado; a
+ * apresentação de cada corpo celeste (cor, superfície, posição no mapa) é
+ * DECISÃO DE DESIGN e por isso continua escrita à mão em `galaxy-catalog.ts`.
+ * A divergência entre os dois catálogos do mesmo universo nasceu justamente de
+ * o vínculo ser mantido à mão nos dois lugares.
+ */
+export function buildGalaxyNodes({ map, planetIds, lessonTitleById, ordemPedagogica }) {
+  const porPlaneta = new Map();
+
+  for (const entrada of map) {
+    if (entrada.taxonomyId === null) continue;
+    // O mapa também pode apontar para galáxia ou estrela; só planeta vira corpo
+    // com nós no app.
+    if (!planetIds.has(entrada.taxonomyId)) continue;
+
+    const titulo = lessonTitleById.get(entrada.catalogId);
+    if (!titulo) {
+      throw new Error(`Lição do mapa de taxonomia sem título no catálogo: ${entrada.catalogId}`);
+    }
+
+    if (!porPlaneta.has(entrada.taxonomyId)) porPlaneta.set(entrada.taxonomyId, []);
+    porPlaneta.get(entrada.taxonomyId).push(entrada.catalogId);
+  }
+
+  const resultado = {};
+
+  for (const [planetaId, licoes] of [...porPlaneta].sort(([a], [b]) => a.localeCompare(b))) {
+    // O agrupamento vem da taxonomia; a ORDEM vem da sequência pedagógica que a
+    // trilha já declara. O mapa é alfabético por id, que não é ordem de ensino.
+    const ordenadas = [...licoes].sort(
+      (a, b) => ordemPedagogica.indexOf(a) - ordemPedagogica.indexOf(b)
+    );
+
+    resultado[planetaId] = ordenadas.map((catalogId, indice) => ({
+      id: `node-${planetaId.replace(/^planet-/, '')}-${String(indice + 1).padStart(2, '0')}`,
+      unitId: planetaId,
+      type: 'lesson',
+      // "Quiz:" é rótulo de formato, não título — e o campo `type` já diz o que
+      // o nó é. Manter o prefixo faria o mapa repetir a palavra em 16 nós.
+      title: lessonTitleById.get(catalogId).replace(/^Quiz:\s*/, ''),
+      lessonId: catalogId,
+      // Todas nascem `available`, e isso não é descuido: as 16 já são
+      // alcançáveis hoje pela trilha plana. Nascer `locked` no mapa REDUZIRIA o
+      // acesso que o usuário tem — o mapa acrescenta um caminho, não fecha o
+      // que existe. O progresso real vem da camada de progresso, não daqui.
+      status: 'available',
+    }));
+  }
+
+  return resultado;
+}
+
+function renderGalaxyNodes(nodesByBody) {
+  return `// AUTO-GENERATED — do not edit by hand.
+// Source: content-manifest/taxonomy-catalog-map.json + Conteúdo/taxonomia/planetas.json
+// Run: node scripts/content/sync-catalog-to-app.mjs
+
+import type { JourneyNode } from '../types/journey';
+
+/**
+ * Nós de jornada por corpo celeste, derivados do mapa de taxonomia.
+ * A apresentação do corpo (cor, superfície, posição) vive em galaxy-catalog.ts,
+ * escrita à mão; só o vínculo lição→planeta é gerado.
+ */
+export const GALAXY_NODES_BY_BODY: Record<string, JourneyNode[]> = ${JSON.stringify(nodesByBody, null, 2)};
+`;
+}
+
 // ─── main ─────────────────────────────────────────────────────────────────────
 
 const payload = JSON.parse(readFileSync(CATALOG_PAYLOAD_PATH, "utf8"));
 const wave1 = JSON.parse(readFileSync(WAVE1_PRIORITY_TRACKS_PATH, "utf8"));
 const { version, lessons, track, lessonSummaries } = buildRuntimeCatalog(payload);
 
+const taxonomyMap = JSON.parse(readFileSync(TAXONOMY_MAP_PATH, "utf8"));
+const planets = JSON.parse(readFileSync(PLANETS_PATH, "utf8"));
+
+const galaxyNodes = buildGalaxyNodes({
+  map: taxonomyMap,
+  planetIds: new Set(planets.map((planeta) => planeta.id)),
+  lessonTitleById: new Map(lessons.map((licao) => [licao.id, licao.title])),
+  ordemPedagogica: track.lessonIds,
+});
+
 writeFileSync(AI_LESSONS_PATH, renderAiLessons(lessons), "utf8");
 writeFileSync(AI_CATALOG_PATH, renderAiCatalog(track, lessonSummaries, version), "utf8");
 writeFileSync(APP_CATALOG_PATH, renderWave1Catalog(wave1), "utf8");
+writeFileSync(GALAXY_NODES_PATH, renderGalaxyNodes(galaxyNodes), "utf8");
 
-console.log(`Synced ${lessons.length} lessons → ai-lessons.ts + ai-catalog.ts + catalog.ts`);
+const totalNos = Object.values(galaxyNodes).reduce((soma, nos) => soma + nos.length, 0);
+console.log(
+  `Synced ${lessons.length} lessons → ai-lessons.ts + ai-catalog.ts + catalog.ts, ` +
+    `e ${totalNos} nós em ${Object.keys(galaxyNodes).length} corpos → galaxy-nodes.ts`
+);
