@@ -11,7 +11,8 @@ equivalente. As tasks F3, F4 e F5 do roadmap misturam as duas lojas: o
 questionário de acesso a produção e o rollout faseado são do Play e **não**
 travam a App Store.
 
-Enquanto o relógio do Android não começa, o iOS pode ser submetido.
+Enquanto o relógio do Android não começa, o iOS avançou por sua rota própria e
+foi submetido à App Review em 2026-08-08.
 
 ## Gate de release, medido em 2026-08-08
 
@@ -93,19 +94,40 @@ cd radiant-app && npx eas secret:list
 
 Se as duas variáveis não aparecerem, `Data Not Collected` está certo.
 
-## O que falta para submeter, em ordem
+## Execução no console em 2026-08-08
 
-1. **Privacy labels** — preencher com a folha acima. É o último item de conteúdo
-   da ficha.
-2. **Decidir qual build submeter** — ver a seção seguinte.
-3. **Acionar `Adicionar para revisão`** no App Store Connect. O botão está
-   disponível desde 2026-08-05 e nunca foi acionado.
-4. **App Review** — 24–48h típicas na primeira submissão.
-5. **Liberação manual** (F5), já configurada na ficha.
+- `npx eas secret:list` voltou vazio; nenhuma das duas variáveis que ativariam
+  Sentry apareceu.
+- App Privacy foi publicada como **Dados não coletados**, com
+  `https://saudediagnostica.com/radiant/privacidade/` como política de
+  privacidade. O console confirmou o estado publicado.
+- A build production `1.3.1 (7)` (`b240dcbf-2632-4dcc-9816-71427068dc2b`) foi
+  concluída, enviada à Apple pela submission
+  `8d0eb131-489d-4df3-a511-e3e820857be2`, processada como **Pronta para envio**
+  e selecionada na versão `1.3.1`. O contador remoto `(6)` foi consumido por uma
+  tentativa interrompida antes de existir registro de build; não há binário 6
+  a escolher.
+- O primeiro clique em **Adicionar para revisão** foi executado. O App Store
+  Connect recusou por dois campos: direitos de conteúdo e faixa de preço. A
+  manutenção programada, iniciada às 10:00 BRT, interrompeu o console antes do
+  fechamento.
+- Quando o console voltou, a faixa **gratuita** foi selecionada, confirmada para
+  os 175 países ou regiões e salva. A declaração de direitos da primeira
+  tentativa não havia persistido: foi refeita como conteúdo de terceiros com os
+  direitos necessários, salva e conferida após recarregar a página.
+- A versão `1.3.1`, com a build `1.3.1 (7)`, foi adicionada ao rascunho e
+  **Enviada para revisão** às 12:05 BRT. O estado final observado no App Store
+  Connect é **Aguardando revisão**; o lançamento permanece manual.
 
-## A build no TestFlight está 21 commits de app atrás
+## O que falta para lançar no iOS, em ordem
 
-A `1.3.1 (5)` é de 2026-08-04. Desde então, **21 commits tocaram
+1. **App Review** — a versão já está na fila; 24–48h são típicas na primeira
+   submissão, sem garantia de prazo.
+2. **Liberação manual** (F5), já configurada na ficha, depois da aprovação.
+
+## A build atrasada foi substituída
+
+A `1.3.1 (5)` é de 2026-08-04. Depois dela, **21 commits tocaram
 `radiant-app/`**, e três deles mudam o que o usuário vê:
 
 - `7a4d9a3` — o mapa de galáxias deixou de estar 80% vazio: 6 planetas com as 16
@@ -114,19 +136,21 @@ A `1.3.1 (5)` é de 2026-08-04. Desde então, **21 commits tocaram
   alimentos por irradiação;
 - `2e43353` — a heurística H3 media o próprio lançamento e nunca podia disparar.
 
-**Recomendação: buildar de novo antes de submeter.** A revisão da Apple vem de
-qualquer jeito; entrar nela com o mapa cheio custa uma espera de build e evita
-gastar um ciclo de revisão inteiro mostrando a versão vazia.
+Essa recomendação foi executada: a `1.3.1 (7)` contém o estado atual da branch,
+está pronta no TestFlight e selecionada na versão. Assim, a App Review receberá
+o mapa cheio e a correção das trilhas, não a build 5 atrasada.
 
 ```bash
 cd radiant-app && npx eas build --platform ios --profile production
 ```
 
-O contador iOS é remoto e sai `1.3.1 (6)`.
+O contador iOS é remoto. A primeira tentativa consumiu `(6)` antes de ser
+interrompida; a build válida saiu como `1.3.1 (7)`.
 
 ## O que já está pronto na ficha, e não precisa ser refeito
 
-Persistido e conferido contra recarga em 2026-08-05:
+Persistido e conferido contra recarga em 2026-08-05, com as correções de estado
+observadas em 2026-08-08:
 
 - versão pública `1.3.1`, build, URL de suporte, categoria **Educação**,
   liberação manual;
@@ -137,7 +161,8 @@ Persistido e conferido contra recarga em 2026-08-05:
 - copyright e os quatro campos de contato do revisor;
 - **classificação etária**: `13+` em 172 países, `12+` no Brasil e Coreia do Sul,
   calculada pelo console a partir de "informação médica — Pouco frequente";
-- direitos sobre conteúdo de terceiros, declarados.
+- direitos sobre conteúdo de terceiros, reconfirmados e salvos em 2026-08-08
+  depois de o primeiro envio revelar que o console ainda os exigia.
 
 E a evidência de aparelho está fechada: smoke físico com sete cenários em
 2026-08-05, e a B4 (VoiceOver) fechada em 2026-08-06, levando o Gate 2 a 5/5.

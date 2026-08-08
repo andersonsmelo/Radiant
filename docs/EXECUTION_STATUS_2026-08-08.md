@@ -25,11 +25,11 @@ Estado do iOS, medido em 2026-08-08:
 
 | | |
 | --- | --- |
-| Build | `1.3.1 (5)` no TestFlight, **Pronta para envio** |
-| Ficha | completa, menos privacy labels |
+| Build | `1.3.1 (7)` selecionada e enviada com a versão `1.3.1` à App Review |
+| Ficha | privacy labels publicadas; direitos de conteúdo persistidos; preço gratuito salvo |
 | Evidência de aparelho | fechada — smoke em 2026-08-05, B4/VoiceOver em 2026-08-06, Gate 2 em 5/5 |
 | Gate de release | `tsc` exit 0, `eslint` 0 erros, **jest 56 suítes / 330 testes** |
-| Falta | privacy labels, decidir a build, e acionar **Adicionar para revisão** |
+| Estado Apple | **Aguardando revisão** desde 12:05 BRT; depois da aprovação, liberação manual |
 
 Folha de transcrição campo a campo, com evidência por linha:
 [`2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
@@ -44,7 +44,9 @@ e armazenamento local, a resposta ao questionário é **"Data Not Collected"** �
 não uma categoria detalhada.
 
 A única checagem que o repositório não responde: variáveis `EXPO_PUBLIC_*` podem
-vir de segredo do EAS. `npx eas secret:list` resolve antes de responder.
+vir de segredo do EAS. `npx eas secret:list` foi executado antes da resposta e
+voltou vazio. A ficha foi publicada como **Dados não coletados**, com a política
+de privacidade pública do Radiant.
 
 ## O que fechou em 2026-08-08
 
@@ -132,12 +134,19 @@ grep -n '^- \*\*[A-F][0-9]' docs/plans/2026-07-27-radiant-launch-roadmap.md
 
 ### Caminho iOS — a frente prioritária
 
-1. **Privacy labels** — folha pronta em
-   [`2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md). Console.
-2. **Build nova** — a `1.3.1 (5)` está **21 commits de app atrás** e não tem o
-   mapa cheio nem a correção das trilhas. Recomendado buildar antes de submeter.
-3. **Adicionar para revisão** (F4) — botão disponível desde 2026-08-05, nunca
-   acionado. Depois, App Review de 24–48h e liberação manual (F5).
+1. ~~**Privacy labels**~~ — **publicadas em 2026-08-08** como Dados não
+   coletados, depois de `npx eas secret:list` confirmar que não há segredos do
+   projeto ativando Sentry.
+2. ~~**Build nova**~~ — `1.3.1 (7)` compilada, enviada à Apple, processada como
+   **Pronta para envio** e selecionada na versão. A tentativa interrompida antes
+   do upload consumiu o contador remoto `(6)` sem produzir uma build.
+3. ~~**Preço e envio para revisão**~~ (F4, lado Apple) — após a manutenção, a
+   faixa **gratuita** foi salva; a declaração de direitos de conteúdo, que não
+   havia sobrevivido à primeira gravação, foi refeita e conferida após recarga.
+   A `1.3.1 (7)` foi adicionada ao rascunho e **Enviada para revisão** às 12:05
+   BRT. O console passou a exibir **Aguardando revisão**.
+4. **App Review e liberação manual** (F5, lado Apple) — aguardar a decisão da
+   Apple; depois da aprovação, o dono aciona a liberação manual já configurada.
 
 ### Caminho Android — represado pelo relógio
 

@@ -20,14 +20,16 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md) para estado
+1. [`EXECUTION_STATUS_2026-08-08.md`](EXECUTION_STATUS_2026-08-08.md) para estado
    operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
    runtime;
-3. [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
-   para **ordem e dependência entre as três frentes**; dentro de cada frente, o
-   plano de execução dela — [lançamento](plans/2026-07-27-radiant-launch-roadmap.md),
+3. [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
+   para o inventário ativo do lançamento; o
+   [`roadmap mestre`](plans/2026-08-01-radiant-roadmap-mestre.md) preserva a
+   ordem entre as três frentes e aponta os planos de cada uma —
+   [lançamento](plans/2026-07-27-radiant-launch-roadmap.md),
    [recorte Android](plans/2026-07-29-android-closed-testing-plan.md),
    [sistema de aprendizagem](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md);
 4. [`ARCHITECTURE_STATE.md`](ARCHITECTURE_STATE.md) para arquitetura consolidada;
@@ -44,7 +46,7 @@ Quando documentos divergirem, use esta ordem:
   estados que decide se o próximo passo abre, em dois diagramas ancorados no
   código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md)
+- [`EXECUTION_STATUS_2026-08-08.md`](EXECUTION_STATUS_2026-08-08.md)
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
@@ -94,7 +96,7 @@ dependem, e o lote é decisão de direitos do dono. A autoridade sobre este esta
 
 ## Histórico
 
-`EXECUTION_STATUS_2026-08-04.md` e anteriores são snapshots substituídos. Planos
+`EXECUTION_STATUS_2026-08-07.md` e anteriores são snapshots substituídos. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 

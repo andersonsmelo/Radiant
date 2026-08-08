@@ -125,7 +125,7 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 1. ~~**Criar o app** com o package `com.ascendcreative.radiant`.~~ **Concluído em
    2026-07-31** (task A3): o app existe como `Radiant — Radiologia`. A conta Play
    Console é tipo Pessoal, "Saúde Diagnóstica" — §3 do
-   [status canônico](../EXECUTION_STATUS_2026-07-29.md). ~~O que continua pendente
+   [status canônico](../EXECUTION_STATUS_2026-08-08.md). ~~O que continua pendente
    nela é a **verificação de acesso a dispositivo**, que exige aparelho Android
    real.~~ **Também concluída em 2026-07-31** (task A2); deixou de gatear a
    publicação. Este passo fica aqui como registro — não há nada a fazer nele.
@@ -162,27 +162,30 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 > `1.3.1 (6)` pronto, e ele é o primeiro que inclui a correção da barra de status
 > — o `1.3.1 (5)` do mesmo dia **precede** essa correção e não deve ser usado.
 
-## iOS — o que Anderson precisa fazer
+## iOS — fluxo concluído em 2026-08-08
 
-1. **Conta Apple Developer** ativa; app criado no App Store Connect com o bundle id
+1. **Conta Apple Developer e app:** ativos, com bundle id
    `com.ascendcreative.radiant`.
-2. **App Store Connect API key** (Users and Access → Integrations → App Store Connect
-   API → gerar key `.p8` + Key ID + Issuer ID). O `ios: {}` vazio faz o EAS pedir/usar
-   as credenciais interativamente ou via `ascApiKeyPath`/env; documente a key onde o
-   EAS Submit espera (ou preencha `ascApiKeyPath`, `ascApiKeyId`, `ascApiKeyIssuerId`).
-3. **Submeter**:
+2. **Credenciais do App Store Connect:** configuradas no EAS sem persistir a key
+   no repositório.
+3. **Enviar o binário ao TestFlight:** executado para a build `1.3.1 (7)`:
    ```sh
    eas submit --platform ios --profile production
    ```
-   (envia para o TestFlight; o beta review da Apple libera para os testadores.)
+4. **Enviar a versão à App Review:** o comando acima termina no TestFlight; ele
+   não substitui a submissão final no console. No App Store Connect, foi preciso
+   adicionar `1.3.1 (7)` ao rascunho, abrir **Rascunhos de envios (1)** e clicar
+   **Enviar para revisão**. Estado confirmado: **Aguardando revisão**.
+5. **Depois da aprovação:** a ficha está configurada para liberação manual; esse
+   é o único próximo clique do lado iOS.
 
 ## Ordem sugerida (uma vez que as contas existam)
 
 1. Build `production` das duas plataformas via EAS (`eas build --profile production
    --platform all`). **Isto trava a política de `runtimeVersion`** — só disparar quando
    for de fato submeter (ver alerta do roadmap/D5).
-2. `eas submit` iOS → TestFlight (pode ir na frente: a Apple não exige cota de
-   testadores, só App Review).
+2. `eas submit` iOS → TestFlight → envio da versão à App Review. **Concluído em
+   2026-08-08**, sem depender da cota de testadores do Play.
 3. `eas submit` Android → internal testing (validar) → promover para o track fechado.
 4. Recrutar os 12+ testadores no track fechado → 14 dias consecutivos → solicitar
    produção.

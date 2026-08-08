@@ -40,14 +40,16 @@ Reordenado em 2026-08-08. O **12 testadores × 14 dias** é exigência do **Goog
 Play** para conta pessoal; a Apple não tem equivalente. F3, F4 e F5 do roadmap
 misturam as duas lojas, e os itens do Play não travam a App Store.
 
-Enquanto o relógio do Android não começa, **o iOS pode ser submetido**.
+Enquanto o relógio do Android não começa, o iOS avançou de forma independente e
+**foi submetido à App Review em 2026-08-08**.
 
 | Passo | Dono | Estado |
 | --- | --- | --- |
-| Privacy labels no App Store Connect | dono | folha pronta, resposta é **"Data Not Collected"** |
-| Build nova (`1.3.1 (6)`) | dono | recomendada: a `(5)` está 21 commits de app atrás |
-| **Adicionar para revisão** | dono | botão disponível desde 2026-08-05, nunca acionado |
-| App Review 24–48h → liberação manual | Apple, depois dono | — |
+| Privacy labels no App Store Connect | dono | **concluído** — **Dados não coletados** publicado |
+| Build nova (`1.3.1 (7)`) | dono | **concluído** — processada, selecionada e submetida |
+| Preço e direitos de conteúdo | dono | **concluído** — gratuito; direitos persistidos após recarga |
+| Envio à App Review | dono | **concluído** às 12:05 BRT — **Aguardando revisão** |
+| App Review → liberação manual | Apple, depois dono | revisão externa em curso; dono libera após aprovação |
 
 Folha de transcrição campo a campo, com a evidência de cada resposta:
 [`store/2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
@@ -56,9 +58,9 @@ Gate de release medido em 2026-08-08: `tsc` exit 0, `eslint` 0 erros, **jest 56
 suítes / 330 testes**. Evidência de aparelho fechada — smoke em 2026-08-05, B4
 em 2026-08-06, Gate 2 em 5/5.
 
-**Não há trabalho de agente neste caminho.** As três ações são de console e de
-conta. O que um agente podia fazer — rodar o gate, apurar as respostas do
-questionário, conferir versionamento — está feito.
+**Não há trabalho de agente neste caminho.** Gate, ficha, build e submissão
+estão fechados. O que resta é a decisão externa da Apple e, depois da aprovação,
+a liberação manual pelo dono.
 
 ---
 

@@ -908,6 +908,9 @@ código.
   **Não depende da D1** — o binário da v1.3 não alcança API alguma. Única
   checagem que exige o console: `npx eas secret:list`, porque `EXPO_PUBLIC_*`
   pode vir de segredo do EAS.
+  **Apple concluída em 2026-08-08:** o comando voltou vazio e App Privacy foi
+  publicada como **Dados não coletados**, com a política pública do Radiant.
+  Data Safety do Play permanece uma operação separada.
 - **E4 [P0]** Classificação etária/questionários de conteúdo nas duas
   consoles; categoria (Educação ou Medicina — recomendação: Educação, evita
   escrutínio de app médico). **Apple concluída em 2026-08-05; IARC/Play ainda
@@ -960,8 +963,8 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0 — EM ANDAMENTO; `1.3.1 (5)` NO TESTFLIGHT; FICHA iOS PERSISTIDA;
-  SMOKE FÍSICO PASS; VOICEOVER PARCIAL]** Build `production` iOS via EAS →
+- **F1 [P0 — BUILD `1.3.1 (7)` PRONTA NO TESTFLIGHT; FICHA iOS PERSISTIDA;
+  SMOKE FÍSICO PASS; GATE 2 5/5]** Build `production` iOS via EAS →
   TestFlight (revisão beta da Apple); distribuir aos testadores.
 
   > **Desfecho da submissão, medido em 2026-08-04.** A submissão
@@ -1070,8 +1073,18 @@ código.
   **Atualização de 2026-08-05:** metadata e smoke fecharam; F1 permanece aberta
   somente pela parte não amostrada do VoiceOver descrita acima.
   **Atualização de 2026-08-06: essa parte fechou (B4), e com ela o Gate 2
-  inteiro.** A F1 não tem mais bloqueio de evidência — o que falta é a ação
-  humana no console: **Adicionar para revisão** (F4), que segue não acionado.
+  inteiro.** A F1 não tem mais bloqueio de evidência; a ação humana de envio
+  pertence à F4.
+  **Atualização de 2026-08-08:** a build production `1.3.1 (7)`
+  (`b240dcbf-2632-4dcc-9816-71427068dc2b`) foi compilada, enviada à Apple,
+  processada como **Pronta para envio** e selecionada na versão. A submission
+  foi `8d0eb131-489d-4df3-a511-e3e820857be2`. Uma tentativa interrompida antes
+  do upload consumiu o contador remoto `(6)` sem produzir binário. O primeiro
+  clique em **Adicionar para revisão** ocorreu e expôs dois campos que o estado
+  anterior tratava como persistidos: direitos de conteúdo e preço. Depois da
+  manutenção, o preço **gratuito** foi salvo e a declaração de direitos foi
+  refeita, salva e conferida após recarga. Às 12:05 BRT, a `1.3.1 (7)` foi
+  enviada à App Review; o console passou a exibir **Aguardando revisão**.
 - **F2 [P0] — RELEASE LIVE; 14 TESTADORES VINCULADOS; 2 OPT-INS OBSERVADOS;
   14 DIAS PENDENTES (2026-08-03).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
@@ -1085,9 +1098,14 @@ código.
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
-- **F4 [P0]** Solicitar acesso a produção no Play (questionário) e submeter
-  revisão final na App Store (App Review; primeira revisão típica de 24–48h,
-  planejar retrabalho).
+- **F4 [P0 — APPLE AGUARDANDO REVISÃO; PLAY ESPERA F2]** Solicitar acesso a produção
+  no Play (questionário) e submeter revisão final na App Store (App Review;
+  primeira revisão típica de 24–48h, planejar retrabalho). **Apple não depende
+  da F2:** em 2026-08-08, privacy foi publicada como **Dados não coletados**, o
+  preço gratuito e os direitos de conteúdo foram persistidos, e a build 7 foi
+  enviada à revisão com a versão `1.3.1`. Estado final observado às 12:05 BRT:
+  **Aguardando revisão**. O lado Apple da submissão está concluído; o lado Play
+  continua esperando F2.
 - **F5 [P0]** Lançamento: rollout faseado no Play (10% → 50% → 100%);
   liberação manual no iOS após aprovação.
 - **F6 [P1]** Pós-lançamento (2 primeiras semanas): monitorar Sentry

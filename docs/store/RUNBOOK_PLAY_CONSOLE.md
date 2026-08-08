@@ -216,22 +216,28 @@ As 6 tasks do [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md)
 fecharam em 2026-07-29 e o contrato de assets roda **14/14** dentro do
 `npm run quality`. **Não há mais motivo de engenharia para adiar o upload do AAB.**
 
-Faça tudo deste runbook agora — criar o app, preencher a ficha textual, colar as
-duas URLs, responder Data Safety e gerar a chave — e suba o AAB quando as contas
-permitirem.
+**Não refaça a criação do app, a ficha, as URLs, a lista nem o upload do AAB.**
+Essas etapas já foram executadas; o track fechado `alpha` está ativo com a
+release `1.3.0 (4)`. Use este runbook como procedimento e o status canônico como
+estado. A service-account key continua opcional para automação do `eas submit`,
+não para a release que já está no console.
 
 O que ainda gate a **publicação** não sai deste runbook e não é código:
 
 1. ~~**Verificação de acesso a dispositivo da conta Play**~~ — **CONCLUÍDA em
    2026-07-31.** Deixou de gatear a publicação.
 2. **≥ 12 testadores opted-in por 14 dias consecutivos** — o item de maior
-   latência do caminho crítico, e **o único bloqueio de publicação que resta**.
+   latência do caminho crítico. A última leitura, em 2026-08-03, mostrou 2
+   participantes de 14 contas vinculadas; só o console atual confirma a contagem.
    Kit pronto em [`TESTER_INVITE_KIT.md`](TESTER_INVITE_KIT.md).
+3. **Questionário IARC/Play (E4)** — continua pendente e deve seguir a taxonomia
+   exibida pelo Play, sem copiar automaticamente a classificação da Apple.
+4. **Depois de F2:** solicitar acesso à produção no Play (F4).
 
 **Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
 Android 13+ continua pendente e também exige aparelho real — uma captura da
 gaveta com o tema ligado basta (§4 do
-[status canônico](../EXECUTION_STATUS_2026-07-29.md)).
+[status canônico](../EXECUTION_STATUS_2026-08-08.md)).
 
 > **Por que esta seção envelheceu:** o bloqueio foi fechado no status canônico e
 > no roadmap, que **descrevem** estado; ninguém varreu os documentos que

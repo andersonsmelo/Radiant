@@ -1,7 +1,8 @@
 # Fichas de loja — Data Safety, Privacy Labels e Classificação
 
-> Preparado em 2026-07-29 e **reconciliado em 2026-08-05**. As respostas de
-> privacidade continuam prontas para preencher, derivadas do
+> Preparado em 2026-07-29 e **reconciliado em 2026-08-08**. A resposta da Apple
+> foi publicada como **Dados não coletados**; a ficha do Play continua sendo um
+> preenchimento separado. As respostas derivam do
 > [contrato de telemetria D2](../legal/CONTRATO_TELEMETRIA.md) e válidas para a
 > build de produção atual (Sentry desligado, sem analytics remoto, sem sync).
 > A classificação etária Apple foi **atestada e persistida em 2026-08-05**:
@@ -31,7 +32,7 @@ aplica (não há criação de conta / dados em servidor).
 
 ## 2. App Store — Privacy Nutrition Labels
 
-**→ "Data Not Collected".**
+**→ "Data Not Collected" — publicado em 2026-08-08.**
 
 - Mesma base: nada coletado pelo app. Sem tracking (sem IDFA, sem analytics de
   terceiros).
@@ -89,8 +90,10 @@ na Apple: os rótulos e efeitos de classificação são contratos distintos.
 
 ### Direitos de conteúdo — declaração separada
 
-**Atestação persistida em 2026-08-05:** o app contém, exibe ou acessa conteúdo
-de terceiros e o titular confirmou deter os direitos necessários.
+**Atestação refeita, salva e conferida após recarga em 2026-08-08:** o app
+contém, exibe ou acessa conteúdo de terceiros e o titular confirmou deter os
+direitos necessários. A seleção de 2026-08-05 não havia sobrevivido até a
+primeira tentativa de envio e, por isso, não é usada como prova de persistência.
 
 O App Store Connect pergunta se o app contém, exibe ou acessa conteúdo de
 terceiros. O repositório registra fontes editoriais de terceiros e classes de
@@ -118,7 +121,7 @@ Só então muda a ficha (hoje **não** ligar):
 
 ## 5. Dependências
 
-- **Política de privacidade** ([rascunho](../legal/politica-de-privacidade.md)) precisa
-  estar **hospedada em URL pública** — é campo obrigatório das duas fichas. Bloqueia o
-  envio final.
-- E-mail de contato / página de suporte (ver punch-list).
+- **Política de privacidade:** hospedada e informada na ficha Apple em
+  `https://saudediagnostica.com/radiant/privacidade/`.
+- **Suporte e contato:** página pública configurada; não bloqueiam mais o lado
+  Apple. O preenchimento do Play continua independente.
