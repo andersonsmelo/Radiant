@@ -8,6 +8,15 @@ envelhece sem avisar.
 > que muda com o código, então precisa mudar no mesmo commit — sob validador e
 > sob revisão. O cérebro aponta para cá; a cópia não vive lá.
 
+## Projeção no cérebro Obsidian
+
+Em 2026-08-08, a pedido do dono, o caminho da pessoa ganhou uma projeção
+renderizável no módulo opcional `10 Fluxo do usuário.md` do cérebro do Radiant.
+Ela serve como mapa de navegação e raciocínio no Obsidian; **não substitui este
+arquivo como fonte operacional**. O módulo declara essa precedência, aponta para
+o PDF imprimível `docs/CLIENT_FLOW_PRINT.pdf` e só pode ser reprojetado pela CLI
+pública do Loop — nunca por edição manual do vault.
+
 São dois diagramas porque são duas perguntas diferentes. O primeiro responde
 "por onde a pessoa anda"; o segundo, "o que decide se o próximo passo abre".
 Misturar os dois é o que torna esse tipo de desenho ilegível.
