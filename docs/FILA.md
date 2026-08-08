@@ -195,17 +195,32 @@ estrela cai abaixo do limiar de 0,7 **por construção** e vira `needs-review` �
 o oposto do objetivo. Precisa renormalizar para `0.625·galáxia + 0.375·planeta`,
 com teste próprio.
 
-**Ordem corrigida, uma coisa de cada vez:**
+**Ordem corrigida:**
 
-1. **contrato** — `starId` nulável no schema, no `validate-foundation` e no
-   `classify_excerpt`, com a renormalização da confiança e teste de mutação em
-   cada uma das duas formas;
-2. **vocabulário** — `galaxy-tecnologia` e os seis planetas em
-   `classify-source.py`, com `TAXONOMY_VERSION` novo;
-3. **regeneração** — alargar a policy em run próprio (duas raízes:
+1. ✅ **contrato** — `starId` nulável no schema, no `validate-foundation`, no
+   `classify_excerpt` **e na guarda irmã do `classify_source`**, que eu não
+   varri na primeira passada e o teste do bundle pegou. Confiança renormalizada
+   para `0.625/0.375`. Feito em `af7b202`;
+2. ✅ **vocabulário** — `galaxy-tecnologia` e os seis planetas em
+   `classify-source.py`, `TAXONOMY_VERSION` em `eixo-tecnico-2026-08-07`.
+   Medido contra os 109 excertos reais: **`needs-review` cai de 30 para 22**, e
+   **45 registros passam a ter `starId` nulo** — os planetas sem estrela ficaram
+   alcançáveis;
+3. ⬜ **regeneração** — alargar a policy em run próprio (duas raízes:
    `Conteúdo/classificação` e `Conteúdo/extrações`, ambas só na grafia minúscula
    do git hoje), reexecutar extrator **e** classificador na mesma passada, e
-   remedir os 30.
+   remedir. **A medição acima é dry-run:** `classifications.json` no disco ainda
+   é a antiga, de 79/30.
+
+**O achado que vale mais que o número, e quase me fez enviar a versão errada.**
+Um primeiro vocabulário, mais agressivo, levava `needs-review` de 30 para **17** —
+melhor manchete. Mas **12 dos 20 resgates pousavam em
+`planet-profissao-e-aplicacoes`**, numa fonte onde profissão é uma lição só. A
+causa: `tecnico em radiologia` aparece em **77 dos 109 excertos** porque é o
+cabeçalho de página do módulo. O termo de maior aparência semântica era o do
+rodapé, e a métrica de manchete **premiava a colocação errada** — exatamente o
+risco que a medição de 2026-08-03 nomeou, chegando por outra porta. A versão
+podada resgata 12 com 4 regressões, e resgata para lugares plausíveis.
 
 O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de o
 dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31

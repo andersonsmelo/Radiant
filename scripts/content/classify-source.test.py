@@ -164,5 +164,36 @@ class ClassifySourceTests(unittest.TestCase):
         self.assertIsNotNone(record["starId"])
         self.assertEqual(record["starId"], "star-artefatos-basicos")
 
+    # ── Eixo tecnico ─────────────────────────────────────────────────────
+    def test_excerto_de_processamento_vai_para_imagem_na_pratica(self):
+        excerpt = {
+            "id": "excerpt:test-processamento", "sourceSlug": SOURCE_SLUG,
+            "pageStart": 55, "pageEnd": 55,
+            "text": ("O processamento radiografico ocorre na camara escura, onde o "
+                     "revelador e o fixador atuam sobre o filme, e a qualidade de imagem "
+                     "depende da nitidez e do contraste obtidos."),
+        }
+        record = MODULE.classify_excerpt(excerpt)
+        self.assertEqual(record["galaxyId"], "galaxy-tecnologia")
+        self.assertEqual(record["planetId"], "planet-imagem-na-pratica")
+        self.assertIsNone(record["starId"])
+
+    def test_o_cabecalho_da_fonte_nao_e_sinal_de_assunto(self):
+        """`tecnico em radiologia` aparece em 77 dos 109 excertos porque e o
+        cabecalho de pagina do modulo. Usa-lo como sinal punha excerto de dose em
+        `profissao e aplicacoes`, que e colocacao errada com metrica boa."""
+        excerpt = {
+            "id": "excerpt:test-boilerplate", "sourceSlug": SOURCE_SLUG,
+            "pageStart": 22, "pageEnd": 22,
+            "text": ("CURSO TECNICO EM RADIOLOGIA MODULO I. A dose absorvida e a "
+                     "protecao radiologica do paciente exigem avental de chumbo e "
+                     "monitoracao por dosimetro."),
+        }
+        record = MODULE.classify_excerpt(excerpt)
+        self.assertNotEqual(record["planetId"], "planet-profissao-e-aplicacoes")
+
+    def test_taxonomy_version_declara_o_eixo_tecnico(self):
+        self.assertEqual(MODULE.TAXONOMY_VERSION, "eixo-tecnico-2026-08-07")
+
 if __name__ == "__main__":
     unittest.main()
