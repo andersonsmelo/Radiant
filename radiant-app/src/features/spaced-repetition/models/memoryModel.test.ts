@@ -1,11 +1,13 @@
 import { DEFAULT_MEMORY_PARAMS } from '../../../constants/competencyReview';
 import type { CompetencyReviewCard, ReviewGrade } from '../../../types/competencyReview';
 import {
+    DUE_AT_INDETERMINADO,
     elapsedDaysBetween,
     intervalForTarget,
     isDelayedRetention,
     retrievability,
     scheduleNext,
+    somaDias,
 } from './memoryModel';
 
 const P = DEFAULT_MEMORY_PARAMS;
@@ -76,7 +78,50 @@ describe('isDelayedRetention', () => {
     });
 });
 
+describe('somaDias', () => {
+    it('soma normalmente quando a entrada é legível', () => {
+        expect(somaDias('2026-01-01T00:00:00.000Z', 2)).toBe('2026-01-03T00:00:00.000Z');
+    });
+
+    it('recusa agendar a partir de data ilegível em vez de cair na época Unix', () => {
+        // Cair em 1970 produziria cartão permanentemente vencido — o oposto de
+        // falhar fechado, e o único ponto em que a ambiguidade beneficiaria o
+        // agendamento.
+        expect(somaDias('nao-e-data', 3)).toBe(DUE_AT_INDETERMINADO);
+        expect(Number.isNaN(Date.parse(somaDias('nao-e-data', 3)))).toBe(true);
+    });
+
+    it('recusa agendar com intervalo não finito em vez de lançar', () => {
+        // `new Date(NaN).toISOString()` lança RangeError, e a exceção escapava
+        // até fora de observeExposure.
+        expect(() => somaDias('2026-01-01T00:00:00.000Z', Number.NaN)).not.toThrow();
+        expect(somaDias('2026-01-01T00:00:00.000Z', Number.NaN)).toBe(DUE_AT_INDETERMINADO);
+        expect(somaDias('2026-01-01T00:00:00.000Z', Number.POSITIVE_INFINITY)).toBe(DUE_AT_INDETERMINADO);
+        expect(somaDias('2026-01-01T00:00:00.000Z', 1e15)).toBe(DUE_AT_INDETERMINADO);
+    });
+});
+
 describe('scheduleNext', () => {
+    it('não lança e não agenda quando a estabilidade do cartão está corrompida', () => {
+        const corrompido = cartao({ stability: Number.NaN });
+
+        const resultado = scheduleNext({
+            card: corrompido, competencyId: corrompido.competencyId, grade: ACERTO,
+            criticalSafety: false, params: P, now: '2026-01-11T00:00:00.000Z',
+        });
+
+        expect(resultado.dueAt).toBe(DUE_AT_INDETERMINADO);
+    });
+
+    it('não lança e não agenda quando o instante de agora é ilegível', () => {
+        const resultado = scheduleNext({
+            card: null, competencyId: 'competency:x:y', grade: ACERTO,
+            criticalSafety: false, params: P, now: 'nao-e-data',
+        });
+
+        expect(resultado.dueAt).toBe(DUE_AT_INDETERMINADO);
+    });
+
     it('cria cartão na primeira exposição com acerto', () => {
         const resultado = scheduleNext({
             card: null,

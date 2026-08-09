@@ -46,12 +46,28 @@ describe('motivo da recomendação', () => {
         expect(comVencidaIrrelevante.nextRecommendedNode?.id).toBe(semParametro.nextRecommendedNode?.id);
     });
 
-    it('devolve due-review quando uma vencida é coberta por nó já desbloqueado', () => {
+    it('devolve due-review quando o NÓ RECOMENDADO cobre a vencida', () => {
         const snapshot = JourneyRecommendationService.computeSnapshot(
             defaultTrack, progressoInicial(), [vencida('competency:legacy:lesson-1')],
         );
 
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-1');
         expect(snapshot.recommendationReason).toBe('due-review');
+    });
+
+    it('devolve next-new quando a vencida é coberta por outro nó, não pelo recomendado', () => {
+        // Antes bastava qualquer nó não-`locked` cobrir a vencida, inclusive um
+        // já concluído: o snapshot dizia "revisão vencida" enquanto a tela
+        // mostrava o checkpoint inédito. O motivo agora descreve o que está na
+        // tela, ou não descreve nada.
+        const progresso = { ...progressoInicial(), completedNodeIds: ['node:lesson-1'] };
+
+        const snapshot = JourneyRecommendationService.computeSnapshot(
+            defaultTrack, progresso, [vencida('competency:legacy:lesson-1')],
+        );
+
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:checkpoint:foundations');
+        expect(snapshot.recommendationReason).toBe('next-new');
     });
 
     it('NÃO destrava nó bloqueado, mesmo com vencida crítica apontando para ele', () => {

@@ -98,9 +98,15 @@ O agendador decide o **tipo** da evidência que uma revisão produz:
 > que admita `delayed-retention` → grava `delayed-retention`.
 > Caso contrário → grava `independent-recall`.
 
-Com isso, o motor de domínio continua sem saber que existe agendador, e o
-agendador continua sem saber como se calcula domínio. Cada um lê o currículo para
-o que lhe cabe: o agendador lê `evidenceMethods`, o motor lê os pesos.
+As três condições são exigidas, e nenhuma é dispensável: sem a terceira, 20 das
+30 competências receberiam retenção retardada que o currículo não prevê e subiriam
+a `retained` furando o teto que a §3 registra como deliberado.
+
+**Quem informa a terceira condição.** `recordReview` a exige do chamador, como já
+exige `criticalSafety` — o serviço não lê o currículo. Campo obrigatório, sem
+default: ausência de informação nunca concede. O agendador continua sem saber
+como se calcula domínio, e o motor de domínio continua sem saber que existe
+agendador.
 
 ## 5. O modelo de memória
 
@@ -266,16 +272,29 @@ o currículo usa `unit:profissao-e-cultura-de-seguranca` e
 
 Portanto, **hoje o resolver devolve `competency:legacy:<lessonId>` para todos os
 nós**, porque não existe atividade v2 — `LegacyLessonAdapter` emite competência
-sintética por lição com `evidenceKind: 'legacy-lesson-recall'`, e
-`includeLegacyEvidence` é `false` por padrão. `getDue` volta vazio.
+sintética por lição com `evidenceKind: 'legacy-lesson-recall'`.
 
 ### A propriedade de segurança que isso exige
 
-Com `getDue` vazio, os passos 2 e 3 nunca disparam e a recomendação cai em
-`next-new` — **exatamente o comportamento de hoje**. O sistema entra desligado e
-acende sozinho quando a Task 10 e o lote de direitos entregarem conteúdo v2. Sem
-flag, sem migração: a degradação graciosa é consequência do desenho, e vira
-teste.
+**Correção de 2026-08-08.** A versão anterior deste documento dizia que a lista de
+vencidas chega vazia porque `includeLegacyEvidence` é `false`. **É falso**, e
+importa desfazer: aquele sinalizador é filtro do motor de domínio no cálculo de
+domínio e não toca o agendador. Cartões de competência legada são criados
+normalmente por `observeExposure` e vencem em um dia; `getDue` os devolveria.
+
+O que de fato preserva o comportamento de hoje é mais simples e mais frágil:
+
+1. `CompetencyReviewService.getDue` **não tem chamador de produção**;
+2. todas as chamadas a `JourneyRecommendationService.computeSnapshot` **omitem o
+   terceiro parâmetro**, então `dueCompetencies` é sempre `[]`.
+
+Com a lista vazia, os passos 2 e 3 nunca disparam e a recomendação cai em
+`next-new` — **exatamente o comportamento de hoje**. A degradação graciosa é
+consequência dessa desconexão, não de flag alguma, e vira teste.
+
+Consequência para quem for ligar os dois: acender o sistema é passar a lista a
+`computeSnapshot`. Nesse dia, e não antes, é preciso decidir o que fazer com
+competência legada — o agendador a agenda.
 
 ## 7. Erro, persistência e relógio
 
@@ -283,7 +302,7 @@ teste.
 
 Chave nova, `@radiant:competency_review_v1`; as chaves do
 `SpacedRepetitionService` ficam intocadas. O store guarda `schemaVersion`, os
-cartões por `competencyId`, `lastSeenClock` e `updatedAt`.
+cartões por `competencyId` e `updatedAt`.
 
 **Sem array de histórico.** O store legado faz `store.reviewHistory.push(...)` sem
 limite, e cresce para sempre no AsyncStorage do aparelho. Não herdamos o defeito:
@@ -292,28 +311,40 @@ documento.)
 
 Store ilegível **não** é apagado em silêncio: a string crua vai para uma chave de
 quarentena e o serviço começa limpo. Perder progresso é ruim; perder progresso
-sem deixar rastro é pior. `schemaVersion` maior que a atual: lê como vazio e
-**recusa escrever**, para uma versão antiga do app não corromper dados de uma
-nova.
+sem deixar rastro é pior. **Ilegível inclui forma errada**, não só JSON quebrado:
+`{"schemaVersion":1,"cards":null}` desserializa sem erro e só explodiria depois,
+ao indexar `cards`. A forma é conferida antes do uso. `schemaVersion` maior que a
+atual: lê como vazio e **recusa escrever**, para uma versão antiga do app não
+corromper dados de uma nova.
 
 ### Erro
 
 Best-effort em todo o caminho, no padrão que `LessonOutcomeService` e
 `SpacedRepetitionService` já usam: falha ao agendar não derruba a conclusão da
-atividade. Se `getDue` lançar, `JourneyRecommendationService` cai no
+atividade. A promessa vale para os **quatro** métodos públicos —
+`observeExposure`, `recordReview`, `getDue` e `reset` —, não só para a consulta.
+`recordReview` falha fechado: sem leitura ou escrita confiável, devolve
+`independent-recall`. Se `getDue` lançar, `JourneyRecommendationService` cai no
 comportamento de hoje em vez de quebrar a Home.
 
 ### Relógio
 
 O decorrido sai de timestamps guardados e é **clampado em zero**: `now <
 lastReviewedAt` vira decorrido 0, nunca negativo. Com decorrido 0 o limiar não é
-satisfeito, e a evidência é gravada como `independent-recall`. `lastSeenClock`
-detecta relógio que andou para trás; na sessão em que isso ocorrer,
-`delayed-retention` não é concedida.
+satisfeito, e a evidência é gravada como `independent-recall`.
+
+A defesa contra relógio retrocedido é **por cartão**, comparando `now` com o
+`lastReviewedAt` daquele cartão — não há campo global de relógio por sessão. (A
+versão anterior previa `lastSeenClock`; ele foi removido por ser campo escrito e
+nunca lido, prometendo uma segunda defesa que não existia.)
 
 O princípio é o que o motor de domínio já pratica — *bloqueio nunca promove*:
 **ambiguidade resolve contra conceder domínio**. Data ilegível, decorrido
-negativo, relógio retrocedido: todos falham fechado.
+negativo, relógio retrocedido: todos falham fechado. Isso vale inclusive na
+**escrita da agenda**: se o instante for ilegível ou o intervalo não for finito,
+o cartão recebe um `dueAt` que não é data, e todo leitor o trata como não
+vencido. Um cartão que nunca vence é o lado seguro do erro; um cartão
+permanentemente vencido — o que a época Unix produziria — é o lado errado.
 
 **Delimitação de ameaça.** Isto não derrota manipulação deliberada. O app é
 local-first, sem conta e sem servidor; quem adianta o relógio para destravar

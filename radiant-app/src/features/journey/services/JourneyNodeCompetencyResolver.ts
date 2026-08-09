@@ -5,12 +5,19 @@
  * jornada usa `node:lesson-1`, o currículo usa
  * `competency:protecao-radiologica:blindagem`. Enquanto não houver atividade
  * v2, todo nó resolve para a competência sintética por lição que o
- * `LegacyLessonAdapter` emite — e o motor de domínio descarta evidência legada
- * por padrão.
+ * `LegacyLessonAdapter` emite, e `legacyOnly` é `true` em tudo.
  *
- * Consequência desejada: `legacyOnly` é `true` em tudo, `getDue` volta vazio, e
- * a recomendação cai no comportamento de hoje. O sistema entra desligado e
- * acende sozinho quando o conteúdo v2 existir.
+ * **Por que nada muda para o usuário hoje.** Não é por `includeLegacyEvidence`:
+ * esse sinalizador é filtro do motor de domínio no cálculo de domínio e não
+ * afeta o agendador em nada — cartões legados são criados normalmente e vencem
+ * em um dia. O que preserva o comportamento atual é mais simples e mais frágil:
+ * `CompetencyReviewService.getDue` **não tem chamador de produção**, e todas as
+ * chamadas a `JourneyRecommendationService.computeSnapshot` omitem o terceiro
+ * parâmetro, então a lista de vencidas que chega à recomendação é sempre vazia.
+ *
+ * Consequência: a recomendação cai em `next-new`, como hoje. O sistema acende
+ * no dia em que alguém ligar `getDue` à recomendação — e nesse dia é preciso
+ * decidir o que fazer com competência legada, porque o agendador a agenda.
  */
 
 import { LEGACY_COMPETENCY_PREFIX } from '../../lesson-flow/services/LegacyLessonAdapter';

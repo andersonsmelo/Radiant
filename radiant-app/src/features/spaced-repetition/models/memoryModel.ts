@@ -19,6 +19,18 @@ import type {
 
 const MS_POR_DIA = 24 * 60 * 60 * 1000;
 
+/** Fora deste alcance `new Date(...).toISOString()` lança `RangeError`. */
+const MAX_INSTANTE_VALIDO = 8.64e15;
+
+/**
+ * Marcador de agendamento impossível. Não é data e **não deve** ser: quem lê
+ * `dueAt` com `Date.parse` recebe `NaN`, e todo leitor do subsistema já trata
+ * `NaN` como "não vencido". Assim, quando a entrada é ambígua o cartão some da
+ * fila em vez de aparecer eternamente vencido — ambiguidade resolve contra
+ * conceder domínio, e um cartão que nunca vence é o lado seguro do erro.
+ */
+export const DUE_AT_INDETERMINADO = 'indeterminado';
+
 export type ScheduleInput = {
     card: CompetencyReviewCard | null;
     competencyId: string;
@@ -118,10 +130,34 @@ function cartaoInicial(input: ScheduleInput): CompetencyReviewCard {
     };
 }
 
-function somaDias(iso: string, dias: number): string {
+/**
+ * Soma dias a um instante ISO, **falhando fechado** — a mesma disciplina de
+ * `elapsedDaysBetween` (devolve 0) e `isDelayedRetention` (devolve `false`).
+ *
+ * Duas ambiguidades são recusadas em vez de arredondadas:
+ *
+ * 1. `iso` ilegível. Cair na época Unix produziria `dueAt: 1970-…`, um cartão
+ *    permanentemente vencido — era o único ponto do subsistema onde a
+ *    ambiguidade beneficiava o agendamento.
+ * 2. `dias` não finito (cartão com `stability` corrompida propaga `NaN` até
+ *    aqui). `new Date(NaN).toISOString()` lança `RangeError`, e a exceção
+ *    escapava até fora de `observeExposure`, derrubando a conclusão da
+ *    atividade por causa de um agendamento.
+ */
+export function somaDias(iso: string, dias: number): string {
     const base = Date.parse(iso);
-    const referencia = Number.isNaN(base) ? 0 : base;
-    return new Date(referencia + dias * MS_POR_DIA).toISOString();
+
+    if (Number.isNaN(base) || !Number.isFinite(dias)) {
+        return DUE_AT_INDETERMINADO;
+    }
+
+    const instante = base + dias * MS_POR_DIA;
+
+    if (!Number.isFinite(instante) || Math.abs(instante) > MAX_INSTANTE_VALIDO) {
+        return DUE_AT_INDETERMINADO;
+    }
+
+    return new Date(instante).toISOString();
 }
 
 export function scheduleNext(input: ScheduleInput): CompetencyReviewCard {

@@ -8,7 +8,20 @@
  * aqui criaria duas verdades sobre o mesmo acerto.
  */
 
+import type { AuthoredEvidenceKind } from './learningActivity';
+
 export type ReviewOutcome = 'correct' | 'incorrect';
+
+/**
+ * Os dois únicos tipos que uma sessão de revisão pode produzir, **derivados** do
+ * vocabulário canônico em `learningActivity`. Derivar em vez de repetir os
+ * literais faz com que renomear um método de evidência lá quebre a compilação
+ * aqui, em vez de vazar como string desconhecida em runtime.
+ */
+export type CompetencyReviewEvidenceKind = Extract<
+    AuthoredEvidenceKind,
+    'delayed-retention' | 'independent-recall'
+>;
 
 export type ReviewGrade = {
     outcome: ReviewOutcome;
@@ -55,11 +68,15 @@ export type MemoryParams = {
     maxIntervalDays: number;
 };
 
+/**
+ * Não há campo de relógio por sessão: a defesa contra relógio retrocedido é
+ * **por cartão**, comparando `now` com o `lastReviewedAt` do próprio cartão
+ * (`elapsedDaysBetween` clampa em zero, `isDelayedRetention` recusa). Um campo
+ * global escrito e nunca lido apenas prometeria uma segunda defesa inexistente.
+ */
 export type CompetencyReviewStore = {
     schemaVersion: number;
     cards: Record<string, CompetencyReviewCard>;
-    /** Último `now` observado; detecta relógio que andou para trás. */
-    lastSeenClock: string;
     updatedAt: string;
 };
 
