@@ -3,7 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import type { InteractionType, LearningInteractionV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { ComparisonStepRenderer } from './ComparisonStepRenderer';
+import { HotspotStepRenderer } from './HotspotStepRenderer';
+import { MatchingStepRenderer } from './MatchingStepRenderer';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
+import { OrderingStepRenderer } from './OrderingStepRenderer';
 
 /**
  * Registro de renderizadores de interação.
@@ -51,6 +55,51 @@ function MultipleChoiceInteraction({ interaction, value, onChange }: Interaction
     );
 }
 
+function HotspotInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+    if (interaction.type !== 'hotspot') {
+        return <UnsupportedInteraction interaction={interaction} />;
+    }
+
+    return (
+        <HotspotStepRenderer
+            payload={interaction.payload}
+            accessibilityLabel={interaction.accessibility.label}
+            selectedRegionId={value}
+            onSelect={onChange}
+        />
+    );
+}
+
+function ComparisonInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+    if (interaction.type !== 'comparison') {
+        return <UnsupportedInteraction interaction={interaction} />;
+    }
+
+    return (
+        <ComparisonStepRenderer
+            payload={interaction.payload}
+            selectedOptionId={value}
+            onSelect={onChange}
+        />
+    );
+}
+
+function MatchingInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+    if (interaction.type !== 'matching') {
+        return <UnsupportedInteraction interaction={interaction} />;
+    }
+
+    return <MatchingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
+}
+
+function OrderingInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+    if (interaction.type !== 'ordering') {
+        return <UnsupportedInteraction interaction={interaction} />;
+    }
+
+    return <OrderingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
+}
+
 /**
  * Erro seguro: tipo sem renderizador não derruba a lição.
  *
@@ -73,6 +122,10 @@ function UnsupportedInteraction({ interaction }: { interaction: LearningInteract
 
 const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     'multiple-choice': MultipleChoiceInteraction,
+    hotspot: HotspotInteraction,
+    comparison: ComparisonInteraction,
+    matching: MatchingInteraction,
+    ordering: OrderingInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

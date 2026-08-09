@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -20,6 +20,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { LessonVisualPanel } from '../components/LessonVisualPanel';
 import { LessonFlowProgressHeader } from '../components/LessonFlowProgressHeader';
+import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -150,6 +151,14 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         // assíncrono e no último passo o estado ainda não conteria esta
         // resposta.
         const nextConfirmed = player.confirm();
+
+        if (currentInteraction) {
+            const correct = isCorrectInteractionValue(currentInteraction, player.value);
+            const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
+            AccessibilityInfo.announceForAccessibility(
+                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}`,
+            );
+        }
 
         if (!isLastStep) {
             return;

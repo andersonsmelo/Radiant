@@ -15,10 +15,10 @@
 — fecha o algoritmo do agendador por competência, que esta spec deixara em
 aberto, e registra o teto de domínio medido no currículo.
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** e **11**
-concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote de
-ativos autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis)
-— é ela que registra os sete tipos de interação que ainda não têm renderizador.
+**Status:** em execução desde 2026-07-31. Tasks **1 a 11 concluídas**. O primeiro
+lote sintético autorizado fechou a Task 3/G1, e a Task 10 registrou hotspot,
+comparação, associação e ordenação. Próxima: **Task 12** (checkpoint e reforço
+adaptativo).
 
 > **A Task 11 fechou fora de ordem, em 2026-08-09**, pelo plano delegado
 > [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md)
@@ -28,13 +28,13 @@ ativos autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessívei
 >
 > Duas consequências para quem retomar:
 >
-> 1. **O agendador está pronto e não tem o que agendar.** `getDue` não tem
->    chamador de produção, e todo nó ainda resolve para competência legada
->    sintética. Ligar o lado de leitura antes da Task 10 recomendaria revisão de
->    competência que o currículo não reconhece.
-> 2. **Um achado ficou deferido com decisão registrada** —
->    `temFormaDeCartao` aceita `NaN` em campo numérico. Está descrito no plano
->    delegado e é o primeiro item de quem voltar ao subsistema.
+> 1. **O agendador está pronto e ainda não tem conteúdo v2 para agendar.**
+>    `getDue` não tem chamador de produção, e todo nó de produção ainda resolve
+>    para competência legada sintética. A Task 10 fechou a biblioteca inicial,
+>    mas a leitura só acende depois que atividades curriculares reais existirem.
+> 2. **O achado numérico deferido foi corrigido em 2026-08-09.**
+>    `temFormaDeCartao` agora exige `Number.isFinite` nos quatro campos; um valor
+>    JSON persistível que vira `Infinity` está coberto por regressão.
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -42,8 +42,8 @@ irmãs do mesmo gate, não como etapas em sequência.*
 
 **Evidência atual:** `library-catalog.json` registra 41 PDFs, 36 fontes únicas e
 5 duplicatas; direitos = 4 `authorized`, 15 `reference-only`, 17 `blocked`.
-`media-manifest.json` está `awaiting-authorized-assets`, com 0 itens aprovados e
-5 candidatos rejeitados.
+`media-manifest.json` está `ready`, com 1 ilustração original sintética aprovada
+e 5 candidatos históricos preservados como rejeitados.
 
 ---
 
@@ -650,9 +650,10 @@ Três decisões de risco:
 *Reversão verificada (Step 4):* trocando o retorno de `confirm()` pelo estado
 anterior, **três** testes falham, incluindo o da corrida. Restaurado, 11/11.
 
-*O registro declara que só `multiple-choice` tem renderizador hoje* — os outros
-sete tipos do contrato entram na Task 10, e `isInteractionTypeRegistered` existe
-para que essa lacuna seja consultável em vez de descoberta em runtime.
+*Ao concluir a Task 9, o registro declarava apenas `multiple-choice`.* A Task 10
+adicionou hotspot, comparação, associação e ordenação; os três tipos restantes
+continuam consultáveis por `isInteractionTypeRegistered` em vez de serem
+descobertos como lacuna somente em runtime.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx`
@@ -691,7 +692,29 @@ git commit -m "refactor(learning): desacopla player dos tipos de atividade"
 
 ---
 
-### Task 10: Implementar o primeiro conjunto de jogos acessíveis
+### Task 10: Implementar o primeiro conjunto de jogos acessíveis — CONCLUÍDA
+
+**Concluída em 2026-08-09.** O registry agora expõe cinco tipos: múltipla
+escolha, hotspot, comparação, associação e ordenação. Hotspot oferece a mesma
+escolha pela imagem e por lista textual; comparação identifica a seleção por
+texto e estado, não só por cor; matching forma pares em sequência sem arraste;
+ordering usa botões nomeados de subir/descer. Todos os controles novos têm alvo
+mínimo de 44 pt, e o player anuncia o feedback exatamente uma vez no evento de
+confirmação.
+
+Respostas compostas usam uma lista JSON de ids no contrato `string` já
+controlado pelo player. A completude é validada antes de habilitar Continuar, e
+a correção de hotspot aceita qualquer região autorizada enquanto matching e
+ordering exigem a sequência inteira. Quatro stories foram incluídas no glob de
+features do Storybook. Evidência focada: **8 suítes/35 testes**, lint, typecheck,
+Storybook config e visual QA sem regressões. A suíte completa do app passou com
+**66 suítes/414 testes** antes do gate visual; o gate visual foi corrigido e
+reexecutado verde.
+
+Correção de escopo necessária: além dos arquivos previstos, a task alterou o
+hook do player para avaliar respostas estruturadas, a tela para anunciar o
+feedback no instante da confirmação e a configuração gerada do Storybook para
+que stories em `src/features` sejam realmente descobertas.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/renderers/HotspotStepRenderer.tsx`

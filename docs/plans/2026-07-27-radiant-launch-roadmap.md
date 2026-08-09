@@ -1163,11 +1163,13 @@ execução:
   ilustração aprovada com hash, texto alternativo e três hotspots. As cinco
   candidatas anteriores continuam rejeitadas e nenhuma fonte de terceiros foi
   usada no ativo. A autorização não inclui publicação de novo binário.
-- **G2 [P0 — MOTOR BASE CONCLUÍDO; TASK 10 É A PRÓXIMA]** Tasks 5–9 concluídas:
-  contrato de atividades, adaptador legado, evidência, domínio, registro e
-  player. A Task 11 também fechou fora de ordem com o agendador por competência.
-  Falta a Task 10, os quatro renderizadores do corte vertical; o primeiro lote
-  legítimo de mídia de G1 já está disponível para os jogos visuais.
+- **G2 [CONCLUÍDA EM 2026-08-09]** Motor e biblioteca inicial de interações
+  entregues. Tasks 5–11 concluídas: contrato, adaptador legado, evidência,
+  domínio, player, agendador e renderizadores de hotspot, comparação, associação
+  e ordenação. As alternativas acessíveis não exigem cor ou arraste, os alvos
+  têm 44 pt e o feedback é anunciado uma vez por confirmação. O gate manual em
+  aparelho/leitor de tela permanece na fase de beta e nenhum binário foi
+  publicado.
 - **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
   bloqueio de lições por vidas.
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12

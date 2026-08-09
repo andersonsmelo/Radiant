@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { AccessibilityInfo } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -10,6 +11,7 @@ import { LessonFlowService } from '../services/LessonFlowService';
 const mockedOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedLessonFlowService = LessonFlowService as jest.Mocked<typeof LessonFlowService>;
+const announceForAccessibility = jest.spyOn(AccessibilityInfo, 'announceForAccessibility');
 
 jest.mock('expo-router', () => ({
   router: {
@@ -210,6 +212,10 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     // errou e corrigiu antes de confirmar vê o reforço de acerto.
     expect(await screen.findByText('Resposta correta')).toBeTruthy();
     expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.')).toBeTruthy();
+    expect(announceForAccessibility).toHaveBeenCalledTimes(1);
+    expect(announceForAccessibility).toHaveBeenCalledWith(
+      'Resposta correta. A opacidade focal com broncograma aéreo sugere consolidação alveolar.',
+    );
   });
 });
 

@@ -85,17 +85,30 @@ Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
 
 ---
 
-## AGENTE — Task 10 destravada: quatro renderizadores acessíveis
+## AGENTE — Task 12: checkpoint e reforço adaptativo
 
-**Estado:** aberta e executável desde 2026-08-09. **Bloqueio:** nenhum.
-**Dono:** agente.
+**Estado:** próxima task técnica. **Bloqueio:** nenhum para o serviço e os
+testes locais; validação manual acessível continua separada. **Dono:** agente.
 
-O dono autorizou um primeiro lote original e sintético de mídia educacional. O
-manifesto está `ready`, com uma ilustração aprovada, hash fixado, texto
-alternativo e três hotspots; os cinco arquivos anteriores continuam rejeitados.
-A próxima entrega é implementar e testar os renderizadores de hotspot,
-comparação, associação e ordenação, incluindo alternativas sem arraste ou cor
-como único sinal e alvos de toque acessíveis.
+A biblioteca inicial de renderizadores e o lote de mídia estão prontos. A
+próxima entrega do plano é o `UnitCheckpointService`: aprovação com pelo menos
+80% e zero erro crítico, reforço apenas das competências frágeis, persistência
+da versão do lote e integração do checkpoint sem depender de XP.
+
+---
+
+## HISTÓRICO — Task 10 concluída em 2026-08-09
+
+O registry agora cobre múltipla escolha, hotspot, comparação, associação e
+ordenação. Hotspot tem alternativa textual; comparação marca seleção também por
+texto; associação funciona em sequência sem drag; ordenação usa subir/descer.
+Os alvos têm ao menos 44 pt, respostas compostas permanecem controladas pelo
+player e o feedback é anunciado uma vez ao confirmar.
+
+Evidência: **8 suítes/35 testes focados**, lint, typecheck, Storybook config e
+visual QA sem regressões; a suíte completa passou com **66 suítes/414 testes**.
+Quatro stories de feature entram no Storybook. Aparelho físico e leitor de tela
+real continuam como validação posterior, e nenhum novo binário foi publicado.
 
 ---
 

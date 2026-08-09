@@ -69,9 +69,10 @@ deles reabre a submissão Apple.
 
 ## Sistema de aprendizagem por competências
 
-Tasks **1–9 e 11** estão concluídas. A Task 11 fechou fora de ordem pelo plano
-do agendador por competência; a próxima task técnica do plano é a **Task 10**,
-os quatro renderizadores.
+Tasks **1–11** estão concluídas. A Task 11 fechou inicialmente fora de ordem
+pelo plano do agendador por competência; com o lote autorizado e a Task 10
+entregue, a próxima task técnica do plano é a **Task 12**, checkpoint e reforço
+adaptativo.
 
 O dono autorizou explicitamente em **2026-08-09** a produção do primeiro lote
 original e sintético de mídia educacional. O gate de direitos da Task 3/G1 está
@@ -86,8 +87,28 @@ fechado sem reaproveitar os arquivos rejeitados:
 - 36 fontes catalogadas: **17 blocked**, **15 reference-only**, **4
   authorized** — nenhuma imagem dessas fontes foi necessária neste lote.
 
-A Task 10 está agora executável. A autorização cobre este lote original; não
-aprova os cinco candidatos rejeitados nem autoriza publicação de novo binário.
+A autorização cobre este lote original; não aprova os cinco candidatos
+rejeitados nem autoriza publicação de novo binário.
+
+### Quatro interações acessíveis concluídas em 2026-08-09
+
+O registry do player passou de um para cinco tipos registrados: múltipla
+escolha, hotspot, comparação, associação e ordenação. Hotspot possui toque e
+lista textual equivalentes; comparação não depende só de cor; associação é
+sequencial e não exige arraste; ordenação tem botões acessíveis de subir e
+descer. Todos os alvos novos medem no mínimo 44 pt.
+
+O player continua controlando a resposta e separando seleção de confirmação.
+Respostas compostas são serializadas como lista de ids, ficam bloqueadas até
+estarem completas e são avaliadas como sequência integral. O feedback é
+anunciado uma única vez no evento de confirmação, inclusive quando a interação
+é o último passo. Quatro stories agora entram no glob real do Storybook.
+
+Evidência: **8 suítes/35 testes focados**, lint, typecheck e Storybook config
+verdes; suíte completa com **66 suítes/414 testes**. O visual QA detectou quatro
+nomes locais de estilo, eles foram alinhados ao contrato e a repetição fechou
+com **0 regressões**. Validação manual em aparelho/VoiceOver/TalkBack permanece
+um gate separado; nenhum binário foi publicado.
 
 ### Correção do agendador fechada em 2026-08-09
 
@@ -156,5 +177,4 @@ API pública, que permanece em HTTP 502.
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-3. Executar a Task 10 com o lote sintético autorizado → conteúdo v2 → ativação
-   segura do agendador → Task 12.
+3. Executar a Task 12 → conteúdo v2 → ativação segura do agendador → Task 13.

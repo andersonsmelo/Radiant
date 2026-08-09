@@ -1,5 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import type { LearningActivityV2, LearningStepV2 } from '../../../types/learningActivity';
+import {
+    isCompleteInteractionValue,
+    isCorrectInteractionValue,
+} from '../renderers/InteractionAnswerValue';
 
 /**
  * Estado do player de uma atividade v2.
@@ -54,7 +58,7 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
         if (!currentStep) return false;
         // Passo de apresentação não produz evidência: nada a validar.
         if (currentStep.kind === 'presentation') return true;
-        return value !== undefined;
+        return isCompleteInteractionValue(currentStep.interaction, value);
     }, [currentStep, value]);
 
     const confirm = useCallback((): Record<string, boolean> => {
@@ -66,7 +70,7 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
 
         if (currentStep.kind === 'interaction') {
             const { interaction } = currentStep;
-            const correct = value === resolveExpectedValue(currentStep);
+            const correct = isCorrectInteractionValue(interaction, value);
 
             nextConfirmed = { ...confirmedAnswers, [interaction.id]: correct };
             setConfirmedAnswers(nextConfirmed);
@@ -99,25 +103,4 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
         confirmedAnswers,
         lastFeedback,
     };
-}
-
-/**
- * Qual valor conta como acerto, por tipo de interação.
- *
- * Fica isolado porque é o único ponto que precisa crescer quando um jogo novo
- * entra — e mantê-lo fora do fluxo de estado é o que impede que "como se
- * avalia" e "como se navega" voltem a se misturar, que era o defeito do player
- * anterior.
- */
-function resolveExpectedValue(step: Extract<LearningStepV2, { kind: 'interaction' }>): string | undefined {
-    const { interaction } = step;
-
-    switch (interaction.type) {
-        case 'multiple-choice':
-        case 'comparison':
-        case 'case-decision':
-            return interaction.payload.correctOptionId;
-        default:
-            return undefined;
-    }
 }
