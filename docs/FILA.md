@@ -90,23 +90,35 @@ Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
 Elas não destravam a Task 10 nem a App Review, mas são executáveis sem console,
 backend, mídia autorizada ou aparelho físico.
 
-### A. Varrer `jest.spyOn` sobre mocks oficiais
+### A. ~~Varrer `jest.spyOn` sobre mocks oficiais~~ — concluída em 2026-08-09
 
-**Estado:** aberto. **Bloqueio:** nenhum. **Dono:** agente.
+**Estado:** concluída. **Bloqueio:** nenhum. **Dono:** agente.
 
-O caso de `CompetencyReviewService.test.ts` foi corrigido: aplicar `jest.spyOn`
-sobre uma função que já é mock devolve o próprio mock, e `mockRestore()` pode
-apagar a implementação oficial. Ainda não houve varredura das demais suítes.
+O caso de `CompetencyReviewService.test.ts` já era a única ocorrência nociva:
+aplicar `jest.spyOn` sobre uma função que já é mock devolve o próprio mock, e
+`mockRestore()` pode apagar a implementação oficial. A varredura das demais
+suítes não encontrou outro alvo que combinasse mock de módulo e restauração
+destrutiva. Os `mockRestore()` ativos atingem apenas `console` ou `Intl`
+reais; o teste de `AccessibilityInfo` restaura espiões reais e reinstala o
+comportamento necessário por teste.
 
-Remedir antes de abrir o run:
+As sete suítes candidatas passaram em uma única execução focada, isolada e sem
+cache: **7/7 suítes, 89/89 testes**. Nenhuma mudança de código de produção ou
+teste foi necessária; a próxima pendência técnica é a barreira explícita de
+ativação do agendador.
+
+Comando usado:
 
 ```bash
-rg -n "jest\.spyOn|mockRestore" radiant-app/src --glob '*.test.ts' --glob '*.test.tsx'
+EXPO_NO_DOTENV=1 CI=1 npm test -- --runInBand --no-cache \
+  src/ui/accessibility/useReducedMotionPreference.test.ts \
+  src/features/lesson-flow/services/LessonOutcomeService.test.ts \
+  src/features/journey/services/JourneyNodeCompletionGuard.test.tsx \
+  src/features/spaced-repetition/services/CompetencyReviewService.test.ts \
+  src/features/first-run/startup-gate.flow.test.tsx \
+  src/features/telemetry/appStoreProps.test.ts \
+  src/features/progress/screens/ProgressScreen.flow.test.tsx
 ```
-
-Corrigir somente ocorrências que combinem os dois fatos — alvo já mockado no
-nível do módulo e restauração que destrói a implementação —, com regressão que
-prove o efeito entre testes. `jest.spyOn` sobre implementação real não é defeito.
 
 ### B. Tornar explícita a ativação do agendador por competência
 

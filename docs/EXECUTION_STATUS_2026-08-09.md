@@ -99,8 +99,13 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
 1. A degradação graciosa não tem trava explícita. O agendador entra desligado
    porque `getDue` não possui chamador e chamadas a `computeSnapshot` omitem o
    terceiro parâmetro, não porque uma guarda impeça sua ativação.
-2. O padrão perigoso de `jest.spyOn` sobre mock oficial já foi corrigido em
-   `CompetencyReviewService.test.ts`, mas não houve varredura das outras suítes.
+2. ~~O padrão perigoso de `jest.spyOn` sobre mock oficial aguardava varredura.~~
+   **Concluída em 2026-08-09:** `CompetencyReviewService.test.ts` permanece
+   como a única correção necessária. A revisão das demais suítes não encontrou
+   outro `mockRestore()` sobre mock de módulo; os usos ativos miram `console` ou
+   `Intl` reais, e `AccessibilityInfo` restaura espiões reais. A execução
+   focada passou com **7/7 suítes e 89/89 testes**; não houve mudança adicional
+   de código.
 
 ## Documentação viva reconciliada
 
