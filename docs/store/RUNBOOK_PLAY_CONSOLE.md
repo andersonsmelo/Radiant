@@ -7,9 +7,9 @@
 > **Quem executa:** Anderson. Tudo aqui é ação no console e manuseio de credencial —
 > nenhum agente faz isso por você.
 >
-> **Pré-requisito já satisfeito:** conta Play Console paga. **Pendente à parte:** a
-> verificação de identidade/acesso a dispositivo exige um **aparelho Android real**
-> (o emulador é imagem "Google APIs" sem Play Store).
+> **Pré-requisitos já satisfeitos:** conta Play Console paga, identidade e
+> verificação de acesso a dispositivo concluídas em 2026-07-31. Não refaça essas
+> etapas; a pendência deste runbook é a service-account key para automação.
 
 ## Antes de começar — uma checagem de segurança que já foi feita
 
@@ -133,8 +133,10 @@ Os dois pontos que mais confundem, resumidos:
   A política publicada divulga isso na seção 4.1 — as duas peças concordam, e é essa
   concordância que a revisão checa.
 
-**Classificação:** questionário de conteúdo → categoria Educação → esperado
-**Livre/4+**.
+**Classificação:** responder o questionário IARC exibido pelo Play com base no
+conteúdo real e registrar o resultado observado. Não copiar a classificação da
+Apple nem antecipar `Livre/4+`: as duas lojas usam taxonomias independentes e o
+IARC/Play continua pendente.
 
 ---
 
@@ -237,7 +239,7 @@ O que ainda gate a **publicação** não sai deste runbook e não é código:
 **Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
 Android 13+ continua pendente e também exige aparelho real — uma captura da
 gaveta com o tema ligado basta (§4 do
-[status canônico](../EXECUTION_STATUS_2026-08-08.md)).
+[status canônico](../EXECUTION_STATUS_2026-08-09.md)).
 
 > **Por que esta seção envelheceu:** o bloqueio foi fechado no status canônico e
 > no roadmap, que **descrevem** estado; ninguém varreu os documentos que

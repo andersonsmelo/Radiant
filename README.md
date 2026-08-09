@@ -9,7 +9,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | --- | --- |
 | App | Expo/React Native; catálogo e progresso funcionam offline |
 | Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; última leitura em 2026-08-03: 14 contas vinculadas e 2 opt-ins; faltam ≥10 opt-ins e a janela de 14 dias |
-| iOS | versão `1.3.1`, build `7`; último estado observado no console em 2026-08-08: **Aguardando revisão**; liberação manual após aprovação |
+| iOS | versão `1.3.1`, build `7`; estado reconfirmado no console em 2026-08-09: **Aguardando revisão**; liberação manual após aprovação |
 | E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
@@ -54,6 +54,12 @@ Em 2026-08-02 entrou o **motor de aprendizagem v2**, do contrato ao player:
 
 Nada disso mudou a lição que o usuário vê — foi esse o objetivo. O que muda a
 tela é a próxima etapa, os **jogos**: hoje só `multiple-choice` tem renderizador.
+
+O agendador por competência (Task 11) também está pronto, mas permanece inerte:
+o lado de leitura ainda não foi ativado e não existe conteúdo v2 para alimentar
+uma revisão real. Stores numéricos não finitos agora são rejeitados e enviados
+à quarentena; antes da ativação, ainda falta uma guarda explícita que não dependa
+apenas da ausência de chamadores.
 
 Essa frente continua em ordem no
 [`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).

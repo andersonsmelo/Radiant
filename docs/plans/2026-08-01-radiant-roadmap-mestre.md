@@ -6,7 +6,7 @@
 >
 > **O que ele não é:** não é status, não é checklist e não substitui plano de
 > execução nenhum. Se você quer saber *como está* alguma coisa, o
-> [status canônico](../EXECUTION_STATUS_2026-07-29.md) é a autoridade; se quer
+> [status canônico](../EXECUTION_STATUS_2026-08-09.md) é a autoridade; se quer
 > saber *como fazer* uma task, o plano de execução da frente é a autoridade.
 >
 > **Por que a separação é dura.** Este repositório já perdeu tempo três vezes com
@@ -32,7 +32,7 @@ deles colidirem ou pararem esperando algo que já estava pronto.
 | Frente | Objetivo | Plano de execução | Depende de |
 | --- | --- | --- | --- |
 | **1 — Lançamento v1.3** | app público nas duas lojas | [roadmap de lançamento](2026-07-27-radiant-launch-roadmap.md) + [recorte Android](2026-07-29-android-closed-testing-plan.md) | ação do dono e relógio das lojas |
-| **2 — Educacional** | trilha por competências, atividades e jogos | [plano do sistema de aprendizagem](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md) | nada — é a única frente sem dependência externa |
+| **2 — Educacional** | trilha por competências, atividades e jogos | [plano do sistema de aprendizagem](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md) | decisão de direitos para a mídia dos jogos visuais; trabalho não visual pode seguir |
 | **3 — Conta e premium (v1.4)** | assinatura com direito de acesso que atravessa plataforma | *ainda não existe* | API pública, hoje inativa |
 
 ## Regra que atravessa as três
@@ -60,27 +60,25 @@ Caminho crítico administrativo. A engenharia não bloqueia mais nada aqui.
    as frentes: nada acelera um relógio de dias consecutivos.*
 2. **Manter a contagem durante toda a janela**, monitorada diariamente. Queda
    abaixo do piso zera o relógio.
-3. **Completar a ficha iOS** — metadata reviewer-facing, privacy labels,
-   classificação etária e informações de revisão. O build só é selecionado depois
-   do smoke físico.
-4. **Smoke do build iOS no iPhone**: abrir os dois destinos legais a partir do
-   app. Lançamento bem-sucedido **não** é evidência de navegação, e teste
-   automatizado **não** é evidência de abertura real.
-5. **Sessões humanas de acessibilidade** — VoiceOver (B4) e TalkBack (C5). São
-   sessões humanas por definição; não há automação que as substitua.
-6. **Mergear a PR do site que publica as páginas legais** e remedir as duas URLs
+3. **Aguardar a App Review e liberar manualmente após aprovação.** O envio,
+   metadata, privacy, classificação, smoke físico e VoiceOver já foram fechados;
+   o estado atual pertence ao console e fica no status canônico.
+4. **Completar os gates Android restantes** — IARC/Play, aparelho físico e
+   TalkBack — sem misturá-los com a revisão Apple.
+5. **Mergear a PR do site que publica as páginas legais** e remedir as duas URLs
    na véspera da submissão. Elas estão no ar por FTPS e um redeploy da branch
    principal do site pode removê-las — as URLs já estão coladas na ficha do Play,
    e a revisão pode ocorrer semanas depois.
-7. **Prova do *themed icon* do Android 13+** — exige aparelho real. **Não
+6. **Prova do *themed icon* do Android 13+** — exige aparelho real. **Não
    bloqueia**; é ressalva de qualidade.
 
 ## Frente 2 — Educacional
 
-Segue a ordem do plano de execução. As fundações editoriais e o currículo estão
-entregues; a próxima task é o **contrato de atividades `LearningActivityV2`**, e
-dela decorre a cadeia até os jogos — que são renderizadores do mesmo motor, e não
-um produto paralelo.
+Segue a ordem do plano de execução. As fundações editoriais, o currículo, o
+contrato `LearningActivityV2`, o adaptador legado, a evidência, o domínio, o
+registro/player e o agendador por competência estão entregues. A próxima task é
+a **Task 10**, os quatro renderizadores do corte vertical. Jogos são
+renderizadores do mesmo motor, não um produto paralelo.
 
 Dois pontos que a ordem do plano esconde e que importam para quem for pegar a
 frente:
@@ -124,7 +122,9 @@ existe para impedir.
 
 ## Como as três se relacionam
 
-- A frente 2 **não depende** de nada das outras duas. É a que pode andar sempre.
+- A frente 2 não depende das outras duas, mas os jogos visuais dependem de uma
+  decisão externa de direitos sobre mídia. Trabalho não visual pode andar; a
+  Task 10 e o corte vertical não devem contornar esse gate.
 - A frente 3 depende da API, que **não está no caminho crítico do lançamento** —
   o produto lançável é local-first. Subir a API é pré-requisito da v1.4 e de
   nada na v1.3.

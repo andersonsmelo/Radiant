@@ -21,6 +21,8 @@ Componentes principais:
   tipos de atividade, com contrato único `interaction/value/onChange`;
 - `LearningEvidenceRepository`: evidência estruturada por interação;
 - `CompetencyMasteryService`: domínio por competência, puro e determinístico;
+- `CompetencyReviewService`: store e agendamento por competência, ainda sem
+  chamador de leitura em produção;
 - `Conteúdo/`: pipeline editorial com proveniência;
 - `radiant-api/`: auth, sync e catálogo remoto opcional.
 
@@ -76,9 +78,17 @@ conveniência e decai):
 - contrato `LearningActivityV2` e adaptador do catálogo legado: **concluídos**;
 - evidência estruturada por interação e domínio por competência: **concluídos**;
 - registro de renderizadores e player desacoplado: **concluído**;
+- agendador por competência: **concluído e inerte** — observa exposições, mas
+  `getDue` ainda não alimenta a jornada; campos numéricos persistidos exigem
+  `Number.isFinite` e stores inválidos vão para quarentena;
 - renderizadores dos sete tipos restantes de interação: **pendentes** — hoje só
   `multiple-choice` está registrado, e `isInteractionTypeRegistered` torna essa
   lacuna consultável em vez de descoberta em runtime.
+
+Antes de ativar o lado de leitura do agendador, falta uma guarda explícita de
+ativação. Hoje a degradação graciosa depende da ausência de chamadores e da
+omissão do terceiro parâmetro de `computeSnapshot`, não de uma barreira que
+impeça o sistema de recomendar competências sintéticas legadas.
 
 Duas propriedades que o motor v2 já garante e convém não perder de vista ao
 evoluí-lo:

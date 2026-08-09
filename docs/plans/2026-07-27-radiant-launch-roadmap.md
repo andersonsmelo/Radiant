@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-29.md). As Tasks 11–16 do
+> [status canônico](../EXECUTION_STATUS_2026-08-09.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -28,11 +28,11 @@ seção abaixo descreve o estado verificado em 07-27; as entregas de 07-28
 (identidade de design, versionamento 1.3.0, tipografia, lesson-flow, assets e
 gate) estão no status canônico.
 
-**Onde o trabalho está (2026-08-06):** tudo commitado e empurrado em
-`codex/wave1-hardening-api-smoke`, aberto para a `main` no
-[PR #1](https://github.com/andersonsmelo/Radiant/pull/1) — 30 commits, sem
-divergência com a `main` (30 à frente, zero atrás). Enquanto o PR não fechar, a
-branch é a fonte, não a `main`.
+**Onde o trabalho está (2026-08-09):** a branch
+`codex/wave1-hardening-api-smoke` está publicada e aberta para a `main` no
+[PR #1](https://github.com/andersonsmelo/Radiant/pull/1). Enquanto o PR não
+fechar, a branch é a fonte, não a `main`; contagens e mergeabilidade devem ser
+medidas no Git/GitHub, não copiadas para este roadmap.
 
 **Sólido:**
 
@@ -189,17 +189,18 @@ branch é a fonte, não a `main`.
    fora do app. Corrigido primeiro, coberto depois, porque um flow escrito antes
    teria feito o contrato **defender** o defeito. Evidência em
    [`2026-08-04-b5-reward-deep-link.md`](../../radiant-app/docs/evidence/2026-08-04-b5-reward-deep-link.md).
-   **A metade que continua aberta:** a regra de destravamento, que exigiria
-   percorrer as sete lições, segue sem cobertura.
-   ~~**Reverificado em 2026-08-03: segue aberto**~~ — nenhum flow do `.maestro`
-   afirma o nó, e o `maestro-contract.test.mjs` **proíbe** afirmá-lo no caminho
-   crítico, porque ali ele seria inalcançável. Fechar este item exige um caso que
-   percorra as sete lições, não uma asserção a mais no flow existente.
-6. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
-   Task 15).
-   **Reverificado em 2026-08-03: segue aberto** — o `scripts/qa/docs-contract.mjs`
-   reprova qualquer documento que afirme a API disponível, o que trava o estado
-   canônico em inativa até a decisão existir.
+   ~~**A metade que continuava aberta:** a regra de destravamento, que exigiria
+   percorrer as sete lições, seguia sem cobertura.~~ O registro de 2026-08-03
+   permanece como histórico: nenhum flow do `.maestro` afirmava o nó, e o
+   `maestro-contract.test.mjs` proibia afirmá-lo no caminho crítico, onde seria
+   inalcançável. **Atualização de 2026-08-08:** o percurso real das sete lições
+   passou no iOS 26.5; a repetição integral no Android API 36 continua pendente.
+6. API pública inativa (HTTP 502) — ~~decisão de estratégia pendente (ADR da
+   Task 15)~~ **decisão assinada; implantação pendente**.
+   O registro de 2026-08-03 permanece como histórico: o
+   `scripts/qa/docs-contract.mjs` reprova qualquer documento que afirme a API
+   disponível. **Atualização de 2026-08-07:** a opção B foi aprovada na ADR da
+   Task 15, mas ainda não foi implantada; a API pública continua em HTTP 502.
 7. ~~Onboarding não aparece em instalação limpa — pendente de confirmação de
    intenção.~~ **Resolvido em 2026-08-02.** A confirmação veio e está em
    [`ADR-2026-08-02`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md): o
@@ -1118,14 +1119,14 @@ código.
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
-- **F4 [P0 — APPLE AGUARDANDO REVISÃO; PLAY ESPERA F2]** Solicitar acesso a produção
+- **F4 [P0 — APPLE AGUARDANDO REVISÃO, RECONFIRMADO EM 2026-08-09; PLAY ESPERA F2]** Solicitar acesso a produção
   no Play (questionário) e submeter revisão final na App Store (App Review;
   primeira revisão típica de 24–48h, planejar retrabalho). **Apple não depende
   da F2:** em 2026-08-08, privacy foi publicada como **Dados não coletados**, o
   preço gratuito e os direitos de conteúdo foram persistidos, e a build 7 foi
-  enviada à revisão com a versão `1.3.1`. Estado final observado às 12:05 BRT:
-  **Aguardando revisão**. O lado Apple da submissão está concluído; o lado Play
-  continua esperando F2.
+  enviada à revisão com a versão `1.3.1`. O console foi consultado novamente em
+  2026-08-09 e continuava em **Aguardando revisão**, com liberação manual. O lado
+  Apple da submissão está concluído; o lado Play continua esperando F2.
 - **F5 [P0]** Lançamento: rollout faseado no Play (10% → 50% → 100%);
   liberação manual no iOS após aprovação.
 - **F6 [P1]** Pós-lançamento (2 primeiras semanas): monitorar Sentry
@@ -1155,14 +1156,17 @@ execução:
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
-- **G1 [P0 — EM ANDAMENTO]** Governar fontes e mídia. Tasks 1 e 2 concluídas:
-  raízes autorizadas, 36 PDFs únicos classificados (4 `authorized`, 15
-  `reference-only`, 17 `blocked`). A infraestrutura da Task 3 está concluída,
-  mas o lote segue `awaiting-authorized-assets`, com 0 imagens aprovadas e 5
-  candidatas rejeitadas. O grafo das 30 competências (Task 4) não começou; G1
-  fecha somente após mídia autorizada e currículo validados.
-- **G2 [P0]** Construir o motor de atividades v2 preservando as 18 atividades
-  legadas; registrar evidência e domínio por competência.
+- **G1 [P0 — PARCIAL; DIREITOS PENDENTES]** Governar fontes, mídia e currículo.
+  Tasks 1, 2 e 4 concluídas: raízes autorizadas, 36 PDFs únicos classificados
+  (4 `authorized`, 15 `reference-only`, 17 `blocked`) e grafo das 30
+  competências validado. A infraestrutura da Task 3 está concluída, mas o lote
+  segue `awaiting-authorized-assets`, com 0 imagens aprovadas e 5 candidatas
+  rejeitadas. G1 fecha somente após decisão de direitos e lote autorizado.
+- **G2 [P0 — MOTOR BASE CONCLUÍDO; TASK 10 É A PRÓXIMA]** Tasks 5–9 concluídas:
+  contrato de atividades, adaptador legado, evidência, domínio, registro e
+  player. A Task 11 também fechou fora de ordem com o agendador por competência.
+  Falta a Task 10, os quatro renderizadores do corte vertical; os jogos visuais
+  dependem do lote de mídia de G1.
 - **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
   bloqueio de lições por vidas.
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12

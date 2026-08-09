@@ -119,6 +119,14 @@ Se as duas variáveis não aparecerem, `Data Not Collected` está certo.
   **Enviada para revisão** às 12:05 BRT. O estado final observado no App Store
   Connect é **Aguardando revisão**; o lançamento permanece manual.
 
+### Follow-up de 2026-08-09
+
+O App Store Connect foi consultado novamente e continuava em **Aguardando
+revisão**, com a build `1.3.1 (7)` e liberação manual. Nenhuma ação de loja foi
+executada nessa leitura. Esta folha continua sendo o registro da submissão de
+08/08; o estado corrente pertence ao
+[`status canônico`](../EXECUTION_STATUS_2026-08-09.md).
+
 ## O que falta para lançar no iOS, em ordem
 
 1. **App Review** — a versão já está na fila; 24–48h são típicas na primeira

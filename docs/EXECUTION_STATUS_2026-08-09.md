@@ -102,6 +102,18 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
 2. O padrão perigoso de `jest.spyOn` sobre mock oficial já foi corrigido em
    `CompetencyReviewService.test.ts`, mas não houve varredura das outras suítes.
 
+## Documentação viva reconciliada
+
+READMEs, fluxo do cliente, PRD, arquitetura, roadmaps, fila, checklist, changelog
+e runbooks de loja foram confrontados com este status em 2026-08-09. Saíram
+instruções ainda tratadas como atuais sobre Apple sem team, TestFlight bloqueado,
+disponibilidade remota da API, wizard de especialidade/meta e status substituídos. Os
+registros datados foram preservados como históricos.
+
+Esta reconciliação **não muda gates operacionais**: iOS continua aguardando a
+Apple, Android continua no 12×14, mídia continua esperando decisão de direitos e
+a API pública continua registrada em 502.
+
 ## Outros bloqueios e pendências
 
 - A API pública continua fora do caminho crítico e sua última condição

@@ -42,6 +42,9 @@ misturam as duas lojas, e os itens do Play não travam a App Store.
 
 Enquanto o relógio do Android não começa, o iOS avançou de forma independente e
 **foi submetido à App Review em 2026-08-08**.
+O console foi consultado novamente em **2026-08-09** e continuava em
+**Aguardando revisão**, com liberação manual configurada; nenhuma ação de loja
+foi executada nessa leitura.
 
 | Passo | Dono | Estado |
 | --- | --- | --- |
@@ -64,10 +67,52 @@ a liberação manual pelo dono.
 
 ---
 
-## AGENTE — a fila está vazia
+## AGENTE — duas pendências técnicas isoladas
+
+Elas não destravam a Task 10 nem a App Review, mas são executáveis sem console,
+backend, mídia autorizada ou aparelho físico.
+
+### A. Varrer `jest.spyOn` sobre mocks oficiais
+
+**Estado:** aberto. **Bloqueio:** nenhum. **Dono:** agente.
+
+O caso de `CompetencyReviewService.test.ts` foi corrigido: aplicar `jest.spyOn`
+sobre uma função que já é mock devolve o próprio mock, e `mockRestore()` pode
+apagar a implementação oficial. Ainda não houve varredura das demais suítes.
+
+Remedir antes de abrir o run:
+
+```bash
+rg -n "jest\.spyOn|mockRestore" radiant-app/src --glob '*.test.ts' --glob '*.test.tsx'
+```
+
+Corrigir somente ocorrências que combinem os dois fatos — alvo já mockado no
+nível do módulo e restauração que destrói a implementação —, com regressão que
+prove o efeito entre testes. `jest.spyOn` sobre implementação real não é defeito.
+
+### B. Tornar explícita a ativação do agendador por competência
+
+**Estado:** aberto, necessário antes da Task 12. **Bloqueio:** nenhum para
+projetar/testar; ativação em produção continua esperando conteúdo v2. **Dono:**
+agente.
+
+Hoje o agendador entra desligado porque `CompetencyReviewService.getDue` não tem
+chamador e as chamadas a `computeSnapshot` omitem vencimentos. Isso é ausência
+de fiação, não guarda. Antes de ativar a leitura, criar uma barreira explícita e
+testada que impeça competências sintéticas legadas de virarem recomendação.
+
+Remedir:
+
+```bash
+rg -n "getDue\(|computeSnapshot\(" radiant-app/src --glob '*.ts' --glob '*.tsx'
+```
+
+---
+
+## HISTÓRICO — os quatro itens agentáveis de 2026-08-08 fecharam
 
 Os quatro itens abaixo fecharam em 2026-08-08. O que sobra de forma agentável
-está listado no fim, com o que cada um espera.
+está listado acima; os registros abaixo permanecem para proveniência.
 
 ### 1. ~~O mapa de galáxias está vazio~~ — CONCLUÍDA em 2026-08-08
 

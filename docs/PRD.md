@@ -3,7 +3,7 @@
 > **Estado:** requisitos-base vigentes. A evolução educacional por competências
 > foi aprovada em 2026-07-31 e está sendo implementada de forma incremental; ver
 > a [spec normativa](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
-> e o [status canônico](EXECUTION_STATUS_2026-08-06.md).
+> e o [status canônico](EXECUTION_STATUS_2026-08-09.md).
 
 ## 1. Visão do Produto
 
@@ -76,7 +76,8 @@ Permitir que estudantes e profissionais de radiologia:
 * Badges por marcos clínicos
 * Anotação simples em imagens (JPEG)
 * Dark mode
-* Onboarding com "quick win" antes do login
+* Apresentação não bloqueante com "quick win" na primeira questão, sem exigir
+  login
 
 ### 6.2 O que o MVP NÃO INCLUI
 

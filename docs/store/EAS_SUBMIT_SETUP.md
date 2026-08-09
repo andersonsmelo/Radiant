@@ -125,7 +125,7 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 1. ~~**Criar o app** com o package `com.ascendcreative.radiant`.~~ **Concluído em
    2026-07-31** (task A3): o app existe como `Radiant — Radiologia`. A conta Play
    Console é tipo Pessoal, "Saúde Diagnóstica" — §3 do
-   [status canônico](../EXECUTION_STATUS_2026-08-08.md). ~~O que continua pendente
+   [status canônico](../EXECUTION_STATUS_2026-08-09.md). ~~O que continua pendente
    nela é a **verificação de acesso a dispositivo**, que exige aparelho Android
    real.~~ **Também concluída em 2026-07-31** (task A2); deixou de gatear a
    publicação. Este passo fica aqui como registro — não há nada a fazer nele.
@@ -175,7 +175,8 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 4. **Enviar a versão à App Review:** o comando acima termina no TestFlight; ele
    não substitui a submissão final no console. No App Store Connect, foi preciso
    adicionar `1.3.1 (7)` ao rascunho, abrir **Rascunhos de envios (1)** e clicar
-   **Enviar para revisão**. Estado confirmado: **Aguardando revisão**.
+   **Enviar para revisão**. Estado reconfirmado no console em 2026-08-09:
+   **Aguardando revisão**.
 5. **Depois da aprovação:** a ficha está configurada para liberação manual; esse
    é o único próximo clique do lado iOS.
 
@@ -186,8 +187,10 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
    for de fato submeter (ver alerta do roadmap/D5).
 2. `eas submit` iOS → TestFlight → envio da versão à App Review. **Concluído em
    2026-08-08**, sem depender da cota de testadores do Play.
-3. `eas submit` Android → internal testing (validar) → promover para o track fechado.
-4. Recrutar os 12+ testadores no track fechado → 14 dias consecutivos → solicitar
+3. Android já foi publicado manualmente no track fechado `alpha` como
+   `1.3.0 (4)`; gerar a service-account key continua útil apenas para automatizar
+   submissões futuras.
+4. Alcançar 12+ opt-ins no track fechado → 14 dias consecutivos → solicitar
    produção.
 
 ## Nota de segurança

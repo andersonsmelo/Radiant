@@ -10,8 +10,8 @@
 > Legenda: ✅ feito · ⏳ pendente · ⛔ bloqueado (dependência externa) ·
 > 🔁 refazer sob perfil de produção.
 
-**Última atualização:** primeira vitória E2E iOS + Android medida em 2026-08-09
-e console medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
+**Última atualização:** primeira vitória E2E iOS + Android e App Store Connect
+medidos em 2026-08-09 · **Alvo:** v1.3.1
 
 > **Por que a marca separa código de console.** A validação datada ancora o que
 > existe no repositório; preço, declarações e estado da App Review não pertencem
@@ -36,16 +36,15 @@ e console medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
 - [x] ✅ Gate 2 — **item 2** (VoiceOver, task **B4**) fechado em 2026-08-06;
   com isso o Gate 2 ficou **5/5**. A evidência e o gatilho de reabertura estão em
   [`2026-08-06-b4-voiceover-item2.md`](../../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md).
-- [ ] ⏳ Nó de reward coberto por E2E (task **B5**). O `learning-critical-path.yaml`
-  documenta por que ficou de fora: o track ativo tem 7 lições e o
-  `JourneyDefinitionService` só libera a recompensa depois da **última**.
-- [x] ✅ Onboarding em instalação limpa (task **B6**) — **investigado em 2026-07-27
-  e encerrado sem correção de runtime**: "instalação limpa → Home" é consequência
-  correta da Learning Road ser a home. A investigação achou código morto de
-  onboarding, não defeito. Ver B6 no roadmap. **Atualização 2026-08-09:** a
-  apresentação aprovada foi preservada, mas "Começar" agora abre o próximo nó
-  elegível; o `first-run.yaml` atualizado passou 1/1 em simulador iOS 26.5 e
-  1/1 em emulador Android API 36 sobre builds locais Release. Ver
+- [ ] ⏳ Nó de reward coberto por E2E nas duas plataformas (task **B5**). O
+  `reward-unlock.yaml` passou no iOS em 2026-08-06; a execução Android dos 170
+  passos continua pendente e exige janela exclusiva de host. O flow bloqueado
+  (`reward-locked.yaml`) já passou nas duas plataformas.
+- [x] ✅ Primeira experiência (tasks **B6/B9**) — o wizard morto foi removido e
+  a apresentação aprovada de três telas permanece pulável. Desde 2026-08-09,
+  **Começar** abre o próximo nó elegível e **Pular apresentação** abre a Home;
+  o `first-run.yaml` atualizado passou 1/1 em simulador iOS 26.5 e 1/1 em
+  emulador Android API 36 sobre builds locais Release. Ver
   [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
   e
   [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md).
@@ -182,7 +181,8 @@ fontes ampliadas · sem vazamento de rota no header.
   a adesão individual foi comprovada por Certificates, Identifiers & Profiles e
   pelo acesso ao App Store Connect; termos aceitos. App ID explícito e ficha iOS
   criados com `com.ascendcreative.radiant` e nome `Radiant — Radiologia`. Em
-  2026-08-08, a versão `1.3.1` entrou em **Aguardando revisão**.
+  2026-08-08, a versão `1.3.1` entrou em **Aguardando revisão**; o mesmo estado
+  foi reconfirmado no console em 2026-08-09.
 - [x] ✅ **App criado no Play Console** em 2026-07-31 com o título
   `Radiant — Radiologia` e o pacote `com.ascendcreative.radiant` (task **A3**).
   O identificador é digitado **na criação** e é irreversível. Ficha, assets e
@@ -220,7 +220,8 @@ fontes ampliadas · sem vazamento de rota no header.
   consecutivos**.
 - [x] ✅ **App Store / F4:** preço gratuito e direitos de conteúdo persistidos;
   `1.3.1 (7)` enviada à App Review às 12:05 BRT de 2026-08-08. Estado observado:
-  **Aguardando revisão**. **Play / F4** continua esperando F2.
+  **Aguardando revisão**, reconfirmado em 2026-08-09. **Play / F4** continua
+  esperando F2.
 
 ## 7. Lançamento e pós (M5)
 
@@ -229,7 +230,7 @@ fontes ampliadas · sem vazamento de rota no header.
 - [ ] ⛔ Monitorar Sentry crash-free ≥ 99%, reviews e funil de onboarding nas 2
   primeiras semanas (task **F6**).
 
-## Resumo de bloqueios de lançamento (recontado em 2026-08-08)
+## Resumo de bloqueios de lançamento (recontado em 2026-08-09)
 
 Ordenado por **latência**, que é o que decide a sequência — não por gravidade.
 
@@ -248,5 +249,5 @@ suporte hospedados (A4/E5), screenshots e assets gráficos nas duas lojas (E1),
 ícone da marca (E6).
 
 **Não há bloqueio de engenharia no caminho iOS.** O caminho Android conserva os
-gates humanos e de hardware descritos acima, incluindo a prova do *themed icon*
-do Android 13+ em aparelho real.
+gates humanos e de hardware descritos acima, incluindo B5 Android e a prova do
+*themed icon* do Android 13+ em aparelho real.

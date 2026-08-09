@@ -8,7 +8,11 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ## [Não lançado]
 
+### Adicionado
+- **Agendador de revisão por competência (2026-08-08/09)** — modelo de memória, store com quarentena, resolução nó→competência, recomendação explicável e observação das atividades concluídas. O lado de leitura permanece inerte até conteúdo v2 e guarda explícita de ativação; a Task 11 fechou fora de ordem sem alterar a experiência visível
+
 ### Corrigido
+- **Store do agendador rejeita números não finitos (2026-08-09)** — `stability`, `difficulty`, `reps` e `lapses` agora exigem `Number.isFinite`. A regressão usa JSON persistível (`1e400` → `Infinity`) e comprova quarentena, remoção do store ativo e fallback vazio nos quatro campos
 - **E2E do fluxo crítico fechado nas duas plataformas (2026-07-29)** — `learning-critical-path` passou a usar o seletor de aba ancorado `^Progresso(, tab.*)?$` (o literal só-iOS `'Progresso, tab.*'` quebrava o Android; um `.*Progresso.*` quebrava os dois ao casar a legenda "Seu progresso…" sob matching case-insensitive), e ganhou um `- scroll` de elevação antes dos CTAs abaixo da dobra, que ficavam oclusos sob a tab bar flutuante no emulador rápido. Ambas as regressões travadas em `scripts/maestro-contract.test.mjs`. Resultado: iOS 3/3 e Android 3/3
 - **Guarda de glifos de ícone alargada** — o contrato `keeps icon glyphs out of the accessibility tree` passou a varrer `components/` e `src/components/` além de `src/features`/`src/app` (o ponto cego dos defeitos de ícone do Android), excluindo os wrappers sancionados `icon-symbol.tsx` e `DecorativeIcon.tsx`
 - **Alternativa da lição trava no primeiro toque** — `MultipleChoiceStepRenderer` recebia `locked={Boolean(selectedOptionId)}`, então quem tocasse a opção errada não podia corrigir antes do "Continuar", e a dica de a11y ainda anunciava "Resposta bloqueada após a seleção". A escolha passa a ser trocável enquanto o passo está na tela — quem confirma é o rodapé. O contrato do Maestro, que exigia a assinatura antiga, passou a **proibir** `disabled` no renderer (`fe254d9`)
@@ -16,6 +20,7 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 - **Estado efetivo do sync remoto na homologação** — o painel exibia `Sync remoto: ativado` a partir da flag crua, mas o sync também exige `isApiConfigured()`; passa a distinguir `ativado`, `ligado, sem API configurada` e `desativado` (`0bf3332`)
 
 ### Alterado
+- **Primeira vitória encurtada (2026-08-09)** — as três telas da apresentação e **Pular apresentação → Home** foram preservadas; **Começar** agora persiste a saída e abre o próximo nó elegível da jornada. Falhas degradam para Home, toque duplo não duplica navegação e o flow focado passou no iOS 26.5 e no Android API 36
 - **iPad desligado na v1.3 (2026-07-29)** — `ios.supportsTablet` passou a `false`; o lançamento inicial foca iPhone/Android phone, reduzindo escopo de screenshots e QA. iPad fica para uma versão futura
 - **`eas submit` Android configurado** — o bloco `submit.production.android` do `eas.json` (antes só `ios: {}`) passou a declarar `serviceAccountKeyPath`, `track` e `releaseStatus`, pronto para a submissão ao Play (setup em `docs/store/EAS_SUBMIT_SETUP.md`)
 - **Escala tipográfica única (Sora) nas telas da galáxia** — `GalaxyMapScreen`, `GalaxyInteriorScreen` e `PlanetInteriorScreen` dimensionavam texto com `fontSize` numérico, ou seja renderizavam em fonte de sistema, não na fonte da marca. As três passam a consumir `typography.*`, junto de `MissionsScreen` e `ProgressScreen`. Convenção fixada: glifo de ícone (chevron, check) e emoji **não** recebem token — são desenho, não texto (`524f935`, `8b974e5`, `d6e9809`)
@@ -26,10 +31,11 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 - **`ENABLE_REMOTE_SYNC=false` em `preview` e `production`** — estado real enquanto a API pública responde HTTP 502 (`0bf3332`)
 
 ### Removido
-- **Wizard de onboarding inalcançável** — `src/app/onboarding/{index,value,goal}.tsx` era um protótipo inacabado (não persistia escolhas; `Build my plan →` só fazia `router.replace('/(tabs)')`) que nenhuma tela de produção navegava — só o deep link `radiantapp://onboarding`. A instalação limpa da v1.3 já cai na Home. Removido junto do `Stack.Screen name="onboarding"` fantasma do `_layout` (a rota real era `onboarding/index`, então o Metro o acusava a cada boot) e de 8 allowances órfãs no `visual-qa-policy.json`. `ENABLE_ONBOARDING` foi **mantido de propósito** — é kill switch do onboarding *suave* (`OnboardingService`), que segue vivo atrás da `HomeScreen`
+- **Wizard de onboarding inalcançável** — `src/app/onboarding/{index,value,goal}.tsx` era um protótipo inacabado (não persistia escolhas; `Build my plan →` só fazia `router.replace('/(tabs)')`) que nenhuma tela de produção navegava — só o deep link `radiantapp://onboarding`. Após a remoção, a instalação limpa caía na Home; desde 2026-08-02 ela passa antes pela apresentação real do Pixel. Removido junto do `Stack.Screen name="onboarding"` fantasma do `_layout` (a rota real era `onboarding/index`, então o Metro o acusava a cada boot) e de 8 allowances órfãs no `visual-qa-policy.json`. `ENABLE_ONBOARDING` foi **mantido de propósito** — é kill switch do onboarding *suave* (`OnboardingService`), que segue vivo atrás da `HomeScreen`
 - **2,9 MB de assets mortos e superdimensionados** — `src/ui/characters/assets/lux/` (6 PNGs idênticos, README declarando-a legada, zero referências no código) apagada, e `pixel_core.png` reexportado de 1024×1536 (2,2 MB) para 576×864 (257 KB), que é o maior tamanho que o app consegue pintar (`PIXEL_SIZE_MAP.lg` 176pt × `imageScale` 1,06 × 3). O registry `PIXEL_DEDICATED_ASSETS`, onde arte dedicada entra, ficou intacto (`8b0dfe9`)
 
 ### Documentação
+- Estado operacional promovido para [`docs/EXECUTION_STATUS_2026-08-09.md`](../../docs/EXECUTION_STATUS_2026-08-09.md), com primeira vitória, App Review reconfirmada, gargalo de direitos e hardening do agendador; READMEs, fluxo do cliente, roadmaps, fila, checklist e runbooks reconciliados no mesmo dia
 - Roadmap de lançamento nas lojas com 6 marcos e ~35 tasks priorizadas, e requisitos de App Store e Google Play pesquisados em 2026-07-27
 - ADRs de contas de loja (Play pessoal, Apple individual) e da home de produção
 - Protocolo de coordenação multi-IA no `AGENTS.md`

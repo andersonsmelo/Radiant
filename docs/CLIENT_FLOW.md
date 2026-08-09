@@ -26,10 +26,10 @@ Misturar os dois é o que torna esse tipo de desenho ilegível.
 ```mermaid
 flowchart TD
     A[Instalação] --> B[Apresentação do Pixel<br/>3 telas, puláveis]
-    B --> C[Onboarding<br/>especialidade + meta diária]
-    C --> D{{Home — Foco de hoje}}
+    B -->|Começar| E[Próximo passo recomendado]
+    B -->|Pular apresentação| D{{Home — Foco de hoje}}
 
-    D -->|CTA único<br/>rótulo muda com o estado| E[Próximo passo recomendado]
+    D -->|CTA único<br/>rótulo muda com o estado| E
 
     D -.->|navegação livre| G[Galáxia: mapa]
     G --> G2[Interior da galáxia<br/>mundos: ativo · disponível · bloqueado]
@@ -49,6 +49,12 @@ flowchart TD
     RW --> D
 ```
 
+Na primeira instalação, **Começar** persiste o encerramento da apresentação,
+consulta o progresso e abre o próximo nó elegível — normalmente a primeira
+lição. **Pular apresentação** persiste a mesma saída e abre a Home. Não existe
+wizard de especialidade/meta nesse caminho, e rever a apresentação a partir do
+app não dispara navegação automática no final.
+
 O **CTA da home é um só**, e o rótulo é que carrega o estado:
 `Aguardando nova etapa` quando não há próximo nó, `Retomar etapa` quando o nó
 está retomável, `Fazer revisão` quando venceu revisão, e o rótulo da conquista
@@ -61,6 +67,10 @@ Tudo isso funciona **sem conta e sem rede**. O relaunch com modo avião
 preserva XP, sequência e catálogo — medido em iPhone físico em 2026-08-05.
 
 ## 2. O que decide se o próximo passo abre
+
+Este diagrama descreve o agendador **legado**, que já governa a experiência
+visível. O agendador novo por competência é tratado separadamente abaixo porque
+seu lado de leitura ainda está desligado.
 
 ```mermaid
 stateDiagram-v2
@@ -118,6 +128,11 @@ Três regras que o desenho existe para tornar visíveis:
   default é `false` — na build que embarca, esse caminho não acontece.
 - **Não descrevem sincronização remota.** `ENABLE_REMOTE_SYNC` é `false` nos
   perfis `preview` e `production`, e o sync já exigia `isApiConfigured()`.
+- **Não descrevem a recomendação por competência como ativa.** A Task 11 já
+  grava cartões por competência, mas `CompetencyReviewService.getDue` não tem
+  chamador de produção e `computeSnapshot` não recebe vencimentos. Antes de
+  ligar esse caminho, falta uma guarda explícita; até lá, quem decide revisões
+  visíveis continua sendo o `SpacedRepetitionService` legado.
 - **Não são especificação.** Descrevem o comportamento observado no código em
-  2026-08-06. Onde divergirem do código, **o código está certo e este arquivo
+  2026-08-09. Onde divergirem do código, **o código está certo e este arquivo
   está velho** — corrija-o no mesmo commit que mudar o fluxo.
