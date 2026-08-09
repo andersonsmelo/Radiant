@@ -6,7 +6,7 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](EXECUTION_STATUS_2026-08-06.md) e não faz parte do caminho
+[`status canônico`](EXECUTION_STATUS_2026-08-09.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
@@ -33,6 +33,12 @@ baseline compatível durante a evolução.
 
 Regra arquitetural: alternar trilhas não apaga progresso, uma falha de sync não
 bloqueia o estudo e estados vazios devem manter continuidade no fluxo principal.
+
+Na saída da apresentação de primeiro uso, `RootLayout` persiste o encerramento
+antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
+`nextRecommendedNode` pela mesma política de roteamento da jornada, somente
+depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
+de lição fixo, e falha ou nó não navegável degrada para Home.
 
 ## Evolução por competências
 
@@ -104,7 +110,7 @@ autorização e anonimização verificadas.
 
 | Tema | Documento |
 | --- | --- |
-| Estado operacional | [`EXECUTION_STATUS_2026-08-06.md`](EXECUTION_STATUS_2026-08-06.md) |
+| Estado operacional | [`EXECUTION_STATUS_2026-08-09.md`](EXECUTION_STATUS_2026-08-09.md) |
 | Produto | [`PRD.md`](PRD.md) |
 | Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
 | Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |

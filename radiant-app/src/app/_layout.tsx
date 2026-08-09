@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { useFonts, Sora_400Regular, Sora_500Medium, Sora_600SemiBold, Sora_700Bold, Sora_800ExtraBold } from '@expo-google-fonts/sora';
-import { router, Stack } from 'expo-router';
+import { router, Stack, type Href } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -14,6 +14,12 @@ import { AuthService } from '../features/auth/AuthService';
 import { LessonCatalogService } from '../features/content/services/LessonCatalogService';
 import { FirstRunService } from '../features/first-run/FirstRunService';
 import WelcomeFlowScreen from '../features/first-run/screens/WelcomeFlowScreen';
+import type { FirstRunExitReason } from '../features/first-run/first-run.types';
+import { JourneyProgressService } from '../features/journey/services/JourneyProgressService';
+import {
+  canOpenJourneyNode,
+  getJourneyNodeHref,
+} from '../features/journey/services/JourneyNodeRouting';
 import { SyncQueueService } from '../features/sync/SyncQueueService';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
@@ -52,7 +58,9 @@ function RootLayout() {
   const [startupError, setStartupError] = useState<string | null>(null);
   const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [pendingWelcomeHref, setPendingWelcomeHref] = useState<Href | null>(null);
   const firstRunBootstrapRef = useRef<Promise<void> | null>(null);
+  const welcomeExitInFlightRef = useRef(false);
 
   // Estável de propósito: `WelcomeFlowScreen` tem esta função nas dependências
   // do `useEffect` que emite `first_run_step_viewed`. Como arrow inline, cada
@@ -64,6 +72,45 @@ function RootLayout() {
   const handleStepViewed = useCallback((step: number) => {
     FirstRunService.markStepViewed(step);
   }, []);
+
+  const handleWelcomeFinish = useCallback(
+    async (reason: FirstRunExitReason, step: number) => {
+      if (welcomeExitInFlightRef.current) {
+        return;
+      }
+
+      welcomeExitInFlightRef.current = true;
+      let nextHref: Href | null = null;
+
+      try {
+        // A apresentação continua montada até a saída local terminar. Além de
+        // impedir o flash da Home, isso garante que dois toques não iniciem
+        // duas persistências nem duas navegações concorrentes.
+        await FirstRunService.markSeen(reason, step);
+
+        if (reason === 'completed') {
+          const snapshot = await JourneyProgressService.bootstrap();
+          const nextNode = snapshot.nextRecommendedNode;
+
+          if (nextNode && canOpenJourneyNode(nextNode)) {
+            nextHref = getJourneyNodeHref(nextNode);
+          }
+        }
+      } catch (error) {
+        // Primeiro uso nunca vira um bloqueio de entrada. O destino nulo faz o
+        // Stack abrir na Home, e a observabilidade recebe só fase e motivo.
+        console.error('[RootLayout] Failed to finish first-run flow:', error);
+        void TelemetryService.captureError(error, {
+          phase: 'first_run_exit',
+          reason,
+        });
+      } finally {
+        setPendingWelcomeHref(nextHref);
+        setShowWelcome(false);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     let active = true;
@@ -138,6 +185,18 @@ function RootLayout() {
     };
   }, [bootstrapAttempt, shouldEnforceBetaGate]);
 
+  useEffect(() => {
+    if (showWelcome || !pendingWelcomeHref) {
+      return;
+    }
+
+    // O Stack só existe no render posterior ao fim da apresentação. Consumir
+    // o destino aqui evita chamar o router enquanto a árvore ainda contém
+    // apenas o gate de primeiro uso.
+    router.replace(pendingWelcomeHref);
+    setPendingWelcomeHref(null);
+  }, [pendingWelcomeHref, showWelcome]);
+
   if (!fontsLoaded) return null;
 
   if (startupPhase === 'loading') {
@@ -188,10 +247,7 @@ function RootLayout() {
     return (
       <ThemeProvider value={navigationTheme}>
         <WelcomeFlowScreen
-          onFinish={(reason, step) => {
-            void FirstRunService.markSeen(reason, step);
-            setShowWelcome(false);
-          }}
+          onFinish={(reason, step) => void handleWelcomeFinish(reason, step)}
           onStepViewed={handleStepViewed}
         />
         <StatusBar style="light" />

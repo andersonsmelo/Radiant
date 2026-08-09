@@ -3,20 +3,20 @@
 > Lista única de **go/no-go** para submeter a v1.3 nas duas lojas. Cada item tem
 > estado e dono; os detalhes vivem nas tasks do
 > [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md) e no
-> [status canônico](../EXECUTION_STATUS_2026-08-08.md). Este documento **não
+> [status canônico](../EXECUTION_STATUS_2026-08-09.md). Este documento **não
 > substitui** o roadmap — ele é o checklist final que se percorre antes de cada
 > submissão.
 >
 > Legenda: ✅ feito · ⏳ pendente · ⛔ bloqueado (dependência externa) ·
 > 🔁 refazer sob perfil de produção.
 
-**Última atualização:** estado do repositório em `5b2c89e` + console medido em
-2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
+**Última atualização:** primeira vitória reconciliada em 2026-08-09 + console
+medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
 
-> **Por que a marca separa código de console.** O hash ancora o que existe no
-> repositório; preço, declarações e estado da App Review não pertencem ao Git e
-> precisam de data e hora. Misturar os dois como se fossem uma única fotografia
-> faria o checklist parecer mais preciso do que a evidência permite.
+> **Por que a marca separa código de console.** A validação datada ancora o que
+> existe no repositório; preço, declarações e estado da App Review não pertencem
+> ao Git e precisam de data e hora. Misturar os dois como se fossem uma única
+> fotografia faria o checklist parecer mais preciso do que a evidência permite.
 
 > **Por que esta revisão foi grande.** O checklist ficou parado em 2026-07-27
 > enquanto o status canônico e os planos avançaram quatro dias. Quinze itens
@@ -42,7 +42,9 @@
 - [x] ✅ Onboarding em instalação limpa (task **B6**) — **investigado em 2026-07-27
   e encerrado sem correção de runtime**: "instalação limpa → Home" é consequência
   correta da Learning Road ser a home. A investigação achou código morto de
-  onboarding, não defeito. Ver B6 no roadmap.
+  onboarding, não defeito. Ver B6 no roadmap. **Atualização 2026-08-09:** a
+  apresentação aprovada foi preservada, mas "Começar" agora abre o próximo nó
+  elegível; a execução do `first-run.yaml` atualizado em device está pendente.
 
 ## 2. Versionamento e OTA (task D5) — ✅ CONCLUÍDA em 2026-07-28
 
@@ -236,7 +238,7 @@ Ordenado por **latência**, que é o que decide a sequência — não por gravid
    (C5). Nada disso reabre o lado Apple já submetido.
 
 **Saíram da lista desde 2026-07-27**, todas com evidência no
-[status canônico](../EXECUTION_STATUS_2026-08-08.md): versionamento congelado
+[status canônico](../EXECUTION_STATUS_2026-08-09.md): versionamento congelado
 (D5), E2E fechado nas duas plataformas (B0.1/C3), paridade Android, política e
 suporte hospedados (A4/E5), screenshots e assets gráficos nas duas lojas (E1),
 ícone da marca (E6).

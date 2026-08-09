@@ -21,7 +21,7 @@ rejeição pendente.
 ## 2. Onde estamos hoje (verificado)
 
 Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
-**[status canônico 2026-08-04](../EXECUTION_STATUS_2026-08-04.md)** — ponteiro
+**[status canônico 2026-08-09](../EXECUTION_STATUS_2026-08-09.md)** — ponteiro
 corrigido em 2026-08-06; o de 07-29 já era histórico e esta linha ainda mandava
 a próxima sessão para ele. Os snapshots anteriores permanecem como registro. A
 seção abaixo descreve o estado verificado em 07-27; as entregas de 07-28
@@ -638,6 +638,21 @@ código.
   > código existe desde 2026-08-03 (`PlanetBody.test.tsx`) e a passagem humana
   > foi feita em 2026-08-06. Roteiro em
   > [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+
+- **B9 [P1]** ~~Encurtar o caminho até a primeira questão sem remover a
+  apresentação aprovada~~ **CONCLUÍDA em 2026-08-09.** As três telas e o atalho
+  **Pular apresentação → Home** foram preservados. **Começar** agora persiste a
+  saída, consulta o progresso atual e abre o próximo nó elegível desde o
+  contexto — primeira lição em instalação nova, ou a recomendação real (como
+  revisão vencida) quando já existe progresso. Não há `lesson-1` hardcoded;
+  falha ou nó não navegável degrada para Home e toque duplo é ignorado. A suíte
+  do gate passou **14/14** e o contrato Maestro passou **19/19**. O
+  `first-run.yaml` atualizado afirma a cópia de contexto derivada do catálogo,
+  mas sua execução em simulador/aparelho ainda está pendente e não é confundida
+  com a matriz de 2026-08-03. Design em
+  [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
+  e plano em
+  [`2026-08-09-primeira-vitoria.md`](2026-08-09-primeira-vitoria.md).
 
 ### Onda C — Paridade Android (M2)
 

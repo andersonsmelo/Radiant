@@ -3,10 +3,12 @@
 The `.maestro` workspace covers the real local-first route, not a mocked API:
 
 - `first-run.yaml`: a clean install (`clearState`) now lands on the first-run
-  welcome — three skippable screens narrated by the Pixel mascot — before the
-  learning-road home. This flow asserts the welcome copy itself: each slide's
-  group-accessibility label, the footnote disclaimer on the last screen, and
-  that the welcome is gone after tapping "Começar".
+  welcome — three skippable screens narrated by the Pixel mascot. "Começar"
+  opens the context screen of the first eligible learning step; "Pular
+  apresentação" keeps the shorter escape route to the learning-road home.
+  This flow asserts the welcome copy itself, the footnote disclaimer on the
+  last screen, and the first lesson's source-derived context after tapping
+  "Começar".
 - `boot-to-home.yaml`: a clean install (`clearState`) passes through the
   first-run welcome (dismissed via the `subflows/dismiss-first-run.yaml`
   subflow) and reaches the learning-road home (`Foco de hoje`). **A clean
@@ -208,6 +210,17 @@ below; three of the first round's failures were timeouts that vanished once
 memory was freed. Both fixes are pinned by contracts, and the full account —
 including the trap where the emulator silently reverted to 1.3.0 — is in
 [`docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md`](evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+
+On 2026-08-09 the first-victory route changed after the last device matrix:
+completing all three presentation slides now resolves the current journey and
+opens its next eligible node from the node's context screen, while skipping the
+presentation still opens Home. The static contract derives the first lesson
+body from `defaultBlocks.ts` and requires `first-run.yaml` to assert it after
+"Começar". The startup flow suite covers first lesson, due review, persistence
+ordering, double tap, and safe Home fallback. **This is newer than the 2026-08-03
+device evidence:** the updated `first-run.yaml` remains pending on a current
+simulator/device, and static or Jest evidence does not promote that execution to
+`passed`.
 
 The dev-client verification of 2026-07-28
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))

@@ -308,10 +308,11 @@ test('ties the first-run flow to the copy WelcomeFlowScreen actually renders', a
   // contrato agora exige o prefixo "Tela N de M" ancorado E proíbe
   // explicitamente o formato antigo, para que essa regressão não volte por um
   // caminho que ele não olha.
-  const [screen, flow, subflow] = await Promise.all([
+  const [screen, flow, subflow, defaultBlocks] = await Promise.all([
     readAppFile('src/features/first-run/screens/WelcomeFlowScreen.tsx'),
     readAppFile('.maestro/first-run.yaml'),
     readAppFile('.maestro/subflows/dismiss-first-run.yaml'),
+    readAppFile('src/data/journey/defaultBlocks.ts'),
   ]);
 
   const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -379,6 +380,29 @@ test('ties the first-run flow to the copy WelcomeFlowScreen actually renders', a
     subflow,
     new RegExp(`tapOn: '${escapedSkipLabel}'`),
     `expected dismiss-first-run.yaml to tap the skip control by its accessibilityLabel ("${skipLabel}")`
+  );
+
+  // O flow antes terminava em "a apresentação sumiu" — um predicado que fica
+  // verde tanto na Home quanto numa tela vazia. A primeira vitória precisa
+  // provar o destino positivo, e a copy vem do bloco que a instalação limpa
+  // realmente abre, não de um literal duplicado dentro deste teste.
+  const firstLessonBlock = defaultBlocks.match(
+    /id: 'block:lesson-1:intro',[\s\S]*?(?=\n    \},\n    \{\n        id: 'block:review:lesson-1')/
+  )?.[0];
+  assert.ok(firstLessonBlock, 'expected defaultBlocks.ts to declare block:lesson-1:intro');
+
+  const firstLessonBody = firstLessonBlock.match(/body: '([^']+)'/)?.[1];
+  assert.ok(firstLessonBody, 'expected the first lesson context step to declare a body');
+
+  const destinationAssertion = `- assertVisible: '${firstLessonBody}'`;
+  assert.match(
+    flow,
+    new RegExp(`^${escapeForRegExp(destinationAssertion)}$`, 'm'),
+    'expected first-run.yaml to prove that Começar opens the first learning step'
+  );
+  assert.ok(
+    flow.indexOf(destinationAssertion) > flow.indexOf("- tapOn: 'Começar'"),
+    'the first learning-step assertion must happen after tapping Começar'
   );
 
   // ENABLE_LEARNING_ROAD é true em todos os perfis do eas.json e por default, e a

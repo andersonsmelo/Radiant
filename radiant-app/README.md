@@ -550,8 +550,9 @@ Estado operacional atual:
 - a build iOS nativa já foi revalidada em `iPhone 17` com `expo run:ios` e `ios:v2` conectando no bundle atual;
 - smoke principal de produto já está documentado com captura de `cold start`, `auth restore`, `quiz`, `review`, `journey` e `progresso/sync`;
 - o smoke físico de sete cenários passou em 2026-08-05 e o Gate 2/VoiceOver
-  fechou em 2026-08-06; a versão `1.3.1 (7)` está **Aguardando revisão** na
-  App Store, com liberação manual após aprovação.
+  fechou em 2026-08-06; o último estado observado no App Store Connect, em
+  2026-08-08, foi `1.3.1 (7)` **Aguardando revisão**, com liberação manual após
+  aprovação. O console é a fonte do estado atual.
 
 ### Gate de comando central (repositório)
 
@@ -587,7 +588,7 @@ Prioridades imediatas:
 - ADR routing: `/Users/anderson/Developer/Radiant/docs/ADR-routing.md`
 - Status de execução 2026-04-01: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
 - Status de execução 2026-04-09: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
-- Status canônico atual: [`docs/EXECUTION_STATUS_2026-08-08.md`](../docs/EXECUTION_STATUS_2026-08-08.md)
+- Status canônico atual: [`docs/EXECUTION_STATUS_2026-08-09.md`](../docs/EXECUTION_STATUS_2026-08-09.md)
 - Gate de acessibilidade: `/Users/anderson/Developer/Radiant/radiant-app/docs/ACCESSIBILITY_QA_V1.md`
 - Runbook E2E local-first: `/Users/anderson/Developer/Radiant/radiant-app/docs/E2E_RUNBOOK.md`
 - Evidências datadas de device (E2E e acessibilidade): [`docs/evidence/README.md`](docs/evidence/README.md)

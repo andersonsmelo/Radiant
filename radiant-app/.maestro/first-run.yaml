@@ -1,5 +1,5 @@
 appId: com.ascendcreative.radiant
-name: First-run welcome presents Pixel and reaches the home
+name: First-run welcome presents Pixel and opens the first learning step
 tags:
   - smoke
   - first-run
@@ -26,3 +26,4 @@ tags:
 - assertVisible: '.*Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.$'
 - tapOn: 'Começar'
 - assertNotVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
+- assertVisible: 'Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade.'
