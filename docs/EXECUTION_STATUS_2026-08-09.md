@@ -114,6 +114,21 @@ Esta reconciliação **não muda gates operacionais**: iOS continua aguardando a
 Apple, Android continua no 12×14, mídia continua esperando decisão de direitos e
 a API pública continua registrada em 502.
 
+## Qualidade da API no PR restaurada
+
+O workflow `Radiant API Quality` ficou vermelho em 2026-08-09 depois que a
+atualização documental tocou `radiant-api/README.md` e acionou a instalação
+isolada da API. A causa não foi a documentação: `eslint.config.cjs` tentava
+resolver `@typescript-eslint/parser` no pacote da API e, na ausência dele,
+caía no `node_modules` do app. Esse atalho existia apenas no checkout local e
+falhava no runner, que instala exclusivamente `radiant-api/package-lock.json`.
+
+A API agora declara o parser diretamente e o fallback entre pacotes foi
+removido. A comprovação local sob Node 20 foi `npm ci`, resolução do parser em
+`radiant-api/node_modules`, `npm run lint`, `npm run build` e `npm run test`
+(13/13). A condição final da branch continua sendo os checks independentes do
+PR; isso não altera o estado da API pública, que permanece em HTTP 502.
+
 ## Outros bloqueios e pendências
 
 - A API pública continua fora do caminho crítico e sua última condição

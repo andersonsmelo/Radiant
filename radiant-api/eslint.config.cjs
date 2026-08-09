@@ -1,14 +1,5 @@
 const js = require('@eslint/js');
-
-function loadTsParser() {
-  try {
-    return require('@typescript-eslint/parser');
-  } catch {
-    return require('../radiant-app/node_modules/@typescript-eslint/parser/dist/index.js');
-  }
-}
-
-const tsParser = loadTsParser();
+const tsParser = require('@typescript-eslint/parser');
 
 module.exports = [
   {
