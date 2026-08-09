@@ -15,10 +15,26 @@
 — fecha o algoritmo do agendador por competência, que esta spec deixara em
 aberto, e registra o teto de domínio medido no currículo.
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** concluídas;
-infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
-autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis) — é ela
-que registra os sete tipos de interação que ainda não têm renderizador.
+**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** e **11**
+concluídas; infraestrutura da Task 3 concluída, aguardando o primeiro lote de
+ativos autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis)
+— é ela que registra os sete tipos de interação que ainda não têm renderizador.
+
+> **A Task 11 fechou fora de ordem, em 2026-08-09**, pelo plano delegado
+> [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md)
+> (commits `1ac9a1e..adb5e63`). Ela pôde adiantar-se à Task 10 porque não depende
+> de conteúdo v2: o agendador entra **desligado** e acende quando houver o que
+> agendar.
+>
+> Duas consequências para quem retomar:
+>
+> 1. **O agendador está pronto e não tem o que agendar.** `getDue` não tem
+>    chamador de produção, e todo nó ainda resolve para competência legada
+>    sintética. Ligar o lado de leitura antes da Task 10 recomendaria revisão de
+>    competência que o currículo não reconhece.
+> 2. **Um achado ficou deferido com decisão registrada** —
+>    `temFormaDeCartao` aceita `NaN` em campo numérico. Está descrito no plano
+>    delegado e é o primeiro item de quem voltar ao subsistema.
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
