@@ -21,6 +21,10 @@ import { layout, radius, space, typography } from '../../../ui/styles';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
 import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
 import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 interface CheckpointScreenProps {
   nodeId?: string;
@@ -126,6 +130,21 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
 
     return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? null;
   }, [checkpointNode, snapshot]);
+
+  useShadowCheckpoint({
+    surface: 'unit-checkpoint',
+    flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed ? 'checkpoint-summary' : 'checkpoint-overview',
+    compatibleCursorIds: ['checkpoint-overview', 'checkpoint-summary'],
+    progressPercent: completed ? 100 : 0,
+    completedStepCount: completed ? 1 : 0,
+    totalStepCount: 1,
+    checkpointDefinitionId: checkpointNode?.id,
+    journeyNodeId: checkpointNode?.id,
+    unitId: activeUnit?.id,
+    enabled: Boolean(checkpointNode && activeUnit),
+  });
 
   const completedPrimaryNodes = useMemo(() => {
     if (!activeUnit) {

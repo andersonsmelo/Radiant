@@ -1,7 +1,7 @@
 # Kernel de checkpoints e loops do aluno — Plano de implementação
 
 **Data:** 2026-08-09  
-**Status:** Onda 2 concluída em `off`; Onda 3 shadow ainda não iniciada
+**Status:** Onda 3 concluída em `shadow`; Onda 4 runtime interno ainda não iniciada
 **Spec:**
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](../specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)  
 **ADR:**
@@ -122,6 +122,13 @@ cancela operação com efeito. Testar cada fronteira das sete autoridades.
 progresso, XP, desbloqueio e recomendação; suíte completa do app verde.
 
 ## Onda 3 — Shadow em todas as superfícies
+
+**Estado em 2026-08-09:** concluída nas 12 superfícies, sem efeito de navegação
+ou domínio. `preview=shadow`; `development`, `e2e-test` e `production` resolvem
+para `off`.
+Evidência: TDD vermelho; **4 suítes/22 testes novos**, **9 suítes/80 testes** do
+módulo, **10 suítes/47 testes** de telas, lint, typecheck e **75 suítes/494
+testes** completos. Run Loop: `run-1786314104218-908d111b`.
 
 Conectar adaptadores em apresentação, Home, Galáxia, interior da galáxia,
 interior do planeta, Missões, Progresso, Lição, quiz legado, checkpoint, Revisão

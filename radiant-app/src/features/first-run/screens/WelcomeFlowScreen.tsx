@@ -7,6 +7,12 @@ import { AppButton } from '../../../components/ui/AppButton';
 import type { CharacterSize } from '../../../ui/characters/types';
 import { space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+
+const FIRST_RUN_CURSOR_IDS = ['slide-1', 'slide-2', 'slide-3'];
 
 interface SlideSpec {
     title: string;
@@ -56,6 +62,17 @@ export default function WelcomeFlowScreen({ onFinish, onStepViewed }: WelcomeFlo
     const step = index + 1;
     const slide = SLIDES[index];
     const isLast = index === SLIDES.length - 1;
+
+    useShadowCheckpoint({
+        surface: 'first-run',
+        flowId: 'first-run-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: FIRST_RUN_CURSOR_IDS[index],
+        compatibleCursorIds: FIRST_RUN_CURSOR_IDS,
+        progressPercent: Math.round((index / SLIDES.length) * 100),
+        completedStepCount: index,
+        totalStepCount: SLIDES.length,
+    });
 
     useEffect(() => {
         onStepViewed?.(step);

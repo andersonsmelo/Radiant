@@ -7,6 +7,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+import {
   Dimensions,
   StyleSheet,
   Text,
@@ -193,6 +197,19 @@ export default function GalaxyInteriorScreen() {
   }, []);
 
   const galaxy = getGalaxyById(galaxyId ?? '');
+
+  useShadowCheckpoint({
+    surface: 'galaxy-interior',
+    flowId: `galaxy:${galaxyId ?? 'unavailable'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: galaxy?.id ?? 'galaxy-unavailable',
+    compatibleCursorIds: galaxy ? [galaxy.id] : ['galaxy-unavailable'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: Math.max(1, galaxy?.bodies.length ?? 1),
+    galaxyId: galaxy?.id,
+    enabled: Boolean(galaxy),
+  });
 
   if (!galaxy) {
     return (

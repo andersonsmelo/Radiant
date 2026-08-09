@@ -17,6 +17,10 @@ import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/J
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { RatingPromptService } from '../../../services/RatingPromptService';
@@ -194,6 +198,21 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   // coleta não checava. Render e handler agora leem a MESMA função.
   const rewardLocked = !!rewardNode && !rewardCompleted && !canCollectReward(rewardNode, rewardCompleted);
   const nextAction = useMemo(() => resolveNextAction(snapshot), [snapshot]);
+
+  useShadowCheckpoint({
+    surface: 'reward',
+    flowId: `reward:${rewardNode?.id ?? nodeId ?? 'current'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: rewardCompleted ? 'reward-summary' : 'reward-overview',
+    compatibleCursorIds: ['reward-overview', 'reward-summary'],
+    progressPercent: rewardCompleted ? 100 : 0,
+    completedStepCount: rewardCompleted ? 1 : 0,
+    totalStepCount: 1,
+    rewardId: rewardNode?.id,
+    journeyNodeId: rewardNode?.id,
+    unitId: activeUnit?.id,
+    enabled: Boolean(rewardNode && activeUnit),
+  });
 
   useEffect(() => {
     if (rewardCompleted) {

@@ -26,6 +26,10 @@ import type { OnboardingStage } from '../../onboarding/onboarding.types';
 import { AppConfig } from '../../../config';
 import { PushService } from '../../push/services/PushService';
 import { PushOptInCard } from '../../push/components/PushOptInCard';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 const light = semanticColors.light;
 
@@ -161,6 +165,17 @@ export default function HomeScreen() {
     }, [animateGoalBanner, checkPushOptIn, dashboard]);
 
     const progressValue = dashboard ? dashboard.dailyGoal.completed / Math.max(1, dashboard.dailyGoal.target) : 0;
+
+    useShadowCheckpoint({
+        surface: 'home',
+        flowId: 'home-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: 'home',
+        compatibleCursorIds: ['home'],
+        progressPercent: Math.max(0, Math.min(100, Math.round(progressValue * 100))),
+        completedStepCount: 0,
+        totalStepCount: 1,
+    });
 
     return (
         <SafeAreaView style={styles.screen} edges={['top']}>

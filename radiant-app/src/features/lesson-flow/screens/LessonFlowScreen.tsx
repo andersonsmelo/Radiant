@@ -21,6 +21,10 @@ import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { LessonVisualPanel } from '../components/LessonVisualPanel';
 import { LessonFlowProgressHeader } from '../components/LessonFlowProgressHeader';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -85,6 +89,24 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
     // que alimenta os renderizadores de apresentação e a copy do painel, que
     // esta task não pode alterar.
     const currentStep = block?.steps[stepIndex];
+    const shadowCursorIds = Array.from(
+        { length: Math.max(totalSteps, 1) },
+        (_, cursorIndex) => `step-${cursorIndex + 1}`,
+    );
+
+    useShadowCheckpoint({
+        surface: 'lesson',
+        flowId: `lesson:${blockId}`,
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: `step-${stepIndex + 1}`,
+        compatibleCursorIds: shadowCursorIds,
+        progressPercent: Math.max(0, Math.min(100, Math.round(progress * 100))),
+        completedStepCount: Math.min(stepIndex, Math.max(totalSteps, 0)),
+        totalStepCount: Math.max(totalSteps, 1),
+        lessonId: block?.lessonId,
+        journeyNodeId: nodeId,
+        enabled: Boolean(block && currentStep),
+    });
     const lessonTitle = useMemo(() => {
         if (!block) {
             return 'Fluxo da Lição';

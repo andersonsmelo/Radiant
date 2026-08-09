@@ -7,6 +7,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+import {
   Dimensions,
   ScrollView,
   StyleSheet,
@@ -205,6 +209,20 @@ export default function PlanetInteriorScreen() {
 
   const galaxy = getGalaxyById(galaxyId ?? '');
   const body: CelestialBody | undefined = galaxy?.bodies.find((b) => b.id === bodyId);
+
+  useShadowCheckpoint({
+    surface: 'planet-interior',
+    flowId: `planet:${galaxyId ?? 'unavailable'}:${bodyId ?? 'unavailable'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: body?.id ?? 'planet-unavailable',
+    compatibleCursorIds: body ? [body.id] : ['planet-unavailable'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: Math.max(1, body?.nodes.length ?? 1),
+    galaxyId: galaxy?.id,
+    planetId: body?.id,
+    enabled: Boolean(galaxy && body),
+  });
 
   if (!galaxy || !body) {
     return (

@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 import { AppButton } from '../../../components/ui/AppButton';
 import WelcomeFlowScreen from '../../first-run/screens/WelcomeFlowScreen';
@@ -232,6 +236,17 @@ export default function ProgressScreen() {
     const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
     const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
     const [showWelcomeReplay, setShowWelcomeReplay] = useState(false);
+
+    useShadowCheckpoint({
+        surface: 'progress',
+        flowId: 'progress-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: 'progress',
+        compatibleCursorIds: ['progress'],
+        progressPercent: 0,
+        completedStepCount: 0,
+        totalStepCount: 1,
+    });
 
     const load = useCallback(async () => {
         try {

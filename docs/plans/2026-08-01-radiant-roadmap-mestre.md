@@ -78,10 +78,10 @@ As fundações editoriais, currículo, contrato `LearningActivityV2`, adaptador
 legado, evidência, domínio, registro/player, agendador e quatro renderizadores
 do corte inicial estão entregues. O lote original de mídia também está
 autorizado. Em 2026-08-09 entrou um plano transversal para checkpoints e loops;
-as Ondas 1 e 2 estão concluídas: governança e fundação transacional isolada em
-modo `off`. A próxima entrega é a **Onda 3, adaptadores em shadow**, ainda sem
-efeito de navegação ou pedagogia. A Task 12 educacional vem depois de shadow e
-runtime interno.
+as Ondas 1–3 estão concluídas: governança, fundação transacional isolada e
+adaptadores nas 12 superfícies em `shadow`, sem efeito de navegação ou
+pedagogia. A próxima entrega é a **Onda 4, runtime ativo somente interno**. A
+Task 12 educacional vem depois desse runtime.
 
 Dois pontos que a ordem do plano esconde e que importam para quem for pegar a
 frente:

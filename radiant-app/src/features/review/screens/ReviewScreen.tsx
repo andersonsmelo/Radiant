@@ -19,6 +19,10 @@ import { PushService } from '../../push/services/PushService';
 import { ReviewCard } from '../components/ReviewCard';
 import { useReview } from '../hooks/useReview';
 import { RatingPromptService } from '../../../services/RatingPromptService';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 const SCREEN_MAX_WIDTH = 720;
 const ICON_BUTTON_SIZE = space.s6 + space.s4;
@@ -72,6 +76,23 @@ export default function ReviewScreen() {
 
     return 0;
   }, [currentIndex, state, totalItems]);
+
+  const reviewCursorId = currentItem?.question.id ?? `review-${state}`;
+  useShadowCheckpoint({
+    surface: 'review',
+    flowId: 'review-session-v1',
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: reviewCursorId,
+    compatibleCursorIds: [
+      'review-start',
+      'review-finished',
+      ...queue.map((item) => item.question.id),
+    ],
+    progressPercent: Math.round((progressValue / Math.max(totalItems, 1)) * 100),
+    completedStepCount: progressValue,
+    totalStepCount: Math.max(totalItems, 1),
+    reviewCardId: currentItem?.question.id,
+  });
 
   if (loading) {
     return (

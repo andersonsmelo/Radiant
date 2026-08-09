@@ -33,6 +33,10 @@ import { useReducedMotionPreference } from '../../../ui/accessibility/useReduced
 import { GALAXY_CATALOG, getActiveGalaxy, getActiveBody } from '../../../data/galaxy-catalog';
 import { galaxyColors } from '../../../ui/theme';
 import { tabBarClearance, typography } from '../../../ui/styles';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 // ── Constantes ───────────────────────────────────────────────
 
@@ -146,6 +150,17 @@ function GalaxyCard({ galaxy, onPress }: GalaxyCardProps) {
 export default function GalaxyMapScreen() {
   const router = useRouter();
   const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
+
+  useShadowCheckpoint({
+    surface: 'galaxy-map',
+    flowId: 'galaxy-map-v1',
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: 'galaxy-map',
+    compatibleCursorIds: ['galaxy-map'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: 1,
+  });
 
   useEffect(() => {
     GamificationService.getSnapshot().then(setSnapshot);

@@ -46,6 +46,7 @@
         "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_PUSH": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "shadow",
         "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     },
@@ -60,6 +61,7 @@
         "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_PUSH": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "off",
         "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     }

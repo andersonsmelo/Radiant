@@ -20,6 +20,10 @@ import { galaxyColors } from '@/src/ui/theme';
 import { semanticColors } from '@/src/ui/semantic-colors';
 import { space, tabBarClearance, typography } from '@/src/ui/styles';
 import { AnimatedProgressBar } from '@/src/components/ui/AnimatedProgressBar';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '@/src/features/student-checkpoints/useShadowCheckpoint';
 
 const galaxy = semanticColors.galaxy;
 
@@ -164,6 +168,17 @@ export default function MissionsScreen() {
   const [dueCount, setDueCount] = useState<number | null>(null);
 
   const resetCountdown = useDailyResetCountdown();
+
+  useShadowCheckpoint({
+    surface: 'missions',
+    flowId: 'missions-v1',
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: 'missions',
+    compatibleCursorIds: ['missions'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: 1,
+  });
 
   const load = useCallback(async () => {
     try {

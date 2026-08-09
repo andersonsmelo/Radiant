@@ -138,7 +138,7 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
    focada passou com **7/7 suítes e 89/89 testes**; não houve mudança adicional
    de código.
 
-## Checkpoints e loops do aluno: governança e fundação em `off`
+## Checkpoints e loops do aluno: governança, fundação e shadow
 
 Em 2026-08-09 o dono aprovou a arquitetura transversal de checkpoints nas telas
 principais e de dois loops conectados — pedagógico e editorial. A **Onda 1 foi
@@ -169,7 +169,15 @@ foi conectado às telas, rotas ou serviços legados; portanto produção continu
 `off` e não houve mudança observável em progresso, XP, desbloqueio,
 recomendação ou navegação.
 
-A ordem técnica agora é: shadow → ativo interno → Task 12 educacional →
+**Onda 3 concluída em `shadow`:** as 12 superfícies aprovadas agora usam um
+registry fechado de `ScreenCheckpointAdapter` e um hook comum de ciclo de vida.
+O profile `preview` observa no store shadow; `development`, `e2e-test` e
+`production` resolvem para `off`, com produção forçando falha fechada mesmo
+diante de override. A decisão shadow nunca chega ao router nem aos serviços de
+progresso, XP, desbloqueio, recomendação ou pedagogia. Storage indisponível,
+deep link inválido e catálogo alterado degradam sem interromper o legado.
+
+A ordem técnica agora é: ativo interno → Task 12 educacional →
 Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local. Expansão depende
 desse beta; sync remoto é uma trilha separada, bloqueada por carga/soak,
 API/auth, conflitos e sink verificado.
@@ -254,6 +262,31 @@ finais. Evidência detalhada:
 Não houve integração com telas, Task 12, sync remoto, build, OTA, binário,
 mudança de `1.3.1 (7)` ou publicação.
 
+### Evidência da Onda 3
+
+O run `run-1786314104218-908d111b` declarou os 28 caminhos de código, testes,
+configuração, evidência e documentação antes da primeira edição. A validação
+local executada antes do fechamento foi:
+
+- TDD vermelho: **4 suítes falhando** pelos módulos/ligações ausentes;
+- matriz nova: **4 suítes/22 testes**;
+- módulo completo de checkpoints: **9 suítes/80 testes**;
+- regressão das telas tocadas: **10 suítes/47 testes**;
+- lint exit 0, com 11 warnings legados e nenhum erro; typecheck exit 0;
+- Jest completo do app: **75 suítes/494 testes**;
+- produção e valores inválidos em `off`, `preview` em `shadow`, zero decisão
+  shadow conectada a navegação ou domínio.
+
+A matriz cobre entrada/saída, background, relaunch, deep link inválido,
+catálogo alterado, storage indisponível e navegação repetida, com divergência
+determinística nula nos casos executados e somente ids/códigos allowlisted.
+Evidência detalhada:
+[`2026-08-09-wave-3-student-checkpoint-shadow.md`](../radiant-app/docs/evidence/2026-08-09-wave-3-student-checkpoint-shadow.md).
+
+Não houve promoção para `active`, CTA de retomada, Task 12, sync remoto, build,
+OTA, binário, mudança de `1.3.1 (7)` ou publicação. O status público do run é a
+autoridade para validação e fechamento finais.
+
 ## Documentação viva reconciliada
 
 READMEs, fluxo do cliente, PRD, arquitetura, roadmaps, fila, checklist, changelog
@@ -295,5 +328,5 @@ API pública, que permanece em HTTP 502.
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-3. Executar adaptadores em shadow → runtime interno → Task 12 → conteúdo
+3. Executar runtime interno → Task 12 → conteúdo
    v2/ativação segura do agendador → Galáxia e pipeline.

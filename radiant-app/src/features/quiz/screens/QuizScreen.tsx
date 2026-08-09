@@ -31,6 +31,10 @@ import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
 import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 const SCREEN_MAX_WIDTH = 720;
 const ICON_BUTTON_SIZE = 36;
@@ -158,6 +162,21 @@ function QuizSession({
     maxHearts,
   } = useQuiz(lesson, {
     journeyCompletionMode: mode === 'review' ? 'review' : 'lesson',
+  });
+
+  const shadowCursorId = currentQuestion?.id ?? 'quiz-summary';
+  useShadowCheckpoint({
+    surface: 'legacy-quiz',
+    flowId: `legacy-quiz:${lesson.id}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: shadowCursorId,
+    compatibleCursorIds: [...lesson.questions.map((question) => question.id), 'quiz-summary'],
+    progressPercent: isFinished
+      ? 100
+      : Math.round((progress.currentQuestionIndex / Math.max(progress.totalQuestions, 1)) * 100),
+    completedStepCount: isFinished ? progress.totalQuestions : progress.currentQuestionIndex,
+    totalStepCount: Math.max(progress.totalQuestions, 1),
+    lessonId: lesson.id,
   });
 
   const helperFade = useFadeInUp(duration.ui);

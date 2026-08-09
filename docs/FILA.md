@@ -110,20 +110,36 @@ Fonte normativa:
 
 ---
 
-## AGENTE — Onda 3: adaptadores em shadow
+## HISTÓRICO — Onda 3 concluída em 2026-08-09
+
+**Estado:** concluída em `shadow`. **Bloqueio:** nenhum. **Dono:** agente.
+
+As 12 superfícies usam o store shadow isolado, com
+`preview=shadow` e `production=off`. Nenhuma decisão shadow pode alimentar
+navegação, progresso, XP, desbloqueio, recomendação ou serviço pedagógico. A
+matriz cobre ciclo de vida, relaunch, deep link inválido, catálogo alterado,
+storage indisponível e navegação repetida somente com ids/códigos allowlisted,
+preservando as filas e autoridades legadas.
+
+Evidência: **4 suítes/22 testes novos**, **9 suítes/80 testes** do módulo,
+**10 suítes/47 testes** de telas, lint, typecheck e **75 suítes/494 testes** do
+app. Run Loop: `run-1786314104218-908d111b`.
+
+---
+
+## AGENTE — Onda 4: runtime ativo somente interno
 
 **Estado:** próxima entrega técnica; não iniciada. **Bloqueio:** nenhum para
 implementação local. **Dono:** agente.
 
-Conectar adaptadores em todas as superfícies usando store shadow isolado, com
-`preview=shadow` e `production=off`. Nenhuma decisão shadow pode alimentar
-navegação, progresso, XP, desbloqueio, recomendação ou serviço pedagógico. A
-entrega precisa medir divergência apenas por ids/códigos allowlisted e preservar
-as filas e autoridades legadas.
+Promover `active` somente em build interna para apresentação, Lição, Revisão e
+checkpoint de unidade. Entregar CTA explícito de retomada, nunca redirect
+automático, e fallback canônico para Home quando catálogo, cursor ou rota forem
+incompatíveis.
 
-Não promover para `active`, não iniciar Task 12 e não publicar build/OTA nesta
-onda. O gate continua sendo shadow determinístico, sem impacto observável e sem
-payload proibido.
+Produção permanece `off`; Task 12, sync remoto, build/OTA e publicação continuam
+fora desta onda. O gate exige restauração determinística sem deslocar nenhuma
+autoridade legada.
 
 ---
 
