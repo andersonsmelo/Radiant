@@ -1,3 +1,5 @@
+import { resolveNodeCompetencies } from './JourneyNodeCompetencyResolver';
+import type { DueCompetency } from '../../../types/competencyReview';
 import type {
     JourneyNode,
     JourneyNodeDefinition,
@@ -7,6 +9,7 @@ import type {
     JourneyTrackDefinition,
     JourneyUnit,
     JourneyUnitDefinition,
+    RecommendationReason,
 } from '../../../types/journey';
 
 function isNodeCompleted(progress: JourneyProgress, nodeId: string): boolean {
@@ -71,6 +74,29 @@ function isUnitComplete(unit: JourneyUnit): boolean {
         .every((node) => node.status === 'completed');
 }
 
+/**
+ * O motivo ordena entre nós JÁ DESBLOQUEADOS. Uma competência vencida num nó
+ * bloqueado não abre o nó — o currículo continua sendo do autor.
+ *
+ * Puro e síncrono de propósito: a lista de vencidas entra por parâmetro em vez
+ * de o serviço ir ao storage, porque este arquivo já declara que status é
+ * derivado e não armazenado.
+ */
+function resolveReason(track: JourneyTrack, dueCompetencies: DueCompetency[]): RecommendationReason {
+    if (dueCompetencies.length === 0) {
+        return 'next-new';
+    }
+
+    const idsVencidos = new Set(dueCompetencies.map((item) => item.competencyId));
+
+    const cobreVencida = track.units.some((unit) => unit.nodes.some((node) => (
+        node.status !== 'locked'
+        && resolveNodeCompetencies(node).competencyIds.some((id) => idsVencidos.has(id))
+    )));
+
+    return cobreVencida ? 'due-review' : 'next-new';
+}
+
 export class JourneyRecommendationService {
     /**
      * O status de um nó é DERIVADO, nunca armazenado. Quem precisar autorizar
@@ -127,7 +153,11 @@ export class JourneyRecommendationService {
         return null;
     }
 
-    static computeSnapshot(trackDefinition: JourneyTrackDefinition, progress: JourneyProgress): JourneySnapshot {
+    static computeSnapshot(
+        trackDefinition: JourneyTrackDefinition,
+        progress: JourneyProgress,
+        dueCompetencies: DueCompetency[] = [],
+    ): JourneySnapshot {
         const resolvedTrack = this.resolveTrack(trackDefinition, progress);
         const nextRecommendedNode = this.getNextRecommendedNode(resolvedTrack, progress.currentUnitId);
 
@@ -137,6 +167,7 @@ export class JourneyRecommendationService {
             nextRecommendedNode,
             completedCount: progress.completedNodeIds.length,
             dueReviewCount: progress.pendingReviewNodeIds.length,
+            recommendationReason: resolveReason(resolvedTrack, dueCompetencies),
         };
     }
 

@@ -82,10 +82,17 @@ export type JourneyProgressStore = {
     tracks: Record<string, JourneyProgress>;
 };
 
+export type RecommendationReason = 'due-review' | 'weak-competency' | 'next-new';
+
 export type JourneySnapshot = {
     track: JourneyTrack;
     progress: JourneyProgress;
     nextRecommendedNode: JourneyNode | null;
     completedCount: number;
     dueReviewCount: number;
+    /**
+     * Por que este nó foi recomendado. Ordena entre os já disponíveis; nunca
+     * destrava.
+     */
+    recommendationReason: RecommendationReason;
 };

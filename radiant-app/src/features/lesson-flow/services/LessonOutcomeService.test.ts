@@ -127,6 +127,10 @@ function snapshotWith(overrides: {
         nextRecommendedNode: null,
         completedCount: 0,
         dueReviewCount: 0,
+        // Sem competência vencida injetada, o recomendador devolve sempre
+        // `next-new`. Este fixture descreve o estado de hoje, em que não há
+        // conteúdo v2 e nenhum cartão de revisão por competência existe.
+        recommendationReason: 'next-new',
     };
 }
 
