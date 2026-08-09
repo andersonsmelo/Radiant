@@ -1156,17 +1156,18 @@ execução:
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
-- **G1 [P0 — PARCIAL; DIREITOS PENDENTES]** Governar fontes, mídia e currículo.
-  Tasks 1, 2 e 4 concluídas: raízes autorizadas, 36 PDFs únicos classificados
-  (4 `authorized`, 15 `reference-only`, 17 `blocked`) e grafo das 30
-  competências validado. A infraestrutura da Task 3 está concluída, mas o lote
-  segue `awaiting-authorized-assets`, com 0 imagens aprovadas e 5 candidatas
-  rejeitadas. G1 fecha somente após decisão de direitos e lote autorizado.
+- **G1 [CONCLUÍDA EM 2026-08-09]** Fontes, mídia e currículo governados. As
+  raízes autorizadas, os 36 PDFs únicos (4 `authorized`, 15 `reference-only`,
+  17 `blocked`) e o grafo das 30 competências permanecem validados. O dono
+  autorizou o primeiro lote original e sintético: manifesto `ready`, uma
+  ilustração aprovada com hash, texto alternativo e três hotspots. As cinco
+  candidatas anteriores continuam rejeitadas e nenhuma fonte de terceiros foi
+  usada no ativo. A autorização não inclui publicação de novo binário.
 - **G2 [P0 — MOTOR BASE CONCLUÍDO; TASK 10 É A PRÓXIMA]** Tasks 5–9 concluídas:
   contrato de atividades, adaptador legado, evidência, domínio, registro e
   player. A Task 11 também fechou fora de ordem com o agendador por competência.
-  Falta a Task 10, os quatro renderizadores do corte vertical; os jogos visuais
-  dependem do lote de mídia de G1.
+  Falta a Task 10, os quatro renderizadores do corte vertical; o primeiro lote
+  legítimo de mídia de G1 já está disponível para os jogos visuais.
 - **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
   bloqueio de lições por vidas.
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12

@@ -85,10 +85,21 @@ Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
 
 ---
 
-## AGENTE — duas pendências técnicas isoladas
+## AGENTE — Task 10 destravada: quatro renderizadores acessíveis
 
-Elas não destravam a Task 10 nem a App Review, mas são executáveis sem console,
-backend, mídia autorizada ou aparelho físico.
+**Estado:** aberta e executável desde 2026-08-09. **Bloqueio:** nenhum.
+**Dono:** agente.
+
+O dono autorizou um primeiro lote original e sintético de mídia educacional. O
+manifesto está `ready`, com uma ilustração aprovada, hash fixado, texto
+alternativo e três hotspots; os cinco arquivos anteriores continuam rejeitados.
+A próxima entrega é implementar e testar os renderizadores de hotspot,
+comparação, associação e ordenação, incluindo alternativas sem arraste ou cor
+como único sinal e alvos de toque acessíveis.
+
+---
+
+## HISTÓRICO — duas pendências técnicas isoladas concluídas
 
 ### A. ~~Varrer `jest.spyOn` sobre mocks oficiais~~ — concluída em 2026-08-09
 
@@ -133,8 +144,8 @@ vencidas, e não altera as regras de desbloqueio.
 
 `getDue` continua sem chamador de produção e os snapshots ainda omitem a lista
 de vencidas. A futura ativação só poderá recomendar revisão quando o resolver
-ligar um nó a competência curricular real do conteúdo v2; direitos das mídias
-continuam bloqueando essa etapa.
+ligar um nó a competência curricular real do conteúdo v2; a mídia autorizada em
+2026-08-09 destravou a Task 10, mas o conteúdo v2 ainda precisa ser construído.
 
 Teste de regressão e verificações focadas: **6/6 testes**, lint e typecheck
 passaram.

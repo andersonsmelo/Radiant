@@ -69,21 +69,25 @@ deles reabre a submissão Apple.
 
 ## Sistema de aprendizagem por competências
 
-Tasks **1, 2, 4–9 e 11** estão concluídas. A Task 11 fechou fora de ordem pelo
-plano do agendador por competência; a próxima task técnica do plano é a **Task
-10**, os quatro renderizadores.
+Tasks **1–9 e 11** estão concluídas. A Task 11 fechou fora de ordem pelo plano
+do agendador por competência; a próxima task técnica do plano é a **Task 10**,
+os quatro renderizadores.
 
-O gargalo real continua sendo direitos, não implementação:
+O dono autorizou explicitamente em **2026-08-09** a produção do primeiro lote
+original e sintético de mídia educacional. O gate de direitos da Task 3/G1 está
+fechado sem reaproveitar os arquivos rejeitados:
 
-- `Conteúdo/mídia/manifest.json`: `awaiting-authorized-assets`;
-- **0** itens aprovados e **5** candidatos rejeitados;
+- `Conteúdo/mídia/manifest.json`: `ready`;
+- **1** ilustração original aprovada e **5** candidatos históricos preservados
+  como rejeitados;
+- PNG 1448×1086 com hash fixado, sem paciente, DICOM, dado pessoal ou fonte de
+  terceiros;
+- texto alternativo e três hotspots normalizados para fonte, feixe e detector;
 - 36 fontes catalogadas: **17 blocked**, **15 reference-only**, **4
-  authorized**;
-- bloqueado desde 2026-07-31.
+  authorized** — nenhuma imagem dessas fontes foi necessária neste lote.
 
-Sem lote aprovado, Task 10 não tem mídia legítima para os jogos visuais; isso
-trava conteúdo v2, o agendador já construído e a Task 12. A decisão é do dono e
-nenhum agente deve contorná-la.
+A Task 10 está agora executável. A autorização cobre este lote original; não
+aprova os cinco candidatos rejeitados nem autoriza publicação de novo binário.
 
 ### Correção do agendador fechada em 2026-08-09
 
@@ -119,9 +123,9 @@ instruções ainda tratadas como atuais sobre Apple sem team, TestFlight bloquea
 disponibilidade remota da API, wizard de especialidade/meta e status substituídos. Os
 registros datados foram preservados como históricos.
 
-Esta reconciliação **não muda gates operacionais**: iOS continua aguardando a
-Apple, Android continua no 12×14, mídia continua esperando decisão de direitos e
-a API pública continua registrada em 502.
+Esta reconciliação **não muda os gates de loja**: iOS continua aguardando a
+Apple, Android continua no 12×14 e a API pública continua registrada em 502. O
+gate de mídia, por outro lado, fechou com um ativo sintético autorizado.
 
 ## Qualidade da API no PR restaurada
 
@@ -146,14 +150,11 @@ API pública, que permanece em HTTP 502.
 - D1 está decidida e não implantada.
 - B5 Android, C4, C5 e C6 exigem aparelho ou janela de host.
 - A instrumentação pós-lançamento espera aprovação e liberação manual do iOS.
-- O primeiro lote de mídia espera uma decisão explícita de direitos do dono.
 
 ## Ordem recomendada
 
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-3. Resolver direitos do lote de mídia; só depois retomar Task 10 → conteúdo v2
-   → ativação segura do agendador → Task 12.
-4. Antes de ativar o lado de leitura do agendador, adicionar uma trava explícita
-   para que a degradação graciosa não dependa apenas da ausência de chamadores.
+3. Executar a Task 10 com o lote sintético autorizado → conteúdo v2 → ativação
+   segura do agendador → Task 12.
