@@ -21,6 +21,7 @@ import type { QuizResult } from '../../../types/quiz';
 import type { XpAward } from '../../../types/gamification';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
+import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { JourneyRecommendationService } from '../../journey/services/JourneyRecommendationService';
@@ -29,6 +30,7 @@ import { LearningAttemptsRepository } from '../../progress/services/LearningAtte
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import type { DurationBand } from '../../../types/learningEvidence';
+import type { LearningActivityV2 } from '../../../types/learningActivity';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -175,8 +177,65 @@ class LessonOutcomeServiceImpl {
                     recordedAt,
                 });
             }
+
+            await this.observeCompetencies(activity, input, recordedAt);
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao registrar evidência:', error);
+        }
+    }
+
+    /**
+     * Uma observação por COMPETÊNCIA, não por interação: o cartão modela a memória
+     * da competência, e chamar o agendador uma vez por interação faria a mesma
+     * sessão consolidar várias vezes o mesmo conhecimento.
+     *
+     * Acerto exige que todas as interações daquela competência tenham acertado;
+     * dica basta uma. É a leitura conservadora, coerente com o resto do sistema:
+     * ambiguidade resolve contra conceder domínio.
+     *
+     * Best-effort como o resto do arquivo: agendar não pode derrubar a conclusão.
+     */
+    private async observeCompetencies(
+        activity: LearningActivityV2,
+        input: LessonOutcomeInput,
+        recordedAt: string,
+    ): Promise<void> {
+        try {
+            const porCompetencia = new Map<string, { acertou: boolean; usouDica: boolean }>();
+
+            for (const step of activity.steps) {
+                if (step.kind !== 'interaction') continue;
+
+                const { interaction } = step;
+                const competencyId = interaction.competencyIds[0];
+                if (!competencyId) continue;
+
+                const acertou = input.confirmedAnswers[interaction.id] === true;
+                const usouDica = input.hintUsedByInteraction?.[interaction.id] ?? false;
+                const atual = porCompetencia.get(competencyId);
+
+                porCompetencia.set(competencyId, {
+                    acertou: atual ? atual.acertou && acertou : acertou,
+                    usouDica: atual ? atual.usouDica || usouDica : usouDica,
+                });
+            }
+
+            for (const [competencyId, resumo] of porCompetencia) {
+                await CompetencyReviewService.observeExposure({
+                    competencyId,
+                    grade: {
+                        outcome: resumo.acertou ? 'correct' : 'incorrect',
+                        hintUsed: resumo.usouDica,
+                    },
+                    // Competência legada não está no currículo, logo não carrega a
+                    // marcação de segurança. Quando houver atividade v2, este valor
+                    // passa a vir do currículo.
+                    criticalSafety: false,
+                    now: recordedAt,
+                });
+            }
+        } catch (error) {
+            console.error('[LessonOutcomeService] Falha ao observar competencias:', error);
         }
     }
 

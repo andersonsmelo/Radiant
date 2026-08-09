@@ -8,6 +8,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
+import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { LessonOutcomeService } from './LessonOutcomeService';
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -42,6 +43,10 @@ jest.mock('../../mastery/repositories/LearningEvidenceRepository', () => ({
     LearningEvidenceRepository: { append: jest.fn() },
 }));
 
+jest.mock('../../spaced-repetition/services/CompetencyReviewService', () => ({
+    CompetencyReviewService: { observeExposure: jest.fn(), recordReview: jest.fn() },
+}));
+
 const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
 const mockedSpacedRepetition = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
 const mockedDailyGoal = DailyGoalService as jest.Mocked<typeof DailyGoalService>;
@@ -49,6 +54,7 @@ const mockedJourney = JourneyProgressService as jest.Mocked<typeof JourneyProgre
 const mockedSyncQueue = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
 const mockedAttempts = LearningAttemptsRepository as jest.Mocked<typeof LearningAttemptsRepository>;
 const mockedEvidence = LearningEvidenceRepository as jest.Mocked<typeof LearningEvidenceRepository>;
+const mockedReview = CompetencyReviewService as jest.Mocked<typeof CompetencyReviewService>;
 
 const block: LessonBlock = {
     id: 'block:lesson-1:intro',
@@ -614,5 +620,108 @@ describe('LessonOutcomeService — evidência por interação', () => {
 
             warnSpy.mockRestore();
         });
+    });
+});
+
+// O adaptador legado mapeia toda interação de uma lição para a mesma
+// competência sintética (`competency:legacy:<lessonId>`), então um bloco com
+// duas interações é o que prova "uma observação por competência, não uma por
+// interação": as duas caem na mesma competência e precisam virar uma chamada
+// só. A forma do segundo passo é copiada de `block.steps[1]` — já é
+// `multiple-choice` — trocando só o `id`, para não inventar um formato de
+// step que o `LessonBlock` real não tem.
+const blocoComDuasInteracoes: LessonBlock = {
+    ...block,
+    steps: [
+        ...block.steps,
+        {
+            step: {
+                type: 'multiple-choice',
+                payload: {
+                    prompt: 'Segunda pergunta?',
+                    options: [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }],
+                    correctOptionId: 'a',
+                    explanation: 'Porque A.',
+                },
+            },
+            contract: {
+                id: 'lesson-1-question-2',
+                type: 'multiple-choice',
+                completionRule: 'answered',
+                retryRule: 'allow_continue',
+                branching: 'none',
+            },
+        },
+    ],
+};
+
+describe('alimentação do agendador por competência', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockedAttempts.append.mockResolvedValue(undefined);
+        mockedEvidence.append.mockResolvedValue({ accepted: true, issues: [] });
+        mockedGamification.recordQuizCompletion.mockResolvedValue({
+            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
+            award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
+        });
+        mockedDailyGoal.recordQuizCompletion.mockResolvedValue({
+            goalPerDay: 3,
+            completedToday: 1,
+            isCompleted: false,
+            dateKey: '2026-08-08',
+        });
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }),
+        );
+        mockedReview.observeExposure.mockReset();
+        mockedReview.observeExposure.mockResolvedValue(undefined);
+    });
+
+    it('observa uma vez por competência, não uma por interação', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+        });
+
+        expect(mockedReview.observeExposure).toHaveBeenCalledTimes(1);
+    });
+
+    it('marca acerto só quando todas as interações da competência acertaram', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': false },
+        });
+
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(
+            expect.objectContaining({ grade: { outcome: 'incorrect', hintUsed: false } }),
+        );
+    });
+
+    it('marca dica quando qualquer interação da competência usou dica', async () => {
+        await LessonOutcomeService.recordCompletion({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+            hintUsedByInteraction: { 'lesson-1-question-2': true },
+        });
+
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(
+            expect.objectContaining({ grade: { outcome: 'correct', hintUsed: true } }),
+        );
+    });
+
+    it('não derruba a conclusão da atividade quando a observação falha', async () => {
+        mockedReview.observeExposure.mockRejectedValue(new Error('storage'));
+        const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        await expect(LessonOutcomeService.recordCompletion({
+            block: blocoComDuasInteracoes,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-question-2': true },
+        })).resolves.not.toThrow();
+
+        errorSpy.mockRestore();
     });
 });
