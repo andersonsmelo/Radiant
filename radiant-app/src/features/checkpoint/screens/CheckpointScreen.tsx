@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,9 +25,12 @@ import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
+import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 
 interface CheckpointScreenProps {
   nodeId?: string;
+  resumeCheckpointId?: string;
+  resumeCursorId?: string;
 }
 
 function findFallbackCheckpoint(snapshot: JourneySnapshot | null): JourneyNode | null {
@@ -71,7 +74,7 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
 }
 
-export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
+export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCursorId }: CheckpointScreenProps) {
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -131,6 +134,13 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? null;
   }, [checkpointNode, snapshot]);
 
+  const resumeSummaryConfirmed = Boolean(
+    resumeCheckpointId
+    && resumeCursorId === 'checkpoint-summary'
+    && checkpointNode
+    && snapshot?.progress.completedNodeIds.includes(checkpointNode.id),
+  );
+
   useShadowCheckpoint({
     surface: 'unit-checkpoint',
     flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
@@ -145,6 +155,37 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     unitId: activeUnit?.id,
     enabled: Boolean(checkpointNode && activeUnit),
   });
+  const handleRestoreFallback = useCallback(() => {
+    Alert.alert(
+      'Vamos continuar pela jornada',
+      'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
+    );
+    router.replace('/(tabs)');
+  }, []);
+  const activeCheckpoint = useActiveCheckpoint({
+    surface: 'unit-checkpoint',
+    flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed || resumeSummaryConfirmed ? 'checkpoint-summary' : 'checkpoint-overview',
+    compatibleCursorIds: resumeSummaryConfirmed
+      ? ['checkpoint-overview', 'checkpoint-summary']
+      : ['checkpoint-overview'],
+    progressPercent: completed || resumeSummaryConfirmed ? 100 : 0,
+    completedStepCount: completed || resumeSummaryConfirmed ? 1 : 0,
+    totalStepCount: 1,
+    checkpointDefinitionId: checkpointNode?.id,
+    journeyNodeId: checkpointNode?.id,
+    unitId: activeUnit?.id,
+    enabled: Boolean(checkpointNode && activeUnit),
+    resumeCheckpointId,
+    onRestoreFallback: handleRestoreFallback,
+  });
+
+  useEffect(() => {
+    if (!resumeSummaryConfirmed) return;
+    setCompleted(true);
+    void activeCheckpoint.finish();
+  }, [activeCheckpoint, resumeSummaryConfirmed]);
 
   const completedPrimaryNodes = useMemo(() => {
     if (!activeUnit) {
@@ -193,6 +234,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
         return;
       }
 
+      await activeCheckpoint.finish();
       setCompleted(true);
       const offer = await PaywallService.maybePresentOffer({
         trigger: 'checkpoint_complete',
@@ -206,7 +248,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [checkpointNode]);
+  }, [activeCheckpoint, checkpointNode]);
 
   if (loading) {
     return (

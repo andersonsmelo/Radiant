@@ -1,7 +1,7 @@
 # Runbook — rollout e rollback do kernel de checkpoints
 
 **Data:** 2026-08-09  
-**Estado:** normativo; comandos de runtime serão adicionados quando o código existir
+**Estado:** normativo; runtime local existe, gate interno ainda não executado
 
 ## Objetivo
 
@@ -106,6 +106,25 @@ Ativação inicial:
 5. liberar checkpoint de unidade;
 6. manter as demais superfícies com fallback Home;
 7. oferecer CTA; não redirecionar automaticamente.
+
+Pré-flight sem gerar build:
+
+```bash
+npx --no-install eas-cli config -p ios -e checkpoint-internal --json --non-interactive
+npx --no-install eas-cli config -p android -e checkpoint-internal --json --non-interactive
+```
+
+Nos dois envelopes, exigir `distribution=internal`, `developmentClient=true`,
+`EXPO_PUBLIC_APP_ENV=development`, `EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=active`
+e `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. Depois que o dono autorizar e prover o
+build interno, executar no aparelho/perfil de evidência:
+
+```bash
+maestro test .maestro/student-checkpoint-active-resume.yaml
+```
+
+Não confundir esse flow único com o gate: as 20 execuções, p95 e leitores de
+tela precisam de registro datado separado.
 
 Gate:
 

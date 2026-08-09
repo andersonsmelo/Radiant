@@ -170,6 +170,54 @@ const lastStepInteractiveFixture: LessonBlock = {
   ],
 };
 
+const privacySafeResumeFixture: LessonBlock = {
+  id: 'block-3',
+  lessonId: 'lesson-3',
+  steps: [
+    {
+      step: { type: 'context', payload: { title: 'Contexto inicial', body: 'Observe antes de responder.' } },
+      contract: {
+        id: 'step-context',
+        type: 'context',
+        completionRule: 'displayed',
+        retryRule: 'allow_continue',
+        branching: 'none',
+      },
+    },
+    {
+      step: {
+        type: 'multiple-choice',
+        payload: {
+          prompt: 'Qual achado deve ser confirmado novamente?',
+          options: [
+            { id: 'opt-a', label: 'Achado A' },
+            { id: 'opt-b', label: 'Achado B' },
+          ],
+          correctOptionId: 'opt-b',
+          explanation: 'A retomada não pode presumir uma resposta anterior.',
+        },
+      },
+      contract: {
+        id: 'step-private-choice',
+        type: 'multiple-choice',
+        completionRule: 'answered',
+        retryRule: 'retry_same_step',
+        branching: 'none',
+      },
+    },
+    {
+      step: { type: 'reinforce', payload: { title: 'Reforço final', body: 'Conteúdo posterior.', tone: 'corrective' } },
+      contract: {
+        id: 'step-reinforce',
+        type: 'reinforce',
+        completionRule: 'displayed',
+        retryRule: 'allow_continue',
+        branching: 'none',
+      },
+    },
+  ],
+};
+
 describe('LessonFlowScreen — escolha da alternativa', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -325,5 +373,31 @@ describe('LessonFlowScreen — registro da conclusão', () => {
 
     const input = mockedOutcome.recordCompletion.mock.calls[0][0];
     expect(input.confirmedAnswers).toEqual({ 'step-final-choice': true });
+  });
+});
+
+describe('LessonFlowScreen — retomada sem persistir respostas', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(privacySafeResumeFixture);
+  });
+
+  it('recua para a interação não confirmada quando o cursor salvo já passou por ela', async () => {
+    renderWithProviders(
+      <LessonFlowScreen
+        blockId="block-3"
+        nodeId="node-3"
+        resumeCheckpointId="checkpoint-3"
+        resumeCursorId="step-3"
+      />,
+    );
+
+    expect(await screen.findByText('Qual achado deve ser confirmado novamente?')).toBeTruthy();
+    expect(screen.queryByText('Reforço final')).toBeNull();
+
+    fireEvent.press(screen.getByLabelText('Achado B'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText('Resposta correta')).toBeTruthy();
   });
 });

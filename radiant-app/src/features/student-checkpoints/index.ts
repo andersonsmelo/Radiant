@@ -1,4 +1,5 @@
 export * from './AuthorityStore';
+export * from './ActiveCheckpointRuntime';
 export * from './CheckpointCoordinator';
 export * from './CheckpointStore';
 export * from './CommitCoordinator';
@@ -11,3 +12,5 @@ export * from './ShadowCheckpointObserver';
 export * from './storage';
 export { useShadowCheckpoint } from './useShadowCheckpoint';
 export type { ShadowCheckpointHookBinding } from './useShadowCheckpoint';
+export { useActiveCheckpoint } from './useActiveCheckpoint';
+export type { ActiveCheckpointControl, ActiveCheckpointHookBinding } from './useActiveCheckpoint';

@@ -18,5 +18,23 @@ export default function LearnRoute() {
                 ? String(params.nodeId[0] ?? '')
                 : '';
 
-    return <LessonFlowScreen blockId={blockId} nodeId={nodeId} />;
+    const resumeCheckpointId = typeof params.resumeCheckpointId === 'string'
+        ? params.resumeCheckpointId
+        : Array.isArray(params.resumeCheckpointId)
+            ? String(params.resumeCheckpointId[0] ?? '') || undefined
+            : undefined;
+    const resumeCursorId = typeof params.resumeCursorId === 'string'
+        ? params.resumeCursorId
+        : Array.isArray(params.resumeCursorId)
+            ? String(params.resumeCursorId[0] ?? '') || undefined
+            : undefined;
+
+    return (
+        <LessonFlowScreen
+            blockId={blockId}
+            nodeId={nodeId}
+            resumeCheckpointId={resumeCheckpointId}
+            resumeCursorId={resumeCursorId}
+        />
+    );
 }

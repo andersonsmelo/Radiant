@@ -31,6 +31,12 @@ import { AppButton } from '../components/ui/AppButton';
 import { SurfaceCard } from '../components/ui/SurfaceCard';
 import { galaxyColors, navigationTheme } from '../ui/theme';
 import { layout, space, typography } from '../ui/styles';
+import {
+  getNativeActiveCheckpointRuntime,
+  type ActiveResumeLaunch,
+} from '../features/student-checkpoints/ActiveCheckpointRuntime';
+import { resolveStudentCheckpointRuntimeMode } from '../features/student-checkpoints/mode';
+import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../features/student-checkpoints/ScreenCheckpointAdapters';
 
 initializeObservability();
 SplashScreen.preventAutoHideAsync();
@@ -59,6 +65,9 @@ function RootLayout() {
   const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
   const [pendingWelcomeHref, setPendingWelcomeHref] = useState<Href | null>(null);
+  const [checkpointLaunch, setCheckpointLaunch] = useState<ActiveResumeLaunch>({ kind: 'none' });
+  const [welcomeResume, setWelcomeResume] = useState<{ checkpointId: string; cursorId: string } | null>(null);
+  const [pendingCheckpointHref, setPendingCheckpointHref] = useState<Href | null>(null);
   const firstRunBootstrapRef = useRef<Promise<void> | null>(null);
   const welcomeExitInFlightRef = useRef(false);
 
@@ -106,6 +115,7 @@ function RootLayout() {
         });
       } finally {
         setPendingWelcomeHref(nextHref);
+        setWelcomeResume(null);
         setShowWelcome(false);
       }
     },
@@ -151,7 +161,18 @@ function RootLayout() {
           return;
         }
 
-        setShowWelcome(FirstRunService.shouldShowWelcome());
+        const shouldShowWelcome = FirstRunService.shouldShowWelcome();
+        setShowWelcome(shouldShowWelcome);
+        const checkpointMode = resolveStudentCheckpointRuntimeMode(
+          AppConfig.APP_ENV,
+          process.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE,
+        );
+        const launch = await getNativeActiveCheckpointRuntime(checkpointMode).inspectLaunch({
+          contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+          firstRunAvailable: shouldShowWelcome,
+        });
+        if (!active) return;
+        setCheckpointLaunch(launch);
 
         void SyncQueueService.flush();
         void TelemetryService.track('bootstrap_complete', {
@@ -197,6 +218,36 @@ function RootLayout() {
     setPendingWelcomeHref(null);
   }, [pendingWelcomeHref, showWelcome]);
 
+  useEffect(() => {
+    if (!pendingCheckpointHref || checkpointLaunch.kind !== 'none' || showWelcome) return;
+    router.replace(pendingCheckpointHref);
+    setPendingCheckpointHref(null);
+  }, [checkpointLaunch.kind, pendingCheckpointHref, showWelcome]);
+
+  const handleResumeCheckpoint = useCallback(() => {
+    if (checkpointLaunch.kind !== 'offer') return;
+    if (checkpointLaunch.target.kind === 'first-run') {
+      setWelcomeResume({
+        checkpointId: checkpointLaunch.target.checkpointId,
+        cursorId: checkpointLaunch.target.cursorId,
+      });
+      setShowWelcome(true);
+    } else {
+      setShowWelcome(false);
+      setPendingCheckpointHref({
+        pathname: checkpointLaunch.target.pathname,
+        params: checkpointLaunch.target.params,
+      } as Href);
+    }
+    setCheckpointLaunch({ kind: 'none' });
+  }, [checkpointLaunch]);
+
+  const handleCheckpointHome = useCallback(() => {
+    setCheckpointLaunch({ kind: 'none' });
+    setWelcomeResume(null);
+    setShowWelcome(false);
+  }, []);
+
   if (!fontsLoaded) return null;
 
   if (startupPhase === 'loading') {
@@ -240,6 +291,19 @@ function RootLayout() {
     );
   }
 
+  if (checkpointLaunch.kind === 'offer' || checkpointLaunch.kind === 'fallback') {
+    return (
+      <ThemeProvider value={navigationTheme}>
+        <CheckpointResumeScreen
+          canResume={checkpointLaunch.kind === 'offer'}
+          onResume={handleResumeCheckpoint}
+          onHome={handleCheckpointHome}
+        />
+        <StatusBar style="light" />
+      </ThemeProvider>
+    );
+  }
+
   // Ordem: loading → error → beta gate → apresentação → Stack. O beta gate vem
   // antes porque é controle de acesso: não se apresenta o produto a quem ainda
   // não foi liberado a entrar.
@@ -249,6 +313,9 @@ function RootLayout() {
         <WelcomeFlowScreen
           onFinish={(reason, step) => void handleWelcomeFinish(reason, step)}
           onStepViewed={handleStepViewed}
+          resumeCheckpointId={welcomeResume?.checkpointId}
+          resumeCursorId={welcomeResume?.cursorId}
+          onResumeFallback={handleCheckpointHome}
         />
         <StatusBar style="light" />
       </ThemeProvider>
@@ -290,6 +357,47 @@ interface StartupScreenProps {
   body: string;
   tone: 'loading' | 'error';
   onRetry?: () => void;
+}
+
+function CheckpointResumeScreen({
+  canResume,
+  onResume,
+  onHome,
+}: {
+  canResume: boolean;
+  onResume: () => void;
+  onHome: () => void;
+}) {
+  return (
+    <SafeAreaView style={styles.screen}>
+      <View style={[layout.container, layout.center, styles.content]}>
+        <SurfaceCard contentStyle={styles.cardContent} variant="galaxy" style={styles.card}>
+          <Text style={styles.title} accessibilityRole="header">
+            {canResume ? 'Continuar de onde você parou?' : 'Vamos continuar pela jornada'}
+          </Text>
+          <Text style={styles.body}>
+            {canResume
+              ? 'Há uma etapa salva neste aparelho. Você escolhe se quer retomá-la agora.'
+              : 'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.'}
+          </Text>
+          {canResume ? (
+            <AppButton onPress={onResume} style={styles.button} accessibilityLabel="Retomar estudo">
+              Retomar estudo
+            </AppButton>
+          ) : null}
+          <AppButton
+            onPress={onHome}
+            style={styles.secondaryButton}
+            textStyle={styles.secondaryButtonText}
+            variant="secondary"
+            accessibilityLabel="Ir para a jornada"
+          >
+            Ir para a jornada
+          </AppButton>
+        </SurfaceCard>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 function StartupScreen({ title, body, tone, onRetry }: StartupScreenProps) {

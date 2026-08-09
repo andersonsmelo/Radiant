@@ -10,7 +10,9 @@ export function resolveStudentCheckpointRuntimeMode(
 ): StudentCheckpointMode {
     if (environment === 'production') return 'off';
     if (configuredMode !== undefined) {
-        return environment === 'preview' && configuredMode === 'shadow' ? 'shadow' : 'off';
+        if (environment === 'preview' && configuredMode === 'shadow') return 'shadow';
+        if (environment === 'development' && configuredMode === 'active') return 'active';
+        return 'off';
     }
     return environment === 'preview' ? 'shadow' : 'off';
 }

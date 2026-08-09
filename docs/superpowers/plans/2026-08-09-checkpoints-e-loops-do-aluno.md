@@ -1,7 +1,7 @@
 # Kernel de checkpoints e loops do aluno — Plano de implementação
 
 **Data:** 2026-08-09  
-**Status:** Onda 3 concluída em `shadow`; Onda 4 runtime interno ainda não iniciada
+**Status:** Onda 4 implementada localmente; gate interno de dispositivo/perfil pendente
 **Spec:**
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](../specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)  
 **ADR:**
@@ -148,6 +148,13 @@ inválido, catálogo alterado, storage indisponível e navegação repetida.
 contrato de privacidade e regressão legada verdes.
 
 ## Onda 4 — Runtime ativo interno
+
+**Estado em 2026-08-09:** implementação local concluída. O profile
+`checkpoint-internal`, o runtime, o CTA, o fallback e a allowlist das quatro
+superfícies estão versionados e verdes. O gate da onda permanece aberto porque
+não houve build interno nem aparelho/emulador disponível para as medições e a
+acessibilidade manual. Evidência:
+[`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../../../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
 
 Habilitar `active` apenas em build interna. Primeira allowlist de restauração:
 

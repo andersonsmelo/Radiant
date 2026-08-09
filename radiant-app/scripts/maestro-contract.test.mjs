@@ -280,6 +280,20 @@ test('keeps the e2e build local-first and bypasses the beta gate', async () => {
   });
 });
 
+test('keeps active checkpoints confined to the dedicated internal profile', async () => {
+  const eas = JSON.parse(await readAppFile('eas.json'));
+  const internal = eas.build['checkpoint-internal'];
+
+  assert.equal(internal?.extends, 'development');
+  assert.equal(internal?.distribution, 'internal');
+  assert.deepEqual(internal?.env, {
+    EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE: 'active',
+  });
+  assert.equal(eas.build.production.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, 'off');
+  assert.equal(eas.build.preview.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, 'shadow');
+  assert.equal(eas.build['e2e-test'].env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, undefined);
+});
+
 test('keeps lesson-answer selectors accessible and deterministic', async () => {
   const source = await readAppFile('src/features/lesson-flow/renderers/MultipleChoiceStepRenderer.tsx');
 

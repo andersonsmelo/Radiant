@@ -80,8 +80,9 @@ do corte inicial estão entregues. O lote original de mídia também está
 autorizado. Em 2026-08-09 entrou um plano transversal para checkpoints e loops;
 as Ondas 1–3 estão concluídas: governança, fundação transacional isolada e
 adaptadores nas 12 superfícies em `shadow`, sem efeito de navegação ou
-pedagogia. A próxima entrega é a **Onda 4, runtime ativo somente interno**. A
-Task 12 educacional vem depois desse runtime.
+pedagogia. A **Onda 4 está implementada localmente**, com runtime ativo somente
+interno, mas ainda depende do gate de build/aparelho/perfil. A Task 12
+educacional vem depois desse gate, não apenas depois do código.
 
 Dois pontos que a ordem do plano esconde e que importam para quem for pegar a
 frente:

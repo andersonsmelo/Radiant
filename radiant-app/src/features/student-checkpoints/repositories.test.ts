@@ -29,6 +29,24 @@ describe('student checkpoint repositories', () => {
         expect(envelope.resumableFlowId).toBe('flow-two');
     });
 
+    it('returns only the checkpoint that owns the single global resumable flow', async () => {
+        const storage = new MemoryKeyValueStorage();
+        const store = CheckpointStore.active(storage, () => FIXED_NOW);
+        await store.saveCheckpoint(checkpoint({ checkpointId: 'checkpoint-lesson', flowId: 'lesson:block-1' }));
+        await store.saveCheckpoint(checkpoint({
+            checkpointId: 'checkpoint-review',
+            flowId: 'review-session-v1',
+            surface: 'review',
+            lessonId: undefined,
+            reviewCardId: 'review-card-1',
+        }));
+
+        await expect(store.getGlobalResumeCandidate()).resolves.toMatchObject({
+            checkpointId: 'checkpoint-review',
+            flowId: 'review-session-v1',
+        });
+    });
+
     it('expires only old transition history while retaining confirmed checkpoints and outbox events without TTL', async () => {
         const storage = new MemoryKeyValueStorage();
         const store = CheckpointStore.active(storage, () => FIXED_NOW);

@@ -1157,9 +1157,10 @@ execução:
 Em 2026-08-09 a revisão do workflow do aluno aprovou um plano transversal:
 [`design`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)
 e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
-A governança, a fundação isolada em `off` e os adaptadores nas 12 superfícies
-em `shadow` foram entregues; retomada ativa, Task 12 educacional de checkpoint,
-painel e sync continuam não implementados.
+A governança, a fundação isolada em `off`, os adaptadores nas 12 superfícies em
+`shadow` e a implementação local da retomada `active` interna foram entregues.
+O gate de build/aparelho/perfil da retomada, a Task 12 educacional de checkpoint,
+o painel e o sync continuam pendentes.
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
@@ -1203,7 +1204,9 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0]** Runtime ativo somente interno, com CTA e fallback canônico.
+- **H3 [P0 — IMPLEMENTADO LOCALMENTE; GATE INTERNO PENDENTE]** Runtime ativo
+  somente interno, com CTA e fallback canônico. Falta executar build/perfil em
+  aparelho, 20 amostras, p95, kill/relaunch e VoiceOver/TalkBack antes de fechar.
 - **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
   kernel; depois devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do

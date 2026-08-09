@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LearningActivityV2, LearningStepV2 } from '../../../types/learningActivity';
 import {
     isCompleteInteractionValue,
@@ -42,8 +42,9 @@ export type UseLearningActivity = {
     lastFeedback: LearningActivityFeedback | null;
 };
 
-export function useLearningActivity(activity: LearningActivityV2 | null): UseLearningActivity {
-    const [stepIndex, setStepIndex] = useState(0);
+export function useLearningActivity(activity: LearningActivityV2 | null, initialStepIndex = 0): UseLearningActivity {
+    const [stepIndex, setStepIndex] = useState(() => activity ? Math.max(0, initialStepIndex) : 0);
+    const initialCursorAppliedRef = useRef(activity !== null);
     const [value, setValue] = useState<string | undefined>();
     const [confirmedAnswers, setConfirmedAnswers] = useState<Record<string, boolean>>({});
     const [lastFeedback, setLastFeedback] = useState<LearningActivityFeedback | null>(null);
@@ -53,6 +54,12 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
     const currentStep = steps[stepIndex] ?? null;
     const isLastStep = totalSteps > 0 && stepIndex === totalSteps - 1;
     const progress = totalSteps > 0 ? (stepIndex + 1) / totalSteps : 0;
+
+    useEffect(() => {
+        if (!activity || initialCursorAppliedRef.current) return;
+        initialCursorAppliedRef.current = true;
+        setStepIndex(Math.max(0, Math.min(initialStepIndex, activity.steps.length - 1)));
+    }, [activity, initialStepIndex]);
 
     const canContinue = useMemo(() => {
         if (!currentStep) return false;

@@ -10,6 +10,19 @@ describe('WelcomeFlowScreen', () => {
         expect(screen.getByText('Oi, eu sou o Pixel.')).toBeTruthy();
     });
 
+    it('retoma numa tela compatível somente depois do CTA externo explícito', () => {
+        renderWithProviders(
+            <WelcomeFlowScreen
+                onFinish={jest.fn()}
+                resumeCheckpointId="checkpoint-first-run"
+                resumeCursorId="slide-2"
+            />
+        );
+
+        expect(screen.getByText('Trilha, quiz e revisão.')).toBeTruthy();
+        expect(screen.queryByText('Oi, eu sou o Pixel.')).toBeNull();
+    });
+
     it('avança pelas três telas até o botão Começar', () => {
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
 

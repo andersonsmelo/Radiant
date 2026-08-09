@@ -11,5 +11,22 @@ export default function CheckpointRoute() {
         ? String(params.nodeId[0] ?? '').trim() || undefined
         : undefined;
 
-  return <CheckpointScreen nodeId={nodeId} />;
+  const resumeCheckpointId = typeof params.resumeCheckpointId === 'string'
+    ? params.resumeCheckpointId
+    : Array.isArray(params.resumeCheckpointId)
+      ? String(params.resumeCheckpointId[0] ?? '').trim() || undefined
+      : undefined;
+  const resumeCursorId = typeof params.resumeCursorId === 'string'
+    ? params.resumeCursorId
+    : Array.isArray(params.resumeCursorId)
+      ? String(params.resumeCursorId[0] ?? '').trim() || undefined
+      : undefined;
+
+  return (
+    <CheckpointScreen
+      nodeId={nodeId}
+      resumeCheckpointId={resumeCheckpointId}
+      resumeCursorId={resumeCursorId}
+    />
+  );
 }

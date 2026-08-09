@@ -138,7 +138,7 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
    focada passou com **7/7 suítes e 89/89 testes**; não houve mudança adicional
    de código.
 
-## Checkpoints e loops do aluno: governança, fundação e shadow
+## Checkpoints e loops do aluno: governança, fundação, shadow e active interno
 
 Em 2026-08-09 o dono aprovou a arquitetura transversal de checkpoints nas telas
 principais e de dois loops conectados — pedagógico e editorial. A **Onda 1 foi
@@ -177,7 +177,20 @@ diante de override. A decisão shadow nunca chega ao router nem aos serviços de
 progresso, XP, desbloqueio, recomendação ou pedagogia. Storage indisponível,
 deep link inválido e catálogo alterado degradam sem interromper o legado.
 
-A ordem técnica agora é: ativo interno → Task 12 educacional →
+**Onda 4 implementada localmente em `active` interno:** o profile dedicado
+`checkpoint-internal` resolve `development+active` em iOS e Android, enquanto
+produção permanece forçada em `off`, `preview` em `shadow` e sync remoto
+desligado. A retomada global só navega depois do CTA explícito e está limitada à
+apresentação, Lição, Revisão e checkpoint de unidade. Incompatibilidade volta à
+Home com mensagem segura e invalida apenas na segunda falha. As autoridades
+legadas continuam decidindo progresso, XP, desbloqueio, revisão e jornada.
+
+O gate operacional da Onda 4 continua aberto: não houve build interno nem
+aparelho/emulador disponível para as 20 execuções, p95, kill/relaunch real,
+VoiceOver/TalkBack e viewport curto. Implementação local verde não promove H3 a
+concluída e não autoriza iniciar a Task 12.
+
+A ordem técnica agora é: fechar o gate de dispositivo do ativo interno → Task 12 educacional →
 Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local. Expansão depende
 desse beta; sync remoto é uma trilha separada, bloqueada por carga/soak,
 API/auth, conflitos e sink verificado.
@@ -286,6 +299,27 @@ Evidência detalhada:
 Não houve promoção para `active`, CTA de retomada, Task 12, sync remoto, build,
 OTA, binário, mudança de `1.3.1 (7)` ou publicação. O status público do run é a
 autoridade para validação e fechamento finais.
+
+### Evidência da Onda 4 — implementação local
+
+O run `run-1786316805406-810b7633` declarou os 38 caminhos possíveis antes da
+primeira edição. A entrega tocou somente o subconjunto necessário e foi
+validada com TDD vermelho, **11 suítes/98 testes** focados, **10 suítes/102
+testes** do módulo e `npm run quality` completo: **77 suítes/523 testes**,
+typecheck, contratos estáticos e Visual QA sem regressões. O profile interno foi
+resolvido pelo EAS CLI nos dois sistemas com `development+active`, distribuição
+interna e sync remoto `false`.
+
+O contrato Maestro novo cobre retomada offline explícita, mas não foi executado:
+não havia simulador iOS inicializado nem `adb`. Permanecem pendentes o build
+interno autorizado pelo dono, mínimo de 20 execuções no mesmo aparelho/perfil,
+persistência p95 ≤75 ms, restauração p95 ≤100 ms, delta de cold start,
+VoiceOver/TalkBack e viewport curto. Evidência detalhada:
+[`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
+
+Não houve Task 12, sync remoto, build, OTA, binário, push, mudança de `1.3.1
+(7)` ou publicação. O status público do run Loop é a autoridade para validação
+e fechamento finais.
 
 ## Documentação viva reconciliada
 

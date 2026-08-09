@@ -11,6 +11,7 @@ import {
     STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
     useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
+import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 
 const FIRST_RUN_CURSOR_IDS = ['slide-1', 'slide-2', 'slide-3'];
 
@@ -55,10 +56,22 @@ const SLIDES: SlideSpec[] = [
 interface WelcomeFlowScreenProps {
     onFinish: (reason: FirstRunExitReason, step: number) => void;
     onStepViewed?: (step: number) => void;
+    resumeCheckpointId?: string;
+    resumeCursorId?: string;
+    onResumeFallback?: () => void;
 }
 
-export default function WelcomeFlowScreen({ onFinish, onStepViewed }: WelcomeFlowScreenProps) {
-    const [index, setIndex] = useState(0);
+export default function WelcomeFlowScreen({
+    onFinish,
+    onStepViewed,
+    resumeCheckpointId,
+    resumeCursorId,
+    onResumeFallback,
+}: WelcomeFlowScreenProps) {
+    const [index, setIndex] = useState(() => {
+        const restoredIndex = resumeCursorId ? FIRST_RUN_CURSOR_IDS.indexOf(resumeCursorId) : -1;
+        return restoredIndex >= 0 ? restoredIndex : 0;
+    });
     const step = index + 1;
     const slide = SLIDES[index];
     const isLast = index === SLIDES.length - 1;
@@ -74,12 +87,26 @@ export default function WelcomeFlowScreen({ onFinish, onStepViewed }: WelcomeFlo
         totalStepCount: SLIDES.length,
     });
 
+    const activeCheckpoint = useActiveCheckpoint({
+        surface: 'first-run',
+        flowId: 'first-run-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: FIRST_RUN_CURSOR_IDS[index],
+        compatibleCursorIds: FIRST_RUN_CURSOR_IDS,
+        progressPercent: Math.round((index / SLIDES.length) * 100),
+        completedStepCount: index,
+        totalStepCount: SLIDES.length,
+        resumeCheckpointId,
+        onRestoreFallback: onResumeFallback,
+    });
+
     useEffect(() => {
         onStepViewed?.(step);
     }, [step, onStepViewed]);
 
     const handleAdvance = () => {
         if (isLast) {
+            void activeCheckpoint.finish();
             onFinish('completed', step);
             return;
         }
@@ -90,7 +117,10 @@ export default function WelcomeFlowScreen({ onFinish, onStepViewed }: WelcomeFlo
         <SafeAreaView style={styles.screen}>
             <View style={styles.header}>
                 <Pressable
-                    onPress={() => onFinish('skipped', step)}
+                    onPress={() => {
+                        void activeCheckpoint.finish();
+                        onFinish('skipped', step);
+                    }}
                     accessibilityRole="button"
                     accessibilityLabel="Pular apresentação"
                     hitSlop={{ top: 12, bottom: 12, left: 16, right: 16 }}

@@ -122,6 +122,13 @@ export class CheckpointStore {
         return current;
     }
 
+    async getGlobalResumeCandidate(): Promise<StudentCheckpointV1 | null> {
+        const envelope = await this.load();
+        if (!envelope.resumableFlowId) return null;
+        return Object.values(envelope.currentBySurface)
+            .find((entry) => entry?.flowId === envelope.resumableFlowId) ?? null;
+    }
+
     async getCheckpointById(checkpointId: string): Promise<StudentCheckpointV1 | null> {
         const envelope = await this.load();
         return Object.values(envelope.currentBySurface).find((entry) => entry?.checkpointId === checkpointId)

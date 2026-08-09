@@ -13,9 +13,13 @@ export type ReviewItem = {
 
 export type ReviewState = 'loading' | 'start' | 'review' | 'finished';
 
+type UseReviewOptions = {
+    resumeCursorId?: string;
+};
+
 const REVIEW_XP_PER_ITEM = 4;
 
-export function useReview() {
+export function useReview(options: UseReviewOptions = {}) {
     const [state, setState] = useState<ReviewState>('loading');
     const [queue, setQueue] = useState<ReviewItem[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,6 +49,15 @@ export function useReview() {
             });
 
             setQueue(items);
+            if (options.resumeCursorId && options.resumeCursorId !== 'review-start') {
+                const resumeIndex = items.findIndex((item) => item.question.id === options.resumeCursorId);
+                if (resumeIndex >= 0) {
+                    setCurrentIndex(resumeIndex);
+                    TelemetryService.startTimer('review');
+                    setState('review');
+                    return;
+                }
+            }
             setState('start');
         } catch (error) {
             console.error('Error loading reviews:', error);

@@ -11,6 +11,7 @@ import { SyncQueueService } from '../sync/SyncQueueService';
 import { TelemetryService } from '../telemetry/TelemetryService';
 import { JourneyProgressService } from '../journey/services/JourneyProgressService';
 import { FirstRunService } from './FirstRunService';
+import type { ActiveResumeLaunch } from '../student-checkpoints/ActiveCheckpointRuntime';
 
 // O primeiro render deste arquivo monta a árvore inteira do _layout (fontes,
 // splash screen, todos os bootstraps). Sob `--no-cache` isso paga o custo
@@ -67,7 +68,18 @@ jest.mock('../telemetry/bootstrap', () => ({
 // módulo de config inteiro (só os dois campos que `_layout.tsx` lê) é o que
 // permite construir os dois estados de propósito.
 jest.mock('../../config', () => ({
-  AppConfig: { ENABLE_BETA_GATE: false, SHOW_DEV_TOOLS: true },
+  AppConfig: { APP_ENV: 'development', ENABLE_BETA_GATE: false, SHOW_DEV_TOOLS: true },
+}));
+
+const mockInspectLaunch: jest.Mock<Promise<ActiveResumeLaunch>, []> = jest.fn(
+  () => Promise.resolve({ kind: 'none' }),
+);
+jest.mock('../student-checkpoints/ActiveCheckpointRuntime', () => ({
+  getNativeActiveCheckpointRuntime: jest.fn(() => ({ inspectLaunch: mockInspectLaunch })),
+}));
+
+jest.mock('../student-checkpoints/mode', () => ({
+  resolveStudentCheckpointRuntimeMode: jest.fn(() => 'off'),
 }));
 
 jest.mock('../beta/BetaService', () => ({
@@ -183,6 +195,65 @@ describe('gate de abertura em RootLayout', () => {
     (FirstRunService.markSeen as jest.Mock).mockResolvedValue(undefined);
     (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(snapshotWith(LESSON_NODE));
     (router.replace as jest.Mock).mockImplementation(() => undefined);
+    mockInspectLaunch.mockResolvedValue({ kind: 'none' });
+  });
+
+  it('oferece CTA explícito antes de navegar para uma retomada ativa', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'offer',
+      checkpointId: 'checkpoint-lesson',
+      surface: 'lesson',
+      cursorId: 'step-2',
+      target: {
+        kind: 'route',
+        pathname: '/learn',
+        params: {
+          nodeId: 'node:lesson-1',
+          blockId: 'block:lesson-1:intro',
+          resumeCheckpointId: 'checkpoint-lesson',
+          resumeCursorId: 'step-2',
+        },
+      },
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    const resume = await screen.findByLabelText('Retomar estudo', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    fireEvent.press(resume);
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).toHaveBeenCalledWith({
+      pathname: '/learn',
+      params: {
+        nodeId: 'node:lesson-1',
+        blockId: 'block:lesson-1:intro',
+        resumeCheckpointId: 'checkpoint-lesson',
+        resumeCursorId: 'step-2',
+      },
+    });
+  });
+
+  it('explica o fallback sem linguagem técnica e só abre a Home após o CTA', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'fallback',
+      checkpointId: 'checkpoint-lesson',
+      restoreFailureCount: 1,
+      nextAction: 'home',
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    expect(await screen.findByText('Vamos continuar pela jornada', {}, { timeout: FIRST_RENDER_TIMEOUT_MS })).toBeTruthy();
+    expect(screen.getByText(/Seu progresso confirmado foi preservado/)).toBeTruthy();
+    expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    fireEvent.press(screen.getByLabelText('Ir para a jornada'));
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).not.toHaveBeenCalled();
   });
 
   it('mostra a apresentação de boas-vindas em vez do Stack quando o beta gate está desativado e o primeiro uso ainda não foi visto', async () => {

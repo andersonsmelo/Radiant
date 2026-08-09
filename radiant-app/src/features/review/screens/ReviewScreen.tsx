@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -23,12 +23,20 @@ import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
+import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 
 const SCREEN_MAX_WIDTH = 720;
 const ICON_BUTTON_SIZE = space.s6 + space.s4;
 
-export default function ReviewScreen() {
-  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitRating } = useReview();
+type ReviewScreenProps = {
+  resumeCheckpointId?: string;
+  resumeCursorId?: string;
+};
+
+export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
+  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitRating } = useReview({
+    resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
+  });
   const fadeAnim = useFadeInUp(duration.ui);
   const [showPushOptIn, setShowPushOptIn] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
@@ -93,6 +101,31 @@ export default function ReviewScreen() {
     totalStepCount: Math.max(totalItems, 1),
     reviewCardId: currentItem?.question.id,
   });
+  const handleRestoreFallback = React.useCallback(() => {
+    Alert.alert(
+      'Vamos continuar pela jornada',
+      'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
+    );
+    router.replace('/(tabs)');
+  }, []);
+  const activeCheckpoint = useActiveCheckpoint({
+    surface: 'review',
+    flowId: 'review-session-v1',
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: reviewCursorId,
+    compatibleCursorIds: ['review-start', ...queue.map((item) => item.question.id)],
+    progressPercent: Math.round((progressValue / Math.max(totalItems, 1)) * 100),
+    completedStepCount: progressValue,
+    totalStepCount: Math.max(totalItems, 1),
+    reviewCardId: currentItem?.question.id,
+    enabled: !loading,
+    resumeCheckpointId,
+    onRestoreFallback: handleRestoreFallback,
+  });
+
+  useEffect(() => {
+    if (state === 'finished') void activeCheckpoint.finish();
+  }, [activeCheckpoint, state]);
 
   if (loading) {
     return (

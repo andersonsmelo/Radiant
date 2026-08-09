@@ -129,17 +129,26 @@ app. Run Loop: `run-1786314104218-908d111b`.
 
 ## AGENTE — Onda 4: runtime ativo somente interno
 
-**Estado:** próxima entrega técnica; não iniciada. **Bloqueio:** nenhum para
-implementação local. **Dono:** agente.
+**Estado:** implementação local concluída; gate de dispositivo/perfil ainda
+aberto. **Bloqueio:** build interno e aparelho/perfil para medição. **Dono:**
+dono autoriza/aciona o build; agente executa a matriz quando o binário existir.
 
 Promover `active` somente em build interna para apresentação, Lição, Revisão e
 checkpoint de unidade. Entregar CTA explícito de retomada, nunca redirect
 automático, e fallback canônico para Home quando catálogo, cursor ou rota forem
 incompatíveis.
 
-Produção permanece `off`; Task 12, sync remoto, build/OTA e publicação continuam
-fora desta onda. O gate exige restauração determinística sem deslocar nenhuma
-autoridade legada.
+O profile `checkpoint-internal` e o flow Maestro de kill/relaunch offline estão
+versionados. Matriz local: **11 suítes/98 testes**; módulo: **10 suítes/102
+testes**; quality completa: **77 suítes/523 testes**. O EAS CLI resolveu o
+profile em iOS e Android como `development+active`, distribuição interna e sync
+remoto `false`.
+
+Próxima ação executável depois do build interno: rodar no mesmo aparelho/perfil
+o flow `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
+execuções e fechar p95 de persistência/restauração/cold start, VoiceOver,
+TalkBack e viewport curto. Produção permanece `off`; Task 12, sync remoto,
+build/OTA de produção e publicação continuam fora desta onda.
 
 ---
 

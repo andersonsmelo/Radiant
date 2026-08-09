@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { AccessibilityInfo, ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -25,13 +25,16 @@ import {
     STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
     useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
+import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 
 type LessonFlowScreenProps = {
     blockId: string;
     nodeId: string;
+    resumeCheckpointId?: string;
+    resumeCursorId?: string;
 };
 
-export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenProps) {
+export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, resumeCursorId }: LessonFlowScreenProps) {
     const [block, setBlock] = useState<LessonBlock | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -41,7 +44,19 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
     // Trocar o que o outcome recebe seria mexer no caminho que paga XP e agenda
     // revisão, e essa mudança não pertence a uma task de desacoplamento de UI.
     const activity = useMemo(() => (block ? adaptLegacyBlock(block) : null), [block]);
-    const player = useLearningActivity(activity);
+    const resumeStepIndex = useMemo(() => {
+        if (!block || !resumeCursorId) return 0;
+        const match = /^step-(\d+)$/.exec(resumeCursorId);
+        if (!match) return 0;
+        const requestedIndex = Number(match[1]) - 1;
+        const interactionIndex = block.steps.findIndex((definition) => definition.step.type === 'multiple-choice');
+        // Respostas não entram no checkpoint. Se o cursor já passou pela única
+        // interação ainda não commitada, refazemos essa interação em vez de
+        // inventar um outcome ou registrar a ausência como erro.
+        const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
+        return Math.max(0, Math.min(privacySafeIndex, block.steps.length - 1));
+    }, [block, resumeCursorId]);
+    const player = useLearningActivity(activity, resumeStepIndex);
 
     useEffect(() => {
         let alive = true;
@@ -106,6 +121,28 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         lessonId: block?.lessonId,
         journeyNodeId: nodeId,
         enabled: Boolean(block && currentStep),
+    });
+    const handleRestoreFallback = useCallback(() => {
+        Alert.alert(
+            'Vamos continuar pela jornada',
+            'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
+        );
+        router.replace('/(tabs)');
+    }, []);
+    const activeCheckpoint = useActiveCheckpoint({
+        surface: 'lesson',
+        flowId: `lesson:${blockId}`,
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: `step-${stepIndex + 1}`,
+        compatibleCursorIds: shadowCursorIds,
+        progressPercent: Math.max(0, Math.min(100, Math.round(progress * 100))),
+        completedStepCount: Math.min(stepIndex, Math.max(totalSteps, 0)),
+        totalStepCount: Math.max(totalSteps, 1),
+        lessonId: block?.lessonId,
+        journeyNodeId: nodeId,
+        enabled: Boolean(block && currentStep),
+        resumeCheckpointId,
+        onRestoreFallback: handleRestoreFallback,
     });
     const lessonTitle = useMemo(() => {
         if (!block) {
@@ -195,6 +232,7 @@ export default function LessonFlowScreen({ blockId, nodeId }: LessonFlowScreenPr
         await JourneyProgressService.markNodeCompleted(nodeId);
         await JourneyProgressService.setCurrentNode(null);
         await JourneyProgressService.setResumableNode(undefined);
+        await activeCheckpoint.finish();
         router.replace('/(tabs)');
     };
 

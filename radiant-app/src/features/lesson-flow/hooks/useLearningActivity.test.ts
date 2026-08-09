@@ -70,6 +70,14 @@ describe('useLearningActivity — navegação', () => {
         expect(result.current.canContinue).toBe(false);
         expect(result.current.confirm()).toEqual({});
     });
+
+    it('retoma no cursor privacy-safe sem inventar respostas anteriores', () => {
+        const { result } = renderHook(() => useLearningActivity(padrao(), 1));
+
+        expect(result.current.stepIndex).toBe(1);
+        expect(result.current.currentStep).toMatchObject({ kind: 'interaction' });
+        expect(result.current.confirmedAnswers).toEqual({});
+    });
 });
 
 describe('useLearningActivity — não avança sem evidência válida', () => {
