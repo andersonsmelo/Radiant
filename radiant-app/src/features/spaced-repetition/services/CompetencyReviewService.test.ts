@@ -44,13 +44,17 @@ describe('CompetencyReviewService', () => {
     });
 
     it('ordena as vencidas por recuperabilidade crescente', async () => {
-        await CompetencyReviewService.observeExposure({
-            competencyId: 'competency:antiga', grade: ACERTO,
-            criticalSafety: false, now: '2026-01-01T00:00:00.000Z',
-        });
+        // Inserida em ordem invertida de propósito: Object.values preserva a
+        // ordem de inserção, então inserir "recente" antes de "antiga" garante
+        // que só um .sort() real — e não a ordem de chegada — pode produzir o
+        // resultado afirmado abaixo.
         await CompetencyReviewService.observeExposure({
             competencyId: 'competency:recente', grade: ACERTO,
             criticalSafety: false, now: '2026-05-01T00:00:00.000Z',
+        });
+        await CompetencyReviewService.observeExposure({
+            competencyId: 'competency:antiga', grade: ACERTO,
+            criticalSafety: false, now: '2026-01-01T00:00:00.000Z',
         });
 
         const vencidas = await CompetencyReviewService.getDue('2026-06-01T00:00:00.000Z', SEM_CRITICO);
@@ -121,6 +125,10 @@ describe('CompetencyReviewService', () => {
         expect(await CompetencyReviewService.getDue('2026-01-01T00:00:00.000Z', SEM_CRITICO)).toEqual([]);
         expect(await AsyncStorage.getItem(COMPETENCY_REVIEW_STORAGE_KEYS.QUARANTINE))
             .toBe('{ isto nao e json');
+        // Sem isto, apagar o removeItem da store deixaria o lixo para trás, e
+        // toda leitura seguinte re-quarentenaria a mesma string em vez de
+        // recomeçar limpo.
+        expect(await AsyncStorage.getItem(COMPETENCY_REVIEW_STORAGE_KEYS.STORE)).toBeNull();
     });
 
     it('lê como vazio e recusa escrever sobre schema mais novo', async () => {
