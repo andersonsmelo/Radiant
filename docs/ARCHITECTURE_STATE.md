@@ -42,7 +42,7 @@ antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
 depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
 de lição fixo, e falha ou nó não navegável degrada para Home.
 
-## Kernel de checkpoints aprovado — ainda não implementado
+## Kernel de checkpoints — fundação em `off` implementada
 
 Em 2026-08-09 foi aprovado o desenho de um kernel central para registrar e
 retomar as telas principais da jornada. Ele não substitui os serviços acima:
@@ -55,8 +55,14 @@ Cada operação nasce junto de uma intenção imutável de replay no mesmo regis
 serializado; cada serviço persiste o recibo de idempotência atomicamente com o
 efeito antes de a saga marcar a etapa como concluída.
 O loop pedagógico será ligado a um loop editorial com revisões humanas clínica,
-de direitos e de acessibilidade independentes. Produção permanece `off` e
-nenhum código, store, endpoint ou comportamento desse desenho existe ainda.
+de direitos e de acessibilidade independentes.
+
+Em 2026-08-09 a Onda 2 criou o módulo isolado
+`radiant-app/src/features/student-checkpoints/`: contratos/schemas fechados,
+stores ativo/shadow, quarentena, coordenadores, journal recuperável, sete
+autoridades transacionais e outbox auxiliar. Nenhum adaptador foi conectado às
+telas ou aos serviços legados; produção permanece `off`, rotas/progresso/XP não
+mudaram e sync remoto continua inexistente.
 
 Ordem normativa: governança → fundação transacional → shadow → runtime interno
 → Task 12 educacional → Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local/offline
@@ -108,8 +114,8 @@ conveniência e decai):
   `case-decision` permanecem para ondas futuras;
 - guarda de ativação do agendador: **concluída** — competência sintética legada
   falha fechada; leitura curricular continua aguardando conteúdo v2;
-- kernel de checkpoints e commit recuperável: **design aprovado; código não
-  iniciado**;
+- kernel de checkpoints e commit recuperável: **fundação isolada em `off`
+  concluída**; telas e serviços legados ainda desconectados;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 

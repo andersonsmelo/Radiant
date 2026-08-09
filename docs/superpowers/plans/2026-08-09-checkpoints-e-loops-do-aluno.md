@@ -1,7 +1,7 @@
 # Kernel de checkpoints e loops do aluno — Plano de implementação
 
 **Data:** 2026-08-09  
-**Status:** aprovado; Onda 1 documentada, implementação de código não iniciada  
+**Status:** Onda 2 concluída em `off`; Onda 3 shadow ainda não iniciada
 **Spec:**
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](../specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)  
 **ADR:**
@@ -33,6 +33,16 @@ Gate: links e contratos documentais verdes. Nenhum código ou comportamento do
 app muda nesta onda.
 
 ## Onda 2 — Fundação transacional em `off`
+
+**Estado em 2026-08-09:** concluída como kernel isolado e desconectado.
+Contratos, stores, quarentena, coordenadores, journal, recibos por autoridade e
+outbox auxiliar estão implementados. Nenhum adaptador foi ligado às telas ou
+aos serviços legados; essa integração continua nas Ondas 3–4.
+
+Evidência local: TDD vermelho antes dos módulos, depois **5 suítes/58 testes
+focados**, lint e typecheck verdes e suíte completa do app com **71 suítes/472
+testes**. O run Loop é `run-1786311202497-fd99173e`; seu status público é a
+autoridade para validação e fechamento finais.
 
 ### 2.1 Contratos e validação
 

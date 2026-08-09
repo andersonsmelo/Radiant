@@ -138,7 +138,7 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
    focada passou com **7/7 suítes e 89/89 testes**; não houve mudança adicional
    de código.
 
-## Design aprovado: checkpoints e loops do aluno
+## Checkpoints e loops do aluno: governança e fundação em `off`
 
 Em 2026-08-09 o dono aprovou a arquitetura transversal de checkpoints nas telas
 principais e de dois loops conectados — pedagógico e editorial. A **Onda 1 foi
@@ -161,11 +161,18 @@ Decisões fechadas:
   acessibilidade;
 - nenhum OTA ou binário é autorizado sobre `1.3.1 (7)` em revisão.
 
-**Importante:** nenhum código, store, endpoint, painel, retomada ou mudança de
-runtime foi implementado neste marco. A ordem técnica agora é: fundação em
-`off` → shadow → ativo interno → Task 12 educacional → Galáxia/pipeline/Unidade 1 →
-outbox e beta pedagógico local. Expansão depende desse beta; sync remoto é uma
-trilha separada, bloqueada por carga/soak, API/auth, conflitos e sink verificado.
+**Onda 2 concluída em `off`:** o módulo isolado
+`radiant-app/src/features/student-checkpoints/` agora contém contratos e
+schemas fechados, stores ativo/shadow, quarentena, coordenadores, journal
+recuperável, sete autoridades transacionais e outbox auxiliar. Nenhum adaptador
+foi conectado às telas, rotas ou serviços legados; portanto produção continua
+`off` e não houve mudança observável em progresso, XP, desbloqueio,
+recomendação ou navegação.
+
+A ordem técnica agora é: shadow → ativo interno → Task 12 educacional →
+Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local. Expansão depende
+desse beta; sync remoto é uma trilha separada, bloqueada por carga/soak,
+API/auth, conflitos e sink verificado.
 
 Documentos:
 
@@ -205,12 +212,13 @@ O terceiro fechamento de contratos foi executado pelo run
 - `RUN_CLOSED`.
 
 A reconciliação arquitetural final pertence ao run
-`run-1786309389781-10028930`. Enquanto ele estiver em andamento, seus arquivos
-dinâmicos
-`.loop/runs/run-1786309389781-10028930/state.json` e
-`.loop/runs/run-1786309389781-10028930/events.jsonl` são a autoridade para
-estado, validação e evidências finais. Este documento não antecipa fingerprint
-de memória nem afirma fechamento antes desses eventos existirem.
+`run-1786309389781-10028930`:
+
+- `VALIDATION_PASSED` com **13 validadores**;
+- `STEP_SUCCEEDED` sem mudança fora dos 13 documentos declarados;
+- `MEMORY_WRITTEN`, fingerprint
+  `852298cecda96587ab83976f459ca24a97117d156bcb7af9c88ad2cf393ac268`;
+- `RUN_CLOSED`.
 
 O primeiro run declarou 11 documentos; o segundo acrescentou e reconciliou o
 README e a emenda do plano educacional original. Os três runs fechados e o run
@@ -218,9 +226,33 @@ final acima abrangem os **13 documentos atuais** desta governança. As evidênci
 são cumulativas: cada reconciliação preserva as anteriores e registra sua
 própria validação no journal do Loop.
 
-Essa evidência conjunta valida a governança documental. Não valida implementação de
-kernel, endpoint, painel ou sync e não inclui código, commit, push, OTA, build ou
-publicação.
+Essa evidência conjunta valida a governança documental. O commit documental
+intencional é `41ce9b7`; não houve push.
+
+### Evidência da Onda 2
+
+O run `run-1786311202497-fd99173e` declarou os 24 caminhos de código,
+evidência e documentação antes de editar. A validação local executada antes do
+fechamento foi:
+
+- TDD vermelho inicial: cinco suítes falharam porque os módulos de produção
+  ainda não existiam;
+- Jest focado: **5 suítes/58 testes**;
+- lint focado e `tsc --noEmit`: exit 0, sem warnings;
+- Jest completo do app: **71 suítes/472 testes**;
+- crash injection antes/depois das sete autoridades, antes/depois da outbox e
+  retry explícito depois da 20ª falha;
+- `off` com bytes legados idênticos e zero leitura/escrita/relógio/id/efeito do
+  kernel.
+
+Os intervalos testados demonstram deduplicação e retomada nesses limites; não
+são alegação irrestrita de “exactly once”. O status público do run Loop é a
+autoridade para `VALIDATION_PASSED`, `STEP_SUCCEEDED`, memória e fechamento
+finais. Evidência detalhada:
+[`2026-08-09-wave-2-student-checkpoint-foundation.md`](../radiant-app/docs/evidence/2026-08-09-wave-2-student-checkpoint-foundation.md).
+
+Não houve integração com telas, Task 12, sync remoto, build, OTA, binário,
+mudança de `1.3.1 (7)` ou publicação.
 
 ## Documentação viva reconciliada
 
@@ -263,5 +295,5 @@ API pública, que permanece em HTTP 502.
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-3. Executar a fundação transacional em `off` → shadow → runtime interno → Task
-   12 → conteúdo v2/ativação segura do agendador → Galáxia e pipeline.
+3. Executar adaptadores em shadow → runtime interno → Task 12 → conteúdo
+   v2/ativação segura do agendador → Galáxia e pipeline.

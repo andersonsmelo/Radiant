@@ -1157,8 +1157,9 @@ execução:
 Em 2026-08-09 a revisão do workflow do aluno aprovou um plano transversal:
 [`design`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)
 e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
-Somente a governança foi entregue; kernel, stores, retomada, Task 12
-educacional de checkpoint, painel e sync continuam não implementados.
+A governança e a fundação isolada em `off` foram entregues; adaptadores em
+shadow, retomada ativa, Task 12 educacional de checkpoint, painel e sync
+continuam não implementados.
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
@@ -1195,9 +1196,10 @@ entrega a fundação que aqueles itens passam a consumir.
 
 - **H0 [CONCLUÍDA EM 2026-08-09 — SOMENTE GOVERNANÇA]** Spec, plano, ADR,
   contrato de privacidade e runbook versionados; nenhum runtime implementado.
-- **H1 [P0]** Fundação transacional em `off`, stores isolados, journal atômico
-  com operação+intenção imutável, recibos idempotentes junto de cada efeito e
-  crash recovery.
+- **H1 [CONCLUÍDA EM 2026-08-09 — RUNTIME DESCONECTADO]** Fundação
+  transacional em `off`, stores isolados, journal atômico com operação+intenção
+  imutável, recibos junto de cada efeito e recuperação testada nos intervalos de
+  crash enumerados. Nenhuma tela ou autoridade legada foi conectada.
 - **H2 [P0]** Adaptadores em shadow, sem efeitos de navegação ou pedagogia.
 - **H3 [P0]** Runtime ativo somente interno, com CTA e fallback canônico.
 - **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo

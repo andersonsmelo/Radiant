@@ -85,26 +85,45 @@ Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
 
 ---
 
-## AGENTE — Onda 2: fundação transacional do kernel de checkpoints
+## HISTÓRICO — Onda 2 concluída em 2026-08-09
 
-**Estado:** próxima entrega técnica; design aprovado e Onda 1 documental
-concluída em 2026-08-09. **Bloqueio:** nenhum para contratos, stores e testes
-locais. **Dono:** agente.
+**Estado:** concluída como fundação isolada em `off`. **Bloqueio:** nenhum.
+**Dono:** agente.
 
-Criar o módulo `student-checkpoints` em modo `off`: schemas, store ativo e
-shadow separados, coordenador, adaptadores ainda desconectados e
+O módulo `student-checkpoints` entrega schemas, store ativo e shadow separados,
+coordenador, adaptadores ainda desconectados e
 `CommitOperationV1 + CommitIntentV1` persistidos juntos antes dos efeitos. Cada
-serviço deve gravar o recibo de `operationId` atomicamente com o efeito; crash
-injection cobre antes do efeito e depois de efeito+recibo/antes do marcador da
-saga. Com `off`, progresso, XP, desbloqueio e recomendação devem permanecer
-equivalentes ao baseline.
+autoridade isolada grava o recibo de `operationId` no mesmo registro do efeito;
+crash injection cobre antes do efeito e depois de efeito+recibo/antes do
+marcador da saga. Com `off`, o teste prova zero leitura/escrita do kernel e a
+suíte completa do app permanece verde.
 
 Cobrir os três intents fechados — lição, review e checkpoint —, sete autoridades
 separadas e pausa durável após 20 retries automáticos, com retry explícito por
 época sem cancelar efeito anterior.
 
+Evidência: **5 suítes/58 testes focados**, lint, typecheck e **71 suítes/472
+testes** do app. Run Loop: `run-1786311202497-fd99173e`.
+
 Fonte normativa:
 [`2026-08-09-checkpoints-e-loops-do-aluno.md`](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
+
+---
+
+## AGENTE — Onda 3: adaptadores em shadow
+
+**Estado:** próxima entrega técnica; não iniciada. **Bloqueio:** nenhum para
+implementação local. **Dono:** agente.
+
+Conectar adaptadores em todas as superfícies usando store shadow isolado, com
+`preview=shadow` e `production=off`. Nenhuma decisão shadow pode alimentar
+navegação, progresso, XP, desbloqueio, recomendação ou serviço pedagógico. A
+entrega precisa medir divergência apenas por ids/códigos allowlisted e preservar
+as filas e autoridades legadas.
+
+Não promover para `active`, não iniciar Task 12 e não publicar build/OTA nesta
+onda. O gate continua sendo shadow determinístico, sem impacto observável e sem
+payload proibido.
 
 ---
 
