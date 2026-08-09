@@ -28,19 +28,20 @@ Evidência executada em 2026-08-09:
 
 - `startup-gate.flow.test.tsx`: **14/14**;
 - contrato estático do Maestro: **19/19**;
-- `first-run.yaml`: **1/1 passed no simulador iOS 26.5**, sobre build local
-  Release, exigindo a cópia de contexto derivada da primeira lição real depois
-  de **Começar**.
+- `first-run.yaml`: **1/1 passed no simulador iOS 26.5 e 1/1 passed no emulador
+  Android API 36**, sobre builds locais Release, exigindo a cópia de contexto
+  derivada da primeira lição real depois de **Começar**.
 
-**Ressalva obrigatória:** a última matriz Android é de 2026-08-03 e antecede
-esta mudança. O YAML atualizado ainda precisa ser executado no Android; o passe
-iOS não promove a outra plataforma nem os demais flows da matriz.
+**Ressalva obrigatória:** somente o flow de primeira vitória foi reexecutado em
+2026-08-09. Os passes não promovem os demais flows da matriz de 2026-08-03 nem
+aparelhos físicos.
 
 Design e execução:
 
 - [`2026-08-09-primeira-vitoria-design.md`](superpowers/specs/2026-08-09-primeira-vitoria-design.md)
 - [`2026-08-09-primeira-vitoria.md`](plans/2026-08-09-primeira-vitoria.md)
 - [`2026-08-09-primeira-vitoria-ios.md`](../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+- [`2026-08-09-primeira-vitoria-android.md`](../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md)
 
 ## Lojas
 
@@ -110,9 +111,8 @@ nenhum agente deve contorná-la.
 
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
-2. Reexecutar o `first-run.yaml` atualizado no Android; o iOS já está `passed`.
-3. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-4. Resolver direitos do lote de mídia; só depois retomar Task 10 → conteúdo v2
+2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
+3. Resolver direitos do lote de mídia; só depois retomar Task 10 → conteúdo v2
    → ativação segura do agendador → Task 12.
-5. Se o agendador for tocado antes disso, corrigir primeiro a aceitação de
+4. Se o agendador for tocado antes disso, corrigir primeiro a aceitação de
    `NaN` e cobrir a quarentena/recuperação.

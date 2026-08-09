@@ -648,10 +648,12 @@ código.
   falha ou nó não navegável degrada para Home e toque duplo é ignorado. A suíte
   do gate passou **14/14** e o contrato Maestro passou **19/19**. O
   `first-run.yaml` atualizado afirma a cópia de contexto derivada do catálogo e
-  passou **1/1 no iOS 26.5**, em build local Release, em 2026-08-09. O lado
-  Android continua pendente porque a matriz de 2026-08-03 antecede a mudança.
-  Evidência em
-  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md).
+  passou **1/1 no iOS 26.5 e 1/1 no Android API 36**, em builds locais Release,
+  em 2026-08-09. O Android usou a configuração de produção; os demais flows
+  continuam ancorados na matriz de 2026-08-03. Evidências em
+  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+  e
+  [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md).
   Design em
   [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
   e plano em

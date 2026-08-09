@@ -219,9 +219,13 @@ body from `defaultBlocks.ts` and requires `first-run.yaml` to assert it after
 "Começar". The startup flow suite covers first lesson, due review, persistence
 ordering, double tap, and safe Home fallback. On 2026-08-09 the updated
 `first-run.yaml` passed 1/1 on a local Release build in an iOS 26.5 simulator,
-including the catalog-derived lesson context after "Começar". Android remains
-pending because its latest matrix predates this change. Evidence:
-[`docs/evidence/2026-08-09-primeira-vitoria-ios.md`](evidence/2026-08-09-primeira-vitoria-ios.md).
+including the catalog-derived lesson context after "Começar". The same updated
+flow then passed 1/1 on a production-configured local Release APK in the Android
+API 36 emulator. The other flows remain anchored to the earlier matrix.
+Evidence:
+[`docs/evidence/2026-08-09-primeira-vitoria-ios.md`](evidence/2026-08-09-primeira-vitoria-ios.md)
+and
+[`docs/evidence/2026-08-09-primeira-vitoria-android.md`](evidence/2026-08-09-primeira-vitoria-android.md).
 
 The dev-client verification of 2026-07-28
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))

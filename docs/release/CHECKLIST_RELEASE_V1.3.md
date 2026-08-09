@@ -10,8 +10,8 @@
 > Legenda: ✅ feito · ⏳ pendente · ⛔ bloqueado (dependência externa) ·
 > 🔁 refazer sob perfil de produção.
 
-**Última atualização:** primeira vitória E2E iOS medida em 2026-08-09 + console
-medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
+**Última atualização:** primeira vitória E2E iOS + Android medida em 2026-08-09
+e console medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
 
 > **Por que a marca separa código de console.** A validação datada ancora o que
 > existe no repositório; preço, declarações e estado da App Review não pertencem
@@ -44,9 +44,11 @@ medido em 2026-08-08 às 12:05 BRT · **Alvo:** v1.3.1
   correta da Learning Road ser a home. A investigação achou código morto de
   onboarding, não defeito. Ver B6 no roadmap. **Atualização 2026-08-09:** a
   apresentação aprovada foi preservada, mas "Começar" agora abre o próximo nó
-  elegível; o `first-run.yaml` atualizado passou 1/1 em simulador iOS 26.5 sobre
-  build local Release. Android permanece pendente. Ver
-  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md).
+  elegível; o `first-run.yaml` atualizado passou 1/1 em simulador iOS 26.5 e
+  1/1 em emulador Android API 36 sobre builds locais Release. Ver
+  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+  e
+  [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md).
 
 ## 2. Versionamento e OTA (task D5) — ✅ CONCLUÍDA em 2026-07-28
 
