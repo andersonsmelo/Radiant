@@ -1562,6 +1562,44 @@ git commit -m "feat(review): atividade concluida alimenta o agendador por compet
 
 ---
 
+## Executado em 2026-08-08/09
+
+As seis tasks foram implementadas, revisadas uma a uma, e o conjunto passou por
+revisão final. Commits `1ac9a1e..adb5e63`. A revisão final achou seis defeitos
+que nenhuma revisão por task enxergou — as peças passavam isoladas e mentiam em
+conjunto — e todos foram corrigidos numa onda única.
+
+### O achado que ficou, com a decisão registrada
+
+**`temFormaDeCartao` aceita `NaN` em campo numérico**
+(`radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.ts`),
+porque `typeof NaN === 'number'`. Um cartão persistido com `stability: NaN` passa
+pela validação de forma como legítimo; `scheduleNext` deriva a estabilidade nova
+multiplicativamente da antiga, então o `NaN` se propaga para sempre, e o cartão
+fica preso em `DUE_AT_INDETERMINADO` — nunca vence, não se auto-cura e não vai
+para quarentena.
+
+**Julgado real e deferido, não bloqueante.** Exige `stability` `NaN` já
+persistida, inalcançável pelos fluxos normais com `MemoryParams` bem formado;
+`recordReview` e `getDue` ainda não têm chamador de produção; e a correção é
+local — `Number.isFinite` no lugar de `typeof === 'number'` nos campos numéricos.
+
+É o **primeiro item de quem retomar este subsistema**, e vale antes de a Task 12
+ligar o lado de leitura.
+
+### Duas ressalvas que sobrevivem ao plano
+
+- **A degradação graciosa não tem trava.** O sistema entra desligado porque
+  `getDue` não tem chamador e todas as chamadas a `computeSnapshot` omitem o
+  terceiro parâmetro — não porque algo o impeça. Passar a lista acende o sistema,
+  e com o catálogo de hoje isso recomendaria revisão de competência legada
+  sintética. O texto avisa; nenhum teste impede.
+- **Armadilha de teste encontrada de passagem:** `jest.spyOn` sobre função que já
+  é mock devolve o próprio mock sem registrar restauração, e `mockRestore()`
+  apaga a implementação do mock oficial do AsyncStorage — todo teste posterior lê
+  `undefined`. Foi corrigido aqui; **o mesmo padrão pode existir em outras suítes
+  do repositório**, e não foi varrido.
+
 ## Fora deste plano
 
 - **`weak-competency` emitido de verdade** — Task 12, junto com o reforço adaptativo.
