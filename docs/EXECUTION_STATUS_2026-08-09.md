@@ -126,8 +126,9 @@ falhava no runner, que instala exclusivamente `radiant-api/package-lock.json`.
 A API agora declara o parser diretamente e o fallback entre pacotes foi
 removido. A comprovação local sob Node 20 foi `npm ci`, resolução do parser em
 `radiant-api/node_modules`, `npm run lint`, `npm run build` e `npm run test`
-(13/13). A condição final da branch continua sendo os checks independentes do
-PR; isso não altera o estado da API pública, que permanece em HTTP 502.
+(13/13). O PR #1 então passou nos checks independentes **Radiant API Quality**
+(lint, build e testes) e **Radiant App Quality**. Isso não altera o estado da
+API pública, que permanece em HTTP 502.
 
 ## Outros bloqueios e pendências
 

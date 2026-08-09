@@ -69,8 +69,7 @@ a liberação manual pelo dono.
 
 ## CI da API — correção local concluída em 2026-08-09
 
-**Estado:** correção local concluída; confirmação remota pendente dos checks do
-PR. **Bloqueio:** nenhum. **Dono:** agente.
+**Estado:** concluído em 2026-08-09. **Bloqueio:** nenhum. **Dono:** agente.
 
 O `Radiant API Quality` foi acionado pela alteração de `radiant-api/README.md`
 e revelou uma dependência que já existia: a configuração do ESLint buscava o
@@ -81,8 +80,8 @@ regressão documental e não deve ser ocultado retirando o README do diff.
 O pacote agora declara `@typescript-eslint/parser` nas dependências de
 desenvolvimento e a configuração usa somente essa cópia. Remedição local sob
 Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
-`npm run build` e `npm run test` (**13/13**). Depois do push, a condição de
-fechamento é **Radiant App Quality** e **Radiant API Quality** verdes no PR #1.
+`npm run build` e `npm run test` (**13/13**). O push foi confirmado com
+**Radiant App Quality** e **Radiant API Quality** verdes no PR #1.
 
 ---
 
