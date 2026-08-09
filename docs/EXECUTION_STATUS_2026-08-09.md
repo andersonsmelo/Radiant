@@ -71,8 +71,10 @@ deles reabre a submissão Apple.
 
 Tasks **1–11** estão concluídas. A Task 11 fechou inicialmente fora de ordem
 pelo plano do agendador por competência; com o lote autorizado e a Task 10
-entregue, a próxima task técnica do plano é a **Task 12**, checkpoint e reforço
-adaptativo.
+entregue, a próxima task numerada do plano original é a **Task 12 educacional**, checkpoint
+e reforço adaptativo. O design transversal aprovado mais tarde em 2026-08-09
+insere antes dela fundação transacional, shadow e runtime interno; a ordem
+vigente está na seção **Design aprovado** abaixo.
 
 O dono autorizou explicitamente em **2026-08-09** a produção do primeiro lote
 original e sintético de mídia educacional. O gate de direitos da Task 3/G1 está
@@ -136,6 +138,90 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
    focada passou com **7/7 suítes e 89/89 testes**; não houve mudança adicional
    de código.
 
+## Design aprovado: checkpoints e loops do aluno
+
+Em 2026-08-09 o dono aprovou a arquitetura transversal de checkpoints nas telas
+principais e de dois loops conectados — pedagógico e editorial. A **Onda 1 foi
+somente governança documental**: spec, plano versionado, ADR, contrato de
+privacidade e runbook de rollout/rollback.
+
+Decisões fechadas:
+
+- checkpoint mínimo por tela principal, não por microinteração;
+- kernel central com adaptadores e modos `off | shadow | active`;
+- store shadow separado e produção em `off`;
+- commit local recuperável com operação + intenção imutável na mesma escrita e
+  recibo de idempotência atômico com cada efeito;
+- intents fechados para lição, review e checkpoint; sete autoridades obrigatórias
+  por subconjunto e retry automático pausado na 20ª falha sem perda de estado;
+- telemetria local separada dos fatos `SyncEventV1` aceitos pela outbox;
+- app continua local-first e anônimo; sync futuro fica desligado;
+- Task 12 educacional passa a usar a fundação transacional em vez de transação própria;
+- promoção editorial exige gates humanos independentes de clínica, direitos e
+  acessibilidade;
+- nenhum OTA ou binário é autorizado sobre `1.3.1 (7)` em revisão.
+
+**Importante:** nenhum código, store, endpoint, painel, retomada ou mudança de
+runtime foi implementado neste marco. A ordem técnica agora é: fundação em
+`off` → shadow → ativo interno → Task 12 educacional → Galáxia/pipeline/Unidade 1 →
+outbox e beta pedagógico local. Expansão depende desse beta; sync remoto é uma
+trilha separada, bloqueada por carga/soak, API/auth, conflitos e sink verificado.
+
+Documentos:
+
+- [`spec`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md);
+- [`plano`](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md);
+- [`ADR`](adr/ADR-2026-08-09-kernel-de-checkpoints-e-loops-do-aluno.md);
+- [`privacidade`](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md);
+- [`runbook`](runbooks/student-checkpoint-rollout-rollback.md).
+
+### Evidência Loop da Onda 1
+
+O run `run-1786305869956-bae24030` executou o ciclo completo:
+
+- `VALIDATION_PASSED` com **13 validadores** — contratos documentais, conteúdo,
+  app, API e links do cérebro;
+- `STEP_SUCCEEDED` sem mudança fora dos 11 arquivos declarados;
+- `MEMORY_WRITTEN`, fingerprint
+  `13700470b9ba77d0bd385981ec50ed1e6d8f81af21f5e0fe07b09eb75a5711cd`;
+- `RUN_CLOSED`.
+
+A revisão corretiva foi executada pelo run
+`run-1786307084391-4828fa75`:
+
+- `VALIDATION_PASSED` com **13 validadores**;
+- `STEP_SUCCEEDED`;
+- `MEMORY_WRITTEN`, fingerprint
+  `efab846a4ee9f19b1e39d54fab0dbf73cc662fb1ca5c9fbc5304457de8510100`;
+- `RUN_CLOSED`.
+
+O terceiro fechamento de contratos foi executado pelo run
+`run-1786308284127-f1e7ed86`:
+
+- `VALIDATION_PASSED` com **13 validadores**;
+- `STEP_SUCCEEDED`;
+- `MEMORY_WRITTEN`, fingerprint
+  `b81b5b8e2a21ec27701bb79c6590956bdd5a4d87dd08da4b5c53a0f211a02e89`;
+- `RUN_CLOSED`.
+
+A reconciliação arquitetural final pertence ao run
+`run-1786309389781-10028930`. Enquanto ele estiver em andamento, seus arquivos
+dinâmicos
+`.loop/runs/run-1786309389781-10028930/state.json` e
+`.loop/runs/run-1786309389781-10028930/events.jsonl` são a autoridade para
+estado, validação e evidências finais. Este documento não antecipa fingerprint
+de memória nem afirma fechamento antes desses eventos existirem.
+
+O primeiro run declarou 11 documentos; o segundo acrescentou e reconciliou o
+README e a emenda do plano educacional original. Os três runs fechados e o run
+final acima abrangem os **13 documentos atuais** desta governança. As evidências
+são cumulativas: cada reconciliação preserva as anteriores e registra sua
+própria validação no journal do Loop.
+
+Essa evidência conjunta valida a governança documental. Não valida implementação de
+kernel, endpoint, painel ou sync e não inclui código, commit, push, OTA, build ou
+publicação.
+
 ## Documentação viva reconciliada
 
 READMEs, fluxo do cliente, PRD, arquitetura, roadmaps, fila, checklist, changelog
@@ -177,4 +263,5 @@ API pública, que permanece em HTTP 502.
 1. O dono consulta hoje o App Store Connect; se aprovado, faz a liberação
    manual.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
-3. Executar a Task 12 → conteúdo v2 → ativação segura do agendador → Task 13.
+3. Executar a fundação transacional em `off` → shadow → runtime interno → Task
+   12 → conteúdo v2/ativação segura do agendador → Galáxia e pipeline.

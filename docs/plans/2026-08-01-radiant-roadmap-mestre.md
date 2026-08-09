@@ -32,7 +32,7 @@ deles colidirem ou pararem esperando algo que já estava pronto.
 | Frente | Objetivo | Plano de execução | Depende de |
 | --- | --- | --- | --- |
 | **1 — Lançamento v1.3** | app público nas duas lojas | [roadmap de lançamento](2026-07-27-radiant-launch-roadmap.md) + [recorte Android](2026-07-29-android-closed-testing-plan.md) | ação do dono e relógio das lojas |
-| **2 — Educacional** | trilha por competências, atividades e jogos | [plano do sistema de aprendizagem](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md) | decisão de direitos para a mídia dos jogos visuais; trabalho não visual pode seguir |
+| **2 — Educacional** | trilha por competências, checkpoints, atividades e jogos | [plano do sistema de aprendizagem](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md) + [kernel de checkpoints](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md) | fundação transacional antes da Task 12 educacional; publicação continua separada |
 | **3 — Conta e premium (v1.4)** | assinatura com direito de acesso que atravessa plataforma | *ainda não existe* | API pública, hoje inativa |
 
 ## Regra que atravessa as três
@@ -74,24 +74,29 @@ Caminho crítico administrativo. A engenharia não bloqueia mais nada aqui.
 
 ## Frente 2 — Educacional
 
-Segue a ordem do plano de execução. As fundações editoriais, o currículo, o
-contrato `LearningActivityV2`, o adaptador legado, a evidência, o domínio, o
-registro/player e o agendador por competência estão entregues. A próxima task é
-a **Task 10**, os quatro renderizadores do corte vertical. Jogos são
-renderizadores do mesmo motor, não um produto paralelo.
+As fundações editoriais, currículo, contrato `LearningActivityV2`, adaptador
+legado, evidência, domínio, registro/player, agendador e quatro renderizadores
+do corte inicial estão entregues. O lote original de mídia também está
+autorizado. Em 2026-08-09 entrou um plano transversal para checkpoints e loops;
+a Onda 1 de governança está documentada e a próxima entrega é a **Onda 2,
+fundação transacional em modo `off`**. A Task 12 educacional vem depois de fundação, shadow
+e runtime interno.
 
 Dois pontos que a ordem do plano esconde e que importam para quem for pegar a
 frente:
 
-- **O lote de mídia autorizada corre em paralelo, não à frente.** O gate da Fase
-  0 pede "zero mídia sem decisão de direitos" **e** "currículo válido" como
-  condições irmãs. O currículo fechou sem o lote; os jogos visuais, não. Destravar
-  o lote é **decisão de direitos do dono**, não trabalho de código: hoje o
-  manifesto está aguardando ativos autorizados, com candidatos rejeitados e
-  nenhum aprovado.
+- **O lote autorizado não abre a porteira inteira.** Uma ilustração sintética
+  está aprovada e cinco candidatas históricas permanecem rejeitadas. Cada lote
+  futuro continua exigindo sua própria decisão de direitos e revisão humana.
 - **A partir do contrato de atividades, a frente toca o binário.** Nada impede
   desenvolver durante a janela do closed test — impede publicar. Ver a regra que
   atravessa as três frentes.
+- **A nova ordem é deliberada.** Governança → fundação em `off` → shadow →
+  runtime interno → Task 12 educacional → Galáxia/pipeline/Unidade 1 → outbox e beta
+  pedagógico local/offline → expansão pedagógica. Sync remoto segue depois em
+  trilha independente, condicionado a carga/soak, API/auth, conflitos e sink
+  verificado. Não implementar o checkpoint diretamente na tela antes do commit
+  recuperável.
 
 ## Frente 3 — Conta e premium (v1.4)
 
@@ -122,9 +127,8 @@ existe para impedir.
 
 ## Como as três se relacionam
 
-- A frente 2 não depende das outras duas, mas os jogos visuais dependem de uma
-  decisão externa de direitos sobre mídia. Trabalho não visual pode andar; a
-  Task 10 e o corte vertical não devem contornar esse gate.
+- A frente 2 não depende das outras duas. Direitos continuam gate por lote e o
+  kernel permanece local-first; a API não bloqueia as Ondas 2–6.
 - A frente 3 depende da API, que **não está no caminho crítico do lançamento** —
   o produto lançável é local-first. Subir a API é pré-requisito da v1.4 e de
   nada na v1.3.

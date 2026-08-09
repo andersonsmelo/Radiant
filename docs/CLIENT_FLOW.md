@@ -121,6 +121,26 @@ Três regras que o desenho existe para tornar visíveis:
    ainda agenda revisão: o ramo de falha do SM-2 reseta o intervalo para 1 dia
    em vez de zerar o progresso.
 
+## 3. Evolução aprovada — checkpoints das telas principais
+
+O desenho aprovado em 2026-08-09 acrescentará checkpoints mínimos nas telas
+principais: apresentação, Home, mapa e interiores da Galáxia, Missões,
+Progresso, Lição, quiz legado, checkpoint de unidade, Revisão e recompensa.
+Isso **não está implementado** e não muda os dois diagramas de comportamento
+vigente acima.
+
+Checkpoint de tela não significa registrar cada toque. Ele guarda somente o
+necessário para reconciliar uma retomada com a jornada atual: superfície, ids
+estáveis, versão do conteúdo, cursor, progresso agregado e próxima ação. A
+primeira ativação interna poderá retomar apresentação, Lição, Revisão e
+checkpoint; as demais superfícies voltarão pela recomendação canônica da Home.
+
+O rollout será `off → shadow → active interno`. Em `shadow`, o cálculo não pode
+alterar navegação, XP, domínio, desbloqueio ou sync. Duas falhas consecutivas de
+restauração invalidam apenas o checkpoint e voltam à Home; progresso pedagógico
+confirmado nunca é apagado. Contrato completo:
+[`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md).
+
 ## O que estes diagramas NÃO dizem
 
 - **Não descrevem a paywall.** O `PaywallOfferCard` existe no `CheckpointScreen`,
@@ -128,11 +148,14 @@ Três regras que o desenho existe para tornar visíveis:
   default é `false` — na build que embarca, esse caminho não acontece.
 - **Não descrevem sincronização remota.** `ENABLE_REMOTE_SYNC` é `false` nos
   perfis `preview` e `production`, e o sync já exigia `isApiConfigured()`.
+- **Não descrevem o kernel como ativo.** O design dos checkpoints de tela está
+  aprovado, mas a fundação, stores, adaptadores e retomada ainda não existem.
 - **Não descrevem a recomendação por competência como ativa.** A Task 11 já
   grava cartões por competência, mas `CompetencyReviewService.getDue` não tem
-  chamador de produção e `computeSnapshot` não recebe vencimentos. Antes de
-  ligar esse caminho, falta uma guarda explícita; até lá, quem decide revisões
-  visíveis continua sendo o `SpacedRepetitionService` legado.
+  chamador de produção e `computeSnapshot` não recebe vencimentos. A guarda já
+  falha fechada para competência sintética legada; ativação ainda exige conteúdo
+  curricular v2. Até lá, quem decide revisões visíveis continua sendo o
+  `SpacedRepetitionService` legado.
 - **Não são especificação.** Descrevem o comportamento observado no código em
   2026-08-09. Onde divergirem do código, **o código está certo e este arquivo
   está velho** — corrija-o no mesmo commit que mudar o fluxo.

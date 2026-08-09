@@ -42,6 +42,27 @@ antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
 depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
 de lição fixo, e falha ou nó não navegável degrada para Home.
 
+## Kernel de checkpoints aprovado — ainda não implementado
+
+Em 2026-08-09 foi aprovado o desenho de um kernel central para registrar e
+retomar as telas principais da jornada. Ele não substitui os serviços acima:
+coordena estado mínimo retomável por adaptadores e delega progresso, evidência,
+domínio, revisão, XP e desbloqueio aos donos atuais.
+
+O contrato usa `off | shadow | active`, stores separados para ativo/shadow,
+diário limitado e um commit local recuperável e idempotente por `operationId`.
+Cada operação nasce junto de uma intenção imutável de replay no mesmo registro
+serializado; cada serviço persiste o recibo de idempotência atomicamente com o
+efeito antes de a saga marcar a etapa como concluída.
+O loop pedagógico será ligado a um loop editorial com revisões humanas clínica,
+de direitos e de acessibilidade independentes. Produção permanece `off` e
+nenhum código, store, endpoint ou comportamento desse desenho existe ainda.
+
+Ordem normativa: governança → fundação transacional → shadow → runtime interno
+→ Task 12 educacional → Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local/offline
+→ expansão pedagógica. Sync remoto é uma trilha posterior e independente, com
+gates próprios de carga/soak, API/auth, conflitos e sink verificado.
+
 ## Evolução por competências
 
 A decisão de 2026-07-31 introduz um contrato de atividade v2 com renderizadores
@@ -72,8 +93,9 @@ conveniência e decai):
 - governança das novas raízes editoriais: concluída;
 - catálogo dos 36 documentos únicos: concluído;
 - validação do manifesto de mídia: concluída;
-- primeiro lote de mídia aprovado: **pendente** — é decisão de direitos do dono,
-  não trabalho de código, e é o que bloqueia os jogos visuais;
+- primeiro lote original de mídia: **concluído para o corte autorizado** — uma
+  ilustração sintética está `ready`; cinco candidatas históricas continuam
+  rejeitadas;
 - grafo curricular de 30 competências: **concluído**;
 - contrato `LearningActivityV2` e adaptador do catálogo legado: **concluídos**;
 - evidência estruturada por interação e domínio por competência: **concluídos**;
@@ -81,14 +103,19 @@ conveniência e decai):
 - agendador por competência: **concluído e inerte** — observa exposições, mas
   `getDue` ainda não alimenta a jornada; campos numéricos persistidos exigem
   `Number.isFinite` e stores inválidos vão para quarentena;
-- renderizadores dos sete tipos restantes de interação: **pendentes** — hoje só
-  `multiple-choice` está registrado, e `isInteractionTypeRegistered` torna essa
-  lacuna consultável em vez de descoberta em runtime.
+- renderizadores de hotspot, comparação, associação e ordenação:
+  **concluídos**, ao lado da múltipla escolha; `parameter-lab`, `risk-hunt` e
+  `case-decision` permanecem para ondas futuras;
+- guarda de ativação do agendador: **concluída** — competência sintética legada
+  falha fechada; leitura curricular continua aguardando conteúdo v2;
+- kernel de checkpoints e commit recuperável: **design aprovado; código não
+  iniciado**;
+- checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
+  fundação transacional do kernel.
 
-Antes de ativar o lado de leitura do agendador, falta uma guarda explícita de
-ativação. Hoje a degradação graciosa depende da ausência de chamadores e da
-omissão do terceiro parâmetro de `computeSnapshot`, não de uma barreira que
-impeça o sistema de recomendar competências sintéticas legadas.
+Antes de ativar o lado de leitura do agendador, o resolver ainda precisa apontar
+para competência curricular real do conteúdo v2. A guarda já impede que
+competências sintéticas legadas produzam recomendação visível.
 
 Duas propriedades que o motor v2 já garante e convém não perder de vista ao
 evoluí-lo:
@@ -128,6 +155,10 @@ autorização e anonimização verificadas.
 | Runtime do app | [`../radiant-app/README.md`](../radiant-app/README.md) |
 | Runtime da API | [`../radiant-api/README.md`](../radiant-api/README.md) |
 | Decisão educacional | [`adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md) |
+| Kernel de checkpoints | [`superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md) |
+| Plano do kernel | [`superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md`](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md) |
+| Privacidade de checkpoints | [`STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md`](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md) |
+| Rollout/rollback do kernel | [`runbooks/student-checkpoint-rollout-rollback.md`](runbooks/student-checkpoint-rollout-rollback.md) |
 
 ## Regras de consistência
 

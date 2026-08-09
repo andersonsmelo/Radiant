@@ -272,7 +272,7 @@ Fontes: ver §9.
 | **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | **Gate 2 aprovado 5/5 em 2026-08-06** (itens 1 e 2 fechados por B8 e B4, este com a ressalva do estado ocupado); ProgressScreen/JourneyMap corrigidos; reward coberto por E2E — **falta só o lado Android da B5** | Semana 2–3 |
 | **M2 — Paridade Android** | Fluxo crítico PASS em Android | `expo prebuild` + build local; 3 flows Maestro PASS em emulador e 1 device físico | Semana 3–5 |
 | **M3 — Prontidão de release** | Contratos de privacidade, telemetria e release prontos | Task 16 concluída: matriz real-device, contrato de telemetria, checklist v1.3, Sentry configurado; ADR da API registrada (Task 15) | Semana 5–6 |
-| **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12) iniciada | Semana 6–9 |
+| **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12 do roadmap anterior) iniciada | Semana 6–9 |
 | **M5 — Lançamento público** | Aprovação e produção nas duas lojas | Revisões aprovadas; rollout faseado no Play (10→50→100%); release iOS; monitoramento ativo | Semana 9–11 (até ~2026-10-12) |
 
 Os alvos assumem dedicação contínua e nenhuma rejeição de loja com retrabalho
@@ -370,7 +370,7 @@ código.
   build `1.3.0 (4)` foi submetido e ficou pronto no TestFlight. **Continua
   pendente apenas no lado da automação:** gerar a service-account key do Play.
 - **A6 [P1]** ~~Recrutar ≥ 14 testadores (12 é o mínimo do Play; margem para
-  churn) — alinhado ao recrutamento da Task 12 (5–8 participantes de pesquisa
+  churn) — alinhado ao recrutamento da Task 12 de pesquisa do roadmap anterior (5–8 participantes
   podem vir do mesmo pool).~~ **CONCLUÍDA e verificada em 2026-08-03:** a página
   da faixa no Play Console mostrou 14 contas vinculadas ao track `alpha`,
   confirmando a margem de churn. O repositório não persiste endereços por
@@ -821,7 +821,7 @@ código.
   build publicado ainda, então a mudança ainda é livre — depois do primeiro
   build de F1/F2 deixa de ser (alerta do status 2026-07-26). Registrado no
   [status canônico de 2026-07-29](../EXECUTION_STATUS_2026-07-29.md).
-- **D6 [P1]** Pesquisa com usuários (Task 12) começa aqui e corre em paralelo
+- **D6 [P1]** Pesquisa com usuários (Task 12 do roadmap anterior) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
 - **D7 [P2]** ~~Converter as 121 referências absolutas de docs para caminhos
   relativos (limpeza mecânica; melhora o repo para colaboradores).~~
@@ -1154,6 +1154,12 @@ estado do closed test atual e não autoriza publicar novo binário. Spec:
 execução:
 [`2026-07-31-sistema-aprendizagem-competencias.md`](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
 
+Em 2026-08-09 a revisão do workflow do aluno aprovou um plano transversal:
+[`design`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)
+e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
+Somente a governança foi entregue; kernel, stores, retomada, Task 12
+educacional de checkpoint, painel e sync continuam não implementados.
+
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
 - **G1 [CONCLUÍDA EM 2026-08-09]** Fontes, mídia e currículo governados. As
@@ -1171,13 +1177,37 @@ execução:
   aparelho/leitor de tela permanece na fase de beta e nenhum binário foi
   publicado.
 - **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
-  bloqueio de lições por vidas.
+  bloqueio de lições por vidas. **Identificador histórico preservado; execução
+  agora depende de H1–H4.**
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
-  sessões de 3–5 minutos, quatro interações e checkpoint revisado.
-- **G5 [P0]** Rodar beta pedagógico com checkpoint, revisão posterior,
-  acessibilidade e P0/P1 zerados antes de expandir.
+  sessões de 3–5 minutos, quatro interações e checkpoint revisado. **Identificador
+  histórico preservado; execução usa os contratos da Onda H.**
+- **G5 [P0]** Rodar beta pedagógico local/offline com checkpoint, revisão
+  posterior, acessibilidade e P0/P1 zerados antes de expandir. Sync remoto não é
+  pré-requisito desse beta.
 - **G6 [P1]** Produzir unidades 2–6 em lotes, com no máximo um novo tipo de jogo
   por unidade e promoção condicionada a revisão.
+
+### Onda H — Kernel de checkpoints e loops do aluno (nova em 2026-08-09)
+
+Esta onda não recicla G3–G6. Ela antecede a execução do checkpoint educacional e
+entrega a fundação que aqueles itens passam a consumir.
+
+- **H0 [CONCLUÍDA EM 2026-08-09 — SOMENTE GOVERNANÇA]** Spec, plano, ADR,
+  contrato de privacidade e runbook versionados; nenhum runtime implementado.
+- **H1 [P0]** Fundação transacional em `off`, stores isolados, journal atômico
+  com operação+intenção imutável, recibos idempotentes junto de cada efeito e
+  crash recovery.
+- **H2 [P0]** Adaptadores em shadow, sem efeitos de navegação ou pedagogia.
+- **H3 [P0]** Runtime ativo somente interno, com CTA e fallback canônico.
+- **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
+  kernel; depois devolver a sequência a G3/G4.
+- **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
+  beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
+  exigir API ou conta.
+- **H6 [P1 — TRILHA REMOTA SEPARADA]** Antes de ligar sync, validar workload,
+  carga/soak, autenticação, conflitos, outbox exclusiva de `SyncEventV1`,
+  idempotência e um sink remoto verificado. H6 não bloqueia H5/G5.
 
 ## 7. Recursos necessários
 
@@ -1202,10 +1232,11 @@ execução:
 **Pessoas:**
 
 - Anderson: decisões A1/E4, sessão VoiceOver (B4), aprovação de copy de loja.
-- 12–14 testadores beta (Play) + 5–8 participantes de pesquisa (Task 12),
+- 12–14 testadores beta (Play) + 5–8 participantes de pesquisa (Task 12 do
+  roadmap anterior),
   com sobreposição possível.
 - 1 revisor de domínio (radiologia) para o gate editorial D4 e o checklist
-  clínico da Task 12.
+  clínico da Task 12 de pesquisa do roadmap anterior.
 
 ## 8. Riscos e mitigações
 
@@ -1218,7 +1249,7 @@ execução:
 | Evidência de E2E não cobrir o caminho de produção por divergência de feature flag | Confirmado | B0: decidir qual Home lança e reexecutar o E2E no perfil que reflete produção |
 | Verificação de conta/D-U-N-S travar M0 | Média | Iniciar na semana 1; caminho pessoal como fallback aceitando o custo do closed test |
 | Runtime version/OTA mal configurados após primeiro build | Média | D5 congela política antes de F1/F2; nunca alterar `runtimeVersion` sem novo build |
-| Pesquisa (Task 12) achar P0/P1 tarde | Média | D6 começa junto do beta, não depois; gate de M5 inclui P0/P1 de pesquisa |
+| Pesquisa (Task 12 do roadmap anterior) achar P0/P1 tarde | Média | D6 começa junto do beta, não depois; gate de M5 inclui P0/P1 de pesquisa |
 | Escopo iPad (`supportsTablet: true`) ampliar QA e screenshots | Baixa | Decidir em E1; desligar tablet no v1.3 é aceitável |
 
 ## 9. Fontes da pesquisa (2026-07-27)

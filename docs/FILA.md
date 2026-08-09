@@ -85,15 +85,42 @@ Node 20: `npm ci`, resolução do parser pelo próprio pacote, `npm run lint`,
 
 ---
 
-## AGENTE — Task 12: checkpoint e reforço adaptativo
+## AGENTE — Onda 2: fundação transacional do kernel de checkpoints
 
-**Estado:** próxima task técnica. **Bloqueio:** nenhum para o serviço e os
-testes locais; validação manual acessível continua separada. **Dono:** agente.
+**Estado:** próxima entrega técnica; design aprovado e Onda 1 documental
+concluída em 2026-08-09. **Bloqueio:** nenhum para contratos, stores e testes
+locais. **Dono:** agente.
 
-A biblioteca inicial de renderizadores e o lote de mídia estão prontos. A
-próxima entrega do plano é o `UnitCheckpointService`: aprovação com pelo menos
-80% e zero erro crítico, reforço apenas das competências frágeis, persistência
-da versão do lote e integração do checkpoint sem depender de XP.
+Criar o módulo `student-checkpoints` em modo `off`: schemas, store ativo e
+shadow separados, coordenador, adaptadores ainda desconectados e
+`CommitOperationV1 + CommitIntentV1` persistidos juntos antes dos efeitos. Cada
+serviço deve gravar o recibo de `operationId` atomicamente com o efeito; crash
+injection cobre antes do efeito e depois de efeito+recibo/antes do marcador da
+saga. Com `off`, progresso, XP, desbloqueio e recomendação devem permanecer
+equivalentes ao baseline.
+
+Cobrir os três intents fechados — lição, review e checkpoint —, sete autoridades
+separadas e pausa durável após 20 retries automáticos, com retry explícito por
+época sem cancelar efeito anterior.
+
+Fonte normativa:
+[`2026-08-09-checkpoints-e-loops-do-aluno.md`](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
+
+---
+
+## AGENTE — Task 12 educacional: checkpoint e reforço adaptativo
+
+**Estado:** pendente depois das Ondas 2–4 (fundação, shadow e runtime interno).
+**Bloqueio:** dependência arquitetural deliberada; não é decisão do dono.
+**Dono:** agente.
+
+O `UnitCheckpointService` continua definido: aprovação com pelo menos 80% e
+zero erro crítico, reforço somente das competências frágeis, versão do lote e
+desbloqueio independente de XP. Ele será integrado pelo commit recuperável,
+sem criar uma segunda transação dentro da tela.
+
+`support-required` só ocorre depois de tentativa inicial reprovada, ciclo 1,
+nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
 ---
 

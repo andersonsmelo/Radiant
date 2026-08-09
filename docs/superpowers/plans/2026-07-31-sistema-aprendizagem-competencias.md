@@ -15,10 +15,17 @@
 — fecha o algoritmo do agendador por competência, que esta spec deixara em
 aberto, e registra o teto de domínio medido no currículo.
 
+**Emenda de precedência (2026-08-09):**
+[`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md)
+— substitui a ordem executável a partir da Task 12 educacional. Este arquivo preserva a
+decomposição histórica das Tasks 1–18; quando houver divergência de sequência ou
+contrato transacional, a emenda de 2026-08-09 prevalece.
+
 **Status:** em execução desde 2026-07-31. Tasks **1 a 11 concluídas**. O primeiro
 lote sintético autorizado fechou a Task 3/G1, e a Task 10 registrou hotspot,
-comparação, associação e ordenação. Próxima: **Task 12** (checkpoint e reforço
-adaptativo).
+comparação, associação e ordenação. Próximas: **Ondas 2–4 da emenda de
+checkpoints** — fundação transacional em `off`, shadow e runtime interno. A
+**Task 12 educacional** fica bloqueada até os três gates fecharem.
 
 > **A Task 11 fechou fora de ordem, em 2026-08-09**, pelo plano delegado
 > [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md)
@@ -195,13 +202,19 @@ git commit -m "feat(content): governa fontes e direitos da biblioteca"
 
 ---
 
-### Task 3: Criar manifesto seguro de mídia educacional — INFRAESTRUTURA CONCLUÍDA; LOTE PENDENTE
+### Task 3: Criar manifesto seguro de mídia educacional — CONCLUÍDA EM 2026-08-09
 
-O schema, o manifesto e os validadores foram entregues. Os cinco arquivos
-candidatos encontrados não satisfazem o contrato de finalidade educacional,
-direitos e/ou ausência de dados pessoais; por isso, o manifesto foi fechado com
-0 itens e estado `awaiting-authorized-assets`. Esta task só é considerada
-integralmente concluída quando um lote autorizado passar pelo mesmo gate.
+O schema, o manifesto e os validadores foram entregues. Historicamente, cinco
+arquivos candidatos foram recusados e o manifesto ficou em
+`awaiting-authorized-assets`. Em 2026-08-09, o primeiro lote original/sintético
+passou pelo mesmo gate: uma ilustração foi autorizada, o manifesto ficou
+`ready` e a Task 3/G1 fechou. Os cinco candidatos antigos continuam rejeitados;
+todo lote futuro continua condicionado a direitos, privacidade, acessibilidade
+e revisão próprios.
+
+> **HISTÓRICO/SUPERADO — NÃO EXECUTAR.** A receita abaixo registra como a
+> infraestrutura original foi construída; seus comandos e commit já foram
+> realizados e não representam trabalho pendente.
 
 **Files:**
 - Create: `conteúdo/governança/esquemas/media-manifest.schema.json`
@@ -842,11 +855,33 @@ Somados pela spec de 2026-08-08, e nenhum deles é opcional:
 >
 > Uma consequência a não esquecer: **`weak-competency` fica declarado no tipo e
 > não é emitido** enquanto todo domínio for `not-started`. Emiti-lo hoje poria
-> uma explicação falsa na tela. Ele entra na Task 12.
+> uma explicação falsa na tela. Ele entra na Task 12 educacional.
 
 ---
 
-### Task 12: Implementar checkpoint e reforço adaptativo
+### Task 12 educacional: Implementar checkpoint e reforço adaptativo
+
+> **BLOQUEADA E DELEGADA EM 2026-08-09.** Não executar esta task diretamente,
+> não criar apenas `UnitCheckpointService` e não integrar uma transação própria
+> na tela. Antes dela, concluir e validar as Ondas 2–4 de
+> [`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md):
+> contratos/stores/commit recuperável em `off`, adaptadores em shadow e runtime
+> ativo somente interno.
+>
+> A execução da **Task 12 educacional** é a Onda 5 daquele plano. A emenda é a
+> única receita executável: define `CheckpointAttemptV1`,
+> `ReinforcementPlanV1`, intenção imutável de replay, idempotência por
+> `operationId`, integração com o kernel, crash recovery, acessibilidade e
+> gates. Esta seção permanece somente como ponte histórica para as Tasks 13–18.
+
+<details>
+<summary><strong>HISTÓRICO/SUPERADO — receita original da Task 12 no HEAD anterior à emenda</strong></summary>
+
+> **NÃO EXECUTAR.** O bloco abaixo é preservado literalmente como proveniência
+> do plano original. Ele não contém a fundação transacional agora obrigatória e
+> não autoriza comandos, edições ou commit. A única autoridade executável é a
+> Onda 5 de
+> [`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md).
 
 **Files:**
 - Create: `radiant-app/src/features/mastery/services/UnitCheckpointService.ts`
@@ -881,6 +916,8 @@ curto após scroll real.
 git add radiant-app/src/features/mastery radiant-app/src/features/checkpoint radiant-app/src/features/journey
 git commit -m "feat(mastery): adiciona checkpoint adaptativo"
 ```
+
+</details>
 
 ---
 
@@ -1130,10 +1167,13 @@ revisão e evidência.
 1. Tasks 1–4: governança antes de conteúdo.
 2. Tasks 5–9: contratos de domínio antes de UI ampla.
 3. Task 10: somente os quatro renderizadores do corte vertical.
-4. Tasks 11–13: domínio, reforço e unificação da navegação.
-5. Tasks 14–15: pipeline e conteúdo revisado.
-6. Tasks 16–17: beta pedagógico e evidência.
-7. Task 18: expansão condicionada ao gate.
+4. Emenda de 2026-08-09, Ondas 2–4: fundação transacional em `off`, shadow e
+   runtime ativo somente interno.
+5. Task 12 educacional, pela Onda 5 da emenda: checkpoint e reforço adaptativo.
+6. Task 13: Galáxia como projeção da jornada canônica.
+7. Tasks 14–15: pipeline e conteúdo revisado.
+8. Tasks 16–17: beta pedagógico e evidência.
+9. Task 18: expansão condicionada ao gate.
 
 O plano não autoriza automaticamente produção, publicação em loja, ingestão de
 livros protegidos ou uso de novas imagens. Cada uma dessas ações mantém seu gate
