@@ -120,21 +120,32 @@ EXPO_NO_DOTENV=1 CI=1 npm test -- --runInBand --no-cache \
   src/features/progress/screens/ProgressScreen.flow.test.tsx
 ```
 
-### B. Tornar explícita a ativação do agendador por competência
+### B. ~~Tornar explícita a ativação do agendador por competência~~ — concluída em 2026-08-09
 
-**Estado:** aberto, necessário antes da Task 12. **Bloqueio:** nenhum para
-projetar/testar; ativação em produção continua esperando conteúdo v2. **Dono:**
-agente.
+**Estado:** concluída. **Bloqueio:** ativação de leitura continua esperando
+conteúdo v2. **Dono:** agente.
 
-Hoje o agendador entra desligado porque `CompetencyReviewService.getDue` não tem
-chamador e as chamadas a `computeSnapshot` omitem vencimentos. Isso é ausência
-de fiação, não guarda. Antes de ativar a leitura, criar uma barreira explícita e
-testada que impeça competências sintéticas legadas de virarem recomendação.
+`JourneyRecommendationService.resolveReason` agora falha fechado quando o nó
+recomendado resolve apenas competências sintéticas legadas (`legacyOnly`): mesmo
+que uma vencida `competency:legacy:*` seja passada a `computeSnapshot`, o motivo
+permanece `next-new`. A barreira fica no ponto de decisão, antes de comparar
+vencidas, e não altera as regras de desbloqueio.
 
-Remedir:
+`getDue` continua sem chamador de produção e os snapshots ainda omitem a lista
+de vencidas. A futura ativação só poderá recomendar revisão quando o resolver
+ligar um nó a competência curricular real do conteúdo v2; direitos das mídias
+continuam bloqueando essa etapa.
+
+Teste de regressão e verificações focadas: **6/6 testes**, lint e typecheck
+passaram.
+
+Comandos usados:
 
 ```bash
-rg -n "getDue\(|computeSnapshot\(" radiant-app/src --glob '*.ts' --glob '*.tsx'
+EXPO_NO_DOTENV=1 CI=1 npm test -- --runInBand --no-cache \
+  src/features/journey/services/JourneyRecommendationService.test.ts
+npm run lint -- --quiet
+npm run typecheck
 ```
 
 ---

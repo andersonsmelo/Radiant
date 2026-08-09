@@ -97,10 +97,20 @@ function resolveReason(
         return 'next-new';
     }
 
+    const competenciasDoNo = resolveNodeCompetencies(nextRecommendedNode);
+
+    // O adaptador do catálogo atual cria apenas competências sintéticas por
+    // lição. Elas alimentam o store do agendador, mas não representam uma
+    // competência curricular e portanto não podem mudar a recomendação. A
+    // leitura só pode ser ativada quando o resolver passar a ligar este nó a
+    // conteúdo v2 real; até lá, a ausência dessa ligação falha fechada.
+    if (competenciasDoNo.legacyOnly) {
+        return 'next-new';
+    }
+
     const idsVencidos = new Set(dueCompetencies.map((item) => item.competencyId));
 
-    const cobreVencida = resolveNodeCompetencies(nextRecommendedNode)
-        .competencyIds
+    const cobreVencida = competenciasDoNo.competencyIds
         .some((id) => idsVencidos.has(id));
 
     return cobreVencida ? 'due-review' : 'next-new';

@@ -96,9 +96,13 @@ removido e a leitura retorna vazia. Teste focado: **23/23**.
 
 ### Ressalvas do agendador ainda abertas
 
-1. A degradação graciosa não tem trava explícita. O agendador entra desligado
-   porque `getDue` não possui chamador e chamadas a `computeSnapshot` omitem o
-   terceiro parâmetro, não porque uma guarda impeça sua ativação.
+1. ~~A degradação graciosa não tinha trava explícita.~~ **Concluída em
+   2026-08-09:** a recomendação falha fechada quando o nó resolve apenas
+   competências sintéticas legadas (`legacyOnly`). Mesmo recebendo uma vencida
+   `competency:legacy:*`, `computeSnapshot` preserva `next-new`; o teste de
+   regressão passou com **6/6**. `getDue` segue sem chamador de produção e a
+   ativação futura exige que o resolver aponte para competência curricular real
+   do conteúdo v2.
 2. ~~O padrão perigoso de `jest.spyOn` sobre mock oficial aguardava varredura.~~
    **Concluída em 2026-08-09:** `CompetencyReviewService.test.ts` permanece
    como a única correção necessária. A revisão das demais suítes não encontrou

@@ -46,13 +46,13 @@ describe('motivo da recomendação', () => {
         expect(comVencidaIrrelevante.nextRecommendedNode?.id).toBe(semParametro.nextRecommendedNode?.id);
     });
 
-    it('devolve due-review quando o NÓ RECOMENDADO cobre a vencida', () => {
+    it('GUARDA DE ATIVAÇÃO: não recomenda revisão por competência sintética legada', () => {
         const snapshot = JourneyRecommendationService.computeSnapshot(
             defaultTrack, progressoInicial(), [vencida('competency:legacy:lesson-1')],
         );
 
         expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-1');
-        expect(snapshot.recommendationReason).toBe('due-review');
+        expect(snapshot.recommendationReason).toBe('next-new');
     });
 
     it('devolve next-new quando a vencida é coberta por outro nó, não pelo recomendado', () => {
