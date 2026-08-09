@@ -10,7 +10,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | App | Expo/React Native; catálogo e progresso funcionam offline |
 | Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; última leitura em 2026-08-03: 14 contas vinculadas e 2 opt-ins; faltam ≥10 opt-ins e a janela de 14 dias |
 | iOS | versão `1.3.1`, build `7`; último estado observado no console em 2026-08-08: **Aguardando revisão**; liberação manual após aprovação |
-| E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; a mudança de primeira vitória de 2026-08-09 é posterior à matriz e seu `first-run.yaml` atualizado ainda precisa de execução em simulador/aparelho |
+| E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5** em 2026-08-09; Android ainda precisa ser reexecutado |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
 | Sistema educacional v2 | governança de fontes concluída; gate de mídia implementado; primeiro lote autorizado ainda pendente |

@@ -647,9 +647,12 @@ código.
   revisão vencida) quando já existe progresso. Não há `lesson-1` hardcoded;
   falha ou nó não navegável degrada para Home e toque duplo é ignorado. A suíte
   do gate passou **14/14** e o contrato Maestro passou **19/19**. O
-  `first-run.yaml` atualizado afirma a cópia de contexto derivada do catálogo,
-  mas sua execução em simulador/aparelho ainda está pendente e não é confundida
-  com a matriz de 2026-08-03. Design em
+  `first-run.yaml` atualizado afirma a cópia de contexto derivada do catálogo e
+  passou **1/1 no iOS 26.5**, em build local Release, em 2026-08-09. O lado
+  Android continua pendente porque a matriz de 2026-08-03 antecede a mudança.
+  Evidência em
+  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md).
+  Design em
   [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
   e plano em
   [`2026-08-09-primeira-vitoria.md`](2026-08-09-primeira-vitoria.md).

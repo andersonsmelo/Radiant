@@ -21,6 +21,9 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
 
 ## Registros
 
+- [E2E iOS da primeira vitória — 2026-08-09](2026-08-09-primeira-vitoria-ios.md)
+  — `first-run.yaml` atualizado `passed` 1/1 sobre build local Release no
+  simulador iOS 26.5; Android não foi reexecutado depois da mudança.
 - [Baseline de device E2E — 2026-07-23](2026-07-23-device-e2e-baseline.md)
 - [Follow-up de device E2E — 2026-07-26](2026-07-26-device-e2e-followup.md)
   — iOS `passed` (3/3 flows na mesma execução); Android `environment-blocked`.

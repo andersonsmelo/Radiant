@@ -217,10 +217,11 @@ opens its next eligible node from the node's context screen, while skipping the
 presentation still opens Home. The static contract derives the first lesson
 body from `defaultBlocks.ts` and requires `first-run.yaml` to assert it after
 "Começar". The startup flow suite covers first lesson, due review, persistence
-ordering, double tap, and safe Home fallback. **This is newer than the 2026-08-03
-device evidence:** the updated `first-run.yaml` remains pending on a current
-simulator/device, and static or Jest evidence does not promote that execution to
-`passed`.
+ordering, double tap, and safe Home fallback. On 2026-08-09 the updated
+`first-run.yaml` passed 1/1 on a local Release build in an iOS 26.5 simulator,
+including the catalog-derived lesson context after "Começar". Android remains
+pending because its latest matrix predates this change. Evidence:
+[`docs/evidence/2026-08-09-primeira-vitoria-ios.md`](evidence/2026-08-09-primeira-vitoria-ios.md).
 
 The dev-client verification of 2026-07-28
 ([`docs/evidence/2026-07-28-boot-to-home-devclient.md`](evidence/2026-07-28-boot-to-home-devclient.md))
