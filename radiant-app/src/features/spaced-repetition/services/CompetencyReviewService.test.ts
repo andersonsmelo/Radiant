@@ -190,6 +190,31 @@ describe('CompetencyReviewService', () => {
         expect(vencidas.map((item) => item.competencyId)).toEqual(['competency:a:b']);
     });
 
+    it.each(['stability', 'difficulty', 'reps', 'lapses'] as const)(
+        'põe em quarentena cartão cujo campo numérico %s não é finito',
+        async (campo) => {
+            // JSON não representa NaN literalmente, mas 1e400 é JSON válido e
+            // vira Infinity no JSON.parse. É o caminho persistível que prova
+            // por que `typeof value === "number"` não basta para o store.
+            const numeros: Record<typeof campo, string> = {
+                stability: '2', difficulty: '0.5', reps: '1', lapses: '0',
+            };
+            numeros[campo] = '1e400';
+            const cru = `{"schemaVersion":1,"cards":{"competency:a:b":{`
+                + `"competencyId":"competency:a:b","stability":${numeros.stability},`
+                + `"difficulty":${numeros.difficulty},"reps":${numeros.reps},`
+                + `"lapses":${numeros.lapses},"lastReviewedAt":"2026-01-01T00:00:00.000Z",`
+                + '"dueAt":"2026-01-02T00:00:00.000Z"}}}';
+            await AsyncStorage.setItem(COMPETENCY_REVIEW_STORAGE_KEYS.STORE, cru);
+
+            expect(await CompetencyReviewService.getDue(
+                '2026-06-01T00:00:00.000Z', SEM_CRITICO,
+            )).toEqual([]);
+            expect(await AsyncStorage.getItem(COMPETENCY_REVIEW_STORAGE_KEYS.QUARANTINE)).toBe(cru);
+            expect(await AsyncStorage.getItem(COMPETENCY_REVIEW_STORAGE_KEYS.STORE)).toBeNull();
+        },
+    );
+
     it('não propaga erro de storage em observeExposure nem em recordReview', async () => {
         // A promessa "erro nunca escapa" vale para os quatro métodos públicos,
         // não só para getDue: uma exposição não pode derrubar a conclusão da

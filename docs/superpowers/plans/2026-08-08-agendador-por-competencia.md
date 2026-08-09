@@ -1569,23 +1569,19 @@ revisão final. Commits `1ac9a1e..adb5e63`. A revisão final achou seis defeitos
 que nenhuma revisão por task enxergou — as peças passavam isoladas e mentiam em
 conjunto — e todos foram corrigidos numa onda única.
 
-### O achado que ficou, com a decisão registrada
+### O achado deferido, fechado em 2026-08-09
 
-**`temFormaDeCartao` aceita `NaN` em campo numérico**
-(`radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.ts`),
-porque `typeof NaN === 'number'`. Um cartão persistido com `stability: NaN` passa
-pela validação de forma como legítimo; `scheduleNext` deriva a estabilidade nova
-multiplicativamente da antiga, então o `NaN` se propaga para sempre, e o cartão
-fica preso em `DUE_AT_INDETERMINADO` — nunca vence, não se auto-cura e não vai
-para quarentena.
+O registro original dizia que **`temFormaDeCartao` aceitava `NaN` em campo
+numérico** por usar `typeof value === 'number'`. A premissa do literal persistido
+era imprecisa: JSON não representa `NaN`. A vulnerabilidade de forma, porém,
+era real e tinha um vetor persistível — `1e400` é JSON válido e se torna
+`Infinity` no `JSON.parse`, também aceito pelo teste de `typeof`.
 
-**Julgado real e deferido, não bloqueante.** Exige `stability` `NaN` já
-persistida, inalcançável pelos fluxos normais com `MemoryParams` bem formado;
-`recordReview` e `getDue` ainda não têm chamador de produção; e a correção é
-local — `Number.isFinite` no lugar de `typeof === 'number'` nos campos numéricos.
-
-É o **primeiro item de quem retomar este subsistema**, e vale antes de a Task 12
-ligar o lado de leitura.
+O follow-up substituiu `typeof === 'number'` por `Number.isFinite` em
+`stability`, `difficulty`, `reps` e `lapses`. A regressão cobre os quatro campos
+com o vetor de overflow e comprova o comportamento fechado: o cartão não finito
+vai para quarentena, o store ativo é removido e a leitura retorna vazia. A suíte
+focada passou com **23/23 testes**. Este item não é mais pendência para a Task 12.
 
 ### Duas ressalvas que sobrevivem ao plano
 

@@ -47,11 +47,10 @@ Design e execução:
 
 ### iOS
 
-A última leitura autorizada do App Store Connect, em **2026-08-08 às 12:05
-BRT**, registrou `1.3.1 (7)` em **Aguardando revisão**. O repositório não informa
-o estado de hoje; somente o console pode fazê-lo. Se a Apple já aprovou, a
-liberação manual configurada é ação do dono e destrava a instrumentação
-pós-lançamento.
+A leitura autorizada do App Store Connect em **2026-08-09** confirmou `1.3.1
+(7)` ainda em **Aguardando revisão**, com liberação manual configurada. Nenhuma
+ação de loja foi executada. Se a Apple aprovar, a liberação é ação do dono e
+destrava a instrumentação pós-lançamento.
 
 Permanecem fechados: ficha, preço gratuito, direitos de conteúdo, privacy
 labels, smoke físico, VoiceOver e Gate 2. A Apple não depende da F2 do Google
@@ -86,16 +85,21 @@ Sem lote aprovado, Task 10 não tem mídia legítima para os jogos visuais; isso
 trava conteúdo v2, o agendador já construído e a Task 12. A decisão é do dono e
 nenhum agente deve contorná-la.
 
+### Correção do agendador fechada em 2026-08-09
+
+`temFormaDeCartao` agora exige `Number.isFinite` para `stability`, `difficulty`,
+`reps` e `lapses`. O registro anterior usava `NaN` como exemplo, mas `NaN`
+literal não é representável em JSON. A regressão usa o vetor persistível real:
+`1e400` é JSON válido e vira `Infinity` no `JSON.parse`. Cada um dos quatro
+campos foi coberto; cartão não finito vai para quarentena, o store ativo é
+removido e a leitura retorna vazia. Teste focado: **23/23**.
+
 ### Ressalvas do agendador ainda abertas
 
-1. `temFormaDeCartao` em `CompetencyReviewService.ts` aceita `NaN` porque usa
-   `typeof value === 'number'`. O valor se propaga em `scheduleNext` e prende o
-   cartão em `DUE_AT_INDETERMINADO`. A correção local prevista é
-   `Number.isFinite`; **não foi feita nesta entrega**.
-2. A degradação graciosa não tem trava explícita. O agendador entra desligado
+1. A degradação graciosa não tem trava explícita. O agendador entra desligado
    porque `getDue` não possui chamador e chamadas a `computeSnapshot` omitem o
    terceiro parâmetro, não porque uma guarda impeça sua ativação.
-3. O padrão perigoso de `jest.spyOn` sobre mock oficial já foi corrigido em
+2. O padrão perigoso de `jest.spyOn` sobre mock oficial já foi corrigido em
    `CompetencyReviewService.test.ts`, mas não houve varredura das outras suítes.
 
 ## Outros bloqueios e pendências
@@ -114,5 +118,5 @@ nenhum agente deve contorná-la.
 2. Continuar recrutamento Android até 12 opt-ins e então contar 14 dias.
 3. Resolver direitos do lote de mídia; só depois retomar Task 10 → conteúdo v2
    → ativação segura do agendador → Task 12.
-4. Se o agendador for tocado antes disso, corrigir primeiro a aceitação de
-   `NaN` e cobrir a quarentena/recuperação.
+4. Antes de ativar o lado de leitura do agendador, adicionar uma trava explícita
+   para que a degradação graciosa não dependa apenas da ausência de chamadores.

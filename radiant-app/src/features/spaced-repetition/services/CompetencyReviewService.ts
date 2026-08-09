@@ -68,10 +68,10 @@ function temFormaDeCartao(value: unknown): value is CompetencyReviewCard {
     }
 
     return typeof value.competencyId === 'string'
-        && typeof value.stability === 'number'
-        && typeof value.difficulty === 'number'
-        && typeof value.reps === 'number'
-        && typeof value.lapses === 'number'
+        && Number.isFinite(value.stability)
+        && Number.isFinite(value.difficulty)
+        && Number.isFinite(value.reps)
+        && Number.isFinite(value.lapses)
         && typeof value.lastReviewedAt === 'string'
         && typeof value.dueAt === 'string';
 }
