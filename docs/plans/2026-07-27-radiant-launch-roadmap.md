@@ -1204,13 +1204,43 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0 — BLOQUEIO P0 FECHADO EM 2026-08-10; GATE DE COLD START AINDA
-  INCONCLUSIVO]** Reexecutado no build corrigido (`run-1786366830631-0755376c`):
-  20/20 e 20/20, persistência p95 23,1 ms e restauração p95 9,0 ms dentro dos
-  limites, Home→Lição +152 ms, e o CTA de retomada alcançável em AX4/AX5 com
-  prova em aparelho. O relatório fecha `passed: true`, mas o cold start passou
-  **vazio** — piso de ruído de 2863 ms contra p95 de baseline de 5748 ms, com o
-  host em swap. Registro da primeira execução, preservado: As 20+20 execuções foram feitas no mesmo binário, aparelho e
+- **H3 [P0 — INSTRUMENTO FECHADO EM 2026-08-10; FALTA UMA MEDIÇÃO CONCLUSIVA DE
+  COLD START]** Três das quatro pendências fecharam neste dia e a que resta não é
+  de código.
+
+  Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
+  **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
+  offline após kill/relaunch provada 20 vezes; bloqueio P0 de Dynamic Type
+  corrigido e provado em aparelho em AX4/AX5 (`run-1786366083722-93ee4bf4`,
+  reexecução em `run-1786366830631-0755376c`); e **viewport curto fechado em
+  simulador** (`run-1786385853053-960f7e28`) — `iPhone SE (3rd generation)`,
+  `[0,0][375,667]`, 207 pt mais curto que o aparelho das coortes, mesmo binário
+  nativo, flow versionado passando em `medium`, AX3, AX4 e AX5.
+
+  O **instrumento** do gate de cold start foi consertado em duas etapas, ambas com
+  teste que morde: o limiar passou a ser consciente do ruído medido
+  (`run-1786366490575-a0a0c4cb`) e o gate ganhou um **terceiro desfecho**
+  (`run-1786383400260-6ad60081`) — `inconclusive`, falha fechada com razão
+  `measurement-too-noisy` quando o piso de ruído passa de um quinto do p95 do
+  baseline. Sob ele a coorte que fechava `passed: true` sai `inconclusive` e o
+  relatório sai `passed: false`, então **o passe vazio não existe mais para ser
+  promovido por engano**. O teto foi calibrado contra as três passagens reais do
+  dia (razões 0,108 / 0,246 / 0,498) e reproduz automaticamente as duas que já
+  haviam sido rejeitadas — uma delas por julgamento humano lendo o swap.
+
+  **Falta:** uma passagem com o host ocioso, sem sessão de agente rodando, no
+  build corrigido. As duas condições nunca coincidiram — a passagem conclusiva é
+  do build anterior à correção da tela, e a do build corrigido é a que sai
+  `inconclusive`. É janela de host, não trabalho de agente. Seguem também sem
+  evidência VoiceOver como serviço, TalkBack (exige Android), aparelho físico de
+  tela baixa, "segunda falha invalida o checkpoint" e ausência de efeito duplicado
+  após a retomada.
+
+  Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
+  viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5
+  o suporta (`run-1786384165251-d65b7a00`).
+
+  Registro da primeira execução, preservado: As 20+20 execuções foram feitas no mesmo binário, aparelho e
   perfil, todas verdes. Persistência p95 **15,7 ms** (limite 75) e restauração
   p95 **10,6 ms** (limite 100) passaram; Home→Lição ficou **−174 ms**. O delta de
   cold start deu **+267 ms** contra 167,6 ms permitidos e `report.json` fechou em

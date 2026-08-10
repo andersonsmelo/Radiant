@@ -187,8 +187,12 @@ passou vazio: o piso de ruído desta coorte foi 2863 ms, metade do p95 do própr
 baseline, porque o host estava em swap (trajetória 1698 → 3274 → 2227 MB,
 registrada na evidência). Um limite que tolera 2,9 s não distingue regressão de
 flutuação. A correção do limiar eliminou o falso-negativo e, num host que
-degrada, trocou-o por um passe vazio; falta um terceiro desfecho explícito,
-*inconclusivo*, quando o ruído domina. Não promover H3 com base nesse verde.
+degrada, trocou-o por um passe vazio. Não promover H3 com base nesse verde.
+
+**Fechado mais tarde no mesmo dia** (`run-1786383400260-6ad60081`): o terceiro
+desfecho que este parágrafo pedia existe, e sob ele esta coorte sai
+`inconclusive`/`measurement-too-noisy`, com o relatório em `passed: false`. Ver a
+seção *Estado de H3* no topo deste documento.
 
 Continuam sem evidência: VoiceOver como serviço, TalkBack (exige Android),
 viewport curto — alcançável em simulador neste host, ver acima; o que falta é

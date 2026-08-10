@@ -70,11 +70,13 @@ Quando documentos divergirem, use esta ordem:
 
 O estado de 2026-08-09 é: Tasks **1–11 concluídas**; o primeiro lote original
 sintético de mídia está aprovado, com cinco candidatas históricas ainda
-rejeitadas. A Onda 1 do kernel entregou somente governança. As próximas entregas
-são as **Ondas 2–4** — fundação transacional em `off`, shadow e runtime interno
-— antes da Task 12 educacional de checkpoint/reforço. Nenhum runtime do kernel,
-sync, OTA ou novo binário foi autorizado. A autoridade é o status canônico;
-esta linha é conveniência e decai.
+rejeitadas. As **Ondas 1 a 4** do kernel fecharam: governança, fundação
+transacional em `off`, shadow nas 12 superfícies e runtime `active` **somente
+interno**, este último com o gate de aparelho executado em 2026-08-10 e um único
+item aberto — uma medição conclusiva de cold start, que depende de host ocioso e
+não de código. A próxima entrega é a **Task 12 educacional** de
+checkpoint/reforço. Produção segue `off`; nenhum sync, OTA ou novo binário foi
+autorizado. A autoridade é o status canônico; esta linha é conveniência e decai.
 
 A Task 11 fechou **fora de ordem** porque o agendador que ela entrega não depende
 de conteúdo v2: ele entra desligado e acende quando houver o que agendar. O

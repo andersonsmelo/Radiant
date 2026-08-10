@@ -130,7 +130,12 @@ conveniência e decai):
   e as autoridades legadas seguem decidindo progresso, XP, desbloqueio, revisão
   e jornada. O gate de dispositivo foi executado em 2026-08-10: persistência p95
   **23,1 ms** e restauração p95 **9,0 ms**, com a retomada offline provada 20
-  vezes; o delta de cold start ainda não conclui;
+  vezes, e o viewport curto fechado em simulador de 375 × 667 pt em `medium`, AX3,
+  AX4 e AX5. O delta de cold start é o único item aberto e o gate agora **nomeia
+  esse estado**: desde 2026-08-10 ele tem três desfechos e devolve
+  `inconclusive`/`measurement-too-noisy`, falha fechada, quando o piso de ruído
+  medido passa de um quinto do p95 do baseline. O que falta é remedir com o host
+  ocioso, não mudar o instrumento;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 
