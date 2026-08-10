@@ -1,7 +1,7 @@
 # Kernel de checkpoints e loops do aluno — Plano de implementação
 
 **Data:** 2026-08-09  
-**Status:** Onda 4 implementada localmente; gate interno de dispositivo/perfil pendente
+**Status:** Onda 4 implementada e builds internos concluídos; matriz H3 pendente
 **Spec:**
 [`2026-08-09-checkpoints-e-loops-do-aluno-design.md`](../specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)  
 **ADR:**
@@ -149,11 +149,11 @@ contrato de privacidade e regressão legada verdes.
 
 ## Onda 4 — Runtime ativo interno
 
-**Estado em 2026-08-09:** implementação local concluída. O profile
+**Estado em 2026-08-09:** implementação e builds internos concluídos. O profile
 `checkpoint-internal`, o runtime, o CTA, o fallback e a allowlist das quatro
-superfícies estão versionados e verdes. O gate da onda permanece aberto porque
-não houve build interno nem aparelho/emulador disponível para as medições e a
-acessibilidade manual. Evidência:
+superfícies estão versionados e verdes. iOS Simulator e Android terminaram; o
+APK foi instalado no AVD, mas as coortes não foram executadas. O gate permanece
+aberto para as medições e a acessibilidade manual. Evidência:
 [`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../../../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
 
 A instrumentação reproduzível também está pronta: persistência/restauração

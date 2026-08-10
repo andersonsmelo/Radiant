@@ -2,7 +2,7 @@
 
 **Data:** 2026-08-09
 **Run Loop:** `run-1786316805406-810b7633`
-**Escopo comprovado:** implementação local do runtime `active` interno
+**Escopo comprovado:** implementação e builds do runtime `active` interno
 **Gate da onda:** ainda aberto para dispositivo/perfil interno
 
 ## Entrega local
@@ -44,10 +44,21 @@ O flow `.maestro/student-checkpoint-active-resume.yaml` cobre instalação limpa
 abandono no segundo slide, modo avião, kill/relaunch, ausência de redirect antes
 do CTA, retomada explícita e retorno à Home.
 
-## Limite da evidência
+## Builds internos e limite da evidência
 
-Não havia simulador iOS inicializado e `adb` não estava disponível. Portanto o
-flow novo não foi executado e não existe evidência nesta sessão para:
+- iOS Simulator inicial `6e4d88b8-55c2-404c-99dc-f8ce23772510`: `ERRORED`
+  em `1.3.1 (7)` porque o `sentry-cli` tentou auto-upload sem organização;
+- correção em `run-1786323575086-039ac065`: teste vermelho 20/21, inclusão de
+  `SENTRY_DISABLE_AUTO_UPLOAD=true`, contrato verde 21/21, 13 validadores Loop,
+  `STEP_SUCCEEDED` e `RUN_CLOSED`;
+- retry iOS Simulator `2d718691-288d-498e-9825-a03b14411bd2`: `FINISHED` em
+  `1.3.1 (7)`;
+- Android `62d44f3f-30d0-4e12-b262-21b86ea6326c`: `FINISHED` em `1.3.1 (6)`
+  pelo contador remoto. O APK foi instalado no AVD depois de remover a cópia
+  local `1.3.1 (3)`, cuja assinatura era incompatível.
+
+Nenhum flow Maestro foi executado antes do encerramento. Não existe evidência
+nesta sessão para:
 
 - mínimo de 20 execuções no mesmo aparelho/perfil;
 - persistência p95 menor ou igual a 75 ms;
@@ -56,8 +67,8 @@ flow novo não foi executado e não existe evidência nesta sessão para:
 - VoiceOver, TalkBack e viewport curto.
 
 Esses itens mantêm H3/Onda 4 aberta como gate operacional. H4/Task 12 não deve
-começar antes dessa medição. Um build pelo profile interno também não foi
-disparado porque EAS/conta e eventual consumo de quota pertencem ao dono.
+começar antes dessa medição. Os artefatos são somente internos e não foram
+submetidos, promovidos ou publicados.
 
 ## Preparação reproduzível do gate
 
@@ -79,6 +90,8 @@ Nenhuma dessas verificações substitui amostra em aparelho/perfil.
 
 ## Não ocorreu
 
-Não houve build, OTA, IPA/AAB, publicação, push, alteração da versão `1.3.1
-(7)`, sync remoto ou integração do commit pedagógico da Task 12. O estado final
-do run Loop é autoridade para validação, sucesso, memória e fechamento.
+Não houve OTA, submit, publicação, push, build de produção, alteração dos
+arquivos de versão, sync remoto ou integração do commit pedagógico da Task 12.
+O Android interno resolveu o contador remoto como `(6)`; isso não altera nem
+promove a versão canônica `1.3.1 (7)`. Os estados finais dos runs Loop são a
+autoridade para validação e fechamento.

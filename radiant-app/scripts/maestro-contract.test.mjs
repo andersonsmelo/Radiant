@@ -289,6 +289,7 @@ test('keeps active checkpoints confined to the dedicated internal profile', asyn
   assert.deepEqual(internal?.env, {
     EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE: 'active',
     EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE: 'true',
+    SENTRY_DISABLE_AUTO_UPLOAD: 'true',
   });
   assert.deepEqual(eas.build['checkpoint-internal-simulator'], {
     extends: 'checkpoint-internal',

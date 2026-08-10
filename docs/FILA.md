@@ -129,9 +129,9 @@ app. Run Loop: `run-1786314104218-908d111b`.
 
 ## AGENTE — Onda 4: runtime ativo somente interno
 
-**Estado:** implementação local concluída; gate de dispositivo/perfil ainda
-aberto. **Bloqueio:** build interno e aparelho/perfil para medição. **Dono:**
-dono autoriza/aciona o build; agente executa a matriz quando o binário existir.
+**Estado:** implementação e builds internos concluídos; gate de dispositivo/perfil
+ainda aberto. **Bloqueio:** executar e registrar a matriz no mesmo perfil.
+**Dono:** agente executa a matriz; dono participa dos gates humanos.
 
 Promover `active` somente em build interna para apresentação, Lição, Revisão e
 checkpoint de unidade. Entregar CTA explícito de retomada, nunca redirect
@@ -147,8 +147,15 @@ contratos Maestro **21/21** e parser **4/4**. O EAS CLI resolveu o profile e a
 variante de simulador como `development+active`, distribuição interna e sync
 remoto `false`.
 
-Próxima ação executável: gerar o build interno autorizado, usar o mesmo
-binário/aparelho para as coortes `.maestro/student-checkpoint-performance-baseline.yaml`
+Builds disponíveis: iOS Simulator `2d718691-288d-498e-9825-a03b14411bd2`
+(`1.3.1 (7)`) e Android `62d44f3f-30d0-4e12-b262-21b86ea6326c`
+(`1.3.1 (6)` remoto; não promover). O primeiro iOS falhou no auto-upload
+Sentry; o profile interno agora desliga esse upload. O APK foi instalado no AVD
+após remover a cópia antiga de assinatura incompatível, mas nenhum flow foi
+medido.
+
+Próxima ação executável: usar o mesmo binário/aparelho para as coortes
+`.maestro/student-checkpoint-performance-baseline.yaml`
 e `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
 execuções e fechar p95, VoiceOver, TalkBack e viewport curto. Produção permanece
 `off`; Task 12, sync remoto, build/OTA de produção e publicação continuam fora

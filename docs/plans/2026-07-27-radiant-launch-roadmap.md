@@ -1204,10 +1204,13 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0 — IMPLEMENTADO LOCALMENTE; GATE INTERNO PENDENTE]** Runtime ativo
-  somente interno, com CTA e fallback canônico. A coleta sanitizada e o parser
-  p95 falha-fechada estão prontos; falta executar build/perfil no aparelho, 20
-  amostras antes/depois, kill/relaunch e VoiceOver/TalkBack antes de fechar.
+- **H3 [P0 — IMPLEMENTADO; BUILDS INTERNOS PRONTOS; GATE PENDENTE]** Runtime
+  ativo somente interno, com CTA e fallback canônico. A coleta sanitizada e o
+  parser p95 falha-fechada estão prontos. Builds concluídos: iOS Simulator
+  `2d718691-288d-498e-9825-a03b14411bd2` em `1.3.1 (7)` e Android
+  `62d44f3f-30d0-4e12-b262-21b86ea6326c` em `1.3.1 (6)` remoto, sem promoção.
+  Faltam 20 amostras antes/depois no mesmo perfil, kill/relaunch,
+  VoiceOver/TalkBack e viewport curto antes de fechar.
 - **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
   kernel; depois devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do

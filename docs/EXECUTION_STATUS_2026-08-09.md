@@ -185,10 +185,16 @@ apresentação, Lição, Revisão e checkpoint de unidade. Incompatibilidade vol
 Home com mensagem segura e invalida apenas na segunda falha. As autoridades
 legadas continuam decidindo progresso, XP, desbloqueio, revisão e jornada.
 
-O gate operacional da Onda 4 continua aberto: não houve build interno nem
-aparelho/emulador disponível para as 20 execuções, p95, kill/relaunch real,
-VoiceOver/TalkBack e viewport curto. Implementação local verde não promove H3 a
-concluída e não autoriza iniciar a Task 12.
+O gate operacional da Onda 4 continua aberto. Os builds internos foram gerados:
+Android `62d44f3f-30d0-4e12-b262-21b86ea6326c` terminou em `1.3.1 (6)` pelo
+contador remoto, e o retry iOS Simulator
+`2d718691-288d-498e-9825-a03b14411bd2` terminou em `1.3.1 (7)`. O primeiro iOS
+(`6e4d88b8-55c2-404c-99dc-f8ce23772510`) falhou no auto-upload Sentry; o profile
+interno agora fixa `SENTRY_DISABLE_AUTO_UPLOAD=true`, protegido por teste. O
+Android foi instalado no AVD após remover uma cópia `1.3.1 (3)` de assinatura
+incompatível, mas nenhuma coorte Maestro foi executada. Permanecem pendentes as
+20 execuções antes/depois, p95, kill/relaunch real, VoiceOver/TalkBack e viewport
+curto. Isso não promove H3 nem autoriza iniciar a Task 12.
 
 A ordem técnica agora é: fechar o gate de dispositivo do ativo interno → Task 12 educacional →
 Galáxia/pipeline/Unidade 1 → outbox e beta pedagógico local. Expansão depende
@@ -310,9 +316,10 @@ typecheck, contratos estáticos e Visual QA sem regressões. O profile interno f
 resolvido pelo EAS CLI nos dois sistemas com `development+active`, distribuição
 interna e sync remoto `false`.
 
-O contrato Maestro novo cobre retomada offline explícita, mas não foi executado:
-não havia simulador iOS inicializado nem `adb`. Permanecem pendentes o build
-interno autorizado pelo dono, mínimo de 20 execuções no mesmo aparelho/perfil,
+O contrato Maestro novo cobre retomada offline explícita, mas ainda não foi
+executado. Os builds internos iOS Simulator e Android foram concluídos e o APK
+foi instalado no AVD; a sessão foi encerrada antes das coortes. Permanecem
+pendentes mínimo de 20 execuções no mesmo aparelho/perfil,
 persistência p95 ≤75 ms, restauração p95 ≤100 ms, delta de cold start,
 VoiceOver/TalkBack e viewport curto. Evidência detalhada:
 [`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
