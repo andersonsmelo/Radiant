@@ -1,7 +1,7 @@
 import {
     CHECKPOINT_PERFORMANCE_PREFIX,
     CheckpointPerformanceProbe,
-    FirstFrameProbe,
+    StartupProbe,
 } from './CheckpointPerformance';
 
 describe('CheckpointPerformanceProbe', () => {
@@ -51,10 +51,10 @@ describe('CheckpointPerformanceProbe', () => {
     });
 });
 
-describe('FirstFrameProbe', () => {
+describe('StartupProbe.recordFirstFrame', () => {
     function probeFor(mode: 'off' | 'active', options: { bundleStartedAt?: number; now?: number } = {}) {
         const emit = jest.fn();
-        const probe = new FirstFrameProbe({
+        const probe = new StartupProbe({
             enabled: true,
             mode,
             bundleStartedAt: options.bundleStartedAt ?? 1_000,
@@ -96,7 +96,7 @@ describe('FirstFrameProbe', () => {
     it('is silent when disabled, without reading the clock', () => {
         const emit = jest.fn();
         const clock = jest.fn(() => 5);
-        const probe = new FirstFrameProbe({
+        const probe = new StartupProbe({
             enabled: false,
             mode: 'off',
             bundleStartedAt: 1,
@@ -124,7 +124,7 @@ describe('FirstFrameProbe', () => {
     });
 
     it('never lets a failing emitter reach the learning path', () => {
-        const probe = new FirstFrameProbe({
+        const probe = new StartupProbe({
             enabled: true,
             mode: 'active',
             bundleStartedAt: 0,
@@ -133,5 +133,56 @@ describe('FirstFrameProbe', () => {
         });
 
         expect(() => probe.recordFirstFrame()).not.toThrow();
+    });
+});
+
+// A fronteira que faltava medir. O custo de ~440 ms medido no piloto de
+// `first_frame` em 2026-08-10 esta em algum lugar entre o inicio da janela JS e o
+// primeiro frame util, e `inspectLaunch` e a UNICA coisa que difere entre os dois
+// modos naquele trecho — mas ele nunca passou pelo probe, e e por isso que os
+// 9 ms de restauracao nunca contradisseram os 440. Medi-lo NOS DOIS MODOS e o que
+// separa "o kernel custa isso" de "o custo esta em outro lugar".
+describe('StartupProbe.measure', () => {
+    it.each(['off', 'active'] as const)('measures the launch inspection in %s mode', async (mode) => {
+        const emit = jest.fn();
+        const times = [500, 941.4];
+        const probe = new StartupProbe({
+            enabled: true,
+            mode,
+            bundleStartedAt: 0,
+            clock: () => times.shift() ?? 0,
+            emit,
+        });
+
+        await expect(probe.measure('launch_inspection', async () => 'pronto')).resolves.toBe('pronto');
+
+        expect(emit).toHaveBeenCalledWith(
+            `${CHECKPOINT_PERFORMANCE_PREFIX}{"schemaVersion":1,"metric":"launch_inspection","mode":"${mode}","durationMs":441.4}`,
+        );
+    });
+
+    it('records the duration even when the inspected task rejects', async () => {
+        const emit = jest.fn();
+        const times = [10, 30];
+        const probe = new StartupProbe({
+            enabled: true, mode: 'active', bundleStartedAt: 0, clock: () => times.shift() ?? 0, emit,
+        });
+
+        await expect(probe.measure('launch_inspection', async () => {
+            throw new Error('storage-unavailable');
+        })).rejects.toThrow('storage-unavailable');
+
+        expect(emit).toHaveBeenCalledWith(expect.stringContaining('"metric":"launch_inspection"'));
+    });
+
+    it('does not read the clock when disabled', async () => {
+        const clock = jest.fn(() => 1);
+        const emit = jest.fn();
+        const probe = new StartupProbe({ enabled: false, mode: 'off', bundleStartedAt: 0, clock, emit });
+
+        await expect(probe.measure('launch_inspection', async () => 3)).resolves.toBe(3);
+
+        expect(clock).not.toHaveBeenCalled();
+        expect(emit).not.toHaveBeenCalled();
     });
 });

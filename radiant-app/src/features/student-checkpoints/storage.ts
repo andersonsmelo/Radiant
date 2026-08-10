@@ -7,6 +7,24 @@ export interface KeyValueStorage {
 async function nativeStorage(): Promise<KeyValueStorage> {
     // Lazy loading keeps the deterministic in-memory adapter independent from
     // React Native's NativeModule during pure Jest runs.
+    //
+    // **A preguiça é obrigatória, e isso foi medido em 2026-08-10.** Trocada por
+    // `import AsyncStorage from ...` no topo do módulo, **seis suítes do kernel
+    // deixam de carregar** com `[@RNC/AsyncStorage]: NativeModule: AsyncStorage is
+    // null` — o preset `jest-expo` **não** mocka esse módulo. Que outros vinte
+    // serviços o importem estaticamente não contradiz nada: as suítes deles
+    // declaram o mock; as daqui dependem do adaptador em memória, que existe para
+    // não precisar dele.
+    //
+    // **E a preguiça tem um preço, também medido.** No Dev Client o Metro do Expo
+    // serve `import()` como chunk assíncrono buscado por HTTP, e cada contexto JS
+    // novo paga essa busca na PRIMEIRA operação de storage: a primeira operação do
+    // kernel na partida custou **~240 ms**, e a seguinte, no mesmo lançamento,
+    // 13–21 ms — assinatura de resolução de módulo, não de I/O. Como `inspectLaunch`
+    // em `off` retorna antes de tocar o store, o baseline nunca paga, e a diferença
+    // apareceu no gate como se fosse custo do kernel. **Se esse custo existe fora do
+    // Dev Client é pergunta aberta**; otimizar antes de responder seria otimizar um
+    // artefato de instrumento. Não mexa aqui sem medir num build sem Dev Client.
     return (await import('@react-native-async-storage/async-storage')).default as KeyValueStorage;
 }
 

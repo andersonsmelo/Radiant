@@ -35,7 +35,7 @@ import {
   getNativeActiveCheckpointRuntime,
   type ActiveResumeLaunch,
 } from '../features/student-checkpoints/ActiveCheckpointRuntime';
-import { firstFrameProbe } from '../features/student-checkpoints/CheckpointPerformance';
+import { startupProbe } from '../features/student-checkpoints/CheckpointPerformance';
 import { resolveStudentCheckpointRuntimeMode } from '../features/student-checkpoints/mode';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../features/student-checkpoints/ScreenCheckpointAdapters';
 
@@ -168,10 +168,19 @@ function RootLayout() {
           AppConfig.APP_ENV,
           process.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE,
         );
-        const launch = await getNativeActiveCheckpointRuntime(checkpointMode).inspectLaunch({
-          contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
-          firstRunAvailable: shouldShowWelcome,
-        });
+        // Medido nos dois modos de propósito. Esta é a única etapa do bootstrap
+        // que se comporta de forma diferente entre `off` e `active`, e era a única
+        // sem probe nenhum — foi por isso que os 9 ms de restauração nunca
+        // contradisseram os ~440 ms que o piloto de `first_frame` achou. Com a
+        // fronteira medida, o diagnóstico deixa de depender de hipótese: se o
+        // custo estiver aqui, o remédio é este caminho; se não estiver, ele está
+        // fora e procurar aqui seria perder tempo.
+        const launch = await startupProbe.measure('launch_inspection', () => (
+          getNativeActiveCheckpointRuntime(checkpointMode).inspectLaunch({
+            contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+            firstRunAvailable: shouldShowWelcome,
+          })
+        ));
         if (!active) return;
         setCheckpointLaunch(launch);
 
@@ -215,7 +224,7 @@ function RootLayout() {
   // pintado, em vez de medir o commit do React.
   useEffect(() => {
     if (startupPhase !== 'ready') return;
-    const frame = requestAnimationFrame(() => firstFrameProbe.recordFirstFrame());
+    const frame = requestAnimationFrame(() => startupProbe.recordFirstFrame());
     return () => cancelAnimationFrame(frame);
   }, [startupPhase]);
 

@@ -13,7 +13,13 @@ export const CHECKPOINT_PERFORMANCE_METRICS = [
 // medem trabalho DO kernel e só existem quando ele está ligado; esta mede a
 // janela de partida do app, que existe em qualquer modo — e é justamente por
 // existir nos dois que ela permite comparar `off` com `active`.
-export const STARTUP_PERFORMANCE_METRICS = ['first_frame'] as const;
+// `launch_inspection` entrou em 2026-08-10, depois de o piloto de `first_frame`
+// achar ~440 ms de custo na partida em `active`. Ele mede a fronteira que era a
+// unica coisa a diferir entre os dois modos naquele trecho e a unica que nunca
+// passou por probe nenhum — por isso os 9 ms de restauracao nunca contradisseram
+// os 440. Medida NOS DOIS MODOS, ela separa "o kernel custa isso" de "o custo
+// esta em outro lugar", que sao diagnosticos com remedios opostos.
+export const STARTUP_PERFORMANCE_METRICS = ['first_frame', 'launch_inspection'] as const;
 
 export type CheckpointPerformanceMetric = (typeof CHECKPOINT_PERFORMANCE_METRICS)[number];
 export type StartupPerformanceMetric = (typeof STARTUP_PERFORMANCE_METRICS)[number];
@@ -87,10 +93,32 @@ type FirstFrameDependencies = {
 // coorte de comparação. Uma marca de inicialização não é dado de checkpoint —
 // não lê nem escreve store — então pode existir nos dois modos, e é isso que faz
 // o delta existir.
-export class FirstFrameProbe {
+export class StartupProbe {
     private recorded = false;
 
     constructor(private readonly dependencies: FirstFrameDependencies) {}
+
+    // Independente do modo, como `recordFirstFrame`: e a comparacao entre os dois
+    // modos que carrega a informacao, entao medir so um deles nao serve.
+    async measure<T>(metric: StartupPerformanceMetric, task: () => Promise<T>): Promise<T> {
+        if (!this.dependencies.enabled) return task();
+        const startedAt = this.dependencies.clock();
+        try {
+            return await task();
+        } finally {
+            const durationMs = roundedDuration(startedAt, this.dependencies.clock());
+            if (durationMs !== null) this.emitEnvelope(metric, durationMs);
+        }
+    }
+
+    private emitEnvelope(metric: StartupPerformanceMetric, durationMs: number): void {
+        const envelope = { schemaVersion: 1, metric, mode: this.dependencies.mode, durationMs } as const;
+        try {
+            this.dependencies.emit(`${CHECKPOINT_PERFORMANCE_PREFIX}${JSON.stringify(envelope)}`);
+        } catch {
+            // Diagnostics must never interfere with the learning path.
+        }
+    }
 
     recordFirstFrame(): number | null {
         if (!this.dependencies.enabled || this.recorded) return null;
@@ -102,17 +130,7 @@ export class FirstFrameProbe {
         // Marcado só depois de haver amostra válida: um relógio inconsistente não
         // deve consumir a única emissão do lançamento.
         this.recorded = true;
-        const envelope = {
-            schemaVersion: 1,
-            metric: 'first_frame' satisfies StartupPerformanceMetric,
-            mode: this.dependencies.mode,
-            durationMs,
-        } as const;
-        try {
-            this.dependencies.emit(`${CHECKPOINT_PERFORMANCE_PREFIX}${JSON.stringify(envelope)}`);
-        } catch {
-            // Diagnostics must never interfere with the learning path.
-        }
+        this.emitEnvelope('first_frame', durationMs);
         return durationMs;
     }
 }
@@ -150,10 +168,11 @@ const bundleStartedAt = clock();
 const firstFrameEnabled = AppConfig.APP_ENV === 'development'
     && readBooleanFlag(process.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE, false);
 
-export const firstFrameProbe = new FirstFrameProbe({
+export const startupProbe = new StartupProbe({
     enabled: firstFrameEnabled,
     mode: probeMode,
     bundleStartedAt,
     clock,
     emit: (line) => console.info(line),
 });
+
