@@ -4,7 +4,7 @@ import { router, Stack, type Href } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
 
@@ -370,7 +370,22 @@ function CheckpointResumeScreen({
 }) {
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={[layout.container, layout.center, styles.content]}>
+      {/*
+        Rolável de propósito, e o contêiner de conteúdo cresce em vez de travar
+        em `flex: 1`. Medido no simulador em 2026-08-10: a partir de
+        `accessibility-extra-extra-large` o cartão passava a ser mais alto que a
+        tela — título começando em y=-257 e corpo terminando em y=1066 numa tela
+        de 874 pt — e os dois botões deixavam de ser renderizados. Sem rolagem,
+        quem usa os dois maiores tamanhos de acessibilidade e tem um checkpoint
+        salvo abria o app numa tela sem nenhuma saída. `flex: 1` aqui recriaria o
+        defeito: ele impede o contêiner de passar da altura do viewport, que é
+        exatamente o que precisa acontecer para os botões existirem.
+      */}
+      <ScrollView
+        testID="checkpoint-resume-scroll"
+        style={styles.screen}
+        contentContainerStyle={[layout.container, styles.resumeScrollContent]}
+      >
         <SurfaceCard contentStyle={styles.cardContent} variant="galaxy" style={styles.card}>
           <Text style={styles.title} accessibilityRole="header">
             {canResume ? 'Continuar de onde você parou?' : 'Vamos continuar pela jornada'}
@@ -395,7 +410,7 @@ function CheckpointResumeScreen({
             Ir para a jornada
           </AppButton>
         </SurfaceCard>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -436,6 +451,17 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    padding: space.s3,
+    width: '100%',
+  },
+  // Espelha `content` + `layout.center`, trocando `flex: 1` por `flexGrow: 1`.
+  // A troca é o ponto: num `contentContainerStyle`, `flex: 1` prende a altura ao
+  // viewport e a rolagem nunca acontece; `flexGrow: 1` centraliza enquanto cabe
+  // e deixa crescer quando não cabe mais.
+  resumeScrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: space.s3,
     width: '100%',
   },

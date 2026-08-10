@@ -1,6 +1,7 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { router } from 'expo-router';
+import { StyleSheet } from 'react-native';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import RootLayout from '../../app/_layout';
 import { AppConfig } from '../../config';
@@ -234,6 +235,41 @@ describe('gate de abertura em RootLayout', () => {
         resumeCursorId: 'step-2',
       },
     });
+  });
+
+  // Medido no simulador em 2026-08-10: a partir de `accessibility-extra-extra-large`
+  // o cartão de retomada transbordava a tela — título começando em y=-257 e corpo
+  // terminando em y=1066 numa tela de 874 pt — e os dois botões deixavam de ser
+  // renderizados. O usuário com texto grande e checkpoint salvo abria o app numa
+  // tela sem nenhum controle: não retomava e não ia para a jornada.
+  //
+  // Layout não é calculado neste ambiente de teste, então este caso não observa o
+  // transbordo. O que ele fixa é o mecanismo que torna os botões alcançáveis
+  // quando ele acontece: o conteúdo mora num contêiner rolável que cresce, e os
+  // dois CTAs moram dentro dele. Removido o contêiner, este caso fica vermelho.
+  it('mantém os dois CTAs dentro de um contêiner rolável que cresce', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'offer',
+      checkpointId: 'checkpoint-lesson',
+      surface: 'lesson',
+      cursorId: 'step-2',
+      target: {
+        kind: 'route',
+        pathname: '/learn',
+        params: { nodeId: 'node:lesson-1', blockId: 'block:lesson-1:intro' },
+      },
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    const scroll = await screen.findByTestId(
+      'checkpoint-resume-scroll',
+      {},
+      { timeout: FIRST_RENDER_TIMEOUT_MS },
+    );
+    expect(StyleSheet.flatten(scroll.props.contentContainerStyle)).toMatchObject({ flexGrow: 1 });
+    expect(within(scroll).getByLabelText('Retomar estudo')).toBeTruthy();
+    expect(within(scroll).getByLabelText('Ir para a jornada')).toBeTruthy();
   });
 
   it('explica o fallback sem linguagem técnica e só abre a Home após o CTA', async () => {
