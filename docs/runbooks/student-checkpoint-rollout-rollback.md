@@ -98,6 +98,20 @@ Gate para sair de shadow:
   o piso de resolução do instrumento. Onde a medida é estável esse termo é zero e
   os dois originais continuam mandando, então o gate **não** afrouxa onde já era
   significativo;
+- **o delta de partida é medido por `first_frame`, não por `cold_start` — desde
+  2026-08-10.** `cold_start` é a duração do `launchApp` do Maestro, que num Dev
+  Client termina no launcher, antes de o bundle JS existir; o kernel é JavaScript e
+  não vive nessa janela. `first_frame` mede do início da janela JS até o frame
+  seguinte a `startupPhase` virar `ready`, que só acontece depois de
+  `inspectLaunch` do runtime de checkpoints — então o kernel está dentro da janela
+  por construção. A marca é emitida nos **dois** modos, o que é o que faz o delta
+  existir; o probe de checkpoint continua exigindo `active`. `cold_start` segue
+  reportado como informativo (`advisory: true`) e **fora** do veredito. Limite
+  declarado: `first_frame` exclui o lançamento nativo, e regressão puramente
+  nativa só apareceria no `cold_start` informativo;
+- **`off` silencioso passou de afirmação a asserção.** O baseline emite exatamente
+  a marca de partida; qualquer métrica de checkpoint num log de baseline reprova o
+  relatório pelo gate `baseline_isolation`;
 - **o delta só conta quando a medição conclui, e isso é um desfecho separado,
   também de 2026-08-10.** O termo de ruído acima elimina a reprovação espúria e,
   num host que degrada, troca-a por um **passe vazio**: com o piso de ruído em

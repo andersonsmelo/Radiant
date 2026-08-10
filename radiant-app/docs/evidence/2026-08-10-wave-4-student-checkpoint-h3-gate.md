@@ -666,3 +666,102 @@ do bloco depois da medição invalidaria a identidade do arquivo executado.
 - **"segunda falha invalida o checkpoint e volta à Home"** e **ausência de efeito
   duplicado após a retomada** seguem sem flow que os afirme;
 - nenhum build, OTA, submit, push ou publicação. Produção segue `off`.
+
+## Marca de primeiro frame — run `run-1786392781118-5b1f744b`
+
+As duas correções anteriores do gate o tornaram **honesto**: o limiar consciente de
+ruído removeu a reprovação espúria, e o desfecho `inconclusive` removeu o passe
+vazio. Nenhuma o tornou **significativo**. Esta muda a métrica.
+
+Desenho aprovado pelo dono:
+[`2026-08-10-marca-de-primeiro-frame-design.md`](../../../docs/superpowers/specs/2026-08-10-marca-de-primeiro-frame-design.md).
+
+### O que passa a ser medido
+
+`first_frame`: do início da janela JS até o frame seguinte a `startupPhase` virar
+`ready` em `RootLayout`. O ponto não é arbitrário — `ready` só acontece depois do
+bootstrap e, decisivamente, depois de
+`getNativeActiveCheckpointRuntime(checkpointMode).inspectLaunch(...)`, que é o
+trabalho de partida do kernel. **O kernel está dentro da janela por construção.**
+A leitura final vai num `requestAnimationFrame`, para medir o frame pintado e não o
+commit do React — a armadilha de TTI de marcar quando montou em vez de quando está
+utilizável.
+
+**Emitida em todos os modos do kernel**, gated apenas em `APP_ENV === 'development'`
+e `EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE`. É isso que faz a coorte de
+comparação existir, e é o ponto que a justificativa do descarte anterior não
+cobria: aquele motivo — "o probe só liga em `active`" — vale para o probe de
+checkpoint e não para um timestamp de inicialização, que não é dado de checkpoint e
+não toca store nenhum.
+
+### Uma correção de unidade feita durante a implementação
+
+O desenho dizia usar `global.__BUNDLE_START_TIME__` como origem. Foi **recusado**:
+aquele valor vive numa base de tempo diferente de `performance.now()`, e subtrair as
+duas daria um número com cara de duração e sem significado — bug de unidade, não de
+precisão. A origem passou a ser lida com o **mesmo relógio** do fim da janela, na
+avaliação do módulo emissor. Para um delta entre duas coortes no mesmo binário,
+consistência da base vale mais que completude: o que se perde é a avaliação de
+bundle anterior ao módulo, e se perde **igualmente nas duas coortes**.
+
+### `cold_start` sai do veredito
+
+Decisão do dono em 2026-08-10. Ele continua calculado e reportado, agora com
+`advisory: true`, e **fora** de `report.passed`. A razão está no código: mede uma
+janela em que o kernel não existe, e foi tentando gateá-lo que o relatório primeiro
+reprovou por ruído e depois aprovou vazio. Fica reportado porque a série histórica
+das três passagens deste dia vale como contexto, e porque uma regressão de
+lançamento **nativo** só apareceria ali. Reverter é tirar o nome de
+`ADVISORY_GATES`.
+
+O relatório passou a declarar `advisory` em **todos** os gates, para que nenhum
+leitor precise saber de cor quais entram no veredito.
+
+### "Off silencioso" passou de afirmação a asserção
+
+Era uma garantia sobre construção: o probe está desabilitado e não pode emitir. Com
+o baseline passando a ser lido — o log dele **já era coletado** e era descartado —
+virou asserção: o gate `baseline_isolation` **reprova o relatório** se um log de
+baseline carregar `persistence` ou `restoration`.
+
+Isso não é hipotético. Nesta mesma data, duas linhas `"mode":"active"` apareceram
+num log de baseline por replay do buffer do CDP, e a seção correspondente desta
+evidência registra que o relatório não foi afetado *porque o baseline não era lido*.
+Agora seria.
+
+### Provas
+
+Emissor, **9/9** no arquivo, com os casos novos vermelhos antes da implementação:
+emite nos dois modos (a asserção que sustenta a coorte), uma vez só por lançamento
+mesmo com o gatilho repetindo, silencioso quando desabilitado e sem ler o relógio,
+não emite duração negativa nem não finita, e emissor que lança não alcança o caminho
+de aprendizagem. `startup-gate.flow.test.tsx` segue **17/17**; typecheck limpo.
+
+Relatório, **14/14**, com cinco mutações verificadas:
+
+| mutação | caso que fica vermelho |
+| --- | --- |
+| não ler o log do baseline | oito casos, entre eles os dois de isolamento |
+| tornar `first_frame_delta` informativo | os três do `first_frame` |
+| voltar a gatear `cold_start` | os três que documentam a semântica nova |
+| isolamento do baseline sempre passa | **só** o da contaminação |
+| `first_frame` deixa de ser métrica válida | sete casos |
+
+**Três casos pré-existentes foram re-ancorados**, e é a terceira vez neste dia que o
+mesmo padrão aparece: um teste escrito sob a semântica antiga afirma, no nível do
+**relatório**, o que a decisão nova mudou. As asserções de **gate** deles continuam
+idênticas — é o veredito que deixou de seguir o cold start. Cada um carrega a nota
+explicando isso no lugar onde alguém se confundiria, e a guarda equivalente no nível
+do relatório passou a morar nos casos do `first_frame`.
+
+### O que este run NÃO fez
+
+- **não rodou coorte nenhuma.** A medição continua pendente e continua precisando de
+  janela de host, mas a expectativa é que dependa **muito menos** de host silencioso,
+  porque a janela é medida dentro do app — a classe de dispersão das medidas que já
+  são conclusivas (23,1 ms e 9,0 ms de p95 contra limites de 75 e 100). **Isso é
+  hipótese até a coorte existir**, e está escrito como hipótese;
+- nenhum build, OTA, submit, push ou publicação; nenhuma dependência nova e nenhum
+  binário novo — a mudança é JS e o Dev Client a pega do Metro;
+- VoiceOver, TalkBack, aparelho físico de tela baixa, "segunda falha invalida o
+  checkpoint" e ausência de efeito duplicado continuam sem evidência.

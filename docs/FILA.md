@@ -132,12 +132,13 @@ app. Run Loop: `run-1786314104218-908d111b`.
 **Estado:** coortes executadas em 2026-08-10 (20/20 + 20/20); persistência e
 restauração **conclusivas e dentro dos limites**; bloqueio P0 de acessibilidade
 **fechado com prova em aparelho**; delta de cold start **`inconclusive`**.
-**Bloqueio:** um só, e mudou de natureza duas vezes no mesmo dia — o instrumento
-foi corrigido (limiar consciente de ruído, depois desfecho `inconclusive`) e o que
-falta é uma **janela de host ocioso**, sem sessão de agente, para produzir a
-medição conclusiva no build corrigido.
-**Dono:** agente nas correções de instrumento, todas feitas; a remedição precisa
-da janela de host, e o dono participa dos gates humanos.
+**Bloqueio:** um só, e o instrumento foi corrigido **três vezes** no mesmo dia —
+limiar consciente de ruído, desfecho `inconclusive`, e por fim a troca da métrica
+de partida para `first_frame`, que mede a janela onde o kernel de fato vive
+(`cold_start` ficou informativo). O que falta é **rodar as duas coortes** com a
+métrica nova, e isso é janela de host.
+**Dono:** agente nas correções de instrumento, todas feitas; a medição precisa da
+janela de host, e o dono participa dos gates humanos.
 
 Evidência: [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
 Run Loop `run-1786354337237-662c1d8d`.
@@ -187,15 +188,27 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    próprio instrumento (0,246) e o passe vazio da terceira virou `inconclusive`
    (0,498). Uma fixture pré-existente foi trocada de propósito — ela afirmava que
    uma medição com 28,6% de ruído aprova, que é o passe vazio que o teto recusa;
-5. ⏳ **medir cold start com o host ocioso, sem sessão de agente rodando.** É a
-   pendência real que resta em H3 e **não é agentável nesta forma**: a carga que o
-   runbook manda ausentar é a própria sessão de agente. A trajetória do swap da
-   última execução (1698 → 3274 → 2227 MB) está na evidência e é o que explica a
-   perda de resolução. **As duas condições necessárias nunca coincidiram numa
-   execução**: a passagem conclusiva é do build anterior à correção da tela de
-   retomada, e a do build corrigido é a que sai `inconclusive`. Precisa de janela
-   de host;
-6. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
+5. ✅ **trocar a métrica de partida do gate** — feito em 2026-08-10, run
+   `run-1786392781118-5b1f744b`, com [desenho aprovado pelo dono](superpowers/specs/2026-08-10-marca-de-primeiro-frame-design.md).
+   `cold_start` media a duração do `launchApp`, que num Dev Client termina no
+   launcher, antes de o bundle JS existir — o kernel é JS e não vivia na janela.
+   Entrou `first_frame`: início da janela JS até o frame seguinte a `startupPhase`
+   virar `ready`, que só acontece depois de `inspectLaunch` do runtime de
+   checkpoints, então **o kernel está dentro da janela por construção**. Emitida nos
+   dois modos, o que faz o delta existir; o probe de checkpoint continua exigindo
+   `active`. `cold_start` fica informativo (`advisory: true`), fora do veredito, e
+   reverter é tirar o nome de `ADVISORY_GATES`. "Off silencioso" virou asserção: o
+   gate `baseline_isolation` reprova se um log de baseline carregar métrica de
+   checkpoint. Emissor **9/9**, relatório **14/14**, cinco mutações provadas, sem
+   dependência nova e **sem binário novo**;
+6. ⏳ **rodar as duas coortes com `first_frame`.** É a pendência real que resta em
+   H3. Continua precisando de **janela de host** — reboot para zerar swap, Metro
+   pré-aquecido, nada mais rodando, as duas coortes em sequência no mesmo script —
+   mas a expectativa é depender **muito menos** de host silencioso, porque a janela
+   passou a ser medida dentro do app, na classe de dispersão das medidas que já são
+   conclusivas. **Isso é hipótese até a coorte existir.** Lembrete da receita nova:
+   o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
+7. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
    `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
    runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador
    `Radiant SE 4.7` (`[0,0][375,667]`, 207 pt mais curto que o das coortes), com o
@@ -205,8 +218,8 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-7. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
-8. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+8. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
+9. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
    duplicado após a retomada continuam sem flow que os afirme.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do

@@ -3,7 +3,11 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const PREFIX = 'RADIANT_CHECKPOINT_PERF ';
-const METRICS = new Set(['persistence', 'restoration']);
+// `first_frame` entrou em 2026-08-10. As duas primeiras medem trabalho DO kernel
+// e so existem quando ele esta ligado; `first_frame` mede a janela de partida do
+// app e e emitida em qualquer modo — e por isso pode comparar `off` com `active`.
+const CHECKPOINT_METRICS = ['persistence', 'restoration'];
+const METRICS = new Set([...CHECKPOINT_METRICS, 'first_frame']);
 const MODES = new Set(['off', 'active']);
 const EXACT_KEYS = ['durationMs', 'metric', 'mode', 'schemaVersion'];
 const MIN_SAMPLES = 20;
@@ -147,6 +151,17 @@ function absoluteGate(summary, limitMs) {
 // cauda superior medida do baseline (`p95 - p50`) e o piso de resolucao do
 // instrumento: exigir menos que isso e pedir uma precisao que ele nao tem.
 //
+// `cold_start` deixou de entrar no veredito em 2026-08-10, por decisao do dono, e
+// a razao e estrutural: ele mede a duracao do `launchApp` do Maestro, que num Dev
+// Client termina no launcher, antes de o bundle JS ser buscado e avaliado. O
+// kernel e JavaScript, logo nao vive na janela medida — um gate cuja metrica nao
+// observa o objeto sob teste nao pode aprovar nem reprovar, e foi tentando faze-lo
+// que o gate primeiro reprovou por ruido e depois aprovou vazio. Ele continua
+// calculado e reportado porque a serie historica vale como contexto, e porque uma
+// regressao de lancamento NATIVO so apareceria aqui. Voltar a gatea-lo e remover o
+// nome desta lista.
+const ADVISORY_GATES = new Set(['cold_start_delta']);
+
 // Isto NAO afrouxa o gate quando a medida e estavel: com baseline sem
 // dispersao o terceiro termo e zero e os dois originais continuam mandando.
 //
@@ -205,8 +220,27 @@ function deltaGate(baseline, active) {
   };
 }
 
-export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog }) {
-  const baselineSamples = extractMaestroPerformanceSamples(baselineCommandRuns, 'off');
+// O baseline roda com o kernel em `off` e passou a emitir a marca de partida, que
+// nao e dado de checkpoint. Uma metrica DE checkpoint num log de baseline e
+// violacao de contrato, nao ruido: significa que o kernel agiu com o modo
+// desligado, ou que o coletor contaminou a coorte. Em 2026-08-10 a segunda
+// hipotese aconteceu de verdade — duas linhas `"mode":"active"` reentregues pelo
+// buffer do CDP — e nada no relatorio as pegava, porque o baseline nao era lido.
+function baselineIsolationGate(baselineLogSamples) {
+  const metrics = [...new Set(
+    baselineLogSamples.filter((sample) => CHECKPOINT_METRICS.includes(sample.metric)).map((s) => s.metric),
+  )].sort();
+  const passed = metrics.length === 0;
+  const reason = passed ? 'baseline-carries-startup-mark-only' : 'checkpoint-metric-in-baseline';
+  return { passed, reason, outcome: outcomeOf(passed, reason), metrics };
+}
+
+export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog, baselineLog }) {
+  const baselineLogSamples = parseCheckpointPerformanceLog(baselineLog ?? '', 'off');
+  const baselineSamples = [
+    ...extractMaestroPerformanceSamples(baselineCommandRuns, 'off'),
+    ...baselineLogSamples,
+  ];
   const activeSamples = [
     ...extractMaestroPerformanceSamples(activeCommandRuns, 'active'),
     ...parseCheckpointPerformanceLog(activeLog, 'active'),
@@ -215,22 +249,28 @@ export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCo
     baseline: {
       cold_start: summarize(baselineSamples, 'cold_start'),
       home_to_lesson: summarize(baselineSamples, 'home_to_lesson'),
+      first_frame: summarize(baselineSamples, 'first_frame'),
     },
     active: {
       persistence: summarize(activeSamples, 'persistence'),
       restoration: summarize(activeSamples, 'restoration'),
       cold_start: summarize(activeSamples, 'cold_start'),
       home_to_lesson: summarize(activeSamples, 'home_to_lesson'),
+      first_frame: summarize(activeSamples, 'first_frame'),
     },
   };
   const gates = {
     persistence: absoluteGate(summary.active.persistence, 75),
     restoration: absoluteGate(summary.active.restoration, 100),
+    first_frame_delta: deltaGate(summary.baseline.first_frame, summary.active.first_frame),
     cold_start_delta: deltaGate(summary.baseline.cold_start, summary.active.cold_start),
     home_to_lesson_delta: deltaGate(summary.baseline.home_to_lesson, summary.active.home_to_lesson),
+    baseline_isolation: baselineIsolationGate(baselineLogSamples),
   };
+  for (const [name, gate] of Object.entries(gates)) gate.advisory = ADVISORY_GATES.has(name);
 
-  const results = Object.values(gates);
+  // Gates informativos ficam fora do veredito, e a lista deles e explicita acima.
+  const results = Object.values(gates).filter((gate) => !gate.advisory);
   const passed = results.every((gate) => gate.passed);
   return {
     schemaVersion: 1,
@@ -294,6 +334,9 @@ async function main() {
     baselineCommandRuns: baseline.commandRuns,
     activeCommandRuns: active.commandRuns,
     activeLog: active.log,
+    // Coletado desde sempre e descartado ate 2026-08-10: e nele que a marca de
+    // partida do baseline chega, e sem ele nao existe delta de `first_frame`.
+    baselineLog: baseline.log,
   });
   const json = `${JSON.stringify(report, null, 2)}\n`;
   if (outputPath) await writeFile(outputPath, json, 'utf8');

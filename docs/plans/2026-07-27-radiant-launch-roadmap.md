@@ -1228,13 +1228,23 @@ entrega a fundação que aqueles itens passam a consumir.
   dia (razões 0,108 / 0,246 / 0,498) e reproduz automaticamente as duas que já
   haviam sido rejeitadas — uma delas por julgamento humano lendo o swap.
 
-  **Falta:** uma passagem com o host ocioso, sem sessão de agente rodando, no
-  build corrigido. As duas condições nunca coincidiram — a passagem conclusiva é
-  do build anterior à correção da tela, e a do build corrigido é a que sai
-  `inconclusive`. É janela de host, não trabalho de agente. Seguem também sem
-  evidência VoiceOver como serviço, TalkBack (exige Android), aparelho físico de
-  tela baixa, "segunda falha invalida o checkpoint" e ausência de efeito duplicado
-  após a retomada.
+  E a **métrica de partida foi trocada** (`run-1786392781118-5b1f744b`, desenho
+  aprovado pelo dono). `cold_start` mede a duração do `launchApp`, que num Dev
+  Client termina no launcher, antes de o bundle JS existir — o kernel é JavaScript
+  e não vive nessa janela, então nem um verde conclusivo diria muito. Entrou
+  `first_frame`, do início da janela JS ao frame seguinte a `startupPhase` virar
+  `ready`, que só acontece depois de `inspectLaunch` do runtime de checkpoints:
+  **o kernel está dentro da janela por construção**. Emitida nos dois modos, o que
+  faz o delta existir; `cold_start` fica informativo e fora do veredito; e
+  "`off` silencioso" virou asserção do relatório. Sem dependência nova e sem
+  binário novo.
+
+  **Falta:** rodar as duas coortes com a métrica nova. Continua sendo janela de
+  host, com a expectativa — **hipótese até a coorte existir** — de depender muito
+  menos de host silencioso, porque a janela passou a ser medida dentro do app.
+  Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
+  aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
+  de efeito duplicado após a retomada.
 
   Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
   viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5

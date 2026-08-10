@@ -381,10 +381,21 @@ Ele é ignorado pelo git (`radiant-app/.gitignore:34`), mas **não** é isento d
 guarda de escopo do Loop: crie-o antes de abrir o run, para que entre na
 baseline, e remova-o depois de `run close`.
 
+**Mudou em 2026-08-10: a coorte baseline agora roda com `PERFORMANCE=true`.** A
+marca de primeiro frame (`first_frame`) é emitida em **todos** os modos do kernel,
+porque é ela que passou a gatear o cold start, e um delta exige as duas coortes.
+Ligar `PERFORMANCE` com `MODE=off` **não** liga o probe de checkpoint: ele exige
+`runtimeMode === 'active'`, então o baseline emite `first_frame` e mais nada.
+
+Isso é verificado, não assumido: se um log de baseline carregar qualquer métrica de
+checkpoint (`persistence`/`restoration`), o gate `baseline_isolation` **reprova o
+relatório**. Foi escrito depois de uma contaminação real por replay de buffer do
+CDP, que na época nada pegaria porque o baseline não era lido.
+
 ```sh
-# baseline legado; nenhum probe do app é ligado
+# baseline: kernel em `off`, mas a marca de partida É emitida
 EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=off \
-EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=false \
+EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=true \
 EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false \
 npx expo start --dev-client --clear
 
@@ -471,10 +482,31 @@ done
 ```
 
 Cold start e Home→Lição vêm dos tempos de comando do próprio
-`commands.json`; isso mede a ponta a ponta e mantém `off` silencioso. O app
-emite somente envelopes `RADIANT_CHECKPOINT_PERF` de persistência/restauração,
-com `schemaVersion`, métrica, modo e milissegundos — sem ids, conteúdo, PII,
-PHI ou mídia.
+`commands.json`; isso mede a ponta a ponta. O app emite envelopes
+`RADIANT_CHECKPOINT_PERF` com `schemaVersion`, métrica, modo e milissegundos —
+sem ids, conteúdo, PII, PHI ou mídia. São três métricas, e a diferença entre
+elas é o que o gate pode concluir:
+
+| métrica | de onde vem | em que modos | entra no veredito |
+| --- | --- | --- | --- |
+| `persistence` / `restoration` | probe do kernel, dentro do app | só `active` | **sim** |
+| `first_frame` | marca de partida, dentro do app | **`off` e `active`** | **sim** |
+| `cold_start` / `home_to_lesson` | `commands.json` do Maestro | os dois | `home_to_lesson` sim; **`cold_start` não** |
+
+**Por que `cold_start` saiu do veredito, desde 2026-08-10.** Ele mede a duração do
+`launchApp`, que num Dev Client termina no launcher, antes de o bundle JS ser
+buscado e avaliado — e o kernel é JavaScript, então não vive na janela medida. Um
+gate cuja métrica não observa o objeto sob teste não pode aprovar nem reprovar, e
+foi tentando fazê-lo que ele primeiro **reprovou por ruído** e depois **aprovou
+vazio**. Continua calculado e reportado, com `advisory: true`, porque a série
+histórica vale como contexto e porque uma regressão de lançamento **nativo** só
+apareceria ali. Voltar a gateá-lo é tirar o nome de `ADVISORY_GATES`.
+
+**`first_frame` é o que gateia agora.** Mede do início da janela JS até o frame
+seguinte a `startupPhase` virar `ready` — que só acontece depois de `inspectLaunch`
+do runtime de checkpoints. O kernel está dentro da janela por construção. Limite
+declarado: ela **exclui** o lançamento nativo, então regressão puramente nativa
+fica invisível para ela; medir isso exigiria módulo nativo e binário novo.
 
 **O canal de coleta não é o terminal do Metro — medido em 2026-08-10.** Neste
 Dev Client bridgeless, **nenhuma** saída de `console` do app chega ao terminal

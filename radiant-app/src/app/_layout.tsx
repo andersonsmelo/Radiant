@@ -35,6 +35,7 @@ import {
   getNativeActiveCheckpointRuntime,
   type ActiveResumeLaunch,
 } from '../features/student-checkpoints/ActiveCheckpointRuntime';
+import { firstFrameProbe } from '../features/student-checkpoints/CheckpointPerformance';
 import { resolveStudentCheckpointRuntimeMode } from '../features/student-checkpoints/mode';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../features/student-checkpoints/ScreenCheckpointAdapters';
 
@@ -205,6 +206,18 @@ function RootLayout() {
       active = false;
     };
   }, [bootstrapAttempt, shouldEnforceBetaGate]);
+
+  // A marca de primeiro frame útil do gate H3. `ready` é o ponto certo e não a
+  // montagem: ele só acontece depois do bootstrap e, decisivamente, depois de
+  // `inspectLaunch` do runtime de checkpoints — então a janela medida contém o
+  // kernel, que é exatamente o que a duração de `launchApp` do Maestro não
+  // continha. O `requestAnimationFrame` move a leitura para depois do frame ser
+  // pintado, em vez de medir o commit do React.
+  useEffect(() => {
+    if (startupPhase !== 'ready') return;
+    const frame = requestAnimationFrame(() => firstFrameProbe.recordFirstFrame());
+    return () => cancelAnimationFrame(frame);
+  }, [startupPhase]);
 
   useEffect(() => {
     if (showWelcome || !pendingWelcomeHref) {

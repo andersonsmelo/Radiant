@@ -1,6 +1,7 @@
 import {
     CHECKPOINT_PERFORMANCE_PREFIX,
     CheckpointPerformanceProbe,
+    FirstFrameProbe,
 } from './CheckpointPerformance';
 
 describe('CheckpointPerformanceProbe', () => {
@@ -47,5 +48,90 @@ describe('CheckpointPerformanceProbe', () => {
 
         expect(clock).not.toHaveBeenCalled();
         expect(emit).not.toHaveBeenCalled();
+    });
+});
+
+describe('FirstFrameProbe', () => {
+    function probeFor(mode: 'off' | 'active', options: { bundleStartedAt?: number; now?: number } = {}) {
+        const emit = jest.fn();
+        const probe = new FirstFrameProbe({
+            enabled: true,
+            mode,
+            bundleStartedAt: options.bundleStartedAt ?? 1_000,
+            clock: () => options.now ?? 1_812.4,
+            emit,
+        });
+        return { probe, emit };
+    }
+
+    // Esta e a assercao que sustenta a coorte de comparacao inteira. O probe de
+    // checkpoint exige `runtimeMode === 'active'`, e foi esse acoplamento que
+    // fez a rota da marca de primeiro frame ser descartada em 2026-08-10 com o
+    // motivo "o baseline `off` nunca produziria a coorte". A marca de primeiro
+    // frame nao e dado de checkpoint: ela mede inicializacao e nao toca store
+    // nenhum, entao emite nos dois modos e o delta passa a existir.
+    it.each(['off', 'active'] as const)('emits the closed startup envelope in %s mode', (mode) => {
+        const { probe, emit } = probeFor(mode);
+
+        probe.recordFirstFrame();
+
+        expect(emit).toHaveBeenCalledWith(
+            `${CHECKPOINT_PERFORMANCE_PREFIX}{"schemaVersion":1,"metric":"first_frame","mode":"${mode}","durationMs":812.4}`,
+        );
+    });
+
+    // O gatilho vive num efeito de React, que pode reexecutar. Duas amostras de
+    // um mesmo lancamento inflariam a coorte e corromperiam o p95 exatamente
+    // como o replay de buffer do CDP fez em 2026-08-10.
+    it('emits once per launch even when the trigger repeats', () => {
+        const { probe, emit } = probeFor('active');
+
+        probe.recordFirstFrame();
+        probe.recordFirstFrame();
+        probe.recordFirstFrame();
+
+        expect(emit).toHaveBeenCalledTimes(1);
+    });
+
+    it('is silent when disabled, without reading the clock', () => {
+        const emit = jest.fn();
+        const clock = jest.fn(() => 5);
+        const probe = new FirstFrameProbe({
+            enabled: false,
+            mode: 'off',
+            bundleStartedAt: 1,
+            clock,
+            emit,
+        });
+
+        probe.recordFirstFrame();
+
+        expect(clock).not.toHaveBeenCalled();
+        expect(emit).not.toHaveBeenCalled();
+    });
+
+    // Um relogio que ande para tras produziria duracao negativa, e o parser do
+    // relatorio a descartaria em silencio — coorte menor sem ninguem saber por
+    // que. Falhar aqui e mais barato que investigar amostra faltando depois.
+    it('does not emit a duration that is negative or not finite', () => {
+        const negativo = probeFor('active', { bundleStartedAt: 2_000, now: 1_000 });
+        negativo.probe.recordFirstFrame();
+        expect(negativo.emit).not.toHaveBeenCalled();
+
+        const infinito = probeFor('active', { bundleStartedAt: Number.NaN });
+        infinito.probe.recordFirstFrame();
+        expect(infinito.emit).not.toHaveBeenCalled();
+    });
+
+    it('never lets a failing emitter reach the learning path', () => {
+        const probe = new FirstFrameProbe({
+            enabled: true,
+            mode: 'active',
+            bundleStartedAt: 0,
+            clock: () => 10,
+            emit: () => { throw new Error('console-unavailable'); },
+        });
+
+        expect(() => probe.recordFirstFrame()).not.toThrow();
     });
 });

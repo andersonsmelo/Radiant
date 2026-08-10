@@ -42,11 +42,24 @@ quinto do p95 do baseline — quatro vezes a sensibilidade de 5% que o desenho
 pedia. Sob ele, aquela coorte sai `inconclusive` e o relatório sai
 `passed: false`, então **o verde não existe mais para ser promovido por engano**.
 
-Falta a medição conclusiva, e ela precisa de **host ocioso, sem sessão de agente
-rodando** — a carga que o runbook manda ausentar é a própria sessão. As duas
-condições necessárias nunca coincidiram numa execução: a passagem conclusiva
-(razão de ruído 0,108) é do build **anterior** à correção da tela de retomada, e a
-do build corrigido é a que sai `inconclusive` (0,498).
+**E então a métrica trocou** (`run-1786392781118-5b1f744b`, com
+[desenho aprovado pelo dono](superpowers/specs/2026-08-10-marca-de-primeiro-frame-design.md)).
+`cold_start` mede a duração do `launchApp` do Maestro, que num Dev Client termina no
+launcher, antes de o bundle JS existir — o kernel é JavaScript e não vive nessa
+janela, então nem um verde conclusivo diria muito sobre ele. Entrou **`first_frame`**:
+do início da janela JS ao frame seguinte a `startupPhase` virar `ready`, que só
+acontece depois de `inspectLaunch` do runtime de checkpoints, de modo que **o kernel
+está dentro da janela por construção**. A marca é emitida nos **dois** modos — é o
+que faz o delta existir — e o probe de checkpoint continua exigindo `active`.
+`cold_start` segue calculado e reportado como **informativo**, fora do veredito.
+"Off silencioso" virou asserção: métrica de checkpoint num log de baseline reprova o
+relatório.
+
+Falta **rodar as duas coortes** com a métrica nova. Ainda é janela de host — reboot
+para zerar swap, Metro pré-aquecido, coortes em sequência no mesmo script — mas a
+expectativa é depender muito menos de host silencioso, porque a janela passou a ser
+medida dentro do app. **Isso é hipótese até a coorte existir.** Nota de receita: o
+baseline agora roda com `PERFORMANCE=true` e `MODE=off`.
 
 **Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), "segunda
 falha invalida o checkpoint" e ausência de efeito duplicado após a retomada — o

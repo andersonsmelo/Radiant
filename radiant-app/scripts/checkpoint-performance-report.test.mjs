@@ -25,6 +25,17 @@ function coortePorPercentis({ p50, p95, tail = p95 + 50 }) {
   return [...Array(11).fill(p50), ...Array(7).fill(meio), p95, tail];
 }
 
+// A partir de 2026-08-10 o relatorio le tambem o log do BASELINE, porque a marca
+// de primeiro frame e emitida nos dois modos. Toda fixtura de run completo passa a
+// declarar as duas coortes de `first_frame`: sem elas o run esta incompleto, e o
+// gate reprova por amostra insuficiente com razao.
+function firstFrameLogs(baselineMs, activeMs, count = 20) {
+  return {
+    baselineLog: lines('first_frame', 'off', Array(count).fill(baselineMs)),
+    activeLog: lines('first_frame', 'active', Array(count).fill(activeMs)),
+  };
+}
+
 function commandRun(coldStartMs, homeToLessonMs) {
   return [
     {
@@ -68,7 +79,13 @@ test('uses nearest-rank p95 and closes all four gates with twenty samples', () =
     lines('restoration', 'active', Array.from({ length: 20 }, (_, index) => 50 + index)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
 
   assert.equal(report.summary.baseline.cold_start.p95Ms, 118);
   assert.equal(report.summary.active.persistence.p95Ms, 48);
@@ -89,7 +106,13 @@ test('fails closed when a cohort has fewer than twenty valid samples', () => {
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
 
   assert.equal(report.gates.persistence.passed, false);
   assert.equal(report.gates.persistence.reason, 'insufficient-samples');
@@ -128,7 +151,13 @@ test('never demands a delta finer than the baseline own upper-tail spread', () =
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
   const gate = report.gates.cold_start_delta;
 
   assert.equal(gate.baselineP50Ms, 3400);
@@ -153,7 +182,13 @@ test('keeps the stricter fixed floor when the baseline is quiet', () => {
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
   const gate = report.gates.cold_start_delta;
 
   // Baseline sem dispersao: a cauda medida e zero, entao quem manda e o maior
@@ -165,7 +200,10 @@ test('keeps the stricter fixed floor when the baseline is quiet', () => {
   // Reprovacao medida e um desfecho diferente de medicao impossivel: aqui o
   // instrumento tinha resolucao e o candidato excedeu o limite.
   assert.equal(gate.outcome, 'fail');
-  assert.equal(report.outcome, 'fail');
+  // O veredito nao segue mais este gate — ver a nota no caso do piso dominante. A
+  // reprovacao medida do `first_frame` tem caso proprio.
+  assert.equal(gate.advisory, true);
+  assert.equal(report.outcome, 'pass');
 });
 
 // Medido em 2026-08-10, na terceira passagem do gate: o piso de ruido do cold
@@ -194,7 +232,13 @@ test('reports inconclusive instead of an empty pass when the noise floor dominat
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
   const gate = report.gates.cold_start_delta;
 
   assert.equal(gate.baselineP50Ms, 2885);
@@ -211,9 +255,15 @@ test('reports inconclusive instead of an empty pass when the noise floor dominat
   // nao por relatorio, senao um instrumento ruim apagaria as medidas boas.
   assert.equal(report.gates.home_to_lesson_delta.outcome, 'pass');
   assert.equal(report.gates.persistence.outcome, 'pass');
-  // Falha fechada: nenhum leitor pode promover H3 com este relatorio.
-  assert.equal(report.passed, false);
-  assert.equal(report.outcome, 'inconclusive');
+  // As duas assercoes de RELATORIO deste caso mudaram em 2026-08-10, quando o cold
+  // start saiu do veredito por decisao do dono. O que o caso protege — que um piso
+  // de ruido dominante produz `inconclusive` no GATE, e nunca um passe vazio —
+  // segue identico e esta afirmado acima. O veredito deixou de seguir este gate, e
+  // afirmar isso aqui e o registro da mudanca no lugar onde alguem se confundiria.
+  // A guarda equivalente no nivel do relatorio mora no caso do `first_frame`.
+  assert.equal(report.gates.cold_start_delta.advisory, true);
+  assert.equal(report.passed, true);
+  assert.equal(report.outcome, 'pass');
 });
 
 // A guarda irma do caso acima, e a que impede que o teto engula medicao usavel:
@@ -231,7 +281,13 @@ test('stays conclusive at the noise floor an idle host produced', () => {
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
   const gate = report.gates.cold_start_delta;
 
   assert.equal(gate.noiseFloorMs, 362);
@@ -257,7 +313,13 @@ test('treats a noise floor exactly at the ceiling as still conclusive', () => {
     lines('restoration', 'active', Array(20).fill(10)),
   ].join('\n');
 
-  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const primeiroFrame = firstFrameLogs(800, 820);
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [activeLog, primeiroFrame.activeLog].join('\n'),
+    baselineLog: primeiroFrame.baselineLog,
+  });
   const gate = report.gates.cold_start_delta;
 
   assert.equal(gate.noiseFloorMs, 200);
@@ -266,4 +328,157 @@ test('treats a noise floor exactly at the ceiling as still conclusive', () => {
   assert.equal(gate.allowedDeltaMs, 200);
   assert.equal(gate.outcome, 'pass');
   assert.equal(gate.passed, true);
+});
+
+// A metrica que o gate passou a gatear em 2026-08-10. O `cold_start` media a
+// duracao do `launchApp` do Maestro, que num Dev Client termina no launcher —
+// antes de o bundle JS existir —, e o kernel e JavaScript: aquela janela nao
+// continha o objeto sob teste. `first_frame` mede inicio do bundle ate o
+// primeiro frame util, e o primeiro frame util e o frame seguinte a
+// `startupPhase` virar `ready`, que so acontece depois de `inspectLaunch` do
+// runtime de checkpoints. O kernel esta dentro da janela por construcao.
+test('gates the first-frame delta and keeps cold start advisory only', () => {
+  const baselineCommandRuns = coortePorPercentis({ p50: 2885, p95: 5748 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeCommandRuns = coortePorPercentis({ p50: 6000, p95: 6666 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const primeiroFrame = firstFrameLogs(800, 830);
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    primeiroFrame.activeLog,
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog: primeiroFrame.baselineLog,
+  });
+
+  assert.equal(report.summary.baseline.first_frame.count, 20);
+  assert.equal(report.summary.active.first_frame.count, 20);
+  assert.equal(report.gates.first_frame_delta.deltaMs, 30);
+  assert.equal(report.gates.first_frame_delta.outcome, 'pass');
+
+  // O cold start desta fixture e o do host em swap de 2026-08-10: razao de ruido
+  // 0,498, ou seja `inconclusive`. Ele continua sendo calculado e reportado,
+  // porque a serie historica tem valor de contexto...
+  assert.equal(report.gates.cold_start_delta.outcome, 'inconclusive');
+  assert.equal(report.gates.cold_start_delta.advisory, true);
+  // ...e NAO entra no veredito, porque um gate cuja metrica nao observa o que ele
+  // protege nao pode aprovar nem reprovar. Decisao do dono em 2026-08-10.
+  assert.equal(report.passed, true);
+  assert.equal(report.outcome, 'pass');
+  // Os gates que mandam declaram isso de forma legivel, para ninguem precisar
+  // saber de cor quais entram no veredito.
+  assert.equal(report.gates.first_frame_delta.advisory, false);
+  assert.equal(report.gates.persistence.advisory, false);
+});
+
+test('fails the first-frame gate when the candidate regresses beyond the allowed delta', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const primeiroFrame = firstFrameLogs(800, 900);
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    primeiroFrame.activeLog,
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog: primeiroFrame.baselineLog,
+  });
+
+  // Baseline plano: piso de ruido zero, entao manda o maior entre 5% de 800
+  // (40 ms) e o piso fixo de 50 ms. 100 ms de regressao reprova, e reprova como
+  // `fail` — o instrumento tinha resolucao e o candidato piorou.
+  assert.equal(report.gates.first_frame_delta.allowedDeltaMs, 50);
+  assert.equal(report.gates.first_frame_delta.deltaMs, 100);
+  assert.equal(report.gates.first_frame_delta.outcome, 'fail');
+  assert.equal(report.passed, false);
+  assert.equal(report.outcome, 'fail');
+});
+
+// A garantia de "`off` silencioso" era uma afirmacao sobre construcao: o probe de
+// checkpoint esta desabilitado e nao pode emitir. Com o baseline passando a ser
+// lido, ela vira assercao verificada. Isto nao e hipotetico: em 2026-08-10 duas
+// linhas `"mode":"active"` apareceram num log de baseline, por replay do buffer
+// do CDP, e nada no relatorio as pegaria porque o baseline nao era lido.
+test('fails closed when a baseline log carries any checkpoint metric', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const primeiroFrame = firstFrameLogs(800, 810);
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    primeiroFrame.activeLog,
+  ].join('\n');
+  const baselineLog = [
+    primeiroFrame.baselineLog,
+    lines('persistence', 'off', [12]),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog,
+  });
+
+  assert.equal(report.gates.baseline_isolation.passed, false);
+  assert.equal(report.gates.baseline_isolation.reason, 'checkpoint-metric-in-baseline');
+  assert.deepEqual(report.gates.baseline_isolation.metrics, ['persistence']);
+  // Violacao de contrato, nao medicao impossivel: o desfecho e `fail`.
+  assert.equal(report.gates.baseline_isolation.outcome, 'fail');
+  assert.equal(report.gates.baseline_isolation.advisory, false);
+  assert.equal(report.passed, false);
+});
+
+test('accepts a baseline log that carries only the mode-independent startup mark', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const primeiroFrame = firstFrameLogs(800, 810);
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    primeiroFrame.activeLog,
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog: primeiroFrame.baselineLog,
+  });
+
+  assert.equal(report.gates.baseline_isolation.passed, true);
+  assert.equal(report.gates.baseline_isolation.outcome, 'pass');
+  assert.equal(report.passed, true);
+});
+
+test('fails closed when the first-frame cohort is short of twenty samples', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const primeiroFrame = firstFrameLogs(800, 810, 19);
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    primeiroFrame.activeLog,
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog: primeiroFrame.baselineLog,
+  });
+
+  assert.equal(report.gates.first_frame_delta.reason, 'insufficient-samples');
+  assert.equal(report.gates.first_frame_delta.outcome, 'inconclusive');
+  assert.equal(report.passed, false);
+  assert.equal(report.outcome, 'inconclusive');
 });
