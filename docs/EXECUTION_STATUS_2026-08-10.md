@@ -55,11 +55,26 @@ que faz o delta existir — e o probe de checkpoint continua exigindo `active`.
 "Off silencioso" virou asserção: métrica de checkpoint num log de baseline reprova o
 relatório.
 
-Falta **rodar as duas coortes** com a métrica nova. Ainda é janela de host — reboot
-para zerar swap, Metro pré-aquecido, coortes em sequência no mesmo script — mas a
-expectativa é depender muito menos de host silencioso, porque a janela passou a ser
-medida dentro do app. **Isso é hipótese até a coorte existir.** Nota de receita: o
-baseline agora roda com `PERFORMANCE=true` e `MODE=off`.
+**E o piloto da métrica nova achou um custo real** (`run-1786394347211-12be1d79`,
+6+6 amostras, sem veredito). A instrumentação funciona nos dois modos, e o **kernel
+adiciona ~440 ms à partida**: mediana `off` **239,1 ms** contra `active`
+**680,5 ms**, com o delta valendo 3× a amplitude interna das coortes — não é deriva
+de host. É o **primeiro achado de produto** desta saga; a métrica antiga o escondia
+porque `launchApp` termina antes de o kernel existir, e chegou a mostrar delta
+*negativo* numa passagem.
+
+A hipótese de que a métrica dentro do app dispensaria host silencioso **não se
+confirmou**: piso de ruído 92,5 ms sobre p95 de 331,6 ms, razão 0,279, acima do teto
+de 0,20. A dispersão caiu em valor absoluto (101 ms contra ~835 ms) e não em
+proporção.
+
+Falta **rodar as duas coortes** de 20, e isso é janela de host — reboot para zerar
+swap, Metro pré-aquecido, coortes em sequência. Com baseline apertado o veredito
+esperado é **`fail`**: 440 ms contra 92,5 permitidos. **A pendência deixou de ser
+"o instrumento não conclui" e passou a ser "o instrumento mede, e o que ele mede
+precisa de decisão do dono"** — 440 ms de partida são aceitáveis na onda interna, ou
+o caminho de `inspectLaunch` é otimizado antes? Nota de receita: o baseline agora
+roda com `PERFORMANCE=true` e `MODE=off`.
 
 **Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), "segunda
 falha invalida o checkpoint" e ausência de efeito duplicado após a retomada — o

@@ -201,13 +201,21 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    gate `baseline_isolation` reprova se um log de baseline carregar métrica de
    checkpoint. Emissor **9/9**, relatório **14/14**, cinco mutações provadas, sem
    dependência nova e **sem binário novo**;
-6. ⏳ **rodar as duas coortes com `first_frame`.** É a pendência real que resta em
-   H3. Continua precisando de **janela de host** — reboot para zerar swap, Metro
-   pré-aquecido, nada mais rodando, as duas coortes em sequência no mesmo script —
-   mas a expectativa é depender **muito menos** de host silencioso, porque a janela
-   passou a ser medida dentro do app, na classe de dispersão das medidas que já são
-   conclusivas. **Isso é hipótese até a coorte existir.** Lembrete da receita nova:
-   o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
+6. ⏳ **rodar as duas coortes com `first_frame`, e decidir sobre ~440 ms.** Um
+   **piloto** de 6+6 amostras foi rodado em 2026-08-10 (`run-1786394347211-12be1d79`)
+   e mudou a natureza da pendência. A instrumentação funciona nos dois modos, e o
+   **kernel adiciona ~440 ms à partida** (mediana `off` 239,1 ms contra `active`
+   680,5 ms) — o primeiro achado de **produto** desta saga, que a métrica antiga
+   escondia porque `launchApp` termina antes de o kernel existir. O delta é 3× a
+   amplitude interna das coortes, então não é deriva de host.
+   **A hipótese do desenho não se confirmou:** o piso de ruído deu 92,5 ms sobre
+   p95 de 331,6 ms, razão 0,279, acima do teto de 0,20 — a dispersão caiu em valor
+   absoluto mas não em proporção, e a **janela de host continua necessária** (reboot
+   para zerar swap, Metro pré-aquecido, coortes em sequência). Com baseline apertado
+   o veredito esperado é **`fail`**, não `pass`: são 440 ms contra 92,5 permitidos.
+   A decisão que vem depois é do dono — 440 ms de partida são aceitáveis para a onda
+   interna, ou o caminho de `inspectLaunch` precisa ser otimizado antes? Lembrete de
+   receita: o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
 7. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
    `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
    runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador

@@ -765,3 +765,88 @@ do relatório passou a morar nos casos do `first_frame`.
   binário novo — a mudança é JS e o Dev Client a pega do Metro;
 - VoiceOver, TalkBack, aparelho físico de tela baixa, "segunda falha invalida o
   checkpoint" e ausência de efeito duplicado continuam sem evidência.
+
+## Piloto de `first_frame` — o kernel custa ~440 ms na partida
+
+**Run:** `run-1786394347211-12be1d79`. **Isto é um piloto, não a coorte**: 6 amostras
+por lado contra as 20 que o gate exige, então **não produz veredito**. Foi rodado
+para responder uma pergunta antes de gastar 2 h de janela — a hipótese escrita no
+desenho, de que a métrica nova dependeria muito menos de host silencioso.
+
+### A instrumentação funciona ponta a ponta
+
+Simulador `Radiant SE 4.7`, mesmo binário nativo, Metro pela receita nova. Controle
+positivo antes de cada coorte. O envelope chega nos **dois** modos, que era o ponto
+do desenho:
+
+```
+RADIANT_CHECKPOINT_PERF {"schemaVersion":1,"metric":"first_frame","mode":"off","durationMs":239.1}
+RADIANT_CHECKPOINT_PERF {"schemaVersion":1,"metric":"first_frame","mode":"active","durationMs":680.5}
+```
+
+E o baseline emitiu **somente** `first_frame` — nenhuma métrica de checkpoint —, que
+é o que o gate `baseline_isolation` passou a exigir.
+
+### Os números
+
+| coorte | n | mín | p50 | p95 | máx | amplitude |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| baseline (`off`) | 6 | 230,6 ms | **239,1 ms** | 331,6 ms | 331,6 ms | 101,0 ms |
+| active | 6 | 569,1 ms | **680,5 ms** | 710,9 ms | 710,9 ms | 141,8 ms |
+
+**Delta de medianas: +441,4 ms. Delta de p95: +379,3 ms.** Limite permitido pela
+fórmula: 92,5 ms.
+
+### O achado, e é sobre o produto, não sobre o instrumento
+
+**O kernel adiciona cerca de 440 ms à partida do app**, medidos na janela em que ele
+de fato vive. É o primeiro achado de produto desta saga inteira, e ele estava
+escondido: na métrica antiga o cold start do candidato aparecia como delta
+**negativo** numa passagem e como ruído nas outras, porque `launchApp` num Dev
+Client termina antes de o kernel existir.
+
+A discriminação que a métrica nova compra fica explícita na comparação com a
+dispersão. Aqui o delta é **3 vezes maior** que a amplitude interna de qualquer das
+duas coortes (101 e 142 ms), então deriva de host não o explica. No `cold_start` era
+o oposto: o delta permitido era **cinco vezes menor** que a dispersão da própria
+medida. A mesma aritmética que condenava a métrica antiga absolve esta.
+
+A única diferença de ambiente entre as duas coortes foi
+`EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE`. O caminho de partida do kernel —
+`inspectLaunch` lendo o store — é o que ocupa a diferença.
+
+### E a hipótese do desenho não se confirmou
+
+O desenho registrou como **hipótese** que a métrica dentro do app dependeria muito
+menos de host silencioso. O piloto diz que **não**, em termos relativos: o piso de
+ruído do baseline foi 92,5 ms sobre um p95 de 331,6 ms, razão de **0,279** — acima do
+teto de 0,20. A dispersão caiu em valor absoluto (101 ms contra ~835 ms), mas não em
+proporção. **A janela de host continua necessária.**
+
+Consequência formal: neste estado de host o gate devolveria
+`inconclusive`/`measurement-too-noisy`, porque o teto é checado antes da comparação
+de delta. Com um baseline apertado, o mesmo delta produziria **`fail`** — e é isso
+que se espera da coorte de verdade.
+
+Registro do host: swap subiu de 1002 MB para 1282 MB ao longo do piloto, e o uptime
+era de ~9 h. Nenhum reboot foi feito.
+
+### Uma calibração herdada que merece revisão
+
+O termo fixo de 50 ms da fórmula foi calibrado para uma métrica na faixa de
+3000–5000 ms, onde representa ~1,5%. Sobre `first_frame`, cuja escala é ~330 ms, ele
+sozinho vale **15%** da métrica — quase todo o orçamento de ruído antes de o teto de
+20% ser alcançado. Não afetou este piloto, porque o piso de ruído medido (92,5 ms)
+dominou os três termos. Fica registrado como item de revisão, e **não** foi mexido:
+mudar constante de gate depois de ver o resultado é exatamente o movimento que
+invalida um gate.
+
+### O que este piloto não é
+
+- **não é a coorte**: 6 amostras por lado, contra 20 exigidas. Nenhum veredito;
+- não usa build de produção: é Dev Client com Metro, então o número absoluto inclui
+  trabalho de desenvolvimento. Ele vale como **delta** entre dois lados que têm esse
+  trabalho igualmente, não como tempo de partida do app publicado;
+- não fecha H3. A pendência mudou de natureza outra vez: deixou de ser "o
+  instrumento não conclui" e passou a ser **"o instrumento mede, e o que ele mede é
+  um custo de ~440 ms que precisa de decisão"**.

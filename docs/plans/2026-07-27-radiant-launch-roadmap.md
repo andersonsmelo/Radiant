@@ -1239,9 +1239,18 @@ entrega a fundação que aqueles itens passam a consumir.
   "`off` silencioso" virou asserção do relatório. Sem dependência nova e sem
   binário novo.
 
-  **Falta:** rodar as duas coortes com a métrica nova. Continua sendo janela de
-  host, com a expectativa — **hipótese até a coorte existir** — de depender muito
-  menos de host silencioso, porque a janela passou a ser medida dentro do app.
+  Um **piloto** de 6+6 amostras (`run-1786394347211-12be1d79`, sem veredito) mostrou
+  a instrumentação funcionando nos dois modos e achou o que a métrica antiga
+  escondia: **o kernel adiciona ~440 ms à partida** — mediana `off` 239,1 ms contra
+  `active` 680,5 ms, com o delta valendo 3× a amplitude interna das coortes. É o
+  primeiro achado de **produto** desta saga. A hipótese de dispensar host silencioso
+  **não se confirmou**: razão de ruído 0,279 contra teto de 0,20.
+
+  **Falta:** rodar as duas coortes de 20, em janela de host, e **decidir sobre os
+  440 ms** — o veredito esperado é `fail`, contra 92,5 ms permitidos, e a pergunta
+  passa a ser se esse custo de partida é aceitável na onda interna ou se
+  `inspectLaunch` é otimizado antes. A pendência deixou de ser do instrumento e
+  passou a ser do produto.
   Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
   aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
   de efeito duplicado após a retomada.
