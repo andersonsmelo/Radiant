@@ -73,8 +73,12 @@ sintético de mídia está aprovado, com cinco candidatas históricas ainda
 rejeitadas. As **Ondas 1 a 4** do kernel fecharam: governança, fundação
 transacional em `off`, shadow nas 12 superfícies e runtime `active` **somente
 interno**, este último com o gate de aparelho executado em 2026-08-10 e um único
-item aberto — uma medição conclusiva de cold start, que depende de host ocioso e
-não de código. A próxima entrega é a **Task 12 educacional** de
+item aberto: o delta de partida. A métrica dele foi trocada no mesmo dia — de
+`cold_start`, que num Dev Client mede uma janela onde o kernel nem existe, para
+`first_frame`, que o contém por construção — e a primeira medição achou ~440 ms,
+dos quais ~72% são resolução de módulo e não lógica do kernel. **A medição que
+decide depende de um build sem Dev Client, não de host ocioso.** A próxima entrega
+é a **Task 12 educacional** de
 checkpoint/reforço. Produção segue `off`; nenhum sync, OTA ou novo binário foi
 autorizado. A autoridade é o status canônico; esta linha é conveniência e decai.
 
