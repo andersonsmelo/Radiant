@@ -850,3 +850,76 @@ invalida um gate.
 - não fecha H3. A pendência mudou de natureza outra vez: deixou de ser "o
   instrumento não conclui" e passou a ser **"o instrumento mede, e o que ele mede é
   um custo de ~440 ms que precisa de decisão"**.
+
+## Onde estão os 440 ms — fronteira medida, e não é o kernel
+
+**Runs:** `run-1786395295145-4412f2f2` (instrumentação) e
+`run-1786396152130-5d9cdc0b` (hipótese de correção). Este bloco **inverte a leitura**
+da seção anterior, e a inversão é o ponto: o custo existe, mas atribuí-lo ao kernel
+estava errado.
+
+### A fronteira
+
+`inspectLaunch` é a única etapa do bootstrap que se comporta de forma diferente entre
+`off` e `active`, e era a única sem probe nenhum — por isso os 9,0 ms de restauração
+nunca contradisseram os 440. Instrumentada como `launch_inspection` e medida **nos
+dois modos**, 6 lançamentos cada, mesmo binário e mesmo aparelho:
+
+| métrica | `off` | `active` |
+| --- | ---: | ---: |
+| `launch_inspection` | **0,5–0,9 ms** | **184–357 ms** (mediana ~239) |
+| `first_frame` | 200–305 ms (mediana ~232) | 528–679 ms (mediana ~564) |
+
+**~72% do delta de partida (332 ms) está dentro dessa fronteira.**
+
+### O mecanismo, tirado dos próprios números
+
+A **primeira** operação de storage do kernel custa ~240 ms; a **seguinte, no mesmo
+lançamento** — a `persistence` que aparece logo depois — custa **13–21 ms**. Essa
+razão é assinatura de **resolução de módulo**, não de I/O.
+
+O store resolve o AsyncStorage por `await import(...)`, e no Dev Client o Metro do
+Expo serve `import()` como **chunk assíncrono buscado por HTTP**: cada contexto JS
+novo paga na primeira operação. Em `off`, `inspectLaunch` retorna antes de tocar o
+store, então o baseline **nunca paga** — e a diferença apareceu no gate como se fosse
+custo do kernel. O `launch_inspection` em `active` também **cai** ao longo dos
+lançamentos (357 → 206), compatível com cache do lado do Metro e incompatível com
+custo inerente por lançamento.
+
+### Duas hipóteses mortas, e a segunda tinha cara de correção
+
+**A primeira**, minha: "o custo é o carregamento preguiçoso do AsyncStorage em si".
+Refutada lendo o código — `AuthService` e `FirstRunService` importam o módulo
+estaticamente e rodam no `Promise.all` **antes** do `inspectLaunch`, nos dois modos.
+
+**A segunda**, a correção óbvia: trocar por import estático no store. Aplicada, e
+**derrubou seis suítes do kernel** com `[@RNC/AsyncStorage]: NativeModule:
+AsyncStorage is null`. O preset `jest-expo` **não** mocka esse módulo, e o adaptador
+em memória existe justamente para essas suítes não precisarem de mock. O comentário
+que a troca ia apagar estava certo; ele só não registrava a consequência de
+ignorá-lo, o que é o que o fazia parecer removível. O contra-argumento de que vinte
+outros serviços importam estaticamente era verdadeiro e **irrelevante**: as suítes
+deles declaram o mock.
+
+A preguiça foi restaurada e o ponto de chamada passou a carregar os **dois** lados —
+o que quebra sem ela e o que ela custa.
+
+### A consequência que muda a decisão pendente
+
+**A pergunta "440 ms são aceitáveis?" era prematura.** Se esse custo é artefato do
+Dev Client, não há o que otimizar, e H3 volta a depender apenas da coorte. A medição
+que decide **não** é a coorte de 20: é comparar `launch_inspection` num build **sem
+Dev Client** (`developmentClient: false`, como o perfil `e2e-test` já declara). Se lá
+ele cair para poucos milissegundos, o custo morre como artefato; se persistir, existe
+custo de produto, e o remédio provável é **aquecer a resolução em paralelo no
+bootstrap** — nunca mexer no import, que é o que a segunda hipótese provou.
+
+Isso exige build novo, portanto autorização do dono.
+
+### E isso afia um limite que o próprio desenho declarou
+
+O desenho registrou que `first_frame` não mede lançamento nativo e que o número
+absoluto não é número de produção, valendo como **delta**. Falta uma linha, e ela é
+esta: **um delta também pode ser artefato de desenvolvimento quando um lado dispara
+busca de chunk assíncrono e o outro não.** Igualdade de binário e de aparelho não
+garante igualdade de caminho de módulo.

@@ -502,6 +502,16 @@ vazio**. Continua calculado e reportado, com `advisory: true`, porque a série
 histórica vale como contexto e porque uma regressão de lançamento **nativo** só
 apareceria ali. Voltar a gateá-lo é tirar o nome de `ADVISORY_GATES`.
 
+**`launch_inspection` é diagnóstico, não gate.** Mede a única etapa do bootstrap que
+difere entre os modos, nos dois modos, e existe porque atribuir custo de partida ao
+kernel sem medir essa fronteira levou a uma conclusão errada em 2026-08-10. Ela não
+é parseada pelo relatório de propósito: serve para ler o log cru quando o delta de
+`first_frame` precisar de explicação. Referência medida naquele dia, no Dev Client:
+**0,5–0,9 ms em `off`** e **184–357 ms em `active`** — e a diferença é resolução de
+módulo (`await import()` do AsyncStorage servido como chunk HTTP pelo Metro), não
+trabalho do kernel. Num build sem Dev Client isso pode desaparecer, e essa medição
+ainda não foi feita.
+
 **`first_frame` é o que gateia agora.** Mede do início da janela JS até o frame
 seguinte a `startupPhase` virar `ready` — que só acontece depois de `inspectLaunch`
 do runtime de checkpoints. O kernel está dentro da janela por construção. Limite

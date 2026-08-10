@@ -135,10 +135,15 @@ restauração **conclusivas e dentro dos limites**; bloqueio P0 de acessibilidad
 **Bloqueio:** um só, e o instrumento foi corrigido **três vezes** no mesmo dia —
 limiar consciente de ruído, desfecho `inconclusive`, e por fim a troca da métrica
 de partida para `first_frame`, que mede a janela onde o kernel de fato vive
-(`cold_start` ficou informativo). O que falta é **rodar as duas coortes** com a
-métrica nova, e isso é janela de host.
-**Dono:** agente nas correções de instrumento, todas feitas; a medição precisa da
-janela de host, e o dono participa dos gates humanos.
+(`cold_start` ficou informativo). O piloto da métrica nova então achou ~440 ms de
+custo de partida, e o diagnóstico da fronteira mostrou que **~72% disso não é do
+kernel**: é a resolução do AsyncStorage por `await import()` na primeira operação de
+storage, que o Metro serve como chunk buscado por HTTP no Dev Client. O que falta,
+em ordem: **medir num build sem Dev Client** (decide se há custo real) e **rodar as
+duas coortes**.
+**Dono:** agente nas correções de instrumento, todas feitas; o build sem Dev Client
+exige autorização do dono, a coorte exige janela de host, e o dono participa dos
+gates humanos.
 
 Evidência: [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
 Run Loop `run-1786354337237-662c1d8d`.
@@ -213,10 +218,22 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    absoluto mas não em proporção, e a **janela de host continua necessária** (reboot
    para zerar swap, Metro pré-aquecido, coortes em sequência). Com baseline apertado
    o veredito esperado é **`fail`**, não `pass`: são 440 ms contra 92,5 permitidos.
-   A decisão que vem depois é do dono — 440 ms de partida são aceitáveis para a onda
-   interna, ou o caminho de `inspectLaunch` precisa ser otimizado antes? Lembrete de
-   receita: o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
-7. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
+   Lembrete de receita: o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
+7. ⏳ **medir `launch_inspection` num build SEM Dev Client — e esta é a medição que
+   decide, não a coorte.** O diagnóstico da fronteira (runs
+   `run-1786395295145-4412f2f2` e `run-1786396152130-5d9cdc0b`) mostrou que **~72%
+   dos 440 ms não são custo do kernel**: `launch_inspection` custa 0,5–0,9 ms em
+   `off` e 184–357 ms em `active`, e o mecanismo é resolução de módulo, não I/O — a
+   primeira operação de storage do kernel resolve o AsyncStorage por `await
+   import()`, que o Metro serve como chunk buscado por HTTP no Dev Client, enquanto a
+   operação seguinte no mesmo lançamento custa 13–21 ms. Em `off` o `inspectLaunch`
+   retorna antes de tocar o store, então o baseline nunca paga.
+   **Se o custo não existir fora do Dev Client, não há o que otimizar** e a pergunta
+   "440 ms são aceitáveis?" cai. Exige build com `developmentClient: false` (o perfil
+   `e2e-test` já declara isso), portanto **autorização do dono**. Se persistir, o
+   remédio provável é aquecer a resolução em paralelo no bootstrap — **não** trocar o
+   import, que foi tentado e derrubou seis suítes do kernel;
+8. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
    `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
    runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador
    `Radiant SE 4.7` (`[0,0][375,667]`, 207 pt mais curto que o das coortes), com o
@@ -226,8 +243,8 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-8. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
-9. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+9. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
+10. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
    duplicado após a retomada continuam sem flow que os afirme.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do

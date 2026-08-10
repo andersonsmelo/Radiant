@@ -68,13 +68,31 @@ confirmou**: piso de ruído 92,5 ms sobre p95 de 331,6 ms, razão 0,279, acima d
 de 0,20. A dispersão caiu em valor absoluto (101 ms contra ~835 ms) e não em
 proporção.
 
-Falta **rodar as duas coortes** de 20, e isso é janela de host — reboot para zerar
-swap, Metro pré-aquecido, coortes em sequência. Com baseline apertado o veredito
-esperado é **`fail`**: 440 ms contra 92,5 permitidos. **A pendência deixou de ser
-"o instrumento não conclui" e passou a ser "o instrumento mede, e o que ele mede
-precisa de decisão do dono"** — 440 ms de partida são aceitáveis na onda interna, ou
-o caminho de `inspectLaunch` é otimizado antes? Nota de receita: o baseline agora
-roda com `PERFORMANCE=true` e `MODE=off`.
+**E o diagnóstico da fronteira mostrou que ~72% desse custo não é do kernel.**
+`inspectLaunch` foi instrumentado como `launch_inspection` e medido nos dois modos:
+**0,5–0,9 ms** em `off` contra **184–357 ms** em `active`. O mecanismo veio dos
+próprios números — a primeira operação de storage do kernel custa ~240 ms e a
+seguinte, no mesmo lançamento, 13–21 ms, que é assinatura de resolução de módulo e
+não de I/O. O store resolve o AsyncStorage por `await import()`, e no Dev Client o
+Metro serve `import()` como chunk buscado por HTTP; em `off` o `inspectLaunch`
+retorna antes de tocar o store, então o baseline nunca paga.
+
+Trocar por import estático foi tentado e **derrubou seis suítes** do kernel
+(`jest-expo` não mocka AsyncStorage): a preguiça é obrigatória, e o custo dela ficou
+registrado no ponto de chamada.
+
+**A pendência mudou de ordem, e a pergunta anterior era prematura.** Antes de decidir
+se 440 ms são aceitáveis, é preciso saber se eles existem fora do Dev Client:
+
+1. **medir `launch_inspection` num build sem Dev Client** (`developmentClient: false`,
+   como o perfil `e2e-test` já declara). Se cair para poucos ms, o custo morre como
+   artefato de instrumento e não há o que otimizar. Exige build novo, portanto
+   autorização do dono;
+2. **rodar as duas coortes de 20** em janela de host — reboot para zerar swap, Metro
+   pré-aquecido, coortes em sequência. Nota de receita: o baseline agora roda com
+   `PERFORMANCE=true` e `MODE=off`;
+3. se o custo persistir sem Dev Client, o remédio provável é **aquecer a resolução em
+   paralelo no bootstrap** — nunca trocar o import, que já foi refutado.
 
 **Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), "segunda
 falha invalida o checkpoint" e ausência de efeito duplicado após a retomada — o

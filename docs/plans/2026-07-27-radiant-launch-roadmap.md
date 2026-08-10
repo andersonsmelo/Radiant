@@ -1246,11 +1246,17 @@ entrega a fundação que aqueles itens passam a consumir.
   primeiro achado de **produto** desta saga. A hipótese de dispensar host silencioso
   **não se confirmou**: razão de ruído 0,279 contra teto de 0,20.
 
-  **Falta:** rodar as duas coortes de 20, em janela de host, e **decidir sobre os
-  440 ms** — o veredito esperado é `fail`, contra 92,5 ms permitidos, e a pergunta
-  passa a ser se esse custo de partida é aceitável na onda interna ou se
-  `inspectLaunch` é otimizado antes. A pendência deixou de ser do instrumento e
-  passou a ser do produto.
+  E o diagnóstico da fronteira mostrou que **~72% desse custo não é do kernel**:
+  `launch_inspection` custa 0,5–0,9 ms em `off` e 184–357 ms em `active`, e o
+  mecanismo é resolução de módulo — a primeira operação de storage resolve o
+  AsyncStorage por `await import()`, servido como chunk HTTP pelo Metro no Dev
+  Client, enquanto a operação seguinte no mesmo lançamento custa 13–21 ms. Import
+  estático foi tentado e derrubou seis suítes do kernel.
+
+  **Falta, em ordem:** (a) medir `launch_inspection` num build **sem Dev Client** —
+  é o que decide se existe custo real ou artefato de instrumento, e exige build novo,
+  portanto autorização do dono; (b) rodar as duas coortes de 20 em janela de host;
+  (c) só se o custo persistir, otimizar, e por aquecimento paralelo no bootstrap.
   Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
   aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
   de efeito duplicado após a retomada.
