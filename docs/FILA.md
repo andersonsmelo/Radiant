@@ -129,9 +129,84 @@ app. Run Loop: `run-1786314104218-908d111b`.
 
 ## AGENTE — Onda 4: runtime ativo somente interno
 
-**Estado:** implementação e builds internos concluídos; gate de dispositivo/perfil
-ainda aberto. **Bloqueio:** executar e registrar a matriz no mesmo perfil.
-**Dono:** agente executa a matriz; dono participa dos gates humanos.
+**Estado:** coortes executadas em 2026-08-10 (20/20 + 20/20); persistência e
+restauração **conclusivas e dentro dos limites**; bloqueio P0 de acessibilidade
+**fechado com prova em aparelho**; delta de cold start **`inconclusive`**.
+**Bloqueio:** um só, e mudou de natureza duas vezes no mesmo dia — o instrumento
+foi corrigido (limiar consciente de ruído, depois desfecho `inconclusive`) e o que
+falta é uma **janela de host ocioso**, sem sessão de agente, para produzir a
+medição conclusiva no build corrigido.
+**Dono:** agente nas correções de instrumento, todas feitas; a remedição precisa
+da janela de host, e o dono participa dos gates humanos.
+
+Evidência: [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+Run Loop `run-1786354337237-662c1d8d`.
+
+Status canônico promovido em 2026-08-10 para
+[`EXECUTION_STATUS_2026-08-10.md`](EXECUTION_STATUS_2026-08-10.md)
+(run `run-1786380009304-c10fa573`), junto com a lista governada de
+`scripts/qa/docs-contract.mjs` e os ponteiros dos seis documentos de estado
+corrente — o acoplamento que impedia mintar o snapshot num run de escopo menor.
+
+Persistência p95 **15,7 ms** (limite 75) e restauração p95 **10,6 ms** (limite
+100) passaram folgadas, com 42 e 20 amostras reais — as primeiras que existem.
+Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o baseline.
+
+**Próximas ações executáveis, em ordem:**
+
+1. ✅ **corrigir a tela de retomada** — feito em 2026-08-10, run
+   `run-1786366083722-93ee4bf4`. `CheckpointResumeScreen` virou `ScrollView` com
+   `flexGrow: 1` no contêiner de conteúdo (`flex: 1` ali recriaria o defeito).
+   Teste novo vermelho antes da implementação e provado por mutação; **17/17** no
+   arquivo. **Falta a prova em aparelho em AX4/AX5**, que roda junto da
+   reexecução das coortes porque exige `radiant-app/.env.local`;
+2. ✅ **corrigir o gate de cold start** — feito em 2026-08-10, run
+   `run-1786366490575-a0a0c4cb`. O limite virou
+   `max(0,05 × baseline_p95, 50 ms, baseline_p95 − baseline_p50)`; o terceiro
+   termo é o piso de ruído medido. Dois casos novos, vermelhos antes da
+   implementação, e o piso provado por mutação; **6/6** no arquivo. A rota de
+   emitir do app uma marca de primeiro frame foi **descartada com motivo**: o
+   probe só liga em `active`, então o baseline `off` — que precisa continuar
+   silencioso — nunca produziria a coorte de comparação;
+3. ✅ **reexecutar as coortes** — feito em 2026-08-10, run
+   `run-1786366830631-0755376c`. 20/20 e 20/20 no mesmo binário/aparelho/perfil,
+   com as duas coortes em sequência. **Persistência p95 23,1 ms** (n=43) e
+   **restauração p95 9,0 ms** (n=20) passam com folga; Home→Lição +152 ms contra
+   591 permitidos. **Bloqueio P0 fechado com prova em aparelho**: em AX4 e AX5 o
+   CTA é alcançável rolando, e o flow completo de retomada passa em AX5;
+4. ✅ **dar ao gate um terceiro desfecho** — feito em 2026-08-10, run
+   `run-1786383400260-6ad60081`. Cada gate e o relatório passaram a expor
+   `outcome` com três valores, e `inconclusive`/`measurement-too-noisy` é falha
+   fechada quando `piso_de_ruído > 0,2 × baseline_p95` — quatro vezes a
+   sensibilidade de 5% que o desenho pedia. `insufficient-samples` migrou para o
+   mesmo desfecho: `fail` passa a significar "o produto regrediu" e
+   `inconclusive`, "remedir o instrumento". Três casos novos, vermelhos antes da
+   implementação, cinco mutações provadas, **9/9** no arquivo. Recalculado sobre
+   as três passagens no disco: a de host ocioso segue conclusiva (razão 0,108), a
+   que havia sido **descartada por julgamento humano** agora é recusada pelo
+   próprio instrumento (0,246) e o passe vazio da terceira virou `inconclusive`
+   (0,498). Uma fixture pré-existente foi trocada de propósito — ela afirmava que
+   uma medição com 28,6% de ruído aprova, que é o passe vazio que o teto recusa;
+5. ⏳ **medir cold start com o host ocioso, sem sessão de agente rodando.** É a
+   pendência real que resta em H3 e **não é agentável nesta forma**: a carga que o
+   runbook manda ausentar é a própria sessão de agente. A trajetória do swap da
+   última execução (1698 → 3274 → 2227 MB) está na evidência e é o que explica a
+   perda de resolução. **As duas condições necessárias nunca coincidiram numa
+   execução**: a passagem conclusiva é do build anterior à correção da tela de
+   retomada, e a do build corrigido é a que sai `inconclusive`. Precisa de janela
+   de host;
+6. VoiceOver como serviço, TalkBack (exige Android) e viewport curto continuam
+   sem evidência. **A razão registrada para o viewport era falsa e foi medida em
+   2026-08-10:** o runtime iOS 26.5 suporta `iPhone SE (3rd generation)`
+   (375 × 667 pt) e os dois `mini`, então o teste em simulador curto está
+   alcançável aqui e só nunca foi rodado — é a fatia mais barata deste item.
+   Aparelho **físico** de tela baixa é que não existe;
+7. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+   duplicado após a retomada continuam sem flow que os afirme.
+
+Antes de qualquer reexecução, ler a seção **Gate H3** do
+[`E2E_RUNBOOK`](../radiant-app/docs/E2E_RUNBOOK.md): sem `radiant-app/.env.local`
+o runtime `active` não liga, e sem o coletor CDP as coortes saem vazias.
 
 Promover `active` somente em build interna para apresentação, Lição, Revisão e
 checkpoint de unidade. Entregar CTA explícito de retomada, nunca redirect
@@ -148,7 +223,9 @@ variante de simulador como `development+active`, distribuição interna e sync
 remoto `false`.
 
 Builds disponíveis: iOS Simulator `2d718691-288d-498e-9825-a03b14411bd2`
-(`1.3.1 (7)`) e Android `62d44f3f-30d0-4e12-b262-21b86ea6326c`
+(`appBuildVersion = 7` no registro do EAS, mas `CFBundleVersion = 3` no binário —
+contador remoto, corrigido em 2026-08-10, e **não** é a `1.3.1 (7)` da App
+Review) e Android `62d44f3f-30d0-4e12-b262-21b86ea6326c`
 (`1.3.1 (6)` remoto; não promover). O primeiro iOS falhou no auto-upload
 Sentry; o profile interno agora desliga esse upload. O APK foi instalado no AVD
 após remover a cópia antiga de assinatura incompatível, mas nenhum flow foi

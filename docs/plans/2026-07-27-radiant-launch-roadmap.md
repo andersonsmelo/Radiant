@@ -1204,10 +1204,31 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0 — IMPLEMENTADO; BUILDS INTERNOS PRONTOS; GATE PENDENTE]** Runtime
+- **H3 [P0 — BLOQUEIO P0 FECHADO EM 2026-08-10; GATE DE COLD START AINDA
+  INCONCLUSIVO]** Reexecutado no build corrigido (`run-1786366830631-0755376c`):
+  20/20 e 20/20, persistência p95 23,1 ms e restauração p95 9,0 ms dentro dos
+  limites, Home→Lição +152 ms, e o CTA de retomada alcançável em AX4/AX5 com
+  prova em aparelho. O relatório fecha `passed: true`, mas o cold start passou
+  **vazio** — piso de ruído de 2863 ms contra p95 de baseline de 5748 ms, com o
+  host em swap. Registro da primeira execução, preservado: As 20+20 execuções foram feitas no mesmo binário, aparelho e
+  perfil, todas verdes. Persistência p95 **15,7 ms** (limite 75) e restauração
+  p95 **10,6 ms** (limite 100) passaram; Home→Lição ficou **−174 ms**. O delta de
+  cold start deu **+267 ms** contra 167,6 ms permitidos e `report.json` fechou em
+  `"passed": false` — numa métrica cuja dispersão interna é ~835 ms e cuja janela
+  (`launchApp` de Dev Client) termina antes de o kernel existir. Antes disso, três
+  defeitos do instrumento impediam o gate de rodar: a receita de Metro não ligava
+  `active` (precedência de `.env` sobre a linha de comando), o canal de coleta não
+  carregava console JS, e o replay de buffer do CDP duplicaria amostras. Achado
+  independente que sozinho mantém H3 aberta: **a tela de retomada perde os dois
+  botões a partir de `accessibility-extra-extra-large`**, deixando o usuário sem
+  saída. Evidência:
+  [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+  Registro anterior, preservado: Runtime
   ativo somente interno, com CTA e fallback canônico. A coleta sanitizada e o
   parser p95 falha-fechada estão prontos. Builds concluídos: iOS Simulator
-  `2d718691-288d-498e-9825-a03b14411bd2` em `1.3.1 (7)` e Android
+  `2d718691-288d-498e-9825-a03b14411bd2` com `appBuildVersion = 7` no registro
+  do EAS e `CFBundleVersion = 3` no binário (contador remoto, corrigido em
+  2026-08-10; não é a `1.3.1 (7)` em revisão) e Android
   `62d44f3f-30d0-4e12-b262-21b86ea6326c` em `1.3.1 (6)` remoto, sem promoção.
   Faltam 20 amostras antes/depois no mesmo perfil, kill/relaunch,
   VoiceOver/TalkBack e viewport curto antes de fechar.

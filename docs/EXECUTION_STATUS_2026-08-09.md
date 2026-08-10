@@ -5,6 +5,13 @@ Este documento **substitui
 canônico. O snapshot anterior continua sendo a evidência detalhada da submissão
 iOS e do trabalho editorial de 2026-08-08.
 
+> **SUBSTITUÍDO em 2026-08-10 por**
+> [`EXECUTION_STATUS_2026-08-10.md`](EXECUTION_STATUS_2026-08-10.md). Este
+> snapshot continua sendo a evidência detalhada do trabalho de 2026-08-09 —
+> primeira vitória, quatro interações acessíveis, correção do agendador e as
+> Ondas 1 a 4 do kernel de checkpoints. A execução do gate H3 e o que ela
+> mudou estão no snapshot novo.
+
 ## Mudança de produto fechada hoje: primeira vitória
 
 A apresentação de primeiro uso continua com as três telas aprovadas e o mesmo
@@ -188,7 +195,10 @@ legadas continuam decidindo progresso, XP, desbloqueio, revisão e jornada.
 O gate operacional da Onda 4 continua aberto. Os builds internos foram gerados:
 Android `62d44f3f-30d0-4e12-b262-21b86ea6326c` terminou em `1.3.1 (6)` pelo
 contador remoto, e o retry iOS Simulator
-`2d718691-288d-498e-9825-a03b14411bd2` terminou em `1.3.1 (7)`. O primeiro iOS
+`2d718691-288d-498e-9825-a03b14411bd2` terminou com `appBuildVersion = 7` no
+registro do EAS — **também contador remoto**, corrigido em 2026-08-10: o
+`Info.plist` do artefato carrega `CFBundleVersion = 3`, e o `(7)` do registro
+não é a versão `1.3.1 (7)` em revisão na Apple. O primeiro iOS
 (`6e4d88b8-55c2-404c-99dc-f8ce23772510`) falhou no auto-upload Sentry; o profile
 interno agora fixa `SENTRY_DISABLE_AUTO_UPLOAD=true`, protegido por teste. O
 Android foi instalado no AVD após remover uma cópia `1.3.1 (3)` de assinatura

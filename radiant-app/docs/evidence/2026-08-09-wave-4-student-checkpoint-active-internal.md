@@ -51,8 +51,15 @@ do CTA, retomada explícita e retorno à Home.
 - correção em `run-1786323575086-039ac065`: teste vermelho 20/21, inclusão de
   `SENTRY_DISABLE_AUTO_UPLOAD=true`, contrato verde 21/21, 13 validadores Loop,
   `STEP_SUCCEEDED` e `RUN_CLOSED`;
-- retry iOS Simulator `2d718691-288d-498e-9825-a03b14411bd2`: `FINISHED` em
-  `1.3.1 (7)`;
+- retry iOS Simulator `2d718691-288d-498e-9825-a03b14411bd2`: `FINISHED`, com
+  `appBuildVersion = 7` **no registro do EAS**. **Corrigido em 2026-08-10:** esse
+  `(7)` é o contador remoto (`appVersionSource: remote`), não o número que o
+  binário carrega. O `Info.plist` do artefato baixado desse mesmo build declara
+  `CFBundleShortVersionString = 1.3.1` e `CFBundleVersion = 3`. Escrever
+  "terminou em 1.3.1 (7)" fazia o build interno de simulador parecer o mesmo
+  artefato submetido à App Review, que é outra coisa. Vale aqui a mesma ressalva
+  já registrada para o Android: contador remoto não promove versão canônica;
+
 - Android `62d44f3f-30d0-4e12-b262-21b86ea6326c`: `FINISHED` em `1.3.1 (6)`
   pelo contador remoto. O APK foi instalado no AVD depois de remover a cópia
   local `1.3.1 (3)`, cuja assinatura era incompatível.

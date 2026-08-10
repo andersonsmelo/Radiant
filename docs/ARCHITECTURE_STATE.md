@@ -6,7 +6,7 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](EXECUTION_STATUS_2026-08-09.md) e não faz parte do caminho
+[`status canônico`](EXECUTION_STATUS_2026-08-10.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
@@ -42,7 +42,7 @@ antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
 depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
 de lição fixo, e falha ou nó não navegável degrada para Home.
 
-## Kernel de checkpoints — fundação em `off` implementada
+## Kernel de checkpoints — `active` interno medido, produção em `off`
 
 Em 2026-08-09 foi aprovado o desenho de um kernel central para registrar e
 retomar as telas principais da jornada. Ele não substitui os serviços acima:
@@ -56,6 +56,17 @@ serializado; cada serviço persiste o recibo de idempotência atomicamente com o
 efeito antes de a saga marcar a etapa como concluída.
 O loop pedagógico será ligado a um loop editorial com revisões humanas clínica,
 de direitos e de acessibilidade independentes.
+
+Em 2026-08-10 o runtime `active` interno foi medido em aparelho pela primeira
+vez, e a medição corrigiu dois enganos que estavam versionados. O primeiro é de
+configuração: `expo/virtual/env.js` monta o env do cliente como
+`{ ...process.env, ...arquivos .env }`, então o arquivo vence a linha de comando
+e `EXPO_PUBLIC_APP_ENV=preview` do `.env` derrubava o modo para `off` —
+`resolveStudentCheckpointRuntimeMode('preview','active')` devolve `off` por
+contrato. O segundo é de produto: `CheckpointResumeScreen` não era rolável e, a
+partir de `accessibility-extra-extra-large`, perdia os dois botões, deixando
+quem usa texto grande sem saída. Ambos corrigidos; o segundo tem prova em
+aparelho em AX4 e AX5.
 
 Em 2026-08-09 a Onda 2 criou o módulo isolado
 `radiant-app/src/features/student-checkpoints/`: contratos/schemas fechados,
@@ -114,8 +125,12 @@ conveniência e decai):
   `case-decision` permanecem para ondas futuras;
 - guarda de ativação do agendador: **concluída** — competência sintética legada
   falha fechada; leitura curricular continua aguardando conteúdo v2;
-- kernel de checkpoints e commit recuperável: **fundação isolada em `off`
-  concluída**; telas e serviços legados ainda desconectados;
+- kernel de checkpoints e commit recuperável: fundação (`off`), shadow nas 12
+  superfícies e **runtime `active` interno** concluídos. Produção continua `off`
+  e as autoridades legadas seguem decidindo progresso, XP, desbloqueio, revisão
+  e jornada. O gate de dispositivo foi executado em 2026-08-10: persistência p95
+  **23,1 ms** e restauração p95 **9,0 ms**, com a retomada offline provada 20
+  vezes; o delta de cold start ainda não conclui;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 
@@ -153,7 +168,7 @@ autorização e anonimização verificadas.
 
 | Tema | Documento |
 | --- | --- |
-| Estado operacional | [`EXECUTION_STATUS_2026-08-09.md`](EXECUTION_STATUS_2026-08-09.md) |
+| Estado operacional | [`EXECUTION_STATUS_2026-08-10.md`](EXECUTION_STATUS_2026-08-10.md) |
 | Produto | [`PRD.md`](PRD.md) |
 | Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
 | Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |

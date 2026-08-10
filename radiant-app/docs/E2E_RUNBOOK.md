@@ -347,23 +347,113 @@ maestro test .maestro --format junit --output maestro-results.xml
 ### Gate H3 — active interno e p95
 
 O gate H3 usa o mesmo binário `checkpoint-internal` antes/depois. Como ele é
-um Dev Client, o Metro precisa repetir explicitamente a configuração do profile:
+um Dev Client, o Metro precisa repetir explicitamente a configuração do profile.
+
+**Antes de qualquer coisa, corrija a precedência do env — medido em 2026-08-10,
+e sem isso o gate não mede nada.** `EXPO_PUBLIC_APP_ENV=development` na linha de
+comando **não chega** ao app. O módulo virtual que o Expo injeta
+(`node_modules/expo/virtual/env.js`) monta o env do cliente como
+
+```js
+{ ...process.env, ...('.env', '.env.development', '.env.local', ...) }
+```
+
+com os **arquivos espalhados depois**, ou seja o arquivo vence o shell — o
+inverso da precedência do próprio CLI, que registra no terminal que não vai
+exportar as variáveis já presentes no ambiente. Como `radiant-app/.env` declara
+`EXPO_PUBLIC_APP_ENV=preview`, o app resolvia `AppConfig.APP_ENV = 'preview'`
+enquanto `process.env.EXPO_PUBLIC_APP_ENV` dizia `'development'`. E
+`resolveStudentCheckpointRuntimeMode('preview', 'active')` devolve **`off`** por
+contrato: o runtime interno era inalcançável por esta receita, o probe resolvia
+desligado no import e as coortes sairiam vazias. O sintoma engana porque é
+seletivo — `EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE` **não** está no `.env`, então
+essa flag chegava certa e só a outra era sobrescrita. `EXPO_NO_DOTENV=1` não
+resolve: ele governa o carregamento do CLI, não o módulo virtual.
+
+`.env.local` é espalhado **depois** de `.env` e é o único ponto que corrige isso
+sem editar o arquivo do desenvolvedor. Crie-o antes de subir o Metro:
+
+```sh
+printf 'EXPO_PUBLIC_APP_ENV=development\n' > radiant-app/.env.local
+```
+
+Ele é ignorado pelo git (`radiant-app/.gitignore:34`), mas **não** é isento do
+guarda de escopo do Loop: crie-o antes de abrir o run, para que entre na
+baseline, e remova-o depois de `run close`.
 
 ```sh
 # baseline legado; nenhum probe do app é ligado
-EXPO_PUBLIC_APP_ENV=development \
 EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=off \
 EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=false \
 EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false \
 npx expo start --dev-client --clear
 
 # candidato active; somente persistência/restauração são emitidas localmente
-EXPO_PUBLIC_APP_ENV=development \
 EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=active \
 EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=true \
 EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false \
 npx expo start --dev-client --clear
 ```
+
+**Prova de instrumento, antes de coletar cada coorte.** Contrato estático,
+parser verde e resolução de profile pelo EAS CLI não observam o app rodando: em
+2026-08-09 os três estavam verdes e o runtime não ligava. Meça o modo **dentro
+do processo**, pelo inspector do Metro, e guarde a leitura como
+`instrument-proof.json` no diretório da coorte. A leitura esperada é
+`{"APP_ENV":"development","modoResolvido":"active","probeEnabled":true}` no
+candidato e `modoResolvido":"off","probeEnabled":false` no baseline. Um gate que
+nunca leu essa linha não mediu o que promete.
+
+**O primeiro flow depois de `--clear` é descartável — e a corrida reincide.**
+Com o bundler frio, os três guards `runFlow when visible` do topo do flow são
+avaliados antes de o dev menu aparecer, os três são pulados e a falha se
+manifesta três passos adiante, na primeira asserção obrigatória — com mensagem
+de seletor errado. Rode um aquecimento e descarte-o antes de contar amostras.
+
+**Corrigido em 2026-08-10:** o aquecimento **não** é remédio completo. A mesma
+corrida reincidiu no meio de uma coorte já quente (execução 8 de 20), com a
+assinatura idêntica: os dois guards do dev menu `SKIPPED` e a falha na primeira
+asserção obrigatória. Ela acontece sempre que o dev menu demora, não apenas
+depois de `--clear`. Por isso a coleta precisa **repetir a execução que falhar**
+até fechar o número de amostras válidas, e registrar quantas retentativas houve.
+
+**Ao repetir, não sobrescreva o log da tentativa perdida.** Medido na mesma
+sessão: o runner gravava todas as tentativas no mesmo arquivo e apagava o
+diretório antes de repetir, então a assinatura da falha desapareceu e não foi
+possível afirmar se era esta corrida ou outra coisa. Guarde cada tentativa em
+caminho próprio (`.../<n>/tentativa-<k>/`).
+
+**Pré-requisitos de ambiente que o shell do agente não herda — medido em
+2026-08-10.** Shell não-interativo não carrega `~/.zshrc`, então três coisas
+somem e cada uma falha de um jeito diferente:
+
+| falta | sintoma |
+| --- | --- |
+| `~/.maestro/bin` no `PATH` | toda execução sai em `status=127` e 0 s |
+| `JAVA_HOME` | `maestro` responde `Unable to locate a Java Runtime` |
+| Node ≥ 22 como `node` | o coletor CDP quebra em `WebSocket is not defined` |
+
+```sh
+export JAVA_HOME="$HOME/.jdks/jdk-17.0.19+10/Contents/Home"
+export PATH="$JAVA_HOME/bin:$HOME/.maestro/bin:$PATH"
+```
+
+O `node` do `PATH` pode ser o 20; use o binário 24 explicitamente para os
+auxiliares que falam CDP. Vinte execuções saindo em 0 s parecem "o app quebrou"
+e são só `PATH`.
+
+**As duas coortes rodam em sequência imediata, no mesmo processo de
+orquestração.** Medido em 2026-08-10, e custou uma passagem inteira: baseline e
+candidato executados com uma hora de intervalo na mesma máquina produziram um
+delta de cold start de **+6021 ms**, vinte vezes o limite. A causa era o host —
+swap em 2781 MB de 3072 MB e load 5,58 ao fim, contra swap zero no começo — e
+não o software, já que num Dev Client a janela do `launchApp` é lançamento
+nativo. Repetida com as coortes em sequência, a mesma comparação deu +918 ms.
+
+A deriva do host é indistinguível de regressão por qualquer análise que só olhe
+os dois números, porque ela tem o **mesmo sinal** do efeito procurado: o
+candidato roda depois, logo mede pior. Registre `vm.swapusage` e `vm.loadavg` no
+início e no fim de cada coorte, dentro do artefato de evidência.
 
 Não comparar dois aparelhos, duas versões do sistema ou dois binários. Execute
 20 vezes cada coorte em diretórios separados, sem validar o Loop em paralelo:
@@ -384,8 +474,32 @@ Cold start e Home→Lição vêm dos tempos de comando do próprio
 `commands.json`; isso mede a ponta a ponta e mantém `off` silencioso. O app
 emite somente envelopes `RADIANT_CHECKPOINT_PERF` de persistência/restauração,
 com `schemaVersion`, métrica, modo e milissegundos — sem ids, conteúdo, PII,
-PHI ou mídia. Preserve o log do Metro dentro do diretório `active/` quando o
-log de dispositivo não capturar o console JS. Gere o relatório falha-fechada:
+PHI ou mídia.
+
+**O canal de coleta não é o terminal do Metro — medido em 2026-08-10.** Neste
+Dev Client bridgeless, **nenhuma** saída de `console` do app chega ao terminal
+do Metro (as linhas `Require cycle` que parecem do app são do empacotador, em
+tempo de build), e o log do sistema do simulador também não a carrega: 12 mil
+linhas do processo, zero console JS, porque o runtime novo roteia console para
+o canal de depuração. A instrução anterior — "preserve o log do Metro" — colhia
+um arquivo vazio, e o parser reportava isso como amostra insuficiente, que lê
+como "faltou rodar" em vez de "o canal está quebrado".
+
+Colete pelo inspector (CDP), que é onde o console realmente sai, filtrando pelo
+prefixo fechado para o arquivo não carregar nada além dos envelopes:
+`http://localhost:8081/json/list` devolve o alvo `Bridgeless`; conecte no
+`webSocketDebuggerUrl`, envie `Runtime.enable` e grave as linhas de
+`Runtime.consoleAPICalled` que contenham `RADIANT_CHECKPOINT_PERF ` em
+`.maestro/artifacts/h3/active/checkpoint-console.log`. O coletor precisa
+reconectar a cada `killApp`/`launchApp` do flow, porque o alvo cai junto.
+
+**Antes de coletar, prove o canal com um controle positivo.** Injete uma linha
+sintética com o mesmo prefixo e confirme que ela aparece no arquivo que o parser
+vai ler; sem isso, ausência de amostra é ambígua entre emissor e canal, e a
+ambiguidade custou o diagnóstico inteiro de 2026-08-10. Descarte o arquivo de
+controle antes da coorte real.
+
+Gere o relatório falha-fechada:
 
 ```sh
 npm run checkpoint:performance-report -- \
@@ -394,10 +508,77 @@ npm run checkpoint:performance-report -- \
   --output .maestro/artifacts/h3/report.json
 ```
 
+**Acessibilidade da retomada — o teste que fecha o item "viewport curto".** O
+critério é do usuário: *o CTA é alcançável e acionável*. Não use presença na
+árvore de acessibilidade — dentro de um contêiner rolável, ausência ali
+significa "abaixo da dobra", não "não renderizado", e essa leitura já produziu
+uma conclusão errada em 2026-08-10. Role e toque:
+
+```sh
+xcrun simctl ui <UDID> content_size accessibility-extra-extra-extra-large
+# flow que chega à retomada, rola até "Retomar estudo", toca e afirma a volta
+xcrun simctl ui <UDID> content_size medium
+```
+
+Cobrir no mínimo `medium`, `accessibility-extra-large` (AX3) e os dois maiores,
+AX4 e AX5 — foi em AX4 que a tela de retomada perdeu os dois botões antes da
+correção. Viewport curto continua **sem evidência**, mas **não por falta de
+device type** — a alegação anterior desta linha foi medida como falsa em
+2026-08-10. `xcrun simctl list runtimes --json` mostra o runtime iOS 26.5
+declarando `iPhone SE (3rd generation)` (375 × 667 pt), `iPhone 13 mini` e
+`iPhone 12 mini` entre os `supportedDeviceTypes`. O teste em simulador curto está
+alcançável aqui e apenas nunca foi executado:
+
+```sh
+xcrun simctl create "Radiant SE" com.apple.CoreSimulator.SimDeviceType.iPhone-SE-3rd-generation <runtime>
+# instalar o Dev Client, subir o Metro com radiant-app/.env.local e rodar o flow
+# de retomada em AX4/AX5 nessa tela
+```
+
+O que **não** existe neste host é aparelho **físico** de tela baixa; Dynamic Type
+máximo num 6,1" é a condição mais dura já exercitada e não substitui nenhum dos
+dois.
+
 O comando só retorna sucesso com ≥20 amostras por coorte, persistência p95
-≤75 ms, restauração p95 ≤100 ms e os dois deltas dentro da fórmula do gate.
+≤75 ms, restauração p95 ≤100 ms e os dois deltas dentro da fórmula do gate,
+que desde 2026-08-10 é
+`max(0,05 × baseline_p95, 50 ms, baseline_p95 - baseline_p50)`. O terceiro termo
+é o piso de ruído medido: o relatório reporta `noiseFloorMs` e `baselineP50Ms`
+em cada gate de delta, para o leitor ver qual termo mandou. Um limiar abaixo da
+dispersão da própria medida reprova por ruído — foi o que aconteceu na primeira
+execução real, com 167,6 ms permitidos contra ~835 ms de amplitude interna.
 Relatório verde ainda não substitui kill/relaunch, duas falhas, VoiceOver,
 TalkBack e viewport curto.
+
+**Leia `outcome` antes de `passed` — medido em 2026-08-10, e é a diferença entre
+aprovar e não ter medido.** O terceiro termo da fórmula acima elimina a
+reprovação por ruído e, num host que degrada, a troca por um **passe vazio**: na
+terceira passagem daquele dia o piso de ruído do cold start foi 2863 ms contra um
+p95 de baseline de 5748 ms, e o relatório fechou em `"passed": true`. Um limite
+que tolera 2,9 s não aprova o produto; ele apenas declara que a medição não tem
+resolução. Por isso cada gate e o relatório carregam agora um desfecho de três
+valores:
+
+| `outcome` | significado | próxima ação |
+| --- | --- | --- |
+| `pass` | mediu e está dentro do limite | seguir |
+| `fail` | mediu e o candidato excedeu o limite | investigar o **produto** |
+| `inconclusive` | não mediu — `insufficient-samples` ou `measurement-too-noisy` | remedir o **instrumento**; não promover nada |
+
+`measurement-too-noisy` dispara quando `noiseFloorMs > maxNoiseFloorMs`, e o teto
+é **um quinto do p95 do baseline** — quatro vezes a sensibilidade de 5% que o
+desenho original pedia. Acima disso "dentro do limite" tolera um quinto da
+métrica inteira e não carrega informação. O teto é checado **antes** da
+comparação de delta: sem resolução, nem "dentro" nem "excede" são afirmações
+sobre o software. As razões medidas em 2026-08-10 são a calibração: 0,108 na
+passagem de host ocioso (conclusiva), 0,246 na que foi descartada por método,
+0,498 na do host em swap, e 0,053/0,073 nos deltas de Home→Lição das três.
+
+**Consequência operacional:** `inconclusive` é falha fechada (`passed: false`),
+então um gate inconclusivo não promove. O remédio não é reduzir o limite — é
+**remedir com o host ocioso**, sem sessão de agente rodando, porque o piso de
+ruído é propriedade da máquina naquele momento, não do software sob teste.
+Registre `vm.swapusage` e `vm.loadavg` antes de concluir que a passagem serve.
 
 ## Sign-off matrix
 

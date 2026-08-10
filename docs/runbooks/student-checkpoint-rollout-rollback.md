@@ -89,7 +89,27 @@ Gate para sair de shadow:
 - zero payload recusado fora de testes;
 - no mesmo aparelho/perfil e com ≥20 execuções antes/depois, delta de p95 para
   cold start/Home→Lição
-  `novo_p95 - baseline_p95 <= max(0,05 × baseline_p95, 50 ms)`;
+  `novo_p95 - baseline_p95 <= max(0,05 × baseline_p95, 50 ms, baseline_p95 - baseline_p50)`.
+  **O terceiro termo entrou em 2026-08-10, medido.** Na primeira execução real do
+  gate a amplitude interna do cold start foi 838 ms no baseline e 833 ms no
+  candidato, contra 167,6 ms permitidos pelos dois primeiros termos: um limiar
+  cinco vezes menor que a dispersão da própria medida reprova por ruído, qualquer
+  que seja a mudança sob teste — e reprovou. A cauda superior medida do baseline é
+  o piso de resolução do instrumento. Onde a medida é estável esse termo é zero e
+  os dois originais continuam mandando, então o gate **não** afrouxa onde já era
+  significativo;
+- **o delta só conta quando a medição conclui, e isso é um desfecho separado,
+  também de 2026-08-10.** O termo de ruído acima elimina a reprovação espúria e,
+  num host que degrada, troca-a por um **passe vazio**: com o piso de ruído em
+  2863 ms contra um p95 de baseline de 5748 ms, o relatório fecha em
+  `passed: true` sem distinguir regressão de flutuação. O gate passou a ter três
+  desfechos — `pass`, `fail` e `inconclusive` — e devolve
+  `inconclusive`/`measurement-too-noisy`, falha fechada, quando
+  `piso_de_ruído > 0,2 × baseline_p95`, isto é quando a medição perdeu mais de
+  quatro vezes a sensibilidade de 5% que este gate especifica. `inconclusive`
+  **não** autoriza nem reprova o produto: manda remedir com o host ocioso. Ler
+  `passed: true` sem ler `outcome` é o modo documentado de promover uma onda com
+  base numa medição que não mediu;
 - storage sem crescimento além de 30 dias/500 entradas.
 
 Rollback: desligar shadow e, se necessário, remover apenas o store shadow. Nunca
@@ -142,6 +162,50 @@ Gate:
 - kill/relaunch offline sem duplicação;
 - duas falhas levam a checkpoint invalidado + Home;
 - VoiceOver/TalkBack e viewport curto sem bloqueio.
+
+**Executado em 2026-08-10 — onda CONTINUA ABERTA.** Quatro runs naquele dia;
+evidência consolidada em
+[`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+Estado item a item, na medição que vale — a reexecução no build corrigido
+(`run-1786366830631-0755376c`), relida sob o desfecho de três valores:
+
+| item do gate | resultado |
+| --- | --- |
+| 20 execuções no mesmo aparelho/perfil | cumprido — 20/20 e 20/20 |
+| persistência p95 ≤75 ms | **23,1 ms**, 43 amostras — `pass` |
+| restauração p95 ≤100 ms | **9,0 ms**, 20 amostras — `pass` |
+| delta Home→Lição | **+152 ms** contra 591 — `pass` |
+| delta cold start | **`inconclusive`** — piso de ruído 2863 ms contra teto de 1149,6 ms |
+| kill/relaunch offline sem duplicação | retomada provada 20 vezes; **não-duplicação não é afirmada** por nenhum flow |
+| duas falhas → checkpoint invalidado + Home | **não exercitado** |
+| VoiceOver/TalkBack/viewport curto | P0 de Dynamic Type **fechado com prova em aparelho** em AX4/AX5; VoiceOver, TalkBack e viewport fisicamente curto **sem evidência** |
+
+O bloqueio de acessibilidade que era trigger de rollback imediato — a tela de
+retomada perdia os dois botões a partir de `accessibility-extra-extra-large`,
+sem `ScrollView` para alcançá-los — **está fechado** (`run-1786366083722-93ee4bf4`,
+prova de rolar-e-tocar em AX4 e AX5).
+
+O que mantém a onda aberta, em ordem:
+
+1. **o delta de cold start não tem medição conclusiva.** O instrumento foi
+   corrigido duas vezes em 2026-08-10 — primeiro o limiar consciente de ruído,
+   depois o desfecho `inconclusive` — e o que falta agora é uma passagem com o
+   host ocioso, sem sessão de agente rodando, cujo piso de ruído caiba no teto.
+   O limite estrutural continua registrado: `launchApp` num Dev Client termina
+   antes de o bundle JS existir, então o kernel não vive na janela medida, e onde
+   ele pode aparecer — Home→Lição — o delta é conclusivo e pequeno;
+2. **VoiceOver como serviço, TalkBack e viewport curto** seguem sem evidência;
+   TalkBack exige Android. Para o viewport, a razão registrada até 2026-08-10 —
+   ausência de device type SE — foi **medida como falsa**: o runtime iOS 26.5
+   suporta `iPhone SE (3rd generation)` e os dois `mini`, então o teste em
+   simulador curto está alcançável e apenas não foi executado. O que falta neste
+   host é aparelho **físico** de tela baixa;
+3. **"segunda falha invalida o checkpoint e volta à Home"** e **ausência de
+   efeito duplicado após a retomada** não são exercitados por nenhum flow.
+
+O procedimento reprodutível corrigido, incluindo `radiant-app/.env.local` e o
+coletor CDP sem os quais as coortes saem vazias, está na seção **Gate H3** de
+`radiant-app/docs/E2E_RUNBOOK.md`.
 
 Rollback: retirar a superfície da allowlist; se houver risco sistêmico, mudar
 para `off`. O checkpoint fica inerte e o estado pedagógico é preservado.

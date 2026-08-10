@@ -298,7 +298,7 @@ Arquivos principais:
 ## Release e EAS
 
 Estado operacional validado em **2026-08-09** — detalhes e bloqueios no
-[`status canônico`](../docs/EXECUTION_STATUS_2026-08-09.md):
+[`status canônico`](../docs/EXECUTION_STATUS_2026-08-10.md):
 
 - projeto EAS vinculado a `@hashi1802/radiant-app`, com contadores de build
   governados remotamente;
@@ -589,7 +589,7 @@ Prioridades imediatas:
 - PRD: [`../docs/PRD.md`](../docs/PRD.md)
 - arquitetura vigente: [`../docs/ARCHITECTURE_STATE.md`](../docs/ARCHITECTURE_STATE.md)
 - fluxo do cliente: [`../docs/CLIENT_FLOW.md`](../docs/CLIENT_FLOW.md)
-- status canônico: [`../docs/EXECUTION_STATUS_2026-08-09.md`](../docs/EXECUTION_STATUS_2026-08-09.md)
+- status canônico: [`../docs/EXECUTION_STATUS_2026-08-10.md`](../docs/EXECUTION_STATUS_2026-08-10.md)
 - roadmap ativo: [`../docs/plans/2026-07-27-radiant-launch-roadmap.md`](../docs/plans/2026-07-27-radiant-launch-roadmap.md)
 - checklist de release: [`../docs/release/CHECKLIST_RELEASE_V1.3.md`](../docs/release/CHECKLIST_RELEASE_V1.3.md)
 - acessibilidade: [`docs/ACCESSIBILITY_QA_V1.md`](docs/ACCESSIBILITY_QA_V1.md)

@@ -54,7 +54,7 @@ Disponibilidade pública só pode ser promovida depois de deploy e smoke remotos
 novos.
 
 O estado e os bloqueios vigentes estão no
-[`status canônico`](../docs/EXECUTION_STATUS_2026-08-09.md).
+[`status canônico`](../docs/EXECUTION_STATUS_2026-08-10.md).
 
 ### Evidência histórica de 2026-04-01
 
