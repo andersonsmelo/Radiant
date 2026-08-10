@@ -1,3 +1,5 @@
+import { startupProbe } from './CheckpointPerformance';
+
 export interface KeyValueStorage {
     getItem(key: string): Promise<string | null>;
     setItem(key: string, value: string): Promise<void>;
@@ -25,7 +27,14 @@ async function nativeStorage(): Promise<KeyValueStorage> {
     // apareceu no gate como se fosse custo do kernel. **Se esse custo existe fora do
     // Dev Client é pergunta aberta**; otimizar antes de responder seria otimizar um
     // artefato de instrumento. Não mexa aqui sem medir num build sem Dev Client.
-    return (await import('@react-native-async-storage/async-storage')).default as KeyValueStorage;
+    //
+    // A resolução é medida separada da leitura, porque as duas explicações do custo
+    // têm remédios opostos: `launch_inspection` menos `storage_module_resolution` é o
+    // que a leitura custa de fato. Só a primeira resolução é medida — este caminho é
+    // atravessado por toda operação de storage seguinte.
+    return startupProbe.measureOnce('storage_module_resolution', async () => (
+        (await import('@react-native-async-storage/async-storage')).default as KeyValueStorage
+    ));
 }
 
 export const asyncStorageKeyValueStorage: KeyValueStorage = {

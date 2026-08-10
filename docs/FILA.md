@@ -136,14 +136,15 @@ restauração **conclusivas e dentro dos limites**; bloqueio P0 de acessibilidad
 limiar consciente de ruído, desfecho `inconclusive`, e por fim a troca da métrica
 de partida para `first_frame`, que mede a janela onde o kernel de fato vive
 (`cold_start` ficou informativo). O piloto da métrica nova então achou ~440 ms de
-custo de partida, e o diagnóstico da fronteira mostrou que **~72% disso não é do
-kernel**: é a resolução do AsyncStorage por `await import()` na primeira operação de
-storage, que o Metro serve como chunk buscado por HTTP no Dev Client. O que falta,
-em ordem: **medir num build sem Dev Client** (decide se há custo real) e **rodar as
-duas coortes**.
-**Dono:** agente nas correções de instrumento, todas feitas; o build sem Dev Client
-exige autorização do dono, a coorte exige janela de host, e o dono participa dos
-gates humanos.
+custo de partida, e a fronteira medida mostrou que **quase nada disso é do kernel**:
+a resolução do AsyncStorage por `await import()` responde por 177–622 ms e a leitura
+em si por **menos de 2 ms**. O `expo export` de produção emite um único bundle, sem
+chunk assíncrono, então o custo **não existe fora do Dev Client**. **O kernel custa
+<2 ms na partida.** O que falta: tornar o delta de `first_frame` válido em dev
+(aquecer a resolução nos dois modos) e **rodar as duas coortes**.
+**Dono:** agente — as correções de instrumento estão feitas e a pergunta do custo
+foi respondida sem precisar de build. A coorte ainda quer janela de host, e o dono
+participa dos gates humanos.
 
 Evidência: [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
 Run Loop `run-1786354337237-662c1d8d`.
@@ -217,10 +218,24 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    p95 de 331,6 ms, razão 0,279, acima do teto de 0,20 — a dispersão caiu em valor
    absoluto mas não em proporção, e a **janela de host continua necessária** (reboot
    para zerar swap, Metro pré-aquecido, coortes em sequência). Com baseline apertado
-   o veredito esperado é **`fail`**, não `pass`: são 440 ms contra 92,5 permitidos.
-   Lembrete de receita: o baseline agora roda com `PERFORMANCE=true` e `MODE=off`;
-7. ⏳ **medir `launch_inspection` num build SEM Dev Client — e esta é a medição que
-   decide, não a coorte.** O diagnóstico da fronteira (runs
+   o veredito esperado seria `fail` — **mas o item 7 mostrou que esse `fail` seria
+   por artefato de dev, não por regressão**, então a coorte só vale depois de o
+   delta virar comparável. Lembrete de receita: o baseline agora roda com
+   `PERFORMANCE=true` e `MODE=off`;
+7. ✅ **a pergunta do custo de partida está FECHADA — era artefato do Dev Client**
+   (runs `run-1786403538585-d2745992` e `run-1786404098148-d873b589`). Não exigiu
+   build: `storage_module_resolution` mede a resolução do módulo sozinha, e a
+   subtração dá a leitura — **menos de 2 ms** em todos os seis lançamentos, contra
+   177–622 ms de resolução. E o `expo export` de produção emite **um único** bundle
+   JS, sem nenhum chunk assíncrono, então num build embarcado o `import()` não tem o
+   que buscar. **O kernel custa <2 ms na partida.** Consequência: o delta de
+   `first_frame` medido em Dev Client **não pode julgar esta onda**, porque só um
+   lado percorre o caminho de chunk. Saída preferida: aquecer a resolução no
+   bootstrap nos dois modos, o que restaura a validade da medição e ainda tira
+   ~200 ms por lançamento do desenvolvedor. **Registro do erro:** eu havia escalado
+   isso como "exige autorização do dono para build sem Dev Client" — não exigia, e um
+   export de bundle respondeu;
+8. ⏳ **antiga pendência 7, agora reduzida:** O diagnóstico da fronteira (runs
    `run-1786395295145-4412f2f2` e `run-1786396152130-5d9cdc0b`) mostrou que **~72%
    dos 440 ms não são custo do kernel**: `launch_inspection` custa 0,5–0,9 ms em
    `off` e 184–357 ms em `active`, e o mecanismo é resolução de módulo, não I/O — a
@@ -233,7 +248,7 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    `e2e-test` já declara isso), portanto **autorização do dono**. Se persistir, o
    remédio provável é aquecer a resolução em paralelo no bootstrap — **não** trocar o
    import, que foi tentado e derrubou seis suítes do kernel;
-8. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
+9. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
    `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
    runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador
    `Radiant SE 4.7` (`[0,0][375,667]`, 207 pt mais curto que o das coortes), com o
@@ -243,8 +258,8 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-9. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
-10. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+10. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
+11. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
    duplicado após a retomada continuam sem flow que os afirme.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do

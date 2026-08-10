@@ -923,3 +923,91 @@ absoluto não é número de produção, valendo como **delta**. Falta uma linha,
 esta: **um delta também pode ser artefato de desenvolvimento quando um lado dispara
 busca de chunk assíncrono e o outro não.** Igualdade de binário e de aparelho não
 garante igualdade de caminho de módulo.
+
+## Os 440 ms eram do instrumento — medido, e fechado
+
+**Run:** `run-1786404098148-d873b589` (instrumentação em `run-1786403538585-d2745992`).
+Este bloco **encerra** a pergunta que as duas seções anteriores deixaram aberta, e a
+resposta inverte a leitura de novo: o custo de partida atribuído ao kernel é
+artefato do Dev Client.
+
+### Duas explicações com remédios opostos
+
+`launch_inspection` mostrou 184–357 ms em `active` contra 0,5–0,9 ms em `off`. Duas
+causas sobreviviam, e a escolha entre elas decidia tudo:
+
+- **resolução de módulo** — o `await import()` do AsyncStorage servido como chunk
+  assíncrono pelo Metro em dev. Artefato de desenvolvimento; nada a otimizar;
+- **abertura do banco nativo** na primeira leitura. Real em produção; exigiria
+  otimização.
+
+`storage_module_resolution` mede a resolução sozinha. A subtração dá a leitura.
+
+### O resultado não é ambíguo
+
+Seis lançamentos, coorte `active`, mesmo binário:
+
+| lançamento | `storage_module_resolution` | `launch_inspection` | diferença = a leitura |
+| --- | ---: | ---: | ---: |
+| 1 (Metro frio) | 622,1 ms | 624,2 ms | **2,1 ms** |
+| 2 | 189,0 ms | 190,6 ms | **1,6 ms** |
+| 3 | 266,2 ms | 268,1 ms | **1,9 ms** |
+| 4 | 207,9 ms | 209,6 ms | **1,7 ms** |
+| 5 | 177,4 ms | 179,1 ms | **1,7 ms** |
+| 6 | 191,5 ms | 193,3 ms | **1,8 ms** |
+
+**O trabalho de partida do kernel — ler uma chave inexistente — custa menos de
+2 ms.** Praticamente 100% do `launch_inspection` é a resolução do módulo. E a
+primeira medição custar 3× as seguintes é assinatura de cache de bundler, não de
+inicialização nativa, que não teria por que se importar com o cache do Metro.
+
+O argumento que fecha a hipótese nativa: mais de vinte serviços do app importam o
+mesmo módulo **estaticamente**, então o corpo dele já foi avaliado na avaliação do
+bundle, nos dois modos. Se o custo fosse avaliação de módulo ou aquisição do handle
+nativo, o import dinâmico bateria no registro já populado e custaria ~0. Ele custa
+190–620 ms, logo não está batendo no registro estático — está no caminho de
+`asyncRequire` do Metro em dev.
+
+### E a prova estática, que não exigiu build nenhum
+
+```sh
+npx expo export --platform ios --output-dir <dir>
+```
+
+O export de produção emite **um único artefato JS** —
+`_expo/static/js/ios/entry-<hash>.hbc`, 6,4 MB — e o `metadata.json` declara um
+bundle para iOS com 37 assets. **Zero chunks assíncronos.** Num build embarcado o
+`import()` não tem o que buscar: o módulo está dentro do bundle já carregado.
+
+Isso respondeu, por construção, a pergunta que eu havia escalado como "exige build
+sem Dev Client": **não exigia**. Um export de bundle bastou, e ele não é ação de
+loja nem produz artefato distribuível.
+
+### O que isso faz com o gate que foi construído hoje
+
+**O delta de `first_frame` medido num Dev Client não pode julgar esta onda.** Ele
+compara duas coortes em que apenas uma dispara uma busca de chunk que só existe em
+desenvolvimento, e essa busca domina o delta: dos ~344–441 ms medidos, ~190–620 ms
+são o import. O gate reprovaria a onda por um custo que não existe em produção.
+
+É um limite do instrumento, não do produto, e é o terceiro desta saga — depois da
+janela cega do `cold_start` e do passe vazio por ruído. A diferença é que este é
+fino: mesmo binário, mesmo aparelho, mesma coorte, e ainda assim os dois lados
+percorrem caminhos de módulo diferentes.
+
+Duas saídas, e a primeira é melhor:
+
+1. **aquecer a resolução do módulo no bootstrap, nos dois modos.** Os dois lados
+   passam a pagar igual, o delta volta a medir o kernel, e o desenvolvedor deixa de
+   pagar 200 ms por lançamento. Justifica-se como **validade da medição**, não como
+   otimização — o custo otimizado é de dev;
+2. medir `first_frame` num build embarcado, onde o artefato não existe.
+
+Nenhuma das duas foi executada aqui.
+
+### O que fica provado sobre o produto
+
+**O kernel de checkpoints custa menos de 2 ms na partida.** É a primeira afirmação
+desta saga sobre o produto que se sustenta em medição direta da fronteira, e ela é
+o oposto do que o piloto sugeriu. Persistência (23,1 ms) e restauração (9,0 ms)
+sempre foram conclusivas; agora a partida também é, e é a mais baixa das três.

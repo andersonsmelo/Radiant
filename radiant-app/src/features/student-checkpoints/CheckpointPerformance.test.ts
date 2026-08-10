@@ -186,3 +186,58 @@ describe('StartupProbe.measure', () => {
         expect(emit).not.toHaveBeenCalled();
     });
 });
+
+// O teste decisivo do mecanismo por tras dos ~240 ms que `launch_inspection`
+// mostrou em `active`. Duas explicacoes sobreviveram a analise e elas tem remedios
+// OPOSTOS: se o custo e a resolucao do modulo (`await import()` servido como chunk
+// HTTP pelo Metro em dev), e artefato de desenvolvimento e nao ha o que otimizar;
+// se e a abertura do banco nativo na primeira leitura, e real em producao. Medir a
+// resolucao sozinha separa as duas: `launch_inspection` menos esta metrica e o
+// custo da leitura.
+describe('StartupProbe.measure — resolucao de modulo', () => {
+    it('measures the module resolution once and stays silent on later calls', async () => {
+        const emit = jest.fn();
+        const times = [10, 241.5, 900, 901];
+        const probe = new StartupProbe({
+            enabled: true,
+            mode: 'active',
+            bundleStartedAt: 0,
+            clock: () => times.shift() ?? 0,
+            emit,
+        });
+
+        await probe.measureOnce('storage_module_resolution', async () => 'modulo');
+        await probe.measureOnce('storage_module_resolution', async () => 'modulo');
+
+        expect(emit).toHaveBeenCalledTimes(1);
+        expect(emit).toHaveBeenCalledWith(
+            `${CHECKPOINT_PERFORMANCE_PREFIX}{"schemaVersion":1,"metric":"storage_module_resolution","mode":"active","durationMs":231.5}`,
+        );
+    });
+
+    // A segunda chamada nao pode pagar o preco de medir o que ja foi medido: o
+    // ponto de `measureOnce` e que a resolucao acontece uma vez por lancamento e
+    // toda operacao de storage seguinte passa por aqui.
+    it('does not read the clock on calls after the first', async () => {
+        const clock = jest.fn(() => 1);
+        const probe = new StartupProbe({
+            enabled: true, mode: 'active', bundleStartedAt: 0, clock, emit: jest.fn(),
+        });
+
+        await probe.measureOnce('storage_module_resolution', async () => 1);
+        const antes = clock.mock.calls.length;
+        await probe.measureOnce('storage_module_resolution', async () => 1);
+
+        expect(clock.mock.calls.length).toBe(antes);
+    });
+
+    it('returns the task result and stays transparent when disabled', async () => {
+        const emit = jest.fn();
+        const probe = new StartupProbe({
+            enabled: false, mode: 'off', bundleStartedAt: 0, clock: () => 1, emit,
+        });
+
+        await expect(probe.measureOnce('storage_module_resolution', async () => 'passa')).resolves.toBe('passa');
+        expect(emit).not.toHaveBeenCalled();
+    });
+});

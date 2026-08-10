@@ -19,7 +19,15 @@ export const CHECKPOINT_PERFORMANCE_METRICS = [
 // passou por probe nenhum — por isso os 9 ms de restauracao nunca contradisseram
 // os 440. Medida NOS DOIS MODOS, ela separa "o kernel custa isso" de "o custo
 // esta em outro lugar", que sao diagnosticos com remedios opostos.
-export const STARTUP_PERFORMANCE_METRICS = ['first_frame', 'launch_inspection'] as const;
+// `storage_module_resolution` entrou em 2026-08-10 para separar duas explicacoes
+// do custo de partida que tem remedios opostos: resolucao de modulo (artefato do
+// Dev Client, nada a otimizar) contra abertura do banco nativo na primeira leitura
+// (real em producao). `launch_inspection` menos esta metrica e o custo da leitura.
+export const STARTUP_PERFORMANCE_METRICS = [
+    'first_frame',
+    'launch_inspection',
+    'storage_module_resolution',
+] as const;
 
 export type CheckpointPerformanceMetric = (typeof CHECKPOINT_PERFORMANCE_METRICS)[number];
 export type StartupPerformanceMetric = (typeof STARTUP_PERFORMANCE_METRICS)[number];
@@ -95,6 +103,7 @@ type FirstFrameDependencies = {
 // o delta existir.
 export class StartupProbe {
     private recorded = false;
+    private readonly medidos = new Set<StartupPerformanceMetric>();
 
     constructor(private readonly dependencies: FirstFrameDependencies) {}
 
@@ -102,6 +111,22 @@ export class StartupProbe {
     // modos que carrega a informacao, entao medir so um deles nao serve.
     async measure<T>(metric: StartupPerformanceMetric, task: () => Promise<T>): Promise<T> {
         if (!this.dependencies.enabled) return task();
+        const startedAt = this.dependencies.clock();
+        try {
+            return await task();
+        } finally {
+            const durationMs = roundedDuration(startedAt, this.dependencies.clock());
+            if (durationMs !== null) this.emitEnvelope(metric, durationMs);
+        }
+    }
+
+    // Mede apenas a PRIMEIRA execucao e fica transparente depois. Existe porque a
+    // coisa a medir acontece uma vez por lancamento enquanto o ponto de chamada e
+    // atravessado por toda operacao seguinte: medir sempre encareceria o caminho
+    // quente para reobservar um custo que nao se repete.
+    async measureOnce<T>(metric: StartupPerformanceMetric, task: () => Promise<T>): Promise<T> {
+        if (!this.dependencies.enabled || this.medidos.has(metric)) return task();
+        this.medidos.add(metric);
         const startedAt = this.dependencies.clock();
         try {
             return await task();

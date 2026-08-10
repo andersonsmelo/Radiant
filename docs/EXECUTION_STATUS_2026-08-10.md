@@ -8,10 +8,12 @@ primeira vitória, quatro interações acessíveis, correção do agendador e as
 
 ## O que mudou hoje
 
-O dia foi inteiro sobre o **gate operacional H3**, e produziu três coisas: a
+O dia foi inteiro sobre o **gate operacional H3**, e produziu quatro coisas: a
 descoberta de que o gate não era executável, o fechamento de um bloqueio P0 de
-acessibilidade que ele revelou, e uma medição que ainda não conclui sobre cold
-start. Nenhum build, OTA, submit, push ou publicação. Produção permanece `off` e
+acessibilidade que ele revelou, a troca da métrica de partida por uma que contém o
+kernel, e a medição que fechou a pergunta que ela abriu — **o kernel custa menos de
+2 ms na partida**, e os ~440 ms que pareciam custo dele eram resolução de módulo do
+Dev Client. Nenhum build, OTA, submit, push ou publicação. Produção permanece `off` e
 `1.3.1 (7)` está intocada.
 
 Quatro correções entraram, cada uma em run próprio, todas com teste que morde
@@ -59,9 +61,14 @@ relatório.
 6+6 amostras, sem veredito). A instrumentação funciona nos dois modos, e o **kernel
 adiciona ~440 ms à partida**: mediana `off` **239,1 ms** contra `active`
 **680,5 ms**, com o delta valendo 3× a amplitude interna das coortes — não é deriva
-de host. É o **primeiro achado de produto** desta saga; a métrica antiga o escondia
-porque `launchApp` termina antes de o kernel existir, e chegou a mostrar delta
-*negativo* numa passagem.
+de host. Isso foi lido na hora como o **primeiro achado de produto** desta saga.
+
+**Corrigido horas depois, e a correção inverte a leitura:** medindo a resolução do
+módulo separada da leitura, a resolução responde por 177–622 ms e a leitura por
+**menos de 2 ms** — o custo é do Dev Client, não do kernel. Ver o item 1 da lista
+abaixo. A métrica antiga escondia o assunto por outro motivo (`launchApp` termina
+antes de o kernel existir, e chegou a mostrar delta *negativo*), mas o achado de
+produto que o piloto parecia trazer não existia.
 
 A hipótese de que a métrica dentro do app dispensaria host silencioso **não se
 confirmou**: piso de ruído 92,5 ms sobre p95 de 331,6 ms, razão 0,279, acima do teto
@@ -84,10 +91,17 @@ registrado no ponto de chamada.
 **A pendência mudou de ordem, e a pergunta anterior era prematura.** Antes de decidir
 se 440 ms são aceitáveis, é preciso saber se eles existem fora do Dev Client:
 
-1. **medir `launch_inspection` num build sem Dev Client** (`developmentClient: false`,
-   como o perfil `e2e-test` já declara). Se cair para poucos ms, o custo morre como
-   artefato de instrumento e não há o que otimizar. Exige build novo, portanto
-   autorização do dono;
+1. ✅ **respondido, e sem build.** `storage_module_resolution` mediu a resolução do
+   módulo sozinha: 177–622 ms, contra **menos de 2 ms** de leitura em todos os seis
+   lançamentos. E o `expo export` de produção emite **um único** bundle JS, sem
+   nenhum chunk assíncrono, então num build embarcado o `import()` não tem o que
+   buscar. **O custo é artefato do Dev Client e o kernel custa <2 ms na partida.**
+   Eu havia escalado isso como precisando de autorização para build — não precisava;
+   um export de bundle bastou. Consequência: o delta de `first_frame` medido em Dev
+   Client **não pode julgar esta onda**, porque só um lado percorre o caminho de
+   chunk. O remédio preferido é aquecer a resolução no bootstrap nos dois modos, que
+   restaura a validade da medição e ainda tira ~200 ms por lançamento do
+   desenvolvedor;
 2. **rodar as duas coortes de 20** em janela de host — reboot para zerar swap, Metro
    pré-aquecido, coortes em sequência. Nota de receita: o baseline agora roda com
    `PERFORMANCE=true` e `MODE=off`;

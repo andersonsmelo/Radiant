@@ -502,7 +502,18 @@ vazio**. Continua calculado e reportado, com `advisory: true`, porque a série
 histórica vale como contexto e porque uma regressão de lançamento **nativo** só
 apareceria ali. Voltar a gateá-lo é tirar o nome de `ADVISORY_GATES`.
 
-**`launch_inspection` é diagnóstico, não gate.** Mede a única etapa do bootstrap que
+**O delta de `first_frame` medido num Dev Client não julga o kernel — medido em
+2026-08-10.** Apenas o lado `active` toca o store na partida, e a primeira operação
+de storage resolve o AsyncStorage por `await import()`, que o Metro serve como chunk
+buscado por HTTP em dev: 177–622 ms. A leitura em si custa **menos de 2 ms**, e o
+`expo export` de produção emite um único bundle sem chunk assíncrono, então o custo
+não existe num build embarcado. Consequência prática: **não promova nem reprove esta
+onda pelo delta de `first_frame` colhido em Dev Client** até que os dois lados paguem
+a mesma resolução — aquecendo-a no bootstrap nos dois modos — ou até medir num build
+embarcado. Mesmo binário, mesmo aparelho e mesma coorte não garantem o mesmo caminho
+de módulo.
+
+**`launch_inspection` e `storage_module_resolution` são diagnósticos, não gates.** Mede a única etapa do bootstrap que
 difere entre os modos, nos dois modos, e existe porque atribuir custo de partida ao
 kernel sem medir essa fronteira levou a uma conclusão errada em 2026-08-10. Ela não
 é parseada pelo relatório de propósito: serve para ler o log cru quando o delta de

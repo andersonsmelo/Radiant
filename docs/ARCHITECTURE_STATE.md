@@ -165,9 +165,14 @@ conveniência e decai):
   `inspectLaunch` retorna antes de tocar o store, então o baseline nunca paga.
   Import estático foi tentado e derrubou seis suítes do kernel, porque `jest-expo`
   não mocka esse módulo — a preguiça é obrigatória e o custo dela está registrado
-  no ponto de chamada. **Pergunta aberta que decide se há o que otimizar:** esse
-  custo existe fora do Dev Client? Medir isso exige build sem Dev Client, e vem
-  antes de qualquer decisão sobre aceitar ou otimizar os 440 ms;
+  no ponto de chamada. **A pergunta está fechada:** medindo a resolução do módulo
+  isolada da leitura, a resolução responde por 177–622 ms e a leitura por **menos de
+  2 ms**; e o export de produção emite um único bundle JS sem chunk assíncrono, então
+  num build embarcado o `import()` não tem o que buscar. **O custo é artefato do Dev
+  Client, e o kernel custa menos de 2 ms na partida** — a medida mais baixa das três
+  do kernel. A consequência recai sobre o instrumento: o delta de `first_frame` medido
+  em Dev Client não pode julgar esta onda, porque apenas um dos lados percorre o
+  caminho de chunk, e o remédio é aquecer a resolução no bootstrap nos dois modos;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 

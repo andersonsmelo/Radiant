@@ -1253,10 +1253,14 @@ entrega a fundação que aqueles itens passam a consumir.
   Client, enquanto a operação seguinte no mesmo lançamento custa 13–21 ms. Import
   estático foi tentado e derrubou seis suítes do kernel.
 
-  **Falta, em ordem:** (a) medir `launch_inspection` num build **sem Dev Client** —
-  é o que decide se existe custo real ou artefato de instrumento, e exige build novo,
-  portanto autorização do dono; (b) rodar as duas coortes de 20 em janela de host;
-  (c) só se o custo persistir, otimizar, e por aquecimento paralelo no bootstrap.
+  E a pergunta **foi respondida, sem build**: a resolução do módulo isolada custa
+  177–622 ms e a leitura **menos de 2 ms**, e o export de produção emite um único
+  bundle sem chunk assíncrono, logo o custo não existe fora do Dev Client. **O kernel
+  custa <2 ms na partida.**
+
+  **Falta:** tornar o delta de `first_frame` comparável em dev — aquecer a resolução
+  do módulo no bootstrap nos dois modos, o que é questão de validade da medição e não
+  de otimização — e então rodar as duas coortes de 20 em janela de host.
   Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
   aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
   de efeito duplicado após a retomada.
