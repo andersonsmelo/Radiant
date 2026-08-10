@@ -7,6 +7,10 @@ import {
     type ScreenCheckpointContext,
 } from './ScreenCheckpointAdapters';
 import { asyncStorageKeyValueStorage } from './storage';
+import {
+    checkpointPerformanceProbe,
+    type CheckpointPerformanceMetric,
+} from './CheckpointPerformance';
 
 export const ACTIVE_CHECKPOINT_SURFACES = [
     'first-run',
@@ -68,6 +72,7 @@ type RuntimeDependencies = {
     coordinator: Pick<CheckpointCoordinator, 'enter' | 'progress' | 'leave' | 'restoreCandidate'>;
     now: () => string;
     id: () => string;
+    performance?: { measure<T>(metric: CheckpointPerformanceMetric, task: () => Promise<T>): Promise<T> };
 };
 
 function routeTarget(
@@ -119,6 +124,10 @@ export class ActiveCheckpointRuntime {
         this.mode = resolveStudentCheckpointMode(dependencies.mode);
     }
 
+    private measure<T>(metric: CheckpointPerformanceMetric, task: () => Promise<T>): Promise<T> {
+        return this.dependencies.performance?.measure(metric, task) ?? task();
+    }
+
     async inspectLaunch(input: { contentVersion: string; firstRunAvailable: boolean }): Promise<ActiveResumeLaunch> {
         if (this.mode !== 'active') return { kind: 'none' };
         try {
@@ -158,60 +167,64 @@ export class ActiveCheckpointRuntime {
         }
         try {
             if (resumeCheckpointId) {
-                const checkpoint = await this.dependencies.store.getCheckpointById(resumeCheckpointId);
-                if (!checkpoint) return { status: 'fallback', handle: null, restoreFailureCount: null };
-                const restored = await this.dependencies.coordinator.restoreCandidate({
-                    surface: binding.surface,
-                    flowId: binding.flowId,
-                    contentVersion: binding.contentVersion,
-                    cursorIds: binding.compatibleCursorIds,
-                });
-                if (restored.kind !== 'resume' || restored.checkpoint.checkpointId !== resumeCheckpointId) {
+                return await this.measure('restoration', async () => {
+                    const checkpoint = await this.dependencies.store.getCheckpointById(resumeCheckpointId);
+                    if (!checkpoint) return { status: 'fallback', handle: null, restoreFailureCount: null };
+                    const restored = await this.dependencies.coordinator.restoreCandidate({
+                        surface: binding.surface,
+                        flowId: binding.flowId,
+                        contentVersion: binding.contentVersion,
+                        cursorIds: binding.compatibleCursorIds,
+                    });
+                    if (restored.kind !== 'resume' || restored.checkpoint.checkpointId !== resumeCheckpointId) {
+                        return {
+                            status: 'fallback',
+                            handle: null,
+                            restoreFailureCount: restored.kind === 'fallback' ? restored.restoreFailureCount : null,
+                        };
+                    }
+                    await this.dependencies.coordinator.progress({
+                        checkpointId: checkpoint.checkpointId,
+                        cursorId: binding.cursorId,
+                        progressPercent: binding.progressPercent,
+                        completedStepCount: binding.completedStepCount,
+                        totalStepCount: binding.totalStepCount,
+                    });
                     return {
-                        status: 'fallback',
-                        handle: null,
-                        restoreFailureCount: restored.kind === 'fallback' ? restored.restoreFailureCount : null,
+                        status: 'resumed',
+                        handle: {
+                            checkpointId: checkpoint.checkpointId,
+                            surface: binding.surface,
+                            flowId: binding.flowId,
+                            contentVersion: binding.contentVersion,
+                        },
                     };
-                }
+                });
+            }
+
+            return await this.measure('persistence', async () => {
+                const timestamp = this.dependencies.now();
+                const checkpointId = this.dependencies.id();
+                const checkpoint = SCREEN_CHECKPOINT_ADAPTERS[binding.surface].create({
+                    ...binding,
+                    checkpointId,
+                    createdAt: timestamp,
+                    updatedAt: timestamp,
+                });
+                const entered = await this.dependencies.coordinator.enter(checkpoint);
+                if (!entered) return { status: 'off', handle: null };
                 await this.dependencies.coordinator.progress({
-                    checkpointId: checkpoint.checkpointId,
+                    checkpointId,
                     cursorId: binding.cursorId,
                     progressPercent: binding.progressPercent,
                     completedStepCount: binding.completedStepCount,
                     totalStepCount: binding.totalStepCount,
                 });
                 return {
-                    status: 'resumed',
-                    handle: {
-                        checkpointId: checkpoint.checkpointId,
-                        surface: binding.surface,
-                        flowId: binding.flowId,
-                        contentVersion: binding.contentVersion,
-                    },
+                    status: 'started',
+                    handle: { checkpointId, surface: binding.surface, flowId: binding.flowId, contentVersion: binding.contentVersion },
                 };
-            }
-
-            const timestamp = this.dependencies.now();
-            const checkpointId = this.dependencies.id();
-            const checkpoint = SCREEN_CHECKPOINT_ADAPTERS[binding.surface].create({
-                ...binding,
-                checkpointId,
-                createdAt: timestamp,
-                updatedAt: timestamp,
             });
-            const entered = await this.dependencies.coordinator.enter(checkpoint);
-            if (!entered) return { status: 'off', handle: null };
-            await this.dependencies.coordinator.progress({
-                checkpointId,
-                cursorId: binding.cursorId,
-                progressPercent: binding.progressPercent,
-                completedStepCount: binding.completedStepCount,
-                totalStepCount: binding.totalStepCount,
-            });
-            return {
-                status: 'started',
-                handle: { checkpointId, surface: binding.surface, flowId: binding.flowId, contentVersion: binding.contentVersion },
-            };
         } catch {
             return { status: 'ignored', handle: null };
         }
@@ -256,7 +269,14 @@ export function getNativeActiveCheckpointRuntime(mode: StudentCheckpointMode): A
             now,
             id,
         });
-        nativeRuntime = new ActiveCheckpointRuntime({ mode, store, coordinator, now, id });
+        nativeRuntime = new ActiveCheckpointRuntime({
+            mode,
+            store,
+            coordinator,
+            now,
+            id,
+            performance: checkpointPerformanceProbe,
+        });
         nativeRuntimeMode = mode;
     }
     return nativeRuntime;

@@ -35,6 +35,38 @@ function runtime(mode: unknown = 'active') {
     };
 }
 
+function measuredRuntime() {
+    const storage = new MemoryKeyValueStorage();
+    const store = CheckpointStore.active(storage, () => FIXED_NOW);
+    const coordinator = new CheckpointCoordinator({
+        mode: 'active',
+        store,
+        activeSurfaces: ['first-run', 'lesson', 'review', 'unit-checkpoint'],
+        commitCoordinator: { commit: jest.fn() } as never,
+        now: () => FIXED_NOW,
+        id: () => 'generated',
+    });
+    const measure = jest.fn();
+    const performance = {
+        async measure<T>(metric: 'persistence' | 'restoration', task: () => Promise<T>) {
+            measure(metric);
+            return task();
+        },
+    };
+    return {
+        store,
+        measure,
+        runtime: new ActiveCheckpointRuntime({
+            mode: 'active',
+            store,
+            coordinator,
+            now: () => FIXED_NOW,
+            id: () => 'generated',
+            performance,
+        }),
+    };
+}
+
 describe('ActiveCheckpointRuntime', () => {
     it('offers a lesson resume target without navigating automatically', async () => {
         const subject = runtime();
@@ -176,6 +208,18 @@ describe('ActiveCheckpointRuntime', () => {
             handle: null,
             restoreFailureCount: null,
         });
+    });
+
+    it('measures persistence and restoration around the real coordinator work', async () => {
+        const subject = measuredRuntime();
+
+        await subject.runtime.start(lessonBinding);
+        await subject.runtime.start(lessonBinding, 'generated');
+
+        expect(subject.measure.mock.calls.map(([metric]) => metric)).toEqual([
+            'persistence',
+            'restoration',
+        ]);
     });
 
     it('keeps study available when active storage cannot be read', async () => {

@@ -288,10 +288,31 @@ test('keeps active checkpoints confined to the dedicated internal profile', asyn
   assert.equal(internal?.distribution, 'internal');
   assert.deepEqual(internal?.env, {
     EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE: 'active',
+    EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE: 'true',
+  });
+  assert.deepEqual(eas.build['checkpoint-internal-simulator'], {
+    extends: 'checkpoint-internal',
+    ios: { simulator: true },
   });
   assert.equal(eas.build.production.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, 'off');
+  assert.equal(eas.build.production.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE, undefined);
   assert.equal(eas.build.preview.env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, 'shadow');
   assert.equal(eas.build['e2e-test'].env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, undefined);
+});
+
+test('keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path', async () => {
+  const [active, baseline] = await Promise.all([
+    readAppFile('.maestro/student-checkpoint-active-resume.yaml'),
+    readAppFile('.maestro/student-checkpoint-performance-baseline.yaml'),
+  ]);
+
+  assert.match(active, /setAirplaneMode: enabled/);
+  assert.match(active, /- killApp\n- launchApp/);
+  assert.match(active, /- tapOn: Retomar estudo/);
+  assert.match(active, /- tapOn: Continuar jornada\n- assertVisible: Fundamentos de Radiologia/);
+  assert.doesNotMatch(baseline, /Retomar estudo|setAirplaneMode/);
+  assert.match(baseline, /clearState: true/);
+  assert.match(baseline, /- tapOn: Continuar jornada\n- assertVisible: Fundamentos de Radiologia/);
 });
 
 test('keeps lesson-answer selectors accessible and deterministic', async () => {

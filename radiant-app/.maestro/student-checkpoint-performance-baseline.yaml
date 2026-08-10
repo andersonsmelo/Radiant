@@ -1,9 +1,9 @@
 appId: com.ascendcreative.radiant
-name: Active internal checkpoint offers explicit offline resume
+name: Off baseline for checkpoint cold start and Home to Lesson
 tags:
   - checkpoint
-  - active-internal
-  - offline
+  - performance-baseline
+  - local-first
 ---
 - launchApp:
     clearState: true
@@ -24,19 +24,8 @@ tags:
       visible: 'Connected to:'
     commands:
       - tapOn: Close
-- assertVisible: 'Tela 1 de 3\..*'
-- tapOn: Continuar
-- assertVisible: 'Tela 2 de 3\..*'
-- setAirplaneMode: enabled
-- killApp
-- launchApp
-- assertVisible: 'Continuar de onde você parou\?'
-- assertNotVisible: 'Tela 2 de 3\..*'
-- tapOn: Retomar estudo
-- assertVisible: 'Tela 2 de 3\..*'
-- tapOn: Pular apresentação
+- runFlow: subflows/dismiss-first-run.yaml
 - assertVisible: Foco de hoje
-- setAirplaneMode: disabled
 - repeat:
     times: 15
     while:

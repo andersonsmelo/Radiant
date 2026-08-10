@@ -1205,8 +1205,9 @@ entrega a fundação que aqueles itens passam a consumir.
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
 - **H3 [P0 — IMPLEMENTADO LOCALMENTE; GATE INTERNO PENDENTE]** Runtime ativo
-  somente interno, com CTA e fallback canônico. Falta executar build/perfil em
-  aparelho, 20 amostras, p95, kill/relaunch e VoiceOver/TalkBack antes de fechar.
+  somente interno, com CTA e fallback canônico. A coleta sanitizada e o parser
+  p95 falha-fechada estão prontos; falta executar build/perfil no aparelho, 20
+  amostras antes/depois, kill/relaunch e VoiceOver/TalkBack antes de fechar.
 - **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
   kernel; depois devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do

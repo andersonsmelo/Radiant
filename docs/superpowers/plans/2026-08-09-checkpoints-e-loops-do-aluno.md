@@ -156,6 +156,11 @@ não houve build interno nem aparelho/emulador disponível para as medições e 
 acessibilidade manual. Evidência:
 [`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../../../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
 
+A instrumentação reproduzível também está pronta: persistência/restauração
+geram apenas envelope local fechado no `active`; cold start e Home→Lição vêm do
+Maestro, mantendo `off` silencioso. O parser exige ≥20 amostras por coorte e
+aplica os quatro limites, mas nenhuma medição real foi promovida ainda.
+
 Habilitar `active` apenas em build interna. Primeira allowlist de restauração:
 
 - apresentação;

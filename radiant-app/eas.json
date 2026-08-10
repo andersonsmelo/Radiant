@@ -26,7 +26,14 @@
       "extends": "development",
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "active"
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "active",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE": "true"
+      }
+    },
+    "checkpoint-internal-simulator": {
+      "extends": "checkpoint-internal",
+      "ios": {
+        "simulator": true
       }
     },
     "e2e-test": {

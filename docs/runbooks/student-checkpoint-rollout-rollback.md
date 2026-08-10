@@ -116,8 +116,10 @@ npx --no-install eas-cli config -p android -e checkpoint-internal --json --non-i
 
 Nos dois envelopes, exigir `distribution=internal`, `developmentClient=true`,
 `EXPO_PUBLIC_APP_ENV=development`, `EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=active`
-e `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. Depois que o dono autorizar e prover o
-build interno, executar no aparelho/perfil de evidência:
+`EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=true` e
+`EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. iOS simulator usa o profile derivado
+`checkpoint-internal-simulator`. Depois que o dono autorizar e prover o build
+interno, executar no aparelho/perfil de evidência:
 
 ```bash
 maestro test .maestro/student-checkpoint-active-resume.yaml
@@ -125,6 +127,13 @@ maestro test .maestro/student-checkpoint-active-resume.yaml
 
 Não confundir esse flow único com o gate: as 20 execuções, p95 e leitores de
 tela precisam de registro datado separado.
+
+O procedimento reproduzível, incluindo baseline `off` e candidato `active` no
+mesmo binário/perfil, está em `radiant-app/docs/E2E_RUNBOOK.md`. Cold start e
+Home→Lição são derivados do `commands.json` do Maestro; só
+persistência/restauração geram log local no app, com quatro campos fechados e
+sem identificadores. `npm run checkpoint:performance-report` falha fechado
+para amostra incompleta ou envelope inválido.
 
 Gate:
 

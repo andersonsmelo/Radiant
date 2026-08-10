@@ -59,6 +59,24 @@ Esses itens mantêm H3/Onda 4 aberta como gate operacional. H4/Task 12 não deve
 começar antes dessa medição. Um build pelo profile interno também não foi
 disparado porque EAS/conta e eventual consumo de quota pertencem ao dono.
 
+## Preparação reproduzível do gate
+
+O run `run-1786322344018-5986c9cc` adicionou a instrumentação que faltava sem
+promover H3: o profile ativo liga um probe local somente para persistência e
+restauração; cada linha contém apenas versão, métrica fechada, modo e duração.
+Cold start e Home→Lição são calculados de ponta a ponta a partir do
+`commands.json` do Maestro, portanto o baseline `off` não ganha log, store ou
+efeito novo. O mesmo binário/perfil é executado com Metro `off` e depois
+`active`; o parser exige 20 amostras por coorte e implementa os quatro limites
+do gate com p95 de posto mais próximo.
+
+A preparação passou em **78 suítes/527 testes Jest**, **21/21** contratos
+Maestro, **4/4** testes do relatório, typecheck, lint sem erros (12 warnings
+preexistentes) e Visual QA com zero regressões. O EAS CLI resolveu
+`checkpoint-internal-simulator` como distribuição interna, Dev Client,
+simulador iOS, `development+active`, probe local ligado e sync remoto `false`.
+Nenhuma dessas verificações substitui amostra em aparelho/perfil.
+
 ## Não ocorreu
 
 Não houve build, OTA, IPA/AAB, publicação, push, alteração da versão `1.3.1

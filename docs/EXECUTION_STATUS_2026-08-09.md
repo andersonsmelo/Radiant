@@ -317,6 +317,14 @@ persistência p95 ≤75 ms, restauração p95 ≤100 ms, delta de cold start,
 VoiceOver/TalkBack e viewport curto. Evidência detalhada:
 [`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
 
+**Instrumentação do gate preparada no run `run-1786322344018-5986c9cc`:** o
+app mede somente persistência/restauração quando `active` e o opt-in interno
+estão ligados; cold start e Home→Lição vêm dos tempos end-to-end do Maestro.
+O baseline `off` permanece silencioso. O relatório exige ≥20 amostras por
+coorte e falha fechado nos quatro limites. Qualidade local: **78 suítes/527
+testes**, contratos Maestro **21/21**, parser **4/4**, lint sem erros, typecheck
+e Visual QA sem regressões. O gate continua aberto até execução real.
+
 Não houve Task 12, sync remoto, build, OTA, binário, push, mudança de `1.3.1
 (7)` ou publicação. O status público do run Loop é a autoridade para validação
 e fechamento finais.

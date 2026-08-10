@@ -1,6 +1,7 @@
 export * from './AuthorityStore';
 export * from './ActiveCheckpointRuntime';
 export * from './CheckpointCoordinator';
+export * from './CheckpointPerformance';
 export * from './CheckpointStore';
 export * from './CommitCoordinator';
 export * from './contracts';

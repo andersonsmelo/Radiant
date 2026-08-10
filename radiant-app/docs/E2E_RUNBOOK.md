@@ -344,6 +344,61 @@ CI-style report, use:
 maestro test .maestro --format junit --output maestro-results.xml
 ```
 
+### Gate H3 — active interno e p95
+
+O gate H3 usa o mesmo binário `checkpoint-internal` antes/depois. Como ele é
+um Dev Client, o Metro precisa repetir explicitamente a configuração do profile:
+
+```sh
+# baseline legado; nenhum probe do app é ligado
+EXPO_PUBLIC_APP_ENV=development \
+EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=off \
+EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=false \
+EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false \
+npx expo start --dev-client --clear
+
+# candidato active; somente persistência/restauração são emitidas localmente
+EXPO_PUBLIC_APP_ENV=development \
+EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE=active \
+EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE=true \
+EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false \
+npx expo start --dev-client --clear
+```
+
+Não comparar dois aparelhos, duas versões do sistema ou dois binários. Execute
+20 vezes cada coorte em diretórios separados, sem validar o Loop em paralelo:
+
+```sh
+for run in {01..20}; do
+  maestro test .maestro/student-checkpoint-performance-baseline.yaml \
+    --test-output-dir ".maestro/artifacts/h3/baseline/$run"
+done
+
+for run in {01..20}; do
+  maestro test .maestro/student-checkpoint-active-resume.yaml \
+    --test-output-dir ".maestro/artifacts/h3/active/$run"
+done
+```
+
+Cold start e Home→Lição vêm dos tempos de comando do próprio
+`commands.json`; isso mede a ponta a ponta e mantém `off` silencioso. O app
+emite somente envelopes `RADIANT_CHECKPOINT_PERF` de persistência/restauração,
+com `schemaVersion`, métrica, modo e milissegundos — sem ids, conteúdo, PII,
+PHI ou mídia. Preserve o log do Metro dentro do diretório `active/` quando o
+log de dispositivo não capturar o console JS. Gere o relatório falha-fechada:
+
+```sh
+npm run checkpoint:performance-report -- \
+  --baseline .maestro/artifacts/h3/baseline \
+  --active .maestro/artifacts/h3/active \
+  --output .maestro/artifacts/h3/report.json
+```
+
+O comando só retorna sucesso com ≥20 amostras por coorte, persistência p95
+≤75 ms, restauração p95 ≤100 ms e os dois deltas dentro da fórmula do gate.
+Relatório verde ainda não substitui kill/relaunch, duas falhas, VoiceOver,
+TalkBack e viewport curto.
+
 ## Sign-off matrix
 
 | Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Rating prompt | Status | Owner/date |

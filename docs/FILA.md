@@ -139,16 +139,20 @@ automático, e fallback canônico para Home quando catálogo, cursor ou rota for
 incompatíveis.
 
 O profile `checkpoint-internal` e o flow Maestro de kill/relaunch offline estão
-versionados. Matriz local: **11 suítes/98 testes**; módulo: **10 suítes/102
-testes**; quality completa: **77 suítes/523 testes**. O EAS CLI resolveu o
-profile em iOS e Android como `development+active`, distribuição interna e sync
+versionados. A instrumentação sanitizada do gate também está pronta: o app
+mede só persistência/restauração em `active`; cold start e Home→Lição saem do
+`commands.json` do Maestro, preservando `off` silencioso. O relatório falha
+fechado sem 20 amostras por coorte. Quality completa: **78 suítes/527 testes**,
+contratos Maestro **21/21** e parser **4/4**. O EAS CLI resolveu o profile e a
+variante de simulador como `development+active`, distribuição interna e sync
 remoto `false`.
 
-Próxima ação executável depois do build interno: rodar no mesmo aparelho/perfil
-o flow `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
-execuções e fechar p95 de persistência/restauração/cold start, VoiceOver,
-TalkBack e viewport curto. Produção permanece `off`; Task 12, sync remoto,
-build/OTA de produção e publicação continuam fora desta onda.
+Próxima ação executável: gerar o build interno autorizado, usar o mesmo
+binário/aparelho para as coortes `.maestro/student-checkpoint-performance-baseline.yaml`
+e `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
+execuções e fechar p95, VoiceOver, TalkBack e viewport curto. Produção permanece
+`off`; Task 12, sync remoto, build/OTA de produção e publicação continuam fora
+desta onda.
 
 ---
 
