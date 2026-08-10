@@ -1,0 +1,49 @@
+appId: com.ascendcreative.radiant
+name: Resume CTA stays reachable on the shortest viewport
+tags:
+  - checkpoint
+  - active-internal
+  - accessibility
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- assertVisible: 'Tela 1 de 3\..*'
+- tapOn: Continuar
+- assertVisible: 'Tela 2 de 3\..*'
+- setAirplaneMode: enabled
+- killApp
+- launchApp
+- assertVisible: 'Continuar de onde você parou\?'
+- assertNotVisible: 'Tela 2 de 3\..*'
+# O titulo e asseverado duas vezes de proposito. A segunda e a espera que o
+# contrato exige imediatamente antes de `scrollUntilVisible`, e tem de ser o
+# titulo: medido em 2026-08-10 nesta tela de 375x667, em AX5 o CORPO do cartao
+# ja nasce abaixo da dobra, entao ancorar a espera nele reprova num tamanho em
+# que a tela funciona. Numa viewport curta, o unico elemento garantidamente
+# visivel antes de rolar e o primeiro.
+- assertVisible: 'Continuar de onde você parou\?'
+- scrollUntilVisible:
+    element: 'Retomar estudo'
+    direction: DOWN
+    visibilityPercentage: 100
+    timeout: 20000
+- tapOn: Retomar estudo
+- assertVisible: 'Tela 2 de 3\..*'
+- setAirplaneMode: disabled

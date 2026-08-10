@@ -195,13 +195,18 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    execução**: a passagem conclusiva é do build anterior à correção da tela de
    retomada, e a do build corrigido é a que sai `inconclusive`. Precisa de janela
    de host;
-6. VoiceOver como serviço, TalkBack (exige Android) e viewport curto continuam
-   sem evidência. **A razão registrada para o viewport era falsa e foi medida em
-   2026-08-10:** o runtime iOS 26.5 suporta `iPhone SE (3rd generation)`
-   (375 × 667 pt) e os dois `mini`, então o teste em simulador curto está
-   alcançável aqui e só nunca foi rodado — é a fatia mais barata deste item.
-   Aparelho **físico** de tela baixa é que não existe;
-7. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+6. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
+   `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
+   runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador
+   `Radiant SE 4.7` (`[0,0][375,667]`, 207 pt mais curto que o das coortes), com o
+   **mesmo binário nativo** (`sha256 1e5d423…76`), o flow versionado
+   `.maestro/student-checkpoint-short-viewport.yaml` passou em `medium`, AX3, AX4
+   e AX5 — retomada offline após kill/relaunch, sem redirect automático, CTA
+   alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
+   flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
+   simulador não o substitui;
+7. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
+8. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
    duplicado após a retomada continuam sem flow que os afirme.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do

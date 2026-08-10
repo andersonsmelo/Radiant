@@ -556,3 +556,113 @@ Nada foi executado neste run além da correção do texto: criar o simulador,
 instalar o Dev Client, subir o Metro com `radiant-app/.env.local` e rodar o flow
 de retomada em AX4/AX5 numa tela de 667 pt é uma janela de host própria, com o
 mesmo procedimento da seção **Gate H3** do `E2E_RUNBOOK`, e continua pendente.
+
+## Viewport curto fechado em simulador — run `run-1786385853053-960f7e28`
+
+O bloqueio inventado da seção anterior deixou o teste alcançável, e ele foi
+executado. **A tela de retomada funciona na viewport mais curta que este host
+oferece, nos quatro tamanhos exercitados**, incluindo os dois maiores de
+acessibilidade.
+
+### Aparelho e binário
+
+- simulador `Radiant SE 4.7`, `iPhone SE (3rd generation)`, iOS 26.5, UDID
+  `36CB3EC6-1EE9-4F60-AD4A-328AA2A55E45`;
+- viewport medida na árvore: **`[0,0][375,667]`** — contra `[0,0][402,874]` do
+  `iPhone 17 Pro` usado nas coortes. São **207 pt menos de altura**;
+- **o mesmo binário nativo das coortes H3**, copiado do bundle instalado no
+  simulador do gate: Mach-O
+  `sha256 = 1e5d423321c0688f66c313d479b6fb0f04780b9e97e854cc898995dd39a32576`,
+  `CFBundleShortVersionString = 1.3.1`, `CFBundleVersion = 3`;
+- Metro em `active` pela receita do runbook, com `radiant-app/.env.local`.
+
+### Flow versionado, e a identidade do que foi medido
+
+`.maestro/student-checkpoint-short-viewport.yaml`,
+`sha256 = b03efc9861897c35f747df3a05e86b9b0ad14aa20bca093e6496e986638b712e`. As
+execuções rodaram de uma cópia **byte a byte idêntica** fora da árvore, com os
+artefatos também fora dela, porque o Metro escreve em `.expo/` enquanto roda e um
+run do Loop aberto sob essa escrita arrisca `OUT_OF_SCOPE_CHANGE`. O hash acima é
+o do arquivo versionado e o do arquivo executado.
+
+O flow cobre o caminho inteiro, não só o toque: instalação limpa, abandono no
+segundo slide, modo avião, `killApp`/`launchApp`, presença do CTA, **ausência de
+redirect automático** (`Tela 2 de 3` não visível antes do toque), rolagem até o
+CTA, toque, e volta para `Tela 2 de 3`.
+
+### Resultado
+
+| `content_size` | desfecho |
+| --- | --- |
+| `medium` | passou |
+| `accessibility-extra-large` (AX3) | passou |
+| `accessibility-extra-extra-large` (AX4) | passou |
+| `accessibility-extra-extra-extra-large` (AX5) | passou |
+
+O aquecimento anterior à primeira medição foi descartado e trouxe a assinatura
+documentada da corrida do bundler frio: o guard da URL executou e tocou, os dois
+guards do dev menu saíram `SKIPPED`, e a falha apareceu três passos adiante, na
+primeira asserção obrigatória.
+
+### O que a viewport curta ensinou, e não foi o resultado
+
+**Em AX5 numa tela de 667 pt nem o corpo do cartão cabe.** A primeira versão
+deste flow ancorava a espera exigida pelo contrato — o `assertVisible`
+imediatamente antes de `scrollUntilVisible` — no corpo do cartão
+(`Há uma etapa salva neste aparelho…`). Ela **reprovou em AX5**, e passou nos
+outros três, numa tela em que o CTA era alcançável e o produto funcionava. A
+âncora, não a tela, era o defeito: numa viewport curta o único elemento
+garantidamente visível antes de rolar é o **primeiro**. A regra do contrato pede
+uma espera; a escolha de quem espera é o que a viewport curta restringe. Está
+registrado no próprio flow e no comentário da lista do contrato.
+
+Isso é uma medição sobre a régua do contrato, e ela agora cobre um caso que
+nenhum flow anterior exercia: os cinco flows já listados rodam em telas de 6,1"
+ou mais, onde qualquer elemento do primeiro cartão serve de âncora.
+
+### Um instrumento que não serve, pela terceira vez
+
+`maestro hierarchy`, invocado **como comando separado** depois de o flow parar na
+tela de retomada, discordou da asserção que o próprio Maestro havia acabado de
+completar: em **4 de 5 leituras** o nó do título não aparecia na árvore, embora
+`assertVisible: 'Continuar de onde você parou?'` tivesse fechado `COMPLETED`
+segundos antes. A leitura que populou trouxe, em AX5:
+
+| nó | bounds |
+| --- | --- |
+| tela | `[0,0][375,667]` |
+| `checkpoint-resume-scroll` (o `ScrollView` da correção) | `[0,20][375,667]` |
+| título | `[33,53][342,589]` — **536 pt de 667** |
+| `Retomar estudo` | ausente da árvore |
+| `Ir para a jornada` | ausente da árvore |
+
+Consistente com "abaixo da dobra, alcançável rolando", e o indicador de rolagem
+aparecia em `[342,20][372,667]`. Mas **essa leitura não é o instrumento**: um
+comando que discorda de si mesmo em 4 de 5 tentativas não prova nem presença nem
+ausência. O instrumento é a asserção dentro do flow em execução, e a pergunta que
+importa continua sendo rolar-e-tocar.
+
+É a **terceira** vez neste mesmo documento que a árvore de acessibilidade é o
+instrumento errado para esta pergunta: primeiro diagnosticou o defeito e depois
+mudou de sentido junto com a correção; agora discorda de si mesma entre
+invocações. A lição já registrada se mantém e ganha uma forma mais forte: para
+"o usuário alcança o controle?", só rolar e tocar responde.
+
+### Lacuna declarada do contrato
+
+O bloco `scrollUntilVisible` deste flow usa a forma curta
+(`element: 'Retomar estudo'`), e a regra de *uma régua de visibilidade por
+seletor* casa apenas blocos com `id:`. O flow declara `visibilityPercentage: 100`
+e é o único que rola até esse elemento, então não há divergência hoje; a lacuna
+fica registrada em vez de ser fechada com uma edição não medida — trocar a forma
+do bloco depois da medição invalidaria a identidade do arquivo executado.
+
+### O que este run NÃO fecha
+
+- **aparelho físico** de tela baixa continua inexistente aqui, e um simulador de
+  375 × 667 pt não o substitui: não há toque real, densidade real nem pressão de
+  memória real;
+- **VoiceOver como serviço** e **TalkBack** seguem sem evidência;
+- **"segunda falha invalida o checkpoint e volta à Home"** e **ausência de efeito
+  duplicado após a retomada** seguem sem flow que os afirme;
+- nenhum build, OTA, submit, push ou publicação. Produção segue `off`.

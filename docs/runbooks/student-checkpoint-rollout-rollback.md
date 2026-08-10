@@ -178,7 +178,7 @@ Estado item a item, na medição que vale — a reexecução no build corrigido
 | delta cold start | **`inconclusive`** — piso de ruído 2863 ms contra teto de 1149,6 ms |
 | kill/relaunch offline sem duplicação | retomada provada 20 vezes; **não-duplicação não é afirmada** por nenhum flow |
 | duas falhas → checkpoint invalidado + Home | **não exercitado** |
-| VoiceOver/TalkBack/viewport curto | P0 de Dynamic Type **fechado com prova em aparelho** em AX4/AX5; VoiceOver, TalkBack e viewport fisicamente curto **sem evidência** |
+| VoiceOver/TalkBack/viewport curto | P0 de Dynamic Type **fechado com prova em aparelho** em AX4/AX5; **viewport curto fechado em simulador** de 375 × 667 pt em `medium`/AX3/AX4/AX5; VoiceOver, TalkBack e aparelho físico baixo **sem evidência** |
 
 O bloqueio de acessibilidade que era trigger de rollback imediato — a tela de
 retomada perdia os dois botões a partir de `accessibility-extra-extra-large`,
@@ -194,12 +194,14 @@ O que mantém a onda aberta, em ordem:
    O limite estrutural continua registrado: `launchApp` num Dev Client termina
    antes de o bundle JS existir, então o kernel não vive na janela medida, e onde
    ele pode aparecer — Home→Lição — o delta é conclusivo e pequeno;
-2. **VoiceOver como serviço, TalkBack e viewport curto** seguem sem evidência;
-   TalkBack exige Android. Para o viewport, a razão registrada até 2026-08-10 —
-   ausência de device type SE — foi **medida como falsa**: o runtime iOS 26.5
-   suporta `iPhone SE (3rd generation)` e os dois `mini`, então o teste em
-   simulador curto está alcançável e apenas não foi executado. O que falta neste
-   host é aparelho **físico** de tela baixa;
+2. **VoiceOver como serviço e TalkBack** seguem sem evidência; TalkBack exige
+   Android. **Viewport curto foi fechado em simulador em 2026-08-10**
+   (`run-1786385853053-960f7e28`): a razão que o bloqueava — ausência de device
+   type SE — foi medida como falsa, e o flow versionado
+   `.maestro/student-checkpoint-short-viewport.yaml` passou em `medium`, AX3, AX4 e
+   AX5 numa tela de 375 × 667 pt, com o mesmo binário nativo das coortes. O que
+   falta neste host é aparelho **físico** de tela baixa, que o simulador não
+   substitui;
 3. **"segunda falha invalida o checkpoint e volta à Home"** e **ausência de
    efeito duplicado após a retomada** não são exercitados por nenhum flow.
 

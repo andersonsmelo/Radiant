@@ -526,18 +526,42 @@ correção. Viewport curto continua **sem evidência**, mas **não por falta de
 device type** — a alegação anterior desta linha foi medida como falsa em
 2026-08-10. `xcrun simctl list runtimes --json` mostra o runtime iOS 26.5
 declarando `iPhone SE (3rd generation)` (375 × 667 pt), `iPhone 13 mini` e
-`iPhone 12 mini` entre os `supportedDeviceTypes`. O teste em simulador curto está
-alcançável aqui e apenas nunca foi executado:
+`iPhone 12 mini` entre os `supportedDeviceTypes`. **Executado em 2026-08-10, e o simulador curto passou nos quatro tamanhos:**
 
 ```sh
-xcrun simctl create "Radiant SE" com.apple.CoreSimulator.SimDeviceType.iPhone-SE-3rd-generation <runtime>
-# instalar o Dev Client, subir o Metro com radiant-app/.env.local e rodar o flow
-# de retomada em AX4/AX5 nessa tela
+xcrun simctl create "Radiant SE 4.7" \
+  com.apple.CoreSimulator.SimDeviceType.iPhone-SE-3rd-generation \
+  com.apple.CoreSimulator.SimRuntime.iOS-26-5
+# o Dev Client pode ser copiado do bundle ja instalado no simulador do gate,
+# preservando o mesmo binario nativo:
+#   ~/Library/Developer/CoreSimulator/Devices/<UDID do gate>/data/Containers/\
+#     Bundle/Application/*/com.ascendcreative.radiant-*.app
+xcrun simctl install <UDID novo> "<caminho do .app>"
+
+for TAM in medium accessibility-extra-large \
+           accessibility-extra-extra-large accessibility-extra-extra-extra-large; do
+  xcrun simctl ui <UDID novo> content_size $TAM
+  maestro --device <UDID novo> test .maestro/student-checkpoint-short-viewport.yaml
+done
 ```
 
-O que **não** existe neste host é aparelho **físico** de tela baixa; Dynamic Type
-máximo num 6,1" é a condição mais dura já exercitada e não substitui nenhum dos
-dois.
+`Radiant SE 4.7` (UDID `36CB3EC6-1EE9-4F60-AD4A-328AA2A55E45`) mede
+**`[0,0][375,667]`** na árvore, 207 pt mais curta que o `iPhone 17 Pro` das
+coortes. `medium`, AX3, AX4 e AX5 passaram.
+
+**Numa viewport curta, a âncora da espera antes de `scrollUntilVisible` tem de
+ser o primeiro elemento da tela.** Medido aqui: ancorada no corpo do cartão, a
+espera **reprova em AX5** numa tela de 667 pt, porque o corpo já nasce abaixo da
+dobra, enquanto o CTA continua alcançável e o produto funciona. Ancore no título.
+
+**Não use `maestro hierarchy` como comando separado para responder se um controle
+existe.** Medido em 2026-08-10: em 4 de 5 invocações ele não trouxe o nó do
+título que a asserção do próprio Maestro havia completado segundos antes. O
+instrumento é a asserção dentro do flow em execução.
+
+O que **não** existe neste host é aparelho **físico** de tela baixa, e um
+simulador de 375 × 667 pt não o substitui — sem toque real, densidade real ou
+pressão de memória real.
 
 O comando só retorna sucesso com ≥20 amostras por coorte, persistência p95
 ≤75 ms, restauração p95 ≤100 ms e os dois deltas dentro da fórmula do gate,

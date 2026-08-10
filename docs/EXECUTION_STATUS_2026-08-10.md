@@ -48,11 +48,20 @@ condições necessárias nunca coincidiram numa execução: a passagem conclusiv
 (razão de ruído 0,108) é do build **anterior** à correção da tela de retomada, e a
 do build corrigido é a que sai `inconclusive` (0,498).
 
-**Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), viewport
-curto, "segunda falha invalida o checkpoint" e ausência de efeito duplicado após a
-retomada — o flow prova a retomada, não a não-duplicação.
+**Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), "segunda
+falha invalida o checkpoint" e ausência de efeito duplicado após a retomada — o
+flow prova a retomada, não a não-duplicação.
 
-**Um bloqueio documentado não existia.** Cinco documentos diziam, em seis lugares,
+**Viewport curto fechado em simulador** (`run-1786385853053-960f7e28`). Criado
+`Radiant SE 4.7` — `iPhone SE (3rd generation)`, `[0,0][375,667]`, 207 pt mais
+curto que o aparelho das coortes — com o **mesmo binário nativo**
+(`sha256 1e5d423…76`). O flow versionado
+`.maestro/student-checkpoint-short-viewport.yaml` passou em `medium`, AX3, AX4 e
+AX5: retomada offline após kill/relaunch, sem redirect automático, CTA alcançado
+rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21**. **Aparelho físico**
+de tela baixa continua inexistente e o simulador não o substitui.
+
+**Um bloqueio documentado não existia, e era ele que fechava o item acima.** Cinco documentos diziam, em seis lugares,
 que o viewport curto ficava sem evidência porque "este host não tem device type
 SE". Medido em 2026-08-10 com `xcrun simctl list runtimes --json`: o runtime
 iOS 26.5 declara `iPhone SE (3rd generation)` (375 × 667 pt), `iPhone 13 mini` e

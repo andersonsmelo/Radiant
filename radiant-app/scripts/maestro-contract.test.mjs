@@ -16,6 +16,7 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'reward-locked.yaml',
   'reward-unlock.yaml',
   'store-capture.yaml',
+  'student-checkpoint-short-viewport.yaml',
 ];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
@@ -480,7 +481,19 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
   // aqui, enquanto `learning-critical-path`, que já intercalava as asserções,
   // passou no mesmo emulador e na mesma execução. O contrato prende a espera,
   // não o tempo: aumentar o timeout esconderia o defeito em vez de removê-lo.
-  for (const name of ['learning-critical-path.yaml', 'offline-relaunch.yaml', 'reward-unlock.yaml']) {
+  // `student-checkpoint-short-viewport.yaml` entrou nesta lista em 2026-08-10 e
+  // traz uma consequencia medida da regra: numa viewport curta a ancora da
+  // espera tem de ser o PRIMEIRO elemento da tela, nao qualquer um. Ancorada no
+  // corpo do cartao, a espera reprovava em AX5 numa tela de 375x667 — o corpo
+  // ja nasce abaixo da dobra ali — enquanto a tela funcionava e o CTA era
+  // alcancavel rolando. A regra pede um `assertVisible` que espere a tela; o
+  // elemento escolhido para isso precisa ser visivel ANTES de qualquer rolagem.
+  for (const name of [
+    'learning-critical-path.yaml',
+    'offline-relaunch.yaml',
+    'reward-unlock.yaml',
+    'student-checkpoint-short-viewport.yaml',
+  ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
     lines.forEach((line, index) => {

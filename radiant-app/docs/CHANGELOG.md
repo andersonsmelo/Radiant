@@ -9,6 +9,7 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 ## [Não lançado]
 
 ### Adicionado
+- **Flow de viewport curto (2026-08-10)** — `.maestro/student-checkpoint-short-viewport.yaml` prova que a tela de retomada permanece usável na viewport mais curta disponível: `iPhone SE (3rd generation)`, `[0,0][375,667]`, 207 pt mais baixa que o aparelho das coortes H3, com o mesmo binário nativo. Passa em `medium`, AX3, AX4 e AX5, cobrindo retomada offline após kill/relaunch, ausência de redirect automático, CTA alcançado rolando e volta para a Tela 2 de 3. Registrado nas duas listas de contrato de rolagem; **21/21**. O item estava bloqueado por uma afirmação falsa — "este host não tem device type SE" — repetida em seis lugares e desmentida por um comando. Achado da medição: numa viewport curta a âncora da espera antes de `scrollUntilVisible` tem de ser o **primeiro** elemento da tela, porque em AX5 o corpo do cartão já nasce abaixo da dobra; e `maestro hierarchy`, como invocação separada, discordou da asserção do próprio Maestro em 4 de 5 leituras, então não serve de instrumento. Aparelho **físico** de tela baixa continua sem evidência
 - **Agendador de revisão por competência (2026-08-08/09)** — modelo de memória, store com quarentena, resolução nó→competência, recomendação explicável e observação das atividades concluídas. O lado de leitura permanece inerte até conteúdo v2 e guarda explícita de ativação; a Task 11 fechou fora de ordem sem alterar a experiência visível
 
 ### Corrigido
