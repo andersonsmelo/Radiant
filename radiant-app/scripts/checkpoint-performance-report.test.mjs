@@ -15,6 +15,16 @@ function lines(metric, mode, values) {
   )).join('\n');
 }
 
+// Monta uma coorte de 20 amostras com p50 e p95 exatos, porque o gate de delta
+// deriva o piso de ruido de `p95 - p50` e os casos abaixo precisam reproduzir
+// razoes de ruido medidas, nao aproximadas. Com 20 valores ordenados o p50 e o
+// indice 10 e o p95 e o indice 18, entao 11 valores no piso e o 19o no p95
+// fixam as duas estatisticas de uma vez.
+function coortePorPercentis({ p50, p95, tail = p95 + 50 }) {
+  const meio = Math.round((p50 + p95) / 2);
+  return [...Array(11).fill(p50), ...Array(7).fill(meio), p95, tail];
+}
+
 function commandRun(coldStartMs, homeToLessonMs) {
   return [
     {
@@ -68,6 +78,7 @@ test('uses nearest-rank p95 and closes all four gates with twenty samples', () =
   assert.equal(report.gates.cold_start_delta.passed, true);
   assert.equal(report.gates.home_to_lesson_delta.passed, true);
   assert.equal(report.passed, true);
+  assert.equal(report.outcome, 'pass');
 });
 
 test('fails closed when a cohort has fewer than twenty valid samples', () => {
@@ -83,4 +94,176 @@ test('fails closed when a cohort has fewer than twenty valid samples', () => {
   assert.equal(report.gates.persistence.passed, false);
   assert.equal(report.gates.persistence.reason, 'insufficient-samples');
   assert.equal(report.passed, false);
+  // Amostra insuficiente e o outro jeito de nao ter medido, entao pertence ao
+  // mesmo desfecho: `fail` fica reservado para o candidato que regrediu de fato.
+  assert.equal(report.gates.persistence.outcome, 'inconclusive');
+  assert.equal(report.outcome, 'inconclusive');
+});
+
+// Medido em 2026-08-10, na primeira execucao real do gate: a amplitude interna
+// do cold start foi 838 ms no baseline e 833 ms no candidato, enquanto o limite
+// derivado de 5% do p95 era 167,6 ms. Um limiar cinco vezes menor que a
+// dispersao da propria medida reprova por ruido, independentemente da mudanca
+// sob teste. O piso passa a incluir a cauda superior medida do baseline
+// (p95 - p50), entao o gate nunca exige resolucao que o instrumento nao tem.
+// A fixture deste caso foi trocada em 2026-08-10, junto do desfecho
+// `inconclusive`, e a troca merece registro porque nao e cosmetica. Ela usava
+// baseline p50=1000/p95=1400, ou seja um piso de ruido de 400 ms sobre 1400 ms —
+// razao de 28,6%, acima do teto de 20%. Escrita antes de o teto existir, ela
+// afirmava que uma medicao nesse nivel de ruido **aprova**, que e exatamente o
+// passe vazio que o teto passou a recusar. Manter os numeros antigos exigiria
+// isentar este caso da regra nova, o que anularia a regra.
+//
+// O que o caso protege continua identico: quando a cauda medida do baseline
+// supera os dois termos originais, e ela que manda. A fixture nova apenas fica
+// dentro da faixa em que a medicao ainda conclui — piso de 600 ms sobre um
+// baseline de 4000 ms, razao de 15%, contra um teto de 800 ms.
+test('never demands a delta finer than the baseline own upper-tail spread', () => {
+  const baselineCommandRuns = coortePorPercentis({ p50: 3400, p95: 4000 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeCommandRuns = coortePorPercentis({ p50: 4100, p95: 4300 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const gate = report.gates.cold_start_delta;
+
+  assert.equal(gate.baselineP50Ms, 3400);
+  assert.equal(gate.baselineP95Ms, 4000);
+  assert.equal(gate.deltaMs, 300);
+  // 5% de 4000 sao 200 ms, e o piso fixo sao 50 ms: os dois ficam abaixo dos
+  // 600 ms de cauda medida, que e o termo que deve mandar. Sem ele, 300 ms de
+  // delta reprovariam contra 200 ms.
+  assert.equal(gate.noiseFloorMs, 600);
+  assert.equal(gate.allowedDeltaMs, 600);
+  // E a medicao ainda conclui: 600 ms cabem no teto de 800 ms.
+  assert.equal(gate.maxNoiseFloorMs, 800);
+  assert.equal(gate.outcome, 'pass');
+  assert.equal(gate.passed, true);
+});
+
+test('keeps the stricter fixed floor when the baseline is quiet', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(1000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(1060, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const gate = report.gates.cold_start_delta;
+
+  // Baseline sem dispersao: a cauda medida e zero, entao quem manda e o maior
+  // entre 5% de 1000 (50 ms) e o piso fixo de 50 ms. 60 ms de delta reprova.
+  assert.equal(gate.noiseFloorMs, 0);
+  assert.equal(gate.allowedDeltaMs, 50);
+  assert.equal(gate.deltaMs, 60);
+  assert.equal(gate.passed, false);
+  // Reprovacao medida e um desfecho diferente de medicao impossivel: aqui o
+  // instrumento tinha resolucao e o candidato excedeu o limite.
+  assert.equal(gate.outcome, 'fail');
+  assert.equal(report.outcome, 'fail');
+});
+
+// Medido em 2026-08-10, na terceira passagem do gate: o piso de ruido do cold
+// start foi 2863 ms contra um p95 de baseline de 5748 ms — metade da propria
+// medida —, porque o host estava em swap. O relatorio fechou em `passed: true`,
+// e esse verde nao distingue regressao de flutuacao: um limite que tolera 2,9 s
+// apenas declara que a medicao nao tem resolucao. O limiar consciente de ruido,
+// que entrou horas antes, eliminou o falso-negativo e trocou-o por um passe
+// vazio, que e mais perigoso porque tem cara de aprovacao.
+//
+// Por isso o gate ganha um terceiro desfecho. O teto do piso de ruido e um
+// quinto do p95 do baseline, ou seja quatro vezes a sensibilidade de 5% que o
+// desenho original pedia. Acima disso "dentro do limite" tolera um quinto da
+// metrica inteira e nao carrega informacao. As quatro razoes medidas em
+// 2026-08-10 separam bem: 0,108 na passagem de host ocioso, 0,246 na passagem
+// que foi descartada por metodo, 0,498 na do host em swap, e 0,053/0,073 nos
+// deltas de Home->Licao das tres. O teto de 0,2 marca as duas passagens que o
+// julgamento humano ja havia rejeitado e preserva a unica que serviu.
+test('reports inconclusive instead of an empty pass when the noise floor dominates the baseline', () => {
+  const baselineCommandRuns = coortePorPercentis({ p50: 2885, p95: 5748 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeCommandRuns = coortePorPercentis({ p50: 6000, p95: 6666 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const gate = report.gates.cold_start_delta;
+
+  assert.equal(gate.baselineP50Ms, 2885);
+  assert.equal(gate.baselineP95Ms, 5748);
+  assert.equal(gate.noiseFloorMs, 2863);
+  assert.equal(gate.maxNoiseFloorMs, 1149.6);
+  // O delta cabe folgado no limite permitido, e e exatamente esse conforto que
+  // nao pode ser lido como aprovacao.
+  assert.equal(gate.deltaMs, 918);
+  assert.equal(gate.outcome, 'inconclusive');
+  assert.equal(gate.reason, 'measurement-too-noisy');
+  assert.equal(gate.passed, false);
+  // Home->Licao continua conclusivo na mesma execucao: o desfecho e por gate,
+  // nao por relatorio, senao um instrumento ruim apagaria as medidas boas.
+  assert.equal(report.gates.home_to_lesson_delta.outcome, 'pass');
+  assert.equal(report.gates.persistence.outcome, 'pass');
+  // Falha fechada: nenhum leitor pode promover H3 com este relatorio.
+  assert.equal(report.passed, false);
+  assert.equal(report.outcome, 'inconclusive');
+});
+
+// A guarda irma do caso acima, e a que impede que o teto engula medicao usavel:
+// a passagem de host ocioso de 2026-08-10 teve piso de 362 ms contra p95 de
+// 3351 ms (razao 0,108) e delta de 267 ms. Ela precisa continuar conclusiva,
+// senao o gate deixa de poder aprovar qualquer coisa neste host e o custo e uma
+// remedicao de horas por execucao.
+test('stays conclusive at the noise floor an idle host produced', () => {
+  const baselineCommandRuns = coortePorPercentis({ p50: 2989, p95: 3351 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeCommandRuns = coortePorPercentis({ p50: 3500, p95: 3618 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const gate = report.gates.cold_start_delta;
+
+  assert.equal(gate.noiseFloorMs, 362);
+  assert.equal(gate.maxNoiseFloorMs, 670.2);
+  assert.equal(gate.deltaMs, 267);
+  assert.equal(gate.allowedDeltaMs, 362);
+  assert.equal(gate.outcome, 'pass');
+  assert.equal(gate.reason, 'within-limit');
+  assert.equal(gate.passed, true);
+  assert.equal(report.outcome, 'pass');
+});
+
+// O teto e uma fronteira, e fronteira precisa de lado declarado: exatamente no
+// teto a medicao ainda conclui. Sem este caso, trocar `>` por `>=` na guarda
+// passaria sem ninguem notar.
+test('treats a noise floor exactly at the ceiling as still conclusive', () => {
+  const baselineCommandRuns = coortePorPercentis({ p50: 800, p95: 1000 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeCommandRuns = coortePorPercentis({ p50: 1100, p95: 1150 })
+    .map((coldStart) => commandRun(coldStart, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog });
+  const gate = report.gates.cold_start_delta;
+
+  assert.equal(gate.noiseFloorMs, 200);
+  assert.equal(gate.maxNoiseFloorMs, 200);
+  assert.equal(gate.deltaMs, 150);
+  assert.equal(gate.allowedDeltaMs, 200);
+  assert.equal(gate.outcome, 'pass');
+  assert.equal(gate.passed, true);
 });

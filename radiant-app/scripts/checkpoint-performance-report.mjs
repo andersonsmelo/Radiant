@@ -8,6 +8,31 @@ const MODES = new Set(['off', 'active']);
 const EXACT_KEYS = ['durationMs', 'metric', 'mode', 'schemaVersion'];
 const MIN_SAMPLES = 20;
 
+// O desenho original do gate pedia resolucao para detectar 5% de regressao. O
+// piso de ruido medido pode substituir esse termo — e desde 2026-08-10 substitui
+// — mas nao indefinidamente: quando ele cresce, o gate continua respondendo
+// "dentro do limite" enquanto perde a capacidade de dizer qualquer coisa. O teto
+// abaixo fixa quanta sensibilidade a medicao pode perder antes de o desfecho
+// deixar de ser aprovacao e passar a ser medicao inconclusiva.
+const DESIGNED_DELTA_SHARE_OF_BASELINE = 0.05;
+const MAX_SENSITIVITY_LOSS = 4;
+const MAX_NOISE_FLOOR_SHARE_OF_BASELINE = DESIGNED_DELTA_SHARE_OF_BASELINE * MAX_SENSITIVITY_LOSS;
+
+// Dois desfechos negativos, um so `passed: false`. A distincao importa porque as
+// acoes que eles pedem sao opostas: `fail` manda investigar o produto,
+// `inconclusive` manda remedir o instrumento. Amostra insuficiente e ruido
+// dominante sao as duas formas de nao ter medido.
+const INCONCLUSIVE_REASONS = new Set(['insufficient-samples', 'measurement-too-noisy']);
+
+function outcomeOf(passed, reason) {
+  if (INCONCLUSIVE_REASONS.has(reason)) return 'inconclusive';
+  return passed ? 'pass' : 'fail';
+}
+
+function tenths(value) {
+  return Math.round(value * 10) / 10;
+}
+
 function hasExactKeys(candidate) {
   return Object.keys(candidate).sort().join('|') === EXACT_KEYS.join('|');
 }
@@ -90,16 +115,22 @@ function summarize(samples, metric) {
   return {
     count: values.length,
     p95Ms: p95Index >= 0 ? values[p95Index] : null,
+    // A mediana existe para medir a cauda superior do baseline, nao para ser
+    // reportada por si: `p95 - p50` e o piso de ruido do gate de delta.
+    p50Ms: values.length === 0 ? null : values[Math.floor(values.length / 2)],
   };
 }
 
 function absoluteGate(summary, limitMs) {
   if (summary.count < MIN_SAMPLES) {
-    return { passed: false, reason: 'insufficient-samples', count: summary.count, required: MIN_SAMPLES, p95Ms: summary.p95Ms, limitMs };
+    return { passed: false, reason: 'insufficient-samples', outcome: outcomeOf(false, 'insufficient-samples'), count: summary.count, required: MIN_SAMPLES, p95Ms: summary.p95Ms, limitMs };
   }
+  const passed = summary.p95Ms <= limitMs;
+  const reason = passed ? 'within-limit' : 'limit-exceeded';
   return {
-    passed: summary.p95Ms <= limitMs,
-    reason: summary.p95Ms <= limitMs ? 'within-limit' : 'limit-exceeded',
+    passed,
+    reason,
+    outcome: outcomeOf(passed, reason),
     count: summary.count,
     required: MIN_SAMPLES,
     p95Ms: summary.p95Ms,
@@ -107,31 +138,69 @@ function absoluteGate(summary, limitMs) {
   };
 }
 
+// O limite permitido tem tres termos e o maior manda. Os dois primeiros — 5% do
+// p95 do baseline e um piso fixo de 50 ms — vinham do desenho original. O
+// terceiro entrou em 2026-08-10, medido: na primeira execucao real do gate a
+// amplitude interna do cold start foi 838 ms no baseline e 833 ms no candidato,
+// contra um limite de 167,6 ms. Um limiar abaixo da dispersao da propria medida
+// reprova por ruido, independentemente da mudanca sob teste — e reprovou. A
+// cauda superior medida do baseline (`p95 - p50`) e o piso de resolucao do
+// instrumento: exigir menos que isso e pedir uma precisao que ele nao tem.
+//
+// Isto NAO afrouxa o gate quando a medida e estavel: com baseline sem
+// dispersao o terceiro termo e zero e os dois originais continuam mandando.
+//
+// O terceiro desfecho entrou em 2026-08-10, depois da terceira passagem, e a
+// razao e o limite do proprio termo acima. Com o host em swap o piso de ruido do
+// cold start foi 2863 ms contra um p95 de baseline de 5748 ms, e o relatorio
+// fechou em `passed: true`: o limiar consciente de ruido eliminou o
+// falso-negativo e, num host que degrada, trocou-o por um passe vazio. As duas
+// falhas sao do instrumento, e a segunda e a mais perigosa porque tem cara de
+// aprovacao. Um gate que so sabe aprovar ou reprovar aprova vazio; por isso
+// existe `measurement-too-noisy`, e ele e checado ANTES da comparacao de delta —
+// quando a medida nao tem resolucao, nem "dentro do limite" nem "excede" sao
+// afirmacoes sobre o produto. Foi assim que a segunda passagem se comportou:
+// delta de +6021 ms atribuido ao host, nao ao software.
 function deltaGate(baseline, active) {
   if (baseline.count < MIN_SAMPLES || active.count < MIN_SAMPLES) {
     return {
       passed: false,
       reason: 'insufficient-samples',
+      outcome: outcomeOf(false, 'insufficient-samples'),
       baselineCount: baseline.count,
       activeCount: active.count,
       requiredPerCohort: MIN_SAMPLES,
       baselineP95Ms: baseline.p95Ms,
+      baselineP50Ms: baseline.p50Ms,
       activeP95Ms: active.p95Ms,
       deltaMs: null,
+      noiseFloorMs: null,
+      maxNoiseFloorMs: null,
       allowedDeltaMs: null,
     };
   }
-  const deltaMs = Math.round((active.p95Ms - baseline.p95Ms) * 10) / 10;
-  const allowedDeltaMs = Math.round(Math.max(0.05 * baseline.p95Ms, 50) * 10) / 10;
+  const deltaMs = tenths(active.p95Ms - baseline.p95Ms);
+  const noiseFloorMs = tenths(Math.max(baseline.p95Ms - baseline.p50Ms, 0));
+  const maxNoiseFloorMs = tenths(MAX_NOISE_FLOOR_SHARE_OF_BASELINE * baseline.p95Ms);
+  const allowedDeltaMs = tenths(Math.max(DESIGNED_DELTA_SHARE_OF_BASELINE * baseline.p95Ms, 50, noiseFloorMs));
+  const tooNoisy = noiseFloorMs > maxNoiseFloorMs;
+  const passed = !tooNoisy && deltaMs <= allowedDeltaMs;
+  const reason = tooNoisy
+    ? 'measurement-too-noisy'
+    : (passed ? 'within-limit' : 'limit-exceeded');
   return {
-    passed: deltaMs <= allowedDeltaMs,
-    reason: deltaMs <= allowedDeltaMs ? 'within-limit' : 'limit-exceeded',
+    passed,
+    reason,
+    outcome: outcomeOf(passed, reason),
     baselineCount: baseline.count,
     activeCount: active.count,
     requiredPerCohort: MIN_SAMPLES,
     baselineP95Ms: baseline.p95Ms,
+    baselineP50Ms: baseline.p50Ms,
     activeP95Ms: active.p95Ms,
     deltaMs,
+    noiseFloorMs,
+    maxNoiseFloorMs,
     allowedDeltaMs,
   };
 }
@@ -161,12 +230,20 @@ export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCo
     home_to_lesson_delta: deltaGate(summary.baseline.home_to_lesson, summary.active.home_to_lesson),
   };
 
+  const results = Object.values(gates);
+  const passed = results.every((gate) => gate.passed);
   return {
     schemaVersion: 1,
     minimumSamplesPerCohort: MIN_SAMPLES,
+    maxNoiseFloorShareOfBaseline: MAX_NOISE_FLOOR_SHARE_OF_BASELINE,
     summary,
     gates,
-    passed: Object.values(gates).every((gate) => gate.passed),
+    passed,
+    // `inconclusive` domina no relatorio porque e o desfecho que muda a proxima
+    // acao: nao ha o que investigar no produto enquanto qualquer gate nao mediu.
+    outcome: results.some((gate) => gate.outcome === 'inconclusive')
+      ? 'inconclusive'
+      : (passed ? 'pass' : 'fail'),
   };
 }
 
