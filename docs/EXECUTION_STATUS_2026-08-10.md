@@ -102,11 +102,21 @@ se 440 ms são aceitáveis, é preciso saber se eles existem fora do Dev Client:
    chunk. O remédio preferido é aquecer a resolução no bootstrap nos dois modos, que
    restaura a validade da medição e ainda tira ~200 ms por lançamento do
    desenvolvedor;
-2. **rodar as duas coortes de 20** em janela de host — reboot para zerar swap, Metro
+2. ✅ **aquecer a resolução do módulo no bootstrap** — feito e medido. Com
+   `warmNativeStorage()` no `Promise.all`, independente do modo, `launch_inspection`
+   em `active` caiu de 184–357 ms para **1,0–1,9 ms** e o delta de medianas de
+   `first_frame` de +344/+441 ms para **−28,7 ms**: a assimetria que dominava o gate
+   desapareceu e o delta voltou a medir o kernel. **Correção de uma afirmação minha:**
+   eu disse que isso tiraria ~200 ms por lançamento do desenvolvedor — o `Promise.all`
+   espera o mais lento, a busca é mais lenta que o resto do bootstrap, e o
+   `first_frame` em `off` subiu de ~232 para ~580 ms. O ganho é **simetria, não
+   velocidade**; em produção o custo é ~0 porque o bundle é único;
+3. **rodar as duas coortes de 20** em janela de host — reboot para zerar swap, Metro
    pré-aquecido, coortes em sequência. Nota de receita: o baseline agora roda com
    `PERFORMANCE=true` e `MODE=off`;
-3. se o custo persistir sem Dev Client, o remédio provável é **aquecer a resolução em
-   paralelo no bootstrap** — nunca trocar o import, que já foi refutado.
+4. o gate ainda saiu `inconclusive` no piloto de n=5, e isso é tamanho de amostra:
+   uma amostra de `off` em 1162 ms define o p95 quando n=5. Com 20 o p95 é o 19º
+   valor.
 
 **Sem evidência:** VoiceOver como serviço, TalkBack (exige Android), "segunda
 falha invalida o checkpoint" e ausência de efeito duplicado após a retomada — o

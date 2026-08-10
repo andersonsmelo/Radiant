@@ -502,7 +502,15 @@ vazio**. Continua calculado e reportado, com `advisory: true`, porque a série
 histórica vale como contexto e porque uma regressão de lançamento **nativo** só
 apareceria ali. Voltar a gateá-lo é tirar o nome de `ADVISORY_GATES`.
 
-**O delta de `first_frame` medido num Dev Client não julga o kernel — medido em
+**Corrigido em 2026-08-10 pelo aquecimento do módulo.** `warmNativeStorage()` roda no
+bootstrap independente do modo, então os dois lados pagam a resolução e o delta voltou
+a medir o kernel: `launch_inspection` em `active` caiu para **1,0–1,9 ms** e o delta de
+medianas para **−28,7 ms**. Em desenvolvimento isso deixa os dois modos mais lentos
+(`first_frame` em `off` subiu de ~232 para ~580 ms), porque a busca é mais lenta que o
+resto do bootstrap e passa a dominá-lo; em produção o custo é ~0. O parágrafo abaixo
+fica como registro do que a assimetria causava.
+
+**O delta de `first_frame` medido num Dev Client não julgava o kernel — medido em
 2026-08-10.** Apenas o lado `active` toca o store na partida, e a primeira operação
 de storage resolve o AsyncStorage por `await import()`, que o Metro serve como chunk
 buscado por HTTP em dev: 177–622 ms. A leitura em si custa **menos de 2 ms**, e o

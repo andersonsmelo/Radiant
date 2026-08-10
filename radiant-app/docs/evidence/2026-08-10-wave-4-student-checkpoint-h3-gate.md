@@ -1011,3 +1011,60 @@ Nenhuma das duas foi executada aqui.
 desta saga sobre o produto que se sustenta em medição direta da fronteira, e ela é
 o oposto do que o piloto sugeriu. Persistência (23,1 ms) e restauração (9,0 ms)
 sempre foram conclusivas; agora a partida também é, e é a mais baixa das três.
+
+## Aquecimento do módulo — a assimetria caiu, e uma predição minha caiu com ela
+
+**Runs:** `run-1786404557489-333ee8ae` (implementação) e `run-1786405737946-c7d970f3`
+(medição e correção). O objetivo não era desempenho: era **validade da medição**.
+Como `inspectLaunch` em `off` retorna antes de tocar o store, só o lado `active`
+pagava a resolução do módulo, e o delta de `first_frame` media essa assimetria em
+vez do kernel — que custa menos de 2 ms.
+
+`warmNativeStorage()` entrou no `Promise.all` do bootstrap, **independente do modo**,
+resolvendo o módulo sem tocar chave alguma.
+
+### O que funcionou, e é o ponto
+
+| | antes | depois |
+| --- | ---: | ---: |
+| `launch_inspection` em `active` | 184–357 ms | **1,0–1,9 ms** |
+| delta de medianas de `first_frame` | +344 a +441 ms | **−28,7 ms** |
+
+O candidato ficou **marginalmente mais rápido** que o baseline, que é o que se espera
+de um kernel que custa menos de 2 ms. A assimetria que dominava o gate desapareceu.
+
+### A predição que eu declarei antes de medir, e errei
+
+Eu escrevi que aquecer em paralelo esconderia a maior parte da busca, porque em `off`
+a janela JS inteira era ~232 ms e a busca ~190–266 ms — magnitudes parecidas. **Está
+errado, e na direção oposta.** O `Promise.all` espera o **mais lento**: a busca
+(191–662 ms) é mais lenta que o resto do bootstrap, então ela passou a **dominar** a
+partida em vez de se esconder nela. `first_frame` em `off` subiu de ~232 ms para
+~580 ms.
+
+O que o aquecimento entrega é **simetria, não velocidade** — e em desenvolvimento os
+dois modos ficaram mais lentos. Também cai a frase que eu havia dito ao dono, de que
+isso "tira ~200 ms por lançamento do desenvolvedor": ele **acrescenta** ~350 ms ao
+lado `off`. Em produção o custo é ~0, porque o bundle é único e o `import()` não tem
+o que buscar, então nada disso alcança o usuário.
+
+Havia uma alternativa e ela foi recusada com motivo: disparar o aquecimento sem
+esperar (`void warmNativeStorage()`) manteria a partida rápida em dev, mas
+reintroduziria assimetria parcial — se a busca não terminasse antes do
+`inspectLaunch`, o lado `active` ainda esperaria o resto. Como o objetivo é a
+validade da comparação, esperar é o certo.
+
+### O gate ainda sai `inconclusive`, e por um motivo de tamanho de amostra
+
+| | n | p50 | p95 |
+| --- | ---: | ---: | ---: |
+| `first_frame` `off` | 5 | 580,5 ms | 1162 ms |
+| `first_frame` `active` | 5 | 551,8 ms | 590,2 ms |
+
+Uma amostra de `off` saiu em 1162 ms e, com n=5, o p95 **é o máximo** — então o piso
+de ruído dá 581,5 ms sobre um p95 de 1162, razão 0,500, acima do teto de 0,20. Isso é
+artefato do tamanho do piloto, não veredito: com 20 amostras o p95 é o 19º valor e um
+único disparate não o define. O sinal que importa — delta de medianas de −28,7 ms e
+`launch_inspection` em 1,6 ms — não depende disso.
+
+**A coorte de 20 continua pendente, e agora ela mede o kernel.**

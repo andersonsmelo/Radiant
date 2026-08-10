@@ -83,6 +83,10 @@ jest.mock('../student-checkpoints/mode', () => ({
   resolveStudentCheckpointRuntimeMode: jest.fn(() => 'off'),
 }));
 
+jest.mock('../student-checkpoints/storage', () => ({
+  warmNativeStorage: jest.fn(() => Promise.resolve()),
+}));
+
 jest.mock('../beta/BetaService', () => ({
   BetaService: { checkAccess: jest.fn(() => Promise.resolve(true)) },
 }));
@@ -197,6 +201,20 @@ describe('gate de abertura em RootLayout', () => {
     (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(snapshotWith(LESSON_NODE));
     (router.replace as jest.Mock).mockImplementation(() => undefined);
     mockInspectLaunch.mockResolvedValue({ kind: 'none' });
+  });
+
+  // O modo deste ambiente de teste é `off`, e é justamente aí que a guarda morde.
+  // Medido em 2026-08-10: como `inspectLaunch` em `off` retorna antes de tocar o
+  // store, só o lado `active` pagava a resolução do módulo de storage — 177 a
+  // 622 ms num Dev Client — e o delta de `first_frame` media essa assimetria em vez
+  // do kernel, que custa menos de 2 ms. O aquecimento só serve se acontecer nos
+  // DOIS modos; condicioná-lo ao modo ativo recriaria a assimetria com aparência de
+  // otimização.
+  it('aquece a resolução do módulo de storage no bootstrap mesmo com o kernel em off', async () => {
+    const { warmNativeStorage } = jest.requireMock('../student-checkpoints/storage');
+
+    renderWithProviders(<RootLayout />);
+    await waitFor(() => expect(warmNativeStorage).toHaveBeenCalled());
   });
 
   it('oferece CTA explícito antes de navegar para uma retomada ativa', async () => {

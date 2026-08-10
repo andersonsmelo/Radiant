@@ -37,6 +37,22 @@ async function nativeStorage(): Promise<KeyValueStorage> {
     ));
 }
 
+// Aquece a resolução do módulo sem tocar chave nenhuma. Existe para tornar a
+// MEDIÇÃO válida, não para otimizar o produto: como `inspectLaunch` em `off`
+// retorna antes de tocar o store, só o lado `active` pagava a resolução, e o delta
+// de `first_frame` media essa assimetria em vez do kernel — que custa menos de
+// 2 ms. Chamado no bootstrap, nos DOIS modos, os dois lados passam a pagar igual e
+// a busca se sobrepõe ao resto do bootstrap em vez de serializar depois dele.
+//
+// Nunca rejeita. Aquecimento é diagnóstico, e diagnóstico não derruba a partida.
+export async function warmNativeStorage(): Promise<void> {
+    try {
+        await nativeStorage();
+    } catch {
+        // Diagnostics must never interfere with the learning path.
+    }
+}
+
 export const asyncStorageKeyValueStorage: KeyValueStorage = {
     getItem: async (key) => (await nativeStorage()).getItem(key),
     setItem: async (key, value) => (await nativeStorage()).setItem(key, value),

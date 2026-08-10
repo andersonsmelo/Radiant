@@ -235,7 +235,19 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    ~200 ms por lançamento do desenvolvedor. **Registro do erro:** eu havia escalado
    isso como "exige autorização do dono para build sem Dev Client" — não exigia, e um
    export de bundle respondeu;
-8. ⏳ **antiga pendência 7, agora reduzida:** O diagnóstico da fronteira (runs
+8. ✅ **aquecimento do módulo no bootstrap** — feito e medido em 2026-08-10 (runs
+   `run-1786404557489-333ee8ae` e `run-1786405737946-c7d970f3`).
+   `warmNativeStorage()` entrou no `Promise.all`, independente do modo e sem tocar
+   chave alguma. **A assimetria caiu:** `launch_inspection` em `active` foi de
+   184–357 ms para **1,0–1,9 ms**, e o delta de medianas de `first_frame` de +344/+441
+   para **−28,7 ms** — o candidato ficou marginalmente mais rápido, que é o esperado
+   de um kernel de <2 ms. Duas guardas com mutação provada, uma delas **estrutural**
+   porque `import()` dinâmico não executa sob Jest e o teste de runtime seria vazio.
+   **Predição minha refutada:** eu disse que a busca se esconderia no bootstrap e que
+   isso tiraria ~200 ms do desenvolvedor; o `Promise.all` espera o mais lento, então
+   ela passou a dominar e o `first_frame` em `off` subiu de ~232 para ~580 ms. O ganho
+   é simetria, não velocidade; em produção o custo é ~0 (bundle único);
+9. ⏳ **antiga pendência 7, agora reduzida:** O diagnóstico da fronteira (runs
    `run-1786395295145-4412f2f2` e `run-1786396152130-5d9cdc0b`) mostrou que **~72%
    dos 440 ms não são custo do kernel**: `launch_inspection` custa 0,5–0,9 ms em
    `off` e 184–357 ms em `active`, e o mecanismo é resolução de módulo, não I/O — a
@@ -248,7 +260,7 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    `e2e-test` já declara isso), portanto **autorização do dono**. Se persistir, o
    remédio provável é aquecer a resolução em paralelo no bootstrap — **não** trocar o
    import, que foi tentado e derrubou seis suítes do kernel;
-9. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
+10. ✅ **viewport curto em simulador** — feito em 2026-08-10, run
    `run-1786385853053-960f7e28`. A razão que bloqueava este item era falsa: o
    runtime iOS 26.5 suporta `iPhone SE (3rd generation)`. Criado o simulador
    `Radiant SE 4.7` (`[0,0][375,667]`, 207 pt mais curto que o das coortes), com o
@@ -258,8 +270,8 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-10. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
-11. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
+11. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
+12. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
    duplicado após a retomada continuam sem flow que os afirme.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do

@@ -36,6 +36,7 @@ import {
   type ActiveResumeLaunch,
 } from '../features/student-checkpoints/ActiveCheckpointRuntime';
 import { startupProbe } from '../features/student-checkpoints/CheckpointPerformance';
+import { warmNativeStorage } from '../features/student-checkpoints/storage';
 import { resolveStudentCheckpointRuntimeMode } from '../features/student-checkpoints/mode';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../features/student-checkpoints/ScreenCheckpointAdapters';
 
@@ -157,6 +158,26 @@ function RootLayout() {
           AuthService.bootstrap(),
           LessonCatalogService.bootstrap(),
           firstRunBootstrapRef.current,
+          // Independente do modo do kernel, de propósito. Num Dev Client a primeira
+          // operação de storage resolve o AsyncStorage por chunk buscado por HTTP
+          // (177–622 ms medidos em 2026-08-10), e como `inspectLaunch` em `off`
+          // retorna antes de tocar o store, só o lado `active` pagava — o delta de
+          // `first_frame` media essa assimetria em vez do kernel, que custa menos de
+          // 2 ms. Aqui os dois modos pagam igual, e é isso que faz o delta voltar a
+          // medir o kernel: `launch_inspection` em `active` caiu de 184–357 ms para
+          // **1,0–1,9 ms**, e o delta de medianas de +344/+441 ms para −28,7 ms.
+          //
+          // **O que isso NÃO faz, medido:** esconder o custo. A suposição de que a
+          // busca se sobreporia ao resto do bootstrap estava errada — o `Promise.all`
+          // espera o mais lento, e a busca (191–662 ms) é mais lenta que o resto
+          // (~232 ms), então ela passa a dominar a partida em vez de desaparecer:
+          // `first_frame` em `off` subiu de ~232 ms para ~580 ms. O ganho é
+          // simetria, não velocidade, e em desenvolvimento os dois modos ficaram
+          // mais lentos. Em produção o custo é ~0, porque o bundle é único e o
+          // `import()` não tem o que buscar.
+          //
+          // Não lê chave nenhuma, então `off` continua silencioso.
+          warmNativeStorage(),
         ]);
         if (!active) {
           return;
