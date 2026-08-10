@@ -66,7 +66,17 @@ e `EXPO_PUBLIC_APP_ENV=preview` do `.env` derrubava o modo para `off` —
 contrato. O segundo é de produto: `CheckpointResumeScreen` não era rolável e, a
 partir de `accessibility-extra-extra-large`, perdia os dois botões, deixando
 quem usa texto grande sem saída. Ambos corrigidos; o segundo tem prova em
-aparelho em AX4 e AX5.
+aparelho em AX4 e AX5, e também na viewport mais curta que este host oferece
+(`iPhone SE` de 375 × 667 pt), onde em AX5 nem o corpo do cartão cabe e o CTA
+segue alcançável rolando.
+
+O terceiro engano era do **instrumento**, e custou três correções no mesmo dia: o
+gate de partida media uma janela em que o kernel não existe. A arquitetura de
+medição resultante tem três famílias de métrica com autoridades diferentes —
+`persistence`/`restoration` medidas dentro do app e só em `active`; `first_frame` e
+`launch_inspection` medidas dentro do app e **em todos os modos**, porque delta
+exige as duas coortes; e `cold_start`/`home_to_lesson` derivadas do runner de E2E.
+Só as duas primeiras famílias entram no veredito.
 
 Em 2026-08-09 a Onda 2 criou o módulo isolado
 `radiant-app/src/features/student-checkpoints/`: contratos/schemas fechados,
@@ -131,11 +141,33 @@ conveniência e decai):
   e jornada. O gate de dispositivo foi executado em 2026-08-10: persistência p95
   **23,1 ms** e restauração p95 **9,0 ms**, com a retomada offline provada 20
   vezes, e o viewport curto fechado em simulador de 375 × 667 pt em `medium`, AX3,
-  AX4 e AX5. O delta de cold start é o único item aberto e o gate agora **nomeia
-  esse estado**: desde 2026-08-10 ele tem três desfechos e devolve
-  `inconclusive`/`measurement-too-noisy`, falha fechada, quando o piso de ruído
-  medido passa de um quinto do p95 do baseline. O que falta é remedir com o host
-  ocioso, não mudar o instrumento;
+  AX4 e AX5. O delta de partida é o único item aberto, e o instrumento que o mede
+  foi trocado três vezes em 2026-08-10, cada vez porque a anterior não bastava:
+  limiar consciente do ruído medido; depois um terceiro desfecho
+  (`inconclusive`/`measurement-too-noisy`, falha fechada, quando o piso de ruído
+  passa de um quinto do p95 do baseline); e por fim a **troca da métrica**. O
+  `cold_start` mede a duração do `launchApp` do Maestro, que num Dev Client termina
+  no launcher, antes de o bundle JS existir — o kernel é JavaScript e não vive
+  nessa janela, então nenhum ajuste de limiar podia salvá-la. Entrou `first_frame`,
+  do início da janela JS ao frame seguinte a `startupPhase` virar `ready`, que só
+  ocorre depois de `inspectLaunch` do runtime de checkpoints: **o kernel está
+  dentro da janela por construção**. Emitida nos dois modos, porque é isso que faz
+  o baseline `off` produzir a coorte de comparação; `cold_start` ficou informativo,
+  fora do veredito.
+
+  **E a primeira medição da métrica nova achou custo de partida, mas não onde
+  parecia.** Um piloto apontou ~440 ms a mais em `active`, e a fronteira medida
+  (`launch_inspection`, instrumentada nos dois modos: 0,5–0,9 ms em `off` contra
+  184–357 ms em `active`) mostrou que **~72% disso não é lógica do kernel** — é
+  resolução de módulo. A primeira operação de storage do kernel resolve o
+  AsyncStorage por `await import()`, que o Metro serve como chunk buscado por HTTP
+  num Dev Client; a operação seguinte no mesmo lançamento custa 13–21 ms. Em `off`,
+  `inspectLaunch` retorna antes de tocar o store, então o baseline nunca paga.
+  Import estático foi tentado e derrubou seis suítes do kernel, porque `jest-expo`
+  não mocka esse módulo — a preguiça é obrigatória e o custo dela está registrado
+  no ponto de chamada. **Pergunta aberta que decide se há o que otimizar:** esse
+  custo existe fora do Dev Client? Medir isso exige build sem Dev Client, e vem
+  antes de qualquer decisão sobre aceitar ou otimizar os 440 ms;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 
