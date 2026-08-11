@@ -284,11 +284,17 @@ automático, e fallback canônico para Home quando catálogo, cursor ou rota for
 incompatíveis.
 
 O profile `checkpoint-internal` e o flow Maestro de kill/relaunch offline estão
-versionados. A instrumentação sanitizada do gate também está pronta: o app
-mede só persistência/restauração em `active`; cold start e Home→Lição saem do
-`commands.json` do Maestro, preservando `off` silencioso. O relatório falha
-fechado sem 20 amostras por coorte. Quality completa: **78 suítes/527 testes**,
-contratos Maestro **21/21** e parser **4/4**. O EAS CLI resolveu o profile e a
+versionados. A instrumentação do gate mudou em 2026-08-10 e a descrição antiga
+("o app mede só persistência/restauração em `active`") não vale mais: o app emite
+**cinco** métricas, e a diferença entre elas é o que o gate pode concluir —
+`persistence`/`restoration` dentro do app e só em `active`; `first_frame`,
+`launch_inspection` e `storage_module_resolution` dentro do app e **em todos os
+modos**, porque delta exige as duas coortes; e `cold_start`/`home_to_lesson` do
+`commands.json` do Maestro, com `cold_start` fora do veredito. `off` continua
+silencioso no que importa — nenhuma leitura ou escrita do kernel —, e isso passou de
+afirmação a asserção: métrica de checkpoint num log de baseline reprova o relatório.
+O relatório falha fechado sem 20 amostras por coorte. Quality medida no encerramento
+de 2026-08-10: **544 testes** verdes, contratos Maestro **21/21** e parser **4/4**. O EAS CLI resolveu o profile e a
 variante de simulador como `development+active`, distribuição interna e sync
 remoto `false`.
 

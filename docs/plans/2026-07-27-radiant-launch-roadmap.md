@@ -1258,9 +1258,15 @@ entrega a fundação que aqueles itens passam a consumir.
   bundle sem chunk assíncrono, logo o custo não existe fora do Dev Client. **O kernel
   custa <2 ms na partida.**
 
-  **Falta:** tornar o delta de `first_frame` comparável em dev — aquecer a resolução
-  do módulo no bootstrap nos dois modos, o que é questão de validade da medição e não
-  de otimização — e então rodar as duas coortes de 20 em janela de host.
+  O delta de `first_frame` **já foi tornado comparável**: `warmNativeStorage()` roda no
+  bootstrap independente do modo, e `launch_inspection` em `active` caiu de 184–357 ms
+  para 1,0–1,9 ms, com o delta de medianas indo de +344/+441 ms para **−28,7 ms**.
+  Registro de uma predição refutada pela medição: supunha-se que a busca se sobreporia
+  ao resto do bootstrap; o `Promise.all` espera o mais lento, e o `first_frame` em `off`
+  subiu de ~232 para ~580 ms — o ganho é simetria, não velocidade, e em produção o
+  custo é ~0.
+
+  **Falta:** rodar as duas coortes de 20 em janela de host. Agora elas medem o kernel.
   Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
   aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
   de efeito duplicado após a retomada.

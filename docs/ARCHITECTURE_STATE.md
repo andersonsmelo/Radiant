@@ -171,8 +171,15 @@ conveniência e decai):
   num build embarcado o `import()` não tem o que buscar. **O custo é artefato do Dev
   Client, e o kernel custa menos de 2 ms na partida** — a medida mais baixa das três
   do kernel. A consequência recai sobre o instrumento: o delta de `first_frame` medido
-  em Dev Client não pode julgar esta onda, porque apenas um dos lados percorre o
-  caminho de chunk, e o remédio é aquecer a resolução no bootstrap nos dois modos;
+  em Dev Client não podia julgar esta onda, porque apenas um dos lados percorria o
+  caminho de chunk. **Corrigido no mesmo dia:** `warmNativeStorage()` roda no
+  bootstrap independente do modo, sem tocar chave alguma, então os dois lados pagam a
+  resolução — `launch_inspection` em `active` caiu de 184–357 ms para **1,0–1,9 ms** e
+  o delta de medianas de `first_frame` de +344/+441 ms para **−28,7 ms**, com o
+  candidato marginalmente mais rápido, que é o esperado de um kernel de <2 ms. Em
+  desenvolvimento isso deixa os dois modos mais lentos, porque a busca é mais lenta
+  que o resto do bootstrap e passa a dominá-lo; em produção o custo é ~0. O que resta
+  é rodar as duas coortes de 20 em janela de host, e agora elas medem o kernel;
 - checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
   fundação transacional do kernel.
 

@@ -8,12 +8,21 @@ primeira vitória, quatro interações acessíveis, correção do agendador e as
 
 ## O que mudou hoje
 
-O dia foi inteiro sobre o **gate operacional H3**, e produziu quatro coisas: a
-descoberta de que o gate não era executável, o fechamento de um bloqueio P0 de
-acessibilidade que ele revelou, a troca da métrica de partida por uma que contém o
-kernel, e a medição que fechou a pergunta que ela abriu — **o kernel custa menos de
-2 ms na partida**, e os ~440 ms que pareciam custo dele eram resolução de módulo do
-Dev Client. Nenhum build, OTA, submit, push ou publicação. Produção permanece `off` e
+O dia foi inteiro sobre o **gate operacional H3**, e o resumo honesto é que ele
+produziu sobretudo **capacidade de medir**: a descoberta de que o gate não era
+executável, o fechamento de um bloqueio P0 de acessibilidade que ele revelou, três
+correções sucessivas do instrumento de partida — limiar consciente de ruído, desfecho
+`inconclusive`, e a troca da métrica por uma que contém o kernel — e então a medição
+que fechou a pergunta que essa troca abriu. **O kernel custa menos de 2 ms na
+partida**; os ~440 ms que pareciam custo dele eram resolução de módulo do Dev Client.
+Por fim, o aquecimento do módulo tornou o delta comparável, e o que resta é rodar as
+coortes de 20.
+
+Três afirmações minhas caíram na medição ao longo do dia e ficam registradas onde
+foram feitas: o piloto como "achado de produto", a hipótese de que medir dentro do app
+dispensaria host silencioso, e a predição de que o aquecimento tiraria ~200 ms do
+lançamento em desenvolvimento. Nenhuma delas sobreviveu, e é por isso que estão
+escritas. Nenhum build, OTA, submit, push ou publicação. Produção permanece `off` e
 `1.3.1 (7)` está intocada.
 
 Quatro correções entraram, cada uma em run próprio, todas com teste que morde
@@ -152,6 +161,28 @@ o `Info.plist` do artefato carrega **`CFBundleVersion = 3`**. Como `1.3.1 (7)` �
 a versão em revisão na App Store, o texto fazia o build interno de simulador
 parecer o artefato submetido. Corrigido no status, na fila, no roadmap e na
 evidência de 2026-08-09.
+
+## Automação de acompanhamento — criada em 2026-08-10
+
+Uma rotina diária, `radiant-store-watch`, passa a rodar às **08:00** e a entregar um
+panorama do lançamento: gate medido, commits não empurrados contra o upstream da
+branch, árvore limpa, PR, CI, builds do EAS e o estado registrado das lojas com a data
+de cada leitura. Ela compara com o dia anterior e persiste o snapshot em
+`~/.claude/projects/-Users-anderson-Developer-Radiant/store-watch/`, **fora do
+repositório de propósito** — sujeira na árvore entra na baseline do próximo run Loop e
+custa o run inteiro.
+
+**Ela não consulta a App Store Connect, e diz isso em toda execução.** Verificado em
+2026-08-10: não existe chave da App Store Connect API nesta máquina, o `eas-cli` só
+reporta o status dos builds no EAS — não o da App Review — e o `altool` exigiria
+credenciais que o agente não deve manipular. A rotina portanto **nunca** afirma que a
+revisão "não mudou"; ela pede a leitura ao dono e diz o que fazer em cada desfecho.
+Uma chave read-only da ASC API, gerada pelo dono no console, converteria a rotina de
+lembrete em verificação real.
+
+A rotina irmã `weekly-skill-review` foi corrigida no mesmo dia: ela existia, estava
+ativa e apontava para o workspace de **outro** projeto, então vinha reportando no-op
+plausível toda segunda.
 
 ## Lojas — sem mudança em 2026-08-10
 
