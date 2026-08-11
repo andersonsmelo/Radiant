@@ -29,10 +29,11 @@
     "test:identity-palette-contract": "node --test scripts/identity-palette-contract.test.mjs",
     "test:icon-assets-contract": "node --test scripts/icon-assets-contract.test.mjs",
     "test:pixel-screen-geometry-contract": "node --test scripts/pixel-screen-geometry-contract.test.mjs",
+    "test:pixel-face-anchor-contract": "node --test scripts/pixel-face-anchor-contract.test.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
     "checkpoint:performance-report": "node scripts/checkpoint-performance-report.mjs",
-    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test -- --runInBand && npm run visual:qa:strict",
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test -- --runInBand && npm run visual:qa:strict",
     "storybook": "STORYBOOK_ENABLED=true expo start",
     "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
     "storybook:android": "STORYBOOK_ENABLED=true expo start --android"
