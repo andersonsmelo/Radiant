@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
+  Easing,
   useSharedValue,
   withRepeat,
   withSequence,
@@ -28,6 +29,11 @@ export const PIXEL_SIZE_MAP: Record<CharacterSize, number> = {
 };
 
 const SIZE_MAP = PIXEL_SIZE_MAP;
+
+/** Curva do movimento de respirar: sobe e desce, então entra e sai suave nas duas pontas. */
+const RESPIRA = { easing: Easing.inOut(Easing.quad) } as const;
+/** Curva do pulso de `celebrate` e do tremor de `oops`: reage rápido, desacelera no fim. */
+const REAGE = { easing: Easing.out(Easing.quad) } as const;
 
 const GRID_LINES = Array.from({ length: 6 }, (_, index) => index);
 const PARTICLES = [
@@ -196,16 +202,16 @@ export function PixelIllustration({
       case 'idle':
         translateY.value = withRepeat(
           withSequence(
-            withTiming(-8, { duration: 2250 }),
-            withTiming(0, { duration: 2250 }),
+            withTiming(-8, { duration: 2250, ...RESPIRA }),
+            withTiming(0, { duration: 2250, ...RESPIRA }),
           ), -1, false
         );
         break;
       case 'happy':
         translateY.value = withRepeat(
           withSequence(
-            withTiming(-8, { duration: 1500 }),
-            withTiming(0, { duration: 1500 }),
+            withTiming(-8, { duration: 1500, ...RESPIRA }),
+            withTiming(0, { duration: 1500, ...RESPIRA }),
           ), -1, false
         );
         scale.value = 1.03;
@@ -213,8 +219,8 @@ export function PixelIllustration({
       case 'guide':
         translateY.value = withRepeat(
           withSequence(
-            withTiming(-8, { duration: 2500 }),
-            withTiming(0, { duration: 2500 }),
+            withTiming(-8, { duration: 2500, ...RESPIRA }),
+            withTiming(0, { duration: 2500, ...RESPIRA }),
           ), -1, false
         );
         rotate.value = -3;
@@ -222,8 +228,8 @@ export function PixelIllustration({
       case 'thinking':
         translateY.value = withRepeat(
           withSequence(
-            withTiming(-8, { duration: 3000 }),
-            withTiming(0, { duration: 3000 }),
+            withTiming(-8, { duration: 3000, ...RESPIRA }),
+            withTiming(0, { duration: 3000, ...RESPIRA }),
           ), -1, false
         );
         rotate.value = 4;
@@ -232,19 +238,19 @@ export function PixelIllustration({
       case 'celebrate':
         scale.value = withRepeat(
           withSequence(
-            withTiming(1.08, { duration: 600 }),
-            withTiming(1, { duration: 600 }),
+            withTiming(1.08, { duration: 600, ...REAGE }),
+            withTiming(1, { duration: 600, ...REAGE }),
           ), -1, false
         );
         break;
       case 'oops':
         translateY.value = withRepeat(
           withSequence(
-            withTiming(-6, { duration: 180 }),
-            withTiming(6, { duration: 180 }),
-            withTiming(-4, { duration: 180 }),
-            withTiming(4, { duration: 180 }),
-            withTiming(0, { duration: 180 }),
+            withTiming(-6, { duration: 180, ...REAGE }),
+            withTiming(6, { duration: 180, ...REAGE }),
+            withTiming(-4, { duration: 180, ...REAGE }),
+            withTiming(4, { duration: 180, ...REAGE }),
+            withTiming(0, { duration: 180, ...REAGE }),
           ), -1, false
         );
         rotate.value = -2;
