@@ -41,7 +41,6 @@ type PixelStateSpec = {
   scanColor: string;
   showScan: boolean;
   showPanel: boolean;
-  showOrbit: boolean;
   showParticles: boolean;
   imageOffsetY: number;
   imageScale: number;
@@ -56,7 +55,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.highlight,
     showScan: false,
     showPanel: false,
-    showOrbit: false,
     showParticles: false,
     imageOffsetY: -6,
     imageScale: 1,
@@ -69,7 +67,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.accentStrong,
     showScan: true,
     showPanel: true,
-    showOrbit: false,
     showParticles: false,
     imageOffsetY: -8,
     imageScale: 1.01,
@@ -82,7 +79,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.accentStrong,
     showScan: true,
     showPanel: true,
-    showOrbit: true,
     showParticles: false,
     imageOffsetY: -8,
     imageScale: 1.02,
@@ -95,7 +91,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.accentStrong,
     showScan: false,
     showPanel: false,
-    showOrbit: true,
     showParticles: true,
     imageOffsetY: -10,
     imageScale: 1.02,
@@ -108,7 +103,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.accentStrong,
     showScan: true,
     showPanel: true,
-    showOrbit: true,
     showParticles: true,
     imageOffsetY: -12,
     imageScale: 1.06,
@@ -121,7 +115,6 @@ const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
     scanColor: colors.warning,
     showScan: false,
     showPanel: false,
-    showOrbit: false,
     showParticles: false,
     imageOffsetY: -4,
     imageScale: 0.99,
@@ -237,7 +230,6 @@ export function PixelIllustration({
   const tierGlowOpacity = tierValue === 'advanced' ? 0.34 : tierValue === 'intermediate' ? 0.27 : 0.18;
   const gridOpacity = tierValue === 'advanced' ? 0.28 : tierValue === 'intermediate' ? 0.18 : 0.08;
   const shouldShowPanel = !asset.isDedicated && (stateSpec.showPanel || tierValue === 'advanced');
-  const shouldShowOrbit = !asset.isDedicated && (stateSpec.showOrbit || tierValue === 'advanced');
   const shouldShowGrid = !asset.isDedicated;
   const shouldShowScan = !asset.isDedicated && stateSpec.showScan;
   const shouldShowFace = !asset.isDedicated;
@@ -375,32 +367,6 @@ export function PixelIllustration({
         ]}
       />
 
-      {shouldShowOrbit ? (
-        <>
-          <View
-            style={[
-              styles.orbit,
-              {
-                borderColor: `${stateSpec.accentColor}66`,
-                width: Math.round(dimension * 0.88),
-                height: Math.round(dimension * 0.88),
-              },
-            ]}
-          />
-          <View
-            style={[
-              styles.orbit,
-              styles.orbitOffset,
-              {
-                borderColor: `${stateSpec.faceColor}44`,
-                width: Math.round(dimension * 0.72),
-                height: Math.round(dimension * 0.72),
-              },
-            ]}
-          />
-        </>
-      ) : null}
-
       {shouldShowPanel ? (
         <View
           style={[
@@ -511,15 +477,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '18%',
     borderRadius: 999,
-  },
-  orbit: {
-    position: 'absolute',
-    top: '20%',
-    borderWidth: 1,
-    borderRadius: 999,
-  },
-  orbitOffset: {
-    transform: [{ rotate: '18deg' }],
   },
   holoPanel: {
     position: 'absolute',
