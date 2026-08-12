@@ -73,6 +73,15 @@ que o usuário já sabe fazer no aparelho dele.
 produto não persegue tempo de tela: rolagem infinita, isca de engajamento e
 métrica de vaidade contradizem o objetivo de constância.
 
+**Uma jornada, duas funções.** Home responde “o que faço agora?” com o próximo
+passo elegível. Galáxia responde “onde estou e para onde posso ir?” com seleção
+de trilha e mapa. As duas superfícies leem e alteram a mesma jornada canônica;
+catálogos paralelos ou mapas concorrentes são defeito de produto.
+
+**Personalidade nunca é instrução.** A fala do Pixel pode aparecer e desaparecer
+como presença ambiental, mas não carrega estado, requisito ou próxima ação. Se o
+balão não for visto, nenhuma informação necessária pode ser perdida.
+
 ## Accessibility & Inclusion
 
 WCAG 2.1 nível AA como critério de aprovação, não intenção: contraste mínimo de

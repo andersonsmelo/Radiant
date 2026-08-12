@@ -14,6 +14,7 @@ const chave = (moment: PixelMoment) => `pixel-mood:last:${moment}`;
 /** Momentos já disparados nesta sessão. Módulo, não componente: a regra é
  *  "um por sessão", e uma tela remontada não pode zerar isso. */
 const disparados = new Set<PixelMoment>();
+const ultimosDaSessao = new Map<PixelMoment, number>();
 
 function resolveOpening(lastActiveDate: string | null, now: Date): PixelMoment {
   // Nulo não é zero. Nulo é "não há informação" — primeiro acesso. A conta
@@ -49,18 +50,30 @@ function sortearDiferente(total: number, evitar: number | null): number {
   return candidatos[Math.floor(Math.random() * candidatos.length)];
 }
 
-async function resolve(moment: PixelMoment): Promise<PixelMoodResult | null> {
+async function resolverFrase(moment: PixelMoment, umaVezPorSessao: boolean): Promise<PixelMoodResult | null> {
   const spec = PIXEL_MOMENTS[moment];
   if (!spec || spec.phrases.length === 0) return null;
-  if (disparados.has(moment)) return null;
+  if (umaVezPorSessao && disparados.has(moment)) return null;
 
-  const ultimo = await lerUltimoIndice(moment);
+  const ultimo = ultimosDaSessao.get(moment) ?? await lerUltimoIndice(moment);
   const phraseIndex = sortearDiferente(spec.phrases.length, ultimo);
 
-  disparados.add(moment);
+  if (umaVezPorSessao) disparados.add(moment);
+  ultimosDaSessao.set(moment, phraseIndex);
   void AsyncStorage.setItem(chave(moment), String(phraseIndex)).catch(() => {});
 
   return { expression: spec.expression, phrase: spec.phrases[phraseIndex], phraseIndex };
+}
+
+async function resolve(moment: PixelMoment): Promise<PixelMoodResult | null> {
+  return resolverFrase(moment, true);
+}
+
+/** Resolve falas ambientais que podem voltar depois de um intervalo longo.
+ * Diferente do feedback de quiz, não há trava de uma vez por sessão; a camada
+ * de apresentação controla frequência e duração. */
+async function resolveSporadic(moment: PixelMoment): Promise<PixelMoodResult | null> {
+  return resolverFrase(moment, false);
 }
 
 /** Zera os momentos da sessão. Usado no reinício de sessão e, obrigatoriamente,
@@ -68,6 +81,7 @@ async function resolve(moment: PixelMoment): Promise<PixelMoodResult | null> {
  *  sobrevive entre `it`s. */
 function resetSession(): void {
   disparados.clear();
+  ultimosDaSessao.clear();
 }
 
-export const PixelMood = { resolveOpening, resolve, resetSession };
+export const PixelMood = { resolveOpening, resolve, resolveSporadic, resetSession };

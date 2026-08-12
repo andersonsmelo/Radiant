@@ -93,3 +93,14 @@ describe('resolve', () => {
     expect(r).not.toBeNull();
   });
 });
+
+describe('resolveSporadic', () => {
+  it('permite uma nova fala depois do intervalo sem repetir a anterior', async () => {
+    const primeira = await PixelMood.resolveSporadic('abriu-o-app');
+    const segunda = await PixelMood.resolveSporadic('abriu-o-app');
+
+    expect(primeira).not.toBeNull();
+    expect(segunda).not.toBeNull();
+    expect(segunda!.phraseIndex).not.toBe(primeira!.phraseIndex);
+  });
+});

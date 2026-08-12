@@ -258,6 +258,22 @@ reduzido. Após inspeção no aparelho pelo dono, XP e sequência renderizam a
 **18pt** e as vidas a **22pt**: abaixo disso os glifos perdem presença contra o
 texto e o céu da Home.
 
+### Home e Galáxia (uma progressão)
+
+A Home é uma superfície de retomada curta: hero, foco do dia e CTA para o
+próximo nó. Não contém catálogo horizontal nem mapa. A Galáxia é a única
+superfície exploratória: nela o aluno escolhe a trilha e percorre o
+`JourneyMap`. As duas consomem o mesmo `JourneyProgressService`; um estado
+visual vindo de `GALAXY_CATALOG` não pode competir com o progresso real.
+
+### Fala ambiental do Pixel
+
+O balão da Home não é permanente nem foi removido. Ele surge após 1,2–2,6s,
+permanece por 6,5s e volta somente depois de 28–45s de silêncio. A frase vem do
+pool de abertura do `PixelMood`, não repete a anterior e nunca contém informação
+funcional. A entrada e a saída podem ser instantâneas; não há movimento
+obrigatório a ser reproduzido quando “reduzir movimento” estiver ativo.
+
 ### Named Rules
 
 **A Regra do Sinal Proporcional.** Retorno tátil pertence só à ação principal da
@@ -273,6 +289,8 @@ significar. Alternativa e saída respondem com cor e escala, sem háptico.
 - **Do** dar a todo estado um segundo canal além da cor — ícone, forma ou texto.
 - **Do** reservar 102px de folga inferior em toda tela rolável com barra de abas.
 - **Do** oferecer alternativa sob movimento reduzido em toda animação, tipicamente crossfade ou transição instantânea.
+- **Do** manter escolha de trilha e mapa exclusivamente na Galáxia, projetados da jornada canônica.
+- **Do** tratar a fala do Pixel como conteúdo opcional, breve e espaçado.
 - **Do** subir um degrau da escada de branco quando precisar separar superfícies.
 
 ### Don't:
@@ -283,5 +301,7 @@ significar. Alternativa e saída respondem com cor e escala, sem háptico.
 - **Don't** usar emoji do sistema como ícone. Emoji ignora token de cor, renderiza ao gosto do sistema operacional e é lido um a um pelo leitor de tela.
 - **Don't** escrever `fontSize` numérico em tela nova; o papel existe em `typography.*`.
 - **Don't** deixar o significado de um dado apenas em `accessibilityLabel`.
+- **Don't** manter uma trilha estática na Galáxia em paralelo à progressão real.
+- **Don't** colocar instrução, erro ou próxima ação apenas no balão do Pixel.
 - **Don't** usar sombra para separar superfícies internas; sombra só para o que flutua.
 - **Don't** encher o céu. Vazio é o material que faz o ponto de luz significar.

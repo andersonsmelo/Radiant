@@ -59,7 +59,7 @@ correção posterior de composição, sem alterar paths, cores ou comportamento.
 | Entrega decidida pelo dono | Estado entregue |
 | --- | --- |
 | Legenda do anel da meta | A legenda agora é visível acima de `N de M`, além de continuar no rótulo de acessibilidade. |
-| Mapa e balão na Home | `JourneyMap` fica exclusivamente na aba Galáxia; o balão inteiro sai da Home. `PixelMood` continua no quiz. |
+| Home, Galáxia e fala do Pixel | A Home conserva hero, foco e próxima ação; catálogo e `JourneyMap` vivem exclusivamente na Galáxia e leem o mesmo `JourneyProgressService`. O balão volta como fala ambiental: aparece por 6,5s após atraso curto, some por 28–45s e nunca carrega informação funcional. `PixelMood` continua também no quiz. |
 | Ícones remanescentes | Missions, Progress, PlanetInterior, Checkpoint e a story de `StatPill` usam `HudIcons`/`DecorativeIcon`, não emoji do sistema. |
 | Meta diária | A unidade é **XP por dia**, não lições: quatro tiers escolhíveis — Começar (10 XP), Ritmo (20 XP), Foco (35 XP) e Desafio (50 XP). |
 | Starfield | As nebulosas são camadas difusas com deriva lenta e desfasada; reduzir movimento as mantém estáticas. |
@@ -68,6 +68,14 @@ A escolha de XP evita uma escada artificial de poucas lições e aproveita o
 próprio recibo de gamificação. A configuração preserva a chave local v1 e zera
 o progresso por data local; detalhes e consequências em
 [`ADR-2026-08-13-meta-diaria-em-xp.md`](adr/ADR-2026-08-13-meta-diaria-em-xp.md).
+
+A decisão anterior de remover o balão por inteiro foi corrigida pelo dono após
+inspeção no simulador. A mesma inspeção revelou que a aba Galáxia ainda projetava
+`GALAXY_CATALOG` enquanto a Home oferecia outro seletor. O fechamento unifica as
+duas superfícies sem promover G3 por inteiro: a projeção canônica está entregue,
+mas a retirada do bloqueio por vidas e as dependências de H4 permanecem abertas.
+Decisão e consequências em
+[`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 
 ## Operação e release
 

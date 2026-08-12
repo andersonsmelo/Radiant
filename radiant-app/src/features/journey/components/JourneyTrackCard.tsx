@@ -48,7 +48,7 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
       onPress={() => onPress(track)}
       accessibilityRole="button"
       accessibilityLabel={`${track.title}. ${lessonCount} lições. ${getStateCopy(state)}.${isActive ? ` ${progressPercent}% concluída.` : ''}`}
-      accessibilityHint={isActive ? 'Abre o próximo passo elegível desta trilha.' : 'Troca para esta trilha e abre o próximo passo elegível.'}
+      accessibilityHint={isActive ? 'Mantém esta trilha selecionada e atualiza o mapa.' : 'Seleciona esta trilha e atualiza o mapa.'}
       accessibilityState={{ selected: isActive }}
       style={({ pressed }) => [
         styles.card,

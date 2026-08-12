@@ -1,155 +1,41 @@
 /**
- * GalaxyMapScreen — Nível 1
- * Mapa de galáxias temáticas. Tab principal do app.
- * Galáxias como blobs espirais flutuando no espaço escuro.
+ * GalaxyMapScreen — a projeção exploratória da jornada canônica.
+ *
+ * A Home oferece a próxima ação. A Galáxia é o único lugar onde o aluno troca
+ * de trilha e percorre seus nós; ambas consomem JourneyProgressService.
  */
 
-import { BlurView } from 'expo-blur';
-import { useRouter } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { AppButton } from '../../../components/ui/AppButton';
-import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
-import { Defs, Line, Svg } from 'react-native-svg';
+import React, { useCallback, useMemo, useState } from 'react';
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GamificationService } from '../../gamification/services/GamificationService';
-import { GalaxyBlob } from '../components/GalaxyBlob';
+import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
-import type { GamificationSnapshot } from '../../../types/gamification';
-import type { RadiantGalaxy } from '../../../types/galaxy';
-import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
-import { GALAXY_CATALOG, getActiveGalaxy, getActiveBody } from '../../../data/galaxy-catalog';
 import { galaxyColors } from '../../../ui/theme';
-import { tabBarClearance, typography } from '../../../ui/styles';
+import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import type { GamificationSnapshot } from '../../../types/gamification';
+import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
+import type { LearningTrack, LessonCatalogManifest } from '../../content/content.types';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
+import { JourneyMap } from '../../journey/components/JourneyMap';
+import { JourneyTrackShelf } from '../../journey/components/JourneyTrackShelf';
+import { TelemetryService } from '../../telemetry/TelemetryService';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 
-// ── Constantes ───────────────────────────────────────────────
-
-const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
-const MAP_H = SCREEN_H * 0.62;
-
-// ── Cartão de galáxia (pressable) ────────────────────────────
-
-interface GalaxyCardProps {
-  galaxy: RadiantGalaxy;
-  onPress: (galaxy: RadiantGalaxy) => void;
-}
-
-function GalaxyCard({ galaxy, onPress }: GalaxyCardProps) {
-  const scale = useSharedValue(1);
-  const isLocked = galaxy.status === 'locked';
-  const isActive = galaxy.status === 'active';
-  const reducedMotion = useReducedMotionPreference();
-
-  const animStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-  }));
-
-  const handlePressIn = () => {
-    // Mesma convenção do `usePressScale` da camada de motion, que já trava o
-    // recuo de toque sob reduced motion. Aqui o feedback de que o toque pegou
-    // continua existindo pelo `activeOpacity` do próprio TouchableOpacity.
-    if (!isLocked && !reducedMotion) scale.value = withSpring(0.94);
-  };
-  const handlePressOut = () => {
-    scale.value = withSpring(1);
-  };
-
-  const x = galaxy.mapPosition.x * SCREEN_W;
-  const y = galaxy.mapPosition.y * MAP_H;
-  const glowColor = isActive
-    ? galaxy.colorPrimary
-    : isLocked
-    ? 'transparent'
-    : galaxy.colorPrimary;
-
-  return (
-    <Animated.View
-      style={[
-        styles.galaxyCard,
-        {
-          left: x - galaxy.visualSize / 2,
-          top: y - galaxy.visualSize / 2,
-          opacity: isLocked ? 0.25 : 1,
-        },
-        animStyle,
-      ]}
-    >
-      <Pressable
-        onPress={() => !isLocked && onPress(galaxy)}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        style={styles.galaxyPressable}
-      >
-        {/* Glow externo via shadow */}
-        {!isLocked && (
-          <View
-            style={[
-              styles.galaxyGlow,
-              {
-                width: galaxy.visualSize * 1.7,
-                height: galaxy.visualSize * 1.7,
-                borderRadius: galaxy.visualSize,
-                backgroundColor: glowColor,
-                top: -(galaxy.visualSize * 0.35),
-                left: -(galaxy.visualSize * 0.35),
-                shadowColor: glowColor,
-                shadowOpacity: isActive ? 0.9 : 0.5,
-                shadowRadius: 30,
-                shadowOffset: { width: 0, height: 0 },
-              },
-            ]}
-          />
-        )}
-
-        {/* Blob da galáxia */}
-        <GalaxyBlob
-          size={galaxy.visualSize}
-          colorPrimary={galaxy.colorPrimary}
-        />
-
-        {/* Label */}
-        <Text
-          style={[
-            styles.galaxyLabel,
-            isActive && { color: '#fff', textShadowColor: galaxy.colorPrimary, textShadowRadius: 8 },
-            isLocked && { color: '#2a2a3a' },
-          ]}
-        >
-          {galaxy.title}
-        </Text>
-
-        {/* Badge de ativo */}
-        {isActive && (
-          <View style={styles.activeBadge}>
-            <Text style={styles.activeBadgeText}>EM ANDAMENTO</Text>
-          </View>
-        )}
-      </Pressable>
-    </Animated.View>
-  );
-}
-
-// ── Tela principal ───────────────────────────────────────────
-
 export default function GalaxyMapScreen() {
   const router = useRouter();
-  const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
+  const [journey, setJourney] = useState<JourneySnapshot | null>(null);
+  const [catalog, setCatalog] = useState<LessonCatalogManifest | null>(null);
+  const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useShadowCheckpoint({
     surface: 'galaxy-map',
@@ -158,206 +44,173 @@ export default function GalaxyMapScreen() {
     cursorId: 'galaxy-map',
     compatibleCursorIds: ['galaxy-map'],
     progressPercent: 0,
-    completedStepCount: 0,
-    totalStepCount: 1,
+    completedStepCount: journey?.completedCount ?? 0,
+    totalStepCount: journey?.track.units.reduce((total, unit) => total + unit.nodes.length, 0) ?? 1,
   });
 
-  useEffect(() => {
-    GamificationService.getSnapshot().then(setSnapshot);
+  const load = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const [nextJourney, nextCatalog, nextGamification] = await Promise.all([
+        JourneyProgressService.bootstrap(),
+        LessonCatalogService.bootstrap(),
+        GamificationService.getSnapshot(),
+      ]);
+      setJourney(nextJourney);
+      setCatalog(nextCatalog);
+      setGamification(nextGamification);
+    } catch (cause) {
+      console.error('[GalaxyMapScreen] Failed to load canonical journey:', cause);
+      setError('Não foi possível carregar sua Galáxia agora.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const handleGalaxyPress = useCallback(
-    (galaxy: RadiantGalaxy) => {
-      router.push(`/galaxy/${galaxy.id}`);
-    },
-    [router],
+  useFocusEffect(
+    useCallback(() => {
+      void TelemetryService.track('screen_view', { screen: 'galaxy_map' });
+      void load();
+    }, [load]),
   );
 
-  // Galáxia e corpo ativos para o CTA
-  const activeGalaxy = getActiveGalaxy();
-  const activeBody = activeGalaxy ? getActiveBody(activeGalaxy.id) : null;
-  const activeNode = activeBody?.nodes.find((n) => n.status === 'active' || n.status === 'available');
+  const totalNodes = useMemo(
+    () => journey?.track.units.reduce((total, unit) => total + unit.nodes.length, 0) ?? 0,
+    [journey],
+  );
+  const progressPercent = totalNodes > 0 && journey
+    ? Math.round((journey.completedCount / totalNodes) * 100)
+    : 0;
 
-  const ctaLabel = activeGalaxy
-    ? `▶  Continuar na Galáxia ${activeGalaxy.title}`
-    : 'Escolher uma galáxia';
-  const ctaHint = activeBody && activeNode
-    ? `${activeBody.title} · ${activeNode.title}`
-    : '';
+  const selectTrack = useCallback(async (track: LearningTrack) => {
+    if (track.id === journey?.progress.activeTrackId) return;
 
-  const handleCTA = () => {
-    if (activeGalaxy) router.push(`/galaxy/${activeGalaxy.id}`);
-  };
+    try {
+      void TelemetryService.track('journey_track_selected', { trackId: track.id, active: false, surface: 'galaxy' });
+      setJourney(await JourneyProgressService.selectTrack(track.id));
+    } catch (cause) {
+      console.error('[GalaxyMapScreen] Failed to select track:', cause);
+      Alert.alert('Trilha indisponível', 'Não foi possível trocar de trilha agora.');
+    }
+  }, [journey?.progress.activeTrackId]);
+
+  const openNode = useCallback(async (node: JourneyNode) => {
+    const href = getJourneyNodeHref(node);
+    if (!canOpenJourneyNode(node) || !href) {
+      Alert.alert('Ainda não disponível', 'Esse ponto ainda não foi liberado na sua jornada.');
+      return;
+    }
+
+    await JourneyProgressService.setCurrentNode(node.id);
+    router.push(href);
+  }, [router]);
+
+  const continueLabel = journey?.nextRecommendedNode ? 'Continuar pela Galáxia' : 'Sem etapa disponível';
 
   return (
-    <View style={styles.root}>
-      <StarfieldBackground
-        extraNebulas={GALAXY_CATALOG.filter((g) => !['locked'].includes(g.status)).map((g) => ({
-          color: g.colorPrimary,
-          x: g.mapPosition.x - 0.15,
-          y: g.mapPosition.y - 0.1,
-          w: g.visualSize * 2.5,
-          h: g.visualSize * 2,
-        }))}
-      />
-
+    <View style={styles.root} testID="galaxy-map-screen">
+      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <SafeAreaView style={styles.safe} edges={['top']}>
-        {/* Status bar */}
         <View style={styles.statusBar}>
-          <Text style={styles.appTitle} accessibilityRole="header">RADIANT</Text>
+          <Text style={styles.appTitle} accessibilityRole="header">GALÁXIA</Text>
         </View>
 
-        {/* HUD */}
-        {snapshot && (
-          <HUD
-            totalXp={snapshot.totalXp}
-            streakDays={snapshot.streakDays}
-            hearts={snapshot.hearts}
-            maxHearts={snapshot.maxHearts}
-          />
-        )}
+        <HUD
+          totalXp={gamification?.totalXp ?? 0}
+          streakDays={gamification?.streakDays ?? 0}
+          hearts={gamification?.hearts ?? 5}
+          maxHearts={gamification?.maxHearts ?? 5}
+        />
 
-        {/* Mapa de galáxias */}
-        <View style={[styles.mapContainer, { height: MAP_H }]}>
-          {/* SVG para trilhas pontilhadas entre galáxias */}
-          <Svg style={StyleSheet.absoluteFillObject} width={SCREEN_W} height={MAP_H}>
-            <Defs />
-            {/* Linha Anatomia → Física Rad. */}
-            <Line
-              x1={GALAXY_CATALOG[0].mapPosition.x * SCREEN_W}
-              y1={GALAXY_CATALOG[0].mapPosition.y * MAP_H}
-              x2={GALAXY_CATALOG[1].mapPosition.x * SCREEN_W}
-              y2={GALAXY_CATALOG[1].mapPosition.y * MAP_H}
-              stroke="rgba(255,255,255,0.1)"
-              strokeWidth={1.5}
-              strokeDasharray="5,8"
+        {loading ? (
+          <View style={styles.centered}>
+            <ActivityIndicator
+              size="large"
+              color={galaxyColors.ctaGradientEnd}
+              accessibilityRole="progressbar"
+              accessibilityLabel="Carregando Galáxia"
             />
-            {/* Linha Física → Casos */}
-            <Line
-              x1={GALAXY_CATALOG[1].mapPosition.x * SCREEN_W}
-              y1={GALAXY_CATALOG[1].mapPosition.y * MAP_H}
-              x2={GALAXY_CATALOG[2].mapPosition.x * SCREEN_W}
-              y2={GALAXY_CATALOG[2].mapPosition.y * MAP_H}
-              stroke="rgba(255,255,255,0.06)"
-              strokeWidth={1.2}
-              strokeDasharray="4,10"
-            />
-            {/* Linha Casos → Tecnologia */}
-            <Line
-              x1={GALAXY_CATALOG[2].mapPosition.x * SCREEN_W}
-              y1={GALAXY_CATALOG[2].mapPosition.y * MAP_H}
-              x2={GALAXY_CATALOG[3].mapPosition.x * SCREEN_W}
-              y2={GALAXY_CATALOG[3].mapPosition.y * MAP_H}
-              stroke="rgba(255,255,255,0.04)"
-              strokeWidth={1}
-              strokeDasharray="3,12"
-            />
-          </Svg>
-
-          {/* Galáxias */}
-          {GALAXY_CATALOG.map((galaxy) => (
-            <GalaxyCard
-              key={galaxy.id}
-              galaxy={galaxy}
-              onPress={handleGalaxyPress}
-            />
-          ))}
-
-          {/* Pixel guide near active galaxy */}
-          {activeGalaxy && (
-            <View
-              style={{
-                position: 'absolute',
-                left: activeGalaxy.mapPosition.x * SCREEN_W + 30,
-                top: activeGalaxy.mapPosition.y * MAP_H - 60,
-                zIndex: 10,
-              }}
-            >
-              <PixelIllustration state="guide" size="sm" />
+          </View>
+        ) : (
+          <ScrollView
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            contentInsetAdjustmentBehavior="always"
+          >
+            <View style={styles.introCard}>
+              <Text style={styles.eyebrow}>Céu navegável</Text>
+              <Text style={styles.title} accessibilityRole="header">Sua jornada, uma única rota</Text>
+              <Text style={styles.subtitle}>
+                Escolha uma trilha e avance pelos mesmos pontos que alimentam a próxima ação da Home.
+              </Text>
             </View>
-          )}
-        </View>
 
-        {/* CTA fixo — glass card */}
-        <BlurView intensity={18} tint="dark" style={styles.ctaArea}>
-          <AppButton
-            label={ctaLabel}
-            onPress={handleCTA}
-            variant="galaxy"
-          />
-          {!!ctaHint && <Text style={styles.ctaHint}>{ctaHint}</Text>}
-        </BlurView>
+            <JourneyTrackShelf
+              tracks={catalog?.tracks ?? []}
+              lessons={catalog?.lessons ?? []}
+              activeTrackId={journey?.progress.activeTrackId ?? ''}
+              activeProgressPercent={progressPercent}
+              onTrackPress={selectTrack}
+            />
+
+            {journey ? (
+              <JourneyMap
+                units={journey.track.units}
+                recommendedNodeId={journey.nextRecommendedNode?.id}
+                onNodePress={openNode}
+                isNodeDisabled={(node) => !canOpenJourneyNode(node)}
+              />
+            ) : null}
+
+            {error ? (
+              <View style={styles.errorCard} accessibilityRole="alert">
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            ) : null}
+
+            <AppButton
+              onPress={() => {
+                if (journey?.nextRecommendedNode) void openNode(journey.nextRecommendedNode);
+              }}
+              disabled={!journey?.nextRecommendedNode}
+              accessibilityLabel={continueLabel}
+              accessibilityHint="Abre o próximo ponto elegível da trilha selecionada."
+              variant="galaxy"
+            >
+              {continueLabel}
+            </AppButton>
+          </ScrollView>
+        )}
       </SafeAreaView>
     </View>
   );
 }
 
-// ── Estilos ──────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: galaxyColors.background,
-  },
-  safe: {
-    flex: 1,
-  },
-  statusBar: {
-    paddingHorizontal: 20,
-    paddingTop: 4,
-    paddingBottom: 2,
-    alignItems: 'center',
-  },
-  appTitle: {
-    ...typography.label,
-    // Wordmark: tracking mais aberto que o do token, é assinatura de marca.
-    letterSpacing: 3,
-    color: 'rgba(255,255,255,0.35)',
-  },
-  mapContainer: {
-    flex: 1,
-    position: 'relative',
-  },
-  galaxyCard: {
-    position: 'absolute',
-  },
-  galaxyPressable: {
-    alignItems: 'center',
-    gap: 6,
-  },
-  galaxyGlow: {
-    position: 'absolute',
-  },
-  galaxyLabel: {
-    ...typography.label,
-    color: 'rgba(255,255,255,0.5)',
-    textAlign: 'center',
-  },
-  activeBadge: {
-    backgroundColor: 'rgba(74,158,255,0.2)',
+  root: { flex: 1, backgroundColor: galaxyColors.background },
+  safe: { flex: 1 },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  statusBar: { paddingHorizontal: space.s3, paddingTop: space.s1, paddingBottom: space.s1, alignItems: 'center' },
+  appTitle: { ...typography.label, letterSpacing: 3, color: galaxyColors.textTertiary },
+  content: { padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
+  introCard: {
+    backgroundColor: galaxyColors.surface,
+    borderRadius: radius.rLg,
     borderWidth: 1,
-    borderColor: 'rgba(74,158,255,0.4)',
-    borderRadius: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    marginTop: -2,
+    borderColor: galaxyColors.border,
+    padding: space.s3,
+    gap: space.s1,
   },
-  activeBadgeText: {
-    ...typography.label,
-    color: '#7ab8ff',
+  eyebrow: { ...typography.micro, color: galaxyColors.ctaGradientEnd, fontWeight: '800', letterSpacing: 0.8, textTransform: 'uppercase' },
+  title: { ...typography.h2, color: galaxyColors.textPrimary },
+  subtitle: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  errorCard: {
+    backgroundColor: 'rgba(255,59,48,0.10)',
+    borderRadius: radius.rMd,
+    borderWidth: 1,
+    borderColor: 'rgba(255,59,48,0.25)',
+    padding: space.s3,
   },
-  ctaArea: {
-    paddingHorizontal: 20,
-    paddingBottom: tabBarClearance,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.08)',
-    overflow: 'hidden',
-  },
-  ctaHint: {
-    ...typography.micro,
-    color: 'rgba(255,255,255,0.28)',
-    textAlign: 'center',
-    marginTop: 5,
-  },
+  errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
 });

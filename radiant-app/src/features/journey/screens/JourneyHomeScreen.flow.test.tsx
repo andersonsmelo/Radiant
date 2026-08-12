@@ -1,6 +1,5 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
-import { router } from 'expo-router';
+import { screen, waitFor } from '@testing-library/react-native';
 import JourneyHomeScreen from './JourneyHomeScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
@@ -61,6 +60,10 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
+}));
+
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreference: () => false,
 }));
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -125,6 +128,10 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
   },
 }));
 
+jest.mock('../../pixel-mood/useSporadicPixelSpeech', () => ({
+  useSporadicPixelSpeech: () => ({ expression: 'feliz', phrase: 'Bom te ver.' }),
+}));
+
 jest.mock('../../telemetry/TelemetryService', () => ({
   TelemetryService: {
     track: jest.fn().mockResolvedValue(undefined),
@@ -146,7 +153,6 @@ const FIRST_RENDER_TIMEOUT_MS = 4000;
 
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedTelemetryService = TelemetryService as jest.Mocked<typeof TelemetryService>;
-const mockedRouter = router as jest.Mocked<typeof router>;
 
 const tracks = [
   {
@@ -277,68 +283,13 @@ describe('JourneyHomeScreen track flow', () => {
     expect(mockedTelemetryService.markDayOpen).toHaveBeenCalledTimes(1);
   });
 
-  it('opens the next eligible lesson when selecting Tórax', async () => {
-    const thoraxSnapshot = createSnapshot(
-      'track-thorax-patterns',
-      'Interação das radiações e proteção radiológica',
-      'node-thorax-lesson',
-      'block-thorax'
-    );
-    mockedJourneyProgressService.selectTrack.mockResolvedValue(thoraxSnapshot);
-
+  it('keeps track selection out of Home because Galaxy owns exploration', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
-    const thoraxTrack = await screen.findByTestId('journey-track-torax', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
-    fireEvent.press(thoraxTrack);
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.selectTrack).toHaveBeenCalledWith('track-thorax-patterns');
-    });
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('node-thorax-lesson');
-    });
-
-    expect(mockedRouter.push).toHaveBeenCalledWith({
-      pathname: '/learn',
-      params: {
-        nodeId: 'node-thorax-lesson',
-        blockId: 'block-thorax',
-      },
-    });
-    expect(mockedTelemetryService.track).toHaveBeenCalledWith('journey_track_selected', {
-      trackId: 'track-thorax-patterns',
-      active: false,
-    });
-  });
-
-  it('opens the next eligible lesson when selecting Abdome', async () => {
-    const abdomenSnapshot = createSnapshot(
-      'track-abdomen-patterns',
-      'Preservação de alimentos por irradiação',
-      'node-abdomen-lesson',
-      'block-abdomen'
-    );
-    mockedJourneyProgressService.selectTrack.mockResolvedValue(abdomenSnapshot);
-
-    renderWithProviders(<JourneyHomeScreen />);
-
-    const abdomenTrack = await screen.findByTestId('journey-track-abdome', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
-    fireEvent.press(abdomenTrack);
-
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.selectTrack).toHaveBeenCalledWith('track-abdomen-patterns');
-    });
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('node-abdomen-lesson');
-    });
-
-    expect(mockedRouter.push).toHaveBeenCalledWith({
-      pathname: '/learn',
-      params: {
-        nodeId: 'node-abdomen-lesson',
-        blockId: 'block-abdomen',
-      },
-    });
+    expect(screen.queryByTestId('journey-track-shelf')).toBeNull();
+    expect(mockedJourneyProgressService.selectTrack).not.toHaveBeenCalled();
   });
 
   it('keeps the JourneyMap out of Home because the Galaxy tab owns that surface', async () => {
@@ -349,11 +300,11 @@ describe('JourneyHomeScreen track flow', () => {
     expect(screen.queryByText('Mapa da jornada')).toBeNull();
   });
 
-  it('removes the entire hero bubble from Home', async () => {
+  it('shows Pixel speech when a sporadic Home message is active', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
     await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    expect(screen.queryByTestId('journey-hero-bubble')).toBeNull();
+    expect(await screen.findByTestId('journey-hero-bubble')).toBeTruthy();
   });
 });

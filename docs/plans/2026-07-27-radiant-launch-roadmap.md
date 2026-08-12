@@ -663,8 +663,8 @@ código.
   ativo deixou a composição de 1,00:1, trilha nunca aberta deixou de exibir
   domínio verde, `navBlue` `#4A9EFF` passou a distinguir foco/aba ativa e o HUD
   substituiu emoji dependente do sistema por SVG animado. A rodada complementar
-  também está fechada: legenda visível no anel, mapa exclusivo da Galáxia, sem
-  balão na Home, cinco telas sem emoji do sistema, meta diária por XP em quatro
+  também está fechada: legenda visível no anel, mapa exclusivo da Galáxia, fala
+  ambiental breve e espaçada do Pixel na Home, cinco telas sem emoji do sistema, meta diária por XP em quatro
   tiers escolhíveis e nebulosas com movimento perceptível/respeito a reduzir
   movimento. **Complemento autoral fechado em 2026-08-13:** a prancheta
   aprovada, que só existia num scratchpad volátil, foi preservada byte a byte em
@@ -1196,9 +1196,13 @@ o painel e o sync continuam pendentes.
   têm 44 pt e o feedback é anunciado uma vez por confirmação. O gate manual em
   aparelho/leitor de tela permanece na fase de beta e nenhum binário foi
   publicado.
-- **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
-  bloqueio de lições por vidas. **Identificador histórico preservado; execução
-  agora depende de H1–H4.**
+- **G3 [P0 — PARCIAL]** Tornar a Galáxia uma projeção da jornada canônica e
+  remover o bloqueio de lições por vidas. **Projeção canônica entregue em
+  2026-08-13:** Home mantém apenas a próxima ação; seleção de trilha e
+  `JourneyMap` vivem na Galáxia e compartilham `JourneyProgressService`. A task
+  continua aberta para retirar o bloqueio por vidas e cumprir as dependências
+  restantes de H4. Identificador histórico preservado. Decisão em
+  [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](../adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
   sessões de 3–5 minutos, quatro interações e checkpoint revisado. **Identificador
   histórico preservado; execução usa os contratos da Onda H.**
