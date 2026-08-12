@@ -9,6 +9,7 @@ import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { Confetti } from '../../../components/ui/Confetti';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
+import { XpIcon } from '../../../ui/components/HudIcons';
 import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -295,7 +296,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 end={{ x: 1, y: 1 }}
                 style={styles.celebrationBadge}
               >
-                <Text style={styles.celebrationBadgeEmoji}>⭐</Text>
+                <DecorativeIcon name="star" size={28} color="#FFFFFF" />
               </LinearGradient>
 
               <Text style={styles.celebrationEyebrow}>CONQUISTA DESBLOQUEADA</Text>
@@ -309,7 +310,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               {/* XP box — total real acumulado */}
               {gamification?.totalXp != null && (
                 <View style={styles.celebrationXpBox}>
-                  <Text style={styles.celebrationXpEmoji}>⚡</Text>
+                  <XpIcon size={22} value={gamification.totalXp} />
                   <Text style={styles.celebrationXpText}>XP total: {gamification.totalXp}</Text>
                 </View>
               )}
@@ -594,9 +595,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 6,
   },
-  celebrationBadgeEmoji: {
-    fontSize: 28,
-  },
   celebrationEyebrow: {
     fontSize: 11,
     fontWeight: '800',
@@ -633,9 +631,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignSelf: 'stretch',
     marginTop: 8,
-  },
-  celebrationXpEmoji: {
-    fontSize: 16,
   },
   celebrationXpText: {
     fontSize: 14,

@@ -10,7 +10,7 @@ import type { PixelExpression } from '../../ui/characters/pixelExpressions';
 
 interface PixelHeroSplitProps {
   eyebrow: string;
-  message: string;
+  message?: string;
   ringValue: number;
   ringTotal: number;
   ringLabel: string;
@@ -76,22 +76,25 @@ export function PixelHeroSplit({
       </View>
 
       <View style={[styles.contentColumn, isCompact && styles.contentColumnCompact]}>
-        <SpeechBubble
-          text={message}
-          testID="journey-hero-bubble"
-          style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]}
-        />
-        <ProgressRing
-          value={ringValue}
-          total={ringTotal}
-          size={isCompact ? compactRingSize : ringSize}
-          accessibilityLabel={ringLabel}
-        >
-          {/* O anel existe para mostrar um número. A prop `label` era ignorada
-              pelo componente, então todos os anéis do app apareciam vazios. */}
-          <Text style={styles.ringValue}>{ringValue}</Text>
-          <Text style={styles.ringTotal}>de {ringTotal}</Text>
-        </ProgressRing>
+        {message ? (
+          <SpeechBubble
+            text={message}
+            testID="journey-hero-bubble"
+            style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]}
+          />
+        ) : null}
+        <View style={styles.ringSection}>
+          <Text style={styles.ringLabel}>{ringLabel}</Text>
+          <ProgressRing
+            value={ringValue}
+            total={ringTotal}
+            size={isCompact ? compactRingSize : ringSize}
+            accessibilityLabel={ringLabel}
+          >
+            <Text style={styles.ringValue}>{ringValue}</Text>
+            <Text style={styles.ringTotal}>de {ringTotal}</Text>
+          </ProgressRing>
+        </View>
       </View>
     </View>
   );
@@ -130,6 +133,17 @@ const styles = StyleSheet.create({
   },
   bubbleCompact: {
     minHeight: 88,
+  },
+  ringSection: {
+    alignItems: 'center',
+    gap: space.s1,
+  },
+  ringLabel: {
+    ...typography.micro,
+    color: galaxyColors.textSecondary,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.7,
   },
   ringValue: {
     ...typography.h3,

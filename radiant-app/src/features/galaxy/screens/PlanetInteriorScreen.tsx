@@ -35,17 +35,19 @@ import type { JourneyNode } from '@/src/types/journey';
 import { useReducedMotionPreferenceState } from '@/src/ui/accessibility/useReducedMotionPreference';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
+import { DecorativeIcon, type DecorativeIconName } from '@/src/components/ui/DecorativeIcon';
+import { HeartIcon } from '@/src/ui/components/HudIcons';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
-import { typography } from '@/src/ui/styles';
+import { space, typography } from '@/src/ui/styles';
 import { PlanetBody } from '../components/PlanetBody';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
-const NODE_TYPE_ICON: Record<JourneyNode['type'], string> = {
-  lesson: '📖',
-  review: '🔄',
-  checkpoint: '🏁',
-  reward: '🏆',
+const NODE_TYPE_ICON: Record<JourneyNode['type'], DecorativeIconName> = {
+  lesson: 'menu-book',
+  review: 'refresh',
+  checkpoint: 'flag',
+  reward: 'emoji-events',
 };
 
 const NODE_STATUS_COLOR: Record<JourneyNode['status'], string> = {
@@ -165,15 +167,15 @@ export function LessonNode({
             glowStyle,
           ]}
         >
-          <Text style={styles.nodeIcon}>{NODE_TYPE_ICON[node.type]}</Text>
+          <DecorativeIcon name={NODE_TYPE_ICON[node.type]} size={20} color={NODE_STATUS_COLOR[node.status]} />
           {isDone && (
             <View style={styles.checkBadge}>
-              <Text style={styles.checkText}>✓</Text>
+              <DecorativeIcon name="check" size={12} color="#FFFFFF" />
             </View>
           )}
           {isLocked && (
             <View style={styles.lockOverlay}>
-              <Text style={styles.lockIcon}>🔒</Text>
+              <DecorativeIcon name="lock" size={16} color="#FFFFFF" />
             </View>
           )}
         </Animated.View>
@@ -278,7 +280,7 @@ export default function PlanetInteriorScreen() {
             <Text style={styles.backIcon}>‹</Text>
           </TouchableOpacity>
           <View style={styles.headerInfo}>
-            <Text style={styles.galaxyLabel}>{galaxy.emoji} {galaxy.title}</Text>
+            <Text style={styles.galaxyLabel}>{galaxy.title}</Text>
             <Text style={styles.bodyTitle} accessibilityRole="header">{body.title}</Text>
           </View>
         </View>
@@ -296,7 +298,10 @@ export default function PlanetInteriorScreen() {
         {/* Trilha de nós */}
         {body.nodes.length === 0 ? (
           <View style={styles.emptyTrail}>
-            <Text style={styles.emptyText}>🚀 Em breve — conteúdo chegando!</Text>
+            <View style={styles.emptyTrailContent}>
+              <DecorativeIcon name="rocket-launch" size={20} color="rgba(255,255,255,0.7)" />
+              <Text style={styles.emptyText}>Em breve — conteúdo chegando!</Text>
+            </View>
           </View>
         ) : (
           <ScrollView
@@ -306,9 +311,10 @@ export default function PlanetInteriorScreen() {
           >
             {hearts === 0 && (
               <View style={styles.noHeartsWarning}>
-                <Text style={styles.noHeartsText}>
-                  ❤️ Sem vidas! Você pode fazer revisões, mas novas lições estão bloqueadas.
-                </Text>
+                <View style={styles.noHeartsContent}>
+                  <HeartIcon size={18} filled />
+                  <Text style={styles.noHeartsText}>Sem vidas! Você pode fazer revisões, mas novas lições estão bloqueadas.</Text>
+                </View>
               </View>
             )}
             {body.nodes.map((node, index) => (
@@ -349,7 +355,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Glifos de ícone (chevron, ✓, emoji) ficam fora da escala tipográfica:
+  // O chevron fica fora da escala tipográfica:
   // são desenho, não texto, e a métrica da Sora deslocaria o alinhamento.
   backIcon: {
     fontSize: 24,
@@ -398,6 +404,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
   },
+  noHeartsContent: { flexDirection: 'row', alignItems: 'flex-start', gap: space.s1 },
   noHeartsText: {
     ...typography.caption,
     color: '#FF6B6B',
@@ -414,7 +421,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     shadowOpacity: 0.6,
   },
-  nodeIcon: { fontSize: 20 },
   checkBadge: {
     position: 'absolute',
     bottom: -4,
@@ -426,7 +432,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkText: { fontSize: 10, color: '#fff', fontWeight: '800' },
   lockOverlay: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
@@ -434,7 +439,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.35)',
     borderRadius: 999,
   },
-  lockIcon: { fontSize: 16 },
   nodeTitle: {
     ...typography.micro,
     marginTop: 6,
@@ -453,6 +457,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 40,
   },
+  emptyTrailContent: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   emptyText: {
     ...typography.bodyRegular,
     color: 'rgba(255,255,255,0.50)',

@@ -27,6 +27,12 @@ interface NebulaConfig {
   /** largura em px */
   w: number;
   h: number;
+  /** Deslocamento máximo, em px, para a deriva lenta. */
+  driftX?: number;
+  driftY?: number;
+  /** Metade do ciclo de ida e volta, em ms. */
+  driftDuration?: number;
+  driftDelay?: number;
 }
 
 interface StarfieldBackgroundProps {
@@ -98,27 +104,96 @@ const Star = React.memo(function Star({
   );
 });
 
-// ── Nebula estática ───────────────────────────────────────────
+// ── Nebulosa com deriva lenta ─────────────────────────────────
 
-function Nebula({ color, x, y, w, h }: NebulaConfig) {
+function Nebula({
+  color,
+  x,
+  y,
+  w,
+  h,
+  driftX = 18,
+  driftY = 12,
+  driftDuration = 9000,
+  driftDelay = 0,
+}: NebulaConfig) {
+  const reducedMotion = useReducedMotionPreference();
+  const drift = useSharedValue(0);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      drift.value = 0;
+      return;
+    }
+
+    drift.value = withDelay(
+      driftDelay,
+      withRepeat(
+        withSequence(
+          withTiming(1, { duration: driftDuration }),
+          withTiming(-1, { duration: driftDuration }),
+        ),
+        -1,
+        false,
+      ),
+    );
+  }, [driftDelay, driftDuration, reducedMotion]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: drift.value * driftX },
+      { translateY: drift.value * driftY },
+      { scale: 1.08 + Math.abs(drift.value) * 0.04 },
+    ],
+  }));
+
   return (
-    <View
+    <Animated.View
       pointerEvents="none"
-      style={{
-        position: 'absolute',
-        left: `${x * 100}%` as any,
-        top: `${y * 100}%` as any,
-        width: w,
-        height: h,
-        borderRadius: w / 2,
-        backgroundColor: color,
-        // blur via shadow no iOS
-        shadowColor: color,
-        shadowOpacity: 1,
-        shadowRadius: 60,
-        shadowOffset: { width: 0, height: 0 },
-      }}
-    />
+      style={[
+        {
+          position: 'absolute',
+          left: `${x * 100}%` as any,
+          top: `${y * 100}%` as any,
+          width: w,
+          height: h,
+        },
+        animatedStyle,
+      ]}
+    >
+      {/* Camadas concêntricas simulam o degrade também onde shadow não borra. */}
+      <View
+        style={{
+          position: 'absolute',
+          inset: -48,
+          borderRadius: (w + 96) / 2,
+          backgroundColor: color,
+          opacity: 0.18,
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          inset: -20,
+          borderRadius: (w + 40) / 2,
+          backgroundColor: color,
+          opacity: 0.42,
+          shadowColor: color,
+          shadowOpacity: 0.8,
+          shadowRadius: 96,
+          shadowOffset: { width: 0, height: 0 },
+        }}
+      />
+      <View
+        style={{
+          width: w,
+          height: h,
+          borderRadius: w / 2,
+          backgroundColor: color,
+          opacity: 0.68,
+        }}
+      />
+    </Animated.View>
   );
 }
 
@@ -155,11 +230,11 @@ export function StarfieldBackground({
 
   const defaultNebulas: NebulaConfig[] = [
     // Cyan nebula — top-left (design: rgba(61,202,232) accent)
-    { color: 'rgba(61,202,232,0.06)',  x: 0.05, y: 0.05, w: 320, h: 220 },
+    { color: 'rgba(61,202,232,0.12)', x: 0.05, y: 0.05, w: 320, h: 220, driftX: 20, driftY: 14 },
     // Blue nebula — bottom-right (design: rgba(33,85,255) primary)
-    { color: 'rgba(33,85,255,0.10)',   x: 0.55, y: 0.60, w: 280, h: 200 },
+    { color: 'rgba(33,85,255,0.16)', x: 0.55, y: 0.60, w: 280, h: 200, driftX: -26, driftY: -16, driftDelay: 1300 },
     // Deep indigo — centre fill for depth
-    { color: 'rgba(21, 30, 100, 0.08)', x: 0.2,  y: 0.35, w: 240, h: 180 },
+    { color: 'rgba(21, 30, 100, 0.14)', x: 0.2, y: 0.35, w: 240, h: 180, driftX: 14, driftY: -20, driftDelay: 2400 },
   ];
 
   const allNebulas = [...defaultNebulas, ...extraNebulas];

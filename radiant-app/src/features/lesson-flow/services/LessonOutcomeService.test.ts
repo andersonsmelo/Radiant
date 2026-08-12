@@ -20,7 +20,7 @@ jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
 }));
 
 jest.mock('../../daily-goal/services/DailyGoalService', () => ({
-    DailyGoalService: { recordQuizCompletion: jest.fn() },
+    DailyGoalService: { recordXp: jest.fn() },
 }));
 
 jest.mock('../../journey/services/JourneyProgressService', () => ({
@@ -148,7 +148,7 @@ describe('LessonOutcomeService', () => {
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
         mockedSpacedRepetition.recordQuizResult.mockResolvedValue(undefined);
-        mockedDailyGoal.recordQuizCompletion.mockResolvedValue({
+        mockedDailyGoal.recordXp.mockResolvedValue({
             goalPerDay: 3,
             completedToday: 1,
             isCompleted: false,
@@ -172,7 +172,7 @@ describe('LessonOutcomeService', () => {
         expect(outcome.award?.totalXpAwarded).toBe(18);
         expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
         expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
-        expect(mockedDailyGoal.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        expect(mockedDailyGoal.recordXp).toHaveBeenCalledTimes(1);
 
         const result = mockedSpacedRepetition.recordQuizResult.mock.calls[0][0];
         expect(result.lessonId).toBe('lesson-1');
@@ -195,7 +195,7 @@ describe('LessonOutcomeService', () => {
         expect(outcome.award).toBeNull();
         expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
         expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
-        expect(mockedDailyGoal.recordQuizCompletion).not.toHaveBeenCalled();
+        expect(mockedDailyGoal.recordXp).not.toHaveBeenCalled();
     });
 
     it('premia uma revisão vencida', async () => {
@@ -431,7 +431,7 @@ describe('LessonOutcomeService — evidência por interação', () => {
             snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
-        mockedDailyGoal.recordQuizCompletion.mockResolvedValue({
+        mockedDailyGoal.recordXp.mockResolvedValue({
             goalPerDay: 3,
             completedToday: 1,
             isCompleted: false,
@@ -551,7 +551,7 @@ describe('LessonOutcomeService — evidência por interação', () => {
             expect(outcome.rewarded).toBe(false);
             expect(outcome.award).toBeNull();
             expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
-            expect(mockedDailyGoal.recordQuizCompletion).not.toHaveBeenCalled();
+            expect(mockedDailyGoal.recordXp).not.toHaveBeenCalled();
 
             warnSpy.mockRestore();
         });
@@ -664,7 +664,7 @@ describe('alimentação do agendador por competência', () => {
             snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
-        mockedDailyGoal.recordQuizCompletion.mockResolvedValue({
+        mockedDailyGoal.recordXp.mockResolvedValue({
             goalPerDay: 3,
             completedToday: 1,
             isCompleted: false,

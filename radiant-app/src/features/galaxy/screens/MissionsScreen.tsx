@@ -15,11 +15,14 @@ import { DailyGoalService } from '@/src/features/daily-goal/services/DailyGoalSe
 import { SpacedRepetitionService } from '@/src/features/spaced-repetition/services/SpacedRepetitionService';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import type { DailyGoalSnapshot } from '@/src/types/dailyGoal';
+import { DAILY_GOAL_TIERS } from '@/src/constants/dailyGoal';
 import { formatLocalDateKey } from '@/src/constants/dailyGoal';
 import { galaxyColors } from '@/src/ui/theme';
 import { semanticColors } from '@/src/ui/semantic-colors';
 import { space, tabBarClearance, typography } from '@/src/ui/styles';
 import { AnimatedProgressBar } from '@/src/components/ui/AnimatedProgressBar';
+import { DecorativeIcon } from '@/src/components/ui/DecorativeIcon';
+import { HeartIcon, StreakIcon, XpIcon } from '@/src/ui/components/HudIcons';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
@@ -100,7 +103,10 @@ function HeartRefillTimer({
 
   return (
     <View style={styles.refillTimer}>
-      <Text style={styles.refillTimerText}>💗 Próximo coração em {padded}</Text>
+      <View style={styles.refillTimerContent}>
+        <HeartIcon size={15} filled />
+        <Text style={styles.refillTimerText}>Próximo coração em {padded}</Text>
+      </View>
     </View>
   );
 }
@@ -110,7 +116,7 @@ function HeartRefillTimer({
 type Mission = {
   id: string;
   title: string;
-  icon: string;
+  icon: React.ReactNode;
   done: boolean;
   /** Progresso numérico real; omitido para missões binárias */
   progress?: { cur: number; goal: number };
@@ -130,7 +136,7 @@ function MissionCard({ title, icon, done, progress, detail }: Mission) {
     >
       {/* Left icon box */}
       <View style={[styles.missionIconBox, done ? styles.missionIconBoxDone : styles.missionIconBoxPending]}>
-        <Text style={[styles.missionIconText, done && styles.missionCheckText]}>{done ? '✓' : icon}</Text>
+        {done ? <DecorativeIcon name="check" size={20} color="#FFFFFF" /> : icon}
       </View>
 
       {/* Right content */}
@@ -212,10 +218,10 @@ export default function MissionsScreen() {
   const studiedToday = useMemo(() => {
     const todayKey = formatLocalDateKey(new Date());
     return (
-      (dailyGoal?.completedToday ?? 0) > 0 ||
+      (dailyGoal?.earnedXpToday ?? 0) > 0 ||
       snapshot?.lastActiveDate === todayKey
     );
-  }, [dailyGoal?.completedToday, snapshot?.lastActiveDate]);
+  }, [dailyGoal?.earnedXpToday, snapshot?.lastActiveDate]);
 
   const missions = useMemo<Mission[]>(() => {
     const list: Mission[] = [];
@@ -223,13 +229,10 @@ export default function MissionsScreen() {
     if (dailyGoal) {
       list.push({
         id: 'daily-goal',
-        title:
-          dailyGoal.goalPerDay === 1
-            ? 'Complete 1 quiz hoje'
-            : `Complete ${dailyGoal.goalPerDay} quizzes hoje`,
-        icon: '⚡',
+        title: `${dailyGoal.goalXp ?? dailyGoal.goalPerDay} XP hoje · ${DAILY_GOAL_TIERS.find((tier) => tier.id === dailyGoal.tierId)?.label ?? 'Começar'}`,
+        icon: <XpIcon size={20} value={dailyGoal.earnedXpToday} />,
         done: dailyGoal.isCompleted,
-        progress: { cur: dailyGoal.completedToday, goal: dailyGoal.goalPerDay },
+        progress: { cur: dailyGoal.earnedXpToday ?? dailyGoal.completedToday, goal: dailyGoal.goalXp ?? dailyGoal.goalPerDay },
       });
     }
 
@@ -237,7 +240,7 @@ export default function MissionsScreen() {
       list.push({
         id: 'reviews',
         title: 'Deixe as revisões em dia',
-        icon: '🎯',
+        icon: <DecorativeIcon name="center-focus-strong" size={20} color={galaxyColors.ctaGradientEnd} />,
         done: dueCount === 0,
         detail:
           dueCount === 0
@@ -252,7 +255,7 @@ export default function MissionsScreen() {
         streakDays > 1
           ? `Proteja a sequência de ${streakDays} dias`
           : 'Comece uma sequência hoje',
-      icon: '🔥',
+      icon: <StreakIcon size={20} />,
       done: studiedToday,
       detail: studiedToday
         ? 'Protegida por hoje'
@@ -300,7 +303,11 @@ export default function MissionsScreen() {
               style={styles.streakBanner}
             >
               <View style={styles.streakIconBox}>
-                <Text style={styles.streakEmoji}>{studiedToday ? '✨' : '🔥'}</Text>
+                {studiedToday ? (
+                  <DecorativeIcon name="auto-awesome" size={26} color="#FFFFFF" />
+                ) : (
+                  <StreakIcon size={28} />
+                )}
               </View>
               <View style={styles.streakTextCol}>
                 <Text style={styles.streakTitle}>
@@ -327,6 +334,7 @@ export default function MissionsScreen() {
               HOJE · {doneCount}/{missions.length} CONCLUÍDAS
             </Text>
           </View>
+          {dailyGoal ? <View style={styles.goalTierRow}>{DAILY_GOAL_TIERS.map((tier) => <Text key={tier.id} onPress={() => void DailyGoalService.setTier(tier.id).then(setDailyGoal)} style={[styles.goalTier, tier.id === dailyGoal.tierId && styles.goalTierActive]}>{tier.label} · {tier.xp} XP</Text>)}</View> : null}
 
           {/* ── Missões (dados reais) ── */}
           <View style={styles.missionList}>
@@ -338,7 +346,10 @@ export default function MissionsScreen() {
           {/* ── Hearts footer ── */}
           <View style={styles.heartsSection}>
             <View style={styles.heartsSectionHeader}>
-              <Text style={styles.heartsSectionTitle}>❤️ Vidas</Text>
+              <View style={styles.heartsTitleRow}>
+                <HeartIcon size={18} filled />
+                <Text style={styles.heartsSectionTitle}>Vidas</Text>
+              </View>
               <HeartRefillTimer
                 nextRefillAt={snapshot?.heartsNextRefillAt}
                 onElapsed={load}
@@ -349,9 +360,7 @@ export default function MissionsScreen() {
               accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
             >
               {Array.from({ length: maxHearts }).map((_, i) => (
-                <Text key={i} style={styles.heartIcon} importantForAccessibility="no">
-                  {i < hearts ? '❤️' : '🤍'}
-                </Text>
+                <HeartIcon key={i} size={22} filled={i < hearts} />
               ))}
             </View>
             {hearts === 0 && (
@@ -443,7 +452,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  streakEmoji: { fontSize: 28 },
   streakTextCol: { flex: 1 },
   streakTitle: {
     ...typography.bodyStrong,
@@ -470,6 +478,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 0.08 * 11,
   },
+  goalTierRow: { flexDirection: 'row', flexWrap: 'wrap', gap: space.s1 },
+  goalTier: { ...typography.micro, color: galaxyColors.textSecondary, borderWidth: 1, borderColor: galaxyColors.border, borderRadius: 999, paddingHorizontal: space.s2, paddingVertical: space.s1 },
+  goalTierActive: { color: galaxyColors.textPrimary, borderColor: galaxyColors.ctaGradientEnd, backgroundColor: 'rgba(74,158,255,0.16)' },
 
   // Mission cards
   missionList: { gap: 10 },
@@ -498,11 +509,6 @@ const styles = StyleSheet.create({
   missionIconBoxPending: {
     backgroundColor: 'rgba(61,202,232,0.12)',
     borderColor: 'rgba(61,202,232,0.28)',
-  },
-  missionIconText: { fontSize: 20 },
-  missionCheckText: {
-    color: galaxyColors.background,
-    fontWeight: '800',
   },
   missionContent: { flex: 1, gap: space.s1 },
   missionTitle: {
@@ -542,6 +548,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
+  heartsTitleRow: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
   heartsSectionTitle: {
     ...typography.bodyStrong,
     color: galaxyColors.textPrimary,
@@ -550,13 +557,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
-  heartIcon: { fontSize: 22 },
   refillTimer: {
     backgroundColor: 'rgba(255,59,48,0.10)',
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 4,
   },
+  refillTimerContent: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   refillTimerText: {
     ...typography.micro,
     color: galaxyColors.critical,

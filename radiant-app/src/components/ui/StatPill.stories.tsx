@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { semanticColors } from '../../ui/semantic-colors';
+import { StreakIcon, XpIcon } from '../../ui/components/HudIcons';
 import { StatPill } from './StatPill';
 
 const meta = {
   title: 'Dados/StatPill',
   component: StatPill,
   args: {
-    icon: <Text>⚡</Text>,
+    icon: <XpIcon value={2840} />,
     value: '2 840 XP',
     color: semanticColors.light.reward,
   },
@@ -22,7 +23,7 @@ export const Light: Story = {};
 export const Galaxy: Story = {
   args: {
     dark: true,
-    icon: <Text>🔥</Text>,
+    icon: <StreakIcon />,
     value: '12 dias',
     color: semanticColors.galaxy.reward,
   },

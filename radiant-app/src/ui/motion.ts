@@ -4,8 +4,17 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
+import {
+    default as Reanimated,
+    Easing as ReanimatedEasing,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withSequence,
+    withTiming,
+} from 'react-native-reanimated';
 import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
 
 // ============================================================================
@@ -329,3 +338,78 @@ export const createShakeError = useShakeError;
 export const createPressScale = usePressScale;
 export const createCardEnter = useCardEnter;
 export const createLossPulse = useLossPulse;
+export const MotionView = Reanimated.View;
+
+// ============================================================================
+// REANIMATED HELPERS — mounted, lightweight status glyphs
+// ============================================================================
+
+/**
+ * Celebra uma alteração positiva pontual sem transformar um estado estático em
+ * uma animação contínua. Usado pelo XP do HUD quando o valor aumenta.
+ */
+export function useEventCelebrationScale(value: number) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+    const previous = useRef(value);
+
+    useEffect(() => {
+        const increased = value > previous.current;
+        previous.current = value;
+
+        if (!increased || reducedMotionEnabled) {
+            scale.value = 1;
+            return;
+        }
+
+        scale.value = withSequence(
+            withTiming(1.35, {
+                duration: duration.celebrate * 0.35,
+                easing: ReanimatedEasing.bezier(0.34, 1.56, 0.64, 1),
+            }),
+            withTiming(1, {
+                duration: duration.celebrate * 0.65,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        );
+    }, [reducedMotionEnabled, scale, value]);
+
+    const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+    return { animatedStyle };
+}
+
+/**
+ * Mantém um indicador de estado vivo com uma respiração discreta. Sob reduced
+ * motion devolve imediatamente a escala estática e legível.
+ */
+export function useBreathingScale() {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+
+    useEffect(() => {
+        if (reducedMotionEnabled) {
+            scale.value = 1;
+            return;
+        }
+
+        scale.value = withRepeat(
+            withSequence(
+                withTiming(1.08, {
+                    duration: 800,
+                    easing: ReanimatedEasing.inOut(ReanimatedEasing.ease),
+                }),
+                withTiming(1, {
+                    duration: 800,
+                    easing: ReanimatedEasing.inOut(ReanimatedEasing.ease),
+                }),
+            ),
+            -1,
+            false,
+        );
+    }, [reducedMotionEnabled, scale]);
+
+    const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+    return { animatedStyle };
+}

@@ -198,27 +198,12 @@ export function useQuiz(
             try {
                 GamificationService.recordQuizCompletion(result).then(({ award }) => {
                     setXpAward(award);
-                });
-            } catch (error) {
-                console.error('[useQuiz] Error recording gamification:', error);
-            }
-
-            // Record daily goal completion
-            try {
-                // Get snapshot before recording this quiz
-                DailyGoalService.getSnapshot().then((beforeSnapshot) => {
-                    const wasNotCompleted = !beforeSnapshot.isCompleted;
-
-                    // Record the quiz completion
-                    DailyGoalService.recordQuizCompletion(result.answeredAt).then((afterSnapshot) => {
-                        // Only set flag if this quiz caused the transition to completed
-                        if (wasNotCompleted && afterSnapshot.isCompleted) {
-                            setDailyGoalJustCompleted(true);
-                        }
+                    void DailyGoalService.recordXp(award.totalXpAwarded, result.answeredAt).then((afterSnapshot) => {
+                        if (afterSnapshot.isCompleted) setDailyGoalJustCompleted(true);
                     });
                 });
             } catch (error) {
-                console.error('[useQuiz] Error recording daily goal:', error);
+                console.error('[useQuiz] Error recording gamification:', error);
             }
 
             if (journeyCompletionMode !== 'none') {

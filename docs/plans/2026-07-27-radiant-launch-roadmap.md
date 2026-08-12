@@ -21,12 +21,11 @@ rejeição pendente.
 ## 2. Onde estamos hoje (verificado)
 
 Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
-**[status canônico 2026-08-09](../EXECUTION_STATUS_2026-08-09.md)** — ponteiro
-corrigido em 2026-08-06; o de 07-29 já era histórico e esta linha ainda mandava
-a próxima sessão para ele. Os snapshots anteriores permanecem como registro. A
-seção abaixo descreve o estado verificado em 07-27; as entregas de 07-28
-(identidade de design, versionamento 1.3.0, tipografia, lesson-flow, assets e
-gate) estão no status canônico.
+**[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)** — ponteiro
+atualizado após a passagem visual de 2026-08-12. Os snapshots anteriores
+permanecem como registro. A seção abaixo descreve o estado verificado em 07-27;
+as entregas posteriores, inclusive a correção P0 de contraste/composição e o HUD
+vetorial, estão no status canônico.
 
 **Onde o trabalho está (2026-08-09):** a branch
 `codex/wave1-hardening-api-smoke` está publicada e aberta para a `main` no
@@ -659,6 +658,17 @@ código.
   [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
   e plano em
   [`2026-08-09-primeira-vitoria.md`](2026-08-09-primeira-vitoria.md).
+- **B10 [P2]** ~~Passagem visual orientada pela crítica da Home~~ **CONCLUÍDA em
+  2026-08-13:** `PRODUCT.md` e `DESIGN.md` foram confirmados pelo dono; o selo
+  ativo deixou a composição de 1,00:1, trilha nunca aberta deixou de exibir
+  domínio verde, `navBlue` `#4A9EFF` passou a distinguir foco/aba ativa e o HUD
+  substituiu emoji dependente do sistema por SVG animado. A rodada complementar
+  também está fechada: legenda visível no anel, mapa exclusivo da Galáxia, sem
+  balão na Home, cinco telas sem emoji do sistema, meta diária por XP em quatro
+  tiers escolhíveis e nebulosas com movimento perceptível/respeito a reduzir
+  movimento. Evidência, limites e decisão em
+  [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
+  [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
 
 ### Onda C — Paridade Android (M2)
 

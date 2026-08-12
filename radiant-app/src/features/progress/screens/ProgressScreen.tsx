@@ -36,7 +36,8 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { tabBarClearance, typography } from '../../../ui/styles';
+import { space, tabBarClearance, typography } from '../../../ui/styles';
+import { StreakIcon, XpIcon } from '../../../ui/components/HudIcons';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
 // Alias de tokens: nenhum valor próprio de cor vive nesta tela.
@@ -131,7 +132,7 @@ function getApiHealthErrorLabel(error: unknown): string {
 }
 
 function StreakCalendarCard({ streakDays }: { streakDays: number }) {
-    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><Text style={styles.streakNumber}>🔥 {streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
+    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><View style={styles.metricValueRow}><StreakIcon size={24} /><Text style={styles.streakNumber}>{streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text></View><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
 }
 
 function AccuracyChartCard({ stats }: { stats: LearningStatsSnapshot | null }) {
@@ -164,7 +165,7 @@ function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number })
             {/* TOTAL XP */}
             <View style={styles.statsGridCard}>
                 <Text style={styles.statsGridLabel}>TOTAL XP</Text>
-                <Text style={styles.statsGridValue}>⚡ {totalXp}</Text>
+                <View style={styles.metricValueRow}><XpIcon size={20} value={totalXp} /><Text style={styles.statsGridValue}>{totalXp}</Text></View>
                 <Text style={styles.statsGridSub}>XP acumulado</Text>
             </View>
 
@@ -892,6 +893,7 @@ const styles = StyleSheet.create({
         ...typography.h2,
         color: D.text,
     },
+    metricValueRow: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
     streakSub: {
         ...typography.micro,
         color: D.textSec,

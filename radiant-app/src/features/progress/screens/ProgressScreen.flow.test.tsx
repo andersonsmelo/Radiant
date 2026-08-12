@@ -234,7 +234,7 @@ describe('ProgressScreen flow', () => {
   it('shows only persisted gamification and honest empty learning metrics', async () => {
     renderWithProviders(<ProgressScreen />);
 
-    expect(await screen.findByText('🔥 3 dias')).toBeTruthy();
+    expect(await screen.findByText('3 dias')).toBeTruthy();
     expect(screen.getByLabelText('Sem tentativas avaliadas ainda.')).toBeTruthy();
     expect(screen.getByText('Ainda não há evidência suficiente para indicar domínio por tópico.')).toBeTruthy();
     expect(screen.queryByText('84%')).toBeNull();
@@ -265,7 +265,7 @@ describe('ProgressScreen flow', () => {
 
     renderWithProviders(<ProgressScreen />);
 
-    expect(await screen.findByText('🔥 3 dias')).toBeTruthy();
+    expect(await screen.findByText('3 dias')).toBeTruthy();
     expect(screen.getByLabelText('Sem tentativas avaliadas ainda.')).toBeTruthy();
 
     errorSpy.mockRestore();
@@ -280,7 +280,7 @@ describe('ProgressScreen flow', () => {
 
     renderWithProviders(<ProgressScreen />);
 
-    await screen.findByText('🔥 3 dias');
+    await screen.findByText('3 dias');
     expect(screen.queryByText('ativado')).toBeNull();
     expect(screen.getByText('ligado, sem API configurada')).toBeTruthy();
   });
@@ -296,7 +296,7 @@ describe('ProgressScreen flow', () => {
     try {
       renderWithProviders(<ProgressScreen />);
 
-      await screen.findByText('🔥 3 dias');
+      await screen.findByText('3 dias');
       expect(screen.queryByText('ativo')).toBeNull();
       expect(screen.getByText('ligado, bypass por dev tools')).toBeTruthy();
     } finally {

@@ -34,4 +34,10 @@ describe('PixelHeroSplit — escala de fonte do eyebrow', () => {
     // regressão de acessibilidade em texto que o usuário precisa ler.
     expect(getByText(PROPS.message).props.maxFontSizeMultiplier).toBeUndefined();
   });
+
+  it('mostra a legenda da meta junto do anel, e nao apenas na acessibilidade', () => {
+    const { getByText } = render(<PixelHeroSplit {...PROPS} />);
+
+    expect(getByText('Meta do dia')).toBeTruthy();
+  });
 });

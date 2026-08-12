@@ -185,9 +185,9 @@ jest.mock('../../daily-goal/services/DailyGoalService', () => ({
       isCompleted: false,
       dateKey: '2026-04-02',
     }),
-    recordQuizCompletion: jest.fn().mockResolvedValue({
-      completedToday: 1,
-      goalPerDay: 3,
+    recordXp: jest.fn().mockResolvedValue({
+      earnedXpToday: 12,
+      goalXp: 10,
       isCompleted: false,
       dateKey: '2026-04-02',
     }),
@@ -328,7 +328,7 @@ describe('QuizScreen flow', () => {
       expect(mockedSyncQueueService.enqueueLessonProgressFromQuizResult).toHaveBeenCalled();
       expect(mockedSyncQueueService.flush).toHaveBeenCalled();
       expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalled();
-      expect(mockedDailyGoalService.recordQuizCompletion).toHaveBeenCalled();
+      expect(mockedDailyGoalService.recordXp).toHaveBeenCalledWith(12, expect.anything());
     });
   });
 

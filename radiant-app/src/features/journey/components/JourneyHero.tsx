@@ -3,14 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
-import type { PixelExpression } from '../../../ui/characters/pixelExpressions';
 
 type JourneyHeroProps = {
   unitTitle: string;
   dailyGoalCompleted: number;
   dailyGoalTarget: number;
-  message: string;
-  expression?: PixelExpression;
   trackLabel?: string;
 };
 
@@ -18,8 +15,6 @@ export function JourneyHero({
   unitTitle,
   dailyGoalCompleted,
   dailyGoalTarget,
-  message,
-  expression,
   trackLabel = 'Jornada de Radiologia',
 }: JourneyHeroProps) {
   return (
@@ -28,14 +23,12 @@ export function JourneyHero({
       <View style={styles.glowSecondary} />
       <PixelHeroSplit
         eyebrow={trackLabel}
-        message={message}
         ringValue={dailyGoalCompleted}
         ringTotal={dailyGoalTarget}
         ringLabel="Meta do dia"
         state="guide"
         tier="intermediate"
         accessibilityLabel="Pixel guiando a jornada"
-        expression={expression}
       />
       <View style={styles.footerRow}>
         <Text style={styles.footerLabel}>Unidade ativa</Text>

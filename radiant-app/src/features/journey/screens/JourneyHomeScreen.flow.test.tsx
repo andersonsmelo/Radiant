@@ -1,12 +1,10 @@
 import React from 'react';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import JourneyHomeScreen from './JourneyHomeScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
-import { PixelMood } from '../../pixel-mood/PixelMood';
-import { PIXEL_MOMENTS } from '../../pixel-mood/pixelPhrases';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
@@ -149,7 +147,6 @@ const FIRST_RENDER_TIMEOUT_MS = 4000;
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedTelemetryService = TelemetryService as jest.Mocked<typeof TelemetryService>;
 const mockedRouter = router as jest.Mocked<typeof router>;
-let pixelMoodResolveSpy: jest.SpyInstance;
 
 const tracks = [
   {
@@ -237,19 +234,9 @@ function createSnapshot(trackId: string, nodeTitle: string, nodeId: string, bloc
   } as any;
 }
 
-async function flushPixelMoodResolution() {
-  await act(async () => {
-    await Promise.resolve();
-    await Promise.resolve();
-    await Promise.resolve();
-  });
-}
-
 describe('JourneyHomeScreen track flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    PixelMood.resetSession();
-    pixelMoodResolveSpy = jest.spyOn(PixelMood, 'resolve').mockResolvedValue(null);
 
     const { GamificationService } = require('../../gamification/services/GamificationService');
     GamificationService.getSnapshot.mockResolvedValue({
@@ -274,12 +261,6 @@ describe('JourneyHomeScreen track flow', () => {
     mockedJourneyProgressService.setCurrentNode.mockResolvedValue(undefined as any);
   });
 
-  afterEach(() => {
-    jest.useRealTimers();
-    jest.restoreAllMocks();
-    PixelMood.resetSession();
-  });
-
   it('emits app_open, because this screen is the reachable home', async () => {
     // A home oficial responde pela abertura do app. Enquanto o evento vivia só
     // na `HomeScreen` legada — que `(tabs)/index.tsx` só renderiza com
@@ -288,7 +269,6 @@ describe('JourneyHomeScreen track flow', () => {
     // prompt de avaliação e do paywall em `insufficient_sessions`. Esta
     // asserção existe para que trocar a home de novo falhe aqui.
     renderWithProviders(<JourneyHomeScreen />);
-    await flushPixelMoodResolution();
 
     await waitFor(() => {
       expect(mockedTelemetryService.track).toHaveBeenCalledWith('app_open');
@@ -361,114 +341,19 @@ describe('JourneyHomeScreen track flow', () => {
     });
   });
 
-  it('shows the returning-user humor, including its expression, before handing the bubble to the functional message after four seconds', async () => {
-    // Mutação que esta assertiva pega: remover a fiação `expression` em
-    // JourneyHero/PixelHeroSplit faz o texto continuar verde, mas deixa de
-    // entregar `emburrado` na fronteira observável do componente real.
-    jest.useFakeTimers();
-    pixelMoodResolveSpy.mockRestore();
-    const { GamificationService } = jest.requireMock(
-      '../../gamification/services/GamificationService',
-    ) as { GamificationService: { getSnapshot: jest.Mock } };
-    GamificationService.getSnapshot.mockResolvedValue({
-      totalXp: 0,
-      streakDays: 0,
-      lastActiveDate: '2026-08-06',
-      hearts: 5,
-      maxHearts: 5,
-    });
-    mockedJourneyProgressService.bootstrap.mockResolvedValue({
-      ...createSnapshot(
-        'track-radiology-foundations',
-        'Fundamentos de radiologia',
-        'node-foundations-lesson',
-        'block-foundations',
-      ),
-      nextRecommendedNode: null,
-    });
-
+  it('keeps the JourneyMap out of Home because the Galaxy tab owns that surface', async () => {
     renderWithProviders(<JourneyHomeScreen />);
-    await flushPixelMoodResolution();
 
-    const frases = PIXEL_MOMENTS['voltou-depois-de-sumir'].phrases;
-    await waitFor(() => {
-      expect(frases.some((frase) => screen.queryByText(frase) !== null)).toBe(true);
-    });
-    expect(screen.getByTestId('journey-hero-expression')).toHaveTextContent('emburrado');
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    act(() => {
-      jest.advanceTimersByTime(4000);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByTestId('journey-hero-bubble')).toHaveTextContent(
-        'Você chegou ao fim do conteúdo disponível por aqui. Assim que abrir um passo novo, eu te aviso.',
-      );
-    });
-    expect(screen.getByTestId('journey-hero-expression')).toHaveTextContent('neutro');
+    expect(screen.queryByText('Mapa da jornada')).toBeNull();
   });
 
-  it('does not resurrect humor when the first touch happens before its asynchronous resolution', async () => {
-    // Mutação que esta assertiva pega: remover `!hasTouchedScreen.current`
-    // deixa a Promise pendente repor o humor depois de a pessoa já tocar.
-    let resolveMood: (value: { expression: 'emburrado'; phrase: string; phraseIndex: number }) => void;
-    pixelMoodResolveSpy.mockImplementation(
-      () => new Promise((resolve) => { resolveMood = resolve; }),
-    );
-    const { GamificationService } = jest.requireMock(
-      '../../gamification/services/GamificationService',
-    ) as { GamificationService: { getSnapshot: jest.Mock } };
-    GamificationService.getSnapshot.mockResolvedValue({
-      totalXp: 0,
-      streakDays: 0,
-      lastActiveDate: '2026-08-06',
-      hearts: 5,
-      maxHearts: 5,
-    });
-
-    renderWithProviders(<JourneyHomeScreen />);
-    await waitFor(() => {
-      expect(pixelMoodResolveSpy).toHaveBeenCalledWith('voltou-depois-de-sumir');
-    });
-
-    fireEvent(screen.getByTestId('journey-home-screen'), 'touchStart');
-
-    await act(async () => {
-      resolveMood({
-        expression: 'emburrado',
-        phrase: PIXEL_MOMENTS['voltou-depois-de-sumir'].phrases[0],
-        phraseIndex: 0,
-      });
-      await Promise.resolve();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByTestId('journey-hero-bubble')).toHaveTextContent(
-        'Você está indo bem. O próximo passo da sua trilha é fundamentos de radiologia.',
-      );
-    });
-    expect(screen.getByTestId('journey-hero-expression')).toHaveTextContent('neutro');
-  });
-
-  it.each([
-    ['returns no humor', () => pixelMoodResolveSpy.mockResolvedValue(null)],
-    ['rejects while resolving humor', () => pixelMoodResolveSpy.mockRejectedValue(new Error('storage unavailable'))],
-  ])('keeps the functional hero available when PixelMood %s', async (_caseName, configureResolve) => {
-    // Mutação que esta assertiva pega: remover o `.catch` ou trocar o fallback
-    // de `humor?.phrase ?? heroMessage` por um acesso direto impede a Home de
-    // renderizar sua mensagem funcional quando o mascote falha.
-    configureResolve();
-
+  it('removes the entire hero bubble from Home', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
-    await waitFor(() => {
-      expect(pixelMoodResolveSpy).toHaveBeenCalledWith('abriu-o-app');
-    });
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    await waitFor(() => {
-      expect(screen.getByTestId('journey-hero-bubble')).toHaveTextContent(
-        'Você está indo bem. O próximo passo da sua trilha é fundamentos de radiologia.',
-      );
-    });
+    expect(screen.queryByTestId('journey-hero-bubble')).toBeNull();
   });
 });

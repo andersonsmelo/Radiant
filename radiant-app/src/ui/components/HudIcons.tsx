@@ -15,83 +15,32 @@
  * perda. Movimento uniforme nos três diria que os três significam a mesma coisa.
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
-  Easing,
-} from 'react-native-reanimated';
 import { galaxyColors } from '../theme';
-import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
-
-// Espelham `src/ui/motion.ts`. Reanimated exige a curva no seu próprio módulo,
-// então os números vivem aqui, mas os valores são os mesmos do token.
-const OUT = Easing.bezier(0.22, 1, 0.36, 1);
-const SPRING = Easing.bezier(0.34, 1.56, 0.64, 1);
-const DURATION_UI = 220;
-const DURATION_CELEBRATE = 600;
-const STREAK_BREATH = 1600;
+import { duration, MotionView, useBreathingScale, useEventCelebrationScale } from '../motion';
 
 type IconProps = { size?: number; testID?: string };
 
 // ── XP — celebra o ganho ──────────────────────────────────────
 export function XpIcon({ size = 14, value = 0 }: IconProps & { value?: number }) {
-  const reducedMotion = useReducedMotionPreference();
-  const scale = useSharedValue(1);
-  const previous = React.useRef(value);
-
-  useEffect(() => {
-    const ganhou = value > previous.current;
-    previous.current = value;
-    if (!ganhou || reducedMotion) return;
-
-    scale.value = withSequence(
-      withTiming(1.35, { duration: DURATION_CELEBRATE * 0.35, easing: SPRING }),
-      withTiming(1, { duration: DURATION_CELEBRATE * 0.65, easing: OUT }),
-    );
-  }, [reducedMotion, scale, value]);
-
-  const style = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const { animatedStyle } = useEventCelebrationScale(value);
 
   return (
-    <Animated.View style={style}>
+    <MotionView style={animatedStyle}>
       <Svg width={size} height={size} viewBox="0 0 52 52">
         <Path d="M28 8 L15 29 h9 l-2 15 13-21h-9z" fill={galaxyColors.xpColor} />
       </Svg>
-    </Animated.View>
+    </MotionView>
   );
 }
 
 // ── Sequência — respira em repouso ────────────────────────────
 export function StreakIcon({ size = 14 }: IconProps) {
-  const reducedMotion = useReducedMotionPreference();
-  const scale = useSharedValue(1);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      // Estado final estático: a chama continua legível, sem o loop infinito.
-      scale.value = 1;
-      return;
-    }
-
-    scale.value = withRepeat(
-      withSequence(
-        withTiming(1.08, { duration: STREAK_BREATH / 2, easing: Easing.inOut(Easing.ease) }),
-        withTiming(1, { duration: STREAK_BREATH / 2, easing: Easing.inOut(Easing.ease) }),
-      ),
-      -1,
-      false,
-    );
-  }, [reducedMotion, scale]);
-
-  const style = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const { animatedStyle } = useBreathingScale();
 
   return (
-    <Animated.View style={style}>
+    <MotionView style={animatedStyle}>
       <Svg width={size} height={size} viewBox="0 0 52 52">
         <Path
           d="M26 6c7 9 12 13 12 21a12 12 0 0 1-24 0c0-8 5-12 12-21z"
@@ -99,7 +48,7 @@ export function StreakIcon({ size = 14 }: IconProps) {
         />
         <Path d="M26 20c3.5 5 6 7 6 11a6 6 0 0 1-12 0c0-4 2.5-6 6-11z" fill="#FFD27A" />
       </Svg>
-    </Animated.View>
+    </MotionView>
   );
 }
 
@@ -119,4 +68,8 @@ export function HeartIcon({ size = 18, filled, testID }: IconProps & { filled: b
   );
 }
 
-export const hudIconTiming = { DURATION_UI, DURATION_CELEBRATE, STREAK_BREATH };
+export const hudIconTiming = {
+  DURATION_UI: duration.ui,
+  DURATION_CELEBRATE: duration.celebrate,
+  STREAK_BREATH: 1600,
+};

@@ -284,14 +284,9 @@ class LessonOutcomeServiceImpl {
         try {
             const granted = await GamificationService.recordQuizCompletion(result);
             award = granted.award;
+            await DailyGoalService.recordXp(award.totalXpAwarded, result.answeredAt);
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao registrar XP:', error);
-        }
-
-        try {
-            await DailyGoalService.recordQuizCompletion(result.answeredAt);
-        } catch (error) {
-            console.error('[LessonOutcomeService] Falha ao registrar meta diária:', error);
         }
 
         return award;
