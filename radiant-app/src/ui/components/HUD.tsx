@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { galaxyColors } from '../theme';
 import { useLossPulse } from '../motion';
+import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -27,7 +28,7 @@ function HUDPill({
   color,
   accessibilityLabel,
 }: {
-  icon: string;
+  icon: React.ReactNode;
   value: string;
   color: string;
   accessibilityLabel: string;
@@ -36,9 +37,7 @@ function HUDPill({
   // decorativo seguido do número solto.
   return (
     <View style={styles.pill} accessible accessibilityRole="text" accessibilityLabel={accessibilityLabel}>
-      <Text style={styles.pillIcon} importantForAccessibility="no">
-        {icon}
-      </Text>
+      <View importantForAccessibility="no">{icon}</View>
       <Text style={[styles.pillValue, { color }]} importantForAccessibility="no">
         {value}
       </Text>
@@ -89,18 +88,14 @@ function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: numbe
       accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
     >
       {Array.from({ length: maxHearts }, (_, i) => (
-        <Animated.Text
+        <Animated.View
           key={i}
           testID={`hud-heart-${i}`}
-          style={[
-            styles.heartIcon,
-            i >= hearts && styles.heartEmpty,
-            i === lostIndex && animatedStyle,
-          ]}
+          style={[i === lostIndex && animatedStyle]}
           importantForAccessibility="no"
         >
-          {i < hearts ? '❤️' : '🤍'}
-        </Animated.Text>
+          <HeartIcon filled={i < hearts} testID={`hud-heart-fill-${i}`} />
+        </Animated.View>
       ))}
     </View>
   );
@@ -121,13 +116,13 @@ export function HUD({ totalXp, streakDays, hearts, maxHearts = 5, compact = fals
     <View style={styles.container}>
       <View style={styles.leftGroup}>
         <HUDPill
-          icon="⚡"
+          icon={<XpIcon value={totalXp} />}
           value={totalXp.toLocaleString()}
           color={galaxyColors.xpColor}
           accessibilityLabel={`${totalXp.toLocaleString()} XP`}
         />
         <HUDPill
-          icon="🔥"
+          icon={<StreakIcon />}
           value={`${streakDays}d`}
           color={galaxyColors.streakColor}
           accessibilityLabel={`${streakDays} ${streakDays === 1 ? 'dia' : 'dias'} de sequência`}

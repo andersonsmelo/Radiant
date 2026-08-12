@@ -124,3 +124,35 @@ function findTransform(node: { props: { style?: unknown } }) {
       !!entry && typeof entry === 'object' && 'transform' in entry,
   );
 }
+
+// O emoji do sistema ignora token de cor, renderiza ao gosto do SO e era o
+// objeto mais saturado da Home — mais forte que o CTA. O DESIGN.md o proíbe por
+// escrito. Estes contratos travam a troca por vetor animado em código.
+describe('HUD — identidade dos ícones', () => {
+  const EMOJI = /[☀-➿\u{1F300}-\u{1F9FF}\u{FE0F}]/u;
+
+  it('não renderiza nenhum emoji do sistema', () => {
+    const { toJSON } = render(<HUD totalXp={1234} streakDays={3} hearts={2} maxHearts={5} />);
+
+    expect(EMOJI.test(JSON.stringify(toJSON()))).toBe(false);
+  });
+
+  it('desenha um ícone vetorial para cada vida, cheia ou vazia', () => {
+    const { getByTestId } = render(<HUD totalXp={0} streakDays={1} hearts={2} maxHearts={5} />);
+
+    for (let i = 0; i < 5; i += 1) {
+      expect(getByTestId(`hud-heart-${i}`)).toBeTruthy();
+    }
+  });
+
+  it('distingue vida cheia de vazia por preenchimento, não só por opacidade', () => {
+    const { getByTestId } = render(<HUD totalXp={0} streakDays={1} hearts={2} maxHearts={5} />);
+
+    // A cor é o canal que o leitor de tela não tem; o rótulo agregado cobre
+    // aquele lado. Aqui garantimos que o canal visual existe de fato.
+    // O nó `hud-heart-N` é o wrapper animado; o preenchimento vive no vetor
+    // dentro dele. Separar os dois mantém o contrato de animação que já existia.
+    expect(getByTestId('hud-heart-fill-0').props.fill)
+      .not.toBe(getByTestId('hud-heart-fill-4').props.fill);
+  });
+});
