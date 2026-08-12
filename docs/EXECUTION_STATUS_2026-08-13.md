@@ -21,6 +21,7 @@ O commit `5b7f8e2` é o registro versionado dessa decisão.
 | `navBlue` `#4A9EFF` em foco, aba ativa, paleta local e `streakColor` | `run-1786541539238-9ff07835`, com memória validada | `f1d1a72` |
 | HUD — emoji do sistema substituído por SVG animado em código | `run-1786549531451-907750be`, 13 validadores/evidências fechados | `3e6839d` |
 | HUD — prancheta recuperada e efeitos autorais completados | `run-1786559682298-f6490054`; referência byte a byte em `docs/design/2026-08-12-hud-assets-approved.html` | fechamento desta sessão |
+| HUD — escala corrigida após inspeção no aparelho | `run-1786561046889-f32b9cfd`; XP/chama 18pt, vidas 22pt | fechamento desta sessão |
 
 P0-A corrige a composição de **1,00:1** (texto e fundo com o mesmo token). P0-B
 remove a barra verde de sucesso de conteúdo nunca aberto. A correção de navegação
@@ -47,6 +48,11 @@ aumenta; só o coração que esvaziou executa impacto, rachadura seca e drenagem
 220ms. Com movimento reduzido, ambos saltam ao estado final sem efeito.
 `hapticLifeLost` não foi duplicado no HUD: o fluxo do quiz já o chama uma vez,
 depois da persistência real da perda, desde `fde484e`.
+
+Na inspeção seguinte, o dono identificou que a escala original de 14pt/18pt
+ficava pequena demais no aparelho. A produção passa a usar 18pt para XP/chama e
+22pt para corações. A prancheta permanece intacta como fonte autoral; esta é uma
+correção posterior de composição, sem alterar paths, cores ou comportamento.
 
 ## Passagem visual complementar concluída
 

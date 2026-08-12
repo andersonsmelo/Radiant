@@ -6,7 +6,7 @@
  * que o próprio CTA. O DESIGN.md proíbe emoji como ícone por escrito.
  *
  * Por que código e não Rive/Lottie: estes três ficam montados no HUD em nove
- * telas. Instanciar um runtime de animação por glifo de 14pt para produzir um
+ * telas. Instanciar um runtime de animação por glifo pequeno para produzir um
  * pulso de escala é custo permanente sem retorno. Rive fica reservado ao Pixel,
  * onde a interpolação de forma compensa.
  *
@@ -31,7 +31,7 @@ import {
 type IconProps = { size?: number; testID?: string };
 
 // ── XP — celebra o ganho ──────────────────────────────────────
-export function XpIcon({ size = 14, value = 0 }: IconProps & { value?: number }) {
+export function XpIcon({ size = 18, value = 0 }: IconProps & { value?: number }) {
   const { animatedProps, rayAnimatedProps } = useEventCelebrationScale(value);
 
   return (
@@ -50,7 +50,7 @@ export function XpIcon({ size = 14, value = 0 }: IconProps & { value?: number })
 }
 
 // ── Sequência — respira em repouso ────────────────────────────
-export function StreakIcon({ size = 14 }: IconProps) {
+export function StreakIcon({ size = 18 }: IconProps) {
   const { animatedStyle } = useBreathingScale();
 
   return (
@@ -68,7 +68,7 @@ export function StreakIcon({ size = 14 }: IconProps) {
 
 // ── Vida — o preenchimento é o estado ─────────────────────────
 export function HeartIcon({
-  size = 18,
+  size = 22,
   filled,
   losing = false,
   testID,

@@ -671,7 +671,10 @@ código.
   `docs/design/2026-08-12-hud-assets-approved.html`; as quatro fagulhas do XP e
   a rachadura/drenagem do coração perdido completam o desenho aprovado, com os
   contratos de 600ms/220ms e movimento reduzido
-  (`run-1786559682298-f6490054`). Evidência, limites e decisão em
+  (`run-1786559682298-f6490054`). **Correção de escala fechada após inspeção do
+  dono:** XP/chama passaram de 14pt para 18pt e vidas de 18pt para 22pt, sem
+  alterar o desenho ou a animação (`run-1786561046889-f32b9cfd`). Evidência,
+  limites e decisão em
   [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
   [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
 

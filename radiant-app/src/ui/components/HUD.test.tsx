@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import Svg from 'react-native-svg';
 import { HUD } from './HUD';
-import { XpIcon } from './HudIcons';
+import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 
 jest.mock('../accessibility/useReducedMotionPreference', () => ({
@@ -192,6 +193,19 @@ describe('HUD — identidade dos ícones', () => {
     const { toJSON } = render(<HUD totalXp={1234} streakDays={3} hearts={2} maxHearts={5} />);
 
     expect(EMOJI.test(JSON.stringify(toJSON()))).toBe(false);
+  });
+
+  it('mantém os glifos legíveis na escala aprovada após inspeção no aparelho', () => {
+    const xp = render(<XpIcon />).UNSAFE_getByType(Svg);
+    const streak = render(<StreakIcon />).UNSAFE_getByType(Svg);
+    const heart = render(<HeartIcon filled />).UNSAFE_getByType(Svg);
+
+    expect(xp.props.width).toBe(18);
+    expect(xp.props.height).toBe(18);
+    expect(streak.props.width).toBe(18);
+    expect(streak.props.height).toBe(18);
+    expect(heart.props.width).toBe(22);
+    expect(heart.props.height).toBe(22);
   });
 
   it('desenha um ícone vetorial para cada vida, cheia ou vazia', () => {

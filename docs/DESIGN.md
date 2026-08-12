@@ -254,7 +254,9 @@ de branco a 7% com borda a 10%; ícone e valor lidos como um nó único pelo lei
 de tela ("1.234 XP"), nunca como ícone decorativo seguido de número solto. Vidas
 são cinco marcas na horizontal; a que se esvazia recebe pulso de perda, e o
 rótulo agregado ("3 de 5 vidas") continua informando quando o movimento está
-reduzido.
+reduzido. Após inspeção no aparelho pelo dono, XP e sequência renderizam a
+**18pt** e as vidas a **22pt**: abaixo disso os glifos perdem presença contra o
+texto e o céu da Home.
 
 ### Named Rules
 

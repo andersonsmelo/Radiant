@@ -17,6 +17,11 @@ artefato: XP em 600ms, perda de vida em 220ms e chama em loop de 1600ms. A
 decisão posterior de executar os glifos pequenos em código, sem runtime Rive,
 continua valendo.
 
+A prancheta permanece imutável como registro do que foi aprovado naquele
+momento, inclusive a escala original de 14pt/18pt. A inspeção posterior do dono
+no simulador corrigiu somente o tamanho de produção para 18pt no XP/chama e
+22pt nos corações; paths, cores e movimento continuam os do artefato.
+
 ## `new-layout/`
 
 Protótipo de layout produzido fora do repositório e preservado sem alteração,
