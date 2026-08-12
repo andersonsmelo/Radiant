@@ -4,6 +4,7 @@ import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { FEEDBACK_MESSAGES } from '../../../constants/quiz';
 import { useScalePop, useShakeError } from '../../../ui/motion';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+import type { PixelExpression } from '../../../ui/characters/pixelExpressions';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
@@ -13,9 +14,16 @@ const galaxy = semanticColors.galaxy;
 interface QuizFeedbackProps {
   isCorrect: boolean;
   explanation: string;
+  moodPhrase?: string;
+  moodExpression?: PixelExpression;
 }
 
-export function QuizFeedback({ isCorrect, explanation }: QuizFeedbackProps) {
+export function QuizFeedback({
+  isCorrect,
+  explanation,
+  moodPhrase,
+  moodExpression,
+}: QuizFeedbackProps) {
   const scalePop = useScalePop();
   const shakeError = useShakeError();
 
@@ -44,13 +52,14 @@ export function QuizFeedback({ isCorrect, explanation }: QuizFeedbackProps) {
             state={isCorrect ? 'happy' : 'oops'}
             size="sm"
             tier="intermediate"
+            expression={moodExpression ?? (isCorrect ? 'feliz' : 'neutro')}
             accessibilityLabel={
               isCorrect ? 'Pixel comemorando o acerto' : 'Pixel acompanhando o erro'
             }
           />
           <View style={styles.headerCopy}>
             <Text style={[styles.title, isCorrect ? styles.correctText : styles.incorrectText]}>
-              {isCorrect ? FEEDBACK_MESSAGES.CORRECT : FEEDBACK_MESSAGES.INCORRECT}
+              {moodPhrase ?? (isCorrect ? FEEDBACK_MESSAGES.CORRECT : FEEDBACK_MESSAGES.INCORRECT)}
             </Text>
           </View>
           <View style={[styles.badge, isCorrect ? styles.correctBadge : styles.incorrectBadge]}>

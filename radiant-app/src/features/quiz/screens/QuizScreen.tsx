@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -31,6 +31,8 @@ import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
 import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
+import { PixelMood, type PixelMoodResult } from '../../pixel-mood/PixelMood';
+import type { PixelMoment } from '../../pixel-mood/pixelPhrases';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
@@ -188,6 +190,57 @@ function QuizSession({
   const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
   const [paywallSubmitting, setPaywallSubmitting] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [feedbackMood, setFeedbackMood] = useState<PixelMoodResult | null>(null);
+  const acertosSeguidos = useRef<number>(0);
+  const errosSeguidos = useRef<number>(0);
+  const feedbackMoodGeneration = useRef(0);
+
+  const handleSelectAnswer = (answerIndex: number) => {
+    if (!currentQuestion || isAnswered) {
+      return;
+    }
+
+    const moodGeneration = feedbackMoodGeneration.current + 1;
+    feedbackMoodGeneration.current = moodGeneration;
+    setFeedbackMood(null);
+
+    const isCorrect = answerIndex === currentQuestion.correctAnswerIndex;
+    let moment: PixelMoment | null = null;
+
+    if (isCorrect) {
+      acertosSeguidos.current += 1;
+      errosSeguidos.current = 0;
+      if (acertosSeguidos.current === 3) {
+        moment = 'acertou-em-sequencia';
+      }
+    } else {
+      errosSeguidos.current += 1;
+      acertosSeguidos.current = 0;
+      if (errosSeguidos.current === 2) {
+        moment = 'errou-duas-vezes';
+      }
+    }
+
+    selectAnswer(answerIndex);
+
+    if (moment) {
+      void PixelMood.resolve(moment)
+        .then((mood) => {
+          if (feedbackMoodGeneration.current === moodGeneration) {
+            setFeedbackMood(mood);
+          }
+        })
+        .catch(() => {
+          // O mascote nunca pode impedir o feedback funcional do quiz.
+        });
+    }
+  };
+
+  const handleNextQuestion = () => {
+    feedbackMoodGeneration.current += 1;
+    setFeedbackMood(null);
+    next();
+  };
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
@@ -504,17 +557,22 @@ function QuizSession({
                 selectedAnswerIndex={selectedAnswerIndex}
                 correctAnswerIndex={currentQuestion.correctAnswerIndex}
                 isAnswered={isAnswered}
-                onSelectAnswer={selectAnswer}
+                onSelectAnswer={handleSelectAnswer}
               />
             ) : null}
             {feedback.visible ? (
-              <QuizFeedback isCorrect={feedback.isCorrect} explanation={feedback.explanation} />
+              <QuizFeedback
+                isCorrect={feedback.isCorrect}
+                explanation={feedback.explanation}
+                moodPhrase={feedbackMood?.phrase}
+                moodExpression={feedbackMood?.expression}
+              />
             ) : null}
           </ScrollView>
 
           {isAnswered ? (
             <View style={styles.footer}>
-              <AppButton onPress={next} style={styles.fullWidthButton}>
+              <AppButton onPress={handleNextQuestion} style={styles.fullWidthButton}>
                 Próxima
               </AppButton>
             </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { QuizLesson } from '../../../types/quiz';
 import QuizScreen from './QuizScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -7,13 +7,15 @@ import { SpacedRepetitionService } from '../../spaced-repetition/services/Spaced
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
+import { PixelMood } from '../../pixel-mood/PixelMood';
+import { PIXEL_MOMENTS } from '../../pixel-mood/pixelPhrases';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
   default: {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
+    getItem: jest.fn().mockResolvedValue(null),
+    setItem: jest.fn().mockResolvedValue(undefined),
+    removeItem: jest.fn().mockResolvedValue(undefined),
   },
 }));
 
@@ -82,6 +84,19 @@ jest.mock('../../../ui/components/HUD', () => ({
 jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));
+
+jest.mock('../../../ui/characters/PixelIllustration', () => {
+  const React = require('react');
+  const { Text, View } = require('react-native');
+
+  return {
+    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
+      <View>
+        <Text testID="quiz-feedback-expression">{expression}</Text>
+      </View>
+    ),
+  };
+});
 
 jest.mock('../../push/components/PushOptInCard', () => ({
   PushOptInCard: () => null,
@@ -217,9 +232,70 @@ const lessonFixture: QuizLesson = {
   ],
 };
 
+const lessonTresQuestoes: QuizLesson = {
+  id: 'lesson-3q',
+  title: 'Sequência de três',
+  difficulty: 'beginner',
+  questions: [1, 2, 3].map((n) => ({
+    id: `question-${n}`,
+    type: 'multiple-choice',
+    prompt: `Pergunta ${n}?`,
+    options: [{ label: `Errada ${n}` }, { label: `Certa ${n}` }],
+    correctAnswerIndex: 1,
+    explanation: `Explicação ${n}.`,
+  })),
+};
+
+const lessonQuatroQuestoes: QuizLesson = {
+  ...lessonTresQuestoes,
+  id: 'lesson-4q',
+  title: 'Sequência de quatro',
+  questions: [
+    ...lessonTresQuestoes.questions,
+    {
+      id: 'question-4',
+      type: 'multiple-choice',
+      prompt: 'Pergunta 4?',
+      options: [{ label: 'Errada 4' }, { label: 'Certa 4' }],
+      correctAnswerIndex: 1,
+      explanation: 'Explicação 4.',
+    },
+  ],
+};
+
+function montarQuiz(lesson: QuizLesson) {
+  const { LessonCatalogService } = jest.requireMock(
+    '../../content/services/LessonCatalogService',
+  ) as { LessonCatalogService: { getLessonById: jest.Mock; getInitialLesson: jest.Mock } };
+  LessonCatalogService.getLessonById.mockReturnValue(lesson);
+  LessonCatalogService.getInitialLesson.mockReturnValue(lesson);
+  renderWithProviders(<QuizScreen mode="normal" lessonId={lesson.id} />);
+}
+
+async function flushPixelMoodResolution() {
+  await act(async () => {
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+  });
+}
+
+async function responder(label: string) {
+  fireEvent.press(screen.getByLabelText(label));
+  await act(async () => {
+    await Promise.resolve();
+  });
+}
+
 describe('QuizScreen flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    PixelMood.resetSession();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    PixelMood.resetSession();
   });
 
   it('completes a quiz and syncs the result', async () => {
@@ -254,5 +330,170 @@ describe('QuizScreen flow', () => {
       expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalled();
       expect(mockedDailyGoalService.recordQuizCompletion).toHaveBeenCalled();
     });
+  });
+
+  it('solta frase e expressão de sequência após três acertos seguidos', async () => {
+    // Mutação que esta assertiva pega: remover o gatilho no terceiro acerto ou
+    // deixar de encaminhar moodPhrase/moodExpression até PixelIllustration.
+    montarQuiz(lessonTresQuestoes);
+
+    for (const n of [1, 2, 3]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Certa ${n}`);
+      if (n < 3) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    await flushPixelMoodResolution();
+    const frases = PIXEL_MOMENTS['acertou-em-sequencia'].phrases;
+    await waitFor(() => {
+      expect(frases.some((f) => screen.queryByText(f) !== null)).toBe(true);
+    });
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('orgulhoso');
+  });
+
+  it('solta frase e expressão de teimosia após dois erros seguidos', async () => {
+    // Mutação que esta assertiva pega: trocar o limiar para três erros ou não
+    // entregar a expressão revirando pela fronteira do PixelIllustration.
+    montarQuiz(lessonTresQuestoes);
+
+    for (const n of [1, 2]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Errada ${n}`);
+      if (n < 2) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    await flushPixelMoodResolution();
+    const frases = PIXEL_MOMENTS['errou-duas-vezes'].phrases;
+    await waitFor(() => {
+      expect(frases.some((f) => screen.queryByText(f) !== null)).toBe(true);
+    });
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('revirando');
+  });
+
+  it('limpa o momento antes do feedback da próxima questão', async () => {
+    // Mutação que esta assertiva pega: remover a limpeza de mood ao avançar
+    // deixa a frase e orgulhoso vazarem para o feedback da quarta questão.
+    montarQuiz(lessonQuatroQuestoes);
+
+    for (const n of [1, 2, 3]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Certa ${n}`);
+      if (n < 3) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    await flushPixelMoodResolution();
+    await waitFor(() => {
+      expect(
+        PIXEL_MOMENTS['acertou-em-sequencia'].phrases.some((frase) => screen.queryByText(frase) !== null),
+      ).toBe(true);
+    });
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('orgulhoso');
+    fireEvent.press(screen.getByText('Próxima'));
+    expect(await screen.findByText('Pergunta 4?')).toBeTruthy();
+    await responder('Errada 4');
+
+    expect(screen.getByText('Incorreto')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
+    expect(
+      PIXEL_MOMENTS['acertou-em-sequencia'].phrases.some((frase) => screen.queryByText(frase) !== null),
+    ).toBe(false);
+  });
+
+  it('não ressuscita o momento se a resolução chega após avançar', async () => {
+    // Mutação que esta assertiva pega: remover o guard de geração deixa uma
+    // Promise tardia colocar orgulhoso no feedback posterior.
+    let resolveMood: (value: { expression: 'orgulhoso'; phrase: string; phraseIndex: number }) => void;
+    jest.spyOn(PixelMood, 'resolve').mockImplementation(
+      () => new Promise((resolve) => { resolveMood = resolve; }),
+    );
+    montarQuiz(lessonQuatroQuestoes);
+
+    for (const n of [1, 2, 3]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Certa ${n}`);
+      fireEvent.press(await screen.findByText('Próxima'));
+    }
+
+    expect(await screen.findByText('Pergunta 4?')).toBeTruthy();
+    await responder('Errada 4');
+
+    await act(async () => {
+      resolveMood({
+        expression: 'orgulhoso',
+        phrase: PIXEL_MOMENTS['acertou-em-sequencia'].phrases[0],
+        phraseIndex: 0,
+      });
+      await Promise.resolve();
+    });
+
+    expect(screen.getByText('Incorreto')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
+  });
+
+  it('não soma acertos separados por erro', async () => {
+    // Mutação que esta assertiva pega: deixar de zerar acertosSeguidos ao errar
+    // faz Certa 1, Errada 2, Certa 3, Certa 4 disparar orgulhoso indevidamente.
+    montarQuiz(lessonQuatroQuestoes);
+
+    for (const [n, answer] of [[1, 'Certa'], [2, 'Errada'], [3, 'Certa'], [4, 'Certa']] as const) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`${answer} ${n}`);
+      if (n < 4) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    expect(screen.getByText('Correto!')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('feliz');
+    expect(
+      PIXEL_MOMENTS['acertou-em-sequencia'].phrases.some((frase) => screen.queryByText(frase) !== null),
+    ).toBe(false);
+  });
+
+  it('não soma erros separados por acerto', async () => {
+    // Mutação que esta assertiva pega: deixar de zerar errosSeguidos ao acertar
+    // faz Errada 1, Certa 2, Errada 3 disparar revirando indevidamente.
+    montarQuiz(lessonTresQuestoes);
+
+    for (const [n, answer] of [[1, 'Errada'], [2, 'Certa'], [3, 'Errada']] as const) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`${answer} ${n}`);
+      if (n < 3) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    expect(screen.getByText('Incorreto')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
+    expect(
+      PIXEL_MOMENTS['errou-duas-vezes'].phrases.some((frase) => screen.queryByText(frase) !== null),
+    ).toBe(false);
+  });
+
+  it.each([
+    ['returns null', () => jest.spyOn(PixelMood, 'resolve').mockResolvedValue(null)],
+    ['rejects', () => jest.spyOn(PixelMood, 'resolve').mockRejectedValue(new Error('storage unavailable'))],
+  ])('keeps default feedback when PixelMood %s', async (_caseName, configureResolve) => {
+    // Mutação que esta assertiva pega: remover o fallback ?? no QuizFeedback ou
+    // o catch da resolução torna o retorno nulo/rejeitado capaz de quebrar o quiz.
+    configureResolve();
+    montarQuiz(lessonTresQuestoes);
+
+    for (const n of [1, 2]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Errada ${n}`);
+      if (n < 2) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    expect(screen.getByText('Incorreto')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
   });
 });
