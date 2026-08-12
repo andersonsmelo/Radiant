@@ -2,6 +2,12 @@ import React from 'react';
 import { act, render } from '@testing-library/react-native';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
 import { PixelFace } from './PixelFace';
+import {
+  PIXEL_EYE_BASELINE,
+  PIXEL_EXPRESSIONS,
+  PIXEL_MOUTH_BASELINE,
+} from './pixelExpressions';
+import { PIXEL_SCREEN } from './pixelScreenGeometry';
 
 jest.mock('../accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: jest.fn(),
@@ -57,9 +63,32 @@ const mockedReducedMotion = useReducedMotionPreference as jest.MockedFunction<
 
 const AnimatedViewHost = 'AnimatedView' as unknown as React.ComponentType<unknown>;
 const PathHost = 'Path' as unknown as React.ComponentType<unknown>;
+const IMAGE_WIDTH = 200;
+const IMAGE_HEIGHT = 200;
+
+function expectedFaceGeometry(expression: 'neutro' | 'feliz') {
+  const shape = PIXEL_EXPRESSIONS[expression];
+  const screenW = PIXEL_SCREEN.w * IMAGE_WIDTH;
+  const screenH = PIXEL_SCREEN.h * IMAGE_HEIGHT;
+  const eyeWidth = shape.eyeW * screenW;
+  const eyeHeight = shape.eyeH * screenH;
+  const eyeCenterY = screenH / 2 + (PIXEL_EYE_BASELINE + shape.eyeOffsetY) * screenH;
+  const mouthWidth = shape.mouthW * screenW;
+  const mouthY = screenH / 2 + PIXEL_MOUTH_BASELINE * screenH;
+  const mouthDip = shape.mouthDip * screenH;
+  const centerX = screenW / 2;
+
+  return {
+    eyeWidth,
+    eyeHeight,
+    eyeTop: eyeCenterY - eyeHeight / 2,
+    eyeRadius: shape.eyeRadius * eyeWidth,
+    mouthPath: `M ${centerX - mouthWidth / 2} ${mouthY} Q ${centerX} ${mouthY + mouthDip * 2} ${centerX + mouthWidth / 2} ${mouthY}`,
+  };
+}
 
 function renderFace(expression: 'neutro' | 'feliz' = 'neutro') {
-  return render(<PixelFace expression={expression} imageWidth={200} imageHeight={200} />);
+  return render(<PixelFace expression={expression} imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
 }
 
 function animatedEyeStyles(view: ReturnType<typeof render>) {
@@ -71,6 +100,20 @@ function animatedEyeStyles(view: ReturnType<typeof render>) {
 
 function arcOpacities(view: ReturnType<typeof render>) {
   return view.UNSAFE_getAllByType(PathHost).slice(0, 2).map((node) => node.props.opacity);
+}
+
+function mouthPath(view: ReturnType<typeof render>) {
+  return view.UNSAFE_getAllByType(PathHost)[2].props.d;
+}
+
+function setArcMixIntermediate(marker: number) {
+  let callsInTransition = 0;
+  reanimated.withTiming.mockImplementation((value: number) => {
+    callsInTransition += 1;
+    // arcMix é a nona e última interpolação do efeito de expressão. Os outros
+    // oito valores ficam naturais; só o retorno de arcMix vira marcador.
+    return callsInTransition === 9 ? marker : value;
+  });
 }
 
 describe('PixelFace — comportamento da animação facial', () => {
@@ -87,22 +130,25 @@ describe('PixelFace — comportamento da animação facial', () => {
 
   it('pisca multiplicando eyeH e restaura 1 pela sequência', () => {
     const view = renderFace();
+    const neutral = expectedFaceGeometry('neutro');
     const openHeight = animatedEyeStyles(view)[0].height as number;
 
     reanimated.withTiming.mockClear();
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    view.rerender(<PixelFace expression="neutro" imageWidth={200} imageHeight={200} />);
+    view.rerender(<PixelFace expression="neutro" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
 
     const closedHeight = animatedEyeStyles(view)[0].height as number;
-    expect(closedHeight).toBeCloseTo(openHeight * 0.1);
+    expect(openHeight).toBeCloseTo(neutral.eyeHeight);
+    expect(closedHeight).toBeCloseTo(neutral.eyeHeight * 0.1);
     expect(reanimated.withSequence).toHaveBeenCalledWith(0.1, 1);
     expect(reanimated.withTiming).toHaveBeenNthCalledWith(
       1,
       0.1,
       expect.objectContaining({ duration: 90 }),
     );
+    view.unmount();
     expect(reanimated.withTiming).toHaveBeenNthCalledWith(
       2,
       1,
@@ -131,7 +177,7 @@ describe('PixelFace — comportamento da animação facial', () => {
 
     view.rerender(<PixelFace expression="feliz" imageWidth={200} imageHeight={200} />);
     // O efeito já atribuiu a pose; este render a torna observável no mock.
-    view.rerender(<PixelFace expression="feliz" imageWidth={200} imageHeight={200} />);
+    view.rerender(<PixelFace expression="feliz" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
 
     expect(setTimeoutSpy).not.toHaveBeenCalled();
     expect(jest.getTimerCount()).toBe(0);
@@ -139,9 +185,17 @@ describe('PixelFace — comportamento da animação facial', () => {
     expect(reanimated.withTiming).not.toHaveBeenCalled();
     expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([0, 0]);
     expect(arcOpacities(view)).toEqual([1, 1]);
+    const happy = expectedFaceGeometry('feliz');
+    for (const eye of animatedEyeStyles(view)) {
+      expect(eye.width).toBeCloseTo(happy.eyeWidth);
+      expect(eye.height).toBeCloseTo(happy.eyeHeight);
+      expect(eye.top).toBeCloseTo(happy.eyeTop);
+      expect(eye.borderRadius).toBeCloseTo(happy.eyeRadius);
+    }
+    expect(mouthPath(view)).toBe(happy.mouthPath);
   });
 
-  it('mantém pílulas e arcos presentes e faz crossfade nos dois sentidos', () => {
+  it('mantém pílulas e arcos presentes e vincula o crossfade ao retorno animado nos dois sentidos', () => {
     const view = renderFace('neutro');
 
     expect(animatedEyeStyles(view)).toHaveLength(2);
@@ -149,18 +203,24 @@ describe('PixelFace — comportamento da animação facial', () => {
     expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([1, 1]);
     expect(arcOpacities(view)).toEqual([0, 0]);
 
-    view.rerender(<PixelFace expression="feliz" imageWidth={200} imageHeight={200} />);
-    view.rerender(<PixelFace expression="feliz" imageWidth={200} imageHeight={200} />);
+    reanimated.withTiming.mockClear();
+    setArcMixIntermediate(0.37);
+    view.rerender(<PixelFace expression="feliz" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
+    view.rerender(<PixelFace expression="feliz" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
 
-    expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([0, 0]);
-    expect(arcOpacities(view)).toEqual([1, 1]);
+    expect(reanimated.withTiming).toHaveBeenCalledTimes(9);
+    expect(reanimated.withTiming).toHaveBeenNthCalledWith(9, 1, expect.any(Object));
+    expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([0.63, 0.63]);
+    expect(arcOpacities(view)).toEqual([0.37, 0.37]);
 
-    view.rerender(<PixelFace expression="neutro" imageWidth={200} imageHeight={200} />);
-    view.rerender(<PixelFace expression="neutro" imageWidth={200} imageHeight={200} />);
+    reanimated.withTiming.mockClear();
+    setArcMixIntermediate(0.63);
+    view.rerender(<PixelFace expression="neutro" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
+    view.rerender(<PixelFace expression="neutro" imageWidth={IMAGE_WIDTH} imageHeight={IMAGE_HEIGHT} />);
 
-    expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([1, 1]);
-    expect(arcOpacities(view)).toEqual([0, 0]);
-    expect(reanimated.withTiming).toHaveBeenCalledWith(1, expect.any(Object));
-    expect(reanimated.withTiming).toHaveBeenCalledWith(0, expect.any(Object));
+    expect(reanimated.withTiming).toHaveBeenCalledTimes(9);
+    expect(reanimated.withTiming).toHaveBeenNthCalledWith(9, 0, expect.any(Object));
+    expect(animatedEyeStyles(view).map((style) => style.opacity)).toEqual([0.37, 0.37]);
+    expect(arcOpacities(view)).toEqual([0.63, 0.63]);
   });
 });
