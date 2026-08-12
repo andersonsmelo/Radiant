@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,6 +22,10 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { LearningTrack, LessonCatalogManifest } from '../../content/content.types';
+import { PixelMood } from '../../pixel-mood/PixelMood';
+import type { PixelExpression } from '../../../ui/characters/pixelExpressions';
+
+const HUMOR_HANDOVER_MS = 4000;
 
 function statusLabel(node: JourneyNode): string {
   switch (node.status) {
@@ -101,6 +105,8 @@ export default function JourneyHomeScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [humor, setHumor] = useState<{ expression: PixelExpression; phrase: string } | null>(null);
+  const hasTouchedScreen = useRef(false);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -204,6 +210,43 @@ export default function JourneyHomeScreen() {
     return `Você está indo bem. O próximo passo da sua trilha é ${snapshot.nextRecommendedNode.title.toLowerCase()}.`;
   }, [snapshot]);
 
+  useEffect(() => {
+    if (!gamification) return undefined;
+
+    let cancelled = false;
+
+    try {
+      const moment = PixelMood.resolveOpening(gamification.lastActiveDate, new Date());
+      void PixelMood.resolve(moment)
+        .then((result) => {
+          if (!cancelled && !hasTouchedScreen.current && result) {
+            setHumor(result);
+          }
+        })
+        .catch(() => {
+          // O mascote nunca pode impedir a Home de continuar útil.
+        });
+    } catch {
+      // Uma falha inesperada no mascote não impede a mensagem funcional.
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [gamification]);
+
+  useEffect(() => {
+    if (!humor) return undefined;
+
+    const timeout = setTimeout(() => setHumor(null), HUMOR_HANDOVER_MS);
+    return () => clearTimeout(timeout);
+  }, [humor]);
+
+  const dismissHumorOnFirstTouch = useCallback(() => {
+    hasTouchedScreen.current = true;
+    setHumor(null);
+  }, []);
+
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
 
   const openNode = useCallback(async (node: JourneyNode) => {
@@ -251,7 +294,7 @@ export default function JourneyHomeScreen() {
   }, [openNode, snapshot]);
 
   return (
-    <View style={styles.root}>
+    <View style={styles.root} testID="journey-home-screen" onTouchStart={dismissHumorOnFirstTouch}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
@@ -279,7 +322,8 @@ export default function JourneyHomeScreen() {
               unitTitle={currentUnit?.title ?? 'Sua trilha'}
               dailyGoalCompleted={dailyGoalSnapshot?.completedToday ?? 0}
               dailyGoalTarget={dailyGoalSnapshot?.goalPerDay ?? 1}
-              message={heroMessage}
+              message={humor?.phrase ?? heroMessage}
+              expression={humor?.expression ?? 'neutro'}
             />
 
             <View style={styles.summaryCard}>

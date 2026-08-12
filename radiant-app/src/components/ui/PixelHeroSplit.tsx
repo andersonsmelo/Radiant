@@ -6,6 +6,7 @@ import { space, typography } from '../../ui/styles';
 import { colors, galaxyColors } from '../../ui/theme';
 import { ProgressRing } from './ProgressRing';
 import { SpeechBubble } from './SpeechBubble';
+import type { PixelExpression } from '../../ui/characters/pixelExpressions';
 
 interface PixelHeroSplitProps {
   eyebrow: string;
@@ -16,6 +17,7 @@ interface PixelHeroSplitProps {
   state: CharacterState;
   tier: CharacterTier;
   accessibilityLabel: string;
+  expression?: PixelExpression;
   style?: StyleProp<ViewStyle>;
   bubbleStyle?: StyleProp<ViewStyle>;
   compactBreakpoint?: number;
@@ -41,6 +43,7 @@ export function PixelHeroSplit({
   state,
   tier,
   accessibilityLabel,
+  expression,
   style,
   bubbleStyle,
   compactBreakpoint = 390,
@@ -68,11 +71,16 @@ export function PixelHeroSplit({
           size={isCompact ? compactIllustrationSize : illustrationSize}
           tier={tier}
           accessibilityLabel={accessibilityLabel}
+          expression={expression}
         />
       </View>
 
       <View style={[styles.contentColumn, isCompact && styles.contentColumnCompact]}>
-        <SpeechBubble text={message} style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]} />
+        <SpeechBubble
+          text={message}
+          testID="journey-hero-bubble"
+          style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]}
+        />
         <ProgressRing
           value={ringValue}
           total={ringTotal}

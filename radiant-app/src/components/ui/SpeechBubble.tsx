@@ -8,6 +8,7 @@ interface SpeechBubbleProps {
   align?: 'left' | 'right';
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  testID?: string;
 }
 
 /**
@@ -16,11 +17,11 @@ interface SpeechBubbleProps {
  * Checkpoint e Review. Era a maior superfície clara sobrevivente dentro do
  * app galaxy.
  */
-export function SpeechBubble({ text, align = 'left', style, textStyle }: SpeechBubbleProps) {
+export function SpeechBubble({ text, align = 'left', style, textStyle, testID }: SpeechBubbleProps) {
   return (
     <View style={[styles.wrapper, align === 'right' && styles.wrapperRight, style]}>
       <View style={[styles.bubble, align === 'right' && styles.bubbleRight]}>
-        <Text style={[styles.text, textStyle]}>{text}</Text>
+        <Text testID={testID} style={[styles.text, textStyle]}>{text}</Text>
       </View>
       <View style={[styles.tail, align === 'right' ? styles.tailRight : styles.tailLeft]} />
     </View>
