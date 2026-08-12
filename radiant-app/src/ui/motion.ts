@@ -9,12 +9,16 @@ import { Animated, Easing } from 'react-native';
 import {
     default as Reanimated,
     Easing as ReanimatedEasing,
+    interpolateColor,
+    useAnimatedProps,
     useAnimatedStyle,
     useSharedValue,
+    withDelay,
     withRepeat,
     withSequence,
     withTiming,
 } from 'react-native-reanimated';
+import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
 
 // ============================================================================
@@ -339,6 +343,8 @@ export const createPressScale = usePressScale;
 export const createCardEnter = useCardEnter;
 export const createLossPulse = useLossPulse;
 export const MotionView = Reanimated.View;
+export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
+export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
 
 // ============================================================================
 // REANIMATED HELPERS — mounted, lightweight status glyphs
@@ -351,6 +357,8 @@ export const MotionView = Reanimated.View;
 export function useEventCelebrationScale(value: number) {
     const reducedMotionEnabled = useReducedMotionPreference();
     const scale = useSharedValue(1);
+    const rayOpacity = useSharedValue(0);
+    const rayScale = useSharedValue(0.4);
     const previous = useRef(value);
 
     useEffect(() => {
@@ -359,24 +367,135 @@ export function useEventCelebrationScale(value: number) {
 
         if (!increased || reducedMotionEnabled) {
             scale.value = 1;
+            rayOpacity.value = 0;
+            rayScale.value = reducedMotionEnabled ? 1 : 0.4;
             return;
         }
 
-        scale.value = withSequence(
+        const dormantMs = duration.celebrate * 0.55;
+        const rayRiseMs = duration.celebrate * 0.15;
+        const rayFadeMs = duration.celebrate * 0.3;
+        const burstRiseMs = duration.celebrate * 0.07;
+        const burstSettleMs = duration.celebrate * 0.38;
+
+        scale.value = withDelay(dormantMs, withSequence(
             withTiming(1.35, {
-                duration: duration.celebrate * 0.35,
+                duration: burstRiseMs,
                 easing: ReanimatedEasing.bezier(0.34, 1.56, 0.64, 1),
             }),
             withTiming(1, {
-                duration: duration.celebrate * 0.65,
+                duration: burstSettleMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        rayOpacity.value = withDelay(dormantMs, withSequence(
+            withTiming(0.9, {
+                duration: rayRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(0, {
+                duration: rayFadeMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        rayScale.value = withDelay(dormantMs, withSequence(
+            withTiming(1, {
+                duration: rayRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1.5, {
+                duration: rayFadeMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+    }, [rayOpacity, rayScale, reducedMotionEnabled, scale, value]);
+
+    const animatedProps = useAnimatedProps(() => ({
+        scale: scale.value,
+        originX: 26,
+        originY: 26,
+    }));
+    const rayAnimatedProps = useAnimatedProps(() => ({
+        opacity: rayOpacity.value,
+        scale: rayScale.value,
+        originX: 26,
+        originY: 26,
+    }));
+
+    return { animatedProps, rayAnimatedProps };
+}
+
+/**
+ * Encena a perda dentro do próprio SVG: impacto, rachadura seca e drenagem.
+ * O estado final sempre é o `filled` recebido; movimento reduzido salta direto
+ * para ele, sem deixar a rachadura visível.
+ */
+export function useHeartLossAnimation(filled: boolean, losing: boolean) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+    const drain = useSharedValue(filled ? 0 : 1);
+    const crackOpacity = useSharedValue(0);
+
+    useEffect(() => {
+        scale.value = 1;
+        crackOpacity.value = 0;
+
+        if (reducedMotionEnabled || !losing || filled) {
+            drain.value = filled ? 0 : 1;
+            return;
+        }
+
+        const impactDelayMs = duration.ui * 0.4;
+        const impactRiseMs = duration.ui * 0.08;
+        const impactDropMs = duration.ui * 0.12;
+        const impactSettleMs = duration.ui * 0.4;
+        const crackDelayMs = duration.ui * 0.6;
+        const drainDelayMs = duration.ui * 0.52;
+        const drainMs = duration.ui * 0.18;
+
+        drain.value = 0;
+        scale.value = withDelay(impactDelayMs, withSequence(
+            withTiming(1.18, {
+                duration: impactRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(0.9, {
+                duration: impactDropMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1, {
+                duration: impactSettleMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        crackOpacity.value = withDelay(
+            crackDelayMs,
+            withTiming(1, { duration: 0 }),
+        );
+        drain.value = withDelay(
+            drainDelayMs,
+            withTiming(1, {
+                duration: drainMs,
                 easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
             }),
         );
-    }, [reducedMotionEnabled, scale, value]);
+    }, [crackOpacity, drain, filled, losing, reducedMotionEnabled, scale]);
 
-    const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+    const groupAnimatedProps = useAnimatedProps(() => ({
+        scale: scale.value,
+        originX: 26,
+        originY: 28.6,
+    }));
+    const fillAnimatedProps = useAnimatedProps(() => ({
+        fill: interpolateColor(
+            drain.value,
+            [0, 1],
+            ['#FF3B30', 'rgba(255, 255, 255, 0.20)'],
+        ),
+    }));
+    const crackAnimatedProps = useAnimatedProps(() => ({ opacity: crackOpacity.value }));
 
-    return { animatedStyle };
+    return { groupAnimatedProps, fillAnimatedProps, crackAnimatedProps };
 }
 
 /**

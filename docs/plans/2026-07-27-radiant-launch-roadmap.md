@@ -666,7 +666,12 @@ código.
   também está fechada: legenda visível no anel, mapa exclusivo da Galáxia, sem
   balão na Home, cinco telas sem emoji do sistema, meta diária por XP em quatro
   tiers escolhíveis e nebulosas com movimento perceptível/respeito a reduzir
-  movimento. Evidência, limites e decisão em
+  movimento. **Complemento autoral fechado em 2026-08-13:** a prancheta
+  aprovada, que só existia num scratchpad volátil, foi preservada byte a byte em
+  `docs/design/2026-08-12-hud-assets-approved.html`; as quatro fagulhas do XP e
+  a rachadura/drenagem do coração perdido completam o desenho aprovado, com os
+  contratos de 600ms/220ms e movimento reduzido
+  (`run-1786559682298-f6490054`). Evidência, limites e decisão em
   [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
   [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
 

@@ -20,6 +20,7 @@ O commit `5b7f8e2` é o registro versionado dessa decisão.
 | P0-B — trilha nunca aberta não afirma domínio | mesmo run e memória | `f1d1a72` |
 | `navBlue` `#4A9EFF` em foco, aba ativa, paleta local e `streakColor` | `run-1786541539238-9ff07835`, com memória validada | `f1d1a72` |
 | HUD — emoji do sistema substituído por SVG animado em código | `run-1786549531451-907750be`, 13 validadores/evidências fechados | `3e6839d` |
+| HUD — prancheta recuperada e efeitos autorais completados | `run-1786559682298-f6490054`; referência byte a byte em `docs/design/2026-08-12-hud-assets-approved.html` | fechamento desta sessão |
 
 P0-A corrige a composição de **1,00:1** (texto e fundo com o mesmo token). P0-B
 remove a barra verde de sucesso de conteúdo nunca aberto. A correção de navegação
@@ -35,6 +36,17 @@ novo runtime; a animação comunica papel — XP celebra evento, chama sinaliza 
 vivo e coração encena perda — e *reduced motion* preserva um estado final estático
 e legível. Rive permanece reservado ao Pixel, onde a interpolação de forma paga
 seu custo.
+
+A auditoria visual posterior encontrou dois elementos da prancheta aprovada que
+não chegaram ao commit `3e6839d`: as quatro fagulhas cardinais do XP e a
+rachadura com drenagem do coração perdido. O run
+`run-1786559682298-f6490054` recupera o HTML volátil com SHA-256
+`1802b14952cf8f1701d87bcff61918f741b6380cd34fd8a83b8c0d970d8844c0` e
+completa os dois efeitos. XP dispara uma celebração de 600ms quando o valor
+aumenta; só o coração que esvaziou executa impacto, rachadura seca e drenagem em
+220ms. Com movimento reduzido, ambos saltam ao estado final sem efeito.
+`hapticLifeLost` não foi duplicado no HUD: o fluxo do quiz já o chama uma vez,
+depois da persistência real da perda, desde `fde484e`.
 
 ## Passagem visual complementar concluída
 

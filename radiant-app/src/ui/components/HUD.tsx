@@ -4,9 +4,8 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { galaxyColors } from '../theme';
-import { useLossPulse } from '../motion';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 
 // ── Tipos ──────────────────────────────────────────────────────
@@ -47,7 +46,6 @@ function HUDPill({
 
 function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
   const previousHearts = useRef(hearts);
-  const { animatedStyle, animateIn } = useLossPulse();
   // Índice do coração que acabou de esvaziar. `hearts` já é o valor NOVO, então
   // ele aponta para a posição perdida. Precisa ser state, e não ref: quem decide
   // se o estilo animado entra no JSX é o render, e um ref atribuído dentro do
@@ -72,8 +70,7 @@ function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: numbe
     }
 
     setLostIndex(hearts);
-    animateIn();
-  }, [animateIn, hearts]);
+  }, [hearts]);
 
   // Um rótulo único ("3 de 5 vidas") em vez de cinco emojis lidos como
   // "coração vermelho" repetidamente. Mesmo padrão do MissionsScreen.
@@ -88,14 +85,17 @@ function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: numbe
       accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
     >
       {Array.from({ length: maxHearts }, (_, i) => (
-        <Animated.View
+        <View
           key={i}
           testID={`hud-heart-${i}`}
-          style={[i === lostIndex && animatedStyle]}
           importantForAccessibility="no"
         >
-          <HeartIcon filled={i < hearts} testID={`hud-heart-fill-${i}`} />
-        </Animated.View>
+          <HeartIcon
+            filled={i < hearts}
+            losing={i === lostIndex}
+            testID={`hud-heart-fill-${i}`}
+          />
+        </View>
       ))}
     </View>
   );

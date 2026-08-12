@@ -16,22 +16,36 @@
  */
 
 import React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 import { galaxyColors } from '../theme';
-import { duration, MotionView, useBreathingScale, useEventCelebrationScale } from '../motion';
+import {
+  duration,
+  MotionSvgGroup,
+  MotionSvgPath,
+  MotionView,
+  useBreathingScale,
+  useEventCelebrationScale,
+  useHeartLossAnimation,
+} from '../motion';
 
 type IconProps = { size?: number; testID?: string };
 
 // ── XP — celebra o ganho ──────────────────────────────────────
 export function XpIcon({ size = 14, value = 0 }: IconProps & { value?: number }) {
-  const { animatedStyle } = useEventCelebrationScale(value);
+  const { animatedProps, rayAnimatedProps } = useEventCelebrationScale(value);
 
   return (
-    <MotionView style={animatedStyle}>
-      <Svg width={size} height={size} viewBox="0 0 52 52">
+    <Svg width={size} height={size} viewBox="0 0 52 52">
+      <MotionSvgGroup animatedProps={rayAnimatedProps} fill={galaxyColors.xpColor}>
+        <Circle testID="hud-xp-ray-0" cx={26} cy={6} r={2} />
+        <Circle testID="hud-xp-ray-1" cx={46} cy={26} r={2} />
+        <Circle testID="hud-xp-ray-2" cx={26} cy={46} r={2} />
+        <Circle testID="hud-xp-ray-3" cx={6} cy={26} r={2} />
+      </MotionSvgGroup>
+      <MotionSvgGroup animatedProps={animatedProps}>
         <Path d="M28 8 L15 29 h9 l-2 15 13-21h-9z" fill={galaxyColors.xpColor} />
-      </Svg>
-    </MotionView>
+      </MotionSvgGroup>
+    </Svg>
   );
 }
 
@@ -53,17 +67,36 @@ export function StreakIcon({ size = 14 }: IconProps) {
 }
 
 // ── Vida — o preenchimento é o estado ─────────────────────────
-export function HeartIcon({ size = 18, filled, testID }: IconProps & { filled: boolean }) {
+export function HeartIcon({
+  size = 18,
+  filled,
+  losing = false,
+  testID,
+}: IconProps & { filled: boolean; losing?: boolean }) {
+  const { groupAnimatedProps, fillAnimatedProps, crackAnimatedProps } =
+    useHeartLossAnimation(filled, losing);
   // A cor cheia contra o vazio é o canal visual do estado. O canal de leitor de
   // tela é o rótulo agregado do HUD ("3 de 5 vidas") — os dois existem, e nenhum
   // depende do outro. Cor sozinha nunca carrega informação neste projeto.
   return (
     <Svg width={size} height={size} viewBox="0 0 52 52">
-      <Path
-        testID={testID}
-        d="M26 43S8 32 8 20a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 12-18 23-18 23z"
-        fill={filled ? galaxyColors.heartFull : galaxyColors.heartEmpty}
-      />
+      <MotionSvgGroup animatedProps={groupAnimatedProps}>
+        <MotionSvgPath
+          animatedProps={fillAnimatedProps}
+          testID={testID}
+          d="M26 43S8 32 8 20a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 12-18 23-18 23z"
+          fill={filled ? galaxyColors.heartFull : galaxyColors.heartEmpty}
+        />
+        <MotionSvgPath
+          animatedProps={crackAnimatedProps}
+          testID={testID?.replace('fill', 'crack')}
+          d="M26 14 l-4 9 l6 4 l-4 8"
+          stroke={galaxyColors.background}
+          strokeWidth={2.5}
+          fill="none"
+          strokeLinecap="round"
+        />
+      </MotionSvgGroup>
     </Svg>
   );
 }
