@@ -77,15 +77,15 @@ jest.mock('../../gamification/services/GamificationService', () => ({
   },
 }));
 
-jest.mock('../../../components/ui/PixelHeroSplit', () => {
+jest.mock('../../../ui/characters/PixelIllustration', () => {
   const React = require('react');
   const { Text, View } = require('react-native');
 
   return {
-    PixelHeroSplit: ({ message, expression }: { message: string; expression?: string }) => (
+    PIXEL_SIZE_MAP: { sm: 60, md: 108, lg: 176 },
+    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
       <View>
-        <Text testID="journey-hero-bubble">{message}</Text>
-        <Text testID="journey-hero-expression">{expression ?? 'neutro'}</Text>
+        <Text testID="journey-hero-expression">{expression}</Text>
       </View>
     ),
   };
@@ -251,6 +251,15 @@ describe('JourneyHomeScreen track flow', () => {
     PixelMood.resetSession();
     pixelMoodResolveSpy = jest.spyOn(PixelMood, 'resolve').mockResolvedValue(null);
 
+    const { GamificationService } = require('../../gamification/services/GamificationService');
+    GamificationService.getSnapshot.mockResolvedValue({
+      totalXp: 80,
+      streakDays: 2,
+      lastActiveDate: null,
+      hearts: 5,
+      maxHearts: 5,
+    });
+
     const { LessonCatalogService } = require('../../content/services/LessonCatalogService');
     LessonCatalogService.bootstrap.mockResolvedValue(catalogManifest);
 
@@ -399,11 +408,13 @@ describe('JourneyHomeScreen track flow', () => {
     expect(screen.getByTestId('journey-hero-expression')).toHaveTextContent('neutro');
   });
 
-  it('hands the bubble to the functional message on the first screen touch', async () => {
-    // Mutação que esta assertiva pega: remover `onTouchStart` deixa o humor
-    // até o timer vencer, mesmo depois de o usuário tocar na tela.
-    jest.useFakeTimers();
-    pixelMoodResolveSpy.mockRestore();
+  it('does not resurrect humor when the first touch happens before its asynchronous resolution', async () => {
+    // Mutação que esta assertiva pega: remover `!hasTouchedScreen.current`
+    // deixa a Promise pendente repor o humor depois de a pessoa já tocar.
+    let resolveMood: (value: { expression: 'emburrado'; phrase: string; phraseIndex: number }) => void;
+    pixelMoodResolveSpy.mockImplementation(
+      () => new Promise((resolve) => { resolveMood = resolve; }),
+    );
     const { GamificationService } = jest.requireMock(
       '../../gamification/services/GamificationService',
     ) as { GamificationService: { getSnapshot: jest.Mock } };
@@ -416,14 +427,20 @@ describe('JourneyHomeScreen track flow', () => {
     });
 
     renderWithProviders(<JourneyHomeScreen />);
-    await flushPixelMoodResolution();
-
-    const frases = PIXEL_MOMENTS['voltou-depois-de-sumir'].phrases;
     await waitFor(() => {
-      expect(frases.some((frase) => screen.queryByText(frase) !== null)).toBe(true);
+      expect(pixelMoodResolveSpy).toHaveBeenCalledWith('voltou-depois-de-sumir');
     });
 
     fireEvent(screen.getByTestId('journey-home-screen'), 'touchStart');
+
+    await act(async () => {
+      resolveMood({
+        expression: 'emburrado',
+        phrase: PIXEL_MOMENTS['voltou-depois-de-sumir'].phrases[0],
+        phraseIndex: 0,
+      });
+      await Promise.resolve();
+    });
 
     await waitFor(() => {
       expect(screen.getByTestId('journey-hero-bubble')).toHaveTextContent(
@@ -443,6 +460,10 @@ describe('JourneyHomeScreen track flow', () => {
     configureResolve();
 
     renderWithProviders(<JourneyHomeScreen />);
+
+    await waitFor(() => {
+      expect(pixelMoodResolveSpy).toHaveBeenCalledWith('abriu-o-app');
+    });
 
     await waitFor(() => {
       expect(screen.getByTestId('journey-hero-bubble')).toHaveTextContent(
