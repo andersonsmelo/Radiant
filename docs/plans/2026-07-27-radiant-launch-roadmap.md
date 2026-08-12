@@ -677,6 +677,9 @@ código.
   limites e decisão em
   [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
   [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
+  Fechamento versionado: passagem complementar `8f92723`, efeitos autorais do
+  HUD `6e3c594`, escala `1073cb2` e unificação final Home/Galáxia `56779ea`;
+  este último passou **Radiant App Quality** e **Radiant API Quality** no origin.
 
 ### Onda C — Paridade Android (M2)
 
@@ -1201,7 +1204,9 @@ o painel e o sync continuam pendentes.
   2026-08-13:** Home mantém apenas a próxima ação; seleção de trilha e
   `JourneyMap` vivem na Galáxia e compartilham `JourneyProgressService`. A task
   continua aberta para retirar o bloqueio por vidas e cumprir as dependências
-  restantes de H4. Identificador histórico preservado. Decisão em
+  restantes de H4. O fechamento dessa projeção está em `56779ea`, validado pelo
+  run `run-1786563770360-5c6c65ca` e pelos dois checks remotos verdes.
+  Identificador histórico preservado. Decisão em
   [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](../adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
   sessões de 3–5 minutos, quatro interações e checkpoint revisado. **Identificador

@@ -20,8 +20,8 @@ O commit `5b7f8e2` é o registro versionado dessa decisão.
 | P0-B — trilha nunca aberta não afirma domínio | mesmo run e memória | `f1d1a72` |
 | `navBlue` `#4A9EFF` em foco, aba ativa, paleta local e `streakColor` | `run-1786541539238-9ff07835`, com memória validada | `f1d1a72` |
 | HUD — emoji do sistema substituído por SVG animado em código | `run-1786549531451-907750be`, 13 validadores/evidências fechados | `3e6839d` |
-| HUD — prancheta recuperada e efeitos autorais completados | `run-1786559682298-f6490054`; referência byte a byte em `docs/design/2026-08-12-hud-assets-approved.html` | fechamento desta sessão |
-| HUD — escala corrigida após inspeção no aparelho | `run-1786561046889-f32b9cfd`; XP/chama 18pt, vidas 22pt | fechamento desta sessão |
+| HUD — prancheta recuperada e efeitos autorais completados | `run-1786559682298-f6490054`; referência byte a byte em `docs/design/2026-08-12-hud-assets-approved.html` | `6e3c594` |
+| HUD — escala corrigida após inspeção no aparelho | `run-1786561046889-f32b9cfd`; XP/chama 18pt, vidas 22pt | `1073cb2` |
 
 P0-A corrige a composição de **1,00:1** (texto e fundo com o mesmo token). P0-B
 remove a barra verde de sucesso de conteúdo nunca aberto. A correção de navegação
@@ -76,6 +76,29 @@ duas superfícies sem promover G3 por inteiro: a projeção canônica está entr
 mas a retirada do bloqueio por vidas e as dependências de H4 permanecem abertas.
 Decisão e consequências em
 [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
+
+## Fechamento verificado da passagem visual
+
+A rodada complementar entrou em `8f92723`; a correção de escala do HUD entrou em
+`1073cb2`; e a unificação final de Home, Galáxia e fala ambiental entrou em
+`56779ea`. O último run material, `run-1786563770360-5c6c65ca`, passou os 13
+validadores, chegou a `succeeded`, gravou a memória validada de fingerprint
+`74ed5300f1ab2ba7628760a6f27e39936ffacf8dc02cdab766a40b3fdc5d505d` e foi
+fechado. A branch `codex/wave1-hardening-api-smoke` foi enviada ao origin e
+ficou alinhada em `56779ea`.
+
+Os checks remotos do mesmo SHA fecharam verdes: **Radiant App Quality**
+([run 31634995733](https://github.com/andersonsmelo/Radiant/actions/runs/31634995733))
+e **Radiant API Quality**
+([run 31634995737](https://github.com/andersonsmelo/Radiant/actions/runs/31634995737)).
+Isso comprova integração e qualidade no GitHub; não equivale a publicação.
+
+Todos os pontos visuais decididos nesta passagem estão concluídos. A próxima
+pendência de engenharia não é um refinamento da Home: é fechar H3 com duas
+coortes de 20 amostras de `first_frame` em janela de host e, depois, executar H4
+(Task 12 educacional). Só então G3 retoma a retirada do bloqueio de lições por
+vidas. O handoff autocontido está em
+[`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md).
 
 ## Operação e release
 

@@ -20,7 +20,7 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md) para estado
+1. [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md) para estado
    operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
@@ -47,7 +47,9 @@ Quando documentos divergirem, use esta ordem:
   estados que decide se o próximo passo abre, em dois diagramas ancorados no
   código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md)
+- [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md)
+- [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md) — handoff
+  autocontido para a próxima sessão
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
@@ -76,11 +78,12 @@ interno**, este último com o gate de aparelho executado em 2026-08-10 e um úni
 item aberto: o delta de partida. A métrica dele foi trocada no mesmo dia — de
 `cold_start`, que num Dev Client mede uma janela onde o kernel nem existe, para
 `first_frame`, que o contém por construção — e a primeira medição achou ~440 ms,
-dos quais ~72% são resolução de módulo e não lógica do kernel. **A medição que
-decide depende de um build sem Dev Client, não de host ocioso.** A próxima entrega
-é a **Task 12 educacional** de
-checkpoint/reforço. Produção segue `off`; nenhum sync, OTA ou novo binário foi
-autorizado. A autoridade é o status canônico; esta linha é conveniência e decai.
+dos quais ~72% eram resolução de módulo no Dev Client, não lógica do kernel. O
+aquecimento simétrico já tornou as coortes comparáveis e mostrou o kernel abaixo
+de 2 ms; **falta executar 20+20 amostras em janela de host para fechar H3**. A
+entrega seguinte é a **Task 12 educacional** de checkpoint/reforço. Produção
+segue `off`; nenhum sync, OTA ou novo binário foi autorizado. A autoridade é o
+status canônico; esta linha é conveniência e decai.
 
 A Task 11 fechou **fora de ordem** porque o agendador que ela entrega não depende
 de conteúdo v2: ele entra desligado e acende quando houver o que agendar. O
