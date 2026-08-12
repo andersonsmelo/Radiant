@@ -27,21 +27,29 @@ final concluiu **Ready: Yes**, sem findings novos Critical, Important ou Minor.
 
 Cada run passou os 13 validadores, chegou a `succeeded` e foi fechado.
 
-## Gate visual aberto — não é falha do código
+## Gate visual local fechado
 
-A validação visual atual do mascote continua pendente. O simulador correto
-estava desligado e sem o app instalado; o outro dispositivo disponível executa
-uma release antiga. Portanto não há evidência visual atual a declarar, mas
-também não há falha atribuível a esta entrega. Antes de validar visualmente,
-instale a build correta no simulador correto e confira a região do rosto em
-recorte ampliado.
+Uma build **Release** local, autocontida e com `main.jsbundle` embutido foi
+compilada e instalada no simulador `Radiant iPhone 17 Pro - iOS 26.5`. O hash do
+bundle instalado coincidiu com o artefato recém-compilado. O smoke
+`.maestro/boot-to-home.yaml` passou sem Metro ou Dev Menu e chegou à Home com
+`Foco de hoje` visível.
+
+A inspeção da Home e de um recorte ampliado confirmou o rosto do Pixel dentro
+da tela, sem olhos antigos flutuantes, face duplicada ou emenda visível. Essa
+evidência fecha a composição estática e o binário efetivamente instalado; os
+estados transitórios de humor e sequência do quiz continuam sustentados pelos
+testes comportamentais e pelas mutações causais, não por uma nova captura
+temporal desta sessão.
 
 ## Operação e release
 
-Não houve build, OTA, submit, push, deploy ou publicação nesta continuação.
-Produção segue `off` e o iOS `1.3.1 (7)` permanece intocado. Os gates de
-lançamento que não pertencem a este recorte permanecem como registrados no
-snapshot anterior, sem nova alegação de validação aqui.
+Houve build e instalação **somente no simulador local**, para que a próxima
+abertura use o código atual sem depender do Metro. Não houve OTA, submit,
+TestFlight, App Store nem deploy de produção. Produção segue `off` e o iOS
+`1.3.1 (7)` permanece intocado. Os gates de lançamento que não pertencem a
+este recorte permanecem como registrados no snapshot anterior, sem nova
+alegação de validação aqui.
 
 ## Backlog preservado
 
