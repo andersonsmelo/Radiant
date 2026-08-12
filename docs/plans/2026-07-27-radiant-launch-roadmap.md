@@ -1231,9 +1231,9 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0 — INSTRUMENTO FECHADO EM 2026-08-10; FALTA UMA MEDIÇÃO CONCLUSIVA DE
-  COLD START]** Três das quatro pendências fecharam neste dia e a que resta não é
-  de código.
+- **H3 [P0 — COORTES EXECUTADAS EM 2026-08-12; VEREDITO `inconclusive` POR RUÍDO
+  DE HOST]** O gate mediu tudo o que promete medir e recusou-se a concluir sobre
+  a partida. O que resta não é de código: é uma janela de host silencioso.
 
   Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
   **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
@@ -1293,10 +1293,38 @@ entrega a fundação que aqueles itens passam a consumir.
   subiu de ~232 para ~580 ms — o ganho é simetria, não velocidade, e em produção o
   custo é ~0.
 
-  **Falta:** rodar as duas coortes de 20 em janela de host. Agora elas medem o kernel.
-  Seguem também sem evidência VoiceOver como serviço, TalkBack (exige Android),
-  aparelho físico de tela baixa, "segunda falha invalida o checkpoint" e ausência
-  de efeito duplicado após a retomada.
+  **As duas coortes rodaram em 2026-08-12** (run `run-1786575077447-6b656968`,
+  evidência
+  [`2026-08-12-h3-first-frame-cohorts.md`](../../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md)):
+  20+20 amostras, mesmo binário/aparelho/perfil, em sequência imediata, com o
+  runtime `active` provado por emissão real de `persistence`/`restoration` antes
+  da coleta. **Persistência p95 16,8 ms** (n=40, limite 75), **restauração p95
+  7,9 ms** (n=21, limite 100), Home→Lição **+10 ms** contra 771, e
+  `baseline_isolation` limpo. **Nenhum delta medido é positivo** — não há sinal de
+  regressão.
+
+  **O desfecho é `inconclusive`, e é o instrumento que não conclui, não o produto
+  que falha.** O piso de ruído do baseline deu 132,6 ms contra um teto de
+  117,1 ms (22,7% do p95). A causa está no artefato: durante a janela o macOS
+  cresceu o swap de 2048 MB para 4096 MB, com uso de 951 a 2944 MB, e a
+  degradação caiu sobre o **baseline**, que rodou na fase de crescimento. O
+  −72 ms do candidato é dispersão de quem rodou antes, não ganho.
+
+  **Achado que bloqueia qualquer verde futuro:** as duas coortes não medem a mesma
+  população. O flow de `active` lança o app duas vezes por amostra, então
+  `first_frame` sai n=42 contra n=20, e o relançamento é sistematicamente mais
+  rápido (p95 360,3 contra 522,8 do lançamento frio). Comparar frio com frio dá
+  −62,5 ms. Antes do próximo veredito, ou o gate compara só o lançamento frio dos
+  dois lados, ou o flow de `active` para de contribuir com o relançamento — é
+  mudança de desenho, **proposta e não executada**. O sinal sempre esteve no
+  relatório (`baselineCount`/`activeCount`); faltou lê-lo, e o piloto de 6+6 de
+  2026-08-10 era pequeno demais para denunciá-lo.
+
+  **Falta:** repetir as duas coortes em **host silencioso** (reinício para zerar o
+  swap, Metro pré-aquecido) — é a única saída de `inconclusive`, e depende de
+  janela do dono, não de código. Seguem também sem evidência VoiceOver como
+  serviço, TalkBack (exige Android), aparelho físico de tela baixa, "segunda falha
+  invalida o checkpoint" e ausência de efeito duplicado após a retomada.
 
   Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
   viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5

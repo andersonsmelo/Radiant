@@ -129,9 +129,13 @@ app. Run Loop: `run-1786314104218-908d111b`.
 
 ## AGENTE — Onda 4: runtime ativo somente interno
 
-**Estado:** coortes executadas em 2026-08-10 (20/20 + 20/20); persistência e
-restauração **conclusivas e dentro dos limites**; bloqueio P0 de acessibilidade
-**fechado com prova em aparelho**; delta de cold start **`inconclusive`**.
+**Estado (2026-08-12):** as coortes de `first_frame` — a métrica que gateia —
+foram executadas: 20/20, mesmo binário/aparelho/perfil, em sequência. Persistência
+(p95 16,8 ms) e restauração (p95 7,9 ms) **conclusivas e dentro dos limites**;
+Home→Lição +10 ms; `baseline_isolation` limpo; **nenhum delta positivo**. O
+veredito segue **`inconclusive`**, agora por ruído do host no baseline (piso
+132,6 ms contra teto 117,1 ms) e não por defeito de instrumento. Bloqueio P0 de
+acessibilidade **fechado com prova em aparelho** desde 2026-08-10.
 **Bloqueio:** um só, e o instrumento foi corrigido **três vezes** no mesmo dia —
 limiar consciente de ruído, desfecho `inconclusive`, e por fim a troca da métrica
 de partida para `first_frame`, que mede a janela onde o kernel de fato vive
@@ -207,7 +211,34 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    gate `baseline_isolation` reprova se um log de baseline carregar métrica de
    checkpoint. Emissor **9/9**, relatório **14/14**, cinco mutações provadas, sem
    dependência nova e **sem binário novo**;
-6. ⏳ **rodar as duas coortes com `first_frame`, e decidir sobre ~440 ms.** Um
+6. ⏳ **as duas coortes de `first_frame` RODARAM em 2026-08-12, e o desfecho é
+   `inconclusive`.** 20+20 amostras no mesmo binário, aparelho e perfil, em
+   sequência imediata, run `run-1786575077447-6b656968`. Evidência:
+   [`2026-08-12-h3-first-frame-cohorts.md`](../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md).
+   **Persistência p95 16,8 ms** (n=40, limite 75) e **restauração p95 7,9 ms**
+   (n=21, limite 100) passam com folga; Home→Lição **+10 ms** contra 771
+   permitidos; `baseline_isolation` limpo — o log de `off` carrega só a marca de
+   partida. **Nenhum delta medido é positivo**, isto é, não há sinal de regressão
+   em lugar nenhum.
+   O que impede o verde é o instrumento, não o produto: o piso de ruído do
+   baseline deu **132,6 ms contra um teto de 117,1 ms** (22,7% do p95), e o gate
+   recusa concluir quando a medida não tem resolução. A causa está registrada no
+   artefato — durante a janela o macOS **cresceu o swap de 2048 MB para 4096 MB**,
+   com uso indo de 951 a 2944 MB. A degradação caiu sobre o **baseline**, que
+   rodou na fase de crescimento, então o −72 ms do candidato **não é ganho**: é
+   dispersão de quem rodou antes. Remedir, não promover.
+   **Achado novo que bloqueia qualquer verde futuro:** as duas coortes não medem a
+   mesma população. O flow de `active` lança o app duas vezes por amostra (inicial
+   + relançamento da retomada), então `first_frame` sai **n=42 contra n=20**, e o
+   relançamento é sistematicamente mais rápido (p95 360,3 contra 522,8 do frio).
+   Antes do próximo veredito, ou o gate compara só o lançamento frio dos dois
+   lados, ou o flow de `active` para de contribuir com o relançamento. É mudança
+   de desenho do gate, proposta e **não** executada.
+   **Próximo passo, e ele é do dono:** repetir as duas coortes em host silencioso
+   — reinício para zerar o swap, Metro pré-aquecido. Nenhum trabalho de código
+   destrava isto.
+   *Registro do estado anterior deste item, preservado porque é a proveniência dos
+   números acima:* Um
    **piloto** de 6+6 amostras foi rodado em 2026-08-10 (`run-1786394347211-12be1d79`)
    e mudou a natureza da pendência. A instrumentação funciona nos dois modos, e o
    **kernel adiciona ~440 ms à partida** (mediana `off` 239,1 ms contra `active`

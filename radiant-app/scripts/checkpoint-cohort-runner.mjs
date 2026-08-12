@@ -57,18 +57,59 @@ export async function readHostTelemetry(run = executar) {
 // corrida foi), e a coorte falha fechada em vez de entregar amostra a menos,
 // porque 19 amostras reprovam como `insufficient-samples`, que le como "faltou
 // rodar" quando o que houve foi uma amostra que nunca converge.
-export async function runCohort({ root, samples, maxAttempts = 3, execute, onAttempt }) {
+// O limite por tentativa e o par obrigatorio da politica de retentativa, e ele
+// existe por medicao: em 2026-08-12 o maestro falhou, registrou a falha e NAO
+// saiu — dez minutos de processo vivo a 0% de CPU. Esperar o filho encerrar para
+// decidir se repete significa que uma ferramenta pendurada nunca chega a ser
+// repetida; a coorte para numa amostra, sem sinal de erro. O default e ~3x a
+// tentativa mais lenta observada (as amostras de `active` levaram ~2,5 min, com
+// dois lancamentos cada).
+const DEFAULT_ATTEMPT_TIMEOUT_MS = 600_000;
+
+const ESTOUROU = Symbol('tentativa-estourou');
+
+async function comLimite(promessa, attemptTimeoutMs) {
+  if (!Number.isFinite(attemptTimeoutMs) || attemptTimeoutMs <= 0) {
+    return { resultado: await promessa, estourou: false };
+  }
+  let timer;
+  const limite = new Promise((resolve) => {
+    timer = setTimeout(() => resolve(ESTOUROU), attemptTimeoutMs);
+  });
+  const vencedor = await Promise.race([promessa, limite]);
+  clearTimeout(timer);
+  return vencedor === ESTOUROU
+    ? { resultado: undefined, estourou: true }
+    : { resultado: vencedor, estourou: false };
+}
+
+export async function runCohort({
+  root,
+  samples,
+  maxAttempts = 3,
+  attemptTimeoutMs = DEFAULT_ATTEMPT_TIMEOUT_MS,
+  execute,
+  onAttempt,
+}) {
   const attempts = [];
   let retries = 0;
+  let timeouts = 0;
 
   for (let sampleIndex = 1; sampleIndex <= samples; sampleIndex += 1) {
     let ok = false;
     for (let attempt = 1; attempt <= maxAttempts && !ok; attempt += 1) {
       const directory = attemptDirectory(root, sampleIndex, attempt);
-      const resultado = await execute({ directory, sampleIndex, attempt });
-      ok = resultado?.ok === true;
-      attempts.push({ sampleIndex, attempt, directory, ok });
-      onAttempt?.({ sampleIndex, attempt, directory, ok });
+      const { resultado, estourou } = await comLimite(
+        Promise.resolve().then(() => execute({ directory, sampleIndex, attempt })),
+        attemptTimeoutMs,
+      );
+      ok = !estourou && resultado?.ok === true;
+      // Ferramenta pendurada e produto defeituoso pedem acoes opostas, entao o
+      // motivo entra no registro em vez de virar so mais uma retentativa.
+      const reason = estourou ? 'timeout' : (ok ? 'ok' : 'failed');
+      attempts.push({ sampleIndex, attempt, directory, ok, reason });
+      onAttempt?.({ sampleIndex, attempt, directory, ok, reason });
+      if (estourou) timeouts += 1;
       if (!ok) retries += 1;
     }
     if (!ok) {
@@ -78,7 +119,7 @@ export async function runCohort({ root, samples, maxAttempts = 3, execute, onAtt
     }
   }
 
-  return { root, samples, validSamples: samples, retries, attempts };
+  return { root, samples, validSamples: samples, retries, timeouts, attempts };
 }
 
 function readArgument(name) {
@@ -92,6 +133,7 @@ async function main() {
   const device = readArgument('--device');
   const samples = Number(readArgument('--samples') ?? 20);
   const maxAttempts = Number(readArgument('--max-attempts') ?? 3);
+  const attemptTimeoutMs = Number(readArgument('--attempt-timeout-ms') ?? DEFAULT_ATTEMPT_TIMEOUT_MS);
   if (!root || !flow) {
     throw new Error('uso: node scripts/checkpoint-cohort-runner.mjs --root <dir> --flow <yaml> [--device <udid>] [--samples 20]');
   }
@@ -103,27 +145,33 @@ async function main() {
     root,
     samples,
     maxAttempts,
+    attemptTimeoutMs,
     execute: async ({ directory }) => {
       await mkdir(directory, { recursive: true });
       const argumentos = device ? ['--device', device] : [];
       try {
+        // O limite tambem vai para o `execFile`: o `Promise.race` do orquestrador
+        // libera a coorte, mas so isto MATA o processo pendurado — sem ele o
+        // maestro fica vivo segurando o simulador da amostra seguinte.
         await executar('maestro', [...argumentos, 'test', flow, '--test-output-dir', directory], {
           maxBuffer: 64 * 1024 * 1024,
+          timeout: attemptTimeoutMs,
+          killSignal: 'SIGKILL',
         });
         return { ok: true };
       } catch {
         return { ok: false };
       }
     },
-    onAttempt: ({ sampleIndex, attempt, ok }) => {
-      process.stdout.write(`amostra ${sampleIndex} tentativa ${attempt}: ${ok ? 'ok' : 'repetir'}\n`);
+    onAttempt: ({ sampleIndex, attempt, ok, reason }) => {
+      process.stdout.write(`amostra ${sampleIndex} tentativa ${attempt}: ${ok ? 'ok' : reason}\n`);
     },
   });
 
   const fim = await readHostTelemetry();
-  const manifesto = { schemaVersion: 1, flow, device: device ?? null, host: { inicio, fim }, ...resultado };
+  const manifesto = { schemaVersion: 1, flow, device: device ?? null, attemptTimeoutMs, host: { inicio, fim }, ...resultado };
   await writeFile(path.join(root, 'cohort-manifest.json'), `${JSON.stringify(manifesto, null, 2)}\n`, 'utf8');
-  process.stdout.write(`coorte fechada: ${resultado.validSamples} amostras, ${resultado.retries} retentativas\n`);
+  process.stdout.write(`coorte fechada: ${resultado.validSamples} amostras, ${resultado.retries} retentativas, ${resultado.timeouts} estouros\n`);
 }
 
 if (process.argv[1] && process.argv[1].endsWith('checkpoint-cohort-runner.mjs')) {

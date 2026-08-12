@@ -100,6 +100,49 @@ coortes de 20 amostras de `first_frame` em janela de host e, depois, executar H4
 vidas. O handoff autocontido está em
 [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md).
 
+## H3 — coortes de `first_frame` executadas, veredito `inconclusive`
+
+Em 2026-08-12 as duas coortes do gate H3 rodaram com a métrica que gateia desde
+2026-08-10: 20+20 amostras, mesmo binário, aparelho e perfil, em sequência
+imediata. Evidência completa em
+[`2026-08-12-h3-first-frame-cohorts.md`](../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md);
+runs `run-1786569447281-441efcf9` (instrumento) e `run-1786575077447-6b656968`
+(medição e registro), ambos com 13 validadores e memória validada.
+
+| Gate | Desfecho | Números |
+| --- | --- | --- |
+| `persistence` | pass | p95 16,8 ms (n=40, limite 75) |
+| `restoration` | pass | p95 7,9 ms (n=21, limite 100) |
+| `home_to_lesson_delta` | pass | +10 ms contra 771 permitidos |
+| `baseline_isolation` | pass | nenhuma métrica de checkpoint no log de `off` |
+| `first_frame_delta` | **inconclusive** | delta −72 ms; ruído 132,6 ms contra teto 117,1 ms |
+
+**Nenhum delta medido é positivo** — não há sinal de regressão. O que impede o
+verde é o instrumento: durante a janela o macOS cresceu o swap de 2048 MB para
+4096 MB, e a degradação caiu sobre o baseline, alargando a dispersão de quem
+rodou primeiro. O gate recusa concluir quando a medida perde resolução, que é
+exatamente o comportamento desenhado em 2026-08-10 para impedir o passe vazio.
+
+Dois achados de instrumento entraram nesta passagem. O **coletor CDP passou a ser
+versionado** — a receita o descrevia em prosa e ele era reconstruído a cada
+sessão, o que fazia a medição parecer reprodutível sem ser. E o **controle
+positivo podia contaminar a coorte que ele autoriza**: a linha sintética
+reaparecia num arquivo posterior, reentregue pelo buffer do alvo, e como imitava
+`first_frame` com duração zero, deprimiria o p50 do baseline e inflaria o piso de
+ruído. Corrigido com uma métrica que o parser ignora por construção e um piso
+temporal.
+
+Fica registrado um bloqueio de comparabilidade **antes de qualquer verde futuro**:
+o flow de `active` lança o app duas vezes por amostra, então as duas coortes não
+medem a mesma população (n=42 contra n=20, com o relançamento sistematicamente
+mais rápido). A correção é mudança de desenho do gate e está **proposta, não
+executada**.
+
+**Próximo passo de H3 é do dono:** repetir as duas coortes em host silencioso,
+com reinício para zerar o swap. Nenhum trabalho de agente encurta isso. Seguem sem
+evidência VoiceOver, TalkBack, aparelho físico de tela baixa, a segunda falha do
+checkpoint e a ausência de efeito duplicado após a retomada.
+
 ## Operação e release
 
 Esta reconciliação não publicou OTA, submit, TestFlight, App Store ou alteração

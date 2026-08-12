@@ -489,7 +489,17 @@ node scripts/checkpoint-cohort-runner.mjs \
    impediu, em 2026-08-10, afirmar se era aquela corrida ou outra coisa;
 3. **falha fechada** quando uma amostra esgota as tentativas, em vez de entregar
    19: o relatório reprovaria por `insufficient-samples`, que lê como "faltou
-   rodar" quando o que houve foi uma amostra que nunca converge.
+   rodar" quando o que houve foi uma amostra que nunca converge;
+4. **limite por tentativa** (`--attempt-timeout-ms`, padrão 600 s). Entrou em
+   2026-08-12, medido: na amostra 13 da coorte `active` o maestro **falhou e não
+   saiu** — registrou a falha, começou a captura de diagnóstico e ficou dez
+   minutos com processo vivo a 0% de CPU. Toda política de retentativa carrega a
+   premissa não escrita de que a falha termina; ferramenta travada não falha, ela
+   ocupa o lugar do sucesso, e a coorte para numa amostra sem sinal de erro. O
+   limite vai nos dois lugares que importam: o `Promise.race` libera a coorte e o
+   `timeout` do `execFile` mata o processo pendurado. O manifesto registra o
+   motivo de cada tentativa (`ok`, `failed`, `timeout`), porque ferramenta travada
+   e produto defeituoso pedem ações opostas.
 
 Ele grava `cohort-manifest.json` na raiz da coorte com o número de retentativas
 e com `vm.swapusage`/`vm.loadavg` nas duas pontas — a deriva do host tem o mesmo
@@ -545,6 +555,26 @@ kernel sem medir essa fronteira levou a uma conclusão errada em 2026-08-10. Ela
 módulo (`await import()` do AsyncStorage servido como chunk HTTP pelo Metro), não
 trabalho do kernel. Num build sem Dev Client isso pode desaparecer, e essa medição
 ainda não foi feita.
+
+**As duas coortes NÃO medem a mesma população, e isso foi medido em 2026-08-12.**
+O flow de `active` lança o app **duas vezes** por amostra — o lançamento inicial e
+o relançamento que prova a retomada offline —, enquanto o baseline lança uma vez.
+Na primeira coorte cheia de `first_frame` isso deu **n=42 no candidato contra n=20
+no baseline**, e as duas metades do candidato têm distribuições diferentes: o
+lançamento frio ficou em p50 380,9 ms / p95 522,8 ms e o relançamento em p50
+288,3 ms / p95 360,3 ms. O relançamento é sistematicamente mais rápido, então
+misturá-lo **puxa o p95 do candidato para baixo** — comparar frio com frio dá
+−62,5 ms onde a agregação atual dá −72 ms.
+
+Naquele dia a assimetria não inverteu a conclusão, porque os dois cálculos davam
+delta negativo e o desfecho já era inconclusivo por ruído. Mas ela **invalida
+qualquer verde futuro**: comparar 20 lançamentos frios contra uma mistura de 21
+frios e 21 quentes não é medir a mesma coisa dos dois lados, e é a mesma classe de
+erro que já custou a troca de `cold_start` por `first_frame`. Antes do próximo
+veredito, ou o gate compara só o lançamento frio dos dois lados, ou o flow de
+`active` para de contribuir com o relançamento para esta métrica. **Enquanto isso
+não for decidido, leia `baselineCount` e `activeCount` antes de `outcome`** — eles
+sempre estiveram no relatório; em 2026-08-10 faltou lê-los, com um piloto de 6+6.
 
 **`first_frame` é o que gateia agora.** Mede do início da janela JS até o frame
 seguinte a `startupPhase` virar `ready` — que só acontece depois de `inspectLaunch`

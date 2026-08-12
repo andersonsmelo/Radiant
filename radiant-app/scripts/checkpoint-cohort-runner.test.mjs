@@ -89,6 +89,63 @@ test('runCohort registra a contagem de tentativas de cada amostra', async () => 
   assert.deepEqual(resultado.attempts.map((tentativa) => tentativa.attempt), [1, 2, 3]);
 });
 
+// Toda politica de retentativa carrega uma premissa nao escrita: que a falha
+// TERMINA. Medido em 2026-08-12, na coorte `active`: o maestro registrou a falha
+// no proprio log, comecou a captura de diagnostico e ficou dez minutos parado,
+// com processo vivo e 0% de CPU. Como o orquestrador espera o filho encerrar
+// para decidir se repete, a retentativa nunca foi consultada — a coorte inteira
+// parou numa amostra, sem sinal de erro. O timeout e o que torna a retentativa
+// alcancavel.
+test('runCohort trata a tentativa que nao termina como falha e repete', async () => {
+  const resultado = await runCohort({
+    root: 'raiz',
+    samples: 1,
+    maxAttempts: 3,
+    attemptTimeoutMs: 20,
+    execute: async ({ attempt }) => {
+      if (attempt === 1) return new Promise(() => {});
+      return { ok: true };
+    },
+  });
+
+  assert.equal(resultado.validSamples, 1);
+  assert.equal(resultado.retries, 1);
+  assert.equal(resultado.attempts[0].ok, false);
+  assert.equal(resultado.attempts[0].reason, 'timeout');
+});
+
+// Ferramenta pendurada e produto defeituoso pedem acoes opostas, entao o motivo
+// entra no registro: sem ele, o manifesto diz "repetiu" e nao diz por que.
+test('runCohort distingue o motivo de cada tentativa', async () => {
+  const resultado = await runCohort({
+    root: 'raiz',
+    samples: 1,
+    maxAttempts: 3,
+    attemptTimeoutMs: 50,
+    execute: async ({ attempt }) => (attempt === 1 ? { ok: false } : { ok: true }),
+  });
+
+  assert.deepEqual(resultado.attempts.map((t) => t.reason), ['failed', 'ok']);
+  assert.equal(resultado.timeouts, 0);
+});
+
+test('runCohort conta os estouros de tempo separadamente das falhas', async () => {
+  const resultado = await runCohort({
+    root: 'raiz',
+    samples: 1,
+    maxAttempts: 4,
+    attemptTimeoutMs: 20,
+    execute: async ({ attempt }) => {
+      if (attempt === 1) return new Promise(() => {});
+      if (attempt === 2) return { ok: false };
+      return { ok: true };
+    },
+  });
+
+  assert.equal(resultado.timeouts, 1);
+  assert.equal(resultado.retries, 2);
+});
+
 // A deriva do host tem o MESMO sinal do efeito procurado — o candidato roda
 // depois, logo mede pior —, entao ela e indistinguivel de regressao por qualquer
 // analise que so olhe os dois numeros. Registrar swap e load nas pontas de cada
