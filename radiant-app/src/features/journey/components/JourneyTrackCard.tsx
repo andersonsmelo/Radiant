@@ -33,7 +33,10 @@ function getTrackIcon(slug: string): MaterialIconName {
 }
 
 function getStateCopy(state: JourneyTrackState): string {
-  return state === 'active' ? 'Em andamento' : 'Pronta';
+  // "Pronta" e "catálogo pronto" descreviam a disponibilidade do CONTEÚDO, e o
+  // aluno lia como estado do PRÓPRIO progresso. O rótulo agora fala do que ele
+  // fez, que é a única coisa que a barra ao lado mede.
+  return state === 'active' ? 'Em andamento' : 'Não iniciada';
 }
 
 export function JourneyTrackCard({ track, lessonCount, progressPercent, state, onPress }: JourneyTrackCardProps) {
@@ -44,7 +47,7 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
       testID={`journey-track-${track.slug}`}
       onPress={() => onPress(track)}
       accessibilityRole="button"
-      accessibilityLabel={`${track.title}. ${lessonCount} lições. ${getStateCopy(state)}. ${isActive ? `${progressPercent}% concluída.` : 'Catálogo pronto.'}`}
+      accessibilityLabel={`${track.title}. ${lessonCount} lições. ${getStateCopy(state)}.${isActive ? ` ${progressPercent}% concluída.` : ''}`}
       accessibilityHint={isActive ? 'Abre o próximo passo elegível desta trilha.' : 'Troca para esta trilha e abre o próximo passo elegível.'}
       accessibilityState={{ selected: isActive }}
       style={({ pressed }) => [
@@ -71,15 +74,19 @@ export function JourneyTrackCard({ track, lessonCount, progressPercent, state, o
 
       <View style={styles.footer}>
         <Text style={styles.meta}>{lessonCount} lições</Text>
-        <Text style={styles.meta}>{isActive ? `${progressPercent}%` : 'catálogo pronto'}</Text>
+        <Text style={styles.meta}>{isActive ? `${progressPercent}%` : 'não iniciada'}</Text>
       </View>
 
       <View style={styles.progressTrack}>
         <View
+          testID={`journey-track-progress-${track.slug}`}
           style={[
             styles.progressFill,
-            { width: `${isActive ? Math.max(8, progressPercent) : 100}%` },
-            !isActive && styles.progressFillReady,
+            // A barra mede o progresso do aluno e nada mais. Antes ela recebia
+            // 100% para toda trilha não-ativa — verde cheio sobre conteúdo nunca
+            // aberto — e um piso de 8% que desenhava resto de barra ao lado do
+            // rótulo "0%".
+            { width: `${isActive ? progressPercent : 0}%` },
           ]}
         />
       </View>
@@ -128,10 +135,16 @@ const styles = StyleSheet.create({
     paddingVertical: space.s0,
   },
   badgeActive: {
-    backgroundColor: galaxy.statusInformation,
+    // Preenchimento translúcido, texto na cor cheia — o mesmo par de badgeReady.
+    // Antes o fundo usava `galaxy.statusInformation`, o MESMO token do texto:
+    // 1,00:1, uma pílula sólida sem glifo legível dentro.
+    backgroundColor: 'rgba(61,202,232,0.16)',
   },
   badgeReady: {
-    backgroundColor: 'rgba(93,227,174,0.16)',
+    // Neutro, não verde de sucesso: o selo diz que a trilha existe, não que
+    // ela foi concluída. Verde ao lado de uma barra vazia era a mesma afirmação
+    // falsa por outro canal.
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   badgeText: {
     ...typography.micro,
@@ -141,7 +154,7 @@ const styles = StyleSheet.create({
     color: galaxy.statusInformation,
   },
   badgeTextReady: {
-    color: galaxy.statusSuccess,
+    color: galaxyColors.textSecondary,
   },
   copy: {
     gap: space.s1,
@@ -173,8 +186,5 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 999,
     backgroundColor: galaxyColors.ctaGradientEnd,
-  },
-  progressFillReady: {
-    backgroundColor: galaxy.statusSuccess,
   },
 });

@@ -113,7 +113,18 @@ export const galaxyColors = {
   heartFull: '#FF3B30',
   heartEmpty: 'rgba(255, 255, 255, 0.20)',
   xpColor: '#F5A623',
-  streakColor: '#F5A623',
+  // XP e sequência são moedas distintas e o HUD as mostra lado a lado. Com o
+  // mesmo âmbar nas duas, a cor deixava de distinguir uma da outra.
+  streakColor: '#FF6B2C',
+  // Azul claro o bastante para sobreviver ao escuro: 7,11:1 sobre a barra,
+  // contra 3,56:1 do `#2155FF`. Azul saturado é uma cor ESCURA — quase todo o
+  // seu brilho vive no canal azul, que responde por 7,22% da luminância
+  // percebida. Este é o azul de estado ativo, foco e seleção; o `#2155FF`
+  // continua sendo superfície e CTA grande.
+  navBlue: '#4A9EFF',
+  tabBarSurface: 'rgba(10, 10, 30, 0.92)',
+  tabBarInactive: 'rgba(255, 255, 255, 0.5)',
+  shadowHard: '#000000',
   nodeCompleted: 'rgba(255, 255, 255, 0.03)',
   nodeLocked: 'rgba(255, 255, 255, 0.04)',
   ctaGradientStart: '#1535E8',

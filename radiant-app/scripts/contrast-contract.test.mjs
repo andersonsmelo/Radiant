@@ -144,6 +144,196 @@ test('os papéis de status do contexto light apontam para os cortes de texto', a
   }
 });
 
+// Medir token isolado não pega composição. Este contrato confirmava que
+// `galaxyColors.textTertiary` passa sobre superfícies galaxy — e passou verde
+// por seis execuções enquanto o selo da trilha ativa renderizava texto e fundo
+// com o MESMO token (`galaxy.statusInformation`), 1,00:1, invisível na tela.
+// A pergunta que o contrato não fazia é a única que importa: qual cor final
+// sobre qual superfície final.
+test('todo par de selo da prateleira de trilhas é legível sobre o próprio preenchimento', async () => {
+  const [card, semantic, theme] = await Promise.all([
+    readFile(path.join(appRoot, 'src/features/journey/components/JourneyTrackCard.tsx'), 'utf8'),
+    readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8'),
+    readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8'),
+  ]);
+
+  const readToken = (source, block, token) => {
+    const blockMatch = source.match(new RegExp(`${block}:\\s*\\{([\\s\\S]*?)\\n\\s{2}\\}`, 'u'))
+      ?? source.match(new RegExp(`export const ${block} = \\{([\\s\\S]*?)\\n\\} as const;`, 'u'));
+    assert.ok(blockMatch, `bloco ${block} não encontrado`);
+    // O valor pode ser `'rgba(255, 255, 255, 0.09)'`, que tem vírgulas dentro
+    // das aspas: cortar na primeira vírgula devolve lixo.
+    const tokenMatch = blockMatch[1].match(
+      new RegExp(`\\n\\s*${token}:\\s*('[^']*'|[A-Za-z_$][\\w.$]*)`, 'u'),
+    );
+    assert.ok(tokenMatch, `token ${block}.${token} não encontrado`);
+    return tokenMatch[1].trim();
+  };
+
+  // Resolve `galaxy.X`, `galaxyColors.X` ou literal até chegar numa cor.
+  const resolve = (expression) => {
+    let value = expression.trim();
+    for (let hop = 0; hop < 4; hop += 1) {
+      const quoted = value.match(/^'([^']+)'$/u);
+      if (quoted) return quoted[1];
+      const semanticRef = value.match(/^galaxy\.(\w+)$/u);
+      if (semanticRef) { value = readToken(semantic, 'galaxy', semanticRef[1]); continue; }
+      const themeRef = value.match(/^galaxyColors\.(\w+)$/u);
+      if (themeRef) { value = readToken(theme, 'galaxyColors', themeRef[1]); continue; }
+      break;
+    }
+    assert.fail(`não consegui resolver a cor a partir de "${expression}"`);
+  };
+
+  const readStyle = (name, property) => {
+    const styleMatch = card.match(new RegExp(`\\n\\s{2}${name}:\\s*\\{([\\s\\S]*?)\\n\\s{2}\\},`, 'u'));
+    assert.ok(styleMatch, `estilo ${name} não encontrado em JourneyTrackCard`);
+    const propMatch = styleMatch[1].match(
+      new RegExp(`${property}:\\s*('[^']*'|[A-Za-z_$][\\w.$]*)`, 'u'),
+    );
+    assert.ok(propMatch, `${name}.${property} não encontrado`);
+    return resolve(propMatch[1]);
+  };
+
+  const base = parseHex(readToken(theme, 'galaxyColors', 'background').replace(/'/gu, ''));
+  const cardSurface = parseColor(resolve('galaxyColors.surfaceActive'), base);
+
+  for (const [fill, text, rotulo] of [
+    ['badgeActive', 'badgeTextActive', 'trilha ativa'],
+    ['badgeReady', 'badgeTextReady', 'trilha disponível'],
+  ]) {
+    const background = parseColor(readStyle(fill, 'backgroundColor'), cardSurface);
+    const foreground = parseColor(readStyle(text, 'color'), background);
+    const ratio = contrastRatio(foreground, background);
+
+    // O selo é 12px em peso 800 — abaixo dos 14px que WCAG trata como texto
+    // grande, então vale o critério de texto normal.
+    assert.ok(
+      ratio >= MIN_NORMAL_TEXT,
+      `selo da ${rotulo}: ${styleNames(fill, text)} rende ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+  }
+});
+
+function styleNames(fill, text) {
+  return `${fill}.backgroundColor vs ${text}.color`;
+}
+
+// WCAG 2.1: elemento de interface não-textual e indicador de estado precisam de
+// 3:1 contra o que está em volta. Foco e estado ativo não são decoração — são a
+// única resposta a "onde eu estou".
+const MIN_NON_TEXT = 3;
+
+test('o indicador de foco do contexto galaxy é perceptível', async () => {
+  const [semantic, theme] = await Promise.all([
+    readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8'),
+    readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8'),
+  ]);
+
+  const galaxyBlock = semantic.match(/galaxy:\s*\{([\s\S]*?)\n\s{2}\}/u);
+  assert.ok(galaxyBlock, 'bloco galaxy não encontrado em semantic-colors.ts');
+  const focusRef = galaxyBlock[1].match(/\n\s*borderFocus:\s*('[^']*'|[A-Za-z_$][\w.$]*)/u);
+  assert.ok(focusRef, 'galaxy.borderFocus não encontrado');
+
+  // Recortado no bloco galaxy: `colors` declara `surface` e `background` antes,
+  // e uma busca no arquivo inteiro devolve a paleta CLARA sem avisar.
+  const galaxySource = theme.slice(theme.indexOf('export const galaxyColors'));
+  const readGalaxyToken = (token) => {
+    const match = galaxySource.match(new RegExp(`\\n\\s*${token}:\\s*'([^']+)'`, 'u'));
+    assert.ok(match, `galaxyColors.${token} não encontrado`);
+    return match[1];
+  };
+
+  const raw = focusRef[1].startsWith("'")
+    ? focusRef[1].slice(1, -1)
+    : readGalaxyToken(focusRef[1].replace('galaxyColors.', ''));
+
+  const background = parseHex(readGalaxyToken('background'));
+  const surface = parseColor(readGalaxyToken('surface'), background);
+  const focus = parseColor(raw, surface);
+  const ratio = contrastRatio(focus, surface);
+
+  // Antes: `galaxyColors.spine`, branco a 12% — abaixo do limiar de percepção.
+  // Quem navega por teclado não via onde estava, e não havia canal alternativo.
+  assert.ok(
+    ratio >= MIN_NON_TEXT,
+    `galaxy.borderFocus (${raw}) sobre a superfície: ${ratio.toFixed(2)}:1, exigido ${MIN_NON_TEXT}:1`,
+  );
+});
+
+test('a barra de abas usa token do tema e distingue de fato o estado ativo', async () => {
+  const [layout, theme] = await Promise.all([
+    readFile(path.join(appRoot, 'src/app/(tabs)/_layout.tsx'), 'utf8'),
+    readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8'),
+  ]);
+
+  // Uma paleta declarada dentro do arquivo de tela é como `#2155FF` — primário
+  // do tema CLARO — virou cor de aba ativa no tema escuro.
+  const literais = layout.match(/'#[0-9a-fA-F]{3,8}'/gu) ?? [];
+  assert.deepEqual(
+    literais,
+    [],
+    `a barra de abas declara cor literal: ${literais.join(', ')} — as cores vivem em galaxyColors`,
+  );
+
+  // Recortado no bloco galaxy: `colors` declara `surface` e `background` antes,
+  // e uma busca no arquivo inteiro devolve a paleta CLARA sem avisar.
+  const galaxySource = theme.slice(theme.indexOf('export const galaxyColors'));
+  const readGalaxyToken = (token) => {
+    const match = galaxySource.match(new RegExp(`\\n\\s*${token}:\\s*'([^']+)'`, 'u'));
+    assert.ok(match, `galaxyColors.${token} não encontrado`);
+    return match[1];
+  };
+
+  const activeRef = layout.match(/tabBarActiveTintColor:\s*(?:galaxyColors\.)?(\w+)/u);
+  assert.ok(activeRef, 'tabBarActiveTintColor não encontrado');
+
+  const base = parseHex(readGalaxyToken('background'));
+  const barra = parseColor(readGalaxyToken('tabBarSurface'), base);
+  const ativo = parseColor(readGalaxyToken(activeRef[1]), barra);
+  const ratio = contrastRatio(ativo, barra);
+
+  // O rótulo da aba tem 11px: critério de texto normal.
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `a cor de aba ativa rende ${ratio.toFixed(2)}:1 sobre a barra, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+
+  const inactiveRef = layout.match(/tabBarInactiveTintColor:\s*(?:galaxyColors\.)?(\w+)/u);
+  assert.ok(inactiveRef, 'tabBarInactiveTintColor não encontrado');
+  const inativo = parseColor(readGalaxyToken(inactiveRef[1]), barra);
+  const ratioInativo = contrastRatio(inativo, barra);
+
+  assert.ok(
+    ratioInativo >= MIN_NORMAL_TEXT,
+    `a cor de aba inativa rende ${ratioInativo.toFixed(2)}:1 sobre a barra, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+
+  // Legibilidade não basta: se ativo e inativo tiverem luminância parecida, os
+  // dois passam AA e mesmo assim não existe estado ativo. Era o caso — 3,56:1
+  // contra 3,14:1, diferença de 13%, e a aba selecionada não parecia selecionada.
+  const separacao = Math.max(ratio, ratioInativo) / Math.min(ratio, ratioInativo);
+  assert.ok(
+    separacao >= 1.3,
+    `ativo (${ratio.toFixed(2)}:1) e inativo (${ratioInativo.toFixed(2)}:1) são próximos demais: ` +
+      `${separacao.toFixed(2)}× de separação não produz estado ativo perceptível`,
+  );
+});
+
+test('as duas moedas da gamificação não compartilham a mesma cor', async () => {
+  const theme = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
+
+  const read = (token) => theme.match(new RegExp(`\\n\\s*${token}:\\s*'([^']+)'`, 'u'))?.[1];
+
+  // XP e sequência são moedas distintas e o HUD as exibe lado a lado. Pintadas
+  // do mesmo âmbar, a cor deixa de ser o segundo canal que distingue as duas.
+  assert.notEqual(
+    read('xpColor'),
+    read('streakColor'),
+    'xpColor e streakColor têm o mesmo valor — o HUD mostra duas moedas indistinguíveis',
+  );
+});
+
 test('existe uma única escala tipográfica e ela usa a fonte da marca', async () => {
   const source = await readFile(path.join(appRoot, 'src/ui/styles.ts'), 'utf8');
 

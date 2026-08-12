@@ -63,7 +63,10 @@ export const semanticColors = {
     textOnAccent: '#FFFFFF',
     textCritical: galaxyColors.critical,
     border: galaxyColors.border,
-    borderFocus: galaxyColors.spine,
+    // `spine` é branco a 12%: 1,39:1 sobre a superfície, abaixo do limiar de
+    // percepção. Quem navega por teclado não via onde estava, e o foco não tinha
+    // canal alternativo — nem contorno, nem fundo, nem escala.
+    borderFocus: galaxyColors.navBlue,
     borderDisabled: galaxyColors.disabled,
     actionPrimary: galaxyColors.ctaGradientStart,
     actionPrimaryPressed: galaxyColors.ctaPressed,
