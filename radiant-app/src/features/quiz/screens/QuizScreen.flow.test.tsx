@@ -90,9 +90,9 @@ jest.mock('../../../ui/characters/PixelIllustration', () => {
   const { Text, View } = require('react-native');
 
   return {
-    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
+    PixelIllustration: ({ expression }: { expression?: string }) => (
       <View>
-        <Text testID="quiz-feedback-expression">{expression}</Text>
+        <Text testID="quiz-feedback-expression">{expression ?? 'sem-expression'}</Text>
       </View>
     ),
   };
@@ -479,10 +479,32 @@ describe('QuizScreen flow', () => {
   it.each([
     ['returns null', () => jest.spyOn(PixelMood, 'resolve').mockResolvedValue(null)],
     ['rejects', () => jest.spyOn(PixelMood, 'resolve').mockRejectedValue(new Error('storage unavailable'))],
-  ])('keeps default feedback when PixelMood %s', async (_caseName, configureResolve) => {
-    // Mutação que esta assertiva pega: remover o fallback ?? no QuizFeedback ou
-    // o catch da resolução torna o retorno nulo/rejeitado capaz de quebrar o quiz.
-    configureResolve();
+  ])('keeps the correct fallback when PixelMood %s', async (_caseName, configureResolve) => {
+    // Mutação que esta assertiva pega: remover a integração inteira deixa
+    // resolve sem chamada; remover o fallback ?? deixa o leaf ver sem-expression.
+    const resolveSpy = configureResolve();
+    montarQuiz(lessonTresQuestoes);
+
+    for (const n of [1, 2, 3]) {
+      expect(await screen.findByText(`Pergunta ${n}?`)).toBeTruthy();
+      await responder(`Certa ${n}`);
+      if (n < 3) {
+        fireEvent.press(await screen.findByText('Próxima'));
+      }
+    }
+
+    expect(resolveSpy).toHaveBeenCalledWith('acertou-em-sequencia');
+    expect(screen.getByText('Correto!')).toBeTruthy();
+    expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('feliz');
+  });
+
+  it.each([
+    ['returns null', () => jest.spyOn(PixelMood, 'resolve').mockResolvedValue(null)],
+    ['rejects', () => jest.spyOn(PixelMood, 'resolve').mockRejectedValue(new Error('storage unavailable'))],
+  ])('keeps the incorrect fallback when PixelMood %s', async (_caseName, configureResolve) => {
+    // Mutação que esta assertiva pega: remover a integração inteira deixa
+    // resolve sem chamada; remover o fallback ?? deixa o leaf ver sem-expression.
+    const resolveSpy = configureResolve();
     montarQuiz(lessonTresQuestoes);
 
     for (const n of [1, 2]) {
@@ -493,6 +515,7 @@ describe('QuizScreen flow', () => {
       }
     }
 
+    expect(resolveSpy).toHaveBeenCalledWith('errou-duas-vezes');
     expect(screen.getByText('Incorreto')).toBeTruthy();
     expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
   });

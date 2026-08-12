@@ -200,9 +200,7 @@ function QuizSession({
       return;
     }
 
-    const moodGeneration = feedbackMoodGeneration.current + 1;
-    feedbackMoodGeneration.current = moodGeneration;
-    setFeedbackMood(null);
+    const moodGeneration = feedbackMoodGeneration.current;
 
     const isCorrect = answerIndex === currentQuestion.correctAnswerIndex;
     let moment: PixelMoment | null = null;
