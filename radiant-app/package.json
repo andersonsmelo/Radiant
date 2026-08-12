@@ -23,6 +23,9 @@
     "test:storybook-config": "node --test scripts/storybook-config.test.mjs",
     "test:maestro-contract": "node --test scripts/maestro-contract.test.mjs",
     "test:checkpoint-performance-report": "node --test scripts/checkpoint-performance-report.test.mjs",
+    "test:checkpoint-instrument": "node --test scripts/checkpoint-cdp-collector.test.mjs scripts/checkpoint-cohort-runner.test.mjs",
+    "checkpoint:collect": "node scripts/checkpoint-cdp-collector.mjs",
+    "checkpoint:cohort": "node scripts/checkpoint-cohort-runner.mjs",
     "test:reanimated-easing-contract": "node --test scripts/reanimated-easing-contract.test.mjs",
     "test:tab-bar-clearance-contract": "node --test scripts/tab-bar-clearance-contract.test.mjs",
     "test:contrast-contract": "node --test scripts/contrast-contract.test.mjs",
@@ -33,7 +36,7 @@
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
     "checkpoint:performance-report": "node scripts/checkpoint-performance-report.mjs",
-    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test -- --runInBand && npm run visual:qa:strict",
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test -- --runInBand && npm run visual:qa:strict",
     "storybook": "STORYBOOK_ENABLED=true expo start",
     "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
     "storybook:android": "STORYBOOK_ENABLED=true expo start --android"

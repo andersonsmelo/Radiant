@@ -469,17 +469,32 @@ início e no fim de cada coorte, dentro do artefato de evidência.
 Não comparar dois aparelhos, duas versões do sistema ou dois binários. Execute
 20 vezes cada coorte em diretórios separados, sem validar o Loop em paralelo:
 
-```sh
-for run in {01..20}; do
-  maestro test .maestro/student-checkpoint-performance-baseline.yaml \
-    --test-output-dir ".maestro/artifacts/h3/baseline/$run"
-done
+O orquestrador é versionado desde 2026-08-12 e implementa as três regras que o
+laço acima não tinha:
 
-for run in {01..20}; do
-  maestro test .maestro/student-checkpoint-active-resume.yaml \
-    --test-output-dir ".maestro/artifacts/h3/active/$run"
-done
+```sh
+node scripts/checkpoint-cohort-runner.mjs \
+  --root .maestro/artifacts/h3/baseline \
+  --flow .maestro/student-checkpoint-performance-baseline.yaml --samples 20
+
+node scripts/checkpoint-cohort-runner.mjs \
+  --root .maestro/artifacts/h3/active \
+  --flow .maestro/student-checkpoint-active-resume.yaml --samples 20
 ```
+
+1. **repete a execução que falhar**, porque a corrida do dev menu reincide no
+   meio de coorte quente e não só depois de `--clear`;
+2. **guarda cada tentativa em caminho próprio** (`<nn>/tentativa-<k>`), porque
+   sobrescrever a tentativa perdida apaga a assinatura da falha — foi o que
+   impediu, em 2026-08-10, afirmar se era aquela corrida ou outra coisa;
+3. **falha fechada** quando uma amostra esgota as tentativas, em vez de entregar
+   19: o relatório reprovaria por `insufficient-samples`, que lê como "faltou
+   rodar" quando o que houve foi uma amostra que nunca converge.
+
+Ele grava `cohort-manifest.json` na raiz da coorte com o número de retentativas
+e com `vm.swapusage`/`vm.loadavg` nas duas pontas — a deriva do host tem o mesmo
+sinal do efeito procurado, então sem esse registro ela é indistinguível de
+regressão.
 
 Cold start e Home→Lição vêm dos tempos de comando do próprio
 `commands.json`; isso mede a ponta a ponta. O app emite envelopes
@@ -547,18 +562,70 @@ um arquivo vazio, e o parser reportava isso como amostra insuficiente, que lê
 como "faltou rodar" em vez de "o canal está quebrado".
 
 Colete pelo inspector (CDP), que é onde o console realmente sai, filtrando pelo
-prefixo fechado para o arquivo não carregar nada além dos envelopes:
-`http://localhost:8081/json/list` devolve o alvo `Bridgeless`; conecte no
-`webSocketDebuggerUrl`, envie `Runtime.enable` e grave as linhas de
-`Runtime.consoleAPICalled` que contenham `RADIANT_CHECKPOINT_PERF ` em
-`.maestro/artifacts/h3/active/checkpoint-console.log`. O coletor precisa
-reconectar a cada `killApp`/`launchApp` do flow, porque o alvo cai junto.
+prefixo fechado para o arquivo não carregar nada além dos envelopes. **O coletor
+é versionado desde 2026-08-12** — antes disso esta seção descrevia o canal em
+prosa e o instrumento era reconstruído a cada sessão, o que fazia a medição
+parecer reprodutível sem ser: os artefatos sobrevivem, o instrumento não, e um
+coletor sutilmente diferente produz um número que ninguém consegue comparar com o
+anterior.
 
-**Antes de coletar, prove o canal com um controle positivo.** Injete uma linha
-sintética com o mesmo prefixo e confirme que ela aparece no arquivo que o parser
-vai ler; sem isso, ausência de amostra é ambígua entre emissor e canal, e a
-ambiguidade custou o diagnóstico inteiro de 2026-08-10. Descarte o arquivo de
-controle antes da coorte real.
+```sh
+node scripts/checkpoint-cdp-collector.mjs \
+  --output .maestro/artifacts/h3/active/checkpoint-console.log &
+```
+
+Ele resolve o alvo em `http://localhost:8081/json/list` **pelo rótulo, não pela
+posição** (o alvo depreciado também aceita conexão e devolve silêncio), envia
+`Runtime.enable`, grava as linhas de `Runtime.consoleAPICalled` que contenham o
+prefixo e **reconecta a cada `killApp`/`launchApp` do flow**, porque o alvo cai
+junto com o app.
+
+Ele tem **duas** defesas contra a reentrega do buffer, e elas cobrem coisas
+diferentes:
+
+1. **deduplicação por (instante, texto)** — contra a contaminação de 2026-08-10:
+   cada `Runtime.enable` reentrega o buffer do alvo, então sem ela a mesma
+   amostra é contada uma vez por reconexão. Deduplicar por texto sozinho
+   engoliria medida legítima, porque duas amostras da mesma métrica com a mesma
+   duração são normais numa coorte de 20;
+2. **piso temporal** — contra o que a deduplicação não alcança, porque ela é por
+   processo. Medido ao vivo em 2026-08-12: um coletor recém-criado recebeu, no
+   `Runtime.enable`, três envelopes **reais** com 110 s de idade, de um
+   lançamento que não pertencia à coorte. `timestamp` do
+   `Runtime.consoleAPICalled` é epoch em milissegundos, então o coletor descarta
+   o que foi emitido antes de ele existir. Não há perda: numa coorte ele sobe
+   antes do primeiro `launchApp`.
+
+O coletor **não** filtra por modo, de propósito: o gate `baseline_isolation`
+existe para reprovar métrica de checkpoint num log de baseline, e um coletor que
+a descartasse calaria o sinal em vez de deixá-lo reprovar.
+
+**Antes de coletar, prove o canal com um controle positivo.** Sem isso, ausência
+de amostra é ambígua entre emissor e canal, e a ambiguidade custou o diagnóstico
+inteiro de 2026-08-10.
+
+```sh
+node scripts/checkpoint-cdp-collector.mjs --control \
+  --output .maestro/artifacts/h3/controle.log
+```
+
+O modo `--control` injeta a linha pelo próprio canal e a grava no arquivo
+indicado; confirme que ela aparece.
+
+**A instrução anterior — "descarte o arquivo de controle" — não protegia, e isso
+foi medido em 2026-08-12.** A linha mora no buffer do alvo, não no arquivo: ela
+reapareceu no arquivo de um processo criado minutos depois, junto com envelopes
+reais de um lançamento anterior. E o controle antigo imitava `first_frame` com
+`durationMs: 0`, que é o pior valor possível — entraria na coorte, deprimiria o
+p50 do baseline e portanto **inflaria** o piso de ruído, produzindo exatamente o
+passe vazio que o gate existe para recusar. O instrumento desenhado para provar
+que a medição vale era o que podia invalidá-la sem deixar rastro.
+
+Por isso o controle usa `"metric":"positive-control"`: o coletor o grava, porque
+filtra só pelo prefixo, e o parser do relatório o ignora, porque a métrica não
+está na lista dele. As duas metades são afirmadas por um teste que atravessa os
+dois módulos. O arquivo de controle continua morando fora dos diretórios das
+coortes, mas isso agora é higiene, não a defesa.
 
 Gere o relatório falha-fechada:
 
