@@ -373,17 +373,23 @@ build/OTA de produção e publicação continuam fora desta onda.
 
 ## AGENTE — Task 12 educacional: checkpoint e reforço adaptativo
 
-**Estado:** pendente depois das Ondas 2–4 (fundação, shadow e runtime interno).
-**Bloqueio:** dependência arquitetural deliberada; não é decisão do dono.
+**Estado:** parcial — domínio e passagem pelo kernel concluídos em 2026-08-13.
+**Bloqueio:** falta conteúdo curricular v2 aprovado; não é decisão do dono nem
+autorização para inventar itens pedagógicos.
 **Dono:** agente.
 
-O `UnitCheckpointService` continua definido: aprovação com pelo menos 80% e
-zero erro crítico, reforço somente das competências frágeis, versão do lote e
-desbloqueio independente de XP. Ele será integrado pelo commit recuperável,
-sem criar uma segunda transação dentro da tela.
+`UnitCheckpointService` calcula tentativa imutável, plano e intent: aprovação com
+pelo menos 80% e zero erro crítico, reforço somente de competências frágeis e
+desbloqueio independente de XP. O runtime ativo encaminha o intent pelo
+`CheckpointCoordinator` ao commit recuperável, sem segunda transação na tela.
+Conteúdo `legacy` e `competency:legacy:*` falham fechado.
 
 `support-required` só ocorre depois de tentativa inicial reprovada, ciclo 1,
 nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
+
+Próxima ação: promover checkpoint e reforços curriculares v2 revisados, conectá-los
+à tela e comprovar recuperação e acessibilidade da experiência; só então marcar H4
+como concluída e retomar G3.
 
 ---
 

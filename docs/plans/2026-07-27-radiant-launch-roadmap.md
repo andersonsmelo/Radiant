@@ -1179,9 +1179,10 @@ Em 2026-08-09 a revisão do workflow do aluno aprovou um plano transversal:
 [`design`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)
 e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
 A governança, a fundação isolada em `off`, os adaptadores nas 12 superfícies em
-`shadow` e a implementação local da retomada `active` interna foram entregues.
-O gate de build/aparelho/perfil da retomada, a Task 12 educacional de checkpoint,
-o painel e o sync continuam pendentes.
+`shadow` e a implementação local da retomada `active` interna foram entregues. O
+gate de build/aparelho/perfil da retomada foi encerrado pelo dono; a Task 12
+educacional tem domínio/kernel entregue, mas o seu gate de superfície v2, o painel
+e o sync continuam pendentes.
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
@@ -1373,8 +1374,12 @@ entrega a fundação que aqueles itens passam a consumir.
   Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
   kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
   posteriores estão reconciliados na seção H3 acima.
-- **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
-  kernel; depois devolver a sequência a G3/G4.
+- **H4 [P0 — PARCIAL EM 2026-08-13]** O domínio de checkpoint/reforço e a
+  passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
+  inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
+  apenas no terceiro insucesso e falha fechada para legado. Falta promover conteúdo
+  v2 revisado, conectá-lo à tela e provar a experiência real antes de devolver a
+  sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

@@ -2,13 +2,15 @@
 
 Este documento **substitui
 [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md)** como estado
-canônico. Ele cobre duas passagens: a **visual**, concluída em 2026-08-12, e a de
-**H3**, encerrada por aceitação explícita do dono em 2026-08-13. Não promove nenhum
-gate de release nem substitui evidência em aparelho.
+canônico. Ele cobre três passagens: a **visual**, concluída em 2026-08-12, a de
+**H3**, encerrada por aceitação explícita do dono em 2026-08-13, e a fundação de
+domínio/kernel da **H4**. Não promove nenhum gate de release nem substitui
+evidência em aparelho.
 
 Em uma frase: a passagem visual está fechada e verificada; H3 não encontrou
 regressão nos gates medidos e foi encerrada pelo dono sem reclassificar a medição
-histórica `inconclusive` como aprovação estatística.
+histórica `inconclusive` como aprovação estatística; H4 tem o contrato executável,
+mas não uma superfície pedagógica publicada.
 
 ## Sistema de produto e design confirmado
 
@@ -98,11 +100,11 @@ e **Radiant API Quality**
 ([run 31634995737](https://github.com/andersonsmelo/Radiant/actions/runs/31634995737)).
 Isso comprova integração e qualidade no GitHub; não equivale a publicação.
 
-Todos os pontos visuais decididos nesta passagem estão concluídos. A próxima
-pendência de engenharia não é um refinamento da Home: é fechar H3 com duas
-coortes de 20 amostras de `first_frame` em janela de host e, depois, executar H4
-(Task 12 educacional). Só então G3 retoma a retirada do bloqueio de lições por
-vidas. O handoff autocontido está em
+Todos os pontos visuais decididos nesta passagem estão concluídos. H3 foi
+encerrada pelo dono e H4 agora tem domínio e integração recuperável; o seu gate
+pedagógico continua aguardando conteúdo v2 aprovado para expor checkpoint e
+reforços reais. Só depois desse fechamento G3 retoma a retirada do bloqueio de
+lições por vidas. O handoff autocontido está em
 [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md).
 
 ## H3 — encerrada por aceitação do dono; coorte histórica `inconclusive`
@@ -169,6 +171,31 @@ os fluxos limpos não produzem. O resultado `inconclusive` da coorte histórica 
 preservado como proveniência e **não** vira `pass`; o encerramento é operacional do
 dono, não promoção de performance nem autorização de produção. Decisão em
 [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
+
+## H4 — domínio e kernel entregues; gate pedagógico ainda aberto
+
+`UnitCheckpointService` agora produz `CheckpointAttemptV1`,
+`ReinforcementPlanV1` e o `UnitCheckpointAttemptIntentV1` já aceito pelo
+`CommitCoordinator`. A nota tem peso igual por item, 80% inclusivo, pulado como
+incorreto e erro crítico não compensável. Dica não cria recuperação independente;
+competência com dica, erro, item pulado ou erro crítico continua frágil para fins
+de reforço.
+
+O ciclo é estrito e determinístico: falha inicial gera explicação causal + prática
+guiada; depois de esse plano estar concluído, nova falha gera modalidade diferente
+e aplicação independente + variante equivalente; somente a terceira falha após os
+dois ciclos chega a `support-required`. O intent define desbloqueio apenas por
+`passed`, nunca por XP, e o runtime ativo encaminha o intent pelo
+`CheckpointCoordinator` ao commit recuperável. O serviço falha fechado para
+`legacy` e para competências `competency:legacy:*`; portanto o catálogo atual não
+ganha recomendação nem promoção por acidente.
+
+Evidência local: 7 testes do novo domínio e 10 do runtime (17 no total),
+`npm run typecheck` e `npm run lint` sem erros. Os avisos do lint são preexistentes
+e não pertencem a H4. Este marco **não fecha a Onda 5**: ainda falta promover um
+checkpoint curricular v2 e seus dois conjuntos de atividades, conectá-los à tela
+e executar a validação de acessibilidade/recuperação da experiência real. Não houve
+OTA, build, publicação ou mudança da versão `1.3.1 (7)`.
 
 ## Operação e release
 

@@ -1,6 +1,9 @@
-import type { CheckpointSurface, StudentCheckpointMode } from './contracts';
+import type { CheckpointSurface, CommitIntentV1, StudentCheckpointMode } from './contracts';
+import { AuthorityStore } from './AuthorityStore';
 import { CheckpointCoordinator } from './CheckpointCoordinator';
 import { CheckpointStore } from './CheckpointStore';
+import { CommitCoordinator } from './CommitCoordinator';
+import { OutboxStore } from './OutboxStore';
 import { resolveStudentCheckpointMode } from './mode';
 import {
     SCREEN_CHECKPOINT_ADAPTERS,
@@ -69,7 +72,7 @@ export type ActiveCheckpointStartResult =
 type RuntimeDependencies = {
     mode: unknown;
     store: Pick<CheckpointStore, 'getCheckpointById' | 'getGlobalResumeCandidate'>;
-    coordinator: Pick<CheckpointCoordinator, 'enter' | 'progress' | 'leave' | 'restoreCandidate'>;
+    coordinator: Pick<CheckpointCoordinator, 'enter' | 'progress' | 'leave' | 'restoreCandidate' | 'commit'>;
     now: () => string;
     id: () => string;
     performance?: { measure<T>(metric: CheckpointPerformanceMetric, task: () => Promise<T>): Promise<T> };
@@ -242,6 +245,17 @@ export class ActiveCheckpointRuntime {
         }
     }
 
+    async commit(handle: ActiveCheckpointHandle, intent: CommitIntentV1) {
+        if (this.mode !== 'active') return { status: 'off' as const, operation: null };
+        if (handle.checkpointId !== intent.checkpointId
+            || handle.flowId !== intent.flowId
+            || handle.contentVersion !== intent.contentVersion
+            || handle.surface !== intent.surface) {
+            throw new Error('checkpoint-intent-mismatch');
+        }
+        return this.dependencies.coordinator.commit(intent);
+    }
+
     async finish(handle: ActiveCheckpointHandle): Promise<void> {
         if (this.mode !== 'active') return;
         try {
@@ -261,11 +275,22 @@ export function getNativeActiveCheckpointRuntime(mode: StudentCheckpointMode): A
         let sequence = 0;
         const id = () => `checkpoint-active-${Date.now()}-${++sequence}`;
         const store = CheckpointStore.active(asyncStorageKeyValueStorage, now);
+        const mandatorySteps = ['attempt', 'evidence', 'mastery', 'review', 'xp', 'goal', 'journey'] as const;
+        const authorities = Object.fromEntries(mandatorySteps.map((step) => [
+            step,
+            new AuthorityStore(asyncStorageKeyValueStorage, step, now),
+        ])) as ConstructorParameters<typeof CommitCoordinator>[0]['authorities'];
+        const commitCoordinator = new CommitCoordinator({
+            checkpointStore: store,
+            authorities,
+            outbox: new OutboxStore(asyncStorageKeyValueStorage, now),
+            now,
+        });
         const coordinator = new CheckpointCoordinator({
             mode,
             store,
             activeSurfaces: [...ACTIVE_CHECKPOINT_SURFACES],
-            commitCoordinator: { commit: async () => { throw new Error('commit-runtime-not-connected'); } },
+            commitCoordinator,
             now,
             id,
         });

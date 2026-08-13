@@ -27,7 +27,7 @@ type RestoreInput = {
     cursorIds: string[];
 };
 
-type CommitStatus =
+export type CommitStatus =
     | { status: 'off'; operation: null }
     | { status: 'shadow-recorded'; operation: null }
     | { status: 'committed'; operation: CommitOperationV1 };

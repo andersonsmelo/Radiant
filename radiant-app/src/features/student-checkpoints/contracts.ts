@@ -31,6 +31,13 @@ export type EvidenceOutcome = 'correct' | 'incorrect' | 'skipped';
 export type EvidenceDurationBucket = 'unknown' | 'under-10s' | '10-30s' | '30-60s' | 'over-60s';
 export type ReviewRating = 'review-later' | 'correct';
 export type ResultingSupportState = 'none' | 'cycle-1-required' | 'cycle-2-required' | 'support-required';
+export type CurriculumKind = 'legacy' | 'v2';
+export type ReinforcementActivityKind =
+    | 'causal-explanation'
+    | 'guided-practice'
+    | 'different-modality'
+    | 'independent-application'
+    | 'equivalent-checkpoint-variant';
 
 export type MandatoryStep = 'attempt' | 'evidence' | 'mastery' | 'review' | 'xp' | 'goal' | 'journey';
 export type MandatoryState = 'not-started' | 'in-progress' | 'paused-retry-limit' | 'completed' | 'cancelled-before-effects';
@@ -88,6 +95,38 @@ export type ItemOutcomeV1 = {
     hintUsed: boolean;
     durationBucket: EvidenceDurationBucket;
 };
+
+export type CheckpointAttemptV1 = Readonly<{
+    schemaVersion: 1;
+    attemptId: string;
+    checkpointDefinitionId: string;
+    unitId: string;
+    journeyNodeId: string;
+    contentVersion: string;
+    itemOutcomes: readonly ItemOutcomeV1[];
+    totalItemCount: number;
+    correctItemCount: number;
+    criticalErrorCount: number;
+    skippedItemCount: number;
+    scoreBasisPoints: number;
+    passed: boolean;
+    weakCompetencyIds: readonly string[];
+    sourceAttemptId: string | null;
+    reinforcementCycle: 0 | 1 | 2;
+    resultingSupportState: ResultingSupportState;
+    committedAt: string;
+}>;
+
+export type ReinforcementPlanV1 = Readonly<{
+    schemaVersion: 1;
+    reinforcementPlanId: string;
+    checkpointDefinitionId: string;
+    unitId: string;
+    sourceAttemptId: string;
+    reinforcementCycle: 1 | 2;
+    competencyIds: readonly string[];
+    requiredActivities: readonly ReinforcementActivityKind[];
+}>;
 
 export type AttemptConfirmedSyncEventV1 = {
     schemaVersion: 1;

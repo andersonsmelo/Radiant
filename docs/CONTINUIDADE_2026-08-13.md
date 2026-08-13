@@ -43,6 +43,12 @@ Estado verificado no handoff:
   (idempotência). Runs Loop: run-1786569447281-441efcf9,
   run-1786575077447-6b656968 e run-1786622015450-e1943354, todos com 13
   validadores e memória validada;
+- H4 iniciou pelo contrato sem inventar conteúdo: `UnitCheckpointService` calcula
+  a tentativa imutável, os dois ciclos de reforço e o intent que o runtime entrega
+  ao `CommitCoordinator`; 17 testes focados, typecheck e lint sem erros. O serviço
+  falha fechado para currículo/competências legadas e desbloqueia somente por
+  aprovação, nunca por XP. A tela não mudou porque ainda não há checkpoint v2
+  aprovado para apresentar;
 - nenhum OTA, TestFlight, App Store, submit ou bump de versão foi feito.
   Produção segue off; iOS continua 1.3.1 (7).
 
@@ -53,7 +59,10 @@ Próxima pendência real, na ordem canônica:
    fornecida, portanto a primeira coorte fica registrada como `inconclusive`, sem
    ser reclassificada como `pass` e sem liberar produção. A decisão está em
    [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
-2. Executar H4/Task 12 educacional de checkpoint e reforço.
+2. Fechar o gate restante de H4: promover checkpoint/reforços curriculares v2
+   revisados, conectá-los à tela e validar recuperação e acessibilidade sem criar
+   conteúdo clínico artificial. O domínio/kernel já estão prontos; o legado falha
+   fechado.
 3. Depois de H4, retomar G3 para remover o bloqueio de lições por vidas. A
    projeção canônica da Galáxia já está pronta; não a refaça.
 

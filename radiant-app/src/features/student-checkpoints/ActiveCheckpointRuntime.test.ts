@@ -2,7 +2,7 @@ import { ActiveCheckpointRuntime } from './ActiveCheckpointRuntime';
 import { CheckpointCoordinator } from './CheckpointCoordinator';
 import { CheckpointStore } from './CheckpointStore';
 import { MemoryKeyValueStorage } from './storage';
-import { checkpoint, FIXED_NOW } from './testFixtures';
+import { checkpoint, FIXED_NOW, unitCheckpointIntent } from './testFixtures';
 
 const lessonBinding = {
     surface: 'lesson' as const,
@@ -20,17 +20,19 @@ const lessonBinding = {
 function runtime(mode: unknown = 'active') {
     const storage = new MemoryKeyValueStorage();
     const store = CheckpointStore.active(storage, () => FIXED_NOW);
+    const commit = jest.fn().mockResolvedValue({ operation: { mandatoryState: 'completed' } });
     const coordinator = new CheckpointCoordinator({
         mode,
         store,
         activeSurfaces: ['first-run', 'lesson', 'review', 'unit-checkpoint'],
-        commitCoordinator: { commit: jest.fn() } as never,
+        commitCoordinator: { commit } as never,
         now: () => FIXED_NOW,
         id: () => 'generated',
     });
     return {
         storage,
         store,
+        commit,
         runtime: new ActiveCheckpointRuntime({ mode, store, coordinator, now: () => FIXED_NOW, id: () => 'generated' }),
     };
 }
@@ -188,6 +190,34 @@ describe('ActiveCheckpointRuntime', () => {
 
         expect((await subject.store.getCheckpointById('generated'))?.phase).toBe('superseded');
         expect(await subject.store.getGlobalResumeCandidate()).toBeNull();
+    });
+
+    it('commits a unit checkpoint intent through the recoverable coordinator', async () => {
+        const subject = runtime();
+        const started = await subject.runtime.start({
+            surface: 'unit-checkpoint',
+            flowId: 'flow-unit',
+            contentVersion: 'content-v2',
+            cursorId: 'checkpoint-overview',
+            compatibleCursorIds: ['checkpoint-overview', 'checkpoint-summary'],
+            progressPercent: 100,
+            completedStepCount: 1,
+            totalStepCount: 1,
+            checkpointDefinitionId: 'checkpoint-definition-1',
+            journeyNodeId: 'node-unit-1',
+            unitId: 'unit-1',
+        });
+        if (!started.handle) throw new Error('expected-active-handle');
+        const intent = {
+            ...unitCheckpointIntent(),
+            checkpointId: started.handle.checkpointId,
+            flowId: started.handle.flowId,
+            contentVersion: started.handle.contentVersion,
+        };
+
+        await expect(subject.runtime.commit(started.handle, intent)).resolves.toMatchObject({ status: 'committed' });
+        expect(subject.commit).toHaveBeenCalledWith(intent);
+        expect((await subject.store.getCheckpointById(started.handle.checkpointId))?.phase).toBe('committed');
     });
 
     it('resumes only the explicitly offered compatible checkpoint', async () => {

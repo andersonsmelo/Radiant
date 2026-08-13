@@ -11,6 +11,7 @@ export * from './ScreenCheckpointAdapters';
 export * from './schemas';
 export * from './ShadowCheckpointObserver';
 export * from './storage';
+export * from './UnitCheckpointService';
 export { useShadowCheckpoint } from './useShadowCheckpoint';
 export type { ShadowCheckpointHookBinding } from './useShadowCheckpoint';
 export { useActiveCheckpoint } from './useActiveCheckpoint';
