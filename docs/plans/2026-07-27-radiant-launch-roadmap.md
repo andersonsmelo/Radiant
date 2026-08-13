@@ -1377,9 +1377,21 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H4 [P0 — PARCIAL EM 2026-08-13]** O domínio de checkpoint/reforço e a
   passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
   inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
-  apenas no terceiro insucesso e falha fechada para legado. Falta promover conteúdo
-  v2 revisado, conectá-lo à tela e provar a experiência real antes de devolver a
-  sequência a G3/G4.
+  apenas no terceiro insucesso e falha fechada para legado. Um candidato textual
+  da unidade `unit:materia-energia-e-radiacao`, produzido sem mídia de terceiros e
+  baseado em páginas específicas que declaram CC BY 4.0, foi preservado em
+  `docs/content/2026-08-13-h4-materia-energia-e-radiacao-candidato.md`; ele não é
+  lote nem aprovação. Sua adaptação estruturada independente para `LearningActivityV2`
+  está coberta por contrato local, incluindo guarda contra gabarito posicional;
+  a revisão documental posterior também separa proveniência de afirmações
+  `source-backed` e distratores autorais, limita o escopo de segurança e registra
+  a ponte detector–contraste na fonte S8. A revisão profissional final de
+  2026-08-13 aprovou o candidato para integração no repositório e o dono autorizou
+  commit/push; não se exige nova rodada editorial sem mudança material. Ainda
+  falta implementação, não parecer sobre o mesmo texto: o schema/painel de
+  `ProductionBatchV1`, os seis gates humanos, promoção atômica, conexão à tela e
+  prova da experiência real
+  antes de devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.
