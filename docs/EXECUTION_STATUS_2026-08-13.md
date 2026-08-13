@@ -137,11 +137,14 @@ reaparecia num arquivo posterior, reentregue pelo buffer do alvo, e como imitava
 ruído. Corrigido com uma métrica que o parser ignora por construção e um piso
 temporal.
 
-Fica registrado um bloqueio de comparabilidade **antes de qualquer verde futuro**:
-o flow de `active` lança o app duas vezes por amostra, então as duas coortes não
-medem a mesma população (n=42 contra n=20, com o relançamento sistematicamente
-mais rápido). A correção é mudança de desenho do gate e está **proposta, não
-executada**.
+O bloqueio de comparabilidade encontrado nesta coorte foi **corrigido em
+2026-08-13**: o flow de `active` continua com dois lançamentos, mas cada
+`first_frame` agora carrega fase explícita. O gate compara somente os 20
+lançamentos `cold` de cada lado e exige também 20 `resume` no active como prova de
+retomada; qualquer população incompleta, extra ou sem fase fica `inconclusive`.
+Isso elimina a mistura histórica de n=42 contra n=20 sem retirar a evidência de
+recovery. Decisão em
+[`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
 
 **Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
 `run-1786622015450-e1943354`, evidência

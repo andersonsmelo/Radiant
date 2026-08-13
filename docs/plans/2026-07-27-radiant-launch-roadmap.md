@@ -1233,7 +1233,8 @@ entrega a fundação que aqueles itens passam a consumir.
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
 - **H3 [P0 — COORTES EXECUTADAS EM 2026-08-12; VEREDITO `inconclusive` POR RUÍDO
   DE HOST]** O gate mediu tudo o que promete medir e recusou-se a concluir sobre
-  a partida. O que resta não é de código: é uma janela de host silencioso.
+  a partida. A comparabilidade de população foi corrigida em 2026-08-13; restam
+  a janela de host silencioso, evidências humanas e a decisão sobre a segunda falha.
 
   Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
   **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
@@ -1310,15 +1311,13 @@ entrega a fundação que aqueles itens passam a consumir.
   degradação caiu sobre o **baseline**, que rodou na fase de crescimento. O
   −72 ms do candidato é dispersão de quem rodou antes, não ganho.
 
-  **Achado que bloqueia qualquer verde futuro:** as duas coortes não medem a mesma
-  população. O flow de `active` lança o app duas vezes por amostra, então
-  `first_frame` sai n=42 contra n=20, e o relançamento é sistematicamente mais
-  rápido (p95 360,3 contra 522,8 do lançamento frio). Comparar frio com frio dá
-  −62,5 ms. Antes do próximo veredito, ou o gate compara só o lançamento frio dos
-  dois lados, ou o flow de `active` para de contribuir com o relançamento — é
-  mudança de desenho, **proposta e não executada**. O sinal sempre esteve no
-  relatório (`baselineCount`/`activeCount`); faltou lê-lo, e o piloto de 6+6 de
-  2026-08-10 era pequeno demais para denunciá-lo.
+  **Achado de comparabilidade, corrigido em 2026-08-13:** o flow de `active` lança
+  o app duas vezes, e o relançamento é mais rápido (p95 360,3 contra 522,8 ms do
+  frio). `first_frame` agora traz `launchPhase: cold|resume`; o gate compara apenas
+  os 20 `cold` dos dois lados e exige 20 `resume` no active como prova separada de
+  recuperação. Ausência, excesso ou envelope sem fase é `inconclusive`, não um
+  verde inferido pela ordem do log. Decisão em
+  [`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](../adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
 
   **Falta:** repetir as duas coortes em **host silencioso** (reinício para zerar o
   swap, Metro pré-aquecido) — é a única saída de `inconclusive`, e depende de

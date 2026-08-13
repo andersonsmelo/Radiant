@@ -31,9 +31,18 @@ function coortePorPercentis({ p50, p95, tail = p95 + 50 }) {
 // gate reprova por amostra insuficiente com razao.
 function firstFrameLogs(baselineMs, activeMs, count = 20) {
   return {
-    baselineLog: lines('first_frame', 'off', Array(count).fill(baselineMs)),
-    activeLog: lines('first_frame', 'active', Array(count).fill(activeMs)),
+    baselineLog: phasedFirstFrameLines('off', 'cold', Array(count).fill(baselineMs)),
+    activeLog: [
+      phasedFirstFrameLines('active', 'cold', Array(count).fill(activeMs)),
+      phasedFirstFrameLines('active', 'resume', Array(count).fill(activeMs / 2)),
+    ].join('\n'),
   };
+}
+
+function phasedFirstFrameLines(mode, launchPhase, values) {
+  return values.map((durationMs) => (
+    `LOG ${prefix}${JSON.stringify({ schemaVersion: 2, metric: 'first_frame', mode, launchPhase, durationMs })}`
+  )).join('\n');
 }
 
 function commandRun(coldStartMs, homeToLessonMs) {
@@ -96,6 +105,55 @@ test('uses nearest-rank p95 and closes all four gates with twenty samples', () =
   assert.equal(report.gates.home_to_lesson_delta.passed, true);
   assert.equal(report.passed, true);
   assert.equal(report.outcome, 'pass');
+});
+
+// A coorte active relança o app para provar retomada offline. O segundo launch
+// e legitimamente mais rápido, mas não pertence à mesma população da partida
+// fria do baseline. Misturá-lo faria o p95 do candidato parecer melhor sem que
+// o kernel fosse mais rápido. Esta guarda deve falhar se o relatório voltar a
+// aceitar envelopes sem proveniência ou a agregar `resume` em `cold`.
+test('uses only cold first frames for the delta while requiring one resume per active sample', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeLog = [
+    lines('persistence', 'active', Array(20).fill(10)),
+    lines('restoration', 'active', Array(20).fill(10)),
+    phasedFirstFrameLines('active', 'cold', Array(20).fill(820)),
+    phasedFirstFrameLines('active', 'resume', Array(20).fill(400)),
+  ].join('\n');
+
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog,
+    baselineLog: phasedFirstFrameLines('off', 'cold', Array(20).fill(800)),
+  });
+
+  assert.equal(report.summary.active.first_frame.count, 20);
+  assert.equal(report.summary.active.first_frame.p95Ms, 820);
+  assert.equal(report.gates.first_frame_population.outcome, 'pass');
+  assert.equal(report.gates.first_frame_delta.deltaMs, 20);
+  assert.equal(report.gates.first_frame_delta.outcome, 'pass');
+});
+
+test('fails closed when an active cold cohort has no matching recovery provenance', () => {
+  const baselineCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const activeCommandRuns = Array.from({ length: 20 }, () => commandRun(3000, 200));
+  const report = buildCheckpointPerformanceReport({
+    baselineCommandRuns,
+    activeCommandRuns,
+    activeLog: [
+      lines('persistence', 'active', Array(20).fill(10)),
+      lines('restoration', 'active', Array(20).fill(10)),
+      phasedFirstFrameLines('active', 'cold', Array(20).fill(820)),
+    ].join('\n'),
+    baselineLog: phasedFirstFrameLines('off', 'cold', Array(20).fill(800)),
+  });
+
+  assert.equal(report.gates.first_frame_population.reason, 'active-resume-count-mismatch');
+  assert.equal(report.gates.first_frame_population.outcome, 'inconclusive');
+  assert.equal(report.passed, false);
+  assert.equal(report.outcome, 'inconclusive');
 });
 
 test('fails closed when a cohort has fewer than twenty valid samples', () => {

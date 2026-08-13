@@ -556,25 +556,22 @@ módulo (`await import()` do AsyncStorage servido como chunk HTTP pelo Metro), n
 trabalho do kernel. Num build sem Dev Client isso pode desaparecer, e essa medição
 ainda não foi feita.
 
-**As duas coortes NÃO medem a mesma população, e isso foi medido em 2026-08-12.**
-O flow de `active` lança o app **duas vezes** por amostra — o lançamento inicial e
-o relançamento que prova a retomada offline —, enquanto o baseline lança uma vez.
-Na primeira coorte cheia de `first_frame` isso deu **n=42 no candidato contra n=20
-no baseline**, e as duas metades do candidato têm distribuições diferentes: o
-lançamento frio ficou em p50 380,9 ms / p95 522,8 ms e o relançamento em p50
-288,3 ms / p95 360,3 ms. O relançamento é sistematicamente mais rápido, então
-misturá-lo **puxa o p95 do candidato para baixo** — comparar frio com frio dá
-−62,5 ms onde a agregação atual dá −72 ms.
+**As duas coortes NÃO mediam a mesma população, e a decisão foi tomada em
+2026-08-13.** O flow de `active` lança o app **duas vezes** por amostra — o
+lançamento inicial e o relançamento que prova a retomada offline —, enquanto o
+baseline lança uma vez. Na primeira coorte cheia de `first_frame` isso deu **n=42
+no candidato contra n=20 no baseline**; o relançamento é sistematicamente mais
+rápido (p95 360,3 contra 522,8 ms do frio), logo misturá-lo puxa o p95 do candidato
+para baixo.
 
-Naquele dia a assimetria não inverteu a conclusão, porque os dois cálculos davam
-delta negativo e o desfecho já era inconclusivo por ruído. Mas ela **invalida
-qualquer verde futuro**: comparar 20 lançamentos frios contra uma mistura de 21
-frios e 21 quentes não é medir a mesma coisa dos dois lados, e é a mesma classe de
-erro que já custou a troca de `cold_start` por `first_frame`. Antes do próximo
-veredito, ou o gate compara só o lançamento frio dos dois lados, ou o flow de
-`active` para de contribuir com o relançamento para esta métrica. **Enquanto isso
-não for decidido, leia `baselineCount` e `activeCount` antes de `outcome`** — eles
-sempre estiveram no relatório; em 2026-08-10 faltou lê-los, com um piloto de 6+6.
+O gate agora compara **somente `first_frame` com `launchPhase: "cold"`** nos dois
+lados. O relançamento permanece obrigatório como prova de retomada, mas é emitido
+como `launchPhase: "resume"` e aparece apenas no resumo diagnóstico. Cada envelope
+de `first_frame` usa `schemaVersion: 2`; o relatório falha fechado como
+`inconclusive` se não encontrar exatamente 20 `cold` no baseline, 20 `cold` e 20
+`resume` no active. Assim, nem um retry nem uma linha extra podem ser classificados
+pela posição no log. A decisão está registrada em
+[`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](../../docs/adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
 
 **`first_frame` é o que gateia agora.** Mede do início da janela JS até o frame
 seguinte a `startupPhase` virar `ready` — que só acontece depois de `inspectLaunch`

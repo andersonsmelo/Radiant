@@ -35,7 +35,7 @@ import {
   getNativeActiveCheckpointRuntime,
   type ActiveResumeLaunch,
 } from '../features/student-checkpoints/ActiveCheckpointRuntime';
-import { startupProbe } from '../features/student-checkpoints/CheckpointPerformance';
+import { firstFrameLaunchPhase, startupProbe } from '../features/student-checkpoints/CheckpointPerformance';
 import { warmNativeStorage } from '../features/student-checkpoints/storage';
 import { resolveStudentCheckpointRuntimeMode } from '../features/student-checkpoints/mode';
 import { STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION } from '../features/student-checkpoints/ScreenCheckpointAdapters';
@@ -245,9 +245,11 @@ function RootLayout() {
   // pintado, em vez de medir o commit do React.
   useEffect(() => {
     if (startupPhase !== 'ready') return;
-    const frame = requestAnimationFrame(() => startupProbe.recordFirstFrame());
+    const frame = requestAnimationFrame(() => startupProbe.recordFirstFrame(
+      firstFrameLaunchPhase(checkpointLaunch.kind),
+    ));
     return () => cancelAnimationFrame(frame);
-  }, [startupPhase]);
+  }, [checkpointLaunch.kind, startupPhase]);
 
   useEffect(() => {
     if (showWelcome || !pendingWelcomeHref) {

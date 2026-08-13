@@ -32,6 +32,15 @@ export const STARTUP_PERFORMANCE_METRICS = [
 export type CheckpointPerformanceMetric = (typeof CHECKPOINT_PERFORMANCE_METRICS)[number];
 export type StartupPerformanceMetric = (typeof STARTUP_PERFORMANCE_METRICS)[number];
 export type CheckpointPerformanceMode = 'off' | 'active';
+export type FirstFrameLaunchPhase = 'cold' | 'resume';
+
+// A coorte `active` precisa de dois lançamentos: o primeiro mede a partida fria;
+// o segundo prova a oferta/fallback de retomada offline. Ambos são evidência, mas
+// não são a mesma população de performance. Esta conversão fica junto do envelope
+// para que o relatório não tenha de inferir a fase pela ordem frágil do log.
+export function firstFrameLaunchPhase(kind: 'none' | 'offer' | 'fallback'): FirstFrameLaunchPhase {
+    return kind === 'none' ? 'cold' : 'resume';
+}
 
 type ProbeDependencies = {
     enabled: boolean;
@@ -145,7 +154,7 @@ export class StartupProbe {
         }
     }
 
-    recordFirstFrame(): number | null {
+    recordFirstFrame(launchPhase: FirstFrameLaunchPhase): number | null {
         if (!this.dependencies.enabled || this.recorded) return null;
         const durationMs = roundedDuration(
             this.dependencies.bundleStartedAt,
@@ -155,7 +164,18 @@ export class StartupProbe {
         // Marcado só depois de haver amostra válida: um relógio inconsistente não
         // deve consumir a única emissão do lançamento.
         this.recorded = true;
-        this.emitEnvelope('first_frame', durationMs);
+        const envelope = {
+            schemaVersion: 2,
+            metric: 'first_frame',
+            mode: this.dependencies.mode,
+            launchPhase,
+            durationMs,
+        } as const;
+        try {
+            this.dependencies.emit(`${CHECKPOINT_PERFORMANCE_PREFIX}${JSON.stringify(envelope)}`);
+        } catch {
+            // Diagnostics must never interfere with the learning path.
+        }
         return durationMs;
     }
 }
@@ -200,4 +220,3 @@ export const startupProbe = new StartupProbe({
     clock,
     emit: (line) => console.info(line),
 });
-

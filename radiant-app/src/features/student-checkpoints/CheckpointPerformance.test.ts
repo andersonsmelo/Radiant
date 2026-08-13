@@ -1,6 +1,7 @@
 import {
     CHECKPOINT_PERFORMANCE_PREFIX,
     CheckpointPerformanceProbe,
+    firstFrameLaunchPhase,
     StartupProbe,
 } from './CheckpointPerformance';
 
@@ -70,14 +71,23 @@ describe('StartupProbe.recordFirstFrame', () => {
     // motivo "o baseline `off` nunca produziria a coorte". A marca de primeiro
     // frame nao e dado de checkpoint: ela mede inicializacao e nao toca store
     // nenhum, entao emite nos dois modos e o delta passa a existir.
-    it.each(['off', 'active'] as const)('emits the closed startup envelope in %s mode', (mode) => {
+    it.each([
+        ['off', 'cold'],
+        ['active', 'cold'],
+    ] as const)('emits the closed cold-start envelope in %s mode', (mode, launchPhase) => {
         const { probe, emit } = probeFor(mode);
 
-        probe.recordFirstFrame();
+        probe.recordFirstFrame(launchPhase);
 
         expect(emit).toHaveBeenCalledWith(
-            `${CHECKPOINT_PERFORMANCE_PREFIX}{"schemaVersion":1,"metric":"first_frame","mode":"${mode}","durationMs":812.4}`,
+            `${CHECKPOINT_PERFORMANCE_PREFIX}{"schemaVersion":2,"metric":"first_frame","mode":"${mode}","launchPhase":"${launchPhase}","durationMs":812.4}`,
         );
+    });
+
+    it('labels any checkpoint recovery launch as resume, not as a cold sample', () => {
+        expect(firstFrameLaunchPhase('none')).toBe('cold');
+        expect(firstFrameLaunchPhase('offer')).toBe('resume');
+        expect(firstFrameLaunchPhase('fallback')).toBe('resume');
     });
 
     // O gatilho vive num efeito de React, que pode reexecutar. Duas amostras de
@@ -86,9 +96,9 @@ describe('StartupProbe.recordFirstFrame', () => {
     it('emits once per launch even when the trigger repeats', () => {
         const { probe, emit } = probeFor('active');
 
-        probe.recordFirstFrame();
-        probe.recordFirstFrame();
-        probe.recordFirstFrame();
+        probe.recordFirstFrame('cold');
+        probe.recordFirstFrame('cold');
+        probe.recordFirstFrame('cold');
 
         expect(emit).toHaveBeenCalledTimes(1);
     });
@@ -104,7 +114,7 @@ describe('StartupProbe.recordFirstFrame', () => {
             emit,
         });
 
-        probe.recordFirstFrame();
+        probe.recordFirstFrame('cold');
 
         expect(clock).not.toHaveBeenCalled();
         expect(emit).not.toHaveBeenCalled();
@@ -115,11 +125,11 @@ describe('StartupProbe.recordFirstFrame', () => {
     // que. Falhar aqui e mais barato que investigar amostra faltando depois.
     it('does not emit a duration that is negative or not finite', () => {
         const negativo = probeFor('active', { bundleStartedAt: 2_000, now: 1_000 });
-        negativo.probe.recordFirstFrame();
+        negativo.probe.recordFirstFrame('cold');
         expect(negativo.emit).not.toHaveBeenCalled();
 
         const infinito = probeFor('active', { bundleStartedAt: Number.NaN });
-        infinito.probe.recordFirstFrame();
+        infinito.probe.recordFirstFrame('cold');
         expect(infinito.emit).not.toHaveBeenCalled();
     });
 
@@ -132,7 +142,7 @@ describe('StartupProbe.recordFirstFrame', () => {
             emit: () => { throw new Error('console-unavailable'); },
         });
 
-        expect(() => probe.recordFirstFrame()).not.toThrow();
+        expect(() => probe.recordFirstFrame('resume')).not.toThrow();
     });
 });
 

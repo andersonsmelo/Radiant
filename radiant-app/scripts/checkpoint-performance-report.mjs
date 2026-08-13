@@ -10,6 +10,8 @@ const CHECKPOINT_METRICS = ['persistence', 'restoration'];
 const METRICS = new Set([...CHECKPOINT_METRICS, 'first_frame']);
 const MODES = new Set(['off', 'active']);
 const EXACT_KEYS = ['durationMs', 'metric', 'mode', 'schemaVersion'];
+const FIRST_FRAME_EXACT_KEYS = ['durationMs', 'launchPhase', 'metric', 'mode', 'schemaVersion'];
+const FIRST_FRAME_LAUNCH_PHASES = new Set(['cold', 'resume']);
 const MIN_SAMPLES = 20;
 
 // O desenho original do gate pedia resolucao para detectar 5% de regressao. O
@@ -37,8 +39,17 @@ function tenths(value) {
   return Math.round(value * 10) / 10;
 }
 
-function hasExactKeys(candidate) {
-  return Object.keys(candidate).sort().join('|') === EXACT_KEYS.join('|');
+function hasExactKeys(candidate, expectedKeys) {
+  return Object.keys(candidate).sort().join('|') === expectedKeys.join('|');
+}
+
+function hasValidEnvelope(candidate) {
+  if (candidate.metric === 'first_frame') {
+    return candidate.schemaVersion === 2
+      && hasExactKeys(candidate, FIRST_FRAME_EXACT_KEYS)
+      && FIRST_FRAME_LAUNCH_PHASES.has(candidate.launchPhase);
+  }
+  return candidate.schemaVersion === 1 && hasExactKeys(candidate, EXACT_KEYS);
 }
 
 export function parseCheckpointPerformanceLog(log, expectedMode) {
@@ -55,8 +66,8 @@ export function parseCheckpointPerformanceLog(log, expectedMode) {
     } catch {
       continue;
     }
-    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate) || !hasExactKeys(candidate)) continue;
-    if (candidate.schemaVersion !== 1 || candidate.mode !== expectedMode || !METRICS.has(candidate.metric)) continue;
+    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate) || !hasValidEnvelope(candidate)) continue;
+    if (candidate.mode !== expectedMode || !METRICS.has(candidate.metric)) continue;
     if (typeof candidate.durationMs !== 'number' || !Number.isFinite(candidate.durationMs) || candidate.durationMs < 0) continue;
     samples.push(candidate);
   }
@@ -235,28 +246,61 @@ function baselineIsolationGate(baselineLogSamples) {
   return { passed, reason, outcome: outcomeOf(passed, reason), metrics };
 }
 
+function phaseCount(samples, phase) {
+  return samples.filter((sample) => sample.metric === 'first_frame' && sample.launchPhase === phase).length;
+}
+
+function firstFramePopulationGate(baselineLogSamples, activeLogSamples) {
+  const baselineColdCount = phaseCount(baselineLogSamples, 'cold');
+  const baselineResumeCount = phaseCount(baselineLogSamples, 'resume');
+  const activeColdCount = phaseCount(activeLogSamples, 'cold');
+  const activeResumeCount = phaseCount(activeLogSamples, 'resume');
+  const reason = baselineColdCount !== MIN_SAMPLES
+    ? 'baseline-cold-count-mismatch'
+    : baselineResumeCount !== 0
+      ? 'baseline-must-not-resume'
+      : activeColdCount !== MIN_SAMPLES
+        ? 'active-cold-count-mismatch'
+        : activeResumeCount !== MIN_SAMPLES
+          ? 'active-resume-count-mismatch'
+          : 'matched-cold-and-resume-populations';
+  const passed = reason === 'matched-cold-and-resume-populations';
+  return {
+    passed,
+    reason,
+    outcome: passed ? 'pass' : 'inconclusive',
+    requiredPerCohort: MIN_SAMPLES,
+    baselineColdCount,
+    baselineResumeCount,
+    activeColdCount,
+    activeResumeCount,
+  };
+}
+
 export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCommandRuns, activeLog, baselineLog }) {
   const baselineLogSamples = parseCheckpointPerformanceLog(baselineLog ?? '', 'off');
+  const activeLogSamples = parseCheckpointPerformanceLog(activeLog ?? '', 'active');
   const baselineSamples = [
     ...extractMaestroPerformanceSamples(baselineCommandRuns, 'off'),
     ...baselineLogSamples,
   ];
   const activeSamples = [
     ...extractMaestroPerformanceSamples(activeCommandRuns, 'active'),
-    ...parseCheckpointPerformanceLog(activeLog, 'active'),
+    ...activeLogSamples,
   ];
   const summary = {
     baseline: {
       cold_start: summarize(baselineSamples, 'cold_start'),
       home_to_lesson: summarize(baselineSamples, 'home_to_lesson'),
-      first_frame: summarize(baselineSamples, 'first_frame'),
+      first_frame: summarize(baselineLogSamples.filter((sample) => sample.launchPhase === 'cold'), 'first_frame'),
     },
     active: {
       persistence: summarize(activeSamples, 'persistence'),
       restoration: summarize(activeSamples, 'restoration'),
       cold_start: summarize(activeSamples, 'cold_start'),
       home_to_lesson: summarize(activeSamples, 'home_to_lesson'),
-      first_frame: summarize(activeSamples, 'first_frame'),
+      first_frame: summarize(activeLogSamples.filter((sample) => sample.launchPhase === 'cold'), 'first_frame'),
+      first_frame_resume: summarize(activeLogSamples.filter((sample) => sample.launchPhase === 'resume'), 'first_frame'),
     },
   };
   const gates = {
@@ -266,6 +310,7 @@ export function buildCheckpointPerformanceReport({ baselineCommandRuns, activeCo
     cold_start_delta: deltaGate(summary.baseline.cold_start, summary.active.cold_start),
     home_to_lesson_delta: deltaGate(summary.baseline.home_to_lesson, summary.active.home_to_lesson),
     baseline_isolation: baselineIsolationGate(baselineLogSamples),
+    first_frame_population: firstFramePopulationGate(baselineLogSamples, activeLogSamples),
   };
   for (const [name, gate] of Object.entries(gates)) gate.advisory = ADVISORY_GATES.has(name);
 

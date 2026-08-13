@@ -52,14 +52,11 @@ Próxima pendência real, na ordem canônica:
    TalkBack, porque o Maestro não dirige leitor de tela e o runbook recusa
    presença na árvore de acessibilidade como critério. Aparelho físico de tela
    baixa também segue sem evidência.
-2. DUAS decisões de desenho estão propostas e não tomadas; ambas bloqueiam um
-   verde honesto de H3 e devem ser resolvidas ANTES de remedir:
-   (a) as duas coortes não medem a mesma população — o flow de `active` lança o
-   app duas vezes por amostra, então `first_frame` sai n=42 contra n=20, e o
-   relançamento é sistematicamente mais rápido (p95 360,3 contra 522,8 do frio).
-   Ou o gate compara só o lançamento frio dos dois lados, ou o flow de `active`
-   para de contribuir com o relançamento;
-   (b) "segunda falha invalida o checkpoint e volta à Home" NÃO é alcançável por
+2. A decisão de população de `first_frame` **fechou em 2026-08-13**: cada envelope
+   declara `cold` ou `resume`; o gate compara exclusivamente 20 `cold` de cada
+   coorte e exige 20 `resume` no active como evidência separada de recuperação.
+   A segunda decisão ainda bloqueia o verde honesto de H3: "segunda falha invalida
+   o checkpoint e volta à Home" NÃO é alcançável por
    E2E neste binário: `inspectLaunch` só cai no caminho de falha com
    `contentVersion` diferente — e ele é `LESSON_CATALOG.version`, embutido no
    bundle — ou com `routeTarget` nulo, estado que os fluxos limpos não produzem,

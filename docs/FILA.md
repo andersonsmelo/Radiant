@@ -227,13 +227,13 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    com uso indo de 951 a 2944 MB. A degradação caiu sobre o **baseline**, que
    rodou na fase de crescimento, então o −72 ms do candidato **não é ganho**: é
    dispersão de quem rodou antes. Remedir, não promover.
-   **Achado novo que bloqueia qualquer verde futuro:** as duas coortes não medem a
-   mesma população. O flow de `active` lança o app duas vezes por amostra (inicial
-   + relançamento da retomada), então `first_frame` sai **n=42 contra n=20**, e o
-   relançamento é sistematicamente mais rápido (p95 360,3 contra 522,8 do frio).
-   Antes do próximo veredito, ou o gate compara só o lançamento frio dos dois
-   lados, ou o flow de `active` para de contribuir com o relançamento. É mudança
-   de desenho do gate, proposta e **não** executada.
+   **Achado de comparabilidade, corrigido em 2026-08-13:** o flow de `active`
+   continua com lançamento inicial e relançamento de retomada, mas `first_frame`
+   agora declara a fase. O gate só lê os 20 `cold` de cada lado e exige 20
+   `resume` no active como evidência separada; ausência, excesso ou envelope sem
+   fase falha fechado como `inconclusive`. O relançamento mais rápido (p95 360,3
+   contra 522,8 do frio) não entra mais no p95 de partida. Decisão:
+   [`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
    **Próximo passo, e ele é do dono:** repetir as duas coortes em host silencioso
    — reinício para zerar o swap, Metro pré-aquecido. Nenhum trabalho de código
    destrava isto.
