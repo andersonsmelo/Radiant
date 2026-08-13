@@ -48,6 +48,15 @@ export type LessonOutcomeInput = {
     hintUsedByInteraction?: Record<string, boolean>;
 };
 
+export type ActivityOutcomeInput = Omit<LessonOutcomeInput, 'block'> & {
+    activity: LearningActivityV2;
+};
+
+type MeasuredInteractionAnswers = Pick<
+    LessonOutcomeInput,
+    'confirmedAnswers' | 'durationBandByInteraction' | 'hintUsedByInteraction'
+>;
+
 export type LessonOutcome = {
     award: XpAward | null;
     rewarded: boolean;
@@ -63,7 +72,24 @@ class LessonOutcomeServiceImpl {
 
         await this.recordRecall(result);
         await this.recordAttempt(result, topicId);
-        await this.recordEvidence(input, result);
+        await this.recordEvidence(adaptLegacyBlock(input.block), input, result);
+        await this.enqueueSync(result);
+
+        if (!rewarded) {
+            return { award: null, rewarded: false };
+        }
+
+        const award = await this.recordReward(result);
+        return { award, rewarded: true };
+    }
+
+    async recordActivityCompletion(input: ActivityOutcomeInput): Promise<LessonOutcome> {
+        const { rewarded, topicId } = await this.resolveNode(input.nodeId);
+        const result = this.activityToQuizResult(input);
+
+        await this.recordRecall(result);
+        await this.recordAttempt(result, topicId);
+        await this.recordEvidence(input.activity, input, result);
         await this.enqueueSync(result);
 
         if (!rewarded) {
@@ -156,9 +182,12 @@ class LessonOutcomeServiceImpl {
      *
      * Best-effort como o resto: evidência não pode derrubar a conclusão.
      */
-    private async recordEvidence(input: LessonOutcomeInput, result: QuizResult): Promise<void> {
+    private async recordEvidence(
+        activity: LearningActivityV2,
+        input: MeasuredInteractionAnswers,
+        result: QuizResult,
+    ): Promise<void> {
         try {
-            const activity = adaptLegacyBlock(input.block);
             const recordedAt = result.answeredAt.toISOString();
 
             for (const step of activity.steps) {
@@ -197,7 +226,7 @@ class LessonOutcomeServiceImpl {
      */
     private async observeCompetencies(
         activity: LearningActivityV2,
-        input: LessonOutcomeInput,
+        input: MeasuredInteractionAnswers,
         recordedAt: string,
     ): Promise<void> {
         try {
@@ -248,6 +277,19 @@ class LessonOutcomeServiceImpl {
             lessonId: block.lessonId,
             totalQuestions: choiceStepIds.length,
             correctAnswers: choiceStepIds.filter((stepId) => confirmedAnswers[stepId] === true).length,
+            answeredAt: answeredAt ?? new Date(),
+        };
+    }
+
+    private activityToQuizResult({ activity, confirmedAnswers, answeredAt }: ActivityOutcomeInput): QuizResult {
+        const interactionIds = activity.steps
+            .filter((step) => step.kind === 'interaction')
+            .map((step) => step.kind === 'interaction' ? step.interaction.id : '');
+
+        return {
+            lessonId: activity.id,
+            totalQuestions: interactionIds.length,
+            correctAnswers: interactionIds.filter((interactionId) => confirmedAnswers[interactionId] === true).length,
             answeredAt: answeredAt ?? new Date(),
         };
     }

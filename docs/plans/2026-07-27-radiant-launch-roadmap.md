@@ -1374,7 +1374,7 @@ entrega a fundação que aqueles itens passam a consumir.
   Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
   kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
   posteriores estão reconciliados na seção H3 acima.
-- **H4 [P0 — PARCIAL EM 2026-08-13]** O domínio de checkpoint/reforço e a
+- **H4 [P0 — ENGENHARIA CONCLUÍDA EM 2026-08-13; GATE EM APARELHO A REGISTRAR]** O domínio de checkpoint/reforço e a
   passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
   inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
   apenas no terceiro insucesso e falha fechada para legado. Um candidato textual
@@ -1388,10 +1388,15 @@ entrega a fundação que aqueles itens passam a consumir.
   a ponte detector–contraste na fonte S8. A revisão profissional final de
   2026-08-13 aprovou o candidato para integração no repositório e o dono autorizou
   commit/push; não se exige nova rodada editorial sem mudança material. Ainda
-  falta implementação, não parecer sobre o mesmo texto: o schema/painel de
-  `ProductionBatchV1`, os seis gates humanos, promoção atômica, conexão à tela e
-  prova da experiência real
-  antes de devolver a sequência a G3/G4.
+  corte de engenharia foi entregue: `ProductionBatchV1`, seis decisões
+  independentes presas ao hash material, catálogo imutável, promoção com
+  expected-hash/temp/`fsync`/rename, visão do lote no painel, projeção de 12
+  atividades na jornada/player e checkpoint real 2×5/80%. Aprovação conclui o nó;
+  reprovação preserva o bloqueio e aponta reforço da competência frágil. Testes
+  focados cobrem mutação, gate ausente, concorrência, rollback, consumo nativo,
+  evidência e os dois desfechos do checkpoint. Não reabrir revisão editorial sem
+  mudança material. Falta registrar apenas a passagem da experiência em aparelho
+  antes de declarar H4 integralmente fechada e devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

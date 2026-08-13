@@ -10,6 +10,7 @@ import { adaptLegacyBlock } from '../services/LegacyLessonAdapter';
 import { useLearningActivity } from '../hooks/useLearningActivity';
 import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegistry';
 import type { LessonBlock } from '../../../types/lessonFlow';
+import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -36,26 +37,22 @@ type LessonFlowScreenProps = {
 
 export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, resumeCursorId }: LessonFlowScreenProps) {
     const [block, setBlock] = useState<LessonBlock | null>(null);
+    const [activity, setActivity] = useState<LearningActivityV2 | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // O bloco legado continua sendo o que vai para o outcome, sem uma linha de
-    // diferença: a atividade v2 existe aqui para o percurso e para a interação.
-    // Trocar o que o outcome recebe seria mexer no caminho que paga XP e agenda
-    // revisão, e essa mudança não pertence a uma task de desacoplamento de UI.
-    const activity = useMemo(() => (block ? adaptLegacyBlock(block) : null), [block]);
     const resumeStepIndex = useMemo(() => {
-        if (!block || !resumeCursorId) return 0;
+        if (!activity || !resumeCursorId) return 0;
         const match = /^step-(\d+)$/.exec(resumeCursorId);
         if (!match) return 0;
         const requestedIndex = Number(match[1]) - 1;
-        const interactionIndex = block.steps.findIndex((definition) => definition.step.type === 'multiple-choice');
+        const interactionIndex = activity.steps.findIndex((step) => step.kind === 'interaction');
         // Respostas não entram no checkpoint. Se o cursor já passou pela única
         // interação ainda não commitada, refazemos essa interação em vez de
         // inventar um outcome ou registrar a ausência como erro.
         const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
-        return Math.max(0, Math.min(privacySafeIndex, block.steps.length - 1));
-    }, [block, resumeCursorId]);
+        return Math.max(0, Math.min(privacySafeIndex, activity.steps.length - 1));
+    }, [activity, resumeCursorId]);
     const player = useLearningActivity(activity, resumeStepIndex);
 
     useEffect(() => {
@@ -68,17 +65,25 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 await JourneyProgressService.setCurrentNode(nodeId);
                 await JourneyProgressService.setResumableNode(nodeId);
                 const nextBlock = LessonFlowService.getBlockById(blockId);
+                // Durante a migração, consumidores legados (inclusive integrações
+                // que substituem apenas getBlockById) continuam válidos. A
+                // capacidade v2 é preferida quando existe; o bloco ainda é a
+                // fonte compatível e determinística do fallback.
+                const nextActivity = typeof LessonFlowService.getActivityById === 'function'
+                    ? LessonFlowService.getActivityById(blockId) ?? (nextBlock ? adaptLegacyBlock(nextBlock) : null)
+                    : nextBlock ? adaptLegacyBlock(nextBlock) : null;
 
                 if (!alive) {
                     return;
                 }
 
-                if (!nextBlock) {
-                    setError('Bloco de lição não encontrado.');
+                if (!nextActivity) {
+                    setError('Atividade de aprendizagem não encontrada.');
                     return;
                 }
 
                 setBlock(nextBlock);
+                setActivity(nextActivity);
             } catch (cause) {
                 console.error('[LessonFlowScreen] Failed to bootstrap block:', cause);
                 if (alive) {
@@ -99,11 +104,10 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     }, [blockId, nodeId]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
-    // O passo legado, alinhado por índice com o v2 — o adaptador converte um
-    // passo em exatamente um passo, na mesma ordem, e há teste para isso. É ele
-    // que alimenta os renderizadores de apresentação e a copy do painel, que
-    // esta task não pode alterar.
-    const currentStep = block?.steps[stepIndex];
+    // O passo legado continua disponível enquanto o catálogo antigo coexistir
+    // com o v2. A atividade promovida, porém, não precisa fabricar esse bloco.
+    const legacyStep = block?.steps[stepIndex];
+    const currentStep = player.currentStep;
     const shadowCursorIds = Array.from(
         { length: Math.max(totalSteps, 1) },
         (_, cursorIndex) => `step-${cursorIndex + 1}`,
@@ -112,15 +116,15 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     useShadowCheckpoint({
         surface: 'lesson',
         flowId: `lesson:${blockId}`,
-        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        contentVersion: activity?.provenance.contentVersion ?? STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
         cursorId: `step-${stepIndex + 1}`,
         compatibleCursorIds: shadowCursorIds,
         progressPercent: Math.max(0, Math.min(100, Math.round(progress * 100))),
         completedStepCount: Math.min(stepIndex, Math.max(totalSteps, 0)),
         totalStepCount: Math.max(totalSteps, 1),
-        lessonId: block?.lessonId,
+        lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(block && currentStep),
+        enabled: Boolean(activity && currentStep),
     });
     const handleRestoreFallback = useCallback(() => {
         Alert.alert(
@@ -132,30 +136,30 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const activeCheckpoint = useActiveCheckpoint({
         surface: 'lesson',
         flowId: `lesson:${blockId}`,
-        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        contentVersion: activity?.provenance.contentVersion ?? STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
         cursorId: `step-${stepIndex + 1}`,
         compatibleCursorIds: shadowCursorIds,
         progressPercent: Math.max(0, Math.min(100, Math.round(progress * 100))),
         completedStepCount: Math.min(stepIndex, Math.max(totalSteps, 0)),
         totalStepCount: Math.max(totalSteps, 1),
-        lessonId: block?.lessonId,
+        lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(block && currentStep),
+        enabled: Boolean(activity && currentStep),
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
     const lessonTitle = useMemo(() => {
-        if (!block) {
+        if (!activity) {
             return 'Fluxo da Lição';
         }
 
-        const contextStep = block.steps.find((step) => step.step.type === 'context');
-        if (contextStep?.step.type === 'context') {
-            return contextStep.step.payload.title;
+        const opening = activity.steps.find((step) => step.kind === 'presentation');
+        if (opening?.kind === 'presentation') {
+            return opening.payload.title;
         }
 
-        return block.lessonId;
-    }, [block]);
+        return block?.lessonId ?? activity.id;
+    }, [activity, block]);
 
     const canContinue = player.canContinue;
     const currentInteraction = player.currentStep?.kind === 'interaction'
@@ -167,11 +171,11 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return 'Observe a imagem e siga no seu ritmo.';
         }
 
-        if (currentStep.step.type === 'context' || currentStep.step.type === 'teach') {
+        if (currentStep.kind === 'presentation' && currentStep.role !== 'closing') {
             return 'Observe a cena com calma. O texto entra como apoio, não como muleta.';
         }
 
-        if (currentStep.step.type === 'multiple-choice') {
+        if (currentStep.kind === 'interaction') {
             return 'Compare densidade, borda e contexto anatômico antes de responder.';
         }
 
@@ -183,24 +187,17 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return 'Fluxo guiado com foco em continuidade';
         }
 
-        switch (currentStep.step.type) {
-            case 'context':
-                return 'Leitura inicial da cena';
-            case 'teach':
-                return 'Reforço da lógica visual';
-            case 'multiple-choice':
-                return 'Decisão baseada em padrões e contexto';
-            case 'reinforce':
-                return 'Consolidação do raciocínio';
-            case 'advance':
-                return 'Pronto para avançar sem quebrar o ritmo';
-            default:
-                return 'Fluxo guiado com foco em continuidade';
+        if (currentStep.kind === 'interaction') {
+            return 'Decisão baseada em padrões e contexto';
         }
+
+        if (currentStep.role === 'hook') return 'Leitura inicial da cena';
+        if (currentStep.role === 'concept') return 'Reforço da lógica visual';
+        return 'Consolidação do raciocínio';
     }, [currentStep]);
 
     const handleContinue = async () => {
-        if (!block || !currentStep || !canContinue) {
+        if (!activity || !currentStep || !canContinue) {
             return;
         }
 
@@ -223,11 +220,19 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
-        await LessonOutcomeService.recordCompletion({
-            block,
-            nodeId,
-            confirmedAnswers: nextConfirmed,
-        });
+        if (block) {
+            await LessonOutcomeService.recordCompletion({
+                block,
+                nodeId,
+                confirmedAnswers: nextConfirmed,
+            });
+        } else {
+            await LessonOutcomeService.recordActivityCompletion({
+                activity,
+                nodeId,
+                confirmedAnswers: nextConfirmed,
+            });
+        }
 
         await JourneyProgressService.markNodeCompleted(nodeId);
         await JourneyProgressService.setCurrentNode(null);
@@ -253,7 +258,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         );
     }
 
-    if (error || !block || !currentStep) {
+    if (error || !activity || !currentStep) {
         return (
             <View style={styles.root}>
                 <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
@@ -298,15 +303,30 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                         contentContainerStyle={styles.scrollContent}
                         showsVerticalScrollIndicator={false}
                     >
-                        <LessonVisualPanel hint={panelHint} caption={panelCaption} />
+                        {block ? <LessonVisualPanel hint={panelHint} caption={panelCaption} /> : null}
 
                         <View style={styles.contentCard}>
-                            {currentStep.step.type === 'context' ? (
-                                <ContextStepRenderer payload={currentStep.step.payload} />
+                            {legacyStep?.step.type === 'context' ? (
+                                <ContextStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
 
-                            {currentStep.step.type === 'teach' ? (
-                                <TeachStepRenderer payload={currentStep.step.payload} />
+                            {legacyStep?.step.type === 'teach' ? (
+                                <TeachStepRenderer payload={legacyStep.step.payload} />
+                            ) : null}
+
+                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'hook' ? (
+                                <ContextStepRenderer payload={{
+                                    title: currentStep.payload.title,
+                                    body: currentStep.payload.body ?? '',
+                                    eyebrow: currentStep.payload.eyebrow,
+                                }} />
+                            ) : null}
+
+                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'concept' ? (
+                                <TeachStepRenderer payload={{
+                                    title: currentStep.payload.title,
+                                    body: currentStep.payload.body ?? '',
+                                }} />
                             ) : null}
 
                             {currentInteraction ? (
@@ -317,16 +337,28 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 />
                             ) : null}
 
-                            {currentStep.step.type === 'reinforce' ? (
+                            {legacyStep?.step.type === 'reinforce' ? (
                                 <ReinforceStepRenderer
-                                    payload={currentStep.step.payload}
+                                    payload={legacyStep.step.payload}
                                     answeredCorrectly={player.lastFeedback?.correct}
                                     explanation={player.lastFeedback?.message}
                                 />
                             ) : null}
 
-                            {currentStep.step.type === 'advance' ? (
-                                <AdvanceStepRenderer payload={currentStep.step.payload} />
+                            {legacyStep?.step.type === 'advance' ? (
+                                <AdvanceStepRenderer payload={legacyStep.step.payload} />
+                            ) : null}
+
+                            {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' ? (
+                                <ReinforceStepRenderer
+                                    payload={{
+                                        title: currentStep.payload.title,
+                                        body: currentStep.payload.body ?? '',
+                                        tone: currentStep.payload.tone ?? 'neutral',
+                                    }}
+                                    answeredCorrectly={player.lastFeedback?.correct}
+                                    explanation={player.lastFeedback?.message}
+                                />
                             ) : null}
                         </View>
                     </ScrollView>

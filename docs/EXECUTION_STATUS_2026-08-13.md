@@ -3,14 +3,14 @@
 Este documento **substitui
 [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md)** como estado
 canônico. Ele cobre três passagens: a **visual**, concluída em 2026-08-12, a de
-**H3**, encerrada por aceitação explícita do dono em 2026-08-13, e a fundação de
-domínio/kernel da **H4**. Não promove nenhum gate de release nem substitui
+**H3**, encerrada por aceitação explícita do dono em 2026-08-13, e o corte de
+engenharia executável da **H4**. Não promove nenhum gate de release nem substitui
 evidência em aparelho.
 
 Em uma frase: a passagem visual está fechada e verificada; H3 não encontrou
 regressão nos gates medidos e foi encerrada pelo dono sem reclassificar a medição
-histórica `inconclusive` como aprovação estatística; H4 tem o contrato executável,
-mas não uma superfície pedagógica publicada.
+histórica `inconclusive` como aprovação estatística; H4 tem contrato, catálogo,
+player e checkpoint executáveis no repositório, sem publicação em loja/OTA.
 
 ## Sistema de produto e design confirmado
 
@@ -172,7 +172,7 @@ preservado como proveniência e **não** vira `pass`; o encerramento é operacio
 dono, não promoção de performance nem autorização de produção. Decisão em
 [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
 
-## H4 — domínio e kernel entregues; gate pedagógico ainda aberto
+## H4 — corte de engenharia executável entregue; gate em aparelho ainda aberto
 
 `UnitCheckpointService` agora produz `CheckpointAttemptV1`,
 `ReinforcementPlanV1` e o `UnitCheckpointAttemptIntentV1` já aceito pelo
@@ -190,12 +190,35 @@ dois ciclos chega a `support-required`. O intent define desbloqueio apenas por
 `legacy` e para competências `competency:legacy:*`; portanto o catálogo atual não
 ganha recomendação nem promoção por acidente.
 
-Evidência local: 7 testes do novo domínio e 10 do runtime (17 no total),
-`npm run typecheck` e `npm run lint` sem erros. Os avisos do lint são preexistentes
-e não pertencem a H4. Este marco **não fecha a Onda 5**: ainda falta promover um
-checkpoint curricular v2 e seus dois conjuntos de atividades, conectá-los à tela
-e executar a validação de acessibilidade/recuperação da experiência real. Não houve
-OTA, build, publicação ou mudança da versão `1.3.1 (7)`.
+O corte vertical agora promove `ProductionBatchV1` completo e imutável, com as
+seis decisões independentes presas ao mesmo SHA-256 material. Mudança em qualquer
+atividade, fonte, checkpoint ou reforço invalida as aprovações. A biblioteca de
+publicação por arquivo exige o hash esperado do catálogo, grava temporário,
+executa `fsync`, renomeia atomicamente e mantém changelog + rollback no mesmo
+artefato; falha injetada antes do rename preserva o catálogo anterior e remove o
+temporário.
+
+`ProductionCurriculumCatalog` projeta o lote promovido no catálogo local, numa
+jornada sequencial de 12 atividades, checkpoint e recompensa. O player consome a
+atividade v2 nativa sem fabricar `LessonBlock`; a conclusão registra a competência,
+o tipo de evidência e o `contentVersion` reais. O checkpoint apresenta os 10 itens,
+duas questões por competência, aplica 80% e só marca o nó como concluído quando
+passa. A reprovação preserva o bloqueio e encaminha a primeira competência frágil
+para revisão. Em `active` interno, o intent é construído com o `checkpointId`
+emitido pelo runtime; em produção o kernel continua `off` e a autoridade local
+legada continua responsável pelo progresso.
+
+Evidência local desta entrega: **83 testes focados em 10 suítes**, os **4 testes**
+da promoção atômica, `npm run typecheck`, lint dos arquivos alterados sem avisos e
+build otimizado do painel editorial com as rotas `/production-batches` e
+`/api/production-batches`. O lint integral permaneceu em zero erros e 17 avisos
+preexistentes após remover os dois avisos introduzidos pela implementação. O
+smoke no `Radiant iPhone 17 Pro - iOS 26.5` compilou e abriu a primeira atividade;
+a inspeção encontrou e removeu a radiografia legada semanticamente incorreta, e
+o Maestro confirmou abertura, avanço e alternativas no bundle corrigido. Ainda
+falta registrar o checkpoint completo e acessibilidade em aparelho; por isso H4 não é
+reclassificada como integralmente fechada. Houve somente build Debug local; não
+houve OTA, build distribuível, publicação ou mudança da versão `1.3.1 (7)`.
 
 ### H4 — candidato curricular preservado; revisão e conversão ainda abertas
 
@@ -247,11 +270,12 @@ final é **aprovado para integração no repositório**, sem achado técnico/edi
 bloqueador. O dono autorizou commit e push. Novas rodadas de conteúdo só são
 necessárias se houver mudança material.
 
-Essa aprovação não fabrica seis registros humanos em um schema que ainda não
-existe. `ProductionBatchV1`, promoção atômica, conexão à tela e validação da
-experiência real continuam pendentes como implementação de produto — não como
-pedido para revisar novamente o mesmo texto. Portanto H4 permanece **parcial** e
-G3 continua aguardando a entrega executável.
+O aceite do dono foi materializado como seis decisões independentes e opacas no
+schema agora existente, todas vinculadas ao mesmo hash e sem inventar nome, email
+ou identidade de dispositivo. `ProductionBatchV1`, promoção atômica e conexão às
+telas estão entregues. Não há nova pendência editorial sem mudança material; o
+único gate restante de H4 é a passagem da experiência em aparelho, separada da
+engenharia já concluída.
 
 ## Operação e release
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 
 jest.mock('expo-router', () => ({
   router: {
@@ -140,6 +141,57 @@ const completedSnapshot = {
   nextRecommendedNode: null,
 } as any;
 
+const productionNodeId = `node:${MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.id}`;
+const productionAvailableSnapshot = {
+  track: {
+    units: [{
+      id: MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.unitId,
+      title: 'Matéria, energia e radiação',
+      nodes: [{
+        id: productionNodeId,
+        type: 'checkpoint',
+        status: 'available',
+        title: 'Checkpoint — Matéria, energia e radiação',
+        description: 'Dez itens, dois por competência.',
+        unitId: MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.unitId,
+      }],
+    }],
+  },
+  progress: { completedNodeIds: [], pendingSyncEvents: [] },
+  nextRecommendedNode: null,
+} as any;
+const productionCompletedSnapshot = {
+  ...productionAvailableSnapshot,
+  track: {
+    units: [{
+      ...productionAvailableSnapshot.track.units[0],
+      nodes: [{ ...productionAvailableSnapshot.track.units[0].nodes[0], status: 'completed' }],
+    }],
+  },
+  progress: { completedNodeIds: [productionNodeId], pendingSyncEvents: [] },
+} as any;
+
+async function answerProductionCheckpoint(correct: boolean): Promise<void> {
+  fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+  for (const [index, item] of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.items.entries()) {
+    expect(await screen.findByText(item.prompt)).toBeTruthy();
+    const option = correct
+      ? item.options.find((entry) => entry.id === item.correctOptionId)
+      : item.options.find((entry) => entry.id !== item.correctOptionId);
+    if (!option) throw new Error('checkpoint-option-fixture-invalid');
+    fireEvent.press(screen.getByLabelText(option.label));
+    if (index === 9) {
+      await act(async () => {
+        fireEvent.press(screen.getByText('Enviar checkpoint'));
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+    } else {
+      fireEvent.press(screen.getByText('Próxima questão'));
+    }
+  }
+}
+
 describe('CheckpointScreen flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -161,5 +213,30 @@ describe('CheckpointScreen flow', () => {
     });
 
     expect(await screen.findByText('Etapa validada.')).toBeTruthy();
+  });
+
+  it('aplica as dez questões promovidas e só conclui quando atinge 80%', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(true);
+
+    await waitFor(() => {
+      expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
+    });
+    expect(await screen.findByText('Checkpoint — Matéria, energia e radiação')).toBeTruthy();
+  });
+
+  it('mantém o nó bloqueado e encaminha reforço quando a nota fica abaixo de 80%', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    expect(screen.getByText(/Você acertou 0 de 10 questões/)).toBeTruthy();
+    expect(screen.getByText('Revisar competência frágil')).toBeTruthy();
+    expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
   });
 });

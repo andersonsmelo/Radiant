@@ -6,13 +6,15 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](EXECUTION_STATUS_2026-08-10.md) e não faz parte do caminho
+[`status canônico`](EXECUTION_STATUS_2026-08-13.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
 
 - `radiant-app/src/app`: única árvore oficial de rotas;
 - `LessonCatalogService`: fachada do catálogo local/remoto;
+- `ProductionCurriculumCatalog`: projeção somente de batches v2 promovidos para
+  catálogo, jornada, player e checkpoint;
 - `JourneyDefinitionService`: projeta trilhas do catálogo para a jornada;
 - `JourneyProgressService`: mantém seleção e progresso por trilha;
 - `LessonOutcomeService`: registra resultado, XP e evidência de conclusão;
@@ -180,8 +182,13 @@ conveniência e decai):
   desenvolvimento isso deixa os dois modos mais lentos, porque a busca é mais lenta
   que o resto do bootstrap e passa a dominá-lo; em produção o custo é ~0. O que resta
   é rodar as duas coortes de 20 em janela de host, e agora elas medem o kernel;
-- checkpoint e reforço adaptativo (Task 12 educacional): **pendentes**, agora depois da
-  fundação transacional do kernel.
+- checkpoint e reforço adaptativo (Task 12 educacional): **corte vertical da
+  primeira unidade conectado em 2026-08-13**. O player consome as 12 atividades
+  v2 nativas e registra competência/contentVersion reais; o checkpoint apresenta
+  10 itens, aplica 80%, só conclui a jornada em aprovação e encaminha falha para
+  reforço da competência frágil. O kernel continua `off` em produção; quando
+  `active` interno, o hook constrói o intent com o `checkpointId` emitido pelo
+  runtime, evitando mismatch de autoridade.
 
 Antes de ativar o lado de leitura do agendador, o resolver ainda precisa apontar
 para competência curricular real do conteúdo v2. A guarda já impede que
@@ -191,9 +198,9 @@ Duas propriedades que o motor v2 já garante e convém não perder de vista ao
 evoluí-lo:
 
 - **O caminho legado segue intacto.** `LessonBlock` continua validado por exceção
-  com exatamente uma múltipla escolha por bloco, e é o bloco legado — não a
-  atividade adaptada — que vai para o `LessonOutcomeService`. As 18 atividades do
-  catálogo funcionam durante toda a migração.
+  com exatamente uma múltipla escolha por bloco e usa `recordCompletion`; uma
+  atividade v2 promovida usa `recordActivityCompletion`, sem fabricar bloco
+  legado. As 18 atividades anteriores continuam funcionando durante a migração.
 - **Evidência legada é rastreável e separável.** Conteúdo antigo produz
   `legacy-lesson-recall` sob competência sintética `competency:legacy:*`, e o
   cálculo de domínio a **ignora por padrão** — lição antiga não foi escrita contra
@@ -206,6 +213,9 @@ evoluí-lo:
 - `Conteúdo/mídia/manifest.json`: autorização, anonimização, acessibilidade e
   regiões interativas;
 - `Conteúdo/governança/catalog-payload.json`: catálogo promovido legado;
+- `radiant-app/src/features/student-checkpoints/ProductionBatch.ts`: envelope,
+  gates e fingerprint material do lote v2;
+- `scripts/content/production-batch.mjs`: publicação atômica, changelog e rollback;
 - `scripts/content/validate-foundation.mjs`: gate agregado;
 - `scripts/content/validate-media-manifest.mjs`: gate específico de mídia.
 
@@ -217,7 +227,7 @@ autorização e anonimização verificadas.
 
 | Tema | Documento |
 | --- | --- |
-| Estado operacional | [`EXECUTION_STATUS_2026-08-10.md`](EXECUTION_STATUS_2026-08-10.md) |
+| Estado operacional | [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md) |
 | Produto | [`PRD.md`](PRD.md) |
 | Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
 | Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |

@@ -4,15 +4,34 @@ import { AI_LESSONS } from '../../../data/ai-lessons';
 import type { ContentLesson, LearningTrack, LessonCatalogManifest, LessonCatalogSummary } from '../content.types';
 import { RemoteCatalogService } from './RemoteCatalogService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 const ALL_LOCAL_LESSONS = [...AI_LESSONS, ...LESSONS];
 const LOCAL_LESSONS_BY_ID = new Map(ALL_LOCAL_LESSONS.map((lesson) => [lesson.id, lesson] as const));
 
 function createLocalManifest(): LessonCatalogManifest {
-    return {
+    return withProductionCurriculum({
         ...LESSON_CATALOG,
         source: 'local',
         refreshedAtIso: new Date().toISOString(),
+    });
+}
+
+function withProductionCurriculum(manifest: LessonCatalogManifest): LessonCatalogManifest {
+    const productionTracks = ProductionCurriculumCatalog.listTracks();
+    const productionTrackIds = new Set(productionTracks.map((track) => track.id));
+    const productionLessons = ProductionCurriculumCatalog.listLessonSummaries();
+    const productionLessonIds = new Set(productionLessons.map((lesson) => lesson.id));
+    return {
+        ...manifest,
+        tracks: [
+            ...manifest.tracks.filter((track) => !productionTrackIds.has(track.id)),
+            ...productionTracks,
+        ],
+        lessons: [
+            ...manifest.lessons.filter((lesson) => !productionLessonIds.has(lesson.id)),
+            ...productionLessons,
+        ],
     };
 }
 
@@ -62,13 +81,13 @@ function sanitizeRemoteManifest(
           : normalizedLessons[0].id;
 
     return {
-        manifest: {
+        manifest: withProductionCurriculum({
             ...remote,
             initialLessonId: resolvedInitialLessonId,
             tracks,
             lessons: normalizedLessons,
             source: 'remote',
-        },
+        }),
         lessonsById: resolvedLessonsById,
     };
 }

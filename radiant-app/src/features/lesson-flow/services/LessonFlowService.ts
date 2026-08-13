@@ -3,6 +3,7 @@ import type { LearningActivityV2, ValidationIssue } from '../../../types/learnin
 import { validateLearningActivity } from '../../../types/learningActivity';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 function validateBlock(block: LessonBlock): void {
     if (block.steps.length < 2 || block.steps.length > 4) {
@@ -74,6 +75,8 @@ class LessonFlowServiceImpl {
      * leituras convivem, e nenhuma tela precisa migrar de uma vez.
      */
     getActivityById(blockId: string): LearningActivityV2 | null {
+        const promoted = ProductionCurriculumCatalog.getActivityById(blockId);
+        if (promoted) return promoted;
         const block = JourneyDefinitionService.getBlockById(blockId);
 
         if (!block) {

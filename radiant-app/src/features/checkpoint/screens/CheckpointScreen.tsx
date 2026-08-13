@@ -27,6 +27,9 @@ import {
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
+import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 
 interface CheckpointScreenProps {
   nodeId?: string;
@@ -80,6 +83,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [checkpointStarted, setCheckpointStarted] = useState(false);
+  const [checkpointItemIndex, setCheckpointItemIndex] = useState(0);
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+  const [checkpointAnswers, setCheckpointAnswers] = useState<Record<string, string>>({});
+  const [checkpointEvaluation, setCheckpointEvaluation] = useState<UnitCheckpointEvaluation | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
   const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
@@ -135,6 +143,20 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? null;
   }, [checkpointNode, snapshot]);
 
+  const productionBatch = useMemo(
+    () => checkpointNode ? ProductionCurriculumCatalog.getBatchByCheckpointNodeId(checkpointNode.id) : null,
+    [checkpointNode],
+  );
+  const productionItems = useMemo(() => productionBatch?.checkpoint.items ?? [], [productionBatch]);
+  const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
+  const productionCursorIds = useMemo(
+    () => ['checkpoint-overview', ...productionItems.map((_, index) => `checkpoint-item-${index + 1}`), 'checkpoint-summary'],
+    [productionItems],
+  );
+  const productionProgress = productionBatch && checkpointStarted
+    ? Math.round(100 * checkpointItemIndex / Math.max(productionItems.length, 1))
+    : 0;
+
   const resumeSummaryConfirmed = Boolean(
     resumeCheckpointId
     && resumeCursorId === 'checkpoint-summary'
@@ -145,12 +167,16 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   useShadowCheckpoint({
     surface: 'unit-checkpoint',
     flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
-    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
-    cursorId: completed ? 'checkpoint-summary' : 'checkpoint-overview',
-    compatibleCursorIds: ['checkpoint-overview', 'checkpoint-summary'],
-    progressPercent: completed ? 100 : 0,
-    completedStepCount: completed ? 1 : 0,
-    totalStepCount: 1,
+    contentVersion: productionBatch?.contentVersion ?? STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed
+      ? 'checkpoint-summary'
+      : productionBatch && checkpointStarted
+        ? `checkpoint-item-${checkpointItemIndex + 1}`
+        : 'checkpoint-overview',
+    compatibleCursorIds: productionBatch ? productionCursorIds : ['checkpoint-overview', 'checkpoint-summary'],
+    progressPercent: completed ? 100 : productionProgress,
+    completedStepCount: completed ? productionItems.length : checkpointItemIndex,
+    totalStepCount: productionBatch ? productionItems.length : 1,
     checkpointDefinitionId: checkpointNode?.id,
     journeyNodeId: checkpointNode?.id,
     unitId: activeUnit?.id,
@@ -166,14 +192,18 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const activeCheckpoint = useActiveCheckpoint({
     surface: 'unit-checkpoint',
     flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
-    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
-    cursorId: completed || resumeSummaryConfirmed ? 'checkpoint-summary' : 'checkpoint-overview',
+    contentVersion: productionBatch?.contentVersion ?? STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed || resumeSummaryConfirmed
+      ? 'checkpoint-summary'
+      : productionBatch && checkpointStarted
+        ? `checkpoint-item-${checkpointItemIndex + 1}`
+        : 'checkpoint-overview',
     compatibleCursorIds: resumeSummaryConfirmed
-      ? ['checkpoint-overview', 'checkpoint-summary']
-      : ['checkpoint-overview'],
-    progressPercent: completed || resumeSummaryConfirmed ? 100 : 0,
-    completedStepCount: completed || resumeSummaryConfirmed ? 1 : 0,
-    totalStepCount: 1,
+      ? productionCursorIds
+      : productionBatch ? productionCursorIds.slice(0, checkpointItemIndex + 2) : ['checkpoint-overview'],
+    progressPercent: completed || resumeSummaryConfirmed ? 100 : productionProgress,
+    completedStepCount: completed || resumeSummaryConfirmed ? productionItems.length || 1 : checkpointItemIndex,
+    totalStepCount: productionBatch ? productionItems.length : 1,
     checkpointDefinitionId: checkpointNode?.id,
     journeyNodeId: checkpointNode?.id,
     unitId: activeUnit?.id,
@@ -250,6 +280,76 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       setSubmitting(false);
     }
   }, [activeCheckpoint, checkpointNode]);
+
+  const handleProductionAnswer = useCallback(async () => {
+    if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode) return;
+
+    const nextAnswers = { ...checkpointAnswers, [currentProductionItem.id]: selectedOptionId };
+    setCheckpointAnswers(nextAnswers);
+
+    if (checkpointItemIndex < productionItems.length - 1) {
+      setCheckpointItemIndex((index) => index + 1);
+      setSelectedOptionId(null);
+      return;
+    }
+
+    const committedAt = new Date().toISOString();
+    const attemptSuffix = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const itemOutcomes: ItemOutcomeV1[] = productionItems.map((item) => {
+      const activityId = productionBatch.activities.find((activity) => (
+        activity.competencyIds.includes(item.competencyIds[0])
+      ))?.id ?? productionBatch.batchId;
+      return {
+        itemId: item.id,
+        activityId,
+        competencyIds: [...item.competencyIds],
+        evidenceKind: 'independent-recall',
+        outcome: nextAnswers[item.id] === item.correctOptionId ? 'correct' : 'incorrect',
+        isCriticalError: false,
+        hintUsed: false,
+        durationBucket: 'unknown',
+      };
+    });
+    const evaluate = (checkpointId: string) => UnitCheckpointService.evaluate({
+      operationId: `operation:${productionBatch.checkpoint.id}:${attemptSuffix}`,
+      checkpointId,
+      flowId: `unit-checkpoint:${checkpointNode.id}`,
+      attemptId: `attempt:${productionBatch.checkpoint.id}:${attemptSuffix}`,
+      checkpointDefinitionId: productionBatch.checkpoint.id,
+      unitId: productionBatch.unitId,
+      journeyNodeId: checkpointNode.id,
+      activityId: productionBatch.batchId,
+      contentVersion: productionBatch.contentVersion,
+      curriculumKind: 'v2',
+      committedAt,
+      itemOutcomes,
+    });
+
+    try {
+      setSubmitting(true);
+      const evaluation = evaluate(productionBatch.checkpoint.id);
+      await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
+      setCheckpointEvaluation(evaluation);
+      if (evaluation.attempt.passed) {
+        await handleComplete();
+      }
+    } catch (cause) {
+      console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+      setError('Nao foi possivel registrar o checkpoint agora. Suas respostas não foram presumidas como concluídas.');
+    } finally {
+      setSubmitting(false);
+    }
+  }, [
+    activeCheckpoint,
+    checkpointAnswers,
+    checkpointItemIndex,
+    checkpointNode,
+    currentProductionItem,
+    handleComplete,
+    productionBatch,
+    productionItems,
+    selectedOptionId,
+  ]);
 
   if (loading) {
     return (
@@ -462,17 +562,88 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
           ) : null}
 
           <View style={styles.actionCard}>
-            <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para fechar esta etapa?'}</Text>
-            <Text style={styles.actionBody}>
-              {completed
-                ? 'Seu progresso está salvo e o próximo passo já está preparado.'
-                : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
-            </Text>
+            {productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation ? (
+              <>
+                <Text style={styles.checkpointCounter}>
+                  Questão {checkpointItemIndex + 1} de {productionItems.length}
+                </Text>
+                <Text style={styles.actionTitle} accessibilityRole="header">
+                  {currentProductionItem.prompt}
+                </Text>
+                <View style={styles.optionList}>
+                  {currentProductionItem.options.map((option) => {
+                    const selected = selectedOptionId === option.id;
+                    return (
+                      <Pressable
+                        key={option.id}
+                        onPress={() => setSelectedOptionId(option.id)}
+                        accessibilityRole="radio"
+                        accessibilityLabel={option.label}
+                        accessibilityState={{ selected }}
+                        style={[styles.optionButton, selected ? styles.optionButtonSelected : null]}
+                      >
+                        <Text style={[styles.optionText, selected ? styles.optionTextSelected : null]}>
+                          {option.label}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+                <AppButton
+                  onPress={() => void handleProductionAnswer()}
+                  disabled={!selectedOptionId || submitting}
+                  style={styles.fullWidthButton}
+                >
+                  {checkpointItemIndex === productionItems.length - 1 ? 'Enviar checkpoint' : 'Próxima questão'}
+                </AppButton>
+              </>
+            ) : productionBatch && checkpointEvaluation && !checkpointEvaluation.attempt.passed ? (
+              <>
+                <Text style={styles.actionTitle}>Reforço necessário antes de tentar novamente</Text>
+                <Text style={styles.actionBody}>
+                  Você acertou {checkpointEvaluation.attempt.correctItemCount} de {checkpointEvaluation.attempt.totalItemCount} questões.
+                  O checkpoint exige 8 acertos. A próxima tentativa só será liberada após revisar as competências frágeis.
+                </Text>
+                <Text style={styles.reinforcementLabel}>
+                  Ciclo 1: explicação causal e prática guiada
+                </Text>
+                <AppButton
+                  onPress={() => {
+                    const weakCompetency = checkpointEvaluation.attempt.weakCompetencyIds[0];
+                    const recoveryActivity = productionBatch.activities.find((activity) => activity.competencyIds.includes(weakCompetency));
+                    if (recoveryActivity) {
+                      router.replace({
+                        pathname: '/learn',
+                        params: { blockId: recoveryActivity.id, nodeId: `node:${recoveryActivity.id}` },
+                      });
+                    }
+                  }}
+                  style={styles.fullWidthButton}
+                >
+                  Revisar competência frágil
+                </AppButton>
+              </>
+            ) : (
+              <>
+                <Text style={styles.actionTitle}>{completed ? 'Checkpoint concluído' : 'Pronto para fechar esta etapa?'}</Text>
+                <Text style={styles.actionBody}>
+                  {completed
+                    ? 'Seu progresso está salvo e o próximo passo já está preparado.'
+                    : productionBatch
+                      ? 'Responda 10 questões, duas por competência. Para avançar, acerte pelo menos 8.'
+                      : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
+                </Text>
+              </>
+            )}
             {completed ? (
               <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
                 {nextAction.label}
               </AppButton>
-            ) : (
+            ) : productionBatch && !checkpointStarted ? (
+              <AppButton onPress={() => setCheckpointStarted(true)} style={styles.fullWidthButton}>
+                Iniciar checkpoint
+              </AppButton>
+            ) : !productionBatch ? (
               <>
                 <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
                   {submitting ? 'Concluindo checkpoint...' : 'Concluir checkpoint'}
@@ -486,7 +657,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   Voltar para jornada
                 </AppButton>
               </>
-            )}
+            ) : null}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -535,6 +706,30 @@ const styles = StyleSheet.create({
   },
   actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
   actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  checkpointCounter: {
+    ...typography.caption,
+    color: galaxyColors.ctaGradientEnd,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  optionList: { gap: space.s2 },
+  optionButton: {
+    minHeight: 52,
+    borderRadius: radius.rMd,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    backgroundColor: galaxyColors.surfaceMuted,
+    paddingHorizontal: space.s3,
+    paddingVertical: space.s2,
+    justifyContent: 'center',
+  },
+  optionButtonSelected: {
+    borderColor: galaxyColors.ctaGradientEnd,
+    backgroundColor: 'rgba(48,96,255,0.16)',
+  },
+  optionText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  optionTextSelected: { color: galaxyColors.textPrimary },
+  reinforcementLabel: { ...typography.caption, color: galaxyColors.xpColor },
   fullWidthButton: { width: '100%' },
   errorCard: {
     backgroundColor: 'rgba(255,59,48,0.10)', borderRadius: radius.rMd,

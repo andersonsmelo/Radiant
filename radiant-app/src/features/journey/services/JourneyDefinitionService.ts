@@ -2,6 +2,7 @@ import { LessonCatalogService } from '../../content/services/LessonCatalogServic
 import type { ContentLesson, LearningTrack } from '../../content/content.types';
 import type { LessonBlock, LessonStepDefinition } from '../../../types/lessonFlow';
 import type { JourneyNodeDefinition, JourneyTrackDefinition, JourneyUnitDefinition } from '../../../types/journey';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 const EMPTY_JOURNEY_ID = 'learning-road-v2';
 const JOURNEY_TITLE = 'Estrada de aprendizado';
@@ -299,6 +300,10 @@ class JourneyDefinitionServiceImpl {
     }
 
     getTrackDefinition(trackId?: string): JourneyTrackDefinition {
+        if (trackId) {
+            const production = ProductionCurriculumCatalog.getJourneyTrackDefinition(trackId);
+            if (production) return production;
+        }
         const entries: TrackLessonEntry[] = LessonCatalogService.listTracks()
             .map((track, trackIndex) => ({
                 track,

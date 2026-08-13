@@ -406,4 +406,14 @@ describe('LessonFlowService — contrato legado preservado', () => {
     it('devolve null para bloco legado inexistente, como antes', () => {
         expect(LessonFlowService.getBlockById('bloco-que-nao-existe')).toBeNull();
     });
+
+    it('resolve atividade nativa somente a partir de lote v2 promovido', () => {
+        const promoted = LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01');
+
+        expect(promoted).toMatchObject({
+            id: 'activity:materia-energia-e-radiacao:01',
+            provenance: { contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13' },
+        });
+        expect(LessonFlowService.getBlockById('activity:materia-energia-e-radiacao:01')).toBeNull();
+    });
 });
