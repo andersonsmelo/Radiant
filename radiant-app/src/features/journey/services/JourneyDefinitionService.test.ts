@@ -1,6 +1,7 @@
 import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { ContentLesson, LearningTrack, LessonCatalogSummary } from '../../content/content.types';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 jest.mock('../../content/services/LessonCatalogService', () => ({
     LessonCatalogService: {
@@ -173,6 +174,15 @@ describe('JourneyDefinitionService', () => {
 
     it('returns the default catalog track id for journey bootstrap', () => {
         expect(JourneyDefinitionService.getDefaultTrackId()).toBe('track-thorax');
+    });
+
+    it('delega trilha curricular v2 promovida para sua definição canônica', () => {
+        const productionTrack = ProductionCurriculumCatalog.listTracks()[0];
+        const definition = JourneyDefinitionService.getTrackDefinition(productionTrack.id);
+
+        expect(definition.id).toBe(productionTrack.id);
+        expect(definition.units[0].nodes.filter((node) => node.type === 'lesson')).toHaveLength(12);
+        expect(definition.units[0].nodes.at(-2)?.type).toBe('checkpoint');
     });
 
     it('builds lesson blocks from the current catalog payloads', () => {

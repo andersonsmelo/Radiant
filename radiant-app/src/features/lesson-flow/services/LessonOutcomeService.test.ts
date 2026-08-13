@@ -1,4 +1,5 @@
 import type { LessonBlock } from '../../../types/lessonFlow';
+import type { LearningActivityV2 } from '../../../types/learningActivity';
 import type { JourneySnapshot, UnlockRule } from '../../../types/journey';
 import type { SRCardState } from '../../../types/spacedRepetition';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -76,6 +77,37 @@ const block: LessonBlock = {
             },
             contract: { id: 'lesson-1-question', type: 'multiple-choice', completionRule: 'answered', retryRule: 'allow_continue', branching: 'none' },
         },
+    ],
+};
+
+const nativeActivity: LearningActivityV2 = {
+    id: 'activity:materia-energia-e-radiacao:01',
+    competencyIds: ['competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao'],
+    provenance: {
+        contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13',
+        sourceIds: ['source:h4:s1'],
+    },
+    steps: [
+        { kind: 'presentation', id: 'native-hook', role: 'hook', payload: { title: 'Estrutura', body: 'Corpo' } },
+        {
+            kind: 'interaction',
+            interaction: {
+                id: 'native-question',
+                type: 'multiple-choice',
+                competencyIds: ['competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao'],
+                evidenceKind: 'guided-practice',
+                completionRule: 'answered',
+                criticalSafety: false,
+                feedback: { correct: 'Correto.', incorrect: 'Revise.' },
+                accessibility: { label: 'Qual partícula tem carga negativa?' },
+                payload: {
+                    prompt: 'Qual partícula tem carga negativa?',
+                    options: [{ id: 'proton', label: 'Próton' }, { id: 'eletron', label: 'Elétron' }],
+                    correctOptionId: 'eletron',
+                },
+            },
+        },
+        { kind: 'presentation', id: 'native-closing', role: 'closing', payload: { title: 'Síntese' } },
     ],
 };
 
@@ -463,6 +495,30 @@ describe('LessonOutcomeService — evidência por interação', () => {
             contentVersion: 'legacy-lesson-catalog',
             recordedAt: '2026-08-02T12:00:00.000Z',
         });
+    });
+
+    it('grava a competência e a versão reais de uma atividade v2 promovida', async () => {
+        await LessonOutcomeService.recordActivityCompletion({
+            activity: nativeActivity,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'native-question': true },
+            answeredAt: new Date('2026-08-13T20:00:00.000Z'),
+        });
+
+        expect(mockedEvidence.append).toHaveBeenCalledWith({
+            activityId: nativeActivity.id,
+            interactionId: 'native-question',
+            competencyId: 'competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao',
+            evidenceKind: 'guided-practice',
+            outcome: 'correct',
+            hintUsed: false,
+            durationBand: 'unknown',
+            contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13',
+            recordedAt: '2026-08-13T20:00:00.000Z',
+        });
+        expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledWith(
+            expect.objectContaining({ lessonId: nativeActivity.id, totalQuestions: 1, correctAnswers: 1 }),
+        );
     });
 
     it('registra incorrect quando a escolha confirmada não estava certa', async () => {

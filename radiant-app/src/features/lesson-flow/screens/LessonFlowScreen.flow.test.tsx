@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import { AccessibilityInfo } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
+import type { LearningActivityV2 } from '../../../types/learningActivity';
 import LessonFlowScreen from './LessonFlowScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
@@ -50,7 +51,11 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 }));
 
 jest.mock('../components/LessonVisualPanel', () => ({
-  LessonVisualPanel: () => null,
+  LessonVisualPanel: () => {
+    const React = require('react');
+    const { Text } = require('react-native');
+    return <Text>PAINEL_VISUAL_LEGADO</Text>;
+  },
 }));
 
 jest.mock('../../journey/services/JourneyProgressService', () => ({
@@ -64,12 +69,14 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
 jest.mock('../services/LessonFlowService', () => ({
   LessonFlowService: {
     getBlockById: jest.fn(),
+    getActivityById: jest.fn(),
   },
 }));
 
 jest.mock('../services/LessonOutcomeService', () => ({
   LessonOutcomeService: {
     recordCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
+    recordActivityCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
   },
 }));
 
@@ -218,13 +225,55 @@ const privacySafeResumeFixture: LessonBlock = {
   ],
 };
 
+const promotedActivityFixture: LearningActivityV2 = {
+  id: 'activity:materia-energia-e-radiacao:01',
+  competencyIds: ['competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao'],
+  provenance: {
+    contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13',
+    sourceIds: ['source:h4:s1'],
+  },
+  steps: [
+    {
+      kind: 'presentation',
+      id: 'activity-01-hook',
+      role: 'hook',
+      payload: { title: 'Estrutura e carga', body: 'Átomos têm partículas com cargas diferentes.' },
+    },
+    {
+      kind: 'interaction',
+      interaction: {
+        id: 'activity-01-question',
+        type: 'multiple-choice',
+        competencyIds: ['competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao'],
+        evidenceKind: 'guided-practice',
+        completionRule: 'answered',
+        criticalSafety: false,
+        feedback: { correct: 'Elétrons têm carga negativa.', incorrect: 'Compare as cargas.' },
+        accessibility: { label: 'Qual partícula tem carga negativa?' },
+        payload: {
+          prompt: 'Qual partícula tem carga negativa?',
+          options: [{ id: 'proton', label: 'Próton' }, { id: 'eletron', label: 'Elétron' }],
+          correctOptionId: 'eletron',
+        },
+      },
+    },
+    {
+      kind: 'presentation',
+      id: 'activity-01-closing',
+      role: 'closing',
+      payload: { title: 'Síntese', body: 'Elétrons têm carga negativa.' },
+    },
+  ],
+};
+
 describe('LessonFlowScreen — escolha da alternativa', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     const { LessonFlowService } = jest.requireMock('../services/LessonFlowService') as {
-      LessonFlowService: { getBlockById: jest.Mock };
+      LessonFlowService: { getBlockById: jest.Mock; getActivityById: jest.Mock };
     };
     LessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    LessonFlowService.getActivityById.mockReturnValue(null);
   });
 
   it('permite trocar a alternativa selecionada antes de confirmar', async () => {
@@ -399,5 +448,51 @@ describe('LessonFlowScreen — retomada sem persistir respostas', () => {
     fireEvent.press(screen.getByText('Continuar'));
 
     expect(await screen.findByText('Resposta correta')).toBeTruthy();
+  });
+});
+
+describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(promotedActivityFixture);
+  });
+
+  it('renderiza o material promovido sem depender de bloco legado', async () => {
+    renderWithProviders(
+      <LessonFlowScreen
+        blockId="activity:materia-energia-e-radiacao:01"
+        nodeId="node:activity:materia-energia-e-radiacao:01"
+      />,
+    );
+
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    expect(screen.queryByText('PAINEL_VISUAL_LEGADO')).toBeNull();
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(await screen.findByText('Qual partícula tem carga negativa?')).toBeTruthy();
+    expect(screen.getByLabelText('Elétron')).toBeTruthy();
+  });
+
+  it('registra a conclusão usando a atividade nativa e sua resposta confirmada', async () => {
+    renderWithProviders(
+      <LessonFlowScreen
+        blockId="activity:materia-energia-e-radiacao:01"
+        nodeId="node:activity:materia-energia-e-radiacao:01"
+      />,
+    );
+
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByLabelText('Elétron'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    await waitFor(() => expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1));
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith({
+      activity: promotedActivityFixture,
+      nodeId: 'node:activity:materia-energia-e-radiacao:01',
+      confirmedAnswers: { 'activity-01-question': true },
+    });
+    expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
   });
 });

@@ -5,6 +5,7 @@ import {
     type ActiveCheckpointBinding,
     type ActiveCheckpointStartResult,
 } from './ActiveCheckpointRuntime';
+import type { CommitIntentV1 } from './contracts';
 import { resolveStudentCheckpointRuntimeMode } from './mode';
 
 export type ActiveCheckpointHookBinding = ActiveCheckpointBinding & {
@@ -14,6 +15,7 @@ export type ActiveCheckpointHookBinding = ActiveCheckpointBinding & {
 };
 
 export type ActiveCheckpointControl = {
+    commit: (createIntent: (checkpointId: string) => CommitIntentV1) => Promise<CommitIntentV1 | null>;
     finish: () => Promise<void>;
 };
 
@@ -83,5 +85,16 @@ export function useActiveCheckpoint(binding: ActiveCheckpointHookBinding): Activ
         if (result.handle) await runtime.finish(result.handle);
     }, []);
 
-    return useMemo(() => ({ finish }), [finish]);
+    const commit = useCallback(async (createIntent: (checkpointId: string) => CommitIntentV1) => {
+        const runtime = runtimeRef.current;
+        const pending = startPromiseRef.current;
+        if (!runtime || !pending) return null;
+        const result = await pending;
+        if (!result.handle) return null;
+        const intent = createIntent(result.handle.checkpointId);
+        await runtime.commit(result.handle, intent);
+        return intent;
+    }, []);
+
+    return useMemo(() => ({ commit, finish }), [commit, finish]);
 }

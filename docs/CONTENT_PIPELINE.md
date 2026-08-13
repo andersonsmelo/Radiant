@@ -53,6 +53,14 @@ verde sem itens confirma a integridade do gate, não a prontidão do lote.
 8. Sincronizar app e seed da API.
 9. Validar a cadeia completa.
 
+Para lotes curriculares v2, a promoção usa `ProductionBatchV1`, não o payload
+legado. O lote carrega atividades, competências, fontes, checkpoint,
+reforços, schemas, hash material e seis decisões independentes. Qualquer mudança
+material altera o hash e invalida as decisões. A publicação em arquivo usa
+compare-and-swap pelo hash esperado, temporário + `fsync` + rename atômico; o
+changelog e a instrução de rollback vivem no mesmo catálogo para não existir
+promoção parcial.
+
 Para o sistema por competências, antes dos passos 3–8 também é obrigatório:
 
 1. aprovar o lote de mídia no manifesto;
@@ -68,6 +76,8 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 | `node scripts/content/validate-foundation.mjs` | valida a fundação editorial agregada |
 | `node scripts/content/validate-media-manifest.mjs` | valida autorização e anonimização da mídia |
 | `node scripts/content/promote-to-catalog.mjs` | promove bundles aprovados |
+| `node scripts/content/production-batch.mjs --input=<json> --catalog=<json> --expected-sha256=<sha256\|absent>` | publica um `ProductionBatchV1` validado com concorrência otimista e rename atômico |
+| `node --test scripts/content/production-batch.test.mjs` | prova gates, conflito de hash e rollback antes do rename |
 | `node scripts/content/sync-catalog-to-app.mjs` | gera artefatos do catálogo local |
 | `node scripts/content/sync-catalog-to-api.mjs` | gera o seed remoto correspondente |
 | `node --test scripts/content/wave-1-priority-tracks.test.mjs` | protege as trilhas da Wave 1 |
@@ -79,6 +89,8 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
   biblioteca;
 - `Conteúdo/mídia/manifest.json`: ativos aprovados e candidatos rejeitados;
 - `Conteúdo/governança/catalog-payload.json`: catálogo legado promovido;
+- `radiant-app/src/features/student-checkpoints/production-batches.ts`: batches
+  v2 promovidos compilados pelo app;
 - `Conteúdo/governança/wave-1-priority-tracks.json`: trilhas prioritárias;
 - `radiant-app/src/data/ai-lessons.ts` e `ai-catalog.ts`: artefatos gerados;
 - `radiant-api/sql/003_seed_editorial_catalog.sql`: espelho gerado para a API.
@@ -92,3 +104,5 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 - nunca editar manualmente os artefatos gerados do app ou da API;
 - depois de aprovar bundles, sincronizar app e API antes do commit;
 - declarar o catálogo pronto somente com os gates correspondentes executados.
+- nunca reutilizar uma aprovação depois de mudança no hash material;
+- nunca publicar lote v2 sem os seis gates ou sem o hash esperado do catálogo.

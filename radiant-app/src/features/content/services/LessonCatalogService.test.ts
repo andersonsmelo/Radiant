@@ -36,6 +36,24 @@ describe('LessonCatalogService', () => {
     expect(LessonCatalogService.getInitialLessonId()).toBe('lesson-1');
   });
 
+  it('inclui o lote curricular v2 promovido no catálogo local sem convertê-lo em quiz legado', () => {
+    const track = LessonCatalogService.listTracks().find(
+      (entry) => entry.id === 'track:fundamentos-e-seguranca-radiologica'
+    );
+    const summaries = LessonCatalogService.listLessonSummaries().filter(
+      (entry) => entry.trackId === track?.id
+    );
+
+    expect(track?.lessonIds).toHaveLength(12);
+    expect(summaries).toHaveLength(12);
+    expect(summaries[0]).toMatchObject({
+      id: 'activity:materia-energia-e-radiacao:01',
+      title: 'Estrutura e carga',
+      order: 1,
+    });
+    expect(LessonCatalogService.getLessonById(summaries[0].id)).toBeNull();
+  });
+
   it('adopts the remote manifest when the payload is valid', async () => {
     fetchManifest.mockResolvedValueOnce({
       version: 'v1-remote-seed',
@@ -115,8 +133,8 @@ describe('LessonCatalogService', () => {
     expect(LessonCatalogService.getCatalogSource()).toBe('remote');
     expect(LessonCatalogService.getCatalogVersion()).toBe('v1-remote-seed');
     expect(LessonCatalogService.getInitialLessonId()).toBe('lesson-2');
-    expect(LessonCatalogService.listTracks()).toHaveLength(1);
-    expect(LessonCatalogService.listLessonSummaries()).toHaveLength(2);
+    expect(LessonCatalogService.listTracks()).toHaveLength(2);
+    expect(LessonCatalogService.listLessonSummaries()).toHaveLength(14);
     expect(LessonCatalogService.getLessonById('lesson-1')?.questions[0]?.id).toBe('remote-q1');
     expect(LessonCatalogService.getLessonById('lesson-1')?.journey?.intro?.contextBody).toBe(
       'Contexto remoto de introdução'
@@ -178,11 +196,12 @@ describe('LessonCatalogService', () => {
 
     expect(manifest.source).toBe('remote');
     expect(manifest.initialLessonId).toBe('lesson-1');
-    expect(manifest.lessons).toEqual([
+    expect(manifest.lessons.filter((lesson) => !lesson.id.startsWith('activity:materia-energia-e-radiacao:'))).toEqual([
       expect.objectContaining({
         id: 'lesson-1',
       }),
     ]);
+    expect(manifest.lessons.filter((lesson) => lesson.id.startsWith('activity:materia-energia-e-radiacao:'))).toHaveLength(12);
     expect(manifest.tracks[0].lessonIds).toEqual(['lesson-1']);
     expect(LessonCatalogService.getLessonById('lesson-1')?.questions[0]?.id).toBe('remote-q1');
   });
