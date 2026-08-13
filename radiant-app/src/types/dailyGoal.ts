@@ -23,6 +23,9 @@ export interface DailyGoalStore {
  * Usually exposed to UI components.
  */
 export interface DailyGoalSnapshot {
+    goalXp?: number;
+    earnedXpToday?: number;
+    tierId?: import('../constants/dailyGoal').DailyGoalTierId;
     goalPerDay: number;
     completedToday: number;
     isCompleted: boolean;

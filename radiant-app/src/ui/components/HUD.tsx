@@ -3,9 +3,10 @@
  * Exibe XP, streak e corações nas telas da galáxia.
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { galaxyColors } from '../theme';
+import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -26,7 +27,7 @@ function HUDPill({
   color,
   accessibilityLabel,
 }: {
-  icon: string;
+  icon: React.ReactNode;
   value: string;
   color: string;
   accessibilityLabel: string;
@@ -35,9 +36,7 @@ function HUDPill({
   // decorativo seguido do número solto.
   return (
     <View style={styles.pill} accessible accessibilityRole="text" accessibilityLabel={accessibilityLabel}>
-      <Text style={styles.pillIcon} importantForAccessibility="no">
-        {icon}
-      </Text>
+      <View importantForAccessibility="no">{icon}</View>
       <Text style={[styles.pillValue, { color }]} importantForAccessibility="no">
         {value}
       </Text>
@@ -46,8 +45,38 @@ function HUDPill({
 }
 
 function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
+  const previousHearts = useRef(hearts);
+  // Índice do coração que acabou de esvaziar. `hearts` já é o valor NOVO, então
+  // ele aponta para a posição perdida. Precisa ser state, e não ref: quem decide
+  // se o estilo animado entra no JSX é o render, e um ref atribuído dentro do
+  // efeito muda depois dele, sem reagendar nada — o transform nunca chegaria a
+  // ser aplicado. Custou um teste vermelho para aparecer.
+  const [lostIndex, setLostIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const dropped = hearts < previousHearts.current;
+    const gained = hearts > previousHearts.current;
+    previousHearts.current = hearts;
+
+    if (gained) {
+      // Recarregou: solta o coração marcado, senão o estilo de uma perda antiga
+      // fica pendurado num índice que agora está cheio.
+      setLostIndex(null);
+      return;
+    }
+
+    if (!dropped) {
+      return;
+    }
+
+    setLostIndex(hearts);
+  }, [hearts]);
+
   // Um rótulo único ("3 de 5 vidas") em vez de cinco emojis lidos como
   // "coração vermelho" repetidamente. Mesmo padrão do MissionsScreen.
+  //
+  // O rótulo é também o canal de acessibilidade da perda: sob reduced motion o
+  // pulso não roda, e é ele que continua informando que uma vida se foi.
   return (
     <View
       style={styles.heartsRow}
@@ -56,16 +85,17 @@ function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: numbe
       accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
     >
       {Array.from({ length: maxHearts }, (_, i) => (
-        <Text
+        <View
           key={i}
-          style={[
-            styles.heartIcon,
-            i >= hearts && styles.heartEmpty,
-          ]}
+          testID={`hud-heart-${i}`}
           importantForAccessibility="no"
         >
-          {i < hearts ? '❤️' : '🤍'}
-        </Text>
+          <HeartIcon
+            filled={i < hearts}
+            losing={i === lostIndex}
+            testID={`hud-heart-fill-${i}`}
+          />
+        </View>
       ))}
     </View>
   );
@@ -86,13 +116,13 @@ export function HUD({ totalXp, streakDays, hearts, maxHearts = 5, compact = fals
     <View style={styles.container}>
       <View style={styles.leftGroup}>
         <HUDPill
-          icon="⚡"
+          icon={<XpIcon value={totalXp} />}
           value={totalXp.toLocaleString()}
           color={galaxyColors.xpColor}
           accessibilityLabel={`${totalXp.toLocaleString()} XP`}
         />
         <HUDPill
-          icon="🔥"
+          icon={<StreakIcon />}
           value={`${streakDays}d`}
           color={galaxyColors.streakColor}
           accessibilityLabel={`${streakDays} ${streakDays === 1 ? 'dia' : 'dias'} de sequência`}

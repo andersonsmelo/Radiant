@@ -1,9 +1,51 @@
 {
   "schemaVersion": 1,
   "batchId": "unit-1-authorized-media-v1",
-  "status": "awaiting-authorized-assets",
-  "reviewedAt": "2026-07-31",
-  "items": [],
+  "status": "ready",
+  "reviewedAt": "2026-08-09",
+  "items": [
+    {
+      "id": "media:unit-1:xray-beam-geometry",
+      "assetPath": "Conteúdo/mídia/xray-beam-geometry-v1.png",
+      "sha256": "d1baf3d3a9639fee08a2f0ce6f3edb35d2ded25dab0e5d957729c32838f970a1",
+      "modality": "illustration",
+      "region": "x-ray-beam-geometry",
+      "authorizationRef": "authorization:owner-2026-08-09-original-synthetic-media",
+      "anonymization": {
+        "status": "verified",
+        "method": "synthetic-illustration-no-source-data-and-visual-review",
+        "verifiedAt": "2026-08-09",
+        "verifiedByRole": "content-governance-agent"
+      },
+      "altText": "Ilustração sintética de um tubo de raios X emitindo um feixe divergente até um detector plano.",
+      "hotspots": [
+        {
+          "id": "hotspot:xray-source",
+          "label": "Fonte de raios X",
+          "x": 0.34,
+          "y": 0.04,
+          "width": 0.32,
+          "height": 0.28
+        },
+        {
+          "id": "hotspot:xray-beam",
+          "label": "Feixe divergente",
+          "x": 0.25,
+          "y": 0.28,
+          "width": 0.5,
+          "height": 0.44
+        },
+        {
+          "id": "hotspot:detector",
+          "label": "Detector plano",
+          "x": 0.13,
+          "y": 0.72,
+          "width": 0.74,
+          "height": 0.22
+        }
+      ]
+    }
+  ],
   "rejectedCandidates": [
     {
       "assetPath": "Conteúdo/Captura de Tela 2026-04-03 à(s) 09.20.31.png",

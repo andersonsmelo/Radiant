@@ -4,10 +4,10 @@
     {
       "id": "track-radiology-foundations",
       "slug": "fundamentos",
-      "title": "Fundamentos",
+      "title": "Fundamentos de Radiologia",
       "priority": 1,
-      "goal": "Fechar a base do app para onboarding e primeiras sessoes.",
-      "description": "Base inicial para onboarding, contexto e primeiras sessoes.",
+      "goal": "Abrir o app com a base física da radiação e a introdução ao curso técnico, que é o conteúdo que existe hoje.",
+      "description": "Base física da radiação e primeiras lições do curso técnico: energia, matéria, núcleo atômico, radioatividade e a descoberta dos raios X.",
       "lessonIds": [
         "lesson-1",
         "lesson-2",
@@ -21,10 +21,10 @@
     {
       "id": "track-thorax-patterns",
       "slug": "torax",
-      "title": "Tórax",
+      "title": "Radiação, Modalidades e Equipamento",
       "priority": 2,
-      "goal": "Abrir a primeira expansao com leitura de padroes de alto valor percebido.",
-      "description": "Expansao guiada com foco em padroes, visao seccional e leitura toracica.",
+      "goal": "Levar do feixe ao aparelho: como a radiação interage, como se protege dela e com que máquina se produz a imagem.",
+      "description": "Proteção radiológica, medicina nuclear, tomografia, ressonância magnética e o equipamento de radiologia convencional com seus componentes.",
       "lessonIds": [
         "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
         "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
@@ -37,10 +37,10 @@
     {
       "id": "track-abdomen-essentials",
       "slug": "abdome",
-      "title": "Abdome",
+      "title": "Prática, Qualidade e Profissão",
       "priority": 3,
-      "goal": "Completar a cesta inicial com uma progressao coerente para a expansao.",
-      "description": "Bloco de suporte para consolidar leitura aplicada e acabamento do catalogo.",
+      "goal": "Fechar a onda com o que acontece depois do disparo e com o exercício da profissão.",
+      "description": "Produção dos raios X, processamento radiográfico, qualidade de imagem, aplicações não-médicas da radiação e a atuação do técnico em radiologia.",
       "lessonIds": [
         "ai-lesson:preservacao-de-alimentos-por-irradicao",
         "ai-lesson:acessorios-radiologicos",

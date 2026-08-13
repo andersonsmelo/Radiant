@@ -13,3 +13,14 @@ export const STORAGE_KEYS = {
     LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
     COMPETENCY_MASTERY: '@radiant:competency_mastery_v1',
 } as const;
+
+export const STUDENT_CHECKPOINT_STORAGE_KEYS = {
+    ACTIVE: '@radiant:student_checkpoints_active_v1',
+    SHADOW: '@radiant:student_checkpoints_shadow_v1',
+    ACTIVE_QUARANTINE: '@radiant:student_checkpoints_active_quarantine_v1',
+    SHADOW_QUARANTINE: '@radiant:student_checkpoints_shadow_quarantine_v1',
+    OUTBOX: '@radiant:student_checkpoint_outbox_v1',
+    OUTBOX_QUARANTINE: '@radiant:student_checkpoint_outbox_quarantine_v1',
+    AUTHORITY_PREFIX: '@radiant:student_checkpoint_authority_v1:',
+    AUTHORITY_QUARANTINE_PREFIX: '@radiant:student_checkpoint_authority_quarantine_v1:',
+} as const;

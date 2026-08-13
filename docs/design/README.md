@@ -4,6 +4,24 @@ Material visual de referência. **Nada aqui é código de produção** e nada aq
 importado pelo app — o app vive em `radiant-app/`, e a fonte de verdade do
 sistema visual são os tokens em `radiant-app/src/ui/`.
 
+## `2026-08-12-hud-assets-approved.html`
+
+Prancheta dos três ícones animados do HUD aprovada pelo dono e recuperada do
+scratchpad volátil da sessão que a criou. Foi preservada byte a byte, sem
+reescrita; SHA-256 da origem e desta cópia:
+`1802b14952cf8f1701d87bcff61918f741b6380cd34fd8a83b8c0d970d8844c0`.
+
+O HTML conserva os loops longos usados apenas para demonstrar a prancheta. A
+implementação de produção segue as durações declaradas dentro do próprio
+artefato: XP em 600ms, perda de vida em 220ms e chama em loop de 1600ms. A
+decisão posterior de executar os glifos pequenos em código, sem runtime Rive,
+continua valendo.
+
+A prancheta permanece imutável como registro do que foi aprovado naquele
+momento, inclusive a escala original de 14pt/18pt. A inspeção posterior do dono
+no simulador corrigiu somente o tamanho de produção para 18pt no XP/chama e
+22pt nos corações; paths, cores e movimento continuam os do artefato.
+
 ## `new-layout/`
 
 Protótipo de layout produzido fora do repositório e preservado sem alteração,

@@ -1,11 +1,12 @@
 import type { CharacterSize, CharacterState, CharacterTier } from './types';
 
 const PIXEL_BASE_ASSETS: Record<CharacterSize, number> = {
-  // The current repository keeps a single core render.
-  // Size is controlled by layout in PixelIllustration consumers.
-  sm: require('./assets/pixel/pixel_core.png'),
-  md: require('./assets/pixel/pixel_core.png'),
-  lg: require('./assets/pixel/pixel_core.png'),
+  // O render base não tem rosto: o rosto é desenhado por PixelFace sobre a
+  // "tela" do personagem, para que ele possa mudar de expressão. O render com
+  // rosto pintado (pixel_core.png) segue no repositório como referência.
+  sm: require('./assets/pixel/pixel_core_faceless.png'),
+  md: require('./assets/pixel/pixel_core_faceless.png'),
+  lg: require('./assets/pixel/pixel_core_faceless.png'),
 };
 
 type PixelDedicatedAssetRegistry = Partial<

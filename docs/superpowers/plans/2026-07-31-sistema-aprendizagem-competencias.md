@@ -10,10 +10,38 @@
 
 **Spec:** [`docs/superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](../specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 
-**Status:** em execução desde 2026-07-31. Tasks 1, 2, **4** a **9** concluídas;
-infraestrutura da Task 3 concluída, aguardando o primeiro lote de ativos
-autorizados. Próxima: **Task 10** (primeiro conjunto de jogos acessíveis) — é ela
-que registra os sete tipos de interação que ainda não têm renderizador.
+**Spec de emenda (Task 11):**
+[`docs/superpowers/specs/2026-08-08-agendador-por-competencia-design.md`](../specs/2026-08-08-agendador-por-competencia-design.md)
+— fecha o algoritmo do agendador por competência, que esta spec deixara em
+aberto, e registra o teto de domínio medido no currículo.
+
+**Emenda de precedência (2026-08-09):**
+[`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md)
+— substitui a ordem executável a partir da Task 12 educacional. Este arquivo preserva a
+decomposição histórica das Tasks 1–18; quando houver divergência de sequência ou
+contrato transacional, a emenda de 2026-08-09 prevalece.
+
+**Status:** em execução desde 2026-07-31. Tasks **1 a 11 concluídas**. O primeiro
+lote sintético autorizado fechou a Task 3/G1, e a Task 10 registrou hotspot,
+comparação, associação e ordenação. Próximas: **Ondas 2–4 da emenda de
+checkpoints** — fundação transacional em `off`, shadow e runtime interno. A
+**Task 12 educacional** fica bloqueada até os três gates fecharem.
+
+> **A Task 11 fechou fora de ordem, em 2026-08-09**, pelo plano delegado
+> [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md)
+> (commits `1ac9a1e..adb5e63`). Ela pôde adiantar-se à Task 10 porque não depende
+> de conteúdo v2: o agendador entra **desligado** e acende quando houver o que
+> agendar.
+>
+> Duas consequências para quem retomar:
+>
+> 1. **O agendador está pronto e ainda não tem conteúdo v2 para agendar.**
+>    `getDue` não tem chamador de produção, e todo nó de produção ainda resolve
+>    para competência legada sintética. A Task 10 fechou a biblioteca inicial,
+>    mas a leitura só acende depois que atividades curriculares reais existirem.
+> 2. **O achado numérico deferido foi corrigido em 2026-08-09.**
+>    `temFormaDeCartao` agora exige `Number.isFinite` nos quatro campos; um valor
+>    JSON persistível que vira `Infinity` está coberto por regressão.
 
 *A Task 4 não dependia do lote de mídia: o gate da Fase 0 pede "zero mídia sem
 decisão de direitos" e "currículo com 30 competências válido" como condições
@@ -21,8 +49,8 @@ irmãs do mesmo gate, não como etapas em sequência.*
 
 **Evidência atual:** `library-catalog.json` registra 41 PDFs, 36 fontes únicas e
 5 duplicatas; direitos = 4 `authorized`, 15 `reference-only`, 17 `blocked`.
-`media-manifest.json` está `awaiting-authorized-assets`, com 0 itens aprovados e
-5 candidatos rejeitados.
+`media-manifest.json` está `ready`, com 1 ilustração original sintética aprovada
+e 5 candidatos históricos preservados como rejeitados.
 
 ---
 
@@ -174,13 +202,19 @@ git commit -m "feat(content): governa fontes e direitos da biblioteca"
 
 ---
 
-### Task 3: Criar manifesto seguro de mídia educacional — INFRAESTRUTURA CONCLUÍDA; LOTE PENDENTE
+### Task 3: Criar manifesto seguro de mídia educacional — CONCLUÍDA EM 2026-08-09
 
-O schema, o manifesto e os validadores foram entregues. Os cinco arquivos
-candidatos encontrados não satisfazem o contrato de finalidade educacional,
-direitos e/ou ausência de dados pessoais; por isso, o manifesto foi fechado com
-0 itens e estado `awaiting-authorized-assets`. Esta task só é considerada
-integralmente concluída quando um lote autorizado passar pelo mesmo gate.
+O schema, o manifesto e os validadores foram entregues. Historicamente, cinco
+arquivos candidatos foram recusados e o manifesto ficou em
+`awaiting-authorized-assets`. Em 2026-08-09, o primeiro lote original/sintético
+passou pelo mesmo gate: uma ilustração foi autorizada, o manifesto ficou
+`ready` e a Task 3/G1 fechou. Os cinco candidatos antigos continuam rejeitados;
+todo lote futuro continua condicionado a direitos, privacidade, acessibilidade
+e revisão próprios.
+
+> **HISTÓRICO/SUPERADO — NÃO EXECUTAR.** A receita abaixo registra como a
+> infraestrutura original foi construída; seus comandos e commit já foram
+> realizados e não representam trabalho pendente.
 
 **Files:**
 - Create: `conteúdo/governança/esquemas/media-manifest.schema.json`
@@ -629,9 +663,10 @@ Três decisões de risco:
 *Reversão verificada (Step 4):* trocando o retorno de `confirm()` pelo estado
 anterior, **três** testes falham, incluindo o da corrida. Restaurado, 11/11.
 
-*O registro declara que só `multiple-choice` tem renderizador hoje* — os outros
-sete tipos do contrato entram na Task 10, e `isInteractionTypeRegistered` existe
-para que essa lacuna seja consultável em vez de descoberta em runtime.
+*Ao concluir a Task 9, o registro declarava apenas `multiple-choice`.* A Task 10
+adicionou hotspot, comparação, associação e ordenação; os três tipos restantes
+continuam consultáveis por `isInteractionTypeRegistered` em vez de serem
+descobertos como lacuna somente em runtime.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/renderers/ActivityRendererRegistry.tsx`
@@ -670,7 +705,29 @@ git commit -m "refactor(learning): desacopla player dos tipos de atividade"
 
 ---
 
-### Task 10: Implementar o primeiro conjunto de jogos acessíveis
+### Task 10: Implementar o primeiro conjunto de jogos acessíveis — CONCLUÍDA
+
+**Concluída em 2026-08-09.** O registry agora expõe cinco tipos: múltipla
+escolha, hotspot, comparação, associação e ordenação. Hotspot oferece a mesma
+escolha pela imagem e por lista textual; comparação identifica a seleção por
+texto e estado, não só por cor; matching forma pares em sequência sem arraste;
+ordering usa botões nomeados de subir/descer. Todos os controles novos têm alvo
+mínimo de 44 pt, e o player anuncia o feedback exatamente uma vez no evento de
+confirmação.
+
+Respostas compostas usam uma lista JSON de ids no contrato `string` já
+controlado pelo player. A completude é validada antes de habilitar Continuar, e
+a correção de hotspot aceita qualquer região autorizada enquanto matching e
+ordering exigem a sequência inteira. Quatro stories foram incluídas no glob de
+features do Storybook. Evidência focada: **8 suítes/35 testes**, lint, typecheck,
+Storybook config e visual QA sem regressões. A suíte completa do app passou com
+**66 suítes/414 testes** antes do gate visual; o gate visual foi corrigido e
+reexecutado verde.
+
+Correção de escopo necessária: além dos arquivos previstos, a task alterou o
+hook do player para avaliar respostas estruturadas, a tela para anunciar o
+feedback no instante da confirmação e a configuração gerada do Storybook para
+que stories em `src/features` sejam realmente descobertas.
 
 **Files:**
 - Create: `radiant-app/src/features/lesson-flow/renderers/HotspotStepRenderer.tsx`
@@ -719,12 +776,43 @@ git commit -m "feat(learning): adiciona quatro interacoes acessiveis"
 
 ### Task 11: Agendar revisão e reforço por competência
 
+> **Algoritmo decidido em 2026-08-08:**
+> [`2026-08-08-agendador-por-competencia-design.md`](../specs/2026-08-08-agendador-por-competencia-design.md).
+> Esta task nomeava só critérios de comportamento e deixava o algoritmo em
+> aberto; a spec o fecha com um modelo de estabilidade/dificuldade em vez de
+> SM-2, porque `easeFactor` não conhece o tempo decorrido e por isso não sabe
+> premiar a recuperação feita quando o conteúdo já ia sendo esquecido.
+>
+> Três decisões daquela spec que mudam esta task, e que devem ser lidas antes de
+> implementar:
+>
+> 1. **O agendador decide o tipo da evidência que a revisão produz** —
+>    `delayed-retention` quando o decorrido passa do limiar e a competência a
+>    admite, `independent-recall` caso contrário. É assim que ele alimenta o
+>    bloqueio `missing-retention` do motor de domínio.
+> 2. **Invariante `minIntervalDays × 24 ≥ delayedRetentionMinHours`**, travada por
+>    teste. Sem ela, uma revisão agendada pode acontecer cedo demais e não contar
+>    como retenção — falha silenciosa.
+> 3. **O teto do currículo é deliberado.** `mastered` é inalcançável nas 30
+>    competências e 20 delas travam em `practicing`, porque só as 10
+>    `criticalSafety` admitem `delayed-retention`. O agendador serve memória para
+>    as 30; a UI exibe o teto alcançável. `CompetencyMasteryService` não muda.
+
 **Files:**
+- Create: `radiant-app/src/features/spaced-repetition/models/memoryModel.ts`
+- Test: `radiant-app/src/features/spaced-repetition/models/memoryModel.test.ts`
+- Create: `radiant-app/src/constants/competencyReview.ts`
 - Create: `radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.ts`
 - Test: `radiant-app/src/features/spaced-repetition/services/CompetencyReviewService.test.ts`
-- Modify: `radiant-app/src/features/spaced-repetition/services/SpacedRepetitionService.ts`
+- Create: `radiant-app/src/features/journey/services/JourneyNodeCompetencyResolver.ts`
+- Test: `radiant-app/src/features/journey/services/JourneyNodeCompetencyResolver.test.ts`
 - Modify: `radiant-app/src/features/journey/services/JourneyRecommendationService.ts`
 - Test: `radiant-app/src/features/journey/services/JourneyRecommendationService.test.ts`
+
+> **`SpacedRepetitionService` saiu da lista.** A spec mantém o caminho por lição
+> intocado — chave, schema e algoritmo — e o novo serviço roda em paralelo, que é
+> o que o Step 3 abaixo já mandava fazer. Modificá-lo era contradição da própria
+> task.
 
 **Step 1: Escrever testes vermelhos**
 
@@ -732,29 +820,68 @@ Competência nova recebe primeira revisão; retenção expande intervalo; erro o
 dica reduz intervalo; crítico de segurança recebe reforço antes de avançar;
 lições legadas continuam consultando o cartão por lição.
 
-**Step 2: Rodar focados**
+Somados pela spec de 2026-08-08, e nenhum deles é opcional:
 
-Run: `cd radiant-app && npx jest src/features/spaced-repetition src/features/journey/services/JourneyRecommendationService.test.ts --runInBand`
+- **a invariante** `minIntervalDays × 24 ≥ delayedRetentionMinHours`, assertada
+  sobre as constantes;
+- **revisar mais tarde consolida mais** — mesmo acerto, recuperabilidade menor,
+  ganho de estabilidade maior. É o teste cuja falha significa que trocar de
+  algoritmo não valeu a pena;
+- **relógio falha fechado** — retrocedido, data ilegível ou decorrido zero nunca
+  concedem `delayed-retention`;
+- **guarda de regressão:** com o catálogo atual, só legado, a saída de
+  `JourneyRecommendationService` é idêntica à de hoje (`reason: 'next-new'` em
+  todos os casos). É esse teste que autoriza a task a entrar antes de existir
+  conteúdo v2.
 
-**Step 3: Implementar serviço paralelo**
+**Steps 2 a 5 — delegados**
 
-Não migrar cartões antigos destrutivamente. Usar chave e schema novos.
-
-**Step 4: Integrar recomendação explicável**
-
-Cada recomendação retorna `reason: due-review | weak-competency | next-new`.
-
-**Step 5: Quality e commit**
-
-```bash
-cd radiant-app && npm run quality
-git add src/features/spaced-repetition src/features/journey
-git commit -m "feat(mastery): agenda revisoes por competencia"
-```
+> **Esta task é implementada por um plano próprio:**
+> [`2026-08-08-agendador-por-competencia.md`](2026-08-08-agendador-por-competencia.md),
+> em seis tasks com código de teste real e blocos de interface. **Ele é a fonte;
+> o que está acima é a decisão, não o procedimento.** Se os dois divergirem,
+> vale o plano de 2026-08-08 e esta seção deve ser corrigida.
+>
+> A delegação é deliberada. As outras 17 tasks deste arquivo estão em nível de
+> esboço, e expandir só esta produziria uma seção muito maior que as irmãs; e
+> descrever o mesmo trabalho em dois lugares é exatamente o que faz uma sessão
+> seguinte reespecificar o que já estava especificado.
+>
+> O que o plano delegado entrega, em ordem: tipos e constantes com a invariante
+> do limiar; o modelo de memória puro; o serviço com quarentena e relógio
+> fechado; o resolver de nó para competência; e a recomendação explicável com a
+> guarda de regressão que autoriza tudo isso a entrar antes de existir conteúdo
+> v2.
+>
+> Uma consequência a não esquecer: **`weak-competency` fica declarado no tipo e
+> não é emitido** enquanto todo domínio for `not-started`. Emiti-lo hoje poria
+> uma explicação falsa na tela. Ele entra na Task 12 educacional.
 
 ---
 
-### Task 12: Implementar checkpoint e reforço adaptativo
+### Task 12 educacional: Implementar checkpoint e reforço adaptativo
+
+> **BLOQUEADA E DELEGADA EM 2026-08-09.** Não executar esta task diretamente,
+> não criar apenas `UnitCheckpointService` e não integrar uma transação própria
+> na tela. Antes dela, concluir e validar as Ondas 2–4 de
+> [`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md):
+> contratos/stores/commit recuperável em `off`, adaptadores em shadow e runtime
+> ativo somente interno.
+>
+> A execução da **Task 12 educacional** é a Onda 5 daquele plano. A emenda é a
+> única receita executável: define `CheckpointAttemptV1`,
+> `ReinforcementPlanV1`, intenção imutável de replay, idempotência por
+> `operationId`, integração com o kernel, crash recovery, acessibilidade e
+> gates. Esta seção permanece somente como ponte histórica para as Tasks 13–18.
+
+<details>
+<summary><strong>HISTÓRICO/SUPERADO — receita original da Task 12 no HEAD anterior à emenda</strong></summary>
+
+> **NÃO EXECUTAR.** O bloco abaixo é preservado literalmente como proveniência
+> do plano original. Ele não contém a fundação transacional agora obrigatória e
+> não autoriza comandos, edições ou commit. A única autoridade executável é a
+> Onda 5 de
+> [`2026-08-09-checkpoints-e-loops-do-aluno.md`](2026-08-09-checkpoints-e-loops-do-aluno.md).
 
 **Files:**
 - Create: `radiant-app/src/features/mastery/services/UnitCheckpointService.ts`
@@ -789,6 +916,8 @@ curto após scroll real.
 git add radiant-app/src/features/mastery radiant-app/src/features/checkpoint radiant-app/src/features/journey
 git commit -m "feat(mastery): adiciona checkpoint adaptativo"
 ```
+
+</details>
 
 ---
 
@@ -1038,10 +1167,13 @@ revisão e evidência.
 1. Tasks 1–4: governança antes de conteúdo.
 2. Tasks 5–9: contratos de domínio antes de UI ampla.
 3. Task 10: somente os quatro renderizadores do corte vertical.
-4. Tasks 11–13: domínio, reforço e unificação da navegação.
-5. Tasks 14–15: pipeline e conteúdo revisado.
-6. Tasks 16–17: beta pedagógico e evidência.
-7. Task 18: expansão condicionada ao gate.
+4. Emenda de 2026-08-09, Ondas 2–4: fundação transacional em `off`, shadow e
+   runtime ativo somente interno.
+5. Task 12 educacional, pela Onda 5 da emenda: checkpoint e reforço adaptativo.
+6. Task 13: Galáxia como projeção da jornada canônica.
+7. Tasks 14–15: pipeline e conteúdo revisado.
+8. Tasks 16–17: beta pedagógico e evidência.
+9. Task 18: expansão condicionada ao gate.
 
 O plano não autoriza automaticamente produção, publicação em loja, ingestão de
 livros protegidos ou uso de novas imagens. Cada uma dessas ações mantém seu gate

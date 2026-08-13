@@ -86,5 +86,114 @@ class ClassifySourceTests(unittest.TestCase):
             )
 
 
+    # ── Camada de estrela opcional ────────────────────────────────────────
+    # Os planetas do eixo tecnico nao tem estrela (decisao do dono, 2026-08-07).
+    # Antes desta mudanca, classify_excerpt indexava PLANET_STAR_IDS[planet_id] e
+    # [0] sem fallback, entao um planeta sem estrela era inalcancavel: estourava
+    # antes de poder receber classificacao.
+
+    def _planeta_sem_estrela(self):
+        """Registra um planeta sem estrela na galaxia de fisica, so para o teste."""
+        MODULE.PLANET_RULES["galaxy-fisica"]["planet-sem-estrela-teste"] = [
+            ("bucky", 6.0),
+            ("colimador", 6.0),
+            ("chassi", 6.0),
+        ]
+        self.addCleanup(
+            MODULE.PLANET_RULES["galaxy-fisica"].pop, "planet-sem-estrela-teste", None
+        )
+
+    def test_planeta_sem_estrela_recebe_classificacao_com_star_id_nulo(self):
+        self._planeta_sem_estrela()
+        excerpt = {
+            "id": "excerpt:test-sem-estrela",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 9,
+            "pageEnd": 9,
+            "text": (
+                "O bucky, o colimador e o chassi sao componentes do equipamento de "
+                "radiacao ionizante usados na producao de raios X do aparelho."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        self.assertEqual(record["planetId"], "planet-sem-estrela-teste")
+        self.assertIsNone(record["starId"])
+        self.assertIn("sem estrela", record["decisionReason"])
+
+    def test_confianca_renormaliza_sem_a_parcela_da_estrela(self):
+        """Sem renormalizar, o teto vira 0.8 do merecido e o limiar e 0.7:
+        planeta sem estrela cairia em needs-review por construcao."""
+        self._planeta_sem_estrela()
+        excerpt = {
+            "id": "excerpt:test-renormaliza",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 9,
+            "pageEnd": 9,
+            "text": (
+                "O bucky, o colimador e o chassi sao componentes do equipamento de "
+                "radiacao ionizante usados na producao de raios X do aparelho."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        # A prova de que a renormalizacao aconteceu: a confianca supera o que a
+        # soma NAO renormalizada poderia produzir. Sem estrela, 0.5*g + 0.3*p
+        # nunca passa de 0.8, mesmo com galaxia e planeta perfeitos.
+        self.assertGreater(record["confidence"], 0.8)
+        self.assertEqual(record["reviewStatus"], "approved")
+
+    def test_planeta_com_estrela_segue_intocado(self):
+        """Contraprova: o caminho antigo nao pode ter mudado de comportamento."""
+        excerpt = {
+            "id": "excerpt:test-com-estrela",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 4,
+            "pageEnd": 4,
+            "text": (
+                "ENERGIA. A energia pode ser definida como capacidade de realizar "
+                "trabalho, com raios X, tomografia computadorizada e equipamentos de imagem."
+            ),
+        }
+
+        record = MODULE.classify_excerpt(excerpt)
+
+        self.assertEqual(record["planetId"], "planet-formacao-imagem")
+        self.assertIsNotNone(record["starId"])
+        self.assertEqual(record["starId"], "star-artefatos-basicos")
+
+    # ── Eixo tecnico ─────────────────────────────────────────────────────
+    def test_excerto_de_processamento_vai_para_imagem_na_pratica(self):
+        excerpt = {
+            "id": "excerpt:test-processamento", "sourceSlug": SOURCE_SLUG,
+            "pageStart": 55, "pageEnd": 55,
+            "text": ("O processamento radiografico ocorre na camara escura, onde o "
+                     "revelador e o fixador atuam sobre o filme, e a qualidade de imagem "
+                     "depende da nitidez e do contraste obtidos."),
+        }
+        record = MODULE.classify_excerpt(excerpt)
+        self.assertEqual(record["galaxyId"], "galaxy-tecnologia")
+        self.assertEqual(record["planetId"], "planet-imagem-na-pratica")
+        self.assertIsNone(record["starId"])
+
+    def test_o_cabecalho_da_fonte_nao_e_sinal_de_assunto(self):
+        """`tecnico em radiologia` aparece em 77 dos 109 excertos porque e o
+        cabecalho de pagina do modulo. Usa-lo como sinal punha excerto de dose em
+        `profissao e aplicacoes`, que e colocacao errada com metrica boa."""
+        excerpt = {
+            "id": "excerpt:test-boilerplate", "sourceSlug": SOURCE_SLUG,
+            "pageStart": 22, "pageEnd": 22,
+            "text": ("CURSO TECNICO EM RADIOLOGIA MODULO I. A dose absorvida e a "
+                     "protecao radiologica do paciente exigem avental de chumbo e "
+                     "monitoracao por dosimetro."),
+        }
+        record = MODULE.classify_excerpt(excerpt)
+        self.assertNotEqual(record["planetId"], "planet-profissao-e-aplicacoes")
+
+    def test_taxonomy_version_declara_o_eixo_tecnico(self):
+        self.assertEqual(MODULE.TAXONOMY_VERSION, "eixo-tecnico-2026-08-07")
+
 if __name__ == "__main__":
     unittest.main()

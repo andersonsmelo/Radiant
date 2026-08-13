@@ -1,0 +1,82 @@
+[
+  {
+    "taxonomyId": "planet-equipamento",
+    "catalogId": "ai-lesson:acessorios-radiologicos",
+    "rationale": "Acessorios sao parte do aparato fisico do exame, junto de aparelho e componentes. O planeta reune o equipamento como objeto; a licao descreve os acessorios que o acompanham."
+  },
+  {
+    "taxonomyId": "planet-modalidades",
+    "catalogId": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+    "rationale": "Medicina nuclear e uma modalidade de imagem, ao lado de TC e RM. O recorte do planeta e a modalidade como tecnica propria, nao a fisica que a sustenta."
+  },
+  {
+    "taxonomyId": "planet-equipamento",
+    "catalogId": "ai-lesson:componentes-basicos-do-equipamento",
+    "rationale": "Anatomia interna do aparelho de radiologia convencional. Mesmo planeta de acessorios e do equipamento completo, que juntos descrevem a maquina."
+  },
+  {
+    "taxonomyId": "planet-fisica-da-radiacao",
+    "catalogId": "ai-lesson:energia-e-materia",
+    "rationale": "Fisica geral pre-raios X. Fica em Fisica da Radiacao e nao em Formacao da Imagem, porque o planeta de formacao pertence ao eixo de interpretacao e segue planned."
+  },
+  {
+    "taxonomyId": "planet-equipamento",
+    "catalogId": "ai-lesson:equipamentos-de-radiologia-convencional",
+    "rationale": "O aparelho de radiologia convencional visto por inteiro. E a licao de entrada do planeta; componentes e acessorios a detalham."
+  },
+  {
+    "taxonomyId": "planet-fisica-da-radiacao",
+    "catalogId": "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+    "rationale": "Fisica nuclear basica, pre-requisito de radioatividade. Mesmo planeta de energia e materia, com quem forma a base do eixo tecnico."
+  },
+  {
+    "taxonomyId": "planet-producao-e-protecao",
+    "catalogId": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+    "rationale": "Interacao da radiacao com a materia e sua contencao. Fica com producao dos raios X porque as duas descrevem o feixe: uma como ele nasce, outra o que ele faz e como se protege dele. A estrela star-dose-radiacao segue planned e continua sem receber mapeamento, pela regra de nao ligar catalogo a promessa de curriculo."
+  },
+  {
+    "taxonomyId": "planet-profissao-e-aplicacoes",
+    "catalogId": "ai-lesson:preservacao-de-alimentos-por-irradicao",
+    "rationale": "Aplicacao nao-medica da radiacao — nem imagem nem equipamento. Julgamento aprovado pelo dono em 2026-08-07: o planeta se chama Profissao e Aplicacoes e sua descricao nomeia aplicacoes nao-medicas, entao a licao nao e excecao escondida. A alternativa considerada, forcar na fisica, foi recusada."
+  },
+  {
+    "taxonomyId": "planet-imagem-na-pratica",
+    "catalogId": "ai-lesson:processamento-radiografico",
+    "rationale": "Etapa tecnica entre a exposicao e a imagem pronta. Fica com qualidade de imagem, com quem forma o par do que se faz depois do disparo."
+  },
+  {
+    "taxonomyId": "planet-producao-e-protecao",
+    "catalogId": "ai-lesson:producao-dos-raios-x",
+    "rationale": "Como o feixe e produzido. E a licao de entrada do planeta; interacao e protecao completam o ciclo do feixe."
+  },
+  {
+    "taxonomyId": "planet-profissao-e-aplicacoes",
+    "catalogId": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+    "rationale": "Orientacao profissional e de carreira, sem paralelo nos demais planetas. Da nome ao planeta junto das aplicacoes nao-medicas."
+  },
+  {
+    "taxonomyId": "planet-imagem-na-pratica",
+    "catalogId": "ai-lesson:qualidade-de-imagem",
+    "rationale": "Fatores tecnicos que decidem a qualidade do resultado. E a aula do piloto de ancoragem, e o planeta a poe ao lado do processamento, que e onde varios desses fatores agem."
+  },
+  {
+    "taxonomyId": "planet-fisica-da-radiacao",
+    "catalogId": "ai-lesson:radioatividade-particulas-e-atividade",
+    "rationale": "Radioatividade e atividade, continuacao direta de estrutura da materia. Base fisica do eixo tecnico, anterior a qualquer equipamento."
+  },
+  {
+    "taxonomyId": "planet-fisica-da-radiacao",
+    "catalogId": "ai-lesson:raios-x-descoberta-e-propriedades",
+    "rationale": "Historico e propriedades gerais dos raios X. Fecha a base fisica e antecede a producao do feixe, que fica no planeta seguinte."
+  },
+  {
+    "taxonomyId": "planet-modalidades",
+    "catalogId": "ai-lesson:ressonancia-magnetica",
+    "rationale": "Modalidade propria, ao lado de TC e medicina nuclear. Sem recorte anatomico, o que a mantem fora das galaxias de interpretacao."
+  },
+  {
+    "taxonomyId": "planet-modalidades",
+    "catalogId": "ai-lesson:tomografia-computadorizada",
+    "rationale": "Modalidade propria. O catalogo a agrupa na trilha de prioridade Torax, mas isso e coincidencia de rollout do wave-1 e nao de conteudo — a licao e sobre a tecnica, nao sobre anatomia toracica."
+  }
+]

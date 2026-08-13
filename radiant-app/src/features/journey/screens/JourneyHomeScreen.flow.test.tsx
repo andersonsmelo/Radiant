@@ -1,10 +1,13 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
-import { router } from 'expo-router';
+import { screen, waitFor } from '@testing-library/react-native';
 import JourneyHomeScreen from './JourneyHomeScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
 
 jest.mock('expo-router', () => ({
   router: {
@@ -59,25 +62,31 @@ jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
 }));
 
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreference: () => false,
+}));
+
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
     getSnapshot: jest.fn().mockResolvedValue({
       totalXp: 80,
       streakDays: 2,
+      lastActiveDate: null,
       hearts: 5,
       maxHearts: 5,
     }),
   },
 }));
 
-jest.mock('../components/JourneyHero', () => {
+jest.mock('../../../ui/characters/PixelIllustration', () => {
   const React = require('react');
   const { Text, View } = require('react-native');
 
   return {
-    JourneyHero: ({ unitTitle }: { unitTitle: string }) => (
+    PIXEL_SIZE_MAP: { sm: 60, md: 108, lg: 176 },
+    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
       <View>
-        <Text>{unitTitle}</Text>
+        <Text testID="journey-hero-expression">{expression}</Text>
       </View>
     ),
   };
@@ -119,10 +128,19 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
   },
 }));
 
+jest.mock('../../pixel-mood/useSporadicPixelSpeech', () => ({
+  useSporadicPixelSpeech: () => ({ expression: 'feliz', phrase: 'Bom te ver.' }),
+}));
+
 jest.mock('../../telemetry/TelemetryService', () => ({
   TelemetryService: {
     track: jest.fn().mockResolvedValue(undefined),
+    markDayOpen: jest.fn().mockResolvedValue(undefined),
   },
+}));
+
+jest.mock('../../push/services/PushService', () => ({
+  PushService: { onAppOpen: jest.fn().mockResolvedValue(undefined) },
 }));
 
 // O primeiro teste do arquivo paga um custo único de ~900ms dentro da janela do
@@ -135,7 +153,6 @@ const FIRST_RENDER_TIMEOUT_MS = 4000;
 
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedTelemetryService = TelemetryService as jest.Mocked<typeof TelemetryService>;
-const mockedRouter = router as jest.Mocked<typeof router>;
 
 const tracks = [
   {
@@ -227,6 +244,15 @@ describe('JourneyHomeScreen track flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
+    const { GamificationService } = require('../../gamification/services/GamificationService');
+    GamificationService.getSnapshot.mockResolvedValue({
+      totalXp: 80,
+      streakDays: 2,
+      lastActiveDate: null,
+      hearts: 5,
+      maxHearts: 5,
+    });
+
     const { LessonCatalogService } = require('../../content/services/LessonCatalogService');
     LessonCatalogService.bootstrap.mockResolvedValue(catalogManifest);
 
@@ -241,67 +267,44 @@ describe('JourneyHomeScreen track flow', () => {
     mockedJourneyProgressService.setCurrentNode.mockResolvedValue(undefined as any);
   });
 
-  it('opens the next eligible lesson when selecting Tórax', async () => {
-    const thoraxSnapshot = createSnapshot(
-      'track-thorax-patterns',
-      'Interação das radiações e proteção radiológica',
-      'node-thorax-lesson',
-      'block-thorax'
-    );
-    mockedJourneyProgressService.selectTrack.mockResolvedValue(thoraxSnapshot);
-
+  it('emits app_open, because this screen is the reachable home', async () => {
+    // A home oficial responde pela abertura do app. Enquanto o evento vivia só
+    // na `HomeScreen` legada — que `(tabs)/index.tsx` só renderiza com
+    // `ENABLE_LEARNING_ROAD=false`, e nenhum perfil declara isso —,
+    // `countEvents('app_open')` era zero para sempre e travava os gates do
+    // prompt de avaliação e do paywall em `insufficient_sessions`. Esta
+    // asserção existe para que trocar a home de novo falhe aqui.
     renderWithProviders(<JourneyHomeScreen />);
 
-    const thoraxTrack = await screen.findByTestId('journey-track-torax', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
-    fireEvent.press(thoraxTrack);
-
     await waitFor(() => {
-      expect(mockedJourneyProgressService.selectTrack).toHaveBeenCalledWith('track-thorax-patterns');
-    });
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('node-thorax-lesson');
+      expect(mockedTelemetryService.track).toHaveBeenCalledWith('app_open');
     });
 
-    expect(mockedRouter.push).toHaveBeenCalledWith({
-      pathname: '/learn',
-      params: {
-        nodeId: 'node-thorax-lesson',
-        blockId: 'block-thorax',
-      },
-    });
-    expect(mockedTelemetryService.track).toHaveBeenCalledWith('journey_track_selected', {
-      trackId: 'track-thorax-patterns',
-      active: false,
-    });
+    expect(mockedTelemetryService.markDayOpen).toHaveBeenCalledTimes(1);
   });
 
-  it('opens the next eligible lesson when selecting Abdome', async () => {
-    const abdomenSnapshot = createSnapshot(
-      'track-abdomen-patterns',
-      'Preservação de alimentos por irradiação',
-      'node-abdomen-lesson',
-      'block-abdomen'
-    );
-    mockedJourneyProgressService.selectTrack.mockResolvedValue(abdomenSnapshot);
-
+  it('keeps track selection out of Home because Galaxy owns exploration', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
-    const abdomenTrack = await screen.findByTestId('journey-track-abdome', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
-    fireEvent.press(abdomenTrack);
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.selectTrack).toHaveBeenCalledWith('track-abdomen-patterns');
-    });
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('node-abdomen-lesson');
-    });
+    expect(screen.queryByTestId('journey-track-shelf')).toBeNull();
+    expect(mockedJourneyProgressService.selectTrack).not.toHaveBeenCalled();
+  });
 
-    expect(mockedRouter.push).toHaveBeenCalledWith({
-      pathname: '/learn',
-      params: {
-        nodeId: 'node-abdomen-lesson',
-        blockId: 'block-abdomen',
-      },
-    });
+  it('keeps the JourneyMap out of Home because the Galaxy tab owns that surface', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(screen.queryByText('Mapa da jornada')).toBeNull();
+  });
+
+  it('shows Pixel speech when a sporadic Home message is active', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+
+    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(await screen.findByTestId('journey-hero-bubble')).toBeTruthy();
   });
 });

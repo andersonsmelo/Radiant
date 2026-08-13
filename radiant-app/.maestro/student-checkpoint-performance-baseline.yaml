@@ -1,0 +1,37 @@
+appId: com.ascendcreative.radiant
+name: Off baseline for checkpoint cold start and Home to Lesson
+tags:
+  - checkpoint
+  - performance-baseline
+  - local-first
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
+- assertVisible: Foco de hoje
+- repeat:
+    times: 15
+    while:
+      notVisible: Continuar jornada
+    commands:
+      - scroll
+- scroll
+- tapOn: Continuar jornada
+- assertVisible: Fundamentos de Radiologia

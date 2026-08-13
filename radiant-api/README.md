@@ -40,9 +40,25 @@ Cobrir o mínimo necessário para o app mobile:
 
 Além da autenticação, a API já contém schema e seed inicial de conteúdo para suportar as foreign keys de sincronização e publicar o catálogo remoto consumido pelo app.
 
-## Status operacional (2026-04-01)
+## Status operacional atual (2026-08-09)
 
-Validação consolidada no war room:
+A implementação local existe e passa pelos validadores do projeto, mas a API
+pública conhecida continua **inativa (HTTP 502)**. O app distribuído não declara
+`EXPO_PUBLIC_API_BASE_URL`, permanece local-first e não depende deste serviço.
+
+A estratégia decidida para a próxima implantação é a opção B da
+[`ADR-2026-08-04`](../docs/adr/ADR-2026-08-04-estrategia-da-api.md): publicar
+somente `/health`, `/ready` e `/v1/content/catalog`; auth e sync não entram nessa
+primeira reativação. **A decisão está assinada, mas nada foi implantado ainda.**
+Disponibilidade pública só pode ser promovida depois de deploy e smoke remotos
+novos.
+
+O estado e os bloqueios vigentes estão no
+[`status canônico`](../docs/EXECUTION_STATUS_2026-08-10.md).
+
+### Evidência histórica de 2026-04-01
+
+Naquela data, a validação consolidada no war room registrou:
 
 - gates de backend passaram (`lint`, `typecheck`, `build`, `test`);
 - smoke remoto passou para:
@@ -51,10 +67,12 @@ Validação consolidada no war room:
   - `https://api.radiant.ascendcreative.com.br/v1/content/catalog`
 - resultado agregado do comando central de prontidão: `PASS=13 FAIL=0`.
 
+Esse smoke é histórico e **não prova** disponibilidade em 2026-08-09.
+
 Referências:
 
-- `/Users/anderson/Documents/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
-- `/Users/anderson/Documents/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md`
+- [`../docs/EXECUTION_STATUS_2026-04-01.md`](../docs/EXECUTION_STATUS_2026-04-01.md)
+- [`../docs/WAR_ROOM_PLAN_2026-04-01.md`](../docs/WAR_ROOM_PLAN_2026-04-01.md)
 
 ## Variáveis de ambiente
 
@@ -116,7 +134,8 @@ O seed inicial replica no banco o catálogo publicado pelo app, incluindo `track
 O catálogo editorial promovido agora também gera um seed remoto idempotente em `sql/003_seed_editorial_catalog.sql`, criado a partir de `conteúdo/governança/catalog-payload.json` por:
 
 ```bash
-node /Users/anderson/Documents/Radiant/scripts/content/sync-catalog-to-api.mjs
+cd "$(git rev-parse --show-toplevel)"
+node scripts/content/sync-catalog-to-api.mjs
 ```
 
 Na prática:
@@ -162,7 +181,8 @@ Precondições operacionais antes do primeiro deploy:
 
 Gate de comando central (monorepo):
 
-- `bash /Users/anderson/Documents/Radiant/scripts/launch-war-room.sh`
+- `cd "$(git rev-parse --show-toplevel)"`
+- `bash scripts/launch-war-room.sh`
 
 O `deploy.sh` suporta:
 

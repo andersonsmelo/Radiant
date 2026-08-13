@@ -20,16 +20,19 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md) para estado
+1. [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md) para estado
    operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
    runtime;
-3. [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
-   para **ordem e dependência entre as três frentes**; dentro de cada frente, o
-   plano de execução dela — [lançamento](plans/2026-07-27-radiant-launch-roadmap.md),
+3. [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
+   para o inventário ativo do lançamento; o
+   [`roadmap mestre`](plans/2026-08-01-radiant-roadmap-mestre.md) preserva a
+   ordem entre as três frentes e aponta os planos de cada uma —
+   [lançamento](plans/2026-07-27-radiant-launch-roadmap.md),
    [recorte Android](plans/2026-07-29-android-closed-testing-plan.md),
-   [sistema de aprendizagem](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md);
+   [sistema de aprendizagem](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md)
+   e [kernel de checkpoints](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md);
 4. [`ARCHITECTURE_STATE.md`](ARCHITECTURE_STATE.md) para arquitetura consolidada;
 5. [`PRD.md`](PRD.md), specs e ADRs para intenção e decisões;
 6. documentos datados substituídos, apenas como evidência histórica.
@@ -40,8 +43,13 @@ Quando documentos divergirem, use esta ordem:
 
 - [`PRD.md`](PRD.md)
 - [`ARCHITECTURE_STATE.md`](ARCHITECTURE_STATE.md)
+- [`CLIENT_FLOW.md`](CLIENT_FLOW.md) — o caminho da pessoa no app e a máquina de
+  estados que decide se o próximo passo abre, em dois diagramas ancorados no
+  código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-02.md`](EXECUTION_STATUS_2026-08-02.md)
+- [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md)
+- [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md) — handoff
+  autocontido para a próxima sessão
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
@@ -52,13 +60,51 @@ Quando documentos divergirem, use esta ordem:
 - decisão: [`adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md)
 - spec: [`superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md`](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 - execução: [`superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md`](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md)
+- emenda da Task 11 (algoritmo do agendador):
+  [spec](superpowers/specs/2026-08-08-agendador-por-competencia-design.md) ·
+  [execução](superpowers/plans/2026-08-08-agendador-por-competencia.md)
+- kernel de checkpoints e loops do aluno:
+  [spec](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md) ·
+  [execução](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md) ·
+  [ADR](adr/ADR-2026-08-09-kernel-de-checkpoints-e-loops-do-aluno.md) ·
+  [privacidade](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md) ·
+  [rollout/rollback](runbooks/student-checkpoint-rollout-rollback.md)
 
-O estado de 2026-08-02 é: Tasks 1, 2 e **4 a 9** concluídas; infraestrutura da
-Task 3 concluída; lote de mídia ainda sem ativos aprovados; próxima é a **Task
-10** (jogos acessíveis). Nada dessa frente dependia do lote de mídia — o gate da
-Fase 0 pede as duas coisas como condições irmãs —, mas os jogos que usam imagem
-dependem, e o lote é decisão de direitos do dono. A autoridade sobre este estado
-é o status canônico; a linha acima é conveniência e decai.
+O estado de 2026-08-09 é: Tasks **1–11 concluídas**; o primeiro lote original
+sintético de mídia está aprovado, com cinco candidatas históricas ainda
+rejeitadas. As **Ondas 1 a 4** do kernel fecharam: governança, fundação
+transacional em `off`, shadow nas 12 superfícies e runtime `active` **somente
+interno**, este último com o gate de aparelho executado em 2026-08-10 e um único
+item aberto: o delta de partida. A métrica dele foi trocada no mesmo dia — de
+`cold_start`, que num Dev Client mede uma janela onde o kernel nem existe, para
+`first_frame`, que o contém por construção — e a primeira medição achou ~440 ms,
+dos quais ~72% eram resolução de módulo no Dev Client, não lógica do kernel. O
+aquecimento simétrico já tornou as coortes comparáveis e mostrou o kernel abaixo
+de 2 ms; **falta executar 20+20 amostras em janela de host para fechar H3**. A
+entrega seguinte é a **Task 12 educacional** de checkpoint/reforço. Produção
+segue `off`; nenhum sync, OTA ou novo binário foi autorizado. A autoridade é o
+status canônico; esta linha é conveniência e decai.
+
+A Task 11 fechou **fora de ordem** porque o agendador que ela entrega não depende
+de conteúdo v2: ele entra desligado e acende quando houver o que agendar. O
+efeito prático é que **existe hoje um agendador pronto sem conteúdo curricular
+v2 para agendar**; o lote de mídia já fechou, mas a leitura só acende depois do
+conteúdo v2 e dos gates do kernel.
+
+O primeiro hardening pós-entrega também fechou em 2026-08-09:
+`CompetencyReviewService` passou a rejeitar números não finitos nos quatro
+campos numéricos do cartão e a quarentenar o store. A guarda de ativação e a
+varredura do padrão `jest.spyOn` sobre mocks oficiais também fecharam em
+2026-08-09; o agendador continua inerte até conteúdo curricular v2.
+
+### Primeira vitória
+
+- decisão e desenho:
+  [`superpowers/specs/2026-08-09-primeira-vitoria-design.md`](superpowers/specs/2026-08-09-primeira-vitoria-design.md)
+- execução:
+  [`plans/2026-08-09-primeira-vitoria.md`](plans/2026-08-09-primeira-vitoria.md)
+- resultado: **Começar** abre o próximo nó elegível; **Pular apresentação** abre
+  a Home; o flow focado passou no iOS e no Android em 2026-08-09.
 
 ### Conta, premium e monetização
 
@@ -91,7 +137,7 @@ dependem, e o lote é decisão de direitos do dono. A autoridade sobre este esta
 
 ## Histórico
 
-`EXECUTION_STATUS_2026-07-29.md` e anteriores são snapshots substituídos. Planos
+`EXECUTION_STATUS_2026-08-08.md` e anteriores são snapshots substituídos. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 

@@ -10,6 +10,19 @@ describe('WelcomeFlowScreen', () => {
         expect(screen.getByText('Oi, eu sou o Pixel.')).toBeTruthy();
     });
 
+    it('retoma numa tela compatível somente depois do CTA externo explícito', () => {
+        renderWithProviders(
+            <WelcomeFlowScreen
+                onFinish={jest.fn()}
+                resumeCheckpointId="checkpoint-first-run"
+                resumeCursorId="slide-2"
+            />
+        );
+
+        expect(screen.getByText('Trilha, quiz e revisão.')).toBeTruthy();
+        expect(screen.queryByText('Oi, eu sou o Pixel.')).toBeNull();
+    });
+
     it('avança pelas três telas até o botão Começar', () => {
         renderWithProviders(<WelcomeFlowScreen onFinish={jest.fn()} />);
 
@@ -52,6 +65,19 @@ describe('WelcomeFlowScreen', () => {
         fireEvent.press(screen.getByLabelText('Pular apresentação'));
 
         expect(onFinish).toHaveBeenCalledWith('skipped', 1);
+    });
+
+    it('pula da segunda tela registrando o passo 2', () => {
+        // A primeira e a terceira ja estavam cobertas, e o passo reportado e
+        // `index + 1` sem ramo proprio — mas era exatamente essa aritmetica que
+        // ficava sem asserção no meio, onde um off-by-one nao aparece nas pontas.
+        const onFinish = jest.fn();
+        renderWithProviders(<WelcomeFlowScreen onFinish={onFinish} />);
+
+        fireEvent.press(screen.getByLabelText('Continuar'));
+        fireEvent.press(screen.getByLabelText('Pular apresentação'));
+
+        expect(onFinish).toHaveBeenCalledWith('skipped', 2);
     });
 
     it('pula da última tela registrando o passo 3', () => {

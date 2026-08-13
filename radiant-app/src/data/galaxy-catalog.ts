@@ -5,6 +5,23 @@
  */
 
 import type { RadiantGalaxy } from '../types/galaxy';
+import type { JourneyNode } from '../types/journey';
+import { GALAXY_NODES_BY_BODY } from './galaxy-nodes';
+
+/**
+ * Nós de um corpo, vindos do módulo gerado a partir do mapa de taxonomia.
+ *
+ * A divisão é deliberada: qual lição pertence a qual planeta é **fato de
+ * governança** e vem gerado; cor, superfície e posição no mapa são **decisão de
+ * design** e continuam escritas à mão aqui. Manter o vínculo à mão nos dois
+ * lugares foi o que produziu dois catálogos divergentes do mesmo universo.
+ *
+ * Devolve `[]` para corpo sem lição mapeada — planeta de interpretação, por
+ * exemplo, cujo currículo ainda é `planned` na taxonomia.
+ */
+function nodesOf(bodyId: string): JourneyNode[] {
+  return GALAXY_NODES_BY_BODY[bodyId] ?? [];
+}
 
 export const GALAXY_CATALOG: RadiantGalaxy[] = [
   // ═══════════════════════════════════════════════════════════
@@ -176,10 +193,45 @@ export const GALAXY_CATALOG: RadiantGalaxy[] = [
     emoji: '⚛️',
     colorPrimary: 'rgba(255, 120, 50, 0.35)',
     colorSecondary: 'rgba(200, 60, 20, 0.2)',
-    status: 'available',
+    status: 'active',
     mapPosition: { x: 0.65, y: 0.44 },
     visualSize: 68,
-    bodies: [],
+    bodies: [
+      // ── Planeta Física da Radiação (4 lições) ─────────────
+      {
+        id: 'planet-fisica-da-radiacao',
+        galaxyId: 'galaxy-fisica',
+        title: 'Física da Radiação',
+        bodyType: 'planet',
+        size: 'lg',
+        hasRing: false,
+        surfaceConfig: {
+          type: 'lava',
+          glowColor: 'rgba(255, 140, 60, 0.6)',
+          atmosphereColor: 'rgba(255, 140, 60, 0.3)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.32, y: 0.3 },
+        nodes: nodesOf('planet-fisica-da-radiacao'),
+      },
+      // ── Planeta Produção e Proteção (2 lições) ────────────
+      {
+        id: 'planet-producao-e-protecao',
+        galaxyId: 'galaxy-fisica',
+        title: 'Produção e Proteção',
+        bodyType: 'planet',
+        size: 'md',
+        hasRing: true,
+        surfaceConfig: {
+          type: 'electric',
+          glowColor: 'rgba(255, 190, 90, 0.55)',
+          atmosphereColor: 'rgba(255, 190, 90, 0.28)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.68, y: 0.62 },
+        nodes: nodesOf('planet-producao-e-protecao'),
+      },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════
@@ -206,10 +258,79 @@ export const GALAXY_CATALOG: RadiantGalaxy[] = [
     emoji: '🔬',
     colorPrimary: 'rgba(160, 80, 240, 0.25)',
     colorSecondary: 'rgba(100, 40, 180, 0.15)',
-    status: 'locked',
+    status: 'active',
     mapPosition: { x: 0.72, y: 0.82 },
-    visualSize: 50,
-    bodies: [],
+    visualSize: 66,
+    bodies: [
+      // ── Planeta Equipamento (3 lições) ────────────────────
+      {
+        id: 'planet-equipamento',
+        galaxyId: 'galaxy-tecnologia',
+        title: 'Equipamento',
+        bodyType: 'planet',
+        size: 'lg',
+        hasRing: true,
+        surfaceConfig: {
+          type: 'ice',
+          glowColor: 'rgba(180, 120, 255, 0.6)',
+          atmosphereColor: 'rgba(180, 120, 255, 0.3)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.28, y: 0.26 },
+        nodes: nodesOf('planet-equipamento'),
+      },
+      // ── Planeta Modalidades (3 lições) ────────────────────
+      {
+        id: 'planet-modalidades',
+        galaxyId: 'galaxy-tecnologia',
+        title: 'Modalidades',
+        bodyType: 'planet',
+        size: 'lg',
+        hasRing: false,
+        surfaceConfig: {
+          type: 'electric',
+          glowColor: 'rgba(150, 90, 255, 0.6)',
+          atmosphereColor: 'rgba(150, 90, 255, 0.3)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.7, y: 0.36 },
+        nodes: nodesOf('planet-modalidades'),
+      },
+      // ── Planeta Imagem na Prática (2 lições) ──────────────
+      {
+        id: 'planet-imagem-na-pratica',
+        galaxyId: 'galaxy-tecnologia',
+        title: 'Imagem na Prática',
+        bodyType: 'planet',
+        size: 'md',
+        hasRing: false,
+        surfaceConfig: {
+          type: 'aqua',
+          glowColor: 'rgba(120, 200, 255, 0.55)',
+          atmosphereColor: 'rgba(120, 200, 255, 0.28)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.32, y: 0.68 },
+        nodes: nodesOf('planet-imagem-na-pratica'),
+      },
+      // ── Planeta Profissão e Aplicações (2 lições) ─────────
+      {
+        id: 'planet-profissao-e-aplicacoes',
+        galaxyId: 'galaxy-tecnologia',
+        title: 'Profissão e Aplicações',
+        bodyType: 'planet',
+        size: 'md',
+        hasRing: true,
+        surfaceConfig: {
+          type: 'swamp',
+          glowColor: 'rgba(140, 220, 170, 0.55)',
+          atmosphereColor: 'rgba(140, 220, 170, 0.28)',
+        },
+        status: 'available',
+        mapPosition: { x: 0.72, y: 0.76 },
+        nodes: nodesOf('planet-profissao-e-aplicacoes'),
+      },
+    ],
   },
 ];
 

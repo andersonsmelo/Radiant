@@ -4,8 +4,21 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
+import {
+    default as Reanimated,
+    Easing as ReanimatedEasing,
+    interpolateColor,
+    useAnimatedProps,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withRepeat,
+    withSequence,
+    withTiming,
+} from 'react-native-reanimated';
+import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
 
 // ============================================================================
@@ -272,8 +285,250 @@ export function useCardEnter(customDuration?: number) {
     return { opacity, translateY, animatedStyle, animateIn, reset };
 }
 
+/**
+ * Pulso de perda — o único movimento punitivo do vocabulário.
+ *
+ * Incha e recolhe: `1 → 1.35 → 1`. Serve ao momento em que algo é **tirado** da
+ * pessoa (hoje, uma vida no quiz), que até aqui acontecia sem sinal visual
+ * nenhum — o contador simplesmente trocava.
+ *
+ * Por que não reusar os existentes: `useScalePop` entra de 0.98 para 1 e é
+ * chegada, não perda; `useShakeError` é o vocabulário de *erro*, e errar não é
+ * a mesma coisa que perder — no modo revisão erra-se sem custo. Um movimento
+ * próprio é o que separa os dois eventos.
+ *
+ * A escala passa de 1 de propósito: encolher leria como "sumindo", e o coração
+ * não some, ele esvazia. Duração `micro` na ida e `ui` na volta — a ida chama
+ * atenção, a volta devolve a tela; a HIG pede movimento breve em interações que
+ * se repetem, e esta se repete várias vezes por sessão.
+ */
+export function useLossPulse() {
+    const scale = useRef(new Animated.Value(1)).current;
+    const reducedMotionEnabled = useReducedMotionPreference();
+
+    const animateIn = useCallback(() => {
+        if (reducedMotionEnabled) {
+            scale.setValue(1);
+            return;
+        }
+
+        scale.setValue(1);
+        Animated.sequence([
+            Animated.timing(scale, {
+                toValue: 1.35,
+                duration: duration.micro,
+                easing: easing.out,
+                useNativeDriver: true,
+            }),
+            Animated.timing(scale, {
+                toValue: 1,
+                duration: duration.ui,
+                easing: easing.out,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [reducedMotionEnabled, scale]);
+
+    const animatedStyle = {
+        transform: [{ scale }],
+    };
+
+    return { scale, animatedStyle, animateIn };
+}
+
 export const createFadeInUp = useFadeInUp;
 export const createScalePop = useScalePop;
 export const createShakeError = useShakeError;
 export const createPressScale = usePressScale;
 export const createCardEnter = useCardEnter;
+export const createLossPulse = useLossPulse;
+export const MotionView = Reanimated.View;
+export const MotionSvgGroup = Reanimated.createAnimatedComponent(G);
+export const MotionSvgPath = Reanimated.createAnimatedComponent(Path);
+
+// ============================================================================
+// REANIMATED HELPERS — mounted, lightweight status glyphs
+// ============================================================================
+
+/**
+ * Celebra uma alteração positiva pontual sem transformar um estado estático em
+ * uma animação contínua. Usado pelo XP do HUD quando o valor aumenta.
+ */
+export function useEventCelebrationScale(value: number) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+    const rayOpacity = useSharedValue(0);
+    const rayScale = useSharedValue(0.4);
+    const previous = useRef(value);
+
+    useEffect(() => {
+        const increased = value > previous.current;
+        previous.current = value;
+
+        if (!increased || reducedMotionEnabled) {
+            scale.value = 1;
+            rayOpacity.value = 0;
+            rayScale.value = reducedMotionEnabled ? 1 : 0.4;
+            return;
+        }
+
+        const dormantMs = duration.celebrate * 0.55;
+        const rayRiseMs = duration.celebrate * 0.15;
+        const rayFadeMs = duration.celebrate * 0.3;
+        const burstRiseMs = duration.celebrate * 0.07;
+        const burstSettleMs = duration.celebrate * 0.38;
+
+        scale.value = withDelay(dormantMs, withSequence(
+            withTiming(1.35, {
+                duration: burstRiseMs,
+                easing: ReanimatedEasing.bezier(0.34, 1.56, 0.64, 1),
+            }),
+            withTiming(1, {
+                duration: burstSettleMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        rayOpacity.value = withDelay(dormantMs, withSequence(
+            withTiming(0.9, {
+                duration: rayRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(0, {
+                duration: rayFadeMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        rayScale.value = withDelay(dormantMs, withSequence(
+            withTiming(1, {
+                duration: rayRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1.5, {
+                duration: rayFadeMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+    }, [rayOpacity, rayScale, reducedMotionEnabled, scale, value]);
+
+    const animatedProps = useAnimatedProps(() => ({
+        scale: scale.value,
+        originX: 26,
+        originY: 26,
+    }));
+    const rayAnimatedProps = useAnimatedProps(() => ({
+        opacity: rayOpacity.value,
+        scale: rayScale.value,
+        originX: 26,
+        originY: 26,
+    }));
+
+    return { animatedProps, rayAnimatedProps };
+}
+
+/**
+ * Encena a perda dentro do próprio SVG: impacto, rachadura seca e drenagem.
+ * O estado final sempre é o `filled` recebido; movimento reduzido salta direto
+ * para ele, sem deixar a rachadura visível.
+ */
+export function useHeartLossAnimation(filled: boolean, losing: boolean) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+    const drain = useSharedValue(filled ? 0 : 1);
+    const crackOpacity = useSharedValue(0);
+
+    useEffect(() => {
+        scale.value = 1;
+        crackOpacity.value = 0;
+
+        if (reducedMotionEnabled || !losing || filled) {
+            drain.value = filled ? 0 : 1;
+            return;
+        }
+
+        const impactDelayMs = duration.ui * 0.4;
+        const impactRiseMs = duration.ui * 0.08;
+        const impactDropMs = duration.ui * 0.12;
+        const impactSettleMs = duration.ui * 0.4;
+        const crackDelayMs = duration.ui * 0.6;
+        const drainDelayMs = duration.ui * 0.52;
+        const drainMs = duration.ui * 0.18;
+
+        drain.value = 0;
+        scale.value = withDelay(impactDelayMs, withSequence(
+            withTiming(1.18, {
+                duration: impactRiseMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(0.9, {
+                duration: impactDropMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1, {
+                duration: impactSettleMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        ));
+        crackOpacity.value = withDelay(
+            crackDelayMs,
+            withTiming(1, { duration: 0 }),
+        );
+        drain.value = withDelay(
+            drainDelayMs,
+            withTiming(1, {
+                duration: drainMs,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+        );
+    }, [crackOpacity, drain, filled, losing, reducedMotionEnabled, scale]);
+
+    const groupAnimatedProps = useAnimatedProps(() => ({
+        scale: scale.value,
+        originX: 26,
+        originY: 28.6,
+    }));
+    const fillAnimatedProps = useAnimatedProps(() => ({
+        fill: interpolateColor(
+            drain.value,
+            [0, 1],
+            ['#FF3B30', 'rgba(255, 255, 255, 0.20)'],
+        ),
+    }));
+    const crackAnimatedProps = useAnimatedProps(() => ({ opacity: crackOpacity.value }));
+
+    return { groupAnimatedProps, fillAnimatedProps, crackAnimatedProps };
+}
+
+/**
+ * Mantém um indicador de estado vivo com uma respiração discreta. Sob reduced
+ * motion devolve imediatamente a escala estática e legível.
+ */
+export function useBreathingScale() {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const scale = useSharedValue(1);
+
+    useEffect(() => {
+        if (reducedMotionEnabled) {
+            scale.value = 1;
+            return;
+        }
+
+        scale.value = withRepeat(
+            withSequence(
+                withTiming(1.08, {
+                    duration: 800,
+                    easing: ReanimatedEasing.inOut(ReanimatedEasing.ease),
+                }),
+                withTiming(1, {
+                    duration: 800,
+                    easing: ReanimatedEasing.inOut(ReanimatedEasing.ease),
+                }),
+            ),
+            -1,
+            false,
+        );
+    }, [reducedMotionEnabled, scale]);
+
+    const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+    return { animatedStyle };
+}

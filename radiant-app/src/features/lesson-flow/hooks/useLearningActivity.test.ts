@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native';
 import type { LearningActivityV2, LearningStepV2 } from '../../../types/learningActivity';
+import { encodeInteractionIdSequence } from '../renderers/InteractionAnswerValue';
 import { useLearningActivity } from './useLearningActivity';
 
 function presentation(id: string, role: 'hook' | 'concept' | 'closing'): LearningStepV2 {
@@ -68,6 +69,14 @@ describe('useLearningActivity — navegação', () => {
         expect(result.current.totalSteps).toBe(0);
         expect(result.current.canContinue).toBe(false);
         expect(result.current.confirm()).toEqual({});
+    });
+
+    it('retoma no cursor privacy-safe sem inventar respostas anteriores', () => {
+        const { result } = renderHook(() => useLearningActivity(padrao(), 1));
+
+        expect(result.current.stepIndex).toBe(1);
+        expect(result.current.currentStep).toMatchObject({ kind: 'interaction' });
+        expect(result.current.confirmedAnswers).toEqual({});
     });
 });
 
@@ -186,5 +195,95 @@ describe('useLearningActivity — entrega ao outcome', () => {
         act(() => { result.current.confirm(); });
 
         expect(result.current.lastFeedback).toEqual({ correct: false, message: 'Reveja o conceito.' });
+    });
+});
+
+describe('useLearningActivity — respostas estruturadas da Task 10', () => {
+    const interactionBase = {
+        id: 'step:structured',
+        competencyIds: ['competency:unit-1:safety'],
+        evidenceKind: 'guided-practice' as const,
+        completionRule: 'answered' as const,
+        criticalSafety: false,
+        feedback: { correct: 'Certo.', incorrect: 'Reveja.' },
+        accessibility: { label: 'Atividade estruturada' },
+    };
+
+    it('aceita uma das regiões corretas do hotspot', () => {
+        const hotspot: LearningStepV2 = {
+            kind: 'interaction',
+            interaction: {
+                ...interactionBase,
+                type: 'hotspot',
+                payload: {
+                    prompt: 'Localize o detector.',
+                    imageRef: 'asset://xray.png',
+                    regions: [
+                        { id: 'source', label: 'Fonte', x: 0.3, y: 0.05, width: 0.3, height: 0.2 },
+                        { id: 'detector', label: 'Detector', x: 0.1, y: 0.7, width: 0.8, height: 0.2 },
+                    ],
+                    correctRegionIds: ['detector'],
+                },
+            },
+        };
+        const { result } = renderHook(() => useLearningActivity(activity([hotspot])));
+
+        act(() => { result.current.setValue('detector'); });
+        expect(result.current.canContinue).toBe(true);
+
+        let confirmed: Record<string, boolean> = {};
+        act(() => { confirmed = result.current.confirm(); });
+        expect(confirmed).toEqual({ 'step:structured': true });
+    });
+
+    it('mantém matching incompleto bloqueado e avalia a sequência inteira', () => {
+        const matching: LearningStepV2 = {
+            kind: 'interaction',
+            interaction: {
+                ...interactionBase,
+                type: 'matching',
+                payload: {
+                    prompt: 'Associe.',
+                    pairs: [
+                        { id: 'kvp', left: 'kVp', right: 'Penetração' },
+                        { id: 'mas', left: 'mAs', right: 'Quantidade' },
+                    ],
+                },
+            },
+        };
+        const { result } = renderHook(() => useLearningActivity(activity([matching])));
+
+        act(() => { result.current.setValue(encodeInteractionIdSequence(['kvp'])); });
+        expect(result.current.canContinue).toBe(false);
+
+        act(() => { result.current.setValue(encodeInteractionIdSequence(['kvp', 'mas'])); });
+        expect(result.current.canContinue).toBe(true);
+        let confirmed: Record<string, boolean> = {};
+        act(() => { confirmed = result.current.confirm(); });
+        expect(confirmed).toEqual({ 'step:structured': true });
+    });
+
+    it('avalia ordering pela ordem selecionada', () => {
+        const ordering: LearningStepV2 = {
+            kind: 'interaction',
+            interaction: {
+                ...interactionBase,
+                type: 'ordering',
+                payload: {
+                    prompt: 'Ordene.',
+                    items: [
+                        { id: 'identificar', label: 'Identificar' },
+                        { id: 'expor', label: 'Expor' },
+                    ],
+                    correctOrder: ['identificar', 'expor'],
+                },
+            },
+        };
+        const { result } = renderHook(() => useLearningActivity(activity([ordering])));
+
+        act(() => { result.current.setValue(encodeInteractionIdSequence(['expor', 'identificar'])); });
+        let confirmed: Record<string, boolean> = {};
+        act(() => { confirmed = result.current.confirm(); });
+        expect(confirmed).toEqual({ 'step:structured': false });
     });
 });

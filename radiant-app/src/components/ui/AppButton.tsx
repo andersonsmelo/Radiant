@@ -10,8 +10,26 @@ import { semanticColors } from '../../ui/semantic-colors';
 import { fontFamily } from '../../ui/styles';
 import { duration } from '../../ui/motion';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
+import { hapticTap } from '../../ui/feedback/haptics';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
+
+/**
+ * Variantes que recebem retorno tátil ao serem tocadas.
+ *
+ * `hapticTap` existia exportado e sem nenhum chamador: o app vibrava na tab bar
+ * e ao responder o quiz, e em mais nada. A saída óbvia — espalhar a chamada por
+ * todo elemento tocável — é o erro que a literatura de microinterações chama de
+ * *feedback overload*: quando tudo vibra, a vibração para de significar algo, e
+ * a HIG pede justamente contenção em interação frequente.
+ *
+ * O critério aqui é ênfase: `primary` e `galaxy` são a ação principal da tela —
+ * começar a lição, continuar, confirmar. `secondary` e `ghost` são alternativa e
+ * saída (pular, cancelar, agora não), e um toque tátil ali daria a elas o mesmo
+ * peso da ação que a tela quer. Escalar o sinal à significância do evento é a
+ * mesma regra que separou `hapticLifeLost` de `hapticError`.
+ */
+const HAPTIC_VARIANTS: ReadonlySet<Variant> = new Set<Variant>(['primary', 'galaxy']);
 
 const light = semanticColors.light;
 const galaxy = semanticColors.galaxy;
@@ -56,6 +74,19 @@ export function AppButton({
     transform: [{ scale: scale.value }],
   }));
 
+  // Disparado no `onPress` (commit), e não no `onPressIn` (toque). Vibrar no
+  // toque parece mais imediato, mas mente quando a pessoa arrasta o dedo para
+  // fora e cancela: o retorno tátil teria confirmado uma ação que não
+  // aconteceu. O `Pressable` já bloqueia `onPress` em estado desabilitado, então
+  // botão inerte não vibra.
+  const handlePress = () => {
+    if (HAPTIC_VARIANTS.has(variant)) {
+      hapticTap();
+    }
+
+    onPress?.();
+  };
+
   const onPressIn = () => {
     if (reducedMotionEnabled) {
       return;
@@ -81,7 +112,7 @@ export function AppButton({
   return (
     <Animated.View style={[animStyle, fullWidth && { width: '100%' }, style]}>
       <Pressable
-        onPress={onPress}
+        onPress={handlePress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         onFocus={() => setFocused(true)}

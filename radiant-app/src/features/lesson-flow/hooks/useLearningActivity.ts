@@ -1,5 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LearningActivityV2, LearningStepV2 } from '../../../types/learningActivity';
+import {
+    isCompleteInteractionValue,
+    isCorrectInteractionValue,
+} from '../renderers/InteractionAnswerValue';
 
 /**
  * Estado do player de uma atividade v2.
@@ -38,8 +42,9 @@ export type UseLearningActivity = {
     lastFeedback: LearningActivityFeedback | null;
 };
 
-export function useLearningActivity(activity: LearningActivityV2 | null): UseLearningActivity {
-    const [stepIndex, setStepIndex] = useState(0);
+export function useLearningActivity(activity: LearningActivityV2 | null, initialStepIndex = 0): UseLearningActivity {
+    const [stepIndex, setStepIndex] = useState(() => activity ? Math.max(0, initialStepIndex) : 0);
+    const initialCursorAppliedRef = useRef(activity !== null);
     const [value, setValue] = useState<string | undefined>();
     const [confirmedAnswers, setConfirmedAnswers] = useState<Record<string, boolean>>({});
     const [lastFeedback, setLastFeedback] = useState<LearningActivityFeedback | null>(null);
@@ -50,11 +55,17 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
     const isLastStep = totalSteps > 0 && stepIndex === totalSteps - 1;
     const progress = totalSteps > 0 ? (stepIndex + 1) / totalSteps : 0;
 
+    useEffect(() => {
+        if (!activity || initialCursorAppliedRef.current) return;
+        initialCursorAppliedRef.current = true;
+        setStepIndex(Math.max(0, Math.min(initialStepIndex, activity.steps.length - 1)));
+    }, [activity, initialStepIndex]);
+
     const canContinue = useMemo(() => {
         if (!currentStep) return false;
         // Passo de apresentação não produz evidência: nada a validar.
         if (currentStep.kind === 'presentation') return true;
-        return value !== undefined;
+        return isCompleteInteractionValue(currentStep.interaction, value);
     }, [currentStep, value]);
 
     const confirm = useCallback((): Record<string, boolean> => {
@@ -66,7 +77,7 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
 
         if (currentStep.kind === 'interaction') {
             const { interaction } = currentStep;
-            const correct = value === resolveExpectedValue(currentStep);
+            const correct = isCorrectInteractionValue(interaction, value);
 
             nextConfirmed = { ...confirmedAnswers, [interaction.id]: correct };
             setConfirmedAnswers(nextConfirmed);
@@ -99,25 +110,4 @@ export function useLearningActivity(activity: LearningActivityV2 | null): UseLea
         confirmedAnswers,
         lastFeedback,
     };
-}
-
-/**
- * Qual valor conta como acerto, por tipo de interação.
- *
- * Fica isolado porque é o único ponto que precisa crescer quando um jogo novo
- * entra — e mantê-lo fora do fluxo de estado é o que impede que "como se
- * avalia" e "como se navega" voltem a se misturar, que era o defeito do player
- * anterior.
- */
-function resolveExpectedValue(step: Extract<LearningStepV2, { kind: 'interaction' }>): string | undefined {
-    const { interaction } = step;
-
-    switch (interaction.type) {
-        case 'multiple-choice':
-        case 'comparison':
-        case 'case-decision':
-            return interaction.payload.correctOptionId;
-        default:
-            return undefined;
-    }
 }

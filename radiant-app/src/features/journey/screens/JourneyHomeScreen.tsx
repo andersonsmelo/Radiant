@@ -16,11 +16,9 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { JourneyHero } from '../components/JourneyHero';
-import { JourneyMap } from '../components/JourneyMap';
-import { JourneyTrackShelf } from '../components/JourneyTrackShelf';
 import { TelemetryService } from '../../telemetry/TelemetryService';
-import { LessonCatalogService } from '../../content/services/LessonCatalogService';
-import type { LearningTrack, LessonCatalogManifest } from '../../content/content.types';
+import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
+import { useSporadicPixelSpeech } from '../../pixel-mood/useSporadicPixelSpeech';
 
 function statusLabel(node: JourneyNode): string {
   switch (node.status) {
@@ -89,9 +87,13 @@ const galaxyStatRowStyles = StyleSheet.create({
 });
 
 export default function JourneyHomeScreen() {
+  // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
+  // na `HomeScreen` legada — inalcançável com `ENABLE_LEARNING_ROAD=true` —,
+  // `app_open` nunca era emitido e `cohort.installDate` nunca nascia.
+  useAppOpenLifecycle();
+
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [dailyGoalSnapshot, setDailyGoalSnapshot] = useState<DailyGoalSnapshot | null>(null);
-  const [catalogManifest, setCatalogManifest] = useState<LessonCatalogManifest | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
@@ -100,14 +102,12 @@ export default function JourneyHomeScreen() {
     try {
       setLoading(true);
       setError(null);
-      const [nextSnapshot, nextDailyGoal, nextCatalogManifest] = await Promise.all([
+      const [nextSnapshot, nextDailyGoal] = await Promise.all([
         JourneyProgressService.bootstrap(),
         DailyGoalService.getSnapshot(),
-        LessonCatalogService.bootstrap(),
       ]);
       setSnapshot(nextSnapshot);
       setDailyGoalSnapshot(nextDailyGoal);
-      setCatalogManifest(nextCatalogManifest);
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
       setError('Não foi possível carregar a jornada.');
@@ -134,23 +134,7 @@ export default function JourneyHomeScreen() {
     [currentUnit]
   );
 
-  const totalJourneyNodeCount = useMemo(
-    () => snapshot?.track.units.reduce((total, unit) => total + unit.nodes.length, 0) ?? 0,
-    [snapshot]
-  );
-
-  const activeTrackProgressPercent = useMemo(() => {
-    if (!snapshot || totalJourneyNodeCount === 0) {
-      return 0;
-    }
-
-    return Math.round((snapshot.completedCount / totalJourneyNodeCount) * 100);
-  }, [snapshot, totalJourneyNodeCount]);
-
-  const activeCatalogTrack = useMemo(
-    () => catalogManifest?.tracks.find((track) => track.id === snapshot?.progress.activeTrackId) ?? null,
-    [catalogManifest, snapshot?.progress.activeTrackId]
-  );
+  const pixelSpeech = useSporadicPixelSpeech();
 
   const continueLabel = useMemo(() => {
     const nextNode = snapshot?.nextRecommendedNode;
@@ -177,26 +161,6 @@ export default function JourneyHomeScreen() {
 
     return 'Continuar jornada';
   }, [snapshot?.nextRecommendedNode]);
-
-  const heroMessage = useMemo(() => {
-    if (!snapshot?.nextRecommendedNode) {
-      return 'Você chegou ao fim do conteúdo disponível por aqui. Assim que abrir um passo novo, eu te aviso.';
-    }
-
-    if (snapshot.nextRecommendedNode.type === 'review' || snapshot.nextRecommendedNode.status === 'due-review') {
-      return `Bom ritmo. Antes de avançar, vale consolidar ${snapshot.nextRecommendedNode.title.toLowerCase()}.`;
-    }
-
-    if (snapshot.nextRecommendedNode.type === 'checkpoint') {
-      return 'Você fechou a lição. Agora é a hora do checkpoint para firmar o que aprendeu.';
-    }
-
-    if (snapshot.nextRecommendedNode.type === 'reward') {
-      return 'Muito bem! Recolha a conquista que você acabou de desbloquear.';
-    }
-
-    return `Você está indo bem. O próximo passo da sua trilha é ${snapshot.nextRecommendedNode.title.toLowerCase()}.`;
-  }, [snapshot]);
 
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
 
@@ -225,27 +189,13 @@ export default function JourneyHomeScreen() {
       return null;
     }
 
-    const activeTrackTitle = activeCatalogTrack?.title ?? currentUnit?.title ?? 'Esta trilha';
+    const activeTrackTitle = currentUnit?.title ?? 'Esta trilha';
 
-    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Escolha outra trilha abaixo para continuar estudando agora.`;
-  }, [activeCatalogTrack?.title, currentUnit?.title, snapshot]);
-
-  const openTrack = useCallback(async (track: LearningTrack) => {
-    void TelemetryService.track('journey_track_selected', {
-      trackId: track.id,
-      active: track.id === snapshot?.progress.activeTrackId,
-    });
-
-    const nextSnapshot = await JourneyProgressService.selectTrack(track.id);
-    setSnapshot(nextSnapshot);
-
-    if (nextSnapshot.nextRecommendedNode) {
-      void openNode(nextSnapshot.nextRecommendedNode);
-    }
-  }, [openNode, snapshot]);
+    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Explore outra trilha na aba Galáxia.`;
+  }, [currentUnit?.title, snapshot]);
 
   return (
-    <View style={styles.root}>
+    <View style={styles.root} testID="journey-home-screen">
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
@@ -271,9 +221,10 @@ export default function JourneyHomeScreen() {
           >
             <JourneyHero
               unitTitle={currentUnit?.title ?? 'Sua trilha'}
-              dailyGoalCompleted={dailyGoalSnapshot?.completedToday ?? 0}
-              dailyGoalTarget={dailyGoalSnapshot?.goalPerDay ?? 1}
-              message={heroMessage}
+              dailyGoalCompleted={dailyGoalSnapshot?.earnedXpToday ?? 0}
+              dailyGoalTarget={dailyGoalSnapshot?.goalXp ?? 10}
+              message={pixelSpeech?.phrase}
+              expression={pixelSpeech?.expression}
             />
 
             <View style={styles.summaryCard}>
@@ -301,14 +252,6 @@ export default function JourneyHomeScreen() {
               </View>
             </View>
 
-            <JourneyTrackShelf
-              tracks={catalogManifest?.tracks ?? []}
-              lessons={catalogManifest?.lessons ?? []}
-              activeTrackId={snapshot?.progress.activeTrackId ?? 'track-radiology-foundations'}
-              activeProgressPercent={activeTrackProgressPercent}
-              onTrackPress={openTrack}
-            />
-
             {noNextStepMessage ? (
               <View style={styles.messageCard}>
                 <Text style={styles.messageTitle}>Trilha pausada por agora</Text>
@@ -320,15 +263,6 @@ export default function JourneyHomeScreen() {
               <View style={styles.errorCard} accessibilityRole="alert">
                 <Text style={styles.errorText}>{error}</Text>
               </View>
-            ) : null}
-
-            {snapshot && currentUnit ? (
-              <JourneyMap
-                units={snapshot.track.units}
-                recommendedNodeId={snapshot.nextRecommendedNode?.id}
-                onNodePress={(node) => void openNode(node)}
-                isNodeDisabled={(node) => !canOpenNode(node)}
-              />
             ) : null}
 
             <AppButton

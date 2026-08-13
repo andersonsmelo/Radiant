@@ -180,8 +180,12 @@ foi removido (2026-07-28, ver abaixo); o **onboarding suave** ainda depende da
   desejado no futuro, deve ser **reconstruído** como feature real (pt-BR, trilhas
   do catálogo, persistindo especialidade e meta diária).
 
-Confirmação de produto pendente: "instalação limpa → Home" é o comportamento
-intencional da v1.3 (sem wizard bloqueante); a remoção acima assume esse rumo.
+**Apresentação vigente (decidida em 2026-08-02, encurtada em 2026-08-09).** A
+instalação limpa abre três telas puláveis narradas pelo Pixel. **Começar**
+persiste a saída, consulta a jornada e abre o próximo nó elegível; **Pular
+apresentação** abre a Home. Não há wizard de especialidade/meta, id de lição
+hardcoded nem login no caminho. Rever a apresentação não navega automaticamente
+ao final. O flow focado passou no iOS e no Android em 2026-08-09.
 
 ## Sistema visual V2
 
@@ -291,18 +295,21 @@ Arquivos principais:
 - `src/features/telemetry/services/AppStoreOpsService.ts`
 - `src/features/telemetry/screens/TelemetryDebugScreen.tsx`
 
-## Release iOS e EAS
+## Release e EAS
 
-Estado operacional validado em **2026-04-01**:
+Estado operacional validado em **2026-08-09** — detalhes e bloqueios no
+[`status canônico`](../docs/EXECUTION_STATUS_2026-08-10.md):
 
-- conta Expo autenticada: `hashi1802`;
-- projeto EAS vinculado: `@hashi1802/radiant-app`;
-- `EXPO_PUBLIC_API_BASE_URL` de release apontando para `https://api.radiant.ascendcreative.com.br`;
-- `expo-updates` configurado;
-- `expo-dev-client` configurado para o fluxo de simulador.
-- war-room técnico reexecutado com resultado `PASS=13 FAIL=0`;
-- pacote de evidências de simulador consolidado em:
-  - `/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md`.
+- projeto EAS vinculado a `@hashi1802/radiant-app`, com contadores de build
+  governados remotamente;
+- Apple Developer e App Store Connect ativos; `1.3.1 (7)` submetida e ainda em
+  **Aguardando revisão**, com liberação manual após aprovação;
+- Android `1.3.0 (4)` ativo no teste fechado `alpha`; o gate é 12+ opt-ins por
+  14 dias consecutivos, não a quantidade de contas vinculadas;
+- `EXPO_PUBLIC_API_BASE_URL` não é declarado nos perfis distribuídos; o app
+  permanece local-first e a API pública conhecida está registrada em HTTP 502;
+- `expo-updates` configurado; crash reporting e sync remoto desligados na build
+  distribuída.
 
 Perfis principais em [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json):
 
@@ -311,16 +318,11 @@ Perfis principais em [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/
 - `preview`
 - `production`
 
-Estado real dos caminhos iOS:
+Estado dos caminhos iOS:
 
-- `development-simulator`: caminho viável sem conta Apple paga, usado para validação em simulador;
-- `preview`: exige Apple ID vinculada a um team válido do Apple Developer Program;
-- `production`: exige o mesmo pré-requisito do `preview`, além do fluxo normal de App Store.
-
-Bloqueio externo atual:
-
-- a autenticação Apple já foi testada, mas a conta usada ainda não possui team associado;
-- por isso o build distribuível/TestFlight permanece bloqueado, mesmo com Expo/EAS já configurado.
+- `development-simulator`: simulador sem assinatura de distribuição;
+- `preview`: distribuição interna com o team Apple ativo;
+- `production`: App Store/TestFlight; já comprovado pela build `1.3.1 (7)`.
 
 ## Comandos
 
@@ -549,14 +551,18 @@ Estado operacional atual:
 - homologação em simulador já é viável com `xcodebuild` e `simctl` funcionando localmente;
 - a build iOS nativa já foi revalidada em `iPhone 17` com `expo run:ios` e `ios:v2` conectando no bundle atual;
 - smoke principal de produto já está documentado com captura de `cold start`, `auth restore`, `quiz`, `review`, `journey` e `progresso/sync`;
-- o próximo gap de release continua sendo a validação completa em dispositivo real e o fechamento do fluxo Apple de distribuição.
+- o smoke físico de sete cenários passou em 2026-08-05 e o Gate 2/VoiceOver
+  fechou em 2026-08-06; o último estado observado no App Store Connect, em
+  2026-08-09, foi `1.3.1 (7)` **Aguardando revisão**, com liberação manual após
+  aprovação. O console é a fonte do estado atual.
 
 ### Gate de comando central (repositório)
 
 Para validar app + API em uma única rotina, rode no diretório raiz do monorepo:
 
 ```bash
-bash /Users/anderson/Developer/Radiant/scripts/launch-war-room.sh
+cd "$(git rev-parse --show-toplevel)"
+bash scripts/launch-war-room.sh
 ```
 
 Resultado esperado atual: `PASS=13 FAIL=0`.
@@ -567,31 +573,25 @@ O app está em transição de beta local-first para produto distribuível.
 
 Prioridades imediatas:
 
-- manter validação diária de auth e sync ponta a ponta com o backend publicado;
-- validar release iOS em dispositivo real e fluxo Apple de distribuição;
-- manter a `Learning Road` multi-trilha homologada com a flag ligada no simulador;
-- evoluir de seed local para catálogo remoto versionado;
-- adicionar observabilidade de produção no ciclo seguinte;
-- expandir o sistema visual V2 para `progress`, `home` legado e superfícies auxiliares.
+- acompanhar a App Review da `1.3.1 (7)` e liberar manualmente após aprovação;
+- no Android, alcançar 12 opt-ins e completar os 14 dias do teste fechado;
+- resolver os direitos do primeiro lote de mídia antes dos jogos visuais da
+  Task 10;
+- antes da Task 12, tornar explícita a guarda de ativação do agendador por
+  competência;
+- varrer o padrão `jest.spyOn` sobre mocks oficiais nas demais suítes;
+- manter API, auth e sync fora do caminho distribuído enquanto a implantação da
+  estratégia de catálogo remoto não acontecer.
 
 ## Documentação
 
-- PRD: `/Users/anderson/Developer/Radiant/docs/PRD.md`
-- Plano de implementação: `/Users/anderson/Developer/Radiant/docs/IMPLEMENTATION_PLAN.md`
-- ADR backend: `/Users/anderson/Developer/Radiant/docs/ADR-backend.md`
-- ADR auth/sync: `/Users/anderson/Developer/Radiant/docs/ADR-auth-sync.md`
-- ADR backend VPS: `/Users/anderson/Developer/Radiant/docs/ADR-vps-backend.md`
-- ADR routing: `/Users/anderson/Developer/Radiant/docs/ADR-routing.md`
-- Status de execução 2026-04-01: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-01.md`
-- Status de execução 2026-04-09: `/Users/anderson/Developer/Radiant/docs/EXECUTION_STATUS_2026-04-09.md`
-- Status canônico atual: [`docs/EXECUTION_STATUS_2026-07-27.md`](../docs/EXECUTION_STATUS_2026-07-27.md)
-- Gate de acessibilidade: `/Users/anderson/Developer/Radiant/radiant-app/docs/ACCESSIBILITY_QA_V1.md`
-- Runbook E2E local-first: `/Users/anderson/Developer/Radiant/radiant-app/docs/E2E_RUNBOOK.md`
-- Evidências datadas de device (E2E e acessibilidade): [`docs/evidence/README.md`](docs/evidence/README.md)
-- Plano de war room: `/Users/anderson/Developer/Radiant/docs/WAR_ROOM_PLAN_2026-04-01.md`
-- Evidências de smoke: `/Users/anderson/Developer/Radiant/docs/evidence/smoke-2026-04-01/README.md`
-- Specs: `/Users/anderson/Developer/Radiant/docs/specs`
-- Spec Learning Road: `/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.spec.md`
-- Plano Learning Road: `/Users/anderson/Developer/Radiant/docs/specs/learning-road-redesign.plan.md`
-- Regras visuais e de UX: `/Users/anderson/Developer/Radiant/radiant-app/docs`
-- Design system Stitch / rollout visual: `/Users/anderson/Developer/Radiant/radiant-app/docs/STITCH_REDESIGN_SYSTEM.md`
+- mapa e precedência: [`../docs/README.md`](../docs/README.md)
+- PRD: [`../docs/PRD.md`](../docs/PRD.md)
+- arquitetura vigente: [`../docs/ARCHITECTURE_STATE.md`](../docs/ARCHITECTURE_STATE.md)
+- fluxo do cliente: [`../docs/CLIENT_FLOW.md`](../docs/CLIENT_FLOW.md)
+- status canônico: [`../docs/EXECUTION_STATUS_2026-08-10.md`](../docs/EXECUTION_STATUS_2026-08-10.md)
+- roadmap ativo: [`../docs/plans/2026-07-27-radiant-launch-roadmap.md`](../docs/plans/2026-07-27-radiant-launch-roadmap.md)
+- checklist de release: [`../docs/release/CHECKLIST_RELEASE_V1.3.md`](../docs/release/CHECKLIST_RELEASE_V1.3.md)
+- acessibilidade: [`docs/ACCESSIBILITY_QA_V1.md`](docs/ACCESSIBILITY_QA_V1.md)
+- E2E local-first: [`docs/E2E_RUNBOOK.md`](docs/E2E_RUNBOOK.md)
+- evidências datadas: [`docs/evidence/README.md`](docs/evidence/README.md)

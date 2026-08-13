@@ -194,6 +194,30 @@ class TelemetryServiceImpl {
         return null;
     }
 
+    /**
+     * getPreviousAppOpen
+     * O penúltimo `app_open`, ou `null` quando só existe um.
+     *
+     * `app_open` é latcheado por processo (`useAppOpenLifecycle`), então dois
+     * eventos consecutivos são dois lançamentos, e o intervalo entre eles é
+     * quanto tempo o usuário passou fora. Quem quer medir ausência precisa
+     * DESTE valor junto com `getLastAppOpen()`: sozinho, o último é o evento do
+     * próprio lançamento em curso, e o intervalo até agora dá ~0 sempre.
+     */
+    async getPreviousAppOpen(): Promise<number | null> {
+        const store = await this.getOrLoadStore();
+        let encontrados = 0;
+        for (let i = store.events.length - 1; i >= 0; i--) {
+            if (store.events[i].name === 'app_open') {
+                encontrados += 1;
+                if (encontrados === 2) {
+                    return store.events[i].ts;
+                }
+            }
+        }
+        return null;
+    }
+
     async countEvents(name: TelemetryEventName): Promise<number> {
         const store = await this.getOrLoadStore();
         return store.events.filter((event) => event.name === name).length;

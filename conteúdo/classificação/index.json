@@ -9,8 +9,8 @@
       "strategy": "deterministic-keyword-v1",
       "artifacts": {
         "classifications": "classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json",
-        "classificationCount": 109,
-        "needsReviewCount": 30
+        "classificationCount": 105,
+        "needsReviewCount": 19
       }
     }
   ]

@@ -1,0 +1,123 @@
+appId: com.ascendcreative.radiant
+name: Store-review prompt becomes eligible after three app opens
+tags:
+  - rating-prompt
+  - production-config
+---
+# Este flow existe porque o `RatingPromptService` tem gates que nenhum outro
+# flow alcança. `evaluateEligibility()` exige, em ordem:
+#
+#   1. `APP_ENV === 'production'`  — o perfil `e2e-test` declara `development`,
+#      então build de e2e comum para em `non_production_build`;
+#   2. `first_value_moment_reached` — emitido por `OnboardingService.markAction`
+#      no primeiro `quiz_complete`;
+#   3. `countEvents('app_open') >= MIN_APP_OPENS` (3) — os outros flows abrem o
+#      app uma vez, e o `offline-relaunch`, duas.
+#
+# Build exigida: as sete variáveis do perfil `e2e-test` com
+# `EXPO_PUBLIC_APP_ENV=production` e `EXPO_PUBLIC_ENABLE_PUSH=true`.
+#
+# ⚠️ O quiz NÃO é a lição. `maybePromptForReview` é chamado por `QuizScreen`
+# (rota `/quiz`), `ReviewScreen` e `RewardScreen` — nunca pelo lesson-flow da
+# rota `/learn`, que é o que os outros flows percorrem. A primeira versão deste
+# arquivo completou a lição e passou verde sem nunca tocar o call site: a
+# telemetria do aparelho não tinha um único evento `rating_prompt_*`. Dirigir a
+# rota certa é o ponto inteiro deste flow.
+#
+# ── Abertura 1 ──────────────────────────────────────────────────────────────
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
+# Primeiro quiz: emite `first_value_moment_reached`. O prompt é avaliado aqui e
+# **deve** ser negado — a contagem de aberturas ainda é 1. Esse "não" é parte do
+# que o flow prova: o gate está fechado antes da hora, não sempre.
+- openLink:
+    link: radiantapp://quiz?lessonId=lesson-1
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”\?'
+    commands:
+      - tapOn: Abrir
+# As três respostas vêm de `src/data/lessons.ts` (lesson-1, correctAnswerIndex
+# 1, 2 e 1). 3 de 3 supera `QUIZ_THRESHOLDS.PASSING_SCORE`, e nota abaixo dele
+# faz o `QuizScreen` retornar antes de chamar o prompt.
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- tapOn: Visualização de estruturas internas
+- tapOn: Próxima
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- tapOn: Osso
+- tapOn: Próxima
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- tapOn: Diferença de densidade entre estruturas
+- tapOn: Próxima
+- assertVisible: Resumo da tentativa
+- tapOn: Fechar quiz
+- assertVisible: Foco de hoje
+#
+# ── Aberturas 2 e 3 ─────────────────────────────────────────────────────────
+# Sem `clearState`: é o estado que acumula a contagem, e limpá-lo aqui zeraria
+# o gate sem que nada falhasse.
+- launchApp
+- assertVisible: Foco de hoje
+- launchApp
+- assertVisible: Foco de hoje
+#
+# ── Segundo quiz: agora o prompt é elegível ─────────────────────────────────
+- openLink:
+    link: radiantapp://quiz?lessonId=lesson-1
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”\?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- tapOn: Visualização de estruturas internas
+- tapOn: Próxima
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- tapOn: Osso
+- tapOn: Próxima
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- tapOn: Diferença de densidade entre estruturas
+- tapOn: Próxima
+# O diálogo é do `SKStoreReviewController`: um alerta do sistema, sem atributo
+# `text`, exposto só por `accessibilityText` — `assertVisible` casa com ele.
+# A forma foi lida em `maestro hierarchy` no simulador em 2026-08-03, não
+# suposta. O `?` é escapado porque o seletor do Maestro é regex de
+# correspondência total: sem a barra, `t?` tornaria o "t" opcional e o literal
+# `?` do título não teria com o que casar.
+#
+# Só iOS — mas não pela razão que parecia. Medido no emulador `google_apis` em
+# 2026-08-03: `StoreReview.isAvailableAsync()` devolve **verdadeiro** e o gate
+# abre igual ao iOS (`rating_prompt_eligible`). Quem falha é a chamada seguinte,
+# ao `ReviewManager` do Play, que devolve
+# `deferred: "Android ReviewManager task was not successful"`. Ou seja: o
+# caminho do app é o mesmo nas duas plataformas, e só o serviço da loja
+# difere. Prova de diálogo em Android exige instalação por faixa fechada do
+# Play (task C4), não uma imagem de emulador diferente.
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - assertVisible: 'Curtindo o app Radiant\?'
+      - takeScreenshot: rating-prompt-ios-dialog
+      - tapOn: Agora Não
+# Nas duas plataformas o resumo continua atrás do diálogo. Afirmá-lo depois é o
+# que prova que a tela sobreviveu ao prompt em vez de ser substituída por ele.
+- assertVisible: Resumo da tentativa

@@ -84,9 +84,14 @@ describe('ActivityRendererRegistry', () => {
         expect(getByText(/jogo-que-nao-existe/)).toBeTruthy();
     });
 
-    it('declara quais tipos já têm renderizador, e os oito do contrato ainda não', () => {
+    it('declara os cinco tipos que já têm renderizador', () => {
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
-        expect(isInteractionTypeRegistered('hotspot')).toBe(false);
+        expect(isInteractionTypeRegistered('hotspot')).toBe(true);
+        expect(isInteractionTypeRegistered('comparison')).toBe(true);
+        expect(isInteractionTypeRegistered('matching')).toBe(true);
+        expect(isInteractionTypeRegistered('ordering')).toBe(true);
+        expect(isInteractionTypeRegistered('parameter-lab')).toBe(false);
         expect(REGISTERED_INTERACTION_TYPES).toContain('multiple-choice');
+        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(5);
     });
 });

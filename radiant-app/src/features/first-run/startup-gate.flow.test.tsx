@@ -1,5 +1,7 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react-native';
+import { router } from 'expo-router';
+import { StyleSheet } from 'react-native';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import RootLayout from '../../app/_layout';
 import { AppConfig } from '../../config';
@@ -8,7 +10,9 @@ import { AuthService } from '../auth/AuthService';
 import { LessonCatalogService } from '../content/services/LessonCatalogService';
 import { SyncQueueService } from '../sync/SyncQueueService';
 import { TelemetryService } from '../telemetry/TelemetryService';
+import { JourneyProgressService } from '../journey/services/JourneyProgressService';
 import { FirstRunService } from './FirstRunService';
+import type { ActiveResumeLaunch } from '../student-checkpoints/ActiveCheckpointRuntime';
 
 // O primeiro render deste arquivo monta a árvore inteira do _layout (fontes,
 // splash screen, todos os bootstraps). Sob `--no-cache` isso paga o custo
@@ -65,7 +69,22 @@ jest.mock('../telemetry/bootstrap', () => ({
 // módulo de config inteiro (só os dois campos que `_layout.tsx` lê) é o que
 // permite construir os dois estados de propósito.
 jest.mock('../../config', () => ({
-  AppConfig: { ENABLE_BETA_GATE: false, SHOW_DEV_TOOLS: true },
+  AppConfig: { APP_ENV: 'development', ENABLE_BETA_GATE: false, SHOW_DEV_TOOLS: true },
+}));
+
+const mockInspectLaunch: jest.Mock<Promise<ActiveResumeLaunch>, []> = jest.fn(
+  () => Promise.resolve({ kind: 'none' }),
+);
+jest.mock('../student-checkpoints/ActiveCheckpointRuntime', () => ({
+  getNativeActiveCheckpointRuntime: jest.fn(() => ({ inspectLaunch: mockInspectLaunch })),
+}));
+
+jest.mock('../student-checkpoints/mode', () => ({
+  resolveStudentCheckpointRuntimeMode: jest.fn(() => 'off'),
+}));
+
+jest.mock('../student-checkpoints/storage', () => ({
+  warmNativeStorage: jest.fn(() => Promise.resolve()),
 }));
 
 jest.mock('../beta/BetaService', () => ({
@@ -102,6 +121,12 @@ jest.mock('../telemetry/TelemetryService', () => ({
   },
 }));
 
+jest.mock('../journey/services/JourneyProgressService', () => ({
+  JourneyProgressService: {
+    bootstrap: jest.fn(() => Promise.resolve()),
+  },
+}));
+
 jest.mock('./FirstRunService', () => ({
   FirstRunService: {
     bootstrap: jest.fn(() => Promise.resolve()),
@@ -118,12 +143,21 @@ jest.mock('./FirstRunService', () => ({
 // cobertura.
 jest.mock('./screens/WelcomeFlowScreen', () => {
   const ReactActual = require('react');
-  const { Pressable, Text } = require('react-native');
+  const { Pressable, Text, View } = require('react-native');
   function WelcomeFlowScreenStub({ onFinish }: { onFinish: (reason: string, step: number) => void }) {
     return ReactActual.createElement(
-      Pressable,
-      { testID: 'welcome-finish', onPress: () => onFinish('completed', 3) },
-      ReactActual.createElement(Text, null, 'WELCOME_STUB'),
+      View,
+      null,
+      ReactActual.createElement(
+        Pressable,
+        { testID: 'welcome-finish', onPress: () => onFinish('completed', 3) },
+        ReactActual.createElement(Text, null, 'WELCOME_STUB'),
+      ),
+      ReactActual.createElement(
+        Pressable,
+        { testID: 'welcome-skip', onPress: () => onFinish('skipped', 1) },
+        ReactActual.createElement(Text, null, 'SKIP_STUB'),
+      ),
     );
   }
   return {
@@ -131,6 +165,19 @@ jest.mock('./screens/WelcomeFlowScreen', () => {
     default: WelcomeFlowScreenStub,
   };
 });
+
+const LESSON_NODE = {
+  id: 'node:lesson-1',
+  unitId: 'unit-1',
+  type: 'lesson',
+  title: 'Primeira lição',
+  blockId: 'block:lesson-1:intro',
+  status: 'available',
+} as const;
+
+function snapshotWith(nextRecommendedNode: unknown) {
+  return { nextRecommendedNode } as Awaited<ReturnType<typeof JourneyProgressService.bootstrap>>;
+}
 
 describe('gate de abertura em RootLayout', () => {
   beforeEach(() => {
@@ -151,6 +198,116 @@ describe('gate de abertura em RootLayout', () => {
     (FirstRunService.bootstrap as jest.Mock).mockResolvedValue(undefined);
     (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(false);
     (FirstRunService.markSeen as jest.Mock).mockResolvedValue(undefined);
+    (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(snapshotWith(LESSON_NODE));
+    (router.replace as jest.Mock).mockImplementation(() => undefined);
+    mockInspectLaunch.mockResolvedValue({ kind: 'none' });
+  });
+
+  // O modo deste ambiente de teste é `off`, e é justamente aí que a guarda morde.
+  // Medido em 2026-08-10: como `inspectLaunch` em `off` retorna antes de tocar o
+  // store, só o lado `active` pagava a resolução do módulo de storage — 177 a
+  // 622 ms num Dev Client — e o delta de `first_frame` media essa assimetria em vez
+  // do kernel, que custa menos de 2 ms. O aquecimento só serve se acontecer nos
+  // DOIS modos; condicioná-lo ao modo ativo recriaria a assimetria com aparência de
+  // otimização.
+  it('aquece a resolução do módulo de storage no bootstrap mesmo com o kernel em off', async () => {
+    const { warmNativeStorage } = jest.requireMock('../student-checkpoints/storage');
+
+    renderWithProviders(<RootLayout />);
+    await waitFor(() => expect(warmNativeStorage).toHaveBeenCalled());
+  });
+
+  it('oferece CTA explícito antes de navegar para uma retomada ativa', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'offer',
+      checkpointId: 'checkpoint-lesson',
+      surface: 'lesson',
+      cursorId: 'step-2',
+      target: {
+        kind: 'route',
+        pathname: '/learn',
+        params: {
+          nodeId: 'node:lesson-1',
+          blockId: 'block:lesson-1:intro',
+          resumeCheckpointId: 'checkpoint-lesson',
+          resumeCursorId: 'step-2',
+        },
+      },
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    const resume = await screen.findByLabelText('Retomar estudo', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    fireEvent.press(resume);
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).toHaveBeenCalledWith({
+      pathname: '/learn',
+      params: {
+        nodeId: 'node:lesson-1',
+        blockId: 'block:lesson-1:intro',
+        resumeCheckpointId: 'checkpoint-lesson',
+        resumeCursorId: 'step-2',
+      },
+    });
+  });
+
+  // Medido no simulador em 2026-08-10: a partir de `accessibility-extra-extra-large`
+  // o cartão de retomada transbordava a tela — título começando em y=-257 e corpo
+  // terminando em y=1066 numa tela de 874 pt — e os dois botões deixavam de ser
+  // renderizados. O usuário com texto grande e checkpoint salvo abria o app numa
+  // tela sem nenhum controle: não retomava e não ia para a jornada.
+  //
+  // Layout não é calculado neste ambiente de teste, então este caso não observa o
+  // transbordo. O que ele fixa é o mecanismo que torna os botões alcançáveis
+  // quando ele acontece: o conteúdo mora num contêiner rolável que cresce, e os
+  // dois CTAs moram dentro dele. Removido o contêiner, este caso fica vermelho.
+  it('mantém os dois CTAs dentro de um contêiner rolável que cresce', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'offer',
+      checkpointId: 'checkpoint-lesson',
+      surface: 'lesson',
+      cursorId: 'step-2',
+      target: {
+        kind: 'route',
+        pathname: '/learn',
+        params: { nodeId: 'node:lesson-1', blockId: 'block:lesson-1:intro' },
+      },
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    const scroll = await screen.findByTestId(
+      'checkpoint-resume-scroll',
+      {},
+      { timeout: FIRST_RENDER_TIMEOUT_MS },
+    );
+    expect(StyleSheet.flatten(scroll.props.contentContainerStyle)).toMatchObject({ flexGrow: 1 });
+    expect(within(scroll).getByLabelText('Retomar estudo')).toBeTruthy();
+    expect(within(scroll).getByLabelText('Ir para a jornada')).toBeTruthy();
+  });
+
+  it('explica o fallback sem linguagem técnica e só abre a Home após o CTA', async () => {
+    mockInspectLaunch.mockResolvedValue({
+      kind: 'fallback',
+      checkpointId: 'checkpoint-lesson',
+      restoreFailureCount: 1,
+      nextAction: 'home',
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    expect(await screen.findByText('Vamos continuar pela jornada', {}, { timeout: FIRST_RENDER_TIMEOUT_MS })).toBeTruthy();
+    expect(screen.getByText(/Seu progresso confirmado foi preservado/)).toBeTruthy();
+    expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    fireEvent.press(screen.getByLabelText('Ir para a jornada'));
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).not.toHaveBeenCalled();
   });
 
   it('mostra a apresentação de boas-vindas em vez do Stack quando o beta gate está desativado e o primeiro uso ainda não foi visto', async () => {
@@ -164,8 +321,11 @@ describe('gate de abertura em RootLayout', () => {
     expect(screen.queryByTestId('stack-root')).toBeNull();
   });
 
-  it('ao concluir a apresentação, persiste a saída via FirstRunService.markSeen e libera o Stack', async () => {
+  it('ao concluir, persiste a saída, monta o Stack e abre o próximo nó elegível', async () => {
     (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    (router.replace as jest.Mock).mockImplementation(() => {
+      expect(screen.getByTestId('stack-root')).toBeTruthy();
+    });
 
     renderWithProviders(<RootLayout />);
 
@@ -178,6 +338,161 @@ describe('gate de abertura em RootLayout', () => {
       expect(screen.getByTestId('stack-root')).toBeTruthy();
     });
     expect(screen.queryByTestId('welcome-finish')).toBeNull();
+    expect(JourneyProgressService.bootstrap).toHaveBeenCalledTimes(1);
+    expect(router.replace).toHaveBeenCalledWith({
+      pathname: '/learn',
+      params: {
+        nodeId: 'node:lesson-1',
+        blockId: 'block:lesson-1:intro',
+      },
+    });
+  });
+
+  it('aguarda markSeen antes de consultar a jornada ou navegar', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    let releaseMarkSeen: (() => void) | undefined;
+    (FirstRunService.markSeen as jest.Mock).mockReturnValue(
+      new Promise<void>((resolve) => {
+        releaseMarkSeen = resolve;
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    expect(JourneyProgressService.bootstrap).not.toHaveBeenCalled();
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    releaseMarkSeen?.();
+
+    await waitFor(() => expect(router.replace).toHaveBeenCalledTimes(1));
+  });
+
+  it('Pular persiste a saída e abre a Home sem consultar a jornada', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-skip', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(FirstRunService.markSeen).toHaveBeenCalledWith('skipped', 1);
+    expect(JourneyProgressService.bootstrap).not.toHaveBeenCalled();
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
+  it('recusa toque duplo enquanto a saída está em voo', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    let releaseMarkSeen: (() => void) | undefined;
+    (FirstRunService.markSeen as jest.Mock).mockReturnValue(
+      new Promise<void>((resolve) => {
+        releaseMarkSeen = resolve;
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    const finishButton = await screen.findByTestId(
+      'welcome-finish',
+      {},
+      { timeout: FIRST_RENDER_TIMEOUT_MS },
+    );
+    fireEvent.press(finishButton);
+    fireEvent.press(finishButton);
+
+    expect(FirstRunService.markSeen).toHaveBeenCalledTimes(1);
+
+    releaseMarkSeen?.();
+    await waitFor(() => expect(router.replace).toHaveBeenCalledTimes(1));
+  });
+
+  it('cai na Home quando não existe próximo nó navegável', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(snapshotWith(null));
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
+  it('cai na Home quando a recomendação existe mas ainda está bloqueada', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(
+      snapshotWith({ ...LESSON_NODE, status: 'locked' }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
+  it('cai na Home e registra a falha quando a jornada não carrega', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    (JourneyProgressService.bootstrap as jest.Mock).mockRejectedValue(
+      new Error('jornada indisponível'),
+    );
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(TelemetryService.captureError).toHaveBeenCalledWith(
+      expect.any(Error),
+      expect.objectContaining({ phase: 'first_run_exit', reason: 'completed' }),
+    );
+
+    consoleError.mockRestore();
+  });
+
+  it('preserva uma revisão recomendada em instalação que já tinha progresso', async () => {
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+    (JourneyProgressService.bootstrap as jest.Mock).mockResolvedValue(
+      snapshotWith({
+        ...LESSON_NODE,
+        id: 'node:review:lesson-1',
+        type: 'review',
+        title: 'Revisar primeira lição',
+        blockId: 'block:review:lesson-1',
+        status: 'due-review',
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    fireEvent.press(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    );
+
+    await waitFor(() =>
+      expect(router.replace).toHaveBeenCalledWith({
+        pathname: '/learn',
+        params: {
+          nodeId: 'node:review:lesson-1',
+          blockId: 'block:review:lesson-1',
+        },
+      }),
+    );
   });
 
   it('não chama FirstRunService.bootstrap() de novo quando o retry reexecuta o efeito de bootstrap', async () => {
@@ -213,6 +528,32 @@ describe('gate de abertura em RootLayout', () => {
     ).toBeTruthy();
     expect(screen.queryByTestId('welcome-finish')).toBeNull();
     expect(screen.queryByTestId('stack-root')).toBeNull();
+
+    // O topo do funil não pode existir para quem foi barrado. `first_run_started`
+    // viaja junto do primeiro `markStepViewed()` justamente para herdar esta
+    // garantia: nenhum passo visto, nenhum `started`.
+    expect(FirstRunService.markStepViewed).not.toHaveBeenCalled();
+  });
+
+  it('dev tools desarmam o gate mesmo com ENABLE_BETA_GATE ligado — e é essa a combinação de todos os perfis do eas.json', async () => {
+    // `shouldEnforceBetaGate = ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`. Os dois
+    // lados ja tinham caso proprio; faltava o `&&`. Nao e hipotetico: medido em
+    // 2026-08-03, os dois perfis do `eas.json` que ligam o gate ligam TAMBEM o
+    // DEV_TOOLS, entao nenhum perfil aplica o gate. Este teste prende esse fato
+    // — se um perfil futuro quiser barrar de verdade, ele precisa desligar as
+    // dev tools, e e aqui que isso fica dito.
+    AppConfig.ENABLE_BETA_GATE = true;
+    AppConfig.SHOW_DEV_TOOLS = true;
+    (BetaService.checkAccess as jest.Mock).mockResolvedValue(false);
+    (FirstRunService.shouldShowWelcome as jest.Mock).mockReturnValue(true);
+
+    renderWithProviders(<RootLayout />);
+
+    expect(
+      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
+    ).toBeTruthy();
+    expect(screen.queryByTestId('beta-gate')).toBeNull();
+    expect(BetaService.checkAccess).not.toHaveBeenCalled();
   });
 
   it('uma vez liberado o acesso ao beta, a apresentação aparece no lugar do gate', async () => {

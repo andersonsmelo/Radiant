@@ -7,6 +7,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+import {
   Dimensions,
   StyleSheet,
   Text,
@@ -26,6 +30,7 @@ import { getGalaxyById } from '@/src/data/galaxy-catalog';
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { CelestialBody } from '@/src/types/galaxy';
 import type { GamificationSnapshot } from '@/src/types/gamification';
+import { useReducedMotionPreferenceState } from '@/src/ui/accessibility/useReducedMotionPreference';
 import { HUD } from '@/src/ui/components/HUD';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
 import { typography } from '@/src/ui/styles';
@@ -42,7 +47,7 @@ const PLANET_SIZE: Record<CelestialBody['size'], number> = {
 
 // ── Sub-componente: card de corpo celeste ───────────────────────
 
-function BodyCard({
+export function BodyCard({
   body,
   onPress,
   index,
@@ -55,14 +60,36 @@ function BodyCard({
   const opacity = useSharedValue(0);
   const pressScale = useSharedValue(1);
   const isLocked = body.status === 'locked';
+  const { reducedMotionEnabled: reducedMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
 
   useEffect(() => {
+    // Nada é agendado enquanto a preferência é desconhecida. A consulta à
+    // `AccessibilityInfo` é assíncrona e a primeira renderização acontece
+    // antes dela: com `index * 80`, os primeiros corpos entravam animados
+    // ANTES de a resposta chegar, e a preferência só valia para os de índice
+    // alto. Adiar custa um quadro; começar otimista custa a preferência.
+    if (!motionResolved) {
+      return;
+    }
+
+    if (reducedMotion) {
+      // Sem a cascata de `index * 80`: os corpos já nascem no lugar.
+      scale.value = 1;
+      opacity.value = 1;
+      return;
+    }
+
     const delay = index * 80;
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       scale.value = withSpring(1, { damping: 14, stiffness: 100 });
       opacity.value = withTiming(1, { duration: 300 });
     }, delay);
-  }, []);
+
+    // Sem esta limpeza o timeout sobrevivia à re-execução do efeito e à
+    // desmontagem: a animação disparava depois de a preferência ter virado, ou
+    // sobre um componente que não está mais na árvore.
+    return () => clearTimeout(timeout);
+  }, [motionResolved, reducedMotion, index]);
 
   const entryStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value * pressScale.value }],
@@ -70,7 +97,7 @@ function BodyCard({
   }));
 
   const handlePressIn = () => {
-    if (!isLocked) pressScale.value = withSpring(0.92, { damping: 12 });
+    if (!isLocked && !reducedMotion) pressScale.value = withSpring(0.92, { damping: 12 });
   };
   const handlePressOut = () => {
     pressScale.value = withSpring(1, { damping: 12 });
@@ -170,6 +197,19 @@ export default function GalaxyInteriorScreen() {
   }, []);
 
   const galaxy = getGalaxyById(galaxyId ?? '');
+
+  useShadowCheckpoint({
+    surface: 'galaxy-interior',
+    flowId: `galaxy:${galaxyId ?? 'unavailable'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: galaxy?.id ?? 'galaxy-unavailable',
+    compatibleCursorIds: galaxy ? [galaxy.id] : ['galaxy-unavailable'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: Math.max(1, galaxy?.bodies.length ?? 1),
+    galaxyId: galaxy?.id,
+    enabled: Boolean(galaxy),
+  });
 
   if (!galaxy) {
     return (

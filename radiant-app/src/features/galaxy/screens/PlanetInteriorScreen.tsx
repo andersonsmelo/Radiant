@@ -7,6 +7,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+import {
   Dimensions,
   ScrollView,
   StyleSheet,
@@ -28,19 +32,22 @@ import { getGalaxyById } from '@/src/data/galaxy-catalog';
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
 import type { CelestialBody } from '@/src/types/galaxy';
 import type { JourneyNode } from '@/src/types/journey';
+import { useReducedMotionPreferenceState } from '@/src/ui/accessibility/useReducedMotionPreference';
 import type { GamificationSnapshot } from '@/src/types/gamification';
 import { HUD } from '@/src/ui/components/HUD';
+import { DecorativeIcon, type DecorativeIconName } from '@/src/components/ui/DecorativeIcon';
+import { HeartIcon } from '@/src/ui/components/HudIcons';
 import { StarfieldBackground } from '@/src/ui/components/StarfieldBackground';
-import { typography } from '@/src/ui/styles';
+import { space, typography } from '@/src/ui/styles';
 import { PlanetBody } from '../components/PlanetBody';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
-const NODE_TYPE_ICON: Record<JourneyNode['type'], string> = {
-  lesson: '📖',
-  review: '🔄',
-  checkpoint: '🏁',
-  reward: '🏆',
+const NODE_TYPE_ICON: Record<JourneyNode['type'], DecorativeIconName> = {
+  lesson: 'menu-book',
+  review: 'refresh',
+  checkpoint: 'flag',
+  reward: 'emoji-events',
 };
 
 const NODE_STATUS_COLOR: Record<JourneyNode['status'], string> = {
@@ -54,7 +61,7 @@ const NODE_STATUS_COLOR: Record<JourneyNode['status'], string> = {
 
 // ── Nó de lição ─────────────────────────────────────────────────
 
-function LessonNode({
+export function LessonNode({
   node,
   index,
   onPress,
@@ -71,12 +78,32 @@ function LessonNode({
   const isActive = node.status === 'active' || node.status === 'resumable';
   const isLocked = node.status === 'locked';
   const isDone = node.status === 'completed';
+  const { reducedMotionEnabled: reducedMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
 
   // Glow pulsante para nó ativo
   const glowOpacity = useSharedValue(isActive ? 0.5 : 0);
 
   useEffect(() => {
-    setTimeout(() => {
+    // Enquanto a preferência é desconhecida, nada é agendado e nenhum laço
+    // começa. A consulta é assíncrona e a primeira renderização acontece antes
+    // dela: com `index * 60`, os primeiros nós entravam animados ANTES de a
+    // resposta chegar. Um quadro de espera custa menos que a preferência.
+    if (!motionResolved) {
+      return;
+    }
+
+    if (reducedMotion) {
+      // A entrada em cascata (`index * 60`) é escada: cada nó chega num tempo
+      // diferente. Sob reduced motion todos já nascem no destino — a lista
+      // aparece pronta em vez de se montar.
+      scale.value = 1;
+      opacity.value = 1;
+      // O glow segue marcando o nó ativo, parado no ponto alto do ciclo.
+      glowOpacity.value = isActive ? 0.9 : 0;
+      return;
+    }
+
+    const timeout = setTimeout(() => {
       scale.value = withSpring(1, { damping: 14 });
       opacity.value = withTiming(1, { duration: 250 });
     }, index * 60);
@@ -91,7 +118,11 @@ function LessonNode({
         true,
       );
     }
-  }, []);
+
+    // Sem limpeza, o timeout sobrevivia à re-execução do efeito e à
+    // desmontagem — a cascata disparava depois de a preferência ter virado.
+    return () => clearTimeout(timeout);
+  }, [motionResolved, reducedMotion, index, isActive]);
 
   const entryStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value * pressScale.value }],
@@ -112,7 +143,7 @@ function LessonNode({
     <Animated.View style={[styles.nodeRow, { transform: [{ translateX: offsetX }] }, entryStyle]}>
       <TouchableOpacity
         onPress={isLocked ? undefined : onPress}
-        onPressIn={() => { if (!isLocked) pressScale.value = withSpring(0.90); }}
+        onPressIn={() => { if (!isLocked && !reducedMotion) pressScale.value = withSpring(0.90); }}
         onPressOut={() => { pressScale.value = withSpring(1); }}
         activeOpacity={isLocked ? 1 : 0.75}
       >
@@ -136,15 +167,15 @@ function LessonNode({
             glowStyle,
           ]}
         >
-          <Text style={styles.nodeIcon}>{NODE_TYPE_ICON[node.type]}</Text>
+          <DecorativeIcon name={NODE_TYPE_ICON[node.type]} size={20} color={NODE_STATUS_COLOR[node.status]} />
           {isDone && (
             <View style={styles.checkBadge}>
-              <Text style={styles.checkText}>✓</Text>
+              <DecorativeIcon name="check" size={12} color="#FFFFFF" />
             </View>
           )}
           {isLocked && (
             <View style={styles.lockOverlay}>
-              <Text style={styles.lockIcon}>🔒</Text>
+              <DecorativeIcon name="lock" size={16} color="#FFFFFF" />
             </View>
           )}
         </Animated.View>
@@ -180,6 +211,20 @@ export default function PlanetInteriorScreen() {
 
   const galaxy = getGalaxyById(galaxyId ?? '');
   const body: CelestialBody | undefined = galaxy?.bodies.find((b) => b.id === bodyId);
+
+  useShadowCheckpoint({
+    surface: 'planet-interior',
+    flowId: `planet:${galaxyId ?? 'unavailable'}:${bodyId ?? 'unavailable'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: body?.id ?? 'planet-unavailable',
+    compatibleCursorIds: body ? [body.id] : ['planet-unavailable'],
+    progressPercent: 0,
+    completedStepCount: 0,
+    totalStepCount: Math.max(1, body?.nodes.length ?? 1),
+    galaxyId: galaxy?.id,
+    planetId: body?.id,
+    enabled: Boolean(galaxy && body),
+  });
 
   if (!galaxy || !body) {
     return (
@@ -235,7 +280,7 @@ export default function PlanetInteriorScreen() {
             <Text style={styles.backIcon}>‹</Text>
           </TouchableOpacity>
           <View style={styles.headerInfo}>
-            <Text style={styles.galaxyLabel}>{galaxy.emoji} {galaxy.title}</Text>
+            <Text style={styles.galaxyLabel}>{galaxy.title}</Text>
             <Text style={styles.bodyTitle} accessibilityRole="header">{body.title}</Text>
           </View>
         </View>
@@ -253,7 +298,10 @@ export default function PlanetInteriorScreen() {
         {/* Trilha de nós */}
         {body.nodes.length === 0 ? (
           <View style={styles.emptyTrail}>
-            <Text style={styles.emptyText}>🚀 Em breve — conteúdo chegando!</Text>
+            <View style={styles.emptyTrailContent}>
+              <DecorativeIcon name="rocket-launch" size={20} color="rgba(255,255,255,0.7)" />
+              <Text style={styles.emptyText}>Em breve — conteúdo chegando!</Text>
+            </View>
           </View>
         ) : (
           <ScrollView
@@ -263,9 +311,10 @@ export default function PlanetInteriorScreen() {
           >
             {hearts === 0 && (
               <View style={styles.noHeartsWarning}>
-                <Text style={styles.noHeartsText}>
-                  ❤️ Sem vidas! Você pode fazer revisões, mas novas lições estão bloqueadas.
-                </Text>
+                <View style={styles.noHeartsContent}>
+                  <HeartIcon size={18} filled />
+                  <Text style={styles.noHeartsText}>Sem vidas! Você pode fazer revisões, mas novas lições estão bloqueadas.</Text>
+                </View>
               </View>
             )}
             {body.nodes.map((node, index) => (
@@ -306,7 +355,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Glifos de ícone (chevron, ✓, emoji) ficam fora da escala tipográfica:
+  // O chevron fica fora da escala tipográfica:
   // são desenho, não texto, e a métrica da Sora deslocaria o alinhamento.
   backIcon: {
     fontSize: 24,
@@ -355,6 +404,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
   },
+  noHeartsContent: { flexDirection: 'row', alignItems: 'flex-start', gap: space.s1 },
   noHeartsText: {
     ...typography.caption,
     color: '#FF6B6B',
@@ -371,7 +421,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     shadowOpacity: 0.6,
   },
-  nodeIcon: { fontSize: 20 },
   checkBadge: {
     position: 'absolute',
     bottom: -4,
@@ -383,7 +432,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkText: { fontSize: 10, color: '#fff', fontWeight: '800' },
   lockOverlay: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
@@ -391,7 +439,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.35)',
     borderRadius: 999,
   },
-  lockIcon: { fontSize: 16 },
   nodeTitle: {
     ...typography.micro,
     marginTop: 6,
@@ -410,6 +457,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 40,
   },
+  emptyTrailContent: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   emptyText: {
     ...typography.bodyRegular,
     color: 'rgba(255,255,255,0.50)',

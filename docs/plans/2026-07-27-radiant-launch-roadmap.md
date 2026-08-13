@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-29.md). As Tasks 11–16 do
+> [status canônico](../EXECUTION_STATUS_2026-08-09.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,26 +20,55 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: [status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md) — o
-snapshot de 07-27 permanece como histórico. A seção abaixo descreve o estado
-verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
-1.3.0, tipografia, lesson-flow, assets e gate) estão no status canônico.
+Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
+**[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)** — ponteiro
+atualizado após a passagem visual de 2026-08-12. Os snapshots anteriores
+permanecem como registro. A seção abaixo descreve o estado verificado em 07-27;
+as entregas posteriores, inclusive a correção P0 de contraste/composição e o HUD
+vetorial, estão no status canônico.
+
+**Onde o trabalho está (2026-08-09):** a branch
+`codex/wave1-hardening-api-smoke` está publicada e aberta para a `main` no
+[PR #1](https://github.com/andersonsmelo/Radiant/pull/1). Enquanto o PR não
+fechar, a branch é a fonte, não a `main`; contagens e mergeabilidade devem ser
+medidas no Git/GitHub, não copiadas para este roadmap.
 
 **Sólido:**
 
 - App local-first funcional; catálogo, progresso e revisão funcionam sem API.
-- ~~v1.2.1~~ **1.3.1 (build 3)** em 2026-08-03, alinhada entre `package.json` e
-  `app.json`; `runtimeVersion` por `appVersion`; nenhum build publicado ainda
-  (mudanças de versão ainda livres).
-- Qualidade: ~~27 suítes / 71 testes PASS~~ **48 suítes / 245 testes PASS** em
-  2026-08-03; `npm run quality` PASS; Gate 2 de acessibilidade parcial (3/5) —
-  segue parcial, ver item 1 dos bloqueadores.
+- ~~v1.2.1~~ **1.3.1** em 2026-08-03, alinhada entre `package.json` e
+  `app.json`; `runtimeVersion` por `appVersion`. ~~Nenhum build publicado ainda
+  (mudanças de versão ainda livres).~~ **Falso desde 2026-08-04: mudanças de
+  versão deixaram de ser livres.** A `1.3.1 (5)` está instalável no TestFlight e
+  a Android `1.3.0 (4)` está no track fechado; mexer na versão agora quebra a
+  continuidade das duas fichas e da contagem de opt-ins da F2. Cuidado ao ler o
+  `app.json`: ele declara `buildNumber: 3`, e isso **não é o que está
+  publicado** — o `eas.json` usa `appVersionSource: remote` com
+  `autoIncrement`, então o contador vive no servidor do EAS e o arquivo local
+  fica para trás por construção.
+- Qualidade: ~~27 suítes / 71 testes PASS~~ ~~48 suítes / 245 testes PASS~~
+  **49 suítes / 267 testes PASS** em 2026-08-03 (terceira sessão do dia);
+  `npm run quality` PASS; Gate 2 de acessibilidade ~~parcial (3/5)~~ ~~(4/5)~~
+  ~~(3/5) recontado em 2026-08-05~~ ~~(4/5) em 2026-08-06~~ **APROVADO (5/5) em
+  2026-08-06**. O item 1 foi reaberto em 08-05 pela recontagem — o critério
+  havia crescido em 08-03 e a passagem de 07-26 não podia cobri-lo — e fechado
+  em 08-06 com nova caminhada em iPhone. O item 2 fechou no mesmo dia **com
+  ressalva escrita**: o estado ocupado não é produzível nesta build e ficou
+  coberto pelo contrato unitário, com gatilho de reabertura. Ver B4 e B8.
 - ~~E2E iOS em device PASS (3/3 flows Maestro)~~ **E2E medido nas duas
   plataformas em 2026-08-03: iOS 5/5 e Android 5/5**, sobre builds Release locais
   da 1.3.1. Os dois vermelhos que apareceram no caminho — `offline-relaunch` no
   Android e `store-capture` nas duas — eram defeitos dos flows, anteriores a esse
   trabalho, e foram corrigidos e remedidos. A ressalva do item 3 dos bloqueadores continua valendo: a
-  evidência foi colhida sob o perfil `e2e-test`, não sob `preview`.
+  evidência foi colhida sob o perfil `e2e-test`, não sob configuração equivalente
+  a produção.
+  ~~**⚠️ Acrescentado em 2026-08-03 (terceira sessão): essa evidência agora precede
+  o HEAD.**~~ **Resolvido em 2026-08-03 (quarta sessão): a suíte foi reexecutada
+  no HEAD e sob configuração equivalente a produção — `6/6` no iOS e `6/6` no
+  Android**, com um flow a mais que os cinco anteriores. Os 11 commits do
+  refinamento de microinterações não regrediram nada, e o item 3 dos bloqueadores
+  fechou na mesma rodada. Evidência em
+  [`2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
 - EAS configurado (projeto, perfis `development`, `e2e-test`, `preview`,
   `production`); bundle id/package `com.ascendcreative.radiant` definidos.
 - Expo SDK 54 / RN 0.81 → target Android API 36 por padrão, o que já atende o
@@ -57,9 +86,20 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
 > O padrão é o do item 4: riscar o texto original e anexar a correção com data.
 > O registro do que se acreditava em 2026-07-27 tem valor; sobrescrevê-lo não.
 
-1. Gate 2 de acessibilidade: resta o item 2 (anúncio único VoiceOver, exige
-   humano com áudio, task B4). O item 5 (navegação por teclado) foi fechado em
-   2026-07-27 com a build web (task B3).
+1. ~~Gate 2 de acessibilidade: resta o item 2~~ ~~restam os itens 1 e 2,
+   recontagem de 2026-08-05~~ **DEIXOU DE SER BLOQUEADOR EM 2026-08-06: o Gate 2
+   está aprovado, 5/5** — item 1 fechado por caminhada nova (B8) e item 2
+   fechado com a ressalva do estado ocupado (B4). O item 5 (navegação por
+   teclado) já estava fechado em 2026-07-27 com a build web (task B3).
+   O item 1 (Reduce Motion) tinha voltado a aberto sem que nada regredisse — a
+   passagem de 07-26 mediu só a animação de entrada no caminho da lição e o
+   critério cresceu em 08-03 para exigir a galáxia. **A caminhada nova foi feita
+   em 08-06 e passou:** nada se move, tocar abre sem animação, e a distinção
+   entre planeta ativo, disponível e bloqueado sobrevive à preferência, medida
+   contra uma captura de base tirada antes de ligá-la
+   ([evidência](../../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md)).
+   **O item 2 é o único aberto, e não fecha caminhando** — ver B4: o estado
+   ocupado não é produzível nesta build, e a saída é decisão do dono.
    **Reverificado em 2026-08-03: segue aberto** — o
    `radiant-app/docs/ACCESSIBILITY_QA_V1.md` continua marcando o gate como não
    aprovado por esse item. Vale reordenar a prioridade: em 2026-08-02 um defeito
@@ -67,37 +107,99 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    legal da ficha da loja inalcançável por leitor de tela) foi encontrado por uma
    asserção de E2E falhando — não pelo gate, que existe para pegar exatamente
    isso e não rodou.
+   **Avançou em iPhone físico em 2026-08-05, mas continua aberto:** nome,
+   posição/função e estado desabilitado foram ouvidos uma vez em controles
+   reais, sem repetição espontânea. Não foi transcrita uma dica nem ativado um
+   estado ocupado real, então a amostra não promove o item inteiro. Evidência em
+   [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 2. ~~Android sem projeto nativo (`expo prebuild` nunca executado); zero E2E
    Android.~~ **Falso desde 2026-07-28, e medido de novo em 2026-08-03.** O
    projeto nativo é gerado por `expo prebuild --platform android --no-install` e
    a suíte roda em emulador: **5 de 5 flows verdes** sobre APK Release local da
    versão 1.3.1, incluindo a apresentação de primeiro uso. Evidência em
    [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
-3. E2E ainda não reexecutado sob o perfil `preview`, que passou a refletir
-   produção em 2026-07-27 (task B0.1).
+3. E2E ainda não reexecutado sob o perfil `preview`~~, que passou a refletir
+   produção em 2026-07-27 (task B0.1)~~.
    **Reverificado em 2026-08-03: segue aberto.** Toda a evidência de device,
    inclusive a das duas plataformas desta data, foi colhida sob `e2e-test`. A
    única menção a `preview` está em
    [`2026-07-28-boot-to-home-devclient.md`](../../radiant-app/docs/evidence/2026-07-28-boot-to-home-devclient.md),
    que é verificação em dev-client — e o `E2E_RUNBOOK` é explícito em que uma
-   execução em dev-client **nunca** promove plataforma. Item de maior peso agora:
-   o `e2e-test` desliga o beta gate, então nenhum flow exercita o caminho em que
-   `first_run_started` é emitido antes de o gate ser avaliado.
+   execução em dev-client **nunca** promove plataforma.
+   ~~Item de maior peso agora: o `e2e-test` desliga o beta gate, então nenhum
+   flow exercita o caminho em que `first_run_started` é emitido antes de o gate
+   ser avaliado.~~
+
+   > **Premissa corrigida em 2026-08-03 (segunda revisão do dia).** O
+   > **predicado** deste item continua verdadeiro — o E2E de fato nunca rodou sob
+   > `preview` —, mas as duas frases riscadas acima são falsas, e a segunda foi
+   > acrescentada pela própria reverificação de mais cedo. Medido no `eas.json` e
+   > no site de composição da flag:
+   >
+   > - O gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`
+   >   (`src/app/_layout.tsx`), com
+   >   `SHOW_DEV_TOOLS = __DEV__ || ENABLE_DEV_TOOLS` (`src/config.ts`). O
+   >   `preview` declara **as duas** ligadas, então ele **também não aplica o
+   >   gate**; o `production` declara `ENABLE_BETA_GATE=false`. **Nenhum dos cinco
+   >   perfis do `eas.json` aplica o beta gate.** Rodar sob `preview` não
+   >   exercitaria o caminho barrado, e portanto não fecha o buraco que a frase
+   >   riscada dizia fechar.
+   > - "`preview` reflete produção" nasce em
+   >   [`EXECUTION_STATUS_2026-07-27.md`](../EXECUTION_STATUS_2026-07-27.md),
+   >   **escopada a uma flag**: naquele dia `ENABLE_LEARNING_ROAD` passou a ser
+   >   declarada em `preview` e `production`. A frase viajou sem o escopo. Em
+   >   `ENABLE_DEV_TOOLS`, `ENABLE_TELEMETRY_DEBUG_SCREEN` e `ENABLE_BETA_GATE`,
+   >   quem coincide com `production` é o **`e2e-test`**, não o `preview`.
+   >
+   > **✅ ENCERRADO em 2026-08-03 (quarta sessão).** A suíte foi medida sob
+   > `APP_ENV=production` e `ENABLE_PUSH=true` nas duas plataformas: **6/6 no iOS
+   > e 6/6 no Android**, incluindo um flow novo (`rating-prompt`) que é o único a
+   > alcançar `MIN_APP_OPENS`. Evidência em
+   > [`2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
+   >
+   > **A premissa do item também estava errada, e de um jeito que importa.** Ele
+   > dizia que o prompt de avaliação "nunca foi exercitado em device". O motivo
+   > não era falta de execução: `RatingPromptService` conta `app_open`, e esse
+   > evento tinha um único emissor, na home legada, inalcançável desde que a
+   > Learning Road virou a home oficial. **Nenhuma build o emitia**, então o
+   > prompt era inalcançável, não apenas não medido. Corrigido em `f499714`.
+   > Nenhuma rodada de device teria fechado este item sem essa correção — a lição
+   > é que "nunca medido" e "impossível" produzem exatamente a mesma evidência.
+
+   > **O eixo real deste item**, e o que ele deve pedir daqui em diante: o
+   > `e2e-test` difere de `production` em `EXPO_PUBLIC_APP_ENV`
+   > (`development` vs `production`) e `EXPO_PUBLIC_ENABLE_PUSH` (`false` vs
+   > `true`). O `APP_ENV` não é cosmético: ele desliga o selo BETA da home
+   > (`HomeScreen.tsx`) e é a única condição em que o `RatingPromptService` não
+   > retorna cedo (`APP_ENV !== 'production'` → early return), ou seja, **o
+   > prompt de avaliação só existe em produção e nunca foi exercitado em
+   > device**. Fechar este item é rodar a suíte sob essa configuração — não sob
+   > `preview`, que é um proxy pior que o já usado.
 4. ~~`JourneyMap` renderiza tema claro em tela escura e quebra rótulos no meio da
    palavra (task B2).~~ Corrigido em 2026-07-27 (task B2): tema `galaxyColors` e
    rótulos quebrando só em limite de palavra. O defeito de folga da tab bar foi
    resolvido em todas as telas roláveis nesta data (task B1).
-5. Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
-   final).
-   **Reverificado em 2026-08-03: segue aberto** — nenhum flow do `.maestro`
-   afirma o nó, e o `maestro-contract.test.mjs` **proíbe** afirmá-lo no caminho
-   crítico, porque ali ele seria inalcançável. Fechar este item exige um caso que
-   percorra as sete lições, não uma asserção a mais no flow existente.
-6. API pública inativa (HTTP 502) — decisão de estratégia pendente (ADR da
-   Task 15).
-   **Reverificado em 2026-08-03: segue aberto** — o `scripts/qa/docs-contract.mjs`
-   reprova qualquer documento que afirme a API disponível, o que trava o estado
-   canônico em inativa até a decisão existir.
+5. ~~Nó de reward sem cobertura E2E (track ativo tem 7 lições; conquista só no
+   final).~~ **Fechado no escopo de deep link em 2026-08-04** pelo flow
+   `reward-locked.yaml`, verde nas duas plataformas (iOS 82s, Android 81s).
+   Escrever a cobertura achou um defeito real antes de existir flow: a tela
+   mostrava conquista bloqueada como "Pronta para ser coletada" com 0 de 14
+   marcos, e o botão gravava `markNodeCompleted` — alcançável por deep link, de
+   fora do app. Corrigido primeiro, coberto depois, porque um flow escrito antes
+   teria feito o contrato **defender** o defeito. Evidência em
+   [`2026-08-04-b5-reward-deep-link.md`](../../radiant-app/docs/evidence/2026-08-04-b5-reward-deep-link.md).
+   ~~**A metade que continuava aberta:** a regra de destravamento, que exigiria
+   percorrer as sete lições, seguia sem cobertura.~~ O registro de 2026-08-03
+   permanece como histórico: nenhum flow do `.maestro` afirmava o nó, e o
+   `maestro-contract.test.mjs` proibia afirmá-lo no caminho crítico, onde seria
+   inalcançável. **Atualização de 2026-08-08:** o percurso real das sete lições
+   passou no iOS 26.5; a repetição integral no Android API 36 continua pendente.
+6. API pública inativa (HTTP 502) — ~~decisão de estratégia pendente (ADR da
+   Task 15)~~ **decisão assinada; implantação pendente**.
+   O registro de 2026-08-03 permanece como histórico: o
+   `scripts/qa/docs-contract.mjs` reprova qualquer documento que afirme a API
+   disponível. **Atualização de 2026-08-07:** a opção B foi aprovada na ADR da
+   Task 15, mas ainda não foi implantada; a API pública continua em HTTP 502.
 7. ~~Onboarding não aparece em instalação limpa — pendente de confirmação de
    intenção.~~ **Resolvido em 2026-08-02.** A confirmação veio e está em
    [`ADR-2026-08-02`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md): o
@@ -113,6 +215,12 @@ verificado em 07-27; as entregas de 07-28 (identidade de design, versionamento
    baseline datada e 2 exceções de arquétipo, com **zero regressões** — e **59**
    ocorrências de caminho absoluto, em 13 arquivos. Os 42 itens editoriais
    **não** foram remedidos nesta data e seguem como o número herdado.
+   **Atualizado em 2026-08-03 (segunda sessão):** das 59 ocorrências, as **5 que
+   viviam em documentos operacionais foram corrigidas** (duas delas eram links
+   markdown quebrados, não questão de estilo) e as **54 restantes ficam por
+   decisão**: são blocos de comando de planos e evidências fechados, onde o
+   caminho absoluto é registro do que foi executado. Ver a task D7. Os 42 itens
+   editoriais são a D4, cuja triagem mostrou que a unidade real são 30 excertos.
 9. ~~**Trilha de lojas inexistente:** sem conta Apple Developer/Play Console
    confirmada no plano, sem metadados, screenshots, política de privacidade
    hospedada, privacy labels, data safety, ou submissão de qualquer build.~~
@@ -160,10 +268,10 @@ Fontes: ver §9.
 | Marco | Meta | Critério de saída | Alvo |
 | --- | --- | --- | --- |
 | **M0 — Contas e fundações de loja** | Contas ativas e verificadas nas duas lojas | Apple Developer + Play Console verificados; app criado nas duas consoles; decisão pessoal vs organização registrada | Semana 1–2 (até ~2026-08-10) |
-| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | Itens 2 e 5 do Gate 2 com evidência; ProgressScreen/JourneyMap corrigidos; reward coberto por E2E | Semana 2–3 |
+| **M1 — Qualidade pendente fechada** | Gate 2 aprovado e defeitos conhecidos corrigidos | **Gate 2 aprovado 5/5 em 2026-08-06** (itens 1 e 2 fechados por B8 e B4, este com a ressalva do estado ocupado); ProgressScreen/JourneyMap corrigidos; reward coberto por E2E — **falta só o lado Android da B5** | Semana 2–3 |
 | **M2 — Paridade Android** | Fluxo crítico PASS em Android | `expo prebuild` + build local; 3 flows Maestro PASS em emulador e 1 device físico | Semana 3–5 |
 | **M3 — Prontidão de release** | Contratos de privacidade, telemetria e release prontos | Task 16 concluída: matriz real-device, contrato de telemetria, checklist v1.3, Sentry configurado; ADR da API registrada (Task 15) | Semana 5–6 |
-| **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12) iniciada | Semana 6–9 |
+| **M4 — Beta nas duas lojas** | Builds de produção em TestFlight e closed testing | Build `production` submetido; ≥ 12 testadores opted-in no Play por 14 dias; feedback triado P0–P3; pesquisa com usuários (Task 12 do roadmap anterior) iniciada | Semana 6–9 |
 | **M5 — Lançamento público** | Aprovação e produção nas duas lojas | Revisões aprovadas; rollout faseado no Play (10→50→100%); release iOS; monitoramento ativo | Semana 9–11 (até ~2026-10-12) |
 
 Os alvos assumem dedicação contínua e nenhuma rejeição de loja com retrabalho
@@ -238,12 +346,20 @@ código.
   sempre visível **Ajuda e informações**, com Política de Privacidade e Central
   de Suporte em links acessíveis, URLs centralizadas e falha de abertura contida.
   As 4 suítes focadas passaram com 14 testes e os dois destinos foram remedidos
-  em HTTP 200; abertura em iPhone físico e VoiceOver permanecem gates humanos de
-  F1/B4, não evidência produzida por esses testes.
+  em HTTP 200. **A abertura em iPhone físico passou em 2026-08-05**, nos dois
+  destinos e com retorno ao app; VoiceOver avançou, mas B4 permanece aberta por
+  amostragem auditiva incompleta. Evidência no relatório físico da F1.
   **Continua pendente:** revisão jurídica do texto, que é a única ressalva
   restante; ela não bloqueia E3, porque a URL já existe e o conteúdo publicado é
   o que foi declarado no Data Safety.
-- **A5 [P1]** Configurar `eas submit`. **O bloco `submit.production.android` do
+- **A5 [P1]** Configurar `eas submit`. **Reduzida a um único passo, e ele é
+  humano (medido em 2026-08-04):** o procedimento está completo e executável em
+  [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md), com o track correto
+  (`alpha`) e a verificação de proteção do `.gitignore` reconferida. Falta apenas
+  **gerar a service-account key** no Play Console e colocá-la em
+  `radiant-app/credentials/` — a pasta existe e está vazia. Nada disso bloqueia
+  publicar: o AAB vai pelo console à mão, e o `eas submit` é automação. **O bloco
+  `submit.production.android` do
   `eas.json` foi preenchido em 2026-07-29** (`serviceAccountKeyPath`, `track`,
   `releaseStatus`) — a redação anterior desta task, "hoje só tem `ios: {}`",
   deixou de valer naquela data. `radiant-app/credentials/` existe, vazio e
@@ -253,7 +369,7 @@ código.
   build `1.3.0 (4)` foi submetido e ficou pronto no TestFlight. **Continua
   pendente apenas no lado da automação:** gerar a service-account key do Play.
 - **A6 [P1]** ~~Recrutar ≥ 14 testadores (12 é o mínimo do Play; margem para
-  churn) — alinhado ao recrutamento da Task 12 (5–8 participantes de pesquisa
+  churn) — alinhado ao recrutamento da Task 12 de pesquisa do roadmap anterior (5–8 participantes
   podem vir do mesmo pool).~~ **CONCLUÍDA e verificada em 2026-08-03:** a página
   da faixa no Play Console mostrou 14 contas vinculadas ao track `alpha`,
   confirmando a margem de churn. O repositório não persiste endereços por
@@ -270,7 +386,16 @@ código.
   contrato virou teste estrutural em
   `radiant-app/scripts/tab-bar-clearance-contract.test.mjs`, ligado ao
   `npm run quality`.
-- **B0 [P0] — NOVO, bloqueia o beta.** A flag `ENABLE_LEARNING_ROAD` tem
+- **B0 [P0 — RESOLVIDA em 2026-07-27, ~~ponta B0.2 aberta~~ INCLUSIVE A B0.2]**
+  ~~NOVO, bloqueia o
+  beta.~~ *(Estado promovido ao cabeçalho em 2026-08-04, pela mesma razão da D1:
+  a resolução já estava no corpo, mas o cabeçalho seguia dizendo "bloqueia o
+  beta" para quem triasse a lista. É o cabeçalho que é lido. **Corrigido de novo
+  em 2026-08-06:** o cabeçalho ainda anunciava a ponta B0.2 como aberta, mas ela
+  está riscada e marcada concluída em 2026-07-27 no corpo — terceira ocorrência
+  do mesmo defeito nesta página, e a segunda em que o cabeçalho envelhece
+  sozinho depois que o corpo é atualizado.)*
+  A flag `ENABLE_LEARNING_ROAD` tinha
   default `false` e **não é definida nos perfis `development`, `preview` nem
   `production`** do `eas.json`; só o perfil `e2e-test` a liga. Consequências
   verificadas em 2026-07-27:
@@ -279,6 +404,16 @@ código.
      validou a Home da trilha — uma tela que o usuário de produção não vê.
   3. O `.env` local também liga a flag, então o desenvolvimento manual observa
      a mesma tela do E2E, e não a de produção.
+  > **O que fechar esta task custou, descoberto só em 2026-08-03.** Ligar a
+  > Learning Road em todos os perfis é o que tornou a `HomeScreen` legada
+  > inalcançável — e era nela que vivia o **único** emissor de `app_open`, junto
+  > com `markDayOpen()` e o reset de backoff de push. A correção era certa e o
+  > efeito colateral foi invisível por sete dias: nenhum teste falhou, nenhum
+  > contrato reprovou, e três documentos seguiram afirmando o evento como
+  > emitido. Corrigido em `f499714`. **A lição que vale além desta task:** quando
+  > uma decisão torna uma tela inalcançável, o que morre com ela não é só a tela
+  > — é todo comportamento que só existia ali, e nada no arnês avisa.
+
   **Decidida em 2026-07-27: a v1.3 lança com a Learning Road** — ver
   [ADR da home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md).
   A flag passou a ser declarada em `development`, `preview` e `production`, e o
@@ -334,11 +469,93 @@ código.
   de lição contém o foco) e alvos ≥ 44px (atalho da Home 56px, ação de entrar
   44px). Evidência:
   [`radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md`](../../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md).
-  Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).
-- **B4 [P0]** Gate 2 item 2: sessão humana de VoiceOver com áudio (agendar com
-  Anderson; roteiro em `radiant-app/docs/ACCESSIBILITY_QA_V1.md`).
-- **B5 [P1]** Cobrir o nó de reward com E2E (track de 7 lições ou fixture de
-  track curto no perfil `e2e-test`).
+  ~~Com isso o Gate 2 fica em 4/5; resta só o item 2 (B4).~~ **Corrigido em
+  2026-08-05: o gate fica em 3/5 (itens 3, 4 e 5), porque o item 1 teve seu
+  critério ampliado em 2026-08-03 e precisa de nova passagem manual.** A
+  entrega da B3 em si não mudou.
+- **B4 [P0 — ~~EM ANDAMENTO; A DICA TEM UM ALVO ÚNICO E O ESTADO OCUPADO NÃO
+  EXISTE NA BUILD — DECISÃO PENDENTE~~ CONCLUÍDA EM 2026-08-06, COM RESSALVA
+  ESCRITA]** Gate 2 item 2 fechado: nome, função, dica e desabilitado ouvidos em
+  controles reais — o CTA da home anunciou `Fazer revisão`, `botão` e a dica,
+  cada um uma vez e nessa ordem. O **estado ocupado** foi aceito pelo contrato
+  unitário do `AppButton` porque **não é produzível nesta build**, e isso está
+  registrado como troca, não como equivalência, com **gatilho de reabertura**:
+  se `EXPO_PUBLIC_ENABLE_PAYWALL` for declarada em algum perfil, ou outro
+  `AppButton` receber `loading`, o item merece passagem nova.
+  [`2026-08-06-b4-voiceover-item2.md`](../../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md).
+  **Com isso o Gate 2 está aprovado (5/5) e a F1 perde seu último bloqueio.**
+
+  > **Diagnóstico que fechou a task, medido em 2026-08-06 antes de agendar
+  > aparelho.** A dica tem **um** alvo no produto inteiro — o CTA da home
+  > (`JourneyHomeScreen`), porque todos os outros controles com dica são
+  > `Pressable` e não contam para este item. E o estado ocupado **não tem alvo
+  > nenhum**: o único `AppButton` que recebe `loading` está no
+  > `PaywallOfferCard`, que só renderiza com oferta, e `ENABLE_PAYWALL` não é
+  > declarada em nenhum perfil do `eas.json` (default `false`). Mesmo ligada, a
+  > janela ocupada dura milissegundos e termina desmontando o botão. **Mesma
+  > classe da B0** — flag ausente dos perfis de produção. Medir isso primeiro
+  > evitou uma sessão de device inteira gasta procurando um estado que o binário
+  > não produz.
+- **B5 [P1 — ~~ABERTA; O FLOW DA REGRA EXISTE, FALTA APARELHO~~ iOS EXECUTADO E
+  `passed` EM 2026-08-06; RESTA O ANDROID]** Cobrir o nó de
+  reward com E2E. O deep link cobre a tela e o estado bloqueado
+  (`reward-locked.yaml`, medido em 2026-08-04).
+
+  > **Executado no iOS em 2026-08-06: `passed`, 170 passos, 0 falhas.** Sobre
+  > build local Release do perfil `e2e-test` no simulador
+  > `Radiant iPhone 17 Pro — iOS 26.5`, com o contrato do flow verde (16
+  > asserções) antes de rodar. A regra foi provada pelo caminho do produto — o
+  > CTA `Receber conquista` só apareceu na home depois da sétima lição — e a
+  > contagem virou de `13 de 14` para `14 de 14` marcos com a coleta. Evidência,
+  > incluindo como a identidade da build foi verificada antes de medir:
+  > [`2026-08-06-b5-reward-unlock-ios.md`](../../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md).
+  > **Falta o Android**, e o custo estimado estava errado por quase uma ordem
+  > de grandeza. ~~~13 min~~ **Medido em 2026-08-06 neste host: ~1 min por
+  > passo** — 103 passos consumiram ~110 minutos antes de a corrida parar. Os
+  > 170 passos do flow são **horas**, não minutos, e a janela precisa ser
+  > planejada assim. A primeira tentativa parou numa régua de visibilidade
+  > (corrigida, ver `test:maestro-contract`) e a segunda morreu com o emulador
+  > sumindo do `adb` depois de 4 passos, num host de 16 GB. Enquanto o Android
+  > não rodar inteiro, a task não fecha.
+
+  > **Escrito em 2026-08-04:** `reward-unlock.yaml` percorre as sete lições e os
+  > seis checkpoints e coleta a conquista, e `scripts/maestro-contract.test.mjs`
+  > o governa. **Não foi executado em aparelho** — por isso a task continua
+  > aberta e não recebeu risco. Custo esperado da execução: ~16 min no iOS e
+  > ~13 no Android, mais build e instalação, em janela exclusiva de host.
+  >
+  > **A escolha de rota foi medida, e a enumeração de 2026-07-27 tinha uma
+  > lacuna.** Existia uma terceira via: a trilha `Abdome`, de 5 lições,
+  > alcançável pela prateleira de trilhas (`selectTrack`), sem código de teste e
+  > exercitando os mesmos ramos. Ela pouparia ~5 min por plataforma, mas
+  > apontaria para outro nó — com as sete lições os dois flows ficam sobre o
+  > **mesmo** `node:reward:fundamentos:final`, um provando bloqueado e o outro
+  > destravado. A fixture ficou fora por um motivo mais forte que o registrado:
+  > com 2 lições ela cai no ramo `lessonCount <= 2` de `rewardNodeId()`, que
+  > constrói um id que produção nunca constrói; seriam necessárias **3** para os
+  > ramos coincidirem, e ainda assim custaria uma flag de teste no binário.
+  >
+  > **Contrato mutado, duas guardas não mordiam.** Uma real: "Receber conquista"
+  > é o rótulo do CTA da home **e** do botão de coleta, então uma asserção de
+  > presença ficava verde mesmo removendo a chegada pela home — a única parte
+  > que prova a regra. A outra foi um falso verde: a mutação nunca chegou a
+  > aplicar por escape errado de shell. **Guarda não exercitada se parece com
+  > guarda aprovada.** Detalhe e o achado sobre o `?` sem escape em
+  > `reward-locked.yaml` estão em
+  > [`E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
+
+  > **Os dois achados registrados-e-não-corrigidos fecharam em 2026-08-07**,
+  > numa onda de correção de revisão de código. O `?` sem escape de
+  > `reward-locked.yaml` estava sendo **exigido** pelo contrato, que congelava a
+  > linha literal: o contrato passou a afirmar a propriedade (este elemento
+  > carrega asserção negativa, e ela escapa o `?`), derivada de
+  > `RewardScreen.tsx`, e a varredura de `?` cobre agora as quatro chaves de
+  > seletor em todos os flows do diretório. A régua de visibilidade tinha uma
+  > contradição do mesmo tipo: 100% em `learning-critical-path` e
+  > `offline-relaunch` contra 80% em `reward-unlock`, sobre o **mesmo** id na
+  > mesma tela — as três foram para 80, e uma segunda asserção de contrato exige
+  > uma régua por seletor. Nada disso muda o que falta na B5: **o Android segue
+  > não executado.**
 - **B6 [P1]** ~~Onboarding em instalação limpa~~ **Investigada em 2026-07-27.**
   Não é defeito de runtime: "instalação limpa → Home" é consequência correta da
   Learning Road ser a home (a home já recebe o usuário com o Pixel e destaca o
@@ -402,19 +619,107 @@ código.
   recontar em vez de citar qualquer número desta linha:
   `cd radiant-app && npx eslint . --format json`.
 
+- **B8 [P1 — ~~ABERTA; CRIADA EM 2026-08-05 PELA RECONTAGEM DO GATE~~
+  CONCLUÍDA EM 2026-08-06]** Gate 2 item 1: caminhada manual de Reduce Motion em
+  iPhone físico, no escopo ampliado, **`passed`**. Nada se move sozinho nas três
+  telas, tocar num planeta abre sem animação, e a distinção de estado sobrevive
+  à preferência — verificada contra uma captura de base tirada **antes** de
+  ligá-la, porque uma tela sóbria parece correta sozinha. O que a passagem não
+  prova está escrito na evidência: nenhum planeta concluído existe na conta,
+  então o par testado foi ativo × disponível × bloqueado.
+  [`2026-08-06-b8-reduce-motion-iphone.md`](../../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md).
+
+  > **Critério original, mantido porque é ele que a passagem cumpriu:** mapa da
+  > galáxia, interior de galáxia e interior de planeta, além de shake, scale e
+  > press, que a passagem de 2026-07-26 declarou não ter medido. A aprovação
+  > exige a distinção visual sob a preferência — o brilho repousa no valor de
+  > descanso do ciclo, não vai a zero; se todos os planetas ficassem iguais, a
+  > preferência teria apagado estado, e isso seria defeito. A cobertura de
+  > código existe desde 2026-08-03 (`PlanetBody.test.tsx`) e a passagem humana
+  > foi feita em 2026-08-06. Roteiro em
+  > [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+
+- **B9 [P1]** ~~Encurtar o caminho até a primeira questão sem remover a
+  apresentação aprovada~~ **CONCLUÍDA em 2026-08-09.** As três telas e o atalho
+  **Pular apresentação → Home** foram preservados. **Começar** agora persiste a
+  saída, consulta o progresso atual e abre o próximo nó elegível desde o
+  contexto — primeira lição em instalação nova, ou a recomendação real (como
+  revisão vencida) quando já existe progresso. Não há `lesson-1` hardcoded;
+  falha ou nó não navegável degrada para Home e toque duplo é ignorado. A suíte
+  do gate passou **14/14** e o contrato Maestro passou **19/19**. O
+  `first-run.yaml` atualizado afirma a cópia de contexto derivada do catálogo e
+  passou **1/1 no iOS 26.5 e 1/1 no Android API 36**, em builds locais Release,
+  em 2026-08-09. O Android usou a configuração de produção; os demais flows
+  continuam ancorados na matriz de 2026-08-03. Evidências em
+  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+  e
+  [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md).
+  Design em
+  [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
+  e plano em
+  [`2026-08-09-primeira-vitoria.md`](2026-08-09-primeira-vitoria.md).
+- **B10 [P2]** ~~Passagem visual orientada pela crítica da Home~~ **CONCLUÍDA em
+  2026-08-13:** `PRODUCT.md` e `DESIGN.md` foram confirmados pelo dono; o selo
+  ativo deixou a composição de 1,00:1, trilha nunca aberta deixou de exibir
+  domínio verde, `navBlue` `#4A9EFF` passou a distinguir foco/aba ativa e o HUD
+  substituiu emoji dependente do sistema por SVG animado. A rodada complementar
+  também está fechada: legenda visível no anel, mapa exclusivo da Galáxia, fala
+  ambiental breve e espaçada do Pixel na Home, cinco telas sem emoji do sistema, meta diária por XP em quatro
+  tiers escolhíveis e nebulosas com movimento perceptível/respeito a reduzir
+  movimento. **Complemento autoral fechado em 2026-08-13:** a prancheta
+  aprovada, que só existia num scratchpad volátil, foi preservada byte a byte em
+  `docs/design/2026-08-12-hud-assets-approved.html`; as quatro fagulhas do XP e
+  a rachadura/drenagem do coração perdido completam o desenho aprovado, com os
+  contratos de 600ms/220ms e movimento reduzido
+  (`run-1786559682298-f6490054`). **Correção de escala fechada após inspeção do
+  dono:** XP/chama passaram de 14pt para 18pt e vidas de 18pt para 22pt, sem
+  alterar o desenho ou a animação (`run-1786561046889-f32b9cfd`). Evidência,
+  limites e decisão em
+  [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
+  [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
+  Fechamento versionado: passagem complementar `8f92723`, efeitos autorais do
+  HUD `6e3c594`, escala `1073cb2` e unificação final Home/Galáxia `56779ea`;
+  este último passou **Radiant App Quality** e **Radiant API Quality** no origin.
+
 ### Onda C — Paridade Android (M2)
 
-- **C1 [P0]** `expo prebuild` Android; build local com JDK/SDK documentados;
-  registrar runbook em `radiant-app/docs/E2E_RUNBOOK.md`.
-- **C2 [P0]** Smoke manual em emulador: navegação completa, edge-to-edge,
+- **C1 [P0]** ~~`expo prebuild` Android; build local com JDK/SDK documentados;
+  registrar runbook em `radiant-app/docs/E2E_RUNBOOK.md`.~~
+  **CONCLUÍDA em 2026-07-28, marcada só em 2026-08-03.** O `expo prebuild
+  --platform android --no-install` rodou, o APK Release local foi construído e
+  instalado em emulador, e a receita reproduzível ficou em
+  [`2026-07-28-android-e2e-first-run.md`](../../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md),
+  com o `E2E_RUNBOOK` recebendo os pré-requisitos e o orçamento de host.
+  *Por que ficou sem marca por seis dias:* o bloqueador 2 desta mesma página foi
+  riscado em 2026-07-28 com a evidência correta, mas a task que o implementava
+  não foi tocada no mesmo run — as duas afirmam o mesmo fato e só uma foi
+  atualizada. É o modo de falha que o `AGENTS.md` descreve: trabalho não
+  sinalizado é tratado como não feito pela próxima sessão, e três sessões
+  releram este item como aberto.
+- **C2 [P0]** ~~Smoke manual em emulador: navegação completa, edge-to-edge,
   predictive back (hoje `predictiveBackGestureEnabled: false` — validar a
-  escolha sob target 36), teclado, fontes ampliadas.
+  escolha sob target 36), teclado, fontes ampliadas.~~ **Executada em 2026-08-03**,
+  instrumentada em vez de manual — quatro dos cinco itens são observáveis por
+  Maestro + `adb`, e o quinto não tem objeto. Evidência em
+  [`2026-08-03-c2-smoke-android.md`](../../radiant-app/docs/evidence/2026-08-03-c2-smoke-android.md).
+  Achou **um defeito real**: a barra de status do sistema era conteúdo escuro
+  sobre `#03030d` (1,02:1), em todas as telas e nas duas plataformas, e estava
+  assado nos seis screenshots publicáveis do Play. Corrigido na mesma data, com
+  contrato que deriva o valor exigido da luminância do fundo. **Teclado ficou
+  como não aplicável**: nenhuma das quatro `TextInput` do código é alcançável na
+  configuração distribuída. Segue aberto, fora desta task: o `eyebrow` do
+  `JourneyHero` quebra no meio da palavra a 2× de escala.
 - **C3 [P0]** ~~Os 3 flows Maestro PASS em emulador Android~~ **Concluída em
   2026-07-29:** `3/3 Flows Passed in 11m 48s` no emulador `Radiant_Pixel_9_API_36`
   (iOS reconfirmado 3/3). Exigiu dois defeitos de E2E (seletor de aba ancorado
   `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e a
   resolução de uma causa ambiental (RAM do host de 16GB). Evidência em
   [`radiant-app/docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
+  **Superada em 2026-08-03: são 5 flows, não 3, e as duas plataformas fecham
+  5/5** sobre builds Release locais da 1.3.1 — a suíte ganhou `first-run` e
+  `store-capture` desde esta marcação. Ver
+  [`2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+  A ressalva do bloqueador 3 continua valendo: tudo foi colhido sob `e2e-test`.
 - **C4 [P1]** Rodar os flows em ≥ 1 device Android físico (compacto ou médio,
   conforme matriz da Task 16).
 - **C5 [P1]** TalkBack: repetir o checklist do Gate 2 no Android.
@@ -423,9 +728,23 @@ código.
 
 ### Onda D — Prontidão de release (M3) — Tasks 15 e 16 do roadmap anterior
 
-- **D1 [P0]** ADR da estratégia de API (Task 15): auditoria read-only e
+- **D1 [P0 — ADR DECIDIDA em 2026-08-07: opção B, só catálogo remoto. Resta a
+  implantação]** A decisão está assinada em
+  [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md): sobem
+  `/health`, `/ready` e `/v1/content/catalog`; não sobem contas nem sync. **Nada
+  foi implantado ainda** — o domínio segue em 502 até que a implantação
+  aconteça, e ela é a próxima unidade de trabalho desta task. Três medições de
+  2026-08-07 sustentaram a escolha e estão no ADR: o fallback para o catálogo
+  embarcado já existe em `RemoteCatalogService`, a superfície de B não exige
+  banco nem VPS, e a dependência da E3 vale para a v1.4 e não para a v1.3, porque
+  o binário submetido não alcança API nenhuma. ADR da estratégia de
+  API (Task 15): auditoria read-only e
   decisão entre manter local-first puro, catálogo remoto, ou catálogo+auth+
-  sync. **Parte de configuração concluída em 2026-07-27**, com uma correção
+  sync. *(Estado promovido ao cabeçalho em 2026-08-03: a prosa já dizia "resta a
+  ADR" na última linha, mas o cabeçalho não dizia nada, e uma varredura deste
+  documento classificou a task como concluída. A convenção da página é marcar o
+  estado no cabeçalho — ver F1 e F2 —, porque é o cabeçalho que é lido ao
+  triar.)* **Parte de configuração concluída em 2026-07-27**, com uma correção
   importante da premissa original deste plano: eu havia registrado que
   `ENABLE_REMOTE_SYNC=true` em produção geraria UX quebrada. Isso estava
   errado. `EXPO_PUBLIC_API_BASE_URL` não é definida em nenhum perfil do
@@ -438,6 +757,16 @@ código.
   (reconfirmado por smoke público read-only em 2026-07-27), e o painel passa a
   exibir o estado efetivo (`ligado, sem API configurada` quando a flag está
   ligada sem API). Resta a ADR de estratégia da API, que é decisão de produto.
+  **Rascunho pronto em 2026-08-04:**
+  [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md) — estado medido
+  (502 reconfirmado; gateway de pé, upstream fora), as três opções e o que cada
+  uma arrasta. **Aguarda apenas a linha do decisor.** Dois achados que a redação
+  desta task não continha: a API **já está escrita e testada** (949 linhas de
+  rotas), então a decisão é subir ou arquivar, não construir; e "local-first puro"
+  **não é opção livre**, porque contradiz o `ADR-2026-08-01`, que decidiu conta
+  própria para o premium. O rascunho também recomenda **decidir isto antes da
+  E3**: contas mudam as respostas de privacy labels e Data safety, e responder
+  E3 antes significa provavelmente respondê-la duas vezes.
 - **D2 [P0]** ~~Contrato de telemetria/privacidade (Task 16)~~ **Concluída em
   2026-07-27.** Contrato em
   [`docs/legal/CONTRATO_TELEMETRIA.md`](../legal/CONTRATO_TELEMETRIA.md), com:
@@ -475,11 +804,34 @@ código.
     caindo em *fallback* (13 sem sinal nos três níveis), confiança média 0,52 contra
     0,91 dos aprovados. É posicionamento na taxonomia, não correção clínica.
 
-  **Próximo passo (não decidido):** estender a cobertura de palavras-chave da
+  ~~**Próximo passo (não decidido):** estender a cobertura de palavras-chave da
   taxonomia e reclassificar, medindo quanto da população cai sem intervenção humana;
-  só o resíduo vai para o revisor de domínio. Alocar revisor de radiologia antes
+  só o resíduo vai para o revisor de domínio.~~ Alocar revisor de radiologia antes
   disso é usá-lo para consertar dicionário. O gate não bloqueia o closed test —
   bloqueia a produção.
+
+  **Medido em 2026-08-03, e o passo riscado acima teria piorado o dado.** A
+  medição está em
+  [`2026-08-03-d4-medicao-cobertura-taxonomia.md`](../content/2026-08-03-d4-medicao-cobertura-taxonomia.md).
+  O vocabulário **é** pequeno (111 palavras-chave; 20 de 21 termos de domínio
+  sondados não têm regra), mas estendê-lo não resolveria: **os 109 excertos
+  cabem em 4 folhas de taxonomia**, 103 deles em duas, e a `mvp-2026-04-04` tem
+  6 planetas e 6 estrelas — todos `planned` — descrevendo tórax e abdome,
+  enquanto a fonte é um módulo de curso técnico (processamento radiográfico,
+  acessórios de sala, medicina nuclear, RM, irradiação de alimentos). **Os sete
+  conceitos sinalizados não têm nó de destino.** Acrescentar palavras-chave
+  moveria os itens de `needs-review` para "aprovado" **no endereço errado**,
+  derrubando o único sinal de que eles não têm endereço.
+
+  **A decisão do dono mudou de pergunta.** Não é mais "estender o vocabulário, e
+  por quem"; é: *a taxonomia de lançamento recebe nós para o material de curso
+  técnico, ou esta fonte fica fora do currículo de lançamento?* Isso liga a D4
+  diretamente à **G1**, cujo grafo das 30 competências não começou e é onde esses
+  nós existiriam — as duas são o mesmo buraco visto de dois lados.
+
+  Achado lateral: **4 dos 30 são defeito de extração**, não de classificação
+  (fragmentos com menos de 80 caracteres; um deles é a palavra `são` sozinha).
+  Essa fatia é trabalho de pipeline e não sai nem por taxonomia nem por revisor.
 - **D5 [P1]** ~~Congelar versionamento: definir `1.3.0`, alinhar
   `ios.buildNumber`/`android.versionCode` e documentar a política de
   `runtimeVersion`~~ **Concluída em 2026-07-28.** `radiant-app/package.json` e
@@ -490,10 +842,38 @@ código.
   build publicado ainda, então a mudança ainda é livre — depois do primeiro
   build de F1/F2 deixa de ser (alerta do status 2026-07-26). Registrado no
   [status canônico de 2026-07-29](../EXECUTION_STATUS_2026-07-29.md).
-- **D6 [P1]** Pesquisa com usuários (Task 12) começa aqui e corre em paralelo
+- **D6 [P1]** Pesquisa com usuários (Task 12 do roadmap anterior) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
-- **D7 [P2]** Converter as 121 referências absolutas de docs para caminhos
-  relativos (limpeza mecânica; melhora o repo para colaboradores).
+- **D7 [P2]** ~~Converter as 121 referências absolutas de docs para caminhos
+  relativos (limpeza mecânica; melhora o repo para colaboradores).~~
+  **CONCLUÍDA em 2026-08-03, com o escopo medido em vez de contado.** A
+  contagem virou 59 ocorrências em 13 arquivos, mas "converter todas" era a
+  tarefa errada: **54 delas estão dentro de blocos de comando de planos e
+  evidências já fechados** (`2026-04-16-galaxy-unification`,
+  `2026-07-31-remover-homescreen-morta`, os planos de 2026-07-23, as evidências
+  de device). Ali o caminho absoluto **é o registro do que foi de fato
+  executado naquele host**; reescrevê-lo não melhora o repo, falsifica a
+  memória — a mesma razão pela qual esta página risca e data em vez de
+  sobrescrever.
+
+  O trabalho real eram **5 ocorrências em 3 documentos vivos**, todas feitas
+  nesta data:
+  - `radiant-app/docs/release/APP_STORE_METADATA.md` — dois links markdown
+    **quebrados**, apontando para `/Users/anderson/Documents/Radiant/...`, que é
+    o caminho **anterior** do projeto. Não eram feiura de portabilidade: eram
+    links mortos num documento de ficha de loja. Agora relativos ao diretório.
+  - `docs/store/RUNBOOK_PLAY_CONSOLE.md` (2) e `docs/store/EAS_SUBMIT_SETUP.md`
+    (1) — comandos de runbook vivo, agora `cd "$(git rev-parse --show-toplevel)"`,
+    portátil e ainda explícito sobre o diretório.
+
+  Fica **deliberadamente sem tocar**: `docs/NOVO_VPS.md:41`, que aponta para
+  outro projeto (`Developer/Novo VPS`) e é uma referência cruzada legítima, não
+  um caminho do Radiant.
+
+  A regra que este item ensina: **um item de limpeza medido por `grep -c` conta
+  ocorrências, não trabalho.** Antes de executar uma limpeza mecânica, separe as
+  ocorrências que são estado vivo das que são registro histórico — só as
+  primeiras são para mexer, e a diferença não aparece na contagem.
 
 ### Onda E — Assets e metadados de loja (paralela a C/D)
 
@@ -558,11 +938,32 @@ código.
   corrigidas, e ficou registrado que a descrição longa precisa ser **convertida de
   Markdown para texto limpo** antes de colar no console.
 - **E3 [P0]** Privacy labels (App Store Connect) e Data safety (Play) — 
-  derivados de D2; declarar Sentry (crash data) e o que mais a allowlist
-  permitir.
+  derivados de D2. **A instrução "declarar Sentry (crash data)" está errada para
+  o binário que embarca, medido em 2026-08-08.** `bootstrap.ts:10` exige
+  `ENABLE_CRASH_REPORTING && SENTRY_DSN`, e o perfil `production` do `eas.json`
+  não define nenhuma das duas: a primeira cai no default `false`, a segunda em
+  string vazia. Somado a `EXPO_PUBLIC_API_BASE_URL` ausente nos cinco perfis,
+  `ENABLE_REMOTE_SYNC = false`, push que só pede permissão e **nunca** obtém
+  token, e armazenamento local, a resposta ao questionário é
+  **"Data Not Collected"**. Folha campo a campo, com evidência por linha, em
+  [`docs/store/2026-08-08-ios-preflight.md`](../store/2026-08-08-ios-preflight.md).
+  **Não depende da D1** — o binário da v1.3 não alcança API alguma. Única
+  checagem que exige o console: `npx eas secret:list`, porque `EXPO_PUBLIC_*`
+  pode vir de segredo do EAS.
+  **Apple concluída em 2026-08-08:** o comando voltou vazio e App Privacy foi
+  publicada como **Dados não coletados**, com a política pública do Radiant.
+  Data Safety do Play permanece uma operação separada.
 - **E4 [P0]** Classificação etária/questionários de conteúdo nas duas
   consoles; categoria (Educação ou Medicina — recomendação: Educação, evita
-  escrutínio de app médico).
+  escrutínio de app médico). **Apple concluída em 2026-08-05; IARC/Play ainda
+  separado.** O runbook antigo
+  combinava "referências médicas: sim" com resultado `4+`, o que diverge da
+  taxonomia Apple vigente. A Apple atribui `13+` global / `A12` no Brasil a
+  informação médica ou de tratamento infrequente e `16+` / `A16` quando
+  frequente. Anderson atestou **Pouco frequente** e confirmou deter os direitos
+  necessários sobre o conteúdo de terceiros. O App Store Connect persistiu as
+  duas declarações e calculou `13+` em 172 países ou regiões e `12+` no Brasil e
+  na Coreia do Sul. Apple e IARC/Play permanecem contratos separados.
 - **E5 [P1]** ~~Página de suporte + e-mail de contato~~ **CONCLUÍDA em
   2026-07-29**: no ar em `https://saudediagnostica.com/radiant/suporte/`
   (HTTP 200, verificado de fora), com contato `anderson.smelo94@gmail.com`.
@@ -604,9 +1005,105 @@ código.
 
 ### Onda F — Beta, submissão e lançamento (M4 → M5)
 
-- **F1 [P0 — EM ANDAMENTO; BUILD `1.3.0 (4)` PRONTA NO TESTFLIGHT EM
-  2026-08-01]** Build `production` iOS via EAS → TestFlight (revisão beta da
-  Apple); distribuir aos testadores. O upload saiu de processamento, o build 4
+- **F1 [P0 — BUILD `1.3.1 (7)` PRONTA NO TESTFLIGHT; FICHA iOS PERSISTIDA;
+  SMOKE FÍSICO PASS; GATE 2 5/5]** Build `production` iOS via EAS →
+  TestFlight (revisão beta da Apple); distribuir aos testadores.
+
+  > **Desfecho da submissão, medido em 2026-08-04.** A submissão
+  > `5218f0ac-dbc7-4fb6-895c-b70404a47ec3` fechou em `FINISHED`, `error: null`,
+  > **~2h12 depois de disparada** — quase toda em `IN_QUEUE`, contra 6 minutos
+  > de compilação e 8 segundos de fila de build. Quem for planejar uma
+  > submissão: a espera cara está aqui, não no build.
+  >
+  > **Processamento Apple observado às 14:30 BRT de 2026-08-04.** O App Store
+  > Connect mostrou a versão `1.3.1`, compilação `5`, como **Pronta para envio**,
+  > com expiração em 90 dias e já vinculada ao grupo `Radiant Internal`.
+  > É leitura da interface autenticada do App Store Connect — observada pelo
+  > dono e reconfirmada nesta sessão —, não da API; reverificar exige abrir o
+  > console novamente.
+  > Cancelar ou redisparar foi descartado porque duplicaria uma entrega que já
+  > concluiu corretamente. A F1 avançou pela submissão e pelo processamento;
+  > naquele momento continuavam pendentes o smoke dos links no iPhone físico
+  > pelo roteiro novo (cenário 5), a sessão de VoiceOver da B4 e a reconciliação
+  > da metadata e das declarações da ficha.
+  >
+  > **Ficha parcialmente reconciliada às 15:40 BRT.** Versão pública `1.3.1`,
+  > build `5`, URL de suporte, categoria Educação e liberação manual foram
+  > persistidas. Os seis screenshots 6,5" também persistiram após recarga na
+  > ordem `home -> lição -> quiz -> checkpoint -> conquista -> progresso`, com
+  > reutilização declarada pelo console nos demais tamanhos/idiomas selecionados.
+  > Continuam vazios subtítulo, texto promocional, descrição, keywords e
+  > copyright. A fonte de copy ainda pede aprovação do dono; o bloco do revisor
+  > voltou após recarga a login obrigatório marcado e notas vazias, com os quatro
+  > campos de contato também vazios. Direitos de conteúdo e classificação etária
+  > seguem sem configuração. O pré-voo encontrou zero iPhones com túnel CoreDevice
+  > ativo, então smoke e VoiceOver continuam não executados.
+  >
+  > **Copy aprovada e persistida em 2026-08-05.** O dono aprovou
+  > `Radiant — Radiologia`, o subtítulo opção 1 e a descrição curta Google Play
+  > opção 1; a fonte foi reconciliada. Na ficha iOS, subtítulo, texto promocional,
+  > descrição longa em texto limpo e keywords persistiram após recarga, sem mudar
+  > a ordem dos seis screenshots. A descrição curta do Play está aprovada, mas
+  > não foi declarada como preenchida no console. Continuam abertos copyright,
+  > contato/notas da revisão, direitos de conteúdo e classificação etária. A
+  > declaração de direitos foi aberta apenas para leitura e nenhuma opção foi
+  > selecionada. O pré-voo repetido nesta data ainda encontrou zero iPhones com
+  > túnel CoreDevice ativo.
+  >
+  > **Declarações, copyright e contato persistidos em 2026-08-05.** O dono
+  > confirmou conteúdo de terceiros com os direitos necessários e classificou
+  > informação médica/de tratamento como **Pouco frequente**; os demais itens
+  > ficaram em `Nenhum`/`Não`. O console calculou `13+` em 172 países ou regiões
+  > e `12+` no Brasil e na Coreia do Sul, sem substituição manual. Copyright e os
+  > quatro campos de contato do revisor sobreviveram à recarga; os valores de
+  > contato não foram copiados para este documento. `Início de sessão obrigatório`
+  > foi desmarcado, coerente com o app sem conta. O botão **Adicionar para revisão**
+  > ficou disponível, mas não foi acionado. Naquele momento restavam na F1 as
+  > evidências em iPhone físico: smoke dos links e VoiceOver.
+  >
+  > **Smoke físico concluído em 2026-08-05; VoiceOver parcial.** Anderson leu
+  > `1.3.1 (5)` no binário e os sete cenários funcionais passaram: primeira
+  > abertura, barra de status, laço de estudo, relaunch totalmente offline,
+  > links legais, ausência de prompt precoce e conquista bloqueada sem coleta.
+  > O roteiro estava errado ao exigir `REVISÕES > 0` no mesmo dia: o contador
+  > mostra cards vencidos, e o primeiro só vence após o intervalo inicial do
+  > SM-2. `REVISÕES 0` não é regressão e não autoriza patch.
+  >
+  > No VoiceOver, nomes/posição/função das abas e o estado `escurecido` do reset
+  > foram ouvidos uma vez. Como nenhuma dica foi transcrita e nenhum controle
+  > realmente ocupado foi ativado, B4 — e portanto F1 — continua aberta por
+  > evidência incompleta, não por falha do app. Relatório:
+  > [`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
+  > **Adicionar para revisão** continua reservado para F4 e não foi acionado.
+  >
+  > **Ferramenta:** `eas submission:list` **não existe**, em versão nenhuma do
+  > `eas-cli` — quem tentar verificar por ali vai ler um "command not found"
+  > como se fosse estado. O caminho que funciona é
+  > `BuildQuery.withSubmissionsByIdAsync` do próprio `eas-cli`.
+
+  > **Medido em 2026-08-04, e reordena o que falta.** A build no TestFlight é a
+  > `1.3.0 (4)` (EAS `f8d1d949`, iniciada em 2026-08-01 18:04). Desde ela são
+  > **54 commits, 35 de código**, e ela **precede a apresentação de primeiro uso
+  > inteira** (`aaa88da` em diante, 2026-08-02 14:31), a correção da barra de
+  > status (`b62f529`), a integridade da conquista (`130d8ea`) e o
+  > `useAppOpenLifecycle` (`f499714`). Gastar a sessão humana de VoiceOver nela
+  > mediria justamente a versão **sem** a tela onde o último defeito real de
+  > VoiceOver apareceu. Nova build enfileirada nesta data:
+  > `46bd86fd-7600-4b98-b60a-119658866279`.
+  >
+  > **O contador iOS está em 4, não em 6.** Os `(5)` e `(6)` citados no estado de
+  > builds são **AABs Android**: o EAS mantém um contador por plataforma. A
+  > próxima iOS sai `1.3.1 (5)`; a próxima Android, `(7)`.
+  >
+  > **Os documentos que esta task mandaria executar estavam vencidos desde
+  > 2026-04-09** (`847a12d`) e foram reconciliados nesta data. O roteiro de smoke
+  > mandava fazer login, inspecionar fila de sync, ligar um "perfil da jornada
+  > V2" e completar até o nó de reward — quatro passos impossíveis no binário —,
+  > e as notas para o revisor declaravam à App Review duas capacidades ausentes.
+  > O `scripts/qa/docs-contract.mjs` passou a governar os quatro documentos de
+  > `radiant-app/docs/release/`, derivando as capacidades do `eas.json` e do
+  > `app.json`. **Por que sobreviveu quatro meses:** o contrato governava só os
+  > cinco documentos de estado — ele aprovava o que media. O upload saiu de processamento, o build 4
   ficou **Pronta para envio** e foi ligado automaticamente ao grupo interno
   `Radiant Internal`, observado com 1 tester e 1 build. O pré-requisito dos
   links legais também está concluído: cartão interno testado na aba Progresso e
@@ -614,8 +1111,22 @@ código.
   2026-08-01:** depois da instalação pelo TestFlight, o CoreDevice confirmou o
   bundle esperado, versão `1.3.0`, build `4`, e lançou o app com sucesso. **Restam**
   smoke dos links no iPhone físico, sessão humana de VoiceOver e reconciliação da
-  metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico;
-  F1 permanece aberta até existirem essas evidências de UI.
+  metadata e das declarações da ficha. O Maestro não anexou ao aparelho físico.
+  **Atualização de 2026-08-05:** metadata e smoke fecharam; F1 permanece aberta
+  somente pela parte não amostrada do VoiceOver descrita acima.
+  **Atualização de 2026-08-06: essa parte fechou (B4), e com ela o Gate 2
+  inteiro.** A F1 não tem mais bloqueio de evidência; a ação humana de envio
+  pertence à F4.
+  **Atualização de 2026-08-08:** a build production `1.3.1 (7)`
+  (`b240dcbf-2632-4dcc-9816-71427068dc2b`) foi compilada, enviada à Apple,
+  processada como **Pronta para envio** e selecionada na versão. A submission
+  foi `8d0eb131-489d-4df3-a511-e3e820857be2`. Uma tentativa interrompida antes
+  do upload consumiu o contador remoto `(6)` sem produzir binário. O primeiro
+  clique em **Adicionar para revisão** ocorreu e expôs dois campos que o estado
+  anterior tratava como persistidos: direitos de conteúdo e preço. Depois da
+  manutenção, o preço **gratuito** foi salvo e a declaração de direitos foi
+  refeita, salva e conferida após recarga. Às 12:05 BRT, a `1.3.1 (7)` foi
+  enviada à App Review; o console passou a exibir **Aguardando revisão**.
 - **F2 [P0] — RELEASE LIVE; 14 TESTADORES VINCULADOS; 2 OPT-INS OBSERVADOS;
   14 DIAS PENDENTES (2026-08-03).** Build
   `production` Android `1.3.0 (4)` publicado no track fechado `alpha`, que está
@@ -629,9 +1140,14 @@ código.
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
-- **F4 [P0]** Solicitar acesso a produção no Play (questionário) e submeter
-  revisão final na App Store (App Review; primeira revisão típica de 24–48h,
-  planejar retrabalho).
+- **F4 [P0 — APPLE AGUARDANDO REVISÃO, RECONFIRMADO EM 2026-08-09; PLAY ESPERA F2]** Solicitar acesso a produção
+  no Play (questionário) e submeter revisão final na App Store (App Review;
+  primeira revisão típica de 24–48h, planejar retrabalho). **Apple não depende
+  da F2:** em 2026-08-08, privacy foi publicada como **Dados não coletados**, o
+  preço gratuito e os direitos de conteúdo foram persistidos, e a build 7 foi
+  enviada à revisão com a versão `1.3.1`. O console foi consultado novamente em
+  2026-08-09 e continuava em **Aguardando revisão**, com liberação manual. O lado
+  Apple da submissão está concluído; o lado Play continua esperando F2.
 - **F5 [P0]** Lançamento: rollout faseado no Play (10% → 50% → 100%);
   liberação manual no iOS após aprovação.
 - **F6 [P1]** Pós-lançamento (2 primeiras semanas): monitorar Sentry
@@ -659,24 +1175,217 @@ estado do closed test atual e não autoriza publicar novo binário. Spec:
 execução:
 [`2026-07-31-sistema-aprendizagem-competencias.md`](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
 
+Em 2026-08-09 a revisão do workflow do aluno aprovou um plano transversal:
+[`design`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md)
+e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md).
+A governança, a fundação isolada em `off`, os adaptadores nas 12 superfícies em
+`shadow` e a implementação local da retomada `active` interna foram entregues. O
+gate de build/aparelho/perfil da retomada foi encerrado pelo dono; a Task 12
+educacional tem domínio/kernel entregue, mas o seu gate de superfície v2, o painel
+e o sync continuam pendentes.
+
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
-- **G1 [P0 — EM ANDAMENTO]** Governar fontes e mídia. Tasks 1 e 2 concluídas:
-  raízes autorizadas, 36 PDFs únicos classificados (4 `authorized`, 15
-  `reference-only`, 17 `blocked`). A infraestrutura da Task 3 está concluída,
-  mas o lote segue `awaiting-authorized-assets`, com 0 imagens aprovadas e 5
-  candidatas rejeitadas. O grafo das 30 competências (Task 4) não começou; G1
-  fecha somente após mídia autorizada e currículo validados.
-- **G2 [P0]** Construir o motor de atividades v2 preservando as 18 atividades
-  legadas; registrar evidência e domínio por competência.
-- **G3 [P0]** Tornar a Galáxia uma projeção da jornada canônica e remover o
-  bloqueio de lições por vidas.
+- **G1 [CONCLUÍDA EM 2026-08-09]** Fontes, mídia e currículo governados. As
+  raízes autorizadas, os 36 PDFs únicos (4 `authorized`, 15 `reference-only`,
+  17 `blocked`) e o grafo das 30 competências permanecem validados. O dono
+  autorizou o primeiro lote original e sintético: manifesto `ready`, uma
+  ilustração aprovada com hash, texto alternativo e três hotspots. As cinco
+  candidatas anteriores continuam rejeitadas e nenhuma fonte de terceiros foi
+  usada no ativo. A autorização não inclui publicação de novo binário.
+- **G2 [CONCLUÍDA EM 2026-08-09]** Motor e biblioteca inicial de interações
+  entregues. Tasks 5–11 concluídas: contrato, adaptador legado, evidência,
+  domínio, player, agendador e renderizadores de hotspot, comparação, associação
+  e ordenação. As alternativas acessíveis não exigem cor ou arraste, os alvos
+  têm 44 pt e o feedback é anunciado uma vez por confirmação. O gate manual em
+  aparelho/leitor de tela permanece na fase de beta e nenhum binário foi
+  publicado.
+- **G3 [P0 — PARCIAL]** Tornar a Galáxia uma projeção da jornada canônica e
+  remover o bloqueio de lições por vidas. **Projeção canônica entregue em
+  2026-08-13:** Home mantém apenas a próxima ação; seleção de trilha e
+  `JourneyMap` vivem na Galáxia e compartilham `JourneyProgressService`. A task
+  continua aberta para retirar o bloqueio por vidas e cumprir as dependências
+  restantes de H4. O fechamento dessa projeção está em `56779ea`, validado pelo
+  run `run-1786563770360-5c6c65ca` e pelos dois checks remotos verdes.
+  Identificador histórico preservado. Decisão em
+  [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](../adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 - **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
-  sessões de 3–5 minutos, quatro interações e checkpoint revisado.
-- **G5 [P0]** Rodar beta pedagógico com checkpoint, revisão posterior,
-  acessibilidade e P0/P1 zerados antes de expandir.
+  sessões de 3–5 minutos, quatro interações e checkpoint revisado. **Identificador
+  histórico preservado; execução usa os contratos da Onda H.**
+- **G5 [P0]** Rodar beta pedagógico local/offline com checkpoint, revisão
+  posterior, acessibilidade e P0/P1 zerados antes de expandir. Sync remoto não é
+  pré-requisito desse beta.
 - **G6 [P1]** Produzir unidades 2–6 em lotes, com no máximo um novo tipo de jogo
   por unidade e promoção condicionada a revisão.
+
+### Onda H — Kernel de checkpoints e loops do aluno (nova em 2026-08-09)
+
+Esta onda não recicla G3–G6. Ela antecede a execução do checkpoint educacional e
+entrega a fundação que aqueles itens passam a consumir.
+
+- **H0 [CONCLUÍDA EM 2026-08-09 — SOMENTE GOVERNANÇA]** Spec, plano, ADR,
+  contrato de privacidade e runbook versionados; nenhum runtime implementado.
+- **H1 [CONCLUÍDA EM 2026-08-09 — RUNTIME DESCONECTADO]** Fundação
+  transacional em `off`, stores isolados, journal atômico com operação+intenção
+  imutável, recibos junto de cada efeito e recuperação testada nos intervalos de
+  crash enumerados. Nenhuma tela ou autoridade legada foi conectada.
+- **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
+  superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
+  ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
+- **H3 [P0 — ENCERRADA POR ACEITAÇÃO EXPLÍCITA DO DONO EM 2026-08-13]** A coorte
+  histórica segue `inconclusive` por ruído de host; ela não foi reclassificada como
+  `pass`. O dono confirmou a repetição em host silencioso e o aparelho físico de
+  tela baixa, sem anexar os novos números ao repositório, e aceitou a cobertura
+  unitária para a segunda falha. É um encerramento operacional, sem promoção de
+  performance, produção, OTA, TestFlight ou App Store. Decisão em
+  [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](../adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
+
+  Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
+  **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
+  offline após kill/relaunch provada 20 vezes; bloqueio P0 de Dynamic Type
+  corrigido e provado em aparelho em AX4/AX5 (`run-1786366083722-93ee4bf4`,
+  reexecução em `run-1786366830631-0755376c`); e **viewport curto fechado em
+  simulador** (`run-1786385853053-960f7e28`) — `iPhone SE (3rd generation)`,
+  `[0,0][375,667]`, 207 pt mais curto que o aparelho das coortes, mesmo binário
+  nativo, flow versionado passando em `medium`, AX3, AX4 e AX5.
+
+  O **instrumento** do gate de cold start foi consertado em duas etapas, ambas com
+  teste que morde: o limiar passou a ser consciente do ruído medido
+  (`run-1786366490575-a0a0c4cb`) e o gate ganhou um **terceiro desfecho**
+  (`run-1786383400260-6ad60081`) — `inconclusive`, falha fechada com razão
+  `measurement-too-noisy` quando o piso de ruído passa de um quinto do p95 do
+  baseline. Sob ele a coorte que fechava `passed: true` sai `inconclusive` e o
+  relatório sai `passed: false`, então **o passe vazio não existe mais para ser
+  promovido por engano**. O teto foi calibrado contra as três passagens reais do
+  dia (razões 0,108 / 0,246 / 0,498) e reproduz automaticamente as duas que já
+  haviam sido rejeitadas — uma delas por julgamento humano lendo o swap.
+
+  E a **métrica de partida foi trocada** (`run-1786392781118-5b1f744b`, desenho
+  aprovado pelo dono). `cold_start` mede a duração do `launchApp`, que num Dev
+  Client termina no launcher, antes de o bundle JS existir — o kernel é JavaScript
+  e não vive nessa janela, então nem um verde conclusivo diria muito. Entrou
+  `first_frame`, do início da janela JS ao frame seguinte a `startupPhase` virar
+  `ready`, que só acontece depois de `inspectLaunch` do runtime de checkpoints:
+  **o kernel está dentro da janela por construção**. Emitida nos dois modos, o que
+  faz o delta existir; `cold_start` fica informativo e fora do veredito; e
+  "`off` silencioso" virou asserção do relatório. Sem dependência nova e sem
+  binário novo.
+
+  Um **piloto** de 6+6 amostras (`run-1786394347211-12be1d79`, sem veredito) mostrou
+  a instrumentação funcionando nos dois modos e achou o que a métrica antiga
+  escondia: **o kernel adiciona ~440 ms à partida** — mediana `off` 239,1 ms contra
+  `active` 680,5 ms, com o delta valendo 3× a amplitude interna das coortes. É o
+  primeiro achado de **produto** desta saga. A hipótese de dispensar host silencioso
+  **não se confirmou**: razão de ruído 0,279 contra teto de 0,20.
+
+  E o diagnóstico da fronteira mostrou que **~72% desse custo não é do kernel**:
+  `launch_inspection` custa 0,5–0,9 ms em `off` e 184–357 ms em `active`, e o
+  mecanismo é resolução de módulo — a primeira operação de storage resolve o
+  AsyncStorage por `await import()`, servido como chunk HTTP pelo Metro no Dev
+  Client, enquanto a operação seguinte no mesmo lançamento custa 13–21 ms. Import
+  estático foi tentado e derrubou seis suítes do kernel.
+
+  E a pergunta **foi respondida, sem build**: a resolução do módulo isolada custa
+  177–622 ms e a leitura **menos de 2 ms**, e o export de produção emite um único
+  bundle sem chunk assíncrono, logo o custo não existe fora do Dev Client. **O kernel
+  custa <2 ms na partida.**
+
+  O delta de `first_frame` **já foi tornado comparável**: `warmNativeStorage()` roda no
+  bootstrap independente do modo, e `launch_inspection` em `active` caiu de 184–357 ms
+  para 1,0–1,9 ms, com o delta de medianas indo de +344/+441 ms para **−28,7 ms**.
+  Registro de uma predição refutada pela medição: supunha-se que a busca se sobreporia
+  ao resto do bootstrap; o `Promise.all` espera o mais lento, e o `first_frame` em `off`
+  subiu de ~232 para ~580 ms — o ganho é simetria, não velocidade, e em produção o
+  custo é ~0.
+
+  **As duas coortes rodaram em 2026-08-12** (run `run-1786575077447-6b656968`,
+  evidência
+  [`2026-08-12-h3-first-frame-cohorts.md`](../../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md)):
+  20+20 amostras, mesmo binário/aparelho/perfil, em sequência imediata, com o
+  runtime `active` provado por emissão real de `persistence`/`restoration` antes
+  da coleta. **Persistência p95 16,8 ms** (n=40, limite 75), **restauração p95
+  7,9 ms** (n=21, limite 100), Home→Lição **+10 ms** contra 771, e
+  `baseline_isolation` limpo. **Nenhum delta medido é positivo** — não há sinal de
+  regressão.
+
+  **O desfecho é `inconclusive`, e é o instrumento que não conclui, não o produto
+  que falha.** O piso de ruído do baseline deu 132,6 ms contra um teto de
+  117,1 ms (22,7% do p95). A causa está no artefato: durante a janela o macOS
+  cresceu o swap de 2048 MB para 4096 MB, com uso de 951 a 2944 MB, e a
+  degradação caiu sobre o **baseline**, que rodou na fase de crescimento. O
+  −72 ms do candidato é dispersão de quem rodou antes, não ganho.
+
+  **Achado de comparabilidade, corrigido em 2026-08-13:** o flow de `active` lança
+  o app duas vezes, e o relançamento é mais rápido (p95 360,3 contra 522,8 ms do
+  frio). `first_frame` agora traz `launchPhase: cold|resume`; o gate compara apenas
+  os 20 `cold` dos dois lados e exige 20 `resume` no active como prova separada de
+  recuperação. Ausência, excesso ou envelope sem fase é `inconclusive`, não um
+  verde inferido pela ordem do log. Decisão em
+  [`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](../adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
+
+  **Encerramento posterior:** o dono confirmou em 2026-08-13 uma repetição em host
+  silencioso; não forneceu os números ou artefatos para versionamento. O desfecho
+  anterior fica preservado como `inconclusive`, e não como `pass` inferido.
+
+  **Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
+  `run-1786622015450-e1943354`, evidência
+  [`2026-08-13-h3-efeito-duplicado.md`](../../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md)):
+  o flow conclui a lição, captura o XP com `copyTextFrom` em vez de fixá-lo,
+  relança e afirma o mesmo valor; a guarda foi provada por mutação, afirmando o
+  dobro. Contrato Maestro em **21/21** com o flow inscrito nas duas listas de
+  rolagem, e a inscrição provada load-bearing.
+
+  **VoiceOver como serviço e TalkBack foram declarados concluídos pelo dono em
+  2026-08-13.** O Maestro não dirige leitor de tela e o runbook recusa presença na
+  árvore como critério, então o registro é de confirmação manual do dono, sem
+  artefato automatizado inventado. O dono também confirmou a passagem em **aparelho
+  físico de tela baixa** e aceitou a cobertura unitária para **"segunda falha
+  invalida o checkpoint"**, que **não é alcançável por E2E neste binário**: o
+  caminho de falha exige
+  `contentVersion` diferente — embutido no bundle — ou `routeTarget` nulo, estado
+  que os fluxos limpos não produzem. A cobertura unitária em
+  `ActiveCheckpointRuntime.test.ts` é o contrato aceito pelo dono; não foi criado
+  um flow externo artificial.
+
+  Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
+  viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5
+  o suporta (`run-1786384165251-d65b7a00`).
+
+  Registro da primeira execução, preservado: As 20+20 execuções foram feitas no mesmo binário, aparelho e
+  perfil, todas verdes. Persistência p95 **15,7 ms** (limite 75) e restauração
+  p95 **10,6 ms** (limite 100) passaram; Home→Lição ficou **−174 ms**. O delta de
+  cold start deu **+267 ms** contra 167,6 ms permitidos e `report.json` fechou em
+  `"passed": false` — numa métrica cuja dispersão interna é ~835 ms e cuja janela
+  (`launchApp` de Dev Client) termina antes de o kernel existir. Antes disso, três
+  defeitos do instrumento impediam o gate de rodar: a receita de Metro não ligava
+  `active` (precedência de `.env` sobre a linha de comando), o canal de coleta não
+  carregava console JS, e o replay de buffer do CDP duplicaria amostras. Achado
+  independente que sozinho mantém H3 aberta: **a tela de retomada perde os dois
+  botões a partir de `accessibility-extra-extra-large`**, deixando o usuário sem
+  saída. Evidência:
+  [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+  Registro anterior, preservado: Runtime
+  ativo somente interno, com CTA e fallback canônico. A coleta sanitizada e o
+  parser p95 falha-fechada estão prontos. Builds concluídos: iOS Simulator
+  `2d718691-288d-498e-9825-a03b14411bd2` com `appBuildVersion = 7` no registro
+  do EAS e `CFBundleVersion = 3` no binário (contador remoto, corrigido em
+  2026-08-10; não é a `1.3.1 (7)` em revisão) e Android
+  `62d44f3f-30d0-4e12-b262-21b86ea6326c` em `1.3.1 (6)` remoto, sem promoção.
+  Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
+  kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
+  posteriores estão reconciliados na seção H3 acima.
+- **H4 [P0 — PARCIAL EM 2026-08-13]** O domínio de checkpoint/reforço e a
+  passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
+  inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
+  apenas no terceiro insucesso e falha fechada para legado. Falta promover conteúdo
+  v2 revisado, conectá-lo à tela e provar a experiência real antes de devolver a
+  sequência a G3/G4.
+- **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
+  beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
+  exigir API ou conta.
+- **H6 [P1 — TRILHA REMOTA SEPARADA]** Antes de ligar sync, validar workload,
+  carga/soak, autenticação, conflitos, outbox exclusiva de `SyncEventV1`,
+  idempotência e um sink remoto verificado. H6 não bloqueia H5/G5.
 
 ## 7. Recursos necessários
 
@@ -701,10 +1410,11 @@ execução:
 **Pessoas:**
 
 - Anderson: decisões A1/E4, sessão VoiceOver (B4), aprovação de copy de loja.
-- 12–14 testadores beta (Play) + 5–8 participantes de pesquisa (Task 12),
+- 12–14 testadores beta (Play) + 5–8 participantes de pesquisa (Task 12 do
+  roadmap anterior),
   com sobreposição possível.
 - 1 revisor de domínio (radiologia) para o gate editorial D4 e o checklist
-  clínico da Task 12.
+  clínico da Task 12 de pesquisa do roadmap anterior.
 
 ## 8. Riscos e mitigações
 
@@ -717,7 +1427,7 @@ execução:
 | Evidência de E2E não cobrir o caminho de produção por divergência de feature flag | Confirmado | B0: decidir qual Home lança e reexecutar o E2E no perfil que reflete produção |
 | Verificação de conta/D-U-N-S travar M0 | Média | Iniciar na semana 1; caminho pessoal como fallback aceitando o custo do closed test |
 | Runtime version/OTA mal configurados após primeiro build | Média | D5 congela política antes de F1/F2; nunca alterar `runtimeVersion` sem novo build |
-| Pesquisa (Task 12) achar P0/P1 tarde | Média | D6 começa junto do beta, não depois; gate de M5 inclui P0/P1 de pesquisa |
+| Pesquisa (Task 12 do roadmap anterior) achar P0/P1 tarde | Média | D6 começa junto do beta, não depois; gate de M5 inclui P0/P1 de pesquisa |
 | Escopo iPad (`supportsTablet: true`) ampliar QA e screenshots | Baixa | Decidir em E1; desligar tablet no v1.3 é aceitável |
 
 ## 9. Fontes da pesquisa (2026-07-27)

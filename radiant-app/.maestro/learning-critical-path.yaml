@@ -28,19 +28,26 @@ tags:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
 - runFlow:
     when:
-      visible: 'Abrir com “Radiant”?'
+      visible: 'Abrir com “Radiant”\?'
     commands:
       - tapOn: Abrir
 - assertVisible: Fundamentos de Radiologia
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
-- assertVisible: Qual é a principal função dos raios-X na radiologia diagnóstica?
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+# A régua é a mesma que `reward-unlock.yaml` usa para este seletor, e o contrato
+# exige que seja. Ela saiu de medição, não de gosto: em 2026-08-06 o padrão de
+# 100% reprovou uma opção que estava na tela e clicável, porque um brilho
+# decorativo cobria ~11% dos bounds no Android. Dois flows exigindo 100 e um
+# exigindo 80 sobre o MESMO elemento da MESMA tela é uma contradição que só
+# aparece queimando uma janela de aparelho de 15 minutos.
 - scrollUntilVisible:
     element:
       id: lesson-option-q1:option:1
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:1
 - tapOn: Continuar
@@ -101,11 +108,18 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+# A régua é a mesma que `reward-unlock.yaml` usa para este seletor, e o contrato
+# exige que seja. Ela saiu de medição, não de gosto: em 2026-08-06 o padrão de
+# 100% reprovou uma opção que estava na tela e clicável, porque um brilho
+# decorativo cobria ~11% dos bounds no Android. Dois flows exigindo 100 e um
+# exigindo 80 sobre o MESMO elemento da MESMA tela é uma contradição que só
+# aparece queimando uma janela de aparelho de 15 minutos.
 - scrollUntilVisible:
     element:
       id: lesson-option-ct-q3:option:2
     direction: DOWN
     centerElement: true
+    visibilityPercentage: 80
 - tapOn:
     id: lesson-option-ct-q3:option:2
 - tapOn: Continuar

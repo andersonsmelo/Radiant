@@ -15,7 +15,7 @@ import { localHomeDashboardService } from '../services/createLocalHomeDashboardS
 import { space, tabBarClearance, textStyles, fontFamily } from '../../../ui/styles';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { useFadeInUp, useCardEnter } from '../../../ui/motion';
-import { TelemetryService } from '../../telemetry/TelemetryService';
+import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { HeuristicsService } from '../../telemetry/heuristics/HeuristicsService';
 import type { HeuristicAlert } from '../../telemetry/heuristics/heuristics.types';
 import { HEURISTICS_CONSTANTS } from '../../telemetry/heuristics/heuristics.constants';
@@ -26,6 +26,10 @@ import type { OnboardingStage } from '../../onboarding/onboarding.types';
 import { AppConfig } from '../../../config';
 import { PushService } from '../../push/services/PushService';
 import { PushOptInCard } from '../../push/components/PushOptInCard';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 const light = semanticColors.light;
 
@@ -58,6 +62,11 @@ const ArrowRightIcon = () => (
 // ── Main Screen ─────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
+    // Esta tela é o fallback do kill switch `ENABLE_LEARNING_ROAD`. Ela consome
+    // o mesmo hook que a Learning Road para que desligar a flag não volte a
+    // mover a responsabilidade pela abertura de um lugar para outro.
+    useAppOpenLifecycle();
+
     const [dashboard, setDashboard] = useState<HomeDashboardViewModel | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [alert, setAlert] = useState<HeuristicAlert | null>(null);
@@ -127,16 +136,12 @@ export default function HomeScreen() {
     const { animateIn: animateReviewCard, animatedStyle: reviewCardAnimatedStyle } = useCardEnter();
 
     useEffect(() => {
-        TelemetryService.track('app_open');
-        TelemetryService.markDayOpen();
-
         void OnboardingService.init().then(() => {
             setOnboardingStage(OnboardingService.getStage());
             setShowIntro(OnboardingService.shouldShowIntro());
             setShowClosure(OnboardingService.shouldShowClosure());
         });
 
-        PushService.onAppOpen(); // Reset backoff on valuable engagement
         void checkHeuristics();
         animateReviewCard();
     }, [animateReviewCard, checkHeuristics, loadData]);
@@ -160,6 +165,17 @@ export default function HomeScreen() {
     }, [animateGoalBanner, checkPushOptIn, dashboard]);
 
     const progressValue = dashboard ? dashboard.dailyGoal.completed / Math.max(1, dashboard.dailyGoal.target) : 0;
+
+    useShadowCheckpoint({
+        surface: 'home',
+        flowId: 'home-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: 'home',
+        compatibleCursorIds: ['home'],
+        progressPercent: Math.max(0, Math.min(100, Math.round(progressValue * 100))),
+        completedStepCount: 0,
+        totalStepCount: 1,
+    });
 
     return (
         <SafeAreaView style={styles.screen} edges={['top']}>

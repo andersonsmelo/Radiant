@@ -4,14 +4,7 @@ import React from 'react';
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { radius, space } from '@/src/ui/styles';
-
-const TAB_COLORS = {
-  background: '#03030d',
-  surface: 'rgba(10,10,30,0.92)',
-  border: 'rgba(255,255,255,0.08)',
-  active: '#2155FF',
-  inactive: 'rgba(255,255,255,0.35)',
-};
+import { galaxyColors } from '@/src/ui/theme';
 
 export default function TabLayout() {
   return (
@@ -20,10 +13,10 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
         sceneStyle: {
-          backgroundColor: TAB_COLORS.background,
+          backgroundColor: galaxyColors.background,
         },
-        tabBarActiveTintColor: TAB_COLORS.active,
-        tabBarInactiveTintColor: TAB_COLORS.inactive,
+        tabBarActiveTintColor: galaxyColors.navBlue,
+        tabBarInactiveTintColor: galaxyColors.tabBarInactive,
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
           fontSize: 11,
@@ -33,8 +26,8 @@ export default function TabLayout() {
           paddingVertical: 4,
         },
         tabBarStyle: {
-          backgroundColor: TAB_COLORS.surface,
-          borderTopColor: TAB_COLORS.border,
+          backgroundColor: galaxyColors.tabBarSurface,
+          borderTopColor: galaxyColors.border,
           borderTopWidth: 1,
           height: 72,
           paddingTop: 8,
@@ -44,7 +37,7 @@ export default function TabLayout() {
           right: 16,
           bottom: 14,
           borderRadius: radius.rXl,
-          shadowColor: '#000',
+          shadowColor: galaxyColors.shadowHard,
           shadowOpacity: 0.5,
           shadowRadius: 24,
           shadowOffset: { width: 0, height: 8 },

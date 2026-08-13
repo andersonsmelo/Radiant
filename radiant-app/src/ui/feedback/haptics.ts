@@ -44,6 +44,24 @@ export function hapticCelebrate(): void {
   run(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success));
 }
 
+/**
+ * Perda de vida — o único evento punitivo do app.
+ *
+ * Separado de `hapticError` de propósito. Errar e **perder uma vida** são
+ * eventos de peso diferente, e até aqui produziam exatamente o mesmo sinal:
+ * no modo revisão o erro não custa nada, e mesmo assim vibrava igual. Um
+ * feedback uniforme para eventos de significância diferente é o que faz uma
+ * interface parecer genérica.
+ *
+ * `Heavy` porque é o mais pesado do vocabulário de impacto, e este é o evento
+ * mais pesado que o app cobra. Dispara **depois** do `hapticError`, quando a
+ * escrita da vida resolve — a sequência "errou" → "e custou" é a encenação;
+ * os dois no mesmo tick viram um borrão só.
+ */
+export function hapticLifeLost(): void {
+  run(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy));
+}
+
 /** Toque em ação primária. */
 export function hapticTap(): void {
   run(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light));

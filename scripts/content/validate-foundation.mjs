@@ -406,11 +406,16 @@ export function validateFoundation() {
           if (!planetIds.has(record.planetId)) {
             errors.push(`Classification ${record.id} references unknown planet ${record.planetId}`);
           }
-          if (!starIds.has(record.starId)) {
+          // `starId` nulo e legitimo: os seis planetas do eixo tecnico nao tem
+          // estrela, por decisao do dono em 2026-08-07 — estrela e trilha curta
+          // complementar e nao ha nenhuma produzida. Exigir string aqui tornava
+          // esses planetas inalcancaveis pela classificacao. Nulo NAO dispensa
+          // a checagem quando ha valor: id inventado segue sendo erro.
+          if (record.starId !== null && !starIds.has(record.starId)) {
             errors.push(`Classification ${record.id} references unknown star ${record.starId}`);
           }
           const classifiedPlanet = planetsById.get(record.planetId);
-          const classifiedStar = starsById.get(record.starId);
+          const classifiedStar = record.starId === null ? undefined : starsById.get(record.starId);
           if (classifiedPlanet && classifiedPlanet.galaxyId !== record.galaxyId) {
             errors.push(`Classification ${record.id} uses planet ${record.planetId} outside galaxy ${record.galaxyId}`);
           }

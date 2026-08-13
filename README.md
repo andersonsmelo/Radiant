@@ -8,15 +8,15 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | Frente | Estado verificado |
 | --- | --- |
 | App | Expo/React Native; catálogo e progresso funcionam offline |
-| Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; 14 contas vinculadas e 2 opt-ins observados; faltam ≥10 opt-ins e a janela de 14 dias |
-| iOS | build `1.3.0 (4)` pronta no TestFlight, instalada e aberta no iPhone; smoke dos links e VoiceOver pendentes |
-| E2E local | Maestro 5/5 nas duas plataformas sobre builds Release locais da **1.3.1 (3)**, em 2026-08-03 — versão diferente da que está nas lojas, e colhido sob o perfil `e2e-test`, que desliga o beta gate |
+| Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; última leitura em 2026-08-03: 14 contas vinculadas e 2 opt-ins; faltam ≥10 opt-ins e a janela de 14 dias |
+| iOS | versão `1.3.1`, build `7`; estado reconfirmado no console em 2026-08-09: **Aguardando revisão**; liberação manual após aprovação |
+| E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
-| Sistema educacional v2 | governança de fontes concluída; gate de mídia implementado; primeiro lote autorizado ainda pendente |
+| Sistema educacional v2 | Tasks 1–11 e primeiro lote sintético autorizado concluídos; as coortes de `first_frame` de H3 rodaram sem achar regressão, mas fecharam `inconclusive` por ruído de host e aguardam janela silenciosa, antes da Task 12 educacional |
 
 O estado operacional completo e os bloqueios vigentes estão em
-[`docs/EXECUTION_STATUS_2026-08-02.md`](docs/EXECUTION_STATUS_2026-08-02.md).
+[`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md).
 
 ## Evolução educacional
 
@@ -55,11 +55,17 @@ Em 2026-08-02 entrou o **motor de aprendizagem v2**, do contrato ao player:
 Nada disso mudou a lição que o usuário vê — foi esse o objetivo. O que muda a
 tela é a próxima etapa, os **jogos**: hoje só `multiple-choice` tem renderizador.
 
+O agendador por competência (Task 11) também está pronto, mas permanece inerte:
+o lado de leitura ainda não foi ativado e não existe conteúdo v2 para alimentar
+uma revisão real. Stores numéricos não finitos agora são rejeitados e enviados
+à quarentena; antes da ativação, ainda falta uma guarda explícita que não dependa
+apenas da ausência de chamadores.
+
 Essa frente continua em ordem no
 [`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
-Segue pendente fornecer um primeiro lote de imagens educacionais com autorização
-e anonimização verificáveis — sem ele, os jogos que dependem de imagem não têm
-com o que ser construídos.
+O primeiro lote original e sintético já foi autorizado, com proveniência e
+anonimização verificáveis. Antes de executar a Task 12 educacional, falta fechar
+H3 com as duas coortes governadas de `first_frame`; produção continua `off`.
 
 ## Estrutura
 
@@ -81,7 +87,8 @@ bloquear o estudo.
 - mapa e precedência: [`docs/README.md`](docs/README.md)
 - requisitos de produto: [`docs/PRD.md`](docs/PRD.md)
 - arquitetura vigente: [`docs/ARCHITECTURE_STATE.md`](docs/ARCHITECTURE_STATE.md)
-- status operacional: [`docs/EXECUTION_STATUS_2026-08-02.md`](docs/EXECUTION_STATUS_2026-08-02.md)
+- status operacional: [`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md)
+- continuidade: [`docs/CONTINUIDADE_2026-08-13.md`](docs/CONTINUIDADE_2026-08-13.md)
 - roadmap ativo: [`docs/plans/2026-07-27-radiant-launch-roadmap.md`](docs/plans/2026-07-27-radiant-launch-roadmap.md)
 - pipeline editorial: [`docs/CONTENT_PIPELINE.md`](docs/CONTENT_PIPELINE.md)
 - decisão educacional: [`docs/adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](docs/adr/ADR-2026-07-31-aprendizagem-por-competencias.md)

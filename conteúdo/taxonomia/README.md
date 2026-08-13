@@ -2,11 +2,17 @@
 
 Esta pasta guarda o mapa curricular de alto nível do Radiant.
 
-## MVP inicial
+## Domínios
 
-- Anatomia
-- Física
-- Patologias
+Dois eixos convivem nesta taxonomia, e a distinção explica os `status`:
+
+- **Interpretação de imagem** — Anatomia, Fundamentos, Patologias. Currículo
+  pretendido: os planetas e estrelas seguem `planned`.
+- **Eixo técnico** — Fundamentos (dois planetas novos) e Tecnologia em Imagem.
+  Currículo entregue: nasce `active` porque as 16 lições `ai-lesson:` existem e
+  já embarcam.
+
+Um nó `active` significa currículo **entregue**, não pretendido.
 
 ## Regras
 

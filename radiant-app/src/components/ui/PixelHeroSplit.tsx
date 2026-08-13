@@ -6,16 +6,18 @@ import { space, typography } from '../../ui/styles';
 import { colors, galaxyColors } from '../../ui/theme';
 import { ProgressRing } from './ProgressRing';
 import { SpeechBubble } from './SpeechBubble';
+import type { PixelExpression } from '../../ui/characters/pixelExpressions';
 
 interface PixelHeroSplitProps {
   eyebrow: string;
-  message: string;
+  message?: string;
   ringValue: number;
   ringTotal: number;
   ringLabel: string;
   state: CharacterState;
   tier: CharacterTier;
   accessibilityLabel: string;
+  expression?: PixelExpression;
   style?: StyleProp<ViewStyle>;
   bubbleStyle?: StyleProp<ViewStyle>;
   compactBreakpoint?: number;
@@ -24,6 +26,13 @@ interface PixelHeroSplitProps {
   ringSize?: number;
   compactRingSize?: number;
 }
+
+// A coluna do personagem tem largura fixa (ver `characterWidth` abaixo), então o
+// eyebrow não tem para onde crescer: num ajuste de fonte grande do sistema ele
+// passa a quebrar dentro da palavra. O teto vale SÓ para este rótulo, que é
+// decorativo e repete informação disponível em outro lugar da tela — a mensagem
+// do balão e o resto do app seguem acompanhando o ajuste por inteiro.
+const ESCALA_MAXIMA_DO_EYEBROW = 1.5;
 
 export function PixelHeroSplit({
   eyebrow,
@@ -34,6 +43,7 @@ export function PixelHeroSplit({
   state,
   tier,
   accessibilityLabel,
+  expression,
   style,
   bubbleStyle,
   compactBreakpoint = 390,
@@ -53,28 +63,38 @@ export function PixelHeroSplit({
   return (
     <View style={[styles.topRow, isCompact && styles.topRowCompact, style]}>
       <View style={[styles.characterColumn, { width: characterWidth }]}>
-        <Text style={styles.eyebrow}>{eyebrow}</Text>
+        <Text style={styles.eyebrow} maxFontSizeMultiplier={ESCALA_MAXIMA_DO_EYEBROW}>
+          {eyebrow}
+        </Text>
         <PixelIllustration
           state={state}
           size={isCompact ? compactIllustrationSize : illustrationSize}
           tier={tier}
           accessibilityLabel={accessibilityLabel}
+          expression={expression}
         />
       </View>
 
       <View style={[styles.contentColumn, isCompact && styles.contentColumnCompact]}>
-        <SpeechBubble text={message} style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]} />
-        <ProgressRing
-          value={ringValue}
-          total={ringTotal}
-          size={isCompact ? compactRingSize : ringSize}
-          accessibilityLabel={ringLabel}
-        >
-          {/* O anel existe para mostrar um número. A prop `label` era ignorada
-              pelo componente, então todos os anéis do app apareciam vazios. */}
-          <Text style={styles.ringValue}>{ringValue}</Text>
-          <Text style={styles.ringTotal}>de {ringTotal}</Text>
-        </ProgressRing>
+        {message ? (
+          <SpeechBubble
+            text={message}
+            testID="journey-hero-bubble"
+            style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]}
+          />
+        ) : null}
+        <View style={styles.ringSection}>
+          <Text style={styles.ringLabel}>{ringLabel}</Text>
+          <ProgressRing
+            value={ringValue}
+            total={ringTotal}
+            size={isCompact ? compactRingSize : ringSize}
+            accessibilityLabel={ringLabel}
+          >
+            <Text style={styles.ringValue}>{ringValue}</Text>
+            <Text style={styles.ringTotal}>de {ringTotal}</Text>
+          </ProgressRing>
+        </View>
       </View>
     </View>
   );
@@ -113,6 +133,17 @@ const styles = StyleSheet.create({
   },
   bubbleCompact: {
     minHeight: 88,
+  },
+  ringSection: {
+    alignItems: 'center',
+    gap: space.s1,
+  },
+  ringLabel: {
+    ...typography.micro,
+    color: galaxyColors.textSecondary,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.7,
   },
   ringValue: {
     ...typography.h3,

@@ -40,9 +40,31 @@ describe('FirstRunService', () => {
         await FirstRunService.bootstrap();
 
         expect(FirstRunService.shouldShowWelcome()).toBe(true);
-        expect(telemetryTrack).toHaveBeenCalledWith(
-            'first_run_started',
-            expect.objectContaining({ entry_surface: 'first_run' })
+    });
+
+    it('bootstrap() NÃO emite first_run_started: ler o disco não é começar o primeiro uso', async () => {
+        // O bootstrap roda antes de o beta gate ser avaliado. Emitir ali fazia
+        // quem e barrado gerar um `started` sem nenhum `step_viewed`, inflando o
+        // topo do funil. O evento agora sai quando a apresentacao e de fato
+        // vista — o que so acontece depois do gate.
+        await FirstRunService.bootstrap();
+
+        expect(
+            telemetryTrack.mock.calls.filter(([event]) => event === 'first_run_started')
+        ).toHaveLength(0);
+    });
+
+    it('first_run_started sai na primeira tela vista, uma vez só, e antes do step_viewed', async () => {
+        await FirstRunService.bootstrap();
+
+        FirstRunService.markStepViewed(1);
+        FirstRunService.markStepViewed(2);
+        FirstRunService.markStepViewed(3);
+
+        const events = telemetryTrack.mock.calls.map(([event]) => event);
+        expect(events.filter((e) => e === 'first_run_started')).toHaveLength(1);
+        expect(events.indexOf('first_run_started')).toBeLessThan(
+            events.indexOf('first_run_step_viewed')
         );
     });
 
@@ -133,6 +155,39 @@ describe('FirstRunService', () => {
         await FirstRunService.bootstrap();
 
         expect(FirstRunService.shouldShowWelcome()).toBe(false);
+    });
+
+    it('dois bootstrap() concorrentes leem o disco uma vez só', async () => {
+        // A guarda `initialized` sozinha nao cobre concorrencia: ela e checada
+        // antes do await, entao duas chamadas paralelas passam as duas. Hoje o
+        // unico call site e protegido pelo useRef do _layout — este teste prende
+        // a garantia no servico, que e onde ela precisa morar se aparecer um
+        // segundo call site.
+        mockedStorage.getItem.mockImplementation(
+            () => new Promise((resolve) => setTimeout(() => resolve(null), 10))
+        );
+
+        await Promise.all([FirstRunService.bootstrap(), FirstRunService.bootstrap()]);
+
+        expect(mockedStorage.getItem).toHaveBeenCalledTimes(1);
+    });
+
+    it('não propaga falha de gravação em markSeen(), e ainda dispensa o card Day-0', async () => {
+        // O erro ja era engolido de proposito — o pior caso e a apresentacao
+        // voltar uma vez. O que faltava era prender que engolir NAO aborta o
+        // resto do metodo: sem isso, uma futura reordenacao poderia deixar o
+        // onboarding sem init/dismiss quando o disco falha.
+        await FirstRunService.bootstrap();
+        mockedStorage.setItem.mockRejectedValueOnce(new Error('disco cheio'));
+
+        await expect(FirstRunService.markSeen('skipped', 2)).resolves.toBeUndefined();
+
+        expect(OnboardingService.init).toHaveBeenCalled();
+        expect(OnboardingService.dismissIntro).toHaveBeenCalled();
+        expect(telemetryTrack).toHaveBeenCalledWith(
+            'first_run_skipped',
+            expect.objectContaining({ step: 2 })
+        );
     });
 
     it('não trava a abertura quando a leitura do armazenamento falha', async () => {

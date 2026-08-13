@@ -3,6 +3,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import {
+    DAILY_GOAL_TIERS,
+    DailyGoalTierId,
     DAILY_GOAL_STORAGE_KEY,
     DEFAULT_DAILY_GOAL,
     formatLocalDateKey
@@ -15,6 +17,7 @@ interface DailyGoalStore {
     dateKey: string | null;
     completedToday: number;
     goalPerDay: number;
+    tierId?: DailyGoalTierId;
 }
 
 /**
@@ -50,6 +53,7 @@ class DailyGoalServiceClass {
                     dateKey: parsed.dateKey ?? null,
                     completedToday: Math.max(0, parsed.completedToday),
                     goalPerDay: Math.max(1, parsed.goalPerDay),
+                    tierId: DAILY_GOAL_TIERS.some((tier) => tier.id === parsed.tierId) ? parsed.tierId : 'start',
                 };
             }
 
@@ -80,6 +84,7 @@ class DailyGoalServiceClass {
             dateKey: null,
             completedToday: 0,
             goalPerDay: DEFAULT_DAILY_GOAL,
+            tierId: 'start',
         };
     }
 
@@ -103,6 +108,9 @@ class DailyGoalServiceClass {
      */
     private toSnapshot(store: DailyGoalStore): DailyGoalSnapshot {
         return {
+            goalXp: store.goalPerDay,
+            earnedXpToday: store.completedToday,
+            tierId: store.tierId ?? 'start',
             completedToday: store.completedToday,
             goalPerDay: store.goalPerDay,
             isCompleted: store.completedToday >= store.goalPerDay,
@@ -119,12 +127,13 @@ class DailyGoalServiceClass {
     async getSnapshot(now: Date = new Date()): Promise<DailyGoalSnapshot> {
         const todayKey = formatLocalDateKey(now);
         let store = await this.loadStore();
+        const didResetForNewDay = store.dateKey !== todayKey;
 
         // Sync with today's date (resets if new day)
         store = this.ensureDateSync(store, todayKey);
 
         // Save if date changed
-        if (store.dateKey !== todayKey) {
+        if (didResetForNewDay) {
             await this.saveStore(store);
         }
 
@@ -137,7 +146,7 @@ class DailyGoalServiceClass {
      * @param answeredAt - The date/time when the quiz was completed
      * @returns Updated daily goal snapshot
      */
-    async recordQuizCompletion(answeredAt: Date = new Date()): Promise<DailyGoalSnapshot> {
+    async recordXp(amount: number, answeredAt: Date = new Date()): Promise<DailyGoalSnapshot> {
         const dayKey = formatLocalDateKey(answeredAt);
         let store = await this.loadStore();
 
@@ -145,11 +154,23 @@ class DailyGoalServiceClass {
         store = this.ensureDateSync(store, dayKey);
 
         // Increment completedToday, capped at goalPerDay
-        store.completedToday = Math.min(store.goalPerDay, store.completedToday + 1);
+        store.completedToday = Math.min(store.goalPerDay, store.completedToday + Math.max(0, amount));
 
         // Save updated store
         await this.saveStore(store);
 
+        return this.toSnapshot(store);
+    }
+
+    async recordQuizCompletion(answeredAt: Date = new Date()): Promise<DailyGoalSnapshot> {
+        return this.recordXp(10, answeredAt);
+    }
+
+    async setTier(tierId: DailyGoalTierId, now: Date = new Date()): Promise<DailyGoalSnapshot> {
+        const tier = DAILY_GOAL_TIERS.find((entry) => entry.id === tierId) ?? DAILY_GOAL_TIERS[0];
+        let store = this.ensureDateSync(await this.loadStore(), formatLocalDateKey(now));
+        store = { ...store, tierId: tier.id, goalPerDay: tier.xp, completedToday: Math.min(store.completedToday, tier.xp) };
+        await this.saveStore(store);
         return this.toSnapshot(store);
     }
 

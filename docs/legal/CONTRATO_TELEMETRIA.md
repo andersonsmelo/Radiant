@@ -37,6 +37,24 @@ notificações (`push_*`), avaliação na loja (`rating_prompt_*`) e monetizaç�
 (`paywall_*`). Autenticação, sync, catálogo remoto e paywall correspondem a
 recursos hoje **inativos** (sem API configurada / flags desligadas).
 
+> **Correção datada de 2026-08-03 — `app_open` esteve declarado aqui sem ser
+> emitido.** Este parágrafo afirmava o evento entre os "hoje emitidos", e a
+> afirmação era falsa: o único ponto de emissão vivia na home legada
+> (`HomeScreen`), que deixou de ser alcançável quando a Learning Road passou a
+> ser a home oficial — `(tabs)/index.tsx` só renderiza a legada com
+> `ENABLE_LEARNING_ROAD=false`, e nenhum perfil do `eas.json` declara isso.
+> Nenhuma build emitiu `app_open` nessa janela. O evento voltou a ser emitido
+> nesta data, agora pelo hook `useAppOpenLifecycle`, que ambas as homes
+> consomem — a legada inclusive, para que desligar o kill switch não mova a
+> responsabilidade de lugar outra vez.
+>
+> O que isso significa para o contrato com o titular dos dados: **menos** dado
+> foi coletado do que este documento anunciava, nunca mais. Nenhuma promessa de
+> minimização foi violada; a divergência era de completude, no sentido seguro.
+> A janela não é datável com precisão porque o histórico do repositório está
+> espremido no commit `847a12d`, que traz a troca de home e o ponto de emissão
+> juntos.
+
 ## 3. Proibições de propriedades
 
 As propriedades (`props`) de um evento só podem ser **enums/literais, contagens,

@@ -17,6 +17,8 @@ const DEFAULT_STATE: FirstRunState = {
 class FirstRunServiceImpl {
     private state: FirstRunState = { ...DEFAULT_STATE };
     private initialized = false;
+    private inFlight: Promise<void> | null = null;
+    private startedTracked = false;
 
     /**
      * A AUSÊNCIA da chave é o gatilho. É isso que faz uma instalação antiga —
@@ -26,6 +28,23 @@ class FirstRunServiceImpl {
     async bootstrap(): Promise<void> {
         if (this.initialized) return;
 
+        // `initialized` sozinho e checado ANTES do await, entao duas chamadas
+        // concorrentes passam as duas e `first_run_started` sai em duplicata.
+        // O unico call site hoje ja se protege com um useRef no `_layout`, mas
+        // essa garantia mora no chamador; aqui ela vale para qualquer chamador.
+        // Em falha, o campo e limpo antes de propagar, para que uma retentativa
+        // nao fique presa reproduzindo a mesma rejeicao.
+        if (this.inFlight) return this.inFlight;
+
+        this.inFlight = this.load().catch((error) => {
+            this.inFlight = null;
+            throw error;
+        });
+
+        return this.inFlight;
+    }
+
+    private async load(): Promise<void> {
         try {
             const stored = await AsyncStorage.getItem(STORE_KEY);
             if (stored) {
@@ -41,21 +60,49 @@ class FirstRunServiceImpl {
         }
 
         this.initialized = true;
-
-        if (this.shouldShowWelcome()) {
-            void TelemetryService.track('first_run_started', resolveAppStoreProps(ENTRY_SURFACE));
-        }
     }
 
+    /**
+     * Chamado antes de `bootstrap()`, devolve `true` — o `DEFAULT_STATE` tem
+     * `exitedAt: null`. É o lado seguro **de propósito**: no pior caso alguém
+     * revê a apresentação, enquanto o default oposto a esconderia de uma
+     * instalação limpa, que é justamente quem precisa vê-la. O `_layout` só
+     * consulta depois do `bootstrap()`; este comentário existe para o segundo
+     * chamador, que não terá esse contexto.
+     */
     shouldShowWelcome(): boolean {
         return this.state.exitedAt === null;
     }
 
+    /**
+     * `first_run_started` sai daqui, e não do `bootstrap()`, **de propósito.**
+     *
+     * O `bootstrap()` roda no `Promise.all` de abertura, antes de o beta gate
+     * ser avaliado no render. Emitir ali significa "o app leu uma chave de
+     * disco", não "alguém começou o primeiro uso": quem é barrado pelo gate
+     * gerava um `started` sem nenhum `step_viewed`, inflando o topo do funil.
+     *
+     * A apresentação só monta **depois** do gate (o `_layout` retorna a tela do
+     * gate antes do ramo da apresentação), e o passo 1 é visto no mesmo instante
+     * em que ela monta. Emitir a partir daqui, uma vez só, torna o evento
+     * consciente do gate por construção, sem o `_layout` precisar saber de
+     * telemetria — e garante a ordem `started` → `step_viewed`, que um efeito no
+     * pai não garantiria: efeito de filho roda antes de efeito de pai.
+     */
     markStepViewed(step: number): void {
+        this.trackStartedOnce();
+
         void TelemetryService.track('first_run_step_viewed', {
             ...resolveAppStoreProps(ENTRY_SURFACE),
             step,
         });
+    }
+
+    private trackStartedOnce(): void {
+        if (this.startedTracked) return;
+        this.startedTracked = true;
+
+        void TelemetryService.track('first_run_started', resolveAppStoreProps(ENTRY_SURFACE));
     }
 
     async markSeen(reason: FirstRunExitReason, step: number): Promise<void> {
@@ -93,6 +140,8 @@ class FirstRunServiceImpl {
     async resetForTests(): Promise<void> {
         this.state = { ...DEFAULT_STATE };
         this.initialized = false;
+        this.inFlight = null;
+        this.startedTracked = false;
         try {
             await AsyncStorage.removeItem(STORE_KEY);
         } catch {

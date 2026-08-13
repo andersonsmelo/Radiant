@@ -10,8 +10,23 @@ contrato `radiant-app/scripts/icon-assets-contract.test.mjs` e o contrato roda n
 | --- | --- | --- | --- |
 | Ícone da ficha | [`assets/play-icon-512.png`](assets/play-icon-512.png) | 512×512, PNG 32-bit **com** alpha, ≤ 1024 KB | ✅ 126 KB |
 | Feature graphic | [`assets/feature-graphic.png`](assets/feature-graphic.png) | 1024×500, **sem** alpha | ✅ |
-| Screenshots de telefone (Play) | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1), **regerados em 2026-07-30** |
-| Screenshots de iPhone (App Store) | — | buckets 6,7" e 6,5" | ⚠️ **capturados, não normalizados** — ver a seção do lado iOS |
+| Screenshots de telefone (Play) | [`assets/screenshots/`](assets/screenshots/) | ≥ 2, proporção ≤ 2:1, lado 320–3840 | ✅ 6 × 1080×1920 (1,778:1), **regerados em 2026-08-03** com a barra de status legível |
+| Screenshots de iPhone (App Store) | [`assets/screenshots-ios-67/`](assets/screenshots-ios-67/) · [`assets/screenshots-ios-65/`](assets/screenshots-ios-65/) | buckets 6,7" (1290×2796) e 6,5" (1242×2688), tamanho **exato** | ✅ 12 × publicáveis, **regerados em 2026-08-03** com a barra de status legível |
+
+> **Por que foram regerados em 2026-08-03.** Os seis anteriores traziam a barra
+> de status do sistema em conteúdo escuro sobre `#03030d` — relógio, Wi-Fi, sinal
+> e bateria a **1,02:1** de contraste, praticamente invisíveis. A causa era
+> `<StatusBar style="dark" />` no `_layout.tsx` (no `expo-status-bar`, `dark`
+> significa conteúdo escuro, o valor para fundo claro), e com
+> `edgeToEdgeEnabled: true` o app desenha atrás da barra. Corrigido em `b62f529`.
+>
+> **O contrato de assets aprovava os arquivos defeituosos**, e isso é o que vale
+> carregar: ele mede dimensão, proporção, peso e presença — nunca legibilidade.
+> Um asset pode passar em todo contrato que existe e ainda assim estar errado
+> para o olho humano. O achado veio do smoke da C2, não de um validador.
+>
+> Os buckets de iPhone tinham o mesmo defeito e foram tratados na mesma data;
+> ver a seção do lado iOS.
 
 ## Como regerar
 
@@ -145,6 +160,25 @@ Seis telas em cada, todos RGB sem alpha. Reprodução:
 ```bash
 python3 scripts/assets/normalize-screenshots.py --spec ios-67 --src "$HOME/.maestro/tests/2026-07-30_145305/Store screenshot capture/takeScreenshot/shots" --out docs/store/assets/screenshots-ios-67
 ```
+
+> **Regerados em 2026-08-03, pelo mesmo defeito do lado Play.** Os doze
+> arquivos de 2026-07-30 traziam a barra de status do sistema em conteúdo escuro
+> sobre fundo escuro — no `01-home.png` do bucket 6,7", o relógio "14:59" era
+> praticamente invisível. Causa e correção em `b62f529`.
+>
+> **Os simuladores da receita acima não existiam mais neste Xcode.** O iPhone 16
+> Plus e o iPhone 11 Pro Max seguem disponíveis como *device types*, mas sem
+> instâncias criadas; foram recriados no runtime iOS 26.5, que os aceita, e
+> renderizam exatamente 1290×2796 e 1242×2688. Isso importa porque o
+> `normalize-screenshots.py` é **validador, não conversor**: ele exige tamanho
+> exato nos buckets de iPhone e recusa o resto, então a resolução tem de vir do
+> simulador certo — não há pós-processamento que salve uma captura no tamanho
+> errado, e forçar um seria fabricar um asset que passa no contrato sem ser o que
+> ele afirma.
+>
+> Novas origens: `~/.maestro/tests/2026-08-03_223304/` (6,7", 398s) e
+> `~/.maestro/tests/2026-08-03_224052/` (6,5", 448s), ambas sobre build Release
+> local sob configuração de produção.
 
 **Travados no contrato**, não deixados como artefato de uma execução só:
 `icon-assets-contract.test.mjs` foi de 11 para **14 testes**, com uma asserção de

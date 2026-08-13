@@ -7,9 +7,9 @@
 > **Quem executa:** Anderson. Tudo aqui é ação no console e manuseio de credencial —
 > nenhum agente faz isso por você.
 >
-> **Pré-requisito já satisfeito:** conta Play Console paga. **Pendente à parte:** a
-> verificação de identidade/acesso a dispositivo exige um **aparelho Android real**
-> (o emulador é imagem "Google APIs" sem Play Store).
+> **Pré-requisitos já satisfeitos:** conta Play Console paga, identidade e
+> verificação de acesso a dispositivo concluídas em 2026-07-31. Não refaça essas
+> etapas; a pendência deste runbook é a service-account key para automação.
 
 ## Antes de começar — uma checagem de segurança que já foi feita
 
@@ -19,7 +19,7 @@ data no `.gitignore` da raiz, junto de `*.p8` e dos nomes de arquivo de chave.
 Antes de baixar a chave, confirme que a proteção está de pé:
 
 ```bash
-cd /Users/anderson/Developer/Radiant && git check-ignore -v radiant-app/credentials/play-service-account.json
+cd "$(git rev-parse --show-toplevel)" && git check-ignore -v radiant-app/credentials/play-service-account.json
 ```
 
 Se esse comando **não imprimir nada**, pare e avise — significa que a regra sumiu e
@@ -133,8 +133,10 @@ Os dois pontos que mais confundem, resumidos:
   A política publicada divulga isso na seção 4.1 — as duas peças concordam, e é essa
   concordância que a revisão checa.
 
-**Classificação:** questionário de conteúdo → categoria Educação → esperado
-**Livre/4+**.
+**Classificação:** responder o questionário IARC exibido pelo Play com base no
+conteúdo real e registrar o resultado observado. Não copiar a classificação da
+Apple nem antecipar `Livre/4+`: as duas lojas usam taxonomias independentes e o
+IARC/Play continua pendente.
 
 ---
 
@@ -186,7 +188,7 @@ esperando o relógio: com esses dois valores, ele não começou.
 Para o upload que de fato inicia a contagem:
 
 ```bash
-cd /Users/anderson/Developer/Radiant/radiant-app && eas submit --platform android --profile production --track alpha
+cd "$(git rev-parse --show-toplevel)/radiant-app" && eas submit --platform android --profile production --track alpha
 ```
 
 Depois do upload, ainda é preciso **promover a release** (o `releaseStatus: draft`
@@ -216,22 +218,28 @@ As 6 tasks do [plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md)
 fecharam em 2026-07-29 e o contrato de assets roda **14/14** dentro do
 `npm run quality`. **Não há mais motivo de engenharia para adiar o upload do AAB.**
 
-Faça tudo deste runbook agora — criar o app, preencher a ficha textual, colar as
-duas URLs, responder Data Safety e gerar a chave — e suba o AAB quando as contas
-permitirem.
+**Não refaça a criação do app, a ficha, as URLs, a lista nem o upload do AAB.**
+Essas etapas já foram executadas; o track fechado `alpha` está ativo com a
+release `1.3.0 (4)`. Use este runbook como procedimento e o status canônico como
+estado. A service-account key continua opcional para automação do `eas submit`,
+não para a release que já está no console.
 
 O que ainda gate a **publicação** não sai deste runbook e não é código:
 
 1. ~~**Verificação de acesso a dispositivo da conta Play**~~ — **CONCLUÍDA em
    2026-07-31.** Deixou de gatear a publicação.
 2. **≥ 12 testadores opted-in por 14 dias consecutivos** — o item de maior
-   latência do caminho crítico, e **o único bloqueio de publicação que resta**.
+   latência do caminho crítico. A última leitura, em 2026-08-03, mostrou 2
+   participantes de 14 contas vinculadas; só o console atual confirma a contagem.
    Kit pronto em [`TESTER_INVITE_KIT.md`](TESTER_INVITE_KIT.md).
+3. **Questionário IARC/Play (E4)** — continua pendente e deve seguir a taxonomia
+   exibida pelo Play, sem copiar automaticamente a classificação da Apple.
+4. **Depois de F2:** solicitar acesso à produção no Play (F4).
 
 **Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
 Android 13+ continua pendente e também exige aparelho real — uma captura da
 gaveta com o tema ligado basta (§4 do
-[status canônico](../EXECUTION_STATUS_2026-07-29.md)).
+[status canônico](../EXECUTION_STATUS_2026-08-09.md)).
 
 > **Por que esta seção envelheceu:** o bloqueio foi fechado no status canônico e
 > no roadmap, que **descrevem** estado; ninguém varreu os documentos que

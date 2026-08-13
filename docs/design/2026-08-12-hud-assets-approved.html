@@ -1,0 +1,139 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Radiant — assets animados do HUD</title>
+<style>
+  :root{
+    --void:#03030d; --surface:rgba(255,255,255,.05); --border:rgba(255,255,255,.08);
+    --ink:#fff; --ink2:rgba(255,255,255,.55); --ink3:rgba(255,255,255,.46);
+    --xp:#F5A623; --streak:#FF6B2C; --heart:#FF3B30; --heartEmpty:rgba(255,255,255,.20);
+    --nav:#4A9EFF; --cyan:#3DCAE8;
+    --out:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--void);color:var(--ink);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    padding:32px 20px 64px;max-width:900px;margin-inline:auto}
+  h1{font-size:26px;letter-spacing:-.5px;margin:0 0 6px}
+  .sub{color:var(--ink2);margin:0 0 32px;font-size:14px}
+  h2{font-size:15px;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);
+    margin:36px 0 12px;font-weight:700}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:20px;margin-bottom:14px}
+  .row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .stage{width:96px;height:96px;display:grid;place-items:center;flex:none;
+    background:rgba(255,255,255,.03);border-radius:12px}
+  .meta{flex:1;min-width:220px}
+  .meta b{display:block;font-size:17px;margin-bottom:4px}
+  .meta p{margin:0 0 8px;color:var(--ink2);font-size:14px}
+  code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:5px;
+    font-size:12.5px;color:var(--cyan)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}
+  td{padding:5px 8px 5px 0;vertical-align:top;color:var(--ink2)}
+  td:first-child{color:var(--ink3);white-space:nowrap;width:110px}
+  .hint{border-left:2px solid var(--nav);padding-left:14px;color:var(--ink2);font-size:14px}
+  .bad{color:#FF8298}
+
+  /* XP — burst ao somar */
+  @keyframes xpBurst{0%,55%{transform:scale(1)}62%{transform:scale(1.35)}100%{transform:scale(1)}}
+  @keyframes xpRay{0%,55%{opacity:0;transform:scale(.4)}70%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+  .xp{animation:xpBurst 2.4s var(--spring) infinite}
+  .xpRays circle{animation:xpRay 2.4s var(--out) infinite}
+
+  /* Sequência — respiro contínuo */
+  @keyframes flame{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.08) translateY(-2px)}}
+  @keyframes flameCore{0%,100%{opacity:.75}50%{opacity:1}}
+  .flame{animation:flame 1.6s ease-in-out infinite;transform-origin:50% 85%}
+  .flameCore{animation:flameCore 1.6s ease-in-out infinite}
+
+  /* Vida — quebra ao perder */
+  @keyframes heartLoss{0%,40%{transform:scale(1)}48%{transform:scale(1.18)}
+    60%{transform:scale(.9)}100%{transform:scale(1)}}
+  @keyframes crack{0%,52%{opacity:0}60%{opacity:1}100%{opacity:1}}
+  @keyframes drain{0%,52%{fill:var(--heart)}70%,100%{fill:var(--heartEmpty)}}
+  .heart{animation:heartLoss 3s var(--spring) infinite;transform-origin:50% 55%}
+  .heartFill{animation:drain 3s var(--out) infinite}
+  .crack{animation:crack 3s steps(1) infinite}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+
+<h1>Assets animados do HUD</h1>
+<p class="sub">Três estados que hoje são emoji do sistema. Cada preview usa as cores e as durações que <code>src/ui/theme.ts</code> e <code>src/ui/motion.ts</code> já declaram — não invente valores novos ao autorar.</p>
+
+<h2>1 · XP — burst ao somar</h2>
+<div class="card"><div class="row">
+  <div class="stage"><svg width="52" height="52" viewBox="0 0 52 52">
+    <g class="xpRays" fill="var(--xp)">
+      <circle cx="26" cy="6" r="2"/><circle cx="46" cy="26" r="2"/>
+      <circle cx="26" cy="46" r="2"/><circle cx="6" cy="26" r="2"/>
+    </g>
+    <path class="xp" d="M28 8 L15 29 h9 l-2 15 13-21h-9z" fill="var(--xp)"
+      style="transform-origin:26px 26px"/>
+  </svg></div>
+  <div class="meta">
+    <b>Raio de XP</b>
+    <p>Parado em repouso. Ao ganhar XP: escala rápida com overshoot e quatro fagulhas saindo do centro. É o único dos três que celebra.</p>
+    <table>
+      <tr><td>Cor</td><td><code>galaxyColors.xpColor</code> · #F5A623</td></tr>
+      <tr><td>Duração</td><td><code>duration.celebrate</code> · 600ms</td></tr>
+      <tr><td>Curva</td><td><code>easing.spring</code> · cubic-bezier(.34, 1.56, .64, 1)</td></tr>
+      <tr><td>Gatilho</td><td>XP aumenta</td></tr>
+      <tr><td>Repouso</td><td>estático, sem loop</td></tr>
+    </table>
+  </div>
+</div></div>
+
+<h2>2 · Sequência — respiro contínuo</h2>
+<div class="card"><div class="row">
+  <div class="stage"><svg width="52" height="52" viewBox="0 0 52 52">
+    <g class="flame">
+      <path d="M26 6c7 9 12 13 12 21a12 12 0 0 1-24 0c0-8 5-12 12-21z" fill="var(--streak)"/>
+      <path class="flameCore" d="M26 20c3.5 5 6 7 6 11a6 6 0 0 1-12 0c0-4 2.5-6 6-11z" fill="#FFD27A"/>
+    </g>
+  </svg></div>
+  <div class="meta">
+    <b>Chama da sequência</b>
+    <p>Único dos três que anima em repouso — a sequência é um estado vivo, não um evento. Respiro lento e sutil; se chamar atenção, está errado. O núcleo claro pulsa fora de fase com a silhueta.</p>
+    <table>
+      <tr><td>Cor</td><td><code>galaxyColors.streakColor</code> · #FF6B2C <span class="bad">(era #F5A623, igual ao XP — corrigido hoje)</span></td></tr>
+      <tr><td>Núcleo</td><td>#FFD27A</td></tr>
+      <tr><td>Duração</td><td>1600ms em loop, ease-in-out</td></tr>
+      <tr><td>Amplitude</td><td>escala 1 → 1.08, subida de 2px</td></tr>
+      <tr><td>Gatilho</td><td>nenhum — loop permanente</td></tr>
+    </table>
+  </div>
+</div></div>
+
+<h2>3 · Vida — quebra ao perder</h2>
+<div class="card"><div class="row">
+  <div class="stage"><svg width="52" height="52" viewBox="0 0 52 52">
+    <g class="heart">
+      <path class="heartFill" d="M26 43S8 32 8 20a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 12-18 23-18 23z"/>
+      <path class="crack" d="M26 14 l-4 9 l6 4 l-4 8" stroke="var(--void)" stroke-width="2.5"
+        fill="none" stroke-linecap="round"/>
+    </g>
+  </svg></div>
+  <div class="meta">
+    <b>Coração de vida</b>
+    <p>O momento mais importante dos três: hoje a perda é <span class="bad">100% silenciosa</span> — o coração troca de cor e nada mais acontece. Encenar a perda é o que dá peso ao erro sem puni-lo.</p>
+    <table>
+      <tr><td>Cheio</td><td><code>galaxyColors.heartFull</code> · #FF3B30</td></tr>
+      <tr><td>Vazio</td><td><code>galaxyColors.heartEmpty</code> · branco a 20%</td></tr>
+      <tr><td>Duração</td><td><code>duration.ui</code> · 220ms</td></tr>
+      <tr><td>Curva</td><td><code>easing.out</code> · cubic-bezier(.22, 1, .36, 1)</td></tr>
+      <tr><td>Gatilho</td><td>vida perdida — só o coração que esvaziou anima</td></tr>
+      <tr><td>Háptico</td><td><code>hapticLifeLost</code>, já existe no projeto</td></tr>
+    </table>
+  </div>
+</div></div>
+
+<h2>Ao autorar em Rive</h2>
+<div class="card">
+  <p class="hint"><b>Uma máquina de estados por ícone</b>, não uma timeline linear — é a razão de usar Rive e não Lottie. O XP precisa de <code>idle</code> + <code>gain</code>; a chama de <code>idle</code> só; o coração de <code>full</code> + <code>losing</code> + <code>empty</code>, com a transição disparada por entrada booleana.</p>
+  <table>
+    <tr><td>Tamanho</td><td>Artboard 52×52. No HUD o XP e a chama renderizam a 14pt, o coração a 18pt — teste legível nesse tamanho, não no artboard.</td></tr>
+    <tr><td>Cores</td><td>Hardcode os hex acima no arquivo. Não deixe herdar do runtime: o app já tem um contrato que reprova cor fora de token.</td></tr>
+    <tr><td>Movimento reduzido</td><td>Obrigatório ter um estado final estático alcançável sem animar. O app respeita <code>useReducedMotionPreference</code> em toda animação, e isso é critério de aprovação, não intenção.</td></tr>
+    <tr><td>Peso</td><td>Alvo &lt; 20KB por <code>.riv</code>. O <code>pixel_core.png</code> tem 2,16MB e serve três tamanhos — não repita esse erro.</td></tr>
+    <tr><td>Runtime</td><td><code>rive-react-native</code>. Dependência nativa: exige rebuild do dev client, que agora funciona nesta máquina.</td></tr>
+  </table>
+</div>

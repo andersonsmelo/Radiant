@@ -32,9 +32,102 @@ toda sessão de IA segue este contrato:
 
 ### Ao terminar trabalho material
 
-1. Todo run de escrita fecha com evidência de validação (`loop validate`) e
-   `loop run close`; aprendizado durável vira memória validada via
-   `loop memory write` — nunca edição manual do vault do Obsidian.
+1. Todo run de escrita fecha nesta ordem, e ela não é negociável porque é a
+   máquina de estados da CLI:
+
+   ```
+   loop validate  →  loop step finish  →  [loop memory write]  →  loop run close
+     (validating)      (succeeded)          (memory_written)        (closed)
+   ```
+
+   `loop memory write` **exige o run em `state: succeeded`**, e o único comando
+   que produz esse estado é `loop step finish` (`src/engine.ts:356`); `validate`
+   sozinho deixa o run em `validating`. Gravar memória logo após validar falha
+   sempre. O passo de memória é opcional — entra só quando a tarefa produziu
+   aprendizado durável; sem ele, `succeeded → closed` é transição válida.
+   Nunca edite o vault do Obsidian à mão.
+
+   Sete armadilhas do fechamento, todas custaram registro perdido aqui:
+   - **`MEMORY_EVIDENCE_INVALID` tem quatro causas, checadas nesta ordem**
+     (`src/memory.ts`): run fora de `succeeded` (linha 26), resumo vazio ou
+     acima de **1000 caracteres** (33), evidência ausente ou reprovada (44) e
+     lista de evidência vazia (52). A primeira mascara as demais — leia o campo
+     de detalhe da resposta (`{ state }`) antes de suspeitar do tamanho. O
+     código nomeia a evidência em todos os quatro casos, e em três deles mente;
+   - **nunca encadeie os comandos do fechamento com `&&`.** A CLI reporta erro
+     no corpo do JSON com status de saída **zero**, então o `&&` não protege:
+     em 2026-08-06 a memória falhou, o run fechou em seguida e o aprendizado não
+     pôde mais ser gravado. Extraia o `code` de cada resposta e falhe
+     explicitamente. Esta regra é sobre o **operador**, não sobre a ordem —
+     `memory_written → closed` é transição legal (`src/state-machine.ts:21`), e
+     ler esta proibição como regra de sequência foi o que inverteu o ritual e
+     travou um run em 2026-08-06;
+   - **abra sempre pelo embrulho** — `node scripts/loop/abrir.mjs "<descrição>"
+     <arquivo>...`, antes de criar qualquer arquivo. Para fechar, o embrulho
+     serve **só quando não há memória a gravar**: `fechar.mjs` encadeia
+     `validate` → `step finish` → `run close` e fecha o run incondicionalmente,
+     sem passo de memória. Tarefa com aprendizado durável **não pode** fechar
+     por ele — depois de `run close` não existe transição para
+     `memory_written`, e o aprendizado se perde. Nesse caso rode `validate` e
+     `step finish` (soltos ou pelo embrulho até ali), depois
+     `loop memory write`, e só então `loop run close`, checando o `code` de
+     cada resposta;
+   - `loop validate` dispara jest, lint e typecheck. **Não valide enquanto um
+     E2E estiver rodando** — mediu-se 2,3× de desaceleração no emulador, e o
+     flow morre em timeout que parece defeito do app;
+   - **A baseline do run inclui a sujeira que já existia na abertura, então
+     DESFAZER também é mudança.** Medido em 2026-08-07, e custou um run inteiro:
+     um arquivo rastreado fora de `writePolicy.allowedRoots` foi modificado
+     **antes** do `abrir.mjs`, a baseline o capturou modificado, e o
+     `git checkout` que o restaurou — feito justamente para deixar o escopo
+     limpo — contou como mudança fora de escopo. `step finish` devolveu
+     `OUT_OF_SCOPE_CHANGE`, o run caiu em `needs_human` e a memória dele se
+     perdeu. O guarda compara **contra a abertura**, não contra o `HEAD`: para
+     ele, sujo→limpo e limpo→sujo são o mesmo delta. A regra preventiva é uma
+     linha antes de abrir qualquer run:
+
+     ```bash
+     git status --porcelain
+     ```
+
+     Se aparecer arquivo que você não vai declarar, resolva **antes** de abrir —
+     comitando, revertendo ou deixando quieto de propósito. Depois de aberto,
+     tanto mexer quanto desmexer custa o run.
+   - **Declare o caminho como o SISTEMA DE ARQUIVOS o soletra, não como o git.**
+     Medido em 2026-08-07, e custou o segundo run do mesmo dia: o índice do git
+     carrega `conteúdo/extrações/…` em minúscula, vindo de um commit antigo; o
+     disco soletra `Conteúdo/extrações/…` com maiúscula. Num sistema de arquivos
+     indiferente a caixa os dois abrem o mesmo arquivo, mas o guarda de escopo
+     compara **texto**: declarado em minúscula, ele reporta
+     `OUT_OF_SCOPE_CHANGE` na versão maiúscula do mesmo caminho, e o run cai em
+     `needs_human`. Antes de declarar caminho com acento ou caixa divergente,
+     confira com `ls` como o disco o escreve — `git ls-files` responde outra
+     pergunta.
+   - **`context.excludes` NÃO isenta do guarda de escopo — as duas listas
+     respondem a perguntas diferentes.** Medido em 2026-08-08, e custou um run:
+     `Conteúdo/extrações` está em `context.excludes` **e** fora do git, e mesmo
+     assim `step finish` devolveu `OUT_OF_SCOPE_CHANGE` nomeando
+     `excerpts.json` — que não é rastreado — e `index.json`. O `excludes` decide
+     o que entra no **contexto** montado para a IA; o guarda compara o
+     **repositório inteiro** contra a baseline da abertura, e não consulta essa
+     lista. A armadilha anterior desta seção diz que `.gitignore` não é
+     `context.excludes`; a lição que faltava é que **nenhum dos dois** protege
+     do guarda. Só `--files` protege: **declare todo caminho que a operação vai
+     tocar, inclusive subproduto local e arquivo não rastreado.**
+   - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
+     Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
+     não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica
+     invisível. A causa observada em 2026-08-07 foi o macOS revogar o acesso a
+     `~/Documents` no meio da sessão: `scandir` do vault do Obsidian devolve
+     `EPERM`, e como `brain-links` é um dos 11 validadores, **`loop validate`
+     reprova e nenhum run fecha**. Diagnóstico em um comando: `ls ~/Documents`
+     — se der "Operation not permitted", o problema é permissão do sistema, não
+     do Loop, e **nenhum run deve ser aberto nesse estado**, porque ele prende
+     o lock de escritor sem poder fechar. Correção: Ajustes do Sistema →
+     Privacidade e Segurança → Arquivos e Pastas (ou Acesso Total ao Disco)
+     para o app que roda o agente; é do dono, o agente não resolve. Para ver o
+     erro real por trás do genérico, chame a função direto:
+     `node -e "const { brainSessionStart } = await import('<loop>/dist/src/brain-engine.js'); ..."`.
 2. Marque no roadmap a task executada (como feito com A1) no mesmo run que
    entrega o trabalho, para que a próxima IA veja o estado sem arqueologia.
 3. Mudanças de estado operacional (gates, versões, bloqueios) pertencem ao

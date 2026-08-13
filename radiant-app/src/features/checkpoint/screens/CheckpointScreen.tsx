@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,6 +9,7 @@ import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
 import { Confetti } from '../../../components/ui/Confetti';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
+import { XpIcon } from '../../../ui/components/HudIcons';
 import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -21,9 +22,16 @@ import { layout, radius, space, typography } from '../../../ui/styles';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
 import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
 import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
+import {
+  STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+  useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
+import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 
 interface CheckpointScreenProps {
   nodeId?: string;
+  resumeCheckpointId?: string;
+  resumeCursorId?: string;
 }
 
 function findFallbackCheckpoint(snapshot: JourneySnapshot | null): JourneyNode | null {
@@ -67,7 +75,7 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
 }
 
-export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
+export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCursorId }: CheckpointScreenProps) {
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -127,6 +135,59 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     return snapshot.track.units.find((unit) => unit.id === checkpointNode.unitId) ?? null;
   }, [checkpointNode, snapshot]);
 
+  const resumeSummaryConfirmed = Boolean(
+    resumeCheckpointId
+    && resumeCursorId === 'checkpoint-summary'
+    && checkpointNode
+    && snapshot?.progress.completedNodeIds.includes(checkpointNode.id),
+  );
+
+  useShadowCheckpoint({
+    surface: 'unit-checkpoint',
+    flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed ? 'checkpoint-summary' : 'checkpoint-overview',
+    compatibleCursorIds: ['checkpoint-overview', 'checkpoint-summary'],
+    progressPercent: completed ? 100 : 0,
+    completedStepCount: completed ? 1 : 0,
+    totalStepCount: 1,
+    checkpointDefinitionId: checkpointNode?.id,
+    journeyNodeId: checkpointNode?.id,
+    unitId: activeUnit?.id,
+    enabled: Boolean(checkpointNode && activeUnit),
+  });
+  const handleRestoreFallback = useCallback(() => {
+    Alert.alert(
+      'Vamos continuar pela jornada',
+      'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
+    );
+    router.replace('/(tabs)');
+  }, []);
+  const activeCheckpoint = useActiveCheckpoint({
+    surface: 'unit-checkpoint',
+    flowId: `unit-checkpoint:${checkpointNode?.id ?? nodeId ?? 'current'}`,
+    contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    cursorId: completed || resumeSummaryConfirmed ? 'checkpoint-summary' : 'checkpoint-overview',
+    compatibleCursorIds: resumeSummaryConfirmed
+      ? ['checkpoint-overview', 'checkpoint-summary']
+      : ['checkpoint-overview'],
+    progressPercent: completed || resumeSummaryConfirmed ? 100 : 0,
+    completedStepCount: completed || resumeSummaryConfirmed ? 1 : 0,
+    totalStepCount: 1,
+    checkpointDefinitionId: checkpointNode?.id,
+    journeyNodeId: checkpointNode?.id,
+    unitId: activeUnit?.id,
+    enabled: Boolean(checkpointNode && activeUnit),
+    resumeCheckpointId,
+    onRestoreFallback: handleRestoreFallback,
+  });
+
+  useEffect(() => {
+    if (!resumeSummaryConfirmed) return;
+    setCompleted(true);
+    void activeCheckpoint.finish();
+  }, [activeCheckpoint, resumeSummaryConfirmed]);
+
   const completedPrimaryNodes = useMemo(() => {
     if (!activeUnit) {
       return 0;
@@ -162,6 +223,19 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
       setSubmitting(true);
       const nextSnapshot = await JourneyProgressService.markNodeCompleted(checkpointNode.id);
       setSnapshot(nextSnapshot);
+
+      // A recusa da guarda não é uma exceção: `markNodeCompleted` devolve o
+      // snapshot inalterado. Sem olhar o resultado, a tela comemorava uma
+      // conquista que não foi gravada — antes da guarda a comemoração era
+      // verdadeira porque a escrita sempre acontecia. Quem decide se houve
+      // conquista é o snapshot que voltou, não o fato de a chamada ter
+      // retornado.
+      if (!nextSnapshot.progress.completedNodeIds.includes(checkpointNode.id)) {
+        setError('Nao foi possivel concluir o checkpoint agora.');
+        return;
+      }
+
+      await activeCheckpoint.finish();
       setCompleted(true);
       const offer = await PaywallService.maybePresentOffer({
         trigger: 'checkpoint_complete',
@@ -175,7 +249,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [checkpointNode]);
+  }, [activeCheckpoint, checkpointNode]);
 
   if (loading) {
     return (
@@ -222,7 +296,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
                 end={{ x: 1, y: 1 }}
                 style={styles.celebrationBadge}
               >
-                <Text style={styles.celebrationBadgeEmoji}>⭐</Text>
+                <DecorativeIcon name="star" size={28} color="#FFFFFF" />
               </LinearGradient>
 
               <Text style={styles.celebrationEyebrow}>CONQUISTA DESBLOQUEADA</Text>
@@ -236,7 +310,7 @@ export default function CheckpointScreen({ nodeId }: CheckpointScreenProps) {
               {/* XP box — total real acumulado */}
               {gamification?.totalXp != null && (
                 <View style={styles.celebrationXpBox}>
-                  <Text style={styles.celebrationXpEmoji}>⚡</Text>
+                  <XpIcon size={22} value={gamification.totalXp} />
                   <Text style={styles.celebrationXpText}>XP total: {gamification.totalXp}</Text>
                 </View>
               )}
@@ -521,9 +595,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 6,
   },
-  celebrationBadgeEmoji: {
-    fontSize: 28,
-  },
   celebrationEyebrow: {
     fontSize: 11,
     fontWeight: '800',
@@ -560,9 +631,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignSelf: 'stretch',
     marginTop: 8,
-  },
-  celebrationXpEmoji: {
-    fontSize: 16,
   },
   celebrationXpText: {
     fontSize: 14,

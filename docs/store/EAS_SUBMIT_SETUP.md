@@ -122,10 +122,13 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 
 ## Android — o que Anderson precisa fazer
 
-1. **Criar o app** com o package `com.ascendcreative.radiant`. A conta Play Console
-   **já existe** (tipo Pessoal, "Saúde Diagnóstica" — §3 do
-   [status canônico](../EXECUTION_STATUS_2026-07-29.md)); o que continua pendente
-   nela é a **verificação de acesso a dispositivo**, que exige aparelho Android real.
+1. ~~**Criar o app** com o package `com.ascendcreative.radiant`.~~ **Concluído em
+   2026-07-31** (task A3): o app existe como `Radiant — Radiologia`. A conta Play
+   Console é tipo Pessoal, "Saúde Diagnóstica" — §3 do
+   [status canônico](../EXECUTION_STATUS_2026-08-09.md). ~~O que continua pendente
+   nela é a **verificação de acesso a dispositivo**, que exige aparelho Android
+   real.~~ **Também concluída em 2026-07-31** (task A2); deixou de gatear a
+   publicação. Este passo fica aqui como registro — não há nada a fazer nele.
 2. **Gerar a service-account key** (JSON) para o `eas submit`:
    - Play Console → **Configurações → Acesso à API** → vincular/criar um projeto
      Google Cloud → criar uma **conta de serviço** → conceder acesso no Play Console
@@ -135,7 +138,7 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
      proteção **perguntando ao git**, não lendo um arquivo:
 
      ```bash
-     cd /Users/anderson/Developer/Radiant && git check-ignore -v radiant-app/credentials/play-service-account.json
+     cd "$(git rev-parse --show-toplevel)" && git check-ignore -v radiant-app/credentials/play-service-account.json
      ```
 
      A saída esperada é `.gitignore:37:credentials/`. Se **nada for impresso**,
@@ -144,34 +147,50 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
    ```sh
    eas submit --platform android --profile production
    ```
-   Para o track fechado do 12×14:
+   Para o track fechado do 12×14 — **o track deste app chama-se `alpha`**, medido
+   no console em 2026-07-31; não é um nome a inventar:
    ```sh
-   eas submit --platform android --profile production --track <track-fechado>
+   eas submit --platform android --profile production --track alpha
    ```
 
-## iOS — o que Anderson precisa fazer
+> **Estado em 2026-08-04:** `radiant-app/credentials/` existe e está **vazio** —
+> a key nunca foi gerada, então o passo 2 é o único que resta e ele é seu. A
+> proteção do `.gitignore` foi reverificada nesta data e responde exatamente
+> `.gitignore:37:credentials/`, como o passo 3 espera.
+>
+> Nada disso bloqueia subir a build: o AAB pode ir pelo console. Há um
+> `1.3.1 (6)` pronto, e ele é o primeiro que inclui a correção da barra de status
+> — o `1.3.1 (5)` do mesmo dia **precede** essa correção e não deve ser usado.
 
-1. **Conta Apple Developer** ativa; app criado no App Store Connect com o bundle id
+## iOS — fluxo concluído em 2026-08-08
+
+1. **Conta Apple Developer e app:** ativos, com bundle id
    `com.ascendcreative.radiant`.
-2. **App Store Connect API key** (Users and Access → Integrations → App Store Connect
-   API → gerar key `.p8` + Key ID + Issuer ID). O `ios: {}` vazio faz o EAS pedir/usar
-   as credenciais interativamente ou via `ascApiKeyPath`/env; documente a key onde o
-   EAS Submit espera (ou preencha `ascApiKeyPath`, `ascApiKeyId`, `ascApiKeyIssuerId`).
-3. **Submeter**:
+2. **Credenciais do App Store Connect:** configuradas no EAS sem persistir a key
+   no repositório.
+3. **Enviar o binário ao TestFlight:** executado para a build `1.3.1 (7)`:
    ```sh
    eas submit --platform ios --profile production
    ```
-   (envia para o TestFlight; o beta review da Apple libera para os testadores.)
+4. **Enviar a versão à App Review:** o comando acima termina no TestFlight; ele
+   não substitui a submissão final no console. No App Store Connect, foi preciso
+   adicionar `1.3.1 (7)` ao rascunho, abrir **Rascunhos de envios (1)** e clicar
+   **Enviar para revisão**. Estado reconfirmado no console em 2026-08-09:
+   **Aguardando revisão**.
+5. **Depois da aprovação:** a ficha está configurada para liberação manual; esse
+   é o único próximo clique do lado iOS.
 
 ## Ordem sugerida (uma vez que as contas existam)
 
 1. Build `production` das duas plataformas via EAS (`eas build --profile production
    --platform all`). **Isto trava a política de `runtimeVersion`** — só disparar quando
    for de fato submeter (ver alerta do roadmap/D5).
-2. `eas submit` iOS → TestFlight (pode ir na frente: a Apple não exige cota de
-   testadores, só App Review).
-3. `eas submit` Android → internal testing (validar) → promover para o track fechado.
-4. Recrutar os 12+ testadores no track fechado → 14 dias consecutivos → solicitar
+2. `eas submit` iOS → TestFlight → envio da versão à App Review. **Concluído em
+   2026-08-08**, sem depender da cota de testadores do Play.
+3. Android já foi publicado manualmente no track fechado `alpha` como
+   `1.3.0 (4)`; gerar a service-account key continua útil apenas para automatizar
+   submissões futuras.
+4. Alcançar 12+ opt-ins no track fechado → 14 dias consecutivos → solicitar
    produção.
 
 ## Nota de segurança

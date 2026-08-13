@@ -10,7 +10,7 @@ context:
     - docs/PRD.md
     - docs/ARCHITECTURE_STATE.md
     - docs/CONTENT_PIPELINE.md
-    - docs/EXECUTION_STATUS_2026-08-02.md
+    - docs/EXECUTION_STATUS_2026-08-10.md
     - docs/plans/2026-07-23-radiant-continuation-roadmap.md
     - docs/plans/2026-07-27-radiant-launch-roadmap.md
     - radiant-app/README.md
@@ -35,6 +35,8 @@ context:
     - dist
     - coverage
     - .expo
+    - Conteúdo/extrações
+    - conteúdo/extrações
     - radiant-app/node_modules
     - radiant-app/dist
     - radiant-app/coverage
@@ -87,6 +89,7 @@ writePolicy:
     - tools/editorial-panel/lib
     - tools/editorial-panel/package.json
     - tools/editorial-panel/package-lock.json
+    - content-manifest
     - conteúdo/classificação
     - conteúdo/conceitos
     - conteúdo/fontes
@@ -97,6 +100,41 @@ writePolicy:
     - Conteúdo/fontes
     - Conteúdo/governança
     - Conteúdo/mídia
+    # `Conteúdo/taxonomia` entrou em 2026-08-07, por run proprio e anterior,
+    # como manda o comentario de `conteúdo/extrações` logo abaixo. A lista
+    # tinha deste diretorio so a grafia do INDICE DO GIT — minuscula e em NFC
+    # — enquanto os tres irmaos acima ja estavam na grafia do DISCO, que e
+    # maiuscula e em NFD. Sao dois eixos de diferenca, nao um.
+    #
+    # O efeito era uma transacao impossivel de abrir certo: `pathIsWritable`
+    # (Loop, src/project.ts) compara byte a byte, entao declarar o caminho
+    # como o disco o soletra reprovava com INVALID_SCOPE no `step begin`; e
+    # declarar como o git o soletra, que passa no begin, e exatamente o que
+    # devolveu OUT_OF_SCOPE_CHANGE no `step finish` e custou um run em
+    # 2026-08-07 — o guarda do fim compara contra o disco. As duas grafias
+    # ficam: o indice ainda carrega a minuscula, e um checkout pode
+    # materializa-la.
+    - Conteúdo/taxonomia
+    # A janela 2 de 2026-08-08 foi ABERTA e FECHADA no mesmo dia. Entregou a
+    # saida dos quatro orfaos de extracao: 109 excertos viram 105, zero abaixo
+    # de 80 caracteres, needs-review em 19. Nao precisou de motor de IA — o
+    # conserto do extrator funde o orfao no irmao anterior, e as 76 referencias
+    # a ele ja vinham acompanhadas do irmao, entao foi remapeamento e nao
+    # regeneracao. Reabrir e pela mesma porta: run proprio e motivo escrito.
+    # A janela de 2026-08-08 para `extracoes` e `classificacao` foi ABERTA em
+    # 4b28bd5 e FECHADA aqui, cumprido o proposito. O que ela entregou: a
+    # classificacao do piloto regerada com o eixo tecnico, de 79/30 para 87/22.
+    # O que ela provou impossivel: a reextracao. Os quatro fragmentos abaixo de
+    # 80 caracteres sao load-bearing — `conceitos` e `formatos` citam p41:c2,
+    # p42:c2, p71:c2 e p33:c2 nominalmente, e sem eles validate-foundation
+    # reprova com 18 erros. Tira-los e regeneracao de conteudo, nao limpeza.
+    # Reclassificar de novo reabre `classificacao` pela mesma porta.
+    # `conteúdo/extrações` esteve aqui em 2026-08-07, por uma janela de dois
+    # commits (a5d9cc8 e adee209) e um proposito unico: retirar do indice do git
+    # o texto de fonte `blocked` que estava rastreado desde 847a12d. Cumprido o
+    # proposito, a entrada saiu. Artefato de extracao e subproduto local — se
+    # precisar entrar de novo, entra pela mesma porta: run proprio, anterior, e
+    # com o motivo escrito.
     - .loop/project.yaml
 validators:
   - id: docs-contract
@@ -111,6 +149,27 @@ validators:
   - id: content-wave1
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
       --test scripts/content/wave-1-priority-tracks.test.mjs
+    timeoutMs: 120000
+  - id: content-anchoring
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs
+    timeoutMs: 120000
+  - id: content-anchoring-data
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      scripts/content/validate-content-anchoring.mjs
+    timeoutMs: 120000
+  - id: content-no-verbatim
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node scripts/content/validate-no-verbatim.mjs
+    timeoutMs: 120000
+  - id: content-python
+    command: PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py
+      scripts/content/extract-source.test.py
+      scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py
+      scripts/content/calibration-report.test.py scripts/content/destination-state.test.py
+      scripts/content/sampling-queue.test.py; do python3 "$suite" || estado=1; done;
+      exit $estado'
     timeoutMs: 120000
   - id: app-quality
     command: cd radiant-app &&

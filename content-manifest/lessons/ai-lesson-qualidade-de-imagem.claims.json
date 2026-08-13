@@ -1,0 +1,45 @@
+{
+  "lessonId": "ai-lesson:qualidade-de-imagem",
+  "claims": [
+    {
+      "id": "claim:qualidade-de-imagem:1",
+      "claim": "O contraste radiográfico e a resolução espacial estão entre os requisitos técnicos que definem a qualidade física de uma imagem mamográfica.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p46:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:2",
+      "claim": "Para revelar sinais de câncer de mama como microcalcificações, é desejável que a mamografia capte estruturas de aproximadamente 100 μm.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p47:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:3",
+      "claim": "A presença obrigatória do CAE em todo mamógrafo compensa uma limitação humana: a atenuação do feixe pela mama de uma paciente não pode ser calculada com confiança apenas a olho pelo técnico.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p52:c2"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:4",
+      "claim": "O sensor do CAE tem posição regulável para poder ficar atrás da região de interesse; nos exames de rotina, essa região da mama costuma concentrar mais tecido glandular.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p53:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:5",
+      "claim": "Exames com ampliação usam ponto focal de 0,1 mm, valor menor que 0,3 mm, para compensar a perda de resolução espacial que a própria ampliação introduz.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p54:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:6",
+      "claim": "Um filme com latitude maior tolera uma faixa mais ampla de exposições sem sair da densidade ótica útil ao diagnóstico.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p55:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:7",
+      "claim": "O padrão de nitidez do sistema filme-tela intensificadora chega a 12 pares de linha por milímetro, fino o bastante para que espículas e microcalcificações apareçam na imagem — uma das razões de essa tecnologia permanecer em uso.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p57:c1"
+    },
+    {
+      "id": "claim:qualidade-de-imagem:8",
+      "claim": "A faixa de tons de cinza que o sistema filme-tela consegue registrar é mais estreita do que a do detector digital usado em mamografia.",
+      "excerptId": "excerpt:atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca:p57:c2"
+    }
+  ]
+}

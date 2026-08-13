@@ -52,5 +52,59 @@
     "description": "Trilha longa de alterações torácicas frequentes.",
     "trackKind": "long-form",
     "status": "planned"
+  },
+  {
+    "id": "planet-fisica-da-radiacao",
+    "galaxyId": "galaxy-fisica",
+    "slug": "fisica-da-radiacao",
+    "title": "Física da Radiação",
+    "description": "Energia, matéria, núcleo atômico e as propriedades dos raios X.",
+    "trackKind": "long-form",
+    "status": "active"
+  },
+  {
+    "id": "planet-producao-e-protecao",
+    "galaxyId": "galaxy-fisica",
+    "slug": "producao-e-protecao",
+    "title": "Produção e Proteção",
+    "description": "Como o feixe é produzido, como a radiação interage e como ela é contida.",
+    "trackKind": "long-form",
+    "status": "active"
+  },
+  {
+    "id": "planet-equipamento",
+    "galaxyId": "galaxy-tecnologia",
+    "slug": "equipamento",
+    "title": "Equipamento",
+    "description": "O aparelho de radiologia convencional, seus componentes e acessórios.",
+    "trackKind": "long-form",
+    "status": "active"
+  },
+  {
+    "id": "planet-modalidades",
+    "galaxyId": "galaxy-tecnologia",
+    "slug": "modalidades",
+    "title": "Modalidades",
+    "description": "Tomografia computadorizada, ressonância magnética e medicina nuclear.",
+    "trackKind": "long-form",
+    "status": "active"
+  },
+  {
+    "id": "planet-imagem-na-pratica",
+    "galaxyId": "galaxy-tecnologia",
+    "slug": "imagem-na-pratica",
+    "title": "Imagem na Prática",
+    "description": "Processamento radiográfico e os fatores que decidem a qualidade da imagem.",
+    "trackKind": "long-form",
+    "status": "active"
+  },
+  {
+    "id": "planet-profissao-e-aplicacoes",
+    "galaxyId": "galaxy-tecnologia",
+    "slug": "profissao-e-aplicacoes",
+    "title": "Profissão e Aplicações",
+    "description": "Atuação do técnico em radiologia e aplicações não-médicas da radiação.",
+    "trackKind": "long-form",
+    "status": "active"
   }
 ]

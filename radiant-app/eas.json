@@ -22,6 +22,21 @@
         "simulator": true
       }
     },
+    "checkpoint-internal": {
+      "extends": "development",
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "active",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_PERFORMANCE": "true",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+      }
+    },
+    "checkpoint-internal-simulator": {
+      "extends": "checkpoint-internal",
+      "ios": {
+        "simulator": true
+      }
+    },
     "e2e-test": {
       "extends": "development",
       "developmentClient": false,
@@ -46,6 +61,7 @@
         "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_PUSH": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "shadow",
         "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     },
@@ -60,6 +76,7 @@
         "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
         "EXPO_PUBLIC_ENABLE_PUSH": "true",
         "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+        "EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE": "off",
         "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     }

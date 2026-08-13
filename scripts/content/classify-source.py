@@ -9,10 +9,50 @@ from pathlib import Path
 
 CONTENT_ROOT_NAME = "conteúdo"
 CLASSIFIER_VERSION = "deterministic-keyword-v1"
-TAXONOMY_VERSION = "mvp-2026-04-04"
+TAXONOMY_VERSION = "eixo-tecnico-2026-08-07"
 
 
 GALAXY_RULES: dict[str, list[tuple[str, float]]] = {
+    "galaxy-tecnologia": [
+        # Eixo tecnico, acrescentado em 2026-08-08. O vocabulario foi PODADO
+        # contra o boilerplate da fonte: "tecnico em radiologia" aparece em 77
+        # dos 109 excertos porque e o cabecalho de pagina do modulo, e usa-lo
+        # como sinal punha um excerto de dose em "profissao e aplicacoes". O
+        # termo de maior aparencia semantica era o do rodape.
+        ("bucky", 4.2),
+        ("chassi", 4.2),
+        ("cassete", 3.8),
+        ("ecran", 4.0),
+        ("écran", 4.0),
+        ("colimador", 4.0),
+        ("grade antidifusora", 4.4),
+        ("estativa", 3.6),
+        ("revelacao", 4.0),
+        ("revelação", 4.0),
+        ("revelador", 4.0),
+        ("fixador", 4.0),
+        ("camara escura", 4.4),
+        ("câmara escura", 4.4),
+        ("processamento", 3.4),
+        # "medicina nuclear" fica BAIXO na galaxia e alto no planeta: ele
+        # aparece de passagem em texto de dose, e peso alto aqui diluia a
+        # confianca de excertos que nao mudavam de destino.
+        ("medicina nuclear", 2.6),
+        ("cintilografia", 4.4),
+        ("radiofarmaco", 4.2),
+        ("radiofármaco", 4.2),
+        ("ressonancia magnetica", 4.0),
+        ("ressonância magnética", 4.0),
+        ("irradiacao de alimentos", 4.6),
+        ("irradiação de alimentos", 4.6),
+        ("alimento", 3.2),
+        ("alimentos", 3.2),
+        ("esterilizacao", 3.4),
+        ("esterilização", 3.4),
+        ("carreira", 3.4),
+        ("etica profissional", 3.8),
+        ("ética profissional", 3.8),
+    ],
     "galaxy-fisica": [
         ("energia", 3.0),
         ("matéria", 2.4),
@@ -86,7 +126,51 @@ GALAXY_RULES: dict[str, list[tuple[str, float]]] = {
 
 
 PLANET_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
+    "galaxy-tecnologia": {
+        "planet-equipamento": [
+            ("bucky", 4.4), ("chassi", 4.4), ("cassete", 4.0), ("ecran", 4.2), ("écran", 4.2),
+            ("colimador", 4.2), ("grade", 3.0), ("estativa", 3.8), ("mesa", 2.4),
+            ("aparelho", 2.6), ("equipamento", 2.6), ("componente", 3.0),
+            ("acessorio", 3.0), ("acessório", 3.0), ("gerador", 2.6),
+        ],
+        "planet-modalidades": [
+            ("medicina nuclear", 4.6), ("cintilografia", 4.6), ("radiofarmaco", 4.4),
+            ("radiofármaco", 4.4), ("radioisotopo", 4.2), ("radioisótopo", 4.2),
+            ("ressonancia", 4.0), ("ressonância", 4.0), ("tomografia", 3.6),
+            ("gama", 2.8), ("ultrassom", 3.0), ("modalidade", 3.0),
+        ],
+        "planet-imagem-na-pratica": [
+            ("revelacao", 4.4), ("revelação", 4.4), ("revelador", 4.4), ("fixador", 4.4),
+            ("camara escura", 4.6), ("câmara escura", 4.6), ("processamento", 4.0),
+            ("densidade", 2.6), ("contraste", 2.6), ("nitidez", 3.4),
+            ("resolucao", 2.8), ("resolução", 2.8), ("artefato", 2.8),
+            ("qualidade de imagem", 4.2),
+        ],
+        "planet-profissao-e-aplicacoes": [
+            ("irradiacao de alimentos", 4.8), ("irradiação de alimentos", 4.8),
+            ("alimento", 3.6), ("alimentos", 3.6), ("esterilizacao", 3.6),
+            ("esterilização", 3.6), ("conservacao", 2.6), ("conservação", 2.6),
+            ("carreira", 3.4), ("atuacao", 3.0), ("atuação", 3.0),
+            ("etica profissional", 4.0), ("ética profissional", 4.0),
+            ("mercado de trabalho", 4.0),
+        ],
+    },
     "galaxy-fisica": {
+        "planet-fisica-da-radiacao": [
+            ("energia", 3.4), ("materia", 3.0), ("matéria", 3.0), ("atomo", 3.8), ("átomo", 3.8),
+            ("nucleo", 3.8), ("núcleo", 3.8), ("eletron", 3.6), ("elétron", 3.6),
+            ("proton", 3.6), ("próton", 3.6), ("neutron", 3.6), ("nêutron", 3.6),
+            ("radioatividade", 4.2), ("isotopo", 3.6), ("isótopo", 3.6), ("decaimento", 3.8),
+            ("becquerel", 4.2), ("curie", 4.2), ("roentgen", 3.4), ("foton", 3.2), ("fóton", 3.2),
+        ],
+        "planet-producao-e-protecao": [
+            ("producao dos raios", 4.4), ("produção dos raios", 4.4), ("ampola", 4.2),
+            ("catodo", 4.2), ("cátodo", 4.2), ("anodo", 4.2), ("ânodo", 4.2),
+            ("filamento", 3.8), ("tubo de raios", 4.0), ("compton", 4.2),
+            ("fotoeletrico", 4.2), ("fotoelétrico", 4.2), ("atenuacao", 3.6), ("atenuação", 3.6),
+            ("blindagem", 4.0), ("avental", 4.0), ("chumbo", 3.6), ("dosimetro", 4.0),
+            ("dosímetro", 4.0), ("radioprotecao", 4.2), ("radioproteção", 4.2), ("barreira", 3.0),
+        ],
         "planet-formacao-imagem": [
             ("imagem", 2.4),
             ("formação da imagem", 4.4),
@@ -187,6 +271,7 @@ PLANET_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
 
 
 STAR_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
+    "galaxy-tecnologia": {},
     "galaxy-fisica": {
         "star-artefatos-basicos": [
             ("equipamento", 3.0),
@@ -253,6 +338,8 @@ STAR_RULES: dict[str, dict[str, list[tuple[str, float]]]] = {
 
 
 DEFAULT_TRACKS = {
+    # Sem estrela: os planetas do eixo tecnico nao tem camada de estrela.
+    "galaxy-tecnologia": ("planet-equipamento", None),
     "galaxy-fisica": ("planet-formacao-imagem", "star-artefatos-basicos"),
     "galaxy-patologias": ("planet-patologia-toracica", "star-pneumotorax"),
     "galaxy-anatomia": ("planet-torax", "star-coluna"),
@@ -361,26 +448,49 @@ def classify_excerpt(excerpt: dict, default_galaxy_id: str = "galaxy-fisica") ->
         planet_rules,
         default_planet_id,
     )
-    star_ids_for_planet = PLANET_STAR_IDS[planet_id]
-    star_rules = [(star_id, STAR_RULES[galaxy_id][star_id]) for star_id in star_ids_for_planet]
-    star_fallback_id = default_star_id if default_star_id in star_ids_for_planet else star_ids_for_planet[0]
-    star_id, star_confidence, star_matches, star_runner_up = best_match(
-        normalized_text,
-        star_rules,
-        star_fallback_id,
-    )
+    # A camada de estrela e OPCIONAL. Os planetas do eixo tecnico nao tem
+    # estrela, por decisao do dono em 2026-08-07, e antes disto a indexacao
+    # direta em PLANET_STAR_IDS[planet_id] e em [0] tornava esses planetas
+    # inalcancaveis: a classificacao estourava antes de poder pousar neles.
+    star_ids_for_planet = PLANET_STAR_IDS.get(planet_id, [])
 
-    combined_confidence = round(
-        min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
-        3,
-    )
+    if star_ids_for_planet:
+        star_rules = [(star_id, STAR_RULES[galaxy_id][star_id]) for star_id in star_ids_for_planet]
+        star_fallback_id = (
+            default_star_id if default_star_id in star_ids_for_planet else star_ids_for_planet[0]
+        )
+        star_id, star_confidence, star_matches, star_runner_up = best_match(
+            normalized_text,
+            star_rules,
+            star_fallback_id,
+        )
+        combined_confidence = round(
+            min(0.98, (galaxy_confidence * 0.5) + (planet_confidence * 0.3) + (star_confidence * 0.2)),
+            3,
+        )
+    else:
+        star_id, star_confidence, star_matches, star_runner_up = None, 0.0, [], 0.0
+        # RENORMALIZA. Reaproveitar 0.5/0.3 sem a parcela de 0.2 poria todo
+        # planeta sem estrela num teto de 0.8 do que ele mereceria, e o limiar de
+        # needs_review e 0.7 — planeta sem estrela cairia em revisao POR
+        # CONSTRUCAO, que e o oposto do objetivo de dar destino a eles.
+        # 0.5/0.8 = 0.625 e 0.3/0.8 = 0.375.
+        combined_confidence = round(
+            min(0.98, (galaxy_confidence * 0.625) + (planet_confidence * 0.375)),
+            3,
+        )
     needs_review = combined_confidence < 0.7 or (galaxy_runner_up > 0 and (galaxy_scores[galaxy_id] - galaxy_runner_up) < 2.0)
     review_status = "needs-review" if needs_review else "approved"
 
+    star_reason = (
+        f"star {star_id} from matches {star_matches or ['fallback']}."
+        if star_id is not None
+        else "sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada."
+    )
     decision_reason = (
         f"Galaxy {galaxy_id} from matches {galaxy_matches or ['fallback']}; "
         f"planet {planet_id} from matches {planet_matches or ['fallback']}; "
-        f"star {star_id} from matches {star_matches or ['fallback']}."
+        f"{star_reason}"
     )
 
     return {
@@ -461,7 +571,11 @@ def classify_source(
             raise ValueError(f"Unknown galaxy {record['galaxyId']} for excerpt {excerpt['id']}")
         if record["planetId"] not in taxonomy["planet_ids"]:
             raise ValueError(f"Unknown planet {record['planetId']} for excerpt {excerpt['id']}")
-        if record["starId"] not in taxonomy["star_ids"]:
+        # Guarda irma da de classify_excerpt, e ela precisava da MESMA excecao:
+        # `starId` nulo e legitimo para planeta sem estrela. Corrigir so o
+        # classificador deixava esta aqui, e ela reprovava o mesmo caso — o
+        # teste do bundle foi quem pegou.
+        if record["starId"] is not None and record["starId"] not in taxonomy["star_ids"]:
             raise ValueError(f"Unknown star {record['starId']} for excerpt {excerpt['id']}")
         classifications.append(record)
         if record["reviewStatus"] == "needs-review":

@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
+import {
+    STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+    useShadowCheckpoint,
+} from '../../student-checkpoints/useShadowCheckpoint';
 
 import { AppButton } from '../../../components/ui/AppButton';
 import WelcomeFlowScreen from '../../first-run/screens/WelcomeFlowScreen';
@@ -32,7 +36,8 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
-import { tabBarClearance, typography } from '../../../ui/styles';
+import { space, tabBarClearance, typography } from '../../../ui/styles';
+import { StreakIcon, XpIcon } from '../../../ui/components/HudIcons';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
 // Alias de tokens: nenhum valor próprio de cor vive nesta tela.
@@ -127,7 +132,7 @@ function getApiHealthErrorLabel(error: unknown): string {
 }
 
 function StreakCalendarCard({ streakDays }: { streakDays: number }) {
-    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><Text style={styles.streakNumber}>🔥 {streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
+    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><View style={styles.metricValueRow}><StreakIcon size={24} /><Text style={styles.streakNumber}>{streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text></View><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
 }
 
 function AccuracyChartCard({ stats }: { stats: LearningStatsSnapshot | null }) {
@@ -160,7 +165,7 @@ function StatsGrid({ totalXp, dueCount }: { totalXp: number; dueCount: number })
             {/* TOTAL XP */}
             <View style={styles.statsGridCard}>
                 <Text style={styles.statsGridLabel}>TOTAL XP</Text>
-                <Text style={styles.statsGridValue}>⚡ {totalXp}</Text>
+                <View style={styles.metricValueRow}><XpIcon size={20} value={totalXp} /><Text style={styles.statsGridValue}>{totalXp}</Text></View>
                 <Text style={styles.statsGridSub}>XP acumulado</Text>
             </View>
 
@@ -232,6 +237,17 @@ export default function ProgressScreen() {
     const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
     const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
     const [showWelcomeReplay, setShowWelcomeReplay] = useState(false);
+
+    useShadowCheckpoint({
+        surface: 'progress',
+        flowId: 'progress-v1',
+        contentVersion: STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
+        cursorId: 'progress',
+        compatibleCursorIds: ['progress'],
+        progressPercent: 0,
+        completedStepCount: 0,
+        totalStepCount: 1,
+    });
 
     const load = useCallback(async () => {
         try {
@@ -573,9 +589,23 @@ export default function ProgressScreen() {
                             label="Learning Road"
                             value={AppConfig.ENABLE_LEARNING_ROAD ? 'ativada' : 'desativada'}
                         />
+                        {/*
+                          O gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`
+                          (`_layout.tsx`), e este painel só existe sob
+                          `SHOW_DEV_TOOLS` — logo "ativo" é inalcançável aqui por
+                          construção, e a flag crua anunciava exatamente o
+                          contrário do que a build faz. Mesma correção de
+                          honestidade já aplicada à linha de sync abaixo.
+                        */}
                         <CardRow
                             label="Beta Gate"
-                            value={AppConfig.ENABLE_BETA_GATE ? 'ativo' : 'bypass local'}
+                            value={
+                                AppConfig.ENABLE_BETA_GATE && !AppConfig.SHOW_DEV_TOOLS
+                                    ? 'ativo'
+                                    : AppConfig.ENABLE_BETA_GATE
+                                      ? 'ligado, bypass por dev tools'
+                                      : 'desativado'
+                            }
                         />
                         <CardRow
                             label="Sync remoto"
@@ -863,6 +893,7 @@ const styles = StyleSheet.create({
         ...typography.h2,
         color: D.text,
     },
+    metricValueRow: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
     streakSub: {
         ...typography.micro,
         color: D.textSec,

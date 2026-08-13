@@ -1,17 +1,37 @@
-# Geração dos assets de ícone e de loja
+# Geração dos assets de ícone, de loja e de documentação
 
-Três scripts, todos determinísticos e versionados junto com a saída que produzem —
+Quatro scripts, todos determinísticos e versionados junto com a saída que produzem —
 eles existem para que a geração seja auditável e reproduzível, não para rodar no CI.
 
-| Script | Produz |
-| --- | --- |
-| `build-icons.py` | os oito ícones do app, a partir da arte-mestra |
-| `build-feature-graphic.py` | o feature graphic 1024×500 da ficha do Play |
-| `normalize-screenshots.py` | os screenshots de loja, a partir das capturas cruas do Maestro |
+| Script | Produz | Dependência |
+| --- | --- | --- |
+| `build-icons.py` | os oito ícones do app, a partir da arte-mestra | Pillow |
+| `build-feature-graphic.py` | o feature graphic 1024×500 da ficha do Play | Pillow |
+| `normalize-screenshots.py` | os screenshots de loja, a partir das capturas cruas do Maestro | Pillow |
+| `build-client-flow-print.py` | `docs/CLIENT_FLOW_PRINT.pdf`, a folha A4 do fluxo do usuário | reportlab |
 
-Os dois últimos e o passo de captura estão documentados em
+Os três de loja e o passo de captura estão documentados em
 [`docs/store/ASSETS_DE_LOJA.md`](../../docs/store/ASSETS_DE_LOJA.md), com as
 armadilhas de emulador medidas em 2026-07-29.
+
+**Nenhum script acessa a rede.** As duas dependências são de terceiros e não
+estão travadas por lockfile — este diretório não é instalado, é rodado à mão
+quando a saída precisa ser refeita.
+
+## build-client-flow-print.py
+
+Desenha em A4 paisagem o fluxo canônico descrito em
+[`docs/CLIENT_FLOW.md`](../../docs/CLIENT_FLOW.md), que continua sendo a fonte:
+o PDF é projeção para impressão e para o módulo opcional do cérebro, não
+autoridade. Se o comportamento do app mudar, o fluxo e esta folha mudam no mesmo
+commit que o código.
+
+```bash
+python3 -m pip install --user reportlab   # verificado com 4.5.1
+python3 scripts/assets/build-client-flow-print.py
+```
+
+O caminho de saída é fixo no script; ele não aceita argumentos.
 
 ## build-icons.py
 
@@ -19,8 +39,8 @@ Produz **todos** os ícones do Radiant a partir de uma única arte-mestra.
 
 ## Pré-requisito
 
-Python 3 com [Pillow](https://pillow.readthedocs.io/). Não há mais nenhuma
-dependência, e nada de rede.
+Python 3 com [Pillow](https://pillow.readthedocs.io/) — vale para os três
+scripts de ícone e de loja, e nada de rede.
 
 ```bash
 python3 -c "import PIL; print(PIL.__version__)"   # verificado com 11.3.0

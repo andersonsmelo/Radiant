@@ -104,6 +104,27 @@ class JourneyProgressServiceImpl {
             return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
         }
 
+        // A autorização mora aqui porque é aqui que a escrita acontece. Antes
+        // ela morava só na tela de conquista, e três outros caminhos chegavam a
+        // esta linha sem passar por lá: `/learn` entrega `nodeId` cru dos
+        // parâmetros de rota para `markNodeCompleted`, o checkpoint filtra por
+        // tipo e não por status, e o serviço é chamável direto. Um deep link
+        // para `/learn` com o nó de reward bloqueado e um bloco de lição real
+        // gravava a conquista da unidade e emitia `reward_awarded`.
+        //
+        // A régua é `unlockRule`, não o status cru: um nó de revisão fora da
+        // fila do dia lê como 'locked' sem estar bloqueado — ele só não está
+        // vencido —, e recusá-lo quebraria a conclusão de revisão, que é
+        // legítima. Para os demais tipos, 'locked' e regra insatisfeita são a
+        // mesma condição.
+        if (!JourneyRecommendationService.isNodeUnlocked(node, progress)) {
+            const status = JourneyRecommendationService.resolveNodeStatus(node, progress);
+            console.warn(
+                `[JourneyProgressService] Refused to complete locked node "${nodeId}" (status: ${status})`
+            );
+            return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
+        }
+
         const completedNodeIds = progress.completedNodeIds.includes(nodeId)
             ? progress.completedNodeIds
             : [...progress.completedNodeIds, nodeId];

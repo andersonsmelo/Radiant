@@ -1,0 +1,425 @@
+appId: com.ascendcreative.radiant
+name: Reward unlocks only after the last lesson of the track
+tags:
+  - reward
+  - unlock-rule
+  - critical-path
+---
+# A outra metade da conquista. `reward-locked.yaml` cobre o nó pelo deep link e
+# prova o estado bloqueado; ele **não** prova a regra de destravamento, e diz
+# isso de si mesmo. Esta é a regra: `JourneyDefinitionService` abre o reward com
+# `requiresNodeIds: [node:<última lição>]`, e a trilha ativa tem sete lições
+# encadeadas por checkpoint — lição → checkpoint → lição, seis vezes.
+#
+# Os dois flows apontam para o **mesmo** nó, `node:reward:fundamentos:final`.
+# Um afirma que ele não se deixa coletar bloqueado; o outro, que ele se deixa
+# coletar depois de sete lições, e só depois. Separados, cada um passa por
+# metade do motivo errado.
+#
+# ⚠️ Este flow **não pode** alcançar o reward por deep link. Chegar por
+# `radiantapp://reward?nodeId=…` provaria de novo o que o irmão já prova e
+# deixaria a regra descoberta outra vez, sem que nada ficasse vermelho. O
+# caminho é o do produto: o CTA da home, que sai de `continueLabel` em
+# `JourneyHomeScreen`, e o CTA do checkpoint, que sai de `resolveNextAction`.
+# `scripts/maestro-contract.test.mjs` proíbe o deep link aqui.
+#
+# Custo: sete lições e seis checkpoints, ~3,2× a `learning-critical-path`.
+# Ele é longo porque a regra é longa — encurtar a trilha exigiria fixture, e
+# uma fixture de 2 lições cai no ramo `lessonCount <= 2` de `rewardNodeId()`,
+# que constrói um id que produção nunca constrói.
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
+- assertVisible: Foco de hoje
+
+# ── Unidade 1 ────────────────────────────────────────────────────────────────
+# Só a primeira lição entra por deep link, como na `learning-critical-path`:
+# é o ponto de partida determinístico. Daqui em diante quem navega é o app.
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”\?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: Fundamentos de Radiologia
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+# A régua é declarada, não herdada. O Maestro pede 100% por padrão, e em
+# 2026-08-06 isso reprovou uma opção que estava na tela e clicável: um brilho
+# decorativo cobria ~11% dos bounds no Android, medido na árvore no instante da
+# falha. `assertVisible` e `tapOn` do mesmo id passaram, e o scroll passou a
+# 80%. 80 é margem sobre os 89% medidos — não é "aceitar menos", é parar de
+# medir com uma régua que ninguém escolheu.
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:1'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:1'
+- tapOn: Continuar
+# O passo de reforço depois de uma pergunta respondida mostra o feedback da
+# resposta, não o título do payload. A ação de rodapé é o que sempre existe.
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 1 ─────────────────────────────────────────────────────────────
+# O CTA da home renderiza depois do mapa inteiro, abaixo da dobra. É um
+# AppButton: iOS colapsa a subárvore e o nó expõe só `accessibilityText`, com
+# `text` vazio — `scrollUntilVisible` casa com `element.text` e nunca resolve
+# aqui, enquanto `visible`/`tapOn` casam. Daí o `repeat` guardado.
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+# A guarda para no instante em que o CTA entra na árvore, o que num emulador
+# rápido o deixa descansando SOB a tab bar flutuante. Uma rolagem a mais o
+# levanta antes do toque.
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+# Depois do checkpoint o próximo nó recomendado é a lição seguinte, então
+# `resolveNextAction` devolve este rótulo e o toque já entra na lição — não
+# passa pela home.
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 2 ────────────────────────────────────────────────────────────────
+- assertVisible: Princípios de Tomografia Computadorizada
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q3:option:2'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q3:option:2'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 2 ─────────────────────────────────────────────────────────────
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 3 ────────────────────────────────────────────────────────────────
+- assertVisible: 'Quiz: Profissão e atuação do técnico em radiologia'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 3 ─────────────────────────────────────────────────────────────
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 4 ────────────────────────────────────────────────────────────────
+- assertVisible: 'Quiz: Energia e matéria'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Como a energia de um fóton de raios X se relaciona com sua frequência\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 4 ─────────────────────────────────────────────────────────────
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 5 ────────────────────────────────────────────────────────────────
+- assertVisible: 'Quiz: Estrutura da matéria e núcleo atômico'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'O que diferencia dois isótopos de um mesmo elemento químico\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 5 ─────────────────────────────────────────────────────────────
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 6 ────────────────────────────────────────────────────────────────
+- assertVisible: 'Quiz: Radioatividade, partículas e atividade'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual tipo de radiação possui MENOR poder de penetração nos tecidos\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── Checkpoint 6 — o último ──────────────────────────────────────────────────
+# `buildUnit` cria checkpoint para toda lição menos a última, então são seis
+# para sete lições. Este é o `lessons.length - 2`, o único cujo título é
+# "Checkpoint da unidade" — os anteriores são "Checkpoint N".
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir checkpoint
+- assertVisible: Checkpoint da unidade
+- repeat:
+    times: 15
+    while:
+      notVisible: Concluir checkpoint
+    commands:
+      - scroll
+- scroll
+- tapOn: Concluir checkpoint
+- assertVisible: CONQUISTA DESBLOQUEADA
+- repeat:
+    times: 15
+    while:
+      notVisible: Abrir próxima lição
+    commands:
+      - scroll
+- scroll
+- tapOn: Abrir próxima lição
+
+# ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
+- assertVisible: 'Quiz: Raios X: descoberta e propriedades'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Quem descobriu os raios X e em que ano\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+
+# ── A conquista destravou ────────────────────────────────────────────────────
+# Aqui está a asserção que dá sentido ao flow inteiro: o CTA da home mudou.
+# `continueLabel` só devolve "Receber conquista" quando o nó recomendado é do
+# tipo `reward`, e o reward só entra como recomendado quando
+# `requiresNodeIds: [node:<última lição>]` está satisfeito. As seis lições
+# anteriores nunca produziram este rótulo — cada uma produziu "Abrir
+# checkpoint". O rótulo é a regra falando.
+- repeat:
+    times: 15
+    while:
+      notVisible: Receber conquista
+    commands:
+      - scroll
+- scroll
+- tapOn: Receber conquista
+- assertVisible: Conquista da unidade
+# O espelho exato da asserção do flow irmão: lá, "Bloqueada até a unidade
+# fechar"; aqui, o mesmo `GalaxyStatRow` dizendo o contrário sobre o mesmo nó.
+- assertVisible: Pronta para ser coletada
+# 14 nós primários na unidade (7 lições + 6 checkpoints + o reward); 13 feitos.
+# Este número é o que separa "a tela mudou de texto" de "o progresso existe":
+# era exatamente ele, em "0 de 14", que denunciava o defeito de 2026-08-04.
+- assertVisible: 13 de 14 marcos da unidade concluídos
+# Rolar até o card de ação antes de afirmar. A presença também precisa do lugar
+# onde ela apareceria estar sendo olhado — e nesta tela todo nó expõe
+# `accessibilityText` com `text` vazio, então `scrollUntilVisible` não resolve.
+- repeat:
+    times: 10
+    while:
+      notVisible: 'Pronto para coletar essa conquista\?'
+    commands:
+      - scroll
+# O `?` é escapado porque o seletor do Maestro é regex de casamento total: sem
+# a barra, `a?` torna o "a" opcional e o "?" literal fica sem nada para casar —
+# a asserção passaria a valer para uma tela que não existe.
+- assertVisible: 'Pronto para coletar essa conquista\?'
+- assertVisible: Receber conquista
+- tapOn: Receber conquista
+# A coleta gravou. Sem esta parte o flow provaria que o botão aparece, não que
+# ele faz o que promete.
+- assertVisible: Conquista registrada
+- assertVisible: Salva no seu progresso
+- assertVisible: 14 de 14 marcos da unidade concluídos

@@ -14,14 +14,36 @@
     "reviewStatus"
   ],
   "properties": {
-    "id": { "type": "string" },
-    "sourceExcerptId": { "type": "string" },
-    "sourceSlug": { "type": "string" },
-    "galaxyId": { "type": "string" },
-    "planetId": { "type": "string" },
-    "starId": { "type": "string" },
-    "confidence": { "type": "number" },
-    "decisionReason": { "type": "string" },
-    "reviewStatus": { "type": "string" }
+    "id": {
+      "type": "string"
+    },
+    "sourceExcerptId": {
+      "type": "string"
+    },
+    "sourceSlug": {
+      "type": "string"
+    },
+    "galaxyId": {
+      "type": "string"
+    },
+    "planetId": {
+      "type": "string"
+    },
+    "starId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Estrela de destino, ou null quando o planeta nao tem estrela. A taxonomia do eixo tecnico (2026-08-07) tem seis planetas sem estrela por decisao do dono: estrela e trilha curta complementar e nao ha nenhuma produzida. Exigir string aqui tornava esses planetas inalcancaveis pela classificacao."
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "decisionReason": {
+      "type": "string"
+    },
+    "reviewStatus": {
+      "type": "string"
+    }
   }
 }

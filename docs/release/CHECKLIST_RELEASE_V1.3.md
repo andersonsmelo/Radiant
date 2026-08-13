@@ -3,23 +3,20 @@
 > Lista única de **go/no-go** para submeter a v1.3 nas duas lojas. Cada item tem
 > estado e dono; os detalhes vivem nas tasks do
 > [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md) e no
-> [status canônico](../EXECUTION_STATUS_2026-07-29.md). Este documento **não
+> [status canônico](../EXECUTION_STATUS_2026-08-09.md). Este documento **não
 > substitui** o roadmap — ele é o checklist final que se percorre antes de cada
 > submissão.
 >
 > Legenda: ✅ feito · ⏳ pendente · ⛔ bloqueado (dependência externa) ·
 > 🔁 refazer sob perfil de produção.
 
-**Última atualização:** revisado em `f106d26` (2026-07-31, tarde) · **Alvo:** v1.3.0
+**Última atualização:** primeira vitória E2E iOS + Android e App Store Connect
+medidos em 2026-08-09 · **Alvo:** v1.3.1
 
-> **Por que a marca de atualização é um hash, e não uma data.** A revisão anterior
-> deste checklist também dizia "2026-07-31" — foi feita na manhã daquele dia, no
-> commit `f2fddcb`. À tarde, cinco itens desta lista voltaram a estar errados: a
-> conta foi verificada, o app foi criado, o AAB passou a existir. **Data em
-> granularidade de dia não distingue duas revisões do mesmo dia**, e um checklist de
-> go/no-go é exatamente onde essa ambiguidade custa. Ancorado a um hash, o leitor
-> sabe contra qual estado do repositório esta lista foi conferida — a mesma regra
-> que este projeto já aplica a contagens.
+> **Por que a marca separa código de console.** A validação datada ancora o que
+> existe no repositório; preço, declarações e estado da App Review não pertencem
+> ao Git e precisam de data e hora. Misturar os dois como se fossem uma única
+> fotografia faria o checklist parecer mais preciso do que a evidência permite.
 
 > **Por que esta revisão foi grande.** O checklist ficou parado em 2026-07-27
 > enquanto o status canônico e os planos avançaram quatro dias. Quinze itens
@@ -36,27 +33,34 @@
 - [x] ✅ Gate 2 de acessibilidade — item 5 (teclado no build web) fechado; folga
   da tab bar e `JourneyMap` corrigidos. Ver
   [`ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
-- [ ] ⏳ Gate 2 — **item 2** (VoiceOver com áudio, task **B4**) — exige sessão
-  humana. Único item do Gate 2 aberto.
-- [ ] ⏳ Nó de reward coberto por E2E (task **B5**). O `learning-critical-path.yaml`
-  documenta por que ficou de fora: o track ativo tem 7 lições e o
-  `JourneyDefinitionService` só libera a recompensa depois da **última**.
-- [x] ✅ Onboarding em instalação limpa (task **B6**) — **investigado em 2026-07-27
-  e encerrado sem correção de runtime**: "instalação limpa → Home" é consequência
-  correta da Learning Road ser a home. A investigação achou código morto de
-  onboarding, não defeito. Ver B6 no roadmap.
+- [x] ✅ Gate 2 — **item 2** (VoiceOver, task **B4**) fechado em 2026-08-06;
+  com isso o Gate 2 ficou **5/5**. A evidência e o gatilho de reabertura estão em
+  [`2026-08-06-b4-voiceover-item2.md`](../../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md).
+- [ ] ⏳ Nó de reward coberto por E2E nas duas plataformas (task **B5**). O
+  `reward-unlock.yaml` passou no iOS em 2026-08-06; a execução Android dos 170
+  passos continua pendente e exige janela exclusiva de host. O flow bloqueado
+  (`reward-locked.yaml`) já passou nas duas plataformas.
+- [x] ✅ Primeira experiência (tasks **B6/B9**) — o wizard morto foi removido e
+  a apresentação aprovada de três telas permanece pulável. Desde 2026-08-09,
+  **Começar** abre o próximo nó elegível e **Pular apresentação** abre a Home;
+  o `first-run.yaml` atualizado passou 1/1 em simulador iOS 26.5 e 1/1 em
+  emulador Android API 36 sobre builds locais Release. Ver
+  [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+  e
+  [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md).
 
 ## 2. Versionamento e OTA (task D5) — ✅ CONCLUÍDA em 2026-07-28
 
-Estado medido em 2026-07-31: `version` **1.3.0** · `ios.buildNumber` **2** ·
-`android.versionCode` **2** · `runtimeVersion.policy` `appVersion`.
+Estado medido em 2026-08-08: `version` **1.3.1** · contadores de build remotos ·
+`runtimeVersion.policy` `appVersion`.
 
-- [x] ✅ `version` = **1.3.0** em `package.json` e `app.json`, alinhados.
-- [x] ✅ `ios.buildNumber` e `android.versionCode` em **2** para o primeiro build.
+- [x] ✅ `version` = **1.3.1** em `package.json` e `app.json`, alinhados.
+- [x] ✅ `cli.appVersionSource: remote` + `autoIncrement`: os valores locais de
+  `ios.buildNumber`/`android.versionCode` não respondem qual foi o último build.
+  O artefato iOS submetido é `1.3.1 (7)`.
 - [x] ✅ Política de `runtimeVersion` documentada aqui e no roadmap (D5).
   **Continua valendo o alerta:** depois do primeiro build publicado, nunca alterar
-  `runtimeVersion` sem novo build — OTA só entrega JS compatível. Nenhum build foi
-  publicado ainda, então a versão ainda é livre; **deixa de ser em F1/F2**.
+  `runtimeVersion` sem novo build — OTA só entrega JS compatível.
 
 ## 3. E2E e matriz real-device (task D3/16)
 
@@ -79,6 +83,7 @@ submeter: uma linha iOS e uma Android com PASS.
 
 | Dispositivo | Classe | iOS/Android | Status | Cobre |
 | --- | --- | --- | --- | --- |
+| iPhone físico; modelo/iOS não registrados | não inferida | iOS | ✅ | smoke de 7 cenários, relaunch offline, links legais e VoiceOver; build `1.3.1 (5)` |
 | iPhone 6,7" (ex.: 15/16 Pro Max) | grande | iOS | ⏳ | notch dinâmico, safe area, fontes ampliadas |
 | iPhone 6,1"/6,5" (ex.: 15/16) | médio | iOS | ⏳ | tamanho mais comum |
 | ~~iPad 13"~~ | tablet | iPadOS | ➖ **fora de escopo** | `supportsTablet: false` na v1.3 (decidido em E1, 2026-07-29) |
@@ -93,6 +98,10 @@ fontes ampliadas · sem vazamento de rota no header.
 > projeto nativo, resolvido em 2026-07-28/29 — o que falta agora é **hardware**,
 > não engenharia. Simulador e emulador **não** preenchem esta matriz: ela existe
 > justamente para o que só aparece em aparelho real.
+>
+> **O iPhone físico não preenche uma classe de tamanho:** o modelo e a versão do
+> iOS não foram registrados. A evidência funcional é válida e fechou F1/B4, mas
+> não autoriza inferir que uma das duas linhas dimensionais passou.
 
 ## 4. Privacidade e telemetria (M3)
 
@@ -113,8 +122,9 @@ fontes ampliadas · sem vazamento de rota no header.
 - [x] ✅ Política de Privacidade e Central de Suporte disponíveis **dentro do
   app** — cartão sempre visível **Ajuda e informações** na aba Progresso, URLs
   HTTPS centralizadas, papéis/dicas acessíveis e falha do navegador contida. As
-  4 suítes focadas passaram com 14 testes em 2026-08-01. A abertura em iPhone
-  físico e o VoiceOver continuam pendentes e não são inferidos desses testes.
+  4 suítes focadas passaram com 14 testes em 2026-08-01; a abertura dos dois
+  destinos em iPhone físico passou em 2026-08-05 e B4/VoiceOver fechou em
+  2026-08-06.
 - [ ] ⛔ **Sentry: não há organização nem projeto configurado.** Medido em
   2026-07-31: o `app.json` declara o plugin sem `organization`/`project`, o
   `sentry.properties` gerado cai em variáveis de ambiente e nenhum perfil do
@@ -131,22 +141,24 @@ fontes ampliadas · sem vazamento de rota no header.
 
 ## 5. Metadados e assets de loja (Onda E)
 
-- [x] ✅ Textos de loja pt-BR (task **E2**, rascunho) —
-  [`textos-loja-pt-BR.md`](../store/textos-loja-pt-BR.md). Falta Anderson
-  escolher variantes.
+- [x] ✅ Textos de loja pt-BR (task **E2**) aprovados pelo dono e persistidos na
+  ficha iOS — subtítulo, texto promocional, descrição e palavras-chave.
+  Fonte: [`textos-loja-pt-BR.md`](../store/textos-loja-pt-BR.md).
 - [x] ✅ Screenshots por dispositivo + os **três** assets gráficos do Play
   (task **E1**) — fechado nas duas plataformas. Play: 6 × 1080×1920 em
   `docs/store/assets/screenshots/`, mais ícone 512×512 e feature graphic
   1024×500. App Store: 6 × 1290×2796 e 6 × 1242×2688 em
   `screenshots-ios-67/` e `screenshots-ios-65/` (2026-07-30). Tudo travado pelo
   contrato de assets, **14/14** dentro do `npm run quality`. Inventário em
-  [`ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md).
-  *Resta selecionar quais telas vão em cada ficha — passo de publicação.*
-- [ ] ⏳ Privacy labels (App Store) e Data safety (Play) (task **E3**) — respostas
-  já decididas em [`DATA_SAFETY_E_CLASSIFICACAO.md`](../store/DATA_SAFETY_E_CLASSIFICACAO.md).
-  **Não estão mais bloqueadas por A4**; só falta colar nas consoles.
-- [ ] ⛔ Classificação etária / questionários de conteúdo; categoria **Educação**
-  (task **E4**) — feito nas consoles, exige conta.
+  [`ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md). Na App Store, seis capturas
+  de 6,5" persistiram na ordem aprovada; a publicação no Play continua uma
+  operação separada.
+- [x] ✅ **Apple Privacy Labels** publicadas como **Dados não coletados** em
+  2026-08-08, depois de `npx eas secret:list` voltar vazio. **Data Safety do
+  Play permanece aberta** e não herda o estado da Apple (task **E3**).
+- [x] ✅ **Apple:** categoria Educação, classificação `13+` global / `12+` no
+  Brasil e direitos de conteúdo persistidos. **Play:** IARC continua pendente
+  e deve ser respondido com a taxonomia própria (task **E4**).
 - [x] ✅ Página de suporte + e-mail de contato (task **E5**) —
   `https://saudediagnostica.com/radiant/suporte/`, HTTP 200 remedido em
   2026-08-01; contato publicado na página. Mesmo risco da PR #39. O destino
@@ -168,8 +180,9 @@ fontes ampliadas · sem vazamento de rota no header.
 - [x] ✅ **Apple Developer ativo e App Store Connect acessível.** Em 2026-08-01,
   a adesão individual foi comprovada por Certificates, Identifiers & Profiles e
   pelo acesso ao App Store Connect; termos aceitos. App ID explícito e ficha iOS
-  criados com `com.ascendcreative.radiant`, nome `Radiant — Radiologia` e versão
-  `1.3.0`, ainda em **Preparar para envio**.
+  criados com `com.ascendcreative.radiant` e nome `Radiant — Radiologia`. Em
+  2026-08-08, a versão `1.3.1` entrou em **Aguardando revisão**; o mesmo estado
+  foi reconfirmado no console em 2026-08-09.
 - [x] ✅ **App criado no Play Console** em 2026-07-31 com o título
   `Radiant — Radiologia` e o pacote `com.ascendcreative.radiant` (task **A3**).
   O identificador é digitado **na criação** e é irreversível. Ficha, assets e
@@ -185,13 +198,10 @@ fontes ampliadas · sem vazamento de rota no header.
   14 contas vinculadas, confirmando a margem de churn. O repositório não persiste
   endereços. **O painel mostrou 2 opt-ins** — ainda insuficientes para o gate F2,
   que é outro item desta lista.
-- [ ] ⏳ Build `production` iOS → TestFlight (task **F1**) — **build `1.3.0 (4)`
-  pronta no TestFlight em 2026-08-01**, com distribuição automática no grupo
-  interno `Radiant Internal` (1 tester, 1 build). **Instalação física, versão,
-  build e lançamento confirmados** por consulta sanitizada ao CoreDevice. Restam
-  smoke dos links no iPhone físico, sessão humana de VoiceOver, metadata, privacy
-  labels, classificação e informações de revisão. F1 não fecha apenas com a
-  instalação e o lançamento.
+- [x] ✅ Build `production` iOS → TestFlight (task **F1**) — `1.3.1 (7)`
+  processada como **Pronta para envio**, selecionada na versão e enviada à App
+  Review. Smoke físico de sete cenários passou em 2026-08-05, B4/VoiceOver
+  fechou em 2026-08-06 e o Gate 2 ficou 5/5.
 - [x] ✅ **Build `production` Android (AAB) — EXISTE.** Primeiro artefato
   distribuível da história do projeto, `versionCode 4`, gerado em 2026-07-31 e
   verificado por dentro (`com.ascendcreative.radiant`, `1.3.0`, com controle
@@ -208,6 +218,10 @@ fontes ampliadas · sem vazamento de rota no header.
   endereço foi persistido no repositório. **F2 permanece aberto:** faltam pelo
   menos 10 opt-ins para chegar a 12 e então comprovar **12+ opted-in por 14 dias
   consecutivos**.
+- [x] ✅ **App Store / F4:** preço gratuito e direitos de conteúdo persistidos;
+  `1.3.1 (7)` enviada à App Review às 12:05 BRT de 2026-08-08. Estado observado:
+  **Aguardando revisão**, reconfirmado em 2026-08-09. **Play / F4** continua
+  esperando F2.
 
 ## 7. Lançamento e pós (M5)
 
@@ -216,28 +230,24 @@ fontes ampliadas · sem vazamento de rota no header.
 - [ ] ⛔ Monitorar Sentry crash-free ≥ 99%, reviews e funil de onboarding nas 2
   primeiras semanas (task **F6**).
 
-## Resumo de bloqueios de submissão (recontado em 2026-08-01)
+## Resumo de bloqueios de lançamento (recontado em 2026-08-09)
 
 Ordenado por **latência**, que é o que decide a sequência — não por gravidade.
 
-1. **≥12 testadores × 14 dias consecutivos** em closed testing (F2). Piso do
-   caminho crítico e o único item cujo relógio é externo. **O relógio só corre no
-   track fechado**: `eas.json` tem `track: "internal"` e `releaseStatus: "draft"`,
-   os dois deliberados, e com eles a contagem não começa. Ver Parte 6 do
-   [runbook](../store/RUNBOOK_PLAY_CONSOLE.md).
-2. **Smoke do build iOS `1.3.0 (4)` pelo TestFlight** — instalação e lançamento
-   no iPhone foram confirmados; abertura dos links legais e VoiceOver ainda não.
-3. **Metadata e declarações das lojas**: privacy labels, classificação etária,
-   informações de revisão e questionários ainda precisam de fechamento.
-4. **Sessões humanas de a11y**: VoiceOver (B4) e TalkBack (C5).
-5. **Matriz real-device** (C4): 1 Android físico; as linhas iPhone.
+1. **iOS:** decisão da App Review; após aprovação, liberação manual (F5). Não há
+   ação de engenharia nem dependência de F2 neste intervalo.
+2. **Android:** ≥12 testadores participando por 14 dias consecutivos (F2). A
+   última leitura, em 2026-08-03, mostrou 2 participantes de 14 vinculados; o
+   relógio não havia começado.
+3. **Android:** questionário IARC/Play (E4), aparelho físico (C4) e TalkBack
+   (C5). Nada disso reabre o lado Apple já submetido.
 
 **Saíram da lista desde 2026-07-27**, todas com evidência no
-[status canônico](../EXECUTION_STATUS_2026-07-29.md): versionamento congelado
+[status canônico](../EXECUTION_STATUS_2026-08-09.md): versionamento congelado
 (D5), E2E fechado nas duas plataformas (B0.1/C3), paridade Android, política e
 suporte hospedados (A4/E5), screenshots e assets gráficos nas duas lojas (E1),
 ícone da marca (E6).
 
-**Não há mais bloqueio de engenharia no caminho crítico**, com uma exceção que
-não depende de código: a prova do *themed icon* do Android 13+, que precisa de
-aparelho real.
+**Não há bloqueio de engenharia no caminho iOS.** O caminho Android conserva os
+gates humanos e de hardware descritos acima, incluindo B5 Android e a prova do
+*themed icon* do Android 13+ em aparelho real.
