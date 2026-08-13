@@ -301,9 +301,33 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-11. VoiceOver como serviço e TalkBack (exige Android) continuam sem evidência;
-12. "segunda falha invalida o checkpoint e volta à Home" e ausência de efeito
-   duplicado após a retomada continuam sem flow que os afirme.
+11. ⏳ **VoiceOver como serviço e TalkBack (exige Android) continuam sem
+   evidência, e nenhum trabalho de agente encurta isso:** o Maestro não dirige
+   leitor de tela, e o runbook já recusa presença na árvore de acessibilidade
+   como critério. O que falta é passagem manual com o leitor ligado; TalkBack
+   ainda exige subir o AVD. **Dono;**
+12. ✅ **ausência de efeito duplicado após o relançamento** — fechada em
+   2026-08-13, run `run-1786622015450-e1943354`, flow
+   `.maestro/student-checkpoint-no-duplicate-effect.yaml`. O flow conclui a lição
+   (o efeito comita XP, progresso e recibo no mesmo journal), **captura** o valor
+   do medidor com `copyTextFrom`, mata o app, relança e afirma o mesmo valor. O
+   valor é capturado e não fixado porque XP é base mais bônus — a execução real
+   deu 18 XP. Guarda provada por mutação: afirmando o dobro (`36 XP`), que é o que
+   se veria se o efeito fosse reaplicado, o flow reprova. Cobre o caminho que o
+   usuário percorre; injeção de crash no meio do commit continua sendo dos testes
+   da Onda 2. Evidência:
+   [`2026-08-13-h3-efeito-duplicado.md`](../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md);
+   ⏳ **"segunda falha invalida o checkpoint e volta à Home"** continua sem flow, e
+   agora com a razão medida: **não é alcançável por E2E neste binário.**
+   `inspectLaunch` só cai no caminho de falha quando o `contentVersion` do
+   checkpoint difere do atual — e ele é `LESSON_CATALOG.version`, embutido no
+   bundle — ou quando `routeTarget` devolve `null`, estado que os fluxos limpos
+   não produzem, porque concluir e pular a apresentação chamam `finish()` e
+   encerram o checkpoint. Há cobertura unitária em `ActiveCheckpointRuntime.test.ts`
+   (`restoreFailureCount: 2`, fase `invalidated`). Fechar em E2E exige **decisão de
+   desenho**: simular a atualização de conteúdo mutando a versão do catálogo entre
+   dois carregamentos do Dev Client, orquestrado fora do Maestro, ou aceitar a
+   cobertura unitária. Proposta, não tomada.
 
 Antes de qualquer reexecução, ler a seção **Gate H3** do
 [`E2E_RUNBOOK`](../radiant-app/docs/E2E_RUNBOOK.md): sem `radiant-app/.env.local`

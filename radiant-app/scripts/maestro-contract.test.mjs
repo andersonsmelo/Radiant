@@ -16,6 +16,7 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'reward-locked.yaml',
   'reward-unlock.yaml',
   'store-capture.yaml',
+  'student-checkpoint-no-duplicate-effect.yaml',
   'student-checkpoint-short-viewport.yaml',
 ];
 
@@ -492,6 +493,7 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
     'learning-critical-path.yaml',
     'offline-relaunch.yaml',
     'reward-unlock.yaml',
+    'student-checkpoint-no-duplicate-effect.yaml',
     'student-checkpoint-short-viewport.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');

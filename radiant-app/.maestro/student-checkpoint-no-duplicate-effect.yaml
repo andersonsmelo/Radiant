@@ -1,0 +1,79 @@
+appId: com.ascendcreative.radiant
+name: Active internal checkpoint does not duplicate the lesson effect after relaunch
+tags:
+  - checkpoint
+  - active-internal
+  - idempotency
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow:
+    when:
+      visible: 'http://localhost:8081'
+    commands:
+      - tapOn: 'http://localhost:8081'
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+- runFlow: subflows/dismiss-first-run.yaml
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- runFlow:
+    when:
+      visible: 'Abrir com “Radiant”\?'
+    commands:
+      - tapOn: Abrir
+- assertVisible: Fundamentos de Radiologia
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+# Mesma régua de `learning-critical-path.yaml`, e o contrato exige que seja: em
+# 2026-08-06 o padrão de 100% reprovou uma opção clicável porque um brilho
+# decorativo cobria ~11% dos bounds.
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- assertVisible: Concluir e voltar
+# O efeito acontece aqui: a conclusão da lição comita XP, progresso e recibo de
+# idempotência no mesmo journal.
+- tapOn: Concluir e voltar
+- assertVisible: Foco de hoje
+# O valor é capturado, não fixado. XP é base mais bônus, então afirmar um número
+# literal amarraria o flow às regras de gamificação em vez de à idempotência —
+# que é a propriedade sob teste. O medidor expõe `accessibilityLabel` no formato
+# "N XP", que é seletor estável.
+- copyTextFrom:
+    text: '^[0-9][0-9.,]* XP$'
+- killApp
+- launchApp
+- runFlow:
+    when:
+      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
+    commands:
+      - tapOn: Continue
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close
+# A lição foi concluída, então não há retomada a oferecer — o que o relançamento
+# exercita é a reconciliação do journal. Se ela reaplicasse o efeito, o XP
+# dobraria.
+- assertVisible: Foco de hoje
+- assertVisible: ${maestro.copiedText}

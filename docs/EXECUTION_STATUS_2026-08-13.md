@@ -138,10 +138,23 @@ medem a mesma população (n=42 contra n=20, com o relançamento sistematicament
 mais rápido). A correção é mudança de desenho do gate e está **proposta, não
 executada**.
 
-**Próximo passo de H3 é do dono:** repetir as duas coortes em host silencioso,
-com reinício para zerar o swap. Nenhum trabalho de agente encurta isso. Seguem sem
-evidência VoiceOver, TalkBack, aparelho físico de tela baixa, a segunda falha do
-checkpoint e a ausência de efeito duplicado após a retomada.
+**Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
+`run-1786622015450-e1943354`, evidência
+[`2026-08-13-h3-efeito-duplicado.md`](../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md)).
+O flow conclui a lição, captura o XP em vez de fixá-lo, relança e afirma o mesmo
+valor; a guarda foi provada por mutação afirmando o dobro. Contrato Maestro em
+21/21.
+
+**Próximo passo de H3 é do dono, em duas frentes.** Repetir as duas coortes em
+host silencioso, com reinício para zerar o swap — nenhum trabalho de agente
+encurta isso. E fazer a passagem manual de **VoiceOver** e **TalkBack**: o Maestro
+não dirige leitor de tela e o runbook recusa presença na árvore de acessibilidade
+como critério, então não há automação que substitua. Seguem também sem evidência
+aparelho físico de tela baixa e **"segunda falha invalida o checkpoint"** — esta
+última com razão medida, não por falta de tentativa: o caminho de falha exige
+`contentVersion` diferente, que é embutido no bundle, ou `routeTarget` nulo, que
+os fluxos limpos não produzem. Tem cobertura unitária; fechar em E2E é decisão de
+desenho, proposta e não tomada.
 
 ## Operação e release
 

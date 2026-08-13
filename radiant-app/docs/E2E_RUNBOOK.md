@@ -666,6 +666,27 @@ npm run checkpoint:performance-report -- \
   --output .maestro/artifacts/h3/report.json
 ```
 
+**Efeito duplicado após o relançamento — afirme o valor CAPTURADO, não um valor
+fixo.** `student-checkpoint-no-duplicate-effect.yaml` conclui a lição, o que comita
+XP, progresso e recibo no mesmo journal, e então compara o medidor antes e depois
+de um `killApp`/`launchApp`. O XP é lido com `copyTextFrom` sobre o
+`accessibilityLabel` `"N XP"` e reusado como `${maestro.copiedText}`: fixar o
+número amarraria o flow às regras de gamificação (base 10 mais bônus; a execução
+real de 2026-08-13 deu 18 XP) em vez de à idempotência, que é a propriedade sob
+teste. A guarda foi provada por mutação — afirmando o dobro, que é o que se veria
+se o efeito fosse reaplicado, o flow reprova.
+
+Limite declarado: isso exercita a **reconciliação do journal no relançamento**,
+não idempotência sob crash no meio do commit. Matar o app numa janela específica
+entre a persistência da intenção e o efeito não é determinístico por Maestro, e
+essa cobertura continua sendo dos testes de injeção de crash da Onda 2.
+
+**VoiceOver e TalkBack não são automatizáveis aqui, e a razão é do instrumento.**
+O Maestro não dirige leitor de tela, e este runbook já recusa presença na árvore
+de acessibilidade como critério — o critério é o do usuário, *alcançável e
+acionável*. A evidência que falta é passagem manual com o leitor ligado, e
+TalkBack ainda exige subir o AVD. Não há flow a escrever.
+
 **Acessibilidade da retomada — o teste que fecha o item "viewport curto".** O
 critério é do usuário: *o CTA é alcançável e acionável*. Não use presença na
 árvore de acessibilidade — dentro de um contêiner rolável, ausência ali

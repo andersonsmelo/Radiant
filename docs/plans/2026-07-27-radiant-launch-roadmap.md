@@ -1322,9 +1322,24 @@ entrega a fundação que aqueles itens passam a consumir.
 
   **Falta:** repetir as duas coortes em **host silencioso** (reinício para zerar o
   swap, Metro pré-aquecido) — é a única saída de `inconclusive`, e depende de
-  janela do dono, não de código. Seguem também sem evidência VoiceOver como
-  serviço, TalkBack (exige Android), aparelho físico de tela baixa, "segunda falha
-  invalida o checkpoint" e ausência de efeito duplicado após a retomada.
+  janela do dono, não de código.
+
+  **Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
+  `run-1786622015450-e1943354`, evidência
+  [`2026-08-13-h3-efeito-duplicado.md`](../../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md)):
+  o flow conclui a lição, captura o XP com `copyTextFrom` em vez de fixá-lo,
+  relança e afirma o mesmo valor; a guarda foi provada por mutação, afirmando o
+  dobro. Contrato Maestro em **21/21** com o flow inscrito nas duas listas de
+  rolagem, e a inscrição provada load-bearing.
+
+  Seguem sem evidência, com as razões agora medidas: **VoiceOver como serviço** e
+  **TalkBack** (o Maestro não dirige leitor de tela e o runbook recusa presença na
+  árvore como critério — falta passagem manual, e TalkBack exige o AVD),
+  **aparelho físico de tela baixa**, e **"segunda falha invalida o checkpoint"**,
+  que **não é alcançável por E2E neste binário**: o caminho de falha exige
+  `contentVersion` diferente — embutido no bundle — ou `routeTarget` nulo, estado
+  que os fluxos limpos não produzem. Tem cobertura unitária; fechar em E2E é
+  decisão de desenho, proposta e não tomada.
 
   Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
   viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5
