@@ -301,11 +301,12 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    alcançado rolando e volta para a Tela 2 de 3. Contrato Maestro **21/21** com o
    flow registrado. **Aparelho físico** de tela baixa continua inexistente e o
    simulador não o substitui;
-11. ⏳ **VoiceOver como serviço e TalkBack (exige Android) continuam sem
-   evidência, e nenhum trabalho de agente encurta isso:** o Maestro não dirige
-   leitor de tela, e o runbook já recusa presença na árvore de acessibilidade
-   como critério. O que falta é passagem manual com o leitor ligado; TalkBack
-   ainda exige subir o AVD. **Dono;**
+11. ✅ **VoiceOver como serviço e TalkBack foram declarados concluídos pelo dono
+   em 2026-08-13.** O Maestro não dirige leitor de tela e o runbook recusa presença
+   na árvore de acessibilidade como critério; por isso a proveniência é confirmação
+   manual do dono, não uma alegação de automação. Isto fecha os dois checks de
+   acessibilidade do H3, mas não substitui a evidência em aparelho físico de tela
+   baixa nem a coorte de performance em host silencioso.
 12. ✅ **ausência de efeito duplicado após o relançamento** — fechada em
    2026-08-13, run `run-1786622015450-e1943354`, flow
    `.maestro/student-checkpoint-no-duplicate-effect.yaml`. O flow conclui a lição
@@ -365,9 +366,9 @@ medido.
 Próxima ação executável: usar o mesmo binário/aparelho para as coortes
 `.maestro/student-checkpoint-performance-baseline.yaml`
 e `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
-execuções e fechar p95, VoiceOver, TalkBack e viewport curto. Produção permanece
-`off`; Task 12, sync remoto, build/OTA de produção e publicação continuam fora
-desta onda.
+execuções e fechar p95; depois registrar a evidência do aparelho físico de tela
+baixa e decidir o tratamento E2E da segunda falha. Produção permanece `off`; Task
+12, sync remoto, build/OTA de produção e publicação continuam fora desta onda.
 
 ---
 

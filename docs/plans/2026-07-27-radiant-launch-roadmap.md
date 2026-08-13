@@ -1234,7 +1234,8 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H3 [P0 — COORTES EXECUTADAS EM 2026-08-12; VEREDITO `inconclusive` POR RUÍDO
   DE HOST]** O gate mediu tudo o que promete medir e recusou-se a concluir sobre
   a partida. A comparabilidade de população foi corrigida em 2026-08-13; restam
-  a janela de host silencioso, evidências humanas e a decisão sobre a segunda falha.
+  a janela de host silencioso, o aparelho físico de tela baixa e a decisão sobre a
+  segunda falha.
 
   Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
   **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
@@ -1331,11 +1332,12 @@ entrega a fundação que aqueles itens passam a consumir.
   dobro. Contrato Maestro em **21/21** com o flow inscrito nas duas listas de
   rolagem, e a inscrição provada load-bearing.
 
-  Seguem sem evidência, com as razões agora medidas: **VoiceOver como serviço** e
-  **TalkBack** (o Maestro não dirige leitor de tela e o runbook recusa presença na
-  árvore como critério — falta passagem manual, e TalkBack exige o AVD),
-  **aparelho físico de tela baixa**, e **"segunda falha invalida o checkpoint"**,
-  que **não é alcançável por E2E neste binário**: o caminho de falha exige
+  **VoiceOver como serviço e TalkBack foram declarados concluídos pelo dono em
+  2026-08-13.** O Maestro não dirige leitor de tela e o runbook recusa presença na
+  árvore como critério, então o registro é de confirmação manual do dono, sem
+  artefato automatizado inventado. Seguem sem evidência **aparelho físico de tela
+  baixa** e **"segunda falha invalida o checkpoint"**, que **não é alcançável por
+  E2E neste binário**: o caminho de falha exige
   `contentVersion` diferente — embutido no bundle — ou `routeTarget` nulo, estado
   que os fluxos limpos não produzem. Tem cobertura unitária; fechar em E2E é
   decisão de desenho, proposta e não tomada.
@@ -1364,8 +1366,9 @@ entrega a fundação que aqueles itens passam a consumir.
   do EAS e `CFBundleVersion = 3` no binário (contador remoto, corrigido em
   2026-08-10; não é a `1.3.1 (7)` em revisão) e Android
   `62d44f3f-30d0-4e12-b262-21b86ea6326c` em `1.3.1 (6)` remoto, sem promoção.
-  Faltam 20 amostras antes/depois no mesmo perfil, kill/relaunch,
-  VoiceOver/TalkBack e viewport curto antes de fechar.
+  Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
+  kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
+  posteriores estão reconciliados na seção H3 acima.
 - **H4 [P0]** Executar a Task 12 **educacional de checkpoint/reforço** pelo
   kernel; depois devolver a sequência a G3/G4.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do

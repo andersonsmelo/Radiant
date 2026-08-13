@@ -46,12 +46,12 @@ Estado verificado no handoff:
   Produção segue off; iOS continua 1.3.1 (7).
 
 Próxima pendência real, na ordem canônica:
-1. H3 depende de DUAS coisas do dono, e nenhum trabalho de agente as encurta:
-   (a) repetir as duas coortes em host silencioso — reinício para zerar o swap,
-   Metro pré-aquecido, coortes em sequência; (b) passagem manual de VoiceOver e
-   TalkBack, porque o Maestro não dirige leitor de tela e o runbook recusa
-   presença na árvore de acessibilidade como critério. Aparelho físico de tela
-   baixa também segue sem evidência.
+1. **VoiceOver e TalkBack do H3 foram declarados concluídos pelo dono em
+   2026-08-13.** Como o Maestro não dirige leitor de tela, esta é evidência manual
+   confirmada pelo dono, não artefato automatizado. H3 ainda depende de duas ações
+   do dono: (a) repetir as duas coortes em host silencioso — reinício para zerar o
+   swap, Metro pré-aquecido, coortes em sequência; (b) evidência em aparelho físico
+   de tela baixa, que o simulador SE não substitui.
 2. A decisão de população de `first_frame` **fechou em 2026-08-13**: cada envelope
    declara `cold` ou `resume`; o gate compara exclusivamente 20 `cold` de cada
    coorte e exige 20 `resume` no active como evidência separada de recuperação.
