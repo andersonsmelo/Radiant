@@ -27,10 +27,10 @@ permanecem como registro. A seção abaixo descreve o estado verificado em 07-27
 as entregas posteriores, inclusive a correção P0 de contraste/composição e o HUD
 vetorial, estão no status canônico.
 
-**Onde o trabalho está (2026-08-09):** a branch
-`codex/wave1-hardening-api-smoke` está publicada e aberta para a `main` no
-[PR #1](https://github.com/andersonsmelo/Radiant/pull/1). Enquanto o PR não
-fechar, a branch é a fonte, não a `main`; contagens e mergeabilidade devem ser
+**Onde o trabalho está (2026-08-13):** a `main` incorpora os PRs #1 e #2 e o
+corte H4 pelo [PR #3](https://github.com/andersonsmelo/Radiant/pull/3), merge
+`da638bb`. A engenharia H4 está integrada; produção continua `off` e o próximo
+gate é a experiência completa em aparelho. Contagens e mergeabilidade devem ser
 medidas no Git/GitHub, não copiadas para este roadmap.
 
 **Sólido:**
@@ -1181,8 +1181,8 @@ e [`execução`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md
 A governança, a fundação isolada em `off`, os adaptadores nas 12 superfícies em
 `shadow` e a implementação local da retomada `active` interna foram entregues. O
 gate de build/aparelho/perfil da retomada foi encerrado pelo dono; a Task 12
-educacional tem domínio/kernel entregue, mas o seu gate de superfície v2, o painel
-e o sync continuam pendentes.
+educacional tem domínio/kernel, superfície v2 e painel entregues em H4. Resta o
+gate operacional em aparelho; sync remoto continua como trilha H6 separada.
 
 - **G0 [CONCLUÍDA — planejamento]** Público, primeira trilha, duração, métrica,
   revisão por lote, direitos, arquitetura, domínio e gates aprovados pelo dono.
@@ -1204,14 +1204,15 @@ e o sync continuam pendentes.
   remover o bloqueio de lições por vidas. **Projeção canônica entregue em
   2026-08-13:** Home mantém apenas a próxima ação; seleção de trilha e
   `JourneyMap` vivem na Galáxia e compartilham `JourneyProgressService`. A task
-  continua aberta para retirar o bloqueio por vidas e cumprir as dependências
-  restantes de H4. O fechamento dessa projeção está em `56779ea`, validado pelo
+  continua aberta para retirar o bloqueio por vidas depois do gate operacional
+  restante de H4. O fechamento dessa projeção está em `56779ea`, validado pelo
   run `run-1786563770360-5c6c65ca` e pelos dois checks remotos verdes.
   Identificador histórico preservado. Decisão em
   [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](../adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
-- **G4 [P0]** Entregar o corte vertical da Unidade 1: 5 competências, 10–12
-  sessões de 3–5 minutos, quatro interações e checkpoint revisado. **Identificador
-  histórico preservado; execução usa os contratos da Onda H.**
+- **G4 [P0 — CORTE ENTREGUE; GATE EM APARELHO ABERTO]** Entregar o corte vertical
+  da Unidade 1: 5 competências, 10–12 sessões de 3–5 minutos, quatro interações
+  e checkpoint revisado. O corte foi integrado pela H4; o identificador
+  histórico permanece aberto somente até a evidência operacional em aparelho.
 - **G5 [P0]** Rodar beta pedagógico local/offline com checkpoint, revisão
   posterior, acessibilidade e P0/P1 zerados antes de expandir. Sync remoto não é
   pré-requisito desse beta.
@@ -1386,11 +1387,12 @@ entrega a fundação que aqueles itens passam a consumir.
   a revisão documental posterior também separa proveniência de afirmações
   `source-backed` e distratores autorais, limita o escopo de segurança e registra
   a ponte detector–contraste na fonte S8. A revisão profissional final de
-  2026-08-13 aprovou o candidato para integração no repositório e o dono autorizou
-  commit/push; não se exige nova rodada editorial sem mudança material. Ainda
-  corte de engenharia foi entregue: `ProductionBatchV1`, seis decisões
-  independentes presas ao hash material, catálogo imutável, promoção com
-  expected-hash/temp/`fsync`/rename, visão do lote no painel, projeção de 12
+  2026-08-13 aprovou o candidato para integração no repositório; não se exige
+  nova rodada editorial sem mudança material. O corte de engenharia foi
+  integrado à `main` pelo PR #3, merge `da638bb`: `ProductionBatchV1`, seis
+  decisões independentes presas ao hash material, catálogo imutável, promoção
+  com recálculo material, lock exclusivo, expected-hash/temp/`fsync`/rename,
+  visão do lote no painel, projeção de 12
   atividades na jornada/player e checkpoint real 2×5/80%. Aprovação conclui o nó;
   reprovação preserva o bloqueio e aponta reforço da competência frágil. Testes
   focados cobrem mutação, gate ausente, concorrência, rollback, consumo nativo,

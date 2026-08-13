@@ -13,7 +13,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
-| Sistema educacional v2 | Tasks 1–11 e primeiro lote sintético autorizado concluídos; as coortes de `first_frame` de H3 rodaram sem achar regressão, mas fecharam `inconclusive` por ruído de host e aguardam janela silenciosa, antes da Task 12 educacional |
+| Sistema educacional v2 | H3 encerrada por aceitação do dono, preservando a coorte histórica `inconclusive`; H4 integrada à `main` com `ProductionBatchV1`, 12 atividades e checkpoint real; gate em aparelho ainda aberto e produção `off` |
 
 O estado operacional completo e os bloqueios vigentes estão em
 [`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md).
@@ -26,7 +26,7 @@ terão 3–5 minutos, atividades visuais reutilizáveis, domínio por competênc
 checkpoint e revisão posterior. Vidas não bloqueiam estudo e ranking global não
 faz parte da primeira fase.
 
-Fundações entregues em 2026-07-31:
+Snapshot histórico das fundações em 2026-07-31:
 
 - 41 PDFs inventariados e reduzidos logicamente a 36 fontes únicas;
 - 5 arquivos duplicados detectados por SHA-256;
@@ -52,20 +52,21 @@ Em 2026-08-02 entrou o **motor de aprendizagem v2**, do contrato ao player:
   retenção e gate crítico de segurança;
 - player desacoplado dos tipos de atividade, por registro de renderizadores.
 
-Nada disso mudou a lição que o usuário vê — foi esse o objetivo. O que muda a
-tela é a próxima etapa, os **jogos**: hoje só `multiple-choice` tem renderizador.
+Essa fundação já ganhou um corte vertical visível em H4: uma unidade promovida
+com 12 atividades v2 nativas, checkpoint de 10 itens e aprovação inclusiva em
+80%. A primeira atividade passou em smoke no simulador; checkpoint completo,
+retomada sem respostas e acessibilidade ainda precisam de evidência em aparelho.
 
 O agendador por competência (Task 11) também está pronto, mas permanece inerte:
-o lado de leitura ainda não foi ativado e não existe conteúdo v2 para alimentar
-uma revisão real. Stores numéricos não finitos agora são rejeitados e enviados
-à quarentena; antes da ativação, ainda falta uma guarda explícita que não dependa
-apenas da ausência de chamadores.
+o lado de leitura ainda não foi ativado pelo limite de rollout, embora H4 já
+forneça conteúdo v2 real. Stores numéricos não finitos são rejeitados e enviados
+à quarentena, e competências sintéticas legadas falham fechadas.
 
 Essa frente continua em ordem no
 [`plano de implementação`](docs/superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
 O primeiro lote original e sintético já foi autorizado, com proveniência e
-anonimização verificáveis. Antes de executar a Task 12 educacional, falta fechar
-H3 com as duas coortes governadas de `first_frame`; produção continua `off`.
+anonimização verificáveis. A engenharia da Task 12/H4 está integrada à `main`;
+falta somente o gate operacional em aparelho. Produção continua `off`.
 
 ## Estrutura
 

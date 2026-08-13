@@ -80,7 +80,8 @@ A decisão anterior de remover o balão por inteiro foi corrigida pelo dono apó
 inspeção no simulador. A mesma inspeção revelou que a aba Galáxia ainda projetava
 `GALAXY_CATALOG` enquanto a Home oferecia outro seletor. O fechamento unifica as
 duas superfícies sem promover G3 por inteiro: a projeção canônica está entregue,
-mas a retirada do bloqueio por vidas e as dependências de H4 permanecem abertas.
+mas a retirada do bloqueio por vidas e o gate operacional de H4 em aparelho
+permanecem abertos. A dependência de engenharia H4 já foi integrada à `main`.
 Decisão e consequências em
 [`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 
@@ -101,9 +102,10 @@ e **Radiant API Quality**
 Isso comprova integração e qualidade no GitHub; não equivale a publicação.
 
 Todos os pontos visuais decididos nesta passagem estão concluídos. H3 foi
-encerrada pelo dono e H4 agora tem domínio e integração recuperável; o seu gate
-pedagógico continua aguardando conteúdo v2 aprovado para expor checkpoint e
-reforços reais. Só depois desse fechamento G3 retoma a retirada do bloqueio de
+encerrada pelo dono e H4 agora tem domínio, lote v2 promovido, integração
+recuperável e checkpoint real. O gate restante é operacional: percorrer em
+aparelho os desfechos de aprovação e reforço, retomada sem respostas e
+acessibilidade. Só depois desse fechamento G3 retoma a retirada do bloqueio de
 lições por vidas. O handoff autocontido está em
 [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md).
 
@@ -193,10 +195,11 @@ ganha recomendação nem promoção por acidente.
 O corte vertical agora promove `ProductionBatchV1` completo e imutável, com as
 seis decisões independentes presas ao mesmo SHA-256 material. Mudança em qualquer
 atividade, fonte, checkpoint ou reforço invalida as aprovações. A biblioteca de
-publicação por arquivo exige o hash esperado do catálogo, grava temporário,
-executa `fsync`, renomeia atomicamente e mantém changelog + rollback no mesmo
-artefato; falha injetada antes do rename preserva o catálogo anterior e remove o
-temporário.
+publicação recalcula o hash material, exige o hash esperado do catálogo e mantém
+um lock exclusivo durante leitura, comparação, temporário, `fsync` e rename
+atômico. Changelog e rollback ficam no mesmo artefato; mutação posterior à
+aprovação, um segundo escritor concorrente e falha injetada antes do rename
+falham fechados, preservando o catálogo anterior e removendo o temporário.
 
 `ProductionCurriculumCatalog` projeta o lote promovido no catálogo local, numa
 jornada sequencial de 12 atividades, checkpoint e recompensa. O player consome a
@@ -208,8 +211,9 @@ para revisão. Em `active` interno, o intent é construído com o `checkpointId`
 emitido pelo runtime; em produção o kernel continua `off` e a autoridade local
 legada continua responsável pelo progresso.
 
-Evidência local desta entrega: **83 testes focados em 10 suítes**, os **4 testes**
-da promoção atômica, `npm run typecheck`, lint dos arquivos alterados sem avisos e
+Evidência local desta entrega: **83 testes focados em 10 suítes**, os **6 testes**
+da promoção atômica — incluindo adulteração material e escritores concorrentes —,
+`npm run typecheck`, lint dos arquivos alterados sem avisos e
 build otimizado do painel editorial com as rotas `/production-batches` e
 `/api/production-batches`. O lint integral permaneceu em zero erros e 17 avisos
 preexistentes após remover os dois avisos introduzidos pela implementação. O
@@ -220,7 +224,7 @@ falta registrar o checkpoint completo e acessibilidade em aparelho; por isso H4 
 reclassificada como integralmente fechada. Houve somente build Debug local; não
 houve OTA, build distribuível, publicação ou mudança da versão `1.3.1 (7)`.
 
-### H4 — candidato curricular preservado; revisão e conversão ainda abertas
+### Histórico H4 — do candidato preservado à promoção aprovada
 
 Três IAs receberam o mesmo briefing para a unidade existente
 `unit:materia-energia-e-radiacao`. O primeiro retorno foi descartado porque
@@ -276,6 +280,17 @@ ou identidade de dispositivo. `ProductionBatchV1`, promoção atômica e conexã
 telas estão entregues. Não há nova pendência editorial sem mudança material; o
 único gate restante de H4 é a passagem da experiência em aparelho, separada da
 engenharia já concluída.
+
+### Integração H4 confirmada na `main`
+
+O corte foi integrado pelo [PR #3](https://github.com/andersonsmelo/Radiant/pull/3)
+no merge `da638bb`, em 2026-08-13. O workflow remoto **Radiant App Quality**
+([run 31742730883](https://github.com/andersonsmelo/Radiant/actions/runs/31742730883))
+concluiu com sucesso sobre `935e433`. Os runs Loop materiais
+`run-1786650657344-8849c1c9` (corte H4) e
+`run-1786653661719-69c3b22b` (hardening do publisher) fecharam com 13/13
+validadores. Isso comprova integração e qualidade no repositório; não equivale a
+OTA, build distribuível ou publicação em loja.
 
 ## Operação e release
 

@@ -76,8 +76,8 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 | `node scripts/content/validate-foundation.mjs` | valida a fundação editorial agregada |
 | `node scripts/content/validate-media-manifest.mjs` | valida autorização e anonimização da mídia |
 | `node scripts/content/promote-to-catalog.mjs` | promove bundles aprovados |
-| `node scripts/content/production-batch.mjs --input=<json> --catalog=<json> --expected-sha256=<sha256\|absent>` | publica um `ProductionBatchV1` validado com concorrência otimista e rename atômico |
-| `node --test scripts/content/production-batch.test.mjs` | prova gates, conflito de hash e rollback antes do rename |
+| `node scripts/content/production-batch.mjs --input=<json> --catalog=<json> --expected-sha256=<sha256\|absent>` | recalcula o hash material e publica um `ProductionBatchV1` sob lock exclusivo, expected hash e rename atômico |
+| `node --test scripts/content/production-batch.test.mjs` | prova gates, adulteração material, escritores concorrentes, conflito de hash e rollback antes do rename |
 | `node scripts/content/sync-catalog-to-app.mjs` | gera artefatos do catálogo local |
 | `node scripts/content/sync-catalog-to-api.mjs` | gera o seed remoto correspondente |
 | `node --test scripts/content/wave-1-priority-tracks.test.mjs` | protege as trilhas da Wave 1 |
