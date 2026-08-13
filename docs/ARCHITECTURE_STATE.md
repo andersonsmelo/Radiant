@@ -136,7 +136,8 @@ conveniência e decai):
   **concluídos**, ao lado da múltipla escolha; `parameter-lab`, `risk-hunt` e
   `case-decision` permanecem para ondas futuras;
 - guarda de ativação do agendador: **concluída** — competência sintética legada
-  falha fechada; leitura curricular continua aguardando conteúdo v2;
+  falha fechada; o lote H4 v2 existe, mas a leitura curricular permanece
+  desligada pelo limite de rollout;
 - kernel de checkpoints e commit recuperável: fundação (`off`), shadow nas 12
   superfícies e **runtime `active` interno** concluídos. Produção continua `off`
   e as autoridades legadas seguem decidindo progresso, XP, desbloqueio, revisão
@@ -215,7 +216,8 @@ evoluí-lo:
 - `Conteúdo/governança/catalog-payload.json`: catálogo promovido legado;
 - `radiant-app/src/features/student-checkpoints/ProductionBatch.ts`: envelope,
   gates e fingerprint material do lote v2;
-- `scripts/content/production-batch.mjs`: publicação atômica, changelog e rollback;
+- `scripts/content/production-batch.mjs`: recálculo do hash material, lock
+  exclusivo de escritor, publicação atômica, changelog e rollback;
 - `scripts/content/validate-foundation.mjs`: gate agregado;
 - `scripts/content/validate-media-manifest.mjs`: gate específico de mídia.
 

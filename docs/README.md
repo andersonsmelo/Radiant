@@ -70,26 +70,19 @@ Quando documentos divergirem, use esta ordem:
   [privacidade](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md) ·
   [rollout/rollback](runbooks/student-checkpoint-rollout-rollback.md)
 
-O estado de 2026-08-09 é: Tasks **1–11 concluídas**; o primeiro lote original
-sintético de mídia está aprovado, com cinco candidatas históricas ainda
-rejeitadas. As **Ondas 1 a 4** do kernel fecharam: governança, fundação
-transacional em `off`, shadow nas 12 superfícies e runtime `active` **somente
-interno**, este último com o gate de aparelho executado em 2026-08-10 e um único
-item aberto: o delta de partida. A métrica dele foi trocada no mesmo dia — de
-`cold_start`, que num Dev Client mede uma janela onde o kernel nem existe, para
-`first_frame`, que o contém por construção — e a primeira medição achou ~440 ms,
-dos quais ~72% eram resolução de módulo no Dev Client, não lógica do kernel. O
-aquecimento simétrico já tornou as coortes comparáveis e mostrou o kernel abaixo
-de 2 ms; **falta executar 20+20 amostras em janela de host para fechar H3**. A
-entrega seguinte é a **Task 12 educacional** de checkpoint/reforço. Produção
-segue `off`; nenhum sync, OTA ou novo binário foi autorizado. A autoridade é o
-status canônico; esta linha é conveniência e decai.
+O estado de 2026-08-13 é: Tasks **1–11 concluídas**; H3 foi encerrada por
+aceitação do dono, preservando a coorte `first_frame` histórica como
+`inconclusive`. H4 foi integrada à `main` pelo PR #3 com `ProductionBatchV1`, 12
+atividades v2 nativas, checkpoint 2×5/80%, reforço e painel editorial. Produção
+segue `off`; o gate restante é percorrer aprovação, reforço, retomada sem
+respostas e acessibilidade em aparelho. Sync remoto permanece uma trilha H6
+separada; nenhum OTA ou novo binário foi autorizado. A autoridade é o status
+canônico; esta linha é conveniência e decai.
 
 A Task 11 fechou **fora de ordem** porque o agendador que ela entrega não depende
-de conteúdo v2: ele entra desligado e acende quando houver o que agendar. O
-efeito prático é que **existe hoje um agendador pronto sem conteúdo curricular
-v2 para agendar**; o lote de mídia já fechou, mas a leitura só acende depois do
-conteúdo v2 e dos gates do kernel.
+de conteúdo v2: ele entra desligado. H4 agora fornece conteúdo curricular v2,
+mas a leitura continua `off` pelo limite explícito de rollout e só acende após
+os gates do kernel.
 
 O primeiro hardening pós-entrega também fechou em 2026-08-09:
 `CompetencyReviewService` passou a rejeitar números não finitos nos quatro

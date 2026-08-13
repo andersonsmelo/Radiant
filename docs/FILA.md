@@ -127,16 +127,13 @@ app. Run Loop: `run-1786314104218-908d111b`.
 
 ---
 
-## AGENTE — Onda 4: runtime ativo somente interno
+## HISTÓRICO — Onda 4: runtime ativo somente interno
 
-**Estado (2026-08-12):** as coortes de `first_frame` — a métrica que gateia —
-foram executadas: 20/20, mesmo binário/aparelho/perfil, em sequência. Persistência
-(p95 16,8 ms) e restauração (p95 7,9 ms) **conclusivas e dentro dos limites**;
-Home→Lição +10 ms; `baseline_isolation` limpo; **nenhum delta positivo**. O
-veredito segue **`inconclusive`**, agora por ruído do host no baseline (piso
-132,6 ms contra teto 117,1 ms) e não por defeito de instrumento. Bloqueio P0 de
-acessibilidade **fechado com prova em aparelho** desde 2026-08-10.
-**Bloqueio:** um só, e o instrumento foi corrigido **três vezes** no mesmo dia —
+**Estado atual (2026-08-13):** encerrada por aceitação explícita do dono. As
+coortes de `first_frame` permanecem registradas como `inconclusive` por ruído do
+host, sem regressão encontrada; não há bloqueio H3 executável.
+
+**Registro histórico:** o instrumento foi corrigido **três vezes** no mesmo dia —
 limiar consciente de ruído, desfecho `inconclusive`, e por fim a troca da métrica
 de partida para `first_frame`, que mede a janela onde o kernel de fato vive
 (`cold_start` ficou informativo). O piloto da métrica nova então achou ~440 ms de
@@ -365,17 +362,18 @@ Sentry; o profile interno agora desliga esse upload. O APK foi instalado no AVD
 após remover a cópia antiga de assinatura incompatível, mas nenhum flow foi
 medido.
 
-H3 foi encerrada por aceitação explícita do dono em 2026-08-13. A próxima ação
-executável é H4/Task 12 educacional; produção permanece `off`, e sync remoto,
-build/OTA de produção e publicação continuam fora desta onda.
+H3 foi encerrada por aceitação explícita do dono em 2026-08-13. A engenharia
+H4/Task 12 foi integrada à `main` pelo PR #3 (`da638bb`); resta apenas o gate
+operacional em aparelho. Produção permanece `off`, e sync remoto, build/OTA de
+produção e publicação continuam fora desta onda.
 
 ---
 
-## AGENTE — Task 12 educacional: checkpoint e reforço adaptativo
+## AGENTE — Gate operacional H4: checkpoint, reforço, retomada e acessibilidade
 
-**Estado:** parcial — domínio e passagem pelo kernel concluídos em 2026-08-13.
-**Bloqueio:** falta conteúdo curricular v2 aprovado; não é decisão do dono nem
-autorização para inventar itens pedagógicos.
+**Estado:** engenharia concluída e integrada à `main` pelo PR #3 em 2026-08-13.
+**Bloqueio:** falta evidência da experiência completa no simulador/aparelho
+pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
 **Dono:** agente.
 
 `UnitCheckpointService` calcula tentativa imutável, plano e intent: aprovação com
@@ -384,12 +382,17 @@ desbloqueio independente de XP. O runtime ativo encaminha o intent pelo
 `CheckpointCoordinator` ao commit recuperável, sem segunda transação na tela.
 Conteúdo `legacy` e `competency:legacy:*` falham fechado.
 
+`ProductionBatchV1` promove as 12 atividades v2, checkpoint 2×5/80% e reforços
+sob hash material, seis decisões independentes e publicação atômica com lock
+exclusivo. O player e a jornada consomem o lote nativo; a primeira atividade já
+passou no smoke local.
+
 `support-required` só ocorre depois de tentativa inicial reprovada, ciclo 1,
 nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
-Próxima ação: promover checkpoint e reforços curriculares v2 revisados, conectá-los
-à tela e comprovar recuperação e acessibilidade da experiência; só então marcar H4
-como concluída e retomar G3.
+Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
+persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
+como integralmente concluída e retomar G3.
 
 ---
 
