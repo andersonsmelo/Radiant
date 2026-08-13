@@ -4,6 +4,7 @@ export * from './CheckpointCoordinator';
 export * from './CheckpointPerformance';
 export * from './CheckpointStore';
 export * from './CommitCoordinator';
+export * from './EditorialCurriculumCandidate';
 export * from './contracts';
 export * from './mode';
 export * from './OutboxStore';

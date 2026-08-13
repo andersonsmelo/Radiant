@@ -197,8 +197,69 @@ checkpoint curricular v2 e seus dois conjuntos de atividades, conectá-los à te
 e executar a validação de acessibilidade/recuperação da experiência real. Não houve
 OTA, build, publicação ou mudança da versão `1.3.1 (7)`.
 
+### H4 — candidato curricular preservado; revisão e conversão ainda abertas
+
+Três IAs receberam o mesmo briefing para a unidade existente
+`unit:materia-energia-e-radiacao`. O primeiro retorno foi descartado porque
+classificou incorretamente a edição atual de *OpenStax College Physics 2e* como
+CC BY 4.0 e ainda trouxe simplificações físicas defeituosas. O terceiro parou
+corretamente em `BLOQUEADO_POR_DIREITOS`, mas sua busca não alcançou as páginas
+específicas do LibreTexts. O segundo retorno foi selecionado como **candidato**, não
+como conteúdo aprovado, e está preservado integralmente em
+[`2026-08-13-h4-materia-energia-e-radiacao-candidato.md`](content/2026-08-13-h4-materia-energia-e-radiacao-candidato.md),
+com o SHA-256 do anexo de origem.
+
+A triagem documental confirmou páginas textuais específicas que declaram CC BY
+4.0 e o candidato não incorpora imagens, tabelas, áudio, vídeo ou marcas dessas
+fontes. Isso remove o bloqueio de **descoberta de fontes compatíveis**; não fecha o
+gate jurídico. Antes da conversão, ainda é obrigatório: registrar data/hash e
+atribuição completa por fonte; indicar tradução/adaptação; completar estabilidade
+atômica e a ponte entre transmissão, detector e contraste; fortalecer distratores;
+e converter as atividades para o contrato real `LearningActivityV2`, com
+proveniência por afirmação, evidência, acessibilidade e `criticalSafety: false`.
+
+Em 2026-08-13, o candidato recebeu uma adaptação estruturada independente em
+`radiant-app/src/features/student-checkpoints/EditorialCurriculumCandidate.ts`.
+O contrato automático valida as 12 atividades `LearningActivityV2`, fonte por
+afirmação, 10 itens do checkpoint (2×5, meta de 80%), acessibilidade, evidência,
+`criticalSafety: false` e os dois ciclos. Ele guarda explicitamente o estado
+`human-gates-pending`, sem conectar catálogo, telas ou produção.
+
+Um parecer técnico externo posterior confirmou e corrigiu três defeitos mecânicos
+do artefato: a divergência antes não declarada em relação ao Markdown preservado,
+o viés dos dez gabaritos na primeira posição e a resposta ambígua sobre quantidade
+de fótons. Também removeu raios gama de gabaritos de ordenação rígida, pois as
+faixas podem se sobrepor e a distinção depende da origem. Isso é correção local
+verificada por teste; não satisfaz revisão técnica humana nem qualquer outro gate.
+
+Uma segunda leitura independente fechou três lacunas de contrato: o mapa deixou de
+prometer uma avaliação de segurança que o candidato não mede; a ponte conceitual
+transmissão diferencial → detector → contraste ganhou a fonte S8, sob CC BY 4.0; e
+o contrato passou a distinguir afirmações `source-backed` de distratores autorais,
+sem atribuir estes às fontes. São correções locais verificadas por teste e
+typecheck, não aprovação técnica, editorial, jurídica ou de produto.
+
+Na revisão final solicitada pelo dono em 2026-08-13, as oito páginas diretas foram
+rechecadas e continuavam declarando CC BY 4.0. Não há mídia de terceiros no pacote,
+o contrato rejeita metadado de licença com URL divergente e os hashes são tratados
+corretamente como fingerprints históricos de respostas HTML dinâmicas. O parecer
+final é **aprovado para integração no repositório**, sem achado técnico/editorial
+bloqueador. O dono autorizou commit e push. Novas rodadas de conteúdo só são
+necessárias se houver mudança material.
+
+Essa aprovação não fabrica seis registros humanos em um schema que ainda não
+existe. `ProductionBatchV1`, promoção atômica, conexão à tela e validação da
+experiência real continuam pendentes como implementação de produto — não como
+pedido para revisar novamente o mesmo texto. Portanto H4 permanece **parcial** e
+G3 continua aguardando a entrega executável.
+
 ## Operação e release
 
 Esta reconciliação não publicou OTA, submit, TestFlight, App Store ou alteração
 de versão. Produção segue `off` e o iOS permanece em `1.3.1 (7)`; os gates não
 pertencentes a esta passagem continuam com o estado do snapshot anterior.
+
+O PR #1 foi incorporado à `main` no merge `6b3095f`; os workflows do merge
+`Radiant App Quality` (31724663127) e `Radiant API Quality` (31724663118)
+concluíram com sucesso. A branch de origem permanece alinhada ao origin em
+`b91819f`. Esse merge comprova integração no repositório, não publicação.
