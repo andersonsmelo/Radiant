@@ -13,7 +13,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
-| Sistema educacional v2 | Tasks 1–11 e primeiro lote sintético autorizado concluídos; H3 aguarda a coorte conclusiva de `first_frame`, antes da Task 12 educacional |
+| Sistema educacional v2 | Tasks 1–11 e primeiro lote sintético autorizado concluídos; as coortes de `first_frame` de H3 rodaram sem achar regressão, mas fecharam `inconclusive` por ruído de host e aguardam janela silenciosa, antes da Task 12 educacional |
 
 O estado operacional completo e os bloqueios vigentes estão em
 [`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md).

@@ -2,8 +2,13 @@
 
 Este documento **substitui
 [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md)** como estado
-canônico. Ele reconcilia a passagem visual concluída em 2026-08-12; não promove
-nenhum gate de release nem substitui evidência em aparelho.
+canônico. Ele cobre duas passagens: a **visual**, concluída em 2026-08-12, e a de
+**H3**, executada entre 2026-08-12 e 2026-08-13. Não promove nenhum gate de
+release nem substitui evidência em aparelho.
+
+Em uma frase: a passagem visual está fechada e verificada; H3 mediu tudo o que
+promete medir, **não encontrou regressão em nenhum gate** e ficou `inconclusive`
+por ruído do host, o que o deixa dependente de uma janela silenciosa do dono.
 
 ## Sistema de produto e design confirmado
 
