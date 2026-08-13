@@ -1231,11 +1231,13 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H2 [CONCLUÍDA EM 2026-08-09 — SHADOW ISOLADO]** Adaptadores nas 12
   superfícies, com `preview=shadow`, `production=off` e sem efeitos de navegação
   ou pedagogia. Matriz local verde; run `run-1786314104218-908d111b`.
-- **H3 [P0 — COORTES EXECUTADAS EM 2026-08-12; VEREDITO `inconclusive` POR RUÍDO
-  DE HOST]** O gate mediu tudo o que promete medir e recusou-se a concluir sobre
-  a partida. A comparabilidade de população foi corrigida em 2026-08-13; restam
-  a janela de host silencioso, o aparelho físico de tela baixa e a decisão sobre a
-  segunda falha.
+- **H3 [P0 — ENCERRADA POR ACEITAÇÃO EXPLÍCITA DO DONO EM 2026-08-13]** A coorte
+  histórica segue `inconclusive` por ruído de host; ela não foi reclassificada como
+  `pass`. O dono confirmou a repetição em host silencioso e o aparelho físico de
+  tela baixa, sem anexar os novos números ao repositório, e aceitou a cobertura
+  unitária para a segunda falha. É um encerramento operacional, sem promoção de
+  performance, produção, OTA, TestFlight ou App Store. Decisão em
+  [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](../adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
 
   Fechado: persistência p95 **23,1 ms** (n=43, limite 75) e restauração p95
   **9,0 ms** (n=20, limite 100); Home→Lição **+152 ms** contra 591; retomada
@@ -1320,9 +1322,9 @@ entrega a fundação que aqueles itens passam a consumir.
   verde inferido pela ordem do log. Decisão em
   [`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](../adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
 
-  **Falta:** repetir as duas coortes em **host silencioso** (reinício para zerar o
-  swap, Metro pré-aquecido) — é a única saída de `inconclusive`, e depende de
-  janela do dono, não de código.
+  **Encerramento posterior:** o dono confirmou em 2026-08-13 uma repetição em host
+  silencioso; não forneceu os números ou artefatos para versionamento. O desfecho
+  anterior fica preservado como `inconclusive`, e não como `pass` inferido.
 
   **Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
   `run-1786622015450-e1943354`, evidência
@@ -1335,12 +1337,14 @@ entrega a fundação que aqueles itens passam a consumir.
   **VoiceOver como serviço e TalkBack foram declarados concluídos pelo dono em
   2026-08-13.** O Maestro não dirige leitor de tela e o runbook recusa presença na
   árvore como critério, então o registro é de confirmação manual do dono, sem
-  artefato automatizado inventado. Seguem sem evidência **aparelho físico de tela
-  baixa** e **"segunda falha invalida o checkpoint"**, que **não é alcançável por
-  E2E neste binário**: o caminho de falha exige
+  artefato automatizado inventado. O dono também confirmou a passagem em **aparelho
+  físico de tela baixa** e aceitou a cobertura unitária para **"segunda falha
+  invalida o checkpoint"**, que **não é alcançável por E2E neste binário**: o
+  caminho de falha exige
   `contentVersion` diferente — embutido no bundle — ou `routeTarget` nulo, estado
-  que os fluxos limpos não produzem. Tem cobertura unitária; fechar em E2E é
-  decisão de desenho, proposta e não tomada.
+  que os fluxos limpos não produzem. A cobertura unitária em
+  `ActiveCheckpointRuntime.test.ts` é o contrato aceito pelo dono; não foi criado
+  um flow externo artificial.
 
   Um bloqueio que este dia **descobriu ser falso**: seis lugares diziam que o
   viewport curto era intestável por falta de device type SE, e o runtime iOS 26.5

@@ -3,12 +3,12 @@
 Este documento **substitui
 [`EXECUTION_STATUS_2026-08-12.md`](EXECUTION_STATUS_2026-08-12.md)** como estado
 canônico. Ele cobre duas passagens: a **visual**, concluída em 2026-08-12, e a de
-**H3**, executada entre 2026-08-12 e 2026-08-13. Não promove nenhum gate de
-release nem substitui evidência em aparelho.
+**H3**, encerrada por aceitação explícita do dono em 2026-08-13. Não promove nenhum
+gate de release nem substitui evidência em aparelho.
 
-Em uma frase: a passagem visual está fechada e verificada; H3 mediu tudo o que
-promete medir, **não encontrou regressão em nenhum gate** e ficou `inconclusive`
-por ruído do host, o que o deixa dependente de uma janela silenciosa do dono.
+Em uma frase: a passagem visual está fechada e verificada; H3 não encontrou
+regressão nos gates medidos e foi encerrada pelo dono sem reclassificar a medição
+histórica `inconclusive` como aprovação estatística.
 
 ## Sistema de produto e design confirmado
 
@@ -105,7 +105,7 @@ coortes de 20 amostras de `first_frame` em janela de host e, depois, executar H4
 vidas. O handoff autocontido está em
 [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md).
 
-## H3 — coortes de `first_frame` executadas, veredito `inconclusive`
+## H3 — encerrada por aceitação do dono; coorte histórica `inconclusive`
 
 Em 2026-08-12 as duas coortes do gate H3 rodaram com a métrica que gateia desde
 2026-08-10: 20+20 amostras, mesmo binário, aparelho e perfil, em sequência
@@ -158,13 +158,17 @@ passagens manuais, portanto este registro preserva a proveniência como confirma
 do dono, sem inventar artefato automatizado onde o Maestro não alcança leitor de
 tela. Isso fecha apenas esses dois checks de acessibilidade do H3.
 
-**Para fechar H3, ainda faltam três gates.** Repetir as duas coortes em host
-silencioso, com reinício para zerar o swap; obter evidência em aparelho físico de
-tela baixa; e decidir **"segunda falha invalida o checkpoint"** — esta última com
-razão medida, não por falta de tentativa: o caminho de falha exige
+**H3 foi encerrada por aceitação explícita do dono em 2026-08-13.** O dono
+confirmou que a repetição em host silencioso e a passagem em aparelho físico de
+tela baixa foram concluídas, sem fornecer novos números ou artefatos para este
+repositório. Também aceitou a cobertura unitária para **"segunda falha invalida o
+checkpoint"**, em vez de exigir uma simulação externa de `contentVersion`. A razão
+medida permanece: o caminho de falha exige
 `contentVersion` diferente, que é embutido no bundle, ou `routeTarget` nulo, que
-os fluxos limpos não produzem. Tem cobertura unitária; fechar em E2E é decisão de
-desenho, proposta e não tomada.
+os fluxos limpos não produzem. O resultado `inconclusive` da coorte histórica fica
+preservado como proveniência e **não** vira `pass`; o encerramento é operacional do
+dono, não promoção de performance nem autorização de produção. Decisão em
+[`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
 
 ## Operação e release
 

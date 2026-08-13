@@ -234,9 +234,11 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    fase falha fechado como `inconclusive`. O relançamento mais rápido (p95 360,3
    contra 522,8 do frio) não entra mais no p95 de partida. Decisão:
    [`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
-   **Próximo passo, e ele é do dono:** repetir as duas coortes em host silencioso
-   — reinício para zerar o swap, Metro pré-aquecido. Nenhum trabalho de código
-   destrava isto.
+   **Encerramento por aceitação explícita do dono em 2026-08-13:** o dono confirmou
+   que repetiu as coortes em host silencioso e fez a passagem no aparelho físico de
+   tela baixa. Os números e artefatos novos não foram fornecidos ao repositório; por
+   isso o registro histórico permanece `inconclusive`, sem ser reclassificado como
+   `pass` e sem promover produção.
    *Registro do estado anterior deste item, preservado porque é a proveniência dos
    números acima:* Um
    **piloto** de 6+6 amostras foi rodado em 2026-08-10 (`run-1786394347211-12be1d79`)
@@ -305,8 +307,7 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    em 2026-08-13.** O Maestro não dirige leitor de tela e o runbook recusa presença
    na árvore de acessibilidade como critério; por isso a proveniência é confirmação
    manual do dono, não uma alegação de automação. Isto fecha os dois checks de
-   acessibilidade do H3, mas não substitui a evidência em aparelho físico de tela
-   baixa nem a coorte de performance em host silencioso.
+   acessibilidade do H3.
 12. ✅ **ausência de efeito duplicado após o relançamento** — fechada em
    2026-08-13, run `run-1786622015450-e1943354`, flow
    `.maestro/student-checkpoint-no-duplicate-effect.yaml`. O flow conclui a lição
@@ -318,8 +319,9 @@ Home→Lição ficou **−174 ms**, ou seja o candidato é mais rápido que o ba
    usuário percorre; injeção de crash no meio do commit continua sendo dos testes
    da Onda 2. Evidência:
    [`2026-08-13-h3-efeito-duplicado.md`](../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md);
-   ⏳ **"segunda falha invalida o checkpoint e volta à Home"** continua sem flow, e
-   agora com a razão medida: **não é alcançável por E2E neste binário.**
+   ✅ **"segunda falha invalida o checkpoint e volta à Home"** foi aceita pelo dono
+   em 2026-08-13 com a cobertura unitária existente, sem criar um flow artificial.
+   A razão medida permanece: **não é alcançável por E2E neste binário.**
    `inspectLaunch` só cai no caminho de falha quando o `contentVersion` do
    checkpoint difere do atual — e ele é `LESSON_CATALOG.version`, embutido no
    bundle — ou quando `routeTarget` devolve `null`, estado que os fluxos limpos
@@ -363,12 +365,9 @@ Sentry; o profile interno agora desliga esse upload. O APK foi instalado no AVD
 após remover a cópia antiga de assinatura incompatível, mas nenhum flow foi
 medido.
 
-Próxima ação executável: usar o mesmo binário/aparelho para as coortes
-`.maestro/student-checkpoint-performance-baseline.yaml`
-e `.maestro/student-checkpoint-active-resume.yaml`, coletar no mínimo 20
-execuções e fechar p95; depois registrar a evidência do aparelho físico de tela
-baixa e decidir o tratamento E2E da segunda falha. Produção permanece `off`; Task
-12, sync remoto, build/OTA de produção e publicação continuam fora desta onda.
+H3 foi encerrada por aceitação explícita do dono em 2026-08-13. A próxima ação
+executável é H4/Task 12 educacional; produção permanece `off`, e sync remoto,
+build/OTA de produção e publicação continuam fora desta onda.
 
 ---
 

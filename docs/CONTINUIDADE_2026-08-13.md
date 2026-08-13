@@ -22,7 +22,8 @@ Estado verificado no handoff:
   do Pixel é ambiental, temporário e esporádico — não o remova e nunca ponha
   informação funcional nele. HUD vetorial, escala dos ícones, meta diária em XP,
   Starfield, rótulo do anel e substituição dos emojis estão fechados;
-- H3 MEDIU e não achou regressão, mas NÃO fechou. As duas coortes de
+- H3 MEDIU e não achou regressão; a primeira coorte ficou `inconclusive`, mas a
+  task foi encerrada por aceitação explícita do dono em 2026-08-13. As duas coortes de
   `first_frame` rodaram em 2026-08-12 (20+20, mesmo binário/aparelho/perfil, em
   sequência): persistência p95 16,8 ms (n=40, limite 75), restauração p95 7,9 ms
   (n=21, limite 100), Home→Lição +10 ms contra 771, `baseline_isolation` limpo e
@@ -46,28 +47,14 @@ Estado verificado no handoff:
   Produção segue off; iOS continua 1.3.1 (7).
 
 Próxima pendência real, na ordem canônica:
-1. **VoiceOver e TalkBack do H3 foram declarados concluídos pelo dono em
-   2026-08-13.** Como o Maestro não dirige leitor de tela, esta é evidência manual
-   confirmada pelo dono, não artefato automatizado. H3 ainda depende de duas ações
-   do dono: (a) repetir as duas coortes em host silencioso — reinício para zerar o
-   swap, Metro pré-aquecido, coortes em sequência; (b) evidência em aparelho físico
-   de tela baixa, que o simulador SE não substitui.
-2. A decisão de população de `first_frame` **fechou em 2026-08-13**: cada envelope
-   declara `cold` ou `resume`; o gate compara exclusivamente 20 `cold` de cada
-   coorte e exige 20 `resume` no active como evidência separada de recuperação.
-   A segunda decisão ainda bloqueia o verde honesto de H3: "segunda falha invalida
-   o checkpoint e volta à Home" NÃO é alcançável por
-   E2E neste binário: `inspectLaunch` só cai no caminho de falha com
-   `contentVersion` diferente — e ele é `LESSON_CATALOG.version`, embutido no
-   bundle — ou com `routeTarget` nulo, estado que os fluxos limpos não produzem,
-   porque concluir e pular a apresentação chamam `finish()`. Há cobertura
-   unitária em ActiveCheckpointRuntime.test.ts. Decida entre simular a
-   atualização de conteúdo (mutar a versão do catálogo entre dois carregamentos
-   do Dev Client, orquestrado fora do Maestro) ou aceitar a cobertura unitária e
-   tirar o item da lista de evidência executável.
-3. Somente depois de H3, executar H4/Task 12 educacional de checkpoint e
-   reforço.
-4. Depois de H4, retomar G3 para remover o bloqueio de lições por vidas. A
+1. **H3 foi encerrada por aceitação explícita do dono em 2026-08-13.** O dono
+   confirmou a repetição em host silencioso e o teste físico de tela baixa; também
+   aceitou a cobertura unitária da segunda falha. Nenhuma métrica nova foi
+   fornecida, portanto a primeira coorte fica registrada como `inconclusive`, sem
+   ser reclassificada como `pass` e sem liberar produção. A decisão está em
+   [`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
+2. Executar H4/Task 12 educacional de checkpoint e reforço.
+3. Depois de H4, retomar G3 para remover o bloqueio de lições por vidas. A
    projeção canônica da Galáxia já está pronta; não a refaça.
 
 Regras operacionais que não podem ser relaxadas:
@@ -99,9 +86,9 @@ Maestro, Java e o coletor rodaram sem ela.)
 ## O que mudou desde o handoff anterior
 
 O handoff de 2026-08-12 pedia a execução das coortes de `first_frame`. Elas
-foram executadas, e o resultado mudou a natureza da pendência: o problema
-deixou de ser "falta medir" e passou a ser "falta uma janela de host silencioso e
-duas decisões de desenho". Três coisas que aquele handoff não podia saber:
+foram executadas, e a primeira evidência ficou `inconclusive`; o dono depois
+confirmou a nova passagem em host silencioso, o aparelho físico e a aceitação da
+cobertura unitária da segunda falha. Três coisas que aquele handoff não podia saber:
 
 1. **o instrumento não existia versionado** — a receita descrevia o canal de
    coleta em prosa e a sessão anterior o reconstruíra de forma efêmera;

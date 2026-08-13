@@ -681,8 +681,9 @@ essa cobertura continua sendo dos testes de injeção de crash da Onda 2.
 **VoiceOver e TalkBack não são automatizáveis aqui, e a razão é do instrumento.**
 O Maestro não dirige leitor de tela, e este runbook já recusa presença na árvore
 de acessibilidade como critério — o critério é o do usuário, *alcançável e
-acionável*. A evidência que falta é passagem manual com o leitor ligado, e
-TalkBack ainda exige subir o AVD. Não há flow a escrever.
+acionável*. H3 recebeu confirmação manual do dono em 2026-08-13 para ambos os
+leitores; o repositório registra essa proveniência sem alegar um artefato
+automatizado. Não há flow a escrever.
 
 **Acessibilidade da retomada — o teste que fecha o item "viewport curto".** O
 critério é do usuário: *o CTA é alcançável e acionável*. Não use presença na
@@ -747,8 +748,11 @@ que desde 2026-08-10 é
 em cada gate de delta, para o leitor ver qual termo mandou. Um limiar abaixo da
 dispersão da própria medida reprova por ruído — foi o que aconteceu na primeira
 execução real, com 167,6 ms permitidos contra ~835 ms de amplitude interna.
-Relatório verde ainda não substitui kill/relaunch, duas falhas, VoiceOver,
-TalkBack e viewport curto.
+O relatório numérico não substitui kill/relaunch, duas falhas, VoiceOver, TalkBack
+e viewport curto quando esses gates ainda estiverem abertos. No encerramento de H3
+em 2026-08-13, o dono confirmou os checks manuais e aceitou a cobertura unitária
+da segunda falha; isso não reclassifica a coorte histórica `inconclusive` como
+`pass`.
 
 **Leia `outcome` antes de `passed` — medido em 2026-08-10, e é a diferença entre
 aprovar e não ter medido.** O terceiro termo da fórmula acima elimina a
