@@ -21,6 +21,9 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
 
 ## Registros
 
+- [Jornada P2 no iOS Release — 2026-08-14](2026-08-14-journey-p2-ios.md)
+  — `passed` para os dois subcasos de revisão da Home e para o avanço automático
+  de trilha, sobre build Release local com bundle embutido do commit `0ceff49`.
 - [E2E Android da primeira vitória — 2026-08-09](2026-08-09-primeira-vitoria-android.md)
   — `first-run.yaml` atualizado `passed` 1/1 sobre APK local Release sob
   configuração de produção no emulador API 36.

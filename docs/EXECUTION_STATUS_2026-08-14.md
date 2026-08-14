@@ -10,26 +10,26 @@ conteúdo curricular.
 Em uma frase: a jornada passou a ser um percurso único com estados visíveis — o
 seletor de trilhas saiu, os nós ganharam cadeado e cor, a revisão deixou de ser
 objetivo da Home, e o destravamento sequencial entre trilhas foi modelado e
-ligado; **nada disso está commitado**, e duas das entregas não foram verificadas
-em aparelho porque o estado atual do app não exercita seus caminhos.
+ligado. O redesenho foi publicado no `main` pelo commit `0ceff49`; os dois
+caminhos antes sem observação em runtime foram verificados em simulador iOS com
+um build Release local do mesmo commit.
 
-## Aviso de estado: o trabalho está no working tree, não em commit
+## Estado de publicação
 
-Os nove runs desta sessão fecharam com `closed` e memória validada, mas o Loop
-não commita. No fim da sessão o `git status` mostrava **18 arquivos modificados e
-3 não rastreados** em `radiant-app/`, todos pertencentes às entregas abaixo.
+Os nove runs originais fecharam com `closed` e memória validada. Seu resultado,
+o status canônico, este handoff e o contrato documental foram reunidos no commit
+`0ceff49` (`feat(journey): commit guided learning path redesign`) e enviados para
+`origin/main` em 2026-08-14.
 
-Quem for continuar **deve medir isso de novo** antes de agir — `git status
---porcelain` e `git rev-parse --short HEAD` — em vez de confiar nesta contagem.
-Este repositório é trabalhado por várias IAs em sessões independentes, e um
-número escrito num documento é um retrato do momento em que foi escrito.
+O estado deve continuar sendo medido antes de uma alteração — `git status
+--porcelain`, `git rev-parse --short HEAD` e a comparação com `origin/main` —,
+pois este repositório é trabalhado por várias IAs em sessões independentes.
 
-O `HEAD` no início da sessão era `22cb3c5`.
+O `HEAD` de publicação desta passagem é `0ceff49`.
 
 ## Entregas
 
-Todas com 13 de 13 validadores aprovados. A coluna de commit está vazia de
-propósito: **não existe commit** para nenhuma delas até esta data.
+Todas passaram os 13 validadores e pertencem ao commit `0ceff49`.
 
 | Entrega | Run | Verificado em aparelho |
 | --- | --- | --- |
@@ -39,28 +39,29 @@ propósito: **não existe commit** para nenhuma delas até esta data.
 | Correção do `ReferenceError` de ordem de inicialização | `run-1786731691198-7b730ae4` | Sim |
 | Caminho único: seletor de trilhas fora da Galáxia | `run-1786732372156-be808c39` | Sim |
 | Estados visuais da trilha: cadeado, concluído, destravado | `run-1786734637864-1dc6520f` | Sim |
-| Revisão deixa de ser objetivo da Home | `run-1786736333295-dfa559bf` | **Não — ver abaixo** |
+| Revisão deixa de ser objetivo da Home | `run-1786736333295-dfa559bf` | Sim — evidência P2 iOS Release abaixo |
 | Ordem e destravamento sequencial de trilhas (regra pura) | `run-1786736928066-cceaea79` | Não se aplica (regra pura) |
-| Avanço automático de trilha ligado | `run-1786737247876-aadfdf97` | **Não — ver abaixo** |
+| Avanço automático de trilha ligado | `run-1786737247876-aadfdf97` | Sim — evidência P2 iOS Release abaixo |
 
-### O que "verificado em aparelho" não cobre
+### Evidência de runtime P2 — iOS Release
 
-Duas entregas têm cobertura de teste completa e **nenhuma observação em
-execução do caminho que elas mudam**:
+Em 2026-08-14, no simulador `Radiant iPhone 17 Pro — iOS 26.5`, foi gerado e
+instalado do zero o build Release local de `0ceff49`, com bundle JS embutido e
+as variáveis do perfil `e2e-test`. O `main.jsbundle` do artefato teve SHA-256
+`12216976c787b9317d2bc182e6120a538bec89589fc64ab7de21258baf17de0b`.
 
-- **Revisão fora da Home.** A Home foi observada mostrando `Lição · Disponível`,
-  mas já mostrava isso *antes* da mudança, porque a recomendação corrente calha
-  de ser uma lição. O caminho de revisão-recomendada não foi exercitado no
-  simulador. Quem prova são dois casos em
-  `JourneyHomeScreen.flow.test.tsx`.
-- **Avanço automático de trilha.** O app relança sem erro e permanece em
-  Fundamentos, o que é o comportamento correto para uma trilha incompleta — mas
-  isso demonstra ausência de regressão, não o avanço. Quem prova são quatro
-  casos em `JourneyProgressService.test.ts`.
+- Com revisão vencida e um checkpoint disponível, a Home anunciou
+  `Checkpoint · Disponível` e exibiu `Abrir checkpoint`; a revisão não virou a
+  manchete nem o alvo do CTA.
+- Quando a revisão era a única etapa aberta, a Home anunciou `Revisão` e exibiu
+  `Fazer revisão`, preservando o fallback verdadeiro.
+- Com todos os nós de Fundamentos concluídos, o bootstrap abriu automaticamente
+  `Radiação, Modalidades e Equipamento`, com `Lição · Disponível` e
+  `Continuar jornada`.
 
-A distinção importa: "a suíte passou" e "o programa faz isso" são evidências
-diferentes, e esta sessão produziu um caso em que a primeira não implicou a
-segunda (ver "Defeitos encontrados", item 2).
+As três árvores de acessibilidade e os screenshots sanitizados foram coletados
+fora do Git; o registro reprodutível está em
+[`radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md`](../radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md).
 
 ## Escopo do redesenho
 
@@ -182,7 +183,6 @@ nada mover o aluno ao concluir uma trilha.
 Detalhado, com critérios de aceitação, em
 [`handoff/2026-08-14-brief-jornada-e-pendencias.md`](handoff/2026-08-14-brief-jornada-e-pendencias.md).
 
-Resumo: commitar o working tree; verificar em aparelho os dois caminhos não
-exercitados; decidir o que acontece na tela quando o aluno conclui a última
-trilha; e a integração dos ícones Rive do HUD, que segue bloqueada por
-dependência de arquivos que só o dono produz.
+Resumo: as pendências P1 e P2 fecharam. Restam a decisão de produto e a
+implementação para a conclusão da última trilha, e a integração dos ícones Rive
+do HUD, bloqueada pelos arquivos que só o dono produz.

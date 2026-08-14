@@ -38,46 +38,33 @@ escolhas parecem arbitrárias sem o motivo.
 
 ## 2. Pendências
 
-Estão em ordem de dependência. A P1 bloqueia tudo o mais.
+P1 e P2 foram concluídas em 2026-08-14. P3 e P4 seguem em ordem de dependência.
 
 ---
 
 ### P1 — Commitar o working tree
 
-**Por quê:** os nove runs fecharam, mas o Loop não commita. O trabalho existe só
-como arquivos modificados. Enquanto não for commitado, qualquer `git checkout`
-acidental o destrói, e nenhuma outra sessão o enxerga como feito.
+**Concluída.** O redesenho, o status, este handoff e o contrato documental foram
+publicados em `origin/main` no commit `0ceff49`
+(`feat(journey): commit guided learning path redesign`). O diretório
+`skill-observations/` da raiz permaneceu fora do commit.
 
-**Estado em 2026-08-14** (confira, não confie): 18 modificados e 3 não
-rastreados em `radiant-app/`, mais `docs/` e `scripts/qa/docs-contract.mjs`, mais
-um `skill-observations/` na raiz que **não faz parte deste trabalho** — ver §3.
-
-**O que fazer:** commitar as mudanças de `radiant-app/`, os documentos novos em
-`docs/` **e** `scripts/qa/docs-contract.mjs`. Sugestão de recorte, se preferir
-commits separados por entrega: os runs listados na tabela do status canônico já
-delimitam grupos coerentes de arquivos.
-
-**Acoplamento que não pode ser quebrado:** `scripts/qa/docs-contract.mjs` e
-`docs/EXECUTION_STATUS_2026-08-14.md` vão no **mesmo commit**. A lista
-`CURRENT_STATE_DOCUMENTS` desse script nomeia o status que governa, e ela
-**troca** em vez de acumular — o snapshot novo entra, o anterior sai. Commitar o
-status sem o script deixa o validador `docs-contract` reprovando o repositório
-inteiro, e nenhum run fecha até que alguém descubra o porquê.
-
-**Critério de aceitação:** `git status --porcelain` limpo em `radiant-app/`,
-`docs/` e `scripts/`; `npm run quality` passando dentro de `radiant-app/` depois
-do commit.
-
-**Armadilha:** não commite `skill-observations/` (§3).
+**Registro histórico:** P1 existia porque os nove runs originais não criavam
+commit. O acoplamento entre `scripts/qa/docs-contract.mjs` e este status foi
+preservado no mesmo commit. O diretório não rastreado `skill-observations/`
+permanece fora do escopo e não deve ser tocado (§3).
 
 ---
 
 ### P2 — Verificar em aparelho os dois caminhos não exercitados
 
-**Por quê:** duas entregas têm teste completo e nenhuma observação em execução.
-Esta sessão produziu um caso em que a suíte inteira passou e o app quebrou
-(status canônico, "Defeitos encontrados", item 2), então teste verde não encerra
-a pergunta.
+**Concluída.** Os dois subcasos de revisão e o avanço automático foram observados
+no simulador iOS em build Release local de `0ceff49`; o registro sanitizado está
+em [`radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md`](../../radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md).
+
+**Motivo histórico:** duas entregas tinham teste completo sem observação do
+caminho em execução; a validação abaixo foi necessária porque teste verde não
+encerra pergunta de runtime.
 
 **P2-a — Revisão fora da Home.** A Home deve anunciar a próxima etapa de
 aprendizado mesmo quando a recomendação é uma revisão.
@@ -97,7 +84,8 @@ com.ascendcreative.radiant data`. **Faça backup antes de editar** e encerre o a
 antes, senão ele sobrescreve.
 
 *Critério de aceitação:* com revisão recomendada, a linha "Próximo" mostra a
-lição/checkpoint seguinte e o CTA diz "Continuar jornada"; e quando a revisão é a
+lição/checkpoint seguinte e o CTA nomeia a etapa de aprendizado (`Continuar
+jornada` para lição, `Abrir checkpoint` para checkpoint); quando a revisão é a
 **única** coisa aberta na unidade, o CTA diz "Fazer revisão" e abre a revisão.
 
 **P2-b — Avanço automático de trilha.** Concluir todos os nós de Fundamentos deve
