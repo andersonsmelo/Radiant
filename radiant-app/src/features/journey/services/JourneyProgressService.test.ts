@@ -198,3 +198,82 @@ describe('JourneyProgressService', () => {
         expect(stored.tracks['track-radiology-foundations'].completedNodeIds).toContain('node:foundation-1');
     });
 });
+
+describe('JourneyProgressService — avanço sequencial de trilha', () => {
+    const storageState: Record<string, string> = {};
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        Object.keys(storageState).forEach((key) => delete storageState[key]);
+
+        storage.getItem.mockImplementation(async (key) => storageState[key] ?? null);
+        storage.setItem.mockImplementation(async (key, value) => {
+            storageState[key] = value;
+        });
+        storage.removeItem.mockImplementation(async (key) => {
+            delete storageState[key];
+        });
+
+        mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
+        mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    async function completeEveryNodeOfActiveTrack() {
+        const snapshot = await JourneyProgressService.bootstrap();
+        const nodeIds = snapshot.track.units.flatMap((unit) => unit.nodes.map((node) => node.id));
+
+        for (const nodeId of nodeIds) {
+            await JourneyProgressService.markNodeCompleted(nodeId);
+        }
+
+        return nodeIds;
+    }
+
+    it('permanece na trilha atual enquanto ela não terminou', async () => {
+        const snapshot = await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted(snapshot.track.units[0].nodes[0].id);
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-radiology-foundations');
+    });
+
+    it('avança para a trilha seguinte quando a atual é concluída por inteiro', async () => {
+        // É a promessa que a Galáxia faz por escrito: "a trilha seguinte abre
+        // quando esta terminar". Antes de 2026-08-14 nada movia o aluno, porque
+        // a trilha ativa era lida direto do store em vez de derivada da regra.
+        await completeEveryNodeOfActiveTrack();
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-thorax-patterns');
+    });
+
+    it('não avança por conclusão parcial, mesmo faltando um único nó', async () => {
+        // O caso que separa "terminou" de "quase terminou". Uma regra que
+        // avançasse com quase tudo feito deixaria conteúdo para trás em
+        // silêncio, e o aluno nunca saberia o que pulou.
+        const snapshot = await JourneyProgressService.bootstrap();
+        const nodeIds = snapshot.track.units.flatMap((unit) => unit.nodes.map((node) => node.id));
+
+        for (const nodeId of nodeIds.slice(0, -1)) {
+            await JourneyProgressService.markNodeCompleted(nodeId);
+        }
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-radiology-foundations');
+    });
+
+    it('fica na última trilha quando todas terminaram, em vez de ficar sem trilha', async () => {
+        await completeEveryNodeOfActiveTrack();
+        await completeEveryNodeOfActiveTrack();
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-thorax-patterns');
+    });
+});

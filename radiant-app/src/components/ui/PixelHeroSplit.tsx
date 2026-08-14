@@ -1,5 +1,14 @@
-import React from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle, useWindowDimensions } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  LayoutChangeEvent,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+  useWindowDimensions,
+} from 'react-native';
+import { pixelMouthAnchor } from '../../ui/characters/pixelScreenGeometry';
 import { PIXEL_SIZE_MAP, PixelIllustration } from '../../ui/characters/PixelIllustration';
 import type { CharacterSize, CharacterState, CharacterTier } from '../../ui/characters/types';
 import { space, typography } from '../../ui/styles';
@@ -55,6 +64,31 @@ export function PixelHeroSplit({
   const { width } = useWindowDimensions();
   const isCompact = width < compactBreakpoint;
 
+  // O balão vive na coluna IRMÃ da do personagem, então para o rabicho apontar
+  // para a boca é preciso saber onde a ilustração começa dentro da própria
+  // coluna — o eyebrow fica acima dela e sua altura muda com o ajuste de fonte
+  // do sistema. Por isso é medido, não calculado.
+  const [illustrationTop, setIllustrationTop] = useState<number | null>(null);
+
+  const handleIllustrationLayout = useCallback((event: LayoutChangeEvent) => {
+    const { y } = event.nativeEvent.layout;
+    setIllustrationTop((current) => (current === y ? current : y));
+  }, []);
+
+  // Enquanto o balão recolhe, o texto precisa continuar na tela — se ele sumir
+  // no primeiro frame, o que encolhe é uma caixa vazia.
+  const [renderedMessage, setRenderedMessage] = useState(message);
+
+  useEffect(() => {
+    if (message) {
+      setRenderedMessage(message);
+    }
+  }, [message]);
+
+  const handleBubbleHidden = useCallback(() => {
+    setRenderedMessage(undefined);
+  }, []);
+
   // A coluna do personagem é fixada na largura da própria ilustração. Sem isso
   // o eyebrow (caixa alta, com tracking) define a largura intrínseca da coluna,
   // rouba o espaço do irmão e o texto do balão quebra no meio da palavra.
@@ -66,20 +100,29 @@ export function PixelHeroSplit({
         <Text style={styles.eyebrow} maxFontSizeMultiplier={ESCALA_MAXIMA_DO_EYEBROW}>
           {eyebrow}
         </Text>
-        <PixelIllustration
-          state={state}
-          size={isCompact ? compactIllustrationSize : illustrationSize}
-          tier={tier}
-          accessibilityLabel={accessibilityLabel}
-          expression={expression}
-        />
+        <View testID="journey-hero-illustration" onLayout={handleIllustrationLayout}>
+          <PixelIllustration
+            state={state}
+            size={isCompact ? compactIllustrationSize : illustrationSize}
+            tier={tier}
+            accessibilityLabel={accessibilityLabel}
+            expression={expression}
+          />
+        </View>
       </View>
 
       <View style={[styles.contentColumn, isCompact && styles.contentColumnCompact]}>
-        {message ? (
+        {renderedMessage ? (
           <SpeechBubble
-            text={message}
+            text={renderedMessage}
             testID="journey-hero-bubble"
+            visible={Boolean(message)}
+            onHidden={handleBubbleHidden}
+            tailTop={
+              illustrationTop === null
+                ? undefined
+                : illustrationTop + pixelMouthAnchor().y * characterWidth
+            }
             style={[styles.bubble, isCompact && styles.bubbleCompact, bubbleStyle]}
           />
         ) : null}

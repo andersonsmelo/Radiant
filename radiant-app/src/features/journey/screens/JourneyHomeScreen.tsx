@@ -136,8 +136,49 @@ export default function JourneyHomeScreen() {
 
   const pixelSpeech = useSporadicPixelSpeech();
 
+  /**
+   * O passo que a HOME anuncia — que não é necessariamente o que o serviço
+   * recomenda.
+   *
+   * A revisão deixou de ser objetivo da Home em 2026-08-14: ela pertence à
+   * trilha, onde aparece como nó no percurso. Quando a recomendação cai numa
+   * revisão, a Home procura a próxima etapa de APRENDIZADO da unidade e
+   * anuncia essa; a revisão continua existindo, só não vira manchete.
+   *
+   * A escolha é feita aqui, e não em `getNextRecommendedNode`, de propósito: o
+   * serviço é a autoridade sobre elegibilidade e alimenta também a Galáxia e o
+   * roteamento. Filtrar lá mudaria o que é elegível em TODA a aplicação para
+   * resolver um problema de destaque de UMA tela.
+   *
+   * O fallback devolve a própria revisão: se ela é a única coisa aberta, um
+   * botão que aponta para lugar nenhum é pior que um que diz a verdade.
+   */
+  const homeNextNode = useMemo(() => {
+    const recommended = snapshot?.nextRecommendedNode ?? null;
+
+    if (!recommended) {
+      return null;
+    }
+
+    const isReview = recommended.type === 'review' || recommended.status === 'due-review';
+
+    if (!isReview) {
+      return recommended;
+    }
+
+    const learningStep = currentUnit?.nodes.find(
+      (node) =>
+        node.type !== 'review' &&
+        node.status !== 'due-review' &&
+        node.status !== 'completed' &&
+        node.status !== 'locked',
+    );
+
+    return learningStep ?? recommended;
+  }, [snapshot?.nextRecommendedNode, currentUnit]);
+
   const continueLabel = useMemo(() => {
-    const nextNode = snapshot?.nextRecommendedNode;
+    const nextNode = homeNextNode;
 
     if (!nextNode) {
       return 'Aguardando nova etapa';
@@ -147,6 +188,9 @@ export default function JourneyHomeScreen() {
       return 'Retomar etapa';
     }
 
+    // Só chega aqui quando a revisão é a única coisa aberta na unidade: nesse
+    // caso o botão diz o que vai abrir, porque prometer "continuar jornada" e
+    // entregar uma revisão é pior que nomeá-la.
     if (nextNode.type === 'review' || nextNode.status === 'due-review') {
       return 'Fazer revisão';
     }
@@ -160,7 +204,7 @@ export default function JourneyHomeScreen() {
     }
 
     return 'Continuar jornada';
-  }, [snapshot?.nextRecommendedNode]);
+  }, [homeNextNode]);
 
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
 
@@ -177,12 +221,18 @@ export default function JourneyHomeScreen() {
   }, [canOpenNode]);
 
   const recommendedNodeMeta = useMemo(() => {
-    if (!snapshot?.nextRecommendedNode) {
+    if (!homeNextNode) {
       return 'Nenhum conteúdo elegível agora';
     }
 
-    return `${nodeTypeLabel(snapshot.nextRecommendedNode)} · ${statusLabel(snapshot.nextRecommendedNode)}`;
-  }, [snapshot]);
+    // "Revisão · Revisão pedida" dizia a mesma palavra duas vezes e soava como
+    // cobrança. No único caso em que a revisão ainda chega aqui, o tipo basta.
+    if (homeNextNode.type === 'review' || homeNextNode.status === 'due-review') {
+      return nodeTypeLabel(homeNextNode);
+    }
+
+    return `${nodeTypeLabel(homeNextNode)} · ${statusLabel(homeNextNode)}`;
+  }, [homeNextNode]);
 
   const noNextStepMessage = useMemo(() => {
     if (!snapshot || snapshot.nextRecommendedNode) {
@@ -267,11 +317,11 @@ export default function JourneyHomeScreen() {
 
             <AppButton
               onPress={() => {
-                if (snapshot?.nextRecommendedNode) {
-                  void openNode(snapshot.nextRecommendedNode);
+                if (homeNextNode) {
+                  void openNode(homeNextNode);
                 }
               }}
-              disabled={!snapshot?.nextRecommendedNode || !canOpenNode(snapshot.nextRecommendedNode)}
+              disabled={!homeNextNode || !canOpenNode(homeNextNode)}
               style={styles.cta}
               accessibilityLabel={continueLabel}
               accessibilityHint="Abre o próximo passo elegível da trilha ativa."

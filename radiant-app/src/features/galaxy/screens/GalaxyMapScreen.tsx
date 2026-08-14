@@ -5,7 +5,7 @@
  * de trilha e percorre seus nós; ambas consomem JourneyProgressService.
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,12 +17,10 @@ import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
-import type { LearningTrack, LessonCatalogManifest } from '../../content/content.types';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import { JourneyMap } from '../../journey/components/JourneyMap';
-import { JourneyTrackShelf } from '../../journey/components/JourneyTrackShelf';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
@@ -32,7 +30,6 @@ import {
 export default function GalaxyMapScreen() {
   const router = useRouter();
   const [journey, setJourney] = useState<JourneySnapshot | null>(null);
-  const [catalog, setCatalog] = useState<LessonCatalogManifest | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,13 +49,16 @@ export default function GalaxyMapScreen() {
     try {
       setLoading(true);
       setError(null);
-      const [nextJourney, nextCatalog, nextGamification] = await Promise.all([
+      // O catálogo continua sendo carregado, mas o retorno já não é guardado:
+      // quem o consumia era o seletor de trilhas. `bootstrap` é o que hidrata o
+      // catálogo para o resto do app, então a chamada fica — tirá-la seria uma
+      // mudança de comportamento disfarçada de limpeza de variável não usada.
+      const [nextJourney, , nextGamification] = await Promise.all([
         JourneyProgressService.bootstrap(),
         LessonCatalogService.bootstrap(),
         GamificationService.getSnapshot(),
       ]);
       setJourney(nextJourney);
-      setCatalog(nextCatalog);
       setGamification(nextGamification);
     } catch (cause) {
       console.error('[GalaxyMapScreen] Failed to load canonical journey:', cause);
@@ -75,25 +75,11 @@ export default function GalaxyMapScreen() {
     }, [load]),
   );
 
-  const totalNodes = useMemo(
-    () => journey?.track.units.reduce((total, unit) => total + unit.nodes.length, 0) ?? 0,
-    [journey],
-  );
-  const progressPercent = totalNodes > 0 && journey
-    ? Math.round((journey.completedCount / totalNodes) * 100)
-    : 0;
-
-  const selectTrack = useCallback(async (track: LearningTrack) => {
-    if (track.id === journey?.progress.activeTrackId) return;
-
-    try {
-      void TelemetryService.track('journey_track_selected', { trackId: track.id, active: false, surface: 'galaxy' });
-      setJourney(await JourneyProgressService.selectTrack(track.id));
-    } catch (cause) {
-      console.error('[GalaxyMapScreen] Failed to select track:', cause);
-      Alert.alert('Trilha indisponível', 'Não foi possível trocar de trilha agora.');
-    }
-  }, [journey?.progress.activeTrackId]);
+  // `selectTrack` saiu junto com o seletor de trilhas em 2026-08-14: o percurso
+  // passou a ser único, e trocar de trilha por escolha deixou de existir como
+  // ação do aluno. `JourneyProgressService.selectTrack` continua sendo o
+  // caminho de troca — quem vai chamá-lo é o destravamento automático ao
+  // concluir a trilha atual, não um toque no catálogo.
 
   const openNode = useCallback(async (node: JourneyNode) => {
     const href = getJourneyNodeHref(node);
@@ -142,17 +128,10 @@ export default function GalaxyMapScreen() {
               <Text style={styles.eyebrow}>Céu navegável</Text>
               <Text style={styles.title} accessibilityRole="header">Sua jornada, uma única rota</Text>
               <Text style={styles.subtitle}>
-                Escolha uma trilha e avance pelos mesmos pontos que alimentam a próxima ação da Home.
+                Um caminho só: avance pelos mesmos pontos que alimentam a próxima ação da Home. A
+                trilha seguinte abre quando esta terminar.
               </Text>
             </View>
-
-            <JourneyTrackShelf
-              tracks={catalog?.tracks ?? []}
-              lessons={catalog?.lessons ?? []}
-              activeTrackId={journey?.progress.activeTrackId ?? ''}
-              activeProgressPercent={progressPercent}
-              onTrackPress={selectTrack}
-            />
 
             {journey ? (
               <JourneyMap

@@ -12,6 +12,8 @@ import {
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { JourneyRecommendationService } from './JourneyRecommendationService';
 import { JourneyDefinitionService } from './JourneyDefinitionService';
+import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { resolveActiveTrackId } from './JourneyTrackUnlockService';
 
 const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
 
@@ -217,14 +219,60 @@ class JourneyProgressServiceImpl {
         return JourneyRecommendationService.computeSnapshot(trackDefinition, finalProgress);
     }
 
+    /**
+     * Uma trilha está concluída quando TODOS os seus nós estão concluídos.
+     *
+     * Trilha sem progresso guardado não está concluída — e trilha sem nós
+     * também não, senão um catálogo vazio ou ainda não hidratado destravaria o
+     * curso inteiro de uma vez, que é o oposto do que o cadeado existe para
+     * fazer.
+     */
+    private isTrackCompleted(trackId: string, store: JourneyProgressStore | null): boolean {
+        const progress = store?.tracks?.[trackId];
+
+        if (!progress) {
+            return false;
+        }
+
+        const nodeIds = JourneyDefinitionService.getTrackDefinition(trackId)
+            .units.flatMap((unit) => unit.nodes.map((node) => node.id));
+
+        if (nodeIds.length === 0) {
+            return false;
+        }
+
+        const completed = new Set(progress.completedNodeIds);
+        return nodeIds.every((nodeId) => completed.has(nodeId));
+    }
+
+    /**
+     * A trilha ativa passou a ser DERIVADA da regra sequencial em 2026-08-14,
+     * em vez de lida direto de `store.activeTrackId`.
+     *
+     * O percurso é único: a trilha certa é a primeira aberta que ainda não
+     * terminou, e `activeTrackId` virou registro do que foi resolvido, não a
+     * fonte da decisão. Guardar a decisão no store significava que, ao concluir
+     * uma trilha, nada movia o aluno para a seguinte — a Galáxia prometia
+     * "a trilha seguinte abre quando esta terminar" e ninguém cumpria.
+     *
+     * O fallback para `activeTrackId` e depois para o default cobre o catálogo
+     * ainda não hidratado, quando não há trilha nenhuma para ordenar.
+     */
     private async resolveTrackDefinition(trackDefinition?: JourneyTrackDefinition): Promise<JourneyTrackDefinition> {
         if (trackDefinition) {
             return trackDefinition;
         }
 
         const store = await this.readStore();
+        const tracks = LessonCatalogService.listTracks();
+        const completedTrackIds = new Set(
+            tracks.map((track) => track.id).filter((trackId) => this.isTrackCompleted(trackId, store)),
+        );
+
+        const sequentialTrackId = resolveActiveTrackId(tracks, completedTrackIds);
         const defaultTrackId = JourneyDefinitionService.getDefaultTrackId();
-        const activeTrackId = store?.activeTrackId ?? defaultTrackId ?? undefined;
+        const activeTrackId = sequentialTrackId ?? store?.activeTrackId ?? defaultTrackId ?? undefined;
+
         return JourneyDefinitionService.getTrackDefinition(activeTrackId);
     }
 

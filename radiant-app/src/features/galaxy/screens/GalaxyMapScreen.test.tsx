@@ -107,14 +107,26 @@ describe('GalaxyMapScreen canonical journey', () => {
     progress.selectTrack.mockResolvedValue(snapshot);
   });
 
-  it('owns both track selection and the canonical JourneyMap', async () => {
+  it('owns the canonical JourneyMap', async () => {
     renderWithProviders(<GalaxyMapScreen />);
 
-    expect(await screen.findByTestId('journey-track-shelf')).toBeTruthy();
-    expect(screen.getByTestId('canonical-journey-map')).toBeTruthy();
+    // `find*`, e não `get*`: o mapa só monta depois do bootstrap assíncrono.
+    // Antes quem esperava por essa carga era a asserção do shelf, que saiu.
+    expect(await screen.findByTestId('canonical-journey-map')).toBeTruthy();
+  });
 
-    fireEvent.press(screen.getByTestId('select-track'));
-    await waitFor(() => expect(progress.selectTrack).toHaveBeenCalledWith('track-2'));
+  // Até 2026-08-14 esta tela também era o seletor de trilhas, e o caso acima
+  // afirmava as duas responsabilidades juntas. O percurso passou a ser único: o
+  // aluno não escolhe trilha, a seguinte abre ao concluir a atual. O catálogo
+  // não pode voltar como escolha por acidente, então a ausência é verificada,
+  // e não apenas deixada de verificar — um caso removido não impede a volta.
+  it('não oferece escolha de trilha: o percurso é único', async () => {
+    renderWithProviders(<GalaxyMapScreen />);
+
+    await waitFor(() => expect(progress.bootstrap).toHaveBeenCalled());
+
+    expect(screen.queryByTestId('journey-track-shelf')).toBeNull();
+    expect(progress.selectTrack).not.toHaveBeenCalled();
   });
 
   it('opens a node through the same journey routing contract used by Home', async () => {

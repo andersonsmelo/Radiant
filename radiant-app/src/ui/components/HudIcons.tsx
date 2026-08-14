@@ -31,7 +31,7 @@ import {
 type IconProps = { size?: number; testID?: string };
 
 // ── XP — celebra o ganho ──────────────────────────────────────
-export function XpIcon({ size = 18, value = 0 }: IconProps & { value?: number }) {
+export function XpIcon({ size = 24, value = 0 }: IconProps & { value?: number }) {
   const { animatedProps, rayAnimatedProps } = useEventCelebrationScale(value);
 
   return (
@@ -50,7 +50,7 @@ export function XpIcon({ size = 18, value = 0 }: IconProps & { value?: number })
 }
 
 // ── Sequência — respira em repouso ────────────────────────────
-export function StreakIcon({ size = 18 }: IconProps) {
+export function StreakIcon({ size = 24 }: IconProps) {
   const { animatedStyle } = useBreathingScale();
 
   return (
@@ -68,7 +68,7 @@ export function StreakIcon({ size = 18 }: IconProps) {
 
 // ── Vida — o preenchimento é o estado ─────────────────────────
 export function HeartIcon({
-  size = 22,
+  size = 28,
   filled,
   losing = false,
   testID,

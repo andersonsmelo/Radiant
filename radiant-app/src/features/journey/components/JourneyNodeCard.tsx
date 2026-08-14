@@ -39,6 +39,48 @@ function getStatusCopy(node: JourneyNode) {
   }
 }
 
+/**
+ * A cor e o ícone que carregam o estado, além da palavra.
+ *
+ * Até 2026-08-14 esta função não existia: todo nó desenhava o ícone no azul de
+ * acento, no mesmo cartão cinza, e a única diferença entre CONCLUÍDO e
+ * BLOQUEADO era o texto de rodapé em cinza apagado — mais um `opacity: 0.5`
+ * global no bloqueado, que derruba junto o contraste do texto. Na tela, feito e
+ * impedido eram indistinguíveis, e o azul no ícone de um nó bloqueado ainda o
+ * fazia parecer clicável.
+ *
+ * O estado vai por TRÊS canais que não dependem um do outro: a cor, o ícone
+ * (cadeado quando bloqueado, selo quando concluído) e a palavra. Cor sozinha
+ * nunca carrega informação neste projeto — é a mesma regra do HUD.
+ */
+function getStatusPresentation(node: JourneyNode): {
+  accentColor: string;
+  surfaceColor: string;
+  /** Substitui o ícone do tipo quando o estado é mais importante que o tipo. */
+  overrideIcon?: MaterialIconName;
+} {
+  switch (node.status) {
+    case 'completed':
+      return {
+        accentColor: galaxyColors.nodeCompletedAccent,
+        surfaceColor: galaxyColors.nodeCompleted,
+        overrideIcon: 'check-circle',
+      };
+    case 'due-review':
+      return { accentColor: galaxyColors.xpColor, surfaceColor: galaxyColors.surface };
+    case 'active':
+    case 'resumable':
+    case 'available':
+      return { accentColor: accent, surfaceColor: galaxyColors.surface };
+    default:
+      return {
+        accentColor: galaxyColors.nodeLockedAccent,
+        surfaceColor: galaxyColors.nodeLocked,
+        overrideIcon: 'lock',
+      };
+  }
+}
+
 type JourneyNodeCardProps = {
   node: JourneyNode;
   nodeIndex: number;
@@ -55,12 +97,25 @@ export function JourneyNodeCard({
   disabled = false,
 }: JourneyNodeCardProps) {
   const meta = getNodeCopy(node);
+  const presentation = getStatusPresentation(node);
   const alignRight = nodeIndex % 2 === 1;
+  const isLocked = node.status === 'locked';
 
   return (
     <View style={[styles.row, alignRight && styles.rowRight]}>
       <View style={styles.anchorColumn}>
-        <View style={[styles.anchor, isRecommended && styles.recommendedRing, disabled && styles.anchorDisabled]} />
+        <View
+          testID={`journey-anchor-${node.id}`}
+          style={[
+            styles.anchor,
+            { borderColor: presentation.accentColor },
+            // O nó concluído é o único ponto PREENCHIDO da linha. Percorrendo a
+            // trilha de cima para baixo, a fronteira entre cheio e vazio é onde
+            // a pessoa está — sem precisar ler nenhum rótulo.
+            node.status === 'completed' && { backgroundColor: presentation.accentColor },
+            isRecommended && styles.recommendedRing,
+          ]}
+        />
       </View>
 
       <Pressable
@@ -68,22 +123,38 @@ export function JourneyNodeCard({
         disabled={disabled}
         accessibilityRole="button"
         accessibilityLabel={`${node.title}. ${getStatusCopy(node)}.`}
+        accessibilityState={{ disabled }}
         style={({ pressed }) => [
           styles.card,
           alignRight ? styles.cardRight : styles.cardLeft,
+          { backgroundColor: presentation.surfaceColor },
+          isLocked && styles.cardLocked,
           isRecommended && styles.cardRecommended,
-          disabled && styles.cardDisabled,
           pressed && !disabled && styles.cardPressed,
         ]}
       >
-        <View style={styles.iconTile}>
-          <DecorativeIcon name={meta.icon} size={22} color={accent} />
+        <View
+          testID={`journey-icon-tile-${node.id}`}
+          style={[styles.iconTile, isLocked && styles.iconTileLocked]}
+        >
+          <DecorativeIcon
+            name={presentation.overrideIcon ?? meta.icon}
+            size={22}
+            color={presentation.accentColor}
+          />
         </View>
 
         <View style={styles.content}>
           <Text style={styles.typeLabel}>{meta.label}</Text>
-          <Text style={styles.title} numberOfLines={3}>{node.title}</Text>
-          <Text style={styles.metaText}>{isRecommended ? 'Próximo passo' : getStatusCopy(node)}</Text>
+          <Text style={[styles.title, isLocked && styles.titleLocked]} numberOfLines={3}>
+            {node.title}
+          </Text>
+          <Text
+            testID={`journey-status-${node.id}`}
+            style={[styles.metaText, { color: presentation.accentColor }]}
+          >
+            {isRecommended ? 'Próximo passo' : getStatusCopy(node)}
+          </Text>
         </View>
       </Pressable>
     </View>
@@ -126,13 +197,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     elevation: 8,
   },
-  anchorDisabled: {
-    opacity: 0.45,
-  },
   card: {
     width: '45%',
     minHeight: 96,
-    backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,
     borderWidth: 1,
     borderColor: galaxyColors.border,
@@ -157,8 +224,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 12 },
     elevation: 12,
   },
-  cardDisabled: {
-    opacity: 0.5,
+  // Sem `opacity` global: ela apagaria o texto junto e o contrato de contraste
+  // não a enxerga, porque calcula tokens e não composição de runtime. O estado
+  // bloqueado é dito pela borda tracejada, pelo cadeado e pela cor — o título
+  // continua legível, que é o que permite decidir se vale a pena destravar.
+  cardLocked: {
+    borderStyle: 'dashed',
+    borderColor: galaxyColors.nodeLockedAccent,
+  },
+  titleLocked: {
+    color: galaxyColors.textSecondary,
+  },
+  iconTileLocked: {
+    backgroundColor: galaxyColors.surfaceMuted,
   },
   cardPressed: {
     transform: [{ scale: 0.98 }],

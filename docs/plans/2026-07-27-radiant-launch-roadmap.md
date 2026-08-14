@@ -21,11 +21,18 @@ rejeição pendente.
 ## 2. Onde estamos hoje (verificado)
 
 Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
-**[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)** — ponteiro
-atualizado após a passagem visual de 2026-08-12. Os snapshots anteriores
-permanecem como registro. A seção abaixo descreve o estado verificado em 07-27;
-as entregas posteriores, inclusive a correção P0 de contraste/composição e o HUD
-vetorial, estão no status canônico.
+~~[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)~~
+**[status canônico 2026-08-14](../EXECUTION_STATUS_2026-08-14.md)** — ponteiro
+atualizado após o redesenho da informação da jornada, em 2026-08-14. Os
+snapshots anteriores permanecem como registro. A seção abaixo descreve o estado
+verificado em 07-27; as entregas posteriores, inclusive a correção P0 de
+contraste/composição, o HUD vetorial e o percurso único da jornada, estão no
+status canônico.
+
+> **Atenção para quem retoma:** o redesenho da jornada de 2026-08-14 fechou nove
+> runs mas **não foi commitado**, e duas de suas entregas não têm verificação em
+> aparelho. As pendências estão detalhadas, com critérios de aceitação, em
+> [`handoff/2026-08-14-brief-jornada-e-pendencias.md`](../handoff/2026-08-14-brief-jornada-e-pendencias.md).
 
 **Onde o trabalho está (2026-08-13):** a `main` incorpora os PRs #1 e #2 e o
 corte H4 pelo [PR #3](https://github.com/andersonsmelo/Radiant/pull/3), merge

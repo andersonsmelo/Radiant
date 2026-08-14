@@ -11,6 +11,7 @@ const WAVE1_CATALOG_VERSION = "wave-1-2026-04-09";
 const WAVE1_TRACKS: LearningTrack[] = [
   {
     "id": "track-radiology-foundations",
+    "order": 1,
     "slug": "fundamentos",
     "title": "Fundamentos de Radiologia",
     "description": "Base física da radiação e primeiras lições do curso técnico: energia, matéria, núcleo atômico, radioatividade e a descoberta dos raios X.",
@@ -26,6 +27,7 @@ const WAVE1_TRACKS: LearningTrack[] = [
   },
   {
     "id": "track-thorax-patterns",
+    "order": 2,
     "slug": "torax",
     "title": "Radiação, Modalidades e Equipamento",
     "description": "Proteção radiológica, medicina nuclear, tomografia, ressonância magnética e o equipamento de radiologia convencional com seus componentes.",
@@ -40,6 +42,7 @@ const WAVE1_TRACKS: LearningTrack[] = [
   },
   {
     "id": "track-abdomen-essentials",
+    "order": 3,
     "slug": "abdome",
     "title": "Prática, Qualidade e Profissão",
     "description": "Produção dos raios X, processamento radiográfico, qualidade de imagem, aplicações não-médicas da radiação e a atuação do técnico em radiologia.",

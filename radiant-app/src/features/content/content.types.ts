@@ -8,6 +8,19 @@ export type LearningTrack = {
     title: string;
     description: string;
     lessonIds: QuizLessonId[];
+    /**
+     * Posição da trilha no percurso. Menor vem antes.
+     *
+     * OPCIONAL de propósito: o catálogo pode chegar de um payload remoto que
+     * não conhece este campo, e exigi-lo quebraria a leitura desse payload
+     * inteiro por causa de uma ordenação. Quando ausente, a posição no array
+     * do manifesto é usada como desempate — ver `JourneyTrackUnlockService`.
+     *
+     * O catálogo local declara explicitamente porque ordem implícita em array
+     * é invisível: nada avisa quem reordena a lista que a sequência do curso
+     * mudou junto.
+     */
+    order?: number;
 };
 
 export type LessonCatalogSummary = {

@@ -127,6 +127,16 @@ export const galaxyColors = {
   shadowHard: '#000000',
   nodeCompleted: 'rgba(255, 255, 255, 0.03)',
   nodeLocked: 'rgba(255, 255, 255, 0.04)',
+  // Verde do modo galaxy. O `colors.success` (#1A9C71) é da paleta clara e o
+  // contrato de identidade proíbe usá-lo em `features` — além de ser escuro
+  // demais para ler sobre o fundo galaxy. Este marca CONCLUÍDO, e existe
+  // porque a trilha não tinha como distinguir feito de bloqueado: os dois
+  // eram o mesmo cartão cinza, e a diferença vivia só numa palavra.
+  nodeCompletedAccent: '#3DD68C',
+  // Cinza do estado bloqueado. Substitui o `opacity: 0.5` que era aplicado ao
+  // cartão inteiro — opacidade global derruba junto o contraste do texto, e o
+  // contrato de contraste não vê isso porque calcula tokens, não runtime.
+  nodeLockedAccent: 'rgba(255, 255, 255, 0.38)',
   ctaGradientStart: '#1535E8',
   ctaGradientEnd: '#3060FF',
   ctaPressed: '#1027B5',

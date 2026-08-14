@@ -308,3 +308,67 @@ describe('JourneyHomeScreen track flow', () => {
     expect(await screen.findByTestId('journey-hero-bubble')).toBeTruthy();
   });
 });
+
+describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
+  // A revisão pertence à trilha, onde é um nó do percurso. Até 2026-08-14 a
+  // Home a promovia a manchete: a linha "Próximo" lia "Revisão · Revisão
+  // pedida" — a mesma palavra duas vezes, em tom de cobrança — e o CTA virava
+  // "Fazer revisão". A escolha do que ANUNCIAR é da Home; a de o que é
+  // ELEGÍVEL continua do serviço, que alimenta Galáxia e roteamento também.
+  function snapshotWithReviewRecommended(extraNodes: any[]) {
+    const base = createSnapshot(
+      'track-radiology-foundations',
+      'Fundamentos de radiologia',
+      'node-foundations-lesson',
+      'block-foundations',
+    );
+    const review = {
+      id: 'node-review',
+      unitId: base.progress.currentUnitId,
+      type: 'review',
+      title: 'Revisar Fundamentos',
+      status: 'due-review',
+      blockId: 'block-foundations',
+    };
+
+    base.track.units[0].nodes = [review, ...extraNodes];
+    base.nextRecommendedNode = review;
+    return base;
+  }
+
+  it('anuncia a próxima etapa de aprendizado quando a recomendação é uma revisão', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(
+      snapshotWithReviewRecommended([
+        {
+          id: 'node-next-lesson',
+          unitId: 'track-radiology-foundations:unit-1',
+          type: 'lesson',
+          title: 'Princípios de Tomografia',
+          status: 'available',
+          blockId: 'block-foundations',
+        },
+      ]),
+    );
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    await waitFor(() => expect(screen.getByText('Lição · Disponível')).toBeTruthy());
+    expect(screen.queryByText(/Revisão pedida/u)).toBeNull();
+    expect(screen.getByText('Continuar jornada')).toBeTruthy();
+  });
+
+  it('quando a revisão é a única coisa aberta, o botão diz o que vai abrir', async () => {
+    // O fallback é onde é fácil errar depois: silenciar a revisão aqui daria um
+    // botão apontando para lugar nenhum, ou pior, prometendo lição e abrindo
+    // revisão. Nomear é o comportamento correto — e é este caso que impede
+    // alguém de "limpar" o fallback achando que é resíduo.
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshotWithReviewRecommended([]));
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
+    // Ainda assim sem a duplicação: o tipo basta, o status não repete a palavra.
+    expect(screen.getByText('Revisão')).toBeTruthy();
+    expect(screen.queryByText(/Revisão · Revisão pedida/u)).toBeNull();
+  });
+});

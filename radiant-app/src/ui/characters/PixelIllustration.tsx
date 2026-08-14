@@ -13,6 +13,7 @@ import type { CharacterSize, CharacterState, CharacterTier } from './types';
 import { resolvePixelAsset } from './pixelAssets';
 import { PixelFace } from './PixelFace';
 import type { PixelExpression } from './pixelExpressions';
+import { PIXEL_FRAME_RATIO, PIXEL_IMAGE_RATIO } from './pixelScreenGeometry';
 import { colors } from '../theme';
 import { radius, space } from '../styles';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
@@ -158,7 +159,7 @@ export function PixelIllustration({
   const shouldShowGrid = !asset.isDedicated;
   const shouldShowParticles = !asset.isDedicated && stateSpec.showParticles;
   const imageWidth = dimension;
-  const imageHeight = Math.round(dimension * 1.48);
+  const imageHeight = Math.round(dimension * PIXEL_IMAGE_RATIO);
 
   const translateY = useSharedValue(0);
   const scale = useSharedValue(1);
@@ -268,7 +269,7 @@ export function PixelIllustration({
   }));
 
   return (
-    <Animated.View style={[styles.frame, { width: dimension, height: Math.round(dimension * 1.38) }, animStyle]}>
+    <Animated.View style={[styles.frame, { width: dimension, height: Math.round(dimension * PIXEL_FRAME_RATIO) }, animStyle]}>
       <View
         style={[
           styles.haloPrimary,

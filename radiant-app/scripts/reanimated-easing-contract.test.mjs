@@ -14,6 +14,12 @@ const reanimatedComponents = [
   // Contrato que enumera seus alvos não diz nada sobre quem ele não nomeia.
   'src/ui/characters/PixelIllustration.tsx',
   'src/ui/characters/PixelFace.tsx',
+  // O balão passou a animar em 2026-08-14 (nasce e recolhe a partir do
+  // rabicho). Entra aqui no mesmo run que ganhou a animação, justamente pelo
+  // motivo escrito acima: um contrato que enumera alvos não protege quem ele
+  // não nomeia, e um componente animado fora da lista é uma regra que deixou
+  // de valer sem ninguém decidir isso.
+  'src/components/ui/SpeechBubble.tsx',
 ];
 
 /**

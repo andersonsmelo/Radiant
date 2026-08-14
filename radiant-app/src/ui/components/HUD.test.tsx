@@ -196,16 +196,20 @@ describe('HUD — identidade dos ícones', () => {
   });
 
   it('mantém os glifos legíveis na escala aprovada após inspeção no aparelho', () => {
+    // Escala revista em 2026-08-14 após inspeção no simulador: a anterior
+    // (18/18/22) foi julgada pequena demais para o HUD. Estes números não são
+    // arbitrários — são a decisão que substitui a de 2026-07-28, e mudá-los
+    // exige nova inspeção no aparelho, não só deixar o teste verde.
     const xp = render(<XpIcon />).UNSAFE_getByType(Svg);
     const streak = render(<StreakIcon />).UNSAFE_getByType(Svg);
     const heart = render(<HeartIcon filled />).UNSAFE_getByType(Svg);
 
-    expect(xp.props.width).toBe(18);
-    expect(xp.props.height).toBe(18);
-    expect(streak.props.width).toBe(18);
-    expect(streak.props.height).toBe(18);
-    expect(heart.props.width).toBe(22);
-    expect(heart.props.height).toBe(22);
+    expect(xp.props.width).toBe(24);
+    expect(xp.props.height).toBe(24);
+    expect(streak.props.width).toBe(24);
+    expect(streak.props.height).toBe(24);
+    expect(heart.props.width).toBe(28);
+    expect(heart.props.height).toBe(28);
   });
 
   it('desenha um ícone vetorial para cada vida, cheia ou vazia', () => {
