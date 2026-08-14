@@ -27,6 +27,26 @@ pois este repositório é trabalhado por várias IAs em sessões independentes.
 
 O `HEAD` de publicação desta passagem é `0ceff49`.
 
+## Encerramento para replanejamento
+
+Esta passagem é encerrada após P1 e P2. Não há implementação ativa da jornada,
+run de escrita aberto, publicação de loja ou autorização de produto pendente de
+execução sob este status.
+
+P3 e P4 deixam de ser uma fila autorizada de execução e passam a ser **insumos
+do próximo planejamento**:
+
+- **P3 — fim do percurso:** só reabre depois que o dono decidir a experiência
+  da Home e da Galáxia ao concluir todas as trilhas. A decisão deve virar ADR
+  antes de código ou copy.
+- **P4 — HUD em Rive:** só reabre quando os arquivos `.riv` autorados pelo dono
+  forem disponibilizados. Não substituir os SVG/Reanimated atuais por uma
+  aproximação em código.
+
+O commit `0ceff49` contém o código do redesenho; `29126da` registra a evidência
+P2. O planejamento seguinte deve partir desses fatos e produzir seu próprio
+status/roadmap, sem reinterpretar P3/P4 como trabalho já autorizado.
+
 ## Entregas
 
 Todas passaram os 13 validadores e pertencem ao commit `0ceff49`.
@@ -183,6 +203,5 @@ nada mover o aluno ao concluir uma trilha.
 Detalhado, com critérios de aceitação, em
 [`handoff/2026-08-14-brief-jornada-e-pendencias.md`](handoff/2026-08-14-brief-jornada-e-pendencias.md).
 
-Resumo: as pendências P1 e P2 fecharam. Restam a decisão de produto e a
-implementação para a conclusão da última trilha, e a integração dos ícones Rive
-do HUD, bloqueada pelos arquivos que só o dono produz.
+Resumo: P1 e P2 fecharam. P3 e P4 foram explicitamente adiadas para o próximo
+planejamento; não há trabalho ativo remanescente nesta passagem.

@@ -29,9 +29,12 @@ verificado em 07-27; as entregas posteriores, inclusive a correção P0 de
 contraste/composição, o HUD vetorial e o percurso único da jornada, estão no
 status canônico.
 
-> **Atenção para quem retoma:** o redesenho da jornada de 2026-08-14 fechou nove
-> runs mas **não foi commitado**, e duas de suas entregas não têm verificação em
-> aparelho. As pendências estão detalhadas, com critérios de aceitação, em
+> **Atenção para quem retoma:** o redesenho da jornada de 2026-08-14 foi
+> publicado em `0ceff49`; a verificação iOS Release de seus dois caminhos de
+> runtime foi registrada em `29126da`. A passagem foi encerrada para
+> replanejamento. O handoff preserva P3 (decisão de produto sobre conclusão do
+> percurso) e P4 (assets `.riv` do dono) como **insumos, não tarefas
+> autorizadas**, em
 > [`handoff/2026-08-14-brief-jornada-e-pendencias.md`](../handoff/2026-08-14-brief-jornada-e-pendencias.md).
 
 **Onde o trabalho está (2026-08-13):** a `main` incorpora os PRs #1 e #2 e o

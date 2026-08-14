@@ -1,4 +1,4 @@
-# Brief de handoff — pendências do redesenho da jornada
+# Brief de handoff — encerramento e insumos de replanejamento da jornada
 
 **Para:** a próxima IA que pegar este repositório
 **De:** sessão de 2026-08-14 (Claude, via Loop)
@@ -36,9 +36,11 @@ com 13 de 13 validadores e memória validada. O detalhamento de cada decisão es
 no status canônico — leia-o antes de mexer no código da jornada, porque várias
 escolhas parecem arbitrárias sem o motivo.
 
-## 2. Pendências
+## 2. Estado de encerramento
 
-P1 e P2 foram concluídas em 2026-08-14. P3 e P4 seguem em ordem de dependência.
+P1 e P2 foram concluídas em 2026-08-14. Esta passagem foi encerrada para
+replanejamento: P3 e P4 **não são uma fila autorizada de implementação**. Elas
+ficam registradas abaixo como insumos para a próxima decisão do dono.
 
 ---
 
@@ -97,7 +99,7 @@ bootstrap resolve a trilha seguinte, e a Galáxia passa a exibi-la. Faltando **u
 
 ---
 
-### P3 — Decidir e implementar o fim do percurso
+### P3 — Insumo: decidir o fim do percurso
 
 **Por quê:** esta é uma lacuna de **produto**, não um bug. `resolveActiveTrackId`
 devolve a última trilha quando todas terminaram, para o app sempre ter algo a
@@ -107,16 +109,17 @@ vê a última trilha inteira concluída e nada acontece.
 O fato "curso concluído" já está disponível: `resolveTrackAccess` devolve
 `completed` por trilha, então a informação existe e ninguém a consome.
 
-**O que decidir com o dono:** o que a Galáxia e a Home mostram nesse estado. Não
-invente — é decisão de produto, e a copy atual da Galáxia ("A trilha seguinte
-abre quando esta terminar") fica falsa na última trilha.
+**O que decidir com o dono no próximo planejamento:** o que a Galáxia e a Home
+mostram nesse estado. Não invente — é decisão de produto, e a copy atual da
+Galáxia ("A trilha seguinte abre quando esta terminar") fica falsa na última
+trilha.
 
 **Critério de aceitação:** uma decisão registrada em ADR (`docs/adr/`, com data e
 decisor) e a tela correspondente implementada com teste.
 
 ---
 
-### P4 — Ícones animados do HUD em Rive
+### P4 — Insumo bloqueado: ícones animados do HUD em Rive
 
 **Por quê:** comportamento aprovado pelo dono em 2026-08-12. **Bloqueado por
 dependência externa:** os arquivos `.riv` são autorados pelo dono e ainda não
@@ -125,7 +128,8 @@ em código sem falar com ele — os ícones atuais já são SVG + Reanimated por
 decisão explícita, e Rive está reservado ao Pixel, onde a interpolação de forma
 paga o custo.
 
-**Critério de aceitação:** só faz sentido depois que os `.riv` existirem.
+**Condição de reabertura:** só faz sentido depois que os `.riv` existirem. Até
+lá, os ícones SVG + Reanimated atuais permanecem a implementação aprovada.
 
 ---
 
