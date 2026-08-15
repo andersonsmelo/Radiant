@@ -204,6 +204,51 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     markLessonNodeCompleted: jest.fn().mockResolvedValue(null),
     markReviewNodeCompleted: jest.fn().mockResolvedValue(null),
+    getSnapshot: jest.fn().mockResolvedValue({
+      track: {
+        id: 'track-1',
+        title: 'Trilha Radiológica',
+        initialUnitId: 'unit-1',
+        units: [
+          {
+            id: 'unit-1',
+            title: 'Unidade 1',
+            nodes: [
+              {
+                id: 'node-lesson-1',
+                unitId: 'unit-1',
+                type: 'lesson',
+                title: 'Lição 1',
+                lessonId: 'lesson-1',
+                status: 'completed',
+              },
+              {
+                id: 'node-lesson-2',
+                unitId: 'unit-1',
+                type: 'lesson',
+                title: 'Lição 2',
+                lessonId: 'lesson-2',
+                status: 'available',
+              },
+            ],
+          },
+        ],
+      },
+      progress: {
+        schemaVersion: 'journey-progress.v2',
+        activeTrackId: 'track-1',
+        currentUnitId: 'unit-1',
+        currentNodeId: null,
+        completedNodeIds: ['node-lesson-1'],
+        pendingReviewNodeIds: [],
+        lastUpdatedAt: '2026-08-14T00:00:00.000Z',
+        pendingSyncEvents: [],
+      },
+      nextRecommendedNode: null,
+      completedCount: 1,
+      dueReviewCount: 0,
+      recommendationReason: 'default',
+    }),
   },
 }));
 
@@ -332,7 +377,7 @@ describe('QuizScreen flow', () => {
     expect(await screen.findByText('Próxima')).toBeTruthy();
     fireEvent.press(screen.getByText('Próxima'));
 
-    expect(await screen.findByText('Resumo da tentativa')).toBeTruthy();
+    expect(await screen.findByText('A lição foi concluída')).toBeTruthy();
 
     await waitFor(() => {
       expect(mockedSpacedRepetitionService.recordQuizResult).toHaveBeenCalled();
@@ -344,6 +389,29 @@ describe('QuizScreen flow', () => {
       expect(mockedGamificationService.recordQuizCompletion).toHaveBeenCalled();
       expect(mockedDailyGoalService.recordXp).toHaveBeenCalledWith(12, expect.anything());
     });
+  });
+
+  it('conclui a lição sem oferta de assinatura nem pedido de notificação', async () => {
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: {
+        getLessonById: jest.Mock;
+        getInitialLesson: jest.Mock;
+      };
+    };
+
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+
+    renderWithProviders(<QuizScreen mode="normal" lessonId="lesson-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    expect(screen.queryByText(/Radiant Plus/)).toBeNull();
+    expect(screen.queryByText(/Próxima decisão/)).toBeNull();
+    expect(screen.queryByText(/notificaç/i)).toBeNull();
   });
 
   it('solta frase e expressão de sequência após três acertos seguidos', async () => {
