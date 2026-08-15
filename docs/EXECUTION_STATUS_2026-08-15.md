@@ -13,14 +13,29 @@ avaliação da aula, e o `QuizScreen` encolheu de 707 para 488 linhas.
 
 ## Estado de publicação
 
-**Nada desta passagem foi publicado.** O trabalho vive na branch local
-`feat/atividade-fim-licao`, 14 commits à frente de `f2156ad`, **sem upstream
-configurado**. `main` local e `origin/main` continuam idênticas em `f2156ad`.
+**A passagem está publicada na branch, e não em `main`.** Medido em 2026-08-15
+14:31: `feat/atividade-fim-licao` está em `e184be4`, **16 commits** à frente de
+`f2156ad`, com upstream `origin/feat/atividade-fim-licao` e `0/0` contra ele — ou
+seja, tudo enviado. `main` local e `origin/main` continuam idênticas em `f2156ad`,
+então **nada desta passagem chegou à linha principal**; falta abrir o PR.
+
+> **Correção de 2026-08-15 14:31.** Este parágrafo afirmava "nada desta passagem
+> foi publicado", "14 commits" e "sem upstream configurado". As três coisas eram
+> verdade quando foram escritas e deixaram de ser quando o push aconteceu, no
+> mesmo dia. O registro fica porque a lição vale mais que o conserto: **estado de
+> publicação envelhece entre a escrita e a leitura do documento.** Quem depender
+> dele mede de novo, em vez de citar.
 
 Isso importa porque este repositório é trabalhado por várias IAs em sessões
-independentes: enquanto o push não acontecer, nenhuma outra sessão enxerga nada do que
-está descrito aqui. O estado deve continuar sendo medido antes de uma alteração —
-`git status --porcelain`, `git rev-parse --short HEAD` e a comparação com `origin/main`.
+independentes. Como o push já aconteceu, outras sessões **enxergam** este trabalho
+ao buscar a branch — mas não o veem em `main`. O estado deve continuar sendo
+medido antes de uma alteração:
+
+```bash
+git rev-parse --short HEAD && git status --porcelain
+git rev-list --left-right --count @{u}...HEAD
+git rev-parse --short refs/heads/main refs/remotes/origin/main
+```
 
 ## Escopo: 1 de 6
 
