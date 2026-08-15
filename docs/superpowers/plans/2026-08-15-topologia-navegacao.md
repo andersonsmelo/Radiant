@@ -395,7 +395,15 @@ O modo de revisão (`/quiz?mode=review&lessonIds=…`) é a única razão funcio
 **Se `/review` não cobrir o caso por completo, `/quiz` não pode ser aposentada nesta passagem**
 e a Task 18 sai do escopo. Este plano não afirma que cobre.
 
-- [ ] **Step 1:** comparar os dois caminhos de revisão e registrar o resultado.
+- [x] **Step 1:** comparar os dois caminhos de revisão e registrar o resultado.
+
+**Resultado, medido em 2026-08-15: `/review` cobre, e `/quiz` está órfão de verdade.**
+`ReviewScreen` consome `useReview` → `SpacedRepetitionService.getDueLessons()`, monta a fila do
+dia e grava o resultado de volta no SM-2. Não importa nada de `QuizScreen` nem de `useQuiz`. O
+`/quiz?mode=review` recebe uma lista explícita e arbitrária de `lessonIds`, não consulta o
+SM-2, e o próprio código registra que não tem caller interno — é afordância de teste por deep
+link, não fluxo de produto. `useQuiz` é usado só por `QuizScreen`, e `QuizScreen` só por
+`src/app/quiz.tsx`. A Task 18 está destravada.
 
 ### Task 16: `/learn` adota o topo enxuto
 
@@ -407,10 +415,10 @@ e a Task 18 sai do escopo. Este plano não afirma que cobre.
 O cabeçalho atual repete título e contagem — a mesma repetição que o sub-projeto 1 removeu do
 quiz. Cede lugar ao `QuizTopBar`: uma linha, `X` à esquerda, barra no meio, corações à direita.
 
-- [ ] **Step 1: Teste que falha** — a tela renderiza `QuizTopBar` e não o cabeçalho antigo.
-- [ ] **Step 2: Implementar.**
-- [ ] **Step 3: `npm run quality`.**
-- [ ] **Step 4: Verificação em simulador.**
+- [x] **Step 1: Teste que falha** — a tela renderiza `QuizTopBar` e não o cabeçalho antigo.
+- [x] **Step 2: Implementar.**
+- [x] **Step 3: `npm run quality`.**
+- [x] **Step 4: Verificação em simulador.**
 
 ### Task 17: `/learn` mostra a conclusão
 
@@ -432,10 +440,10 @@ exibida. `resolveBestLessonStars` recebe `completedAt` justamente para excluir a
 atual do histórico; passe o mesmo valor que o `LessonOutcomeService` gravou, ou `improved` sai
 sempre `false`.
 
-- [ ] **Step 1: Teste que falha** — ao terminar, a tela renderiza `LessonSummary` em vez de sair; as estrelas refletem a melhor tentativa acumulada; `improved` é verdadeiro quando a tentativa supera a marca.
-- [ ] **Step 2: Implementar.**
-- [ ] **Step 3: `npm run quality`.**
-- [ ] **Step 4: Verificação em simulador** — percorrer uma lição inteira até a conclusão, duas vezes, com desempenhos diferentes.
+- [x] **Step 1: Teste que falha** — ao terminar, a tela renderiza `LessonSummary` em vez de sair; as estrelas refletem a melhor tentativa acumulada; `improved` é verdadeiro quando a tentativa supera a marca.
+- [x] **Step 2: Implementar.**
+- [x] **Step 3: `npm run quality`.**
+- [x] **Step 4: Verificação em simulador** — percorrer uma lição inteira até a conclusão, duas vezes, com desempenhos diferentes.
 
 ### Task 18: Aposentar `/quiz`
 

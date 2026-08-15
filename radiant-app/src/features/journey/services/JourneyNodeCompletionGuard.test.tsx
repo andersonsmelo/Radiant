@@ -50,7 +50,7 @@ jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 jest.mock('../../../ui/motion', () => ({
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  useScalePop: () => ({ style: {}, animateIn: jest.fn() }),
+  useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({ animatedStyle: {}, onPressIn: jest.fn(), onPressOut: jest.fn() }),
   useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
@@ -90,6 +90,8 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
 
 jest.mock('../../../ui/components/HUD', () => ({
   HUD: () => null,
+  // `QuizTopBar`, adotada por `LessonFlowScreen`, renderiza as vidas por aqui.
+  HeartsDisplay: () => null,
 }));
 
 jest.mock('../../lesson-flow/components/LessonVisualPanel', () => ({
@@ -104,7 +106,16 @@ jest.mock('../../lesson-flow/services/LessonFlowService', () => ({
 
 jest.mock('../../lesson-flow/services/LessonOutcomeService', () => ({
   LessonOutcomeService: {
-    recordCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
+    recordCompletion: jest.fn().mockResolvedValue({
+      award: null,
+      rewarded: true,
+      result: {
+        lessonId: 'lesson-1',
+        totalQuestions: 1,
+        correctAnswers: 1,
+        answeredAt: new Date('2026-08-15T12:00:00.000Z'),
+      },
+    }),
   },
 }));
 
@@ -315,12 +326,14 @@ describe('markNodeCompleted authorization boundary', () => {
     const continueButton = await screen.findByText('Concluir e voltar');
     fireEvent.press(continueButton);
 
-    // A espera é pela SAÍDA da tela, não pelo aviso: `handleContinue` só chama
-    // `router.replace` depois de a escrita ter ido e voltado. Esperar pelo
-    // `console.warn` faria o teste medir o log em vez do efeito.
-    await waitFor(() => {
-      expect(router.replace).toHaveBeenCalledWith('/(tabs)');
-    });
+    // A espera é pela CONCLUSÃO renderizada, não pelo aviso: ela só aparece
+    // depois de a escrita ter ido e voltado. Esperar pelo `console.warn` faria
+    // o teste medir o log em vez do efeito.
+    //
+    // Antes de 2026-08-15 o ponto de sincronia era `router.replace('/(tabs)')`,
+    // porque a tela saía sozinha ao terminar. Ela agora mostra a conclusão da
+    // lição no lugar — o efeito medido aqui é o mesmo, o sinal é outro.
+    expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
 
     const progress = storedTrack();
     expect(progress.completedNodeIds).not.toContain(REWARD_NODE_ID);

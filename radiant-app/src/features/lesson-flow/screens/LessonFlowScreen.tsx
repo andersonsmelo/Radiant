@@ -20,8 +20,29 @@ import { AdvanceStepRenderer } from '../renderers/AdvanceStepRenderer';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { LessonVisualPanel } from '../components/LessonVisualPanel';
-import { LessonFlowProgressHeader } from '../components/LessonFlowProgressHeader';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+// A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
+// `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
+// nenhum aluno os alcançava. `/learn` é o caminho vivo, e é aqui que eles
+// passam a existir de verdade (ADR-2026-08-15).
+import { QuizTopBar } from '../../quiz/components/QuizTopBar';
+import { LessonSummary } from '../../quiz/components/LessonSummary';
+import {
+    resolveBestLessonStars,
+    resolveLessonStars,
+    type LessonStars,
+} from '../../quiz/services/resolveLessonStars';
+import { pickSummaryPhrase } from '../../quiz/constants/lessonSummaryPhrases';
+import { LessonRatingService } from '../../quiz/services/LessonRatingService';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import { Confetti } from '../../../components/ui/Confetti';
+import { hapticCelebrate } from '../../../ui/feedback/haptics';
+import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
+import type { GamificationSnapshot, XpAward } from '../../../types/gamification';
+import type { JourneySnapshot } from '../../../types/journey';
+import type { QuizResult } from '../../../types/quiz';
 import {
     STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
     useShadowCheckpoint,
@@ -40,6 +61,23 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [activity, setActivity] = useState<LearningActivityV2 | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+
+    // A conclusão passa a ser um estado desta tela. Antes daqui, terminar a
+    // última interação chamava `router.replace('/(tabs)')` e devolvia o aluno
+    // em silêncio para a aba — sem estrelas, sem XP, sem frase, sem avaliação.
+    const [outcome, setOutcome] = useState<{ result: QuizResult; award: XpAward | null } | null>(null);
+    const [journeySnapshot, setJourneySnapshot] = useState<JourneySnapshot | null>(null);
+    const [unitProgress, setUnitProgress] = useState<{ completed: number; total: number }>({
+        completed: 0,
+        total: 0,
+    });
+    const [summary, setSummary] = useState<{
+        stars: LessonStars;
+        improved: boolean;
+        phrase: string;
+        rating: number | null;
+    } | null>(null);
 
     const resumeStepIndex = useMemo(() => {
         if (!activity || !resumeCursorId) return 0;
@@ -220,30 +258,146 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
-        if (block) {
-            await LessonOutcomeService.recordCompletion({
-                block,
-                nodeId,
-                confirmedAnswers: nextConfirmed,
-            });
-        } else {
-            await LessonOutcomeService.recordActivityCompletion({
-                activity,
-                nodeId,
-                confirmedAnswers: nextConfirmed,
-            });
-        }
+        const lessonOutcome = block
+            ? await LessonOutcomeService.recordCompletion({
+                  block,
+                  nodeId,
+                  confirmedAnswers: nextConfirmed,
+              })
+            : await LessonOutcomeService.recordActivityCompletion({
+                  activity,
+                  nodeId,
+                  confirmedAnswers: nextConfirmed,
+              });
 
-        await JourneyProgressService.markNodeCompleted(nodeId);
+        // O snapshot vem do RETORNO de `markNodeCompleted`, não de uma leitura
+        // solta via `getSnapshot()`. As duas correriam em paralelo com a
+        // escrita, e a leitura pode terminar antes de a marcação pousar —
+        // mostrando a unidade sem a lição que acabou de fechar. Encadear a
+        // partir da própria marcação elimina a corrida.
+        const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
         await JourneyProgressService.setCurrentNode(null);
         await JourneyProgressService.setResumableNode(undefined);
         await activeCheckpoint.finish();
-        router.replace('/(tabs)');
+
+        setJourneySnapshot(snapshot);
+        setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
+
+        try {
+            setGamification(await GamificationService.getSnapshot());
+        } catch (cause) {
+            console.error('[LessonFlowScreen] Falha ao reler a gamificação:', cause);
+        }
     };
 
     const exitLesson = () => {
         router.replace('/(tabs)');
     };
+
+    // Carrega as vidas para a barra do topo. Errar consome vida durante a
+    // atividade, e o aluno precisa ver isso acontecer.
+    useEffect(() => {
+        let alive = true;
+
+        void GamificationService.getSnapshot()
+            .then((snapshot) => {
+                if (alive) {
+                    setGamification(snapshot);
+                }
+            })
+            .catch((cause) => {
+                console.error('[LessonFlowScreen] Falha ao carregar a gamificação:', cause);
+            });
+
+        return () => {
+            alive = false;
+        };
+    }, []);
+
+    // Estrelas, frase e nota da conclusão.
+    //
+    // `resolveBestLessonStars` exclui a tentativa atual do histórico comparando
+    // `completedAt` — por isso o carimbo precisa ser exatamente o que
+    // `recordAttempt` persistiu, que é `result.answeredAt`. Um `new Date()`
+    // novo aqui não casaria, e `improved` sairia sempre falso.
+    //
+    // A tela inteira de conclusão fica atrás de `summary`, então uma leitura que
+    // rejeita não pode deixá-lo em `null` para sempre: o aluno tem que sempre
+    // chegar no Continuar. Falhando o histórico ou a nota, cai para as estrelas
+    // só desta tentativa, sem comparação, em vez de travar a tela.
+    useEffect(() => {
+        if (!outcome) {
+            return;
+        }
+
+        const { result } = outcome;
+        let cancelado = false;
+
+        void (async () => {
+            try {
+                const attempts = await LearningAttemptsRepository.getAll();
+                const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+                    correctAnswers: result.correctAnswers,
+                    totalQuestions: result.totalQuestions,
+                    completedAt: result.answeredAt.toISOString(),
+                });
+                const rating = await LessonRatingService.getRating(result.lessonId);
+
+                if (cancelado) {
+                    return;
+                }
+
+                setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
+            } catch (cause) {
+                console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
+
+                if (cancelado) {
+                    return;
+                }
+
+                const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
+                setSummary({
+                    stars,
+                    improved: false,
+                    phrase: pickSummaryPhrase(stars, null),
+                    rating: null,
+                });
+            }
+        })();
+
+        return () => {
+            cancelado = true;
+        };
+    }, [outcome]);
+
+    // Progresso da unidade, pela MESMA regra que o RewardScreen usa —
+    // `computeUnitPrimaryProgress` foi extraída justamente para não existirem
+    // duas cópias do mesmo par de filtros. A unidade ativa é localizada pelo nó
+    // cujo `lessonId` bate com a lição concluída; sem correspondência,
+    // `unitProgress` fica em {0, 0} e o card simplesmente não aparece.
+    useEffect(() => {
+        if (!outcome || !journeySnapshot) {
+            return;
+        }
+
+        const activeUnit =
+            journeySnapshot.track.units.find((unit) =>
+                unit.nodes.some((node) => node.lessonId === outcome.result.lessonId)
+            ) ?? null;
+
+        setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+    }, [outcome, journeySnapshot]);
+
+    const lessonPassed = outcome
+        ? Math.round((outcome.result.correctAnswers / Math.max(1, outcome.result.totalQuestions)) * 100) >=
+          QUIZ_THRESHOLDS.PASSING_SCORE
+        : false;
+
+    useEffect(() => {
+        if (lessonPassed) {
+            hapticCelebrate();
+        }
+    }, [lessonPassed]);
 
     if (loading) {
         return (
@@ -253,6 +407,42 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     <View style={styles.centered}>
                         <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
                     </View>
+                </SafeAreaView>
+            </View>
+        );
+    }
+
+    // A conclusão vem antes do guarda de erro porque, terminada a lição,
+    // `currentStep` já não é mais o assunto da tela.
+    if (outcome) {
+        return (
+            <View style={styles.root}>
+                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+                <Confetti count={40} run={lessonPassed} />
+                <SafeAreaView style={styles.safe} edges={['top']}>
+                    {summary ? (
+                        <LessonSummary
+                            stars={summary.stars}
+                            starsImproved={summary.improved}
+                            phrase={summary.phrase}
+                            xpAwarded={outcome.award?.totalXpAwarded ?? null}
+                            correctAnswers={outcome.result.correctAnswers}
+                            totalQuestions={outcome.result.totalQuestions}
+                            unitCompleted={unitProgress.completed}
+                            unitTotal={unitProgress.total}
+                            habitLine={null}
+                            currentRating={summary.rating}
+                            onRate={(nota) => {
+                                void LessonRatingService.rate(outcome.result.lessonId, nota);
+                                setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
+                            }}
+                            onContinue={exitLesson}
+                        />
+                    ) : (
+                        <View style={styles.centered}>
+                            <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
+                        </View>
+                    )}
                 </SafeAreaView>
             </View>
         );
@@ -279,23 +469,23 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
             <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
                 <View style={styles.container}>
+                    {/*
+                      Uma linha só: fechar, progresso e vidas. O cabeçalho
+                      anterior declarava o mesmo progresso duas vezes — barra e
+                      contagem, mais o título da lição —, que é exatamente a
+                      repetição que o sub-projeto 1 tirou da tela de atividade.
+                    */}
                     <View style={styles.header}>
-                        <View style={styles.headerTopRow}>
-                            <Pressable
-                                onPress={exitLesson}
-                                style={styles.closeButton}
-                                accessibilityRole="button"
-                                accessibilityLabel="Fechar lição"
-                            >
-                                <DecorativeIcon name="close" size={24} color={galaxyColors.textSecondary} />
-                            </Pressable>
-                        </View>
-                        <LessonFlowProgressHeader
-                            title={lessonTitle}
-                            currentStep={stepIndex + 1}
-                            totalSteps={totalSteps}
-                            progressPercent={progress * 100}
+                        <QuizTopBar
+                            questionIndex={stepIndex}
+                            totalQuestions={totalSteps}
+                            hearts={gamification?.hearts ?? 5}
+                            maxHearts={gamification?.maxHearts ?? 5}
+                            onClose={exitLesson}
                         />
+                        <Text style={styles.stepCount}>
+                            Passo {stepIndex + 1} de {totalSteps}
+                        </Text>
                     </View>
 
                     <ScrollView
@@ -392,6 +582,13 @@ const styles = StyleSheet.create({
         paddingTop: space.s1,
         paddingBottom: space.s2,
         gap: space.s2,
+    },
+    // Contagem discreta, sob a barra. Quem anuncia a posição é este texto — a
+    // barra do topo não carrega `accessibilityLabel` de progresso de propósito,
+    // para não anunciar a mesma coisa duas vezes.
+    stepCount: {
+        ...typography.micro,
+        color: galaxyColors.textSecondary,
     },
     headerTopRow: {
         flexDirection: 'row',
