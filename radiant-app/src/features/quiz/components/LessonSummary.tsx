@@ -32,6 +32,16 @@ const STAR_SLOTS = Array.from({ length: TOTAL_STARS }, (_, index) => index);
 const RATING_MAX = 5;
 const RATING_SLOTS = Array.from({ length: RATING_MAX }, (_, index) => index + 1);
 
+// `Continuar` vive num rodapé fixo fora do ScrollView — a mesma forma do
+// problema que `tabBarClearance` (src/ui/styles.ts) resolve para as telas de
+// tab: um elemento fixado fora do conteúdo rolável precisa da sua própria
+// reserva, ou o fim do scroll (aqui, a linha de hábito e a linha de
+// avaliação) renderiza cortado ou fica invisível no primeiro paint atrás do
+// botão. Esta tela não é uma tab, então ganha sua própria constante nomeada
+// em vez de importar `tabBarClearance` — mesmo desenho, valor próprio.
+const CTA_HEIGHT = 56; // altura fixa do AppButton, components/ui/AppButton.tsx
+const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
+
 /**
  * Uma estrela do placar, com entrada animada quando a marca melhorou.
  *
@@ -139,18 +149,21 @@ export function LessonSummary({
         {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
 
         {currentRating === null ? (
-          <View style={styles.ratingRow}>
-            {RATING_SLOTS.map((n) => (
-              <Pressable
-                key={n}
-                onPress={() => onRate(n)}
-                accessibilityRole="button"
-                accessibilityLabel={`Avaliar a aula com ${n} de 5`}
-                style={styles.ratingButton}
-              >
-                <DecorativeIcon name="star" size={28} color={galaxyColors.textSecondary} />
-              </Pressable>
-            ))}
+          <View style={styles.ratingSection}>
+            <Text style={styles.ratingLabel}>Avalie a aula</Text>
+            <View style={styles.ratingRow}>
+              {RATING_SLOTS.map((n) => (
+                <Pressable
+                  key={n}
+                  onPress={() => onRate(n)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Avaliar a aula com ${n} de 5`}
+                  style={styles.ratingButton}
+                >
+                  <DecorativeIcon name="star" size={28} color={galaxyColors.textSecondary} />
+                </Pressable>
+              ))}
+            </View>
           </View>
         ) : (
           <Text style={styles.ratingGiven}>{`Você avaliou esta aula com ${currentRating} de 5`}</Text>
@@ -178,7 +191,7 @@ const styles = StyleSheet.create({
   body: {
     padding: space.s3,
     gap: space.s3,
-    paddingBottom: space.s5,
+    paddingBottom: ctaClearance,
   },
   starRow: {
     flexDirection: 'row',
@@ -233,6 +246,15 @@ const styles = StyleSheet.create({
   habitLine: {
     ...typography.bodyRegular,
     color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  ratingSection: {
+    gap: space.s1,
+  },
+  ratingLabel: {
+    ...typography.caption,
+    color: galaxyColors.textSecondary,
+    textTransform: 'uppercase',
     textAlign: 'center',
   },
   ratingRow: {

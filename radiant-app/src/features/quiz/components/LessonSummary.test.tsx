@@ -1,6 +1,8 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { LessonSummary } from './LessonSummary';
+import { space } from '../../../ui/styles';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -129,6 +131,36 @@ describe('LessonSummary', () => {
   it('não pede avaliação quando a lição já foi avaliada', () => {
     render(<LessonSummary {...base} currentRating={5} />);
     expect(screen.queryByLabelText('Avaliar a aula com 4 de 5')).toBeNull();
+  });
+
+  it('mostra o rótulo visível "Avalie a aula" só quando ainda não há nota', () => {
+    // O `accessibilityLabel` de cada estrela ("Avaliar a aula com N de 5")
+    // nunca foi um rótulo visível — só leitor de tela o alcança. Sem texto
+    // de leitura acima da linha, a tela renderiza cinco estrelas cinzas sem
+    // nenhuma pista do que fazem. Achado Importante 1 do QA visual.
+    const { rerender } = render(<LessonSummary {...base} currentRating={null} />);
+    expect(screen.getByText('Avalie a aula')).toBeTruthy();
+
+    // E o convite não pode sobreviver a uma nota já dada — pedir de novo o
+    // que já foi respondido é incoerente com "Você avaliou esta aula...".
+    rerender(<LessonSummary {...base} currentRating={4} />);
+    expect(screen.queryByText('Avalie a aula')).toBeNull();
+  });
+
+  it('reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo', () => {
+    // O rodapé com `Continuar` fica fora do ScrollView, fixo na base da tela
+    // (padding vertical space.s3 * 2 + altura do AppButton, 56px). Sem essa
+    // reserva no `contentContainerStyle`, a linha de hábito renderiza cortada
+    // e a linha de avaliação fica invisível atrás do botão no primeiro paint
+    // — Achado Importante 2 do QA visual. Este teste não importa a constante
+    // `ctaClearance` do componente de propósito: comparar contra o footprint
+    // real do rodapé é o que faz o teste falhar se a reserva for removida ou
+    // reduzida de volta a um valor que não cobre o botão.
+    render(<LessonSummary {...base} />);
+    const scrollView = screen.UNSAFE_getByType(ScrollView);
+    const contentStyle = StyleSheet.flatten(scrollView.props.contentContainerStyle);
+    const FOOTER_FOOTPRINT = space.s3 * 2 + 56;
+    expect(contentStyle.paddingBottom).toBeGreaterThanOrEqual(FOOTER_FOOTPRINT);
   });
 
   it('não renderiza oferta de assinatura nem pedido de notificação', () => {
