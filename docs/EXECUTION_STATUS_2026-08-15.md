@@ -408,11 +408,33 @@ Viraram duas ADRs:
 
 **Tudo isso foi aprovado pelo dono em 2026-08-15**, e a spec virou
 [plano de implementação](superpowers/plans/2026-08-15-topologia-navegacao.md): 18 tarefas em
-quatro fases, cada fase um PR. **Nenhuma foi executada** — ver a seção sobre o que esta sessão
-não pôde fazer.
+quatro fases, cada fase um PR.
 
-A fase D — convergência de `/learn` e `/quiz` — é independente das outras três e é a de maior
-valor por esforço. Se a passagem precisar ser cortada, corte por B ou C, nunca por D.
+## Execução — 6 das 18 tarefas
+
+| Fase | Tarefas | Estado |
+| --- | --- | --- |
+| A — console fora da tela do aluno | 1–3 | **Entregue** |
+| B — trilha contínua | 4 de 4–8 | Serviço do percurso entregue; a trilha em si, não |
+| C — duas abas, Perfil, Galáxia absorvida | 9–14 | Não iniciada |
+| D — convergência de `/learn` e `/quiz` | 15–17 de 15–18 | **Entregue**; falta só aposentar `/quiz` |
+
+**O que passou a existir para o aluno:** a lição deixou de terminar em silêncio. `/learn`
+adota `QuizTopBar` e `LessonSummary`, e a regra da melhor tentativa acordou sem uma linha de
+persistência nova — `/learn` já era o escritor de `LearningAttemptsRepository`. É o que faz o
+sub-projeto 1 existir de verdade.
+
+**Portão em cada passagem:** `npm run quality` inteiro. Última medição: 102 suítes, 705
+testes, visual QA sem regressões, saída zero. Nenhum validador desligado.
+
+**Nada foi verificado em simulador.** O que falta das fases B e C é quase inteiramente visual —
+a trilha contínua, a faixa de próximo nível, as estrelas no nó, o Perfil. Foi onde a execução
+parou de propósito: é o que só uma tela responde.
+
+Correção registrada: a Task 3 do plano mandava consertar um card claro na `ProgressScreen`. Ao
+abrir o bloco de estilo, `whiteCard` sempre teve `galaxyColors.surface` de fundo — branco a 5%
+sobre o escuro, igual ao `GlassCard`. Não havia defeito; havia um nome herdado da era clara. O
+defeito tinha sido inferido de um identificador sem abrir o estilo.
 
 ## Achado que corrige o registro acima
 

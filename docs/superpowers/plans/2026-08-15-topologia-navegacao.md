@@ -170,9 +170,15 @@ serviço concatena o que esses dois já decidem.
 a recomendação daquela trilha diria isoladamente. É isso que dá ao aluno o "o que vem" da
 referência.
 
-- [ ] **Step 1: Teste que falha** — trilhas saem na ordem de `sortTracks`; a segunda trilha vem inteira bloqueada enquanto a primeira não fecha; o `recommendedNodeId` é o da trilha ativa; catálogo vazio devolve lista vazia sem lançar.
-- [ ] **Step 2: Implementar.**
-- [ ] **Step 3: `npm run quality`.**
+- [x] **Step 1: Teste que falha** — trilhas saem na ordem de `sortTracks`; a segunda trilha vem inteira bloqueada enquanto a primeira não fecha; o `recommendedNodeId` é o da trilha ativa; catálogo vazio devolve lista vazia sem lançar.
+- [x] **Step 2: Implementar.**
+- [x] **Step 3: `npm run quality`.**
+
+**Executada em 2026-08-15.** Duas regras que o desenho não previa e os testes fixaram:
+uma trilha **sem nó nenhum** não conta como concluída — senão um catálogo ainda sem conteúdo
+abriria a trilha seguinte de graça; e nós **já concluídos dentro de trilha fechada** são
+preservados, nunca rebaixados a `locked` — uma trilha pode estar atrás do cadeado e conter
+conclusões antigas, e rebaixá-las reescreveria o passado do aluno.
 
 **Nota de desempenho, medida e não adivinhada:** o catálogo de hoje tem ~29 lições em
 `src/data/catalog.ts` e 6 entradas em `ProductionCurriculumCatalog` — dezenas de nós, que
