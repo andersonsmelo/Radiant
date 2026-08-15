@@ -28,6 +28,16 @@ async function readAll(): Promise<RatingMap> {
 }
 
 class LessonRatingServiceImpl {
+    /**
+     * Lições com uma avaliação em andamento (leitura+escrita ainda não
+     * resolvida). Guarda síncrona contra a corrida entre duas chamadas de
+     * `rate` para a mesma lição — sem isso, ambas leriam o mesmo snapshot
+     * de storage antes da primeira escrita resolver e as duas gravariam e
+     * emitiriam o evento. Mesmo espírito do `isPersisting` do
+     * `TelemetryServiceImpl`.
+     */
+    private pendingLessonIds = new Set<string>();
+
     async getRating(lessonId: string): Promise<number | null> {
         const all = await readAll();
         const value = all[lessonId];
@@ -41,13 +51,20 @@ class LessonRatingServiceImpl {
      */
     async rate(lessonId: string, rating: number): Promise<void> {
         if (!Number.isInteger(rating) || rating < MIN_RATING || rating > MAX_RATING) { return; }
-        const all = await readAll();
-        if (typeof all[lessonId] === 'number') { return; }
+        // Checagem e marcação síncronas, antes de qualquer await: uma segunda
+        // chamada concorrente para a mesma lição encontra o lock já setado e
+        // retorna sem tocar o storage.
+        if (this.pendingLessonIds.has(lessonId)) { return; }
+        this.pendingLessonIds.add(lessonId);
         try {
+            const all = await readAll();
+            if (typeof all[lessonId] === 'number') { return; }
             await AsyncStorage.setItem(STORAGE_KEYS.LESSON_RATINGS, JSON.stringify({ ...all, [lessonId]: rating }));
             await TelemetryService.track('lesson_rated', { lessonId, rating });
         } catch (error) {
             console.error('[LessonRatingService] Falha ao registrar avaliação:', error);
+        } finally {
+            this.pendingLessonIds.delete(lessonId);
         }
     }
 }

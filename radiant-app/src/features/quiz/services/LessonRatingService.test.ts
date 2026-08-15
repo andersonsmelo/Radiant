@@ -36,4 +36,14 @@ describe('LessonRatingService', () => {
     expect(AsyncStorage.setItem).not.toHaveBeenCalled();
     expect(TelemetryService.track).not.toHaveBeenCalled();
   });
+
+  it('não grava nem emite duas vezes quando duas chamadas concorrem para a mesma lição', async () => {
+    const first = LessonRatingService.rate('licao-1', 4);
+    const second = LessonRatingService.rate('licao-1', 5);
+    await Promise.all([first, second]);
+
+    expect(AsyncStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(TelemetryService.track).toHaveBeenCalledTimes(1);
+    expect(TelemetryService.track).toHaveBeenCalledWith('lesson_rated', { lessonId: 'licao-1', rating: 4 });
+  });
 });
