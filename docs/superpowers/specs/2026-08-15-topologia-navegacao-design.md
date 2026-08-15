@@ -179,11 +179,15 @@ A separação vem antes da agregação. As 1057 linhas se dividem em três desti
 `StreakCalendarCard`, `AccuracyChartCard`, `StatsGrid`, `TopicsMasteredList`. Movem-se como
 estão; o sub-projeto 3 decide como se compõem dentro do Perfil.
 
-Um achado a corrigir na mudança: o bloco de tópicos dominados é embrulhado hoje por um
-`styles.whiteCard`. Card claro em identidade galaxy dark é exatamente a classe de defeito que
-o `identity-palette-contract` existe para impedir — e ele não pega este caso, porque o
-contrato proíbe a **importação** da paleta clara primitiva, não um branco escrito à mão. O
-card precisa virar `GlassCard` na migração.
+**Correção de 2026-08-15, feita durante a execução.** Uma versão anterior desta seção afirmava
+que o bloco de tópicos dominados era embrulhado por um card **claro** — `styles.whiteCard` — e
+que isso seria a classe de defeito que produziu os dois P0 de identidade. **Não é.** O
+`backgroundColor` sempre foi `galaxyColors.surface`, branco a 5% sobre o fundo escuro, igual
+ao do `GlassCard`. Só o nome era herança da era clara.
+
+Não havia defeito a corrigir; havia um nome que fazia qualquer leitor suspeitar de um. O
+estilo foi renomeado para `metricCard`, com o registro ao lado. **A lição que sobra é sobre
+método:** o defeito foi inferido de um identificador sem abrir o bloco de estilo.
 
 ### 4.2 Conta e sincronização → Perfil, como identidade
 

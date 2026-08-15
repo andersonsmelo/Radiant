@@ -98,9 +98,9 @@ movimento puro, sem inventar tela e mover conteúdo no mesmo passo. O precedente
 `SHOW_DEV_TOOLS` tem padrão `__DEV__ || EXPO_PUBLIC_ENABLE_DEV_TOOLS`, então em build de
 release a rota some sem flag nova.
 
-- [ ] **Step 1: Teste que falha** — a rota monta com `SHOW_DEV_TOOLS: true` e **não** monta com `false`.
-- [ ] **Step 2: Implementar** a tela vazia com título e a montagem condicional.
-- [ ] **Step 3: `npm run quality`.**
+- [x] **Step 1: Teste que falha** — a rota monta com `SHOW_DEV_TOOLS: true` e **não** monta com `false`.
+- [x] **Step 2: Implementar** a tela vazia com título e a montagem condicional.
+- [x] **Step 3: `npm run quality`.**
 
 ### Task 2: Mover o console da ProgressScreen
 
@@ -117,23 +117,27 @@ de estado local do smoke da Learning Road; o botão de abrir o Telemetry Debug.
 de sync e badge de auth. Isso não é console — é a identidade do aluno, e no Perfil vira
 cabeçalho. Fica na `ProgressScreen` até a Task 10 levá-lo ao Perfil.
 
-- [ ] **Step 1: Teste que falha** — `ProgressScreen` não renderiza nenhum controle de flag, health de API ou reset; `DevConsoleScreen` renderiza todos.
-- [ ] **Step 2: Mover** os blocos, sem reescrevê-los.
-- [ ] **Step 3: `npm run quality`.**
+- [x] **Step 1: Teste que falha** — `ProgressScreen` não renderiza nenhum controle de flag, health de API ou reset; `DevConsoleScreen` renderiza todos.
+- [x] **Step 2: Mover** os blocos, sem reescrevê-los.
+- [x] **Step 3: `npm run quality`.**
 
-### Task 3: Corrigir o card claro
+### Task 3: ~~Corrigir o card claro~~ → Renomear o card que mente
 
 **Files:**
 - Modify: `src/features/progress/screens/ProgressScreen.tsx`
 
-O bloco de tópicos dominados é embrulhado por `styles.whiteCard`. Card claro em identidade
-galaxy dark é a classe de defeito que produziu os dois P0 de design. O
-`identity-palette-contract` **não pega este caso** — ele proíbe a importação da paleta clara
-primitiva, não um branco escrito à mão.
+**Esta tarefa foi escrita sobre um defeito que não existe, e a execução descobriu.** A versão
+original mandava trocar `styles.whiteCard` por `GlassCard`, tratando-o como card claro em
+identidade escura. Ao abrir o bloco de estilo: `backgroundColor: D.surface` —
+`galaxyColors.surface`, branco a 5% sobre o fundo escuro, exatamente o mesmo do `GlassCard`.
+Só o nome vinha da era clara.
 
-- [ ] **Step 1:** trocar `whiteCard` por `GlassCard`.
-- [ ] **Step 2: `npm run quality`.**
-- [ ] **Step 3: Verificação em simulador** — o card lê corretamente sobre o fundo escuro.
+O defeito tinha sido inferido de um identificador sem abrir o estilo. Fica o registro porque a
+inferência era plausível e voltaria.
+
+- [x] **Step 1:** renomear `whiteCard` → `metricCard`, com comentário registrando por que o
+      nome antigo enganava.
+- [x] **Step 2: `npm run quality`.**
 
 ---
 
