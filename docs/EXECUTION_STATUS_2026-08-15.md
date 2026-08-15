@@ -375,3 +375,66 @@ continuam sendo a condição de integração em `main`.
 
 - Spec: [`superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md`](superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md)
 - Plano: [`superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md`](superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md)
+
+---
+
+# Segunda sessão de 2026-08-15 — planejamento do sub-projeto 2
+
+Sessão de planejamento, **sem alteração de código**. Resolve os dois pré-requisitos que
+travavam o sub-projeto 2 e mais duas decisões que a medição do repositório levantou.
+
+## Decisões do dono
+
+| # | Questão | Escolha |
+| --- | --- | --- |
+| 1 | Destino da Galáxia | Deixa de ser aba; vira superfície interna de Estude |
+| 2 | Console de desenvolvimento | Sai para rota própria fora das abas, sob `SHOW_DEV_TOOLS` |
+| 3 | Convergência de lição | `/learn` adota os componentes novos; `/quiz` é aposentada |
+| 4 | Liga (sub-projeto 6) | Métrica local — o aluno comparado com ele mesmo |
+
+Viraram duas ADRs:
+[topologia](adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
+[liga](adr/ADR-2026-08-15-liga-como-metrica-local.md). A spec do sub-projeto 2 está em
+[`superpowers/specs/2026-08-15-topologia-navegacao-design.md`](superpowers/specs/2026-08-15-topologia-navegacao-design.md).
+
+## Achado que corrige o registro acima
+
+A seção "Pendências abertas" registra que a regra da melhor tentativa está inerte pela rota
+`/quiz`. Isso está certo, mas é a metade menor do problema. A metade maior não estava
+registrada em lugar nenhum:
+
+**O caminho vivo de lição não tem tela de conclusão.** O `LessonFlowScreen` (`/learn`),
+terminada a última interação, chama `LessonOutcomeService`, marca o nó e executa
+`router.replace('/(tabs)')`. O aluno acaba a lição e volta em silêncio para a aba — sem
+estrelas, sem XP, sem frase, sem avaliação.
+
+Ou seja: a tela que o aluno alcança não celebra, e a que celebra o aluno não alcança. Todo o
+fim de lição do sub-projeto 1 está montado em `/quiz`, que não tem ponto de entrada in-app.
+
+Isso reposiciona a prioridade. A convergência não é a dívida secundária que a spec do
+sub-projeto 1 previu — é o que faz o sub-projeto 1 existir para o aluno. Ela é a parte mais
+valiosa do sub-projeto 2, à frente do rearranjo da barra.
+
+## Estado de publicação
+
+`main` e `origin/main` continuam em `f2156ad`. O sub-projeto 1 continua no **PR #5**
+(`feat/atividade-fim-licao`, 16 commits), aberto e não mergeado. O planejamento do
+sub-projeto 2 é empilhado sobre ele, na branch `claude/task-observer-loop-superpowers-ybpyrt`.
+
+## O que esta sessão não pôde fazer
+
+Rodou num contêiner Linux remoto. Três itens do contrato do `AGENTS.md` não são executáveis
+nele:
+
+- **cérebro do Loop** — `brainPath` aponta para `/Users/anderson/Documents/obsidian/…`, que
+  não existe aqui, e a CLI `loop` não está instalada. Nenhuma sessão de leitura foi aberta e
+  nenhum run de escrita foi aberto ou fechado. **O aprendizado desta sessão ainda precisa ser
+  gravado numa máquina com o vault;**
+- **verificação em simulador** — é Linux, não há simulador iOS;
+- por isso mesmo, **nenhuma linha de código de produto foi escrita**: a spec exige que a
+  implementação feche em máquina com simulador, e a passagem anterior provou o porquê — a
+  checagem visual achou três defeitos que 691 testes não pegaram.
+
+Foi possível, e foi feito: `npm ci`, `npm run typecheck` limpo, e os contratos
+`tab-bar-clearance`, `contrast`, `identity-palette` e `pixel-screen-geometry` passando na base
+`e184be4`.

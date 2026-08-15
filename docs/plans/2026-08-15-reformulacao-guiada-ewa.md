@@ -23,11 +23,16 @@ entregue. `DESIGN.md` e `PRODUCT.md` descrevem o produto atual e permanecem vál
 | # | Sub-projeto | Estado | Bloqueio |
 | --- | --- | --- | --- |
 | 1 | Atividade enxuta + conclusão de lição extraída | **Entregue**, em PR | — |
-| 2 | Topologia de navegação: Estude + Perfil | Não iniciado | Destino da Galáxia indefinido; aba Perfil não existe |
+| 2 | Topologia de navegação: Estude + Perfil | **Decidido; spec pronta**, não implementado | — (pré-requisitos resolvidos em 2026-08-15) |
 | 3 | Tela de Perfil do aluno | Não iniciado | Depende do 2 |
 | 4 | Marca no topo com símbolo de radiação, cintilante | Não iniciado | A arte da marca precisa existir |
 | 5 | Arte da trilha e ícones ilustrados de HUD | **Bloqueado** | Assets autorais do dono; o P4 (HUD em Rive) segue fechado |
-| 6 | Liga, ranqueamento e social | **Bloqueado** | Colide com `STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md` |
+| 6 | Liga, ranqueamento e social | Direção decidida; **não autorizado** | Precisa de spec própria; o contrato de privacidade deixou de bloquear |
+
+Os dois pré-requisitos do sub-projeto 2 — o destino da Galáxia e a separação da
+`ProgressScreen` — foram resolvidos em 2026-08-15. Ver
+[`ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil`](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md)
+e a [spec do sub-projeto 2](../superpowers/specs/2026-08-15-topologia-navegacao-design.md).
 
 A ordem não é arbitrária: 2 → 3 é cadeia estrutural, 4 depende de arte, e 5 e 6 só
 reabrem por decisão explícita do dono sobre assets e sobre o contrato de privacidade.
@@ -162,15 +167,20 @@ imagem ou o achado da lição?).
 
 ## Perguntas abertas
 
-1. Destino da **Galáxia** na nova tab bar — o dono nomeou Estude, Perfil, Progresso e
-   Missões, e não a citou.
-2. A tab bar continua cartão flutuante ou vira barra rente?
+1. ~~Destino da **Galáxia** na nova tab bar.~~ **Resolvida em 2026-08-15:** deixa de ser aba
+   e vira superfície interna de Estude, preservando o `ADR-2026-08-13` e as rotas interiores.
+   Ver [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md).
+2. A tab bar continua cartão flutuante ou vira barra rente? **Continua em aberto.** A spec do
+   sub-projeto 2 mantém o cartão flutuante por não decidir isto — e enquanto ele flutuar,
+   `tabBarClearance` continua sendo obrigação real de toda tela de aba.
 3. O que "emoitions" designa em R2 — ícones de HUD ou expressões dos personagens.
 4. Revogar ou não a decisão P4 (Rive/assets autorais), que R2 e R3 atravessam.
 5. Autoria e formato dos assets animados por aula, e o que a trilha mostra sem eles.
 6. Formato do "histórico de aulas": lista cronológica? por trilha? com desempenho?
-7. O contrato de privacidade é revisado para admitir ranqueamento, ou "liga" vira métrica
-   local que compara o aluno com ele mesmo?
+7. ~~O contrato de privacidade é revisado para admitir ranqueamento, ou "liga" vira métrica
+   local?~~ **Resolvida em 2026-08-15:** liga vira métrica local; o contrato fica intacto e a
+   parte social (seguidores, handle) sai do escopo. Ver
+   [ADR](../adr/ADR-2026-08-15-liga-como-metrica-local.md).
 8. O prompt nativo de avaliação da App Store colide com a avaliação da aula na tela de
    conclusão — qual das duas sobrevive naquele momento?
 
