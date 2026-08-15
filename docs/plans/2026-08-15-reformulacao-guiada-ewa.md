@@ -23,7 +23,7 @@ entregue. `DESIGN.md` e `PRODUCT.md` descrevem o produto atual e permanecem vál
 | # | Sub-projeto | Estado | Bloqueio |
 | --- | --- | --- | --- |
 | 1 | Atividade enxuta + conclusão de lição extraída | **Entregue**, em PR | — |
-| 2 | Topologia de navegação: Estude + Perfil | **Decidido; spec pronta**, não implementado | — (pré-requisitos resolvidos em 2026-08-15) |
+| 2 | Topologia de navegação: Estude + Perfil | **Aprovado; plano pronto**, não implementado | — (aprovado pelo dono em 2026-08-15) |
 | 3 | Tela de Perfil do aluno | Não iniciado | Depende do 2 |
 | 4 | Marca no topo com símbolo de radiação, cintilante | Não iniciado | A arte da marca precisa existir |
 | 5 | Arte da trilha e ícones ilustrados de HUD | **Bloqueado** | Assets autorais do dono; o P4 (HUD em Rive) segue fechado |

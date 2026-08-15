@@ -1,6 +1,6 @@
 # ADR — A liga é métrica local, não ranqueamento entre alunos (2026-08-15)
 
-**Status:** aceita; não implementada
+**Status:** **aprovada pelo dono em 2026-08-15**; não implementada
 **Decisor:** Anderson (proprietário do projeto)
 **Contexto de origem:** sessão interativa de planejamento do sub-projeto 2 da reformulação
 guiada pelo EWA

@@ -1,6 +1,6 @@
 # ADR — Topologia de navegação: Estude e Perfil (2026-08-15)
 
-**Status:** aceita; não implementada. **Supera
+**Status:** **aprovada pelo dono em 2026-08-15**; não implementada. **Supera
 [`ADR-2026-08-13-home-e-galaxia-progressao-unica`](ADR-2026-08-13-home-e-galaxia-progressao-unica.md).**
 **Decisor:** Anderson (proprietário do projeto)
 **Contexto de origem:** sessão interativa de planejamento do sub-projeto 2 da reformulação

@@ -1430,14 +1430,16 @@ a trilha de lojas.
 
 - **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
   Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
-- **I2 [P1 — PRÉ-REQUISITOS RESOLVIDOS em 2026-08-15; spec pronta, não implementada]**
+- **I2 [P1 — APROVADA pelo dono em 2026-08-15; plano pronto, não implementada]**
   Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. **Estude passa
   a ser a trilha**, em rolagem contínua e com o currículo inteiro, e a **Galáxia é
   absorvida** — a trilha morava nela. A separação da `ProgressScreen` foi definida em
   três destinos: aluno e identidade para o Perfil, console para rota própria sob
   `SHOW_DEV_TOOLS`. Ver
-  [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
-  [spec](../superpowers/specs/2026-08-15-topologia-navegacao-design.md).
+  [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md),
+  [spec](../superpowers/specs/2026-08-15-topologia-navegacao-design.md) e
+  [plano](../superpowers/plans/2026-08-15-topologia-navegacao.md) — 18 tarefas em quatro
+  fases, cada fase um PR.
   `tab-bar-clearance-contract` é reescrito com a nova topologia — nunca desligado.
   **Onde o risco se concentra:** a trilha passa a carregar o currículo inteiro em vez das
   unidades da trilha ativa. É a única parte que mexe em dado, e sem virtualização a

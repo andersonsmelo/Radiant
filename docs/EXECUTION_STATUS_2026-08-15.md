@@ -406,6 +406,14 @@ Viraram duas ADRs:
 [liga](adr/ADR-2026-08-15-liga-como-metrica-local.md). A spec do sub-projeto 2 está em
 [`superpowers/specs/2026-08-15-topologia-navegacao-design.md`](superpowers/specs/2026-08-15-topologia-navegacao-design.md).
 
+**Tudo isso foi aprovado pelo dono em 2026-08-15**, e a spec virou
+[plano de implementação](superpowers/plans/2026-08-15-topologia-navegacao.md): 18 tarefas em
+quatro fases, cada fase um PR. **Nenhuma foi executada** — ver a seção sobre o que esta sessão
+não pôde fazer.
+
+A fase D — convergência de `/learn` e `/quiz` — é independente das outras três e é a de maior
+valor por esforço. Se a passagem precisar ser cortada, corte por B ou C, nunca por D.
+
 ## Achado que corrige o registro acima
 
 A seção "Pendências abertas" registra que a regra da melhor tentativa está inerte pela rota

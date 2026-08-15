@@ -2,7 +2,8 @@
 
 **Data:** 2026-08-15
 **Sub-projeto:** 2 de 6 da reformulação guiada pelo EWA
-**Estado:** decisões do dono tomadas em sessão interativa; pronto para virar plano de implementação
+**Estado:** **aprovado pelo dono em 2026-08-15**; virou
+[plano de implementação](../plans/2026-08-15-topologia-navegacao.md)
 **Base:** `e184be4` — o topo da branch `feat/atividade-fim-licao` (PR #5, sub-projeto 1), ainda **não** mergeada em `main`
 
 ## 1. Por que esta passagem existe
