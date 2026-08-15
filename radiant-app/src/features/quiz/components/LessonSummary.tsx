@@ -1,0 +1,245 @@
+import React, { useEffect } from 'react';
+import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
+import { AppButton } from '../../../components/ui/AppButton';
+import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+// Telas de feature não podem importar Reanimated direto (regra R4 do QA
+// visual — `scripts/visual-qa.mjs`): animação reutilizável vive em
+// `ui/motion.ts`. `useScalePop` já resolve movimento reduzido por dentro.
+import { useScalePop } from '../../../ui/motion';
+import { radius, space, typography } from '../../../ui/styles';
+import { galaxyColors } from '../../../ui/theme';
+import type { LessonStars } from '../services/resolveLessonStars';
+
+export type LessonSummaryProps = {
+  stars: LessonStars;
+  starsImproved: boolean;
+  phrase: string;
+  xpAwarded: number;
+  correctAnswers: number;
+  totalQuestions: number;
+  unitCompleted: number;
+  unitTotal: number;
+  habitLine: string | null;
+  currentRating: number | null;
+  onRate: (rating: number) => void;
+  onContinue: () => void;
+};
+
+const TOTAL_STARS = 3;
+const STAR_SLOTS = Array.from({ length: TOTAL_STARS }, (_, index) => index);
+const RATING_MAX = 5;
+const RATING_SLOTS = Array.from({ length: RATING_MAX }, (_, index) => index + 1);
+
+/**
+ * Uma estrela do placar, com entrada animada quando a marca melhorou.
+ *
+ * `animate` controla a animação de GANHO, não o preenchimento: quando a marca
+ * não melhora (`animate === false`), o pop nunca dispara e a escala é fixada
+ * em 1 direto — a tela não pode sugerir uma melhora que não aconteceu.
+ * `useScalePop` já resolve movimento reduzido por dentro, então o mesmo vale
+ * quando a pessoa pediu menos animação.
+ */
+function SummaryStar({ filled, animate }: { filled: boolean; animate: boolean }) {
+  const { scale, style, animateIn } = useScalePop();
+
+  useEffect(() => {
+    if (animate) {
+      animateIn();
+    } else {
+      scale.setValue(1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [animate]);
+
+  return (
+    <Animated.View style={style} testID={animate ? 'lesson-summary-star-gain' : undefined}>
+      <DecorativeIcon
+        name={filled ? 'star' : 'star-border'}
+        size={36}
+        color={filled ? galaxyColors.xpColor : galaxyColors.textTertiary}
+      />
+    </Animated.View>
+  );
+}
+
+function StarRow({ stars, animate }: { stars: LessonStars; animate: boolean }) {
+  return (
+    <View style={styles.starRow}>
+      {STAR_SLOTS.map((index) => (
+        <SummaryStar key={index} filled={index < stars} animate={animate} />
+      ))}
+    </View>
+  );
+}
+
+export function LessonSummary({
+  stars,
+  starsImproved,
+  phrase,
+  xpAwarded,
+  correctAnswers,
+  totalQuestions,
+  unitCompleted,
+  unitTotal,
+  habitLine,
+  currentRating,
+  onRate,
+  onContinue,
+}: LessonSummaryProps) {
+  return (
+    <View style={styles.root}>
+      {/* Faixa de comemoração: só arte do Pixel, nenhum texto de leitura sobre ela. */}
+      <View style={styles.band}>
+        <PixelIllustration
+          state="celebrate"
+          tier="intermediate"
+          size="lg"
+          accessibilityLabel="Pixel comemorando"
+        />
+      </View>
+
+      <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
+        <StarRow stars={stars} animate={starsImproved} />
+
+        <Text style={styles.phrase} accessibilityRole="header">
+          {phrase}
+        </Text>
+        <Text style={styles.subtitle}>A lição foi concluída</Text>
+
+        <View style={styles.scoreRow}>
+          <View style={styles.scoreCard}>
+            <Text style={styles.scoreValue}>{`+${xpAwarded} XP nesta tentativa`}</Text>
+          </View>
+          <View style={styles.scoreCard}>
+            <Text style={styles.scoreValue}>{`${correctAnswers} de ${totalQuestions} corretas`}</Text>
+          </View>
+        </View>
+
+        <View style={styles.unitCard}>
+          <Text style={styles.unitLabel}>Progresso da unidade</Text>
+          <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} lições`}</Text>
+          <AnimatedProgressBar
+            ratio={unitCompleted / Math.max(1, unitTotal)}
+            height={10}
+            accessibilityLabel="Progresso da unidade"
+          />
+        </View>
+
+        {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
+
+        {currentRating === null ? (
+          <View style={styles.ratingRow}>
+            {RATING_SLOTS.map((n) => (
+              <Pressable
+                key={n}
+                onPress={() => onRate(n)}
+                accessibilityRole="button"
+                accessibilityLabel={`Avaliar a aula com ${n} de 5`}
+                style={styles.ratingButton}
+              >
+                <DecorativeIcon name="star" size={28} color={galaxyColors.textSecondary} />
+              </Pressable>
+            ))}
+          </View>
+        ) : (
+          <Text style={styles.ratingGiven}>{`Você avaliou esta aula com ${currentRating} de 5`}</Text>
+        )}
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <AppButton label="Continuar" onPress={onContinue} variant="galaxy" />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: galaxyColors.background,
+  },
+  band: {
+    backgroundColor: galaxyColors.celebrationBand,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: space.s5,
+  },
+  body: {
+    padding: space.s3,
+    gap: space.s3,
+    paddingBottom: space.s5,
+  },
+  starRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: space.s2,
+  },
+  phrase: {
+    ...typography.h3,
+    color: galaxyColors.textPrimary,
+    textAlign: 'center',
+  },
+  subtitle: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  scoreRow: {
+    flexDirection: 'row',
+    gap: space.s2,
+  },
+  scoreCard: {
+    flex: 1,
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    borderRadius: radius.rLg,
+    padding: space.s3,
+    alignItems: 'center',
+  },
+  scoreValue: {
+    ...typography.bodyStrong,
+    color: galaxyColors.textPrimary,
+    textAlign: 'center',
+  },
+  unitCard: {
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    borderRadius: radius.rLg,
+    padding: space.s3,
+    gap: space.s1,
+  },
+  unitLabel: {
+    ...typography.caption,
+    color: galaxyColors.textSecondary,
+    textTransform: 'uppercase',
+  },
+  unitValue: {
+    ...typography.h3,
+    color: galaxyColors.textPrimary,
+  },
+  habitLine: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: space.s2,
+  },
+  ratingButton: {
+    padding: space.s1,
+  },
+  ratingGiven: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  footer: {
+    padding: space.s3,
+  },
+});
