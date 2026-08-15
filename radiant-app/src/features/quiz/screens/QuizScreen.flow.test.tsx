@@ -9,6 +9,7 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { PixelMood } from '../../pixel-mood/PixelMood';
 import { PIXEL_MOMENTS } from '../../pixel-mood/pixelPhrases';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -36,7 +37,12 @@ jest.mock('../../../ui/motion', () => ({
     celebrate: 0,
   },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  useScalePop: () => ({ style: {}, animateIn: jest.fn() }),
+  // `scale` precisa existir: LessonSummary/SummaryStar chama
+  // `scale.setValue(1)` quando `animate` é false (marca sem melhora — o
+  // fallback de leitura rejeitada do QuizScreen produz exatamente esse
+  // estado). Faltando aqui, o componente lança dentro do efeito e a árvore
+  // desmonta antes de qualquer asserção rodar.
+  useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({
     animatedStyle: {},
@@ -51,9 +57,23 @@ jest.mock('../../../components/ui/AppButton', () => {
   const { Pressable, Text } = require('react-native');
 
   return {
-    AppButton: ({ children, onPress, disabled }: { children: React.ReactNode; onPress: () => void; disabled?: boolean }) => (
+    // `label` é a prop que o LessonSummary usa para o botão Continuar;
+    // `children` é o estilo usado pelos botões que já existiam neste
+    // arquivo. O mock precisa dos dois — sem `label` aqui, nenhum teste
+    // consegue pressionar "Continuar".
+    AppButton: ({
+      children,
+      label,
+      onPress,
+      disabled,
+    }: {
+      children?: React.ReactNode;
+      label?: string;
+      onPress: () => void;
+      disabled?: boolean;
+    }) => (
       <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}>
-        <Text>{children}</Text>
+        <Text>{children ?? label}</Text>
       </Pressable>
     ),
   };
@@ -412,6 +432,94 @@ describe('QuizScreen flow', () => {
     expect(screen.queryByText(/Radiant Plus/)).toBeNull();
     expect(screen.queryByText(/Próxima decisão/)).toBeNull();
     expect(screen.queryByText(/notificaç/i)).toBeNull();
+  });
+
+  it('avança para a próxima lição da fila de revisão ao pressionar Continuar', async () => {
+    // Mutação que este teste pega: onContinue sempre roteando para '/(tabs)'
+    // em vez de chamar onNextLesson quando ainda há lição na fila de review.
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: {
+        getLessonById: jest.Mock;
+        getInitialLesson: jest.Mock;
+      };
+    };
+
+    LessonCatalogService.getLessonById.mockImplementation((id: string) =>
+      id === 'lesson-1' ? lessonFixture : id === 'lesson-3q' ? lessonTresQuestoes : null
+    );
+
+    renderWithProviders(<QuizScreen mode="review" lessonIds={['lesson-1', 'lesson-3q']} />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText('Pergunta 1?')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+  });
+
+  it('finaliza a fila de revisão e registra review_complete ao concluir a última lição', async () => {
+    // Mutação que este teste pega: onFinishReview nunca sendo chamado a
+    // partir do resumo, o que deixaria o marco firstReviewAt inalcançável
+    // por esta rota.
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: {
+        getLessonById: jest.Mock;
+        getInitialLesson: jest.Mock;
+      };
+    };
+    const { OnboardingService: mockedOnboardingService } = jest.requireMock(
+      '../../onboarding/OnboardingService'
+    ) as { OnboardingService: { markAction: jest.Mock } };
+    const { router: mockedRouter } = jest.requireMock('expo-router') as {
+      router: { replace: jest.Mock };
+    };
+
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+
+    renderWithProviders(<QuizScreen mode="review" lessonIds={['lesson-1']} />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await waitFor(() => {
+      expect(mockedOnboardingService.markAction).toHaveBeenCalledWith('review_complete');
+      expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
+    });
+  });
+
+  it('ainda chega no Continuar quando a leitura de tentativas/nota falha', async () => {
+    // Mutação que este teste pega: remover o try/catch do efeito de resumo
+    // deixaria `summary` preso em null para sempre quando a leitura rejeita
+    // — a tela ficaria sem nenhum botão.
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: {
+        getLessonById: jest.Mock;
+        getInitialLesson: jest.Mock;
+      };
+    };
+
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+
+    jest.spyOn(LearningAttemptsRepository, 'getAll').mockRejectedValueOnce(new Error('falha de leitura'));
+    jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    renderWithProviders(<QuizScreen mode="normal" lessonId="lesson-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    expect(screen.getByText('Continuar')).toBeTruthy();
   });
 
   it('solta frase e expressão de sequência após três acertos seguidos', async () => {

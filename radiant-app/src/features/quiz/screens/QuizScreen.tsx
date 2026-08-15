@@ -24,11 +24,12 @@ import {
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { LessonSummary } from '../components/LessonSummary';
-import { resolveBestLessonStars, type LessonStars } from '../services/resolveLessonStars';
+import { resolveBestLessonStars, resolveLessonStars, type LessonStars } from '../services/resolveLessonStars';
 import { pickSummaryPhrase } from '../constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 const SCREEN_MAX_WIDTH = 720;
 
@@ -130,7 +131,14 @@ interface QuizSessionProps {
   onFinishReview: () => void;
 }
 
-function QuizSession({ lesson, mode }: QuizSessionProps) {
+function QuizSession({
+  lesson,
+  mode,
+  currentLessonIndex,
+  totalLessons,
+  onNextLesson,
+  onFinishReview,
+}: QuizSessionProps) {
   const {
     currentQuestion,
     progress,
@@ -248,6 +256,13 @@ function QuizSession({ lesson, mode }: QuizSessionProps) {
   // do LearningAttemptsRepository, e resolveBestLessonStars exclui a própria
   // tentativa atual comparando completedAt — por isso precisa ser
   // exatamente result.answeredAt.toISOString().
+  //
+  // A tela inteira de conclusão fica atrás de `summary`, então uma leitura
+  // que rejeita (attempts ou nota) não pode deixar `summary` em null para
+  // sempre — o estudante tem que sempre chegar no Continuar. Se
+  // LearningAttemptsRepository ou LessonRatingService falharem, cai para
+  // as estrelas só desta tentativa (resolveLessonStars, sem comparação com
+  // o histórico) e nota null, em vez de travar a tela.
   useEffect(() => {
     if (!result) {
       return;
@@ -255,17 +270,26 @@ function QuizSession({ lesson, mode }: QuizSessionProps) {
 
     let cancelado = false;
     void (async () => {
-      const attempts = await LearningAttemptsRepository.getAll();
-      const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
-        correctAnswers: result.correctAnswers,
-        totalQuestions: result.totalQuestions,
-        completedAt: result.answeredAt.toISOString(),
-      });
-      const rating = await LessonRatingService.getRating(result.lessonId);
-      if (cancelado) {
-        return;
+      try {
+        const attempts = await LearningAttemptsRepository.getAll();
+        const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+          correctAnswers: result.correctAnswers,
+          totalQuestions: result.totalQuestions,
+          completedAt: result.answeredAt.toISOString(),
+        });
+        const rating = await LessonRatingService.getRating(result.lessonId);
+        if (cancelado) {
+          return;
+        }
+        setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
+      } catch (cause) {
+        console.error('[QuizScreen] Falha ao resolver o resumo da lição:', cause);
+        if (cancelado) {
+          return;
+        }
+        const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
+        setSummary({ stars, improved: false, phrase: pickSummaryPhrase(stars, null), rating: null });
       }
-      setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
     })();
 
     return () => {
@@ -273,34 +297,34 @@ function QuizSession({ lesson, mode }: QuizSessionProps) {
     };
   }, [result]);
 
-  // unitCompleted/unitTotal reaproveitam o mesmo cálculo de unidade ativa que
-  // o RewardScreen já faz sobre o JourneySnapshot (completedPrimaryNodes /
-  // totalPrimaryNodes), aqui localizando a unidade pelo nó cujo lessonId
-  // bate com a lição concluída.
+  // unitCompleted/unitTotal reaproveitam a MESMA regra que o RewardScreen
+  // usa (completedPrimaryNodes/totalPrimaryNodes), extraída para
+  // computeUnitPrimaryProgress justamente para não manter duas cópias do
+  // mesmo par de filtros. Aqui só localizamos a unidade ativa, pelo nó cujo
+  // lessonId bate com a lição concluída.
   useEffect(() => {
     if (!result) {
       return;
     }
 
     let cancelado = false;
-    void JourneyProgressService.getSnapshot().then((snapshot) => {
-      if (cancelado) {
-        return;
-      }
+    void JourneyProgressService.getSnapshot()
+      .then((snapshot) => {
+        if (cancelado) {
+          return;
+        }
 
-      const activeUnit = snapshot.track.units.find((unit) =>
-        unit.nodes.some((node) => node.lessonId === result.lessonId)
-      ) ?? null;
+        const activeUnit = snapshot.track.units.find((unit) =>
+          unit.nodes.some((node) => node.lessonId === result.lessonId)
+        ) ?? null;
 
-      const completed = activeUnit
-        ? activeUnit.nodes.filter((node) => node.type !== 'review' && node.status === 'completed').length
-        : 0;
-      const total = activeUnit
-        ? activeUnit.nodes.filter((node) => node.type !== 'review').length
-        : 0;
-
-      setUnitProgress({ completed, total });
-    });
+        setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+      })
+      .catch((cause) => {
+        // Progresso da unidade é informação secundária no resumo — uma
+        // falha aqui não pode impedir a tela de conclusão de aparecer.
+        console.error('[QuizScreen] Falha ao resolver o progresso da unidade:', cause);
+      });
 
     return () => {
       cancelado = true;
@@ -330,6 +354,14 @@ function QuizSession({ lesson, mode }: QuizSessionProps) {
     }
   }, [quizPassed]);
 
+  // A fila de revisão (mode='review' com várias lessonIds) é endereçável por
+  // deep link (`/quiz?mode=review&lessonIds=...`) mesmo sem nenhum caller
+  // interno hoje — continuar precisa avançar para a próxima lição da fila,
+  // ou fechar a revisão (o único lugar que dispara review_complete/
+  // OnboardingService, base do marco firstReviewAt), em vez de sempre voltar
+  // para as tabs.
+  const hasMoreLessons = mode === 'review' && currentLessonIndex < totalLessons - 1;
+
   if (isFinished && result) {
     return (
       <View style={styles.root}>
@@ -352,7 +384,17 @@ function QuizSession({ lesson, mode }: QuizSessionProps) {
                 void LessonRatingService.rate(result.lessonId, nota);
                 setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
               }}
-              onContinue={() => router.replace('/(tabs)')}
+              onContinue={() => {
+                if (mode === 'review') {
+                  if (hasMoreLessons) {
+                    onNextLesson();
+                  } else {
+                    onFinishReview();
+                  }
+                  return;
+                }
+                router.replace('/(tabs)');
+              }}
             />
           ) : null}
         </SafeAreaView>
