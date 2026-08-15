@@ -411,6 +411,98 @@ describe('QuizScreen flow', () => {
     });
   });
 
+  it('usa o snapshot devolvido pela própria marcação da lição, não uma leitura solta que pode chegar antes da escrita', async () => {
+    // Mutação que este teste pega: voltar a resolver o progresso da unidade
+    // lendo JourneyProgressService.getSnapshot() à parte, em vez de
+    // encadear a partir do retorno de markLessonNodeCompleted. As duas
+    // leituras correm em paralelo com a escrita da marcação — getSnapshot()
+    // não espera por ela — e nada garante qual das duas Promises resolve
+    // primeiro. Este teste configura os dois mocks com valores DIFERENTES
+    // de propósito: getSnapshot() devolve a contagem de ANTES da lição
+    // contar como concluída (a leitura desatualizada que vence a corrida na
+    // prática), markLessonNodeCompleted devolve a contagem já correta,
+    // pós-conclusão. Contra o código antigo (racing), a tela mostraria
+    // "0 de 2 lições"; a asserção abaixo só passa contra o código corrigido.
+    // Ver Achado Importante 1 do review final da branch.
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: { getLessonById: jest.Mock; getInitialLesson: jest.Mock };
+    };
+    const { JourneyProgressService: mockedJourneyProgressService } = jest.requireMock(
+      '../../journey/services/JourneyProgressService',
+    ) as {
+      JourneyProgressService: { markLessonNodeCompleted: jest.Mock; getSnapshot: jest.Mock };
+    };
+
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+
+    const buildSnapshot = (lesson1Status: 'available' | 'completed') => ({
+      track: {
+        id: 'track-1',
+        title: 'Trilha Radiológica',
+        initialUnitId: 'unit-1',
+        units: [
+          {
+            id: 'unit-1',
+            title: 'Unidade 1',
+            nodes: [
+              {
+                id: 'node-lesson-1',
+                unitId: 'unit-1',
+                type: 'lesson',
+                title: 'Lição 1',
+                lessonId: 'lesson-1',
+                status: lesson1Status,
+              },
+              {
+                id: 'node-lesson-2',
+                unitId: 'unit-1',
+                type: 'lesson',
+                title: 'Lição 2',
+                lessonId: 'lesson-2',
+                status: 'available',
+              },
+            ],
+          },
+        ],
+      },
+      progress: {
+        schemaVersion: 'journey-progress.v2',
+        activeTrackId: 'track-1',
+        currentUnitId: 'unit-1',
+        currentNodeId: null,
+        completedNodeIds: lesson1Status === 'completed' ? ['node-lesson-1'] : [],
+        pendingReviewNodeIds: [],
+        lastUpdatedAt: '2026-08-14T00:00:00.000Z',
+        pendingSyncEvents: [],
+      },
+      nextRecommendedNode: null,
+      completedCount: lesson1Status === 'completed' ? 1 : 0,
+      dueReviewCount: 0,
+      recommendationReason: 'default',
+    });
+
+    // Stale de propósito: é o que uma leitura paralela via getSnapshot()
+    // veria se corresse ANTES da escrita da marcação pousar.
+    const staleSnapshotBeforeMark = buildSnapshot('available');
+    // Fresco: exatamente o que markLessonNodeCompleted devolve, já
+    // consistente com a conclusão desta lição.
+    const freshSnapshotFromMark = buildSnapshot('completed');
+
+    mockedJourneyProgressService.getSnapshot.mockResolvedValueOnce(staleSnapshotBeforeMark);
+    mockedJourneyProgressService.markLessonNodeCompleted.mockResolvedValueOnce(freshSnapshotFromMark);
+
+    renderWithProviders(<QuizScreen mode="normal" lessonId="lesson-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
+    expect(await screen.findByText('1 de 2 lições')).toBeTruthy();
+    expect(screen.queryByText('0 de 2 lições')).toBeNull();
+  });
+
   it('conclui a lição sem oferta de assinatura nem pedido de notificação', async () => {
     const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
       LessonCatalogService: {

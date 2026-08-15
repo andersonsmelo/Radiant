@@ -16,7 +16,7 @@ export type LessonSummaryProps = {
   stars: LessonStars;
   starsImproved: boolean;
   phrase: string;
-  xpAwarded: number;
+  xpAwarded: number | null;
   correctAnswers: number;
   totalQuestions: number;
   unitCompleted: number;
@@ -54,7 +54,7 @@ function SummaryStar({ filled, animate }: { filled: boolean; animate: boolean })
   }, [animate]);
 
   return (
-    <Animated.View style={style} testID={animate ? 'lesson-summary-star-gain' : undefined}>
+    <Animated.View style={style}>
       <DecorativeIcon
         name={filled ? 'star' : 'star-border'}
         size={36}
@@ -66,7 +66,12 @@ function SummaryStar({ filled, animate }: { filled: boolean; animate: boolean })
 
 function StarRow({ stars, animate }: { stars: LessonStars; animate: boolean }) {
   return (
-    <View style={styles.starRow}>
+    <View
+      style={styles.starRow}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${stars} de ${TOTAL_STARS} estrelas`}
+    >
       {STAR_SLOTS.map((index) => (
         <SummaryStar key={index} filled={index < stars} animate={animate} />
       ))}
@@ -110,22 +115,26 @@ export function LessonSummary({
 
         <View style={styles.scoreRow}>
           <View style={styles.scoreCard}>
-            <Text style={styles.scoreValue}>{`+${xpAwarded} XP nesta tentativa`}</Text>
+            <Text style={styles.scoreValue}>
+              {xpAwarded === null ? 'Sem XP nesta tentativa' : `+${xpAwarded} XP nesta tentativa`}
+            </Text>
           </View>
           <View style={styles.scoreCard}>
             <Text style={styles.scoreValue}>{`${correctAnswers} de ${totalQuestions} corretas`}</Text>
           </View>
         </View>
 
-        <View style={styles.unitCard}>
-          <Text style={styles.unitLabel}>Progresso da unidade</Text>
-          <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} lições`}</Text>
-          <AnimatedProgressBar
-            ratio={unitCompleted / Math.max(1, unitTotal)}
-            height={10}
-            accessibilityLabel="Progresso da unidade"
-          />
-        </View>
+        {unitTotal > 0 ? (
+          <View style={styles.unitCard}>
+            <Text style={styles.unitLabel}>Progresso da unidade</Text>
+            <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} lições`}</Text>
+            <AnimatedProgressBar
+              ratio={unitCompleted / unitTotal}
+              height={10}
+              accessibilityLabel="Progresso da unidade"
+            />
+          </View>
+        ) : null}
 
         {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
 

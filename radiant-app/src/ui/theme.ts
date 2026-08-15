@@ -150,7 +150,6 @@ export const galaxyColors = {
    * Nenhum texto de leitura é pintado sobre ela — só a arte do Pixel.
    */
   celebrationBand: '#F5C518',
-  celebrationBandInk: '#1A1400',
 
   // Galaxy mode extended
   galaxyBg2: '#07091c',

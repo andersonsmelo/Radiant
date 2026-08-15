@@ -28,7 +28,6 @@ import { resolveBestLessonStars, resolveLessonStars, type LessonStars } from '..
 import { pickSummaryPhrase } from '../constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
-import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 const SCREEN_MAX_WIDTH = 720;
@@ -153,6 +152,7 @@ function QuizSession({
     dailyGoalJustCompleted,
     hearts,
     maxHearts,
+    journeySnapshot,
   } = useQuiz(lesson, {
     journeyCompletionMode: mode === 'review' ? 'review' : 'lesson',
   });
@@ -302,34 +302,30 @@ function QuizSession({
   // computeUnitPrimaryProgress justamente para não manter duas cópias do
   // mesmo par de filtros. Aqui só localizamos a unidade ativa, pelo nó cujo
   // lessonId bate com a lição concluída.
+  //
+  // A fonte é `journeySnapshot` (devolvido por useQuiz a partir do retorno
+  // de markLessonNodeCompleted/markReviewNodeCompleted), não uma leitura
+  // própria via JourneyProgressService.getSnapshot(): as duas correm em
+  // paralelo com a marcação, e uma leitura solta pode terminar ANTES da
+  // escrita pousar, mostrando a unidade sem a lição que acabou de fechar.
+  // Encadear a partir do próprio retorno da marcação elimina a corrida.
+  //
+  // `journeySnapshot` fica `null` até a marcação resolver, e também quando a
+  // leitura rejeita (capturado dentro de useQuiz) ou quando a lição não
+  // mapeia para nenhum nó da trilha (`/quiz` por deep link direto sem nó
+  // correspondente) — nesses casos `unitProgress` permanece em {0, 0} e o
+  // card de progresso da unidade simplesmente não aparece (ver LessonSummary).
   useEffect(() => {
-    if (!result) {
+    if (!result || !journeySnapshot) {
       return;
     }
 
-    let cancelado = false;
-    void JourneyProgressService.getSnapshot()
-      .then((snapshot) => {
-        if (cancelado) {
-          return;
-        }
+    const activeUnit = journeySnapshot.track.units.find((unit) =>
+      unit.nodes.some((node) => node.lessonId === result.lessonId)
+    ) ?? null;
 
-        const activeUnit = snapshot.track.units.find((unit) =>
-          unit.nodes.some((node) => node.lessonId === result.lessonId)
-        ) ?? null;
-
-        setUnitProgress(computeUnitPrimaryProgress(activeUnit));
-      })
-      .catch((cause) => {
-        // Progresso da unidade é informação secundária no resumo — uma
-        // falha aqui não pode impedir a tela de conclusão de aparecer.
-        console.error('[QuizScreen] Falha ao resolver o progresso da unidade:', cause);
-      });
-
-    return () => {
-      cancelado = true;
-    };
-  }, [result]);
+    setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+  }, [result, journeySnapshot]);
 
   // Fusão, numa única linha, do que antes eram o card de meta diária e o de
   // "Leitura do hábito". Sem nenhum dos dois, não há o que dizer.
@@ -373,7 +369,7 @@ function QuizSession({
               stars={summary.stars}
               starsImproved={summary.improved}
               phrase={summary.phrase}
-              xpAwarded={xpAward?.totalXpAwarded ?? 0}
+              xpAwarded={xpAward?.totalXpAwarded ?? null}
               correctAnswers={result.correctAnswers}
               totalQuestions={result.totalQuestions}
               unitCompleted={unitProgress.completed}
@@ -479,9 +475,4 @@ const styles = StyleSheet.create({
   scrollArea: { flex: 1 },
   scrollContent: { gap: space.s2, paddingBottom: space.s2 },
   footer: { paddingBottom: space.s1 },
-  progressBar: {
-    height: 10,
-    borderRadius: 999,
-    alignSelf: 'flex-start',
-  },
 });

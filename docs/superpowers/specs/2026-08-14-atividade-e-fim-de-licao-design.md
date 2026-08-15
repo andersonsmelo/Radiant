@@ -142,6 +142,28 @@ voltar, não punido por ter errado na primeira.
 A função é pura de propósito: a trilha vai precisar da mesma regra para as estrelas sob
 cada nó, no sub-projeto 5, e mover uma função sem I/O é barato.
 
+### 5.1 Nota de fechamento — regra da melhor tentativa está inerte pela rota do quiz
+
+Registro do review final da branch (2026-08-15), não pendência de código.
+
+`resolveBestLessonStars` lê `LearningAttemptsRepository`. O único escritor desse
+repositório é `LessonOutcomeService.recordAttempt`, chamado só a partir de
+`LessonFlowScreen` (rota `/learn`). O fluxo do quiz (`QuizScreen`, rota `/quiz`) nunca
+grava uma tentativa ali — então, passando por `/quiz`, `previousBest` nunca acumula,
+`improved` sai `true` em praticamente toda conclusão, e o caminho "quando não melhora,
+elas entram já no estado final" da seção 5 é inalcançável nesta rota.
+
+Isso não é bug desta passagem: `/quiz` não tem hoje nenhum ponto de entrada in-app —
+só é alcançável por deep link direto (`/quiz?...`). A tela só passa a receber tráfego
+real quando o sub-projeto 2 (topologia de navegação) chegar, e é exatamente aí que os
+dois caminhos de entrega de lição (`/learn` e `/quiz`) precisam convergir — hoje
+escrever um caminho de append para `LearningAttemptsRepository` a partir do `QuizScreen`
+seria adivinhar `topicId` e outros dados para uma tela que ninguém alcança.
+
+Convergir os dois caminhos é trabalho do sub-projeto 2, não desta passagem. Até lá, a
+regra da melhor tentativa fica inerte pela rota do quiz — e ela deixa de ficar antes de
+qualquer usuário real ver esta tela.
+
 **Estrelas e placar medem coisas diferentes, e a tela precisa deixar isso claro.** As
 estrelas pertencem à **lição** e refletem a melhor tentativa; os dois cards de placar
 pertencem à **tentativa que acabou de terminar**. Um aluno que fez 100% antes e 70%

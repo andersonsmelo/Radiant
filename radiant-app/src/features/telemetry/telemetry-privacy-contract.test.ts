@@ -44,6 +44,36 @@ function extractTrackCalls(source: string): string[] {
 // de dois-pontos). Aproximação textual: erra para o lado de sinalizar.
 const keyCandidateRegex = /([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g;
 
+// Propriedade abreviada de objeto — `{ lessonId, rating }` em vez de
+// `{ lessonId: lessonId, rating: rating }`. `keyCandidateRegex` acima exige
+// dois-pontos literal e por isso não enxerga nenhuma chave aqui: um
+// identificador só conta como abreviação quando é precedido por `{` ou `,` E
+// seguido por `,` ou `}` (ignorando espaço) — é isso que separa uma CHAVE
+// abreviada (`{ lessonId, rating }`) de um VALOR à direita de dois-pontos
+// (`{ foo: bar }`, onde "bar" é precedido por ":", não por "{"/",").
+// Spread (`{ ...rest, lessonId }`) fica de fora de propósito: "rest" é
+// precedido por "." (da reticência), não por "{"/",", e o conteúdo de um
+// spread não é nomeável estaticamente por este scanner de qualquer forma —
+// mesma limitação que já existia antes desta mudança.
+const shorthandKeyCandidateRegex = /[{,]\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=[,}])/g;
+
+// Achado do review final da branch feat/atividade-fim-licao (2026-08-15):
+// `LessonRatingService.ts` chama `TelemetryService.track('lesson_rated',
+// { lessonId, rating })` com propriedade abreviada, e a varredura original
+// (só `keyCandidateRegex`) extraía ZERO chaves dessa chamada — o guarda
+// nunca via o call site. Controller Ruling 10 autoriza este endurecimento:
+// a regra proibida é AFROUXAR o contrato, não fortalecê-lo.
+function extractPropertyKeyCandidates(call: string): string[] {
+  const keys: string[] = [];
+  for (const match of call.matchAll(keyCandidateRegex)) {
+    keys.push(match[1]);
+  }
+  for (const match of call.matchAll(shorthandKeyCandidateRegex)) {
+    keys.push(match[1]);
+  }
+  return keys;
+}
+
 describe('telemetry privacy contract', () => {
   it('never passes a PII/credential/clinical key to TelemetryService.track', () => {
     const offenders: string[] = [];
@@ -51,8 +81,7 @@ describe('telemetry privacy contract', () => {
     for (const file of listSourceFiles()) {
       const source = readFileSync(file, 'utf8');
       for (const call of extractTrackCalls(source)) {
-        for (const match of call.matchAll(keyCandidateRegex)) {
-          const key = match[1];
+        for (const key of extractPropertyKeyCandidates(call)) {
           if (isProhibitedKey(key)) {
             offenders.push(`${path.relative(appSrc, file)} → chave proibida "${key}"`);
           }
@@ -61,6 +90,27 @@ describe('telemetry privacy contract', () => {
     }
 
     expect(offenders).toEqual([]);
+  });
+
+  it('enxerga uma chave proibida passada como propriedade abreviada — regressão para o gap que deixou lesson_rated passar despercebido', () => {
+    // Fixture sintética, não um arquivo real: prova que a varredura agora
+    // extrai chaves de `{ identificador }` sem dois-pontos. Sem
+    // `shorthandKeyCandidateRegex`, `keys` viria vazio e este teste falharia
+    // — é exatamente essa lacuna que deixou `{ lessonId, rating }` invisível
+    // ao guarda antes desta correção.
+    const call = "TelemetryService.track('test_event', { email, source: 'quiz' })";
+    const keys = extractPropertyKeyCandidates(call);
+
+    expect(keys).toContain('email');
+    expect(keys.filter((key) => isProhibitedKey(key))).toEqual(['email']);
+  });
+
+  it('continua sem falsos positivos em propriedade abreviada benigna, como o call site real de lesson_rated', () => {
+    const call = "TelemetryService.track('lesson_rated', { lessonId, rating })";
+    const keys = extractPropertyKeyCandidates(call);
+
+    expect(keys).toEqual(expect.arrayContaining(['lessonId', 'rating']));
+    expect(keys.filter((key) => isProhibitedKey(key))).toEqual([]);
   });
 
   it('drops prohibited keys and keeps benign scalars', () => {

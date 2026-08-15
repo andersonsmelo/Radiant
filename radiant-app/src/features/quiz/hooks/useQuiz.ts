@@ -14,6 +14,7 @@ import type {
     QuizFeedback,
 } from '../../../types/quiz';
 import type { XpAward } from '../../../types/gamification';
+import type { JourneySnapshot } from '../../../types/journey';
 import { QuizService } from '../services/QuizService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
@@ -35,6 +36,17 @@ interface UseQuizState {
     dailyGoalJustCompleted: boolean;
     hearts: number;
     maxHearts: number;
+    /**
+     * Snapshot da jornada devolvido pela própria chamada que marcou o nó
+     * como concluído (`markLessonNodeCompleted`/`markReviewNodeCompleted`).
+     * Existe para quem precisa do estado da trilha JÁ CONSISTENTE com esta
+     * conclusão — ler `JourneyProgressService.getSnapshot()` à parte correria
+     * contra a escrita da marcação (leitura sem await da própria escrita) e
+     * poderia terminar primeiro, devolvendo a unidade sem a lição que acabou
+     * de fechar. `null` até a marcação resolver, e também quando a lição não
+     * mapeia para nenhum nó da trilha (ex.: `/quiz` por deep link direto).
+     */
+    journeySnapshot: JourneySnapshot | null;
 }
 
 interface UseQuizActions {
@@ -79,6 +91,7 @@ export function useQuiz(
     const [xpAward, setXpAward] = useState<XpAward | null>(null);
     const [dailyGoalJustCompleted, setDailyGoalJustCompleted] = useState<boolean>(false);
     const [hearts, setHearts] = useState<number>(MAX_HEARTS_DEFAULT);
+    const [journeySnapshot, setJourneySnapshot] = useState<JourneySnapshot | null>(null);
     // Espelho em ref porque `selectAnswer` não tem `hearts` nas dependências —
     // ler o state pelo closure entregaria o valor da renderização em que o
     // callback foi criado, e a comparação "caiu?" sairia errada exatamente
@@ -212,9 +225,17 @@ export function useQuiz(
                         ? JourneyProgressService.markReviewNodeCompleted(result.lessonId)
                         : JourneyProgressService.markLessonNodeCompleted(result.lessonId);
 
-                completionPromise.catch((error) => {
-                    console.error('[useQuiz] Error syncing journey progress:', error);
-                });
+                // O snapshot devolvido AQUI, e não uma leitura própria depois,
+                // é o que garante que quem consumir `journeySnapshot` veja a
+                // unidade já com esta lição contada — ver o comentário do
+                // campo na interface acima.
+                completionPromise
+                    .then((snapshot) => {
+                        setJourneySnapshot(snapshot);
+                    })
+                    .catch((error) => {
+                        console.error('[useQuiz] Error syncing journey progress:', error);
+                    });
             }
         }
     }, [result, journeyCompletionMode]);
@@ -232,6 +253,7 @@ export function useQuiz(
         dailyGoalJustCompleted,
         hearts,
         maxHearts,
+        journeySnapshot,
         selectAnswer,
         next,
         reset,
