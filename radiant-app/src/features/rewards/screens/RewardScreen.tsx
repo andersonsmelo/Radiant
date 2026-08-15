@@ -27,6 +27,7 @@ import { RatingPromptService } from '../../../services/RatingPromptService';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
 import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
 import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
+import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 interface RewardScreenProps {
   nodeId?: string;
@@ -166,21 +167,16 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     return snapshot.track.units.find((unit) => unit.id === rewardNode.unitId) ?? null;
   }, [rewardNode, snapshot]);
 
-  const completedPrimaryNodes = useMemo(() => {
-    if (!activeUnit) {
-      return 0;
-    }
-
-    return activeUnit.nodes.filter((node) => node.type !== 'review' && node.status === 'completed').length;
-  }, [activeUnit]);
-
-  const totalPrimaryNodes = useMemo(() => {
-    if (!activeUnit) {
-      return 0;
-    }
-
-    return activeUnit.nodes.filter((node) => node.type !== 'review').length;
-  }, [activeUnit]);
+  // completedPrimaryNodes/totalPrimaryNodes eram calculados aqui mesmo; a
+  // regra (todo nó que não é de revisão, e quantos desses já concluíram)
+  // agora mora em computeUnitPrimaryProgress porque QuizScreen precisava da
+  // MESMA contagem para o resumo de lição, e duas cópias divergem no dia em
+  // que só uma muda. RewardScreen é a origem da regra — ela também chama a
+  // função extraída, em vez de manter a própria cópia ao lado da nova.
+  const { completed: completedPrimaryNodes, total: totalPrimaryNodes } = useMemo(
+    () => computeUnitPrimaryProgress(activeUnit),
+    [activeUnit]
+  );
 
   const dueReviewCount = useMemo(() => {
     if (!activeUnit) {
