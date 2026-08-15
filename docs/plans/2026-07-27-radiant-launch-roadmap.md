@@ -1431,14 +1431,17 @@ a trilha de lojas.
 - **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
   Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
 - **I2 [P1 — PRÉ-REQUISITOS RESOLVIDOS em 2026-08-15; spec pronta, não implementada]**
-  Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. O destino da
-  Galáxia foi decidido (deixa de ser aba, vira superfície interna de Estude, com as
-  rotas interiores preservadas) e a separação da `ProgressScreen` foi definida em três
-  destinos — aluno e identidade para o Perfil, console para rota própria sob
+  Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. **Estude passa
+  a ser a trilha**, em rolagem contínua e com o currículo inteiro, e a **Galáxia é
+  absorvida** — a trilha morava nela. A separação da `ProgressScreen` foi definida em
+  três destinos: aluno e identidade para o Perfil, console para rota própria sob
   `SHOW_DEV_TOOLS`. Ver
   [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
   [spec](../superpowers/specs/2026-08-15-topologia-navegacao-design.md).
   `tab-bar-clearance-contract` é reescrito com a nova topologia — nunca desligado.
+  **Onde o risco se concentra:** a trilha passa a carregar o currículo inteiro em vez das
+  unidades da trilha ativa. É a única parte que mexe em dado, e sem virtualização a
+  rolagem morre em catálogo grande.
 - **I3 [P2]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
   de aulas. Depende de I2. O histórico tem substrato pronto em
   `LearningAttemptsRepository`.

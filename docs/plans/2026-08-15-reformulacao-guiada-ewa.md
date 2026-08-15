@@ -49,9 +49,17 @@ flutuando na base; microfone e FAB de chat; tab bar de cinco itens.
 **Dono:** "a página de home já é a página de estudos" — e pediu logo central "algo como
 radiant e o símbolo da radiação de forma cintilante".
 
-**Fato do repositório:** a home **já é** a trilha desde `0ceff49` (2026-08-14).
-`src/app/(tabs)/index.tsx` renderiza `JourneyHomeScreen` com `ENABLE_LEARNING_ROAD`,
-cujo padrão é `true`.
+**Fato do repositório:** ~~a home **já é** a trilha desde `0ceff49` (2026-08-14).~~
+**Corrigido em 2026-08-15 — esta afirmação era falsa.** `src/app/(tabs)/index.tsx` renderiza
+`JourneyHomeScreen` com `ENABLE_LEARNING_ROAD` (padrão `true`), isso confere; mas
+`JourneyHomeScreen` **não tem trilha**: renderiza HUD, `JourneyHero`, um card "Foco de hoje"
+com três linhas de estatística e um botão "Continuar jornada". Quem renderiza `JourneyMap` é a
+`GalaxyMapScreen` — a trilha mora na Galáxia.
+
+**Dono decidiu em 2026-08-15:** *"no estude o que nós iremos fazer é uma trilha de forma
+contínua"*. A trilha sobe para Estude, em rolagem contínua e com o currículo inteiro; a
+Galáxia é absorvida. Ver
+[ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md).
 
 ### R2 — Linha de stats
 
@@ -137,6 +145,21 @@ e cor; o teste de fim de trilha é o tipo de nó `checkpoint`; `JourneyTrackUnlo
 
 **Delta real:** dessaturar a **ilustração** do nó bloqueado, e a faixa "PRÓXIMO NÍVEL".
 
+**Duas capturas enviadas em 2026-08-15** mostram o que a descrição não dizia, e acrescentam
+delta:
+
+- **o rótulo codifica estado por cor** — pílula cinza no bloqueado, verde no concluído, azul
+  no próximo/disponível;
+- **cada nó tem três estrelas abaixo do rótulo**, preenchidas por desempenho. O Radiant
+  **não** tem estrelas no nó. E tem a regra pronta: `resolveLessonStars`, do sub-projeto 1,
+  calcula essas três estrelas pela melhor tentativa, e hoje elas só aparecem na tela de
+  conclusão. Ligá-las ao nó não precisa de asset nenhum;
+- **a trilha é contínua e serpenteia** — os nós alternam entre esquerda, centro e direita,
+  ligados por traçado pontilhado, direto sobre o fundo preto e sem moldura. O `JourneyMap` do
+  Radiant é seccionado por unidade, com título quebrando entre os trechos, trilho reto central
+  e tudo dentro de um card. Este é o delta maior, e virou decisão: ver a
+  [spec do sub-projeto 2](../superpowers/specs/2026-08-15-topologia-navegacao-design.md).
+
 **Armadilha:** "ficar escura" aplicado ao rótulo reprova o `contrast-contract` (WCAG
 4.5:1). No EWA quem perde cor é a arte, não o texto. A leitura correta é dessaturação de
 imagem, não opacidade de bloco — que é justamente a decisão já registrada em comentário
@@ -167,9 +190,12 @@ imagem ou o achado da lição?).
 
 ## Perguntas abertas
 
-1. ~~Destino da **Galáxia** na nova tab bar.~~ **Resolvida em 2026-08-15:** deixa de ser aba
-   e vira superfície interna de Estude, preservando o `ADR-2026-08-13` e as rotas interiores.
-   Ver [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md).
+1. ~~Destino da **Galáxia** na nova tab bar.~~ **Resolvida em 2026-08-15:** a Galáxia é
+   **absorvida por Estude** e deixa de existir como superfície — a trilha, que morava nela,
+   sobe para a aba. O `ADR-2026-08-13` é superado. Ver
+   [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md).
+   *(Primeira resposta do mesmo dia — "vira superfície interna de Estude" — caiu junto com a
+   premissa falsa de que a home já era a trilha.)*
 2. A tab bar continua cartão flutuante ou vira barra rente? **Continua em aberto.** A spec do
    sub-projeto 2 mantém o cartão flutuante por não decidir isto — e enquanto ele flutuar,
    `tabBarClearance` continua sendo obrigação real de toda tela de aba.

@@ -1,8 +1,16 @@
 # ADR — Home e Galáxia projetam uma única progressão (2026-08-13)
 
-**Status:** aceita e implementada
+**Status:** ~~aceita e implementada~~ — **SUPERADA em 2026-08-15** por
+[`ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil`](ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md)
 **Decisor:** Anderson (proprietário do projeto)
 **Contexto de origem:** inspeção visual da Home e da Galáxia no simulador
+
+> **Nota de superação (2026-08-15).** A repartição decidida aqui — Home como superfície de
+> retomada, Galáxia como única superfície de exploração — deixa de valer. A trilha sobe para a
+> aba Estude, em rolagem contínua, e a Galáxia é absorvida. O que **sobrevive** desta ADR é o
+> princípio que a motivou: uma progressão só, uma representação só da trilha, sem catálogo
+> concorrente. A ADR nova o cumpre com mais rigor — deixa de haver duas superfícies para
+> divergirem.
 
 ## Contexto
 

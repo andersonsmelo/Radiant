@@ -387,10 +387,19 @@ travavam o sub-projeto 2 e mais duas decisões que a medição do repositório l
 
 | # | Questão | Escolha |
 | --- | --- | --- |
-| 1 | Destino da Galáxia | Deixa de ser aba; vira superfície interna de Estude |
-| 2 | Console de desenvolvimento | Sai para rota própria fora das abas, sob `SHOW_DEV_TOOLS` |
-| 3 | Convergência de lição | `/learn` adota os componentes novos; `/quiz` é aposentada |
-| 4 | Liga (sub-projeto 6) | Métrica local — o aluno comparado com ele mesmo |
+| 1 | O que é a aba Estude | **A trilha**, em rolagem contínua |
+| 2 | Alcance da trilha | O currículo inteiro numa rolagem só |
+| 3 | Destino da Galáxia | **Absorvida por Estude**; deixa de existir como superfície |
+| 4 | Console de desenvolvimento | Sai para rota própria fora das abas, sob `SHOW_DEV_TOOLS` |
+| 5 | Convergência de lição | `/learn` adota os componentes novos; `/quiz` é aposentada |
+| 6 | Liga (sub-projeto 6) | Métrica local — o aluno comparado com ele mesmo |
+
+**A decisão 3 foi revista dentro da própria sessão.** A primeira resposta foi "a Galáxia vira
+superfície interna de Estude", e ela se apoiava numa afirmação do documento de direção — "a
+home já é a trilha" — que **não confere com o código**. `JourneyHomeScreen` não tem trilha:
+tem HUD, hero e um card "Foco de hoje". Quem renderiza `JourneyMap` é a `GalaxyMapScreen`. Com
+a premissa corrigida e a direção da trilha contínua dada pelo dono, a Galáxia passou a ser
+absorvida, e o `ADR-2026-08-13` foi superado.
 
 Viraram duas ADRs:
 [topologia](adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
