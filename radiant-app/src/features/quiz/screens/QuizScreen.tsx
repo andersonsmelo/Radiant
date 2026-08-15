@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { ProgressRing } from '../../../components/ui/ProgressRing';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
 import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
@@ -20,10 +19,10 @@ import { PushOptInCard } from '../../push/components/PushOptInCard';
 import { PushService } from '../../push/services/PushService';
 import { QuizFeedback } from '../components/QuizFeedback';
 import { QuizQuestion } from '../components/QuizQuestion';
+import { QuizTopBar } from '../components/QuizTopBar';
 import { useQuiz } from '../hooks/useQuiz';
 import { Confetti } from '../../../components/ui/Confetti';
 import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
-import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
 import { RatingPromptService } from '../../../services/RatingPromptService';
 import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
@@ -498,55 +497,18 @@ function QuizSession({
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
       <SafeAreaView style={styles.safe} edges={['top']}>
-        <HUD
-          totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
-          hearts={hearts}
-          maxHearts={maxHearts}
-          compact
-        />
         <View style={[layout.container, styles.activeLayout]}>
-          {/* Progresso do quiz: anima entre as questões em vez de saltar. */}
-          <AnimatedProgressBar
-            ratio={(progress.currentQuestionIndex + 1) / Math.max(1, progress.totalQuestions)}
-            height={10}
-            style={styles.progressTrack}
-            accessibilityLabel={`Questão ${progress.currentQuestionIndex + 1} de ${progress.totalQuestions}`}
+          <QuizTopBar
+            questionIndex={progress.currentQuestionIndex}
+            totalQuestions={progress.totalQuestions}
+            hearts={hearts}
+            maxHearts={maxHearts}
+            onClose={() => router.replace('/(tabs)')}
           />
 
-          <View style={styles.headerRow}>
-            <Pressable
-              onPress={() => router.replace('/(tabs)')}
-              accessibilityRole="button"
-              accessibilityLabel="Fechar quiz"
-              style={styles.iconButton}
-            >
-              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
-            </Pressable>
-            <Text style={styles.headerLabel}>{mode === 'review' ? 'Quiz de Revisão' : 'Quiz'}</Text>
-            <Text style={styles.headerProgressText}>
-              {progress.currentQuestionIndex + 1}/{progress.totalQuestions}
-            </Text>
-          </View>
-
-          <View style={styles.activeHeroCard}>
-            <View style={styles.activeHeroHeader}>
-              <View style={styles.activeHeroCopy}>
-                <Text style={styles.activeTitle}>{lesson.title}</Text>
-                <Text style={styles.activeBody}>
-                  {mode === 'review'
-                    ? `Modo revisão${totalLessons > 0 ? ` • lição ${currentLessonIndex + 1}/${totalLessons}` : ''}`
-                    : 'Selecione uma resposta e confirme a leitura da imagem ou do conceito.'}
-                </Text>
-              </View>
-              <ProgressRing
-                value={progress.currentQuestionIndex + 1}
-                total={Math.max(progress.totalQuestions, 1)}
-                label="Questões"
-                size={space.s6 * 3}
-              />
-            </View>
-          </View>
+          <Text style={styles.questionCounter}>
+            Pergunta {progress.currentQuestionIndex + 1} de {progress.totalQuestions}
+          </Text>
 
           <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             {currentQuestion ? (
@@ -619,12 +581,6 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
     textTransform: 'uppercase',
   },
-  headerProgressText: {
-    ...typography.caption,
-    color: galaxyColors.textSecondary,
-    width: ICON_BUTTON_SIZE,
-    textAlign: 'right',
-  },
   heroCard: {
     backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,
@@ -666,18 +622,11 @@ const styles = StyleSheet.create({
   actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
   actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   fullWidthButton: { width: '100%' },
-  activeHeroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
+  questionCounter: {
+    ...typography.caption,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
   },
-  activeHeroHeader: { flexDirection: 'row', alignItems: 'center', gap: space.s3 },
-  activeHeroCopy: { flex: 1, gap: space.s1 },
-  activeTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  activeBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   scrollArea: { flex: 1 },
   scrollContent: { gap: space.s2, paddingBottom: space.s2 },
   footer: { paddingBottom: space.s1 },
@@ -694,10 +643,6 @@ const styles = StyleSheet.create({
     ...typography.h1,
     color: galaxyColors.xpColor,
     textAlign: 'center',
-  },
-  progressTrack: {
-    marginHorizontal: 20,
-    marginBottom: 8,
   },
   progressBar: {
     height: 10,

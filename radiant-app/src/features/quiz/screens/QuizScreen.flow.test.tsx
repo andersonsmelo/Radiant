@@ -77,9 +77,15 @@ jest.mock('../../../components/ui/ProgressRing', () => {
   };
 });
 
-jest.mock('../../../ui/components/HUD', () => ({
-  HUD: () => null,
-}));
+jest.mock('../../../ui/components/HUD', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+
+  return {
+    HUD: () => null,
+    HeartsDisplay: () => <View />,
+  };
+});
 
 jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
@@ -296,6 +302,14 @@ describe('QuizScreen flow', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     PixelMood.resetSession();
+  });
+
+  it('mostra a contagem de questões e nenhum cabeçalho redundante', async () => {
+    montarQuiz(lessonTresQuestoes);
+    await waitFor(() => expect(screen.getByText('Pergunta 1 de 3')).toBeTruthy());
+    expect(screen.queryByText('Quiz')).toBeNull();
+    expect(screen.queryByText('1/3')).toBeNull();
+    expect(screen.queryByLabelText('Questões')).toBeNull();
   });
 
   it('completes a quiz and syncs the result', async () => {
