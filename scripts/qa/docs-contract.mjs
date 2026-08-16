@@ -4,7 +4,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const LEGACY_WORKSPACE_PATH = '/Users/anderson/Documents/Radiant';
+const LOCAL_USER_PATH_PREFIX = '/Users/';
 
 export const CURRENT_STATE_DOCUMENTS = [
   'README.md',
@@ -125,8 +125,10 @@ export function inspectDocument({ relativePath, content }) {
   const violations = [];
   const plainContent = content.replaceAll('`', '');
 
-  if (content.includes(LEGACY_WORKSPACE_PATH)) {
-    violations.push(`${relativePath}: contains the retired workspace path ${LEGACY_WORKSPACE_PATH}.`);
+  if (content.includes(LOCAL_USER_PATH_PREFIX)) {
+    violations.push(
+      `${relativePath}: contains a machine-local ${LOCAL_USER_PATH_PREFIX} path; use a repository-relative link instead.`
+    );
   }
 
   const claimsApiAvailability =

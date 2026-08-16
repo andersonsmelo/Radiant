@@ -31,14 +31,14 @@ test('governs the newest execution status as a current-state document', () => {
   );
 });
 
-test('flags the legacy Radiant workspace path in a current-state document', () => {
+test('flags a machine-local user path in a current-state document', () => {
   const violations = inspectDocument({
     relativePath: 'README.md',
-    content: 'Abra /Users/anderson/Documents/Radiant/radiant-app para continuar.',
+    content: 'Abra /Users/alguem/Documents/Radiant/radiant-app para continuar.',
   });
 
   assert.deepEqual(violations, [
-    'README.md: contains the retired workspace path /Users/anderson/Documents/Radiant.',
+    'README.md: contains a machine-local /Users/ path; use a repository-relative link instead.',
   ]);
 });
 

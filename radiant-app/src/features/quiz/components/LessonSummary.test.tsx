@@ -106,6 +106,12 @@ describe('LessonSummary', () => {
     expect(screen.queryByText(/\+0 XP/)).toBeNull();
   });
 
+  it('reconhece a conclusão sem exibir ganho zero de XP', () => {
+    render(<LessonSummary {...base} xpAwarded={0} />);
+    expect(screen.getByText('Progresso registrado')).toBeTruthy();
+    expect(screen.queryByText(/\+0 XP/)).toBeNull();
+  });
+
   it('mostra o progresso da unidade', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('7 de 14 lições')).toBeTruthy();

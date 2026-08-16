@@ -16,7 +16,6 @@ import { QuizTopBar } from '../components/QuizTopBar';
 import { useQuiz } from '../hooks/useQuiz';
 import { Confetti } from '../../../components/ui/Confetti';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
-import { RatingPromptService } from '../../../services/RatingPromptService';
 import { PixelMood, type PixelMoodResult } from '../../pixel-mood/PixelMood';
 import type { PixelMoment } from '../../pixel-mood/pixelPhrases';
 import {
@@ -28,6 +27,7 @@ import { resolveBestLessonStars, resolveLessonStars, type LessonStars } from '..
 import { pickSummaryPhrase } from '../constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 const SCREEN_MAX_WIDTH = 720;
@@ -238,17 +238,6 @@ function QuizSession({
     void (async () => {
       await OnboardingService.markAction('quiz_complete');
       setSummaryHelper(OnboardingService.getSummaryHelper());
-      const scorePercentage = Math.round((result.correctAnswers / result.totalQuestions) * 100);
-      if (scorePercentage < QUIZ_THRESHOLDS.PASSING_SCORE) {
-        return;
-      }
-
-      await RatingPromptService.maybePromptForReview({
-        trigger: 'quiz_complete',
-        entrySurface: 'quiz_summary',
-        lessonId: result.lessonId,
-        scorePercentage,
-      });
     })();
   }, [isFinished, mode, result]);
 
@@ -271,6 +260,7 @@ function QuizSession({
     let cancelado = false;
     void (async () => {
       try {
+        await LearningAttemptRecorder.record(result);
         const attempts = await LearningAttemptsRepository.getAll();
         const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
           correctAnswers: result.correctAnswers,

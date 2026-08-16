@@ -411,6 +411,48 @@ describe('QuizScreen flow', () => {
     });
   });
 
+  it('persiste a tentativa do quiz no mesmo histórico que alimenta a melhor marca', async () => {
+    const appendAttempt = jest.spyOn(LearningAttemptsRepository, 'append').mockResolvedValue(undefined);
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: { getLessonById: jest.Mock; getInitialLesson: jest.Mock };
+    };
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+
+    renderWithProviders(<QuizScreen mode="normal" lessonId="lesson-1" />);
+    fireEvent.press(await screen.findByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await waitFor(() =>
+      expect(appendAttempt).toHaveBeenCalledWith(
+        expect.objectContaining({
+          lessonId: 'lesson-1',
+          topicId: 'unit-1',
+          correctAnswers: 1,
+          totalQuestions: 1,
+        }),
+      ),
+    );
+  });
+
+  it('não abre o prompt nativo da App Store na conclusão que já pede a avaliação da aula', async () => {
+    const { RatingPromptService } = jest.requireMock('../../../services/RatingPromptService') as {
+      RatingPromptService: { maybePromptForReview: jest.Mock };
+    };
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: { getLessonById: jest.Mock; getInitialLesson: jest.Mock };
+    };
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+
+    renderWithProviders(<QuizScreen mode="normal" lessonId="lesson-1" />);
+    fireEvent.press(await screen.findByLabelText('Consolidação alveolar'));
+    fireEvent.press(await screen.findByText('Próxima'));
+
+    await screen.findByText('Avalie a aula');
+    expect(RatingPromptService.maybePromptForReview).not.toHaveBeenCalled();
+  });
+
   it('usa o snapshot devolvido pela própria marcação da lição, não uma leitura solta que pode chegar antes da escrita', async () => {
     // Mutação que este teste pega: voltar a resolver o progresso da unidade
     // lendo JourneyProgressService.getSnapshot() à parte, em vez de

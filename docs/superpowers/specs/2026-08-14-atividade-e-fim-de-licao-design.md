@@ -98,7 +98,8 @@ Na ordem:
    imediatamente anterior. Faixa 0 não celebra: reconhece a tentativa e aponta a
    repetição como caminho.
 3. Subtítulo fixo: "A lição foi concluída".
-4. Dois cards de placar lado a lado: `+N XP nesta tentativa` e `N de M corretas`.
+4. Dois cards de placar lado a lado: `+N XP nesta tentativa` e `N de M corretas`. Quando
+   a conclusão não concede XP, o primeiro diz `Progresso registrado`; nunca `+0 XP`.
 5. Progresso da unidade: rótulo, contagem `N de M lições` e barra. O cálculo reaproveita
    o que o `RewardScreen` já faz sobre o `JourneySnapshot` para a unidade ativa.
 6. Avaliação da aula, em 5 estrelas. Uma lição é avaliada **uma vez**: dada a nota, a
@@ -141,28 +142,6 @@ voltar, não punido por ter errado na primeira.
 
 A função é pura de propósito: a trilha vai precisar da mesma regra para as estrelas sob
 cada nó, no sub-projeto 5, e mover uma função sem I/O é barato.
-
-### 5.1 Nota de fechamento — regra da melhor tentativa está inerte pela rota do quiz
-
-Registro do review final da branch (2026-08-15), não pendência de código.
-
-`resolveBestLessonStars` lê `LearningAttemptsRepository`. O único escritor desse
-repositório é `LessonOutcomeService.recordAttempt`, chamado só a partir de
-`LessonFlowScreen` (rota `/learn`). O fluxo do quiz (`QuizScreen`, rota `/quiz`) nunca
-grava uma tentativa ali — então, passando por `/quiz`, `previousBest` nunca acumula,
-`improved` sai `true` em praticamente toda conclusão, e o caminho "quando não melhora,
-elas entram já no estado final" da seção 5 é inalcançável nesta rota.
-
-Isso não é bug desta passagem: `/quiz` não tem hoje nenhum ponto de entrada in-app —
-só é alcançável por deep link direto (`/quiz?...`). A tela só passa a receber tráfego
-real quando o sub-projeto 2 (topologia de navegação) chegar, e é exatamente aí que os
-dois caminhos de entrega de lição (`/learn` e `/quiz`) precisam convergir — hoje
-escrever um caminho de append para `LearningAttemptsRepository` a partir do `QuizScreen`
-seria adivinhar `topicId` e outros dados para uma tela que ninguém alcança.
-
-Convergir os dois caminhos é trabalho do sub-projeto 2, não desta passagem. Até lá, a
-regra da melhor tentativa fica inerte pela rota do quiz — e ela deixa de ficar antes de
-qualquer usuário real ver esta tela.
 
 **Estrelas e placar medem coisas diferentes, e a tela precisa deixar isso claro.** As
 estrelas pertencem à **lição** e refletem a melhor tentativa; os dois cards de placar
@@ -216,7 +195,19 @@ o contrato não se aplica e não muda.
 `npm run quality` inteiro, com os 13 validadores, é o portão desta passagem. Nenhum
 validador é desligado, afrouxado ou contornado.
 
-## 8. Fora de escopo
+## 8. Persistência de tentativas compartilhada
+
+`LearningAttemptRecorder` é o único escritor de tentativas para os dois caminhos de
+conclusão. `LessonOutcomeService` entrega o tópico já resolvido da trilha; `QuizScreen`
+resolve a unidade no snapshot antes de renderizar a melhor marca. Assim, `/learn` e
+`/quiz` acumulam o mesmo histórico e `resolveBestLessonStars` pode comparar a tentativa
+atual com as anteriores em ambos os caminhos.
+
+Um deep link que aponte para lição ausente do snapshot não inventa tópico e não grava
+uma tentativa. É a falha segura: uma estatística sem classificação correta é pior que
+uma amostra ausente.
+
+## 9. Fora de escopo
 
 Não são tocados nesta passagem, e nada aqui os autoriza:
 
@@ -229,7 +220,7 @@ Não são tocados nesta passagem, e nada aqui os autoriza:
   bloqueado. Bloqueado por assets autorais; o P4 (HUD em Rive) segue fechado.
 - Sub-projeto 6 — liga, ranqueamento e social. Bloqueado pelo contrato de privacidade.
 
-## 9. Estrutura de código
+## 10. Estrutura de código
 
 Caminho escolhido pelo dono entre três: **extrair a conclusão**.
 
@@ -242,7 +233,7 @@ O caminho descartado que merece registro: criar já um pacote de celebração co
 para quiz, checkpoint e recompensa. Foi recusado por projetar para requisito que ainda
 não existe; volta à mesa quando o sub-projeto 5 trouxer necessidade real.
 
-## 10. Testes
+## 11. Testes
 
 Novos:
 

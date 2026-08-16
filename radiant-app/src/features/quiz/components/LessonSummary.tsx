@@ -126,7 +126,11 @@ export function LessonSummary({
         <View style={styles.scoreRow}>
           <View style={styles.scoreCard}>
             <Text style={styles.scoreValue}>
-              {xpAwarded === null ? 'Sem XP nesta tentativa' : `+${xpAwarded} XP nesta tentativa`}
+          {xpAwarded === null
+            ? 'Sem XP nesta tentativa'
+            : xpAwarded === 0
+              ? 'Progresso registrado'
+              : `+${xpAwarded} XP nesta tentativa`}
             </Text>
           </View>
           <View style={styles.scoreCard}>

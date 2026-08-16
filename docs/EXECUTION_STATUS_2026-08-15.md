@@ -176,7 +176,7 @@ Medidas contra o repositório e o ambiente, não copiadas de registro anterior:
 | Pendência | Estado medido |
 | --- | --- |
 | API pública em 502 | **Confirmado.** `api.radiant.ascendcreative.com.br` responde 502 na raiz e em `/health`. Três semanas assim. Nenhum perfil de build configura `API_BASE_URL`, e nenhum habilita sync remoto — o app não depende dela hoje. |
-| Links absolutos no README do app | **Confirmado.** 7 links de `radiant-app/README.md` são caminhos `/Users/anderson/…`. Os arquivos existem; os links só funcionam na máquina do dono e vazam o caminho da home num arquivo versionado. |
+| Links absolutos no README do app | **Confirmado.** 7 links de `radiant-app/README.md` apontavam para a home local do dono. Os arquivos existem; os links só funcionam naquela máquina e vazam seu caminho em arquivo versionado. |
 | Duplicado de fonte | **1 real:** `radiant-app/tsconfig 2.json`. Os outros 8 casados por `**/* 2.*` são artefatos gerados do CocoaPods, não dívida de higiene. |
 | Nota de pendências do cérebro | **Desatualizada.** `07 Pendencias e riscos` está em `last_verified: 2026-07-24`. Ver abaixo. |
 
@@ -209,6 +209,130 @@ Vale registrar o problema de fundo, porque ele não é desta nota: o canal de me
 **só apensa** em `05 Aprendizados validados`. As outras nove notas estruturais estão
 todas em `last_verified: 2026-07-24`. A base parece saudável porque a única parte que
 cresce é a única que se olha.
+
+## Correção de pendências (2026-08-16)
+
+Esta correção substitui a classificação de pendências acima; ela preserva a auditoria
+de 15/08 como proveniência, mas não mantém afirmações já remedidas como risco atual.
+
+### Removidas da nota de pendências
+
+- **Working tree:** limpa na medição de 16/08; não é pendência.
+- **Versão:** `radiant-app/app.json` e `radiant-app/package.json` declaram `1.3.1`.
+- **Sync remoto em builds distribuídas:** nenhum perfil declara
+  `EXPO_PUBLIC_API_BASE_URL`; os perfis distribuídos mantêm
+  `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`, e o runtime ainda exige
+  `isApiConfigured()`. A API em 502 não quebra o fluxo local-first atual.
+- **Paridade CI/local:** resolvida no commit `eaedd35` (`ci: roda o gate completo e
+  trava a paridade por contrato`). O workflow chama o mesmo `npm run quality` do
+  gate local e o contrato de paridade impede voltar a etapas avulsas.
+
+### Corrigidas nesta passagem
+
+- Os sete links com caminho local em `radiant-app/README.md` agora são relativos.
+  O contrato de documentação passa a rejeitar prefixos de home local nos documentos
+  de estado governados, para impedir novo vazamento de caminho da máquina.
+- O único duplicado de fonte real, `radiant-app/tsconfig 2.json`, foi removido. Os
+  oito matches restantes de `**/* 2.*` pertencem a artefatos gerados do CocoaPods.
+- Os números de qualidade corretos são **17 warnings de lint**, **32 itens no
+  baseline visual** e **duas exceções**. São medições de baseline, não critérios de
+  aceite; novos limites devem viver em contratos executáveis, não em prosa.
+
+### Decisões de conclusão aplicadas em 2026-08-16
+
+- **Uma avaliação por conclusão:** `QuizScreen` não chama mais o prompt nativo da App
+  Store; a única avaliação apresentada é a nota da aula em `LessonSummary`.
+- **Tentativas unificadas:** `LearningAttemptRecorder` recebe as conclusões de `/learn`
+  e `/quiz`, preservando o tópico resolvido pela trilha quando ele já existe. A regra da
+  melhor tentativa deixa de ser inerte no quiz.
+- **Spec refinada:** a explicação de persistência compartilhada saiu do meio da regra de
+  estrelas e agora é a seção 8 da spec; o texto de XP zero passou a ser `Progresso
+  registrado`.
+- **Contrato de privacidade:** a inspeção usa AST de TypeScript, portanto ignora uma
+  chamada que só aparece como texto em template literal sem perder a detecção de
+  propriedades abreviadas.
+- **Acessibilidade:** as estrelas já possuem um único rótulo acessível, por exemplo
+  `3 de 3 estrelas`, e o teste específico cobre esse contrato. Não foi necessário
+  duplicar uma implementação que já era efetiva.
+- **Worktree órfã:** `.claude/worktrees/awesome-northcutt-976686` não era uma worktree
+  registrada: apontava para o `.git` da raiz e só continha configuração local. Foi movida
+  de forma recuperável para a Lixeira em `awesome-northcutt-976686-reconciled-20260816`.
+
+### Reconciliação Loop pendente de inventário público
+
+O CLI público permite fechar uma sessão ou run **quando o ID é conhecido**, mas não
+expõe listagem de runs/sessões para reconciliar IDs históricos desconhecidos. A sessão
+ativa desta passagem será fechada pelo CLI. Não editar `.loop/` manualmente nem forçar
+locks é deliberado: para fechar os demais estados com segurança é preciso adicionar um
+comando público de inventário no Loop ou obter os IDs de quem os abriu.
+
+### Pendências verdadeiras e acionáveis
+
+| Pendência | Risco atual | Próxima ação |
+| --- | --- | --- |
+| API pública responde 502 na raiz e em `/health` | Médio: risco de prazo para a futura trilha remota, não do app local-first distribuído | Decisão do dono: recuperar pelo runbook de VPS ou declarar adiamento com data. Não inferir estado de VPS, banco ou serviços sem diagnóstico autorizado. |
+| E2E iOS em `app-failed`; relaunch offline iOS e Android sem nova evidência | Alto para lançamento: local-first exige preservar progresso sem rede | Rodar os flows Maestro na configuração de release e registrar evidência datada; falha vira P0. |
+| VoiceOver e TalkBack nos fluxos críticos | `needs_human` | Preparar e executar roteiro em aparelho físico; contratos estáticos não comprovam navegação falada. |
+| Divergência do status histórico com a evidência E2E | Dependente do E2E | Reavaliar somente após a nova execução de E2E. |
+| Dívida editorial: 30 classificações, 7 conceitos e 42 bundles | Baixo operacional, com risco de direitos/conteúdo | Medir contra `content-manifest/` e priorizar por direitos antes de reclassificar. |
+
+### Nota estrutural do cérebro
+
+As notas estruturais continuam com `last_verified: 2026-07-24`; contexto vencido é
+somente registro, não evidência atual. A atualização não edita o vault diretamente:
+o candidato de triagem já existente deve ser promovido apenas por um caminho Loop que
+preserve a configuração comentada, ou após decisão explícita do dono sobre essa
+transação. Até então, toda sessão deve comparar a data de verificação com a data
+corrente antes de usar uma dessas notas como contexto.
+
+## Higiene operacional resolvida em 2026-08-16
+
+Estado do harness que estava preso e não pertencia a passagem nenhuma. Antes de
+cada remoção o alvo foi inspecionado; nada foi editado à mão em `.loop/`, exceto
+onde declarado.
+
+| Item | Antes | Agora |
+| --- | --- | --- |
+| Runs em `validating` | 4 (três de 12/08, um de 14/08) | 0 — fechados pela CLI; `validating → closed` é transição válida da máquina de estados, e não havia lock preso |
+| Sessões de cérebro abertas | 15, de 28/07 a 14/08 | 0 |
+| Worktree registrada e abandonada | 1, em `HEAD` destacado | Removida. Estava em `128d70b`, **ancestral do `HEAD` e presente em cinco branches**, sem alterações e sem stash — nada se perdeu |
+| Restos de worktree em disco | 3 diretórios de abril | 2 vazios removidos; `awesome-northcutt-976686` mantido por conter um `settings.local.json` de 5 KB |
+
+### Candidatos de triagem: 10 parados, 3 descartados
+
+O inventário encontrou **dez candidatos de triagem** acumulados entre 27/07 e
+15/08, **nenhum promovido nem descartado**. Cada um foi revisto individualmente
+contra o estado atual. Três foram descartados por já não descreverem a realidade:
+
+- **Roadmap de lançamento (27/07):** conteúdo já vive na §4 do roadmap, e o risco
+  que ele afirmava — `ENABLE_REMOTE_SYNC=true` em produção — é falso.
+- **Gate H3 (10/08):** o P0 que ele registrava, a tela de retomada virando beco sem
+  saída a partir de `accessibility-extra-extra-large`, **foi corrigido**. O
+  `ScrollView` em `radiant-app/src/app/_layout.tsx` carrega a medição no comentário,
+  que é lugar melhor que um candidato.
+- **Reverificação das 13 pendências (15/08):** absorvida por este documento, e uma
+  das afirmações dela já foi superada pela correção do gate de CI.
+
+Os sete restantes foram mantidos por registrarem conhecimento durável que não
+existe em outro lugar. **A remoção foi feita apagando os três `candidates.json` à
+mão**, com backup, porque a CLI não alcança candidato de sessão fechada — a
+triagem exige a sessão dona ativa, e não há comando de reabrir. Isso foi
+autorizado explicitamente pelo dono depois do risco exposto. A lacuna da CLI é a
+causa; o contorno é o sintoma.
+
+### Correção ao inventário de duplicados
+
+A seção anterior afirma que os oito matches restantes de `**/* 2.*` pertencem a
+artefatos gerados do CocoaPods. **Não pertencem.** A busca que produziu essa
+conclusão estava limitada a `radiant-app/`. Fora dela existe
+`radiant-api/src/server 2.ts` — cópia de 26/03 com 10 KB contra os 19 KB do
+`server.ts` atual, de 03/04.
+
+Ela é inerte para build (`radiant-api/tsconfig.json` exclui `src/**/* 2.ts`) e não
+é rastreada. **Mas a invisibilidade dela é o achado que importa:** o padrão
+`* 2.*` está em `.git/info/exclude`, que é **local da máquina** e não do
+repositório. Em outro clone, ou no CI, esses arquivos aparecem — e ninguém que
+inspecione o `git status` desta máquina vai saber que existem.
 
 ## Documentos desta passagem
 

@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'fs';
 import path from 'path';
+import ts from 'typescript';
 import { isProhibitedKey, sanitizeTelemetryProps } from './sanitizeTelemetryProps';
 
 // Raiz do código do app (este arquivo vive em src/features/telemetry/).
@@ -12,66 +13,55 @@ function listSourceFiles(): string[] {
     .map((entry) => path.join(appSrc, entry));
 }
 
-// Extrai o texto de cada chamada TelemetryService.track(...) equilibrando
-// parênteses, para inspecionar as chaves do objeto de propriedades inline.
+// Usa a AST para ignorar comentários, strings e template literals: só chamadas
+// executáveis de fato pertencem ao contrato.
 function extractTrackCalls(source: string): string[] {
+  const sourceFile = ts.createSourceFile('telemetry-source.ts', source, ts.ScriptTarget.Latest, true);
   const calls: string[] = [];
-  const marker = 'TelemetryService.track(';
-  let index = source.indexOf(marker);
-
-  while (index !== -1) {
-    let depth = 0;
-    let end = index + marker.length - 1; // aponta para o '('
-    for (let i = index + marker.length - 1; i < source.length; i += 1) {
-      const char = source[i];
-      if (char === '(') depth += 1;
-      else if (char === ')') {
-        depth -= 1;
-        if (depth === 0) {
-          end = i;
-          break;
-        }
-      }
+  const visit = (node: ts.Node): void => {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isPropertyAccessExpression(node.expression) &&
+      ts.isIdentifier(node.expression.expression) &&
+      node.expression.expression.text === 'TelemetryService' &&
+      node.expression.name.text === 'track'
+    ) {
+      calls.push(node.getText(sourceFile));
     }
-    calls.push(source.slice(index, end + 1));
-    index = source.indexOf(marker, end + 1);
-  }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
 
   return calls;
 }
 
-// Nomes de propriedade candidatos dentro de uma chamada (identificador seguido
-// de dois-pontos). Aproximação textual: erra para o lado de sinalizar.
-const keyCandidateRegex = /([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g;
-
-// Propriedade abreviada de objeto — `{ lessonId, rating }` em vez de
-// `{ lessonId: lessonId, rating: rating }`. `keyCandidateRegex` acima exige
-// dois-pontos literal e por isso não enxerga nenhuma chave aqui: um
-// identificador só conta como abreviação quando é precedido por `{` ou `,` E
-// seguido por `,` ou `}` (ignorando espaço) — é isso que separa uma CHAVE
-// abreviada (`{ lessonId, rating }`) de um VALOR à direita de dois-pontos
-// (`{ foo: bar }`, onde "bar" é precedido por ":", não por "{"/",").
-// Spread (`{ ...rest, lessonId }`) fica de fora de propósito: "rest" é
-// precedido por "." (da reticência), não por "{"/",", e o conteúdo de um
-// spread não é nomeável estaticamente por este scanner de qualquer forma —
-// mesma limitação que já existia antes desta mudança.
-const shorthandKeyCandidateRegex = /[{,]\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=[,}])/g;
-
-// Achado do review final da branch feat/atividade-fim-licao (2026-08-15):
-// `LessonRatingService.ts` chama `TelemetryService.track('lesson_rated',
-// { lessonId, rating })` com propriedade abreviada, e a varredura original
-// (só `keyCandidateRegex`) extraía ZERO chaves dessa chamada — o guarda
-// nunca via o call site. Controller Ruling 10 autoriza este endurecimento:
-// a regra proibida é AFROUXAR o contrato, não fortalecê-lo.
 function extractPropertyKeyCandidates(call: string): string[] {
-  const keys: string[] = [];
-  for (const match of call.matchAll(keyCandidateRegex)) {
-    keys.push(match[1]);
-  }
-  for (const match of call.matchAll(shorthandKeyCandidateRegex)) {
-    keys.push(match[1]);
-  }
-  return keys;
+  const sourceFile = ts.createSourceFile(
+    'telemetry-call.ts',
+    `const value = ${call};`,
+    ts.ScriptTarget.Latest,
+    true,
+  );
+  let properties: ts.ObjectLiteralExpression | undefined;
+
+  const visit = (node: ts.Node): void => {
+    if (ts.isCallExpression(node)) {
+      const candidate = node.arguments[1];
+      if (candidate && ts.isObjectLiteralExpression(candidate)) {
+        properties = candidate;
+        return;
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+
+  return (properties?.properties ?? []).flatMap((property) => {
+    if (ts.isPropertyAssignment(property) || ts.isShorthandPropertyAssignment(property)) {
+      return ts.isIdentifier(property.name) || ts.isStringLiteral(property.name) ? [property.name.text] : [];
+    }
+    return [];
+  });
 }
 
 describe('telemetry privacy contract', () => {
@@ -111,6 +101,17 @@ describe('telemetry privacy contract', () => {
 
     expect(keys).toEqual(expect.arrayContaining(['lessonId', 'rating']));
     expect(keys.filter((key) => isProhibitedKey(key))).toEqual([]);
+  });
+
+  it('ignora uma chamada textual dentro de template literal e inspeciona somente a chamada executável', () => {
+    const source = [
+      "const exemplo = `TelemetryService.track('copiado', { patientName: 'não executa' })`;",
+      "TelemetryService.track('app_open', { source: 'home' });",
+    ].join('\n');
+
+    const calls = extractTrackCalls(source);
+    expect(calls).toHaveLength(1);
+    expect(extractPropertyKeyCandidates(calls[0])).toEqual(['source']);
   });
 
   it('drops prohibited keys and keeps benign scalars', () => {
