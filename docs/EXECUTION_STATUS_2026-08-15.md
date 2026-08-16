@@ -101,6 +101,39 @@ A verificação em simulador encontrou **três defeitos que 691 testes não pega
 card exibindo `0 de 0 lições`, linha cortada pelo CTA fixo, e cinco estrelas sem rótulo
 visível. Dois foram corrigidos em `6ba6d25`. Nenhum validador estático enxerga tela.
 
+## Segunda passagem do dia: o gate de CI
+
+Descoberto ao reconciliar a documentação com o repositório, e corrigido no mesmo
+dia. **O CI rodava 4 dos 16 passos de `npm run quality`** — `lint`, `typecheck`,
+`test` e `visual:qa`. Ficavam de fora os **doze contratos** e a variante estrita do
+visual QA.
+
+A consequência é maior do que a aritmética sugere: os testes que existem
+exatamente para impedir regressão **não rodavam em pull request nenhum**. Só
+rodavam para quem passasse pelo validador `app-quality` do Loop, localmente. Dois
+defeitos reais fechados em 14/08 tinham sido pegos por contratos dessa lista — o
+`Easing` do `react-native` dentro de um worklet Reanimated, e o contraste de texto.
+
+O workflow passou a invocar `EXPO_NO_DOTENV=1 npm run quality`, um comando só. Não
+foram acrescentados os doze passos: duas listas divergem no dia em que alguém
+adicionar o décimo terceiro contrato e esquecer de espelhar, e um comando não tem
+como divergir de si mesmo.
+
+`ci-gate-parity-contract` impede a volta, com três casos: o workflow tem que
+invocar o gate completo; rodar etapas soltas sem o gate reprova, que é a forma
+exata como a divergência nasceu; e o próprio gate precisa manter ao menos 12
+contratos e o `visual:qa:strict` — **paridade com um gate esvaziado não é
+paridade**. O contrato ignora comentários ao ler o YAML, senão a prosa que o
+explica o satisfaria. Verificado por mutação: com o workflow antigo restaurado,
+dois dos três casos reprovam.
+
+Gate agora: **17 passos, 13 contratos**. Commits `eaedd35` e `29fc168`.
+
+> **Consequência a antecipar:** o PR desta branch será **o primeiro a rodar o gate
+> completo no CI**, sobre 18 commits que nunca passaram pelos contratos em pull
+> request. Se algo entrou quebrado, aparece ali. É o mecanismo funcionando, mas
+> convém saber antes de abrir.
+
 ## Pendências abertas
 
 **Decisão de produto, com o dono:** o prompt nativo de avaliação da App Store
@@ -122,6 +155,60 @@ placar da conclusão não são anunciadas por leitor de tela.
 `validating` (três de 12/08, um de 14/08 às 20:34), quinze sessões de cérebro abertas
 desde 28/07, e uma worktree órfã em `.claude/worktrees/trusting-swirles-02a99e` em HEAD
 destacado. Nenhuma delas pertence a esta passagem e nenhuma foi tocada.
+
+### Higiene do repositório, remedida em 2026-08-16 07:25
+
+Os dois primeiros itens acima foram reconferidos e **continuam verdadeiros**: 4 runs
+em `validating` contra 502 fechados, e 15 sessões de cérebro ativas de 28/07 a 14/08
+(a décima sexta ativa é a sessão da própria medição). Nenhuma é resíduo das passagens
+de 14/08 e 15/08 — todos os runs e sessões delas fecharam.
+
+**Publicação, medida no mesmo instante:** `HEAD` em `29fc168`, branch
+`feat/atividade-fim-licao`, **2 commits ainda não enviados** ao upstream e **18 à
+frente de `origin/main`**. Working tree limpa. `main` local e `origin/main` seguem
+em `f2156ad`. **O PR ainda não foi aberto** — é o passo que falta para esta
+passagem sair da branch.
+
+### Pendências fora do app, verificadas em 2026-08-16
+
+Medidas contra o repositório e o ambiente, não copiadas de registro anterior:
+
+| Pendência | Estado medido |
+| --- | --- |
+| API pública em 502 | **Confirmado.** `api.radiant.ascendcreative.com.br` responde 502 na raiz e em `/health`. Três semanas assim. Nenhum perfil de build configura `API_BASE_URL`, e nenhum habilita sync remoto — o app não depende dela hoje. |
+| Links absolutos no README do app | **Confirmado.** 7 links de `radiant-app/README.md` são caminhos `/Users/anderson/…`. Os arquivos existem; os links só funcionam na máquina do dono e vazam o caminho da home num arquivo versionado. |
+| Duplicado de fonte | **1 real:** `radiant-app/tsconfig 2.json`. Os outros 8 casados por `**/* 2.*` são artefatos gerados do CocoaPods, não dívida de higiene. |
+| Nota de pendências do cérebro | **Desatualizada.** `07 Pendencias e riscos` está em `last_verified: 2026-07-24`. Ver abaixo. |
+
+### O cérebro precisa de decisão do dono
+
+A nota `07 Pendencias e riscos` tem 13 afirmações. Nove foram remedidas em
+2026-08-15: **4 estão resolvidas** (working tree limpa; versão do manifesto igual à
+do pacote em 1.3.1; lint caiu de 54 para 17 warnings; nenhum perfil habilita sync
+remoto), **3 continuam verdadeiras** (API em 502; gate de CI — agora corrigido;
+duplicado de fonte) e **2 estavam mal caracterizadas** (os READMEs não apontam para
+documentos ausentes, o defeito são links absolutos; o baseline visual tem 32 itens,
+não 122). **Quatro não foram remedidas** e não devem ser tratadas nem como
+confirmadas nem como resolvidas: divergência do status antigo com a evidência E2E,
+estado `app-failed` do E2E iOS com offline pendente, validação manual de
+acessibilidade, e dívida editorial de 30/7/42.
+
+O resultado está registrado como candidato de triagem
+(`brain-candidate-bb2ed6aa-a516-4cc4-8ff9-e723999c4359`, tipo `pending`, status
+`observed`), **sem tocar o vault**.
+
+**Por que a nota não foi atualizada direto:** o único caminho da CLI que escreve nas
+notas estruturais é `loop brain bootstrap apply`, e ele **sempre reescreve
+`.loop/project.yaml`**, serializando de volta o config recebido. Esse arquivo tem 34
+linhas de comentário em 205, e elas carregam conhecimento caro — entre outras, a
+armadilha de grafia NFC/NFD que já custou um run inteiro. Um round-trip pelo
+serializador apagaria todas. **A atualização da nota depende de decisão do dono:**
+promover o candidato, ou editar a nota à mão.
+
+Vale registrar o problema de fundo, porque ele não é desta nota: o canal de memória
+**só apensa** em `05 Aprendizados validados`. As outras nove notas estruturais estão
+todas em `last_verified: 2026-07-24`. A base parece saudável porque a única parte que
+cresce é a única que se olha.
 
 ## Documentos desta passagem
 
