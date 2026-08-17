@@ -285,18 +285,20 @@ preserve a configuração comentada, ou após decisão explícita do dono sobre 
 transação. Até então, toda sessão deve comparar a data de verificação com a data
 corrente antes de usar uma dessas notas como contexto.
 
-## Higiene operacional resolvida em 2026-08-16
+## Registro histórico de higiene operacional (2026-08-16)
 
-Estado do harness que estava preso e não pertencia a passagem nenhuma. Antes de
-cada remoção o alvo foi inspecionado; nada foi editado à mão em `.loop/`, exceto
-onde declarado.
+Este bloco preserva o relato da passagem de higiene. Ele **não é inventário atual**:
+o CLI público do Loop não lista runs ou sessões sem ID, portanto os fechamentos
+históricos não podem ser rechecados hoje como conjunto. A fonte atual para esse limite
+é [Reconciliação Loop pendente de inventário público](#reconciliação-loop-pendente-de-inventário-público).
+Nada em `.loop/` foi editado manualmente.
 
 | Item | Antes | Agora |
 | --- | --- | --- |
-| Runs em `validating` | 4 (três de 12/08, um de 14/08) | 0 — fechados pela CLI; `validating → closed` é transição válida da máquina de estados, e não havia lock preso |
-| Sessões de cérebro abertas | 15, de 28/07 a 14/08 | 0 |
-| Worktree registrada e abandonada | 1, em `HEAD` destacado | Removida. Estava em `128d70b`, **ancestral do `HEAD` e presente em cinco branches**, sem alterações e sem stash — nada se perdeu |
-| Restos de worktree em disco | 3 diretórios de abril | 2 vazios removidos; `awesome-northcutt-976686` mantido por conter um `settings.local.json` de 5 KB |
+| Runs em `validating` | 4 (três de 12/08, um de 14/08) | Relato de fechamento pela CLI; requer IDs para nova verificação individual |
+| Sessões de cérebro abertas | 15, de 28/07 a 14/08 | Relato de fechamento; o CLI público não fornece inventário para confirmação agregada |
+| Worktree registrada e abandonada | 1, em `HEAD` destacado | Removida na passagem histórica, sem alterações ou stash |
+| Restos de worktree em disco | 3 diretórios de abril | Os 2 vazios foram removidos; `awesome-northcutt-976686` foi depois confirmado como diretório aninhado, não worktree Git, e movido recuperavelmente para a Lixeira |
 
 ### Candidatos de triagem: 10 parados, 3 descartados
 
@@ -333,6 +335,41 @@ Ela é inerte para build (`radiant-api/tsconfig.json` exclui `src/**/* 2.ts`) e 
 `* 2.*` está em `.git/info/exclude`, que é **local da máquina** e não do
 repositório. Em outro clone, ou no CI, esses arquivos aparecem — e ninguém que
 inspecione o `git status` desta máquina vai saber que existem.
+
+## Atualização documental pós-commit (2026-08-16)
+
+O commit `949f013` (`fix: reconcile lesson completion flows`) consolidou a conclusão
+de lição; as decisões funcionais já estão registradas em `Decisões de conclusão
+aplicadas em 2026-08-16`. Esta atualização torna o estado operacional explícito: após
+o commit, a worktree estava limpa e nenhuma mudança foi enviada a remoto.
+
+Evidência do conteúdo do commit: **70 testes focados**, `npm run typecheck`, contrato
+de documentação e o gate completo do Loop aprovados em um ciclo; o run
+`run-1786878638931-6c5d2378` foi fechado. O commit não substitui os gates humanos
+pendentes (E2E offline e VoiceOver/TalkBack), listados acima.
+
+## Publicação de 2026-08-17
+
+O parágrafo acima descrevia um estado que durou até hoje: `949f013` existia apenas
+nesta máquina. A divergência era mensurável e passou despercebida por dois dias —
+o branch estava **20 commits à frente de `origin/main`** enquanto o PR #5 carregava
+**19**. O commit ausente era exatamente o que reconcilia a conclusão de lição
+(`LessonOutcomeService`, `LearningAttemptRecorder`, `QuizScreen` e o contrato de
+privacidade de telemetria), de modo que o PR aberto descrevia um trabalho que o
+GitHub não tinha.
+
+**A contagem de commits do PR contra o `ahead` do branch é o teste mais barato para
+essa classe de divergência**, e nenhum gate a executa hoje: o gate de CI valida o
+conteúdo do que foi enviado, não se o que existe localmente foi enviado.
+
+| Item | Estado após esta passagem |
+| --- | --- |
+| `949f013` | Enviado para `origin/feat/atividade-fim-licao` |
+| PR #5 | Aberto, `MERGEABLE`, sem revisão — **não integrado** |
+| Gates humanos | E2E offline e VoiceOver/TalkBack seguem pendentes e bloqueiam o merge |
+
+A publicação do branch **não** antecipa o merge: os dois gates humanos acima
+continuam sendo a condição de integração em `main`.
 
 ## Documentos desta passagem
 
