@@ -79,3 +79,50 @@ describe('motivo da recomendação', () => {
         expect(snapshot.recommendationReason).toBe('next-new');
     });
 });
+
+describe('etapa em andamento', () => {
+    // Medido no app em 2026-08-17: abrir uma lição e sair sem concluir gravava
+    // `resumableNodeId` nela, o que a tirava de `available` e a punha em
+    // `resumable` — status que a busca não procurava. Sem `due-review` nem
+    // `available` na unidade e com a unidade incompleta, o laço devolvia `null`
+    // na primeira volta, e Home e Galáxia passavam a anunciar que não havia
+    // nada a fazer enquanto a lição estava aberta pela metade.
+    function progressoComLicaoEmAndamento(): JourneyProgress {
+        return {
+            ...progressoInicial(),
+            completedNodeIds: ['node:lesson-1', 'node:checkpoint:foundations'],
+            resumableNodeId: 'node:lesson-2',
+        };
+    }
+
+    it('recomenda o nó que ficou em andamento na unidade', () => {
+        const snapshot = JourneyRecommendationService.computeSnapshot(
+            defaultTrack, progressoComLicaoEmAndamento(),
+        );
+
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-2');
+        expect(snapshot.nextRecommendedNode?.status).toBe('resumable');
+    });
+
+    it('prefere retomar o que está em andamento a começar um nó ainda não aberto', () => {
+        // Sem nenhuma conclusão, `node:lesson-1` está `available` e seria a
+        // escolha natural. Com a segunda lição em andamento, retomar vence:
+        // deixar para trás um nó começado é pior que adiar um inédito.
+        const progresso = {
+            ...progressoInicial(),
+            completedNodeIds: ['node:lesson-1', 'node:checkpoint:foundations'],
+            resumableNodeId: 'node:lesson-2',
+            currentNodeId: 'node:lesson-2',
+        };
+
+        const snapshot = JourneyRecommendationService.computeSnapshot(defaultTrack, progresso);
+
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-2');
+    });
+
+    it('GUARDA DE REGRESSÃO: sem nó em andamento, a recomendação não muda', () => {
+        const snapshot = JourneyRecommendationService.computeSnapshot(defaultTrack, progressoInicial());
+
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-1');
+    });
+});

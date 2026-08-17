@@ -154,6 +154,16 @@ export class JourneyRecommendationService {
         ];
 
         for (const unit of searchUnits) {
+            // Retomar vence começar. Um nó em andamento é o único que a busca
+            // não enxergava: `resolveNodeStatus` o tira de `available` e o põe em
+            // `resumable`, que não era procurado aqui, e a unidade incompleta
+            // fazia o laço devolver `null` logo abaixo — a trilha inteira ficava
+            // sem próximo passo enquanto uma lição estava aberta pela metade.
+            const resumable = unit.nodes.find((node) => node.status === 'resumable');
+            if (resumable) {
+                return resumable;
+            }
+
             const dueReview = unit.nodes.find((node) => node.status === 'due-review');
             if (dueReview) {
                 return dueReview;
