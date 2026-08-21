@@ -112,4 +112,102 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.queryAllByTestId(/^journey-level-band-/)).toHaveLength(0);
   });
+  it('preenche o caminho até a posição do aluno, com UMA fronteira', () => {
+    // O caminho tem um trecho a menos que a quantidade de nós — o primeiro nó
+    // não tem nada acima dele.
+    const screen = renderTrail(
+      [
+        segment('t1', 'Fundamentos', [
+          unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked']),
+        ]),
+      ],
+      'u1-node-2',
+    );
+
+    const connectors = screen.getAllByTestId(/^journey-connector-for-/, {
+      includeHiddenElements: true,
+    });
+
+    expect(connectors).toHaveLength(3);
+    expect(connectors.map((c) => c.props.accessibilityValue?.text)).toEqual([
+      'percorrido',
+      'percorrido',
+      'pendente',
+    ]);
+  });
+
+  it('não listra o caminho quando um nó pendente aparece no meio do trecho já andado', () => {
+    // O defeito que este caso trava, visto no simulador em 2026-08-21: pintar
+    // cada trecho pelo estado do nó ACIMA dele produzia verde-cinza-verde-cinza,
+    // porque revisões bloqueadas se intercalam entre lições concluídas. Um
+    // caminho listrado não responde "onde eu estou" — a informação está na
+    // FRONTEIRA, e duas ou mais fronteiras não são fronteira nenhuma.
+    const screen = renderTrail(
+      [
+        segment('t1', 'Fundamentos', [
+          unit('u1', 'Unidade 1', ['completed', 'locked', 'completed', 'available', 'locked']),
+        ]),
+      ],
+      'u1-node-3',
+    );
+
+    const estados = screen
+      .getAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true })
+      .map((c) => c.props.accessibilityValue?.text);
+
+    expect(estados).toEqual(['percorrido', 'percorrido', 'percorrido', 'pendente']);
+
+    // Uma fronteira só: o número de trocas de estado ao longo do caminho é 1.
+    const trocas = estados.filter((estado, i) => i > 0 && estado !== estados[i - 1]);
+    expect(trocas).toHaveLength(1);
+  });
+
+  it('sem nó recomendado, preenche até o último concluído', () => {
+    // Trilha inteira concluída, ou estado que o serviço não soube recomendar: o
+    // caminho continua tendo que dizer até onde o aluno chegou.
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [
+        unit('u1', 'Unidade 1', ['completed', 'completed', 'locked']),
+      ]),
+    ]);
+
+    expect(
+      screen
+        .getAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true })
+        .map((c) => c.props.accessibilityValue?.text),
+    ).toEqual(['percorrido', 'pendente']);
+  });
+
+  it('não desenha trecho de caminho acima do primeiro nó do percurso', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),
+    ]);
+
+    expect(
+      screen.queryAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true }),
+    ).toHaveLength(0);
+  });
+
+  it('liga o caminho ATRAVÉS da fronteira entre trilhas', () => {
+    // A costura entre segmentos é onde o percurso mais corre risco de voltar a
+    // parecer dois pedaços. O primeiro nó do segundo segmento tem um nó antes
+    // dele no percurso, então tem trecho de caminho.
+    const screen = renderTrail(
+      [
+        segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),
+        segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['available'])], { order: 1 }),
+      ],
+      'u2-node-0',
+    );
+
+    const connectors = screen.getAllByTestId(/^journey-connector-for-/, {
+      includeHiddenElements: true,
+    });
+
+    // O trecho existe apesar da faixa de nível ficar entre os dois nós: a faixa
+    // é marco no caminho, não corte nele.
+    expect(connectors).toHaveLength(1);
+    expect(connectors[0].props.testID).toBe('journey-connector-for-u2-node-0');
+    expect(connectors[0].props.accessibilityValue?.text).toBe('percorrido');
+  });
 });

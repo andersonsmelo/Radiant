@@ -122,7 +122,7 @@ export function JourneyNodeCard({
         onPress={() => onPress(node)}
         disabled={disabled}
         accessibilityRole="button"
-        accessibilityLabel={`${node.title}. ${getStatusCopy(node)}.`}
+        accessibilityLabel={`${node.title}. ${isRecommended ? 'Próximo passo' : getStatusCopy(node)}.`}
         accessibilityState={{ disabled }}
         style={({ pressed }) => [
           styles.card,
@@ -144,6 +144,19 @@ export function JourneyNodeCard({
           />
         </View>
 
+        {isRecommended && (
+          <View
+            testID={`journey-next-pill-${node.id}`}
+            style={styles.nextPill}
+            // O botão já anuncia "Próximo passo" no accessibilityLabel; a pílula
+            // repetiria a mesma informação numa segunda leitura.
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+          >
+            <Text style={styles.nextPillText}>Próximo</Text>
+          </View>
+        )}
+
         <View style={styles.content}>
           <Text style={styles.typeLabel}>{meta.label}</Text>
           <Text style={[styles.title, isLocked && styles.titleLocked]} numberOfLines={3}>
@@ -162,6 +175,24 @@ export function JourneyNodeCard({
 }
 
 const styles = StyleSheet.create({
+  nextPill: {
+    position: 'absolute',
+    top: -11,
+    left: space.s3,
+    paddingHorizontal: space.s2,
+    paddingVertical: 2,
+    borderRadius: 999,
+    backgroundColor: accent,
+  },
+  nextPillText: {
+    ...typography.micro,
+    // Branco puro sobre o azul de acento é o par de maior contraste disponível
+    // na paleta escura, e a pílula é micro — vale o critério de texto normal.
+    color: '#FFFFFF',
+    fontWeight: '800',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
+  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

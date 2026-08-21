@@ -96,3 +96,41 @@ describe('JourneyNodeCard — o estado é legível sem ler o rótulo', () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 });
+
+describe('JourneyNodeCard — onde o aluno está', () => {
+  // "Onde eu estou" era carregado por uma borda azul e por uma linha de rodapé
+  // dizendo "Próximo passo". Numa trilha rolável, com o nó atual quase sempre
+  // fora do primeiro quadro, isso obrigava o aluno a ler cartão por cartão para
+  // se localizar. A pílula existe para ser reconhecível de relance, antes de
+  // qualquer texto ser lido — é o mesmo papel que ela cumpre na referência.
+
+  it('marca o nó recomendado com a pílula de próximo', () => {
+    const screen = renderCard('available', { isRecommended: true });
+
+    expect(
+      screen.getByTestId('journey-next-pill-node-available', { includeHiddenElements: true }),
+    ).toBeTruthy();
+    expect(screen.getByText('Próximo', { includeHiddenElements: true })).toBeTruthy();
+  });
+
+  it('não marca nenhum outro nó', () => {
+    for (const status of ['completed', 'locked', 'available'] as const) {
+      const screen = renderCard(status, { isRecommended: false });
+      expect(screen.queryByText('Próximo', { includeHiddenElements: true })).toBeNull();
+    }
+  });
+
+  it('anuncia a posição uma vez só, no rótulo do botão', () => {
+    // A pílula é visual; quem diz "próximo passo" para o leitor de tela é o
+    // accessibilityLabel do próprio botão. Duas fontes fariam o leitor repetir.
+    const screen = renderCard('available', { isRecommended: true });
+    const pill = screen.getByTestId('journey-next-pill-node-available', {
+      includeHiddenElements: true,
+    });
+
+    expect(pill.props.accessibilityElementsHidden).toBe(true);
+    expect(
+      screen.getByLabelText(/Próximo passo/u),
+    ).toBeTruthy();
+  });
+});
