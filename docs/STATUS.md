@@ -86,6 +86,7 @@ invariante que passou a valer: toda lição do catálogo é alcançável pela tr
 | 1 | Atividade enxuta e conclusão de lição | ✅ em `main` |
 | 2 | Percurso contínuo, conclusão, dev-console | ✅ em `main` |
 | 2b | **Estude é a trilha; Galáxia absorvida** | ✅ em `main` (2026-08-21) — aba renomeada, Galáxia removida do app, trilha contínua ligada |
+| 2c | **Caminho preenchido, cabeçalho de estágio, avaliação por competência** | ✅ em `main` (2026-08-21) |
 | 3 | Tela de Perfil do aluno | depende do 2 |
 | 4 | Marca no topo com símbolo de radiação | precisa da arte existir |
 | 5 | Arte da trilha e ícones de HUD | assets autorais do dono; Rive fechado |
@@ -111,16 +112,33 @@ contrato `route-tree-purity-contract` (14º do gate), que falha se qualquer
 defeito, e ela não está em nenhum passo automatizado. Até estar, subir o app no
 simulador faz parte de verificar uma passagem.
 
+## A trilha, medida em 2026-08-21
+
+- **O caminho existe e vem preenchido** até a posição do aluno, com **uma**
+  fronteira entre percorrido e pendente. A primeira versão pintava trecho a
+  trecho pelo estado do nó acima e saiu listrada no simulador — passou nos
+  testes porque era coerente com a própria especificação.
+- **Pílula `PRÓXIMO`** no nó atual, reconhecível sem ler rótulo.
+- **Cabeçalho de estágio** no topo (nome, `N de M`, barra) no lugar do
+  `JourneyHero`. Adendo registrado no `ADR-2026-08-13`: a fala esporádica do
+  Pixel perdeu a única superfície.
+- **Uma avaliação fecha cada estágio** nas quatro trilhas. Na trilha por
+  competências, o estágio é a competência: as 12 atividades cobrem 5, e os 10
+  itens da avaliação foram repartidos dois a dois, com o limiar de 80% intacto.
+
+**Em aberto para o dono:** se o Pixel deve voltar a falar espontaneamente em
+alguma superfície. Hoje ele só fala como reação a evento.
+
 ## Defeito aberto
 
-**CTA "Retomar etapa" renderiza atrás da tab bar na Home.** Observado em
-2026-08-21 no simulador `Radiant iPhone 17 Pro — iOS 26.5`, com o app rodando
-`main`. O botão fica inalcançável ao toque. Nenhum dos 712 testes pega isso —
-validador estático não enxerga tela.
+**Resolvido junto com a trilha.** O CTA "Retomar etapa" renderizava atrás da tab
+bar na Home de 2026-08-21; o painel que o continha foi substituído pela trilha, e
+o botão deixou de existir como elemento fixo. A lição permanece: nenhum
+validador estático enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 684 testes / 98 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 704 testes / 99 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
