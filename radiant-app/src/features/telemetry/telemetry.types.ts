@@ -7,6 +7,7 @@ export type TelemetryEventName =
     | 'learn_complete'
     | 'lesson_started'
     | 'lesson_completed'
+    | 'lesson_rated'
     | 'quiz_completed'
     | 'review_start'
     | 'review_item'

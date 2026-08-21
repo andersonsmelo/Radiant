@@ -311,7 +311,7 @@ Estado operacional validado em **2026-08-09** — detalhes e bloqueios no
 - `expo-updates` configurado; crash reporting e sync remoto desligados na build
   distribuída.
 
-Perfis principais em [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json):
+Perfis principais em [`eas.json`](eas.json):
 
 - `development`
 - `development-simulator`
@@ -488,18 +488,18 @@ Capture pelo menos estas telas durante a homologação:
 
 O app já possui scaffolding explícito para distribuição:
 
-- [`eas.json`](/Users/anderson/Developer/Radiant/radiant-app/eas.json) com perfis `development`, `preview` e `production`;
+- [`eas.json`](eas.json) com perfis `development`, `preview` e `production`;
 - perfil `development-simulator` para gerar build de iOS Simulator via EAS;
-- identificadores mobile em [`app.json`](/Users/anderson/Developer/Radiant/radiant-app/app.json):
+- identificadores mobile em [`app.json`](app.json):
   - iOS `com.ascendcreative.radiant`
   - Android `com.ascendcreative.radiant`
-- workflow de qualidade em [`.github/workflows/radiant-app-quality.yml`](/Users/anderson/Developer/Radiant/.github/workflows/radiant-app-quality.yml).
+- workflow de qualidade em [`.github/workflows/radiant-app-quality.yml`](../.github/workflows/radiant-app-quality.yml).
 
 ### Soft launch iOS
 
-- [`radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md)
-- [`radiant-app/docs/release/APP_STORE_METADATA.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/APP_STORE_METADATA.md)
-- [`radiant-app/docs/release/TESTFLIGHT_SMOKE.md`](/Users/anderson/Developer/Radiant/radiant-app/docs/release/TESTFLIGHT_SMOKE.md)
+- [`IOS_SOFT_LAUNCH_CHECKLIST.md`](docs/release/IOS_SOFT_LAUNCH_CHECKLIST.md)
+- [`APP_STORE_METADATA.md`](docs/release/APP_STORE_METADATA.md)
+- [`TESTFLIGHT_SMOKE.md`](docs/release/TESTFLIGHT_SMOKE.md)
 
 Uso esperado dos perfis:
 

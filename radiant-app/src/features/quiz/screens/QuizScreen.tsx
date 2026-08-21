@@ -1,45 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
-import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
-import { ProgressRing } from '../../../components/ui/ProgressRing';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
-import { HUD } from '../../../ui/components/HUD';
-import { GalaxyStatRow } from '../../../ui/components/GalaxyStatRow';
 import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
 import type { QuizLesson, QuizLessonId } from '../../../types/quiz';
-import { duration, useFadeInUp, useScalePop } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { OnboardingService } from '../../onboarding/OnboardingService';
-import { PushOptInCard } from '../../push/components/PushOptInCard';
-import { PushService } from '../../push/services/PushService';
 import { QuizFeedback } from '../components/QuizFeedback';
 import { QuizQuestion } from '../components/QuizQuestion';
+import { QuizTopBar } from '../components/QuizTopBar';
 import { useQuiz } from '../hooks/useQuiz';
 import { Confetti } from '../../../components/ui/Confetti';
-import { AnimatedCounter } from '../../../components/ui/AnimatedCounter';
-import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
-import { RatingPromptService } from '../../../services/RatingPromptService';
-import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
-import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
-import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
-import { GamificationService } from '../../gamification/services/GamificationService';
-import type { GamificationSnapshot } from '../../../types/gamification';
 import { PixelMood, type PixelMoodResult } from '../../pixel-mood/PixelMood';
 import type { PixelMoment } from '../../pixel-mood/pixelPhrases';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
+import { LessonSummary } from '../components/LessonSummary';
+import { resolveBestLessonStars, resolveLessonStars, type LessonStars } from '../services/resolveLessonStars';
+import { pickSummaryPhrase } from '../constants/lessonSummaryPhrases';
+import { LessonRatingService } from '../services/LessonRatingService';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
+import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 const SCREEN_MAX_WIDTH = 720;
-const ICON_BUTTON_SIZE = 36;
 
 interface QuizScreenProps {
   mode?: 'normal' | 'review';
@@ -157,11 +148,11 @@ function QuizSession({
     result,
     selectAnswer,
     next,
-    reset,
     xpAward,
     dailyGoalJustCompleted,
     hearts,
     maxHearts,
+    journeySnapshot,
   } = useQuiz(lesson, {
     journeyCompletionMode: mode === 'review' ? 'review' : 'lesson',
   });
@@ -181,15 +172,14 @@ function QuizSession({
     lessonId: lesson.id,
   });
 
-  const helperFade = useFadeInUp(duration.ui);
-  const celebrationFade = useFadeInUp(duration.celebrate);
-  const celebrationPop = useScalePop(duration.celebrate);
   const [summaryHelper, setSummaryHelper] = useState<{ message: string; type: 'habit' | 'consistency' } | null>(null);
-  const [showPushOptIn, setShowPushOptIn] = useState(false);
-  const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
-  const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
-  const [paywallSubmitting, setPaywallSubmitting] = useState(false);
-  const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [summary, setSummary] = useState<{
+    stars: LessonStars;
+    improved: boolean;
+    phrase: string;
+    rating: number | null;
+  } | null>(null);
+  const [unitProgress, setUnitProgress] = useState<{ completed: number; total: number }>({ completed: 0, total: 0 });
   const [feedbackMood, setFeedbackMood] = useState<PixelMoodResult | null>(null);
   const acertosSeguidos = useRef<number>(0);
   const errosSeguidos = useRef<number>(0);
@@ -241,55 +231,101 @@ function QuizSession({
   };
 
   useEffect(() => {
-    void GamificationService.getSnapshot().then(setGamification);
-  }, []);
-
-  useEffect(() => {
-    if (!isFinished || !result) {
-      return;
-    }
-
-    void checkPushOptIn();
-
-    if (mode !== 'normal') {
+    if (!isFinished || !result || mode !== 'normal') {
       return;
     }
 
     void (async () => {
       await OnboardingService.markAction('quiz_complete');
       setSummaryHelper(OnboardingService.getSummaryHelper());
-      const scorePercentage = Math.round((result.correctAnswers / result.totalQuestions) * 100);
-      if (scorePercentage < QUIZ_THRESHOLDS.PASSING_SCORE) {
-        return;
-      }
-
-      const reviewShown = await RatingPromptService.maybePromptForReview({
-        trigger: 'quiz_complete',
-        entrySurface: 'quiz_summary',
-        lessonId: result.lessonId,
-        scorePercentage,
-      });
-
-      if (reviewShown) {
-        return;
-      }
-
-      const offer = await PaywallService.maybePresentOffer({
-        trigger: 'quiz_complete',
-        entrySurface: 'quiz_summary',
-        lessonId: result.lessonId,
-      });
-      setPaywallOffer(offer);
     })();
   }, [isFinished, mode, result]);
 
+  // Resolve estrelas, frase e nota antes de renderizar o resumo: attempts vem
+  // do LearningAttemptsRepository, e resolveBestLessonStars exclui a própria
+  // tentativa atual comparando completedAt — por isso precisa ser
+  // exatamente result.answeredAt.toISOString().
+  //
+  // A tela inteira de conclusão fica atrás de `summary`, então uma leitura
+  // que rejeita (attempts ou nota) não pode deixar `summary` em null para
+  // sempre — o estudante tem que sempre chegar no Continuar. Se
+  // LearningAttemptsRepository ou LessonRatingService falharem, cai para
+  // as estrelas só desta tentativa (resolveLessonStars, sem comparação com
+  // o histórico) e nota null, em vez de travar a tela.
   useEffect(() => {
-    if (summaryHelper || xpAward || dailyGoalJustCompleted) {
-      helperFade.animateIn();
-      celebrationFade.animateIn();
-      celebrationPop.animateIn();
+    if (!result) {
+      return;
     }
-  }, [celebrationFade, celebrationPop, dailyGoalJustCompleted, helperFade, summaryHelper, xpAward]);
+
+    let cancelado = false;
+    void (async () => {
+      try {
+        await LearningAttemptRecorder.record(result);
+        const attempts = await LearningAttemptsRepository.getAll();
+        const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+          correctAnswers: result.correctAnswers,
+          totalQuestions: result.totalQuestions,
+          completedAt: result.answeredAt.toISOString(),
+        });
+        const rating = await LessonRatingService.getRating(result.lessonId);
+        if (cancelado) {
+          return;
+        }
+        setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
+      } catch (cause) {
+        console.error('[QuizScreen] Falha ao resolver o resumo da lição:', cause);
+        if (cancelado) {
+          return;
+        }
+        const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
+        setSummary({ stars, improved: false, phrase: pickSummaryPhrase(stars, null), rating: null });
+      }
+    })();
+
+    return () => {
+      cancelado = true;
+    };
+  }, [result]);
+
+  // unitCompleted/unitTotal reaproveitam a MESMA regra que o RewardScreen
+  // usa (completedPrimaryNodes/totalPrimaryNodes), extraída para
+  // computeUnitPrimaryProgress justamente para não manter duas cópias do
+  // mesmo par de filtros. Aqui só localizamos a unidade ativa, pelo nó cujo
+  // lessonId bate com a lição concluída.
+  //
+  // A fonte é `journeySnapshot` (devolvido por useQuiz a partir do retorno
+  // de markLessonNodeCompleted/markReviewNodeCompleted), não uma leitura
+  // própria via JourneyProgressService.getSnapshot(): as duas correm em
+  // paralelo com a marcação, e uma leitura solta pode terminar ANTES da
+  // escrita pousar, mostrando a unidade sem a lição que acabou de fechar.
+  // Encadear a partir do próprio retorno da marcação elimina a corrida.
+  //
+  // `journeySnapshot` fica `null` até a marcação resolver, e também quando a
+  // leitura rejeita (capturado dentro de useQuiz) ou quando a lição não
+  // mapeia para nenhum nó da trilha (`/quiz` por deep link direto sem nó
+  // correspondente) — nesses casos `unitProgress` permanece em {0, 0} e o
+  // card de progresso da unidade simplesmente não aparece (ver LessonSummary).
+  useEffect(() => {
+    if (!result || !journeySnapshot) {
+      return;
+    }
+
+    const activeUnit = journeySnapshot.track.units.find((unit) =>
+      unit.nodes.some((node) => node.lessonId === result.lessonId)
+    ) ?? null;
+
+    setUnitProgress(computeUnitPrimaryProgress(activeUnit));
+  }, [result, journeySnapshot]);
+
+  // Fusão, numa única linha, do que antes eram o card de meta diária e o de
+  // "Leitura do hábito". Sem nenhum dos dois, não há o que dizer.
+  const habitLine = dailyGoalJustCompleted
+    ? summaryHelper
+      ? `Meta do dia concluída. ${summaryHelper.message}`
+      : 'Esta tentativa fechou sua meta diária de módulos com sucesso.'
+    : summaryHelper
+      ? summaryHelper.message
+      : null;
 
   // O fim do quiz é o momento mais repetido do produto e era o único sem
   // nenhuma celebração: nem confete, nem contagem de XP, nem vibração.
@@ -304,191 +340,49 @@ function QuizSession({
     }
   }, [quizPassed]);
 
-  const checkPushOptIn = async () => {
-    const canShow = await PushService.getOptIn();
-    if (canShow === null) {
-      setShowPushOptIn(true);
-    }
-  };
+  // A fila de revisão (mode='review' com várias lessonIds) é endereçável por
+  // deep link (`/quiz?mode=review&lessonIds=...`) mesmo sem nenhum caller
+  // interno hoje — continuar precisa avançar para a próxima lição da fila,
+  // ou fechar a revisão (o único lugar que dispara review_complete/
+  // OnboardingService, base do marco firstReviewAt), em vez de sempre voltar
+  // para as tabs.
+  const hasMoreLessons = mode === 'review' && currentLessonIndex < totalLessons - 1;
 
   if (isFinished && result) {
-    const scorePercentage = Math.round((result.correctAnswers / result.totalQuestions) * 100);
-    const passed = scorePercentage >= QUIZ_THRESHOLDS.PASSING_SCORE;
-    const hasMoreLessons = mode === 'review' && currentLessonIndex < totalLessons - 1;
-    const characterState = scorePercentage >= QUIZ_THRESHOLDS.EXCELLENT_SCORE || dailyGoalJustCompleted
-      ? 'celebrate'
-      : passed ? 'happy' : 'guide';
-
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
-        <Confetti count={40} run={passed} />
+        <Confetti count={40} run={quizPassed} />
         <SafeAreaView style={styles.safe} edges={['top']}>
-          <HUD
-            totalXp={gamification?.totalXp ?? 0}
-            streakDays={gamification?.streakDays ?? 0}
-            hearts={hearts}
-            maxHearts={maxHearts}
-          />
-          <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-            <View style={styles.headerRow}>
-              <Pressable
-                onPress={() => router.replace('/(tabs)')}
-                accessibilityRole="button"
-                accessibilityLabel="Fechar quiz"
-                style={styles.iconButton}
-              >
-                <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
-              </Pressable>
-              <Text style={styles.headerLabel}>{mode === 'review' ? 'Quiz de Revisão' : 'Quiz'}</Text>
-              <View style={styles.iconSpacer} />
-            </View>
-
-            <View style={styles.heroCard}>
-              <PixelHeroSplit
-                eyebrow={mode === 'review' ? 'Revisão' : 'Quiz'}
-                message={passed
-                  ? 'Mandou bem! Você fixou essa etapa e já pode seguir em frente.'
-                  : 'Faltou pouco. Errar faz parte de aprender a ler imagem — bora tentar de novo?'}
-                ringValue={scorePercentage}
-                ringTotal={100}
-                ringLabel="Aproveitamento"
-                state={characterState}
-                tier={characterState === 'celebrate' ? 'advanced' : 'intermediate'}
-                accessibilityLabel="Pixel apresentando o resultado do quiz"
-              />
-            </View>
-
-            {xpAward && xpAward.totalXpAwarded > 0 ? (
-              <View style={styles.xpCelebration}>
-                <Text style={styles.xpCelebrationLabel}>XP CONQUISTADO</Text>
-                <AnimatedCounter
-                  value={xpAward.totalXpAwarded}
-                  prefix="+"
-                  suffix=" XP"
-                  style={styles.xpCelebrationValue}
-                  accessibilityLabel={`Você ganhou ${xpAward.totalXpAwarded} XP nesta tentativa`}
-                />
-              </View>
-            ) : null}
-
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle} accessibilityRole="header">Resumo da tentativa</Text>
-              <View style={styles.statsList}>
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="check-circle" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Acerto"
-                  value={`${result.correctAnswers} de ${result.totalQuestions} corretas`}
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Resultado"
-                  value={passed ? 'Aprovado nesta etapa' : 'Vale reforçar antes de seguir'}
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="XP"
-                  value={xpAward ? `+${xpAward.totalXpAwarded} XP nesta tentativa` : 'Sem XP nesta tentativa'}
-                />
-              </View>
-            </View>
-
-            {dailyGoalJustCompleted ? (
-              <Animated.View style={[helperFade.style, celebrationFade.style, celebrationPop.style]}>
-                <View style={styles.messageCard}>
-                  <Text style={styles.messageTitle}>Meta do dia concluída</Text>
-                  <Text style={styles.messageBody}>Esta tentativa fechou sua meta diária de módulos com sucesso.</Text>
-                </View>
-              </Animated.View>
-            ) : null}
-
-            {summaryHelper ? (
-              <Animated.View style={helperFade.style}>
-                <View style={styles.messageCard}>
-                  <Text style={styles.messageTitle}>Leitura do hábito</Text>
-                  <Text style={styles.messageBody}>{summaryHelper.message}</Text>
-                </View>
-              </Animated.View>
-            ) : null}
-
-            {showPushOptIn ? (
-              <View style={styles.pushCard}>
-                <PushOptInCard onDismiss={() => setShowPushOptIn(false)} />
-              </View>
-            ) : null}
-
-            {paywallOffer ? (
-              <PaywallOfferCard
-                offer={paywallOffer}
-                submitting={paywallSubmitting}
-                onPrimary={() => {
-                  if (paywallSubmitting) { return; }
-                  void (async () => {
-                    try {
-                      setPaywallSubmitting(true);
-                      const interest = await UpgradeInterestService.captureInterest(paywallOffer, { lessonId: result.lessonId });
-                      await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: result.lessonId });
-                      setPaywallFeedback(
-                        interest.email
-                          ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
-                          : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
-                      );
-                    } catch (cause) {
-                      console.error('[QuizScreen] Failed to capture paywall interest:', cause);
-                      setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
-                    } finally {
-                      setPaywallOffer(null);
-                      setPaywallSubmitting(false);
-                    }
-                  })();
-                }}
-                onDismiss={() => {
-                  if (paywallSubmitting) { return; }
-                  void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: result.lessonId });
-                  setPaywallOffer(null);
-                }}
-              />
-            ) : null}
-
-            {paywallFeedback ? (
-              <View style={styles.messageCard}>
-                <Text style={styles.messageTitle}>Radiant Plus</Text>
-                <Text style={styles.messageBody}>{paywallFeedback}</Text>
-              </View>
-            ) : null}
-
-            <View style={styles.actionCard}>
-              <Text style={styles.actionTitle}>
-                {hasMoreLessons ? 'Existe mais revisão na fila' : mode === 'review' ? 'Revisão concluída' : 'Próxima decisão'}
-              </Text>
-              <Text style={styles.actionBody}>
-                {hasMoreLessons
-                  ? `Você ainda tem ${totalLessons - currentLessonIndex - 1} lição${totalLessons - currentLessonIndex - 1 > 1 ? 'ões' : ''} nesta rodada de revisão.`
-                  : mode === 'review'
-                    ? 'A rodada de revisão acabou. O próximo passo volta para a jornada principal.'
-                    : 'Você pode repetir imediatamente ou voltar para a trilha com o estado já atualizado.'}
-              </Text>
-              {hasMoreLessons ? (
-                <AppButton onPress={onNextLesson} style={styles.fullWidthButton}>
-                  Próxima lição
-                </AppButton>
-              ) : (
-                <AppButton onPress={mode === 'review' ? onFinishReview : reset} style={styles.fullWidthButton}>
-                  {mode === 'review' ? 'Finalizar revisão' : 'Refazer quiz'}
-                </AppButton>
-              )}
-              {mode === 'normal' ? (
-                <AppButton
-                  onPress={() => router.replace('/(tabs)')}
-                  variant="ghost"
-                  style={styles.fullWidthButton}
-                  textStyle={{ color: galaxyColors.textSecondary }}
-                >
-                  Voltar para jornada
-                </AppButton>
-              ) : null}
-            </View>
-          </ScrollView>
+          {summary ? (
+            <LessonSummary
+              stars={summary.stars}
+              starsImproved={summary.improved}
+              phrase={summary.phrase}
+              xpAwarded={xpAward?.totalXpAwarded ?? null}
+              correctAnswers={result.correctAnswers}
+              totalQuestions={result.totalQuestions}
+              unitCompleted={unitProgress.completed}
+              unitTotal={unitProgress.total}
+              habitLine={habitLine}
+              currentRating={summary.rating}
+              onRate={(nota) => {
+                void LessonRatingService.rate(result.lessonId, nota);
+                setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
+              }}
+              onContinue={() => {
+                if (mode === 'review') {
+                  if (hasMoreLessons) {
+                    onNextLesson();
+                  } else {
+                    onFinishReview();
+                  }
+                  return;
+                }
+                router.replace('/(tabs)');
+              }}
+            />
+          ) : null}
         </SafeAreaView>
       </View>
     );
@@ -498,55 +392,18 @@ function QuizSession({
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
       <SafeAreaView style={styles.safe} edges={['top']}>
-        <HUD
-          totalXp={gamification?.totalXp ?? 0}
-          streakDays={gamification?.streakDays ?? 0}
-          hearts={hearts}
-          maxHearts={maxHearts}
-          compact
-        />
         <View style={[layout.container, styles.activeLayout]}>
-          {/* Progresso do quiz: anima entre as questões em vez de saltar. */}
-          <AnimatedProgressBar
-            ratio={(progress.currentQuestionIndex + 1) / Math.max(1, progress.totalQuestions)}
-            height={10}
-            style={styles.progressTrack}
-            accessibilityLabel={`Questão ${progress.currentQuestionIndex + 1} de ${progress.totalQuestions}`}
+          <QuizTopBar
+            questionIndex={progress.currentQuestionIndex}
+            totalQuestions={progress.totalQuestions}
+            hearts={hearts}
+            maxHearts={maxHearts}
+            onClose={() => router.replace('/(tabs)')}
           />
 
-          <View style={styles.headerRow}>
-            <Pressable
-              onPress={() => router.replace('/(tabs)')}
-              accessibilityRole="button"
-              accessibilityLabel="Fechar quiz"
-              style={styles.iconButton}
-            >
-              <DecorativeIcon name="close" size={22} color={galaxyColors.textPrimary} />
-            </Pressable>
-            <Text style={styles.headerLabel}>{mode === 'review' ? 'Quiz de Revisão' : 'Quiz'}</Text>
-            <Text style={styles.headerProgressText}>
-              {progress.currentQuestionIndex + 1}/{progress.totalQuestions}
-            </Text>
-          </View>
-
-          <View style={styles.activeHeroCard}>
-            <View style={styles.activeHeroHeader}>
-              <View style={styles.activeHeroCopy}>
-                <Text style={styles.activeTitle}>{lesson.title}</Text>
-                <Text style={styles.activeBody}>
-                  {mode === 'review'
-                    ? `Modo revisão${totalLessons > 0 ? ` • lição ${currentLessonIndex + 1}/${totalLessons}` : ''}`
-                    : 'Selecione uma resposta e confirme a leitura da imagem ou do conceito.'}
-                </Text>
-              </View>
-              <ProgressRing
-                value={progress.currentQuestionIndex + 1}
-                total={Math.max(progress.totalQuestions, 1)}
-                label="Questões"
-                size={space.s6 * 3}
-              />
-            </View>
-          </View>
+          <Text style={styles.questionCounter}>
+            Pergunta {progress.currentQuestionIndex + 1} de {progress.totalQuestions}
+          </Text>
 
           <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             {currentQuestion ? (
@@ -598,110 +455,14 @@ const styles = StyleSheet.create({
   },
   emptyTitle: { ...typography.h3, color: galaxyColors.textPrimary, textAlign: 'center' },
   emptyBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary, textAlign: 'center' },
-  content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
   activeLayout: { flex: 1, maxWidth: SCREEN_MAX_WIDTH, padding: space.s3, gap: space.s3 },
-  headerRow: { ...layout.rowBetween, width: '100%' },
-  iconButton: {
-    width: ICON_BUTTON_SIZE,
-    height: ICON_BUTTON_SIZE,
-    borderRadius: radius.rXl,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.07)',
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-  },
-  iconSpacer: { width: ICON_BUTTON_SIZE, height: ICON_BUTTON_SIZE },
-  headerLabel: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: 'rgba(255,255,255,0.35)',
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-  },
-  headerProgressText: {
+  fullWidthButton: { width: '100%' },
+  questionCounter: {
     ...typography.caption,
     color: galaxyColors.textSecondary,
-    width: ICON_BUTTON_SIZE,
-    textAlign: 'right',
+    textAlign: 'center',
   },
-  heroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s3,
-    overflow: 'hidden',
-  },
-  sectionCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  sectionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  statsList: { gap: space.s2, marginTop: space.s1 },
-  pushCard: { width: '100%', maxWidth: SCREEN_MAX_WIDTH, alignSelf: 'center' },
-  messageCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s1,
-  },
-  messageTitle: { ...typography.body, color: galaxyColors.textPrimary, fontWeight: '800' },
-  messageBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  actionCard: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  actionTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  actionBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  fullWidthButton: { width: '100%' },
-  activeHeroCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  activeHeroHeader: { flexDirection: 'row', alignItems: 'center', gap: space.s3 },
-  activeHeroCopy: { flex: 1, gap: space.s1 },
-  activeTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  activeBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   scrollArea: { flex: 1 },
   scrollContent: { gap: space.s2, paddingBottom: space.s2 },
   footer: { paddingBottom: space.s1 },
-  xpCelebration: {
-    alignItems: 'center',
-    gap: space.s0,
-    paddingVertical: space.s2,
-  },
-  xpCelebrationLabel: {
-    ...typography.label,
-    color: galaxyColors.textSecondary,
-  },
-  xpCelebrationValue: {
-    ...typography.h1,
-    color: galaxyColors.xpColor,
-    textAlign: 'center',
-  },
-  progressTrack: {
-    marginHorizontal: 20,
-    marginBottom: 8,
-  },
-  progressBar: {
-    height: 10,
-    borderRadius: 999,
-    alignSelf: 'flex-start',
-  },
 });

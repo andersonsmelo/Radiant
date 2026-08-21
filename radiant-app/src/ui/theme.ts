@@ -143,6 +143,14 @@ export const galaxyColors = {
   critical: '#FF8298',
   disabled: 'rgba(255, 255, 255, 0.20)',
 
+  /**
+   * Faixa de celebração do fim de lição. Vive na paleta ESCURA de propósito:
+   * o contrato de identidade proíbe telas de importarem a paleta clara
+   * `colors`, e a faixa precisa de cor clara sem reabrir aquela porta.
+   * Nenhum texto de leitura é pintado sobre ela — só a arte do Pixel.
+   */
+  celebrationBand: '#F5C518',
+
   // Galaxy mode extended
   galaxyBg2: '#07091c',
   galaxyBg3: '#0D1230',

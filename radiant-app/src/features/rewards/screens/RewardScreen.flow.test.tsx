@@ -151,6 +151,36 @@ const completedSnapshot = {
   nextRecommendedNode: null,
 } as any;
 
+// Cobre a contagem de marcos primários da unidade (completedPrimaryNodes /
+// totalPrimaryNodes) que RewardScreen.tsx exibe na sectionCard: mistura
+// lesson/checkpoint completos e disponíveis com um nó de review completo,
+// que precisa ficar de fora tanto do total quanto do concluído.
+const snapshotWithUnitProgress = {
+  track: {
+    units: [
+      {
+        id: 'unit-1',
+        title: 'Unidade 1',
+        nodes: [
+          { id: 'lesson-1', type: 'lesson', status: 'completed', unitId: 'unit-1' },
+          { id: 'lesson-2', type: 'lesson', status: 'available', unitId: 'unit-1' },
+          { id: 'checkpoint-1', type: 'checkpoint', status: 'completed', unitId: 'unit-1' },
+          { id: 'review-1', type: 'review', status: 'completed', unitId: 'unit-1' },
+          {
+            id: 'reward-1',
+            type: 'reward',
+            status: 'available',
+            title: 'Conquista do módulo',
+            description: 'Recompensa pronta para coleta.',
+            unitId: 'unit-1',
+          },
+        ],
+      },
+    ],
+  },
+  nextRecommendedNode: null,
+} as any;
+
 const lockedSnapshot = {
   track: {
     units: [
@@ -196,6 +226,21 @@ describe('RewardScreen flow', () => {
     });
 
     expect(await screen.findByText('Conquista registrada')).toBeTruthy();
+  });
+
+  it('conta só os marcos primários da unidade — review completo não entra no total nem no concluído', async () => {
+    // Mutação que este teste pega: contar nós de review no total ou no
+    // concluído, ou usar um par de filtros diferente do que
+    // computeUnitPrimaryProgress define.
+    // status='available' faz RewardScreen chamar setCurrentNode e usar o
+    // snapshot que ELE devolve, não o de bootstrap — os dois precisam
+    // apontar para o mesmo fixture.
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshotWithUnitProgress);
+    mockedJourneyProgressService.setCurrentNode.mockResolvedValue(snapshotWithUnitProgress);
+
+    renderWithProviders(<RewardScreen nodeId="reward-1" />);
+
+    expect(await screen.findByText('2 de 4 marcos da unidade concluídos')).toBeTruthy();
   });
 
   it('does not offer collection for a reward reached while still locked', async () => {

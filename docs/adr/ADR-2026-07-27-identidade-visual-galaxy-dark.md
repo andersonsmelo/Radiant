@@ -50,3 +50,11 @@ a partir da v1.3:
 - Passos seguintes registrados no plano da crítica: honestidade da
   gamificação (harden), idioma pt-BR (clarify), tipografia (typeset) e
   motion/celebração (animate).
+
+## Adendo — 2026-08-14: faixa de celebração no fim de lição
+
+A conclusão de lição inverte uma faixa no topo da tela, com fundo claro e a arte do
+Pixel. Isso **não** é exceção a este ADR: a faixa usa `galaxyColors.celebrationBand`,
+token que vive na paleta escura, e nenhuma tela passa a importar a paleta clara
+`colors`. Nenhum texto de leitura é pintado sobre a faixa, então o contrato de
+contraste também segue intacto. O corpo da tela continua escuro.

@@ -34,14 +34,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Unit tests
-        run: npm run test
-
-      - name: Visual QA
-        run: npm run visual:qa
+      # UM comando, de propósito: o mesmo `npm run quality` que o validador
+      # `app-quality` do Loop executa localmente. Enumerar os passos aqui foi o
+      # que produziu a divergência medida em 2026-08-15 — o CI rodava 4 dos 16
+      # passos do gate, sem NENHUM dos 12 contratos, e com `visual:qa` no lugar
+      # de `visual:qa:strict`. Os contratos que existem justamente para impedir
+      # regressão estavam inertes em todo PR.
+      #
+      # A lista aqui não se completa: ela se elimina. Enquanto o CI invocar o
+      # mesmo comando que o gate local, os dois não têm como divergir, porque
+      # são o mesmo comando. `ci-gate-parity-contract` trava isso.
+      #
+      # `EXPO_NO_DOTENV=1` reproduz o ambiente do validador local: sem ele o
+      # Expo carrega `.env`, e o gate passa a depender de arquivo não
+      # versionado, que o runner não tem.
+      - name: Quality gate
+        run: EXPO_NO_DOTENV=1 npm run quality

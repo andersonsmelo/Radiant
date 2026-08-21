@@ -22,9 +22,10 @@ rejeição pendente.
 
 Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
 ~~[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)~~
-**[status canônico 2026-08-14](../EXECUTION_STATUS_2026-08-14.md)** — ponteiro
-atualizado após o redesenho da informação da jornada, em 2026-08-14. Os
-snapshots anteriores permanecem como registro. A seção abaixo descreve o estado
+~~[status canônico 2026-08-14](../EXECUTION_STATUS_2026-08-14.md)~~
+**[status canônico 2026-08-15](../EXECUTION_STATUS_2026-08-15.md)** — ponteiro
+atualizado após o primeiro sub-projeto da reformulação guiada pelo EWA, em
+2026-08-15. Os snapshots anteriores permanecem como registro. A seção abaixo descreve o estado
 verificado em 07-27; as entregas posteriores, inclusive a correção P0 de
 contraste/composição, o HUD vetorial e o percurso único da jornada, estão no
 status canônico.
@@ -1415,6 +1416,43 @@ entrega a fundação que aqueles itens passam a consumir.
 - **H6 [P1 — TRILHA REMOTA SEPARADA]** Antes de ligar sync, validar workload,
   carga/soak, autenticação, conflitos, outbox exclusiva de `SyncEventV1`,
   idempotência e um sink remoto verificado. H6 não bloqueia H5/G5.
+
+### Onda I — Reformulação guiada pelo EWA (nova em 2026-08-15)
+
+Direção definida pelo dono a partir de nove referências do app EWA, decomposta em seis
+sub-projetos. **O raciocínio, o material de referência e as perguntas abertas estão em
+[`2026-08-15-reformulacao-guiada-ewa.md`](2026-08-15-reformulacao-guiada-ewa.md)** — não
+duplicar aqui; este bloco é só a ordenação dentro do roadmap.
+
+Esta onda é de **experiência**, não de lançamento: ela não move nenhum marco M0–M5 e não
+bloqueia nenhuma outra onda. O inverso também vale — nada aqui está autorizado a atrasar
+a trilha de lojas.
+
+- **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
+  Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
+- **I2 [P1]** Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro.
+  **Pré-requisito não negociável:** separar a metade "console de desenvolvimento" da
+  `ProgressScreen` antes de agregá-la, senão o console entra no perfil do aluno.
+  Reescrever `tab-bar-clearance-contract` com a nova topologia — nunca desligá-lo.
+  Decidir o destino da Galáxia antes de começar.
+- **I3 [P2]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
+  de aulas. Depende de I2. O histórico tem substrato pronto em
+  `LearningAttemptsRepository`.
+- **I4 [P2]** Marca no topo com símbolo de radiação, cintilante. Não existe asset de
+  marca no `radiant-app` hoje; a arte precisa existir antes do código. Merece ADR
+  próprio por ser identidade de produto.
+- **I5 [BLOQUEADA]** Arte da trilha e ícones ilustrados de HUD. Depende de assets
+  autorais do dono; o P4 (HUD em Rive) segue fechado e **não** deve ser aproximado em
+  código. A dessaturação do nó bloqueado é a única parte executável sem asset novo.
+- **I6 [BLOQUEADA — DECISÃO DE PRODUTO]** Liga, ranqueamento e social. Colide
+  frontalmente com `STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md`. Ou o contrato é revisado
+  por decisão explícita do dono, ou "liga" vira métrica local que compara o aluno com
+  ele mesmo. Não iniciar sem essa decisão.
+
+**Dívida que I2 herda de I1:** a regra da melhor tentativa está inerte pela rota
+`/quiz`, que não tem ponto de entrada in-app. Os dois caminhos de entrega de lição
+(`/learn` e `/quiz`) precisam convergir em I2 — que é exatamente quando as telas de I1
+passam a receber tráfego real.
 
 ## 7. Recursos necessários
 

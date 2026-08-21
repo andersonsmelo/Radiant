@@ -44,7 +44,7 @@ function HUDPill({
   );
 }
 
-function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
+export function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
   const previousHearts = useRef(hearts);
   // Índice do coração que acabou de esvaziar. `hearts` já é o valor NOVO, então
   // ele aponta para a posição perdida. Precisa ser state, e não ref: quem decide

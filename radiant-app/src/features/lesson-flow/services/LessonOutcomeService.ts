@@ -26,7 +26,7 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { JourneyRecommendationService } from '../../journey/services/JourneyRecommendationService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
-import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import type { DurationBand } from '../../../types/learningEvidence';
@@ -71,7 +71,7 @@ class LessonOutcomeServiceImpl {
         const result = this.toQuizResult(input);
 
         await this.recordRecall(result);
-        await this.recordAttempt(result, topicId);
+        await LearningAttemptRecorder.record(result, topicId);
         await this.recordEvidence(adaptLegacyBlock(input.block), input, result);
         await this.enqueueSync(result);
 
@@ -88,7 +88,7 @@ class LessonOutcomeServiceImpl {
         const result = this.activityToQuizResult(input);
 
         await this.recordRecall(result);
-        await this.recordAttempt(result, topicId);
+        await LearningAttemptRecorder.record(result, topicId);
         await this.recordEvidence(input.activity, input, result);
         await this.enqueueSync(result);
 
@@ -101,24 +101,22 @@ class LessonOutcomeServiceImpl {
     }
 
     /**
-     * Resolve, numa única leitura do snapshot, se a conclusão premia e a qual
-     * unidade o nó pertence. A unidade é o agrupador que o domínio realmente
-     * tem: `QuizLesson` não carrega tópico, então usar `unitId` evita inventar
-     * uma taxonomia que ninguém mantém.
+     * Resolve, numa única leitura do snapshot, se a conclusão premia. A
+     * tentativa é registrada pelo gravador compartilhado, que também resolve
+     * a unidade para os dois caminhos de conclusão.
      */
     private async resolveNode(nodeId: string): Promise<{ rewarded: boolean; topicId: string | null }> {
         try {
             const snapshot = await JourneyProgressService.getSnapshot();
-            const node = snapshot.track.units
-                .flatMap((unit) => unit.nodes)
-                .find((entry) => entry.id === nodeId);
+            const unit = snapshot.track.units.find((entry) => entry.nodes.some((node) => node.id === nodeId));
+            const node = unit?.nodes.find((entry) => entry.id === nodeId);
 
             if (!node) {
                 console.warn(`[LessonOutcomeService] Nó desconhecido "${nodeId}"; nada será premiado.`);
                 return { rewarded: false, topicId: null };
             }
 
-            const topicId = node.unitId ?? null;
+            const topicId = node.unitId ?? unit?.id ?? null;
 
             // A autorização mora aqui pelo mesmo motivo que mora em
             // `markNodeCompleted`: este também é um ponto de escrita — XP,
@@ -147,27 +145,6 @@ class LessonOutcomeServiceImpl {
             // Falhar para "não premiar" é o lado seguro: nunca paga duas vezes.
             console.error('[LessonOutcomeService] Falha ao resolver elegibilidade:', error);
             return { rewarded: false, topicId: null };
-        }
-    }
-
-    /**
-     * Grava a tentativa que alimenta a acurácia. Roda mesmo quando a conclusão
-     * não premia: refazer uma lição não paga XP, mas continua sendo informação
-     * sobre memória.
-     */
-    private async recordAttempt(result: QuizResult, topicId: string | null): Promise<void> {
-        if (!topicId) return;
-
-        try {
-            await LearningAttemptsRepository.append({
-                lessonId: result.lessonId,
-                topicId,
-                correctAnswers: result.correctAnswers,
-                totalQuestions: result.totalQuestions,
-                completedAt: result.answeredAt.toISOString(),
-            });
-        } catch (error) {
-            console.error('[LessonOutcomeService] Falha ao registrar tentativa:', error);
         }
     }
 

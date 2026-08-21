@@ -96,8 +96,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
   },
   prompt: {
-    ...typography.h3,
+    ...typography.h2,
     color: galaxyColors.textPrimary,
+    textAlign: 'center',
+    marginVertical: space.s5,
   },
   image: {
     width: '100%',
@@ -110,12 +112,13 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     minHeight: UI_CONFIG.BUTTON_HEIGHT,
+    width: '100%',
     borderRadius: radius.rLg,
     backgroundColor: galaxyColors.surfaceMuted,
     borderWidth: 1,
     borderColor: galaxyColors.border,
     paddingHorizontal: space.s3,
-    paddingVertical: space.s2,
+    paddingVertical: space.s3,
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.s2,
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     ...typography.bodyRegular,
     color: galaxyColors.textPrimary,
     flex: 1,
+    textAlign: 'center',
   },
   optionTextSelected: {
     color: '#FFFFFF',

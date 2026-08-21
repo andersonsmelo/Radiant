@@ -4,7 +4,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const LEGACY_WORKSPACE_PATH = '/Users/anderson/Documents/Radiant';
+const LOCAL_USER_PATH_PREFIX = '/Users/';
 
 export const CURRENT_STATE_DOCUMENTS = [
   'README.md',
@@ -13,7 +13,7 @@ export const CURRENT_STATE_DOCUMENTS = [
   // O snapshot mais recente governa; o anterior sai da lista ao ser substituído,
   // senão o contrato passa a validar histórico e para de checar o que está em
   // vigor. O teste irmão afirma exatamente esse acoplamento.
-  'docs/EXECUTION_STATUS_2026-08-14.md',
+  'docs/EXECUTION_STATUS_2026-08-15.md',
   'radiant-app/README.md',
 ];
 
@@ -125,8 +125,10 @@ export function inspectDocument({ relativePath, content }) {
   const violations = [];
   const plainContent = content.replaceAll('`', '');
 
-  if (content.includes(LEGACY_WORKSPACE_PATH)) {
-    violations.push(`${relativePath}: contains the retired workspace path ${LEGACY_WORKSPACE_PATH}.`);
+  if (content.includes(LOCAL_USER_PATH_PREFIX)) {
+    violations.push(
+      `${relativePath}: contains a machine-local ${LOCAL_USER_PATH_PREFIX} path; use a repository-relative link instead.`
+    );
   }
 
   const claimsApiAvailability =
