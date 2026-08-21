@@ -60,6 +60,19 @@ type MeasuredInteractionAnswers = Pick<
 export type LessonOutcome = {
     award: XpAward | null;
     rewarded: boolean;
+    /**
+     * A tentativa exatamente como foi gravada.
+     *
+     * A tela de conclusão precisa de `correctAnswers`, `totalQuestions`,
+     * `lessonId` e `answeredAt` para montar estrelas e placar. Devolvê-los aqui,
+     * em vez de deixar a tela derivá-los de novo do bloco ou da atividade,
+     * fecha duas portas: a contagem não pode divergir da que alimentou a
+     * acurácia, e `resolveBestLessonStars` recebe o MESMO `answeredAt` que
+     * `recordAttempt` persistiu — é por esse carimbo que ela exclui a tentativa
+     * atual do histórico ao calcular a melhor anterior. Um `new Date()` novo na
+     * tela não casaria, e `improved` sairia sempre falso.
+     */
+    result: QuizResult;
 };
 
 class LessonOutcomeServiceImpl {
@@ -76,11 +89,11 @@ class LessonOutcomeServiceImpl {
         await this.enqueueSync(result);
 
         if (!rewarded) {
-            return { award: null, rewarded: false };
+            return { award: null, rewarded: false, result };
         }
 
         const award = await this.recordReward(result);
-        return { award, rewarded: true };
+        return { award, rewarded: true, result };
     }
 
     async recordActivityCompletion(input: ActivityOutcomeInput): Promise<LessonOutcome> {
@@ -93,11 +106,11 @@ class LessonOutcomeServiceImpl {
         await this.enqueueSync(result);
 
         if (!rewarded) {
-            return { award: null, rewarded: false };
+            return { award: null, rewarded: false, result };
         }
 
         const award = await this.recordReward(result);
-        return { award, rewarded: true };
+        return { award, rewarded: true, result };
     }
 
     /**

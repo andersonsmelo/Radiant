@@ -305,13 +305,24 @@ describe('LessonOutcomeService', () => {
         mockedGamification.recordQuizCompletion.mockRejectedValue(new Error('storage cheio'));
         const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
+        // A tentativa sai mesmo quando a gravação falha: a tela de conclusão a
+        // usa para montar estrelas e placar, e um storage cheio não pode deixar
+        // o aluno sem tela de fim de lição.
         await expect(
             LessonOutcomeService.recordCompletion({
                 block,
                 nodeId: 'node:lesson-1',
                 confirmedAnswers: { 'lesson-1-question': true },
             })
-        ).resolves.toEqual({ award: null, rewarded: true });
+        ).resolves.toEqual({
+            award: null,
+            rewarded: true,
+            result: expect.objectContaining({
+                lessonId: 'lesson-1',
+                correctAnswers: 1,
+                totalQuestions: 1,
+            }),
+        });
 
         errorSpy.mockRestore();
     });

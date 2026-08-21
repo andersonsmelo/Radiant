@@ -8,10 +8,14 @@ import { renderWithProviders } from '../../../test/renderWithProviders';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { LessonFlowService } from '../services/LessonFlowService';
+import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
+import { LessonRatingService } from '../../quiz/services/LessonRatingService';
+import { router } from 'expo-router';
 
 const mockedOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
 const mockedLessonFlowService = LessonFlowService as jest.Mocked<typeof LessonFlowService>;
+const mockedRouter = router as jest.Mocked<typeof router>;
 const announceForAccessibility = jest.spyOn(AccessibilityInfo, 'announceForAccessibility');
 
 jest.mock('expo-router', () => ({
@@ -27,7 +31,11 @@ jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 jest.mock('../../../ui/motion', () => ({
   duration: { micro: 0, ui: 0, celebrate: 0 },
   useFadeInUp: () => ({ style: {}, animateIn: jest.fn() }),
-  useScalePop: () => ({ style: {}, animateIn: jest.fn() }),
+  // `scale` faz parte do contrato real do hook, e `SummaryStar` o usa no
+  // caminho em que a marca NÃO melhorou: em vez de animar, fixa a escala em 1
+  // direto, para não sugerir um ganho que não houve. Sem ele no mock, a
+  // conclusão só montava quando as estrelas melhoravam.
+  useScalePop: () => ({ scale: { setValue: jest.fn() }, style: {}, animateIn: jest.fn() }),
   useCardEnter: () => ({ animatedStyle: {}, reset: jest.fn(), animateIn: jest.fn() }),
   usePressScale: () => ({ animatedStyle: {}, onPressIn: jest.fn(), onPressOut: jest.fn() }),
   useShakeError: () => ({ style: {}, animateIn: jest.fn() }),
@@ -50,6 +58,18 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));
 
+// `QuizTopBar` renderiza as vidas por `HeartsDisplay`, e os ícones do HUD são
+// vetor animado em `react-native-svg` — que não monta sob este renderer.
+jest.mock('../../../ui/components/HUD', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+
+  return {
+    HUD: () => null,
+    HeartsDisplay: () => <View testID="hearts-display" />,
+  };
+});
+
 jest.mock('../components/LessonVisualPanel', () => ({
   LessonVisualPanel: () => {
     const React = require('react');
@@ -62,8 +82,42 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     setCurrentNode: jest.fn().mockResolvedValue(undefined),
     setResumableNode: jest.fn().mockResolvedValue(undefined),
-    markNodeCompleted: jest.fn().mockResolvedValue(undefined),
+    // Devolve um snapshot porque a tela USA o retorno para localizar a unidade
+    // ativa. Ler o snapshot à parte correria em paralelo com esta escrita e
+    // poderia mostrar a unidade sem a lição que acabou de fechar.
+    markNodeCompleted: jest.fn().mockResolvedValue({ track: { units: [] } }),
   },
+}));
+
+jest.mock('../../gamification/services/GamificationService', () => ({
+  GamificationService: {
+    getSnapshot: jest.fn().mockResolvedValue({
+      totalXp: 40,
+      streakDays: 2,
+      lastActiveDate: '2026-08-15',
+      hearts: 4,
+      maxHearts: 5,
+    }),
+  },
+}));
+
+jest.mock('../../progress/services/LearningAttemptsRepository', () => ({
+  LearningAttemptsRepository: { getAll: jest.fn().mockResolvedValue([]) },
+}));
+
+jest.mock('../../quiz/services/LessonRatingService', () => ({
+  LessonRatingService: {
+    getRating: jest.fn().mockResolvedValue(null),
+    rate: jest.fn().mockResolvedValue(undefined),
+  },
+}));
+
+jest.mock('../../../components/ui/Confetti', () => ({ Confetti: () => null }));
+
+jest.mock('../../../ui/feedback/haptics', () => ({
+  hapticCelebrate: jest.fn(),
+  hapticSelection: jest.fn(),
+  hapticError: jest.fn(),
 }));
 
 jest.mock('../services/LessonFlowService', () => ({
@@ -73,10 +127,24 @@ jest.mock('../services/LessonFlowService', () => ({
   },
 }));
 
+// A tentativa devolvida pelo serviço é o que a conclusão renderiza: estrelas,
+// placar e o carimbo `answeredAt` que `resolveBestLessonStars` usa para excluir
+// esta tentativa do histórico ao calcular a melhor anterior.
+const outcomeFixture = {
+  award: null,
+  rewarded: true,
+  result: {
+    lessonId: 'lesson-1',
+    totalQuestions: 1,
+    correctAnswers: 1,
+    answeredAt: new Date('2026-08-15T12:00:00.000Z'),
+  },
+};
+
 jest.mock('../services/LessonOutcomeService', () => ({
   LessonOutcomeService: {
-    recordCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
-    recordActivityCompletion: jest.fn().mockResolvedValue({ award: null, rewarded: true }),
+    recordCompletion: jest.fn(),
+    recordActivityCompletion: jest.fn(),
   },
 }));
 
@@ -323,9 +391,9 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     // testes — sem isto, a contagem de chamadas de recordCompletion do
     // primeiro teste vaza para o segundo.
     mockedOutcome.recordCompletion.mockClear();
-    mockedOutcome.recordCompletion.mockResolvedValue({ award: null, rewarded: true });
+    mockedOutcome.recordCompletion.mockResolvedValue(outcomeFixture);
     mockedJourneyProgress.markNodeCompleted.mockClear();
-    mockedJourneyProgress.markNodeCompleted.mockResolvedValue(undefined as never);
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
     // mockClear() não apaga um mockReturnValue já configurado, então este
     // describe só passava isolado por acidente: dependia da ordem de
     // execução do arquivo (o beforeEach de "escolha da alternativa" roda
@@ -338,14 +406,14 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     const order: string[] = [];
     mockedOutcome.recordCompletion.mockImplementation(async () => {
       order.push('outcome');
-      return { award: null, rewarded: true };
+      return outcomeFixture;
     });
-    // markNodeCompleted devolve JourneySnapshot na assinatura real, e a tela
-    // ignora o retorno — daí o cast, que só existe para não montar um snapshot
-    // inteiro num teste que mede ordem de chamada.
+    // A tela usa o retorno para localizar a unidade ativa. Aqui basta um
+    // snapshot sem unidades: este teste mede ordem de chamada, e sem
+    // correspondência de unidade o card de progresso apenas não aparece.
     mockedJourneyProgress.markNodeCompleted.mockImplementation(async () => {
       order.push('markNodeCompleted');
-      return undefined as never;
+      return { track: { units: [] } } as never;
     });
 
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
@@ -474,6 +542,8 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
   });
 
   it('registra a conclusão usando a atividade nativa e sua resposta confirmada', async () => {
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+
     renderWithProviders(
       <LessonFlowScreen
         blockId="activity:materia-energia-e-radiacao:01"
@@ -494,5 +564,83 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
       confirmedAnswers: { 'activity-01-question': true },
     });
     expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+  });
+});
+
+describe('LessonFlowScreen — conclusão da lição', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(undefined as never);
+    mockedOutcome.recordCompletion.mockResolvedValue(outcomeFixture);
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({
+      track: { units: [] },
+    } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  async function completeLesson() {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+  }
+
+  it('mostra a conclusão em vez de devolver o aluno em silêncio para a aba', async () => {
+    // Antes desta passagem a tela chamava router.replace('/(tabs)') aqui: o
+    // aluno terminava a lição e voltava para a aba sem estrelas, sem XP, sem
+    // frase e sem avaliação. Toda a conclusão do sub-projeto 1 estava montada
+    // em /quiz, que não tem ponto de entrada in-app.
+    await completeLesson();
+
+    expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+    expect(mockedRouter.replace).not.toHaveBeenCalled();
+  });
+
+  it('tira as estrelas da melhor tentativa, e não só da que acabou', async () => {
+    // A regra da melhor tentativa estava inerte porque só /quiz a exibia, e
+    // /quiz nunca grava tentativa. Aqui ela funciona sem código novo de
+    // persistência: /learn JÁ é o escritor de LearningAttemptsRepository.
+    //
+    // Tentativa anterior perfeita e atual pior: as estrelas continuam sendo as
+    // da melhor, e a tela não pode animar um ganho que não houve.
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([
+      {
+        lessonId: 'lesson-1',
+        topicId: 'unit-1',
+        correctAnswers: 4,
+        totalQuestions: 4,
+        completedAt: '2026-08-14T12:00:00.000Z',
+      },
+    ]);
+    mockedOutcome.recordCompletion.mockResolvedValue({
+      ...outcomeFixture,
+      result: { ...outcomeFixture.result, correctAnswers: 0, totalQuestions: 4 },
+    });
+
+    await completeLesson();
+
+    expect(await screen.findByText('0 de 4 corretas')).toBeTruthy();
+    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+  });
+
+  it('chega ao Continuar mesmo quando a leitura do histórico falha', async () => {
+    // A tela inteira de conclusão fica atrás do resumo. Se o histórico ou a
+    // nota rejeitarem, cai para as estrelas só desta tentativa em vez de
+    // travar — o aluno tem que sempre conseguir sair da lição.
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockRejectedValue(new Error('storage cheio'));
+
+    try {
+      await completeLesson();
+
+      expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+      expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    } finally {
+      errorSpy.mockRestore();
+    }
   });
 });

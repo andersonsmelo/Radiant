@@ -209,26 +209,23 @@ describe('ProgressScreen flow', () => {
     ).toBeTruthy();
   });
 
-  it('surfaces DNS/network API health failures with an actionable label', async () => {
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
-    mockedApiRequest.mockRejectedValue(new ApiError('Could not resolve host', 0, 'network'));
+  it('não expõe nenhum controle de console de desenvolvimento', async () => {
+    // A separação vem antes da agregação (ADR-2026-08-15): esta tela é agregada
+    // ao Perfil do aluno, e o console — flags de build, health de API, reset de
+    // estado local — mudou para `/dev-console`, atrás de `SHOW_DEV_TOOLS`. Os
+    // mocks deste arquivo ligam `SHOW_DEV_TOOLS`, então se algum bloco voltar,
+    // este teste o vê.
+    renderWithProviders(<ProgressScreen />);
 
-    try {
-      renderWithProviders(<ProgressScreen />);
+    await screen.findByText('Conta e sincronização');
 
-      await screen.findByText('Conta e sincronização');
-
-      fireEvent.press(screen.getAllByText('Testar API')[0]);
-
-      await waitFor(() => {
-        expect(mockedApiRequest).toHaveBeenCalledWith('/health');
-      });
-
-      expect(await screen.findByText('falha de rede ou DNS')).toBeTruthy();
-      expect(await screen.findByText('Falha ao consultar /health da API.')).toBeTruthy();
-    } finally {
-      consoleErrorSpy.mockRestore();
-    }
+    expect(screen.queryByText('Catálogo local')).toBeNull();
+    expect(screen.queryByText('Homologação iOS V2')).toBeNull();
+    expect(screen.queryByText('Testar API')).toBeNull();
+    expect(screen.queryByText('Health API')).toBeNull();
+    expect(screen.queryByText('Abrir Telemetry Debug')).toBeNull();
+    expect(screen.queryByText('Ver requisitos do sync remoto')).toBeNull();
+    expect(screen.queryByText('Resetar estado local da V2')).toBeNull();
   });
 
   it('shows only persisted gamification and honest empty learning metrics', async () => {
@@ -271,38 +268,9 @@ describe('ProgressScreen flow', () => {
     errorSpy.mockRestore();
   });
 
-  it('does not report remote sync as active when no API is configured', async () => {
-    // A flag ligada sozinha não habilita sync: SyncQueueService também exige
-    // isApiConfigured(). O painel de homologação existe para registrar o que a
-    // build faz, então anunciar "ativado" quando nada sincroniza torna a
-    // evidência de homologação falsa.
-    (isApiConfigured as jest.Mock).mockReturnValue(false);
-
-    renderWithProviders(<ProgressScreen />);
-
-    await screen.findByText('3 dias');
-    expect(screen.queryByText('ativado')).toBeNull();
-    expect(screen.getByText('ligado, sem API configurada')).toBeTruthy();
-  });
-
-  it('does not report the beta gate as active while dev tools bypass it', async () => {
-    // Mesma classe de defeito de honestidade do teste acima, na linha vizinha. O
-    // gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS` (`_layout.tsx`), e
-    // este painel só renderiza sob `SHOW_DEV_TOOLS` — então, no único contexto em
-    // que a linha é visível, o gate está sempre bypassado. Ler a flag crua fazia
-    // o painel anunciar "ativo" justamente para quem foi ali buscar evidência.
-    AppConfig.ENABLE_BETA_GATE = true;
-
-    try {
-      renderWithProviders(<ProgressScreen />);
-
-      await screen.findByText('3 dias');
-      expect(screen.queryByText('ativo')).toBeNull();
-      expect(screen.getByText('ligado, bypass por dev tools')).toBeTruthy();
-    } finally {
-      AppConfig.ENABLE_BETA_GATE = false;
-    }
-  });
+  // As duas afirmações de honestidade do painel de homologação — sync remoto e
+  // beta gate — seguiram o painel para
+  // `src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx`.
 
   it('keeps legal help available in the progress screen', async () => {
     renderWithProviders(<ProgressScreen />);

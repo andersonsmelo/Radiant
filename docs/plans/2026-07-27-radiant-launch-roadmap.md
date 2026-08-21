@@ -1430,11 +1430,20 @@ a trilha de lojas.
 
 - **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
   Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
-- **I2 [P1]** Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro.
-  **Pré-requisito não negociável:** separar a metade "console de desenvolvimento" da
-  `ProgressScreen` antes de agregá-la, senão o console entra no perfil do aluno.
-  Reescrever `tab-bar-clearance-contract` com a nova topologia — nunca desligá-lo.
-  Decidir o destino da Galáxia antes de começar.
+- **I2 [P1 — APROVADA pelo dono em 2026-08-15; plano pronto, não implementada]**
+  Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. **Estude passa
+  a ser a trilha**, em rolagem contínua e com o currículo inteiro, e a **Galáxia é
+  absorvida** — a trilha morava nela. A separação da `ProgressScreen` foi definida em
+  três destinos: aluno e identidade para o Perfil, console para rota própria sob
+  `SHOW_DEV_TOOLS`. Ver
+  [ADR](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md),
+  [spec](../superpowers/specs/2026-08-15-topologia-navegacao-design.md) e
+  [plano](../superpowers/plans/2026-08-15-topologia-navegacao.md) — 18 tarefas em quatro
+  fases, cada fase um PR.
+  `tab-bar-clearance-contract` é reescrito com a nova topologia — nunca desligado.
+  **Onde o risco se concentra:** a trilha passa a carregar o currículo inteiro em vez das
+  unidades da trilha ativa. É a única parte que mexe em dado, e sem virtualização a
+  rolagem morre em catálogo grande.
 - **I3 [P2]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
   de aulas. Depende de I2. O histórico tem substrato pronto em
   `LearningAttemptsRepository`.
@@ -1444,15 +1453,22 @@ a trilha de lojas.
 - **I5 [BLOQUEADA]** Arte da trilha e ícones ilustrados de HUD. Depende de assets
   autorais do dono; o P4 (HUD em Rive) segue fechado e **não** deve ser aproximado em
   código. A dessaturação do nó bloqueado é a única parte executável sem asset novo.
-- **I6 [BLOQUEADA — DECISÃO DE PRODUTO]** Liga, ranqueamento e social. Colide
-  frontalmente com `STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md`. Ou o contrato é revisado
-  por decisão explícita do dono, ou "liga" vira métrica local que compara o aluno com
-  ele mesmo. Não iniciar sem essa decisão.
+- **I6 [DECISÃO TOMADA em 2026-08-15; ainda NÃO autorizada]** Liga, ranqueamento e
+  social. O dono decidiu: **liga vira métrica local**, comparando o aluno com o próprio
+  histórico. O `STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md` fica intacto e deixa de
+  bloquear; a parte social (seguidores, handle público) sai do escopo. Ver
+  [ADR](../adr/ADR-2026-08-15-liga-como-metrica-local.md). A construção continua
+  precisando de spec própria — a ADR fixa direção, não autoriza código.
 
-**Dívida que I2 herda de I1:** a regra da melhor tentativa está inerte pela rota
-`/quiz`, que não tem ponto de entrada in-app. Os dois caminhos de entrega de lição
-(`/learn` e `/quiz`) precisam convergir em I2 — que é exatamente quando as telas de I1
-passam a receber tráfego real.
+**O que I2 herda de I1 — maior do que se registrou.** A dívida conhecida era a regra da
+melhor tentativa inerte pela rota `/quiz`, que não tem ponto de entrada in-app. A
+medição de 2026-08-15 mostrou a metade que faltava: **o caminho vivo de lição não tem
+tela de conclusão nenhuma** — o `LessonFlowScreen` (`/learn`) termina em
+`router.replace('/(tabs)')`, e o aluno volta em silêncio para a aba. A tela que o aluno
+alcança não celebra; a que celebra o aluno não alcança. A convergência decidida —
+`/learn` adota `QuizTopBar` e `LessonSummary`, `/quiz` é aposentada — é o que faz I1
+existir para o aluno, e por isso é a parte mais valiosa de I2, à frente do rearranjo da
+barra.
 
 ## 7. Recursos necessários
 

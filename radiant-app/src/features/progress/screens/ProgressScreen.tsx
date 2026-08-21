@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-    Alert,
     Modal,
     ScrollView,
     StyleSheet,
@@ -10,7 +9,7 @@ import {
     View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router, useFocusEffect } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
 import {
     STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
     useShadowCheckpoint,
@@ -24,20 +23,20 @@ import { SpacedRepetitionService } from '../../spaced-repetition/services/Spaced
 import { AuthService } from '../../auth/AuthService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
-import { IosHomologationService } from '../services/IosHomologationService';
 import { LearningStatsService, type LearningStatsSnapshot } from '../services/LearningStatsService';
 import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
 import { LegalLinksCard } from '../components/LegalLinksCard';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import type { AuthSession } from '../../auth/types';
 import { AppConfig } from '../../../config';
-import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
+import { isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, tabBarClearance, typography } from '../../../ui/styles';
 import { StreakIcon, XpIcon } from '../../../ui/components/HudIcons';
+import { ActionButton, CardRow, CardTitle, GlassCard } from '../../../ui/components/InfoCards';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
 // Alias de tokens: nenhum valor próprio de cor vive nesta tela.
@@ -58,88 +57,21 @@ const D = {
 };
 
 // ── Componentes locais ───────────────────────────────────────────
-
-function GlassCard({ children, style }: { children: React.ReactNode; style?: object }) {
-    return <View style={[styles.card, style]}>{children}</View>;
-}
-
-function CardTitle({ children }: { children: React.ReactNode }) {
-    return <Text style={styles.cardTitle}>{children}</Text>;
-}
-
-function CardRow({ label, value }: { label: string; value: string }) {
-    return (
-        <View style={styles.cardRow}>
-            <Text style={styles.cardRowLabel}>{label}</Text>
-            <Text style={styles.cardRowValue}>{value}</Text>
-        </View>
-    );
-}
-
-function ActionButton({
-    onPress,
-    disabled,
-    variant = 'primary',
-    children,
-}: {
-    onPress: () => void;
-    disabled?: boolean;
-    variant?: 'primary' | 'secondary' | 'ghost';
-    children: React.ReactNode;
-}) {
-    const bg =
-        variant === 'primary'
-            ? D.primary
-            : variant === 'secondary'
-              ? D.surfaceAlt
-              : 'transparent';
-    const border =
-        variant === 'ghost' ? D.border : 'transparent';
-
-    return (
-        <TouchableOpacity
-            onPress={onPress}
-            disabled={disabled}
-            accessibilityRole="button"
-            accessibilityState={{ disabled: !!disabled }}
-            style={[
-                styles.btn,
-                { backgroundColor: bg, borderColor: border, opacity: disabled ? 0.45 : 1 },
-            ]}
-            activeOpacity={0.75}
-        >
-            <Text style={[styles.btnText, variant !== 'primary' && { color: D.text }]}>
-                {children}
-            </Text>
-        </TouchableOpacity>
-    );
-}
-
-function getApiHealthErrorLabel(error: unknown): string {
-    if (error instanceof ApiError) {
-        if (error.code === 'timeout') {
-            return 'timeout ao consultar API';
-        }
-
-        if (error.code === 'network') {
-            return 'falha de rede ou DNS';
-        }
-
-        return error.message;
-    }
-
-    return error instanceof Error ? error.message : 'falha de conexão';
-}
+//
+// `GlassCard`, `CardTitle`, `CardRow` e `ActionButton` viviam aqui e passaram
+// para `src/ui/components/InfoCards.tsx` quando o console de desenvolvimento
+// saiu desta tela: as duas telas resultantes usam o mesmo formato, e duplicá-lo
+// deixaria os dois lados livres para divergirem em silêncio.
 
 function StreakCalendarCard({ streakDays }: { streakDays: number }) {
-    return <View style={styles.whiteCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><View style={styles.metricValueRow}><StreakIcon size={24} /><Text style={styles.streakNumber}>{streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text></View><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
+    return <View style={styles.metricCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><View style={styles.metricValueRow}><StreakIcon size={24} /><Text style={styles.streakNumber}>{streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text></View><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
 }
 
 function AccuracyChartCard({ stats }: { stats: LearningStatsSnapshot | null }) {
     const accuracy = stats?.accuracyPercent ?? null;
 
     if (accuracy === null) {
-        return <View style={styles.whiteCard} accessibilityLabel={productCopy.noEvaluatedAttempts}><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>{productCopy.noEvaluatedAttempts}</Text></View>;
+        return <View style={styles.metricCard} accessibilityLabel={productCopy.noEvaluatedAttempts}><Text style={styles.sectionLabel}>PRECISÃO</Text><Text style={styles.accuracyNumber}>—</Text><Text style={styles.streakSub}>{productCopy.noEvaluatedAttempts}</Text></View>;
     }
 
     // A precisão recente só é dita quando difere da total; repetir o mesmo
@@ -151,7 +83,7 @@ function AccuracyChartCard({ stats }: { stats: LearningStatsSnapshot | null }) {
             : 'Sobre todas as tentativas avaliadas.';
 
     return (
-        <View style={styles.whiteCard} accessibilityLabel={`Precisão de ${accuracy} por cento`}>
+        <View style={styles.metricCard} accessibilityLabel={`Precisão de ${accuracy} por cento`}>
             <Text style={styles.sectionLabel}>PRECISÃO</Text>
             <Text style={styles.accuracyNumber}>{accuracy}%</Text>
             <Text style={styles.streakSub}>{subtitle}</Text>
@@ -230,10 +162,6 @@ export default function ProgressScreen() {
     const [syncing, setSyncing] = useState(false);
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
     const [statusTone, setStatusTone] = useState<'neutral' | 'success' | 'warning' | 'error'>('neutral');
-    const [apiHealthLabel, setApiHealthLabel] = useState<string>('não verificada');
-    const [apiChecking, setApiChecking] = useState(false);
-    const [lastQueueError, setLastQueueError] = useState<string | null>(null);
-    const [resettingLocalState, setResettingLocalState] = useState(false);
     const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
     const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
     const [showWelcomeReplay, setShowWelcomeReplay] = useState(false);
@@ -265,7 +193,6 @@ export default function ProgressScreen() {
             setAuthSession(session);
             setSyncQueueCount(queueSummary.pending);
             setSyncRetryingCount(queueSummary.retrying);
-            setLastQueueError(queueSummary.lastError);
         } catch (error) {
             console.error('[ProgressScreen] Failed to load progress data:', error);
         }
@@ -300,10 +227,8 @@ export default function ProgressScreen() {
         }, [load])
     );
 
-    const tracks = LessonCatalogService.listTracks();
     const remoteSyncAvailable = AppConfig.ENABLE_REMOTE_SYNC && isApiConfigured();
     const isAuthenticated = Boolean(authSession?.user?.id);
-    const showDeveloperTools = AppConfig.SHOW_DEV_TOOLS;
 
     const setFeedback = (
         message: string,
@@ -339,7 +264,6 @@ export default function ProgressScreen() {
             const queueSummary = await SyncQueueService.getSummary();
             setSyncQueueCount(queueSummary.pending);
             setSyncRetryingCount(queueSummary.retrying);
-            setLastQueueError(queueSummary.lastError);
             setPassword('');
             setFeedback(
                 authMode === 'login'
@@ -457,7 +381,6 @@ export default function ProgressScreen() {
             const queueSummary = await SyncQueueService.getSummary();
             setSyncQueueCount(queueSummary.pending);
             setSyncRetryingCount(queueSummary.retrying);
-            setLastQueueError(queueSummary.lastError);
             const refreshedSession = await AuthService.hydrateUser();
             setAuthSession(refreshedSession);
             setFeedback('Sincronização concluída.', 'success');
@@ -467,72 +390,6 @@ export default function ProgressScreen() {
         } finally {
             setSyncing(false);
         }
-    };
-
-    const handleCheckApiHealth = async () => {
-        if (!isApiConfigured()) {
-            setApiHealthLabel('API não configurada');
-            setFeedback('Defina EXPO_PUBLIC_API_BASE_URL antes de testar a API.', 'warning');
-            return;
-        }
-
-        try {
-            setApiChecking(true);
-            const response = await apiRequest<{ ok: boolean; service: string; now: string }>('/health');
-            setApiHealthLabel(response.ok ? `online • ${response.now}` : 'resposta inválida');
-            setFeedback('Health check da API concluído.', response.ok ? 'success' : 'warning');
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to check API health:', error);
-            setApiHealthLabel(getApiHealthErrorLabel(error));
-            setFeedback('Falha ao consultar /health da API.', 'error');
-        } finally {
-            setApiChecking(false);
-        }
-    };
-
-    const handleRemoteSyncHelp = () => {
-        Alert.alert(
-            'Sync remoto',
-            remoteSyncAvailable
-                ? 'A API está configurada e o app pode sincronizar progresso autenticado.'
-                : 'Defina EXPO_PUBLIC_API_BASE_URL e EXPO_PUBLIC_ENABLE_REMOTE_SYNC=true para ativar auth e sync.'
-        );
-    };
-
-    const handleResetHomologationState = () => {
-        Alert.alert(
-            'Resetar homologação iOS V2',
-            'Isso limpa o estado local usado no smoke da Learning Road V2 neste dispositivo.',
-            [
-                { text: 'Cancelar', style: 'cancel' },
-                {
-                    text: 'Resetar',
-                    style: 'destructive',
-                    onPress: async () => {
-                        try {
-                            setResettingLocalState(true);
-                            setFeedback('Resetando estado local da homologação iOS V2...');
-                            await IosHomologationService.resetLocalState();
-                            await load();
-                            setFeedback(
-                                'Estado local resetado. A Learning Road V2 está pronta para um novo smoke.',
-                                'success'
-                            );
-                        } catch (error) {
-                            console.error('[ProgressScreen] Failed to reset iOS homologation state:', error);
-                            setFeedback(
-                                error instanceof Error
-                                    ? error.message
-                                    : 'Falha ao resetar o estado local da homologação.',
-                                'error'
-                            );
-                        } finally {
-                            setResettingLocalState(false);
-                        }
-                    },
-                },
-            ]
-        );
     };
 
     const statusColor =
@@ -565,79 +422,9 @@ export default function ProgressScreen() {
                 <StatsGrid totalXp={snapshot?.totalXp ?? 0} dueCount={dueCount} />
 
                 {/* ── Topics Mastered ── */}
-                <View style={styles.whiteCard}>
+                <View style={styles.metricCard}>
                     <TopicsMasteredList stats={learningStats} topicLabels={topicLabels} />
                 </View>
-
-                {/* ── Catálogo local ── */}
-                <GlassCard>
-                    <CardTitle>Catálogo local</CardTitle>
-                    <CardRow label="Trilhas" value={String(tracks.length)} />
-                    <CardRow label="Versão" value={LessonCatalogService.getCatalogVersion()} />
-                    <CardRow label="Fonte" value={LessonCatalogService.getCatalogSourceLabel()} />
-                    <CardRow
-                        label="Lição inicial"
-                        value={LessonCatalogService.getInitialLesson()?.title ?? 'indisponível'}
-                    />
-                </GlassCard>
-
-                {/* ── Homologação (dev tools) ── */}
-                {showDeveloperTools ? (
-                    <GlassCard>
-                        <CardTitle>Homologação iOS V2</CardTitle>
-                        <CardRow
-                            label="Learning Road"
-                            value={AppConfig.ENABLE_LEARNING_ROAD ? 'ativada' : 'desativada'}
-                        />
-                        {/*
-                          O gate aplicado é `ENABLE_BETA_GATE && !SHOW_DEV_TOOLS`
-                          (`_layout.tsx`), e este painel só existe sob
-                          `SHOW_DEV_TOOLS` — logo "ativo" é inalcançável aqui por
-                          construção, e a flag crua anunciava exatamente o
-                          contrário do que a build faz. Mesma correção de
-                          honestidade já aplicada à linha de sync abaixo.
-                        */}
-                        <CardRow
-                            label="Beta Gate"
-                            value={
-                                AppConfig.ENABLE_BETA_GATE && !AppConfig.SHOW_DEV_TOOLS
-                                    ? 'ativo'
-                                    : AppConfig.ENABLE_BETA_GATE
-                                      ? 'ligado, bypass por dev tools'
-                                      : 'desativado'
-                            }
-                        />
-                        <CardRow
-                            label="Sync remoto"
-                            value={
-                                remoteSyncAvailable
-                                    ? 'ativado'
-                                    : AppConfig.ENABLE_REMOTE_SYNC
-                                      ? 'ligado, sem API configurada'
-                                      : 'desativado'
-                            }
-                        />
-                        <CardRow
-                            label="Telemetry Debug"
-                            value={AppConfig.ENABLE_TELEMETRY_DEBUG_SCREEN ? 'ativo' : 'desativado'}
-                        />
-                        <View style={styles.btnGroup}>
-                            <ActionButton
-                                onPress={handleResetHomologationState}
-                                disabled={resettingLocalState || submitting || syncing}
-                                variant="secondary"
-                            >
-                                {resettingLocalState ? 'Resetando...' : 'Resetar estado local da V2'}
-                            </ActionButton>
-                            <ActionButton
-                                onPress={() => router.replace('/(tabs)')}
-                                variant="ghost"
-                            >
-                                Abrir Journey Home
-                            </ActionButton>
-                        </View>
-                    </GlassCard>
-                ) : null}
 
                 {/* ── Conta e sincronização ── */}
                 <GlassCard>
@@ -649,24 +436,9 @@ export default function ProgressScreen() {
                     <CardRow label="Pendentes" value={String(syncQueueCount)} />
                     <CardRow label="Em retry" value={String(syncRetryingCount)} />
 
-                    {showDeveloperTools ? (
-                        <>
-                            <CardRow
-                                label="API"
-                                value={isApiConfigured() ? AppConfig.API_BASE_URL : 'não configurada'}
-                            />
-                            <CardRow label="Health API" value={apiHealthLabel} />
-                            {lastQueueError ? (
-                                <Text style={[styles.cardRowValue, { color: D.warning, marginTop: 4 }]}>
-                                    Último erro: {lastQueueError}
-                                </Text>
-                            ) : null}
-                        </>
-                    ) : (
-                        <Text style={styles.cardHint}>
-                            O estudo continua funcionando localmente mesmo sem rede ou autenticação ativa.
-                        </Text>
-                    )}
+                    <Text style={styles.cardHint}>
+                        O estudo continua funcionando localmente mesmo sem rede ou autenticação ativa.
+                    </Text>
 
                     {isAuthenticated ? (
                         <View style={styles.btnGroup}>
@@ -689,15 +461,6 @@ export default function ProgressScreen() {
                             >
                                 Sair
                             </ActionButton>
-                            {showDeveloperTools ? (
-                                <ActionButton
-                                    onPress={handleCheckApiHealth}
-                                    disabled={apiChecking || submitting || syncing}
-                                    variant="ghost"
-                                >
-                                    {apiChecking ? 'Testando API...' : 'Testar API'}
-                                </ActionButton>
-                            ) : null}
                         </View>
                     ) : (
                         <View style={styles.btnGroup}>
@@ -793,16 +556,6 @@ export default function ProgressScreen() {
                             >
                                 Confirmar reset com token
                             </ActionButton>
-
-                            {showDeveloperTools ? (
-                                <ActionButton
-                                    onPress={handleCheckApiHealth}
-                                    disabled={apiChecking || submitting || syncing}
-                                    variant="ghost"
-                                >
-                                    {apiChecking ? 'Testando API...' : 'Testar API'}
-                                </ActionButton>
-                            ) : null}
                         </View>
                     )}
 
@@ -810,12 +563,6 @@ export default function ProgressScreen() {
                         <Text style={[styles.statusMessage, { color: statusColor }]}>
                             {statusMessage}
                         </Text>
-                    ) : null}
-
-                    {showDeveloperTools ? (
-                        <ActionButton onPress={handleRemoteSyncHelp} variant="ghost">
-                            Ver requisitos do sync remoto
-                        </ActionButton>
                     ) : null}
                 </GlassCard>
 
@@ -838,12 +585,6 @@ export default function ProgressScreen() {
                     {/* Aqui `onFinish` só fecha: rever não pode reescrever o estado de primeiro uso. */}
                     <WelcomeFlowScreen onFinish={() => setShowWelcomeReplay(false)} />
                 </Modal>
-
-                {showDeveloperTools ? (
-                    <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">
-                        Abrir Telemetry Debug
-                    </ActionButton>
-                ) : null}
 
             </ScrollView>
         </SafeAreaView>
@@ -874,7 +615,11 @@ const styles = StyleSheet.create({
     },
 
     // ── White card (shared base) ──
-    whiteCard: {
+    // Chamava-se `whiteCard`, herança da era clara, e o nome mentia: o fundo
+    // sempre foi `galaxyColors.surface` — branco a 5% sobre o fundo escuro, não
+    // um card claro. O nome antigo fazia qualquer leitor suspeitar de um defeito
+    // de identidade que não existe aqui.
+    metricCard: {
         backgroundColor: D.surface,
         borderRadius: 20,
         padding: 16,
@@ -945,35 +690,6 @@ const styles = StyleSheet.create({
     },
 
     // ── GlassCard (legacy sections) ──
-    card: {
-        backgroundColor: D.surface,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: D.border,
-        padding: 16,
-        marginBottom: 14,
-        gap: 8,
-    },
-    cardTitle: {
-        ...typography.bodyStrong,
-        color: D.text,
-        marginBottom: 4,
-    },
-    cardRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    cardRowLabel: {
-        ...typography.micro,
-        color: D.textSec,
-    },
-    cardRowValue: {
-        ...typography.micro,
-        color: D.text,
-        flexShrink: 1,
-        textAlign: 'right',
-    },
     cardHint: {
         ...typography.micro,
         color: D.textTert,
@@ -983,17 +699,6 @@ const styles = StyleSheet.create({
 
     // ── Buttons ──
     btnGroup: { gap: 10, marginTop: 12 },
-    btn: {
-        height: 48,
-        borderRadius: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-    },
-    btnText: {
-        ...typography.bodyStrong,
-        color: '#FFFFFF',
-    },
 
     // ── Auth ──
     authBadge: {

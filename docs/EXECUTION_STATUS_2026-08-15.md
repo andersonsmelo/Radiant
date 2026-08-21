@@ -375,3 +375,105 @@ continuam sendo a condição de integração em `main`.
 
 - Spec: [`superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md`](superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md)
 - Plano: [`superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md`](superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md)
+
+---
+
+# Segunda sessão de 2026-08-15 — planejamento do sub-projeto 2
+
+Sessão de planejamento, **sem alteração de código**. Resolve os dois pré-requisitos que
+travavam o sub-projeto 2 e mais duas decisões que a medição do repositório levantou.
+
+## Decisões do dono
+
+| # | Questão | Escolha |
+| --- | --- | --- |
+| 1 | O que é a aba Estude | **A trilha**, em rolagem contínua |
+| 2 | Alcance da trilha | O currículo inteiro numa rolagem só |
+| 3 | Destino da Galáxia | **Absorvida por Estude**; deixa de existir como superfície |
+| 4 | Console de desenvolvimento | Sai para rota própria fora das abas, sob `SHOW_DEV_TOOLS` |
+| 5 | Convergência de lição | `/learn` adota os componentes novos; `/quiz` é aposentada |
+| 6 | Liga (sub-projeto 6) | Métrica local — o aluno comparado com ele mesmo |
+
+**A decisão 3 foi revista dentro da própria sessão.** A primeira resposta foi "a Galáxia vira
+superfície interna de Estude", e ela se apoiava numa afirmação do documento de direção — "a
+home já é a trilha" — que **não confere com o código**. `JourneyHomeScreen` não tem trilha:
+tem HUD, hero e um card "Foco de hoje". Quem renderiza `JourneyMap` é a `GalaxyMapScreen`. Com
+a premissa corrigida e a direção da trilha contínua dada pelo dono, a Galáxia passou a ser
+absorvida, e o `ADR-2026-08-13` foi superado.
+
+Viraram duas ADRs:
+[topologia](adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
+[liga](adr/ADR-2026-08-15-liga-como-metrica-local.md). A spec do sub-projeto 2 está em
+[`superpowers/specs/2026-08-15-topologia-navegacao-design.md`](superpowers/specs/2026-08-15-topologia-navegacao-design.md).
+
+**Tudo isso foi aprovado pelo dono em 2026-08-15**, e a spec virou
+[plano de implementação](superpowers/plans/2026-08-15-topologia-navegacao.md): 18 tarefas em
+quatro fases, cada fase um PR.
+
+## Execução — 6 das 18 tarefas
+
+| Fase | Tarefas | Estado |
+| --- | --- | --- |
+| A — console fora da tela do aluno | 1–3 | **Entregue** |
+| B — trilha contínua | 4 de 4–8 | Serviço do percurso entregue; a trilha em si, não |
+| C — duas abas, Perfil, Galáxia absorvida | 9–14 | Não iniciada |
+| D — convergência de `/learn` e `/quiz` | 15–17 de 15–18 | **Entregue**; falta só aposentar `/quiz` |
+
+**O que passou a existir para o aluno:** a lição deixou de terminar em silêncio. `/learn`
+adota `QuizTopBar` e `LessonSummary`, e a regra da melhor tentativa acordou sem uma linha de
+persistência nova — `/learn` já era o escritor de `LearningAttemptsRepository`. É o que faz o
+sub-projeto 1 existir de verdade.
+
+**Portão em cada passagem:** `npm run quality` inteiro. Última medição: 102 suítes, 705
+testes, visual QA sem regressões, saída zero. Nenhum validador desligado.
+
+**Nada foi verificado em simulador.** O que falta das fases B e C é quase inteiramente visual —
+a trilha contínua, a faixa de próximo nível, as estrelas no nó, o Perfil. Foi onde a execução
+parou de propósito: é o que só uma tela responde.
+
+Correção registrada: a Task 3 do plano mandava consertar um card claro na `ProgressScreen`. Ao
+abrir o bloco de estilo, `whiteCard` sempre teve `galaxyColors.surface` de fundo — branco a 5%
+sobre o escuro, igual ao `GlassCard`. Não havia defeito; havia um nome herdado da era clara. O
+defeito tinha sido inferido de um identificador sem abrir o estilo.
+
+## Achado que corrige o registro acima
+
+A seção "Pendências abertas" registra que a regra da melhor tentativa está inerte pela rota
+`/quiz`. Isso está certo, mas é a metade menor do problema. A metade maior não estava
+registrada em lugar nenhum:
+
+**O caminho vivo de lição não tem tela de conclusão.** O `LessonFlowScreen` (`/learn`),
+terminada a última interação, chama `LessonOutcomeService`, marca o nó e executa
+`router.replace('/(tabs)')`. O aluno acaba a lição e volta em silêncio para a aba — sem
+estrelas, sem XP, sem frase, sem avaliação.
+
+Ou seja: a tela que o aluno alcança não celebra, e a que celebra o aluno não alcança. Todo o
+fim de lição do sub-projeto 1 está montado em `/quiz`, que não tem ponto de entrada in-app.
+
+Isso reposiciona a prioridade. A convergência não é a dívida secundária que a spec do
+sub-projeto 1 previu — é o que faz o sub-projeto 1 existir para o aluno. Ela é a parte mais
+valiosa do sub-projeto 2, à frente do rearranjo da barra.
+
+## Estado de publicação
+
+`main` e `origin/main` continuam em `f2156ad`. O sub-projeto 1 continua no **PR #5**
+(`feat/atividade-fim-licao`, 16 commits), aberto e não mergeado. O planejamento do
+sub-projeto 2 é empilhado sobre ele, na branch `claude/task-observer-loop-superpowers-ybpyrt`.
+
+## O que esta sessão não pôde fazer
+
+Rodou num contêiner Linux remoto. Três itens do contrato do `AGENTS.md` não são executáveis
+nele:
+
+- **cérebro do Loop** — `brainPath` aponta para `/Users/anderson/Documents/obsidian/…`, que
+  não existe aqui, e a CLI `loop` não está instalada. Nenhuma sessão de leitura foi aberta e
+  nenhum run de escrita foi aberto ou fechado. **O aprendizado desta sessão ainda precisa ser
+  gravado numa máquina com o vault;**
+- **verificação em simulador** — é Linux, não há simulador iOS;
+- por isso mesmo, **nenhuma linha de código de produto foi escrita**: a spec exige que a
+  implementação feche em máquina com simulador, e a passagem anterior provou o porquê — a
+  checagem visual achou três defeitos que 691 testes não pegaram.
+
+Foi possível, e foi feito: `npm ci`, `npm run typecheck` limpo, e os contratos
+`tab-bar-clearance`, `contrast`, `identity-palette` e `pixel-screen-geometry` passando na base
+`e184be4`.
