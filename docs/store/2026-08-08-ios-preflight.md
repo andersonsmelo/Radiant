@@ -125,7 +125,7 @@ O App Store Connect foi consultado novamente e continuava em **Aguardando
 revisão**, com a build `1.3.1 (7)` e liberação manual. Nenhuma ação de loja foi
 executada nessa leitura. Esta folha continua sendo o registro da submissão de
 08/08; o estado corrente pertence ao
-[`status canônico`](../EXECUTION_STATUS_2026-08-09.md).
+[`status canônico`](../archive/EXECUTION_STATUS_2026-08-09.md).
 
 ## O que falta para lançar no iOS, em ordem
 

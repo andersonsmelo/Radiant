@@ -2,7 +2,7 @@
 
 **Para:** a próxima IA que pegar este repositório
 **De:** sessão de 2026-08-14 (Claude, via Loop)
-**Estado canônico:** [`EXECUTION_STATUS_2026-08-14.md`](../EXECUTION_STATUS_2026-08-14.md)
+**Estado canônico:** [`archive/EXECUTION_STATUS_2026-08-14.md`](../archive/EXECUTION_STATUS_2026-08-14.md)
 
 ---
 

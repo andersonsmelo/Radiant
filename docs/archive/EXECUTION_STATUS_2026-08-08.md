@@ -32,7 +32,7 @@ Estado do iOS, medido em 2026-08-08:
 | Estado Apple | **Aguardando revisão** desde 12:05 BRT; depois da aprovação, liberação manual |
 
 Folha de transcrição campo a campo, com evidência por linha:
-[`2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
+[`2026-08-08-ios-preflight.md`](../store/2026-08-08-ios-preflight.md).
 
 **A E3 estava errada sobre o que declarar.** Ela manda "declarar Sentry (crash
 data)". Medido: o Sentry **não roda em produção**. `bootstrap.ts:10` exige
@@ -176,7 +176,7 @@ títulos novos, e são load-bearing para id de nó.
 ## Uma armadilha nova de fechamento, a oitava
 
 `context.excludes` **não isenta do guarda de escopo**. Custou um run em
-`needs_human` e está registrada no [`AGENTS.md`](../AGENTS.md): o `excludes`
+`needs_human` e está registrada no [`AGENTS.md`](../../AGENTS.md): o `excludes`
 decide o que entra no **contexto**; o guarda compara o **repositório inteiro**
 contra a baseline. Nem ele nem o `.gitignore` protegem. Só `--files` protege —
 declare até subproduto local fora do índice.

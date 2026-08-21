@@ -41,7 +41,7 @@ conferida nos binários instalados dos dois lados. Isso fechou o item 3 dos
 bloqueadores e a defasagem de 11 commits entre a evidência e o HEAD.
 
 Detalhe em
-[`2026-08-03-e2e-producao-rating-prompt.md`](../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
+[`2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
 
 **A prova de que a build rodou sob produção não veio de `strings` no bundle** — ele
 é Hermes e a tabela de literais não distingue a inlinada. Veio do aparelho:
@@ -58,7 +58,7 @@ inicializador de `cohort.installDate`, e o reset de backoff de push.
 Consequências medidas: `RatingPromptService` e `PaywallService` travados em
 `insufficient_sessions`, o paywall somando `missing_install_date`, e retenção
 D1/D7 sem base. Três documentos afirmavam o evento como emitido, inclusive o
-[contrato legal de telemetria](legal/CONTRATO_TELEMETRIA.md) — a divergência foi
+[contrato legal de telemetria](../legal/CONTRATO_TELEMETRIA.md) — a divergência foi
 de **completude no sentido seguro**: coletou-se menos do que o anunciado, nunca
 mais.
 
@@ -242,7 +242,7 @@ cancelar ou redisparar. **Isso mudou em 2026-08-06: o item 2 fechou (B4) e a F1
 perdeu o último bloqueio de evidência** — resta a ação humana no console,
 `Adicionar para revisão`, que é a F4.
 Relatório completo em
-[`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
+[`2026-08-05-testflight-1.3.1-build-5-iphone.md`](../../radiant-app/docs/evidence/2026-08-05-testflight-1.3.1-build-5-iphone.md).
 
 **Gate 2 APROVADO (5/5) em 2026-08-06, e a F1 perdeu o último bloqueio.** O
 item 2 fechou no mesmo dia do item 1, **com ressalva escrita**: nome, função,
@@ -252,7 +252,7 @@ dica e desabilitado foram ouvidos em controles reais — o CTA da home anunciou
 unitário do `AppButton`. É troca, não equivalência, e tem gatilho de
 reabertura: se `EXPO_PUBLIC_ENABLE_PAYWALL` for declarada em algum perfil, ou
 outro `AppButton` receber `loading`, o item volta à mesa
-([evidência](../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md)).
+([evidência](../../radiant-app/docs/evidence/2026-08-06-b4-voiceover-item2.md)).
 **Consequência operacional:** o lado iOS não tem mais pendência de evidência; o
 próximo passo da F1 é humano e é o `Adicionar para revisão` da F4.
 
@@ -264,7 +264,7 @@ disponível e bloqueado sobrevive à preferência — medida contra uma captura 
 base tirada **antes** de ligá-la, porque uma tela sóbria parece correta sozinha.
 Aprovados: itens 1, 3, 4 e 5. Aberto: só o item 2 (**B4**), que não fecha
 caminhando. Evidência em
-[`2026-08-06-b8-reduce-motion-iphone.md`](../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md);
+[`2026-08-06-b8-reduce-motion-iphone.md`](../../radiant-app/docs/evidence/2026-08-06-b8-reduce-motion-iphone.md);
 a **B8** está concluída. Resolver disputa de contabilidade medindo de novo saiu
 mais barato do que discuti-la.
 
@@ -346,9 +346,9 @@ dois grafos que ninguém sabia que eram dois** — o catálogo wave-1 (o que emb
 com nós `ai-lesson:` desde abril) e a taxonomia de competências (que o
 classificador mira, com planetas e estrelas em `planned`).
 
-- Desenho: [`specs/2026-08-06-producao-continua-de-aulas-design.md`](superpowers/specs/2026-08-06-producao-continua-de-aulas-design.md)
+- Desenho: [`specs/2026-08-06-producao-continua-de-aulas-design.md`](../superpowers/specs/2026-08-06-producao-continua-de-aulas-design.md)
 - Plano e **estado da execução tarefa a tarefa**:
-  [`plans/2026-08-06-producao-continua-de-aulas.md`](superpowers/plans/2026-08-06-producao-continua-de-aulas.md)
+  [`plans/2026-08-06-producao-continua-de-aulas.md`](../superpowers/plans/2026-08-06-producao-continua-de-aulas.md)
 
 Concluídas as tarefas 0 a 3 e a 2.5; a **Task 4 está reprovada na revisão** com
 dois achados Críticos, e as tarefas 5 a 8 não começaram. Quem retomar deve ler a
@@ -391,7 +391,7 @@ dois relógios; só o segundo é lido pela próxima sessão.
 1. **F2** — opt-ins do closed test. 14 vinculadas, 2 participando; faltam ≥10
    para o piso de 12, e só aí começam os 14 dias. **Vínculo não é adesão.**
    Caminho crítico; nenhum trabalho de engenharia o encurta.
-2. **D1** — [`ADR-2026-08-04`](adr/ADR-2026-08-04-estrategia-da-api.md) escrito,
+2. **D1** — [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md) escrito,
    aguardando a linha do decisor. Recomenda decidir **antes da E3**, porque
    contas mudam privacy labels e Data safety.
 3. **A5** — resta gerar a service-account key. `radiant-app/credentials/` está
@@ -404,12 +404,12 @@ dois relógios; só o segundo é lido pela próxima sessão.
    antes de o botão desmontar. Mesma classe da B0. **Decisão pendente do dono**
    entre fechar o item pelo contrato unitário ou construir o harness na tela de
    dev-tools (recomendado); as três saídas estão em
-   [`ACCESSIBILITY_QA_V1.md`](../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+   [`ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
    **C4/C5**, **E3** e o lado Play de **E4** exigem humano ou hardware.
 5. **B5** — **iOS executado e `passed` em 2026-08-06**: 170 passos, 0 falhas,
    build local Release `e2e-test` no simulador, com `13 de 14` → `14 de 14`
    marcos na coleta e chegada pelo caminho do produto
-   ([evidência](../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md)).
+   ([evidência](../../radiant-app/docs/evidence/2026-08-06-b5-reward-unlock-ios.md)).
    O deep link já cobria a tela e o estado bloqueado; o que faltava era a regra,
    e ela agora está provada num lado.
 

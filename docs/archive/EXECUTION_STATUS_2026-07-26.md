@@ -26,7 +26,7 @@ Os três eram invisíveis em screenshot e nenhum seria pego por revisão visual:
 2. **Glifos de ícone anunciados como caractere ilegível.** Fontes de ícone usam codepoints de uso privado. Todo `MaterialIcons` passa por `DecorativeIcon`, fora da árvore de acessibilidade.
 3. **Caminho de rota vazando no header.** Rota não declarada na Stack raiz caía no header nativo, exibindo `onboarding/index` e `(tabs)` na tela e no VoiceOver. A Stack raiz passa a esconder header por padrão.
 
-Evidência e método: [`radiant-app/docs/evidence/2026-07-26-device-e2e-followup.md`](../radiant-app/docs/evidence/2026-07-26-device-e2e-followup.md) e [`radiant-app/docs/evidence/2026-07-26-accessibility-gate2.md`](../radiant-app/docs/evidence/2026-07-26-accessibility-gate2.md).
+Evidência e método: [`radiant-app/docs/evidence/2026-07-26-device-e2e-followup.md`](../../radiant-app/docs/evidence/2026-07-26-device-e2e-followup.md) e [`radiant-app/docs/evidence/2026-07-26-accessibility-gate2.md`](../../radiant-app/docs/evidence/2026-07-26-accessibility-gate2.md).
 
 ## Verificações nesta data
 

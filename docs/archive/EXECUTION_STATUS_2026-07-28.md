@@ -36,7 +36,7 @@ entrega de sistema de design.
 
 | # | Commit | Data | Frente |
 | --- | --- | --- | --- |
-| 1 | `e6bcf9d` | 2026-07-27 | Identidade visual única galaxy dark — ver [ADR da identidade galaxy dark](adr/ADR-2026-07-27-identidade-visual-galaxy-dark.md). |
+| 1 | `e6bcf9d` | 2026-07-27 | Identidade visual única galaxy dark — ver [ADR da identidade galaxy dark](../adr/ADR-2026-07-27-identidade-visual-galaxy-dark.md). |
 | 2 | `fb1af1f` | 2026-07-27 | Gamificação com dados reais: fim das missões, do relógio e do XP fake — os números vêm do progresso real. |
 | 3 | `94a28e4` | 2026-07-27 | Copy pt-BR unificada e voz humana em todo o app. |
 | 4 | `fd00891` | 2026-07-28 | Escala tipográfica única na Sora + contraste WCAG AA, travado em `radiant-app/scripts/contrast-contract.test.mjs` (ligado ao `npm run quality`). |
@@ -53,7 +53,7 @@ auditorias está na seção "Próxima sequência sugerida".
 
 ### 2. Versionamento congelado na 1.3.0 (D5)
 
-A [ADR da home de produção](adr/ADR-2026-07-27-learning-road-como-home.md) fixa a
+A [ADR da home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md) fixa a
 Learning Road como home oficial da v1.3, e o trabalho de design acima justifica o
 incremento de minor. `radiant-app/package.json` e `radiant-app/app.json`
 passaram de **1.2.1 para 1.3.0**, alinhados entre si (a linha canônica de versão
@@ -65,7 +65,7 @@ A política de `runtimeVersion` continua `appVersion` — a runtime passa a ser
 `1.3.0` junto com a versão. **Nenhum build foi publicado ainda**, então esta
 mudança de versão ainda é livre; a partir do primeiro build de F1/F2 ela deixa de
 ser (alerta de OTA/runtime do roadmap). Com isso a task **D5** do
-[roadmap de lançamento](plans/2026-07-27-radiant-launch-roadmap.md) fica atendida
+[roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md) fica atendida
 na parte de manifesto; a documentação da política de `runtimeVersion` já existia
 no roadmap e no checklist de release.
 
@@ -78,8 +78,8 @@ no roadmap e no checklist de release.
 | contrato de documentação | PASS | executado a cada run — desde 2026-07-28 o validador roda também `docs-contract.test.mjs`, a guarda que exige o status mais novo entre os documentos governados |
 | validadores do Loop | PASS | 9 de 9 no run desta data |
 | smoke público da API | FAIL esperado | `/health` e `/ready` em HTTP 502 (sem reexecução nesta data; estado inalterado) |
-| E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
-| E2E em device (Android, emulador, APK Release) | PASS | **3/3** — `3/3 Flows Passed in 11m 48s` (2026-07-29). Fechado corrigindo dois defeitos de E2E (seletor de aba ancorado `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e uma causa ambiental (sim iOS + emulador Android esgotavam a RAM do host de 16GB). iOS reconfirmado 3/3 sobre os mesmos flows. Evidência em [`docs/evidence/2026-07-29-android-e2e-close.md`](../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md) |
+| E2E em device (iOS sim, build Release local) | PASS | `3/3 Flows Passed in 6m 52s` — boot-to-home, learning-critical-path e offline-relaunch na mesma execução, sobre build Release com bundle embutido (sem dev client, sem Metro). Fecha **B0.1** para iOS. Receita de build e as duas execuções do dia em [`docs/evidence/2026-07-28-e2e-local-release.md`](../../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md) |
+| E2E em device (Android, emulador, APK Release) | PASS | **3/3** — `3/3 Flows Passed in 11m 48s` (2026-07-29). Fechado corrigindo dois defeitos de E2E (seletor de aba ancorado `^Progresso(, tab.*)?$`; lift-scroll nos CTAs oclusos pela tab bar flutuante) e uma causa ambiental (sim iOS + emulador Android esgotavam a RAM do host de 16GB). iOS reconfirmado 3/3 sobre os mesmos flows. Evidência em [`docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md) |
 
 ## Bloqueios do app
 
@@ -87,7 +87,7 @@ Dois mudaram nesta data: o E2E de iOS fechou (item 2) e o Android saiu de "sem
 projeto nativo" para `app-failed`, trazendo junto um bloqueio novo (item 4). O
 detalhe dos demais está no
 [status de 07-27](EXECUTION_STATUS_2026-07-27.md) e no
-[roadmap de lançamento](plans/2026-07-27-radiant-launch-roadmap.md):
+[roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md):
 
 1. **Gate 2 sem aprovação.** Resta o item 2 (anúncio único no VoiceOver, exige
    sessão humana com áudio — task B4). Os itens 1, 3, 4 e 5 têm evidência.
@@ -99,7 +99,7 @@ detalhe dos demais está no
    primeira execução do dia falhou 1/3 por asserção obsoleta em inglês no
    `learning-critical-path` — deriva EN→pt-BR do commit `fb1af1f`, corrigida com
    uma guarda de contrato ancorada na fonte da tela. Evidência em
-   [`docs/evidence/2026-07-28-e2e-local-release.md`](../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
+   [`docs/evidence/2026-07-28-e2e-local-release.md`](../../radiant-app/docs/evidence/2026-07-28-e2e-local-release.md).
    **Android rodou pela primeira vez nesta data e ficou `app-failed`** (item 3).
 3. ~~**Android `app-failed`**~~ — **resolvido em 2026-07-29: Android `passed`, 3/3.**
    Após o prebuild/APK Release de 2026-07-28 (que deu 2/3), o fechamento exigiu dois
@@ -110,7 +110,7 @@ detalhe dos demais está no
    Android esgotavam a RAM do host de 16GB; rodar uma plataforma por vez). `3/3 Flows
    Passed in 11m 48s`; iOS reconfirmado 3/3. Ambas as regressões travadas em
    `maestro-contract.test.mjs`. Evidência em
-   [`docs/evidence/2026-07-29-android-e2e-close.md`](../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
+   [`docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
 4. ~~**Dois defeitos de ícone só no Android**~~ — **corrigidos em 2026-07-28 e
    verificados em device.** Em `components/ui/icon-symbol.tsx`, o cast
    `as Record<SymbolViewProps['name'], ...>` alargava as chaves aceitas para
@@ -307,16 +307,16 @@ validador `docs-contract` do Loop passa a rodar o teste antes do contrato.
 
 Além disso, três ponteiros canônicos ainda apontavam para 07-27 e passaram a
 apontar para 07-28: `docs/README.md`, o cabeçalho e a seção "Onde estamos hoje"
-do [roadmap de lançamento](plans/2026-07-27-radiant-launch-roadmap.md), e
+do [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md), e
 `context.includes` do `.loop/project.yaml` — este último decidia que status as
 próximas sessões de IA leriam como verdade.
 
 As quatro entregas desta data também foram registradas no
-[CHANGELOG do app](../radiant-app/docs/CHANGELOG.md), que não as tinha.
+[CHANGELOG do app](../../radiant-app/docs/CHANGELOG.md), que não as tinha.
 
 ## Coordenação entre múltiplas IAs
 
-Contrato de sinalização em [`AGENTS.md`](../AGENTS.md), seção "Coordenação
+Contrato de sinalização em [`AGENTS.md`](../../AGENTS.md), seção "Coordenação
 multi-IA": antes de começar, checar o que já foi feito; ao terminar, sinalizar no
 mesmo run que entrega o trabalho. Trabalho não sinalizado é tratado como não
 feito pelas próximas sessões.

@@ -73,7 +73,7 @@ O scanner visual não declara a dívida como resolvida: `npm run visual:qa -- --
 
 ## Próxima sequência autorizada
 
-1. Instalar/autorizar um ambiente Maestro e executar os três fluxos em simulador iOS e emulador Android, registrando a matriz em [`radiant-app/docs/E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
-2. Executar o checklist manual de acessibilidade em [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
+1. Instalar/autorizar um ambiente Maestro e executar os três fluxos em simulador iOS e emulador Android, registrando a matriz em [`radiant-app/docs/E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
+2. Executar o checklist manual de acessibilidade em [`radiant-app/docs/ACCESSIBILITY_QA_V1.md`](../../radiant-app/docs/ACCESSIBILITY_QA_V1.md).
 3. Preparar o handoff Figma e a governança do design system a partir dos tokens e histórias já entregues.
 4. Só então iniciar pesquisa com usuários, experimento Rive e qualquer decisão de infraestrutura remota.

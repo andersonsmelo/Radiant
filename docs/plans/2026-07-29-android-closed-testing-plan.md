@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo, focado. Complementa (não substitui) o
 > [roadmap de lançamento 2026-07-27](2026-07-27-radiant-launch-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-07-29.md). Este documento recorta a
+> [status canônico](../archive/EXECUTION_STATUS_2026-07-29.md). Este documento recorta a
 > **fatia Android** do roadmap e a sequencia para um único objetivo: subir o
 > primeiro build ao closed testing do Play e iniciar o relógio de 14 dias.
 

@@ -16,7 +16,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | Sistema educacional v2 | H3 encerrada por aceitação do dono, preservando a coorte histórica `inconclusive`; H4 integrada à `main` com `ProductionBatchV1`, 12 atividades e checkpoint real; gate em aparelho ainda aberto e produção `off` |
 
 O estado operacional completo e os bloqueios vigentes estão em
-[`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md).
+[`docs/STATUS.md`](docs/STATUS.md).
 
 ## Evolução educacional
 
@@ -88,8 +88,7 @@ bloquear o estudo.
 - mapa e precedência: [`docs/README.md`](docs/README.md)
 - requisitos de produto: [`docs/PRD.md`](docs/PRD.md)
 - arquitetura vigente: [`docs/ARCHITECTURE_STATE.md`](docs/ARCHITECTURE_STATE.md)
-- status operacional: [`docs/EXECUTION_STATUS_2026-08-13.md`](docs/EXECUTION_STATUS_2026-08-13.md)
-- continuidade: [`docs/CONTINUIDADE_2026-08-13.md`](docs/CONTINUIDADE_2026-08-13.md)
+- status operacional e continuidade: [`docs/STATUS.md`](docs/STATUS.md)
 - roadmap ativo: [`docs/plans/2026-07-27-radiant-launch-roadmap.md`](docs/plans/2026-07-27-radiant-launch-roadmap.md)
 - pipeline editorial: [`docs/CONTENT_PIPELINE.md`](docs/CONTENT_PIPELINE.md)
 - decisão educacional: [`docs/adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](docs/adr/ADR-2026-07-31-aprendizagem-por-competencias.md)

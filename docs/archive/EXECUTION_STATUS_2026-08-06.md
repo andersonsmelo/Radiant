@@ -22,7 +22,7 @@ foi tocado por este trabalho.
 ## Produção contínua de aulas — as nove tarefas fecharam, a fiação não
 
 Todas as tarefas do plano
-[`2026-08-06-producao-continua-de-aulas.md`](superpowers/plans/2026-08-06-producao-continua-de-aulas.md)
+[`2026-08-06-producao-continua-de-aulas.md`](../superpowers/plans/2026-08-06-producao-continua-de-aulas.md)
 estão mescladas em `codex/wave1-hardening-api-smoke`. Cada linha abaixo foi
 conferida com `git show`, não inferida:
 
@@ -220,7 +220,7 @@ E encontrou um defeito **que a onda introduziu**, verificado de novo aqui contra
 o código antes de ser escrito nesta página:
 
 **Importante — pagamento repetível de XP em nó recusado.**
-[`LessonFlowScreen.tsx:158`](../radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx)
+[`LessonFlowScreen.tsx:158`](../../radiant-app/src/features/lesson-flow/screens/LessonFlowScreen.tsx)
 chama `LessonOutcomeService.recordCompletion` **antes** de `markNodeCompleted`.
 O pagamento é decidido por `rewarded = !completedNodeIds.includes(nodeId)`
 (`LessonOutcomeService.resolveNode`) e `GamificationService.recordQuizCompletion`
@@ -253,7 +253,7 @@ registro da tentativa continuam acontecendo na recusa, porque recusar o
 pagamento não é recusar a informação.
 
 **Menor — celebração em conclusão recusada.**
-[`CheckpointScreen.tsx:163`](../radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx)
+[`CheckpointScreen.tsx:163`](../../radiant-app/src/features/checkpoint/screens/CheckpointScreen.tsx)
 chamava `setCompleted(true)` incondicionalmente depois do serviço, então um
 checkpoint recusado ainda exibia "CONQUISTA DESBLOQUEADA". Só por deep link, sem
 dano a dado. Antes da correção a celebração era verdadeira porque a escrita

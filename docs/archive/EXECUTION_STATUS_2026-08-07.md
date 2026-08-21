@@ -190,8 +190,8 @@ validar. O último elo é o que o `loop validate` executa a cada run, como
 node scripts/content/validate-content-anchoring.mjs
 ```
 
-- Spec: [`docs/superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md`](superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md)
-- Plano: [`docs/superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md`](superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md)
+- Spec: [`docs/superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md`](../superpowers/specs/2026-08-07-fiacao-cadeia-conteudo-design.md)
+- Plano: [`docs/superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md`](../superpowers/plans/2026-08-07-fiacao-cadeia-conteudo.md)
 
 ### As decisões que fecharam o desenho
 
@@ -371,7 +371,7 @@ validadores com `passed`, o novo entre eles.
 
 **A seção abaixo descreve o problema como ele foi diagnosticado, e ela está
 correta no diagnóstico e errada na conclusão.** O item foi fechado no mesmo dia
-pelo [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
+pelo [ADR de proveniência sem citação](../adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
 e o motivo é que a premissa da pergunta nunca tinha sido verificada: **a cadeia
 não embarca verbatim em lugar nenhum.** `manifest.jsonl` guarda ponteiro e hash,
 `.anchored.json` guarda claim original mais ponteiro e hash, e o texto das fontes
@@ -484,10 +484,10 @@ lista.
   engenharia o encurta.
 - **A5** — gerar a service-account key no Play Console.
 - **Enviar o pedido de autorização ao INCA.** Rascunho pronto em
-  [`docs/content/2026-08-07-pedido-de-autorizacao-inca.md`](content/2026-08-07-pedido-de-autorizacao-inca.md),
+  [`docs/content/2026-08-07-pedido-de-autorizacao-inca.md`](../content/2026-08-07-pedido-de-autorizacao-inca.md),
   com o destinatário deliberadamente em branco — o canal precisa ser conferido
   no site do Instituto antes. **Não bloqueia nada**, por decisão registrada no
-  [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md);
+  [ADR de proveniência sem citação](../adr/ADR-2026-08-07-proveniencia-sem-citacao.md);
   converte incerteza futura em documento arquivado, por um e-mail.
 - **Enviar os commits da branch `codex/wave1-hardening-api-smoke`.** Conte com
   `git log --oneline '@{upstream}..HEAD'` — e note que este documento **não**
@@ -501,7 +501,7 @@ lista.
 **Engenharia, com host ou janela:**
 
 - **Implantar o catálogo remoto — a D1 virou trabalho.** Decidida a **opção B**
-  em 2026-08-07 ([`ADR-2026-08-04`](adr/ADR-2026-08-04-estrategia-da-api.md)):
+  em 2026-08-07 ([`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md)):
   sobem `/health`, `/ready` e `/v1/content/catalog`; não sobem contas nem sync.
   **Nada foi implantado** — o domínio segue em 502. A superfície não exige banco
   nem estado: são três GETs essencialmente estáticos, e o fallback para o
@@ -538,7 +538,7 @@ lista.
 **Fechados em 2026-08-07, que estavam nesta lista:**
 
 - ~~**D1** — a linha do decisor no ADR da estratégia de API~~ — **decidida:
-  opção B, só catálogo remoto.** O [`ADR-2026-08-04`](adr/ADR-2026-08-04-estrategia-da-api.md)
+  opção B, só catálogo remoto.** O [`ADR-2026-08-04`](../adr/ADR-2026-08-04-estrategia-da-api.md)
   saiu de rascunho e está assinado. Três medições feitas na hora de instruir a
   decisão mudaram o peso que o próprio ADR dava às opções, e estão registradas
   nele: o fallback para o catálogo embarcado **já existe** em
@@ -610,7 +610,7 @@ lista.
 - ~~O eixo comercial dos direitos~~ — era a decisão de maior alcance da lista e
   **caiu por premissa falsa**: a cadeia não embarca verbatim, e a decisão pedida
   era sobre uma capacidade que o sistema não exerce. Fechado pelo
-  [ADR de proveniência sem citação](adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
+  [ADR de proveniência sem citação](../adr/ADR-2026-08-07-proveniencia-sem-citacao.md),
   com o código passando a ler `allowedUses`, o não-vazamento virando gate
   (`content-no-verbatim`) e os termos das duas obras do INCA conferidos contra a
   página de direitos dos PDFs. **A lição custa registro:** um item pendente

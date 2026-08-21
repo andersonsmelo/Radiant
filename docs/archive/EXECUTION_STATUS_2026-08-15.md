@@ -373,8 +373,8 @@ continuam sendo a condição de integração em `main`.
 
 ## Documentos desta passagem
 
-- Spec: [`superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md`](superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md)
-- Plano: [`superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md`](superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md)
+- Spec: [`superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md`](../superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md)
+- Plano: [`superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md`](../superpowers/plans/2026-08-14-atividade-e-fim-de-licao.md)
 
 ---
 
@@ -402,12 +402,12 @@ a premissa corrigida e a direção da trilha contínua dada pelo dono, a Galáxi
 absorvida, e o `ADR-2026-08-13` foi superado.
 
 Viraram duas ADRs:
-[topologia](adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
-[liga](adr/ADR-2026-08-15-liga-como-metrica-local.md). A spec do sub-projeto 2 está em
-[`superpowers/specs/2026-08-15-topologia-navegacao-design.md`](superpowers/specs/2026-08-15-topologia-navegacao-design.md).
+[topologia](../adr/ADR-2026-08-15-topologia-de-navegacao-estude-e-perfil.md) e
+[liga](../adr/ADR-2026-08-15-liga-como-metrica-local.md). A spec do sub-projeto 2 está em
+[`superpowers/specs/2026-08-15-topologia-navegacao-design.md`](../superpowers/specs/2026-08-15-topologia-navegacao-design.md).
 
 **Tudo isso foi aprovado pelo dono em 2026-08-15**, e a spec virou
-[plano de implementação](superpowers/plans/2026-08-15-topologia-navegacao.md): 18 tarefas em
+[plano de implementação](../superpowers/plans/2026-08-15-topologia-navegacao.md): 18 tarefas em
 quatro fases, cada fase um PR.
 
 ## Execução — 6 das 18 tarefas

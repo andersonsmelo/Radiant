@@ -6,7 +6,7 @@
 >
 > **O que ele não é:** não é status, não é checklist e não substitui plano de
 > execução nenhum. Se você quer saber *como está* alguma coisa, o
-> [status canônico](../EXECUTION_STATUS_2026-08-09.md) é a autoridade; se quer
+> [status canônico](../archive/EXECUTION_STATUS_2026-08-09.md) é a autoridade; se quer
 > saber *como fazer* uma task, o plano de execução da frente é a autoridade.
 >
 > **Por que a separação é dura.** Este repositório já perdeu tempo três vezes com

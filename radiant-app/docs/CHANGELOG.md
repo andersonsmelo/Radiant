@@ -43,11 +43,11 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 - **2,9 MB de assets mortos e superdimensionados** — `src/ui/characters/assets/lux/` (6 PNGs idênticos, README declarando-a legada, zero referências no código) apagada, e `pixel_core.png` reexportado de 1024×1536 (2,2 MB) para 576×864 (257 KB), que é o maior tamanho que o app consegue pintar (`PIXEL_SIZE_MAP.lg` 176pt × `imageScale` 1,06 × 3). O registry `PIXEL_DEDICATED_ASSETS`, onde arte dedicada entra, ficou intacto (`8b0dfe9`)
 
 ### Documentação
-- Estado operacional promovido para [`docs/EXECUTION_STATUS_2026-08-09.md`](../../docs/EXECUTION_STATUS_2026-08-09.md), com primeira vitória, App Review reconfirmada, gargalo de direitos e hardening do agendador; READMEs, fluxo do cliente, roadmaps, fila, checklist e runbooks reconciliados no mesmo dia
+- Estado operacional promovido para [`docs/archive/EXECUTION_STATUS_2026-08-09.md`](../../docs/archive/EXECUTION_STATUS_2026-08-09.md), com primeira vitória, App Review reconfirmada, gargalo de direitos e hardening do agendador; READMEs, fluxo do cliente, roadmaps, fila, checklist e runbooks reconciliados no mesmo dia
 - Roadmap de lançamento nas lojas com 6 marcos e ~35 tasks priorizadas, e requisitos de App Store e Google Play pesquisados em 2026-07-27
 - ADRs de contas de loja (Play pessoal, Apple individual) e da home de produção
 - Protocolo de coordenação multi-IA no `AGENTS.md`
-- Status canônico promovido para [`docs/EXECUTION_STATUS_2026-07-27.md`](../../docs/EXECUTION_STATUS_2026-07-27.md) e, em 2026-07-28, para [`docs/EXECUTION_STATUS_2026-07-28.md`](../../docs/EXECUTION_STATUS_2026-07-28.md)
+- Status canônico promovido para [`docs/archive/EXECUTION_STATUS_2026-07-27.md`](../../docs/archive/EXECUTION_STATUS_2026-07-27.md) e, em 2026-07-28, para [`docs/archive/EXECUTION_STATUS_2026-07-28.md`](../../docs/archive/EXECUTION_STATUS_2026-07-28.md)
 - **Ponteiros canônicos e a guarda que os vigia** — `docs/README.md`, o roadmap de lançamento e `context.includes` do `.loop/project.yaml` ainda apontavam para o snapshot de 07-27. Pior: `scripts/qa/docs-contract.mjs` governava o documento aposentado, então o contrato de documentação validava o status **antigo** desde que o de 07-28 nasceu. Existia teste para exatamente isso (`docs-contract.test.mjs`, "governs the newest execution status"), vermelho e sem executor — agora ligado ao validador `docs-contract`
 
 > A versão `1.2.1` alinhou `package.json` e `app.json` em 2026-07-26 sem entrada própria neste changelog; as correções acima ainda não foram versionadas.

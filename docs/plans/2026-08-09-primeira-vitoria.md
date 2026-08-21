@@ -132,7 +132,7 @@ Esperado: PASS.
 ### Task 4: Reconciliar estado e instruções
 
 **Files:**
-- Create: `docs/EXECUTION_STATUS_2026-08-09.md`
+- Create: `docs/archive/EXECUTION_STATUS_2026-08-09.md`
 - Modify: `docs/plans/2026-07-27-radiant-launch-roadmap.md`
 - Modify: `README.md`
 - Modify: `docs/README.md`
@@ -145,7 +145,7 @@ Esperado: PASS.
 
 **Step 1: Criar o status canônico**
 
-Declarar que o arquivo substitui `EXECUTION_STATUS_2026-08-08.md`. Preservar os
+Declarar que o arquivo substitui `archive/EXECUTION_STATUS_2026-08-08.md`. Preservar os
 bloqueios Apple/Play, mídia/direitos, API e device. Registrar a entrega e separar
 testes locais de eventual execução Maestro.
 

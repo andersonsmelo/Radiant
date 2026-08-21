@@ -4,7 +4,7 @@
 **Decisor:** Anderson (proprietário do projeto)
 **Contexto de origem:** pendência herdada da sessão de 2026-07-30, levantada ao
 fechar o laço de gamificação (§4, ressalva 1 do
-[status canônico](../EXECUTION_STATUS_2026-07-29.md))
+[status canônico](../archive/EXECUTION_STATUS_2026-07-29.md))
 
 ## Contexto
 

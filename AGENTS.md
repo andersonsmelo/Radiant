@@ -17,9 +17,11 @@ toda sessão de IA segue este contrato:
 
 ### Antes de começar qualquer tarefa
 
-1. Leia o status canônico mais recente (`docs/EXECUTION_STATUS_*.md` de data
-   mais nova) e o roadmap ativo
-   (`docs/plans/2026-07-27-radiant-launch-roadmap.md`).
+1. Leia [`docs/STATUS.md`](docs/STATUS.md) — o **único** documento de estado
+   vivo — e o roadmap ativo
+   (`docs/plans/2026-07-27-radiant-launch-roadmap.md`). Não procure o
+   `EXECUTION_STATUS_*` de data mais nova: eles estão em `docs/archive/` e são
+   histórico, não estado.
 2. Abra uma sessão de leitura do cérebro (`loop brain session start`) e
    consulte o contexto da tarefa antes de decidir o que fazer.
 3. Verifique se a tarefa já foi feita ou está em andamento: `git log` recente,
@@ -130,9 +132,11 @@ toda sessão de IA segue este contrato:
      `node -e "const { brainSessionStart } = await import('<loop>/dist/src/brain-engine.js'); ..."`.
 2. Marque no roadmap a task executada (como feito com A1) no mesmo run que
    entrega o trabalho, para que a próxima IA veja o estado sem arqueologia.
-3. Mudanças de estado operacional (gates, versões, bloqueios) pertencem ao
-   status canônico: crie ou atualize `docs/EXECUTION_STATUS_<data>.md` quando
-   um marco fechar, e diga qual documento ele substitui.
+3. Mudanças de estado operacional (gates, versões, bloqueios) **editam**
+   `docs/STATUS.md`. **Não crie `docs/EXECUTION_STATUS_<data>.md`.** Um arquivo
+   novo por sessão foi o que produziu 21 documentos de estado concorrentes, com
+   três consumidores apontando para fotos diferentes. Toda afirmação de estado
+   carrega a data em que foi medida, dentro do texto — não no nome do arquivo.
 4. Decisões de produto/arquitetura viram ADR em `docs/adr/` com data e
    decisor; o cérebro recebe a decisão pelo canal de memória do run.
 5. Ao encerrar a conversa, feche a sessão do cérebro

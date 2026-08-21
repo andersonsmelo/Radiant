@@ -54,7 +54,7 @@ pedia. Sob ele, aquela coorte sai `inconclusive` e o relatório sai
 `passed: false`, então **o verde não existe mais para ser promovido por engano**.
 
 **E então a métrica trocou** (`run-1786392781118-5b1f744b`, com
-[desenho aprovado pelo dono](superpowers/specs/2026-08-10-marca-de-primeiro-frame-design.md)).
+[desenho aprovado pelo dono](../superpowers/specs/2026-08-10-marca-de-primeiro-frame-design.md)).
 `cold_start` mede a duração do `launchApp` do Maestro, que num Dev Client termina no
 launcher, antes de o bundle JS existir — o kernel é JavaScript e não vive nessa
 janela, então nem um verde conclusivo diria muito sobre ele. Entrou **`first_frame`**:
@@ -151,7 +151,7 @@ duas condições estavam fundidas numa frase, e a mais forte era a errada
 (`run-1786384165251-d65b7a00`).
 
 Evidência completa:
-[`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+[`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
 
 ## Correção de versão que atravessava quatro documentos
 
@@ -217,7 +217,7 @@ seguem pendentes.
 ## Primeira execução do gate H3 — coortes rodadas, gate reprovado
 
 Run `run-1786354337237-662c1d8d`. Evidência completa:
-[`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
+[`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../../radiant-app/docs/evidence/2026-08-10-wave-4-student-checkpoint-h3-gate.md).
 
 **O gate não estava executável, e isso é a descoberta principal.** Três defeitos
 do instrumento foram medidos antes de existir a primeira amostra válida:

@@ -20,7 +20,7 @@
 
 1. A **evidência em device** foi registrada como bloqueada por ausência de JDK no
    host. O bloqueio **não existia** — ver §4 do
-   [status canônico](../../EXECUTION_STATUS_2026-07-29.md).
+   [status canônico](../../archive/EXECUTION_STATUS_2026-07-29.md).
 2. A captura que provou o conserto expôs, na **mesma tela**, os cards `PRECISÃO`
    e `TÓPICOS` com a mesma classe de defeito que este plano corrigiu — leitor sem
    dado por trás. Corrigido em `233f4b0`, fora do escopo desta spec. A lição:
@@ -802,7 +802,7 @@ git commit -m "feat(lesson-flow): tela registra conclusao antes de marcar o no"
 ### Task 4: Sinalizar o estado e medir a vitrine em device
 
 **Files:**
-- Modify: `docs/EXECUTION_STATUS_2026-07-29.md` (§4, ressalva 1)
+- Modify: `docs/archive/EXECUTION_STATUS_2026-07-29.md` (§4, ressalva 1)
 - Modify: `docs/superpowers/specs/2026-07-29-laco-xp-revisoes-design.md` (campo **Status:** do cabeçalho)
 
 **Interfaces:** nenhuma — task de sinalização e evidência.
@@ -846,6 +846,6 @@ Run: `loop validate --run <run-id>` e, com verde, `loop step finish`, `loop memo
 - [ ] **Step 5: Commit**
 
 ```bash
-git add docs/EXECUTION_STATUS_2026-07-29.md docs/superpowers/specs/2026-07-29-laco-xp-revisoes-design.md
+git add docs/archive/EXECUTION_STATUS_2026-07-29.md docs/superpowers/specs/2026-07-29-laco-xp-revisoes-design.md
 git commit -m "docs(status): laco de XP e revisoes ligado, com evidencia em device"
 ```

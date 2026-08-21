@@ -24,7 +24,7 @@ Commit: `a9846a2`.
 
 `ENABLE_LEARNING_ROAD` tinha default `false` e era ligada **apenas** no perfil `e2e-test` do `eas.json` e no `.env` local. Um build `preview` ou `production` renderizava a `HomeScreen` clássica, enquanto os três flows Maestro de 2026-07-26 exercitaram o `JourneyHomeScreen`.
 
-Decisão registrada em [ADR da home de produção](adr/ADR-2026-07-27-learning-road-como-home.md): a **Learning Road é a home oficial** e lança na v1.3. A flag passou a ser declarada em `development`, `preview` e `production`, e o default em `src/config.ts` mudou para `true` — declarar só nos perfis deixaria a mesma armadilha para builds fora do EAS.
+Decisão registrada em [ADR da home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md): a **Learning Road é a home oficial** e lança na v1.3. A flag passou a ser declarada em `development`, `preview` e `production`, e o default em `src/config.ts` mudou para `true` — declarar só nos perfis deixaria a mesma armadilha para builds fora do EAS.
 
 Com isso a evidência de E2E existente volta a corresponder ao caminho de produção, mas **ainda não foi reexecutada sob um perfil que reflita produção** (ver bloqueios).
 
@@ -55,22 +55,22 @@ Commit: `0bf3332`.
 ## Planejamento de lançamento
 
 O plano de lançamento nas lojas passou a existir nesta data:
-[`docs/plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md).
+[`docs/plans/2026-07-27-radiant-launch-roadmap.md`](../plans/2026-07-27-radiant-launch-roadmap.md).
 
 Ele define 6 marcos (M0 contas até M5 produção) e cerca de 35 tasks priorizadas em P0/P1/P2, com os requisitos externos pesquisados nesta data: target API 36 do Play até 31/08/2026 (já atendido pelo Expo SDK 54), teste fechado de 12 testadores por 14 dias para conta pessoal, SDK do iOS 26 obrigatório desde 28/04/2026 e verificação de desenvolvedor no Brasil a partir de 30/09/2026.
 
 Decisões registradas em ADR nesta data:
 
-- [contas de loja](adr/ADR-2026-07-27-store-account-strategy.md): Play pessoal e Apple individual;
-- [home de produção](adr/ADR-2026-07-27-learning-road-como-home.md): Learning Road.
+- [contas de loja](../adr/ADR-2026-07-27-store-account-strategy.md): Play pessoal e Apple individual;
+- [home de produção](../adr/ADR-2026-07-27-learning-road-como-home.md): Learning Road.
 
 ## Coordenação entre múltiplas IAs
 
-O projeto passou a ser trabalhado por várias IAs em sessões independentes. O contrato de sinalização está no [`AGENTS.md`](../AGENTS.md), seção "Coordenação multi-IA": antes de começar, checar o que já foi feito; ao terminar, sinalizar no mesmo run que entrega o trabalho. Trabalho não sinalizado é tratado como não feito pelas próximas sessões.
+O projeto passou a ser trabalhado por várias IAs em sessões independentes. O contrato de sinalização está no [`AGENTS.md`](../../AGENTS.md), seção "Coordenação multi-IA": antes de começar, checar o que já foi feito; ao terminar, sinalizar no mesmo run que entrega o trabalho. Trabalho não sinalizado é tratado como não feito pelas próximas sessões.
 
 ## Bloqueios do app
 
-1. **Gate 2 sem aprovação.** Item 5 (navegação por teclado) foi fechado em 2026-07-27 com a build web estática e verificação de teclado do fluxo crítico (ordem de foco, foco visível, ausência de armadilha, alvos ≥ 44px) — ver [evidência](../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md). Resta o item 2 (anúncio único no VoiceOver), que exige humano com áudio (task B4).
+1. **Gate 2 sem aprovação.** Item 5 (navegação por teclado) foi fechado em 2026-07-27 com a build web estática e verificação de teclado do fluxo crítico (ordem de foco, foco visível, ausência de armadilha, alvos ≥ 44px) — ver [evidência](../../radiant-app/docs/evidence/2026-07-27-accessibility-gate2-item5-keyboard.md). Resta o item 2 (anúncio único no VoiceOver), que exige humano com áudio (task B4).
 2. **E2E não reexecutado sob perfil de produção.** Os três flows precisam rodar sob `preview`, que agora reflete produção, para que a evidência de device valide o que será distribuído.
 3. **Android sem projeto nativo.** `expo prebuild` nunca foi executado; a matriz de smoke cobre só iOS.
 4. **Nó de reward sem cobertura E2E.** O track ativo vem do catálogo (7 lições) e a conquista só destrava após a última lição.

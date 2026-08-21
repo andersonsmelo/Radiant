@@ -81,7 +81,7 @@ as variáveis do perfil `e2e-test`. O `main.jsbundle` do artefato teve SHA-256
 
 As três árvores de acessibilidade e os screenshots sanitizados foram coletados
 fora do Git; o registro reprodutível está em
-[`radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md`](../radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md).
+[`radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md`](../../radiant-app/docs/evidence/2026-08-14-journey-p2-ios.md).
 
 ## Escopo do redesenho
 
@@ -201,7 +201,7 @@ nada mover o aluno ao concluir uma trilha.
 ## O que fica aberto
 
 Detalhado, com critérios de aceitação, em
-[`handoff/2026-08-14-brief-jornada-e-pendencias.md`](handoff/2026-08-14-brief-jornada-e-pendencias.md).
+[`handoff/2026-08-14-brief-jornada-e-pendencias.md`](../handoff/2026-08-14-brief-jornada-e-pendencias.md).
 
 Resumo: P1 e P2 fecharam. P3 e P4 foram explicitamente adiadas para o próximo
 planejamento; não há trabalho ativo remanescente nesta passagem.

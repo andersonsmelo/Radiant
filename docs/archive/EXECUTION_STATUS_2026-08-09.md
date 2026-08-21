@@ -45,10 +45,10 @@ aparelhos físicos.
 
 Design e execução:
 
-- [`2026-08-09-primeira-vitoria-design.md`](superpowers/specs/2026-08-09-primeira-vitoria-design.md)
-- [`2026-08-09-primeira-vitoria.md`](plans/2026-08-09-primeira-vitoria.md)
-- [`2026-08-09-primeira-vitoria-ios.md`](../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
-- [`2026-08-09-primeira-vitoria-android.md`](../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md)
+- [`2026-08-09-primeira-vitoria-design.md`](../superpowers/specs/2026-08-09-primeira-vitoria-design.md)
+- [`2026-08-09-primeira-vitoria.md`](../plans/2026-08-09-primeira-vitoria.md)
+- [`2026-08-09-primeira-vitoria-ios.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-ios.md)
+- [`2026-08-09-primeira-vitoria-android.md`](../../radiant-app/docs/evidence/2026-08-09-primeira-vitoria-android.md)
 
 ## Lojas
 
@@ -213,11 +213,11 @@ API/auth, conflitos e sink verificado.
 
 Documentos:
 
-- [`spec`](superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md);
-- [`plano`](superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md);
-- [`ADR`](adr/ADR-2026-08-09-kernel-de-checkpoints-e-loops-do-aluno.md);
-- [`privacidade`](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md);
-- [`runbook`](runbooks/student-checkpoint-rollout-rollback.md).
+- [`spec`](../superpowers/specs/2026-08-09-checkpoints-e-loops-do-aluno-design.md);
+- [`plano`](../superpowers/plans/2026-08-09-checkpoints-e-loops-do-aluno.md);
+- [`ADR`](../adr/ADR-2026-08-09-kernel-de-checkpoints-e-loops-do-aluno.md);
+- [`privacidade`](../STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md);
+- [`runbook`](../runbooks/student-checkpoint-rollout-rollback.md).
 
 ### Evidência Loop da Onda 1
 
@@ -286,7 +286,7 @@ Os intervalos testados demonstram deduplicação e retomada nesses limites; não
 são alegação irrestrita de “exactly once”. O status público do run Loop é a
 autoridade para `VALIDATION_PASSED`, `STEP_SUCCEEDED`, memória e fechamento
 finais. Evidência detalhada:
-[`2026-08-09-wave-2-student-checkpoint-foundation.md`](../radiant-app/docs/evidence/2026-08-09-wave-2-student-checkpoint-foundation.md).
+[`2026-08-09-wave-2-student-checkpoint-foundation.md`](../../radiant-app/docs/evidence/2026-08-09-wave-2-student-checkpoint-foundation.md).
 
 Não houve integração com telas, Task 12, sync remoto, build, OTA, binário,
 mudança de `1.3.1 (7)` ou publicação.
@@ -310,7 +310,7 @@ A matriz cobre entrada/saída, background, relaunch, deep link inválido,
 catálogo alterado, storage indisponível e navegação repetida, com divergência
 determinística nula nos casos executados e somente ids/códigos allowlisted.
 Evidência detalhada:
-[`2026-08-09-wave-3-student-checkpoint-shadow.md`](../radiant-app/docs/evidence/2026-08-09-wave-3-student-checkpoint-shadow.md).
+[`2026-08-09-wave-3-student-checkpoint-shadow.md`](../../radiant-app/docs/evidence/2026-08-09-wave-3-student-checkpoint-shadow.md).
 
 Não houve promoção para `active`, CTA de retomada, Task 12, sync remoto, build,
 OTA, binário, mudança de `1.3.1 (7)` ou publicação. O status público do run é a
@@ -332,7 +332,7 @@ foi instalado no AVD; a sessão foi encerrada antes das coortes. Permanecem
 pendentes mínimo de 20 execuções no mesmo aparelho/perfil,
 persistência p95 ≤75 ms, restauração p95 ≤100 ms, delta de cold start,
 VoiceOver/TalkBack e viewport curto. Evidência detalhada:
-[`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
+[`2026-08-09-wave-4-student-checkpoint-active-internal.md`](../../radiant-app/docs/evidence/2026-08-09-wave-4-student-checkpoint-active-internal.md).
 
 **Instrumentação do gate preparada no run `run-1786322344018-5986c9cc`:** o
 app mede somente persistência/restauração quando `active` e o opt-in interno

@@ -6,7 +6,7 @@
 - **Artefato:** `app-release.apk` (128 MB), perfil **production**, bundle JS
   embutido, sem dev client e sem Metro
 - **Fecha:** a ressalva 1 da §4 do
-  [status canônico](../../../docs/EXECUTION_STATUS_2026-07-29.md) e a linha
+  [status canônico](../../../docs/archive/EXECUTION_STATUS_2026-07-29.md) e a linha
   "evidência em device do laço de XP — NÃO OBTIDA" da tabela de 2026-07-30
 - **Spec:** [2026-07-29-laco-xp-revisoes-design.md](../../../docs/superpowers/specs/2026-07-29-laco-xp-revisoes-design.md) §8
 

@@ -935,7 +935,7 @@ git commit -m "feat(conteudo): validador de ancoragem sobre dado real entra no g
 
 - [ ] **Step 11: Sinalizar o trabalho, como o AGENTS.md exige**
 
-Crie `docs/EXECUTION_STATUS_2026-<data>.md` dizendo qual documento substitui, registrando que a cadeia fechou, qual aula foi o piloto, quantos excertos entraram e quantos foram descartados. Isso vai em **run próprio**, não neste.
+Crie `docs/archive/EXECUTION_STATUS_2026-<data>.md` dizendo qual documento substitui, registrando que a cadeia fechou, qual aula foi o piloto, quantos excertos entraram e quantos foram descartados. Isso vai em **run próprio**, não neste.
 
 ---
 

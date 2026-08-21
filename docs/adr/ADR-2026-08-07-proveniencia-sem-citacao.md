@@ -4,7 +4,7 @@
 **Decisor:** Anderson (proprietário do projeto), ao autorizar os quatro passos
 desta correção em 2026-08-07
 **Fecha:** o item "eixo comercial dos direitos", aberto em 2026-08-07 no
-[status canônico](../EXECUTION_STATUS_2026-08-07.md) como a decisão de maior
+[status canônico](../archive/EXECUTION_STATUS_2026-08-07.md) como a decisão de maior
 alcance da lista
 **Não é:** parecer jurídico. Ver "O que este ADR não decide".
 

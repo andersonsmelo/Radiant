@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Status: ✅ CONCLUÍDO — 2026-04-17** — Todas as 7 tasks executadas. Commits `bf18895` → `2313dd9` no branch `codex/wave1-hardening-api-smoke`. Ver `docs/EXECUTION_STATUS_2026-04-17.md`.
+> **Status: ✅ CONCLUÍDO — 2026-04-17** — Todas as 7 tasks executadas. Commits `bf18895` → `2313dd9` no branch `codex/wave1-hardening-api-smoke`. Ver `docs/archive/EXECUTION_STATUS_2026-04-17.md`.
 
 **Goal:** Convert all remaining light-theme screens to the galaxy dark theme and translate every remaining English UI string to Brazilian Portuguese.
 

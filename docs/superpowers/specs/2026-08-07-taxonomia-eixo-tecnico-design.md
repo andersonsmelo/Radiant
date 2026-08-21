@@ -9,7 +9,7 @@ catálogos"*. Implementação pelo
 
 Ele existe porque o desenho estava inteiro no contexto de uma sessão, que é o
 armazenamento menos durável da pilha — a mesma lição que abriu o
-[status canônico de 2026-08-07](../../EXECUTION_STATUS_2026-08-07.md).
+[status canônico de 2026-08-07](../../archive/EXECUTION_STATUS_2026-08-07.md).
 
 **Fecha, quando aprovado:** o item "escopo da taxonomia" da lista do dono, o
 **D4** (gate editorial, P0, bloqueia produção) e dá base à **Task 4 da G1**

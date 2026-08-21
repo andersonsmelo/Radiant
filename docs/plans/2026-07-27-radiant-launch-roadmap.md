@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../EXECUTION_STATUS_2026-08-09.md). As Tasks 11–16 do
+> [status canônico](../archive/EXECUTION_STATUS_2026-08-09.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,10 +20,10 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: ~~[status canônico 2026-07-29](../EXECUTION_STATUS_2026-07-29.md)~~
-~~[status canônico 2026-08-13](../EXECUTION_STATUS_2026-08-13.md)~~
-~~[status canônico 2026-08-14](../EXECUTION_STATUS_2026-08-14.md)~~
-**[status canônico 2026-08-15](../EXECUTION_STATUS_2026-08-15.md)** — ponteiro
+Fonte: ~~[status canônico 2026-07-29](../archive/EXECUTION_STATUS_2026-07-29.md)~~
+~~[status canônico 2026-08-13](../archive/EXECUTION_STATUS_2026-08-13.md)~~
+~~[status canônico 2026-08-14](../archive/EXECUTION_STATUS_2026-08-14.md)~~
+**[status canônico 2026-08-15](../archive/EXECUTION_STATUS_2026-08-15.md)** — ponteiro
 atualizado após o primeiro sub-projeto da reformulação guiada pelo EWA, em
 2026-08-15. Os snapshots anteriores permanecem como registro. A seção abaixo descreve o estado
 verificado em 07-27; as entregas posteriores, inclusive a correção P0 de
@@ -156,7 +156,7 @@ medidas no Git/GitHub, não copiadas para este roadmap.
    >   exercitaria o caminho barrado, e portanto não fecha o buraco que a frase
    >   riscada dizia fechar.
    > - "`preview` reflete produção" nasce em
-   >   [`EXECUTION_STATUS_2026-07-27.md`](../EXECUTION_STATUS_2026-07-27.md),
+   >   [`archive/EXECUTION_STATUS_2026-07-27.md`](../archive/EXECUTION_STATUS_2026-07-27.md),
    >   **escopada a uma flag**: naquele dia `ENABLE_LEARNING_ROAD` passou a ser
    >   declarada em `preview` e `production`. A frase viajou sem o escopo. Em
    >   `ENABLE_DEV_TOOLS`, `ENABLE_TELEMETRY_DEBUG_SCREEN` e `ENABLE_BETA_GATE`,
@@ -239,7 +239,7 @@ medidas no Git/GitHub, não copiadas para este roadmap.
    screenshots publicáveis de iPhone existem em `docs/store/assets/`, com
    contrato de assets verificado por reversão, e há kit de convite de testadores.
    O que **continua aberto** neste item é a submissão em si — nenhum build foi
-   enviado a nenhuma loja. Ver `EXECUTION_STATUS_2026-07-29.md` §2 para o que já
+   enviado a nenhuma loja. Ver `archive/EXECUTION_STATUS_2026-07-29.md` §2 para o que já
    está pronto, e trate este item como "submissão pendente", não como "trilha
    inexistente".
 
@@ -686,7 +686,7 @@ código.
   dono:** XP/chama passaram de 14pt para 18pt e vidas de 18pt para 22pt, sem
   alterar o desenho ou a animação (`run-1786561046889-f32b9cfd`). Evidência,
   limites e decisão em
-  [`EXECUTION_STATUS_2026-08-13.md`](../EXECUTION_STATUS_2026-08-13.md) e
+  [`archive/EXECUTION_STATUS_2026-08-13.md`](../archive/EXECUTION_STATUS_2026-08-13.md) e
   [`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
   Fechamento versionado: passagem complementar `8f92723`, efeitos autorais do
   HUD `6e3c594`, escala `1073cb2` e unificação final Home/Galáxia `56779ea`;
@@ -852,7 +852,7 @@ código.
   checklist de release; a runtime passa a `1.3.0` junto com a versão. Nenhum
   build publicado ainda, então a mudança ainda é livre — depois do primeiro
   build de F1/F2 deixa de ser (alerta do status 2026-07-26). Registrado no
-  [status canônico de 2026-07-29](../EXECUTION_STATUS_2026-07-29.md).
+  [status canônico de 2026-07-29](../archive/EXECUTION_STATUS_2026-07-29.md).
 - **D6 [P1]** Pesquisa com usuários (Task 12 do roadmap anterior) começa aqui e corre em paralelo
   ao beta (M4); P0/P1 de pesquisa bloqueiam M5.
 - **D7 [P2]** ~~Converter as 121 referências absolutas de docs para caminhos
@@ -904,7 +904,7 @@ código.
   [a evidência](../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md).
   A recaptura estava registrada como bloqueada por falta de JDK no host; **isso
   era falso** — o JDK 17 está instalado desde 2026-04-22 e o build sai em 48s
-  (§4 do [status canônico](../EXECUTION_STATUS_2026-07-29.md)).
+  (§4 do [status canônico](../archive/EXECUTION_STATUS_2026-07-29.md)).
   **O lado iOS também fechou em 2026-07-30**, nos dois buckets: iPhone 16 Plus
   (6,7", 1290×2796) e iPhone 11 Pro Max (6,5", 1242×2688), ambos `EXIT=0` sobre
   build Release com env **production**. A mesma captura expôs e resolveu, no

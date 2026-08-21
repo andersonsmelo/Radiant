@@ -343,7 +343,7 @@ Verificar no diff que o cartão está fora de qualquer condição de autenticaç
 ### Task 5: Sinalizar o marco e executar os gates completos
 
 **Files:**
-- Modify: `docs/EXECUTION_STATUS_2026-07-29.md`
+- Modify: `docs/archive/EXECUTION_STATUS_2026-07-29.md`
 - Modify: `docs/plans/2026-07-27-radiant-launch-roadmap.md`
 - Modify: `docs/release/CHECKLIST_RELEASE_V1.3.md`
 

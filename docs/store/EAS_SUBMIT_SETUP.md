@@ -125,7 +125,7 @@ não pré-requisito — e essa distinção tira a geração da chave do caminho 
 1. ~~**Criar o app** com o package `com.ascendcreative.radiant`.~~ **Concluído em
    2026-07-31** (task A3): o app existe como `Radiant — Radiologia`. A conta Play
    Console é tipo Pessoal, "Saúde Diagnóstica" — §3 do
-   [status canônico](../EXECUTION_STATUS_2026-08-09.md). ~~O que continua pendente
+   [status canônico](../archive/EXECUTION_STATUS_2026-08-09.md). ~~O que continua pendente
    nela é a **verificação de acesso a dispositivo**, que exige aparelho Android
    real.~~ **Também concluída em 2026-07-31** (task A2); deixou de gatear a
    publicação. Este passo fica aqui como registro — não há nada a fazer nele.

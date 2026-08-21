@@ -20,8 +20,7 @@ validados.
 
 Quando documentos divergirem, use esta ordem:
 
-1. [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md) para estado
-   operacional atual e bloqueios;
+1. [`STATUS.md`](STATUS.md) para estado operacional atual e bloqueios;
 2. [`../radiant-app/README.md`](../radiant-app/README.md) e
    [`../radiant-api/README.md`](../radiant-api/README.md) para contratos de
    runtime;
@@ -47,9 +46,9 @@ Quando documentos divergirem, use esta ordem:
   estados que decide se o próximo passo abre, em dois diagramas ancorados no
   código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
-- [`EXECUTION_STATUS_2026-08-13.md`](EXECUTION_STATUS_2026-08-13.md)
-- [`CONTINUIDADE_2026-08-13.md`](CONTINUIDADE_2026-08-13.md) — handoff
-  autocontido para a próxima sessão
+- [`STATUS.md`](STATUS.md) — estado vivo e handoff para a próxima sessão
+- [`archive/`](archive/) — os 21 status datados, de 2026-04-05 a 2026-08-15,
+  mantidos porque ADRs e planos os citam como evidência
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
   — ordem e dependência entre as três frentes
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
@@ -130,7 +129,7 @@ varredura do padrão `jest.spyOn` sobre mocks oficiais também fecharam em
 
 ## Histórico
 
-`EXECUTION_STATUS_2026-08-08.md` e anteriores são snapshots substituídos. Planos
+`archive/EXECUTION_STATUS_2026-08-08.md` e anteriores são snapshots substituídos. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 

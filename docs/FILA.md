@@ -151,7 +151,7 @@ Evidência: [`2026-08-10-wave-4-student-checkpoint-h3-gate.md`](../radiant-app/d
 Run Loop `run-1786354337237-662c1d8d`.
 
 Status canônico promovido em 2026-08-10 para
-[`EXECUTION_STATUS_2026-08-10.md`](EXECUTION_STATUS_2026-08-10.md)
+[`archive/EXECUTION_STATUS_2026-08-10.md`](archive/EXECUTION_STATUS_2026-08-10.md)
 (run `run-1786380009304-c10fa573`), junto com a lista governada de
 `scripts/qa/docs-contract.mjs` e os ponteiros dos seis documentos de estado
 corrente — o acoplamento que impedia mintar o snapshot num run de escopo menor.
@@ -729,7 +729,7 @@ escala, e ninguém tinha verificado que ele morde — um teste de guarda não pr
 caso da mensagem e o caso do eyebrow **segue verde**, revertido em seguida. Não
 exigiu mudar o produto — a dívida era a prova, não um teto.
 
-**O número vencido caiu.** `EXECUTION_STATUS_2026-08-07.md` dizia "15 ids de
+**O número vencido caiu.** `archive/EXECUTION_STATUS_2026-08-07.md` dizia "15 ids de
 taxonomia"; são **22** desde a execução do eixo técnico.
 
 **O adjetivo sem âncora saiu.** A claim `:5` dizia "ampliação **geométrica**".

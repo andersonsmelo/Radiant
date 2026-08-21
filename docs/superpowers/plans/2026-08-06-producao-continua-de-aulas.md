@@ -27,7 +27,7 @@ O ledger operacional vive em `.superpowers/sdd/<plano>/progress.md`, que é
 **ignorado pelo git**. Esta seção existe porque ela é a única parte versionada
 do estado — quem clonar o repositório não vê o ledger. O estado canônico do
 projeto inteiro está em
-[`EXECUTION_STATUS_2026-08-06.md`](../../EXECUTION_STATUS_2026-08-06.md).
+[`archive/EXECUTION_STATUS_2026-08-06.md`](../../archive/EXECUTION_STATUS_2026-08-06.md).
 
 | Tarefa | Commit | Estado |
 | --- | --- | --- |
@@ -176,7 +176,7 @@ três coisas de naturezas diferentes, e confundi-las é o erro a evitar:
    plano **produz a lista**; ele não decide.
 
 Quem for escrever o próximo plano começa lendo
-[`EXECUTION_STATUS_2026-08-06.md`](../../EXECUTION_STATUS_2026-08-06.md), depois
+[`archive/EXECUTION_STATUS_2026-08-06.md`](../../archive/EXECUTION_STATUS_2026-08-06.md), depois
 a seção "O que este plano não faz" abaixo, e depois a tabela de mutação acima —
 que é o contrato de qualidade a manter, não um registro histórico. O processo
 continua sendo `superpowers:subagent-driven-development`, e o embrulho de

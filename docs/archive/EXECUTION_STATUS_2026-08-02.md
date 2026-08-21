@@ -56,7 +56,7 @@ beta gate → apresentação → Learning Road.
 A decisão de reintroduzir uma apresentação de primeiro uso — depois que a B6
 do roadmap de lançamento havia recomendado ficar **sem** wizard de onboarding
 — está registrada em
-[`docs/adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md`](adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
+[`docs/adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
 O ADR separa duas categorias que a B6 tratava como uma só: o wizard de setup
 removido (que **coletava** preferências, não persistia e para o qual nenhuma
 tela navegava — essa remoção segue valendo) e a apresentação de primeiro uso
@@ -84,9 +84,9 @@ revalidada** contra este trabalho. *(Deixou de valer em 2026-08-03: o Android fo
 medido contra a apresentação e fecha 5 de 5. Ver o adendo abaixo.)*
 
 Evidência completa, receita reproduzível e detalhe da atribuição em
-[`radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md`](../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
+[`radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md`](../../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
 Matriz de sign-off atualizada em
-[`radiant-app/docs/E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
+[`radiant-app/docs/E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
 
 ### Três defeitos achados pela execução em dispositivo, todos corrigidos
 
@@ -126,7 +126,7 @@ Matriz de sign-off atualizada em
    `await OnboardingService.init()` antes do `dismissIntro()`, teste de ordem via
    `invocationCallOrder` e cobertura própria no `OnboardingService`. Commits
    `90a1377` e `dfa8bdb`. Detalhe em
-   [`2026-08-02-e2e-primeiro-uso.md`](../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
+   [`2026-08-02-e2e-primeiro-uso.md`](../../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
 
 ### ~~Pendência aberta~~ — `store-capture.yaml`, atribuída à guarda de visibilidade do primeiro quiz
 
@@ -223,7 +223,7 @@ por leitor de tela por causa do agrupamento. Foi escolha consciente: incluí-lo
 mudaria a string que `scripts/maestro-contract.test.mjs` ancora
 (`Tela {i} de {N}. {título}`) e derrubaria o flow recém-validado em dispositivo.
 A perda é pequena porque título e corpo já dizem o que a ilustração mostra.
-Registrado também no [`E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
+Registrado também no [`E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
 
 **4. Minors de qualidade das tasks de implementação.** Nenhum bloqueia o merge;
 a revisão final triou cada um como "segue aberto":
@@ -264,11 +264,11 @@ loja no caminho.
    faixa `alpha`.** Parece apontar para a faixa errada. **É deliberado:** o fluxo
    é subir em internal para validar o pipeline e **promover** para a faixa
    fechada no Console. Documentado em
-   [`docs/store/RUNBOOK_PLAY_CONSOLE.md`](store/RUNBOOK_PLAY_CONSOLE.md), seção
+   [`docs/store/RUNBOOK_PLAY_CONSOLE.md`](../store/RUNBOOK_PLAY_CONSOLE.md), seção
    *"Parte 6 — O relógio de 14 dias só corre no track fechado"*, que diz na
    tabela que internal **não conta** para os 14 dias e afirma logo abaixo que
    *"os dois valores são deliberados"*; também em
-   [`docs/store/EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) e na linha do
+   [`docs/store/EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md) e na linha do
    *track de teste fechado* da tabela final de
    [`EXECUTION_STATUS_2026-07-29.md`](EXECUTION_STATUS_2026-07-29.md).
    Mudar o `track` para `alpha` desfaria uma decisão tomada com contexto que o
@@ -324,7 +324,7 @@ dizia que o `passed` de 2026-07-29 era anterior à apresentação e não a
 exercitava; agora foi medido contra ela.
 
 Detalhe completo, com tempos, as três rodadas do Android e as atribuições, em
-[`radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md`](../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
+[`radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-1.3.1-ios-android.md).
 
 ### Um defeito de flow corrigido, que só o Android expôs
 
@@ -412,7 +412,7 @@ instrumento.
 
 Trabalho de design sobre o app já validado, não sobre bloqueador de lançamento.
 Diagnóstico completo, placar e o que ficou aberto em
-[`docs/design/2026-08-03-diagnostico-microinteracoes.md`](design/2026-08-03-diagnostico-microinteracoes.md).
+[`docs/design/2026-08-03-diagnostico-microinteracoes.md`](../design/2026-08-03-diagnostico-microinteracoes.md).
 
 ### O que mudou de comportamento
 
@@ -456,7 +456,7 @@ dias: o trabalho estava certo, a sinalização é que envelheceu.
 Esta seção fecha a ressalva da seção anterior: **a evidência E2E voltou a
 descrever o HEAD**, e pela primeira vez foi colhida sob configuração equivalente
 a produção. Detalhe completo em
-[`radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md`](../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
+[`radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md`](../../radiant-app/docs/evidence/2026-08-03-e2e-producao-rating-prompt.md).
 
 ### O achado que mudou o trabalho antes de ele começar
 
@@ -480,7 +480,7 @@ abertura:
 | `checkHeuristics()` | superfície de heurísticas nunca rodava na home |
 
 Três documentos afirmavam o evento como emitido, inclusive o
-[`CONTRATO_TELEMETRIA.md`](legal/CONTRATO_TELEMETRIA.md), que é o contrato legal.
+[`CONTRATO_TELEMETRIA.md`](../legal/CONTRATO_TELEMETRIA.md), que é o contrato legal.
 A divergência foi de **completude no sentido seguro**: coletou-se menos do que o
 anunciado, nunca mais. Os três primeiros foram migrados para o hook
 `useAppOpenLifecycle`, consumido pelas duas homes (`f499714`). O
@@ -528,9 +528,9 @@ deve ler o documento substituído.
 
 ## Ponteiros
 
-- Decisão de produto: [`ADR-2026-08-02`](adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
-- Evidência E2E de hoje: [`radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md`](../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
-- Runbook Maestro atualizado: [`radiant-app/docs/E2E_RUNBOOK.md`](../radiant-app/docs/E2E_RUNBOOK.md).
-- Plano de implementação: [`docs/superpowers/plans/2026-08-02-primeiro-uso-pixel.md`](superpowers/plans/2026-08-02-primeiro-uso-pixel.md).
+- Decisão de produto: [`ADR-2026-08-02`](../adr/ADR-2026-08-02-apresentacao-de-primeiro-uso.md).
+- Evidência E2E de hoje: [`radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md`](../../radiant-app/docs/evidence/2026-08-02-e2e-primeiro-uso.md).
+- Runbook Maestro atualizado: [`radiant-app/docs/E2E_RUNBOOK.md`](../../radiant-app/docs/E2E_RUNBOOK.md).
+- Plano de implementação: [`docs/superpowers/plans/2026-08-02-primeiro-uso-pixel.md`](../superpowers/plans/2026-08-02-primeiro-uso-pixel.md).
 - Item B6 do roadmap de lançamento, com a confirmação do dono:
-  [`docs/plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md).
+  [`docs/plans/2026-07-27-radiant-launch-roadmap.md`](../plans/2026-07-27-radiant-launch-roadmap.md).

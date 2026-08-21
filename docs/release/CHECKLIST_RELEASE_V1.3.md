@@ -3,7 +3,7 @@
 > Lista única de **go/no-go** para submeter a v1.3 nas duas lojas. Cada item tem
 > estado e dono; os detalhes vivem nas tasks do
 > [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md) e no
-> [status canônico](../EXECUTION_STATUS_2026-08-09.md). Este documento **não
+> [status vivo](../STATUS.md). Este documento **não
 > substitui** o roadmap — ele é o checklist final que se percorre antes de cada
 > submissão.
 >
@@ -243,7 +243,7 @@ Ordenado por **latência**, que é o que decide a sequência — não por gravid
    (C5). Nada disso reabre o lado Apple já submetido.
 
 **Saíram da lista desde 2026-07-27**, todas com evidência no
-[status canônico](../EXECUTION_STATUS_2026-08-09.md): versionamento congelado
+[status canônico](../archive/EXECUTION_STATUS_2026-08-09.md): versionamento congelado
 (D5), E2E fechado nas duas plataformas (B0.1/C3), paridade Android, política e
 suporte hospedados (A4/E5), screenshots e assets gráficos nas duas lojas (E1),
 ícone da marca (E6).

@@ -14,7 +14,7 @@ player e checkpoint executáveis no repositório, sem publicação em loja/OTA.
 
 ## Sistema de produto e design confirmado
 
-[`PRODUCT.md`](PRODUCT.md) e [`DESIGN.md`](DESIGN.md) foram confirmados pelo dono
+[`PRODUCT.md`](../PRODUCT.md) e [`DESIGN.md`](../DESIGN.md) foram confirmados pelo dono
 antes da implementação. O primeiro é a fonte estratégica do produto; o segundo
 transforma as medições da crítica em regras de composição, contraste e movimento.
 O commit `5b7f8e2` é o registro versionado dessa decisão.
@@ -74,7 +74,7 @@ correção posterior de composição, sem alterar paths, cores ou comportamento.
 A escolha de XP evita uma escada artificial de poucas lições e aproveita o
 próprio recibo de gamificação. A configuração preserva a chave local v1 e zera
 o progresso por data local; detalhes e consequências em
-[`ADR-2026-08-13-meta-diaria-em-xp.md`](adr/ADR-2026-08-13-meta-diaria-em-xp.md).
+[`ADR-2026-08-13-meta-diaria-em-xp.md`](../adr/ADR-2026-08-13-meta-diaria-em-xp.md).
 
 A decisão anterior de remover o balão por inteiro foi corrigida pelo dono após
 inspeção no simulador. A mesma inspeção revelou que a aba Galáxia ainda projetava
@@ -83,7 +83,7 @@ duas superfícies sem promover G3 por inteiro: a projeção canônica está entr
 mas a retirada do bloqueio por vidas e o gate operacional de H4 em aparelho
 permanecem abertos. A dependência de engenharia H4 já foi integrada à `main`.
 Decisão e consequências em
-[`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
+[`ADR-2026-08-13-home-e-galaxia-progressao-unica.md`](../adr/ADR-2026-08-13-home-e-galaxia-progressao-unica.md).
 
 ## Fechamento verificado da passagem visual
 
@@ -114,7 +114,7 @@ lições por vidas. O handoff autocontido está em
 Em 2026-08-12 as duas coortes do gate H3 rodaram com a métrica que gateia desde
 2026-08-10: 20+20 amostras, mesmo binário, aparelho e perfil, em sequência
 imediata. Evidência completa em
-[`2026-08-12-h3-first-frame-cohorts.md`](../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md);
+[`2026-08-12-h3-first-frame-cohorts.md`](../../radiant-app/docs/evidence/2026-08-12-h3-first-frame-cohorts.md);
 runs `run-1786569447281-441efcf9` (instrumento) e `run-1786575077447-6b656968`
 (medição e registro), ambos com 13 validadores e memória validada.
 
@@ -148,11 +148,11 @@ lançamentos `cold` de cada lado e exige também 20 `resume` no active como prov
 retomada; qualquer população incompleta, extra ou sem fase fica `inconclusive`.
 Isso elimina a mistura histórica de n=42 contra n=20 sem retirar a evidência de
 recovery. Decisão em
-[`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
+[`ADR-2026-08-13-h3-first-frame-populacao-fria.md`](../adr/ADR-2026-08-13-h3-first-frame-populacao-fria.md).
 
 **Ausência de efeito duplicado após o relançamento fechou em 2026-08-13** (run
 `run-1786622015450-e1943354`, evidência
-[`2026-08-13-h3-efeito-duplicado.md`](../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md)).
+[`2026-08-13-h3-efeito-duplicado.md`](../../radiant-app/docs/evidence/2026-08-13-h3-efeito-duplicado.md)).
 O flow conclui a lição, captura o XP em vez de fixá-lo, relança e afirma o mesmo
 valor; a guarda foi provada por mutação afirmando o dobro. Contrato Maestro em
 21/21.
@@ -172,7 +172,7 @@ medida permanece: o caminho de falha exige
 os fluxos limpos não produzem. O resultado `inconclusive` da coorte histórica fica
 preservado como proveniência e **não** vira `pass`; o encerramento é operacional do
 dono, não promoção de performance nem autorização de produção. Decisão em
-[`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
+[`ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md`](../adr/ADR-2026-08-13-h3-encerramento-por-aceitacao-do-dono.md).
 
 ## H4 — corte de engenharia executável entregue; gate em aparelho ainda aberto
 
@@ -233,7 +233,7 @@ CC BY 4.0 e ainda trouxe simplificações físicas defeituosas. O terceiro parou
 corretamente em `BLOQUEADO_POR_DIREITOS`, mas sua busca não alcançou as páginas
 específicas do LibreTexts. O segundo retorno foi selecionado como **candidato**, não
 como conteúdo aprovado, e está preservado integralmente em
-[`2026-08-13-h4-materia-energia-e-radiacao-candidato.md`](content/2026-08-13-h4-materia-energia-e-radiacao-candidato.md),
+[`2026-08-13-h4-materia-energia-e-radiacao-candidato.md`](../content/2026-08-13-h4-materia-energia-e-radiacao-candidato.md),
 com o SHA-256 do anexo de origem.
 
 A triagem documental confirmou páginas textuais específicas que declaram CC BY

@@ -3,7 +3,7 @@
 > **Status:** direção decidida pelo dono em sessão interativa de 2026-08-14/15.
 > Decompõe-se em seis sub-projetos; **um** foi executado. Este documento é a fonte
 > do raciocínio e do material de referência — o estado de execução vive no
-> [status canônico](../EXECUTION_STATUS_2026-08-15.md).
+> [status canônico](../archive/EXECUTION_STATUS_2026-08-15.md).
 
 ## O que este documento é
 

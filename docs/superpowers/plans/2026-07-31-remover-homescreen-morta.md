@@ -300,7 +300,7 @@ Mesma sequência da Task 1, Step 4.
 **Files:**
 - Modify: `radiant-app/README.md` (a seção "Learning Road", que descreve o plano de remoção como futuro)
 - Modify: `docs/plans/2026-07-27-radiant-launch-roadmap.md` (B0.2 e B6, que citam a `HomeScreen` e o wizard)
-- Modify: `docs/EXECUTION_STATUS_2026-07-29.md` (§6, "Uma tela inteira viaja no bundle sem nunca renderizar")
+- Modify: `docs/archive/EXECUTION_STATUS_2026-07-29.md` (§6, "Uma tela inteira viaja no bundle sem nunca renderizar")
 
 **Interfaces:**
 - Consumes: os resultados das Tasks 1–3, incluindo a contagem nova de suítes/testes anotada na Task 2, Step 6.
@@ -315,7 +315,7 @@ loop context build --run <runId>
 loop step begin --run <runId> \
   --files radiant-app/README.md \
   --files docs/plans/2026-07-27-radiant-launch-roadmap.md \
-  --files docs/EXECUTION_STATUS_2026-07-29.md
+  --files docs/archive/EXECUTION_STATUS_2026-07-29.md
 ```
 
 - [ ] **Step 2: Corrigir as afirmações em presente, preservando as datadas**

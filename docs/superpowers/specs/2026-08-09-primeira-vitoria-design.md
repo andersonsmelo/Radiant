@@ -119,7 +119,7 @@ essa evidência permanece explicitamente pendente.
 ## Sinalização documental
 
 A implementação atualiza o roadmap ativo e cria
-`docs/EXECUTION_STATUS_2026-08-09.md`, substituindo o status de 08-08. O novo
+`docs/archive/EXECUTION_STATUS_2026-08-09.md`, substituindo o status de 08-08. O novo
 status registra que as três telas permanecem intactas e que somente a passagem
 intermediária pela Home foi removida.
 

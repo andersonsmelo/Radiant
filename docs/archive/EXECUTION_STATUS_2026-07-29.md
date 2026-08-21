@@ -66,11 +66,11 @@ não dependia do lote de mídia: o gate da Fase 0 lista as duas coisas como
 condições irmãs. A próxima é a **Task 5**, contrato `LearningActivityV2`.
 
 A decisão está na
-[`ADR-2026-07-31`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md), a
+[`ADR-2026-07-31`](../adr/ADR-2026-07-31-aprendizagem-por-competencias.md), a
 arquitetura na
-[`spec aprovada`](superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
+[`spec aprovada`](../superpowers/specs/2026-07-31-sistema-aprendizagem-competencias-design.md)
 e a sequência executável no
-[`plano de implementação`](superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
+[`plano de implementação`](../superpowers/plans/2026-07-31-sistema-aprendizagem-competencias.md).
 
 ## O que mudou desde 2026-07-28
 
@@ -97,7 +97,7 @@ ambiental**:
 
 As duas regressões estão travadas em `radiant-app/scripts/maestro-contract.test.mjs`.
 Detalhe e evidência em
-[`docs/evidence/2026-07-29-android-e2e-close.md`](../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
+[`docs/evidence/2026-07-29-android-e2e-close.md`](../../radiant-app/docs/evidence/2026-07-29-android-e2e-close.md).
 O contrato de glifos de ícone também foi alargado para varrer `components/` e
 `src/components/` (o ponto cego dos defeitos de ícone de 07-28), excluindo os
 wrappers sancionados.
@@ -109,13 +109,13 @@ recrutamento de testadores como último ponto. Entregue nesta data:
 
 - **iPad desligado na v1.3** (`supportsTablet: false`) — reduz screenshots/QA.
 - **`eas submit` Android** configurado no `eas.json` (`submit.production.android`)
-  + guia de setup em [`docs/store/EAS_SUBMIT_SETUP.md`](../docs/store/EAS_SUBMIT_SETUP.md).
+  + guia de setup em [`docs/store/EAS_SUBMIT_SETUP.md`](../../docs/store/EAS_SUBMIT_SETUP.md).
 - **Respostas de console prontas** em
-  [`docs/store/DATA_SAFETY_E_CLASSIFICACAO.md`](../docs/store/DATA_SAFETY_E_CLASSIFICACAO.md):
+  [`docs/store/DATA_SAFETY_E_CLASSIFICACAO.md`](../../docs/store/DATA_SAFETY_E_CLASSIFICACAO.md):
   Data Safety e Privacy Labels = **nenhum dado coletado** (build local-first,
   Sentry off), categoria **Educação**, classificação esperada **Livre/4+**.
 - **Kit de recrutamento de testadores** em
-  [`docs/store/TESTER_INVITE_KIT.md`](../docs/store/TESTER_INVITE_KIT.md).
+  [`docs/store/TESTER_INVITE_KIT.md`](../../docs/store/TESTER_INVITE_KIT.md).
 - **Política de privacidade e página de suporte finalizadas** (Markdown e HTML
   prontos para hospedar), usando o domínio do usuário **saudediagnostica.com**:
   `/radiant/privacidade` e `/radiant/suporte`.
@@ -144,24 +144,24 @@ publicável**. Não são ajustes de gosto; são três defeitos verificados:
    defeito. Evidência sobre uma camada só autoriza conclusão sobre aquela camada.
 2. **`splash-icon.png` não é a marca** — é um placeholder de alvo em blueprint,
    exibido a 200 px sobre fundo **branco** em todo cold start, contra a
-   [ADR de identidade galaxy dark](adr/ADR-2026-07-27-identidade-visual-galaxy-dark.md).
+   [ADR de identidade galaxy dark](../adr/ADR-2026-07-27-identidade-visual-galaxy-dark.md).
 3. **O "A" em chevron é da Ascend Creative**, não do Radiant.
 
 **Decisão aprovada pelo dono:** o mascote **Pixel** vira a marca do Radiant —
 corpo inteiro sobre gradiente galaxy elevado (`#0D1230` centro → `#07091c`
 borda), com o rosto simplificado como forma reduzida na camada monocromática.
 Spec aprovada em
-[`docs/superpowers/specs/2026-07-29-icone-do-app-design.md`](superpowers/specs/2026-07-29-icone-do-app-design.md);
+[`docs/superpowers/specs/2026-07-29-icone-do-app-design.md`](../superpowers/specs/2026-07-29-icone-do-app-design.md);
 execução em 6 tasks no
-[plano do ícone](superpowers/plans/2026-07-29-icone-do-app.md).
+[plano do ícone](../superpowers/plans/2026-07-29-icone-do-app.md).
 
 **As 6 tasks do plano foram concluídas nesta data.** O contrato de assets fechou
 em **11/11** nesta data e roda dentro do `npm run quality`; o bloqueio de
 engenharia do lançamento foi encerrado. *(O contrato cresceu depois: em
 2026-07-30 foi para **14/14**, ao travar os dois buckets de screenshot de iPhone.
 O `11/11` acima fica como o valor medido em 07-29.)* Evidência em device em
-[`2026-07-29-icone-marca-pixel.md`](../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md),
-inventário dos assets em [`ASSETS_DE_LOJA.md`](store/ASSETS_DE_LOJA.md).
+[`2026-07-29-icone-marca-pixel.md`](../../radiant-app/docs/evidence/2026-07-29-icone-marca-pixel.md),
+inventário dos assets em [`ASSETS_DE_LOJA.md`](../store/ASSETS_DE_LOJA.md).
 
 Três correções ao plano apareceram durante a execução, cada uma achada **medindo
 ou renderizando**, não lendo:
@@ -213,7 +213,7 @@ verificação geométrica. O que pega arte errada é evidência em device somada
 revisão humana.
 
 **A ficha do Play exige três assets gráficos, não dois.** A task **L2.7** do
-[plano de closed testing](plans/2026-07-29-android-closed-testing-plan.md)
+[plano de closed testing](../plans/2026-07-29-android-closed-testing-plan.md)
 listava apenas screenshots e feature graphic; faltava o **ícone 512×512** (PNG
 32-bit com alpha, ≤ 1024 KB). Corrigido no plano e **os três existem** desde esta
 data — L2.7 concluída.
@@ -245,8 +245,8 @@ data — L2.7 concluída.
    com conteúdo real em `defaultBlocks.ts`, status `due-review` derivado do
    agendador, conclusão idempotente). O laço inteiro está construído e parado numa
    chamada que ninguém faz. Spec aprovada pelo dono em
-   [`2026-07-29-laco-xp-revisoes-design.md`](superpowers/specs/2026-07-29-laco-xp-revisoes-design.md),
-   plano em [`2026-07-30-laco-xp-revisoes.md`](superpowers/plans/2026-07-30-laco-xp-revisoes.md).
+   [`2026-07-29-laco-xp-revisoes-design.md`](../superpowers/specs/2026-07-29-laco-xp-revisoes-design.md),
+   plano em [`2026-07-30-laco-xp-revisoes.md`](../superpowers/plans/2026-07-30-laco-xp-revisoes.md).
    Corações ficam **fora** desse escopo por decisão do dono: `canStartLesson()`
    tem zero call sites, então hoje eles não bloqueiam nada.
 
@@ -264,7 +264,7 @@ data — L2.7 concluída.
    sobre APK Release do perfil **production** construído às 11:41 e instalado às
    11:43:05, portanto posterior a todos os commits da mudança. Evidência completa,
    receita reproduzível e limites em
-   [`2026-07-30-laco-xp-device.md`](../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md).
+   [`2026-07-30-laco-xp-device.md`](../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md).
    Os 18 XP por lição são o valor **previsto** pela §5 da spec (uma questão por
    bloco → acurácia 0 ou 100% → `10 + 8`), não um número solto; duas lições no
    flow dão 36. `REVISÕES` continua em `0` e isso **está correto**: o contador
@@ -283,7 +283,7 @@ data — L2.7 concluída.
    três das quatro repetem a mesma lista, a quarta acrescenta o Homebrew, e
    nenhuma enxerga `~/.jdks`. O acordo entre elas era uma medição repetida, não
    uma confirmação. O repositório já continha a contraprova desde 2026-07-28:
-   [`2026-07-28-android-e2e-first-run.md`](../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md)
+   [`2026-07-28-android-e2e-first-run.md`](../../radiant-app/docs/evidence/2026-07-28-android-e2e-first-run.md)
    registra "Maestro 2.7.0; **JDK 17**" e um APK Release de 122 MB construído com
    ele. **Regra que fica:** um bloqueio que suspende trabalho planejado se
    estabelece por probe positivo no consumidor (`./gradlew -version`), nunca por
@@ -321,7 +321,7 @@ retornavam HTTP 404. Artefato pronto no repositório não é artefato entregue: 
 estado dessas tasks só se conhece medindo a URL pública.
 
 A publicação foi feita pela equipe do site `saudediagnostica.com` a partir de
-[`docs/legal/PROMPT_PUBLICACAO_PAGINAS.md`](legal/PROMPT_PUBLICACAO_PAGINAS.md),
+[`docs/legal/PROMPT_PUBLICACAO_PAGINAS.md`](../legal/PROMPT_PUBLICACAO_PAGINAS.md),
 um handoff autocontido com o HTML embutido e os SHA-256 das fontes.
 
 **URLs canônicas — usar a forma COM barra final nos consoles:**
@@ -365,11 +365,11 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | gate transacional do Loop | PASS | nove validadores verdes em cada um dos seis runs; cada run fechou com memória validada |
 | suíte de `lesson-flow` | PASS | 16/16 — 11 do `LessonOutcomeService`, 5 do `LessonFlowScreen` |
 | cobertura da corrida de estado | PASS | verificada por reversão: trocando o valor local pelo estado, o teste novo falha com `{}` contra `{ 'step-final-choice': true }` |
-| evidência em device do laço de XP | **PASS** | `XP total: 18` no checkpoint, `⚡ 36`/`🔥 1d` na home, `TOTAL XP 36` no progresso, sobre APK Release **production** instalado às 11:43:05 — posterior a todos os commits. Ver §4, ressalva 1 e [a evidência](../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md) |
+| evidência em device do laço de XP | **PASS** | `XP total: 18` no checkpoint, `⚡ 36`/`🔥 1d` na home, `TOTAL XP 36` no progresso, sobre APK Release **production** instalado às 11:43:05 — posterior a todos os commits. Ver §4, ressalva 1 e [a evidência](../../radiant-app/docs/evidence/2026-07-30-laco-xp-device.md) |
 | build release Android local | **PASS** | `BUILD SUCCESSFUL in 48s` com o JDK 17.0.19 em `~/.jdks` — o "não há JDK neste host" registrado antes nesta mesma tabela era falso; ver §4, ressalva 1 |
 | bundle do APK contém a mudança | **PASS** | `LessonOutcomeService` ×4 no bundle extraído de dentro do APK, com dois controles negativos em `0` na mesma invocação |
 | cards PRECISÃO e TÓPICOS (achado novo) | **PASS — corrigido** | `PRECISÃO 100%` e `TÓPICOS Fundamentos — 100% · 2 lições` nas três resoluções; teste novo verificado por reversão; gate completo verde (110 testes) |
-| E1 — lado iOS (6,7" e 6,5") | **PASS** | `EXIT=0` no iPhone 16 Plus (**1290×2796**) e no iPhone 11 Pro Max (**1242×2688**), sobre build Release com env **production**. Ver [a evidência](../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md) |
+| E1 — lado iOS (6,7" e 6,5") | **PASS** | `EXIT=0` no iPhone 16 Plus (**1290×2796**) e no iPhone 11 Pro Max (**1242×2688**), sobre build Release com env **production**. Ver [a evidência](../../radiant-app/docs/evidence/2026-07-30-e1-store-capture.md) |
 | `store-capture.yaml` — oclusão do CTA | **corrigido** | guarda `notVisible` trocada por scroll fixo: no iPhone a alternativa ficava em `y850–932` de 932pt, visível para o predicado e por baixo do CTA flutuante, e o tap caía no botão desabilitado |
 | Android após a correção do flow | **PASS** | reexecutado **depois** da mudança no flow compartilhado, `EXIT=0`, seis screenshots — sem regressão |
 | screenshots publicáveis do Play | **regerados** | os seis em `docs/store/assets/screenshots/` eram de 2026-07-29 18:00 e mostravam o estado defeituoso; regerados da captura pós-correção, 6 × 1080×1920 (1,778:1). A ressalva de vitrine em `ASSETS_DE_LOJA.md` está fechada |
@@ -387,8 +387,8 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | `RUNBOOK_PLAY_CONSOLE.md` — nome do app | **corrigido** | Parte 1 mandava digitar `Radiant` e Parte 2 mandava `Radiant — Radiologia` **no mesmo campo do console**, desde o dia em que o arquivo foi escrito. O dono seguiu a Parte 1 e digitou o valor errado. A varredura de 07-30, feita **por função** de documento, não pega esta classe: as duas seções são instrução, as duas estão em presente e as duas parecem certas isoladas. Agora há uma tabela única de campos, referenciada pelas demais seções |
 | `TESTER_INVITE_KIT.md` — sequência do opt-in | **corrigido** | o passo a passo mandava criar o track, adicionar e-mails e "copiar o link de opt-in". Esse link **só existe depois que uma release está ativa no track fechado** — seguir o kit levaria a procurar um link inexistente e concluir que algo quebrou. Separado no que dá para adiantar sem build (levantar pessoas, criar track, criar Grupo do Google) e o que exige a release promovida |
 | `TESTER_INVITE_KIT.md` — conta do aparelho | **corrigido** | o kit dizia "basta a conta Google deles" sem dizer **qual**: o e-mail cadastrado precisa ser a conta logada na Play Store **do aparelho**. Aceitar numa conta com o celular logado em outra faz a ficha não aparecer, sem erro nem aviso — e some da contagem de opted-in igual a uma desistência |
-| progresso anterior não pago retroativamente | **decidido — sem código** | A pendência vinha redigida em termos de população ("quem já concluiu lições nunca receberá XP"). A regra foi confirmada no código, o que prova o **mecanismo** e nada sobre existir alguém excluído. O registro de builds do EAS mostra **um único build em toda a história do projeto** (2026-03-30, iOS simulador, perfil de desenvolvimento, distribuição interna, do commit `128d70b`): nenhuma distribuição, nenhum usuário. A população afetada é o aparelho do dono. Decisão em [ADR-2026-07-31](adr/ADR-2026-07-31-progresso-anterior-nao-retroativo.md): sem backfill; o risco real é a primeira mudança de regra de gamificação **depois** de haver testadores com progresso |
-| conta de usuário e premium | **decidido — sem código** | O dono questionou o posicionamento "sem conta" da ficha, por conta da assinatura premium. Medido: o `AuthService` e o bloco de login do `ProgressScreen` são **inertes no build distribuído** (condicionados a `isApiConfigured()`, e nenhum perfil define `EXPO_PUBLIC_API_BASE_URL`), há `UpgradeInterestService`, uma flag `ENABLE_REVENUECAT` com **zero consumidores** e **nenhuma dependência de billing** instalada. Decisão em [ADR-2026-07-31](adr/ADR-2026-07-31-conta-e-premium.md): v1.3 lança sem conta, premium na v1.4. A escolha do modelo ficou em aberto naquela data e **foi fechada em 2026-08-01** — ver a linha abaixo |
+| progresso anterior não pago retroativamente | **decidido — sem código** | A pendência vinha redigida em termos de população ("quem já concluiu lições nunca receberá XP"). A regra foi confirmada no código, o que prova o **mecanismo** e nada sobre existir alguém excluído. O registro de builds do EAS mostra **um único build em toda a história do projeto** (2026-03-30, iOS simulador, perfil de desenvolvimento, distribuição interna, do commit `128d70b`): nenhuma distribuição, nenhum usuário. A população afetada é o aparelho do dono. Decisão em [ADR-2026-07-31](../adr/ADR-2026-07-31-progresso-anterior-nao-retroativo.md): sem backfill; o risco real é a primeira mudança de regra de gamificação **depois** de haver testadores com progresso |
+| conta de usuário e premium | **decidido — sem código** | O dono questionou o posicionamento "sem conta" da ficha, por conta da assinatura premium. Medido: o `AuthService` e o bloco de login do `ProgressScreen` são **inertes no build distribuído** (condicionados a `isApiConfigured()`, e nenhum perfil define `EXPO_PUBLIC_API_BASE_URL`), há `UpgradeInterestService`, uma flag `ENABLE_REVENUECAT` com **zero consumidores** e **nenhuma dependência de billing** instalada. Decisão em [ADR-2026-07-31](../adr/ADR-2026-07-31-conta-e-premium.md): v1.3 lança sem conta, premium na v1.4. A escolha do modelo ficou em aberto naquela data e **foi fechada em 2026-08-01** — ver a linha abaixo |
 | cópia de loja — recontagem dos limites | **corrigido** | Três contagens de caracteres estavam erradas na fonte: `Radiant` marcado **13** quando são **7**, `Radiant — Radiologia` marcado **21** quando são **20**, `Radiant: Estudar Radiologia` marcado **28** quando são **27**. As demais (27, 29, 28, 70, 74, 95) conferiram. O `21` chegou a ser propagado para o runbook na correção da manhã desta data e foi consertado no mesmo run — número em documento não decai como estado: nasce errado e ganha autoridade por repetição |
 | descrição longa em Markdown num campo que não renderiza | **corrigido** | a fonte está em Markdown e o runbook mandava colar "a seção inteira" no campo do Play, que **não renderiza Markdown** — a ficha pública sairia com os `**` literais. Fonte e runbook passaram a exigir a conversão para texto limpo (1605 caracteres) |
 | ficha da loja preenchida | **FEITO** | nome, descrição breve (70/80), descrição completa (1605/4000), ícone 512, feature graphic e os seis screenshots enviados. A descrição precisou ser **convertida de Markdown para texto limpo** — o campo do Play não renderiza Markdown |
@@ -396,7 +396,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | track de teste fechado | **criado — chama `alpha`** | nome atribuído pelo próprio Play Console ("Teste fechado - Alpha"). É o valor real de `--track`; o `eas.json` mantém `track: "internal"`, deliberado para o primeiro upload de validação de pipeline |
 | release Android `1.3.0 (4)` no track `alpha` | **PUBLICADA — track ATIVO** | AAB aceito pelo Play em 2026-07-31; distribuição configurada para **Brasil**. A checagem automática bloqueou o primeiro envio por falta da declaração de ID de publicidade. O manifesto efetivo do AAB não contém `com.google.android.gms.permission.AD_ID` e o app não inclui SDK de anúncios; a declaração foi respondida **Não**, salva e revalidada. As 12 mudanças foram aprovadas e publicadas em 2026-07-31 às 15:45; o Console passou a mostrar `Versão disponível para testadores selecionados`, `Última versão: 1.3.0 (4)` e faixa `Ativo`. |
 | testadores do track `alpha` | **≥14 VINCULADOS — OPT-INS PENDENTES** | A lista `Radiant Alpha — 31/07/2026` permanece selecionada no track sem registrar endereços no repositório. Em 2026-08-01, a fonte completa com 13 contas foi importada, validada sem rejeições e salva. **Mais tarde na mesma data o dono relatou o recrutamento concluído, com ≥14 contas vinculadas** — atingindo a margem de churn planejada e fechando **A6/T1.1**. *Relatado, não medido por mim: o repositório não persiste endereços por decisão de privacidade, então a autoridade é a página da faixa no Console, e o número exato sai de lá.* **F2 segue aberta** — vínculo não é opt-in: é necessário comprovar ≥12 adesões efetivas e manter esse piso por 14 dias consecutivos. O relógio ainda não começou. |
-| primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](store/EAS_SUBMIT_SETUP.md) |
+| primeiro build Android da história | **FALHOU, causa raiz encontrada e corrigida** | `eas build --platform android --profile production` (build `fdd29bec`), do commit `f2fddcb`. O EAS reportou `EAS_BUILD_UNKNOWN_GRADLE_ERROR` — fronteira da ferramenta, não a causa. Reproduzido localmente: a task de upload de source maps do `@sentry/react-native` falha com `error: An organization ID or slug is required`, porque o `app.json` declara o plugin sem `organization`/`project`, o `sentry.properties` gerado cai em variáveis de ambiente, e **nenhum perfil do `eas.json` as definia**. Corrigido com `SENTRY_DISABLE_AUTO_UPLOAD: "true"` em `e2e-test`, `preview` e `production`; verificado: task `SKIPPED`, `BUILD SUCCESSFUL`. Ver [`EAS_SUBMIT_SETUP.md`](../store/EAS_SUBMIT_SETUP.md) |
 | por que o gate local não pegou | **explicado** | o `BUILD SUCCESSFUL in 48s` de 2026-07-30 foi feito com o bundle **em cache**, e a task de upload do Sentry só roda quando o bundle é regerado. O EAS constrói sempre do zero, então foi o primeiro a expor a falha. **Um verde local com cache não é evidência sobre um build limpo** — a armadilha do cache do Gradle já estava registrada neste repositório e cobrava aqui |
 | keystore de assinatura Android | **criada** | gerada pelo EAS no build que falhou e **persiste no servidor** — é ela que assinará todas as atualizações do app. Não se refaz no próximo build |
 | tamanho do archive enviado ao EAS | **anomalia aberta** | 856 MB, 4m09s de upload, contra **24 MB em 557 arquivos** de conteúdo não ignorado em todo o repositório. Não existe `.easignore`. **Não foi estabelecido** que isso causou a falha — a causa é o Sentry — mas é custo real por build e permanece a investigar |
@@ -404,7 +404,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 | service-account key no caminho crítico | **corrigido** | ela **não** é pré-requisito do primeiro upload: o `.aab` pode ser arrastado direto no console. O `eas submit` é automação. Isso tira a chave do caminho crítico do relógio de 14 dias |
 | passivo de lint (B7) | **65 → 11, meta era ≤20** | Os **62** de 30/07 já não valiam: recontados, eram **65**. Medindo por regra **e por arquivo**, **40 não eram dívida** — 37 `no-require-imports` dentro de fábricas `jest.mock()`, onde `require()` é obrigatório pela içagem do Jest, e 3 em arquivos que se declaram gerados (`storybook.requires.ts`, `.expo/types/router.d.ts`). Corrigidos os 16 mecânicos; o `eslint.config.js` passou a ignorar os gerados e a desligar a regra **só em `**/*.test.ts(x)`**, com a razão no próprio arquivo — a regra segue valendo em produção. Restam **9** `exhaustive-deps` (exigem julgamento por caso) e **2** diretivas `eslint-disable` órfãs. Alargar `writePolicy` para o `eslint.config.js` foi transação própria e anterior |
 | PR #39 do site (páginas legais) | **ainda draft** | terceira remedição nesta data, sem alteração desde 2026-07-29 17:42Z. Segue como o maior risco por unidade de esforço: as URLs já estão coladas na ficha do Play e sobrevivem apenas por FTPS |
-| D4 — gate editorial, triado | **medido** | Os **42** `formatNeedsReview` são **7 conceitos × 6 formatos** (mesmo conjunto nos seis, motivo vazio nos 42 — estado herdado, não julgado por item). Os 7 conceitos derivam da proporção de excertos sinalizados (todos ≥33%; todos os 9 aprovados ≤25%). A unidade atômica são **30 excertos**, e **8 moram em conceitos aprovados**, invisíveis a uma triagem na camada dos bundles. A dúvida **não é editorial**: vem do classificador `deterministic-keyword-v1` caindo em *fallback* — 13 dos 30 sem sinal nos três níveis da taxonomia, confiança média 0,52 contra 0,91 dos aprovados. Triagem completa em [`docs/content/2026-07-31-d4-triagem-editorial.md`](content/2026-07-31-d4-triagem-editorial.md) |
+| D4 — gate editorial, triado | **medido** | Os **42** `formatNeedsReview` são **7 conceitos × 6 formatos** (mesmo conjunto nos seis, motivo vazio nos 42 — estado herdado, não julgado por item). Os 7 conceitos derivam da proporção de excertos sinalizados (todos ≥33%; todos os 9 aprovados ≤25%). A unidade atômica são **30 excertos**, e **8 moram em conceitos aprovados**, invisíveis a uma triagem na camada dos bundles. A dúvida **não é editorial**: vem do classificador `deterministic-keyword-v1` caindo em *fallback* — 13 dos 30 sem sinal nos três níveis da taxonomia, confiança média 0,52 contra 0,91 dos aprovados. Triagem completa em [`docs/content/2026-07-31-d4-triagem-editorial.md`](../content/2026-07-31-d4-triagem-editorial.md) |
 | verificação de acesso a dispositivo da conta Play | **CONCLUÍDA** | relatada pelo dono em 2026-07-31. Exigia aparelho Android real (o emulador local é imagem "Google APIs" sem Play Store) e era o bloqueio que impedia a publicação por qualquer caminho. Com ela fechada, o que separa o app da produção é o closed test: AAB no track `alpha`, ≥12 testadores opted-in e 14 dias consecutivos |
 | prova do *themed icon* do Android 13+ | **segue pendente** | mesma exigência de aparelho real, e o aparelho usado na verificação já não está disponível. **Não bloqueia o closed test** — é ressalva de qualidade. Fecha com uma captura da gaveta de apps com ícones temáticos ligados, sobre o APK de release instalado por `adb` |
 | smoke público da API | FAIL esperado | `/health` e `/ready` seguem em **502**, remedidos nesta data. Inalterado, fora do caminho crítico |
@@ -428,7 +428,7 @@ depois. **Mergear a PR antes de submeter**, e remedir as duas URLs na véspera.
 
 | Verificação | Estado | Resultado |
 | --- | --- | --- |
-| modelo de entitlement do premium | **DECIDIDO — conta própria + billing** | A Decisão 2 do ADR de 07-31 recomendava Play Billing puro sob a premissa "enquanto o produto for só Android". Essa premissa caiu em **2026-08-01**, quando o App ID, o app no App Store Connect e o build no TestFlight passaram a existir. O critério do próprio ADR — se o direito de acesso atravessa plataforma — resolve então pela **Opção B**. Billing de loja restaura apenas dentro do próprio ecossistema; ligar Android e iOS exige identidade própria. Decisão em [ADR-2026-08-01](adr/ADR-2026-08-01-modelo-de-entitlement-premium.md) |
+| modelo de entitlement do premium | **DECIDIDO — conta própria + billing** | A Decisão 2 do ADR de 07-31 recomendava Play Billing puro sob a premissa "enquanto o produto for só Android". Essa premissa caiu em **2026-08-01**, quando o App ID, o app no App Store Connect e o build no TestFlight passaram a existir. O critério do próprio ADR — se o direito de acesso atravessa plataforma — resolve então pela **Opção B**. Billing de loja restaura apenas dentro do próprio ecossistema; ligar Android e iOS exige identidade própria. Decisão em [ADR-2026-08-01](../adr/ADR-2026-08-01-modelo-de-entitlement-premium.md) |
 | ordem obrigatória da v1.4 | **FIXADA** | API de pé (hoje 502) → conta (login, perfil, exclusão exigida pelo Play + URL pública) → refazer Data Safety, privacy labels, política publicada e classificação → billing nas duas lojas. Billing é o último elo. A frente educacional **não** depende dessa cadeia |
 | Task 4 — currículo por competências | **CONCLUÍDA** | 30 competências em 6 unidades, schema, validador com 17 testes ligado ao `validate-foundation`. Medido pelo validador: `unitCount 6`, `competencyCount 30`, `cycleCount 0`, `rootCount 2`, `orphanCount 0`, `criticalSafetyCount 10`. Nove validadores do Loop verdes, memória validada |
 | convites de opt-in aos testadores | **ENVIADOS em 2026-08-02** | Relatado pelo dono; cobrança de quem não aceitou já prevista. Não medido por mim — a contagem de opted-in é observável apenas na página da faixa do Console. **F2 continua aberta e o relógio de 14 dias ainda não começou:** ele conta do **dia-1**, o primeiro dia em que a contagem atinge 12, que é uma data distinta da do envio e precisa ser anotada no dia em que ocorrer |
@@ -501,9 +501,9 @@ e `icon.png` como está iria para a App Store com a grade de construção visív
 ## Próxima sequência sugerida
 
 Roadmap de lançamento vigente:
-[2026-07-27](plans/2026-07-27-radiant-launch-roadmap.md), e o recorte focado
+[2026-07-27](../plans/2026-07-27-radiant-launch-roadmap.md), e o recorte focado
 Android em
-[2026-07-29 — plano de closed testing](plans/2026-07-29-android-closed-testing-plan.md).
+[2026-07-29 — plano de closed testing](../plans/2026-07-29-android-closed-testing-plan.md).
 **Reescrita em 2026-07-31, à tarde.** A ordem anterior — criar/verificar a conta,
 hospedar as páginas, disparar builds — está inteiramente cumprida, e mantê-la
 escrita mandaria alguém refazer trabalho feito. A sequência agora é:
@@ -542,7 +542,7 @@ pré-requisito do F6 e não do beta.
 
 ## Coordenação entre múltiplas IAs
 
-Contrato de sinalização em [`AGENTS.md`](../AGENTS.md): antes de começar, checar o
+Contrato de sinalização em [`AGENTS.md`](../../AGENTS.md): antes de começar, checar o
 que já foi feito; ao terminar, sinalizar no mesmo run que entrega o trabalho.
 Trabalho não sinalizado é tratado como não feito pelas próximas sessões.
 
@@ -587,7 +587,7 @@ default `true` e está ligada em produção. `HomeScreen` é o fallback morto �
 três TODOs de "ligar contadores reais" e sua própria suíte de testes sendo
 mantida. **Decidido em 2026-07-31 (opção A), execução pós-beta.** Apagar a `HomeScreen` e a
 flag `ENABLE_LEARNING_ROAD`, **mantendo `/review` viva**. Plano em
-[`2026-07-31-remover-homescreen-morta.md`](superpowers/plans/2026-07-31-remover-homescreen-morta.md).
+[`2026-07-31-remover-homescreen-morta.md`](../superpowers/plans/2026-07-31-remover-homescreen-morta.md).
 
 Duas premissas herdadas caíram na medição desta data: (a) `ReviewScreen` **não é
 protótipo** — o `useReview` está ligado a `SpacedRepetitionService`,

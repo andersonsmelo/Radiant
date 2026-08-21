@@ -24,7 +24,7 @@
 
 Estado dos gates locais após Task 10: 27 suítes e 71 testes passam; `npm run quality` passa com 54 warnings legados e zero erros; Visual QA estrito registra zero regressões, 122 achados no baseline e 2 exceções delimitadas.
 
-O status operacional canônico está em [`docs/EXECUTION_STATUS_2026-07-23.md`](../EXECUTION_STATUS_2026-07-23.md). Os blocos de tarefa abaixo preservam o plano original como histórico de execução; esta tabela prevalece sobre verbos no futuro dentro daquele texto.
+O status operacional canônico está em [`docs/archive/EXECUTION_STATUS_2026-07-23.md`](../archive/EXECUTION_STATUS_2026-07-23.md). Os blocos de tarefa abaixo preservam o plano original como histórico de execução; esta tabela prevalece sobre verbos no futuro dentro daquele texto.
 
 ---
 
@@ -253,7 +253,7 @@ Não iniciar uma onda se o gate anterior estiver vermelho, salvo spike isolado q
 
 **Files:**
 
-- Create: `docs/EXECUTION_STATUS_2026-07-23.md`
+- Create: `docs/archive/EXECUTION_STATUS_2026-07-23.md`
 - Create: `scripts/qa/toolchain-preflight.mjs`
 - Test: `scripts/qa/toolchain-preflight.test.mjs`
 - Modify: `README.md`
@@ -316,7 +316,7 @@ git worktree add ../Radiant-wave0 -b codex/radiant-wave0-truth-gates codex/wave1
 **Step 7: Commit**
 
 ```bash
-git add docs/EXECUTION_STATUS_2026-07-23.md scripts/qa/toolchain-preflight.mjs scripts/qa/toolchain-preflight.test.mjs README.md docs/README.md radiant-app/README.md
+git add docs/archive/EXECUTION_STATUS_2026-07-23.md scripts/qa/toolchain-preflight.mjs scripts/qa/toolchain-preflight.test.mjs README.md docs/README.md radiant-app/README.md
 git commit -m "docs: establish Radiant continuation baseline"
 ```
 

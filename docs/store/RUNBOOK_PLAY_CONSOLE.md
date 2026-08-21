@@ -239,7 +239,7 @@ O que ainda gate a **publicação** não sai deste runbook e não é código:
 **Ressalva de qualidade, não bloqueio de ficha:** a prova do *themed icon* do
 Android 13+ continua pendente e também exige aparelho real — uma captura da
 gaveta com o tema ligado basta (§4 do
-[status canônico](../EXECUTION_STATUS_2026-08-09.md)).
+[status canônico](../archive/EXECUTION_STATUS_2026-08-09.md)).
 
 > **Por que esta seção envelheceu:** o bloqueio foi fechado no status canônico e
 > no roadmap, que **descrevem** estado; ninguém varreu os documentos que

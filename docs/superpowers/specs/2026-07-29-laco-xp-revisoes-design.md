@@ -12,7 +12,7 @@
   **iOS** não foi recapturado, e a captura expôs que os cards `PRECISÃO` e
   `TÓPICOS` da mesma tela não têm dado por trás (fora do escopo desta spec)
 - **Plano:** [2026-07-30-laco-xp-revisoes.md](../plans/2026-07-30-laco-xp-revisoes.md)
-- **Relacionados:** [status canônico 2026-07-29](../../EXECUTION_STATUS_2026-07-29.md) (§4, ressalva 1),
+- **Relacionados:** [status canônico 2026-07-29](../../archive/EXECUTION_STATUS_2026-07-29.md) (§4, ressalva 1),
   [roadmap de lançamento](../../plans/2026-07-27-radiant-launch-roadmap.md)
 
 ## 1. Problema
