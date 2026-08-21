@@ -32,37 +32,111 @@ function summariesFor(batch: ProductionBatchV1): LessonCatalogSummary[] {
     }));
 }
 
+/** Nome curto da competência, usado no id da avaliação e no título do nó. */
+function competencySlug(competencyId: string): string {
+    return competencyId.split(':').at(-1) ?? competencyId;
+}
+
+/**
+ * A competência de uma atividade ou de um item de avaliação.
+ *
+ * O campo é uma LISTA no dado editorial, mas o corte curricular deste lote
+ * mantém um item por competência. Ler a primeira é o contrato; se um dia
+ * aparecer item multi-competência, ele cai no estágio da primeira, que é
+ * determinístico e revisável — não some.
+ */
+function primaryCompetencyOf(entry: { competencyIds?: readonly string[] }): string | null {
+    return entry.competencyIds?.[0] ?? null;
+}
+
+/**
+ * As competências na ordem em que o aluno as encontra.
+ *
+ * Deriva da ordem das ATIVIDADES, e não da lista `competencyIds` do lote: é a
+ * sequência que o aluno percorre que define os estágios, e as duas poderiam
+ * divergir sem que nada avisasse.
+ */
+function competencyStages(batch: ProductionBatchV1): string[] {
+    const seen: string[] = [];
+    for (const activity of batch.activities) {
+        const competency = primaryCompetencyOf(activity);
+        if (competency && !seen.includes(competency)) seen.push(competency);
+    }
+    return seen;
+}
+
+/**
+ * A avaliação de um estágio: os itens do lote que cobrem aquela competência.
+ *
+ * **Decisão do dono, 2026-08-21:** depois de um estágio, uma avaliação abre o
+ * seguinte. Este lote era a exceção — 12 atividades seguidas e uma única
+ * avaliação de 10 itens no fim —, e o estágio aqui é a competência, que já era
+ * o agrupamento declarado no dado.
+ *
+ * O limiar não é afrouxado pela repartição: cada avaliação herda o
+ * `targetScoreBasisPoints` do lote. 80% de dois itens são os dois.
+ */
+function checkpointForStage(batch: ProductionBatchV1, competencyId: string): ProductionCheckpoint {
+    return {
+        ...batch.checkpoint,
+        id: `${batch.checkpoint.id}:${competencySlug(competencyId)}`,
+        items: batch.checkpoint.items.filter((item) => primaryCompetencyOf(item) === competencyId),
+    };
+}
+
+function stageCheckpoints(batch: ProductionBatchV1): ProductionCheckpoint[] {
+    return competencyStages(batch).map((competencyId) => checkpointForStage(batch, competencyId));
+}
+
 function journeyFor(batch: ProductionBatchV1): JourneyTrackDefinition {
-    const lessonNodes: JourneyNodeDefinition[] = batch.activities.map((activity, index) => ({
-        id: `node:${activity.id}`,
-        unitId: batch.unitId,
-        type: 'lesson',
-        title: activityTitle(activity),
-        lessonId: activity.id,
-        blockId: activity.id,
-        ...(index > 0 ? { unlockRule: { requiresNodeIds: [`node:${batch.activities[index - 1].id}`] } } : {}),
-    }));
-    const lastLessonNodeId = lessonNodes.at(-1)?.id;
-    const checkpointNodeId = `node:${batch.checkpoint.id}`;
-    const nodes: JourneyNodeDefinition[] = [
-        ...lessonNodes,
-        {
+    const stages = competencyStages(batch);
+    const nodes: JourneyNodeDefinition[] = [];
+    /** O nó que a próxima atividade precisa ter concluído — a avaliação do estágio anterior. */
+    let gate: string | null = null;
+
+    stages.forEach((competencyId, stageIndex) => {
+        const activities = batch.activities.filter(
+            (activity) => primaryCompetencyOf(activity) === competencyId,
+        );
+
+        activities.forEach((activity, activityIndex) => {
+            const previous = activityIndex > 0 ? `node:${activities[activityIndex - 1].id}` : gate;
+
+            nodes.push({
+                id: `node:${activity.id}`,
+                unitId: batch.unitId,
+                type: 'lesson',
+                title: activityTitle(activity),
+                lessonId: activity.id,
+                blockId: activity.id,
+                ...(previous ? { unlockRule: { requiresNodeIds: [previous] } } : {}),
+            });
+        });
+
+        const lastActivity = activities.at(-1);
+        const checkpoint = checkpointForStage(batch, competencyId);
+        const checkpointNodeId = `node:${checkpoint.id}`;
+
+        nodes.push({
             id: checkpointNodeId,
             unitId: batch.unitId,
             type: 'checkpoint',
-            title: 'Checkpoint — Matéria, energia e radiação',
-            description: 'Dez itens, dois por competência. A aprovação exige 80%.',
-            ...(lastLessonNodeId ? { unlockRule: { requiresNodeIds: [lastLessonNodeId] } } : {}),
-        },
-        {
-            id: 'node:reward:materia-energia-e-radiacao',
-            unitId: batch.unitId,
-            type: 'reward',
-            title: 'Fundamentos da radiação consolidados',
-            description: 'Marca a conclusão do primeiro corte curricular por competências.',
-            unlockRule: { requiresNodeIds: [checkpointNodeId] },
-        },
-    ];
+            title: `Avaliação ${stageIndex + 1} de ${stages.length}`,
+            description: `${checkpoint.items.length} itens desta competência. A aprovação exige 80%.`,
+            ...(lastActivity ? { unlockRule: { requiresNodeIds: [`node:${lastActivity.id}`] } } : {}),
+        });
+
+        gate = checkpointNodeId;
+    });
+
+    nodes.push({
+        id: 'node:reward:materia-energia-e-radiacao',
+        unitId: batch.unitId,
+        type: 'reward',
+        title: 'Fundamentos da radiação consolidados',
+        description: 'Marca a conclusão do primeiro corte curricular por competências.',
+        ...(gate ? { unlockRule: { requiresNodeIds: [gate] } } : {}),
+    });
 
     return {
         id: batch.trackId,
@@ -87,11 +161,21 @@ class ProductionCurriculumCatalogImpl {
     }
 
     getCheckpointByNodeId(nodeId: string): ProductionCheckpoint | null {
-        return PRODUCTION_BATCHES.find((batch) => `node:${batch.checkpoint.id}` === nodeId)?.checkpoint ?? null;
+        for (const batch of PRODUCTION_BATCHES) {
+            const stage = stageCheckpoints(batch).find(
+                (checkpoint) => `node:${checkpoint.id}` === nodeId,
+            );
+            if (stage) return stage;
+        }
+        return null;
     }
 
     getBatchByCheckpointNodeId(nodeId: string): ProductionBatchV1 | null {
-        return PRODUCTION_BATCHES.find((batch) => `node:${batch.checkpoint.id}` === nodeId) ?? null;
+        return (
+            PRODUCTION_BATCHES.find((batch) =>
+                stageCheckpoints(batch).some((checkpoint) => `node:${checkpoint.id}` === nodeId),
+            ) ?? null
+        );
     }
 
     getJourneyTrackDefinition(trackId: string): JourneyTrackDefinition | null {

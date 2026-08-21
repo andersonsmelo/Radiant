@@ -4,8 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
-import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
-import type { DailyGoalSnapshot } from '../../../types/dailyGoal';
 import { canOpenJourneyNode, getJourneyNodeHref } from '../services/JourneyNodeRouting';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
@@ -14,12 +12,11 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
-import { JourneyHero } from '../components/JourneyHero';
+import { JourneyStageHeader } from '../components/JourneyStageHeader';
 import { JourneyTrail } from '../components/JourneyTrail';
 import { JourneyCurriculumService, type CurriculumTrail } from '../services/JourneyCurriculumService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
-import { useSporadicPixelSpeech } from '../../pixel-mood/useSporadicPixelSpeech';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -28,7 +25,6 @@ export default function JourneyHomeScreen() {
   useAppOpenLifecycle();
 
   const [snapshot, setSnapshot] = useState<JourneySnapshot | null>(null);
-  const [dailyGoalSnapshot, setDailyGoalSnapshot] = useState<DailyGoalSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
@@ -38,13 +34,14 @@ export default function JourneyHomeScreen() {
     try {
       setLoading(true);
       setError(null);
-      const [nextSnapshot, nextDailyGoal, nextTrail] = await Promise.all([
+      // A meta do dia saiu daqui com o hero: ela tem superfície própria e
+      // completa na aba Missões, com seleção de nível, e duplicá-la na trilha
+      // era o que fazia o primeiro quadro de Estude não mostrar trilha nenhuma.
+      const [nextSnapshot, nextTrail] = await Promise.all([
         JourneyProgressService.bootstrap(),
-        DailyGoalService.getSnapshot(),
         JourneyCurriculumService.getCurriculumTrail(),
       ]);
       setSnapshot(nextSnapshot);
-      setDailyGoalSnapshot(nextDailyGoal);
       setTrail(nextTrail);
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
@@ -66,9 +63,6 @@ export default function JourneyHomeScreen() {
     () => snapshot?.track.units.find((unit) => unit.id === snapshot.progress.currentUnitId) ?? snapshot?.track.units[0] ?? null,
     [snapshot]
   );
-
-
-  const pixelSpeech = useSporadicPixelSpeech();
 
   /**
    * O passo que a HOME anuncia — que não é necessariamente o que o serviço
@@ -140,6 +134,42 @@ export default function JourneyHomeScreen() {
     return 'Continuar jornada';
   }, [homeNextNode]);
 
+  /**
+   * O estágio que o cabeçalho nomeia e conta.
+   *
+   * É o segmento que contém o nó recomendado — o trecho em que o aluno está de
+   * fato, que não é necessariamente o primeiro nem o último aberto. Sem
+   * recomendação, cai no último segmento com algum nó concluído, e daí no
+   * primeiro: um cabeçalho que não sabe onde o aluno está é pior que um que
+   * chuta o começo, porque some.
+   */
+  const currentStage = useMemo(() => {
+    const segments = trail?.segments ?? [];
+    const nodesOf = (segment: (typeof segments)[number]) =>
+      segment.units.flatMap((unit) => unit.nodes);
+
+    const recommendedId = trail?.recommendedNodeId ?? snapshot?.nextRecommendedNode?.id;
+    const withRecommended = recommendedId
+      ? segments.find((segment) => nodesOf(segment).some((node) => node.id === recommendedId))
+      : undefined;
+    const lastTouched = [...segments]
+      .reverse()
+      .find((segment) => nodesOf(segment).some((node) => node.status === 'completed'));
+    const segment = withRecommended ?? lastTouched ?? segments[0];
+
+    if (!segment) {
+      return { title: snapshot?.track.title ?? 'Sua trilha', completed: 0, total: 0 };
+    }
+
+    const nodes = nodesOf(segment);
+
+    return {
+      title: segment.trackTitle,
+      completed: nodes.filter((node) => node.status === 'completed').length,
+      total: nodes.length,
+    };
+  }, [trail, snapshot?.nextRecommendedNode?.id, snapshot?.track.title]);
+
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
 
   const openNode = useCallback(async (node: JourneyNode) => {
@@ -153,7 +183,6 @@ export default function JourneyHomeScreen() {
     await JourneyProgressService.setCurrentNode(node.id);
     router.push(href);
   }, [canOpenNode]);
-
 
   const noNextStepMessage = useMemo(() => {
     if (!snapshot || snapshot.nextRecommendedNode) {
@@ -193,12 +222,10 @@ export default function JourneyHomeScreen() {
             showsVerticalScrollIndicator={false}
             contentInsetAdjustmentBehavior="always"
           >
-            <JourneyHero
-              unitTitle={currentUnit?.title ?? 'Sua trilha'}
-              dailyGoalCompleted={dailyGoalSnapshot?.earnedXpToday ?? 0}
-              dailyGoalTarget={dailyGoalSnapshot?.goalXp ?? 10}
-              message={pixelSpeech?.phrase}
-              expression={pixelSpeech?.expression}
+            <JourneyStageHeader
+              title={currentStage.title}
+              completed={currentStage.completed}
+              total={currentStage.total}
             />
 
             <JourneyTrail

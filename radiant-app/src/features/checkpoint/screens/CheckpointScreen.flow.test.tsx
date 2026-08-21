@@ -141,7 +141,19 @@ const completedSnapshot = {
   nextRecommendedNode: null,
 } as any;
 
-const productionNodeId = `node:${MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.id}`;
+// **Mudou em 2026-08-21.** A avaliação única de dez itens virou cinco avaliações
+// por competência — a regra de "depois de um estágio, uma avaliação abre o
+// seguinte". Estes casos passam a exercitar a avaliação do PRIMEIRO estágio, que
+// é a que o aluno encontra primeiro. O que eles medem não mudou: o limiar de 80%
+// e o encaminhamento de reforço abaixo dele.
+const productionStageCompetencyId =
+  MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities[0].competencyIds[0];
+const productionStageItems = MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.items.filter(
+  (item) => item.competencyIds[0] === productionStageCompetencyId,
+);
+const productionNodeId = `node:${MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.id}:${
+  productionStageCompetencyId.split(':').at(-1)
+}`;
 const productionAvailableSnapshot = {
   track: {
     units: [{
@@ -151,8 +163,8 @@ const productionAvailableSnapshot = {
         id: productionNodeId,
         type: 'checkpoint',
         status: 'available',
-        title: 'Checkpoint — Matéria, energia e radiação',
-        description: 'Dez itens, dois por competência.',
+        title: 'Avaliação 1 de 5',
+        description: '2 itens desta competência. A aprovação exige 80%.',
         unitId: MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.unitId,
       }],
     }],
@@ -173,14 +185,14 @@ const productionCompletedSnapshot = {
 
 async function answerProductionCheckpoint(correct: boolean): Promise<void> {
   fireEvent.press(await screen.findByText('Iniciar checkpoint'));
-  for (const [index, item] of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.checkpoint.items.entries()) {
+  for (const [index, item] of productionStageItems.entries()) {
     expect(await screen.findByText(item.prompt)).toBeTruthy();
     const option = correct
       ? item.options.find((entry) => entry.id === item.correctOptionId)
       : item.options.find((entry) => entry.id !== item.correctOptionId);
     if (!option) throw new Error('checkpoint-option-fixture-invalid');
     fireEvent.press(screen.getByLabelText(option.label));
-    if (index === 9) {
+    if (index === productionStageItems.length - 1) {
       await act(async () => {
         fireEvent.press(screen.getByText('Enviar checkpoint'));
         await Promise.resolve();
@@ -215,7 +227,7 @@ describe('CheckpointScreen flow', () => {
     expect(await screen.findByText('Etapa validada.')).toBeTruthy();
   });
 
-  it('aplica as dez questões promovidas e só conclui quando atinge 80%', async () => {
+  it('aplica as questões do estágio e só conclui quando atinge 80%', async () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
 
@@ -225,7 +237,7 @@ describe('CheckpointScreen flow', () => {
     await waitFor(() => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
     });
-    expect(await screen.findByText('Checkpoint — Matéria, energia e radiação')).toBeTruthy();
+    expect(await screen.findByText(/^Avaliação 1 de /u)).toBeTruthy();
   });
 
   it('mantém o nó bloqueado e encaminha reforço quando a nota fica abaixo de 80%', async () => {
@@ -235,7 +247,9 @@ describe('CheckpointScreen flow', () => {
     await answerProductionCheckpoint(false);
 
     expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
-    expect(screen.getByText(/Você acertou 0 de 10 questões/)).toBeTruthy();
+    expect(
+      screen.getByText(new RegExp(`Você acertou 0 de ${productionStageItems.length} quest`, 'u')),
+    ).toBeTruthy();
     expect(screen.getByText('Revisar competência frágil')).toBeTruthy();
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
   });

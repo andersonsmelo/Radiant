@@ -146,10 +146,6 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
   },
 }));
 
-jest.mock('../../pixel-mood/useSporadicPixelSpeech', () => ({
-  useSporadicPixelSpeech: () => ({ expression: 'feliz', phrase: 'Bom te ver.' }),
-}));
-
 jest.mock('../../telemetry/TelemetryService', () => ({
   TelemetryService: {
     track: jest.fn().mockResolvedValue(undefined),
@@ -324,12 +320,18 @@ describe('JourneyHomeScreen track flow', () => {
     expect(screen.queryByText('Disponível agora')).toBeNull();
   });
 
-  it('shows Pixel speech when a sporadic Home message is active', async () => {
+  it('abre com o cabeçalho do estágio, e não com o hero do mascote', async () => {
+    // Este caso afirmava o contrário até 2026-08-21: que a Home mostrava a fala
+    // esporádica do Pixel. O hero saiu por decisão do dono — ele ocupava a
+    // primeira tela inteira e empurrava a trilha para baixo da dobra, numa aba
+    // cuja função É a trilha. O caso fica invertido, e não apagado, porque a
+    // inversão é o registro da mudança.
     renderWithProviders(<JourneyHomeScreen />);
 
     await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    expect(await screen.findByTestId('journey-hero-bubble')).toBeTruthy();
+    expect(screen.getByTestId('journey-stage-progress-fill')).toBeTruthy();
+    expect(screen.queryByTestId('journey-hero-bubble')).toBeNull();
   });
 });
 

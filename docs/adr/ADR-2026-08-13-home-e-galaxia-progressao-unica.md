@@ -51,3 +51,30 @@ Manter os dois mapas sincronizados por adaptação: preservaria a duplicação e
 criaria mais um contrato de conversão. Manter o balão permanentemente: roubaria
 hierarquia do objetivo diário. Removê-lo por inteiro: eliminaria uma presença do
 mascote que o dono quer perceber ao longo da sessão.
+
+---
+
+## Adendo de 2026-08-21 — a fala esporádica perde a superfície
+
+Esta ADR decidiu que o balão do Pixel apareceria de forma esporádica na Home, e
+descartou explicitamente removê-lo por inteiro: *"eliminaria uma presença do
+mascote que o dono quer perceber ao longo da sessão"*.
+
+O balão vivia no `JourneyHero`. Em 2026-08-21 o dono decidiu trocar o hero pelo
+cabeçalho de estágio — nome do estágio, contagem e barra —, porque o hero ocupava
+a primeira tela inteira e empurrava a trilha para baixo da dobra, numa aba cuja
+função é a trilha. Com o hero, saiu o balão, e `useSporadicPixelSpeech` ficou sem
+consumidor e foi removido.
+
+**O que isso muda nesta ADR:** a decisão sobre o balão está superada em Estude, e
+só ali. Ela não foi revogada por outra decisão sobre o mascote — foi consequência
+de uma decisão sobre o topo da aba.
+
+**O que NÃO muda:** o Pixel continua no app, em Checkpoint, Reward, Review,
+primeira execução, conclusão de lição e feedback de quiz, via `PixelHeroSplit` e
+`PixelIllustration`. A presença do mascote ao longo da sessão sobrevive; o que
+acabou foi a fala espontânea na tela inicial.
+
+**Fica em aberto, para o dono:** se o Pixel deve voltar a falar espontaneamente
+em alguma superfície. Enquanto não for decidido, a fala existe só como reação a
+um evento — nunca por iniciativa dele.

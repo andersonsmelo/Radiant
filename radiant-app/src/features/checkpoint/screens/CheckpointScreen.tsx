@@ -147,7 +147,21 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     () => checkpointNode ? ProductionCurriculumCatalog.getBatchByCheckpointNodeId(checkpointNode.id) : null,
     [checkpointNode],
   );
-  const productionItems = useMemo(() => productionBatch?.checkpoint.items ?? [], [productionBatch]);
+  /**
+   * A avaliação DESTE nó — não a do lote inteiro.
+   *
+   * Até 2026-08-21 o lote tinha uma avaliação só, e ler `batch.checkpoint` dava
+   * a resposta certa por coincidência. Com a avaliação repartida por competência
+   * (cinco nós, dois itens cada), a mesma leitura aplicaria as dez questões em
+   * qualquer um dos cinco estágios. Quem sabe qual avaliação pertence a qual nó
+   * é `getCheckpointByNodeId`, e é ela que decide os itens, o identificador e o
+   * limiar daqui para baixo.
+   */
+  const productionCheckpoint = useMemo(
+    () => (checkpointNode ? ProductionCurriculumCatalog.getCheckpointByNodeId(checkpointNode.id) : null),
+    [checkpointNode],
+  );
+  const productionItems = useMemo(() => productionCheckpoint?.items ?? [], [productionCheckpoint]);
   const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
   const productionCursorIds = useMemo(
     () => ['checkpoint-overview', ...productionItems.map((_, index) => `checkpoint-item-${index + 1}`), 'checkpoint-summary'],
@@ -311,11 +325,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       };
     });
     const evaluate = (checkpointId: string) => UnitCheckpointService.evaluate({
-      operationId: `operation:${productionBatch.checkpoint.id}:${attemptSuffix}`,
+      operationId: `operation:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
       checkpointId,
       flowId: `unit-checkpoint:${checkpointNode.id}`,
-      attemptId: `attempt:${productionBatch.checkpoint.id}:${attemptSuffix}`,
-      checkpointDefinitionId: productionBatch.checkpoint.id,
+      attemptId: `attempt:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
+      checkpointDefinitionId: productionCheckpoint?.id ?? productionBatch.checkpoint.id,
       unitId: productionBatch.unitId,
       journeyNodeId: checkpointNode.id,
       activityId: productionBatch.batchId,
@@ -327,7 +341,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
     try {
       setSubmitting(true);
-      const evaluation = evaluate(productionBatch.checkpoint.id);
+      const evaluation = evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
       await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
       setCheckpointEvaluation(evaluation);
       if (evaluation.attempt.passed) {
@@ -347,6 +361,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     currentProductionItem,
     handleComplete,
     productionBatch,
+    productionCheckpoint,
     productionItems,
     selectedOptionId,
   ]);
