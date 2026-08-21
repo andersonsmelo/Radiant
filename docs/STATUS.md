@@ -114,10 +114,12 @@ simulador faz parte de verificar uma passagem.
 
 ## A trilha, medida em 2026-08-21
 
-- **O caminho existe e vem preenchido** até a posição do aluno, com **uma**
-  fronteira entre percorrido e pendente. A primeira versão pintava trecho a
-  trecho pelo estado do nó acima e saiu listrada no simulador — passou nos
-  testes porque era coerente com a própria especificação.
+- **A linha é contínua e vem preenchida** até a posição do aluno, com **uma**
+  fronteira entre percorrido e pendente. Cada nó carrega o seu segmento, que
+  transborda para a folga seguinte e costura no próximo — não há buraco nas
+  alturas dos cartões. Duas versões erradas ficaram pelo caminho e as duas
+  passavam nos testes: a listrada (cor por nó vizinho) e a picotada (segmento
+  dentro de um `View` sem altura própria). Só o simulador pegou as duas.
 - **Pílula `PRÓXIMO`** no nó atual, reconhecível sem ler rótulo.
 - **Cabeçalho de estágio** no topo (nome, `N de M`, barra) no lugar do
   `JourneyHero`. Adendo registrado no `ADR-2026-08-13`: a fala esporádica do
@@ -138,7 +140,7 @@ validador estático enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 704 testes / 99 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 708 testes / 99 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
