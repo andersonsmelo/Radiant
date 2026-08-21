@@ -92,18 +92,36 @@ jest.mock('../../../ui/characters/PixelIllustration', () => {
   };
 });
 
-jest.mock('../components/JourneyMap', () => {
+jest.mock('../components/JourneyTrail', () => {
   const React = require('react');
   const { Text, View } = require('react-native');
 
   return {
-    JourneyMap: () => (
-      <View>
-        <Text>Mapa da jornada</Text>
+    JourneyTrail: ({ segments }: { segments: { trackтатTitle?: string }[] }) => (
+      <View testID="journey-trail">
+        <Text>{`percurso com ${segments.length} trecho(s)`}</Text>
       </View>
     ),
   };
 });
+
+jest.mock('../services/JourneyCurriculumService', () => ({
+  JourneyCurriculumService: {
+    getCurriculumTrail: jest.fn().mockResolvedValue({
+      segments: [
+        {
+          trackId: 'track-radiology-foundations',
+          trackTitle: 'Fundamentos de radiologia',
+          order: 0,
+          unlocked: true,
+          completed: false,
+          units: [],
+        },
+      ],
+      recommendedNodeId: 'node-foundations-lesson',
+    }),
+  },
+}));
 
 jest.mock('../services/JourneyProgressService', () => ({
   JourneyProgressService: {
@@ -286,24 +304,30 @@ describe('JourneyHomeScreen track flow', () => {
   it('keeps track selection out of Home because Galaxy owns exploration', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
-    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
     expect(screen.queryByTestId('journey-track-shelf')).toBeNull();
     expect(mockedJourneyProgressService.selectTrack).not.toHaveBeenCalled();
   });
 
-  it('keeps the JourneyMap out of Home because the Galaxy tab owns that surface', async () => {
+  it('É a trilha: renderiza o percurso e não o painel de retomada', async () => {
+    // Este caso afirmava o contrário até 2026-08-21 — "keeps the JourneyMap out
+    // of Home because the Galaxy tab owns that surface". A Galáxia deixou de
+    // existir como superfície e a trilha subiu para cá, então o que era a
+    // garantia virou o defeito. O caso fica invertido, e não apagado, porque a
+    // inversão é o registro da mudança de topologia.
     renderWithProviders(<JourneyHomeScreen />);
 
-    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    expect(screen.queryByText('Mapa da jornada')).toBeNull();
+    expect(screen.queryByText('Foco de hoje')).toBeNull();
+    expect(screen.queryByText('Disponível agora')).toBeNull();
   });
 
   it('shows Pixel speech when a sporadic Home message is active', async () => {
     renderWithProviders(<JourneyHomeScreen />);
 
-    await screen.findByText('Foco de hoje', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
     expect(await screen.findByTestId('journey-hero-bubble')).toBeTruthy();
   });
@@ -352,9 +376,13 @@ describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    await waitFor(() => expect(screen.getByText('Lição · Disponível')).toBeTruthy());
-    expect(screen.queryByText(/Revisão pedida/u)).toBeNull();
-    expect(screen.getByText('Continuar jornada')).toBeTruthy();
+    // O que sobreviveu à remoção do card "Foco de hoje": a escolha do que o CTA
+    // anuncia. As asserções sobre a linha "Próximo · Lição · Disponível" caíram
+    // com o card em 2026-08-21 — a trilha diz isso melhor, destacando o nó. O
+    // comportamento sob teste nunca foi o texto da linha, e sim `homeNextNode`
+    // não deixar a revisão virar manchete.
+    await waitFor(() => expect(screen.getByText('Continuar jornada')).toBeTruthy());
+    expect(screen.queryByText('Fazer revisão')).toBeNull();
   });
 
   it('quando a revisão é a única coisa aberta, o botão diz o que vai abrir', async () => {
@@ -367,8 +395,6 @@ describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
     renderWithProviders(<JourneyHomeScreen />);
 
     await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
-    // Ainda assim sem a duplicação: o tipo basta, o status não repete a palavra.
-    expect(screen.getByText('Revisão')).toBeTruthy();
-    expect(screen.queryByText(/Revisão · Revisão pedida/u)).toBeNull();
+    expect(screen.queryByText('Continuar jornada')).toBeNull();
   });
 });

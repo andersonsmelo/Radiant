@@ -6,10 +6,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const integrations: [CheckpointSurface, string][] = [
     ['first-run', 'features/first-run/screens/WelcomeFlowScreen.tsx'],
     ['home', 'features/home/screens/HomeScreen.tsx'],
-    ['galaxy-map', 'features/galaxy/screens/GalaxyMapScreen.tsx'],
-    ['galaxy-interior', 'features/galaxy/screens/GalaxyInteriorScreen.tsx'],
-    ['planet-interior', 'features/galaxy/screens/PlanetInteriorScreen.tsx'],
-    ['missions', 'features/galaxy/screens/MissionsScreen.tsx'],
+    ['missions', 'features/missions/screens/MissionsScreen.tsx'],
     ['progress', 'features/progress/screens/ProgressScreen.tsx'],
     ['lesson', 'features/lesson-flow/screens/LessonFlowScreen.tsx'],
     ['legacy-quiz', 'features/quiz/screens/QuizScreen.tsx'],

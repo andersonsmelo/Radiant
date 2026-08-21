@@ -34,9 +34,13 @@ persistente de aparelho, caminho/URI de mídia ou snapshot visual.
 Enums fechados:
 
 - `StudentCheckpointMode`: `off | shadow | active`;
-- `CheckpointSurface`: `first-run | home | galaxy-map | galaxy-interior |
-  planet-interior | missions | progress | lesson | legacy-quiz |
-  unit-checkpoint | review | reward`;
+- `CheckpointSurface`: `first-run | home | missions | progress | lesson |
+  legacy-quiz | unit-checkpoint | review | reward`;
+  **Reduzido em 2026-08-21.** `galaxy-map`, `galaxy-interior` e
+  `planet-interior` saíram junto com as telas: a Galáxia foi absorvida pela
+  trilha contínua da aba Estude e deixou de existir como superfície. Menos
+  superfícies emitindo é redução de coleta, nunca ampliação — por isso a
+  mudança não reabre nenhuma decisão deste contrato.
 - `CheckpointPhase`: `entered | in_progress | committed | completed |
   abandoned | superseded | invalidated`;
 - `NextAction`: `resume | home | review | retry | support`;

@@ -48,18 +48,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          // "Estude" e não "Home": a aba deixou de ser o painel de retomada do
+          // dia e passou a ser a trilha inteira do currículo (2026-08-21). O
+          // rótulo antigo prometia um lugar para onde voltar; o novo nomeia o
+          // que se faz ali.
+          title: 'Estude',
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="house.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="galaxy"
-        options={{
-          title: 'Galáxia',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="sparkles" color={color} />
+            <IconSymbol size={24} name="graduationcap.fill" color={color} />
           ),
         }}
       />

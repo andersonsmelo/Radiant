@@ -232,16 +232,23 @@ test('keeps icon glyphs out of the accessibility tree', async () => {
   assert.deepEqual(offenders, [], 'these files import MaterialIcons directly instead of DecorativeIcon');
 });
 
-test('keeps the journey map on the dark galaxy theme it renders inside', async () => {
-  // JourneyMap and its children render only inside JourneyHomeScreen, which is a
-  // dark galaxy screen. Importing the light `colors` token makes them render a
-  // white card with dark text on the dark background — the exact defect fixed in
-  // B2. The rule: these components use `galaxyColors`, never the light `colors`.
-  const files = [
-    'src/features/journey/components/JourneyMap.tsx',
-    'src/features/journey/components/JourneyNodeCard.tsx',
-    'src/features/journey/components/JourneyMapHeader.tsx',
-  ];
+test('keeps the journey trail on the dark galaxy theme it renders inside', async () => {
+  // Os componentes da trilha renderizam só dentro de JourneyHomeScreen, que é
+  // tela escura. Importar o token claro `colors` faz um card branco com texto
+  // escuro sobre o fundo escuro — o defeito exato corrigido em B2. A regra:
+  // estes componentes usam `galaxyColors`, nunca o `colors` claro.
+  //
+  // A lista é DERIVADA do diretório desde 2026-08-21. Antes ela nomeava três
+  // arquivos, e quando `JourneyMap` foi aposentado em favor de `JourneyTrail` o
+  // contrato quebrou por ENOENT — que é o modo bom de falhar. O modo ruim é o
+  // inverso: um componente novo entrar no diretório e nunca ser verificado
+  // porque ninguém lembrou de acrescentá-lo aqui.
+  const componentDir = 'src/features/journey/components';
+  const files = (await readdir(path.join(appRoot, componentDir)))
+    .filter((name) => name.endsWith('.tsx') && !name.endsWith('.test.tsx'))
+    .map((name) => `${componentDir}/${name}`);
+
+  assert.ok(files.length > 0, 'nenhum componente de trilha encontrado');
 
   for (const file of files) {
     const source = await readAppFile(file);

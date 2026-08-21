@@ -150,9 +150,14 @@ test('os papéis de status do contexto light apontam para os cortes de texto', a
 // com o MESMO token (`galaxy.statusInformation`), 1,00:1, invisível na tela.
 // A pergunta que o contrato não fazia é a única que importa: qual cor final
 // sobre qual superfície final.
-test('todo par de selo da prateleira de trilhas é legível sobre o próprio preenchimento', async () => {
+// **Repontado em 2026-08-21.** O caso media `JourneyTrackCard`, da prateleira de
+// trilhas, aposentada junto com a Galáxia. O componente saiu; a classe de defeito
+// não. Quem hoje desenha texto sobre o próprio preenchimento na trilha é a
+// `JourneyLevelBand` — o marco de "próximo nível" que substituiu o cabeçalho de
+// unidade. É lá que a medição de composição passa a morar.
+test('a faixa de nível é legível sobre o próprio preenchimento', async () => {
   const [card, semantic, theme] = await Promise.all([
-    readFile(path.join(appRoot, 'src/features/journey/components/JourneyTrackCard.tsx'), 'utf8'),
+    readFile(path.join(appRoot, 'src/features/journey/components/JourneyLevelBand.tsx'), 'utf8'),
     readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8'),
     readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8'),
   ]);
@@ -187,7 +192,7 @@ test('todo par de selo da prateleira de trilhas é legível sobre o próprio pre
 
   const readStyle = (name, property) => {
     const styleMatch = card.match(new RegExp(`\\n\\s{2}${name}:\\s*\\{([\\s\\S]*?)\\n\\s{2}\\},`, 'u'));
-    assert.ok(styleMatch, `estilo ${name} não encontrado em JourneyTrackCard`);
+    assert.ok(styleMatch, `estilo ${name} não encontrado em JourneyLevelBand`);
     const propMatch = styleMatch[1].match(
       new RegExp(`${property}:\\s*('[^']*'|[A-Za-z_$][\\w.$]*)`, 'u'),
     );
@@ -196,28 +201,27 @@ test('todo par de selo da prateleira de trilhas é legível sobre o próprio pre
   };
 
   const base = parseHex(readToken(theme, 'galaxyColors', 'background').replace(/'/gu, ''));
-  const cardSurface = parseColor(resolve('galaxyColors.surfaceActive'), base);
 
-  for (const [fill, text, rotulo] of [
-    ['badgeActive', 'badgeTextActive', 'trilha ativa'],
-    ['badgeReady', 'badgeTextReady', 'trilha disponível'],
+  // A placa é translúcida sobre o fundo da tela: o par medido é o texto contra a
+  // cor FINAL da placa, não contra o token que ela declara.
+  const plate = parseColor(readStyle('plate', 'backgroundColor'), base);
+
+  for (const [text, rotulo] of [
+    ['eyebrow', 'sobrescrito da faixa'],
+    ['title', 'nome da trilha seguinte'],
   ]) {
-    const background = parseColor(readStyle(fill, 'backgroundColor'), cardSurface);
-    const foreground = parseColor(readStyle(text, 'color'), background);
-    const ratio = contrastRatio(foreground, background);
+    const foreground = parseColor(readStyle(text, 'color'), plate);
+    const ratio = contrastRatio(foreground, plate);
 
-    // O selo é 12px em peso 800 — abaixo dos 14px que WCAG trata como texto
-    // grande, então vale o critério de texto normal.
+    // O sobrescrito é micro em peso 800 — abaixo dos 14px que a WCAG trata como
+    // texto grande, então vale o critério de texto normal para os dois.
     assert.ok(
       ratio >= MIN_NORMAL_TEXT,
-      `selo da ${rotulo}: ${styleNames(fill, text)} rende ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+      `${rotulo}: ${text}.color sobre plate.backgroundColor rende ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
     );
   }
 });
 
-function styleNames(fill, text) {
-  return `${fill}.backgroundColor vs ${text}.color`;
-}
 
 // WCAG 2.1: elemento de interface não-textual e indicador de estado precisam de
 // 3:1 contra o que está em volta. Foco e estado ativo não são decoração — são a

@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
@@ -16,75 +15,11 @@ import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { JourneyHero } from '../components/JourneyHero';
+import { JourneyTrail } from '../components/JourneyTrail';
+import { JourneyCurriculumService, type CurriculumTrail } from '../services/JourneyCurriculumService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { useSporadicPixelSpeech } from '../../pixel-mood/useSporadicPixelSpeech';
-
-function statusLabel(node: JourneyNode): string {
-  switch (node.status) {
-    case 'available':
-      return 'Disponível';
-    case 'active':
-      return 'Em andamento';
-    case 'resumable':
-      return 'Retomável';
-    case 'completed':
-      return 'Concluído';
-    case 'due-review':
-      return 'Revisão pedida';
-    default:
-      return 'Bloqueado';
-  }
-}
-
-/** Nome humano do tipo de etapa — o enum interno nunca aparece na tela. */
-function nodeTypeLabel(node: JourneyNode): string {
-  switch (node.type) {
-    case 'lesson':
-      return 'Lição';
-    case 'review':
-      return 'Revisão';
-    case 'checkpoint':
-      return 'Checkpoint';
-    case 'reward':
-      return 'Conquista';
-    default:
-      return 'Etapa';
-  }
-}
-
-// ── GalaxyStatRow ─────────────────────────────────────────────────
-interface GalaxyStatRowProps {
-  icon?: React.ReactNode;
-  label: string;
-  value: string;
-}
-
-function GalaxyStatRow({ icon, label, value }: GalaxyStatRowProps) {
-  return (
-    <View style={galaxyStatRowStyles.row}>
-      {icon ? <View style={galaxyStatRowStyles.icon}>{icon}</View> : null}
-      <View style={galaxyStatRowStyles.textBlock}>
-        <Text style={galaxyStatRowStyles.label}>{label}</Text>
-        <Text style={galaxyStatRowStyles.value}>{value}</Text>
-      </View>
-    </View>
-  );
-}
-
-const galaxyStatRowStyles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', gap: space.s2 },
-  icon: { width: 28, alignItems: 'center', justifyContent: 'center' },
-  textBlock: { flexDirection: 'row', alignItems: 'baseline', flexWrap: 'wrap', gap: 6, flex: 1 },
-  label: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  value: { fontSize: 14, fontWeight: '700', color: galaxyColors.textPrimary },
-});
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -97,17 +32,20 @@ export default function JourneyHomeScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [trail, setTrail] = useState<CurriculumTrail | null>(null);
 
   const loadSnapshot = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const [nextSnapshot, nextDailyGoal] = await Promise.all([
+      const [nextSnapshot, nextDailyGoal, nextTrail] = await Promise.all([
         JourneyProgressService.bootstrap(),
         DailyGoalService.getSnapshot(),
+        JourneyCurriculumService.getCurriculumTrail(),
       ]);
       setSnapshot(nextSnapshot);
       setDailyGoalSnapshot(nextDailyGoal);
+      setTrail(nextTrail);
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
       setError('Não foi possível carregar a jornada.');
@@ -129,10 +67,6 @@ export default function JourneyHomeScreen() {
     [snapshot]
   );
 
-  const actionableNodeCount = useMemo(
-    () => currentUnit?.nodes.filter((node) => node.status !== 'locked').length ?? 0,
-    [currentUnit]
-  );
 
   const pixelSpeech = useSporadicPixelSpeech();
 
@@ -220,19 +154,6 @@ export default function JourneyHomeScreen() {
     router.push(href);
   }, [canOpenNode]);
 
-  const recommendedNodeMeta = useMemo(() => {
-    if (!homeNextNode) {
-      return 'Nenhum conteúdo elegível agora';
-    }
-
-    // "Revisão · Revisão pedida" dizia a mesma palavra duas vezes e soava como
-    // cobrança. No único caso em que a revisão ainda chega aqui, o tipo basta.
-    if (homeNextNode.type === 'review' || homeNextNode.status === 'due-review') {
-      return nodeTypeLabel(homeNextNode);
-    }
-
-    return `${nodeTypeLabel(homeNextNode)} · ${statusLabel(homeNextNode)}`;
-  }, [homeNextNode]);
 
   const noNextStepMessage = useMemo(() => {
     if (!snapshot || snapshot.nextRecommendedNode) {
@@ -241,7 +162,10 @@ export default function JourneyHomeScreen() {
 
     const activeTrackTitle = currentUnit?.title ?? 'Esta trilha';
 
-    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Explore outra trilha na aba Galáxia.`;
+    // Até 2026-08-21 esta frase mandava o aluno para "a aba Galáxia". A aba foi
+    // absorvida por Estude, e o percurso contínuo já mostra o que vem adiante —
+    // rolar para frente é a ação, não trocar de superfície.
+    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Role a trilha para ver o que vem adiante.`;
   }, [currentUnit?.title, snapshot]);
 
   return (
@@ -277,30 +201,14 @@ export default function JourneyHomeScreen() {
               expression={pixelSpeech?.expression}
             />
 
-            <View style={styles.summaryCard}>
-              <Text style={styles.summaryTitle} accessibilityRole="header">Foco de hoje</Text>
-              <View style={styles.summaryList}>
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="flag" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Próximo"
-                  value={recommendedNodeMeta}
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="account-tree" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Disponível agora"
-                  value={
-                    actionableNodeCount === 1
-                      ? '1 passo liberado nesta unidade'
-                      : `${actionableNodeCount} passos liberados nesta unidade`
-                  }
-                />
-                <GalaxyStatRow
-                  icon={<DecorativeIcon name="offline-bolt" size={20} color={galaxyColors.ctaGradientEnd} />}
-                  label="Offline"
-                  value="Seu progresso fica salvo no aparelho, mesmo sem internet"
-                />
-              </View>
-            </View>
+            <JourneyTrail
+              segments={trail?.segments ?? []}
+              recommendedNodeId={trail?.recommendedNodeId ?? snapshot?.nextRecommendedNode?.id}
+              onNodePress={(node) => {
+                void openNode(node);
+              }}
+              isNodeDisabled={(node) => !canOpenNode(node)}
+            />
 
             {noNextStepMessage ? (
               <View style={styles.messageCard}>

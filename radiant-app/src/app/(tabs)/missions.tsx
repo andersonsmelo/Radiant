@@ -1,3 +1,3 @@
-import MissionsScreen from '@/src/features/galaxy/screens/MissionsScreen';
+import MissionsScreen from '@/src/features/missions/screens/MissionsScreen';
 
 export default MissionsScreen;

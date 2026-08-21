@@ -11,9 +11,6 @@ export const STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION = LESSON_CATALOG.version;
 export const STUDENT_CHECKPOINT_SURFACES = [
     'first-run',
     'home',
-    'galaxy-map',
-    'galaxy-interior',
-    'planet-interior',
     'missions',
     'progress',
     'lesson',

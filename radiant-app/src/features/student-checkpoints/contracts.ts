@@ -3,9 +3,6 @@ export type StudentCheckpointMode = 'off' | 'shadow' | 'active';
 export type CheckpointSurface =
     | 'first-run'
     | 'home'
-    | 'galaxy-map'
-    | 'galaxy-interior'
-    | 'planet-interior'
     | 'missions'
     | 'progress'
     | 'lesson'
