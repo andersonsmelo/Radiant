@@ -84,6 +84,26 @@ decisão de absorvê-la na trilha contínua, mas nenhum código implementa isso 
 | 5 | Arte da trilha e ícones de HUD | assets autorais do dono; Rive fechado |
 | 6 | Liga, ranqueamento e social | colide com o contrato de privacidade |
 
+## O ponto cego do gate — medido em 2026-08-21
+
+O sub-projeto 2 chegou à `main` com `src/app/dev-console.test.tsx`. O
+`require.context` do expo-router varre `src/app` inteiro para montar as rotas,
+então esse arquivo entrava **no bundle** e arrastava
+`@testing-library/react-native`, que pede o módulo `console` do Node. **O app
+não abria** — tela vermelha na inicialização.
+
+Os 16 passos do gate passaram todos. Não por descuido: **nenhum deles empacota o
+app.** Lint, typecheck, 712 testes e visual QA strict são compatíveis com um
+binário que não inicia.
+
+Corrigido em `3dc3388`: o teste foi para `src/test/routes/` e a regra virou o
+contrato `route-tree-purity-contract` (14º do gate), que falha se qualquer
+`*.test.*` aparecer sob `src/app`. A falha foi provada com uma sonda.
+
+**A lacuna continua aberta.** Só a abertura real do app pega essa classe de
+defeito, e ela não está em nenhum passo automatizado. Até estar, subir o app no
+simulador faz parte de verificar uma passagem.
+
 ## Defeito aberto
 
 **CTA "Retomar etapa" renderiza atrás da tab bar na Home.** Observado em
@@ -93,7 +113,7 @@ validador estático não enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 16 passos, 712 testes / 102 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 712 testes / 102 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
