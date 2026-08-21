@@ -70,15 +70,22 @@ IA que trabalharam o mesmo dia sem se ver:
   aluno, `ProgressScreen` enxugada.
 - 7 branches mortos podados (local e remoto).
 
-**A aba Galáxia continua existindo.** Os documentos do sub-projeto 2 registram a
-decisão de absorvê-la na trilha contínua, mas nenhum código implementa isso ainda.
+**A aba Galáxia deixou de existir em 2026-08-21.** A barra tem Estude, Progresso
+e Missões. `JourneyCurriculumService`, que chegou no merge do sub-projeto 2 sem
+nenhum consumidor, passou a alimentar a trilha contínua da aba Estude.
+
+A verificação que autorizou a remoção achou algo mais forte que cobertura: o
+único nó de lição da Galáxia apontava para um `lessonId` inexistente no catálogo
+— **a cadeia já estava quebrada.** `TrailCoverage.test.ts` agora guarda a
+invariante que passou a valer: toda lição do catálogo é alcançável pela trilha.
 
 ## Reformulação guiada pelo EWA — 2 de 6
 
 | # | Sub-projeto | Estado |
 | --- | --- | --- |
 | 1 | Atividade enxuta e conclusão de lição | ✅ em `main` |
-| 2 | Percurso contínuo, conclusão, dev-console | ✅ em `main` — topologia de navegação **decidida, não implementada** |
+| 2 | Percurso contínuo, conclusão, dev-console | ✅ em `main` |
+| 2b | **Estude é a trilha; Galáxia absorvida** | ✅ em `main` (2026-08-21) — aba renomeada, Galáxia removida do app, trilha contínua ligada |
 | 3 | Tela de Perfil do aluno | depende do 2 |
 | 4 | Marca no topo com símbolo de radiação | precisa da arte existir |
 | 5 | Arte da trilha e ícones de HUD | assets autorais do dono; Rive fechado |
@@ -113,7 +120,7 @@ validador estático não enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 712 testes / 102 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 684 testes / 98 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
