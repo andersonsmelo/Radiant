@@ -252,12 +252,22 @@ test('keeps the journey trail on the dark galaxy theme it renders inside', async
 
   for (const file of files) {
     const source = await readAppFile(file);
-    assert.match(source, /\bgalaxyColors\b/, `${file} must theme with galaxyColors`);
+
+    // A proibição vale para TODO componente da trilha, sempre.
     assert.doesNotMatch(
       source,
       /\bcolors\b/,
       `${file} must not use the light \`colors\` theme inside the dark journey screen`
     );
+
+    // A exigência só faz sentido para quem declara cor. Um componente que só
+    // compõe filhos e delega toda a cor a eles — como o `JourneyTrail` virou em
+    // 2026-08-21 — não tem o que tematizar, e obrigá-lo a importar o token
+    // produziria um import morto só para satisfazer o contrato.
+    const declaresColor = /(?:^|\s)(?:background|border)?[Cc]olor:/u.test(source);
+    if (!declaresColor) continue;
+
+    assert.match(source, /\bgalaxyColors\b/, `${file} declara cor e deve tematizar com galaxyColors`);
   }
 });
 

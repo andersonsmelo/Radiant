@@ -1,5 +1,7 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { render } from '@testing-library/react-native';
+import { galaxyColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
 import type { JourneyNodeStatus } from '../../../types/journey';
@@ -33,6 +35,17 @@ function segment(
     units,
     ...overrides,
   };
+}
+
+/** O estado de cada segmento da linha, de cima para baixo. */
+function spineStates(screen: ReturnType<typeof render>): string[] {
+  return screen
+    .getAllByTestId('journey-spine', { includeHiddenElements: true })
+    .map((spine) =>
+      StyleSheet.flatten(spine.props.style).backgroundColor === galaxyColors.nodeCompletedAccent
+        ? 'percorrido'
+        : 'pendente',
+    );
 }
 
 const onNodePress = jest.fn();
@@ -112,9 +125,7 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.queryAllByTestId(/^journey-level-band-/)).toHaveLength(0);
   });
-  it('preenche o caminho até a posição do aluno, com UMA fronteira', () => {
-    // O caminho tem um trecho a menos que a quantidade de nós — o primeiro nó
-    // não tem nada acima dele.
+  it('preenche a linha até a posição do aluno, com UMA fronteira', () => {
     const screen = renderTrail(
       [
         segment('t1', 'Fundamentos', [
@@ -124,23 +135,19 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
       'u1-node-2',
     );
 
-    const connectors = screen.getAllByTestId(/^journey-connector-for-/, {
-      includeHiddenElements: true,
-    });
-
-    expect(connectors).toHaveLength(3);
-    expect(connectors.map((c) => c.props.accessibilityValue?.text)).toEqual([
+    expect(spineStates(screen)).toEqual([
+      'percorrido',
       'percorrido',
       'percorrido',
       'pendente',
     ]);
   });
 
-  it('não listra o caminho quando um nó pendente aparece no meio do trecho já andado', () => {
-    // O defeito que este caso trava, visto no simulador em 2026-08-21: pintar
-    // cada trecho pelo estado do nó ACIMA dele produzia verde-cinza-verde-cinza,
-    // porque revisões bloqueadas se intercalam entre lições concluídas. Um
-    // caminho listrado não responde "onde eu estou" — a informação está na
+  it('não listra a linha quando um nó pendente aparece no meio do trecho já andado', () => {
+    // O defeito que este caso trava, visto no simulador em 2026-08-21: colorir
+    // cada trecho pelo estado do nó vizinho produzia verde-cinza-verde-cinza,
+    // porque revisões bloqueadas se intercalam entre lições concluídas. Uma
+    // linha listrada não responde "onde eu estou" — a informação está na
     // FRONTEIRA, e duas ou mais fronteiras não são fronteira nenhuma.
     const screen = renderTrail(
       [
@@ -151,47 +158,55 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
       'u1-node-3',
     );
 
-    const estados = screen
-      .getAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true })
-      .map((c) => c.props.accessibilityValue?.text);
+    const estados = spineStates(screen);
+    expect(estados).toEqual([
+      'percorrido',
+      'percorrido',
+      'percorrido',
+      'percorrido',
+      'pendente',
+    ]);
 
-    expect(estados).toEqual(['percorrido', 'percorrido', 'percorrido', 'pendente']);
-
-    // Uma fronteira só: o número de trocas de estado ao longo do caminho é 1.
     const trocas = estados.filter((estado, i) => i > 0 && estado !== estados[i - 1]);
     expect(trocas).toHaveLength(1);
   });
 
   it('sem nó recomendado, preenche até o último concluído', () => {
-    // Trilha inteira concluída, ou estado que o serviço não soube recomendar: o
-    // caminho continua tendo que dizer até onde o aluno chegou.
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [
         unit('u1', 'Unidade 1', ['completed', 'completed', 'locked']),
       ]),
     ]);
 
-    expect(
-      screen
-        .getAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true })
-        .map((c) => c.props.accessibilityValue?.text),
-    ).toEqual(['percorrido', 'pendente']);
+    expect(spineStates(screen)).toEqual(['percorrido', 'percorrido', 'pendente']);
   });
 
-  it('não desenha trecho de caminho acima do primeiro nó do percurso', () => {
+  it('dá um segmento de linha a cada nó, para que eles se encostem', () => {
+    // A linha é contínua porque cada nó carrega o seu pedaço e transborda para a
+    // folga seguinte. Um nó sem segmento é um corte visível na linha.
     const screen = renderTrail([
-      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),
+      segment('t1', 'Fundamentos', [
+        unit('u1', 'Unidade 1', ['completed', 'available']),
+        unit('u2', 'Unidade 2', ['locked']),
+      ]),
+    ]);
+
+    expect(spineStates(screen)).toHaveLength(3);
+  });
+
+  it('não desenha linha nenhuma num percurso de um nó só', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
     ]);
 
     expect(
-      screen.queryAllByTestId(/^journey-connector-for-/, { includeHiddenElements: true }),
+      screen.queryAllByTestId('journey-spine', { includeHiddenElements: true }),
     ).toHaveLength(0);
   });
 
-  it('liga o caminho ATRAVÉS da fronteira entre trilhas', () => {
+  it('liga a linha ATRAVÉS da fronteira entre trilhas', () => {
     // A costura entre segmentos é onde o percurso mais corre risco de voltar a
-    // parecer dois pedaços. O primeiro nó do segundo segmento tem um nó antes
-    // dele no percurso, então tem trecho de caminho.
+    // parecer dois pedaços.
     const screen = renderTrail(
       [
         segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),
@@ -200,14 +215,6 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
       'u2-node-0',
     );
 
-    const connectors = screen.getAllByTestId(/^journey-connector-for-/, {
-      includeHiddenElements: true,
-    });
-
-    // O trecho existe apesar da faixa de nível ficar entre os dois nós: a faixa
-    // é marco no caminho, não corte nele.
-    expect(connectors).toHaveLength(1);
-    expect(connectors[0].props.testID).toBe('journey-connector-for-u2-node-0');
-    expect(connectors[0].props.accessibilityValue?.text).toBe('percorrido');
+    expect(spineStates(screen)).toEqual(['percorrido', 'percorrido']);
   });
 });

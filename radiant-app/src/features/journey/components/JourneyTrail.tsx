@@ -3,14 +3,13 @@ import { StyleSheet, View } from 'react-native';
 
 import type { JourneyNode } from '../../../types/journey';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
-import { galaxyColors } from '../../../ui/theme';
 import { space } from '../../../ui/styles';
-
-/** Folga entre nós, e portanto altura do trecho de caminho que os liga. */
-const TRAIL_GAP = space.s3;
 import { JourneyLevelBand } from './JourneyLevelBand';
 import { JourneyNodeCard } from './JourneyNodeCard';
-import { JourneyTrailConnector } from './JourneyTrailConnector';
+import { JourneyTrailSpine, type SpinePosition } from './JourneyTrailSpine';
+
+/** Folga entre nós, e o quanto cada segmento de linha transborda para alcançar o seguinte. */
+const TRAIL_GAP = space.s3;
 
 type JourneyTrailProps = {
   segments: CurriculumSegment[];
@@ -63,6 +62,7 @@ export function JourneyTrail({
    * concluído, porque o caminho continua tendo que dizer até onde se chegou.
    */
   const flatNodes = segments.flatMap((segment) => segment.units.flatMap((unit) => unit.nodes));
+  const lastIndex = flatNodes.length - 1;
   const recommendedIndex = flatNodes.findIndex((node) => node.id === recommendedNodeId);
   const lastCompletedIndex = flatNodes.reduce(
     (last, node, index) => (node.status === 'completed' ? index : last),
@@ -87,10 +87,17 @@ export function JourneyTrail({
               {unit.nodes.map((node) => {
                 nodeIndex += 1;
                 const alignRight = nodeIndex % 2 === 1;
-                // O trecho ACIMA deste nó já foi andado quando o nó está em cima
-                // da posição alcançada, ou é ela própria.
+                // O segmento deste nó já foi andado quando o nó está em cima da
+                // posição alcançada, ou é ela própria.
                 const traveled = nodeIndex <= reachedIndex;
-                const connectorFor = nodeIndex > 0 ? node.id : null;
+                const position: SpinePosition =
+                  lastIndex === 0
+                    ? 'only'
+                    : nodeIndex === 0
+                      ? 'first'
+                      : nodeIndex === lastIndex
+                        ? 'last'
+                        : 'middle';
 
                 return (
                   <View
@@ -102,15 +109,15 @@ export function JourneyTrail({
                     // por snapshot de estilo, que quebra a cada ajuste visual.
                     accessibilityValue={{ text: alignRight ? 'direita' : 'esquerda' }}
                   >
-                    {connectorFor ? (
-                      <View
-                        testID={`journey-connector-for-${connectorFor}`}
-                        style={styles.connectorSlot}
-                        accessibilityValue={{ text: traveled ? 'percorrido' : 'pendente' }}
-                      >
-                        <JourneyTrailConnector traveled={traveled} />
-                      </View>
-                    ) : null}
+                    {/*
+                      Filho DIRETO da linha, e não de um invólucro. Um `View` de
+                      embrulho não tem altura própria — os filhos dele são todos
+                      absolutos —, então `top: 0 / bottom: -gap` resolveria contra
+                      uma caixa de altura zero e a linha voltaria a existir só na
+                      folga, picotada. Quem dá altura ao segmento é a própria
+                      linha do nó.
+                    */}
+                    <JourneyTrailSpine traveled={traveled} position={position} gap={TRAIL_GAP} />
 
                     <JourneyNodeCard
                       node={node}
@@ -145,14 +152,5 @@ const styles = StyleSheet.create({
   row: {
     position: 'relative',
   },
-  // O trecho de caminho ocupa a folga ACIMA do nó, na mesma coluna central onde
-  // o `JourneyNodeCard` desenha a âncora. Reservar altura aqui, e não dentro do
-  // conector, mantém o conector ignorante sobre o espaçamento da trilha.
-  connectorSlot: {
-    position: 'absolute',
-    top: -TRAIL_GAP,
-    left: 0,
-    right: 0,
-    height: TRAIL_GAP,
-  },
+
 });
