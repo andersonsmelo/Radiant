@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react-native';
 
-import DevConsoleRoute from './dev-console';
-import { renderWithProviders } from '../test/renderWithProviders';
-import { AppConfig } from '../config';
+import DevConsoleRoute from '../../app/dev-console';
+import { renderWithProviders } from '../renderWithProviders';
+import { AppConfig } from '../../config';
 
 jest.mock('expo-router', () => ({
   router: { replace: jest.fn(), push: jest.fn() },
@@ -15,7 +15,7 @@ jest.mock('expo-router', () => ({
   },
 }));
 
-jest.mock('../features/dev-console/screens/DevConsoleScreen', () => {
+jest.mock('../../features/dev-console/screens/DevConsoleScreen', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return {
@@ -24,7 +24,7 @@ jest.mock('../features/dev-console/screens/DevConsoleScreen', () => {
   };
 });
 
-jest.mock('../config', () => ({
+jest.mock('../../config', () => ({
   AppConfig: { SHOW_DEV_TOOLS: true },
 }));
 
