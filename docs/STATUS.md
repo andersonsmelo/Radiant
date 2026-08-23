@@ -87,7 +87,7 @@ invariante que passou a valer: toda lição do catálogo é alcançável pela tr
 | 2 | Percurso contínuo, conclusão, dev-console | ✅ em `main` |
 | 2b | **Estude é a trilha; Galáxia absorvida** | ✅ em `main` (2026-08-21) — aba renomeada, Galáxia removida do app, trilha contínua ligada |
 | 2c | **Caminho preenchido, cabeçalho de estágio, avaliação por competência** | ✅ em `main` (2026-08-21) |
-| 3 | Tela de Perfil do aluno | depende do 2 |
+| 3 | **Aba Perfil: Progresso + Missões + identidade** | ✅ em `main` (2026-08-21) — a barra tem duas abas |
 | 4 | Marca no topo com símbolo de radiação | precisa da arte existir |
 | 5 | Arte da trilha e ícones de HUD | assets autorais do dono; Rive fechado |
 | 6 | Liga, ranqueamento e social | colide com o contrato de privacidade |
@@ -131,6 +131,25 @@ simulador faz parte de verificar uma passagem.
 **Em aberto para o dono:** se o Pixel deve voltar a falar espontaneamente em
 alguma superfície. Hoje ele só fala como reação a evento.
 
+## A barra, medida em 2026-08-21
+
+Duas abas: **Estude** (a trilha) e **Perfil** (identidade + Missões + Progresso).
+O console de desenvolvimento vive fora das abas, em `/dev-console`, atrás de
+`SHOW_DEV_TOOLS` — a separação veio antes da agregação de propósito.
+
+O que a referência do EWA tem e o Perfil não tem: seguidores, chats e liga entre
+pessoas. O `STUDENT_CHECKPOINT_PRIVACY_CONTRACT` não admite comparação entre
+alunos; a liga é métrica local, por decisão de 2026-08-15.
+
+**Requisito de loja preservado:** o cartão **Ajuda e informações** — Política de
+Privacidade e Central de Suporte — continua no app, agora no fim da rolagem do
+Perfil. Verificado em simulador.
+
+**Armadilha registrada:** os flows do Maestro **não rodam** no `npm run quality`;
+só o contrato deles roda, e ele afirma estrutura, não copy contra tela. Em
+2026-08-21 uma mudança de copy quebrou 20 asserções em 9 flows sem nenhum sinal.
+Ao mudar texto de tela, greppe `.maestro/` no mesmo passo.
+
 ## Defeito aberto
 
 **Resolvido junto com a trilha.** O CTA "Retomar etapa" renderizava atrás da tab
@@ -140,7 +159,7 @@ validador estático enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 708 testes / 99 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 712 testes / 100 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
