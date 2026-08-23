@@ -120,7 +120,7 @@ fontes ampliadas · sem vazamento de rota no header.
   como *ready for review*, mergear antes de submeter, e **remedir as duas URLs na
   véspera** — o estado de uma URL pública decai sozinho.
 - [x] ✅ Política de Privacidade e Central de Suporte disponíveis **dentro do
-  app** — cartão sempre visível **Ajuda e informações** na aba Progresso, URLs
+  app** — cartão sempre visível **Ajuda e informações** na aba **Perfil** (que absorveu Progresso e Missões em 2026-08-21), URLs
   HTTPS centralizadas, papéis/dicas acessíveis e falha do navegador contida. As
   4 suítes focadas passaram com 14 testes em 2026-08-01; a abertura dos dois
   destinos em iPhone físico passou em 2026-08-05 e B4/VoiceOver fechou em

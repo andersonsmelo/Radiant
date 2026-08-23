@@ -148,7 +148,16 @@ function TopicsMasteredList({
 
 // ── Tela principal ───────────────────────────────────────────────
 
-export default function ProgressScreen() {
+/**
+ * `embedded` — a tela renderiza só o corpo, sem `SafeAreaView` nem `ScrollView`.
+ *
+ * A aba Perfil agrega esta tela e a outra numa rolagem só. Duas `ScrollView`
+ * aninhadas na vertical brigam pelo gesto: a de dentro consome o arrasto e a de
+ * fora trava, e o aluno não alcança o que está embaixo. Quem rola é o Perfil.
+ */
+type EmbeddableProps = { embedded?: boolean };
+
+export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
     const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
     const [dueCount, setDueCount] = useState(0);
     const [authSession, setAuthSession] = useState<AuthSession | null>(null);
@@ -401,13 +410,8 @@ export default function ProgressScreen() {
                 ? D.error
                 : D.textSec;
 
-    return (
-        <SafeAreaView style={styles.root} edges={['top']}>
-            <ScrollView
-                style={styles.scroll}
-                contentContainerStyle={styles.content}
-                showsVerticalScrollIndicator={false}
-            >
+    const body = (
+        <>
                 {/* ── Header ── */}
                 <Text style={styles.screenEyebrow}>SEU PROGRESSO</Text>
                 <Text style={styles.screenTitle} accessibilityRole="header">Progresso</Text>
@@ -586,6 +590,19 @@ export default function ProgressScreen() {
                     <WelcomeFlowScreen onFinish={() => setShowWelcomeReplay(false)} />
                 </Modal>
 
+        </>
+    );
+
+    if (embedded) return body;
+
+    return (
+        <SafeAreaView style={styles.root} edges={['top']}>
+            <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={styles.content}
+                showsVerticalScrollIndicator={false}
+            >
+                {body}
             </ScrollView>
         </SafeAreaView>
     );

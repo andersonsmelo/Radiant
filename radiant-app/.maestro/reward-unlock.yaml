@@ -47,7 +47,11 @@ tags:
     commands:
       - tapOn: Close
 - runFlow: subflows/dismiss-first-run.yaml
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 
 # ── Unidade 1 ────────────────────────────────────────────────────────────────
 # Só a primeira lição entra por deep link, como na `learning-critical-path`:
@@ -83,7 +87,7 @@ tags:
 # resposta, não o título do payload. A ação de rodapé é o que sempre existe.
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 1 ─────────────────────────────────────────────────────────────
 # O CTA da home renderiza depois do mapa inteiro, abaixo da dobra. É um
@@ -140,7 +144,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 2 ─────────────────────────────────────────────────────────────
 - repeat:
@@ -187,7 +191,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 3 ─────────────────────────────────────────────────────────────
 - repeat:
@@ -234,7 +238,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 4 ─────────────────────────────────────────────────────────────
 - repeat:
@@ -281,7 +285,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 5 ─────────────────────────────────────────────────────────────
 - repeat:
@@ -328,7 +332,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── Checkpoint 6 — o último ──────────────────────────────────────────────────
 # `buildUnit` cria checkpoint para toda lição menos a última, então são seis
@@ -378,7 +382,7 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+- assertVisible: '^\d+ de \d+$'
 
 # ── A conquista destravou ────────────────────────────────────────────────────
 # Aqui está a asserção que dá sentido ao flow inteiro: o CTA da home mudou.

@@ -117,19 +117,25 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   // the retired onboarding-to-home.yaml drove an unfinished prototype removed on
   // 2026-07-28. Keep the deep-link out and the stable home assertion in.
   assert.match(flows[0], /clearState: true/);
-  assert.match(flows[0], /assertVisible: Foco de hoje/);
+  // Âncora da home: era `Foco de hoje` até 2026-08-21, quando o card de retomada
+  // saiu e a aba Estude virou a trilha. O contador do cabeçalho de estágio é o
+  // que existe ali agora, e em nenhuma outra tela.
+  assert.match(flows[0], /assertVisible: '\^\\d\+ de \\d\+\$'/);
   assert.doesNotMatch(flows[0], /radiantapp:\/\/onboarding/);
   assert.match(flows[1], /lesson-option-q1:option:1/);
-  // The critical path ends at Progresso. The reward node is unlocked only after
-  // the LAST lesson of the catalog-generated track (7 lessons), so it is not
-  // reachable in a smoke run — asserting it here would encode an unrunnable flow.
-  // The tab selector is anchored to the tab's accessible name on both platforms
-  // (iOS "Progresso, tab, 3 of 4", Android "Progresso"). It must stay anchored:
-  // a loose `.*Progresso.*` also matches the home caption "Seu progresso fica
-  // salvo..." — Maestro matches case-insensitively — and taps it instead, which
-  // broke both platforms on 2026-07-28. The iOS-only literal broke Android.
-  assert.match(flows[1], /- tapOn: '\^Progresso\(, tab\.\*\)\?\$'/);
-  assert.match(flows[1], /- assertVisible: PROGRESSO/);
+  // O caminho crítico termina no Perfil — que desde 2026-08-21 agrega o que eram
+  // as abas Progresso e Missões. O nó de conquista só abre depois da ÚLTIMA lição
+  // da trilha gerada pelo catálogo (7 lições), então ele não é alcançável num
+  // smoke; afirmá-lo aqui codificaria um flow que não roda.
+  //
+  // O seletor da aba fica ancorado ao nome acessível dela nas duas plataformas
+  // (iOS "Perfil, tab, 2 of 2", Android "Perfil"). Ancorado é obrigatório: um
+  // `.*Perfil.*` solto casa com qualquer legenda que contenha a palavra — o
+  // Maestro compara sem diferenciar caixa — e toca nela em vez da aba. Foi
+  // assim que a versão com `.*Progresso.*` quebrou as duas plataformas em
+  // 2026-07-28, e o literal só-iOS quebrou o Android.
+  assert.match(flows[1], /- tapOn: '\^Perfil\(, tab\.\*\)\?\$'/);
+  assert.match(flows[1], /- assertVisible: Desafios de hoje/);
   assert.doesNotMatch(flows[1], /Receber conquista/);
   // setAirplaneMode takes enabled/disabled; the boolean form fails to parse.
   assert.match(flows[2], /setAirplaneMode: enabled/);

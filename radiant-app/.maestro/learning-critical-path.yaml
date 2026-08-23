@@ -56,7 +56,11 @@ tags:
 # always-present last-step footer action instead.
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 # The home CTA renders after the full journey map, far below the fold. It is an
 # AppButton, which sets accessibilityRole+accessibilityLabel on the Pressable,
 # so iOS collapses the inner Text and the node exposes only accessibilityText.
@@ -125,19 +129,25 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 # The reward node is deliberately NOT covered here. The active track is
 # generated from the catalog (7 lessons), not from defaultTrack.ts (2 lessons),
 # and JourneyDefinitionService unlocks the reward only after the LAST lesson —
 # so the achievement stays "Bloqueado" at this point and is unreachable in a
 # smoke run. This flow proves the local-first loop through progress instead:
 # lesson -> checkpoint -> achievement -> next lesson -> progress.
+# Progresso e Missões deixaram de ser abas em 2026-08-21: viraram seções da aba
+# Perfil, junto da identidade do aluno. A barra tem duas abas.
 # The tab's accessible name differs per platform: iOS composes
-# "Progresso, tab, 3 of 4" while Android exposes just "Progresso" (maestro
-# hierarchy, both platforms, 2026-07-28). Anchor the selector to the tab: a
-# loose `.*Progresso.*` also matches the home caption "Seu progresso fica salvo
-# no aparelho..." — Maestro matches case-insensitively and that caption sits
-# above the tab in the tree, so the tap lands on the caption and Progresso never
-# opens (it broke both platforms). `^Progresso(, tab.*)?$` matches only the tab.
-- tapOn: '^Progresso(, tab.*)?$'
-- assertVisible: PROGRESSO
+# "Perfil, tab, 2 of 2" while Android exposes just "Perfil" (maestro hierarchy,
+# both platforms, 2026-07-28). Anchor the selector to the tab — a loose
+# `.*Perfil.*` would also match any caption containing the word, and Maestro
+# matches case-insensitively. `^Perfil(, tab.*)?$` matches only the tab.
+- tapOn: '^Perfil(, tab.*)?$'
+# Missões é a primeira seção do Perfil, então este título é o que aparece sem
+# rolar. `PROGRESSO` está mais abaixo e exigiria scroll.
+- assertVisible: Desafios de hoje

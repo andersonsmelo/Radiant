@@ -29,4 +29,8 @@ tags:
 # onboarding smoke deep-linked into an unfinished prototype that was removed on
 # 2026-07-28; this flow proves what actually matters — a fresh install, welcome
 # dismissed, reaches the local-first home — against a stable pt-BR assertion.
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'

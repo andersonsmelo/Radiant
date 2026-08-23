@@ -168,7 +168,16 @@ function MissionCard({ title, icon, done, progress, detail }: Mission) {
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
-export default function MissionsScreen() {
+/**
+ * `embedded` — a tela renderiza só o corpo, sem `SafeAreaView` nem `ScrollView`.
+ *
+ * A aba Perfil agrega esta tela e a outra numa rolagem só. Duas `ScrollView`
+ * aninhadas na vertical brigam pelo gesto: a de dentro consome o arrasto e a de
+ * fora trava, e o aluno não alcança o que está embaixo. Quem rola é o Perfil.
+ */
+type EmbeddableProps = { embedded?: boolean };
+
+export default function MissionsScreen({ embedded = false }: EmbeddableProps) {
   const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
   const [dailyGoal, setDailyGoal] = useState<DailyGoalSnapshot | null>(null);
   const [dueCount, setDueCount] = useState<number | null>(null);
@@ -267,14 +276,8 @@ export default function MissionsScreen() {
 
   const doneCount = missions.filter((m) => m.done).length;
 
-  return (
-    <View style={styles.root}>
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
+  const body = (
+    <>
           {/* ── Header ── */}
           <View style={styles.headerRow}>
             <View>
@@ -371,6 +374,20 @@ export default function MissionsScreen() {
               </View>
             )}
           </View>
+    </>
+  );
+
+  if (embedded) return body;
+
+  return (
+    <View style={styles.root}>
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {body}
         </ScrollView>
       </SafeAreaView>
     </View>

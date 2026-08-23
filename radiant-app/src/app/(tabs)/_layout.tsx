@@ -59,20 +59,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="progress"
+        name="profile"
         options={{
-          title: 'Progresso',
+          // Progresso e Missões deixaram de ser abas em 2026-08-21 e passaram a
+          // ser seções do Perfil, junto da identidade do aluno. A barra ficou com
+          // duas abas: o que se faz (Estude) e quem faz (Perfil).
+          title: 'Perfil',
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="chart.bar.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="missions"
-        options={{
-          title: 'Missões',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="bolt.fill" color={color} />
+            <IconSymbol size={24} name="person.fill" color={color} />
           ),
         }}
       />

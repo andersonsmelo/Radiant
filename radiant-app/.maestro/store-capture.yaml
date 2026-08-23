@@ -11,7 +11,11 @@ tags:
 
 # A home limpa nao entra na vitrine: XP e sequencia aparecem zerados. A trilha e
 # percorrida primeiro e a home e capturada no fim, ja com progresso real.
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 
 # CTA da home fica abaixo da dobra, e o repeat guardado para no instante em que o
 # elemento entra na arvore — o que no emulador rapido o deixa sob a tab bar
@@ -59,7 +63,11 @@ tags:
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 - repeat:
     times: 15
     while:
@@ -114,11 +122,16 @@ tags:
 - tapOn: Concluir e voltar
 
 # Agora sim: home com progresso preenchido.
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 - takeScreenshot: shots/01-home
 
-# Aba de progresso. Seletor ancorado: um `.*Progresso.*` solto casa antes com a
-# legenda da home "Seu progresso fica salvo no aparelho...".
-- tapOn: '^Progresso(, tab.*)?$'
-- assertVisible: PROGRESSO
-- takeScreenshot: shots/06-progresso
+# Aba Perfil — que desde 2026-08-21 agrega identidade, missões e progresso.
+# Seletor ancorado ao rótulo da aba: um `.*Perfil.*` solto casaria com qualquer
+# legenda que contivesse a palavra, e o Maestro compara sem diferenciar caixa.
+- tapOn: '^Perfil(, tab.*)?$'
+- assertVisible: Desafios de hoje
+- takeScreenshot: shots/06-perfil

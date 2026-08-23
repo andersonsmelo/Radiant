@@ -25,7 +25,11 @@ tags:
     commands:
       - tapOn: Close
 - runFlow: subflows/dismiss-first-run.yaml
-- assertVisible: Foco de hoje
+# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
+# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
+# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
+# serve, porque coincide com o título de uma lição.
+- assertVisible: '^\d+ de \d+$'
 - repeat:
     times: 15
     while:

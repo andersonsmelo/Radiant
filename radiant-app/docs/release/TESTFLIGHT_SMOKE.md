@@ -45,7 +45,9 @@
 - percorra contexto → ideia-chave → questão → reforço e use "Concluir e voltar";
 - abra o checkpoint e conclua: a celebração mostra `CONQUISTA DESBLOQUEADA` e o
   CTA leva ao próximo nó recomendado;
-- a aba Progresso mostra XP e sequência com valores diferentes de zero;
+- a aba **Perfil** — que desde 2026-08-21 absorveu Progresso e Missões — mostra
+  XP e sequência com valores diferentes de zero, no cabeçalho e na seção de
+  progresso;
 - `REVISÕES` conta somente cards **já vencidos** (`getDueLessons` filtra
   `nextReviewAt <= agora`). O valor esperado no mesmo dia é `0`, e o motivo é
   mais forte do que "o intervalo ainda não venceu": `recordQuizResult` cria o
@@ -66,7 +68,8 @@
 
 ## Cenário 5 — links legais (pendência nomeada da F1)
 
-- na aba Progresso, o cartão **Ajuda e informações** está sempre visível;
+- na aba **Perfil**, rolando até o fim, o cartão **Ajuda e informações** está
+  sempre visível;
 - "Política de Privacidade" abre `https://saudediagnostica.com/radiant/privacidade/`;
 - "Central de Suporte" abre `https://saudediagnostica.com/radiant/suporte/`;
 - os dois destinos respondem e o retorno ao app funciona;
@@ -115,7 +118,7 @@ para que ninguém as recoloque sem antes mudar o app.
 - versão e build lidas do binário instalado;
 - captura da apresentação de primeiro uso e da Learning Road;
 - captura de uma tela qualquer mostrando a barra de status legível;
-- captura do checkpoint concluído e da aba Progresso com valores;
+- captura do checkpoint concluído e da aba **Perfil** com valores;
 - captura dos dois destinos legais abertos a partir do app;
 - captura da tela de conquista bloqueada, sem botão de coleta;
 - se o prompt de avaliação aparecer, em que momento apareceu.

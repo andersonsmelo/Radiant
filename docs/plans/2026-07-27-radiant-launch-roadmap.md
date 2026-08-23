@@ -353,7 +353,8 @@ código.
   `production`; Expo Updates como único terceiro ativo. **Resolvido desde
   então:** a hospedagem (URL acima) e o e-mail/entidade — o texto publicado
   declara Anderson Melo como controlador, contato `anderson.smelo94@gmail.com`.
-  **Link interno concluído em 2026-08-01:** a aba Progresso agora oferece o cartão
+  **Link interno concluído em 2026-08-01:** a aba Progresso — absorvida pela aba
+  Perfil em 2026-08-21, com o cartão preservado — oferece o cartão
   sempre visível **Ajuda e informações**, com Política de Privacidade e Central
   de Suporte em links acessíveis, URLs centralizadas e falha de abertura contida.
   As 4 suítes focadas passaram com 14 testes e os dois destinos foram remedidos

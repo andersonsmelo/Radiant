@@ -26,6 +26,7 @@ const MAPPING = {
   'house.fill': 'home',
   'graduationcap.fill': 'school',
   'chart.bar.fill': 'bar-chart',
+  'person.fill': 'person',
   sparkles: 'auto-awesome',
   'bolt.fill': 'bolt',
   'paperplane.fill': 'send',
