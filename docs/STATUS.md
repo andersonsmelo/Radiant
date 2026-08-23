@@ -150,6 +150,23 @@ só o contrato deles roda, e ele afirma estrutura, não copy contra tela. Em
 2026-08-21 uma mudança de copy quebrou 20 asserções em 9 flows sem nenhum sinal.
 Ao mudar texto de tela, greppe `.maestro/` no mesmo passo.
 
+## Varredura de QA — 2026-08-21
+
+Relatório completo, com evidência de tela:
+[`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
+
+O ciclo crítico inteiro funciona percorrido no simulador, sem erro de console.
+Três coisas pedem decisão:
+
+1. **`npm run ios:v2` promete flags que não entrega.** Imprime
+   `REMOTE_SYNC=false` e o app reporta sync ativado contra a API de produção,
+   por causa de um `.env` local que vence o script. Reproduzido com `--clear` e
+   relançamento. Toda homologação feita por esse script fica sob suspeita.
+2. **`/dev-console` não tem entrada in-app** — só deep link. A homologação em
+   aparelho depende dessa tela.
+3. **13 módulos órfãos**, incluindo a feature `annotation` inteira, e as rotas
+   `/quiz`, `/review` e `/modal` sem caminho até elas.
+
 ## Defeito aberto
 
 **Resolvido junto com a trilha.** O CTA "Retomar etapa" renderizava atrás da tab
@@ -159,7 +176,7 @@ validador estático enxerga tela.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 712 testes / 100 suítes, visual QA
+`npm run quality` em `radiant-app`: 17 passos (14 contratos), 715 testes / 100 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
