@@ -141,7 +141,15 @@ export function LessonSummary({
         {unitTotal > 0 ? (
           <View style={styles.unitCard}>
             <Text style={styles.unitLabel}>Progresso da unidade</Text>
-            <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} lições`}</Text>
+            {/*
+              "etapas", e não "lições": o total vem de
+              `computeUnitPrimaryProgress`, que conta todo nó que não é revisão
+              — lições, checkpoints e a conquista. Chamar 14 de "14 lições"
+              quando 7 delas não são lição foi medido em 2026-08-21, junto com o
+              cabeçalho da trilha, que contava com outro denominador. É o mesmo
+              rótulo que `CheckpointScreen` já usava.
+            */}
+            <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} etapas`}</Text>
             <AnimatedProgressBar
               ratio={unitCompleted / unitTotal}
               height={10}

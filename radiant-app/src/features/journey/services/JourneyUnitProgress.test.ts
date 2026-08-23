@@ -1,4 +1,4 @@
-import { computeUnitPrimaryProgress } from './JourneyUnitProgress';
+import { computeSegmentPrimaryProgress, computeUnitPrimaryProgress } from './JourneyUnitProgress';
 import type { JourneyUnit } from '../../../types/journey';
 
 function makeUnit(nodes: JourneyUnit['nodes']): JourneyUnit {
@@ -31,5 +31,46 @@ describe('computeUnitPrimaryProgress', () => {
     ]);
 
     expect(computeUnitPrimaryProgress(unit)).toEqual({ completed: 0, total: 2 });
+  });
+});
+
+describe('computeSegmentPrimaryProgress — o trecho inteiro, pela mesma regra', () => {
+  function unit(id: string, nodes: { type: string; status: string }[]) {
+    return {
+      id,
+      title: id,
+      nodes: nodes.map((n, i) => ({ id: `${id}-${i}`, unitId: id, title: `n${i}`, ...n })),
+    } as never;
+  }
+
+  it('soma as unidades e continua ignorando revisões', () => {
+    expect(
+      computeSegmentPrimaryProgress([
+        unit('u1', [
+          { type: 'lesson', status: 'completed' },
+          { type: 'review', status: 'completed' },
+          { type: 'checkpoint', status: 'completed' },
+        ]),
+        unit('u2', [
+          { type: 'lesson', status: 'available' },
+          { type: 'review', status: 'locked' },
+        ]),
+      ]),
+    ).toEqual({ completed: 2, total: 3 });
+  });
+
+  it('não conta revisão nem quando ela é a única coisa concluída', () => {
+    // O defeito que este caso trava: contar TODOS os nós fazia o cabeçalho da
+    // trilha e a conclusão de lição anunciarem denominadores diferentes para o
+    // mesmo currículo — "2 de 21" contra "3 de 14".
+    expect(
+      computeSegmentPrimaryProgress([
+        unit('u1', [{ type: 'review', status: 'completed' }, { type: 'lesson', status: 'locked' }]),
+      ]),
+    ).toEqual({ completed: 0, total: 1 });
+  });
+
+  it('devolve zeros para um trecho sem unidade', () => {
+    expect(computeSegmentPrimaryProgress([])).toEqual({ completed: 0, total: 0 });
   });
 });

@@ -541,8 +541,8 @@ describe('QuizScreen flow', () => {
     fireEvent.press(await screen.findByText('Próxima'));
 
     await waitFor(() => expect(screen.getByText('A lição foi concluída')).toBeTruthy());
-    expect(await screen.findByText('1 de 2 lições')).toBeTruthy();
-    expect(screen.queryByText('0 de 2 lições')).toBeNull();
+    expect(await screen.findByText('1 de 2 etapas')).toBeTruthy();
+    expect(screen.queryByText('0 de 2 etapas')).toBeNull();
   });
 
   it('conclui a lição sem oferta de assinatura nem pedido de notificação', async () => {

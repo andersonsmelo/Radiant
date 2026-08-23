@@ -15,6 +15,7 @@ import { radius, space, tabBarClearance, typography } from '../../../ui/styles';
 import { JourneyStageHeader } from '../components/JourneyStageHeader';
 import { JourneyTrail } from '../components/JourneyTrail';
 import { JourneyCurriculumService, type CurriculumTrail } from '../services/JourneyCurriculumService';
+import { computeSegmentPrimaryProgress } from '../services/JourneyUnitProgress';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 
@@ -161,13 +162,12 @@ export default function JourneyHomeScreen() {
       return { title: snapshot?.track.title ?? 'Sua trilha', completed: 0, total: 0 };
     }
 
-    const nodes = nodesOf(segment);
-
-    return {
-      title: segment.trackTitle,
-      completed: nodes.filter((node) => node.status === 'completed').length,
-      total: nodes.length,
-    };
+    // A contagem NÃO é feita aqui. `computeSegmentPrimaryProgress` é a mesma
+    // regra que a conclusão de lição e o checkpoint usam — revisão não conta
+    // como marco. Contar todos os nós aqui foi o defeito medido em 2026-08-21:
+    // o topo anunciava "2 de 21" e a conclusão anunciava "3 de 14" para o mesmo
+    // currículo, minutos depois.
+    return { title: segment.trackTitle, ...computeSegmentPrimaryProgress(segment.units) };
   }, [trail, snapshot?.nextRecommendedNode?.id, snapshot?.track.title]);
 
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);

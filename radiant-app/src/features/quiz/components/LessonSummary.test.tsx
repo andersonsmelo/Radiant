@@ -114,7 +114,7 @@ describe('LessonSummary', () => {
 
   it('mostra o progresso da unidade', () => {
     render(<LessonSummary {...base} />);
-    expect(screen.getByText('7 de 14 lições')).toBeTruthy();
+    expect(screen.getByText('7 de 14 etapas')).toBeTruthy();
   });
 
   it('não renderiza o card de progresso da unidade quando unitTotal é 0', () => {
