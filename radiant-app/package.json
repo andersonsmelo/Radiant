@@ -34,11 +34,12 @@
     "test:pixel-screen-geometry-contract": "node --test scripts/pixel-screen-geometry-contract.test.mjs",
     "test:pixel-face-anchor-contract": "node --test scripts/pixel-face-anchor-contract.test.mjs",
     "test:route-tree-purity-contract": "node --test scripts/route-tree-purity-contract.test.mjs",
+    "test:env-precedence-contract": "node --test scripts/check-env-precedence.test.mjs",
     "test:ci-gate-parity-contract": "node --test scripts/ci-gate-parity-contract.test.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "visual:qa:strict": "node scripts/visual-qa.mjs --strict",
     "checkpoint:performance-report": "node scripts/checkpoint-performance-report.mjs",
-    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test:route-tree-purity-contract && npm run test:ci-gate-parity-contract && npm run test -- --runInBand && npm run visual:qa:strict",
+    "quality": "npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test:route-tree-purity-contract && npm run test:env-precedence-contract && npm run test:ci-gate-parity-contract && npm run test -- --runInBand && npm run visual:qa:strict",
     "storybook": "STORYBOOK_ENABLED=true expo start",
     "storybook:ios": "STORYBOOK_ENABLED=true expo start --ios",
     "storybook:android": "STORYBOOK_ENABLED=true expo start --android"

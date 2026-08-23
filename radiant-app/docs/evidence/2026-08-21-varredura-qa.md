@@ -31,19 +31,43 @@ vivia em `/quiz`, sem ponto de entrada. Hoje `/learn` a entrega.
 `EXPO_NO_DOTENV=1`, e imprime `Flags: … REMOTE_SYNC=false`. O app, aberto logo em
 seguida, reporta **Sync remoto: ativado** e **API: `https://api.radiant.ascendcreative.com.br`**.
 
-Não é cache: reproduzido com `--clear` e com o app terminado e relançado. A
-origem é `radiant-app/.env` (não versionado), que declara `REMOTE_SYNC=true` e a
-URL de produção, e vence tanto o export do script quanto o `EXPO_NO_DOTENV=1`.
-Existe também um `.env.local` que declara o oposto.
+Não é cache: reproduzido com `--clear` e com o app terminado e relançado.
+
+**Causa isolada por experimento controlado.** Tirando `radiant-app/.env` do
+caminho e reiniciando o Metro limpo, o console passou a mostrar
+`Sync remoto: desativado`, `API: não configurada` e `Beta Gate: desativado`. O
+arquivo foi restaurado byte a byte em seguida. `.env` — que não é versionado —
+declara `REMOTE_SYNC=true`, `BETA_GATE=true` e a URL de produção, e **vence tanto
+o `export` do shell quanto o `EXPO_NO_DOTENV=1`**.
+
+> **Correção de método.** Uma primeira leitura desta seção afirmou que
+> `.env.local` declarava o oposto. Não declara: ele tem uma linha só,
+> `EXPO_PUBLIC_APP_ENV=development`. As linhas atribuídas a ele vieram do
+> `.env.example`, varrido junto por um `grep .env*`. O erro não mudou a
+> conclusão, mas mudaria o remédio se tivesse sobrevivido — por isso fica
+> registrado.
+>
+> Uma tentativa intermediária de diagnosticar lendo o bundle servido por
+> `curl` deu resposta ERRADA: o bundle baixado por aquele endpoint declarava
+> `REMOTE_SYNC="false"` e não continha a URL, contradizendo o que o app exibia.
+> Só o experimento com o arquivo fora do caminho deu resposta confiável.
 
 **Por que importa:** quem homologa com esse script acredita estar testando
 local-first com sync desligado, enquanto o binário pode autenticar e sincronizar
 contra a API de produção. Toda conclusão tirada de uma sessão dessas fica sob
 suspeita.
 
-**Remédio:** decidir quem é a autoridade — o script ou o `.env` — e fazer o
-script falhar alto se o valor efetivo divergir do que ele acabou de imprimir.
-Imprimir a intenção sem verificar o efeito é o que produziu este defeito.
+**Corrigido em 2026-08-21.** `scripts/check-env-precedence.mjs` resolve, na mesma
+ordem de precedência que o Expo usa, qual arquivo vence para cada chave que o
+script declara — e `start-ios-v2.sh` o executa **antes** de imprimir qualquer
+INFO. Divergência aborta a subida nomeando a chave, os dois valores e o arquivo.
+Chave que só o script declara não é conflito; arquivo de precedência maior que
+concorda com o script blinda o de menor. Os dois caminhos — reprovar e aprovar —
+foram exercitados, e o contrato `test:env-precedence-contract` entrou no gate.
+
+**Continua aberto:** o `.env` desta máquina ainda diverge, então
+`npm run ios:v2` agora **falha por desenho** até alguém escolher a autoridade —
+alinhar o valor no arquivo ou tirar a chave dele. Essa escolha é do dono.
 
 ### 2.2 O console de desenvolvimento não tem entrada in-app
 
