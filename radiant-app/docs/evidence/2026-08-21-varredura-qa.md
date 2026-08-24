@@ -126,20 +126,35 @@ A extração do console para rota própria (sub-projeto 2) foi correta e destrav
 aba Perfil, mas não criou porta de entrada. O checklist de release registra que a
 homologação em aparelho depende dessa tela.
 
+**Corrigido em 2026-08-24.** O Perfil ganhou uma porta no fim da rolagem, atrás
+de `SHOW_DEV_TOOLS` — que é `__DEV__ || EXPO_PUBLIC_ENABLE_DEV_TOOLS`, logo
+inexistente no build do aluno. É uma **porta**, não os controles: Learning Road,
+Beta Gate e reset de estado local continuam fora do perfil, e o caso que proíbe
+esses controles ali segue verde ao lado do caso novo. Verificado no simulador:
+a porta fica acima da tab bar flutuante e abre o console.
+
 ### 2.3 Rotas sem caminho até elas
 
 | Rota | Estado |
 | --- | --- |
 | `/learn`, `/checkpoint`, `/reward` | ✅ alcançáveis pela trilha, via `getJourneyNodeHref` |
 | `/telemetry` | ✅ alcançável pelo console |
-| `/dev-console` | ⚠️ só por deep link |
+| `/dev-console` | ✅ porta no fim do Perfil, atrás de `SHOW_DEV_TOOLS` (2026-08-24) |
 | `/quiz` | ❌ **nenhuma entrada** — o plano prevê aposentá-la (task 18) |
 | `/review` | ❌ só de `HomeScreen` (inalcançável) e do runtime de checkpoint ativo (off em produção) |
-| `/modal` | ❌ nenhuma entrada — resíduo do template Expo |
+| ~~`/modal`~~ | ✅ removida em 2026-08-24 — era o modal literal do template Expo, "This is a modal" em inglês |
 
-`HomeScreen` está morta: `(tabs)/index.tsx` só a renderiza com
+`HomeScreen` não é alcançável: `(tabs)/index.tsx` só a renderiza com
 `ENABLE_LEARNING_ROAD=false`, o padrão é `true` e **nenhum perfil do `eas.json`
 desliga**. Ela carrega 3 dos 6 `TODO` de produção do repositório.
+
+**Não é órfã para apagar.** O comentário em `src/config.ts` declara que a flag
+"permanece como kill switch" — então a `HomeScreen` é o alvo desse switch, e
+removê-la desarmaria o mecanismo. O que ela é, de fato, é um **fallback
+degradado**: se o kill switch for acionado hoje, o aluno cai numa tela com três
+`TODO` não ligados e um empurrão para `/review`, que também não tem entrada. Ou
+o fallback é mantido em estado utilizável, ou o kill switch deixa de existir e
+a tela sai junto. Decisão do dono; nenhuma das duas foi tomada.
 
 ## 3. Órfãos — 13 módulos que nenhum código de produção importa
 

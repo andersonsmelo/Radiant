@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 
+import { AppConfig } from '../../../config';
+import { AppButton } from '../../../components/ui/AppButton';
 import { AuthService } from '../../auth/AuthService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import MissionsScreen from '../../missions/screens/MissionsScreen';
@@ -24,11 +26,17 @@ import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
  * porque duas `ScrollView` aninhadas na vertical brigam pelo gesto — a de dentro
  * consome o arrasto e a de fora trava, e o aluno não alcança o que está embaixo.
  *
- * **O console de desenvolvimento não entra, e nunca pode entrar.** Ele saiu da
- * `ProgressScreen` para rota própria atrás de `SHOW_DEV_TOOLS` antes desta
- * agregação existir, e a ordem foi essa de propósito: agregar primeiro teria
- * arrastado Learning Road, Beta Gate e reset de estado local para dentro do
- * perfil do aluno.
+ * **Os controles do console não entram, e nunca podem entrar.** Learning Road,
+ * Beta Gate, reset de estado local — tudo isso saiu da `ProgressScreen` para
+ * rota própria antes desta agregação existir, e a ordem foi essa de propósito.
+ *
+ * O que entra é uma **porta**, não os controles: até 2026-08-21 a rota
+ * `/dev-console` não tinha nenhuma entrada in-app e só abria por deep link,
+ * embora o checklist de release registre que a homologação em aparelho depende
+ * dela. A porta fica atrás de `SHOW_DEV_TOOLS` — que é `__DEV__ ||
+ * EXPO_PUBLIC_ENABLE_DEV_TOOLS` —, então no build do aluno ela não existe. Não
+ * é um botão desabilitado, que ainda contaria uma história a quem não deveria
+ * ouvi-la.
  */
 export default function ProfileScreen() {
   const [email, setEmail] = useState<string | null>(null);
@@ -57,6 +65,17 @@ export default function ProfileScreen() {
           <ProfileIdentityHeader email={email} streakDays={streakDays} totalXp={totalXp} />
           <MissionsScreen embedded />
           <ProgressScreen embedded />
+
+          {AppConfig.SHOW_DEV_TOOLS ? (
+            <AppButton
+              variant="ghost"
+              onPress={() => router.push('/dev-console')}
+              accessibilityLabel="Abrir o console de desenvolvimento"
+              accessibilityHint="Ferramentas de homologação. Não aparece no build do aluno."
+            >
+              Console de desenvolvimento
+            </AppButton>
+          ) : null}
         </ScrollView>
       </SafeAreaView>
     </View>

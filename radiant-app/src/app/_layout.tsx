@@ -386,10 +386,6 @@ function RootLayout() {
         <Stack.Screen name="review" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
-        <Stack.Screen
-          name="modal"
-          options={{ presentation: 'modal', title: 'Modal', headerShown: true }}
-        />
       </Stack>
       <StatusBar style="light" />
     </ThemeProvider>

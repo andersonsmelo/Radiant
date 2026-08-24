@@ -5,6 +5,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react-native';
 
 import ProfileScreen from './ProfileScreen';
+import { AppConfig } from '../../../config';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -19,6 +20,10 @@ jest.mock('expo-router', () => ({
 
 jest.mock('../../auth/AuthService', () => ({
   AuthService: { bootstrap: jest.fn().mockResolvedValue(null) },
+}));
+
+jest.mock('../../../config', () => ({
+  AppConfig: { SHOW_DEV_TOOLS: true },
 }));
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -105,5 +110,33 @@ describe('ProfileScreen — uma aba só, com identidade, missões e progresso', 
     for (const proibido of [/Learning Road/u, /Beta Gate/u, /Telemetry Debug/u, /Catálogo local/u]) {
       expect(screen.queryByText(proibido)).toBeNull();
     }
+  });
+});
+
+describe('ProfileScreen — a porta do console de desenvolvimento', () => {
+  // O console saiu da ProgressScreen para rota própria no sub-projeto 2, o que
+  // destravou a aba Perfil — mas ninguém criou porta de entrada. Ele ficou
+  // alcançável só por deep link, e o checklist de release registra que a
+  // homologação em aparelho depende dessa tela. Medido em 2026-08-21.
+  afterEach(() => {
+    AppConfig.SHOW_DEV_TOOLS = true;
+  });
+
+  it('oferece a entrada quando as ferramentas de desenvolvimento estão ligadas', () => {
+    AppConfig.SHOW_DEV_TOOLS = true;
+    render(<ProfileScreen />);
+
+    expect(screen.getByText('Console de desenvolvimento')).toBeTruthy();
+  });
+
+  it('não mostra nada disso no build do aluno', () => {
+    // `SHOW_DEV_TOOLS` é `__DEV__ || EXPO_PUBLIC_ENABLE_DEV_TOOLS`, então em
+    // release sem a flag a porta simplesmente não existe — e não é só um botão
+    // desabilitado, que ainda contaria uma história ao aluno.
+    AppConfig.SHOW_DEV_TOOLS = false;
+    render(<ProfileScreen />);
+
+    expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
+    expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
   });
 });
