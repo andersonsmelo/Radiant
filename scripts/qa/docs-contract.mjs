@@ -10,10 +10,17 @@ export const CURRENT_STATE_DOCUMENTS = [
   'README.md',
   'docs/README.md',
   'docs/ARCHITECTURE_STATE.md',
-  // O snapshot mais recente governa; o anterior sai da lista ao ser substituído,
-  // senão o contrato passa a validar histórico e para de checar o que está em
-  // vigor. O teste irmão afirma exatamente esse acoplamento.
-  'docs/EXECUTION_STATUS_2026-08-15.md',
+  // **Caminho estável desde 2026-08-21.** A lista apontava para o
+  // `EXECUTION_STATUS_<data>` mais recente, e o teste irmão afirmava esse
+  // acoplamento: cada snapshot novo aposentava o anterior, e quem esquecesse de
+  // atualizar a lista fazia o contrato validar histórico.
+  //
+  // O mecanismo inteiro caiu quando os 21 status datados foram arquivados em
+  // `docs/archive/` e substituídos por um documento vivo. O contrato ficou
+  // apontando para um arquivo que não existe mais — e passou TRÊS DIAS assim
+  // sem ninguém notar, porque ele roda no `loop validate` e não no
+  // `npm run quality`. Um caminho sem data no nome não tem como envelhecer.
+  'docs/STATUS.md',
   'radiant-app/README.md',
 ];
 

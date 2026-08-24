@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -14,21 +14,37 @@ import {
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-test('governs the newest execution status as a current-state document', () => {
-  // Cada data de execução cria um snapshot novo e aposenta o anterior. Se a
-  // lista de documentos governados não acompanhar, o contrato passa a validar
-  // um estado histórico e para de checar o que está em vigor — a forma mais
-  // silenciosa de o documento canônico voltar a divergir da realidade.
-  const newest = readdirSync(path.join(repoRoot, 'docs'))
-    .filter((name) => /^EXECUTION_STATUS_\d{4}-\d{2}-\d{2}\.md$/.test(name))
-    .sort()
-    .at(-1);
-
-  assert.ok(newest, 'expected at least one EXECUTION_STATUS_<date>.md in docs/');
+test('governs the living status document, at a path that cannot age', () => {
+  // Este caso afirmava o oposto até 2026-08-21: que a lista governada tinha de
+  // acompanhar o `EXECUTION_STATUS_<data>` mais recente. Era um acoplamento que
+  // exigia manutenção manual a cada snapshot, e ele quebrou exatamente como se
+  // esperaria — os datados foram arquivados, a lista ficou apontando para um
+  // arquivo inexistente, e o contrato reprovou por três dias sem ninguém notar.
+  //
+  // A garantia agora é a inversa e mais forte: o documento governado vive num
+  // caminho SEM data, então nenhuma passagem futura pode deixá-lo para trás.
   assert.ok(
-    CURRENT_STATE_DOCUMENTS.includes(`docs/${newest}`),
-    `docs/${newest} is the newest execution status but is not a governed current-state document`,
+    CURRENT_STATE_DOCUMENTS.includes('docs/STATUS.md'),
+    'docs/STATUS.md é o estado vivo e precisa ser governado pelo contrato',
   );
+
+  const datados = CURRENT_STATE_DOCUMENTS.filter((doc) => /_\d{4}-\d{2}-\d{2}\.md$/.test(doc));
+  assert.deepEqual(
+    datados,
+    [],
+    `documento com data no nome voltou à lista governada: ${datados.join(', ')}. ` +
+      'Um caminho datado exige que alguém lembre de atualizá-lo, e é assim que o ' +
+      'contrato volta a validar histórico.',
+  );
+
+  // O arquivo tem de existir de fato: uma lista que nomeia um caminho morto
+  // reprova o contrato inteiro, que foi o defeito de 2026-08-21.
+  for (const doc of CURRENT_STATE_DOCUMENTS) {
+    assert.ok(
+      existsSync(path.join(repoRoot, doc)),
+      `${doc} está na lista governada mas não existe no repositório`,
+    );
+  }
 });
 
 test('flags a machine-local user path in a current-state document', () => {

@@ -32,13 +32,17 @@ git branch -a && gh pr list --state open
 | App Store | `1.3.1 (7)` | Aguardando revisão | **2026-08-09** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · 14 vinculados, 2 opt-ins | **2026-08-03** |
 
-> ⚠️ **As duas leituras estão vencidas.** Em 2026-08-21 a App Review estava sem
-> medição havia 12 dias e os opt-ins havia 18. Nenhum agente consegue medir isso:
-> os dois números vivem em console, não em Git. **É a primeira coisa que o dono
-> deve fazer ao abrir o projeto.**
+> ⚠️ **As duas leituras estão vencidas, e envelhecendo.** Em 2026-08-24 a App
+> Review estava sem medição havia **15 dias** e os opt-ins havia **21**. Nenhum
+> agente consegue medir isso: os dois números vivem em console, não em Git. **É a
+> primeira coisa que o dono deve fazer ao abrir o projeto**, porque a resposta
+> reordena tudo o que vem depois.
 
-Git não substitui essa medição: a última tag é `v1.2.1`, de 2026-07-26. Não
-existe tag `v1.3.x` — o repositório não registra o que foi lançado.
+Git não substitui essa medição: a última tag é `v1.2.1`, de 2026-07-26, e `main`
+está **392 commits à frente dela** (medido em 2026-08-24). Não existe tag
+`v1.3.x` — o repositório não registra o que foi lançado. **O build em revisão é
+anterior a toda a reformulação da trilha e do Perfil**; a próxima submissão
+carrega o pacote inteiro.
 
 ## Bloqueios de lançamento, por latência
 
@@ -150,22 +154,59 @@ só o contrato deles roda, e ele afirma estrutura, não copy contra tela. Em
 2026-08-21 uma mudança de copy quebrou 20 asserções em 9 flows sem nenhum sinal.
 Ao mudar texto de tela, greppe `.maestro/` no mesmo passo.
 
-## Varredura de QA — 2026-08-21
+## Varredura de QA — 2026-08-21, fechada em 2026-08-24
 
 Relatório completo, com evidência de tela:
 [`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
 
-O ciclo crítico inteiro funciona percorrido no simulador, sem erro de console.
-Três coisas pedem decisão:
+O ciclo crítico inteiro funciona percorrido no simulador, sem erro de console:
+`trilha → lição → conclusão com estrelas → checkpoint → conquista → próxima`.
 
-1. **`npm run ios:v2` promete flags que não entrega.** Imprime
-   `REMOTE_SYNC=false` e o app reporta sync ativado contra a API de produção,
-   por causa de um `.env` local que vence o script. Reproduzido com `--clear` e
-   relançamento. Toda homologação feita por esse script fica sob suspeita.
-2. **`/dev-console` não tem entrada in-app** — só deep link. A homologação em
-   aparelho depende dessa tela.
-3. **13 módulos órfãos**, incluindo a feature `annotation` inteira, e as rotas
-   `/quiz`, `/review` e `/modal` sem caminho até elas.
+**Fechado em 2026-08-24:**
+
+- **`npm run ios:v2` entregava flags diferentes das que imprimia.** Um `.env`
+  local vencia o `export` do script e o `EXPO_NO_DOTENV=1` — isolado por
+  experimento controlado, não por leitura de código. `check-env-precedence.mjs`
+  passou a verificar o efeito **antes** de o script prometer qualquer coisa, e
+  cobre também `API_BASE_URL`, que era a chave mais perigosa. O `.env` da máquina
+  do dono foi alinhado, com backup em `~/.radiant-env.backup-2026-08-24`.
+- **`/dev-console` ganhou porta** no fim da rolagem do Perfil, atrás de
+  `SHOW_DEV_TOOLS`. É porta, não controle: os controles seguem proibidos ali, e
+  a distinção está travada por teste nos dois sentidos.
+- **`/modal` removida** — era o modal literal do template Expo. Arquivos de rota
+  e `Stack.Screen` declarados agora batem 1:1.
+- **O kill switch foi acionado pela primeira vez** — ver a seção abaixo.
+
+**Continua aberto, por decisão do dono:** os 13 módulos órfãos (incluindo a
+feature `annotation` inteira), o nó `/quiz` + `/review` — ambas sem entrada, e o
+plano condiciona aposentar a primeira a confirmar que a segunda cobre revisão —,
+e os quatro falsos kill switches.
+
+## O kill switch, medido em 2026-08-24
+
+`ENABLE_LEARNING_ROAD` é o **único** kill switch real: `(tabs)/index.tsx`
+renderiza `JourneyHomeScreen` quando ligado e `HomeScreen` quando desligado. É
+lido em tempo de build, então só se aciona por novo build ou por OTA — que está
+configurado (`updates.url`, canais `preview`/`production`).
+
+Foi acionado e medido pela primeira vez. Funciona mecanicamente: sobe, navega,
+sem crash. Mas a `HomeScreen` renderizava **inteiramente no tema claro**, e num
+incidente isso é o pior comportamento possível — o aluno concluiria que o app
+quebrou. Migrada para `semanticColors.galaxy`; nenhum componente compartilhado
+foi tocado, porque `StatPill` já tinha prop `dark` e `ProgressRing` já usava o
+contexto escuro.
+
+**A guarda que deveria ter pego, e não pegava.** O `identity-palette-contract`
+cobria a tela e passava verde: ela alcançava a paleta clara por
+`semanticColors.light`, e `semanticColors` estava na lista de permitidos. O
+contrato passou a proibir o **contexto** claro dentro das raízes de produto — e
+a ignorar comentários, para não punir quem documenta a regra.
+
+**Os outros quatro são rótulos, não interruptores.** `ENABLE_REVIEW`,
+`ENABLE_GAMIFICATION`, `ENABLE_ONBOARDING` e `ENABLE_HEURISTICS` estão fixos em
+`true` no código, sem leitura de env. Não são acionáveis nem por OTA. Ou viram
+flags de verdade, ou mudam de nome — a pior hora de descobrir isso é durante um
+incidente. **Decisão do dono, não tomada.**
 
 ## Defeito aberto
 
@@ -183,9 +224,17 @@ bar na Home de 2026-08-21; o painel que o continha foi substituído pela trilha,
 o botão deixou de existir como elemento fixo. A lição permanece: nenhum
 validador estático enxerga tela.
 
+## Duas redes, e o que cada uma NÃO cobre
+
+O `npm run quality` do app e o `loop validate` do Loop são **conjuntos
+diferentes**, e nenhum é superconjunto do outro. Em 2026-08-24 o
+`docs-contract` do Loop estava reprovando havia **três dias** — desde o
+arquivamento dos status datados em 2026-08-21 — e nada avisou, porque ele não
+roda no gate do app. Ao mexer em documentação governada, rode os dois.
+
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 17 passos (14 contratos), 715 testes / 100 suítes, visual QA
+`npm run quality` em `radiant-app`: 18 passos (15 contratos), 717 testes / 100 suítes, visual QA
 strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
