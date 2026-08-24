@@ -69,20 +69,29 @@ real-device do checklist.
 
 ---
 
-## ⛔ Antes de responder — um bloqueio que não é da revisão
+## ✅ O bloqueio do contrato caiu — aceito em 2026-08-24
 
-O App Store Connect exibe, no topo da lista de apps:
+O contrato de licença do Apple Developer Program foi aceito pelo titular, e a
+verificação foi feita **onde o bloqueio se manifestava**: a faixa desapareceu do
+topo da lista de apps do App Store Connect, que agora abre direto no aviso do
+DSA. Confirmado por leitura da página em 2026-08-24.
 
-> O contrato de licença do Programa Apple Developer foi atualizado e precisa ser
-> revisado. **Para atualizar seus apps existentes e enviar novos apps, o titular
-> da conta deve revisar e aceitar o contrato atualizado.**
+**Restam dois avisos no App Store Connect**, nenhum deles bloqueando o Brasil:
 
-**Isso trava a resubmissão independentemente da resposta à revisão.** Só o
-titular da conta aceita, em `developer.apple.com/account`. Aceite primeiro; caso
-contrário a resposta é escrita e a submissão continua barrada.
+- **Status de comerciante (DSA / União Europeia)** — não informado. Não trava a
+  submissão, mas remove o app da App Store na UE. Fica em App Store Connect →
+  *Business*.
+- **Perguntas novas sobre redes sociais na classificação etária** — a
+  classificação em si **está preenchida** (+12 no Brasil, +13 em 172 países,
+  global +12 com exceções regionais). O aviso pede revisão das perguntas
+  **novas**. O Radiant não tem recurso social — o
+  `STUDENT_CHECKPOINT_PRIVACY_CONTRACT` proíbe comparação entre alunos —, então
+  as respostas são "não"; mas pergunta nova sem resposta pode barrar envio, e
+  isso não dá para confirmar sem abrir o questionário.
 
-Há também um aviso sobre **status de comerciante para o DSA** na União Europeia.
-Não bloqueia o Brasil, mas remove o app da App Store na UE se não for informado.
+**Nota de coerência para o item 7:** a seção *Informações do app* já declara
+"Sim, este app tem os direitos necessários para os conteúdos de terceiros". A
+declaração existe; o que a Apple pede agora é a **documentação por trás dela**.
 
 ---
 
