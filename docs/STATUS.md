@@ -70,8 +70,9 @@ carrega o pacote inteiro.
    `appVersionSource: remote` + `autoIncrement`).
 
    Sequência: ~~titular aceita o contrato de licença~~ (feito em 2026-08-24) →
-   build de produção do `main`
-   → instalar em iPhone físico e **verificar se abre** → anotar modelo e iOS →
+   build de produção do `main` → **subir ao TestFlight** (o perfil `production` é
+   de loja e não se sideloada)
+   → instalar pelo TestFlight e **verificar se abre** → anotar modelo e iOS →
    gravar o vídeo na mesma sessão → anexar o `(8)` e responder. Detalhe em
    [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
 
