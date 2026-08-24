@@ -150,11 +150,32 @@ desliga**. Ela carrega 3 dos 6 `TODO` de produção do repositório.
 
 **Não é órfã para apagar.** O comentário em `src/config.ts` declara que a flag
 "permanece como kill switch" — então a `HomeScreen` é o alvo desse switch, e
-removê-la desarmaria o mecanismo. O que ela é, de fato, é um **fallback
-degradado**: se o kill switch for acionado hoje, o aluno cai numa tela com três
-`TODO` não ligados e um empurrão para `/review`, que também não tem entrada. Ou
-o fallback é mantido em estado utilizável, ou o kill switch deixa de existir e
-a tela sai junto. Decisão do dono; nenhuma das duas foi tomada.
+removê-la desarmaria o mecanismo.
+
+**O switch foi acionado e medido em 2026-08-24.** Ele funciona mecanicamente: o
+app sobe, navega, sem crash e sem erro no console. Mas o fallback renderizava
+**inteiramente no tema claro** — fundo branco num app cuja identidade é galaxy
+dark, com a barra de status ilegível. Num incidente esse é o pior comportamento
+possível para uma rede de segurança: o aluno vê uma tela branca estranha e
+conclui que o app quebrou, que é o oposto do que o switch existe para transmitir.
+
+**Corrigido.** `HomeScreen` passou a usar `semanticColors.galaxy`. Uma linha
+remapeia as 52 referências; os únicos literais claros que precisaram mudar foram
+dois verdes escuros (`#1A7A3A`) que sumiriam no fundo escuro. Os brancos ficaram:
+todos vivem dentro do cartão de gradiente azul, onde estão corretos. `StatPill`
+já tinha prop `dark` e `ProgressRing` já usa o contexto galaxy — **nenhum
+componente compartilhado foi tocado**, que era a fronteira a não cruzar.
+
+**A guarda que deveria ter pego, e não pegava.** O `identity-palette-contract`
+cobre `src/features` e `src/app`, inclui a `HomeScreen` e passava verde. Ela não
+importava `colors`: fazia `const light = semanticColors.light`, e `semanticColors`
+estava na lista de camadas permitidas. Era a mesma paleta clara por uma porta
+autorizada. O contrato passou a proibir o **acesso ao contexto claro** dentro das
+raízes de produto — mantendo `semanticColors.galaxy` permitido, que é o alvo
+recomendado — e a ignorar comentários, para não punir quem documenta a regra.
+
+**Continua aberto:** os três `TODO` da tela mostram travessão em vez de dado.
+Mostrar nada é honesto; mostrar número errado seria pior. Não é urgente.
 
 ## 3. Órfãos — 13 módulos que nenhum código de produção importa
 

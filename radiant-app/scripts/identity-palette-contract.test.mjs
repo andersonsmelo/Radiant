@@ -17,9 +17,20 @@ import { fileURLToPath } from 'node:url';
 //
 // Camadas permitidas:
 //   - `galaxyColors`  (paleta dark, mesmo módulo) — este é o alvo correto;
-//   - `semanticColors` (`src/ui/semantic-colors.ts`) — mapa por contexto;
+//   - `semanticColors` (`src/ui/semantic-colors.ts`) — mapa por contexto, MAS
+//     só o contexto `galaxy`; ver abaixo;
 //   - a paleta clara `colors` continua livre em `src/components/ui` e `src/ui`,
 //     a camada primitiva compartilhada que oferece ambos os contextos.
+//
+// **A segunda porta, fechada em 2026-08-24.** Esta guarda cobria `HomeScreen` e
+// passava verde enquanto a tela renderizava fundo BRANCO — verificado acionando
+// o kill switch `ENABLE_LEARNING_ROAD`. Ela não importava `colors`: fazia
+// `const light = semanticColors.light`, e `semanticColors` estava na lista de
+// permitidos. Era a mesma paleta clara por uma porta autorizada.
+//
+// Proibir o módulo inteiro seria errado — `semanticColors.galaxy` é justamente
+// o alvo recomendado. O que se proíbe é o ACESSO ao contexto claro dentro das
+// raízes de produto.
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -61,6 +72,35 @@ async function collectSourceFiles(relativeRoot) {
 
 // Encontra qualquer `import { ... colors ... } from '<...>/ui/theme'` — inclusive
 // multilinha e com alias (`colors as c`), tratando o nome IMPORTADO, não o local.
+/**
+ * Remove comentários antes de julgar.
+ *
+ * Sem isto o contrato acusa quem DOCUMENTA a regra: o comentário que explica
+ * por que a `HomeScreen` deixou de usar `semanticColors.light` contém a própria
+ * expressão proibida. Um guarda que pune a explicação empurra o autor a apagar
+ * o registro para ficar verde, que é o oposto do que se quer.
+ */
+function stripComments(source) {
+  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
+/**
+ * O acesso ao contexto claro de `semanticColors` dentro das raízes de produto.
+ *
+ * Cobre `semanticColors.light`, `semanticColors['light']` e a desestruturação
+ * `const { light } = semanticColors`. Não cobre um alias indireto de duas
+ * etapas — quem quiser burlar consegue, e o contrato não existe para vencer
+ * quem tenta, e sim para impedir quem não percebeu.
+ */
+function usesLightContext(rawSource) {
+  const source = stripComments(rawSource);
+  return (
+    /semanticColors\s*\.\s*light\b/.test(source) ||
+    /semanticColors\s*\[\s*['"]light['"]\s*\]/.test(source) ||
+    /\{[^}]*\blight\b[^}]*\}\s*=\s*semanticColors/.test(source)
+  );
+}
+
 function importsLightPalette(source) {
   const importRe = /import\s*(?:type\s+)?\{([\s\S]*?)\}\s*from\s*['"]([^'"]+)['"]/g;
   let match;
@@ -88,7 +128,7 @@ test('nenhuma tela ou feature importa a paleta clara `colors` (identidade galaxy
   await Promise.all(
     files.map(async (file) => {
       const source = await readFile(file, 'utf8');
-      if (importsLightPalette(source)) {
+      if (importsLightPalette(stripComments(source)) || usesLightContext(source)) {
         offenders.push(path.relative(appRoot, file));
       }
     }),
@@ -97,9 +137,9 @@ test('nenhuma tela ou feature importa a paleta clara `colors` (identidade galaxy
   assert.deepEqual(
     offenders.sort(),
     [],
-    `Estes arquivos importam a paleta clara \`colors\` de ui/theme dentro de ${GUARDED_ROOTS.join(
+    `Estes arquivos alcançam a paleta CLARA dentro de ${GUARDED_ROOTS.join(
       ' / ',
-    )}. Migre para \`galaxyColors\` (ou \`semanticColors\`):\n  ${offenders
+    )} — importando \`colors\` de ui/theme, ou pelo contexto \`semanticColors.light\`.\nMigre para \`galaxyColors\` ou \`semanticColors.galaxy\`:\n  ${offenders
       .sort()
       .join('\n  ')}`,
   );

@@ -31,7 +31,21 @@ import {
     useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 
-const light = semanticColors.light;
+/**
+ * **Contexto escuro, apesar do nome da variável.**
+ *
+ * Esta tela é o fallback do kill switch `ENABLE_LEARNING_ROAD`. Até 2026-08-24
+ * ela lia `semanticColors.light` e renderizava fundo branco dentro de um app
+ * cuja identidade é galaxy dark — verificado acionando o switch. Num incidente
+ * isso é o pior comportamento possível para uma rede de segurança: o aluno vê
+ * uma tela branca estranha e conclui que o app quebrou, que é o oposto do que o
+ * switch existe para transmitir.
+ *
+ * O nome `light` foi mantido porque remapeia 52 referências de uma vez e trocá-lo
+ * geraria um diff que esconde a mudança real dentro de renomeações. O que ele
+ * aponta é o que importa, e está aqui.
+ */
+const light = semanticColors.galaxy;
 
 // ── Inline SVG Icons ────────────────────────────────────────────────────────
 
@@ -207,16 +221,19 @@ export default function HomeScreen() {
                             icon={<FlameIcon />}
                             value={`${dashboard?.streakDays ?? 0}`}
                             color="#FF6B2C"
+                            dark
                         />
                         <StatPill
                             icon={<BoltIcon />}
                             value={`${dashboard?.totalXp ?? 0} XP`}
                             color="#F5A623"
+                            dark
                         />
                         <StatPill
                             icon={<HeartIcon />}
                             value={`${dashboard?.hearts.current ?? 0}/${dashboard?.hearts.maximum ?? 0}`}
                             color="#FF3B30"
+                            dark
                         />
                     </View>
 
@@ -760,7 +777,10 @@ const styles = StyleSheet.create({
     },
     closureTitle: {
         ...textStyles.h3,
-        color: '#1A7A3A',
+        // `#1A7A3A` — verde escuro — era legível sobre a tinta clara. Sobre o
+        // fundo escuro ele some. `statusSuccess` do contexto galaxy é o mesmo
+        // papel na paleta certa.
+        color: light.statusSuccess,
     },
     closureBody: {
         ...textStyles.body,
@@ -779,7 +799,7 @@ const styles = StyleSheet.create({
     goalCompletedText: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#1A7A3A',
+        color: light.statusSuccess,
     },
 
     // Health Card
