@@ -163,6 +163,11 @@ validators:
       --test scripts/content/validate-no-verbatim.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
       node scripts/content/validate-no-verbatim.mjs
     timeoutMs: 120000
+  - id: content-source-rights
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/validate-source-rights.test.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node scripts/content/validate-source-rights.mjs
+    timeoutMs: 120000
   - id: content-python
     command: PATH=/usr/bin:/bin sh -c 'estado=0; for suite in scripts/content/build-manifest.test.py
       scripts/content/extract-source.test.py
