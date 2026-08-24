@@ -9,6 +9,12 @@ export EXPO_PUBLIC_APP_ENV="${EXPO_PUBLIC_APP_ENV:-development}"
 export EXPO_NO_DOTENV=1
 export EXPO_PUBLIC_ENABLE_LEARNING_ROAD=true
 export EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false
+# A URL vazia é parte do perfil, não detalhe: `ENABLE_REMOTE_SYNC=false` NÃO
+# impede o app de falar com a API. `AuthService` gateia apenas em
+# `isApiConfigured()`, e `bootstrap()` roda no startup (`_layout.tsx`), no Perfil
+# e no Progresso. Com uma URL configurada, "sync desligado" ainda autentica
+# contra ela. Homologação V2 é local-first, então a URL tem que estar vazia.
+export EXPO_PUBLIC_API_BASE_URL=""
 export EXPO_PUBLIC_ENABLE_BETA_GATE=false
 export EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN=true
 export EXPO_PUBLIC_ENABLE_DEV_TOOLS=true
@@ -28,6 +34,7 @@ node "$SCRIPT_DIR/check-env-precedence.mjs" \
   "EXPO_PUBLIC_APP_ENV=${EXPO_PUBLIC_APP_ENV}" \
   "EXPO_PUBLIC_ENABLE_LEARNING_ROAD=${EXPO_PUBLIC_ENABLE_LEARNING_ROAD}" \
   "EXPO_PUBLIC_ENABLE_REMOTE_SYNC=${EXPO_PUBLIC_ENABLE_REMOTE_SYNC}" \
+  "EXPO_PUBLIC_API_BASE_URL=${EXPO_PUBLIC_API_BASE_URL}" \
   "EXPO_PUBLIC_ENABLE_BETA_GATE=${EXPO_PUBLIC_ENABLE_BETA_GATE}" \
   "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN=${EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN}" \
   "EXPO_PUBLIC_ENABLE_DEV_TOOLS=${EXPO_PUBLIC_ENABLE_DEV_TOOLS}"
