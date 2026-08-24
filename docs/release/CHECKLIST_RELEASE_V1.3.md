@@ -218,10 +218,41 @@ fontes ampliadas · sem vazamento de rota no header.
   endereço foi persistido no repositório. **F2 permanece aberto:** faltam pelo
   menos 10 opt-ins para chegar a 12 e então comprovar **12+ opted-in por 14 dias
   consecutivos**.
-- [x] ✅ **App Store / F4:** preço gratuito e direitos de conteúdo persistidos;
-  `1.3.1 (7)` enviada à App Review às 12:05 BRT de 2026-08-08. Estado observado:
-  **Aguardando revisão**, reconfirmado em 2026-08-09. **Play / F4** continua
-  esperando F2.
+- [ ] 🔴 **App Store / F4 — REABERTO. `1.3.1 (7)` foi REJEITADA.** Preço gratuito
+  e direitos de conteúdo seguem persistidos, e a versão foi enviada às 12:05 BRT
+  de 2026-08-08. Mas a Apple respondeu em **14/08/2026 às 02:54** com
+  `Guideline 2.1 - Information Needed - New App Submission`, e o envio está em
+  **"Problemas não resolvidos"** (`2.1.0 Performance: App Completeness`).
+  Medido no App Store Connect em **2026-08-24** — a rejeição ficou **dez dias sem
+  leitura**, enquanto este checklist e o `STATUS.md` afirmavam "Aguardando
+  revisão" com base na medição de 2026-08-09.
+
+  Não é defeito funcional: a Apple pede sete informações para conseguir avaliar.
+  O plano de resposta está em [`APP_REVIEW_REPLY_1.3.1.md`](APP_REVIEW_REPLY_1.3.1.md).
+
+  ⛔ **Bloqueio anterior à resposta:** o contrato de licença do Apple Developer
+  Program foi atualizado e exige aceite do **titular da conta** antes de qualquer
+  novo envio.
+
+  ⚠️ **Duas lacunas que este checklist já continha e agora custam caro:** a
+  matriz real-device registra `modelo/iOS não registrados` para o iPhone físico —
+  que é literalmente o item 2 do pedido da Apple —, e o smoke físico foi no build
+  `1.3.1 (5)`, não no `(7)` submetido.
+
+  ✅ **Decidido em 2026-08-24 — caminho B:** a resposta vai com um **build novo
+  do `main`**, anexado à versão `1.3.1` (que está em estado editável), e não com
+  o `(7)`. Motivo medido: o `(7)` ainda contém `src/app/modal.tsx`, o template do
+  Expo com `This is a modal` em inglês, sob um código de rejeição que é
+  literalmente *App Completeness*. O build sai como `1.3.1 (8)` — o EAS numera
+  sozinho (`appVersionSource: remote` + `autoIncrement` no perfil `production`),
+  sem bump manual no `app.json`.
+
+  **Isso reabre a matriz real-device desta seção:** o `(8)` precisa de passagem em
+  iPhone físico, e a primeira verificação é se o app **abre** — nenhum passo do
+  gate empacota o binário. A gravação do vídeo para a Apple e esse smoke são a
+  mesma sessão, e ela também preenche o `modelo/iOS não registrados`.
+
+  **Play / F4** continua esperando F2.
 
 ## 7. Lançamento e pós (M5)
 

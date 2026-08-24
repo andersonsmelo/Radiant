@@ -29,14 +29,26 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (7)` | Aguardando revisão | **2026-08-09** |
-| Play — alpha fechado | `1.3.0 (4)` | Ativo · 14 vinculados, 2 opt-ins | **2026-08-03** |
+| App Store | `1.3.1 (7)` | 🔴 **Rejeitado** — `2.1.0 App Completeness` | **2026-08-24** |
+| Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
-> ⚠️ **As duas leituras estão vencidas, e envelhecendo.** Em 2026-08-24 a App
-> Review estava sem medição havia **15 dias** e os opt-ins havia **21**. Nenhum
-> agente consegue medir isso: os dois números vivem em console, não em Git. **É a
-> primeira coisa que o dono deve fazer ao abrir o projeto**, porque a resposta
-> reordena tudo o que vem depois.
+> 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
+> documento afirmou "Aguardando revisão" o tempo todo, porque a leitura anterior
+> era de 2026-08-09 e ninguém remediu. **A medição vencida não é um detalhe de
+> higiene: ela sustentou uma afirmação falsa sobre o estado do lançamento.**
+>
+> **Não é defeito funcional.** É `Guideline 2.1 - Information Needed - New App
+> Submission`: a Apple pede informação para conseguir avaliar. O plano de
+> resposta, item a item, está em
+> [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+>
+> ⛔ **Bloqueio anterior à resposta:** o contrato de licença do Apple Developer
+> Program foi atualizado e **o titular da conta precisa aceitá-lo** antes de
+> enviar qualquer atualização. Sem isso a resubmissão não sai, por melhor que
+> seja a resposta.
+>
+> **Não medido:** o painel dos 12 testadores por 14 dias do Play não está exposto
+> na visão geral da publicação nem na faixa; **não se sabe se o relógio começou**.
 
 Git não substitui essa medição: a última tag é `v1.2.1`, de 2026-07-26, e `main`
 está **392 commits à frente dela** (medido em 2026-08-24). Não existe tag
@@ -46,8 +58,23 @@ carrega o pacote inteiro.
 
 ## Bloqueios de lançamento, por latência
 
-1. **iOS** — decisão da App Review, depois liberação manual (F5). Sem ação de
-   engenharia no intervalo.
+1. **iOS** — 🔴 **rejeitado, e a bola está do nosso lado.** Decidido em
+   2026-08-24: **responder com um build novo do `main`, não com o `(7)`.** O
+   binário em revisão saiu de `5b2c89e` e está **138 commits atrás**; ele ainda
+   carrega `src/app/modal.tsx`, o template do Expo com o texto `This is a modal`
+   em inglês — passivo direto sob `2.1.0 App Completeness`, que é o código da
+   rejeição. A versão `1.3.1` está em estado editável, então o build novo é
+   **anexado sem cancelar o envio**, e sai como `1.3.1 (8)` (EAS numera sozinho:
+   `appVersionSource: remote` + `autoIncrement`).
+
+   Sequência: titular aceita o contrato de licença → build de produção do `main`
+   → instalar em iPhone físico e **verificar se abre** → anotar modelo e iOS →
+   gravar o vídeo na mesma sessão → anexar o `(8)` e responder. Detalhe em
+   [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+
+   ⚠️ **`main` nunca passou por smoke físico** — a matriz real-device está no
+   build `(5)` e nenhum passo do gate empacota o app. A sessão de gravação **é**
+   o smoke.
 2. **Play** — ≥12 testadores participando por 14 dias corridos (F2). O relógio
    não havia começado na última leitura. Exigência de conta pessoal; não há
    atalho de engenharia.
@@ -177,10 +204,32 @@ O ciclo crítico inteiro funciona percorrido no simulador, sem erro de console:
   e `Stack.Screen` declarados agora batem 1:1.
 - **O kill switch foi acionado pela primeira vez** — ver a seção abaixo.
 
-**Continua aberto, por decisão do dono:** os 13 módulos órfãos (incluindo a
-feature `annotation` inteira), o nó `/quiz` + `/review` — ambas sem entrada, e o
-plano condiciona aposentar a primeira a confirmar que a segunda cobre revisão —,
-e os quatro falsos kill switches.
+**Os órfãos foram resolvidos em 2026-08-24.** A lista de 13 escondia três
+estados com remédios opostos, e a triagem por **tamanho e origem** — não por
+grafo de imports — separou os três. Seis arquivos tinham **0 byte** e entraram
+vazios no bulk `847a12d`: a "feature `annotation` inteira" era tela, componente e
+serviço vazios, e a doutrina que protegia conhecimento de domínio não tinha
+objeto. Dois eram duplicata de implementação viva (`models/sm2.ts` contra o SM-2
+próprio do `SpacedRepetitionService`; `services/xp.ts` contra `XP_RULES` do
+`GamificationService`). Três estavam mortos sem irmão vivo. **Os 11 saíram**, com
+gate verde nas duas redes.
+
+**Três não eram andaime, e continuam por decisão do dono:**
+
+- `src/data/ai-catalog.ts` é **gerado** por `scripts/content/sync-catalog-to-app.mjs`
+  — apagar seria desfeito pelo produtor. É "emitido e não consumido", e o remédio
+  fica a montante: ligar a um consumidor, ou parar de emitir.
+- `CompetencyMasteryService` e `ProductAnalyticsAdapter` são a **metade leitora**
+  de pares cuja escrita está viva — `LearningEvidenceRepository` grava a cada
+  atividade concluída, e ninguém lê. Apagar o leitor não remove código morto:
+  converte escrita viva em fluxo sem leitor.
+
+**Continua aberto, por decisão do dono:** o nó `/quiz` + `/review` — ambas sem
+entrada, e o plano condiciona aposentar a primeira a confirmar que a segunda
+cobre revisão (a Task 15 já confirmou, em 2026-08-15) —, e os quatro falsos kill
+switches. **Atenção ao aposentar `/quiz`:** ela é alcançada por deep link em
+`.maestro/rating-prompt.yaml`, que não roda no gate; um teste de "nenhum import
+remanescente" é cego para isso por construção.
 
 ## O kill switch, medido em 2026-08-24
 

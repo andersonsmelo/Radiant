@@ -177,28 +177,57 @@ recomendado — e a ignorar comentários, para não punir quem documenta a regra
 **Continua aberto:** os três `TODO` da tela mostram travessão em vez de dado.
 Mostrar nada é honesto; mostrar número errado seria pior. Não é urgente.
 
-## 3. Órfãos — 13 módulos que nenhum código de produção importa
+## 3. Órfãos — resolvido em 2026-08-24
 
-Uma **feature inteira**, sem rota e sem consumidor:
+A varredura listou 13 módulos que nenhum código de produção importa e não removeu
+nenhum, com a justificativa de que apagar código de domínio sem confirmar o
+propósito é pior que mantê-lo listado. A justificativa estava certa e **não se
+aplicava à maior parte da lista**: "sem consumidor" é propriedade do grafo de
+imports, e o grafo não distingue origem. Medindo **tamanho** e **commit de
+entrada**, os 13 se separam em três grupos com remédios opostos.
 
-- `src/features/annotation/screens/AnnotationScreen.tsx`
-- `src/features/annotation/components/CanvasOverlay.tsx`
-- `src/features/annotation/services/annotationStorage.ts`
-- `src/types/annotation.ts`
+### Removidos — 11 arquivos, 165 linhas
 
-E mais nove:
+**Seis stubs vazios** (0 byte, entraram vazios no bulk `847a12d`, 473 arquivos,
+2026-04-09, nunca preenchidos): `AnnotationScreen.tsx`, `CanvasOverlay.tsx`,
+`annotationStorage.ts`, `badges.ts`, `streak.ts`, `quizStorage.ts`. A "feature
+`annotation` inteira" era três arquivos vazios mais 13 linhas de tipos — não
+havia domínio a proteger.
 
-- `src/features/mastery/services/CompetencyMasteryService.ts`
-- `src/features/gamification/services/{badges,streak,xp}.ts`
-- `src/features/spaced-repetition/models/sm2.ts`
-- `src/features/quiz/services/quizStorage.ts`
-- `src/features/telemetry/adapters/ProductAnalyticsAdapter.ts`
-- `src/features/review/data/mockData.ts`
-- `src/data/ai-catalog.ts`
-- `src/ui/characters/CharacterSlot.tsx`
+**Duas duplicatas de implementação viva:** `models/sm2.ts` (43 l) contra o SM-2
+que o `SpacedRepetitionService` implementa por conta própria, e `services/xp.ts`
+(14 l) contra o `XP_RULES` do `GamificationService`. Duas implementações do mesmo
+algoritmo são risco ativo, não inventário.
 
-Não foram removidos nesta varredura: alguns podem ser intenção futura registrada,
-e apagar código de domínio sem confirmar o propósito é pior que mantê-lo listado.
+**Três mortos sem irmão vivo:** `types/annotation.ts` (existia só para os stubs
+vazios), `review/data/mockData.ts`, `ui/characters/CharacterSlot.tsx` — com este
+último saíram `CharacterSlotProps` e `CharacterAlign`, que morriam junto, e
+`CharacterSpec`, que já estava morto.
+
+### Mantidos, por não serem andaime — decisão do dono
+
+- **`src/data/ai-catalog.ts`** é **gerado**: a primeira linha diz
+  `AUTO-GENERATED` e `scripts/content/sync-catalog-to-app.mjs` o escreve. Apagar
+  seria desfeito na próxima execução do pipeline. É "emitido e não consumido", e
+  o remédio fica a montante.
+- **`CompetencyMasteryService`** é a metade **leitora** de um par cuja escrita
+  está viva: `LessonOutcomeService` chama `LearningEvidenceRepository.append()`
+  por interação, no caminho vivo da lição. O app grava evidência a cada atividade
+  e ninguém lê.
+- **`ProductAnalyticsAdapter`** é o mesmo padrão em miniatura: a interface e o
+  `TelemetryService.registerProductAnalyticsAdapter` continuam vivos e sem
+  nenhum chamador.
+
+### O que a verificação exigiu, e o gate não daria
+
+A conferência foi por **nome, no repositório inteiro** — não por import. Ela
+pescou dois acoplamentos que nenhum grafo de imports enxerga: a regra `R5` do
+`visual-qa.mjs` cita `CharacterSlot` por regex, e o `.rnstorybook` monta por
+`require.context`. Nenhum dos dois quebra com a remoção, mas nenhum dos dois
+apareceria numa busca por `import`.
+
+Evidência: `npm run quality` com 100 suítes / 717 testes e 0 regressão visual;
+`loop validate` com `VALIDATION_PASSED` e 13 evidências.
 
 ## 4. Corrigido durante a varredura
 
