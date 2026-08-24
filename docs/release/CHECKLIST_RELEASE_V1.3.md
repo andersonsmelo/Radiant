@@ -243,11 +243,11 @@ fontes ampliadas · sem vazamento de rota no header.
   do `main`**, anexado à versão `1.3.1` (que está em estado editável), e não com
   o `(7)`. Motivo medido: o `(7)` ainda contém `src/app/modal.tsx`, o template do
   Expo com `This is a modal` em inglês, sob um código de rejeição que é
-  literalmente *App Completeness*. O build sai como `1.3.1 (8)` — o EAS numera
+  literalmente *App Completeness*. O build saiu como `1.3.1 (9)` em 2026-08-24 — o EAS numera
   sozinho (`appVersionSource: remote` + `autoIncrement` no perfil `production`),
   sem bump manual no `app.json`.
 
-  **Isso reabre a matriz real-device desta seção:** o `(8)` precisa de passagem em
+  **Isso reabre a matriz real-device desta seção:** o `(9)` precisa de passagem em
   iPhone físico, e a primeira verificação é se o app **abre** — nenhum passo do
   gate empacota o binário. A gravação do vídeo para a Apple e esse smoke são a
   mesma sessão, e ela também preenche o `modelo/iOS não registrados`.

@@ -66,14 +66,16 @@ carrega o pacote inteiro.
    carrega `src/app/modal.tsx`, o template do Expo com o texto `This is a modal`
    em inglês — passivo direto sob `2.1.0 App Completeness`, que é o código da
    rejeição. A versão `1.3.1` está em estado editável, então o build novo é
-   **anexado sem cancelar o envio**, e sai como `1.3.1 (8)` (EAS numera sozinho:
+   **anexado sem cancelar o envio**. Saiu como **`1.3.1 (9)`** em 2026-08-24 — a
+   primeira execução do build consumiu o `(8)` e a segunda, com `--auto-submit`,
+   gerou o `(9)`, que é o que subiu (EAS numera sozinho:
    `appVersionSource: remote` + `autoIncrement`).
 
    Sequência: ~~titular aceita o contrato de licença~~ (feito em 2026-08-24) →
    build de produção do `main` → **subir ao TestFlight** (o perfil `production` é
    de loja e não se sideloada)
    → instalar pelo TestFlight e **verificar se abre** → anotar modelo e iOS →
-   gravar o vídeo na mesma sessão → anexar o `(8)` e responder. Detalhe em
+   gravar o vídeo na mesma sessão → anexar o `(9)` e responder. Detalhe em
    [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
 
    ⚠️ **`main` nunca passou por smoke físico** — a matriz real-device está no
