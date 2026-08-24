@@ -16,6 +16,57 @@ A mensagem ficou **dez dias sem leitura**. O `STATUS.md` e o checklist afirmavam
 "Aguardando revisão" desde 2026-08-09; os dois foram corrigidos junto com este
 arquivo.
 
+## 🟢 Decisão de 2026-08-24 — responder com um build novo, não com o `(7)`
+
+**O binário que a Apple tem não é o app que existe hoje.** O `(7)` saiu de
+`5b2c89e`, de 8/8 às 09:28, e **138 commits** o separam de `main`.
+
+Dois fatos mediram a decisão:
+
+- **O `(7)` carrega o template do Expo.** `src/app/modal.tsx` existe naquele
+  build com o texto literal `This is a modal` / `Go to home screen` — inglês, num
+  app inteiramente em português. O código da rejeição é `2.1.0 Performance:
+  **App Completeness**`, a diretriz que trata de conteúdo de placeholder. A
+  mensagem da Apple não cita essa tela, então **não é causa provada** — mas é
+  passivo certo se o mesmo binário voltar para revisão. Removida em 2026-08-24,
+  ou seja: corrigida só em `main`.
+- **A cadeia da Galáxia não estava quebrada no `(7)`.** Os 16 `lessonId` daquele
+  build resolvem todos contra o catálogo da época. O nó órfão que autorizou a
+  remoção da Galáxia apareceu depois. Um susto a menos.
+
+**Por que não gravar o vídeo de hoje contra o `(7)`:** o revisor roda o binário
+que está lá. Um vídeo do `main` mostraria abas que não existem naquele build — a
+Galáxia removida, Estude virou a trilha, Perfil nasceu. Não pareceria
+desatualizado; pareceria **outro app**, e isso é material para uma segunda
+rejeição em cima da primeira.
+
+### O que isso implica na prática
+
+A versão `1.3.1` está em **Rejeitado**, que é estado **editável**: dá para anexar
+outro build e reenviar, **sem cancelar o envio**.
+
+- **A numeração é automática.** `eas.json` tem `appVersionSource: "remote"` e
+  `autoIncrement: true` no perfil `production`, então o próximo build sai como
+  **`1.3.1 (8)`** sem bump manual. O `buildNumber: 3` do `app.json` é ignorado
+  neste caminho.
+- **A versão continua `1.3.1`** — ela nunca foi publicada, então não há motivo
+  para queimar um número.
+- `runtimeVersion` segue a política `appVersion`, então o canal `production`
+  permanece coerente com `1.3.1`.
+
+### ⚠️ O risco que este caminho carrega, dito por inteiro
+
+**`main` nunca passou por smoke em aparelho físico.** A matriz real-device do
+checklist está parada no build `1.3.1 (5)`, e **nenhum passo do gate empacota o
+app** — 18 passos verdes são compatíveis com um binário que não abre, o que já
+aconteceu neste repositório. A primeira coisa a verificar no aparelho é
+literalmente **se o app sobe**.
+
+O lado bom é que tudo converge numa sessão só: **a gravação do vídeo é o smoke
+físico**. Um aparelho, uma passagem, e resolve o item 1 da Apple (vídeo), o item
+2 (modelo e versão do iOS, que nunca foram anotados) e a lacuna da matriz
+real-device do checklist.
+
 ---
 
 ## ⛔ Antes de responder — um bloqueio que não é da revisão
@@ -41,10 +92,13 @@ A Apple pede que a informação vá no campo **Notes** da seção *App Review
 Information*. O texto abaixo está em inglês, pronto para colar. O que ainda
 depende de medição sua está marcado com **`[VOCÊ]`**.
 
-### 1. Gravação de tela — **`[VOCÊ]`**
+### 1. Gravação de tela — **`[VOCÊ]`**, do build `(8)`
 
 Exigência textual: aparelho **físico**, sistema mais recente, começando pelo
 **lançamento do app**, mostrando o fluxo típico pelas funções principais.
+
+**Grave do `1.3.1 (8)`, nunca do `(7)`** — ver a decisão no topo. O roteiro
+abaixo descreve o app de `main`, que é o que o `(8)` contém.
 
 O roteiro é curto, porque o app não tem conta, compra nem conteúdo de usuário:
 
@@ -63,7 +117,7 @@ Nada nos itens que a Apple lista como "inclua se houver" existe neste app:
 registro/login/exclusão de conta, conteúdo pago, conteúdo gerado por usuário. O
 único prompt de permissão é o de **notificações**.
 
-### 2. Aparelhos e sistemas testados — **`[VOCÊ]`**
+### 2. Aparelhos e sistemas testados — **`[VOCÊ]`**, no build `(8)`
 
 **Esta é a lacuna real.** O checklist de release registra, na matriz real-device:
 
@@ -168,16 +222,25 @@ de proveniência que não está versionada, e a segunda é julgamento editorial.
 
 ---
 
-## Ordem recomendada
+## Ordem recomendada — caminho B
 
-1. **Aceitar o contrato de licença atualizado** (senão nada disso submete);
-2. anotar modelo e versão do iPhone, e **gravar o vídeo** no mesmo aparelho;
-3. verificar o segredo do Sentry e reconciliar com as Privacy Labels;
-4. confirmar proveniência de imagem e linguagem clínica;
-5. colar os textos dos itens 3, 4, 5 e 6 no campo **Notes** da *App Review
-   Information* — a Apple pede explicitamente que fiquem lá para envios futuros;
-6. responder ao envio pelo botão **Responder à equipe de revisão de apps**,
-   anexando o vídeo.
+1. **Aceitar o contrato de licença atualizado.** Sem isso nada sobe, por melhor
+   que seja a resposta.
+2. **Gerar o build:** `eas build --platform ios --profile production` a partir de
+   `main`. Sai como `1.3.1 (8)`, numerado pelo EAS.
+3. **Instalar no iPhone físico e verificar primeiro se o app abre.** Este é o
+   passo que nenhum gate cobre.
+4. **Anotar modelo e versão do iOS** — item 2 da Apple e lacuna do checklist.
+5. **Gravar o vídeo** na mesma sessão, seguindo o roteiro do item 1.
+6. **Verificar o segredo do Sentry** e reconciliar com as Privacy Labels.
+7. **Confirmar proveniência de imagem e linguagem clínica** (item 7).
+8. **Anexar o `(8)`** à versão `1.3.1`, que está em Rejeitado e é editável.
+9. **Colar os textos dos itens 3, 4, 5 e 6** no campo **Notes** da *App Review
+   Information* — a Apple pede explicitamente que fiquem lá para envios futuros.
+10. **Reenviar**, respondendo à equipe de revisão com o vídeo anexado.
+
+Os passos 6 e 7 não dependem dos anteriores: dá para adiantá-los enquanto o build
+roda.
 
 ## O que este documento deliberadamente não faz
 

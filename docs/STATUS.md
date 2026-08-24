@@ -58,13 +58,23 @@ carrega o pacote inteiro.
 
 ## Bloqueios de lançamento, por latência
 
-1. **iOS** — 🔴 **rejeitado, e a bola está do nosso lado.** A sequência é:
-   titular aceita o contrato de licença → gravar vídeo em iPhone físico (anotando
-   modelo e versão, que nunca foram registrados) → responder à App Review com as
-   sete informações pedidas. Detalhe em
+1. **iOS** — 🔴 **rejeitado, e a bola está do nosso lado.** Decidido em
+   2026-08-24: **responder com um build novo do `main`, não com o `(7)`.** O
+   binário em revisão saiu de `5b2c89e` e está **138 commits atrás**; ele ainda
+   carrega `src/app/modal.tsx`, o template do Expo com o texto `This is a modal`
+   em inglês — passivo direto sob `2.1.0 App Completeness`, que é o código da
+   rejeição. A versão `1.3.1` está em estado editável, então o build novo é
+   **anexado sem cancelar o envio**, e sai como `1.3.1 (8)` (EAS numera sozinho:
+   `appVersionSource: remote` + `autoIncrement`).
+
+   Sequência: titular aceita o contrato de licença → build de produção do `main`
+   → instalar em iPhone físico e **verificar se abre** → anotar modelo e iOS →
+   gravar o vídeo na mesma sessão → anexar o `(8)` e responder. Detalhe em
    [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
-   **Não há trabalho de engenharia no caminho crítico** — o binário não foi
-   acusado de defeito.
+
+   ⚠️ **`main` nunca passou por smoke físico** — a matriz real-device está no
+   build `(5)` e nenhum passo do gate empacota o app. A sessão de gravação **é**
+   o smoke.
 2. **Play** — ≥12 testadores participando por 14 dias corridos (F2). O relógio
    não havia começado na última leitura. Exigência de conta pessoal; não há
    atalho de engenharia.

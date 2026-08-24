@@ -239,6 +239,19 @@ fontes ampliadas · sem vazamento de rota no header.
   que é literalmente o item 2 do pedido da Apple —, e o smoke físico foi no build
   `1.3.1 (5)`, não no `(7)` submetido.
 
+  ✅ **Decidido em 2026-08-24 — caminho B:** a resposta vai com um **build novo
+  do `main`**, anexado à versão `1.3.1` (que está em estado editável), e não com
+  o `(7)`. Motivo medido: o `(7)` ainda contém `src/app/modal.tsx`, o template do
+  Expo com `This is a modal` em inglês, sob um código de rejeição que é
+  literalmente *App Completeness*. O build sai como `1.3.1 (8)` — o EAS numera
+  sozinho (`appVersionSource: remote` + `autoIncrement` no perfil `production`),
+  sem bump manual no `app.json`.
+
+  **Isso reabre a matriz real-device desta seção:** o `(8)` precisa de passagem em
+  iPhone físico, e a primeira verificação é se o app **abre** — nenhum passo do
+  gate empacota o binário. A gravação do vídeo para a Apple e esse smoke são a
+  mesma sessão, e ela também preenche o `modelo/iOS não registrados`.
+
   **Play / F4** continua esperando F2.
 
 ## 7. Lançamento e pós (M5)
