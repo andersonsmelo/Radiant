@@ -220,15 +220,54 @@ O enquadramento defensável, e que o app sustenta, é:
 > medical device. It contains no patient images: all imaging material is
 > illustrative and authored for teaching.
 
-**`[VOCÊ]` precisa confirmar duas coisas antes de mandar isso:**
+#### O que de fato embarca no app — medido em 2026-08-24
 
-- **a origem de cada imagem radiológica no catálogo** — se alguma vier de banco
-  de terceiros, a licença precisa acompanhar a resposta;
-- **se há afirmação clínica** no texto das lições que possa ser lida como
-  orientação diagnóstica.
+A pergunta da Apple é sobre material protegido **no app**, não sobre o que existe
+na máquina de quem o constrói. Medindo o binário:
 
-Não posso responder nenhuma das duas a partir do repositório: a primeira depende
-de proveniência que não está versionada, e a segunda é julgamento editorial.
+| | |
+| --- | --- |
+| Imagens vindas de `conteúdo/mídia` | **nenhuma** — os 12 arquivos de `assets/` são autorais |
+| Strings de conteúdo nas lições | 192 |
+| Maior trecho contínuo | **326 caracteres** |
+| Comprimento médio | 83 caracteres |
+
+O maior trecho do bundle inteiro é uma explicação factual sobre intensidade de
+campo em ressonância magnética. O que embarca são **16 quizzes de perguntas e
+explicações curtas sobre fatos**, sem imagem de terceiro e sem passagem longa.
+
+**As lições embarcadas não carregam proveniência.** `AI_LESSONS` tem `id`,
+`title`, `difficulty` e as questões; não há `sourceId` nem citação. A
+rastreabilidade vive a montante, em `conteúdo/governança/catalog-payload.json` e
+no `content-manifest`.
+
+#### O acervo de origem, e o que ele não é
+
+`conteúdo/` guarda 21 PDFs e outros binários que alimentam o pipeline. É um
+acervo **misto**: boa parte é material institucional e aberto — Atena Editora,
+INCA, Sociedade Portuguesa de Radiologia, Portal Regional da BVS, apostilas —, e
+alguns são obras comerciais, duas delas com marca de site de compartilhamento no
+próprio nome do arquivo.
+
+Esses arquivos **nunca embarcaram no app**. Até 2026-08-24 eles subiam aos
+servidores do EAS a cada build, porque estavam excluídos só por
+`.git/info/exclude`, que é local e que o arquivador do EAS não lê; a regra passou
+para o `.gitignore` versionado e isso parou.
+
+#### O que continua sendo **`[VOCÊ]`**
+
+- **Se a geração de conteúdo a partir dos títulos comerciais está coberta por
+  licença.** Não é pergunta técnica e não tenho como responder a partir do
+  repositório. As medições acima delimitam a escala — 16 quizzes de fatos, sem
+  imagem e sem citação longa —, não a resolvem.
+- **Se há afirmação clínica** no texto das lições que possa ser lida como
+  orientação diagnóstica. É julgamento editorial.
+
+**Nada aqui é afirmação de direitos.** São medições do que o binário contém. A
+frase que for para a Apple sobre autorização precisa ser sua — e vale lembrar que
+a seção *Informações do app* já declara "Sim, este app tem os direitos
+necessários para os conteúdos de terceiros", então a resposta ao item 7 tem de
+ser coerente com uma declaração que já está de pé.
 
 ---
 
