@@ -42,10 +42,12 @@ git branch -a && gh pr list --state open
 > resposta, item a item, está em
 > [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
 >
-> ⛔ **Bloqueio anterior à resposta:** o contrato de licença do Apple Developer
-> Program foi atualizado e **o titular da conta precisa aceitá-lo** antes de
-> enviar qualquer atualização. Sem isso a resubmissão não sai, por melhor que
-> seja a resposta.
+> ✅ **O bloqueio do contrato caiu em 2026-08-24.** O titular aceitou o contrato
+> de licença atualizado, e a faixa sumiu da lista de apps do App Store Connect —
+> verificado onde o bloqueio se manifestava, não onde ele foi resolvido. Restam
+> dois avisos, nenhum bloqueando o Brasil: **status de comerciante do DSA** (não
+> informado) e as **perguntas novas de rede social** na classificação etária,
+> cuja classificação já está preenchida.
 >
 > **Não medido:** o painel dos 12 testadores por 14 dias do Play não está exposto
 > na visão geral da publicação nem na faixa; **não se sabe se o relógio começou**.
@@ -67,7 +69,8 @@ carrega o pacote inteiro.
    **anexado sem cancelar o envio**, e sai como `1.3.1 (8)` (EAS numera sozinho:
    `appVersionSource: remote` + `autoIncrement`).
 
-   Sequência: titular aceita o contrato de licença → build de produção do `main`
+   Sequência: ~~titular aceita o contrato de licença~~ (feito em 2026-08-24) →
+   build de produção do `main`
    → instalar em iPhone físico e **verificar se abre** → anotar modelo e iOS →
    gravar o vídeo na mesma sessão → anexar o `(8)` e responder. Detalhe em
    [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
