@@ -55,3 +55,23 @@ app-store-connect-api-key*.json
 # Sao registro de processo de uma execucao especifica, nao fonte do produto: o
 # historico do git e o registro duravel.
 .superpowers/
+
+# Acervo de origem do pipeline de conteúdo — PDFs e binários soltos no topo de
+# `conteúdo/`. Ele estava excluído apenas por `.git/info/exclude`, que é LOCAL e
+# não versionado: o git desta máquina o escondia, mas o arquivador do EAS lê
+# `.gitignore` e NÃO lê `info/exclude`. Resultado medido em 2026-08-24: 830 MB de
+# acervo subiam para os servidores do EAS a cada build, com o repositório
+# rastreando apenas 31 MB.
+#
+# Não use `.easignore` para isto: ele SUBSTITUI o `.gitignore` em vez de somar,
+# então um arquivo curto puxaria `radiant-app/ios` (24 GB) para o upload.
+#
+# O curinga cobre as duas normalizações de "conteúdo" — NFC no índice do git,
+# NFD no disco do macOS —, mesmo truque que o `info/exclude` já usava. Os
+# subdiretórios versionados (`fontes/`, `governança/`, `taxonomia/`…) não são
+# afetados: o padrão só alcança um nível.
+/Conte*do/*.pdf
+/Conte*do/*.dmg
+/Conte*do/*.png
+/Conte*do/*.jpg
+/Conte*do/*.jpeg

@@ -47,7 +47,8 @@ outro build e reenviar, **sem cancelar o envio**.
 
 - **A numeração é automática.** `eas.json` tem `appVersionSource: "remote"` e
   `autoIncrement: true` no perfil `production`, então o próximo build sai como
-  **`1.3.1 (8)`** sem bump manual. O `buildNumber: 3` do `app.json` é ignorado
+  **`1.3.1 (9)`** sem bump manual — a primeira execução consumiu o `(8)` e a
+  segunda, com `--auto-submit`, gerou o `(9)`. O `buildNumber: 3` do `app.json` é ignorado
   neste caminho.
 - **A versão continua `1.3.1`** — ela nunca foi publicada, então não há motivo
   para queimar um número.
@@ -101,13 +102,13 @@ A Apple pede que a informação vá no campo **Notes** da seção *App Review
 Information*. O texto abaixo está em inglês, pronto para colar. O que ainda
 depende de medição sua está marcado com **`[VOCÊ]`**.
 
-### 1. Gravação de tela — **`[VOCÊ]`**, do build `(8)`
+### 1. Gravação de tela — **`[VOCÊ]`**, do build `(9)`
 
 Exigência textual: aparelho **físico**, sistema mais recente, começando pelo
 **lançamento do app**, mostrando o fluxo típico pelas funções principais.
 
-**Grave do `1.3.1 (8)`, nunca do `(7)`** — ver a decisão no topo. O roteiro
-abaixo descreve o app de `main`, que é o que o `(8)` contém.
+**Grave do `1.3.1 (9)`, nunca do `(7)`** — ver a decisão no topo. O roteiro
+abaixo descreve o app de `main`, que é o que o `(9)` contém.
 
 O roteiro é curto, porque o app não tem conta, compra nem conteúdo de usuário:
 
@@ -126,7 +127,7 @@ Nada nos itens que a Apple lista como "inclua se houver" existe neste app:
 registro/login/exclusão de conta, conteúdo pago, conteúdo gerado por usuário. O
 único prompt de permissão é o de **notificações**.
 
-### 2. Aparelhos e sistemas testados — **`[VOCÊ]`**, no build `(8)`
+### 2. Aparelhos e sistemas testados — **`[VOCÊ]`**, no build `(9)`
 
 **Esta é a lacuna real.** O checklist de release registra, na matriz real-device:
 
@@ -245,7 +246,7 @@ de proveniência que não está versionada, e a segunda é julgamento editorial.
    npx eas build --platform ios --profile production
    ```
 
-   Sai como `1.3.1 (8)` — o EAS numera sozinho. O primeiro uso pode pedir
+   Saiu como `1.3.1 (9)` em 2026-08-24 — o EAS numera sozinho. O primeiro uso pode pedir
    credenciais de assinatura, então é interativo.
 
 3. **Subir para o TestFlight — o build de produção NÃO se instala direto.** O
@@ -273,7 +274,7 @@ de proveniência que não está versionada, e a segunda é julgamento editorial.
 6. **Gravar o vídeo** na mesma sessão, seguindo o roteiro do item 1.
 7. **Verificar o segredo do Sentry** e reconciliar com as Privacy Labels.
 8. **Confirmar proveniência de imagem e linguagem clínica** (item 7).
-9. **Anexar o `(8)`** à versão `1.3.1`, que está em Rejeitado e é editável.
+9. **Anexar o `(9)`** à versão `1.3.1`, que está em Rejeitado e é editável.
 10. **Colar os textos dos itens 3, 4, 5 e 6** no campo **Notes** da *App Review
     Information* — a Apple pede explicitamente que fiquem lá para envios futuros.
 11. **Reenviar**, respondendo à equipe de revisão com o vídeo anexado.
