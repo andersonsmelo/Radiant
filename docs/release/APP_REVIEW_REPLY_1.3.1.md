@@ -233,23 +233,61 @@ de proveniência que não está versionada, e a segunda é julgamento editorial.
 
 ## Ordem recomendada — caminho B
 
-1. **Aceitar o contrato de licença atualizado.** Sem isso nada sobe, por melhor
-   que seja a resposta.
-2. **Gerar o build:** `eas build --platform ios --profile production` a partir de
-   `main`. Sai como `1.3.1 (8)`, numerado pelo EAS.
-3. **Instalar no iPhone físico e verificar primeiro se o app abre.** Este é o
-   passo que nenhum gate cobre.
-4. **Anotar modelo e versão do iOS** — item 2 da Apple e lacuna do checklist.
-5. **Gravar o vídeo** na mesma sessão, seguindo o roteiro do item 1.
-6. **Verificar o segredo do Sentry** e reconciliar com as Privacy Labels.
-7. **Confirmar proveniência de imagem e linguagem clínica** (item 7).
-8. **Anexar o `(8)`** à versão `1.3.1`, que está em Rejeitado e é editável.
-9. **Colar os textos dos itens 3, 4, 5 e 6** no campo **Notes** da *App Review
-   Information* — a Apple pede explicitamente que fiquem lá para envios futuros.
-10. **Reenviar**, respondendo à equipe de revisão com o vídeo anexado.
+1. ~~**Aceitar o contrato de licença atualizado.**~~ ✅ Feito em 2026-08-24.
+2. **Gerar o build a partir de `main`.** O `eas` **não está no PATH global**
+   desta máquina, mas `eas-cli` é devDependency do projeto — então roda por
+   `npx`, de dentro de `radiant-app`. E a máquina está em Node v24 enquanto o
+   `.nvmrc` pede **20.20.2**, que é também o que o CI usa:
 
-Os passos 6 e 7 não dependem dos anteriores: dá para adiantá-los enquanto o build
+   ```bash
+   nvm use
+   cd radiant-app && npx eas whoami          # se "Not logged in": npx eas login
+   npx eas build --platform ios --profile production
+   ```
+
+   Sai como `1.3.1 (8)` — o EAS numera sozinho. O primeiro uso pode pedir
+   credenciais de assinatura, então é interativo.
+
+3. **Subir para o TestFlight — o build de produção NÃO se instala direto.** O
+   perfil `production` do `eas.json` não declara `distribution: internal`, então
+   o padrão é `store`: o `.ipa` sai assinado para distribuição na App Store e
+   **não pode ser sideloadado**. O aparelho físico só recebe esse binário via
+   TestFlight.
+
+   ```bash
+   npx eas submit --platform ios --profile production
+   ```
+
+   `submit.production.ios.ascAppId` já está configurado (`6797078156`). Dá para
+   encadear as duas etapas com `npx eas build --platform ios --profile production
+   --auto-submit`.
+
+   **Não troque para o perfil `preview` para instalar mais rápido.** Ele tem
+   `ENABLE_DEV_TOOLS=true` e `BETA_GATE=true`: o vídeo mostraria ferramentas de
+   desenvolvimento que a Apple não vai ver no binário revisado, que é exatamente
+   a incoerência entre vídeo e binário que este caminho existe para evitar.
+
+4. **Instalar pelo TestFlight e verificar primeiro se o app abre.** Este é o
+   passo que nenhum gate cobre.
+5. **Anotar modelo e versão do iOS** — item 2 da Apple e lacuna do checklist.
+6. **Gravar o vídeo** na mesma sessão, seguindo o roteiro do item 1.
+7. **Verificar o segredo do Sentry** e reconciliar com as Privacy Labels.
+8. **Confirmar proveniência de imagem e linguagem clínica** (item 7).
+9. **Anexar o `(8)`** à versão `1.3.1`, que está em Rejeitado e é editável.
+10. **Colar os textos dos itens 3, 4, 5 e 6** no campo **Notes** da *App Review
+    Information* — a Apple pede explicitamente que fiquem lá para envios futuros.
+11. **Reenviar**, respondendo à equipe de revisão com o vídeo anexado.
+
+Os passos 7 e 8 não dependem dos anteriores: dá para adiantá-los enquanto o build
 roda.
+
+### Uma verificação que sustenta o item 4
+
+O `.gitignore` de `radiant-app` só traz `.env*.local`, que **não casa com `.env`
+puro** — se o `.env` chegasse ao build, a `EXPO_PUBLIC_API_BASE_URL` iria junto e
+a resposta "não há login no build enviado" seria falsa. Não chega: o
+`.gitignore` da **raiz** traz `.env` na linha 20, e `git check-ignore` confirma
+que `radiant-app/.env` é ignorado e não rastreado. Verificado em 2026-08-24.
 
 ## O que este documento deliberadamente não faz
 
