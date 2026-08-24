@@ -169,6 +169,15 @@ Três coisas pedem decisão:
 
 ## Defeito aberto
 
+**`ENABLE_REMOTE_SYNC` não desliga o `AuthService`.** A flag gateia só a exibição
+e o `SyncQueueService.flush`; o auth decide por `isApiConfigured()`, e
+`bootstrap()` roda no startup do app, no Perfil e no Progresso. Com uma URL de
+API configurada, "sync desligado" ainda autentica contra ela. Medido em
+2026-08-24; registrado por decisão do dono, não corrigido — mexer no gate afeta
+login, sync e o contrato de telemetria. Detalhe em
+[`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
+
+
 **Resolvido junto com a trilha.** O CTA "Retomar etapa" renderizava atrás da tab
 bar na Home de 2026-08-21; o painel que o continha foi substituído pela trilha, e
 o botão deixou de existir como elemento fixo. A lição permanece: nenhum

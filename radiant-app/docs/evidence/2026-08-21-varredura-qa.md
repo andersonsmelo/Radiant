@@ -65,9 +65,57 @@ Chave que só o script declara não é conflito; arquivo de precedência maior q
 concorda com o script blinda o de menor. Os dois caminhos — reprovar e aprovar —
 foram exercitados, e o contrato `test:env-precedence-contract` entrou no gate.
 
-**Continua aberto:** o `.env` desta máquina ainda diverge, então
-`npm run ios:v2` agora **falha por desenho** até alguém escolher a autoridade —
-alinhar o valor no arquivo ou tirar a chave dele. Essa escolha é do dono.
+**Resolvido em 2026-08-24, com o dono.** O `.env` desta máquina passou a ter
+`EXPO_PUBLIC_API_BASE_URL=` vazio, e as linhas de `ENABLE_REMOTE_SYNC` e
+`ENABLE_BETA_GATE` foram removidas — o script de homologação é a autoridade
+delas. Backup em `~/.radiant-env.backup-2026-08-24`.
+
+Provado ponta a ponta: o script sobe, e o console de desenvolvimento reporta
+`Sync remoto: desativado`, `Beta Gate: desativado`, `API: não configurada` e
+`Learning Road: ativada` — exatamente o que ele imprime.
+
+---
+
+## O achado que a correção expôs — `ENABLE_REMOTE_SYNC` não desliga o Auth
+
+**Estado:** aberto. **Registrado, não corrigido**, por decisão do dono em
+2026-08-24: mexer no gate do `AuthService` afeta login, sync e o contrato de
+telemetria, e merece passagem própria.
+
+`AppConfig.ENABLE_REMOTE_SYNC` gateia **duas** coisas, e só elas:
+
+- a exibição `remoteSyncAvailable`, em `ProgressScreen` e `DevConsoleScreen`;
+- `SyncQueueService.flush`.
+
+Ele **não** gateia o `AuthService`, que decide apenas por `isApiConfigured()` —
+isto é, pela presença de `EXPO_PUBLIC_API_BASE_URL`. E `AuthService.bootstrap()`
+é chamado em:
+
+| Chamador | Quando |
+| --- | --- |
+| `src/app/_layout.tsx:158` | **startup do app** |
+| `ProfileScreen` | ao abrir a aba Perfil |
+| `ProgressScreen` | ao abrir a seção de progresso |
+| `AppStoreOpsService` | verificação de operação de loja |
+| `UpgradeInterestService` | interesse em upgrade |
+
+`login` e `register` chamam `apiRequest` direto, sem consultar a flag.
+
+**A consequência prática, que mudou a recomendação desta correção:** alinhar
+`REMOTE_SYNC=false` no `.env` — que era um dos dois caminhos oferecidos — faria o
+guarda **aprovar** enquanto o app continuaria autenticando contra produção no
+startup. Teria trocado um aviso visível por uma falsa sensação de segurança, que
+é a classe de erro que este guarda existe para impedir. Foi por isso que a URL
+vazia entrou no perfil do script e no escopo do guarda.
+
+**Por que ninguém tinha visto:** a flag se chama "remote sync" e é lida por todo
+mundo como "o app não fala com a rede". Ela nunca prometeu isso. O nome sugere um
+alcance que o código não tem.
+
+**Se for corrigir:** decidir primeiro se auth e sync são eixos independentes por
+desenho. Se forem, documentar a distinção onde a flag é declarada. Se não forem,
+`AuthService` passa a exigir `ENABLE_REMOTE_SYNC` além de `isApiConfigured()`, e
+os testes de login/register/bootstrap acompanham.
 
 ### 2.2 O console de desenvolvimento não tem entrada in-app
 
