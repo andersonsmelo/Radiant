@@ -177,10 +177,32 @@ O ciclo crítico inteiro funciona percorrido no simulador, sem erro de console:
   e `Stack.Screen` declarados agora batem 1:1.
 - **O kill switch foi acionado pela primeira vez** — ver a seção abaixo.
 
-**Continua aberto, por decisão do dono:** os 13 módulos órfãos (incluindo a
-feature `annotation` inteira), o nó `/quiz` + `/review` — ambas sem entrada, e o
-plano condiciona aposentar a primeira a confirmar que a segunda cobre revisão —,
-e os quatro falsos kill switches.
+**Os órfãos foram resolvidos em 2026-08-24.** A lista de 13 escondia três
+estados com remédios opostos, e a triagem por **tamanho e origem** — não por
+grafo de imports — separou os três. Seis arquivos tinham **0 byte** e entraram
+vazios no bulk `847a12d`: a "feature `annotation` inteira" era tela, componente e
+serviço vazios, e a doutrina que protegia conhecimento de domínio não tinha
+objeto. Dois eram duplicata de implementação viva (`models/sm2.ts` contra o SM-2
+próprio do `SpacedRepetitionService`; `services/xp.ts` contra `XP_RULES` do
+`GamificationService`). Três estavam mortos sem irmão vivo. **Os 11 saíram**, com
+gate verde nas duas redes.
+
+**Três não eram andaime, e continuam por decisão do dono:**
+
+- `src/data/ai-catalog.ts` é **gerado** por `scripts/content/sync-catalog-to-app.mjs`
+  — apagar seria desfeito pelo produtor. É "emitido e não consumido", e o remédio
+  fica a montante: ligar a um consumidor, ou parar de emitir.
+- `CompetencyMasteryService` e `ProductAnalyticsAdapter` são a **metade leitora**
+  de pares cuja escrita está viva — `LearningEvidenceRepository` grava a cada
+  atividade concluída, e ninguém lê. Apagar o leitor não remove código morto:
+  converte escrita viva em fluxo sem leitor.
+
+**Continua aberto, por decisão do dono:** o nó `/quiz` + `/review` — ambas sem
+entrada, e o plano condiciona aposentar a primeira a confirmar que a segunda
+cobre revisão (a Task 15 já confirmou, em 2026-08-15) —, e os quatro falsos kill
+switches. **Atenção ao aposentar `/quiz`:** ela é alcançada por deep link em
+`.maestro/rating-prompt.yaml`, que não roda no gate; um teste de "nenhum import
+remanescente" é cego para isso por construção.
 
 ## O kill switch, medido em 2026-08-24
 
