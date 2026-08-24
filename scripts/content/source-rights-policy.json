@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "decisionRevision": "2026-08-24",
+  "note": "Excecao a `validate-source-rights`. Sempre datada: divida de direitos que nao expira vira permissao silenciosa.",
+  "exceptions": [
+    {
+      "sourceId": "source:fundamentos-de-radiologia-everton-costa-pinto",
+      "owner": "dono-do-projeto",
+      "expiresOn": "2026-09-30",
+      "reason": "Divida herdada, nao autorizacao. Esta obra ja alimentou o catalogo embarcado antes deste contrato existir, e a triagem de 2026-07-31 a marcou `blocked` com a justificativa 'Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer'. O que EMBARCA foi medido em 2026-08-24: zero sequencias de 8 palavras identicas a extracao que o pipeline leu, nenhuma imagem de terceiro, maior trecho de 326 caracteres. A excecao existe para nao travar o lancamento enquanto a revisao humana de direitos nao acontece — e vence, para que a ausencia dessa revisao volte a doer."
+    }
+  ]
+}
