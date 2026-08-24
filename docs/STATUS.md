@@ -29,14 +29,26 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (7)` | Aguardando revisão | **2026-08-09** |
-| Play — alpha fechado | `1.3.0 (4)` | Ativo · 14 vinculados, 2 opt-ins | **2026-08-03** |
+| App Store | `1.3.1 (7)` | 🔴 **Rejeitado** — `2.1.0 App Completeness` | **2026-08-24** |
+| Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
-> ⚠️ **As duas leituras estão vencidas, e envelhecendo.** Em 2026-08-24 a App
-> Review estava sem medição havia **15 dias** e os opt-ins havia **21**. Nenhum
-> agente consegue medir isso: os dois números vivem em console, não em Git. **É a
-> primeira coisa que o dono deve fazer ao abrir o projeto**, porque a resposta
-> reordena tudo o que vem depois.
+> 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
+> documento afirmou "Aguardando revisão" o tempo todo, porque a leitura anterior
+> era de 2026-08-09 e ninguém remediu. **A medição vencida não é um detalhe de
+> higiene: ela sustentou uma afirmação falsa sobre o estado do lançamento.**
+>
+> **Não é defeito funcional.** É `Guideline 2.1 - Information Needed - New App
+> Submission`: a Apple pede informação para conseguir avaliar. O plano de
+> resposta, item a item, está em
+> [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+>
+> ⛔ **Bloqueio anterior à resposta:** o contrato de licença do Apple Developer
+> Program foi atualizado e **o titular da conta precisa aceitá-lo** antes de
+> enviar qualquer atualização. Sem isso a resubmissão não sai, por melhor que
+> seja a resposta.
+>
+> **Não medido:** o painel dos 12 testadores por 14 dias do Play não está exposto
+> na visão geral da publicação nem na faixa; **não se sabe se o relógio começou**.
 
 Git não substitui essa medição: a última tag é `v1.2.1`, de 2026-07-26, e `main`
 está **392 commits à frente dela** (medido em 2026-08-24). Não existe tag
@@ -46,8 +58,13 @@ carrega o pacote inteiro.
 
 ## Bloqueios de lançamento, por latência
 
-1. **iOS** — decisão da App Review, depois liberação manual (F5). Sem ação de
-   engenharia no intervalo.
+1. **iOS** — 🔴 **rejeitado, e a bola está do nosso lado.** A sequência é:
+   titular aceita o contrato de licença → gravar vídeo em iPhone físico (anotando
+   modelo e versão, que nunca foram registrados) → responder à App Review com as
+   sete informações pedidas. Detalhe em
+   [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+   **Não há trabalho de engenharia no caminho crítico** — o binário não foi
+   acusado de defeito.
 2. **Play** — ≥12 testadores participando por 14 dias corridos (F2). O relógio
    não havia começado na última leitura. Exigência de conta pessoal; não há
    atalho de engenharia.
