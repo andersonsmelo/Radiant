@@ -40,30 +40,55 @@ Reordenado em 2026-08-08. O **12 testadores × 14 dias** é exigência do **Goog
 Play** para conta pessoal; a Apple não tem equivalente. F3, F4 e F5 do roadmap
 misturam as duas lojas, e os itens do Play não travam a App Store.
 
-Enquanto o relógio do Android não começa, o iOS avançou de forma independente e
-**foi submetido à App Review em 2026-08-08**.
-O console foi consultado novamente em **2026-08-09** e continuava em
-**Aguardando revisão**, com liberação manual configurada; nenhuma ação de loja
-foi executada nessa leitura.
+> 🔴 **Esta seção afirmou "Aguardando revisão" de 2026-08-09 a 2026-08-25.** A
+> rejeição chegou em **14/08 às 02:54** e ficou dez dias sem leitura. Quando foi
+> lida, em 24/08, o `STATUS.md` foi corrigido e **esta fila não** — e ela é o
+> arquivo que instrui o agente a pegar o primeiro item e executar. Quem
+> obedecesse a tabela antiga leria, na última linha, que não havia trabalho
+> neste caminho. Ressincronizada em **2026-08-25**.
+
+**Estado:** `1.3.1` **rejeitada** em 14/08 sob `Guideline 2.1 - Information
+Needed` / `2.1.0 App Completeness`. Não é defeito funcional: é informação que
+falta para a Apple conseguir avaliar. A versão está em estado **editável**.
+**Bloqueio:** nenhum externo — a bola está do nosso lado desde 14/08.
+**Dono:** dono, em todos os passos restantes; cada um exige console, aparelho
+físico ou julgamento sobre direitos.
+
+Decidido em 24/08: **responder com um build novo do `main`, não com o `(7)`.** O
+binário em revisão está 138 commits atrás e ainda carrega `src/app/modal.tsx`, o
+template do Expo em inglês — passivo direto sob o código da rejeição. O
+`1.3.1 (9)` foi gerado e submetido com `--auto-submit` em 24/08.
 
 | Passo | Dono | Estado |
 | --- | --- | --- |
-| Privacy labels no App Store Connect | dono | **concluído** — **Dados não coletados** publicado |
-| Build nova (`1.3.1 (7)`) | dono | **concluído** — processada, selecionada e submetida |
-| Preço e direitos de conteúdo | dono | **concluído** — gratuito; direitos persistidos após recarga |
-| Envio à App Review | dono | **concluído** às 12:05 BRT — **Aguardando revisão** |
-| App Review → liberação manual | Apple, depois dono | revisão externa em curso; dono libera após aprovação |
+| Contrato de licença atualizado | titular | **concluído** em 24/08 — a faixa sumiu da lista de apps |
+| Build `1.3.1 (9)` a partir de `main` | dono | **concluído** em 24/08 — o EAS numera sozinho |
+| Subir ao TestFlight | dono | **pendente** — o perfil `production` é de loja e não se sideloada |
+| Instalar e **verificar se o app abre** | dono | **pendente** — `main` nunca passou por smoke físico e nenhum passo do gate empacota o app |
+| Anotar modelo e versão do iOS | dono | **pendente** — item 2 da Apple; nunca foram registrados |
+| Gravar o vídeo do fluxo típico | dono | **pendente** — mesma sessão do smoke; roteiro de 8 passos no plano de resposta |
+| Conferir o segredo do Sentry contra as Privacy Labels | dono | **pendente** — o rótulo publicado é "Dados não coletados"; um DSN no EAS o tornaria falso |
+| Responder ao item 7 — direitos e área regulada | dono | **pendente** — julgamento editorial e jurídico, não medição |
+| Anexar o `(9)` e reenviar | dono | **pendente** — a versão é editável; não precisa cancelar o envio |
 
-Folha de transcrição campo a campo, com a evidência de cada resposta:
+**Estado da revisão, hoje: não medido desde 2026-08-24.** A leitura exige login
+no App Store Connect e nenhum agente pode fazê-la. O comando que a remede é
+abrir <https://appstoreconnect.apple.com/apps> autenticado. Esta linha existe
+porque a medição vencida **desta mesma seção** já custou dez dias.
+
+Plano de resposta item a item, com os textos em inglês prontos para colar:
+[`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+Folha de transcrição do envio original:
 [`store/2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
 
 Gate de release medido em 2026-08-08: `tsc` exit 0, `eslint` 0 erros, **jest 56
-suítes / 330 testes**. Evidência de aparelho fechada — smoke em 2026-08-05, B4
-em 2026-08-06, Gate 2 em 5/5.
+suítes / 330 testes**. Contagem envelhecida de propósito — o gate atual está em
+18 passos e 717 testes, e quem precisar do número remede com
+`cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`.
 
-**Não há trabalho de agente neste caminho.** Gate, ficha, build e submissão
-estão fechados. O que resta é a decisão externa da Apple e, depois da aprovação,
-a liberação manual pelo dono.
+**Não há trabalho de agente neste caminho** — mas por um motivo diferente do que
+esta seção dizia antes. Não porque esteja tudo fechado: porque **todo o resto é
+console, aparelho e julgamento do dono**.
 
 ---
 
