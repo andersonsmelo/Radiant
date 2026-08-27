@@ -1505,9 +1505,11 @@ canônica é
   design; Arco 1 aprovado. Auditoria independente reprovou a primeira versão e
   aprovou a correção sem reprovação conceitual. Gates de publicação permanecem
   abertos.
-- **J1 [P0 — PLANEJAMENTO]** Escrever o plano de implementação do catálogo V3,
-  IDs estáveis, migração do progresso e fotografia somente de leitura do
-  histórico anterior. Nenhuma exclusão física nesta etapa.
+- **J1 [CONCLUÍDA — PLANEJAMENTO]** Plano da fundação V3, IDs estáveis,
+  storage isolado, migração fail-closed e fotografia somente de leitura do
+  histórico anterior registrado em
+  [`2026-08-27-curriculum-v3-foundation.md`](../superpowers/plans/2026-08-27-curriculum-v3-foundation.md).
+  Nenhuma exclusão física foi autorizada.
 - **J2 [P0]** Implementar o esqueleto versionado e a migração com testes de
   instalação limpa, atualização, persistência e retomada.
 - **J3 [P0]** Produzir o Arco 1 — L1, L2, prática intercalada, L3, checkpoint em

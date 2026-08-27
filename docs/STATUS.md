@@ -96,7 +96,10 @@ carrega o pacote inteiro.
    Radiografia → Mamografia → Tomografia → Ressonância → Medicina Nuclear →
    Radioterapia → outras especializações. O Arco 1 de orientação espacial foi
    aprovado com correções por auditor independente, sem reprovação conceitual.
-   **Isso ainda é design:** nenhum catálogo, progresso ou binário foi alterado.
+   **Isso ainda não alterou o runtime:** o plano técnico da fundação e migração
+   foi registrado em
+   [`2026-08-27-curriculum-v3-foundation.md`](superpowers/plans/2026-08-27-curriculum-v3-foundation.md),
+   mas nenhum catálogo, progresso ou binário foi alterado.
    A [ADR do V3](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md) preserva o
    histórico anterior durante a migração e proíbe apagar o legado antes de
    testes de atualização e ausência de consumidores.
