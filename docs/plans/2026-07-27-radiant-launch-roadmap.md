@@ -1510,8 +1510,13 @@ canônica é
   histórico anterior registrado em
   [`2026-08-27-curriculum-v3-foundation.md`](../superpowers/plans/2026-08-27-curriculum-v3-foundation.md).
   Nenhuma exclusão física foi autorizada.
-- **J2 [P0]** Implementar o esqueleto versionado e a migração com testes de
-  instalação limpa, atualização, persistência e retomada.
+- **J2 [CONCLUÍDA — FUNDAÇÃO TÉCNICA LOCAL, 2026-08-27]** IDs/ordem dos arcos,
+  storage V3 isolado, fotografia parcial imutável e preparação explícita com
+  retomada implementados. Startup mantém currículo legado e não prepara V3;
+  catálogo e telas não foram trocados. Cinco suítes focadas/74 testes aprovados,
+  typecheck aprovado e lint sem erros (28 avisos preexistentes). Revisão de
+  código independente sem achados críticos/importantes, incluindo checagem de
+  falhas após persistência. Sem build ou submissão.
 - **J3 [P0]** Produzir o Arco 1 — L1, L2, prática intercalada, L3, checkpoint em
   dois blocos e revisões — com fontes, taxonomia de erros, direitos e
   alternativas acessíveis.
@@ -1519,8 +1524,11 @@ canônica é
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.
 - **J5 [P0]** Cortar as superfícies para o V3, preservar o histórico anterior e
-  validar o fluxo completo no iPhone 16. Só depois deste gate um novo binário
-  pode virar candidato à App Review.
+  validar o fluxo completo no iPhone 16. Antes do corte, inventariar consumidores
+  e stores fora da fotografia parcial (SM2, checkpoints, XP, preferências),
+  pausar escritores legados e definir a captura final: uma fotografia antecipada
+  imutável não equivale ao histórico completo no instante do corte. Só depois
+  deste gate um novo binário pode virar candidato à App Review.
 - **J6 [P1 — DESTRUTIVA, NÃO AUTORIZADA]** Remover arquivos e adaptadores
   legados depois de provar que nenhum consumidor de runtime ou instalação
   existente depende deles.

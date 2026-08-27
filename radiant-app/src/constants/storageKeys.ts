@@ -7,6 +7,12 @@
  */
 export const STORAGE_KEYS = {
     JOURNEY_PROGRESS: '@radiant:journey_progress_v1',
+    CURRICULUM_RUNTIME: '@radiant:curriculum_runtime_v1',
+    LEGACY_CURRICULUM_SNAPSHOT: '@radiant:legacy_curriculum_snapshot_v1',
+    V3_JOURNEY_PROGRESS: '@radiant:v3:journey_progress_v1',
+    V3_LEARNING_ATTEMPTS: '@radiant:v3:learning_attempts_v1',
+    V3_LEARNING_EVIDENCE: '@radiant:v3:learning_evidence_v1',
+    V3_COMPETENCY_MASTERY: '@radiant:v3:competency_mastery_v1',
     AUTH_MIGRATION_STATE: '@radiant:auth_migration_v1',
     UPGRADE_INTEREST: '@radiant:upgrade_interest_v1',
     LEARNING_ATTEMPTS: '@radiant:learning_attempts_v1',

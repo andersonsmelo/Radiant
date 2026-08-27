@@ -96,16 +96,31 @@ carrega o pacote inteiro.
    Radiografia → Mamografia → Tomografia → Ressonância → Medicina Nuclear →
    Radioterapia → outras especializações. O Arco 1 de orientação espacial foi
    aprovado com correções por auditor independente, sem reprovação conceitual.
-   **Isso ainda não alterou o runtime:** o plano técnico da fundação e migração
-   foi registrado em
-   [`2026-08-27-curriculum-v3-foundation.md`](superpowers/plans/2026-08-27-curriculum-v3-foundation.md),
-   mas nenhum catálogo, progresso ou binário foi alterado.
+   **J2 implementada localmente em 2026-08-27:** a fundação versionada do
+   [plano técnico](superpowers/plans/2026-08-27-curriculum-v3-foundation.md)
+   define IDs estáveis, chaves V3 isoladas e preparação explícita com fotografia
+   imutável de quatro fontes do histórico. A inicialização do catálogo cria
+   apenas o marcador de currículo legado; não chama a preparação nem ativa o V3.
+   Estados desconhecidos/corrompidos não são regravados, erros de armazenamento
+   permitem retomada e nenhum domínio anterior é convertido em domínio V3.
+   A fotografia é **parcial**, não um backup integral nem o snapshot final do
+   corte: SM2, checkpoints, XP e preferências continuam intocados, com inventário
+   de consumidores e pausa dos escritores legados obrigatórios em J5.
+   **Evidência medida em 2026-08-27:** cinco suítes focadas, 74 testes aprovados
+   (`npm test -- --runInBand src/features/curriculum-v3/
+   src/features/content/services/LessonCatalogService.test.ts
+   src/features/journey/services/JourneyProgressService.test.ts`, em `radiant-app`);
+   `npm run typecheck` aprovado; `npm run lint` sem erros e com 28 avisos em
+   arquivos preexistentes fora desta mudança. Revisão independente do código sem
+   achados críticos/importantes; sugestão de testar persistência seguida de erro
+   incorporada. Nenhuma tela, conteúdo do catálogo, progresso ou binário foi
+   alterado; a trilha anterior continua visível até J5.
    A [ADR do V3](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md) preserva o
    histórico anterior durante a migração e proíbe apagar o legado antes de
    testes de atualização e ausência de consumidores.
 
-   Sequência atual: planejar e implementar versionamento/migração do V3 →
-   produzir e validar o Arco 1 → retirar a trilha anterior das superfícies sem
+   Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
+   retirar a trilha anterior das superfícies sem
    apagar seu histórico → preparar novo build com
    autorização → instalar pelo TestFlight → testar fluxo completo e
    persistência → gravar vídeo desse mesmo build → selecionar o build validado

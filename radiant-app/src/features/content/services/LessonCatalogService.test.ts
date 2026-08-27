@@ -1,6 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LessonCatalogService } from './LessonCatalogService';
 import { RemoteCatalogService } from './RemoteCatalogService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+
+jest.mock('@react-native-async-storage/async-storage', () => ({ getItem: jest.fn(), setItem: jest.fn() }));
+
+const storage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 
 jest.mock('./RemoteCatalogService', () => ({
   RemoteCatalogService: {
@@ -19,13 +24,54 @@ const fetchManifest = RemoteCatalogService.fetchManifest as jest.MockedFunction<
 >;
 
 describe('LessonCatalogService', () => {
+  let storageValues: Map<string, string>;
   beforeEach(async () => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
+    storageValues = new Map();
+    storage.getItem.mockImplementation(async (key) => storageValues.get(key) ?? null);
+    storage.setItem.mockImplementation(async (key, value) => { storageValues.set(key, value); });
     fetchManifest.mockResolvedValue(null);
     await LessonCatalogService.refresh();
     jest.clearAllMocks();
     fetchManifest.mockResolvedValue(null);
   });
+
+  it('initializes legacy authority before a single shared catalog refresh, without preparing V3', async () => {
+    let releaseRead!: (value: null) => void;
+    storage.getItem.mockReturnValueOnce(new Promise((resolve) => { releaseRead = resolve; }));
+    const first = LessonCatalogService.bootstrap();
+    const second = LessonCatalogService.bootstrap();
+    expect(fetchManifest).not.toHaveBeenCalled();
+    releaseRead(null);
+    const results = await Promise.all([first, second]);
+    expect(results[0]).toBe(results[1]);
+    expect(results[0].initialLessonId).toBe('lesson-1');
+    expect(fetchManifest).toHaveBeenCalledTimes(1);
+    expect([...storageValues.entries()]).toEqual([[
+      '@radiant:curriculum_runtime_v1',
+      JSON.stringify({ schemaVersion: 'curriculum-runtime.v1', activeCurriculumId: 'curriculum:legacy', preparedCurriculumIds: ['curriculum:legacy'] }),
+    ]]);
+    expect(storage.getItem).toHaveBeenCalledTimes(1);
+  });
+
+  it('allows startup retry after storage failure without refreshing a partially initialized catalog', async () => {
+    storage.setItem.mockRejectedValueOnce(new Error('storage unavailable'));
+    await expect(LessonCatalogService.bootstrap()).rejects.toThrow('storage unavailable');
+    expect(fetchManifest).not.toHaveBeenCalled();
+    expect(storageValues.size).toBe(0);
+    expect((await LessonCatalogService.bootstrap()).source).toBe('local');
+    expect(fetchManifest).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(storageValues.get('@radiant:curriculum_runtime_v1')!).activeCurriculumId).toBe('curriculum:legacy');
+  });
+
+  it.each(['{broken', JSON.stringify({ schemaVersion: 'curriculum-runtime.v2', activeCurriculumId: 'curriculum:v3' })])(
+    'keeps legacy catalog and unknown runtime bytes (%#)', async (raw) => {
+      storageValues.set('@radiant:curriculum_runtime_v1', raw);
+      expect((await LessonCatalogService.bootstrap()).initialLessonId).toBe('lesson-1');
+      expect(storageValues.get('@radiant:curriculum_runtime_v1')).toBe(raw);
+      expect(storage.setItem).not.toHaveBeenCalled();
+    }
+  );
 
   it('keeps the local catalog when no remote manifest is available', async () => {
     const manifest = await LessonCatalogService.bootstrap();

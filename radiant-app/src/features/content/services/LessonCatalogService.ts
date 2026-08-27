@@ -5,6 +5,7 @@ import type { ContentLesson, LearningTrack, LessonCatalogManifest, LessonCatalog
 import { RemoteCatalogService } from './RemoteCatalogService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+import { CurriculumMigrationService } from '../../curriculum-v3/CurriculumMigrationService';
 
 const ALL_LOCAL_LESSONS = [...AI_LESSONS, ...LESSONS];
 const LOCAL_LESSONS_BY_ID = new Map(ALL_LOCAL_LESSONS.map((lesson) => [lesson.id, lesson] as const));
@@ -154,9 +155,11 @@ class LessonCatalogServiceImpl {
         }
 
         void TelemetryService.track('catalog_bootstrap', { source: this.getCatalogSource() });
-        this.refreshPromise = this.refresh().finally(() => {
-            this.refreshPromise = null;
-        });
+        this.refreshPromise = CurriculumMigrationService.bootstrap()
+            .then(() => this.refresh())
+            .finally(() => {
+                this.refreshPromise = null;
+            });
 
         return this.refreshPromise;
     }
