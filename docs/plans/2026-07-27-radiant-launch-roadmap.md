@@ -1516,10 +1516,16 @@ canônica é
   catálogo e telas não foram trocados. Cinco suítes focadas/74 testes aprovados,
   typecheck aprovado e lint sem erros (28 avisos preexistentes). Revisão de
   código independente sem achados críticos/importantes, incluindo checagem de
-  falhas após persistência. Sem build ou submissão.
+  falhas após persistência. Commit `320e10d`; 14 validadores aprovados no run
+  `run-1787851096220-d09a361b`, encerrado. Sem push, build ou submissão.
 - **J3 [P0]** Produzir o Arco 1 — L1, L2, prática intercalada, L3, checkpoint em
   dois blocos e revisões — com fontes, taxonomia de erros, direitos e
-  alternativas acessíveis.
+  alternativas acessíveis. **Próxima tarefa do agente**, começando pela
+  L1 — O corpo como referência, conforme o
+  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md).
+  Handoff documental preparado em 2026-08-27; isso não conclui J3 nem substitui
+  o plano executável de conteúdo e interações. Auditor independente revisa cada
+  pacote, sem pedir aprovação individual do dono por lição.
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.

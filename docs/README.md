@@ -54,6 +54,24 @@ Quando documentos divergirem, use esta ordem:
 - [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md)
   — execução da frente de lançamento
 
+### Currículo V3 — direção editorial vigente
+
+- estado e pendências: [`STATUS.md`](STATUS.md) e Onda J do
+  [roadmap ativo](plans/2026-07-27-radiant-launch-roadmap.md);
+- decisão: [ADR do currículo contínuo](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md);
+- contrato aprovado e desenho do Arco 1:
+  [spec V3](superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md);
+- fundação técnica entregue:
+  [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
+- próxima execução: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
+  começando pela L1, sem repetir a fundação nem ativar o V3 antecipadamente;
+- inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md).
+
+A engenharia educacional abaixo permanece referência de contratos existentes;
+não é autorização para reaproveitar automaticamente conteúdo ou domínio do
+currículo anterior. O acompanhamento operacional do V3 é pelo Trello, conforme
+o status, sem novas ações no Todoist.
+
 ### Sistema educacional por competências
 
 - decisão: [`adr/ADR-2026-07-31-aprendizagem-por-competencias.md`](adr/ADR-2026-07-31-aprendizagem-por-competencias.md)

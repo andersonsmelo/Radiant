@@ -10,6 +10,28 @@
 **Fora do escopo:** conteúdo do Arco 1, corte das superfícies, exclusão física do
 legado, build e submissão às lojas.
 
+## Registro de execução — não repetir J2
+
+Implementado em 2026-08-27 no commit `320e10d`, branch
+`codex/curriculum-v3-foundation`. As Tasks 1–5 abaixo estão concluídas como
+fundação técnica; os passos são preservados como especificação da entrega,
+não como fila pendente.
+
+- Cinco suítes focadas/74 testes aprovados; typecheck aprovado; lint sem erros
+  e com 28 avisos preexistentes fora da mudança.
+- Revisão independente sem achados críticos/importantes; cobertura de escrita
+  que persiste antes de rejeitar incorporada.
+- Run `run-1787851096220-d09a361b`: 14 validadores aprovados, step finalizado e
+  run encerrado. Sessão de leitura encerrada separadamente.
+- Inicialização mantém autoridade legada; `prepareV3()` permanece explícito e
+  não é chamado pelo startup. O manifesto V3 publicável continua `null`.
+- Nenhuma aula, tela, corte, exclusão, push, build ou submissão foi entregue
+  por este plano. A fotografia é parcial; seus limites e os stores intocados
+  permanecem gates J5.
+
+Autoridade do estado: [STATUS.md](../../STATUS.md). Próxima execução:
+[produção do Arco 1](../../runbooks/curriculum-v3-arco-1.md).
+
 ## Objetivo
 
 Criar a fronteira técnica de `curriculum:v3` sem mudar ainda o currículo exibido.
@@ -303,4 +325,3 @@ relaxar validadores. Commits locais permanecem separados da branch de origem.
 - nenhum arquivo legado é removido;
 - o plano de corte continua condicionado ao Arco 1 completo, auditoria de
   domínio, acessibilidade e validação física no iPhone 16.
-

@@ -48,11 +48,16 @@ misturam as duas lojas, e os itens do Play não travam a App Store.
 > neste caminho. Ressincronizada em **2026-08-25**.
 
 **Estado:** `1.3.1` **rejeitada** em 14/08 sob `Guideline 2.1 - Information
-Needed` / `2.1.0 App Completeness`. Não é defeito funcional: é informação que
-falta para a Apple conseguir avaliar. A versão está em estado **editável**.
-**Bloqueio:** nenhum externo — a bola está do nosso lado desde 14/08.
-**Dono:** dono, em todos os passos restantes; cada um exige console, aparelho
-físico ou julgamento sobre direitos.
+Needed` / `2.1.0 App Completeness`, conforme a medição registrada no
+[STATUS.md](STATUS.md). A versão está em estado **editável**. A instalação do
+`(9)` também revelou um defeito de conteúdo/apresentação; a fundação técnica V3
+não o corrigiu nas telas ainda.
+**Bloqueio:** produção e auditoria do Arco 1, corte seguro, smoke físico e
+resposta à Apple. **Dono:** agente para J3 e implementação local; auditor para
+revisão dos pacotes; dono para aparelho e ações de loja que exijam autorização.
+
+**Ressincronização documental em 2026-08-27:** esta fila deriva do status
+canônico; nenhuma nova consulta à Apple foi feita nesta atualização.
 
 Decidido em 24/08: **responder com um build novo do `main`, não com o `(7)`.** O
 binário em revisão está 138 commits atrás e ainda carrega `src/app/modal.tsx`, o
@@ -63,18 +68,21 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | --- | --- | --- |
 | Contrato de licença atualizado | titular | **concluído** em 24/08 — a faixa sumiu da lista de apps |
 | Build `1.3.1 (9)` a partir de `main` | dono | **concluído** em 24/08 — o EAS numera sozinho |
-| Subir ao TestFlight | dono | **pendente** — o perfil `production` é de loja e não se sideloada |
-| Instalar e **verificar se o app abre** | dono | **pendente** — `main` nunca passou por smoke físico e nenhum passo do gate empacota o app |
-| Anotar modelo e versão do iOS | dono | **pendente** — item 2 da Apple; nunca foram registrados |
-| Gravar o vídeo do fluxo típico | dono | **pendente** — mesma sessão do smoke; roteiro de 8 passos no plano de resposta |
+| Disponibilidade do `(9)` no TestFlight | dono | **confirmada** em 27/08 pela instalação e captura; não é a correção do V3 |
+| Instalar e **verificar se o app abre** | dono | **abertura confirmada** no `(9)`; smoke completo, persistência e offline continuam pendentes |
+| Anotar modelo e versão do iOS | dono | **concluído** — iPhone 16 / iOS 27.0, informados em 27/08 |
+| Fundação técnica V3 — J2 | agente | **concluída localmente** — `320e10d`; sem troca de telas |
+| Produção do Arco 1 — J3 | agente + auditor | **próxima execução** — começar pela L1; roteiro abaixo |
+| Auditoria/QA de acessibilidade — J4 | auditor + executor dos testes manuais | **pendente** sobre as lições implementadas, não sobre o desenho |
+| Corte seguro e fluxo completo no iPhone — J5 | agente + dono | **pendente** — preservar histórico e validar instalação limpa/atualização |
+| Preparar novo candidato e gravar vídeo | dono + agente no escopo autorizado | **pendente** — após gates e autorização, vídeo do mesmo binário testado |
 | Conferir o segredo do Sentry contra as Privacy Labels | dono | **pendente** — o rótulo publicado é "Dados não coletados"; um DSN no EAS o tornaria falso |
 | Responder ao item 7 — direitos e área regulada | dono | **pendente** — julgamento editorial e jurídico, não medição |
-| Anexar o `(9)` e reenviar | dono | **pendente** — a versão é editável; não precisa cancelar o envio |
+| Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — não usar o `(9)` como se contivesse a correção futura |
 
-**Estado da revisão, hoje: não medido desde 2026-08-24.** A leitura exige login
-no App Store Connect e nenhum agente pode fazê-la. O comando que a remede é
-abrir <https://appstoreconnect.apple.com/apps> autenticado. Esta linha existe
-porque a medição vencida **desta mesma seção** já custou dez dias.
+**Estado da revisão:** usar a data de medição e os bloqueios de
+[STATUS.md](STATUS.md). Uma nova conferência exige App Store Connect
+autenticado; não inferir aprovação da Apple a partir de TestFlight ou CI.
 
 Plano de resposta item a item, com os textos em inglês prontos para colar:
 [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
@@ -82,13 +90,24 @@ Folha de transcrição do envio original:
 [`store/2026-08-08-ios-preflight.md`](store/2026-08-08-ios-preflight.md).
 
 Gate de release medido em 2026-08-08: `tsc` exit 0, `eslint` 0 erros, **jest 56
-suítes / 330 testes**. Contagem envelhecida de propósito — o gate atual está em
-18 passos e 717 testes, e quem precisar do número remede com
-`cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`.
+suítes / 330 testes**. Essa contagem é histórica. A evidência J2 de 27/08 está
+no status: 74 testes focados e 14 validadores Loop aprovados, sem prova de
+funcionamento do V3 no aparelho. Remedir o escopo atual com os comandos do plano
+e `loop validate` no run correspondente.
 
-**Não há trabalho de agente neste caminho** — mas por um motivo diferente do que
-esta seção dizia antes. Não porque esteja tudo fechado: porque **todo o resto é
-console, aparelho e julgamento do dono**.
+### AGENTE — J3: produzir o Arco 1, começando pela L1
+
+**Estado:** pendente de produção. **Bloqueio:** nenhum para iniciar o plano e a
+produção local dentro da direção aprovada; publicação depende de J4/J5.
+**Dono:** agente, com subagente auditor independente por pacote.
+
+Seguir o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md): L1 → L2 →
+P1 → L3 → C1-A/C1-B → R1/R2. O desenho já foi aprovado; não pedir ao dono para
+aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
+nesta tarefa. Registrar evidência específica do conteúdo e das interações,
+além dos testes de engenharia. Acompanhar no
+[cartão existente do Trello](https://trello.com/c/f9OYyCX5), sem criar tarefas
+no Todoist.
 
 ---
 

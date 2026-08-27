@@ -113,11 +113,21 @@ carrega o pacote inteiro.
    `npm run typecheck` aprovado; `npm run lint` sem erros e com 28 avisos em
    arquivos preexistentes fora desta mudança. Revisão independente do código sem
    achados críticos/importantes; sugestão de testar persistência seguida de erro
-   incorporada. Nenhuma tela, conteúdo do catálogo, progresso ou binário foi
+   incorporada. Fechamento registrado no commit local `320e10d`, na branch
+   `codex/curriculum-v3-foundation`: os 14 validadores do run
+   `run-1787851096220-d09a361b` passaram; o run e sua sessão de leitura foram
+   encerrados. Sem push, build ou submissão nesta entrega.
+   Nenhuma tela, conteúdo do catálogo, progresso ou binário foi
    alterado; a trilha anterior continua visível até J5.
    A [ADR do V3](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md) preserva o
    histórico anterior durante a migração e proíbe apagar o legado antes de
    testes de atualização e ausência de consumidores.
+
+   **Próxima execução do agente: J3 — produzir o Arco 1**, começando por
+   **L1 — O corpo como referência**. O [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md)
+   reúne leituras, sequência, critérios de aceite e limites; não substitui este
+   status. J3/J4/J5 continuam abertos. O design aprovado não significa lições,
+   animações ou acessibilidade já implementadas ou validadas no aplicativo.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem

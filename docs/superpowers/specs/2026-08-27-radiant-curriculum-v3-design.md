@@ -2,7 +2,8 @@
 
 **Data:** 2026-08-27
 **Estado:** aprovado pelo dono; Arco 1 aprovado com correções pelo auditor de
-domínio; implementação não iniciada
+domínio. Fundação técnica J2 implementada; produção das lições do Arco 1 ainda
+pendente, conforme o [status canônico](../../STATUS.md).
 **Decisor de produto:** Anderson
 **ADR:**
 [`ADR-2026-08-27-curriculo-v3-trilha-continua.md`](../../adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md)
@@ -30,8 +31,11 @@ Esta especificação define:
 - o primeiro arco, sobre orientação espacial;
 - os gates que separam design aprovado de conteúdo publicável.
 
-Ela não autoriza implementação, exclusão física do legado, build ou submissão
-às lojas.
+Esta spec registra o design; não concede por si só autorização de execução.
+O dono autorizou posteriormente a implementação, e a fundação J2 foi entregue
+em `320e10d`. Exclusão física do legado, build e submissão às lojas continuam
+fora dessa autorização. A próxima execução segue o
+[roteiro do Arco 1](../../runbooks/curriculum-v3-arco-1.md).
 
 ## 2. Objetivo do produto educacional
 
@@ -430,8 +434,9 @@ O arco permanece bloqueado para publicação até:
 - Nenhuma fonte de terceiros sem direitos alimentará um ativo.
 - Nenhum teste automatizado substituirá revisão científica, visual ou em
   aparelho.
-- O primeiro plano de implementação tratará arquitetura/versionamento e o Arco
-  1; não tentará produzir todas as modalidades de uma vez.
+- A arquitetura/versionamento foi entregue pelo plano J2. O próximo plano
+  trata apenas da produção do Arco 1 sobre essa fundação, sem tentar produzir
+  todas as modalidades de uma vez ou antecipar o corte J5.
 
 ## 14. Critério de saída do design
 
