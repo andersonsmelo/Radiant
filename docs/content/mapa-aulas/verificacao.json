@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "nodes": 85,
+  "cards": 75,
+  "groups": 10,
+  "edges": 39,
+  "notes": 9,
+  "counts": {
+    "legacyLessons": 18,
+    "legacyQuestions": 38,
+    "legacyReviewNodes": 18,
+    "legacyCheckpointNodes": 15,
+    "legacyRewardNodes": 3,
+    "promotedActivities": 12,
+    "promotedCheckpointNodes": 5,
+    "promotedCheckpointQuestions": 10,
+    "editorialBundles": 96,
+    "editorialReviewCards": 48,
+    "plannedCompetencies": 30,
+    "promotedCompetencies": 5,
+    "approvedMediaManifestItems": 1,
+    "promotedMedia": 0,
+    "trailNodes": 72
+  },
+  "checks": [
+    "unique IDs",
+    "edge endpoints",
+    "positive dimensions",
+    "non-overlapping cards",
+    "wiki notes and headings",
+    "expected inventory counts"
+  ],
+  "visualInspection": "not implied by structural validation",
+  "staticVisualInspection": "2026-08-27: visão geral e detalhe do lote promovido inspecionados em PNG; não é renderização nativa do Obsidian",
+  "obsidianInstalled": true,
+  "obsidianNativeInspection": "2026-08-27: Canvas opened and fit in Obsidian 1.13.7; review note opened; Voltar ao atlas resolved to start note",
+  "obsidianDestination": "Projetos/Radiant/Revisão das aulas"
+}

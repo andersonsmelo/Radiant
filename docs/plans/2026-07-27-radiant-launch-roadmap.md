@@ -2,7 +2,7 @@
 
 > **Status:** plano ativo. Complementa (não substitui) o
 > [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md) e o
-> [status canônico](../archive/EXECUTION_STATUS_2026-08-09.md). As Tasks 11–16 do
+> [status canônico](../STATUS.md). As Tasks 11–16 do
 > roadmap anterior permanecem válidas; este documento as ordena dentro da
 > trilha de lançamento e adiciona a trilha de lojas, que não existia.
 
@@ -20,12 +20,8 @@ rejeição pendente.
 
 ## 2. Onde estamos hoje (verificado)
 
-Fonte: ~~[status canônico 2026-07-29](../archive/EXECUTION_STATUS_2026-07-29.md)~~
-~~[status canônico 2026-08-13](../archive/EXECUTION_STATUS_2026-08-13.md)~~
-~~[status canônico 2026-08-14](../archive/EXECUTION_STATUS_2026-08-14.md)~~
-**[status canônico 2026-08-15](../archive/EXECUTION_STATUS_2026-08-15.md)** — ponteiro
-atualizado após o primeiro sub-projeto da reformulação guiada pelo EWA, em
-2026-08-15. Os snapshots anteriores permanecem como registro. A seção abaixo descreve o estado
+Fonte atual: **[docs/STATUS.md](../STATUS.md)** — ponteiro reconciliado em
+2026-08-27. Os snapshots em `docs/archive/` são históricos. A seção abaixo descreve o estado
 verificado em 07-27; as entregas posteriores, inclusive a correção P0 de
 contraste/composição, o HUD vetorial e o percurso único da jornada, estão no
 status canônico.
@@ -804,6 +800,32 @@ código.
   não uma reescrita do roadmap.
 - **D4 [P0]** Gate editorial. **Triado em 2026-07-31 — a redação anterior, "triar
   os 42 itens `formatNeedsReview`", descrevia mal o trabalho nas duas direções.**
+  **Auditoria adicional concluída em 2026-08-27; correções abertas:** a captura
+  do iPhone revelou um mockup de tórax no quiz de profissão. A inspeção também
+  encontrou ensino genérico e ordem previsível de respostas no catálogo
+  legado. [Achados, escopo e critérios de correção](../content/2026-08-27-revisao-licoes-ios.md)
+  registrados no [Trello](https://trello.com/c/f9OYyCX5). Esta auditoria não é
+  aprovação clínica nem reabertura automática do lote v2 promovido. O estado
+  do envio e a dependência de F1/F4 estão em [STATUS](../STATUS.md).
+  **Inventário e atlas preparados em 2026-08-27:** [Canvas e notas de revisão](../content/mapa-aulas/README.md)
+  distinguem catálogo legado/promovido, revisões, pipeline editorial e currículo
+  planejado. Contagens e fontes estão no pacote. Após autorização, o Canvas e
+  as notas foram instalados em pasta separada do cérebro e conferidos no
+  Obsidian; estética e pilotos são propostas, não decisões aprovadas nem mudança
+  no app. D4 permanece aberto para revisão
+  editorial, correção e validação física.
+
+  **Reorientado pelo dono em 2026-08-27:** o currículo anterior não será
+  corrigido lição a lição como base do produto. A direção aceita é o
+  [Currículo V3](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md),
+  com fundamentos de anatomia, fisiologia e física, seguidos de Radiografia,
+  Mamografia, Tomografia, Ressonância, Medicina Nuclear, Radioterapia e outras
+  especializações. O [ADR](../adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md)
+  exige migração segura antes da retirada do legado. O Arco 1 passou por
+  auditoria independente e não tem reprovação conceitual; segue bloqueado para
+  publicação até revisão técnica, acessibilidade real, proveniência e
+  validação em aparelho. A execução vive na Onda J.
+
   Medição em [`docs/content/2026-07-31-d4-triagem-editorial.md`](../content/2026-07-31-d4-triagem-editorial.md):
   - os **42 bundles são 7 conceitos × 6 formatos** — os seis formatos marcam o mesmo
     conjunto, o campo de motivo está vazio nos 42, e o estado foi herdado do
@@ -1470,6 +1492,36 @@ alcança não celebra; a que celebra o aluno não alcança. A convergência deci
 `/learn` adota `QuizTopBar` e `LessonSummary`, `/quiz` é aposentada — é o que faz I1
 existir para o aluno, e por isso é a parte mais valiosa de I2, à frente do rearranjo da
 barra.
+
+### Onda J — Currículo V3 e aposentadoria segura do legado (nova em 2026-08-27)
+
+Esta onda substitui a direção editorial da antiga Unidade 1, mas não apaga a
+engenharia já entregue em G/H/I. Ela não autoriza build nem submissão. A spec
+canônica é
+[`2026-08-27-radiant-curriculum-v3-design.md`](../superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md).
+
+- **J0 [CONCLUÍDA — DESIGN]** Proposta do produto, sequência contínua, contrato
+  de lição e contratos de domínio, gamificação e acessibilidade aprovados no
+  design; Arco 1 aprovado. Auditoria independente reprovou a primeira versão e
+  aprovou a correção sem reprovação conceitual. Gates de publicação permanecem
+  abertos.
+- **J1 [P0 — PLANEJAMENTO]** Escrever o plano de implementação do catálogo V3,
+  IDs estáveis, migração do progresso e fotografia somente de leitura do
+  histórico anterior. Nenhuma exclusão física nesta etapa.
+- **J2 [P0]** Implementar o esqueleto versionado e a migração com testes de
+  instalação limpa, atualização, persistência e retomada.
+- **J3 [P0]** Produzir o Arco 1 — L1, L2, prática intercalada, L3, checkpoint em
+  dois blocos e revisões — com fontes, taxonomia de erros, direitos e
+  alternativas acessíveis.
+- **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
+  controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
+  variantes visual e textual.
+- **J5 [P0]** Cortar as superfícies para o V3, preservar o histórico anterior e
+  validar o fluxo completo no iPhone 16. Só depois deste gate um novo binário
+  pode virar candidato à App Review.
+- **J6 [P1 — DESTRUTIVA, NÃO AUTORIZADA]** Remover arquivos e adaptadores
+  legados depois de provar que nenhum consumidor de runtime ou instalação
+  existente depende deles.
 
 ## 7. Recursos necessários
 

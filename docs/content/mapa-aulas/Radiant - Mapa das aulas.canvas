@@ -1,0 +1,1246 @@
+{
+  "nodes": [
+    {
+      "id": "9f2e6d33a3717ee8",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 1550,
+      "height": 430,
+      "text": "# RADIANT\n## Atlas das aulas\n27 AGO 2026 · a05e94b\n\n30 entradas principais · 72 nós na trilha\nInventário ≠ revisão pedagógica concluída.\n\n[[Radiant - 00 Comece aqui|COMECE AQUI]]",
+      "color": "5"
+    },
+    {
+      "id": "ba29297b6c4f8486",
+      "type": "text",
+      "x": 1650,
+      "y": 0,
+      "width": 1640,
+      "height": 430,
+      "text": "# Leia por camadas\nVerde: catálogo local\nAzul: fluxo / capacidade implementada\nÂmbar: preparado / não conectado\nVermelho: revisão necessária\nVioleta: proposta ainda aberta\n\nUse zoom e abra os links para ver cada aula.",
+      "color": "5"
+    },
+    {
+      "id": "2863229379aa76de",
+      "type": "text",
+      "x": 3390,
+      "y": 0,
+      "width": 1800,
+      "height": 430,
+      "text": "# A pergunta da revisão\nO aluno está aprendendo a relação ou apenas escolhendo uma alternativa?\n\n18 aulas legadas + 12 atividades novas.\n96 pacotes editoriais não são 96 aulas.\n48 cartões preparados não estão na revisão atual.\n\n[[Radiant - 07 Fila de revisao|Abrir critérios da revisão]]",
+      "color": "1"
+    },
+    {
+      "id": "9f5727ef44191f0d",
+      "type": "group",
+      "x": 0,
+      "y": 600,
+      "width": 1030,
+      "height": 2630,
+      "label": "CATÁLOGO LEGADO 1 · Fundamentos de Radiologia",
+      "color": "4"
+    },
+    {
+      "id": "c4269bf5bb2a9ead",
+      "type": "text",
+      "x": 40,
+      "y": 680,
+      "width": 950,
+      "height": 260,
+      "text": "## Fundamentos de Radiologia\n7 aulas · 7 revisões\n6 checkpoints · 1 recompensa\n\nAula → revisão / checkpoint → próxima aula",
+      "color": "4"
+    },
+    {
+      "id": "c2d05c973fa00f76",
+      "type": "text",
+      "x": 40,
+      "y": 1020,
+      "width": 950,
+      "height": 230,
+      "text": "### L01 · Fundamentos de Radiologia\n3 questões · ensino próprio\n[[Radiant - 01 Inventario das aulas#L01|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "1e27335c90aa99d3",
+      "type": "text",
+      "x": 40,
+      "y": 1310,
+      "width": 950,
+      "height": 230,
+      "text": "### L02 · Princípios de Tomografia Computadorizada\n3 questões · ensino próprio\n[[Radiant - 01 Inventario das aulas#L02|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "8b2258149f2da781",
+      "type": "text",
+      "x": 40,
+      "y": 1600,
+      "width": 950,
+      "height": 230,
+      "text": "### L03 · Profissão e atuação do técnico em radiologia\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L03|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "81e169fc92ee31a4",
+      "type": "text",
+      "x": 40,
+      "y": 1890,
+      "width": 950,
+      "height": 230,
+      "text": "### L04 · Energia e matéria\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L04|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "e19f6e546a16d839",
+      "type": "text",
+      "x": 40,
+      "y": 2180,
+      "width": 950,
+      "height": 230,
+      "text": "### L05 · Estrutura da matéria e núcleo atômico\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L05|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "c7251287fef44718",
+      "type": "text",
+      "x": 40,
+      "y": 2470,
+      "width": 950,
+      "height": 230,
+      "text": "### L06 · Radioatividade, partículas e atividade\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L06|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "8414fa6d0b8cec30",
+      "type": "text",
+      "x": 40,
+      "y": 2760,
+      "width": 950,
+      "height": 230,
+      "text": "### L07 · Raios X: descoberta e propriedades\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L07|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "3d15361c45222cb2",
+      "type": "group",
+      "x": 1130,
+      "y": 600,
+      "width": 1030,
+      "height": 2630,
+      "label": "CATÁLOGO LEGADO 2 · Radiação, Modalidades e Equipamento",
+      "color": "4"
+    },
+    {
+      "id": "585acf1152797d6e",
+      "type": "text",
+      "x": 1170,
+      "y": 680,
+      "width": 950,
+      "height": 260,
+      "text": "## Radiação, Modalidades e Equipamento\n6 aulas · 6 revisões\n5 checkpoints · 1 recompensa\n\nAula → revisão / checkpoint → próxima aula",
+      "color": "4"
+    },
+    {
+      "id": "f6ac9ffff51516cc",
+      "type": "text",
+      "x": 1170,
+      "y": 1020,
+      "width": 950,
+      "height": 230,
+      "text": "### L08 · Interação das radiações e proteção radiológica\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L08|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "a6e8200b93b6f64c",
+      "type": "text",
+      "x": 1170,
+      "y": 1310,
+      "width": 950,
+      "height": 230,
+      "text": "### L09 · Aplicações radioisotópicas e medicina nuclear\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L09|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "aad4baf1d0818e3a",
+      "type": "text",
+      "x": 1170,
+      "y": 1600,
+      "width": 950,
+      "height": 230,
+      "text": "### L10 · Tomografia computadorizada\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L10|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "ede7d21b11f002ee",
+      "type": "text",
+      "x": 1170,
+      "y": 1890,
+      "width": 950,
+      "height": 230,
+      "text": "### L11 · Ressonância magnética\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L11|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "0077c2150c4b6b51",
+      "type": "text",
+      "x": 1170,
+      "y": 2180,
+      "width": 950,
+      "height": 230,
+      "text": "### L13 · Equipamentos de radiologia convencional\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L13|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "9a52a3776c45e2da",
+      "type": "text",
+      "x": 1170,
+      "y": 2470,
+      "width": 950,
+      "height": 230,
+      "text": "### L14 · Componentes básicos do equipamento\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L14|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "e8ab131f1f05738e",
+      "type": "group",
+      "x": 2260,
+      "y": 600,
+      "width": 1030,
+      "height": 2630,
+      "label": "CATÁLOGO LEGADO 3 · Prática, Qualidade e Profissão",
+      "color": "4"
+    },
+    {
+      "id": "7723ee3c8ebce97b",
+      "type": "text",
+      "x": 2300,
+      "y": 680,
+      "width": 950,
+      "height": 260,
+      "text": "## Prática, Qualidade e Profissão\n5 aulas · 5 revisões\n4 checkpoints · 1 recompensa\n\nAula → revisão / checkpoint → próxima aula",
+      "color": "4"
+    },
+    {
+      "id": "6a9fa6ef11da4b35",
+      "type": "text",
+      "x": 2300,
+      "y": 1020,
+      "width": 950,
+      "height": 230,
+      "text": "### L12 · Preservação de alimentos por irradiação\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L12|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "e553f923e376aa20",
+      "type": "text",
+      "x": 2300,
+      "y": 1310,
+      "width": 950,
+      "height": 230,
+      "text": "### L15 · Acessórios radiológicos\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L15|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "eaef24bb4df7b7c9",
+      "type": "text",
+      "x": 2300,
+      "y": 1600,
+      "width": 950,
+      "height": 230,
+      "text": "### L16 · Processamento radiográfico\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L16|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "a5cbd54440574edf",
+      "type": "text",
+      "x": 2300,
+      "y": 1890,
+      "width": 950,
+      "height": 230,
+      "text": "### L17 · Produção dos raios X\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L17|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "aac36fe66680bc47",
+      "type": "text",
+      "x": 2300,
+      "y": 2180,
+      "width": 950,
+      "height": 230,
+      "text": "### L18 · Qualidade de imagem\n2 questões · ensino genérico no fluxo\n[[Radiant - 01 Inventario das aulas#L18|Aula, perguntas e revisão]]",
+      "color": "4"
+    },
+    {
+      "id": "fb04dcb6970e4c3d",
+      "type": "group",
+      "x": 3390,
+      "y": 600,
+      "width": 1800,
+      "height": 2630,
+      "label": "CATÁLOGO PROMOVIDO · Matéria, energia e radiação",
+      "color": "4"
+    },
+    {
+      "id": "c80c27a034d38de1",
+      "type": "text",
+      "x": 3430,
+      "y": 680,
+      "width": 1720,
+      "height": 260,
+      "text": "## 12 atividades · 5 competências\nApresentação → múltipla escolha → síntese\n5 avaliações × 2 itens · nenhuma mídia no lote\n\n[[Radiant - 01 Inventario das aulas|Ver atividades e fontes]]",
+      "color": "4"
+    },
+    {
+      "id": "d60404061c5e9433",
+      "type": "text",
+      "x": 3430,
+      "y": 1030,
+      "width": 500,
+      "height": 340,
+      "text": "### Etapa 1\nEstrutura atomica e ionizacao\n\nAvaliação: 2 questões\nMeta 80% → 2 acertos\n\n[[Radiant - 02 Revisoes e avaliacoes#A2 — avaliações por competência|Abrir avaliação]]",
+      "color": "5"
+    },
+    {
+      "id": "4f75125ffb35e16e",
+      "type": "text",
+      "x": 3990,
+      "y": 1030,
+      "width": 370,
+      "height": 340,
+      "text": "### V01\nEstrutura e carga\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V01|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "3df0ed1fee59e9c8",
+      "type": "text",
+      "x": 4380,
+      "y": 1030,
+      "width": 370,
+      "height": 340,
+      "text": "### V02\nIonização\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V02|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "a2b9d976ac3a8334",
+      "type": "text",
+      "x": 4770,
+      "y": 1030,
+      "width": 370,
+      "height": 340,
+      "text": "### V03\nBalanço após interação\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V03|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "2e28cf3a06ee3a5b",
+      "type": "text",
+      "x": 3430,
+      "y": 1455,
+      "width": 500,
+      "height": 340,
+      "text": "### Etapa 2\nIonizante e nao ionizante\n\nAvaliação: 2 questões\nMeta 80% → 2 acertos\n\n[[Radiant - 02 Revisoes e avaliacoes#A2 — avaliações por competência|Abrir avaliação]]",
+      "color": "5"
+    },
+    {
+      "id": "436244ef3d850529",
+      "type": "text",
+      "x": 3990,
+      "y": 1455,
+      "width": 370,
+      "height": 340,
+      "text": "### V04\nCritério de ionização\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V04|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "6709532254bd2c14",
+      "type": "text",
+      "x": 4380,
+      "y": 1455,
+      "width": 370,
+      "height": 340,
+      "text": "### V05\nEnergia por fóton\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V05|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "205d80363d4aa8ba",
+      "type": "text",
+      "x": 3430,
+      "y": 1880,
+      "width": 500,
+      "height": 340,
+      "text": "### Etapa 3\nFrequencia comprimento e energia\n\nAvaliação: 2 questões\nMeta 80% → 2 acertos\n\n[[Radiant - 02 Revisoes e avaliacoes#A2 — avaliações por competência|Abrir avaliação]]",
+      "color": "5"
+    },
+    {
+      "id": "1c542f060da4307e",
+      "type": "text",
+      "x": 3990,
+      "y": 1880,
+      "width": 370,
+      "height": 340,
+      "text": "### V06\nFrequência e onda\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V06|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "4d6d9943a0ed54ec",
+      "type": "text",
+      "x": 4380,
+      "y": 1880,
+      "width": 370,
+      "height": 340,
+      "text": "### V07\nFrequência e energia\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V07|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "2e3789d59138b18e",
+      "type": "text",
+      "x": 4770,
+      "y": 1880,
+      "width": 370,
+      "height": 340,
+      "text": "### V08\nDuas relações\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V08|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "8bb8d87afb7d004d",
+      "type": "text",
+      "x": 3430,
+      "y": 2305,
+      "width": 500,
+      "height": 340,
+      "text": "### Etapa 4\nRaios x no espectro\n\nAvaliação: 2 questões\nMeta 80% → 2 acertos\n\n[[Radiant - 02 Revisoes e avaliacoes#A2 — avaliações por competência|Abrir avaliação]]",
+      "color": "5"
+    },
+    {
+      "id": "4f5487a3bd397c8e",
+      "type": "text",
+      "x": 3990,
+      "y": 2305,
+      "width": 370,
+      "height": 340,
+      "text": "### V09\nRegião do espectro\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V09|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "7c81f9b5f928112b",
+      "type": "text",
+      "x": 4380,
+      "y": 2305,
+      "width": 370,
+      "height": 340,
+      "text": "### V10\nNatureza dos raios X\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V10|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "259e3f5de74a519b",
+      "type": "text",
+      "x": 3430,
+      "y": 2730,
+      "width": 500,
+      "height": 340,
+      "text": "### Etapa 5\nAtenuacao como ponte\n\nAvaliação: 2 questões\nMeta 80% → 2 acertos\n\n[[Radiant - 02 Revisoes e avaliacoes#A2 — avaliações por competência|Abrir avaliação]]",
+      "color": "5"
+    },
+    {
+      "id": "79cced13310b91aa",
+      "type": "text",
+      "x": 3990,
+      "y": 2730,
+      "width": 370,
+      "height": 340,
+      "text": "### V11\nAtenuação e transmissão\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V11|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "5834cfcef90567e8",
+      "type": "text",
+      "x": 4380,
+      "y": 2730,
+      "width": 370,
+      "height": 340,
+      "text": "### V12\nPonte até o detector\n\n3 passos\n1 múltipla escolha\nSem mídia\n\n[[Radiant - 01 Inventario das aulas#V12|Abrir atividade]]",
+      "color": "4"
+    },
+    {
+      "id": "405b1a1fadc27ffb",
+      "type": "group",
+      "x": 0,
+      "y": 3440,
+      "width": 1510,
+      "height": 2020,
+      "label": "PREPARADO · Pipeline editorial",
+      "color": "3"
+    },
+    {
+      "id": "fc1d10aed73902f4",
+      "type": "text",
+      "x": 40,
+      "y": 3520,
+      "width": 1430,
+      "height": 220,
+      "text": "## 16 temas × 6 formatos\n96 pacotes no payload; versões de bundles não são aulas adicionais.\n\n[[Radiant - 03 Conteudo editorial|Abrir pipeline e temas]]",
+      "color": "3"
+    },
+    {
+      "id": "e3f7e031c8f21b05",
+      "type": "text",
+      "x": 40,
+      "y": 3820,
+      "width": 1430,
+      "height": 200,
+      "text": "### MICROLIÇÕES\n16 explicações + exemplos\nNão chegam ao texto de ensino",
+      "color": "3"
+    },
+    {
+      "id": "f88f96b8c1e225e5",
+      "type": "text",
+      "x": 40,
+      "y": 4075,
+      "width": 1430,
+      "height": 200,
+      "text": "### QUIZZES\n32 questões em 16 pacotes\nConectados ao catálogo legado",
+      "color": "4"
+    },
+    {
+      "id": "78ae57a3e23f42fd",
+      "type": "text",
+      "x": 40,
+      "y": 4330,
+      "width": 1430,
+      "height": 200,
+      "text": "### REVIEWS\n48 cartões em 16 pacotes\nNão alimentam /review",
+      "color": "3"
+    },
+    {
+      "id": "31b4e6f5283dbdbc",
+      "type": "text",
+      "x": 40,
+      "y": 4585,
+      "width": 1430,
+      "height": 200,
+      "text": "### CASOS\n16 cenários\nNão conectados ao catálogo",
+      "color": "3"
+    },
+    {
+      "id": "1ce6247cb19cf44f",
+      "type": "text",
+      "x": 40,
+      "y": 4840,
+      "width": 1430,
+      "height": 200,
+      "text": "### CHECKPOINTS\n16 pacotes\nDiferentes dos nós de checkpoint",
+      "color": "3"
+    },
+    {
+      "id": "0f42392ee48b1ec9",
+      "type": "text",
+      "x": 40,
+      "y": 5095,
+      "width": 1430,
+      "height": 200,
+      "text": "### REWARDS\n16 textos\nDiferentes dos nós de recompensa",
+      "color": "3"
+    },
+    {
+      "id": "5464105120381493",
+      "type": "group",
+      "x": 1640,
+      "y": 3440,
+      "width": 1650,
+      "height": 2020,
+      "label": "FLUXOS · Não misturar revisões e avaliações",
+      "color": "5"
+    },
+    {
+      "id": "4fad2dc05f09518c",
+      "type": "text",
+      "x": 1680,
+      "y": 3520,
+      "width": 1570,
+      "height": 215,
+      "text": "### R1 · Revisão da trilha\n18 nós: contexto → pergunta → reforço.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "8f9af898feb1a9f2",
+      "type": "text",
+      "x": 1680,
+      "y": 3785,
+      "width": 1570,
+      "height": 215,
+      "text": "### R2 · Revisão espaçada legada\n/review · primeira pergunta por aula vencida. Revelar → autoavaliar. Entrada atual a confirmar.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "09d23071beff1973",
+      "type": "text",
+      "x": 1680,
+      "y": 4050,
+      "width": 1570,
+      "height": 215,
+      "text": "### R3 · Quiz completo / modo review\n/quiz · mesmo banco legado. Não contar questões novamente.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "b336d034b5a236c9",
+      "type": "text",
+      "x": 1680,
+      "y": 4315,
+      "width": 1570,
+      "height": 215,
+      "text": "### R4 · Memória por competência\nMotor existe; fila de revisão sem consumidor de produção encontrado.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "f37186e7667577cf",
+      "type": "text",
+      "x": 1680,
+      "y": 4580,
+      "width": 1570,
+      "height": 215,
+      "text": "### R5 · Reforço depois do erro\nRetorna à atividade da competência frágil. Não comprova duas novas aulas autoradas.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "2049d170db18e1f4",
+      "type": "text",
+      "x": 1680,
+      "y": 4845,
+      "width": 1570,
+      "height": 215,
+      "text": "### A1 · Checkpoints legados\n15 nós. Não equivalem a 15 provas completas auditadas.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "5"
+    },
+    {
+      "id": "3e9ac82bbc378f78",
+      "type": "text",
+      "x": 1680,
+      "y": 5110,
+      "width": 1570,
+      "height": 215,
+      "text": "### A2 · Avaliação por estágio\n5 × 2 itens. Texto fixo de “8 acertos” precisa ser corrigido.\n\n[[Radiant - 02 Revisoes e avaliacoes|Abrir contratos e limites]]",
+      "color": "1"
+    },
+    {
+      "id": "bfa2904294d716ca",
+      "type": "group",
+      "x": 3390,
+      "y": 3440,
+      "width": 1800,
+      "height": 2020,
+      "label": "PLANEJAMENTO · 6 unidades / 30 competências",
+      "color": "3"
+    },
+    {
+      "id": "8f89bf1d38bb978c",
+      "type": "text",
+      "x": 3430,
+      "y": 3520,
+      "width": 1720,
+      "height": 250,
+      "text": "## Cinco competências com lote promovido\n25 ainda sem atividades promovidas nesse currículo.\nConteúdo legado relacionado existe, mas não é uma equivalência automática.\n\n[[Radiant - 04 Curriculo por competencias|Abrir 30 objetivos e pré-requisitos]]",
+      "color": "3"
+    },
+    {
+      "id": "94fa65c511296739",
+      "type": "text",
+      "x": 3430,
+      "y": 3850,
+      "width": 1720,
+      "height": 205,
+      "text": "### U1 · Profissão e cultura de segurança\n5 competências · sem lote promovido\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "3"
+    },
+    {
+      "id": "d7ef518326ec9ec3",
+      "type": "text",
+      "x": 3430,
+      "y": 4105,
+      "width": 1720,
+      "height": 205,
+      "text": "### U2 · Matéria, energia e radiação\n5 competências · lote promovido com 12 atividades\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "4"
+    },
+    {
+      "id": "3c0fe87cf1997ed8",
+      "type": "text",
+      "x": 3430,
+      "y": 4360,
+      "width": 1720,
+      "height": 205,
+      "text": "### U3 · Produção dos raios X\n5 competências · sem lote promovido\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "3"
+    },
+    {
+      "id": "9622b40bbc7b9533",
+      "type": "text",
+      "x": 3430,
+      "y": 4615,
+      "width": 1720,
+      "height": 205,
+      "text": "### U4 · Interação e formação da imagem\n5 competências · sem lote promovido\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "3"
+    },
+    {
+      "id": "84f66d966c8aaa96",
+      "type": "text",
+      "x": 3430,
+      "y": 4870,
+      "width": 1720,
+      "height": 205,
+      "text": "### U5 · Parâmetros e qualidade\n5 competências · sem lote promovido\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "3"
+    },
+    {
+      "id": "6e247134b404035f",
+      "type": "text",
+      "x": 3430,
+      "y": 5125,
+      "width": 1720,
+      "height": 205,
+      "text": "### U6 · Proteção radiológica\n5 competências · sem lote promovido\n[[Radiant - 04 Curriculo por competencias|Ver objetivos desta unidade]]",
+      "color": "3"
+    },
+    {
+      "id": "f9d35d43770d3909",
+      "type": "group",
+      "x": 0,
+      "y": 5680,
+      "width": 1510,
+      "height": 1660,
+      "label": "CAPACIDADES · Mídia e movimento",
+      "color": "5"
+    },
+    {
+      "id": "8450b14a5cd6246e",
+      "type": "text",
+      "x": 40,
+      "y": 5760,
+      "width": 1430,
+      "height": 305,
+      "text": "### 5 formatos de interação\nMúltipla escolha, hotspot, comparação, associação e ordenação.\nSó múltipla escolha no catálogo inspecionado.\n\n[[Radiant - 05 Midia interacoes e movimento|Abrir evidência e critérios]]",
+      "color": "5"
+    },
+    {
+      "id": "4095a1dda8817a28",
+      "type": "text",
+      "x": 40,
+      "y": 6125,
+      "width": 1430,
+      "height": 305,
+      "text": "### 1 mídia aprovada no manifesto\nGeometria do feixe, com 3 hotspots.\nLote promovido sem mídia. Não confundir aprovação com integração.\n\n[[Radiant - 05 Midia interacoes e movimento|Abrir evidência e critérios]]",
+      "color": "5"
+    },
+    {
+      "id": "08331159f1c8ae03",
+      "type": "text",
+      "x": 40,
+      "y": 6490,
+      "width": 1430,
+      "height": 305,
+      "text": "### Movimento de interface existe\nEntrada, pressão, erro, XP, corações e celebração.\nAinda não são animações do conteúdo.\n\n[[Radiant - 05 Midia interacoes e movimento|Abrir evidência e critérios]]",
+      "color": "5"
+    },
+    {
+      "id": "ce8740f2a7122e75",
+      "type": "text",
+      "x": 40,
+      "y": 6855,
+      "width": 1430,
+      "height": 305,
+      "text": "### Imagem de tórax é problema\nMockup global, sem relação com profissão.\n“Toque para examinar” não executa ação.\n\n[[Radiant - 05 Midia interacoes e movimento|Abrir evidência e critérios]]",
+      "color": "1"
+    },
+    {
+      "id": "ecd1378bc9dc1300",
+      "type": "group",
+      "x": 1640,
+      "y": 5680,
+      "width": 1900,
+      "height": 1660,
+      "label": "PROPOSTA · Linguagem para as aulas — não aprovada",
+      "color": "6"
+    },
+    {
+      "id": "a77de8a6daa11295",
+      "type": "text",
+      "x": 1680,
+      "y": 5760,
+      "width": 1820,
+      "height": 330,
+      "text": "## Identidade Radiant + aprendizagem calma\nRecomendação para discutir: menos ambientação atrás do texto, mídia específica e uma ação clara por passo.\n\nAlternativas: caderno clínico neutro / narrativa ilustrada.\n\n[[Radiant - 06 Proposta para as aulas|Comparar direções e critérios]]",
+      "color": "6"
+    },
+    {
+      "id": "e1d8e552330911f9",
+      "type": "text",
+      "x": 1680,
+      "y": 6160,
+      "width": 1820,
+      "height": 285,
+      "text": "## Estrutura candidata\nObjetivo → situação → explicação + exemplo\n→ ação do aluno → feedback causal → síntese\n→ recuperação posterior\n\nFormato varia conforme o objetivo, não conforme a imagem disponível.",
+      "color": "6"
+    },
+    {
+      "id": "e010963a4422ead3",
+      "type": "text",
+      "x": 1680,
+      "y": 6515,
+      "width": 1820,
+      "height": 335,
+      "text": "## Começar por dois pilotos\n1. Profissão: situação + decisão + consequência.\n2. Matéria/energia: relação manipulável + comparação.\n\nFontes, domínio e direção visual antes da implementação.\n\n[[Radiant - 06 Proposta para as aulas#Seis pilotos de dinâmica|Ver seis candidatos de dinâmica]]",
+      "color": "6"
+    },
+    {
+      "id": "305238273bb0fac2",
+      "type": "text",
+      "x": 1680,
+      "y": 6920,
+      "width": 1820,
+      "height": 330,
+      "text": "## Movimento a serviço do conceito\nMostrar mudança, causa ou feedback; oferecer controle.\nPausa / repetição / versão estática equivalente.\nSem celebração bloqueando a continuidade.\n\n[[Radiant - 08 Fontes e metodo|Fontes Apple e IES]]",
+      "color": "6"
+    },
+    {
+      "id": "00b109cf1123a591",
+      "type": "group",
+      "x": 3690,
+      "y": 5680,
+      "width": 1500,
+      "height": 1660,
+      "label": "REVISÃO · Ordem e critérios de saída",
+      "color": "1"
+    },
+    {
+      "id": "341c0a3e67c31467",
+      "type": "text",
+      "x": 3730,
+      "y": 5760,
+      "width": 1420,
+      "height": 305,
+      "text": "### 1 · Currículo e fonte\nDefinir sequência, equivalências e contrato de autoria. Preservar progresso.\n\n[[Radiant - 07 Fila de revisao|Abrir fila e ficha por aula]]",
+      "color": "1"
+    },
+    {
+      "id": "c75de8c1b7c3ae52",
+      "type": "text",
+      "x": 3730,
+      "y": 6125,
+      "width": 1420,
+      "height": 305,
+      "text": "### 2 · Conteúdo e avaliação\nProfissão primeiro; retirar falsa mídia, ensinar o conceito, revisar alternativas e feedback.\n\n[[Radiant - 07 Fila de revisao|Abrir fila e ficha por aula]]",
+      "color": "1"
+    },
+    {
+      "id": "bee98bf120e89063",
+      "type": "text",
+      "x": 3730,
+      "y": 6490,
+      "width": 1420,
+      "height": 305,
+      "text": "### 3 · Pilotos e acessibilidade\nAprovar direção. Testar compreensão, VoiceOver, movimento reduzido e retomada.\n\n[[Radiant - 07 Fila de revisao|Abrir fila e ficha por aula]]",
+      "color": "1"
+    },
+    {
+      "id": "58e2791934fdd9cf",
+      "type": "text",
+      "x": 3730,
+      "y": 6855,
+      "width": 1420,
+      "height": 305,
+      "text": "### 4 · Candidato iOS\nSomente após correções: build autorizado, teste físico e vídeo do mesmo binário.\n\n[[Radiant - 07 Fila de revisao|Abrir fila e ficha por aula]]",
+      "color": "1"
+    }
+  ],
+  "edges": [
+    {
+      "id": "a078789a7f65a3e6",
+      "fromNode": "c4269bf5bb2a9ead",
+      "toNode": "c2d05c973fa00f76",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "8759d15afaf80ef5",
+      "fromNode": "c2d05c973fa00f76",
+      "toNode": "1e27335c90aa99d3",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "b9926a174872a536",
+      "fromNode": "1e27335c90aa99d3",
+      "toNode": "8b2258149f2da781",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "05dc871e76ab5c7c",
+      "fromNode": "8b2258149f2da781",
+      "toNode": "81e169fc92ee31a4",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "9009abb92b61350c",
+      "fromNode": "81e169fc92ee31a4",
+      "toNode": "e19f6e546a16d839",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "d6a766d0a7ebca4c",
+      "fromNode": "e19f6e546a16d839",
+      "toNode": "c7251287fef44718",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "2365982274dc8cd5",
+      "fromNode": "c7251287fef44718",
+      "toNode": "8414fa6d0b8cec30",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "5e8522eb599a99a2",
+      "fromNode": "585acf1152797d6e",
+      "toNode": "f6ac9ffff51516cc",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "559674003d81bfa6",
+      "fromNode": "f6ac9ffff51516cc",
+      "toNode": "a6e8200b93b6f64c",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "fa60326851c87cd8",
+      "fromNode": "a6e8200b93b6f64c",
+      "toNode": "aad4baf1d0818e3a",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "2a2e90dd2c558149",
+      "fromNode": "aad4baf1d0818e3a",
+      "toNode": "ede7d21b11f002ee",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "093414650a39e64c",
+      "fromNode": "ede7d21b11f002ee",
+      "toNode": "0077c2150c4b6b51",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "a24308ce74fef8cd",
+      "fromNode": "0077c2150c4b6b51",
+      "toNode": "9a52a3776c45e2da",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "5c980f6c999cab99",
+      "fromNode": "c4269bf5bb2a9ead",
+      "toNode": "585acf1152797d6e",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "trilha seguinte",
+      "color": "5"
+    },
+    {
+      "id": "932eddfd66c13ba4",
+      "fromNode": "7723ee3c8ebce97b",
+      "toNode": "6a9fa6ef11da4b35",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "2612e6ee371c8317",
+      "fromNode": "6a9fa6ef11da4b35",
+      "toNode": "e553f923e376aa20",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "e1033d436c9e5d17",
+      "fromNode": "e553f923e376aa20",
+      "toNode": "eaef24bb4df7b7c9",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "1718e35038b66334",
+      "fromNode": "eaef24bb4df7b7c9",
+      "toNode": "a5cbd54440574edf",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "becacf136ab41c51",
+      "fromNode": "a5cbd54440574edf",
+      "toNode": "aac36fe66680bc47",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "sequência",
+      "color": "4"
+    },
+    {
+      "id": "91e2145b29c9a4e8",
+      "fromNode": "585acf1152797d6e",
+      "toNode": "7723ee3c8ebce97b",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "trilha seguinte",
+      "color": "5"
+    },
+    {
+      "id": "8bbe6fa0985052a2",
+      "fromNode": "c80c27a034d38de1",
+      "toNode": "d60404061c5e9433",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "próxima etapa",
+      "color": "4"
+    },
+    {
+      "id": "c5202eb97a0b83f3",
+      "fromNode": "d60404061c5e9433",
+      "toNode": "4f75125ffb35e16e",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "989e89d64c20187f",
+      "fromNode": "d60404061c5e9433",
+      "toNode": "3df0ed1fee59e9c8",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "f2fa3761c805d829",
+      "fromNode": "d60404061c5e9433",
+      "toNode": "a2b9d976ac3a8334",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "26b2b43effcbe1a6",
+      "fromNode": "d60404061c5e9433",
+      "toNode": "2e28cf3a06ee3a5b",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "próxima etapa",
+      "color": "4"
+    },
+    {
+      "id": "73a14884de73cf44",
+      "fromNode": "2e28cf3a06ee3a5b",
+      "toNode": "436244ef3d850529",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "fc35b793f6b254fb",
+      "fromNode": "2e28cf3a06ee3a5b",
+      "toNode": "6709532254bd2c14",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "3fdbc360868921eb",
+      "fromNode": "2e28cf3a06ee3a5b",
+      "toNode": "205d80363d4aa8ba",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "próxima etapa",
+      "color": "4"
+    },
+    {
+      "id": "68140cc8d287660e",
+      "fromNode": "205d80363d4aa8ba",
+      "toNode": "1c542f060da4307e",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "c6ee349b6fda7fca",
+      "fromNode": "205d80363d4aa8ba",
+      "toNode": "4d6d9943a0ed54ec",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "47dbe3150f505b0e",
+      "fromNode": "205d80363d4aa8ba",
+      "toNode": "2e3789d59138b18e",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "90a562405f72012e",
+      "fromNode": "205d80363d4aa8ba",
+      "toNode": "8bb8d87afb7d004d",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "próxima etapa",
+      "color": "4"
+    },
+    {
+      "id": "3bef403ef6feea21",
+      "fromNode": "8bb8d87afb7d004d",
+      "toNode": "4f5487a3bd397c8e",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "59486a79806d819e",
+      "fromNode": "8bb8d87afb7d004d",
+      "toNode": "7c81f9b5f928112b",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "0209310b762a03bd",
+      "fromNode": "8bb8d87afb7d004d",
+      "toNode": "259e3f5de74a519b",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "próxima etapa",
+      "color": "4"
+    },
+    {
+      "id": "b41f764a0d195313",
+      "fromNode": "259e3f5de74a519b",
+      "toNode": "79cced13310b91aa",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "5d92691292b2b4c8",
+      "fromNode": "259e3f5de74a519b",
+      "toNode": "5834cfcef90567e8",
+      "fromSide": "right",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "atividade",
+      "color": "4"
+    },
+    {
+      "id": "e73b9f5a2ab0553d",
+      "fromNode": "f88f96b8c1e225e5",
+      "toNode": "c4269bf5bb2a9ead",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "toEnd": "arrow",
+      "label": "sincronizador → ai-lessons",
+      "color": "4"
+    },
+    {
+      "id": "2e99a6c5c709336c",
+      "fromNode": "d7ef518326ec9ec3",
+      "toNode": "c80c27a034d38de1",
+      "fromSide": "right",
+      "toSide": "right",
+      "toEnd": "arrow",
+      "label": "cobertura explícita",
+      "color": "4"
+    }
+  ]
+}

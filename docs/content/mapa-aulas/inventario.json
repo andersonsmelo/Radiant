@@ -1,0 +1,559 @@
+{
+  "measuredAt": "2026-08-27",
+  "sourceCommit": "a05e94b",
+  "method": "static-local-catalog-and-consumer-inspection",
+  "counts": {
+    "legacyLessons": 18,
+    "legacyQuestions": 38,
+    "legacyReviewNodes": 18,
+    "legacyCheckpointNodes": 15,
+    "legacyRewardNodes": 3,
+    "promotedActivities": 12,
+    "promotedCheckpointNodes": 5,
+    "promotedCheckpointQuestions": 10,
+    "editorialBundles": 96,
+    "editorialReviewCards": 48,
+    "plannedCompetencies": 30,
+    "promotedCompetencies": 5,
+    "approvedMediaManifestItems": 1,
+    "promotedMedia": 0,
+    "trailNodes": 72
+  },
+  "legacyTracks": [
+    {
+      "id": "track-radiology-foundations",
+      "order": 1,
+      "slug": "fundamentos",
+      "title": "Fundamentos de Radiologia",
+      "description": "Base física da radiação e primeiras lições do curso técnico: energia, matéria, núcleo atômico, radioatividade e a descoberta dos raios X.",
+      "lessonIds": [
+        "lesson-1",
+        "lesson-2",
+        "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "ai-lesson:energia-e-materia",
+        "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+        "ai-lesson:radioatividade-particulas-e-atividade",
+        "ai-lesson:raios-x-descoberta-e-propriedades"
+      ]
+    },
+    {
+      "id": "track-thorax-patterns",
+      "order": 2,
+      "slug": "torax",
+      "title": "Radiação, Modalidades e Equipamento",
+      "description": "Proteção radiológica, medicina nuclear, tomografia, ressonância magnética e o equipamento de radiologia convencional com seus componentes.",
+      "lessonIds": [
+        "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+        "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "ai-lesson:tomografia-computadorizada",
+        "ai-lesson:ressonancia-magnetica",
+        "ai-lesson:equipamentos-de-radiologia-convencional",
+        "ai-lesson:componentes-basicos-do-equipamento"
+      ]
+    },
+    {
+      "id": "track-abdomen-essentials",
+      "order": 3,
+      "slug": "abdome",
+      "title": "Prática, Qualidade e Profissão",
+      "description": "Produção dos raios X, processamento radiográfico, qualidade de imagem, aplicações não-médicas da radiação e a atuação do técnico em radiologia.",
+      "lessonIds": [
+        "ai-lesson:preservacao-de-alimentos-por-irradicao",
+        "ai-lesson:acessorios-radiologicos",
+        "ai-lesson:processamento-radiografico",
+        "ai-lesson:producao-dos-raios-x",
+        "ai-lesson:qualidade-de-imagem"
+      ]
+    }
+  ],
+  "legacyLessons": [
+    {
+      "id": "lesson-1",
+      "title": "Fundamentos de Radiologia",
+      "questionCount": 3,
+      "hasJourneyCopy": true,
+      "correctAnswerPositions": [
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "lesson-2",
+      "title": "Princípios de Tomografia Computadorizada",
+      "questionCount": 3,
+      "hasJourneyCopy": true,
+      "correctAnswerPositions": [
+        2,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+      "title": "Quiz: Profissão e atuação do técnico em radiologia",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:energia-e-materia",
+      "title": "Quiz: Energia e matéria",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+      "title": "Quiz: Estrutura da matéria e núcleo atômico",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:radioatividade-particulas-e-atividade",
+      "title": "Quiz: Radioatividade, partículas e atividade",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:raios-x-descoberta-e-propriedades",
+      "title": "Quiz: Raios X: descoberta e propriedades",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+      "title": "Quiz: Interação das radiações e proteção radiológica",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+      "title": "Quiz: Aplicações radioisotópicas e medicina nuclear",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:tomografia-computadorizada",
+      "title": "Quiz: Tomografia computadorizada",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:ressonancia-magnetica",
+      "title": "Quiz: Ressonância magnética",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:preservacao-de-alimentos-por-irradicao",
+      "title": "Quiz: Preservação de alimentos por irradiação",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:equipamentos-de-radiologia-convencional",
+      "title": "Quiz: Equipamentos de radiologia convencional",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:componentes-basicos-do-equipamento",
+      "title": "Quiz: Componentes básicos do equipamento",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:acessorios-radiologicos",
+      "title": "Quiz: Acessórios radiológicos",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:processamento-radiografico",
+      "title": "Quiz: Processamento radiográfico",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:producao-dos-raios-x",
+      "title": "Quiz: Produção dos raios X",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "ai-lesson:qualidade-de-imagem",
+      "title": "Quiz: Qualidade de imagem",
+      "questionCount": 2,
+      "hasJourneyCopy": false,
+      "correctAnswerPositions": [
+        1,
+        1
+      ]
+    }
+  ],
+  "promotedActivities": [
+    {
+      "id": "activity:materia-energia-e-radiacao:01",
+      "title": "Estrutura e carga",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:02",
+      "title": "Ionização",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:03",
+      "title": "Balanço após interação",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:04",
+      "title": "Critério de ionização",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:05",
+      "title": "Energia por fóton",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:06",
+      "title": "Frequência e onda",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:07",
+      "title": "Frequência e energia",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:08",
+      "title": "Duas relações",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:09",
+      "title": "Região do espectro",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:10",
+      "title": "Natureza dos raios X",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:11",
+      "title": "Atenuação e transmissão",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    },
+    {
+      "id": "activity:materia-energia-e-radiacao:12",
+      "title": "Ponte até o detector",
+      "competencyIds": [
+        "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+      ],
+      "stepCount": 3,
+      "interactionType": "multiple-choice"
+    }
+  ],
+  "editorialFormats": {
+    "casos": 16,
+    "checkpoints": 16,
+    "microlições": 16,
+    "quizzes": 16,
+    "reviews": 16,
+    "rewards": 16
+  },
+  "curriculumUnits": [
+    {
+      "id": "unit:profissao-e-cultura-de-seguranca",
+      "title": "Profissão e cultura de segurança",
+      "competencies": [
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:atribuicoes-e-limites",
+          "objective": "reconhecer atribuições e limites do técnico em radiologia",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:identificacao-preparo-e-comunicacao",
+          "objective": "confirmar identificação, preparo e comunicação segura com o paciente",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:checklist-e-condicoes-inseguras",
+          "objective": "aplicar checklist e reconhecer condições inseguras",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:confidencialidade-e-etica",
+          "objective": "proteger confidencialidade e agir eticamente",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:profissao-e-cultura-de-seguranca:registro-e-escalonamento-de-incidentes",
+          "objective": "registrar, comunicar e escalar incidentes pelo canal adequado",
+          "hasPromotedActivity": false
+        }
+      ]
+    },
+    {
+      "id": "unit:materia-energia-e-radiacao",
+      "title": "Matéria, energia e radiação",
+      "competencies": [
+        {
+          "id": "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao",
+          "objective": "relacionar estrutura atômica, ionização e estabilidade",
+          "hasPromotedActivity": true
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+          "objective": "distinguir radiação ionizante de não ionizante",
+          "hasPromotedActivity": true
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia",
+          "objective": "relacionar frequência, comprimento de onda e energia do fóton",
+          "hasPromotedActivity": true
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:raios-x-no-espectro",
+          "objective": "reconhecer o lugar dos raios X no espectro eletromagnético",
+          "hasPromotedActivity": true
+        },
+        {
+          "id": "competency:materia-energia-e-radiacao:atenuacao-como-ponte",
+          "objective": "usar atenuação como ponte para formação da imagem",
+          "hasPromotedActivity": true
+        }
+      ]
+    },
+    {
+      "id": "unit:producao-dos-raios-x",
+      "title": "Produção dos raios X",
+      "competencies": [
+        {
+          "id": "competency:producao-dos-raios-x:componentes-do-tubo",
+          "objective": "localizar e explicar os componentes essenciais do tubo",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:producao-dos-raios-x:emissao-aceleracao-desaceleracao",
+          "objective": "ordenar emissão termiônica, aceleração e desaceleração de elétrons",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:producao-dos-raios-x:freamento-e-caracteristica",
+          "objective": "distinguir radiação de freamento e característica em nível introdutório",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:producao-dos-raios-x:kvp-mas-e-exposicao",
+          "objective": "relacionar kVp e mAs a energia, quantidade e exposição",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:producao-dos-raios-x:filtracao-colimacao-e-gerador",
+          "objective": "explicar as funções de filtração, colimação e gerador",
+          "hasPromotedActivity": false
+        }
+      ]
+    },
+    {
+      "id": "unit:interacao-e-formacao-da-imagem",
+      "title": "Interação e formação da imagem",
+      "competencies": [
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:fotoeletrico-e-compton",
+          "objective": "diferenciar efeito fotoelétrico e espalhamento Compton",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:radiopacidade-por-atenuacao",
+          "objective": "prever radiopacidade a partir de atenuação diferencial",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:detector-e-formacao-da-imagem",
+          "objective": "explicar como o detector transforma exposição em imagem",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:espalhamento-e-contraste",
+          "objective": "reconhecer como espalhamento prejudica contraste",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:interacao-e-formacao-da-imagem:tecido-densidade-e-aparencia",
+          "objective": "interpretar relações básicas entre tecido, densidade e aparência",
+          "hasPromotedActivity": false
+        }
+      ]
+    },
+    {
+      "id": "unit:parametros-e-qualidade",
+      "title": "Parâmetros e qualidade",
+      "competencies": [
+        {
+          "id": "competency:parametros-e-qualidade:efeitos-de-kvp-mas-e-distancia",
+          "objective": "prever efeitos básicos de kVp, mAs e distância",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:parametros-e-qualidade:sid-oid-foco-magnificacao-nitidez",
+          "objective": "relacionar SID, OID e foco a magnificação e nitidez",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:parametros-e-qualidade:contraste-resolucao-ruido-artefato",
+          "objective": "distinguir contraste, resolução, ruído e artefato",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:parametros-e-qualidade:checklist-de-adequacao-da-imagem",
+          "objective": "aplicar um checklist de adequação da imagem",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:parametros-e-qualidade:equilibrio-qualidade-repeticao-exposicao",
+          "objective": "equilibrar qualidade, repetição e exposição sem decorar uma receita fixa",
+          "hasPromotedActivity": false
+        }
+      ]
+    },
+    {
+      "id": "unit:protecao-radiologica",
+      "title": "Proteção radiológica",
+      "competencies": [
+        {
+          "id": "competency:protecao-radiologica:justificacao-otimizacao-e-limites",
+          "objective": "aplicar justificação, otimização e limites no nível apropriado ao iniciante",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:protecao-radiologica:tempo-distancia-e-blindagem",
+          "objective": "usar tempo, distância e blindagem em cenários práticos",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:protecao-radiologica:colimacao-filtracao-e-reducao",
+          "objective": "relacionar colimação e filtração à redução de exposição desnecessária",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:protecao-radiologica:protecao-paciente-equipe-acompanhante",
+          "objective": "distinguir proteção do paciente, equipe e acompanhante",
+          "hasPromotedActivity": false
+        },
+        {
+          "id": "competency:protecao-radiologica:interrupcao-monitoramento-escalonamento",
+          "objective": "reconhecer situações que exigem interrupção, monitoramento ou escalonamento",
+          "hasPromotedActivity": false
+        }
+      ]
+    }
+  ]
+}

@@ -29,7 +29,7 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (7)` | 🔴 **Rejeitado** — `2.1.0 App Completeness` | **2026-08-24** |
+| App Store | `1.3.1 (7)` | 🔴 **Rejeitado** — `Guideline 2.1 — Information Needed`; `(9)` no TestFlight, ainda não selecionado para revisão | **2026-08-27** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
 > 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
@@ -37,7 +37,7 @@ git branch -a && gh pr list --state open
 > era de 2026-08-09 e ninguém remediu. **A medição vencida não é um detalhe de
 > higiene: ela sustentou uma afirmação falsa sobre o estado do lançamento.**
 >
-> **Não é defeito funcional.** É `Guideline 2.1 - Information Needed - New App
+> **A mensagem da Apple pede informações; não atesta ausência de defeitos.** É `Guideline 2.1 - Information Needed - New App
 > Submission`: a Apple pede informação para conseguir avaliar. O plano de
 > resposta, item a item, está em
 > [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
@@ -71,16 +71,51 @@ carrega o pacote inteiro.
    gerou o `(9)`, que é o que subiu (EAS numera sozinho:
    `appVersionSource: remote` + `autoIncrement`).
 
-   Sequência: ~~titular aceita o contrato de licença~~ (feito em 2026-08-24) →
-   build de produção do `main` → **subir ao TestFlight** (o perfil `production` é
-   de loja e não se sideloada)
-   → instalar pelo TestFlight e **verificar se abre** → anotar modelo e iOS →
-   gravar o vídeo na mesma sessão → anexar o `(9)` e responder. Detalhe em
+   **Atualizado em 2026-08-27:** o `(9)` está instalado no iPhone 16 com iOS
+   27.0. A captura de uma lição comprova abertura, mas revelou um painel de
+   tórax sem relação com o tema profissão. **Vídeo final e reenvio ficam
+   pendentes da correção e da revisão das lições**, detalhadas na
+   [auditoria de conteúdo e apresentação](content/2026-08-27-revisao-licoes-ios.md).
+   As 16 lições geradas do catálogo local também dependem de textos genéricos
+   nas etapas de ensino; as 32 questões mantêm a resposta correta na primeira
+   posição no percurso legado inspecionado. Não confundir esse conjunto com
+   as atividades v2 promovidas.
+
+   **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
+   separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
+   trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
+   revisão atual. O Canvas e nove notas foram instalados, após autorização, em
+   `Projetos/Radiant/Revisão das aulas`, fora do cérebro do projeto; abertura,
+   enquadramento e navegação entre notas foram conferidos no Obsidian.
+   Propostas de estética, dinâmica e dois pilotos estão explicitamente
+   separadas do inventário; revisão de domínio e implementação continuam abertas.
+
+   **Decisão curricular em 2026-08-27:** o dono aposentou a direção editorial
+   anterior e aprovou o [Currículo V3](superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md).
+   A estrada passa a ser contínua: Fundamentos (anatomia, fisiologia e física) →
+   Radiografia → Mamografia → Tomografia → Ressonância → Medicina Nuclear →
+   Radioterapia → outras especializações. O Arco 1 de orientação espacial foi
+   aprovado com correções por auditor independente, sem reprovação conceitual.
+   **Isso ainda é design:** nenhum catálogo, progresso ou binário foi alterado.
+   A [ADR do V3](adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md) preserva o
+   histórico anterior durante a migração e proíbe apagar o legado antes de
+   testes de atualização e ausência de consumidores.
+
+   Sequência atual: planejar e implementar versionamento/migração do V3 →
+   produzir e validar o Arco 1 → retirar a trilha anterior das superfícies sem
+   apagar seu histórico → preparar novo build com
+   autorização → instalar pelo TestFlight → testar fluxo completo e
+   persistência → gravar vídeo desse mesmo build → selecionar o build validado
+   e responder à Apple com autorização. **O `(9)` documenta o defeito, não uma
+   correção futura.** O acompanhamento passa ao
+   [Trello](https://trello.com/c/f9OYyCX5), conforme escolha do dono; sem novas
+   ações no Todoist. Detalhe das perguntas da Apple em
    [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
 
-   ⚠️ **`main` nunca passou por smoke físico** — a matriz real-device está no
-   build `(5)` e nenhum passo do gate empacota o app. A sessão de gravação **é**
-   o smoke.
+   ⚠️ **Smoke físico completo do candidato ainda pendente** — a matriz
+   real-device está no build `(5)`. A captura do `(9)` não comprova conclusão,
+   persistência ou uso offline; testes automáticos não validam por si só a
+   coerência pedagógica da tela.
 2. **Play** — ≥12 testadores participando por 14 dias corridos (F2). O relógio
    não havia começado na última leitura. Exigência de conta pessoal; não há
    atalho de engenharia.
