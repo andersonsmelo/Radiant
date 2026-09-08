@@ -54,8 +54,8 @@ Needed` / `2.1.0 App Completeness`, conforme a medição registrada no
 **apresentação** foi corrigida em 2026-09-08 — o painel visual legado saiu, com
 regressão que o impede de voltar (ver [STATUS](STATUS.md)) —, mas a correção é
 **posterior ao `(9)`**: o binário no TestFlight ainda contém o defeito. A parte
-de **conteúdo** (texto genérico no ensino, resposta correta sempre na primeira
-posição) continua aberta.
+de **conteúdo** teve a ordem das alternativas corrigida em 2026-09-08 (ver
+[STATUS](STATUS.md)); o texto genérico nas etapas de ensino continua aberto.
 **Bloqueio:** produção e auditoria do Arco 1, corte seguro, smoke físico e
 resposta à Apple. **Dono:** agente para J3 e implementação local; auditor para
 revisão dos pacotes; dono para aparelho e ações de loja que exijam autorização.
@@ -80,6 +80,7 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Auditoria/QA de acessibilidade — J4 | auditor + executor dos testes manuais | **pendente** sobre as lições implementadas, não sobre o desenho |
 | Corte seguro e fluxo completo no iPhone — J5 | agente + dono | **pendente** — preservar histórico e validar instalação limpa/atualização |
 | Remover o painel visual legado | agente | **concluído** em 2026-09-08 — componente, raster e dicas globais fora; regressão no lugar do mock |
+| Permutar a ordem das alternativas | agente | **concluído** em 2026-09-08 — determinística no gerador compartilhado; app e API regenerados |
 | Preparar novo candidato e gravar vídeo | dono + agente no escopo autorizado | **pendente** — o vídeo exige um build **posterior** a 2026-09-08; o `(9)` não tem a correção |
 | Conferir o segredo do Sentry contra as Privacy Labels | dono | **pendente** — o rótulo publicado é "Dados não coletados"; um DSN no EAS o tornaria falso |
 | Responder ao item 7 — direitos e área regulada | dono | **pendente** — julgamento editorial e jurídico, não medição |

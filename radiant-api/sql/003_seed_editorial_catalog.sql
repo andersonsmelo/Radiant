@@ -70,13 +70,13 @@ values
           "label": "CONTER — Conselho Federal de Técnicos em Radiologia"
         },
         {
+          "label": "CRM — Conselho Regional de Medicina"
+        },
+        {
           "label": "CFM — Conselho Federal de Medicina"
         },
         {
           "label": "ANVISA — Agência Nacional de Vigilância Sanitária"
-        },
-        {
-          "label": "CRM — Conselho Regional de Medicina"
         }
       ],
       "correctAnswerIndex": 0,
@@ -147,19 +147,19 @@ values
       "prompt": "Qual tecido absorve MAIS energia de raios X, produzindo a região mais clara na imagem?",
       "options": [
         {
-          "label": "Osso cortical"
-        },
-        {
           "label": "Tecido muscular"
         },
         {
-          "label": "Gordura"
+          "label": "Ar nos pulmões"
         },
         {
-          "label": "Ar nos pulmões"
+          "label": "Osso cortical"
+        },
+        {
+          "label": "Gordura"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "O osso cortical contém cálcio, um elemento de número atômico elevado (Z=20) que absorve intensamente os raios X pelo efeito fotoelétrico. Quanto maior a absorção, menos fótons atingem o detector, resultando em área mais clara (branca) na imagem final."
     }
   ]
@@ -185,19 +185,19 @@ values
       "prompt": "O que diferencia dois isótopos de um mesmo elemento químico?",
       "options": [
         {
-          "label": "O número de nêutrons no núcleo"
+          "label": "A carga elétrica total do átomo"
         },
         {
           "label": "O número de prótons no núcleo"
         },
         {
-          "label": "O número de elétrons nas camadas"
+          "label": "O número de nêutrons no núcleo"
         },
         {
-          "label": "A carga elétrica total do átomo"
+          "label": "O número de elétrons nas camadas"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "Isótopos de um mesmo elemento têm igual número de prótons (mesmo Z, portanto mesmo elemento químico), mas diferem no número de nêutrons. Essa diferença no número de massa pode tornar o núcleo instável, dando origem a radioisótopos."
     },
     {
@@ -206,19 +206,19 @@ values
       "prompt": "Qual partícula do átomo determina o elemento químico ao qual ele pertence?",
       "options": [
         {
-          "label": "Próton"
-        },
-        {
           "label": "Nêutron"
         },
         {
-          "label": "Elétron"
+          "label": "Próton"
         },
         {
           "label": "Fóton"
+        },
+        {
+          "label": "Elétron"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 1,
       "explanation": "O número de prótons (número atômico, Z) é o que define o elemento químico. Alterar o número de prótons transforma o átomo em um elemento diferente — princípio que ocorre em reações nucleares como fissão e decaimento radioativo."
     }
   ]
@@ -244,19 +244,19 @@ values
       "prompt": "Qual tipo de radiação possui MENOR poder de penetração nos tecidos?",
       "options": [
         {
-          "label": "Partícula alfa (α)"
-        },
-        {
-          "label": "Partícula beta (β)"
+          "label": "Raios X de alta energia"
         },
         {
           "label": "Radiação gama (γ)"
         },
         {
-          "label": "Raios X de alta energia"
+          "label": "Partícula alfa (α)"
+        },
+        {
+          "label": "Partícula beta (β)"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "A partícula alfa, sendo um núcleo de hélio (2 prótons + 2 nêutrons), é grande, pesada e duplamente carregada. Perde energia rapidamente ao interagir com a matéria, sendo detida por alguns centímetros de ar ou por uma folha de papel. Apesar do baixo poder de penetração externo, é extremamente danosa se ingerida ou inalada."
     },
     {
@@ -268,13 +268,13 @@ values
           "label": "125 MBq"
         },
         {
-          "label": "250 MBq"
+          "label": "333 MBq"
         },
         {
           "label": "500 MBq"
         },
         {
-          "label": "333 MBq"
+          "label": "250 MBq"
         }
       ],
       "correctAnswerIndex": 0,
@@ -306,13 +306,13 @@ values
           "label": "Wilhelm Conrad Röntgen, em 1895"
         },
         {
+          "label": "Thomas Edison, em 1897"
+        },
+        {
           "label": "Marie Curie, em 1898"
         },
         {
           "label": "Henri Becquerel, em 1896"
-        },
-        {
-          "label": "Thomas Edison, em 1897"
         }
       ],
       "correctAnswerIndex": 0,
@@ -324,19 +324,19 @@ values
       "prompt": "Qual propriedade dos raios X é diretamente responsável pela formação da imagem radiológica?",
       "options": [
         {
-          "label": "Penetração diferenciada conforme a densidade e número atômico do material"
-        },
-        {
           "label": "Propagação em linha reta no vácuo"
         },
         {
           "label": "Capacidade de causar fluorescência"
         },
         {
+          "label": "Penetração diferenciada conforme a densidade e número atômico do material"
+        },
+        {
           "label": "Velocidade de propagação igual à da luz"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "A imagem radiológica é formada porque diferentes tecidos absorvem quantidades distintas de raios X: ossos absorvem muito (aparecem claros), tecidos moles absorvem moderadamente (cinza) e ar absorve pouco (aparece escuro). Sem essa absorção diferenciada, não haveria contraste e, portanto, nenhuma imagem diagnóstica."
     }
   ]
@@ -365,13 +365,13 @@ values
           "label": "Efeito Compton"
         },
         {
+          "label": "Espalhamento coerente (Rayleigh)"
+        },
+        {
           "label": "Efeito fotoelétrico"
         },
         {
           "label": "Produção de par"
-        },
-        {
-          "label": "Espalhamento coerente (Rayleigh)"
         }
       ],
       "correctAnswerIndex": 0,
@@ -383,19 +383,19 @@ values
       "prompt": "Um técnico está a 1 metro da fonte de radiação e recebe uma taxa de dose de 4 mSv/h. Se ele se afastar para 2 metros, qual será a taxa de dose recebida?",
       "options": [
         {
-          "label": "1 mSv/h"
+          "label": "3 mSv/h"
         },
         {
           "label": "2 mSv/h"
         },
         {
-          "label": "0,5 mSv/h"
+          "label": "1 mSv/h"
         },
         {
-          "label": "3 mSv/h"
+          "label": "0,5 mSv/h"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "Pela lei do inverso do quadrado da distância, a dose é inversamente proporcional ao quadrado da distância. Dobrando a distância (de 1 para 2 metros), a dose é dividida por 2² = 4. Portanto: 4 mSv/h ÷ 4 = 1 mSv/h."
     }
   ]
@@ -421,19 +421,19 @@ values
       "prompt": "Qual a principal vantagem da medicina nuclear em relação à radiologia convencional?",
       "options": [
         {
-          "label": "Avalia função e metabolismo dos órgãos, não apenas anatomia"
+          "label": "Fornece imagens com maior resolução espacial"
         },
         {
-          "label": "Fornece imagens com maior resolução espacial"
+          "label": "É mais rápida e barata que a radiografia convencional"
         },
         {
           "label": "Não utiliza radiação ionizante"
         },
         {
-          "label": "É mais rápida e barata que a radiografia convencional"
+          "label": "Avalia função e metabolismo dos órgãos, não apenas anatomia"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "A medicina nuclear usa traçadores que participam de processos metabólicos, permitindo visualizar função (fluxo sanguíneo, metabolismo glicídico, atividade óssea). Uma lesão que ainda não alterou a anatomia detectável por raios X já pode ser identificada pela medicina nuclear."
     },
     {
@@ -442,19 +442,19 @@ values
       "prompt": "Por que o Tecnécio-99m é o radioisótopo mais utilizado em diagnóstico por medicina nuclear?",
       "options": [
         {
-          "label": "Meia-vida curta (6h) e emissão exclusiva de gama de 140 keV, ideal para detecção externa"
-        },
-        {
           "label": "Alta atividade e meia-vida longa, garantindo tempo para os exames"
         },
         {
           "label": "Emite partículas alfa, que têm alto poder ionizante nos tecidos"
         },
         {
+          "label": "Meia-vida curta (6h) e emissão exclusiva de gama de 140 keV, ideal para detecção externa"
+        },
+        {
           "label": "É natural e não precisa ser produzido artificialmente"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "A meia-vida de 6 horas é ideal: longa o suficiente para realizar o exame, curta o suficiente para minimizar a dose ao paciente. A emissão exclusiva de gama de 140 keV é detectada eficientemente pelas câmeras de cintilação sem emitir partículas que aumentariam a dose sem contribuir para a imagem."
     }
   ]
@@ -480,19 +480,19 @@ values
       "prompt": "Em Unidades Hounsfield, qual o valor aproximado para o ar nos pulmões?",
       "options": [
         {
-          "label": "−1000 HU"
+          "label": "0 HU"
         },
         {
-          "label": "0 HU"
+          "label": "−100 HU"
         },
         {
           "label": "+400 HU"
         },
         {
-          "label": "−100 HU"
+          "label": "−1000 HU"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "O ar possui atenuação mínima dos raios X, correspondendo a −1000 HU na escala de Hounsfield. Por isso, os pulmões aparecem em preto nas imagens de TC quando visualizados em janela de mediastino, e a correta janela de pulmão é necessária para avaliar seu parênquima."
     },
     {
@@ -504,13 +504,13 @@ values
           "label": "A faixa de valores HU visualizados na tela"
         },
         {
-          "label": "A dose de radiação entregue ao paciente"
-        },
-        {
           "label": "A velocidade de rotação do tubo"
         },
         {
           "label": "A espessura dos cortes reconstruídos"
+        },
+        {
+          "label": "A dose de radiação entregue ao paciente"
         }
       ],
       "correctAnswerIndex": 0,
@@ -539,19 +539,19 @@ values
       "prompt": "Por que pacientes com marca-passo cardíaco antigo podem ser contraindicados à RM?",
       "options": [
         {
-          "label": "O campo magnético intenso pode deslocar o dispositivo ou interferir no seu funcionamento"
+          "label": "Marca-passos contêm radioisótopos que interferem no sinal de RM"
         },
         {
-          "label": "O marca-passo absorve os raios X, causando artefatos na imagem"
+          "label": "O campo magnético intenso pode deslocar o dispositivo ou interferir no seu funcionamento"
         },
         {
           "label": "A radiofrequência aquece o tecido cardíaco independentemente do dispositivo"
         },
         {
-          "label": "Marca-passos contêm radioisótopos que interferem no sinal de RM"
+          "label": "O marca-passo absorve os raios X, causando artefatos na imagem"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 1,
       "explanation": "O campo magnético intenso da RM (1,5 a 3 Tesla, ou seja, 30.000 a 60.000 vezes o campo magnético terrestre) pode exercer força física sobre materiais ferromagnéticos, deslocando o implante ou aquecendo condutores. Alguns marca-passos modernos são certificados RM-condicionais, mas os mais antigos são contraindicação absoluta."
     },
     {
@@ -560,7 +560,7 @@ values
       "prompt": "Em qual tipo de sequência de RM os líquidos (LCR, edemas, líquido articular) aparecem com sinal brilhante (hiperintenso)?",
       "options": [
         {
-          "label": "Sequências ponderadas em T2"
+          "label": "Sequências de gradiente (GRE) sem supressão"
         },
         {
           "label": "Sequências ponderadas em T1"
@@ -569,10 +569,10 @@ values
           "label": "Sequências de supressão de gordura (STIR)"
         },
         {
-          "label": "Sequências de gradiente (GRE) sem supressão"
+          "label": "Sequências ponderadas em T2"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "Em sequências ponderadas em T2 (longo TE e longo TR), tecidos com alto conteúdo aquoso — líquidos, edemas, inflamações — possuem longo T2 e aparecem brilhantes. Isso explica por que edemas, efusões articulares e lesões inflamatórias são bem detectados em T2."
     }
   ]
@@ -598,19 +598,19 @@ values
       "prompt": "Um alimento submetido à irradiação com raios gama torna-se radioativo e perigoso para consumo?",
       "options": [
         {
-          "label": "Não, o alimento não se torna radioativo com as doses utilizadas em conservação"
+          "label": "Depende da dose: abaixo de 10 kGy é seguro, acima disso torna-se radioativo"
         },
         {
           "label": "Sim, sempre que há exposição à radiação gama, o alimento emite radiação residual"
         },
         {
-          "label": "Depende da dose: abaixo de 10 kGy é seguro, acima disso torna-se radioativo"
+          "label": "Sim, mas a radioatividade desaparece em 24 horas após o tratamento"
         },
         {
-          "label": "Sim, mas a radioatividade desaparece em 24 horas após o tratamento"
+          "label": "Não, o alimento não se torna radioativo com as doses utilizadas em conservação"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "A irradiação de alimentos usa radiação gama, que não possui nêutrons — portanto não induz radioatividade nos materiais irradiados (ativação nuclear). Os raios gama atravessam o alimento e destroem microrganismos sem depositar partículas radioativas nem alterar a estrutura química dos átomos do alimento de forma radioativa."
     },
     {
@@ -622,13 +622,13 @@ values
           "label": "Radura — símbolo internacional de irradiação de alimentos"
         },
         {
+          "label": "Círculo verde com onda eletromagnética"
+        },
+        {
           "label": "Trifólio — símbolo de radioatividade"
         },
         {
           "label": "Triângulo amarelo com raios X"
-        },
-        {
-          "label": "Círculo verde com onda eletromagnética"
         }
       ],
       "correctAnswerIndex": 0,
@@ -657,19 +657,19 @@ values
       "prompt": "Em qual situação o uso de equipamento portátil é mais indicado em relação ao equipamento fixo?",
       "options": [
         {
-          "label": "Pacientes que não podem ser transportados até a sala de raios X (UTI, CTI, centro cirúrgico)"
+          "label": "Pacientes que precisam de menor dose de radiação"
         },
         {
           "label": "Exames que requerem maior qualidade de imagem e alta resolução"
         },
         {
-          "label": "Pacientes que precisam de menor dose de radiação"
+          "label": "Pacientes que não podem ser transportados até a sala de raios X (UTI, CTI, centro cirúrgico)"
         },
         {
           "label": "Exames de membros inferiores em pacientes adultos"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "O equipamento portátil é indicado quando o paciente não pode ser movido com segurança — pacientes graves em UTI, pós-operatório imediato, trauma crítico. A qualidade de imagem é inferior à do equipamento fixo, mas o objetivo é obter informação diagnóstica com o mínimo risco ao paciente."
     },
     {
@@ -678,19 +678,19 @@ values
       "prompt": "Qual equipamento permite visualizar estruturas em movimento em tempo real durante um exame?",
       "options": [
         {
-          "label": "Fluoroscópio"
-        },
-        {
-          "label": "Equipamento fixo de radiografia"
+          "label": "Densitômetro ósseo (DXA)"
         },
         {
           "label": "Aparelho portátil de UTI"
         },
         {
-          "label": "Densitômetro ósseo (DXA)"
+          "label": "Equipamento fixo de radiografia"
+        },
+        {
+          "label": "Fluoroscópio"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "O fluoroscópio produz um fluxo contínuo de imagens em tempo real, permitindo observar o movimento de estruturas (contraste fluindo pelo trato digestivo, cateter sendo posicionado num vaso) enquanto o exame é realizado. Por isso, gera dose significativamente maior que a radiografia convencional."
     }
   ]
@@ -716,9 +716,6 @@ values
       "prompt": "Qual componente do tubo de raios X é responsável pela emissão de elétrons?",
       "options": [
         {
-          "label": "Catodo (filamento)"
-        },
-        {
           "label": "Anodo (alvo de tungstênio)"
         },
         {
@@ -726,9 +723,12 @@ values
         },
         {
           "label": "Gerador de alta tensão"
+        },
+        {
+          "label": "Catodo (filamento)"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "O catodo é formado por um filamento de tungstênio que, ao ser aquecido por corrente elétrica, emite elétrons por emissão termiônica. Esses elétrons são acelerados pela diferença de potencial (kVp) em direção ao anodo, onde produzem raios X ao desacelerar."
     },
     {
@@ -737,19 +737,19 @@ values
       "prompt": "Qual parâmetro técnico do equipamento controla principalmente a QUANTIDADE de raios X produzidos (e, portanto, a densidade da imagem)?",
       "options": [
         {
-          "label": "mAs (miliampere-segundo)"
-        },
-        {
-          "label": "kVp (quilovoltagem de pico)"
+          "label": "Tamanho do campo de colimação"
         },
         {
           "label": "Distância foco-detector (DFD)"
         },
         {
-          "label": "Tamanho do campo de colimação"
+          "label": "kVp (quilovoltagem de pico)"
+        },
+        {
+          "label": "mAs (miliampere-segundo)"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 3,
       "explanation": "O mAs (produto da corrente em mA pelo tempo em segundos) determina o número de elétrons que bombardeiam o anodo por unidade de tempo e, portanto, a quantidade de raios X produzidos. Aumentar o mAs aumenta a dose ao paciente e a densidade (enegrecimento) da imagem."
     }
   ]
@@ -775,19 +775,19 @@ values
       "prompt": "Qual acessório tem como função principal filtrar a radiação secundária (espalhada) antes que ela atinja o detector?",
       "options": [
         {
-          "label": "Grade antidifusora"
-        },
-        {
           "label": "Colimador de lâminas"
         },
         {
-          "label": "Protetor gonadal"
+          "label": "Esponja de posicionamento"
         },
         {
-          "label": "Esponja de posicionamento"
+          "label": "Grade antidifusora"
+        },
+        {
+          "label": "Protetor gonadal"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "A grade antidifusora é posicionada entre o paciente e o detector. Suas lamelas de chumbo permitem a passagem dos raios X primários (que vêm em linha reta da fonte) e absorvem os raios X espalhados (que chegam em ângulo), melhorando significativamente o contraste da imagem."
     },
     {
@@ -796,19 +796,19 @@ values
       "prompt": "Em um serviço com protocolo de proteção radiológica correto, quando o uso de protetor gonadal é obrigatório?",
       "options": [
         {
-          "label": "Quando as gônadas estão dentro ou a menos de 5 cm do campo irradiado e sua presença não compromete o diagnóstico"
-        },
-        {
           "label": "Em todos os exames radiológicos sem exceção"
         },
         {
           "label": "Apenas em pacientes menores de 18 anos"
         },
         {
+          "label": "Quando as gônadas estão dentro ou a menos de 5 cm do campo irradiado e sua presença não compromete o diagnóstico"
+        },
+        {
           "label": "Somente quando o médico solicitar explicitamente"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "A proteção gonadal é indicada quando as gônadas estão próximas ao campo irradiado (dentro ou até 5 cm), em pacientes com potencial reprodutivo, e desde que o protetor não sobreponha áreas de interesse diagnóstico. É responsabilidade do técnico avaliar e aplicar essa proteção."
     }
   ]
@@ -837,13 +837,13 @@ values
           "label": "Fixação"
         },
         {
-          "label": "Revelação"
-        },
-        {
           "label": "Lavagem"
         },
         {
           "label": "Secagem"
+        },
+        {
+          "label": "Revelação"
         }
       ],
       "correctAnswerIndex": 0,
@@ -858,13 +858,13 @@ values
           "label": "Permitem pós-processamento da imagem (ajuste de janela, brilho, contraste) sem nova exposição"
         },
         {
-          "label": "Eliminam completamente o uso de raios X"
+          "label": "São mais baratos de adquirir e manter que processadoras de filme"
         },
         {
           "label": "Produzem imagens com maior resolução espacial do que filmes de alta resolução"
         },
         {
-          "label": "São mais baratos de adquirir e manter que processadoras de filme"
+          "label": "Eliminam completamente o uso de raios X"
         }
       ],
       "correctAnswerIndex": 0,
@@ -893,19 +893,19 @@ values
       "prompt": "Qual mecanismo de produção de raios X é responsável pelo espectro contínuo observado na saída do tubo?",
       "options": [
         {
-          "label": "Bremsstrahlung (radiação de freamento)"
-        },
-        {
           "label": "Radiação característica do tungstênio"
         },
         {
-          "label": "Produção de par elétron-pósitron"
+          "label": "Fluorescência do material do anodo"
         },
         {
-          "label": "Fluorescência do material do anodo"
+          "label": "Bremsstrahlung (radiação de freamento)"
+        },
+        {
+          "label": "Produção de par elétron-pósitron"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "O Bremsstrahlung ocorre quando elétrons são desacelerados pelo campo elétrico dos núcleos atômicos do anodo. Como a desaceleração pode ser de qualquer magnitude, os fótons emitidos têm energias variadas — formando um espectro contínuo de zero até o kVp máximo aplicado."
     },
     {
@@ -952,19 +952,19 @@ values
       "prompt": "Qual o efeito de AUMENTAR o kVp na qualidade da imagem radiológica?",
       "options": [
         {
-          "label": "Reduz o contraste da imagem (fótons mais energéticos penetram mais uniformemente)"
-        },
-        {
-          "label": "Aumenta o contraste por aumentar a diferença de absorção entre tecidos"
+          "label": "Aumenta o ruído e reduz a nitidez"
         },
         {
           "label": "Não tem efeito no contraste — apenas aumenta a dose"
         },
         {
-          "label": "Aumenta o ruído e reduz a nitidez"
+          "label": "Reduz o contraste da imagem (fótons mais energéticos penetram mais uniformemente)"
+        },
+        {
+          "label": "Aumenta o contraste por aumentar a diferença de absorção entre tecidos"
         }
       ],
-      "correctAnswerIndex": 0,
+      "correctAnswerIndex": 2,
       "explanation": "Com kVp mais alto, os fótons têm maior energia e interagem mais pelo efeito Compton (espalhamento) do que pelo fotoelétrico (absorção). O efeito Compton é relativamente independente do número atômico do tecido, reduzindo a diferença de atenuação entre estruturas e, consequentemente, diminuindo o contraste."
     },
     {
@@ -976,13 +976,13 @@ values
           "label": "Foco de grande tamanho, grande distância objeto-detector ou movimentação do paciente"
         },
         {
-          "label": "Alto kVp combinado com baixo mAs"
+          "label": "Detector de baixa sensibilidade (lenta)"
         },
         {
           "label": "Uso de grade de alta relação"
         },
         {
-          "label": "Detector de baixa sensibilidade (lenta)"
+          "label": "Alto kVp combinado com baixo mAs"
         }
       ],
       "correctAnswerIndex": 0,

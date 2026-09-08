@@ -37,6 +37,13 @@ EXCERPTS: dict[str, list[str]] = {
 
 # ── Conteúdo pedagógico por conceito ─────────────────────────────────────────
 
+# As questões abaixo foram escritas com a alternativa correta sempre na
+# primeira posição — todas as 32, medido em 2026-09-08. NÃO conserte isso aqui
+# reescrevendo as listas: a ordem que o aluno vê é decidida em
+# scripts/content/catalog-runtime.mjs (mapQuizBundle), que permuta as
+# alternativas de forma determinística, semeada pelo id da questão, e move o
+# índice do gabarito junto. Reordenar à mão aqui só produziria duas camadas de
+# embaralhamento sobre o mesmo dado.
 CONTENT: dict[str, dict] = {
 
 "profissao-e-atuacao-do-tecnico-em-radiologia": {

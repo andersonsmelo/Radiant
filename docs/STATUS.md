@@ -97,8 +97,22 @@ carrega o pacote inteiro.
    **A lição legada fica sem elemento gráfico** até o Currículo V3 substituir
    esse caminho. **O `(9)` continua contendo o defeito** — ele é anterior a esta
    correção, então o vídeo para a App Review exige um build novo. Os demais
-   achados da auditoria (texto genérico nas etapas de ensino e resposta correta
-   sempre na primeira posição) continuam abertos.
+   achado da auditoria (texto genérico nas etapas de ensino) continua aberto.
+
+   **Ordem das alternativas corrigida em 2026-09-08.** As 32 questões tinham a
+   resposta correta na primeira posição — quem respondesse sempre "a" acertaria
+   o catálogo inteiro sem ler o enunciado. O viés não estava no app: ele nasce
+   em `scripts/content/generate-local-bundles.py`, atravessa
+   `catalog-payload.json` intacto (32/32 com `correct: 0`) e é copiado
+   fielmente por `mapQuizBundle`. A ordem passou a ser decidida em
+   `scripts/content/catalog-runtime.mjs`, com permutação determinística semeada
+   pelo id da questão — o ponto que **app e API compartilham**, então as duas
+   cópias saem coerentes. **Distribuição medida depois:** `{0:12, 1:2, 2:11,
+   3:7}` nas quatro posições, contra 32/32 antes. Três propriedades derivadas
+   do payload (não de lista escrita à mão) guardam a correção: o rótulo correto
+   é preservado pela permutação, as quatro posições são usadas, e a saída é
+   idêntica entre execuções. Nenhuma tentativa persiste o índice escolhido
+   (`LearningAttempt` guarda contagens), então não há histórico a migrar.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
