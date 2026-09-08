@@ -81,6 +81,25 @@ carrega o pacote inteiro.
    posição no percurso legado inspecionado. Não confundir esse conjunto com
    as atividades v2 promovidas.
 
+   **Painel visual legado removido em 2026-09-08.** O primeiro achado da
+   auditoria foi corrigido: `LessonVisualPanel` e o raster
+   `lesson-xray-panel.png` saíram do repositório, junto das dicas globais
+   `panelHint`/`panelCaption` de `LessonFlowScreen`. O painel não tinha modelo
+   de mídia — era **uma** imagem fixa para toda lição —, o raster era um mockup
+   com o texto em inglês `Lesson Flow: Variant 2 of 3` e `Tap to Learn`, e a
+   lupa com "Toque para examinar" não tinha controle de toque atrás. Os dois
+   testes que exercitavam a tela **mockavam o painel**, e foi isso que deixou a
+   suíte verde com o defeito visível no `(9)`; o mock saiu e uma regressão
+   afirma a ausência da afordância falsa. **Evidência medida em 2026-09-08:**
+   25 suítes e 194 testes aprovados (`npx jest --runInBand src/features/lesson-flow
+   src/features/journey`, em `radiant-app`), `npm run typecheck` aprovado,
+   `npm run lint` com 0 erros e os mesmos 28 avisos preexistentes.
+   **A lição legada fica sem elemento gráfico** até o Currículo V3 substituir
+   esse caminho. **O `(9)` continua contendo o defeito** — ele é anterior a esta
+   correção, então o vídeo para a App Review exige um build novo. Os demais
+   achados da auditoria (texto genérico nas etapas de ensino e resposta correta
+   sempre na primeira posição) continuam abertos.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

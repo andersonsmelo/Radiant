@@ -30,8 +30,8 @@ interface SpeechBubbleProps {
    * Distância, em px, do topo do balão até o ponto que o rabicho deve apontar.
    * Quem passa é o layout que sabe onde está a boca do Pixel — este componente
    * não conhece o mascote. Sem ela, o rabicho fica ancorado embaixo, que é o
-   * comportamento histórico dos outros dois consumidores (CharacterSlot e
-   * LessonVisualPanel).
+   * comportamento histórico dos consumidores anteriores. (Um deles, o painel
+   * visual das lições legadas, foi removido em 2026-09-08.)
    */
   tailTop?: number;
   /**

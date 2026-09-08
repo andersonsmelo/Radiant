@@ -50,8 +50,12 @@ misturam as duas lojas, e os itens do Play não travam a App Store.
 **Estado:** `1.3.1` **rejeitada** em 14/08 sob `Guideline 2.1 - Information
 Needed` / `2.1.0 App Completeness`, conforme a medição registrada no
 [STATUS.md](STATUS.md). A versão está em estado **editável**. A instalação do
-`(9)` também revelou um defeito de conteúdo/apresentação; a fundação técnica V3
-não o corrigiu nas telas ainda.
+`(9)` também revelou um defeito de conteúdo/apresentação. A parte de
+**apresentação** foi corrigida em 2026-09-08 — o painel visual legado saiu, com
+regressão que o impede de voltar (ver [STATUS](STATUS.md)) —, mas a correção é
+**posterior ao `(9)`**: o binário no TestFlight ainda contém o defeito. A parte
+de **conteúdo** (texto genérico no ensino, resposta correta sempre na primeira
+posição) continua aberta.
 **Bloqueio:** produção e auditoria do Arco 1, corte seguro, smoke físico e
 resposta à Apple. **Dono:** agente para J3 e implementação local; auditor para
 revisão dos pacotes; dono para aparelho e ações de loja que exijam autorização.
@@ -75,7 +79,8 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Produção do Arco 1 — J3 | agente + auditor | **próxima execução** — começar pela L1; roteiro abaixo |
 | Auditoria/QA de acessibilidade — J4 | auditor + executor dos testes manuais | **pendente** sobre as lições implementadas, não sobre o desenho |
 | Corte seguro e fluxo completo no iPhone — J5 | agente + dono | **pendente** — preservar histórico e validar instalação limpa/atualização |
-| Preparar novo candidato e gravar vídeo | dono + agente no escopo autorizado | **pendente** — após gates e autorização, vídeo do mesmo binário testado |
+| Remover o painel visual legado | agente | **concluído** em 2026-09-08 — componente, raster e dicas globais fora; regressão no lugar do mock |
+| Preparar novo candidato e gravar vídeo | dono + agente no escopo autorizado | **pendente** — o vídeo exige um build **posterior** a 2026-09-08; o `(9)` não tem a correção |
 | Conferir o segredo do Sentry contra as Privacy Labels | dono | **pendente** — o rótulo publicado é "Dados não coletados"; um DSN no EAS o tornaria falso |
 | Responder ao item 7 — direitos e área regulada | dono | **pendente** — julgamento editorial e jurídico, não medição |
 | Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — não usar o `(9)` como se contivesse a correção futura |

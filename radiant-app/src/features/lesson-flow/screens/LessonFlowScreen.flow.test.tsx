@@ -70,14 +70,6 @@ jest.mock('../../../ui/components/HUD', () => {
   };
 });
 
-jest.mock('../components/LessonVisualPanel', () => ({
-  LessonVisualPanel: () => {
-    const React = require('react');
-    const { Text } = require('react-native');
-    return <Text>PAINEL_VISUAL_LEGADO</Text>;
-  },
-}));
-
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     setCurrentNode: jest.fn().mockResolvedValue(undefined),
@@ -384,6 +376,31 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
   });
 });
 
+describe('LessonFlowScreen — apresentação do passo legado', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    const { LessonFlowService } = jest.requireMock('../services/LessonFlowService') as {
+      LessonFlowService: { getBlockById: jest.Mock; getActivityById: jest.Mock };
+    };
+    LessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    LessonFlowService.getActivityById.mockReturnValue(null);
+  });
+
+  // O painel decorativo saiu em 2026-09-08. Ele carregava um raster de mockup
+  // com texto em inglês e oferecia "Toque para examinar" sobre uma lupa que
+  // não tinha nenhum controle de toque atrás. Este teste monta a tela de
+  // verdade — o mock do painel, que existia aqui, foi o que deixou a suíte
+  // verde com o defeito na tela do build 1.3.1 (9).
+  it('não promete uma interação que não existe no passo legado', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    expect(screen.queryByText('Toque para examinar')).toBeNull();
+    expect(screen.queryByLabelText('Ilustração de um painel de raio-X para examinar')).toBeNull();
+  });
+});
+
 describe('LessonFlowScreen — registro da conclusão', () => {
   beforeEach(() => {
     // Este describe não compartilha o beforeEach de "escolha da alternativa"
@@ -535,7 +552,7 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
     );
 
     expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
-    expect(screen.queryByText('PAINEL_VISUAL_LEGADO')).toBeNull();
+    expect(screen.queryByText('Toque para examinar')).toBeNull();
     fireEvent.press(screen.getByText('Continuar'));
     expect(await screen.findByText('Qual partícula tem carga negativa?')).toBeTruthy();
     expect(screen.getByLabelText('Elétron')).toBeTruthy();

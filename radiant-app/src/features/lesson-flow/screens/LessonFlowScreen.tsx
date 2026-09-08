@@ -19,7 +19,6 @@ import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
 import { AdvanceStepRenderer } from '../renderers/AdvanceStepRenderer';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
-import { LessonVisualPanel } from '../components/LessonVisualPanel';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
@@ -203,36 +202,6 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const currentInteraction = player.currentStep?.kind === 'interaction'
         ? player.currentStep.interaction
         : null;
-
-    const panelHint = useMemo(() => {
-        if (!currentStep) {
-            return 'Observe a imagem e siga no seu ritmo.';
-        }
-
-        if (currentStep.kind === 'presentation' && currentStep.role !== 'closing') {
-            return 'Observe a cena com calma. O texto entra como apoio, não como muleta.';
-        }
-
-        if (currentStep.kind === 'interaction') {
-            return 'Compare densidade, borda e contexto anatômico antes de responder.';
-        }
-
-        return 'Feche o raciocínio radiológico antes de puxar o próximo passo.';
-    }, [currentStep]);
-
-    const panelCaption = useMemo(() => {
-        if (!currentStep) {
-            return 'Fluxo guiado com foco em continuidade';
-        }
-
-        if (currentStep.kind === 'interaction') {
-            return 'Decisão baseada em padrões e contexto';
-        }
-
-        if (currentStep.role === 'hook') return 'Leitura inicial da cena';
-        if (currentStep.role === 'concept') return 'Reforço da lógica visual';
-        return 'Consolidação do raciocínio';
-    }, [currentStep]);
 
     const handleContinue = async () => {
         if (!activity || !currentStep || !canContinue) {
@@ -493,8 +462,6 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                         contentContainerStyle={styles.scrollContent}
                         showsVerticalScrollIndicator={false}
                     >
-                        {block ? <LessonVisualPanel hint={panelHint} caption={panelCaption} /> : null}
-
                         <View style={styles.contentCard}>
                             {legacyStep?.step.type === 'context' ? (
                                 <ContextStepRenderer payload={legacyStep.step.payload} />

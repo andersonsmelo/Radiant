@@ -94,10 +94,6 @@ jest.mock('../../../ui/components/HUD', () => ({
   HeartsDisplay: () => null,
 }));
 
-jest.mock('../../lesson-flow/components/LessonVisualPanel', () => ({
-  LessonVisualPanel: () => null,
-}));
-
 jest.mock('../../lesson-flow/services/LessonFlowService', () => ({
   LessonFlowService: {
     getBlockById: jest.fn(),
