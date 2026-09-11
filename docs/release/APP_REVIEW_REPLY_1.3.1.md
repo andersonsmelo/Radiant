@@ -387,6 +387,86 @@ frequente* na classificação etária:
 
 Não nomear a obra consultada: a Apple não pede, e nomear convida pergunta.
 
+## Bloco único para o campo *Notes* — consolidado em 2026-09-11
+
+Colar inteiro em *App Store Connect → Revisão de apps → Notes*. É a
+concatenação dos itens 2 a 7 já prontos, com o item 2 preenchido pela medição
+de 2026-09-11 e o item 1 respondido pelo anexo do vídeo. Coerente com:
+disponibilidade só Brasil, classificação +13/A12 ("informações médicas: pouco
+frequente"), Privacy Labels "Dados não coletados", "Direitos de conteúdo: Sim",
+e com a tela do build `(11)` — sem login, sem painel.
+
+> **Response to App Review — Radiant 1.3.1, build 11**
+>
+> Thank you for the review. This submission replaces the previously reviewed
+> binary with build 11, which removes a decorative placeholder panel and an
+> inactive account form that were present in earlier builds. Answers to the
+> seven questions follow.
+>
+> **1. Screen recording.** Attached: a single continuous recording on a
+> physical device, starting from the iOS Home Screen, covering first launch,
+> the welcome flow, the *Estude* tab, a complete lesson through to its
+> completion screen, and the *Perfil* tab scrolled to the end.
+>
+> **2. Devices and OS tested.** iPhone 16, iOS 27.0, installed via TestFlight
+> (build 11). The app launches, a full lesson completes with score and
+> progress, and local progress persists across app relaunch and across the
+> update from build 10 to build 11.
+>
+> **3. Features and target audience.** Radiant is an educational app for
+> radiology learning. It is aimed at radiology students and practising
+> professionals who want to review imaging concepts in short sessions. The app
+> addresses a specific problem: radiology knowledge decays without repeated
+> exposure, and traditional study material is not structured for short,
+> repeated review. Radiant structures the material as a continuous learning
+> track of micro-lessons, each ending in a short assessment, with a
+> spaced-repetition scheduler (SM-2) that brings lessons back for review at
+> increasing intervals. Progress is shown as a track the learner advances
+> along, with discrete gamification (experience points, stages, achievements).
+> The app is in Brazilian Portuguese.
+>
+> **4. Access and credentials.** No account, login, or credentials are
+> required. The submitted build is fully local-first: all content ships inside
+> the binary and all progress is stored on the device. Every feature is
+> reachable from first launch with no sign-up and no paywall. This is enforced
+> at build time: the app only contacts a backend when
+> `EXPO_PUBLIC_API_BASE_URL` is set, and that variable is not defined in the
+> production build profile, so authentication and remote sync are inert — and,
+> as of build 11, no account UI is shown at all. To reach the main features:
+> launch the app, complete the short welcome flow, and tap the highlighted node
+> on the *Estude* tab. The *Perfil* tab holds identity, missions, progress, and
+> the Privacy Policy and Support links at the bottom of the scroll.
+>
+> **5. External services.** No AI service is called at runtime: lesson content
+> is generated offline, before the build, and compiled into the binary as
+> static data. No backend, authentication provider, or payment processor is
+> reachable in the submitted build. Crash reporting (Sentry) initialises only
+> when a DSN is provided at build time; none is provided in the production
+> profile, so it is inactive — consistent with the app's privacy labels.
+> Notifications use Apple Push Notification service via `expo-notifications`
+> for study reminders; the purpose string is `NSUserNotificationUsageDescription`.
+> Over-the-air updates use Expo Updates on the `production` channel.
+>
+> **6. Regional differences.** The app behaves identically in every region. It
+> ships a single content catalogue in Brazilian Portuguese, with no
+> region-gated features, no region-specific content, and no server-side
+> configuration that could vary by territory. It is currently distributed only
+> in Brazil.
+>
+> **7. Regulated industry and third-party material.** Radiant is an
+> educational product for radiology technicians and students. It does not
+> provide diagnosis, does not process or store patient data, does not connect
+> to any clinical system, and is not a medical device. It contains no patient
+> images: all imaging material is illustrative and authored for teaching.
+> Lesson content explicitly states that image interpretation and reporting are
+> the exclusive responsibility of the radiologist. All questions and
+> explanations shipped in the app are original text written for Radiant. The
+> app contains no reproduced passages, figures, or images from third-party
+> works; our content pipeline enforces this with automated checks that reject
+> any verbatim source text before a build. Reference works were consulted for
+> factual accuracy only; no license to reproduce third-party content is
+> required because none is reproduced.
+
 ## O que este documento deliberadamente não faz
 
 Não redige a resposta ao item 7 por você, e não afirma que o app está fora de

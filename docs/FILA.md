@@ -83,12 +83,13 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Permutar a ordem das alternativas | agente | **concluído** em 2026-09-08 — determinística no gerador compartilhado; app e API regenerados |
 | Build `(10)` de `main`=`321ebec`, smoke no iPhone | dono + agente | **concluído** em 2026-09-11 — abre, lição completa, progresso persiste. **Revelou o formulário de login inerte no Perfil**; não é o binário do reenvio |
 | Esconder o cartão de conta sem sync remoto | agente | **concluído** em 2026-09-11 — condicional em `ProgressScreen`; teste com configuração de produção |
-| Build `(11)` + vídeo + 6 capturas | dono + agente | **pendente** — o vídeo começa na tela inicial do iOS e percorre o roteiro do item 1; capturas do mesmo binário |
+| Build `(11)` verificado no iPhone | dono | **concluído** em 2026-09-11 — cartão de conta ausente, "Estudo local, sem conta", progresso preservado na atualização |
+| Vídeo do item 1 + 6 capturas, do `(11)` | dono | **pendente** — uma tomada a partir da tela inicial do iOS, 60–90 s; capturas das mesmas telas |
+| Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — o candidato é o `(11)`; bloco do *Notes* pronto no plano de resposta |
 | Conferir o segredo do Sentry contra as Privacy Labels | agente | **concluído** em 2026-09-08 — `eas env:list` sem variáveis em `production`; e o portão tem duas chaves (`ENABLE_CRASH_REPORTING && SENTRY_DSN`), ambas ausentes. Rótulo "Dados não coletados" coerente |
 | Disponibilidade e classificação etária no App Store Connect | dono | **concluído** em 2026-09-11 — 1 país (Brasil); 7 passos da classificação sem pergunta em branco, +13/A12 inalterado. DSA sem objeto enquanto não houver UE |
 | Trocar as 6 capturas da página do produto | dono + agente | **pendente** — mostram o painel removido em 2026-09-08; capturar do build novo na mesma sessão do vídeo (diretriz 2.3.3) |
 | Responder ao item 7 — direitos e área regulada | dono | **concluído** em 2026-09-11 — fonte reclassificada `reference-only`, exceção encerrada, texto final no plano de resposta |
-| Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — não usar o `(9)` como se contivesse a correção futura |
 
 **Estado da revisão:** usar a data de medição e os bloqueios de
 [STATUS.md](STATUS.md). Uma nova conferência exige App Store Connect

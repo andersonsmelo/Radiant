@@ -185,6 +185,17 @@ carrega o pacote inteiro.
    desenho começar. Também decidido: **V3 vira 1.4**; o reenvio agora leva o
    app legado corrigido.
 
+   **Build `1.3.1 (11)` verificado no aparelho em 2026-09-11, 19:14.** Saiu de
+   `main` = `063770d`, do mesmo checkout limpo; EAS `7c18e187`, aceito pela
+   Apple. No iPhone 16 / iOS 27.0, por captura: o Perfil vai de *Tópicos*
+   direto a *Ajuda e informações* — **o cartão de conta sumiu**; o cabeçalho
+   diz "Estudo local, sem conta". **A atualização `(10)` → `(11)` preservou o
+   histórico local** (38 XP, 3 lições, 2 revisões, iguais aos do `(10)`) — a
+   primeira medição de atualização entre builds neste projeto. **Este é o
+   binário do reenvio.** O que falta é só de aparelho: o vídeo do item 1 numa
+   tomada única a partir da tela inicial do iOS (os três clipes de hoje têm
+   7–18 s e começam dentro do app) e as 6 capturas para a página do produto.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
