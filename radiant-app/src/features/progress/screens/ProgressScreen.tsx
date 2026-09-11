@@ -431,6 +431,15 @@ export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
                 </View>
 
                 {/* ── Conta e sincronização ── */}
+                {/* Só existe quando o sync remoto está de fato disponível. Em
+                    produção (`ENABLE_REMOTE_SYNC=false`, sem API configurada) o
+                    cartão inteiro some: renderizar o formulário com os handlers
+                    travados pôs sete controles inertes no Perfil do build
+                    1.3.1 (10) — botões que não fazem nada são "App Completeness",
+                    e um login visível contradiz "no account, login, or
+                    credentials" na resposta à App Review. Login e assinatura
+                    são desenho da 1.4, não um condicional aqui. */}
+                {remoteSyncAvailable ? (
                 <GlassCard>
                     <CardTitle>Conta e sincronização</CardTitle>
                     <CardRow
@@ -569,6 +578,7 @@ export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
                         </Text>
                     ) : null}
                 </GlassCard>
+                ) : null}
 
                 {/* ── Ajuda e informações ── */}
                 <LegalLinksCard

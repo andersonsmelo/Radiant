@@ -159,6 +159,32 @@ carrega o pacote inteiro.
    (AAPM, 2019) desaconselha a proteção rotineira — entra na revisão de
    conteúdo por tema.
 
+   **Build `1.3.1 (10)` gerado, enviado e testado em 2026-09-11.** Saiu de
+   `main` = `321ebec`, de um checkout limpo (`~/Developer/Radiant-release`),
+   sem nada não-commitado; EAS `ca376ed8`, `--auto-submit`, aceito pela Apple.
+   No iPhone 16 / iOS 27.0: abre, lição inteira concluída com 3 estrelas,
+   progresso da unidade avançou (5 de 14). **Mas o `(10)` não é o binário do
+   reenvio.** O primeiro quadro da gravação mostrou, no fim do Perfil, o
+   cartão *Conta e sincronização* com o formulário de login inteiro — Email,
+   Senha, Token, *Entrar para sincronizar*, *Criar conta*, *Solicitar reset* —
+   **inerte**: `remoteSyncAvailable` travava os handlers, não a renderização, e
+   a suíte da tela rodava inteira com sync ligado, então a configuração de
+   produção nunca fora renderizada por teste. Contradiz o item 4 da resposta
+   ("no account, login, or credentials") e é a hipótese mais forte para o
+   "Information Needed" original. **Corrigido em 2026-09-11**: o cartão some
+   quando o sync remoto não está disponível; teste com a configuração de
+   produção afirma a ausência de todos os controles e a permanência da ajuda
+   legal (4 suítes, 22 testes; `tsc` limpo; lint 0 erros). A gravação de
+   17,8 s também não serve como vídeo do item 1 — começa dentro do app. **O
+   reenvio sai do `(11)`**, com vídeo e capturas gravados dele.
+
+   **Decisão de produto em 2026-09-11 (dono):** login e assinatura são feature
+   da **1.4**, desenhada junto — backend em produção, conta de demonstração,
+   exclusão de conta (5.1.1(v)), Privacy Labels refeitas e In-App Purchase se
+   houver plano pago. Não entram no reenvio da 1.3.1. Merece ADR quando o
+   desenho começar. Também decidido: **V3 vira 1.4**; o reenvio agora leva o
+   app legado corrigido.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

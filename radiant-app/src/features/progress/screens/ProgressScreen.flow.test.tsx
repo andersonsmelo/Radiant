@@ -279,4 +279,46 @@ describe('ProgressScreen flow', () => {
     expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Central de Suporte' })).toBeTruthy();
   });
+
+  // Toda esta suíte roda com sync remoto LIGADO (AppConfig e isApiConfigured
+  // mockados como true) — a configuração de produção, com os dois desligados,
+  // nunca tinha sido renderizada por teste nenhum. Foi assim que o build
+  // 1.3.1 (10) chegou ao aparelho com um formulário de login inerte no Perfil:
+  // `remoteSyncAvailable` só travava os handlers, não a renderização. A
+  // resposta à Apple diz "no account, login, or credentials", e o revisor lê a
+  // tela, não a configuração.
+  describe('sem sync remoto disponível (configuração de produção)', () => {
+    const isApiConfiguredMock = isApiConfigured as jest.MockedFunction<typeof isApiConfigured>;
+
+    beforeEach(() => {
+      isApiConfiguredMock.mockReturnValue(false);
+      (AppConfig as { ENABLE_REMOTE_SYNC: boolean }).ENABLE_REMOTE_SYNC = false;
+    });
+
+    afterEach(() => {
+      isApiConfiguredMock.mockReturnValue(true);
+      (AppConfig as { ENABLE_REMOTE_SYNC: boolean }).ENABLE_REMOTE_SYNC = true;
+    });
+
+    it('não renderiza nenhum controle de conta, login ou sincronização', async () => {
+      renderWithProviders(<ProgressScreen />);
+
+      expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
+
+      expect(screen.queryByText('Conta e sincronização')).toBeNull();
+      expect(screen.queryByPlaceholderText('Email')).toBeNull();
+      expect(screen.queryByPlaceholderText('Senha ou nova senha')).toBeNull();
+      expect(screen.queryByText('Entrar para sincronizar')).toBeNull();
+      expect(screen.queryByText('Criar conta')).toBeNull();
+      expect(screen.queryByText('Solicitar reset de senha')).toBeNull();
+    });
+
+    it('mantém a ajuda legal mesmo sem o cartão de conta', async () => {
+      renderWithProviders(<ProgressScreen />);
+
+      expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
+      expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
+      expect(screen.getByRole('link', { name: 'Central de Suporte' })).toBeTruthy();
+    });
+  });
 });

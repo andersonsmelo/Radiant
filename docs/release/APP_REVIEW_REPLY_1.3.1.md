@@ -156,7 +156,24 @@ resolve os dois.
 > along, with discrete gamification (experience points, stages, achievements).
 > The app is in Brazilian Portuguese.
 
-### 4. Instruções de acesso e credenciais — pronto
+### 4. Instruções de acesso e credenciais — pronto, **corrigido na tela em 2026-09-11**
+
+> ⚠️ **O que esta seção afirmava era verdade na configuração e falso na tela.**
+> Até o build `1.3.1 (10)`, o cartão *Conta e sincronização* do Perfil
+> renderizava o formulário inteiro — Email, Senha, Token de reset, *Entrar para
+> sincronizar*, *Criar conta*, *Solicitar reset de senha* — com os handlers
+> travados por `remoteSyncAvailable`. Sete controles inertes, visíveis para o
+> revisor, numa tela que a nota abaixo descreve como sem login. **É a hipótese
+> mais forte para o "Information Needed" original**: é o que a Apple responde
+> quando vê um login e não recebe conta de demonstração. Corrigido em
+> 2026-09-11 (`ProgressScreen.tsx`): o cartão não é renderizado quando o sync
+> remoto não está disponível, e um teste com a configuração de produção afirma
+> a ausência de todos os controles. **O `(10)` não pode ser o binário do
+> reenvio; o texto abaixo passa a ser verdadeiro a partir do `(11)`.**
+> Login e assinatura foram decididos como feature da 1.4 pelo dono, no mesmo
+> dia — com backend, conta de demonstração, exclusão de conta, Privacy Labels
+> e IAP desenhados juntos, não em cima desta rejeição.
+
 
 > **No account, login, or credentials are required.** The submitted build is
 > fully local-first: all content ships inside the binary and all progress is
