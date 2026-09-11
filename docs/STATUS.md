@@ -114,6 +114,51 @@ carrega o pacote inteiro.
    idêntica entre execuções. Nenhuma tentativa persiste o índice escolhido
    (`LearningAttempt` guarda contagens), então não há histórico a migrar.
 
+   **App Store Connect medido pelo dono em 2026-09-11**, com capturas de tela
+   lidas nesta sessão — não presumido:
+   - **Disponibilidade: 1 país (Brasil), 174 indisponíveis.** Os "172 países"
+     citados em 24/08 eram a agrupação da **classificação etária**, não a
+     disponibilidade; o app nunca esteve à venda fora do Brasil. Decisão do
+     dono: lançar só no Brasil e expandir depois. **O aviso de comerciante do
+     DSA perde o objeto** — é de conta, não do app, e só alcança quem
+     distribui na UE. Se um dia entrar país da UE (Portugal incluído), a
+     declaração passa a ser exigida.
+   - **Classificação etária: os 7 passos percorridos, nenhuma pergunta em
+     branco, `Salvar` desabilitado por ausência de mudança.** Calculada +13,
+     Brasil A12, sem substituição. A única resposta fora de "nenhum" é
+     *Informações médicas ou sobre tratamentos: pouco frequente* — coerente
+     com o item 7 da resposta à Apple ("educacional, não diagnostica").
+     *Competições: nenhum*, coerente com a decisão de 2026-08-15 de não
+     comparar alunos. Recursos, UGC, redes sociais, web irrestrita: não.
+   - **As 6 capturas da página do produto mostram o painel visual removido em
+     2026-09-08** (raio-X de tórax, "Observe a cena com calma", "Compare
+     densidade, borda e contexto anatômico"). Com o build novo, a página
+     prometeria uma tela que o binário não tem — diretriz 2.3.3. **Trocar as
+     capturas é pré-requisito do reenvio**, na mesma sessão de aparelho que
+     grava o vídeo. 0 de 3 pré-visualizações; não é pendência.
+   - **Direitos de conteúdo** em *Informações do app*: "Sim, este app tem os
+     direitos necessários para os conteúdos de terceiros" — a declaração que
+     a resposta ao item 7 precisa respeitar.
+
+   Com isso a tarefa "serviços e privacidade" fecha: Sentry medido inerte em
+   2026-09-08, disponibilidade e classificação confirmadas em 2026-09-11.
+
+   **Item 7 (direitos e setor regulado) decidido pelo dono em 2026-09-11.** A
+   única fonte dos 16 quizzes embarcados, *Fundamentos de Radiologia*, estava
+   `blocked` desde 2026-07-31 "até revisão humana", sustentada por uma exceção
+   datada que venceria em **2026-09-30** — e o vencimento faria
+   `validate-source-rights` reprovar e nenhum run fechar. A revisão humana
+   aconteceu: a obra passou a `reference-only` / `factual-reference` em
+   `Conteúdo/fontes/library-catalog.json`, com base medida (zero sequências de
+   8 palavras, nenhuma imagem de terceiro, redação original), e a exceção foi
+   encerrada. O validador passa sem exceção. As 32 explicações foram lidas
+   uma a uma: nenhuma linguagem de orientação clínica ao leitor. O texto final
+   em inglês está no [plano de resposta](release/APP_REVIEW_REPLY_1.3.1.md),
+   item 7. **Nota de domínio, fora do escopo da Apple:** a explicação sobre
+   proteção gonadal descreve a prática clássica; a recomendação internacional
+   (AAPM, 2019) desaconselha a proteção rotineira — entra na revisão de
+   conteúdo por tema.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

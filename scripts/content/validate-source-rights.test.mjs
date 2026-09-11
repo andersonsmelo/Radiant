@@ -66,15 +66,56 @@ test('excecaoAtiva rejeita registro sem data', () => {
   assert.equal(excecaoAtiva({ expiresOn: 'nao-e-data' }, AGORA), false);
 });
 
-// SONDA sobre o repositorio real: com o relogio depois do vencimento, o estado
-// de hoje TEM de reprovar. Se este teste passar, a excecao nao esta segurando
-// nada e o contrato nao vale.
-test('SONDA — o estado real reprova quando a excecao vence', () => {
+// SONDA sobre o repositorio real. A versao anterior desta sonda afirmava que
+// "vencida a excecao, o estado real precisa reprovar" — e com isso codificava a
+// EXISTENCIA da divida como assercao: no dia em que a fonte foi reclassificada
+// por decisao humana (2026-09-11) e a excecao perdeu o objeto, a sonda leu a
+// resolucao como se fosse a remocao silenciosa que ela existia para pegar.
+// Ela nao distinguia os dois casos porque olhava o estado, nao o invariante.
+//
+// O invariante e: o verde de hoje e sustentado por uma decisao registrada —
+// classificacao explicita na triagem, ou excecao datada que morde ao vencer —
+// e nunca por ausencia de checagem. Cada fonte usada cai num dos dois ramos.
+test('SONDA — o verde do estado real e sustentado por decisao registrada, nao por ausencia', () => {
   const entrada = carregar(process.cwd());
-  const hoje = avaliar({ ...entrada, agora: new Date('2026-08-24T12:00:00Z') });
-  assert.deepEqual(hoje, [], 'hoje deve estar verde, sustentado pela excecao');
+  const hoje = avaliar({ ...entrada, agora: new Date('2026-09-11T12:00:00Z') });
+  assert.deepEqual(hoje, [], 'hoje deve estar verde');
+  assert.ok(entrada.usadas.size > 0, 'o catalogo precisa usar ao menos uma fonte');
 
-  const depois = avaliar({ ...entrada, agora: new Date('2027-01-01T12:00:00Z') });
-  assert.ok(depois.length > 0, 'vencida a excecao, o estado real precisa reprovar');
-  assert.match(depois[0].motivo, /venceu/);
+  const excecoes = new Map((entrada.politica.exceptions ?? []).map((e) => [e.sourceId, e]));
+  const classesQueLiberam = new Set(['authorized', 'reference-only']);
+
+  for (const sourceId of entrada.usadas) {
+    const declarada = entrada.declaradas.get(sourceId);
+    const obra = entrada.triagem.get(normalizarCaminho(declarada.caminho));
+    assert.ok(obra, `${sourceId} precisa de entrada na triagem`);
+
+    if (obra.rightsClass === 'blocked') {
+      // Ramo 1: divida viva. A excecao tem de existir E tem de morder ao vencer.
+      assert.ok(excecoes.has(sourceId), `${sourceId} esta blocked e nao tem excecao`);
+      const depois = avaliar({ ...entrada, agora: new Date('2999-01-01T12:00:00Z') });
+      assert.ok(depois.some((v) => v.sourceId === sourceId && /venceu/.test(v.motivo)),
+        `vencida a excecao de ${sourceId}, o estado real precisa reprovar`);
+    } else {
+      // Ramo 2: decisao humana. A classe tem de ser uma que libera de proposito,
+      // com a base escrita — "desconhecida" ou vazio nao e decisao, e ausencia
+      // de bloqueio nao e autorizacao.
+      assert.ok(classesQueLiberam.has(obra.rightsClass),
+        `${sourceId} tem classe \`${obra.rightsClass}\`, que nao e decisao explicita`);
+      assert.ok(typeof obra.decisionBasis === 'string' && obra.decisionBasis.trim().length > 0,
+        `${sourceId} foi liberada sem \`decisionBasis\``);
+      // E o verde nao pode depender do relogio: sem excecao, o futuro e igual a hoje.
+      const depois = avaliar({ ...entrada, agora: new Date('2999-01-01T12:00:00Z') });
+      assert.ok(!depois.some((v) => v.sourceId === sourceId),
+        `${sourceId} esta liberada por decisao e nao pode voltar a reprovar com o tempo`);
+    }
+  }
+
+  // Excecao sem fonte bloqueada e divida fantasma: ninguem a le, ninguem a vence.
+  for (const [sourceId] of excecoes) {
+    const declarada = entrada.declaradas.get(sourceId);
+    const obra = declarada && entrada.triagem.get(normalizarCaminho(declarada.caminho));
+    assert.equal(obra?.rightsClass, 'blocked',
+      `a excecao de ${sourceId} aponta para uma fonte que nao esta blocked — remova-a ou reclassifique`);
+  }
 });

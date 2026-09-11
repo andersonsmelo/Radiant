@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "decisionRevision": "2026-07-31",
+  "decisionRevision": "2026-09-11",
   "summary": {
     "pdfFileCount": 41,
     "uniqueSourceCount": 36,
@@ -52,10 +52,12 @@
         "label": "No rights or license notice found in the PDF",
         "url": null
       },
-      "rightsClass": "blocked",
+      "rightsClass": "reference-only",
       "commercialUse": false,
-      "allowedUses": [],
-      "decisionBasis": "Blocked until provenance, license scope, and editorial suitability are verified by a human reviewer."
+      "allowedUses": [
+        "factual-reference"
+      ],
+      "decisionBasis": "Decisao do dono do projeto em 2026-09-11: obra consultada apenas como referencia factual. Base medida em 2026-08-24 e reconfirmada em 2026-09-08: zero sequencias de 8 palavras identicas a extracao (validate-no-verbatim), nenhuma imagem de terceiro, maior trecho embarcado de 326 caracteres; as 32 questoes e explicacoes sao redacao original sobre fatos de fisica e tecnica radiologica. Nao ha licenca de reproducao porque nada e reproduzido. Substitui a classe `blocked` de 2026-07-31 e encerra a excecao datada de scripts/content/source-rights-policy.json. O status da licenca do PDF permanece `uncertain`: e um fato sobre o arquivo, nao sobre o uso."
     },
     {
       "id": "library-source:8c602d3d35767ee1",

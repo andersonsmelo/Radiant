@@ -207,7 +207,7 @@ motivo próprio de rejeição. Eu não enxergo segredos do EAS. Confira em
 > region-specific content, and no server-side configuration that could vary by
 > territory.
 
-### 7. Setor regulado e material de terceiros — **`[VOCÊ]`**
+### 7. Setor regulado e material de terceiros — **pronto desde 2026-09-11**
 
 Este é o item que exige julgamento seu, e o mais delicado: radiologia **é** área
 regulada, e a pergunta da Apple é se você está autorizado a fornecer o serviço ou
@@ -328,6 +328,47 @@ puro** — se o `.env` chegasse ao build, a `EXPO_PUBLIC_API_BASE_URL` iria junt
 a resposta "não há login no build enviado" seria falsa. Não chega: o
 `.gitignore` da **raiz** traz `.env` na linha 20, e `git check-ignore` confirma
 que `radiant-app/.env` é ignorado e não rastreado. Verificado em 2026-08-24.
+
+#### Texto final do item 7 — decidido pelo dono em 2026-09-11
+
+As duas perguntas marcadas `[VOCÊ]` acima foram respondidas:
+
+- **Fonte:** o dono decidiu que *Fundamentos de Radiologia* (única fonte dos 16
+  quizzes embarcados) é consulta de referência factual, não reprodução. A obra
+  saiu de `blocked` para `reference-only` / `factual-reference` em
+  `Conteúdo/fontes/library-catalog.json`, e a exceção datada de
+  `scripts/content/source-rights-policy.json` (vencimento 2026-09-30) foi
+  encerrada. `validate-source-rights` passa sem exceção.
+- **Linguagem clínica:** as 32 explicações foram lidas uma a uma em 2026-09-11.
+  Nenhuma se dirige ao leitor como paciente; zero imperativos ("você deve",
+  "recomenda-se"), zero sintoma ou conduta. O que existe é prática profissional
+  do técnico. A explicação de profissão q2 afirma que interpretação e laudo são
+  exclusivos do médico radiologista.
+
+Pronto para colar, coerente com a declaração "Sim, este app tem os direitos
+necessários" em *Informações do app* e com *Informações médicas: pouco
+frequente* na classificação etária:
+
+> **7. Regulated industry and third-party material**
+>
+> Radiant is an **educational** product for radiology technicians and
+> students. It does not provide diagnosis, does not process or store patient
+> data, does not connect to any clinical system, and is not a medical device.
+> It contains no patient images: all imaging material is illustrative and
+> authored for teaching. Lesson content explicitly states that image
+> interpretation and reporting are the exclusive responsibility of the
+> radiologist.
+>
+> All questions and explanations shipped in the app are original text written
+> for Radiant. The app contains no reproduced passages, figures, or images from
+> third-party works; our content pipeline enforces this with automated checks
+> that reject any verbatim source text before a build. Reference works were
+> consulted for factual accuracy only; no license to reproduce third-party
+> content is required because none is reproduced.
+>
+> The app is distributed only in Brazil, in Brazilian Portuguese.
+
+Não nomear a obra consultada: a Apple não pede, e nomear convida pergunta.
 
 ## O que este documento deliberadamente não faz
 

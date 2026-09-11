@@ -82,8 +82,10 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Remover o painel visual legado | agente | **concluído** em 2026-09-08 — componente, raster e dicas globais fora; regressão no lugar do mock |
 | Permutar a ordem das alternativas | agente | **concluído** em 2026-09-08 — determinística no gerador compartilhado; app e API regenerados |
 | Preparar novo candidato e gravar vídeo | dono + agente no escopo autorizado | **pendente** — o vídeo exige um build **posterior** a 2026-09-08; o `(9)` não tem a correção |
-| Conferir o segredo do Sentry contra as Privacy Labels | dono | **pendente** — o rótulo publicado é "Dados não coletados"; um DSN no EAS o tornaria falso |
-| Responder ao item 7 — direitos e área regulada | dono | **pendente** — julgamento editorial e jurídico, não medição |
+| Conferir o segredo do Sentry contra as Privacy Labels | agente | **concluído** em 2026-09-08 — `eas env:list` sem variáveis em `production`; e o portão tem duas chaves (`ENABLE_CRASH_REPORTING && SENTRY_DSN`), ambas ausentes. Rótulo "Dados não coletados" coerente |
+| Disponibilidade e classificação etária no App Store Connect | dono | **concluído** em 2026-09-11 — 1 país (Brasil); 7 passos da classificação sem pergunta em branco, +13/A12 inalterado. DSA sem objeto enquanto não houver UE |
+| Trocar as 6 capturas da página do produto | dono + agente | **pendente** — mostram o painel removido em 2026-09-08; capturar do build novo na mesma sessão do vídeo (diretriz 2.3.3) |
+| Responder ao item 7 — direitos e área regulada | dono | **concluído** em 2026-09-11 — fonte reclassificada `reference-only`, exceção encerrada, texto final no plano de resposta |
 | Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — não usar o `(9)` como se contivesse a correção futura |
 
 **Estado da revisão:** usar a data de medição e os bloqueios de
