@@ -47,9 +47,10 @@ misturam as duas lojas, e os itens do Play não travam a App Store.
 > obedecesse a tabela antiga leria, na última linha, que não havia trabalho
 > neste caminho. Ressincronizada em **2026-08-25**.
 
-**Estado:** `1.3.1` **rejeitada** em 14/08 sob `Guideline 2.1 - Information
-Needed` / `2.1.0 App Completeness`, conforme a medição registrada no
-[STATUS.md](STATUS.md). A versão está em estado **editável**. A instalação do
+**Estado:** `1.3.1 (11)` **reenviada à App Review em 2026-09-12**, respondendo
+à rejeição de 14/08 (`Guideline 2.1 - Information Needed`). Aguardando
+revisão; a próxima medição é o status da versão no App Store Connect. O que
+segue abaixo é o histórico de como se chegou aqui. A instalação do
 `(9)` também revelou um defeito de conteúdo/apresentação. A parte de
 **apresentação** foi corrigida em 2026-09-08 — o painel visual legado saiu, com
 regressão que o impede de voltar (ver [STATUS](STATUS.md)) —, mas a correção é
@@ -84,11 +85,11 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Build `(10)` de `main`=`321ebec`, smoke no iPhone | dono + agente | **concluído** em 2026-09-11 — abre, lição completa, progresso persiste. **Revelou o formulário de login inerte no Perfil**; não é o binário do reenvio |
 | Esconder o cartão de conta sem sync remoto | agente | **concluído** em 2026-09-11 — condicional em `ProgressScreen`; teste com configuração de produção |
 | Build `(11)` verificado no iPhone | dono | **concluído** em 2026-09-11 — cartão de conta ausente, "Estudo local, sem conta", progresso preservado na atualização |
-| Vídeo do item 1 + 6 capturas, do `(11)` | dono | **pendente** — uma tomada a partir da tela inicial do iOS, 60–90 s; capturas das mesmas telas |
-| Selecionar candidato validado e responder à Apple | dono | **pendente de autorização** — o candidato é o `(11)`; bloco do *Notes* pronto no plano de resposta |
+| Vídeo do item 1 + 6 capturas, do `(11)` | dono | **concluído** em 2026-09-11 — gravação contínua de 32 s a partir da tela inicial; 6 capturas sem painel/formulário, barra limpa |
+| Trocar as 6 capturas da página do produto | dono | **concluído** em 2026-09-12 |
+| Responder à Apple e reenviar | dono | **concluído** em 2026-09-12 — `(11)` anexado, Notes com os 7 itens, vídeo na resposta. **Aguardando revisão** |
 | Conferir o segredo do Sentry contra as Privacy Labels | agente | **concluído** em 2026-09-08 — `eas env:list` sem variáveis em `production`; e o portão tem duas chaves (`ENABLE_CRASH_REPORTING && SENTRY_DSN`), ambas ausentes. Rótulo "Dados não coletados" coerente |
 | Disponibilidade e classificação etária no App Store Connect | dono | **concluído** em 2026-09-11 — 1 país (Brasil); 7 passos da classificação sem pergunta em branco, +13/A12 inalterado. DSA sem objeto enquanto não houver UE |
-| Trocar as 6 capturas da página do produto | dono + agente | **pendente** — mostram o painel removido em 2026-09-08; capturar do build novo na mesma sessão do vídeo (diretriz 2.3.3) |
 | Responder ao item 7 — direitos e área regulada | dono | **concluído** em 2026-09-11 — fonte reclassificada `reference-only`, exceção encerrada, texto final no plano de resposta |
 
 **Estado da revisão:** usar a data de medição e os bloqueios de

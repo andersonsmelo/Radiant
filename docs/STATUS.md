@@ -29,7 +29,7 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (7)` | 🔴 **Rejeitado** — `Guideline 2.1 — Information Needed`; `(9)` no TestFlight, ainda não selecionado para revisão | **2026-08-27** |
+| App Store | `1.3.1 (11)` | 🟡 **Reenviado à App Review** em 2026-09-12, respondendo à rejeição de 14/08 (`Guideline 2.1 — Information Needed`); vídeo anexado, 6 capturas novas, Notes com os 7 itens. Aguardando revisão | **2026-09-12** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
 > 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
@@ -195,6 +195,21 @@ carrega o pacote inteiro.
    binário do reenvio.** O que falta é só de aparelho: o vídeo do item 1 numa
    tomada única a partir da tela inicial do iOS (os três clipes de hoje têm
    7–18 s e começam dentro do app) e as 6 capturas para a página do produto.
+
+   **Reenviado à App Review em 2026-09-12, pelo dono.** Build **`1.3.1 (11)`**
+   anexado à versão rejeitada (estado editável, sem cancelar o envio). Vídeo
+   do item 1: gravação contínua de 32 s no iPhone 16 / iOS 27.0, da tela
+   inicial do iOS à aba Perfil, passando por boas-vindas ("Funciona offline,
+   sem conta" + aviso educacional), lição completa, três estrelas e trilha —
+   quadros verificados em tempos exatos, não pela miniatura. Seis capturas
+   novas na página do produto (trilha, conclusão, "sem conta", lição,
+   checkpoint, perfil), sem painel e sem formulário; tiradas do `(11)` abertas
+   pela tela inicial, sem o indicador do TestFlight na barra. Campo *Notes*
+   com o bloco dos 7 itens (3.945 caracteres). Material consolidado em
+   `~/Desktop/Radiant - reenvio 1.3.1 (11)/`, fora do repositório. **Próxima
+   medição: o status da versão no App Store Connect** — não inferir de e-mail
+   nem de TestFlight. Enquanto a revisão correr, não alterar disponibilidade,
+   classificação etária ou Privacy Labels.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
