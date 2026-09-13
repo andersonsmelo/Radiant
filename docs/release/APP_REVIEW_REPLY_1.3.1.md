@@ -467,6 +467,19 @@ e com a tela do build `(11)` — sem login, sem painel.
 > factual accuracy only; no license to reproduce third-party content is
 > required because none is reproduced.
 
+## Lição operacional de 2026-09-13 — responder não é reenviar
+
+No App Store Connect, **responder à mensagem do revisor** (em *Revisão de
+apps*, com anexos) e **reenviar para revisão** (botão *Reenviar para Revisão
+do app*, na página *Envio do iOS*) são ações independentes. A resposta de
+12/09 foi enviada sem o reenvio; a Apple respondeu em 13/09 que o status era
+*Prepare for Submission* e pediu "a new build" — frase padrão, sem
+necessidade de build novo. O sinal de que o reenvio **não** aconteceu: o item
+aparece como *Pronto para revisão* e o botão *Reenviar* continua visível. O
+sinal de que aconteceu: o cabeçalho da versão diz **Aguardando revisão**.
+Numa próxima rejeição, o roteiro é: anexar build → Notes → responder →
+**Reenviar para Revisão do app** → confirmar *Aguardando revisão* na tela.
+
 ## O que este documento deliberadamente não faz
 
 Não redige a resposta ao item 7 por você, e não afirma que o app está fora de

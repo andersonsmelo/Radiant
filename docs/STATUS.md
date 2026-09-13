@@ -29,7 +29,7 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (11)` | 🟡 **Reenviado à App Review** em 2026-09-12, respondendo à rejeição de 14/08 (`Guideline 2.1 — Information Needed`); vídeo anexado, 6 capturas novas, Notes com os 7 itens. Aguardando revisão | **2026-09-12** |
+| App Store | `1.3.1 (11)` | 🟡 **Aguardando revisão** — reenviado em 2026-09-13 (o botão *Reenviar para Revisão do app*), respondendo à rejeição de 14/08; vídeo, 6 capturas e Notes anexados em 12/09 | **2026-09-13** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
 > 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
@@ -210,6 +210,22 @@ carrega o pacote inteiro.
    medição: o status da versão no App Store Connect** — não inferir de e-mail
    nem de TestFlight. Enquanto a revisão correr, não alterar disponibilidade,
    classificação etária ou Privacy Labels.
+
+   **Correção em 2026-09-13: o parágrafo acima estava errado — em 12/09 houve a
+   resposta ao revisor, não o reenvio.** No App Store Connect, responder à
+   mensagem e reenviar para revisão são ações separadas, em páginas
+   diferentes; o roteiro do agente as apresentou como uma sequência e o
+   segundo passo não foi executado. A Apple respondeu em 13/09 às 07:34:
+   *"unable to proceed … status is currently 'Prepare for Submission'. You
+   will need to submit a new build for review"* — frase padrão; o `(11)` já
+   estava vinculado e nenhum build novo foi necessário. O console mostrava
+   *Envio do iOS · Problemas não resolvidos · build (11) · Pronto para
+   revisão* e o botão **Reenviar para Revisão do app** ainda visível — isto
+   é, preparado e não enviado. O dono clicou em **Reenviar para Revisão do
+   app** em 2026-09-13 e o cabeçalho da versão passou a **Aguardando
+   revisão**, medido na tela. Este é o momento em que a Apple recebeu o
+   `(11)`. Evidência da coleta de 13/09 (relatório da sessão Codex) em
+   `~/Desktop/Radiant - evidências Apple 2026-09-13/`, fora do repositório.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
