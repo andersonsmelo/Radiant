@@ -20,6 +20,13 @@ export const STORAGE_KEYS = {
     COMPETENCY_MASTERY: '@radiant:competency_mastery_v1',
     LESSON_RATINGS: '@radiant:lesson_ratings_v1',
     HEARTS: '@radiant:hearts_v1',
+    FIRST_RUN: '@radiant/first_run_v1',
+    LEGACY_GAMIFICATION: 'radiant:gami:v1',
+    DAILY_GOAL: 'radiant:daily-goal:v1',
+    SPACED_REPETITION_SCHEDULE: '@radiant:sr_schedule_v1',
+    APP_SCHEMA_VERSION: '@radiant:app_schema_version',
+    V14_MIGRATION_BACKUP: '@radiant:migration_v14_backup',
+    V14_MIGRATION_STATE: '@radiant:migration_v14_state',
 } as const;
 
 export const STUDENT_CHECKPOINT_STORAGE_KEYS = {

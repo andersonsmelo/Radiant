@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen, waitFor, within } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { router } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { renderWithProviders } from '../../test/renderWithProviders';
@@ -13,6 +13,7 @@ import { TelemetryService } from '../telemetry/TelemetryService';
 import { JourneyProgressService } from '../journey/services/JourneyProgressService';
 import { FirstRunService } from './FirstRunService';
 import type { ActiveResumeLaunch } from '../student-checkpoints/ActiveCheckpointRuntime';
+import { StorageMigrationService } from '../storage-migration/StorageMigrationService';
 
 // O primeiro render deste arquivo monta a árvore inteira do _layout (fontes,
 // splash screen, todos os bootstraps). Sob `--no-cache` isso paga o custo
@@ -106,6 +107,12 @@ jest.mock('../auth/AuthService', () => ({
   AuthService: { bootstrap: jest.fn(() => Promise.resolve()) },
 }));
 
+jest.mock('../storage-migration/StorageMigrationService', () => ({
+  StorageMigrationService: {
+    migrateToV14: jest.fn(() => Promise.resolve({ status: 'unchanged' })),
+  },
+}));
+
 jest.mock('../content/services/LessonCatalogService', () => ({
   LessonCatalogService: { bootstrap: jest.fn(() => Promise.resolve()) },
 }));
@@ -191,6 +198,7 @@ describe('gate de abertura em RootLayout', () => {
     AppConfig.SHOW_DEV_TOOLS = true;
     (BetaService.checkAccess as jest.Mock).mockResolvedValue(true);
     (AuthService.bootstrap as jest.Mock).mockResolvedValue(undefined);
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockResolvedValue({ status: 'unchanged' });
     (LessonCatalogService.bootstrap as jest.Mock).mockResolvedValue(undefined);
     (SyncQueueService.flush as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.track as jest.Mock).mockResolvedValue(undefined);
@@ -215,6 +223,60 @@ describe('gate de abertura em RootLayout', () => {
 
     renderWithProviders(<RootLayout />);
     await waitFor(() => expect(warmNativeStorage).toHaveBeenCalled());
+  });
+
+  it('conclui a migração antes de iniciar serviços e boas-vindas', async () => {
+    let releaseMigration: (() => void) | undefined;
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockReturnValue(
+      new Promise(resolve => {
+        releaseMigration = () => resolve({ status: 'migrated' });
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    expect(AuthService.bootstrap).not.toHaveBeenCalled();
+    expect(FirstRunService.bootstrap).not.toHaveBeenCalled();
+
+    releaseMigration?.();
+
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
+    expect(StorageMigrationService.migrateToV14).toHaveBeenCalledTimes(1);
+    expect(AuthService.bootstrap).toHaveBeenCalledTimes(1);
+  });
+
+  it('abre o app e informa a recuperação sem bloquear o modo local', async () => {
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockResolvedValue({
+      status: 'started-clean-with-warning',
+      warning: 'Não encontramos uma cópia segura. O Radiant iniciou um progresso local novo.',
+    });
+
+    renderWithProviders(<RootLayout />);
+
+    expect(await screen.findByTestId('stack-root')).toBeTruthy();
+    expect(screen.getByText(
+      'Pixel: Não encontramos uma cópia segura. O Radiant iniciou um progresso local novo.',
+    )).toBeTruthy();
+  });
+
+  it('só mostra o progresso detalhado quando a migração ultrapassa um segundo', async () => {
+    let releaseMigration: (() => void) | undefined;
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockReturnValue(
+      new Promise(resolve => {
+        releaseMigration = () => resolve({ status: 'migrated' });
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+    expect(screen.queryByText('Organizando seu progresso…')).toBeNull();
+
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 1050));
+    });
+    expect(await screen.findByText('Organizando seu progresso…')).toBeTruthy();
+
+    releaseMigration?.();
+    await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
   });
 
   it('oferece CTA explícito antes de navegar para uma retomada ativa', async () => {

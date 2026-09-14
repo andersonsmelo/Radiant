@@ -289,6 +289,13 @@ carrega o pacote inteiro.
    passaram. A ligação da rota resolvida às telas/notificações fica nas tarefas
    de superfície, sem ativar push nem currículo novo aqui.
 
+   **Task 4 concluída localmente em 2026-09-14:** a abertura agora migra o
+   progresso pedagógico v1.3.1 antes dos demais serviços, grava backup antes da
+   primeira mutação, recupera interrupções e mantém autenticação fora do escopo
+   migrado. Falha recuperável abre o modo local com aviso do Pixel; somente
+   migrações acima de um segundo exibem progresso detalhado. Typecheck, lint e
+   28/28 testes focados passaram; nenhum adaptador nativo foi ativado.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

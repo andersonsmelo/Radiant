@@ -21,6 +21,7 @@ import {
   getJourneyNodeHref,
 } from '../features/journey/services/JourneyNodeRouting';
 import { SyncQueueService } from '../features/sync/SyncQueueService';
+import { StorageMigrationService } from '../features/storage-migration/StorageMigrationService';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
   initializeObservability,
@@ -64,6 +65,8 @@ function RootLayout() {
   const [isBetaUnlocked, setIsBetaUnlocked] = useState(false);
   const [startupPhase, setStartupPhase] = useState<'loading' | 'ready' | 'error'>('loading');
   const [startupError, setStartupError] = useState<string | null>(null);
+  const [showMigrationProgress, setShowMigrationProgress] = useState(false);
+  const [migrationNotice, setMigrationNotice] = useState<string | null>(null);
   const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
   const [pendingWelcomeHref, setPendingWelcomeHref] = useState<Href | null>(null);
@@ -130,8 +133,21 @@ function RootLayout() {
     const bootstrapApp = async () => {
       setStartupPhase('loading');
       setStartupError(null);
+      setShowMigrationProgress(false);
+      setMigrationNotice(null);
+
+      let migrationProgressTimer: ReturnType<typeof setTimeout> | undefined;
 
       try {
+        migrationProgressTimer = setTimeout(() => {
+          if (active) setShowMigrationProgress(true);
+        }, 1000);
+        const migrationResult = await StorageMigrationService.migrateToV14();
+        clearTimeout(migrationProgressTimer);
+        migrationProgressTimer = undefined;
+        if (!active) return;
+        setMigrationNotice(migrationResult.warning ?? null);
+
         const granted = shouldEnforceBetaGate ? await BetaService.checkAccess() : true;
         if (!active) {
           return;
@@ -211,6 +227,7 @@ function RootLayout() {
         });
         setStartupPhase('ready');
       } catch (error) {
+        if (migrationProgressTimer) clearTimeout(migrationProgressTimer);
         console.error('[RootLayout] App bootstrap failed:', error);
         if (!active) {
           return;
@@ -302,6 +319,7 @@ function RootLayout() {
           title="Preparando o Radiant"
           body="Carregando seu progresso local e validando o estado do aplicativo."
           tone="loading"
+          showDetailedProgress={showMigrationProgress}
         />
         <StatusBar style="light" />
       </ThemeProvider>
@@ -369,6 +387,18 @@ function RootLayout() {
 
   return (
     <ThemeProvider value={navigationTheme}>
+      {migrationNotice ? (
+        <View accessibilityRole="alert" style={styles.migrationNotice}>
+          <Text style={styles.migrationNoticeText}>Pixel: {migrationNotice}</Text>
+          <AppButton
+            accessibilityLabel="Fechar aviso de progresso"
+            onPress={() => setMigrationNotice(null)}
+            variant="secondary"
+          >
+            Entendi
+          </AppButton>
+        </View>
+      ) : null}
       {/*
         Every screen here draws its own header, so hiding it is the default
         rather than something each route opts into. A route that is not
@@ -399,6 +429,7 @@ interface StartupScreenProps {
   body: string;
   tone: 'loading' | 'error';
   onRetry?: () => void;
+  showDetailedProgress?: boolean;
 }
 
 function CheckpointResumeScreen({
@@ -457,7 +488,7 @@ function CheckpointResumeScreen({
   );
 }
 
-function StartupScreen({ title, body, tone, onRetry }: StartupScreenProps) {
+function StartupScreen({ title, body, tone, onRetry, showDetailedProgress = false }: StartupScreenProps) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={[layout.container, layout.center, styles.content]}>
@@ -465,6 +496,16 @@ function StartupScreen({ title, body, tone, onRetry }: StartupScreenProps) {
           {tone === 'loading' ? <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} /> : null}
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.body}>{body}</Text>
+          {tone === 'loading' && showDetailedProgress ? (
+            <View
+              accessibilityRole="progressbar"
+              accessibilityLabel="Organizando seu progresso"
+              style={styles.migrationProgressTrack}
+            >
+              <View style={styles.migrationProgressFill} />
+              <Text style={styles.migrationProgressText}>Organizando seu progresso…</Text>
+            </View>
+          ) : null}
           {tone === 'error' && onRetry ? (
             <AppButton onPress={onRetry} style={styles.button}>
               Tentar novamente
@@ -523,6 +564,32 @@ const styles = StyleSheet.create({
   body: {
     ...typography.bodyRegular,
     color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  migrationProgressTrack: {
+    width: '100%',
+    gap: space.s1,
+  },
+  migrationProgressFill: {
+    width: '66%',
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: galaxyColors.ctaGradientEnd,
+  },
+  migrationProgressText: {
+    ...typography.caption,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  migrationNotice: {
+    paddingHorizontal: space.s3,
+    paddingVertical: space.s2,
+    gap: space.s2,
+    backgroundColor: galaxyColors.surface,
+  },
+  migrationNoticeText: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textPrimary,
     textAlign: 'center',
   },
   button: {

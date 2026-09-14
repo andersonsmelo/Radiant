@@ -1555,7 +1555,10 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   adaptação; consumidores de tela e notificação entram nas tarefas de superfície.
 - **K2 [CONCLUÍDA — LOCAL, 2026-09-14]** Economia persistente de vidas entregue
   como serviço puro e repositório serializado; 18/18 testes focados aprovados.
-- **K3 [P0]** Migrar armazenamento com backup e recuperação explícita.
+- **K3 [CONCLUÍDA — LOCAL, 2026-09-14]** Migração do progresso v1.3.1 entregue
+  com backup anterior à primeira mutação, restauração de interrupções, fallback
+  local explícito e 28/28 testes focados aprovados; autenticação permanece fora
+  da allowlist migrada.
 - **K4 [P0]** Cobrir trilha, lição, revisão e checkpoint na configuração de produção.
 - **K5 [P0]** Implementar contratos e telas de assinatura/backup sem conta.
 - **K6 [P0 — DEPENDE DO DONO E DE BUILD INTERNO]** Ligar StoreKit 2, iCloud e
