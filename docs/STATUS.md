@@ -29,7 +29,7 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (11)` | 🟢 **Aprovado pela App Review em 2026-09-14** (e-mails 17:40 e 17:41 BRT: "eligible for distribution" / "approved for distribution"). Estado de lançamento (Pronto para venda × Pendente de lançamento) **a medir no console** | **2026-09-14** |
+| App Store | `1.3.1 (11)` | 🟢 **Pronto para distribuição** — liberado pelo dono em 2026-09-14 após aprovação no mesmo dia; https://apps.apple.com/app/radiant-radiologia/id6797078156 (indexação da busca em até 24 h). Tag `v1.3.1` = `063770d` | **2026-09-14** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
 > 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
@@ -242,6 +242,17 @@ carrega o pacote inteiro.
    legado corrigido; **V3, login e assinatura são a 1.4**. Ao publicar,
    marcar `v1.3.1` no git — a última tag é `v1.2.1`, e o repositório não
    registra o que foi lançado desde então.
+
+   **Liberado em 2026-09-14.** A versão estava em *Liberação do desenvolvedor
+   pendente*; o dono clicou em *Liberar esta versão* e o console passou a
+   **Pronto para distribuição** (captura lida nesta sessão). As 6 capturas
+   novas e o texto promocional ("Funciona offline e sem login") conferidos na
+   mesma tela. **Tag `v1.3.1` criada em `063770d`** — o commit de que o
+   binário `(11)` foi construído, não o HEAD dos documentos. Primeira tag
+   desde `v1.2.1` (2026-07-26). Sem push; a tag é local até alguém decidir.
+
+   O bloqueio nº 1 desta lista — iOS — **fecha aqui**. O que segue é outra
+   fase: revisão de conteúdo por tema, e a 1.4 (V3 + login/assinatura).
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
