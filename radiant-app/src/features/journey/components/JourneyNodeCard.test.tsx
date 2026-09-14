@@ -98,6 +98,25 @@ describe('JourneyNodeCard — o estado é legível sem ler o rótulo', () => {
 });
 
 describe('JourneyNodeCard — onde o aluno está', () => {
+  it('explica quando o próximo nó é uma revisão devida e conta as devidas', () => {
+    const screen = renderCard('due-review', {
+      isRecommended: true,
+      recommendationReason: 'due-review',
+      dueReviewCount: 3,
+    });
+
+    expect(screen.getByText('Revisão devida · 3 devidas')).toBeTruthy();
+  });
+
+  it('explica a retomada sem substituir o título da lição', () => {
+    const screen = renderCard('resumable', {
+      isRecommended: true,
+      recommendationReason: 'paused-lesson',
+    });
+
+    expect(screen.getByText('Continuar de onde parou')).toBeTruthy();
+  });
+
   // "Onde eu estou" era carregado por uma borda azul e por uma linha de rodapé
   // dizendo "Próximo passo". Numa trilha rolável, com o nó atual quase sempre
   // fora do primeiro quadro, isso obrigava o aluno a ler cartão por cartão para

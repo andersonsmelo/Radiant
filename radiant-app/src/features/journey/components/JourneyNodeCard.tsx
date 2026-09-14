@@ -1,7 +1,7 @@
 import React from 'react';
 import { DecorativeIcon, type DecorativeIconName } from '../../../components/ui/DecorativeIcon';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import type { JourneyNode } from '../../../types/journey';
+import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -87,7 +87,22 @@ type JourneyNodeCardProps = {
   isRecommended: boolean;
   onPress: (node: JourneyNode) => void;
   disabled?: boolean;
+  recommendationReason?: NextNodeDecision['reason'];
+  dueReviewCount?: number;
 };
+
+function getRecommendationCopy(
+  isRecommended: boolean,
+  reason: NextNodeDecision['reason'] | undefined,
+  dueReviewCount: number,
+): string | null {
+  if (!isRecommended) return null;
+  if (reason === 'paused-lesson') return 'Continuar de onde parou';
+  if (reason === 'due-review') {
+    return `Revisão devida · ${dueReviewCount} ${dueReviewCount === 1 ? 'devida' : 'devidas'}`;
+  }
+  return 'Próximo passo';
+}
 
 export function JourneyNodeCard({
   node,
@@ -95,11 +110,18 @@ export function JourneyNodeCard({
   isRecommended,
   onPress,
   disabled = false,
+  recommendationReason,
+  dueReviewCount = 0,
 }: JourneyNodeCardProps) {
   const meta = getNodeCopy(node);
   const presentation = getStatusPresentation(node);
   const alignRight = nodeIndex % 2 === 1;
   const isLocked = node.status === 'locked';
+  const recommendationCopy = getRecommendationCopy(
+    isRecommended,
+    recommendationReason,
+    dueReviewCount,
+  );
 
   return (
     <View style={[styles.row, alignRight && styles.rowRight]}>
@@ -122,7 +144,7 @@ export function JourneyNodeCard({
         onPress={() => onPress(node)}
         disabled={disabled}
         accessibilityRole="button"
-        accessibilityLabel={`${node.title}. ${isRecommended ? 'Próximo passo' : getStatusCopy(node)}.`}
+        accessibilityLabel={`${node.title}. ${recommendationCopy ?? getStatusCopy(node)}.`}
         accessibilityState={{ disabled }}
         style={({ pressed }) => [
           styles.card,
@@ -166,7 +188,7 @@ export function JourneyNodeCard({
             testID={`journey-status-${node.id}`}
             style={[styles.metaText, { color: presentation.accentColor }]}
           >
-            {isRecommended ? 'Próximo passo' : getStatusCopy(node)}
+            {recommendationCopy ?? getStatusCopy(node)}
           </Text>
         </View>
       </Pressable>

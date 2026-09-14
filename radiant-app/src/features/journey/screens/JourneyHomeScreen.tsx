@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { JourneyProgressService } from '../services/JourneyProgressService';
@@ -18,6 +18,9 @@ import { JourneyCurriculumService, type CurriculumTrail } from '../services/Jour
 import { computeSegmentPrimaryProgress } from '../services/JourneyUnitProgress';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import type { HeartsSnapshot } from '../../hearts/hearts.types';
+import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -30,6 +33,8 @@ export default function JourneyHomeScreen() {
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [trail, setTrail] = useState<CurriculumTrail | null>(null);
+  const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
+  const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -38,12 +43,14 @@ export default function JourneyHomeScreen() {
       // A meta do dia saiu daqui com o hero: ela tem superfície própria e
       // completa na aba Missões, com seleção de nível, e duplicá-la na trilha
       // era o que fazia o primeiro quadro de Estude não mostrar trilha nenhuma.
-      const [nextSnapshot, nextTrail] = await Promise.all([
+      const [nextSnapshot, nextTrail, nextHearts] = await Promise.all([
         JourneyProgressService.bootstrap(),
         JourneyCurriculumService.getCurriculumTrail(),
+        heartsRepository.getSnapshot(Date.now()),
       ]);
       setSnapshot(nextSnapshot);
       setTrail(nextTrail);
+      setHearts(nextHearts);
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
       setError('Não foi possível carregar a jornada.');
@@ -60,51 +67,7 @@ export default function JourneyHomeScreen() {
     }, [loadSnapshot])
   );
 
-  const currentUnit = useMemo(
-    () => snapshot?.track.units.find((unit) => unit.id === snapshot.progress.currentUnitId) ?? snapshot?.track.units[0] ?? null,
-    [snapshot]
-  );
-
-  /**
-   * O passo que a HOME anuncia — que não é necessariamente o que o serviço
-   * recomenda.
-   *
-   * A revisão deixou de ser objetivo da Home em 2026-08-14: ela pertence à
-   * trilha, onde aparece como nó no percurso. Quando a recomendação cai numa
-   * revisão, a Home procura a próxima etapa de APRENDIZADO da unidade e
-   * anuncia essa; a revisão continua existindo, só não vira manchete.
-   *
-   * A escolha é feita aqui, e não em `getNextRecommendedNode`, de propósito: o
-   * serviço é a autoridade sobre elegibilidade e alimenta também a Galáxia e o
-   * roteamento. Filtrar lá mudaria o que é elegível em TODA a aplicação para
-   * resolver um problema de destaque de UMA tela.
-   *
-   * O fallback devolve a própria revisão: se ela é a única coisa aberta, um
-   * botão que aponta para lugar nenhum é pior que um que diz a verdade.
-   */
-  const homeNextNode = useMemo(() => {
-    const recommended = snapshot?.nextRecommendedNode ?? null;
-
-    if (!recommended) {
-      return null;
-    }
-
-    const isReview = recommended.type === 'review' || recommended.status === 'due-review';
-
-    if (!isReview) {
-      return recommended;
-    }
-
-    const learningStep = currentUnit?.nodes.find(
-      (node) =>
-        node.type !== 'review' &&
-        node.status !== 'due-review' &&
-        node.status !== 'completed' &&
-        node.status !== 'locked',
-    );
-
-    return learningStep ?? recommended;
-  }, [snapshot?.nextRecommendedNode, currentUnit]);
+  const homeNextNode = snapshot?.nextRecommendedNode ?? null;
 
   const continueLabel = useMemo(() => {
     const nextNode = homeNextNode;
@@ -149,7 +112,7 @@ export default function JourneyHomeScreen() {
     const nodesOf = (segment: (typeof segments)[number]) =>
       segment.units.flatMap((unit) => unit.nodes);
 
-    const recommendedId = trail?.recommendedNodeId ?? snapshot?.nextRecommendedNode?.id;
+    const recommendedId = snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId;
     const withRecommended = recommendedId
       ? segments.find((segment) => nodesOf(segment).some((node) => node.id === recommendedId))
       : undefined;
@@ -184,18 +147,14 @@ export default function JourneyHomeScreen() {
     router.push(href);
   }, [canOpenNode]);
 
-  const noNextStepMessage = useMemo(() => {
-    if (!snapshot || snapshot.nextRecommendedNode) {
-      return null;
-    }
+  const noNextStepMessage = snapshot && !snapshot.nextRecommendedNode
+    ? 'Você concluiu tudo que está disponível. Revisões e checkpoints continuarão aparecendo aqui.'
+    : null;
 
-    const activeTrackTitle = currentUnit?.title ?? 'Esta trilha';
-
-    // Até 2026-08-21 esta frase mandava o aluno para "a aba Galáxia". A aba foi
-    // absorvida por Estude, e o percurso contínuo já mostra o que vem adiante —
-    // rolar para frente é a ação, não trocar de superfície.
-    return `Você já concluiu tudo que está aberto em ${activeTrackTitle}. Role a trilha para ver o que vem adiante.`;
-  }, [currentUnit?.title, snapshot]);
+  const dueReviewNode = useMemo(
+    () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node => node.status === 'due-review') ?? null,
+    [snapshot],
+  );
 
   return (
     <View style={styles.root} testID="journey-home-screen">
@@ -204,8 +163,10 @@ export default function JourneyHomeScreen() {
         <HUD
           totalXp={gamification?.totalXp ?? 0}
           streakDays={gamification?.streakDays ?? 0}
-          hearts={gamification?.hearts ?? 5}
+          hearts={hearts?.count ?? gamification?.hearts ?? 5}
           maxHearts={gamification?.maxHearts ?? 5}
+          heartsSnapshot={hearts ?? undefined}
+          onHeartsPress={() => setHeartsSheetVisible(true)}
         />
         {loading ? (
           <View style={styles.centered}>
@@ -215,13 +176,17 @@ export default function JourneyHomeScreen() {
               accessibilityRole="progressbar"
               accessibilityLabel="Carregando jornada"
             />
+            <Text style={styles.loadingText}>Preparando sua trilha…</Text>
+          </View>
+        ) : error ? (
+          <View style={styles.centered}>
+            <View style={styles.errorCard} accessibilityRole="alert">
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+            <AppButton onPress={() => void loadSnapshot()} style={styles.retry}>Tentar novamente</AppButton>
           </View>
         ) : (
-          <ScrollView
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-            contentInsetAdjustmentBehavior="always"
-          >
+          <View style={styles.content}>
             <JourneyStageHeader
               title={currentStage.title}
               completed={currentStage.completed}
@@ -230,7 +195,9 @@ export default function JourneyHomeScreen() {
 
             <JourneyTrail
               segments={trail?.segments ?? []}
-              recommendedNodeId={trail?.recommendedNodeId ?? snapshot?.nextRecommendedNode?.id}
+              recommendedNodeId={snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId}
+              recommendationReason={snapshot?.nextDecision?.reason}
+              dueReviewCount={snapshot?.nextDecision?.dueReviewCount ?? snapshot?.dueReviewCount ?? 0}
               onNodePress={(node) => {
                 void openNode(node);
               }}
@@ -239,14 +206,8 @@ export default function JourneyHomeScreen() {
 
             {noNextStepMessage ? (
               <View style={styles.messageCard}>
-                <Text style={styles.messageTitle}>Trilha pausada por agora</Text>
+                <Text style={styles.messageTitle}>Novo arco em breve</Text>
                 <Text style={styles.messageText}>{noNextStepMessage}</Text>
-              </View>
-            ) : null}
-
-            {error ? (
-              <View style={styles.errorCard} accessibilityRole="alert">
-                <Text style={styles.errorText}>{error}</Text>
               </View>
             ) : null}
 
@@ -263,9 +224,23 @@ export default function JourneyHomeScreen() {
             >
               {continueLabel}
             </AppButton>
-          </ScrollView>
+          </View>
         )}
       </SafeAreaView>
+      {hearts ? (
+        <HeartsSheet
+          visible={heartsSheetVisible && hearts.status !== 'unlimited'}
+          snapshot={hearts}
+          dueReviewCount={snapshot?.dueReviewCount ?? 0}
+          storeAvailable={false}
+          onClose={() => setHeartsSheetVisible(false)}
+          onReview={() => {
+            setHeartsSheetVisible(false);
+            if (dueReviewNode) void openNode(dueReviewNode);
+          }}
+          onSubscribe={() => undefined}
+        />
+      ) : null}
     </View>
   );
 }
@@ -273,18 +248,9 @@ export default function JourneyHomeScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: galaxyColors.background },
   safe: { flex: 1 },
-  centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  content: { padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
-  summaryCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s2,
-  },
-  summaryTitle: { ...typography.h3, color: galaxyColors.textPrimary },
-  summaryList: { gap: space.s2 },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: space.s3, gap: space.s2 },
+  loadingText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  content: { flex: 1, padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
   messageCard: {
     backgroundColor: galaxyColors.surface,
     borderRadius: radius.rLg,
@@ -303,5 +269,6 @@ const styles = StyleSheet.create({
     padding: space.s3,
   },
   errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
+  retry: { marginTop: space.s1 },
   cta: { marginTop: space.s1 },
 });

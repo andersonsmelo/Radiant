@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { galaxyColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
@@ -218,3 +218,10 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
     expect(spineStates(screen)).toEqual(['percorrido', 'percorrido']);
   });
 });
+  it('usa uma lista virtualizada como superfície rolável', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available'])]),
+    ]);
+
+    expect(screen.UNSAFE_getByType(FlatList)).toBeTruthy();
+  });

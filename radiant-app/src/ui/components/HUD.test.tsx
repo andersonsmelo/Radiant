@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import Svg from 'react-native-svg';
 import { HUD } from './HUD';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
@@ -45,6 +45,47 @@ const mockedReducedMotion = useReducedMotionPreference as jest.MockedFunction<
 // emojis decorativos de XP/streak. Aqui travamos o anúncio consolidado.
 
 describe('HUD — acessibilidade', () => {
+  it('resume vidas recuperando e abre a folha ao toque', () => {
+    const onHeartsPress = jest.fn();
+    const screen = render(
+      <HUD
+        totalXp={10}
+        streakDays={1}
+        hearts={3}
+        heartsSnapshot={{
+          count: 3,
+          status: 'recovering',
+          nextRefillAt: '2026-09-14T12:09:01.000Z',
+          unlimitedUntil: null,
+        }}
+        nowMs={Date.parse('2026-09-14T12:00:00.000Z')}
+        onHeartsPress={onHeartsPress}
+      />,
+    );
+
+    expect(screen.getByText('3 · +1 em 10 min')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: /3 de 5 vidas/u }));
+    expect(onHeartsPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('mostra infinito para assinante', () => {
+    const screen = render(
+      <HUD
+        totalXp={10}
+        streakDays={1}
+        hearts={5}
+        heartsSnapshot={{
+          count: 5,
+          status: 'unlimited',
+          nextRefillAt: null,
+          unlimitedUntil: '2026-10-14T12:00:00.000Z',
+        }}
+      />,
+    );
+
+    expect(screen.getByText('∞')).toBeTruthy();
+  });
+
   it('expõe as vidas como um único rótulo, não um emoji por coração', () => {
     const { getByLabelText, queryByLabelText } = render(
       <HUD totalXp={1234} streakDays={3} hearts={2} maxHearts={5} />,

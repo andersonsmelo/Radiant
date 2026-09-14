@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import JourneyHomeScreen from './JourneyHomeScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
@@ -74,6 +74,17 @@ jest.mock('../../gamification/services/GamificationService', () => ({
       lastActiveDate: null,
       hearts: 5,
       maxHearts: 5,
+    }),
+  },
+}));
+
+jest.mock('../../hearts/HeartsRepository', () => ({
+  heartsRepository: {
+    getSnapshot: jest.fn().mockResolvedValue({
+      count: 5,
+      status: 'full',
+      nextRefillAt: null,
+      unlimitedUntil: null,
     }),
   },
 }));
@@ -249,6 +260,11 @@ function createSnapshot(trackId: string, nodeTitle: string, nodeId: string, bloc
       status: 'available',
       blockId,
     },
+    nextDecision: {
+      nodeId,
+      reason: 'next-lesson',
+      dueReviewCount: 0,
+    },
     completedCount: 0,
     dueReviewCount: 0,
   } as any;
@@ -335,12 +351,7 @@ describe('JourneyHomeScreen track flow', () => {
   });
 });
 
-describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
-  // A revisão pertence à trilha, onde é um nó do percurso. Até 2026-08-14 a
-  // Home a promovia a manchete: a linha "Próximo" lia "Revisão · Revisão
-  // pedida" — a mesma palavra duas vezes, em tom de cobrança — e o CTA virava
-  // "Fazer revisão". A escolha do que ANUNCIAR é da Home; a de o que é
-  // ELEGÍVEL continua do serviço, que alimenta Galáxia e roteamento também.
+describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => {
   function snapshotWithReviewRecommended(extraNodes: any[]) {
     const base = createSnapshot(
       'track-radiology-foundations',
@@ -359,10 +370,16 @@ describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
 
     base.track.units[0].nodes = [review, ...extraNodes];
     base.nextRecommendedNode = review;
+    base.nextDecision = {
+      nodeId: review.id,
+      reason: 'due-review',
+      dueReviewCount: 2,
+    };
+    base.dueReviewCount = 2;
     return base;
   }
 
-  it('anuncia a próxima etapa de aprendizado quando a recomendação é uma revisão', async () => {
+  it('não pula uma revisão devida para promover uma lição nova', async () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(
       snapshotWithReviewRecommended([
         {
@@ -378,13 +395,8 @@ describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    // O que sobreviveu à remoção do card "Foco de hoje": a escolha do que o CTA
-    // anuncia. As asserções sobre a linha "Próximo · Lição · Disponível" caíram
-    // com o card em 2026-08-21 — a trilha diz isso melhor, destacando o nó. O
-    // comportamento sob teste nunca foi o texto da linha, e sim `homeNextNode`
-    // não deixar a revisão virar manchete.
-    await waitFor(() => expect(screen.getByText('Continuar jornada')).toBeTruthy());
-    expect(screen.queryByText('Fazer revisão')).toBeNull();
+    await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
+    expect(screen.queryByText('Continuar jornada')).toBeNull();
   });
 
   it('quando a revisão é a única coisa aberta, o botão diz o que vai abrir', async () => {
@@ -398,5 +410,60 @@ describe('JourneyHomeScreen — a revisão não é objetivo da Home', () => {
 
     await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
     expect(screen.queryByText('Continuar jornada')).toBeNull();
+  });
+
+  it('mostra um esqueleto sem inventar estado enquanto carrega', async () => {
+    let release: ((value: ReturnType<typeof createSnapshot>) => void) | undefined;
+    mockedJourneyProgressService.bootstrap.mockReturnValue(
+      new Promise(resolve => {
+        release = resolve;
+      }) as never,
+    );
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(screen.getByText('Preparando sua trilha…')).toBeTruthy();
+    release?.(createSnapshot(
+      'track-radiology-foundations',
+      'Fundamentos de radiologia',
+      'node-foundations-lesson',
+      'block-foundations',
+    ));
+    await screen.findByTestId('journey-trail');
+  });
+
+  it('oferece tentar novamente quando a leitura local falha', async () => {
+    mockedJourneyProgressService.bootstrap.mockRejectedValueOnce(new Error('storage unavailable'));
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Não foi possível carregar a jornada.')).toBeTruthy();
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(
+      createSnapshot(
+        'track-radiology-foundations',
+        'Fundamentos de radiologia',
+        'node-foundations-lesson',
+        'block-foundations',
+      ),
+    );
+    fireEvent.press(screen.getByRole('button', { name: 'Tentar novamente' }));
+    expect(await screen.findByTestId('journey-trail')).toBeTruthy();
+  });
+
+  it('explica que um novo arco vem aí quando tudo disponível foi concluído', async () => {
+    const complete = createSnapshot(
+      'track-radiology-foundations',
+      'Fundamentos de radiologia',
+      'node-foundations-lesson',
+      'block-foundations',
+    );
+    complete.nextRecommendedNode = null;
+    complete.nextDecision = null;
+    complete.track.units[0].nodes[0].status = 'completed';
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(complete);
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Novo arco em breve')).toBeTruthy();
   });
 });

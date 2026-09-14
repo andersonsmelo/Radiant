@@ -4,8 +4,10 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import type { HeartsSnapshot } from '../../features/hearts/hearts.types';
 import { galaxyColors } from '../theme';
+import { space } from '../styles';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 
 // ── Tipos ──────────────────────────────────────────────────────
@@ -17,6 +19,9 @@ interface HUDProps {
   maxHearts?: number;
   /** compact: mostra só os corações, sem pills de XP/streak */
   compact?: boolean;
+  heartsSnapshot?: HeartsSnapshot;
+  onHeartsPress?: () => void;
+  nowMs?: number;
 }
 
 // ── Sub-componentes ───────────────────────────────────────────
@@ -44,7 +49,15 @@ function HUDPill({
   );
 }
 
-export function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts: number }) {
+export function HeartsDisplay({
+  hearts,
+  maxHearts,
+  hiddenFromAccessibility = false,
+}: {
+  hearts: number;
+  maxHearts: number;
+  hiddenFromAccessibility?: boolean;
+}) {
   const previousHearts = useRef(hearts);
   // Índice do coração que acabou de esvaziar. `hearts` já é o valor NOVO, então
   // ele aponta para a posição perdida. Precisa ser state, e não ref: quem decide
@@ -80,9 +93,10 @@ export function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts
   return (
     <View
       style={styles.heartsRow}
-      accessible
+      accessible={!hiddenFromAccessibility}
       accessibilityRole="text"
       accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
+      importantForAccessibility={hiddenFromAccessibility ? 'no-hide-descendants' : 'auto'}
     >
       {Array.from({ length: maxHearts }, (_, i) => (
         <View
@@ -103,11 +117,56 @@ export function HeartsDisplay({ hearts, maxHearts }: { hearts: number; maxHearts
 
 // ── Componente principal ──────────────────────────────────────
 
-export function HUD({ totalXp, streakDays, hearts, maxHearts = 5, compact = false }: HUDProps) {
+function remainingMinutes(nextRefillAt: string | null, nowMs: number): number | null {
+  if (nextRefillAt === null) return null;
+  return Math.max(1, Math.ceil((Date.parse(nextRefillAt) - nowMs) / 60_000));
+}
+
+export function HUD({
+  totalXp,
+  streakDays,
+  hearts,
+  maxHearts = 5,
+  compact = false,
+  heartsSnapshot,
+  onHeartsPress,
+  nowMs = Date.now(),
+}: HUDProps) {
+  const visibleHearts = heartsSnapshot?.count ?? hearts;
+  const minutes = remainingMinutes(heartsSnapshot?.nextRefillAt ?? null, nowMs);
+  const summary = heartsSnapshot?.status === 'unlimited'
+    ? '∞'
+    : heartsSnapshot
+      ? `${visibleHearts}${minutes === null ? '' : ` · +1 em ${minutes} min`}`
+      : null;
+  const accessibilityLabel = heartsSnapshot?.status === 'unlimited'
+    ? 'Vidas ilimitadas'
+    : `${visibleHearts} de ${maxHearts} vidas${minutes === null ? '' : `; próxima em ${minutes} minutos`}`;
+  const heartsContent = (
+    <View style={styles.heartsControlContent}>
+      <HeartsDisplay
+        hearts={visibleHearts}
+        maxHearts={maxHearts}
+        hiddenFromAccessibility={Boolean(onHeartsPress)}
+      />
+      {summary ? <Text style={styles.heartsSummary}>{summary}</Text> : null}
+    </View>
+  );
+  const heartsControl = onHeartsPress ? (
+    <Pressable
+      onPress={onHeartsPress}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      style={({ pressed }) => [styles.heartsButton, pressed && styles.heartsButtonPressed]}
+    >
+      {heartsContent}
+    </Pressable>
+  ) : heartsContent;
+
   if (compact) {
     return (
       <View style={[styles.container, styles.containerCompact]}>
-        <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
+        {heartsControl}
       </View>
     );
   }
@@ -128,7 +187,7 @@ export function HUD({ totalXp, streakDays, hearts, maxHearts = 5, compact = fals
           accessibilityLabel={`${streakDays} ${streakDays === 1 ? 'dia' : 'dias'} de sequência`}
         />
       </View>
-      <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
+      {heartsControl}
     </View>
   );
 }
@@ -174,6 +233,14 @@ const styles = StyleSheet.create({
     gap: 3,
     alignItems: 'center',
   },
+  heartsControlContent: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
+  heartsButton: {
+    borderRadius: 20,
+    paddingHorizontal: space.s2,
+    paddingVertical: 4,
+  },
+  heartsButtonPressed: { backgroundColor: galaxyColors.surfaceActive },
+  heartsSummary: { fontSize: 12, fontWeight: '700', color: galaxyColors.textSecondary },
   heartIcon: {
     fontSize: 18,
   },

@@ -296,6 +296,14 @@ carrega o pacote inteiro.
    migrações acima de um segundo exibem progresso detalhado. Typecheck, lint e
    28/28 testes focados passaram; nenhum adaptador nativo foi ativado.
 
+   **Task 5 concluída localmente em 2026-09-14:** a trilha soberana agora é uma
+   `FlatList` de bandas e nós com chaves estáveis; revisão devida e retomada
+   explicam o motivo do próximo nó. O HUD lê as vidas do repositório próprio,
+   mostra recuperação ou infinito e abre uma folha modal com Esperar, Revisar e
+   Assinar conforme disponibilidade. Carregamento, falha recuperável e fim do
+   conteúdo têm estados explícitos. Typecheck, lint e 54/54 testes focados
+   passaram; K4 permanece aberta até os fluxos de estudo da Task 6.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
