@@ -1553,7 +1553,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
 - **K1 [P0 — EM ANDAMENTO]** Motor puro `NextNodeResolver` implementado em
   2026-09-14 com 9/9 testes focados; integração ao snapshot e deep link segue
   na Task 3 do plano.
-- **K2 [P0]** Implementar a economia persistente de vidas.
+- **K2 [CONCLUÍDA — LOCAL, 2026-09-14]** Economia persistente de vidas entregue
+  como serviço puro e repositório serializado; 18/18 testes focados aprovados.
 - **K3 [P0]** Migrar armazenamento com backup e recuperação explícita.
 - **K4 [P0]** Cobrir trilha, lição, revisão e checkpoint na configuração de produção.
 - **K5 [P0]** Implementar contratos e telas de assinatura/backup sem conta.

@@ -19,6 +19,7 @@ export const STORAGE_KEYS = {
     LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
     COMPETENCY_MASTERY: '@radiant:competency_mastery_v1',
     LESSON_RATINGS: '@radiant:lesson_ratings_v1',
+    HEARTS: '@radiant:hearts_v1',
 } as const;
 
 export const STUDENT_CHECKPOINT_STORAGE_KEYS = {

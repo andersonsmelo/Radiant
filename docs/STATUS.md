@@ -278,6 +278,11 @@ carrega o pacote inteiro.
    os quatro degraus da spec com relógio injetado e nenhum IO. A suíte focada
    passou com 9/9 casos; a ligação ao snapshot da trilha permanece para a Task 3.
 
+   **Task 2 concluída localmente em 2026-09-14:** a economia de vidas agora tem
+   serviço puro e repositório serializado, com persistência restrita a `count`,
+   `lastRefillAt` e `unlimitedUntil`. A matriz focada passou com 18/18 casos,
+   incluindo relógio reverso, salto à frente, expiração e concorrência.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
