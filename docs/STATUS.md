@@ -29,7 +29,7 @@ git branch -a && gh pr list --state open
 
 | Loja | Artefato | Estado | **Medido em** |
 | --- | --- | --- | --- |
-| App Store | `1.3.1 (11)` | 🟡 **Aguardando revisão** — reenviado em 2026-09-13 (o botão *Reenviar para Revisão do app*), respondendo à rejeição de 14/08; vídeo, 6 capturas e Notes anexados em 12/09 | **2026-09-13** |
+| App Store | `1.3.1 (11)` | 🟢 **Aprovado pela App Review em 2026-09-14** (e-mails 17:40 e 17:41 BRT: "eligible for distribution" / "approved for distribution"). Estado de lançamento (Pronto para venda × Pendente de lançamento) **a medir no console** | **2026-09-14** |
 | Play — alpha fechado | `1.3.0 (4)` | Ativo · lista "Radiant Alpha" com 14 usuários · lançada 31/07 15:45 | **2026-08-24** |
 
 > 🔴 **A rejeição chegou em 14/08 às 02:54 e ficou dez dias sem leitura.** Este
@@ -226,6 +226,22 @@ carrega o pacote inteiro.
    revisão**, medido na tela. Este é o momento em que a Apple recebeu o
    `(11)`. Evidência da coleta de 13/09 (relatório da sessão Codex) em
    `~/Desktop/Radiant - evidências Apple 2026-09-13/`, fora do repositório.
+
+   **Aprovado em 2026-09-14.** Dois e-mails do App Store Connect, 17:40 e
+   17:41 BRT: *"Review of your submission has been completed. It is now
+   eligible for distribution"* (Submission ID
+   `93758050-6a5b-42d5-957c-575224b14fbb`, item aceito *1.3.1 for iOS*) e
+   *"Welcome to the App Store … approved for distribution"*. Link:
+   https://apps.apple.com/app/radiant-radiologia/id6797078156. **A aprovação
+   não é a publicação:** se a versão estiver em *Pendente de lançamento pelo
+   desenvolvedor*, falta o botão *Lançar esta versão*; se estiver em *Pronto
+   para venda*, a loja indexa em até 24 h. Medir no console antes de afirmar
+   "no ar". Linha do tempo: rejeição 14/08 → correções 08–11/09 (painel,
+   ordem das alternativas, cartão de login) → `(11)` 11/09 → resposta 12/09 →
+   reenvio efetivo 13/09 → aprovação 14/09. O que a Apple aprovou é o app
+   legado corrigido; **V3, login e assinatura são a 1.4**. Ao publicar,
+   marcar `v1.3.1` no git — a última tag é `v1.2.1`, e o repositório não
+   registra o que foi lançado desde então.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na

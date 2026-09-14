@@ -47,10 +47,10 @@ misturam as duas lojas, e os itens do Play não travam a App Store.
 > obedecesse a tabela antiga leria, na última linha, que não havia trabalho
 > neste caminho. Ressincronizada em **2026-08-25**.
 
-**Estado:** `1.3.1 (11)` **reenviada à App Review em 2026-09-13** (em 12/09 foi
-só a resposta ao revisor; o botão *Reenviar* faltou e a Apple apontou em
-13/09). **Aguardando revisão**, medido na tela em 2026-09-13; a próxima
-medição é o status da versão no App Store Connect. O que
+**Estado:** `1.3.1 (11)` **aprovada pela App Review em 2026-09-14** (e-mails
+17:40/17:41 BRT). Falta medir no console se está *Pronto para venda* ou
+*Pendente de lançamento pelo desenvolvedor* — no segundo caso, o botão
+*Lançar esta versão* é do dono. Depois de publicado: tag `v1.3.1`. O que
 segue abaixo é o histórico de como se chegou aqui. A instalação do
 `(9)` também revelou um defeito de conteúdo/apresentação. A parte de
 **apresentação** foi corrigida em 2026-09-08 — o painel visual legado saiu, com
@@ -90,6 +90,8 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Trocar as 6 capturas da página do produto | dono | **concluído** em 2026-09-12 |
 | Responder à Apple (vídeo + mensagem) | dono | **concluído** em 2026-09-12 — não reenvia por si só |
 | Reenviar para Revisão do app | dono | **concluído** em 2026-09-13 — botão na página *Envio do iOS*; cabeçalho passou a **Aguardando revisão** |
+| Revisão da Apple | Apple | **aprovada** em 2026-09-14 — "eligible for distribution" |
+| Lançar a versão e marcar `v1.3.1` | dono + agente | **pendente** — medir o estado de lançamento no console; se pendente, *Lançar esta versão*; depois a tag |
 | Conferir o segredo do Sentry contra as Privacy Labels | agente | **concluído** em 2026-09-08 — `eas env:list` sem variáveis em `production`; e o portão tem duas chaves (`ENABLE_CRASH_REPORTING && SENTRY_DSN`), ambas ausentes. Rótulo "Dados não coletados" coerente |
 | Disponibilidade e classificação etária no App Store Connect | dono | **concluído** em 2026-09-11 — 1 país (Brasil); 7 passos da classificação sem pergunta em branco, +13/A12 inalterado. DSA sem objeto enquanto não houver UE |
 | Responder ao item 7 — direitos e área regulada | dono | **concluído** em 2026-09-11 — fonte reclassificada `reference-only`, exceção encerrada, texto final no plano de resposta |
