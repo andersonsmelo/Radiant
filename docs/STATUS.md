@@ -254,6 +254,21 @@ carrega o pacote inteiro.
    O bloqueio nº 1 desta lista — iOS — **fecha aqui**. O que segue é outra
    fase: revisão de conteúdo por tema, e a 1.4 (V3 + login/assinatura).
 
+   **1.4 desenhada em 2026-09-14 — fluxo do usuário e padrão de robustez.**
+   Spec aprovada seção a seção pelo dono:
+   [`2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md).
+   Dez decisões, entre elas: freemium por **vidas** (5, +1 a cada 30 min,
+   revisão nunca consome, assinante ilimitado); **trilha soberana** (o motor
+   `NextNodeResolver` escolhe o nó: pausada > revisão devida > checkpoint >
+   próxima lição); **assinatura por StoreKit 2 direto**, sem trial, sem
+   terceiro; **backup no iCloud** em vez de conta própria; **Sentry ligado**
+   com rótulo "Dados de falha, não vinculados". Regra de ouro: toda tela de
+   estudo funciona sem rede, sem conta e sem assinatura — as frases aprovadas
+   pela Apple continuam verdadeiras. Fora desta spec, com spec própria: V3 na
+   tela (J3–J5), sistema de desenho. Do dono, fora do app: acordo de apps
+   pagos no App Store Connect (obrigatório antes de submeter a 1.4) e o preço.
+   **Próximo passo:** revisão do texto pelo dono → plano de implementação.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
