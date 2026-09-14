@@ -274,6 +274,10 @@ carrega o pacote inteiro.
    atrás de build interno e ações do dono. Nenhum build, envio ou publicação foi
    autorizado por este plano.
 
+   **Task 1 concluída localmente em 2026-09-14:** `NextNodeResolver` implementa
+   os quatro degraus da spec com relógio injetado e nenhum IO. A suíte focada
+   passou com 9/9 casos; a ligação ao snapshot da trilha permanece para a Task 3.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

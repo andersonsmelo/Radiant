@@ -32,6 +32,23 @@ export type JourneyNode = JourneyNodeDefinition & {
     status: JourneyNodeStatus;
 };
 
+export type NextNodeCandidate = {
+    nodeId: string;
+    type: 'lesson' | 'review' | 'checkpoint';
+    order: number;
+    unlocked: boolean;
+    completed: boolean;
+    pausedStepIndex?: number;
+    dueAtMs?: number;
+};
+
+export type NextNodeDecision = {
+    nodeId: string;
+    reason: 'paused-lesson' | 'due-review' | 'checkpoint' | 'next-lesson';
+    resumeStepIndex?: number;
+    dueReviewCount: number;
+};
+
 export type JourneyUnitDefinition = {
     id: string;
     title: string;

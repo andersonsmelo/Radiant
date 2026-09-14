@@ -1550,7 +1550,9 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   [`2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](../superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md).
   A união dos caminhos foi conferida contra `writePolicy.allowedRoots`; módulos
   nativos dependem de build interno e das ações de console do dono.
-- **K1 [P0]** Implementar e integrar `NextNodeResolver`.
+- **K1 [P0 — EM ANDAMENTO]** Motor puro `NextNodeResolver` implementado em
+  2026-09-14 com 9/9 testes focados; integração ao snapshot e deep link segue
+  na Task 3 do plano.
 - **K2 [P0]** Implementar a economia persistente de vidas.
 - **K3 [P0]** Migrar armazenamento com backup e recuperação explícita.
 - **K4 [P0]** Cobrir trilha, lição, revisão e checkpoint na configuração de produção.
