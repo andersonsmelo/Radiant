@@ -283,6 +283,12 @@ carrega o pacote inteiro.
    `lastRefillAt` e `unlimitedUntil`. A matriz focada passou com 18/18 casos,
    incluindo relógio reverso, salto à frente, expiração e concorrência.
 
+   **Task 3 concluída localmente em 2026-09-14:** o snapshot delega a escolha
+   soberana ao resolver, preserva `nextRecommendedNode`, carrega o vencimento
+   real do SM-2 e persiste o passo de retomada. Typecheck e 25/25 testes focados
+   passaram. A ligação da rota resolvida às telas/notificações fica nas tarefas
+   de superfície, sem ativar push nem currículo novo aqui.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

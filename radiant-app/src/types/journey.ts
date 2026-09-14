@@ -90,6 +90,7 @@ export type JourneyProgress = {
     lastUpdatedAt: string;
     lastCompletedNodeId?: string;
     resumableNodeId?: string;
+    resumableStepIndex?: number;
     pendingSyncEvents: JourneySyncEvent[];
 };
 
@@ -104,6 +105,7 @@ export type RecommendationReason = 'due-review' | 'weak-competency' | 'next-new'
 export type JourneySnapshot = {
     track: JourneyTrack;
     progress: JourneyProgress;
+    nextDecision?: NextNodeDecision | null;
     nextRecommendedNode: JourneyNode | null;
     completedCount: number;
     dueReviewCount: number;

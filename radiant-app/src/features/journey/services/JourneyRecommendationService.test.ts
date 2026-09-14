@@ -3,7 +3,7 @@
 // arquivo real. Reaproveitamos o alias para manter os testes legíveis.
 import { DEFAULT_JOURNEY_TRACK_DEFINITION as defaultTrack } from '../../../data/journey/defaultTrack';
 import type { DueCompetency } from '../../../types/competencyReview';
-import type { JourneyProgress } from '../../../types/journey';
+import type { JourneyProgress, JourneyTrackDefinition } from '../../../types/journey';
 import { JourneyRecommendationService } from './JourneyRecommendationService';
 
 function progressoInicial(): JourneyProgress {
@@ -124,5 +124,84 @@ describe('etapa em andamento', () => {
         const snapshot = JourneyRecommendationService.computeSnapshot(defaultTrack, progressoInicial());
 
         expect(snapshot.nextRecommendedNode?.id).toBe('node:lesson-1');
+    });
+});
+
+describe('decisão soberana da versão 1.4', () => {
+    const track: JourneyTrackDefinition = {
+        id: 'track:test',
+        title: 'Teste',
+        initialUnitId: 'unit:test',
+        units: [{
+            id: 'unit:test',
+            title: 'Unidade',
+            nodes: [
+                { id: 'lesson:paused', unitId: 'unit:test', type: 'lesson', title: 'Pausada', blockId: 'b1' },
+                { id: 'review:one', unitId: 'unit:test', type: 'review', title: 'Revisão 1', blockId: 'r1' },
+                { id: 'review:two', unitId: 'unit:test', type: 'review', title: 'Revisão 2', blockId: 'r2' },
+                { id: 'checkpoint:test', unitId: 'unit:test', type: 'checkpoint', title: 'Checkpoint' },
+                { id: 'lesson:new', unitId: 'unit:test', type: 'lesson', title: 'Nova', blockId: 'b2' },
+            ],
+        }],
+    };
+    const nowMs = Date.parse('2026-09-14T12:00:00.000Z');
+
+    function progress(overrides: Partial<JourneyProgress> = {}): JourneyProgress {
+        return {
+            ...progressoInicial(),
+            activeTrackId: track.id,
+            currentUnitId: track.initialUnitId,
+            completedNodeIds: ['lesson:paused'],
+            pendingReviewNodeIds: ['review:one', 'review:two'],
+            ...overrides,
+        };
+    }
+
+    it('preserva a ordem real do SM-2 e expõe contagem sem remover a API antiga', () => {
+        const snapshot = JourneyRecommendationService.computeSnapshot(track, progress(), [], {
+            nowMs,
+            dueReviews: [
+                { nodeId: 'review:one', dueAtMs: nowMs - 1_000 },
+                { nodeId: 'review:two', dueAtMs: nowMs - 60_000 },
+            ],
+        });
+
+        expect(snapshot.nextDecision).toEqual({
+            nodeId: 'review:two',
+            reason: 'due-review',
+            dueReviewCount: 2,
+        });
+        expect(snapshot.nextRecommendedNode?.id).toBe('review:two');
+        expect(snapshot.recommendationReason).toBe('due-review');
+    });
+
+    it('lição pausada vence revisões e carrega o índice de retomada', () => {
+        const snapshot = JourneyRecommendationService.computeSnapshot(track, progress({
+            completedNodeIds: [],
+            resumableNodeId: 'lesson:paused',
+            resumableStepIndex: 3,
+        }), [], {
+            nowMs,
+            dueReviews: [{ nodeId: 'review:one', dueAtMs: nowMs - 1_000 }],
+        });
+
+        expect(snapshot.nextDecision).toEqual({
+            nodeId: 'lesson:paused',
+            reason: 'paused-lesson',
+            resumeStepIndex: 3,
+            dueReviewCount: 1,
+        });
+    });
+
+    it('revisão futura não aparece como vencida', () => {
+        const snapshot = JourneyRecommendationService.computeSnapshot(track, progress({
+            pendingReviewNodeIds: ['review:one'],
+        }), [], {
+            nowMs,
+            dueReviews: [{ nodeId: 'review:one', dueAtMs: nowMs + 1 }],
+        });
+
+        expect(snapshot.nextDecision?.nodeId).toBe('checkpoint:test');
+        expect(snapshot.nextDecision?.dueReviewCount).toBe(0);
     });
 });

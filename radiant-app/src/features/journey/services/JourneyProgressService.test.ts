@@ -16,6 +16,7 @@ jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
     SpacedRepetitionService: {
         getTrackedLessonIds: jest.fn(),
         getDueLessons: jest.fn(),
+        getDueReviewSchedule: jest.fn(),
     },
 }));
 
@@ -139,6 +140,7 @@ describe('JourneyProgressService', () => {
 
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
@@ -196,6 +198,19 @@ describe('JourneyProgressService', () => {
         expect(snapshot.progress.completedNodeIds).toContain('node:foundation-1');
         expect(stored.schemaVersion).toBe(JOURNEY_PROGRESS_SCHEMA_VERSION);
         expect(stored.tracks['track-radiology-foundations'].completedNodeIds).toContain('node:foundation-1');
+    });
+
+    it('persiste o passo retomável e o devolve na decisão sem quebrar o nó legado', async () => {
+        const snapshot = await JourneyProgressService.setResumableNode('node:foundation-1', 2);
+        const stored = readStoredJourney();
+
+        expect(stored.tracks['track-radiology-foundations'].resumableStepIndex).toBe(2);
+        expect(snapshot.nextDecision).toMatchObject({
+            nodeId: 'node:foundation-1',
+            reason: 'paused-lesson',
+            resumeStepIndex: 2,
+        });
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:foundation-1');
     });
 });
 

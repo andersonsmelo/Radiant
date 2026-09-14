@@ -1,5 +1,5 @@
 import type { Href } from 'expo-router';
-import type { JourneyNode } from '../../../types/journey';
+import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
 
 export function canOpenJourneyNode(node: JourneyNode): boolean {
   if (node.status === 'locked') {
@@ -51,4 +51,24 @@ export function getJourneyNodeHref(node: JourneyNode): Href | null {
   }
 
   return null;
+}
+
+export function getNextNodeHref(
+  node: JourneyNode,
+  decision: NextNodeDecision,
+): Href | null {
+  const href = getJourneyNodeHref(node);
+  if (href === null || decision.reason !== 'paused-lesson' || decision.resumeStepIndex === undefined) {
+    return href;
+  }
+
+  if (typeof href !== 'object' || href.pathname !== '/learn') return href;
+
+  return {
+    ...href,
+    params: {
+      ...href.params,
+      resumeCursorId: `step-${decision.resumeStepIndex}`,
+    },
+  } as Href;
 }

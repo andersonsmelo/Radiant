@@ -255,16 +255,29 @@ export class SpacedRepetitionService {
      */
     static async getDueLessons(now?: Date): Promise<QuizLessonId[]> {
         try {
-            const store = await this.loadStore();
-            const checkDate = now || new Date();
-
-            return Object.values(store.cards)
-                .map((card) => this.deserializeCard(card))
-                .filter((card) => card.nextReviewAt <= checkDate)
-                .sort((a, b) => a.nextReviewAt.getTime() - b.nextReviewAt.getTime())
-                .map((card) => card.lessonId);
+            const schedule = await this.getDueReviewSchedule(now);
+            return schedule.map(entry => entry.lessonId);
         } catch (error) {
             console.error('[SpacedRepetitionService] Error getting due lessons:', error);
+            return [];
+        }
+    }
+
+    static async getDueReviewSchedule(
+        now: Date = new Date(),
+    ): Promise<{ lessonId: QuizLessonId; dueAtMs: number }[]> {
+        try {
+            const store = await this.loadStore();
+            return Object.values(store.cards)
+                .map(card => this.deserializeCard(card))
+                .filter(card => card.nextReviewAt <= now)
+                .sort((left, right) => left.nextReviewAt.getTime() - right.nextReviewAt.getTime())
+                .map(card => ({
+                    lessonId: card.lessonId,
+                    dueAtMs: card.nextReviewAt.getTime(),
+                }));
+        } catch (error) {
+            console.error('[SpacedRepetitionService] Error getting due review schedule:', error);
             return [];
         }
     }
@@ -319,10 +332,9 @@ export class SpacedRepetitionService {
     /**
      * Get all cards due for review
      */
-    static async getDueCards(): Promise<SRCardState[]> {
+    static async getDueCards(now: Date = new Date()): Promise<SRCardState[]> {
         try {
             const store = await this.loadStore();
-            const now = new Date();
 
             return Object.values(store.cards)
                 .map((card) => this.deserializeCard(card))
@@ -338,9 +350,9 @@ export class SpacedRepetitionService {
     /**
      * Get count of cards due for review
      */
-    static async getDueCount(): Promise<number> {
+    static async getDueCount(now: Date = new Date()): Promise<number> {
         try {
-            const dueCards = await this.getDueCards();
+            const dueCards = await this.getDueCards(now);
             return dueCards.length;
         } catch (error) {
             console.error('[SpacedRepetitionService] Error getting due count:', error);

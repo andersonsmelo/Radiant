@@ -48,19 +48,19 @@ class JourneyProgressServiceImpl {
     async bootstrap(trackDefinition?: JourneyTrackDefinition): Promise<JourneySnapshot> {
         const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
-        return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
+        return this.computeSnapshot(resolvedTrackDefinition, progress);
     }
 
     async getSnapshot(trackDefinition?: JourneyTrackDefinition): Promise<JourneySnapshot> {
         const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
-        return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
+        return this.computeSnapshot(resolvedTrackDefinition, progress);
     }
 
     async selectTrack(trackId: string): Promise<JourneySnapshot> {
         const trackDefinition = JourneyDefinitionService.getTrackDefinition(trackId);
         const progress = await this.ensureProgress(trackDefinition);
-        return JourneyRecommendationService.computeSnapshot(trackDefinition, progress);
+        return this.computeSnapshot(trackDefinition, progress);
     }
 
     async setCurrentNode(
@@ -80,13 +80,28 @@ class JourneyProgressServiceImpl {
 
     async setResumableNode(
         nodeId: string | undefined,
-        trackDefinition?: JourneyTrackDefinition
+        trackDefinition?: JourneyTrackDefinition,
+    ): Promise<JourneySnapshot>;
+    async setResumableNode(
+        nodeId: string | undefined,
+        stepIndex: number,
+        trackDefinition?: JourneyTrackDefinition,
+    ): Promise<JourneySnapshot>;
+    async setResumableNode(
+        nodeId: string | undefined,
+        stepIndexOrTrack?: number | JourneyTrackDefinition,
+        trackDefinition?: JourneyTrackDefinition,
     ): Promise<JourneySnapshot> {
-        const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
+        const stepIndex = typeof stepIndexOrTrack === 'number' ? stepIndexOrTrack : undefined;
+        const requestedTrack = typeof stepIndexOrTrack === 'number' ? trackDefinition : stepIndexOrTrack;
+        const resolvedTrackDefinition = await this.resolveTrackDefinition(requestedTrack);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
         const nextProgress: JourneyProgress = {
             ...progress,
             resumableNodeId: nodeId,
+            resumableStepIndex: nodeId === undefined
+                ? undefined
+                : stepIndex ?? (progress.resumableNodeId === nodeId ? progress.resumableStepIndex : 0),
             lastUpdatedAt: nowIso(),
         };
 
@@ -103,7 +118,7 @@ class JourneyProgressServiceImpl {
 
         if (!node) {
             console.warn(`[JourneyProgressService] Tried to complete unknown node "${nodeId}"`);
-            return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
+            return this.computeSnapshot(resolvedTrackDefinition, progress);
         }
 
         // A autorização mora aqui porque é aqui que a escrita acontece. Antes
@@ -124,7 +139,7 @@ class JourneyProgressServiceImpl {
             console.warn(
                 `[JourneyProgressService] Refused to complete locked node "${nodeId}" (status: ${status})`
             );
-            return JourneyRecommendationService.computeSnapshot(resolvedTrackDefinition, progress);
+            return this.computeSnapshot(resolvedTrackDefinition, progress);
         }
 
         const completedNodeIds = progress.completedNodeIds.includes(nodeId)
@@ -139,6 +154,7 @@ class JourneyProgressServiceImpl {
             pendingReviewNodeIds,
             currentNodeId: progress.currentNodeId === nodeId ? null : progress.currentNodeId,
             resumableNodeId: progress.resumableNodeId === nodeId ? undefined : progress.resumableNodeId,
+            resumableStepIndex: progress.resumableNodeId === nodeId ? undefined : progress.resumableStepIndex,
             lastCompletedNodeId: nodeId,
             lastUpdatedAt: nowIso(),
             pendingSyncEvents: [
@@ -216,7 +232,33 @@ class JourneyProgressServiceImpl {
     ): Promise<JourneySnapshot> {
         const finalProgress = await this.hydrateProgress(trackDefinition, progress, nowIso());
         await this.persistProgress(trackDefinition, finalProgress);
-        return JourneyRecommendationService.computeSnapshot(trackDefinition, finalProgress);
+        return this.computeSnapshot(trackDefinition, finalProgress);
+    }
+
+    private async computeSnapshot(
+        trackDefinition: JourneyTrackDefinition,
+        progress: JourneyProgress,
+    ): Promise<JourneySnapshot> {
+        const nowMs = Date.now();
+        // Alguns consumidores de teste e adaptadores antigos fornecem uma porta
+        // parcial do SM-2. A decisão continua compatível nesses ambientes e usa
+        // a fila já hidratada; o runtime atual sempre oferece a agenda completa.
+        const schedule = typeof SpacedRepetitionService.getDueReviewSchedule === 'function'
+            ? await SpacedRepetitionService.getDueReviewSchedule(new Date(nowMs))
+            : [];
+        const dueReviews = schedule.flatMap(({ lessonId, dueAtMs }) => {
+            const reviewNode = trackDefinition.units
+                .flatMap(unit => unit.nodes)
+                .find(node => node.type === 'review' && node.lessonId === lessonId);
+            return reviewNode ? [{ nodeId: reviewNode.id, dueAtMs }] : [];
+        });
+
+        return JourneyRecommendationService.computeSnapshot(
+            trackDefinition,
+            progress,
+            [],
+            { nowMs, dueReviews },
+        );
     }
 
     /**
@@ -396,6 +438,9 @@ class JourneyProgressServiceImpl {
             lastCompletedNodeId:
                 typeof candidate.lastCompletedNodeId === 'string' ? candidate.lastCompletedNodeId : undefined,
             resumableNodeId: typeof candidate.resumableNodeId === 'string' ? candidate.resumableNodeId : undefined,
+            resumableStepIndex: Number.isInteger(candidate.resumableStepIndex) && candidate.resumableStepIndex! >= 0
+                ? candidate.resumableStepIndex
+                : undefined,
             pendingSyncEvents: Array.isArray(candidate.pendingSyncEvents) ? candidate.pendingSyncEvents : [],
         };
     }
@@ -474,6 +519,9 @@ class JourneyProgressServiceImpl {
                     lastCompletedNodeId:
                         typeof candidate.lastCompletedNodeId === 'string' ? candidate.lastCompletedNodeId : undefined,
                     resumableNodeId: typeof candidate.resumableNodeId === 'string' ? candidate.resumableNodeId : undefined,
+                    resumableStepIndex: Number.isInteger(candidate.resumableStepIndex) && candidate.resumableStepIndex! >= 0
+                        ? candidate.resumableStepIndex
+                        : undefined,
                     pendingSyncEvents: Array.isArray(candidate.pendingSyncEvents) ? candidate.pendingSyncEvents : [],
                 },
             },

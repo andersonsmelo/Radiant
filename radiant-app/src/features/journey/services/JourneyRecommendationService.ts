@@ -10,7 +10,19 @@ import type {
     JourneyUnit,
     JourneyUnitDefinition,
     RecommendationReason,
+    NextNodeCandidate,
 } from '../../../types/journey';
+import { NextNodeResolver } from './NextNodeResolver';
+
+export type DueReviewDecisionInput = {
+    nodeId: string;
+    dueAtMs: number;
+};
+
+export type JourneyDecisionOptions = {
+    nowMs?: number;
+    dueReviews?: readonly DueReviewDecisionInput[];
+};
 
 function isNodeCompleted(progress: JourneyProgress, nodeId: string): boolean {
     return progress.completedNodeIds.includes(nodeId);
@@ -186,17 +198,52 @@ export class JourneyRecommendationService {
         trackDefinition: JourneyTrackDefinition,
         progress: JourneyProgress,
         dueCompetencies: DueCompetency[] = [],
+        options: JourneyDecisionOptions = {},
     ): JourneySnapshot {
         const resolvedTrack = this.resolveTrack(trackDefinition, progress);
-        const nextRecommendedNode = this.getNextRecommendedNode(resolvedTrack, progress.currentUnitId);
+        const nowMs = options.nowMs ?? Date.now();
+        const explicitSchedule = options.dueReviews !== undefined;
+        const dueAtByNodeId = new Map(
+            (options.dueReviews ?? []).map(({ nodeId, dueAtMs }) => [nodeId, dueAtMs]),
+        );
+        const orderedNodes = resolvedTrack.units.flatMap(unit => unit.nodes);
+        const candidates: NextNodeCandidate[] = orderedNodes
+            .map((node, order): NextNodeCandidate | null => {
+                if (node.type === 'reward') return null;
+                const scheduledDueAt = dueAtByNodeId.get(node.id);
+                const dueAtMs = scheduledDueAt ?? (
+                    !explicitSchedule && node.status === 'due-review' ? nowMs : undefined
+                );
+
+                return {
+                    nodeId: node.id,
+                    type: node.type,
+                    order,
+                    unlocked: node.status !== 'locked',
+                    completed: node.status === 'completed',
+                    pausedStepIndex: node.id === progress.resumableNodeId
+                        ? progress.resumableStepIndex ?? 0
+                        : undefined,
+                    dueAtMs,
+                };
+            })
+            .filter((candidate): candidate is NextNodeCandidate => candidate !== null);
+        const nextDecision = NextNodeResolver.resolve({ candidates, nowMs });
+        const nextRecommendedNode = nextDecision === null
+            ? null
+            : orderedNodes.find(node => node.id === nextDecision.nodeId) ?? null;
+        const recommendationReason = nextDecision?.reason === 'due-review'
+            ? 'due-review'
+            : resolveReason(nextRecommendedNode, dueCompetencies);
 
         return {
             track: resolvedTrack,
             progress,
+            nextDecision,
             nextRecommendedNode,
             completedCount: progress.completedNodeIds.length,
-            dueReviewCount: progress.pendingReviewNodeIds.length,
-            recommendationReason: resolveReason(nextRecommendedNode, dueCompetencies),
+            dueReviewCount: nextDecision?.dueReviewCount ?? 0,
+            recommendationReason,
         };
     }
 
