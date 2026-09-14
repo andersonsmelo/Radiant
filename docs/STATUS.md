@@ -267,7 +267,12 @@ carrega o pacote inteiro.
    pela Apple continuam verdadeiras. Fora desta spec, com spec própria: V3 na
    tela (J3–J5), sistema de desenho. Do dono, fora do app: acordo de apps
    pagos no App Store Connect (obrigatório antes de submeter a 1.4) e o preço.
-   **Próximo passo:** revisão do texto pelo dono → plano de implementação.
+   **Planejamento iniciado em 2026-09-14.** O plano executável está em
+   [`2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md),
+   medido contra a spec, o checkout `6e7f804` e a política de escrita do Loop.
+   Serviços puros vêm primeiro; os adaptadores nativos de StoreKit/iCloud ficam
+   atrás de build interno e ações do dono. Nenhum build, envio ou publicação foi
+   autorizado por este plano.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na

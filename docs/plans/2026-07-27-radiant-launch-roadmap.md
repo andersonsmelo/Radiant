@@ -1539,6 +1539,26 @@ canônica é
   legados depois de provar que nenhum consumidor de runtime ou instalação
   existente depende deles.
 
+### Onda K — Radiant 1.4: fluxo do usuário e robustez
+
+Spec aprovada:
+[`2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](../superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md).
+Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
+
+- **K0 [CONCLUÍDA — PLANEJAMENTO, 2026-09-14]** Plano TDD por serviços puros,
+  telas, assinatura e backup registrado em
+  [`2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](../superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md).
+  A união dos caminhos foi conferida contra `writePolicy.allowedRoots`; módulos
+  nativos dependem de build interno e das ações de console do dono.
+- **K1 [P0]** Implementar e integrar `NextNodeResolver`.
+- **K2 [P0]** Implementar a economia persistente de vidas.
+- **K3 [P0]** Migrar armazenamento com backup e recuperação explícita.
+- **K4 [P0]** Cobrir trilha, lição, revisão e checkpoint na configuração de produção.
+- **K5 [P0]** Implementar contratos e telas de assinatura/backup sem conta.
+- **K6 [P0 — DEPENDE DO DONO E DE BUILD INTERNO]** Ligar StoreKit 2, iCloud e
+  Sentry; medir E2E, acessibilidade, desempenho e tamanho antes de qualquer
+  submissão.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**
