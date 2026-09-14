@@ -39,6 +39,19 @@ class PaywallServiceImpl {
 
     async maybePresentOffer(context: PaywallContext): Promise<PaywallOffer | null> {
         const props = await this.buildProps(context);
+
+        // As superfícies de conclusão entregam valor e encerram o fluxo; não
+        // voltam a ser interceptadas por oferta. O gatilho legado do quiz fica
+        // preservado até a tela de assinatura de vidas assumir o contrato.
+        if (context.trigger !== 'quiz_complete') {
+            await TelemetryService.track('paywall_outcome', {
+                ...props,
+                outcome: 'blocked',
+                reason: 'retired_completion_surface',
+            });
+            return null;
+        }
+
         const decision = await this.evaluateEligibility();
 
         if (decision.status !== 'eligible') {

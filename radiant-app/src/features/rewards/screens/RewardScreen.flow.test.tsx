@@ -4,6 +4,7 @@ import RewardScreen, { canCollectReward } from './RewardScreen';
 import type { JourneyNode } from '../../../types/journey';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { PaywallService } from '../../paywall/PaywallService';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -226,6 +227,7 @@ describe('RewardScreen flow', () => {
     });
 
     expect(await screen.findByText('Conquista registrada')).toBeTruthy();
+    expect(PaywallService.maybePresentOffer).not.toHaveBeenCalled();
   });
 
   it('conta só os marcos primários da unidade — review completo não entra no total nem no concluído', async () => {

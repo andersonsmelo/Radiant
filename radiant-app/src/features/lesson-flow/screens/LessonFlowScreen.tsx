@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { AccessibilityInfo, ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AccessibilityInfo, ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -35,11 +34,10 @@ import { pickSummaryPhrase } from '../../quiz/constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
-import { GamificationService } from '../../gamification/services/GamificationService';
 import { Confetti } from '../../../components/ui/Confetti';
 import { hapticCelebrate } from '../../../ui/feedback/haptics';
 import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
-import type { GamificationSnapshot, XpAward } from '../../../types/gamification';
+import type { XpAward } from '../../../types/gamification';
 import type { JourneySnapshot } from '../../../types/journey';
 import type { QuizResult } from '../../../types/quiz';
 import {
@@ -47,6 +45,18 @@ import {
     useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import type { HeartsSnapshot } from '../../hearts/hearts.types';
+import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
+
+const DEFAULT_HEARTS: HeartsSnapshot = {
+    count: 5,
+    status: 'full',
+    nextRefillAt: null,
+    unlimitedUntil: null,
+};
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -60,7 +70,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [activity, setActivity] = useState<LearningActivityV2 | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+    const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
+    const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+    const chargedInteractions = useRef(new Set<string>());
 
     // A conclusão passa a ser um estado desta tela. Antes daqui, terminar a
     // última interação chamava `router.replace('/(tabs)')` e devolvia o aluno
@@ -76,6 +88,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         improved: boolean;
         phrase: string;
         rating: number | null;
+        nextReviewInDays: number | null;
     } | null>(null);
 
     const resumeStepIndex = useMemo(() => {
@@ -185,19 +198,6 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
-    const lessonTitle = useMemo(() => {
-        if (!activity) {
-            return 'Fluxo da Lição';
-        }
-
-        const opening = activity.steps.find((step) => step.kind === 'presentation');
-        if (opening?.kind === 'presentation') {
-            return opening.payload.title;
-        }
-
-        return block?.lessonId ?? activity.id;
-    }, [activity, block]);
-
     const canContinue = player.canContinue;
     const currentInteraction = player.currentStep?.kind === 'interaction'
         ? player.currentStep.interaction
@@ -208,22 +208,45 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
+        if (hearts.count === 0 && currentInteraction) {
+            setHeartsSheetVisible(true);
+            return;
+        }
+
         // A escolha vale no instante do "Continuar", não no toque: trocar de
         // alternativa antes de confirmar não penaliza. `confirm()` devolve o
         // mapa novo em vez de deixar a tela ler o estado — `setState` é
         // assíncrono e no último passo o estado ainda não conteria esta
         // resposta.
-        const nextConfirmed = player.confirm();
-
+        let nextHearts = hearts;
         if (currentInteraction) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
+
+            if (!correct) {
+                if (chargedInteractions.current.has(currentInteraction.id)) {
+                    return;
+                }
+
+                // Marca antes do await: um segundo toque durante a escrita não
+                // pode debitar a mesma confirmação duas vezes.
+                chargedInteractions.current.add(currentInteraction.id);
+                nextHearts = await heartsRepository.spend(Date.now());
+                setHearts(nextHearts);
+            }
+
             const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
             AccessibilityInfo.announceForAccessibility(
                 `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}`,
             );
         }
 
+        const nextConfirmed = player.confirm();
+
         if (!isLastStep) {
+            if (nextHearts.count === 0) {
+                await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
+                setHeartsSheetVisible(true);
+            }
             return;
         }
 
@@ -252,30 +275,30 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         setJourneySnapshot(snapshot);
         setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
 
-        try {
-            setGamification(await GamificationService.getSnapshot());
-        } catch (cause) {
-            console.error('[LessonFlowScreen] Falha ao reler a gamificação:', cause);
-        }
     };
 
-    const exitLesson = () => {
-        router.replace('/(tabs)');
-    };
+    const exitLesson = useCallback(() => {
+        void (async () => {
+            if (!outcome) {
+                await JourneyProgressService.setResumableNode(nodeId, stepIndex);
+            }
+            router.replace('/(tabs)');
+        })();
+    }, [nodeId, outcome, stepIndex]);
 
     // Carrega as vidas para a barra do topo. Errar consome vida durante a
     // atividade, e o aluno precisa ver isso acontecer.
     useEffect(() => {
         let alive = true;
 
-        void GamificationService.getSnapshot()
-            .then((snapshot) => {
+        void heartsRepository.getSnapshot(Date.now())
+            .then((heartsSnapshot) => {
                 if (alive) {
-                    setGamification(snapshot);
+                    setHearts(heartsSnapshot);
                 }
             })
             .catch((cause) => {
-                console.error('[LessonFlowScreen] Falha ao carregar a gamificação:', cause);
+                console.error('[LessonFlowScreen] Falha ao carregar as vidas:', cause);
             });
 
         return () => {
@@ -310,13 +333,19 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     totalQuestions: result.totalQuestions,
                     completedAt: result.answeredAt.toISOString(),
                 });
-                const rating = await LessonRatingService.getRating(result.lessonId);
+                const [rating, card] = await Promise.all([
+                    LessonRatingService.getRating(result.lessonId),
+                    SpacedRepetitionService.getCardState(result.lessonId),
+                ]);
+                const nextReviewInDays = card
+                    ? Math.max(0, Math.ceil((card.nextReviewAt.getTime() - result.answeredAt.getTime()) / DAY_MS))
+                    : null;
 
                 if (cancelado) {
                     return;
                 }
 
-                setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
+                setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
             } catch (cause) {
                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
 
@@ -330,6 +359,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     improved: false,
                     phrase: pickSummaryPhrase(stars, null),
                     rating: null,
+                    nextReviewInDays: null,
                 });
             }
         })();
@@ -400,6 +430,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                             unitCompleted={unitProgress.completed}
                             unitTotal={unitProgress.total}
                             habitLine={null}
+                            nextReviewInDays={summary.nextReviewInDays}
                             currentRating={summary.rating}
                             onRate={(nota) => {
                                 void LessonRatingService.rate(outcome.result.lessonId, nota);
@@ -448,8 +479,8 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                         <QuizTopBar
                             questionIndex={stepIndex}
                             totalQuestions={totalSteps}
-                            hearts={gamification?.hearts ?? 5}
-                            maxHearts={gamification?.maxHearts ?? 5}
+                            hearts={hearts.count}
+                            maxHearts={5}
                             onClose={exitLesson}
                         />
                         <Text style={styles.stepCount}>
@@ -527,6 +558,15 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     </View>
                 </View>
             </SafeAreaView>
+            <HeartsSheet
+                visible={heartsSheetVisible}
+                snapshot={hearts}
+                dueReviewCount={0}
+                storeAvailable={false}
+                onClose={exitLesson}
+                onReview={() => router.replace('/review')}
+                onSubscribe={() => undefined}
+            />
         </View>
     );
 }

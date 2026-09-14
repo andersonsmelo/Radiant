@@ -10,15 +10,15 @@ export const PaywallPlan = {
         monthly: {
             id: 'monthly_plus',
             title: 'Radiant Plus mensal',
-            description: 'Acesso a trilhas premium, revisões avançadas e catálogo expandido.',
+            description: 'Vidas ilimitadas — e só isso.',
         },
         annual: {
             id: 'annual_plus',
             title: 'Radiant Plus anual',
-            description: 'Mesmos benefícios, com desconto anual para usuários engajados.',
+            description: 'Vidas ilimitadas — e só isso, com cobrança anual.',
         },
     },
-    entitlements: ['premium_content', 'advanced_review_tools', 'offline_ready_catalog'],
+    entitlements: ['unlimited_hearts'],
     guardrails: {
         requireTelemetryTaxonomy: true,
         requireRemoteContentCatalog: false,

@@ -22,6 +22,7 @@ export type LessonSummaryProps = {
   unitCompleted: number;
   unitTotal: number;
   habitLine: string | null;
+  nextReviewInDays?: number | null;
   currentRating: number | null;
   onRate: (rating: number) => void;
   onContinue: () => void;
@@ -99,6 +100,7 @@ export function LessonSummary({
   unitCompleted,
   unitTotal,
   habitLine,
+  nextReviewInDays = null,
   currentRating,
   onRate,
   onContinue,
@@ -160,6 +162,12 @@ export function LessonSummary({
 
         {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
 
+        {nextReviewInDays !== null ? (
+          <Text style={styles.reviewSchedule}>
+            {`Próxima revisão em ${nextReviewInDays} ${nextReviewInDays === 1 ? 'dia' : 'dias'}`}
+          </Text>
+        ) : null}
+
         {currentRating === null ? (
           <View style={styles.ratingSection}>
             <Text style={styles.ratingLabel}>Avalie a aula</Text>
@@ -217,6 +225,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  reviewSchedule: {
+    ...typography.body,
     color: galaxyColors.textSecondary,
     textAlign: 'center',
   },

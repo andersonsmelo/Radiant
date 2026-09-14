@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import { AccessibilityInfo } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
@@ -90,6 +90,25 @@ jest.mock('../../gamification/services/GamificationService', () => ({
       hearts: 4,
       maxHearts: 5,
     }),
+  },
+}));
+
+jest.mock('../../hearts/HeartsRepository', () => ({
+  heartsRepository: {
+    getSnapshot: jest.fn().mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null }),
+    spend: jest.fn().mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null }),
+  },
+}));
+
+jest.mock('../../hearts/components/HeartsSheet', () => {
+  const React = require('react');
+  const { Text } = require('react-native');
+  return { HeartsSheet: ({ visible }: { visible: boolean }) => visible ? <Text>Sua lição está pausada</Text> : null };
+});
+
+jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
+  SpacedRepetitionService: {
+    getCardState: jest.fn().mockResolvedValue(null),
   },
 }));
 
@@ -373,6 +392,82 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     expect(announceForAccessibility).toHaveBeenCalledWith(
       'Resposta correta. A opacidade focal com broncograma aéreo sugere consolidação alveolar.',
     );
+  });
+});
+
+describe('LessonFlowScreen — economia de vidas', () => {
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(null);
+    heartsRepository.getSnapshot.mockResolvedValue({
+      count: 5,
+      status: 'full',
+      nextRefillAt: null,
+      unlimitedUntil: null,
+    });
+    heartsRepository.spend.mockResolvedValue({
+      count: 4,
+      status: 'recovering',
+      nextRefillAt: '2026-09-14T12:30:00.000Z',
+      unlimitedUntil: null,
+    });
+  });
+
+  it('não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+
+    fireEvent.press(screen.getByText('Continuar'));
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+  });
+
+  it('protege uma confirmação dupla contra cobrança duplicada', async () => {
+    let releaseSpend: ((value: unknown) => void) | undefined;
+    heartsRepository.spend.mockReturnValue(new Promise(resolve => { releaseSpend = resolve; }));
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      releaseSpend?.({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    });
+  });
+
+  it('pausa no próximo passo ao chegar a zero e preserva a retomada', async () => {
+    heartsRepository.spend.mockResolvedValue({
+      count: 0,
+      status: 'empty',
+      nextRefillAt: '2026-09-14T12:30:00.000Z',
+      unlimitedUntil: null,
+    });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', 1);
+  });
+
+  it('salva o passo atual antes de fechar', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+    await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', 0));
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
   });
 });
 

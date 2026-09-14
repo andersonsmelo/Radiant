@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,9 +19,6 @@ import { GamificationService } from '../../gamification/services/GamificationSer
 import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
-import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
-import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
-import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
@@ -30,6 +27,16 @@ import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoi
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import type { HeartsSnapshot } from '../../hearts/hearts.types';
+import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+
+const DEFAULT_HEARTS: HeartsSnapshot = {
+  count: 5,
+  status: 'full',
+  nextRefillAt: null,
+  unlimitedUntil: null,
+};
 
 interface CheckpointScreenProps {
   nodeId?: string;
@@ -89,14 +96,15 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [checkpointAnswers, setCheckpointAnswers] = useState<Record<string, string>>({});
   const [checkpointEvaluation, setCheckpointEvaluation] = useState<UnitCheckpointEvaluation | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
-  const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
-  const [paywallSubmitting, setPaywallSubmitting] = useState(false);
-
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
+  const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  const chargedCheckpointItems = useRef(new Set<string>());
+  const processingAnswer = useRef(false);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
+    void heartsRepository.getSnapshot(Date.now()).then(setHearts);
   }, []);
 
   const loadSnapshot = useCallback(async () => {
@@ -281,12 +289,6 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
       await activeCheckpoint.finish();
       setCompleted(true);
-      const offer = await PaywallService.maybePresentOffer({
-        trigger: 'checkpoint_complete',
-        entrySurface: 'checkpoint',
-        lessonId: checkpointNode.id,
-      });
-      setPaywallOffer(offer);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to complete checkpoint:', cause);
       setError('Nao foi possivel concluir o checkpoint agora.');
@@ -296,16 +298,33 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   }, [activeCheckpoint, checkpointNode]);
 
   const handleProductionAnswer = useCallback(async () => {
-    if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode) return;
-
-    const nextAnswers = { ...checkpointAnswers, [currentProductionItem.id]: selectedOptionId };
-    setCheckpointAnswers(nextAnswers);
-
-    if (checkpointItemIndex < productionItems.length - 1) {
-      setCheckpointItemIndex((index) => index + 1);
-      setSelectedOptionId(null);
+    if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode || processingAnswer.current) {
       return;
     }
+
+    processingAnswer.current = true;
+
+    try {
+      const isIncorrect = selectedOptionId !== currentProductionItem.correctOptionId;
+      if (isIncorrect && !chargedCheckpointItems.current.has(currentProductionItem.id)) {
+        chargedCheckpointItems.current.add(currentProductionItem.id);
+        const nextHearts = await heartsRepository.spend(Date.now());
+        setHearts(nextHearts);
+
+        if (nextHearts.count === 0) {
+          setHeartsSheetVisible(true);
+          return;
+        }
+      }
+
+      const nextAnswers = { ...checkpointAnswers, [currentProductionItem.id]: selectedOptionId };
+      setCheckpointAnswers(nextAnswers);
+
+      if (checkpointItemIndex < productionItems.length - 1) {
+        setCheckpointItemIndex((index) => index + 1);
+        setSelectedOptionId(null);
+        return;
+      }
 
     const committedAt = new Date().toISOString();
     const attemptSuffix = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -339,7 +358,6 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       itemOutcomes,
     });
 
-    try {
       setSubmitting(true);
       const evaluation = evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
       await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
@@ -352,6 +370,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       setError('Nao foi possivel registrar o checkpoint agora. Suas respostas não foram presumidas como concluídas.');
     } finally {
       setSubmitting(false);
+      processingAnswer.current = false;
     }
   }, [
     activeCheckpoint,
@@ -469,8 +488,9 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         <HUD
           totalXp={gamification?.totalXp ?? 0}
           streakDays={gamification?.streakDays ?? 0}
-          hearts={gamification?.hearts ?? 5}
-          maxHearts={gamification?.maxHearts ?? 5}
+            hearts={hearts.count}
+            maxHearts={5}
+            heartsSnapshot={hearts}
         />
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.headerRow}>
@@ -534,45 +554,6 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
           {error ? (
             <View style={styles.errorCard}>
               <Text style={styles.errorText}>{error}</Text>
-            </View>
-          ) : null}
-
-          {paywallOffer ? (
-            <PaywallOfferCard
-              offer={paywallOffer}
-              submitting={paywallSubmitting}
-              onPrimary={() => {
-                if (paywallSubmitting) { return; }
-                void (async () => {
-                  try {
-                    setPaywallSubmitting(true);
-                    const interest = await UpgradeInterestService.captureInterest(paywallOffer, { lessonId: checkpointNode.id });
-                    await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: checkpointNode.id });
-                    setPaywallFeedback(
-                      interest.email
-                        ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
-                        : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
-                    );
-                  } catch (cause) {
-                    console.error('[CheckpointScreen] Failed to capture paywall interest:', cause);
-                    setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
-                  } finally {
-                    setPaywallOffer(null);
-                    setPaywallSubmitting(false);
-                  }
-                })();
-              }}
-              onDismiss={() => {
-                if (paywallSubmitting) { return; }
-                void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: checkpointNode.id });
-                setPaywallOffer(null);
-              }}
-            />
-          ) : null}
-
-          {paywallFeedback ? (
-            <View style={styles.messageCard}>
-              <Text style={styles.messageText}>{paywallFeedback}</Text>
             </View>
           ) : null}
 
@@ -655,7 +636,16 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 {nextAction.label}
               </AppButton>
             ) : productionBatch && !checkpointStarted ? (
-              <AppButton onPress={() => setCheckpointStarted(true)} style={styles.fullWidthButton}>
+              <AppButton
+                onPress={() => {
+                  if (hearts.count === 0) {
+                    setHeartsSheetVisible(true);
+                    return;
+                  }
+                  setCheckpointStarted(true);
+                }}
+                style={styles.fullWidthButton}
+              >
                 Iniciar checkpoint
               </AppButton>
             ) : !productionBatch ? (
@@ -676,6 +666,15 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
           </View>
         </ScrollView>
       </SafeAreaView>
+      <HeartsSheet
+        visible={heartsSheetVisible}
+        snapshot={hearts}
+        dueReviewCount={dueReviewCount}
+        storeAvailable={false}
+        onClose={() => setHeartsSheetVisible(false)}
+        onReview={() => router.replace('/review')}
+        onSubscribe={() => undefined}
+      />
     </View>
   );
 }

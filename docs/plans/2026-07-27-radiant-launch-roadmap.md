@@ -1559,9 +1559,12 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   com backup anterior à primeira mutação, restauração de interrupções, fallback
   local explícito e 28/28 testes focados aprovados; autenticação permanece fora
   da allowlist migrada.
-- **K4 [EM ANDAMENTO — LOCAL, 2026-09-14]** Trilha soberana virtualizada, HUD
-  de vidas e folha modal concluídos com 54/54 testes focados; falta aplicar a
-  economia às respostas, retomada, revisão e checkpoint.
+- **K4 [CONCLUÍDA — LOCAL, 2026-09-14]** Trilha soberana virtualizada, HUD e
+  folha modal entregues; erro confirmado debita uma vida de forma idempotente,
+  zero pausa lição/checkpoint no ponto seguro e revisão concluída devolve uma
+  vida sem consumir outra. Ofertas antigas saíram das conclusões. Evidência:
+  54/54 testes focados da superfície e 50/50 dos fluxos de estudo, além de
+  typecheck e lint; nenhuma integração nativa foi ativada.
 - **K5 [P0]** Implementar contratos e telas de assinatura/backup sem conta.
 - **K6 [P0 — DEPENDE DO DONO E DE BUILD INTERNO]** Ligar StoreKit 2, iCloud e
   Sentry; medir E2E, acessibilidade, desempenho e tamanho antes de qualquer

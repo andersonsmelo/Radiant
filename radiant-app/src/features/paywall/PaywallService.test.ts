@@ -58,23 +58,19 @@ describe('PaywallService', () => {
     await PaywallService.reset();
   });
 
-  it('returns an offer when the session is eligible', async () => {
+  it('never returns the legacy offer after a reward', async () => {
     const offer = await PaywallService.maybePresentOffer({
       trigger: 'reward_complete',
       entrySurface: 'reward',
       lessonId: 'reward-1',
     });
 
-    expect(offer).toEqual(
-      expect.objectContaining({
-        offerId: 'monthly_plus',
-        trigger: 'reward_complete',
-      })
-    );
+    expect(offer).toBeNull();
     expect(mockedTelemetryService.track).toHaveBeenCalledWith(
-      'paywall_view',
+      'paywall_outcome',
       expect.objectContaining({
-        offer_id: 'monthly_plus',
+        outcome: 'blocked',
+        reason: 'retired_completion_surface',
       })
     );
   });
@@ -88,8 +84,8 @@ describe('PaywallService', () => {
     });
 
     const offer = await PaywallService.maybePresentOffer({
-      trigger: 'reward_complete',
-      entrySurface: 'reward',
+      trigger: 'quiz_complete',
+      entrySurface: 'quiz',
       lessonId: 'reward-1',
     });
 

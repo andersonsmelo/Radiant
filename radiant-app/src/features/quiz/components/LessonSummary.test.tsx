@@ -82,6 +82,7 @@ const base = {
   currentRating: null,
   onRate: jest.fn(),
   onContinue: jest.fn(),
+  nextReviewInDays: 3,
 };
 
 describe('LessonSummary', () => {
@@ -115,6 +116,11 @@ describe('LessonSummary', () => {
   it('mostra o progresso da unidade', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('7 de 14 etapas')).toBeTruthy();
+  });
+
+  it('mostra quando a próxima revisão foi agendada', () => {
+    render(<LessonSummary {...base} />);
+    expect(screen.getByText('Próxima revisão em 3 dias')).toBeTruthy();
   });
 
   it('não renderiza o card de progresso da unidade quando unitTotal é 0', () => {

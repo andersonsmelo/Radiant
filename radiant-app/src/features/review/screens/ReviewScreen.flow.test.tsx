@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { QuizQuestion } from '../../../types/quiz';
 import ReviewScreen from './ReviewScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
@@ -82,6 +82,13 @@ jest.mock('../../gamification/services/GamificationService', () => ({
   },
 }));
 
+jest.mock('../../hearts/HeartsRepository', () => ({
+  heartsRepository: {
+    getSnapshot: jest.fn().mockResolvedValue({ count: 2, status: 'recovering', nextRefillAt: null, unlimitedUntil: null }),
+    rewardReview: jest.fn().mockResolvedValue({ count: 3, status: 'recovering', nextRefillAt: null, unlimitedUntil: null }),
+  },
+}));
+
 jest.mock('../../push/components/PushOptInCard', () => ({
   PushOptInCard: () => null,
 }));
@@ -161,5 +168,27 @@ describe('ReviewScreen flow', () => {
     expect(await screen.findByText('Qual achado deve ser revisto?')).toBeTruthy();
     expect(screen.getByText('Sessão ativa')).toBeTruthy();
     expect(screen.getByText('Mostrar resposta')).toBeTruthy();
+  });
+
+  it('recompensa uma vida uma única vez ao concluir a sessão devida', async () => {
+    const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+      rewardReview: jest.Mock;
+    };
+    mockUseReview.mockReturnValue({
+      state: 'finished',
+      queue: [{ lessonId: 'lesson-1', question: questionFixture }],
+      currentItem: null,
+      currentIndex: 0,
+      totalItems: 1,
+      sessionXp: 4,
+      loading: false,
+      startReview: jest.fn(),
+      submitRating: jest.fn(),
+    });
+
+    const rendered = renderWithProviders(<ReviewScreen />);
+    await waitFor(() => expect(heartsRepository.rewardReview).toHaveBeenCalledTimes(1));
+    rendered.rerender(<ReviewScreen />);
+    expect(heartsRepository.rewardReview).toHaveBeenCalledTimes(1);
   });
 });

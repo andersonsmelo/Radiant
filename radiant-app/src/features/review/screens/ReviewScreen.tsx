@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -24,6 +24,16 @@ import {
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import type { HeartsSnapshot } from '../../hearts/hearts.types';
+
+const DEFAULT_HEARTS: HeartsSnapshot = {
+  count: 5,
+  status: 'full',
+  nextRefillAt: null,
+  unlimitedUntil: null,
+};
+const rewardedReviewQueues = new WeakSet<readonly unknown[]>();
 
 const SCREEN_MAX_WIDTH = 720;
 const ICON_BUTTON_SIZE = space.s6 + space.s4;
@@ -40,9 +50,12 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
   const fadeAnim = useFadeInUp(duration.ui);
   const [showPushOptIn, setShowPushOptIn] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
+  const rewardedReview = useRef(false);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
+    void heartsRepository.getSnapshot(Date.now()).then(setHearts);
   }, []);
 
   useEffect(() => {
@@ -61,6 +74,24 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
       });
     }
   }, [state, totalItems]);
+
+  useEffect(() => {
+    if (state !== 'finished') {
+      rewardedReview.current = false;
+      return;
+    }
+
+    if (totalItems === 0 || rewardedReview.current || rewardedReviewQueues.has(queue)) return;
+    rewardedReview.current = true;
+    rewardedReviewQueues.add(queue);
+    void heartsRepository.rewardReview(Date.now())
+      .then(setHearts)
+      .catch((cause) => {
+        rewardedReview.current = false;
+        rewardedReviewQueues.delete(queue);
+        console.error('[ReviewScreen] Falha ao recompensar a revisão:', cause);
+      });
+  }, [queue, state, totalItems]);
 
   const checkPushOptIn = async () => {
     const canShow = await PushService.getOptIn();
@@ -150,8 +181,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           <HUD
             totalXp={gamification?.totalXp ?? 0}
             streakDays={gamification?.streakDays ?? 0}
-            hearts={gamification?.hearts ?? 5}
-            maxHearts={gamification?.maxHearts ?? 5}
+            hearts={hearts.count}
+            maxHearts={5}
+            heartsSnapshot={hearts}
           />
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.headerRow}>
@@ -234,8 +266,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           <HUD
             totalXp={gamification?.totalXp ?? 0}
             streakDays={gamification?.streakDays ?? 0}
-            hearts={gamification?.hearts ?? 5}
-            maxHearts={gamification?.maxHearts ?? 5}
+            hearts={hearts.count}
+            maxHearts={5}
+            heartsSnapshot={hearts}
           />
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.headerRow}>
@@ -315,8 +348,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
         <HUD
           totalXp={gamification?.totalXp ?? 0}
           streakDays={gamification?.streakDays ?? 0}
-          hearts={gamification?.hearts ?? 5}
-          maxHearts={gamification?.maxHearts ?? 5}
+          hearts={hearts.count}
+          maxHearts={5}
+          heartsSnapshot={hearts}
           compact
         />
         <View style={[layout.container, styles.activeLayout]}>

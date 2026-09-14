@@ -24,9 +24,6 @@ import {
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
 import { RatingPromptService } from '../../../services/RatingPromptService';
-import { PaywallService, type PaywallOffer } from '../../paywall/PaywallService';
-import { PaywallOfferCard } from '../../paywall/components/PaywallOfferCard';
-import { UpgradeInterestService } from '../../paywall/UpgradeInterestService';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 
 interface RewardScreenProps {
@@ -121,9 +118,6 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const [submitting, setSubmitting] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [paywallOffer, setPaywallOffer] = useState<PaywallOffer | null>(null);
-  const [paywallFeedback, setPaywallFeedback] = useState<string | null>(null);
-  const [paywallSubmitting, setPaywallSubmitting] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
 
   useEffect(() => {
@@ -230,19 +224,11 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
       const nextSnapshot = await JourneyProgressService.markNodeCompleted(rewardNode.id);
       setSnapshot(nextSnapshot);
       setCompleted(true);
-      const reviewShown = await RatingPromptService.maybePromptForReview({
+      await RatingPromptService.maybePromptForReview({
         trigger: 'reward_complete',
         entrySurface: 'reward',
         lessonId: rewardNode.id,
       });
-      if (!reviewShown) {
-        const offer = await PaywallService.maybePresentOffer({
-          trigger: 'reward_complete',
-          entrySurface: 'reward',
-          lessonId: rewardNode.id,
-        });
-        setPaywallOffer(offer);
-      }
     } catch (cause) {
       console.error('[RewardScreen] Failed to complete reward:', cause);
       setError('Nao foi possivel registrar a conquista agora.');
@@ -404,52 +390,6 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           {error ? (
             <View style={styles.errorCard}>
               <Text style={styles.errorText}>{error}</Text>
-            </View>
-          ) : null}
-
-          {paywallOffer ? (
-            <PaywallOfferCard
-              offer={paywallOffer}
-              submitting={paywallSubmitting}
-              onPrimary={() => {
-                if (paywallSubmitting) {
-                  return;
-                }
-
-                void (async () => {
-                  try {
-                    setPaywallSubmitting(true);
-                    const interest = await UpgradeInterestService.captureInterest(paywallOffer, {
-                      lessonId: rewardNode.id,
-                    });
-                    await PaywallService.recordOutcome(paywallOffer, 'cta_tap', { lessonId: rewardNode.id });
-                    setPaywallFeedback(
-                      interest.email
-                        ? `Interesse registrado para ${interest.email}. Vamos avisar quando o Radiant Plus abrir.`
-                        : 'Interesse registrado neste dispositivo. Vamos usar esse sinal para abrir o Radiant Plus no momento certo.'
-                    );
-                  } catch (cause) {
-                    console.error('[RewardScreen] Failed to capture paywall interest:', cause);
-                    setPaywallFeedback('Nao foi possivel registrar seu interesse agora. Tente novamente em outro momento.');
-                  } finally {
-                    setPaywallOffer(null);
-                    setPaywallSubmitting(false);
-                  }
-                })();
-              }}
-              onDismiss={() => {
-                if (paywallSubmitting) {
-                  return;
-                }
-                void PaywallService.recordOutcome(paywallOffer, 'dismissed', { lessonId: rewardNode.id });
-                setPaywallOffer(null);
-              }}
-            />
-          ) : null}
-
-          {paywallFeedback ? (
-            <View style={styles.messageCard}>
-              <Text style={styles.messageText}>{paywallFeedback}</Text>
             </View>
           ) : null}
 

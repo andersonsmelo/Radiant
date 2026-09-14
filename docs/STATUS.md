@@ -304,6 +304,14 @@ carrega o pacote inteiro.
    conteúdo têm estados explícitos. Typecheck, lint e 54/54 testes focados
    passaram; K4 permanece aberta até os fluxos de estudo da Task 6.
 
+   **Task 6 concluída localmente em 2026-09-14:** respostas erradas debitam
+   uma vida somente na confirmação, com proteção contra toque duplo; ao zerar,
+   lição e checkpoint pausam sem perder o ponto seguro de retomada. Revisões
+   continuam gratuitas e devolvem uma vida uma única vez por sessão concluída.
+   O resumo informa a próxima revisão agendada, e as ofertas antigas foram
+   retiradas das conclusões de checkpoint e conquista. Typecheck, lint e 50/50
+   testes focados passaram; nenhuma compra, módulo nativo ou build foi ativado.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

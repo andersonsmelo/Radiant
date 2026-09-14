@@ -56,6 +56,19 @@ jest.mock('../../gamification/services/GamificationService', () => ({
   },
 }));
 
+jest.mock('../../hearts/HeartsRepository', () => ({
+  heartsRepository: {
+    getSnapshot: jest.fn().mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null }),
+    spend: jest.fn().mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null }),
+  },
+}));
+
+jest.mock('../../hearts/components/HeartsSheet', () => {
+  const React = require('react');
+  const { Text } = require('react-native');
+  return { HeartsSheet: ({ visible }: { visible: boolean }) => visible ? <Text>Checkpoint pausado por falta de vidas</Text> : null };
+});
+
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     bootstrap: jest.fn(),
@@ -209,6 +222,32 @@ describe('CheckpointScreen flow', () => {
     jest.clearAllMocks();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
+  });
+
+  it('cobra cada resposta errada do checkpoint uma única vez', async () => {
+    const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { spend: jest.Mock };
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+    await answerProductionCheckpoint(false);
+
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(productionStageItems.length));
+  });
+
+  it('pausa o checkpoint ao zerar sem avançar para a questão seguinte', async () => {
+    const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { spend: jest.Mock };
+    heartsRepository.spend.mockResolvedValueOnce({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    const item = productionStageItems[0];
+    const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
+    fireEvent.press(screen.getByLabelText(wrong.label));
+    fireEvent.press(screen.getByText('Próxima questão'));
+
+    expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
+    expect(screen.getByText(item.prompt)).toBeTruthy();
   });
 
   it('completes an available checkpoint and updates the journey snapshot', async () => {
