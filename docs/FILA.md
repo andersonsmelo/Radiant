@@ -34,7 +34,27 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ---
 
-## PRIORIDADE — o lançamento iOS, que não espera o relógio do Android
+## PRIORIDADE — a 1.4, desenhada em 2026-09-14
+
+**Estado:** spec aprovada pelo dono
+([`2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)).
+**Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
+push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade em
+[`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
+o dono lê o relatório no fim.
+
+### AGENTE — 1.4: plano e execução do fluxo do usuário
+
+Seguir o prompt de continuidade inteiro. Fase A: plano em
+`docs/superpowers/plans/`, sequência da §12 da spec. Fase B: uma tarefa por
+run, TDD, testes de tela na configuração de produção. Fase C: relatório em
+`docs/superpowers/handoffs/`. Não faz build, envio nem push. Itens do dono
+(acordo de apps pagos, produto e preço, entitlement do iCloud, DSN do Sentry)
+entram no relatório como pendentes.
+
+---
+
+## HISTÓRICO — o lançamento iOS (concluído em 2026-09-14)
 
 Reordenado em 2026-08-08. O **12 testadores × 14 dias** é exigência do **Google
 Play** para conta pessoal; a Apple não tem equivalente. F3, F4 e F5 do roadmap
