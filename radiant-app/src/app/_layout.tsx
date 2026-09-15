@@ -172,9 +172,14 @@ function RootLayout() {
           });
         }
 
+        // O catálogo é resolvido uma vez e compartilhado: a hidratação da
+        // jornada depende dele para achar a definição de trilha, e chamá-lo de
+        // novo lá dentro pagaria o custo duas vezes na partida.
+        const catalogBootstrap = LessonCatalogService.bootstrap();
+
         await Promise.all([
           AuthService.bootstrap(),
-          LessonCatalogService.bootstrap(),
+          catalogBootstrap,
           firstRunBootstrapRef.current,
           // Independente do modo do kernel, de propósito. Num Dev Client a primeira
           // operação de storage resolve o AsyncStorage por chunk buscado por HTTP
@@ -203,9 +208,27 @@ function RootLayout() {
           subscriptionService.refresh(Date.now()).catch((error) => {
             console.error('[RootLayout] Falha ao reler a assinatura:', error);
           }),
-          progressSyncService.restoreOnLaunch(Date.now()).catch((error) => {
-            console.error('[RootLayout] Falha ao restaurar o backup:', error);
-          }),
+          // O restore NÃO entra solto no paralelo, e a razão é de corretude,
+          // não de velocidade. `LocalProgressAdapter.applyJourney` só mescla
+          // trilhas que JÁ existem no storage local — inventar a trilha
+          // corromperia o progresso —, então, com `JOURNEY_PROGRESS` ainda
+          // ausente, ele devolve sem aplicar nada. Numa instalação nova, que é
+          // exatamente o caso em que o backup existe para servir, a jornada só
+          // hidratava quando alguma tela pedia, bem depois daqui: os nós
+          // concluídos restaurados sumiam sem erro, sem log e sem falhar o
+          // bootstrap, enquanto XP, sequência e agenda voltavam — um estado
+          // restaurado pela metade, que é pior que nenhum.
+          //
+          // A correção é a dependência real, não um atraso: nada de
+          // `setTimeout`. Hidrata a jornada (que depende do catálogo) e só
+          // então restaura. Continua best-effort: falha aqui é da nuvem, e o
+          // estudo local segue — por isso o `catch` fica no fim da cadeia.
+          catalogBootstrap
+            .then(() => JourneyProgressService.bootstrap())
+            .then(() => progressSyncService.restoreOnLaunch(Date.now()))
+            .catch((error) => {
+              console.error('[RootLayout] Falha ao restaurar o backup:', error);
+            }),
         ]);
         if (!active) {
           return;
