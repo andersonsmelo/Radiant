@@ -62,6 +62,7 @@ writePolicy:
     - radiant-app/src
     - radiant-app/components
     - radiant-app/plugins
+    - radiant-app/modules
     - radiant-app/scripts
     - radiant-app/docs
     - radiant-app/.maestro
