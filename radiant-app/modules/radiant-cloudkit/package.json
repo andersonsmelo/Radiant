@@ -1,0 +1,8 @@
+{
+  "name": "radiant-cloudkit",
+  "version": "1.0.0",
+  "description": "Módulo Expo local: backup do progresso no banco privado do CloudKit.",
+  "main": "index.ts",
+  "private": true,
+  "platforms": ["ios"]
+}
