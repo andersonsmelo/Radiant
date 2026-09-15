@@ -414,9 +414,52 @@ carrega o pacote inteiro.
    escreve num schema inexistente, falhando apenas em produção e de forma
    silenciosa.
 
-   **Esta fatia está implementada, não validada nativamente.** Nenhuma linha do
-   Swift foi compilada ou executada. Só passa a "validada" depois que um build
-   assinado rodar em aparelho real e comprovar backup e restauração.
+   ⚠️ **Superado em 2026-09-15 pela validação física — ver o bloco adiante.** O
+   texto original desta linha dizia que nenhuma linha do Swift havia sido
+   compilada; isso deixou de valer quando o build interno rodou no iPhone.
+
+   ✅ **VALIDADO NATIVAMENTE em 2026-09-15, com defeito encontrado.** Medido em
+   iPhone físico pelo dono: capability iCloud habilitada no App ID
+   `com.ascendcreative.radiant`, container `iCloud.com.ascendcreative.radiant`,
+   provisioning Ad Hoc regenerado, iPhone registrado, build interno EAS
+   `45abf4fd-a765-4c1d-94d3-1de5bda3db4f` instalado, schema `ProgressBackup`
+   implantado em **Production**. O módulo Swift **compilou e executou**; escrita
+   e leitura reais no CloudKit funcionaram.
+
+   🔴 **O teste de instalação limpa reprovou.** Com XP 100, trilha 11/14 e
+   backup ligado, apagar o app e reinstalar o mesmo build devolveu: backup
+   desligado, XP 0, trilha 0/14, sem restauração automática. Ligar o interruptor
+   à mão trouxe XP, sequência e trilha de volta — o que **prova que o registro
+   remoto estava íntegro** e que `pull`, merge e `apply` funcionam. O defeito era
+   o **gatilho**, não o backup.
+
+   **Causa raiz:** `parseState(null)` devolvia `{enabled:false}`, idêntico ao
+   estado de quem desligou de propósito, e `executarRestore` retornava antes do
+   `pull` nos dois casos. A prova já estava no repositório e estava **verde**: o
+   teste `desligado, não toca a nuvem nem o local` usava storage vazio — que é
+   literalmente uma instalação limpa — e afirmava que a nuvem não é consultada.
+
+   **Corrigido em 2026-09-15** (commit `4d0036e`): `BackupState` ganhou
+   `decided`, e a decisão de opt-in passou a morar no **registro remoto**
+   (`backupEnabled`), único lugar que sobrevive ao uninstall; ausente significa
+   ligado, por compatibilidade. O campo viaja dentro do payload JSON, que o
+   módulo nativo trata como string opaca — **zero mudança em Swift**. Desligar
+   passa a marcar `false` remoto preservando o payload.
+
+   ⚠️ **Estado: IMPLEMENTADO / AGUARDANDO NOVA VALIDAÇÃO FÍSICA.** A correção
+   não foi provada em aparelho. Só passa a "corrigida" depois que um **novo
+   build** repetir o ciclo apagar → reinstalar → abrir sem intervenção manual.
+
+   **Divergência registrada, não implementada:** Precisão e Tópicos continuam
+   vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que
+   a **spec §7 deixa deliberadamente fora** do payload de backup. A hipótese do
+   handoff de validação — de que dependiam de `reviewHistory` — está **errada**;
+   `LearningStatsService` lê `LearningAttemptsRepository`, um store separado.
+   Incluí-lo é decisão de produto, não correção de defeito.
+
+   Gates depois desta rodada, medidos em 2026-09-15 com o gate real
+   (`npm run quality`, Node 20): os 16 passos, exit 0, `visual:qa:strict` com 0
+   regressões; conjunto rastreado **119 suítes / 1015 testes**.
 
    🔴 **Revisão independente do PR #14, em 2026-09-15, achou dois caminhos de
    perda de progresso dentro do próprio mecanismo antiperda — ambos corrigidos.**

@@ -9,7 +9,7 @@ o handoff determinou.
 **HEAD publicado do PR:** o commit que grava este documento, consultável em
 [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) — um relatório não
 pode conter o SHA do commit que o cria, e a versão anterior deste arquivo
-afirmava `bba3ef6` como se pudesse. **Arquivos no PR: 24.**
+afirmava `bba3ef6` como se pudesse. **Arquivos no PR:** ver o PR — mudou nesta rodada.
 
 > **Implementado, não validado nativamente.** Nenhuma linha de Swift deste
 > trabalho foi compilada ou executada. A fatia só pode ser chamada de validada
@@ -274,7 +274,7 @@ tocado; `git diff` sobre ele é vazio.
 
 | Medida | Baseline (2026-09-14) | Agora (2026-09-15) |
 | --- | --- | --- |
-| Suítes / testes (conjunto rastreado) | **117 / 916** | **119 / 1000** (+84) |
+| Suítes / testes (conjunto rastreado) | **117 / 916** | **119 / 1015** (+99) |
 | `tsc --noEmit` | exit 0 | **exit 0** |
 | ESLint | 0 erros / 24 avisos | **0 erros / 24 avisos** |
 
@@ -536,6 +536,25 @@ contratos, no Node 20, sobre o conjunto rastreado. Três desvios independentes,
 todos com a mesma assinatura: tratar a medição local como equivalente à do gate
 sem verificar que eram o mesmo comando, no mesmo ambiente, sobre os mesmos
 arquivos.
+
+---
+
+### Achado 6 — validação física reprovou a instalação limpa
+
+O build interno rodou no iPhone em 2026-09-15 e **o módulo Swift compilou e
+executou**; escrita e leitura reais no CloudKit funcionaram, com o schema
+`ProgressBackup` implantado em Production. Mas apagar e reinstalar o app **não
+restaurou nada**, e só ligar o interruptor à mão trouxe o progresso de volta —
+provando que o registro remoto estava íntegro e que o defeito era o **gatilho**.
+
+Causa raiz e correção estão em
+[continuação da validação](2026-09-15-radiant-1-4-cloudkit-device-validation-2.md).
+Em resumo: `parseState(null)` devolvia `{enabled:false}`, idêntico a "o dono
+desligou", e a decisão de opt-in passou a morar no registro remoto, que é o
+único lugar que sobrevive ao uninstall.
+
+**A correção não foi provada em aparelho.** Estado: IMPLEMENTADO / AGUARDANDO
+NOVA VALIDAÇÃO FÍSICA.
 
 ---
 
