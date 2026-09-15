@@ -46,16 +46,62 @@ function parseSeguro(payload: string): unknown {
     }
 }
 
+/** Objeto simples: não nulo e não array. `typeof [] === 'object'`. */
+function ehMapa(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function ehNumeroUtil(value: unknown): boolean {
+    return typeof value === 'number' && Number.isFinite(value);
+}
+
+function ehTextoNaoVazio(value: unknown): boolean {
+    return typeof value === 'string' && value.length > 0;
+}
+
+/**
+ * Uma trilha guarda uma lista de IDs de nó. Uma string aqui é o caso que mais
+ * machuca: a mescla faz spread do valor, e `'abc'` vira `['a','b','c']` — três
+ * nós inventados marcados como concluídos.
+ */
+function ehListaDeIds(value: unknown): boolean {
+    return Array.isArray(value) && value.every(ehTextoNaoVazio);
+}
+
+const CARTAO_TEXTO = ['lessonId', 'nextReviewAt', 'lastReviewedAt', 'createdAt'] as const;
+const CARTAO_NUMERO = ['easeFactor', 'interval', 'repetitions'] as const;
+
+/**
+ * Cartão do SM-2 com todos os campos obrigatórios presentes e do tipo certo.
+ *
+ * Um `{}` aqui passava antes e chegava ao `SpacedRepetitionService` como cartão
+ * de datas indefinidas; `NaN` em `interval` envenena o agendamento sem nunca
+ * lançar. Os dois são aceitos por qualquer checagem que só pergunte se o valor
+ * é objeto.
+ */
+function ehCartaoDeRevisao(value: unknown): boolean {
+    if (!ehMapa(value)) return false;
+    return CARTAO_TEXTO.every((campo) => ehTextoNaoVazio(value[campo]))
+        && CARTAO_NUMERO.every((campo) => ehNumeroUtil(value[campo]));
+}
+
+/**
+ * Validação **profunda**: aceitar "qualquer objeto não nulo" nas coleções
+ * aninhadas deixava passar payload corrompido como utilizável, e utilizável é
+ * exatamente o estado que autoriza mesclar sobre o progresso local.
+ */
 function ehProgressBackup(value: unknown): value is ProgressBackup {
-    if (typeof value !== 'object' || value === null) return false;
-    const c = value as Record<string, unknown>;
+    if (!ehMapa(value)) return false;
+    const c = value;
     return c.schemaVersion === 1
-        && typeof c.savedAt === 'string'
-        && typeof c.totalXp === 'number'
-        && typeof c.streakDays === 'number'
+        && ehTextoNaoVazio(c.savedAt)
+        && ehNumeroUtil(c.totalXp)
+        && ehNumeroUtil(c.streakDays)
         && (typeof c.lastRefillAt === 'string' || c.lastRefillAt === null)
-        && typeof c.completedNodesByTrack === 'object' && c.completedNodesByTrack !== null
-        && typeof c.reviewSchedule === 'object' && c.reviewSchedule !== null;
+        && ehMapa(c.completedNodesByTrack)
+        && Object.values(c.completedNodesByTrack).every(ehListaDeIds)
+        && ehMapa(c.reviewSchedule)
+        && Object.values(c.reviewSchedule).every(ehCartaoDeRevisao);
 }
 
 export class CloudKitPrivateAdapter implements PrivateCloudPort {

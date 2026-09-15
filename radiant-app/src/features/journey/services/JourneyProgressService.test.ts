@@ -362,6 +362,70 @@ describe('JourneyProgressService — backup best-effort na conclusão de nó', (
         expect(backupNow).not.toHaveBeenCalled();
     });
 
+    // P2-1 da revisão do PR #14. O gancho disparava só quando o nó ENTRAVA em
+    // `completedNodeIds`, e uma revisão que vence DE NOVO já está lá desde a
+    // primeira vez. A partir da segunda, a revisão atualizava a agenda SM-2 e
+    // concedia XP sem backup, e a nuvem ficava velha indefinidamente até o aluno
+    // concluir algum nó inédito.
+    //
+    // O discriminador correto já existia no estado: a fila
+    // `pendingReviewNodeIds`. Revisão legítima sai da fila — mudança real.
+    // Toque repetido não sai de nada, porque já saiu.
+
+    /** Deixa a revisão de `foundation-1` concluída uma vez e vencida de novo. */
+    async function revisaoVencidaDeNovo() {
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue(['foundation-1']);
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        // Vence outra vez: a hidratação repõe a fila a partir das lições
+        // devidas, independentemente do que já foi concluído.
+        const snapshot = await JourneyProgressService.bootstrap();
+        expect(snapshot.progress.completedNodeIds).toContain('node:review:foundation-1');
+        expect(snapshot.progress.pendingReviewNodeIds).toContain('node:review:foundation-1');
+        backupNow.mockClear();
+    }
+
+    it('dispara backup ao concluir uma revisão vencida que já fora concluída antes', async () => {
+        await revisaoVencidaDeNovo();
+
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+
+    it('não duplica o backup ao repetir a conclusão da mesma revisão', async () => {
+        await revisaoVencidaDeNovo();
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        // Concluir a revisão reagenda o cartão: a lição deixa de estar vencida,
+        // e a hidratação seguinte não a repõe na fila. Sem isto o dublê
+        // afirmaria que ela vence para sempre, e o segundo toque pareceria uma
+        // revisão nova — cenário que o SM-2 real não produz.
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        backupNow.mockClear();
+
+        // Segundo toque: já concluído E já fora da fila. Nada muda.
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).not.toHaveBeenCalled();
+    });
+
+    it('a conclusão da revisão não espera a rede', async () => {
+        await revisaoVencidaDeNovo();
+        backupNow.mockReturnValue(new Promise(() => undefined));
+
+        const snapshot = await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+
+        expect(snapshot.progress.completedNodeIds).toContain('node:review:foundation-1');
+        expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+
     it('não duplica o backup quando a mesma conclusão é repetida', async () => {
         await JourneyProgressService.bootstrap();
         await JourneyProgressService.markNodeCompleted('node:foundation-1');

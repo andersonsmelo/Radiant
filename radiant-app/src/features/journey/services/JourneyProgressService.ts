@@ -143,11 +143,20 @@ class JourneyProgressServiceImpl {
             return this.computeSnapshot(resolvedTrackDefinition, progress);
         }
 
-        // Conclusão LÓGICA é a que muda o conjunto de concluídos. Repetir a
-        // mesma conclusão — toque duplo, re-render, deep link reaberto —
-        // continua persistindo (`lastUpdatedAt` muda), mas não é evento novo e
-        // não paga backup.
+        // Conclusão LÓGICA é a que muda o estado do progresso. Repetir a mesma
+        // conclusão — toque duplo, re-render, deep link reaberto — continua
+        // persistindo (`lastUpdatedAt` muda), mas não é evento novo e não paga
+        // backup.
+        //
+        // "Entrar em `completedNodeIds`" sozinho não serve como régua, e foi o
+        // defeito P2-1: uma revisão que vence DE NOVO já está lá desde a
+        // primeira vez, então da segunda em diante ela atualizava a agenda SM-2
+        // e concedia XP sem backup, deixando a nuvem velha até o aluno concluir
+        // algum nó inédito. A fila de revisão é a outra metade da régua — e já
+        // estava no estado, bastava lê-la: revisão legítima SAI da fila, toque
+        // repetido não sai de nada porque já saiu.
         const jaEstavaConcluido = progress.completedNodeIds.includes(nodeId);
+        const saiuDaFilaDeRevisao = progress.pendingReviewNodeIds.includes(nodeId);
         const completedNodeIds = jaEstavaConcluido
             ? progress.completedNodeIds
             : [...progress.completedNodeIds, nodeId];
@@ -174,7 +183,7 @@ class JourneyProgressServiceImpl {
         // nuvem é continuidade opcional.
         const snapshot = await this.persistAndHydrate(resolvedTrackDefinition, nextProgress);
 
-        if (!jaEstavaConcluido) {
+        if (!jaEstavaConcluido || saiuDaFilaDeRevisao) {
             void this.backupAposConclusao();
         }
 

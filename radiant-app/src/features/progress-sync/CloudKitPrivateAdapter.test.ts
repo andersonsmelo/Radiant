@@ -150,6 +150,72 @@ describe('CloudKitPrivateAdapter — registro existente nunca é lido como ausen
     });
 });
 
+// P2-2 da revisão do PR #14. A validação aceitava qualquer objeto não nulo em
+// `completedNodesByTrack` e `reviewSchedule`, então um payload versão 1
+// corrompido passava como `usable`: uma string em `completedNodesByTrack` é
+// espalhada em IDs de um caractere durante a mescla, e `{"l1": {}}` em
+// `reviewSchedule` vira cartão com datas indefinidas no SpacedRepetitionService.
+describe('CloudKitPrivateAdapter — validação estrutural profunda do payload', () => {
+    const cartaoValido = {
+        lessonId: 'l1',
+        easeFactor: 2.5,
+        interval: 3,
+        repetitions: 1,
+        nextReviewAt: '2026-09-18T00:00:00.000Z',
+        lastReviewedAt: '2026-09-15T00:00:00.000Z',
+        createdAt: '2026-09-01T00:00:00.000Z',
+    };
+
+    /** Remove um campo obrigatório sem deixar `undefined` no lugar. */
+    function semCampo<T extends object>(base: T, campo: keyof T): Partial<T> {
+        const copia = { ...base };
+        delete copia[campo];
+        return copia;
+    }
+
+    const lendo = (payload: unknown) => new CloudKitPrivateAdapter(fakeNative({
+        fetchBackup: jest.fn(async () => ({
+            payloadVersion: CLOUDKIT_PAYLOAD_VERSION,
+            payload: JSON.stringify(payload),
+            savedAt: BACKUP.savedAt,
+        })),
+    })).pull();
+
+    const corrompidos: [string, unknown][] = [
+        ['completedNodesByTrack é array', { ...BACKUP, completedNodesByTrack: [] }],
+        ['trilha com string no lugar do array', { ...BACKUP, completedNodesByTrack: { t1: 'abc' } }],
+        ['trilha com número dentro do array', { ...BACKUP, completedNodesByTrack: { t1: ['n1', 7] } }],
+        ['trilha com id vazio', { ...BACKUP, completedNodesByTrack: { t1: ['n1', ''] } }],
+        ['trilha nula', { ...BACKUP, completedNodesByTrack: { t1: null } }],
+        ['reviewSchedule é array', { ...BACKUP, reviewSchedule: [] }],
+        ['cartão vazio', { ...BACKUP, reviewSchedule: { l1: {} } }],
+        ['cartão sem nextReviewAt', { ...BACKUP, reviewSchedule: { l1: semCampo(cartaoValido, 'nextReviewAt') } }],
+        ['cartão sem lessonId', { ...BACKUP, reviewSchedule: { l1: semCampo(cartaoValido, 'lessonId') } }],
+        ['cartão com easeFactor textual', { ...BACKUP, reviewSchedule: { l1: { ...cartaoValido, easeFactor: '2.5' } } }],
+        ['cartão com interval NaN', { ...BACKUP, reviewSchedule: { l1: { ...cartaoValido, interval: NaN } } }],
+        ['cartão nulo', { ...BACKUP, reviewSchedule: { l1: null } }],
+    ];
+
+    it.each(corrompidos)('%s vira incompatível, nunca utilizável', async (_rotulo, payload) => {
+        await expect(lendo(payload)).resolves.toEqual({ kind: 'incompatible', reason: 'schema-version' });
+    });
+
+    // Contrapontos: sem eles, uma validação que rejeitasse tudo passaria nos
+    // casos acima e destruiria o backup de todo mundo.
+    const validos: [string, unknown][] = [
+        ['backup completo', BACKUP],
+        ['mapas vazios', { ...BACKUP, completedNodesByTrack: {}, reviewSchedule: {} }],
+        ['trilha sem nós concluídos', { ...BACKUP, completedNodesByTrack: { t1: [] } }],
+        ['várias trilhas', { ...BACKUP, completedNodesByTrack: { t1: ['n1'], t2: ['n2', 'n3'] } }],
+        ['agenda com cartão íntegro', { ...BACKUP, reviewSchedule: { l1: cartaoValido } }],
+        ['lastRefillAt nulo', { ...BACKUP, lastRefillAt: null }],
+    ];
+
+    it.each(validos)('%s continua utilizável', async (_rotulo, payload) => {
+        await expect(lendo(payload)).resolves.toEqual({ kind: 'usable', backup: payload });
+    });
+});
+
 describe('CloudKitPrivateAdapter — estados que degradam para local', () => {
     const contasIndisponiveis: CloudKitAccountStatus[] = [
         'no-account',
