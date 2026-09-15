@@ -414,6 +414,7 @@ function RootLayout() {
         <Stack.Screen name="reward" />
         <Stack.Screen name="quiz" />
         <Stack.Screen name="review" />
+        <Stack.Screen name="subscription" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
       </Stack>

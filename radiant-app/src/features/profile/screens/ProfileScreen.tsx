@@ -5,10 +5,15 @@ import { router, useFocusEffect } from 'expo-router';
 
 import { AppConfig } from '../../../config';
 import { AppButton } from '../../../components/ui/AppButton';
-import { AuthService } from '../../auth/AuthService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import MissionsScreen from '../../missions/screens/MissionsScreen';
 import ProgressScreen from '../../progress/screens/ProgressScreen';
+import { ICloudBackupCard } from '../../progress-sync/components/ICloudBackupCard';
+import { progressSyncService } from '../../progress-sync/ProgressSyncService';
+import type { BackupState } from '../../progress-sync/progressSync.types';
+import { SubscriptionCard } from '../../subscription/components/SubscriptionCard';
+import { subscriptionService } from '../../subscription/SubscriptionService';
+import type { SubscriptionStatus } from '../../subscription/subscription.types';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { galaxyColors } from '../../../ui/theme';
 import { space, tabBarClearance } from '../../../ui/styles';
@@ -37,21 +42,50 @@ import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
  * EXPO_PUBLIC_ENABLE_DEV_TOOLS` —, então no build do aluno ela não existe. Não
  * é um botão desabilitado, que ainda contaria uma história a quem não deveria
  * ouvi-la.
+ *
+ * **Sem conta própria (spec 1.4 §1.2, decisão 4).** O cabeçalho não recebe
+ * e-mail de sessão: guardar progresso é o cartão Backup no iCloud, e assinar
+ * é o cartão Assinatura. Nenhum dos dois pede login, e nenhuma palavra de
+ * infraestrutura chega à tela do aluno.
  */
 export default function ProfileScreen() {
-  const [email, setEmail] = useState<string | null>(null);
   const [streakDays, setStreakDays] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
+  const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
+  const [backup, setBackup] = useState<BackupState | null>(null);
+  const [backupBusy, setBackupBusy] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
-      void AuthService.bootstrap().then((session) => setEmail(session?.user.email ?? null));
       void GamificationService.getSnapshot().then((snapshot) => {
         setStreakDays(snapshot.streakDays);
         setTotalXp(snapshot.totalXp);
       });
+      void subscriptionService.getStatus(Date.now())
+        .then(setSubscription)
+        .catch((cause) => {
+          console.error('[ProfileScreen] Falha ao ler a assinatura:', cause);
+          setSubscription({ kind: 'none' });
+        });
+      void progressSyncService.getState()
+        .then(setBackup)
+        .catch((cause) => {
+          console.error('[ProfileScreen] Falha ao ler o backup:', cause);
+          setBackup({ enabled: false, lastBackupAt: null, lastError: 'failed' });
+        });
     }, []),
   );
+
+  const toggleBackup = useCallback((enabled: boolean) => {
+    setBackupBusy(true);
+    void progressSyncService.setEnabled(enabled, Date.now())
+      .then(setBackup)
+      .catch((cause) => {
+        console.error('[ProfileScreen] Falha ao alterar o backup:', cause);
+        setBackup((current) => ({ enabled, lastBackupAt: current?.lastBackupAt ?? null, lastError: 'failed' }));
+      })
+      .finally(() => setBackupBusy(false));
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -62,8 +96,10 @@ export default function ProfileScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <ProfileIdentityHeader email={email} streakDays={streakDays} totalXp={totalXp} />
+          <ProfileIdentityHeader email={null} streakDays={streakDays} totalXp={totalXp} />
           <MissionsScreen embedded />
+          <SubscriptionCard status={subscription} onOpen={() => router.push('/subscription')} />
+          <ICloudBackupCard state={backup} onToggle={toggleBackup} busy={backupBusy} />
           <ProgressScreen embedded />
 
           {AppConfig.SHOW_DEV_TOOLS ? (

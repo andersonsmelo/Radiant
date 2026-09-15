@@ -311,7 +311,8 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         const nextHearts = await heartsRepository.spend(Date.now());
         setHearts(nextHearts);
 
-        if (nextHearts.count === 0) {
+        // O estado decide, não o número: assinante pode carregar `count: 0`.
+        if (nextHearts.status === 'empty') {
           setHeartsSheetVisible(true);
           return;
         }
@@ -638,7 +639,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
             ) : productionBatch && !checkpointStarted ? (
               <AppButton
                 onPress={() => {
-                  if (hearts.count === 0) {
+                  if (hearts.status === 'empty') {
                     setHeartsSheetVisible(true);
                     return;
                   }

@@ -1,0 +1,85 @@
+/**
+ * Contratos da assinatura "Radiant Ilimitado" (spec 1.4 §6).
+ *
+ * A porta `StoreKitPort` é a única fronteira com a Apple. Nesta versão só o
+ * adaptador indisponível existe; o adaptador StoreKit 2 real entra depois do
+ * build interno autorizado (Task 8). Preço e período nunca nascem aqui — vêm
+ * da porta ou não existem.
+ */
+export type SubscriptionPeriod = 'monthly' | 'annual';
+
+export type StoreProduct = {
+    id: string;
+    period: SubscriptionPeriod;
+    title: string;
+    /** Preço localizado exatamente como a Apple o entregou, ex.: "R$ 19,90". */
+    displayPrice: string;
+};
+
+export type SubscriptionEntitlement = {
+    productId: string;
+    period: SubscriptionPeriod;
+    /** Fim do período pago corrente, ISO 8601. */
+    expiresAt: string;
+    willRenew: boolean;
+    /** Reembolso ou revogação pela Apple; quando presente, o direito não vale. */
+    revokedAt: string | null;
+};
+
+export type PurchaseOutcome =
+    | { kind: 'purchased'; entitlement: SubscriptionEntitlement }
+    /** Ask to Buy: o pedido aguarda aprovação de um responsável. */
+    | { kind: 'pending' }
+    | { kind: 'cancelled' }
+    | { kind: 'failed'; message: string };
+
+export interface StoreKitPort {
+    loadProducts(ids: readonly string[]): Promise<StoreProduct[]>;
+    /** Leitura local (`Transaction.currentEntitlements`), sem rede. */
+    currentEntitlement(): Promise<SubscriptionEntitlement | null>;
+    purchase(productId: string): Promise<PurchaseOutcome>;
+    restore(): Promise<SubscriptionEntitlement | null>;
+}
+
+export class StoreUnavailableError extends Error {
+    readonly code = 'store-unavailable' as const;
+
+    constructor(message = 'A loja não está disponível neste build.') {
+        super(message);
+        this.name = 'StoreUnavailableError';
+    }
+}
+
+export function isStoreUnavailable(error: unknown): error is StoreUnavailableError {
+    return typeof error === 'object' && error !== null && (error as { code?: unknown }).code === 'store-unavailable';
+}
+
+export type SubscriptionStatus =
+    | { kind: 'none' }
+    | { kind: 'pending'; since: string }
+    | { kind: 'unlimited'; expiresAt: string; willRenew: boolean }
+    | { kind: 'expired'; expiredAt: string };
+
+export type SubscriptionOffers =
+    | { status: 'available'; products: StoreProduct[] }
+    | { status: 'store-unavailable' };
+
+export type PurchaseResult =
+    | { kind: 'purchased'; status: SubscriptionStatus }
+    | { kind: 'pending' }
+    | { kind: 'cancelled' }
+    | { kind: 'failed'; message: string }
+    | { kind: 'store-unavailable' };
+
+export type RestoreResult =
+    | { kind: 'restored'; status: SubscriptionStatus }
+    | { kind: 'nothing-to-restore' }
+    | { kind: 'store-unavailable' };
+
+/** Cache persistido do direito, para que o estudo offline nunca dependa da loja. */
+export type SubscriptionCacheV1 = {
+    schemaVersion: 1;
+    entitlement: SubscriptionEntitlement | null;
+    pendingSince: string | null;
+    checkedAt: string | null;
+};

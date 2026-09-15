@@ -312,6 +312,24 @@ carrega o pacote inteiro.
    retiradas das conclusões de checkpoint e conquista. Typecheck, lint e 50/50
    testes focados passaram; nenhuma compra, módulo nativo ou build foi ativado.
 
+   **Task 7 concluída localmente em 2026-09-14:** a assinatura e o backup
+   entraram como contratos atrás de portas injetáveis (`StoreKitPort`,
+   `PrivateCloudPort`); o adaptador padrão de cada uma responde
+   `store-unavailable`/`cloud-unavailable` e não finge integração nativa. O
+   direito de uso vale offline pelo cache até a data; vencido, expirado ou
+   reembolsado volta a CHEIA, nunca a VAZIA; Ask to Buy fica pendente; a
+   restauração recupera o direito. O backup mescla sem apagar (união de
+   concluídos por trilha, agenda mais recente por nó, maior XP e sequência,
+   `lastRefillAt` mais recente) e nuvem vazia nunca substitui o local. A tela
+   `/subscription` cobre carregando, loja indisponível, pendente, assinante,
+   restaurada e cancelada, com preço e período só da porta, renovação,
+   Restaurar compras, termos, privacidade e cancelamento nos Ajustes. O Perfil
+   ganhou os cartões Assinatura e Backup no iCloud e deixou de receber e-mail
+   de sessão. Medido em 2026-09-14 com `npx jest --runInBand` (9 suítes novas
+   ou alteradas, 72 testes; lição 17/17 e checkpoint 23/23), `npx tsc --noEmit`
+   e ESLint sem avisos nos arquivos de produção. Nenhuma compra, módulo
+   nativo, iCloud, Sentry ou build foi ativado; `expo-iap` não foi instalado.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

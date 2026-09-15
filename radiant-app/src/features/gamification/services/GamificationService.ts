@@ -62,6 +62,20 @@ class GamificationServiceImpl {
         return this.toSnapshot(store);
     }
 
+    /**
+     * Mescla XP e sequência vindos de um backup: fica com o maior de cada um.
+     * Passa pelo cache em memória de propósito — escrever o storage por fora
+     * seria sobrescrito na próxima gravação.
+     */
+    async absorbBackup(backup: { totalXp: number; streakDays: number }): Promise<GamificationSnapshot> {
+        const store = await this.getOrLoadStore();
+        store.totalXp = Math.max(store.totalXp, backup.totalXp);
+        store.streakDays = Math.max(store.streakDays, backup.streakDays);
+        store.updatedAt = new Date().toISOString();
+        await this.saveStore(store);
+        return this.toSnapshot(store);
+    }
+
     // ── Hearts ───────────────────────────────────────────────
 
     /**

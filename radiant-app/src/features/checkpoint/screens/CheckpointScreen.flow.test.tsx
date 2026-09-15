@@ -250,6 +250,28 @@ describe('CheckpointScreen flow', () => {
     expect(screen.getByText(item.prompt)).toBeTruthy();
   });
 
+  it('assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio', async () => {
+    // `setUnlimited` preserva a contagem — quem assinou com zero vidas continua
+    // com `count: 0` e `status: 'unlimited'`. Bloquear pelo número deixaria o
+    // assinante preso na folha que a assinatura promete nunca mais mostrar.
+    const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+    heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+    heartsRepository.spend.mockResolvedValue(ilimitada);
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    const item = productionStageItems[0];
+    const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
+    expect(await screen.findByText(item.prompt)).toBeTruthy();
+    fireEvent.press(screen.getByLabelText(wrong.label));
+    fireEvent.press(screen.getByText('Próxima questão'));
+
+    expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+  });
+
   it('completes an available checkpoint and updates the journey snapshot', async () => {
     renderWithProviders(<CheckpointScreen nodeId="checkpoint-1" />);
 

@@ -208,7 +208,8 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
-        if (hearts.count === 0 && currentInteraction) {
+        // O estado decide, não o número: assinante pode carregar `count: 0`.
+        if (hearts.status === 'empty' && currentInteraction) {
             setHeartsSheetVisible(true);
             return;
         }
@@ -243,7 +244,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         const nextConfirmed = player.confirm();
 
         if (!isLastStep) {
-            if (nextHearts.count === 0) {
+            if (nextHearts.status === 'empty') {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }

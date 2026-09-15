@@ -462,6 +462,23 @@ describe('LessonFlowScreen — economia de vidas', () => {
     expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', 1);
   });
 
+  it('assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio', async () => {
+    // `setUnlimited` preserva a contagem — quem assinou com zero vidas continua
+    // com `count: 0` e `status: 'unlimited'`. Bloquear pelo número deixaria o
+    // assinante preso na folha que a assinatura promete nunca mais mostrar.
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+    heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+    heartsRepository.spend.mockResolvedValue(ilimitada);
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await waitFor(() => expect(screen.queryByText('Qual padrão radiográfico está presente?')).toBeNull());
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith('node-1', 1);
+  });
+
   it('salva o passo atual antes de fechar', async () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();

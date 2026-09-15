@@ -14,3 +14,12 @@ describe('LEGAL_LINKS', () => {
     }
   });
 });
+
+describe('LEGAL_LINKS.terms', () => {
+  it('aponta para o contrato de licença padrão da Apple até o dono publicar termos próprios', () => {
+    // A tela de assinatura precisa de um link de termos (Guideline 3.1.2). O
+    // EULA padrão da Apple é o que vale quando o app não publica o seu.
+    expect(LEGAL_LINKS.terms.label).toBe('Termos de uso');
+    expect(LEGAL_LINKS.terms.href).toBe('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+  });
+});

@@ -2,7 +2,7 @@ jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 import React from 'react';
-import { render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
 import ProfileScreen from './ProfileScreen';
 import { AppConfig } from '../../../config';
@@ -10,6 +10,7 @@ import { AppConfig } from '../../../config';
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
 jest.mock('expo-router', () => ({
+  router: { push: jest.fn() },
   useFocusEffect: (callback: () => void) => {
     const React = require('react');
     React.useEffect(() => {
@@ -17,14 +18,29 @@ jest.mock('expo-router', () => ({
     }, [callback]);
   },
 }));
-
-jest.mock('../../auth/AuthService', () => ({
-  AuthService: { bootstrap: jest.fn().mockResolvedValue(null) },
-}));
+const mockedRouter = jest.requireMock('expo-router').router as { push: jest.Mock };
 
 jest.mock('../../../config', () => ({
-  AppConfig: { SHOW_DEV_TOOLS: true },
+  AppConfig: { SHOW_DEV_TOOLS: true, ENABLE_REMOTE_SYNC: false },
 }));
+
+jest.mock('../../subscription/SubscriptionService', () => ({
+  subscriptionService: { getStatus: jest.fn().mockResolvedValue({ kind: 'none' }) },
+}));
+const mockedSubscription = jest.requireMock('../../subscription/SubscriptionService').subscriptionService as {
+  getStatus: jest.Mock;
+};
+
+jest.mock('../../progress-sync/ProgressSyncService', () => ({
+  progressSyncService: {
+    getState: jest.fn().mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null }),
+    setEnabled: jest.fn().mockResolvedValue({ enabled: true, lastBackupAt: null, lastError: 'cloud-unavailable' }),
+  },
+}));
+const mockedProgressSync = jest.requireMock('../../progress-sync/ProgressSyncService').progressSyncService as {
+  getState: jest.Mock;
+  setEnabled: jest.Mock;
+};
 
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
@@ -138,5 +154,67 @@ describe('ProfileScreen — a porta do console de desenvolvimento', () => {
 
     expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
     expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
+  });
+});
+
+describe('ProfileScreen — assinatura e backup na configuração de produção', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    AppConfig.SHOW_DEV_TOOLS = false;
+    mockedSubscription.getStatus.mockResolvedValue({ kind: 'none' });
+    mockedProgressSync.getState.mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
+  });
+
+  afterEach(() => {
+    AppConfig.SHOW_DEV_TOOLS = true;
+  });
+
+  it('mostra os cartões de assinatura e de backup, e nada de login, e-mail, token, API, sync ou backend', async () => {
+    render(<ProfileScreen />);
+
+    expect(await screen.findByText('Vidas ilimitadas — e só isso.')).toBeTruthy();
+    expect(await screen.findByText('Backup no iCloud')).toBeTruthy();
+    expect(screen.getByText('Nenhum backup ainda')).toBeTruthy();
+
+    for (const proibido of [/login/iu, /e-?mail/iu, /senha/iu, /token/iu, /\bAPI\b/u, /sync/iu, /backend/iu, /servidor/iu]) {
+      expect(screen.queryByText(proibido)).toBeNull();
+    }
+  });
+
+  it('o cartão de assinatura abre a tela de assinatura', async () => {
+    render(<ProfileScreen />);
+
+    fireEvent.press(await screen.findByRole('button', { name: 'Conhecer' }));
+
+    expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+  });
+
+  it('assinante vê a renovação e expirado vê renovar', async () => {
+    mockedSubscription.getStatus.mockResolvedValue({ kind: 'unlimited', expiresAt: '2026-10-14T12:00:00.000Z', willRenew: true });
+    const { unmount } = render(<ProfileScreen />);
+    expect(await screen.findByText('Renova em 14/10/2026')).toBeTruthy();
+    unmount();
+
+    mockedSubscription.getStatus.mockResolvedValue({ kind: 'expired', expiredAt: '2026-09-01T12:00:00.000Z' });
+    render(<ProfileScreen />);
+    expect(await screen.findByRole('button', { name: 'Renovar' })).toBeTruthy();
+  });
+
+  it('ligar o backup passa pelo serviço e mostra o estado devolvido, com erro que informa sem bloquear', async () => {
+    render(<ProfileScreen />);
+    const interruptor = await screen.findByLabelText('Backup no iCloud');
+
+    fireEvent(interruptor, 'valueChange', true);
+
+    await waitFor(() => expect(mockedProgressSync.setEnabled).toHaveBeenCalledWith(true, expect.any(Number)));
+    expect(await screen.findByText(/ainda não está disponível nesta versão/u)).toBeTruthy();
+    expect(screen.getByLabelText('Backup no iCloud').props.value).toBe(true);
+  });
+
+  it('backup ativo mostra a data do último backup', async () => {
+    mockedProgressSync.getState.mockResolvedValue({ enabled: true, lastBackupAt: '2026-09-14T12:00:00.000Z', lastError: null });
+    render(<ProfileScreen />);
+
+    expect(await screen.findByText(/Último backup em 14\/09\/2026/u)).toBeTruthy();
   });
 });
