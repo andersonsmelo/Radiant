@@ -1570,9 +1570,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   `StoreKitPort`/`PrivateCloudPort` com adaptadores padrão indisponíveis; tela
   `/subscription` e cartões Assinatura e Backup no iCloud no Perfil. Evidência:
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
-- **K6 [P0 — DEPENDE DO DONO E DE BUILD INTERNO]** Ligar StoreKit 2, iCloud e
-  Sentry; medir E2E, acessibilidade, desempenho e tamanho antes de qualquer
-  submissão.
+- **K6 [P0 — BLOQUEADA PELOS GATES DO DONO, medido em 2026-09-14]** Ligar
+  StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e tamanho
+  antes de qualquer submissão. Não iniciada: faltam autorização de build
+  interno, acordo de apps pagos aceito, ids/preços mensal e anual, entitlement
+  iCloud + credencial EAS e DSN Sentry. Nada nativo foi instalado ou versionado.
+  Pendências e ordem de ligação no
+  [relatório de execução](../superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md).
 
 ## 7. Recursos necessários
 

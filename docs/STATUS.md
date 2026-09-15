@@ -330,6 +330,19 @@ carrega o pacote inteiro.
    e ESLint sem avisos nos arquivos de produção. Nenhuma compra, módulo
    nativo, iCloud, Sentry ou build foi ativado; `expo-iap` não foi instalado.
 
+   **Correção pós-Task 7 e Task 8 bloqueada, em 2026-09-14:** `refresh` da
+   assinatura deixou de tocar as vidas de quem não assina (chamava
+   `setUnlimited(null)`, que devolve o estado cheio — a cada abertura, todo
+   aluno grátis teria vidas cheias); a abertura passou a reler o direito de uso
+   e a tentar restaurar o backup sem bloquear o Stack. Run
+   `run-1789431458242-28d4efde`, 14/14, 68 testes nas suítes tocadas. A **Task 8
+   não foi iniciada**: nenhum gate humano estava disponível (autorização de
+   build interno, acordo de apps pagos, ids/preços, entitlement iCloud +
+   credencial EAS, DSN Sentry); `expo-iap` não foi instalado e `package.json`,
+   `app.json` e `eas.json` seguem em `1.3.1`, sem alteração (`git status`). O
+   relatório da sessão, com pendências, suposições e achados, está em
+   [`superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md`](superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md).
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
