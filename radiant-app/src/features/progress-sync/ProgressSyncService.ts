@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { LocalProgressAdapter } from './LocalProgressAdapter';
-import { UnavailablePrivateCloudAdapter } from './UnavailablePrivateCloudAdapter';
+import { resolvePrivateCloudAdapter } from './CloudKitPrivateAdapter';
 import {
     isCloudUnavailable,
     type BackupState,
@@ -81,14 +81,25 @@ function parseState(raw: string | null): BackupState {
 }
 
 export class ProgressSyncService {
-    private readonly cloud: PrivateCloudPort;
+    private cloudPort: PrivateCloudPort | null;
     private readonly local: LocalProgressPort;
     private readonly storage: ProgressSyncStorage;
 
     constructor(deps: Deps = {}) {
-        this.cloud = deps.cloud ?? new UnavailablePrivateCloudAdapter();
+        this.cloudPort = deps.cloud ?? null;
         this.local = deps.local ?? new LocalProgressAdapter();
         this.storage = deps.storage ?? AsyncStorage;
+    }
+
+    /**
+     * Resolução preguiçosa de propósito: este módulo é importado na abertura,
+     * e consultar o runtime de módulos nativos no `import` faria toda partida —
+     * e toda suíte que apenas toca neste arquivo — pagar por um adaptador que
+     * só é usado quando o backup está ligado.
+     */
+    private get cloud(): PrivateCloudPort {
+        this.cloudPort ??= resolvePrivateCloudAdapter();
+        return this.cloudPort;
     }
 
     async getState(): Promise<BackupState> {
