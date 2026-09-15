@@ -143,6 +143,35 @@ toda sessão de IA segue este contrato:
    (`loop brain session close`) e relate: arquivos alterados, evidência,
    estado do run e o que ficou pendente.
 
+### Cinco lições operacionais da semana de 2026-09-08 a 14 (custaram runs)
+
+- **`loop` exige Node 24; o `.nvmrc` de `radiant-app` puxa o shell para o
+  20.** Antes de qualquer comando `loop`:
+  `export PATH="$HOME/.nvm/versions/node/v24.14.1/bin:$PATH"`. Testes e builds
+  do app continuam no 20.
+- **Caminho com acento nunca é digitado — vem do `find`.** O mesmo arquivo
+  passou no `step begin` quando o caminho veio de `find` (NFD, forma do disco)
+  e reprovou com `INVALID_SCOPE` quando foi digitado num heredoc (NFC). O
+  guarda compara bytes.
+- **`abrir.mjs` que falha no `step begin` deixa o run vivo em `context_ready`
+  segurando o lock**, e o rastro de erro esconde o envelope. Diante de saída
+  não-JSON do embrulho: `ls -t .loop/runs | head -1` e o `state.json` antes de
+  tentar de novo. **Nenhuma edição antes de ver `STEP_STARTED`.**
+- **`loop memory write` em chamada separada da que gera o candidato.** Gerar o
+  JSON e chamar o comando na mesma invocação faz o comando rodar com entrada
+  inválida quando a geração falha (resumo acima de 1000 caracteres, por
+  exemplo). Aconteceu três vezes na mesma semana. Gere, confira o tamanho,
+  depois grave.
+- **`docs/STATUS.md` e `docs/FILA.md` sujos por outra sessão não se commitam
+  inteiros.** Monte no índice o conteúdo de `HEAD` mais os seus trechos
+  (`git hash-object -w` + `git update-index --cacheinfo`) e deixe o resto na
+  árvore. Sete commits desta semana saíram assim, sem levar o trabalho alheio.
+
+Uma sexta, de outra natureza: **ao revisar o relatório de outra IA, reproduza
+os gates na íntegra e confira cada "X está ligado a Y" no código** — o
+relatório honesto ainda é a versão do autor. E ao escrever o relatório, cite a
+suíte inteira, não só as suítes tocadas.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

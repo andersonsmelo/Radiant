@@ -47,6 +47,17 @@ Quando documentos divergirem, use esta ordem:
   código
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
 - [`STATUS.md`](STATUS.md) — estado vivo e handoff para a próxima sessão
+
+### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
+
+- decisão: [ADR 2026-09-14](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md);
+- spec aprovada: [`superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md);
+- plano: [`superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md);
+- prompt para a IA executora: [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
+- relatório de execução (Tasks 1–7; Task 8 bloqueada por gates do dono):
+  [`superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md`](superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md);
+- lançamento da 1.3.1 (rejeição, resposta e aprovação):
+  [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
 - [`archive/`](archive/) — os 21 status datados, de 2026-04-05 a 2026-08-15,
   mantidos porque ADRs e planos os citam como evidência
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)

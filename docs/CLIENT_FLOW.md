@@ -1,5 +1,12 @@
 # Fluxo do cliente — o que o app faz com quem o usa
 
+> **Atualizado em 2026-09-14:** o fluxo da **1.4** está desenhado em
+> [`superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)
+> e decidido na [ADR 2026-09-14](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md).
+> Este documento descreve o app **como está publicado (1.3.1)** e continua
+> valendo para ele; onde os dois discordam (vidas, próximo nó, assinatura,
+> backup), a spec descreve o que está sendo construído.
+
 Escrito em 2026-08-06 a partir do **código**, não do roadmap. Cada afirmação
 abaixo aponta para o arquivo que a sustenta, porque um diagrama sem procedência
 envelhece sem avisar.

@@ -242,11 +242,44 @@ autorização e anonimização verificadas.
 | Privacidade de checkpoints | [`STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md`](STUDENT_CHECKPOINT_PRIVACY_CONTRACT.md) |
 | Rollout/rollback do kernel | [`runbooks/student-checkpoint-rollout-rollback.md`](runbooks/student-checkpoint-rollout-rollback.md) |
 
+## Estado em 2026-09-14 — depois da publicação e do desenho da 1.4
+
+Este bloco é o mais recente; o que está acima descreve estados anteriores e
+permanece como histórico.
+
+- **Publicado:** `1.3.1 (11)` na App Store em 2026-09-14, de `main` =
+  `063770d` (tag `v1.3.1`). Sem Galáxia (absorvida por Estude, ADR
+  2026-08-15), sem painel decorativo nas lições, com alternativas
+  embaralhadas no gerador compartilhado, sem formulário de conta em produção.
+  Trilha contínua com o catálogo legado de 16 lições.
+- **1.4 desenhada e parcialmente implementada** (spec e ADR de 2026-09-14).
+  Serviços novos em `radiant-app/src/features/`: `journey/services/NextNodeResolver`
+  (o motor do próximo nó, consumido por `JourneyRecommendationService` →
+  `JourneyProgressService.computeSnapshot`); `hearts/` (`HeartsService` puro +
+  `HeartsRepository` persistido; descontado na lição e no checkpoint);
+  `subscription/` (`SubscriptionService` com porta de loja, tela
+  `/subscription`, sem adaptador StoreKit ainda); backup no iCloud
+  (`ProgressSyncService`, `backupNow` sem chamador até o adaptador existir);
+  migração de armazenamento 1.3.1 → 1.4 com backup na abertura. Trilha
+  virtualizada (`JourneyTrail`) com cabeçalho de vidas; folha de vidas nas
+  três telas de estudo. **Adaptadores nativos (StoreKit, iCloud, Sentry)
+  dependem dos gates do dono** — ver `STATUS.md`.
+- **Dívida conhecida:** `GamificationService` ainda persiste `hearts` legados
+  ao lado do `HeartsRepository` — duas fontes para o mesmo conceito, a
+  aposentar antes da próxima migração. O cartão antigo de conta continua em
+  `ProgressScreen`, condicionado por `remoteSyncAvailable` e invisível em
+  produção — código morto.
+- **V3 (currículo):** fundação J2 em `main`; L1 e L2 do Arco 1 existem como
+  trabalho não commitado de outra sessão, ligados a nada; `prepareV3()` não é
+  chamado. O corte (J5) é a 1.4 ou posterior, com spec própria.
+
 ## Regras de consistência
 
 - o status canônico governa o presente; snapshots anteriores são históricos;
 - arquivos gerados do catálogo não são editados manualmente;
 - promoção exige proveniência, revisão e validadores verdes;
-- vidas não podem bloquear novas lições;
+- ~~vidas não podem bloquear novas lições~~ — **substituída em 2026-09-14** pela
+  [ADR da 1.4](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md):
+  vidas bloqueiam lição nova e checkpoint; **nunca bloqueiam revisão**;
 - nenhuma mudança de binário entra no closed test sem repetir os gates de
   release aplicáveis.

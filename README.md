@@ -9,7 +9,7 @@ microaprendizagem, prática ativa, revisão espaçada e gamificação não punit
 | --- | --- |
 | App | Expo/React Native; catálogo e progresso funcionam offline |
 | Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; última leitura em 2026-08-03: 14 contas vinculadas e 2 opt-ins; faltam ≥10 opt-ins e a janela de 14 dias |
-| iOS | versão `1.3.1`, build `7`; estado reconfirmado no console em 2026-08-09: **Aguardando revisão**; liberação manual após aprovação |
+| iOS | versão `1.3.1`, build `11`; **publicada na App Store em 2026-09-14** (aprovada e liberada no mesmo dia, após a rejeição de 14/08 respondida item a item); tag `v1.3.1`; https://apps.apple.com/app/radiant-radiologia/id6797078156. A 1.4 está desenhada e parcialmente implementada — ver [`docs/STATUS.md`](docs/STATUS.md) |
 | E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
 | API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
 | Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |

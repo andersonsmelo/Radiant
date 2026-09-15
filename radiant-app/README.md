@@ -243,7 +243,7 @@ O app já possui integração funcional com o `radiant-api` para:
 
 - bootstrap de sessão persistida;
 - refresh automático de access token expirado;
-- login e cadastro por email/senha;
+- login e cadastro por email/senha **só quando `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=true` e há API configurada** — o build de produção não os exibe (removidos da tela em 2026-09-11; a 1.4 substitui conta própria por backup no iCloud, ver ADR 2026-09-14);
 - logout com revogação de refresh token;
 - fila local para sync posterior de:
   - `lesson_progress`;
@@ -302,8 +302,9 @@ Estado operacional validado em **2026-08-09** — detalhes e bloqueios no
 
 - projeto EAS vinculado a `@hashi1802/radiant-app`, com contadores de build
   governados remotamente;
-- Apple Developer e App Store Connect ativos; `1.3.1 (7)` submetida e ainda em
-  **Aguardando revisão**, com liberação manual após aprovação;
+- Apple Developer e App Store Connect ativos; `1.3.1 (11)` **publicada em
+  2026-09-14** (a `(7)` foi rejeitada em 14/08 sob Guideline 2.1; a resposta e
+  as correções estão em `docs/release/APP_REVIEW_REPLY_1.3.1.md`);
 - Android `1.3.0 (4)` ativo no teste fechado `alpha`; o gate é 12+ opt-ins por
   14 dias consecutivos, não a quantidade de contas vinculadas;
 - `EXPO_PUBLIC_API_BASE_URL` não é declarado nos perfis distribuídos; o app
@@ -322,7 +323,7 @@ Estado dos caminhos iOS:
 
 - `development-simulator`: simulador sem assinatura de distribuição;
 - `preview`: distribuição interna com o team Apple ativo;
-- `production`: App Store/TestFlight; já comprovado pela build `1.3.1 (7)`.
+- `production`: App Store/TestFlight; comprovado pelas builds `1.3.1 (7)`, `(9)`, `(10)` e `(11)` — a última é a publicada. Builds de produção saem de um checkout limpo (`../Radiant-release`), nunca da árvore de trabalho.
 
 ## Comandos
 
@@ -553,8 +554,7 @@ Estado operacional atual:
 - smoke principal de produto já está documentado com captura de `cold start`, `auth restore`, `quiz`, `review`, `journey` e `progresso/sync`;
 - o smoke físico de sete cenários passou em 2026-08-05 e o Gate 2/VoiceOver
   fechou em 2026-08-06; o último estado observado no App Store Connect, em
-  2026-08-09, foi `1.3.1 (7)` **Aguardando revisão**, com liberação manual após
-  aprovação. O console é a fonte do estado atual.
+  2026-09-14, é `1.3.1 (11)` **publicada na App Store**.
 
 ### Gate de comando central (repositório)
 
@@ -573,7 +573,7 @@ O app está em transição de beta local-first para produto distribuível.
 
 Prioridades imediatas:
 
-- acompanhar a App Review da `1.3.1 (7)` e liberar manualmente após aprovação;
+- (concluído em 2026-09-14) a App Review da `1.3.1` foi aprovada com a build `(11)` e a versão liberada;
 - no Android, alcançar 12 opt-ins e completar os 14 dias do teste fechado;
 - resolver os direitos do primeiro lote de mídia antes dos jogos visuais da
   Task 10;

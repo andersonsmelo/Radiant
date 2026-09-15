@@ -1,5 +1,13 @@
 # Checklist de release — Radiant v1.3
 
+> **Fechado em 2026-09-14:** a `1.3.1 (11)` foi aprovada e publicada na App
+> Store. O que este checklist chamava de pendente para iOS foi resolvido pelo
+> caminho descrito em [`APP_REVIEW_REPLY_1.3.1.md`](APP_REVIEW_REPLY_1.3.1.md)
+> (matriz real-device: iPhone 16 / iOS 27.0, builds `(9)`, `(10)` e `(11)`;
+> Privacy Labels "Dados não coletados" confirmadas com Sentry inerte). O lado
+> Android continua como está abaixo. Para a 1.4, um checklist novo sai do plano
+> — este permanece como histórico.
+
 > Lista única de **go/no-go** para submeter a v1.3 nas duas lojas. Cada item tem
 > estado e dono; os detalhes vivem nas tasks do
 > [roadmap de lançamento](../plans/2026-07-27-radiant-launch-roadmap.md) e no
