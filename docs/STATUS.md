@@ -343,6 +343,29 @@ carrega o pacote inteiro.
    relatório da sessão, com pendências, suposições e achados, está em
    [`superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md`](superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md).
 
+   **Revisão independente do relatório em 2026-09-14 (sessão distinta da
+   executora), no `HEAD` `569bdad` da branch `codex/radiant-1-4`.** Gates
+   reproduzidos, não copiados: **125 suítes / 958 testes verdes** (a suíte
+   inteira; o relatório citava só as tocadas), `tsc --noEmit` exit 0, ESLint
+   0 erros / 24 avisos (eram 28 na 1.3.1). Regras do prompt cumpridas: branch
+   própria, `main` intocada em `6e7f804`, sem push, sujeira do V3 intacta.
+   Conferido no código: o motor decide a trilha
+   (`JourneyProgressService.computeSnapshot` → `JourneyRecommendationService`
+   → `NextNodeResolver`); vidas descontadas na lição e no checkpoint;
+   `setUnlimited(null)` só em comentário; trilha virtualizada; folha de vidas
+   nas três telas **sem saída para a loja**; `/subscription` só pelo Perfil;
+   `backupNow` sem chamador; `expo-iap` ausente. **Nenhuma afirmação do
+   relatório contradiz a medição.** Duas notas além dele: `GamificationService`
+   ainda persiste `hearts` legados ao lado do `HeartsRepository` (duas fontes
+   para o mesmo conceito — aposentar antes da migração seguinte); e o cartão
+   antigo de conta segue em `ProgressScreen`, condicionado e invisível em
+   produção — código morto, não regressão. Estado prático: a 1.4 na branch tem
+   motor, vidas, migração e telas; **não vende nem faz backup** até a Task 8,
+   que depende dos quatro gates do dono (acordo de apps pagos → produto e
+   preço → DSN do Sentry → entitlement do iCloud). Recomendado: fast-forward
+   de `main` para `569bdad` e um build interno (`preview`) para ver vidas e
+   motor no aparelho antes do trabalho nativo.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
