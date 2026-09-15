@@ -430,9 +430,27 @@ carrega o pacote inteiro.
    defeito como comportamento correto*, com comentário justificando, porque
    foram escritos a partir do mesmo modelo mental da implementação. Um erro de
    modelo é invisível para testes que codificam o modelo — a prova precisa ficar
-   no nível do consumidor que age sobre o valor. Gates depois da correção,
-   medidos em 2026-09-15: **127 suítes / 1002 testes**, `tsc` exit 0, ESLint
-   0 erros / 24 avisos.
+   no nível do consumidor que age sobre o valor.
+
+   🔴 **Segunda revisão, mesmo dia: o defeito reapareceu um nível abaixo.** A
+   união de três estados estava certa, mas o produtor abaixo dela não foi
+   auditado — o Swift devolvia `nil` quando o registro **existia** sem `payload`
+   ou sem `savedAt`, e `nil` significa "não existe registro", então o serviço
+   gravava do zero por cima de um registro real. Corrigido: `nil` reservado ao
+   `catch` de `CKError.unknownItem`, com um único `return nil` executável no
+   módulo; o Swift devolve envelope cru e a classificação estrutural passou para
+   o TypeScript, onde é testável. **Lição:** apertar um contrato cria uma
+   obrigação que todo produtor anterior antecede, e a linha que traduz o
+   sentinela antigo para o vocabulário novo type-checa enquanto afirma a
+   equivalência que a correção existia para negar.
+
+   **Dois achados P2 seguem abertos**, vindos de comentários de linha do revisor
+   automático: `backupNow()` é suprimido na conclusão de revisão recorrente
+   (o nó já está em `completedNodeIds`), e `ehProgressBackup` não valida as
+   coleções aninhadas do payload. Detalhes no relatório.
+
+   Gates depois das três rodadas, medidos em 2026-09-15: **127 suítes /
+   1021 testes**, `tsc` exit 0, ESLint 0 erros / 24 avisos.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na

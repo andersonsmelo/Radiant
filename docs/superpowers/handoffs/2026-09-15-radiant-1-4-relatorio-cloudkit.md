@@ -5,7 +5,7 @@
 Sentry, Product IDs, preços, Currículo V3, build e submissão ficaram fora, como
 o handoff determinou.
 
-**HEAD da implementação, antes do commit deste relatório:** `1418a10`.
+**HEAD da implementação, antes do commit deste relatório:** `0ccaa20`.
 **HEAD publicado do PR:** o commit que grava este documento, consultável em
 [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) — um relatório não
 pode conter o SHA do commit que o cria, e a versão anterior deste arquivo
@@ -274,7 +274,7 @@ tocado; `git diff` sobre ele é vazio.
 
 | Medida | Baseline (2026-09-14) | Agora (2026-09-15) |
 | --- | --- | --- |
-| Suítes / testes | 125 / 958 | **127 / 1002** (+44) |
+| Suítes / testes | 125 / 958 | **127 / 1021** (+63) |
 | `tsc --noEmit` | exit 0 | **exit 0** |
 | ESLint | 0 erros / 24 avisos | **0 erros / 24 avisos** |
 
@@ -410,6 +410,56 @@ e em `restoreOnLaunch`; conflito refazendo o pull e reenviando a união; remoto
 mais novo não substituído; conflito repetido parando no limite; duas chamadas
 concorrentes não interleiando; tradução do conflito no adaptador; cópia do estado
 `incompatible` no cartão.
+
+### Achado 3 — segunda revisão: registro existente ainda podia virar ausência
+
+A correção do achado 1 criou a união `absent`/`usable`/`incompatible`, mas **o
+produtor abaixo dela não foi auditado**. O Swift devolvia `nil` por um `guard`
+quando o registro **existia** sem `payload` ou sem `savedAt`. Como `nil`
+significa "registro inexistente", o adaptador mapeava para `absent` e o serviço
+fazia o primeiro push por cima de um registro real: o mesmo defeito do achado 1,
+um nível abaixo, com o tipo novo servindo de disfarce.
+
+Nada apontava para lá. A união estava certa, os testes do consumidor estavam
+certos, e o compilador estava satisfeito porque as formas batiam. A linha que
+traduzia o sentinela antigo para o vocabulário novo — `registro === null ?
+absent : ...` — type-checava perfeitamente enquanto afirmava exatamente a
+equivalência que a correção existia para negar.
+
+**Correção:** `nil` fica reservado ao `catch` de `CKError.unknownItem`, e há hoje
+**um único `return nil` executável** no módulo. O Swift devolve um envelope cru
+com os campos que encontrou, na forma em que os encontrou, e não julga — julgar
+exigiria conhecer o formato do progresso, que é o que ele não faz.
+
+A classificação estrutural passou para o TypeScript, e a razão é prática: o Swift
+não é compilável nem executável nesta máquina, então manter a regra lá tornaria
+"sem payload", "sem savedAt" e "tipo inválido" indistinguíveis em teste. No
+TypeScript os três viram prova executada.
+
+**19 testes:** seis no adaptador (ausência real, sem `payload`, sem `savedAt`, sem
+`payloadVersion`, tipos inválidos, registro vazio) e treze no serviço — cinco
+deles ligando o adaptador **real** ao serviço, provando a cadeia inteira, mais o
+contraponto de que `unknownItem` real continua permitindo o primeiro backup. Sem
+esse contraponto, "nunca grava" passaria trivialmente.
+
+### Achados em aberto, reportados e não corrigidos
+
+A segunda revisão trouxe, em comentários de linha do revisor automático, dois
+achados **P2 que seguem abertos** — fora do escopo desta rodada, registrados aqui
+para não ficarem enterrados no PR:
+
+1. **`backupNow()` é suprimido em revisão recorrente.** O gancho em
+   `markNodeCompleted` só dispara quando o nó **entra** em `completedNodeIds`. Um
+   nó de revisão que vence de novo já está na lista, então concluir a revisão
+   atualiza a agenda SM-2 e concede XP **sem disparar backup**, e a nuvem fica
+   desatualizada até o aluno concluir algum nó inédito.
+2. **`ehProgressBackup` não valida as coleções aninhadas.** Aceita qualquer
+   objeto não nulo em `completedNodesByTrack` e `reviewSchedule`. Um payload
+   versão 1 corrompido com `completedNodesByTrack: "abc"` passa como `usable` e a
+   string é espalhada em IDs de um caractere durante a mescla;
+   `reviewSchedule: {"l1": {}}` vira carta com datas indefinidas no
+   `SpacedRepetitionService`. Mesma família dos outros: classificação frouxa
+   deixando passar o que deveria ser `incompatible`.
 
 ---
 
