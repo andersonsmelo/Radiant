@@ -1570,13 +1570,37 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   `StoreKitPort`/`PrivateCloudPort` com adaptadores padrão indisponíveis; tela
   `/subscription` e cartões Assinatura e Backup no iCloud no Perfil. Evidência:
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
-- **K6 [P0 — BLOQUEADA PELOS GATES DO DONO, medido em 2026-09-14]** Ligar
-  StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e tamanho
-  antes de qualquer submissão. Não iniciada: faltam autorização de build
-  interno, acordo de apps pagos aceito, ids/preços mensal e anual, entitlement
-  iCloud + credencial EAS e DSN Sentry. Nada nativo foi instalado ou versionado.
-  Pendências e ordem de ligação no
-  [relatório de execução](../superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md).
+- **K6 [PARCIAL — fatia CloudKit implementada em 2026-09-15; StoreKit e Sentry
+  não iniciados]** Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade,
+  desempenho e tamanho antes de qualquer submissão.
+
+  **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
+  aberto, não mergeado): entitlements do container
+  `iCloud.com.ascendcreative.radiant` no app config com contrato anti-regressão;
+  `CloudKitPrivateAdapter` atrás do `PrivateCloudPort`; **módulo Expo local em
+  Swift versionado** em `radiant-app/modules/radiant-cloudkit`, sem nenhuma
+  dependência npm nova; `backupNow()` ligado à conclusão de nó; ordem de
+  restore/hidratação corrigida na partida. Conjunto rastreado: 119 suítes /
+  1000 testes, contra 117/916 em `main`; gate completo (`npm run quality`,
+  Node 20) exit 0. Detalhes e riscos no
+  [relatório do slice CloudKit](../superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
+  > ⚠️ **Implementado ≠ validado nativamente.** Nenhuma linha do Swift foi
+  > compilada ou executada. A fatia só vira "validada" depois de um build
+  > assinado rodar em aparelho real e comprovar backup e restauração.
+
+  **Gates do dono que abriram em 2026-09-15:** acordo de apps pagos aceito,
+  ids e preços mensal/anual fixados
+  ([ADR](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)), e
+  capability iCloud + container criados
+  ([ADR](../adr/ADR-2026-09-15-cloudkit-private-backup.md)).
+
+  **Ainda faltam:** DSN do Sentry em `production`; autorização datada de build
+  interno; regeneração do provisioning profile, que a Apple invalidou ao mudar a
+  capability; e **Deploy Schema to Production** no CloudKit Console antes da
+  submissão — o CloudKit cria schema automaticamente só em Development, e pular
+  esse passo produz um app aprovado que escreve num schema inexistente, falhando
+  apenas em produção e em silêncio. StoreKit 2 e Sentry seguem não iniciados.
 
 ## 7. Recursos necessários
 
