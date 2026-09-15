@@ -474,6 +474,24 @@ describe('LessonFlowScreen — economia de vidas', () => {
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByText('Continuar'));
 
+    // Assenta a tela ANTES de observar, em vez de esperar o relógio.
+    //
+    // Medido em 2026-09-15: depois do "Continuar" a tela precisa de dois ciclos
+    // de flush para estabilizar, e cada ciclo de polling do `waitFor` custava
+    // ~340 ms aqui — não pelo trabalho em si (o `queryByText` leva 0–1 ms), mas
+    // pela maquinaria de espera. A condição virava verdadeira só na 3ª
+    // tentativa, entre 714 e 1488 ms, contra o timeout padrão de 1000 ms: folga
+    // nenhuma. No runner do GitHub, ~7× mais lento nesta suíte (3,2 s aqui,
+    // 21,5–22,3 s lá), estourava sempre — o CI reprovou duas vezes no mesmo SHA.
+    //
+    // A mesma medição em `origin/main`, sem nenhuma alteração desta branch, deu
+    // a mesma distribuição (714–1488 ms, sempre 3 tentativas): a fragilidade é
+    // anterior e independente do backup no iCloud. Um `act` vazio descarrega a
+    // fila de microtasks e os efeitos pendentes de uma vez — 2 ms — e o
+    // `waitFor` passa na primeira checagem, continuando ali como tolerância
+    // para o dia em que a tela precisar de mais um ciclo. Aumentar o timeout
+    // esconderia o custo em vez de eliminá-lo.
+    await act(async () => {});
     await waitFor(() => expect(screen.queryByText('Qual padrão radiográfico está presente?')).toBeNull());
     expect(screen.queryByText('Sua lição está pausada')).toBeNull();
     expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith('node-1', 1);
