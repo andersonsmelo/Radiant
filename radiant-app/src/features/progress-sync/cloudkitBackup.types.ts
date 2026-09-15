@@ -56,13 +56,15 @@ export type CloudKitNativeErrorCode =
     | 'not-authenticated'
     | 'network-unavailable'
     | 'transient'
+    /** O registro mudou entre a leitura e a escrita (CKError.serverRecordChanged). */
+    | 'conflict'
     | 'unrecoverable';
 
 export function nativeErrorCode(error: unknown): CloudKitNativeErrorCode | null {
     if (typeof error !== 'object' || error === null) return null;
     const code = (error as { code?: unknown }).code;
     return code === 'not-authenticated' || code === 'network-unavailable'
-        || code === 'transient' || code === 'unrecoverable'
+        || code === 'transient' || code === 'conflict' || code === 'unrecoverable'
         ? code
         : null;
 }

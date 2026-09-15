@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { LocalProgressAdapter } from './LocalProgressAdapter';
 import { resolvePrivateCloudAdapter } from './CloudKitPrivateAdapter';
 import {
+    isCloudConflict,
     isCloudUnavailable,
     type BackupState,
     type BackupStateV1,
@@ -73,7 +74,9 @@ function parseState(raw: string | null): BackupState {
         return {
             enabled: record.enabled === true,
             lastBackupAt: typeof record.lastBackupAt === 'string' ? record.lastBackupAt : null,
-            lastError: record.lastError === 'cloud-unavailable' || record.lastError === 'failed' ? record.lastError : null,
+                    lastError: record.lastError === 'cloud-unavailable' || record.lastError === 'failed' || record.lastError === 'incompatible'
+                ? record.lastError
+                : null,
         };
     } catch {
         return INITIAL_STATE;
@@ -81,6 +84,10 @@ function parseState(raw: string | null): BackupState {
 }
 
 export class ProgressSyncService {
+    /** Tentativas de envio por backup, contando a primeira. Limite explícito. */
+    private static readonly TENTATIVAS_DE_ENVIO = 3;
+
+    private fila: Promise<unknown> = Promise.resolve();
     private cloudPort: PrivateCloudPort | null;
     private readonly local: LocalProgressPort;
     private readonly storage: ProgressSyncStorage;
@@ -114,35 +121,88 @@ export class ProgressSyncService {
 
     /** `push` a cada conclusão de nó: mescla o que existe na nuvem e sobe a união. */
     async backupNow(nowMs: number): Promise<BackupState> {
+        return this.emFila(() => this.executarBackup(nowMs));
+    }
+
+    /** `pull` na abertura: nuvem vazia nunca substitui o progresso local. */
+    async restoreOnLaunch(nowMs: number): Promise<BackupState> {
+        return this.emFila(() => this.executarRestore(nowMs));
+    }
+
+    private async executarBackup(nowMs: number): Promise<BackupState> {
         const state = await this.getState();
         if (!state.enabled) return state;
 
         try {
-            const local = await this.local.snapshot(new Date(nowMs).toISOString());
-            const cloud = await this.cloud.pull();
-            const merged = mergeProgressBackups(local, cloud);
-            if (cloud !== null) await this.local.apply(merged);
-            const { savedAt } = await this.cloud.push(merged);
-            return this.writeState({ enabled: true, lastBackupAt: savedAt, lastError: null });
+            for (let tentativa = 1; tentativa <= ProgressSyncService.TENTATIVAS_DE_ENVIO; tentativa += 1) {
+                const remoto = await this.cloud.pull();
+
+                // Registro presente que este binário não entende. Gravar aqui
+                // destruiria progresso real — provavelmente de uma versão mais
+                // nova do app —, e é exatamente o que o backup existe para
+                // impedir. Não envia, não aplica, informa e sai.
+                if (remoto.kind === 'incompatible') {
+                    return this.writeState({ ...state, lastError: 'incompatible' });
+                }
+
+                const local = await this.local.snapshot(new Date(nowMs).toISOString());
+                const cloud = remoto.kind === 'usable' ? remoto.backup : null;
+                const merged = mergeProgressBackups(local, cloud);
+                if (cloud !== null) await this.local.apply(merged);
+
+                try {
+                    const { savedAt } = await this.cloud.push(merged);
+                    return this.writeState({ enabled: true, lastBackupAt: savedAt, lastError: null });
+                } catch (cause) {
+                    if (!isCloudConflict(cause)) throw cause;
+                    // Outro aparelho gravou entre o nosso pull e o nosso push.
+                    // Refazer o ciclo é o que garante que a mescla inclua o que
+                    // chegou; reenviar o mesmo snapshot apagaria aquilo.
+                }
+            }
+
+            // Limite pequeno e explícito. Conflito que não cede é falha, não
+            // motivo para tentar para sempre: o local está intacto e a próxima
+            // conclusão de nó tenta de novo.
+            return this.writeState({ ...state, lastError: 'failed' });
         } catch (cause) {
             return this.recordFailure(state, cause);
         }
     }
 
-    /** `pull` na abertura: nuvem vazia nunca substitui o progresso local. */
-    async restoreOnLaunch(nowMs: number): Promise<BackupState> {
+    private async executarRestore(nowMs: number): Promise<BackupState> {
         const state = await this.getState();
         if (!state.enabled) return state;
 
         try {
-            const cloud = await this.cloud.pull();
-            if (cloud === null) return state;
+            const remoto = await this.cloud.pull();
+            if (remoto.kind === 'incompatible') {
+                return this.writeState({ ...state, lastError: 'incompatible' });
+            }
+            if (remoto.kind === 'absent') return state;
+
             const local = await this.local.snapshot(new Date(nowMs).toISOString());
-            await this.local.apply(mergeProgressBackups(local, cloud));
+            await this.local.apply(mergeProgressBackups(local, remoto.backup));
             return this.writeState({ ...state, lastError: null });
         } catch (cause) {
             return this.recordFailure(state, cause);
         }
+    }
+
+    /**
+     * Serialização mínima das operações de backup deste aparelho.
+     *
+     * `backupNow` é um ciclo ler-mesclar-gravar sobre o mesmo registro remoto e
+     * o mesmo storage local. Duas conclusões de nó em sequência rápida disparam
+     * dois ciclos, e sem fila eles interleiam: os dois leem o mesmo estado e o
+     * segundo grava por cima do primeiro sem tê-lo lido. A fila é uma corrente
+     * de promises — pequena, sem biblioteca, e o `then(op, op)` garante que uma
+     * falha anterior não trave as chamadas seguintes.
+     */
+    private emFila<T>(operacao: () => Promise<T>): Promise<T> {
+        const resultado = this.fila.then(operacao, operacao);
+        this.fila = resultado.then(() => undefined, () => undefined);
+        return resultado;
     }
 
     private async recordFailure(state: BackupState, cause: unknown): Promise<BackupState> {

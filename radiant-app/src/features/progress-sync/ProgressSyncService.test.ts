@@ -1,8 +1,12 @@
+import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { ProgressSyncService, mergeProgressBackups } from './ProgressSyncService';
 import {
+    CloudConflictError,
     CloudUnavailableError,
+    type IncompatibleReason,
     type LocalProgressPort,
     type PrivateCloudPort,
+    type PrivateCloudRead,
     type ProgressBackup,
 } from './progressSync.types';
 
@@ -117,10 +121,14 @@ function localPort(inicial: ProgressBackup): LocalProgressPort & { aplicado: Pro
 }
 
 function nuvem(remoto: ProgressBackup | null): PrivateCloudPort & { enviados: ProgressBackup[] } {
+    return nuvemLendo(remoto === null ? { kind: 'absent' } : { kind: 'usable', backup: remoto });
+}
+
+function nuvemLendo(leitura: PrivateCloudRead): PrivateCloudPort & { enviados: ProgressBackup[] } {
     const enviados: ProgressBackup[] = [];
     return {
         enviados,
-        pull: jest.fn(async () => remoto),
+        pull: jest.fn(async () => leitura),
         push: jest.fn(async (snapshot: ProgressBackup) => {
             enviados.push(snapshot);
             return { savedAt: snapshot.savedAt };
@@ -233,5 +241,146 @@ describe('ProgressSyncService — interruptor e backup', () => {
 
         expect(estado).toEqual({ enabled: false, lastBackupAt: AGORA_ISO, lastError: null });
         expect(cloud.push).toHaveBeenCalledTimes(1);
+    });
+});
+
+/** Estado já ligado, sem pagar um backup só para chegar nele. */
+function memoriaLigada() {
+    const storage = memoria();
+    storage.setItem(
+        STORAGE_KEYS.PROGRESS_BACKUP,
+        JSON.stringify({ schemaVersion: 1, enabled: true, lastBackupAt: null, lastError: null }),
+    );
+    return storage;
+}
+
+// Achado 1 da revisão independente do PR #14. `pull()` devolvia `null` tanto
+// para "não existe registro" quanto para "existe um registro que este binário
+// não entende", e `backupNow` lê `null` como permissão para gravar por cima —
+// destruindo, dentro do mecanismo antiperda, um backup feito por uma versão
+// futura do app. A prova tem de ser no SERVIÇO: é ele que decide gravar.
+describe('ProgressSyncService — remoto incompatível nunca é sobrescrito', () => {
+    const razoes: IncompatibleReason[] = ['payload-version', 'corrupt', 'schema-version'];
+
+    it('registro inexistente permite o primeiro push', async () => {
+        const cloud = nuvemLendo({ kind: 'absent' });
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).backupNow(AGORA);
+
+        expect(cloud.enviados).toHaveLength(1);
+        expect(estado.lastError).toBeNull();
+        expect(estado.lastBackupAt).toBe(AGORA_ISO);
+    });
+
+    it.each(razoes)('não envia nem aplica quando o remoto é incompatível por "%s"', async (reason) => {
+        const cloud = nuvemLendo({ kind: 'incompatible', reason });
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).backupNow(AGORA);
+
+        expect(cloud.push).not.toHaveBeenCalled();
+        expect(cloud.enviados).toHaveLength(0);
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(estado).toEqual({ enabled: true, lastBackupAt: null, lastError: 'incompatible' });
+    });
+
+    it.each(razoes)('na abertura, remoto incompatível por "%s" não toca o progresso local', async (reason) => {
+        const cloud = nuvemLendo({ kind: 'incompatible', reason });
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(cloud.push).not.toHaveBeenCalled();
+        expect(estado.lastError).toBe('incompatible');
+    });
+});
+
+/** Nuvem que recusa os primeiros `conflitos` envios, e devolve leituras em sequência. */
+function nuvemComConflito(leituras: PrivateCloudRead[], conflitos: number) {
+    const enviados: ProgressBackup[] = [];
+    const ordem: string[] = [];
+    let iPull = 0;
+    let recusas = 0;
+    const port: PrivateCloudPort & { enviados: ProgressBackup[]; ordem: string[] } = {
+        enviados,
+        ordem,
+        pull: jest.fn(async () => {
+            ordem.push('pull');
+            return leituras[Math.min(iPull++, leituras.length - 1)];
+        }),
+        push: jest.fn(async (snapshot: ProgressBackup) => {
+            ordem.push('push');
+            if (recusas < conflitos) {
+                recusas += 1;
+                throw new CloudConflictError();
+            }
+            enviados.push(snapshot);
+            return { savedAt: snapshot.savedAt };
+        }),
+    };
+    return port;
+}
+
+// Achado 2 da revisão. O Swift pegava `error.serverRecord`, escrevia o payload
+// local por cima e salvava — last-write-wins cego sobre um JSON opaco, que
+// apaga progresso mais novo de outro aparelho. A mescla é do TypeScript, então
+// o conflito tem de voltar até aqui e refazer o ciclo.
+describe('ProgressSyncService — conflito refaz o ciclo, não sobrescreve', () => {
+    it('refaz pull e mescla o remoto que chegou antes de reenviar', async () => {
+        const remotoNovo = backup({ completedNodesByTrack: { 'track-1': ['n9'] }, totalXp: 999 });
+        const cloud = nuvemComConflito(
+            [{ kind: 'absent' }, { kind: 'usable', backup: remotoNovo }],
+            1,
+        );
+        const local = localPort(backup({ completedNodesByTrack: { 'track-1': ['n1', 'n2'] }, totalXp: 120 }));
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).backupNow(AGORA);
+
+        expect(cloud.pull).toHaveBeenCalledTimes(2);
+        expect(cloud.ordem).toEqual(['pull', 'push', 'pull', 'push']);
+        expect(cloud.enviados).toHaveLength(1);
+        // A união: o que era só local e o que era só do outro aparelho.
+        expect(cloud.enviados[0].completedNodesByTrack['track-1'].sort()).toEqual(['n1', 'n2', 'n9']);
+        expect(cloud.enviados[0].totalXp).toBe(999);
+        expect(estado.lastError).toBeNull();
+    });
+
+    it('progresso remoto mais novo não é substituído por um snapshot mais antigo', async () => {
+        const remotoNovo = backup({ completedNodesByTrack: { 'track-1': ['n9'] }, streakDays: 30 });
+        const cloud = nuvemComConflito([{ kind: 'absent' }, { kind: 'usable', backup: remotoNovo }], 1);
+        const local = localPort(backup({ completedNodesByTrack: { 'track-1': ['n1'] }, streakDays: 2 }));
+
+        await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).backupNow(AGORA);
+
+        expect(cloud.enviados[0].completedNodesByTrack['track-1']).toContain('n9');
+        expect(cloud.enviados[0].streakDays).toBe(30);
+    });
+
+    it('conflito repetido para no limite, preserva o local e registra falha', async () => {
+        const cloud = nuvemComConflito([{ kind: 'absent' }], 99);
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).backupNow(AGORA);
+
+        expect(cloud.enviados).toHaveLength(0);
+        expect(estado.lastError).toBe('failed');
+        expect(estado.lastBackupAt).toBeNull();
+        // Limite pequeno e explícito: não é laço infinito.
+        expect((cloud.push as jest.Mock).mock.calls.length).toBeLessThanOrEqual(3);
+        expect((cloud.push as jest.Mock).mock.calls.length).toBeGreaterThan(1);
+    });
+
+    it('duas chamadas concorrentes de backupNow não interleiam pull e push', async () => {
+        // Sem serialização, a ordem viraria pull,pull,push,push e o segundo
+        // envio sobrescreveria o primeiro sem tê-lo lido.
+        const cloud = nuvemComConflito([{ kind: 'absent' }], 0);
+        const local = localPort(backup());
+        const service = new ProgressSyncService({ cloud, local, storage: memoriaLigada() });
+
+        await Promise.all([service.backupNow(AGORA), service.backupNow(AGORA + 1000)]);
+
+        expect(cloud.ordem).toEqual(['pull', 'push', 'pull', 'push']);
     });
 });

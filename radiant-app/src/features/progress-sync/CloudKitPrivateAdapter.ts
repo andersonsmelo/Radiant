@@ -7,7 +7,13 @@ import {
     type CloudKitAccountStatus,
     type RadiantCloudKitNative,
 } from './cloudkitBackup.types';
-import { CloudUnavailableError, type PrivateCloudPort, type ProgressBackup } from './progressSync.types';
+import {
+    CloudConflictError,
+    CloudUnavailableError,
+    type PrivateCloudPort,
+    type PrivateCloudRead,
+    type ProgressBackup,
+} from './progressSync.types';
 
 /**
  * Backup no banco privado do iCloud do próprio usuário (ADR 2026-09-15).
@@ -29,13 +35,14 @@ const MENSAGEM_POR_STATUS: Record<Exclude<CloudKitAccountStatus, 'available'>, s
     'temporarily-unavailable': 'O iCloud está temporariamente indisponível.',
 };
 
+/** Distingue "não é JSON" de "é JSON de outro schema": as razões são diferentes. */
+const CORROMPIDO = Symbol('payload-corrompido');
+
 function parseSeguro(payload: string): unknown {
     try {
         return JSON.parse(payload);
     } catch {
-        // Payload ilegível é lido como ausência, nunca como erro: um registro
-        // corrompido não pode virar falha de abertura nem apagar o local.
-        return null;
+        return CORROMPIDO;
     }
 }
 
@@ -54,20 +61,30 @@ function ehProgressBackup(value: unknown): value is ProgressBackup {
 export class CloudKitPrivateAdapter implements PrivateCloudPort {
     constructor(private readonly native: RadiantCloudKitNative) {}
 
-    async pull(): Promise<ProgressBackup | null> {
+    /**
+     * Três resultados, não dois.
+     *
+     * `absent` e `incompatible` eram o mesmo `null` antes, e o serviço lê
+     * ausência como permissão para gravar por cima — o que destruiria um backup
+     * criado por uma versão futura do app. Registro presente e ilegível é
+     * `incompatible`: intocável, não vazio. Continua sem lançar, porque nenhum
+     * destes casos é falha de comunicação.
+     */
+    async pull(): Promise<PrivateCloudRead> {
         await this.exigirContaUtilizavel();
 
         const registro = await this.traduzindoFalhas(() => this.native.fetchBackup());
-        if (registro === null) return null;
+        if (registro === null) return { kind: 'absent' };
 
-        // Envelope de versão desconhecida é ausência, não erro. Uma versão
-        // futura pode ter campos que este binário não sabe aplicar, e aplicar
-        // pela metade sobre o progresso local é pior que não aplicar: o backup
-        // segue intacto na nuvem para um binário que o entenda.
-        if (registro.payloadVersion !== CLOUDKIT_PAYLOAD_VERSION) return null;
+        if (registro.payloadVersion !== CLOUDKIT_PAYLOAD_VERSION) {
+            return { kind: 'incompatible', reason: 'payload-version' };
+        }
 
         const candidato = parseSeguro(registro.payload);
-        return ehProgressBackup(candidato) ? candidato : null;
+        if (candidato === CORROMPIDO) return { kind: 'incompatible', reason: 'corrupt' };
+        if (!ehProgressBackup(candidato)) return { kind: 'incompatible', reason: 'schema-version' };
+
+        return { kind: 'usable', backup: candidato };
     }
 
     async push(snapshot: ProgressBackup): Promise<{ savedAt: string }> {
@@ -99,6 +116,9 @@ export class CloudKitPrivateAdapter implements PrivateCloudPort {
             if (code === 'not-authenticated') throw new CloudUnavailableError(MENSAGEM_POR_STATUS['no-account']);
             if (code === 'network-unavailable') throw new CloudUnavailableError('Sem conexão para falar com o iCloud.');
             if (code === 'transient') throw new CloudUnavailableError('O iCloud está ocupado; tentaremos de novo depois.');
+            // Conflito não é indisponibilidade: o serviço responde refazendo o
+            // ciclo pull → merge → push, e é lá que a mescla mora.
+            if (code === 'conflict') throw new CloudConflictError();
             throw cause instanceof Error ? cause : new Error(String(cause));
         }
     }

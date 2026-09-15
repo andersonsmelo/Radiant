@@ -107,15 +107,16 @@ public final class RadiantCloudKitModule: Module {
       do {
         let salvo = try await self.database.save(alvo)
         return ["savedAt": (salvo["savedAt"] as? String) ?? entrada.savedAt]
-      } catch let error as CKError where error.code == .serverRecordChanged {
-        // Outro aparelho gravou entre a leitura e a escrita. O backup ja e a
-        // uniao calculada no TypeScript, entao reaplicar sobre o registro do
-        // servidor e seguro: a proxima leitura mescla de novo.
-        guard let servidor = error.serverRecord else { throw Self.traduzir(error) }
-        Self.preencher(servidor, com: entrada)
-        let salvo = try await self.database.save(servidor)
-        return ["savedAt": (salvo["savedAt"] as? String) ?? entrada.savedAt]
       } catch {
+        // NAO resolver conflito aqui. A versao anterior pegava
+        // error.serverRecord, escrevia a entrada local por cima e salvava de
+        // novo - last-write-wins cego sobre um JSON opaco. Como este modulo
+        // nao abre o payload, ele nao tem como saber que o registro do servidor
+        // era mais novo, e um backup concorrente de outro aparelho era
+        // silenciosamente substituido por um snapshot mais antigo.
+        //
+        // O conflito atravessa a fronteira como codigo estavel e quem refaz o
+        // ciclo pull -> merge -> push e o TypeScript, que e onde a mescla mora.
         throw Self.traduzir(error)
       }
     }
@@ -141,6 +142,11 @@ public final class RadiantCloudKitModule: Module {
       return CloudKitException(code: "network-unavailable", reason: ck.localizedDescription)
     case .requestRateLimited, .serviceUnavailable, .zoneBusy:
       return CloudKitException(code: "transient", reason: ck.localizedDescription)
+    case .serverRecordChanged:
+      // O registro mudou entre a nossa leitura e a nossa escrita. Nao e falha
+      // nem indisponibilidade: e conflito, e a resposta correta mora no
+      // TypeScript.
+      return CloudKitException(code: "conflict", reason: ck.localizedDescription)
     default:
       return CloudKitException(code: "unrecoverable", reason: ck.localizedDescription)
     }

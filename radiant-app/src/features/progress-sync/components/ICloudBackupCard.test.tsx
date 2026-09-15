@@ -44,3 +44,19 @@ describe('ICloudBackupCard', () => {
         expect(screen.getByLabelText('Carregando o backup')).toBeTruthy();
     });
 });
+
+it('avisa que o backup é de uma versão mais nova sem sugerir nova tentativa', () => {
+    // Estado novo depois do achado 1 da revisão do PR #14: registro remoto
+    // presente e incompatível. O texto tem de dizer que ele está intacto, senão
+    // o usuário acha que perdeu o backup.
+    render(
+        <ICloudBackupCard
+            state={{ enabled: true, lastBackupAt: null, lastError: 'incompatible' }}
+            onToggle={jest.fn()}
+        />,
+    );
+
+    expect(screen.getByText(/versão mais nova do Radiant/i)).toBeTruthy();
+    expect(screen.getByText(/guardado e intacto/i)).toBeTruthy();
+    expect(screen.queryByText(/tento de novo na próxima lição/i)).toBeNull();
+});

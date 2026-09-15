@@ -27,6 +27,11 @@ function errorCopy(error: BackupState['lastError']): string | null {
             return 'O backup no iCloud ainda não está disponível nesta versão. Seu progresso continua salvo neste aparelho.';
         case 'failed':
             return 'Não foi possível fazer o backup agora. Seu progresso continua salvo neste aparelho; tento de novo na próxima lição.';
+        case 'incompatible':
+            // Não é defeito nem falha passageira: há um backup na nuvem feito
+            // por uma versão mais nova do app. Ele NÃO foi sobrescrito, e dizer
+            // isso importa — a ação útil é atualizar, não tentar de novo.
+            return 'Seu backup no iCloud foi feito por uma versão mais nova do Radiant. Ele está guardado e intacto; atualize o app para usá-lo. Seu progresso continua salvo neste aparelho.';
         default:
             return null;
     }

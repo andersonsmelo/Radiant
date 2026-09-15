@@ -6,7 +6,7 @@ import {
     type CloudKitNativeErrorCode,
     type RadiantCloudKitNative,
 } from './cloudkitBackup.types';
-import { isCloudUnavailable, type ProgressBackup } from './progressSync.types';
+import { isCloudConflict, isCloudUnavailable, type ProgressBackup } from './progressSync.types';
 import { UnavailablePrivateCloudAdapter } from './UnavailablePrivateCloudAdapter';
 
 jest.mock('expo-modules-core', () => ({ requireOptionalNativeModule: jest.fn() }));
@@ -48,32 +48,38 @@ describe('CloudKitPrivateAdapter — leitura', () => {
     it('lê um backup existente no banco privado', async () => {
         const native = fakeNative({ fetchBackup: jest.fn(async () => registroDe(BACKUP)) });
 
-        await expect(new CloudKitPrivateAdapter(native).pull()).resolves.toEqual(BACKUP);
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'usable', backup: BACKUP });
     });
 
-    it('devolve null quando não existe registro remoto', async () => {
-        // Ausência NÃO é erro: é o caso do primeiro uso, e o serviço depende
-        // dele para não substituir progresso local por nada.
-        await expect(new CloudKitPrivateAdapter(fakeNative()).pull()).resolves.toBeNull();
+    it('devolve ausência quando não existe registro remoto', async () => {
+        // Ausência NÃO é erro: é o caso do primeiro uso, e é o ÚNICO estado em
+        // que o serviço pode gravar por cima sem destruir nada.
+        await expect(new CloudKitPrivateAdapter(fakeNative()).pull())
+            .resolves.toEqual({ kind: 'absent' });
     });
 
-    it('trata envelope de versão desconhecida como ausência, em vez de aplicar pela metade', async () => {
+    it('marca envelope de versão desconhecida como INCOMPATÍVEL, nunca como ausente', async () => {
+        // Achado 1 da revisão do PR #14: virar ausência aqui fazia o serviço
+        // gravar por cima de um backup de versão futura.
         const native = fakeNative({
             fetchBackup: jest.fn(async () => ({ ...registroDe(BACKUP), payloadVersion: 99 })),
         });
 
-        await expect(new CloudKitPrivateAdapter(native).pull()).resolves.toBeNull();
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'payload-version' });
     });
 
-    it('trata payload corrompido como ausência', async () => {
+    it('marca payload corrompido como INCOMPATÍVEL, distinguindo de outro schema', async () => {
         const native = fakeNative({
             fetchBackup: jest.fn(async () => ({ ...registroDe(BACKUP), payload: '{isso não é json' })),
         });
 
-        await expect(new CloudKitPrivateAdapter(native).pull()).resolves.toBeNull();
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'corrupt' });
     });
 
-    it('trata payload de schemaVersion divergente como ausência', async () => {
+    it('marca schemaVersion divergente como INCOMPATÍVEL', async () => {
         const native = fakeNative({
             fetchBackup: jest.fn(async () => ({
                 ...registroDe(BACKUP),
@@ -81,7 +87,8 @@ describe('CloudKitPrivateAdapter — leitura', () => {
             })),
         });
 
-        await expect(new CloudKitPrivateAdapter(native).pull()).resolves.toBeNull();
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'schema-version' });
     });
 });
 
@@ -167,6 +174,23 @@ describe('CloudKitPrivateAdapter — escrita', () => {
             (erro) => expect(isCloudUnavailable(erro)).toBe(true),
         );
         expect(native.saveBackup).not.toHaveBeenCalled();
+    });
+
+    it('traduz conflito do servidor como conflito, não como indisponibilidade', async () => {
+        // Achado 2 da revisão: o Swift resolvia serverRecordChanged sozinho,
+        // escrevendo por cima. Agora o conflito atravessa a fronteira para o
+        // serviço, que é quem sabe mesclar.
+        const native = fakeNative({
+            saveBackup: jest.fn(async () => { throw nativeErro('conflict'); }),
+        });
+
+        await new CloudKitPrivateAdapter(native).push(BACKUP).then(
+            () => { throw new Error('deveria ter recusado'); },
+            (erro) => {
+                expect(isCloudConflict(erro)).toBe(true);
+                expect(isCloudUnavailable(erro)).toBe(false);
+            },
+        );
     });
 
     it('sinaliza nuvem indisponível quando a rede caiu no meio da escrita', async () => {
