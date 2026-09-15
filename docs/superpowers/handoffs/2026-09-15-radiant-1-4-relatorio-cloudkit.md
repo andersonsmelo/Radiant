@@ -9,7 +9,7 @@ o handoff determinou.
 **HEAD publicado do PR:** o commit que grava este documento, consultável em
 [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) — um relatório não
 pode conter o SHA do commit que o cria, e a versão anterior deste arquivo
-afirmava `bba3ef6` como se pudesse. **Arquivos no PR: 23.**
+afirmava `bba3ef6` como se pudesse. **Arquivos no PR: 24.**
 
 > **Implementado, não validado nativamente.** Nenhuma linha de Swift deste
 > trabalho foi compilada ou executada. A fatia só pode ser chamada de validada
@@ -274,7 +274,7 @@ tocado; `git diff` sobre ele é vazio.
 
 | Medida | Baseline (2026-09-14) | Agora (2026-09-15) |
 | --- | --- | --- |
-| Suítes / testes (conjunto rastreado) | **117 / 916** | **119 / 979** (+63) |
+| Suítes / testes (conjunto rastreado) | **117 / 916** | **119 / 1000** (+84) |
 | `tsc --noEmit` | exit 0 | **exit 0** |
 | ESLint | 0 erros / 24 avisos | **0 erros / 24 avisos** |
 
@@ -453,24 +453,46 @@ deles ligando o adaptador **real** ao serviço, provando a cadeia inteira, mais 
 contraponto de que `unknownItem` real continua permitindo o primeiro backup. Sem
 esse contraponto, "nunca grava" passaria trivialmente.
 
-### Achados em aberto, reportados e não corrigidos
+### Achado 5 — os dois P2, corrigidos na rodada final
 
-A segunda revisão trouxe, em comentários de linha do revisor automático, dois
-achados **P2 que seguem abertos** — fora do escopo desta rodada, registrados aqui
-para não ficarem enterrados no PR:
+Ambos vieram de comentários de linha do revisor automático e ficaram abertos por
+duas rodadas antes de entrarem em escopo. Os dois eram reais.
 
-1. **`backupNow()` é suprimido em revisão recorrente.** O gancho em
-   `markNodeCompleted` só dispara quando o nó **entra** em `completedNodeIds`. Um
-   nó de revisão que vence de novo já está na lista, então concluir a revisão
-   atualiza a agenda SM-2 e concede XP **sem disparar backup**, e a nuvem fica
-   desatualizada até o aluno concluir algum nó inédito.
-2. **`ehProgressBackup` não valida as coleções aninhadas.** Aceita qualquer
-   objeto não nulo em `completedNodesByTrack` e `reviewSchedule`. Um payload
-   versão 1 corrompido com `completedNodesByTrack: "abc"` passa como `usable` e a
-   string é espalhada em IDs de um caractere durante a mescla;
-   `reviewSchedule: {"l1": {}}` vira carta com datas indefinidas no
-   `SpacedRepetitionService`. Mesma família dos outros: classificação frouxa
-   deixando passar o que deveria ser `incompatible`.
+**P2-1 — revisão recorrente não disparava backup.** O gancho só disparava quando
+o nó **entrava** em `completedNodeIds`, e uma revisão que vence **de novo** já
+está lá desde a primeira vez. Da segunda em diante, a revisão atualizava a agenda
+SM-2 e concedia XP **sem backup**, deixando a nuvem velha indefinidamente.
+
+O discriminador correto já existia no estado e apenas não era lido: a fila
+`pendingReviewNodeIds`. Revisão legítima **sai** da fila — mudança real; toque
+repetido não sai de nada, porque já saiu. A régua passou a ser *entrou em
+concluídos **ou** saiu da fila de revisão*, e a conclusão continua sem `await`.
+
+Duas notas sobre a prova, porque ambas quase produziram um teste falso. O
+primeiro cenário que escrevi **passou de primeira**: concluir a lição não põe o
+nó de *revisão* em `completedNodeIds` — são nós distintos —, e o defeito só
+aparece a partir da segunda vez que a mesma revisão vence. E o caso de toque
+duplo obrigou a corrigir o dublê: mockar "a lição vence para sempre" fazia a
+hidratação repor o nó na fila, e o segundo toque parecia revisão nova — cenário
+que o SM-2 real não produz, porque concluir a revisão reagenda o cartão.
+
+**P2-2 — validação estrutural rasa.** `ehProgressBackup` aceitava qualquer objeto
+não nulo em `completedNodesByTrack` e `reviewSchedule`, então um payload versão 1
+corrompido passava como `usable` — e `usable` é justamente o estado que autoriza
+mesclar sobre o progresso local.
+
+Os dois piores casos: uma string em `completedNodesByTrack` é espalhada pelo
+*spread* da mescla e vira nós inventados de um caractere marcados como
+concluídos; e `NaN` em `interval` envenena o agendamento do SM-2 sem nunca
+lançar. Ambos passam por qualquer checagem que só pergunte "é objeto?" — e
+`typeof [] === 'object'`, então array também passava.
+
+Agora cada trilha precisa ser array de IDs textuais não vazios, e cada cartão
+precisa dos sete campos obrigatórios com os tipos certos e números finitos.
+**12 casos corrompidos** cobertos e — o que importa tanto quanto — **6
+contrapontos válidos** (backup completo, mapas vazios, trilha sem nós, várias
+trilhas, cartão íntegro, `lastRefillAt` nulo). Sem os contrapontos, uma validação
+que rejeitasse tudo passaria nos 12 primeiros e destruiria o backup de todos.
 
 ### Achado 4 — o CI reprovou, e a causa não era o CloudKit
 

@@ -449,10 +449,18 @@ carrega o pacote inteiro.
    sentinela antigo para o vocabulário novo type-checa enquanto afirma a
    equivalência que a correção existia para negar.
 
-   **Dois achados P2 seguem abertos**, vindos de comentários de linha do revisor
-   automático: `backupNow()` é suprimido na conclusão de revisão recorrente
-   (o nó já está em `completedNodeIds`), e `ehProgressBackup` não valida as
-   coleções aninhadas do payload. Detalhes no relatório.
+   ✅ **Os dois achados P2 foram corrigidos na rodada final de 2026-09-15.**
+   (1) `backupNow()` deixava de disparar na conclusão de revisão **recorrente**,
+   porque o nó já estava em `completedNodeIds` desde a primeira vez — a partir da
+   segunda, a revisão atualizava SM-2 e XP sem backup. O discriminador correto já
+   existia no estado e não era lido: `pendingReviewNodeIds`, de onde a revisão
+   legítima sai e o toque repetido não. (2) `ehProgressBackup` aceitava qualquer
+   objeto não nulo nas coleções aninhadas, deixando payload corrompido passar como
+   `usable` — o estado que autoriza mesclar sobre o local; uma string em
+   `completedNodesByTrack` virava nós de um caractere no spread da mescla, e `NaN`
+   em `interval` envenenava o agendamento sem lançar. Validação profunda com 12
+   casos corrompidos e **6 contrapontos válidos**, para a correção não virar
+   "rejeita tudo".
 
    🔴 **O gate do CI reprovou depois da terceira rodada, e isso corrigiu os
    números de todas elas.** A falha era
@@ -470,7 +478,9 @@ carrega o pacote inteiro.
    `npm run quality` no Node 20, que é o gate real. Números corretos do conjunto
    rastreado, medidos em worktrees limpas em 2026-09-15: `origin/main` =
    **117 suítes / 916 testes**; branch da 1.4 CloudKit = **119 suítes /
-   979 testes**. `tsc` exit 0, ESLint 0 erros / 24 avisos.
+   1000 testes** depois da rodada final dos P2. Gate real completo
+   (`npm run quality`, Node 20): os 16 passos, exit 0, `visual:qa:strict` com 0
+   regressões.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
