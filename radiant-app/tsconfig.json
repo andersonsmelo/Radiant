@@ -21,7 +21,9 @@
     "scripts/**/*.ts",
     "scripts/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "modules/**/*.ts",
+    "modules/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
