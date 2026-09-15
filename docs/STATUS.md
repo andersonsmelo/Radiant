@@ -413,6 +413,27 @@ carrega o pacote inteiro.
    Swift foi compilada ou executada. Só passa a "validada" depois que um build
    assinado rodar em aparelho real e comprovar backup e restauração.
 
+   🔴 **Revisão independente do PR #14, em 2026-09-15, achou dois caminhos de
+   perda de progresso dentro do próprio mecanismo antiperda — ambos corrigidos.**
+   (1) `pull()` devolvia `null` tanto para "não existe registro" quanto para
+   "existe registro que este binário não lê", e `backupNow` lê `null` como
+   permissão para gravar por cima: um backup de versão futura era destruído pelo
+   snapshot local. Corrigido com união discriminada de três estados
+   (`absent`/`usable`/`incompatible`), que faz o compilador obrigar cada
+   consumidor a decidir. (2) O Swift resolvia `serverRecordChanged` escrevendo
+   por cima do registro do servidor — last-write-wins cego sobre um JSON opaco,
+   que apaga progresso mais novo de outro aparelho. Agora o conflito volta ao
+   TypeScript, que refaz `pull → merge → push` em até 3 tentativas, com fila
+   serializando as operações do aparelho.
+
+   **Lição para as próximas revisões:** os testes anteriores *afirmavam o
+   defeito como comportamento correto*, com comentário justificando, porque
+   foram escritos a partir do mesmo modelo mental da implementação. Um erro de
+   modelo é invisível para testes que codificam o modelo — a prova precisa ficar
+   no nível do consumidor que age sobre o valor. Gates depois da correção,
+   medidos em 2026-09-15: **127 suítes / 1002 testes**, `tsc` exit 0, ESLint
+   0 erros / 24 avisos.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

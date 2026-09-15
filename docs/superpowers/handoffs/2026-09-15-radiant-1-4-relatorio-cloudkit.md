@@ -1,9 +1,15 @@
 # Relatório de execução — Radiant 1.4 · Task 8 · slice CloudKit
 
 **Data:** 2026-09-15 · **Branch:** `feat/1-4-cloudkit-private-backup`, aberta de
-`origin/main` em `b3b4c46` · **HEAD:** `bba3ef6` · **Escopo:** somente o slice CloudKit. StoreKit,
+`origin/main` em `b3b4c46` · **Escopo:** somente o slice CloudKit. StoreKit,
 Sentry, Product IDs, preços, Currículo V3, build e submissão ficaram fora, como
 o handoff determinou.
+
+**HEAD da implementação, antes do commit deste relatório:** `1418a10`.
+**HEAD publicado do PR:** o commit que grava este documento, consultável em
+[PR #14](https://github.com/andersonsmelo/Radiant/pull/14) — um relatório não
+pode conter o SHA do commit que o cria, e a versão anterior deste arquivo
+afirmava `bba3ef6` como se pudesse. **Arquivos no PR: 23.**
 
 > **Implementado, não validado nativamente.** Nenhuma linha de Swift deste
 > trabalho foi compilada ou executada. A fatia só pode ser chamada de validada
@@ -130,11 +136,10 @@ de backup mostra diferente e que seria errado colapsar: `cloud-unavailable` é
 sozinho; qualquer outra coisa vira `failed` e merece aparecer. Colapsar as duas
 esconderia defeito atrás de mensagem tranquilizadora.
 
-Três casos de leitura que não constavam da lista do §12 e me pareceram
-obrigatórios: **envelope de versão desconhecida, JSON corrompido e
-`schemaVersion` divergente devolvem ausência, nunca erro**. Aplicar um backup
-pela metade sobre o progresso local é pior que não aplicar, e o registro segue
-intacto na nuvem para um binário que o entenda.
+Três casos de leitura que não constavam da lista do §12: envelope de versão
+desconhecida, JSON corrompido e `schemaVersion` divergente. **A primeira versão
+os devolvia como ausência, e isso estava errado** — ver §11, achado 1. Hoje eles
+devolvem `incompatible`, um terceiro estado que o serviço é obrigado a tratar.
 
 A seleção de adaptador é **preguiçosa e degradável**: sem módulo nativo — Expo
 Go, Android, build anterior a esta versão — cai no
@@ -200,8 +205,9 @@ acrescentado.
 
 - `unknownItem` é lido como **ausência**, não falha — primeiro uso não pode
   parecer erro;
-- `serverRecordChanged` reaplica sobre o registro do servidor: o payload já é a
-  união calculada no TypeScript, e a próxima leitura mescla de novo;
+- `serverRecordChanged` **não** é resolvido no Swift: atravessa a fronteira como
+  o código `conflict` e quem refaz o ciclo é o TypeScript. A primeira versão o
+  resolvia aqui, escrevendo por cima do registro do servidor — ver §11, achado 2;
 - `accountStatus` **nunca lança** — não saber o estado da conta *é* um estado de
   conta, vira `could-not-determine` e degrada para local;
 - erro traduzido para os quatro códigos que o adaptador já testa
@@ -221,7 +227,7 @@ acrescentado.
 | Record ID (`recordName`) | **fixo**: `progress-backup-v1` |
 | Campos | `payloadVersion` (Int), `payload` (String, JSON), `savedAt` (String ISO 8601) |
 | Versão do payload | `1` |
-| Update/upsert | ler por ID → criar se `unknownItem` → preencher → salvar; `serverRecordChanged` reaplica sobre o registro do servidor |
+| Update/upsert | ler por ID → criar se `unknownItem` → preencher → salvar; `serverRecordChanged` volta ao TypeScript como `conflict`, que refaz `pull → merge → push` em até 3 tentativas |
 
 O `recordName` fixo é **o que torna a escrita idempotente**: salvar de novo
 atualiza o mesmo registro em vez de acumular histórico. Trocá-lo é migração de
@@ -268,7 +274,7 @@ tocado; `git diff` sobre ele é vazio.
 
 | Medida | Baseline (2026-09-14) | Agora (2026-09-15) |
 | --- | --- | --- |
-| Suítes / testes | 125 / 958 | **127 / 989** (+31) |
+| Suítes / testes | 125 / 958 | **127 / 1002** (+44) |
 | `tsc --noEmit` | exit 0 | **exit 0** |
 | ESLint | 0 erros / 24 avisos | **0 erros / 24 avisos** |
 
@@ -343,6 +349,70 @@ branch pode sair do estado "implementado".
 
 ---
 
+## 11. Rodada de integridade — achados da revisão independente do PR #14
+
+A revisão encontrou **dois caminhos de perda de progresso dentro do próprio
+mecanismo antiperda**. Ambos corrigidos no commit `1418a10`, com testes que os
+reproduzem.
+
+### Achado 1 — registro remoto incompatível era tratado como ausente
+
+`pull()` devolvia `ProgressBackup | null`, e `null` significava duas situações
+**opostas**: "não existe registro", em que gravar é seguro porque é o primeiro
+backup, e "existe um registro que este binário não lê", em que gravar destrói.
+Colapsadas num sentinela, a leitura natural do chamador é a permissiva — então o
+comportamento padrão no caminho perigoso era o destrutivo. `backupNow` lia `null`
+e dava `push` do snapshot local por cima de um backup feito por uma versão futura
+do app.
+
+A afirmação da versão anterior deste relatório — "o registro segue intacto na
+nuvem para um binário que o entenda" — **era falsa no caminho de escrita**. Ela
+valia para `restoreOnLaunch`, que só lê, e eu a generalizei sem percorrer o
+consumidor que grava.
+
+**Correção:** união discriminada de três estados — `absent`, `usable`,
+`incompatible` com razão (`payload-version`, `corrupt`, `schema-version`). O
+compilador passa a obrigar cada consumidor a decidir. `incompatible` não envia,
+não aplica, preserva o local e registra estado próprio, distinto de `failed`,
+com texto no cartão dizendo que o backup está guardado e intacto e que a ação
+útil é atualizar o app.
+
+### Achado 2 — `serverRecordChanged` sobrescrevia o servidor
+
+O Swift pegava `error.serverRecord`, escrevia a entrada local por cima e salvava.
+Como o módulo **não abre o payload**, ele não tem como saber que o registro do
+servidor era mais novo: era last-write-wins cego por construção, e um backup
+concorrente de outro aparelho podia ser substituído por um snapshot mais antigo.
+
+**Correção:** o Swift perdeu a resolução de conflito e traduz
+`CKError.serverRecordChanged` para o código estável `conflict`. O TypeScript
+refaz `pull → merge → push` em **no máximo 3 tentativas** (constante explícita,
+não laço). Conflito que não cede vira `failed` com o local intacto.
+
+**Concorrência no mesmo aparelho:** uma fila mínima — corrente de promises, sem
+biblioteca — serializa `backupNow` e `restoreOnLaunch`. Sem ela, duas conclusões
+de nó em sequência rápida produziam `pull,pull,push,push`, e o segundo gravava
+por cima do primeiro sem tê-lo lido. Não há debounce nem limitação de taxa nesta
+rodada.
+
+### Por que os testes anteriores não pegaram
+
+Eles **afirmavam o defeito como comportamento correto**, com comentário
+explicando por que era seguro, porque foram escritos a partir do mesmo modelo
+mental da implementação, na mesma sessão, sobre a mesma fronteira. Um erro de
+modelo é invisível para testes que codificam o modelo. A consequência só existia
+um nível acima, no consumidor que decide gravar — por isso as provas novas são
+**de serviço**, não apenas do adaptador, como a revisão exigiu.
+
+Testes acrescentados nesta rodada (13): primeiro push com registro ausente; as
+três razões de incompatibilidade não chamando `push` nem `apply`, em `backupNow`
+e em `restoreOnLaunch`; conflito refazendo o pull e reenviando a união; remoto
+mais novo não substituído; conflito repetido parando no limite; duas chamadas
+concorrentes não interleiando; tradução do conflito no adaptador; cópia do estado
+`incompatible` no cartão.
+
+---
+
 ## 9. Riscos residuais
 
 1. **O Swift não foi compilado.** É o risco dominante. Erro de compilação,
@@ -352,19 +422,28 @@ branch pode sair do estado "implementado".
    outro formato, todos os erros do CloudKit caem no ramo `unrecoverable` — o app
    continua funcionando e local-first, mas o cartão mostraria "falha" onde
    deveria mostrar "indisponível".
-2. **Adicionar o módulo muda o build nativo.** `expo config --type introspect`
+2. **O limite de 3 tentativas de conflito é uma escolha, não uma medição.** Não
+   há dado de campo sobre frequência de conflito neste app; o número foi fixado
+   pequeno de propósito, para não transformar conclusão de nó em laço de rede.
+   Se conflitos legítimos forem comuns com vários aparelhos, o backup falhará
+   mais do que o necessário — o local segue intacto em todos os casos.
+3. **A fila serializa apenas dentro de uma instância do serviço.** Duas
+   instâncias no mesmo processo, ou dois processos, não compartilham a fila. Hoje
+   o app usa um único singleton exportado, então a propriedade vale; deixar de
+   valer exigiria criar outra instância, o que nenhum caminho atual faz.
+4. **Adicionar o módulo muda o build nativo.** `expo config --type introspect`
    resolve limpo, mas isso mede configuração, não compilação. O primeiro
    `prebuild`/`pod install` é o primeiro teste real.
-3. **`aps-environment: development`** aparece no config resolvido, injetado por
+5. **`aps-environment: development`** aparece no config resolvido, injetado por
    `expo-notifications`; é dependente de perfil e não foi tocado por este
    trabalho.
-4. **A ampliação da `writePolicy`** (`radiant-app/modules`) é permanente e vale
+6. **A ampliação da `writePolicy`** (`radiant-app/modules`) é permanente e vale
    para qualquer agente futuro, não só para esta tarefa.
-5. **Backup por conclusão de nó não tem limitação de taxa.** Uma sessão de estudo
+7. **Backup por conclusão de nó não tem limitação de taxa.** Uma sessão de estudo
    longa dispara um `push` por nó concluído. É best-effort e não bloqueia nada,
    mas o CloudKit tem limites de taxa e a política de agrupamento não foi
    definida — o handoff a deixou explicitamente fora da ADR.
-6. **`ENABLE_REMOTE_SYNC=false` em todos os perfis** continua desligando o sync
+8. **`ENABLE_REMOTE_SYNC=false` em todos os perfis** continua desligando o sync
    remoto legado, que é coisa distinta do backup iCloud. Não mexi.
 
 ---
