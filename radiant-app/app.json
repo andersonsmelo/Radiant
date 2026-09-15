@@ -13,6 +13,14 @@
       "bundleIdentifier": "com.ascendcreative.radiant",
       "buildNumber": "3",
       "usesNonExemptEncryption": false,
+      "entitlements": {
+        "com.apple.developer.icloud-container-identifiers": [
+          "iCloud.com.ascendcreative.radiant"
+        ],
+        "com.apple.developer.icloud-services": [
+          "CloudKit"
+        ]
+      },
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "NSUserNotificationUsageDescription": "Radiant usa notificações para lembrar revisões e metas diárias de estudo."
