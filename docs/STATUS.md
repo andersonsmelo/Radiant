@@ -372,12 +372,17 @@ carrega o pacote inteiro.
    completo em
    [`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
 
-   Gates medidos em **2026-09-15**: **127 suítes / 989 testes verdes** (eram
-   125/958), `tsc --noEmit` exit 0, ESLint 0 erros / 24 avisos — mesmo número de
+   Gates medidos em **2026-09-15** (número corrigido depois; ver o bloco do CI
+   adiante): **119 suítes / 979 testes verdes** no conjunto rastreado, contra
+   **117/916** em `origin/main`, `tsc --noEmit` exit 0, ESLint 0 erros / 24 avisos — mesmo número de
    avisos da baseline. Remedir com:
 
+   Remedir com o **gate real**, que é o mesmo comando que o CI executa — não
+   `npx jest` solto, que roda em paralelo, ignora os 15 contratos e, na árvore
+   suja, conta arquivos que o repositório remoto não tem:
+
    ```bash
-   cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npx jest --silent && npx tsc --noEmit && npx eslint .
+   cd radiant-app && nvm use 20 && EXPO_NO_DOTENV=1 npm run quality
    ```
 
    O que entrou: entitlements do container `iCloud.com.ascendcreative.radiant`
@@ -449,8 +454,23 @@ carrega o pacote inteiro.
    (o nó já está em `completedNodeIds`), e `ehProgressBackup` não valida as
    coleções aninhadas do payload. Detalhes no relatório.
 
-   Gates depois das três rodadas, medidos em 2026-09-15: **127 suítes /
-   1021 testes**, `tsc` exit 0, ESLint 0 erros / 24 avisos.
+   🔴 **O gate do CI reprovou depois da terceira rodada, e isso corrigiu os
+   números de todas elas.** A falha era
+   `LessonFlowScreen — assinante com contagem zero não é pausado`, duas vezes no
+   mesmo SHA. Causa medida: a asserção usa `waitFor` com timeout padrão de
+   1000 ms, cada ciclo de polling custa ~340 ms e a tela precisa de dois flushes,
+   então a condição só vira verdadeira entre 714 e 1488 ms. Em worktrees limpas,
+   `origin/main` tem a **mesma** distribuição (pior caso 1488 ms, contra 968 ms
+   desta branch): a fragilidade é anterior e independe do CloudKit. Corrigido com
+   um `act` vazio antes do `waitFor` — 2 ms, sem mexer em timeout.
+
+   ⚠️ **As contagens de teste reportadas nas três rodadas estavam contaminadas.**
+   Elas incluíam 8 suítes / 42 testes de arquivos do Currículo V3 não commitados
+   de outra sessão, e foram medidas com `npx jest` no Node 24 em vez de
+   `npm run quality` no Node 20, que é o gate real. Números corretos do conjunto
+   rastreado, medidos em worktrees limpas em 2026-09-15: `origin/main` =
+   **117 suítes / 916 testes**; branch da 1.4 CloudKit = **119 suítes /
+   979 testes**. `tsc` exit 0, ESLint 0 erros / 24 avisos.
 
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na

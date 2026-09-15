@@ -5,7 +5,7 @@
 Sentry, Product IDs, preços, Currículo V3, build e submissão ficaram fora, como
 o handoff determinou.
 
-**HEAD da implementação, antes do commit deste relatório:** `0ccaa20`.
+**HEAD da implementação, antes do commit deste relatório:** ver o PR — os SHAs desta rodada são posteriores a este parágrafo.
 **HEAD publicado do PR:** o commit que grava este documento, consultável em
 [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) — um relatório não
 pode conter o SHA do commit que o cria, e a versão anterior deste arquivo
@@ -274,11 +274,22 @@ tocado; `git diff` sobre ele é vazio.
 
 | Medida | Baseline (2026-09-14) | Agora (2026-09-15) |
 | --- | --- | --- |
-| Suítes / testes | 125 / 958 | **127 / 1021** (+63) |
+| Suítes / testes (conjunto rastreado) | **117 / 916** | **119 / 979** (+63) |
 | `tsc --noEmit` | exit 0 | **exit 0** |
 | ESLint | 0 erros / 24 avisos | **0 erros / 24 avisos** |
 
-Os números são da **suíte inteira**, não das suítes tocadas. Os avisos chegaram a
+Os números são da **suíte inteira e apenas do conjunto rastreado**, medidos com o
+comando do CI (`EXPO_NO_DOTENV=1`, `jest --runInBand`) no **Node 20**, que é o
+que o `AGENTS.md` manda usar para o app.
+
+> 🔴 **Correção das três rodadas anteriores.** Elas reportaram *127 suítes /
+> 1021 testes*, e a "baseline 125 / 958" foi reproduzida com o mesmo vício. Os
+> números estavam contaminados por **8 suítes / 42 testes** de arquivos de
+> Currículo V3 **não commitados** de outra sessão, que existem só na árvore de
+> trabalho e o CI nunca vê. Além disso, aquelas medições usaram `npx jest`
+> direto — e não `npm run quality`, que é o gate real e inclui `--runInBand`
+> mais 15 contratos — sob **Node 24** em vez do 20. Medido em worktrees limpas:
+> `origin/main` = **117 / 916**; esta branch = **119 / 979**. Os avisos chegaram a
 subir para 26 com dois imports duplicados meus; foram unificados em vez de
 deixados passar.
 
@@ -460,6 +471,49 @@ para não ficarem enterrados no PR:
    `reviewSchedule: {"l1": {}}` vira carta com datas indefinidas no
    `SpacedRepetitionService`. Mesma família dos outros: classificação frouxa
    deixando passar o que deveria ser `incompatible`.
+
+### Achado 4 — o CI reprovou, e a causa não era o CloudKit
+
+Depois da terceira rodada o gate reprovou em
+`LessonFlowScreen — assinante com contagem zero não é pausado`, **duas vezes no
+mesmo SHA**, então não era instabilidade aleatória.
+
+**Causa raiz, medida.** A asserção usa `waitFor` com o timeout padrão de 1000 ms.
+Instrumentando cada tentativa: o `queryByText` custa **0–1 ms**, mas o intervalo
+entre tentativas é de **~340 ms** — custo da maquinaria de espera, não de
+trabalho —, e a tela precisa de **dois ciclos de flush** depois do "Continuar"
+para estabilizar. A condição só vira verdadeira na 3ª tentativa, entre **714 e
+1488 ms**. Contra 1000 ms, a folga é nenhuma, e numa das cinco execuções locais
+ela já estourava.
+
+**Comparação `main` vs PR, em worktrees limpas, mesmo comando, Node 20:**
+
+| | mediana | máximo | tentativas |
+| --- | --- | --- | --- |
+| `origin/main` (`b3b4c46`) | 743 ms | **1488 ms** | sempre 3 |
+| esta branch (`dc6d276`) | 764 ms | 968 ms | sempre 3 |
+
+Indistinguíveis, e o pior caso é do `main`. **A fragilidade é anterior a esta
+branch e independe do backup no iCloud** — `lesson-flow/` não tem nenhum arquivo
+alterado aqui, e `JourneyProgressService`, `LessonOutcomeService` e
+`GamificationService` estão todos mockados nessa suíte, então nada do slice
+CloudKit entra no grafo de módulos dela. O runner do GitHub é ~7× mais lento
+nesta suíte (3,2 s local contra 21,5–22,3 s), o que transforma "sem folga" em
+"reprova sempre".
+
+**Correção:** um `await act(async () => {})` antes do `waitFor`. Ele descarrega a
+fila de microtasks e os efeitos pendentes de uma vez — **2 ms** — e o `waitFor`
+passa na primeira checagem, permanecendo como tolerância. O teste cai de ~870 ms
+para **60 ms**. Não foi aumentado nenhum timeout, nem o desta asserção nem o
+global: aumentar esconderia o custo em vez de eliminá-lo.
+
+**O que isto expôs sobre as três rodadas anteriores.** Eu media com `npx jest`,
+no Node 24, contando arquivos não commitados de outra sessão. O gate real é
+`EXPO_NO_DOTENV=1 npm run quality`, que roda `jest --runInBand` mais 15
+contratos, no Node 20, sobre o conjunto rastreado. Três desvios independentes,
+todos com a mesma assinatura: tratar a medição local como equivalente à do gate
+sem verificar que eram o mesmo comando, no mesmo ambiente, sobre os mesmos
+arquivos.
 
 ---
 
