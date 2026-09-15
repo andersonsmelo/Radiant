@@ -69,9 +69,29 @@ export function nativeErrorCode(error: unknown): CloudKitNativeErrorCode | null 
         : null;
 }
 
+/**
+ * O que o módulo nativo devolve ao ler: campos crus, sem promessa de forma.
+ *
+ * O tipo é permissivo de propósito. O lado nativo copia o que achou no registro
+ * e **não julga** — julgar exigiria que ele entendesse o formato, e é justamente
+ * o que ele não faz. Quem classifica é o adaptador, em TypeScript, onde a regra
+ * é testável.
+ */
+export type CloudKitRawRecord = {
+    payloadVersion?: unknown;
+    payload?: unknown;
+    savedAt?: unknown;
+};
+
 /** Superfície mínima do módulo Expo local; ausente fora de um build iOS assinado. */
 export interface RadiantCloudKitNative {
     accountStatus(): Promise<CloudKitAccountStatus>;
-    fetchBackup(): Promise<CloudKitBackupRecord | null>;
+    /**
+     * `null` **somente** quando o CloudKit devolveu `unknownItem`, isto é,
+     * quando o registro de fato não existe. Registro presente e ilegível volta
+     * como envelope cru, nunca como `null`: confundir os dois faz o serviço
+     * achar que pode gravar do zero e sobrescrever o que estava lá.
+     */
+    fetchBackup(): Promise<CloudKitRawRecord | null>;
     saveBackup(record: CloudKitBackupRecord): Promise<{ savedAt: string }>;
 }

@@ -1,4 +1,5 @@
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { CloudKitPrivateAdapter } from './CloudKitPrivateAdapter';
 import { ProgressSyncService, mergeProgressBackups } from './ProgressSyncService';
 import {
     CloudConflictError,
@@ -260,7 +261,7 @@ function memoriaLigada() {
 // destruindo, dentro do mecanismo antiperda, um backup feito por uma versão
 // futura do app. A prova tem de ser no SERVIÇO: é ele que decide gravar.
 describe('ProgressSyncService — remoto incompatível nunca é sobrescrito', () => {
-    const razoes: IncompatibleReason[] = ['payload-version', 'corrupt', 'schema-version'];
+    const razoes: IncompatibleReason[] = ['payload-version', 'corrupt', 'schema-version', 'record-structure'];
 
     it('registro inexistente permite o primeiro push', async () => {
         const cloud = nuvemLendo({ kind: 'absent' });
@@ -382,5 +383,76 @@ describe('ProgressSyncService — conflito refaz o ciclo, não sobrescreve', () 
         await Promise.all([service.backupNow(AGORA), service.backupNow(AGORA + 1000)]);
 
         expect(cloud.ordem).toEqual(['pull', 'push', 'pull', 'push']);
+    });
+});
+
+// Achado da SEGUNDA revisão do PR #14, provado onde a decisão de gravar é
+// tomada. Aqui o adaptador é o REAL, não um dublê: o que se prova é a cadeia
+// inteira — módulo nativo devolve um registro existente porém ilegível, o
+// adaptador classifica, e o serviço não grava.
+describe('ProgressSyncService + CloudKitPrivateAdapter — registro ilegível não é sobrescrito', () => {
+    function nativeFake(fetch: () => Promise<unknown>) {
+        return {
+            accountStatus: jest.fn(async () => 'available' as const),
+            fetchBackup: jest.fn(fetch as () => Promise<never>),
+            saveBackup: jest.fn(async (r: { savedAt: string }) => ({ savedAt: r.savedAt })),
+        };
+    }
+
+    const registrosIlegiveis: [string, unknown][] = [
+        ['sem payload', { payloadVersion: 1, savedAt: AGORA_ISO }],
+        ['sem savedAt', { payloadVersion: 1, payload: '{}' }],
+        ['sem payloadVersion', { payload: '{}', savedAt: AGORA_ISO }],
+        ['com tipos inválidos', { payloadVersion: 'um', payload: 123, savedAt: true }],
+        ['vazio', {}],
+    ];
+
+    it.each(registrosIlegiveis)('registro existente %s: não grava e preserva o local', async (_rotulo, registro) => {
+        const native = nativeFake(async () => registro);
+        const local = localPort(backup());
+        const service = new ProgressSyncService({
+            cloud: new CloudKitPrivateAdapter(native as never),
+            local,
+            storage: memoriaLigada(),
+        });
+
+        const estado = await service.backupNow(AGORA);
+
+        expect(native.saveBackup).not.toHaveBeenCalled();
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(estado.lastError).toBe('incompatible');
+        expect(estado.lastBackupAt).toBeNull();
+    });
+
+    it('ausência real — unknownItem — continua permitindo o primeiro backup', async () => {
+        // O contraponto: sem este caso, "nunca grava" passaria trivialmente.
+        const native = nativeFake(async () => null);
+        const local = localPort(backup());
+        const service = new ProgressSyncService({
+            cloud: new CloudKitPrivateAdapter(native as never),
+            local,
+            storage: memoriaLigada(),
+        });
+
+        const estado = await service.backupNow(AGORA);
+
+        expect(native.saveBackup).toHaveBeenCalledTimes(1);
+        expect(estado.lastError).toBeNull();
+    });
+
+    it.each(registrosIlegiveis)('na abertura, registro existente %s não aplica nada sobre o local', async (_rotulo, registro) => {
+        const native = nativeFake(async () => registro);
+        const local = localPort(backup());
+        const service = new ProgressSyncService({
+            cloud: new CloudKitPrivateAdapter(native as never),
+            local,
+            storage: memoriaLigada(),
+        });
+
+        const estado = await service.restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(native.saveBackup).not.toHaveBeenCalled();
+        expect(estado.lastError).toBe('incompatible');
     });
 });

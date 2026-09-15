@@ -92,6 +92,64 @@ describe('CloudKitPrivateAdapter — leitura', () => {
     });
 });
 
+// Achado da SEGUNDA revisão do PR #14. O Swift devolvia `nil` quando o registro
+// existia mas não tinha os campos esperados, e `nil` significa "registro
+// inexistente" — o serviço então fazia o primeiro push por cima de um registro
+// real. Mesma classe do achado 1, um nível abaixo da união discriminada.
+//
+// `null` passou a ser reservado a `CKError.unknownItem`. O envelope cru volta
+// sempre que o registro existe, e é aqui que ele é classificado.
+describe('CloudKitPrivateAdapter — registro existente nunca é lido como ausente', () => {
+    it('ausência real continua sendo ausência', async () => {
+        const native = fakeNative({ fetchBackup: jest.fn(async () => null) });
+
+        await expect(new CloudKitPrivateAdapter(native).pull()).resolves.toEqual({ kind: 'absent' });
+    });
+
+    it('registro sem payload não vira ausência', async () => {
+        const native = fakeNative({
+            fetchBackup: jest.fn(async () => ({ payloadVersion: 1, savedAt: BACKUP.savedAt })),
+        });
+
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'record-structure' });
+    });
+
+    it('registro sem savedAt não vira ausência', async () => {
+        const native = fakeNative({
+            fetchBackup: jest.fn(async () => ({ payloadVersion: 1, payload: JSON.stringify(BACKUP) })),
+        });
+
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'record-structure' });
+    });
+
+    it('registro sem payloadVersion não vira ausência', async () => {
+        const native = fakeNative({
+            fetchBackup: jest.fn(async () => ({ payload: JSON.stringify(BACKUP), savedAt: BACKUP.savedAt })),
+        });
+
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'record-structure' });
+    });
+
+    it('campos de tipo inesperado não viram ausência', async () => {
+        const native = fakeNative({
+            fetchBackup: jest.fn(async () => ({ payloadVersion: 'um', payload: 123, savedAt: true })),
+        });
+
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'record-structure' });
+    });
+
+    it('registro completamente vazio não vira ausência', async () => {
+        const native = fakeNative({ fetchBackup: jest.fn(async () => ({})) });
+
+        await expect(new CloudKitPrivateAdapter(native).pull())
+            .resolves.toEqual({ kind: 'incompatible', reason: 'record-structure' });
+    });
+});
+
 describe('CloudKitPrivateAdapter — estados que degradam para local', () => {
     const contasIndisponiveis: CloudKitAccountStatus[] = [
         'no-account',

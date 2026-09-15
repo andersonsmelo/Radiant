@@ -30,6 +30,8 @@ export type ProgressBackup = {
  * `incompatible` nunca pode virar `null`: é registro presente e intocável.
  */
 export type IncompatibleReason =
+    /** O registro existe, mas não tem os campos que um backup precisa ter. */
+    | 'record-structure'
     /** Envelope de uma versão que este binário não sabe ler. */
     | 'payload-version'
     /** O payload não é JSON válido. */

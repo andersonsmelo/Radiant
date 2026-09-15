@@ -74,18 +74,26 @@ public final class RadiantCloudKitModule: Module {
     AsyncFunction("fetchBackup") { () -> [String: Any]? in
       do {
         let record = try await self.database.record(for: self.recordID)
-        guard
-          let payload = record["payload"] as? String,
-          let savedAt = record["savedAt"] as? String
-        else {
-          // Registro existe mas veio sem os campos esperados: ausência, para o
-          // TypeScript decidir. Nunca aplicar pela metade.
-          return nil
-        }
-        let version = (record["payloadVersion"] as? Int) ?? -1
-        return ["payloadVersion": version, "payload": payload, "savedAt": savedAt]
+
+        // Copia o que existe, SEM julgar. Quem decide se o registro e utilizavel
+        // e o TypeScript, onde a regra e testavel; este modulo nao conhece o
+        // formato do progresso e nao deveria opinar sobre ele. Campo ausente
+        // simplesmente nao entra no dicionario, e o adaptador classifica o
+        // envelope como registro ilegivel.
+        //
+        // NUNCA devolver nil aqui. A versao anterior tinha um `guard ... else
+        // { return nil }` para registro sem `payload` ou sem `savedAt`, e nil
+        // significa "registro inexistente": o servico entendia que podia gravar
+        // do zero e sobrescrevia um registro real. Era o Achado 1 de novo, um
+        // nivel abaixo da uniao discriminada.
+        var envelope: [String: Any] = [:]
+        if let versao = record["payloadVersion"] as? Int { envelope["payloadVersion"] = versao }
+        if let payload = record["payload"] as? String { envelope["payload"] = payload }
+        if let savedAt = record["savedAt"] as? String { envelope["savedAt"] = savedAt }
+        return envelope
       } catch let error as CKError where error.code == .unknownItem {
-        // Primeiro uso: ainda não há registro. Ausência, não falha.
+        // O UNICO nil deste modulo: o CloudKit afirmou que o registro nao
+        // existe. Nenhum outro caminho pode produzir ausencia.
         return nil
       } catch {
         throw Self.traduzir(error)

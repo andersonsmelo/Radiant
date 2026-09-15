@@ -74,7 +74,22 @@ export class CloudKitPrivateAdapter implements PrivateCloudPort {
         await this.exigirContaUtilizavel();
 
         const registro = await this.traduzindoFalhas(() => this.native.fetchBackup());
+
+        // `null` significa exatamente uma coisa, e é a única linha do adaptador
+        // que pode produzir `absent`: o CloudKit devolveu `unknownItem` e o
+        // registro não existe. Qualquer registro presente — por mais quebrado
+        // que esteja — passa por baixo daqui. Foi confundir os dois que fez o
+        // serviço gravar do zero por cima de um registro real.
         if (registro === null) return { kind: 'absent' };
+
+        // O envelope vem cru do lado nativo, que copia o que achou sem julgar.
+        // Campo faltando ou de tipo inesperado é registro presente e ilegível,
+        // não registro ausente.
+        if (typeof registro.payload !== 'string'
+            || typeof registro.savedAt !== 'string'
+            || typeof registro.payloadVersion !== 'number') {
+            return { kind: 'incompatible', reason: 'record-structure' };
+        }
 
         if (registro.payloadVersion !== CLOUDKIT_PAYLOAD_VERSION) {
             return { kind: 'incompatible', reason: 'payload-version' };
