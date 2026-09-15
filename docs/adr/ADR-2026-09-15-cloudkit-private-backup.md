@@ -35,6 +35,19 @@ Medido pelo dono em 2026-09-15:
 - alteração salva e confirmada;
 - perfis de provisionamento existentes podem precisar ser regenerados, porque a alteração de capability os invalida.
 
+### Provisioning / EAS concluído para o primeiro teste nativo
+
+Medido pelo dono em 2026-09-15 no perfil EAS `preview`:
+
+- certificado de distribuição existente reutilizado, sem revogação ou criação de certificado novo;
+- iPhone físico de teste registrado para distribuição interna;
+- novo **Provisioning Profile AD_HOC** gerado após a ativação do CloudKit;
+- provisioning profile em estado **active**;
+- perfil contém o iPhone registrado e está pronto para um build interno `preview`;
+- nenhum build foi iniciado durante esta configuração.
+
+O provisioning antigo não deve ser reutilizado como evidência de compatibilidade com CloudKit. O primeiro build nativo deve usar o perfil AD_HOC regenerado depois da capability iCloud/CloudKit.
+
 ### Entitlements esperados no projeto
 
 A implementação deve declarar no target iOS, via configuração Expo/EAS ou equivalente nativo:
