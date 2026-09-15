@@ -11,6 +11,22 @@ import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 export type ProgressBackup = {
     schemaVersion: 1;
     savedAt: string;
+    /**
+     * A decisão de opt-in do dono do backup, guardada **no registro remoto**.
+     *
+     * Existe porque o estado local não sobrevive a uma reinstalação: sem a
+     * chave local, "nunca decidiu" e "desligou de propósito" ficam idênticos, e
+     * o app não tem como saber se deve restaurar. O registro remoto sabe, e é o
+     * único lugar que sobrevive ao uninstall.
+     *
+     * **Ausente significa ligado**, para compatibilidade com os registros que os
+     * builds anteriores gravaram sem este campo.
+     *
+     * Viaja dentro do payload, e não como campo do registro do CloudKit, de
+     * propósito: o módulo nativo trata o payload como string opaca, então isto
+     * não exige mudança em Swift nem nova validação em aparelho.
+     */
+    backupEnabled?: boolean;
     completedNodesByTrack: Record<string, string[]>;
     reviewSchedule: Record<string, SRCardStatePersisted>;
     totalXp: number;
@@ -99,6 +115,17 @@ export type BackupError = 'cloud-unavailable' | 'failed' | 'incompatible';
 
 export type BackupState = {
     enabled: boolean;
+    /**
+     * `false` enquanto NENHUMA decisão local existir — o caso da instalação
+     * limpa, em que a chave de storage sequer existe.
+     *
+     * Sem isto, `enabled: false` carregava duas situações opostas: "o dono
+     * desligou" (não mexa na nuvem) e "o app acabou de ser reinstalado" (leia a
+     * nuvem, o progresso está lá). O restore lia o segundo como o primeiro e
+     * devolvia antes de consultar o CloudKit — foi o defeito medido no iPhone
+     * em 2026-09-15.
+     */
+    decided: boolean;
     lastBackupAt: string | null;
     lastError: BackupError | null;
 };

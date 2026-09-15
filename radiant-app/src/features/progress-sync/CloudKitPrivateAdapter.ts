@@ -101,7 +101,11 @@ function ehProgressBackup(value: unknown): value is ProgressBackup {
         && ehMapa(c.completedNodesByTrack)
         && Object.values(c.completedNodesByTrack).every(ehListaDeIds)
         && ehMapa(c.reviewSchedule)
-        && Object.values(c.reviewSchedule).every(ehCartaoDeRevisao);
+        && Object.values(c.reviewSchedule).every(ehCartaoDeRevisao)
+        // Opcional, mas se vier tem de ser booleano: este campo decide se uma
+        // instalação limpa restaura, e um valor de outro tipo seria lido como
+        // "diferente de false", isto é, ligado — decidindo por acidente.
+        && (c.backupEnabled === undefined || typeof c.backupEnabled === 'boolean');
 }
 
 export class CloudKitPrivateAdapter implements PrivateCloudPort {

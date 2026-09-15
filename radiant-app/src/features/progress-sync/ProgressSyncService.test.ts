@@ -146,7 +146,7 @@ describe('ProgressSyncService — interruptor e backup', () => {
     it('começa desligado, sem data e sem erro', async () => {
         const service = new ProgressSyncService({ cloud: nuvem(null), local: localPort(backup()), storage: memoria() });
 
-        expect(await service.getState()).toEqual({ enabled: false, lastBackupAt: null, lastError: null });
+        expect(await service.getState()).toEqual({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
     });
 
     it('ligar com progresso local sobe o local e registra a data', async () => {
@@ -159,7 +159,7 @@ describe('ProgressSyncService — interruptor e backup', () => {
         expect(cloud.enviados).toHaveLength(1);
         expect(cloud.enviados[0].completedNodesByTrack).toEqual({ 'track-1': ['n1', 'n2'] });
         expect(local.aplicado).toHaveLength(0);
-        expect(estado).toEqual({ enabled: true, lastBackupAt: AGORA_ISO, lastError: null });
+        expect(estado).toEqual({ enabled: true, decided: true, lastBackupAt: AGORA_ISO, lastError: null });
     });
 
     it('ligar com nuvem já preenchida mescla nos dois sentidos', async () => {
@@ -174,10 +174,10 @@ describe('ProgressSyncService — interruptor e backup', () => {
         expect(cloud.enviados[0].completedNodesByTrack).toEqual({ 'track-1': ['n1', 'n2', 'n3'] });
     });
 
-    it('desligado, não toca a nuvem nem o local', async () => {
+    it('desligado POR DECISÃO do dono, não toca a nuvem nem o local', async () => {
         const cloud = nuvem(backup());
         const local = localPort(backup());
-        const service = new ProgressSyncService({ cloud, local, storage: memoria() });
+        const service = new ProgressSyncService({ cloud, local, storage: memoriaDesligada() });
 
         await service.backupNow(AGORA);
         await service.restoreOnLaunch(AGORA);
@@ -193,7 +193,7 @@ describe('ProgressSyncService — interruptor e backup', () => {
 
         const estado = await service.setEnabled(true, AGORA);
 
-        expect(estado).toEqual({ enabled: true, lastBackupAt: null, lastError: 'cloud-unavailable' });
+        expect(estado).toEqual({ enabled: true, decided: true, lastBackupAt: null, lastError: 'cloud-unavailable' });
         expect(local.apply).not.toHaveBeenCalled();
     });
 
@@ -201,7 +201,7 @@ describe('ProgressSyncService — interruptor e backup', () => {
         const local = localPort(backup());
         const service = new ProgressSyncService({ local, storage: memoria() });
 
-        expect(await service.setEnabled(true, AGORA)).toEqual({ enabled: true, lastBackupAt: null, lastError: 'cloud-unavailable' });
+        expect(await service.setEnabled(true, AGORA)).toEqual({ enabled: true, decided: true, lastBackupAt: null, lastError: 'cloud-unavailable' });
     });
 
     it('um backup bem-sucedido limpa o erro anterior', async () => {
@@ -211,7 +211,7 @@ describe('ProgressSyncService — interruptor e backup', () => {
 
         const estado = await new ProgressSyncService({ cloud: nuvem(null), local, storage }).backupNow(AGORA + 60_000);
 
-        expect(estado).toEqual({ enabled: true, lastBackupAt: new Date(AGORA + 60_000).toISOString(), lastError: null });
+        expect(estado).toEqual({ enabled: true, decided: true, lastBackupAt: new Date(AGORA + 60_000).toISOString(), lastError: null });
     });
 
     it('na abertura, nuvem vazia não substitui o local e nuvem cheia é mesclada', async () => {
@@ -240,17 +240,33 @@ describe('ProgressSyncService — interruptor e backup', () => {
 
         const estado = await service.setEnabled(false, AGORA + 1);
 
-        expect(estado).toEqual({ enabled: false, lastBackupAt: AGORA_ISO, lastError: null });
+        expect(estado).toEqual({ enabled: false, decided: true, lastBackupAt: AGORA_ISO, lastError: null });
         expect(cloud.push).toHaveBeenCalledTimes(1);
     });
 });
+
+/**
+ * Storage com decisão EXPLÍCITA de desligado.
+ *
+ * Antes, este cenário era escrito com `memoria()` vazia — que é o estado de uma
+ * instalação limpa, não o de quem desligou. Os dois eram indistinguíveis, e foi
+ * exatamente isso que fez a reinstalação parar de restaurar.
+ */
+function memoriaDesligada() {
+    const storage = memoria();
+    storage.setItem(
+        STORAGE_KEYS.PROGRESS_BACKUP,
+        JSON.stringify({ schemaVersion: 1, enabled: false, decided: true, lastBackupAt: null, lastError: null }),
+    );
+    return storage;
+}
 
 /** Estado já ligado, sem pagar um backup só para chegar nele. */
 function memoriaLigada() {
     const storage = memoria();
     storage.setItem(
         STORAGE_KEYS.PROGRESS_BACKUP,
-        JSON.stringify({ schemaVersion: 1, enabled: true, lastBackupAt: null, lastError: null }),
+        JSON.stringify({ schemaVersion: 1, enabled: true, decided: true, lastBackupAt: null, lastError: null }),
     );
     return storage;
 }
@@ -283,7 +299,7 @@ describe('ProgressSyncService — remoto incompatível nunca é sobrescrito', ()
         expect(cloud.push).not.toHaveBeenCalled();
         expect(cloud.enviados).toHaveLength(0);
         expect(local.apply).not.toHaveBeenCalled();
-        expect(estado).toEqual({ enabled: true, lastBackupAt: null, lastError: 'incompatible' });
+        expect(estado).toEqual({ enabled: true, decided: true, lastBackupAt: null, lastError: 'incompatible' });
     });
 
     it.each(razoes)('na abertura, remoto incompatível por "%s" não toca o progresso local', async (reason) => {
@@ -454,5 +470,157 @@ describe('ProgressSyncService + CloudKitPrivateAdapter — registro ilegível n�
         expect(local.apply).not.toHaveBeenCalled();
         expect(native.saveBackup).not.toHaveBeenCalled();
         expect(estado.lastError).toBe('incompatible');
+    });
+});
+
+// Defeito medido em iPhone físico em 2026-09-15: depois de apagar e reinstalar
+// o app, com backup remoto íntegro, NADA foi restaurado — o cartão voltou
+// desligado, XP zerou e a trilha voltou a 0/14. Só ligar o interruptor à mão
+// trouxe tudo de volta.
+//
+// Causa: sem a chave local, `parseState(null)` devolve `{enabled:false}`, que é
+// idêntico a "o dono desligou". O restore devolvia antes de consultar a nuvem.
+// A decisão de opt-in passa a morar no registro remoto, único lugar que
+// sobrevive ao uninstall.
+describe('ProgressSyncService — instalação limpa', () => {
+    /** Storage totalmente vazio: é literalmente o que sobra depois do uninstall. */
+    const instalacaoLimpa = () => memoria();
+
+    it('restaura o progresso e retoma a proteção quando o remoto está ligado', async () => {
+        const remoto = backup({ completedNodesByTrack: { 't1': ['n1', 'n2'] }, totalXp: 100, streakDays: 1 });
+        const cloud = nuvemLendo({ kind: 'usable', backup: remoto });
+        const local = localPort(vazio());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() })
+            .restoreOnLaunch(AGORA);
+
+        expect(cloud.pull).toHaveBeenCalled();
+        expect(local.aplicado[0].completedNodesByTrack).toEqual({ 't1': ['n1', 'n2'] });
+        expect(local.aplicado[0].totalXp).toBe(100);
+        expect(estado.enabled).toBe(true);
+        expect(estado.decided).toBe(true);
+    });
+
+    it('trata registro antigo sem o campo como ligado, por compatibilidade', async () => {
+        const { backupEnabled, ...semCampo } = backup({ totalXp: 42 }) as never as Record<string, unknown>;
+        const cloud = nuvemLendo({ kind: 'usable', backup: semCampo as never });
+        const local = localPort(vazio());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() })
+            .restoreOnLaunch(AGORA);
+
+        expect(local.aplicado).toHaveLength(1);
+        expect(estado.enabled).toBe(true);
+    });
+
+    it('respeita quem desligou de propósito: não aplica nada e não religa', async () => {
+        const cloud = nuvemLendo({ kind: 'usable', backup: backup({ backupEnabled: false, totalXp: 100 }) });
+        const local = localPort(vazio());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() })
+            .restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(cloud.push).not.toHaveBeenCalled();
+        expect(estado.enabled).toBe(false);
+        expect(estado.decided).toBe(true);
+    });
+
+    it('sem registro remoto não inventa nada, e para de consultar nas próximas aberturas', async () => {
+        const cloud = nuvemLendo({ kind: 'absent' });
+        const local = localPort(vazio());
+        const storage = instalacaoLimpa();
+
+        const estado = await new ProgressSyncService({ cloud, local, storage }).restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(cloud.push).not.toHaveBeenCalled();
+        expect(estado.enabled).toBe(false);
+        expect(estado.decided).toBe(true);
+    });
+
+    it('remoto incompatível não é aplicado nem sobrescrito, e segue indeciso', async () => {
+        const cloud = nuvemLendo({ kind: 'incompatible', reason: 'payload-version' });
+        const local = localPort(vazio());
+
+        const estado = await new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() })
+            .restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(cloud.push).not.toHaveBeenCalled();
+        expect(estado.lastError).toBe('incompatible');
+        // Indeciso de propósito: um binário mais novo pode entender o registro.
+        expect(estado.decided).toBe(false);
+    });
+
+    it('CloudKit indisponível mantém o modo local e tenta de novo na próxima abertura', async () => {
+        const local = localPort(vazio());
+
+        const estado = await new ProgressSyncService({ cloud: nuvemIndisponivel(), local, storage: instalacaoLimpa() })
+            .restoreOnLaunch(AGORA);
+
+        expect(local.apply).not.toHaveBeenCalled();
+        expect(estado.lastError).toBe('cloud-unavailable');
+        expect(estado.decided).toBe(false);
+    });
+
+    it('NUNCA sobe snapshot vazio por cima de backup remoto válido', async () => {
+        // A invariante que mais importa: instalação limpa + backup lá em cima.
+        const remoto = backup({ completedNodesByTrack: { 't1': ['n1', 'n2'] }, totalXp: 100 });
+        const cloud = nuvemLendo({ kind: 'usable', backup: remoto });
+        const local = localPort(vazio());
+        const service = new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() });
+
+        await service.restoreOnLaunch(AGORA);
+        await service.backupNow(AGORA + 1000);
+
+        for (const enviado of cloud.enviados) {
+            expect(enviado.completedNodesByTrack['t1']).toEqual(expect.arrayContaining(['n1', 'n2']));
+            expect(enviado.totalXp).toBeGreaterThanOrEqual(100);
+        }
+    });
+});
+
+describe('ProgressSyncService — desligar marca a decisão no registro remoto', () => {
+    it('desligar grava backupEnabled false sem apagar o payload', async () => {
+        const remoto = backup({ completedNodesByTrack: { 't1': ['n1'] }, totalXp: 100 });
+        const cloud = nuvemLendo({ kind: 'usable', backup: remoto });
+        const local = localPort(backup());
+        const storage = memoriaLigada();
+
+        await new ProgressSyncService({ cloud, local, storage }).setEnabled(false, AGORA);
+
+        expect(cloud.enviados).toHaveLength(1);
+        expect(cloud.enviados[0].backupEnabled).toBe(false);
+        // O progresso continua lá: desligar para de sincronizar, não apaga.
+        expect(cloud.enviados[0].completedNodesByTrack['t1']).toContain('n1');
+        expect(cloud.enviados[0].totalXp).toBe(100);
+    });
+
+    it('desligar sem registro remoto não cria registro nenhum', async () => {
+        const cloud = nuvemLendo({ kind: 'absent' });
+        const local = localPort(backup());
+
+        await new ProgressSyncService({ cloud, local, storage: memoriaLigada() }).setEnabled(false, AGORA);
+
+        expect(cloud.push).not.toHaveBeenCalled();
+    });
+
+    it('desligar com nuvem fora não quebra e mantém o desligamento local', async () => {
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({ cloud: nuvemIndisponivel(), local, storage: memoriaLigada() })
+            .setEnabled(false, AGORA);
+
+        expect(estado.enabled).toBe(false);
+    });
+
+    it('ligar continua marcando o registro remoto como ligado', async () => {
+        const cloud = nuvemLendo({ kind: 'absent' });
+        const local = localPort(backup());
+
+        await new ProgressSyncService({ cloud, local, storage: memoria() }).setEnabled(true, AGORA);
+
+        expect(cloud.enviados[0].backupEnabled).toBe(true);
     });
 });

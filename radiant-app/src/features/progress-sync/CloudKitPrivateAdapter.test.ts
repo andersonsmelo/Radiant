@@ -194,6 +194,8 @@ describe('CloudKitPrivateAdapter — validação estrutural profunda do payload'
         ['cartão com easeFactor textual', { ...BACKUP, reviewSchedule: { l1: { ...cartaoValido, easeFactor: '2.5' } } }],
         ['cartão com interval NaN', { ...BACKUP, reviewSchedule: { l1: { ...cartaoValido, interval: NaN } } }],
         ['cartão nulo', { ...BACKUP, reviewSchedule: { l1: null } }],
+        ['backupEnabled textual', { ...BACKUP, backupEnabled: 'sim' }],
+        ['backupEnabled numérico', { ...BACKUP, backupEnabled: 0 }],
     ];
 
     it.each(corrompidos)('%s vira incompatível, nunca utilizável', async (_rotulo, payload) => {
@@ -209,6 +211,8 @@ describe('CloudKitPrivateAdapter — validação estrutural profunda do payload'
         ['várias trilhas', { ...BACKUP, completedNodesByTrack: { t1: ['n1'], t2: ['n2', 'n3'] } }],
         ['agenda com cartão íntegro', { ...BACKUP, reviewSchedule: { l1: cartaoValido } }],
         ['lastRefillAt nulo', { ...BACKUP, lastRefillAt: null }],
+        ['backupEnabled ligado', { ...BACKUP, backupEnabled: true }],
+        ['backupEnabled desligado', { ...BACKUP, backupEnabled: false }],
     ];
 
     it.each(validos)('%s continua utilizável', async (_rotulo, payload) => {

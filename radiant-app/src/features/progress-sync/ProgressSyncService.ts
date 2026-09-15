@@ -21,7 +21,7 @@ type Deps = {
     storage?: ProgressSyncStorage;
 };
 
-const INITIAL_STATE: BackupState = { enabled: false, lastBackupAt: null, lastError: null };
+const INITIAL_STATE: BackupState = { enabled: false, decided: false, lastBackupAt: null, lastError: null };
 
 function laterIso(a: string | null, b: string | null): string | null {
     if (a === null) return b;
@@ -73,6 +73,9 @@ function parseState(raw: string | null): BackupState {
         if (record.schemaVersion !== 1) return INITIAL_STATE;
         return {
             enabled: record.enabled === true,
+            // Registro gravado por build anterior não tem o campo, e a chave
+            // existir já prova que houve decisão — por isso `!== false`.
+            decided: record.decided !== false,
             lastBackupAt: typeof record.lastBackupAt === 'string' ? record.lastBackupAt : null,
                     lastError: record.lastError === 'cloud-unavailable' || record.lastError === 'failed' || record.lastError === 'incompatible'
                 ? record.lastError
@@ -113,10 +116,35 @@ export class ProgressSyncService {
         return parseState(await this.storage.getItem(STORAGE_KEYS.PROGRESS_BACKUP));
     }
 
-    /** Ligar sobe o local na hora; desligar só para de sincronizar — nada é apagado. */
+    /**
+     * Ligar sobe o local na hora; desligar só para de sincronizar — nada é
+     * apagado. Desligar agora também **marca a decisão no registro remoto**,
+     * que é o único lugar que sobrevive a um uninstall: sem isso, reinstalar
+     * ressuscitaria um backup que o dono tinha desligado de propósito.
+     */
     async setEnabled(enabled: boolean, nowMs: number): Promise<BackupState> {
-        const state = await this.writeState({ ...(await this.getState()), enabled });
-        return enabled ? this.backupNow(nowMs) : state;
+        const state = await this.writeState({ ...(await this.getState()), enabled, decided: true });
+        return enabled ? this.backupNow(nowMs) : this.emFila(() => this.marcarOptOutRemoto(state));
+    }
+
+    /**
+     * Grava `backupEnabled: false` no registro remoto, preservando o payload.
+     *
+     * Best-effort e silencioso: desligar é ação local e não pode falhar por
+     * causa da rede. Se a nuvem estiver fora, o registro remoto continua
+     * dizendo "ligado" — risco conhecido, registrado no relatório.
+     */
+    private async marcarOptOutRemoto(state: BackupState): Promise<BackupState> {
+        try {
+            const remoto = await this.cloud.pull();
+            // Sem registro não há o que marcar, e criar um só para dizer
+            // "desligado" inventaria backup que o dono nunca pediu.
+            if (remoto.kind !== 'usable') return state;
+            await this.cloud.push({ ...remoto.backup, backupEnabled: false });
+        } catch (cause) {
+            console.error('[ProgressSyncService] Falha ao marcar opt-out no iCloud:', cause);
+        }
+        return state;
     }
 
     /** `push` a cada conclusão de nó: mescla o que existe na nuvem e sobe a união. */
@@ -151,8 +179,10 @@ export class ProgressSyncService {
                 if (cloud !== null) await this.local.apply(merged);
 
                 try {
-                    const { savedAt } = await this.cloud.push(merged);
-                    return this.writeState({ enabled: true, lastBackupAt: savedAt, lastError: null });
+                    // Subir é, por definição, estar ligado: o registro carrega
+                    // a decisão para a próxima instalação.
+                    const { savedAt } = await this.cloud.push({ ...merged, backupEnabled: true });
+                    return this.writeState({ enabled: true, decided: true, lastBackupAt: savedAt, lastError: null });
                 } catch (cause) {
                     if (!isCloudConflict(cause)) throw cause;
                     // Outro aparelho gravou entre o nosso pull e o nosso push.
@@ -172,19 +202,45 @@ export class ProgressSyncService {
 
     private async executarRestore(nowMs: number): Promise<BackupState> {
         const state = await this.getState();
-        if (!state.enabled) return state;
+
+        // Só quem DECIDIU desligar é ignorado. Instalação limpa não decidiu
+        // nada — a chave sequer existe —, e é justamente quem mais precisa que
+        // a nuvem seja consultada. Confundir os dois foi o defeito medido no
+        // iPhone: reinstalar zerava a tela com o backup íntegro na nuvem.
+        if (state.decided && !state.enabled) return state;
 
         try {
             const remoto = await this.cloud.pull();
+
             if (remoto.kind === 'incompatible') {
+                // Segue INDECISO de propósito: um binário mais novo pode
+                // entender este registro, e marcar decisão aqui desligaria o
+                // restore para sempre neste aparelho.
                 return this.writeState({ ...state, lastError: 'incompatible' });
             }
-            if (remoto.kind === 'absent') return state;
+
+            if (remoto.kind === 'absent') {
+                // Resposta definitiva: não há backup. Marca a decisão para não
+                // consultar a rede a cada abertura de quem nunca fez opt-in.
+                return this.writeState({ ...state, decided: true, lastError: null });
+            }
+
+            // O registro remoto é a autoridade sobre o opt-in, porque é o único
+            // que sobrevive ao uninstall. Ausente significa ligado, para os
+            // registros que builds anteriores gravaram sem o campo.
+            if (remoto.backup.backupEnabled === false) {
+                return this.writeState({ ...state, enabled: false, decided: true, lastError: null });
+            }
 
             const local = await this.local.snapshot(new Date(nowMs).toISOString());
             await this.local.apply(mergeProgressBackups(local, remoto.backup));
-            return this.writeState({ ...state, lastError: null });
+
+            // Retoma a proteção: quem tinha backup ligado e reinstalou não
+            // deveria ficar sem backup em silêncio.
+            return this.writeState({ ...state, enabled: true, decided: true, lastError: null });
         } catch (cause) {
+            // Falha de rede não é decisão: continua indeciso e tenta de novo na
+            // próxima abertura.
             return this.recordFailure(state, cause);
         }
     }

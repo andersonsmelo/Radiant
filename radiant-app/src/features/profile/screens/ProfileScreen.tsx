@@ -71,7 +71,10 @@ export default function ProfileScreen() {
         .then(setBackup)
         .catch((cause) => {
           console.error('[ProfileScreen] Falha ao ler o backup:', cause);
-          setBackup({ enabled: false, lastBackupAt: null, lastError: 'failed' });
+          // A leitura falhou, então não se sabe se existe decisão: `decided`
+          // fica falso, que é o estado honesto e não induz o serviço a nada —
+          // este objeto só alimenta o cartão.
+          setBackup({ enabled: false, decided: false, lastBackupAt: null, lastError: 'failed' });
         });
     }, []),
   );
@@ -82,7 +85,9 @@ export default function ProfileScreen() {
       .then(setBackup)
       .catch((cause) => {
         console.error('[ProfileScreen] Falha ao alterar o backup:', cause);
-        setBackup((current) => ({ enabled, lastBackupAt: current?.lastBackupAt ?? null, lastError: 'failed' }));
+        // Aqui o dono mexeu no interruptor: houve decisão, mesmo que a
+        // gravação tenha falhado.
+        setBackup((current) => ({ enabled, decided: true, lastBackupAt: current?.lastBackupAt ?? null, lastError: 'failed' }));
       })
       .finally(() => setBackupBusy(false));
   }, []);
