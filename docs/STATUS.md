@@ -366,6 +366,53 @@ carrega o pacote inteiro.
    de `main` para `569bdad` e um build interno (`preview`) para ver vidas e
    motor no aparelho antes do trabalho nativo.
 
+   **Slice CloudKit da Task 8 implementado em 2026-09-15**, na branch
+   `feat/1-4-cloudkit-private-backup`, aberta de `origin/main` em `b3b4c46`.
+   StoreKit e Sentry ficaram fora desta execução, de propósito. Relatório
+   completo em
+   [`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
+   Gates medidos em **2026-09-15**: **127 suítes / 989 testes verdes** (eram
+   125/958), `tsc --noEmit` exit 0, ESLint 0 erros / 24 avisos — mesmo número de
+   avisos da baseline. Remedir com:
+
+   ```bash
+   cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npx jest --silent && npx tsc --noEmit && npx eslint .
+   ```
+
+   O que entrou: entitlements do container `iCloud.com.ascendcreative.radiant`
+   com serviço `CloudKit` em `expo.ios.entitlements`, guardados por contrato
+   estático que também afirma as **ausências** (sem iCloud Documents, sem
+   ubiquity, sem `icloud-container-environment` fixado);
+   `CloudKitPrivateAdapter` atrás do `PrivateCloudPort` com os sete estados de
+   erro degradando para local; módulo Expo local em Swift
+   (`radiant-app/modules/radiant-cloudkit`), **sem nenhuma dependência npm
+   nova**; `backupNow()` ligado à conclusão de nó em
+   `JourneyProgressService.markNodeCompleted`.
+
+   🔴 **Um defeito de perda silenciosa foi corrigido, e vale registrar porque
+   não aparecia em teste nem em log.** `restoreOnLaunch` corria no `Promise.all`
+   do bootstrap enquanto `LocalProgressAdapter.applyJourney` só mescla trilhas
+   já presentes no storage, e `JourneyProgressService.bootstrap()` só era
+   chamado ao terminar as boas-vindas. Em **instalação nova** — o único caso em
+   que o backup serve — os nós concluídos restaurados eram descartados sem erro,
+   enquanto XP, sequência e agenda voltavam: restauração pela metade com
+   aparência de sucesso. Agora o restore encadeia depois da hidratação, por
+   dependência real e não por atraso.
+
+   **Três gates humanos seguem abertos e nenhum é meu:** (1) regenerar o
+   provisioning profile, que a Apple invalidou ao habilitar a capability iCloud
+   (`eas credentials -p ios` → perfil → Build Credentials); (2) autorização
+   datada para um build interno; (3) **Deploy Schema to Production** no CloudKit
+   Console, obrigatório antes da submissão da 1.4 — o CloudKit cria schema
+   automaticamente só em Development, e pular isso produz um app aprovado que
+   escreve num schema inexistente, falhando apenas em produção e de forma
+   silenciosa.
+
+   **Esta fatia está implementada, não validada nativamente.** Nenhuma linha do
+   Swift foi compilada ou executada. Só passa a "validada" depois que um build
+   assinado rodar em aparelho real e comprovar backup e restauração.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a
