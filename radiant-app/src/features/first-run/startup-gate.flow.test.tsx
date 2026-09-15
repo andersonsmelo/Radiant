@@ -107,6 +107,14 @@ jest.mock('../auth/AuthService', () => ({
   AuthService: { bootstrap: jest.fn(() => Promise.resolve()) },
 }));
 
+jest.mock('../subscription/SubscriptionService', () => ({
+  subscriptionService: { refresh: jest.fn() },
+}));
+
+jest.mock('../progress-sync/ProgressSyncService', () => ({
+  progressSyncService: { restoreOnLaunch: jest.fn() },
+}));
+
 jest.mock('../storage-migration/StorageMigrationService', () => ({
   StorageMigrationService: {
     migrateToV14: jest.fn(() => Promise.resolve({ status: 'unchanged' })),
@@ -200,6 +208,10 @@ describe('gate de abertura em RootLayout', () => {
     (AuthService.bootstrap as jest.Mock).mockResolvedValue(undefined);
     (StorageMigrationService.migrateToV14 as jest.Mock).mockResolvedValue({ status: 'unchanged' });
     (LessonCatalogService.bootstrap as jest.Mock).mockResolvedValue(undefined);
+    (jest.requireMock('../subscription/SubscriptionService').subscriptionService.refresh as jest.Mock)
+      .mockResolvedValue({ kind: 'none' });
+    (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.restoreOnLaunch as jest.Mock)
+      .mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
     (SyncQueueService.flush as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.track as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.captureError as jest.Mock).mockResolvedValue(undefined);
@@ -243,6 +255,30 @@ describe('gate de abertura em RootLayout', () => {
     await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
     expect(StorageMigrationService.migrateToV14).toHaveBeenCalledTimes(1);
     expect(AuthService.bootstrap).toHaveBeenCalledTimes(1);
+  });
+
+  it('relê o direito de uso e tenta restaurar o backup depois da migração, e uma falha neles não bloqueia o Stack', async () => {
+    const { subscriptionService } = jest.requireMock('../subscription/SubscriptionService');
+    const { progressSyncService } = jest.requireMock('../progress-sync/ProgressSyncService');
+    subscriptionService.refresh.mockRejectedValue(new Error('loja fora'));
+    progressSyncService.restoreOnLaunch.mockRejectedValue(new Error('nuvem fora'));
+    let releaseMigration: (() => void) | undefined;
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockReturnValue(
+      new Promise(resolve => {
+        releaseMigration = () => resolve({ status: 'unchanged' });
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+    expect(subscriptionService.refresh).not.toHaveBeenCalled();
+    expect(progressSyncService.restoreOnLaunch).not.toHaveBeenCalled();
+
+    releaseMigration?.();
+
+    expect(await screen.findByTestId('stack-root')).toBeTruthy();
+    expect(subscriptionService.refresh).toHaveBeenCalledWith(expect.any(Number));
+    expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number));
+    expect(TelemetryService.captureError).not.toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ phase: 'root_layout_bootstrap' }));
   });
 
   it('abre o app e informa a recuperação sem bloquear o modo local', async () => {

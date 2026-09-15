@@ -22,6 +22,8 @@ import {
 } from '../features/journey/services/JourneyNodeRouting';
 import { SyncQueueService } from '../features/sync/SyncQueueService';
 import { StorageMigrationService } from '../features/storage-migration/StorageMigrationService';
+import { subscriptionService } from '../features/subscription/SubscriptionService';
+import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
   initializeObservability,
@@ -194,6 +196,16 @@ function RootLayout() {
           //
           // Não lê chave nenhuma, então `off` continua silencioso.
           warmNativeStorage(),
+          // Assinatura e backup nunca bloqueiam a abertura: o direito de uso
+          // vale pelo cache e o backup mescla o que existir. Falha aqui é da
+          // loja ou da nuvem, não do app — fica no console, não na telemetria
+          // de bootstrap.
+          subscriptionService.refresh(Date.now()).catch((error) => {
+            console.error('[RootLayout] Falha ao reler a assinatura:', error);
+          }),
+          progressSyncService.restoreOnLaunch(Date.now()).catch((error) => {
+            console.error('[RootLayout] Falha ao restaurar o backup:', error);
+          }),
         ]);
         if (!active) {
           return;

@@ -106,11 +106,23 @@ describe('SubscriptionService — direito de uso offline', () => {
         expect(hearts.setUnlimited).toHaveBeenCalledWith(null, AGORA);
     });
 
-    it('sem direito e sem cache não há assinatura e as vidas seguem a economia normal', async () => {
+    it('sem direito e sem cache não há assinatura e as vidas NÃO são tocadas', async () => {
+        // `HeartsService.setUnlimited(null)` devolve o estado CHEIO. Chamar isso
+        // para quem nunca assinou encheria as vidas de todo aluno grátis a cada
+        // abertura — a economia inteira viraria decorativa.
         const { service, hearts } = servico(loja());
 
         expect(await service.refresh(AGORA)).toEqual({ kind: 'none' });
-        expect(hearts.setUnlimited).toHaveBeenCalledWith(null, AGORA);
+        expect(hearts.setUnlimited).not.toHaveBeenCalled();
+    });
+
+    it('pedido pendente também não toca as vidas na releitura', async () => {
+        const store = loja({ purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })) });
+        const { service, hearts } = servico(store);
+        await service.purchase('monthly_plus', AGORA);
+
+        expect(await service.refresh(AGORA)).toEqual({ kind: 'pending', since: new Date(AGORA).toISOString() });
+        expect(hearts.setUnlimited).not.toHaveBeenCalled();
     });
 
     it('getStatus lê só o cache e não toca a loja', async () => {

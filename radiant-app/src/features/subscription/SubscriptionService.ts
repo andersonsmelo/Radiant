@@ -194,9 +194,19 @@ export class SubscriptionService {
         return cache;
     }
 
+    /**
+     * Só quem tem (ou teve) direito toca as vidas. `setUnlimited(null)` devolve
+     * o estado CHEIO — é o destino correto de uma assinatura expirada ou
+     * reembolsada, e seria um presente indevido a cada abertura para quem
+     * nunca assinou.
+     */
     private async applyToHearts(cache: SubscriptionCacheV1, nowMs: number): Promise<SubscriptionStatus> {
         const status = resolveSubscriptionStatus(cache, nowMs);
-        await this.hearts.setUnlimited(status.kind === 'unlimited' ? status.expiresAt : null, nowMs);
+        if (status.kind === 'unlimited') {
+            await this.hearts.setUnlimited(status.expiresAt, nowMs);
+        } else if (status.kind === 'expired') {
+            await this.hearts.setUnlimited(null, nowMs);
+        }
         return status;
     }
 
