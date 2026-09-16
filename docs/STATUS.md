@@ -446,9 +446,61 @@ carrega o pacote inteiro.
    módulo nativo trata como string opaca — **zero mudança em Swift**. Desligar
    passa a marcar `false` remoto preservando o payload.
 
-   ⚠️ **Estado: IMPLEMENTADO / AGUARDANDO NOVA VALIDAÇÃO FÍSICA.** A correção
-   não foi provada em aparelho. Só passa a "corrigida" depois que um **novo
-   build** repetir o ciclo apagar → reinstalar → abrir sem intervenção manual.
+   🔴 **REPROVADO EM APARELHO em 2026-09-15, na segunda validação física.** O
+   build interno `b86cb497-0a7c-4b12-9437-e5feaa3046a5`, gerado do commit
+   `460b398` — que **continha** a correção do opt-in remoto —, falhou no mesmo
+   ponto: apagar, reinstalar e abrir sem tocar em nada devolveu backup OFF,
+   "Nenhum backup ainda", XP 0 e trilha 0/14. **Nenhum restore automático.**
+
+   **O que a mesma sessão provou estar funcionando.** No mesmo app aberto, sem
+   reinstalar e sem reiniciar, ligar o interruptor à mão restaurou tudo na hora:
+   XP 100, sequência 1 dia, trilha 11/14, próximo passo checkpoint, backup às
+   21:08. Portanto estão comprovados em aparelho: acesso ao container, CloudKit
+   privado, registro remoto íntegro, módulo nativo, `pull`, merge, `apply` e
+   atualização da UI. **O defeito restante está no caminho automático de
+   abertura**, não no backup.
+
+   **Descartado com medição:** não há update OTA publicado no canal `preview`
+   (`channel:view` devolveu tudo N/A), e `StorageMigrationService` não escreve
+   `STORAGE_KEYS.PROGRESS_BACKUP` — `PEDAGOGICAL_STORAGE_KEYS` não a contém.
+
+   ⚠️ **Estado: REPROVADO EM APARELHO · CloudKit funcional · restore manual
+   confirmado · restore automático de instalação limpa ainda falha · causa raiz
+   em investigação.** A correção anterior do opt-in remoto continua válida e
+   necessária, mas **não era suficiente**.
+
+   **O que a investigação de 2026-09-16 encontrou — e o que NÃO encontrou.**
+
+   🔴 **A causa raiz do que ocorreu no aparelho continua NÃO COMPROVADA.** Duas
+   explicações produzem exatamente a mesma tela e a tela não as distingue: (a) o
+   restore não rodou, e o estado nunca foi escrito; (b) o restore rodou e o
+   `pull` devolveu `absent`, caminho que grava `{decided:true, lastError:null}`
+   e produz cartão idêntico — OFF, "Nenhum backup ainda", sem mensagem de erro.
+   A hipótese de que a hidratação da jornada rejeitava foi **testada e não se
+   sustenta**: `JourneyDefinitionService.getTrackDefinition` não lança com
+   catálogo vazio, devolve uma jornada vazia.
+
+   ✅ **Um defeito estrutural real foi encontrado e corrigido.** A orquestração
+   no `RootLayout` encadeava catálogo → hidratação → restore sob **um único
+   `.catch`**: qualquer rejeição antes do último `.then` pulava o restore
+   inteiro, em silêncio, com o app abrindo normalmente. Extraída para
+   `restaurarBackupNaAbertura`, com falhas isoladas por etapa — hidratação ou
+   catálogo que falhem não cancelam mais o restore. Isso é necessário e correto,
+   mas **não está provado que era o que acontecia no iPhone**.
+
+   ✅ **A camada de serviço está provada correta**, por teste de integração com
+   `ProgressSyncService` **real**, storage genuinamente vazio e porta de nuvem
+   falsa, sem mockar `restoreOnLaunch`: instalação limpa chega ao `cloud.pull`,
+   aplica o remoto, termina `enabled:true`/`decided:true`, e **nunca** envia
+   snapshot vazio antes de ler. O teste anterior, que mockava `restoreOnLaunch`,
+   provava apenas que o mock seria chamado.
+
+   Resta, portanto, a **fronteira nativa** como lugar não descartado — só o
+   aparelho responde. Por isso entrou instrumentação mínima no caminho de
+   abertura, ativa apenas fora de produção, registrando **somente forma e
+   decisão**: etapa, se houve decisão local, se está ligado, se o `pull` foi
+   tentado e como terminou. Nunca payload, nó, trilha, XP ou identificador de
+   iCloud — há teste afirmando essa ausência.
 
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que

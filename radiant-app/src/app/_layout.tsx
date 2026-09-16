@@ -24,6 +24,7 @@ import { SyncQueueService } from '../features/sync/SyncQueueService';
 import { StorageMigrationService } from '../features/storage-migration/StorageMigrationService';
 import { subscriptionService } from '../features/subscription/SubscriptionService';
 import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
+import { restaurarBackupNaAbertura, type EventoDeAbertura } from '../features/progress-sync/startupRestore';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
   initializeObservability,
@@ -49,6 +50,22 @@ SplashScreen.preventAutoHideAsync();
 export const unstable_settings = {
   anchor: '(tabs)',
 };
+
+/**
+ * Instrumentação da abertura do backup, para builds internos.
+ *
+ * Existe porque duas explicações diferentes produzem a MESMA tela depois de uma
+ * instalação limpa — "o restore não rodou" e "o restore rodou e a nuvem disse
+ * que não há registro" —, e sem isto não há como separá-las em aparelho.
+ *
+ * Só forma e decisão: etapa, se houve decisão local, se está ligado, se o pull
+ * foi tentado e como terminou. **Nunca** payload, nó, trilha, XP, data de
+ * estudo ou identificador de iCloud. Silenciosa em produção.
+ */
+function registrarAberturaDoBackup(evento: EventoDeAbertura): void {
+  if (AppConfig.APP_ENV === 'production') return;
+  console.log('[abertura:backup]', JSON.stringify(evento));
+}
 
 function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -223,12 +240,24 @@ function RootLayout() {
           // `setTimeout`. Hidrata a jornada (que depende do catálogo) e só
           // então restaura. Continua best-effort: falha aqui é da nuvem, e o
           // estudo local segue — por isso o `catch` fica no fim da cadeia.
-          catalogBootstrap
-            .then(() => JourneyProgressService.bootstrap())
-            .then(() => progressSyncService.restoreOnLaunch(Date.now()))
-            .catch((error) => {
-              console.error('[RootLayout] Falha ao restaurar o backup:', error);
-            }),
+          // A orquestração saiu daqui de propósito: encadeada sob um único
+          // `.catch`, qualquer rejeição antes do último `.then` pulava o
+          // restore em silêncio, com o app abrindo normal — indistinguível de
+          // "não havia backup". E embutida num efeito ela era intestável: o
+          // único teste que existia mockava `restoreOnLaunch`.
+          //
+          // A espera do catálogo entra como parte da hidratação para que falha
+          // de catálogo também não cancele o restore — XP, sequência e agenda
+          // não dependem do currículo para voltar.
+          restaurarBackupNaAbertura({
+            lerEstado: () => progressSyncService.getState(),
+            hidratarJornada: async () => {
+              await catalogBootstrap;
+              return JourneyProgressService.bootstrap();
+            },
+            restaurar: (nowMs) => progressSyncService.restoreOnLaunch(nowMs),
+            registrar: registrarAberturaDoBackup,
+          }),
         ]);
         if (!active) {
           return;
