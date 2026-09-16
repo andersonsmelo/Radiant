@@ -47,8 +47,10 @@ o dono lê o relatório no fim.
 
 Tasks 1–7 entregues e revisadas em 2026-09-14. A **fatia CloudKit da Task 8**
 foi implementada em 2026-09-15 e está no
-[PR #14](https://github.com/andersonsmelo/Radiant/pull/14), **aberto e não
-mergeado**, com CI verde e as três threads de revisão resolvidas. Relatório em
+[PR #14](https://github.com/andersonsmelo/Radiant/pull/14), **mergeado pelo
+dono em 2026-09-16 às 19:56:53 (−03)**, com CI verde e as três threads de
+revisão resolvidas. `origin/main` está no merge commit `f5d9601`, e o CI
+pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
 [`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
 
 **Implementado ≠ validado nativamente:** nenhuma linha do Swift foi compilada.
@@ -168,14 +170,35 @@ no status: 74 testes focados e 14 validadores Loop aprovados, sem prova de
 funcionamento do V3 no aparelho. Remedir o escopo atual com os comandos do plano
 e `loop validate` no run correspondente.
 
-### AGENTE — J3: produzir o Arco 1, começando pela L1
+### AGENTE — J3: produzir o Arco 1 — L1 e L2 entregues, P1 é a próxima
 
-**Estado:** pendente de produção. **Bloqueio:** nenhum para iniciar o plano e a
-produção local dentro da direção aprovada; publicação depende de J4/J5.
+**Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
+2026-09-16. **Bloqueio:** a **L2 não tem parecer aprovado** — v1 e v2 foram
+reprovados e o v3 segue pendente; publicação continua dependendo de J4/J5.
 **Dono:** agente, com subagente auditor independente por pacote.
 
-Seguir o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md): L1 → L2 →
-P1 → L3 → C1-A/C1-B → R1/R2. O desenho já foi aprovado; não pedir ao dono para
+> **Esta seção afirmou "pendente de produção, começar pela L1" até 2026-09-16,
+> com L1 e L2 já prontas em disco e não commitadas.** O `STATUS.md` e o roadmap
+> haviam sido atualizados; esta fila não — e ela é o arquivo que manda o agente
+> pegar o primeiro item. Quem obedecesse ao texto antigo refaria a L1. É a
+> mesma falha de 2026-08-25, registrada mais abaixo nesta fila: **atualizar o
+> estado sem atualizar a fila deixa o documento acionável mentindo.**
+
+**L1 — O corpo como referência:** entregue, com auditoria independente
+**aprovada no parecer v4**. **L2 — Cortando o espaço:** entregue, 4 suítes da
+lição verdes, mas **auditoria aberta**. Nenhuma das duas está ligada a startup,
+rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
+
+**Próximo item executável, nesta ordem:** obter o **parecer v3 da L2**; só
+depois produzir **P1 — prática intercalada**.
+
+```bash
+git log --oneline -1 -- radiant-app/src/features/curriculum-v3/l2-slicing-space
+cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npx jest src/features/curriculum-v3
+```
+
+Seguir o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md): ~~L1~~ →
+~~L2~~ → **P1** → L3 → C1-A/C1-B → R1/R2. O desenho já foi aprovado; não pedir ao dono para
 aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
 nesta tarefa. Registrar evidência específica do conteúdo e das interações,
 além dos testes de engenharia. Acompanhar no
