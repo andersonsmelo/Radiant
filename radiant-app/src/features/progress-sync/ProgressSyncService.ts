@@ -6,6 +6,9 @@ import { resolvePrivateCloudAdapter } from './CloudKitPrivateAdapter';
 import {
     isCloudConflict,
     isCloudUnavailable,
+    type EventoDePull,
+    type ObservadorDePull,
+    type PrivateCloudRead,
     type BackupState,
     type BackupStateV1,
     type LocalProgressPort,
@@ -112,6 +115,18 @@ export class ProgressSyncService {
         return this.cloudPort;
     }
 
+    /**
+     * Se a chave de estado EXISTE no storage — medição física, não inferência.
+     *
+     * `decided` vem do conteúdo do registro e não prova existência: a chave
+     * pode existir com `decided:false`, que é o que uma falha transitória de
+     * rede grava. Afirmar uma coisa pelo outra era o que a telemetria anterior
+     * fazia.
+     */
+    async temEstadoPersistido(): Promise<boolean> {
+        return (await this.storage.getItem(STORAGE_KEYS.PROGRESS_BACKUP)) !== null;
+    }
+
     async getState(): Promise<BackupState> {
         return parseState(await this.storage.getItem(STORAGE_KEYS.PROGRESS_BACKUP));
     }
@@ -148,22 +163,23 @@ export class ProgressSyncService {
     }
 
     /** `push` a cada conclusão de nó: mescla o que existe na nuvem e sobe a união. */
-    async backupNow(nowMs: number): Promise<BackupState> {
-        return this.emFila(() => this.executarBackup(nowMs));
+    async backupNow(nowMs: number, observar?: ObservadorDePull): Promise<BackupState> {
+        return this.emFila(() => this.executarBackup(nowMs, observar));
     }
 
     /** `pull` na abertura: nuvem vazia nunca substitui o progresso local. */
-    async restoreOnLaunch(nowMs: number): Promise<BackupState> {
-        return this.emFila(() => this.executarRestore(nowMs));
+    async restoreOnLaunch(nowMs: number, observar?: ObservadorDePull): Promise<BackupState> {
+        return this.emFila(() => this.executarRestore(nowMs, observar));
     }
 
-    private async executarBackup(nowMs: number): Promise<BackupState> {
+    private async executarBackup(nowMs: number, observar?: ObservadorDePull): Promise<BackupState> {
         const state = await this.getState();
         if (!state.enabled) return state;
 
         try {
             for (let tentativa = 1; tentativa <= ProgressSyncService.TENTATIVAS_DE_ENVIO; tentativa += 1) {
                 const remoto = await this.cloud.pull();
+                this.observarPull(observar, 'backup', remoto);
 
                 // Registro presente que este binário não entende. Gravar aqui
                 // destruiria progresso real — provavelmente de uma versão mais
@@ -200,7 +216,27 @@ export class ProgressSyncService {
         }
     }
 
-    private async executarRestore(nowMs: number): Promise<BackupState> {
+    /**
+     * Descreve a leitura para o observador sem abrir o payload.
+     *
+     * `remoteBackupEnabled` só existe quando há registro utilizável; nos demais
+     * casos é `null`, e não `false`, para não confundir "não há o que ler" com
+     * "o dono desligou".
+     */
+    private observarPull(
+        observar: ObservadorDePull | undefined,
+        operacao: EventoDePull['operacao'],
+        remoto: PrivateCloudRead,
+    ): void {
+        observar?.({
+            etapa: 'pull',
+            operacao,
+            kind: remoto.kind,
+            remoteBackupEnabled: remoto.kind === 'usable' ? remoto.backup.backupEnabled !== false : null,
+        });
+    }
+
+    private async executarRestore(nowMs: number, observar?: ObservadorDePull): Promise<BackupState> {
         const state = await this.getState();
 
         // Só quem DECIDIU desligar é ignorado. Instalação limpa não decidiu
@@ -211,6 +247,7 @@ export class ProgressSyncService {
 
         try {
             const remoto = await this.cloud.pull();
+            this.observarPull(observar, 'restore', remoto);
 
             if (remoto.kind === 'incompatible') {
                 // Segue INDECISO de propósito: um binário mais novo pode

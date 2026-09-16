@@ -1,4 +1,4 @@
-import type { BackupState } from './progressSync.types';
+import type { BackupState, EventoDePull, ObservadorDePull } from './progressSync.types';
 
 /**
  * Orquestração do restore na abertura, extraída do `RootLayout`.
@@ -11,14 +11,26 @@ import type { BackupState } from './progressSync.types';
 
 /** Só forma e decisão. Nunca payload, nó, identificador de iCloud ou dado do aluno. */
 export type EventoDeAbertura =
-    | { etapa: 'inicio'; chaveLocalExiste: boolean; decidido: boolean; ligado: boolean }
+    | {
+          etapa: 'inicio';
+          /** Medição FÍSICA da chave no storage, não inferência a partir do conteúdo. */
+          chaveLocalExiste: boolean;
+          /** Houve decisão registrada no conteúdo do estado. */
+          decisaoLocalRegistrada: boolean;
+          ligado: boolean;
+      }
     | { etapa: 'hidratacao'; ok: boolean }
-    | { etapa: 'restore'; ok: boolean; decidido: boolean; ligado: boolean; temData: boolean };
+    /** Repassado do ponto da chamada de `cloud.pull()`, dentro do serviço. */
+    | EventoDePull
+    | { etapa: 'restore'; ok: boolean; decisaoLocalRegistrada: boolean; ligado: boolean; temData: boolean };
 
 export type DependenciasDeAbertura = {
     lerEstado(): Promise<BackupState>;
+    /** Medição física da existência da chave de estado. */
+    chaveLocalExiste(): Promise<boolean>;
     hidratarJornada(): Promise<unknown>;
-    restaurar(nowMs: number): Promise<BackupState>;
+    /** Recebe o observador para que o `kind` do pull seja visto no ponto da chamada. */
+    restaurar(nowMs: number, observar: ObservadorDePull): Promise<BackupState>;
     agora?(): number;
     registrar?(evento: EventoDeAbertura): void;
 };
@@ -42,11 +54,11 @@ export async function restaurarBackupNaAbertura(deps: DependenciasDeAbertura): P
     const agora = deps.agora ?? Date.now;
 
     try {
-        const estado = await deps.lerEstado();
+        const [estado, chaveExiste] = await Promise.all([deps.lerEstado(), deps.chaveLocalExiste()]);
         registrar({
             etapa: 'inicio',
-            chaveLocalExiste: estado.decided,
-            decidido: estado.decided,
+            chaveLocalExiste: chaveExiste,
+            decisaoLocalRegistrada: estado.decided,
             ligado: estado.enabled,
         });
     } catch (cause) {
@@ -65,16 +77,23 @@ export async function restaurarBackupNaAbertura(deps: DependenciasDeAbertura): P
     }
 
     try {
-        const estado = await deps.restaurar(agora());
+        // O observador é repassado ao serviço para que o `kind` do `pull` seja
+        // registrado NO PONTO DA CHAMADA. Sem isso, `ok:true` com `ligado:false`
+        // sairia igual para "não há registro" e para "há registro com opt-out
+        // remoto" — e a validação em aparelho voltaria ambígua.
+        const estado = await deps.restaurar(agora(), (evento) => registrar(evento));
         registrar({
             etapa: 'restore',
             ok: true,
-            decidido: estado.decided,
+            decisaoLocalRegistrada: estado.decided,
             ligado: estado.enabled,
             temData: estado.lastBackupAt !== null,
         });
     } catch (cause) {
-        registrar({ etapa: 'restore', ok: false, decidido: false, ligado: false, temData: false });
+        registrar({
+            etapa: 'restore', ok: false,
+            decisaoLocalRegistrada: false, ligado: false, temData: false,
+        });
         console.error('[abertura] Falha ao restaurar o backup:', cause);
     }
 }

@@ -251,11 +251,12 @@ function RootLayout() {
           // não dependem do currículo para voltar.
           restaurarBackupNaAbertura({
             lerEstado: () => progressSyncService.getState(),
+            chaveLocalExiste: () => progressSyncService.temEstadoPersistido(),
             hidratarJornada: async () => {
               await catalogBootstrap;
               return JourneyProgressService.bootstrap();
             },
-            restaurar: (nowMs) => progressSyncService.restoreOnLaunch(nowMs),
+            restaurar: (nowMs, observar) => progressSyncService.restoreOnLaunch(nowMs, observar),
             registrar: registrarAberturaDoBackup,
           }),
         ]);

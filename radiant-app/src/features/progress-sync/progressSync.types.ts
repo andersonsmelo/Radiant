@@ -113,6 +113,31 @@ export function isCloudUnavailable(error: unknown): error is CloudUnavailableErr
  */
 export type BackupError = 'cloud-unavailable' | 'failed' | 'incompatible';
 
+/**
+ * O que a nuvem respondeu, observado **imediatamente após** `cloud.pull()`.
+ *
+ * Existe porque dois caminhos diferentes terminam com o mesmo estado local —
+ * `enabled:false, decided:true, lastError:null` — e portanto com a mesma tela:
+ * registro ausente, e registro presente com opt-out gravado no remoto. Sem
+ * observar o `kind` no ponto da chamada, a validação em aparelho não consegue
+ * separar os dois, e qualquer conclusão vira inferência.
+ *
+ * Só metadado de decisão. Nunca payload, XP, nós, trilhas, agenda, `recordName`
+ * nem identificador de CloudKit.
+ */
+export type EventoDePull = {
+    etapa: 'pull';
+    operacao: 'restore' | 'backup';
+    kind: PrivateCloudRead['kind'];
+    /**
+     * `true`/`false` conforme o opt-in gravado no registro remoto; `null`
+     * quando não há registro utilizável para consultar.
+     */
+    remoteBackupEnabled: boolean | null;
+};
+
+export type ObservadorDePull = (evento: EventoDePull) => void;
+
 export type BackupState = {
     enabled: boolean;
     /**

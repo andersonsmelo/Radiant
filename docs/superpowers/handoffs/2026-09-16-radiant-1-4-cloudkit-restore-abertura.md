@@ -85,21 +85,102 @@ teste afirmando essa ausência explicitamente.
 
 É ela que deve separar as duas explicações da §2 no próximo build físico.
 
-## 6. O que fazer no próximo build
+## 6. Correção da própria instrumentação (2026-09-16, após revisão)
 
-Com o app conectado ao console, na instalação limpa, observar as linhas
-`[abertura:backup]`:
+A versão anterior deste documento afirmava:
 
-- **não aparecer nenhuma linha `restore`** → explicação 1: o restore não rodou;
-- **aparecer `restore` com `ok:true` e `ligado:false`** → explicação 2: o `pull`
-  respondeu `absent`, e o problema está na fronteira nativa.
+> `restore ok:true` + `ligado:false` → o `pull` respondeu `absent`.
 
-Sem isso, qualquer correção seguinte será palpite.
+**Isso não era demonstrável pelo código, e a revisão independente estava certa
+em apontar.** Dois caminhos terminam com exatamente o mesmo estado local —
+`enabled:false, decided:true, lastError:null` — e portanto com o mesmo evento
+`restore`:
 
-## 7. Riscos residuais
+- `cloud.pull()` → `{ kind: 'absent' }`;
+- `cloud.pull()` → `{ kind: 'usable' }` com `backup.backupEnabled === false`.
+
+O próximo build teria voltado ambíguo. Era uma inferência vestida de leitura.
+
+**Corrigido:** o resultado passou a ser observado **no ponto da chamada**, dentro
+de `executarRestore`, imediatamente depois de `const remoto = await this.cloud.pull()`:
+
+```
+{ etapa: 'pull', operacao: 'restore',
+  kind: 'absent' | 'usable' | 'incompatible',
+  remoteBackupEnabled: boolean | null }
+```
+
+`remoteBackupEnabled` é `null` quando não há registro utilizável — e não `false`,
+para não confundir "não há o que ler" com "o dono desligou". Há teste afirmando
+que `absent` e opt-out remoto produzem o **mesmo** evento `restore` e eventos de
+`pull` **diferentes**: é a prova de que a ambiguidade acabou.
+
+**Também corrigido:** o campo `chaveLocalExiste` era preenchido com
+`estado.decided`, que vem do **conteúdo** do estado e não prova existência da
+chave — a chave pode existir com `decided:false`, que é o que uma falha
+transitória grava. Agora há medição física (`temEstadoPersistido()`), e o campo
+derivado do conteúdo chama-se `decisaoLocalRegistrada`, que é o que ele de fato
+afirma.
+
+## 7. Como ler os eventos no próximo build
+
+| O que aparecer | Conclusão |
+| --- | --- |
+| nenhuma linha `etapa:'pull'` | o `pull` não chegou a ser feito — o problema está **antes**, na orquestração ou no early return |
+| `kind:'absent'` | a nuvem afirmou que **não há registro** — problema na fronteira nativa ou no container consultado |
+| `kind:'usable'`, `remoteBackupEnabled:true` | o registro foi lido e está ligado; se o progresso não voltou, o problema está no **apply** |
+| `kind:'usable'`, `remoteBackupEnabled:false` | há opt-out gravado no remoto — comportamento **correto**, não defeito |
+| `kind:'incompatible'` | o registro existe e este binário não o entende |
+
+## 8. Como capturar os eventos do iPhone
+
+Verificado neste Mac em 2026-09-16: Xcode em `/Applications/Xcode.app`,
+`xcrun devicectl` **disponível**, `Console.app` em
+`/System/Applications/Utilities/`. O `log stream` do macOS **não** alcança
+dispositivo iOS nesta versão — não tem a opção de device.
+
+**Caminho principal — `devicectl`, que faz ponte do stdout do app.** É o único
+que captura desde o **primeiro instante** da abertura, que é justamente onde o
+evento acontece:
+
+```bash
+# 1. iPhone conectado por cabo, desbloqueado e confiando neste Mac
+xcrun devicectl list devices        # confirmar State: available e pegar o UDID
+
+# 2. instalar o build interno (link do EAS, ou:)
+xcrun devicectl device install app --device <UDID> <caminho>.ipa
+
+# 3. lançar COM console anexado, capturando desde a primeira linha
+xcrun devicectl device process launch   --device <UDID> --console --terminate-existing   com.ascendcreative.radiant | tee /tmp/abertura.log
+
+# 4. filtrar
+grep '\[abertura:backup\]' /tmp/abertura.log
+```
+
+**Importante:** o teste de instalação limpa exige que a **primeira abertura**
+após reinstalar seja a observada. Abrir o app tocando no ícone e só depois
+anexar o console perde exatamente o evento que interessa — por isso o `launch`
+com `--console`, e não anexar depois.
+
+**Caminho alternativo — Console.app.** Abrir `/System/Applications/Utilities/Console.app`,
+selecionar o iPhone na barra lateral, iniciar a transmissão, filtrar por
+`abertura:backup`, e só então abrir o app. Serve se o `devicectl` falhar, mas
+depende de iniciar a captura antes do toque.
+
+> ⚠️ Não verifiquei nenhum dos dois **com o aparelho conectado** — no momento
+> desta escrita o iPhone aparece como `unavailable` em `devicectl list devices`.
+> O que está verificado é que as ferramentas existem neste Mac e que
+> `devicectl process launch` oferece `--console`. Se o passo 3 falhar com o
+> aparelho ligado, o caminho alternativo existe para isso.
+
+## 9. Riscos residuais
 
 1. **A causa raiz segue aberta.** A correção desta rodada pode não mudar o
-   comportamento em aparelho.
+   comportamento em aparelho. Seguem não descartados o caminho de
+   startup/orquestração e o resultado real do `pull` na fronteira nativa.
+2. **O procedimento de captura não foi exercitado com o aparelho conectado.** Se
+   ele falhar, o build seguinte não produz evidência — e era esse o motivo de
+   documentá-lo antes de gastar outro build.
 2. Desligar com a nuvem fora deixa o registro remoto dizendo "ligado" — risco
    registrado na rodada anterior, sem mudança aqui.
 3. Precisão e Tópicos seguem fora do payload, por decisão de escopo.

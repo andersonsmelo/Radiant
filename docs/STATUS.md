@@ -495,12 +495,26 @@ carrega o pacote inteiro.
    snapshot vazio antes de ler. O teste anterior, que mockava `restoreOnLaunch`,
    provava apenas que o mock seria chamado.
 
-   Resta, portanto, a **fronteira nativa** como lugar não descartado — só o
-   aparelho responde. Por isso entrou instrumentação mínima no caminho de
+   Seguem **não descartados** o caminho de startup/orquestração e o resultado
+   real do `pull` na fronteira nativa. Por isso entrou instrumentação mínima na
    abertura, ativa apenas fora de produção, registrando **somente forma e
-   decisão**: etapa, se houve decisão local, se está ligado, se o `pull` foi
-   tentado e como terminou. Nunca payload, nó, trilha, XP ou identificador de
-   iCloud — há teste afirmando essa ausência.
+   decisão**. Nunca payload, nó, trilha, XP ou identificador de iCloud — há
+   teste afirmando essa ausência.
+
+   ⚠️ **Correção da própria instrumentação em 2026-09-16, após revisão
+   independente.** A primeira versão afirmava que `restore ok:true` com
+   `ligado:false` significaria `pull absent` — e isso **não era demonstrável**:
+   registro ausente e registro com opt-out remoto terminam no mesmo estado
+   local. O resultado passou a ser observado **no ponto da chamada** de
+   `cloud.pull()`, com `kind` e `remoteBackupEnabled`, e há teste provando que
+   os dois casos produzem eventos de `pull` distintos. O campo que dizia
+   `chaveLocalExiste` era preenchido com `decided`, que vem do conteúdo e não
+   prova existência da chave; agora há medição física, e o campo derivado do
+   conteúdo chama-se `decisaoLocalRegistrada`.
+
+   O procedimento de captura dos eventos no iPhone está documentado no handoff
+   (`devicectl process launch --console`, com Console.app como alternativa),
+   porque um build sem evidência recuperável não vale o custo.
 
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que

@@ -89,8 +89,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
             registrar: (e) => eventos.push(e),
         });
@@ -104,7 +105,8 @@ describe('abertura de instalação limpa — integração com o serviço real', 
             enabled: true, decided: true, lastBackupAt: null, lastError: null,
         });
         expect(storage.dados.size).toBeGreaterThan(0);
-        expect(eventos.find((e) => e.etapa === 'restore')).toMatchObject({ ok: true, ligado: true, decidido: true });
+        expect(eventos.find((e) => e.etapa === 'restore'))
+            .toMatchObject({ ok: true, ligado: true, decisaoLocalRegistrada: true });
     });
 
     it('NUNCA envia snapshot local vazio antes de ler o remoto', async () => {
@@ -112,8 +114,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
         });
 
@@ -129,8 +132,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => { throw new Error('catálogo indisponível na abertura'); },
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
             registrar: (e) => eventos.push(e),
         });
@@ -146,8 +150,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
         });
 
@@ -161,8 +166,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
         });
 
@@ -182,8 +188,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
         });
 
@@ -196,8 +203,9 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
         });
 
@@ -227,11 +235,12 @@ describe('abertura de instalação limpa — integração com o serviço real', 
         expect(restaurar).not.toHaveBeenCalled();
 
         // A forma nova, com falhas isoladas, chama assim mesmo.
-        const restaurarNovo = jest.fn(async () => ({
+        const restaurarNovo = jest.fn(async (_n: number, _obs: unknown) => ({
             enabled: true, decided: true, lastBackupAt: null, lastError: null,
         }) as BackupState);
         await restaurarBackupNaAbertura({
             lerEstado: async () => ({ enabled: false, decided: false, lastBackupAt: null, lastError: null }),
+            chaveLocalExiste: async () => false,
             hidratarJornada: async () => { throw new Error('etapa anterior rejeitou'); },
             restaurar: restaurarNovo,
             agora: () => AGORA,
@@ -239,13 +248,114 @@ describe('abertura de instalação limpa — integração com o serviço real', 
         expect(restaurarNovo).toHaveBeenCalledTimes(1);
     });
 
+    // A revisão independente apontou que `ok:true` com `ligado:false` NÃO
+    // distinguia "não há registro" de "há registro com opt-out remoto": os dois
+    // caminhos gravam o mesmo estado local. Agora o `kind` é observado no ponto
+    // da chamada de `cloud.pull()`, dentro do serviço — sem inferência.
+    describe('o evento de pull discrimina o que a nuvem respondeu', () => {
+        async function eventosDe(leitura: PrivateCloudRead): Promise<EventoDeAbertura[]> {
+            const { service, eventos } = montar(leitura);
+            await restaurarBackupNaAbertura({
+                lerEstado: () => service.getState(),
+                chaveLocalExiste: () => service.temEstadoPersistido(),
+                hidratarJornada: async () => undefined,
+                restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
+                agora: () => AGORA,
+                registrar: (e) => eventos.push(e),
+            });
+            return eventos;
+        }
+
+        const doPull = (eventos: EventoDeAbertura[]) => eventos.find((e) => e.etapa === 'pull');
+
+        it('registro ausente aparece como kind absent, sem opt-in a reportar', async () => {
+            expect(doPull(await eventosDe({ kind: 'absent' })))
+                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'absent', remoteBackupEnabled: null });
+        });
+
+        it('registro utilizável e ligado aparece como usable com opt-in verdadeiro', async () => {
+            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: true }) })))
+                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'usable', remoteBackupEnabled: true });
+        });
+
+        it('registro sem o campo conta como ligado, por compatibilidade', async () => {
+            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto() })))
+                .toMatchObject({ kind: 'usable', remoteBackupEnabled: true });
+        });
+
+        it('opt-out remoto aparece como usable com opt-in FALSO — não como ausente', async () => {
+            // É exatamente o par que a telemetria anterior confundia.
+            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: false }) })))
+                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'usable', remoteBackupEnabled: false });
+        });
+
+        it('registro incompatível aparece como incompatible, sem opt-in a reportar', async () => {
+            expect(doPull(await eventosDe({ kind: 'incompatible', reason: 'record-structure' })))
+                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'incompatible', remoteBackupEnabled: null });
+        });
+
+        it('ausente e opt-out remoto terminam com o MESMO estado local, e só o pull os separa', async () => {
+            const ausente = await eventosDe({ kind: 'absent' });
+            const optOut = await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: false }) });
+
+            const restoreDe = (es: EventoDeAbertura[]) => es.find((e) => e.etapa === 'restore');
+            // Indistinguíveis pelo estado final — era esse o gap.
+            expect(restoreDe(ausente)).toEqual(restoreDe(optOut));
+            // Distinguíveis pelo evento do pull.
+            expect(doPull(ausente)).not.toEqual(doPull(optOut));
+        });
+
+        it('falha antes do pull não emite evento de pull', async () => {
+            const local = localRealista(vazio());
+            const storage = storageDeInstalacaoLimpa();
+            const cloud: PrivateCloudPort = {
+                pull: jest.fn(async () => { throw new CloudUnavailableError(); }),
+                push: jest.fn(),
+            };
+            const service = new ProgressSyncService({ cloud, local, storage });
+            const eventos: EventoDeAbertura[] = [];
+
+            await restaurarBackupNaAbertura({
+                lerEstado: () => service.getState(),
+                chaveLocalExiste: () => service.temEstadoPersistido(),
+                hidratarJornada: async () => undefined,
+                restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
+                agora: () => AGORA,
+                registrar: (e) => eventos.push(e),
+            });
+
+            expect(doPull(eventos)).toBeUndefined();
+            expect(eventos.find((e) => e.etapa === 'restore')).toMatchObject({ ok: true, ligado: false });
+        });
+    });
+
+    it('chaveLocalExiste é medição física, não o conteúdo do estado', async () => {
+        // A telemetria anterior afirmava existência da chave a partir de
+        // `decided`, que vem do CONTEÚDO. A chave pode existir com
+        // `decided:false` — é o que uma falha transitória grava.
+        const local = localRealista(vazio());
+        const storage = storageDeInstalacaoLimpa();
+        const cloud: PrivateCloudPort = {
+            pull: jest.fn(async () => { throw new CloudUnavailableError(); }),
+            push: jest.fn(),
+        };
+        const service = new ProgressSyncService({ cloud, local, storage });
+
+        expect(await service.temEstadoPersistido()).toBe(false);
+        await service.restoreOnLaunch(AGORA);
+
+        expect(await service.temEstadoPersistido()).toBe(true);
+        expect((await service.getState()).decided).toBe(false);
+    });
+
     it('a instrumentação não carrega payload nem dado do aluno', async () => {
         const { service, eventos } = montar({ kind: 'usable', backup: backupRemoto() });
 
         await restaurarBackupNaAbertura({
             lerEstado: () => service.getState(),
+            chaveLocalExiste: () => service.temEstadoPersistido(),
             hidratarJornada: async () => undefined,
-            restaurar: (n) => service.restoreOnLaunch(n),
+            restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
             agora: () => AGORA,
             registrar: (e) => eventos.push(e),
         });

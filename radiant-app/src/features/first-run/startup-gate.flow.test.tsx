@@ -112,7 +112,14 @@ jest.mock('../subscription/SubscriptionService', () => ({
 }));
 
 jest.mock('../progress-sync/ProgressSyncService', () => ({
-  progressSyncService: { restoreOnLaunch: jest.fn() },
+  progressSyncService: {
+    restoreOnLaunch: jest.fn(),
+    // A orquestração da abertura também lê o estado e mede a existência
+    // física da chave; sem eles o dublê falharia nessas chamadas e o erro
+    // ficaria escondido no `catch` de cada etapa.
+    getState: jest.fn(),
+    temEstadoPersistido: jest.fn(),
+  },
 }));
 
 jest.mock('../storage-migration/StorageMigrationService', () => ({
@@ -220,7 +227,11 @@ describe('gate de abertura em RootLayout', () => {
     (jest.requireMock('../subscription/SubscriptionService').subscriptionService.refresh as jest.Mock)
       .mockResolvedValue({ kind: 'none' });
     (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.restoreOnLaunch as jest.Mock)
-      .mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
+      .mockResolvedValue({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
+    (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.getState as jest.Mock)
+      .mockResolvedValue({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
+    (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.temEstadoPersistido as jest.Mock)
+      .mockResolvedValue(false);
     (SyncQueueService.flush as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.track as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.captureError as jest.Mock).mockResolvedValue(undefined);
@@ -286,7 +297,7 @@ describe('gate de abertura em RootLayout', () => {
 
     expect(await screen.findByTestId('stack-root')).toBeTruthy();
     expect(subscriptionService.refresh).toHaveBeenCalledWith(expect.any(Number));
-    expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number));
+    expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number), expect.any(Function));
     expect(TelemetryService.captureError).not.toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ phase: 'root_layout_bootstrap' }));
   });
 
@@ -315,7 +326,7 @@ describe('gate de abertura em RootLayout', () => {
     releaseJourney?.();
 
     await waitFor(() =>
-      expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number)),
+      expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number), expect.any(Function)),
     );
   });
 
