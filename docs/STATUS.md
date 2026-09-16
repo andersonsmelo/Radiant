@@ -559,8 +559,35 @@ carrega o pacote inteiro.
    recente. Há cobertura para remoto utilizável em instalação limpa, datas
    local/remota em ambas as ordens e preservação nos ramos `absent`,
    `incompatible` e `cloud-unavailable`; o teste consumidor confirma que uma
-   data presente renderiza **“Último backup em …”**. Esta correção ainda não foi
-   colocada em novo build: **Passagem 2 não foi executada**.
+   data presente renderiza **“Último backup em …”**. A correção está no commit
+   `45d465` — o HEAD de código aprovado antes deste fechamento documental — e
+   seus testes/CI estão verdes, mas ainda não foi validada no aparelho porque
+   não foi colocada em novo build.
+
+   ✅ **Passagem 2 física APROVADA no iPhone em 2026-09-16.** Foi reinstalado
+   exclusivamente o mesmo build EAS
+   `69d77f13-39bc-46f0-a925-29eb3e568330`, cujo commit confirmado pelo EAS é
+   `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83`; nenhum build novo foi gerado.
+   Antes do opt-out, a medição visual mostrou backup ligado, cartão “Nenhum
+   backup ainda”, XP 100, sequência de 1 dia e trilha 11/14. O próximo item
+   efetivamente exibido era uma **revisão pendente**, divergindo do checkpoint
+   registrado na Passagem 1. Após o dono desligar o toggle, uma reconexão do
+   espelhamento confirmou o estado OFF. Não havia leitura segura do registro
+   privado disponível; por isso foi usado o fallback autorizado de manter o
+   app em foreground por 30 segundos (17:22:45–17:23:15, −03) antes do
+   uninstall.
+
+   A reinstalação completa e a primeira abertura por `devicectl` ocorreram às
+   17:25:11 (−03). Sem tocar no toggle e sem iniciar lição, revisão ou
+   checkpoint, o app permaneceu 30 segundos no onboarding de instalação limpa.
+   Depois de pular o onboarding, exibiu **Backup no iCloud OFF, XP 0, trilha
+   0/14 e “Fundamentos de Radiologia” como primeira lição/próximo passo**; o
+   backup antigo 11/14 não voltou. A sequência continuou em 1 dia porque esse é
+   o valor inicial do estado local novo (`GamificationService` inicializa
+   `streakDays: 1`), não evidência de restore. Resultado conforme a tabela
+   aprovada: **PASS**. O campo remoto `backupEnabled:false` não foi inspecionado
+   diretamente no CloudKit Console; a evidência é funcional, pelo estado que
+   sobreviveu ao uninstall/reinstall.
 
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que

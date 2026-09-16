@@ -1585,7 +1585,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   app restaurou automaticamente backup ligado, XP 100, sequência de 1 dia,
   trilha 11/14 e próximo passo checkpoint. A captura JS interna ficou
   inconclusiva por `CoreDeviceError 3 / Mercury 1001`, portanto a causa
-  histórica exata não foi comprovada. Detalhes e riscos no
+  histórica exata não foi comprovada. Na **Passagem 2 física**, usando o mesmo
+  build, o dono desligou o backup, o app ficou 30 segundos em foreground e foi
+  então removido e reinstalado. Sem tocar novamente no toggle, a instalação
+  limpa mostrou backup OFF, XP 0, trilha 0/14 e a primeira lição como próximo
+  passo; o backup antigo não voltou. **Passagem 2: PASS.** A leitura direta de
+  `backupEnabled:false` no registro privado não estava disponível; a evidência
+  foi funcional. Detalhes e riscos no
   [relatório do slice CloudKit](../superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
 
   > ⚠️ **Resultado funcional ≠ diagnóstico interno completo.** O Swift foi
@@ -1594,8 +1600,9 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   > separado e determinístico: o restore utilizável não propagava
   > `backup.savedAt` para `lastBackupAt`, fazendo o cartão dizer “Nenhum backup
   > ainda” apesar do progresso restaurado. A correção preserva a data mais
-  > recente entre estado local e remoto e tem cobertura automatizada; não houve
-  > novo build nem Passagem 2.
+  > recente entre estado local e remoto e tem cobertura automatizada. Não houve
+  > novo build; a Passagem 2 mediu o opt-out no build anterior e não valida essa
+  > correção de metadado/UI.
 
   **Gates do dono que abriram em 2026-09-15:** acordo de apps pagos aceito,
   ids e preços mensal/anual fixados

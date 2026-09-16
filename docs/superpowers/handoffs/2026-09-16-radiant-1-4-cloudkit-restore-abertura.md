@@ -255,8 +255,69 @@ A cobertura inclui instalação limpa com remoto utilizável, data local mais
 recente, data remota mais recente e ausência de alteração indevida nos ramos
 `absent`, `incompatible` e `cloud-unavailable`. O teste consumidor do cartão
 confirma que uma data presente produz “Último backup em …”, não “Nenhum backup
-ainda”. A correção não foi instalada no aparelho: nenhum novo build foi gerado
-e a Passagem 2 não foi executada.
+ainda”. A correção está no commit `45d465` — o HEAD de código aprovado antes
+deste fechamento documental — com testes e CI verdes. Ela não foi instalada no
+aparelho: nenhum novo build foi gerado e a Passagem 2 abaixo usou
+deliberadamente o build anterior, pois este defeito de metadado/UI é separado
+da semântica de opt-out.
+
+## 8.2 Passagem 2 do opt-out aprovada no aparelho (2026-09-16)
+
+Foi usado **exclusivamente** o mesmo build da Passagem 1:
+
+| | |
+| --- | --- |
+| EAS Build ID | `69d77f13-39bc-46f0-a925-29eb3e568330` |
+| Commit confirmado pelo EAS | `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83` |
+| Bundle | `com.ascendcreative.radiant` · `1.3.1 (11)` |
+| SHA-256 do IPA baixado | `9852e7a53818fd1480531b59dce14faa0797505375aa059365283e6ebd3f17da` |
+
+### Baseline e opt-out
+
+A medição visual antes de desligar mostrou:
+
+- Backup no iCloud **ON** e cartão “Nenhum backup ainda” — texto esperado neste
+  build anterior à correção separada de `lastBackupAt`;
+- XP 100;
+- sequência de 1 dia;
+- trilha 11/14;
+- próximo item efetivamente exibido: **revisão pendente**, não o checkpoint
+  registrado na Passagem 1.
+
+O dono desligou o toggle uma única vez. Como o QuickTime havia mantido um frame
+antigo, o espelhamento foi fechado e reaberto; a imagem fresca confirmou o
+toggle cinza/OFF. O estado foi confirmado às 17:22 (−03). Não havia uma forma
+segura disponível de ler o registro privado de Production sem entrar no
+CloudKit Console, então o campo `backupEnabled:false` **não foi observado
+diretamente**. Aplicou-se o fallback autorizado: app aberto em foreground e
+rede disponível por 30 segundos, de 17:22:45 a 17:23:15 (−03), antes da
+remoção.
+
+### Clean install e resultado
+
+O uninstall e a instalação do IPA terminaram sem erro. A primeira abertura foi
+lançada por `xcrun devicectl device process launch` às 17:25:11 (−03). Sem
+tocar no toggle e sem iniciar lição, revisão ou checkpoint:
+
+1. a imagem fresca mostrou o onboarding de instalação limpa;
+2. após 30 segundos (17:25:40–17:26:10, −03), o progresso antigo ainda não
+   havia reaparecido;
+3. após pular o onboarding, a aba Estude mostrou XP 0, trilha 0/14 e
+   “Fundamentos de Radiologia” como primeira lição/próximo passo;
+4. o Perfil mostrou Backup no iCloud **OFF** e “Nenhum backup ainda”.
+
+A sequência exibida permaneceu em 1 dia, mas esse é o default local de uma
+instalação nova (`GamificationService` inicia com `streakDays: 1`). Com XP 0,
+trilha 0/14, primeira lição e onboarding novo, não há evidência de restauração
+parcial do backup anterior.
+
+**Resultado segundo a tabela aprovada: PASS.** O opt-out permaneceu OFF após
+uninstall/reinstall e o backup antigo de XP 100/trilha 11/14 não foi aplicado.
+A persistência foi comprovada pelo comportamento final; o payload privado não
+foi inspecionado diretamente. O único erro operacional foi do espelhamento do
+QuickTime (`SCStreamErrorDomain -3811`), recuperado por reconexão e sem efeito
+no app. Não houve novo build, alteração de produto, lição, revisão, checkpoint,
+merge ou submit.
 
 ---
 
@@ -266,7 +327,8 @@ e a Passagem 2 não foi executada.
    falhou com `CoreDeviceError 3 / Mercury 1001`; o resultado funcional positivo
    não permite reconstruir qual ramo interno foi tomado.
 2. **A correção de `lastBackupAt` só tem validação automatizada.** Não houve novo
-   build nem Passagem 2, por restrição explícita desta rodada.
-3. Desligar com a nuvem fora deixa o registro remoto dizendo "ligado" — risco
-   registrado na rodada anterior, sem mudança aqui.
+   build; a Passagem 2 usou o build anterior e não mede essa correção de UI.
+3. A Passagem 2 passou funcionalmente, mas o payload privado não foi lido no
+   CloudKit Console antes do uninstall. Desligar com a nuvem fora ainda pode
+   deixar o registro remoto dizendo "ligado"; esse risco best-effort permanece.
 4. Precisão e Tópicos seguem fora do payload, por decisão de escopo.
