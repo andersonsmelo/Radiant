@@ -321,6 +321,24 @@ merge ou submit.
 
 ---
 
+## 8.3 Integração e verificação pós-merge (2026-09-16)
+
+O [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) foi mergeado pelo
+dono às 19:56:53 (−03). A verificação posterior confirmou:
+
+- `origin/main`: `f5d96019b4db4a41f3258360773bd7da35a657ed`;
+- head do PR `3494682229561e9e73ca4ef1711d3427fefd7a93` contido na `main`;
+- correção `lastBackupAt: laterIso(...)` de `45d465` presente na `main`;
+- [CI pós-merge](https://github.com/andersonsmelo/Radiant/actions/runs/35160079444)
+  `Radiant App Quality`: **SUCCESS**, evento `push`, checkout limpo do merge
+  commit; instalação de dependências e Quality gate concluídos com sucesso.
+
+Não foi necessário executar um segundo merge: o PR já estava integrado quando
+o agente consultou o estado remoto. As alterações locais paralelas foram
+preservadas. Não houve novo build, deploy ou submit. As Passagens 1 e 2 são
+PASS funcional no build anterior; o CI do merge não substitui a validação
+física ainda pendente de `lastBackupAt`, nem comprova a causa histórica exata.
+
 ## 9. Riscos residuais
 
 1. **A causa histórica exata segue aberta.** A captura interna da Passagem 1

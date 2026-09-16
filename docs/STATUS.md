@@ -372,6 +372,20 @@ carrega o pacote inteiro.
    completo em
    [`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
 
+   **Estado atual confirmado em 2026-09-16:** o
+   [PR #14](https://github.com/andersonsmelo/Radiant/pull/14) foi mergeado pelo
+   dono às 19:56:53 (−03). `origin/main` está no merge commit
+   `f5d96019b4db4a41f3258360773bd7da35a657ed`, contendo o head documental
+   `3494682229561e9e73ca4ef1711d3427fefd7a93` e a correção `lastBackupAt`
+   de `45d465`. O [CI pós-merge da main](https://github.com/andersonsmelo/Radiant/actions/runs/35160079444)
+   (`Radiant App Quality`, evento `push`, checkout limpo desse merge commit)
+   concluiu com **SUCCESS**, incluindo o Quality gate. Passagens 1 e 2 seguem
+   **PASS funcional** no build físico anterior; a correção de `lastBackupAt`
+   segue coberta por testes/CI, mas não validada em aparelho. A causa histórica
+   exata continua não comprovada. Merge não equivale a build, deploy ou submit:
+   nenhum desses foi realizado nesta verificação. Os registros abaixo são
+   evidência histórica das etapas anteriores, não o estado atual do PR.
+
    Gates medidos em **2026-09-15** (número corrigido depois; ver o bloco do CI
    adiante): **119 suítes / 979 testes verdes** no conjunto rastreado, contra
    **117/916** em `origin/main`, `tsc --noEmit` exit 0, ESLint 0 erros / 24 avisos — mesmo número de

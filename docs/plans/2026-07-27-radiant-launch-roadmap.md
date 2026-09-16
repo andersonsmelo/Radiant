@@ -1585,7 +1585,7 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   desempenho e tamanho antes de qualquer submissão.
 
   **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
-  aberto, não mergeado): entitlements do container
+  mergeado em 2026-09-16 às 19:56:53 −03): entitlements do container
   `iCloud.com.ascendcreative.radiant` no app config com contrato anti-regressão;
   `CloudKitPrivateAdapter` atrás do `PrivateCloudPort`; **módulo Expo local em
   Swift versionado** em `radiant-app/modules/radiant-cloudkit`, sem nenhuma
@@ -1613,6 +1613,14 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   > recente entre estado local e remoto e tem cobertura automatizada. Não houve
   > novo build; a Passagem 2 mediu o opt-out no build anterior e não valida essa
   > correção de metadado/UI.
+
+  **Integração confirmada em 2026-09-16:** merge commit da `main`
+  `f5d96019b4db4a41f3258360773bd7da35a657ed`, contendo o head do PR `3494682`
+  e a correção `lastBackupAt` de `45d465`.
+  [Radiant App Quality pós-merge](https://github.com/andersonsmelo/Radiant/actions/runs/35160079444)
+  concluiu com **SUCCESS** sobre esse SHA. K6 permanece parcial: este merge
+  não conclui StoreKit/Sentry nem valida `lastBackupAt` no aparelho, e não
+  constitui novo build ou submissão.
 
   **Gates do dono que abriram em 2026-09-15:** acordo de apps pagos aceito,
   ids e preços mensal/anual fixados
