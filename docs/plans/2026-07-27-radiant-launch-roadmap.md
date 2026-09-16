@@ -1580,14 +1580,22 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   `CloudKitPrivateAdapter` atrás do `PrivateCloudPort`; **módulo Expo local em
   Swift versionado** em `radiant-app/modules/radiant-cloudkit`, sem nenhuma
   dependência npm nova; `backupNow()` ligado à conclusão de nó; ordem de
-  restore/hidratação corrigida na partida. Conjunto rastreado: 119 suítes /
-  1000 testes, contra 117/916 em `main`; gate completo (`npm run quality`,
-  Node 20) exit 0. Detalhes e riscos no
+  restore/hidratação corrigida na partida. Em 2026-09-16, a **Passagem 1
+  funcional passou** no iPhone: após instalação limpa, sem tocar no toggle, o
+  app restaurou automaticamente backup ligado, XP 100, sequência de 1 dia,
+  trilha 11/14 e próximo passo checkpoint. A captura JS interna ficou
+  inconclusiva por `CoreDeviceError 3 / Mercury 1001`, portanto a causa
+  histórica exata não foi comprovada. Detalhes e riscos no
   [relatório do slice CloudKit](../superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
 
-  > ⚠️ **Implementado ≠ validado nativamente.** Nenhuma linha do Swift foi
-  > compilada ou executada. A fatia só vira "validada" depois de um build
-  > assinado rodar em aparelho real e comprovar backup e restauração.
+  > ⚠️ **Resultado funcional ≠ diagnóstico interno completo.** O Swift foi
+  > compilado e o restore foi comprovado em aparelho real, mas os eventos
+  > internos não foram recuperados. Depois da medição foi encontrado um defeito
+  > separado e determinístico: o restore utilizável não propagava
+  > `backup.savedAt` para `lastBackupAt`, fazendo o cartão dizer “Nenhum backup
+  > ainda” apesar do progresso restaurado. A correção preserva a data mais
+  > recente entre estado local e remoto e tem cobertura automatizada; não houve
+  > novo build nem Passagem 2.
 
   **Gates do dono que abriram em 2026-09-15:** acordo de apps pagos aceito,
   ids e preços mensal/anual fixados

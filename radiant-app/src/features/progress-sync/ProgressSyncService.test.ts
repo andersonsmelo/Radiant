@@ -262,11 +262,11 @@ function memoriaDesligada() {
 }
 
 /** Estado já ligado, sem pagar um backup só para chegar nele. */
-function memoriaLigada() {
+function memoriaLigada(lastBackupAt: string | null = null) {
     const storage = memoria();
     storage.setItem(
         STORAGE_KEYS.PROGRESS_BACKUP,
-        JSON.stringify({ schemaVersion: 1, enabled: true, decided: true, lastBackupAt: null, lastError: null }),
+        JSON.stringify({ schemaVersion: 1, enabled: true, decided: true, lastBackupAt, lastError: null }),
     );
     return storage;
 }
@@ -499,6 +499,35 @@ describe('ProgressSyncService — instalação limpa', () => {
         expect(local.aplicado[0].totalXp).toBe(100);
         expect(estado.enabled).toBe(true);
         expect(estado.decided).toBe(true);
+        expect(estado.lastBackupAt).toBe('2026-09-14T12:00:00.000Z');
+    });
+
+    it('preserva lastBackupAt local quando ele é mais recente que o remoto utilizável', async () => {
+        const remoto = backup({ savedAt: '2026-09-12T12:00:00.000Z' });
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({
+            cloud: nuvemLendo({ kind: 'usable', backup: remoto }),
+            local,
+            storage: memoriaLigada('2026-09-13T12:00:00.000Z'),
+        }).restoreOnLaunch(AGORA);
+
+        expect(local.aplicado).toHaveLength(1);
+        expect(estado.lastBackupAt).toBe('2026-09-13T12:00:00.000Z');
+    });
+
+    it('adota lastBackupAt remoto quando ele é mais recente que o estado local', async () => {
+        const remoto = backup({ savedAt: '2026-09-13T12:00:00.000Z' });
+        const local = localPort(backup());
+
+        const estado = await new ProgressSyncService({
+            cloud: nuvemLendo({ kind: 'usable', backup: remoto }),
+            local,
+            storage: memoriaLigada('2026-09-12T12:00:00.000Z'),
+        }).restoreOnLaunch(AGORA);
+
+        expect(local.aplicado).toHaveLength(1);
+        expect(estado.lastBackupAt).toBe('2026-09-13T12:00:00.000Z');
     });
 
     it('trata registro antigo sem o campo como ligado, por compatibilidade', async () => {
@@ -537,31 +566,41 @@ describe('ProgressSyncService — instalação limpa', () => {
         expect(cloud.push).not.toHaveBeenCalled();
         expect(estado.enabled).toBe(false);
         expect(estado.decided).toBe(true);
+        expect(estado.lastBackupAt).toBeNull();
     });
 
-    it('remoto incompatível não é aplicado nem sobrescrito, e segue indeciso', async () => {
+    it('remoto incompatível não é aplicado nem sobrescrito, e preserva a data anterior', async () => {
         const cloud = nuvemLendo({ kind: 'incompatible', reason: 'payload-version' });
         const local = localPort(vazio());
 
-        const estado = await new ProgressSyncService({ cloud, local, storage: instalacaoLimpa() })
+        const estado = await new ProgressSyncService({
+            cloud,
+            local,
+            storage: memoriaLigada('2026-09-13T12:00:00.000Z'),
+        })
             .restoreOnLaunch(AGORA);
 
         expect(local.apply).not.toHaveBeenCalled();
         expect(cloud.push).not.toHaveBeenCalled();
         expect(estado.lastError).toBe('incompatible');
-        // Indeciso de propósito: um binário mais novo pode entender o registro.
-        expect(estado.decided).toBe(false);
+        expect(estado.lastBackupAt).toBe('2026-09-13T12:00:00.000Z');
     });
 
-    it('CloudKit indisponível mantém o modo local e tenta de novo na próxima abertura', async () => {
+    it('CloudKit indisponível preserva o estado anterior e tenta de novo na próxima abertura', async () => {
         const local = localPort(vazio());
 
-        const estado = await new ProgressSyncService({ cloud: nuvemIndisponivel(), local, storage: instalacaoLimpa() })
+        const estado = await new ProgressSyncService({
+            cloud: nuvemIndisponivel(),
+            local,
+            storage: memoriaLigada('2026-09-13T12:00:00.000Z'),
+        })
             .restoreOnLaunch(AGORA);
 
         expect(local.apply).not.toHaveBeenCalled();
         expect(estado.lastError).toBe('cloud-unavailable');
-        expect(estado.decided).toBe(false);
+        expect(estado.enabled).toBe(true);
+        expect(estado.decided).toBe(true);
+        expect(estado.lastBackupAt).toBe('2026-09-13T12:00:00.000Z');
     });
 
     it('NUNCA sobe snapshot vazio por cima de backup remoto válido', async () => {

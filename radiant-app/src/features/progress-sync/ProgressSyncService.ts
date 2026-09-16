@@ -292,7 +292,13 @@ export class ProgressSyncService {
 
             // Retoma a proteção: quem tinha backup ligado e reinstalou não
             // deveria ficar sem backup em silêncio.
-            return this.writeState({ ...state, enabled: true, decided: true, lastError: null });
+            return this.writeState({
+                ...state,
+                enabled: true,
+                decided: true,
+                lastBackupAt: laterIso(state.lastBackupAt, remoto.backup.savedAt),
+                lastError: null,
+            });
         } catch (cause) {
             // Falha de rede não é decisão: continua indeciso e tenta de novo na
             // próxima abertura.

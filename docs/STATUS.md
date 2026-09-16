@@ -523,13 +523,13 @@ carrega o pacote inteiro.
    `BackupState` de qualquer forma. A tabela de leitura afirmava só o primeiro.
    O `pull` passou a ser observado em **três fases** (`inicio` antes do `await`,
    depois `resultado` **ou** `erro` classificado), e o erro é relançado para não
-   mudar a semântica. Com isso a ausência de `inicio` significa exatamente uma
-   coisa: a fronteira não foi alcançada.
+   mudar a semântica. Numa captura íntegra, a ausência de `inicio` significa que
+   a fronteira não foi alcançada; uma captura que falha não autoriza essa
+   conclusão.
 
-   ⏳ **Terceiro build interno gerado em 2026-09-16, e a medição AINDA NÃO
-   aconteceu.** Autorizado pelo dono para exatamente um build:
-   `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, iOS, distribuição
-   interna, concluído às 12:10 de 2026-09-16. O EAS confirma `Commit`
+   ✅ **Passagem 1 funcional APROVADA no iPhone em 2026-09-16.** Foi usado o
+   build interno `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, iOS,
+   distribuição interna, concluído às 12:10 de 2026-09-16. O EAS confirma `Commit`
    `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83` — gerado de worktree limpa, sem as
    alterações não commitadas de outra sessão que estão na árvore de trabalho.
 
@@ -537,22 +537,30 @@ carrega o pacote inteiro.
    > Ajustes. Só o `Commit` os separa. Instalar pelo link do EAS, nunca pela
    > versão, sob risco de medir o binário errado.
 
-   🔴 **A medição está BLOQUEADA numa precondição que o executor não consegue
-   verificar.** O procedimento exige apagar a instalação anterior, o que destrói
-   o progresso local; a recuperação depende de existir backup remoto válido — e
-   o defeito sob investigação é justamente "o restore automático não acontece",
-   então a recuperação não pode ser presumida. O dono precisa confirmar o
-   registro antes da desinstalação: cartão **Backup no iCloud** com data
-   recente, ou o registro `progress-backup-v1` no CloudKit Console, ambiente
-   **Production**, container `iCloud.com.ascendcreative.radiant`.
+   A precondição foi confirmada pelo dono antes da desinstalação: backup ligado,
+   último backup em 15/09/2026 às 21:08, XP 100, sequência de 1 dia, trilha
+   11/14 e próximo passo checkpoint. Depois da instalação limpa, sem tocar no
+   toggle e sem executar lição, revisão ou checkpoint, a primeira abertura
+   restaurou automaticamente **backup ligado, XP 100, sequência de 1 dia,
+   trilha 11/14 e próximo passo checkpoint**. Portanto o restore funcional da
+   Passagem 1 passou.
 
-   Com o aparelho conectado e desbloqueado (`devicectl list devices` reportou
-   `available (paired)` em 2026-09-16), a captura pode ser conduzida inteira por
-   `devicectl`: desinstalar, instalar e lançar com `--console` já capturando —
-   único caminho que pega a **primeira** abertura desde o primeiro instante.
+   A captura JS interna por `devicectl process launch --console` ficou
+   **inconclusiva**: o canal terminou com `CoreDeviceError 3 / Mercury 1001` e
+   não forneceu a sequência obrigatória de eventos. Isso não invalida a medição
+   visual, mas também não comprova a causa histórica exata; ela segue aberta.
 
-   **Nenhum dado de primeira abertura, estado visual ou conclusão foi medido
-   nesta rodada.** A causa raiz continua **não comprovada**.
+   ⚠️ **Defeito separado e determinístico encontrado após a medição.** Num
+   estado local limpo, o restore aplicava corretamente o payload remoto e
+   gravava `enabled:true`/`decided:true`, mas deixava `lastBackupAt:null`. Por
+   isso o cartão mostrava **“Nenhum backup ainda”** embora o progresso tivesse
+   voltado. `ProgressSyncService` agora mescla
+   `state.lastBackupAt` com `remoto.backup.savedAt` e preserva a data mais
+   recente. Há cobertura para remoto utilizável em instalação limpa, datas
+   local/remota em ambas as ordens e preservação nos ramos `absent`,
+   `incompatible` e `cloud-unavailable`; o teste consumidor confirma que uma
+   data presente renderiza **“Último backup em …”**. Esta correção ainda não foi
+   colocada em novo build: **Passagem 2 não foi executada**.
 
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que

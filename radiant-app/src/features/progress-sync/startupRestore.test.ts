@@ -83,7 +83,7 @@ describe('abertura de instalação limpa — integração com o serviço real', 
         return { storage, cloud, local, service, eventos };
     }
 
-    it('chega ao cloud.pull, aplica o remoto e termina ligado e decidido', async () => {
+    it('chega ao cloud.pull, aplica o remoto e persiste o savedAt do backup restaurado', async () => {
         const remoto = backupRemoto();
         const { storage, cloud, local, service, eventos } = montar({ kind: 'usable', backup: remoto });
 
@@ -102,7 +102,10 @@ describe('abertura de instalação limpa — integração com o serviço real', 
 
         const estado = await service.getState();
         expect(estado).toEqual<BackupState>({
-            enabled: true, decided: true, lastBackupAt: null, lastError: null,
+            enabled: true,
+            decided: true,
+            lastBackupAt: remoto.savedAt,
+            lastError: null,
         });
         expect(storage.dados.size).toBeGreaterThan(0);
         expect(eventos.find((e) => e.etapa === 'restore'))

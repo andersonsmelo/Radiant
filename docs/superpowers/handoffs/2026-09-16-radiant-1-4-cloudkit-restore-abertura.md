@@ -3,10 +3,10 @@
 Data: 2026-09-16 · Branch: `feat/1-4-cloudkit-private-backup` · PR: #14
 Continua [a terceira validação física](2026-09-15-radiant-1-4-cloudkit-device-validation-3.md).
 
-> ⚠️ **A causa raiz do que ocorreu no aparelho NÃO foi comprovada.**
-> Este documento registra um defeito estrutural real, encontrado e corrigido, e
-> a instrumentação que deve responder a pergunta no próximo build. Não declara
-> o problema físico resolvido.
+> ⚠️ **A causa histórica exata do que ocorreu no aparelho NÃO foi comprovada.**
+> A Passagem 1 funcional posterior passou, mas a captura dos eventos internos
+> ficou inconclusiva. Este documento separa esse resultado de um defeito de
+> metadado determinístico encontrado depois da medição.
 
 ## 1. O que foi descartado, com medição
 
@@ -83,7 +83,9 @@ e decisão:
 **Nunca** payload, nó, trilha, XP, data de estudo ou identificador de iCloud. Há
 teste afirmando essa ausência explicitamente.
 
-É ela que deve separar as duas explicações da §2 no próximo build físico.
+Ela foi criada para separar as duas explicações da §2 numa captura física
+íntegra. A captura da Passagem 1 descrita na §8.1 falhou no canal do
+`devicectl`, portanto não produziu essa evidência interna.
 
 ## 6. Correção da própria instrumentação (2026-09-16, após revisão)
 
@@ -192,7 +194,7 @@ depende de iniciar a captura antes do toque.
 > `devicectl process launch` oferece `--console`. Se o passo 3 falhar com o
 > aparelho ligado, o caminho alternativo existe para isso.
 
-## 8.1 Build gerado, medição pendente (2026-09-16)
+## 8.1 Passagem 1 funcional aprovada; captura interna inconclusiva (2026-09-16)
 
 Autorizado pelo dono para **exatamente um** build, e gerado:
 
@@ -211,29 +213,60 @@ entraram.
 > ⚠️ `1.3.1 (11)` — **idêntico** aos builds `45abf4fd` e `b86cb497` na tela de
 > Ajustes. Só o `Commit` os distingue. Instalar pelo link do EAS.
 
-**A medição não foi executada.** O passo de apagar a instalação destrói o
-progresso local, e a recuperação depende de existir backup remoto válido — uma
-precondição que o executor não consegue verificar, e que o próprio defeito sob
-investigação pode impedir de cumprir. Antes da desinstalação, o dono confirma o
-registro (cartão com data recente, ou `progress-backup-v1` no CloudKit Console,
-ambiente Production).
+O dono confirmou a precondição antes da desinstalação: **Backup no iCloud
+ligado**, último backup em **15/09/2026 às 21:08**, XP **100**, sequência de
+**1 dia**, trilha **11/14** e próximo passo **checkpoint**.
 
-Com o iPhone `available (paired)`, a captura roda inteira por `devicectl`:
-`uninstall app` → `install app` → `process launch --console`, que pega a
-primeira abertura desde o primeiro instante.
+Depois da desinstalação completa e instalação exclusiva desse build, sem tocar
+no toggle, fazer lição, revisão ou checkpoint, a primeira abertura apresentou:
 
-Nenhum evento de `pull`, estado visual ou conclusão foi observado nesta rodada.
+- Backup no iCloud ligado;
+- XP 100;
+- sequência de 1 dia;
+- trilha 11/14;
+- próximo passo checkpoint.
+
+O progresso foi restaurado automaticamente. Portanto, **o restore funcional da
+Passagem 1 passou**.
+
+A tentativa de capturar `startup`, `pull/inicio`, `pull/resultado` ou
+`pull/erro`, `restore` final e `ultimoErro` por
+`xcrun devicectl device process launch --console` terminou com
+`CoreDeviceError 3 / Mercury 1001`. Os logs JS internos ficaram
+**inconclusivos**. A evidência visual prova o resultado funcional, mas não
+autoriza escolher uma causa histórica entre as hipóteses da §2.
+
+### Defeito separado: `lastBackupAt` após restore utilizável
+
+Apesar do payload restaurado, o cartão passou de “Último backup em 15/09/2026
+às 21:08” para **“Nenhum backup ainda”**. A causa desse texto é determinística e
+separada da causa histórica: `executarRestore()` aplicava o remoto e gravava
+`enabled:true`/`decided:true`, mas não preenchia `lastBackupAt`. Em instalação
+limpa o campo permanecia `null`.
+
+Corrigido para preservar a data mais recente entre o estado local e
+`remoto.backup.savedAt`:
+
+```ts
+lastBackupAt: laterIso(state.lastBackupAt, remoto.backup.savedAt)
+```
+
+A cobertura inclui instalação limpa com remoto utilizável, data local mais
+recente, data remota mais recente e ausência de alteração indevida nos ramos
+`absent`, `incompatible` e `cloud-unavailable`. O teste consumidor do cartão
+confirma que uma data presente produz “Último backup em …”, não “Nenhum backup
+ainda”. A correção não foi instalada no aparelho: nenhum novo build foi gerado
+e a Passagem 2 não foi executada.
 
 ---
 
 ## 9. Riscos residuais
 
-1. **A causa raiz segue aberta.** A correção desta rodada pode não mudar o
-   comportamento em aparelho. Seguem não descartados o caminho de
-   startup/orquestração e o resultado real do `pull` na fronteira nativa.
-2. **O procedimento de captura não foi exercitado com o aparelho conectado.** Se
-   ele falhar, o build seguinte não produz evidência — e era esse o motivo de
-   documentá-lo antes de gastar outro build.
-2. Desligar com a nuvem fora deixa o registro remoto dizendo "ligado" — risco
+1. **A causa histórica exata segue aberta.** A captura interna da Passagem 1
+   falhou com `CoreDeviceError 3 / Mercury 1001`; o resultado funcional positivo
+   não permite reconstruir qual ramo interno foi tomado.
+2. **A correção de `lastBackupAt` só tem validação automatizada.** Não houve novo
+   build nem Passagem 2, por restrição explícita desta rodada.
+3. Desligar com a nuvem fora deixa o registro remoto dizendo "ligado" — risco
    registrado na rodada anterior, sem mudança aqui.
-3. Precisão e Tópicos seguem fora do payload, por decisão de escopo.
+4. Precisão e Tópicos seguem fora do payload, por decisão de escopo.
