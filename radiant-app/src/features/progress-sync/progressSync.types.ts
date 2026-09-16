@@ -11,6 +11,22 @@ import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 export type ProgressBackup = {
     schemaVersion: 1;
     savedAt: string;
+    /**
+     * A decisão de opt-in do dono do backup, guardada **no registro remoto**.
+     *
+     * Existe porque o estado local não sobrevive a uma reinstalação: sem a
+     * chave local, "nunca decidiu" e "desligou de propósito" ficam idênticos, e
+     * o app não tem como saber se deve restaurar. O registro remoto sabe, e é o
+     * único lugar que sobrevive ao uninstall.
+     *
+     * **Ausente significa ligado**, para compatibilidade com os registros que os
+     * builds anteriores gravaram sem este campo.
+     *
+     * Viaja dentro do payload, e não como campo do registro do CloudKit, de
+     * propósito: o módulo nativo trata o payload como string opaca, então isto
+     * não exige mudança em Swift nem nova validação em aparelho.
+     */
+    backupEnabled?: boolean;
     completedNodesByTrack: Record<string, string[]>;
     reviewSchedule: Record<string, SRCardStatePersisted>;
     totalXp: number;
@@ -18,9 +34,56 @@ export type ProgressBackup = {
     lastRefillAt: string | null;
 };
 
+/**
+ * Por que a leitura da nuvem tem TRÊS estados e não dois.
+ *
+ * Com `ProgressBackup | null`, "não existe registro" e "existe um registro que
+ * este binário não entende" colapsavam no mesmo `null` — e `backupNow` lê
+ * `null` como permissão para gravar por cima. Um backup criado por uma versão
+ * futura do app era destruído pelo snapshot local, dentro do mecanismo que
+ * existe justamente para não perder progresso.
+ *
+ * `incompatible` nunca pode virar `null`: é registro presente e intocável.
+ */
+export type IncompatibleReason =
+    /** O registro existe, mas não tem os campos que um backup precisa ter. */
+    | 'record-structure'
+    /** Envelope de uma versão que este binário não sabe ler. */
+    | 'payload-version'
+    /** O payload não é JSON válido. */
+    | 'corrupt'
+    /** JSON válido, mas o progresso dentro dele é de outro schema. */
+    | 'schema-version';
+
+export type PrivateCloudRead =
+    | { kind: 'absent' }
+    | { kind: 'usable'; backup: ProgressBackup }
+    | { kind: 'incompatible'; reason: IncompatibleReason };
+
 export interface PrivateCloudPort {
-    pull(): Promise<ProgressBackup | null>;
+    pull(): Promise<PrivateCloudRead>;
     push(snapshot: ProgressBackup): Promise<{ savedAt: string }>;
+}
+
+/**
+ * O registro remoto mudou entre a leitura e a escrita.
+ *
+ * Distinto de `CloudUnavailableError` porque a resposta é diferente: conflito
+ * se resolve refazendo o ciclo `pull → merge → push`, e indisponibilidade só
+ * se resolve esperando. O merge continua sendo do TypeScript — o lado nativo
+ * não abre o payload.
+ */
+export class CloudConflictError extends Error {
+    readonly code = 'cloud-conflict' as const;
+
+    constructor(message = 'O backup no iCloud mudou durante a gravação.') {
+        super(message);
+        this.name = 'CloudConflictError';
+    }
+}
+
+export function isCloudConflict(error: unknown): error is CloudConflictError {
+    return typeof error === 'object' && error !== null && (error as { code?: unknown }).code === 'cloud-conflict';
 }
 
 /** Lê e aplica o progresso local; o serviço nunca conhece as chaves de storage. */
@@ -42,10 +105,66 @@ export function isCloudUnavailable(error: unknown): error is CloudUnavailableErr
     return typeof error === 'object' && error !== null && (error as { code?: unknown }).code === 'cloud-unavailable';
 }
 
-export type BackupError = 'cloud-unavailable' | 'failed';
+/**
+ * `incompatible` é separado de `failed` de propósito: não é defeito nem falha
+ * transitória, é um backup mais novo que este app. A ação do usuário é
+ * diferente (atualizar o app), e apagar essa distinção esconderia de quem tem
+ * progresso na nuvem que ele está lá, intacto.
+ */
+export type BackupError = 'cloud-unavailable' | 'failed' | 'incompatible';
+
+/**
+ * A chamada a `cloud.pull()` observada em **três fases**, e a razão é de
+ * diagnóstico.
+ *
+ * A versão anterior emitia um único evento **depois** que o `pull` resolvia.
+ * Com isso, "nenhum evento de pull" significava duas coisas opostas: o `pull`
+ * nunca foi chamado, ou foi chamado e **lançou** antes de retornar — porque o
+ * serviço captura a exceção e ainda assim devolve um `BackupState`. A tabela de
+ * leitura do teste físico afirmava a primeira e ignorava a segunda.
+ *
+ * Com `inicio` emitido **antes** do `await`, a ausência dele passa a significar
+ * exatamente uma coisa: a fronteira não foi alcançada.
+ *
+ * Só metadado de decisão. Nunca payload, XP, nós, trilhas, agenda, `recordName`,
+ * identificador de CloudKit — nem `error.message`, que pode carregar detalhe do
+ * ambiente do usuário.
+ */
+export type OperacaoDePull = 'restore' | 'backup';
+
+/** Classificação do que impediu a leitura; nunca a mensagem original. */
+export type ErroDePull = 'cloud-unavailable' | 'failed';
+
+export type EventoDePull =
+    | { etapa: 'pull'; operacao: OperacaoDePull; fase: 'inicio' }
+    | {
+          etapa: 'pull';
+          operacao: OperacaoDePull;
+          fase: 'resultado';
+          kind: PrivateCloudRead['kind'];
+          /**
+           * `null` quando não há registro utilizável — e não `false`, para não
+           * confundir "não há o que ler" com "o dono desligou".
+           */
+          remoteBackupEnabled: boolean | null;
+      }
+    | { etapa: 'pull'; operacao: OperacaoDePull; fase: 'erro'; erro: ErroDePull };
+
+export type ObservadorDePull = (evento: EventoDePull) => void;
 
 export type BackupState = {
     enabled: boolean;
+    /**
+     * `false` enquanto NENHUMA decisão local existir — o caso da instalação
+     * limpa, em que a chave de storage sequer existe.
+     *
+     * Sem isto, `enabled: false` carregava duas situações opostas: "o dono
+     * desligou" (não mexa na nuvem) e "o app acabou de ser reinstalado" (leia a
+     * nuvem, o progresso está lá). O restore lia o segundo como o primeiro e
+     * devolvia antes de consultar o CloudKit — foi o defeito medido no iPhone
+     * em 2026-09-15.
+     */
+    decided: boolean;
     lastBackupAt: string | null;
     lastError: BackupError | null;
 };

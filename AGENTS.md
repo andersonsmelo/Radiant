@@ -172,6 +172,57 @@ os gates na íntegra e confira cada "X está ligado a Y" no código** — o
 relatório honesto ainda é a versão do autor. E ao escrever o relatório, cite a
 suíte inteira, não só as suítes tocadas.
 
+### Três lições de MEDIÇÃO, de 2026-09-15 (custaram três relatórios com números falsos)
+
+As três têm a mesma assinatura: tratar a medição local como equivalente à do
+gate sem conferir que eram **o mesmo comando, no mesmo ambiente, sobre os mesmos
+arquivos**.
+
+- **O gate é `EXPO_NO_DOTENV=1 npm run quality`, e nada menos.** Ele roda
+  `jest --runInBand` mais 15 contratos e o `visual:qa:strict`. Rodar `npx jest`
+  direto mede outra coisa: em paralelo, sem os contratos, e o paralelismo esconde
+  fragilidade de tempo que a banda única expõe. Medido: um teste passou local em
+  10/10 execuções paralelas e **reprovou duas vezes no mesmo SHA** no CI.
+- **Testes e builds do app são no Node 20; só o `loop` usa o 24.** Já estava
+  escrito acima, e mesmo assim exportar o PATH do 24 para os comandos `loop`
+  deixa o node **padrão** do shell em 24 — então todo `npx jest`, `npx tsc` e
+  `npx eslint` seguinte sai na versão errada sem aviso nenhum. Confira com
+  `node --version` antes de citar qualquer número.
+- **Árvore suja infla a contagem em silêncio.** Arquivos não commitados de outra
+  sessão entram na suíte local e o CI nunca os vê. Medido: 127 suítes / 1021
+  testes localmente contra **119 / 979** no conjunto rastreado — 8 suítes e 42
+  testes de diferença, e a "baseline" documentada carregava o mesmo vício, então
+  reproduzi-la e obter o mesmo número **não** confirmava nada: era uma medição
+  repetida, não duas. Para o número real, use worktree limpa:
+  `git worktree add --detach <tmp> origin/main`.
+
+**Corolário para este documento e para o `STATUS.md`:** um comando de remedição
+**errado** é pior que uma contagem velha. A contagem velha parece velha e
+desperta suspeita; o comando errado parece atual para sempre e fabrica o mesmo
+número falso para cada pessoa que o seguir. Ao escrever "remedir com", confira o
+comando contra `.github/workflows/`, que é a autoridade versionada.
+
+### `INVALID_SCOPE` é caminho fora da política, não caminho mal escrito
+
+`step begin` reprova quando o arquivo declarado está fora de
+`writePolicy.allowedRoots` no `.loop/project.yaml`. O envelope nomeia o arquivo
+em `data.source`, o que faz parecer erro de digitação ou de acento — não é. A
+lista **enumera os tipos de artefato que existiam quando foi escrita**, então o
+primeiro artefato de um tipo novo (primeiro módulo nativo, primeiro binário) cai
+fora dela por construção. Confira antes de declarar:
+
+```bash
+python3 -c "import yaml;print(yaml.safe_load(open('.loop/project.yaml'))['writePolicy']['allowedRoots'])"
+```
+
+E **esse erro deixa run órfão segurando o lock**: o `abrir.mjs` já criou o run e
+montou o contexto antes de o `step begin` reprovar, então ele fica em
+`context_ready` prendendo o escritor único, com o rastro de exceção do Node
+escondendo o envelope. Ache com `ls -t .loop/runs | head -1`, confirme o
+`state.json` e feche com `loop run close`: `context_ready → closed` é transição
+válida. Ampliar a política é decisão do dono, não pré-requisito mecânico — ela
+vale para todo agente futuro.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

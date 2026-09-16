@@ -24,6 +24,7 @@ import { SyncQueueService } from '../features/sync/SyncQueueService';
 import { StorageMigrationService } from '../features/storage-migration/StorageMigrationService';
 import { subscriptionService } from '../features/subscription/SubscriptionService';
 import { progressSyncService } from '../features/progress-sync/ProgressSyncService';
+import { restaurarBackupNaAbertura, type EventoDeAbertura } from '../features/progress-sync/startupRestore';
 import { TelemetryService } from '../features/telemetry/TelemetryService';
 import {
   initializeObservability,
@@ -49,6 +50,22 @@ SplashScreen.preventAutoHideAsync();
 export const unstable_settings = {
   anchor: '(tabs)',
 };
+
+/**
+ * Instrumentação da abertura do backup, para builds internos.
+ *
+ * Existe porque duas explicações diferentes produzem a MESMA tela depois de uma
+ * instalação limpa — "o restore não rodou" e "o restore rodou e a nuvem disse
+ * que não há registro" —, e sem isto não há como separá-las em aparelho.
+ *
+ * Só forma e decisão: etapa, se houve decisão local, se está ligado, se o pull
+ * foi tentado e como terminou. **Nunca** payload, nó, trilha, XP, data de
+ * estudo ou identificador de iCloud. Silenciosa em produção.
+ */
+function registrarAberturaDoBackup(evento: EventoDeAbertura): void {
+  if (AppConfig.APP_ENV === 'production') return;
+  console.log('[abertura:backup]', JSON.stringify(evento));
+}
 
 function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -172,9 +189,14 @@ function RootLayout() {
           });
         }
 
+        // O catálogo é resolvido uma vez e compartilhado: a hidratação da
+        // jornada depende dele para achar a definição de trilha, e chamá-lo de
+        // novo lá dentro pagaria o custo duas vezes na partida.
+        const catalogBootstrap = LessonCatalogService.bootstrap();
+
         await Promise.all([
           AuthService.bootstrap(),
-          LessonCatalogService.bootstrap(),
+          catalogBootstrap,
           firstRunBootstrapRef.current,
           // Independente do modo do kernel, de propósito. Num Dev Client a primeira
           // operação de storage resolve o AsyncStorage por chunk buscado por HTTP
@@ -203,8 +225,39 @@ function RootLayout() {
           subscriptionService.refresh(Date.now()).catch((error) => {
             console.error('[RootLayout] Falha ao reler a assinatura:', error);
           }),
-          progressSyncService.restoreOnLaunch(Date.now()).catch((error) => {
-            console.error('[RootLayout] Falha ao restaurar o backup:', error);
+          // O restore NÃO entra solto no paralelo, e a razão é de corretude,
+          // não de velocidade. `LocalProgressAdapter.applyJourney` só mescla
+          // trilhas que JÁ existem no storage local — inventar a trilha
+          // corromperia o progresso —, então, com `JOURNEY_PROGRESS` ainda
+          // ausente, ele devolve sem aplicar nada. Numa instalação nova, que é
+          // exatamente o caso em que o backup existe para servir, a jornada só
+          // hidratava quando alguma tela pedia, bem depois daqui: os nós
+          // concluídos restaurados sumiam sem erro, sem log e sem falhar o
+          // bootstrap, enquanto XP, sequência e agenda voltavam — um estado
+          // restaurado pela metade, que é pior que nenhum.
+          //
+          // A correção é a dependência real, não um atraso: nada de
+          // `setTimeout`. Hidrata a jornada (que depende do catálogo) e só
+          // então restaura. Continua best-effort: falha aqui é da nuvem, e o
+          // estudo local segue — por isso o `catch` fica no fim da cadeia.
+          // A orquestração saiu daqui de propósito: encadeada sob um único
+          // `.catch`, qualquer rejeição antes do último `.then` pulava o
+          // restore em silêncio, com o app abrindo normal — indistinguível de
+          // "não havia backup". E embutida num efeito ela era intestável: o
+          // único teste que existia mockava `restoreOnLaunch`.
+          //
+          // A espera do catálogo entra como parte da hidratação para que falha
+          // de catálogo também não cancele o restore — XP, sequência e agenda
+          // não dependem do currículo para voltar.
+          restaurarBackupNaAbertura({
+            lerEstado: () => progressSyncService.getState(),
+            chaveLocalExiste: () => progressSyncService.temEstadoPersistido(),
+            hidratarJornada: async () => {
+              await catalogBootstrap;
+              return JourneyProgressService.bootstrap();
+            },
+            restaurar: (nowMs, observar) => progressSyncService.restoreOnLaunch(nowMs, observar),
+            registrar: registrarAberturaDoBackup,
           }),
         ]);
         if (!active) {

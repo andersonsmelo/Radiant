@@ -28,6 +28,10 @@ jest.mock('../../content/services/LessonCatalogService', () => ({
     },
 }));
 
+jest.mock('../../progress-sync/ProgressSyncService', () => ({
+    progressSyncService: { backupNow: jest.fn() },
+}));
+
 const storage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 const mockedSpacedRepetitionService = SpacedRepetitionService as jest.Mocked<typeof SpacedRepetitionService>;
 const mockedLessonCatalogService = LessonCatalogService as jest.Mocked<typeof LessonCatalogService>;
@@ -290,5 +294,168 @@ describe('JourneyProgressService — avanço sequencial de trilha', () => {
         const next = await JourneyProgressService.bootstrap();
 
         expect(next.progress.activeTrackId).toBe('track-thorax-patterns');
+    });
+});
+
+
+// §8 do handoff de CloudKit: `backupNow()` existia sem caller de produção. O
+// funil é `markNodeCompleted` — lição, revisão, checkpoint e recompensa passam
+// todos por aqui —, então é aqui que "uma chamada por conclusão lógica" pode
+// ser afirmada de uma vez só. Conclusão lógica é a que MUDA o conjunto de
+// concluídos: guarda que recusa e toque repetido não são conclusão, e por isso
+// não pagam backup.
+describe('JourneyProgressService — backup best-effort na conclusão de nó', () => {
+    const storageState: Record<string, string> = {};
+    const { progressSyncService } = jest.requireMock('../../progress-sync/ProgressSyncService');
+    const backupNow = progressSyncService.backupNow as jest.Mock;
+
+    // Solta a microtask do backup, que é disparado sem `await` de propósito: a
+    // conclusão não pode esperar a rede.
+    const soltarBackup = () => new Promise((resolve) => setImmediate(resolve));
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        Object.keys(storageState).forEach((key) => delete storageState[key]);
+
+        storage.getItem.mockImplementation(async (key) => storageState[key] ?? null);
+        storage.setItem.mockImplementation(async (key, value) => {
+            storageState[key] = value;
+        });
+        storage.removeItem.mockImplementation(async (key) => {
+            delete storageState[key];
+        });
+
+        mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
+        mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+
+        backupNow.mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
+    });
+
+    it('dispara um backup por conclusão nova', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).toHaveBeenCalledTimes(1);
+        expect(backupNow).toHaveBeenCalledWith(expect.any(Number));
+    });
+
+    it('não dispara backup quando a guarda recusa um nó travado', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-2');
+        await soltarBackup();
+
+        expect(readStoredJourney().tracks['track-radiology-foundations'].completedNodeIds)
+            .not.toContain('node:foundation-2');
+        expect(backupNow).not.toHaveBeenCalled();
+    });
+
+    it('não dispara backup quando o nó não existe', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:inexistente');
+        await soltarBackup();
+
+        expect(backupNow).not.toHaveBeenCalled();
+    });
+
+    // P2-1 da revisão do PR #14. O gancho disparava só quando o nó ENTRAVA em
+    // `completedNodeIds`, e uma revisão que vence DE NOVO já está lá desde a
+    // primeira vez. A partir da segunda, a revisão atualizava a agenda SM-2 e
+    // concedia XP sem backup, e a nuvem ficava velha indefinidamente até o aluno
+    // concluir algum nó inédito.
+    //
+    // O discriminador correto já existia no estado: a fila
+    // `pendingReviewNodeIds`. Revisão legítima sai da fila — mudança real.
+    // Toque repetido não sai de nada, porque já saiu.
+
+    /** Deixa a revisão de `foundation-1` concluída uma vez e vencida de novo. */
+    async function revisaoVencidaDeNovo() {
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue(['foundation-1']);
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        // Vence outra vez: a hidratação repõe a fila a partir das lições
+        // devidas, independentemente do que já foi concluído.
+        const snapshot = await JourneyProgressService.bootstrap();
+        expect(snapshot.progress.completedNodeIds).toContain('node:review:foundation-1');
+        expect(snapshot.progress.pendingReviewNodeIds).toContain('node:review:foundation-1');
+        backupNow.mockClear();
+    }
+
+    it('dispara backup ao concluir uma revisão vencida que já fora concluída antes', async () => {
+        await revisaoVencidaDeNovo();
+
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+
+    it('não duplica o backup ao repetir a conclusão da mesma revisão', async () => {
+        await revisaoVencidaDeNovo();
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        // Concluir a revisão reagenda o cartão: a lição deixa de estar vencida,
+        // e a hidratação seguinte não a repõe na fila. Sem isto o dublê
+        // afirmaria que ela vence para sempre, e o segundo toque pareceria uma
+        // revisão nova — cenário que o SM-2 real não produz.
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        backupNow.mockClear();
+
+        // Segundo toque: já concluído E já fora da fila. Nada muda.
+        await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).not.toHaveBeenCalled();
+    });
+
+    it('a conclusão da revisão não espera a rede', async () => {
+        await revisaoVencidaDeNovo();
+        backupNow.mockReturnValue(new Promise(() => undefined));
+
+        const snapshot = await JourneyProgressService.markNodeCompleted('node:review:foundation-1');
+
+        expect(snapshot.progress.completedNodeIds).toContain('node:review:foundation-1');
+        expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+
+    it('não duplica o backup quando a mesma conclusão é repetida', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await soltarBackup();
+
+        expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+
+    it('conclui o nó mesmo quando o backup remoto falha', async () => {
+        backupNow.mockRejectedValue(new Error('CloudKit fora do ar'));
+        const erro = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        await JourneyProgressService.bootstrap();
+        const snapshot = await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await soltarBackup();
+
+        expect(snapshot.progress.completedNodeIds).toContain('node:foundation-1');
+        expect(readStoredJourney().tracks['track-radiology-foundations'].completedNodeIds)
+            .toContain('node:foundation-1');
+        erro.mockRestore();
+    });
+
+    it('não espera a rede: a conclusão resolve com o backup ainda pendente', async () => {
+        backupNow.mockReturnValue(new Promise(() => undefined));
+
+        await JourneyProgressService.bootstrap();
+        const snapshot = await JourneyProgressService.markNodeCompleted('node:foundation-1');
+
+        expect(snapshot.progress.completedNodeIds).toContain('node:foundation-1');
+        expect(backupNow).toHaveBeenCalledTimes(1);
     });
 });

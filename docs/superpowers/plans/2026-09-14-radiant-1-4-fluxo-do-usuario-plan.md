@@ -357,6 +357,26 @@ Commit: `feat(1.4): add subscription and private-backup contracts`.
 
 ### Task 8: Gate nativo, Sentry, E2E e preparação da versão
 
+> **Estado em 2026-09-15: a fatia CloudKit foi implementada; StoreKit, Sentry e
+> E2E não.** [PR #14](https://github.com/andersonsmelo/Radiant/pull/14), aberto.
+>
+> **Os caminhos planejados abaixo não foram os construídos**, e a divergência é
+> deliberada:
+>
+> | Planejado | Construído | Por quê |
+> | --- | --- | --- |
+> | `plugins/with-radiant-icloud.js` | `app.json` → `ios.entitlements` | um config plugin era desnecessário: o Expo aceita os entitlements direto no app config, e `ios/` é gitignorado, então o contrato tem de afirmar sobre a fonte versionada |
+> | `ICloudPrivateDatabaseAdapter.ts` | `CloudKitPrivateAdapter.ts` + `modules/radiant-cloudkit/` | nenhuma biblioteca RN/Expo de CloudKit qualificou (as duas candidatas têm ~5 estrelas e alargam a superfície de entitlements além do desenho aprovado), então foi módulo Expo local mínimo, com **zero dependências npm** |
+> | `ExpoIapStoreKitAdapter.*` | — | fora do escopo desta fatia; `expo-iap` continua não instalado |
+> | `.maestro/radiant-1-4-*.yaml` | — | E2E não iniciado |
+>
+> A leitura da nuvem também ganhou forma que o plano não previa: `pull()` devolve
+> **três** estados (`absent`/`usable`/`incompatible`) em vez de `Backup | null`,
+> porque o sentinela único fazia registro ilegível ser lido como ausente e
+> autorizava sobrescrevê-lo. Três rodadas de revisão independente, cinco achados,
+> todos corrigidos — o histórico está no
+> [relatório do slice CloudKit](../handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
 **Files:**
 - Create: `radiant-app/src/features/subscription/ExpoIapStoreKitAdapter.ts`
 - Create: `radiant-app/src/features/subscription/ExpoIapStoreKitAdapter.test.ts`

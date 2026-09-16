@@ -43,14 +43,50 @@ push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade em
 [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
-### AGENTE — 1.4: plano e execução do fluxo do usuário
+### CONCLUÍDO — 1.4: Tasks 1–7 e a fatia CloudKit da Task 8
 
-Seguir o prompt de continuidade inteiro. Fase A: plano em
-`docs/superpowers/plans/`, sequência da §12 da spec. Fase B: uma tarefa por
-run, TDD, testes de tela na configuração de produção. Fase C: relatório em
-`docs/superpowers/handoffs/`. Não faz build, envio nem push. Itens do dono
-(acordo de apps pagos, produto e preço, entitlement do iCloud, DSN do Sentry)
-entram no relatório como pendentes.
+Tasks 1–7 entregues e revisadas em 2026-09-14. A **fatia CloudKit da Task 8**
+foi implementada em 2026-09-15 e está no
+[PR #14](https://github.com/andersonsmelo/Radiant/pull/14), **aberto e não
+mergeado**, com CI verde e as três threads de revisão resolvidas. Relatório em
+[`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
+**Implementado ≠ validado nativamente:** nenhuma linha do Swift foi compilada.
+
+### DONO — destravar o que só você pode
+
+Nesta ordem, porque a terceira depende de a primeira ter acontecido:
+
+1. **Regenerar o provisioning profile.** A Apple invalidou os antigos ao mudar a
+   capability iCloud. `eas credentials -p ios` → perfil → Build Credentials.
+2. ✅ **Build interno autorizado e gerado em 2026-09-16** —
+   `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, do commit
+   `7c4a841`. Instalar **pelo link do EAS**: ele é `1.3.1 (11)`, idêntico aos
+   anteriores na tela de Ajustes.
+
+   ⛔ **A medição está travada numa precondição sua.** Apagar o app destrói o
+   progresso local, e a recuperação depende de haver backup remoto válido — que
+   é exatamente o que o defeito sob investigação pode impedir de voltar. Antes
+   de desinstalar, confirme o cartão **Backup no iCloud** com data recente, ou o
+   registro `progress-backup-v1` no CloudKit Console em **Production**.
+3. **Deploy Schema to Production** no CloudKit Console, **antes** de submeter a
+   1.4 — e só depois do primeiro build físico gravar um backup, porque o CloudKit
+   cria schema automaticamente **só em Development**. Pular isso produz um app
+   aprovado que escreve num schema inexistente, falhando apenas em produção e em
+   silêncio.
+4. **DSN do Sentry** no perfil `production` (`npx eas env:list --environment production`
+   devolvia vazio em 2026-09-15).
+
+### AGENTE — o que sobrou da Task 8
+
+Só depois de o dono destravar os itens acima, e **um por run**: adaptador
+StoreKit real com os Product IDs já fixados em
+[ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md) (`expo-iap`
+ainda não instalado); Sentry com configuração mínima, sem IP e sem
+identificador; `QuizTopBar` mostrando ∞ para assinante; bump para `1.4.0`; E2E
+dos três caminhos dourados; e o checklist de declarações à loja (spec §9).
+
+Não faz build, envio nem push sem autorização datada.
 
 ---
 

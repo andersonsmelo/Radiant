@@ -1570,13 +1570,52 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   `StoreKitPort`/`PrivateCloudPort` com adaptadores padrão indisponíveis; tela
   `/subscription` e cartões Assinatura e Backup no iCloud no Perfil. Evidência:
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
-- **K6 [P0 — BLOQUEADA PELOS GATES DO DONO, medido em 2026-09-14]** Ligar
-  StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e tamanho
-  antes de qualquer submissão. Não iniciada: faltam autorização de build
-  interno, acordo de apps pagos aceito, ids/preços mensal e anual, entitlement
-  iCloud + credencial EAS e DSN Sentry. Nada nativo foi instalado ou versionado.
-  Pendências e ordem de ligação no
-  [relatório de execução](../superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md).
+- **K6 [PARCIAL — fatia CloudKit implementada em 2026-09-15; StoreKit e Sentry
+  não iniciados]** Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade,
+  desempenho e tamanho antes de qualquer submissão.
+
+  **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
+  aberto, não mergeado): entitlements do container
+  `iCloud.com.ascendcreative.radiant` no app config com contrato anti-regressão;
+  `CloudKitPrivateAdapter` atrás do `PrivateCloudPort`; **módulo Expo local em
+  Swift versionado** em `radiant-app/modules/radiant-cloudkit`, sem nenhuma
+  dependência npm nova; `backupNow()` ligado à conclusão de nó; ordem de
+  restore/hidratação corrigida na partida. Em 2026-09-16, a **Passagem 1
+  funcional passou** no iPhone: após instalação limpa, sem tocar no toggle, o
+  app restaurou automaticamente backup ligado, XP 100, sequência de 1 dia,
+  trilha 11/14 e próximo passo checkpoint. A captura JS interna ficou
+  inconclusiva por `CoreDeviceError 3 / Mercury 1001`, portanto a causa
+  histórica exata não foi comprovada. Na **Passagem 2 física**, usando o mesmo
+  build, o dono desligou o backup, o app ficou 30 segundos em foreground e foi
+  então removido e reinstalado. Sem tocar novamente no toggle, a instalação
+  limpa mostrou backup OFF, XP 0, trilha 0/14 e a primeira lição como próximo
+  passo; o backup antigo não voltou. **Passagem 2: PASS.** A leitura direta de
+  `backupEnabled:false` no registro privado não estava disponível; a evidência
+  foi funcional. Detalhes e riscos no
+  [relatório do slice CloudKit](../superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
+  > ⚠️ **Resultado funcional ≠ diagnóstico interno completo.** O Swift foi
+  > compilado e o restore foi comprovado em aparelho real, mas os eventos
+  > internos não foram recuperados. Depois da medição foi encontrado um defeito
+  > separado e determinístico: o restore utilizável não propagava
+  > `backup.savedAt` para `lastBackupAt`, fazendo o cartão dizer “Nenhum backup
+  > ainda” apesar do progresso restaurado. A correção preserva a data mais
+  > recente entre estado local e remoto e tem cobertura automatizada. Não houve
+  > novo build; a Passagem 2 mediu o opt-out no build anterior e não valida essa
+  > correção de metadado/UI.
+
+  **Gates do dono que abriram em 2026-09-15:** acordo de apps pagos aceito,
+  ids e preços mensal/anual fixados
+  ([ADR](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)), e
+  capability iCloud + container criados
+  ([ADR](../adr/ADR-2026-09-15-cloudkit-private-backup.md)).
+
+  **Ainda faltam:** DSN do Sentry em `production`; autorização datada de build
+  interno; regeneração do provisioning profile, que a Apple invalidou ao mudar a
+  capability; e **Deploy Schema to Production** no CloudKit Console antes da
+  submissão — o CloudKit cria schema automaticamente só em Development, e pular
+  esse passo produz um app aprovado que escreve num schema inexistente, falhando
+  apenas em produção e em silêncio. StoreKit 2 e Sentry seguem não iniciados.
 
 ## 7. Recursos necessários
 

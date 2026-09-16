@@ -366,6 +366,304 @@ carrega o pacote inteiro.
    de `main` para `569bdad` e um build interno (`preview`) para ver vidas e
    motor no aparelho antes do trabalho nativo.
 
+   **Slice CloudKit da Task 8 implementado em 2026-09-15**, na branch
+   `feat/1-4-cloudkit-private-backup`, aberta de `origin/main` em `b3b4c46`.
+   StoreKit e Sentry ficaram fora desta execução, de propósito. Relatório
+   completo em
+   [`superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md`](superpowers/handoffs/2026-09-15-radiant-1-4-relatorio-cloudkit.md).
+
+   Gates medidos em **2026-09-15** (número corrigido depois; ver o bloco do CI
+   adiante): **119 suítes / 979 testes verdes** no conjunto rastreado, contra
+   **117/916** em `origin/main`, `tsc --noEmit` exit 0, ESLint 0 erros / 24 avisos — mesmo número de
+   avisos da baseline. Remedir com:
+
+   Remedir com o **gate real**, que é o mesmo comando que o CI executa — não
+   `npx jest` solto, que roda em paralelo, ignora os 15 contratos e, na árvore
+   suja, conta arquivos que o repositório remoto não tem:
+
+   ```bash
+   cd radiant-app && nvm use 20 && EXPO_NO_DOTENV=1 npm run quality
+   ```
+
+   O que entrou: entitlements do container `iCloud.com.ascendcreative.radiant`
+   com serviço `CloudKit` em `expo.ios.entitlements`, guardados por contrato
+   estático que também afirma as **ausências** (sem iCloud Documents, sem
+   ubiquity, sem `icloud-container-environment` fixado);
+   `CloudKitPrivateAdapter` atrás do `PrivateCloudPort` com os sete estados de
+   erro degradando para local; módulo Expo local em Swift
+   (`radiant-app/modules/radiant-cloudkit`), **sem nenhuma dependência npm
+   nova**; `backupNow()` ligado à conclusão de nó em
+   `JourneyProgressService.markNodeCompleted`.
+
+   🔴 **Um defeito de perda silenciosa foi corrigido, e vale registrar porque
+   não aparecia em teste nem em log.** `restoreOnLaunch` corria no `Promise.all`
+   do bootstrap enquanto `LocalProgressAdapter.applyJourney` só mescla trilhas
+   já presentes no storage, e `JourneyProgressService.bootstrap()` só era
+   chamado ao terminar as boas-vindas. Em **instalação nova** — o único caso em
+   que o backup serve — os nós concluídos restaurados eram descartados sem erro,
+   enquanto XP, sequência e agenda voltavam: restauração pela metade com
+   aparência de sucesso. Agora o restore encadeia depois da hidratação, por
+   dependência real e não por atraso.
+
+   **Três gates humanos seguem abertos e nenhum é meu:** (1) regenerar o
+   provisioning profile, que a Apple invalidou ao habilitar a capability iCloud
+   (`eas credentials -p ios` → perfil → Build Credentials); (2) autorização
+   datada para um build interno; (3) **Deploy Schema to Production** no CloudKit
+   Console, obrigatório antes da submissão da 1.4 — o CloudKit cria schema
+   automaticamente só em Development, e pular isso produz um app aprovado que
+   escreve num schema inexistente, falhando apenas em produção e de forma
+   silenciosa.
+
+   ⚠️ **Superado em 2026-09-15 pela validação física — ver o bloco adiante.** O
+   texto original desta linha dizia que nenhuma linha do Swift havia sido
+   compilada; isso deixou de valer quando o build interno rodou no iPhone.
+
+   ✅ **VALIDADO NATIVAMENTE em 2026-09-15, com defeito encontrado.** Medido em
+   iPhone físico pelo dono: capability iCloud habilitada no App ID
+   `com.ascendcreative.radiant`, container `iCloud.com.ascendcreative.radiant`,
+   provisioning Ad Hoc regenerado, iPhone registrado, build interno EAS
+   `45abf4fd-a765-4c1d-94d3-1de5bda3db4f` instalado, schema `ProgressBackup`
+   implantado em **Production**. O módulo Swift **compilou e executou**; escrita
+   e leitura reais no CloudKit funcionaram.
+
+   🔴 **O teste de instalação limpa reprovou.** Com XP 100, trilha 11/14 e
+   backup ligado, apagar o app e reinstalar o mesmo build devolveu: backup
+   desligado, XP 0, trilha 0/14, sem restauração automática. Ligar o interruptor
+   à mão trouxe XP, sequência e trilha de volta — o que **prova que o registro
+   remoto estava íntegro** e que `pull`, merge e `apply` funcionam. O defeito era
+   o **gatilho**, não o backup.
+
+   **Causa raiz:** `parseState(null)` devolvia `{enabled:false}`, idêntico ao
+   estado de quem desligou de propósito, e `executarRestore` retornava antes do
+   `pull` nos dois casos. A prova já estava no repositório e estava **verde**: o
+   teste `desligado, não toca a nuvem nem o local` usava storage vazio — que é
+   literalmente uma instalação limpa — e afirmava que a nuvem não é consultada.
+
+   **Corrigido em 2026-09-15** (commit `4d0036e`): `BackupState` ganhou
+   `decided`, e a decisão de opt-in passou a morar no **registro remoto**
+   (`backupEnabled`), único lugar que sobrevive ao uninstall; ausente significa
+   ligado, por compatibilidade. O campo viaja dentro do payload JSON, que o
+   módulo nativo trata como string opaca — **zero mudança em Swift**. Desligar
+   passa a marcar `false` remoto preservando o payload.
+
+   🔴 **REPROVADO EM APARELHO em 2026-09-15, na segunda validação física.** O
+   build interno `b86cb497-0a7c-4b12-9437-e5feaa3046a5`, gerado do commit
+   `460b398` — que **continha** a correção do opt-in remoto —, falhou no mesmo
+   ponto: apagar, reinstalar e abrir sem tocar em nada devolveu backup OFF,
+   "Nenhum backup ainda", XP 0 e trilha 0/14. **Nenhum restore automático.**
+
+   **O que a mesma sessão provou estar funcionando.** No mesmo app aberto, sem
+   reinstalar e sem reiniciar, ligar o interruptor à mão restaurou tudo na hora:
+   XP 100, sequência 1 dia, trilha 11/14, próximo passo checkpoint, backup às
+   21:08. Portanto estão comprovados em aparelho: acesso ao container, CloudKit
+   privado, registro remoto íntegro, módulo nativo, `pull`, merge, `apply` e
+   atualização da UI. **O defeito restante está no caminho automático de
+   abertura**, não no backup.
+
+   **Descartado com medição:** não há update OTA publicado no canal `preview`
+   (`channel:view` devolveu tudo N/A), e `StorageMigrationService` não escreve
+   `STORAGE_KEYS.PROGRESS_BACKUP` — `PEDAGOGICAL_STORAGE_KEYS` não a contém.
+
+   ⚠️ **Estado: REPROVADO EM APARELHO · CloudKit funcional · restore manual
+   confirmado · restore automático de instalação limpa ainda falha · causa raiz
+   em investigação.** A correção anterior do opt-in remoto continua válida e
+   necessária, mas **não era suficiente**.
+
+   **O que a investigação de 2026-09-16 encontrou — e o que NÃO encontrou.**
+
+   🔴 **A causa raiz do que ocorreu no aparelho continua NÃO COMPROVADA.** Duas
+   explicações produzem exatamente a mesma tela e a tela não as distingue: (a) o
+   restore não rodou, e o estado nunca foi escrito; (b) o restore rodou e o
+   `pull` devolveu `absent`, caminho que grava `{decided:true, lastError:null}`
+   e produz cartão idêntico — OFF, "Nenhum backup ainda", sem mensagem de erro.
+   A hipótese de que a hidratação da jornada rejeitava foi **testada e não se
+   sustenta**: `JourneyDefinitionService.getTrackDefinition` não lança com
+   catálogo vazio, devolve uma jornada vazia.
+
+   ✅ **Um defeito estrutural real foi encontrado e corrigido.** A orquestração
+   no `RootLayout` encadeava catálogo → hidratação → restore sob **um único
+   `.catch`**: qualquer rejeição antes do último `.then` pulava o restore
+   inteiro, em silêncio, com o app abrindo normalmente. Extraída para
+   `restaurarBackupNaAbertura`, com falhas isoladas por etapa — hidratação ou
+   catálogo que falhem não cancelam mais o restore. Isso é necessário e correto,
+   mas **não está provado que era o que acontecia no iPhone**.
+
+   ✅ **A camada de serviço está provada correta**, por teste de integração com
+   `ProgressSyncService` **real**, storage genuinamente vazio e porta de nuvem
+   falsa, sem mockar `restoreOnLaunch`: instalação limpa chega ao `cloud.pull`,
+   aplica o remoto, termina `enabled:true`/`decided:true`, e **nunca** envia
+   snapshot vazio antes de ler. O teste anterior, que mockava `restoreOnLaunch`,
+   provava apenas que o mock seria chamado.
+
+   Seguem **não descartados** o caminho de startup/orquestração e o resultado
+   real do `pull` na fronteira nativa. Por isso entrou instrumentação mínima na
+   abertura, ativa apenas fora de produção, registrando **somente forma e
+   decisão**. Nunca payload, nó, trilha, XP ou identificador de iCloud — há
+   teste afirmando essa ausência.
+
+   ⚠️ **Correção da própria instrumentação em 2026-09-16, após revisão
+   independente.** A primeira versão afirmava que `restore ok:true` com
+   `ligado:false` significaria `pull absent` — e isso **não era demonstrável**:
+   registro ausente e registro com opt-out remoto terminam no mesmo estado
+   local. O resultado passou a ser observado **no ponto da chamada** de
+   `cloud.pull()`, com `kind` e `remoteBackupEnabled`, e há teste provando que
+   os dois casos produzem eventos de `pull` distintos. O campo que dizia
+   `chaveLocalExiste` era preenchido com `decided`, que vem do conteúdo e não
+   prova existência da chave; agora há medição física, e o campo derivado do
+   conteúdo chama-se `decisaoLocalRegistrada`.
+
+   O procedimento de captura dos eventos no iPhone está documentado no handoff
+   (`devicectl process launch --console`, com Console.app como alternativa),
+   porque um build sem evidência recuperável não vale o custo.
+
+   ⚠️ **Segunda correção da instrumentação, 2026-09-16.** A versão anterior
+   emitia o evento de `pull` **depois** que a chamada resolvia, então "nenhum
+   evento de pull" cobria dois diagnósticos opostos: o `pull` não foi chamado,
+   ou foi chamado e **lançou** — o serviço captura a exceção e devolve
+   `BackupState` de qualquer forma. A tabela de leitura afirmava só o primeiro.
+   O `pull` passou a ser observado em **três fases** (`inicio` antes do `await`,
+   depois `resultado` **ou** `erro` classificado), e o erro é relançado para não
+   mudar a semântica. Numa captura íntegra, a ausência de `inicio` significa que
+   a fronteira não foi alcançada; uma captura que falha não autoriza essa
+   conclusão.
+
+   ✅ **Passagem 1 funcional APROVADA no iPhone em 2026-09-16.** Foi usado o
+   build interno `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, iOS,
+   distribuição interna, concluído às 12:10 de 2026-09-16. O EAS confirma `Commit`
+   `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83` — gerado de worktree limpa, sem as
+   alterações não commitadas de outra sessão que estão na árvore de trabalho.
+
+   > ⚠️ Este build é `1.3.1 (11)`, **idêntico aos dois anteriores** na tela de
+   > Ajustes. Só o `Commit` os separa. Instalar pelo link do EAS, nunca pela
+   > versão, sob risco de medir o binário errado.
+
+   A precondição foi confirmada pelo dono antes da desinstalação: backup ligado,
+   último backup em 15/09/2026 às 21:08, XP 100, sequência de 1 dia, trilha
+   11/14 e próximo passo checkpoint. Depois da instalação limpa, sem tocar no
+   toggle e sem executar lição, revisão ou checkpoint, a primeira abertura
+   restaurou automaticamente **backup ligado, XP 100, sequência de 1 dia,
+   trilha 11/14 e próximo passo checkpoint**. Portanto o restore funcional da
+   Passagem 1 passou.
+
+   A captura JS interna por `devicectl process launch --console` ficou
+   **inconclusiva**: o canal terminou com `CoreDeviceError 3 / Mercury 1001` e
+   não forneceu a sequência obrigatória de eventos. Isso não invalida a medição
+   visual, mas também não comprova a causa histórica exata; ela segue aberta.
+
+   ⚠️ **Defeito separado e determinístico encontrado após a medição.** Num
+   estado local limpo, o restore aplicava corretamente o payload remoto e
+   gravava `enabled:true`/`decided:true`, mas deixava `lastBackupAt:null`. Por
+   isso o cartão mostrava **“Nenhum backup ainda”** embora o progresso tivesse
+   voltado. `ProgressSyncService` agora mescla
+   `state.lastBackupAt` com `remoto.backup.savedAt` e preserva a data mais
+   recente. Há cobertura para remoto utilizável em instalação limpa, datas
+   local/remota em ambas as ordens e preservação nos ramos `absent`,
+   `incompatible` e `cloud-unavailable`; o teste consumidor confirma que uma
+   data presente renderiza **“Último backup em …”**. A correção está no commit
+   `45d465` — o HEAD de código aprovado antes deste fechamento documental — e
+   seus testes/CI estão verdes, mas ainda não foi validada no aparelho porque
+   não foi colocada em novo build.
+
+   ✅ **Passagem 2 física APROVADA no iPhone em 2026-09-16.** Foi reinstalado
+   exclusivamente o mesmo build EAS
+   `69d77f13-39bc-46f0-a925-29eb3e568330`, cujo commit confirmado pelo EAS é
+   `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83`; nenhum build novo foi gerado.
+   Antes do opt-out, a medição visual mostrou backup ligado, cartão “Nenhum
+   backup ainda”, XP 100, sequência de 1 dia e trilha 11/14. O próximo item
+   efetivamente exibido era uma **revisão pendente**, divergindo do checkpoint
+   registrado na Passagem 1. Após o dono desligar o toggle, uma reconexão do
+   espelhamento confirmou o estado OFF. Não havia leitura segura do registro
+   privado disponível; por isso foi usado o fallback autorizado de manter o
+   app em foreground por 30 segundos (17:22:45–17:23:15, −03) antes do
+   uninstall.
+
+   A reinstalação completa e a primeira abertura por `devicectl` ocorreram às
+   17:25:11 (−03). Sem tocar no toggle e sem iniciar lição, revisão ou
+   checkpoint, o app permaneceu 30 segundos no onboarding de instalação limpa.
+   Depois de pular o onboarding, exibiu **Backup no iCloud OFF, XP 0, trilha
+   0/14 e “Fundamentos de Radiologia” como primeira lição/próximo passo**; o
+   backup antigo 11/14 não voltou. A sequência continuou em 1 dia porque esse é
+   o valor inicial do estado local novo (`GamificationService` inicializa
+   `streakDays: 1`), não evidência de restore. Resultado conforme a tabela
+   aprovada: **PASS**. O campo remoto `backupEnabled:false` não foi inspecionado
+   diretamente no CloudKit Console; a evidência é funcional, pelo estado que
+   sobreviveu ao uninstall/reinstall.
+
+   **Divergência registrada, não implementada:** Precisão e Tópicos continuam
+   vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que
+   a **spec §7 deixa deliberadamente fora** do payload de backup. A hipótese do
+   handoff de validação — de que dependiam de `reviewHistory` — está **errada**;
+   `LearningStatsService` lê `LearningAttemptsRepository`, um store separado.
+   Incluí-lo é decisão de produto, não correção de defeito.
+
+   Gates depois desta rodada, medidos em 2026-09-15 com o gate real
+   (`npm run quality`, Node 20): os 16 passos, exit 0, `visual:qa:strict` com 0
+   regressões; conjunto rastreado **119 suítes / 1015 testes**.
+
+   🔴 **Revisão independente do PR #14, em 2026-09-15, achou dois caminhos de
+   perda de progresso dentro do próprio mecanismo antiperda — ambos corrigidos.**
+   (1) `pull()` devolvia `null` tanto para "não existe registro" quanto para
+   "existe registro que este binário não lê", e `backupNow` lê `null` como
+   permissão para gravar por cima: um backup de versão futura era destruído pelo
+   snapshot local. Corrigido com união discriminada de três estados
+   (`absent`/`usable`/`incompatible`), que faz o compilador obrigar cada
+   consumidor a decidir. (2) O Swift resolvia `serverRecordChanged` escrevendo
+   por cima do registro do servidor — last-write-wins cego sobre um JSON opaco,
+   que apaga progresso mais novo de outro aparelho. Agora o conflito volta ao
+   TypeScript, que refaz `pull → merge → push` em até 3 tentativas, com fila
+   serializando as operações do aparelho.
+
+   **Lição para as próximas revisões:** os testes anteriores *afirmavam o
+   defeito como comportamento correto*, com comentário justificando, porque
+   foram escritos a partir do mesmo modelo mental da implementação. Um erro de
+   modelo é invisível para testes que codificam o modelo — a prova precisa ficar
+   no nível do consumidor que age sobre o valor.
+
+   🔴 **Segunda revisão, mesmo dia: o defeito reapareceu um nível abaixo.** A
+   união de três estados estava certa, mas o produtor abaixo dela não foi
+   auditado — o Swift devolvia `nil` quando o registro **existia** sem `payload`
+   ou sem `savedAt`, e `nil` significa "não existe registro", então o serviço
+   gravava do zero por cima de um registro real. Corrigido: `nil` reservado ao
+   `catch` de `CKError.unknownItem`, com um único `return nil` executável no
+   módulo; o Swift devolve envelope cru e a classificação estrutural passou para
+   o TypeScript, onde é testável. **Lição:** apertar um contrato cria uma
+   obrigação que todo produtor anterior antecede, e a linha que traduz o
+   sentinela antigo para o vocabulário novo type-checa enquanto afirma a
+   equivalência que a correção existia para negar.
+
+   ✅ **Os dois achados P2 foram corrigidos na rodada final de 2026-09-15.**
+   (1) `backupNow()` deixava de disparar na conclusão de revisão **recorrente**,
+   porque o nó já estava em `completedNodeIds` desde a primeira vez — a partir da
+   segunda, a revisão atualizava SM-2 e XP sem backup. O discriminador correto já
+   existia no estado e não era lido: `pendingReviewNodeIds`, de onde a revisão
+   legítima sai e o toque repetido não. (2) `ehProgressBackup` aceitava qualquer
+   objeto não nulo nas coleções aninhadas, deixando payload corrompido passar como
+   `usable` — o estado que autoriza mesclar sobre o local; uma string em
+   `completedNodesByTrack` virava nós de um caractere no spread da mescla, e `NaN`
+   em `interval` envenenava o agendamento sem lançar. Validação profunda com 12
+   casos corrompidos e **6 contrapontos válidos**, para a correção não virar
+   "rejeita tudo".
+
+   🔴 **O gate do CI reprovou depois da terceira rodada, e isso corrigiu os
+   números de todas elas.** A falha era
+   `LessonFlowScreen — assinante com contagem zero não é pausado`, duas vezes no
+   mesmo SHA. Causa medida: a asserção usa `waitFor` com timeout padrão de
+   1000 ms, cada ciclo de polling custa ~340 ms e a tela precisa de dois flushes,
+   então a condição só vira verdadeira entre 714 e 1488 ms. Em worktrees limpas,
+   `origin/main` tem a **mesma** distribuição (pior caso 1488 ms, contra 968 ms
+   desta branch): a fragilidade é anterior e independe do CloudKit. Corrigido com
+   um `act` vazio antes do `waitFor` — 2 ms, sem mexer em timeout.
+
+   ⚠️ **As contagens de teste reportadas nas três rodadas estavam contaminadas.**
+   Elas incluíam 8 suítes / 42 testes de arquivos do Currículo V3 não commitados
+   de outra sessão, e foram medidas com `npx jest` no Node 24 em vez de
+   `npm run quality` no Node 20, que é o gate real. Números corretos do conjunto
+   rastreado, medidos em worktrees limpas em 2026-09-15: `origin/main` =
+   **117 suítes / 916 testes**; branch da 1.4 CloudKit = **119 suítes /
+   1000 testes** depois da rodada final dos P2. Gate real completo
+   (`npm run quality`, Node 20): os 16 passos, exit 0, `visual:qa:strict` com 0
+   regressões.
+
    **Inventário ampliado em 2026-08-27:** o [atlas das aulas](content/mapa-aulas/README.md)
    separa 18 aulas legadas, 12 atividades promovidas, 72 nós construídos na
    trilha e 96 pacotes editoriais. Os 48 cartões editoriais não alimentam a

@@ -112,7 +112,14 @@ jest.mock('../subscription/SubscriptionService', () => ({
 }));
 
 jest.mock('../progress-sync/ProgressSyncService', () => ({
-  progressSyncService: { restoreOnLaunch: jest.fn() },
+  progressSyncService: {
+    restoreOnLaunch: jest.fn(),
+    // A orquestração da abertura também lê o estado e mede a existência
+    // física da chave; sem eles o dublê falharia nessas chamadas e o erro
+    // ficaria escondido no `catch` de cada etapa.
+    getState: jest.fn(),
+    temEstadoPersistido: jest.fn(),
+  },
 }));
 
 jest.mock('../storage-migration/StorageMigrationService', () => ({
@@ -194,6 +201,15 @@ function snapshotWith(nextRecommendedNode: unknown) {
   return { nextRecommendedNode } as Awaited<ReturnType<typeof JourneyProgressService.bootstrap>>;
 }
 
+// A partida passou a hidratar a jornada de propósito (ver "só restaura o backup
+// depois de a jornada hidratar"), então a contagem CRUA de `bootstrap` deixou de
+// isolar o caminho de saída das boas-vindas — havia duas origens somadas no
+// mesmo número. Os casos da saída medem o delta a partir do toque: o que eles
+// garantem é a consulta feita pela saída, e essa garantia continua exata.
+function journeyBootstrapCalls(): number {
+  return (JourneyProgressService.bootstrap as jest.Mock).mock.calls.length;
+}
+
 describe('gate de abertura em RootLayout', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -211,7 +227,11 @@ describe('gate de abertura em RootLayout', () => {
     (jest.requireMock('../subscription/SubscriptionService').subscriptionService.refresh as jest.Mock)
       .mockResolvedValue({ kind: 'none' });
     (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.restoreOnLaunch as jest.Mock)
-      .mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
+      .mockResolvedValue({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
+    (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.getState as jest.Mock)
+      .mockResolvedValue({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
+    (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.temEstadoPersistido as jest.Mock)
+      .mockResolvedValue(false);
     (SyncQueueService.flush as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.track as jest.Mock).mockResolvedValue(undefined);
     (TelemetryService.captureError as jest.Mock).mockResolvedValue(undefined);
@@ -277,8 +297,37 @@ describe('gate de abertura em RootLayout', () => {
 
     expect(await screen.findByTestId('stack-root')).toBeTruthy();
     expect(subscriptionService.refresh).toHaveBeenCalledWith(expect.any(Number));
-    expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number));
+    expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number), expect.any(Function));
     expect(TelemetryService.captureError).not.toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ phase: 'root_layout_bootstrap' }));
+  });
+
+  // §9 do handoff de CloudKit: o restore depende da jornada já hidratada.
+  // `LocalProgressAdapter.applyJourney` só mescla trilhas que já existem no
+  // storage local; quando `JOURNEY_PROGRESS` ainda não foi escrito ele devolve
+  // sem aplicar nada, e o progresso restaurado some sem erro e sem log. Numa
+  // instalação nova — exatamente o caso em que o backup existe para servir — a
+  // jornada só hidratava quando alguma tela pedia, bem depois da partida. A
+  // ordem aqui é dependência real, não atraso: nada de timer, o restore
+  // encadeia depois da hidratação.
+  it('só restaura o backup depois de a jornada hidratar', async () => {
+    const { progressSyncService } = jest.requireMock('../progress-sync/ProgressSyncService');
+    let releaseJourney: (() => void) | undefined;
+    (JourneyProgressService.bootstrap as jest.Mock).mockReturnValue(
+      new Promise(resolve => {
+        releaseJourney = () => resolve(snapshotWith(LESSON_NODE));
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+
+    await waitFor(() => expect(JourneyProgressService.bootstrap).toHaveBeenCalled());
+    expect(progressSyncService.restoreOnLaunch).not.toHaveBeenCalled();
+
+    releaseJourney?.();
+
+    await waitFor(() =>
+      expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number), expect.any(Function)),
+    );
   });
 
   it('abre o app e informa a recuperação sem bloquear o modo local', async () => {
@@ -428,6 +477,7 @@ describe('gate de abertura em RootLayout', () => {
     renderWithProviders(<RootLayout />);
 
     const finishButton = await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    const bootstrapsAntesDaSaida = journeyBootstrapCalls();
     fireEvent.press(finishButton);
 
     expect(FirstRunService.markSeen).toHaveBeenCalledWith('completed', 3);
@@ -436,7 +486,7 @@ describe('gate de abertura em RootLayout', () => {
       expect(screen.getByTestId('stack-root')).toBeTruthy();
     });
     expect(screen.queryByTestId('welcome-finish')).toBeNull();
-    expect(JourneyProgressService.bootstrap).toHaveBeenCalledTimes(1);
+    expect(journeyBootstrapCalls() - bootstrapsAntesDaSaida).toBe(1);
     expect(router.replace).toHaveBeenCalledWith({
       pathname: '/learn',
       params: {
@@ -457,11 +507,11 @@ describe('gate de abertura em RootLayout', () => {
 
     renderWithProviders(<RootLayout />);
 
-    fireEvent.press(
-      await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
-    );
+    const botaoConcluir = await screen.findByTestId('welcome-finish', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    const bootstrapsAntesDaSaida = journeyBootstrapCalls();
+    fireEvent.press(botaoConcluir);
 
-    expect(JourneyProgressService.bootstrap).not.toHaveBeenCalled();
+    expect(journeyBootstrapCalls()).toBe(bootstrapsAntesDaSaida);
     expect(router.replace).not.toHaveBeenCalled();
     expect(screen.queryByTestId('stack-root')).toBeNull();
 
@@ -475,13 +525,13 @@ describe('gate de abertura em RootLayout', () => {
 
     renderWithProviders(<RootLayout />);
 
-    fireEvent.press(
-      await screen.findByTestId('welcome-skip', {}, { timeout: FIRST_RENDER_TIMEOUT_MS }),
-    );
+    const botaoPular = await screen.findByTestId('welcome-skip', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    const bootstrapsAntesDaSaida = journeyBootstrapCalls();
+    fireEvent.press(botaoPular);
 
     await waitFor(() => expect(screen.getByTestId('stack-root')).toBeTruthy());
     expect(FirstRunService.markSeen).toHaveBeenCalledWith('skipped', 1);
-    expect(JourneyProgressService.bootstrap).not.toHaveBeenCalled();
+    expect(journeyBootstrapCalls()).toBe(bootstrapsAntesDaSaida);
     expect(router.replace).not.toHaveBeenCalled();
   });
 

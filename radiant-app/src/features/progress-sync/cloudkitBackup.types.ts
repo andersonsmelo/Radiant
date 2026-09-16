@@ -1,0 +1,97 @@
+/**
+ * Fronteira nativa do CloudKit privado e schema do registro (ADR 2026-09-15).
+ *
+ * O domínio nunca importa API nativa: fala com `PrivateCloudPort`, que o
+ * `CloudKitPrivateAdapter` implementa, e é o adaptador — só ele — que conhece
+ * este contrato.
+ *
+ * O payload trafega como **string JSON opaca**. O módulo nativo não conhece o
+ * formato do progresso, o que mantém o Swift pequeno e faz a evolução do
+ * schema ser mudança de TypeScript, não de código nativo — que exigiria build
+ * novo para cada campo acrescentado.
+ */
+
+/** Record type no banco privado do usuário. */
+export const CLOUDKIT_RECORD_TYPE = 'ProgressBackup';
+
+/**
+ * `recordName` fixo, um registro por usuário na zona padrão do banco privado.
+ *
+ * É o nome fixo que torna a escrita **idempotente**: salvar de novo atualiza o
+ * mesmo registro em vez de acumular histórico. Trocar este valor é migração de
+ * schema, não detalhe de implementação.
+ */
+export const CLOUDKIT_RECORD_NAME = 'progress-backup-v1';
+
+/**
+ * Versão do envelope do registro, independente do `schemaVersion` do
+ * `ProgressBackup`. Um envelope de versão desconhecida é lido como "não há
+ * backup utilizável" — nunca aplicado parcialmente sobre o progresso local.
+ */
+export const CLOUDKIT_PAYLOAD_VERSION = 1;
+
+/** Único container do App ID, conforme o ADR. Aliases não são permitidos. */
+export const CLOUDKIT_CONTAINER = 'iCloud.com.ascendcreative.radiant';
+
+export type CloudKitAccountStatus =
+    | 'available'
+    | 'no-account'
+    | 'restricted'
+    | 'could-not-determine'
+    | 'temporarily-unavailable';
+
+/**
+ * Nada aqui identifica a pessoa: sem nome, sem e-mail, sem identificador de
+ * conta do Radiant. O container privado do próprio usuário é a fronteira de
+ * identidade deste recurso.
+ */
+export type CloudKitBackupRecord = {
+    payloadVersion: number;
+    /** JSON do `ProgressBackup`. */
+    payload: string;
+    savedAt: string;
+};
+
+export type CloudKitNativeErrorCode =
+    | 'not-authenticated'
+    | 'network-unavailable'
+    | 'transient'
+    /** O registro mudou entre a leitura e a escrita (CKError.serverRecordChanged). */
+    | 'conflict'
+    | 'unrecoverable';
+
+export function nativeErrorCode(error: unknown): CloudKitNativeErrorCode | null {
+    if (typeof error !== 'object' || error === null) return null;
+    const code = (error as { code?: unknown }).code;
+    return code === 'not-authenticated' || code === 'network-unavailable'
+        || code === 'transient' || code === 'conflict' || code === 'unrecoverable'
+        ? code
+        : null;
+}
+
+/**
+ * O que o módulo nativo devolve ao ler: campos crus, sem promessa de forma.
+ *
+ * O tipo é permissivo de propósito. O lado nativo copia o que achou no registro
+ * e **não julga** — julgar exigiria que ele entendesse o formato, e é justamente
+ * o que ele não faz. Quem classifica é o adaptador, em TypeScript, onde a regra
+ * é testável.
+ */
+export type CloudKitRawRecord = {
+    payloadVersion?: unknown;
+    payload?: unknown;
+    savedAt?: unknown;
+};
+
+/** Superfície mínima do módulo Expo local; ausente fora de um build iOS assinado. */
+export interface RadiantCloudKitNative {
+    accountStatus(): Promise<CloudKitAccountStatus>;
+    /**
+     * `null` **somente** quando o CloudKit devolveu `unknownItem`, isto é,
+     * quando o registro de fato não existe. Registro presente e ilegível volta
+     * como envelope cru, nunca como `null`: confundir os dois faz o serviço
+     * achar que pode gravar do zero e sobrescrever o que estava lá.
+     */
+    fetchBackup(): Promise<CloudKitRawRecord | null>;
+    saveBackup(record: CloudKitBackupRecord): Promise<{ savedAt: string }>;
+}

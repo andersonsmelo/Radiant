@@ -13,6 +13,7 @@ import { SpacedRepetitionService } from '../../spaced-repetition/services/Spaced
 import { JourneyRecommendationService } from './JourneyRecommendationService';
 import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { progressSyncService } from '../../progress-sync/ProgressSyncService';
 import { resolveActiveTrackId } from './JourneyTrackUnlockService';
 
 const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
@@ -142,7 +143,21 @@ class JourneyProgressServiceImpl {
             return this.computeSnapshot(resolvedTrackDefinition, progress);
         }
 
-        const completedNodeIds = progress.completedNodeIds.includes(nodeId)
+        // Conclusão LÓGICA é a que muda o estado do progresso. Repetir a mesma
+        // conclusão — toque duplo, re-render, deep link reaberto — continua
+        // persistindo (`lastUpdatedAt` muda), mas não é evento novo e não paga
+        // backup.
+        //
+        // "Entrar em `completedNodeIds`" sozinho não serve como régua, e foi o
+        // defeito P2-1: uma revisão que vence DE NOVO já está lá desde a
+        // primeira vez, então da segunda em diante ela atualizava a agenda SM-2
+        // e concedia XP sem backup, deixando a nuvem velha até o aluno concluir
+        // algum nó inédito. A fila de revisão é a outra metade da régua — e já
+        // estava no estado, bastava lê-la: revisão legítima SAI da fila, toque
+        // repetido não sai de nada porque já saiu.
+        const jaEstavaConcluido = progress.completedNodeIds.includes(nodeId);
+        const saiuDaFilaDeRevisao = progress.pendingReviewNodeIds.includes(nodeId);
+        const completedNodeIds = jaEstavaConcluido
             ? progress.completedNodeIds
             : [...progress.completedNodeIds, nodeId];
 
@@ -163,7 +178,42 @@ class JourneyProgressServiceImpl {
             ],
         };
 
-        return this.persistAndHydrate(resolvedTrackDefinition, nextProgress);
+        // A ordem importa e é a do contrato: primeiro conclui e persiste
+        // localmente, depois tenta o backup. O local é a fonte de verdade; a
+        // nuvem é continuidade opcional.
+        const snapshot = await this.persistAndHydrate(resolvedTrackDefinition, nextProgress);
+
+        if (!jaEstavaConcluido || saiuDaFilaDeRevisao) {
+            void this.backupAposConclusao();
+        }
+
+        return snapshot;
+    }
+
+    /**
+     * Backup best-effort depois de uma conclusão já persistida.
+     *
+     * Sem `await` de propósito: esperar a rede aqui transformaria cada nó
+     * concluído numa dependência de conectividade, e o Radiant é local-first.
+     * A chamada em si é síncrona — é o `await` que não existe —, para que
+     * "um backup por conclusão lógica" seja afirmável sem depender de quando o
+     * agendador solta a microtask.
+     *
+     * `backupNow` já devolve cedo quando o backup está desligado e já absorve
+     * as próprias falhas; o `catch` aqui existe para o que escapar disso, e
+     * para que um lançamento síncrono não vire rejeição não tratada.
+     */
+    private backupAposConclusao(): Promise<void> {
+        try {
+            return Promise.resolve(progressSyncService.backupNow(Date.now()))
+                .then(() => undefined)
+                .catch((error: unknown) => {
+                    console.error('[JourneyProgressService] Falha no backup após a conclusão:', error);
+                });
+        } catch (error) {
+            console.error('[JourneyProgressService] Falha no backup após a conclusão:', error);
+            return Promise.resolve();
+        }
     }
 
     async markLessonNodeCompleted(
