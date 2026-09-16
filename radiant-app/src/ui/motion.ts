@@ -336,6 +336,40 @@ export function useLossPulse() {
     return { scale, animatedStyle, animateIn };
 }
 
+/**
+ * Positional slide between two coordinates.
+ *
+ * Drives a single numeric value — an SVG or layout coordinate rather than a
+ * transform — so it runs off the native driver on purpose. The caller keeps
+ * ownership of when the slide restarts, because the trigger is usually a
+ * change of scenario rather than a change of destination.
+ *
+ * Reduced motion is the caller's to pass: components that receive it as a
+ * prop stay testable, and `settle` applies the final coordinate with no
+ * animation at all.
+ */
+export function useSlideToPosition(startValue: number, customDuration?: number) {
+    const position = useRef(new Animated.Value(startValue)).current;
+
+    const settle = useCallback((toValue: number) => {
+        position.setValue(toValue);
+    }, [position]);
+
+    const slideTo = useCallback((toValue: number, onFinished?: (finished: boolean) => void) => {
+        position.setValue(startValue);
+        const animation = Animated.timing(position, {
+            toValue,
+            duration: customDuration ?? duration.ui,
+            easing: easing.out,
+            useNativeDriver: false,
+        });
+        animation.start(({ finished }) => onFinished?.(finished));
+        return () => animation.stop();
+    }, [customDuration, position, startValue]);
+
+    return { position, slideTo, settle };
+}
+
 export const createFadeInUp = useFadeInUp;
 export const createScalePop = useScalePop;
 export const createShakeError = useShakeError;

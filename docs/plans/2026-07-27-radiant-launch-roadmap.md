@@ -1518,14 +1518,24 @@ canônica é
   código independente sem achados críticos/importantes, incluindo checagem de
   falhas após persistência. Commit `320e10d`; 14 validadores aprovados no run
   `run-1787851096220-d09a361b`, encerrado. Sem push, build ou submissão.
-- **J3 [P0]** Produzir o Arco 1 — L1, L2, prática intercalada, L3, checkpoint em
-  dois blocos e revisões — com fontes, taxonomia de erros, direitos e
-  alternativas acessíveis. **Próxima tarefa do agente**, começando pela
-  L1 — O corpo como referência, conforme o
-  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md).
-  Handoff documental preparado em 2026-08-27; isso não conclui J3 nem substitui
-  o plano executável de conteúdo e interações. Auditor independente revisa cada
-  pacote, sem pedir aprovação individual do dono por lição.
+- **J3 [P0 — EM ANDAMENTO]** Produzir o Arco 1 — L1, L2, prática intercalada,
+  L3, checkpoint em dois blocos e revisões — com fontes, taxonomia de erros,
+  direitos e alternativas acessíveis. **L1 — O corpo como referência entregue
+  localmente em 2026-08-27:** conteúdo original e fontes rastreáveis, mapa SVG
+  2.5D funcional, controles alternativos, feedback por erro, remediação e
+  recuperação independente. A auditoria independente aprovou a revisão estática
+  v4 após três ciclos de correção; testes focados, lint e typecheck foram
+  executados. Isso não ativa V3 nem substitui revisão científica especializada,
+  VoiceOver/runtime ou validação em aparelho.
+  **L2 — Cortando o espaço entregue localmente em 2026-08-28, auditoria aberta:**
+  separa plano geométrico, região espacial, espessura nominal e imagem
+  resultante; mapa 2.5D em SVG autoral com geometrias candidatas selecionáveis e
+  controle textual equivalente; `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com
+  remediação sem XP e recuperação em região nova. 4 suítes, 22 testes, todos
+  aprovados (medido em 2026-09-04). **O parecer v3 do auditor independente está
+  pendente** — v1 e v2 reprovados, correções submetidas —, então a L2 não conta
+  como sinalizada até esse parecer. Próxima tarefa: P1 — prática intercalada,
+  conforme o [roteiro de produção](../runbooks/curriculum-v3-arco-1.md).
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.

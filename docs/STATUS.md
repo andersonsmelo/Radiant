@@ -706,11 +706,30 @@ carrega o pacote inteiro.
    histórico anterior durante a migração e proíbe apagar o legado antes de
    testes de atualização e ausência de consumidores.
 
-   **Próxima execução do agente: J3 — produzir o Arco 1**, começando por
-   **L1 — O corpo como referência**. O [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md)
-   reúne leituras, sequência, critérios de aceite e limites; não substitui este
-   status. J3/J4/J5 continuam abertos. O design aprovado não significa lições,
-   animações ou acessibilidade já implementadas ou validadas no aplicativo.
+   **J3/L1 entregue localmente em 2026-08-27:** [O corpo como referência](curriculum-v3/arco-1-l1-corpo-como-referencia.md)
+   ganhou conteúdo original com fontes, mapa SVG 2.5D, controles alternativos,
+   fluxo de erro/remediação/recuperação e prévia isolada. A auditoria independente
+   aprovou a revisão estática v4 após três ciclos de correção. A L1 não está
+   conectada a startup, rota, catálogo ou manifesto; `prepareV3()` não foi
+   chamado. Testes focados, lint e typecheck foram executados localmente; isso
+   não comprova qualidade científica nem acessibilidade real em VoiceOver ou
+   aparelho.
+
+   **J3/L2 entregue localmente em 2026-08-28, com auditoria ainda aberta:**
+   [Cortando o espaço](curriculum-v3/arco-1-l2-cortando-o-espaco.md) separa plano
+   geométrico, região espacial, espessura nominal e imagem resultante, com mapa
+   2.5D em SVG autoral, geometrias candidatas selecionáveis, controles textuais
+   equivalentes e os erros `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com remediação
+   e recuperação em região nova. As 4 suítes da lição passam (22 testes, medido
+   em 2026-09-04). **A auditoria independente não aprovou a L2:** os pareceres v1
+   e v2 foram reprovados, as correções da revisão v3 foram submetidas e o
+   **parecer v3 segue pendente** — diferente da L1, que fechou em v4 aprovado.
+   Como a L1, a L2 não está conectada a startup, rota, catálogo ou manifesto, e
+   `prepareV3()` não foi chamado.
+
+   J3/J4/J5 continuam abertos. Próxima produção: **P1 — prática intercalada**,
+   conforme o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md); antes
+   dela, obter o parecer v3 da L2.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem
