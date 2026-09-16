@@ -192,6 +192,40 @@ depende de iniciar a captura antes do toque.
 > `devicectl process launch` oferece `--console`. Se o passo 3 falhar com o
 > aparelho ligado, o caminho alternativo existe para isso.
 
+## 8.1 Build gerado, medição pendente (2026-09-16)
+
+Autorizado pelo dono para **exatamente um** build, e gerado:
+
+| | |
+| --- | --- |
+| EAS Build ID | `69d77f13-39bc-46f0-a925-29eb3e568330` |
+| Commit confirmado pelo EAS | `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83` |
+| Perfil | `preview` · iOS · distribuição interna |
+| Concluído | 2026-09-16, 12:10 (−03) |
+
+Gerado de **worktree limpa** no SHA exato: a árvore de trabalho tinha alterações
+não commitadas de outra sessão, incluindo `radiant-app/src/ui/motion.ts`, que é
+código do app. O campo `Commit` do EAS é a prova independente de que elas não
+entraram.
+
+> ⚠️ `1.3.1 (11)` — **idêntico** aos builds `45abf4fd` e `b86cb497` na tela de
+> Ajustes. Só o `Commit` os distingue. Instalar pelo link do EAS.
+
+**A medição não foi executada.** O passo de apagar a instalação destrói o
+progresso local, e a recuperação depende de existir backup remoto válido — uma
+precondição que o executor não consegue verificar, e que o próprio defeito sob
+investigação pode impedir de cumprir. Antes da desinstalação, o dono confirma o
+registro (cartão com data recente, ou `progress-backup-v1` no CloudKit Console,
+ambiente Production).
+
+Com o iPhone `available (paired)`, a captura roda inteira por `devicectl`:
+`uninstall app` → `install app` → `process launch --console`, que pega a
+primeira abertura desde o primeiro instante.
+
+Nenhum evento de `pull`, estado visual ou conclusão foi observado nesta rodada.
+
+---
+
 ## 9. Riscos residuais
 
 1. **A causa raiz segue aberta.** A correção desta rodada pode não mudar o

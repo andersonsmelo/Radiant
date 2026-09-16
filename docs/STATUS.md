@@ -526,6 +526,34 @@ carrega o pacote inteiro.
    mudar a semântica. Com isso a ausência de `inicio` significa exatamente uma
    coisa: a fronteira não foi alcançada.
 
+   ⏳ **Terceiro build interno gerado em 2026-09-16, e a medição AINDA NÃO
+   aconteceu.** Autorizado pelo dono para exatamente um build:
+   `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, iOS, distribuição
+   interna, concluído às 12:10 de 2026-09-16. O EAS confirma `Commit`
+   `7c4a8419a71c2ebff8b6cd5468ae1287fae15b83` — gerado de worktree limpa, sem as
+   alterações não commitadas de outra sessão que estão na árvore de trabalho.
+
+   > ⚠️ Este build é `1.3.1 (11)`, **idêntico aos dois anteriores** na tela de
+   > Ajustes. Só o `Commit` os separa. Instalar pelo link do EAS, nunca pela
+   > versão, sob risco de medir o binário errado.
+
+   🔴 **A medição está BLOQUEADA numa precondição que o executor não consegue
+   verificar.** O procedimento exige apagar a instalação anterior, o que destrói
+   o progresso local; a recuperação depende de existir backup remoto válido — e
+   o defeito sob investigação é justamente "o restore automático não acontece",
+   então a recuperação não pode ser presumida. O dono precisa confirmar o
+   registro antes da desinstalação: cartão **Backup no iCloud** com data
+   recente, ou o registro `progress-backup-v1` no CloudKit Console, ambiente
+   **Production**, container `iCloud.com.ascendcreative.radiant`.
+
+   Com o aparelho conectado e desbloqueado (`devicectl list devices` reportou
+   `available (paired)` em 2026-09-16), a captura pode ser conduzida inteira por
+   `devicectl`: desinstalar, instalar e lançar com `--console` já capturando —
+   único caminho que pega a **primeira** abertura desde o primeiro instante.
+
+   **Nenhum dado de primeira abertura, estado visual ou conclusão foi medido
+   nesta rodada.** A causa raiz continua **não comprovada**.
+
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que
    a **spec §7 deixa deliberadamente fora** do payload de backup. A hipótese do

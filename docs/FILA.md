@@ -59,8 +59,16 @@ Nesta ordem, porque a terceira depende de a primeira ter acontecido:
 
 1. **Regenerar o provisioning profile.** A Apple invalidou os antigos ao mudar a
    capability iCloud. `eas credentials -p ios` → perfil → Build Credentials.
-2. **Autorizar um build interno, com data.** Sem isso a fatia CloudKit não sai de
-   "implementada".
+2. ✅ **Build interno autorizado e gerado em 2026-09-16** —
+   `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, do commit
+   `7c4a841`. Instalar **pelo link do EAS**: ele é `1.3.1 (11)`, idêntico aos
+   anteriores na tela de Ajustes.
+
+   ⛔ **A medição está travada numa precondição sua.** Apagar o app destrói o
+   progresso local, e a recuperação depende de haver backup remoto válido — que
+   é exatamente o que o defeito sob investigação pode impedir de voltar. Antes
+   de desinstalar, confirme o cartão **Backup no iCloud** com data recente, ou o
+   registro `progress-backup-v1` no CloudKit Console em **Production**.
 3. **Deploy Schema to Production** no CloudKit Console, **antes** de submeter a
    1.4 — e só depois do primeiro build físico gravar um backup, porque o CloudKit
    cria schema automaticamente **só em Development**. Pular isso produz um app
