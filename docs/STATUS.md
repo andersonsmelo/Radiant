@@ -516,6 +516,16 @@ carrega o pacote inteiro.
    (`devicectl process launch --console`, com Console.app como alternativa),
    porque um build sem evidência recuperável não vale o custo.
 
+   ⚠️ **Segunda correção da instrumentação, 2026-09-16.** A versão anterior
+   emitia o evento de `pull` **depois** que a chamada resolvia, então "nenhum
+   evento de pull" cobria dois diagnósticos opostos: o `pull` não foi chamado,
+   ou foi chamado e **lançou** — o serviço captura a exceção e devolve
+   `BackupState` de qualquer forma. A tabela de leitura afirmava só o primeiro.
+   O `pull` passou a ser observado em **três fases** (`inicio` antes do `await`,
+   depois `resultado` **ou** `erro` classificado), e o erro é relançado para não
+   mudar a semântica. Com isso a ausência de `inicio` significa exatamente uma
+   coisa: a fronteira não foi alcançada.
+
    **Divergência registrada, não implementada:** Precisão e Tópicos continuam
    vazios após reinstalação porque vêm de `STORAGE_KEYS.LEARNING_ATTEMPTS`, que
    a **spec §7 deixa deliberadamente fora** do payload de backup. A hipótese do

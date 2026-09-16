@@ -114,27 +114,41 @@ export function isCloudUnavailable(error: unknown): error is CloudUnavailableErr
 export type BackupError = 'cloud-unavailable' | 'failed' | 'incompatible';
 
 /**
- * O que a nuvem respondeu, observado **imediatamente após** `cloud.pull()`.
+ * A chamada a `cloud.pull()` observada em **três fases**, e a razão é de
+ * diagnóstico.
  *
- * Existe porque dois caminhos diferentes terminam com o mesmo estado local —
- * `enabled:false, decided:true, lastError:null` — e portanto com a mesma tela:
- * registro ausente, e registro presente com opt-out gravado no remoto. Sem
- * observar o `kind` no ponto da chamada, a validação em aparelho não consegue
- * separar os dois, e qualquer conclusão vira inferência.
+ * A versão anterior emitia um único evento **depois** que o `pull` resolvia.
+ * Com isso, "nenhum evento de pull" significava duas coisas opostas: o `pull`
+ * nunca foi chamado, ou foi chamado e **lançou** antes de retornar — porque o
+ * serviço captura a exceção e ainda assim devolve um `BackupState`. A tabela de
+ * leitura do teste físico afirmava a primeira e ignorava a segunda.
  *
- * Só metadado de decisão. Nunca payload, XP, nós, trilhas, agenda, `recordName`
- * nem identificador de CloudKit.
+ * Com `inicio` emitido **antes** do `await`, a ausência dele passa a significar
+ * exatamente uma coisa: a fronteira não foi alcançada.
+ *
+ * Só metadado de decisão. Nunca payload, XP, nós, trilhas, agenda, `recordName`,
+ * identificador de CloudKit — nem `error.message`, que pode carregar detalhe do
+ * ambiente do usuário.
  */
-export type EventoDePull = {
-    etapa: 'pull';
-    operacao: 'restore' | 'backup';
-    kind: PrivateCloudRead['kind'];
-    /**
-     * `true`/`false` conforme o opt-in gravado no registro remoto; `null`
-     * quando não há registro utilizável para consultar.
-     */
-    remoteBackupEnabled: boolean | null;
-};
+export type OperacaoDePull = 'restore' | 'backup';
+
+/** Classificação do que impediu a leitura; nunca a mensagem original. */
+export type ErroDePull = 'cloud-unavailable' | 'failed';
+
+export type EventoDePull =
+    | { etapa: 'pull'; operacao: OperacaoDePull; fase: 'inicio' }
+    | {
+          etapa: 'pull';
+          operacao: OperacaoDePull;
+          fase: 'resultado';
+          kind: PrivateCloudRead['kind'];
+          /**
+           * `null` quando não há registro utilizável — e não `false`, para não
+           * confundir "não há o que ler" com "o dono desligou".
+           */
+          remoteBackupEnabled: boolean | null;
+      }
+    | { etapa: 'pull'; operacao: OperacaoDePull; fase: 'erro'; erro: ErroDePull };
 
 export type ObservadorDePull = (evento: EventoDePull) => void;
 

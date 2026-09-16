@@ -6,7 +6,7 @@ import { resolvePrivateCloudAdapter } from './CloudKitPrivateAdapter';
 import {
     isCloudConflict,
     isCloudUnavailable,
-    type EventoDePull,
+    type OperacaoDePull,
     type ObservadorDePull,
     type PrivateCloudRead,
     type BackupState,
@@ -178,8 +178,7 @@ export class ProgressSyncService {
 
         try {
             for (let tentativa = 1; tentativa <= ProgressSyncService.TENTATIVAS_DE_ENVIO; tentativa += 1) {
-                const remoto = await this.cloud.pull();
-                this.observarPull(observar, 'backup', remoto);
+                const remoto = await this.puxarObservando('backup', observar);
 
                 // Registro presente que este binário não entende. Gravar aqui
                 // destruiria progresso real — provavelmente de uma versão mais
@@ -217,23 +216,43 @@ export class ProgressSyncService {
     }
 
     /**
-     * Descreve a leitura para o observador sem abrir o payload.
+     * Envolve `cloud.pull()` emitindo as três fases e **relançando** o erro,
+     * para não alterar a semântica de quem chama.
      *
-     * `remoteBackupEnabled` só existe quando há registro utilizável; nos demais
-     * casos é `null`, e não `false`, para não confundir "não há o que ler" com
-     * "o dono desligou".
+     * `inicio` sai ANTES do `await`. É o que separa "a fronteira não foi
+     * alcançada" de "a fronteira foi alcançada e falhou" — dois diagnósticos
+     * opostos que, sem esta fase, produziam a mesma ausência de evento, porque
+     * o serviço captura a exceção e ainda assim devolve um `BackupState`.
      */
-    private observarPull(
+    private async puxarObservando(
+        operacao: OperacaoDePull,
         observar: ObservadorDePull | undefined,
-        operacao: EventoDePull['operacao'],
-        remoto: PrivateCloudRead,
-    ): void {
+    ): Promise<PrivateCloudRead> {
+        observar?.({ etapa: 'pull', operacao, fase: 'inicio' });
+
+        let remoto: PrivateCloudRead;
+        try {
+            remoto = await this.cloud.pull();
+        } catch (cause) {
+            // Só a classificação. `error.message` fica de fora de propósito:
+            // pode carregar detalhe do ambiente de quem está usando o app.
+            observar?.({
+                etapa: 'pull',
+                operacao,
+                fase: 'erro',
+                erro: isCloudUnavailable(cause) ? 'cloud-unavailable' : 'failed',
+            });
+            throw cause;
+        }
+
         observar?.({
             etapa: 'pull',
             operacao,
+            fase: 'resultado',
             kind: remoto.kind,
             remoteBackupEnabled: remoto.kind === 'usable' ? remoto.backup.backupEnabled !== false : null,
         });
+        return remoto;
     }
 
     private async executarRestore(nowMs: number, observar?: ObservadorDePull): Promise<BackupState> {
@@ -246,8 +265,7 @@ export class ProgressSyncService {
         if (state.decided && !state.enabled) return state;
 
         try {
-            const remoto = await this.cloud.pull();
-            this.observarPull(observar, 'restore', remoto);
+            const remoto = await this.puxarObservando('restore', observar);
 
             if (remoto.kind === 'incompatible') {
                 // Segue INDECISO de propósito: um binário mais novo pode

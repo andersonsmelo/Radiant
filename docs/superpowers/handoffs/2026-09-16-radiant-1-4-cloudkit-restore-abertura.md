@@ -124,13 +124,32 @@ afirma.
 
 ## 7. Como ler os eventos no próximo build
 
+> ⚠️ **A tabela anterior deste documento estava errada** e a segunda revisão
+> independente pegou. Ela dizia: *"nenhuma linha `etapa:'pull'` → o pull não
+> aconteceu, problema antes na orquestração"*. Falso: o evento único era emitido
+> **depois** que `cloud.pull()` resolvia, então a ausência dele cobria dois
+> diagnósticos **opostos** — o pull nunca foi chamado, ou foi chamado e
+> **lançou**. O serviço captura a exceção e devolve um `BackupState` de todo
+> jeito, de modo que o evento `restore` aparecia igual nos dois casos.
+>
+> O próprio teste da rodada anterior provava isso, e o nome dele — "falha antes
+> do pull" — descrevia errado o que ele exercitava: o pull **é** chamado e lança.
+
+O `pull` passou a ser observado em **três fases**, com `inicio` emitido **antes**
+do `await`. Agora cada leitura tem significado único:
+
 | O que aparecer | Conclusão |
 | --- | --- |
-| nenhuma linha `etapa:'pull'` | o `pull` não chegou a ser feito — o problema está **antes**, na orquestração ou no early return |
-| `kind:'absent'` | a nuvem afirmou que **não há registro** — problema na fronteira nativa ou no container consultado |
-| `kind:'usable'`, `remoteBackupEnabled:true` | o registro foi lido e está ligado; se o progresso não voltou, o problema está no **apply** |
-| `kind:'usable'`, `remoteBackupEnabled:false` | há opt-out gravado no remoto — comportamento **correto**, não defeito |
-| `kind:'incompatible'` | o registro existe e este binário não o entende |
+| **nenhum** `pull/inicio` | a fronteira **não foi alcançada** — o problema está antes, na orquestração ou num early return |
+| `pull/inicio` + `pull/erro` `cloud-unavailable` | a fronteira foi alcançada e falhou: conta iCloud indisponível, restrita, sem rede ou limite de taxa |
+| `pull/inicio` + `pull/erro` `failed` | a fronteira foi alcançada e falhou de forma **não classificada** — erro nativo inesperado |
+| `pull/resultado` `absent` | o CloudKit **respondeu ausência**: o container consultado não tem o registro |
+| `pull/resultado` `usable`, `remoteBackupEnabled:true` | registro lido e ligado; se o progresso não voltou, o problema está no **apply** |
+| `pull/resultado` `usable`, `remoteBackupEnabled:false` | há opt-out gravado no remoto — comportamento **correto**, não defeito |
+| `pull/resultado` `incompatible` | o registro existe e este binário não o entende |
+
+O evento final de `restore` também carrega `ultimoErro`, como redundância: ele
+confirma qual ramo foi tomado sem depender de correlacionar com as fases.
 
 ## 8. Como capturar os eventos do iPhone
 

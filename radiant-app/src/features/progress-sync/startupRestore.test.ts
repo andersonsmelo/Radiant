@@ -248,13 +248,20 @@ describe('abertura de instalação limpa — integração com o serviço real', 
         expect(restaurarNovo).toHaveBeenCalledTimes(1);
     });
 
-    // A revisão independente apontou que `ok:true` com `ligado:false` NÃO
-    // distinguia "não há registro" de "há registro com opt-out remoto": os dois
-    // caminhos gravam o mesmo estado local. Agora o `kind` é observado no ponto
-    // da chamada de `cloud.pull()`, dentro do serviço — sem inferência.
-    describe('o evento de pull discrimina o que a nuvem respondeu', () => {
-        async function eventosDe(leitura: PrivateCloudRead): Promise<EventoDeAbertura[]> {
-            const { service, eventos } = montar(leitura);
+    // Duas revisões independentes apontaram ambiguidades AQUI, e a segunda é a
+    // que este bloco fecha: emitir um único evento DEPOIS do `await` fazia
+    // "nenhum evento de pull" significar duas coisas opostas — o pull nunca foi
+    // chamado, ou foi chamado e LANÇOU. O serviço captura a exceção e devolve um
+    // BackupState de qualquer jeito, então a ausência de evento nada dizia.
+    //
+    // Com `fase:'inicio'` emitido ANTES do await, a ausência dele passa a
+    // significar exatamente uma coisa: a fronteira não foi alcançada.
+    describe('o pull é observado em três fases', () => {
+        async function eventosDe(cloud: PrivateCloudPort): Promise<EventoDeAbertura[]> {
+            const local = localRealista(vazio());
+            const storage = storageDeInstalacaoLimpa();
+            const service = new ProgressSyncService({ cloud, local, storage });
+            const eventos: EventoDeAbertura[] = [];
             await restaurarBackupNaAbertura({
                 lerEstado: () => service.getState(),
                 chaveLocalExiste: () => service.temEstadoPersistido(),
@@ -266,66 +273,121 @@ describe('abertura de instalação limpa — integração com o serviço real', 
             return eventos;
         }
 
-        const doPull = (eventos: EventoDeAbertura[]) => eventos.find((e) => e.etapa === 'pull');
+        const nuvemQueLe = (leitura: PrivateCloudRead): PrivateCloudPort =>
+            ({ pull: jest.fn(async () => leitura), push: jest.fn() });
 
-        it('registro ausente aparece como kind absent, sem opt-in a reportar', async () => {
-            expect(doPull(await eventosDe({ kind: 'absent' })))
-                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'absent', remoteBackupEnabled: null });
-        });
+        const fases = (es: EventoDeAbertura[]) =>
+            es.filter((e): e is Extract<EventoDeAbertura, { etapa: 'pull' }> => e.etapa === 'pull');
 
-        it('registro utilizável e ligado aparece como usable com opt-in verdadeiro', async () => {
-            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: true }) })))
-                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'usable', remoteBackupEnabled: true });
-        });
-
-        it('registro sem o campo conta como ligado, por compatibilidade', async () => {
-            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto() })))
-                .toMatchObject({ kind: 'usable', remoteBackupEnabled: true });
-        });
-
-        it('opt-out remoto aparece como usable com opt-in FALSO — não como ausente', async () => {
-            // É exatamente o par que a telemetria anterior confundia.
-            expect(doPull(await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: false }) })))
-                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'usable', remoteBackupEnabled: false });
-        });
-
-        it('registro incompatível aparece como incompatible, sem opt-in a reportar', async () => {
-            expect(doPull(await eventosDe({ kind: 'incompatible', reason: 'record-structure' })))
-                .toEqual({ etapa: 'pull', operacao: 'restore', kind: 'incompatible', remoteBackupEnabled: null });
-        });
-
-        it('ausente e opt-out remoto terminam com o MESMO estado local, e só o pull os separa', async () => {
-            const ausente = await eventosDe({ kind: 'absent' });
-            const optOut = await eventosDe({ kind: 'usable', backup: backupRemoto({ backupEnabled: false }) });
-
-            const restoreDe = (es: EventoDeAbertura[]) => es.find((e) => e.etapa === 'restore');
-            // Indistinguíveis pelo estado final — era esse o gap.
-            expect(restoreDe(ausente)).toEqual(restoreDe(optOut));
-            // Distinguíveis pelo evento do pull.
-            expect(doPull(ausente)).not.toEqual(doPull(optOut));
-        });
-
-        it('falha antes do pull não emite evento de pull', async () => {
-            const local = localRealista(vazio());
-            const storage = storageDeInstalacaoLimpa();
+        it('emite inicio ANTES de a chamada resolver', async () => {
+            const ordem: string[] = [];
             const cloud: PrivateCloudPort = {
-                pull: jest.fn(async () => { throw new CloudUnavailableError(); }),
+                pull: jest.fn(async () => { ordem.push('pull-chamado'); return { kind: 'absent' as const }; }),
                 push: jest.fn(),
             };
-            const service = new ProgressSyncService({ cloud, local, storage });
-            const eventos: EventoDeAbertura[] = [];
+            const local = localRealista(vazio());
+            const service = new ProgressSyncService({ cloud, local, storage: storageDeInstalacaoLimpa() });
 
             await restaurarBackupNaAbertura({
                 lerEstado: () => service.getState(),
                 chaveLocalExiste: () => service.temEstadoPersistido(),
                 hidratarJornada: async () => undefined,
-                restaurar: (n, obs) => service.restoreOnLaunch(n, obs),
+                restaurar: (n, obs) => service.restoreOnLaunch(n, (e) => {
+                    if (e.fase === 'inicio') ordem.push('inicio');
+                    obs?.(e);
+                }),
+                agora: () => AGORA,
+            });
+
+            expect(ordem).toEqual(['inicio', 'pull-chamado']);
+        });
+
+        it('ausente: inicio + resultado/absent', async () => {
+            expect(fases(await eventosDe(nuvemQueLe({ kind: 'absent' })))).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'resultado', kind: 'absent', remoteBackupEnabled: null },
+            ]);
+        });
+
+        it('utilizável e ligado: inicio + resultado/usable/true', async () => {
+            const leitura = { kind: 'usable' as const, backup: backupRemoto({ backupEnabled: true }) };
+            expect(fases(await eventosDe(nuvemQueLe(leitura)))).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'resultado', kind: 'usable', remoteBackupEnabled: true },
+            ]);
+        });
+
+        it('opt-out remoto: inicio + resultado/usable/false', async () => {
+            const leitura = { kind: 'usable' as const, backup: backupRemoto({ backupEnabled: false }) };
+            expect(fases(await eventosDe(nuvemQueLe(leitura)))).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'resultado', kind: 'usable', remoteBackupEnabled: false },
+            ]);
+        });
+
+        it('incompatível: inicio + resultado/incompatible', async () => {
+            const leitura = { kind: 'incompatible' as const, reason: 'record-structure' as const };
+            expect(fases(await eventosDe(nuvemQueLe(leitura)))).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'resultado', kind: 'incompatible', remoteBackupEnabled: null },
+            ]);
+        });
+
+        // Renomeado: o anterior chamava-se "falha ANTES do pull", e a descrição
+        // era falsa — o pull É chamado e lança. Era justamente essa confusão que
+        // tornava a tabela de leitura do teste físico inválida.
+        it('nuvem indisponível: inicio + erro/cloud-unavailable, e NENHUM resultado', async () => {
+            const cloud: PrivateCloudPort = {
+                pull: jest.fn(async () => { throw new CloudUnavailableError(); }),
+                push: jest.fn(),
+            };
+            const es = fases(await eventosDe(cloud));
+
+            expect(es).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'erro', erro: 'cloud-unavailable' },
+            ]);
+            expect(es.some((e) => e.fase === 'resultado')).toBe(false);
+        });
+
+        it('erro não classificado: inicio + erro/failed, e NENHUM resultado', async () => {
+            const cloud: PrivateCloudPort = {
+                pull: jest.fn(async () => { throw new Error('quebra inesperada'); }),
+                push: jest.fn(),
+            };
+            const es = fases(await eventosDe(cloud));
+
+            expect(es).toEqual([
+                { etapa: 'pull', operacao: 'restore', fase: 'inicio' },
+                { etapa: 'pull', operacao: 'restore', fase: 'erro', erro: 'failed' },
+            ]);
+            expect(es.some((e) => e.fase === 'resultado')).toBe(false);
+        });
+
+        it('se o restore nem for chamado, NENHUMA fase de pull aparece', async () => {
+            const eventos: EventoDeAbertura[] = [];
+            await restaurarBackupNaAbertura({
+                lerEstado: async () => ({ enabled: false, decided: false, lastBackupAt: null, lastError: null }),
+                chaveLocalExiste: async () => false,
+                hidratarJornada: async () => undefined,
+                restaurar: async () => { throw new Error('restore nem chegou a rodar'); },
                 agora: () => AGORA,
                 registrar: (e) => eventos.push(e),
             });
 
-            expect(doPull(eventos)).toBeUndefined();
-            expect(eventos.find((e) => e.etapa === 'restore')).toMatchObject({ ok: true, ligado: false });
+            expect(eventos.filter((e) => e.etapa === 'pull')).toHaveLength(0);
+            expect(eventos.find((e) => e.etapa === 'restore')).toMatchObject({ ok: false });
+        });
+
+        it('ausente e opt-out remoto seguem com o MESMO restore, separados pelo resultado do pull', async () => {
+            const ausente = await eventosDe(nuvemQueLe({ kind: 'absent' }));
+            const optOut = await eventosDe(nuvemQueLe({
+                kind: 'usable', backup: backupRemoto({ backupEnabled: false }),
+            }));
+            const restoreDe = (es: EventoDeAbertura[]) => es.find((e) => e.etapa === 'restore');
+
+            expect(restoreDe(ausente)).toEqual(restoreDe(optOut));
+            expect(fases(ausente)).not.toEqual(fases(optOut));
         });
     });
 

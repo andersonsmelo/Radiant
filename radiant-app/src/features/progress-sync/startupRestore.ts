@@ -22,7 +22,15 @@ export type EventoDeAbertura =
     | { etapa: 'hidratacao'; ok: boolean }
     /** Repassado do ponto da chamada de `cloud.pull()`, dentro do serviço. */
     | EventoDePull
-    | { etapa: 'restore'; ok: boolean; decisaoLocalRegistrada: boolean; ligado: boolean; temData: boolean };
+    | {
+          etapa: 'restore';
+          ok: boolean;
+          decisaoLocalRegistrada: boolean;
+          ligado: boolean;
+          temData: boolean;
+          /** Redundância diagnóstica: não é dado sensível e confirma o ramo tomado. */
+          ultimoErro: BackupState['lastError'];
+      };
 
 export type DependenciasDeAbertura = {
     lerEstado(): Promise<BackupState>;
@@ -88,11 +96,13 @@ export async function restaurarBackupNaAbertura(deps: DependenciasDeAbertura): P
             decisaoLocalRegistrada: estado.decided,
             ligado: estado.enabled,
             temData: estado.lastBackupAt !== null,
+            ultimoErro: estado.lastError,
         });
     } catch (cause) {
         registrar({
             etapa: 'restore', ok: false,
             decisaoLocalRegistrada: false, ligado: false, temData: false,
+            ultimoErro: null,
         });
         console.error('[abertura] Falha ao restaurar o backup:', cause);
     }
