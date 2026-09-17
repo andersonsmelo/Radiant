@@ -925,13 +925,30 @@ adjetivo não. Removido e reancorado: 8 claims, `unanchored: 0`.
 
 ### 5. F2 — os opt-ins do closed test. **É o caminho crítico inteiro.**
 
-**Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`. Na leitura do
-Console de 2026-08-03: 14 contas vinculadas, 2 participando. **Bloqueio:**
+**Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`. **Bloqueio:**
 humano. **Dono:** dono.
 
-O Play exige **12 testadores participando por 14 dias corridos**, e o relógio
-**não começou**. Vincular não é participar — falta cada pessoa aceitar o convite
-e instalar.
+> 🔴 **MEDIÇÃO VENCIDA — 44 dias.** O número abaixo é de **2026-08-03**: 14
+> contas vinculadas, 2 participando. Conferido em 2026-09-16: **é a medição
+> mais antiga citada nesta fila**, num item declarado como caminho crítico
+> inteiro. **Não cite esse "2 participando" para decidir nada** — remeça antes.
+>
+> **Este item não tem comando que o remeça.** Todos os outros itens da fila
+> declaram um; este depende de abrir o Play Console e olhar, e é exatamente por
+> isso que ele apodrece sem ninguém perceber. O relógio de 14 dias pode ter
+> começado e terminado nesse intervalo, ou não ter começado — as duas coisas
+> são compatíveis com o que está escrito aqui.
+>
+> Onde olhar: **Play Console → Teste → Teste fechado → track `alpha` →
+> Testadores**. O que importa é o número de **participando**, não o de
+> vinculados.
+
+O Play exige **12 testadores participando por 14 dias corridos**. Vincular não
+é participar — falta cada pessoa aceitar o convite e instalar, e só quem
+participa conta para o relógio.
+
+Na medição de 2026-08-03 o relógio **não havia começado**. Se começou depois,
+esta fila não saberia: ver o aviso acima.
 
 **A premissa foi reconferida em 2026-08-08 e o bloqueio é real:** a A1 decidiu
 conta Play **pessoal** ([ADR](adr/ADR-2026-07-27-store-account-strategy.md)), e
@@ -959,10 +976,19 @@ respondida hoje.**
 
 ### 7. Ações de um passo, todas do dono
 
-- enviar os commits da branch — conte com
-  `git log --oneline '@{upstream}..HEAD'`; o upstream é
-  `origin/codex/wave1-hardening-api-smoke`, **não** `main`, que não existe como
-  ref local e devolveria vazio com sucesso;
+- **autorizar o envio dos commits locais da `main`.** Medido em 2026-09-16:
+  **5 commits** existem só nesta máquina; `origin/main` está em `f5d9601`.
+  Enquanto não subirem, nenhum CI ou build a partir do remoto enxerga o Arco 1.
+
+  ```bash
+  git log --oneline origin/main..main
+  ```
+
+  > **Corrigido em 2026-09-16.** Este item apontava para
+  > `origin/codex/wave1-hardening-api-smoke` como upstream. Verificado: **essa
+  > ref não existe mais**, e o trabalho não enviado hoje está na `main` — o
+  > oposto do que o texto antigo dizia. Instrução de branch envelhece junto com
+  > a branch;
 - **A5** — gerar a service-account key no Play Console e pôr em
   `radiant-app/credentials/`; não bloqueia publicar, o AAB sobe à mão;
 - enviar o pedido ao INCA — rascunho pronto, destinatário em branco de propósito;
