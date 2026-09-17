@@ -55,29 +55,70 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
 
 **Implementado ≠ validado nativamente:** nenhuma linha do Swift foi compilada.
 
-### DONO — destravar o que só você pode
+### DONO — CONCLUÍDO em 2026-09-16; nada aqui está aberto
 
-Nesta ordem, porque a terceira depende de a primeira ter acontecido:
+> 🔴 **Esta seção listou quatro pendências até 2026-09-16, e duas delas estavam
+> feitas desde 15/09.** O dono pediu para "resolver" provisioning e Deploy
+> Schema, e a investigação mostrou que ambos já constavam como concluídos no
+> `STATUS.md` — só esta fila não sabia. **Segunda ocorrência da mesma falha no
+> mesmo arquivo no mesmo dia**, depois da seção J3. Atualizar o estado sem
+> atualizar a fila faz o dono refazer trabalho pronto, não só o agente.
 
-1. **Regenerar o provisioning profile.** A Apple invalidou os antigos ao mudar a
-   capability iCloud. `eas credentials -p ios` → perfil → Build Credentials.
+1. ✅ **Provisioning profile regenerado** — concluído em **2026-09-15**. Medido
+   em iPhone físico: capability iCloud habilitada no App ID
+   `com.ascendcreative.radiant`, provisioning Ad Hoc regenerado, iPhone
+   registrado, build `45abf4fd` instalado e o módulo Swift compilando e
+   executando. Evidência em [`STATUS.md`](STATUS.md), bloco "VALIDADO
+   NATIVAMENTE em 2026-09-15".
 2. ✅ **Build interno autorizado e gerado em 2026-09-16** —
    `69d77f13-39bc-46f0-a925-29eb3e568330`, perfil `preview`, do commit
    `7c4a841`. Instalar **pelo link do EAS**: ele é `1.3.1 (11)`, idêntico aos
    anteriores na tela de Ajustes.
 
-   ⛔ **A medição está travada numa precondição sua.** Apagar o app destrói o
-   progresso local, e a recuperação depende de haver backup remoto válido — que
-   é exatamente o que o defeito sob investigação pode impedir de voltar. Antes
-   de desinstalar, confirme o cartão **Backup no iCloud** com data recente, ou o
-   registro `progress-backup-v1` no CloudKit Console em **Production**.
-3. **Deploy Schema to Production** no CloudKit Console, **antes** de submeter a
-   1.4 — e só depois do primeiro build físico gravar um backup, porque o CloudKit
-   cria schema automaticamente **só em Development**. Pular isso produz um app
-   aprovado que escreve num schema inexistente, falhando apenas em produção e em
-   silêncio.
-4. **DSN do Sentry** no perfil `production` (`npx eas env:list --environment production`
-   devolvia vazio em 2026-09-15).
+   ✅ **A medição foi feita e passou.** A precondição foi confirmada pelo dono
+   antes de desinstalar — Backup no iCloud ligado, último backup em **15/09 às
+   21:08**, XP 100, trilha 11/14. Depois da desinstalação completa e instalação
+   exclusiva desse build, a primeira abertura devolveu XP 100, sequência de 1
+   dia, trilha 11/14 e próximo passo checkpoint, **sem tocar no toggle**. O
+   restore funcional da **Passagem 1** passou, e a **Passagem 2** (opt-out)
+   passou no mesmo build. Detalhes em
+   [`superpowers/handoffs/2026-09-16-radiant-1-4-cloudkit-restore-abertura.md`](superpowers/handoffs/2026-09-16-radiant-1-4-cloudkit-restore-abertura.md),
+   §§8.1 e 8.2.
+
+   **O que passou não foi tudo.** A captura dos eventos internos falhou
+   (`CoreDeviceError 3 / Mercury 1001`), então **a causa histórica exata segue
+   sem prova** — a evidência é visual e demonstra o resultado, não o mecanismo.
+   E a correção de `lastBackupAt` (`45d465`) é **posterior a este build**:
+   está coberta por teste e CI, nunca validada em aparelho.
+3. ✅ **Deploy Schema to Production concluído** — em **2026-09-15**, junto da
+   validação física: schema `ProgressBackup` implantado em **Production**, com
+   escrita e leitura reais funcionando. **Não precisa refazer:** o registro tem
+   três campos — `payloadVersion`, `payload` e `savedAt` — e o `payload` é
+   string JSON opaca, então evoluir o progresso é mudança de TypeScript, não de
+   schema (ver o cabeçalho de `cloudkitBackup.types.ts`). Confirmado em
+   2026-09-16 que nem `cloudkitBackup.types.ts` nem o módulo Swift foram
+   tocados desde o deploy.
+
+   ```bash
+   git log --since=2026-09-15 --oneline main -- radiant-app/src/features/progress-sync/cloudkitBackup.types.ts radiant-app/modules/radiant-cloudkit
+   ```
+
+   Saída vazia = schema intacto desde o deploy. Se algum dia esse comando
+   devolver commit, o Deploy Schema **volta a ser obrigatório** antes de submeter.
+4. ✅ **DSN do Sentry gravado** — em **2026-09-16**, no ambiente `production`
+   do EAS, como `EXPO_PUBLIC_SENTRY_DSN` com visibilidade `sensitive`. Org
+   `ascend-creative-xj`, projeto `react-native`, região **US**.
+
+   ⚠️ **O portão continua fechado de propósito.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`
+   **não** foi gravada, e o portão exige as duas (`bootstrap.ts:10`). O
+   `Sentry.init` não roda e nada sai do aparelho — é isso que mantém o rótulo
+   **"Dados não coletados"** verdadeiro na App Store. **Ligar a flag é decisão
+   de loja, não de engenharia:** exige revisar as Privacy Labels antes da
+   submissão da 1.4.
+
+   ```bash
+   cd radiant-app && npx eas env:list --environment production
+   ```
 
 ### AGENTE — o que sobrou da Task 8
 
