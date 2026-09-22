@@ -138,4 +138,34 @@ vetorial numerada e selecionável, com botão textual equivalente e sem gabarito
 a recuperação mediana usa simetria pélvica com marcadores equidistantes; uma
 faixa de região se move até a referência antes do volume final, com estado final
 imediato em Reduce Motion; e o motor exige evidência prévia de erro e prática
-assistida correta antes de registrar domínio/XP. Parecer v3 pendente.
+assistida correta antes de registrar domínio/XP.
+
+**Parecer v3 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v3.md`](../content/2026-09-22-l2-parecer-v3.md). Seis
+achados críticos, seis importantes e seis menores. **Três das quatro correções
+listadas acima não se realizam no código:** não há número nem handler de toque
+nas geometrias candidatas dentro do SVG — o cabeçalho "Toque em um candidato no
+modelo" é afordância falsa; o que se move antes do volume é um overlay de texto
+fora do SVG, enquanto o volume continua entrando por alternância de opacidade; e
+os marcadores da recuperação mediana já eram equidistantes no item inicial, além
+de a silhueta ser deslocada duas vezes (`SlicingSpaceModel.tsx:69` e `:91`), o
+que põe a placa "mediana" fora do centro do corpo desenhado e torna **falsa no
+desenho** a resposta correta de `l2-initial-median` e `l2-median-recovery`. A
+quarta correção — exigir erro e apoio prévios — foi implementada em excesso: quem
+acerta nunca alcança o item de recuperação independente, e a §5.1 fica
+insatisfeita no caminho correto.
+
+Somam-se dois defeitos de conteúdo: o plano coronal é desenhado como linha
+horizontal numa vista frontal, indistinguível do transversal, e o seletor de
+exploração apresenta mediano e oblíquo como planos irmãos e exclusivos —
+`E-PLN-MED` e `E-PLN-OBL` codificados no próprio controle que deveria remediá-los.
+
+As 4 suítes e 22 testes passam e **não detectam nenhum desses achados**: nenhuma
+asserção toca as geometrias candidatas, três asserções centrais incidem sobre um
+espelho das props embarcado no componente só para os testes, e o mock do hook de
+Reduce Motion oculta uma violação real do gate §7.5.
+
+Aprovado no parecer e registrado como sólido: proveniência e direitos (todo o
+desenho é autoral; DICOM com edição fixada e URL versionada; TA2 com termos e
+capítulo), os limites da §9.3, o desacoplamento da avaliação e o
+`SlicingSpaceLessonSession.test.ts` como evidência genuína sem mock.

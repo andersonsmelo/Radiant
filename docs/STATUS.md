@@ -734,16 +734,45 @@ carrega o pacote inteiro.
    geométrico, região espacial, espessura nominal e imagem resultante, com mapa
    2.5D em SVG autoral, geometrias candidatas selecionáveis, controles textuais
    equivalentes e os erros `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com remediação
-   e recuperação em região nova. As 4 suítes da lição passam (22 testes, medido
-   em 2026-09-04). **A auditoria independente não aprovou a L2:** os pareceres v1
-   e v2 foram reprovados, as correções da revisão v3 foram submetidas e o
-   **parecer v3 segue pendente** — diferente da L1, que fechou em v4 aprovado.
+   e recuperação em região nova. As 4 suítes da lição passam (22 testes,
+   remedido em 2026-09-22). **A auditoria independente não aprovou a L2:** os
+   pareceres v1, v2 e **v3 foram todos reprovados** — diferente da L1, que fechou
+   em v4 aprovado.
+
+   **Parecer v3 (2026-09-22):** [registro completo](content/2026-09-22-l2-parecer-v3.md).
+   Seis achados críticos, seis importantes, seis menores. Três das quatro
+   correções que a lição declarava ter feito para a v3 **não existem no código**:
+   as geometrias candidatas não são numeradas nem tocáveis dentro do SVG (e o
+   cabeçalho "Toque em um candidato no modelo" é afordância falsa); o movimento
+   que antecede o volume é um overlay de texto fora do SVG; e a silhueta é
+   deslocada duas vezes (`SlicingSpaceModel.tsx:69` e `:91`), o que põe a placa
+   "mediana" fora do centro do corpo e torna **falsa no desenho** a resposta
+   correta de dois itens. Dois defeitos de conteúdo se somam: o plano coronal é
+   desenhado como linha horizontal numa vista frontal, e o seletor apresenta
+   mediano e oblíquo como planos irmãos e exclusivos — `E-PLN-MED` e `E-PLN-OBL`
+   codificados no controle que deveria remediá-los.
+
+   ⚠️ **As 4 suítes verdes não detectam nenhum dos 18 achados.** Nenhuma asserção
+   toca as geometrias candidatas; três incidem sobre um espelho das props
+   embarcado no componente só para os testes; e o mock do hook de Reduce Motion
+   oculta uma violação real. É a mesma classe de falha registrada em 2026-09-08 —
+   teste verde sobre mock, defeito visível passando. **Suíte verde não é
+   evidência de correção nesta lição.**
+
+   Três achados foram reconferidos de forma independente antes do registro (o
+   duplo deslocamento, a afordância falsa e o rótulo por identidade); os três
+   procedem. Nada foi verificado em aparelho: o pedido da v2 de confirmar a
+   semântica de rádio em VoiceOver **continua aberto** e nenhum teste desta suíte
+   pode fechá-lo.
    Como a L1, a L2 não está conectada a startup, rota, catálogo ou manifesto, e
    `prepareV3()` não foi chamado.
 
-   J3/J4/J5 continuam abertos. Próxima produção: **P1 — prática intercalada**,
-   conforme o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md); antes
-   dela, obter o parecer v3 da L2.
+   J3/J4/J5 continuam abertos. **A P1 não é a próxima produção:** o roteiro
+   manda corrigir os achados e repetir a revisão antes de avançar de pacote, e a
+   L2 acumula três reprovações. Próximo passo: corrigir os seis achados críticos
+   do parecer v3 e submeter a revisão v4. O achado I2 (taxonomia `E-PLN-SEC`
+   aplicada a confusão coronal×transversal) **não se resolve dentro da L2** —
+   criar um código de erro novo é mudança de spec, decisão do dono.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem

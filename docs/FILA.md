@@ -211,11 +211,11 @@ no status: 74 testes focados e 14 validadores Loop aprovados, sem prova de
 funcionamento do V3 no aparelho. Remedir o escopo atual com os comandos do plano
 e `loop validate` no run correspondente.
 
-### AGENTE — J3: produzir o Arco 1 — L1 e L2 entregues, P1 é a próxima
+### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v3
 
 **Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
-2026-09-16. **Bloqueio:** a **L2 não tem parecer aprovado** — v1 e v2 foram
-reprovados e o v3 segue pendente; publicação continua dependendo de J4/J5.
+2026-09-16. **Bloqueio:** a **L2 reprovou nas três revisões** — v1, v2 e v3;
+publicação continua dependendo de J4/J5.
 **Dono:** agente, com subagente auditor independente por pacote.
 
 > **Esta seção afirmou "pendente de produção, começar pela L1" até 2026-09-16,
@@ -227,11 +227,50 @@ reprovados e o v3 segue pendente; publicação continua dependendo de J4/J5.
 
 **L1 — O corpo como referência:** entregue, com auditoria independente
 **aprovada no parecer v4**. **L2 — Cortando o espaço:** entregue, 4 suítes da
-lição verdes, mas **auditoria aberta**. Nenhuma das duas está ligada a startup,
-rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
+lição verdes, e **reprovada no parecer v3** em 2026-09-22
+([registro](content/2026-09-22-l2-parecer-v3.md)). Nenhuma das duas está ligada a
+startup, rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
 
-**Próximo item executável, nesta ordem:** obter o **parecer v3 da L2**; só
-depois produzir **P1 — prática intercalada**.
+> ⚠️ **Não use a suíte verde como sinal de pronto nesta lição.** Os 22 testes
+> passam e não detectam nenhum dos 18 achados do parecer v3: nenhuma asserção
+> toca as geometrias candidatas, três incidem sobre um espelho das props
+> embarcado no componente só para os testes, e o mock do hook de Reduce Motion
+> esconde uma violação real. Mesma classe de falha de 2026-09-08.
+
+**Próximo item executável: corrigir os seis achados críticos do parecer v3 e
+submeter a revisão v4** — não a P1. O roteiro manda corrigir os achados e repetir
+a revisão antes de avançar de pacote, e esta lição já acumula três reprovações.
+
+Os críticos, na ordem em que convém atacá-los (os dois primeiros são de conteúdo
+e mudam o desenho; os quatro seguintes são de mecânica):
+
+1. **C1** — `planePaths.coronal` é uma linha horizontal numa vista frontal,
+   indistinguível do transversal. O próprio arquivo já tem a forma certa em
+   `candidatePaths.coronal`.
+2. **C2** — o seletor de exploração põe coronal/sagital/mediano/transversal/
+   oblíquo como cinco opções mutuamente exclusivas, ensinando `E-PLN-MED` e
+   `E-PLN-OBL` no controle que deveria remediá-los.
+3. **C3** — a silhueta é deslocada duas vezes (`SlicingSpaceModel.tsx:69` e
+   `:91`); a placa "mediana" não coincide com o centro do corpo desenhado, o que
+   torna falsa a resposta correta de `l2-initial-median` e `l2-median-recovery`.
+4. **C4** — `additionalRecoveryChallengeId` nunca é lido pelo motor da L2 (a L1
+   lê), então quem acerta nunca recebe item de recuperação independente.
+5. **C5** — Reduce Motion é violado na primeira renderização; usar
+   `useReducedMotionPreferenceState` e esperar `resolved`.
+6. **C6** — `option.label` é token de identidade ("Opção 1" para `median`,
+   `coronal` e `oblique`), contradiz o número por posição ao lado dele e permite
+   acertar a recuperação lendo o rótulo.
+
+**Escale, não resolva sozinho:** o achado **I2** (o código `E-PLN-SEC` aplicado a
+confusão coronal×transversal) exige criar um código de erro novo na spec, o que
+é mudança de spec e **decisão do dono** — está fora da autoridade da L2, e
+remendar a taxonomia por dentro corrompe a matriz de P1 e C1.
+
+Ao corrigir, **escrever primeiro o teste que falha** contra o defeito real: um
+teste que asseverasse sobre o espelho das props ou sobre o hook mockado
+reproduziria exatamente a cegueira que deixou os três ciclos passarem verdes.
+Continua sem verificação em aparelho o pedido da v2 sobre a semântica de rádio no
+VoiceOver, que nenhum teste desta suíte pode fechar.
 
 ```bash
 git log --oneline -1 -- radiant-app/src/features/curriculum-v3/l2-slicing-space
@@ -239,8 +278,8 @@ cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npx jest src/features/curriculum-v3
 ```
 
 Seguir o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md): ~~L1~~ →
-~~L2~~ → **P1** → L3 → C1-A/C1-B → R1/R2. O desenho já foi aprovado; não pedir ao dono para
-aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
+**L2 (reprovada em v3, corrigir)** → P1 → L3 → C1-A/C1-B → R1/R2. O desenho já
+foi aprovado; não pedir ao dono para aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
 nesta tarefa. Registrar evidência específica do conteúdo e das interações,
 além dos testes de engenharia. Acompanhar no
 [cartão existente do Trello](https://trello.com/c/f9OYyCX5), sem criar tarefas
