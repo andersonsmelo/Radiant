@@ -153,6 +153,20 @@ carrega o pacote inteiro.
    aprovados; guarda derrubada de propósito em duas formas (init por objeto
    literal e segundo init em outro arquivo) e verde de novo ao restaurar.
 
+   **Checklist de declarações à loja preparado em 2026-09-22** (Task 8, fatia 5
+   de 6): [`release/CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md).
+   Medição que o sustenta: o ambiente `production` do EAS tem **uma única
+   variável**, o DSN do Sentry — sem `EXPO_PUBLIC_API_BASE_URL` e sem
+   `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`, as três portas de saída (Sentry, API,
+   sync) estão fechadas por construção. **Nada sai do aparelho num build de
+   produção da 1.4 como ela está hoje.** As linhas de assinatura do checklist
+   estão bloqueadas até o adaptador StoreKit existir.
+
+   📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
+   desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
+   efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
+   aberto; deixa de ser inerte no dia em que uma URL de API entrar lá.
+
    ⚠️ **Isso não liga nada.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` continua sem
    valor e o `Sentry.init` não roda, então o rótulo "Dados não coletados" segue
    verdadeiro. A fatia fixa o que sairia do aparelho **se** a flag for ligada —

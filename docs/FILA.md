@@ -155,8 +155,24 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
    de assinatura real, embora o `SubscriptionService` já exista.
 4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.
    Não validar durante flow E2E: 2,3× de desaceleração medida.
-5. **Checklist de declarações à loja** (spec §9) — depende de (1) e (2) estarem
-   fechados para declarar o que o app de fato coleta e vende.
+5. ✅ **Checklist de declarações à loja** — preparado em **2026-09-22** em
+   [`CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md), com as
+   linhas de assinatura marcadas ⏳ e **explicitamente não preenchíveis** até (2)
+   fechar. Confere cada declaração da §9 contra o código, não contra a intenção.
+
+   **Medição que sustenta a linha de privacidade:** o ambiente `production` do
+   EAS tem **uma única variável**, o DSN do Sentry. Sem `EXPO_PUBLIC_API_BASE_URL`
+   e sem `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`, as três portas de saída — Sentry,
+   API e sync — estão fechadas por construção. **Nada sai do aparelho hoje**, e
+   "Dados não coletados" é verdadeiro e verificável.
+
+   ```bash
+   cd radiant-app && npx eas env:list --environment production
+   ```
+
+   📌 O defeito aberto do `ENABLE_REMOTE_SYNC` (que não desliga o `AuthService`)
+   **é inerte em produção** porque `API_BASE_URL` não existe naquele ambiente.
+   Continua aberto; só não é alcançável na configuração submetida.
 6. **Bump para `1.4.0`** — por último, quando as outras fecharem. Regra 8 da
    ADR: os produtos de assinatura não sobem sozinhos, viajam com a versão.
 
