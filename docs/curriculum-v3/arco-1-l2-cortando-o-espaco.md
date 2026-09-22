@@ -260,9 +260,43 @@ medido por três matrizes distintas.
 **Evidência medida em 2026-09-22 (v5):** 5 suítes e 46 testes da lição; guardas
 novas derrubadas em três formas reais e verdes ao restaurar.
 
-**Seguem abertos:** N3 (rotação degenerada para coronal), N5 (contínuo/tracejado
-com dois significados), I4 agravado, N7–N10, e os importantes/menores do v3
-(I1, I3, I5.2/I5.3, I6 resíduo, M4–M6). **Parecer v5 pendente.**
+**Parecer v5 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v5.md`](../content/2026-09-22-l2-parecer-v5.md). Os seis
+críticos do v3 **e** os três achados do v4 foram confirmados resolvidos — o
+revisor enumerou 21.110 percursos do motor e nenhum termina com objetivo por
+ver, concede domínio indevido ou forma laço. A reprovação veio de **um crítico
+novo que a correção do N2 criou**: a translação dos candidatos para a região do
+cenário empurrou nove figuras para fora do `viewBox`, entre elas as respostas
+corretas de duas das quatro recuperações. Em `l2-section-recovery` a alternativa
+correta nomeia "duas faces" e a segunda caía inteira fora do quadro — a condição
+pela qual o C3 foi reprovado, reinstalada por outro mecanismo.
+
+> 🔴 **Três passagens seguidas, a correção produziu o achado seguinte, e a guarda
+> escrita junto com ela foi cega justamente a ele.** C4 gerou N1 e N2; a correção
+> do N2 gerou P1. A guarda do candidato exigia apenas que as **matrizes
+> diferissem** entre cenários, e uma translação para fora do quadro satisfaz isso
+> com folga.
+
+**Correções submetidas à revisão v6 (2026-09-22, `949a5f0`):**
+
+- **P1** — a translação saiu. Candidato de corpo inteiro não pertence a região
+  nenhuma e não se move; só os ligados a nível acompanham a região, e são
+  **construídos** na banda dela. A guarda nova afirma que todo candidato cabe
+  inteiro no `viewBox`, em todo cenário, e foi derrubada com o defeito exato que
+  havia sido enviado.
+- **N1 residual** — `reviewSentence` diz que o objetivo volta na revisão agendada
+  quando não há destino adiante, em vez de prometer item novo sem botão.
+
+**Evidência medida em 2026-09-22 (v6):** 5 suítes e 51 testes da lição; 129 em
+`curriculum-v3`; typecheck aprovado.
+
+**Seguem abertos:** P2 a P9 do v5, N3, N5, I4 agravado, N7–N10 e os
+importantes/menores do v3 (I1, I3, I5.3, M4–M6). **Parecer v6 pendente.**
+
+> ⚠️ **Crítica de método retida do v5:** a frase "cada um com teste que falhou
+> antes da correção" é **inauditável** por quem revisa — o commit é único, sem
+> passo vermelho preservado. Não é falsa; é inconferível, e é a mesma classe de
+> asserção que reprovou v1 a v3.
 
 **Fora do alcance da lição:** o achado I2 — o código `E-PLN-SEC` aplicado à
 confusão coronal×transversal — exige criar um código de erro novo na spec e é

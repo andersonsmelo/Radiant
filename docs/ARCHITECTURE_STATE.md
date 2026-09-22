@@ -273,6 +273,35 @@ permanece como histórico.
   trabalho não commitado de outra sessão, ligados a nada; `prepareV3()` não é
   chamado. O corte (J5) é a 1.4 ou posterior, com spec própria.
 
+## Estado em 2026-09-22 — telemetria auditável e geometria da L2 em módulo puro
+
+- **Telemetria.** `features/telemetry/bootstrap.ts` passou a expor
+  `buildSentryOptions` como **função pura**, que é o que determina o que sairia
+  do aparelho: sem PII, sem rastreamento de desempenho, sem quadros nativos,
+  `beforeSend` removendo `user`/`server_name`/nome de aparelho e
+  `beforeBreadcrumb` descartando migalhas `console`/`xhr`/`fetch`. O contrato de
+  privacidade ganhou guarda **por AST** de que o SDK é inicializado num ponto só
+  e sempre por essa função. O portão continua fechado: sem
+  `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` o `Sentry.init` não roda.
+- **Três portas de saída, todas fechadas em produção.** Sentry (exige flag +
+  DSN), API (`isApiConfigured()` exige `EXPO_PUBLIC_API_BASE_URL`) e sync
+  (`ENABLE_REMOTE_SYNC`, default falso). O ambiente `production` do EAS tem uma
+  variável só, o DSN. Consequência registrada: o defeito conhecido de
+  `ENABLE_REMOTE_SYNC` não desligar o `AuthService` **é inerte em produção**,
+  porque o auth decide por `isApiConfigured()`.
+- **L2 do currículo V3.** A geometria do modelo 2.5D saiu do componente para
+  `l2-slicing-space/l2SlicingGeometry.ts`, um módulo puro. O motivo é estrutural
+  e vale além desta lição: **Jest não rasteriza SVG**, então asseverar sobre o
+  desenho exige asseverar sobre os valores que o determinam. A versão anterior
+  incidia sobre um `<Text>` espelho das props embarcado no componente só para os
+  testes — asserção de conjunto de falhas vazio, verde por três ciclos de
+  auditoria com 18 achados presentes.
+- **O desenho é inalcançável pelas consultas padrão de teste.** O `<Svg>` é
+  `accessibilityElementsHidden`, e o RNTL fixa `defaultIncludeHiddenElements:
+  false`. Teste sobre elemento de desenho precisa de
+  `{ includeHiddenElements: true }` — é por isso que nunca houve um, não por
+  esquecimento.
+
 ## Regras de consistência
 
 - o status canônico governa o presente; snapshots anteriores são históricos;

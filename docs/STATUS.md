@@ -837,10 +837,45 @@ carrega o pacote inteiro.
    contém o defeito exato do C6 — `option.label` preso à identidade renderizado
    ao lado do número por posição. A correção da L2 não foi propagada.
 
-   **Seguem abertos na L2:** N3 (a rotação como obliquidade é degenerada para
-   coronal — girar um plano coronal em torno do eixo anteroposterior o leva nele
-   mesmo), N5 (contínuo/tracejado com dois significados no mesmo desenho), I4
-   agravado, N7–N10 e os importantes/menores do v3. **Parecer v5 pendente.**
+   **Parecer v5 (2026-09-22): reprovado de novo** —
+   [registro](content/2026-09-22-l2-parecer-v5.md). Os seis críticos do v3 **e**
+   os três achados do v4 foram confirmados resolvidos; o revisor enumerou 21.110
+   percursos do motor e nenhum termina com objetivo por ver, concede domínio
+   indevido ou forma laço. A reprovação veio de **um crítico que a correção do N2
+   criou**: transladar os candidatos para a região do cenário empurrou nove
+   figuras para fora do `viewBox`, entre elas as respostas corretas de duas das
+   quatro recuperações. Em `l2-section-recovery` a alternativa correta nomeia
+   "duas faces" e a segunda caía inteira fora do quadro — a condição pela qual o
+   C3 foi reprovado, por outro mecanismo.
+
+   🔴 **Três passagens seguidas, a correção produziu o achado seguinte, e a
+   guarda escrita junto com ela foi cega justamente a ele.** O C4 gerou N1 e N2;
+   a correção do N2 gerou P1. A guarda do candidato exigia apenas que as
+   **matrizes diferissem** entre cenários, e uma translação para fora do quadro
+   satisfaz isso com folga. **Guarda que só exige diferença autoriza o defeito
+   que deveria barrar.**
+
+   **P1 e o resíduo do N1 corrigidos em 2026-09-22 (`949a5f0`), v6 submetida.**
+   A translação saiu: candidato de corpo inteiro não pertence a região nenhuma e
+   não se move; só os ligados a nível acompanham a região, e são construídos na
+   banda dela. A guarda nova afirma que todo candidato cabe inteiro no `viewBox`,
+   em todo cenário. **Evidência: 5 suítes e 51 testes da lição, 129 em
+   `curriculum-v3`.**
+
+   ⚠️ **Crítica de método retida do v5, que vale para todo o projeto:** a frase
+   "cada um com teste que falhou antes da correção" é **inauditável** por quem
+   revisa, porque o commit é único e não preserva o passo vermelho. Não é falsa;
+   é inconferível — a mesma classe de asserção que reprovou v1 a v3.
+
+   **Seguem abertos na L2:** P2 a P9 do v5 (entre eles a legenda que atribui
+   "alinhada" ao traço da resposta "inclinada", e `scenarioRegion` resolvendo
+   região por prefixo de string), N3, N5, I4 agravado, N7–N10 e os
+   importantes/menores do v3. **Parecer v6 pendente.**
+
+   📌 **Mesmo um v6 aprovado não torna a L2 publicável:** J4 (acessibilidade
+   sobre as lições implementadas) e J5 (corte seguro e fluxo completo no iPhone)
+   continuam pendentes, mais a revisão técnica especializada da §8/§12.3, que
+   nenhum parecer de agente fecha.
    Como a L1, a L2 não está conectada a startup, rota, catálogo ou manifesto, e
    `prepareV3()` não foi chamado.
 

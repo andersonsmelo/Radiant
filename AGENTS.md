@@ -223,6 +223,48 @@ escondendo o envelope. Ache com `ls -t .loop/runs | head -1`, confirme o
 válida. Ampliar a política é decisão do dono, não pré-requisito mecânico — ela
 vale para todo agente futuro.
 
+### Quatro lições sobre GUARDAS, de 2026-09-22 (custaram três reprovações seguidas)
+
+A L2 do currículo V3 foi reprovada em cinco auditorias. As três últimas não
+foram por prosa mentirosa — foram porque **a correção de um achado produziu o
+achado seguinte, e a guarda escrita junto com a correção era cega justamente a
+ele**. As quatro regras abaixo saem daí e valem para todo o repositório.
+
+1. **Guarda que só exige DIFERENÇA autoriza o defeito que deveria barrar.** Para
+   provar que duas figuras não eram iguais, a asserção exigia que as matrizes de
+   transformação diferissem. A correção seguinte transladou as figuras para fora
+   do `viewBox` — e "as matrizes diferem" continuou verdadeiro. Toda asserção de
+   diferença precisa vir acompanhada de asserção de **validade**: difere **e**
+   continua válido.
+
+2. **Mudar QUEM alcança um estado promove as regras dormentes dele ao caminho
+   principal, sem editar uma linha delas.** Uma regra que zerava a continuação
+   era alcançável só por quem errava o item inicial, e três auditorias não a
+   acharam. Bastou o roteamento mudar para ela encerrar a lição para todo mundo.
+   **O diff não mostra isso, por construção** — o código culpado não está nele.
+   Ao mexer em roteamento, enumere as regras do estado de destino e pergunte, de
+   cada uma, que população passa a encontrá-la.
+
+3. **Guarda sobre código-fonte lê AST, nunca texto.** Uma guarda de privacidade
+   buscava `/sendDefaultPii:\s*false/` no arquivo e **continuou passando com
+   `sendDefaultPii: true`**, porque casava com a menção da opção num comentário.
+   Quanto melhor documentada a regra, mais fraca fica a guarda de texto.
+
+4. **Toda asserção nova precisa ser vista falhando — com o defeito ESPECÍFICO
+   que ela nomeia.** Derrubar a guarda com um defeito vizinho não diz nada sobre
+   o defeito que ela existe para pegar. E declarar em prosa que "o teste falhou
+   antes" é **inauditável** para quem revisa, porque um commit único não preserva
+   o passo vermelho: registre a execução vermelha como evidência, não a
+   afirmação.
+
+**Corolário de teste:** quando o ambiente não consegue inspecionar a saída (Jest
+não rasteriza SVG), assevere sobre os valores que a **determinam** — extraindo-os
+para função pura se preciso —, nunca sobre um espelho das props embarcado no
+componente. Espelho tem conjunto de falhas vazio e passa para sempre. E a
+extração precisa ser feita **verbatim primeiro**: um módulo que já nasce
+corrigido faz todo teste novo passar de primeira e mata o passo vermelho do
+defeito que se queria pegar.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

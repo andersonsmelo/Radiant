@@ -291,9 +291,28 @@ startup, rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
 > v5 está pendente**. Registro em
 > [`2026-09-22-l2-parecer-v4.md`](content/2026-09-22-l2-parecer-v4.md).
 
-**Próximo item executável: obter o parecer v5.** Se aprovar, os achados
-importantes e menores ainda abertos (N3, N5, I1, I3, I4, I5.2/I5.3, N7–N10,
-M4–M6) entram num run próprio, e só então a P1.
+**Próximo item executável: obter o parecer v6.** O v5 reprovou em 2026-09-22
+([registro](content/2026-09-22-l2-parecer-v5.md)) por **um crítico que a correção
+anterior criou** — candidatos transladados para fora do `viewBox`, com a resposta
+correta de duas recuperações falsa no desenho. Corrigido no mesmo dia
+(`949a5f0`), junto do resíduo do N1 no quarto objetivo.
+
+> 🔴 **Pare e leia antes de abrir o próximo run desta lição.** São **três
+> passagens seguidas** em que a correção produziu o achado seguinte, e em que a
+> guarda escrita junto com a correção foi cega justamente a ele. Antes de
+> corrigir qualquer achado aqui, responda por escrito: **que regra ou invariante
+> passa a ser encontrada por uma população que não a encontrava antes?** Foi a
+> pergunta não feita que gerou N1, N2 e P1.
+>
+> E toda guarda nova precisa afirmar **validade**, não só diferença. A guarda que
+> autorizou o P1 exigia que duas matrizes diferissem — o que uma translação para
+> fora do quadro satisfaz com folga.
+
+Se o v6 aprovar, os importantes e menores ainda abertos (P2–P9, N3, N5, I1, I3,
+I4, I5.3, N7–N10, M4–M6) entram num run próprio, e só então a P1 do currículo.
+
+📌 **Aprovação do parecer não é autorização de publicação.** J4 e J5 continuam
+pendentes, mais a revisão técnica especializada da §8/§12.3.
 
 ⚠️ **Item novo para o dono, achado pelo v4 fora do escopo da L2:** a **L1, já
 aprovada**, carrega o defeito exato do C6 — rótulo preso à identidade da
