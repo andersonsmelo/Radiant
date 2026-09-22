@@ -1,6 +1,9 @@
 import {
   MIDLINE_X,
+  VIEWBOX_HEIGHT,
   bodyPathFor,
+  candidatePathFor,
+  candidatePaths,
   knownScenarioIds,
   orientationPaths,
   scenarioDetail,
@@ -82,5 +85,46 @@ describe('geometria do modelo 2.5D da L2', () => {
     expect(shouldRevealImmediately({ reduceMotion: false, motionResolved: false })).toBe(true);
     expect(shouldRevealImmediately({ reduceMotion: true, motionResolved: true })).toBe(true);
     expect(shouldRevealImmediately({ reduceMotion: false, motionResolved: true })).toBe(false);
+  });
+
+  it('desenha todo candidato inteiramente dentro do quadro, em todo cenário', () => {
+    // A guarda anterior exigia só que as matrizes DIFERISSEM entre cenários — e
+    // uma translação que joga a figura para fora do `viewBox` satisfaz isso com
+    // folga. Foi assim que a resposta correta de duas recuperações passou a ser
+    // falsa no desenho: em `l2-section-recovery` a segunda das "duas faces" que
+    // o texto da alternativa nomeia caía inteira fora do quadro.
+    const offenders: string[] = [];
+    for (const scenarioId of knownScenarioIds()) {
+      for (const answerId of Object.keys(candidatePaths)) {
+        const ys = pointsOf(candidatePathFor(answerId, scenarioId)).map(([, y]) => y);
+        if (Math.min(...ys) < 0 || Math.max(...ys) > VIEWBOX_HEIGHT) {
+          offenders.push(`${scenarioId}/${answerId}: ${Math.min(...ys)}..${Math.max(...ys)}`);
+        }
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+
+  it('mantém as duas faces do volume visíveis, que são o que a alternativa correta nomeia', () => {
+    const ys = pointsOf(candidatePathFor('region-with-nominal-thickness', 'pelvis-region-thickness-recovery'))
+      .map(([, y]) => y);
+
+    expect(new Set(ys).size).toBeGreaterThanOrEqual(4);
+    expect(Math.max(...ys)).toBeLessThanOrEqual(VIEWBOX_HEIGHT);
+  });
+
+  it('não move candidatos de corpo inteiro, que não pertencem a região nenhuma', () => {
+    // Uma placa mediana corre da cabeça aos pés; ela não fica "na pelve".
+    // Transladá-la para a região do cenário era errado antes de ser recorte.
+    expect(candidatePathFor('median', 'pelvis-symmetry')).toBe(candidatePathFor('median', 'thorax-midline'));
+    expect(candidatePathFor('coronal', 'pelvis-coronal-recovery')).toBe(candidatePathFor('coronal', 'abdomen-transverse'));
+  });
+
+  it('posiciona candidatos ligados a nível na região que o cenário nomeia', () => {
+    const thorax = pointsOf(candidatePathFor('transverse', 'thorax-midline')).map(([, y]) => y);
+    const pelvis = pointsOf(candidatePathFor('transverse', 'pelvis-coronal-recovery')).map(([, y]) => y);
+
+    expect(Math.min(...pelvis)).toBeGreaterThan(Math.min(...thorax));
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { SlicingSpaceLessonPreview } from './SlicingSpaceLessonPreview';
+import { SlicingSpaceLessonPreview, reviewSentence } from './SlicingSpaceLessonPreview';
 
 // O mock antigo devolvia `true` de forma síncrona e, com isso, escondia a
 // violação de Reduce Motion na primeira renderização: o ramo "preferência
@@ -133,5 +133,18 @@ describe('SlicingSpaceLessonPreview', () => {
     fireEvent.press(getByText('Continuar para referências'));
 
     expect(getByText(/Qual placa separa uma porção superior/i)).toBeTruthy();
+  });
+
+  it('não promete item novo quando a lição não tem item novo a oferecer', () => {
+    // No último objetivo não há destino adiante: `l2-independent-section` não
+    // declara `nextChallengeId`, então a recuperação bloqueada não encaminha a
+    // lugar nenhum e o botão some. A frase "com um item novo" ficava na tela
+    // prometendo exatamente o que o motor acabara de negar.
+    expect(reviewSentence({ reviewTargetId: 'review:l2:x', nextChallengeId: 'l2-outro' }))
+      .toMatch(/com um item novo/i);
+    expect(reviewSentence({ reviewTargetId: 'review:l2:x' }))
+      .toMatch(/volta na revisão agendada/i);
+    expect(reviewSentence({ reviewTargetId: 'review:l2:x' }))
+      .not.toMatch(/com um item novo/i);
   });
 });

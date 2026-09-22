@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
-import { MIDLINE_X, orientationPaths } from './l2SlicingGeometry';
+import { MIDLINE_X, VIEWBOX_HEIGHT, orientationPaths } from './l2SlicingGeometry';
 import { SlicingSpaceModel } from './SlicingSpaceModel';
 
 jest.mock('../../../ui/motion', () => {
@@ -158,15 +158,20 @@ describe('SlicingSpaceModel', () => {
     // A geometria candidata era indexada só pelo id da alternativa, então o
     // item inicial e a recuperação desenhavam exatamente a mesma figura, no
     // mesmo lugar — metade do achado de que a recuperação não é item novo.
-    const answerOptions = [{ id: 'coronal', textDescription: 'Uma placa de face.' }];
+    const answerOptions = [{ id: 'transverse', textDescription: 'Uma faixa rasa.' }];
     const thorax = render(<SlicingSpaceModel {...props} scenarioId="thorax-midline" answerOptions={answerOptions} />);
     const pelvis = render(<SlicingSpaceModel {...props} scenarioId="pelvis-coronal-recovery" answerOptions={answerOptions} />);
 
-    // `react-native-svg` resolve `transform` em `matrix`, que é a geometria
-    // efetivamente aplicada — asseverar sobre ela é mais forte que sobre a
-    // string que a originou.
-    expect(thorax.getByTestId('slicing-candidate-coronal', hidden).props.matrix)
-      .not.toEqual(pelvis.getByTestId('slicing-candidate-coronal', hidden).props.matrix);
+    // Antes isto asseverava só que as MATRIZES diferiam — e uma translação que
+    // joga a figura para fora do quadro satisfaz essa exigência com folga. Foi
+    // exatamente o que aconteceu. Agora a asserção é sobre o caminho desenhado,
+    // e o candidato precisa caber no `viewBox`.
+    const drawn = (r: ReturnType<typeof render>) =>
+      String(r.getByTestId('slicing-candidate-transverse', hidden).props.d);
+
+    expect(drawn(thorax)).not.toBe(drawn(pelvis));
+    const ys = drawn(pelvis).match(/-?\d+(?:\.\d+)?/g)!.map(Number).filter((_, i) => i % 2 === 1);
+    expect(Math.max(...ys)).toBeLessThanOrEqual(VIEWBOX_HEIGHT);
   });
 
   it('compõe deslocamento paramediano e inclinação na mesma placa, sem descartar uma das duas', () => {

@@ -11,8 +11,7 @@ import {
   OBLIQUE_ROTATION_DEGREES,
   PARAMEDIAN_OFFSET,
   bodyPathFor,
-  candidatePaths,
-  candidateTransformFor,
+  candidatePathFor,
   orientationPaths,
   regionBounds,
   scenarioDetail,
@@ -141,9 +140,7 @@ export function SlicingSpaceModel({
               strokeWidth={selectedLayer === 'geometric-plane' ? 5 : 3}
               strokeDasharray={inclination === 'oblique' ? '0' : '8 5'}
             />
-            {answerOptions.map((entry, index) => <G key={entry.id} testID={`slicing-candidate-${entry.id}`} transform={candidateTransformFor(scenarioId)}>
-              <Path d={candidatePaths[entry.id]} fill="rgba(84,180,255,0.16)" stroke={index === 0 ? semanticColors.galaxy.statusInformation : semanticColors.galaxy.statusWarning} strokeWidth="3" strokeDasharray={index === 0 ? '0' : '7 4'} />
-            </G>)}
+            {answerOptions.map((entry, index) => <Path key={entry.id} testID={`slicing-candidate-${entry.id}`} d={candidatePathFor(entry.id, scenarioId)} fill="rgba(84,180,255,0.16)" stroke={index === 0 ? semanticColors.galaxy.statusInformation : semanticColors.galaxy.statusWarning} strokeWidth="3" strokeDasharray={index === 0 ? '0' : '7 4'} />)}
             <G testID="slicing-model-scenario-markers">
               <Rect x={scenario.markerLeft} y={scenario.markerY} width="12" height="8" fill={semanticColors.galaxy.statusWarning} stroke={galaxyColors.textPrimary} strokeWidth="1" strokeDasharray={scenario.dashed ? '2 2' : '0'} />
               <Rect x={scenario.markerRight} y={scenario.markerY} width="12" height="8" fill={semanticColors.galaxy.statusWarning} stroke={galaxyColors.textPrimary} strokeWidth="1" strokeDasharray={scenario.dashed ? '2 2' : '0'} />

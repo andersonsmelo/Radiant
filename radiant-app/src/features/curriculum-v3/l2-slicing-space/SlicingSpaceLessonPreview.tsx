@@ -22,6 +22,21 @@ const activityLabel = (challenge: L2Challenge): string => {
   return challenge.id === 'l2-initial-median' ? 'Diagnóstico inicial · sem XP' : 'Decisão independente · sem XP';
 };
 
+/**
+ * A frase de fechamento do feedback.
+ *
+ * Quando não há destino adiante — o último objetivo não declara
+ * `nextChallengeId`, então uma recuperação bloqueada não encaminha a lugar
+ * nenhum — a tela prometia "com um item novo" exatamente no momento em que o
+ * motor acabara de negá-lo, e sem botão para seguir. Agora ela diz a verdade: o
+ * objetivo fica devendo à revisão agendada.
+ */
+export const reviewSentence = (
+  result: Readonly<{ reviewTargetId: string; nextChallengeId?: string }>
+): string => (result.nextChallengeId
+  ? `Este objetivo permanece em ${result.reviewTargetId}, com um item novo; XP e repetição imediata não comprovam domínio.`
+  : `Este objetivo volta na revisão agendada, em ${result.reviewTargetId}; XP e repetição imediata não comprovam domínio.`);
+
 export function SlicingSpaceLessonPreview() {
   const [session] = useState(createSlicingSpaceLessonSession);
   const [challengeId, setChallengeId] = useState(L2_SLICING_SPACE.sequence[0]);
@@ -85,7 +100,7 @@ export function SlicingSpaceLessonPreview() {
         })}
       </View>
       {!result ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: !selectedAnswerId }} disabled={!selectedAnswerId} onPress={confirm} style={[styles.confirm, !selectedAnswerId && styles.confirmDisabled]}><Text style={styles.confirmText}>Confirmar decisão</Text></Pressable> : null}
-      {result ? <View style={styles.feedback} accessibilityLiveRegion="polite"><Text style={styles.feedbackTitle}>{result.correct ? 'Leitura registrada' : 'Vamos ajustar o modelo'}</Text><Text style={styles.feedbackText}>{result.feedback}</Text>{result.evidenceKind === 'assisted_practice' && result.correct ? <Text style={styles.feedbackText}>A prática assistida foi registrada; ela não demonstra domínio.</Text> : null}{result.evidenceKind === 'later_independent_retrieval' && result.demonstratesMastery ? <Text style={styles.feedbackTitle}>Recuperação independente registrada.</Text> : null}<Text style={styles.feedbackText}>Este objetivo permanece em {result.reviewTargetId}, com um item novo; XP e repetição imediata não comprovam domínio.</Text>{feedbackActionLabel ? <Pressable accessibilityRole="button" onPress={feedbackAction} style={styles.next}><Text style={styles.confirmText}>{feedbackActionLabel}</Text></Pressable> : null}</View> : null}
+      {result ? <View style={styles.feedback} accessibilityLiveRegion="polite"><Text style={styles.feedbackTitle}>{result.correct ? 'Leitura registrada' : 'Vamos ajustar o modelo'}</Text><Text style={styles.feedbackText}>{result.feedback}</Text>{result.evidenceKind === 'assisted_practice' && result.correct ? <Text style={styles.feedbackText}>A prática assistida foi registrada; ela não demonstra domínio.</Text> : null}{result.evidenceKind === 'later_independent_retrieval' && result.demonstratesMastery ? <Text style={styles.feedbackTitle}>Recuperação independente registrada.</Text> : null}<Text style={styles.feedbackText}>{reviewSentence(result)}</Text>{feedbackActionLabel ? <Pressable accessibilityRole="button" onPress={feedbackAction} style={styles.next}><Text style={styles.confirmText}>{feedbackActionLabel}</Text></Pressable> : null}</View> : null}
     </View>
     <View style={styles.summary}><Text style={styles.summaryTitle}>Síntese para retomar depois</Text>{L2_SLICING_SPACE.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}</View>
   </ScrollView>;

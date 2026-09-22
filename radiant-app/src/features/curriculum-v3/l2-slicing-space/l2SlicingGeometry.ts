@@ -18,6 +18,9 @@ export type L2Thickness = 'thin' | 'nominal' | 'thick';
 /** Eixo mediano do desenho, em unidades do `viewBox`. */
 export const MIDLINE_X = 120;
 
+/** Altura do `viewBox`; nada desenhado além dela chega à tela. */
+export const VIEWBOX_HEIGHT = 320;
+
 /**
  * Silhueta frontal, em coordenadas fixas e centrada no eixo mediano.
  *
@@ -82,11 +85,6 @@ export const thicknessBandCount: Record<L2Thickness, number> = { thin: 1, nomina
 
 /**
  * Região anatômica que o cenário nomeia.
- *
- * O candidato é desenhado onde o enunciado diz que o problema está. Sem isso,
- * `candidatePaths` indexado só pelo id da alternativa desenhava a MESMA figura
- * no mesmo lugar no item inicial e na recuperação — metade do achado de que a
- * recuperação não era item novo.
  */
 export const scenarioRegion = (scenarioId: string): L2Region => {
   if (scenarioId.startsWith('abdomen')) return 'abdomen';
@@ -94,9 +92,48 @@ export const scenarioRegion = (scenarioId: string): L2Region => {
   return 'thorax';
 };
 
-/** Translação vertical do candidato até a região do cenário. */
-export const candidateTransformFor = (scenarioId: string): string =>
-  `translate(0 ${regionBounds[scenarioRegion(scenarioId)][0] - regionBounds.thorax[0]})`;
+/**
+ * Candidatos que pertencem a um NÍVEL, e por isso acompanham a região.
+ *
+ * Os demais — placa mediana, paramediana, coronal e oblíqua — correm da cabeça
+ * aos pés e não ficam "na pelve": mover a figura inteira deles era errado antes
+ * de ser recorte.
+ */
+const LEVEL_BOUND_CANDIDATES = new Set([
+  'transverse', 'reference-plane', 'region-with-nominal-thickness', 'resulting-image',
+]);
+
+/**
+ * Geometria do candidato no cenário, CONSTRUÍDA na banda da região.
+ *
+ * A versão anterior transladava os caminhos absolutos por `+60` ou `+120`, o
+ * que empurrava nove figuras para fora do `viewBox`: a resposta correta de
+ * `l2-section-recovery` perdia a segunda das "duas faces" que o texto da
+ * alternativa nomeia, e o distrator de `l2-reference-plane-recovery`
+ * praticamente não era desenhado. Era o achado C3 de volta por outro caminho —
+ * a resposta correta falsa no desenho — e a guarda que exigia apenas matrizes
+ * diferentes não podia enxergá-lo.
+ */
+export const candidatePathFor = (answerId: string, scenarioId: string): string => {
+  const base = candidatePaths[answerId] ?? '';
+  if (!LEVEL_BOUND_CANDIDATES.has(answerId)) return base;
+
+  const [regionTop] = regionBounds[scenarioRegion(scenarioId)];
+  const [thoraxTop] = regionBounds.thorax;
+  const delta = regionTop - thoraxTop;
+  if (delta === 0) return base;
+
+  // A banda é reposicionada e, se necessário, comprimida para caber no quadro:
+  // a figura precisa continuar inteira, porque é ela que o enunciado descreve.
+  const ys = Array.from(base.matchAll(/(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/g)).map((m) => Number(m[2]));
+  const overflow = Math.max(...ys) + delta - (VIEWBOX_HEIGHT - 8);
+  const shift = overflow > 0 ? delta - overflow : delta;
+  let index = 0;
+  return base.replace(/(-?\d+(?:\.\d+)?)(\s+)(-?\d+(?:\.\d+)?)/g, (_match, x, gap, y) => {
+    index += 1;
+    return `${x}${gap}${Number(y) + shift}`;
+  });
+};
 
 export const scenarioOffsetFor = (scenarioId: string): number =>
   (Array.from(scenarioId).reduce((total, character) => total + character.charCodeAt(0), 0) % 3) * 4;
