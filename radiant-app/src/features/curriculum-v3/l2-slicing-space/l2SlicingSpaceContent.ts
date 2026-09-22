@@ -1,17 +1,17 @@
 import type { L2AnswerOption, L2Challenge, L2SlicingSpaceLesson } from './l2SlicingSpace.types';
 
-const option = (id: string, label: string, textDescription: string): L2AnswerOption => ({ id, label, textDescription });
+const option = (id: string, textDescription: string): L2AnswerOption => ({ id, textDescription });
 const pair = (first: L2AnswerOption, second: L2AnswerOption): readonly L2AnswerOption[] => [first, second];
 const item = (entry: L2Challenge): L2Challenge => entry;
 
-const median = option('median', 'Opção 1', 'Uma placa vertical central que percorre o meio do corpo.');
-const paramedian = option('sagittal-not-median', 'Opção 2', 'Uma placa vertical paralela, deslocada para um lado.');
-const coronal = option('coronal', 'Opção 1', 'Uma placa vertical que separa uma porção da frente e outra das costas.');
-const transverse = option('transverse', 'Opção 2', 'Uma placa horizontal que separa uma porção superior e outra inferior.');
-const oblique = option('oblique', 'Opção 1', 'Uma placa inclinada em relação às placas de referência mostradas.');
-const referencePlane = option('reference-plane', 'Opção 2', 'Uma placa alinhada a uma única orientação de referência.');
-const regionWithThickness = option('region-with-nominal-thickness', 'Opção 1', 'Um volume delimitado em torno de uma placa, mostrado por duas faces e uma distância entre elas.');
-const resultingImage = option('resulting-image', 'Opção 2', 'Um quadro plano que representa os dados depois da obtenção.');
+const median = option('median', 'Uma placa vertical central que percorre o meio do corpo.');
+const paramedian = option('sagittal-not-median', 'Uma placa vertical paralela, deslocada para um lado.');
+const coronal = option('coronal', 'Uma placa vertical que separa uma porção da frente e outra das costas.');
+const transverse = option('transverse', 'Uma placa horizontal que separa uma porção superior e outra inferior.');
+const oblique = option('oblique', 'Uma placa inclinada em relação às placas de referência mostradas.');
+const referencePlane = option('reference-plane', 'Uma placa alinhada a uma única orientação de referência.');
+const regionWithThickness = option('region-with-nominal-thickness', 'Um volume delimitado em torno de uma placa, mostrado por duas faces e uma distância entre elas.');
+const resultingImage = option('resulting-image', 'Um quadro plano que representa os dados depois da obtenção.');
 
 export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
   id: 'lesson:v3:arc:spatial-orientation:l2-slicing-space',
@@ -79,7 +79,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'No modelo do tórax há duas placas verticais. Escolha a opção que corresponde à condição descrita; os dados de posição são informados nas alternativas.',
       answerOptions: pair(median, paramedian), correctAnswerId: 'median', evidenceKind: 'initial_independent', awardsXp: false, misconception: 'E-PLN-MED',
       feedback: { correct: 'Certo. O plano mediano é sagital e coincide com a linha mediana.', incorrect: 'Um plano sagital pode ser paralelo à linha mediana sem coincidir com ela. Só o que passa pela linha mediana é mediano.' },
-      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-independent-reference-plane', nextActionLabel: 'Continuar para referências', additionalRecoveryChallengeId: 'l2-median-recovery', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'thorax-midline', requiredPlane: 'median', requiredRegion: 'thorax', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-independent-reference-plane', nextActionLabel: 'Continuar para referências', additionalRecoveryChallengeId: 'l2-median-recovery', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'thorax-midline',
     }),
     item({
       id: 'l2-assisted-sagittal', objectiveId: 'l2-median-is-sagittal',
@@ -87,7 +87,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'Compare uma placa central com outra paralela deslocada. Escolha a alternativa que atende à condição descrita.',
       answerOptions: pair(median, paramedian), correctAnswerId: 'sagittal-not-median', evidenceKind: 'assisted_practice', awardsXp: false, misconception: 'E-PLN-MED',
       feedback: { correct: 'Isso. A placa deslocada continua sagital; ela não é o caso mediano.', incorrect: 'Use a linha mediana como critério: paralelismo não basta para tornar um plano mediano.' },
-      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-median-recovery', nextActionLabel: 'Tentar outro cenário sem apoio', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'thorax-paramedian', requiredPlane: 'sagittal', requiredRegion: 'thorax', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-median-recovery', nextActionLabel: 'Tentar outro cenário sem apoio', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'thorax-paramedian',
     }),
     item({
       id: 'l2-median-recovery', objectiveId: 'l2-median-is-sagittal',
@@ -95,7 +95,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'No modelo pélvico há marcadores equidistantes da linha central e duas placas verticais. Escolha a alternativa que atende à condição descrita, em novo cenário.',
       answerOptions: pair(paramedian, median), correctAnswerId: 'median', evidenceKind: 'later_independent_retrieval', awardsXp: true, misconception: 'E-PLN-MED',
       feedback: { correct: 'Recuperação nova correta: a placa mediana preserva a simetria por coincidir com a linha mediana.', incorrect: 'Os marcadores simétricos exigem que a placa coincida com a linha mediana; paralelismo não basta.' },
-      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-independent-reference-plane', nextActionLabel: 'Continuar para referências', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'pelvis-symmetry', requiredPlane: 'median', requiredRegion: 'pelvis', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-sagittal', nextChallengeId: 'l2-independent-reference-plane', nextActionLabel: 'Continuar para referências', reviewTargetId: 'review:l2:mediano-em-regiao-nova', visualScenarioId: 'pelvis-symmetry',
     }),
     item({
       id: 'l2-independent-reference-plane', objectiveId: 'l2-reference-planes',
@@ -103,7 +103,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'No modelo abdominal há duas placas. Escolha a alternativa que atende à relação espacial descrita.',
       answerOptions: pair(coronal, transverse), correctAnswerId: 'transverse', evidenceKind: 'initial_independent', awardsXp: false, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Certo. A placa transversal organiza uma porção superior e outra inferior.', incorrect: 'Compare o que cada placa separa: frente e costas descrevem outra orientação; superior e inferior descrevem a transversal.' },
-      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-independent-oblique', nextActionLabel: 'Continuar para inclinação', additionalRecoveryChallengeId: 'l2-reference-plane-recovery', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'abdomen-transverse', requiredPlane: 'transverse', requiredRegion: 'abdomen', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-independent-oblique', nextActionLabel: 'Continuar para inclinação', additionalRecoveryChallengeId: 'l2-reference-plane-recovery', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'abdomen-transverse',
     }),
     item({
       id: 'l2-assisted-reference-plane', objectiveId: 'l2-reference-planes',
@@ -111,7 +111,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'Compare as placas vertical e horizontal. Escolha a alternativa que corresponde à relação espacial explicada.',
       answerOptions: pair(coronal, transverse), correctAnswerId: 'transverse', evidenceKind: 'assisted_practice', awardsXp: false, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Isso. A placa transversal separa uma porção superior de outra inferior.', incorrect: 'A orientação se define pelo que a placa separa; compare superior/inferior com frente/costas.' },
-      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-reference-plane-recovery', nextActionLabel: 'Tentar outra região sem apoio', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'abdomen-transverse-assisted', requiredPlane: 'transverse', requiredRegion: 'abdomen', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-reference-plane-recovery', nextActionLabel: 'Tentar outra região sem apoio', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'abdomen-transverse-assisted',
     }),
     item({
       id: 'l2-reference-plane-recovery', objectiveId: 'l2-reference-planes',
@@ -119,7 +119,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'No novo cenário pélvico, escolha a alternativa que atende à relação espacial descrita.',
       answerOptions: pair(transverse, coronal), correctAnswerId: 'coronal', evidenceKind: 'later_independent_retrieval', awardsXp: true, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Recuperação nova correta: a placa coronal separa frente e costas também em outra região.', incorrect: 'A mudança de região não altera o critério; compare as porções anterior/posterior e superior/inferior.' },
-      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-independent-oblique', nextActionLabel: 'Continuar para inclinação', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'pelvis-coronal-recovery', requiredPlane: 'coronal', requiredRegion: 'pelvis', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-reference-plane', nextChallengeId: 'l2-independent-oblique', nextActionLabel: 'Continuar para inclinação', reviewTargetId: 'review:l2:coronal-transversal-em-regiao-nova', visualScenarioId: 'pelvis-coronal-recovery',
     }),
     item({
       id: 'l2-independent-oblique', objectiveId: 'l2-obliquity',
@@ -127,7 +127,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'O modelo mostra duas opções de placa no abdome e informa suas relações geométricas. Escolha a classificação solicitada.',
       answerOptions: pair(oblique, referencePlane), correctAnswerId: 'oblique', evidenceKind: 'initial_independent', awardsXp: false, misconception: 'E-PLN-OBL',
       feedback: { correct: 'Certo. A obliquidade é reconhecida pela inclinação em relação aos planos de referência.', incorrect: 'A classificação depende da relação geométrica com as referências, não de a região parecer inclinada na tela.' },
-      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-independent-section', nextActionLabel: 'Continuar para região e espessura', additionalRecoveryChallengeId: 'l2-oblique-recovery', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'abdomen-oblique', requiredPlane: 'oblique', requiredRegion: 'abdomen', requiredThickness: 'nominal',
+      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-independent-section', nextActionLabel: 'Continuar para região e espessura', additionalRecoveryChallengeId: 'l2-oblique-recovery', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'abdomen-oblique',
     }),
     item({
       id: 'l2-assisted-oblique', objectiveId: 'l2-obliquity',
@@ -135,7 +135,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'Compare uma placa inclinada com uma placa alinhada a uma referência. Escolha a classificação que corresponde à inclinação descrita.',
       answerOptions: pair(referencePlane, oblique), correctAnswerId: 'oblique', evidenceKind: 'assisted_practice', awardsXp: false, misconception: 'E-PLN-OBL',
       feedback: { correct: 'Isso. A inclinação relativa sustenta a classificação de oblíquo.', incorrect: 'Retome a comparação: estar em uma região não define a orientação; a relação com as referências define.' },
-      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-oblique-recovery', nextActionLabel: 'Tentar outra região sem apoio', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'abdomen-oblique-assisted', requiredPlane: 'oblique', requiredRegion: 'abdomen', requiredThickness: 'nominal',
+      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-oblique-recovery', nextActionLabel: 'Tentar outra região sem apoio', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'abdomen-oblique-assisted',
     }),
     item({
       id: 'l2-oblique-recovery', objectiveId: 'l2-obliquity',
@@ -143,7 +143,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'Em novo modelo corporal, escolha a classificação indicada pela relação geométrica informada nas alternativas.',
       answerOptions: pair(oblique, coronal), correctAnswerId: 'oblique', evidenceKind: 'later_independent_retrieval', awardsXp: true, misconception: 'E-PLN-OBL',
       feedback: { correct: 'Recuperação nova correta: a obliquidade não depende de uma única região.', incorrect: 'Observe a relação com as referências, não apenas a aparência do tórax no desenho.' },
-      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-independent-section', nextActionLabel: 'Continuar para região e espessura', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'thorax-oblique-recovery', requiredPlane: 'oblique', requiredRegion: 'thorax', requiredThickness: 'nominal',
+      remediationChallengeId: 'l2-assisted-oblique', nextChallengeId: 'l2-independent-section', nextActionLabel: 'Continuar para região e espessura', reviewTargetId: 'review:l2:obliquidade-em-regiao-nova', visualScenarioId: 'thorax-oblique-recovery',
     }),
     item({
       id: 'l2-independent-section', objectiveId: 'l2-spatial-region-thickness-image',
@@ -151,7 +151,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'O modelo mostra um volume delimitado e um quadro plano. Escolha a alternativa que corresponde à formulação descrita.',
       answerOptions: pair(regionWithThickness, resultingImage), correctAnswerId: 'region-with-nominal-thickness', evidenceKind: 'initial_independent', awardsXp: false, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Certo. A imagem seccional representa dados de uma região espacial, que pode ter espessura nominal.', incorrect: 'O plano geométrico é uma referência; a imagem é uma representação. Para esta formulação, a região espacial e a espessura precisam permanecer distintas da imagem.' },
-      remediationChallengeId: 'l2-assisted-section', nextActionLabel: 'Praticar a separação com apoio', additionalRecoveryChallengeId: 'l2-section-recovery', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'abdomen-region-thickness', requiredPlane: 'transverse', requiredRegion: 'abdomen', requiredThickness: 'nominal',
+      remediationChallengeId: 'l2-assisted-section', nextActionLabel: 'Praticar a separação com apoio', additionalRecoveryChallengeId: 'l2-section-recovery', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'abdomen-region-thickness',
     }),
     item({
       id: 'l2-assisted-section', objectiveId: 'l2-spatial-region-thickness-image',
@@ -159,7 +159,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'Compare um volume delimitado e um quadro plano. Escolha o elemento solicitado; a resposta será explicada antes de uma nova tentativa.',
       answerOptions: pair(regionWithThickness, resultingImage), correctAnswerId: 'resulting-image', evidenceKind: 'assisted_practice', awardsXp: false, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Isso. O quadro representa a imagem resultante; ele não substitui a ideia de região espacial.', incorrect: 'Retome as camadas: plano, região, espessura e imagem têm papéis diferentes.' },
-      remediationChallengeId: 'l2-assisted-section', nextChallengeId: 'l2-section-recovery', nextActionLabel: 'Tentar outro cenário sem apoio', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'abdomen-image-assisted', requiredPlane: 'transverse', requiredRegion: 'abdomen', requiredThickness: 'nominal',
+      remediationChallengeId: 'l2-assisted-section', nextChallengeId: 'l2-section-recovery', nextActionLabel: 'Tentar outro cenário sem apoio', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'abdomen-image-assisted',
     }),
     item({
       id: 'l2-section-recovery', objectiveId: 'l2-spatial-region-thickness-image',
@@ -167,7 +167,7 @@ export const L2_SLICING_SPACE: L2SlicingSpaceLesson = {
       accessiblePrompt: 'No novo cenário pélvico, compare um volume fino a um quadro plano. Escolha a opção que responde à pergunta sobre a informação adicional.',
       answerOptions: pair(regionWithThickness, resultingImage), correctAnswerId: 'region-with-nominal-thickness', evidenceKind: 'later_independent_retrieval', awardsXp: true, misconception: 'E-PLN-SEC',
       feedback: { correct: 'Recuperação nova correta: o volume comunica região espacial e espessura nominal sem transformar a imagem em plano.', incorrect: 'Procure a distância entre as faces do volume. Ela acrescenta espessura à região representada.' },
-      remediationChallengeId: 'l2-assisted-section', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'pelvis-region-thickness-recovery', requiredPlane: 'transverse', requiredRegion: 'pelvis', requiredThickness: 'thin',
+      remediationChallengeId: 'l2-assisted-section', reviewTargetId: 'review:l2:regiao-espessura-imagem', visualScenarioId: 'pelvis-region-thickness-recovery',
     }),
   ],
   sequence: ['l2-initial-median', 'l2-independent-oblique', 'l2-independent-section'],

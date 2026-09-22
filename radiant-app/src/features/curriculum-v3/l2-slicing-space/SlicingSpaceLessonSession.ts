@@ -46,17 +46,28 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
       && entry.evidenceKind === 'later_independent_retrieval' && entry.outcome === 'incorrect');
     const seenScenarioForObjective = evidence.some((entry) => entry.objectiveId === challenge.objectiveId
       && entry.visualScenarioId === challenge.visualScenarioId);
-    const hasDiagnosedError = evidence.some((entry) => entry.objectiveId === challenge.objectiveId && entry.outcome === 'incorrect');
+    // Uma recuperação só demonstra domínio depois de o objetivo ter sido
+    // enfrentado sem ajuda pelo menos uma vez. É isso que impede a chamada
+    // direta à recuperação de conceder XP — o achado v2 (4). Exigir ERRO
+    // prévio era forte demais: tornava o objetivo inalcançável para quem
+    // acerta, contra a §5.1, que pede item novo e independente para todo
+    // objetivo essencial (achado C4).
+    const hasAttemptedObjectiveIndependently = evidence.some((entry) => entry.objectiveId === challenge.objectiveId
+      && entry.evidenceKind === 'initial_independent');
+    const hasErredOnObjective = evidence.some((entry) => entry.objectiveId === challenge.objectiveId && entry.outcome === 'incorrect');
     const hasCompletedAssistedPractice = evidence.some((entry) => entry.objectiveId === challenge.objectiveId
       && entry.evidenceKind === 'assisted_practice' && entry.outcome === 'correct');
+    // Quem errou precisa ter fechado a prática assistida; quem não errou não
+    // tem apoio a cumprir.
+    const supportRequirementSatisfied = !hasErredOnObjective || hasCompletedAssistedPractice;
     const supportCannotOpenRepeatedRecovery = challenge.evidenceKind === 'assisted_practice'
       && correct && failedEarlierRecovery;
     const demonstratesMastery = correct
       && challenge.evidenceKind === 'later_independent_retrieval'
       && !attemptedThisRecovery
       && !seenScenarioForObjective
-      && hasDiagnosedError
-      && hasCompletedAssistedPractice;
+      && hasAttemptedObjectiveIndependently
+      && supportRequirementSatisfied;
 
     evidence.push(Object.freeze({
       challengeId,
@@ -67,11 +78,21 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
       visualScenarioId: challenge.visualScenarioId,
     }));
 
+    // Acertar o item inicial não fecha o objetivo: a recuperação independente
+    // em cenário novo é o que a §5.1 exige, e ela estava declarada em
+    // `additionalRecoveryChallengeId` sem nenhum leitor no motor da L2 — o
+    // caminho correto pulava direto para o objetivo seguinte (achado C4).
+    const pendingRecoveryChallengeId = correct
+      && challenge.evidenceKind === 'initial_independent'
+      && challenge.additionalRecoveryChallengeId !== undefined
+      && !evidence.some((entry) => entry.challengeId === challenge.additionalRecoveryChallengeId)
+      ? challenge.additionalRecoveryChallengeId
+      : undefined;
     const nextChallengeId = !correct
       ? challenge.remediationChallengeId
       : supportCannotOpenRepeatedRecovery
         ? undefined
-        : challenge.nextChallengeId;
+        : pendingRecoveryChallengeId ?? challenge.nextChallengeId;
 
     return Object.freeze({
       correct,
@@ -82,7 +103,13 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
       demonstratesMastery,
       remediationChallengeId: challenge.remediationChallengeId,
       ...(nextChallengeId ? { nextChallengeId } : {}),
-      ...(nextChallengeId && challenge.nextActionLabel ? { nextActionLabel: challenge.nextActionLabel } : {}),
+      ...(nextChallengeId
+        ? pendingRecoveryChallengeId
+          ? { nextActionLabel: 'Tentar um cenário novo sem apoio' }
+          : challenge.nextActionLabel
+            ? { nextActionLabel: challenge.nextActionLabel }
+            : {}
+        : {}),
       reviewTargetId: challenge.reviewTargetId,
     });
   };

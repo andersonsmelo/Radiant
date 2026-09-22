@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
+import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 import { L2_SLICING_SPACE } from './l2SlicingSpaceContent';
 import { createSlicingSpaceLessonSession, type SlicingSpaceAnswerResult } from './SlicingSpaceLessonSession';
 import { SlicingSpaceModel } from './SlicingSpaceModel';
-import type { L2Challenge, L2ModelLayerId, L2PlaneId } from './l2SlicingSpace.types';
-
-type L2Region = 'thorax' | 'abdomen' | 'pelvis';
-type L2Thickness = 'thin' | 'nominal' | 'thick';
+import type { L2Inclination, L2MedianRelation, L2ReferenceOrientation, L2Region, L2Thickness } from './l2SlicingGeometry';
+import type { L2Challenge, L2ModelLayerId } from './l2SlicingSpace.types';
 
 const challengeById = (id: string): L2Challenge => {
   const challenge = L2_SLICING_SPACE.challenges.find((entry) => entry.id === id);
@@ -27,19 +25,23 @@ const activityLabel = (challenge: L2Challenge): string => {
 export function SlicingSpaceLessonPreview() {
   const [session] = useState(createSlicingSpaceLessonSession);
   const [challengeId, setChallengeId] = useState(L2_SLICING_SPACE.sequence[0]);
-  const [plane, setPlane] = useState<L2PlaneId>('coronal');
+  const [orientation, setOrientation] = useState<L2ReferenceOrientation>('coronal');
+  const [medianRelation, setMedianRelation] = useState<L2MedianRelation>('median');
+  const [inclination, setInclination] = useState<L2Inclination>('aligned');
   const [region, setRegion] = useState<L2Region>('thorax');
   const [thickness, setThickness] = useState<L2Thickness>('nominal');
   const [selectedLayer, setSelectedLayer] = useState<L2ModelLayerId>('geometric-plane');
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [result, setResult] = useState<SlicingSpaceAnswerResult | null>(null);
-  const reduceMotion = useReducedMotionPreference();
+  const { reducedMotionEnabled: reduceMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
   const challenge = challengeById(challengeId);
 
   const showChallenge = (nextChallengeId: string) => {
     challengeById(nextChallengeId);
     setChallengeId(nextChallengeId);
-    setPlane('coronal');
+    setOrientation('coronal');
+    setMedianRelation('median');
+    setInclination('aligned');
     setRegion('thorax');
     setThickness('nominal');
     setSelectedLayer('geometric-plane');
@@ -69,7 +71,7 @@ export function SlicingSpaceLessonPreview() {
     <Text style={styles.eyebrow}>L2 · ORIENTAÇÃO ESPACIAL · RASCUNHO LOCAL</Text>
     <Text style={styles.title}>{L2_SLICING_SPACE.title}</Text>
     <Text style={styles.intro}>A referência geométrica ajuda a situar dados de uma região. Plano, região, espessura e imagem não são sinônimos.</Text>
-    <SlicingSpaceModel {...{ plane, region, thickness, selectedLayer, reduceMotion }} scenarioId={challenge.visualScenarioId} answerOptions={challenge.answerOptions} onCandidateSelect={setSelectedAnswerId} onPlaneChange={setPlane} onRegionChange={setRegion} onThicknessChange={setThickness} onLayerSelect={setSelectedLayer} />
+    <SlicingSpaceModel {...{ orientation, medianRelation, inclination, region, thickness, selectedLayer, reduceMotion, motionResolved }} scenarioId={challenge.visualScenarioId} answerOptions={challenge.answerOptions} onCandidateSelect={setSelectedAnswerId} onOrientationChange={setOrientation} onMedianRelationChange={setMedianRelation} onInclinationChange={setInclination} onRegionChange={setRegion} onThicknessChange={setThickness} onLayerSelect={setSelectedLayer} />
     <View style={styles.activity}>
       <Text style={styles.activityLabel}>{activityLabel(challenge)}</Text>
       <Text style={styles.prompt}>{challenge.prompt}</Text>
@@ -78,7 +80,7 @@ export function SlicingSpaceLessonPreview() {
         {challenge.answerOptions.map((option, index) => {
           const selected = selectedAnswerId === option.id;
           return <Pressable key={option.id} accessibilityRole="radio" accessibilityLabel={`Selecionar opção ${index + 1}. ${option.textDescription}`} accessibilityHint="Seleciona esta opção. A confirmação acontece em um controle separado." accessibilityState={{ selected }} accessibilityValue={{ text: selected ? 'selecionada' : 'não selecionada' }} onPress={() => setSelectedAnswerId(option.id)} style={[styles.option, selected && styles.optionSelected]}>
-            <Text style={styles.optionNumber}>{index + 1}</Text><View style={styles.optionText}><Text style={styles.optionLabel}>{option.label}</Text><Text style={styles.optionDescription}>{option.textDescription}</Text></View>{selected ? <Text style={styles.selected}>Selecionada</Text> : null}
+            <Text style={styles.optionNumber}>{index + 1}</Text><View style={styles.optionText}><Text style={styles.optionLabel}>{`Opção ${index + 1}`}</Text><Text style={styles.optionDescription}>{option.textDescription}</Text></View>{selected ? <Text style={styles.selected}>Selecionada</Text> : null}
           </Pressable>;
         })}
       </View>

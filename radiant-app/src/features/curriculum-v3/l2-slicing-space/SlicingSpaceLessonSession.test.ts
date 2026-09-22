@@ -69,7 +69,29 @@ describe('SlicingSpaceLessonSession', () => {
     expect(repeatedRecovery).toMatchObject({ demonstratesMastery: false, awardsXp: false });
   });
 
-  it('não concede domínio se uma recuperação for chamada sem erro diagnosticado e prática assistida prévios', () => {
+  it('leva quem acerta o item inicial à recuperação independente, em vez de pular o objetivo', () => {
+    const session = createSlicingSpaceLessonSession();
+
+    const initial = session.answer('l2-initial-median', 'median');
+
+    expect(initial).toMatchObject({ correct: true, nextChallengeId: 'l2-median-recovery' });
+  });
+
+  it('reconhece domínio de quem acerta sem errar, desde que a recuperação seja item novo', () => {
+    // A §5.1 exige um item novo, sem ajuda, para TODO objetivo essencial — não
+    // só para quem errou. Exigir erro diagnosticado como pré-condição de
+    // domínio tornava o caminho correto incapaz de fechar o objetivo.
+    const session = createSlicingSpaceLessonSession();
+
+    session.answer('l2-initial-median', 'median');
+    const recovery = session.answer('l2-median-recovery', 'median');
+
+    expect(recovery).toMatchObject({
+      evidenceKind: 'later_independent_retrieval', demonstratesMastery: true, awardsXp: true,
+    });
+  });
+
+  it('não concede domínio se uma recuperação for chamada sem nenhuma decisão prévia sobre o objetivo', () => {
     const session = createSlicingSpaceLessonSession();
 
     expect(session.answer('l2-median-recovery', 'median')).toMatchObject({

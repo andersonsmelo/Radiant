@@ -2,8 +2,6 @@ export type L2EvidenceKind = 'initial_independent' | 'assisted_practice' | 'late
 
 export type L2Misconception = 'E-PLN-MED' | 'E-PLN-SEC' | 'E-PLN-OBL';
 
-export type L2PlaneId = 'coronal' | 'sagittal' | 'median' | 'transverse' | 'oblique';
-
 export type L2ModelLayerId = 'geometric-plane' | 'sampled-region' | 'nominal-thickness' | 'resulting-image';
 
 export type L2Source = Readonly<{
@@ -25,7 +23,14 @@ export type L2Objective = Readonly<{
 
 export type L2AnswerOption = Readonly<{
   id: string;
-  label: string;
+  /**
+   * Descrição da geometria observável.
+   *
+   * Não existe rótulo aqui de propósito: um rótulo preso à identidade da
+   * alternativa ("Opção 1" para `median` em todo item) sobrevive ao
+   * embaralhamento e deixa acertar a recuperação sem ler o desenho. A posição
+   * é responsabilidade de quem renderiza, e só dela.
+   */
   textDescription: string;
 }>;
 
@@ -51,9 +56,6 @@ export type L2Challenge = Readonly<{
   additionalRecoveryChallengeId?: string;
   reviewTargetId: string;
   visualScenarioId: string;
-  requiredPlane: L2PlaneId;
-  requiredRegion: 'thorax' | 'abdomen' | 'pelvis';
-  requiredThickness: 'thin' | 'nominal' | 'thick';
 }>;
 
 export type L2ModelLayer = Readonly<{

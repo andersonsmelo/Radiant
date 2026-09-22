@@ -169,3 +169,56 @@ Aprovado no parecer e registrado como sólido: proveniência e direitos (todo o
 desenho é autoral; DICOM com edição fixada e URL versionada; TA2 com termos e
 capítulo), os limites da §9.3, o desacoplamento da avaliação e o
 `SlicingSpaceLessonSession.test.ts` como evidência genuína sem mock.
+
+**Correções submetidas à revisão v4 (2026-09-22):** os seis achados críticos,
+cada um com teste que falhou antes da correção e pelo motivo previsto.
+
+- **C1 — coronal como linha horizontal.** As placas de referência passaram a
+  `l2SlicingGeometry.orientationPaths`: coronal é área de face, transversal é
+  área rasa de perfil, sagital continua segmento vertical porque é perpendicular
+  à vista. Guarda: o coronal precisa ser caminho fechado e ter extensão vertical
+  maior que o dobro da do transversal.
+- **C2 — o controle ensinava `E-PLN-MED` e `E-PLN-OBL`.** O seletor único de
+  cinco opções exclusivas virou **três eixos independentes**: orientação de
+  referência (coronal/sagital/transversal), relação com o eixo mediano
+  (mediano/paramediano) e inclinação (alinhada/oblíqua). A relação com o eixo
+  aparece **aninhada sob sagital** e só quando sagital está selecionado — a
+  estrutura do controle passa a ensinar que o mediano é um caso de sagital, em
+  vez de negá-lo. Escolher "mediano" não desseleciona mais "sagital".
+- **C3 — silhueta deslocada duas vezes.** `bodyPathFor` devolve coordenadas
+  fixas, centradas em `MIDLINE_X`; o deslocamento de cenário fica só na
+  translação do grupo, que carrega corpo, eixo, placas e marcadores juntos.
+  Guarda: o centro horizontal da silhueta coincide com o eixo em **todo**
+  cenário.
+- **C4 — quem acerta nunca alcançava a recuperação.** O motor passou a ler
+  `additionalRecoveryChallengeId` no acerto do item inicial, e o domínio exige
+  **decisão independente prévia sobre o objetivo** em vez de erro diagnosticado.
+  Quem errou continua precisando fechar a prática assistida; quem não errou não
+  tem apoio a cumprir. A trava do parecer v2 — recuperação chamada a frio não
+  concede XP — segue verde no mesmo teste que a instalou.
+- **C5 — Reduce Motion violado na primeira renderização.** A prévia usa
+  `useReducedMotionPreferenceState` e o modelo só agenda com `resolved`.
+  Enquanto a preferência é desconhecida, a geometria final entra sem animar e o
+  estado diz isso. O mock do teste deixou de fixar `true` e passou a ser
+  controlável, com caso para os dois ramos.
+- **C6 — rótulo preso à identidade da alternativa.** O campo `label` saiu de
+  `L2AnswerOption`; a posição é responsabilidade de quem renderiza. Guarda:
+  nenhuma alternativa pode carregar token posicional nos dados.
+
+Saíram também, por serem incoerentes com o modelo de três eixos: os campos
+`requiredPlane`/`requiredRegion`/`requiredThickness` — sem consumidor e
+duplicando o gabarito, superfície do crítico v1 (a) —, com guarda contra
+retorno; o espelho das props embarcado no componente para os testes; e a
+afordância falsa "Toque em um candidato no modelo", já que o desenho não recebe
+toque. Cada `visualScenarioId` ganhou legenda e marcadores próprios, encerrando
+o achado v2 (2).
+
+**Evidência medida em 2026-09-22:** 6 suítes e 38 testes da lição aprovados
+(eram 4 e 22); `src/features/curriculum-v3` inteiro com 12 suítes e 117 testes;
+`npm run typecheck` aprovado. **Nada foi verificado em aparelho:** o pedido do
+parecer v2 de confirmar a semântica de rádio no VoiceOver continua aberto, e
+nenhum teste desta suíte pode fechá-lo. **Parecer v4 pendente.**
+
+**Fora do alcance da lição:** o achado I2 — o código `E-PLN-SEC` aplicado à
+confusão coronal×transversal — exige criar um código de erro novo na spec e é
+decisão do dono. Remendar a taxonomia por dentro corromperia a matriz de P1 e C1.
