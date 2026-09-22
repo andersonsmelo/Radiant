@@ -143,6 +143,29 @@ carrega o pacote inteiro.
    Com isso a tarefa "serviços e privacidade" fecha: Sentry medido inerte em
    2026-09-08, disponibilidade e classificação confirmadas em 2026-09-11.
 
+   **Configuração mínima do Sentry fixada em 2026-09-22** (Task 8, fatia 1 de 6).
+   `buildSentryOptions` é função pura: sem PII, sem rastreamento de desempenho,
+   sem quadros nativos, `maxBreadcrumbs: 20`, `beforeSend` removendo `user`,
+   `server_name` e nome de aparelho, e `beforeBreadcrumb` descartando migalhas
+   `console`/`xhr`/`fetch`. O contrato de privacidade passou a garantir por AST
+   que o SDK é inicializado num ponto só e sempre por essa função.
+   **Evidência medida em 2026-09-22:** 6 suítes e 41 testes de telemetria
+   aprovados; guarda derrubada de propósito em duas formas (init por objeto
+   literal e segundo init em outro arquivo) e verde de novo ao restaurar.
+
+   ⚠️ **Isso não liga nada.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` continua sem
+   valor e o `Sentry.init` não roda, então o rótulo "Dados não coletados" segue
+   verdadeiro. A fatia fixa o que sairia do aparelho **se** a flag for ligada —
+   é a base factual para revisar as Privacy Labels, e ligar continua sendo
+   decisão do dono.
+
+   > 🔴 **A primeira versão da guarda era vazia e passava com
+   > `sendDefaultPii: true`.** Ela usava regex sobre o fonte e casava com a
+   > menção da opção num **comentário**. Só apareceu porque a guarda foi
+   > derrubada de propósito depois de escrita, e o arquivo que a recebeu já
+   > dizia, desde antes, que o contrato usa AST justamente para ignorar
+   > comentários e strings. **Guarda nunca vista falhar não é guarda.**
+
    **Item 7 (direitos e setor regulado) decidido pelo dono em 2026-09-11.** A
    única fonte dos 16 quizzes embarcados, *Fundamentos de Radiologia*, estava
    `blocked` desde 2026-07-31 "até revisão humana", sustentada por uma exceção

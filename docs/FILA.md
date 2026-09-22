@@ -122,12 +122,43 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
 
 ### AGENTE — o que sobrou da Task 8
 
-Só depois de o dono destravar os itens acima, e **um por run**: adaptador
-StoreKit real com os Product IDs já fixados em
-[ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md) (`expo-iap`
-ainda não instalado); Sentry com configuração mínima, sem IP e sem
-identificador; `QuizTopBar` mostrando ∞ para assinante; bump para `1.4.0`; E2E
-dos três caminhos dourados; e o checklist de declarações à loja (spec §9).
+**Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
+
+1. ✅ **Sentry com configuração mínima, sem IP e sem identificador** — concluído
+   em **2026-09-22**. `buildSentryOptions` é função pura e auditável:
+   `sendDefaultPii: false`, `tracesSampleRate: 0`,
+   `enableNativeFramesTracking: false`, `maxBreadcrumbs: 20`, `beforeSend` que
+   remove `user`, `server_name` e nome de aparelho, e `beforeBreadcrumb` que
+   descarta migalhas `console`/`xhr`/`fetch` — as que carregariam resposta
+   digitada em lição ou corpo de requisição. O contrato de privacidade ganhou
+   guarda por **AST** de que o SDK é inicializado num ponto só e sempre por essa
+   função.
+
+   > ⚠️ A primeira versão da guarda usava regex sobre o fonte e **passava com
+   > `sendDefaultPii: true`**, porque casava com a menção da opção num
+   > comentário. Só apareceu porque a guarda foi derrubada de propósito depois
+   > de escrita. O próprio arquivo já dizia, desde antes, que o contrato usa AST
+   > para ignorar comentários e strings.
+
+   **O portão continua fechado.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` não foi
+   gravada e `Sentry.init` não roda. Esta fatia não liga nada — ela fixa o que
+   sairia do aparelho **se** você ligar, que é a base factual para revisar as
+   Privacy Labels. Ligar segue sendo decisão sua.
+
+2. **Adaptador StoreKit real** com os Product IDs fixados na
+   [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A porta
+   `StoreKitPort` e o `UnavailableStoreKitAdapter` já existem em
+   `features/subscription/`; falta o adaptador real por trás da mesma porta.
+   **`expo-iap` ainda não instalado** — é dependência nativa, então a fatia
+   muda `package.json` e exige build novo para valer em aparelho.
+3. **`QuizTopBar` mostrando ∞ para assinante** — depende de (2) para ter estado
+   de assinatura real, embora o `SubscriptionService` já exista.
+4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.
+   Não validar durante flow E2E: 2,3× de desaceleração medida.
+5. **Checklist de declarações à loja** (spec §9) — depende de (1) e (2) estarem
+   fechados para declarar o que o app de fato coleta e vende.
+6. **Bump para `1.4.0`** — por último, quando as outras fecharem. Regra 8 da
+   ADR: os produtos de assinatura não sobem sozinhos, viajam com a versão.
 
 Não faz build, envio nem push sem autorização datada.
 
