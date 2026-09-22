@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { MIDLINE_X, orientationPaths } from './l2SlicingGeometry';
 import { SlicingSpaceModel } from './SlicingSpaceModel';
 
 jest.mock('../../../ui/motion', () => {
@@ -123,5 +124,65 @@ describe('SlicingSpaceModel', () => {
     ]} />);
 
     expect(queryByText(/Toque em um candidato no modelo/i)).toBeNull();
+  });
+
+  // O desenho fica sob `accessibilityElementsHidden`, e as consultas padrão do
+  // RNTL pulam nós ocultos — é por isso que nunca houve teste sobre ele. As
+  // consultas abaixo pedem os ocultos explicitamente.
+  const hidden = { includeHiddenElements: true } as const;
+
+  // As guardas de C1 e C3 paravam na fronteira do módulo puro: nada asseverava
+  // sobre o que o componente DESENHA, então reembutir a linha horizontal do
+  // coronal ou o deslocamento no caminho do corpo reintroduzia os dois defeitos
+  // com a suíte inteira verde. Estes testes atravessam o componente.
+  it('desenha o plano coronal como a área de face do módulo, não como segmento', () => {
+    const { getByTestId } = render(<SlicingSpaceModel {...props} orientation="coronal" />);
+
+    const drawn = String(getByTestId('slicing-reference-plane', hidden).props.d);
+
+    expect(drawn).toBe(orientationPaths.coronal);
+    expect(drawn).not.toMatch(/^M \d+ (\d+) L \d+ \1$/);
+  });
+
+  it('desenha a silhueta centrada no eixo mediano, em cenário com deslocamento', () => {
+    const { getByTestId } = render(<SlicingSpaceModel {...props} scenarioId="pelvis-symmetry" />);
+
+    const xs = String(getByTestId('slicing-body', hidden).props.d).match(/-?\d+(?:\.\d+)?/g)!
+      .map(Number)
+      .filter((_, index) => index % 2 === 0);
+
+    expect((Math.min(...xs) + Math.max(...xs)) / 2).toBe(MIDLINE_X);
+  });
+
+  it('desenha o mesmo candidato em lugar diferente quando o cenário muda de região', () => {
+    // A geometria candidata era indexada só pelo id da alternativa, então o
+    // item inicial e a recuperação desenhavam exatamente a mesma figura, no
+    // mesmo lugar — metade do achado de que a recuperação não é item novo.
+    const answerOptions = [{ id: 'coronal', textDescription: 'Uma placa de face.' }];
+    const thorax = render(<SlicingSpaceModel {...props} scenarioId="thorax-midline" answerOptions={answerOptions} />);
+    const pelvis = render(<SlicingSpaceModel {...props} scenarioId="pelvis-coronal-recovery" answerOptions={answerOptions} />);
+
+    // `react-native-svg` resolve `transform` em `matrix`, que é a geometria
+    // efetivamente aplicada — asseverar sobre ela é mais forte que sobre a
+    // string que a originou.
+    expect(thorax.getByTestId('slicing-candidate-coronal', hidden).props.matrix)
+      .not.toEqual(pelvis.getByTestId('slicing-candidate-coronal', hidden).props.matrix);
+  });
+
+  it('compõe deslocamento paramediano e inclinação na mesma placa, sem descartar uma das duas', () => {
+    // O parecer registrou como não verificável se a biblioteca honra duas
+    // operações numa string de transform. Ela resolve tudo em `matrix`, então
+    // dá para medir: as três combinações precisam produzir matrizes distintas.
+    const read = (medianRelation: 'median' | 'offset', inclination: 'aligned' | 'oblique') =>
+      render(<SlicingSpaceModel {...props} medianRelation={medianRelation} inclination={inclination} />)
+        .getByTestId('slicing-reference-plane', hidden).props.matrix;
+
+    const aligned = read('median', 'aligned');
+    const offsetOnly = read('offset', 'aligned');
+    const both = read('offset', 'oblique');
+
+    expect(offsetOnly).not.toEqual(aligned);
+    expect(both).not.toEqual(offsetOnly);
+    expect(both).not.toEqual(aligned);
   });
 });

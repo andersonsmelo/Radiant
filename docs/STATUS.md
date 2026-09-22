@@ -787,6 +787,46 @@ carrega o pacote inteiro.
    procedem. Nada foi verificado em aparelho: o pedido da v2 de confirmar a
    semântica de rádio em VoiceOver **continua aberto** e nenhum teste desta suíte
    pode fechá-lo.
+
+   **Os seis críticos foram corrigidos em 2026-09-22 e o parecer v4 os confirmou
+   resolvidos no código** — [registro](content/2026-09-22-l2-parecer-v4.md). O v4
+   ainda assim **reprovou**, por motivo de outra natureza: dois críticos novos,
+   ambos consequência da correção do C4. **N1** — a lição passou a terminar sem
+   saída depois de um erro na recuperação, agora no caminho de todo aprendiz, com
+   três objetivos por ver e o domínio daquele objetivo travado para sempre;
+   confirmado por execução do motor real. **N2** — a recuperação que o C4 tornou
+   porta única do domínio não era item novo: em três das quatro famílias a
+   resposta correta ficava na mesma posição, e em duas a alternativa correta era
+   o mesmo objeto, com o mesmo candidato desenhado.
+
+   Some-se **N4**: as guardas de C1 e C3 paravam na fronteira do módulo puro.
+   Reembutir a linha horizontal do coronal ou o deslocamento no caminho do corpo
+   reintroduzia os dois defeitos **com a suíte verde** — o que tornava
+   insustentável, para dois dos seis, a afirmação de que cada correção tinha
+   teste que falhou antes.
+
+   **N1, N2 e N4 corrigidos na mesma data (v5 submetida):** o apoio após
+   recuperação falhada segue o percurso em vez de zerá-lo; a resposta correta
+   mudou de posição nas três famílias, com guarda que percorre todas; os
+   candidatos passaram a ser desenhados na região que o cenário nomeia; e três
+   guardas novas atravessam o componente, asseverando sobre o `d` da placa, o
+   caminho da silhueta e a matriz do candidato — as três derrubadas com o defeito
+   específico de cada uma antes de serem aceitas. **Evidência: 5 suítes e 46
+   testes da lição.**
+
+   **Descoberta de método:** o desenho fica sob `accessibilityElementsHidden`, e
+   as consultas padrão do RNTL pulam nós ocultos — é **por isso** que nunca houve
+   teste sobre ele, não por esquecimento. Precisa de
+   `{ includeHiddenElements: true }`.
+
+   ⚠️ **Fora do escopo da L2:** o parecer v4 registrou que a **L1, já aprovada**,
+   contém o defeito exato do C6 — `option.label` preso à identidade renderizado
+   ao lado do número por posição. A correção da L2 não foi propagada.
+
+   **Seguem abertos na L2:** N3 (a rotação como obliquidade é degenerada para
+   coronal — girar um plano coronal em torno do eixo anteroposterior o leva nele
+   mesmo), N5 (contínuo/tracejado com dois significados no mesmo desenho), I4
+   agravado, N7–N10 e os importantes/menores do v3. **Parecer v5 pendente.**
    Como a L1, a L2 não está conectada a startup, rota, catálogo ou manifesto, e
    `prepareV3()` não foi chamado.
 

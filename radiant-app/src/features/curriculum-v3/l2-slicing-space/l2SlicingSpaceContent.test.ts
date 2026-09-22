@@ -101,11 +101,40 @@ describe('L2_SLICING_SPACE', () => {
     expect(offenders).toEqual([]);
   });
 
-  it('embaralha a ordem das alternativas entre o item inicial e a recuperação do mesmo objetivo', () => {
-    const initial = L2_SLICING_SPACE.challenges.find(({ id }) => id === 'l2-initial-median');
-    const recovery = L2_SLICING_SPACE.challenges.find(({ id }) => id === 'l2-median-recovery');
+  it('move a resposta correta de posição entre o item inicial e a recuperação, em TODA família', () => {
+    // A guarda anterior media só a família mediana — a única em que o
+    // embaralhamento de fato acontecia. Em três das quatro, a resposta certa
+    // ficava na mesma posição, e em duas a alternativa correta era o mesmo
+    // objeto na mesma ordem: quem decorou a posição fechava a recuperação sem
+    // ler geometria, que é o mecanismo do C6 reaparecendo pela posição.
+    const positionOf = (challengeId: string): number => {
+      const challenge = L2_SLICING_SPACE.challenges.find(({ id }) => id === challengeId);
+      if (!challenge) throw new Error(`desafio ausente: ${challengeId}`);
+      return challenge.answerOptions.findIndex(({ id }) => id === challenge.correctAnswerId);
+    };
 
-    expect(initial?.answerOptions.map(({ id }) => id))
-      .not.toEqual(recovery?.answerOptions.map(({ id }) => id));
+    const offenders = L2_SLICING_SPACE.challenges
+      .filter((challenge) => challenge.evidenceKind === 'initial_independent' && challenge.additionalRecoveryChallengeId)
+      .filter((challenge) => positionOf(challenge.id) === positionOf(challenge.additionalRecoveryChallengeId!))
+      .map((challenge) => `${challenge.id} → ${challenge.additionalRecoveryChallengeId}`);
+
+    expect(offenders).toEqual([]);
+  });
+
+  it('não apresenta o item inicial e a recuperação como o mesmo problema', () => {
+    // Item idêntico é o par de alternativas na mesma ordem COM a mesma
+    // resposta correta; aí só o enunciado e o nível anatômico mudam, e a §9.3
+    // diz textualmente que isso não produz item novo. Trocar a resposta certa
+    // dentro do mesmo par, por outro lado, é pergunta diferente.
+    const offenders = L2_SLICING_SPACE.challenges
+      .filter((challenge) => challenge.evidenceKind === 'initial_independent' && challenge.additionalRecoveryChallengeId)
+      .filter((challenge) => {
+        const recovery = L2_SLICING_SPACE.challenges.find(({ id }) => id === challenge.additionalRecoveryChallengeId);
+        return JSON.stringify(challenge.answerOptions) === JSON.stringify(recovery?.answerOptions)
+          && challenge.correctAnswerId === recovery?.correctAnswerId;
+      })
+      .map((challenge) => `${challenge.id} → ${challenge.additionalRecoveryChallengeId}`);
+
+    expect(offenders).toEqual([]);
   });
 });

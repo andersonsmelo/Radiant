@@ -268,12 +268,27 @@ startup, rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
 > embarcado no componente só para os testes, e o mock do hook de Reduce Motion
 > esconde uma violação real. Mesma classe de falha de 2026-09-08.
 
-**Próximo item executável: corrigir os seis achados críticos do parecer v3 e
-submeter a revisão v4** — não a P1. O roteiro manda corrigir os achados e repetir
-a revisão antes de avançar de pacote, e esta lição já acumula três reprovações.
+> ✅ **Os seis críticos foram corrigidos em 2026-09-22 e o parecer v4 confirmou
+> os seis resolvidos no código.** O v4 reprovou por dois críticos **novos**
+> (N1, N2), ambos consequência da correção do C4, mais o N4 — guardas que não
+> observavam o componente. Os três foram corrigidos na mesma data e a **revisão
+> v5 está pendente**. Registro em
+> [`2026-09-22-l2-parecer-v4.md`](content/2026-09-22-l2-parecer-v4.md).
 
-Os críticos, na ordem em que convém atacá-los (os dois primeiros são de conteúdo
-e mudam o desenho; os quatro seguintes são de mecânica):
+**Próximo item executável: obter o parecer v5.** Se aprovar, os achados
+importantes e menores ainda abertos (N3, N5, I1, I3, I4, I5.2/I5.3, N7–N10,
+M4–M6) entram num run próprio, e só então a P1.
+
+⚠️ **Item novo para o dono, achado pelo v4 fora do escopo da L2:** a **L1, já
+aprovada**, carrega o defeito exato do C6 — rótulo preso à identidade da
+alternativa renderizado ao lado do número por posição. A correção da L2 não foi
+propagada, e quem decorar o rótulo acerta a recuperação da L1 sem ler o mapa.
+
+### Histórico — os seis críticos do parecer v3, todos corrigidos em 2026-09-22
+
+O roteiro manda corrigir os achados e repetir a revisão antes de avançar de
+pacote. Ficam registrados aqui, na ordem em que foram atacados (os dois primeiros
+são de conteúdo e mudam o desenho; os quatro seguintes são de mecânica):
 
 1. **C1** — `planePaths.coronal` é uma linha horizontal numa vista frontal,
    indistinguível do transversal. O próprio arquivo já tem a forma certa em

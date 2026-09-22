@@ -213,11 +213,56 @@ afordância falsa "Toque em um candidato no modelo", já que o desenho não rece
 toque. Cada `visualScenarioId` ganhou legenda e marcadores próprios, encerrando
 o achado v2 (2).
 
-**Evidência medida em 2026-09-22:** 6 suítes e 38 testes da lição aprovados
+**Evidência medida em 2026-09-22:** 5 suítes e 39 testes da lição aprovados
 (eram 4 e 22); `src/features/curriculum-v3` inteiro com 12 suítes e 117 testes;
-`npm run typecheck` aprovado. **Nada foi verificado em aparelho:** o pedido do
-parecer v2 de confirmar a semântica de rádio no VoiceOver continua aberto, e
-nenhum teste desta suíte pode fechá-lo. **Parecer v4 pendente.**
+`npm run typecheck` aprovado. *(Uma versão anterior deste bloco dizia "6 suítes e
+38 testes" — número de uma execução intermediária, corrigido depois que o parecer
+v4 o mediu.)* **Nada foi verificado em aparelho:** o pedido do parecer v2 de
+confirmar a semântica de rádio no VoiceOver continua aberto, e nenhum teste desta
+suíte pode fechá-lo.
+
+**Parecer v4 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v4.md`](../content/2026-09-22-l2-parecer-v4.md). **Os seis
+críticos foram confirmados resolvidos no código** — a reprovação é de outra
+natureza que as três anteriores, em que a prosa descrevia correção que o código
+não fazia. Ela se apoia em dois críticos **novos**, ambos consequência da
+correção do C4: **N1**, a lição passando a terminar sem saída depois de um erro
+na recuperação, agora no caminho de todo aprendiz; e **N2**, a recuperação que o
+C4 tornou porta única do domínio não sendo item novo em três das quatro famílias.
+Some-se **N4**: as guardas de C1 e C3 paravam na fronteira do módulo puro, então
+reembutir a linha horizontal do coronal ou o deslocamento no caminho do corpo
+reintroduzia os dois defeitos com a suíte verde.
+
+**Correções submetidas à revisão v5 (2026-09-22):** N1, N2 e N4 corrigidos, cada
+um com teste que falhou antes e pelo motivo previsto.
+
+- **N1** — o apoio fechado depois de recuperação falhada segue para o destino
+  declarado pelo item inicial do objetivo, com rótulo "Seguir; este objetivo
+  volta na revisão". Não reabre a mesma recuperação, não concede domínio, e não
+  encerra a lição. O teste que afirmava a ausência de continuação codificava o
+  defeito e passou a afirmar a regra real.
+- **N2** — a resposta correta mudou de posição nas três famílias que a mantinham
+  fixa, com guarda percorrendo **todas** as famílias; e `candidateTransformFor`
+  passou a desenhar o candidato na região que o cenário nomeia, então inicial e
+  recuperação não desenham mais a mesma figura no mesmo lugar.
+- **N4** — três guardas novas atravessam o componente e asseveram sobre o `d` da
+  placa, o caminho da silhueta e a matriz do candidato. As três foram derrubadas
+  com o defeito específico de cada uma antes de serem aceitas.
+
+**Descoberta de método:** o desenho fica sob `accessibilityElementsHidden`, e as
+consultas padrão do RNTL pulam nós ocultos — é **por isso** que nunca houve teste
+sobre ele. As consultas precisam de `{ includeHiddenElements: true }`.
+
+**Um "não verificável" do parecer foi fechado:** `react-native-svg` resolve
+`transform` em `matrix`, e a composição `translate(...) rotate(...)` é honrada —
+medido por três matrizes distintas.
+
+**Evidência medida em 2026-09-22 (v5):** 5 suítes e 46 testes da lição; guardas
+novas derrubadas em três formas reais e verdes ao restaurar.
+
+**Seguem abertos:** N3 (rotação degenerada para coronal), N5 (contínuo/tracejado
+com dois significados), I4 agravado, N7–N10, e os importantes/menores do v3
+(I1, I3, I5.2/I5.3, I6 resíduo, M4–M6). **Parecer v5 pendente.**
 
 **Fora do alcance da lição:** o achado I2 — o código `E-PLN-SEC` aplicado à
 confusão coronal×transversal — exige criar um código de erro novo na spec e é

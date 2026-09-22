@@ -80,6 +80,24 @@ export const regionBounds: Record<L2Region, readonly [number, number]> = {
 
 export const thicknessBandCount: Record<L2Thickness, number> = { thin: 1, nominal: 2, thick: 3 };
 
+/**
+ * Região anatômica que o cenário nomeia.
+ *
+ * O candidato é desenhado onde o enunciado diz que o problema está. Sem isso,
+ * `candidatePaths` indexado só pelo id da alternativa desenhava a MESMA figura
+ * no mesmo lugar no item inicial e na recuperação — metade do achado de que a
+ * recuperação não era item novo.
+ */
+export const scenarioRegion = (scenarioId: string): L2Region => {
+  if (scenarioId.startsWith('abdomen')) return 'abdomen';
+  if (scenarioId.startsWith('pelvis')) return 'pelvis';
+  return 'thorax';
+};
+
+/** Translação vertical do candidato até a região do cenário. */
+export const candidateTransformFor = (scenarioId: string): string =>
+  `translate(0 ${regionBounds[scenarioRegion(scenarioId)][0] - regionBounds.thorax[0]})`;
+
 export const scenarioOffsetFor = (scenarioId: string): number =>
   (Array.from(scenarioId).reduce((total, character) => total + character.charCodeAt(0), 0) % 3) * 4;
 

@@ -60,6 +60,14 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
     // Quem errou precisa ter fechado a prática assistida; quem não errou não
     // tem apoio a cumprir.
     const supportRequirementSatisfied = !hasErredOnObjective || hasCompletedAssistedPractice;
+    // Apoio fechado depois de uma recuperação falhada não reabre a MESMA
+    // recuperação: repetir o item que acabou de ser errado não é recuperação
+    // independente. Mas também não encerra a lição — essa regra zerava a
+    // continuação, e depois que todo aprendiz passou a visitar a recuperação
+    // ela virou o caminho modal: um erro ali deixava três objetivos por ver,
+    // sem botão nenhum, com a tela prometendo "um item novo". O percurso
+    // segue para o objetivo adiante e o objetivo em aberto fica devendo
+    // recuperação à revisão agendada, que é o que `reviewTargetId` endereça.
     const supportCannotOpenRepeatedRecovery = challenge.evidenceKind === 'assisted_practice'
       && correct && failedEarlierRecovery;
     const demonstratesMastery = correct
@@ -88,10 +96,16 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
       && !evidence.some((entry) => entry.challengeId === challenge.additionalRecoveryChallengeId)
       ? challenge.additionalRecoveryChallengeId
       : undefined;
+    // Quando a recuperação está bloqueada, a continuação não pode ser o
+    // `nextChallengeId` do apoio — ele aponta justamente para a recuperação
+    // que acabou de ser errada. O percurso segue de onde o objetivo seguia:
+    // o destino declarado pelo item inicial daquele objetivo.
+    const onwardAfterBlockedRecovery = L2_SLICING_SPACE.challenges.find((entry) =>
+      entry.objectiveId === challenge.objectiveId && entry.evidenceKind === 'initial_independent')?.nextChallengeId;
     const nextChallengeId = !correct
       ? challenge.remediationChallengeId
       : supportCannotOpenRepeatedRecovery
-        ? undefined
+        ? onwardAfterBlockedRecovery
         : pendingRecoveryChallengeId ?? challenge.nextChallengeId;
 
     return Object.freeze({
@@ -106,9 +120,11 @@ export const createSlicingSpaceLessonSession = (): SlicingSpaceLessonSession => 
       ...(nextChallengeId
         ? pendingRecoveryChallengeId
           ? { nextActionLabel: 'Tentar um cenário novo sem apoio' }
-          : challenge.nextActionLabel
-            ? { nextActionLabel: challenge.nextActionLabel }
-            : {}
+          : supportCannotOpenRepeatedRecovery
+            ? { nextActionLabel: 'Seguir; este objetivo volta na revisão' }
+            : challenge.nextActionLabel
+              ? { nextActionLabel: challenge.nextActionLabel }
+              : {}
         : {}),
       reviewTargetId: challenge.reviewTargetId,
     });

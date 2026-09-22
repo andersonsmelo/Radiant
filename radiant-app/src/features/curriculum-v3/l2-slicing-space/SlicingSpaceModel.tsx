@@ -12,6 +12,7 @@ import {
   PARAMEDIAN_OFFSET,
   bodyPathFor,
   candidatePaths,
+  candidateTransformFor,
   orientationPaths,
   regionBounds,
   scenarioDetail,
@@ -124,7 +125,7 @@ export function SlicingSpaceModel({
         <Svg width="100%" height="100%" viewBox="0 0 240 320" accessibilityElementsHidden>
           <Rect x="8" y="8" width="224" height="304" rx="20" fill={galaxyColors.backgroundAlt} />
           <G transform={`translate(${scenarioOffset} 0)`}>
-            <Path d={bodyPathFor(scenarioId)} fill={semanticColors.galaxy.surface} stroke={galaxyColors.textPrimary} strokeWidth="2" />
+            <Path testID="slicing-body" d={bodyPathFor(scenarioId)} fill={semanticColors.galaxy.surface} stroke={galaxyColors.textPrimary} strokeWidth="2" />
             <Path d={LIMBS_PATH} fill="none" stroke={galaxyColors.textPrimary} strokeWidth="14" strokeLinecap="round" />
             <Line x1={MIDLINE_X} y1="34" x2={MIDLINE_X} y2="302" stroke={semanticColors.galaxy.statusInformation} strokeWidth="2" strokeDasharray="6 6" />
             <Rect testID="sampled-region-volume" opacity={showRegion ? 1 : 0} x="68" y={regionTop} width="104" height={regionBottom - regionTop} fill="rgba(93,227,174,0.14)" stroke={selectedLayer === 'sampled-region' ? semanticColors.galaxy.statusSuccess : semanticColors.galaxy.border} strokeWidth={selectedLayer === 'sampled-region' ? 3 : 1} />
@@ -140,7 +141,7 @@ export function SlicingSpaceModel({
               strokeWidth={selectedLayer === 'geometric-plane' ? 5 : 3}
               strokeDasharray={inclination === 'oblique' ? '0' : '8 5'}
             />
-            {answerOptions.map((entry, index) => <G key={entry.id} testID={`slicing-candidate-${entry.id}`}>
+            {answerOptions.map((entry, index) => <G key={entry.id} testID={`slicing-candidate-${entry.id}`} transform={candidateTransformFor(scenarioId)}>
               <Path d={candidatePaths[entry.id]} fill="rgba(84,180,255,0.16)" stroke={index === 0 ? semanticColors.galaxy.statusInformation : semanticColors.galaxy.statusWarning} strokeWidth="3" strokeDasharray={index === 0 ? '0' : '7 4'} />
             </G>)}
             <G testID="slicing-model-scenario-markers">
