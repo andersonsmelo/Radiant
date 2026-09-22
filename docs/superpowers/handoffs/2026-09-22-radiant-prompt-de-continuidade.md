@@ -1,6 +1,7 @@
 # Prompt de continuidade — Radiant, depois da sessão de 2026-09-22
 
-Substitui o [prompt 2](2026-09-14-radiant-1-4-prompt-de-continuidade-2.md), que
+Substitui o [prompt 2](2026-09-14-radiant-1-4-prompt-de-continuidade-2.md) —
+link relativo porque esta linha fica FORA do bloco colável —, que
 levou a 1.4 até a Task 8. Cole o bloco entre as linhas `---` como primeira
 mensagem.
 
@@ -37,13 +38,11 @@ mais ninguém. Empurrar é decisão do dono — pergunte, não presuma.
 
 Para a frente em que for trabalhar, leia também:
 
-- **1.4 / Task 8:** a [spec](../specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md),
-  a [ADR dos produtos StoreKit](../../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)
-  e o [checklist de declarações](../../release/CHECKLIST_DECLARACOES_1.4.md).
+- **1.4 / Task 8:** `docs/superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`,
+  `docs/adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md` e
+  `docs/release/CHECKLIST_DECLARACOES_1.4.md`.
 - **Currículo V3 / L2:** os três pareceres, **em ordem** —
-  [v3](../../content/2026-09-22-l2-parecer-v3.md),
-  [v4](../../content/2026-09-22-l2-parecer-v4.md),
-  [v5](../../content/2026-09-22-l2-parecer-v5.md). O padrão entre eles é mais
+  `docs/content/2026-09-22-l2-parecer-v3.md`, `-v4.md` e `-v5.md`. O padrão entre eles é mais
   importante que o conteúdo de qualquer um; a §4 abaixo explica por quê.
 
 ## 3. Estado medido em 2026-09-22
@@ -122,8 +121,8 @@ seguinte — e a guarda escrita junto com a correção era cega justamente a ele
   de reemitir comando, feche o run, e **reabra com a árvore limpa** — o
   checkpoint novo captura o estado atual como baseline, então o trabalho pronto
   vira estado pré-existente se você não salvá-lo e reverter antes.
-- **Auditor independente por pacote de lição**, conforme o §5 do
-  [roteiro do Arco 1](../../runbooks/curriculum-v3-arco-1.md). No brief dele,
+- **Auditor independente por pacote de lição**, conforme o §5 de
+  `docs/runbooks/curriculum-v3-arco-1.md`. No brief dele,
   diga que a descrição do autor é **hipótese a testar**, não contexto a confiar —
   foi o que fez a diferença entre os pareceres v1–v3 e os v4–v5.
 
