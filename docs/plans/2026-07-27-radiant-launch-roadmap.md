@@ -1531,11 +1531,17 @@ canônica é
   separa plano geométrico, região espacial, espessura nominal e imagem
   resultante; mapa 2.5D em SVG autoral com geometrias candidatas selecionáveis e
   controle textual equivalente; `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com
-  remediação sem XP e recuperação em região nova. 4 suítes, 22 testes, todos
-  aprovados (medido em 2026-09-04). **O parecer v3 do auditor independente está
-  pendente** — v1 e v2 reprovados, correções submetidas —, então a L2 não conta
-  como sinalizada até esse parecer. Próxima tarefa: P1 — prática intercalada,
+  remediação sem XP e recuperação em região nova. **Seis pareceres
+  independentes, seis reprovações** (v1 a v6; o último em 2026-09-22 sobre
+  `949a5f0`, [registro](../content/2026-09-22-l2-parecer-v6.md)). Os críticos
+  de v3, v4 e v5 estão resolvidos no código; o v6 reprovou por um crítico novo
+  (Q1) que a correção anterior criou, pela terceira passagem seguida. A L2 não
+  conta como sinalizada. Próxima tarefa: a v7, na ordem fixada em
+  [`FILA.md`](../FILA.md) (guarda de validade vista falhando antes da
+  correção); só depois de a L2 aprovar vem a P1 — prática intercalada,
   conforme o [roteiro de produção](../runbooks/curriculum-v3-arco-1.md).
+  Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
+  e a suíte verde **não** detecta o Q1.
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.

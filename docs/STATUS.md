@@ -143,6 +143,43 @@ carrega o pacote inteiro.
    Com isso a tarefa "serviços e privacidade" fecha: Sentry medido inerte em
    2026-09-08, disponibilidade e classificação confirmadas em 2026-09-11.
 
+   **Configuração mínima do Sentry fixada em 2026-09-22** (Task 8, fatia 1 de 6).
+   `buildSentryOptions` é função pura: sem PII, sem rastreamento de desempenho,
+   sem quadros nativos, `maxBreadcrumbs: 20`, `beforeSend` removendo `user`,
+   `server_name` e nome de aparelho, e `beforeBreadcrumb` descartando migalhas
+   `console`/`xhr`/`fetch`. O contrato de privacidade passou a garantir por AST
+   que o SDK é inicializado num ponto só e sempre por essa função.
+   **Evidência medida em 2026-09-22:** 6 suítes e 41 testes de telemetria
+   aprovados; guarda derrubada de propósito em duas formas (init por objeto
+   literal e segundo init em outro arquivo) e verde de novo ao restaurar.
+
+   **Checklist de declarações à loja preparado em 2026-09-22** (Task 8, fatia 5
+   de 6): [`release/CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md).
+   Medição que o sustenta: o ambiente `production` do EAS tem **uma única
+   variável**, o DSN do Sentry — sem `EXPO_PUBLIC_API_BASE_URL` e sem
+   `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`, as três portas de saída (Sentry, API,
+   sync) estão fechadas por construção. **Nada sai do aparelho num build de
+   produção da 1.4 como ela está hoje.** As linhas de assinatura do checklist
+   estão bloqueadas até o adaptador StoreKit existir.
+
+   📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
+   desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
+   efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
+   aberto; deixa de ser inerte no dia em que uma URL de API entrar lá.
+
+   ⚠️ **Isso não liga nada.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` continua sem
+   valor e o `Sentry.init` não roda, então o rótulo "Dados não coletados" segue
+   verdadeiro. A fatia fixa o que sairia do aparelho **se** a flag for ligada —
+   é a base factual para revisar as Privacy Labels, e ligar continua sendo
+   decisão do dono.
+
+   > 🔴 **A primeira versão da guarda era vazia e passava com
+   > `sendDefaultPii: true`.** Ela usava regex sobre o fonte e casava com a
+   > menção da opção num **comentário**. Só apareceu porque a guarda foi
+   > derrubada de propósito depois de escrita, e o arquivo que a recebeu já
+   > dizia, desde antes, que o contrato usa AST justamente para ignorar
+   > comentários e strings. **Guarda nunca vista falhar não é guarda.**
+
    **Item 7 (direitos e setor regulado) decidido pelo dono em 2026-09-11.** A
    única fonte dos 16 quizzes embarcados, *Fundamentos de Radiologia*, estava
    `blocked` desde 2026-07-31 "até revisão humana", sustentada por uma exceção
@@ -734,16 +771,144 @@ carrega o pacote inteiro.
    geométrico, região espacial, espessura nominal e imagem resultante, com mapa
    2.5D em SVG autoral, geometrias candidatas selecionáveis, controles textuais
    equivalentes e os erros `E-PLN-MED`, `E-PLN-OBL` e `E-PLN-SEC` com remediação
-   e recuperação em região nova. As 4 suítes da lição passam (22 testes, medido
-   em 2026-09-04). **A auditoria independente não aprovou a L2:** os pareceres v1
-   e v2 foram reprovados, as correções da revisão v3 foram submetidas e o
-   **parecer v3 segue pendente** — diferente da L1, que fechou em v4 aprovado.
+   e recuperação em região nova. As 4 suítes da lição passam (22 testes,
+   remedido em 2026-09-22). **A auditoria independente não aprovou a L2:** os
+   pareceres v1, v2 e **v3 foram todos reprovados** — diferente da L1, que fechou
+   em v4 aprovado.
+
+   **Parecer v3 (2026-09-22):** [registro completo](content/2026-09-22-l2-parecer-v3.md).
+   Seis achados críticos, seis importantes, seis menores. Três das quatro
+   correções que a lição declarava ter feito para a v3 **não existem no código**:
+   as geometrias candidatas não são numeradas nem tocáveis dentro do SVG (e o
+   cabeçalho "Toque em um candidato no modelo" é afordância falsa); o movimento
+   que antecede o volume é um overlay de texto fora do SVG; e a silhueta é
+   deslocada duas vezes (`SlicingSpaceModel.tsx:69` e `:91`), o que põe a placa
+   "mediana" fora do centro do corpo e torna **falsa no desenho** a resposta
+   correta de dois itens. Dois defeitos de conteúdo se somam: o plano coronal é
+   desenhado como linha horizontal numa vista frontal, e o seletor apresenta
+   mediano e oblíquo como planos irmãos e exclusivos — `E-PLN-MED` e `E-PLN-OBL`
+   codificados no controle que deveria remediá-los.
+
+   ⚠️ **As 4 suítes verdes não detectam nenhum dos 18 achados.** Nenhuma asserção
+   toca as geometrias candidatas; três incidem sobre um espelho das props
+   embarcado no componente só para os testes; e o mock do hook de Reduce Motion
+   oculta uma violação real. É a mesma classe de falha registrada em 2026-09-08 —
+   teste verde sobre mock, defeito visível passando. **Suíte verde não é
+   evidência de correção nesta lição.**
+
+   Três achados foram reconferidos de forma independente antes do registro (o
+   duplo deslocamento, a afordância falsa e o rótulo por identidade); os três
+   procedem. Nada foi verificado em aparelho: o pedido da v2 de confirmar a
+   semântica de rádio em VoiceOver **continua aberto** e nenhum teste desta suíte
+   pode fechá-lo.
+
+   **Os seis críticos foram corrigidos em 2026-09-22 e o parecer v4 os confirmou
+   resolvidos no código** — [registro](content/2026-09-22-l2-parecer-v4.md). O v4
+   ainda assim **reprovou**, por motivo de outra natureza: dois críticos novos,
+   ambos consequência da correção do C4. **N1** — a lição passou a terminar sem
+   saída depois de um erro na recuperação, agora no caminho de todo aprendiz, com
+   três objetivos por ver e o domínio daquele objetivo travado para sempre;
+   confirmado por execução do motor real. **N2** — a recuperação que o C4 tornou
+   porta única do domínio não era item novo: em três das quatro famílias a
+   resposta correta ficava na mesma posição, e em duas a alternativa correta era
+   o mesmo objeto, com o mesmo candidato desenhado.
+
+   Some-se **N4**: as guardas de C1 e C3 paravam na fronteira do módulo puro.
+   Reembutir a linha horizontal do coronal ou o deslocamento no caminho do corpo
+   reintroduzia os dois defeitos **com a suíte verde** — o que tornava
+   insustentável, para dois dos seis, a afirmação de que cada correção tinha
+   teste que falhou antes.
+
+   **N1, N2 e N4 corrigidos na mesma data (v5 submetida):** o apoio após
+   recuperação falhada segue o percurso em vez de zerá-lo; a resposta correta
+   mudou de posição nas três famílias, com guarda que percorre todas; os
+   candidatos passaram a ser desenhados na região que o cenário nomeia; e três
+   guardas novas atravessam o componente, asseverando sobre o `d` da placa, o
+   caminho da silhueta e a matriz do candidato — as três derrubadas com o defeito
+   específico de cada uma antes de serem aceitas. **Evidência: 5 suítes e 46
+   testes da lição.**
+
+   **Descoberta de método:** o desenho fica sob `accessibilityElementsHidden`, e
+   as consultas padrão do RNTL pulam nós ocultos — é **por isso** que nunca houve
+   teste sobre ele, não por esquecimento. Precisa de
+   `{ includeHiddenElements: true }`.
+
+   ⚠️ **Fora do escopo da L2:** o parecer v4 registrou que a **L1, já aprovada**,
+   contém o defeito exato do C6 — `option.label` preso à identidade renderizado
+   ao lado do número por posição. A correção da L2 não foi propagada.
+
+   **Parecer v5 (2026-09-22): reprovado de novo** —
+   [registro](content/2026-09-22-l2-parecer-v5.md). Os seis críticos do v3 **e**
+   os três achados do v4 foram confirmados resolvidos; o revisor enumerou 21.110
+   percursos do motor e nenhum termina com objetivo por ver, concede domínio
+   indevido ou forma laço. A reprovação veio de **um crítico que a correção do N2
+   criou**: transladar os candidatos para a região do cenário empurrou nove
+   figuras para fora do `viewBox`, entre elas as respostas corretas de duas das
+   quatro recuperações. Em `l2-section-recovery` a alternativa correta nomeia
+   "duas faces" e a segunda caía inteira fora do quadro — a condição pela qual o
+   C3 foi reprovado, por outro mecanismo.
+
+   🔴 **Três passagens seguidas, a correção produziu o achado seguinte, e a
+   guarda escrita junto com ela foi cega justamente a ele.** O C4 gerou N1 e N2;
+   a correção do N2 gerou P1. A guarda do candidato exigia apenas que as
+   **matrizes diferissem** entre cenários, e uma translação para fora do quadro
+   satisfaz isso com folga. **Guarda que só exige diferença autoriza o defeito
+   que deveria barrar.**
+
+   **P1 e o resíduo do N1 corrigidos em 2026-09-22 (`949a5f0`), v6 submetida.**
+   A translação saiu: candidato de corpo inteiro não pertence a região nenhuma e
+   não se move; só os ligados a nível acompanham a região, e são construídos na
+   banda dela. A guarda nova afirma que todo candidato cabe inteiro no `viewBox`,
+   em todo cenário. **Evidência: 5 suítes e 51 testes da lição, 129 em
+   `curriculum-v3`.**
+
+   ⚠️ **Crítica de método retida do v5, que vale para todo o projeto:** a frase
+   "cada um com teste que falhou antes da correção" é **inauditável** por quem
+   revisa, porque o commit é único e não preserva o passo vermelho. Não é falsa;
+   é inconferível — a mesma classe de asserção que reprovou v1 a v3.
+
+   **Seguem abertos na L2:** P2 a P9 do v5 (entre eles a legenda que atribui
+   "alinhada" ao traço da resposta "inclinada", e `scenarioRegion` resolvendo
+   região por prefixo de string), N3, N5, I4 agravado, N7–N10 e os
+   importantes/menores do v3.
+
+   **Parecer v6 (2026-09-22, sobre `949a5f0`): reprovado pela quarta vez no
+   mesmo padrão** — [registro](content/2026-09-22-l2-parecer-v6.md). O P1 está
+   resolvido no quadro: todo candidato cabe no `viewBox`. O crítico novo, **Q1**,
+   foi criado pela correção do P1: `candidatePathFor` soma `regionTop −
+   thoraxTop` supondo base no tórax, mas três dos quatro candidatos ligados a
+   nível já estão no abdome. A resposta correta de "separa superior e inferior
+   **do abdome**" é desenhada na pelve (y 252..276 contra a banda 166..226), e em
+   `l2-section-recovery`, porta única de domínio do objetivo 4, a segunda face do
+   volume fica abaixo do tronco. Reconferido pelo controlador, com a aritmética,
+   em 2026-09-22. Importantes: a "compressão" anunciada não existe (Q2); as
+   guardas novas ficam **51/51 verdes** com `transform` no `<Path>`, caminho
+   vazio ou tela revertida (Q3); o resíduo do N1 persiste nos objetivos 1 a 3
+   (Q4); a congruência do N5 voltou em 4 itens (Q5). O N4 **regrediu** no
+   candidato.
+
+   🔴 **Quarta vez que a resposta correta sai falsa no desenho, cada vez por
+   um mecanismo novo** (C3, P1, Q1), e quarta guarda de diferença no lugar de
+   validade. O registro propõe **uma guarda única de validade semântica** para
+   todos os itens: resposta correta com `d` não vazio, dentro da banda que o
+   enunciado nomeia e do tronco, sem `transform` estranho e sem coincidir com o
+   outro candidato. Ela deve ser vista falhando com o Q1 **antes** da correção.
+   **Evidência do revisor, medida em 2026-09-22:** Node 20, 5 suítes/51 testes
+   da lição e 12/129 em `curriculum-v3` aprovados; 11 mutações, 7 delas verdes.
+
+   📌 **Mesmo um parecer aprovado não torna a L2 publicável:** J4 (acessibilidade
+   sobre as lições implementadas) e J5 (corte seguro e fluxo completo no iPhone)
+   continuam pendentes, mais a revisão técnica especializada da §8/§12.3, que
+   nenhum parecer de agente fecha.
    Como a L1, a L2 não está conectada a startup, rota, catálogo ou manifesto, e
    `prepareV3()` não foi chamado.
 
-   J3/J4/J5 continuam abertos. Próxima produção: **P1 — prática intercalada**,
-   conforme o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md); antes
-   dela, obter o parecer v3 da L2.
+   J3/J4/J5 continuam abertos. **A P1 não é a próxima produção:** o roteiro
+   manda corrigir os achados e repetir a revisão antes de avançar de pacote, e a
+   L2 acumula três reprovações. Próximo passo: corrigir os seis achados críticos
+   do parecer v3 e submeter a revisão v4. O achado I2 (taxonomia `E-PLN-SEC`
+   aplicada a confusão coronal×transversal) **não se resolve dentro da L2** —
+   criar um código de erro novo é mudança de spec, decisão do dono.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem

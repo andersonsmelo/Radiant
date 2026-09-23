@@ -122,12 +122,59 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
 
 ### AGENTE — o que sobrou da Task 8
 
-Só depois de o dono destravar os itens acima, e **um por run**: adaptador
-StoreKit real com os Product IDs já fixados em
-[ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md) (`expo-iap`
-ainda não instalado); Sentry com configuração mínima, sem IP e sem
-identificador; `QuizTopBar` mostrando ∞ para assinante; bump para `1.4.0`; E2E
-dos três caminhos dourados; e o checklist de declarações à loja (spec §9).
+**Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
+
+1. ✅ **Sentry com configuração mínima, sem IP e sem identificador** — concluído
+   em **2026-09-22**. `buildSentryOptions` é função pura e auditável:
+   `sendDefaultPii: false`, `tracesSampleRate: 0`,
+   `enableNativeFramesTracking: false`, `maxBreadcrumbs: 20`, `beforeSend` que
+   remove `user`, `server_name` e nome de aparelho, e `beforeBreadcrumb` que
+   descarta migalhas `console`/`xhr`/`fetch` — as que carregariam resposta
+   digitada em lição ou corpo de requisição. O contrato de privacidade ganhou
+   guarda por **AST** de que o SDK é inicializado num ponto só e sempre por essa
+   função.
+
+   > ⚠️ A primeira versão da guarda usava regex sobre o fonte e **passava com
+   > `sendDefaultPii: true`**, porque casava com a menção da opção num
+   > comentário. Só apareceu porque a guarda foi derrubada de propósito depois
+   > de escrita. O próprio arquivo já dizia, desde antes, que o contrato usa AST
+   > para ignorar comentários e strings.
+
+   **O portão continua fechado.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` não foi
+   gravada e `Sentry.init` não roda. Esta fatia não liga nada — ela fixa o que
+   sairia do aparelho **se** você ligar, que é a base factual para revisar as
+   Privacy Labels. Ligar segue sendo decisão sua.
+
+2. **Adaptador StoreKit real** com os Product IDs fixados na
+   [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A porta
+   `StoreKitPort` e o `UnavailableStoreKitAdapter` já existem em
+   `features/subscription/`; falta o adaptador real por trás da mesma porta.
+   **`expo-iap` ainda não instalado** — é dependência nativa, então a fatia
+   muda `package.json` e exige build novo para valer em aparelho.
+3. **`QuizTopBar` mostrando ∞ para assinante** — depende de (2) para ter estado
+   de assinatura real, embora o `SubscriptionService` já exista.
+4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.
+   Não validar durante flow E2E: 2,3× de desaceleração medida.
+5. ✅ **Checklist de declarações à loja** — preparado em **2026-09-22** em
+   [`CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md), com as
+   linhas de assinatura marcadas ⏳ e **explicitamente não preenchíveis** até (2)
+   fechar. Confere cada declaração da §9 contra o código, não contra a intenção.
+
+   **Medição que sustenta a linha de privacidade:** o ambiente `production` do
+   EAS tem **uma única variável**, o DSN do Sentry. Sem `EXPO_PUBLIC_API_BASE_URL`
+   e sem `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`, as três portas de saída — Sentry,
+   API e sync — estão fechadas por construção. **Nada sai do aparelho hoje**, e
+   "Dados não coletados" é verdadeiro e verificável.
+
+   ```bash
+   cd radiant-app && npx eas env:list --environment production
+   ```
+
+   📌 O defeito aberto do `ENABLE_REMOTE_SYNC` (que não desliga o `AuthService`)
+   **é inerte em produção** porque `API_BASE_URL` não existe naquele ambiente.
+   Continua aberto; só não é alcançável na configuração submetida.
+6. **Bump para `1.4.0`** — por último, quando as outras fecharem. Regra 8 da
+   ADR: os produtos de assinatura não sobem sozinhos, viajam com a versão.
 
 Não faz build, envio nem push sem autorização datada.
 
@@ -177,7 +224,7 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Instalar e **verificar se o app abre** | dono | **abertura confirmada** no `(9)`; smoke completo, persistência e offline continuam pendentes |
 | Anotar modelo e versão do iOS | dono | **concluído** — iPhone 16 / iOS 27.0, informados em 27/08 |
 | Fundação técnica V3 — J2 | agente | **concluída localmente** — `320e10d`; sem troca de telas |
-| Produção do Arco 1 — J3 | agente + auditor | **próxima execução** — começar pela L1; roteiro abaixo |
+| Produção do Arco 1 — J3 | agente + auditor | **em andamento** — L1 aprovada; L2 reprovada no parecer v6 (2026-09-22); ver a seção J3 abaixo |
 | Auditoria/QA de acessibilidade — J4 | auditor + executor dos testes manuais | **pendente** sobre as lições implementadas, não sobre o desenho |
 | Corte seguro e fluxo completo no iPhone — J5 | agente + dono | **pendente** — preservar histórico e validar instalação limpa/atualização |
 | Remover o painel visual legado | agente | **concluído** em 2026-09-08 — componente, raster e dicas globais fora; regressão no lugar do mock |
@@ -211,11 +258,11 @@ no status: 74 testes focados e 14 validadores Loop aprovados, sem prova de
 funcionamento do V3 no aparelho. Remedir o escopo atual com os comandos do plano
 e `loop validate` no run correspondente.
 
-### AGENTE — J3: produzir o Arco 1 — L1 e L2 entregues, P1 é a próxima
+### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
 
 **Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
-2026-09-16. **Bloqueio:** a **L2 não tem parecer aprovado** — v1 e v2 foram
-reprovados e o v3 segue pendente; publicação continua dependendo de J4/J5.
+2026-09-16. **Bloqueio:** a **L2 reprovou nas seis revisões** — v1 a v6, a
+última em 2026-09-22; publicação continua dependendo de J4/J5.
 **Dono:** agente, com subagente auditor independente por pacote.
 
 > **Esta seção afirmou "pendente de produção, começar pela L1" até 2026-09-16,
@@ -227,11 +274,106 @@ reprovados e o v3 segue pendente; publicação continua dependendo de J4/J5.
 
 **L1 — O corpo como referência:** entregue, com auditoria independente
 **aprovada no parecer v4**. **L2 — Cortando o espaço:** entregue, 4 suítes da
-lição verdes, mas **auditoria aberta**. Nenhuma das duas está ligada a startup,
-rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
+lição verdes, e **reprovada no parecer v3** em 2026-09-22
+([registro](content/2026-09-22-l2-parecer-v3.md)). Nenhuma das duas está ligada a
+startup, rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
 
-**Próximo item executável, nesta ordem:** obter o **parecer v3 da L2**; só
-depois produzir **P1 — prática intercalada**.
+> ⚠️ **Não use a suíte verde como sinal de pronto nesta lição.** Os 22 testes
+> passam e não detectam nenhum dos 18 achados do parecer v3: nenhuma asserção
+> toca as geometrias candidatas, três incidem sobre um espelho das props
+> embarcado no componente só para os testes, e o mock do hook de Reduce Motion
+> esconde uma violação real. Mesma classe de falha de 2026-09-08.
+
+> ✅ **Os seis críticos foram corrigidos em 2026-09-22 e o parecer v4 confirmou
+> os seis resolvidos no código.** O v4 reprovou por dois críticos **novos**
+> (N1, N2), ambos consequência da correção do C4, mais o N4 — guardas que não
+> observavam o componente. Os três foram corrigidos na mesma data e a **revisão
+> v5 está pendente**. Registro em
+> [`2026-09-22-l2-parecer-v4.md`](content/2026-09-22-l2-parecer-v4.md).
+
+~~Obter o parecer v6~~ — **concluído em 2026-09-22: reprovado**
+([registro](content/2026-09-22-l2-parecer-v6.md)). O P1 do v5 está resolvido no
+quadro; o crítico novo, **Q1**, foi criado pela correção dele: os candidatos
+ligados a nível são desenhados **uma banda abaixo** da região que o enunciado
+nomeia, porque `candidatePathFor` supõe base no tórax e três dos quatro já estão
+no abdome. Mais quatro importantes (Q2–Q5) e o N4 regredido no candidato.
+
+**Próximo item executável: a v7, nesta ordem — e não em outra.**
+
+1. **Escrever primeiro a guarda única de validade semântica** proposta no
+   registro do v6: para **todo** item, a resposta correta tem `d` não vazio,
+   bounding box dentro da banda da região que o enunciado nomeia e dentro do
+   tronco, nenhum `transform` em ancestral além do grupo declarado, e não
+   coincide com o outro candidato. Rodá-la **contra `949a5f0` sem mexer em
+   nada** e **registrar a execução vermelha em arquivo versionado**: ela tem que
+   falhar com o Q1. Se passar, a guarda está errada, não o código.
+2. Só então corrigir **Q1 e Q2** (e o `index` morto), enumerando antes e depois
+   os oito pares candidato × região — a mudança na conta do delta mexe em todo
+   cenário, inclusive nos de tórax, que hoje não se movem.
+3. Na mesma passagem, **Q3** (restaurar a asserção sobre a `matrix` e cobrir o
+   caminho vazio) e **Q4** (a frase depende de o próximo item ser novo para o
+   objetivo, com guarda sobre a **tela**, não sobre a função).
+4. Obter o parecer v7 com o mesmo brief do v6: descrição do autor como hipótese,
+   e as mutações reaplicadas pelo revisor.
+
+> 🔴 **Pare e leia antes de abrir o próximo run desta lição.** São **três
+> passagens seguidas** em que a correção produziu o achado seguinte, e em que a
+> guarda escrita junto com a correção foi cega justamente a ele. Antes de
+> corrigir qualquer achado aqui, responda por escrito: **que regra ou invariante
+> passa a ser encontrada por uma população que não a encontrava antes?** Foi a
+> pergunta não feita que gerou N1, N2 e P1.
+>
+> E toda guarda nova precisa afirmar **validade**, não só diferença. A guarda que
+> autorizou o P1 exigia que duas matrizes diferissem — o que uma translação para
+> fora do quadro satisfaz com folga.
+
+Q5 (congruência do N5 de volta em 4 itens) e Q6 (desenho da recuperação igual
+ao do inicial) **não** entram na v7: Q5 é da mesma família de P2/N5 e Q6 é
+decisão editorial junto do P4. Quando um parecer aprovar, os importantes e
+menores ainda abertos (P2–P9, N3, N5, Q5, Q6, I1, I3, I4, I5.3, N7–N10, M4–M6)
+entram num run próprio, e só então a P1 do currículo.
+
+📌 **Aprovação do parecer não é autorização de publicação.** J4 e J5 continuam
+pendentes, mais a revisão técnica especializada da §8/§12.3.
+
+⚠️ **Item novo para o dono, achado pelo v4 fora do escopo da L2:** a **L1, já
+aprovada**, carrega o defeito exato do C6 — rótulo preso à identidade da
+alternativa renderizado ao lado do número por posição. A correção da L2 não foi
+propagada, e quem decorar o rótulo acerta a recuperação da L1 sem ler o mapa.
+
+### Histórico — os seis críticos do parecer v3, todos corrigidos em 2026-09-22
+
+O roteiro manda corrigir os achados e repetir a revisão antes de avançar de
+pacote. Ficam registrados aqui, na ordem em que foram atacados (os dois primeiros
+são de conteúdo e mudam o desenho; os quatro seguintes são de mecânica):
+
+1. **C1** — `planePaths.coronal` é uma linha horizontal numa vista frontal,
+   indistinguível do transversal. O próprio arquivo já tem a forma certa em
+   `candidatePaths.coronal`.
+2. **C2** — o seletor de exploração põe coronal/sagital/mediano/transversal/
+   oblíquo como cinco opções mutuamente exclusivas, ensinando `E-PLN-MED` e
+   `E-PLN-OBL` no controle que deveria remediá-los.
+3. **C3** — a silhueta é deslocada duas vezes (`SlicingSpaceModel.tsx:69` e
+   `:91`); a placa "mediana" não coincide com o centro do corpo desenhado, o que
+   torna falsa a resposta correta de `l2-initial-median` e `l2-median-recovery`.
+4. **C4** — `additionalRecoveryChallengeId` nunca é lido pelo motor da L2 (a L1
+   lê), então quem acerta nunca recebe item de recuperação independente.
+5. **C5** — Reduce Motion é violado na primeira renderização; usar
+   `useReducedMotionPreferenceState` e esperar `resolved`.
+6. **C6** — `option.label` é token de identidade ("Opção 1" para `median`,
+   `coronal` e `oblique`), contradiz o número por posição ao lado dele e permite
+   acertar a recuperação lendo o rótulo.
+
+**Escale, não resolva sozinho:** o achado **I2** (o código `E-PLN-SEC` aplicado a
+confusão coronal×transversal) exige criar um código de erro novo na spec, o que
+é mudança de spec e **decisão do dono** — está fora da autoridade da L2, e
+remendar a taxonomia por dentro corrompe a matriz de P1 e C1.
+
+Ao corrigir, **escrever primeiro o teste que falha** contra o defeito real: um
+teste que asseverasse sobre o espelho das props ou sobre o hook mockado
+reproduziria exatamente a cegueira que deixou os três ciclos passarem verdes.
+Continua sem verificação em aparelho o pedido da v2 sobre a semântica de rádio no
+VoiceOver, que nenhum teste desta suíte pode fechar.
 
 ```bash
 git log --oneline -1 -- radiant-app/src/features/curriculum-v3/l2-slicing-space
@@ -239,8 +381,8 @@ cd radiant-app && EXPO_NO_DOTENV=1 CI=1 npx jest src/features/curriculum-v3
 ```
 
 Seguir o [roteiro de continuidade](runbooks/curriculum-v3-arco-1.md): ~~L1~~ →
-~~L2~~ → **P1** → L3 → C1-A/C1-B → R1/R2. O desenho já foi aprovado; não pedir ao dono para
-aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
+**L2 (reprovada em v3, corrigir)** → P1 → L3 → C1-A/C1-B → R1/R2. O desenho já
+foi aprovado; não pedir ao dono para aprovar cada lição. Não repetir J2, ativar V3, apagar o legado ou iniciar build
 nesta tarefa. Registrar evidência específica do conteúdo e das interações,
 além dos testes de engenharia. Acompanhar no
 [cartão existente do Trello](https://trello.com/c/f9OYyCX5), sem criar tarefas

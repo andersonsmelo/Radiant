@@ -150,4 +150,43 @@ describe('telemetry privacy contract', () => {
   it('passes undefined through unchanged', () => {
     expect(sanitizeTelemetryProps(undefined)).toBeUndefined();
   });
+
+  // O contrato cobria só `track`; o bootstrap do Sentry ficava de fora, e é ele
+  // que decide o que sairia do aparelho se a flag de crash reporting fosse
+  // ligada. O rótulo "Dados não coletados" da App Store se apoia nisto.
+  //
+  // A verificação é por AST, não por texto: uma primeira versão desta guarda
+  // usava regex sobre o fonte e passava com `sendDefaultPii: true`, porque
+  // casava com a MENÇÃO da opção num comentário. Os valores em si são
+  // verificados por comportamento em `bootstrap.test.ts`, chamando
+  // `buildSentryOptions`; o que falta aqui, e só aqui, é garantir que nenhum
+  // outro ponto do app inicialize o SDK por fora dessa função.
+  describe('bootstrap do Sentry', () => {
+    function findSentryInitArguments(): string[] {
+      const found: string[] = [];
+      for (const file of listSourceFiles()) {
+        const sourceFile = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
+        const visit = (node: ts.Node): void => {
+          if (
+            ts.isCallExpression(node) &&
+            ts.isPropertyAccessExpression(node.expression) &&
+            node.expression.name.text === 'init' &&
+            node.expression.expression.getText(sourceFile).includes('Sentry')
+          ) {
+            found.push(node.arguments.map((argument) => argument.getText(sourceFile)).join(', '));
+          }
+          ts.forEachChild(node, visit);
+        };
+        visit(sourceFile);
+      }
+      return found;
+    }
+
+    it('inicializa o SDK num único ponto, sempre pelas opções mínimas auditadas', () => {
+      const calls = findSentryInitArguments();
+
+      expect(calls).toHaveLength(1);
+      expect(calls[0]).toMatch(/^buildSentryOptions\(/);
+    });
+  });
 });

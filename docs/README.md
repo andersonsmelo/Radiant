@@ -54,11 +54,17 @@ Quando documentos divergirem, use esta ordem:
 - spec aprovada: [`superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md);
 - plano: [`superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md);
 - prompt para a IA executora: [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
-- **prompt atual (pós-Task 7):** [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md) — Task 8 se os gates existirem; senão, as sete tarefas que não dependem deles;
+- prompt 2 (pós-Task 7): [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md);
+- **prompt atual (pós-sessão de 2026-09-22):** [`superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md) — cobre as duas frentes abertas (Task 8 e L2 do currículo V3), os sete commits não empurrados e as decisões que são do dono;
 - relatório de execução (Tasks 1–7; Task 8 bloqueada por gates do dono):
   [`superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md`](superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md);
 - lançamento da 1.3.1 (rejeição, resposta e aprovação):
-  [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md).
+  [`release/APP_REVIEW_REPLY_1.3.1.md`](release/APP_REVIEW_REPLY_1.3.1.md);
+- **checklist de declarações à loja da 1.4:**
+  [`release/CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md)
+  — confere cada declaração da §9 da spec contra o código e traz o comando que
+  remede a afirmação de privacidade. As linhas de assinatura estão bloqueadas até
+  o adaptador StoreKit existir.
 - [`archive/`](archive/) — os 21 status datados, de 2026-04-05 a 2026-08-15,
   mantidos porque ADRs e planos os citam como evidência
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)
@@ -77,7 +83,13 @@ Quando documentos divergirem, use esta ordem:
   [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
 - próxima execução: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
   começando pela L1, sem repetir a fundação nem ativar o V3 antecipadamente;
-- inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md).
+- inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md);
+- **auditoria independente da L2**, em três pareceres consecutivos — leia-os em
+  ordem antes de tocar na lição, porque o padrão deles é o dado mais útil:
+  [v3](content/2026-09-22-l2-parecer-v3.md) (a prosa descrevia correções que o
+  código não fazia), [v4](content/2026-09-22-l2-parecer-v4.md) (os críticos
+  estavam corrigidos; reprovou pelos defeitos que a correção criou) e
+  [v5](content/2026-09-22-l2-parecer-v5.md) (idem, terceira vez).
 
 A engenharia educacional abaixo permanece referência de contratos existentes;
 não é autorização para reaproveitar automaticamente conteúdo ou domínio do

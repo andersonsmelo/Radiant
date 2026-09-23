@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
+import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 import { L2_SLICING_SPACE } from './l2SlicingSpaceContent';
 import { createSlicingSpaceLessonSession, type SlicingSpaceAnswerResult } from './SlicingSpaceLessonSession';
 import { SlicingSpaceModel } from './SlicingSpaceModel';
-import type { L2Challenge, L2ModelLayerId, L2PlaneId } from './l2SlicingSpace.types';
-
-type L2Region = 'thorax' | 'abdomen' | 'pelvis';
-type L2Thickness = 'thin' | 'nominal' | 'thick';
+import type { L2Inclination, L2MedianRelation, L2ReferenceOrientation, L2Region, L2Thickness } from './l2SlicingGeometry';
+import type { L2Challenge, L2ModelLayerId } from './l2SlicingSpace.types';
 
 const challengeById = (id: string): L2Challenge => {
   const challenge = L2_SLICING_SPACE.challenges.find((entry) => entry.id === id);
@@ -24,22 +22,41 @@ const activityLabel = (challenge: L2Challenge): string => {
   return challenge.id === 'l2-initial-median' ? 'Diagnóstico inicial · sem XP' : 'Decisão independente · sem XP';
 };
 
+/**
+ * A frase de fechamento do feedback.
+ *
+ * Quando não há destino adiante — o último objetivo não declara
+ * `nextChallengeId`, então uma recuperação bloqueada não encaminha a lugar
+ * nenhum — a tela prometia "com um item novo" exatamente no momento em que o
+ * motor acabara de negá-lo, e sem botão para seguir. Agora ela diz a verdade: o
+ * objetivo fica devendo à revisão agendada.
+ */
+export const reviewSentence = (
+  result: Readonly<{ reviewTargetId: string; nextChallengeId?: string }>
+): string => (result.nextChallengeId
+  ? `Este objetivo permanece em ${result.reviewTargetId}, com um item novo; XP e repetição imediata não comprovam domínio.`
+  : `Este objetivo volta na revisão agendada, em ${result.reviewTargetId}; XP e repetição imediata não comprovam domínio.`);
+
 export function SlicingSpaceLessonPreview() {
   const [session] = useState(createSlicingSpaceLessonSession);
   const [challengeId, setChallengeId] = useState(L2_SLICING_SPACE.sequence[0]);
-  const [plane, setPlane] = useState<L2PlaneId>('coronal');
+  const [orientation, setOrientation] = useState<L2ReferenceOrientation>('coronal');
+  const [medianRelation, setMedianRelation] = useState<L2MedianRelation>('median');
+  const [inclination, setInclination] = useState<L2Inclination>('aligned');
   const [region, setRegion] = useState<L2Region>('thorax');
   const [thickness, setThickness] = useState<L2Thickness>('nominal');
   const [selectedLayer, setSelectedLayer] = useState<L2ModelLayerId>('geometric-plane');
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [result, setResult] = useState<SlicingSpaceAnswerResult | null>(null);
-  const reduceMotion = useReducedMotionPreference();
+  const { reducedMotionEnabled: reduceMotion, resolved: motionResolved } = useReducedMotionPreferenceState();
   const challenge = challengeById(challengeId);
 
   const showChallenge = (nextChallengeId: string) => {
     challengeById(nextChallengeId);
     setChallengeId(nextChallengeId);
-    setPlane('coronal');
+    setOrientation('coronal');
+    setMedianRelation('median');
+    setInclination('aligned');
     setRegion('thorax');
     setThickness('nominal');
     setSelectedLayer('geometric-plane');
@@ -69,7 +86,7 @@ export function SlicingSpaceLessonPreview() {
     <Text style={styles.eyebrow}>L2 · ORIENTAÇÃO ESPACIAL · RASCUNHO LOCAL</Text>
     <Text style={styles.title}>{L2_SLICING_SPACE.title}</Text>
     <Text style={styles.intro}>A referência geométrica ajuda a situar dados de uma região. Plano, região, espessura e imagem não são sinônimos.</Text>
-    <SlicingSpaceModel {...{ plane, region, thickness, selectedLayer, reduceMotion }} scenarioId={challenge.visualScenarioId} answerOptions={challenge.answerOptions} onCandidateSelect={setSelectedAnswerId} onPlaneChange={setPlane} onRegionChange={setRegion} onThicknessChange={setThickness} onLayerSelect={setSelectedLayer} />
+    <SlicingSpaceModel {...{ orientation, medianRelation, inclination, region, thickness, selectedLayer, reduceMotion, motionResolved }} scenarioId={challenge.visualScenarioId} answerOptions={challenge.answerOptions} onCandidateSelect={setSelectedAnswerId} onOrientationChange={setOrientation} onMedianRelationChange={setMedianRelation} onInclinationChange={setInclination} onRegionChange={setRegion} onThicknessChange={setThickness} onLayerSelect={setSelectedLayer} />
     <View style={styles.activity}>
       <Text style={styles.activityLabel}>{activityLabel(challenge)}</Text>
       <Text style={styles.prompt}>{challenge.prompt}</Text>
@@ -78,12 +95,12 @@ export function SlicingSpaceLessonPreview() {
         {challenge.answerOptions.map((option, index) => {
           const selected = selectedAnswerId === option.id;
           return <Pressable key={option.id} accessibilityRole="radio" accessibilityLabel={`Selecionar opção ${index + 1}. ${option.textDescription}`} accessibilityHint="Seleciona esta opção. A confirmação acontece em um controle separado." accessibilityState={{ selected }} accessibilityValue={{ text: selected ? 'selecionada' : 'não selecionada' }} onPress={() => setSelectedAnswerId(option.id)} style={[styles.option, selected && styles.optionSelected]}>
-            <Text style={styles.optionNumber}>{index + 1}</Text><View style={styles.optionText}><Text style={styles.optionLabel}>{option.label}</Text><Text style={styles.optionDescription}>{option.textDescription}</Text></View>{selected ? <Text style={styles.selected}>Selecionada</Text> : null}
+            <Text style={styles.optionNumber}>{index + 1}</Text><View style={styles.optionText}><Text style={styles.optionLabel}>{`Opção ${index + 1}`}</Text><Text style={styles.optionDescription}>{option.textDescription}</Text></View>{selected ? <Text style={styles.selected}>Selecionada</Text> : null}
           </Pressable>;
         })}
       </View>
       {!result ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: !selectedAnswerId }} disabled={!selectedAnswerId} onPress={confirm} style={[styles.confirm, !selectedAnswerId && styles.confirmDisabled]}><Text style={styles.confirmText}>Confirmar decisão</Text></Pressable> : null}
-      {result ? <View style={styles.feedback} accessibilityLiveRegion="polite"><Text style={styles.feedbackTitle}>{result.correct ? 'Leitura registrada' : 'Vamos ajustar o modelo'}</Text><Text style={styles.feedbackText}>{result.feedback}</Text>{result.evidenceKind === 'assisted_practice' && result.correct ? <Text style={styles.feedbackText}>A prática assistida foi registrada; ela não demonstra domínio.</Text> : null}{result.evidenceKind === 'later_independent_retrieval' && result.demonstratesMastery ? <Text style={styles.feedbackTitle}>Recuperação independente registrada.</Text> : null}<Text style={styles.feedbackText}>Este objetivo permanece em {result.reviewTargetId}, com um item novo; XP e repetição imediata não comprovam domínio.</Text>{feedbackActionLabel ? <Pressable accessibilityRole="button" onPress={feedbackAction} style={styles.next}><Text style={styles.confirmText}>{feedbackActionLabel}</Text></Pressable> : null}</View> : null}
+      {result ? <View style={styles.feedback} accessibilityLiveRegion="polite"><Text style={styles.feedbackTitle}>{result.correct ? 'Leitura registrada' : 'Vamos ajustar o modelo'}</Text><Text style={styles.feedbackText}>{result.feedback}</Text>{result.evidenceKind === 'assisted_practice' && result.correct ? <Text style={styles.feedbackText}>A prática assistida foi registrada; ela não demonstra domínio.</Text> : null}{result.evidenceKind === 'later_independent_retrieval' && result.demonstratesMastery ? <Text style={styles.feedbackTitle}>Recuperação independente registrada.</Text> : null}<Text style={styles.feedbackText}>{reviewSentence(result)}</Text>{feedbackActionLabel ? <Pressable accessibilityRole="button" onPress={feedbackAction} style={styles.next}><Text style={styles.confirmText}>{feedbackActionLabel}</Text></Pressable> : null}</View> : null}
     </View>
     <View style={styles.summary}><Text style={styles.summaryTitle}>Síntese para retomar depois</Text>{L2_SLICING_SPACE.synthesis.map((line) => <Text key={line} style={styles.summaryText}>• {line}</Text>)}</View>
   </ScrollView>;

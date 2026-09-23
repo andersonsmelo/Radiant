@@ -138,4 +138,166 @@ vetorial numerada e selecionável, com botão textual equivalente e sem gabarito
 a recuperação mediana usa simetria pélvica com marcadores equidistantes; uma
 faixa de região se move até a referência antes do volume final, com estado final
 imediato em Reduce Motion; e o motor exige evidência prévia de erro e prática
-assistida correta antes de registrar domínio/XP. Parecer v3 pendente.
+assistida correta antes de registrar domínio/XP.
+
+**Parecer v3 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v3.md`](../content/2026-09-22-l2-parecer-v3.md). Seis
+achados críticos, seis importantes e seis menores. **Três das quatro correções
+listadas acima não se realizam no código:** não há número nem handler de toque
+nas geometrias candidatas dentro do SVG — o cabeçalho "Toque em um candidato no
+modelo" é afordância falsa; o que se move antes do volume é um overlay de texto
+fora do SVG, enquanto o volume continua entrando por alternância de opacidade; e
+os marcadores da recuperação mediana já eram equidistantes no item inicial, além
+de a silhueta ser deslocada duas vezes (`SlicingSpaceModel.tsx:69` e `:91`), o
+que põe a placa "mediana" fora do centro do corpo desenhado e torna **falsa no
+desenho** a resposta correta de `l2-initial-median` e `l2-median-recovery`. A
+quarta correção — exigir erro e apoio prévios — foi implementada em excesso: quem
+acerta nunca alcança o item de recuperação independente, e a §5.1 fica
+insatisfeita no caminho correto.
+
+Somam-se dois defeitos de conteúdo: o plano coronal é desenhado como linha
+horizontal numa vista frontal, indistinguível do transversal, e o seletor de
+exploração apresenta mediano e oblíquo como planos irmãos e exclusivos —
+`E-PLN-MED` e `E-PLN-OBL` codificados no próprio controle que deveria remediá-los.
+
+As 4 suítes e 22 testes passam e **não detectam nenhum desses achados**: nenhuma
+asserção toca as geometrias candidatas, três asserções centrais incidem sobre um
+espelho das props embarcado no componente só para os testes, e o mock do hook de
+Reduce Motion oculta uma violação real do gate §7.5.
+
+Aprovado no parecer e registrado como sólido: proveniência e direitos (todo o
+desenho é autoral; DICOM com edição fixada e URL versionada; TA2 com termos e
+capítulo), os limites da §9.3, o desacoplamento da avaliação e o
+`SlicingSpaceLessonSession.test.ts` como evidência genuína sem mock.
+
+**Correções submetidas à revisão v4 (2026-09-22):** os seis achados críticos,
+cada um com teste que falhou antes da correção e pelo motivo previsto.
+
+- **C1 — coronal como linha horizontal.** As placas de referência passaram a
+  `l2SlicingGeometry.orientationPaths`: coronal é área de face, transversal é
+  área rasa de perfil, sagital continua segmento vertical porque é perpendicular
+  à vista. Guarda: o coronal precisa ser caminho fechado e ter extensão vertical
+  maior que o dobro da do transversal.
+- **C2 — o controle ensinava `E-PLN-MED` e `E-PLN-OBL`.** O seletor único de
+  cinco opções exclusivas virou **três eixos independentes**: orientação de
+  referência (coronal/sagital/transversal), relação com o eixo mediano
+  (mediano/paramediano) e inclinação (alinhada/oblíqua). A relação com o eixo
+  aparece **aninhada sob sagital** e só quando sagital está selecionado — a
+  estrutura do controle passa a ensinar que o mediano é um caso de sagital, em
+  vez de negá-lo. Escolher "mediano" não desseleciona mais "sagital".
+- **C3 — silhueta deslocada duas vezes.** `bodyPathFor` devolve coordenadas
+  fixas, centradas em `MIDLINE_X`; o deslocamento de cenário fica só na
+  translação do grupo, que carrega corpo, eixo, placas e marcadores juntos.
+  Guarda: o centro horizontal da silhueta coincide com o eixo em **todo**
+  cenário.
+- **C4 — quem acerta nunca alcançava a recuperação.** O motor passou a ler
+  `additionalRecoveryChallengeId` no acerto do item inicial, e o domínio exige
+  **decisão independente prévia sobre o objetivo** em vez de erro diagnosticado.
+  Quem errou continua precisando fechar a prática assistida; quem não errou não
+  tem apoio a cumprir. A trava do parecer v2 — recuperação chamada a frio não
+  concede XP — segue verde no mesmo teste que a instalou.
+- **C5 — Reduce Motion violado na primeira renderização.** A prévia usa
+  `useReducedMotionPreferenceState` e o modelo só agenda com `resolved`.
+  Enquanto a preferência é desconhecida, a geometria final entra sem animar e o
+  estado diz isso. O mock do teste deixou de fixar `true` e passou a ser
+  controlável, com caso para os dois ramos.
+- **C6 — rótulo preso à identidade da alternativa.** O campo `label` saiu de
+  `L2AnswerOption`; a posição é responsabilidade de quem renderiza. Guarda:
+  nenhuma alternativa pode carregar token posicional nos dados.
+
+Saíram também, por serem incoerentes com o modelo de três eixos: os campos
+`requiredPlane`/`requiredRegion`/`requiredThickness` — sem consumidor e
+duplicando o gabarito, superfície do crítico v1 (a) —, com guarda contra
+retorno; o espelho das props embarcado no componente para os testes; e a
+afordância falsa "Toque em um candidato no modelo", já que o desenho não recebe
+toque. Cada `visualScenarioId` ganhou legenda e marcadores próprios, encerrando
+o achado v2 (2).
+
+**Evidência medida em 2026-09-22:** 5 suítes e 39 testes da lição aprovados
+(eram 4 e 22); `src/features/curriculum-v3` inteiro com 12 suítes e 117 testes;
+`npm run typecheck` aprovado. *(Uma versão anterior deste bloco dizia "6 suítes e
+38 testes" — número de uma execução intermediária, corrigido depois que o parecer
+v4 o mediu.)* **Nada foi verificado em aparelho:** o pedido do parecer v2 de
+confirmar a semântica de rádio no VoiceOver continua aberto, e nenhum teste desta
+suíte pode fechá-lo.
+
+**Parecer v4 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v4.md`](../content/2026-09-22-l2-parecer-v4.md). **Os seis
+críticos foram confirmados resolvidos no código** — a reprovação é de outra
+natureza que as três anteriores, em que a prosa descrevia correção que o código
+não fazia. Ela se apoia em dois críticos **novos**, ambos consequência da
+correção do C4: **N1**, a lição passando a terminar sem saída depois de um erro
+na recuperação, agora no caminho de todo aprendiz; e **N2**, a recuperação que o
+C4 tornou porta única do domínio não sendo item novo em três das quatro famílias.
+Some-se **N4**: as guardas de C1 e C3 paravam na fronteira do módulo puro, então
+reembutir a linha horizontal do coronal ou o deslocamento no caminho do corpo
+reintroduzia os dois defeitos com a suíte verde.
+
+**Correções submetidas à revisão v5 (2026-09-22):** N1, N2 e N4 corrigidos, cada
+um com teste que falhou antes e pelo motivo previsto.
+
+- **N1** — o apoio fechado depois de recuperação falhada segue para o destino
+  declarado pelo item inicial do objetivo, com rótulo "Seguir; este objetivo
+  volta na revisão". Não reabre a mesma recuperação, não concede domínio, e não
+  encerra a lição. O teste que afirmava a ausência de continuação codificava o
+  defeito e passou a afirmar a regra real.
+- **N2** — a resposta correta mudou de posição nas três famílias que a mantinham
+  fixa, com guarda percorrendo **todas** as famílias; e `candidateTransformFor`
+  passou a desenhar o candidato na região que o cenário nomeia, então inicial e
+  recuperação não desenham mais a mesma figura no mesmo lugar.
+- **N4** — três guardas novas atravessam o componente e asseveram sobre o `d` da
+  placa, o caminho da silhueta e a matriz do candidato. As três foram derrubadas
+  com o defeito específico de cada uma antes de serem aceitas.
+
+**Descoberta de método:** o desenho fica sob `accessibilityElementsHidden`, e as
+consultas padrão do RNTL pulam nós ocultos — é **por isso** que nunca houve teste
+sobre ele. As consultas precisam de `{ includeHiddenElements: true }`.
+
+**Um "não verificável" do parecer foi fechado:** `react-native-svg` resolve
+`transform` em `matrix`, e a composição `translate(...) rotate(...)` é honrada —
+medido por três matrizes distintas.
+
+**Evidência medida em 2026-09-22 (v5):** 5 suítes e 46 testes da lição; guardas
+novas derrubadas em três formas reais e verdes ao restaurar.
+
+**Parecer v5 (reprovado, revisão estática em 2026-09-22):** registro completo em
+[`2026-09-22-l2-parecer-v5.md`](../content/2026-09-22-l2-parecer-v5.md). Os seis
+críticos do v3 **e** os três achados do v4 foram confirmados resolvidos — o
+revisor enumerou 21.110 percursos do motor e nenhum termina com objetivo por
+ver, concede domínio indevido ou forma laço. A reprovação veio de **um crítico
+novo que a correção do N2 criou**: a translação dos candidatos para a região do
+cenário empurrou nove figuras para fora do `viewBox`, entre elas as respostas
+corretas de duas das quatro recuperações. Em `l2-section-recovery` a alternativa
+correta nomeia "duas faces" e a segunda caía inteira fora do quadro — a condição
+pela qual o C3 foi reprovado, reinstalada por outro mecanismo.
+
+> 🔴 **Três passagens seguidas, a correção produziu o achado seguinte, e a guarda
+> escrita junto com ela foi cega justamente a ele.** C4 gerou N1 e N2; a correção
+> do N2 gerou P1. A guarda do candidato exigia apenas que as **matrizes
+> diferissem** entre cenários, e uma translação para fora do quadro satisfaz isso
+> com folga.
+
+**Correções submetidas à revisão v6 (2026-09-22, `949a5f0`):**
+
+- **P1** — a translação saiu. Candidato de corpo inteiro não pertence a região
+  nenhuma e não se move; só os ligados a nível acompanham a região, e são
+  **construídos** na banda dela. A guarda nova afirma que todo candidato cabe
+  inteiro no `viewBox`, em todo cenário, e foi derrubada com o defeito exato que
+  havia sido enviado.
+- **N1 residual** — `reviewSentence` diz que o objetivo volta na revisão agendada
+  quando não há destino adiante, em vez de prometer item novo sem botão.
+
+**Evidência medida em 2026-09-22 (v6):** 5 suítes e 51 testes da lição; 129 em
+`curriculum-v3`; typecheck aprovado.
+
+**Seguem abertos:** P2 a P9 do v5, N3, N5, I4 agravado, N7–N10 e os
+importantes/menores do v3 (I1, I3, I5.3, M4–M6). **Parecer v6 pendente.**
+
+> ⚠️ **Crítica de método retida do v5:** a frase "cada um com teste que falhou
+> antes da correção" é **inauditável** por quem revisa — o commit é único, sem
+> passo vermelho preservado. Não é falsa; é inconferível, e é a mesma classe de
+> asserção que reprovou v1 a v3.
+
+**Fora do alcance da lição:** o achado I2 — o código `E-PLN-SEC` aplicado à
+confusão coronal×transversal — exige criar um código de erro novo na spec e é
+decisão do dono. Remendar a taxonomia por dentro corromperia a matriz de P1 e C1.

@@ -64,16 +64,68 @@ describe('SlicingSpaceLessonSession', () => {
     const extraSupport = session.answer('l2-assisted-oblique', 'oblique');
     const repeatedRecovery = session.answer('l2-oblique-recovery', 'oblique');
 
+    // O apoio extra não reabre a mesma recuperação — repetir o item errado não
+    // é recuperação independente — mas encaminha ao objetivo seguinte. Zerar a
+    // continuação aqui encerrava a lição com objetivos por ver.
     expect(extraSupport).toMatchObject({ demonstratesMastery: false, reviewTargetId: 'review:l2:obliquidade-em-regiao-nova' });
-    expect(extraSupport).not.toHaveProperty('nextChallengeId');
+    expect(extraSupport.nextChallengeId).toBe('l2-independent-section');
+    expect(extraSupport.nextActionLabel).toBe('Seguir; este objetivo volta na revisão');
     expect(repeatedRecovery).toMatchObject({ demonstratesMastery: false, awardsXp: false });
   });
 
-  it('não concede domínio se uma recuperação for chamada sem erro diagnosticado e prática assistida prévios', () => {
+  it('leva quem acerta o item inicial à recuperação independente, em vez de pular o objetivo', () => {
+    const session = createSlicingSpaceLessonSession();
+
+    const initial = session.answer('l2-initial-median', 'median');
+
+    expect(initial).toMatchObject({ correct: true, nextChallengeId: 'l2-median-recovery' });
+  });
+
+  it('reconhece domínio de quem acerta sem errar, desde que a recuperação seja item novo', () => {
+    // A §5.1 exige um item novo, sem ajuda, para TODO objetivo essencial — não
+    // só para quem errou. Exigir erro diagnosticado como pré-condição de
+    // domínio tornava o caminho correto incapaz de fechar o objetivo.
+    const session = createSlicingSpaceLessonSession();
+
+    session.answer('l2-initial-median', 'median');
+    const recovery = session.answer('l2-median-recovery', 'median');
+
+    expect(recovery).toMatchObject({
+      evidenceKind: 'later_independent_retrieval', demonstratesMastery: true, awardsXp: true,
+    });
+  });
+
+  it('não concede domínio se uma recuperação for chamada sem nenhuma decisão prévia sobre o objetivo', () => {
     const session = createSlicingSpaceLessonSession();
 
     expect(session.answer('l2-median-recovery', 'median')).toMatchObject({
       correct: true, demonstratesMastery: false, awardsXp: false,
     });
+  });
+
+  it('nunca deixa o aprendiz sem continuação depois de errar a recuperação e fechar o apoio', () => {
+    // A regra que zera a continuação existia antes, mas só alcançava quem
+    // errava o item inicial. Ao levar todo mundo à recuperação, ela virou o
+    // caminho modal: um único erro ali encerrava a lição com três objetivos
+    // por ver, enquanto a tela prometia "um item novo".
+    const session = createSlicingSpaceLessonSession();
+
+    const initial = session.answer('l2-initial-median', 'median');
+    const failedRecovery = session.answer(initial.nextChallengeId!, 'sagittal-not-median');
+    const support = session.answer(failedRecovery.nextChallengeId!, 'sagittal-not-median');
+
+    expect(support.correct).toBe(true);
+    expect(support.nextChallengeId).toBeDefined();
+  });
+
+  it('não converte em domínio o apoio que sucede uma recuperação falhada, mas segue o percurso', () => {
+    const session = createSlicingSpaceLessonSession();
+
+    session.answer('l2-initial-median', 'median');
+    session.answer('l2-median-recovery', 'sagittal-not-median');
+    const support = session.answer('l2-assisted-sagittal', 'sagittal-not-median');
+
+    expect(support).toMatchObject({ demonstratesMastery: false, awardsXp: false });
+    expect(support.nextChallengeId).toBe('l2-independent-reference-plane');
   });
 });
