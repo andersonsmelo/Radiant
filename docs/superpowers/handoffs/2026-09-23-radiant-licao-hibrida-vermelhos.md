@@ -260,3 +260,42 @@ implementação correta, por outro motivo: ele errava `h01-lat-frente` em
 a lição nunca saía de `h01` e o `kinds.get('h02-…')` vinha `undefined`. O teste
 foi corrigido para errar só a primeira tentativa de `h01` e de `h07`; a execução
 acima é contra o teste corrigido.
+
+## Tarefa 4 — som e vibração: preferência de sons
+
+### Mutação 4.1 — sons tocam mesmo desligados
+
+A execução abaixo foi contra o teste como o plano o escreveu. Depois, o teste
+mudou só para passar no lint (acesso ao mock por `jest.requireMock` em vez de
+`haptics[nome]`), e a mesma mutação foi repetida contra a versão final: `1
+failed, 7 passed`, no mesmo caso.
+
+Em `createLessonFeedback`, `if (preferences.sounds) sounds.play(SOUND[event]);`
+→ `sounds.play(SOUND[event]);`.
+
+```bash
+cd radiant-app && npx jest src/ui/feedback/lessonFeedback.test.ts --runInBand
+```
+
+```text
+    ✕ com sons desligados, só vibra
+Tests:       1 failed, 7 passed, 8 total
+
+  ● feedback da lição › com sons desligados, só vibra
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: "acerto"
+
+      29 |     const sounds = { play: jest.fn(), release: jest.fn() };
+      30 |     createLessonFeedback(sounds, { sounds: false, haptics: true }).emit('correct');
+    > 31 |     expect(sounds.play).not.toHaveBeenCalled();
+         |                             ^
+      32 |     expect(haptics.hapticSuccess).toHaveBeenCalledTimes(1);
+      33 |   });
+      34 |
+
+```

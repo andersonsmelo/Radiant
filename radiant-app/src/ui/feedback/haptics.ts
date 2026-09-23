@@ -66,3 +66,17 @@ export function hapticLifeLost(): void {
 export function hapticTap(): void {
   run(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light));
 }
+
+/** Toque numa opção da lição: o mais leve do vocabulário. */
+export function hapticSelection(): void {
+  run(() => Haptics.selectionAsync());
+}
+
+/** Sequência de acertos: dois toques leves, "tá-tá". */
+export function hapticStreak(): void {
+  run(async () => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await new Promise((resolve) => setTimeout(resolve, 90));
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  });
+}
