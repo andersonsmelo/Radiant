@@ -240,6 +240,17 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
+
+   ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
+   corações** — corrigido em **2026-09-23**, **sem build nem push**, no branch
+   `fix/hud-infinito` (sobre `0b0283e`)
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-hud-infinito-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-hud-infinito-vermelhos.md)).
+   No estado `unlimited` o cabeçalho mostra só o ∞, rotulado "Vidas
+   ilimitadas" com ou sem botão — Checkpoint e Revisão, que não têm botão,
+   anunciavam "5 de 5 vidas" ao assinante. Gate `quality` exit 0, **133
+   suítes / 1189 testes**, Node `v20.20.2`. **Falta:** olhar o ∞ num aparelho
+   com assinante real, que espera o sandbox.
 5. ✅ **Checklist de declarações à loja** — preparado em **2026-09-22** em
    [`CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md), com as
    linhas de assinatura marcadas ⏳ e **explicitamente não preenchíveis** até (2)
