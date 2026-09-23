@@ -203,6 +203,29 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 3. **`QuizTopBar` mostrando ∞ para assinante** — **destravado em 2026-09-23**:
    o estado de assinatura real existe no código. Pode ser feito e testado sem
    build; a validação visual com assinante real espera o sandbox.
+   - ✅ **Perfil e recompensa leem as vidas da fonte viva** — concluído em
+     **2026-09-23**, na branch `claude/sharp-dijkstra-747d12` (sobre
+     `feat/quiztopbar-infinito`), **não mergeado**. A seção Vidas do Perfil e o
+     HUD do `RewardScreen` liam o contador legado do `GamificationService`
+     (sempre 5, nunca ∞); agora leem `heartsRepository`, com ∞ para assinante.
+     Gate: 134 suítes / 1181 testes, Node 20.20.2.
+     [Relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md).
+   - **Aposentar o contador legado de vidas do `GamificationService`.**
+     **Estado:** decidido pelo dono em 2026-09-23 — sai **depois**, em run
+     próprio. **Bloqueio:** o commit da fatia do `QuizTopBar` ∞ (item 3), que
+     mexe em `quiz/` e `LessonFlowScreen`; o único escritor do legado é
+     `useQuiz.loseHeart` (rota `/quiz`, só por deep link) e ficaria em
+     conflito. **Dono:** agente. Nenhum dado depende dos campos: backup no
+     iCloud lê só `totalXp`/`streakDays`, e a migração 1.4 guarda o blob
+     `radiant:gami:v1` inteiro sem lê-los. Falta decidir o que `/quiz` faz com
+     vidas (passar a `heartsRepository.spend` ou deixar de contar).
+     Remedir os leitores e escritores (é um **superconjunto**: casa também a
+     prop `maxHearts` do `HUD`/`QuizTopBar`, que não é o legado — classifique
+     cada linha pela origem do valor, como no relatório):
+
+     ```bash
+     cd radiant-app && grep -rnE '\b(maxHearts|heartsLastRefillAt|heartsNextRefillAt|loseHeart|refillHearts|canStartLesson)\b|gamification\??\.hearts' src | grep -v '/hearts/'
+     ```
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
