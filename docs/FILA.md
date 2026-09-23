@@ -138,11 +138,12 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    Connect (Negócios → Contratos): vigente de 15/09/2026 a 01/08/2027, todos os
    países; conta bancária *Ativa*; formulário fiscal do Brasil, Certificate of
    Foreign Status e W-8BEN *Ativos*. Leitura feita na tela, sem clicar em nada.
-4. **Decisão de produto: pedido Ask to Buy recusado.** Hoje o estado pendente
-   não tem saída — o cartão do Perfil fica sem botão, a tela mostra "Pedido
-   enviado" sem planos e sem Restaurar, e a recusa não gera transação que limpe
-   o estado. O estudo não é afetado. Opções: validade para o pendente, ou
-   mostrar planos e Restaurar no estado pendente.
+4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
+   ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 5). Planos e
+   Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
+   o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
+   botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
+   um aprovado dentro das 24 h.
 
 ### AGENTE — o que sobrou da Task 8
 

@@ -180,9 +180,13 @@ carrega o pacote inteiro.
    Dois defeitos achados e corrigidos: os Product IDs do serviço eram os do
    `PaywallPlan` (`monthly_plus`/`annual_plus`), não os da ADR; e reembolso
    mantinha as vidas ilimitadas até o fim do período, porque
-   `currentEntitlements` omite a transação reembolsada. **Aberto, do dono:**
-   pedido Ask to Buy recusado prende o cartão e a tela no estado pendente, sem
-   planos nem Restaurar; e `willRenew` sem rede não está medido. **Comitado em
+   `currentEntitlements` omite a transação reembolsada. **Aberto:**
+   `willRenew` sem rede não está medido. O Ask to Buy recusado, que prendia o
+   cartão e a tela no pendente, foi **corrigido em 2026-09-23** por decisão do
+   dono: planos e Restaurar sempre visíveis, e aviso de pendente por 24 h.
+   Gate medido na mesma data, Node `v20.20.2`: saiu 0, com 133 suítes e 1174
+   testes, e Visual QA sem regressão. Vermelhos em
+   [`2026-09-23-radiant-ask-to-buy-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md). **Comitado em
    2026-09-23 (`000daef`)**, na branch `feat/storekit-adaptador-fatia-2`;
    não empurrado nem construído. **Gate reproduzido por outra sessão** em
    2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:

@@ -34,10 +34,13 @@ describe('SubscriptionCard', () => {
         expect(screen.getByRole('button', { name: 'Renovar' })).toBeTruthy();
     });
 
-    it('pendente informa que aguarda aprovação', () => {
-        render(<SubscriptionCard status={{ kind: 'pending', since: '2026-09-14T12:00:00.000Z' }} onOpen={jest.fn()} />);
+    it('pendente informa que aguarda aprovação e continua abrindo a tela', () => {
+        const onOpen = jest.fn();
+        render(<SubscriptionCard status={{ kind: 'pending', since: '2026-09-14T12:00:00.000Z' }} onOpen={onOpen} />);
 
         expect(screen.getByText('Pedido aguardando aprovação')).toBeTruthy();
+        fireEvent.press(screen.getByRole('button', { name: 'Ver' }));
+        expect(onOpen).toHaveBeenCalledTimes(1);
     });
 
     it('enquanto carrega mostra esqueleto, nunca branco', () => {

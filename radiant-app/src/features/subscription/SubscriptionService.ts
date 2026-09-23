@@ -78,13 +78,24 @@ function parseCache(raw: string | null): SubscriptionCacheV1 {
 }
 
 /**
+ * Quanto vale um pedido do Ask to Buy. A Apple o descarta se o responsável não
+ * aprovar em 24 h (support.apple.com/105055) e NÃO avisa o app de recusa nem
+ * de expiração (Frameworks Engineer, developer.apple.com/forums/thread/685183).
+ * Passado o prazo, o pedido não pode mais virar assinatura, então deixa de ser
+ * anunciado. Decisão do dono em 2026-09-23.
+ */
+export const ASK_TO_BUY_WINDOW_MS = 24 * 60 * 60 * 1000;
+
+/**
  * Decide o estado a partir do direito em cache e do relógio injetado. Vencido,
  * expirado ou reembolsado → `expired` (a economia volta a CHEIA, nunca a VAZIA).
  */
 export function resolveSubscriptionStatus(cache: SubscriptionCacheV1, nowMs: number): SubscriptionStatus {
     const { entitlement } = cache;
     if (entitlement === null) {
-        return cache.pendingSince === null ? { kind: 'none' } : { kind: 'pending', since: cache.pendingSince };
+        if (cache.pendingSince === null) return { kind: 'none' };
+        if (nowMs >= Date.parse(cache.pendingSince) + ASK_TO_BUY_WINDOW_MS) return { kind: 'none' };
+        return { kind: 'pending', since: cache.pendingSince };
     }
     if (entitlement.revokedAt !== null) return { kind: 'expired', expiredAt: entitlement.revokedAt };
     if (nowMs >= Date.parse(entitlement.expiresAt)) return { kind: 'expired', expiredAt: entitlement.expiresAt };

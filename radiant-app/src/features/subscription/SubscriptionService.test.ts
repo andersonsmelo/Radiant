@@ -187,6 +187,37 @@ describe('SubscriptionService — compra e restauração', () => {
         expect(await service.getStatus(AGORA)).toEqual({ kind: 'pending', since: new Date(AGORA).toISOString() });
     });
 
+    // Prazo oficial: a Apple descarta o pedido do Ask to Buy sem aprovação em
+    // 24 h (support.apple.com/105055) e NÃO avisa o app de recusa nem de
+    // expiração (Frameworks Engineer, developer.apple.com/forums/thread/685183).
+    // Sem este prazo o pendente durava para sempre.
+    it('o pendente vale 24 h a partir do pedido e depois deixa de existir', async () => {
+        const { service, hearts } = servico(loja({
+            purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })),
+        }));
+        const DIA = 24 * 60 * 60 * 1000;
+        await service.purchase('monthly_plus', AGORA);
+
+        expect(await service.getStatus(AGORA + DIA - 1)).toEqual({ kind: 'pending', since: new Date(AGORA).toISOString() });
+        expect(await service.getStatus(AGORA + DIA)).toEqual({ kind: 'none' });
+        expect(await service.refresh(AGORA + DIA)).toEqual({ kind: 'none' });
+        expect(hearts.setUnlimited).not.toHaveBeenCalled();
+    });
+
+    it('pedido novo depois do vencido reabre as 24 h a partir do novo pedido', async () => {
+        const { service } = servico(loja({
+            purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })),
+        }));
+        const DIA = 24 * 60 * 60 * 1000;
+        await service.purchase('monthly_plus', AGORA);
+        await service.purchase('monthly_plus', AGORA + 2 * DIA);
+
+        expect(await service.getStatus(AGORA + 2 * DIA + 1)).toEqual({
+            kind: 'pending',
+            since: new Date(AGORA + 2 * DIA).toISOString(),
+        });
+    });
+
     it('compra cancelada pelo aluno não muda nada', async () => {
         const { service, hearts } = servico(loja());
 

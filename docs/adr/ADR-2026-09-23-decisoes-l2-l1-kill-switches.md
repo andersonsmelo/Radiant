@@ -89,9 +89,30 @@ variáveis com `false`. O arquivo não está em `writePolicy.allowedRoots`;
 ampliar a política é decisão do dono. As linhas são inertes, porque ninguém
 as lê.
 
+## 5. Adendo, na mesma data — o pedido Ask to Buy pendente nunca trava
+
+**Fato.** Com o Compartilhamento Familiar e o Ask to Buy ligados, a compra de um
+menor volta ao app como `pending`. Se o responsável aprova, a transação chega
+pela escuta de `Transaction.updates`. Se recusa ou deixa passar, **a Apple não
+avisa o app**, e o pedido é descartado se não for aprovado em **24 horas**
+(fontes: [suporte da Apple, 105055](https://support.apple.com/en-us/105055) e [Frameworks Engineer da Apple no fórum 685183](https://developer.apple.com/forums/thread/685183); lidas em 2026-09-23). O código da fatia 2 guardava
+`pendingSince` sem prazo e, nesse estado, escondia planos e Restaurar e tirava o
+botão do cartão do Perfil: quem tivesse o pedido recusado ficava sem saída pelo
+app. O estudo nunca foi afetado.
+
+**Decisão.** O pendente é **aviso, não trava**. Planos e Restaurar ficam sempre
+visíveis, como a Apple recomenda; o aviso "Pedido enviado para aprovação" vale
+por 24 h a partir do pedido e depois deixa de existir; o cartão do Perfil ganha
+o botão "Ver" no pendente.
+
+**Execução.** `ASK_TO_BUY_WINDOW_MS` em `SubscriptionService.ts` decide o
+estado; as vidas não mudam, porque só `unlimited` e `expired` as tocam.
+Vermelhos e mutações em
+[`2026-09-23-radiant-ask-to-buy-vermelhos.md`](../superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md).
+
 ## Fora desta ADR
 
 - O **acordo de apps pagos** não é decisão: é medição. Foi lido em *Ativo* em
   2026-09-23 e está registrado em `STATUS.md` e no checklist de declarações.
-- O **Ask to Buy recusado** que prende o estado pendente, achado na fatia 2 da
-  Task 8, continua sendo decisão do dono, ainda não tomada.
+- (O Ask to Buy recusado, que esta lista registrava como pendente, foi
+  decidido no item 5.)
