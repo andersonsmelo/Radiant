@@ -202,6 +202,20 @@ carrega o pacote inteiro.
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
    aberto; deixa de ser inerte no dia em que uma URL de API entrar lá.
 
+   ✅ **O `HUD` não mostra mais corações ao lado do ∞** — achado da fatia 3,
+   **corrigido em 2026-09-23, sem build nem push**, no branch
+   `fix/hud-infinito` (aberto de `0b0283e`). No estado `unlimited` o cabeçalho
+   de Trilha, Checkpoint e Revisão mostra só o ∞, como pede a spec (§5.1,
+   "corações somem"). **Defeito a mais, achado no caminho:** Checkpoint e
+   Revisão não passam `onHeartsPress`, e ali o rótulo "Vidas ilimitadas" não
+   existia — o leitor de tela anunciava "5 de 5 vidas" ao assinante. Agora o ∞
+   carrega o rótulo com ou sem botão; a Trilha mantém o botão que abre a folha.
+   **Medido em 2026-09-23**, Node `v20.20.2`, worktree limpa:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1189 testes**,
+   Visual QA sem regressão. Vermelhos e sete mutações em
+   [`2026-09-23-radiant-hud-infinito-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-hud-infinito-vermelhos.md);
+   [relatório](superpowers/handoffs/2026-09-23-radiant-hud-infinito-relatorio.md).
+
    ⚠️ **Isso não liga nada.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` continua sem
    valor e o `Sentry.init` não roda, então o rótulo "Dados não coletados" segue
    verdadeiro. A fatia fixa o que sairia do aparelho **se** a flag for ligada —
