@@ -1,0 +1,23 @@
+export type BodyPosture = 'anatomical' | 'supine' | 'prone';
+export type BodyPerspective = 'front' | 'back';
+
+/** Viewbox do SVG do mapa. As posições abaixo estão nessas coordenadas. */
+export const CANVAS = { width: 240, height: 330 } as const;
+
+/**
+ * Onde cada landmark fica no viewBox, antes de girar ou espelhar. Movido sem
+ * alteração de `BodyReferenceMap.tsx` em 2026-09-23.
+ */
+export const LANDMARK_POSITIONS: Readonly<Record<string, readonly [number, number]>> = {
+  'patient-left-hand': [184, 162], 'patient-right-hand': [56, 162], 'head-marker': [120, 38], 'foot-marker': [120, 294], 'midline-marker': [120, 150], 'outer-arm-marker': [68, 150], 'shoulder-marker': [83, 116], 'wrist-marker': [53, 183], 'outer-layer': [156, 142], 'inner-layer': [135, 142], 'anterior-thorax': [105, 142], 'posterior-thorax': [140, 142],
+};
+
+export const FALLBACK_POSITION: readonly [number, number] = [120, 160];
+
+export function canvasRotation(posture: BodyPosture): '0deg' | '90deg' | '-90deg' {
+  return posture === 'anatomical' ? '0deg' : posture === 'supine' ? '90deg' : '-90deg';
+}
+
+export function geometryId(posture: BodyPosture, perspective: BodyPerspective): string {
+  return `${posture === 'anatomical' ? 'upright' : posture}-${perspective}`;
+}

@@ -6,9 +6,9 @@ import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import { useScalePop } from '../../../ui/motion';
 import type { L1AnswerOption } from './l1BodyReference.types';
+import { FALLBACK_POSITION, LANDMARK_POSITIONS, canvasRotation, geometryId, type BodyPerspective, type BodyPosture } from './bodyMapGeometry';
 
-export type BodyPosture = 'anatomical' | 'supine' | 'prone';
-export type BodyPerspective = 'front' | 'back';
+export type { BodyPerspective, BodyPosture } from './bodyMapGeometry';
 
 type BodyReferenceMapProps = Readonly<{
   posture: BodyPosture;
@@ -30,16 +30,8 @@ const relationLabels: Record<string, string> = {
   'superior-inferior': 'cabeça e pés', 'anterior-posterior': 'frente e costas', 'medial-lateral': 'linha mediana e lados', 'proximal-distal': 'ligação do membro e extremidade', 'superficial-deep': 'camadas locais',
 };
 
-const positions: Record<string, readonly [number, number]> = {
-  'patient-left-hand': [184, 162], 'patient-right-hand': [56, 162], 'head-marker': [120, 38], 'foot-marker': [120, 294], 'midline-marker': [120, 150], 'outer-arm-marker': [68, 150], 'shoulder-marker': [83, 116], 'wrist-marker': [53, 183], 'outer-layer': [156, 142], 'inner-layer': [135, 142], 'anterior-thorax': [105, 142], 'posterior-thorax': [140, 142],
-};
-
 function postureLabel(posture: BodyPosture): string {
   return posture === 'supine' ? 'decúbito dorsal' : posture === 'prone' ? 'decúbito ventral' : 'posição anatômica';
-}
-
-function geometryId(posture: BodyPosture, perspective: BodyPerspective): string {
-  return `${posture === 'anatomical' ? 'upright' : posture}-${perspective}`;
 }
 
 function Control({ label, selected, onPress, children }: Readonly<{ label: string; selected: boolean; onPress: () => void; children: string }>) {
@@ -61,9 +53,9 @@ function Controls({ posture, perspective, onPostureChange, onPerspectiveChange }
 
 export function BodyReferenceMap({ posture, perspective, selectedRelation, reduceMotion, landmarks = fallbackLandmarks, onPostureChange, onPerspectiveChange, onRegionSelect }: BodyReferenceMapProps) {
   const { scale, style: scaleStyle, animateIn } = useScalePop();
-  const rotation = posture === 'anatomical' ? '0deg' : posture === 'supine' ? '90deg' : '-90deg';
+  const rotation = canvasRotation(posture);
   const layout = geometryId(posture, perspective);
-  const displayedLandmarks = useMemo(() => landmarks.map((entry, index) => ({ ...entry, number: index + 1, position: positions[entry.landmarkId] ?? [120, 160] })), [landmarks]);
+  const displayedLandmarks = useMemo(() => landmarks.map((entry, index) => ({ ...entry, number: index + 1, position: LANDMARK_POSITIONS[entry.landmarkId] ?? FALLBACK_POSITION })), [landmarks]);
 
   useEffect(() => {
     if (reduceMotion) {
