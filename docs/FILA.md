@@ -15,6 +15,8 @@ esta fila é só o que está **executável agora**, ordenado.
 histórico sai **no mesmo run que o fecha** e vai, sem edição, para o fim de
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md). Esta fila cresceu até
 1.327 linhas porque nada saía; em 2026-09-23 ela voltou a caber numa leitura.
+Todo run do Loop que edita esta fila declara também esse arquivo no
+`abrir.mjs`: depois de aberto, o escopo não se amplia.
 
 ## Política de decisão
 
@@ -97,7 +99,26 @@ Não faz build, envio nem push sem autorização datada.
 
 ## AGENTE — conteúdo e pipeline
 
+### AGENTE — Piloto da lição híbrida na L1 (novo em 2026-09-23)
+
+**Estado:** desenho aprovado pelo dono em 2026-09-23
+([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+[ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)); nada implementado.
+**Bloqueio:** nenhum para escrever o plano de implementação. **Dono:** agente
+para o plano e a implementação local; o dono para escolher o pacote de sons,
+autorizar o build de teste e recrutar de 3 a 5 pessoas.
+
+Próximo passo: plano de implementação a partir da spec — tocador híbrido, camada
+de som e vibração, os três modelos da L1 com gabarito calculado e as guardas de
+validade. O critério para escalar está na §5.4 da spec. **Substitui a v7 da L2
+como próximo item de conteúdo.**
+
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
+
+> ⏸️ **v7 pausada em 2026-09-23** pela
+> [ADR da lição híbrida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
+> item 6, até o resultado do piloto acima. Se o formato híbrido passar, a L2 é
+> refeita com modelos de exercício; o roteiro da v7 abaixo fica como registro.
 
 **Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
 2026-09-16. **Bloqueio:** a **L2 reprovou nas seis revisões** — v1 a v6, a

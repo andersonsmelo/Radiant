@@ -8,7 +8,8 @@ nada mais. O que está executável fica na [`FILA.md`](FILA.md); o plano, no
 **Regra que mantém este arquivo curto:** quando uma afirmação deixa de ser
 atual, ela sai daqui **no mesmo run** e vai, sem edição, para o fim de
 [`archive/STATUS_historico.md`](archive/STATUS_historico.md). Nada de narrar o
-passado aqui. Em 2026-09-23 este arquivo tinha 1.319 linhas e se contradizia:
+passado aqui. Por isso, **todo run do Loop que edita este arquivo declara
+também o histórico** no `abrir.mjs`: depois de aberto, o escopo não se amplia. Em 2026-09-23 este arquivo tinha 1.319 linhas e se contradizia:
 dizia que a 1.3.1 estava no ar e, logo abaixo, que tinha sido rejeitada.
 
 Toda afirmação traz **a data da medição** e, quando existe, **o comando que a
@@ -71,8 +72,12 @@ implementado.
   não serve para decidir nada. Só o dono mede, no Play Console. Também abertos:
   questionário IARC (E4), aparelho Android físico (C4) e TalkBack (C5).
 - **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
-  revisões** (a v6 em 2026-09-22); o próximo passo é a v7, descrita na
-  [`FILA.md`](FILA.md#agente--j3-produzir-o-arco-1--corrigir-a-l2-que-reprovou-em-v6).
+  revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O próximo
+  passo é o **piloto da lição híbrida na L1**
+  ([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+  [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)): 10 a 15 itens
+  curtos, som e vibração, exercícios gerados por regra e teste com 3 a 5
+  pessoas antes de escalar. Nada implementado.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na

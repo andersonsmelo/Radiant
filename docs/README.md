@@ -89,8 +89,12 @@ Quando documentos divergirem, use esta ordem:
   [spec V3](superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md);
 - fundação técnica entregue:
   [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
-- próxima execução: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
-  começando pela L1, sem repetir a fundação nem ativar o V3 antecipadamente;
+- **formato de lição vigente (2026-09-23):** lição híbrida, com piloto na L1 —
+  [spec do piloto](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)
+  e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md).
+  A v7 da L2 está pausada até o resultado do piloto;
+- roteiro anterior de produção: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
+  sem repetir a fundação nem ativar o V3 antecipadamente;
 - inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md);
 - **auditoria independente da L2**, em três pareceres consecutivos — leia-os em
   ordem antes de tocar na lição, porque o padrão deles é o dado mais útil:

@@ -1323,10 +1323,14 @@ canônica é
   `949a5f0`, [registro](../content/2026-09-22-l2-parecer-v6.md)). Os críticos
   de v3, v4 e v5 estão resolvidos no código; o v6 reprovou por um crítico novo
   (Q1) que a correção anterior criou, pela terceira passagem seguida. A L2 não
-  conta como sinalizada. Próxima tarefa: a v7, na ordem fixada em
-  [`FILA.md`](../FILA.md) (guarda de validade vista falhando antes da
-  correção); só depois de a L2 aprovar vem a P1 — prática intercalada,
-  conforme o [roteiro de produção](../runbooks/curriculum-v3-arco-1.md).
+  conta como sinalizada. **Em 2026-09-23 a v7 foi pausada** pela
+  [ADR da lição híbrida](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md):
+  a próxima tarefa do arco passa a ser o **piloto da lição híbrida na L1**
+  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)), e a
+  L2 é refeita com modelos de exercício se o formato passar no teste com
+  pessoas. A ordem anterior (v7, depois a P1 conforme o
+  [roteiro de produção](../runbooks/curriculum-v3-arco-1.md)) fica registrada
+  na [`FILA.md`](../FILA.md).
   Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
   e a suíte verde **não** detecta o Q1.
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
