@@ -218,3 +218,45 @@ Tests:       1 failed, 7 passed, 8 total
       77 |       }
       78 |     }
 ```
+
+## Tarefa 3 — sessão: evidência independente
+
+### Mutação 3.1 — variante contada como evidência independente
+
+Em `HybridLessonSession.ts`,
+`const independent = item.phase === 'challenge' && !item.variant;` →
+`const independent = item.phase === 'challenge';`.
+
+```bash
+cd radiant-app && npx jest src/features/curriculum-v3/hybrid-l1/HybridLessonSession.test.ts --runInBand
+```
+
+```text
+    ✕ só a primeira tentativa de um desafio original é evidência independente
+Tests:       1 failed, 8 passed, 9 total
+
+  ● sessão da lição híbrida › só a primeira tentativa de um desafio original é evidência independente
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "assisted_practice"
+    Received: "initial_independent"
+
+      74 |       expect(kinds.get(item.id)).toBe(item.phase === 'challenge' ? 'initial_independent' : 'assisted_practice');
+      75 |     }
+    > 76 |     expect(kinds.get('h07-sup-prof-v')).toBe('assisted_practice');
+         |                                         ^
+      77 |     expect(session.evidence().filter((entry) => entry.itemId === 'h01-lat-frente')).toHaveLength(1);
+      78 |   });
+      79 |
+
+      at Object.toBe (src/features/curriculum-v3/hybrid-l1/HybridLessonSession.test.ts:76:41)
+
+```
+
+Antes desta mutação, o teste como o plano o escreveu já reprovava contra a
+implementação correta, por outro motivo: ele errava `h01-lat-frente` em
+**todas** as tentativas, e o primeiro contato repete o item até o acerto, então
+a lição nunca saía de `h01` e o `kinds.get('h02-…')` vinha `undefined`. O teste
+foi corrigido para errar só a primeira tentativa de `h01` e de `h07`; a execução
+acima é contra o teste corrigido.
