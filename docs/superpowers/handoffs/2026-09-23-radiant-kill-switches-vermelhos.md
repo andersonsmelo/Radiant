@@ -71,3 +71,49 @@ Tests:       1 failed, 5 passed, 6 total
 Leitura: M1 a M4 e M7 derrubam a guarda de contrato exatamente no teste que
 nomeia o defeito. M5 é o contraponto: a regra citada num comentário não derruba
 a guarda de AST. M6 derruba o teste de comportamento do `RatingPromptService`.
+
+
+## 3. Adendo — as duas flags sem leitor e a guarda de analytics
+
+Decisão do dono, item 4 da ADR. A guarda de analytics passa sobre o código
+atual (P0), porque o mecanismo já estava correto; o vermelho dela vem por
+mutação. `TelemetryService.ts` e `config.ts` foram restaurados e conferidos por
+`cmp`/`git diff --quiet`.
+
+```text
+### P0 guarda nova sobre o código atual (esperado: verde)
+    product analytics
+      ✓ o ponto de registro ainda existe com este nome — a guarda não passa vazia por renomeação (1 ms)
+      ✓ nenhum código de produção registra adaptador de product analytics (99 ms)
+Tests:       11 passed, 11 total
+### P1 adaptador de analytics registrado em produção
+      ✕ nenhum código de produção registra adaptador de product analytics (100 ms)
+    +   "features/telemetry/TelemetryService.ts:456",
+Tests:       1 failed, 10 passed, 11 total
+### P2 método renomeado (a guarda não pode passar vazia)
+      ✕ o ponto de registro ainda existe com este nome — a guarda não passa vazia por renomeação (2 ms)
+Tests:       1 failed, 10 passed, 11 total
+### P3 contraponto: chamada citada em comentário NÃO derruba
+Tests:       11 passed, 11 total
+### K1 flags apagadas, lista de exceções ainda antiga (esperado: vermelho em 'não envelhece')
+    ✓ encontra as flags — a guarda não passa vazia (4 ms)
+    ✓ nenhuma flag ENABLE_* é constante fixa: toda uma é acionável (1 ms)
+    ✓ toda flag ENABLE_* tem leitor no código de produção, salvo as exceções nomeadas (175 ms)
+    ✕ as exceções continuam sem leitor e existindo — a lista não envelhece (101 ms)
+    ✓ ENABLE_REVIEW lê EXPO_PUBLIC_ENABLE_REVIEW, com padrão ligado
+    ✓ nenhum módulo declara um ENABLE_* local fixo, fora do AppConfig (91 ms)
+    +   "ENABLE_PRODUCT_ANALYTICS",
+    +   "ENABLE_REVENUECAT",
+Tests:       1 failed, 5 passed, 6 total
+### K2 flag de ambiente sem leitor reintroduzida (ENABLE_REVENUECAT)
+    ✕ toda flag ENABLE_* tem leitor no código de produção (170 ms)
+    +   "ENABLE_REVENUECAT",
+Tests:       1 failed, 4 passed, 5 total
+```
+
+Leitura: P1 derruba a guarda ao registrar um adaptador de verdade; P2 prova que
+ela não passa vazia se o método for renomeado; P3 é o contraponto do
+comentário. K1 é o vermelho previsto da própria guarda de kill switches:
+apagadas as flags, a lista de exceções acusou as duas como vencidas, e só então
+a lista foi removida. K2 mostra que a regra, agora sem exceção, pega uma flag
+sem leitor reintroduzida.

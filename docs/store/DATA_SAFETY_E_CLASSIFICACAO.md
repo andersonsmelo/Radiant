@@ -19,8 +19,10 @@
 - O app é **local-first**: progresso, respostas e preferências ficam **no
   dispositivo** (AsyncStorage). Nada é enviado a servidor.
 - Sem conta obrigatória, sem login para usar.
-- Analytics remoto **desligado** (`ENABLE_PRODUCT_ANALYTICS=false`); nenhum evento
-  sai do device.
+- Analytics remoto **inexistente**: nenhum adaptador de product analytics é
+  registrado, e o `telemetry-privacy-contract.test.ts` reprova quem registrar;
+  nenhum evento sai do device. *(Até 2026-09-23 este item citava
+  `ENABLE_PRODUCT_ANALYTICS=false`, uma flag sem leitor, apagada nessa data.)*
 - Notificações são **locais** (sem push token, sem servidor).
 - Expo Updates entrega atualizações de código — processa metadados técnicos de
   infraestrutura, **não** dados do usuário coletados pelo app (não declarar como

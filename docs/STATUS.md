@@ -1151,12 +1151,19 @@ tornar `ENABLE_REVIEW` real por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`.
 saiu 0, com 133 suítes e 1170 testes, e Visual QA sem regressão (+1 suíte e +7
 testes sobre a fatia 2).
 
-⚠️ **A guarda achou mais duas flags sem leitor**, fora da decisão:
-`ENABLE_PRODUCT_ANALYTICS` e `ENABLE_REVENUECAT`. As duas leem ambiente, mas
-nenhum código as consulta. O `ENABLE_REVENUECAT` foi mantido "como sinal de
-intenção" pela ADR de 2026-07-31, só que a ADR de 2026-09-15 vetou o
-RevenueCat. Ficaram como **exceções nomeadas** na guarda, e a lista reprova se
-alguma ganhar leitor. **Decisão do dono pendente:** apagar ou dar um leitor.
+A guarda achou mais duas flags sem leitor, `ENABLE_PRODUCT_ANALYTICS` e
+`ENABLE_REVENUECAT`. **Apagadas em 2026-09-23 por decisão do dono**
+([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 4). No
+caminho apareceu um problema maior: os documentos de privacidade citavam
+`ENABLE_PRODUCT_ANALYTICS=false` como o motivo de nenhum evento sair do
+aparelho, e a flag não tinha leitor. O motivo real é que nenhum adaptador de
+analytics é registrado, e **agora isso tem guarda**: o
+`telemetry-privacy-contract.test.ts` reprova qualquer chamada de produção a
+`registerProductAnalyticsAdapter`. Os dois documentos foram corrigidos.
+📌 O `.env.example` ainda lista as duas variáveis: está fora de
+`writePolicy.allowedRoots`, e as linhas são inertes.
+**Gate depois do adendo, medido em 2026-09-23**, Node `v20.20.2`: saiu 0, com
+133 suítes e 1171 testes, e Visual QA sem regressão.
 
 ## Defeito aberto
 

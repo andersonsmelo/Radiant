@@ -5,18 +5,22 @@
 > que o app pode registrar, o que é **proibido** registrar, e como isso é
 > **imposto por teste** e **higienizado** antes de qualquer envio remoto.
 
-**Última atualização:** 2026-07-27
+**Última atualização:** 2026-09-23
 
 ## 1. Estado atual (verificado no código)
 
 - A telemetria de uso fica **apenas no dispositivo** (`AsyncStorage`, chaves
-  `telemetry.*.v1`). Não há adaptador de product analytics remoto registrado e
-  `ENABLE_PRODUCT_ANALYTICS` é `false` — nenhum evento é enviado a um servidor de
-  analytics.
+  `telemetry.*.v1`). **Nenhum adaptador de product analytics é registrado** — é
+  isso, e não uma flag, que impede o envio: nenhum evento vai a um servidor de
+  analytics. A trava é o `telemetry-privacy-contract.test.ts`, que lê a AST e
+  reprova qualquer chamada de produção a `registerProductAnalyticsAdapter`.
+  *(Até 2026-09-23 este item citava `ENABLE_PRODUCT_ANALYTICS=false`; a flag não
+  tinha leitor em código nenhum e foi apagada.)*
 - O **único** caminho pelo qual uma propriedade de evento pode sair do device é
   o **relatório de falhas (Sentry)**, que transforma cada evento em um breadcrumb.
-  O Sentry está **desligado no perfil `production`** (sem `SENTRY_DSN` e com
-  `ENABLE_CRASH_REPORTING=false`) e usa `sendDefaultPii=false`.
+  O Sentry está **desligado no perfil `production`**: o portão exige
+  `SENTRY_DSN` **e** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING`, e só o DSN existe
+  (gravado em 2026-09-16; a flag não). Usa `sendDefaultPii=false`.
 - Portanto, na build distribuída hoje, **nenhuma propriedade de telemetria sai do
   dispositivo**. Este contrato governa o comportamento correto para quando o
   relatório de falhas for habilitado (ex.: monitoramento crash-free no beta).

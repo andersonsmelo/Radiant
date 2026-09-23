@@ -16,17 +16,6 @@ import path from 'path';
 import ts from 'typescript';
 
 const SRC = path.resolve(__dirname, '..');
-
-/**
- * Flags acionáveis por ambiente que ninguém lê, fora do escopo da ADR de
- * 2026-09-23 — medidas pela primeira vez por esta guarda. Não são apagadas
- * aqui porque o dono não decidiu sobre elas. Sair desta lista exige ganhar um
- * leitor ou ser apagada; a guarda seguinte reprova exceção que envelheceu.
- */
-const SEM_LEITOR_POR_DECISAO_PENDENTE: Record<string, string> = {
-    ENABLE_PRODUCT_ANALYTICS: 'zero leitores; sem ADR que a sustente — decisão do dono pendente',
-    ENABLE_REVENUECAT: 'mantida como "sinal de intenção" pela ADR 2026-07-31, mas a ADR 2026-09-15 vetou RevenueCat — decisão do dono pendente',
-};
 const CONFIG = path.join(SRC, 'config.ts');
 
 function ast(arquivo: string): ts.SourceFile {
@@ -96,18 +85,13 @@ describe('kill switches do AppConfig (ADR 2026-09-23)', () => {
         expect(fixas).toEqual([]);
     });
 
-    it('toda flag ENABLE_* tem leitor no código de produção, salvo as exceções nomeadas', () => {
+    // Até 2026-09-23 havia duas exceções nomeadas aqui, ENABLE_PRODUCT_ANALYTICS e
+    // ENABLE_REVENUECAT: flags de ambiente sem leitor. O dono decidiu apagá-las, e
+    // a regra voltou a ser sem exceção.
+    it('toda flag ENABLE_* tem leitor no código de produção', () => {
         const lidas = flagsLidas();
         const semLeitor = [...flagsDoAppConfig().keys()].filter((nome) => !lidas.has(nome));
-        expect(semLeitor.filter((nome) => !(nome in SEM_LEITOR_POR_DECISAO_PENDENTE))).toEqual([]);
-    });
-
-    it('as exceções continuam sem leitor e existindo — a lista não envelhece', () => {
-        const flags = flagsDoAppConfig();
-        const lidas = flagsLidas();
-        const vencidas = Object.keys(SEM_LEITOR_POR_DECISAO_PENDENTE)
-            .filter((nome) => !flags.has(nome) || lidas.has(nome));
-        expect(vencidas).toEqual([]);
+        expect(semLeitor).toEqual([]);
     });
 
     it('ENABLE_REVIEW lê EXPO_PUBLIC_ENABLE_REVIEW, com padrão ligado', () => {

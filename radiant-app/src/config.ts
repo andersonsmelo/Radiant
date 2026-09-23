@@ -21,10 +21,8 @@ export const AppConfig = {
         false
     ),
     SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN?.trim() ?? '',
-    ENABLE_PRODUCT_ANALYTICS: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PRODUCT_ANALYTICS, false),
     ENABLE_CRASH_REPORTING: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_CRASH_REPORTING, false),
     ENABLE_PAYWALL: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_PAYWALL, false),
-    ENABLE_REVENUECAT: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVENUECAT, false),
 
     // release controls
     SHOW_DEV_TOOLS: __DEV__ || readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_DEV_TOOLS, false),

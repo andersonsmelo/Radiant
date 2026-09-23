@@ -67,6 +67,28 @@ então desligar por OTA funciona como no `ENABLE_LEARNING_ROAD`.
 `ENABLE_REVIEW` derivada de variável de ambiente. A guarda precisa ser vista
 falhando contra o código atual antes da mudança.
 
+## 4. Adendo, na mesma data — as duas flags de ambiente sem leitor
+
+**Fato.** A guarda do item 3, ao ser escrita, achou mais duas flags `ENABLE_*`
+que leem ambiente e **ninguém consulta**: `ENABLE_PRODUCT_ANALYTICS` e
+`ENABLE_REVENUECAT`. A segunda foi mantida "como sinal de intenção" pelas ADRs
+de 2026-07-31 e 2026-08-01; a ADR de 2026-09-15 vetou o RevenueCat. E dois
+documentos de privacidade (`CONTRATO_TELEMETRIA.md` §1 e
+`DATA_SAFETY_E_CLASSIFICACAO.md` §1) citavam `ENABLE_PRODUCT_ANALYTICS=false`
+como o motivo de nenhum evento sair do aparelho. O motivo real é outro:
+**nenhum adaptador de product analytics é registrado**, e nada protegia isso.
+
+**Decisão.** Apagar as duas flags; corrigir os dois documentos para citarem o
+mecanismo real; acrescentar ao `telemetry-privacy-contract.test.ts` uma guarda
+por AST que reprova qualquer chamada de produção a
+`registerProductAnalyticsAdapter`. A regra "toda flag `ENABLE_*` tem leitor"
+volta a valer sem exceção.
+
+**Fora do escopo do Loop:** `radiant-app/.env.example` ainda lista as duas
+variáveis com `false`. O arquivo não está em `writePolicy.allowedRoots`;
+ampliar a política é decisão do dono. As linhas são inertes, porque ninguém
+as lê.
+
 ## Fora desta ADR
 
 - O **acordo de apps pagos** não é decisão: é medição. Foi lido em *Ativo* em
