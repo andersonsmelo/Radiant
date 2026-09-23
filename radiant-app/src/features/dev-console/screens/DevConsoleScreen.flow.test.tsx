@@ -41,6 +41,7 @@ jest.mock('../../../config', () => ({
   },
 }));
 
+jest.mock('../../curriculum-v3/hybrid-l1/HybridLessonMetricsRepository', () => ({ hybridLessonMetricsRepository: { list: jest.fn().mockResolvedValue([]) } }));
 jest.mock('../../../lib/api', () => ({
   ApiError: class ApiError extends Error {
     status: number;

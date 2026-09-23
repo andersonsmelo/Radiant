@@ -11,6 +11,7 @@ import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
+import { HybridLessonMetricsCard } from '../components/HybridLessonMetricsCard';
 import {
     ActionButton,
     CardRow,
@@ -289,6 +290,8 @@ export default function DevConsoleScreen() {
                         </Text>
                     ) : null}
                 </GlassCard>
+
+                <HybridLessonMetricsCard />
 
                 <ActionButton onPress={() => router.push('/licao-hibrida')} variant="secondary">
                     Piloto: lição híbrida (L1)

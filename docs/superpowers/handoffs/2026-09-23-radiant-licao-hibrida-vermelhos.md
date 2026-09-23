@@ -447,3 +447,15 @@ dessa execução foi guardado:
     ✕ landmarks não interativos não respondem ao toque nem se anunciam como botão
 Tests:       3 failed, 4 passed, 7 total
 ```
+
+## Tarefa 7 — medidas locais
+
+O plano não pede mutação nesta tarefa. Os dois casos novos da tela rodaram
+antes de o prop `metrics` existir — o defeito que nomeiam é a sessão não ser
+gravada — e falharam. Só o resumo foi guardado:
+
+```text
+    ✕ grava a sessão concluída no aparelho
+    ✕ sair no meio grava o abandono e o item em que parou
+Tests:       2 failed, 4 passed, 6 total
+```

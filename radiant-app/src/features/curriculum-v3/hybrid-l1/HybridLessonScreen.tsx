@@ -13,6 +13,7 @@ import { radius, space, typography } from '../../../ui/styles';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { BodyReferenceMap } from '../l1-body-reference/BodyReferenceMap';
+import { hybridLessonMetricsRepository, type HybridLessonOutcome, type HybridLessonRecord } from './HybridLessonMetricsRepository';
 import { createHybridLessonSession, type HybridAnswerResult, type HybridSummary } from './HybridLessonSession';
 import { buildL1HybridPlan } from './l1HybridLessonPlan';
 import { isL1TemplateApproved } from './l1TemplateApproval';
@@ -25,6 +26,7 @@ export type HybridLessonScreenProps = Readonly<{
   hearts?: HeartsPort;
   feedback?: LessonFeedback;
   now?: () => number;
+  metrics?: Readonly<{ append(record: HybridLessonRecord): Promise<void> }>;
   onExit: () => void;
 }>;
 
@@ -37,7 +39,7 @@ function formatDuration(ms: number): string {
   return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, '0')}`;
 }
 
-export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, now = Date.now, onExit }: HybridLessonScreenProps) {
+export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, now = Date.now, metrics = hybridLessonMetricsRepository, onExit }: HybridLessonScreenProps) {
   const reduceMotion = useReducedMotionPreference();
   const session = useMemo(() => createHybridLessonSession({ plan: plan ?? buildL1HybridPlan(), now }), [plan, now]);
   const approved = useMemo(() => isL1TemplateApproved(), []);
@@ -47,6 +49,30 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
   const [heartsSnapshot, setHeartsSnapshot] = useState<HeartsSnapshot | null>(null);
   const [summary, setSummary] = useState<HybridSummary | null>(null);
   const busy = useRef(false);
+  const phaseRef = useRef<Phase>('opening');
+  const itemRef = useRef<HybridItem | null>(item);
+  const recorded = useRef(false);
+  phaseRef.current = phase;
+  itemRef.current = item;
+
+  const record = useCallback((outcome: HybridLessonOutcome) => {
+    if (recorded.current) return;
+    recorded.current = true;
+    void metrics.append({
+      finishedAt: new Date(now()).toISOString(),
+      outcome,
+      abandonedAtItemId: outcome === 'completed' ? null : itemRef.current?.id ?? null,
+      summary: session.summary(),
+    }).catch(() => undefined);
+  }, [metrics, now, session]);
+
+  // Ref, não dependência: a limpeza precisa rodar só na desmontagem. Com
+  // `[record]`, uma troca de identidade no meio da lição gravaria um abandono falso.
+  const recordRef = useRef(record);
+  recordRef.current = record;
+  useEffect(() => () => {
+    if (phaseRef.current === 'item' || phaseRef.current === 'feedback') recordRef.current('abandoned');
+  }, []);
   const feedbackRef = useRef<LessonFeedback | null>(feedback ?? null);
 
   useEffect(() => {
@@ -85,10 +111,13 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
       const next = await hearts.spend(now());
       setHeartsSnapshot(next);
       if (next.status !== 'unlimited') emit('heart_lost');
-      if (next.status === 'empty') setPhase('out_of_hearts');
+      if (next.status === 'empty') {
+        setPhase('out_of_hearts');
+        record('out_of_hearts');
+      }
     }
     busy.current = false;
-  }, [emit, hearts, item, now, phase, session]);
+  }, [emit, hearts, item, now, phase, record, session]);
 
   const next = useCallback(() => {
     const { complete } = session.advance();
@@ -96,12 +125,13 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
     if (complete) {
       setSummary(session.summary());
       setPhase('done');
+      record('completed');
       emit('lesson_complete');
       return;
     }
     setItem(session.current());
     setPhase('item');
-  }, [emit, session]);
+  }, [emit, record, session]);
 
   if (phase === 'opening') {
     return (

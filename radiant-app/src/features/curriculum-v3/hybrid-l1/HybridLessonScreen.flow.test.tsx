@@ -17,6 +17,7 @@ function makeDeps(spendResult: HeartsSnapshot = { count: 4, status: 'recovering'
     events,
     hearts: { getSnapshot: jest.fn().mockResolvedValue(FULL), spend: jest.fn().mockResolvedValue(spendResult) },
     feedback: { emit: (event: string) => { events.push(event); } },
+    metrics: { append: jest.fn().mockResolvedValue(undefined) },
     onExit: jest.fn(),
   };
 }
@@ -36,13 +37,13 @@ function currentItem(): HybridItem {
 }
 
 function renderScreen(deps: ReturnType<typeof makeDeps>) {
-  renderWithProviders(<HybridLessonScreen plan={plan} hearts={deps.hearts} feedback={deps.feedback} onExit={deps.onExit} />);
+  renderWithProviders(<HybridLessonScreen plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
 }
 
 beforeAll(() => {
   // Estreia da árvore fora da janela do findBy (lição de 2026-09-23).
   const warm = makeDeps();
-  const { unmount } = renderWithProviders(<HybridLessonScreen plan={plan} hearts={warm.hearts} feedback={warm.feedback} onExit={warm.onExit} />);
+  const { unmount } = renderWithProviders(<HybridLessonScreen plan={plan} hearts={warm.hearts} feedback={warm.feedback} metrics={warm.metrics} onExit={warm.onExit} />);
   unmount();
 });
 
@@ -104,5 +105,25 @@ describe('lição híbrida na tela', () => {
     const challenge = currentItem();
     pressOption(challenge, challenge.options.find((option) => option.id !== challenge.correctOptionId)!.id);
     expect(await screen.findByText('Suas vidas acabaram.')).toBeTruthy();
+  });
+
+  it('grava a sessão concluída no aparelho', async () => {
+    const deps = makeDeps();
+    renderScreen(deps);
+    fireEvent.press(screen.getByText('Começar'));
+    for (const item of plan) {
+      pressOption(item, item.correctOptionId);
+      fireEvent.press(await screen.findByText('Continuar'));
+    }
+    await screen.findByText('Lição concluída');
+    expect(deps.metrics.append).toHaveBeenCalledWith(expect.objectContaining({ outcome: 'completed', abandonedAtItemId: null }));
+  });
+
+  it('sair no meio grava o abandono e o item em que parou', async () => {
+    const deps = makeDeps();
+    const { unmount } = renderWithProviders(<HybridLessonScreen plan={plan} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+    fireEvent.press(screen.getByText('Começar'));
+    unmount();
+    expect(deps.metrics.append).toHaveBeenCalledWith(expect.objectContaining({ outcome: 'abandoned', abandonedAtItemId: plan[0].id }));
   });
 });
