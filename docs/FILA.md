@@ -41,7 +41,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
+[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
 o dono lê o relatório no fim.
 
 ### DONO — CONCLUÍDO em 2026-09-23: os três PRs empilhados foram mergeados
@@ -226,7 +226,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    roda. `pending` e `expired` seguem vendo vidas. Gate medido, Node
    `v20.20.2`: `quality` exit 0, **133 suítes / 1178 testes**. A `QuizScreen`
    (`/quiz`, sem entrada no app, vidas pelo contador legado) ficou sem ∞ de
-   propósito. **Falta:** a validação visual com assinante real, que espera o
+   propósito nesta fatia; ganhou ∞ na 3d, quando passou ao
+   `heartsRepository`. **Falta:** a validação visual com assinante real, que espera o
    sandbox.
 
    Três achados desta fatia, fora dela, viraram tarefas próprias:
@@ -258,8 +259,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    Gate: 134 suítes / 1181 testes, Node 20.20.2.
    [Relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md).
 3d. ✅ **Contador legado de vidas do `GamificationService` aposentado** —
-   concluído em **2026-09-23**, **sem build**, na branch
-   `refactor/aposenta-vidas-legado`
+   concluído em **2026-09-23**, **sem build**, e na `main` pelo
+   [PR #20](https://github.com/andersonsmelo/Radiant/pull/20) → `2e62fc9`
    ([relatório](superpowers/handoffs/2026-09-23-radiant-aposenta-vidas-legado-relatorio.md),
    [vermelhos](superpowers/handoffs/2026-09-23-radiant-aposenta-vidas-legado-vermelhos.md)).
    Por decisão do dono na mesma data, a `/quiz` lê e gasta pelo

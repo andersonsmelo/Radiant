@@ -1598,8 +1598,9 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   Gate medido: 132 suítes / 1163 testes. O Swift **não** foi compilado contra
   o Expo real; build interno e sandbox são do dono. O acordo de apps pagos foi
   lido **Ativo** em 2026-09-23. Na mesma data, o pedido Ask to Buy pendente
-  deixou de travar a tela (aviso por 24 h, prazo oficial da Apple), e o
-  conjunto está no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17), empilhado sobre #16 e #15, com gate de 133 suítes /
+  deixou de travar a tela (aviso por 24 h, prazo oficial da Apple). O
+  conjunto entrou na `main` pelo [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)
+  em 2026-09-23 (`18a2789`, depois de #15 e #16), com gate de 133 suítes /
   1174 testes.
 
   **∞ e folha ligada à loja (2026-09-23, sem build):** o `QuizTopBar` mostra ∞
@@ -1608,6 +1609,16 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   Checkpoint releem as vidas no foco para que a volta da compra mostre ∞
   ([relatório](../superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md)).
   Gate de 133 suítes / 1190 testes. Nenhum dos dois foi visto em aparelho.
+
+  **Vidas do assinante fechadas no código (2026-09-23, sem build):** o `HUD`
+  mostra só o ∞ (sem corações ao lado), o Perfil e a recompensa leem o
+  `heartsRepository`, e o contador legado de vidas do `GamificationService`
+  foi aposentado — a `/quiz` passou ao mesmo cofre, e o `tsc` barra um leitor
+  novo do legado. Tudo na `main`: [PR #18](https://github.com/andersonsmelo/Radiant/pull/18)
+  (`8972cbc`) e [PR #20](https://github.com/andersonsmelo/Radiant/pull/20)
+  (`2e62fc9`), com CI verde depois de cada merge. Gate em `2e62fc9`: 134
+  suítes / 1224 testes. Falta ver o ∞ em aparelho, com assinante do sandbox
+  ([relatório](../superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao-2.md)).
 
   **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
   mergeado em 2026-09-16 às 19:56:53 −03): entitlements do container

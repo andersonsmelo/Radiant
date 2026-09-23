@@ -240,9 +240,8 @@ carrega o pacote inteiro.
    **134 suítes / 1181 testes**, lint 0 erros / 26 avisos, Visual QA sem
    regressão. Vermelhos em
    [`2026-09-23-radiant-perfil-vidas-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-vermelhos.md).
-   **O contador legado continua no código** — decisão do dono em 2026-09-23:
-   aposentar depois, em run próprio; o bloqueio (commit da fatia do
-   `QuizTopBar` ∞) caiu com `647b2c3`.
+   O contador legado foi **aposentado na mesma data**, em run próprio, como o
+   dono decidiu: ver o parágrafo do [PR #20](https://github.com/andersonsmelo/Radiant/pull/20) abaixo.
    Enumeração e o que a aposentadoria exige no
    [relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md);
    backup no iCloud e migração 1.4 **não leem** os campos.
@@ -264,8 +263,10 @@ carrega o pacote inteiro.
    35885988196).
    [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
 
-   **Contador legado de vidas aposentado em 2026-09-23, sem build** (branch
-   `refactor/aposenta-vidas-legado`, sobre `def864f`): a `/quiz` lê e gasta
+   **Contador legado de vidas aposentado em 2026-09-23, sem build** — na
+   `main` pelo [PR #20](https://github.com/andersonsmelo/Radiant/pull/20) →
+   `2e62fc9`, CI verde no PR e na `main` depois do merge (run
+   35909283648); branch original `refactor/aposenta-vidas-legado`: a `/quiz` lê e gasta
    pelo `heartsRepository`, com ∞ para assinante; a Home e a Jornada deixaram
    de ler o `GamificationService` para vidas; o serviço e os tipos perderam
    os campos e métodos de vidas. O blob gravado pela 1.3.1 mantém os campos
@@ -521,9 +522,9 @@ carrega o pacote inteiro.
    `backupNow` sem chamador; `expo-iap` ausente. **Nenhuma afirmação do
    relatório contradiz a medição.** Duas notas além dele: `GamificationService`
    ainda persiste `hearts` legados ao lado do `HeartsRepository` (duas fontes
-   para o mesmo conceito — aposentar antes da migração seguinte; *em
-   2026-09-23 os dois leitores vivos saíram dele e a aposentadoria foi adiada
-   pelo dono, ver o bloco da 1.4 acima*); e o cartão
+   para o mesmo conceito — aposentar antes da migração seguinte; *resolvido:
+   aposentado em 2026-09-23 pelo PR #20, `2e62fc9`, ver o bloco da 1.4
+   acima*); e o cartão
    antigo de conta segue em `ProgressScreen`, condicionado e invisível em
    produção — código morto, não regressão. Estado prático: a 1.4 na branch tem
    motor, vidas, migração e telas; **não vende nem faz backup** até a Task 8,
@@ -1065,7 +1066,22 @@ O go/no-go item a item vive em
 [`release/CHECKLIST_RELEASE_V1.3.md`](release/CHECKLIST_RELEASE_V1.3.md); o que
 está executável agora, em [`FILA.md`](FILA.md).
 
-## Estado do repositório — medido em 2026-08-21
+## Estado do repositório — medido em 2026-09-23
+
+`origin/main` em `2e62fc9` (merge do PR #20). **Nenhum PR aberto.** No remoto
+há 11 branches além da `main`, **todas já mergeadas nela** — apagá-las é
+decisão do dono. Nesta máquina, além do checkout principal, há a worktree
+`Radiant-release` (com a `main` local atrás da remota) e quatro worktrees de
+sessões do Claude em `.claude/worktrees/`, cada uma com o próprio
+`.loop/runs/` — por isso não foram removidas.
+
+```bash
+git fetch origin && gh pr list --state open
+for b in $(git branch -r | grep -v HEAD | grep -v 'origin/main$'); do git merge-base --is-ancestor $b origin/main && echo "mergeada: $b" || echo "ABERTA: $b"; done
+git worktree list
+```
+
+### Medição anterior — 2026-08-21
 
 Uma branch: `main`. Nenhum PR aberto. Nenhum worktree.
 
@@ -1290,8 +1306,11 @@ roda no gate do app. Ao mexer em documentação governada, rode os dois.
 
 ## Gate de qualidade
 
-`npm run quality` em `radiant-app`: 18 passos (15 contratos), 717 testes / 100 suítes, visual QA
-strict com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
+`npm run quality` em `radiant-app`: **19 passos** (lint, typecheck, 15
+contratos `test:*`, a suíte Jest em banda única e o visual QA strict).
+**Medido em 2026-09-23** em `b7aa165`, cuja árvore é a mesma de `2e62fc9`
+(`main`), Node `v20.20.2`: exit 0, **134 suítes / 1224 testes**, lint 0
+erros / 26 avisos, visual QA com 0 regressões. O CI (`.github/workflows/radiant-app-quality.yml`)
 invoca **o comando inteiro**, não uma lista espelhada — desde 2026-08-15, quando
 se descobriu que rodava 4 dos 16 passos.
 

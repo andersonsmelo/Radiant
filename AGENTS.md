@@ -265,6 +265,29 @@ extração precisa ser feita **verbatim primeiro**: um módulo que já nasce
 corrigido faz todo teste novo passar de primeira e mata o passo vermelho do
 defeito que se queria pegar.
 
+### Quatro lições de 2026-09-23 (quatro sessões paralelas no mesmo dia)
+
+- **Worktree nova não tem o que o git ignora, e três validadores dependem
+  disso.** `content-foundation` lê `Conteúdo/extrações/*/pages.json` e
+  `excerpts.json`; os `api-*` precisam de `radiant-api/node_modules`. Numa
+  worktree limpa eles reprovam por **ambiente**, não pelo diff, e custaram um
+  run a cada uma das três sessões que trabalharam em worktree. Provisione
+  **antes** de abrir o run (link simbólico para o checkout principal ou cópia)
+  e confira `git status --porcelain`. Para desfazer um link, use `unlink` no
+  caminho **sem barra final** — `rm -rf link/` apaga o conteúdo do destino.
+- **`git switch -c <nova> origin/main` arma o push para a `main`.** Use
+  `git switch --no-track -c <nova> origin/main`.
+- **Timeout que só aparece no CI se reproduz com a CPU limitada**, não
+  repetindo o teste: `/usr/sbin/taskpolicy -b npx jest --runInBand --no-cache
+  <arquivo>` prende o processo nos núcleos de eficiência. Medido no CI da PR
+  #18: o primeiro teste de um arquivo paga ~450 ms de estreia (JIT da árvore)
+  dentro do prazo de 1000 ms do `findBy*`; reprovou 3/3 assim, e o conserto foi
+  tirar a estreia da janela (`beforeAll`), não aumentar o prazo.
+- **Autorização para mexer no trabalho de outra sessão precisa estar citável
+  na sua própria conversa.** Uma sessão comitou arquivos de outra lendo um
+  "ok" que não estava no seu transcrito. O conteúdo estava certo, mas a
+  autorização não. Diante de um sim sem pergunta correspondente, pergunte.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
