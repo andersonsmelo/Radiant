@@ -77,8 +77,6 @@ jest.mock('../../gamification/services/GamificationService', () => ({
     getSnapshot: jest.fn().mockResolvedValue({
       totalXp: 120,
       streakDays: 3,
-      hearts: 5,
-      maxHearts: 5,
     }),
   },
 }));

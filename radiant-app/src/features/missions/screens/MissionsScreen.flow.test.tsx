@@ -31,9 +31,6 @@ jest.mock('../../gamification/services/GamificationService', () => ({
       totalXp: 40,
       streakDays: 2,
       lastActiveDate: null,
-      hearts: 5,
-      maxHearts: 5,
-      heartsNextRefillAt: null,
     }),
   },
 }));

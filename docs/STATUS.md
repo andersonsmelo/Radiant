@@ -264,6 +264,16 @@ carrega o pacote inteiro.
    35885988196).
    [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
 
+   **Contador legado de vidas aposentado em 2026-09-23, sem build** (branch
+   `refactor/aposenta-vidas-legado`, sobre `def864f`): a `/quiz` lê e gasta
+   pelo `heartsRepository`, com ∞ para assinante; a Home e a Jornada deixaram
+   de ler o `GamificationService` para vidas; o serviço e os tipos perderam
+   os campos e métodos de vidas. O blob gravado pela 1.3.1 mantém os campos
+   antigos, intocados. **Medido na data**, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **134 suítes / 1224
+   testes**; com a CPU limitada (`taskpolicy -b`), os 13 arquivos de teste
+   alterados passam. [Relatório](superpowers/handoffs/2026-09-23-radiant-aposenta-vidas-legado-relatorio.md).
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua

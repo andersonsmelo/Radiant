@@ -17,7 +17,8 @@ export interface HomeDashboardViewModel {
   dateLabel: string;
   streakDays: number;
   totalXp: number;
-  hearts: { current: number; maximum: number };
+  /** `unlimited`: assinante — a tela mostra ∞ no lugar da contagem. */
+  hearts: { current: number; maximum: number; unlimited: boolean };
   dailyGoal: { completed: number; target: number };
   mission: HomeMissionViewModel | null;
   masteredCases: number | null;
@@ -40,7 +41,9 @@ export interface HomeDashboardDependencies {
   getCatalog(): Promise<{ lessons: HomeCatalogLesson[] }>;
   getNextActivity(): Promise<{ lessonId: string; nodeId: string | null; blockId: string | null } | null>;
   getDueLessonIds(): Promise<string[]>;
-  getGamification(): Promise<{ streakDays: number; totalXp: number; hearts: number; maxHearts: number }>;
+  getGamification(): Promise<{ streakDays: number; totalXp: number }>;
+  /** As vidas do cofre que a lição desconta (`heartsRepository`). */
+  getHearts(): Promise<{ count: number; maximum: number; unlimited: boolean }>;
   getDailyGoal(): Promise<{ completedToday: number; goalPerDay: number }>;
   getLearningStats(): Promise<{ masteredCases: number | null; accuracyPercent: number | null }>;
 }

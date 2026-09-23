@@ -1,6 +1,8 @@
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { HomeDashboardService } from './HomeDashboardService';
@@ -20,6 +22,10 @@ export const localHomeDashboardService = new HomeDashboardService({
   },
   getDueLessonIds: () => SpacedRepetitionService.getDueLessons(),
   getGamification: () => GamificationService.getSnapshot(),
+  getHearts: async () => {
+    const snapshot = await heartsRepository.getSnapshot(Date.now());
+    return { count: snapshot.count, maximum: MAX_HEARTS, unlimited: snapshot.status === 'unlimited' };
+  },
   getDailyGoal: () => DailyGoalService.getSnapshot(),
   getLearningStats: async () => ({ masteredCases: null, accuracyPercent: null }),
 });

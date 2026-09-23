@@ -257,22 +257,23 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    (sempre 5, nunca ∞); agora leem `heartsRepository`, com ∞ para assinante.
    Gate: 134 suítes / 1181 testes, Node 20.20.2.
    [Relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md).
-3d. **Aposentar o contador legado de vidas do `GamificationService`.**
-   **Estado:** decidido pelo dono em 2026-09-23 — sai **depois**, em run
-   próprio. **Bloqueio:** nenhum desde 2026-09-23 — a fatia do `QuizTopBar` ∞
-   (item 3), que mexe em `quiz/` e `LessonFlowScreen`, foi comitada em
-   `647b2c3`; partir de `integ/vidas-1-4` ou do que a suceder. O único
-   escritor do legado é `useQuiz.loseHeart` (rota `/quiz`, só por deep
-   link). **Dono:** agente. Nenhum dado depende dos campos: backup no
-   iCloud lê só `totalXp`/`streakDays`, e a migração 1.4 guarda o blob
-   `radiant:gami:v1` inteiro sem lê-los. Falta decidir o que `/quiz` faz com
-   vidas (passar a `heartsRepository.spend` ou deixar de contar).
-   Remedir os leitores e escritores (é um **superconjunto**: casa também a
-   prop `maxHearts` do `HUD`/`QuizTopBar`, que não é o legado — classifique
-   cada linha pela origem do valor, como no relatório):
+3d. ✅ **Contador legado de vidas do `GamificationService` aposentado** —
+   concluído em **2026-09-23**, **sem build**, na branch
+   `refactor/aposenta-vidas-legado`
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-aposenta-vidas-legado-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-aposenta-vidas-legado-vermelhos.md)).
+   Por decisão do dono na mesma data, a `/quiz` lê e gasta pelo
+   `heartsRepository`, e o assinante vê ∞ lá também. A Home ganhou
+   `getHearts`, com ∞, e a Jornada deixou de usar o legado como reserva. Os
+   campos e métodos de vidas saíram do serviço e dos tipos. **Os campos já
+   gravados no blob `radiant:gami:v1` continuam no disco, intocados**:
+   voltar à 1.3.1 não perde nada, e um teste guarda isso. A `/quiz` segue sem
+   bloquear com zero vidas, como antes. Gate, Node `v20.20.2`: `quality`
+   exit 0, **134 suítes / 1224 testes**. A guarda contra um leitor novo do
+   legado é o próprio typecheck:
 
    ```bash
-   cd radiant-app && grep -rnE '\b(maxHearts|heartsLastRefillAt|heartsNextRefillAt|loseHeart|refillHearts|canStartLesson)\b|gamification\??\.hearts' src | grep -v '/hearts/'
+   cd radiant-app && npx tsc --noEmit
    ```
 
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
