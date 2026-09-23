@@ -85,6 +85,23 @@ describe('RatingPromptService', () => {
     );
   });
 
+  it('does not prompt when the ENABLE_REVIEW kill switch is off', async () => {
+    const { AppConfig } = jest.requireMock('../config') as { AppConfig: { ENABLE_REVIEW: boolean } };
+    AppConfig.ENABLE_REVIEW = false;
+    try {
+      const shown = await RatingPromptService.maybePromptForReview({
+        trigger: 'reward_complete',
+        entrySurface: 'reward',
+        lessonId: 'reward-1',
+      });
+
+      expect(shown).toBe(false);
+      expect(mockedTelemetryService.track).not.toHaveBeenCalledWith('rating_prompt_shown', expect.anything());
+    } finally {
+      AppConfig.ENABLE_REVIEW = true;
+    }
+  });
+
   it('blocks the prompt when sync health is degraded', async () => {
     mockedSyncQueueService.getSummary.mockResolvedValue({
       pending: 1,

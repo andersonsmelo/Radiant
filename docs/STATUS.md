@@ -1141,7 +1141,22 @@ incidente. **Decidido pelo dono em 2026-09-23** ([ADR](adr/ADR-2026-09-23-deciso
 apagar `ENABLE_GAMIFICATION`, `ENABLE_HEURISTICS` e `ENABLE_ONBOARDING` (esta,
 sem leitor em `AppConfig`, e a constante local do `OnboardingService`), e
 tornar `ENABLE_REVIEW` real por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`.
-**Ainda não implementado.**
+**Implementado em 2026-09-23**, na branch `fix/kill-switches-reais`. Hoje há
+**dois kill switches reais**: `ENABLE_LEARNING_ROAD` e `ENABLE_REVIEW`. A guarda
+`src/config/killSwitches.contract.test.ts` lê a AST e barra quatro coisas: flag
+`ENABLE_*` fixa, flag sem leitor, `ENABLE_*` local fixo em módulo, e
+`ENABLE_REVIEW` fora do formato combinado. Vermelhos registrados em
+[`2026-09-23-radiant-kill-switches-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-kill-switches-vermelhos.md).
+**Gate medido em 2026-09-23**, Node `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality`
+saiu 0, com 133 suítes e 1170 testes, e Visual QA sem regressão (+1 suíte e +7
+testes sobre a fatia 2).
+
+⚠️ **A guarda achou mais duas flags sem leitor**, fora da decisão:
+`ENABLE_PRODUCT_ANALYTICS` e `ENABLE_REVENUECAT`. As duas leem ambiente, mas
+nenhum código as consulta. O `ENABLE_REVENUECAT` foi mantido "como sinal de
+intenção" pela ADR de 2026-07-31, só que a ADR de 2026-09-15 vetou o
+RevenueCat. Ficaram como **exceções nomeadas** na guarda, e a lista reprova se
+alguma ganhar leitor. **Decisão do dono pendente:** apagar ou dar um leitor.
 
 ## Defeito aberto
 

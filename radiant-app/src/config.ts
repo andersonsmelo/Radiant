@@ -35,11 +35,11 @@ export const AppConfig = {
     // build distribuído não renderizava. A flag permanece como kill switch.
     ENABLE_LEARNING_ROAD: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_LEARNING_ROAD, true),
 
-    // kill switches (safety)
-    ENABLE_REVIEW: true,
-    ENABLE_GAMIFICATION: true,
-    ENABLE_ONBOARDING: true,
-    ENABLE_HEURISTICS: true,
+    // Kill switch do pedido de avaliação: desligável por build ou OTA, como o
+    // ENABLE_LEARNING_ROAD. Os antigos ENABLE_GAMIFICATION, ENABLE_ONBOARDING e
+    // ENABLE_HEURISTICS eram constantes fixas que ninguém lia e saíram
+    // (ADR 2026-09-23, decisões do dono).
+    ENABLE_REVIEW: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_REVIEW, true),
 
     // beta access control
     ENABLE_BETA_GATE: readBooleanFlag(process.env.EXPO_PUBLIC_ENABLE_BETA_GATE, environment !== 'production'),
