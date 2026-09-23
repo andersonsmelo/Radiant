@@ -99,26 +99,33 @@ Não faz build, envio nem push sem autorização datada.
 
 ## AGENTE — conteúdo e pipeline
 
-### AGENTE — Piloto da lição híbrida na L1 (novo em 2026-09-23)
+### DONO — Piloto da lição híbrida na L1: revisar a amostra (implementado em 2026-09-23)
 
-**Estado:** desenho aprovado pelo dono em 2026-09-23
-([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
-[ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)); nada implementado.
-**Bloqueio:** nenhum. **Dono:** agente de IA em nuvem para a implementação,
-pelo [prompt de handoff](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md)
-entregue ao dono em 2026-09-23; a sessão local revisa o retorno, valida no Loop
-e integra. O dono autoriza o build de teste e recruta de 3 a 5 pessoas quando
-decidir. Os seis sons já foram escolhidos pelo dono em
-2026-09-23 e estão em
-[`radiant-app/assets/sounds/`](../radiant-app/assets/sounds/README.md).
+**Estado:** implementado localmente em 2026-09-23, **sem build de
+distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
+`docs/licao-hibrida-piloto`, não mergeado), pelo
+[plano](superpowers/plans/2026-09-23-licao-hibrida-piloto.md). Gate e desvios no
+[relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
+execuções vermelhas das guardas nos
+[vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
+Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
+desligado. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
+a sessão local.
 
-Próximo passo: executar o
-[plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md),
-escrito em 2026-09-23, em oito tarefas: geometria do mapa, modelos com gabarito
-calculado, sessão e aprovação por impressão digital, som e vibração,
-interruptores no Perfil, tela e rota `/licao-hibrida` (só com
-`SHOW_DEV_TOOLS`), medidas locais, e gate. O build de teste continua fora, por
-decisão do dono em 2026-09-23. O critério para escalar está na §5.4 da spec.
+Pendente, nesta ordem:
+
+1. **Sessão local:** revisar o retorno da nuvem, rodar `loop validate` e fechar
+   o run (o Loop não existe no ambiente em nuvem).
+2. **Dono:** revisar a amostra
+   `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
+   — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
+   digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
+3. **Dono, quando quiser ver:** `npx expo run:ios`, que recompila o cliente de
+   desenvolvimento por causa do `expo-audio` (módulo nativo novo).
+4. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
+   critério da §5.4 da
+   [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
+
 **Substitui a v7 da L2 como próximo item de conteúdo.**
 
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6

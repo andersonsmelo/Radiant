@@ -1326,7 +1326,10 @@ canônica é
   conta como sinalizada. **Em 2026-09-23 a v7 foi pausada** pela
   [ADR da lição híbrida](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md):
   a próxima tarefa do arco passa a ser o **piloto da lição híbrida na L1**
-  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)), e a
+  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+  [plano](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md);
+  **implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`**, sem
+  build de distribuição e com a aprovação dos modelos pendente com o dono), e a
   L2 é refeita com modelos de exercício se o formato passar no teste com
   pessoas. A ordem anterior (v7, depois a P1 conforme o
   [roteiro de produção](../runbooks/curriculum-v3-arco-1.md)) fica registrada

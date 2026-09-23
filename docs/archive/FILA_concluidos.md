@@ -890,3 +890,32 @@ adjetivo não. Removido e reancorado: 8 claims, `unanchored: 0`.
   git fetch origin && git rev-list --count origin/main..main
   ```
 
+---
+
+## Lote de 2026-09-23 — piloto da lição híbrida implementado localmente
+
+Saiu da fila quando o piloto foi implementado no branch
+`feat/licao-hibrida-piloto`. Texto original; só os links relativos foram
+reajustados ao novo diretório.
+
+### AGENTE — Piloto da lição híbrida na L1 (novo em 2026-09-23)
+
+**Estado:** desenho aprovado pelo dono em 2026-09-23
+([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+[ADR](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)); nada implementado.
+**Bloqueio:** nenhum. **Dono:** agente de IA em nuvem para a implementação,
+pelo [prompt de handoff](../superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md)
+entregue ao dono em 2026-09-23; a sessão local revisa o retorno, valida no Loop
+e integra. O dono autoriza o build de teste e recruta de 3 a 5 pessoas quando
+decidir. Os seis sons já foram escolhidos pelo dono em
+2026-09-23 e estão em
+[`radiant-app/assets/sounds/`](../../radiant-app/assets/sounds/README.md).
+
+Próximo passo: executar o
+[plano de implementação](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md),
+escrito em 2026-09-23, em oito tarefas: geometria do mapa, modelos com gabarito
+calculado, sessão e aprovação por impressão digital, som e vibração,
+interruptores no Perfil, tela e rota `/licao-hibrida` (só com
+`SHOW_DEV_TOOLS`), medidas locais, e gate. O build de teste continua fora, por
+decisão do dono em 2026-09-23. O critério para escalar está na §5.4 da spec.
+**Substitui a v7 da L2 como próximo item de conteúdo.**
