@@ -197,6 +197,18 @@ carrega o pacote inteiro.
    As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
    build interno e sandbox.
 
+   **Fatia 3 implementada em 2026-09-23, sem build nem commit** (branch
+   `feat/quiztopbar-infinito`, aberta de `0b0283e`): o `QuizTopBar` troca os
+   corações por ∞ quando `HeartsSnapshot.status === 'unlimited'`, e a
+   `LessonFlowScreen` repassa esse estado. A fonte é o snapshot das vidas, não
+   o `SubscriptionStatus`, por decisão do dono. **Medido em 2026-09-23**, Node
+   `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1178
+   testes**, Visual QA sem regressão. Vermelhos, com três mutações, em
+   [`2026-09-23-radiant-quiztopbar-infinito-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md).
+   **Achado na mesma data:** a folha de vidas das três telas tem
+   `storeAvailable={false}` fixo, então nunca oferece a assinatura. Ver
+   [relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md).
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua

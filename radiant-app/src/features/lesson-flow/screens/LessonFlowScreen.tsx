@@ -482,6 +482,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                             totalQuestions={totalSteps}
                             hearts={hearts.count}
                             maxHearts={5}
+                            unlimited={hearts.status === 'unlimited'}
                             onClose={exitLesson}
                         />
                         <Text style={styles.stepCount}>

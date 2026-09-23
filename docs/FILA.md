@@ -200,9 +200,29 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    `PaywallPlan`) e o reembolso que mantinha as vidas ilimitadas. **O Swift
    nunca compilou contra o Expo real** — o fechamento de verdade é do dono,
    abaixo.
-3. **`QuizTopBar` mostrando ∞ para assinante** — **destravado em 2026-09-23**:
-   o estado de assinatura real existe no código. Pode ser feito e testado sem
-   build; a validação visual com assinante real espera o sandbox.
+3. ✅ **`QuizTopBar` mostrando ∞ para assinante** — implementado em
+   **2026-09-23**, **sem build**, na branch `feat/quiztopbar-infinito`
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md)).
+   O topo da lição troca os corações por ∞ quando
+   `HeartsSnapshot.status === 'unlimited'` — o mesmo predicado que faz o erro
+   não custar. **Não** lê o `SubscriptionStatus`, por decisão do dono na mesma
+   data: o cache da assinatura só vira vidas ilimitadas quando `applyToHearts`
+   roda. `pending` e `expired` seguem vendo vidas. Gate medido, Node
+   `v20.20.2`: `quality` exit 0, **133 suítes / 1178 testes**. A `QuizScreen`
+   (`/quiz`, sem entrada no app, vidas pelo contador legado) ficou sem ∞ de
+   propósito. **Falta:** a validação visual com assinante real, que espera o
+   sandbox.
+
+   Três achados desta fatia, fora dela, viraram tarefas próprias:
+   - **Perfil lê o contador legado de vidas.** A `MissionsScreen` embutida lê
+     `GamificationService.hearts`, que o caminho vivo nunca desconta: mostra
+     sempre 5 e nunca ∞.
+   - **O `HUD` mostra ∞ ao lado dos corações.** A spec pede que os corações
+     sumam.
+   - **A folha de vidas nunca oferece a assinatura.** As três telas passam
+     `storeAvailable={false}` e `onSubscribe={() => undefined}` fixos. **Decisão
+     do dono:** isto entra na 1.4?
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.

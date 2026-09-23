@@ -51,3 +51,26 @@ describe('QuizTopBar', () => {
     expect(screen.queryByLabelText(/Questão 3 de 5/)).toBeNull();
   });
 });
+
+// A spec da 1.4 (estado ILIMITADA): "∞; corações somem; errar não custa". Quem
+// decide é o `HeartsSnapshot.status` — o mesmo predicado que faz o `spend` não
+// descontar —, então pendente e expirado chegam aqui como vidas comuns.
+describe('QuizTopBar — vidas por estado da assinatura', () => {
+  it('assinante vê ∞ e nenhum coração', () => {
+    render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={0} maxHearts={5} unlimited onClose={jest.fn()} />);
+
+    expect(screen.getByLabelText('Vidas ilimitadas')).toBeTruthy();
+    expect(screen.getByText('∞')).toBeTruthy();
+    expect(screen.queryByTestId('hud-heart-0')).toBeNull();
+    expect(screen.queryByLabelText(/de 5 vidas/)).toBeNull();
+  });
+
+  it('sem assinatura ativa vê as vidas e nenhum ∞', () => {
+    render(<QuizTopBar questionIndex={0} totalQuestions={5} hearts={3} maxHearts={5} onClose={jest.fn()} />);
+
+    expect(screen.getByLabelText('3 de 5 vidas')).toBeTruthy();
+    expect(screen.getByTestId('hud-heart-0')).toBeTruthy();
+    expect(screen.queryByText('∞')).toBeNull();
+    expect(screen.queryByLabelText('Vidas ilimitadas')).toBeNull();
+  });
+});

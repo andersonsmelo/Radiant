@@ -497,6 +497,27 @@ describe('LessonFlowScreen — economia de vidas', () => {
     expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith('node-1', 1);
   });
 
+  it('assinante vê ∞ no topo da lição, sem as vidas', async () => {
+    heartsRepository.getSnapshot.mockResolvedValue({
+      count: 0,
+      status: 'unlimited',
+      nextRefillAt: null,
+      unlimitedUntil: '2026-10-14T12:00:00.000Z',
+    });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+
+    expect(await screen.findByLabelText('Vidas ilimitadas')).toBeTruthy();
+    expect(screen.queryByTestId('hearts-display')).toBeNull();
+  });
+
+  it('quem não assina vê as vidas no topo da lição, sem ∞', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    expect(screen.getByTestId('hearts-display')).toBeTruthy();
+    expect(screen.queryByLabelText('Vidas ilimitadas')).toBeNull();
+  });
+
   it('salva o passo atual antes de fechar', async () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
