@@ -211,9 +211,9 @@ carrega o pacote inteiro.
    `storeAvailable={false}` fixo, então nunca oferecia a assinatura. Ver
    [relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md).
 
-   **Folha ligada à loja em 2026-09-23, sem build nem push** (comitada na
-   branch local `feat/folha-vidas-loja`, aberta de `647b2c3`; o dono decidiu
-   que entra na 1.4): Lição, Checkpoint e Jornada oferecem "Ver assinatura" quando
+   **Folha ligada à loja em 2026-09-23, sem build** (comitada na branch
+   `feat/folha-vidas-loja`, aberta de `647b2c3`, e na `main` pelo PR #18 →
+   `8972cbc`; o dono decidiu que entra na 1.4): Lição, Checkpoint e Jornada oferecem "Ver assinatura" quando
    `subscriptionService.storeAvailable()` diz que o binário tem o módulo da
    loja — pergunta local, sem StoreKit nem rede — e o botão abre
    `/subscription`. Lição e Checkpoint releem as vidas a cada foco: voltando da
@@ -257,9 +257,11 @@ carrega o pacote inteiro.
    prazo de 1000 ms do `findByText` — fragilidade anterior, reproduzida 3/3
    com a CPU limitada (`taskpolicy -b`) e corrigida com um aquecimento em
    `beforeAll`; detalhes no relatório.
-   **Não construído.** Empurrada e aberta como PR para a `main` na mesma
-   data, depois de os PRs #15, #16 e #17 serem mergeados (`9acd2f5`,
-   `b77547f`, `18a2789`).
+   **Não construído.** Mergeada na `main` na mesma data pelo
+   [PR #18](https://github.com/andersonsmelo/Radiant/pull/18) → `8972cbc`,
+   depois dos PRs #15, #16 e #17 (`9acd2f5`, `b77547f`, `18a2789`); CI
+   `quality` verde no PR (no `b36a398`) e na `main` depois do merge (run
+   35885988196).
    [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
 
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
@@ -268,7 +270,8 @@ carrega o pacote inteiro.
    aberto; deixa de ser inerte no dia em que uma URL de API entrar lá.
 
    ✅ **O `HUD` não mostra mais corações ao lado do ∞** — achado da fatia 3,
-   **corrigido em 2026-09-23, sem build nem push**, no branch
+   **corrigido em 2026-09-23, sem build** — na `main` pelo PR #18
+   (`8972cbc`); originalmente no branch
    `fix/hud-infinito` (aberto de `0b0283e`). No estado `unlimited` o cabeçalho
    de Trilha, Checkpoint e Revisão mostra só o ∞, como pede a spec (§5.1,
    "corações somem"). **Defeito a mais, achado no caminho:** Checkpoint e
