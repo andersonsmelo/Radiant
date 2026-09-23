@@ -148,6 +148,7 @@ function RootLayout() {
 
   useEffect(() => {
     let active = true;
+    let pararEscutaDaLoja: (() => void) | undefined;
 
     const bootstrapApp = async () => {
       setStartupPhase('loading');
@@ -166,6 +167,16 @@ function RootLayout() {
         migrationProgressTimer = undefined;
         if (!active) return;
         setMigrationNotice(migrationResult.warning ?? null);
+
+        // O nativo escuta `Transaction.updates` desde a criação do módulo
+        // (renovação, reembolso, Ask to Buy aprovado); aqui o aviso só passa a
+        // reler o direito. Depois da migração, porque a releitura grava o cache
+        // da assinatura — e sem nunca bloquear a abertura.
+        try {
+          pararEscutaDaLoja ??= subscriptionService.watchStoreUpdates(Date.now);
+        } catch (error) {
+          console.error('[RootLayout] Falha ao escutar as atualizações da loja:', error);
+        }
 
         const granted = shouldEnforceBetaGate ? await BetaService.checkAccess() : true;
         if (!active) {
@@ -316,6 +327,7 @@ function RootLayout() {
 
     return () => {
       active = false;
+      pararEscutaDaLoja?.();
     };
   }, [bootstrapAttempt, shouldEnforceBetaGate]);
 

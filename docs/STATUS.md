@@ -167,9 +167,26 @@ carrega o pacote inteiro.
    [ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md), com a spec §6, o
    plano e o checklist emendados. O motivo é o da própria spec: nenhum terceiro
    no caminho da compra. Medido na data: `expo-iap` `5.6.3`, com 249 versões e 5
-   majors, embarca o SDK OpenIAP. **Nada foi implementado ainda**, e o
-   `package.json` não muda com esta decisão. As fatias 3 e 4 passam a esperar a
-   fatia 2, não mais a decisão.
+   majors, embarca o SDK OpenIAP. O `package.json` não muda com esta decisão.
+
+   **Adaptador StoreKit implementado em 2026-09-23, sem build** (Task 8, fatia
+   2): `StoreKit2Adapter` atrás da `StoreKitPort`, módulo Swift
+   `radiant-app/modules/radiant-storekit/` e ligação no `SubscriptionService` e
+   na abertura. **Medido em 2026-09-23:** `EXPO_NO_DOTENV=1 npm run quality` no
+   Node 20.20.2 → exit 0, **132 suítes / 1163 testes**; 26 execuções vermelhas
+   do Jest registradas, cada uma com o defeito específico reintroduzido; o
+   Swift passou em `swiftc -typecheck` (modos 5 e 6) contra o SDK do iOS **com
+   stub do ExpoModulesCore** — ou seja, **nunca compilou contra o Expo real**.
+   Dois defeitos achados e corrigidos: os Product IDs do serviço eram os do
+   `PaywallPlan` (`monthly_plus`/`annual_plus`), não os da ADR; e reembolso
+   mantinha as vidas ilimitadas até o fim do período, porque
+   `currentEntitlements` omite a transação reembolsada. **Aberto, do dono:**
+   pedido Ask to Buy recusado prende o cartão e a tela no estado pendente, sem
+   planos nem Restaurar; e `willRenew` sem rede não está medido. Nada comitado,
+   empurrado ou construído.
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md).
+   As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
+   build interno e sandbox.
 
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem

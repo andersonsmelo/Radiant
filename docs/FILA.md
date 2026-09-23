@@ -120,6 +120,29 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
    cd radiant-app && npx eas env:list --environment production
    ```
 
+### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
+
+O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
+
+1. **Build interno `development`** com `modules/radiant-storekit` — é a
+   primeira compilação real do Swift, que até aqui só passou em checagem de
+   tipos com stub do ExpoModulesCore.
+2. **Sandbox no TestFlight**, ou o arquivo `.storekit` sincronizado pelo Xcode
+   (*Sync with App Store Connect*) em
+   `radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit`,
+   escolhido à mão no esquema do Xcode depois do prebuild (plano §1.2). Roteiro:
+   compra mensal e anual, Ask to Buy, Restaurar, renovação acelerada,
+   reembolso, e **abrir em modo avião** para medir se `willRenew` responde sem
+   rede — se o cartão disser "Cancelada", a copy precisa de decisão.
+3. **Acordo de apps pagos em *Ativo*** no App Store Connect. Aceitar os termos
+   não ativa; sem ele, a lista de produtos vem vazia e a tela mostra "a loja
+   não respondeu".
+4. **Decisão de produto: pedido Ask to Buy recusado.** Hoje o estado pendente
+   não tem saída — o cartão do Perfil fica sem botão, a tela mostra "Pedido
+   enviado" sem planos e sem Restaurar, e a recusa não gera transação que limpe
+   o estado. O estudo não é afetado. Opções: validade para o pendente, ou
+   mostrar planos e Restaurar no estado pendente.
+
 ### AGENTE — o que sobrou da Task 8
 
 **Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
@@ -145,23 +168,24 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
    sairia do aparelho **se** você ligar, que é a base factual para revisar as
    Privacy Labels. Ligar segue sendo decisão sua.
 
-2. **Adaptador StoreKit real** com os Product IDs fixados na
-   [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A porta
-   `StoreKitPort` e o `UnavailableStoreKitAdapter` já existem em
-   `features/subscription/`; falta o adaptador real por trás da mesma porta.
-   **Desbloqueado em 2026-09-23 — decisão do dono: módulo Expo local em Swift,
-   sem `expo-iap`** ([ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md)).
-   `modules/radiant-storekit/` no molde do `radiant-cloudkit`, só StoreKit 2,
-   zero dependência npm; o `package.json` não muda. Começa por um plano curto
-   da fatia, que resolve os dois pontos que a ADR deixou **a verificar**:
-   `willRenew` sem rede e onde versionar o arquivo `.storekit`. Adaptador TS
-   testado contra a porta sem build; o Swift só vale depois de build interno e
-   sandbox, que são do dono. **Para executar:**
-   [prompt de continuidade da fatia 2](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md).
-3. **`QuizTopBar` mostrando ∞ para assinante** — depende de (2) para ter estado
-   de assinatura real, embora o `SubscriptionService` já exista.
-4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.
-   Não validar durante flow E2E: 2,3× de desaceleração medida.
+2. ✅ **Adaptador StoreKit real** — implementado em **2026-09-23**, **sem
+   build** ([ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md),
+   [plano](superpowers/plans/2026-09-23-radiant-1-4-storekit-fatia-2.md),
+   [relatório](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-vermelhos.md)).
+   `StoreKit2Adapter` atrás da `StoreKitPort`, módulo Swift
+   `modules/radiant-storekit/` só StoreKit 2 e sem dependência, ligado no
+   `SubscriptionService` e na abertura. Gate medido: `quality` exit 0, 132
+   suítes / 1163 testes, Node 20.20.2. Corrigiu os Product IDs (eram os do
+   `PaywallPlan`) e o reembolso que mantinha as vidas ilimitadas. **O Swift
+   nunca compilou contra o Expo real** — o fechamento de verdade é do dono,
+   abaixo.
+3. **`QuizTopBar` mostrando ∞ para assinante** — **destravado em 2026-09-23**:
+   o estado de assinatura real existe no código. Pode ser feito e testado sem
+   build; a validação visual com assinante real espera o sandbox.
+4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
+   precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
+   desaceleração medida.
 5. ✅ **Checklist de declarações à loja** — preparado em **2026-09-22** em
    [`CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md), com as
    linhas de assinatura marcadas ⏳ e **explicitamente não preenchíveis** até (2)

@@ -1586,9 +1586,17 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   `StoreKitPort`/`PrivateCloudPort` com adaptadores padrão indisponíveis; tela
   `/subscription` e cartões Assinatura e Backup no iCloud no Perfil. Evidência:
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
-- **K6 [PARCIAL — fatia CloudKit implementada em 2026-09-15; StoreKit e Sentry
-  não iniciados]** Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade,
-  desempenho e tamanho antes de qualquer submissão.
+- **K6 [PARCIAL — CloudKit validado em aparelho em 2026-09-16; Sentry mínimo
+  fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
+  2026-09-23, sem build]** Ligar StoreKit 2, iCloud e Sentry; medir E2E,
+  acessibilidade, desempenho e tamanho antes de qualquer submissão.
+
+  **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
+  e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem
+  dependência npm ([ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md),
+  [relatório](../superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md)).
+  Gate medido: 132 suítes / 1163 testes. O Swift **não** foi compilado contra
+  o Expo real; build interno, sandbox e acordo de apps pagos ativo são do dono.
 
   **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
   mergeado em 2026-09-16 às 19:56:53 −03): entitlements do container
@@ -1639,7 +1647,7 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   capability; e **Deploy Schema to Production** no CloudKit Console antes da
   submissão — o CloudKit cria schema automaticamente só em Development, e pular
   esse passo produz um app aprovado que escreve num schema inexistente, falhando
-  apenas em produção e em silêncio. StoreKit 2 e Sentry seguem não iniciados.
+  apenas em produção e em silêncio. *(Esta lista é de 2026-09-15; o estado vivo desses itens está no `STATUS.md` e na `FILA.md`. Em 2026-09-23 o Sentry mínimo e o adaptador StoreKit já existiam no código — ver o topo do K6.)*
 
 ## 7. Recursos necessários
 

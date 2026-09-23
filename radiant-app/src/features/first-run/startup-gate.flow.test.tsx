@@ -108,7 +108,7 @@ jest.mock('../auth/AuthService', () => ({
 }));
 
 jest.mock('../subscription/SubscriptionService', () => ({
-  subscriptionService: { refresh: jest.fn() },
+  subscriptionService: { refresh: jest.fn(), watchStoreUpdates: jest.fn() },
 }));
 
 jest.mock('../progress-sync/ProgressSyncService', () => ({
@@ -226,6 +226,8 @@ describe('gate de abertura em RootLayout', () => {
     (LessonCatalogService.bootstrap as jest.Mock).mockResolvedValue(undefined);
     (jest.requireMock('../subscription/SubscriptionService').subscriptionService.refresh as jest.Mock)
       .mockResolvedValue({ kind: 'none' });
+    (jest.requireMock('../subscription/SubscriptionService').subscriptionService.watchStoreUpdates as jest.Mock)
+      .mockImplementation(() => () => undefined);
     (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.restoreOnLaunch as jest.Mock)
       .mockResolvedValue({ enabled: false, decided: false, lastBackupAt: null, lastError: null });
     (jest.requireMock('../progress-sync/ProgressSyncService').progressSyncService.getState as jest.Mock)
@@ -298,6 +300,53 @@ describe('gate de abertura em RootLayout', () => {
     expect(await screen.findByTestId('stack-root')).toBeTruthy();
     expect(subscriptionService.refresh).toHaveBeenCalledWith(expect.any(Number));
     expect(progressSyncService.restoreOnLaunch).toHaveBeenCalledWith(expect.any(Number), expect.any(Function));
+    expect(TelemetryService.captureError).not.toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ phase: 'root_layout_bootstrap' }));
+  });
+
+  // Task 8, fatia 2: o nativo escuta `Transaction.updates` desde a criação do
+  // módulo; a abertura só liga o aviso à releitura do direito. Depois da
+  // migração, porque a releitura grava o cache da assinatura.
+  it('passa a reler a assinatura a cada aviso da loja, só depois da migração e uma vez', async () => {
+    const { subscriptionService } = jest.requireMock('../subscription/SubscriptionService');
+    let releaseMigration: (() => void) | undefined;
+    (StorageMigrationService.migrateToV14 as jest.Mock).mockReturnValue(
+      new Promise(resolve => {
+        releaseMigration = () => resolve({ status: 'unchanged' });
+      }),
+    );
+
+    renderWithProviders(<RootLayout />);
+    expect(subscriptionService.watchStoreUpdates).not.toHaveBeenCalled();
+
+    releaseMigration?.();
+
+    expect(await screen.findByTestId('stack-root')).toBeTruthy();
+    expect(subscriptionService.watchStoreUpdates).toHaveBeenCalledTimes(1);
+    expect(subscriptionService.watchStoreUpdates).toHaveBeenCalledWith(expect.any(Function));
+  });
+
+  it('para de escutar a loja quando o layout desmonta', async () => {
+    const { subscriptionService } = jest.requireMock('../subscription/SubscriptionService');
+    const parar = jest.fn();
+    subscriptionService.watchStoreUpdates.mockImplementation(() => parar);
+
+    const { unmount } = renderWithProviders(<RootLayout />);
+    expect(await screen.findByTestId('stack-root')).toBeTruthy();
+    unmount();
+
+    expect(parar).toHaveBeenCalledTimes(1);
+  });
+
+  it('falha ao ligar a escuta da loja não bloqueia a abertura', async () => {
+    const { subscriptionService } = jest.requireMock('../subscription/SubscriptionService');
+    subscriptionService.watchStoreUpdates.mockImplementation(() => {
+      throw new Error('módulo da loja fora');
+    });
+    jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    renderWithProviders(<RootLayout />);
+
+    expect(await screen.findByTestId('stack-root')).toBeTruthy();
     expect(TelemetryService.captureError).not.toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ phase: 'root_layout_bootstrap' }));
   });
 
