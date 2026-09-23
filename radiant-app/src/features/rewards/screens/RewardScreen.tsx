@@ -17,6 +17,9 @@ import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/J
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import type { GamificationSnapshot } from '../../../types/gamification';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
+import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import {
   STUDENT_CHECKPOINT_SHADOW_CONTENT_VERSION,
   useShadowCheckpoint,
@@ -119,9 +122,13 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  // Vidas vêm do `heartsRepository`, onde a lição desconta. O contador de
+  // corações do `GamificationService` é legado e o caminho vivo nunca o toca.
+  const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
+    void heartsRepository.getSnapshot(Date.now()).then(setHearts);
   }, []);
 
   const loadSnapshot = useCallback(async () => {
@@ -279,8 +286,9 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
         <HUD
           totalXp={gamification?.totalXp ?? 0}
           streakDays={gamification?.streakDays ?? 0}
-          hearts={gamification?.hearts ?? 5}
-          maxHearts={gamification?.maxHearts ?? 5}
+          hearts={hearts?.count ?? MAX_HEARTS}
+          maxHearts={MAX_HEARTS}
+          heartsSnapshot={hearts ?? undefined}
         />
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.headerRow}>

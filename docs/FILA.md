@@ -216,11 +216,10 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    sandbox.
 
    Três achados desta fatia, fora dela, viraram tarefas próprias:
-   - **Perfil lê o contador legado de vidas.** A `MissionsScreen` embutida lê
-     `GamificationService.hearts`, que o caminho vivo nunca desconta: mostra
-     sempre 5 e nunca ∞.
-   - **O `HUD` mostra ∞ ao lado dos corações.** A spec pede que os corações
-     sumam.
+   - ✅ **Perfil lia o contador legado de vidas** — resolvido na mesma data,
+     item 3c.
+   - ✅ **O `HUD` mostrava ∞ ao lado dos corações** — resolvido na mesma data,
+     nota do item 4.
    - ✅ **A folha de vidas nunca oferecia a assinatura.** O dono decidiu que
      entra na 1.4, e foi resolvido na mesma data — item 3b.
 3b. ✅ **Folha de vidas oferece a assinatura** — implementado em
@@ -237,6 +236,31 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    o motivo aparece na tela da assinatura e não na folha, ao contrário da spec
    §98 — mostrá-lo na folha exigiria uma dependência de rede no estudo.
    **Falta:** a volta de `/subscription` no navegador real, que espera build.
+3c. ✅ **Perfil e recompensa leem as vidas da fonte viva** — concluído em
+   **2026-09-23**, na branch `claude/sharp-dijkstra-747d12` (sobre
+   `0b0283e`), integrada localmente em `integ/vidas-1-4` na mesma data. A
+   seção Vidas do Perfil e o HUD do `RewardScreen` liam o contador legado do `GamificationService`
+   (sempre 5, nunca ∞); agora leem `heartsRepository`, com ∞ para assinante.
+   Gate: 134 suítes / 1181 testes, Node 20.20.2.
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md).
+3d. **Aposentar o contador legado de vidas do `GamificationService`.**
+   **Estado:** decidido pelo dono em 2026-09-23 — sai **depois**, em run
+   próprio. **Bloqueio:** nenhum desde 2026-09-23 — a fatia do `QuizTopBar` ∞
+   (item 3), que mexe em `quiz/` e `LessonFlowScreen`, foi comitada em
+   `647b2c3`; partir de `integ/vidas-1-4` ou do que a suceder. O único
+   escritor do legado é `useQuiz.loseHeart` (rota `/quiz`, só por deep
+   link). **Dono:** agente. Nenhum dado depende dos campos: backup no
+   iCloud lê só `totalXp`/`streakDays`, e a migração 1.4 guarda o blob
+   `radiant:gami:v1` inteiro sem lê-los. Falta decidir o que `/quiz` faz com
+   vidas (passar a `heartsRepository.spend` ou deixar de contar).
+   Remedir os leitores e escritores (é um **superconjunto**: casa também a
+   prop `maxHearts` do `HUD`/`QuizTopBar`, que não é o legado — classifique
+   cada linha pela origem do valor, como no relatório):
+
+   ```bash
+   cd radiant-app && grep -rnE '\b(maxHearts|heartsLastRefillAt|heartsNextRefillAt|loseHeart|refillHearts|canStartLesson)\b|gamification\??\.hearts' src | grep -v '/hearts/'
+   ```
+
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.

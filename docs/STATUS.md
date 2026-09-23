@@ -223,6 +223,29 @@ carrega o pacote inteiro.
    Divergência da spec §98 (motivo do offline na folha) no
    [relatório](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md).
 
+   **Duas fontes de vidas — o Perfil e a recompensa passaram para a fonte
+   viva em 2026-09-23** (branch `claude/sharp-dijkstra-747d12`, sobre
+   `feat/quiztopbar-infinito` em `0b0283e`; integrada localmente em
+   `integ/vidas-1-4` na mesma data; **não construído**).
+   Medido na data: a seção **Vidas** do Perfil (`MissionsScreen` embutida) e o
+   HUD do `RewardScreen` (`/reward`, alcançável pelos nós de recompensa da
+   trilha) liam o contador legado do `GamificationService`, que o caminho vivo
+   nunca desconta — mostravam sempre 5 e nunca ∞. Agora os dois leem
+   `heartsRepository.getSnapshot(Date.now())`: assinante vê **∞** e
+   "Assinante: ilimitadas" sem corações, relógio nem aviso (spec §5.1
+   ILIMITADA e §3.5 Perfil); o aviso de bloqueio segue o `status` `'empty'`, não
+   a contagem; e nenhum coração é desenhado antes da leitura. **Gate medido em
+   2026-09-23**, Node `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality` saiu 0,
+   **134 suítes / 1181 testes**, lint 0 erros / 26 avisos, Visual QA sem
+   regressão. Vermelhos em
+   [`2026-09-23-radiant-perfil-vidas-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-vermelhos.md).
+   **O contador legado continua no código** — decisão do dono em 2026-09-23:
+   aposentar depois, em run próprio; o bloqueio (commit da fatia do
+   `QuizTopBar` ∞) caiu com `647b2c3`.
+   Enumeração e o que a aposentadoria exige no
+   [relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md);
+   backup no iCloud e migração 1.4 **não leem** os campos.
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
@@ -469,7 +492,9 @@ carrega o pacote inteiro.
    `backupNow` sem chamador; `expo-iap` ausente. **Nenhuma afirmação do
    relatório contradiz a medição.** Duas notas além dele: `GamificationService`
    ainda persiste `hearts` legados ao lado do `HeartsRepository` (duas fontes
-   para o mesmo conceito — aposentar antes da migração seguinte); e o cartão
+   para o mesmo conceito — aposentar antes da migração seguinte; *em
+   2026-09-23 os dois leitores vivos saíram dele e a aposentadoria foi adiada
+   pelo dono, ver o bloco da 1.4 acima*); e o cartão
    antigo de conta segue em `ProgressScreen`, condicionado e invisível em
    produção — código morto, não regressão. Estado prático: a 1.4 na branch tem
    motor, vidas, migração e telas; **não vende nem faz backup** até a Task 8,

@@ -5,6 +5,8 @@ import type { JourneyNode } from '../../../types/journey';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { PaywallService } from '../../paywall/PaywallService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
@@ -274,6 +276,44 @@ describe('RewardScreen flow', () => {
 
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
     expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
+  });
+
+  describe('HUD — vidas do heartsRepository, não do contador legado', () => {
+    // O `GamificationService` guarda um contador de corações que o caminho vivo
+    // nunca desconta; com o storage vazio ele diz 5. A lição desconta no
+    // `heartsRepository`. Se o HUD da recompensa voltar a ler o legado, estes
+    // testes veem "5 de 5" onde o aluno tem 2 — ou corações onde o assinante
+    // deveria ver ∞.
+    const mockedGetItem = AsyncStorage.getItem as jest.Mock;
+    const seedHearts = (state: { count: number; lastRefillAt: string | null; unlimitedUntil: string | null }) => {
+      mockedGetItem.mockImplementation(async (key: string) =>
+        key === STORAGE_KEYS.HEARTS ? JSON.stringify(state) : null);
+    };
+
+    afterEach(() => {
+      mockedGetItem.mockReset();
+    });
+
+    it('mostra as vidas que a lição descontou', async () => {
+      seedHearts({ count: 2, lastRefillAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(), unlimitedUntil: null });
+
+      renderWithProviders(<RewardScreen nodeId="reward-1" />);
+
+      expect(await screen.findByLabelText(/^2 de 5 vidas/)).toBeTruthy();
+      expect(screen.queryByLabelText(/^5 de 5 vidas/)).toBeNull();
+    });
+
+    it('assinante vê ∞', async () => {
+      seedHearts({
+        count: 1,
+        lastRefillAt: null,
+        unlimitedUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+
+      renderWithProviders(<RewardScreen nodeId="reward-1" />);
+
+      expect(await screen.findByText('∞')).toBeTruthy();
+    });
   });
 
   describe('canCollectReward — a decisão que o handler de coleta consulta', () => {
