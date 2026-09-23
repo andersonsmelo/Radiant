@@ -149,8 +149,14 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A porta
    `StoreKitPort` e o `UnavailableStoreKitAdapter` já existem em
    `features/subscription/`; falta o adaptador real por trás da mesma porta.
-   **`expo-iap` ainda não instalado** — é dependência nativa, então a fatia
-   muda `package.json` e exige build novo para valer em aparelho.
+   **Desbloqueado em 2026-09-23 — decisão do dono: módulo Expo local em Swift,
+   sem `expo-iap`** ([ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md)).
+   `modules/radiant-storekit/` no molde do `radiant-cloudkit`, só StoreKit 2,
+   zero dependência npm; o `package.json` não muda. Começa por um plano curto
+   da fatia, que resolve os dois pontos que a ADR deixou **a verificar**:
+   `willRenew` sem rede e onde versionar o arquivo `.storekit`. Adaptador TS
+   testado contra a porta sem build; o Swift só vale depois de build interno e
+   sandbox, que são do dono.
 3. **`QuizTopBar` mostrando ∞ para assinante** — depende de (2) para ter estado
    de assinatura real, embora o `SubscriptionService` já exista.
 4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.

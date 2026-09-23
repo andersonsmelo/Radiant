@@ -20,7 +20,7 @@
 - Produção é testada com `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`, sem API e sem formulário de login.
 - Nenhum arquivo em `conteúdo/`, `Conteúdo/`, `content-manifest/` ou nos diretórios sujos do Arco 1 será tocado.
 - `prepareV3()` não será chamado, o V3 não será ativado e o legado não será removido.
-- Nenhum SDK de terceiro intermediará compras; o adaptador futuro será StoreKit 2 via `expo-iap`.
+- Nenhum SDK de terceiro intermediará compras; o adaptador futuro será StoreKit 2 por módulo Expo local `modules/radiant-storekit/` (emendado em 2026-09-23 pela [ADR](../../adr/ADR-2026-09-23-storekit-modulo-expo-local.md); o texto original dizia `expo-iap`).
 - Nenhum módulo nativo será instalado ou versionado sem build interno do perfil `development`; `eas build`, `eas submit` e `git push` não fazem parte desta execução.
 - A assinatura desbloqueia **vidas ilimitadas — e só isso**; sem trial e sem promessa de conteúdo exclusivo.
 - O backup usa banco privado do iCloud e nunca substitui progresso local por nuvem vazia.
@@ -408,9 +408,9 @@ Commit: `feat(1.4): add subscription and private-backup contracts`.
 
 Exigir, medidos na data: acordo de apps pagos aceito; IDs mensal/anual e preços definidos; entitlement iCloud e credencial EAS disponíveis; DSN Sentry configurado no perfil production; autorização separada para build interno. Ausência de qualquer item bloqueia somente a parte dependente e entra no relatório.
 
-- [ ] **Step 2: instalar e testar `expo-iap` somente dentro do gate autorizado**
+- [ ] **Step 2: escrever o módulo local `radiant-storekit` e testá-lo somente dentro do gate autorizado**
 
-Após instalação, executar build interno `development` antes de versionar o adaptador. Sem autorização de build, não modificar `package.json`, `package-lock.json`, `app.json` ou plugin nativo.
+*(Emendado em 2026-09-23: o passo dizia "instalar e testar `expo-iap`"; ver a [ADR do módulo local](../../adr/ADR-2026-09-23-storekit-modulo-expo-local.md).)* O módulo segue o molde de `modules/radiant-cloudkit/`, sem dependência npm. O adaptador TS é testado contra a porta sem build; o Swift só conta como validado depois de build interno `development` e sandbox, autorizados pelo dono.
 
 - [ ] **Step 3: testar o plugin iCloud no mesmo perfil**
 

@@ -10,7 +10,8 @@ uma remedição não é declaração, é intenção.
 
 > ⚠️ **Este checklist está incompleto de propósito.** As linhas de assinatura
 > dependem do adaptador StoreKit real, que é a fatia 2 e ainda não existe
-> (`expo-iap` não instalado). Elas estão marcadas ⏳ e **não devem ser
+> (decidido em 2026-09-23: módulo Expo local em Swift, sem `expo-iap` —
+> [ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md)). Elas estão marcadas ⏳ e **não devem ser
 > preenchidas no App Store Connect** antes de a fatia 2 fechar.
 
 ---

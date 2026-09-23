@@ -184,7 +184,10 @@ Nenhuma promessa de conteúdo exclusivo enquanto ele não existir. **Sem trial
 na 1.4**; entra como experimento quando houver base para medir. Preço: definido
 pelo dono no App Store Connect antes da submissão; esta spec não fixa valor.
 
-**Técnica: StoreKit 2 direto (`expo-iap`), sem backend e sem terceiro.** O
+**Técnica: StoreKit 2 direto, por módulo Expo local em Swift, sem backend e
+sem terceiro.** *(Emendado em 2026-09-23 pela
+[ADR do módulo local](../../adr/ADR-2026-09-23-storekit-modulo-expo-local.md):
+o texto original dizia `expo-iap`, que é um terceiro no caminho da compra.)* O
 motivo decisivo é declarativo, não financeiro: a transação fica entre o
 aparelho e a Apple, e as Privacy Labels **continuam "Dados não coletados"**
 para quem assina. RevenueCat obrigaria a declarar histórico de compras e
