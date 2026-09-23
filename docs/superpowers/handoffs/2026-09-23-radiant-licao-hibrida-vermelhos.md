@@ -5,8 +5,9 @@ foi vista falhando **pelo defeito que nomeia**. Cada seção traz a mutação, o
 comando e o trecho da saída. Toda mutação foi revertida logo depois, e a guarda
 voltou a passar. Executado em 2026-09-23, em nuvem, no branch
 `feat/licao-hibrida-piloto`, com Node `v20.20.2`. Os trechos são a saída
-literal do Jest, com uma única edição: o tempo de cada teste (`(N ms)`) foi
-tirado do fim das linhas `✕`.
+literal do Jest, com duas edições: o tempo de cada teste (`(N ms)`) foi tirado
+do fim das linhas `✕`, e um objeto de fibra do React de uma linha só, na
+mutação 5.1, foi truncado com a indicação no próprio trecho.
 
 ## Tarefa 1 — geometria do mapa corporal
 
@@ -298,4 +299,73 @@ Tests:       1 failed, 7 passed, 8 total
       33 |   });
       34 |
 
+```
+
+## Tarefa 5 — cartão "Sons e vibração"
+
+O plano não pede mutação nesta tarefa, mas ela cria duas guardas novas; as duas
+foram vistas falhando.
+
+### Mutação 5.1 — o cartão aparece no build do aluno
+
+Em `ProfileScreen.tsx`, `{AppConfig.SHOW_DEV_TOOLS ? (` antes do
+`<FeedbackPreferencesCard` → `{true ? (`.
+
+```bash
+cd radiant-app && npx jest src/features/profile/screens --runInBand
+```
+
+```text
+    ✕ não mostra nada disso no build do aluno
+Tests:       1 failed, 10 passed, 11 total
+
+  ● ProfileScreen — a porta do console de desenvolvimento › não mostra nada disso no build do aluno
+
+    expect(received).toBeNull()
+
+    Received: {"_fiber": … (nó de texto "Sons e vibração"; objeto truncado aqui)
+
+      163 |     expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
+      164 |     // Os sons só existem no piloto: o aluno não vê interruptor de algo que nunca ouve.
+    > 165 |     expect(screen.queryByText('Sons e vibração')).toBeNull();
+          |                                                   ^
+      166 |   });
+      167 | });
+      168 |
+```
+
+### Mutação 5.2 — desligar sons religa a vibração
+
+Em `FeedbackPreferencesCard.tsx`, `onChange({ ...value, sounds })` →
+`onChange({ sounds, haptics: true })`.
+
+```bash
+cd radiant-app && npx jest src/features/profile/components --runInBand
+```
+
+```text
+    ✕ desligar sons mantém a vibração como estava
+Tests:       1 failed, 1 passed, 2 total
+
+  ● cartão de sons e vibração › desligar sons mantém a vibração como estava
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    - Expected
+    + Received
+
+      Object {
+    -   "haptics": false,
+    +   "haptics": true,
+        "sounds": false,
+      },
+
+    Number of calls: 1
+
+      16 |     render(<FeedbackPreferencesCard preferences={{ sounds: true, haptics: false }} onChange={onChange} />);
+      17 |     fireEvent(screen.getByLabelText('Sons'), 'valueChange', false);
+    > 18 |     expect(onChange).toHaveBeenCalledWith({ sounds: false, haptics: false });
+         |                      ^
+      19 |   });
+      20 | });
 ```

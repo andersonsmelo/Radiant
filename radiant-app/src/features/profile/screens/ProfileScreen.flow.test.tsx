@@ -9,6 +9,12 @@ import { AppConfig } from '../../../config';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
+  DEFAULT_FEEDBACK_PREFERENCES: { sounds: true, haptics: true },
+  readFeedbackPreferences: jest.fn().mockResolvedValue({ sounds: true, haptics: true }),
+  writeFeedbackPreferences: jest.fn().mockResolvedValue(undefined),
+}));
+
 jest.mock('expo-router', () => ({
   router: { push: jest.fn() },
   useFocusEffect: (callback: () => void) => {
@@ -143,6 +149,7 @@ describe('ProfileScreen — a porta do console de desenvolvimento', () => {
     render(<ProfileScreen />);
 
     expect(screen.getByText('Console de desenvolvimento')).toBeTruthy();
+    expect(screen.getByText('Sons e vibração')).toBeTruthy();
   });
 
   it('não mostra nada disso no build do aluno', () => {
@@ -154,6 +161,8 @@ describe('ProfileScreen — a porta do console de desenvolvimento', () => {
 
     expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
     expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
+    // Os sons só existem no piloto: o aluno não vê interruptor de algo que nunca ouve.
+    expect(screen.queryByText('Sons e vibração')).toBeNull();
   });
 });
 
