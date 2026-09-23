@@ -246,6 +246,14 @@ carrega o pacote inteiro.
    [relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md);
    backup no iCloud e migração 1.4 **não leem** os campos.
 
+   **As quatro fatias de vidas integradas localmente em 2026-09-23** na branch
+   `integ/vidas-1-4` (`b81a91d` + merges de `1ab8bc8` e `01ac4e7`; conflitos só
+   em FILA e STATUS). **Medido na árvore combinada**, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **134 suítes / 1212 testes**,
+   Visual QA sem regressão — a soma exata do que cada fatia mediu sozinha.
+   **Não construído, sem push.**
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
