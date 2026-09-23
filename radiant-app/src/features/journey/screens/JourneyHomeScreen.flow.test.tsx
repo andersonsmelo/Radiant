@@ -115,8 +115,6 @@ jest.mock('../../gamification/services/GamificationService', () => ({
       totalXp: 80,
       streakDays: 2,
       lastActiveDate: null,
-      hearts: 5,
-      maxHearts: 5,
     }),
   },
 }));
@@ -322,8 +320,6 @@ describe('JourneyHomeScreen track flow', () => {
       totalXp: 80,
       streakDays: 2,
       lastActiveDate: null,
-      hearts: 5,
-      maxHearts: 5,
     });
 
     const { LessonCatalogService } = require('../../content/services/LessonCatalogService');

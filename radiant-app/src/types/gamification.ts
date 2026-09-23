@@ -16,12 +16,9 @@ export interface GamificationStore {
     lastActiveDate: string | null;
     /** ISO timestamp of last update */
     updatedAt: string;
-    /** Corações/vidas restantes (0–5). Perdem com erros no quiz. */
-    hearts: number;
-    /** Máximo de corações (padrão: 5) */
-    maxHearts: number;
-    /** ISO timestamp da última recarga de corações */
-    heartsLastRefillAt: string | null;
+    // As vidas moram no `heartsRepository` desde 2026-09-23. Quem instalou a
+    // 1.3.1 ainda tem `hearts`, `maxHearts` e `heartsLastRefillAt` neste blob:
+    // o serviço os carrega e regrava intocados, e nada os lê.
 }
 
 /**
@@ -32,13 +29,6 @@ export interface GamificationSnapshot {
     totalXp: number;
     streakDays: number;
     lastActiveDate: string | null;
-    hearts: number;
-    maxHearts: number;
-    /**
-     * ISO timestamp da próxima recarga passiva de coração, ou null quando os
-     * corações estão cheios. Opcional para não quebrar mocks existentes.
-     */
-    heartsNextRefillAt?: string | null;
 }
 
 /**

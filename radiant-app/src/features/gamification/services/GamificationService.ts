@@ -1,6 +1,7 @@
 /**
  * GamificationService
- * Manages XP, Streaks, Hearts and persistence for the Gamification Light MVP.
+ * Manages XP, Streaks and persistence for the Gamification Light MVP.
+ * As vidas moram no `heartsRepository` (features/hearts) desde 2026-09-23.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,18 +9,11 @@ import { GAMIFICATION_STORAGE_KEY, XP_RULES, formatLocalDateKey } from '../../..
 import type { GamificationStore, GamificationSnapshot, XpAward } from '../../../types/gamification';
 import type { QuizResult } from '../../../types/quiz';
 
-const MAX_HEARTS = 5;
-/** Intervalo em ms para recarregar 1 coração (30 minutos) */
-export const HEART_REFILL_INTERVAL_MS = 30 * 60 * 1000;
-
 const DEFAULT_STORE: GamificationStore = {
     totalXp: 0,
     streakDays: 1,
     lastActiveDate: null,
     updatedAt: new Date().toISOString(),
-    hearts: MAX_HEARTS,
-    maxHearts: MAX_HEARTS,
-    heartsLastRefillAt: null,
 };
 
 class GamificationServiceImpl {
@@ -27,11 +21,9 @@ class GamificationServiceImpl {
 
     /**
      * Get the current snapshot of gamification state.
-     * Applies passive heart refill before returning.
      */
     async getSnapshot(): Promise<GamificationSnapshot> {
         const store = await this.getOrLoadStore();
-        await this.applyPassiveHeartRefill(store);
         return this.toSnapshot(store);
     }
 
@@ -76,48 +68,6 @@ class GamificationServiceImpl {
         return this.toSnapshot(store);
     }
 
-    // ── Hearts ───────────────────────────────────────────────
-
-    /**
-     * Desconta 1 coração (quando o aluno erra uma questão).
-     * Retorna o snapshot atualizado.
-     */
-    async loseHeart(): Promise<GamificationSnapshot> {
-        const store = await this.getOrLoadStore();
-        if (store.hearts > 0) {
-            store.hearts -= 1;
-            // Inicia o timer de recarga ao perder o primeiro coração
-            if (!store.heartsLastRefillAt) {
-                store.heartsLastRefillAt = new Date().toISOString();
-            }
-            store.updatedAt = new Date().toISOString();
-            await this.saveStore(store);
-        }
-        return this.toSnapshot(store);
-    }
-
-    /**
-     * Restaura todos os corações (ex: ao completar uma missão diária).
-     */
-    async refillHearts(): Promise<GamificationSnapshot> {
-        const store = await this.getOrLoadStore();
-        store.hearts = store.maxHearts;
-        store.heartsLastRefillAt = null;
-        store.updatedAt = new Date().toISOString();
-        await this.saveStore(store);
-        return this.toSnapshot(store);
-    }
-
-    /**
-     * Verifica se o aluno pode iniciar uma nova lição.
-     * Revisões (spaced repetition) NUNCA são bloqueadas por corações.
-     */
-    async canStartLesson(): Promise<boolean> {
-        const store = await this.getOrLoadStore();
-        await this.applyPassiveHeartRefill(store);
-        return store.hearts > 0;
-    }
-
     async reset(): Promise<void> {
         this.memCache = { ...DEFAULT_STORE };
         try {
@@ -135,43 +85,7 @@ class GamificationServiceImpl {
             totalXp: store.totalXp,
             streakDays: store.streakDays,
             lastActiveDate: store.lastActiveDate,
-            hearts: store.hearts,
-            maxHearts: store.maxHearts,
-            heartsNextRefillAt:
-                store.hearts < store.maxHearts && store.heartsLastRefillAt
-                    ? new Date(
-                          new Date(store.heartsLastRefillAt).getTime() + HEART_REFILL_INTERVAL_MS
-                      ).toISOString()
-                    : null,
         };
-    }
-
-    /**
-     * Recarga passiva: 1 coração a cada HEART_REFILL_INTERVAL_MS.
-     * Mutates store in place; caller must saveStore if changed.
-     */
-    private async applyPassiveHeartRefill(store: GamificationStore): Promise<void> {
-        if (store.hearts >= store.maxHearts || !store.heartsLastRefillAt) return;
-
-        const now = Date.now();
-        const lastRefill = new Date(store.heartsLastRefillAt).getTime();
-        const elapsed = now - lastRefill;
-        const heartsToAdd = Math.floor(elapsed / HEART_REFILL_INTERVAL_MS);
-
-        if (heartsToAdd <= 0) return;
-
-        store.hearts = Math.min(store.maxHearts, store.hearts + heartsToAdd);
-
-        if (store.hearts >= store.maxHearts) {
-            store.heartsLastRefillAt = null;
-        } else {
-            // Avança o timestamp pelo número de corações recarregados
-            const newRefillAt = lastRefill + heartsToAdd * HEART_REFILL_INTERVAL_MS;
-            store.heartsLastRefillAt = new Date(newRefillAt).toISOString();
-        }
-
-        store.updatedAt = new Date().toISOString();
-        await this.saveStore(store);
     }
 
     private async getOrLoadStore(): Promise<GamificationStore> {

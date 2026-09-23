@@ -176,7 +176,7 @@ describe('LessonOutcomeService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         mockedGamification.recordQuizCompletion.mockResolvedValue({
-            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
+            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
         mockedSpacedRepetition.recordQuizResult.mockResolvedValue(undefined);
@@ -471,7 +471,7 @@ describe('LessonOutcomeService — evidência por interação', () => {
         jest.clearAllMocks();
         mockedAttempts.append.mockResolvedValue(undefined);
         mockedGamification.recordQuizCompletion.mockResolvedValue({
-            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
+            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
         mockedDailyGoal.recordXp.mockResolvedValue({
@@ -728,7 +728,7 @@ describe('alimentação do agendador por competência', () => {
         mockedAttempts.append.mockResolvedValue(undefined);
         mockedEvidence.append.mockResolvedValue({ accepted: true, issues: [] });
         mockedGamification.recordQuizCompletion.mockResolvedValue({
-            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null, hearts: 5, maxHearts: 5, heartsNextRefillAt: null },
+            snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
         });
         mockedDailyGoal.recordXp.mockResolvedValue({

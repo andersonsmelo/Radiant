@@ -231,7 +231,9 @@ export default function HomeScreen() {
                         />
                         <StatPill
                             icon={<HeartIcon />}
-                            value={`${dashboard?.hearts.current ?? 0}/${dashboard?.hearts.maximum ?? 0}`}
+                            value={dashboard?.hearts.unlimited
+                                ? '∞'
+                                : `${dashboard?.hearts.current ?? 0}/${dashboard?.hearts.maximum ?? 0}`}
                             color="#FF3B30"
                             dark
                         />

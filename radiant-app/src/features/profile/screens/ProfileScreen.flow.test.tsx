@@ -44,7 +44,7 @@ const mockedProgressSync = jest.requireMock('../../progress-sync/ProgressSyncSer
 
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
-    getSnapshot: jest.fn().mockResolvedValue({ totalXp: 72, streakDays: 1, hearts: 5, maxHearts: 5 }),
+    getSnapshot: jest.fn().mockResolvedValue({ totalXp: 72, streakDays: 1 }),
   },
 }));
 

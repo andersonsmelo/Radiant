@@ -38,11 +38,12 @@ export class HomeDashboardService {
   constructor(private readonly dependencies: HomeDashboardDependencies) {}
 
   async getDashboard(): Promise<HomeDashboardViewModel> {
-    const [catalog, nextActivity, dueLessonIds, gamification, dailyGoal, learningStats] = await Promise.all([
+    const [catalog, nextActivity, dueLessonIds, gamification, hearts, dailyGoal, learningStats] = await Promise.all([
       recover(() => this.dependencies.getCatalog(), { lessons: [] }),
       recover(() => this.dependencies.getNextActivity(), null),
       recover(() => this.dependencies.getDueLessonIds(), []),
-      recover(() => this.dependencies.getGamification(), { streakDays: 0, totalXp: 0, hearts: 0, maxHearts: 0 }),
+      recover(() => this.dependencies.getGamification(), { streakDays: 0, totalXp: 0 }),
+      recover(() => this.dependencies.getHearts(), { count: 0, maximum: 0, unlimited: false }),
       recover(() => this.dependencies.getDailyGoal(), { completedToday: 0, goalPerDay: 1 }),
       recover(() => this.dependencies.getLearningStats(), { masteredCases: null, accuracyPercent: null }),
     ]);
@@ -73,7 +74,7 @@ export class HomeDashboardService {
       dateLabel: new Intl.DateTimeFormat(this.dependencies.locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(this.dependencies.now()),
       streakDays: gamification.streakDays,
       totalXp: gamification.totalXp,
-      hearts: { current: gamification.hearts, maximum: gamification.maxHearts },
+      hearts: { current: hearts.count, maximum: hearts.maximum, unlimited: hearts.unlimited },
       dailyGoal: { completed: dailyGoal.completedToday, target: dailyGoal.goalPerDay },
       mission,
       masteredCases: learningStats.masteredCases,

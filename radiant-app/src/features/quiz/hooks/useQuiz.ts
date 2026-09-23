@@ -18,6 +18,8 @@ import type { JourneySnapshot } from '../../../types/journey';
 import { QuizService } from '../services/QuizService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { heartsRepository } from '../../hearts/HeartsRepository';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
 import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -36,6 +38,8 @@ interface UseQuizState {
     dailyGoalJustCompleted: boolean;
     hearts: number;
     maxHearts: number;
+    /** `HeartsSnapshot.status === 'unlimited'`: o erro não custa vida. */
+    heartsUnlimited: boolean;
     /**
      * Snapshot da jornada devolvido pela própria chamada que marcou o nó
      * como concluído (`markLessonNodeCompleted`/`markReviewNodeCompleted`).
@@ -57,7 +61,6 @@ interface UseQuizActions {
 
 export type UseQuizReturn = UseQuizState & UseQuizActions;
 
-const MAX_HEARTS_DEFAULT = 5;
 
 type JourneyCompletionMode = 'none' | 'lesson' | 'review';
 
@@ -90,7 +93,8 @@ export function useQuiz(
     });
     const [xpAward, setXpAward] = useState<XpAward | null>(null);
     const [dailyGoalJustCompleted, setDailyGoalJustCompleted] = useState<boolean>(false);
-    const [hearts, setHearts] = useState<number>(MAX_HEARTS_DEFAULT);
+    const [hearts, setHearts] = useState<number>(MAX_HEARTS);
+    const [heartsUnlimited, setHeartsUnlimited] = useState<boolean>(false);
     const [journeySnapshot, setJourneySnapshot] = useState<JourneySnapshot | null>(null);
     // Espelho em ref porque `selectAnswer` não tem `hearts` nas dependências —
     // ler o state pelo closure entregaria o valor da renderização em que o
@@ -98,14 +102,19 @@ export function useQuiz(
     // depois da primeira perda.
     const heartsRef = useRef(hearts);
     heartsRef.current = hearts;
-    const [maxHearts, setMaxHearts] = useState<number>(MAX_HEARTS_DEFAULT);
-
-    // Load hearts on mount
+    // As vidas vêm do mesmo cofre da lição (`heartsRepository`), não do
+    // contador que o `GamificationService` guardava ao lado — aquele nunca
+    // soube da assinatura.
     useEffect(() => {
-        GamificationService.getSnapshot().then((snap) => {
-            setHearts(snap.hearts);
-            setMaxHearts(snap.maxHearts);
+        let alive = true;
+        void heartsRepository.getSnapshot(Date.now()).then((snap) => {
+            if (!alive) return;
+            setHearts(snap.count);
+            setHeartsUnlimited(snap.status === 'unlimited');
         });
+        return () => {
+            alive = false;
+        };
     }, []);
 
     const result = useMemo(() => {
@@ -141,9 +150,9 @@ export function useQuiz(
                 // a corretude apoiada num detalhe de agendamento.
                 const heartsBefore = heartsRef.current;
 
-                GamificationService.loseHeart().then((snap) => {
-                    setHearts(snap.hearts);
-                    setMaxHearts(snap.maxHearts);
+                void heartsRepository.spend(Date.now()).then((snap) => {
+                    setHearts(snap.count);
+                    setHeartsUnlimited(snap.status === 'unlimited');
 
                     // O único evento punitivo do app passava em silêncio: o
                     // contador trocava e nada mais. O `hapticError` acima é o
@@ -154,8 +163,9 @@ export function useQuiz(
                     // sequência "errou" → "e custou uma vida" é o que encena a
                     // perda. Os dois no mesmo tick viram uma vibração só.
                     // Condicionado à queda real do contador, para não vibrar
-                    // quando já se está em zero e não há mais o que perder.
-                    if (snap.hearts < heartsBefore) {
+                    // quando já se está em zero e não há mais o que perder —
+                    // nem para o assinante, cujo `spend` não desconta nada.
+                    if (snap.count < heartsBefore) {
                         hapticLifeLost();
                     }
                 });
@@ -252,7 +262,8 @@ export function useQuiz(
         xpAward,
         dailyGoalJustCompleted,
         hearts,
-        maxHearts,
+        maxHearts: MAX_HEARTS,
+        heartsUnlimited,
         journeySnapshot,
         selectAnswer,
         next,

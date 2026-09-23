@@ -103,9 +103,25 @@ jest.mock('../../../ui/components/HUD', () => {
 
   return {
     HUD: () => null,
-    HeartsDisplay: () => <View />,
+    HeartsDisplay: ({ hearts, maxHearts }: { hearts: number; maxHearts: number }) => (
+      <View testID="hearts-display" accessibilityLabel={`${hearts} de ${maxHearts} vidas`} />
+    ),
   };
 });
+
+// A `/quiz` passou a gastar do mesmo cofre da lição. O snapshot padrão é o de
+// quem não assina, com as vidas cheias.
+jest.mock('../../hearts/HeartsRepository', () => ({
+  heartsRepository: {
+    getSnapshot: jest.fn().mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null }),
+    spend: jest.fn().mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-09-23T12:30:00.000Z', unlimitedUntil: null }),
+  },
+}));
+
+jest.mock('../../../ui/feedback/haptics', () => ({
+  ...jest.requireActual('../../../ui/feedback/haptics'),
+  hapticLifeLost: jest.fn(),
+}));
 
 jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
@@ -193,10 +209,7 @@ jest.mock('../../gamification/services/GamificationService', () => ({
     getSnapshot: jest.fn().mockResolvedValue({
       totalXp: 120,
       streakDays: 3,
-      hearts: 5,
-      maxHearts: 5,
     }),
-    loseHeart: jest.fn().mockResolvedValue({ hearts: 4, maxHearts: 5 }),
     recordQuizCompletion: jest.fn().mockResolvedValue({
       award: { baseXp: 10, bonusXp: 2, totalXpAwarded: 12, reason: 'quiz_complete' },
     }),
@@ -842,5 +855,84 @@ describe('QuizScreen flow', () => {
     expect(resolveSpy).toHaveBeenCalledWith('errou-duas-vezes');
     expect(screen.getByText('Incorreto')).toBeTruthy();
     expect(screen.getByTestId('quiz-feedback-expression')).toHaveTextContent('neutro');
+  });
+});
+
+describe('QuizScreen — vidas vêm do heartsRepository', () => {
+  const { heartsRepository } = jest.requireMock('../../hearts/HeartsRepository') as {
+    heartsRepository: { getSnapshot: jest.Mock; spend: jest.Mock };
+  };
+  const { hapticLifeLost } = jest.requireMock('../../../ui/feedback/haptics') as { hapticLifeLost: jest.Mock };
+  const tres = { count: 3, status: 'recovering', nextRefillAt: '2026-09-23T12:30:00.000Z', unlimitedUntil: null };
+  const duas = { count: 2, status: 'recovering', nextRefillAt: '2026-09-23T12:30:00.000Z', unlimitedUntil: null };
+  const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-23T12:00:00.000Z' };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    PixelMood.resetSession();
+    heartsRepository.getSnapshot.mockResolvedValue(tres);
+    heartsRepository.spend.mockResolvedValue(duas);
+  });
+
+  it('o topo mostra a contagem do heartsRepository', async () => {
+    montarQuiz(lessonFixture);
+
+    expect(await screen.findByLabelText('3 de 5 vidas')).toBeTruthy();
+  });
+
+  it('errar gasta uma vida do heartsRepository e vibra a perda', async () => {
+    montarQuiz(lessonFixture);
+    expect(await screen.findByLabelText('3 de 5 vidas')).toBeTruthy();
+
+    await responder('Pneumotórax');
+
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+    expect(await screen.findByLabelText('2 de 5 vidas')).toBeTruthy();
+    expect(hapticLifeLost).toHaveBeenCalledTimes(1);
+  });
+
+  it('acertar não gasta vida', async () => {
+    montarQuiz(lessonFixture);
+    expect(await screen.findByLabelText('3 de 5 vidas')).toBeTruthy();
+
+    await responder('Consolidação alveolar');
+    await flushPixelMoodResolution();
+
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+  });
+
+  it('o modo revisão não cobra vida ao errar', async () => {
+    const { LessonCatalogService } = jest.requireMock('../../content/services/LessonCatalogService') as {
+      LessonCatalogService: { getLessonById: jest.Mock; getInitialLesson: jest.Mock };
+    };
+    LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
+    LessonCatalogService.getInitialLesson.mockReturnValue(lessonFixture);
+    renderWithProviders(<QuizScreen mode="review" lessonIds={[lessonFixture.id]} />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    await responder('Pneumotórax');
+    await flushPixelMoodResolution();
+
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+  });
+
+  it('assinante vê ∞ no topo e nenhum coração', async () => {
+    heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+    montarQuiz(lessonFixture);
+
+    expect(await screen.findByLabelText('Vidas ilimitadas')).toBeTruthy();
+    expect(screen.queryByTestId('hearts-display')).toBeNull();
+  });
+
+  it('assinante que erra não sente a vibração de vida perdida', async () => {
+    heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+    heartsRepository.spend.mockResolvedValue(ilimitada);
+    montarQuiz(lessonFixture);
+    expect(await screen.findByLabelText('Vidas ilimitadas')).toBeTruthy();
+
+    await responder('Pneumotórax');
+    await flushPixelMoodResolution();
+
+    expect(hapticLifeLost).not.toHaveBeenCalled();
   });
 });

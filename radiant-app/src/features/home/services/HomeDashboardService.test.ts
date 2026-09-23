@@ -13,7 +13,8 @@ function createDependencies(overrides: Partial<HomeDashboardDependencies> = {}):
     }),
     getNextActivity: async () => ({ lessonId: 'lesson-1', nodeId: 'node:lesson-1', blockId: 'block:lesson-1:intro' }),
     getDueLessonIds: async () => [],
-    getGamification: async () => ({ streakDays: 3, totalXp: 120, hearts: 4, maxHearts: 5 }),
+    getGamification: async () => ({ streakDays: 3, totalXp: 120 }),
+    getHearts: async () => ({ count: 4, maximum: 5, unlimited: false }),
     getDailyGoal: async () => ({ completedToday: 1, goalPerDay: 3 }),
     getLearningStats: async () => ({ masteredCases: null, accuracyPercent: null }),
     ...overrides,
@@ -92,5 +93,29 @@ describe('HomeDashboardService', () => {
       totalXp: 120,
       mission: null,
     });
+  });
+
+  // As vidas vêm do cofre que a lição desconta (`heartsRepository`). O
+  // contador que o `GamificationService` guardava ao lado nunca soube da
+  // assinatura e foi aposentado em 2026-09-23.
+  it('as vidas vêm de getHearts, não do snapshot de gamificação', async () => {
+    const service = new HomeDashboardService(createDependencies({
+      getGamification: async () => ({ streakDays: 3, totalXp: 120, hearts: 5, maxHearts: 5 }) as never,
+      getHearts: async () => ({ count: 2, maximum: 5, unlimited: false }),
+    }));
+
+    const dashboard = await service.getDashboard();
+
+    expect(dashboard.hearts).toEqual({ current: 2, maximum: 5, unlimited: false });
+  });
+
+  it('assinante chega à tela como ilimitado', async () => {
+    const service = new HomeDashboardService(createDependencies({
+      getHearts: async () => ({ count: 0, maximum: 5, unlimited: true }),
+    }));
+
+    const dashboard = await service.getDashboard();
+
+    expect(dashboard.hearts).toEqual({ current: 0, maximum: 5, unlimited: true });
   });
 });

@@ -40,7 +40,7 @@ describe('HomeScreen', () => {
     jest.clearAllMocks();
     (localHomeDashboardService.getDashboard as jest.Mock).mockResolvedValue({
       greeting: 'Olá', avatarInitials: null, dateLabel: 'quarta-feira, 23 de julho', streakDays: 2, totalXp: 80,
-      hearts: { current: 4, maximum: 5 }, dailyGoal: { completed: 1, target: 3 }, dueReviewCount: 0,
+      hearts: { current: 4, maximum: 5, unlimited: false }, dailyGoal: { completed: 1, target: 3 }, dueReviewCount: 0,
       masteredCases: null, accuracyPercent: null,
       mission: { title: 'Fundamentos de radiologia', caseCount: null, durationMinutes: null, xpReward: null, action: { kind: 'learn', lessonId: 'lesson-1', nodeId: 'node-1', blockId: 'block-1' } },
     });
@@ -54,5 +54,24 @@ describe('HomeScreen', () => {
     expect(screen.getAllByText('—')).toHaveLength(3);
     fireEvent.press(screen.getByRole('button', { name: 'Iniciar atividade' }));
     expect(router.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'node-1', blockId: 'block-1' } });
+  });
+
+  it('mostra as vidas como atual/máximo para quem não assina, sem ∞', async () => {
+    renderWithProviders(<HomeScreen />);
+
+    expect(await screen.findByText('4/5', {}, { timeout: FIRST_RENDER_TIMEOUT_MS })).toBeTruthy();
+    expect(screen.queryByText('∞')).toBeNull();
+  });
+
+  it('assinante vê ∞ no lugar da contagem', async () => {
+    const dashboard = await (localHomeDashboardService.getDashboard as jest.Mock)();
+    (localHomeDashboardService.getDashboard as jest.Mock).mockResolvedValue({
+      ...dashboard,
+      hearts: { current: 0, maximum: 5, unlimited: true },
+    });
+    renderWithProviders(<HomeScreen />);
+
+    expect(await screen.findByText('∞', {}, { timeout: FIRST_RENDER_TIMEOUT_MS })).toBeTruthy();
+    expect(screen.queryByText('0/5')).toBeNull();
   });
 });

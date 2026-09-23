@@ -152,6 +152,7 @@ function QuizSession({
     dailyGoalJustCompleted,
     hearts,
     maxHearts,
+    heartsUnlimited,
     journeySnapshot,
   } = useQuiz(lesson, {
     journeyCompletionMode: mode === 'review' ? 'review' : 'lesson',
@@ -398,6 +399,7 @@ function QuizSession({
             totalQuestions={progress.totalQuestions}
             hearts={hearts}
             maxHearts={maxHearts}
+            unlimited={heartsUnlimited}
             onClose={() => router.replace('/(tabs)')}
           />
 

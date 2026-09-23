@@ -19,6 +19,7 @@ import { computeSegmentPrimaryProgress } from '../services/JourneyUnitProgress';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -164,8 +165,8 @@ export default function JourneyHomeScreen() {
         <HUD
           totalXp={gamification?.totalXp ?? 0}
           streakDays={gamification?.streakDays ?? 0}
-          hearts={hearts?.count ?? gamification?.hearts ?? 5}
-          maxHearts={gamification?.maxHearts ?? 5}
+          hearts={hearts?.count ?? MAX_HEARTS}
+          maxHearts={MAX_HEARTS}
           heartsSnapshot={hearts ?? undefined}
           onHeartsPress={() => setHeartsSheetVisible(true)}
         />
