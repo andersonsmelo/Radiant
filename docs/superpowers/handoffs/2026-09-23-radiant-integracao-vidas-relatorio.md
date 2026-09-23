@@ -67,6 +67,51 @@ Nenhum teste de uma fatia quebrou por causa de outra.
 2. Na Trilha, o botão "Vidas ilimitadas" do assinante não abre nada, mas liga
    `heartsSheetVisible`. Se a assinatura expirar com ele ligado, a folha abre
    sozinha ([relatório do HUD](2026-09-23-radiant-hud-infinito-relatorio.md)).
-3. Push e ordem de merge. Esta branch contém as quatro fatias em cima de
-   `0b0283e`, que ainda não está no remoto; os PRs #15 → #16 → #17 continuam
-   antes dela.
+3. ~~Push e ordem de merge~~ — resolvido na mesma data: #15, #16 e #17
+   mergeados na `main` (`9acd2f5`, `b77547f`, `18a2789`) e esta branch aberta
+   como [PR #18](https://github.com/andersonsmelo/Radiant/pull/18).
+
+## O CI da PR #18 reprovou — e não por regressão
+
+O CI `quality` da PR #18 (run 35882627298, no `63706c6`) reprovou um teste só:
+`LessonFlowScreen — escolha da alternativa › permite trocar a alternativa
+selecionada antes de confirmar`, com `Unable to find an element with text: Qual
+padrão radiográfico está presente?`. A árvore impressa na falha **já tinha** o
+texto: ele apareceu depois do prazo de 1000 ms do `findByText`.
+
+Medido em 2026-09-23, Node `v20.20.2`, `--runInBand --no-cache`:
+
+- Esse é o **primeiro** teste do arquivo desde antes desta integração. Ele leva
+  ~460 ms nas duas árvores — `647b2c3` (antes da folha) e a integração —, e o
+  segundo teste ~60 ms. A fatia da folha **não** mudou esse custo.
+- Instrumentado: o `render` leva ~25 ms; os ~420–470 ms restantes são a
+  primeira vez que a árvore do passo é desenhada depois do `bootstrap`
+  (compilação e JIT). É custo de estreia do ambiente, não da tela.
+- No CI o arquivo leva 14,6–19,4 s nas execuções que passaram e 21,8 s na que
+  reprovou: o primeiro teste vivia no limite do prazo.
+
+**Vermelho reproduzido localmente**, com a CPU presa aos núcleos de eficiência
+(`/usr/sbin/taskpolicy -b`), sobre o código de `63706c6`:
+
+```text
+✕ permite trocar a alternativa selecionada antes de confirmar (3054 ms)
+✕ permite trocar a alternativa selecionada antes de confirmar (2864 ms)
+✕ permite trocar a alternativa selecionada antes de confirmar (2493 ms)
+  Unable to find an element with text: Qual padrão radiográfico está presente?
+Tests:       1 failed, 21 passed, 22 total   (3 de 3 execuções)
+```
+
+**Correção:** um `beforeAll` no arquivo desenha a lição uma vez, fora de
+qualquer teste, com orçamento próprio (30 s), e termina com
+`jest.clearAllMocks()`. O prazo do `findByText` volta a medir a tela; ele não
+foi aumentado. Na mesma condição de CPU:
+
+```text
+✓ permite trocar a alternativa selecionada antes de confirmar (96 ms)
+✓ permite trocar a alternativa selecionada antes de confirmar (99 ms)
+✓ permite trocar a alternativa selecionada antes de confirmar (87 ms)
+Tests:       22 passed, 22 total   (3 de 3 execuções)
+```
+
+Gate depois da correção, velocidade normal: `EXPO_NO_DOTENV=1 npm run quality`
+→ exit 0, **134 suítes / 1212 testes**, Visual QA sem regressão.

@@ -252,6 +252,11 @@ carrega o pacote inteiro.
    em FILA e STATUS). **Medido na árvore combinada**, Node `v20.20.2`:
    `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **134 suítes / 1212 testes**,
    Visual QA sem regressão — a soma exata do que cada fatia mediu sozinha.
+   O CI da PR #18 reprovou o **primeiro** teste de
+   `LessonFlowScreen.flow.test.tsx` por custo de estreia (~450 ms) dentro do
+   prazo de 1000 ms do `findByText` — fragilidade anterior, reproduzida 3/3
+   com a CPU limitada (`taskpolicy -b`) e corrigida com um aquecimento em
+   `beforeAll`; detalhes no relatório.
    **Não construído.** Empurrada e aberta como PR para a `main` na mesma
    data, depois de os PRs #15, #16 e #17 serem mergeados (`9acd2f5`,
    `b77547f`, `18a2789`).

@@ -380,6 +380,28 @@ const promotedActivityFixture: LearningActivityV2 = {
   ],
 };
 
+// Aquece a árvore da lição uma vez, fora de qualquer teste.
+//
+// Medido em 2026-09-23: a primeira vez que o arquivo desenha o passo custa
+// ~450 ms só de estreia (compilação e JIT do renderer e dos componentes), e as
+// seguintes ~55 ms. Esse custo caía dentro do `findByText` do primeiro teste,
+// cujo prazo é 1000 ms — no runner do GitHub, bem mais lento, ele ficou no
+// limite e reprovou o CI da PR #18 (run 35882627298) sem nenhuma regressão da
+// tela. Com a CPU presa aos núcleos de eficiência (`taskpolicy -b`), o teste
+// reprovava 3 de 3 localmente, em 2,5–3,1 s. O prazo do `findByText` existe
+// para medir a tela, não o aquecimento do ambiente: aumentá-lo esconderia o
+// custo; aqui ele sai da janela e ganha um orçamento próprio.
+beforeAll(async () => {
+  mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+  mockedLessonFlowService.getActivityById.mockReturnValue(null);
+  const { unmount } = renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+  await screen.findByText('Qual padrão radiográfico está presente?', {}, { timeout: 20_000 });
+  unmount();
+  // Zera só as chamadas: nenhum bloco, rodado sozinho, herda o que o
+  // aquecimento chamou. As implementações configuradas continuam.
+  jest.clearAllMocks();
+}, 30_000);
+
 describe('LessonFlowScreen — escolha da alternativa', () => {
   beforeEach(() => {
     jest.clearAllMocks();
