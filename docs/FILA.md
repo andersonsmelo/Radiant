@@ -65,8 +65,10 @@ compilou contra o Expo real.** O build interno `development` (item do dono
 abaixo) é o que fecha isso; até lá, um build nativo a partir da `main` pode
 falhar nesse módulo.
 
-As quatro fatias de vidas (itens 3, 3b, 3c e a nota do 4) seguem na branch
-`integ/vidas-1-4`, publicada como PR para a `main` na mesma data.
+As quatro fatias de vidas (itens 3, 3b, 3c e a nota do 4) entraram na `main`
+na mesma data pelo [PR #18](https://github.com/andersonsmelo/Radiant/pull/18)
+→ `8972cbc`, com o CI `quality` verde no PR e na `main` depois do merge
+(run 35885988196). **Não construídas.**
 
 ```bash
 gh pr list --state open
@@ -278,7 +280,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    desaceleração medida.
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
-   corações** — corrigido em **2026-09-23**, **sem build nem push**, no branch
+   corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo
+   PR #18 (`8972cbc`); originalmente no branch
    `fix/hud-infinito` (sobre `0b0283e`)
    ([relatório](superpowers/handoffs/2026-09-23-radiant-hud-infinito-relatorio.md),
    [vermelhos](superpowers/handoffs/2026-09-23-radiant-hud-infinito-vermelhos.md)).
@@ -370,7 +373,7 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Reenviar para Revisão do app | dono | **concluído** em 2026-09-13 — botão na página *Envio do iOS*; cabeçalho passou a **Aguardando revisão** |
 | Revisão da Apple | Apple | **aprovada** em 2026-09-14 — "eligible for distribution" |
 | Liberar a versão | dono | **concluído** em 2026-09-14 — *Liberar esta versão* → *Pronto para distribuição* |
-| Tag `v1.3.1` | agente | **concluído** em 2026-09-14 — em `063770d`, o commit do binário; local, sem push |
+| Tag `v1.3.1` | agente | **concluído** em 2026-09-14 — em `063770d`, o commit do binário; no remoto, conferido em 2026-09-23 (`git ls-remote origin 'refs/tags/v1.3.1^{}'` → `063770d`) |
 | Conferir o segredo do Sentry contra as Privacy Labels | agente | **concluído** em 2026-09-08 — `eas env:list` sem variáveis em `production`; e o portão tem duas chaves (`ENABLE_CRASH_REPORTING && SENTRY_DSN`), ambas ausentes. Rótulo "Dados não coletados" coerente |
 | Disponibilidade e classificação etária no App Store Connect | dono | **concluído** em 2026-09-11 — 1 país (Brasil); 7 passos da classificação sem pergunta em branco, +13/A12 inalterado. DSA sem objeto enquanto não houver UE |
 | Responder ao item 7 — direitos e área regulada | dono | **concluído** em 2026-09-11 — fonte reclassificada `reference-only`, exceção encerrada, texto final no plano de resposta |
@@ -1254,19 +1257,15 @@ respondida hoje.**
 
 ### 7. Ações de um passo, todas do dono
 
-- **autorizar o envio dos commits locais da `main`.** Medido em 2026-09-16:
-  **5 commits** existem só nesta máquina; `origin/main` está em `f5d9601`.
-  Enquanto não subirem, nenhum CI ou build a partir do remoto enxerga o Arco 1.
+- ~~**autorizar o envio dos commits locais da `main`.**~~ **Caducou em
+  2026-09-23:** medido na data, a `main` local não tem nenhum commit fora de
+  `origin/main` (está 31 atrás, nenhum à frente); os PRs #15–#18 levaram o
+  trabalho ao remoto.
 
   ```bash
-  git log --oneline origin/main..main
+  git fetch origin && git rev-list --count origin/main..main
   ```
 
-  > **Corrigido em 2026-09-16.** Este item apontava para
-  > `origin/codex/wave1-hardening-api-smoke` como upstream. Verificado: **essa
-  > ref não existe mais**, e o trabalho não enviado hoje está na `main` — o
-  > oposto do que o texto antigo dizia. Instrução de branch envelhece junto com
-  > a branch;
 - **A5** — gerar a service-account key no Play Console e pôr em
   `radiant-app/credentials/`; não bloqueia publicar, o AAB sobe à mão;
 - enviar o pedido ao INCA — rascunho pronto, destinatário em branco de propósito;
