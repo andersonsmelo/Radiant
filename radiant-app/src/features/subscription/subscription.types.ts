@@ -1,10 +1,10 @@
 /**
  * Contratos da assinatura "Radiant Ilimitado" (spec 1.4 §6).
  *
- * A porta `StoreKitPort` é a única fronteira com a Apple. Nesta versão só o
- * adaptador indisponível existe; o adaptador StoreKit 2 real entra depois do
- * build interno autorizado (Task 8). Preço e período nunca nascem aqui — vêm
- * da porta ou não existem.
+ * A porta `StoreKitPort` é a única fronteira com a Apple. No iOS o adaptador é
+ * o `StoreKit2Adapter`, sobre o módulo Expo local `radiant-storekit` (ADR
+ * 2026-09-23); fora dele, o `UnavailableStoreKitAdapter`. Preço e período nunca
+ * nascem aqui — vêm da porta ou não existem.
  */
 export type SubscriptionPeriod = 'monthly' | 'annual';
 
@@ -39,6 +39,12 @@ export interface StoreKitPort {
     currentEntitlement(): Promise<SubscriptionEntitlement | null>;
     purchase(productId: string): Promise<PurchaseOutcome>;
     restore(): Promise<SubscriptionEntitlement | null>;
+    /**
+     * Aviso de que a loja entregou transação fora de `purchase` — renovação,
+     * reembolso, Ask to Buy aprovado, compra em outro aparelho. Opcional: a loja
+     * indisponível não tem o que avisar. Devolve a função que para de escutar.
+     */
+    onEntitlementsChanged?(listener: () => void): () => void;
 }
 
 export class StoreUnavailableError extends Error {

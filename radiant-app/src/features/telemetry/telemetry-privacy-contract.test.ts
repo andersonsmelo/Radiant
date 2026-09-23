@@ -189,4 +189,49 @@ describe('telemetry privacy contract', () => {
       expect(calls[0]).toMatch(/^buildSentryOptions\(/);
     });
   });
+
+  // "Nenhum evento sai do aparelho para um servidor de analytics" (Privacy
+  // Labels, CONTRATO_TELEMETRIA §1) é verdade porque NENHUM adaptador de
+  // product analytics é registrado — não por uma flag. Até 2026-09-23 os
+  // documentos citavam `ENABLE_PRODUCT_ANALYTICS=false`, que ninguém lia:
+  // registrar um adaptador enviaria eventos com a flag em `false` e nenhuma
+  // guarda reprovaria. Esta é a trava do mecanismo real.
+  describe('product analytics', () => {
+    function findAnalyticsRegistrations(): string[] {
+      const found: string[] = [];
+      for (const file of listSourceFiles()) {
+        const sourceFile = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
+        const visit = (node: ts.Node): void => {
+          if (
+            ts.isCallExpression(node) &&
+            ts.isPropertyAccessExpression(node.expression) &&
+            node.expression.name.text === 'registerProductAnalyticsAdapter'
+          ) {
+            const { line } = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
+            found.push(`${path.relative(appSrc, file)}:${line + 1}`);
+          }
+          ts.forEachChild(node, visit);
+        };
+        visit(sourceFile);
+      }
+      return found;
+    }
+
+    it('o ponto de registro ainda existe com este nome — a guarda não passa vazia por renomeação', () => {
+      const service = path.join(appSrc, 'features/telemetry/TelemetryService.ts');
+      const sourceFile = ts.createSourceFile(service, readFileSync(service, 'utf8'), ts.ScriptTarget.Latest, true);
+      const methods: string[] = [];
+      const visit = (node: ts.Node): void => {
+        if (ts.isMethodDeclaration(node) && ts.isIdentifier(node.name)) methods.push(node.name.text);
+        ts.forEachChild(node, visit);
+      };
+      visit(sourceFile);
+
+      expect(methods).toContain('registerProductAnalyticsAdapter');
+    });
+
+    it('nenhum código de produção registra adaptador de product analytics', () => {
+      expect(findAnalyticsRegistrations()).toEqual([]);
+    });
+  });
 });

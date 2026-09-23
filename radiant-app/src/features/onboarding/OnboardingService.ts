@@ -17,9 +17,6 @@ const DEFAULT_STATE: OnboardingState = {
     completed: false,
 };
 
-// Feature flag - can be toggled for dev/testing
-const ENABLE_ONBOARDING = true;
-
 class OnboardingServiceImpl {
     private state: OnboardingState = { ...DEFAULT_STATE };
     private initialized = false;
@@ -29,8 +26,6 @@ class OnboardingServiceImpl {
      * Sets 'startedAt' if it's the first ever launch.
      */
     async init(): Promise<void> {
-        if (!ENABLE_ONBOARDING) return;
-
         try {
             const stored = await AsyncStorage.getItem(STORE_KEY);
             if (stored) {

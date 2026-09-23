@@ -24,7 +24,9 @@ function describe(status: SubscriptionStatus): { headline: string; detail: strin
         case 'none':
             return { headline: 'Radiant Ilimitado', detail: 'Vidas ilimitadas — e só isso.', action: 'Conhecer' };
         case 'pending':
-            return { headline: 'Radiant Ilimitado', detail: 'Pedido aguardando aprovação', action: null };
+            // Nunca sem botão: a Apple não avisa a recusa, então a tela precisa
+            // continuar alcançável para comprar de novo ou restaurar.
+            return { headline: 'Radiant Ilimitado', detail: 'Pedido aguardando aprovação', action: 'Ver' };
         case 'unlimited':
             return {
                 headline: 'Assinante · vidas ilimitadas',

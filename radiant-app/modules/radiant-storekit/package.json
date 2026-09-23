@@ -1,0 +1,8 @@
+{
+  "name": "radiant-storekit",
+  "version": "1.0.0",
+  "description": "Módulo Expo local: assinatura Radiant Ilimitado pelo StoreKit 2.",
+  "main": "index.ts",
+  "private": true,
+  "platforms": ["ios"]
+}

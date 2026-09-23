@@ -112,6 +112,19 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         router.back();
     }, []);
 
+    // O pedido do Ask to Buy é aviso, não trava: a Apple não avisa a recusa
+    // nem a expiração e recomenda permitir nova compra depois de `.pending`
+    // (developer.apple.com/forums/thread/685183). Planos e Restaurar seguem à
+    // mão; o aviso some sozinho quando o pedido passa de 24 h, no serviço.
+    const pendingNote = status?.kind === 'pending' ? (
+        <View style={styles.card}>
+            <Text style={styles.cardTitle} accessibilityRole="header">Pedido enviado para aprovação</Text>
+            <Text style={styles.body}>
+                Quando for aprovado, suas vidas ficam ilimitadas. Até lá, tudo continua funcionando como hoje.
+            </Text>
+        </View>
+    ) : null;
+
     let body: React.ReactNode;
     if (status === null || offers === null) {
         body = (
@@ -135,28 +148,23 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                 <Text style={styles.body}>{CANCEL_COPY}</Text>
             </View>
         );
-    } else if (status.kind === 'pending') {
-        body = (
-            <View style={styles.card}>
-                <Text style={styles.cardTitle} accessibilityRole="header">Pedido enviado para aprovação</Text>
-                <Text style={styles.body}>
-                    Quando for aprovado, suas vidas ficam ilimitadas. Até lá, tudo continua funcionando como hoje.
-                </Text>
-            </View>
-        );
     } else if (offers.status === 'store-unavailable') {
         body = (
-            <View style={styles.card}>
-                <Text style={styles.cardTitle} accessibilityRole="header">A loja não respondeu agora</Text>
-                <Text style={styles.body}>
-                    Suas vidas continuam funcionando normalmente — tente de novo mais tarde.
-                </Text>
-                <AppButton label="Tentar de novo" variant="secondary" onPress={() => setAttempt((n) => n + 1)} />
-            </View>
+            <>
+                {pendingNote}
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle} accessibilityRole="header">A loja não respondeu agora</Text>
+                    <Text style={styles.body}>
+                        Suas vidas continuam funcionando normalmente — tente de novo mais tarde.
+                    </Text>
+                    <AppButton label="Tentar de novo" variant="secondary" onPress={() => setAttempt((n) => n + 1)} />
+                </View>
+            </>
         );
     } else {
         body = (
             <>
+                {pendingNote}
                 {status.kind === 'expired' ? (
                     <View style={styles.card}>
                         <Text style={styles.body}>

@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { heartsRepository } from '../hearts/HeartsRepository';
-import { PaywallPlan } from '../paywall/PaywallPlan';
-import { UnavailableStoreKitAdapter } from './UnavailableStoreKitAdapter';
+import { resolveStoreKitAdapter } from './StoreKit2Adapter';
+import { SUBSCRIPTION_PRODUCT_IDS } from './subscriptionProducts';
 import {
     isStoreUnavailable,
     type PurchaseResult,
@@ -25,10 +25,12 @@ type Deps = {
     productIds?: readonly string[];
 };
 
-export const SUBSCRIPTION_PRODUCT_IDS: readonly string[] = [
-    PaywallPlan.offers.monthly.id,
-    PaywallPlan.offers.annual.id,
-];
+/**
+ * Os IDs vêm da ADR de produtos, por `subscriptionProducts.ts`. Até 2026-09-23
+ * vinham do `PaywallPlan` (`monthly_plus`/`annual_plus`), que nunca existiram
+ * na App Store: enquanto a loja era sempre indisponível, ninguém pedia.
+ */
+export { SUBSCRIPTION_PRODUCT_IDS };
 
 const EMPTY_CACHE: SubscriptionCacheV1 = {
     schemaVersion: 1,
@@ -76,13 +78,24 @@ function parseCache(raw: string | null): SubscriptionCacheV1 {
 }
 
 /**
+ * Quanto vale um pedido do Ask to Buy. A Apple o descarta se o responsável não
+ * aprovar em 24 h (support.apple.com/105055) e NÃO avisa o app de recusa nem
+ * de expiração (Frameworks Engineer, developer.apple.com/forums/thread/685183).
+ * Passado o prazo, o pedido não pode mais virar assinatura, então deixa de ser
+ * anunciado. Decisão do dono em 2026-09-23.
+ */
+export const ASK_TO_BUY_WINDOW_MS = 24 * 60 * 60 * 1000;
+
+/**
  * Decide o estado a partir do direito em cache e do relógio injetado. Vencido,
  * expirado ou reembolsado → `expired` (a economia volta a CHEIA, nunca a VAZIA).
  */
 export function resolveSubscriptionStatus(cache: SubscriptionCacheV1, nowMs: number): SubscriptionStatus {
     const { entitlement } = cache;
     if (entitlement === null) {
-        return cache.pendingSince === null ? { kind: 'none' } : { kind: 'pending', since: cache.pendingSince };
+        if (cache.pendingSince === null) return { kind: 'none' };
+        if (nowMs >= Date.parse(cache.pendingSince) + ASK_TO_BUY_WINDOW_MS) return { kind: 'none' };
+        return { kind: 'pending', since: cache.pendingSince };
     }
     if (entitlement.revokedAt !== null) return { kind: 'expired', expiredAt: entitlement.revokedAt };
     if (nowMs >= Date.parse(entitlement.expiresAt)) return { kind: 'expired', expiredAt: entitlement.expiresAt };
@@ -90,16 +103,26 @@ export function resolveSubscriptionStatus(cache: SubscriptionCacheV1, nowMs: num
 }
 
 export class SubscriptionService {
-    private readonly store: StoreKitPort;
+    private storePort: StoreKitPort | undefined;
     private readonly storage: SubscriptionStorage;
     private readonly hearts: SubscriptionHearts;
     private readonly productIds: readonly string[];
 
     constructor(deps: Deps = {}) {
-        this.store = deps.store ?? new UnavailableStoreKitAdapter();
+        this.storePort = deps.store;
         this.storage = deps.storage ?? AsyncStorage;
         this.hearts = deps.hearts ?? heartsRepository;
         this.productIds = deps.productIds ?? SUBSCRIPTION_PRODUCT_IDS;
+    }
+
+    /**
+     * Resolução preguiçosa, como no backup: este serviço é importado na
+     * abertura, e consultar o runtime de módulos nativos no `import` faria toda
+     * suíte que apenas toca neste arquivo pagar por uma loja que não usa.
+     */
+    private get store(): StoreKitPort {
+        this.storePort ??= resolveStoreKitAdapter();
+        return this.storePort;
     }
 
     /** Só o cache: nunca toca a loja. É o que toda tela de estudo pode ler. */
@@ -113,6 +136,7 @@ export class SubscriptionService {
      */
     async refresh(nowMs: number): Promise<SubscriptionStatus> {
         let cache = await this.readCache();
+        const antes = resolveSubscriptionStatus(cache, nowMs);
         try {
             const entitlement = await this.store.currentEntitlement();
             cache = {
@@ -127,7 +151,30 @@ export class SubscriptionService {
                 console.error('[SubscriptionService] Falha ao reler o direito de uso:', cause);
             }
         }
+        // `currentEntitlements` omite transação reembolsada ou revogada: o
+        // direito não volta com `revokedAt`, ele some. Sem este passo as vidas
+        // guardavam o `unlimitedUntil` antigo até o fim do período pago. Só na
+        // TRANSIÇÃO de ativo para ausente — repetir a cada abertura daria vidas
+        // cheias de presente a quem não tem direito nenhum.
+        if (antes.kind === 'unlimited' && cache.entitlement === null) {
+            await this.hearts.setUnlimited(null, nowMs);
+        }
         return this.applyToHearts(cache, nowMs);
+    }
+
+    /**
+     * Relê o direito sempre que a loja avisa de transação nova (renovação,
+     * reembolso, Ask to Buy aprovado). A escuta nativa de `Transaction.updates`
+     * começa na criação do módulo; isto só liga o aviso à releitura.
+     */
+    watchStoreUpdates(nowMs: () => number): () => void {
+        const escutar = this.store.onEntitlementsChanged;
+        if (escutar === undefined) return () => undefined;
+        return escutar.call(this.store, () => {
+            this.refresh(nowMs()).catch((cause) => {
+                console.error('[SubscriptionService] Falha ao reler o direito após atualização da loja:', cause);
+            });
+        });
     }
 
     async loadOffers(): Promise<SubscriptionOffers> {

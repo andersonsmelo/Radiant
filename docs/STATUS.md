@@ -167,9 +167,35 @@ carrega o pacote inteiro.
    [ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md), com a spec §6, o
    plano e o checklist emendados. O motivo é o da própria spec: nenhum terceiro
    no caminho da compra. Medido na data: `expo-iap` `5.6.3`, com 249 versões e 5
-   majors, embarca o SDK OpenIAP. **Nada foi implementado ainda**, e o
-   `package.json` não muda com esta decisão. As fatias 3 e 4 passam a esperar a
-   fatia 2, não mais a decisão.
+   majors, embarca o SDK OpenIAP. O `package.json` não muda com esta decisão.
+
+   **Adaptador StoreKit implementado em 2026-09-23, sem build** (Task 8, fatia
+   2): `StoreKit2Adapter` atrás da `StoreKitPort`, módulo Swift
+   `radiant-app/modules/radiant-storekit/` e ligação no `SubscriptionService` e
+   na abertura. **Medido em 2026-09-23:** `EXPO_NO_DOTENV=1 npm run quality` no
+   Node 20.20.2 → exit 0, **132 suítes / 1163 testes**; 26 execuções vermelhas
+   do Jest registradas, cada uma com o defeito específico reintroduzido; o
+   Swift passou em `swiftc -typecheck` (modos 5 e 6) contra o SDK do iOS **com
+   stub do ExpoModulesCore** — ou seja, **nunca compilou contra o Expo real**.
+   Dois defeitos achados e corrigidos: os Product IDs do serviço eram os do
+   `PaywallPlan` (`monthly_plus`/`annual_plus`), não os da ADR; e reembolso
+   mantinha as vidas ilimitadas até o fim do período, porque
+   `currentEntitlements` omite a transação reembolsada. **Aberto:**
+   `willRenew` sem rede não está medido. O Ask to Buy recusado, que prendia o
+   cartão e a tela no pendente, foi **corrigido em 2026-09-23** por decisão do
+   dono: planos e Restaurar sempre visíveis, e aviso de pendente por 24 h.
+   Gate medido na mesma data, Node `v20.20.2`: saiu 0, com 133 suítes e 1174
+   testes, e Visual QA sem regressão. Vermelhos em
+   [`2026-09-23-radiant-ask-to-buy-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md). **Comitado em
+   2026-09-23 (`000daef`)** e **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** na mesma data, junto
+   dos kill switches, da privacidade do analytics e do Ask to Buy; **não
+   construído**. **Gate reproduzido por outra sessão** em
+   2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` saiu 0, com 132 suítes e 1163 testes, e
+   Visual QA sem regressão — os mesmos números do autor.
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md).
+   As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
+   build interno e sandbox.
 
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
@@ -918,6 +944,8 @@ carrega o pacote inteiro.
    do parecer v3 e submeter a revisão v4. O achado I2 (taxonomia `E-PLN-SEC`
    aplicada a confusão coronal×transversal) **não se resolve dentro da L2** —
    criar um código de erro novo é mudança de spec, decisão do dono.
+   **Decidido em 2026-09-23** ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md)): código `E-PLN-ORT` na spec,
+   aplicado na v7 da L2.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem
@@ -1114,7 +1142,33 @@ a ignorar comentários, para não punir quem documenta a regra.
 `ENABLE_GAMIFICATION`, `ENABLE_ONBOARDING` e `ENABLE_HEURISTICS` estão fixos em
 `true` no código, sem leitura de env. Não são acionáveis nem por OTA. Ou viram
 flags de verdade, ou mudam de nome — a pior hora de descobrir isso é durante um
-incidente. **Decisão do dono, não tomada.**
+incidente. **Decidido pelo dono em 2026-09-23** ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md)):
+apagar `ENABLE_GAMIFICATION`, `ENABLE_HEURISTICS` e `ENABLE_ONBOARDING` (esta,
+sem leitor em `AppConfig`, e a constante local do `OnboardingService`), e
+tornar `ENABLE_REVIEW` real por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`.
+**Implementado em 2026-09-23**, na branch `fix/kill-switches-reais`. Hoje há
+**dois kill switches reais**: `ENABLE_LEARNING_ROAD` e `ENABLE_REVIEW`. A guarda
+`src/config/killSwitches.contract.test.ts` lê a AST e barra quatro coisas: flag
+`ENABLE_*` fixa, flag sem leitor, `ENABLE_*` local fixo em módulo, e
+`ENABLE_REVIEW` fora do formato combinado. Vermelhos registrados em
+[`2026-09-23-radiant-kill-switches-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-kill-switches-vermelhos.md).
+**Gate medido em 2026-09-23**, Node `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality`
+saiu 0, com 133 suítes e 1170 testes, e Visual QA sem regressão (+1 suíte e +7
+testes sobre a fatia 2).
+
+A guarda achou mais duas flags sem leitor, `ENABLE_PRODUCT_ANALYTICS` e
+`ENABLE_REVENUECAT`. **Apagadas em 2026-09-23 por decisão do dono**
+([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 4). No
+caminho apareceu um problema maior: os documentos de privacidade citavam
+`ENABLE_PRODUCT_ANALYTICS=false` como o motivo de nenhum evento sair do
+aparelho, e a flag não tinha leitor. O motivo real é que nenhum adaptador de
+analytics é registrado, e **agora isso tem guarda**: o
+`telemetry-privacy-contract.test.ts` reprova qualquer chamada de produção a
+`registerProductAnalyticsAdapter`. Os dois documentos foram corrigidos.
+📌 O `.env.example` ainda lista as duas variáveis: está fora de
+`writePolicy.allowedRoots`, e as linhas são inertes.
+**Gate depois do adendo, medido em 2026-09-23**, Node `v20.20.2`: saiu 0, com
+133 suítes e 1171 testes, e Visual QA sem regressão.
 
 ## Defeito aberto
 

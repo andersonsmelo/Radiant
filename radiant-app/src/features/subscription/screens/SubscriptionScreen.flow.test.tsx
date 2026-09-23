@@ -109,13 +109,32 @@ describe('SubscriptionScreen — estados', () => {
         expect(screen.getByRole('button', { name: 'Tentar de novo' })).toBeTruthy();
     });
 
-    it('Ask to Buy deixa a tela em pendente', async () => {
+    // A Apple não avisa o app quando o responsável recusa ou deixa o pedido
+    // expirar, e recomenda permitir nova compra depois de `.pending`
+    // (developer.apple.com/forums/thread/685183). Até 2026-09-23 esta tela
+    // escondia planos e Restaurar no pendente — e o pendente não tinha fim.
+    it('Ask to Buy avisa o pedido e mantém planos e Restaurar à mão', async () => {
         abrir(loja({ purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })) }));
 
         fireEvent.press(await screen.findByRole('button', { name: 'Assinar Radiant Ilimitado mensal' }));
 
         expect(await screen.findByText(/Pedido enviado para aprovação/u)).toBeTruthy();
-        expect(screen.queryByRole('button', { name: 'Assinar Radiant Ilimitado mensal' })).toBeNull();
+        expect(screen.getByRole('button', { name: 'Assinar Radiant Ilimitado mensal' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Assinar Radiant Ilimitado anual' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Restaurar compras' })).toBeTruthy();
+    });
+
+    it('pedido com mais de 24 h não é mais anunciado: a tela volta ao normal', async () => {
+        const DIA = 24 * 60 * 60 * 1000;
+        let agora = AGORA;
+        const service = servico(loja({ purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })) }));
+        await service.purchase('monthly_plus', AGORA);
+        agora = AGORA + DIA;
+
+        renderWithProviders(<SubscriptionScreen service={service} nowMs={() => agora} />);
+
+        expect(await screen.findByRole('button', { name: 'Assinar Radiant Ilimitado mensal' })).toBeTruthy();
+        expect(screen.queryByText(/Pedido enviado para aprovação/u)).toBeNull();
     });
 
     it('assinante vê a renovação e onde gerenciar, sem botão de compra', async () => {
