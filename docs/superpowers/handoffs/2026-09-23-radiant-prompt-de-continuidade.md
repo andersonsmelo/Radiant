@@ -1,5 +1,11 @@
 # Prompt de continuidade — pós-sessão de 2026-09-23
 
+> **Superado na mesma data.** A frente A (∞ no `QuizTopBar`) foi executada, e
+> os PRs #15 → #16 → #17 foram mergeados, junto com as fatias de vidas (#18,
+> #19, #20). O §1 abaixo descreve uma pilha que não existe mais. O prompt
+> atual é
+> [`2026-09-23-radiant-prompt-de-continuidade-2.md`](2026-09-23-radiant-prompt-de-continuidade-2.md).
+
 Você vai continuar o Radiant, um app iOS de treinamento em radiologia (Expo /
 React Native). Você trabalha com o dono: ele lê o resultado e toma as decisões
 de loja, de aparelho, de build, de push e de merge.

@@ -274,14 +274,18 @@ permanece como histórico.
   por AST flag fixa ou sem leitor. "Nenhum evento de analytics sai do
   aparelho" é garantido por nenhum adaptador de analytics ser registrado, com
   guarda em `telemetry-privacy-contract.test.ts` — não por flag.
-- **Dívida conhecida:** `GamificationService` ainda persiste `hearts` legados
-  ao lado do `HeartsRepository` — duas fontes para o mesmo conceito, a
-  aposentar antes da próxima migração. O cartão antigo de conta continua em
+- **Vidas têm uma fonte só desde 2026-09-23:** o `HeartsRepository`. O
+  contador que o `GamificationService` guardava ao lado foi aposentado pelo
+  PR #20 (`2e62fc9`); os campos antigos gravados pela 1.3.1 continuam no blob
+  `radiant:gami:v1`, intocados, e nada os lê — o `tsc` barra um leitor novo.
+- **Dívida conhecida:** o cartão antigo de conta continua em
   `ProgressScreen`, condicionado por `remoteSyncAvailable` e invisível em
   produção — código morto.
-- **V3 (currículo):** fundação J2 em `main`; L1 e L2 do Arco 1 existem como
-  trabalho não commitado de outra sessão, ligados a nada; `prepareV3()` não é
-  chamado. O corte (J5) é a 1.4 ou posterior, com spec própria.
+- **V3 (currículo):** fundação J2 em `main`; L1 e L2 do Arco 1 estão
+  versionadas em `main` (`features/curriculum-v3/l1-body-reference` e
+  `l2-slicing-space`), ligadas a nada; `prepareV3()` não tem chamador fora de
+  teste (medido em 2026-09-23). A L2 reprovou nas seis revisões — ver J3 na
+  `FILA.md`. O corte (J5) é a 1.4 ou posterior, com spec própria.
 
 ## Estado em 2026-09-22 — telemetria auditável e geometria da L2 em módulo puro
 
