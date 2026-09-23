@@ -156,7 +156,8 @@ pós-merge `Radiant App Quality` concluiu com SUCCESS. Relatório em
    da fatia, que resolve os dois pontos que a ADR deixou **a verificar**:
    `willRenew` sem rede e onde versionar o arquivo `.storekit`. Adaptador TS
    testado contra a porta sem build; o Swift só vale depois de build interno e
-   sandbox, que são do dono.
+   sandbox, que são do dono. **Para executar:**
+   [prompt de continuidade da fatia 2](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md).
 3. **`QuizTopBar` mostrando ∞ para assinante** — depende de (2) para ter estado
    de assinatura real, embora o `SubscriptionService` já exista.
 4. **E2E dos três caminhos dourados** — precisa de (2) e de aparelho/simulador.
