@@ -162,6 +162,15 @@ carrega o pacote inteiro.
    produção da 1.4 como ela está hoje.** As linhas de assinatura do checklist
    estão bloqueadas até o adaptador StoreKit existir.
 
+   **Caminho do adaptador StoreKit decidido pelo dono em 2026-09-23** (Task 8,
+   fatia 2): **módulo Expo local em Swift, sem `expo-iap`**, registrado em
+   [ADR](adr/ADR-2026-09-23-storekit-modulo-expo-local.md), com a spec §6, o
+   plano e o checklist emendados. O motivo é o da própria spec: nenhum terceiro
+   no caminho da compra. Medido na data: `expo-iap` `5.6.3`, com 249 versões e 5
+   majors, embarca o SDK OpenIAP. **Nada foi implementado ainda**, e o
+   `package.json` não muda com esta decisão. As fatias 3 e 4 passam a esperar a
+   fatia 2, não mais a decisão.
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua

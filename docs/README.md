@@ -55,7 +55,8 @@ Quando documentos divergirem, use esta ordem:
 - plano: [`superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md`](superpowers/plans/2026-09-14-radiant-1-4-fluxo-do-usuario-plan.md);
 - prompt para a IA executora: [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
 - prompt 2 (pós-Task 7): [`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade-2.md);
-- **prompt atual (pós-sessão de 2026-09-22):** [`superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md) — cobre as duas frentes abertas (Task 8 e L2 do currículo V3), os sete commits não empurrados e as decisões que são do dono;
+- prompt pós-sessão de 2026-09-22: [`superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md) — as duas frentes abertas naquela data (Task 8 e L2 do currículo V3) e as decisões do dono;
+- **prompt atual da Task 8, fatia 2 (2026-09-23):** [`superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md) — adaptador StoreKit 2 por módulo Expo local, sem `expo-iap`;
 - relatório de execução (Tasks 1–7; Task 8 bloqueada por gates do dono):
   [`superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md`](superpowers/handoffs/2026-09-14-radiant-1-4-relatorio-execucao.md);
 - lançamento da 1.3.1 (rejeição, resposta e aprovação):
