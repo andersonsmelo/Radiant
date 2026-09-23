@@ -3,7 +3,6 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton } from '../../../components/ui/AppButton';
 import { useReducedMotionPreference } from '../../../ui/accessibility/useReducedMotionPreference';
-import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
 import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
@@ -14,6 +13,7 @@ import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { BodyReferenceMap } from '../l1-body-reference/BodyReferenceMap';
 import { hybridLessonMetricsRepository, type HybridLessonOutcome, type HybridLessonRecord } from './HybridLessonMetricsRepository';
+import { HybridLessonCharacter } from './HybridLessonCharacter';
 import { createHybridLessonSession, type HybridAnswerResult, type HybridSummary } from './HybridLessonSession';
 import { buildL1HybridPlan } from './l1HybridLessonPlan';
 import { isL1TemplateApproved } from './l1TemplateApproval';
@@ -152,7 +152,7 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
     return (
       <SafeAreaView style={styles.root}>
         <ScrollView contentContainerStyle={styles.content}>
-          <PixelIllustration size="md" state={reduceMotion ? 'happy' : 'celebrate'} expression="orgulhoso" accessibilityLabel="Pixel comemorando o fim da lição" />
+          <HybridLessonCharacter moment="summary" reduceMotion={reduceMotion} />
           <Text style={styles.title} accessibilityRole="header">Lição concluída</Text>
           <View style={styles.stats}>
             <Text style={styles.stat}>{`+${summary.xp} XP`}</Text>
@@ -238,7 +238,7 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
             <Text style={styles.body}>{result.feedback}</Text>
             {streakText ? (
               <View style={styles.streak}>
-                <PixelIllustration size="sm" state={reduceMotion ? 'happy' : 'celebrate'} expression="feliz" accessibilityLabel="Pixel comemorando a sequência" />
+                <HybridLessonCharacter moment="streak" reduceMotion={reduceMotion} />
                 <Text style={styles.streakText}>{streakText}</Text>
               </View>
             ) : null}
