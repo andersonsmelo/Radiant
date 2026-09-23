@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { HeartsDisplay } from '../../../ui/components/HUD';
@@ -11,6 +11,13 @@ type QuizTopBarProps = {
   totalQuestions: number;
   hearts: number;
   maxHearts: number;
+  /**
+   * `HeartsSnapshot.status === 'unlimited'` — o mesmo predicado que faz o
+   * `spend` não descontar. Não é o `SubscriptionStatus`: o cache da assinatura
+   * só vira vidas ilimitadas quando `applyToHearts` roda, e ler o cache aqui
+   * mostraria ∞ numa janela em que errar ainda custa.
+   */
+  unlimited?: boolean;
   onClose: () => void;
 };
 
@@ -22,7 +29,14 @@ type QuizTopBarProps = {
  * quem anuncia a posição é a contagem visível "Pergunta X de Y" da Task 6.
  * Duas fontes anunciariam a mesma coisa duas vezes.
  */
-export function QuizTopBar({ questionIndex, totalQuestions, hearts, maxHearts, onClose }: QuizTopBarProps) {
+export function QuizTopBar({
+  questionIndex,
+  totalQuestions,
+  hearts,
+  maxHearts,
+  unlimited = false,
+  onClose,
+}: QuizTopBarProps) {
   return (
     <View style={styles.row}>
       <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel="Fechar quiz" style={styles.iconButton}>
@@ -31,7 +45,15 @@ export function QuizTopBar({ questionIndex, totalQuestions, hearts, maxHearts, o
       <View style={styles.barSlot}>
         <AnimatedProgressBar ratio={(questionIndex + 1) / Math.max(1, totalQuestions)} height={10} />
       </View>
-      <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
+      {/* Assinante não vê corações: a spec troca as vidas por ∞, e mostrar os
+          dois juntos sugeriria que ainda há o que perder. */}
+      {unlimited ? (
+        <Text style={styles.infinity} accessibilityRole="text" accessibilityLabel="Vidas ilimitadas">
+          ∞
+        </Text>
+      ) : (
+        <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
+      )}
     </View>
   );
 }
@@ -39,6 +61,7 @@ export function QuizTopBar({ questionIndex, totalQuestions, hearts, maxHearts, o
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: space.s2, width: '100%' },
   barSlot: { flex: 1 },
+  infinity: { fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
   iconButton: {
     width: 40,
     height: 40,

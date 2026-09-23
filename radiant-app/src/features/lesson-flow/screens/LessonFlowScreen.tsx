@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { LessonFlowService } from '../services/LessonFlowService';
@@ -48,6 +48,7 @@ import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoi
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { subscriptionService } from '../../subscription/SubscriptionService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
@@ -288,8 +289,11 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     }, [nodeId, outcome, stepIndex]);
 
     // Carrega as vidas para a barra do topo. Errar consome vida durante a
-    // atividade, e o aluno precisa ver isso acontecer.
-    useEffect(() => {
+    // atividade, e o aluno precisa ver isso acontecer. Relê a cada foco, não
+    // só na montagem: quem sai pela folha para assinar volta a esta mesma tela,
+    // e sem a releitura veria as vidas vazias de antes da compra — e continuaria
+    // bloqueado por elas.
+    useFocusEffect(useCallback(() => {
         let alive = true;
 
         void heartsRepository.getSnapshot(Date.now())
@@ -305,7 +309,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         return () => {
             alive = false;
         };
-    }, []);
+    }, []));
 
     // Estrelas, frase e nota da conclusão.
     //
@@ -482,6 +486,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                             totalQuestions={totalSteps}
                             hearts={hearts.count}
                             maxHearts={5}
+                            unlimited={hearts.status === 'unlimited'}
                             onClose={exitLesson}
                         />
                         <Text style={styles.stepCount}>
@@ -563,10 +568,13 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 visible={heartsSheetVisible}
                 snapshot={hearts}
                 dueReviewCount={0}
-                storeAvailable={false}
+                storeAvailable={subscriptionService.storeAvailable()}
                 onClose={exitLesson}
                 onReview={() => router.replace('/review')}
-                onSubscribe={() => undefined}
+                onSubscribe={() => {
+                    setHeartsSheetVisible(false);
+                    router.push('/subscription');
+                }}
             />
         </View>
     );

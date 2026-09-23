@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppButton } from '../../../components/ui/AppButton';
 import { PixelHeroSplit } from '../../../components/ui/PixelHeroSplit';
@@ -30,6 +30,7 @@ import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { subscriptionService } from '../../subscription/SubscriptionService';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
   count: 5,
@@ -104,8 +105,14 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
-    void heartsRepository.getSnapshot(Date.now()).then(setHearts);
   }, []);
+
+  // Relê as vidas a cada foco, não só na montagem: quem sai pela folha para
+  // assinar volta a esta mesma tela, e sem a releitura continuaria bloqueado
+  // pelas vidas vazias de antes da compra.
+  useFocusEffect(useCallback(() => {
+    void heartsRepository.getSnapshot(Date.now()).then(setHearts);
+  }, []));
 
   const loadSnapshot = useCallback(async () => {
     try {
@@ -671,10 +678,13 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         visible={heartsSheetVisible}
         snapshot={hearts}
         dueReviewCount={dueReviewCount}
-        storeAvailable={false}
+        storeAvailable={subscriptionService.storeAvailable()}
         onClose={() => setHeartsSheetVisible(false)}
         onReview={() => router.replace('/review')}
-        onSubscribe={() => undefined}
+        onSubscribe={() => {
+          setHeartsSheetVisible(false);
+          router.push('/subscription');
+        }}
       />
     </View>
   );

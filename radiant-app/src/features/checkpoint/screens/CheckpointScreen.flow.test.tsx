@@ -4,6 +4,18 @@ import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
+import { router } from 'expo-router';
+import { subscriptionService } from '../../subscription/SubscriptionService';
+
+const mockedRouter = router as jest.Mocked<typeof router>;
+const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
+
+// Foco controlável: a tela relê as vidas ao voltar de outra rota, e o teste
+// precisa simular essa volta sem desmontar a tela.
+const mockFocusCallbacks = new Set<() => void | (() => void)>();
+function voltarParaATela() {
+  act(() => mockFocusCallbacks.forEach(callback => { callback(); }));
+}
 
 jest.mock('expo-router', () => ({
   router: {
@@ -11,6 +23,21 @@ jest.mock('expo-router', () => ({
     push: jest.fn(),
     back: jest.fn(),
   },
+  useFocusEffect: (callback: () => void | (() => void)) => {
+    const React = require('react');
+    React.useEffect(() => {
+      mockFocusCallbacks.add(callback);
+      const cleanup = callback();
+      return () => {
+        mockFocusCallbacks.delete(callback);
+        if (typeof cleanup === 'function') cleanup();
+      };
+    }, [callback]);
+  },
+}));
+
+jest.mock('../../subscription/SubscriptionService', () => ({
+  subscriptionService: { storeAvailable: jest.fn(() => false) },
 }));
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
@@ -66,7 +93,17 @@ jest.mock('../../hearts/HeartsRepository', () => ({
 jest.mock('../../hearts/components/HeartsSheet', () => {
   const React = require('react');
   const { Text } = require('react-native');
-  return { HeartsSheet: ({ visible }: { visible: boolean }) => visible ? <Text>Checkpoint pausado por falta de vidas</Text> : null };
+  const { Pressable } = require('react-native');
+  return {
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+      visible ? (
+        <>
+          <Text>Checkpoint pausado por falta de vidas</Text>
+          <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+        </>
+      ) : null,
+  };
 });
 
 jest.mock('../../journey/services/JourneyProgressService', () => ({
@@ -270,6 +307,58 @@ describe('CheckpointScreen flow', () => {
 
     expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
     expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+  });
+
+  describe('folha de vidas e a loja', () => {
+    const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null };
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+    const heartsRepository = () =>
+      require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+
+    async function bloquearNaEntrada() {
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await act(async () => {});
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
+    }
+
+    afterEach(() => {
+      heartsRepository().getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    });
+
+    it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await bloquearNaEntrada();
+
+      expect(screen.getByText('folha: com assinatura')).toBeTruthy();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+      expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+    });
+
+    it('sem loja no binário, a folha não oferece a assinatura', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(false);
+      await bloquearNaEntrada();
+
+      expect(screen.getByText('folha: sem assinatura')).toBeTruthy();
+    });
+
+    it('voltando da compra, o checkpoint relê as vidas e deixa começar', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await bloquearNaEntrada();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+      await act(async () => {});
+      fireEvent.press(screen.getByText('Iniciar checkpoint'));
+
+      expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+      expect(screen.queryByText('Checkpoint pausado por falta de vidas')).toBeNull();
+    });
   });
 
   it('completes an available checkpoint and updates the journey snapshot', async () => {

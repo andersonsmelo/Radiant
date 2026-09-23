@@ -44,17 +44,29 @@ atual em
 [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
-### DONO — aberto em 2026-09-23: três PRs empilhados esperando merge
+### DONO — CONCLUÍDO em 2026-09-23: os três PRs empilhados foram mergeados
 
-**Estado medido em 2026-09-23:** nenhum mergeado. A ordem é obrigatória, porque
-cada um parte do anterior e os três editam `STATUS.md` e `FILA.md`:
+**Medido em 2026-09-23:** mergeados na `main`, nessa ordem e por merge commit,
+com autorização do dono na conversa:
 
 1. [PR #15](https://github.com/andersonsmelo/Radiant/pull/15) — L2 v3→v6 e as fatias
-   1 e 5 da Task 8; CI `quality` verde.
+   1 e 5 da Task 8 → `9acd2f5`.
 2. [PR #16](https://github.com/andersonsmelo/Radiant/pull/16) — decisão do StoreKit
-   por módulo local e o prompt da fatia 2; só documentação.
-3. [PR #17](https://github.com/andersonsmelo/Radiant/pull/17) — adaptador StoreKit, kill switches reais, privacidade do
-   analytics e Ask to Buy; o Swift **nunca compilou** contra o Expo real.
+   por módulo local; só documentação, por isso sem CI → `b77547f`.
+3. [PR #17](https://github.com/andersonsmelo/Radiant/pull/17) — adaptador StoreKit,
+   kill switches reais, privacidade do analytics e Ask to Buy, mais o commit de
+   docs `0b0283e`, que antes só existia localmente → `18a2789`. CI `quality`
+   verde no `0b0283e` (run 35881990350, disparado pelo push, ainda com a base
+   anterior); a árvore de `18a2789` é **idêntica** à de `0b0283e`, porque cada
+   PR continha o anterior — o que o CI testou é o que está na `main`.
+
+⚠️ **A `main` agora carrega o módulo Swift `radiant-storekit`, que nunca
+compilou contra o Expo real.** O build interno `development` (item do dono
+abaixo) é o que fecha isso; até lá, um build nativo a partir da `main` pode
+falhar nesse módulo.
+
+As quatro fatias de vidas (itens 3, 3b, 3c e a nota do 4) seguem na branch
+`integ/vidas-1-4`, publicada como PR para a `main` na mesma data.
 
 ```bash
 gh pr list --state open
@@ -200,12 +212,81 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    `PaywallPlan`) e o reembolso que mantinha as vidas ilimitadas. **O Swift
    nunca compilou contra o Expo real** — o fechamento de verdade é do dono,
    abaixo.
-3. **`QuizTopBar` mostrando ∞ para assinante** — **destravado em 2026-09-23**:
-   o estado de assinatura real existe no código. Pode ser feito e testado sem
-   build; a validação visual com assinante real espera o sandbox.
+3. ✅ **`QuizTopBar` mostrando ∞ para assinante** — implementado em
+   **2026-09-23**, **sem build**, na branch `feat/quiztopbar-infinito`,
+   comitado em `647b2c3` com autorização do dono na mesma data
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md)).
+   O topo da lição troca os corações por ∞ quando
+   `HeartsSnapshot.status === 'unlimited'` — o mesmo predicado que faz o erro
+   não custar. **Não** lê o `SubscriptionStatus`, por decisão do dono na mesma
+   data: o cache da assinatura só vira vidas ilimitadas quando `applyToHearts`
+   roda. `pending` e `expired` seguem vendo vidas. Gate medido, Node
+   `v20.20.2`: `quality` exit 0, **133 suítes / 1178 testes**. A `QuizScreen`
+   (`/quiz`, sem entrada no app, vidas pelo contador legado) ficou sem ∞ de
+   propósito. **Falta:** a validação visual com assinante real, que espera o
+   sandbox.
+
+   Três achados desta fatia, fora dela, viraram tarefas próprias:
+   - ✅ **Perfil lia o contador legado de vidas** — resolvido na mesma data,
+     item 3c.
+   - ✅ **O `HUD` mostrava ∞ ao lado dos corações** — resolvido na mesma data,
+     nota do item 4.
+   - ✅ **A folha de vidas nunca oferecia a assinatura.** O dono decidiu que
+     entra na 1.4, e foi resolvido na mesma data — item 3b.
+3b. ✅ **Folha de vidas oferece a assinatura** — implementado em
+   **2026-09-23**, **sem build**, na branch `feat/folha-vidas-loja`, aberta de
+   `647b2c3`
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-vermelhos.md)).
+   Lição, Checkpoint e Jornada perguntam `subscriptionService.storeAvailable()`
+   — o binário tem o módulo da loja? —, sem tocar a StoreKit nem a rede;
+   "Ver assinatura" fecha a folha e abre `/subscription`; Lição e Checkpoint
+   passaram a reler as vidas a cada foco, então quem volta assinante vê ∞ e
+   não fica bloqueado. Gate, Node `v20.20.2`: `quality` exit 0, **133 suítes /
+   1190 testes**. **Para o dono decidir:** offline com binário capaz de vender,
+   o motivo aparece na tela da assinatura e não na folha, ao contrário da spec
+   §98 — mostrá-lo na folha exigiria uma dependência de rede no estudo.
+   **Falta:** a volta de `/subscription` no navegador real, que espera build.
+3c. ✅ **Perfil e recompensa leem as vidas da fonte viva** — concluído em
+   **2026-09-23**, na branch `claude/sharp-dijkstra-747d12` (sobre
+   `0b0283e`), integrada localmente em `integ/vidas-1-4` na mesma data. A
+   seção Vidas do Perfil e o HUD do `RewardScreen` liam o contador legado do `GamificationService`
+   (sempre 5, nunca ∞); agora leem `heartsRepository`, com ∞ para assinante.
+   Gate: 134 suítes / 1181 testes, Node 20.20.2.
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md).
+3d. **Aposentar o contador legado de vidas do `GamificationService`.**
+   **Estado:** decidido pelo dono em 2026-09-23 — sai **depois**, em run
+   próprio. **Bloqueio:** nenhum desde 2026-09-23 — a fatia do `QuizTopBar` ∞
+   (item 3), que mexe em `quiz/` e `LessonFlowScreen`, foi comitada em
+   `647b2c3`; partir de `integ/vidas-1-4` ou do que a suceder. O único
+   escritor do legado é `useQuiz.loseHeart` (rota `/quiz`, só por deep
+   link). **Dono:** agente. Nenhum dado depende dos campos: backup no
+   iCloud lê só `totalXp`/`streakDays`, e a migração 1.4 guarda o blob
+   `radiant:gami:v1` inteiro sem lê-los. Falta decidir o que `/quiz` faz com
+   vidas (passar a `heartsRepository.spend` ou deixar de contar).
+   Remedir os leitores e escritores (é um **superconjunto**: casa também a
+   prop `maxHearts` do `HUD`/`QuizTopBar`, que não é o legado — classifique
+   cada linha pela origem do valor, como no relatório):
+
+   ```bash
+   cd radiant-app && grep -rnE '\b(maxHearts|heartsLastRefillAt|heartsNextRefillAt|loseHeart|refillHearts|canStartLesson)\b|gamification\??\.hearts' src | grep -v '/hearts/'
+   ```
+
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
+
+   ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
+   corações** — corrigido em **2026-09-23**, **sem build nem push**, no branch
+   `fix/hud-infinito` (sobre `0b0283e`)
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-hud-infinito-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-hud-infinito-vermelhos.md)).
+   No estado `unlimited` o cabeçalho mostra só o ∞, rotulado "Vidas
+   ilimitadas" com ou sem botão — Checkpoint e Revisão, que não têm botão,
+   anunciavam "5 de 5 vidas" ao assinante. Gate `quality` exit 0, **133
+   suítes / 1189 testes**, Node `v20.20.2`. **Falta:** olhar o ∞ num aparelho
+   com assinante real, que espera o sandbox.
 5. ✅ **Checklist de declarações à loja** — preparado em **2026-09-22** em
    [`CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md), com as
    linhas de assinatura marcadas ⏳ e **explicitamente não preenchíveis** até (2)

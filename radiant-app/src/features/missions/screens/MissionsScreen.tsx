@@ -11,6 +11,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { GamificationService } from '@/src/features/gamification/services/GamificationService';
+import { heartsRepository } from '@/src/features/hearts/HeartsRepository';
+import { MAX_HEARTS } from '@/src/features/hearts/HeartsService';
+import type { HeartsSnapshot } from '@/src/features/hearts/hearts.types';
 import { DailyGoalService } from '@/src/features/daily-goal/services/DailyGoalService';
 import { SpacedRepetitionService } from '@/src/features/spaced-repetition/services/SpacedRepetitionService';
 import type { GamificationSnapshot } from '@/src/types/gamification';
@@ -57,7 +60,7 @@ function useDailyResetCountdown(): string {
   return label;
 }
 
-// ─── HeartRefillTimer (recarga real do GamificationService) ──────────────────
+// ─── HeartRefillTimer (recarga real do heartsRepository) ─────────────────────
 
 function HeartRefillTimer({
   nextRefillAt,
@@ -179,6 +182,11 @@ type EmbeddableProps = { embedded?: boolean };
 
 export default function MissionsScreen({ embedded = false }: EmbeddableProps) {
   const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
+  // Vidas vêm do `heartsRepository`, a mesma fonte que a lição desconta e o
+  // HUD da Jornada lê. O `GamificationService` ainda carrega um contador
+  // legado de corações que o caminho vivo nunca desconta: lê-lo aqui mostrava
+  // sempre 5 no Perfil e nunca ∞ para o assinante.
+  const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
   const [dailyGoal, setDailyGoal] = useState<DailyGoalSnapshot | null>(null);
   const [dueCount, setDueCount] = useState<number | null>(null);
 
@@ -197,12 +205,14 @@ export default function MissionsScreen({ embedded = false }: EmbeddableProps) {
 
   const load = useCallback(async () => {
     try {
-      const [gamification, goal, due] = await Promise.all([
+      const [gamification, heartsSnapshot, goal, due] = await Promise.all([
         GamificationService.getSnapshot(),
+        heartsRepository.getSnapshot(Date.now()),
         DailyGoalService.getSnapshot(),
         SpacedRepetitionService.getDueCount(),
       ]);
       setSnapshot(gamification);
+      setHearts(heartsSnapshot);
       setDailyGoal(goal);
       setDueCount(due);
     } catch (error) {
@@ -220,8 +230,6 @@ export default function MissionsScreen({ embedded = false }: EmbeddableProps) {
     }, [load])
   );
 
-  const hearts = snapshot?.hearts ?? 5;
-  const maxHearts = snapshot?.maxHearts ?? 5;
   const streakDays = snapshot?.streakDays ?? 0;
 
   const studiedToday = useMemo(() => {
@@ -353,20 +361,28 @@ export default function MissionsScreen({ embedded = false }: EmbeddableProps) {
                 <HeartIcon size={18} filled />
                 <Text style={styles.heartsSectionTitle}>Vidas</Text>
               </View>
-              <HeartRefillTimer
-                nextRefillAt={snapshot?.heartsNextRefillAt}
-                onElapsed={load}
-              />
+              {hearts && hearts.status !== 'unlimited' ? (
+                <HeartRefillTimer nextRefillAt={hearts.nextRefillAt} onElapsed={load} />
+              ) : null}
             </View>
-            <View
-              style={styles.heartsRow}
-              accessibilityLabel={`${hearts} de ${maxHearts} vidas`}
-            >
-              {Array.from({ length: maxHearts }).map((_, i) => (
-                <HeartIcon key={i} size={22} filled={i < hearts} />
-              ))}
-            </View>
-            {hearts === 0 && (
+            {/* Sem snapshot ainda, nenhum coração: desenhar 5 antes da leitura
+                piscaria vidas cheias para quem tem 0 — ou para o assinante. */}
+            {hearts?.status === 'unlimited' ? (
+              <View style={styles.heartsRow} accessibilityLabel="Vidas ilimitadas">
+                <Text style={styles.heartsInfinity}>∞</Text>
+                <Text style={styles.heartsUnlimitedText}>Assinante: ilimitadas</Text>
+              </View>
+            ) : hearts ? (
+              <View
+                style={styles.heartsRow}
+                accessibilityLabel={`${hearts.count} de ${MAX_HEARTS} vidas`}
+              >
+                {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+                  <HeartIcon key={i} size={22} filled={i < hearts.count} />
+                ))}
+              </View>
+            ) : null}
+            {hearts?.status === 'empty' && (
               <View style={styles.heartsWarning}>
                 <Text style={styles.heartsWarningText}>
                   Sem vidas por agora. Aguarde a recarga ou faça revisões — elas nunca são bloqueadas.
@@ -572,7 +588,16 @@ const styles = StyleSheet.create({
   },
   heartsRow: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
+  },
+  heartsInfinity: {
+    ...typography.h3,
+    color: galaxyColors.heartFull,
+  },
+  heartsUnlimitedText: {
+    ...typography.bodyStrong,
+    color: galaxyColors.textSecondary,
   },
   refillTimer: {
     backgroundColor: 'rgba(255,59,48,0.10)',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import Svg from 'react-native-svg';
+import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.types';
 import { HUD } from './HUD';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
@@ -68,24 +69,6 @@ describe('HUD — acessibilidade', () => {
     expect(onHeartsPress).toHaveBeenCalledTimes(1);
   });
 
-  it('mostra infinito para assinante', () => {
-    const screen = render(
-      <HUD
-        totalXp={10}
-        streakDays={1}
-        hearts={5}
-        heartsSnapshot={{
-          count: 5,
-          status: 'unlimited',
-          nextRefillAt: null,
-          unlimitedUntil: '2026-10-14T12:00:00.000Z',
-        }}
-      />,
-    );
-
-    expect(screen.getByText('∞')).toBeTruthy();
-  });
-
   it('expõe as vidas como um único rótulo, não um emoji por coração', () => {
     const { getByLabelText, queryByLabelText } = render(
       <HUD totalXp={1234} streakDays={3} hearts={2} maxHearts={5} />,
@@ -124,6 +107,104 @@ describe('HUD — acessibilidade', () => {
     expect(getByLabelText('4 de 5 vidas')).toBeTruthy();
     expect(queryByLabelText(/XP$/)).toBeNull();
     expect(queryByLabelText(/de sequência$/)).toBeNull();
+  });
+});
+
+// Os quatro estados da tabela §5.1 da spec da 1.4. ILIMITADA diz "corações
+// somem": o ∞ substitui as vidas, não se soma a elas. Mostrar os dois juntos
+// sugere ao assinante que ainda há o que perder. Defeito medido em 2026-09-23.
+describe('HUD — estados das vidas', () => {
+  const NOW = Date.parse('2026-09-14T12:00:00.000Z');
+  const REFILL = '2026-09-14T12:09:01.000Z';
+  const snapshot = (count: number, status: HeartsStatus): HeartsSnapshot => ({
+    count,
+    status,
+    nextRefillAt: status === 'recovering' || status === 'empty' ? REFILL : null,
+    unlimitedUntil: status === 'unlimited' ? '2026-10-14T12:00:00.000Z' : null,
+  });
+  const renderHud = (
+    heartsSnapshot: HeartsSnapshot,
+    extra: { onHeartsPress?: () => void; compact?: boolean } = {},
+  ) =>
+    render(
+      <HUD
+        totalXp={10}
+        streakDays={1}
+        hearts={heartsSnapshot.count}
+        heartsSnapshot={heartsSnapshot}
+        nowMs={NOW}
+        {...extra}
+      />,
+    );
+
+  describe.each([
+    { status: 'full' as const, count: 5, summary: '5', label: '5 de 5 vidas' },
+    { status: 'recovering' as const, count: 3, summary: '3 · +1 em 10 min', label: '3 de 5 vidas; próxima em 10 minutos' },
+    { status: 'empty' as const, count: 0, summary: '0 · +1 em 10 min', label: '0 de 5 vidas; próxima em 10 minutos' },
+  ])('$status', ({ status, count, summary, label }) => {
+    it('desenha os cinco corações e o resumo, sem ∞', () => {
+      const screen = renderHud(snapshot(count, status));
+
+      for (let i = 0; i < 5; i += 1) {
+        expect(screen.getByTestId(`hud-heart-${i}`)).toBeTruthy();
+      }
+      expect(screen.getByText(summary)).toBeTruthy();
+      expect(screen.queryByText('∞')).toBeNull();
+    });
+
+    it('anuncia a contagem no botão que abre a folha', () => {
+      const onHeartsPress = jest.fn();
+      const screen = renderHud(snapshot(count, status), { onHeartsPress });
+
+      fireEvent.press(screen.getByRole('button', { name: label }));
+      expect(onHeartsPress).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // "Nenhum coração" pergunta o que está DESENHADO, não o que o leitor de tela
+  // alcança: dentro do botão o `HeartsDisplay` fica oculto da acessibilidade, e
+  // o RNTL 13 omite nós ocultos por padrão. Sem `includeHiddenElements`, o
+  // guarda do botão passava com os cinco corações na tela — visto em 2026-09-23.
+  const heartsDrawn = (screen: ReturnType<typeof render>) =>
+    screen.queryByTestId('hud-heart-0', { includeHiddenElements: true });
+
+  // `setUnlimited` preserva `count`: o assinante que zerou chega como
+  // `{ count: 0, status: 'unlimited' }`. Quem decide é o status, nunca o número.
+  describe.each([5, 0])('unlimited com count %i', (count) => {
+    it('não desenha nenhum coração', () => {
+      const screen = renderHud(snapshot(count, 'unlimited'));
+
+      expect(heartsDrawn(screen)).toBeNull();
+      expect(screen.getByText('∞')).toBeTruthy();
+    });
+
+    it('rotula o ∞ como "Vidas ilimitadas" também sem botão (Checkpoint e Revisão)', () => {
+      const screen = renderHud(snapshot(count, 'unlimited'));
+
+      expect(screen.getByLabelText('Vidas ilimitadas')).toBeTruthy();
+    });
+
+    it('não anuncia "N de 5 vidas" a quem não perde vida', () => {
+      const screen = renderHud(snapshot(count, 'unlimited'));
+
+      expect(screen.queryByLabelText(/de 5 vidas/u)).toBeNull();
+    });
+
+    it('mantém o botão que abre a folha, rotulado "Vidas ilimitadas", sem corações dentro', () => {
+      const onHeartsPress = jest.fn();
+      const screen = renderHud(snapshot(count, 'unlimited'), { onHeartsPress });
+
+      fireEvent.press(screen.getByRole('button', { name: 'Vidas ilimitadas' }));
+      expect(onHeartsPress).toHaveBeenCalledTimes(1);
+      expect(heartsDrawn(screen)).toBeNull();
+    });
+
+    it('no modo compact também troca os corações pelo ∞', () => {
+      const screen = renderHud(snapshot(count, 'unlimited'), { compact: true });
+
+      expect(heartsDrawn(screen)).toBeNull();
+      expect(screen.getByLabelText('Vidas ilimitadas')).toBeTruthy();
+    });
   });
 });
 

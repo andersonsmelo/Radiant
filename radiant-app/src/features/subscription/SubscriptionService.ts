@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { heartsRepository } from '../hearts/HeartsRepository';
 import { resolveStoreKitAdapter } from './StoreKit2Adapter';
 import { SUBSCRIPTION_PRODUCT_IDS } from './subscriptionProducts';
+import { UnavailableStoreKitAdapter } from './UnavailableStoreKitAdapter';
 import {
     isStoreUnavailable,
     type PurchaseResult,
@@ -123,6 +124,17 @@ export class SubscriptionService {
     private get store(): StoreKitPort {
         this.storePort ??= resolveStoreKitAdapter();
         return this.storePort;
+    }
+
+    /**
+     * Se este binário tem loja — o módulo nativo existe —, não se ela responde
+     * agora. É o que a folha de vidas pergunta a cada montagem, então não pode
+     * tocar a StoreKit nem a rede: resolver o adaptador só procura o módulo, e
+     * o resultado fica guardado. Sem rede ou sem produto, quem explica é a tela
+     * da assinatura, que já tem o estado "loja indisponível".
+     */
+    storeAvailable(): boolean {
+        return !(this.store instanceof UnavailableStoreKitAdapter);
     }
 
     /** Só o cache: nunca toca a loja. É o que toda tela de estudo pode ler. */

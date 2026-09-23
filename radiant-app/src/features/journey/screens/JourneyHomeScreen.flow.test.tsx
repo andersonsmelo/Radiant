@@ -1,13 +1,25 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import JourneyHomeScreen from './JourneyHomeScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+import { router } from 'expo-router';
+import { subscriptionService } from '../../subscription/SubscriptionService';
+
+const mockedRouter = router as jest.Mocked<typeof router>;
+const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
+
+// Foco controlável: a trilha recarrega ao voltar de outra rota (a tela da
+// assinatura, por exemplo), e o teste precisa simular essa volta.
+const mockFocusCallbacks = new Set<() => void>();
+function voltarParaATela() {
+  act(() => mockFocusCallbacks.forEach(callback => callback()));
+}
 
 jest.mock('expo-router', () => ({
   router: {
@@ -16,10 +28,33 @@ jest.mock('expo-router', () => ({
   useFocusEffect: (callback: () => void) => {
     const React = require('react');
     React.useEffect(() => {
+      mockFocusCallbacks.add(callback);
       callback();
+      return () => {
+        mockFocusCallbacks.delete(callback);
+      };
     }, [callback]);
   },
 }));
+
+jest.mock('../../subscription/SubscriptionService', () => ({
+  subscriptionService: { storeAvailable: jest.fn(() => false) },
+}));
+
+jest.mock('../../hearts/components/HeartsSheet', () => {
+  const React = require('react');
+  const { Pressable, Text } = require('react-native');
+  return {
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+      visible ? (
+        <>
+          <Text>Folha de vidas aberta</Text>
+          <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+        </>
+      ) : null,
+  };
+});
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -58,9 +93,17 @@ jest.mock('../../../ui/components/StarfieldBackground', () => ({
   StarfieldBackground: () => null,
 }));
 
-jest.mock('../../../ui/components/HUD', () => ({
-  HUD: () => null,
-}));
+jest.mock('../../../ui/components/HUD', () => {
+  const React = require('react');
+  const { Pressable, Text } = require('react-native');
+  return {
+    HUD: ({ heartsSnapshot, onHeartsPress }: { heartsSnapshot?: { status: string }; onHeartsPress?: () => void }) => (
+      <Pressable accessibilityRole="button" onPress={onHeartsPress}>
+        <Text>{`HUD vidas: ${heartsSnapshot?.status ?? 'carregando'}`}</Text>
+      </Pressable>
+    ),
+  };
+});
 
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: () => false,
@@ -465,5 +508,53 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     renderWithProviders(<JourneyHomeScreen />);
 
     expect(await screen.findByText('Novo arco em breve')).toBeTruthy();
+  });
+
+  describe('folha de vidas e a loja', () => {
+    const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null };
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+    const heartsRepository = () =>
+      require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock };
+
+    async function abrirAFolha() {
+      heartsRepository().getSnapshot.mockResolvedValue(vazia);
+      renderWithProviders(<JourneyHomeScreen />);
+      fireEvent.press(await screen.findByText('HUD vidas: empty'));
+      expect(screen.getByText('Folha de vidas aberta')).toBeTruthy();
+    }
+
+    afterEach(() => {
+      heartsRepository().getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    });
+
+    it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await abrirAFolha();
+
+      expect(screen.getByText('folha: com assinatura')).toBeTruthy();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
+
+    it('sem loja no binário, a folha não oferece a assinatura', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(false);
+      await abrirAFolha();
+
+      expect(screen.getByText('folha: sem assinatura')).toBeTruthy();
+    });
+
+    it('voltando da compra, a trilha relê as vidas: o cabeçalho recebe o ilimitado e a folha não abre mais', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await abrirAFolha();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      heartsRepository().getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+
+      fireEvent.press(await screen.findByText('HUD vidas: unlimited'));
+      expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
   });
 });

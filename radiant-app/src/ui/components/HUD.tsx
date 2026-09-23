@@ -115,6 +115,30 @@ export function HeartsDisplay({
   );
 }
 
+/**
+ * O ∞ que SUBSTITUI os corações do assinante (spec 1.4 §5.1, ILIMITADA:
+ * "corações somem"). Mostrar os dois juntos sugere que ainda há o que perder.
+ * Mesmo peso visual do ∞ do `QuizTopBar`, para os dois cabeçalhos dizerem a
+ * mesma coisa do mesmo jeito.
+ */
+export function UnlimitedHeartsDisplay({
+  hiddenFromAccessibility = false,
+}: {
+  hiddenFromAccessibility?: boolean;
+}) {
+  return (
+    <Text
+      style={styles.infinity}
+      accessible={!hiddenFromAccessibility}
+      accessibilityRole="text"
+      accessibilityLabel="Vidas ilimitadas"
+      importantForAccessibility={hiddenFromAccessibility ? 'no-hide-descendants' : 'auto'}
+    >
+      ∞
+    </Text>
+  );
+}
+
 // ── Componente principal ──────────────────────────────────────
 
 function remainingMinutes(nextRefillAt: string | null, nowMs: number): number | null {
@@ -134,15 +158,18 @@ export function HUD({
 }: HUDProps) {
   const visibleHearts = heartsSnapshot?.count ?? hearts;
   const minutes = remainingMinutes(heartsSnapshot?.nextRefillAt ?? null, nowMs);
-  const summary = heartsSnapshot?.status === 'unlimited'
-    ? '∞'
-    : heartsSnapshot
-      ? `${visibleHearts}${minutes === null ? '' : ` · +1 em ${minutes} min`}`
-      : null;
-  const accessibilityLabel = heartsSnapshot?.status === 'unlimited'
+  // Decide pelo status, nunca pelo número: o assinante que zerou chega com
+  // `count: 0` e `status: 'unlimited'`.
+  const unlimited = heartsSnapshot?.status === 'unlimited';
+  const summary = heartsSnapshot
+    ? `${visibleHearts}${minutes === null ? '' : ` · +1 em ${minutes} min`}`
+    : null;
+  const accessibilityLabel = unlimited
     ? 'Vidas ilimitadas'
     : `${visibleHearts} de ${maxHearts} vidas${minutes === null ? '' : `; próxima em ${minutes} minutos`}`;
-  const heartsContent = (
+  const heartsContent = unlimited ? (
+    <UnlimitedHeartsDisplay hiddenFromAccessibility={Boolean(onHeartsPress)} />
+  ) : (
     <View style={styles.heartsControlContent}>
       <HeartsDisplay
         hearts={visibleHearts}
@@ -241,6 +268,7 @@ const styles = StyleSheet.create({
   },
   heartsButtonPressed: { backgroundColor: galaxyColors.surfaceActive },
   heartsSummary: { fontSize: 12, fontWeight: '700', color: galaxyColors.textSecondary },
+  infinity: { fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
   heartIcon: {
     fontSize: 18,
   },

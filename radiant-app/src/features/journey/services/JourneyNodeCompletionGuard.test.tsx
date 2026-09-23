@@ -43,6 +43,11 @@ jest.mock('expo-router', () => ({
     push: jest.fn(),
     back: jest.fn(),
   },
+  // Lição e checkpoint releem as vidas a cada foco; aqui basta o da montagem.
+  useFocusEffect: (callback: () => void | (() => void)) => {
+    const ReactLocal = require('react');
+    ReactLocal.useEffect(callback, [callback]);
+  },
 }));
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');

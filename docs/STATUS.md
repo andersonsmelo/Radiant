@@ -187,7 +187,8 @@ carrega o pacote inteiro.
    Gate medido na mesma data, Node `v20.20.2`: saiu 0, com 133 suítes e 1174
    testes, e Visual QA sem regressão. Vermelhos em
    [`2026-09-23-radiant-ask-to-buy-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md). **Comitado em
-   2026-09-23 (`000daef`)** e **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** na mesma data, junto
+   2026-09-23 (`000daef`)**, **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** e **mergeado na
+   `main` em `18a2789`** na mesma data, junto
    dos kill switches, da privacidade do analytics e do Ask to Buy; **não
    construído**. **Gate reproduzido por outra sessão** em
    2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:
@@ -197,10 +198,88 @@ carrega o pacote inteiro.
    As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
    build interno e sandbox.
 
+   **Fatia 3 implementada em 2026-09-23, sem build** (branch
+   `feat/quiztopbar-infinito`, aberta de `0b0283e`; comitada em `647b2c3` na
+   mesma data, com autorização do dono): o `QuizTopBar` troca os
+   corações por ∞ quando `HeartsSnapshot.status === 'unlimited'`, e a
+   `LessonFlowScreen` repassa esse estado. A fonte é o snapshot das vidas, não
+   o `SubscriptionStatus`, por decisão do dono. **Medido em 2026-09-23**, Node
+   `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1178
+   testes**, Visual QA sem regressão. Vermelhos, com três mutações, em
+   [`2026-09-23-radiant-quiztopbar-infinito-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md).
+   **Achado na mesma data:** a folha de vidas das três telas tinha
+   `storeAvailable={false}` fixo, então nunca oferecia a assinatura. Ver
+   [relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md).
+
+   **Folha ligada à loja em 2026-09-23, sem build nem push** (comitada na
+   branch local `feat/folha-vidas-loja`, aberta de `647b2c3`; o dono decidiu
+   que entra na 1.4): Lição, Checkpoint e Jornada oferecem "Ver assinatura" quando
+   `subscriptionService.storeAvailable()` diz que o binário tem o módulo da
+   loja — pergunta local, sem StoreKit nem rede — e o botão abre
+   `/subscription`. Lição e Checkpoint releem as vidas a cada foco: voltando da
+   compra, ∞ e sem bloqueio. **Medido em 2026-09-23**, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1190 testes**,
+   Visual QA sem regressão. Seis mutações vistas vermelhas em
+   [`2026-09-23-radiant-folha-vidas-loja-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-vermelhos.md).
+   Divergência da spec §98 (motivo do offline na folha) no
+   [relatório](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md).
+
+   **Duas fontes de vidas — o Perfil e a recompensa passaram para a fonte
+   viva em 2026-09-23** (branch `claude/sharp-dijkstra-747d12`, sobre
+   `feat/quiztopbar-infinito` em `0b0283e`; integrada localmente em
+   `integ/vidas-1-4` na mesma data; **não construído**).
+   Medido na data: a seção **Vidas** do Perfil (`MissionsScreen` embutida) e o
+   HUD do `RewardScreen` (`/reward`, alcançável pelos nós de recompensa da
+   trilha) liam o contador legado do `GamificationService`, que o caminho vivo
+   nunca desconta — mostravam sempre 5 e nunca ∞. Agora os dois leem
+   `heartsRepository.getSnapshot(Date.now())`: assinante vê **∞** e
+   "Assinante: ilimitadas" sem corações, relógio nem aviso (spec §5.1
+   ILIMITADA e §3.5 Perfil); o aviso de bloqueio segue o `status` `'empty'`, não
+   a contagem; e nenhum coração é desenhado antes da leitura. **Gate medido em
+   2026-09-23**, Node `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality` saiu 0,
+   **134 suítes / 1181 testes**, lint 0 erros / 26 avisos, Visual QA sem
+   regressão. Vermelhos em
+   [`2026-09-23-radiant-perfil-vidas-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-vermelhos.md).
+   **O contador legado continua no código** — decisão do dono em 2026-09-23:
+   aposentar depois, em run próprio; o bloqueio (commit da fatia do
+   `QuizTopBar` ∞) caiu com `647b2c3`.
+   Enumeração e o que a aposentadoria exige no
+   [relatório](superpowers/handoffs/2026-09-23-radiant-perfil-vidas-relatorio.md);
+   backup no iCloud e migração 1.4 **não leem** os campos.
+
+   **As quatro fatias de vidas integradas localmente em 2026-09-23** na branch
+   `integ/vidas-1-4` (`b81a91d` + merges de `1ab8bc8` e `01ac4e7`; conflitos só
+   em FILA e STATUS). **Medido na árvore combinada**, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **134 suítes / 1212 testes**,
+   Visual QA sem regressão — a soma exata do que cada fatia mediu sozinha.
+   O CI da PR #18 reprovou o **primeiro** teste de
+   `LessonFlowScreen.flow.test.tsx` por custo de estreia (~450 ms) dentro do
+   prazo de 1000 ms do `findByText` — fragilidade anterior, reproduzida 3/3
+   com a CPU limitada (`taskpolicy -b`) e corrigida com um aquecimento em
+   `beforeAll`; detalhes no relatório.
+   **Não construído.** Empurrada e aberta como PR para a `main` na mesma
+   data, depois de os PRs #15, #16 e #17 serem mergeados (`9acd2f5`,
+   `b77547f`, `18a2789`).
+   [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
+
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem
    efeito, porque `API_BASE_URL` não existe no ambiente submetido. Continua
    aberto; deixa de ser inerte no dia em que uma URL de API entrar lá.
+
+   ✅ **O `HUD` não mostra mais corações ao lado do ∞** — achado da fatia 3,
+   **corrigido em 2026-09-23, sem build nem push**, no branch
+   `fix/hud-infinito` (aberto de `0b0283e`). No estado `unlimited` o cabeçalho
+   de Trilha, Checkpoint e Revisão mostra só o ∞, como pede a spec (§5.1,
+   "corações somem"). **Defeito a mais, achado no caminho:** Checkpoint e
+   Revisão não passam `onHeartsPress`, e ali o rótulo "Vidas ilimitadas" não
+   existia — o leitor de tela anunciava "5 de 5 vidas" ao assinante. Agora o ∞
+   carrega o rótulo com ou sem botão; a Trilha mantém o botão que abre a folha.
+   **Medido em 2026-09-23**, Node `v20.20.2`, worktree limpa:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1189 testes**,
+   Visual QA sem regressão. Vermelhos e sete mutações em
+   [`2026-09-23-radiant-hud-infinito-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-hud-infinito-vermelhos.md);
+   [relatório](superpowers/handoffs/2026-09-23-radiant-hud-infinito-relatorio.md).
 
    ⚠️ **Isso não liga nada.** `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` continua sem
    valor e o `Sentry.init` não roda, então o rótulo "Dados não coletados" segue
@@ -429,7 +508,9 @@ carrega o pacote inteiro.
    `backupNow` sem chamador; `expo-iap` ausente. **Nenhuma afirmação do
    relatório contradiz a medição.** Duas notas além dele: `GamificationService`
    ainda persiste `hearts` legados ao lado do `HeartsRepository` (duas fontes
-   para o mesmo conceito — aposentar antes da migração seguinte); e o cartão
+   para o mesmo conceito — aposentar antes da migração seguinte; *em
+   2026-09-23 os dois leitores vivos saíram dele e a aposentadoria foi adiada
+   pelo dono, ver o bloco da 1.4 acima*); e o cartão
    antigo de conta segue em `ProgressScreen`, condicionado e invisível em
    produção — código morto, não regressão. Estado prático: a 1.4 na branch tem
    motor, vidas, migração e telas; **não vende nem faz backup** até a Task 8,
