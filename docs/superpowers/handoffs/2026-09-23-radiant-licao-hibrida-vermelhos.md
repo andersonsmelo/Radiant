@@ -97,3 +97,124 @@ Tests:       4 failed, 59 passed, 63 total
       at toContainEqual (src/features/curriculum-v3/l1-body-reference/bodyMapGeometry.test.ts:66:25)
 
 ```
+
+## Tarefa 2 — tabela de relações e modelos
+
+Comando das quatro execuções:
+
+```bash
+cd radiant-app && npx jest src/features/curriculum-v3/hybrid-l1/l1ItemTemplates.test.ts --runInBand
+```
+
+As mutações 2.1 e 2.2 rodaram contra o teste como o plano o escreveu; os
+números de linha citados são dessa versão.
+
+### Mutação 2.1 — gabarito pela tela, não pelo corpo
+
+Em `lateralityItem`, ``correctOptionId: `patient-${params.side}` `` →
+`correctOptionId: options.find((o) => o.textDescription.includes('à direita'))?.id ?? ''`.
+
+O plano previa a falha "na vista de costas". Ela aparece antes: o laço para no
+primeiro cenário errado, que é a posição anatômica vista de frente pedindo o
+lado **direito** — a mão desenhada à direita de quem observa é a esquerda da
+pessoa. É o mesmo defeito, flagrado mais cedo.
+
+```text
+    ✕ lateralidade: a resposta é a mão do lado pedido do corpo, em qualquer cenário
+    ✕ forma: todo item tem objetivo, código de erro conhecido, opções únicas, resposta entre as opções e textos dentro do limite
+Tests:       2 failed, 6 passed, 8 total
+
+  ● modelos de exercício da L1 › lateralidade: a resposta é a mão do lado pedido do corpo, em qualquer cenário
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "patient-right-hand"
+    Received: "patient-left-hand"
+
+      34 |         const item = lateralityItem({ id: 'x', posture, perspective, side, phase: 'challenge', format: 'tap' }, rng);
+      35 |         const correct = item.options.find((option) => option.id === item.correctOptionId);
+    > 36 |         expect(correct?.landmarkId).toBe(`patient-${side}-hand`);
+         |                                     ^
+      37 |       }
+      38 |     }
+      39 |   });
+
+      at toBe (src/features/curriculum-v3/hybrid-l1/l1ItemTemplates.test.ts:36:37)
+      at Object._loop (src/features/curriculum-v3/hybrid-l1/l1ItemTemplates.test.ts:33:43)
+
+```
+
+### Mutação 2.2 — descrição que não bate com o desenho
+
+Em `lateralityItem`, `describeRegion(region)` → `describeRegion('direita')`.
+
+```text
+    ✕ lateralidade: a descrição de cada mão diz onde o mapa a desenha
+Tests:       1 failed, 7 passed, 8 total
+
+  ● modelos de exercício da L1 › lateralidade: a descrição de cada mão diz onde o mapa a desenha
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "à esquerda de quem observa"
+    Received string:    "Mão 2: aparece à direita de quem observa."
+
+      45 |       for (const option of item.options) {
+      46 |         const region = landmarkScreenRegion(option.landmarkId ?? '', posture, perspective, REFERENCE_FRAME_WIDTH);
+    > 47 |         expect(option.textDescription).toContain(describeRegion(region));
+         |                                        ^
+      48 |       }
+      49 |     }
+      50 |   });
+
+      at Object.toContain (src/features/curriculum-v3/hybrid-l1/l1ItemTemplates.test.ts:47:40)
+
+```
+
+### Mutação 2.3 — par errado na tabela: **a guarda do plano não falhou**
+
+Em `l1RelationTable.ts`, o `landmarkId` de `lateral`: `'outer-arm-marker'` →
+`'shoulder-marker'`.
+
+Contra o teste como o plano o escreveu, a suíte passou inteira:
+
+```text
+Tests:       8 passed, 8 total
+```
+
+Causa: a asserção comparava o gabarito do item com
+`entry.terms[termIndex].landmarkId`, lido **da mesma tabela** que a mutação
+altera. Era um espelho, e espelho tem conjunto de falhas vazio (corolário de
+teste do `AGENTS.md`, 2026-09-22).
+
+Correção, mínima e só no teste: `l1ItemTemplates.test.ts` ganhou
+`REVIEWED_KEY`, cópia literal dos cinco pares revisados, fora da tabela. A
+asserção passou a comparar o item com ela, e o teste confere também que a
+tabela e a cópia listam as mesmas relações. Mesma mutação, contra o teste
+corrigido:
+
+```text
+    ✕ relação: a resposta é o landmark que a tabela liga ao termo pedido, e a outra opção é o par dele
+Tests:       1 failed, 7 passed, 8 total
+
+  ● modelos de exercício da L1 › relação: a resposta é o landmark que a tabela liga ao termo pedido, e a outra opção é o par dele
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "midline-marker",
+    -   "outer-arm-marker",
+    +   "shoulder-marker",
+      ]
+
+      73 |           const byId = new Map(item.options.map((option) => [option.id, option.landmarkId]));
+      74 |           expect(byId.get(item.correctOptionId)).toBe(REVIEWED_KEY[entry.relation][termIndex]);
+    > 75 |           expect([...byId.values()].sort()).toEqual([...REVIEWED_KEY[entry.relation]].sort());
+         |                                             ^
+      76 |         }
+      77 |       }
+      78 |     }
+```
