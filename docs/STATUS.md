@@ -182,8 +182,12 @@ carrega o pacote inteiro.
    mantinha as vidas ilimitadas até o fim do período, porque
    `currentEntitlements` omite a transação reembolsada. **Aberto, do dono:**
    pedido Ask to Buy recusado prende o cartão e a tela no estado pendente, sem
-   planos nem Restaurar; e `willRenew` sem rede não está medido. Nada comitado,
-   empurrado ou construído.
+   planos nem Restaurar; e `willRenew` sem rede não está medido. **Comitado em
+   2026-09-23 (`000daef`)**, na branch `feat/storekit-adaptador-fatia-2`;
+   não empurrado nem construído. **Gate reproduzido por outra sessão** em
+   2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` saiu 0, com 132 suítes e 1163 testes, e
+   Visual QA sem regressão — os mesmos números do autor.
    [Relatório](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md).
    As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
    build interno e sandbox.
@@ -935,6 +939,8 @@ carrega o pacote inteiro.
    do parecer v3 e submeter a revisão v4. O achado I2 (taxonomia `E-PLN-SEC`
    aplicada a confusão coronal×transversal) **não se resolve dentro da L2** —
    criar um código de erro novo é mudança de spec, decisão do dono.
+   **Decidido em 2026-09-23** ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md)): código `E-PLN-ORT` na spec,
+   aplicado na v7 da L2.
 
    Sequência atual: produzir e validar o Arco 1 sobre a fundação V3 →
    retirar a trilha anterior das superfícies sem
@@ -1131,7 +1137,11 @@ a ignorar comentários, para não punir quem documenta a regra.
 `ENABLE_GAMIFICATION`, `ENABLE_ONBOARDING` e `ENABLE_HEURISTICS` estão fixos em
 `true` no código, sem leitura de env. Não são acionáveis nem por OTA. Ou viram
 flags de verdade, ou mudam de nome — a pior hora de descobrir isso é durante um
-incidente. **Decisão do dono, não tomada.**
+incidente. **Decidido pelo dono em 2026-09-23** ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md)):
+apagar `ENABLE_GAMIFICATION`, `ENABLE_HEURISTICS` e `ENABLE_ONBOARDING` (esta,
+sem leitor em `AppConfig`, e a constante local do `OnboardingService`), e
+tornar `ENABLE_REVIEW` real por `EXPO_PUBLIC_ENABLE_REVIEW`, padrão `true`.
+**Ainda não implementado.**
 
 ## Defeito aberto
 

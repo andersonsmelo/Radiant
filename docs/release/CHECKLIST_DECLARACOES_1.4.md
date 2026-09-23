@@ -117,7 +117,13 @@ Quando a fatia 2 fechar, esta linha precisa de:
 - [ ] confirmação de que restauração de compras usa StoreKit (regra 6)
 - [ ] Compartilhamento Familiar **desativado** (regra 9)
 
-### 5. Acordo de apps pagos — ⏳ **obrigatório antes da submissão, e é seu**
+### 5. Acordo de apps pagos — ✅ **Ativo, medido em 2026-09-23**
+
+Lido no App Store Connect (Negócios → Contratos) em 2026-09-23: **Acordo de
+apps pagos *Ativo***, vigente de 15/09/2026 a 01/08/2027, todos os países;
+conta bancária *Ativa*; formulário fiscal do Brasil, Certificate of Foreign
+Status e W-8BEN *Ativos*. **Remeça na sessão da submissão** — o acordo tem
+validade e o estado pode mudar.
 
 A ADR registra em 2026-09-15: acordo aceito, formulário fiscal do Brasil ativo,
 W-8BEN ativo, conta bancária **enviada, com processamento final a confirmar**.
@@ -148,7 +154,8 @@ de trabalho que ainda não existe:
 1. **Fatia 2** (adaptador StoreKit) fecha → linha 4 fica preenchível
 2. **Você decide** sobre `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` → linha 2 fica
    decidida, num sentido ou no outro
-3. **Você confirma** o acordo de apps pagos em *Ativo* → linha 5 fecha
+3. ✅ ~~**Você confirma** o acordo de apps pagos em *Ativo*~~ — confirmado em
+   2026-09-23; remedir na sessão da submissão
 4. **Remedir** `npx eas env:list --environment production` na mesma sessão do
    preenchimento → confirma a linha 2 contra o ambiente real
 5. Só então **bump para 1.4.0** (fatia 6) e submissão, com os produtos junto

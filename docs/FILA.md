@@ -134,9 +134,10 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    compra mensal e anual, Ask to Buy, Restaurar, renovação acelerada,
    reembolso, e **abrir em modo avião** para medir se `willRenew` responde sem
    rede — se o cartão disser "Cancelada", a copy precisa de decisão.
-3. **Acordo de apps pagos em *Ativo*** no App Store Connect. Aceitar os termos
-   não ativa; sem ele, a lista de produtos vem vazia e a tela mostra "a loja
-   não respondeu".
+3. ✅ **Acordo de apps pagos *Ativo*** — **medido em 2026-09-23** no App Store
+   Connect (Negócios → Contratos): vigente de 15/09/2026 a 01/08/2027, todos os
+   países; conta bancária *Ativa*; formulário fiscal do Brasil, Certificate of
+   Foreign Status e W-8BEN *Ativos*. Leitura feita na tela, sem clicar em nada.
 4. **Decisão de produto: pedido Ask to Buy recusado.** Hoje o estado pendente
    não tem saída — o cartão do Perfil fica sem botão, a tela mostra "Pedido
    enviado" sem planos e sem Restaurar, e a recusa não gera transação que limpe
@@ -395,10 +396,14 @@ são de conteúdo e mudam o desenho; os quatro seguintes são de mecânica):
    `coronal` e `oblique`), contradiz o número por posição ao lado dele e permite
    acertar a recuperação lendo o rótulo.
 
-**Escale, não resolva sozinho:** o achado **I2** (o código `E-PLN-SEC` aplicado a
-confusão coronal×transversal) exige criar um código de erro novo na spec, o que
-é mudança de spec e **decisão do dono** — está fora da autoridade da L2, e
-remendar a taxonomia por dentro corrompe a matriz de P1 e C1.
+✅ **I2 decidido pelo dono em 2026-09-23** ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md)): criar
+`E-PLN-ORT` (confunde os planos ortogonais entre si) na spec V3 §5.2 e
+reclassificar os quatro pontos da L2. **Entra na v7**, no mesmo run do Q1,
+porque muda a remediação que o motor seleciona.
+
+📌 **Na fila logo depois da v7 — C6 na L1**, decidido na mesma ADR: copiar a
+correção da L2 (rótulo pela posição) para `BodyReferenceLessonPreview.tsx`, com
+auditoria independente curta só dessa mudança.
 
 Ao corrigir, **escrever primeiro o teste que falha** contra o defeito real: um
 teste que asseverasse sobre o espelho das props ou sobre o hook mockado
