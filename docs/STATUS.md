@@ -187,7 +187,8 @@ carrega o pacote inteiro.
    Gate medido na mesma data, Node `v20.20.2`: saiu 0, com 133 suítes e 1174
    testes, e Visual QA sem regressão. Vermelhos em
    [`2026-09-23-radiant-ask-to-buy-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md). **Comitado em
-   2026-09-23 (`000daef`)** e **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** na mesma data, junto
+   2026-09-23 (`000daef`)**, **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** e **mergeado na
+   `main` em `18a2789`** na mesma data, junto
    dos kill switches, da privacidade do analytics e do Ask to Buy; **não
    construído**. **Gate reproduzido por outra sessão** em
    2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:
@@ -251,7 +252,9 @@ carrega o pacote inteiro.
    em FILA e STATUS). **Medido na árvore combinada**, Node `v20.20.2`:
    `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **134 suítes / 1212 testes**,
    Visual QA sem regressão — a soma exata do que cada fatia mediu sozinha.
-   **Não construído, sem push.**
+   **Não construído.** Empurrada e aberta como PR para a `main` na mesma
+   data, depois de os PRs #15, #16 e #17 serem mergeados (`9acd2f5`,
+   `b77547f`, `18a2789`).
    [Relatório](superpowers/handoffs/2026-09-23-radiant-integracao-vidas-relatorio.md).
 
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não

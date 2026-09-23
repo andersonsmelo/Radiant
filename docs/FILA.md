@@ -44,17 +44,29 @@ atual em
 [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
-### DONO — aberto em 2026-09-23: três PRs empilhados esperando merge
+### DONO — CONCLUÍDO em 2026-09-23: os três PRs empilhados foram mergeados
 
-**Estado medido em 2026-09-23:** nenhum mergeado. A ordem é obrigatória, porque
-cada um parte do anterior e os três editam `STATUS.md` e `FILA.md`:
+**Medido em 2026-09-23:** mergeados na `main`, nessa ordem e por merge commit,
+com autorização do dono na conversa:
 
 1. [PR #15](https://github.com/andersonsmelo/Radiant/pull/15) — L2 v3→v6 e as fatias
-   1 e 5 da Task 8; CI `quality` verde.
+   1 e 5 da Task 8 → `9acd2f5`.
 2. [PR #16](https://github.com/andersonsmelo/Radiant/pull/16) — decisão do StoreKit
-   por módulo local e o prompt da fatia 2; só documentação.
-3. [PR #17](https://github.com/andersonsmelo/Radiant/pull/17) — adaptador StoreKit, kill switches reais, privacidade do
-   analytics e Ask to Buy; o Swift **nunca compilou** contra o Expo real.
+   por módulo local; só documentação, por isso sem CI → `b77547f`.
+3. [PR #17](https://github.com/andersonsmelo/Radiant/pull/17) — adaptador StoreKit,
+   kill switches reais, privacidade do analytics e Ask to Buy, mais o commit de
+   docs `0b0283e`, que antes só existia localmente → `18a2789`. CI `quality`
+   verde no `0b0283e` (run 35881990350, disparado pelo push, ainda com a base
+   anterior); a árvore de `18a2789` é **idêntica** à de `0b0283e`, porque cada
+   PR continha o anterior — o que o CI testou é o que está na `main`.
+
+⚠️ **A `main` agora carrega o módulo Swift `radiant-storekit`, que nunca
+compilou contra o Expo real.** O build interno `development` (item do dono
+abaixo) é o que fecha isso; até lá, um build nativo a partir da `main` pode
+falhar nesse módulo.
+
+As quatro fatias de vidas (itens 3, 3b, 3c e a nota do 4) seguem na branch
+`integ/vidas-1-4`, publicada como PR para a `main` na mesma data.
 
 ```bash
 gh pr list --state open
