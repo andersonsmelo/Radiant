@@ -6,8 +6,8 @@ comando e o trecho da saída. Toda mutação foi revertida logo depois, e a guar
 voltou a passar. Executado em 2026-09-23, em nuvem, no branch
 `feat/licao-hibrida-piloto`, com Node `v20.20.2`. Os trechos são a saída
 literal do Jest, com duas edições: o tempo de cada teste (`(N ms)`) foi tirado
-do fim das linhas `✕`, e um objeto de fibra do React de uma linha só, na
-mutação 5.1, foi truncado com a indicação no próprio trecho.
+do fim das linhas `✕`, e o objeto de fibra do React de uma linha só, nas
+mutações 5.1 e 6.1, foi truncado com a indicação no próprio trecho.
 
 ## Tarefa 1 — geometria do mapa corporal
 
@@ -368,4 +368,82 @@ Tests:       1 failed, 1 passed, 2 total
          |                      ^
       19 |   });
       20 | });
+```
+
+## Tarefa 6 — tela, mapa e rota
+
+### Mutação 6.1 — a rota monta a lição no build do aluno
+
+Em `src/app/licao-hibrida.tsx`, `if (!AppConfig.SHOW_DEV_TOOLS) {` →
+`if (false) {`.
+
+```bash
+cd radiant-app && npx jest src/test/routes/licao-hibrida.test.tsx --runInBand
+```
+
+```text
+    ✕ não monta a lição no build do aluno
+Tests:       1 failed, 1 passed, 2 total
+
+  ● rota do piloto da lição híbrida › não monta a lição no build do aluno
+
+    expect(received).toBeNull()
+
+    Received: {"_fiber": … (nó de texto "Lição híbrida"; objeto truncado aqui)
+
+      25 |     AppConfig.SHOW_DEV_TOOLS = false;
+      26 |     renderWithProviders(<HybridLessonRoute />);
+    > 27 |     expect(screen.queryByText('Lição híbrida')).toBeNull();
+         |                                                 ^
+      28 |     expect(screen.getByText('Diagnóstico restrito')).toBeTruthy();
+      29 |   });
+      30 | });
+
+      at Object.toBeNull (src/test/routes/licao-hibrida.test.tsx:27:49)
+```
+
+### Mutação 6.2 — erro de primeiro contato gasta vida na tela
+
+Fora do plano, acrescentada porque a regra de custo por tipo de item (ADR
+2026-09-23, item 2) é o que esta tela introduz. Em `HybridLessonScreen.tsx`,
+`if (answer.costsHeart) {` → `if (!answer.correct) {`.
+
+```bash
+cd radiant-app && npx jest src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx --runInBand
+```
+
+```text
+    ✕ erro de primeiro contato não custa vida, mostra a dica e deixa tentar de novo
+Tests:       1 failed, 3 passed, 4 total
+
+  ● lição híbrida na tela › erro de primeiro contato não custa vida, mostra a dica e deixa tentar de novo
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: 1790206931932
+
+      73 |     expect(await screen.findByText('Tentar de novo')).toBeTruthy();
+      74 |     expect(screen.getByText(first.hint)).toBeTruthy();
+    > 75 |     expect(deps.hearts.spend).not.toHaveBeenCalled();
+         |                                   ^
+      76 |     fireEvent.press(screen.getByText('Tentar de novo'));
+      77 |     expect(screen.getByText(first.prompt)).toBeTruthy();
+      78 |   });
+
+```
+
+### Props novos do mapa — vermelho antes da implementação
+
+Os três testes novos de `BodyReferenceMap.test.tsx` rodaram antes de os props
+existirem, que é exatamente o defeito que nomeiam (prop ignorado). Só o resumo
+dessa execução foi guardado:
+
+```text
+    ✕ sem controles, a barra de vista e postura não aparece
+    ✕ destacar a linha mediana engrossa o traço
+    ✕ landmarks não interativos não respondem ao toque nem se anunciam como botão
+Tests:       3 failed, 4 passed, 7 total
 ```

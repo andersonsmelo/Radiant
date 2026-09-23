@@ -290,6 +290,10 @@ export default function DevConsoleScreen() {
                     ) : null}
                 </GlassCard>
 
+                <ActionButton onPress={() => router.push('/licao-hibrida')} variant="secondary">
+                    Piloto: lição híbrida (L1)
+                </ActionButton>
+
                 <ActionButton onPress={() => router.push('/telemetry')} variant="secondary">
                     Abrir Telemetry Debug
                 </ActionButton>
