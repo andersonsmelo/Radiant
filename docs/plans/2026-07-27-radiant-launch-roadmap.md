@@ -1596,7 +1596,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   dependência npm ([ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md),
   [relatório](../superpowers/handoffs/2026-09-23-radiant-1-4-storekit-fatia-2-relatorio.md)).
   Gate medido: 132 suítes / 1163 testes. O Swift **não** foi compilado contra
-  o Expo real; build interno, sandbox e acordo de apps pagos ativo são do dono.
+  o Expo real; build interno e sandbox são do dono. O acordo de apps pagos foi
+  lido **Ativo** em 2026-09-23. Na mesma data, o pedido Ask to Buy pendente
+  deixou de travar a tela (aviso por 24 h, prazo oficial da Apple), e o
+  conjunto está no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17), empilhado sobre #16 e #15, com gate de 133 suítes /
+  1174 testes.
 
   **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
   mergeado em 2026-09-16 às 19:56:53 −03): entitlements do container

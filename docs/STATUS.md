@@ -187,8 +187,9 @@ carrega o pacote inteiro.
    Gate medido na mesma data, Node `v20.20.2`: saiu 0, com 133 suítes e 1174
    testes, e Visual QA sem regressão. Vermelhos em
    [`2026-09-23-radiant-ask-to-buy-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-ask-to-buy-vermelhos.md). **Comitado em
-   2026-09-23 (`000daef`)**, na branch `feat/storekit-adaptador-fatia-2`;
-   não empurrado nem construído. **Gate reproduzido por outra sessão** em
+   2026-09-23 (`000daef`)** e **empurrado no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17)** na mesma data, junto
+   dos kill switches, da privacidade do analytics e do Ask to Buy; **não
+   construído**. **Gate reproduzido por outra sessão** em
    2026-09-23, numa worktree limpa em `000daef`, Node `v20.20.2`:
    `EXPO_NO_DOTENV=1 npm run quality` saiu 0, com 132 suítes e 1163 testes, e
    Visual QA sem regressão — os mesmos números do autor.

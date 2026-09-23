@@ -39,9 +39,26 @@ remede**, porque contagem escrita envelhece e comando não.
 **Estado:** spec aprovada pelo dono
 ([`2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)).
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
-push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade em
-[`superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-14-radiant-1-4-prompt-de-continuidade.md);
+push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
+atual em
+[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
+
+### DONO — aberto em 2026-09-23: três PRs empilhados esperando merge
+
+**Estado medido em 2026-09-23:** nenhum mergeado. A ordem é obrigatória, porque
+cada um parte do anterior e os três editam `STATUS.md` e `FILA.md`:
+
+1. [PR #15](https://github.com/andersonsmelo/Radiant/pull/15) — L2 v3→v6 e as fatias
+   1 e 5 da Task 8; CI `quality` verde.
+2. [PR #16](https://github.com/andersonsmelo/Radiant/pull/16) — decisão do StoreKit
+   por módulo local e o prompt da fatia 2; só documentação.
+3. [PR #17](https://github.com/andersonsmelo/Radiant/pull/17) — adaptador StoreKit, kill switches reais, privacidade do
+   analytics e Ask to Buy; o Swift **nunca compilou** contra o Expo real.
+
+```bash
+gh pr list --state open
+```
 
 ### CONCLUÍDO — 1.4: Tasks 1–7 e a fatia CloudKit da Task 8
 
@@ -178,7 +195,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    `StoreKit2Adapter` atrás da `StoreKitPort`, módulo Swift
    `modules/radiant-storekit/` só StoreKit 2 e sem dependência, ligado no
    `SubscriptionService` e na abertura. Gate medido: `quality` exit 0, 132
-   suítes / 1163 testes, Node 20.20.2. Corrigiu os Product IDs (eram os do
+   suítes / 1163 testes, Node 20.20.2 — reproduzido por outra sessão numa
+   worktree limpa. Comitado em `000daef`, no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17). Corrigiu os Product IDs (eram os do
    `PaywallPlan`) e o reembolso que mantinha as vidas ilimitadas. **O Swift
    nunca compilou contra o Expo real** — o fechamento de verdade é do dono,
    abaixo.

@@ -9,10 +9,11 @@ remede a afirmação quando ela envelhecer. Declaração de loja que não sobrev
 uma remedição não é declaração, é intenção.
 
 > ⚠️ **Este checklist está incompleto de propósito.** As linhas de assinatura
-> dependem do adaptador StoreKit real, que é a fatia 2 e ainda não existe
-> (decidido em 2026-09-23: módulo Expo local em Swift, sem `expo-iap` —
-> [ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md)). Elas estão marcadas ⏳ e **não devem ser
-> preenchidas no App Store Connect** antes de a fatia 2 fechar.
+> dependem do adaptador StoreKit real, a fatia 2 (módulo Expo local em Swift,
+> sem `expo-iap` — [ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md)).
+> **O código existe desde 2026-09-23, mas a fatia só fecha com build interno e
+> sandbox.** As linhas seguem marcadas ⏳ e **não devem ser preenchidas no App
+> Store Connect** antes disso.
 
 ---
 
@@ -151,7 +152,8 @@ em *Informações do app* continua "Sim, este app tem os direitos necessários".
 Nada aqui é preenchido antes da hora. A ordem importa porque três linhas dependem
 de trabalho que ainda não existe:
 
-1. **Fatia 2** (adaptador StoreKit) fecha → linha 4 fica preenchível
+1. **Fatia 2** (adaptador StoreKit) fecha — código pronto em 2026-09-23, falta
+   build interno e sandbox → linha 4 fica preenchível
 2. **Você decide** sobre `EXPO_PUBLIC_ENABLE_CRASH_REPORTING` → linha 2 fica
    decidida, num sentido ou no outro
 3. ✅ ~~**Você confirma** o acordo de apps pagos em *Ativo*~~ — confirmado em

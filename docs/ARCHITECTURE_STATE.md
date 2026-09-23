@@ -258,12 +258,22 @@ permanece como histórico.
   `JourneyProgressService.computeSnapshot`); `hearts/` (`HeartsService` puro +
   `HeartsRepository` persistido; descontado na lição e no checkpoint);
   `subscription/` (`SubscriptionService` com porta de loja, tela
-  `/subscription`, sem adaptador StoreKit ainda); backup no iCloud
-  (`ProgressSyncService`, `backupNow` sem chamador até o adaptador existir);
+  `/subscription` e, desde 2026-09-23, o `StoreKit2Adapter` sobre o módulo
+  Expo local `modules/radiant-storekit/`, só StoreKit 2 — Swift ainda não
+  compilado em build; pedido Ask to Buy pendente vale 24 h e nunca esconde
+  planos); backup no iCloud (`ProgressSyncService` sobre o módulo
+  `modules/radiant-cloudkit/`, validado em aparelho em 2026-09-16);
   migração de armazenamento 1.3.1 → 1.4 com backup na abertura. Trilha
   virtualizada (`JourneyTrail`) com cabeçalho de vidas; folha de vidas nas
-  três telas de estudo. **Adaptadores nativos (StoreKit, iCloud, Sentry)
-  dependem dos gates do dono** — ver `STATUS.md`.
+  três telas de estudo. **Estado dos nativos em 2026-09-23:** iCloud validado
+  em aparelho; Sentry com opções mínimas, portão fechado por decisão de loja;
+  StoreKit implementado e à espera de build e sandbox — ver `STATUS.md`.
+- **Kill switches (`src/config.ts`), desde 2026-09-23:** só dois reais,
+  `ENABLE_LEARNING_ROAD` e `ENABLE_REVIEW`, ambos lidos do ambiente e
+  acionáveis por build ou OTA. `config/killSwitches.contract.test.ts` barra
+  por AST flag fixa ou sem leitor. "Nenhum evento de analytics sai do
+  aparelho" é garantido por nenhum adaptador de analytics ser registrado, com
+  guarda em `telemetry-privacy-contract.test.ts` — não por flag.
 - **Dívida conhecida:** `GamificationService` ainda persiste `hearts` legados
   ao lado do `HeartsRepository` — duas fontes para o mesmo conceito, a
   aposentar antes da próxima migração. O cartão antigo de conta continua em
