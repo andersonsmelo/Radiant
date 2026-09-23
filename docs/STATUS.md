@@ -870,9 +870,33 @@ carrega o pacote inteiro.
    **Seguem abertos na L2:** P2 a P9 do v5 (entre eles a legenda que atribui
    "alinhada" ao traço da resposta "inclinada", e `scenarioRegion` resolvendo
    região por prefixo de string), N3, N5, I4 agravado, N7–N10 e os
-   importantes/menores do v3. **Parecer v6 pendente.**
+   importantes/menores do v3.
 
-   📌 **Mesmo um v6 aprovado não torna a L2 publicável:** J4 (acessibilidade
+   **Parecer v6 (2026-09-22, sobre `949a5f0`): reprovado pela quarta vez no
+   mesmo padrão** — [registro](content/2026-09-22-l2-parecer-v6.md). O P1 está
+   resolvido no quadro: todo candidato cabe no `viewBox`. O crítico novo, **Q1**,
+   foi criado pela correção do P1: `candidatePathFor` soma `regionTop −
+   thoraxTop` supondo base no tórax, mas três dos quatro candidatos ligados a
+   nível já estão no abdome. A resposta correta de "separa superior e inferior
+   **do abdome**" é desenhada na pelve (y 252..276 contra a banda 166..226), e em
+   `l2-section-recovery`, porta única de domínio do objetivo 4, a segunda face do
+   volume fica abaixo do tronco. Reconferido pelo controlador, com a aritmética,
+   em 2026-09-22. Importantes: a "compressão" anunciada não existe (Q2); as
+   guardas novas ficam **51/51 verdes** com `transform` no `<Path>`, caminho
+   vazio ou tela revertida (Q3); o resíduo do N1 persiste nos objetivos 1 a 3
+   (Q4); a congruência do N5 voltou em 4 itens (Q5). O N4 **regrediu** no
+   candidato.
+
+   🔴 **Quarta vez que a resposta correta sai falsa no desenho, cada vez por
+   um mecanismo novo** (C3, P1, Q1), e quarta guarda de diferença no lugar de
+   validade. O registro propõe **uma guarda única de validade semântica** para
+   todos os itens: resposta correta com `d` não vazio, dentro da banda que o
+   enunciado nomeia e do tronco, sem `transform` estranho e sem coincidir com o
+   outro candidato. Ela deve ser vista falhando com o Q1 **antes** da correção.
+   **Evidência do revisor, medida em 2026-09-22:** Node 20, 5 suítes/51 testes
+   da lição e 12/129 em `curriculum-v3` aprovados; 11 mutações, 7 delas verdes.
+
+   📌 **Mesmo um parecer aprovado não torna a L2 publicável:** J4 (acessibilidade
    sobre as lições implementadas) e J5 (corte seguro e fluxo completo no iPhone)
    continuam pendentes, mais a revisão técnica especializada da §8/§12.3, que
    nenhum parecer de agente fecha.

@@ -224,7 +224,7 @@ template do Expo em inglês — passivo direto sob o código da rejeição. O
 | Instalar e **verificar se o app abre** | dono | **abertura confirmada** no `(9)`; smoke completo, persistência e offline continuam pendentes |
 | Anotar modelo e versão do iOS | dono | **concluído** — iPhone 16 / iOS 27.0, informados em 27/08 |
 | Fundação técnica V3 — J2 | agente | **concluída localmente** — `320e10d`; sem troca de telas |
-| Produção do Arco 1 — J3 | agente + auditor | **próxima execução** — começar pela L1; roteiro abaixo |
+| Produção do Arco 1 — J3 | agente + auditor | **em andamento** — L1 aprovada; L2 reprovada no parecer v6 (2026-09-22); ver a seção J3 abaixo |
 | Auditoria/QA de acessibilidade — J4 | auditor + executor dos testes manuais | **pendente** sobre as lições implementadas, não sobre o desenho |
 | Corte seguro e fluxo completo no iPhone — J5 | agente + dono | **pendente** — preservar histórico e validar instalação limpa/atualização |
 | Remover o painel visual legado | agente | **concluído** em 2026-09-08 — componente, raster e dicas globais fora; regressão no lugar do mock |
@@ -258,11 +258,11 @@ no status: 74 testes focados e 14 validadores Loop aprovados, sem prova de
 funcionamento do V3 no aparelho. Remedir o escopo atual com os comandos do plano
 e `loop validate` no run correspondente.
 
-### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v3
+### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
 
 **Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
-2026-09-16. **Bloqueio:** a **L2 reprovou nas três revisões** — v1, v2 e v3;
-publicação continua dependendo de J4/J5.
+2026-09-16. **Bloqueio:** a **L2 reprovou nas seis revisões** — v1 a v6, a
+última em 2026-09-22; publicação continua dependendo de J4/J5.
 **Dono:** agente, com subagente auditor independente por pacote.
 
 > **Esta seção afirmou "pendente de produção, começar pela L1" até 2026-09-16,
@@ -291,11 +291,30 @@ startup, rota, catálogo ou manifesto, e `prepareV3()` não é chamado.
 > v5 está pendente**. Registro em
 > [`2026-09-22-l2-parecer-v4.md`](content/2026-09-22-l2-parecer-v4.md).
 
-**Próximo item executável: obter o parecer v6.** O v5 reprovou em 2026-09-22
-([registro](content/2026-09-22-l2-parecer-v5.md)) por **um crítico que a correção
-anterior criou** — candidatos transladados para fora do `viewBox`, com a resposta
-correta de duas recuperações falsa no desenho. Corrigido no mesmo dia
-(`949a5f0`), junto do resíduo do N1 no quarto objetivo.
+~~Obter o parecer v6~~ — **concluído em 2026-09-22: reprovado**
+([registro](content/2026-09-22-l2-parecer-v6.md)). O P1 do v5 está resolvido no
+quadro; o crítico novo, **Q1**, foi criado pela correção dele: os candidatos
+ligados a nível são desenhados **uma banda abaixo** da região que o enunciado
+nomeia, porque `candidatePathFor` supõe base no tórax e três dos quatro já estão
+no abdome. Mais quatro importantes (Q2–Q5) e o N4 regredido no candidato.
+
+**Próximo item executável: a v7, nesta ordem — e não em outra.**
+
+1. **Escrever primeiro a guarda única de validade semântica** proposta no
+   registro do v6: para **todo** item, a resposta correta tem `d` não vazio,
+   bounding box dentro da banda da região que o enunciado nomeia e dentro do
+   tronco, nenhum `transform` em ancestral além do grupo declarado, e não
+   coincide com o outro candidato. Rodá-la **contra `949a5f0` sem mexer em
+   nada** e **registrar a execução vermelha em arquivo versionado**: ela tem que
+   falhar com o Q1. Se passar, a guarda está errada, não o código.
+2. Só então corrigir **Q1 e Q2** (e o `index` morto), enumerando antes e depois
+   os oito pares candidato × região — a mudança na conta do delta mexe em todo
+   cenário, inclusive nos de tórax, que hoje não se movem.
+3. Na mesma passagem, **Q3** (restaurar a asserção sobre a `matrix` e cobrir o
+   caminho vazio) e **Q4** (a frase depende de o próximo item ser novo para o
+   objetivo, com guarda sobre a **tela**, não sobre a função).
+4. Obter o parecer v7 com o mesmo brief do v6: descrição do autor como hipótese,
+   e as mutações reaplicadas pelo revisor.
 
 > 🔴 **Pare e leia antes de abrir o próximo run desta lição.** São **três
 > passagens seguidas** em que a correção produziu o achado seguinte, e em que a
@@ -308,8 +327,11 @@ correta de duas recuperações falsa no desenho. Corrigido no mesmo dia
 > autorizou o P1 exigia que duas matrizes diferissem — o que uma translação para
 > fora do quadro satisfaz com folga.
 
-Se o v6 aprovar, os importantes e menores ainda abertos (P2–P9, N3, N5, I1, I3,
-I4, I5.3, N7–N10, M4–M6) entram num run próprio, e só então a P1 do currículo.
+Q5 (congruência do N5 de volta em 4 itens) e Q6 (desenho da recuperação igual
+ao do inicial) **não** entram na v7: Q5 é da mesma família de P2/N5 e Q6 é
+decisão editorial junto do P4. Quando um parecer aprovar, os importantes e
+menores ainda abertos (P2–P9, N3, N5, Q5, Q6, I1, I3, I4, I5.3, N7–N10, M4–M6)
+entram num run próprio, e só então a P1 do currículo.
 
 📌 **Aprovação do parecer não é autorização de publicação.** J4 e J5 continuam
 pendentes, mais a revisão técnica especializada da §8/§12.3.
