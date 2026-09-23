@@ -104,9 +104,11 @@ Não faz build, envio nem push sem autorização datada.
 **Estado:** desenho aprovado pelo dono em 2026-09-23
 ([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
 [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)); nada implementado.
-**Bloqueio:** nenhum para escrever o plano de implementação. **Dono:** agente
-para o plano e a implementação local; o dono para autorizar o build de teste e
-recrutar de 3 a 5 pessoas. Os seis sons já foram escolhidos pelo dono em
+**Bloqueio:** nenhum. **Dono:** agente de IA em nuvem para a implementação,
+pelo [prompt de handoff](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md)
+entregue ao dono em 2026-09-23; a sessão local revisa o retorno, valida no Loop
+e integra. O dono autoriza o build de teste e recruta de 3 a 5 pessoas quando
+decidir. Os seis sons já foram escolhidos pelo dono em
 2026-09-23 e estão em
 [`radiant-app/assets/sounds/`](../radiant-app/assets/sounds/README.md).
 

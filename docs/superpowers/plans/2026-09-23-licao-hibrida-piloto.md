@@ -72,6 +72,13 @@ Valem para toda tarefa, mesmo quando ela não as repete.
 
 ## Execução no Loop
 
+> **Execução em nuvem (decidida em 2026-09-23):** este plano vai para um agente
+> de IA em nuvem, pelo
+> [prompt de handoff](../handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md).
+> Lá não há CLI `loop` nem cérebro do Obsidian: o agente roda os gates
+> diretamente e entrega um branch com relatório. Esta seção vale para a sessão
+> local que recebe o retorno, que abre o run, valida no Loop e fecha.
+
 Um único run cobre o plano inteiro. O controlador é dono dele: subagentes
 editam, testam e commitam, mas **não executam nenhum comando `loop`**.
 `PROJECT_BUSY` é o esperado. Antes de abrir, confira que `git status
