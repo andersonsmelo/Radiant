@@ -110,10 +110,14 @@ recrutar de 3 a 5 pessoas. Os seis sons já foram escolhidos pelo dono em
 2026-09-23 e estão em
 [`radiant-app/assets/sounds/`](../radiant-app/assets/sounds/README.md).
 
-Próximo passo: plano de implementação a partir da spec — tocador híbrido, camada
-de som e vibração, os três modelos da L1 com gabarito calculado e as guardas de
-validade. O critério para escalar está na §5.4 da spec. **Substitui a v7 da L2
-como próximo item de conteúdo.**
+Próximo passo: executar o
+[plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md),
+escrito em 2026-09-23, em oito tarefas: geometria do mapa, modelos com gabarito
+calculado, sessão e aprovação por impressão digital, som e vibração,
+interruptores no Perfil, tela e rota `/licao-hibrida` (só com
+`SHOW_DEV_TOOLS`), medidas locais, e gate. O build de teste continua fora, por
+decisão do dono em 2026-09-23. O critério para escalar está na §5.4 da spec.
+**Substitui a v7 da L2 como próximo item de conteúdo.**
 
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
 

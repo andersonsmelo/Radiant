@@ -91,7 +91,8 @@ Quando documentos divergirem, use esta ordem:
   [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
 - **formato de lição vigente (2026-09-23):** lição híbrida, com piloto na L1 —
   [spec do piloto](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)
-  e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md).
+  e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
+  com o [plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md).
   A v7 da L2 está pausada até o resultado do piloto;
 - roteiro anterior de produção: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
   sem repetir a fundação nem ativar o V3 antecipadamente;
