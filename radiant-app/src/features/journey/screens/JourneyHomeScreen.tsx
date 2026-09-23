@@ -21,6 +21,7 @@ import { useAppOpenLifecycle } from '../../telemetry/hooks/useAppOpenLifecycle';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
+import { subscriptionService } from '../../subscription/SubscriptionService';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -232,13 +233,18 @@ export default function JourneyHomeScreen() {
           visible={heartsSheetVisible && hearts.status !== 'unlimited'}
           snapshot={hearts}
           dueReviewCount={snapshot?.dueReviewCount ?? 0}
-          storeAvailable={false}
+          storeAvailable={subscriptionService.storeAvailable()}
           onClose={() => setHeartsSheetVisible(false)}
           onReview={() => {
             setHeartsSheetVisible(false);
             if (dueReviewNode) void openNode(dueReviewNode);
           }}
-          onSubscribe={() => undefined}
+          onSubscribe={() => {
+            // A volta da assinatura passa pelo `useFocusEffect` acima, que
+            // relê as vidas: assinante ganha ∞ no cabeçalho e a folha some.
+            setHeartsSheetVisible(false);
+            router.push('/subscription');
+          }}
         />
       ) : null}
     </View>

@@ -197,17 +197,31 @@ carrega o pacote inteiro.
    As fatias 3 e 4 estão destravadas no código; a validação da fatia 2 espera
    build interno e sandbox.
 
-   **Fatia 3 implementada em 2026-09-23, sem build nem commit** (branch
-   `feat/quiztopbar-infinito`, aberta de `0b0283e`): o `QuizTopBar` troca os
+   **Fatia 3 implementada em 2026-09-23, sem build** (branch
+   `feat/quiztopbar-infinito`, aberta de `0b0283e`; comitada em `647b2c3` na
+   mesma data, com autorização do dono): o `QuizTopBar` troca os
    corações por ∞ quando `HeartsSnapshot.status === 'unlimited'`, e a
    `LessonFlowScreen` repassa esse estado. A fonte é o snapshot das vidas, não
    o `SubscriptionStatus`, por decisão do dono. **Medido em 2026-09-23**, Node
    `v20.20.2`: `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1178
    testes**, Visual QA sem regressão. Vermelhos, com três mutações, em
    [`2026-09-23-radiant-quiztopbar-infinito-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md).
-   **Achado na mesma data:** a folha de vidas das três telas tem
-   `storeAvailable={false}` fixo, então nunca oferece a assinatura. Ver
+   **Achado na mesma data:** a folha de vidas das três telas tinha
+   `storeAvailable={false}` fixo, então nunca oferecia a assinatura. Ver
    [relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md).
+
+   **Folha ligada à loja em 2026-09-23, sem build nem push** (comitada na
+   branch local `feat/folha-vidas-loja`, aberta de `647b2c3`; o dono decidiu
+   que entra na 1.4): Lição, Checkpoint e Jornada oferecem "Ver assinatura" quando
+   `subscriptionService.storeAvailable()` diz que o binário tem o módulo da
+   loja — pergunta local, sem StoreKit nem rede — e o botão abre
+   `/subscription`. Lição e Checkpoint releem as vidas a cada foco: voltando da
+   compra, ∞ e sem bloqueio. **Medido em 2026-09-23**, Node `v20.20.2`:
+   `EXPO_NO_DOTENV=1 npm run quality` → exit 0, **133 suítes / 1190 testes**,
+   Visual QA sem regressão. Seis mutações vistas vermelhas em
+   [`2026-09-23-radiant-folha-vidas-loja-vermelhos.md`](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-vermelhos.md).
+   Divergência da spec §98 (motivo do offline na folha) no
+   [relatório](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md).
 
    📌 **O defeito aberto do `ENABLE_REMOTE_SYNC` é inerte em produção.** Ele não
    desliga o `AuthService`, que decide por `isApiConfigured()` — verdade, e sem

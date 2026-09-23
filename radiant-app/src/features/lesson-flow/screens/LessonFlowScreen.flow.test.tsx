@@ -11,6 +11,9 @@ import { LessonFlowService } from '../services/LessonFlowService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { router } from 'expo-router';
+import { subscriptionService } from '../../subscription/SubscriptionService';
+
+const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
 const mockedOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
@@ -18,11 +21,29 @@ const mockedLessonFlowService = LessonFlowService as jest.Mocked<typeof LessonFl
 const mockedRouter = router as jest.Mocked<typeof router>;
 const announceForAccessibility = jest.spyOn(AccessibilityInfo, 'announceForAccessibility');
 
+// Foco controlável: a tela relê as vidas ao voltar de outra rota, e o teste
+// precisa simular essa volta sem desmontar a tela.
+const mockFocusCallbacks = new Set<() => void>();
+function voltarParaATela() {
+  act(() => mockFocusCallbacks.forEach(callback => callback()));
+}
+
 jest.mock('expo-router', () => ({
   router: {
     replace: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
+  },
+  useFocusEffect: (callback: () => void | (() => void)) => {
+    const React = require('react');
+    React.useEffect(() => {
+      mockFocusCallbacks.add(callback);
+      const cleanup = callback();
+      return () => {
+        mockFocusCallbacks.delete(callback);
+        if (typeof cleanup === 'function') cleanup();
+      };
+    }, [callback]);
   },
 }));
 
@@ -100,10 +121,24 @@ jest.mock('../../hearts/HeartsRepository', () => ({
   },
 }));
 
+jest.mock('../../subscription/SubscriptionService', () => ({
+  subscriptionService: { storeAvailable: jest.fn(() => false) },
+}));
+
 jest.mock('../../hearts/components/HeartsSheet', () => {
   const React = require('react');
   const { Text } = require('react-native');
-  return { HeartsSheet: ({ visible }: { visible: boolean }) => visible ? <Text>Sua lição está pausada</Text> : null };
+  const { Pressable } = require('react-native');
+  return {
+    HeartsSheet: ({ visible, storeAvailable, onSubscribe }: { visible: boolean; storeAvailable: boolean; onSubscribe: () => void }) =>
+      visible ? (
+        <>
+          <Text>Sua lição está pausada</Text>
+          <Text>{storeAvailable ? 'folha: com assinatura' : 'folha: sem assinatura'}</Text>
+          <Pressable accessibilityRole="button" onPress={onSubscribe}><Text>Assinar pela folha</Text></Pressable>
+        </>
+      ) : null,
+  };
 });
 
 jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
@@ -495,6 +530,52 @@ describe('LessonFlowScreen — economia de vidas', () => {
     await waitFor(() => expect(screen.queryByText('Qual padrão radiográfico está presente?')).toBeNull());
     expect(screen.queryByText('Sua lição está pausada')).toBeNull();
     expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalledWith('node-1', 1);
+  });
+
+  describe('folha de vidas e a loja', () => {
+    const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null };
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+
+    async function pausarSemVidas() {
+      heartsRepository.spend.mockResolvedValue(vazia);
+      renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Continuar'));
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    }
+
+    it('com loja no binário, a folha oferece a assinatura e leva à tela dela', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await pausarSemVidas();
+
+      expect(screen.getByText('folha: com assinatura')).toBeTruthy();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+      // A folha é um Modal: aberta, ficaria por cima da tela da assinatura.
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    });
+
+    it('sem loja no binário, a folha não oferece a assinatura', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(false);
+      await pausarSemVidas();
+
+      expect(screen.getByText('folha: sem assinatura')).toBeTruthy();
+    });
+
+    it('voltando da compra, a lição relê as vidas e mostra ∞', async () => {
+      mockedSubscription.storeAvailable.mockReturnValue(true);
+      await pausarSemVidas();
+      fireEvent.press(screen.getByText('Assinar pela folha'));
+
+      heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+      voltarParaATela();
+
+      expect(await screen.findByLabelText('Vidas ilimitadas')).toBeTruthy();
+      expect(screen.queryByTestId('hearts-display')).toBeNull();
+      expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    });
   });
 
   it('assinante vê ∞ no topo da lição, sem as vidas', async () => {

@@ -1602,6 +1602,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   conjunto está no [PR #17](https://github.com/andersonsmelo/Radiant/pull/17), empilhado sobre #16 e #15, com gate de 133 suítes /
   1174 testes.
 
+  **∞ e folha ligada à loja (2026-09-23, sem build):** o `QuizTopBar` mostra ∞
+  para assinante (`647b2c3`), e a folha de vidas das três telas oferece a
+  assinatura quando o binário tem a loja, abrindo `/subscription`; Lição e
+  Checkpoint releem as vidas no foco para que a volta da compra mostre ∞
+  ([relatório](../superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md)).
+  Gate de 133 suítes / 1190 testes. Nenhum dos dois foi visto em aparelho.
+
   **Feito na fatia CloudKit** ([PR #14](https://github.com/andersonsmelo/Radiant/pull/14),
   mergeado em 2026-09-16 às 19:56:53 −03): entitlements do container
   `iCloud.com.ascendcreative.radiant` no app config com contrato anti-regressão;

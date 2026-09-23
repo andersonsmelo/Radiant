@@ -1,6 +1,7 @@
 import { StoreKit2Adapter } from './StoreKit2Adapter';
 import type { RadiantStoreKitNative, StoreKitNativeTransaction } from './storekitNative.types';
 import { SubscriptionService } from './SubscriptionService';
+import { UnavailableStoreKitAdapter } from './UnavailableStoreKitAdapter';
 import {
     StoreUnavailableError,
     type PurchaseOutcome,
@@ -453,6 +454,36 @@ describe('SubscriptionService — escolha do adaptador padrão', () => {
         const service = new SubscriptionService({ storage: memoria(), hearts: vidas() });
 
         await expect(service.loadOffers()).resolves.toEqual({ status: 'store-unavailable' });
+    });
+
+    it('com o módulo nativo, a folha de vidas pode oferecer a assinatura — sem tocar a loja', () => {
+        const nativo = {
+            loadProducts: jest.fn(),
+            currentEntitlements: jest.fn(),
+            purchase: jest.fn(),
+            sync: jest.fn(),
+            addListener: jest.fn(() => ({ remove: () => undefined })),
+        };
+        (requireOptionalNativeModule as jest.Mock).mockReturnValue(nativo);
+        const service = new SubscriptionService({ storage: memoria(), hearts: vidas() });
+
+        expect(service.storeAvailable()).toBe(true);
+        expect(nativo.loadProducts).not.toHaveBeenCalled();
+        expect(nativo.currentEntitlements).not.toHaveBeenCalled();
+        expect(nativo.sync).not.toHaveBeenCalled();
+    });
+
+    it('sem o módulo nativo, a folha de vidas diz que a assinatura não existe neste aparelho', () => {
+        (requireOptionalNativeModule as jest.Mock).mockReturnValue(null);
+        const service = new SubscriptionService({ storage: memoria(), hearts: vidas() });
+
+        expect(service.storeAvailable()).toBe(false);
+    });
+
+    it('o adaptador indisponível injetado também não oferece a assinatura', () => {
+        const service = new SubscriptionService({ store: new UnavailableStoreKitAdapter(), storage: memoria(), hearts: vidas() });
+
+        expect(service.storeAvailable()).toBe(false);
     });
 
     it('o módulo nativo só é consultado quando a loja é usada, não ao importar o serviço', () => {

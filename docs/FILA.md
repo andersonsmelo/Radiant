@@ -201,7 +201,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    nunca compilou contra o Expo real** — o fechamento de verdade é do dono,
    abaixo.
 3. ✅ **`QuizTopBar` mostrando ∞ para assinante** — implementado em
-   **2026-09-23**, **sem build**, na branch `feat/quiztopbar-infinito`
+   **2026-09-23**, **sem build**, na branch `feat/quiztopbar-infinito`,
+   comitado em `647b2c3` com autorização do dono na mesma data
    ([relatório](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-relatorio.md),
    [vermelhos](superpowers/handoffs/2026-09-23-radiant-quiztopbar-infinito-vermelhos.md)).
    O topo da lição troca os corações por ∞ quando
@@ -220,9 +221,22 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      sempre 5 e nunca ∞.
    - **O `HUD` mostra ∞ ao lado dos corações.** A spec pede que os corações
      sumam.
-   - **A folha de vidas nunca oferece a assinatura.** As três telas passam
-     `storeAvailable={false}` e `onSubscribe={() => undefined}` fixos. **Decisão
-     do dono:** isto entra na 1.4?
+   - ✅ **A folha de vidas nunca oferecia a assinatura.** O dono decidiu que
+     entra na 1.4, e foi resolvido na mesma data — item 3b.
+3b. ✅ **Folha de vidas oferece a assinatura** — implementado em
+   **2026-09-23**, **sem build**, na branch `feat/folha-vidas-loja`, aberta de
+   `647b2c3`
+   ([relatório](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-relatorio.md),
+   [vermelhos](superpowers/handoffs/2026-09-23-radiant-folha-vidas-loja-vermelhos.md)).
+   Lição, Checkpoint e Jornada perguntam `subscriptionService.storeAvailable()`
+   — o binário tem o módulo da loja? —, sem tocar a StoreKit nem a rede;
+   "Ver assinatura" fecha a folha e abre `/subscription`; Lição e Checkpoint
+   passaram a reler as vidas a cada foco, então quem volta assinante vê ∞ e
+   não fica bloqueado. Gate, Node `v20.20.2`: `quality` exit 0, **133 suítes /
+   1190 testes**. **Para o dono decidir:** offline com binário capaz de vender,
+   o motivo aparece na tela da assinatura e não na folha, ao contrário da spec
+   §98 — mostrá-lo na folha exigiria uma dependência de rede no estudo.
+   **Falta:** a volta de `/subscription` no navegador real, que espera build.
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
