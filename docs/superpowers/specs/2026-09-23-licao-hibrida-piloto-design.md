@@ -64,7 +64,9 @@ modelo treinado em dados de uso (não há coleta).
 6. O tempo de revisão do dono limita a produção; por isso ele revisa regras e
    amostras, não item por item.
 7. Os sons do piloto vêm de um pacote com licença livre para uso comercial,
-   com troca prevista para sound designer depois da validação.
+   com troca prevista para sound designer depois da validação. **Escolhidos em
+   2026-09-23:** seis sons do Kenney (CC0), em
+   [`radiant-app/assets/sounds/`](../../../radiant-app/assets/sounds/README.md).
 
 ## 5. Desenho
 
@@ -109,11 +111,28 @@ que toca, vibra ou anima. Serve para qualquer lição, inclusive as legadas.
 | Fim de lição | fanfarra de ~1 s | sucesso | o Pixel celebra; os números sobem |
 | Toque em opção | clique quase inaudível | seleção | — |
 
-Regras: seis sons, curtos (< 300 ms, exceto o do fim) e de um mesmo estilo;
+Regras: seis sons, curtos (< 300 ms, exceto a sequência de acertos, < 600 ms, e
+o do fim, ~1 s);
 pré-carregados na abertura da lição; respeitam o botão de silencioso; dois
 interruptores no Perfil ("Sons" e "Vibração"), ligados por padrão; todo evento
 tem equivalente visual; com Reduce Motion o Pixel aparece parado.
 Tecnologia: `expo-haptics` (já instalado) e `expo-audio`.
+
+**Sons escolhidos pelo dono em 2026-09-23**, de ouvido, entre 40 candidatos do
+Kenney (CC0), com a origem e o hash de cada arquivo em
+[`radiant-app/assets/sounds/README.md`](../../../radiant-app/assets/sounds/README.md):
+
+| Evento | Arquivo | Original | Duração |
+| --- | --- | --- | --- |
+| Toque em opção | `toque.m4a` | Interface Sounds · `select_001` | 40 ms |
+| Acerto | `acerto.m4a` | Interface Sounds · `confirmation_001` | 290 ms |
+| Erro | `erro.m4a` | Interface Sounds · `error_008` | 136 ms |
+| Perda de vida | `vida.m4a` | Interface Sounds · `drop_002` | 188 ms |
+| 3 e 5 acertos seguidos | `sequencia.m4a` | Music Jingles · `jingles_NES14` (8-Bit) | 373 ms |
+| Fim de lição | `fim.m4a` | Music Jingles · `jingles_PIZZI12` (Pizzicato) | 993 ms |
+
+O limite da sequência subiu de 300 para 600 ms nesta data: os sons crescentes
+disponíveis têm de 0,28 a 0,55 s, e o escolhido tem 373 ms.
 
 ### 5.3 Modelos de exercício, IA e revisão
 
