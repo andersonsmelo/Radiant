@@ -20,6 +20,7 @@ export const STORAGE_KEYS = {
     COMPETENCY_MASTERY: '@radiant:competency_mastery_v1',
     LESSON_RATINGS: '@radiant:lesson_ratings_v1',
     HEARTS: '@radiant:hearts_v1',
+    CHECKPOINT_CHARGED_ITEMS: '@radiant:checkpoint_charged_items_v1',
     SUBSCRIPTION: '@radiant:subscription_v1',
     PROGRESS_BACKUP: '@radiant:progress_backup_v1',
     FIRST_RUN: '@radiant/first_run_v1',

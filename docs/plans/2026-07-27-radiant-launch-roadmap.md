@@ -1233,6 +1233,10 @@ entrega a fundação que aqueles itens passam a consumir.
   **Fechamento, mesma data:** texto do checkpoint (`6b76bc7`) e texto grande
   (`de397b6`, `9ddea97`) corrigidos com teste vermelho antes e reconferidos no
   simulador em AX5, AX1 e padrão; gate do branch 150 suítes / 1415 testes.
+  **Regra de vidas, mesma data:** cada pergunta do checkpoint custa no máximo
+  uma vida por tentativa, com os ids cobrados persistidos por nó e apagados no
+  envio; três testes de tela vistos vermelhos antes; gate 151 suítes / 1423
+  testes; não conferida no simulador.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

@@ -27,6 +27,7 @@ import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoi
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
 import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } from '../checkpointRuleCopy';
+import { checkpointChargeLedger } from '../checkpointChargeLedger';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
@@ -101,7 +102,6 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
-  const chargedCheckpointItems = useRef(new Set<string>());
   const processingAnswer = useRef(false);
 
   useEffect(() => {
@@ -318,8 +318,9 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
 
     try {
       const isIncorrect = selectedOptionId !== currentProductionItem.correctOptionId;
-      if (isIncorrect && !chargedCheckpointItems.current.has(currentProductionItem.id)) {
-        chargedCheckpointItems.current.add(currentProductionItem.id);
+      // A reserva é gravada antes da cobrança: se o app morrer entre as duas, o
+      // aluno deixa de pagar uma vez, em vez de pagar duas pela mesma pergunta.
+      if (isIncorrect && await checkpointChargeLedger.claim(checkpointNode.id, currentProductionItem.id)) {
         const nextHearts = await heartsRepository.spend(Date.now());
         setHearts(nextHearts);
 
@@ -374,6 +375,8 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       setSubmitting(true);
       const evaluation = evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
       await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
+      // A avaliação está registrada: a tentativa acabou, e a próxima cobra de novo.
+      await checkpointChargeLedger.clear(checkpointNode.id);
       setCheckpointEvaluation(evaluation);
       if (evaluation.attempt.passed) {
         await handleComplete();

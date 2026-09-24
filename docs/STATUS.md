@@ -143,8 +143,11 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
     e texto grande) e reconferidos no simulador;
   - gate do branch: 150 suítes / 1415 testes, exit 0
     ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
-  - o VoiceOver em aparelho e a regra de uma vida por pergunta por tentativa
-    seguem abertos na [FILA](FILA.md).
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) foi
+    implementada no mesmo branch em 2026-09-24, sem conferência no simulador.
+    Gate medido depois dela, no Node 20: 151 suítes / 1423 testes, exit 0
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+  - o VoiceOver em aparelho segue aberto na [FILA](FILA.md).
 
 ## Defeito conhecido
 

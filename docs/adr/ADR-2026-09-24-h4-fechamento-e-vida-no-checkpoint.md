@@ -59,6 +59,10 @@ primeira vez continuou gasta.
   defeito específico: errar, remontar a tela e errar a mesma pergunta cobra
   **uma** vida, não duas.
 - Assinante ilimitado não é afetado, porque errar não custa (spec §5).
+- **Implementação (2026-09-24):** a decisão 2 foi implementada em
+  `radiant-app/src/features/checkpoint/checkpointChargeLedger.ts`, no branch
+  `fix/e2e-defeitos-2-e-3`, depois de o dono confirmá-la numa segunda conversa
+  ([relatório](../superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md)).
 
 ## Alternativas descartadas
 

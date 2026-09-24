@@ -364,11 +364,21 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    **Resíduo:** no AX4/AX5, uma palavra mais larga que o cartão ainda se
    parte ("Fundame / ntos"), como no texto nativo do iOS.
 
-3. **Aberto, e fora do fechamento da H4 — pergunta cobrada duas vezes na
-   mesma tentativa.** A tela zera as
-   perguntas já cobradas a cada remontagem (medido ao fechar o app; pelo código, também ao sair pelo ✕), e
-   o aluno paga de novo pelo mesmo erro. Regra decidida: numa tentativa, cada
-   pergunta custa no máximo uma vida, e só os ids cobrados são persistidos.
+3. ✅ **Pergunta cobrada duas vezes na mesma tentativa** — corrigido em
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build, depois do ok do
+   dono na ADR dado na própria conversa. O `Set` em memória da tela virou
+   `checkpoint/checkpointChargeLedger.ts`:
+   - grava, por nó de checkpoint, só os ids das perguntas já cobradas, na chave
+     `@radiant:checkpoint_charged_items_v1`, e nunca a alternativa;
+   - a reserva é gravada antes da cobrança;
+   - a lista se apaga quando o envio é registrado, com aprovação ou
+     reprovação.
+
+   Três testes de tela vistos vermelhos pelo defeito: 2 cobranças em vez de 1
+   ao remontar; 2 em vez de 3 depois de reprovar; e a lista ainda gravada
+   depois de aprovar. **Não conferido no simulador**, por decisão do dono
+   sobre a condição de pronto
+   ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md)).
 
 **Decidido pelo dono em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):** a H4 fecha
 com os defeitos 1 e 2 corrigidos e o checkpoint conferido de novo no simulador.
