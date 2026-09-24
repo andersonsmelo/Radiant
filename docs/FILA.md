@@ -128,7 +128,11 @@ Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
 desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
 quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
 espelhados na vista de costas, marcadores fora do desenho e textos técnicos
-demais. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
+demais. **O boneco do mapa é ilustração de piloto** (decisão do dono em
+2026-09-24): desenho esquemático feito em código, aceito para o piloto e o
+teste com pessoas; antes de a lição chegar ao aluno, precisa de arte
+definitiva, com as posições em `LANDMARK_POSITIONS` reajustadas e as guardas de
+geometria verdes. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
 gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
 descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
 "Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
@@ -140,8 +144,11 @@ Pendente, nesta ordem:
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-2. **Dono, quando quiser ver:** `npx expo run:ios`, que recompila o cliente de
-   desenvolvimento por causa do `expo-audio` (módulo nativo novo).
+2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
+   causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
+   `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
+   "Risco de build" do [STATUS](STATUS.md): `xcodebuild` com os contornos, num
+   simulador com **iOS 26.5**, porque no iOS 27 o app fecha na abertura.
 3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
    critério da §5.4 da
    [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
