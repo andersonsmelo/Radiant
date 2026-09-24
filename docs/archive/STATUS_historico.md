@@ -1710,3 +1710,16 @@ Seção "Prazos de relógio" do `STATUS.md` substituída quando a chave foi veri
 | Prazo | O quê | Dono | Estado |
 | --- | --- | --- | --- |
 | **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **Pacote registrado. A chave do EAS foi adicionada em 2026-09-24 e está "Em análise"**; falta ela passar a "Verificada" — [FILA, item 8](../FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+
+---
+
+## Lote de 2026-09-24 — repositório depois dos PRs #28 a #30
+
+Trecho da seção "Repositório" do `STATUS.md` substituído, sem edição (só o link relativo reajustado ao novo diretório):
+
+Medido em 2026-09-24: `origin/main` em `3343eca`; os PRs #21 a #27 foram
+mergeados entre 2026-09-23 e 2026-09-24 — consolidação do estado, desenho, sons,
+plano e implementação do piloto da lição híbrida, caixa de `conteúdo/` nos
+scripts, CI de conteúdo e correções de tela do piloto vistas no simulador.
+Prompt de continuidade:
+[`2026-09-24-radiant-prompt-de-continuidade.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md).
