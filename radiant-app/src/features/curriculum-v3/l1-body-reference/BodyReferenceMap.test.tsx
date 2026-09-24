@@ -57,4 +57,26 @@ describe('BodyReferenceMap', () => {
     expect(canvas.findByProps({ testID: 'landmark-patient-left-hand' })).toBeTruthy();
     expect(canvas.props.style).toEqual(expect.objectContaining({ transform: expect.any(Array) }));
   });
+
+  it('sem controles, a barra de vista e postura não aparece', () => {
+    const { queryByLabelText } = render(<BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion showControls={false} onPostureChange={jest.fn()} onPerspectiveChange={jest.fn()} onRegionSelect={jest.fn()} />);
+    expect(queryByLabelText('Controles do modelo corporal')).toBeNull();
+  });
+
+  it('destacar a linha mediana engrossa o traço', () => {
+    // A linha fica dentro do SVG, que o mapa esconde da acessibilidade.
+    const { getByTestId, rerender } = render(<BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion onPostureChange={jest.fn()} onPerspectiveChange={jest.fn()} onRegionSelect={jest.fn()} />);
+    expect(getByTestId('body-map-midline', { includeHiddenElements: true }).props.strokeWidth).toBe('2');
+    rerender(<BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion emphasizeMidline onPostureChange={jest.fn()} onPerspectiveChange={jest.fn()} onRegionSelect={jest.fn()} />);
+    expect(getByTestId('body-map-midline', { includeHiddenElements: true }).props.strokeWidth).toBe('5');
+  });
+
+  it('landmarks não interativos não respondem ao toque nem se anunciam como botão', () => {
+    const onRegionSelect = jest.fn();
+    const { getByTestId } = render(<BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion landmarksInteractive={false} onPostureChange={jest.fn()} onPerspectiveChange={jest.fn()} onRegionSelect={onRegionSelect} />);
+    const landmark = getByTestId('landmark-patient-left-hand');
+    fireEvent.press(landmark);
+    expect(onRegionSelect).not.toHaveBeenCalled();
+    expect(landmark.props.accessibilityRole).not.toBe('button');
+  });
 });

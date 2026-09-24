@@ -15,8 +15,10 @@ import { SubscriptionCard } from '../../subscription/components/SubscriptionCard
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import type { SubscriptionStatus } from '../../subscription/subscription.types';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
+import { readFeedbackPreferences, writeFeedbackPreferences, type FeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { galaxyColors } from '../../../ui/theme';
 import { space, tabBarClearance } from '../../../ui/styles';
+import { FeedbackPreferencesCard } from '../components/FeedbackPreferencesCard';
 import { ProfileIdentityHeader } from '../components/ProfileIdentityHeader';
 
 /**
@@ -54,6 +56,7 @@ export default function ProfileScreen() {
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
   const [backup, setBackup] = useState<BackupState | null>(null);
   const [backupBusy, setBackupBusy] = useState(false);
+  const [feedbackPreferences, setFeedbackPreferences] = useState<FeedbackPreferences | null>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -76,6 +79,7 @@ export default function ProfileScreen() {
           // este objeto só alimenta o cartão.
           setBackup({ enabled: false, decided: false, lastBackupAt: null, lastError: 'failed' });
         });
+      void readFeedbackPreferences().then(setFeedbackPreferences);
     }, []),
   );
 
@@ -92,6 +96,13 @@ export default function ProfileScreen() {
       .finally(() => setBackupBusy(false));
   }, []);
 
+  const changeFeedbackPreferences = useCallback((next: FeedbackPreferences) => {
+    setFeedbackPreferences(next);
+    void writeFeedbackPreferences(next).catch((cause) => {
+      console.error('[ProfileScreen] Falha ao gravar sons e vibração:', cause);
+    });
+  }, []);
+
   return (
     <View style={styles.root}>
       <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
@@ -105,6 +116,12 @@ export default function ProfileScreen() {
           <MissionsScreen embedded />
           <SubscriptionCard status={subscription} onOpen={() => router.push('/subscription')} />
           <ICloudBackupCard state={backup} onToggle={toggleBackup} busy={backupBusy} />
+          {/* Só no piloto: os sons existem apenas na lição híbrida, e o aluno
+              não pode ver um interruptor de algo que nunca ouve. Tirar o
+              gate quando a camada de som chegar às lições do aluno. */}
+          {AppConfig.SHOW_DEV_TOOLS ? (
+            <FeedbackPreferencesCard preferences={feedbackPreferences} onChange={changeFeedbackPreferences} />
+          ) : null}
           <ProgressScreen embedded />
 
           {AppConfig.SHOW_DEV_TOOLS ? (

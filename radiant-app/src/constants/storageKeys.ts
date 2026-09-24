@@ -29,6 +29,8 @@ export const STORAGE_KEYS = {
     APP_SCHEMA_VERSION: '@radiant:app_schema_version',
     V14_MIGRATION_BACKUP: '@radiant:migration_v14_backup',
     V14_MIGRATION_STATE: '@radiant:migration_v14_state',
+    FEEDBACK_PREFERENCES: '@radiant:feedback_preferences_v1',
+    HYBRID_LESSON_METRICS: '@radiant:v3:hybrid_lesson_metrics_v1',
 } as const;
 
 export const STUDENT_CHECKPOINT_STORAGE_KEYS = {

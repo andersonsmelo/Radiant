@@ -6,9 +6,9 @@ import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import { useScalePop } from '../../../ui/motion';
 import type { L1AnswerOption } from './l1BodyReference.types';
+import { FALLBACK_POSITION, LANDMARK_POSITIONS, canvasRotation, geometryId, type BodyPerspective, type BodyPosture } from './bodyMapGeometry';
 
-export type BodyPosture = 'anatomical' | 'supine' | 'prone';
-export type BodyPerspective = 'front' | 'back';
+export type { BodyPerspective, BodyPosture } from './bodyMapGeometry';
 
 type BodyReferenceMapProps = Readonly<{
   posture: BodyPosture;
@@ -16,6 +16,9 @@ type BodyReferenceMapProps = Readonly<{
   selectedRelation: string;
   reduceMotion: boolean;
   landmarks?: readonly L1AnswerOption[];
+  showControls?: boolean;
+  emphasizeMidline?: boolean;
+  landmarksInteractive?: boolean;
   onPostureChange: (posture: BodyPosture) => void;
   onPerspectiveChange: (perspective: BodyPerspective) => void;
   onRegionSelect: (regionId: string) => void;
@@ -30,16 +33,8 @@ const relationLabels: Record<string, string> = {
   'superior-inferior': 'cabeça e pés', 'anterior-posterior': 'frente e costas', 'medial-lateral': 'linha mediana e lados', 'proximal-distal': 'ligação do membro e extremidade', 'superficial-deep': 'camadas locais',
 };
 
-const positions: Record<string, readonly [number, number]> = {
-  'patient-left-hand': [184, 162], 'patient-right-hand': [56, 162], 'head-marker': [120, 38], 'foot-marker': [120, 294], 'midline-marker': [120, 150], 'outer-arm-marker': [68, 150], 'shoulder-marker': [83, 116], 'wrist-marker': [53, 183], 'outer-layer': [156, 142], 'inner-layer': [135, 142], 'anterior-thorax': [105, 142], 'posterior-thorax': [140, 142],
-};
-
 function postureLabel(posture: BodyPosture): string {
   return posture === 'supine' ? 'decúbito dorsal' : posture === 'prone' ? 'decúbito ventral' : 'posição anatômica';
-}
-
-function geometryId(posture: BodyPosture, perspective: BodyPerspective): string {
-  return `${posture === 'anatomical' ? 'upright' : posture}-${perspective}`;
 }
 
 function Control({ label, selected, onPress, children }: Readonly<{ label: string; selected: boolean; onPress: () => void; children: string }>) {
@@ -59,11 +54,11 @@ function Controls({ posture, perspective, onPostureChange, onPerspectiveChange }
   </View>;
 }
 
-export function BodyReferenceMap({ posture, perspective, selectedRelation, reduceMotion, landmarks = fallbackLandmarks, onPostureChange, onPerspectiveChange, onRegionSelect }: BodyReferenceMapProps) {
+export function BodyReferenceMap({ posture, perspective, selectedRelation, reduceMotion, landmarks = fallbackLandmarks, showControls = true, emphasizeMidline = false, landmarksInteractive = true, onPostureChange, onPerspectiveChange, onRegionSelect }: BodyReferenceMapProps) {
   const { scale, style: scaleStyle, animateIn } = useScalePop();
-  const rotation = posture === 'anatomical' ? '0deg' : posture === 'supine' ? '90deg' : '-90deg';
+  const rotation = canvasRotation(posture);
   const layout = geometryId(posture, perspective);
-  const displayedLandmarks = useMemo(() => landmarks.map((entry, index) => ({ ...entry, number: index + 1, position: positions[entry.landmarkId] ?? [120, 160] })), [landmarks]);
+  const displayedLandmarks = useMemo(() => landmarks.map((entry, index) => ({ ...entry, number: index + 1, position: LANDMARK_POSITIONS[entry.landmarkId] ?? FALLBACK_POSITION })), [landmarks]);
 
   useEffect(() => {
     if (reduceMotion) {
@@ -84,18 +79,23 @@ export function BodyReferenceMap({ posture, perspective, selectedRelation, reduc
             <Circle cx="120" cy="52" r="25" fill={semanticColors.galaxy.surface} stroke={galaxyColors.textPrimary} strokeWidth="2" />
             <Path d={perspective === 'front' ? 'M92 87 C101 74 139 74 148 87 L166 165 L151 224 L89 224 L74 165 Z' : 'M90 90 C102 79 138 79 150 90 L160 164 L147 224 L93 224 L80 164 Z'} fill={semanticColors.galaxy.surface} stroke={galaxyColors.textPrimary} strokeWidth="2" />
             <Path d="M92 102 L56 174 L68 182 L105 126 M148 102 L184 174 L172 182 L135 126 M100 218 L82 300 M140 218 L158 300" fill="none" stroke={galaxyColors.textPrimary} strokeWidth="16" strokeLinecap="round" />
-            <Line x1="120" x2="120" y1="30" y2="298" stroke={semanticColors.galaxy.statusInformation} strokeWidth="2" strokeDasharray="6 6" />
+            <Line testID="body-map-midline" x1="120" x2="120" y1="30" y2="298" stroke={semanticColors.galaxy.statusInformation} strokeWidth={emphasizeMidline ? '5' : '2'} strokeDasharray="6 6" />
             <Path d={perspective === 'front' ? 'M90 126 C106 109 134 109 150 126 L150 156 C134 166 106 166 90 156 Z' : 'M94 126 C108 115 132 115 146 126 L146 156 C132 168 108 168 94 156 Z'} fill="rgba(93,227,174,0.18)" stroke={semanticColors.galaxy.statusSuccess} strokeWidth="2" />
             <Path d="M100 138 C112 128 128 128 140 138" fill="none" stroke={semanticColors.galaxy.statusWarning} strokeWidth="3" strokeDasharray="4 4" />
           </G>
         </Svg>
-        {displayedLandmarks.map(({ id, landmarkId, number, position, textDescription }) => <Pressable key={id} testID={`landmark-${landmarkId}`} accessibilityRole="button" accessibilityLabel={`Selecionar opção ${number} no mapa. ${textDescription}`} accessibilityHint="Seleciona esta opção para responder. A confirmação acontece em um controle separado." onPress={() => onRegionSelect(id)} style={[styles.landmark, { left: `${position[0] / 2.4}%`, top: `${position[1] / 3.3}%` }]}><Text style={styles.landmarkNumber}>{number}</Text></Pressable>)}
+        {displayedLandmarks.map(({ id, landmarkId, number, position, textDescription }) => {
+          const placement = [styles.landmark, { left: `${position[0] / 2.4}%`, top: `${position[1] / 3.3}%` } as const];
+          return landmarksInteractive
+            ? <Pressable key={id} testID={`landmark-${landmarkId}`} accessibilityRole="button" accessibilityLabel={`Selecionar opção ${number} no mapa. ${textDescription}`} accessibilityHint="Seleciona esta opção para responder." onPress={() => onRegionSelect(id)} style={placement}><Text style={styles.landmarkNumber}>{number}</Text></Pressable>
+            : <View key={id} testID={`landmark-${landmarkId}`} accessible accessibilityLabel={`Opção ${number} no mapa. ${textDescription}`} style={placement}><Text style={styles.landmarkNumber}>{number}</Text></View>;
+        })}
       </Animated.View>
     </View>
     <Text testID="body-map-state" style={styles.state}>{['Perspectiva: ', perspective === 'front' ? 'frente' : 'costas', ' · Postura: ', postureLabel(posture)]}</Text>
     <Text testID="body-map-motion-state" style={styles.motionState}>{reduceMotion ? 'Movimento reduzido: estado final exibido.' : 'Transição curta mostra a mesma geometria final.'}</Text>
     <Text style={styles.legend}>Linha tracejada: referência mediana. Contorno contínuo e traço pontilhado: superfícies ou camadas distintas.</Text>
-    <Controls {...{ posture, perspective, onPostureChange, onPerspectiveChange }} />
+    {showControls ? <Controls {...{ posture, perspective, onPostureChange, onPerspectiveChange }} /> : null}
   </View>;
 }
 
