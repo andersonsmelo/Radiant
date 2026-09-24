@@ -63,17 +63,17 @@ import { loadInputs, main } from './validate-taxonomy-map.mjs';
 function arvoreDeFixture({ map, galaxias, planetas, estrelas, tracks }) {
   const raiz = mkdtempSync(path.join(tmpdir(), 'taxonomia-'));
   mkdirSync(path.join(raiz, 'content-manifest'), { recursive: true });
-  mkdirSync(path.join(raiz, 'Conteúdo', 'taxonomia'), { recursive: true });
-  mkdirSync(path.join(raiz, 'Conteúdo', 'governança'), { recursive: true });
+  mkdirSync(path.join(raiz, 'conteúdo', 'taxonomia'), { recursive: true });
+  mkdirSync(path.join(raiz, 'conteúdo', 'governança'), { recursive: true });
 
   const escrever = (relativo, valor) =>
     writeFileSync(path.join(raiz, relativo), JSON.stringify(valor), 'utf8');
 
   escrever(path.join('content-manifest', 'taxonomy-catalog-map.json'), map);
-  escrever(path.join('Conteúdo', 'taxonomia', 'galaxias.json'), galaxias);
-  escrever(path.join('Conteúdo', 'taxonomia', 'planetas.json'), planetas);
-  escrever(path.join('Conteúdo', 'taxonomia', 'estrelas.json'), estrelas);
-  escrever(path.join('Conteúdo', 'governança', 'wave-1-priority-tracks.json'), { version: 1, tracks });
+  escrever(path.join('conteúdo', 'taxonomia', 'galaxias.json'), galaxias);
+  escrever(path.join('conteúdo', 'taxonomia', 'planetas.json'), planetas);
+  escrever(path.join('conteúdo', 'taxonomia', 'estrelas.json'), estrelas);
+  escrever(path.join('conteúdo', 'governança', 'wave-1-priority-tracks.json'), { version: 1, tracks });
   return raiz;
 }
 
@@ -137,7 +137,7 @@ const PLANETAS_DO_EIXO_TECNICO = {
 };
 
 test('galaxy-tecnologia existe, ativa, com o titulo que o app ja reservou', () => {
-  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
+  const galaxias = lerReal('conteúdo', 'taxonomia', 'galaxias.json');
   const tecnologia = galaxias.find((g) => g.id === 'galaxy-tecnologia');
   assert.ok(tecnologia, 'galaxy-tecnologia ausente de galaxias.json');
   assert.equal(tecnologia.status, 'active');
@@ -148,7 +148,7 @@ test('galaxy-tecnologia existe, ativa, com o titulo que o app ja reservou', () =
 });
 
 test('os seis planetas do eixo tecnico existem, ativos, na galaxia certa', () => {
-  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');
   const porId = new Map(planetas.map((p) => [p.id, p]));
 
   for (const [planetaId, galaxiaId] of Object.entries(PLANETAS_DO_EIXO_TECNICO)) {
@@ -163,7 +163,7 @@ test('os seis planetas do eixo tecnico existem, ativos, na galaxia certa', () =>
 });
 
 test('os planetas de interpretacao seguem planned, intocados', () => {
-  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');
   const porId = new Map(planetas.map((p) => [p.id, p]));
   for (const id of ['planet-formacao-imagem', 'planet-radiopacidade']) {
     assert.equal(porId.get(id)?.status, 'planned', `${id} nao devia ter mudado`);
@@ -171,8 +171,8 @@ test('os planetas de interpretacao seguem planned, intocados', () => {
 });
 
 test('toda galaxyId de planeta resolve numa galaxia existente', () => {
-  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
-  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const galaxias = lerReal('conteúdo', 'taxonomia', 'galaxias.json');
+  const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');
   const idsDeGalaxia = new Set(galaxias.map((g) => g.id));
   for (const planeta of planetas) {
     assert.ok(
@@ -183,8 +183,8 @@ test('toda galaxyId de planeta resolve numa galaxia existente', () => {
 });
 
 test('slugs de galaxia e de planeta seguem unicos dentro do proprio arquivo', () => {
-  const galaxias = lerReal('Conteúdo', 'taxonomia', 'galaxias.json');
-  const planetas = lerReal('Conteúdo', 'taxonomia', 'planetas.json');
+  const galaxias = lerReal('conteúdo', 'taxonomia', 'galaxias.json');
+  const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');
   const slugsDeGalaxia = galaxias.map((g) => g.slug);
   const slugsDePlaneta = planetas.map((p) => p.slug);
   assert.equal(new Set(slugsDeGalaxia).size, slugsDeGalaxia.length);

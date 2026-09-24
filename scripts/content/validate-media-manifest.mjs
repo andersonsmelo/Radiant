@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const defaultRepoRoot = path.resolve(__dirname, '..', '..');
-const defaultManifestPath = path.join(defaultRepoRoot, 'Conteúdo', 'mídia', 'manifest.json');
+const defaultManifestPath = path.join(defaultRepoRoot, 'conteúdo', 'mídia', 'manifest.json');
 const ROOT_FIELDS = new Set(['schemaVersion', 'batchId', 'status', 'reviewedAt', 'items', 'rejectedCandidates']);
 const ITEM_FIELDS = new Set([
   'id', 'assetPath', 'sha256', 'modality', 'region', 'authorizationRef',

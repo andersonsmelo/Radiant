@@ -1304,6 +1304,25 @@ diferentes**, e nenhum é superconjunto do outro. Em 2026-08-24 o
 arquivamento dos status datados em 2026-08-21 — e nada avisou, porque ele não
 roda no gate do app. Ao mexer em documentação governada, rode os dois.
 
+**Os testes de `scripts/content` não rodam em CI nenhum** — só parte deles
+entra no `loop validate`, que roda no macOS, indiferente a caixa. Por isso
+ninguém viu que o índice do git soletra `conteúdo/` (minúsculo, NFC) e cinco
+scripts — mais o `assetPath` do `conteúdo/mídia/manifest.json` — liam
+`Conteúdo/`. Num clone limpo (sem os dados locais de extração, como num CI)
+em sistema de arquivos sensível a caixa, `node --test
+scripts/content/*.test.mjs` dava **94/105** contra 101/105 no macOS.
+Corrigido em 2026-09-23 no código e no manifesto, não no índice — renomear o
+índice para `Conteúdo/` foi medido e piorava para 89/104, porque a maioria
+dos scripts já lê em minúscula. Medido num volume APFS case-sensitive, Node
+`v20.20.2`, depois da correção: **101/105 nos dois sistemas** em clone limpo,
+**102/105** com os dados locais de `extrações`. As falhas restantes
+(`foundation-structure` ×2, `register-source`, e uma quarta que só aparece
+sem os dados locais) são as mesmas nos dois sistemas e não são de caixa.
+Caminho novo em código: **`conteúdo/` minúsculo, em NFC**, como
+`git ls-files` o mostra. `conteúdo/fontes/library-catalog.json` continua
+citando `Conteúdo/*.pdf` de propósito: aponta para o acervo local, que não é
+versionado.
+
 ## Gate de qualidade
 
 `npm run quality` em `radiant-app`: **19 passos** (lint, typecheck, 15
