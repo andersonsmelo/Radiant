@@ -189,7 +189,7 @@ export function loadArtefatos(root) {
 }
 
 export function loadTextosDeExtracao(root) {
-  const raiz = path.join(root, 'Conteúdo', 'extrações');
+  const raiz = path.join(root, 'conteúdo', 'extrações');
   if (!existsSync(raiz)) return null;
 
   const textos = [];

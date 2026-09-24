@@ -32,7 +32,7 @@ const TAXONOMY_MAP_PATH = path.join(
   ROOT,
   "content-manifest/taxonomy-catalog-map.json"
 );
-const PLANETS_PATH = path.join(ROOT, "Conteúdo/taxonomia/planetas.json");
+const PLANETS_PATH = path.join(ROOT, "conteúdo/taxonomia/planetas.json");
 const GALAXY_NODES_PATH = path.join(
   ROOT,
   "radiant-app/src/data/galaxy-nodes.ts"

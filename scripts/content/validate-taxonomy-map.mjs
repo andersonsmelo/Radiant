@@ -37,13 +37,13 @@ export function loadInputs(root) {
 
   const taxonomyIds = new Set();
   for (const arquivo of ARQUIVOS_DE_TAXONOMIA) {
-    for (const no of lerJson(path.join(root, 'Conteúdo', 'taxonomia', arquivo))) {
+    for (const no of lerJson(path.join(root, 'conteúdo', 'taxonomia', arquivo))) {
       taxonomyIds.add(no.id);
     }
   }
 
   const catalogIds = new Set();
-  for (const track of lerJson(path.join(root, 'Conteúdo', 'governança', 'wave-1-priority-tracks.json')).tracks) {
+  for (const track of lerJson(path.join(root, 'conteúdo', 'governança', 'wave-1-priority-tracks.json')).tracks) {
     for (const lessonId of track.lessonIds) catalogIds.add(lessonId);
   }
 

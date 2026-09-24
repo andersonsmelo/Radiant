@@ -6,7 +6,7 @@
   "items": [
     {
       "id": "media:unit-1:xray-beam-geometry",
-      "assetPath": "Conteúdo/mídia/xray-beam-geometry-v1.png",
+      "assetPath": "conteúdo/mídia/xray-beam-geometry-v1.png",
       "sha256": "d1baf3d3a9639fee08a2f0ce6f3edb35d2ded25dab0e5d957729c32838f970a1",
       "modality": "illustration",
       "region": "x-ray-beam-geometry",

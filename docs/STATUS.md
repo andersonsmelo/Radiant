@@ -129,6 +129,12 @@ com `node --version` antes de citar qualquer número.
   mesmo passo.
 - **`npm run quality` e `loop validate` são conjuntos diferentes.** Ao mexer em
   documentação governada, rode os dois.
+- **Os testes de `scripts/content` não rodam em CI:** só no `loop validate`, no
+  macOS, que não diferencia caixa. Nos scripts, o caminho é `conteúdo/`,
+  minúsculo e em NFC, como o `git ls-files` mostra (corrigido em 2026-09-23;
+  medições no [histórico](archive/STATUS_historico.md)). A exceção é
+  `conteúdo/fontes/library-catalog.json`, que cita `Conteúdo/*.pdf` de
+  propósito, porque aponta para o acervo local.
 
 ## Repositório
 
