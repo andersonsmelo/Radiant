@@ -1138,3 +1138,13 @@ pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
 Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
 persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
 como integralmente concluída e retomar G3.
+
+---
+
+## Lote de 2026-09-24 — decisões do dono sobre a H4
+
+Trecho substituído, sem edição:
+
+**Para o dono decidir:** a vida gasta num checkpoint abandonado continua
+gasta, embora a resposta seja descartada. E o H4 fecha com os dois defeitos
+corrigidos e o VoiceOver em aparelho, ou fecha antes?

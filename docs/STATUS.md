@@ -49,7 +49,9 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 [`FILA.md`](FILA.md#prioridade--a-14-desenhada-em-2026-09-14):
 
 1. **Dono:** build interno `development` com o módulo StoreKit (primeira
-   compilação real do Swift) e teste de compra no sandbox.
+   compilação real do Swift) e teste de compra no sandbox. No mesmo aparelho,
+   o VoiceOver no checkpoint e na trilha, que saiu da H4 por decisão de
+   2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)).
 2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
    `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
    relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
@@ -135,9 +137,10 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — percorrido no
   simulador em 2026-09-24 e **não fechado**: aprovação, reforço e retomada sem
   persistir respostas medidos; texto grande reprovado nos tamanhos de
-  acessibilidade; VoiceOver real não exercitado. Dois defeitos abertos na
-  [FILA](FILA.md); fechar é decisão do dono
+  acessibilidade; VoiceOver real não exercitado
   ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
+  Decidido em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): fecha com os
+  dois defeitos corrigidos, e o VoiceOver em aparelho vira item próprio da 1.4.
 
 ## Defeito conhecido
 

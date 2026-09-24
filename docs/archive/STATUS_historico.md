@@ -1778,3 +1778,11 @@ Trechos do `STATUS.md` substituídos, sem edição (só o link relativo reajusta
   `main` desde 2026-08-13; falta percorrer a experiência no simulador ou aparelho.
 
    O defeito 1 espera a decisão do dono.
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24, pela ADR da H4:
+
+  acessibilidade; VoiceOver real não exercitado. Dois defeitos abertos na
+  [FILA](../FILA.md); fechar é decisão do dono
+  ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).

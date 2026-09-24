@@ -1225,8 +1225,11 @@ entrega a fundação que aqueles itens passam a consumir.
   retomada sem persistir respostas (modo `off`) medidos; texto grande
   **reprovado** nos tamanhos de acessibilidade; texto do checkpoint prometendo
   "10 questões"/"8 acertos" para avaliações de 2 itens; VoiceOver real não
-  exercitado. Dois defeitos abertos na FILA; fechar é decisão do dono
+  exercitado. Dois defeitos abertos na FILA
   ([evidência](../../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
+  Decisão do dono, mesma data ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):
+  H4 fecha com os dois consertos; VoiceOver em aparelho vira item próprio da 1.4;
+  cada pergunta do checkpoint custa no máximo uma vida por tentativa.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

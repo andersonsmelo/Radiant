@@ -94,6 +94,12 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
    botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
    um aprovado dentro das 24 h.
+5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
+   [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
+   com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
+   reforço, aprovação) e o HUD da trilha com vidas em recarga. Saiu da H4 porque
+   o simulador não roda VoiceOver; a árvore medida está na
+   [evidência da H4](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md).
 
 ### AGENTE — o que sobrou da Task 8
 
@@ -327,9 +333,16 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
    CTA é cortado.
 
-**Para o dono decidir:** a vida gasta num checkpoint abandonado continua
-gasta, embora a resposta seja descartada. E o H4 fecha com os dois defeitos
-corrigidos e o VoiceOver em aparelho, ou fecha antes?
+3. **Pergunta cobrada duas vezes na mesma tentativa.** A tela zera as
+   perguntas já cobradas a cada remontagem (medido ao fechar o app; pelo código, também ao sair pelo ✕), e
+   o aluno paga de novo pelo mesmo erro. Regra decidida: numa tentativa, cada
+   pergunta custa no máximo uma vida, e só os ids cobrados são persistidos.
+
+**Decidido pelo dono em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):** a H4 fecha
+com os defeitos 1 e 2 corrigidos e o checkpoint conferido de novo no simulador.
+O defeito 3 é a regra de vidas da mesma ADR. O **VoiceOver num iPhone físico**
+sai da H4 e vira item próprio da 1.4, junto com o build `development` no
+aparelho.
 
 ---
 
