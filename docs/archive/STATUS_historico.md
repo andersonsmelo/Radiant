@@ -1680,3 +1680,11 @@ Trecho do `STATUS.md` substituído, sem edição:
 **Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
 build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
 [`FILA.md`](../FILA.md).
+
+Trecho do `STATUS.md` substituído quando o dono decidiu, no mesmo dia, sem edição
+(só o link relativo reajustado ao novo diretório):
+
+como opção no 57.0.23. **Decisão do dono, com recomendação do agente:** fixar a
+imagem no `eas.json` para a 1.4 e adotar `UIScene` pela atualização do SDK,
+depois da 1.4. Medições, custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](../release/2026-09-24-ios27-decisao-xcode-uiscene.md).

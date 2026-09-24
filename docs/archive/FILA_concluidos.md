@@ -965,3 +965,40 @@ Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
 `ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
 imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
 Expo.
+
+Item inteiro removido da fila quando o dono decidiu, no mesmo dia, sem edição (só os links relativos reajustados ao novo diretório):
+
+### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+
+**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
+fecha na abertura no iOS 27 ([STATUS](../STATUS.md)); pesquisa das saídas feita
+em 2026-09-24. **Bloqueio:** decisão do dono. **Dono:** dono. Fixar a imagem no
+`eas.json`, depois de decidido, fica com o agente.
+
+**Pesquisa feita em 2026-09-24**
+([documento](../release/2026-09-24-ios27-decisao-xcode-uiscene.md)), sem mudança de
+código:
+
+- **O EAS já compila com o Xcode 26.** O `ios.image` está ausente nos 7
+  perfis, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. O log da
+  build de produção da 1.3.1 confirma `Xcode 26.0 (17A324)` e
+  `iPhoneOS26.0.sdk`.
+- **Nenhuma imagem do EAS tem Xcode 27.** A Apple exige o SDK do iOS 27 em todo
+  envio **a partir de abril de 2027**.
+- **O SDK 54 não tem `UIScene` oficial**, nem no último patch (`54.0.37`). A
+  Expo o trouxe no SDK 58, e como opção no `57.0.23`.
+
+Três caminhos, com custo e risco no documento:
+1. **Manter o Xcode 26.** Nada é obrigatório. O recomendado é fixar
+   `"image": "macos-sequoia-15.6-xcode-26.0"` nos perfis de iOS. É uma linha,
+   reversível, e vale até abril de 2027.
+2. **Plugin próprio de `UIScene` sobre o SDK 54.** Código nativo nosso, que
+   perde a validade quando o SDK for atualizado. Precisa de E2E de deep link,
+   notificação, splash e retorno do segundo plano no iOS 26 e no 27. Risco
+   alto para a 1.4.
+3. **Atualizar o SDK para o 57 ou o 58.** O React Native passa de 0.81 para
+   0.86 ou 0.88. É uma frente inteira, que cabe depois da 1.4.
+
+**Recomendação do agente:** o caminho 1 para a 1.4 e o 3 depois dela. Falta
+conferir no aparelho: o primeiro build `development` da 1.4 (StoreKit) abrindo
+num iPhone com iOS 27.

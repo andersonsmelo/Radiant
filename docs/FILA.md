@@ -50,40 +50,29 @@ atual em
 [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
-### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
 
-**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
-fecha na abertura no iOS 27 ([STATUS](STATUS.md)); pesquisa das saídas feita
-em 2026-09-24. **Bloqueio:** decisão do dono. **Dono:** dono. Fixar a imagem no
-`eas.json`, depois de decidido, fica com o agente.
+**Estado:** decidido pelo dono em 2026-09-24
+([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)). A 1.4 compila no Xcode
+26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a 1.4 sair
+primeiro. **Dono:** agente, com build e E2E autorizados pelo dono.
 
-**Pesquisa feita em 2026-09-24**
-([documento](release/2026-09-24-ios27-decisao-xcode-uiscene.md)), sem mudança de
-código:
+A partir de abril de 2027, a Apple só aceita envio compilado com o SDK do iOS
+27, e nesse SDK o app sem `UIScene` fecha na abertura. O SDK 54 não tem
+`UIScene` oficial. O destino preferido é o **SDK 58**, onde o `UIScene` é o
+padrão; o 57.0.23+ só o traz como opção (`ios.enableSceneSupport`). A frente
+inclui:
+- o salto do React Native 0.81 para 0.88, com os módulos Swift próprios, o
+  Sentry, o `expo-audio` e o `expo-notifications`;
+- o E2E de deep link, notificação, splash e retorno do segundo plano no iOS 26
+  e no 27;
+- tirar a linha `image` do `eas.json`.
 
-- **O EAS já compila com o Xcode 26.** O `ios.image` está ausente nos 7
-  perfis, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. O log da
-  build de produção da 1.3.1 confirma `Xcode 26.0 (17A324)` e
-  `iPhoneOS26.0.sdk`.
-- **Nenhuma imagem do EAS tem Xcode 27.** A Apple exige o SDK do iOS 27 em todo
-  envio **a partir de abril de 2027**.
-- **O SDK 54 não tem `UIScene` oficial**, nem no último patch (`54.0.37`). A
-  Expo o trouxe no SDK 58, e como opção no `57.0.23`.
+Custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
-Três caminhos, com custo e risco no documento:
-1. **Manter o Xcode 26.** Nada é obrigatório. O recomendado é fixar
-   `"image": "macos-sequoia-15.6-xcode-26.0"` nos perfis de iOS. É uma linha,
-   reversível, e vale até abril de 2027.
-2. **Plugin próprio de `UIScene` sobre o SDK 54.** Código nativo nosso, que
-   perde a validade quando o SDK for atualizado. Precisa de E2E de deep link,
-   notificação, splash e retorno do segundo plano no iOS 26 e no 27. Risco
-   alto para a 1.4.
-3. **Atualizar o SDK para o 57 ou o 58.** O React Native passa de 0.81 para
-   0.86 ou 0.88. É uma frente inteira, que cabe depois da 1.4.
-
-**Recomendação do agente:** o caminho 1 para a 1.4 e o 3 depois dela. Falta
-conferir no aparelho: o primeiro build `development` da 1.4 (StoreKit) abrindo
-num iPhone com iOS 27.
+**Falta medir antes, sem esperar esta frente:** o primeiro build `development`
+da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
 
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 

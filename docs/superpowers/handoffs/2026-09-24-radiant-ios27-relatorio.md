@@ -64,20 +64,39 @@ opção no 57.0.23.
 - **Recuperação:** backup dos seis arquivos, `checkpoint restore` e
   `run close`. Depois, um run novo com o mesmo escopo, que recolocou os
   arquivos a partir do backup.
-- **Pendente do dono:** decidir se `.claude/settings.local.json` entra em
+- **Pendente do dono** (resolvido no segundo run, abaixo): decidir se `.claude/settings.local.json` entra em
   `context.excludes` do `.loop/project.yaml`. É mudança de política e vale para
   todo agente. Sem ela, qualquer run pode cair do mesmo jeito.
-- **O AGENTS.md está defasado num ponto:** diz que `context.excludes` não isenta
+- **O AGENTS.md estava defasado num ponto** (corrigido no segundo run, abaixo): diz que `context.excludes` não isenta
   do guarda de escopo. No Loop atual, isenta: o `stepFinish` de
   `dist/src/engine.js` passa essa lista ao `captureProjectManifest`. O AGENTS.md
   não foi mexido, porque está fora do escopo deste run.
 
+## Decisão aplicada (segundo run do dia)
+
+O dono escolheu a recomendação, em 2026-09-24, nesta conversa. Aplicado em run
+próprio:
+
+- **`radiant-app/eas.json`:** `ios.image: "macos-sequoia-15.6-xcode-26.0"` em
+  `development`, `preview` e `production`. Os 7 perfis resolvem para ela,
+  medido com `npx eas config --profile <perfil> --platform ios`, e os perfis de
+  simulador mantêm `simulator: true`.
+- **`.loop/project.yaml`:** `.claude/settings.local.json` em
+  `context.excludes`.
+- **`AGENTS.md`:** a lição "`context.excludes` NÃO isenta do guarda" foi
+  corrigida. O Loop aplica a lista desde `730f1f5` (2026-07-26), mas compara
+  bytes. Hoje o disco escreve `Conteúdo` em NFD e a política em NFC, o que
+  provavelmente explica o incidente de 2026-08-08 (a forma do disco naquela
+  data não foi medida).
+- **[ADR](../../adr/ADR-2026-09-24-ios27-imagem-xcode-26.md),** STATUS e FILA
+  atualizados. O item de decisão saiu da fila, e entrou o item da atualização
+  do SDK, depois da 1.4.
+
 ## Pendente
 
-- **Dono:** escolher. A recomendação é fixar a imagem para a 1.4 e adotar
-  `UIScene` pela atualização do SDK depois dela. Fixar a imagem é uma edição
-  do agente, num run próprio.
 - **Dono, no primeiro build `development` da 1.4:** abrir o app num iPhone com
-  iOS 27.
+  iOS 27. É a primeira build com a imagem fixada.
+- **Dono:** decidir se acrescenta a forma NFD de `Conteúdo/extrações` a
+  `context.excludes`. Medido: a entrada atual, em NFC, nunca casa com o disco.
 - A frente A (E2E) segue no simulador iOS 26.5 enquanto esta máquina tiver só o
   Xcode 27.

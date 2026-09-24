@@ -74,9 +74,15 @@ produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`. Então o risco é **loc
 só esta máquina, que tem apenas o Xcode 27, produz o binário que fecha. O prazo
 real é **abril de 2027**, quando a Apple passa a exigir o SDK do iOS 27 em todo
 envio. O SDK 54 não tem suporte oficial a `UIScene`: a Expo o trouxe no SDK 58 e
-como opção no 57.0.23. **Decisão do dono, com recomendação do agente:** fixar a
-imagem no `eas.json` para a 1.4 e adotar `UIScene` pela atualização do SDK,
-depois da 1.4. Medições, custo e risco em
+como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
+([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)):
+- os perfis de iOS do `eas.json` fixam `macos-sequoia-15.6-xcode-26.0`. Os 7
+  perfis resolvem para ela, conferido com `npx eas config --profile <perfil>
+  --platform ios`;
+- o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
+  2027.
+
+Medições, custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
 Compilar localmente nesta máquina (Xcode 27) precisou, na mesma data, de

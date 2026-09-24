@@ -150,6 +150,13 @@ padrão do SDK 58, mantido pela Expo, e não como código nosso.
 
 ## O que o dono decide
 
+> **Decidido em 2026-09-24** pelo dono, pela recomendação:
+> - imagem fixada nos perfis de iOS;
+> - `UIScene` pela atualização do SDK, depois da 1.4.
+>
+> Registro na [ADR](../adr/ADR-2026-09-24-ios27-imagem-xcode-26.md). O texto
+> abaixo fica como estava na hora da decisão.
+
 1. **Para a 1.4:** saída 1, fixando a imagem ou deixando o padrão. O agente
    recomenda fixar, porque a 1.4 vai passar por várias builds (`development`,
    sandbox e produção), e a imagem trocar no meio desse ciclo seria um risco

@@ -31,6 +31,11 @@ context:
     - .loop/brain-sessions
     - .loop/bootstrap
     - .claude/worktrees
+    # Configuração local do app do Claude, reescrita por ele no meio do run
+    # quando grava uma permissão. O ignore global do git a esconde do
+    # `git status`, mas o guarda de escopo a via: em 2026-09-24 derrubou um run
+    # em `needs_human` com os 14 validadores verdes. Decisão do dono, 2026-09-24.
+    - .claude/settings.local.json
     - node_modules
     - dist
     - coverage
