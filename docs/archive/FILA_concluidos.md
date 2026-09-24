@@ -1089,3 +1089,18 @@ Trechos substituídos, sem edição (só os links relativos reajustados ao novo 
 Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md);
+
+---
+
+## Lote de 2026-09-24 — defeito 2 do E2E corrigido
+
+Trechos substituídos, sem edição:
+
+   **Defeitos do app que o E2E expôs (2026-09-24), nenhum corrigido ainda** —
+   um run cada, com teste vermelho antes:
+
+   - **"Próxima revisão em 2 dias" para revisão a 24 h.** O cartão SM-2
+     carimba o próprio relógio 1 ms depois do `answeredAt`, e o `Math.ceil`
+     de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
+     diferença de 1 ms foi medida no armazenamento nas duas conclusões
+     inspecionadas; numa delas o "2 dias" foi lido na tela.

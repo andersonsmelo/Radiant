@@ -113,8 +113,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    24 h. Android não foi executado. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
 
-   **Defeitos do app que o E2E expôs (2026-09-24), nenhum corrigido ainda** —
-   um run cada, com teste vermelho antes:
+   **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
+   vermelho antes:
    - **Lição concluída volta como "Continuar de onde parou".** Reabrir a L1
      concluída e sair pela folha de vidas (medido; pelo código, "Fechar quiz"
      faz o mesmo, não medido) derruba o
@@ -125,11 +125,11 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      (`847a12d`), anterior à folha. **Decidir antes:** concluído vence
      retomável, ou a retomada de lição concluída é mostrada sem desfazer a
      contagem? Promessa ao usuário, então o dono escolhe.
-   - **"Próxima revisão em 2 dias" para revisão a 24 h.** O cartão SM-2
-     carimba o próprio relógio 1 ms depois do `answeredAt`, e o `Math.ceil`
-     de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
-     diferença de 1 ms foi medida no armazenamento nas duas conclusões
-     inspecionadas; numa delas o "2 dias" foi lido na tela.
+   - ✅ **"Próxima revisão em 2 dias" para revisão a 24 h** — corrigido em
+     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build: a contagem
+     parte do carimbo do cartão quando esta resposta o carimbou
+     (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
+     defeito (esperado 1, recebido 2). Não conferido na tela.
    - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
      24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
 
