@@ -8,6 +8,10 @@ pendente, conforme o [status canônico](../../STATUS.md).
 **ADR:**
 [`ADR-2026-08-27-curriculo-v3-trilha-continua.md`](../../adr/ADR-2026-08-27-curriculo-v3-trilha-continua.md)
 
+> **Alterada em 2026-09-23** pela [ADR da lição híbrida](../../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md): a forma de
+> percorrer a lição (§5), o custo de vida (§5.2), a camada de som (§6 e §7) e
+> a produção por modelos. Desenho em [`2026-09-23-licao-hibrida-piloto-design.md`](2026-09-23-licao-hibrida-piloto-design.md).
+
 ## 1. Contexto
 
 A auditoria no iPhone 16 mostrou que o currículo embarcado não sustenta a
@@ -143,6 +147,10 @@ evidências. A remoção física exige, no mínimo:
 
 ## 5. Contrato de uma lição V3
 
+> **2026-09-23:** os oito passos abaixo continuam valendo como conteúdo, mas a
+> lição é percorrida no formato híbrido — 10 a 15 itens curtos, explicação no
+> feedback, item errado de volta no fim. Ver [§5.1 da spec do piloto](2026-09-23-licao-hibrida-piloto-design.md).
+
 Cada lição percorre este ciclo, adaptado ao objetivo:
 
 1. **situação:** apresenta uma dúvida real ou um problema espacial, físico ou
@@ -169,6 +177,12 @@ qualquer ajuda, qualquer conceito exige nova recuperação independente.
 
 ### 5.2 Erro e remediação
 
+> **Substituído em 2026-09-23** ([ADR](../../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md), item 2): a frase abaixo, "o erro
+> não retira vidas", deixou de valer. Nas lições híbridas, itens de primeiro
+> contato nunca custam vida; desafio e checkpoint custam uma. O restante desta
+> seção (classificação, microexplicação, prática assistida e item novo
+> posterior) continua valendo.
+
 O erro não retira vidas. Ele percorre:
 
 1. classificação por conceito;
@@ -192,6 +206,9 @@ O Arco 1 inaugura esta taxonomia:
 
 ## 6. Gamificação
 
+> **2026-09-23:** a camada de som e vibração e o Pixel em momentos-chave estão
+> em [§5.2 da spec do piloto](2026-09-23-licao-hibrida-piloto-design.md).
+
 Gamificação acompanha aprendizagem; não substitui sua evidência.
 
 - XP é recompensa associada à prática, nunca autoridade de desbloqueio.
@@ -205,6 +222,10 @@ Uma indicação de interação só aparece quando a ação modifica o estado e e
 algo observável. “Toque para examinar” sem exame funcional é proibido.
 
 ## 7. Animação e acessibilidade
+
+> **2026-09-23:** som e vibração ganham as mesmas exigências desta seção —
+> equivalente visual para todo evento, respeito ao modo silencioso e
+> interruptores no Perfil. Ver [§5.2 da spec do piloto](2026-09-23-licao-hibrida-piloto-design.md).
 
 O padrão recomendado para o primeiro arco é um mapa corporal vetorial em 2.5D:
 mais controlável e leve que um corpo 3D completo e mais instrutivo que cartões

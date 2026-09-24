@@ -15,6 +15,8 @@ esta fila é só o que está **executável agora**, ordenado.
 histórico sai **no mesmo run que o fecha** e vai, sem edição, para o fim de
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md). Esta fila cresceu até
 1.327 linhas porque nada saía; em 2026-09-23 ela voltou a caber numa leitura.
+Todo run do Loop que edita esta fila declara também esse arquivo no
+`abrir.mjs`: depois de aberto, o escopo não se amplia.
 
 ## Política de decisão
 
@@ -97,7 +99,34 @@ Não faz build, envio nem push sem autorização datada.
 
 ## AGENTE — conteúdo e pipeline
 
+### AGENTE — Piloto da lição híbrida na L1 (novo em 2026-09-23)
+
+**Estado:** desenho aprovado pelo dono em 2026-09-23
+([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+[ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)); nada implementado.
+**Bloqueio:** nenhum. **Dono:** agente de IA em nuvem para a implementação,
+pelo [prompt de handoff](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md)
+entregue ao dono em 2026-09-23; a sessão local revisa o retorno, valida no Loop
+e integra. O dono autoriza o build de teste e recruta de 3 a 5 pessoas quando
+decidir. Os seis sons já foram escolhidos pelo dono em
+2026-09-23 e estão em
+[`radiant-app/assets/sounds/`](../radiant-app/assets/sounds/README.md).
+
+Próximo passo: executar o
+[plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md),
+escrito em 2026-09-23, em oito tarefas: geometria do mapa, modelos com gabarito
+calculado, sessão e aprovação por impressão digital, som e vibração,
+interruptores no Perfil, tela e rota `/licao-hibrida` (só com
+`SHOW_DEV_TOOLS`), medidas locais, e gate. O build de teste continua fora, por
+decisão do dono em 2026-09-23. O critério para escalar está na §5.4 da spec.
+**Substitui a v7 da L2 como próximo item de conteúdo.**
+
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
+
+> ⏸️ **v7 pausada em 2026-09-23** pela
+> [ADR da lição híbrida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
+> item 6, até o resultado do piloto acima. Se o formato híbrido passar, a L2 é
+> refeita com modelos de exercício; o roteiro da v7 abaixo fica como registro.
 
 **Estado:** em andamento; L1 e L2 entregues localmente e versionadas em
 2026-09-16. **Bloqueio:** a **L2 reprovou nas seis revisões** — v1 a v6, a
