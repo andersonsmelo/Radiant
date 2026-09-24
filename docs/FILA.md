@@ -102,8 +102,7 @@ Não faz build, envio nem push sem autorização datada.
 ### DONO — Piloto da lição híbrida na L1: revisar a amostra (implementado em 2026-09-23)
 
 **Estado:** implementado localmente em 2026-09-23, **sem build de
-distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
-`docs/licao-hibrida-piloto`, não mergeado), pelo
+distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
 [plano](superpowers/plans/2026-09-23-licao-hibrida-piloto.md). Gate e desvios no
 [relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
 execuções vermelhas das guardas nos

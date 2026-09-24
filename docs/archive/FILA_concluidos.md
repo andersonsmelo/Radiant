@@ -927,3 +927,9 @@ Item concluído pela sessão local, removido da lista de pendências do piloto:
 1. **Sessão local:** revisar o retorno da nuvem, rodar `loop validate` e fechar
    o run (o Loop não existe no ambiente em nuvem).
 
+## Lote de 2026-09-23 — piloto da lição híbrida entra na `main`
+
+Trecho do item do piloto substituído quando o PR #24 foi mergeado, sem edição:
+
+distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
+`docs/licao-hibrida-piloto`, não mergeado), pelo
