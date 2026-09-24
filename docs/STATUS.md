@@ -36,10 +36,10 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **94 commits e 198 arquivos à frente** do que está na App Store
-(medido em 2026-09-23, `v1.3.1..78f96d0`). Nada disso chegou ao usuário:
+A `main` está **120 commits e 267 arquivos à frente** do que está na App Store
+(medido em 2026-09-23, `v1.3.1..9d4e5b7`). Nada disso chegou ao usuário:
 vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
-currículo V3 (L1 e L2, ainda não ligados ao app).
+currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
 
 ```bash
 git fetch origin && git rev-list --count v1.3.1..origin/main
@@ -75,14 +75,12 @@ implementado.
   revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O
   **piloto da lição híbrida na L1**
   ([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
-  [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) foi
-  **implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`**, ainda
-  fora da `main` e sem build de distribuição: 12 itens gerados por regra, som e
-  vibração, custo de vida só no desafio, rota `/licao-hibrida` atrás de
-  `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos modelos
-  pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes de
-  escalar. Revisado pela sessão local em 2026-09-23: gate no Mac com exit 0,
-  147 suítes / 1345 testes, medido no branch.
+  [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) está **na `main`
+  desde 2026-09-23 (PR #24)**, sem build de distribuição: 12 itens gerados por
+  regra, som e vibração, custo de vida só no desafio, rota `/licao-hibrida`
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
+  modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
+  de escalar.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na
@@ -112,9 +110,9 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-23**, em `b7aa165` (mesma árvore do app que a
-`main` atual), Node `v20.20.2`: exit 0, **134 suítes / 1224 testes**, lint com
-0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-23**, no Mac, em `59995fd` (mesma árvore do
+app que a `main` atual), Node `v20.20.2`: exit 0, **147 suítes / 1345 testes**,
+lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -129,8 +127,10 @@ com `node --version` antes de citar qualquer número.
   mesmo passo.
 - **`npm run quality` e `loop validate` são conjuntos diferentes.** Ao mexer em
   documentação governada, rode os dois.
-- **Os testes de `scripts/content` não rodam em CI:** só no `loop validate`, no
-  macOS, que não diferencia caixa. Nos scripts, o caminho é `conteúdo/`,
+- **Os testes de `scripts/content` rodam no CI desde 2026-09-23**, em
+  `ubuntu-latest`, que diferencia caixa (`.github/workflows/content-scripts.yml`,
+  com 6 exclusões nomeadas no próprio arquivo — falhas anteriores, que não são
+  de caixa). Antes, rodavam só no `loop validate`, no macOS. Nos scripts, o caminho é `conteúdo/`,
   minúsculo e em NFC, como o `git ls-files` mostra (corrigido em 2026-09-23;
   medições no [histórico](archive/STATUS_historico.md)). A exceção é
   `conteúdo/fontes/library-catalog.json`, que cita `Conteúdo/*.pdf` de
@@ -138,11 +138,10 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-23: `origin/main` em `78f96d0` (merge do PR #21). Nenhum PR
-aberto antes desta consolidação.
-
-Os branches locais já mergeados foram apagados em 2026-09-23. **As quatro
-worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 3 runs do
+Medido em 2026-09-23: os PRs #21 a #26 foram mergeados na `main` na mesma data
+— consolidação do estado, desenho, sons, plano e implementação do piloto da
+lição híbrida, caixa de `conteúdo/` nos scripts e CI de conteúdo. **As cinco
+worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
 Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
 evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em
 `AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e num script de conteúdo —
