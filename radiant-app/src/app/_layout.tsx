@@ -494,6 +494,7 @@ function RootLayout() {
         <Stack.Screen name="subscription" />
         <Stack.Screen name="telemetry" />
         <Stack.Screen name="dev-console" />
+        <Stack.Screen name="licao-hibrida" />
       </Stack>
       <StatusBar style="light" />
     </ThemeProvider>

@@ -1,7 +1,9 @@
 # Lição híbrida — piloto na L1 do Arco 1
 
 **Data:** 2026-09-23
-**Estado:** desenho aprovado pelo dono em conversa; **nada implementado**.
+**Estado:** desenho aprovado pelo dono em conversa; **implementado localmente em
+2026-09-23, sem build de distribuição**, no branch `feat/licao-hibrida-piloto`
+(§10). Os modelos aguardam a aprovação do dono.
 **Decisor:** Anderson Melo
 **ADR:** [`ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md`](../../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)
 **Altera:** o contrato de lição da
@@ -237,3 +239,21 @@ som, se o dono quiser).
   num ponto do corpo em imagem).
 - Se a L2 é refeita inteira no formato híbrido ou só a parte de desafio.
 - Quando a camada de som chega às aulas legadas.
+
+## 10. Implementação do piloto (2026-09-23)
+
+Implementado em 2026-09-23 pelo
+[plano](../plans/2026-09-23-licao-hibrida-piloto.md), no branch
+`feat/licao-hibrida-piloto`, **sem build de distribuição** e sem teste com
+pessoas. O piloto só existe na rota de desenvolvimento `/licao-hibrida`, atrás
+de `AppConfig.SHOW_DEV_TOOLS`, com entrada pelo botão "Piloto: lição híbrida
+(L1)" do console de desenvolvimento. O V3 continua desligado: nada foi ligado a
+catálogo, manifesto ou rota do aluno. As medidas da §5.4 ficam no aparelho e
+aparecem no cartão "Piloto da lição híbrida" do mesmo console, com as últimas
+20 sessões; nenhum adaptador de analytics foi registrado. O cartão "Sons e
+vibração" do Perfil também fica atrás de `SHOW_DEV_TOOLS` enquanto os sons só
+existirem no piloto. A aprovação dos modelos (§5.3) está **pendente**:
+`L1_TEMPLATE_APPROVAL` é `null`, e a tela mostra o aviso de prévia. Relatório e
+execuções vermelhas das guardas em
+[`2026-09-23-radiant-licao-hibrida-relatorio.md`](../handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md)
+e [`2026-09-23-radiant-licao-hibrida-vermelhos.md`](../handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).

@@ -1564,3 +1564,19 @@ medidas no Git/GitHub, não copiadas para este roadmap.
    enviado a nenhuma loja. Ver `archive/EXECUTION_STATUS_2026-07-29.md` §2 para o que já
    está pronto, e trate este item como "submissão pendente", não como "trilha
    inexistente".
+
+---
+
+## Lote de 2026-09-23 — piloto da lição híbrida implementado no branch
+
+Saiu da seção "Bloqueios abertos, por frente" do [`STATUS.md`](../STATUS.md)
+quando o piloto foi implementado no branch `feat/licao-hibrida-piloto`. Texto
+original; só os links relativos foram reajustados ao novo diretório.
+
+- **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
+  revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O próximo
+  passo é o **piloto da lição híbrida na L1**
+  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+  [ADR](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)): 10 a 15 itens
+  curtos, som e vibração, exercícios gerados por regra e teste com 3 a 5
+  pessoas antes de escalar. Nada implementado.
