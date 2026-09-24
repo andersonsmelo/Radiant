@@ -50,6 +50,23 @@ atual em
 [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
 o dono lê o relatório no fim.
 
+### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+
+**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
+fecha na abertura no iOS 27 ([STATUS](STATUS.md)). **Bloqueio:** decisão do
+dono. **Dono:** dono.
+
+Duas saídas:
+1. **Fixar a imagem do EAS numa versão com Xcode 26** no `eas.json` — rápido e
+   reversível, e adia o problema até a Apple exigir o SDK do iOS 27;
+2. **Adotar `UIScene` no app** — código nativo via config plugin, porque a
+   `ios/` é gerada; resolve de vez e precisa de E2E no aparelho.
+
+Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
+`ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
+imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
+Expo.
+
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 
 O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
@@ -108,7 +125,14 @@ distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
 execuções vermelhas das guardas nos
 [vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
 Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
-desligado. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
+desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
+quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
+espelhados na vista de costas, marcadores fora do desenho e textos técnicos
+demais. **O boneco do mapa é ilustração de piloto** (decisão do dono em
+2026-09-24): desenho esquemático feito em código, aceito para o piloto e o
+teste com pessoas; antes de a lição chegar ao aluno, precisa de arte
+definitiva, com as posições em `LANDMARK_POSITIONS` reajustadas e as guardas de
+geometria verdes. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
 gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
 descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
 "Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
@@ -120,8 +144,11 @@ Pendente, nesta ordem:
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-2. **Dono, quando quiser ver:** `npx expo run:ios`, que recompila o cliente de
-   desenvolvimento por causa do `expo-audio` (módulo nativo novo).
+2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
+   causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
+   `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
+   "Risco de build" do [STATUS](STATUS.md): `xcodebuild` com os contornos, num
+   simulador com **iOS 26.5**, porque no iOS 27 o app fecha na abertura.
 3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
    critério da §5.4 da
    [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).

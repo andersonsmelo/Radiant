@@ -59,6 +59,26 @@ Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
 implementado.
 
+## Risco de build — iOS 27 (medido em 2026-09-23)
+
+**Compilado com o Xcode 27 (SDK do iOS 27), o app fecha na abertura no iOS 27.**
+O iOS 27 exige o ciclo de vida por cenas (`UIScene`), e o `AppDelegate` do Expo
+54 / RN 0.81 não o adota: o processo para em
+`_UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption` (SIGTRAP). No iOS
+26.5 é só aviso. O app publicado não é afetado, porque foi compilado com um SDK
+anterior. **Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
+build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
+[`FILA.md`](FILA.md).
+
+Compilar localmente nesta máquina (Xcode 27) precisou, na mesma data, de
+contornos que não mudam arquivo versionado: `RUBYOPT=-rlogger` para o CocoaPods
+com o Ruby do sistema; `IPHONEOS_DEPLOYMENT_TARGET=15.1` no `xcodebuild`, porque
+o Xcode 27 recusa pods abaixo de 15; `npx expo prebuild --platform ios` para
+regenerar a `ios/` (estava sem a permissão de iCloud, e o CloudKit derrubava o
+app); e `SENTRY_DISABLE_AUTO_UPLOAD=true`. O `expo run:ios` também trava ao
+consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
+`xcrun simctl`.
+
 ## Prazos de relógio
 
 | Prazo | O quê | Dono | Estado |
@@ -110,9 +130,10 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-23**, no Mac, em `59995fd` (mesma árvore do
-app que a `main` atual), Node `v20.20.2`: exit 0, **147 suítes / 1345 testes**,
-lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-23**, no Mac, no branch
+`fix/licao-hibrida-tela` (correções de tela do piloto vistas no simulador),
+Node `v20.20.2`: exit 0, **147 suítes / 1374 testes**, lint com 0 erros e 26
+avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira

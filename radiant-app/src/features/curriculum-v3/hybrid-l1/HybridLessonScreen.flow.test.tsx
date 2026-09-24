@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react-native';
+import { fireEvent, screen, within } from '@testing-library/react-native';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { HybridLessonScreen } from './HybridLessonScreen';
 import { buildL1HybridPlan } from './l1HybridLessonPlan';
@@ -63,6 +63,39 @@ describe('lição híbrida na tela', () => {
     expect(deps.hearts.spend).not.toHaveBeenCalled();
     expect(deps.events.filter((event) => event === 'streak')).toHaveLength(2);
     expect(deps.events[deps.events.length - 1]).toBe('lesson_complete');
+  });
+
+  // Revisão no simulador (iPhone 17, iOS 26.5), 2026-09-23: o retorno aparecia
+  // abaixo da dobra, a rolagem não voltava ao topo e o mapa carregava textos
+  // técnicos que empurravam tudo para baixo.
+  it('o retorno fica no rodapé fixo, fora da rolagem', async () => {
+    const deps = makeDeps();
+    renderScreen(deps);
+    fireEvent.press(within(screen.getByTestId('hybrid-footer')).getByText('Começar'));
+    const first = plan[0];
+    pressOption(first, first.options.find((option) => option.id !== first.correctOptionId)!.id);
+    await screen.findByText('Tentar de novo');
+    expect(within(screen.getByTestId('hybrid-footer')).getByText('Tentar de novo')).toBeTruthy();
+    expect(within(screen.getByTestId('hybrid-scroll')).queryByText('Tentar de novo')).toBeNull();
+  });
+
+  it('a rolagem recomeça a cada item novo', async () => {
+    const deps = makeDeps();
+    renderScreen(deps);
+    fireEvent.press(screen.getByText('Começar'));
+    const before = screen.getByTestId('hybrid-scroll');
+    pressOption(plan[0], plan[0].correctOptionId);
+    fireEvent.press(await screen.findByText('Continuar'));
+    expect(screen.getByTestId('hybrid-scroll')).not.toBe(before);
+  });
+
+  it('o mapa da lição vem sem os textos técnicos', () => {
+    const deps = makeDeps();
+    renderScreen(deps);
+    expect(screen.queryByText(/Modelo 2\.5D/)).toBeNull();
+    fireEvent.press(screen.getByText('Começar'));
+    expect(screen.queryByText(/Modelo 2\.5D/)).toBeNull();
+    expect(screen.queryByText(/Linha tracejada/)).toBeNull();
   });
 
   it('a descrição da opção fica só no rótulo acessível: o texto visível não entrega a resposta', () => {

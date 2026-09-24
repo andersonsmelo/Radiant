@@ -39,6 +39,23 @@ function formatDuration(ms: number): string {
   return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, '0')}`;
 }
 
+/**
+ * Rolagem em cima, ação embaixo. O retorno e o botão da fase ficam num rodapé
+ * fixo: no simulador (2026-09-23) o painel caía abaixo da dobra e o aluno só via
+ * a linha mediana mudar. `scrollKey` remonta a rolagem a cada item novo, para a
+ * pergunta seguinte começar no topo.
+ */
+function LessonShell({ scrollKey, footer, children }: Readonly<{ scrollKey: string; footer: React.ReactNode; children: React.ReactNode }>) {
+  return (
+    <SafeAreaView style={styles.root}>
+      <ScrollView key={scrollKey} testID="hybrid-scroll" style={styles.scroll} contentContainerStyle={styles.content}>
+        {children}
+      </ScrollView>
+      {footer ? <View testID="hybrid-footer" style={styles.footer}>{footer}</View> : null}
+    </SafeAreaView>
+  );
+}
+
 export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, now = Date.now, metrics = hybridLessonMetricsRepository, onExit }: HybridLessonScreenProps) {
   const reduceMotion = useReducedMotionPreference();
   const session = useMemo(() => createHybridLessonSession({ plan: plan ?? buildL1HybridPlan(), now }), [plan, now]);
@@ -135,23 +152,19 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
 
   if (phase === 'opening') {
     return (
-      <SafeAreaView style={styles.root}>
-        <ScrollView contentContainerStyle={styles.content}>
+      <LessonShell scrollKey="opening" footer={<AppButton variant="galaxy" label="Começar" onPress={start} fullWidth />}>
           <Text style={styles.eyebrow}>PILOTO · LIÇÃO HÍBRIDA</Text>
           <Text style={styles.title} accessibilityRole="header">O corpo como referência</Text>
-          <BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion={reduceMotion} landmarks={[]} showControls={false} onPostureChange={() => undefined} onPerspectiveChange={() => undefined} onRegionSelect={() => undefined} />
+          <BodyReferenceMap posture="anatomical" perspective="front" selectedRelation="medial-lateral" reduceMotion={reduceMotion} landmarks={[]} showControls={false} compact onPostureChange={() => undefined} onPerspectiveChange={() => undefined} onRegionSelect={() => undefined} />
           <Text style={styles.body}>A marca está à esquerda. Esquerda de quem?</Text>
           {!approved ? <Text style={styles.notice}>Prévia: os modelos de exercício aguardam a revisão do conteúdo.</Text> : null}
-          <AppButton variant="galaxy" label="Começar" onPress={start} fullWidth />
-        </ScrollView>
-      </SafeAreaView>
+      </LessonShell>
     );
   }
 
   if (phase === 'done' && summary) {
     return (
-      <SafeAreaView style={styles.root}>
-        <ScrollView contentContainerStyle={styles.content}>
+      <LessonShell scrollKey="done" footer={<AppButton variant="galaxy" label="Continuar" onPress={onExit} fullWidth />}>
           <HybridLessonCharacter moment="summary" reduceMotion={reduceMotion} />
           <Text style={styles.title} accessibilityRole="header">Lição concluída</Text>
           <View style={styles.stats}>
@@ -161,21 +174,16 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
             <Text style={styles.stat}>{`Maior sequência ${summary.bestStreak}`}</Text>
           </View>
           <Text style={styles.body}>{SYNTHESIS}</Text>
-          <AppButton variant="galaxy" label="Continuar" onPress={onExit} fullWidth />
-        </ScrollView>
-      </SafeAreaView>
+      </LessonShell>
     );
   }
 
   if (phase === 'out_of_hearts') {
     return (
-      <SafeAreaView style={styles.root}>
-        <ScrollView contentContainerStyle={styles.content}>
+      <LessonShell scrollKey="out-of-hearts" footer={<AppButton variant="galaxy" label="Sair" onPress={onExit} fullWidth />}>
           <Text style={styles.title} accessibilityRole="header">Suas vidas acabaram.</Text>
           <Text style={styles.body}>Elas voltam com o tempo, uma a cada 30 minutos. Revisar também devolve uma vida.</Text>
-          <AppButton variant="galaxy" label="Sair" onPress={onExit} fullWidth />
-        </ScrollView>
-      </SafeAreaView>
+      </LessonShell>
     );
   }
 
@@ -184,9 +192,23 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
   const firstContactMiss = phase === 'feedback' && result !== null && !result.correct && item.phase === 'first_contact';
   const streakText = result?.events.includes('streak5') ? 'Cinco seguidos!' : result?.events.includes('streak3') ? 'Três seguidos!' : null;
 
+  const panel = phase === 'feedback' && result ? (
+    <View style={styles.panel} accessibilityLiveRegion="polite">
+      <Text style={[styles.resultTitle, result.correct ? styles.good : styles.miss]}>{result.correct ? 'Isso!' : 'Quase.'}</Text>
+      {result.hint ? <Text style={styles.hint}>{result.hint}</Text> : null}
+      <Text style={styles.body}>{result.feedback}</Text>
+      {streakText ? (
+        <View style={styles.streak}>
+          <HybridLessonCharacter moment="streak" reduceMotion={reduceMotion} />
+          <Text style={styles.streakText}>{streakText}</Text>
+        </View>
+      ) : null}
+      <AppButton variant="galaxy" label={result.retrySameItem ? 'Tentar de novo' : 'Continuar'} onPress={next} fullWidth />
+    </View>
+  ) : null;
+
   return (
-    <SafeAreaView style={styles.root}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <LessonShell scrollKey={item.id} footer={panel}>
         <Text testID="hybrid-item-id" style={styles.visuallyHidden} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">{item.id}</Text>
         <View style={styles.header}>
           <Text style={styles.progressLabel}>{`${index + 1} de ${total}`}</Text>
@@ -205,6 +227,7 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
           reduceMotion={reduceMotion}
           landmarks={item.landmarks}
           showControls={false}
+          compact
           emphasizeMidline={firstContactMiss}
           landmarksInteractive={item.format === 'tap' && phase === 'item'}
           onPostureChange={() => undefined}
@@ -230,27 +253,14 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
             ))}
           </View>
         )}
-        {phase === 'feedback' && result ? (
-          <View style={styles.panel} accessibilityLiveRegion="polite">
-            <Text style={[styles.resultTitle, result.correct ? styles.good : styles.miss]}>{result.correct ? 'Isso!' : 'Quase.'}</Text>
-            {result.hint ? <Text style={styles.hint}>{result.hint}</Text> : null}
-            <Text style={styles.body}>{result.feedback}</Text>
-            {streakText ? (
-              <View style={styles.streak}>
-                <HybridLessonCharacter moment="streak" reduceMotion={reduceMotion} />
-                <Text style={styles.streakText}>{streakText}</Text>
-              </View>
-            ) : null}
-            <AppButton variant="galaxy" label={result.retrySameItem ? 'Tentar de novo' : 'Continuar'} onPress={next} fullWidth />
-          </View>
-        ) : null}
-      </ScrollView>
-    </SafeAreaView>
+    </LessonShell>
   );
 }
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: galaxyColors.background },
+  scroll: { flex: 1 },
+  footer: { padding: space.s3, borderTopWidth: 1, borderTopColor: galaxyColors.border, backgroundColor: galaxyColors.background },
   content: { padding: space.s3, gap: space.s3 },
   eyebrow: { ...typography.label, color: galaxyColors.textTertiary },
   title: { ...typography.h2, color: galaxyColors.textPrimary },

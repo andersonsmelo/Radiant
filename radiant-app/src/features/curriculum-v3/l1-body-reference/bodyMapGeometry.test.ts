@@ -3,8 +3,13 @@ import { StyleSheet } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { BodyReferenceMap } from './BodyReferenceMap';
 import {
+  CANVAS,
   LANDMARK_POSITIONS,
+  MARKER_SIZE,
   canvasRotation,
+  isBoxInsideFrame,
+  labelCounterTransform,
+  markerBounds,
   isInsideFrame,
   landmarkScreenPoint,
   landmarkScreenRegion,
@@ -14,7 +19,9 @@ import {
 
 const POSTURES: readonly BodyPosture[] = ['anatomical', 'supine', 'prone'];
 const PERSPECTIVES: readonly BodyPerspective[] = ['front', 'back'];
-const WIDTHS = [320, 390, 430];
+// Largura do quadro (tela menos o respiro de 16 pt de cada lado): do iPhone SE
+// de 2ª geração (375) ao Pro Max (430).
+const WIDTHS = [343, 370, 398];
 const OPPOSITE = { direita: 'esquerda', esquerda: 'direita', cima: 'baixo', baixo: 'cima' } as const;
 const COMBOS = POSTURES.flatMap((posture) => PERSPECTIVES.flatMap((perspective) => WIDTHS.map((width) => [posture, perspective, width] as const)));
 
@@ -65,6 +72,58 @@ describe('geometria do mapa corporal', () => {
       const transform = (StyleSheet.flatten(getByTestId('body-map-canvas').props.style).transform ?? []) as Record<string, unknown>[];
       expect(transform).toContainEqual({ rotate: canvasRotation(posture) });
       expect(transform).toContainEqual({ scaleX: perspective === 'front' ? 1 : -1 });
+    },
+  );
+});
+
+type Matrix = readonly [number, number, number, number];
+const multiply = (a: Matrix, b: Matrix): Matrix => [a[0] * b[0] + a[1] * b[2], a[0] * b[1] + a[1] * b[3], a[2] * b[0] + a[3] * b[2], a[2] * b[1] + a[3] * b[3]];
+function matrixOf(transform: readonly Record<string, unknown>[]): Matrix {
+  // Como no CSS: a lista multiplica da esquerda para a direita.
+  return transform.reduce<Matrix>((acc, entry) => {
+    if (typeof entry.scaleX === 'number') return multiply(acc, [entry.scaleX, 0, 0, 1]);
+    if (typeof entry.rotate === 'string') {
+      const t = (parseFloat(entry.rotate) * Math.PI) / 180;
+      return multiply(acc, [Math.cos(t), -Math.sin(t), Math.sin(t), Math.cos(t)]);
+    }
+    return acc;
+  }, [1, 0, 0, 1]);
+}
+
+describe('marcadores sobre o desenho — revisão no simulador, 2026-09-23', () => {
+  it('o canvas tem o tamanho do viewBox, para desenho e marcadores usarem as mesmas coordenadas', () => {
+    const { getByTestId } = render(
+      React.createElement(BodyReferenceMap, { posture: 'anatomical', perspective: 'front', selectedRelation: 'medial-lateral', reduceMotion: true, onPostureChange: jest.fn(), onPerspectiveChange: jest.fn(), onRegionSelect: jest.fn() }),
+    );
+    const canvas = StyleSheet.flatten(getByTestId('body-map-canvas').props.style);
+    expect([canvas.width, canvas.height]).toEqual([CANVAS.width, CANVAS.height]);
+  });
+
+  it('o marcador é centrado no ponto do landmark, não ancorado pelo canto', () => {
+    const { getByTestId } = render(
+      React.createElement(BodyReferenceMap, { posture: 'anatomical', perspective: 'front', selectedRelation: 'medial-lateral', reduceMotion: true, landmarks: [{ id: 'x', label: 'Mão 1', landmarkId: 'foot-marker', textDescription: 'pé' }], onPostureChange: jest.fn(), onPerspectiveChange: jest.fn(), onRegionSelect: jest.fn() }),
+    );
+    const marker = StyleSheet.flatten(getByTestId('landmark-foot-marker').props.style);
+    const [x, y] = LANDMARK_POSITIONS['foot-marker'];
+    expect([marker.left, marker.top, marker.width, marker.height]).toEqual([x - MARKER_SIZE / 2, y - MARKER_SIZE / 2, MARKER_SIZE, MARKER_SIZE]);
+  });
+
+  it.each(COMBOS)('o marcador inteiro, não só o ponto, fica dentro do quadro (%s, %s, %i px)', (posture, perspective, width) => {
+    for (const landmarkId of Object.keys(LANDMARK_POSITIONS)) {
+      expect({ landmarkId, inside: isBoxInsideFrame(markerBounds(landmarkId, posture, perspective, width), width) }).toEqual({ landmarkId, inside: true });
+    }
+  });
+
+  it.each(POSTURES.flatMap((posture) => PERSPECTIVES.map((perspective) => [posture, perspective] as const)))(
+    'o número do marcador aparece desvirado: canvas × rótulo = identidade (%s, %s)',
+    (posture, perspective) => {
+      const canvas = matrixOf([{ scaleX: perspective === 'front' ? 1 : -1 }, { rotate: canvasRotation(posture) }]);
+      const composed = multiply(canvas, matrixOf(labelCounterTransform(posture, perspective)));
+      expect(composed.map((v) => Math.round(v * 1e6) / 1e6 + 0)).toEqual([1, 0, 0, 1]);
+      const { getByText } = render(
+        React.createElement(BodyReferenceMap, { posture, perspective, selectedRelation: 'medial-lateral', reduceMotion: true, landmarks: [{ id: 'x', label: 'Mão 1', landmarkId: 'patient-left-hand', textDescription: 'mão' }], onPostureChange: jest.fn(), onPerspectiveChange: jest.fn(), onRegionSelect: jest.fn() }),
+      );
+      expect(StyleSheet.flatten(getByText('1').props.style).transform).toEqual(labelCounterTransform(posture, perspective));
     },
   );
 });
