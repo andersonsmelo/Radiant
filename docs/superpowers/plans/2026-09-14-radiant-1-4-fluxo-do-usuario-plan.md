@@ -368,7 +368,7 @@ Commit: `feat(1.4): add subscription and private-backup contracts`.
 > | `plugins/with-radiant-icloud.js` | `app.json` → `ios.entitlements` | um config plugin era desnecessário: o Expo aceita os entitlements direto no app config, e `ios/` é gitignorado, então o contrato tem de afirmar sobre a fonte versionada |
 > | `ICloudPrivateDatabaseAdapter.ts` | `CloudKitPrivateAdapter.ts` + `modules/radiant-cloudkit/` | nenhuma biblioteca RN/Expo de CloudKit qualificou (as duas candidatas têm ~5 estrelas e alargam a superfície de entitlements além do desenho aprovado), então foi módulo Expo local mínimo, com **zero dependências npm** |
 > | `ExpoIapStoreKitAdapter.*` | — | fora do escopo desta fatia; `expo-iap` continua não instalado |
-> | `.maestro/radiant-1-4-*.yaml` | — | E2E não iniciado |
+> | `.maestro/radiant-1-4-*.yaml` (nomes em inglês) | `radiant-1-4-primeira-execucao`, `radiant-1-4-segundo-dia`, `radiant-1-4-vidas-esgotadas` + `subflows/dismiss-dev-client` | **escritos e no contrato em 2026-09-24**; caminhos 1 e 3 `passed` no iOS 26.5, dia 2 do caminho 2 pendente de relógio real ([evidência](../../../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md)). O caminho 2 não injeta relógio porque o app não oferece como (decisão do dono) |
 >
 > A leitura da nuvem também ganhou forma que o plano não previa: `pull()` devolve
 > **três** estados (`absent`/`usable`/`incompatible`) em vez de `Backup | null`,

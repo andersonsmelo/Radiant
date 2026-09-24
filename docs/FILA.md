@@ -99,13 +99,39 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 
 **Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
 
-4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
-   **viável no simulador iOS 26.5 desde 2026-09-23**, pelo procedimento da seção
-   "Risco de build" do [STATUS](STATUS.md) (no iOS 27 o app fecha na abertura). Não validar durante flow E2E: 2,3× de
-   desaceleração medida. **Medido em 2026-09-24: os três flows ainda não
-   existem.** O plano previa `.maestro/radiant-1-4-*.yaml`, e nenhum flow atual
-   cobre "segundo dia com revisão devida" nem "vidas acabando no meio da lição
-   até a folha". A frente começa escrevendo os flows e o contrato deles.
+4. **E2E dos três caminhos dourados** — **escritos, no contrato e rodados em
+   2026-09-24** no simulador iOS 26.5, build Debug local sobre `ab121ad`
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md),
+   [relatório](superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)).
+   Caminhos 1 e 3 `passed`. **Falta: o dia 2 do caminho 2**, relógio real
+   (decisão do dono, 2026-09-24): rodar
+   `maestro test .maestro/radiant-1-4-segundo-dia.yaml` **a partir de
+   2026-09-25 11:55 (−03)**, no mesmo simulador
+   (`E3C547AE-4D2B-4C2D-9E0A-43AC36BBD1AD`), com o Metro no ar e **sem rodar
+   antes nenhum flow com `clearState`**, que apagaria o dia 1. Se o estado se
+   perder, rode de novo `radiant-1-4-primeira-execucao.yaml` e espere mais
+   24 h. Android não foi executado. Não validar durante flow E2E: 2,3× de
+   desaceleração medida.
+
+   **Defeitos do app que o E2E expôs (2026-09-24), nenhum corrigido ainda** —
+   um run cada, com teste vermelho antes:
+   - **Lição concluída volta como "Continuar de onde parou".** Reabrir a L1
+     concluída e sair pela folha de vidas (medido; pelo código, "Fechar quiz"
+     faz o mesmo, não medido) derruba o
+     cabeçalho de "1 de 14" para "0 de 14 etapas" e recomenda refazer a lição
+     no lugar do checkpoint. `resolveNodeStatus`
+     (`JourneyRecommendationService.ts:46`) testa `resumableNodeId` antes de
+     `completed`; `completedNodeIds` segue intacto. A precedência vem da onda 1
+     (`847a12d`), anterior à folha. **Decidir antes:** concluído vence
+     retomável, ou a retomada de lição concluída é mostrada sem desfazer a
+     contagem? Promessa ao usuário, então o dono escolhe.
+   - **"Próxima revisão em 2 dias" para revisão a 24 h.** O cartão SM-2
+     carimba o próprio relógio 1 ms depois do `answeredAt`, e o `Math.ceil`
+     de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
+     diferença de 1 ms foi medida no armazenamento nas duas conclusões
+     inspecionadas; numa delas o "2 dias" foi lido na tela.
+   - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
+     24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
    corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo

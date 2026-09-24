@@ -1,0 +1,42 @@
+appId: com.ascendcreative.radiant
+name: Dispensa o launcher, a apresentação e o menu do dev client
+---
+# Os flows antigos guardam o dev client com `runFlow when visible` logo depois
+# do `launchApp`. Isso é uma corrida: o `when` é avaliado uma vez só. Medido em
+# 2026-09-24 no iPhone 17 / iOS 26.5, build Debug + Metro, com clearState, em
+# duas execuções seguidas do mesmo binário:
+#   1. o app conectou sozinho ao Metro, e a folha do dev client subiu DEPOIS
+#      do guarda, por cima da apresentação do Pixel — o guarda saiu "SKIPPED"
+#      e a primeira asserção reprovou por estar coberta;
+#   2. o app parou no launcher ("DEVELOPMENT SERVERS"), esperando a escolha do
+#      servidor.
+# Nenhum dos dois é defeito do app. Por isso a espera aqui é explícita e
+# cobre os dois estados. Num build sem dev client (Release), ou numa reabertura
+# sem clearState, nada disso aparece e as esperas só custam o prazo.
+#
+# O launcher é reconhecido pelo título da seção, não pela URL: o menu do dev
+# client também exibe "http://localhost:8081", e tocar nele ali não conecta.
+- extendedWaitUntil:
+    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*'
+    timeout: 20000
+    optional: true
+- runFlow:
+    when:
+      visible: 'DEVELOPMENT SERVERS'
+    commands:
+      - tapOn: 'http://localhost:8081'
+      - extendedWaitUntil:
+          visible: 'This is the developer menu\. .*'
+          timeout: 60000
+          optional: true
+- runFlow:
+    when:
+      visible: 'This is the developer menu\. .*'
+    commands:
+      - tapOn: Continue
+# Depois do Continue o menu fica aberto, mostrando o servidor conectado.
+- runFlow:
+    when:
+      visible: 'Connected to:'
+    commands:
+      - tapOn: Close

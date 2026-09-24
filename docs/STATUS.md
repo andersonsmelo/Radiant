@@ -50,7 +50,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 
 1. **Dono:** build interno `development` com o módulo StoreKit (primeira
    compilação real do Swift) e teste de compra no sandbox.
-2. **Agente, com aparelho:** E2E dos três caminhos dourados.
+2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
+   `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
+   relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
+   defeitos do app, abertos na [FILA](FILA.md), item 4 da Task 8.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -180,18 +183,11 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24: `origin/main` em `5946e4e`, sem PR aberto. Os PRs #28
-a #30 foram mergeados nesse dia:
-- o estado consolidado;
-- a pesquisa e a decisão do iOS 27 (imagem Xcode 26.0 fixada);
-- a política do Loop (exclusões do guarda);
-- a verificação de desenvolvedor Android.
-
-Os branches remotos `docs/continuidade-2026-09-24`, `pesquisa/ios27-xcode-eas`
-e `docs/android-verificacao-chave-eas` já estão mergeados e continuam no
-remoto. Prompt de continuidade da próxima frente (E2E dos caminhos dourados,
-depois o Gate H4):
-[`2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md). **As cinco
+Medido em 2026-09-24: `origin/main` em `ab121ad`, sem PR aberto. O PR #31
+(este estado e o prompt da frente E2E) foi mergeado nesse dia, depois dos #28
+a #30. Os branches remotos já mergeados continuam no remoto. A frente E2E
+trabalha no branch local `test/e2e-caminhos-dourados-1-4`, sem push
+([relatório](superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)). **As cinco
 worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
 Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
 evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em

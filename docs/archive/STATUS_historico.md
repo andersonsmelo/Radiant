@@ -1723,3 +1723,22 @@ plano e implementação do piloto da lição híbrida, caixa de `conteúdo/` nos
 scripts, CI de conteúdo e correções de tela do piloto vistas no simulador.
 Prompt de continuidade:
 [`2026-09-24-radiant-prompt-de-continuidade.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md).
+
+---
+
+## Lote de 2026-09-24 — repositório depois do PR #31
+
+Trecho da seção "Repositório" do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório):
+
+Medido em 2026-09-24: `origin/main` em `5946e4e`, sem PR aberto. Os PRs #28
+a #30 foram mergeados nesse dia:
+- o estado consolidado;
+- a pesquisa e a decisão do iOS 27 (imagem Xcode 26.0 fixada);
+- a política do Loop (exclusões do guarda);
+- a verificação de desenvolvedor Android.
+
+Os branches remotos `docs/continuidade-2026-09-24`, `pesquisa/ios27-xcode-eas`
+e `docs/android-verificacao-chave-eas` já estão mergeados e continuam no
+remoto. Prompt de continuidade da próxima frente (E2E dos caminhos dourados,
+depois o Gate H4):
+[`2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md).
