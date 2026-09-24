@@ -1304,9 +1304,15 @@ diferentes**, e nenhum é superconjunto do outro. Em 2026-08-24 o
 arquivamento dos status datados em 2026-08-21 — e nada avisou, porque ele não
 roda no gate do app. Ao mexer em documentação governada, rode os dois.
 
-**Os testes de `scripts/content` não rodam em CI nenhum** — só parte deles
-entra no `loop validate`, que roda no macOS, indiferente a caixa. Por isso
-ninguém viu que o índice do git soletra `conteúdo/` (minúsculo, NFC) e cinco
+**Os testes de `scripts/content` não rodavam em CI nenhum até 2026-09-23** —
+só parte deles entra no `loop validate`, que roda no macOS, indiferente a
+caixa. Desde então rodam em `ubuntu-latest` pelo
+`.github/workflows/content-scripts.yml`, com **6 exclusões nomeadas** no
+próprio arquivo (3 `.mjs` que falham também no macOS, 3 `.py` que leem dado
+local de `extrações`); teste novo entra sozinho. Os passos do workflow foram
+reproduzidos no volume case-sensitive: vermelhos em `78f96d0` (7 falhas de
+caixa) e verdes com a correção (100/100 Node, 12 suítes Python). Sem esse
+CI, ninguém viu que o índice do git soletra `conteúdo/` (minúsculo, NFC) e cinco
 scripts — mais o `assetPath` do `conteúdo/mídia/manifest.json` — liam
 `Conteúdo/`. Num clone limpo (sem os dados locais de extração, como num CI)
 em sistema de arquivos sensível a caixa, `node --test

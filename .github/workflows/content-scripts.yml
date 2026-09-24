@@ -1,0 +1,76 @@
+name: Content Scripts
+
+# Testes de `scripts/content` num sistema de arquivos SENSÍVEL A CAIXA. O
+# `loop validate` roda no macOS, que não diferencia `conteúdo/` de `Conteúdo/`;
+# foi assim que cinco scripts passaram meses lendo a caixa errada sem ninguém
+# ver (medido em 2026-09-23, ver docs/STATUS.md). O runner Linux é o ponto.
+#
+# Sem filtro de `paths`: os testes leem `radiant-app/src/data`,
+# `content-manifest/` e `conteúdo/`, e o job leva segundos.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Importados no topo de scripts testados; os testes não chamam rede.
+      # Versões as mesmas da máquina onde a suíte foi medida.
+      - name: Install Python dependencies
+        run: python -m pip install pypdf==6.9.2 anthropic==0.49.0 openai==1.75.0
+
+      # Exclusões nomeadas, não lista de inclusão: teste novo entra sozinho.
+      # Cada uma falha também no macOS, por motivo que não é de caixa:
+      # - foundation-structure: README.md cita `Conteúdo/`, o teste exige `conteúdo/`;
+      # - validate-foundation: índice de formatos não cobre o bundle do piloto;
+      # - register-source: lê um PDF do acervo local, que não é versionado.
+      - name: Node tests
+        run: |
+          set -euo pipefail
+          excluidos='foundation-structure|validate-foundation|register-source'
+          suites=$(ls scripts/content/*.test.mjs | grep -Ev "/(${excluidos})\.test\.mjs$")
+          echo "suites: $(echo "$suites" | wc -l)"
+          node --test $suites
+
+      # Exclusões: as três leem `conteúdo/extrações/*/excerpts.json`, dado local
+      # que não é versionado.
+      - name: Python tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -uo pipefail
+          excluidos='classify-source|generate-formats|normalize-concepts'
+          estado=0
+          for suite in scripts/content/*.test.py; do
+            if echo "$suite" | grep -Eq "/(${excluidos})\.test\.py$"; then continue; fi
+            echo "::group::$suite"
+            python "$suite" || estado=1
+            echo "::endgroup::"
+          done
+          exit $estado
+
+      - name: Validators against the versioned tree
+        run: |
+          set -euo pipefail
+          node scripts/content/validate-taxonomy-map.mjs
+          node scripts/content/validate-media-manifest.mjs
+          node scripts/content/validate-content-anchoring.mjs
+          node scripts/content/validate-source-rights.mjs
