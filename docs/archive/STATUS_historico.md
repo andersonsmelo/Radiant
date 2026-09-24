@@ -1580,3 +1580,30 @@ original; só os links relativos foram reajustados ao novo diretório.
   [ADR](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)): 10 a 15 itens
   curtos, som e vibração, exercícios gerados por regra e teste com 3 a 5
   pessoas antes de escalar. Nada implementado.
+
+---
+
+## Lote de 2026-09-23 — caixa de `conteúdo/` nos scripts (PR #25)
+
+Escrito pelo PR #25 sobre o `STATUS.md` anterior à consolidação e movido para
+cá, sem edição, ao integrá-lo à `main` consolidada: as medições são histórico;
+o `STATUS.md` guarda só a regra em vigor.
+
+**Os testes de `scripts/content` não rodam em CI nenhum** — só parte deles
+entra no `loop validate`, que roda no macOS, indiferente a caixa. Por isso
+ninguém viu que o índice do git soletra `conteúdo/` (minúsculo, NFC) e cinco
+scripts — mais o `assetPath` do `conteúdo/mídia/manifest.json` — liam
+`Conteúdo/`. Num clone limpo (sem os dados locais de extração, como num CI)
+em sistema de arquivos sensível a caixa, `node --test
+scripts/content/*.test.mjs` dava **94/105** contra 101/105 no macOS.
+Corrigido em 2026-09-23 no código e no manifesto, não no índice — renomear o
+índice para `Conteúdo/` foi medido e piorava para 89/104, porque a maioria
+dos scripts já lê em minúscula. Medido num volume APFS case-sensitive, Node
+`v20.20.2`, depois da correção: **101/105 nos dois sistemas** em clone limpo,
+**102/105** com os dados locais de `extrações`. As falhas restantes
+(`foundation-structure` ×2, `register-source`, e uma quarta que só aparece
+sem os dados locais) são as mesmas nos dois sistemas e não são de caixa.
+Caminho novo em código: **`conteúdo/` minúsculo, em NFC**, como
+`git ls-files` o mostra. `conteúdo/fontes/library-catalog.json` continua
+citando `Conteúdo/*.pdf` de propósito: aponta para o acervo local, que não é
+versionado.

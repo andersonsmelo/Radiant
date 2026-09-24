@@ -105,25 +105,6 @@ em build, então só se acionam por build novo ou OTA. A guarda
 `src/config/killSwitches.contract.test.ts` barra flag `ENABLE_*` fixa ou sem
 leitor.
 
-**Os testes de `scripts/content` não rodam em CI nenhum** — só parte deles
-entra no `loop validate`, que roda no macOS, indiferente a caixa. Por isso
-ninguém viu que o índice do git soletra `conteúdo/` (minúsculo, NFC) e cinco
-scripts — mais o `assetPath` do `conteúdo/mídia/manifest.json` — liam
-`Conteúdo/`. Num clone limpo (sem os dados locais de extração, como num CI)
-em sistema de arquivos sensível a caixa, `node --test
-scripts/content/*.test.mjs` dava **94/105** contra 101/105 no macOS.
-Corrigido em 2026-09-23 no código e no manifesto, não no índice — renomear o
-índice para `Conteúdo/` foi medido e piorava para 89/104, porque a maioria
-dos scripts já lê em minúscula. Medido num volume APFS case-sensitive, Node
-`v20.20.2`, depois da correção: **101/105 nos dois sistemas** em clone limpo,
-**102/105** com os dados locais de `extrações`. As falhas restantes
-(`foundation-structure` ×2, `register-source`, e uma quarta que só aparece
-sem os dados locais) são as mesmas nos dois sistemas e não são de caixa.
-Caminho novo em código: **`conteúdo/` minúsculo, em NFC**, como
-`git ls-files` o mostra. `conteúdo/fontes/library-catalog.json` continua
-citando `Conteúdo/*.pdf` de propósito: aponta para o acervo local, que não é
-versionado.
-
 ## Gate de qualidade
 
 ```bash
@@ -148,6 +129,12 @@ com `node --version` antes de citar qualquer número.
   mesmo passo.
 - **`npm run quality` e `loop validate` são conjuntos diferentes.** Ao mexer em
   documentação governada, rode os dois.
+- **Os testes de `scripts/content` não rodam em CI:** só no `loop validate`, no
+  macOS, que não diferencia caixa. Nos scripts, o caminho é `conteúdo/`,
+  minúsculo e em NFC, como o `git ls-files` mostra (corrigido em 2026-09-23;
+  medições no [histórico](archive/STATUS_historico.md)). A exceção é
+  `conteúdo/fontes/library-catalog.json`, que cita `Conteúdo/*.pdf` de
+  propósito, porque aponta para o acervo local.
 
 ## Repositório
 
