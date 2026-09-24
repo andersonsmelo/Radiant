@@ -1002,3 +1002,12 @@ Três caminhos, com custo e risco no documento:
 **Recomendação do agente:** o caminho 1 para a 1.4 e o 3 depois dela. Falta
 conferir no aparelho: o primeiro build `development` da 1.4 (StoreKit) abrindo
 num iPhone com iOS 27.
+
+---
+
+## Lote de 2026-09-24 — verificação de desenvolvedor Android
+
+Trecho do item 8 substituído depois da medição no Play Console, sem edição:
+
+**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
+Console. **Dono:** dono (é console, escala pela regra 1).

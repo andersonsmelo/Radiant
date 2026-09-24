@@ -482,8 +482,30 @@ respondida hoje.**
 
 ### 8. Verificação de desenvolvedor Android — prazo de relógio, 30/09/2026
 
-**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
-Console. **Dono:** dono (é console, escala pela regra 1).
+**Estado:** medido no Play Console em 2026-09-24, com o dono na conversa.
+**Bloqueio:** a análise do Google. **Dono:** dono (é console, escala pela
+regra 1).
+
+- **O pacote `com.ascendcreative.radiant` está "Registrado"**, com 3 chaves
+  "Verificada": `5F:CE:13:4E:…:F3:21:9A` (a chave de assinatura do Play,
+  conferida em "Assinatura de apps"), `9C:8D:02:EC:…:9D:D6:E6` e
+  `EE:F4:29:39:…:B4:BA:38`, que o Play registrou sozinho, sem origem
+  identificada.
+- **A chave do EAS não estava registrada.** O keystore do grupo **Default** do
+  EAS tem SHA-256
+  `49:CB:9C:2A:D5:71:F2:79:77:77:E8:01:37:D2:D0:31:6C:6D:F5:B8:40:14:8F:6E:19:73:EB:D8:B4:2D:CD:7F`,
+  lido em `npx eas credentials -p android`, perfil `development`. É a mesma
+  impressão digital do "Certificado da chave de upload" no Play. O `eas.json`
+  não troca o grupo de credenciais em nenhum perfil, então os builds internos
+  saem assinados com ela (inferido; só o perfil `development` foi lido).
+- **Adicionada em 2026-09-24** em Verificação de desenvolvedor Android →
+  `com.ascendcreative.radiant` → Adicionar chave. O status ficou **"Em
+  análise"**, e o Google não pediu prova de posse na tela.
+
+**Falta:** conferir que a `49:CB…` passou a "Verificada" antes de 30/09. Se o
+Google pedir prova de posse (APK assinado com a chave), esse pedido volta para
+cá. Onde olhar: Play Console → Verificação de desenvolvedor Android →
+`com.ascendcreative.radiant`.
 
 Entrou em 2026-09-04, a partir do aviso do Google Play recebido em 04/09 às
 00:43. O e-mail foi verificado e é legítimo: remetente `googleplay-noreply@

@@ -100,7 +100,7 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 | Prazo | O quê | Dono | Estado |
 | --- | --- | --- | --- |
-| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **não conferido** — [FILA, item 8](FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **Pacote registrado. A chave do EAS foi adicionada em 2026-09-24 e está "Em análise"**; falta ela passar a "Verificada" — [FILA, item 8](FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
 
 ## Bloqueios abertos, por frente
 
