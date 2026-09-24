@@ -480,41 +480,6 @@ respondida hoje.**
 - **`checkHeuristics`** — ligar os nudges ou manter shadow mode. A decisão ficou
   decidível em 2026-08-07, quando a H3 parou de medir o próprio lançamento.
 
-### 8. Verificação de desenvolvedor Android — prazo de relógio, 30/09/2026
-
-**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
-Console. **Dono:** dono (é console, escala pela regra 1).
-
-Entrou em 2026-09-04, a partir do aviso do Google Play recebido em 04/09 às
-00:43. O e-mail foi verificado e é legítimo: remetente `googleplay-noreply@
-google.com` e **as 19 URLs embutidas apontam todas para `c.gle`**, o encurtador
-do próprio Google — nenhum domínio de terceiro. Ressalva: o `.rtf` exportado do
-Mail não carrega SPF/DKIM/DMARC, então a checagem é forte mas não
-criptográfica. **Mesmo sendo legítimo, não clique nos botões** — abra
-`play.google.com/console` direto.
-
-O Brasil é um dos quatro primeiros países. A partir de 30/09/2026 o par **nome
-do pacote + fingerprint SHA-256 da chave** precisa estar registrado por
-desenvolvedor verificado para instalar em aparelho certificado. Duas coisas
-diferentes, e só a primeira é provável estar resolvida:
-
-- **o app do Play.** `com.ascendcreative.radiant` deve ter entrado no registro
-  automático (>99% dos apps com Play App Signing). Confirme na home do Play
-  Console — o status aparece ao lado do app e dá para filtrar os não
-  registrados;
-- **os builds de fora do Play.** Os perfis `preview`, `development`,
-  `e2e-test` e `checkpoint-internal` do EAS são *internal distribution*:
-  instalam por fora da loja, assinados pela keystore do EAS e não pela do Play
-  App Signing. Para o aparelho é **outro** par pacote+fingerprint. Não foi
-  medido se essa keystore difere de fato; se diferir e não for registrada, o
-  que quebra depois de 30/09 é a **distribuição de beta interna**, não a
-  publicação. O e-mail chama isso de "outras chaves usadas para assiná-los fora
-  da plataforma", e o registro delas também é feito no Play Console.
-
-```bash
-grep -n '"distribution": "internal"' radiant-app/eas.json
-```
-
 ---
 
 ## Precisa de aparelho ou janela de host

@@ -1002,3 +1002,71 @@ Três caminhos, com custo e risco no documento:
 **Recomendação do agente:** o caminho 1 para a 1.4 e o 3 depois dela. Falta
 conferir no aparelho: o primeiro build `development` da 1.4 (StoreKit) abrindo
 num iPhone com iOS 27.
+
+---
+
+## Lote de 2026-09-24 — verificação de desenvolvedor Android
+
+Trecho do item 8 substituído depois da medição no Play Console, sem edição:
+
+**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
+Console. **Dono:** dono (é console, escala pela regra 1).
+
+Item 8 concluído em 2026-09-24 (a chave do EAS passou a "Verificada" no mesmo dia) e removido da fila, sem edição salvo links relativos:
+
+### 8. Verificação de desenvolvedor Android — prazo de relógio, 30/09/2026
+
+**Estado:** medido no Play Console em 2026-09-24, com o dono na conversa.
+**Bloqueio:** a análise do Google. **Dono:** dono (é console, escala pela
+regra 1).
+
+- **O pacote `com.ascendcreative.radiant` está "Registrado"**, com 3 chaves
+  "Verificada": `5F:CE:13:4E:…:F3:21:9A` (a chave de assinatura do Play,
+  conferida em "Assinatura de apps"), `9C:8D:02:EC:…:9D:D6:E6` e
+  `EE:F4:29:39:…:B4:BA:38`, que o Play registrou sozinho, sem origem
+  identificada.
+- **A chave do EAS não estava registrada.** O keystore do grupo **Default** do
+  EAS tem SHA-256
+  `49:CB:9C:2A:D5:71:F2:79:77:77:E8:01:37:D2:D0:31:6C:6D:F5:B8:40:14:8F:6E:19:73:EB:D8:B4:2D:CD:7F`,
+  lido em `npx eas credentials -p android`, perfil `development`. É a mesma
+  impressão digital do "Certificado da chave de upload" no Play. O `eas.json`
+  não troca o grupo de credenciais em nenhum perfil, então os builds internos
+  saem assinados com ela (inferido; só o perfil `development` foi lido).
+- **Adicionada em 2026-09-24** em Verificação de desenvolvedor Android →
+  `com.ascendcreative.radiant` → Adicionar chave. O status ficou **"Em
+  análise"**, e o Google não pediu prova de posse na tela.
+
+**Falta:** conferir que a `49:CB…` passou a "Verificada" antes de 30/09. Se o
+Google pedir prova de posse (APK assinado com a chave), esse pedido volta para
+cá. Onde olhar: Play Console → Verificação de desenvolvedor Android →
+`com.ascendcreative.radiant`.
+
+Entrou em 2026-09-04, a partir do aviso do Google Play recebido em 04/09 às
+00:43. O e-mail foi verificado e é legítimo: remetente `googleplay-noreply@
+google.com` e **as 19 URLs embutidas apontam todas para `c.gle`**, o encurtador
+do próprio Google — nenhum domínio de terceiro. Ressalva: o `.rtf` exportado do
+Mail não carrega SPF/DKIM/DMARC, então a checagem é forte mas não
+criptográfica. **Mesmo sendo legítimo, não clique nos botões** — abra
+`play.google.com/console` direto.
+
+O Brasil é um dos quatro primeiros países. A partir de 30/09/2026 o par **nome
+do pacote + fingerprint SHA-256 da chave** precisa estar registrado por
+desenvolvedor verificado para instalar em aparelho certificado. Duas coisas
+diferentes, e só a primeira é provável estar resolvida:
+
+- **o app do Play.** `com.ascendcreative.radiant` deve ter entrado no registro
+  automático (>99% dos apps com Play App Signing). Confirme na home do Play
+  Console — o status aparece ao lado do app e dá para filtrar os não
+  registrados;
+- **os builds de fora do Play.** Os perfis `preview`, `development`,
+  `e2e-test` e `checkpoint-internal` do EAS são *internal distribution*:
+  instalam por fora da loja, assinados pela keystore do EAS e não pela do Play
+  App Signing. Para o aparelho é **outro** par pacote+fingerprint. Não foi
+  medido se essa keystore difere de fato; se diferir e não for registrada, o
+  que quebra depois de 30/09 é a **distribuição de beta interna**, não a
+  publicação. O e-mail chama isso de "outras chaves usadas para assiná-los fora
+  da plataforma", e o registro delas também é feito no Play Console.
+
+```bash
+grep -n '"distribution": "internal"' radiant-app/eas.json
+```

@@ -98,9 +98,13 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Prazos de relógio
 
-| Prazo | O quê | Dono | Estado |
-| --- | --- | --- | --- |
-| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **não conferido** — [FILA, item 8](FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
+aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
+assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),
+que assina os builds de distribuição interna. Essa última foi adicionada em
+2026-09-24 e verificada no mesmo dia. Onde remedir: Play Console → Verificação
+de desenvolvedor Android → `com.ascendcreative.radiant`.
 
 ## Bloqueios abertos, por frente
 
