@@ -58,7 +58,8 @@ Quando documentos divergirem, use esta ordem:
 - prompt pós-sessão de 2026-09-22: [`superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-22-radiant-prompt-de-continuidade.md) — as duas frentes abertas naquela data (Task 8 e L2 do currículo V3) e as decisões do dono;
 - prompt da Task 8, fatia 2 (2026-09-23, **executado** na mesma data): [`superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md);
 - prompt pós-sessão de 2026-09-23 (manhã; **executado** na mesma data): [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
-- **prompt atual (pós-sessão da tarde de 2026-09-23):** [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
+- prompt pós-sessão da tarde de 2026-09-23 (**substituído** em 2026-09-24): [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
+- **prompt atual (2026-09-24):** [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md) — o que a sessão de 2026-09-23/24 entregou, as frentes do agente (E2E no simulador iOS 26.5, gate H4, pesquisa do iOS 27, aprovação do piloto) e o que é do dono;
 - relatório da sessão de 2026-09-23: [`superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao.md`](superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao.md);
 - relatório da sessão da tarde de 2026-09-23 (vidas do assinante, PRs #15–#20): [`superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao-2.md`](superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao-2.md);
 - decisões de 2026-09-15 e 2026-09-23: [produtos StoreKit](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md), [StoreKit por módulo local](adr/ADR-2026-09-23-storekit-modulo-expo-local.md), [decisões do dono — I2, C6, kill switches, flags de analytics, Ask to Buy](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md);
@@ -94,8 +95,10 @@ Quando documentos divergirem, use esta ordem:
   e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
   com o [plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md)
   e o [prompt para o agente em nuvem](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md);
-  implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`, com
-  [relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md).
+  na `main` desde 2026-09-23 (PR #24), com
+  [relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
+  visto no simulador e corrigido em 2026-09-24 (PR #27). O boneco do mapa é
+  ilustração de piloto (decisão do dono, 2026-09-24).
   A v7 da L2 está pausada até o resultado do piloto;
 - roteiro anterior de produção: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
   sem repetir a fundação nem ativar o V3 antecipadamente;

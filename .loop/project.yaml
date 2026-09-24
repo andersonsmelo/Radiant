@@ -31,12 +31,30 @@ context:
     - .loop/brain-sessions
     - .loop/bootstrap
     - .claude/worktrees
+    # Configuração local do app do Claude, reescrita por ele no meio do run
+    # quando grava uma permissão. O ignore global do git a esconde do
+    # `git status`, mas o guarda de escopo a via: em 2026-09-24 derrubou um run
+    # em `needs_human` com os 14 validadores verdes. Decisão do dono, 2026-09-24.
+    - .claude/settings.local.json
     - node_modules
     - dist
     - coverage
     - .expo
     - Conteúdo/extrações
     - conteúdo/extrações
+    # Subprodutos LOCAIS da extração, fora do git: o extrator os regrava, e o
+    # guarda de escopo derrubava o run. Grafia do disco, copiada por
+    # os.listdir, com as formas misturadas: `Conteúdo` em NFD e `extrações` em
+    # NFC. NÃO redigite, porque o guarda compara bytes. As duas entradas
+    # acima, em NFC, não casam com o disco, e isso é de propósito
+    # desde 2026-09-24: consertá-las esconderia do guarda os 5 arquivos
+    # RASTREADOS da pasta (extraction-job.json, index.json, READMEs,
+    # .gitkeep), que só se alteram por janela própria em allowedRoots.
+    # Fonte nova extraída precisa da sua linha aqui. Decisão do dono, 2026-09-24.
+    - Conteúdo/extrações/atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca/excerpts.json
+    - Conteúdo/extrações/atualiza-o-em-mamografia-para-t-cnicos-em-radiologia-inca/pages.json
+    - Conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/excerpts.json
+    - Conteúdo/extrações/fundamentos-de-radiologia-everton-costa-pinto/pages.json
     - radiant-app/node_modules
     - radiant-app/dist
     - radiant-app/coverage

@@ -933,3 +933,140 @@ Trecho do item do piloto substituído quando o PR #24 foi mergeado, sem edição
 
 distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
 `docs/licao-hibrida-piloto`, não mergeado), pelo
+
+---
+
+## Lote de 2026-09-24 — FILA depois do PR #27
+
+Trechos substituídos, sem edição (só os links relativos reajustados ao novo diretório):
+
+[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
+
+4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
+   precisa de aparelho/simulador.
+
+---
+
+## Lote de 2026-09-24 — pesquisa do iOS 27 (frente C)
+
+Trechos do item "iOS 27 exige `UIScene`" substituídos quando a pesquisa foi
+feita, sem edição (só o link relativo reajustado ao novo diretório):
+
+fecha na abertura no iOS 27 ([STATUS](../STATUS.md)). **Bloqueio:** decisão do
+dono. **Dono:** dono.
+
+Duas saídas:
+1. **Fixar a imagem do EAS numa versão com Xcode 26** no `eas.json` — rápido e
+   reversível, e adia o problema até a Apple exigir o SDK do iOS 27;
+2. **Adotar `UIScene` no app** — código nativo via config plugin, porque a
+   `ios/` é gerada; resolve de vez e precisa de E2E no aparelho.
+
+Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
+`ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
+imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
+Expo.
+
+Item inteiro removido da fila quando o dono decidiu, no mesmo dia, sem edição (só os links relativos reajustados ao novo diretório):
+
+### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+
+**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
+fecha na abertura no iOS 27 ([STATUS](../STATUS.md)); pesquisa das saídas feita
+em 2026-09-24. **Bloqueio:** decisão do dono. **Dono:** dono. Fixar a imagem no
+`eas.json`, depois de decidido, fica com o agente.
+
+**Pesquisa feita em 2026-09-24**
+([documento](../release/2026-09-24-ios27-decisao-xcode-uiscene.md)), sem mudança de
+código:
+
+- **O EAS já compila com o Xcode 26.** O `ios.image` está ausente nos 7
+  perfis, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. O log da
+  build de produção da 1.3.1 confirma `Xcode 26.0 (17A324)` e
+  `iPhoneOS26.0.sdk`.
+- **Nenhuma imagem do EAS tem Xcode 27.** A Apple exige o SDK do iOS 27 em todo
+  envio **a partir de abril de 2027**.
+- **O SDK 54 não tem `UIScene` oficial**, nem no último patch (`54.0.37`). A
+  Expo o trouxe no SDK 58, e como opção no `57.0.23`.
+
+Três caminhos, com custo e risco no documento:
+1. **Manter o Xcode 26.** Nada é obrigatório. O recomendado é fixar
+   `"image": "macos-sequoia-15.6-xcode-26.0"` nos perfis de iOS. É uma linha,
+   reversível, e vale até abril de 2027.
+2. **Plugin próprio de `UIScene` sobre o SDK 54.** Código nativo nosso, que
+   perde a validade quando o SDK for atualizado. Precisa de E2E de deep link,
+   notificação, splash e retorno do segundo plano no iOS 26 e no 27. Risco
+   alto para a 1.4.
+3. **Atualizar o SDK para o 57 ou o 58.** O React Native passa de 0.81 para
+   0.86 ou 0.88. É uma frente inteira, que cabe depois da 1.4.
+
+**Recomendação do agente:** o caminho 1 para a 1.4 e o 3 depois dela. Falta
+conferir no aparelho: o primeiro build `development` da 1.4 (StoreKit) abrindo
+num iPhone com iOS 27.
+
+---
+
+## Lote de 2026-09-24 — verificação de desenvolvedor Android
+
+Trecho do item 8 substituído depois da medição no Play Console, sem edição:
+
+**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
+Console. **Dono:** dono (é console, escala pela regra 1).
+
+Item 8 concluído em 2026-09-24 (a chave do EAS passou a "Verificada" no mesmo dia) e removido da fila, sem edição salvo links relativos:
+
+### 8. Verificação de desenvolvedor Android — prazo de relógio, 30/09/2026
+
+**Estado:** medido no Play Console em 2026-09-24, com o dono na conversa.
+**Bloqueio:** a análise do Google. **Dono:** dono (é console, escala pela
+regra 1).
+
+- **O pacote `com.ascendcreative.radiant` está "Registrado"**, com 3 chaves
+  "Verificada": `5F:CE:13:4E:…:F3:21:9A` (a chave de assinatura do Play,
+  conferida em "Assinatura de apps"), `9C:8D:02:EC:…:9D:D6:E6` e
+  `EE:F4:29:39:…:B4:BA:38`, que o Play registrou sozinho, sem origem
+  identificada.
+- **A chave do EAS não estava registrada.** O keystore do grupo **Default** do
+  EAS tem SHA-256
+  `49:CB:9C:2A:D5:71:F2:79:77:77:E8:01:37:D2:D0:31:6C:6D:F5:B8:40:14:8F:6E:19:73:EB:D8:B4:2D:CD:7F`,
+  lido em `npx eas credentials -p android`, perfil `development`. É a mesma
+  impressão digital do "Certificado da chave de upload" no Play. O `eas.json`
+  não troca o grupo de credenciais em nenhum perfil, então os builds internos
+  saem assinados com ela (inferido; só o perfil `development` foi lido).
+- **Adicionada em 2026-09-24** em Verificação de desenvolvedor Android →
+  `com.ascendcreative.radiant` → Adicionar chave. O status ficou **"Em
+  análise"**, e o Google não pediu prova de posse na tela.
+
+**Falta:** conferir que a `49:CB…` passou a "Verificada" antes de 30/09. Se o
+Google pedir prova de posse (APK assinado com a chave), esse pedido volta para
+cá. Onde olhar: Play Console → Verificação de desenvolvedor Android →
+`com.ascendcreative.radiant`.
+
+Entrou em 2026-09-04, a partir do aviso do Google Play recebido em 04/09 às
+00:43. O e-mail foi verificado e é legítimo: remetente `googleplay-noreply@
+google.com` e **as 19 URLs embutidas apontam todas para `c.gle`**, o encurtador
+do próprio Google — nenhum domínio de terceiro. Ressalva: o `.rtf` exportado do
+Mail não carrega SPF/DKIM/DMARC, então a checagem é forte mas não
+criptográfica. **Mesmo sendo legítimo, não clique nos botões** — abra
+`play.google.com/console` direto.
+
+O Brasil é um dos quatro primeiros países. A partir de 30/09/2026 o par **nome
+do pacote + fingerprint SHA-256 da chave** precisa estar registrado por
+desenvolvedor verificado para instalar em aparelho certificado. Duas coisas
+diferentes, e só a primeira é provável estar resolvida:
+
+- **o app do Play.** `com.ascendcreative.radiant` deve ter entrado no registro
+  automático (>99% dos apps com Play App Signing). Confirme na home do Play
+  Console — o status aparece ao lado do app e dá para filtrar os não
+  registrados;
+- **os builds de fora do Play.** Os perfis `preview`, `development`,
+  `e2e-test` e `checkpoint-internal` do EAS são *internal distribution*:
+  instalam por fora da loja, assinados pela keystore do EAS e não pela do Play
+  App Signing. Para o aparelho é **outro** par pacote+fingerprint. Não foi
+  medido se essa keystore difere de fato; se diferir e não for registrada, o
+  que quebra depois de 30/09 é a **distribuição de beta interna**, não a
+  publicação. O e-mail chama isso de "outras chaves usadas para assiná-los fora
+  da plataforma", e o registro delas também é feito no Play Console.
+
+```bash
+grep -n '"distribution": "internal"' radiant-app/eas.json
+```
