@@ -1642,3 +1642,13 @@ Os branches locais já mergeados foram apagados em 2026-09-23. **As quatro
 worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 3 runs do
 Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
 evidência.
+
+---
+
+## Lote de 2026-09-23 — correções de tela do piloto
+
+Trecho do `STATUS.md` substituído, sem edição:
+
+strict. **Última medição: 2026-09-23**, no Mac, em `59995fd` (mesma árvore do
+app que a `main` atual), Node `v20.20.2`: exit 0, **147 suítes / 1345 testes**,
+lint com 0 erros e 26 avisos, visual QA sem regressão.

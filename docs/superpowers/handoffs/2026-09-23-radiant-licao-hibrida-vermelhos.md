@@ -494,3 +494,66 @@ revertidas em seguida:
 | sessão sem `!item.variant` | `✕ só a primeira tentativa de um desafio original é evidência independente` — 1 failed, 8 passed |
 | tela com `if (!answer.correct)` | `✕ erro de primeiro contato não custa vida…` — 1 failed, 5 passed |
 
+## Revisão no simulador — iPhone 17, iOS 26.5, 2026-09-23
+
+Quatro defeitos que só apareceram com o piloto rodando, e que nenhum teste
+pegava: o retorno ficava abaixo da dobra; os números dos marcadores saíam
+espelhados na vista de costas; os marcadores ficavam fora do desenho, porque o
+canvas esticava na largura enquanto o SVG ficava centrado; e o mapa carregava
+textos técnicos. Cada guarda nova foi vista falhando contra `db25628`.
+
+### Mapa: canvas, centro do marcador e número desvirado
+
+```text
+$ npx jest src/features/curriculum-v3/l1-body-reference/bodyMapGeometry.test.ts --runInBand -t "canvas tem o tamanho|centrado no ponto|desvirado"
+✕ o canvas tem o tamanho do viewBox, para desenho e marcadores usarem as mesmas coordenadas (30 ms)
+    ✕ o marcador é centrado no ponto do landmark, não ancorado pelo canto (8 ms)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (anatomical, front)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (anatomical, back)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (supine, front)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (supine, back) (1 ms)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (prone, front)
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (prone, back)
+    - Expected  - 2
+    + Received  + 2
+    - Expected  - 2
+    + Received  + 2
+Tests:       8 failed, 81 skipped, 89 total
+    ✕ o número do marcador aparece desvirado: canvas × rótulo = identidade (prone, back) (29 ms)
+    Expected: [{"rotate": "90deg"}, {"scaleX": -1}]
+    Received: undefined
+    > 127 |       expect(StyleSheet.flatten(getByText('1').props.style).transform).toEqual(labelCounterTransform(posture, perspective));
+```
+
+As falhas de "desvirado" no primeiro bloco ainda eram da função inexistente; a
+segunda execução, já com `labelCounterTransform` implementada e o componente
+sem a transformação, é a que mostra o defeito (`Received: undefined`).
+
+### Marcador inteiro dentro do quadro
+
+Mutação: `markerBounds` ancorado pelo canto (`left: x, top: y`), como o
+componente fazia antes.
+
+```text
+✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, front, 343 px) (3 ms)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, front, 370 px) (1 ms)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, front, 398 px) (1 ms)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, back, 343 px)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, back, 370 px) (1 ms)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (anatomical, back, 398 px)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (supine, back, 343 px) (1 ms)
+    ✕ o marcador inteiro, não só o ponto, fica dentro do quadro (prone, front, 343 px)
+```
+
+### Tela: rodapé fixo, rolagem por item, mapa compacto
+
+```text
+$ npx jest src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx --runInBand -t "rodapé fixo|recomeça|textos técnicos"
+✕ o retorno fica no rodapé fixo, fora da rolagem (19 ms)
+    ✕ a rolagem recomeça a cada item novo (14 ms)
+    ✕ o mapa da lição vem sem os textos técnicos (157 ms)
+    Unable to find an element with testID: hybrid-footer
+    Unable to find an element with testID: hybrid-scroll
+Tests:       3 failed, 7 skipped, 10 total
+```
+

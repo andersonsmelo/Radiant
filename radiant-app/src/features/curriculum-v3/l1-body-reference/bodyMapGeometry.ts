@@ -32,23 +32,54 @@ function rotationRadians(posture: BodyPosture): number {
   return posture === 'anatomical' ? 0 : posture === 'supine' ? Math.PI / 2 : -Math.PI / 2;
 }
 
+/** Diâmetro do marcador tocável (alvo mínimo de 44 pt). */
+export const MARKER_SIZE = 44;
+
+export type ScreenBox = Readonly<{ left: number; top: number; right: number; bottom: number }>;
+
 /**
- * Onde o landmark aparece no quadro, em pixels, depois das transformações do
- * canvas. O `Animated.View` recebe `[escala, scaleX, rotate]` e, como no CSS, o
- * ponto é girado primeiro e espelhado depois, sempre em torno do centro. O
- * canvas tem a largura do aparelho e a altura do quadro, então a largura entra
- * como parâmetro.
+ * Onde o landmark aparece no quadro, em pixels.
+ *
+ * O canvas tem o tamanho exato do viewBox (240×330) e fica centralizado no
+ * quadro, que tem a largura do aparelho e 330 de altura. Assim o SVG não
+ * escala nem se desloca em relação aos marcadores — até 2026-09-23 o canvas
+ * esticava na largura, o desenho ficava centralizado e os marcadores em
+ * porcentagem da largura esticada: o "2" aparecia longe da mão no simulador.
+ *
+ * O `Animated.View` recebe `[escala, scaleX, rotate]` e, como no CSS, o ponto é
+ * girado primeiro e espelhado depois, sempre em torno do centro do canvas.
  */
 export function landmarkScreenPoint(landmarkId: string, posture: BodyPosture, perspective: BodyPerspective, frameWidth: number): ScreenPoint {
   const [canvasX, canvasY] = LANDMARK_POSITIONS[landmarkId] ?? FALLBACK_POSITION;
-  const x = (canvasX / CANVAS.width) * frameWidth;
-  const y = (canvasY / CANVAS.height) * FRAME_HEIGHT;
-  const originX = frameWidth / 2;
-  const originY = FRAME_HEIGHT / 2;
+  const dx = canvasX - CANVAS.width / 2;
+  const dy = canvasY - CANVAS.height / 2;
   const angle = rotationRadians(posture);
-  const rotatedX = originX + (x - originX) * Math.cos(angle) - (y - originY) * Math.sin(angle);
-  const rotatedY = originY + (x - originX) * Math.sin(angle) + (y - originY) * Math.cos(angle);
-  return { x: perspective === 'back' ? 2 * originX - rotatedX : rotatedX, y: rotatedY };
+  const rotatedX = dx * Math.cos(angle) - dy * Math.sin(angle);
+  const rotatedY = dx * Math.sin(angle) + dy * Math.cos(angle);
+  const mirroredX = perspective === 'back' ? -rotatedX : rotatedX;
+  return { x: frameWidth / 2 + mirroredX, y: FRAME_HEIGHT / 2 + rotatedY };
+}
+
+/** O retângulo que o marcador ocupa no quadro: centrado no ponto do landmark. */
+export function markerBounds(landmarkId: string, posture: BodyPosture, perspective: BodyPerspective, frameWidth: number): ScreenBox {
+  const { x, y } = landmarkScreenPoint(landmarkId, posture, perspective, frameWidth);
+  const half = MARKER_SIZE / 2;
+  return { left: x - half, top: y - half, right: x + half, bottom: y + half };
+}
+
+export function isBoxInsideFrame(box: ScreenBox, frameWidth: number): boolean {
+  return box.left >= 0 && box.right <= frameWidth && box.top >= 0 && box.bottom <= FRAME_HEIGHT;
+}
+
+/**
+ * Transformação do número do marcador que desfaz a do canvas: sem ela, a vista
+ * de costas mostrava "Ƨ" e os decúbitos, o número deitado. Canvas = S·R; rótulo
+ * = R⁻¹·S, e o produto é a identidade.
+ */
+export function labelCounterTransform(posture: BodyPosture, perspective: BodyPerspective): [{ rotate: string }, { scaleX: number }] {
+  const rotation = canvasRotation(posture);
+  const inverse = rotation === '0deg' ? '0deg' : rotation === '90deg' ? '-90deg' : '90deg';
+  return [{ rotate: inverse }, { scaleX: perspective === 'front' ? 1 : -1 }];
 }
 
 /** Em que lado do centro do quadro o landmark aparece, pelo eixo dominante. */

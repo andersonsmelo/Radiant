@@ -50,6 +50,23 @@ atual em
 [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
 o dono lê o relatório no fim.
 
+### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+
+**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
+fecha na abertura no iOS 27 ([STATUS](STATUS.md)). **Bloqueio:** decisão do
+dono. **Dono:** dono.
+
+Duas saídas:
+1. **Fixar a imagem do EAS numa versão com Xcode 26** no `eas.json` — rápido e
+   reversível, e adia o problema até a Apple exigir o SDK do iOS 27;
+2. **Adotar `UIScene` no app** — código nativo via config plugin, porque a
+   `ios/` é gerada; resolve de vez e precisa de E2E no aparelho.
+
+Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
+`ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
+imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
+Expo.
+
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 
 O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
@@ -108,7 +125,10 @@ distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
 execuções vermelhas das guardas nos
 [vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
 Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
-desligado. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
+desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
+quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
+espelhados na vista de costas, marcadores fora do desenho e textos técnicos
+demais. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
 gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
 descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
 "Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois

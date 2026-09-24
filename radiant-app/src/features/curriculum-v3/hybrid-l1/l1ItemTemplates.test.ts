@@ -1,4 +1,4 @@
-import { LANDMARK_POSITIONS, isInsideFrame, landmarkScreenPoint, landmarkScreenRegion, type BodyPerspective, type BodyPosture } from '../l1-body-reference/bodyMapGeometry';
+import { LANDMARK_POSITIONS, isBoxInsideFrame, markerBounds, landmarkScreenRegion, type BodyPerspective, type BodyPosture } from '../l1-body-reference/bodyMapGeometry';
 import { L1_RELATION_TABLE } from './l1RelationTable';
 import { REFERENCE_FRAME_WIDTH, describeRegion, lateralityItem, nextScenario, relationItem, trueFalseItem, variantOf } from './l1ItemTemplates';
 import { createRng } from './seededRandom';
@@ -82,8 +82,9 @@ describe('modelos de exercício da L1', () => {
     for (const item of everyItem()) {
       for (const landmark of item.landmarks) {
         expect(LANDMARK_POSITIONS[landmark.landmarkId]).toBeDefined();
-        for (const width of [320, 390, 430]) {
-          expect({ item: item.id, landmark: landmark.landmarkId, inside: isInsideFrame(landmarkScreenPoint(landmark.landmarkId, item.posture, item.perspective, width), width) })
+        // O marcador inteiro (44 pt), não só o ponto, nas larguras reais do quadro.
+        for (const width of [343, 370, 398]) {
+          expect({ item: item.id, landmark: landmark.landmarkId, inside: isBoxInsideFrame(markerBounds(landmark.landmarkId, item.posture, item.perspective, width), width) })
             .toEqual({ item: item.id, landmark: landmark.landmarkId, inside: true });
         }
       }
