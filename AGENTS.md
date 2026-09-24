@@ -105,17 +105,35 @@ toda sessão de IA segue este contrato:
      `needs_human`. Antes de declarar caminho com acento ou caixa divergente,
      confira com `ls` como o disco o escreve — `git ls-files` responde outra
      pergunta.
-   - **`context.excludes` NÃO isenta do guarda de escopo — as duas listas
-     respondem a perguntas diferentes.** Medido em 2026-08-08, e custou um run:
-     `Conteúdo/extrações` está em `context.excludes` **e** fora do git, e mesmo
-     assim `step finish` devolveu `OUT_OF_SCOPE_CHANGE` nomeando
-     `excerpts.json` — que não é rastreado — e `index.json`. O `excludes` decide
-     o que entra no **contexto** montado para a IA; o guarda compara o
-     **repositório inteiro** contra a baseline da abertura, e não consulta essa
-     lista. A armadilha anterior desta seção diz que `.gitignore` não é
-     `context.excludes`; a lição que faltava é que **nenhum dos dois** protege
-     do guarda. Só `--files` protege: **declare todo caminho que a operação vai
-     tocar, inclusive subproduto local e arquivo não rastreado.**
+   - **`context.excludes` isenta do guarda de escopo, mas só por comparação
+     exata de bytes, e o `.gitignore` não isenta nada.** O guarda fotografa o
+     **disco inteiro** na abertura, não o que o git vê. Desde o Loop `730f1f5`
+     (2026-07-26), ele pula os caminhos que começam com uma entrada de
+     `context.excludes` (`pathIsExcluded`, em `dist/src/checkpoint.js`), mas
+     compara bytes: sem normalizar Unicode nem ignorar caixa.
+
+     Em 2026-08-08, `step finish` devolveu `OUT_OF_SCOPE_CHANGE` sobre
+     `Conteúdo/extrações`, que estava na lista. A conclusão registrada então
+     foi que a lista não isentava. **É falsa.** Medido em 2026-09-24: o disco
+     soletra `Conteúdo` em NFD e a política em NFC, então a entrada não casa.
+     Essa é a explicação provável do incidente: a forma do disco em 2026-08-08
+     não foi medida. **Não conserte essa entrada:** a pasta tem 5 arquivos
+     rastreados que só se alteram por janela em `allowedRoots`, e fazer a
+     entrada casar os esconderia do guarda. Desde 2026-09-24, por decisão do
+     dono, só os subprodutos locais (`excerpts.json` e `pages.json` de cada
+     fonte) estão excluídos, um por linha e na grafia do disco (`Conteúdo` em
+     NFD, `extrações` em NFC). Uma fonte nova precisa da sua linha.
+
+     Duas consequências:
+     - um arquivo ignorado pelo git, inclusive pelo ignore **global**, ainda
+       entra na baseline. `git status --porcelain` limpo não prova nada sobre
+       ele. Em 2026-09-24, o app do Claude reescreveu
+       `.claude/settings.local.json` no meio de um run com os 14 validadores
+       verdes, e o run caiu em `needs_human`. Esse caminho agora está na lista;
+     - para isentar, a entrada precisa ter os bytes do disco, conferidos com
+       `find`. Fora da lista, só `--files` protege: **declare todo caminho que
+       a operação vai tocar, inclusive subproduto local e arquivo não
+       rastreado.**
    - **`INTERNAL_ERROR` de qualquer comando `loop brain*` quase nunca é do
      Loop.** O `catch` final da CLI (`src/cli.ts:647`) converte qualquer exceção
      não-`LoopError` nesse código genérico, com `data: {}` — a causa real fica

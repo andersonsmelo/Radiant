@@ -50,22 +50,29 @@ atual em
 [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
-### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
+### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
 
-**Estado:** medido no simulador em 2026-09-23 — compilado com o Xcode 27, o app
-fecha na abertura no iOS 27 ([STATUS](STATUS.md)). **Bloqueio:** decisão do
-dono. **Dono:** dono.
+**Estado:** decidido pelo dono em 2026-09-24
+([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)). A 1.4 compila no Xcode
+26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a 1.4 sair
+primeiro. **Dono:** agente, com build e E2E autorizados pelo dono.
 
-Duas saídas:
-1. **Fixar a imagem do EAS numa versão com Xcode 26** no `eas.json` — rápido e
-   reversível, e adia o problema até a Apple exigir o SDK do iOS 27;
-2. **Adotar `UIScene` no app** — código nativo via config plugin, porque a
-   `ios/` é gerada; resolve de vez e precisa de E2E no aparelho.
+A partir de abril de 2027, a Apple só aceita envio compilado com o SDK do iOS
+27, e nesse SDK o app sem `UIScene` fecha na abertura. O SDK 54 não tem
+`UIScene` oficial. O destino preferido é o **SDK 58**, onde o `UIScene` é o
+padrão; o 57.0.23+ só o traz como opção (`ios.enableSceneSupport`). A frente
+inclui:
+- o salto do React Native 0.81 para 0.88, com os módulos Swift próprios, o
+  Sentry, o `expo-audio` e o `expo-notifications`;
+- o E2E de deep link, notificação, splash e retorno do segundo plano no iOS 26
+  e no 27;
+- tirar a linha `image` do `eas.json`.
 
-Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
-`ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
-imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
-Expo.
+Custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
+
+**Falta medir antes, sem esperar esta frente:** o primeiro build `development`
+da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
 
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 
@@ -472,41 +479,6 @@ respondida hoje.**
 - apagar `~/.lmstudio` (8,7 GB órfãos) e instalar o Ollama — destrava a Task 3;
 - **`checkHeuristics`** — ligar os nudges ou manter shadow mode. A decisão ficou
   decidível em 2026-08-07, quando a H3 parou de medir o próprio lançamento.
-
-### 8. Verificação de desenvolvedor Android — prazo de relógio, 30/09/2026
-
-**Estado:** não conferido. **Bloqueio:** *nenhum* — depende só de abrir o Play
-Console. **Dono:** dono (é console, escala pela regra 1).
-
-Entrou em 2026-09-04, a partir do aviso do Google Play recebido em 04/09 às
-00:43. O e-mail foi verificado e é legítimo: remetente `googleplay-noreply@
-google.com` e **as 19 URLs embutidas apontam todas para `c.gle`**, o encurtador
-do próprio Google — nenhum domínio de terceiro. Ressalva: o `.rtf` exportado do
-Mail não carrega SPF/DKIM/DMARC, então a checagem é forte mas não
-criptográfica. **Mesmo sendo legítimo, não clique nos botões** — abra
-`play.google.com/console` direto.
-
-O Brasil é um dos quatro primeiros países. A partir de 30/09/2026 o par **nome
-do pacote + fingerprint SHA-256 da chave** precisa estar registrado por
-desenvolvedor verificado para instalar em aparelho certificado. Duas coisas
-diferentes, e só a primeira é provável estar resolvida:
-
-- **o app do Play.** `com.ascendcreative.radiant` deve ter entrado no registro
-  automático (>99% dos apps com Play App Signing). Confirme na home do Play
-  Console — o status aparece ao lado do app e dá para filtrar os não
-  registrados;
-- **os builds de fora do Play.** Os perfis `preview`, `development`,
-  `e2e-test` e `checkpoint-internal` do EAS são *internal distribution*:
-  instalam por fora da loja, assinados pela keystore do EAS e não pela do Play
-  App Signing. Para o aparelho é **outro** par pacote+fingerprint. Não foi
-  medido se essa keystore difere de fato; se diferir e não for registrada, o
-  que quebra depois de 30/09 é a **distribuição de beta interna**, não a
-  publicação. O e-mail chama isso de "outras chaves usadas para assiná-los fora
-  da plataforma", e o registro delas também é feito no Play Console.
-
-```bash
-grep -n '"distribution": "internal"' radiant-app/eas.json
-```
 
 ---
 

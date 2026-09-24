@@ -66,9 +66,26 @@ O iOS 27 exige o ciclo de vida por cenas (`UIScene`), e o `AppDelegate` do Expo
 54 / RN 0.81 não o adota: o processo para em
 `_UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption` (SIGTRAP). No iOS
 26.5 é só aviso. O app publicado não é afetado, porque foi compilado com um SDK
-anterior. **Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
-build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
-[`FILA.md`](FILA.md).
+anterior.
+
+**O EAS compila com o Xcode 26** (medido em 2026-09-24). Até essa data o
+`eas.json` não fixava imagem e valia o padrão do SDK 54,
+`macos-sequoia-15.6-xcode-26.0`, a imagem de onde saiu a build de produção da
+1.3.1, com o `iPhoneOS26.0.sdk`. Desde 2026-09-24 essa mesma imagem está
+fixada nos perfis (abaixo). Então o risco é **local**:
+só esta máquina, que tem apenas o Xcode 27, produz o binário que fecha. O prazo
+real é **abril de 2027**, quando a Apple passa a exigir o SDK do iOS 27 em todo
+envio. O SDK 54 não tem suporte oficial a `UIScene`: a Expo o trouxe no SDK 58 e
+como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
+([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)):
+- os perfis de iOS do `eas.json` fixam `macos-sequoia-15.6-xcode-26.0`. Os 7
+  perfis resolvem para ela, conferido com `npx eas config --profile <perfil>
+  --platform ios`;
+- o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
+  2027.
+
+Medições, custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
 Compilar localmente nesta máquina (Xcode 27) precisou, na mesma data, de
 contornos que não mudam arquivo versionado: `RUBYOPT=-rlogger` para o CocoaPods
@@ -81,9 +98,13 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Prazos de relógio
 
-| Prazo | O quê | Dono | Estado |
-| --- | --- | --- | --- |
-| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **não conferido** — [FILA, item 8](FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
+aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
+assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),
+que assina os builds de distribuição interna. Essa última foi adicionada em
+2026-09-24 e verificada no mesmo dia. Onde remedir: Play Console → Verificação
+de desenvolvedor Android → `com.ascendcreative.radiant`.
 
 ## Bloqueios abertos, por frente
 

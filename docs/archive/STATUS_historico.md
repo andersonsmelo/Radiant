@@ -1670,3 +1670,43 @@ avisos, visual QA sem regressão.
 Medido em 2026-09-23: os PRs #21 a #26 foram mergeados na `main` na mesma data
 — consolidação do estado, desenho, sons, plano e implementação do piloto da
 lição híbrida, caixa de `conteúdo/` nos scripts e CI de conteúdo.
+
+---
+
+## Lote de 2026-09-24 — pesquisa do iOS 27 (frente C)
+
+Trecho do `STATUS.md` substituído, sem edição:
+
+**Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
+build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
+[`FILA.md`](../FILA.md).
+
+Trecho do `STATUS.md` substituído quando o dono decidiu, no mesmo dia, sem edição
+(só o link relativo reajustado ao novo diretório):
+
+como opção no 57.0.23. **Decisão do dono, com recomendação do agente:** fixar a
+imagem no `eas.json` para a 1.4 e adotar `UIScene` pela atualização do SDK,
+depois da 1.4. Medições, custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](../release/2026-09-24-ios27-decisao-xcode-uiscene.md).
+
+Trecho do `STATUS.md` corrigido pela revisão da PR #29 (Codex, P2), sem edição. Contradizia a fixação da imagem feita no mesmo commit:
+
+**O EAS já compila com o Xcode 26** (medido em 2026-09-24). O `eas.json` não
+fixa imagem, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. A build de
+produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`.
+
+---
+
+## Lote de 2026-09-24 — verificação de desenvolvedor Android
+
+Linha da tabela "Prazos de relógio" do `STATUS.md` substituída, sem edição (só o link relativo reajustado ao novo diretório):
+
+| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **não conferido** — [FILA, item 8](../FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+
+Seção "Prazos de relógio" do `STATUS.md` substituída quando a chave foi verificada, no mesmo dia, sem edição (só o link relativo reajustado ao novo diretório):
+
+## Prazos de relógio
+
+| Prazo | O quê | Dono | Estado |
+| --- | --- | --- | --- |
+| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **Pacote registrado. A chave do EAS foi adicionada em 2026-09-24 e está "Em análise"**; falta ela passar a "Verificada" — [FILA, item 8](../FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
