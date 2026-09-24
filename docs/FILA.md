@@ -130,8 +130,12 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      parte do carimbo do cartão quando esta resposta o carimbou
      (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
      defeito (esperado 1, recebido 2). Não conferido na tela.
-   - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
-     24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
+   - ✅ **Resumo de vidas cortado na trilha** — corrigido em 2026-09-24, no
+     branch `fix/e2e-defeitos-2-e-3`, sem build: o resumo vai sob os corações,
+     não ao lado (`HUD.tsx`, `heartsControlContent` em coluna). Teste visto
+     vermelho pelo defeito (esperado `column`, recebido `row`). **Não conferido
+     na tela:** a captura no simulador fica para depois do dia 2 do caminho 2,
+     para não servir JS novo ao binário do dia 1.
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
    corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo

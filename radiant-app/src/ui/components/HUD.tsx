@@ -260,7 +260,10 @@ const styles = StyleSheet.create({
     gap: 3,
     alignItems: 'center',
   },
-  heartsControlContent: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
+  // Resumo SOB os corações, não ao lado: em linha, os cinco corações de 28 pt e
+  // `0 · +1 em 24 min` somavam a largura e o HUD passava da borda direita da
+  // trilha no iPhone 17 (defeito 3 do E2E de 2026-09-24).
+  heartsControlContent: { flexDirection: 'column', alignItems: 'flex-end' },
   heartsButton: {
     borderRadius: 20,
     paddingHorizontal: space.s2,

@@ -53,7 +53,11 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
    `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
    relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
-   defeitos do app, abertos na [FILA](FILA.md), item 4 da Task 8.
+   defeitos do app ([FILA](FILA.md), item 4 da Task 8). Em 2026-09-24, os
+   defeitos 2 e 3 foram corrigidos no branch local `fix/e2e-defeitos-2-e-3`,
+   sem push e fora da `main`, e esse branch passou no gate com 148 suítes / 1379 testes
+   ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
+   O defeito 1 espera a decisão do dono.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).

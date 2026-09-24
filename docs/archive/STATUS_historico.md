@@ -1762,3 +1762,10 @@ evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em
 `AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e num script de conteúdo —
 **não descarte sem o dono**. Apagar os branches remotos já mergeados também é
 decisão do dono.
+
+---
+
+Trecho da seção "O que falta para a 1.4 sair" do `STATUS.md` substituído, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24:
+
+   relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
+   defeitos do app, abertos na [FILA](../FILA.md), item 4 da Task 8.

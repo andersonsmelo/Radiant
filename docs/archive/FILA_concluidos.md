@@ -1104,3 +1104,12 @@ Trechos substituídos, sem edição:
      de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
      diferença de 1 ms foi medida no armazenamento nas duas conclusões
      inspecionadas; numa delas o "2 dias" foi lido na tela.
+
+---
+
+## Lote de 2026-09-24 — defeito 3 do E2E corrigido
+
+Trecho substituído, sem edição:
+
+   - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
+     24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).

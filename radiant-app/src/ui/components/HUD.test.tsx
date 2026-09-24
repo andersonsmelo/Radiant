@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 import Svg from 'react-native-svg';
 import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.types';
 import { HUD } from './HUD';
@@ -390,5 +391,55 @@ describe('HUD — identidade dos ícones', () => {
     rerender(<HUD totalXp={20} streakDays={1} hearts={5} />);
 
     expect(reanimated.withDelay).not.toHaveBeenCalled();
+  });
+});
+
+// Defeito 3 do E2E de 2026-09-24: na trilha, com vidas em recarga, o resumo
+// `0 · +1 em 24 min` ia na MESMA linha dos cinco corações e o HUD passava da
+// borda direita do iPhone 17 (nó até x=443 em 402 pt). O Jest não mede layout,
+// então a asserção fica no valor que decide a largura: a direção do contêiner
+// comum aos corações e ao resumo. Em linha, as larguras se somam; em coluna, vale
+// a maior delas.
+describe('HUD — resumo de vidas cabe na largura da trilha', () => {
+  type Node = ReturnType<ReturnType<typeof render>['getByText']>;
+
+  const ancestors = (node: Node) => {
+    const chain: Node[] = [];
+    for (let current: Node | null = node.parent; current; current = current.parent) {
+      chain.push(current);
+    }
+    return chain;
+  };
+
+  it('empilha o resumo sob os corações, e não ao lado deles', () => {
+    const screen = render(
+      <HUD
+        totalXp={10}
+        streakDays={1}
+        hearts={0}
+        heartsSnapshot={{
+          count: 0,
+          status: 'empty',
+          nextRefillAt: '2026-09-14T12:24:00.000Z',
+          unlimitedUntil: null,
+        }}
+        nowMs={Date.parse('2026-09-14T12:00:00.000Z')}
+        onHeartsPress={jest.fn()}
+      />,
+    );
+
+    const summary = screen.getByText('0 · +1 em 24 min', { includeHiddenElements: true });
+    const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
+    for (let i = 1; i < 5; i += 1) {
+      expect(screen.getByTestId(`hud-heart-${i}`, { includeHiddenElements: true })).toBeTruthy();
+    }
+
+    const heartAncestors = new Set(ancestors(heart));
+    const shared = ancestors(summary).find(
+      (node) => typeof node.type === 'string' && heartAncestors.has(node),
+    );
+
+    expect(shared).toBeDefined();
+    expect(StyleSheet.flatten(shared?.props.style)?.flexDirection).toBe('column');
   });
 });
