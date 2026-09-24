@@ -1196,7 +1196,7 @@ entrega a fundação que aqueles itens passam a consumir.
   Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
   kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
   posteriores estão reconciliados na seção H3 acima.
-- **H4 [P0 — ENGENHARIA CONCLUÍDA EM 2026-08-13; GATE EM APARELHO A REGISTRAR]** O domínio de checkpoint/reforço e a
+- **H4 [P0 — ENGENHARIA CONCLUÍDA EM 2026-08-13; GATE PERCORRIDO NO SIMULADOR EM 2026-09-24, NÃO FECHADO]** O domínio de checkpoint/reforço e a
   passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
   inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
   apenas no terceiro insucesso e falha fechada para legado. Um candidato textual
@@ -1220,6 +1220,13 @@ entrega a fundação que aqueles itens passam a consumir.
   evidência e os dois desfechos do checkpoint. Não reabrir revisão editorial sem
   mudança material. Falta registrar apenas a passagem da experiência em aparelho
   antes de declarar H4 integralmente fechada e devolver a sequência a G3/G4.
+  **2026-09-24:** gate percorrido num segundo iPhone 17 (iOS 26.5), com o
+  progresso anterior pré-montado por decisão do dono. Aprovação, reforço e
+  retomada sem persistir respostas (modo `off`) medidos; texto grande
+  **reprovado** nos tamanhos de acessibilidade; texto do checkpoint prometendo
+  "10 questões"/"8 acertos" para avaliações de 2 itens; VoiceOver real não
+  exercitado. Dois defeitos abertos na FILA; fechar é decisão do dono
+  ([evidência](../../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

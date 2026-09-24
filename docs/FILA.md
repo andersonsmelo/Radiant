@@ -129,13 +129,16 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build: a contagem
      parte do carimbo do cartão quando esta resposta o carimbou
      (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
-     defeito (esperado 1, recebido 2). Não conferido na tela.
+     defeito (esperado 1, recebido 2). Conferido na tela em 2026-09-24, num
+     segundo simulador, durante o gate H4: "Próxima revisão em 1 dia"
+     ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
    - ✅ **Resumo de vidas cortado na trilha** — corrigido em 2026-09-24, no
      branch `fix/e2e-defeitos-2-e-3`, sem build: o resumo vai sob os corações,
      não ao lado (`HUD.tsx`, `heartsControlContent` em coluna). Teste visto
-     vermelho pelo defeito (esperado `column`, recebido `row`). **Não conferido
-     na tela:** a captura no simulador fica para depois do dia 2 do caminho 2,
-     para não servir JS novo ao binário do dia 1.
+     vermelho pelo defeito (esperado `column`, recebido `row`). Conferido na
+     tela em 2026-09-24, num segundo simulador, durante o gate H4: o botão de
+     vidas vai de x 206 a 382 em 402 pt ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)). **Vale até o
+     AX1; no AX5 o HUD volta a sair da tela** (achado 2 da H4, abaixo).
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
    corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo
@@ -286,10 +289,19 @@ propagada, e quem decorar o rótulo acerta a recuperação da L1 sem ler o mapa.
 
 ### AGENTE — Gate operacional H4: checkpoint, reforço, retomada e acessibilidade
 
-**Estado:** engenharia concluída e integrada à `main` pelo PR #3 em 2026-08-13.
-**Bloqueio:** falta evidência da experiência completa no simulador/aparelho
-pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
-**Dono:** agente.
+**Estado (2026-09-24): percorrido no simulador, não fechado.** A engenharia
+está na `main` desde o PR #3 (2026-08-13). O gate foi percorrido num segundo
+iPhone 17 (iOS 26.5), com o progresso das trilhas anteriores pré-montado por
+decisão do dono ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)):
+
+- **Aprovação e reforço:** medidos. A tentativa com 1 de 2 certas abre o reforço
+  do ciclo 1; depois dele, 2 de 2 aprova ("Conquista desbloqueada").
+- **Retomada sem persistir respostas:** medida no modo `off` (o de produção).
+  Nenhuma resposta fica no armazenamento, e a avaliação recomeça do zero. O
+  kernel de retomada no ponto (`active`) não foi exercitado.
+- **Texto grande:** **reprovado** nos tamanhos de acessibilidade (achado 2).
+- **Leitor de tela:** árvore de acessibilidade medida. O VoiceOver real
+  **não** foi exercitado, porque o simulador não o roda.
 
 `UnitCheckpointService` calcula tentativa imutável, plano e intent: aprovação com
 pelo menos 80% e zero erro crítico, reforço somente de competências frágeis e
@@ -305,9 +317,19 @@ passou no smoke local.
 `support-required` só ocorre depois de tentativa inicial reprovada, ciclo 1,
 nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
-Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
-persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
-como integralmente concluída e retomar G3.
+**Defeitos abertos pela H4, um run cada, com teste vermelho antes:**
+1. **O texto do checkpoint promete a avaliação antiga.** A abertura diz
+   "Responda 10 questões… acerte pelo menos 8" (`CheckpointScreen.tsx:637`) e o
+   reforço, "O checkpoint exige 8 acertos" (`:609`), mas cada avaliação tem 2
+   itens desde 2026-08-21.
+2. **Tamanhos de acessibilidade quebram a trilha e o checkpoint.** No AX1, o
+   título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
+   tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
+   CTA é cortado.
+
+**Para o dono decidir:** a vida gasta num checkpoint abandonado continua
+gasta, embora a resposta seja descartada. E o H4 fecha com os dois defeitos
+corrigidos e o VoiceOver em aparelho, ou fecha antes?
 
 ---
 

@@ -1113,3 +1113,28 @@ Trecho substituído, sem edição:
 
    - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
      24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
+
+---
+
+## Lote de 2026-09-24 — gate H4 percorrido no simulador
+
+Trechos substituídos, sem edição:
+
+     defeito (esperado 1, recebido 2). Não conferido na tela.
+
+     vermelho pelo defeito (esperado `column`, recebido `row`). **Não conferido
+     na tela:** a captura no simulador fica para depois do dia 2 do caminho 2,
+     para não servir JS novo ao binário do dia 1.
+
+Da seção "AGENTE — Gate operacional H4":
+
+**Estado:** engenharia concluída e integrada à `main` pelo PR #3 em 2026-08-13.
+**Bloqueio:** falta evidência da experiência completa no simulador/aparelho
+pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
+**Dono:** agente.
+
+(… três parágrafos de engenharia, que continuam na FILA …)
+
+Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
+persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
+como integralmente concluída e retomar G3.

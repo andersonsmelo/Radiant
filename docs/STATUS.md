@@ -57,7 +57,8 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    defeitos 2 e 3 foram corrigidos no branch local `fix/e2e-defeitos-2-e-3`,
    sem push e fora da `main`, e esse branch passou no gate com 148 suítes / 1379 testes
    ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
-   O defeito 1 espera a decisão do dono.
+   Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
+   o gate H4. O defeito 1 espera a decisão do dono.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -131,8 +132,12 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   de escalar.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
-- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na
-  `main` desde 2026-08-13; falta percorrer a experiência no simulador ou aparelho.
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — percorrido no
+  simulador em 2026-09-24 e **não fechado**: aprovação, reforço e retomada sem
+  persistir respostas medidos; texto grande reprovado nos tamanhos de
+  acessibilidade; VoiceOver real não exercitado. Dois defeitos abertos na
+  [FILA](FILA.md); fechar é decisão do dono
+  ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
 
 ## Defeito conhecido
 

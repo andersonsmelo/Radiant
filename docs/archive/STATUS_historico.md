@@ -1769,3 +1769,12 @@ Trecho da seção "O que falta para a 1.4 sair" do `STATUS.md` substituído, sem
 
    relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
    defeitos do app, abertos na [FILA](../FILA.md), item 4 da Task 8.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24, pelo gate H4:
+
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na
+  `main` desde 2026-08-13; falta percorrer a experiência no simulador ou aparelho.
+
+   O defeito 1 espera a decisão do dono.
