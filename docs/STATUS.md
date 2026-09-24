@@ -96,6 +96,16 @@ como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
 - o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
   2027.
 
+**A primeira build `development` da 1.4 no EAS reprovou** em 2026-09-24
+(`0a545c74-…`, commit `c4be0c8`), com `XCODE_BUILD_ERROR`. A causa não foi o
+Swift do StoreKit: foi o `sentry-cli`, que tentou enviar os source maps sem
+organização configurada. Só `preview`, `production` e `checkpoint-internal`
+desligavam o envio. Desde então o `development` também o desliga, e
+`development-simulator` e `e2e-test` herdam. Há um contrato
+(`scripts/maestro-contract.test.mjs`) que exige isso de todo perfil,
+com a herança resolvida. **Não se sabe ainda se o Swift compila:** o log do
+Xcode dessa build não estava disponível para download.
+
 Medições, custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 

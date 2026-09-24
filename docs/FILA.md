@@ -80,7 +80,10 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 
 1. **Build interno `development`** com `modules/radiant-storekit` — é a
    primeira compilação real do Swift, que até aqui só passou em checagem de
-   tipos com stub do ExpoModulesCore.
+   tipos com stub do ExpoModulesCore. **Primeira tentativa, em 2026-09-24:**
+   reprovou no `sentry-cli`, e não no Swift, porque o perfil não desligava o
+   upload de source maps. Corrigido no `eas.json`, com contrato. Falta rodar
+   de novo.
 2. **Sandbox no TestFlight**, ou o arquivo `.storekit` sincronizado pelo Xcode
    (*Sync with App Store Connect*) em
    `radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit`,
