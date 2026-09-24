@@ -1688,3 +1688,9 @@ como opção no 57.0.23. **Decisão do dono, com recomendação do agente:** fix
 imagem no `eas.json` para a 1.4 e adotar `UIScene` pela atualização do SDK,
 depois da 1.4. Medições, custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](../release/2026-09-24-ios27-decisao-xcode-uiscene.md).
+
+Trecho do `STATUS.md` corrigido pela revisão da PR #29 (Codex, P2), sem edição. Contradizia a fixação da imagem feita no mesmo commit:
+
+**O EAS já compila com o Xcode 26** (medido em 2026-09-24). O `eas.json` não
+fixa imagem, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. A build de
+produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`.

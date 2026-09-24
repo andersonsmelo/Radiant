@@ -68,9 +68,11 @@ O iOS 27 exige o ciclo de vida por cenas (`UIScene`), e o `AppDelegate` do Expo
 26.5 é só aviso. O app publicado não é afetado, porque foi compilado com um SDK
 anterior.
 
-**O EAS já compila com o Xcode 26** (medido em 2026-09-24). O `eas.json` não
-fixa imagem, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. A build de
-produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`. Então o risco é **local**:
+**O EAS compila com o Xcode 26** (medido em 2026-09-24). Até essa data o
+`eas.json` não fixava imagem e valia o padrão do SDK 54,
+`macos-sequoia-15.6-xcode-26.0`, a imagem de onde saiu a build de produção da
+1.3.1, com o `iPhoneOS26.0.sdk`. Desde 2026-09-24 essa mesma imagem está
+fixada nos perfis (abaixo). Então o risco é **local**:
 só esta máquina, que tem apenas o Xcode 27, produz o binário que fecha. O prazo
 real é **abril de 2027**, quando a Apple passa a exigir o SDK do iOS 27 em todo
 envio. O SDK 54 não tem suporte oficial a `UIScene`: a Expo o trouxe no SDK 58 e
