@@ -1159,3 +1159,14 @@ Trecho substituído, sem edição:
    "Responda 10 questões… acerte pelo menos 8" (`CheckpointScreen.tsx:637`) e o
    reforço, "O checkpoint exige 8 acertos" (`:609`), mas cada avaliação tem 2
    itens desde 2026-08-21.
+
+---
+
+## Lote de 2026-09-24 — defeito 2 da H4 corrigido
+
+Trecho substituído, sem edição:
+
+2. **Tamanhos de acessibilidade quebram a trilha e o checkpoint.** No AX1, o
+   título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
+   tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
+   CTA é cortado.

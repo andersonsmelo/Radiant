@@ -1,9 +1,27 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { JourneyNodeCard } from './JourneyNodeCard';
 import type { JourneyNode, JourneyNodeStatus } from '../../../types/journey';
 import { galaxyColors } from '../../../ui/theme';
+
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+function nearestHostParent(node: { parent: unknown } | null | undefined): { props: { style?: StyleProp<ViewStyle> } } | undefined {
+  let current = node?.parent as { type?: unknown; parent: unknown; props: { style?: StyleProp<ViewStyle> } } | null | undefined;
+  while (current && typeof current.type !== 'string') current = current.parent as typeof current;
+  return current ?? undefined;
+}
+
 
 function node(status: JourneyNodeStatus, id = `node-${status}`): JourneyNode {
   return {
@@ -151,5 +169,41 @@ describe('JourneyNodeCard — onde o aluno está', () => {
     expect(
       screen.getByLabelText(/Próximo passo/u),
     ).toBeTruthy();
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): com texto grande, o cartão de 45% da largura
+// partia as palavras ("Fundame / ntos de / Radiolo…") já no AX1. Nos tamanhos
+// grandes a trilha vira uma coluna só: a linha desce pela esquerda e todos os
+// cartões ficam à direita dela, na largura quase toda, sem limite de linhas.
+describe('JourneyNodeCard — texto grande', () => {
+  function layout(nodeIndex: number) {
+    const screen = renderCard('available', { nodeIndex });
+    const anchorColumn = nearestHostParent(screen.getByTestId('journey-anchor-node-available', { includeHiddenElements: true }));
+    const card = screen.getByRole('button');
+    const row = nearestHostParent(card);
+    return {
+      anchorColumn: StyleSheet.flatten(anchorColumn?.props.style),
+      card: StyleSheet.flatten(card.props.style),
+      row: StyleSheet.flatten(row?.props.style),
+      title: screen.getByText('Princípios de Tomografia Computadorizada'),
+    };
+  }
+
+  it.each([0, 1])('nó %i: cartão largo à direita da linha, sem cortar o título', (nodeIndex) => {
+    mockWindow.fontScale = 1.65;
+    const { anchorColumn, card, row, title } = layout(nodeIndex);
+
+    expect(typeof anchorColumn.left).toBe('number');
+    expect(row.justifyContent).toBe('flex-end');
+    expect(Number.parseFloat(String(card.width))).toBeGreaterThanOrEqual(80);
+    expect(title.props.numberOfLines).toBeUndefined();
+  });
+
+  it('mantém o zigue-zague no tamanho padrão', () => {
+    const { anchorColumn, card } = layout(0);
+
+    expect(anchorColumn.left).toBe('50%');
+    expect(card.width).toBe('45%');
   });
 });

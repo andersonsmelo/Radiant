@@ -9,6 +9,7 @@ import type { HeartsSnapshot } from '../../features/hearts/hearts.types';
 import { galaxyColors } from '../theme';
 import { space } from '../styles';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
+import { CHROME_MAX_FONT_SCALE } from '../accessibility/useLargeTextLayout';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -42,7 +43,13 @@ function HUDPill({
   return (
     <View style={styles.pill} accessible accessibilityRole="text" accessibilityLabel={accessibilityLabel}>
       <View importantForAccessibility="no">{icon}</View>
-      <Text style={[styles.pillValue, { color }]} importantForAccessibility="no">
+      {/* Cromo persistente: acima do XXXL o HUD sairia da tela (achado 2 do gate
+          H4). O valor completo segue no rótulo de acessibilidade. */}
+      <Text
+        style={[styles.pillValue, { color }]}
+        importantForAccessibility="no"
+        maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}
+      >
         {value}
       </Text>
     </View>
@@ -176,7 +183,11 @@ export function HUD({
         maxHearts={maxHearts}
         hiddenFromAccessibility={Boolean(onHeartsPress)}
       />
-      {summary ? <Text style={styles.heartsSummary}>{summary}</Text> : null}
+      {summary ? (
+        <Text style={styles.heartsSummary} maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>
+          {summary}
+        </Text>
+      ) : null}
     </View>
   );
   const heartsControl = onHeartsPress ? (

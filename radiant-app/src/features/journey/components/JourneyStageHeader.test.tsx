@@ -3,6 +3,31 @@ import { StyleSheet } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { JourneyStageHeader } from './JourneyStageHeader';
 
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+type HostNode = ReturnType<ReturnType<typeof render>['getByText']>;
+function hostAncestors(node: HostNode): HostNode[] {
+  const chain: HostNode[] = [];
+  for (let current: HostNode | null = node.parent; current; current = current.parent) {
+    if (typeof current.type === 'string') chain.push(current);
+  }
+  return chain;
+}
+function sharedHostAncestor(a: HostNode, b: HostNode): HostNode | undefined {
+  const fromB = new Set(hostAncestors(b));
+  return hostAncestors(a).find((node) => fromB.has(node));
+}
+
+
 function renderHeader(props: Partial<React.ComponentProps<typeof JourneyStageHeader>> = {}) {
   return render(
     <JourneyStageHeader title="Fundamentos de Radiologia" completed={7} total={21} {...props} />,
@@ -55,5 +80,27 @@ describe('JourneyStageHeader — o aluno se localiza também pelo número', () =
     expect(
       StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style).width,
     ).toBe('100%');
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): no AX1 o título virava "Matéria, energia e
+// r…" (limite de 2 linhas) e no AX5 "Mat / éri…", espremido ao lado da
+// contagem. Com texto grande a contagem desce para baixo do título e o título
+// não tem limite de linhas.
+describe('JourneyStageHeader — texto grande', () => {
+  it('não corta o título e põe a contagem embaixo dele', () => {
+    mockWindow.fontScale = 1.65;
+    const screen = renderHeader({ title: 'Matéria, energia e radiação' });
+    const title = screen.getByText('Matéria, energia e radiação');
+    const headline = sharedHostAncestor(title, screen.getByText('7 de 21'));
+
+    expect(title.props.numberOfLines).toBeUndefined();
+    expect(StyleSheet.flatten(headline?.props.style)?.flexDirection).toBe('column');
+  });
+
+  it('continua com duas linhas e a contagem ao lado no tamanho padrão', () => {
+    const screen = renderHeader();
+
+    expect(screen.getByText('Fundamentos de Radiologia').props.numberOfLines).toBe(2);
   });
 });

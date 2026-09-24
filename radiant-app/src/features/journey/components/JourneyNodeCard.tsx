@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 const accent = galaxyColors.ctaGradientEnd;
 
@@ -115,7 +116,11 @@ export function JourneyNodeCard({
 }: JourneyNodeCardProps) {
   const meta = getNodeCopy(node);
   const presentation = getStatusPresentation(node);
-  const alignRight = nodeIndex % 2 === 1;
+  // Com texto grande o zigue-zague de cartões a 45% partia as palavras
+  // (achado 2 do gate H4): a trilha vira uma coluna, com a linha à esquerda e
+  // todos os cartões à direita dela.
+  const largeText = useLargeTextLayout();
+  const alignRight = largeText || nodeIndex % 2 === 1;
   const isLocked = node.status === 'locked';
   const recommendationCopy = getRecommendationCopy(
     isRecommended,
@@ -125,7 +130,7 @@ export function JourneyNodeCard({
 
   return (
     <View style={[styles.row, alignRight && styles.rowRight]}>
-      <View style={styles.anchorColumn}>
+      <View style={[styles.anchorColumn, largeText && styles.anchorColumnLargeText]}>
         <View
           testID={`journey-anchor-${node.id}`}
           style={[
@@ -149,6 +154,7 @@ export function JourneyNodeCard({
         style={({ pressed }) => [
           styles.card,
           alignRight ? styles.cardRight : styles.cardLeft,
+          largeText && styles.cardLargeText,
           { backgroundColor: presentation.surfaceColor },
           isLocked && styles.cardLocked,
           isRecommended && styles.cardRecommended,
@@ -181,7 +187,7 @@ export function JourneyNodeCard({
 
         <View style={styles.content}>
           <Text style={styles.typeLabel}>{meta.label}</Text>
-          <Text style={[styles.title, isLocked && styles.titleLocked]} numberOfLines={3}>
+          <Text style={[styles.title, isLocked && styles.titleLocked]} numberOfLines={largeText ? undefined : 3}>
             {node.title}
           </Text>
           <Text
@@ -234,6 +240,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Texto grande: a linha desce pela esquerda. O centro da âncora precisa
+  // coincidir com o da linha (`JourneyTrailSpine`), e o teste da linha compara
+  // os dois.
+  anchorColumnLargeText: {
+    left: 0,
+    marginLeft: 0,
+  },
   anchor: {
     width: 18,
     height: 18,
@@ -266,6 +279,11 @@ const styles = StyleSheet.create({
   },
   cardRight: {
     marginLeft: '55%',
+  },
+  cardLargeText: {
+    width: '85%',
+    marginLeft: '15%',
+    marginRight: 0,
   },
   cardRecommended: {
     borderColor: accent,

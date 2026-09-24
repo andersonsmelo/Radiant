@@ -330,10 +330,18 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    conta de `UnitCheckpointService`): "Responda as 2 questões. Para avançar,
    acerte todas." e "A aprovação exige 2 acertos." Teste de tela visto vermelho
    pelo defeito: a árvore mostrava "Responda 10 questões" e "exige 8 acertos".
-2. **Tamanhos de acessibilidade quebram a trilha e o checkpoint.** No AX1, o
-   título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
-   tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
-   CTA é cortado.
+2. ✅ **Tamanhos de acessibilidade quebravam a trilha e o checkpoint** —
+   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build.
+   Acima de `fontScale` 1,3 (`ui/accessibility/useLargeTextLayout.ts`):
+   - a trilha vira uma coluna, com a linha à esquerda e os cartões a 85%, sem
+     limite de linhas;
+   - o título do estágio fica com a contagem embaixo e sem corte;
+   - o balão do Pixel vai para baixo do personagem;
+   - o botão tem altura mínima, e não fixa;
+   - os textos do HUD param no XXXL (1,35), porque são cromo.
+
+   Sete testes vistos vermelhos pelo defeito. A conferência na tela vai no
+   fechamento da H4.
 
 3. **Pergunta cobrada duas vezes na mesma tentativa.** A tela zera as
    perguntas já cobradas a cada remontagem (medido ao fechar o app; pelo código, também ao sair pelo ✕), e

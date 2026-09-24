@@ -3,6 +3,18 @@ import { StyleSheet } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { AppButton } from './AppButton';
 
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+
 jest.mock('../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: () => false,
 }));
@@ -94,5 +106,19 @@ describe('AppButton — retorno tátil', () => {
 
     fireEvent.press(getByRole('button', { name: 'Continuar' }));
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): no AX5 o CTA da trilha virava "Continuar i",
+// porque o botão tinha altura fixa de 56 pt e o rótulo não tinha para onde ir.
+// A altura passa a ser mínima: o rótulo quebra linha e o botão cresce.
+describe('AppButton — texto grande', () => {
+  it('não fixa a altura, mas mantém o alvo de toque mínimo', () => {
+    mockWindow.fontScale = 3.1;
+    const { getByRole } = render(<AppButton label="Continuar jornada" onPress={jest.fn()} />);
+    const style = StyleSheet.flatten(getByRole('button').props.style);
+
+    expect(style.height).toBeUndefined();
+    expect(style.minHeight).toBeGreaterThanOrEqual(44);
   });
 });

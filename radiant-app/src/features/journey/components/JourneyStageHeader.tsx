@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 type JourneyStageHeaderProps = {
   /** Nome do estágio em que o aluno está — a trilha do trecho atual. */
@@ -27,6 +28,10 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
   // Estágio ainda sem etapas divide por zero, e `NaN%` é largura inválida no
   // React Native. Contagem inconsistente não pode transbordar a barra.
   const ratio = total > 0 ? Math.min(completed / total, 1) : 0;
+  // Com texto grande, duas linhas ao lado da contagem cortavam o título
+  // ("Matéria, energia e r…", achado 2 do gate H4): a contagem desce e o título
+  // usa quantas linhas precisar.
+  const largeText = useLargeTextLayout();
 
   return (
     <View
@@ -37,8 +42,8 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
       accessibilityRole="header"
       accessibilityLabel={`${title}. ${completed} de ${total} etapas concluídas.`}
     >
-      <View style={styles.headline}>
-        <Text style={styles.title} numberOfLines={2}>
+      <View style={[styles.headline, largeText && styles.headlineStacked]}>
+        <Text style={styles.title} numberOfLines={largeText ? undefined : 2}>
           {title}
         </Text>
         <Text style={styles.count}>{`${completed} de ${total}`}</Text>
@@ -64,6 +69,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: space.s2,
+  },
+  headlineStacked: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   title: {
     ...typography.h3,
