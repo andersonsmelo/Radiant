@@ -1196,7 +1196,7 @@ entrega a fundação que aqueles itens passam a consumir.
   Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
   kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
   posteriores estão reconciliados na seção H3 acima.
-- **H4 [P0 — ENGENHARIA CONCLUÍDA EM 2026-08-13; GATE PERCORRIDO NO SIMULADOR EM 2026-09-24, NÃO FECHADO]** O domínio de checkpoint/reforço e a
+- **H4 [P0 — ✅ FECHADA EM 2026-09-24, NO BRANCH `fix/e2e-defeitos-2-e-3`; VOICEOVER EM APARELHO VIROU ITEM DA 1.4]** O domínio de checkpoint/reforço e a
   passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
   inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
   apenas no terceiro insucesso e falha fechada para legado. Um candidato textual
@@ -1230,6 +1230,9 @@ entrega a fundação que aqueles itens passam a consumir.
   Decisão do dono, mesma data ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):
   H4 fecha com os dois consertos; VoiceOver em aparelho vira item próprio da 1.4;
   cada pergunta do checkpoint custa no máximo uma vida por tentativa.
+  **Fechamento, mesma data:** texto do checkpoint (`6b76bc7`) e texto grande
+  (`de397b6`, `9ddea97`) corrigidos com teste vermelho antes e reconferidos no
+  simulador em AX5, AX1 e padrão; gate do branch 150 suítes / 1415 testes.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.

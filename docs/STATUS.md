@@ -134,13 +134,15 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   de escalar.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
-- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — percorrido no
-  simulador em 2026-09-24 e **não fechado**: aprovação, reforço e retomada sem
-  persistir respostas medidos; texto grande reprovado nos tamanhos de
-  acessibilidade; VoiceOver real não exercitado
-  ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
-  Decidido em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): fecha com os
-  dois defeitos corrigidos, e o VoiceOver em aparelho vira item próprio da 1.4.
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado em
+  2026-09-24** no branch `fix/e2e-defeitos-2-e-3`, que ainda não está na
+  `main`, conforme a [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
+  - os dois defeitos da primeira passagem foram corrigidos (texto do checkpoint
+    e texto grande) e reconferidos no simulador;
+  - gate do branch: 150 suítes / 1415 testes, exit 0
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
+  - o VoiceOver em aparelho e a regra de uma vida por pergunta por tentativa
+    seguem abertos na [FILA](FILA.md).
 
 ## Defeito conhecido
 

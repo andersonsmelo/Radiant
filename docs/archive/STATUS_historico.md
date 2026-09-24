@@ -1786,3 +1786,15 @@ Trecho do `STATUS.md` substituído, sem edição (só o link relativo reajustado
   acessibilidade; VoiceOver real não exercitado. Dois defeitos abertos na
   [FILA](../FILA.md); fechar é decisão do dono
   ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-24, pelo fechamento da H4:
+
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — percorrido no
+  simulador em 2026-09-24 e **não fechado**: aprovação, reforço e retomada sem
+  persistir respostas medidos; texto grande reprovado nos tamanhos de
+  acessibilidade; VoiceOver real não exercitado
+  ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
+  Decidido em 2026-09-24 ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): fecha com os
+  dois defeitos corrigidos, e o VoiceOver em aparelho vira item próprio da 1.4.

@@ -1179,3 +1179,15 @@ Trecho substituído, sem edição:
 
    Sete testes vistos vermelhos pelo defeito. A conferência na tela vai no
    fechamento da H4.
+
+---
+
+## Lote de 2026-09-24 — H4 fechada
+
+Trechos substituídos, sem edição:
+
+**Estado (2026-09-24): percorrido no simulador, não fechado.** A engenharia
+
+- **Texto grande:** **reprovado** nos tamanhos de acessibilidade (achado 2).
+
+3. **Pergunta cobrada duas vezes na mesma tentativa.**

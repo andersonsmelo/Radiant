@@ -77,3 +77,41 @@ prova a passagem de uma trilha para a outra.
 Este run só mexe em documentação e imagens. O gate do app não foi rodado de
 novo além do `loop validate`, que roda a suíte inteira. A contagem citada no
 STATUS continua a da frente 6: 148 suítes / 1379 testes, no branch.
+
+## Fechamento (mesmo dia)
+
+**Decisão do dono:** as opções 1B e 2B, registradas na
+[ADR](../../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md) (commit
+`7f189a8`):
+- a H4 fecha com os dois consertos;
+- o VoiceOver em aparelho vira item da 1.4;
+- cada pergunta do checkpoint custa no máximo uma vida por tentativa.
+
+| Run | Commit | O quê | Vermelho visto |
+| --- | --- | --- | --- |
+| `run-1790273443009-da45547b` | `6b76bc7` | texto do checkpoint calculado dos itens e do limiar reais | 2 testes de tela: a árvore mostrava "Responda 10 questões" e "exige 8 acertos" |
+| `run-1790274273723-4468c943` | `de397b6` | layout de texto grande: trilha em coluna, cabeçalho empilhado, balão sob o Pixel, botão com altura mínima, teto 1,35 no HUD | 7 testes |
+| `run-1790275718149-52bc2659` | `9ddea97` | a conferência em AX5 reprovou (CTA sob as abas, palavras partidas no título e no botão); o cabeçalho passou a rolar com a trilha e rótulos curtos ganharam teto de 2× | 4 testes |
+
+Todos os runs passaram nos 14 validadores e estão `closed`.
+
+**A reconferência no simulador** está na seção "Reconferência" da
+[evidência](../../../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md),
+capturas `12` a `16`:
+- no AX5, o HUD fica em x 206–382 e o CTA acima das abas;
+- o checkpoint mostra o balão sob o Pixel e o botão alcançável;
+- o texto novo aparece na tela;
+- o AX1 e o tamanho padrão ficaram bons.
+
+**Gate:** `EXPO_NO_DOTENV=1 npm run quality`, Node `v20.20.2`, em `9ddea97`.
+Resultado: **exit 0**, **150 suítes / 1415 testes**, 26 avisos de lint e visual
+QA sem regressão.
+
+**Resíduo aceito:** no AX4/AX5, uma palavra mais larga que o cartão da trilha
+ainda se parte, como no texto nativo do iOS.
+
+**Continua aberto:**
+- o VoiceOver em aparelho (FILA, na seção do StoreKit);
+- a regra de uma vida por pergunta por tentativa (FILA, defeito 3 da H4).
+  Implementá-la espera o dono ler a ADR;
+- o merge do branch, que é decisão do dono.

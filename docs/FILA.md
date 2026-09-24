@@ -295,7 +295,11 @@ propagada, e quem decorar o rótulo acerta a recuperação da L1 sem ler o mapa.
 
 ### AGENTE — Gate operacional H4: checkpoint, reforço, retomada e acessibilidade
 
-**Estado (2026-09-24): percorrido no simulador, não fechado.** A engenharia
+✅ **Estado (2026-09-24): fechado**, conforme a
+[ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md). Os defeitos 1
+e 2 foram corrigidos e reconferidos no simulador no mesmo dia (seção
+"Reconferência" da evidência). Na `main`, o fechamento só vale depois do merge
+do branch `fix/e2e-defeitos-2-e-3`. **Primeira passagem:** a engenharia
 está na `main` desde o PR #3 (2026-08-13). O gate foi percorrido num segundo
 iPhone 17 (iOS 26.5), com o progresso das trilhas anteriores pré-montado por
 decisão do dono ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)):
@@ -305,7 +309,8 @@ decisão do dono ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-s
 - **Retomada sem persistir respostas:** medida no modo `off` (o de produção).
   Nenhuma resposta fica no armazenamento, e a avaliação recomeça do zero. O
   kernel de retomada no ponto (`active`) não foi exercitado.
-- **Texto grande:** **reprovado** nos tamanhos de acessibilidade (achado 2).
+- **Texto grande:** reprovado na primeira passagem (achado 2) e corrigido; a
+  reconferência passou em AX5, AX1 e no padrão.
 - **Leitor de tela:** árvore de acessibilidade medida. O VoiceOver real
   **não** foi exercitado, porque o simulador não o roda.
 
@@ -359,7 +364,8 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    **Resíduo:** no AX4/AX5, uma palavra mais larga que o cartão ainda se
    parte ("Fundame / ntos"), como no texto nativo do iOS.
 
-3. **Pergunta cobrada duas vezes na mesma tentativa.** A tela zera as
+3. **Aberto, e fora do fechamento da H4 — pergunta cobrada duas vezes na
+   mesma tentativa.** A tela zera as
    perguntas já cobradas a cada remontagem (medido ao fechar o app; pelo código, também ao sair pelo ✕), e
    o aluno paga de novo pelo mesmo erro. Regra decidida: numa tentativa, cada
    pergunta custa no máximo uma vida, e só os ids cobrados são persistidos.

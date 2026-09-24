@@ -9,11 +9,15 @@ O gate H4 tem quatro pontos, na FILA e no roadmap:
 Todos foram percorridos no simulador, na trilha "Matéria, energia e radiação"
 (`track:fundamentos-e-seguranca-radiologica`, lote de produção H4).
 
-**O que ficou decidido:** o gate foi percorrido e **não está fechado**:
-- dois defeitos ficaram abertos, os achados 1 e 2 abaixo;
-- o VoiceOver real não foi exercitado.
-
-A decisão de fechá-lo é do dono.
+**O que ficou decidido:**
+- **na primeira passagem**, o gate foi percorrido e **não fechou**: dois
+  defeitos ficaram abertos (os achados 1 e 2 abaixo) e o VoiceOver real não
+  foi exercitado;
+- **no mesmo dia**, os dois defeitos foram corrigidos e reconferidos no
+  simulador, e a H4 **fechou** conforme a
+  [ADR](../../../docs/adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+  Detalhe em "Reconferência", no fim;
+- o VoiceOver em aparelho virou item próprio da 1.4.
 
 ## Ambiente
 
@@ -177,3 +181,41 @@ reduzidas para 1000 px de altura:
 - `08`: XXXL;
 - `09`: AX1;
 - `10` e `11`: AX5.
+
+## Reconferência depois dos consertos (2026-09-24, fim da tarde)
+
+**O que foi usado:**
+- o mesmo simulador (`A5FA5443-…`) e o mesmo binário;
+- o JS do branch `fix/e2e-defeitos-2-e-3` com os três consertos da H4:
+  - `6b76bc7`: texto do checkpoint;
+  - `de397b6` e `9ddea97`: texto grande.
+
+**O Metro:** foi reiniciado para cada conferência, porque em modo CI ele não
+relê arquivos alterados, e foi parado antes de cada `loop validate`.
+
+**A primeira conferência do texto grande reprovou**, e isso ficou registrado no
+`9ddea97`:
+- no AX5, o título do estágio, fixo acima da trilha, tomava a tela;
+- a trilha ficava sem altura, e o CTA ia para baixo da barra de abas (nó
+  "Abrir checkpoint" em y 819–1051 numa tela de 874 pt).
+
+A correção pôs o cabeçalho dentro da rolagem da trilha e um teto de 2× no
+título e no rótulo de botão.
+
+| Tamanho | Trilha | Checkpoint |
+| --- | --- | --- |
+| `large` (padrão) | zigue-zague como antes (`14`) | — |
+| AX1 | uma coluna, linha à esquerda alinhada às âncoras, título inteiro, palavras inteiras, CTA visível (`13`) | — |
+| AX5 | HUD em x 206–382; título em palavras inteiras com a contagem embaixo; CTA "Abrir checkpoint" em y 715–771, acima das abas (801) (`12`) | balão sob o Pixel com palavras inteiras (`15`); "Iniciar checkpoint" alcançável rolando, com o rótulo em duas linhas de palavras inteiras (`16`) |
+
+- **Texto do checkpoint (achado 1):** a tela mostra "Responda as 2 questões.
+  Para avançar, acerte todas." (`16`).
+- **Resíduo aceito:** no AX4/AX5, uma palavra mais larga que o cartão da
+  trilha ainda se parte ("Fundame / ntos", captura `12`), como acontece no
+  texto nativo do iOS.
+- **Detalhe da captura `15`:** foi feita antes do teto de 2× no rótulo de
+  botão (`9ddea97`). A tela do balão não muda com ele.
+
+**Gate de qualidade:** `EXPO_NO_DOTENV=1 npm run quality`, Node `v20.20.2`, no
+branch em `9ddea97`. Resultado: **exit 0**, **150 suítes / 1415 testes**, lint
+com 0 erros e 26 avisos, visual QA sem regressão.
