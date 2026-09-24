@@ -1652,3 +1652,21 @@ Trecho do `STATUS.md` substituído, sem edição:
 strict. **Última medição: 2026-09-23**, no Mac, em `59995fd` (mesma árvore do
 app que a `main` atual), Node `v20.20.2`: exit 0, **147 suítes / 1345 testes**,
 lint com 0 erros e 26 avisos, visual QA sem regressão.
+
+---
+
+## Lote de 2026-09-24 — estado depois do PR #27
+
+Trechos substituídos, sem edição (só os links relativos reajustados ao novo diretório):
+
+A `main` está **120 commits e 267 arquivos à frente** do que está na App Store
+(medido em 2026-09-23, `v1.3.1..9d4e5b7`).
+
+strict. **Última medição: 2026-09-23**, no Mac, no branch
+`fix/licao-hibrida-tela` (correções de tela do piloto vistas no simulador),
+Node `v20.20.2`: exit 0, **147 suítes / 1374 testes**, lint com 0 erros e 26
+avisos, visual QA sem regressão.
+
+Medido em 2026-09-23: os PRs #21 a #26 foram mergeados na `main` na mesma data
+— consolidação do estado, desenho, sons, plano e implementação do piloto da
+lição híbrida, caixa de `conteúdo/` nos scripts e CI de conteúdo.

@@ -36,8 +36,8 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **120 commits e 267 arquivos à frente** do que está na App Store
-(medido em 2026-09-23, `v1.3.1..9d4e5b7`). Nada disso chegou ao usuário:
+A `main` está **127 commits e 268 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..3343eca`). Nada disso chegou ao usuário:
 vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
 currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
 
@@ -130,10 +130,10 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-23**, no Mac, no branch
-`fix/licao-hibrida-tela` (correções de tela do piloto vistas no simulador),
-Node `v20.20.2`: exit 0, **147 suítes / 1374 testes**, lint com 0 erros e 26
-avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-23**, no Mac, em `757f43f` — mesma árvore do
+app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
+3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
+testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -159,9 +159,12 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-23: os PRs #21 a #26 foram mergeados na `main` na mesma data
-— consolidação do estado, desenho, sons, plano e implementação do piloto da
-lição híbrida, caixa de `conteúdo/` nos scripts e CI de conteúdo. **As cinco
+Medido em 2026-09-24: `origin/main` em `3343eca`; os PRs #21 a #27 foram
+mergeados entre 2026-09-23 e 2026-09-24 — consolidação do estado, desenho, sons,
+plano e implementação do piloto da lição híbrida, caixa de `conteúdo/` nos
+scripts, CI de conteúdo e correções de tela do piloto vistas no simulador.
+Prompt de continuidade:
+[`2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md). **As cinco
 worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
 Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
 evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em

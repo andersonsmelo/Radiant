@@ -47,7 +47,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md);
 o dono lê o relatório no fim.
 
 ### DONO — decidir antes do próximo build da 1.4: iOS 27 exige `UIScene` (aberto em 2026-09-23)
@@ -93,7 +93,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 **Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
 
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
-   precisa de aparelho/simulador. Não validar durante flow E2E: 2,3× de
+   **viável no simulador iOS 26.5 desde 2026-09-23**, pelo procedimento da seção
+   "Risco de build" do [STATUS](STATUS.md) (no iOS 27 o app fecha na abertura). Não validar durante flow E2E: 2,3× de
    desaceleração medida.
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos

@@ -933,3 +933,14 @@ Trecho do item do piloto substituído quando o PR #24 foi mergeado, sem edição
 
 distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
 `docs/licao-hibrida-piloto`, não mergeado), pelo
+
+---
+
+## Lote de 2026-09-24 — FILA depois do PR #27
+
+Trechos substituídos, sem edição (só os links relativos reajustados ao novo diretório):
+
+[`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
+
+4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
+   precisa de aparelho/simulador.
