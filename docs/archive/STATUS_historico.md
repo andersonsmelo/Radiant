@@ -1798,3 +1798,25 @@ Trecho do `STATUS.md` substituído, sem edição (só os links relativos reajust
   ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
   Decidido em 2026-09-24 ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): fecha com os
   dois defeitos corrigidos, e o VoiceOver em aparelho vira item próprio da 1.4.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-24, pela atualização do fim do dia:
+
+A `main` está **127 commits e 268 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..3343eca`).
+   o gate H4. O defeito 1 espera a decisão do dono.
+
+## Repositório
+
+Medido em 2026-09-24:
+- `origin/main` está em `ab121ad`.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados, e a de documentação
+  deste estado vai empilhada sobre ela.
+- Os branches remotos já mergeados continuam no remoto: `docs/continuidade-2026-09-24`,
+  `pesquisa/ios27-xcode-eas`, `docs/android-verificacao-chave-eas` e
+  `docs/status-repositorio-e-prompt-e2e`. Apagá-los é decisão do dono.
+- Prompt de continuidade, com todas as tarefas pendentes em ordem de
+  criticidade:
+  [`2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
+

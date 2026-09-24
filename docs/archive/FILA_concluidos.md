@@ -1191,3 +1191,11 @@ Trechos substituídos, sem edição:
 - **Texto grande:** **reprovado** nos tamanhos de acessibilidade (achado 2).
 
 3. **Pergunta cobrada duas vezes na mesma tentativa.**
+
+---
+
+## Lote de 2026-09-24 — FILA aponta para o prompt de continuidade (3)
+
+Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md), que traz todas as pendências em ordem de criticidade;

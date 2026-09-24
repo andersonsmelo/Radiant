@@ -36,8 +36,8 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **127 commits e 268 arquivos à frente** do que está na App Store
-(medido em 2026-09-24, `v1.3.1..3343eca`). Nada disso chegou ao usuário:
+A `main` está **139 commits e 274 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..ab121ad`). Nada disso chegou ao usuário:
 vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
 currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
 
@@ -61,6 +61,8 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
    Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
    o gate H4. O defeito 1 espera a decisão do dono.
+   **Em 2026-09-24, o branch tem 10 commits além da `main`, e nenhum tem push.**
+   O merge vai de cima para baixo: #32 → documentação → `fix/e2e-defeitos-2-e-3`.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -197,16 +199,24 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24:
+Medido em 2026-09-24, no fim do dia:
 - `origin/main` está em `ab121ad`.
-- **A PR #32 está aberta**, com o E2E dos caminhos dourados, e a de documentação
-  deste estado vai empilhada sobre ela.
-- Os branches remotos já mergeados continuam no remoto: `docs/continuidade-2026-09-24`,
-  `pesquisa/ios27-xcode-eas`, `docs/android-verificacao-chave-eas` e
-  `docs/status-repositorio-e-prompt-e2e`. Apagá-los é decisão do dono.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados e o CI verde.
+- **Em cima dela há duas branches locais, sem push:**
+  - `docs/prompt-continuidade-2026-09-24-2`, com o prompt (2);
+  - `fix/e2e-defeitos-2-e-3`, com os defeitos 2 e 3 do E2E, a H4 fechada, a
+    ADR e o prompt (3).
+
+  O push é do dono.
+- **O remoto tem 22 branches já mergeados na `main`.** O único que não foi
+  mergeado é o da #32. Apagá-los é decisão do dono.
 - Prompt de continuidade, com todas as tarefas pendentes em ordem de
   criticidade:
-  [`2026-09-24-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
+  [`2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
+- **Simuladores:**
+  - o `A5FA5443-…` foi criado para o gate H4, e o estado dele foi pré-montado;
+  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
+    reinstalado nem limpo** antes do dia 2.
 
 **As quatro worktrees em `.claude/worktrees/` ficam** (eram cinco; a
 `confident-hamilton-4d3b96` já não existe, medido em 2026-09-24). Cada uma
