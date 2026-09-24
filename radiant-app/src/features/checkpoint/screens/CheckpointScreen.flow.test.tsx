@@ -388,6 +388,30 @@ describe('CheckpointScreen flow', () => {
     expect(await screen.findByText(/^Avaliação 1 de /u)).toBeTruthy();
   });
 
+  // Achado 1 do gate H4 (2026-09-24): a tela ainda descrevia a avaliação única
+  // de dez itens, anterior a 2026-08-21 — "Responda 10 questões… acerte pelo
+  // menos 8" na abertura e "exige 8 acertos" no reforço —, numa avaliação de
+  // dois itens. Cada asserção de ausência vem com a de presença do texto certo.
+  it('descreve na abertura a avaliação que o aluno vai fazer, não a antiga de dez itens', async () => {
+    expect(productionStageItems).toHaveLength(2);
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+    expect(await screen.findByText('Responda as 2 questões. Para avançar, acerte todas.')).toBeTruthy();
+    expect(screen.queryByText(/10 questões/u)).toBeNull();
+  });
+
+  it('diz no reforço quantos acertos esta avaliação exige', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+
+    expect(await screen.findByText(/A aprovação exige 2 acertos\./u)).toBeTruthy();
+    expect(screen.queryByText(/8 acertos/u)).toBeNull();
+  });
+
   it('mantém o nó bloqueado e encaminha reforço quando a nota fica abaixo de 80%', async () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
 

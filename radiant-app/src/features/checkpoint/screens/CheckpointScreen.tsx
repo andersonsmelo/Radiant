@@ -26,6 +26,7 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
+import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } from '../checkpointRuleCopy';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
@@ -178,6 +179,10 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   );
   const productionItems = useMemo(() => productionCheckpoint?.items ?? [], [productionCheckpoint]);
   const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
+  const productionRequiredCorrect = requiredCorrectItems(
+    productionItems.length,
+    productionCheckpoint?.targetScoreBasisPoints ?? 8000,
+  );
   const productionCursorIds = useMemo(
     () => ['checkpoint-overview', ...productionItems.map((_, index) => `checkpoint-item-${index + 1}`), 'checkpoint-summary'],
     [productionItems],
@@ -606,7 +611,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 <Text style={styles.actionTitle}>Reforço necessário antes de tentar novamente</Text>
                 <Text style={styles.actionBody}>
                   Você acertou {checkpointEvaluation.attempt.correctItemCount} de {checkpointEvaluation.attempt.totalItemCount} questões.
-                  O checkpoint exige 8 acertos. A próxima tentativa só será liberada após revisar as competências frágeis.
+                  {' '}{checkpointRequirementCopy(productionRequiredCorrect)} A próxima tentativa só será liberada após revisar as competências frágeis.
                 </Text>
                 <Text style={styles.reinforcementLabel}>
                   Ciclo 1: explicação causal e prática guiada
@@ -634,7 +639,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   {completed
                     ? 'Seu progresso está salvo e o próximo passo já está preparado.'
                     : productionBatch
-                      ? 'Responda 10 questões, duas por competência. Para avançar, acerte pelo menos 8.'
+                      ? checkpointIntroCopy(productionItems.length, productionRequiredCorrect)
                       : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
                 </Text>
               </>

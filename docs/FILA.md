@@ -324,10 +324,12 @@ passou no smoke local.
 nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
 **Defeitos abertos pela H4, um run cada, com teste vermelho antes:**
-1. **O texto do checkpoint promete a avaliação antiga.** A abertura diz
-   "Responda 10 questões… acerte pelo menos 8" (`CheckpointScreen.tsx:637`) e o
-   reforço, "O checkpoint exige 8 acertos" (`:609`), mas cada avaliação tem 2
-   itens desde 2026-08-21.
+1. ✅ **O texto do checkpoint prometia a avaliação antiga** — corrigido em
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build. O texto sai dos
+   itens e do limiar reais (`checkpoint/checkpointRuleCopy.ts`, com a mesma
+   conta de `UnitCheckpointService`): "Responda as 2 questões. Para avançar,
+   acerte todas." e "A aprovação exige 2 acertos." Teste de tela visto vermelho
+   pelo defeito: a árvore mostrava "Responda 10 questões" e "exige 8 acertos".
 2. **Tamanhos de acessibilidade quebram a trilha e o checkpoint.** No AX1, o
    título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
    tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o

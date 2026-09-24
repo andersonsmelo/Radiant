@@ -1148,3 +1148,14 @@ Trecho substituído, sem edição:
 **Para o dono decidir:** a vida gasta num checkpoint abandonado continua
 gasta, embora a resposta seja descartada. E o H4 fecha com os dois defeitos
 corrigidos e o VoiceOver em aparelho, ou fecha antes?
+
+---
+
+## Lote de 2026-09-24 — defeito 1 da H4 corrigido
+
+Trecho substituído, sem edição:
+
+1. **O texto do checkpoint promete a avaliação antiga.** A abertura diz
+   "Responda 10 questões… acerte pelo menos 8" (`CheckpointScreen.tsx:637`) e o
+   reforço, "O checkpoint exige 8 acertos" (`:609`), mas cada avaliação tem 2
+   itens desde 2026-08-21.
