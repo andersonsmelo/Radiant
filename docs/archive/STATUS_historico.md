@@ -1702,3 +1702,11 @@ produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`.
 Linha da tabela "Prazos de relógio" do `STATUS.md` substituída, sem edição (só o link relativo reajustado ao novo diretório):
 
 | **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **não conferido** — [FILA, item 8](../FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
+
+Seção "Prazos de relógio" do `STATUS.md` substituída quando a chave foi verificada, no mesmo dia, sem edição (só o link relativo reajustado ao novo diretório):
+
+## Prazos de relógio
+
+| Prazo | O quê | Dono | Estado |
+| --- | --- | --- | --- |
+| **30/09/2026** | Verificação de desenvolvedor Android: pacote + fingerprint da chave registrados no Play Console. Sem isso, os builds de distribuição interna podem deixar de instalar em aparelho certificado. | dono | **Pacote registrado. A chave do EAS foi adicionada em 2026-09-24 e está "Em análise"**; falta ela passar a "Verificada" — [FILA, item 8](../FILA.md#8-verificação-de-desenvolvedor-android--prazo-de-relógio-30092026) |
