@@ -89,8 +89,16 @@ Quando documentos divergirem, use esta ordem:
   [spec V3](superpowers/specs/2026-08-27-radiant-curriculum-v3-design.md);
 - fundação técnica entregue:
   [plano J2](superpowers/plans/2026-08-27-curriculum-v3-foundation.md);
-- próxima execução: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
-  começando pela L1, sem repetir a fundação nem ativar o V3 antecipadamente;
+- **formato de lição vigente (2026-09-23):** lição híbrida, com piloto na L1 —
+  [spec do piloto](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md)
+  e [ADR da lição híbrida e custo de vida](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md),
+  com o [plano de implementação](superpowers/plans/2026-09-23-licao-hibrida-piloto.md)
+  e o [prompt para o agente em nuvem](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-prompt-nuvem.md);
+  implementado em 2026-09-23 no branch `feat/licao-hibrida-piloto`, com
+  [relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md).
+  A v7 da L2 está pausada até o resultado do piloto;
+- roteiro anterior de produção: [produção do Arco 1](runbooks/curriculum-v3-arco-1.md),
+  sem repetir a fundação nem ativar o V3 antecipadamente;
 - inventário anterior e proveniência: [atlas das aulas](content/mapa-aulas/README.md);
 - **auditoria independente da L2**, em três pareceres consecutivos — leia-os em
   ordem antes de tocar na lição, porque o padrão deles é o dado mais útil:
@@ -179,7 +187,12 @@ varredura do padrão `jest.spyOn` sobre mocks oficiais também fecharam em
 
 ## Histórico
 
-`archive/EXECUTION_STATUS_2026-08-08.md` e anteriores são snapshots substituídos. Planos
+`archive/EXECUTION_STATUS_*.md` são snapshots substituídos. O que sai dos
+documentos vivos vai, sem edição, para dois arquivos acumulativos:
+[`archive/STATUS_historico.md`](archive/STATUS_historico.md), com o que o
+`STATUS.md` deixou de afirmar, e [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md),
+com os itens que saíram da fila. `STATUS.md` e `FILA.md` guardam só o presente
+e o que está aberto — a regra está no topo de cada um. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 
