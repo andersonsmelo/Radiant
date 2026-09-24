@@ -103,4 +103,15 @@ describe('JourneyStageHeader — texto grande', () => {
 
     expect(screen.getByText('Fundamentos de Radiologia').props.numberOfLines).toBe(2);
   });
+
+  // Em AX5 o título a 3,1× (74 pt) partia "radiação" em "radiaçã / o". Títulos
+  // crescem menos que o corpo, como os estilos de título do iOS: até 2×.
+  it('deixa o título crescer além do cromo, mas não mais que 2×', () => {
+    mockWindow.fontScale = 3.1;
+    const multiplier = renderHeader({ title: 'Matéria, energia e radiação' })
+      .getByText('Matéria, energia e radiação').props.maxFontSizeMultiplier;
+
+    expect(multiplier).toBeGreaterThan(1.35);
+    expect(multiplier).toBeLessThanOrEqual(2);
+  });
 });

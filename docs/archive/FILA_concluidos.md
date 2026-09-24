@@ -1170,3 +1170,12 @@ Trecho substituído, sem edição:
    título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
    tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
    CTA é cortado.
+
+---
+
+## Lote de 2026-09-24 — defeito 2 da H4, segunda parte
+
+Trecho substituído, sem edição:
+
+   Sete testes vistos vermelhos pelo defeito. A conferência na tela vai no
+   fechamento da H4.

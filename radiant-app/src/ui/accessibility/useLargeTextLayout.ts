@@ -16,6 +16,14 @@ export const LARGE_TEXT_FONT_SCALE = 1.3;
  */
 export const CHROME_MAX_FONT_SCALE = 1.35;
 
+/**
+ * Teto para rótulos curtos que crescem mais que o corpo (título do estágio, 24 pt;
+ * rótulo de botão). A 3,1× uma palavra sozinha ficava mais larga que a tela
+ * ("radiaçã / o", "checkpoi / nt", AX5 no gate H4). Como nos estilos de título do
+ * iOS, eles crescem menos que o texto corrido, que continua sem teto.
+ */
+export const LABEL_MAX_FONT_SCALE = 2;
+
 export function isLargeTextScale(fontScale: number): boolean {
     return fontScale > LARGE_TEXT_FONT_SCALE;
 }

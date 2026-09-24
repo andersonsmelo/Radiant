@@ -1,4 +1,4 @@
-import { CHROME_MAX_FONT_SCALE, LARGE_TEXT_FONT_SCALE, isLargeTextScale } from './useLargeTextLayout';
+import { CHROME_MAX_FONT_SCALE, LABEL_MAX_FONT_SCALE, LARGE_TEXT_FONT_SCALE, isLargeTextScale } from './useLargeTextLayout';
 
 describe('isLargeTextScale', () => {
     it.each([
@@ -15,5 +15,9 @@ describe('isLargeTextScale', () => {
         // Se o teto fosse menor que o corte, o HUD pararia de crescer antes de o
         // resto da tela mudar de layout: texto pequeno no cromo, grande no resto.
         expect(CHROME_MAX_FONT_SCALE).toBeGreaterThanOrEqual(LARGE_TEXT_FONT_SCALE);
+    });
+
+    it('rótulos curtos crescem mais que o cromo', () => {
+        expect(LABEL_MAX_FONT_SCALE).toBeGreaterThan(CHROME_MAX_FONT_SCALE);
     });
 });

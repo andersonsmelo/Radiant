@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
-import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
+import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 type JourneyStageHeaderProps = {
   /** Nome do estágio em que o aluno está — a trilha do trecho atual. */
@@ -43,7 +43,11 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
       accessibilityLabel={`${title}. ${completed} de ${total} etapas concluídas.`}
     >
       <View style={[styles.headline, largeText && styles.headlineStacked]}>
-        <Text style={styles.title} numberOfLines={largeText ? undefined : 2}>
+        <Text
+          style={styles.title}
+          numberOfLines={largeText ? undefined : 2}
+          maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
+        >
           {title}
         </Text>
         <Text style={styles.count}>{`${completed} de ${total}`}</Text>

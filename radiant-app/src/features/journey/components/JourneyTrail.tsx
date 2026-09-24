@@ -17,6 +17,8 @@ type JourneyTrailProps = {
   dueReviewCount?: number;
   onNodePress: (node: JourneyNode) => void;
   isNodeDisabled: (node: JourneyNode) => boolean;
+  /** Rola junto com a trilha. A tela usa com texto grande (achado 2 do gate H4). */
+  header?: React.ReactElement;
 };
 
 type TrailBandItem = {
@@ -89,6 +91,7 @@ export function JourneyTrail({
   dueReviewCount = 0,
   onNodePress,
   isNodeDisabled,
+  header,
 }: JourneyTrailProps) {
   const items = useMemo(
     () => flattenTrail(segments, recommendedNodeId),
@@ -104,6 +107,7 @@ export function JourneyTrail({
       windowSize={7}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.trail}
+      ListHeaderComponent={header}
       renderItem={({ item }) => {
         if (item.kind === 'band') {
           return (

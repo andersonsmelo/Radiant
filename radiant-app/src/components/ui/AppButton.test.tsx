@@ -121,4 +121,15 @@ describe('AppButton — texto grande', () => {
     expect(style.height).toBeUndefined();
     expect(style.minHeight).toBeGreaterThanOrEqual(44);
   });
+
+  // Em AX5 o rótulo a 3,1× partia "checkpoint" em "checkpoi / nt". Rótulo de
+  // botão é curto e cresce até 2×; o botão acompanha em altura.
+  it('deixa o rótulo crescer além do cromo, mas não mais que 2×', () => {
+    mockWindow.fontScale = 3.1;
+    const { getByText } = render(<AppButton label="Iniciar checkpoint" onPress={jest.fn()} />);
+    const multiplier = getByText('Iniciar checkpoint').props.maxFontSizeMultiplier;
+
+    expect(multiplier).toBeGreaterThan(1.35);
+    expect(multiplier).toBeLessThanOrEqual(2);
+  });
 });

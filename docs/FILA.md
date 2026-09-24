@@ -340,8 +340,24 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    - o botão tem altura mínima, e não fixa;
    - os textos do HUD param no XXXL (1,35), porque são cromo.
 
-   Sete testes vistos vermelhos pelo defeito. A conferência na tela vai no
-   fechamento da H4.
+   Sete testes vistos vermelhos pelo defeito.
+
+   **Segunda parte, achada ao conferir no AX5:**
+   - o título fixo acima da trilha tomava a tela, e o CTA ia para baixo da
+     barra de abas. Agora, com texto grande, o cabeçalho rola dentro da
+     trilha (`ListHeaderComponent`);
+   - o título do estágio e o rótulo de botão crescem até 2×
+     (`LABEL_MAX_FONT_SCALE`).
+
+   Quatro testes vistos vermelhos. **Conferido no simulador em 2026-09-24**
+   no AX5, no AX1 e no padrão:
+   - o HUD fica em x 206–382;
+   - o CTA fica acima das abas;
+   - o checkpoint mostra o balão sob o Pixel e o "Iniciar checkpoint"
+     alcançável.
+
+   **Resíduo:** no AX4/AX5, uma palavra mais larga que o cartão ainda se
+   parte ("Fundame / ntos"), como no texto nativo do iOS.
 
 3. **Pergunta cobrada duas vezes na mesma tentativa.** A tela zera as
    perguntas já cobradas a cada remontagem (medido ao fechar o app; pelo código, também ao sair pelo ✕), e

@@ -11,6 +11,7 @@ import { fontFamily, space } from '../../ui/styles';
 import { duration } from '../../ui/motion';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 import { hapticTap } from '../../ui/feedback/haptics';
+import { LABEL_MAX_FONT_SCALE } from '../../ui/accessibility/useLargeTextLayout';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
 
@@ -141,6 +142,7 @@ export function AppButton({
             variant === 'ghost' && styles.labelGhost,
             textStyle,
           ]}
+          maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
         >
           {resolvedLabel}
         </Text>

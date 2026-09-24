@@ -7,6 +7,18 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
@@ -149,8 +161,9 @@ jest.mock('../components/JourneyTrail', () => {
   const { Text, View } = require('react-native');
 
   return {
-    JourneyTrail: ({ segments }: { segments: { trackтатTitle?: string }[] }) => (
+    JourneyTrail: ({ segments, header }: { segments: { trackтатTitle?: string }[]; header?: React.ReactNode }) => (
       <View testID="journey-trail">
+        {header}
         <Text>{`percurso com ${segments.length} trecho(s)`}</Text>
       </View>
     ),
@@ -551,6 +564,35 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 
       fireEvent.press(await screen.findByText('HUD vidas: unlimited'));
       expect(screen.queryByText('Folha de vidas aberta')).toBeNull();
+    });
+  });
+
+  // Achado 2 do gate H4, conferido em AX5 (2026-09-24): o título do estágio,
+  // fixo acima da trilha, ocupava a tela inteira, a trilha ficava com altura
+  // zero e o CTA ia para baixo da barra de abas. Com texto grande o cabeçalho
+  // entra na rolagem da trilha; no tamanho padrão continua fixo acima dela.
+  describe('texto grande', () => {
+    function headerIsInsideTrail() {
+      const header = screen.getByLabelText(/etapas concluídas\.$/u);
+      for (let node = header.parent; node; node = node.parent) {
+        if (node.props.testID === 'journey-trail') return true;
+      }
+      return false;
+    }
+
+    it('põe o cabeçalho do estágio dentro da rolagem da trilha', async () => {
+      mockWindow.fontScale = 3.1;
+      renderWithProviders(<JourneyHomeScreen />);
+      await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+      expect(headerIsInsideTrail()).toBe(true);
+    });
+
+    it('mantém o cabeçalho fixo acima da trilha no tamanho padrão', async () => {
+      renderWithProviders(<JourneyHomeScreen />);
+      await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+      expect(headerIsInsideTrail()).toBe(false);
     });
   });
 });
