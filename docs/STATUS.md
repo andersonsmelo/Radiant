@@ -66,9 +66,18 @@ O iOS 27 exige o ciclo de vida por cenas (`UIScene`), e o `AppDelegate` do Expo
 54 / RN 0.81 não o adota: o processo para em
 `_UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption` (SIGTRAP). No iOS
 26.5 é só aviso. O app publicado não é afetado, porque foi compilado com um SDK
-anterior. **Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
-build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
-[`FILA.md`](FILA.md).
+anterior.
+
+**O EAS já compila com o Xcode 26** (medido em 2026-09-24). O `eas.json` não
+fixa imagem, e o padrão do SDK 54 é `macos-sequoia-15.6-xcode-26.0`. A build de
+produção da 1.3.1 saiu dela, com o `iPhoneOS26.0.sdk`. Então o risco é **local**:
+só esta máquina, que tem apenas o Xcode 27, produz o binário que fecha. O prazo
+real é **abril de 2027**, quando a Apple passa a exigir o SDK do iOS 27 em todo
+envio. O SDK 54 não tem suporte oficial a `UIScene`: a Expo o trouxe no SDK 58 e
+como opção no 57.0.23. **Decisão do dono, com recomendação do agente:** fixar a
+imagem no `eas.json` para a 1.4 e adotar `UIScene` pela atualização do SDK,
+depois da 1.4. Medições, custo e risco em
+[`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
 Compilar localmente nesta máquina (Xcode 27) precisou, na mesma data, de
 contornos que não mudam arquivo versionado: `RUBYOPT=-rlogger` para o CocoaPods

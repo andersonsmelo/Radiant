@@ -1670,3 +1670,13 @@ avisos, visual QA sem regressão.
 Medido em 2026-09-23: os PRs #21 a #26 foram mergeados na `main` na mesma data
 — consolidação do estado, desenho, sons, plano e implementação do piloto da
 lição híbrida, caixa de `conteúdo/` nos scripts e CI de conteúdo.
+
+---
+
+## Lote de 2026-09-24 — pesquisa do iOS 27 (frente C)
+
+Trecho do `STATUS.md` substituído, sem edição:
+
+**Decisão do dono antes do próximo build da 1.4:** fixar a imagem de
+build do EAS numa versão com Xcode 26, ou adotar `UIScene` no app. Detalhe na
+[`FILA.md`](../FILA.md).

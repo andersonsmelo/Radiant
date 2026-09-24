@@ -944,3 +944,24 @@ Trechos substituídos, sem edição (só os links relativos reajustados ao novo 
 
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    precisa de aparelho/simulador.
+
+---
+
+## Lote de 2026-09-24 — pesquisa do iOS 27 (frente C)
+
+Trechos do item "iOS 27 exige `UIScene`" substituídos quando a pesquisa foi
+feita, sem edição (só o link relativo reajustado ao novo diretório):
+
+fecha na abertura no iOS 27 ([STATUS](../STATUS.md)). **Bloqueio:** decisão do
+dono. **Dono:** dono.
+
+Duas saídas:
+1. **Fixar a imagem do EAS numa versão com Xcode 26** no `eas.json` — rápido e
+   reversível, e adia o problema até a Apple exigir o SDK do iOS 27;
+2. **Adotar `UIScene` no app** — código nativo via config plugin, porque a
+   `ios/` é gerada; resolve de vez e precisa de E2E no aparelho.
+
+Antes de decidir, confira qual Xcode a imagem atual do EAS usa: o campo
+`ios.image` dos perfis no `radiant-app/eas.json` (hoje ausente, então vale a
+imagem padrão do SDK 54) e a tabela de imagens de build na documentação da
+Expo.
