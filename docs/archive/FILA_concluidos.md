@@ -1081,3 +1081,11 @@ Trechos substituídos, sem edição (só os links relativos reajustados ao novo 
 
    "Risco de build" do [STATUS](../STATUS.md) (no iOS 27 o app fecha na abertura). Não validar durante flow E2E: 2,3× de
    desaceleração medida.
+
+---
+
+## Lote de 2026-09-24 — FILA aponta para o prompt de continuidade (2)
+
+Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md);
