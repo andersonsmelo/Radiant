@@ -224,3 +224,52 @@ Li os 20 e **nenhum ✓ estava errado**. Nenhuma correção de tabela ou de mode
 - **Verdadeiro ou falso**: medi qual landmark é o "marcador N" em cada item. `h09` e `h09-v`: marcador 1 é o contorno externo do braço, "mais afastado da linha mediana", logo verdadeiro. `h12`: marcador 2 é o punho, "mais longe da ligação", logo verdadeiro. `h12-v`: marcador 2 é a ligação do braço com o tronco, logo falso. Os quatro ✓ estão certos. A amostra agora mostra essa correspondência (desvio 4).
 
 O que mudou na amostra foi a apresentação (a linha "No mapa"), não o gabarito.
+
+---
+
+## Revisão local — sessão no Mac, 2026-09-23
+
+Feita pela sessão local que recebeu este relatório, sobre `50ac56e`, com o
+checkout principal limpo e `npm ci` no Node `v20.20.2`.
+
+**Conferido no código, não só no relatório:**
+- `app.json` sem diferença contra a base;
+- `L1_TEMPLATE_APPROVAL = null`;
+- nenhum `prepareV3` e nenhum `registerProductAnalyticsAdapter` nos arquivos do PR;
+- rota e cartão do Perfil atrás de `SHOW_DEV_TOOLS`;
+- `expo-audio ~1.1.1` com mapeamento no Jest;
+- a guarda de relação compara com uma cópia literal (`REVIEWED_KEY`), termo por termo.
+
+**Mutações:** três delas reproduzidas no Mac, todas vermelhas pelo defeito
+nomeado. Registro na seção "Revisão local" dos vermelhos.
+
+**Lateralidade conferida pela anatomia, fora do código.** Com o produto
+vetorial `esquerda = cabeça × frente` em cada postura e vista, o lado da mão
+esquerda na tela bate com `landmarkScreenRegion` nos seis cenários.
+
+**Defeito corrigido nesta revisão (herdado do plano):** a descrição acessível
+aparecia no botão e entregava a resposta das escolhas de relação. Agora o botão
+mostra só o rótulo, e a descrição fica no `accessibilityLabel`. A descrição da
+lateralidade também perdeu o prefixo duplicado ("Mão 1: Mão 1: aparece…" virou
+"Aparece…"). A amostra de revisão foi atualizada, e a impressão digital mudou
+em relação à `429cca0d` citada acima.
+
+**Gate no Mac depois da correção:** `EXPO_NO_DOTENV=1 npm run quality` com
+exit 0; 147 suítes / 1345 testes (os 1344 da nuvem mais a guarda nova); lint
+com 0 erros e 26 avisos; visual QA sem regressão.
+
+**Testes de conteúdo:** 31/31 no Mac. Confirmado que o índice do git guarda
+74 arquivos sob `conteúdo/` (minúscula), enquanto o código abre `Conteúdo/`.
+Falha só em sistema de arquivos que diferencia caixa. É defeito anterior ao
+PR, e nenhum workflow roda esses testes.
+
+**Para o dono decidir na aprovação da amostra:**
+1. As descrições do tórax ("Painel com contorno contínuo.") são adaptação do
+   texto aprovado ("Painel 1 tem…"), porque a ordem das opções é sorteada.
+2. Em decúbito, "vista por trás" de quem está em decúbito dorsal é a visão por
+   baixo da mesa. A geometria é coerente, mas o cenário é incomum. Fica,
+   corta-se, ou vira "vista posterior"?
+3. Para leitor de tela, as descrições aprovadas no v4 continuam entregando
+   parte da resposta nas relações ("junto à extremidade da cabeça"). Isso foi
+   aceito pelo auditor como equivalência; a visão já não é afetada.
+

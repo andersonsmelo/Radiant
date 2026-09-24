@@ -226,7 +226,6 @@ export function HybridLessonScreen({ plan, hearts = heartsRepository, feedback, 
                 style={styles.option}
               >
                 <Text style={styles.optionLabel}>{option.label}</Text>
-                {option.landmarkId ? <Text style={styles.optionDetail}>{option.textDescription}</Text> : null}
               </Pressable>
             ))}
           </View>
@@ -266,7 +265,6 @@ const styles = StyleSheet.create({
   options: { gap: space.s2 },
   option: { minHeight: 44, padding: space.s3, borderRadius: radius.rMd, borderWidth: 1, borderColor: galaxyColors.border, backgroundColor: galaxyColors.surface, gap: space.s0 },
   optionLabel: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
-  optionDetail: { ...typography.caption, color: galaxyColors.textSecondary },
   panel: { padding: space.s3, borderRadius: radius.rLg, borderWidth: 1, borderColor: galaxyColors.border, backgroundColor: galaxyColors.surface, gap: space.s2 },
   resultTitle: { ...typography.h3 },
   good: { color: semanticColors.galaxy.statusSuccess },

@@ -459,3 +459,38 @@ gravada — e falharam. Só o resumo foi guardado:
     ✕ sair no meio grava o abandono e o item em que parou
 Tests:       2 failed, 4 passed, 6 total
 ```
+
+## Revisão local — sessão no Mac, 2026-09-23
+
+### Guarda nova: a descrição da opção não aparece como texto visível
+
+Defeito achado na revisão local e **herdado do plano**: nas escolhas de relação,
+o botão mostrava a descrição acessível aprovada no parecer v4. Em "qual marcador
+está mais próximo da cabeça?", isso é "Marcador junto à extremidade da cabeça".
+O aluno acertava lendo, sem raciocinar sobre o corpo.
+
+Execução vermelha contra `50ac56e`, antes da correção:
+
+```text
+$ npx jest src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.flow.test.tsx --runInBand -t "rótulo acessível"
+    ✕ a descrição da opção fica só no rótulo acessível: o texto visível não entrega a resposta (108 ms)
+    expect(received).toBeNull()
+    > 78 |       expect(screen.queryByText(option.textDescription)).toBeNull();
+Tests:       1 failed, 6 skipped, 7 total
+```
+
+Correção: o botão mostra só o rótulo ("Marcador 1"), e a descrição fica no
+`accessibilityLabel`, onde o parecer v4 a aprovou como equivalente para o
+VoiceOver.
+
+### Mutações reproduzidas pela revisão local
+
+Três guardas do relatório da nuvem, repetidas no Mac (Node `v20.20.2`) e
+revertidas em seguida:
+
+| Mutação | Resultado |
+| --- | --- |
+| `lateral` → `shoulder-marker` na tabela | `✕ relação: a resposta é o landmark que a tabela liga…` — 1 failed, 7 passed |
+| sessão sem `!item.variant` | `✕ só a primeira tentativa de um desafio original é evidência independente` — 1 failed, 8 passed |
+| tela com `if (!answer.correct)` | `✕ erro de primeiro contato não custa vida…` — 1 failed, 5 passed |
+

@@ -81,7 +81,8 @@ implementado.
   vibração, custo de vida só no desafio, rota `/licao-hibrida` atrás de
   `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos modelos
   pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes de
-  escalar.
+  escalar. Revisado pela sessão local em 2026-09-23: gate no Mac com exit 0,
+  147 suítes / 1345 testes, medido no branch.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na

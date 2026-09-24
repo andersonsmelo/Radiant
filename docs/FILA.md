@@ -109,20 +109,21 @@ distribuição**, no branch `feat/licao-hibrida-piloto` (PR em rascunho contra
 execuções vermelhas das guardas nos
 [vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
 Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
-desligado. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
+desligado. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
+gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
+descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
+"Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
 a sessão local.
 
 Pendente, nesta ordem:
 
-1. **Sessão local:** revisar o retorno da nuvem, rodar `loop validate` e fechar
-   o run (o Loop não existe no ambiente em nuvem).
-2. **Dono:** revisar a amostra
+1. **Dono:** revisar a amostra
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-3. **Dono, quando quiser ver:** `npx expo run:ios`, que recompila o cliente de
+2. **Dono, quando quiser ver:** `npx expo run:ios`, que recompila o cliente de
    desenvolvimento por causa do `expo-audio` (módulo nativo novo).
-4. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
+3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
    critério da §5.4 da
    [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
 

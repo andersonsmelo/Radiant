@@ -65,6 +65,21 @@ describe('lição híbrida na tela', () => {
     expect(deps.events[deps.events.length - 1]).toBe('lesson_complete');
   });
 
+  it('a descrição da opção fica só no rótulo acessível: o texto visível não entrega a resposta', () => {
+    // h03 é escolha de relação: "qual marcador está mais próximo da cabeça?".
+    // Mostrar "Marcador junto à extremidade da cabeça" no botão respondia pelo
+    // aluno — revisão local de 2026-09-23.
+    const deps = makeDeps();
+    const choiceItem = plan[2];
+    renderWithProviders(<HybridLessonScreen plan={plan.slice(2)} hearts={deps.hearts} feedback={deps.feedback} metrics={deps.metrics} onExit={deps.onExit} />);
+    fireEvent.press(screen.getByText('Começar'));
+    expect(choiceItem.format).toBe('choice');
+    for (const option of choiceItem.options) {
+      expect(screen.queryByText(option.textDescription)).toBeNull();
+      expect(screen.getByTestId(`hybrid-option-${option.id}`).props.accessibilityLabel).toBe(`${option.label}. ${option.textDescription}`);
+    }
+  });
+
   it('erro de primeiro contato não custa vida, mostra a dica e deixa tentar de novo', async () => {
     const deps = makeDeps();
     renderScreen(deps);

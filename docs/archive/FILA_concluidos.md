@@ -919,3 +919,11 @@ interruptores no Perfil, tela e rota `/licao-hibrida` (só com
 `SHOW_DEV_TOOLS`), medidas locais, e gate. O build de teste continua fora, por
 decisão do dono em 2026-09-23. O critério para escalar está na §5.4 da spec.
 **Substitui a v7 da L2 como próximo item de conteúdo.**
+
+## Lote de 2026-09-23 — revisão local do piloto da lição híbrida
+
+Item concluído pela sessão local, removido da lista de pendências do piloto:
+
+1. **Sessão local:** revisar o retorno da nuvem, rodar `loop validate` e fechar
+   o run (o Loop não existe no ambiente em nuvem).
+

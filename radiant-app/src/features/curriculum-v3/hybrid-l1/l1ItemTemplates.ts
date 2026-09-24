@@ -45,7 +45,7 @@ export function lateralityItem(params: LateralityParams, rng: Rng): HybridItem {
   const options: L1AnswerOption[] = shuffled(['left', 'right'] as const, rng).map((side, index) => {
     const landmarkId = `patient-${side}-hand`;
     const region = landmarkScreenRegion(landmarkId, params.posture, params.perspective, REFERENCE_FRAME_WIDTH);
-    return { id: `patient-${side}`, label: `Mão ${index + 1}`, landmarkId, textDescription: `Mão ${index + 1}: aparece ${describeRegion(region)}.` };
+    return { id: `patient-${side}`, label: `Mão ${index + 1}`, landmarkId, textDescription: `Aparece ${describeRegion(region)}.` };
   });
   const sideWord = params.side === 'left' ? 'esquerdo' : 'direito';
   const intro = scenarioIntro(params.posture, params.perspective);

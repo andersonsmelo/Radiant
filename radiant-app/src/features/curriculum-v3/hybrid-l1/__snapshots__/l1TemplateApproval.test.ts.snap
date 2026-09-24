@@ -3,16 +3,16 @@
 exports[`aprovação dos modelos da L1 amostra de revisão do dono — o que a lição pode mostrar, com o gabarito marcado 1`] = `
 "h01-lat-frente · primeiro contato · tap · anatomical/front
 Pergunta: Na posição anatômica, vista de frente, qual mão pertence ao lado esquerdo da pessoa?
-    Mão 1: Mão 1: aparece à esquerda de quem observa.
-  ✓ Mão 2: Mão 2: aparece à direita de quem observa.
+    Mão 1: Aparece à esquerda de quem observa.
+  ✓ Mão 2: Aparece à direita de quem observa.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
 
 h02-lat-costas · primeiro contato · tap · anatomical/back
 Pergunta: Na posição anatômica, vista por trás, qual mão pertence ao lado esquerdo da pessoa?
-    Mão 1: Mão 1: aparece à direita de quem observa.
-  ✓ Mão 2: Mão 2: aparece à esquerda de quem observa.
+    Mão 1: Aparece à direita de quem observa.
+  ✓ Mão 2: Aparece à esquerda de quem observa.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
@@ -35,8 +35,8 @@ Dica de primeiro contato: Medial é perto da linha mediana, não da borda.
 
 h05-lat-dorsal · desafio · tap · supine/front
 Pergunta: Em decúbito dorsal, vista de frente, qual mão pertence ao lado direito da pessoa?
-    Mão 1: Mão 1: aparece na parte de baixo do quadro.
-  ✓ Mão 2: Mão 2: aparece na parte de cima do quadro.
+    Mão 1: Aparece na parte de baixo do quadro.
+  ✓ Mão 2: Aparece na parte de cima do quadro.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
@@ -76,8 +76,8 @@ Dica de primeiro contato: Medial é perto da linha mediana, não da borda.
 
 h10-lat-ventral · desafio · choice · prone/back
 Pergunta: Em decúbito ventral, vista por trás, qual mão pertence ao lado esquerdo da pessoa?
-  ✓ Mão 1: Mão 1: aparece na parte de cima do quadro.
-    Mão 2: Mão 2: aparece na parte de baixo do quadro.
+  ✓ Mão 1: Aparece na parte de cima do quadro.
+    Mão 2: Aparece na parte de baixo do quadro.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
@@ -101,8 +101,8 @@ Dica de primeiro contato: Proximal é perto da ligação com o tronco.
 
 h05-lat-dorsal-v · desafio · tap · supine/back · variante
 Pergunta: Em decúbito dorsal, vista por trás, qual mão pertence ao lado direito da pessoa?
-    Mão 1: Mão 1: aparece na parte de baixo do quadro.
-  ✓ Mão 2: Mão 2: aparece na parte de cima do quadro.
+    Mão 1: Aparece na parte de baixo do quadro.
+  ✓ Mão 2: Aparece na parte de cima do quadro.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
@@ -142,8 +142,8 @@ Dica de primeiro contato: Medial é perto da linha mediana, não da borda.
 
 h10-lat-ventral-v · desafio · choice · anatomical/front · variante
 Pergunta: Na posição anatômica, vista de frente, qual mão pertence ao lado esquerdo da pessoa?
-    Mão 1: Mão 1: aparece à esquerda de quem observa.
-  ✓ Mão 2: Mão 2: aparece à direita de quem observa.
+    Mão 1: Aparece à esquerda de quem observa.
+  ✓ Mão 2: Aparece à direita de quem observa.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
