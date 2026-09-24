@@ -96,7 +96,12 @@ próprio:
 
 - **Dono, no primeiro build `development` da 1.4:** abrir o app num iPhone com
   iOS 27. É a primeira build com a imagem fixada.
-- **Dono:** decidir se acrescenta a forma NFD de `Conteúdo/extrações` a
-  `context.excludes`. Medido: a entrada atual, em NFC, nunca casa com o disco.
+- ~~**Dono:** decidir se acrescenta a forma NFD de `Conteúdo/extrações` a
+  `context.excludes`.~~ **Resolvido no terceiro run do dia**, com escopo
+  menor. A pasta tem 5 arquivos rastreados, e excluí-la inteira os esconderia
+  do guarda. Por decisão do dono, só os 4 subprodutos locais (`excerpts.json`
+  e `pages.json` de cada fonte) entraram, na grafia do disco. Medido com as
+  funções do próprio Loop (`captureProjectManifest` e `loadProjectConfig`):
+  o guarda via 9 arquivos da pasta antes e vê os 5 rastreados depois.
 - A frente A (E2E) segue no simulador iOS 26.5 enquanto esta máquina tiver só o
   Xcode 27.

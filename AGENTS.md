@@ -117,8 +117,12 @@ toda sessão de IA segue este contrato:
      foi que a lista não isentava. **É falsa.** Medido em 2026-09-24: o disco
      soletra `Conteúdo` em NFD e a política em NFC, então a entrada não casa.
      Essa é a explicação provável do incidente: a forma do disco em 2026-08-08
-     não foi medida. A entrada continua sem casar até alguém acrescentar a
-     forma NFD.
+     não foi medida. **Não conserte essa entrada:** a pasta tem 5 arquivos
+     rastreados que só se alteram por janela em `allowedRoots`, e fazer a
+     entrada casar os esconderia do guarda. Desde 2026-09-24, por decisão do
+     dono, só os subprodutos locais (`excerpts.json` e `pages.json` de cada
+     fonte) estão excluídos, um por linha e na grafia do disco (`Conteúdo` em
+     NFD, `extrações` em NFC). Uma fonte nova precisa da sua linha.
 
      Duas consequências:
      - um arquivo ignorado pelo git, inclusive pelo ignore **global**, ainda
