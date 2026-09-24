@@ -179,7 +179,12 @@ varredura do padrão `jest.spyOn` sobre mocks oficiais também fecharam em
 
 ## Histórico
 
-`archive/EXECUTION_STATUS_2026-08-08.md` e anteriores são snapshots substituídos. Planos
+`archive/EXECUTION_STATUS_*.md` são snapshots substituídos. O que sai dos
+documentos vivos vai, sem edição, para dois arquivos acumulativos:
+[`archive/STATUS_historico.md`](archive/STATUS_historico.md), com o que o
+`STATUS.md` deixou de afirmar, e [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md),
+com os itens que saíram da fila. `STATUS.md` e `FILA.md` guardam só o presente
+e o que está aberto — a regra está no topo de cada um. Planos
 datados continuam úteis para proveniência, mas seu cabeçalho e seu status devem
 deixar claro quando foram concluídos, substituídos ou parcialmente executados.
 
