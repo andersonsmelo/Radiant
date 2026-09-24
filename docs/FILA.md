@@ -47,7 +47,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md);
+[`superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md);
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -102,7 +102,10 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 4. **E2E dos três caminhos dourados** — **destravado no código em 2026-09-23**;
    **viável no simulador iOS 26.5 desde 2026-09-23**, pelo procedimento da seção
    "Risco de build" do [STATUS](STATUS.md) (no iOS 27 o app fecha na abertura). Não validar durante flow E2E: 2,3× de
-   desaceleração medida.
+   desaceleração medida. **Medido em 2026-09-24: os três flows ainda não
+   existem.** O plano previa `.maestro/radiant-1-4-*.yaml`, e nenhum flow atual
+   cobre "segundo dia com revisão devida" nem "vidas acabando no meio da lição
+   até a folha". A frente começa escrevendo os flows e o contrato deles.
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
    corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo

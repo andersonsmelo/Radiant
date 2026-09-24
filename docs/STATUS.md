@@ -180,12 +180,18 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24: `origin/main` em `3343eca`; os PRs #21 a #27 foram
-mergeados entre 2026-09-23 e 2026-09-24 — consolidação do estado, desenho, sons,
-plano e implementação do piloto da lição híbrida, caixa de `conteúdo/` nos
-scripts, CI de conteúdo e correções de tela do piloto vistas no simulador.
-Prompt de continuidade:
-[`2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md). **As cinco
+Medido em 2026-09-24: `origin/main` em `5946e4e`, sem PR aberto. Os PRs #28
+a #30 foram mergeados nesse dia:
+- o estado consolidado;
+- a pesquisa e a decisão do iOS 27 (imagem Xcode 26.0 fixada);
+- a política do Loop (exclusões do guarda);
+- a verificação de desenvolvedor Android.
+
+Os branches remotos `docs/continuidade-2026-09-24`, `pesquisa/ios27-xcode-eas`
+e `docs/android-verificacao-chave-eas` já estão mergeados e continuam no
+remoto. Prompt de continuidade da próxima frente (E2E dos caminhos dourados,
+depois o Gate H4):
+[`2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md). **As cinco
 worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
 Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
 evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em

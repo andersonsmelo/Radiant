@@ -1070,3 +1070,14 @@ diferentes, e só a primeira é provável estar resolvida:
 ```bash
 grep -n '"distribution": "internal"' radiant-app/eas.json
 ```
+
+---
+
+## Lote de 2026-09-24 — FILA aponta para o prompt da frente E2E
+
+Trechos substituídos, sem edição (só os links relativos reajustados ao novo diretório):
+
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md);
+
+   "Risco de build" do [STATUS](../STATUS.md) (no iOS 27 o app fecha na abertura). Não validar durante flow E2E: 2,3× de
+   desaceleração medida.
