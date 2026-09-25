@@ -170,19 +170,16 @@ Cada conserto é um run, com teste vermelho antes.
 
 **Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
 
-4. **E2E dos três caminhos dourados** — **escritos, no contrato e rodados em
+4. ✅ **E2E dos três caminhos dourados** — **escritos, no contrato e rodados em
    2026-09-24** no simulador iOS 26.5, build Debug local sobre `ab121ad`
    ([evidência](../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md),
    [relatório](superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)).
-   Caminhos 1 e 3 `passed`. **Falta: o dia 2 do caminho 2**, relógio real
-   (decisão do dono, 2026-09-24): rodar
-   `maestro test .maestro/radiant-1-4-segundo-dia.yaml` **a partir de
-   2026-09-25 11:55 (−03)**, no mesmo simulador
-   (`E3C547AE-4D2B-4C2D-9E0A-43AC36BBD1AD`), com o Metro no ar e **sem rodar
-   antes nenhum flow com `clearState`**, que apagaria o dia 1. Se o estado se
-   perder, rode de novo `radiant-1-4-primeira-execucao.yaml` e espere mais
-   24 h. Android não foi executado. Não validar durante flow E2E: 2,3× de
-   desaceleração medida.
+   **Os três caminhos estão `passed` no iOS 26.5 desde 2026-09-25.** O dia 2
+   do caminho 2 rodou às 13:20 de 2026-09-25, com relógio real, no simulador
+   `E3C547AE`, sem `clearState` desde o dia 1, e com o JS da `main` `c9062da`.
+   Terminou com exit 0. Android não foi executado. Rodar o dia 2 de novo exige
+   repetir o `radiant-1-4-primeira-execucao.yaml` e esperar 24 h. Não validar
+   durante um flow E2E: a desaceleração medida é de 2,3×.
 
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:

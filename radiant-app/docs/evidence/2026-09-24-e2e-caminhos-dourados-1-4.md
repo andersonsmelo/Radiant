@@ -9,12 +9,13 @@ Antes desta data nenhum dos três flows existia.
 | Caminho | Flow | iOS 26.5 | Android |
 | --- | --- | --- | --- |
 | 1. Primeira execução até a L1 concluída | `radiant-1-4-primeira-execucao.yaml` | `passed` — 130,9 s, 36 passos (execução final, 11:53) | não executado |
-| 2. Segundo dia com revisão devida | `radiant-1-4-segundo-dia.yaml` | **pendente de relógio real**: o dia 1 é o fim do caminho 1 (`passed`); o dia 2 só pode rodar a partir de **2026-09-25 11:54:53 (−03)** | não executado |
+| 2. Segundo dia com revisão devida | `radiant-1-4-segundo-dia.yaml` | `passed` — dia 1 em 2026-09-24 (fim do caminho 1, 11:53); **dia 2 em 2026-09-25, 13:20:41–13:22:37 (−03)**, relógio real | não executado |
 | 3. Vidas acabando no meio da lição até a folha | `radiant-1-4-vidas-esgotadas.yaml` | `passed` — 495,9 s, 93 passos | não executado |
 
-Nenhum dos três foi rodado em Android nem em aparelho físico. O caminho 2 não
-tem `passed`: o dia 2 existe como flow e como contrato, e a única execução dele
-foi a vermelha pretendida (abaixo).
+Nenhum dos três foi rodado em Android nem em aparelho físico. **Os três
+caminhos estão `passed` no iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2
+foi vermelho quando rodado antes das 24 h, como pretendido, e verde quando
+rodado depois (veja "Dia 2" abaixo).
 
 ## Ambiente
 
@@ -96,3 +97,37 @@ estão no
 
 Capturas e saídas do Maestro ficaram fora do Git, como manda o
 [README](README.md).
+
+## Dia 2 do caminho 2 — 2026-09-25
+
+- **Simulador:** o mesmo, `E3C547AE-4D2B-4C2D-9E0A-43AC36BBD1AD`. Nenhum flow
+  tocou nele entre o caminho 1 das 11:53 de 2026-09-24 e esta execução, que
+  começou 25 h 27 min depois. Ele estava desligado e foi ligado com
+  `simctl boot`.
+- **Binário:** o mesmo `1.3.1`, sem reinstalação nesta sessão. O
+  `get_app_container` mostra o pacote com carimbo **24/09 às 11:53:06**, e
+  não às 11:01:25. A explicação mais provável, não medida, é o `clearState` do
+  caminho 1 das 11:53: no iOS, o Maestro limpa o estado reinstalando o app, o
+  que regrava o mesmo binário. Isso é compatível com o dia 1 ser o fim daquela
+  execução.
+- **Metro:** Node `v20.20.2`, com as flags do `scripts/start-ios-v2.sh`, a
+  checagem de precedência de ambiente passando, e `CI=1 npx expo start` sem
+  `--ios`.
+- **JS servido:** a árvore `656ba7b`, cujo código de app é o da `main`
+  `c9062da` (PR #34). Ele já tem os consertos dos defeitos 2 e 3, que o flow
+  do dia 2 não verifica. O dia 1 rodou com o JS de `ab121ad`.
+- **Maestro:** `2.7.0`.
+- **Comando:** `maestro --device E3C547AE-… test .maestro/radiant-1-4-segundo-dia.yaml`.
+- **Resultado:** exit 0, entre 13:20:41 e 13:22:37, cerca de 116 s de relógio,
+  todos os passos `COMPLETED`:
+  - a trilha recomendou `Revisar Fundamentos de Radiologia. Revisão devida · N
+    devida(s).` antes de qualquer toque;
+  - a revisão abriu em "Passo 1 de 3", a pergunta foi respondida
+    certo ("Resposta correta") e a lição foi concluída;
+  - o nó terminou `Revisar Fundamentos de Radiologia. Concluído.`
+- **O subflow `dismiss-dev-client`** não encontrou nenhuma folha do dev
+  client. A asserção opcional ficou `WARNED`, e os três ramos, `SKIPPED`, como
+  esperado numa reabertura sem `clearState`.
+
+**Não verificado:** Android, aparelho físico, build Release e configuração de
+produção. O E2E continua em Debug, com dev client e Metro.

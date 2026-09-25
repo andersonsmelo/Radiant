@@ -1930,3 +1930,16 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
    O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
    ([ADR](../adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
    [evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelo registro do dia 2 do caminho 2 do E2E:
+
+2. **Agente, com aparelho:** E2E dos três caminhos dourados. Os caminhos 1 e
+   3 ficaram `passed` no simulador iOS 26.5 em 2026-09-24. Falta o dia 2 do
+   caminho 2, com relógio real, a partir de **2026-09-25 11:55 (−03)**, no
+   simulador `E3C547AE-…`. O E2E expôs três defeitos do app ([FILA](../FILA.md),
+   item 4 da Task 8):
+
+  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
+    reinstalado nem limpo** antes do dia 2.

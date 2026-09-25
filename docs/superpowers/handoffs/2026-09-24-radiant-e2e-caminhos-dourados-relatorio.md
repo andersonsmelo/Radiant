@@ -9,7 +9,7 @@ conversa e vai para a próxima, como o prompt previa.
 | Caminho | Flow | iOS 26.5 (simulador) |
 | --- | --- | --- |
 | 1. Primeira execução até a L1 concluída | `radiant-1-4-primeira-execucao.yaml` | **passed**, 130,9 s |
-| 2. Segundo dia com revisão devida | `radiant-1-4-segundo-dia.yaml` | **dia 1 passed; dia 2 pendente** — a partir de 2026-09-25 11:55 (−03) |
+| 2. Segundo dia com revisão devida | `radiant-1-4-segundo-dia.yaml` | **passed**: dia 1 em 2026-09-24, e dia 2 em 2026-09-25 às 13:20–13:22 (−03), com relógio real, cerca de 116 s |
 | 3. Vidas acabando no meio da lição até a folha | `radiant-1-4-vidas-esgotadas.yaml` | **passed**, 495,9 s |
 
 A condição de pronto do prompt **não está inteira**: o caminho 2 ainda não tem
@@ -87,7 +87,8 @@ evidência que ele não dá.
 
 ## O que não foi verificado
 
-- O dia 2 do caminho 2.
+- O dia 2 do caminho 2. **Feito em 2026-09-25, `passed`**: veja o
+  complemento no fim.
 - Android, aparelho físico, build Release e configuração de produção. O
   E2E rodou em Debug, com dev client e Metro.
 - Gate H4.
@@ -103,3 +104,19 @@ evidência que ele não dá.
 2. Gate H4, no mesmo build.
 3. Os três defeitos, um run cada, com vermelho antes; o primeiro espera a
    decisão do dono.
+
+## Complemento — 2026-09-25
+
+**A condição de pronto do prompt está inteira agora:** os três caminhos estão
+`passed` no iOS 26.5.
+- **O dia 2** rodou às 13:20:41 de 2026-09-25, 25 h 27 min depois do dia 1,
+  no mesmo simulador, sem reinstalar e sem `clearState` no meio. Terminou com
+  exit 0 e todos os passos `COMPLETED`.
+- **O JS servido** foi o da `main` `c9062da`. O dia 1 rodou com o de `ab121ad`.
+- **O carimbo do binário** lê 11:53:06, e não 11:01:25. A explicação provável,
+  não medida, é o `clearState` do caminho 1, que reinstala o app.
+- **Detalhe:** na
+  [evidência](../../../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md),
+  seção "Dia 2".
+- **Continua não verificado:** Android, aparelho físico e build Release.
+

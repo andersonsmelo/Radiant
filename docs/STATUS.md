@@ -67,11 +67,12 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
    A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
    conserto é do agente.
-2. **Agente, com aparelho:** E2E dos três caminhos dourados. Os caminhos 1 e
-   3 ficaram `passed` no simulador iOS 26.5 em 2026-09-24. Falta o dia 2 do
-   caminho 2, com relógio real, a partir de **2026-09-25 11:55 (−03)**, no
-   simulador `E3C547AE-…`. O E2E expôs três defeitos do app ([FILA](FILA.md),
-   item 4 da Task 8):
+2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
+   simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
+   com relógio real
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md)).
+   Android e aparelho físico não foram executados. O E2E expôs três defeitos
+   do app ([FILA](FILA.md), item 4 da Task 8):
    - **os defeitos 2 e 3** foram corrigidos e **estão na `main`** desde
      2026-09-25 (PR #34, com o CI verde);
    - **o defeito 1** foi decidido pelo dono em 2026-09-25: o concluído vence o
@@ -255,8 +256,8 @@ Medido em 2026-09-25, às 08:47:
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
     tela, por decisão do dono;
-  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
-    reinstalado nem limpo** antes do dia 2.
+  - o `E3C547AE-…` já cumpriu o dia 2, em 2026-09-25, e está livre. Rodar o
+    caminho 2 de novo exige repetir o dia 1 e esperar 24 h.
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24, com o
 aval do dono, e o histórico local de runs dela foi junto.
