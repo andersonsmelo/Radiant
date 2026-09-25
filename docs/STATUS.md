@@ -74,9 +74,12 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
    Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
    o gate H4. O defeito 1 espera a decisão do dono.
-   **Em 2026-09-24, à noite, o branch tem 13 commits além da `main`, e nenhum
-   tem push.**
-   O merge vai de cima para baixo: #32 → documentação → `fix/e2e-defeitos-2-e-3`.
+   **Em 2026-09-24, à noite, as duas branches locais foram enviadas ao
+   GitHub.** A `fix/e2e-defeitos-2-e-3` tem 15 commits além da `main`,
+   contando o do prompt (4). O merge vai de cima para baixo: #32 →
+   documentação → `fix/e2e-defeitos-2-e-3`. Ele e as decisões que não
+   precisam do Mac ficam para uma sessão na nuvem
+   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
