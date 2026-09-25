@@ -80,6 +80,17 @@ describe('SubscriptionService — direito de uso offline', () => {
         expect(offline.hearts.setUnlimited).toHaveBeenCalledWith(DAQUI_A_30_DIAS, AGORA + 5 * 24 * 60 * 60 * 1000);
     });
 
+    it('renovação desconhecida sobrevive ao cache: offline continua desconhecida, e não cancelada', async () => {
+        const storage = memoria();
+        const primeira = servico(loja({ currentEntitlement: jest.fn(async () => direito({ willRenew: null })) }), storage);
+        await primeira.service.refresh(AGORA);
+
+        const offline = servico(lojaIndisponivel(), storage);
+        const status = await offline.service.refresh(AGORA + 5 * 24 * 60 * 60 * 1000);
+
+        expect(status).toEqual({ kind: 'unlimited', expiresAt: DAQUI_A_30_DIAS, willRenew: null });
+    });
+
     it('cache vencido sem releitura volta ao estado cheio, nunca ilimitado', async () => {
         const storage = memoria();
         const primeira = servico(loja({ currentEntitlement: jest.fn(async () => direito()) }), storage);

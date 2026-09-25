@@ -27,6 +27,13 @@ describe('SubscriptionCard', () => {
         expect(screen.getByText('Cancelada · válida até 14/10/2026')).toBeTruthy();
     });
 
+    it('renovação desconhecida mostra o acesso, e nunca "Cancelada" (ADR 2026-09-25, 2A)', () => {
+        render(<SubscriptionCard status={{ kind: 'unlimited', expiresAt: '2026-10-14T12:00:00.000Z', willRenew: null }} onOpen={jest.fn()} />);
+
+        expect(screen.getByText('Ativa · acesso até 14/10/2026')).toBeTruthy();
+        expect(screen.queryByText(/Cancelada/u)).toBeNull();
+    });
+
     it('expirada convida a renovar', () => {
         render(<SubscriptionCard status={{ kind: 'expired', expiredAt: '2026-09-01T12:00:00.000Z' }} onOpen={jest.fn()} />);
 

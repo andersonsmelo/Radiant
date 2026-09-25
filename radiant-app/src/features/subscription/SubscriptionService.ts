@@ -55,7 +55,7 @@ function parseEntitlement(value: unknown): SubscriptionEntitlement | null {
         productId: record.productId,
         period: record.period,
         expiresAt: record.expiresAt,
-        willRenew: record.willRenew === true,
+        willRenew: typeof record.willRenew === 'boolean' ? record.willRenew : null,
         revokedAt: record.revokedAt === null ? null : record.revokedAt,
     };
 }

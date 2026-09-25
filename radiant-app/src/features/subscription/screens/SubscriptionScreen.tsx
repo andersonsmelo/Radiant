@@ -141,9 +141,11 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                     {notice?.kind === 'restored' ? 'Compra restaurada' : 'Você é assinante'}
                 </Text>
                 <Text style={styles.body}>
-                    {status.willRenew
-                        ? `Renova em ${formatShortDate(status.expiresAt)}. Suas vidas são ilimitadas até lá — e continuam, enquanto a assinatura renovar.`
-                        : `Cancelada — válida até ${formatShortDate(status.expiresAt)}. Depois disso, suas vidas voltam a 5 e continuam se recuperando.`}
+                    {status.willRenew === null
+                        ? `Ativa — acesso até ${formatShortDate(status.expiresAt)}. Suas vidas são ilimitadas até lá.`
+                        : status.willRenew
+                            ? `Renova em ${formatShortDate(status.expiresAt)}. Suas vidas são ilimitadas até lá — e continuam, enquanto a assinatura renovar.`
+                            : `Cancelada — válida até ${formatShortDate(status.expiresAt)}. Depois disso, suas vidas voltam a 5 e continuam se recuperando.`}
                 </Text>
                 <Text style={styles.body}>{CANCEL_COPY}</Text>
             </View>

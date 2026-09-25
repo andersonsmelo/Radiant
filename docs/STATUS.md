@@ -65,8 +65,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
    [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
-   A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
-   conserto é do agente.
+   A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
+   corrigida em 2026-09-25 no branch `fix/renovacao-desconhecida`, sem push,
+   com o gate em 151 suítes / 1434 testes
+   ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
 2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
    simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
    com relógio real

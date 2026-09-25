@@ -129,19 +129,19 @@ Nenhum bloqueia a 1.4. Os detalhes estão na
 [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md).
 Cada conserto é um run, com teste vermelho antes.
 
-1. **Estado de renovação desconhecido aparece como "Cancelada"** (lido no
-   código, não medido):
-   - `willAutoRenew` devolve `nil` quando o iOS não informa a renovação;
-   - o `StoreKit2Adapter.ts:41` converte isso em `false`;
-   - o assinante pagante vê "Cancelada".
-
-   **Decidido pelo dono em 2026-09-25 (opção 2A,
-   [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)):**
-   - a renovação ganha três estados: renova, não renova e desconhecido;
-   - no desconhecido, o cartão mostra **"Ativa · acesso até DD/MM"**.
-
-   **Pronto para o agente:** um run, com teste vermelho antes. O teste precisa
-   provar que o desconhecido não vira "Cancelada".
+1. ✅ **Estado de renovação desconhecido aparecia como "Cancelada"** —
+   corrigido em 2026-09-25, no branch `fix/renovacao-desconhecida`, sem push e
+   sem build, pela opção 2A da
+   [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
+   ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
+   - **O estado:** `willRenew` passou a ser `boolean | null`. O adaptador e a
+     releitura do armazenamento preservam o desconhecido, inclusive quando o
+     Swift omite a chave.
+   - **O que o aluno vê:** "Ativa · acesso até DD/MM/AAAA" no cartão e
+     "Ativa — acesso até …" na tela, nunca "Cancelada".
+   - **Testes:** 5 novos, todos vistos vermelhos.
+   - **Não visto na tela,** porque o sandbox não produz a renovação
+     desconhecida sob comando.
 2. **Preço de outra loja até o app recarregar** (medido):
    - os preços carregados antes do login ficaram em dólar, enquanto a Apple
      cobrava em reais;

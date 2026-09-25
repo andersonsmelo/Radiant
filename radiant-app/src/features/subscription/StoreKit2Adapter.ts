@@ -36,9 +36,11 @@ function paraDireito(transacao: StoreKitNativeTransaction): SubscriptionEntitlem
         productId: transacao.productId,
         period,
         expiresAt: transacao.expirationDate,
-        // Renovação desconhecida não é renovação: a porta não promete o que a
-        // Apple não confirmou (plano da fatia 2, §1.1).
-        willRenew: transacao.willAutoRenew === true,
+        // Desconhecida fica desconhecida (ADR de 2026-09-25, 2A). A porta
+        // continua sem prometer renovação, porque `null` não é `true`, mas
+        // também não afirma que o aluno cancelou. O Swift omite a chave quando
+        // não sabe, então `undefined` também vira `null`.
+        willRenew: typeof transacao.willAutoRenew === 'boolean' ? transacao.willAutoRenew : null,
         revokedAt: ehData(transacao.revocationDate) ? transacao.revocationDate : null,
     };
 }

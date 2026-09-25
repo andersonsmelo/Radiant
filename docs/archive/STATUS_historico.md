@@ -1952,3 +1952,10 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
      retomável
      ([ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
      O conserto é do agente, com teste vermelho antes.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelo conserto da renovação desconhecida:
+
+   A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
+   conserto é do agente.

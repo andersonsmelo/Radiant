@@ -177,13 +177,26 @@ describe('StoreKit2Adapter — direito atual', () => {
         });
     });
 
-    it('renovação desconhecida vira willRenew false: a porta não promete o que a Apple não confirmou', async () => {
+    // ADR de 2026-09-25, 2A: desconhecido é um estado próprio. Virar `false`
+    // fazia o assinante pagante ler "Cancelada". A porta continua sem
+    // prometer renovação: `null` não é `true`.
+    it('renovação desconhecida (null) vira willRenew null, e não false', async () => {
         const { native } = fakeNative({
             currentEntitlements: jest.fn(async () => [transacao({ willAutoRenew: null })]),
         });
 
         await expect(new StoreKit2Adapter(native).currentEntitlement()).resolves.toEqual(
-            expect.objectContaining({ willRenew: false }),
+            expect.objectContaining({ willRenew: null }),
+        );
+    });
+
+    it('renovação ausente, como o Swift manda quando não sabe, também vira willRenew null', async () => {
+        const semRenovacao = transacao();
+        delete (semRenovacao as Partial<StoreKitNativeTransaction>).willAutoRenew;
+        const { native } = fakeNative({ currentEntitlements: jest.fn(async () => [semRenovacao]) });
+
+        await expect(new StoreKit2Adapter(native).currentEntitlement()).resolves.toEqual(
+            expect.objectContaining({ willRenew: null }),
         );
     });
 
