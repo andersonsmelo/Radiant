@@ -49,3 +49,19 @@ commits estão na `main`.
 | `pesquisa/ios27-xcode-eas` | `432bee4e330e` |
 | `refactor/aposenta-vidas-legado` | `b7aa165a91d2` |
 | `test/e2e-caminhos-dourados-1-4` | `b26d762474c7` |
+
+## Conferência independente e autoria (2026-09-25)
+
+- **Conferência:** a sessão na nuvem do prompt (4) reconstruiu, pelas PRs e
+  pelos eventos de push do GitHub, 24 das 25 pontas acima. As 24 **coincidem**
+  com esta tabela, conferido pela sessão local. A 25ª,
+  `codex/curriculum-v3-foundation`, ela não conseguiu recuperar: é
+  `6e7f804941754d61b9603483a93b711cef40c4ef`, contida na `main`.
+- **Autoria:** o log de eventos do GitHub atribui as exclusões à conta do
+  dono, entre 11:49:33Z e 11:50:29Z. Quem executou foi a sessão local, com a
+  credencial git do Mac, depois do sim do dono dado nela. O relatório da nuvem
+  supôs uma exclusão sem autorização, e isso foi corrigido no
+  [relatório guardado](../superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md).
+- **Lição de coordenação:** o mesmo item estava delegado a duas sessões vivas
+  ao mesmo tempo, o §2.5 do prompt (4) e o item 14 do prompt (3). Um prompt
+  que entrega um item a outra sessão precisa tirá-lo do prompt anterior.

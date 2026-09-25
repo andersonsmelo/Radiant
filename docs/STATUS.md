@@ -61,9 +61,12 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
      pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
 
-   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
-   ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   O modo avião e o reembolso saíram do roteiro no aparelho
+   ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+   A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
+   conserto é do agente.
 2. **Agente, com aparelho:** E2E dos três caminhos dourados. Os caminhos 1 e
    3 ficaram `passed` no simulador iOS 26.5 em 2026-09-24. Falta o dia 2 do
    caminho 2, com relógio real, a partir de **2026-09-25 11:55 (−03)**, no
@@ -71,7 +74,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    item 4 da Task 8):
    - **os defeitos 2 e 3** foram corrigidos e **estão na `main`** desde
      2026-09-25 (PR #34, com o CI verde);
-   - **o defeito 1** espera a decisão do dono.
+   - **o defeito 1** foi decidido pelo dono em 2026-09-25: o concluído vence o
+     retomável
+     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
+     O conserto é do agente, com teste vermelho antes.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -141,8 +147,9 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
 ## Bloqueios abertos, por frente
 
 - **Android em produção** — exige 12 testadores **participando** por 14 dias
-  (F2). A última contagem é de **2026-08-03** (14 vinculados, 2 participando) e
-  não serve para decidir nada. Só o dono mede, no Play Console. Também abertos:
+  (F2). **Remedido em 2026-09-25:** 5 participando de 14 vinculados, e os 14
+  dias não começaram. Faltam 7 aceites, e a margem máxima é de 2
+  ([FILA](FILA.md)). Só o dono mede, no Play Console. Também abertos:
   questionário IARC (E4), aparelho Android físico (C4) e TalkBack (C5).
 - **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
   revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O
@@ -154,8 +161,11 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
   modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
   de escalar.
-- **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
-  fatias (medido em 2026-08-08).
+- **Conteúdo editorial (D4)** — **19 `needs-review`** de 105 registros,
+  remedido em 2026-09-25: 10 sem nenhum sinal e 9 com sinal fraco. A estrela já
+  é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
+  governança para saber quem aprova, e reabrir a janela de
+  `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](FILA.md)).
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado e
   na `main`** (PR #34, mergeada em 2026-09-25), conforme a
   [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
@@ -227,8 +237,12 @@ Medido em 2026-09-25, às 08:47:
   `development` do EAS e evidência do StoreKit) entraram em 2026-09-25, com a
   cabeça travada, por uma sessão na nuvem
   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
-  O relatório dessa sessão ainda não chegou à sessão local. Por isso, o que
-  ela decidiu sobre o defeito 1, o piloto e o F2 **não está registrado**.
+  O relatório dessa sessão foi registrado em 2026-09-25
+  ([guardado](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)):
+  - o F2 foi remedido;
+  - o defeito 1, o reembolso e a renovação desconhecida foram decididos
+    ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
+  - a amostra do piloto ficou **sem decisão**.
 - **O remoto tem só a `main`.** Os 25 branches já mergeados foram apagados em
   2026-09-25, por decisão do dono. A lista, com a ponta de cada um para
   restaurar, está em

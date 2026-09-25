@@ -1909,3 +1909,24 @@ git fetch origin && gh pr list --state open
 git worktree list
 for w in .claude/worktrees/*/; do echo "$w $(git -C $w status --porcelain | wc -l)"; done
 ```
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelo registro do relatório da sessão na nuvem e da D4 remedida:
+
+- **Android em produção** — exige 12 testadores **participando** por 14 dias
+  (F2). A última contagem é de **2026-08-03** (14 vinculados, 2 participando) e
+  não serve para decidir nada. Só o dono mede, no Play Console. Também abertos:
+  questionário IARC (E4), aparelho Android físico (C4) e TalkBack (C5).
+
+- **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
+  fatias (medido em 2026-08-08).
+
+   - **o defeito 1** espera a decisão do dono.
+
+  O relatório dessa sessão ainda não chegou à sessão local. Por isso, o que
+  ela decidiu sobre o defeito 1, o piloto e o F2 **não está registrado**.
+
+   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
+   ([ADR](../adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
