@@ -154,6 +154,15 @@ writePolicy:
     # proposito, a entrada saiu. Artefato de extracao e subproduto local — se
     # precisar entrar de novo, entra pela mesma porta: run proprio, anterior, e
     # com o motivo escrito.
+    # JANELA de 2026-09-25 para `Conteúdo/classificação`, na grafia do DISCO
+    # (`Conteúdo` em NFD, `classificação` em NFC), conferida com `find`. A
+    # entrada minuscula `conteúdo/classificação` acima e a grafia do git e nao
+    # casa com o disco. Proposito unico: a D4 — camada versionada de decisoes
+    # de revisao (`review-decisions.json`) e a regeneracao de
+    # `classifications.json` com as propostas do agente para os 19
+    # `needs-review`. Autorizada pelo dono em 2026-09-25. Fecha em run proprio
+    # assim que o proposito for cumprido.
+    - Conteúdo/classificação
     - .loop/project.yaml
 validators:
   - id: docs-contract
@@ -163,7 +172,8 @@ validators:
     timeoutMs: 120000
   - id: content-foundation
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
-      scripts/content/validate-foundation.mjs
+      scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node --test scripts/content/validate-foundation.test.mjs
     timeoutMs: 120000
   - id: content-wave1
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
@@ -192,7 +202,7 @@ validators:
       scripts/content/extract-source.test.py
       scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py
       scripts/content/calibration-report.test.py scripts/content/destination-state.test.py
-      scripts/content/sampling-queue.test.py; do python3 "$suite" || estado=1; done;
+      scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 "$suite" || estado=1; done;
       exit $estado'
     timeoutMs: 120000
   - id: app-quality
