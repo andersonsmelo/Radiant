@@ -366,5 +366,24 @@ class ClassifySourceTests(unittest.TestCase):
                     self.assertNotIn("reviewProposal", registro)
 
 
+    def test_classificacao_no_disco_esta_em_dia_com_o_classificador(self):
+        """Guarda de sincronia (2026-09-25). Uma decisao editada em
+        `review-decisions.json`, ou uma regra de vocabulario mudada, sem regerar
+        `classifications.json` deixava o disco dizendo outra coisa, e nenhum
+        gate via. Regerar num diretorio temporario e comparar byte a byte pega
+        as duas derivas."""
+        disco = REPO_ROOT / "conteúdo" / "classificação" / SOURCE_SLUG
+        with tempfile.TemporaryDirectory() as temp_dir:
+            MODULE.classify_source(SOURCE_SLUG, REPO_ROOT, Path(temp_dir) / SOURCE_SLUG, update_index=False)
+            for nome in ("classifications.json", "classification-job.json"):
+                with self.subTest(arquivo=nome):
+                    self.assertEqual(
+                        (Path(temp_dir) / SOURCE_SLUG / nome).read_bytes(),
+                        (disco / nome).read_bytes(),
+                        f"{nome} no disco nao bate com o classificador; regere com "
+                        f"python3 scripts/content/classify-source.py --source-slug {SOURCE_SLUG}",
+                    )
+
+
 if __name__ == "__main__":
     unittest.main()

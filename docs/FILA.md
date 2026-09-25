@@ -498,6 +498,10 @@ aparelho.
 >   16 conceitos.
 > - **Guardas religadas:** `validate-foundation.test.mjs`, vermelho desde
 >   2026-08-08, e `classify-source.test.py` agora rodam no `loop validate`.
+> - **Guarda de sincronia (2026-09-25):** o `classify-source.test.py` regera a
+>   classificação num diretório temporário e compara com o disco, byte a byte.
+>   Uma decisão editada, ou uma regra de vocabulário mudada, sem regerar passa a
+>   reprovar o `loop validate`. Vista falhando pelos dois defeitos.
 > - **Janela:** `Conteúdo/classificação` foi aberta em `f39ec65`, fechada em
 >   `b108651`, reaberta em `d152863` para as aprovações e fechada no run
 >   seguinte.
