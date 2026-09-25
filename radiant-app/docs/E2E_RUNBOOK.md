@@ -64,6 +64,31 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   see the welcome, so an unconditional tap would fail on them. Included by
   every flow above except `first-run.yaml` itself, which asserts the welcome
   directly.
+- **The three 1.4 golden paths** (spec 1.4, §8 item 6), added 2026-09-24. They
+  are the only flows that run `subflows/dismiss-dev-client.yaml` (below):
+  - `radiant-1-4-primeira-execucao.yaml`: clean install → welcome → "Começar"
+    → the four steps of L1 → the lesson summary → the trail with L1
+    `Concluído` and its review `Bloqueado`. Its end state is **day 1 of path
+    2**.
+  - `radiant-1-4-segundo-dia.yaml`: **real clock, no shortcut** (owner's
+    decision, 2026-09-24). It never clears state and never prepares its own:
+    it relaunches the app at least 24 h after `radiant-1-4-primeira-execucao`
+    ran on the same simulator, with no `clearState` flow in between, asserts
+    the due-review recommendation **before any tap**, and completes the review.
+    Run early, it fails at that first assertion — which is how it cannot pass
+    vacuously. The app has no clock or state injection (measured 2026-09-24),
+    and the review is due no sooner than 1 day (`MIN_INTERVAL_DAYS`).
+  - `radiant-1-4-vidas-esgotadas.yaml`: hearts run out the way they do for a
+    student — five wrong answers, one heart each, by redoing L1 from the trail.
+    The fifth zeroes the hearts at step 3 of 4, and the sheet rises mid-lesson.
+    The whole flow must fit the 30-minute refill (`REFILL_MIN`).
+- `subflows/dismiss-dev-client.yaml`: waits explicitly for the dev client's
+  launcher or its first-launch sheet, then dismisses whichever appeared. The
+  older flows guard the dev client with a one-shot `runFlow when visible`,
+  which **races** it: on 2026-09-24 (iPhone 17 / iOS 26.5, Debug + Metro, two
+  consecutive clean installs of the same binary) the sheet rose *after* the
+  guard had been skipped, covering the welcome, and the next run stopped at the
+  launcher instead. On a Release build both waits only cost their timeout.
 
 ## Current execution state
 
@@ -283,6 +308,23 @@ maestro test .maestro/offline-relaunch.yaml
 maestro test .maestro/reward-locked.yaml
 maestro test .maestro/reward-unlock.yaml
 ```
+
+The 1.4 golden paths have an **order**, because path 2 consumes the state path
+1 leaves behind:
+
+```sh
+maestro test .maestro/radiant-1-4-vidas-esgotadas.yaml   # clearState; ~8 min
+maestro test .maestro/radiant-1-4-primeira-execucao.yaml  # clearState; LAST today
+# ≥ 24 h later, same simulator, no clearState flow in between:
+maestro test .maestro/radiant-1-4-segundo-dia.yaml
+```
+
+On this host (Xcode 27 only) they run on the iOS 26.5 simulator, from the
+Debug build of the STATUS "Risco de build" procedure. `scripts/start-ios-v2.sh`
+ends in `npx expo start --ios`, and that `--ios` fails here with "Can't
+determine id of Simulator app" — the same Simulator lookup that hangs
+`expo run:ios`. Start Metro without it (2026-09-24). A Debug build needs Metro
+running for day 2 as well.
 
 The two reward flows are a pair and only mean something together: one asserts
 the node refuses collection while locked, the other that it yields after the
@@ -785,6 +827,20 @@ ruído é propriedade da máquina naquele momento, não do software sob teste.
 Registre `vm.swapusage` e `vm.loadavg` antes de concluir que a passagem serve.
 
 ## Sign-off matrix
+
+### 1.4 golden paths (spec §8 item 6) — measured 2026-09-24
+
+| Platform | Device/runtime | Build | Path 1 — first run to L1 | Path 2 — second day, review due | Path 3 — hearts out mid-lesson | Owner/date |
+|---|---|---|---:|---:|---:|---|
+| iOS | `iPhone 17` / iOS 26.5 | local **Debug** + Metro over `ab121ad`, binary `1.3.1` stamped 11:01:25, verified with `simctl get_app_container` | passed (131s) | **day 1 passed; day 2 pending** — runnable from 2026-09-25 11:55 (−03) | passed (496s) | engineering / 2026-09-24 |
+| Android | — | — | not run | not run | not run | — |
+
+Detail, the failed runs and the three app defects they exposed:
+[`2026-09-24-e2e-caminhos-dourados-1-4.md`](evidence/2026-09-24-e2e-caminhos-dourados-1-4.md).
+This is **not** a production-configuration measurement: Debug build, dev
+client, Metro. The matrix below is the 1.3.1 suite, not re-run here.
+
+### 1.3.1 suite
 
 | Platform | Device/runtime | Build | First-run welcome | Boot-to-home | Critical path | Offline relaunch | Store-capture | Rating prompt | Status | Owner/date |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|---|

@@ -1,0 +1,159 @@
+appId: com.ascendcreative.radiant
+name: Caminho dourado 3 — vidas acabando no meio da lição até a folha
+tags:
+  - golden-path
+  - radiant-1-4
+---
+# Spec 1.4 (2026-09-14), §8, item 6: "vidas acabando no meio da lição até a
+# folha".
+#
+# Sem atalho de estado: as vidas acabam do jeito que acabam para o aluno, errando.
+# Cada interação errada debita UMA vida (`LessonFlowScreen`, uma vez por
+# interação e por montagem da tela), e a L1 tem uma interação só — no passo 3 de
+# 4. Refazer a L1 pela trilha é o caminho que o próprio app oferece; o aluno que
+# erra cinco vezes seguidas é quem chega à folha.
+#
+# As quatro primeiras tentativas erram e concluem (5 → 1). Na quinta, o erro no
+# passo 3 zera as vidas com a lição ainda aberta — o passo seguinte não é o
+# último —, e a folha sobe no meio da lição.
+#
+# Recarga: uma vida a cada 30 min desde o primeiro débito (`REFILL_MIN`). O flow
+# inteiro precisa caber nesse prazo, ou a contagem das asserções diverge.
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: subflows/dismiss-dev-client.yaml
+- runFlow: subflows/dismiss-first-run.yaml
+- assertVisible: '^Fundamentos de Radiologia\. Próximo passo\.$'
+# Tentativa 1: 5 → 4 vidas.
+- tapOn: '^Fundamentos de Radiologia\. Próximo passo\.$'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '5 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Continuar
+- assertVisible: '4 de 5 vidas'
+- assertVisible: Vamos reforçar
+- tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+# Tentativa 2: 4 → 3 vidas.
+- tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '4 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Continuar
+- assertVisible: '3 de 5 vidas'
+- assertVisible: Vamos reforçar
+- tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+# Tentativa 3: 3 → 2 vidas.
+- tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '3 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Continuar
+- assertVisible: '2 de 5 vidas'
+- assertVisible: Vamos reforçar
+- tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+# Tentativa 4: 2 → 1 vidas.
+- tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '2 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Continuar
+- assertVisible: '1 de 5 vidas'
+- assertVisible: Vamos reforçar
+- tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+# Tentativa 5: 1 → 0 vidas.
+- tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '1 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Continuar
+# A folha sobe por cima da lição logo depois da resposta — no lugar do reforço
+# ("Vamos reforçar") e da conclusão que as quatro tentativas anteriores viram.
+# Ela abre pelo ramo "não é o último passo" do `LessonFlowScreen`: a lição está
+# aberta, sem desfecho registrado.
+#
+# A folha é modal (`accessibilityViewIsModal`): enquanto ela está aberta, o HUD
+# e o passo de trás saem da árvore de acessibilidade — medido em 2026-09-24.
+# Por isso "0 de 5 vidas" só é afirmado depois de fechá-la.
+- assertVisible: Suas vidas acabaram
+- assertVisible: '^Próxima vida em \d+ min$'
+- tapOn: Voltar
+# "Voltar" fecha a folha e devolve à trilha; as vidas continuam zeradas lá. Na
+# trilha o HUD é um botão, e o rótulo dele soma o prazo da próxima recarga.
+#
+# O estado da L1 aqui NÃO é afirmado, de propósito. Medido em 2026-09-24: a
+# lição concluída quatro vezes volta como "Continuar de onde parou" e o
+# cabeçalho cai para "0 de N etapas", porque `resolveNodeStatus` testa o nó
+# retomável antes do concluído. É defeito do app, registrado na FILA; afirmar o
+# comportamento atual o codificaria, e afirmar o correto deixaria este caminho
+# vermelho por algo que ele não existe para cobrir.
+- assertVisible: '^Fundamentos de Radiologia\. \d+ de \d+ etapas concluídas\.$'
+- assertVisible: '^0 de 5 vidas; próxima em \d+ minutos$'

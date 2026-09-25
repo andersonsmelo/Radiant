@@ -21,6 +21,11 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
 
 ## Registros
 
+- [Caminhos dourados da 1.4 — 2026-09-24](2026-09-24-e2e-caminhos-dourados-1-4.md)
+  — iOS 26.5, build Debug local sobre `ab121ad`: caminhos 1 e 3 `passed`;
+  caminho 2 escrito, com o dia 2 pendente de relógio real a partir de
+  2026-09-25 11:55. Três defeitos do app expostos e registrados na FILA.
+  Android não executado.
 - [Jornada P2 no iOS Release — 2026-08-14](2026-08-14-journey-p2-ios.md)
   — `passed` para os dois subcasos de revisão da Home e para o avanço automático
   de trilha, sobre build Release local com bundle embutido do commit `0ceff49`.

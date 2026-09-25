@@ -18,6 +18,9 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'store-capture.yaml',
   'student-checkpoint-no-duplicate-effect.yaml',
   'student-checkpoint-short-viewport.yaml',
+  'radiant-1-4-primeira-execucao.yaml',
+  'radiant-1-4-segundo-dia.yaml',
+  'radiant-1-4-vidas-esgotadas.yaml',
 ];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
@@ -518,6 +521,9 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
     'reward-unlock.yaml',
     'student-checkpoint-no-duplicate-effect.yaml',
     'student-checkpoint-short-viewport.yaml',
+    'radiant-1-4-primeira-execucao.yaml',
+    'radiant-1-4-segundo-dia.yaml',
+    'radiant-1-4-vidas-esgotadas.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
@@ -595,6 +601,9 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
     'rating-prompt.yaml',
     'reward-locked.yaml',
     'reward-unlock.yaml',
+    'radiant-1-4-primeira-execucao.yaml',
+    'radiant-1-4-segundo-dia.yaml',
+    'radiant-1-4-vidas-esgotadas.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
@@ -1001,4 +1010,118 @@ test('keeps one visibility bar per selector across every flow', async () => {
         .join(', ')} — the same element on the same screen must carry the same visibility bar in every flow`
     );
   }
+});
+
+test('ties the three 1.4 golden paths to the rules and copy they exist to exercise', async () => {
+  // Spec 1.4 (2026-09-14), §8, item 6: três caminhos dourados em E2E. Até
+  // 2026-09-24 nenhum deles existia, e o plano previa `.maestro/radiant-1-4-*`.
+  // Cada flow só prova alguma coisa enquanto afirmar o que a tela renderiza e
+  // enquanto o caminho que ele percorre for o que a regra do app descreve — por
+  // isso cada literal abaixo é lido da fonte, nunca repetido aqui.
+  const GOLDEN = [
+    'radiant-1-4-primeira-execucao.yaml',
+    'radiant-1-4-segundo-dia.yaml',
+    'radiant-1-4-vidas-esgotadas.yaml',
+  ];
+  const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const topLevel = (flow) => flow.split('\n').filter((line) => /^- /.test(line));
+
+  // Exatamente os três da spec: um quarto sem decisão, ou um a menos, reprova.
+  const present = (await listMaestroFlows()).filter((name) => name.startsWith('radiant-1-4-'));
+  assert.deepEqual(present, GOLDEN, 'the 1.4 golden paths are exactly the three of spec §8 item 6');
+
+  const [first, second, hearts, summary, card, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
+    ...GOLDEN.map((name) => readAppFile(`.maestro/${name}`)),
+    readAppFile('src/features/quiz/components/LessonSummary.tsx'),
+    readAppFile('src/features/journey/components/JourneyNodeCard.tsx'),
+    readAppFile('src/features/hearts/components/HeartsSheet.tsx'),
+    readAppFile('src/features/hearts/HeartsService.ts'),
+    readAppFile('src/data/lessons.ts'),
+    readAppFile('src/data/journey/defaultBlocks.ts'),
+    readAppFile('src/ui/components/HUD.tsx'),
+  ]);
+
+  // O dev client sobe o launcher ou a folha dele DEPOIS de um `runFlow when`
+  // avaliado uma vez só (medido em 2026-09-24): a espera explícita do subflow
+  // tem de ser o passo seguinte ao launch, em todos os três.
+  for (const [name, flow] of [[GOLDEN[0], first], [GOLDEN[1], second], [GOLDEN[2], hearts]]) {
+    const steps = topLevel(flow);
+    const launch = steps.findIndex((line) => line.startsWith('- launchApp:'));
+    assert.ok(launch >= 0, `${name}: expected a launchApp step`);
+    assert.equal(
+      steps[launch + 1],
+      '- runFlow: subflows/dismiss-dev-client.yaml',
+      `${name}: the dev-client wait must run right after launchApp — a one-shot "when visible" guard races the dev client`
+    );
+  }
+
+  // Caminho 1 — instalação limpa até a L1 concluída, na copy da conclusão.
+  assert.match(first, /^\s+clearState: true$/m, 'path 1 is a first run, so it must start from a clean install');
+  const subtitle = summary.match(/<Text style=\{styles\.subtitle\}>([^<]+)<\/Text>/)?.[1];
+  assert.ok(subtitle, 'expected LessonSummary to render a subtitle');
+  assert.match(first, new RegExp(`^- assertVisible: ${escapeForRegExp(subtitle)}$`, 'm'));
+  assert.match(summary, /`Próxima revisão em \$\{nextReviewInDays\} \$\{nextReviewInDays === 1 \? 'dia' : 'dias'\}`/);
+  // Sem o número: o texto arredonda para cima a diferença entre dois relógios
+  // e já disse "2 dias" para 24 h + 1 ms (medido em 2026-09-24, defeito na FILA).
+  assert.match(first, /^- assertVisible: '\^Próxima revisão em \\d\+ \(dia\|dias\)\$'$/m);
+  const reviewTitle = blocks.match(/eyebrow: 'Revisão',\s*title: `Revisar \$\{lesson1\.title\}`/);
+  assert.ok(reviewTitle, 'expected the lesson-1 review block to be titled "Revisar ${lesson1.title}"');
+  assert.match(card, /default:\s*return 'Bloqueado';/);
+  // O fim do caminho 1 é o dia 1 do caminho 2: a revisão agendada e fechada.
+  assert.match(first, /^- assertVisible: '\^Revisar Fundamentos de Radiologia\\\. Bloqueado\\\.\$'$/m);
+
+  // Caminho 2 — relógio real. Sem clearState, e a revisão devida é a PRIMEIRA
+  // coisa afirmada, antes de qualquer toque: rodado antes das 24 h, ele reprova
+  // ali em vez de passar vazio.
+  // Só a CHAVE conta: o comentário do flow explica o clearState e não pode
+  // nem satisfazer nem reprovar esta guarda.
+  assert.doesNotMatch(second, /^\s+clearState:/m, 'path 2 starts from the state path 1 left one day earlier; clearing it makes day 2 unreachable');
+  const dueCopy = card.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
+  assert.ok(dueCopy, 'expected JourneyNodeCard to announce a due review');
+  const secondSteps = topLevel(second);
+  const firstAssertion = secondSteps.find((line) => line.startsWith('- assertVisible:'));
+  const firstTap = secondSteps.findIndex((line) => line.startsWith('- tapOn:'));
+  assert.ok(
+    firstAssertion?.includes(`Revisar Fundamentos de Radiologia\\. ${dueCopy}`),
+    'path 2 must assert the due-review recommendation first'
+  );
+  assert.ok(
+    secondSteps.indexOf(firstAssertion) < firstTap,
+    'path 2 must assert the due review before it taps anything'
+  );
+
+  // Caminho 3 — as vidas acabam errando, sem atalho: um toque errado por vida.
+  const maxHearts = Number(heartsService.match(/export const MAX_HEARTS = (\d+);/)?.[1]);
+  assert.ok(maxHearts > 0, 'expected HeartsService to export MAX_HEARTS');
+  const q1 = lessons.match(/id: 'q1',[\s\S]*?correctAnswerIndex: (\d+),/);
+  assert.ok(q1, 'expected lesson q1 to declare its correct answer');
+  const q1Correct = Number(q1[1]);
+  const taps = [...hearts.matchAll(/^- tapOn:\n\s+id: lesson-option-q1:option:(\d+)$/gm)].map((match) => Number(match[1]));
+  assert.equal(taps.length, maxHearts, `path 3 must answer exactly MAX_HEARTS (${maxHearts}) times — one heart per wrong answer`);
+  for (const option of taps) {
+    assert.notEqual(option, q1Correct, 'every answer in path 3 must be wrong, or it spends no heart');
+  }
+  // A última resposta errada zera as vidas com a lição aberta: as anteriores
+  // chegam ao reforço, a última não.
+  assert.equal(
+    [...hearts.matchAll(/^- assertVisible: Vamos reforçar$/gm)].length,
+    maxHearts - 1,
+    'only the attempts before the last one reach the reinforce step'
+  );
+  const emptyTitle = sheet.match(/snapshot\.count === 0 \? '([^']+)'/)?.[1];
+  assert.ok(emptyTitle, 'expected HeartsSheet to title the empty state');
+  const sheetAt = hearts.indexOf(`- assertVisible: ${emptyTitle}`);
+  const lastTapAt = hearts.lastIndexOf('id: lesson-option-q1:option:');
+  assert.ok(sheetAt > lastTapAt, 'the empty-hearts sheet must be asserted after the last wrong answer');
+  // A folha é modal: o HUD de trás sai da árvore enquanto ela está aberta, então
+  // as vidas zeradas só são afirmáveis depois de fechá-la.
+  // Na trilha o HUD é botão e o rótulo soma o prazo da recarga (`HUD.tsx`).
+  assert.match(hud, /`\$\{visibleHearts\} de \$\{maxHearts\} vidas\$\{minutes === null \? '' : `; próxima em \$\{minutes\} minutos`\}`/);
+  const closeAt = hearts.indexOf('- tapOn: Voltar', sheetAt);
+  const zeroAt = hearts.indexOf(`- assertVisible: '^0 de ${maxHearts} vidas; próxima em \\d+ minutos$'`);
+  assert.ok(
+    zeroAt >= 0,
+    'on the trail the hearts HUD is a button whose label adds the refill ETA — assert "0 de N vidas; próxima em … minutos", not the bare count'
+  );
+  assert.ok(closeAt > sheetAt && zeroAt > closeAt, 'assert the emptied hearts only after the modal sheet is closed');
 });

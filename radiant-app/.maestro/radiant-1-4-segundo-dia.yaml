@@ -1,0 +1,46 @@
+appId: com.ascendcreative.radiant
+name: Caminho dourado 2 — segundo dia com revisão devida
+tags:
+  - golden-path
+  - radiant-1-4
+  - real-clock
+---
+# Spec 1.4 (2026-09-14), §8, item 6: "segundo dia com revisão devida".
+#
+# PRÉ-CONDIÇÃO — relógio real, sem atalho. Este flow NÃO prepara o próprio
+# estado: ele parte do fim do `radiant-1-4-primeira-execucao.yaml`, rodado no
+# MESMO simulador pelo menos 24 horas antes, sem clearState no meio. O app não
+# oferece injeção de relógio nem de estado (medido em 2026-09-24), e a revisão
+# vence no mínimo 1 dia depois da lição (`SR_SAFETY_CAPS.MIN_INTERVAL_DAYS`).
+# Decidido pelo dono em 2026-09-24: relógio real em duas partes, em vez de
+# editar o armazenamento do app por fora.
+#
+# Rodado antes das 24 horas, ele REPROVA na primeira asserção — a revisão
+# ainda está "Bloqueado". É o comportamento pretendido: sem clearState, o flow
+# não tem como passar vazio.
+- launchApp:
+    permissions:
+      all: deny
+- runFlow: subflows/dismiss-dev-client.yaml
+# Revisão devida vence o checkpoint na recomendação (`NextNodeResolver`), e o
+# nó recomendado anuncia o motivo no lugar do estado.
+- assertVisible: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
+- tapOn: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
+- assertVisible: 'Passo 1 de 3'
+- assertVisible: 'Retome rapidamente o conceito central antes de seguir adiante.'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q2:option:2
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q2:option:2
+- tapOn: Continuar
+- assertVisible: Resposta correta
+- tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^Revisar Fundamentos de Radiologia\. Concluído\.$'

@@ -1,0 +1,61 @@
+appId: com.ascendcreative.radiant
+name: Caminho dourado 1 — primeira execução até a conclusão da L1
+tags:
+  - golden-path
+  - radiant-1-4
+---
+# Spec 1.4 (2026-09-14), §8, item 6: "primeira execução até a conclusão da L1".
+# Instalação limpa → apresentação do Pixel → "Começar" → os quatro passos da L1
+# → tela de conclusão → trilha com a L1 concluída.
+#
+# O fim do flow é também o DIA 1 do caminho 2: a L1 concluída agenda a revisão
+# para dali a 1 dia, e a trilha ainda a mostra bloqueada. O
+# `radiant-1-4-segundo-dia.yaml` parte deste estado, sem clearState.
+- launchApp:
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: subflows/dismiss-dev-client.yaml
+- assertVisible: '^Tela 1 de 3\. Oi, eu sou o Pixel\..*$'
+- tapOn: 'Continuar'
+- assertVisible: '^Tela 2 de 3\. Trilha, quiz e revisão\..*$'
+- tapOn: 'Continuar'
+- assertVisible: '^Tela 3 de 3\. Funciona offline, sem conta\..*$'
+- tapOn: 'Começar'
+- assertVisible: 'Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade.'
+- assertVisible: 'Passo 1 de 4'
+- assertVisible: '5 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:1
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:1
+- tapOn: Continuar
+- assertVisible: Resposta correta
+# Acerto não debita vida.
+- assertVisible: '5 de 5 vidas'
+- tapOn: Concluir e voltar
+# A conclusão é um estado da tela da lição desde a 1.4; antes, o último passo
+# devolvia o aluno à aba em silêncio.
+- assertVisible: A lição foi concluída
+- assertVisible: 1 de 1 corretas
+# O número de dias NÃO é afirmado. Medido em 2026-09-24 (1 de 3 execuções):
+# o texto disse "2 dias" para uma revisão que vence em exatas 24 h, porque o
+# cartão do SM-2 carimba o próprio relógio 1 ms depois do `answeredAt`, e
+# `Math.ceil` transforma esse milissegundo num dia (`LessonFlowScreen`).
+# Defeito do app, registrado na FILA. O agendamento real (+24 h) é o que o
+# caminho 2 mede.
+- assertVisible: '^Próxima revisão em \d+ (dia|dias)$'
+- tapOn: Continuar
+# De volta à trilha: a L1 concluída e a revisão dela agendada, ainda fechada.
+# A contagem de etapas fica em `\d+` porque depende do catálogo, não do flow.
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: '^Revisar Fundamentos de Radiologia\. Bloqueado\.$'
