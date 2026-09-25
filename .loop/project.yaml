@@ -154,15 +154,14 @@ writePolicy:
     # proposito, a entrada saiu. Artefato de extracao e subproduto local — se
     # precisar entrar de novo, entra pela mesma porta: run proprio, anterior, e
     # com o motivo escrito.
-    # JANELA de 2026-09-25 para `Conteúdo/classificação`, na grafia do DISCO
-    # (`Conteúdo` em NFD, `classificação` em NFC), conferida com `find`. A
-    # entrada minuscula `conteúdo/classificação` acima e a grafia do git e nao
-    # casa com o disco. Proposito unico: a D4 — camada versionada de decisoes
-    # de revisao (`review-decisions.json`) e a regeneracao de
-    # `classifications.json` com as propostas do agente para os 19
-    # `needs-review`. Autorizada pelo dono em 2026-09-25. Fecha em run proprio
-    # assim que o proposito for cumprido.
-    - Conteúdo/classificação
+    # A janela de 2026-09-25 para `Conteúdo/classificação`, na grafia do DISCO
+    # (`Conteúdo` em NFD, `classificação` em NFC), foi ABERTA em f39ec65 e
+    # FECHADA aqui, cumprido o proposito. Autorizada pelo dono em 2026-09-25,
+    # para a D4. Ela entregou em e054755 o `review-decisions.json`, lido por
+    # `classify-source.py`, e as 19 propostas do agente, que continuam
+    # `needs-review` ate um revisor aprovar. Aprovar uma proposta muda
+    # `review-decisions.json` e regera `classifications.json`, entao reabre esta
+    # janela pela mesma porta: run proprio, anterior, e com o motivo escrito.
     - .loop/project.yaml
 validators:
   - id: docs-contract
