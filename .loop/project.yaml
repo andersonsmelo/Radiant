@@ -162,6 +162,11 @@ writePolicy:
     # `needs-review` ate um revisor aprovar. Aprovar uma proposta muda
     # `review-decisions.json` e regera `classifications.json`, entao reabre esta
     # janela pela mesma porta: run proprio, anterior, e com o motivo escrito.
+    # REABERTA em 2026-09-25, pela mesma porta, porque o dono aprovou na
+    # conversa as propostas da D4 e a criacao do planeta de radioterapia.
+    # Proposito unico: aprovar as decisoes em `review-decisions.json` e regerar
+    # `classifications.json`. Fecha em run proprio assim que isso estiver feito.
+    - Conteúdo/classificação
     - .loop/project.yaml
 validators:
   - id: docs-contract
