@@ -1959,3 +1959,42 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
 
    A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
    conserto é do agente.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela abertura das PRs #35 a #37 e pelo prompt (5):
+
+   A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
+   corrigida em 2026-09-25 no branch `fix/renovacao-desconhecida`, sem push,
+   com o gate em 151 suítes / 1434 testes
+   ([relatório](../superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
+
+     no branch `fix/defeito-1-licao-concluida`, sem push. Foi visto na tela, e o
+     gate deu 151 suítes / 1430 testes
+
+- **O remoto tem só a `main`.** Os 25 branches já mergeados foram apagados em
+  2026-09-25, por decisão do dono. A lista, com a ponta de cada um para
+  restaurar, está em
+  [`release/2026-09-25-branches-remotos-apagados.md`](../release/2026-09-25-branches-remotos-apagados.md).
+  Os branches locais deste Mac ficaram.
+- **Prompt de continuidade** da sessão local:
+  [`2026-09-24-radiant-prompt-de-continuidade-3.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
+  Os itens 1 e 7 dele já não estão pendentes: o merge e a regra de vidas. Do
+  item 14, só falta o simulador da H4.
+- **Simuladores:**
+  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
+    tela, por decisão do dono;
+  - o `E3C547AE-…` já cumpriu o dia 2, em 2026-09-25, e está livre. Rodar o
+    caminho 2 de novo exige repetir o dia 1 e esperar 24 h.
+
+**Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24, com o
+aval do dono, e o histórico local de runs dela foi junto.
+- A afirmação anterior de que ela tinha 4 alterações não commitadas não valia
+  mais: medido em 2026-09-24 às 21:22, não havia nada rastreado alterado.
+- Os 4 arquivos que ela tinha, fora do git, eram cópias idênticas, conferidas
+  por hash, dos subprodutos das extrações do checkout principal.
+
+Continuam em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a
+`sharp-dijkstra-747d12` e a `trusting-mestorf-a5ca83`, cada uma com runs do
+Loop que o git ignora. A `Radiant-release` está numa `main` local antiga
+(`21c42b6`), e quem for usá-la começa por `git pull`.

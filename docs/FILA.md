@@ -130,7 +130,7 @@ Nenhum bloqueia a 1.4. Os detalhes estão na
 Cada conserto é um run, com teste vermelho antes.
 
 1. ✅ **Estado de renovação desconhecido aparecia como "Cancelada"** —
-   corrigido em 2026-09-25, no branch `fix/renovacao-desconhecida`, sem push e
+   corrigido em 2026-09-25, na PR #37 (`fix/renovacao-desconhecida`), à espera de merge, e
    sem build, pela opção 2A da
    [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
    ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
@@ -165,6 +165,14 @@ Cada conserto é um run, com teste vermelho antes.
      infinitas, e as abas visitadas continuam montadas;
    - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
      Reduzir Movimento, idealmente numa build `preview`.
+6. **O eas-cli do projeto está velho** (medido em 2026-09-24): o fixado é o
+   16.32, e o atual é o 24.7.
+   - **O que aconteceu:** ele imprimiu "Build request failed" com a build já
+     criada no EAS.
+   - **Para o próximo que disparar uma build:** confira o `eas build:list`
+     antes de tentar de novo.
+   - **Conserto candidato:** atualizar a dependência e fixar a versão em
+     `cli.version` no `eas.json`, num run próprio.
 
 ### AGENTE — o que sobrou da Task 8
 
@@ -184,7 +192,7 @@ Cada conserto é um run, com teste vermelho antes.
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:
    - ✅ **Lição concluída volta como "Continuar de onde parou"** — corrigido
-     em 2026-09-25, no branch `fix/defeito-1-licao-concluida`, sem push e sem
+     em 2026-09-25, na PR #36 (`fix/defeito-1-licao-concluida`), à espera de merge, sem
      build, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
