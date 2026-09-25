@@ -12,6 +12,10 @@ conversa e vai para a próxima, como o prompt previa.
 | 2. Segundo dia com revisão devida | `radiant-1-4-segundo-dia.yaml` | **passed**: dia 1 em 2026-09-24, e dia 2 em 2026-09-25 às 13:20–13:22 (−03), com relógio real, cerca de 116 s |
 | 3. Vidas acabando no meio da lição até a folha | `radiant-1-4-vidas-esgotadas.yaml` | **passed**, 495,9 s |
 
+> **Superado em 2026-09-25:** o caminho 2 passou, e a condição de pronto está
+> inteira (veja o complemento no fim). O parágrafo abaixo registra o estado de
+> 2026-09-24.
+
 A condição de pronto do prompt **não está inteira**: o caminho 2 ainda não tem
 verde. Ele depende de relógio real, por decisão do dono nesta conversa: o app
 não tem injeção de relógio nem de estado, e a revisão vence no mínimo 1 dia
@@ -94,6 +98,15 @@ evidência que ele não dá.
 - Gate H4.
 
 ## Para a próxima sessão
+
+> **Superada em 2026-09-25. Não execute esta lista.**
+> - **O item 1 está feito:** o dia 2 passou (complemento abaixo). Rodá-lo de
+>   novo exige repetir o dia 1 e esperar 24 h.
+> - **O item 2 está fechado:** a H4 fechou em 2026-09-24.
+> - **O item 3 também:** os defeitos 2 e 3 estão na `main` (PR #34), e o 1
+>   está na PR #36.
+>
+> O estado vivo está no `STATUS.md` e na `FILA.md`.
 
 1. **A partir de 2026-09-25 11:55 (−03):** subir o Metro (Node 20, `start-ios-v2.sh`
    sem `--ios`) e rodar `maestro test .maestro/radiant-1-4-segundo-dia.yaml`
