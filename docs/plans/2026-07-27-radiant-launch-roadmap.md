@@ -1404,6 +1404,20 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
+  **E2E dos três caminhos dourados (2026-09-24 e 2026-09-25):** os três
+  estão `passed` no simulador iOS 26.5. O dia 2 do caminho 2 rodou em
+  2026-09-25, com relógio real
+  ([evidência](../../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md)).
+  Os defeitos que ele expôs:
+  - **2 e 3:** na `main` pela PR #34;
+  - **1**, a lição concluída que voltava como "Continuar de onde parou":
+    corrigido em 2026-09-25 pela opção A da
+    [ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
+    na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36)
+    ([relatório](../superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
+
+  Android e aparelho físico não foram executados.
+
   **Aparelho (2026-09-24):**
   - build `development` `ac4b49df`, que foi a primeira compilação real do
     Swift;
