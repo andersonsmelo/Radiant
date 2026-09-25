@@ -1820,3 +1820,92 @@ Medido em 2026-09-24:
   criticidade:
   [`2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
 
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela atualização depois dos merges #32 a #34, da limpeza do remoto e da compra anual:
+
+A `main` está **139 commits e 274 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..ab121ad`).
+
+1. **Dono:** StoreKit no aparelho. **Em 2026-09-24, o build `development`
+   compilou o Swift e abriu num iPhone com iOS 27.2.** No sandbox passaram:
+   - preços, com R$ 19,90 e R$ 149,90;
+   - compra mensal;
+   - renovação acelerada e expiração;
+   - reinstalação.
+
+   Falta:
+   - compra anual;
+   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
+   - Ask to Buy;
+   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
+     pela [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+
+   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
+   ([ADR](../adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+
+2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
+   `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
+   relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
+   defeitos do app ([FILA](../FILA.md), item 4 da Task 8). Em 2026-09-24, os
+   defeitos 2 e 3 foram corrigidos no branch local `fix/e2e-defeitos-2-e-3`,
+   sem push e fora da `main`, e esse branch passou no gate com 148 suítes / 1379 testes
+   ([relatório](../superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
+   Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
+   o gate H4. O defeito 1 espera a decisão do dono.
+   **Em 2026-09-24, à noite, as duas branches locais foram enviadas ao
+   GitHub.** A `fix/e2e-defeitos-2-e-3` tem 15 commits além da `main`,
+   contando o do prompt (4). O merge vai de cima para baixo: #32 →
+   documentação → `fix/e2e-defeitos-2-e-3`. Ele e as decisões que não
+   precisam do Mac ficam para uma sessão na nuvem
+   ([prompt (4)](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
+
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado em
+  2026-09-24** no branch `fix/e2e-defeitos-2-e-3`, que ainda não está na
+  `main`, conforme a [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
+  - os dois defeitos da primeira passagem foram corrigidos (texto do checkpoint
+    e texto grande) e reconferidos no simulador;
+  - gate do branch: 150 suítes / 1415 testes, exit 0
+    ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) foi
+    implementada no mesmo branch em 2026-09-24, sem conferência no simulador.
+    Gate medido depois dela, no Node 20: 151 suítes / 1423 testes, exit 0
+    ([relatório](../superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+  - o VoiceOver em aparelho segue aberto na [FILA](../FILA.md).
+
+## Repositório
+
+Medido em 2026-09-24, no fim do dia:
+- `origin/main` está em `ab121ad`.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados e o CI verde.
+- **Em cima dela há duas branches locais, sem push:**
+  - `docs/prompt-continuidade-2026-09-24-2`, com o prompt (2);
+  - `fix/e2e-defeitos-2-e-3`, com os defeitos 2 e 3 do E2E, a H4 fechada, a
+    ADR e o prompt (3).
+
+  O push é do dono.
+- **O remoto tem 22 branches já mergeados na `main`.** O único que não foi
+  mergeado é o da #32. Apagá-los é decisão do dono.
+- Prompt de continuidade, com todas as tarefas pendentes em ordem de
+  criticidade:
+  [`2026-09-24-radiant-prompt-de-continuidade-3.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
+- **Simuladores:**
+  - o `A5FA5443-…` foi criado para o gate H4, e o estado dele foi pré-montado;
+  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
+    reinstalado nem limpo** antes do dia 2.
+
+**As quatro worktrees em `.claude/worktrees/` ficam** (eram cinco; a
+`confident-hamilton-4d3b96` já não existe, medido em 2026-09-24). Cada uma
+guarda runs do Loop em `.loop/runs/`, que o git ignora, e remover a worktree
+apagaria essa evidência. A `zealous-shannon-01c8e3` tem 4 alterações não
+commitadas (`AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e um script de
+conteúdo): **não descarte sem o dono**. A worktree `Radiant-release` está numa
+`main` local antiga (`21c42b6`), e quem for usá-la começa por `git pull`.
+
+```bash
+git fetch origin && gh pr list --state open
+git worktree list
+for w in .claude/worktrees/*/; do echo "$w $(git -C $w status --porcelain | wc -l)"; done
+```

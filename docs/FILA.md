@@ -91,9 +91,10 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      - planos e preços da Apple (R$ 19,90 e R$ 149,90);
      - compra mensal, tela e cartão de assinante, e ∞ no HUD;
      - renovação acelerada e expiração sozinha, voltando a 5 vidas;
-     - reinstalar o app e reconhecer a assinatura sem Restaurar.
+     - reinstalar o app e reconhecer a assinatura sem Restaurar;
+     - **compra anual, em 2026-09-25**: a folha dizia "R$ 149,90 por ano", e
+       depois apareceram o ∞ e o cartão de assinante.
    - **falta:**
-     - compra **anual**;
      - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
        gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
        do iOS;
@@ -141,7 +142,17 @@ Cada conserto é um run, com teste vermelho antes.
 3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
    cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
    alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
-4. **Aquecimento com a build `development`** (relatado, não medido):
+   **Medido em 2026-09-24:** quem já assina **não consegue trocar de plano**
+   dentro do app, porque a tela de assinante não mostra os planos. A troca
+   pela Apple passa pelos Ajustes, que fecham no iOS 27.2. A mesma folha
+   resolveria a troca e o cancelamento.
+4. **A ordem dos planos muda de um dia para o outro** (medido em 2026-09-24 e
+   2026-09-25): num dia o mensal veio primeiro, e no outro, o anual. O app não
+   ordena a lista e usa a ordem em que `Product.products(for:)` devolve os
+   produtos, que a Apple não garante (`RadiantStoreKitModule.swift:65`). O
+   conserto candidato é uma ordem fixa no adaptador, com teste. A ordem certa
+   é decisão do dono.
+5. **Aquecimento com a build `development`** (relatado, não medido):
    - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
      infinitas, e as abas visitadas continuam montadas;
    - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
@@ -178,14 +189,14 @@ Cada conserto é um run, com teste vermelho antes.
      retomável, ou a retomada de lição concluída é mostrada sem desfazer a
      contagem? Promessa ao usuário, então o dono escolhe.
    - ✅ **"Próxima revisão em 2 dias" para revisão a 24 h** — corrigido em
-     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build: a contagem
+     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build: a contagem
      parte do carimbo do cartão quando esta resposta o carimbou
      (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
      defeito (esperado 1, recebido 2). Conferido na tela em 2026-09-24, num
      segundo simulador, durante o gate H4: "Próxima revisão em 1 dia"
      ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
    - ✅ **Resumo de vidas cortado na trilha** — corrigido em 2026-09-24, no
-     branch `fix/e2e-defeitos-2-e-3`, sem build: o resumo vai sob os corações,
+     branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build: o resumo vai sob os corações,
      não ao lado (`HUD.tsx`, `heartsControlContent` em coluna). Teste visto
      vermelho pelo defeito (esperado `column`, recebido `row`). Conferido na
      tela em 2026-09-24, num segundo simulador, durante o gate H4: o botão de
@@ -376,13 +387,13 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
 **Defeitos abertos pela H4, um run cada, com teste vermelho antes:**
 1. ✅ **O texto do checkpoint prometia a avaliação antiga** — corrigido em
-   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build. O texto sai dos
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build. O texto sai dos
    itens e do limiar reais (`checkpoint/checkpointRuleCopy.ts`, com a mesma
    conta de `UnitCheckpointService`): "Responda as 2 questões. Para avançar,
    acerte todas." e "A aprovação exige 2 acertos." Teste de tela visto vermelho
    pelo defeito: a árvore mostrava "Responda 10 questões" e "exige 8 acertos".
 2. ✅ **Tamanhos de acessibilidade quebravam a trilha e o checkpoint** —
-   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build.
+   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build.
    Acima de `fontScale` 1,3 (`ui/accessibility/useLargeTextLayout.ts`):
    - a trilha vira uma coluna, com a linha à esquerda e os cartões a 85%, sem
      limite de linhas;
@@ -411,7 +422,7 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    parte ("Fundame / ntos"), como no texto nativo do iOS.
 
 3. ✅ **Pergunta cobrada duas vezes na mesma tentativa** — corrigido em
-   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build, depois do ok do
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build, depois do ok do
    dono na ADR dado na própria conversa. O `Set` em memória da tela virou
    `checkpoint/checkpointChargeLedger.ts`:
    - grava, por nó de checkpoint, só os ids das perguntas já cobradas, na chave
