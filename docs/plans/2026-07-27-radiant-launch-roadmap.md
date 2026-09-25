@@ -1399,8 +1399,19 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
 - **K6 [PARCIAL — CloudKit validado em aparelho em 2026-09-16; Sentry mínimo
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
-  2026-09-23, sem build]** Ligar StoreKit 2, iCloud e Sentry; medir E2E,
-  acessibilidade, desempenho e tamanho antes de qualquer submissão.
+  2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
+  em 2026-09-24, com cancelamento, anual, Ask to Buy e VoiceOver pendentes]**
+  Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
+  tamanho antes de qualquer submissão.
+
+  **Aparelho (2026-09-24):**
+  - build `development` `ac4b49df`, que foi a primeira compilação real do
+    Swift;
+  - passaram: preços da Apple, compra mensal, renovação acelerada, expiração
+    e reinstalação;
+  - achados na FILA: "Cancelada" para estado desconhecido, preço de outra loja
+    até recarregar, "Gerenciar" sem gerenciamento e aquecimento
+    ([evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

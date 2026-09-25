@@ -48,10 +48,23 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 **O que falta para a 1.4 sair** — detalhe e dono de cada item na
 [`FILA.md`](FILA.md#prioridade--a-14-desenhada-em-2026-09-14):
 
-1. **Dono:** build interno `development` com o módulo StoreKit (primeira
-   compilação real do Swift) e teste de compra no sandbox. No mesmo aparelho,
-   o VoiceOver no checkpoint e na trilha, que saiu da H4 por decisão de
-   2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)).
+1. **Dono:** StoreKit no aparelho. **Em 2026-09-24, o build `development`
+   compilou o Swift e abriu num iPhone com iOS 27.2.** No sandbox passaram:
+   - preços, com R$ 19,90 e R$ 149,90;
+   - compra mensal;
+   - renovação acelerada e expiração;
+   - reinstalação.
+
+   Falta:
+   - compra anual;
+   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
+   - Ask to Buy;
+   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
+     pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+
+   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
+   ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
 2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
    `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
    relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
@@ -61,7 +74,8 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
    Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
    o gate H4. O defeito 1 espera a decisão do dono.
-   **Em 2026-09-24, o branch tem 10 commits além da `main`, e nenhum tem push.**
+   **Em 2026-09-24, à noite, o branch tem 13 commits além da `main`, e nenhum
+   tem push.**
    O merge vai de cima para baixo: #32 → documentação → `fix/e2e-defeitos-2-e-3`.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
@@ -103,8 +117,9 @@ organização configurada. Só `preview`, `production` e `checkpoint-internal`
 desligavam o envio. Desde então o `development` também o desliga, e
 `development-simulator` e `e2e-test` herdam. Há um contrato
 (`scripts/maestro-contract.test.mjs`) que exige isso de todo perfil,
-com a herança resolvida. **Não se sabe ainda se o Swift compila:** o log do
-Xcode dessa build não estava disponível para download.
+com a herança resolvida. **A segunda build (`ac4b49df`, commit `fd0c630`)
+compilou** e abriu num iPhone com iOS 27.2 em 2026-09-24. É a primeira build
+com a imagem fixada que chega a um aparelho com iOS 27.
 
 Medições, custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).

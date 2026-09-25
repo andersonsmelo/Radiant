@@ -78,31 +78,74 @@ da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
 
 O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 
-1. **Build interno `development`** com `modules/radiant-storekit` — é a
-   primeira compilação real do Swift, que até aqui só passou em checagem de
-   tipos com stub do ExpoModulesCore. **Primeira tentativa, em 2026-09-24:**
-   reprovou no `sentry-cli`, e não no Swift, porque o perfil não desligava o
-   upload de source maps. Corrigido no `eas.json`, com contrato. Falta rodar
-   de novo.
-2. **Sandbox no TestFlight**, ou o arquivo `.storekit` sincronizado pelo Xcode
-   (*Sync with App Store Connect*) em
-   `radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit`,
-   escolhido à mão no esquema do Xcode depois do prebuild (plano §1.2). Roteiro:
-   compra mensal e anual, Ask to Buy, Restaurar, renovação acelerada,
-   reembolso, e **abrir em modo avião** para medir se `willRenew` responde sem
-   rede — se o cartão disser "Cancelada", a copy precisa de decisão.
+1. ✅ **Build interno `development`** com `modules/radiant-storekit` —
+   **compilado e aberto num iPhone com iOS 27.2 em 2026-09-24**
+   (build `ac4b49df`, commit `fd0c630`, imagem do Xcode 26). É a primeira
+   compilação real do Swift. A primeira tentativa reprovou no `sentry-cli`,
+   e não no Swift, e foi corrigida no `eas.json`, com contrato
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+2. **Sandbox, parcial em 2026-09-24,** com uma conta de testador do Brasil e
+   renovação a cada 5 minutos
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)):
+   - **medido:**
+     - planos e preços da Apple (R$ 19,90 e R$ 149,90);
+     - compra mensal, tela e cartão de assinante, e ∞ no HUD;
+     - renovação acelerada e expiração sozinha, voltando a 5 vidas;
+     - reinstalar o app e reconhecer a assinatura sem Restaurar.
+   - **falta:**
+     - compra **anual**;
+     - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
+       gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
+       do iOS;
+     - tocar em **Restaurar compras**, que importa para quem troca de
+       aparelho.
+   - **reembolso:** o app não tem a entrada `beginRefundRequest`, que é a
+     única forma de pedir reembolso no sandbox. **O dono decide** se o item
+     sai do roteiro ou se o app ganha a entrada.
+   - **modo avião:** saiu do roteiro por decisão do dono em 2026-09-24
+     ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md)).
 4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
    ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 5). Planos e
    Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
    botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
-   um aprovado dentro das 24 h.
+   um aprovado dentro das 24 h. **Continua aberto em 2026-09-24:** precisa de
+   um grupo familiar no sandbox (App Store Connect → Sandbox →
+   Compartilhamento Familiar).
 5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
    [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
    com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
    reforço, aprovação) e o HUD da trilha com vidas em recarga. Saiu da H4 porque
    o simulador não roda VoiceOver; a árvore medida está na
    [evidência da H4](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md).
+
+### AGENTE — achados do StoreKit no aparelho (2026-09-24)
+
+Nenhum bloqueia a 1.4. Os detalhes estão na
+[evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md).
+Cada conserto é um run, com teste vermelho antes.
+
+1. **Estado de renovação desconhecido aparece como "Cancelada"** (lido no
+   código, não medido):
+   - `willAutoRenew` devolve `nil` quando o iOS não informa a renovação;
+   - o `StoreKit2Adapter.ts:41` converte isso em `false`;
+   - o assinante pagante vê "Cancelada".
+
+   Conserto candidato: tratar o desconhecido como estado próprio, com um texto
+   sem data de renovação. **O texto é decisão do dono.**
+2. **Preço de outra loja até o app recarregar** (medido):
+   - os preços carregados antes do login ficaram em dólar, enquanto a Apple
+     cobrava em reais;
+   - o módulo não observa a troca de loja (`Storefront.updates`);
+   - afeta só quem troca a conta da App Store com o app aberto.
+3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
+   cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
+   alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
+4. **Aquecimento com a build `development`** (relatado, não medido):
+   - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
+     infinitas, e as abas visitadas continuam montadas;
+   - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
+     Reduzir Movimento, idealmente numa build `preview`.
 
 ### AGENTE — o que sobrou da Task 8
 
