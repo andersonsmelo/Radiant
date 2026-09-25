@@ -163,3 +163,36 @@ nesta passagem.
 **A cadeia continua desatualizada, e só registrada.** Regerada hoje, ela
 aprovaria os 16 conceitos. Continua valendo que isso não muda o app.
 
+## Vocabulário de radioterapia: medido, não aplicado (2026-09-25)
+
+Medido em rascunho, com a classificação de máquina antes das decisões, sobre os
+105 excertos.
+
+| Variante | Excertos que mudam | O que acontece |
+| --- | --- | --- |
+| Palavras-chave só no planeta | **0** | Os textos nunca chegam à galáxia de tecnologia |
+| Planeta e galáxia, peso 4,4 (a escala dos outros termos) | 2 | p32:c1 vai para radioterapia; p31:c2 passa de `approved` a `needs-review` |
+| Planeta e galáxia, peso 8,0 | 5 | p30, p31:c2 e p32:c1 vão para radioterapia; p29:c1 e p32:c2 passam a `needs-review`; p31:c1 fica onde está |
+
+**O achado que vale mais que o vocabulário:** seis excertos citam termos de
+radioterapia, e **três deles estão `approved` pela máquina no lugar errado**:
+
+| Excerto | Assunto | Onde está hoje |
+| --- | --- | --- |
+| p31:c1 | Acelerador linear | física / formação da imagem |
+| p31:c2 | Aceleradores lineares contra cobalto-60 | física / radiopacidade |
+| p32:c2 | Braquiterapia e radioisótopos | física / física da radiação |
+
+O p29:c1 mistura medicina nuclear com o começo do tema de radioterapia.
+
+É a mesma classe do p32: aprovado, mas no endereço errado. Nenhuma contagem de
+`needs-review` o mostra.
+
+**Não aplicado, e por quê:** escolher o peso olhando os mesmos 105 excertos é
+o ajuste "pela manchete" que a FILA já registrou em 2026-08-08.
+
+**Recomendação do agente, que espera o dono:**
+- propor, no `review-decisions.json`, o destino desses quatro excertos, para o
+  dono aprovar como aprovou os 18;
+- deixar o vocabulário para quando houver uma segunda fonte para testá-lo.
+

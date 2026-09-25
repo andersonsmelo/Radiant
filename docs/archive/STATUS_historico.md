@@ -2029,3 +2029,19 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
     tela, por decisão do dono;
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela atualização de fim de sessão e pelo prompt (6):
+
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) está na
+    mesma PR, sem conferência no simulador. O gate do branch deu 151 suítes /
+    1423 testes, no Node 20
+    ([relatório](../superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+- **PRs abertas, medido em 2026-09-25 às 14:51.** O merge vai nesta ordem,
+  porque cada uma está empilhada sobre a anterior:
+- **O remoto tem só a `main` e os três branches acima.** Os 25 branches já
+  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
+- **Prompt de continuidade:**
+  [`2026-09-25-radiant-prompt-de-continuidade-5.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
+  Ele substitui o (3) e o (4).

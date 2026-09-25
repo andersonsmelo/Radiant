@@ -1433,6 +1433,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   - achados na FILA: "Cancelada" para estado desconhecido, preço de outra loja
     até recarregar, "Gerenciar" sem gerenciamento e aquecimento
     ([evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+  - **em 2026-09-25:**
+    - o eas-cli foi para 24.8.0, com a versão mínima fixada no `eas.json`
+      (achado 6);
+    - o aquecimento foi medido de forma indireta no simulador: ~94 % de um
+      núcleo com as animações e 0,4 % com Reduzir Movimento
+      ([medição](../../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md)).
+      Falta o aparelho (achado 5).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

@@ -516,6 +516,12 @@ aparelho.
 >   16 conceitos.
 > - **Guardas religadas:** `validate-foundation.test.mjs`, vermelho desde
 >   2026-08-08, e `classify-source.test.py` agora rodam no `loop validate`.
+> - **DONO — decidir (2026-09-25):** o vocabulário de radioterapia foi
+>   medido e **não aplicado**. A medição achou 3 excertos de radioterapia
+>   aprovados pela máquina no lugar errado (p31:c1, p31:c2 e p32:c2) e um misto
+>   (p29:c1). O agente recomenda propor destino para os quatro no
+>   `review-decisions.json` e deixar o vocabulário para uma segunda fonte.
+>   Detalhe na [medição](content/2026-09-25-d4-propostas-e-cascata.md).
 > - **Guarda de sincronia (2026-09-25):** o `classify-source.test.py` regera a
 >   classificação num diretório temporário e compara com o disco, byte a byte.
 >   Uma decisão editada, ou uma regra de vocabulário mudada, sem regerar passa a

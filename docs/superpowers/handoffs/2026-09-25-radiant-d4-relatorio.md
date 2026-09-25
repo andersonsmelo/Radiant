@@ -80,8 +80,11 @@ continua válida, mas o motivo é outro: a cadeia não governa o app.
 - **Dono, que pediu mais informação:**
   - como representar uma exclusão (p1);
   - o que a D4 ainda bloqueia, dado o V3.
-- **Agente:** a PR das 21 h de 2026-09-25, com este branch. Ele está empilhado
-  sobre a #37.
-- **Não feito:** o `validate-foundation` não confere se o
-  `review-decisions.json` e o `classifications.json` estão em dia um com o
-  outro. Uma decisão editada sem regerar passa pelo gate.
+- **PR:** a de 2026-09-25 não foi aberta, por decisão do dono. O branch está no
+  remoto, empilhado sobre a #37.
+- **Dono — decidir:** o vocabulário de radioterapia foi medido e não aplicado.
+  A medição achou três excertos de radioterapia aprovados pela máquina no lugar
+  errado (p31:c1, p31:c2 e p32:c2) e um misto (p29:c1). Detalhe na
+  [medição](../../content/2026-09-25-d4-propostas-e-cascata.md).
+- **Feito depois deste relatório:** a guarda de sincronia entre
+  `review-decisions.json` e a classificação (`ed876b9`).

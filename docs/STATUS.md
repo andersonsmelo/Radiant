@@ -116,6 +116,11 @@ como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
 - o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
   2027.
 
+**O eas-cli do projeto é o 24.8.0** desde 2026-09-25, no branch
+`feat/d4-decisoes-de-revisao`, e o `cli.version` do `eas.json` exige
+`>= 24.8.0`. O 16.32 imprimia "Build request failed" com a build já criada.
+**Ainda não passou por uma build real** ([FILA](FILA.md), achado 6).
+
 **A primeira build `development` da 1.4 no EAS reprovou** em 2026-09-24
 (`0a545c74-…`, commit `c4be0c8`), com `XCODE_BUILD_ERROR`. A causa não foi o
 Swift do StoreKit: foi o `sentry-cli`, que tentou enviar os source maps sem
@@ -180,9 +185,11 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
     e texto grande) e reconferidos no simulador
     ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
   - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) está na
-    mesma PR, sem conferência no simulador. O gate do branch deu 151 suítes /
-    1423 testes, no Node 20
-    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+    mesma PR
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md))
+    e foi **conferida no simulador em 2026-09-25**, em cinco cenários, pela tela
+    e pelo AsyncStorage
+    ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md));
   - o VoiceOver em aparelho segue aberto na [FILA](FILA.md).
 
 ## Defeito conhecido
@@ -250,8 +257,8 @@ Medido em 2026-09-25, às 08:47:
   - o defeito 1, o reembolso e a renovação desconhecida foram decididos
     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
   - a amostra do piloto ficou **sem decisão**.
-- **PRs abertas, medido em 2026-09-25 às 14:51.** O merge vai nesta ordem,
-  porque cada uma está empilhada sobre a anterior:
+- **PRs abertas, remedido em 2026-09-25 às 17:43; nenhuma entrou.** O merge vai
+  nesta ordem, porque cada uma está empilhada sobre a anterior:
   1. [#35](https://github.com/andersonsmelo/Radiant/pull/35), `docs/estado-2026-09-25`:
      estado do dia, relatório da nuvem, ADR e E2E completo. CI verde;
   2. [#36](https://github.com/andersonsmelo/Radiant/pull/36), `fix/defeito-1-licao-concluida`:
@@ -262,13 +269,20 @@ Medido em 2026-09-25, às 08:47:
 
   As três apontam para a `main`. A #36 e a #37 mostram também os commits das
   anteriores até elas entrarem.
-- **O remoto tem só a `main` e os três branches acima.** Os 25 branches já
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
+  enviado ao remoto em 2026-09-25. Leva a D4, a guarda de sincronia, o eas-cli
+  e as evidências da regra de vidas e do aquecimento.
+- **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
+  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
+  PR de 2026-09-25 ainda não foi aberta, por decisão dele.
+- **O remoto tem a `main`, os três branches acima e o da D4** (medido às
+  17:43). Os 25 branches já
   mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
   ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-25-radiant-prompt-de-continuidade-5.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
-  Ele substitui o (3) e o (4).
+  [`2026-09-25-radiant-prompt-de-continuidade-6.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).
+  Ele substitui o (5).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25
