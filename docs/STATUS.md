@@ -271,7 +271,11 @@ Medido em 2026-09-25, às 08:47:
   anteriores até elas entrarem.
 - **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
   enviado ao remoto em 2026-09-25. Leva a D4, a guarda de sincronia, o eas-cli
-  e as evidências da regra de vidas e do aquecimento.
+  e as evidências da regra de vidas e do aquecimento. O aquecimento ganhou, às
+  18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
+  núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
+  ~42 % para ~66 % ([evidência](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md),
+  [FILA](FILA.md), achado 5).
 - **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
   **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
   PR de 2026-09-25 ainda não foi aberta, por decisão dele.

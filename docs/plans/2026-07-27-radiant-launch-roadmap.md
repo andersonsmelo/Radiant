@@ -1440,6 +1440,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
       núcleo com as animações e 0,4 % com Reduzir Movimento
       ([medição](../../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md)).
       Falta o aparelho (achado 5).
+    - na segunda passagem, no mesmo dia, o custo foi isolado: é quase todo um
+      piso por fundo animado (uma estrela só custa 28 %), e a aba visitada
+      continua montada e animando (~42 % → ~66 %). O conserto ficou como item
+      do agente na FILA
+      ([relatório](../superpowers/handoffs/2026-09-25-radiant-aquecimento-isolado-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

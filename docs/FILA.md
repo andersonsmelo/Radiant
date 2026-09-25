@@ -167,10 +167,26 @@ Cada conserto é um run, com teste vermelho antes.
      novo. Na trilha, só o `StarfieldBackground` tem animação infinita que
      obedece a essa preferência
      ([medição](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md));
+   - **isolado no simulador em 2026-09-25, às 18:06** (segunda passagem da
+     [medição](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md)):
+     - uma estrela só já custa 28 %; as 120 estrelas custam 39 %, e as 3
+       nebulosas, 30 %. O custo é quase todo um **piso por fundo animado**, e
+       não o número de estrelas;
+     - **a aba visitada continua montada e animando.** O log mostrou o
+       segundo fundo montar e nenhum desmontar, e a CPU foi de ~42 % para
+       ~66 % depois de passar pelo Perfil;
+     - a primeira passagem deu ~94 % e esta ~42 %, na mesma tela. Compare só
+       dentro da mesma passagem;
    - **falta, com o dono:** o aparelho, fora do carregador, 5 minutos com e
-     sem Reduzir Movimento, idealmente numa build `preview`;
-   - **falta, do agente:** isolar estrelas de nebulosas e medir se as abas
-     visitadas continuam montadas.
+     sem Reduzir Movimento, idealmente numa build `preview`, anotando por
+     quais abas e telas passou antes;
+   - **AGENTE, conserto (aberto em 2026-09-25):** parar a animação do fundo
+     quando a tela sai de foco e medir de novo, M1 e M4, na mesma passagem.
+     Candidatos: `freezeOnBlur` nas abas, que não alcança as abas cobertas
+     por uma tela empilhada, ou o `StarfieldBackground` pausar com
+     `useIsFocused`, que alcançaria as duas situações (inferido; as telas
+     empilhadas não foram medidas). Um run, com teste vermelho antes. Ficou
+     fora da medição por decisão do dono.
 6. ✅ **eas-cli atualizado em 2026-09-25**, de 16.32 para **24.8.0**, no
    branch `feat/d4-decisoes-de-revisao`. Em 2026-09-24 ele tinha impresso
    "Build request failed" com a build já criada no EAS.

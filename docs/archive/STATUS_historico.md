@@ -2045,3 +2045,11 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
 - **Prompt de continuidade:**
   [`2026-09-25-radiant-prompt-de-continuidade-5.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
   Ele substitui o (3) e o (4).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela segunda passagem do aquecimento no simulador:
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
+  enviado ao remoto em 2026-09-25. Leva a D4, a guarda de sincronia, o eas-cli
+  e as evidências da regra de vidas e do aquecimento.

@@ -79,7 +79,7 @@ git switch --no-track -c <nova> origin/main
 | 6 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | Depende do 5 |
 | 7 | **D4, três decisões** | dono | Ele pediu mais informação sobre (a) e (b); as opções estão na §4.1 |
 | 8 | **Aquecimento no aparelho** | dono, com o agente | 5 min fora do carregador, com e sem Reduzir Movimento, de preferência numa build `preview` |
-| 9 | **Aquecimento: isolar estrelas de nebulosas** e medir se as abas visitadas continuam montadas | agente | **Destravado.** No simulador, com o método da evidência |
+| 9 | ~~**Aquecimento: isolar estrelas de nebulosas** e medir se as abas visitadas continuam montadas~~ | agente | ✅ **Feito em 2026-09-25, às 18:06.** Não refaça. O conserto virou item novo na FILA, achado 5 ([relatório](2026-09-25-radiant-aquecimento-isolado-relatorio.md)) |
 | 10 | **XP da aprovação do checkpoint** | agente | Visto e não investigado: a tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
 | 11 | **Caminho 3 do E2E afirma o estado da L1** | agente | Depende do merge da #36; detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
 | 12 | **Decisões do StoreKit:** "Gerenciar" e troca de plano, ordem dos planos, preço de outra loja | dono → agente | Achados 2 a 4 da FILA |
@@ -90,8 +90,9 @@ git switch --no-track -c <nova> origin/main
 
 **Qual frente pegar agora:**
 - se o dono já tiver respondido a D4 (item 7), aplique a resposta;
-- se não, pegue o **item 9**, que é curto e só depende do simulador;
-- o item 10 pode entrar numa conversa à parte.
+- ~~se não, pegue o **item 9**~~: feito em 2026-09-25, às 18:06;
+- se não, pegue o **conserto do aquecimento** (parar o fundo fora de foco), da
+  FILA, achado 5, ou o **item 10**. Um por conversa.
 
 ## 4. Frentes em detalhe
 
