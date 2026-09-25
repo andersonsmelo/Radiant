@@ -3,6 +3,31 @@ import { StyleSheet } from 'react-native';
 import { act, render } from '@testing-library/react-native';
 import { PixelHeroSplit } from './PixelHeroSplit';
 
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+type HostNode = ReturnType<ReturnType<typeof render>['getByText']>;
+function hostAncestors(node: HostNode): HostNode[] {
+  const chain: HostNode[] = [];
+  for (let current: HostNode | null = node.parent; current; current = current.parent) {
+    if (typeof current.type === 'string') chain.push(current);
+  }
+  return chain;
+}
+function sharedHostAncestor(a: HostNode, b: HostNode): HostNode | undefined {
+  const fromB = new Set(hostAncestors(b));
+  return hostAncestors(a).find((node) => fromB.has(node));
+}
+
+
 const PROPS = {
   eyebrow: 'Jornada de Radiologia',
   message: 'Vamos continuar de onde você parou.',
@@ -101,5 +126,28 @@ describe('PixelHeroSplit — o balão nasce da boca', () => {
 
     // Ainda montado: quem desmonta é o onHidden, no fim do recolhimento.
     expect(node.getByTestId('journey-hero-bubble')).toBeTruthy();
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): no AX5 o balão, espremido ao lado da coluna
+// do personagem, partia cada palavra em sílabas ("Va / mo / s / co / nfe /
+// rir"). Com texto grande o balão vai para baixo do personagem e ocupa a
+// largura toda; no tamanho padrão a composição lado a lado continua.
+describe('PixelHeroSplit — texto grande', () => {
+  function direction(screen: ReturnType<typeof render>) {
+    const shared = sharedHostAncestor(
+      screen.getByText(PROPS.eyebrow),
+      screen.getByText(PROPS.message),
+    );
+    return StyleSheet.flatten(shared?.props.style)?.flexDirection;
+  }
+
+  it('empilha o balão sob o personagem nos tamanhos de acessibilidade', () => {
+    mockWindow.fontScale = 3.1;
+    expect(direction(render(<PixelHeroSplit {...PROPS} />))).toBe('column');
+  });
+
+  it('mantém o balão ao lado do personagem no tamanho padrão', () => {
+    expect(direction(render(<PixelHeroSplit {...PROPS} />))).toBe('row');
   });
 });

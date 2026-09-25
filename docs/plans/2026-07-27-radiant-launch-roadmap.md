@@ -1196,7 +1196,7 @@ entrega a fundação que aqueles itens passam a consumir.
   Na primeira execução, faltavam 20 amostras antes/depois no mesmo perfil,
   kill/relaunch, VoiceOver/TalkBack e viewport curto antes de fechar; os itens
   posteriores estão reconciliados na seção H3 acima.
-- **H4 [P0 — ENGENHARIA CONCLUÍDA EM 2026-08-13; GATE EM APARELHO A REGISTRAR]** O domínio de checkpoint/reforço e a
+- **H4 [P0 — ✅ FECHADA EM 2026-09-24, NO BRANCH `fix/e2e-defeitos-2-e-3`; VOICEOVER EM APARELHO VIROU ITEM DA 1.4]** O domínio de checkpoint/reforço e a
   passagem pelo kernel recuperável foram entregues: nota de peso igual, 80%
   inclusivo, erro crítico não compensável, dois ciclos estritos, `support-required`
   apenas no terceiro insucesso e falha fechada para legado. Um candidato textual
@@ -1220,6 +1220,23 @@ entrega a fundação que aqueles itens passam a consumir.
   evidência e os dois desfechos do checkpoint. Não reabrir revisão editorial sem
   mudança material. Falta registrar apenas a passagem da experiência em aparelho
   antes de declarar H4 integralmente fechada e devolver a sequência a G3/G4.
+  **2026-09-24:** gate percorrido num segundo iPhone 17 (iOS 26.5), com o
+  progresso anterior pré-montado por decisão do dono. Aprovação, reforço e
+  retomada sem persistir respostas (modo `off`) medidos; texto grande
+  **reprovado** nos tamanhos de acessibilidade; texto do checkpoint prometendo
+  "10 questões"/"8 acertos" para avaliações de 2 itens; VoiceOver real não
+  exercitado. Dois defeitos abertos na FILA
+  ([evidência](../../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
+  Decisão do dono, mesma data ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):
+  H4 fecha com os dois consertos; VoiceOver em aparelho vira item próprio da 1.4;
+  cada pergunta do checkpoint custa no máximo uma vida por tentativa.
+  **Fechamento, mesma data:** texto do checkpoint (`6b76bc7`) e texto grande
+  (`de397b6`, `9ddea97`) corrigidos com teste vermelho antes e reconferidos no
+  simulador em AX5, AX1 e padrão; gate do branch 150 suítes / 1415 testes.
+  **Regra de vidas, mesma data:** cada pergunta do checkpoint custa no máximo
+  uma vida por tentativa, com os ids cobrados persistidos por nó e apagados no
+  envio; três testes de tela vistos vermelhos antes; gate 151 suítes / 1423
+  testes; não conferida no simulador.
 - **H5 [P0]** Usar `beta-checkpoint-local-v1.jsonl` como evidência sanitizada do
   beta local/offline de G5, contendo somente `LocalCheckpointEventV1`, sem
   exigir API ou conta.
@@ -1382,8 +1399,19 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   72 testes focados, typecheck e lint; nenhuma integração nativa foi ativada.
 - **K6 [PARCIAL — CloudKit validado em aparelho em 2026-09-16; Sentry mínimo
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
-  2026-09-23, sem build]** Ligar StoreKit 2, iCloud e Sentry; medir E2E,
-  acessibilidade, desempenho e tamanho antes de qualquer submissão.
+  2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
+  em 2026-09-24, com cancelamento, anual, Ask to Buy e VoiceOver pendentes]**
+  Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
+  tamanho antes de qualquer submissão.
+
+  **Aparelho (2026-09-24):**
+  - build `development` `ac4b49df`, que foi a primeira compilação real do
+    Swift;
+  - passaram: preços da Apple, compra mensal, renovação acelerada, expiração
+    e reinstalação;
+  - achados na FILA: "Cancelada" para estado desconhecido, preço de outra loja
+    até recarregar, "Gerenciar" sem gerenciamento e aquecimento
+    ([evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

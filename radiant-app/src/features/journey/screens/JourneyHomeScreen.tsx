@@ -23,6 +23,7 @@ import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -135,6 +136,18 @@ export default function JourneyHomeScreen() {
     return { title: segment.trackTitle, ...computeSegmentPrimaryProgress(segment.units) };
   }, [trail, snapshot?.nextRecommendedNode?.id, snapshot?.track.title]);
 
+  // Com texto grande, o cabeçalho fixo acima da trilha ocupava a tela inteira:
+  // a trilha ficava com altura zero e o CTA ia para baixo da barra de abas
+  // (achado 2 do gate H4, em AX5). Ali ele passa a rolar junto com a trilha.
+  const largeText = useLargeTextLayout();
+  const stageHeader = (
+    <JourneyStageHeader
+      title={currentStage.title}
+      completed={currentStage.completed}
+      total={currentStage.total}
+    />
+  );
+
   const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
 
   const openNode = useCallback(async (node: JourneyNode) => {
@@ -189,13 +202,10 @@ export default function JourneyHomeScreen() {
           </View>
         ) : (
           <View style={styles.content}>
-            <JourneyStageHeader
-              title={currentStage.title}
-              completed={currentStage.completed}
-              total={currentStage.total}
-            />
+            {largeText ? null : stageHeader}
 
             <JourneyTrail
+              header={largeText ? stageHeader : undefined}
               segments={trail?.segments ?? []}
               recommendedNodeId={snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId}
               recommendationReason={snapshot?.nextDecision?.reason}

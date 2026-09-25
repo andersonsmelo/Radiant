@@ -1762,3 +1762,61 @@ evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em
 `AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e num script de conteúdo —
 **não descarte sem o dono**. Apagar os branches remotos já mergeados também é
 decisão do dono.
+
+---
+
+Trecho da seção "O que falta para a 1.4 sair" do `STATUS.md` substituído, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24:
+
+   relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
+   defeitos do app, abertos na [FILA](../FILA.md), item 4 da Task 8.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24, pelo gate H4:
+
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na
+  `main` desde 2026-08-13; falta percorrer a experiência no simulador ou aparelho.
+
+   O defeito 1 espera a decisão do dono.
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só o link relativo reajustado ao novo diretório), em 2026-09-24, pela ADR da H4:
+
+  acessibilidade; VoiceOver real não exercitado. Dois defeitos abertos na
+  [FILA](../FILA.md); fechar é decisão do dono
+  ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-24, pelo fechamento da H4:
+
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — percorrido no
+  simulador em 2026-09-24 e **não fechado**: aprovação, reforço e retomada sem
+  persistir respostas medidos; texto grande reprovado nos tamanhos de
+  acessibilidade; VoiceOver real não exercitado
+  ([relatório](../superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md)).
+  Decidido em 2026-09-24 ([ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): fecha com os
+  dois defeitos corrigidos, e o VoiceOver em aparelho vira item próprio da 1.4.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-24, pela atualização do fim do dia:
+
+A `main` está **127 commits e 268 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..3343eca`).
+   o gate H4. O defeito 1 espera a decisão do dono.
+
+## Repositório
+
+Medido em 2026-09-24:
+- `origin/main` está em `ab121ad`.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados, e a de documentação
+  deste estado vai empilhada sobre ela.
+- Os branches remotos já mergeados continuam no remoto: `docs/continuidade-2026-09-24`,
+  `pesquisa/ios27-xcode-eas`, `docs/android-verificacao-chave-eas` e
+  `docs/status-repositorio-e-prompt-e2e`. Apagá-los é decisão do dono.
+- Prompt de continuidade, com todas as tarefas pendentes em ordem de
+  criticidade:
+  [`2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
+

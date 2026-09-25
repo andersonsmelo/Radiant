@@ -1,10 +1,23 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 import Svg from 'react-native-svg';
 import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.types';
 import { HUD } from './HUD';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
 
 jest.mock('../accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: jest.fn(() => false),
@@ -390,5 +403,81 @@ describe('HUD — identidade dos ícones', () => {
     rerender(<HUD totalXp={20} streakDays={1} hearts={5} />);
 
     expect(reanimated.withDelay).not.toHaveBeenCalled();
+  });
+});
+
+// Defeito 3 do E2E de 2026-09-24: na trilha, com vidas em recarga, o resumo
+// `0 · +1 em 24 min` ia na MESMA linha dos cinco corações e o HUD passava da
+// borda direita do iPhone 17 (nó até x=443 em 402 pt). O Jest não mede layout,
+// então a asserção fica no valor que decide a largura: a direção do contêiner
+// comum aos corações e ao resumo. Em linha, as larguras se somam; em coluna, vale
+// a maior delas.
+describe('HUD — resumo de vidas cabe na largura da trilha', () => {
+  type Node = ReturnType<ReturnType<typeof render>['getByText']>;
+
+  const ancestors = (node: Node) => {
+    const chain: Node[] = [];
+    for (let current: Node | null = node.parent; current; current = current.parent) {
+      chain.push(current);
+    }
+    return chain;
+  };
+
+  it('empilha o resumo sob os corações, e não ao lado deles', () => {
+    const screen = render(
+      <HUD
+        totalXp={10}
+        streakDays={1}
+        hearts={0}
+        heartsSnapshot={{
+          count: 0,
+          status: 'empty',
+          nextRefillAt: '2026-09-14T12:24:00.000Z',
+          unlimitedUntil: null,
+        }}
+        nowMs={Date.parse('2026-09-14T12:00:00.000Z')}
+        onHeartsPress={jest.fn()}
+      />,
+    );
+
+    const summary = screen.getByText('0 · +1 em 24 min', { includeHiddenElements: true });
+    const heart = screen.getByTestId('hud-heart-0', { includeHiddenElements: true });
+    for (let i = 1; i < 5; i += 1) {
+      expect(screen.getByTestId(`hud-heart-${i}`, { includeHiddenElements: true })).toBeTruthy();
+    }
+
+    const heartAncestors = new Set(ancestors(heart));
+    const shared = ancestors(summary).find(
+      (node) => typeof node.type === 'string' && heartAncestors.has(node),
+    );
+
+    expect(shared).toBeDefined();
+    expect(StyleSheet.flatten(shared?.props.style)?.flexDirection).toBe('column');
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): no AX5 o nó de vidas ia até x=577 numa tela
+// de 402 pt e os corações saíam da tela. O HUD é cromo persistente: o número
+// completo está no rótulo do leitor de tela e na folha de vidas, então os
+// textos dele param de crescer no maior tamanho padrão (XXXL), onde ele cabe.
+describe('HUD — texto grande', () => {
+  it('limita a escala dos textos do HUD ao maior tamanho padrão, e não abaixo dele', () => {
+    mockWindow.fontScale = 3.1;
+    const screen = render(
+      <HUD
+        totalXp={90}
+        streakDays={1}
+        hearts={3}
+        heartsSnapshot={{ count: 3, status: 'recovering', nextRefillAt: '2026-09-14T12:15:00.000Z', unlimitedUntil: null }}
+        nowMs={Date.parse('2026-09-14T12:00:00.000Z')}
+        onHeartsPress={jest.fn()}
+      />,
+    );
+
+    for (const text of ['90', '1d', '3 · +1 em 15 min']) {
+      const multiplier = screen.getByText(text, { includeHiddenElements: true }).props.maxFontSizeMultiplier;
+      expect(multiplier).toBeGreaterThanOrEqual(1.35);
+      expect(multiplier).toBeLessThanOrEqual(1.4);
+    }
   });
 });

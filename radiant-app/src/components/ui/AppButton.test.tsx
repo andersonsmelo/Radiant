@@ -3,6 +3,18 @@ import { StyleSheet } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 import { AppButton } from './AppButton';
 
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+
 jest.mock('../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: () => false,
 }));
@@ -94,5 +106,30 @@ describe('AppButton — retorno tátil', () => {
 
     fireEvent.press(getByRole('button', { name: 'Continuar' }));
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): no AX5 o CTA da trilha virava "Continuar i",
+// porque o botão tinha altura fixa de 56 pt e o rótulo não tinha para onde ir.
+// A altura passa a ser mínima: o rótulo quebra linha e o botão cresce.
+describe('AppButton — texto grande', () => {
+  it('não fixa a altura, mas mantém o alvo de toque mínimo', () => {
+    mockWindow.fontScale = 3.1;
+    const { getByRole } = render(<AppButton label="Continuar jornada" onPress={jest.fn()} />);
+    const style = StyleSheet.flatten(getByRole('button').props.style);
+
+    expect(style.height).toBeUndefined();
+    expect(style.minHeight).toBeGreaterThanOrEqual(44);
+  });
+
+  // Em AX5 o rótulo a 3,1× partia "checkpoint" em "checkpoi / nt". Rótulo de
+  // botão é curto e cresce até 2×; o botão acompanha em altura.
+  it('deixa o rótulo crescer além do cromo, mas não mais que 2×', () => {
+    mockWindow.fontScale = 3.1;
+    const { getByText } = render(<AppButton label="Iniciar checkpoint" onPress={jest.fn()} />);
+    const multiplier = getByText('Iniciar checkpoint').props.maxFontSizeMultiplier;
+
+    expect(multiplier).toBeGreaterThan(1.35);
+    expect(multiplier).toBeLessThanOrEqual(2);
   });
 });

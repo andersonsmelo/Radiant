@@ -329,6 +329,25 @@ test('keeps active checkpoints confined to the dedicated internal profile', asyn
   assert.equal(eas.build['e2e-test'].env.EXPO_PUBLIC_STUDENT_CHECKPOINT_MODE, undefined);
 });
 
+// Sem a variável, a fase do Xcode tenta enviar os source maps ao Sentry e a
+// build reprova por falta de organização. Foi o que derrubou a primeira build
+// `development` da 1.4 no EAS, em 2026-09-24: o perfil nunca tinha compilado lá
+// depois da entrada do Sentry, e só `preview`, `production` e
+// `checkpoint-internal` desligavam o envio.
+test('every EAS build profile disables the Sentry source map upload, inheritance resolved', async () => {
+  const eas = JSON.parse(await readAppFile('eas.json'));
+  const resolveEnv = (name) => {
+    const profile = eas.build[name];
+    return { ...(profile.extends ? resolveEnv(profile.extends) : {}), ...(profile.env ?? {}) };
+  };
+
+  const missing = Object.keys(eas.build).filter(
+    (name) => resolveEnv(name).SENTRY_DISABLE_AUTO_UPLOAD !== 'true',
+  );
+
+  assert.deepEqual(missing, []);
+});
+
 test('keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path', async () => {
   const [active, baseline] = await Promise.all([
     readAppFile('.maestro/student-checkpoint-active-resume.yaml'),

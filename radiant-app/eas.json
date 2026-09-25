@@ -13,7 +13,8 @@
         "EXPO_PUBLIC_ENABLE_TELEMETRY_DEBUG_SCREEN": "true",
         "EXPO_PUBLIC_ENABLE_BETA_GATE": "true",
         "EXPO_PUBLIC_ENABLE_LEARNING_ROAD": "true",
-        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false"
+        "EXPO_PUBLIC_ENABLE_REMOTE_SYNC": "false",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       },
       "ios": {
         "image": "macos-sequoia-15.6-xcode-26.0"

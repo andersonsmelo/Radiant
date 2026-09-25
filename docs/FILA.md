@@ -47,7 +47,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md), que traz todas as pendências em ordem de criticidade;
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md), que traz todas as pendências em ordem de criticidade;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -78,22 +78,74 @@ da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
 
 O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
 
-1. **Build interno `development`** com `modules/radiant-storekit` — é a
-   primeira compilação real do Swift, que até aqui só passou em checagem de
-   tipos com stub do ExpoModulesCore.
-2. **Sandbox no TestFlight**, ou o arquivo `.storekit` sincronizado pelo Xcode
-   (*Sync with App Store Connect*) em
-   `radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit`,
-   escolhido à mão no esquema do Xcode depois do prebuild (plano §1.2). Roteiro:
-   compra mensal e anual, Ask to Buy, Restaurar, renovação acelerada,
-   reembolso, e **abrir em modo avião** para medir se `willRenew` responde sem
-   rede — se o cartão disser "Cancelada", a copy precisa de decisão.
+1. ✅ **Build interno `development`** com `modules/radiant-storekit` —
+   **compilado e aberto num iPhone com iOS 27.2 em 2026-09-24**
+   (build `ac4b49df`, commit `fd0c630`, imagem do Xcode 26). É a primeira
+   compilação real do Swift. A primeira tentativa reprovou no `sentry-cli`,
+   e não no Swift, e foi corrigida no `eas.json`, com contrato
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+2. **Sandbox, parcial em 2026-09-24,** com uma conta de testador do Brasil e
+   renovação a cada 5 minutos
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)):
+   - **medido:**
+     - planos e preços da Apple (R$ 19,90 e R$ 149,90);
+     - compra mensal, tela e cartão de assinante, e ∞ no HUD;
+     - renovação acelerada e expiração sozinha, voltando a 5 vidas;
+     - reinstalar o app e reconhecer a assinatura sem Restaurar.
+   - **falta:**
+     - compra **anual**;
+     - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
+       gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
+       do iOS;
+     - tocar em **Restaurar compras**, que importa para quem troca de
+       aparelho.
+   - **reembolso:** o app não tem a entrada `beginRefundRequest`, que é a
+     única forma de pedir reembolso no sandbox. **O dono decide** se o item
+     sai do roteiro ou se o app ganha a entrada.
+   - **modo avião:** saiu do roteiro por decisão do dono em 2026-09-24
+     ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md)).
 4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
    ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 5). Planos e
    Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
    botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
-   um aprovado dentro das 24 h.
+   um aprovado dentro das 24 h. **Continua aberto em 2026-09-24:** precisa de
+   um grupo familiar no sandbox (App Store Connect → Sandbox →
+   Compartilhamento Familiar).
+5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
+   [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
+   com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
+   reforço, aprovação) e o HUD da trilha com vidas em recarga. Saiu da H4 porque
+   o simulador não roda VoiceOver; a árvore medida está na
+   [evidência da H4](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md).
+
+### AGENTE — achados do StoreKit no aparelho (2026-09-24)
+
+Nenhum bloqueia a 1.4. Os detalhes estão na
+[evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md).
+Cada conserto é um run, com teste vermelho antes.
+
+1. **Estado de renovação desconhecido aparece como "Cancelada"** (lido no
+   código, não medido):
+   - `willAutoRenew` devolve `nil` quando o iOS não informa a renovação;
+   - o `StoreKit2Adapter.ts:41` converte isso em `false`;
+   - o assinante pagante vê "Cancelada".
+
+   Conserto candidato: tratar o desconhecido como estado próprio, com um texto
+   sem data de renovação. **O texto é decisão do dono.**
+2. **Preço de outra loja até o app recarregar** (medido):
+   - os preços carregados antes do login ficaram em dólar, enquanto a Apple
+     cobrava em reais;
+   - o módulo não observa a troca de loja (`Storefront.updates`);
+   - afeta só quem troca a conta da App Store com o app aberto.
+3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
+   cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
+   alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
+4. **Aquecimento com a build `development`** (relatado, não medido):
+   - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
+     infinitas, e as abas visitadas continuam montadas;
+   - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
+     Reduzir Movimento, idealmente numa build `preview`.
 
 ### AGENTE — o que sobrou da Task 8
 
@@ -113,8 +165,8 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    24 h. Android não foi executado. Não validar durante flow E2E: 2,3× de
    desaceleração medida.
 
-   **Defeitos do app que o E2E expôs (2026-09-24), nenhum corrigido ainda** —
-   um run cada, com teste vermelho antes:
+   **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
+   vermelho antes:
    - **Lição concluída volta como "Continuar de onde parou".** Reabrir a L1
      concluída e sair pela folha de vidas (medido; pelo código, "Fechar quiz"
      faz o mesmo, não medido) derruba o
@@ -125,13 +177,20 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      (`847a12d`), anterior à folha. **Decidir antes:** concluído vence
      retomável, ou a retomada de lição concluída é mostrada sem desfazer a
      contagem? Promessa ao usuário, então o dono escolhe.
-   - **"Próxima revisão em 2 dias" para revisão a 24 h.** O cartão SM-2
-     carimba o próprio relógio 1 ms depois do `answeredAt`, e o `Math.ceil`
-     de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
-     diferença de 1 ms foi medida no armazenamento nas duas conclusões
-     inspecionadas; numa delas o "2 dias" foi lido na tela.
-   - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
-     24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
+   - ✅ **"Próxima revisão em 2 dias" para revisão a 24 h** — corrigido em
+     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build: a contagem
+     parte do carimbo do cartão quando esta resposta o carimbou
+     (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
+     defeito (esperado 1, recebido 2). Conferido na tela em 2026-09-24, num
+     segundo simulador, durante o gate H4: "Próxima revisão em 1 dia"
+     ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
+   - ✅ **Resumo de vidas cortado na trilha** — corrigido em 2026-09-24, no
+     branch `fix/e2e-defeitos-2-e-3`, sem build: o resumo vai sob os corações,
+     não ao lado (`HUD.tsx`, `heartsControlContent` em coluna). Teste visto
+     vermelho pelo defeito (esperado `column`, recebido `row`). Conferido na
+     tela em 2026-09-24, num segundo simulador, durante o gate H4: o botão de
+     vidas vai de x 206 a 382 em 402 pt ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)). **Vale até o
+     AX1; no AX5 o HUD volta a sair da tela** (achado 2 da H4, abaixo).
 
    ✅ **Achado da fatia 3 (item 3): o `HUD` mostrava ∞ ao lado dos
    corações** — corrigido em **2026-09-23**, **sem build**, na `main` pelo
@@ -282,10 +341,24 @@ propagada, e quem decorar o rótulo acerta a recuperação da L1 sem ler o mapa.
 
 ### AGENTE — Gate operacional H4: checkpoint, reforço, retomada e acessibilidade
 
-**Estado:** engenharia concluída e integrada à `main` pelo PR #3 em 2026-08-13.
-**Bloqueio:** falta evidência da experiência completa no simulador/aparelho
-pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
-**Dono:** agente.
+✅ **Estado (2026-09-24): fechado**, conforme a
+[ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md). Os defeitos 1
+e 2 foram corrigidos e reconferidos no simulador no mesmo dia (seção
+"Reconferência" da evidência). Na `main`, o fechamento só vale depois do merge
+do branch `fix/e2e-defeitos-2-e-3`. **Primeira passagem:** a engenharia
+está na `main` desde o PR #3 (2026-08-13). O gate foi percorrido num segundo
+iPhone 17 (iOS 26.5), com o progresso das trilhas anteriores pré-montado por
+decisão do dono ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)):
+
+- **Aprovação e reforço:** medidos. A tentativa com 1 de 2 certas abre o reforço
+  do ciclo 1; depois dele, 2 de 2 aprova ("Conquista desbloqueada").
+- **Retomada sem persistir respostas:** medida no modo `off` (o de produção).
+  Nenhuma resposta fica no armazenamento, e a avaliação recomeça do zero. O
+  kernel de retomada no ponto (`active`) não foi exercitado.
+- **Texto grande:** reprovado na primeira passagem (achado 2) e corrigido; a
+  reconferência passou em AX5, AX1 e no padrão.
+- **Leitor de tela:** árvore de acessibilidade medida. O VoiceOver real
+  **não** foi exercitado, porque o simulador não o roda.
 
 `UnitCheckpointService` calcula tentativa imutável, plano e intent: aprovação com
 pelo menos 80% e zero erro crítico, reforço somente de competências frágeis e
@@ -301,9 +374,63 @@ passou no smoke local.
 `support-required` só ocorre depois de tentativa inicial reprovada, ciclo 1,
 nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
-Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
-persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
-como integralmente concluída e retomar G3.
+**Defeitos abertos pela H4, um run cada, com teste vermelho antes:**
+1. ✅ **O texto do checkpoint prometia a avaliação antiga** — corrigido em
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build. O texto sai dos
+   itens e do limiar reais (`checkpoint/checkpointRuleCopy.ts`, com a mesma
+   conta de `UnitCheckpointService`): "Responda as 2 questões. Para avançar,
+   acerte todas." e "A aprovação exige 2 acertos." Teste de tela visto vermelho
+   pelo defeito: a árvore mostrava "Responda 10 questões" e "exige 8 acertos".
+2. ✅ **Tamanhos de acessibilidade quebravam a trilha e o checkpoint** —
+   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build.
+   Acima de `fontScale` 1,3 (`ui/accessibility/useLargeTextLayout.ts`):
+   - a trilha vira uma coluna, com a linha à esquerda e os cartões a 85%, sem
+     limite de linhas;
+   - o título do estágio fica com a contagem embaixo e sem corte;
+   - o balão do Pixel vai para baixo do personagem;
+   - o botão tem altura mínima, e não fixa;
+   - os textos do HUD param no XXXL (1,35), porque são cromo.
+
+   Sete testes vistos vermelhos pelo defeito.
+
+   **Segunda parte, achada ao conferir no AX5:**
+   - o título fixo acima da trilha tomava a tela, e o CTA ia para baixo da
+     barra de abas. Agora, com texto grande, o cabeçalho rola dentro da
+     trilha (`ListHeaderComponent`);
+   - o título do estágio e o rótulo de botão crescem até 2×
+     (`LABEL_MAX_FONT_SCALE`).
+
+   Quatro testes vistos vermelhos. **Conferido no simulador em 2026-09-24**
+   no AX5, no AX1 e no padrão:
+   - o HUD fica em x 206–382;
+   - o CTA fica acima das abas;
+   - o checkpoint mostra o balão sob o Pixel e o "Iniciar checkpoint"
+     alcançável.
+
+   **Resíduo:** no AX4/AX5, uma palavra mais larga que o cartão ainda se
+   parte ("Fundame / ntos"), como no texto nativo do iOS.
+
+3. ✅ **Pergunta cobrada duas vezes na mesma tentativa** — corrigido em
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build, depois do ok do
+   dono na ADR dado na própria conversa. O `Set` em memória da tela virou
+   `checkpoint/checkpointChargeLedger.ts`:
+   - grava, por nó de checkpoint, só os ids das perguntas já cobradas, na chave
+     `@radiant:checkpoint_charged_items_v1`, e nunca a alternativa;
+   - a reserva é gravada antes da cobrança;
+   - a lista se apaga quando o envio é registrado, com aprovação ou
+     reprovação.
+
+   Três testes de tela vistos vermelhos pelo defeito: 2 cobranças em vez de 1
+   ao remontar; 2 em vez de 3 depois de reprovar; e a lista ainda gravada
+   depois de aprovar. **Não conferido no simulador**, por decisão do dono
+   sobre a condição de pronto
+   ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md)).
+
+**Decidido pelo dono em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):** a H4 fecha
+com os defeitos 1 e 2 corrigidos e o checkpoint conferido de novo no simulador.
+O defeito 3 é a regra de vidas da mesma ADR. O **VoiceOver num iPhone físico**
+sai da H4 e vira item próprio da 1.4, junto com o build `development` no
+aparelho.
 
 ---
 

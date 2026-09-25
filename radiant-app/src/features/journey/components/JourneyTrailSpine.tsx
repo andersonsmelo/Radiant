@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { galaxyColors } from '../../../ui/theme';
+import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 /** Onde o nó está no percurso inteiro — decide onde a linha começa e termina. */
 export type SpinePosition = 'first' | 'middle' | 'last' | 'only';
@@ -37,6 +38,9 @@ const WIDTH = 6;
  * abaixo do último.
  */
 export function JourneyTrailSpine({ traveled, position, gap }: JourneyTrailSpineProps) {
+  // Com texto grande as âncoras vão para a esquerda (`JourneyNodeCard`), e a
+  // linha precisa passar pelo centro delas.
+  const largeText = useLargeTextLayout();
   // Percurso de um nó só não tem o que ligar: a linha seria um traço atravessando
   // o único cartão, sem começo nem fim.
   if (position === 'only') return null;
@@ -51,6 +55,7 @@ export function JourneyTrailSpine({ traveled, position, gap }: JourneyTrailSpine
       importantForAccessibility="no-hide-descendants"
       style={[
         styles.spine,
+        largeText && styles.spineLargeText,
         { backgroundColor: traveled ? galaxyColors.nodeCompletedAccent : galaxyColors.spine },
         position === 'first' ? styles.fromAnchor : styles.fromTop,
         position === 'last' ? styles.toAnchor : { bottom: -gap },
@@ -65,6 +70,10 @@ const styles = StyleSheet.create({
     left: '50%',
     marginLeft: -WIDTH / 2,
     width: WIDTH,
+  },
+  // A coluna da âncora tem 20 de largura e começa em 0: o centro dela é 10.
+  spineLargeText: {
+    left: 10,
   },
   fromTop: { top: 0 },
   fromAnchor: { top: '50%' },

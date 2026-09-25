@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Text } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { galaxyColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
@@ -225,3 +225,24 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.UNSAFE_getByType(FlatList)).toBeTruthy();
   });
+
+// O cabeçalho que a tela passa à trilha rola junto com ela (achado 2 do gate H4:
+// fixo acima, com texto grande, ele ocupava a tela e escondia a trilha).
+describe('JourneyTrail — cabeçalho na rolagem', () => {
+  it('renderiza o cabeçalho dentro da lista rolável', () => {
+    const screen = render(
+      <JourneyTrail
+        segments={[segment('t1', 'Trilha', [unit('u1', 'Unidade', ['available'])])]}
+        header={<Text>Cabeçalho do estágio</Text>}
+        onNodePress={jest.fn()}
+        isNodeDisabled={() => false}
+      />,
+    );
+    let insideScroll = false;
+    for (let node = screen.getByText('Cabeçalho do estágio').parent; node; node = node.parent) {
+      if (node.type === 'RCTScrollView') insideScroll = true;
+    }
+
+    expect(insideScroll).toBe(true);
+  });
+});

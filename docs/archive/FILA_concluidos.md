@@ -1089,3 +1089,113 @@ Trechos substituídos, sem edição (só os links relativos reajustados ao novo 
 Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md);
+
+---
+
+## Lote de 2026-09-24 — defeito 2 do E2E corrigido
+
+Trechos substituídos, sem edição:
+
+   **Defeitos do app que o E2E expôs (2026-09-24), nenhum corrigido ainda** —
+   um run cada, com teste vermelho antes:
+
+   - **"Próxima revisão em 2 dias" para revisão a 24 h.** O cartão SM-2
+     carimba o próprio relógio 1 ms depois do `answeredAt`, e o `Math.ceil`
+     de `LessonFlowScreen.tsx:346` converte o milissegundo num dia. A
+     diferença de 1 ms foi medida no armazenamento nas duas conclusões
+     inspecionadas; numa delas o "2 dias" foi lido na tela.
+
+---
+
+## Lote de 2026-09-24 — defeito 3 do E2E corrigido
+
+Trecho substituído, sem edição:
+
+   - **Resumo de vidas cortado na trilha.** Com vidas em recarga, `0 · +1 em
+     24 min` sai pela borda direita no iPhone 17 (nó até x=443 em 402 pt).
+
+---
+
+## Lote de 2026-09-24 — gate H4 percorrido no simulador
+
+Trechos substituídos, sem edição:
+
+     defeito (esperado 1, recebido 2). Não conferido na tela.
+
+     vermelho pelo defeito (esperado `column`, recebido `row`). **Não conferido
+     na tela:** a captura no simulador fica para depois do dia 2 do caminho 2,
+     para não servir JS novo ao binário do dia 1.
+
+Da seção "AGENTE — Gate operacional H4":
+
+**Estado:** engenharia concluída e integrada à `main` pelo PR #3 em 2026-08-13.
+**Bloqueio:** falta evidência da experiência completa no simulador/aparelho
+pretendido; não falta schema, catálogo, conteúdo ou aprovação editorial.
+**Dono:** agente.
+
+(… três parágrafos de engenharia, que continuam na FILA …)
+
+Próxima ação: percorrer aprovação e reforço no checkpoint, provar retomada sem
+persistir respostas e conferir texto grande/leitor de tela. Só então marcar H4
+como integralmente concluída e retomar G3.
+
+---
+
+## Lote de 2026-09-24 — decisões do dono sobre a H4
+
+Trecho substituído, sem edição:
+
+**Para o dono decidir:** a vida gasta num checkpoint abandonado continua
+gasta, embora a resposta seja descartada. E o H4 fecha com os dois defeitos
+corrigidos e o VoiceOver em aparelho, ou fecha antes?
+
+---
+
+## Lote de 2026-09-24 — defeito 1 da H4 corrigido
+
+Trecho substituído, sem edição:
+
+1. **O texto do checkpoint promete a avaliação antiga.** A abertura diz
+   "Responda 10 questões… acerte pelo menos 8" (`CheckpointScreen.tsx:637`) e o
+   reforço, "O checkpoint exige 8 acertos" (`:609`), mas cada avaliação tem 2
+   itens desde 2026-08-21.
+
+---
+
+## Lote de 2026-09-24 — defeito 2 da H4 corrigido
+
+Trecho substituído, sem edição:
+
+2. **Tamanhos de acessibilidade quebram a trilha e o checkpoint.** No AX1, o
+   título é cortado e as palavras dos cartões se partem. No AX5, o HUD sai da
+   tela (x até 577 em 402 pt), o balão do Pixel parte palavras em sílabas e o
+   CTA é cortado.
+
+---
+
+## Lote de 2026-09-24 — defeito 2 da H4, segunda parte
+
+Trecho substituído, sem edição:
+
+   Sete testes vistos vermelhos pelo defeito. A conferência na tela vai no
+   fechamento da H4.
+
+---
+
+## Lote de 2026-09-24 — H4 fechada
+
+Trechos substituídos, sem edição:
+
+**Estado (2026-09-24): percorrido no simulador, não fechado.** A engenharia
+
+- **Texto grande:** **reprovado** nos tamanhos de acessibilidade (achado 2).
+
+3. **Pergunta cobrada duas vezes na mesma tentativa.**
+
+---
+
+## Lote de 2026-09-24 — FILA aponta para o prompt de continuidade (3)
+
+Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md), que traz todas as pendências em ordem de criticidade;

@@ -18,6 +18,7 @@ import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
 import { AdvanceStepRenderer } from '../renderers/AdvanceStepRenderer';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
+import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
@@ -57,7 +58,6 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
     nextRefillAt: null,
     unlimitedUntil: null,
 };
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 type LessonFlowScreenProps = {
     blockId: string;
@@ -342,9 +342,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     LessonRatingService.getRating(result.lessonId),
                     SpacedRepetitionService.getCardState(result.lessonId),
                 ]);
-                const nextReviewInDays = card
-                    ? Math.max(0, Math.ceil((card.nextReviewAt.getTime() - result.answeredAt.getTime()) / DAY_MS))
-                    : null;
+                const nextReviewInDays = card ? resolveNextReviewInDays(card, result.answeredAt) : null;
 
                 if (cancelado) {
                     return;

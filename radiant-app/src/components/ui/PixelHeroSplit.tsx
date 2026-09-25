@@ -16,6 +16,7 @@ import { colors, galaxyColors } from '../../ui/theme';
 import { ProgressRing } from './ProgressRing';
 import { SpeechBubble } from './SpeechBubble';
 import type { PixelExpression } from '../../ui/characters/pixelExpressions';
+import { useLargeTextLayout } from '../../ui/accessibility/useLargeTextLayout';
 
 interface PixelHeroSplitProps {
   eyebrow: string;
@@ -63,6 +64,10 @@ export function PixelHeroSplit({
 }: PixelHeroSplitProps) {
   const { width } = useWindowDimensions();
   const isCompact = width < compactBreakpoint;
+  // Com texto grande o balão ao lado do personagem ficava estreito demais e
+  // partia cada palavra em sílabas (achado 2 do gate H4). Empilhado, ele usa a
+  // largura toda.
+  const isStacked = useLargeTextLayout();
 
   // O balão vive na coluna IRMÃ da do personagem, então para o rabicho apontar
   // para a boca é preciso saber onde a ilustração começa dentro da própria
@@ -95,7 +100,7 @@ export function PixelHeroSplit({
   const characterWidth = PIXEL_SIZE_MAP[isCompact ? compactIllustrationSize : illustrationSize];
 
   return (
-    <View style={[styles.topRow, isCompact && styles.topRowCompact, style]}>
+    <View style={[styles.topRow, isCompact && styles.topRowCompact, isStacked && styles.topRowStacked, style]}>
       <View style={[styles.characterColumn, { width: characterWidth }]}>
         <Text style={styles.eyebrow} maxFontSizeMultiplier={ESCALA_MAXIMA_DO_EYEBROW}>
           {eyebrow}
@@ -111,7 +116,13 @@ export function PixelHeroSplit({
         </View>
       </View>
 
-      <View style={[styles.contentColumn, isCompact && styles.contentColumnCompact]}>
+      <View
+        style={[
+          styles.contentColumn,
+          isCompact && styles.contentColumnCompact,
+          isStacked && styles.contentColumnStacked,
+        ]}
+      >
         {renderedMessage ? (
           <SpeechBubble
             text={renderedMessage}
@@ -119,7 +130,9 @@ export function PixelHeroSplit({
             visible={Boolean(message)}
             onHidden={handleBubbleHidden}
             tailTop={
-              illustrationTop === null
+              // Empilhado, o personagem fica ACIMA do balão, e o rabicho lateral
+              // apontaria para o vazio.
+              isStacked || illustrationTop === null
                 ? undefined
                 : illustrationTop + pixelMouthAnchor().y * characterWidth
             }
@@ -152,6 +165,10 @@ const styles = StyleSheet.create({
   topRowCompact: {
     gap: space.s2,
   },
+  topRowStacked: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   characterColumn: {
     gap: space.s1,
     alignItems: 'flex-start',
@@ -163,6 +180,10 @@ const styles = StyleSheet.create({
   },
   contentColumnCompact: {
     gap: space.s2,
+  },
+  contentColumnStacked: {
+    flex: 0,
+    alignItems: 'stretch',
   },
   eyebrow: {
     ...typography.caption,

@@ -7,10 +7,11 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { semanticColors } from '../../ui/semantic-colors';
-import { fontFamily } from '../../ui/styles';
+import { fontFamily, space } from '../../ui/styles';
 import { duration } from '../../ui/motion';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 import { hapticTap } from '../../ui/feedback/haptics';
+import { LABEL_MAX_FONT_SCALE } from '../../ui/accessibility/useLargeTextLayout';
 
 type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
 
@@ -141,6 +142,7 @@ export function AppButton({
             variant === 'ghost' && styles.labelGhost,
             textStyle,
           ]}
+          maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
         >
           {resolvedLabel}
         </Text>
@@ -151,7 +153,10 @@ export function AppButton({
 
 const styles = StyleSheet.create({
   base: {
-    height: 56,
+    // Altura mínima, não fixa: com texto grande o rótulo quebra linha e o botão
+    // cresce, em vez de cortar ("Continuar i", achado 2 do gate H4).
+    minHeight: 56,
+    paddingVertical: space.s1,
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',

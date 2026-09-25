@@ -1,5 +1,6 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -35,6 +36,11 @@ jest.mock('expo-router', () => ({
     }, [callback]);
   },
 }));
+
+// Armazenamento em memória que sobrevive à remontagem da tela: é ele que separa
+// "o aluno saiu e voltou" de "o aluno começou do zero".
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 jest.mock('../../subscription/SubscriptionService', () => ({
   subscriptionService: { storeAvailable: jest.fn(() => false) },
@@ -253,10 +259,73 @@ async function answerProductionCheckpoint(correct: boolean): Promise<void> {
 }
 
 describe('CheckpointScreen flow', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
+    await AsyncStorage.clear();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
+  });
+
+  // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no
+  // máximo uma vida, mesmo que o aluno saia e volte. A tentativa vai do
+  // "Iniciar checkpoint" até o envio.
+  describe('uma vida por pergunta por tentativa', () => {
+    async function errarAPrimeiraPergunta(): Promise<void> {
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      const item = productionStageItems[0];
+      expect(await screen.findByText(item.prompt)).toBeTruthy();
+      const wrong = item.options.find(option => option.id !== item.correctOptionId)!;
+      fireEvent.press(screen.getByLabelText(wrong.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+      expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    }
+
+    it('errar, sair e errar de novo a mesma pergunta cobra uma vida, não duas', async () => {
+      const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { spend: jest.Mock };
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+      const primeiraVisita = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await errarAPrimeiraPergunta();
+      expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+      primeiraVisita.unmount();
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await errarAPrimeiraPergunta();
+
+      expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    });
+
+    it('o envio reprovado encerra a tentativa: a seguinte cobra de novo', async () => {
+      const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { spend: jest.Mock };
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+      const tentativaReprovada = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(false);
+      expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+      expect(heartsRepository.spend).toHaveBeenCalledTimes(productionStageItems.length);
+      tentativaReprovada.unmount();
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await errarAPrimeiraPergunta();
+
+      expect(heartsRepository.spend).toHaveBeenCalledTimes(productionStageItems.length + 1);
+    });
+
+    it('o envio aprovado apaga a lista de perguntas cobradas do nó', async () => {
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+
+      const tentativaAbandonada = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await errarAPrimeiraPergunta();
+      tentativaAbandonada.unmount();
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+      expect(await screen.findByText('CONQUISTA DESBLOQUEADA')).toBeTruthy();
+
+      const stored = JSON.parse(await AsyncStorage.getItem('@radiant:checkpoint_charged_items_v1') ?? '{}');
+      expect(stored[productionNodeId]).toBeUndefined();
+    });
   });
 
   it('cobra cada resposta errada do checkpoint uma única vez', async () => {
@@ -386,6 +455,30 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
     });
     expect(await screen.findByText(/^Avaliação 1 de /u)).toBeTruthy();
+  });
+
+  // Achado 1 do gate H4 (2026-09-24): a tela ainda descrevia a avaliação única
+  // de dez itens, anterior a 2026-08-21 — "Responda 10 questões… acerte pelo
+  // menos 8" na abertura e "exige 8 acertos" no reforço —, numa avaliação de
+  // dois itens. Cada asserção de ausência vem com a de presença do texto certo.
+  it('descreve na abertura a avaliação que o aluno vai fazer, não a antiga de dez itens', async () => {
+    expect(productionStageItems).toHaveLength(2);
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+    expect(await screen.findByText('Responda as 2 questões. Para avançar, acerte todas.')).toBeTruthy();
+    expect(screen.queryByText(/10 questões/u)).toBeNull();
+  });
+
+  it('diz no reforço quantos acertos esta avaliação exige', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+
+    expect(await screen.findByText(/A aprovação exige 2 acertos\./u)).toBeTruthy();
+    expect(screen.queryByText(/8 acertos/u)).toBeNull();
   });
 
   it('mantém o nó bloqueado e encaminha reforço quando a nota fica abaixo de 80%', async () => {

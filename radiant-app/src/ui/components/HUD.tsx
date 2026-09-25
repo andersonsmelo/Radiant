@@ -9,6 +9,7 @@ import type { HeartsSnapshot } from '../../features/hearts/hearts.types';
 import { galaxyColors } from '../theme';
 import { space } from '../styles';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
+import { CHROME_MAX_FONT_SCALE } from '../accessibility/useLargeTextLayout';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -42,7 +43,13 @@ function HUDPill({
   return (
     <View style={styles.pill} accessible accessibilityRole="text" accessibilityLabel={accessibilityLabel}>
       <View importantForAccessibility="no">{icon}</View>
-      <Text style={[styles.pillValue, { color }]} importantForAccessibility="no">
+      {/* Cromo persistente: acima do XXXL o HUD sairia da tela (achado 2 do gate
+          H4). O valor completo segue no rótulo de acessibilidade. */}
+      <Text
+        style={[styles.pillValue, { color }]}
+        importantForAccessibility="no"
+        maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}
+      >
         {value}
       </Text>
     </View>
@@ -176,7 +183,11 @@ export function HUD({
         maxHearts={maxHearts}
         hiddenFromAccessibility={Boolean(onHeartsPress)}
       />
-      {summary ? <Text style={styles.heartsSummary}>{summary}</Text> : null}
+      {summary ? (
+        <Text style={styles.heartsSummary} maxFontSizeMultiplier={CHROME_MAX_FONT_SCALE}>
+          {summary}
+        </Text>
+      ) : null}
     </View>
   );
   const heartsControl = onHeartsPress ? (
@@ -260,7 +271,10 @@ const styles = StyleSheet.create({
     gap: 3,
     alignItems: 'center',
   },
-  heartsControlContent: { flexDirection: 'row', alignItems: 'center', gap: space.s1 },
+  // Resumo SOB os corações, não ao lado: em linha, os cinco corações de 28 pt e
+  // `0 · +1 em 24 min` somavam a largura e o HUD passava da borda direita da
+  // trilha no iPhone 17 (defeito 3 do E2E de 2026-09-24).
+  heartsControlContent: { flexDirection: 'column', alignItems: 'flex-end' },
   heartsButton: {
     borderRadius: 20,
     paddingHorizontal: space.s2,

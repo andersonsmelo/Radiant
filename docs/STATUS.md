@@ -36,8 +36,8 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **127 commits e 268 arquivos à frente** do que está na App Store
-(medido em 2026-09-24, `v1.3.1..3343eca`). Nada disso chegou ao usuário:
+A `main` está **139 commits e 274 arquivos à frente** do que está na App Store
+(medido em 2026-09-24, `v1.3.1..ab121ad`). Nada disso chegou ao usuário:
 vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
 currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
 
@@ -48,12 +48,38 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 **O que falta para a 1.4 sair** — detalhe e dono de cada item na
 [`FILA.md`](FILA.md#prioridade--a-14-desenhada-em-2026-09-14):
 
-1. **Dono:** build interno `development` com o módulo StoreKit (primeira
-   compilação real do Swift) e teste de compra no sandbox.
+1. **Dono:** StoreKit no aparelho. **Em 2026-09-24, o build `development`
+   compilou o Swift e abriu num iPhone com iOS 27.2.** No sandbox passaram:
+   - preços, com R$ 19,90 e R$ 149,90;
+   - compra mensal;
+   - renovação acelerada e expiração;
+   - reinstalação.
+
+   Falta:
+   - compra anual;
+   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
+   - Ask to Buy;
+   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
+     pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+
+   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
+   ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
 2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
    `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
    relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
-   defeitos do app, abertos na [FILA](FILA.md), item 4 da Task 8.
+   defeitos do app ([FILA](FILA.md), item 4 da Task 8). Em 2026-09-24, os
+   defeitos 2 e 3 foram corrigidos no branch local `fix/e2e-defeitos-2-e-3`,
+   sem push e fora da `main`, e esse branch passou no gate com 148 suítes / 1379 testes
+   ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
+   Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
+   o gate H4. O defeito 1 espera a decisão do dono.
+   **Em 2026-09-24, à noite, as duas branches locais foram enviadas ao
+   GitHub.** A `fix/e2e-defeitos-2-e-3` tem 15 commits além da `main`,
+   contando o do prompt (4). O merge vai de cima para baixo: #32 →
+   documentação → `fix/e2e-defeitos-2-e-3`. Ele e as decisões que não
+   precisam do Mac ficam para uma sessão na nuvem
+   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -86,6 +112,17 @@ como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
   --platform ios`;
 - o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
   2027.
+
+**A primeira build `development` da 1.4 no EAS reprovou** em 2026-09-24
+(`0a545c74-…`, commit `c4be0c8`), com `XCODE_BUILD_ERROR`. A causa não foi o
+Swift do StoreKit: foi o `sentry-cli`, que tentou enviar os source maps sem
+organização configurada. Só `preview`, `production` e `checkpoint-internal`
+desligavam o envio. Desde então o `development` também o desliga, e
+`development-simulator` e `e2e-test` herdam. Há um contrato
+(`scripts/maestro-contract.test.mjs`) que exige isso de todo perfil,
+com a herança resolvida. **A segunda build (`ac4b49df`, commit `fd0c630`)
+compilou** e abriu num iPhone com iOS 27.2 em 2026-09-24. É a primeira build
+com a imagem fixada que chega a um aparelho com iOS 27.
 
 Medições, custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
@@ -127,8 +164,18 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   de escalar.
 - **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
   fatias (medido em 2026-08-08).
-- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — engenharia na
-  `main` desde 2026-08-13; falta percorrer a experiência no simulador ou aparelho.
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado em
+  2026-09-24** no branch `fix/e2e-defeitos-2-e-3`, que ainda não está na
+  `main`, conforme a [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
+  - os dois defeitos da primeira passagem foram corrigidos (texto do checkpoint
+    e texto grande) e reconferidos no simulador;
+  - gate do branch: 150 suítes / 1415 testes, exit 0
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) foi
+    implementada no mesmo branch em 2026-09-24, sem conferência no simulador.
+    Gate medido depois dela, no Node 20: 151 suítes / 1423 testes, exit 0
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+  - o VoiceOver em aparelho segue aberto na [FILA](FILA.md).
 
 ## Defeito conhecido
 
@@ -183,16 +230,24 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24:
+Medido em 2026-09-24, no fim do dia:
 - `origin/main` está em `ab121ad`.
-- **A PR #32 está aberta**, com o E2E dos caminhos dourados, e a de documentação
-  deste estado vai empilhada sobre ela.
-- Os branches remotos já mergeados continuam no remoto: `docs/continuidade-2026-09-24`,
-  `pesquisa/ios27-xcode-eas`, `docs/android-verificacao-chave-eas` e
-  `docs/status-repositorio-e-prompt-e2e`. Apagá-los é decisão do dono.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados e o CI verde.
+- **Em cima dela há duas branches locais, sem push:**
+  - `docs/prompt-continuidade-2026-09-24-2`, com o prompt (2);
+  - `fix/e2e-defeitos-2-e-3`, com os defeitos 2 e 3 do E2E, a H4 fechada, a
+    ADR e o prompt (3).
+
+  O push é do dono.
+- **O remoto tem 22 branches já mergeados na `main`.** O único que não foi
+  mergeado é o da #32. Apagá-los é decisão do dono.
 - Prompt de continuidade, com todas as tarefas pendentes em ordem de
   criticidade:
-  [`2026-09-24-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
+  [`2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
+- **Simuladores:**
+  - o `A5FA5443-…` foi criado para o gate H4, e o estado dele foi pré-montado;
+  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
+    reinstalado nem limpo** antes do dia 2.
 
 **As quatro worktrees em `.claude/worktrees/` ficam** (eram cinco; a
 `confident-hamilton-4d3b96` já não existe, medido em 2026-09-24). Cada uma
