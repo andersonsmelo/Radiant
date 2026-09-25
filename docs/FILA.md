@@ -165,14 +165,23 @@ Cada conserto é um run, com teste vermelho antes.
      infinitas, e as abas visitadas continuam montadas;
    - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
      Reduzir Movimento, idealmente numa build `preview`.
-6. **O eas-cli do projeto está velho** (medido em 2026-09-24): o fixado é o
-   16.32, e o atual é o 24.7.
-   - **O que aconteceu:** ele imprimiu "Build request failed" com a build já
-     criada no EAS.
-   - **Para o próximo que disparar uma build:** confira o `eas build:list`
-     antes de tentar de novo.
-   - **Conserto candidato:** atualizar a dependência e fixar a versão em
-     `cli.version` no `eas.json`, num run próprio.
+6. ✅ **eas-cli atualizado em 2026-09-25**, de 16.32 para **24.8.0**, no
+   branch `feat/d4-decisoes-de-revisao`. Em 2026-09-24 ele tinha impresso
+   "Build request failed" com a build já criada no EAS.
+   - **A trava:** `cli.version` no `eas.json` passou a `>= 24.8.0`. Conferido:
+     o 16.32.0 é recusado com saída 1.
+   - **Conferido com o 24.8.0:** o `eas config` do perfil `production` lê o
+     `eas.json` e as variáveis do EAS sem erro.
+   - **O lock também moveu cinco pacotes que não são só de desenvolvimento,**
+     por deduplicação e dentro das faixas declaradas:
+     `@babel/helper-validator-identifier` 7.28.5 → 7.29.7, `tar`, `tinyglobby`,
+     `picomatch` e `node-forge`.
+   - **Das mudanças incompatíveis de 16 a 24,** só uma encosta no uso daqui: o
+     `--json` de `eas build:list` e `build:view` troca `project`, `channel` e
+     `runtimeVersion` por `app`, `updateChannel` e `runtime`. Nenhum script do
+     repositório lê esse formato.
+   - **Ainda não verificado numa build real.** Para o próximo que disparar uma:
+     confira o `eas build:list` antes de tentar de novo.
 
 ### AGENTE — o que sobrou da Task 8
 
