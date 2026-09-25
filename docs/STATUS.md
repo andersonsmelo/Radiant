@@ -183,17 +183,24 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24: `origin/main` em `ab121ad`, sem PR aberto. O PR #31
-(este estado e o prompt da frente E2E) foi mergeado nesse dia, depois dos #28
-a #30. Os branches remotos já mergeados continuam no remoto. A frente E2E
-trabalha no branch local `test/e2e-caminhos-dourados-1-4`, sem push
-([relatório](superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)). **As cinco
-worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
-Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
-evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em
-`AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e num script de conteúdo —
-**não descarte sem o dono**. Apagar os branches remotos já mergeados também é
-decisão do dono.
+Medido em 2026-09-24:
+- `origin/main` está em `ab121ad`.
+- **A PR #32 está aberta**, com o E2E dos caminhos dourados, e a de documentação
+  deste estado vai empilhada sobre ela.
+- Os branches remotos já mergeados continuam no remoto: `docs/continuidade-2026-09-24`,
+  `pesquisa/ios27-xcode-eas`, `docs/android-verificacao-chave-eas` e
+  `docs/status-repositorio-e-prompt-e2e`. Apagá-los é decisão do dono.
+- Prompt de continuidade, com todas as tarefas pendentes em ordem de
+  criticidade:
+  [`2026-09-24-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md).
+
+**As quatro worktrees em `.claude/worktrees/` ficam** (eram cinco; a
+`confident-hamilton-4d3b96` já não existe, medido em 2026-09-24). Cada uma
+guarda runs do Loop em `.loop/runs/`, que o git ignora, e remover a worktree
+apagaria essa evidência. A `zealous-shannon-01c8e3` tem 4 alterações não
+commitadas (`AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e um script de
+conteúdo): **não descarte sem o dono**. A worktree `Radiant-release` está numa
+`main` local antiga (`21c42b6`), e quem for usá-la começa por `git pull`.
 
 ```bash
 git fetch origin && gh pr list --state open

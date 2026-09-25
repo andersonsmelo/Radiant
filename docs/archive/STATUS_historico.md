@@ -1742,3 +1742,23 @@ e `docs/android-verificacao-chave-eas` já estão mergeados e continuam no
 remoto. Prompt de continuidade da próxima frente (E2E dos caminhos dourados,
 depois o Gate H4):
 [`2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md).
+
+---
+
+## Lote de 2026-09-24 — repositório com a PR #32 aberta
+
+Trecho da seção "Repositório" do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório):
+
+## Repositório
+
+Medido em 2026-09-24: `origin/main` em `ab121ad`, sem PR aberto. O PR #31
+(este estado e o prompt da frente E2E) foi mergeado nesse dia, depois dos #28
+a #30. Os branches remotos já mergeados continuam no remoto. A frente E2E
+trabalha no branch local `test/e2e-caminhos-dourados-1-4`, sem push
+([relatório](../superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)). **As cinco
+worktrees em `.claude/worktrees/` ficam**: cada uma guarda de 1 a 4 runs do
+Loop em `.loop/runs/`, que o git ignora, e remover a worktree apagaria essa
+evidência. A `zealous-shannon-01c8e3` tem alterações não commitadas em
+`AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e num script de conteúdo —
+**não descarte sem o dono**. Apagar os branches remotos já mergeados também é
+decisão do dono.

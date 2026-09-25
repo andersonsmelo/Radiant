@@ -47,7 +47,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md`](superpowers/handoffs/2026-09-24-radiant-prompt-e2e-caminhos-dourados.md);
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md), que traz todas as pendências em ordem de criticidade;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
