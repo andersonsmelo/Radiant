@@ -1,0 +1,10 @@
+appId: com.ascendcreative.radiant
+---
+- scrollUntilVisible:
+    element: 'Fótons não têm energia'
+    direction: DOWN
+- tapOn: 'Fótons não têm energia'
+- scrollUntilVisible:
+    element: 'Enviar checkpoint'
+    direction: DOWN
+- tapOn: 'Enviar checkpoint'

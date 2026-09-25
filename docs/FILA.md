@@ -160,11 +160,17 @@ Cada conserto é um run, com teste vermelho antes.
    produtos, que a Apple não garante (`RadiantStoreKitModule.swift:65`). O
    conserto candidato é uma ordem fixa no adaptador, com teste. A ordem certa
    é decisão do dono.
-5. **Aquecimento com a build `development`** (relatado, não medido):
-   - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
-     infinitas, e as abas visitadas continuam montadas;
-   - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
-     Reduzir Movimento, idealmente numa build `preview`.
+5. **Aquecimento com a build `development`** (relatado; medido só de forma
+   indireta em 2026-09-25):
+   - **no simulador, com a trilha parada:** ~94 % de um núcleo com as
+     animações e **0,4 %** com Reduzir Movimento. Voltou a ~95 % ao desligar de
+     novo. Na trilha, só o `StarfieldBackground` tem animação infinita que
+     obedece a essa preferência
+     ([medição](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md));
+   - **falta, com o dono:** o aparelho, fora do carregador, 5 minutos com e
+     sem Reduzir Movimento, idealmente numa build `preview`;
+   - **falta, do agente:** isolar estrelas de nebulosas e medir se as abas
+     visitadas continuam montadas.
 6. ✅ **eas-cli atualizado em 2026-09-25**, de 16.32 para **24.8.0**, no
    branch `feat/d4-decisoes-de-revisao`. Em 2026-09-24 ele tinha impresso
    "Build request failed" com a build já criada no EAS.
@@ -470,9 +476,12 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
    Três testes de tela vistos vermelhos pelo defeito: 2 cobranças em vez de 1
    ao remontar; 2 em vez de 3 depois de reprovar; e a lista ainda gravada
-   depois de aprovar. **Não conferido no simulador**, por decisão do dono
-   sobre a condição de pronto
+   depois de aprovar. Na entrega não foi conferido no simulador, por decisão
+   do dono sobre a condição de pronto
    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md)).
+   **Conferido no simulador em 2026-09-25**, nos cinco cenários, pela tela e
+   pelo AsyncStorage
+   ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md)).
 
 **Decidido pelo dono em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):** a H4 fecha
 com os defeitos 1 e 2 corrigidos e o checkpoint conferido de novo no simulador.

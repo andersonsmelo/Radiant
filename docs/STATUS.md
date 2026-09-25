@@ -270,8 +270,11 @@ Medido em 2026-09-25, às 08:47:
   [`2026-09-25-radiant-prompt-de-continuidade-5.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
   Ele substitui o (3) e o (4).
 - **Simuladores:**
-  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
-    tela, por decisão do dono;
+  - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
+    2026-09-25
+    ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md)).
+    Ficou com o checkpoint aprovado e 2 vidas. Se ele fica ou é apagado, o
+    dono decide;
   - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam

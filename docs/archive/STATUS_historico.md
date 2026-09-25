@@ -2021,3 +2021,11 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
   ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em 2026-09-25, no
   branch `feat/d4-decisoes-de-revisao`
   ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela conferência da regra de vidas no simulador:
+
+- **Simuladores:**
+  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
+    tela, por decisão do dono;

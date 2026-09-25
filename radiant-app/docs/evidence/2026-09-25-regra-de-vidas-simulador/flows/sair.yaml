@@ -1,0 +1,10 @@
+appId: com.ascendcreative.radiant
+---
+- repeat:
+    times: 3
+    commands:
+      - swipe:
+          start: 50%, 35%
+          end: 50%, 85%
+- tapOn: 'Voltar'
+- assertVisible: 'Abrir checkpoint'
