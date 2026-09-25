@@ -587,9 +587,10 @@ código.
   não uma reescrita do roadmap.
 - **D4 [P0]** Gate editorial. **Triado em 2026-07-31 — a redação anterior, "triar
   os 42 itens `formatNeedsReview`", descrevia mal o trabalho nas duas direções.**
-  **Propostas do agente gravadas em 2026-09-25; espera o revisor.** As 19
-  propostas de destino estão em `review-decisions.json`, que o classificador
-  lê, e os registros continuam `needs-review`. Quem aprova é o revisor. O
+  **18 de 19 aprovadas pelo dono em 2026-09-25.** As propostas do agente
+  estão em `review-decisions.json`, que o classificador lê. O dono aprovou 18
+  e criou o planeta de radioterapia. Falta a capa (p1), cuja exclusão ainda
+  não tem representação. O
   catálogo do app não depende deste estado: ele sai de `ai-bundles.json`, que
   está todo `approved`. [Medição](../content/2026-09-25-d4-propostas-e-cascata.md)
   e [FILA](../FILA.md).

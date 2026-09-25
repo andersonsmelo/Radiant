@@ -58,14 +58,30 @@ Na conversa, antes de medir o promotor, eu disse ao dono que regerar a cadeia
 de IA, que já estão todos aprovados. A decisão de só registrar a cadeia
 continua válida, mas o motivo é outro: a cadeia não governa o app.
 
+## Resposta do dono, no mesmo dia
+
+- **Aprovou as propostas** e o nó de radioterapia. Foram aplicados em mais três
+  runs:
+  - `run-1790364136807-f099f189` → `d152863` reabre a janela;
+  - `run-1790364288998-acaf23f3` cria o `planet-radioterapia` (`planned`) e
+    aprova 18 decisões;
+  - um run final fecha a janela.
+
+  O resultado são 104 registros `approved` e 1 `needs-review`. O p30 e o p32
+  foram para o planeta novo, e não para Modalidades.
+- **Três guardas novas** foram vistas falhando, cada uma pelo defeito
+  específico: um planeta nascendo `active`, uma lição mapeada num planeta
+  `planned` e uma decisão aprovada tratada como proposta.
+- **O push está autorizado a partir de 2026-09-25.** A partir desse dia sai
+  uma PR por dia, às 21 h, com o acumulado.
+
 ## Pendente
 
-- **Revisor / dono:**
-  - aprovar ou corrigir as 19 propostas;
-  - decidir se a radioterapia (p30 e p32) ganha nó na taxonomia;
-  - decidir como representar uma exclusão (p1);
-  - responder o que a D4 ainda bloqueia, dado o V3.
-- **Dono:** o push e a PR deste branch. Ele está empilhado sobre a #37.
+- **Dono, que pediu mais informação:**
+  - como representar uma exclusão (p1);
+  - o que a D4 ainda bloqueia, dado o V3.
+- **Agente:** a PR das 21 h de 2026-09-25, com este branch. Ele está empilhado
+  sobre a #37.
 - **Não feito:** o `validate-foundation` não confere se o
   `review-decisions.json` e o `classifications.json` estão em dia um com o
   outro. Uma decisão editada sem regerar passa pelo gate.

@@ -106,5 +106,14 @@
     "description": "Atuação do técnico em radiologia e aplicações não-médicas da radiação.",
     "trackKind": "long-form",
     "status": "active"
+  },
+  {
+    "id": "planet-radioterapia",
+    "galaxyId": "galaxy-tecnologia",
+    "slug": "radioterapia",
+    "title": "Radioterapia",
+    "description": "Tratamento com radiação ionizante: fontes seladas de cobalto-60 e césio-137, e aceleradores lineares.",
+    "trackKind": "long-form",
+    "status": "planned"
   }
 ]

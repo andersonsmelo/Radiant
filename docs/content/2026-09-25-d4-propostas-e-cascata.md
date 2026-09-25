@@ -2,7 +2,11 @@
 
 > **O que este documento faz:** registra a leitura da governança, as 19
 > propostas de destino do agente e a medição da cadeia abaixo da
-> classificação. **Nada aqui aprova conteúdo.** As propostas esperam um revisor.
+> classificação.
+>
+> **Atualização de 2026-09-25, mais tarde no mesmo dia:** o dono aprovou as
+> propostas na conversa e mandou criar o nó de radioterapia. O resultado está
+> na seção "Aprovação do dono", no fim.
 
 ## Quem pode aprovar
 
@@ -125,3 +129,37 @@ precisa bloquear?
 Desde `f39ec65`, os dois rodam no `content-foundation` e no `content-python` do
 `.loop/project.yaml`. No CI continuam excluídos, porque leem
 `excerpts.json`, que é dado local.
+
+## Aprovação do dono (2026-09-25)
+
+**O dono aprovou as propostas** e respondeu "sim" à pergunta da radioterapia.
+Aplicado assim:
+
+- **16 propostas de posicionamento aprovadas como estavam.** Revisor
+  registrado: `Anderson Melo (dono)`, em 2026-09-25.
+- **p30 e p32 aprovados no planeta novo.** O `planet-radioterapia` entrou em
+  `galaxy-tecnologia`, com status `planned` e sem estrela. Ele é `planned`
+  porque nenhuma lição do catálogo aponta para ele, e `active` quer dizer lição
+  embarcada. A mudança de destino, de Modalidades para Radioterapia, é
+  consequência da resposta ao item 2 e está anotada no motivo das duas
+  decisões.
+- **p1, a capa, continua como proposta de exclusão.** O dono pediu mais
+  informação sobre como representar uma exclusão.
+
+**Resultado:** 105 registros, **104 `approved` e 1 `needs-review`**. Só os 18
+registros aprovados mudaram no `classifications.json`.
+
+**Guardas novas, cada uma vista falhando pelo defeito específico:**
+- `planet-radioterapia` existe, `planned`, em tecnologia e sem lição mapeada;
+- o teste de integração do classificador confere o ramo `approved`;
+- o `validate-foundation.test.mjs` passa a esperar 13 planetas e 1
+  `needs-review`.
+
+**O classificador ainda não tem vocabulário de radioterapia.** Os dois
+excertos chegam ao planeta só pela decisão aprovada. Acrescentar palavras-chave
+mudaria a classificação de máquina de outros excertos, e isso não foi medido
+nesta passagem.
+
+**A cadeia continua desatualizada, e só registrada.** Regerada hoje, ela
+aprovaria os 16 conceitos. Continua valendo que isso não muda o app.
+

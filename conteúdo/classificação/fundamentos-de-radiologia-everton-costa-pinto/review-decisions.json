@@ -19,7 +19,7 @@
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-fisica-da-radiacao",
@@ -27,12 +27,12 @@
       "reason": "Usina termelétrica como exemplo de conversão de energia, no capítulo de energia e matéria. É contexto introdutório, e o revisor pode preferir excluir.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-fisica-da-radiacao",
@@ -40,12 +40,12 @@
       "reason": "Define a atividade de uma amostra radioativa. É física nuclear (energia, matéria e núcleo), não radiopacidade.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-fisica-da-radiacao",
@@ -53,12 +53,12 @@
       "reason": "Meia-vida e as unidades Bq e Ci. O classificador já acertou o planeta; a proposta confirma o destino.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-fisica",
       "planetId": "planet-producao-e-protecao",
@@ -66,12 +66,12 @@
       "reason": "Efeitos biológicos das radiações ionizantes e dosimetria: como a radiação interage e como é contida. O planeta atual trata de contraste e densidade.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-profissao-e-aplicacoes",
@@ -79,38 +79,38 @@
       "reason": "Reator nuclear de potência (Angra): aplicação não médica da radiação.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
-      "planetId": "planet-modalidades",
+      "planetId": "planet-radioterapia",
       "starId": null,
-      "reason": "Radioterapia com fontes de cobalto-60 e césio-137. A taxonomia não tem nó de radioterapia; Modalidades, que inclui medicina nuclear, é o mais próximo. O revisor decide se a radioterapia precisa de nó próprio.",
+      "reason": "Radioterapia com fontes de cobalto-60 e césio-137. A taxonomia não tem nó de radioterapia; Modalidades, que inclui medicina nuclear, é o mais próximo. O revisor decide se a radioterapia precisa de nó próprio. Aprovado pelo dono com a criação do planeta de radioterapia, em 2026-09-25: o destino passou de Modalidades para Radioterapia.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
-      "planetId": "planet-modalidades",
+      "planetId": "planet-radioterapia",
       "starId": null,
-      "reason": "Acelerador linear e tratamento com elétrons, que é radioterapia. Está em pneumotórax porque casou com 'tumor': o destino atual é errado. Vale a mesma ressalva do p30:c1 sobre a falta de nó de radioterapia.",
+      "reason": "Acelerador linear e tratamento com elétrons, que é radioterapia. Está em pneumotórax porque casou com 'tumor': o destino atual é errado. Vale a mesma ressalva do p30:c1 sobre a falta de nó de radioterapia. Aprovado pelo dono com a criação do planeta de radioterapia, em 2026-09-25: o destino passou de Modalidades para Radioterapia.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-modalidades",
@@ -118,12 +118,12 @@
       "reason": "Perfis de atenuação e projeções da tomografia computadorizada. O planeta atual está certo, mas o sinal que o pôs ali foi 'ressonância'; a proposta confirma pelo motivo certo.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-modalidades",
@@ -131,12 +131,12 @@
       "reason": "Magnetização transversal na ressonância magnética.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-modalidades",
@@ -144,12 +144,12 @@
       "reason": "Relaxação dos spins na ressonância magnética.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-equipamento",
@@ -157,12 +157,12 @@
       "reason": "Comandos da mesa radiográfica e tipos de aparelho: componentes do equipamento convencional.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-equipamento",
@@ -170,12 +170,12 @@
       "reason": "Estativa do cabeçote. O classificador já acertou; a proposta confirma.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-equipamento",
@@ -183,12 +183,12 @@
       "reason": "Identificador radiográfico, do catálogo de acessórios. Equipamento cobre acessórios; o planeta atual, Imagem na Prática, cobre processamento.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-equipamento",
@@ -196,12 +196,12 @@
       "reason": "Catálogo de acessórios: dísticos de mamografia, lupa e processadoras. Alternativa plausível: Imagem na Prática, pelas processadoras.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-imagem-na-pratica",
@@ -209,12 +209,12 @@
       "reason": "Processadora automática de filmes odontológicos: processamento radiográfico.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-imagem-na-pratica",
@@ -222,12 +222,12 @@
       "reason": "Imagem latente e revelação. O classificador já acertou; a proposta confirma.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-imagem-na-pratica",
@@ -235,12 +235,12 @@
       "reason": "Composição química do fixador. O classificador já acertou; a proposta confirma.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     },
     {
       "sourceExcerptId": "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1",
-      "status": "proposed",
+      "status": "approved",
       "action": "place",
       "galaxyId": "galaxy-tecnologia",
       "planetId": "planet-imagem-na-pratica",
@@ -248,8 +248,8 @@
       "reason": "Fatores de densidade radiográfica (distância, objeto e processamento), que são os fatores que decidem a qualidade da imagem. Alternativa plausível: Formação da Imagem, onde está hoje.",
       "proposedBy": "agente (Claude Opus 5.5)",
       "proposedAt": "2026-09-25",
-      "reviewedBy": null,
-      "reviewedAt": null
+      "reviewedBy": "Anderson Melo (dono)",
+      "reviewedAt": "2026-09-25"
     }
   ]
 }

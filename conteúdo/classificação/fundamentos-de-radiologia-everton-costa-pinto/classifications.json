@@ -4,7 +4,7 @@
   "strategy": "deterministic-keyword-v1",
   "taxonomyVersion": "eixo-tecnico-2026-08-07",
   "classificationCount": 105,
-  "needsReviewCount": 19,
+  "needsReviewCount": 1,
   "classifications": [
     {
       "id": "classification:excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
@@ -293,12 +293,12 @@
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "planetId": "planet-fisica-da-radiacao",
+      "starId": null,
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Usina termelétrica como exemplo de conversão de energia, no capítulo de energia e matéria. É contexto introdutório, e o revisor pode preferir excluir. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [],
@@ -313,15 +313,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-fisica-da-radiacao",
-        "starId": null,
-        "reason": "Usina termelétrica como exemplo de conversão de energia, no capítulo de energia e matéria. É contexto introdutório, e o revisor pode preferir excluir.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -733,12 +724,12 @@
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
-      "planetId": "planet-radiopacidade",
-      "starId": "star-dose-radiacao",
+      "planetId": "planet-fisica-da-radiacao",
+      "starId": null,
       "confidence": 0.512,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-radiopacidade from matches ['atividade']; star star-dose-radiacao from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Define a atividade de uma amostra radioativa. É física nuclear (energia, matéria e núcleo), não radiopacidade. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-radiopacidade from matches ['atividade']; star star-dose-radiacao from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [
@@ -755,15 +746,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-fisica-da-radiacao",
-        "starId": null,
-        "reason": "Define a atividade de uma amostra radioativa. É física nuclear (energia, matéria e núcleo), não radiopacidade.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -823,9 +805,9 @@
       "planetId": "planet-fisica-da-radiacao",
       "starId": null,
       "confidence": 0.553,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-fisica-da-radiacao from matches ['becquerel', 'curie']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Meia-vida e as unidades Bq e Ci. O classificador já acertou o planeta; a proposta confirma o destino. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-fisica-da-radiacao from matches ['becquerel', 'curie']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [
@@ -843,15 +825,6 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-fisica-da-radiacao",
-        "starId": null,
-        "reason": "Meia-vida e as unidades Bq e Ci. O classificador já acertou o planeta; a proposta confirma o destino.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1174,12 +1147,12 @@
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-fisica",
-      "planetId": "planet-radiopacidade",
-      "starId": "star-dose-radiacao",
+      "planetId": "planet-producao-e-protecao",
+      "starId": null,
       "confidence": 0.823,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'efeitos', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'efeitos'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Efeitos biológicos das radiações ionizantes e dosimetria: como a radiação interage e como é contida. O planeta atual trata de contraste e densidade. (classificador: Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'dose']; planet planet-radiopacidade from matches ['dose', 'efeitos', 'radiação', 'radiacao']; star star-dose-radiacao from matches ['dose', 'radiação', 'radiacao', 'efeitos'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "radiação",
@@ -1208,15 +1181,6 @@
         },
         "planetRunnerUpScore": 4.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-fisica",
-        "planetId": "planet-producao-e-protecao",
-        "starId": null,
-        "reason": "Efeitos biológicos das radiações ionizantes e dosimetria: como a radiação interage e como é contida. O planeta atual trata de contraste e densidade.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1345,13 +1309,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-profissao-e-aplicacoes",
+      "starId": null,
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Reator nuclear de potência (Angra): aplicação não médica da radiação. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [],
@@ -1366,15 +1330,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-profissao-e-aplicacoes",
-        "starId": null,
-        "reason": "Reator nuclear de potência (Angra): aplicação não médica da radiação.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1583,13 +1538,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-radiopacidade",
-      "starId": "star-dose-radiacao",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-radioterapia",
+      "starId": null,
       "confidence": 0.776,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Radioterapia com fontes de cobalto-60 e césio-137. A taxonomia não tem nó de radioterapia; Modalidades, que inclui medicina nuclear, é o mais próximo. O revisor decide se a radioterapia precisa de nó próprio. Aprovado pelo dono com a criação do planeta de radioterapia, em 2026-09-25: o destino passou de Modalidades para Radioterapia. (classificador: Galaxy galaxy-fisica from matches ['radiação', 'radiacao', 'proteção', 'protecao']; planet planet-radiopacidade from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60']; star star-dose-radiacao from matches ['proteção', 'protecao', 'radiação', 'radiacao', 'co 60'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "radiação",
@@ -1621,15 +1576,6 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-modalidades",
-        "starId": null,
-        "reason": "Radioterapia com fontes de cobalto-60 e césio-137. A taxonomia não tem nó de radioterapia; Modalidades, que inclui medicina nuclear, é o mais próximo. O revisor decide se a radioterapia precisa de nó próprio.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1720,13 +1666,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-patologias",
-      "planetId": "planet-patologia-toracica",
-      "starId": "star-pneumotorax",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-radioterapia",
+      "starId": null,
       "confidence": 0.728,
-      "decisionReason": "Galaxy galaxy-patologias from matches ['tumor']; planet planet-patologia-toracica from matches ['tumor']; star star-pneumotorax from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Acelerador linear e tratamento com elétrons, que é radioterapia. Está em pneumotórax porque casou com 'tumor': o destino atual é errado. Vale a mesma ressalva do p30:c1 sobre a falta de nó de radioterapia. Aprovado pelo dono com a criação do planeta de radioterapia, em 2026-09-25: o destino passou de Modalidades para Radioterapia. (classificador: Galaxy galaxy-patologias from matches ['tumor']; planet planet-patologia-toracica from matches ['tumor']; star star-pneumotorax from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "tumor"
@@ -1745,15 +1691,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-modalidades",
-        "starId": null,
-        "reason": "Acelerador linear e tratamento com elétrons, que é radioterapia. Está em pneumotórax porque casou com 'tumor': o destino atual é errado. Vale a mesma ressalva do p30:c1 sobre a falta de nó de radioterapia.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1850,9 +1787,9 @@
       "planetId": "planet-modalidades",
       "starId": null,
       "confidence": 0.715,
-      "decisionReason": "Galaxy galaxy-tecnologia from matches ['ressonancia magnetica', 'ressonância magnética']; planet planet-modalidades from matches ['ressonancia', 'ressonância']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Perfis de atenuação e projeções da tomografia computadorizada. O planeta atual está certo, mas o sinal que o pôs ali foi 'ressonância'; a proposta confirma pelo motivo certo. (classificador: Galaxy galaxy-tecnologia from matches ['ressonancia magnetica', 'ressonância magnética']; planet planet-modalidades from matches ['ressonancia', 'ressonância']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "ressonancia magnetica",
@@ -1873,15 +1810,6 @@
         },
         "planetRunnerUpScore": 2.4,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-modalidades",
-        "starId": null,
-        "reason": "Perfis de atenuação e projeções da tomografia computadorizada. O planeta atual está certo, mas o sinal que o pôs ali foi 'ressonância'; a proposta confirma pelo motivo certo.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2001,13 +1929,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-modalidades",
+      "starId": null,
       "confidence": 0.477,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Magnetização transversal na ressonância magnética. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['ressonância', 'ressonancia']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [
@@ -2025,15 +1953,6 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-modalidades",
-        "starId": null,
-        "reason": "Magnetização transversal na ressonância magnética.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2043,13 +1962,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-modalidades",
+      "starId": null,
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Relaxação dos spins na ressonância magnética. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [],
@@ -2064,15 +1983,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-modalidades",
-        "starId": null,
-        "reason": "Relaxação dos spins na ressonância magnética.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2573,13 +2483,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-equipamento",
+      "starId": null,
       "confidence": 0.641,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['aparelhos']; star star-artefatos-basicos from matches ['aparelhos', 'mesa'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Comandos da mesa radiográfica e tipos de aparelho: componentes do equipamento convencional. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['aparelhos']; star star-artefatos-basicos from matches ['aparelhos', 'mesa'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [
@@ -2599,15 +2509,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-equipamento",
-        "starId": null,
-        "reason": "Comandos da mesa radiográfica e tipos de aparelho: componentes do equipamento convencional.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2934,9 +2835,9 @@
       "planetId": "planet-equipamento",
       "starId": null,
       "confidence": 0.797,
-      "decisionReason": "Galaxy galaxy-tecnologia from matches ['estativa']; planet planet-equipamento from matches ['estativa']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Estativa do cabeçote. O classificador já acertou; a proposta confirma. (classificador: Galaxy galaxy-tecnologia from matches ['estativa']; planet planet-equipamento from matches ['estativa']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "estativa"
@@ -2955,15 +2856,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-equipamento",
-        "starId": null,
-        "reason": "Estativa do cabeçote. O classificador já acertou; a proposta confirma.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3175,12 +3067,12 @@
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
       "galaxyId": "galaxy-tecnologia",
-      "planetId": "planet-imagem-na-pratica",
+      "planetId": "planet-equipamento",
       "starId": null,
       "confidence": 0.759,
-      "decisionReason": "Galaxy galaxy-tecnologia from matches ['chassi', 'camara escura', 'câmara escura']; planet planet-imagem-na-pratica from matches ['camara escura', 'câmara escura']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Identificador radiográfico, do catálogo de acessórios. Equipamento cobre acessórios; o planeta atual, Imagem na Prática, cobre processamento. (classificador: Galaxy galaxy-tecnologia from matches ['chassi', 'camara escura', 'câmara escura']; planet planet-imagem-na-pratica from matches ['camara escura', 'câmara escura']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "chassi",
@@ -3202,15 +3094,6 @@
         },
         "planetRunnerUpScore": 4.4,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-equipamento",
-        "starId": null,
-        "reason": "Identificador radiográfico, do catálogo de acessórios. Equipamento cobre acessórios; o planeta atual, Imagem na Prática, cobre processamento.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3376,13 +3259,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-equipamento",
+      "starId": null,
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Catálogo de acessórios: dísticos de mamografia, lupa e processadoras. Alternativa plausível: Imagem na Prática, pelas processadoras. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [],
@@ -3397,15 +3280,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-equipamento",
-        "starId": null,
-        "reason": "Catálogo de acessórios: dísticos de mamografia, lupa e processadoras. Alternativa plausível: Imagem na Prática, pelas processadoras.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3415,13 +3289,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-imagem-na-pratica",
+      "starId": null,
       "confidence": 0.35,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Processadora automática de filmes odontológicos: processamento radiográfico. (classificador: Galaxy galaxy-fisica from matches ['fallback']; planet planet-formacao-imagem from matches ['fallback']; star star-artefatos-basicos from matches ['fallback'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [],
         "planet": [],
@@ -3436,15 +3310,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-imagem-na-pratica",
-        "starId": null,
-        "reason": "Processadora automática de filmes odontológicos: processamento radiográfico.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3851,9 +3716,9 @@
       "planetId": "planet-imagem-na-pratica",
       "starId": null,
       "confidence": 0.816,
-      "decisionReason": "Galaxy galaxy-tecnologia from matches ['revelador', 'fixador', 'processamento']; planet planet-imagem-na-pratica from matches ['revelador', 'fixador', 'processamento']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Imagem latente e revelação. O classificador já acertou; a proposta confirma. (classificador: Galaxy galaxy-tecnologia from matches ['revelador', 'fixador', 'processamento']; planet planet-imagem-na-pratica from matches ['revelador', 'fixador', 'processamento']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "revelador",
@@ -3876,15 +3741,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-imagem-na-pratica",
-        "starId": null,
-        "reason": "Imagem latente e revelação. O classificador já acertou; a proposta confirma.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3971,9 +3827,9 @@
       "planetId": "planet-imagem-na-pratica",
       "starId": null,
       "confidence": 0.784,
-      "decisionReason": "Galaxy galaxy-tecnologia from matches ['fixador']; planet planet-imagem-na-pratica from matches ['fixador', 'densidade', 'contraste', 'resolucao', 'resolução']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Composição química do fixador. O classificador já acertou; a proposta confirma. (classificador: Galaxy galaxy-tecnologia from matches ['fixador']; planet planet-imagem-na-pratica from matches ['fixador', 'densidade', 'contraste', 'resolucao', 'resolução']; sem estrela: o planeta nao tem camada de estrela, e a confianca foi renormalizada.)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "fixador"
@@ -3996,15 +3852,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-imagem-na-pratica",
-        "starId": null,
-        "reason": "Composição química do fixador. O classificador já acertou; a proposta confirma.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -4092,13 +3939,13 @@
       "taxonomyVersion": "eixo-tecnico-2026-08-07",
       "classifierVersion": "deterministic-keyword-v1",
       "strategy": "deterministic-keyword-v1",
-      "galaxyId": "galaxy-fisica",
-      "planetId": "planet-formacao-imagem",
-      "starId": "star-artefatos-basicos",
+      "galaxyId": "galaxy-tecnologia",
+      "planetId": "planet-imagem-na-pratica",
+      "starId": null,
       "confidence": 0.815,
-      "decisionReason": "Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].",
-      "needsReview": true,
-      "reviewStatus": "needs-review",
+      "decisionReason": "Revisao humana de Anderson Melo (dono) em 2026-09-25: Fatores de densidade radiográfica (distância, objeto e processamento), que são os fatores que decidem a qualidade da imagem. Alternativa plausível: Formação da Imagem, onde está hoje. (classificador: Galaxy galaxy-fisica from matches ['raios x', 'raios-x', 'física', 'fisica']; planet planet-formacao-imagem from matches ['raios x', 'raios-x', 'filme']; star star-artefatos-basicos from matches ['filme'].)",
+      "needsReview": false,
+      "reviewStatus": "approved",
       "matchedSignals": {
         "galaxy": [
           "raios x",
@@ -4124,15 +3971,6 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
-      },
-      "reviewProposal": {
-        "action": "place",
-        "galaxyId": "galaxy-tecnologia",
-        "planetId": "planet-imagem-na-pratica",
-        "starId": null,
-        "reason": "Fatores de densidade radiográfica (distância, objeto e processamento), que são os fatores que decidem a qualidade da imagem. Alternativa plausível: Formação da Imagem, onde está hoje.",
-        "proposedBy": "agente (Claude Opus 5.5)",
-        "proposedAt": "2026-09-25"
       }
     },
     {

@@ -166,13 +166,12 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
   modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
   de escalar.
-- **Conteúdo editorial (D4)** — as **19 propostas de destino do agente** estão
-  gravadas em `review-decisions.json` e **esperam o revisor**: os registros
-  continuam `needs-review` (105 registros, 86 aprovados e 19 em revisão). O
-  agente não aprova, porque o `approved` do classificador é limiar e a
-  governança exige revisão humana. O catálogo do app não depende desse estado:
-  ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em 2026-09-25, no
-  branch `feat/d4-decisoes-de-revisao`
+- **Conteúdo editorial (D4)** — **18 das 19 propostas do agente aprovadas
+  pelo dono** em 2026-09-25, e o `planet-radioterapia` criado (`planned`, sem
+  lição). São 105 registros: 104 `approved` e 1 `needs-review`, a capa, cuja
+  exclusão ainda não tem representação. O catálogo do app não depende desse
+  estado: ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em
+  2026-09-25, no branch `feat/d4-decisoes-de-revisao`
   ([medição](content/2026-09-25-d4-propostas-e-cascata.md), [FILA](FILA.md)).
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado e
   na `main`** (PR #34, mergeada em 2026-09-25), conforme a

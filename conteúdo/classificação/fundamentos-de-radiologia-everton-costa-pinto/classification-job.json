@@ -11,27 +11,9 @@
   "artifacts": {
     "classifications": "classifications.json",
     "classificationCount": 105,
-    "needsReviewCount": 19
+    "needsReviewCount": 1
   },
   "reviewQueueExcerptIds": [
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p7:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p15:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p16:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p23:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p25:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p30:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p32:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p34:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p36:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p44:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p49:c2",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p55:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p60:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p61:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p67:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p69:c1",
-    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p71:c1"
+    "excerpt:fundamentos-de-radiologia-everton-costa-pinto:p1:c1"
   ]
 }

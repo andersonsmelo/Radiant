@@ -473,38 +473,34 @@ aparelho.
 
 ---
 
-### 3. D4 — propostas do agente gravadas em 2026-09-25; falta o revisor
+### 3. D4 — 18 de 19 aprovadas pelo dono em 2026-09-25; falta a capa
 
 > **Atualizado em 2026-09-25, no branch `feat/d4-decisoes-de-revisao`. O bloco
 > "Remedida em 2026-09-25" e o texto de 2026-08-08, abaixo, estão vencidos.**
 > Detalhe e medição em [`2026-09-25-d4-propostas-e-cascata.md`](content/2026-09-25-d4-propostas-e-cascata.md).
 >
-> - **Quem aprova:** o revisor, e não o agente. O `approved` de
->   `classifications.json` é limiar do classificador, e a governança exige
->   revisão humana. Decidido pelo dono em 2026-09-25.
 > - **Feito:** o classificador lê as decisões de
 >   `conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/review-decisions.json`.
->   Estão lá as 19 propostas do agente, com destino e motivo. Cada registro
->   ganhou `reviewProposal` e **continua `needs-review`**: são 105 registros,
->   86 aprovados e 19 em revisão.
-> - **Achado:** dos 9 "com sinal fraco", a proposta confirma 4 e move 5. O p32
+>   O agente propôs destino para os 19, e **o dono aprovou 18** na conversa.
+>   São 105 registros: **104 `approved` e 1 `needs-review`**.
+> - **Radioterapia:** o `planet-radioterapia` entrou em `galaxy-tecnologia`,
+>   `planned` e sem lição, por decisão do dono. Recebeu o p30 e o p32.
+> - **Achado:** dos 9 "com sinal fraco", a proposta confirmou 4 e moveu 5. O p32
 >   é radioterapia e estava em pneumotórax.
-> - **DONO / revisor — o que falta:**
->   1. aprovar ou corrigir as 19 propostas. Para aprovar, troque `status` para
->      `approved` e preencha `reviewedBy` e `reviewedAt`;
->   2. decidir se a radioterapia (p30 e p32) ganha nó na taxonomia;
->   3. decidir como representar uma exclusão (p1, a capa). Hoje o classificador
->      recusa exclusão aprovada.
+> - **DONO — o que falta, e ele pediu mais informação:**
+>   1. como representar a exclusão da capa (p1), que hoje o classificador
+>      recusa aprovar;
+>   2. o que a D4 ainda bloqueia, com o V3 como direção.
 > - **Cadeia desatualizada, só registrada, por decisão do dono:** conceitos e
->   bundles determinísticos não foram regerados desde 2026-08-08. Com a regra
->   atual, 5 dos 7 conceitos deixariam de ser `needs-review`. **Isso não governa
->   o app:** o catálogo é promovido de `ai-bundles.json`, que está 96 de 96
->   `approved`, e já leva os 16 conceitos. Fica a pergunta do dono: com o V3
->   como direção, o que a D4 ainda bloqueia?
+>   bundles determinísticos não foram regerados desde 2026-08-08. Regerados
+>   hoje, aprovariam os 16 conceitos. **Isso não governa o app:** o catálogo é
+>   promovido de `ai-bundles.json`, que está 96 de 96 `approved`, e já leva os
+>   16 conceitos.
 > - **Guardas religadas:** `validate-foundation.test.mjs`, vermelho desde
 >   2026-08-08, e `classify-source.test.py` agora rodam no `loop validate`.
-> - **Janela:** `Conteúdo/classificação` foi aberta em `f39ec65` e fechada no
->   run seguinte.
+> - **Janela:** `Conteúdo/classificação` foi aberta em `f39ec65`, fechada em
+>   `b108651`, reaberta em `d152863` para as aprovações e fechada no run
+>   seguinte.
 >
 > **Remedida em 2026-09-25. O texto abaixo, de 2026-08-08, está vencido.**
 > Medido em `Conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json`:

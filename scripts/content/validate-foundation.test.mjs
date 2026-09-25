@@ -11,7 +11,9 @@ test('foundation taxonomy is internally consistent', () => {
   // tinham vencido por mudancas registradas — a reextracao de 2026-08-08
   // (109 → 105 excertos, needs-review 30 → 19) e o eixo tecnico de 2026-08-07
   // (galaxy-tecnologia e seis planetas). Desde entao ela roda no
-  // `content-foundation` do `.loop/project.yaml`.
+  // `content-foundation` do `.loop/project.yaml`. Em 2026-09-25 o dono aprovou
+  // as decisoes da D4: needs-review caiu de 19 para 1 (a capa, cuja exclusao
+  // ainda nao tem representacao) e o planeta de radioterapia entrou.
   assert.equal(result.ok, true, result.errors.join('\n'));
   assert.equal(result.summary.sourceCount, 1);
   assert.equal(result.summary.extractionJobCount, 1);
@@ -21,7 +23,7 @@ test('foundation taxonomy is internally consistent', () => {
   assert.equal(result.summary.classificationJobCount, 1);
   assert.equal(result.summary.classifiedJobCount, 1);
   assert.equal(result.summary.classificationRecordCount, 105);
-  assert.equal(result.summary.needsReviewCount, 19);
+  assert.equal(result.summary.needsReviewCount, 1);
   assert.equal(result.summary.conceptJobCount, 1);
   assert.equal(result.summary.conceptRecordCount, 16);
   assert.equal(result.summary.conceptNeedsReviewCount, 7);
@@ -47,7 +49,7 @@ test('foundation taxonomy is internally consistent', () => {
     'fundamentos-de-radiologia-everton-costa-pinto',
   ]);
   assert.equal(result.summary.galaxyCount, 4);
-  assert.equal(result.summary.planetCount, 12);
+  assert.equal(result.summary.planetCount, 13);
   assert.equal(result.summary.starCount, 6);
   assert.deepEqual(result.summary.galaxyIds, [
     'galaxy-anatomia',

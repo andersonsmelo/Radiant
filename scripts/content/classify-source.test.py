@@ -343,7 +343,7 @@ class ClassifySourceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exclus"):
             self._aplicar(record, payload)
 
-    def test_decisoes_versionadas_chegam_ao_bundle_sem_aprovar(self):
+    def test_decisoes_versionadas_chegam_ao_bundle(self):
         decisoes = json.loads(DECISIONS_PATH.read_text(encoding="utf-8"))["decisions"]
         self.assertGreater(len(decisoes), 0)
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -354,10 +354,16 @@ class ClassifySourceTests(unittest.TestCase):
         for decisao in decisoes:
             with self.subTest(excerto=decisao["sourceExcerptId"]):
                 registro = por_excerto[decisao["sourceExcerptId"]]
-                self.assertEqual(decisao["status"], "proposed")
-                self.assertEqual(registro["reviewStatus"], "needs-review")
-                self.assertEqual(registro["reviewProposal"]["planetId"], decisao["planetId"])
-                self.assertEqual(registro["reviewProposal"]["reason"], decisao["reason"])
+                if decisao["status"] == "proposed":
+                    self.assertEqual(registro["reviewStatus"], "needs-review")
+                    self.assertEqual(registro["reviewProposal"]["planetId"], decisao["planetId"])
+                    self.assertEqual(registro["reviewProposal"]["reason"], decisao["reason"])
+                else:
+                    self.assertEqual(decisao["status"], "approved")
+                    self.assertEqual(registro["reviewStatus"], "approved")
+                    self.assertEqual(registro["planetId"], decisao["planetId"])
+                    self.assertIn(decisao["reviewedBy"], registro["decisionReason"])
+                    self.assertNotIn("reviewProposal", registro)
 
 
 if __name__ == "__main__":

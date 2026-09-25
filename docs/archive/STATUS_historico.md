@@ -2008,3 +2008,16 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
   é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
   governança para saber quem aprova, e reabrir a janela de
   `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela aprovação do dono na D4:
+
+- **Conteúdo editorial (D4)** — as **19 propostas de destino do agente** estão
+  gravadas em `review-decisions.json` e **esperam o revisor**: os registros
+  continuam `needs-review` (105 registros, 86 aprovados e 19 em revisão). O
+  agente não aprova, porque o `approved` do classificador é limiar e a
+  governança exige revisão humana. O catálogo do app não depende desse estado:
+  ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em 2026-09-25, no
+  branch `feat/d4-decisoes-de-revisao`
+  ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).
