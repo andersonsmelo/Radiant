@@ -14,6 +14,7 @@ SPEC.loader.exec_module(MODULE)
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SLUG = "fundamentos-de-radiologia-everton-costa-pinto"
 EXCERPTS_PATH = REPO_ROOT / "conteúdo" / "extrações" / SOURCE_SLUG / "excerpts.json"
+DECISIONS_PATH = REPO_ROOT / "conteúdo" / "classificação" / SOURCE_SLUG / "review-decisions.json"
 
 
 class ClassifySourceTests(unittest.TestCase):
@@ -194,6 +195,170 @@ class ClassifySourceTests(unittest.TestCase):
 
     def test_taxonomy_version_declara_o_eixo_tecnico(self):
         self.assertEqual(MODULE.TAXONOMY_VERSION, "eixo-tecnico-2026-08-07")
+
+    # ── Decisoes de revisao (D4, 2026-09-25) ─────────────────────────────
+    # O `approved` do classificador vem de limiar de confianca, nao de gente.
+    # Decisao humana vive num arquivo versionado que o classificador le, porque
+    # editar `classifications.json` a mao some na proxima regeneracao. Proposta
+    # do agente NAO aprova: so decisao `approved` com revisor identificado muda
+    # o status.
+
+    def _registro_em_revisao(self):
+        excerpt = {
+            "id": "excerpt:test-revisao",
+            "sourceSlug": SOURCE_SLUG,
+            "pageStart": 1,
+            "pageEnd": 1,
+            "text": "Fundamentos de Radiologia 2017.2",
+        }
+        record = MODULE.classify_excerpt(excerpt, default_galaxy_id="galaxy-fisica")
+        self.assertEqual(record["reviewStatus"], "needs-review")
+        return record
+
+    def _decisao(self, **campos):
+        decisao = {
+            "sourceExcerptId": "excerpt:test-revisao",
+            "status": "proposed",
+            "action": "place",
+            "galaxyId": "galaxy-tecnologia",
+            "planetId": "planet-modalidades",
+            "starId": None,
+            "reason": "Texto sobre ressonancia magnetica.",
+            "proposedBy": "agente",
+            "proposedAt": "2026-09-25",
+            "reviewedBy": None,
+            "reviewedAt": None,
+        }
+        decisao.update(campos)
+        return {"schemaVersion": 1, "decisions": [decisao]}
+
+    def _aplicar(self, record, payload):
+        taxonomy = MODULE.load_taxonomy(REPO_ROOT)
+        return MODULE.apply_review_decisions([record], payload, taxonomy)[0]
+
+    def test_proposta_anexa_destino_sem_aprovar_nem_mover(self):
+        record = self._registro_em_revisao()
+
+        resultado = self._aplicar(record, self._decisao())
+
+        self.assertEqual(resultado["reviewStatus"], "needs-review")
+        self.assertTrue(resultado["needsReview"])
+        self.assertEqual(resultado["planetId"], "planet-formacao-imagem")
+        self.assertEqual(
+            resultado["reviewProposal"],
+            {
+                "action": "place",
+                "galaxyId": "galaxy-tecnologia",
+                "planetId": "planet-modalidades",
+                "starId": None,
+                "reason": "Texto sobre ressonancia magnetica.",
+                "proposedBy": "agente",
+                "proposedAt": "2026-09-25",
+            },
+        )
+
+    def test_aprovacao_humana_reposiciona_e_aprova(self):
+        record = self._registro_em_revisao()
+        payload = self._decisao(status="approved", reviewedBy="revisor", reviewedAt="2026-10-01")
+
+        resultado = self._aplicar(record, payload)
+
+        self.assertEqual(resultado["reviewStatus"], "approved")
+        self.assertFalse(resultado["needsReview"])
+        self.assertEqual(resultado["galaxyId"], "galaxy-tecnologia")
+        self.assertEqual(resultado["planetId"], "planet-modalidades")
+        self.assertIsNone(resultado["starId"])
+        self.assertIn("revisor", resultado["decisionReason"])
+        self.assertIn("2026-10-01", resultado["decisionReason"])
+        self.assertNotIn("reviewProposal", resultado)
+
+    def test_aprovacao_sem_revisor_e_recusada(self):
+        record = self._registro_em_revisao()
+        for faltando in ({"reviewedBy": None}, {"reviewedAt": None}, {"reviewedBy": "  "}):
+            campos = {"status": "approved", "reviewedBy": "revisor", "reviewedAt": "2026-10-01"}
+            campos.update(faltando)
+            with self.subTest(faltando=faltando):
+                with self.assertRaisesRegex(ValueError, "revisor"):
+                    self._aplicar(record, self._decisao(**campos))
+
+    def test_planeta_fora_da_galaxia_e_recusado(self):
+        record = self._registro_em_revisao()
+        with self.assertRaisesRegex(ValueError, "planet-modalidades"):
+            self._aplicar(record, self._decisao(galaxyId="galaxy-fisica"))
+
+    def test_estrela_que_nao_e_do_planeta_e_recusada(self):
+        record = self._registro_em_revisao()
+        with self.assertRaisesRegex(ValueError, "star-pneumotorax"):
+            self._aplicar(record, self._decisao(starId="star-pneumotorax"))
+
+    def test_planeta_com_estrela_exige_estrela(self):
+        record = self._registro_em_revisao()
+        payload = self._decisao(galaxyId="galaxy-fisica", planetId="planet-formacao-imagem", starId=None)
+        with self.assertRaisesRegex(ValueError, "planet-formacao-imagem"):
+            self._aplicar(record, payload)
+
+    def test_decisao_para_excerto_inexistente_e_recusada(self):
+        record = self._registro_em_revisao()
+        with self.assertRaisesRegex(ValueError, "excerpt:nao-existe"):
+            self._aplicar(record, self._decisao(sourceExcerptId="excerpt:nao-existe"))
+
+    def test_decisao_duplicada_e_recusada(self):
+        record = self._registro_em_revisao()
+        payload = self._decisao()
+        payload["decisions"].append(dict(payload["decisions"][0]))
+        with self.assertRaisesRegex(ValueError, "duplicada"):
+            self._aplicar(record, payload)
+
+    def test_status_desconhecido_e_recusado(self):
+        record = self._registro_em_revisao()
+        with self.assertRaisesRegex(ValueError, "aprovado"):
+            self._aplicar(record, self._decisao(status="aprovado"))
+
+    def test_acao_desconhecida_e_recusada(self):
+        record = self._registro_em_revisao()
+        with self.assertRaisesRegex(ValueError, "mover"):
+            self._aplicar(record, self._decisao(action="mover"))
+
+    def test_fonte_sem_arquivo_de_decisoes_segue_sem_decisoes(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            self.assertEqual(MODULE.load_review_decisions(Path(temp_dir), SOURCE_SLUG), {"decisions": []})
+
+    def test_exclusao_proposta_anexa_sem_destino(self):
+        record = self._registro_em_revisao()
+        payload = self._decisao(action="exclude", galaxyId=None, planetId=None, starId=None,
+                                reason="Capa do livro, sem conteudo.")
+
+        resultado = self._aplicar(record, payload)
+
+        self.assertEqual(resultado["reviewStatus"], "needs-review")
+        self.assertEqual(resultado["reviewProposal"]["action"], "exclude")
+        self.assertIsNone(resultado["reviewProposal"]["planetId"])
+
+    def test_exclusao_aprovada_e_recusada_ate_o_contrato_prever(self):
+        """O contrato so conhece `approved` e `needs-review`. Aprovar uma exclusao
+        como `approved` publicaria o excerto; a representacao e decisao do dono."""
+        record = self._registro_em_revisao()
+        payload = self._decisao(action="exclude", galaxyId=None, planetId=None, starId=None,
+                                status="approved", reviewedBy="revisor", reviewedAt="2026-10-01")
+        with self.assertRaisesRegex(ValueError, "exclus"):
+            self._aplicar(record, payload)
+
+    def test_decisoes_versionadas_chegam_ao_bundle_sem_aprovar(self):
+        decisoes = json.loads(DECISIONS_PATH.read_text(encoding="utf-8"))["decisions"]
+        self.assertGreater(len(decisoes), 0)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            MODULE.classify_source(SOURCE_SLUG, REPO_ROOT, Path(temp_dir) / SOURCE_SLUG, update_index=False)
+            bundle = json.loads((Path(temp_dir) / SOURCE_SLUG / "classifications.json").read_text(encoding="utf-8"))
+
+        por_excerto = {item["sourceExcerptId"]: item for item in bundle["classifications"]}
+        for decisao in decisoes:
+            with self.subTest(excerto=decisao["sourceExcerptId"]):
+                registro = por_excerto[decisao["sourceExcerptId"]]
+                self.assertEqual(decisao["status"], "proposed")
+                self.assertEqual(registro["reviewStatus"], "needs-review")
+                self.assertEqual(registro["reviewProposal"]["planetId"], decisao["planetId"])
+                self.assertEqual(registro["reviewProposal"]["reason"], decisao["reason"])
+
 
 if __name__ == "__main__":
     unittest.main()

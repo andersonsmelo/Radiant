@@ -34,6 +34,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "exclude",
+        "galaxyId": null,
+        "planetId": null,
+        "starId": null,
+        "reason": "Capa do módulo: título, autor e semestre. Não há conteúdo a posicionar.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -304,6 +313,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-fisica",
+        "planetId": "planet-fisica-da-radiacao",
+        "starId": null,
+        "reason": "Usina termelétrica como exemplo de conversão de energia, no capítulo de energia e matéria. É contexto introdutório, e o revisor pode preferir excluir.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -737,6 +755,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-fisica",
+        "planetId": "planet-fisica-da-radiacao",
+        "starId": null,
+        "reason": "Define a atividade de uma amostra radioativa. É física nuclear (energia, matéria e núcleo), não radiopacidade.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -816,6 +843,15 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-fisica",
+        "planetId": "planet-fisica-da-radiacao",
+        "starId": null,
+        "reason": "Meia-vida e as unidades Bq e Ci. O classificador já acertou o planeta; a proposta confirma o destino.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1172,6 +1208,15 @@
         },
         "planetRunnerUpScore": 4.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-fisica",
+        "planetId": "planet-producao-e-protecao",
+        "starId": null,
+        "reason": "Efeitos biológicos das radiações ionizantes e dosimetria: como a radiação interage e como é contida. O planeta atual trata de contraste e densidade.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1321,6 +1366,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-profissao-e-aplicacoes",
+        "starId": null,
+        "reason": "Reator nuclear de potência (Angra): aplicação não médica da radiação.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1567,6 +1621,15 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-modalidades",
+        "starId": null,
+        "reason": "Radioterapia com fontes de cobalto-60 e césio-137. A taxonomia não tem nó de radioterapia; Modalidades, que inclui medicina nuclear, é o mais próximo. O revisor decide se a radioterapia precisa de nó próprio.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1682,6 +1745,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-modalidades",
+        "starId": null,
+        "reason": "Acelerador linear e tratamento com elétrons, que é radioterapia. Está em pneumotórax porque casou com 'tumor': o destino atual é errado. Vale a mesma ressalva do p30:c1 sobre a falta de nó de radioterapia.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1801,6 +1873,15 @@
         },
         "planetRunnerUpScore": 2.4,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-modalidades",
+        "starId": null,
+        "reason": "Perfis de atenuação e projeções da tomografia computadorizada. O planeta atual está certo, mas o sinal que o pôs ali foi 'ressonância'; a proposta confirma pelo motivo certo.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1944,6 +2025,15 @@
         },
         "planetRunnerUpScore": 3.8,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-modalidades",
+        "starId": null,
+        "reason": "Magnetização transversal na ressonância magnética.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -1974,6 +2064,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-modalidades",
+        "starId": null,
+        "reason": "Relaxação dos spins na ressonância magnética.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2500,6 +2599,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-equipamento",
+        "starId": null,
+        "reason": "Comandos da mesa radiográfica e tipos de aparelho: componentes do equipamento convencional.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -2847,6 +2955,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-equipamento",
+        "starId": null,
+        "reason": "Estativa do cabeçote. O classificador já acertou; a proposta confirma.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3085,6 +3202,15 @@
         },
         "planetRunnerUpScore": 4.4,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-equipamento",
+        "starId": null,
+        "reason": "Identificador radiográfico, do catálogo de acessórios. Equipamento cobre acessórios; o planeta atual, Imagem na Prática, cobre processamento.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3271,6 +3397,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-equipamento",
+        "starId": null,
+        "reason": "Catálogo de acessórios: dísticos de mamografia, lupa e processadoras. Alternativa plausível: Imagem na Prática, pelas processadoras.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3301,6 +3436,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-imagem-na-pratica",
+        "starId": null,
+        "reason": "Processadora automática de filmes odontológicos: processamento radiográfico.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3732,6 +3876,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-imagem-na-pratica",
+        "starId": null,
+        "reason": "Imagem latente e revelação. O classificador já acertou; a proposta confirma.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3843,6 +3996,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-imagem-na-pratica",
+        "starId": null,
+        "reason": "Composição química do fixador. O classificador já acertou; a proposta confirma.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {
@@ -3962,6 +4124,15 @@
         },
         "planetRunnerUpScore": 0.0,
         "starRunnerUpScore": 0.0
+      },
+      "reviewProposal": {
+        "action": "place",
+        "galaxyId": "galaxy-tecnologia",
+        "planetId": "planet-imagem-na-pratica",
+        "starId": null,
+        "reason": "Fatores de densidade radiográfica (distância, objeto e processamento), que são os fatores que decidem a qualidade da imagem. Alternativa plausível: Formação da Imagem, onde está hoje.",
+        "proposedBy": "agente (Claude Opus 5.5)",
+        "proposedAt": "2026-09-25"
       }
     },
     {

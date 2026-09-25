@@ -1998,3 +1998,13 @@ Continuam em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a
 `sharp-dijkstra-747d12` e a `trusting-mestorf-a5ca83`, cada uma com runs do
 Loop que o git ignora. A `Radiant-release` está numa `main` local antiga
 (`21c42b6`), e quem for usá-la começa por `git pull`.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelas propostas do agente para a D4:
+
+- **Conteúdo editorial (D4)** — **19 `needs-review`** de 105 registros,
+  remedido em 2026-09-25: 10 sem nenhum sinal e 9 com sinal fraco. A estrela já
+  é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
+  governança para saber quem aprova, e reabrir a janela de
+  `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](../FILA.md)).

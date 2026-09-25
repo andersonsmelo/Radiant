@@ -520,6 +520,82 @@ def classify_excerpt(excerpt: dict, default_galaxy_id: str = "galaxy-fisica") ->
     }
 
 
+REVIEW_DECISION_STATUSES = ("proposed", "approved")
+REVIEW_DECISION_ACTIONS = ("place", "exclude")
+
+
+def _validate_placement(decision: dict, taxonomy: dict) -> None:
+    excerpt_id = decision["sourceExcerptId"]
+    galaxy_id, planet_id, star_id = decision["galaxyId"], decision["planetId"], decision["starId"]
+    planet_galaxy = {item["id"]: item["galaxyId"] for item in taxonomy["planets"]}
+    if planet_galaxy.get(planet_id) != galaxy_id:
+        raise ValueError(f"Decisao de {excerpt_id}: {planet_id} nao pertence a {galaxy_id}")
+    star_ids = PLANET_STAR_IDS.get(planet_id, [])
+    if star_id is None and star_ids:
+        raise ValueError(f"Decisao de {excerpt_id}: {planet_id} tem estrela e exige starId")
+    if star_id is not None and star_id not in star_ids:
+        raise ValueError(f"Decisao de {excerpt_id}: {star_id} nao e estrela de {planet_id}")
+
+
+def apply_review_decisions(records: list[dict], payload: dict, taxonomy: dict) -> list[dict]:
+    """Aplica `review-decisions.json` sobre a saida do classificador.
+
+    Proposta (`proposed`) so anexa `reviewProposal` e nao muda destino nem
+    status: o `approved` deste arquivo vem de limiar, e proposta de agente nao
+    e revisao. Decisao `approved` exige revisor e data, e so ela reposiciona e
+    aprova. Exclusao aprovada ainda nao tem representacao no contrato.
+    """
+    by_excerpt = {record["sourceExcerptId"]: record for record in records}
+    seen: set[str] = set()
+    for decision in payload.get("decisions", []):
+        excerpt_id = decision["sourceExcerptId"]
+        if excerpt_id not in by_excerpt:
+            raise ValueError(f"Decisao para excerto inexistente: {excerpt_id}")
+        if excerpt_id in seen:
+            raise ValueError(f"Decisao duplicada para {excerpt_id}")
+        seen.add(excerpt_id)
+        status, action = decision["status"], decision["action"]
+        if status not in REVIEW_DECISION_STATUSES:
+            raise ValueError(f"Decisao de {excerpt_id}: status desconhecido {status}")
+        if action not in REVIEW_DECISION_ACTIONS:
+            raise ValueError(f"Decisao de {excerpt_id}: acao desconhecida {action}")
+        if action == "place":
+            _validate_placement(decision, taxonomy)
+
+        record = by_excerpt[excerpt_id]
+        if status == "proposed":
+            record["reviewProposal"] = {
+                key: decision[key]
+                for key in ("action", "galaxyId", "planetId", "starId", "reason", "proposedBy", "proposedAt")
+            }
+            continue
+
+        reviewer, reviewed_at = decision.get("reviewedBy"), decision.get("reviewedAt")
+        if not (reviewer or "").strip() or not (reviewed_at or "").strip():
+            raise ValueError(f"Decisao aprovada de {excerpt_id} exige revisor e data (reviewedBy, reviewedAt)")
+        if action == "exclude":
+            raise ValueError(
+                f"Decisao de {excerpt_id}: exclusao aprovada nao tem representacao no contrato; decisao do dono"
+            )
+        record["galaxyId"] = decision["galaxyId"]
+        record["planetId"] = decision["planetId"]
+        record["starId"] = decision["starId"]
+        record["needsReview"] = False
+        record["reviewStatus"] = "approved"
+        record["decisionReason"] = (
+            f"Revisao humana de {reviewer} em {reviewed_at}: {decision['reason']} "
+            f"(classificador: {record['decisionReason']})"
+        )
+    return records
+
+
+def load_review_decisions(repo_root: Path, source_slug: str) -> dict:
+    path = repo_root / CONTENT_ROOT_NAME / "classificação" / source_slug / "review-decisions.json"
+    if not path.exists():
+        return {"decisions": []}
+    return read_json(path)
+
+
 def load_source_entry(repo_root: Path, source_slug: str) -> dict:
     source_index = read_json(repo_root / CONTENT_ROOT_NAME / "fontes" / "index.json")
     for source in source_index["sources"]:
@@ -578,6 +654,9 @@ def classify_source(
         if record["starId"] is not None and record["starId"] not in taxonomy["star_ids"]:
             raise ValueError(f"Unknown star {record['starId']} for excerpt {excerpt['id']}")
         classifications.append(record)
+
+    apply_review_decisions(classifications, load_review_decisions(repo_root, source_slug), taxonomy)
+    for record in classifications:
         if record["reviewStatus"] == "needs-review":
             review_ids.append(record["sourceExcerptId"])
 

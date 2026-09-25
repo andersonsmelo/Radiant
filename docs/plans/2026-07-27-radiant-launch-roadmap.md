@@ -587,6 +587,12 @@ código.
   não uma reescrita do roadmap.
 - **D4 [P0]** Gate editorial. **Triado em 2026-07-31 — a redação anterior, "triar
   os 42 itens `formatNeedsReview`", descrevia mal o trabalho nas duas direções.**
+  **Propostas do agente gravadas em 2026-09-25; espera o revisor.** As 19
+  propostas de destino estão em `review-decisions.json`, que o classificador
+  lê, e os registros continuam `needs-review`. Quem aprova é o revisor. O
+  catálogo do app não depende deste estado: ele sai de `ai-bundles.json`, que
+  está todo `approved`. [Medição](../content/2026-09-25-d4-propostas-e-cascata.md)
+  e [FILA](../FILA.md).
   **Auditoria adicional concluída em 2026-08-27; correções abertas:** a captura
   do iPhone revelou um mockup de tórax no quiz de profissão. A inspeção também
   encontrou ensino genérico e ordem previsível de respostas no catálogo
