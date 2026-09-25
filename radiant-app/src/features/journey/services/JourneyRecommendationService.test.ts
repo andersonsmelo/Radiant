@@ -205,3 +205,64 @@ describe('decisão soberana da versão 1.4', () => {
         expect(snapshot.nextDecision?.dueReviewCount).toBe(0);
     });
 });
+
+// Defeito 1 do E2E, opção A da ADR de 2026-09-25: o concluído vence o
+// retomável e o atual. A trilha padrão tem uma unidade só, então esta a divide
+// em duas para que a unidade em foco tenha para onde ir.
+describe('lição concluída reaberta e abandonada', () => {
+    const [unidade] = defaultTrack.units;
+    const trilhaDeDuasUnidades: JourneyTrackDefinition = {
+        ...defaultTrack,
+        initialUnitId: 'unit-a',
+        units: [
+            { ...unidade, id: 'unit-a', nodes: unidade.nodes.slice(0, 3).map((node) => ({ ...node, unitId: 'unit-a' })) },
+            { ...unidade, id: 'unit-b', nodes: unidade.nodes.slice(3).map((node) => ({ ...node, unitId: 'unit-b' })) },
+        ],
+    };
+    const semReabrir: JourneyProgress = {
+        ...progressoInicial(),
+        currentUnitId: 'unit-b',
+        completedNodeIds: ['node:lesson-1', 'node:checkpoint:foundations'],
+    };
+    const reabertaEAbandonada: JourneyProgress = {
+        ...semReabrir,
+        currentNodeId: 'node:lesson-1',
+        resumableNodeId: 'node:lesson-1',
+        resumableStepIndex: 2,
+    };
+
+    function unidadeEmFoco(progress: JourneyProgress): string {
+        const snapshot = JourneyRecommendationService.computeSnapshot(trilhaDeDuasUnidades, progress);
+        return JourneyRecommendationService.resolveCurrentUnitId(snapshot.track, progress);
+    }
+
+    it('a unidade em foco continua onde está o trabalho, e não volta para a lição concluída', () => {
+        expect(unidadeEmFoco(semReabrir)).toBe('unit-b');
+        expect(unidadeEmFoco(reabertaEAbandonada)).toBe('unit-b');
+    });
+
+    it('com o estado antigo já gravado, a recomendação não volta para a lição concluída', () => {
+        // Quem viveu o defeito antes do conserto tem a L1 concluída gravada
+        // como retomável. A trava de escrita não desfaz isso; a leitura, sim.
+        const semReabrirSnapshot = JourneyRecommendationService.computeSnapshot(trilhaDeDuasUnidades, semReabrir);
+        const gravadoSnapshot = JourneyRecommendationService.computeSnapshot(trilhaDeDuasUnidades, reabertaEAbandonada);
+
+        expect(gravadoSnapshot.nextRecommendedNode?.id).toBe(semReabrirSnapshot.nextRecommendedNode?.id);
+        expect(gravadoSnapshot.nextDecision?.reason).not.toBe('paused-lesson');
+    });
+
+    it('GUARDA DA POPULAÇÃO: revisão já feita, devida de novo e pausada continua retomável', () => {
+        const revisaoDevidaPausada: JourneyProgress = {
+            ...progressoInicial(),
+            completedNodeIds: ['node:lesson-1', 'node:review:lesson-1'],
+            pendingReviewNodeIds: ['node:review:lesson-1'],
+            resumableNodeId: 'node:review:lesson-1',
+            resumableStepIndex: 1,
+        };
+        const snapshot = JourneyRecommendationService.computeSnapshot(defaultTrack, revisaoDevidaPausada);
+        const revisao = snapshot.track.units.flatMap((unit) => unit.nodes)
+            .find((node) => node.id === 'node:review:lesson-1');
+
+        expect(revisao?.status).toBe('resumable');
+    });
+});

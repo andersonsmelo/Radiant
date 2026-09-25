@@ -183,26 +183,24 @@ Cada conserto é um run, com teste vermelho antes.
 
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:
-   - **Lição concluída volta como "Continuar de onde parou".** Reabrir a L1
-     concluída e sair pela folha de vidas (medido; pelo código, "Fechar quiz"
-     faz o mesmo, não medido) derruba o
-     cabeçalho de "1 de 14" para "0 de 14 etapas" e recomenda refazer a lição
-     no lugar do checkpoint. `resolveNodeStatus`
-     (`JourneyRecommendationService.ts:46`) testa `resumableNodeId` antes de
-     `completed`; `completedNodeIds` segue intacto. A precedência vem da onda 1
-     (`847a12d`), anterior à folha. **Decidido pelo dono em 2026-09-25:
-     opção A, o concluído vence o retomável**
-     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
-     **Pronto para o agente**, com teste vermelho antes. As notas de código
-     estão no
-     [relatório da nuvem](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
-     §2.2:
-     - `LessonFlowScreen.tsx` marca como retomável também uma lição
-       concluída (`:117`, `:249` e `:285`);
-     - inverter a precedência não basta, porque a `resumableNodeId` velha
-       ainda orienta o `resolveCurrentUnitId`;
-     - os testes vermelhos são o cabeçalho em "1 de 14", a recomendação no
-       checkpoint e a unidade em foco.
+   - ✅ **Lição concluída volta como "Continuar de onde parou"** — corrigido
+     em 2026-09-25, no branch `fix/defeito-1-licao-concluida`, sem push e sem
+     build, pela opção A da
+     [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
+     ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
+     - **Na leitura:** um nó concluído e sem pendência
+       (`isSettledCompletion`) vence o retomável e o atual, no status, na
+       recomendação e na unidade em foco. Uma revisão devida de novo não está
+       assentada e continua retomável.
+     - **Na escrita:** `setResumableNode` não grava a retomada de um nó
+       assentado, e com isso não apaga a de outra lição em andamento.
+     - **Testes:** 7 novos, cada um visto vermelho pelo defeito que nomeia.
+     - **Na tela:** o caminho 3 e um flow avulso no simulador `E3C547AE`
+       mostraram `Concluído`, o cabeçalho em "1 de N" e nenhum "Continuar de
+       onde parou".
+     - **Pendente:** o `radiant-1-4-vidas-esgotadas.yaml` pode passar a
+       afirmar o estado da L1. Hoje ele não afirma de propósito, por causa
+       deste defeito. Fica para um run próprio.
    - ✅ **"Próxima revisão em 2 dias" para revisão a 24 h** — corrigido em
      2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build: a contagem
      parte do carimbo do cartão quando esta resposta o carimbou

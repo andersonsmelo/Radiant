@@ -10,7 +10,7 @@ import {
     type JourneyTrackDefinition,
 } from '../../../types/journey';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
-import { JourneyRecommendationService } from './JourneyRecommendationService';
+import { JourneyRecommendationService, isSettledCompletion } from './JourneyRecommendationService';
 import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { progressSyncService } from '../../progress-sync/ProgressSyncService';
@@ -97,6 +97,14 @@ class JourneyProgressServiceImpl {
         const requestedTrack = typeof stepIndexOrTrack === 'number' ? trackDefinition : stepIndexOrTrack;
         const resolvedTrackDefinition = await this.resolveTrackDefinition(requestedTrack);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
+
+        // ADR de 2026-09-25 (defeito 1 do E2E, opção A): reabrir uma lição já
+        // concluída e sem pendência não a torna retomável. Como só existe uma
+        // retomada, gravar esta apagaria a de outra lição em andamento.
+        if (nodeId !== undefined && isSettledCompletion(progress, nodeId)) {
+            return this.persistAndHydrate(resolvedTrackDefinition, progress);
+        }
+
         const nextProgress: JourneyProgress = {
             ...progress,
             resumableNodeId: nodeId,
