@@ -67,36 +67,79 @@ git switch --no-track -c <nova> origin/main
 3. `docs/FILA.md`.
 4. O relatório, a medição ou a ADR da frente que você pegar.
 
-## 3. Todas as pendências, por criticidade (2026-09-25, 17:43)
+## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 21:10)
 
-| # | Tarefa | Dono | Estado e bloqueio |
+Ordem combinada com o dono em 2026-09-25, às 21:10, juntando a lista dele com a
+do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
+(isolar o aquecimento) foi feito às 18:06
+([relatório](2026-09-25-radiant-aquecimento-isolado-relatorio.md)) e saiu.
+
+O critério é o que cada item destrava. No empate, vence o que tem relógio mais
+longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada-em-2026-09-25).
+
+**P1 — o que segura a 1.4**
+
+| # | Tarefa | Dono | Destrava / depende |
 |---|---|---|---|
-| 1 | **Merge de #35 → #36 → #37** | dono | Depois vem o `feat/d4-decisoes-de-revisao`, pela PR diária |
-| 2 | **VoiceOver no iPhone (4b)** | dono | **Bloqueia a 1.4.** O dono não quer fazer; a alternativa é uma ADR dele aceitando como evidência a árvore de acessibilidade da H4 |
-| 3 | **Ask to Buy** no sandbox | dono | Precisa de grupo familiar no sandbox |
-| 4 | **Cancelamento** no aparelho | dono | **Bloqueado:** os Ajustes do iOS 27.2 fecham ao gerenciar o sandbox |
-| 5 | **Aprovar a amostra do piloto L1** (3 perguntas e o item 18) | dono | Destrava o 6 |
-| 6 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | Depende do 5 |
-| 7 | **D4, três decisões** | dono | Ele pediu mais informação sobre (a) e (b); as opções estão na §4.1 |
-| 8 | **Aquecimento no aparelho** | dono, com o agente | 5 min fora do carregador, com e sem Reduzir Movimento, de preferência numa build `preview` |
-| 9 | ~~**Aquecimento: isolar estrelas de nebulosas** e medir se as abas visitadas continuam montadas~~ | agente | ✅ **Feito em 2026-09-25, às 18:06.** Não refaça. O conserto virou item novo na FILA, achado 5 ([relatório](2026-09-25-radiant-aquecimento-isolado-relatorio.md)) |
-| 10 | **XP da aprovação do checkpoint** | agente | Visto e não investigado: a tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
-| 11 | **Caminho 3 do E2E afirma o estado da L1** | agente | Depende do merge da #36; detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
-| 12 | **Decisões do StoreKit:** "Gerenciar" e troca de plano, ordem dos planos, preço de outra loja | dono → agente | Achados 2 a 4 da FILA |
-| 13 | **F2:** faltam 7 testadores aceitarem | dono | Caminho crítico do Android; não bloqueia a 1.4 no iOS |
-| 14 | **Simulador `A5FA5443`** | dono | Ficou com o checkpoint aprovado e 2 vidas. Apagar ou manter |
-| 15 | **Bump para `1.4.0`** | agente | **Por último.** Depende dos itens 1 a 4 |
-| 16 | **SDK 58 com `UIScene`** | agente | Depois da 1.4, até abril de 2027 |
+| 1 | **Merge de #35 → #36 → #37** | dono | Destrava o 16, o 20 e a PR do `feat/d4-decisoes-de-revisao` |
+| 2 | **StoreKit: decidir o "Gerenciar"** (folha `showManageSubscriptions` dentro do app) | dono | **Pode destravar o 4:** pela FILA, a folha resolveria troca e cancelamento sem os Ajustes, que fecham no iOS 27.2. **Não medido** se ela funciona nesse sandbox |
+| 3 | **VoiceOver num iPhone físico**, ou ADR do dono aceitando a árvore de acessibilidade da H4 | dono | Bloqueia a 1.4 |
+| 4 | **Cancelamento no aparelho** | dono | **Bloqueado** pelo iOS 27.2. Saídas: outro aparelho ou versão, a folha do 2, ou ADR tirando-o do roteiro, como o reembolso |
+| 5 | **Ask to Buy** no sandbox | dono | Precisa de grupo familiar no sandbox |
+
+**P2 — relógio longo: começar cedo**
+
+| # | Tarefa | Dono | Por quê |
+|---|---|---|---|
+| 6 | **F2:** faltam 7 testadores aceitarem | dono | Não bloqueia a 1.4 no iOS, mas os 14 dias só começam com 12. Cada dia parado é um dia a mais no Android |
+
+**P3 — decisões do dono que destravam o agente**
+
+| # | Tarefa | Dono | Destrava |
+|---|---|---|---|
+| 7 | **Aprovar a amostra do piloto L1** (3 perguntas, e o item 18 da amostra, que parece idêntico ao item 1 dela) | dono | O 15, e depois o teste com 3 a 5 pessoas e a L2 v7: a fila inteira do V3 |
+| 8 | **D4-b:** o que a D4 ainda bloqueia (§4.1) | dono | O 17. **Vem antes do 9 e do 10:** se a D4 fechar como superada, eles podem perder o objeto |
+| 9 | **D4-a:** como representar a exclusão da capa (§4.1; o agente recomenda A) | dono | O 18 |
+| 10 | **D4-c:** destino dos 4 excertos de radioterapia (§4.1) | dono | O 18 |
+| 11 | **StoreKit:** ordem dos planos e preço de outra loja até recarregar | dono | O 19 |
+
+**P4 — agente, destravado agora**
+
+| # | Tarefa | Dono | Observação |
+|---|---|---|---|
+| 12 | **Conserto do aquecimento:** parar o fundo animado fora de foco e medir de novo M1 e M4 | agente | FILA, achado 5. Antes do 14, para o aparelho medir a versão consertada |
+| 13 | **XP da aprovação do checkpoint** | agente | A tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
+
+**P5 — esperando outra coisa**
+
+| # | Tarefa | Dono | Depende de |
+|---|---|---|---|
+| 14 | **Aquecimento no aparelho:** 5 min fora do carregador, com e sem Reduzir Movimento, anotando as telas visitadas antes | dono, com o agente | Idealmente do 12, numa build `preview` |
+| 15 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | 7 |
+| 16 | **Caminho 3 do E2E afirma o estado da L1** | agente | Merge da #36 (1); detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
+| 17 | **Regerar conceitos e bundles** da cadeia desatualizada | agente | 8 |
+| 18 | **Aplicar a D4-a e a D4-c** | agente | 9 e 10, num run que reabre `Conteúdo/classificação` |
+| 19 | **Implementar as decisões do StoreKit** | agente | 2 e 11 |
+| 20 | **Bump para `1.4.0`** | agente | **Por último:** 1, 3, 4 e 5 |
+
+**Depois da 1.4, ou sem prazo**
+
+| # | Tarefa | Dono |
+|---|---|---|
+| 21 | **SDK 58 com `UIScene`**, até abril de 2027 | agente |
+| 22 | **L2 do V3, a v7:** depende do teste do piloto | agente |
+| 23 | **Simulador `A5FA5443`:** apagar ou manter. Está com o checkpoint aprovado e 2 vidas | dono |
+| 24 | **Ações de um passo:** E3 e IARC, chave do Play (A5), pedido ao INCA, `~/.lmstudio` e Ollama, `checkHeuristics` | dono |
 
 **Qual frente pegar agora:**
-- se o dono já tiver respondido a D4 (item 7), aplique a resposta;
-- ~~se não, pegue o **item 9**~~: feito em 2026-09-25, às 18:06;
-- se não, pegue o **conserto do aquecimento** (parar o fundo fora de foco), da
-  FILA, achado 5, ou o **item 10**. Um por conversa.
+- se o dono já tiver respondido algum item da P3, aplique a resposta pelo
+  item correspondente da P5;
+- se não, pegue o **12** (conserto do aquecimento), ou o **13**. Um por
+  conversa.
 
 ## 4. Frentes em detalhe
 
-### 4.1. D4 (item 7): as três perguntas do dono
+### 4.1. D4 (itens 8, 9 e 10 da §3): as três perguntas do dono
 
 **(a) Como representar a exclusão da capa (p1).** O contrato só conhece
 `approved` e `needs-review`, e o classificador recusa exclusão aprovada.
@@ -129,7 +172,7 @@ classificação.
 O histórico das aberturas e fechamentos está em comentários no próprio
 `project.yaml`.
 
-### 4.2. Aquecimento (itens 8 e 9)
+### 4.2. Aquecimento (itens 12 e 14 da §3)
 
 - **Método que funcionou no simulador:**
   - ficar parado na trilha;

@@ -40,6 +40,49 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ---
 
+## Ordem de prioridade, combinada em 2026-09-25
+
+Combinada com o dono em 2026-09-25, às 21:10. O critério é o que cada item
+destrava; no empate, vence o relógio mais longo. A numeração é a mesma da §3
+do [prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado**, hoje o 12.
+
+- **P1 — o que segura a 1.4:**
+  1. dono: merge de #35 → #36 → #37. Destrava o 16, o 20 e a PR do
+     `feat/d4-decisoes-de-revisao`;
+  2. dono: decidir o "Gerenciar" do StoreKit. **Pode destravar o 4**, porque
+     a folha da Apple resolveria o cancelamento sem os Ajustes (não medido no
+     iOS 27.2);
+  3. dono: VoiceOver num iPhone físico, ou ADR aceitando a árvore da H4;
+  4. dono: cancelamento no aparelho, bloqueado pelo iOS 27.2;
+  5. dono: Ask to Buy, que precisa de grupo familiar no sandbox.
+- **P2 — relógio longo:**
+  6. dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
+- **P3 — decisões do dono que destravam o agente:**
+  7. aprovar a amostra do piloto L1. Destrava o 15 e o resto do V3;
+  8. D4-b, o que a D4 ainda bloqueia. Destrava o 17 e **vem antes do 9 e do
+     10**;
+  9. D4-a, a exclusão da capa;
+  10. D4-c, os 4 excertos de radioterapia;
+  11. StoreKit: ordem dos planos e preço de outra loja.
+- **P4 — agente, destravado:**
+  12. conserto do aquecimento (achado 5 do StoreKit, abaixo);
+  13. XP da aprovação do checkpoint.
+- **P5 — esperando outra coisa:**
+  14. dono, com o agente: aquecimento no aparelho, depois do 12;
+  15. agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7;
+  16. agente: o caminho 3 do E2E afirma a L1, depois do merge da #36;
+  17. agente: regerar conceitos e bundles, depois do 8;
+  18. agente: aplicar a D4-a e a D4-c, depois do 9 e do 10;
+  19. agente: implementar o StoreKit, depois do 2 e do 11;
+  20. agente: bump para `1.4.0`, **por último**, depois do 1, 3, 4 e 5.
+- **Depois da 1.4, ou sem prazo:**
+  21. agente: SDK 58 com `UIScene`, até abril de 2027;
+  22. agente: L2 v7, depois do teste do piloto;
+  23. dono: o simulador `A5FA5443`, apagar ou manter;
+  24. dono: as ações de um passo da seção 7, abaixo.
+
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 
 **Estado:** spec aprovada pelo dono
@@ -47,7 +90,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md), que traz todas as pendências em ordem de criticidade;
+[`superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
