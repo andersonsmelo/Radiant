@@ -36,8 +36,8 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **139 commits e 274 arquivos à frente** do que está na App Store
-(medido em 2026-09-24, `v1.3.1..ab121ad`). Nada disso chegou ao usuário:
+A `main` está **157 commits e 327 arquivos à frente** do que está na App Store
+(medido em 2026-09-25, `v1.3.1..c9062da`). Nada disso chegou ao usuário:
 vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
 currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
 
@@ -51,35 +51,34 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 1. **Dono:** StoreKit no aparelho. **Em 2026-09-24, o build `development`
    compilou o Swift e abriu num iPhone com iOS 27.2.** No sandbox passaram:
    - preços, com R$ 19,90 e R$ 149,90;
-   - compra mensal;
+   - compra mensal e, em 2026-09-25, compra anual;
    - renovação acelerada e expiração;
    - reinstalação.
 
    Falta:
-   - compra anual;
    - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
    - Ask to Buy;
    - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
      pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
 
-   O reembolso depende de uma decisão do dono, e o modo avião saiu do roteiro
-   ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   O modo avião e o reembolso saíram do roteiro no aparelho
+   ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
+   [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
-2. **Agente, com aparelho:** E2E dos três caminhos dourados — caminhos 1 e 3
-   `passed` no simulador iOS 26.5 em 2026-09-24; falta o dia 2 do caminho 2,
-   relógio real, a partir de **2026-09-25 11:55 (−03)**. O E2E expôs três
-   defeitos do app ([FILA](FILA.md), item 4 da Task 8). Em 2026-09-24, os
-   defeitos 2 e 3 foram corrigidos no branch local `fix/e2e-defeitos-2-e-3`,
-   sem push e fora da `main`, e esse branch passou no gate com 148 suítes / 1379 testes
-   ([relatório](superpowers/handoffs/2026-09-24-radiant-defeitos-2-e-3-relatorio.md)).
-   Os dois foram conferidos na tela no mesmo dia, num segundo simulador, durante
-   o gate H4. O defeito 1 espera a decisão do dono.
-   **Em 2026-09-24, à noite, as duas branches locais foram enviadas ao
-   GitHub.** A `fix/e2e-defeitos-2-e-3` tem 15 commits além da `main`,
-   contando o do prompt (4). O merge vai de cima para baixo: #32 →
-   documentação → `fix/e2e-defeitos-2-e-3`. Ele e as decisões que não
-   precisam do Mac ficam para uma sessão na nuvem
-   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
+   A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
+   conserto é do agente.
+2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
+   simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
+   com relógio real
+   ([evidência](../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md)).
+   Android e aparelho físico não foram executados. O E2E expôs três defeitos
+   do app ([FILA](FILA.md), item 4 da Task 8):
+   - **os defeitos 2 e 3** foram corrigidos e **estão na `main`** desde
+     2026-09-25 (PR #34, com o CI verde);
+   - **o defeito 1** foi decidido pelo dono em 2026-09-25: o concluído vence o
+     retomável
+     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
+     O conserto é do agente, com teste vermelho antes.
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
@@ -149,8 +148,9 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
 ## Bloqueios abertos, por frente
 
 - **Android em produção** — exige 12 testadores **participando** por 14 dias
-  (F2). A última contagem é de **2026-08-03** (14 vinculados, 2 participando) e
-  não serve para decidir nada. Só o dono mede, no Play Console. Também abertos:
+  (F2). **Remedido em 2026-09-25:** 5 participando de 14 vinculados, e os 14
+  dias não começaram. Faltam 7 aceites, e a margem máxima é de 2
+  ([FILA](FILA.md)). Só o dono mede, no Play Console. Também abertos:
   questionário IARC (E4), aparelho Android físico (C4) e TalkBack (C5).
 - **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
   revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O
@@ -162,18 +162,20 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
   modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
   de escalar.
-- **Conteúdo editorial (D4)** — 30 itens `needs-review`, decompostos em três
-  fatias (medido em 2026-08-08).
-- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado em
-  2026-09-24** no branch `fix/e2e-defeitos-2-e-3`, que ainda não está na
-  `main`, conforme a [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
+- **Conteúdo editorial (D4)** — **19 `needs-review`** de 105 registros,
+  remedido em 2026-09-25: 10 sem nenhum sinal e 9 com sinal fraco. A estrela já
+  é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
+  governança para saber quem aprova, e reabrir a janela de
+  `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](FILA.md)).
+- **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado e
+  na `main`** (PR #34, mergeada em 2026-09-25), conforme a
+  [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
   - os dois defeitos da primeira passagem foram corrigidos (texto do checkpoint
-    e texto grande) e reconferidos no simulador;
-  - gate do branch: 150 suítes / 1415 testes, exit 0
+    e texto grande) e reconferidos no simulador
     ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
-  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) foi
-    implementada no mesmo branch em 2026-09-24, sem conferência no simulador.
-    Gate medido depois dela, no Node 20: 151 suítes / 1423 testes, exit 0
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) está na
+    mesma PR, sem conferência no simulador. O gate do branch deu 151 suítes /
+    1423 testes, no Node 20
     ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
   - o VoiceOver em aparelho segue aberto na [FILA](FILA.md).
 
@@ -230,32 +232,44 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-24, no fim do dia:
-- `origin/main` está em `ab121ad`.
-- **A PR #32 está aberta**, com o E2E dos caminhos dourados e o CI verde.
-- **Em cima dela há duas branches locais, sem push:**
-  - `docs/prompt-continuidade-2026-09-24-2`, com o prompt (2);
-  - `fix/e2e-defeitos-2-e-3`, com os defeitos 2 e 3 do E2E, a H4 fechada, a
-    ADR e o prompt (3).
-
-  O push é do dono.
-- **O remoto tem 22 branches já mergeados na `main`.** O único que não foi
-  mergeado é o da #32. Apagá-los é decisão do dono.
-- Prompt de continuidade, com todas as tarefas pendentes em ordem de
-  criticidade:
+Medido em 2026-09-25, às 08:47:
+- **`origin/main` está em `c9062da`, com o CI verde.** As PRs #32 (E2E), #33
+  (prompt 2) e #34 (defeitos 2 e 3, H4, vida por tentativa, perfil
+  `development` do EAS e evidência do StoreKit) entraram em 2026-09-25, com a
+  cabeça travada, por uma sessão na nuvem
+  ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
+  O relatório dessa sessão foi registrado em 2026-09-25
+  ([guardado](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)):
+  - o F2 foi remedido;
+  - o defeito 1, o reembolso e a renovação desconhecida foram decididos
+    ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
+  - a amostra do piloto ficou **sem decisão**.
+- **O remoto tem só a `main`.** Os 25 branches já mergeados foram apagados em
+  2026-09-25, por decisão do dono. A lista, com a ponta de cada um para
+  restaurar, está em
+  [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
+  Os branches locais deste Mac ficaram.
+- **Prompt de continuidade** da sessão local:
   [`2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
+  Os itens 1 e 7 dele já não estão pendentes: o merge e a regra de vidas. Do
+  item 14, só falta o simulador da H4.
 - **Simuladores:**
-  - o `A5FA5443-…` foi criado para o gate H4, e o estado dele foi pré-montado;
-  - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
-    reinstalado nem limpo** antes do dia 2.
+  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
+    tela, por decisão do dono;
+  - o `E3C547AE-…` já cumpriu o dia 2, em 2026-09-25, e está livre. Rodar o
+    caminho 2 de novo exige repetir o dia 1 e esperar 24 h.
 
-**As quatro worktrees em `.claude/worktrees/` ficam** (eram cinco; a
-`confident-hamilton-4d3b96` já não existe, medido em 2026-09-24). Cada uma
-guarda runs do Loop em `.loop/runs/`, que o git ignora, e remover a worktree
-apagaria essa evidência. A `zealous-shannon-01c8e3` tem 4 alterações não
-commitadas (`AGENTS.md`, `docs/FILA.md`, `docs/STATUS.md` e um script de
-conteúdo): **não descarte sem o dono**. A worktree `Radiant-release` está numa
-`main` local antiga (`21c42b6`), e quem for usá-la começa por `git pull`.
+**Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24, com o
+aval do dono, e o histórico local de runs dela foi junto.
+- A afirmação anterior de que ela tinha 4 alterações não commitadas não valia
+  mais: medido em 2026-09-24 às 21:22, não havia nada rastreado alterado.
+- Os 4 arquivos que ela tinha, fora do git, eram cópias idênticas, conferidas
+  por hash, dos subprodutos das extrações do checkout principal.
+
+Continuam em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a
+`sharp-dijkstra-747d12` e a `trusting-mestorf-a5ca83`, cada uma com runs do
+Loop que o git ignora. A `Radiant-release` está numa `main` local antiga
+(`21c42b6`), e quem for usá-la começa por `git pull`.
 
 ```bash
 git fetch origin && gh pr list --state open

@@ -99,3 +99,21 @@ Nenhum bloqueia a 1.4. Todos foram registrados na FILA.
      alcançou o iOS 27.2.
    - **Teste que separaria as causas:** fora do carregador, 5 minutos com e
      sem Reduzir Movimento.
+
+## Complemento — 2026-09-24 à noite e 2026-09-25 de manhã
+
+Mesmo aparelho, mesma build (`ac4b49df`) e mesma conta de teste do Brasil.
+
+| Ponto | Resultado | Como foi medido |
+|---|---|---|
+| Troca de plano por quem já assina (24/09, 21:30) | ⚠️ Não há caminho no app | Com a mensal ativa, a tela de assinante não mostra os planos, e o dono não encontrou onde trocar. A troca pela Apple passa pelos Ajustes, que fecham no iOS 27.2 |
+| Compra anual (25/09, 10:55) | ✅ | Com a mensal expirada, a folha da Apple dizia "R$ 149,90 por ano, a partir de 25/09/2026", `[Environment: Sandbox]` e "Processo completo". Depois, ∞ no HUD e "Assinante · vidas ilimitadas · Renova em 25/09/2026" no Perfil, o que bate com um ano de uma hora no sandbox |
+| Ordem dos planos | ⚠️ Instável | Em 24/09 o mensal veio primeiro, e em 25/09 o anual. O app não ordena os produtos, e a ordem de `Product.products(for:)` não é garantida |
+
+Com isso, a compra anual deixa de estar entre os pontos não verificados. A
+troca de plano e a ordem entram como achados na FILA.
+
+**Metro em 25/09:** a rota padrão do Mac voltou a sair pelo adaptador de rede
+USB (`en7`). O endereço passado ao dono foi conferido antes na interface da
+rota e respondeu `packager-status:running`. O dono não relatou falha de
+conexão, e a compra anual passou pelo app carregado desse Metro.

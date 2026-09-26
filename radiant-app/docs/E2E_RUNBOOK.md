@@ -828,11 +828,11 @@ Registre `vm.swapusage` e `vm.loadavg` antes de concluir que a passagem serve.
 
 ## Sign-off matrix
 
-### 1.4 golden paths (spec §8 item 6) — measured 2026-09-24
+### 1.4 golden paths (spec §8 item 6) — measured 2026-09-24 and 2026-09-25
 
 | Platform | Device/runtime | Build | Path 1 — first run to L1 | Path 2 — second day, review due | Path 3 — hearts out mid-lesson | Owner/date |
 |---|---|---|---:|---:|---:|---|
-| iOS | `iPhone 17` / iOS 26.5 | local **Debug** + Metro over `ab121ad`, binary `1.3.1` stamped 11:01:25, verified with `simctl get_app_container` | passed (131s) | **day 1 passed; day 2 pending** — runnable from 2026-09-25 11:55 (−03) | passed (496s) | engineering / 2026-09-24 |
+| iOS | `iPhone 17` / iOS 26.5 | local **Debug** + Metro, binary `1.3.1` (stamped 11:01:25 at build time; the bundle reads 11:53:06 after path 1's `clearState` reinstalled it). JS over `ab121ad` on day 1, and over `c9062da` on day 2 | passed (131s) | **passed**: day 1 on 2026-09-24 11:53, day 2 on 2026-09-25 13:20–13:22 (−03), real clock, about 116 s | passed (496s) | engineering / 2026-09-24, day 2 on 2026-09-25 |
 | Android | — | — | not run | not run | not run | — |
 
 Detail, the failed runs and the three app defects they exposed:

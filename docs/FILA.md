@@ -91,17 +91,21 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      - planos e preços da Apple (R$ 19,90 e R$ 149,90);
      - compra mensal, tela e cartão de assinante, e ∞ no HUD;
      - renovação acelerada e expiração sozinha, voltando a 5 vidas;
-     - reinstalar o app e reconhecer a assinatura sem Restaurar.
+     - reinstalar o app e reconhecer a assinatura sem Restaurar;
+     - **compra anual, em 2026-09-25**: a folha dizia "R$ 149,90 por ano", e
+       depois apareceram o ∞ e o cartão de assinante.
    - **falta:**
-     - compra **anual**;
      - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
        gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
        do iOS;
      - tocar em **Restaurar compras**, que importa para quem troca de
        aparelho.
    - **reembolso:** o app não tem a entrada `beginRefundRequest`, que é a
-     única forma de pedir reembolso no sandbox. **O dono decide** se o item
-     sai do roteiro ou se o app ganha a entrada.
+     única forma de pedir reembolso no sandbox. **Decidido pelo dono em
+     2026-09-25: o reembolso sai do roteiro no aparelho**, e o app não ganha
+     o botão. A perda de acesso depois de um reembolso passa a ser testada pelo
+     StoreKit Testing do Xcode
+     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
    - **modo avião:** saiu do roteiro por decisão do dono em 2026-09-24
      ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md)).
 4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
@@ -131,8 +135,13 @@ Cada conserto é um run, com teste vermelho antes.
    - o `StoreKit2Adapter.ts:41` converte isso em `false`;
    - o assinante pagante vê "Cancelada".
 
-   Conserto candidato: tratar o desconhecido como estado próprio, com um texto
-   sem data de renovação. **O texto é decisão do dono.**
+   **Decidido pelo dono em 2026-09-25 (opção 2A,
+   [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)):**
+   - a renovação ganha três estados: renova, não renova e desconhecido;
+   - no desconhecido, o cartão mostra **"Ativa · acesso até DD/MM"**.
+
+   **Pronto para o agente:** um run, com teste vermelho antes. O teste precisa
+   provar que o desconhecido não vira "Cancelada".
 2. **Preço de outra loja até o app recarregar** (medido):
    - os preços carregados antes do login ficaram em dólar, enquanto a Apple
      cobrava em reais;
@@ -141,7 +150,17 @@ Cada conserto é um run, com teste vermelho antes.
 3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
    cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
    alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
-4. **Aquecimento com a build `development`** (relatado, não medido):
+   **Medido em 2026-09-24:** quem já assina **não consegue trocar de plano**
+   dentro do app, porque a tela de assinante não mostra os planos. A troca
+   pela Apple passa pelos Ajustes, que fecham no iOS 27.2. A mesma folha
+   resolveria a troca e o cancelamento.
+4. **A ordem dos planos muda de um dia para o outro** (medido em 2026-09-24 e
+   2026-09-25): num dia o mensal veio primeiro, e no outro, o anual. O app não
+   ordena a lista e usa a ordem em que `Product.products(for:)` devolve os
+   produtos, que a Apple não garante (`RadiantStoreKitModule.swift:65`). O
+   conserto candidato é uma ordem fixa no adaptador, com teste. A ordem certa
+   é decisão do dono.
+5. **Aquecimento com a build `development`** (relatado, não medido):
    - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
      infinitas, e as abas visitadas continuam montadas;
    - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
@@ -151,19 +170,16 @@ Cada conserto é um run, com teste vermelho antes.
 
 **Um por run.** Ordem por dependência, não pela ordem em que foram escritas:
 
-4. **E2E dos três caminhos dourados** — **escritos, no contrato e rodados em
+4. ✅ **E2E dos três caminhos dourados** — **escritos, no contrato e rodados em
    2026-09-24** no simulador iOS 26.5, build Debug local sobre `ab121ad`
    ([evidência](../radiant-app/docs/evidence/2026-09-24-e2e-caminhos-dourados-1-4.md),
    [relatório](superpowers/handoffs/2026-09-24-radiant-e2e-caminhos-dourados-relatorio.md)).
-   Caminhos 1 e 3 `passed`. **Falta: o dia 2 do caminho 2**, relógio real
-   (decisão do dono, 2026-09-24): rodar
-   `maestro test .maestro/radiant-1-4-segundo-dia.yaml` **a partir de
-   2026-09-25 11:55 (−03)**, no mesmo simulador
-   (`E3C547AE-4D2B-4C2D-9E0A-43AC36BBD1AD`), com o Metro no ar e **sem rodar
-   antes nenhum flow com `clearState`**, que apagaria o dia 1. Se o estado se
-   perder, rode de novo `radiant-1-4-primeira-execucao.yaml` e espere mais
-   24 h. Android não foi executado. Não validar durante flow E2E: 2,3× de
-   desaceleração medida.
+   **Os três caminhos estão `passed` no iOS 26.5 desde 2026-09-25.** O dia 2
+   do caminho 2 rodou às 13:20 de 2026-09-25, com relógio real, no simulador
+   `E3C547AE`, sem `clearState` desde o dia 1, e com o JS da `main` `c9062da`.
+   Terminou com exit 0. Android não foi executado. Rodar o dia 2 de novo exige
+   repetir o `radiant-1-4-primeira-execucao.yaml` e esperar 24 h. Não validar
+   durante um flow E2E: a desaceleração medida é de 2,3×.
 
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:
@@ -174,18 +190,28 @@ Cada conserto é um run, com teste vermelho antes.
      no lugar do checkpoint. `resolveNodeStatus`
      (`JourneyRecommendationService.ts:46`) testa `resumableNodeId` antes de
      `completed`; `completedNodeIds` segue intacto. A precedência vem da onda 1
-     (`847a12d`), anterior à folha. **Decidir antes:** concluído vence
-     retomável, ou a retomada de lição concluída é mostrada sem desfazer a
-     contagem? Promessa ao usuário, então o dono escolhe.
+     (`847a12d`), anterior à folha. **Decidido pelo dono em 2026-09-25:
+     opção A, o concluído vence o retomável**
+     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
+     **Pronto para o agente**, com teste vermelho antes. As notas de código
+     estão no
+     [relatório da nuvem](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
+     §2.2:
+     - `LessonFlowScreen.tsx` marca como retomável também uma lição
+       concluída (`:117`, `:249` e `:285`);
+     - inverter a precedência não basta, porque a `resumableNodeId` velha
+       ainda orienta o `resolveCurrentUnitId`;
+     - os testes vermelhos são o cabeçalho em "1 de 14", a recomendação no
+       checkpoint e a unidade em foco.
    - ✅ **"Próxima revisão em 2 dias" para revisão a 24 h** — corrigido em
-     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build: a contagem
+     2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build: a contagem
      parte do carimbo do cartão quando esta resposta o carimbou
      (`lesson-flow/services/nextReviewInDays.ts`). Teste visto vermelho pelo
      defeito (esperado 1, recebido 2). Conferido na tela em 2026-09-24, num
      segundo simulador, durante o gate H4: "Próxima revisão em 1 dia"
      ([evidência](../radiant-app/docs/evidence/2026-09-24-gate-h4-simulador.md)).
    - ✅ **Resumo de vidas cortado na trilha** — corrigido em 2026-09-24, no
-     branch `fix/e2e-defeitos-2-e-3`, sem build: o resumo vai sob os corações,
+     branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build: o resumo vai sob os corações,
      não ao lado (`HUD.tsx`, `heartsControlContent` em coluna). Teste visto
      vermelho pelo defeito (esperado `column`, recebido `row`). Conferido na
      tela em 2026-09-24, num segundo simulador, durante o gate H4: o botão de
@@ -240,6 +266,13 @@ Pendente, nesta ordem:
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
+   **Ainda sem decisão em 2026-09-25.** O dono pulou o item na sessão na
+   nuvem. A leitura do snapshot na nuvem achou um ponto para levar à
+   aprovação: o **item 18** (`h10-lat-ventral-v`) é idêntico ao **item 1**
+   (`h01`), com a mesma postura, a mesma pergunta, as mesmas opções e o mesmo
+   gabarito, embora o nome diga "ventral". A sessão local não reconferiu isso
+   ([relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
+   §2.3).
 2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
    causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
    `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
@@ -376,13 +409,13 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
 **Defeitos abertos pela H4, um run cada, com teste vermelho antes:**
 1. ✅ **O texto do checkpoint prometia a avaliação antiga** — corrigido em
-   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build. O texto sai dos
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build. O texto sai dos
    itens e do limiar reais (`checkpoint/checkpointRuleCopy.ts`, com a mesma
    conta de `UnitCheckpointService`): "Responda as 2 questões. Para avançar,
    acerte todas." e "A aprovação exige 2 acertos." Teste de tela visto vermelho
    pelo defeito: a árvore mostrava "Responda 10 questões" e "exige 8 acertos".
 2. ✅ **Tamanhos de acessibilidade quebravam a trilha e o checkpoint** —
-   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build.
+   corrigido em 2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build.
    Acima de `fontScale` 1,3 (`ui/accessibility/useLargeTextLayout.ts`):
    - a trilha vira uma coluna, com a linha à esquerda e os cartões a 85%, sem
      limite de linhas;
@@ -411,7 +444,7 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
    parte ("Fundame / ntos"), como no texto nativo do iOS.
 
 3. ✅ **Pergunta cobrada duas vezes na mesma tentativa** — corrigido em
-   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, sem build, depois do ok do
+   2026-09-24, no branch `fix/e2e-defeitos-2-e-3`, que está na `main` desde 2026-09-25 (PR #34), sem build, depois do ok do
    dono na ADR dado na própria conversa. O `Set` em memória da tela virou
    `checkpoint/checkpointChargeLedger.ts`:
    - grava, por nó de checkpoint, só os ids das perguntas já cobradas, na chave
@@ -435,6 +468,29 @@ aparelho.
 ---
 
 ### 3. D4 — remedida em 2026-08-08, e agora são três fatias com donos diferentes
+
+> **Remedida em 2026-09-25. O texto abaixo, de 2026-08-08, está vencido.**
+> Medido em `Conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json`:
+> - **105 registros:** 86 `approved` e **19 `needs-review`**, e não 30;
+> - **a estrela já é opcional:** 44 registros estão sem `starId`, e o
+>   `validate-foundation.mjs:414` aceita `null`. O "bloqueio de contrato"
+>   abaixo foi resolvido;
+> - **os 4 fragmentos foram resolvidos** por remapeamento, e não por
+>   reextração, que se provou impossível. Detalhe nos comentários de
+>   `writePolicy` do `.loop/project.yaml`, janelas de 2026-08-08.
+>
+> **Os 19 restantes:**
+> - **10 sem nenhum sinal:** `matches ['fallback']`, seis deles com confiança
+>   de 0,35;
+> - **9 com sinal fraco:** confiança entre 0,48 e 0,82.
+>
+> A maior concentração (9 dos 19) está em `planet-formacao-imagem`.
+>
+> **O que falta decidir:** ler a governança do conteúdo para saber se o agente
+> pode aprovar os 9 com sinal ou só propor. Mudar qualquer registro reabre a
+> janela de `Conteúdo/classificação` em `allowedRoots`, num run próprio e
+> anterior, com a grafia do disco. O dono autorizou essa janela em
+> 2026-09-25.
 
 **Estado:** aberto, P0, bloqueia produção — mas decomposta.
 **Bloqueio:** trocou de lugar, não morreu. **Dono:** agente nas duas primeiras
@@ -581,27 +637,29 @@ pedia para não fazer ao contrário.
 **Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`. **Bloqueio:**
 humano. **Dono:** dono.
 
-> 🔴 **MEDIÇÃO VENCIDA — 44 dias.** O número abaixo é de **2026-08-03**: 14
-> contas vinculadas, 2 participando. Conferido em 2026-09-16: **é a medição
-> mais antiga citada nesta fila**, num item declarado como caminho crítico
-> inteiro. **Não cite esse "2 participando" para decidir nada** — remeça antes.
+> **Remedido em 2026-09-25**, por capturas do Play Console, pelo dono na
+> sessão na nuvem
+> ([relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
+> §2.4):
+> - **5 participando** e **14 vinculados**, na lista de e-mails "Radiant
+>   Alpha" do Teste fechado · Alpha;
+> - a track está ativa, com a versão 1.3.0 (4);
+> - **os 14 dias não começaram**, inferido da tela;
+> - **faltam 7 aceites** para chegar a 12, e mesmo com os 14 vinculados a
+>   margem é de só 2.
 >
-> **Este item não tem comando que o remeça.** Todos os outros itens da fila
-> declaram um; este depende de abrir o Play Console e olhar, e é exatamente por
-> isso que ele apodrece sem ninguém perceber. O relógio de 14 dias pode ter
-> começado e terminado nesse intervalo, ou não ter começado — as duas coisas
-> são compatíveis com o que está escrito aqui.
+> Na medição anterior, de 2026-08-03, eram 2 participando.
 >
-> Onde olhar: **Play Console → Teste → Teste fechado → track `alpha` →
-> Testadores**. O que importa é o número de **participando**, não o de
-> vinculados.
+> **Este item continua sem comando que o remeça**: depende de abrir o Play
+> Console. Onde olhar: **Play Console → Teste → Teste fechado → track `alpha`
+> → Testadores**. O que importa é o número de **participando**.
 
 O Play exige **12 testadores participando por 14 dias corridos**. Vincular não
 é participar — falta cada pessoa aceitar o convite e instalar, e só quem
 participa conta para o relógio.
 
-Na medição de 2026-08-03 o relógio **não havia começado**. Se começou depois,
-esta fila não saberia: ver o aviso acima.
+Na medição de 2026-09-25, o relógio **ainda não começou** (ver o aviso
+acima).
 
 **A premissa foi reconferida em 2026-08-08 e o bloqueio é real:** a A1 decidiu
 conta Play **pessoal** ([ADR](adr/ADR-2026-07-27-store-account-strategy.md)), e
