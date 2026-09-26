@@ -36,10 +36,11 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **157 commits e 327 arquivos à frente** do que está na App Store
-(medido em 2026-09-25, `v1.3.1..c9062da`). Nada disso chegou ao usuário:
-vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
-currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
+A `main` está **168 commits e 333 arquivos à frente** do que está na App Store
+(medido em 2026-09-25, às 21:24, `v1.3.1..e992686`). Nada disso chegou ao
+usuário: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
+(CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
+ao app do aluno).
 
 ```bash
 git fetch origin && git rev-list --count v1.3.1..origin/main
@@ -55,20 +56,24 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    - renovação acelerada e expiração;
    - reinstalação.
 
-   Falta:
-   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
-   - Ask to Buy;
-   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
-     pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+   Falta, pela [ADR de 2026-09-25, às 21:20](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md):
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app,
+     que o agente vai implementar, numa build `development` nova. Se a folha
+     também fechar no iOS 27.2, ele passa ao StoreKit Testing do Xcode;
+   - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
+     do Xcode. Falta conferir que o módulo Swift funciona ali;
+   - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
+     que decidiu fazê-lo. Ele saiu da H4 pela
+     [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
    [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
    A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
-   corrigida em 2026-09-25 na
-   [PR #37](https://github.com/andersonsmelo/Radiant/pull/37), que aguarda
-   merge, com o gate em 151 suítes / 1434 testes
+   corrigida em 2026-09-25 e **na `main` desde a mesma data**
+   ([PR #37](https://github.com/andersonsmelo/Radiant/pull/37), merge
+   `e992686`), com o gate em 151 suítes / 1434 testes
    ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
 2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
    simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
@@ -80,8 +85,9 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      2026-09-25 (PR #34, com o CI verde);
    - **o defeito 1** foi corrigido em 2026-09-25, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
-     na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), que aguarda
-     merge. Foi visto na tela, e o gate deu 151 suítes / 1430 testes
+     e **está na `main`** desde a mesma data
+     ([PR #36](https://github.com/andersonsmelo/Radiant/pull/36), merge
+     `cab01c0`). Foi visto na tela, e o gate deu 151 suítes / 1430 testes
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
@@ -245,32 +251,27 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-25, às 08:47:
-- **`origin/main` está em `c9062da`, com o CI verde.** As PRs #32 (E2E), #33
-  (prompt 2) e #34 (defeitos 2 e 3, H4, vida por tentativa, perfil
-  `development` do EAS e evidência do StoreKit) entraram em 2026-09-25, com a
-  cabeça travada, por uma sessão na nuvem
-  ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
-  O relatório dessa sessão foi registrado em 2026-09-25
-  ([guardado](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)):
-  - o F2 foi remedido;
-  - o defeito 1, o reembolso e a renovação desconhecida foram decididos
-    ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
-  - a amostra do piloto ficou **sem decisão**.
-- **PRs abertas, remedido em 2026-09-25 às 17:43; nenhuma entrou.** O merge vai
-  nesta ordem, porque cada uma está empilhada sobre a anterior:
-  1. [#35](https://github.com/andersonsmelo/Radiant/pull/35), `docs/estado-2026-09-25`:
-     estado do dia, relatório da nuvem, ADR e E2E completo. CI verde;
-  2. [#36](https://github.com/andersonsmelo/Radiant/pull/36), `fix/defeito-1-licao-concluida`:
-     defeito 1, com a revisão do Codex respondida e o Auto-fix do app ligado.
-     O CI estava rodando de novo, depois do push da resposta;
-  3. [#37](https://github.com/andersonsmelo/Radiant/pull/37), `fix/renovacao-desconhecida`:
-     renovação desconhecida e o prompt (5). CI verde.
+Medido em 2026-09-25, às 21:24:
+- **`origin/main` está em `e992686`.** As PRs
+  [#35](https://github.com/andersonsmelo/Radiant/pull/35) (estado do dia,
+  relatório da nuvem, ADR e E2E completo),
+  [#36](https://github.com/andersonsmelo/Radiant/pull/36) (defeito 1) e
+  [#37](https://github.com/andersonsmelo/Radiant/pull/37) (renovação
+  desconhecida e prompt (5)) entraram na noite de 2026-09-25, nessa ordem e
+  por merge commit. Quem fez o merge foi o agente, com autorização do dono na
+  conversa. O CI de cada PR estava verde, e **o da `main` passou nos três
+  merges**: `Content Scripts` e `Radiant App Quality` verdes no `15e0257`, no
+  `cab01c0` e no `e992686`, este às 21:24.
 
-  As três apontam para a `main`. A #36 e a #37 mostram também os commits das
-  anteriores até elas entrarem.
-- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
-  enviado ao remoto em 2026-09-25. Leva a D4, a guarda de sincronia, o eas-cli
+  ```bash
+  gh run list --branch main --limit 6
+  ```
+- **Antes delas,** as PRs #32, #33 e #34 entraram em 2026-09-25, por uma
+  sessão na nuvem
+  ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
+  [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 12 commits à frente da
+  `main` (medido às 21:24) e enviado ao remoto. Leva a D4, a guarda de sincronia, o eas-cli
   e as evidências da regra de vidas e do aquecimento. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
@@ -279,10 +280,10 @@ Medido em 2026-09-25, às 08:47:
 - **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
   **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
   PR de 2026-09-25 ainda não foi aberta, por decisão dele.
-- **O remoto tem a `main`, os três branches acima e o da D4** (medido às
-  17:43). Os 25 branches já
-  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
-  ponta de cada um para restaurar, está em
+- **O remoto tem a `main`, o branch da D4 e os três das PRs #35 a #37**, que
+  já entraram e não foram apagados (medido às 21:24). Apagá-los é do dono. Os
+  25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
+  A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
   [`2026-09-25-radiant-prompt-de-continuidade-6.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).

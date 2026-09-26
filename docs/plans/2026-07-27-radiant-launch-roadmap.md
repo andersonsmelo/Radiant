@@ -1420,7 +1420,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   - **1**, a lição concluída que voltava como "Continuar de onde parou":
     corrigido em 2026-09-25 pela opção A da
     [ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
-    na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36)
+    na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), na `main`
+    desde a mesma data
     ([relatório](../superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
 
   Android e aparelho físico não foram executados.
@@ -1445,6 +1446,12 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
       continua montada e animando (~42 % → ~66 %). O conserto ficou como item
       do agente na FILA
       ([relatório](../superpowers/handoffs/2026-09-25-radiant-aquecimento-isolado-relatorio.md)).
+    - à noite, as PRs #35, #36 e #37 entraram na `main` (`e992686`), e o dono
+      decidiu o "Gerenciar", o Ask to Buy e o cancelamento
+      ([ADR](../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)):
+      o "Gerenciar" abre a folha da Apple dentro do app, o cancelamento é
+      testado por ela, e o Ask to Buy passa ao StoreKit Testing do Xcode.
+      O VoiceOver continua com o dono, no iPhone.
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

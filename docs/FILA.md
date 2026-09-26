@@ -42,46 +42,53 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ## Ordem de prioridade, combinada em 2026-09-25
 
-Combinada com o dono em 2026-09-25, às 21:10. O critério é o que cada item
-destrava; no empate, vence o relógio mais longo. A numeração é a mesma da §3
-do [prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
+Combinada com o dono em 2026-09-25, às 21:10, e **atualizada às 21:30**,
+depois do merge de #35 a #37 e da [ADR do "Gerenciar", do Ask to Buy e do
+cancelamento](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md). O critério é o que cada item destrava; no empate, vence o
+relógio mais longo. A numeração é a mesma da §3 do
+[prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado**, hoje o 12.
+destravado**, hoje o **19a**.
+
+O 1 (merge) e o 2 (decisão do "Gerenciar") foram cumpridos em 2026-09-25 e
+estão em [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md).
 
 - **P1 — o que segura a 1.4:**
-  1. dono: merge de #35 → #36 → #37. Destrava o 16, o 20 e a PR do
-     `feat/d4-decisoes-de-revisao`;
-  2. dono: decidir o "Gerenciar" do StoreKit. **Pode destravar o 4**, porque
-     a folha da Apple resolveria o cancelamento sem os Ajustes (não medido no
-     iOS 27.2);
-  3. dono: VoiceOver num iPhone físico, ou ADR aceitando a árvore da H4;
-  4. dono: cancelamento no aparelho, bloqueado pelo iOS 27.2;
-  5. dono: Ask to Buy, que precisa de grupo familiar no sandbox.
+  - **19a.** agente: a folha de gerenciamento da Apple no "Gerenciar"
+    (`showManageSubscriptions`), com teste vermelho antes. **Destrava o 4** e
+    pede uma build `development` nova ao dono;
+  - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
+    Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
+    volta ao dono, pelo grupo familiar no sandbox;
+  - **3.** dono: VoiceOver num iPhone físico, que ele decidiu fazer;
+  - **4.** dono: cancelamento pela folha, no aparelho, depois do 19a e da build
+    nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit
+    Testing.
 - **P2 — relógio longo:**
-  6. dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
+  - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — decisões do dono que destravam o agente:**
-  7. aprovar a amostra do piloto L1. Destrava o 15 e o resto do V3;
-  8. D4-b, o que a D4 ainda bloqueia. Destrava o 17 e **vem antes do 9 e do
-     10**;
-  9. D4-a, a exclusão da capa;
-  10. D4-c, os 4 excertos de radioterapia;
-  11. StoreKit: ordem dos planos e preço de outra loja.
+  - **7.** aprovar a amostra do piloto L1. Destrava o 15 e o resto do V3;
+  - **8.** D4-b, o que a D4 ainda bloqueia. Destrava o 17 e **vem antes do 9 e
+    do 10**;
+  - **9.** D4-a, a exclusão da capa;
+  - **10.** D4-c, os 4 excertos de radioterapia;
+  - **11.** StoreKit: ordem dos planos e preço de outra loja. Destrava o 19b.
 - **P4 — agente, destravado:**
-  12. conserto do aquecimento (achado 5 do StoreKit, abaixo);
-  13. XP da aprovação do checkpoint.
+  - **12.** conserto do aquecimento (achado 5 do StoreKit, abaixo);
+  - **13.** XP da aprovação do checkpoint;
+  - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
 - **P5 — esperando outra coisa:**
-  14. dono, com o agente: aquecimento no aparelho, depois do 12;
-  15. agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7;
-  16. agente: o caminho 3 do E2E afirma a L1, depois do merge da #36;
-  17. agente: regerar conceitos e bundles, depois do 8;
-  18. agente: aplicar a D4-a e a D4-c, depois do 9 e do 10;
-  19. agente: implementar o StoreKit, depois do 2 e do 11;
-  20. agente: bump para `1.4.0`, **por último**, depois do 1, 3, 4 e 5.
+  - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
+  - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7;
+  - **17.** agente: regerar conceitos e bundles, depois do 8;
+  - **18.** agente: aplicar a D4-a e a D4-c, depois do 9 e do 10;
+  - **19b.** agente: ordem dos planos e preço de outra loja, depois do 11;
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 3, 4 e 5.
 - **Depois da 1.4, ou sem prazo:**
-  21. agente: SDK 58 com `UIScene`, até abril de 2027;
-  22. agente: L2 v7, depois do teste do piloto;
-  23. dono: o simulador `A5FA5443`, apagar ou manter;
-  24. dono: as ações de um passo da seção 7, abaixo.
+  - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
+  - **22.** agente: L2 v7, depois do teste do piloto;
+  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
+  - **24.** dono: as ações de um passo da seção 7, abaixo.
 
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 
@@ -139,8 +146,9 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
        depois apareceram o ∞ e o cartão de assinante.
    - **falta:**
      - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
-       gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
-       do iOS;
+       gerenciamento do sandbox. **Decidido em 2026-09-25** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)):
+       testar pela folha da Apple dentro do app, depois do item 19a; se ela
+       também fechar, passa ao StoreKit Testing do Xcode;
      - tocar em **Restaurar compras**, que importa para quem troca de
        aparelho.
    - **reembolso:** o app não tem a entrada `beginRefundRequest`, que é a
@@ -156,9 +164,11 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
    botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
-   um aprovado dentro das 24 h. **Continua aberto em 2026-09-24:** precisa de
-   um grupo familiar no sandbox (App Store Connect → Sandbox →
-   Compartilhamento Familiar).
+   um aprovado dentro das 24 h. **Decidido em 2026-09-25** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)): sai
+   do aparelho e passa ao **agente, no StoreKit Testing do Xcode**, no
+   simulador (item 5 da ordem de prioridade). Se o módulo Swift não funcionar
+   ali, volta ao dono, pelo grupo familiar no sandbox (App Store Connect →
+   Sandbox → Compartilhamento Familiar).
 5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
    [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
    com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
@@ -173,8 +183,8 @@ Nenhum bloqueia a 1.4. Os detalhes estão na
 Cada conserto é um run, com teste vermelho antes.
 
 1. ✅ **Estado de renovação desconhecido aparecia como "Cancelada"** —
-   corrigido em 2026-09-25, na PR #37 (`fix/renovacao-desconhecida`), à espera de merge, e
-   sem build, pela opção 2A da
+   corrigido em 2026-09-25, na PR #37 (`fix/renovacao-desconhecida`), **na `main`
+   desde a mesma data** (merge `e992686`), e sem build, pela opção 2A da
    [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
    ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
    - **O estado:** `willRenew` passou a ser `boolean | null`. O adaptador e a
@@ -190,7 +200,9 @@ Cada conserto é um run, com teste vermelho antes.
      cobrava em reais;
    - o módulo não observa a troca de loja (`Storefront.updates`);
    - afeta só quem troca a conta da App Store com o app aberto.
-3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
+3. **"Gerenciar" não gerencia** — **decidido em 2026-09-25: opção A, a folha
+   da Apple dentro do app** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)). É o item 19a da ordem de
+   prioridade, acima. O texto abaixo é o achado original: o botão do
    cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
    alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
    **Medido em 2026-09-24:** quem já assina **não consegue trocar de plano**
@@ -266,8 +278,8 @@ Cada conserto é um run, com teste vermelho antes.
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:
    - ✅ **Lição concluída volta como "Continuar de onde parou"** — corrigido
-     em 2026-09-25, na PR #36 (`fix/defeito-1-licao-concluida`), à espera de merge, sem
-     build, pela opção A da
+     em 2026-09-25, na PR #36 (`fix/defeito-1-licao-concluida`), **na `main` desde a
+     mesma data** (merge `cab01c0`), sem build, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
      - **Na leitura:** um nó concluído e sem pendência

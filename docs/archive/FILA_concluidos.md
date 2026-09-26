@@ -1199,3 +1199,21 @@ Trechos substituídos, sem edição:
 Trecho substituído, sem edição (só o link relativo reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-2.md), que traz todas as pendências em ordem de criticidade;
+
+## Lote de 2026-09-25, 21:30 — merge de #35 a #37 e decisão do "Gerenciar"
+
+Itens da "Ordem de prioridade, combinada em 2026-09-25", cumpridos no mesmo dia
+e retirados sem edição. O merge foi feito pelo agente, por merge commit, com
+autorização do dono na conversa; a decisão está na
+[ADR](../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md).
+
+  1. dono: merge de #35 → #36 → #37. Destrava o 16, o 20 e a PR do
+     `feat/d4-decisoes-de-revisao`;
+  2. dono: decidir o "Gerenciar" do StoreKit. **Pode destravar o 4**, porque
+     a folha da Apple resolveria o cancelamento sem os Ajustes (não medido no
+     iOS 27.2);
+
+Trecho do cabeçalho da seção da 1.4 substituído no run anterior, das 21:10,
+sem edição (só o link relativo reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md), que traz todas as pendências em ordem de criticidade;

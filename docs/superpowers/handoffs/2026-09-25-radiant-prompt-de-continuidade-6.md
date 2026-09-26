@@ -67,7 +67,7 @@ git switch --no-track -c <nova> origin/main
 3. `docs/FILA.md`.
 4. O relatório, a medição ou a ADR da frente que você pegar.
 
-## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 21:10)
+## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 21:30)
 
 Ordem combinada com o dono em 2026-09-25, às 21:10, juntando a lista dele com a
 do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
@@ -77,15 +77,21 @@ do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
 O critério é o que cada item destrava. No empate, vence o que tem relógio mais
 longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada-em-2026-09-25).
 
+**Atualizada às 21:30.** O 1 e o 2 foram cumpridos: as PRs #35, #36 e #37
+entraram na `main` (`e992686`), e o dono decidiu o "Gerenciar", o Ask to Buy e
+o cancelamento ([ADR](../../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)). Com isso, a folha do "Gerenciar" (19a) subiu
+para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
+
 **P1 — o que segura a 1.4**
 
 | # | Tarefa | Dono | Destrava / depende |
 |---|---|---|---|
-| 1 | **Merge de #35 → #36 → #37** | dono | Destrava o 16, o 20 e a PR do `feat/d4-decisoes-de-revisao` |
-| 2 | **StoreKit: decidir o "Gerenciar"** (folha `showManageSubscriptions` dentro do app) | dono | **Pode destravar o 4:** pela FILA, a folha resolveria troca e cancelamento sem os Ajustes, que fecham no iOS 27.2. **Não medido** se ela funciona nesse sandbox |
-| 3 | **VoiceOver num iPhone físico**, ou ADR do dono aceitando a árvore de acessibilidade da H4 | dono | Bloqueia a 1.4 |
-| 4 | **Cancelamento no aparelho** | dono | **Bloqueado** pelo iOS 27.2. Saídas: outro aparelho ou versão, a folha do 2, ou ADR tirando-o do roteiro, como o reembolso |
-| 5 | **Ask to Buy** no sandbox | dono | Precisa de grupo familiar no sandbox |
+| ~~1~~ | ~~**Merge de #35 → #36 → #37**~~ | dono | ✅ Feito em 2026-09-25, pelo agente, com autorização do dono |
+| ~~2~~ | ~~**StoreKit: decidir o "Gerenciar"**~~ | dono | ✅ Decidido: opção A, a folha da Apple |
+| 19a | **A folha de gerenciamento da Apple no "Gerenciar"** (`AppStore.showManageSubscriptions`), com teste vermelho antes | agente | **Próximo item do agente.** Destrava o 4 e pede uma build `development` nova ao dono |
+| 5 | **Ask to Buy no StoreKit Testing do Xcode**, no simulador | agente | Primeiro, conferir que o módulo Swift funciona ali; se não funcionar, volta ao dono, pelo grupo familiar no sandbox |
+| 3 | **VoiceOver num iPhone físico** (checkpoint e HUD com vidas em recarga) | dono | Ele decidiu fazer. Bloqueia a 1.4 |
+| 4 | **Cancelamento pela folha, no aparelho** | dono | Depois do 19a e da build nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit Testing |
 
 **P2 — relógio longo: começar cedo**
 
@@ -101,7 +107,7 @@ longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada
 | 8 | **D4-b:** o que a D4 ainda bloqueia (§4.1) | dono | O 17. **Vem antes do 9 e do 10:** se a D4 fechar como superada, eles podem perder o objeto |
 | 9 | **D4-a:** como representar a exclusão da capa (§4.1; o agente recomenda A) | dono | O 18 |
 | 10 | **D4-c:** destino dos 4 excertos de radioterapia (§4.1) | dono | O 18 |
-| 11 | **StoreKit:** ordem dos planos e preço de outra loja até recarregar | dono | O 19 |
+| 11 | **StoreKit:** ordem dos planos e preço de outra loja até recarregar | dono | O 19b |
 
 **P4 — agente, destravado agora**
 
@@ -109,6 +115,7 @@ longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada
 |---|---|---|---|
 | 12 | **Conserto do aquecimento:** parar o fundo animado fora de foco e medir de novo M1 e M4 | agente | FILA, achado 5. Antes do 14, para o aparelho medir a versão consertada |
 | 13 | **XP da aprovação do checkpoint** | agente | A tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
+| 16 | **Caminho 3 do E2E afirma o estado da L1** | agente | Destravado: a #36 entrou. Detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
 
 **P5 — esperando outra coisa**
 
@@ -116,11 +123,10 @@ longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada
 |---|---|---|---|
 | 14 | **Aquecimento no aparelho:** 5 min fora do carregador, com e sem Reduzir Movimento, anotando as telas visitadas antes | dono, com o agente | Idealmente do 12, numa build `preview` |
 | 15 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | 7 |
-| 16 | **Caminho 3 do E2E afirma o estado da L1** | agente | Merge da #36 (1); detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
 | 17 | **Regerar conceitos e bundles** da cadeia desatualizada | agente | 8 |
 | 18 | **Aplicar a D4-a e a D4-c** | agente | 9 e 10, num run que reabre `Conteúdo/classificação` |
-| 19 | **Implementar as decisões do StoreKit** | agente | 2 e 11 |
-| 20 | **Bump para `1.4.0`** | agente | **Por último:** 1, 3, 4 e 5 |
+| 19b | **Ordem dos planos e preço de outra loja** | agente | 11 |
+| 20 | **Bump para `1.4.0`** | agente | **Por último:** 3, 4 e 5 |
 
 **Depois da 1.4, ou sem prazo**
 
@@ -134,8 +140,9 @@ longo. A mesma ordem está na [FILA](../../FILA.md#ordem-de-prioridade-combinada
 **Qual frente pegar agora:**
 - se o dono já tiver respondido algum item da P3, aplique a resposta pelo
   item correspondente da P5;
-- se não, pegue o **12** (conserto do aquecimento), ou o **13**. Um por
-  conversa.
+- se não, pegue o **19a** (a folha do "Gerenciar"), que está na P1. Depois,
+  o **5** (Ask to Buy no StoreKit Testing). O 12, o 13 e o 16 vêm em seguida.
+  Um por conversa.
 
 ## 4. Frentes em detalhe
 
