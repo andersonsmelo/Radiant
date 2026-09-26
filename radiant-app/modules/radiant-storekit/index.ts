@@ -39,7 +39,11 @@ export interface RadiantStoreKitModule {
     currentEntitlements(): Promise<RadiantStoreKitTransaction[]>;
     purchase(productId: string): Promise<RadiantStoreKitPurchase>;
     sync(): Promise<void>;
-    addListener(eventName: 'onTransactionsUpdated', listener: () => void): { remove(): void };
+    showManageSubscriptions(): Promise<void>;
+    addListener(
+        eventName: 'onTransactionsUpdated' | 'onStorefrontChanged',
+        listener: () => void,
+    ): { remove(): void };
 }
 
 /** `null` fora de um build iOS que compilou este módulo. */

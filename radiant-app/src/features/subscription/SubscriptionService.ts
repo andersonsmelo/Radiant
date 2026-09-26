@@ -7,6 +7,7 @@ import { SUBSCRIPTION_PRODUCT_IDS } from './subscriptionProducts';
 import { UnavailableStoreKitAdapter } from './UnavailableStoreKitAdapter';
 import {
     isStoreUnavailable,
+    type ManageResult,
     type PurchaseResult,
     type RestoreResult,
     type StoreKitPort,
@@ -187,6 +188,29 @@ export class SubscriptionService {
                 console.error('[SubscriptionService] Falha ao reler o direito após atualização da loja:', cause);
             });
         });
+    }
+
+    /**
+     * Abre a folha de gerenciamento da Apple e, quando ela fecha, relê o direito
+     * (ADR de 2026-09-25, "Gerenciar"). Cancelar na folha muda a renovação sem
+     * criar transação, então o aviso de `Transaction.updates` não chega: a
+     * releitura tem de partir daqui.
+     */
+    async manageSubscription(nowMs: number): Promise<ManageResult> {
+        if (this.store.manageSubscriptions === undefined) return { kind: 'store-unavailable' };
+        const outcome = await this.store.manageSubscriptions();
+        if (outcome.kind === 'failed') return { kind: 'failed' };
+        return { kind: 'shown', status: await this.refresh(nowMs) };
+    }
+
+    /**
+     * Avisa quando a loja da conta muda, para que quem mostra preços os peça de
+     * novo (ADR de 2026-09-25, item 4). Loja sem aviso não quebra quem escuta.
+     */
+    watchStorefront(listener: () => void): () => void {
+        const escutar = this.store.onStorefrontChanged;
+        if (escutar === undefined) return () => undefined;
+        return escutar.call(this.store, listener);
     }
 
     async loadOffers(): Promise<SubscriptionOffers> {

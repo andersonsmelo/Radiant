@@ -51,19 +51,22 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado**, hoje o **19a**.
+destravado**, hoje o **5**.
 
 **Cumpridos ou encerrados em 2026-09-25,** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
 - o 1 (merge) e o 2 (decisão do "Gerenciar");
 - o 8, o 9 e o 10 e o 17 e o 18, porque a D4 fechou como superada;
-- o 11, porque as decisões do StoreKit foram tomadas.
+- o 11, porque as decisões do StoreKit foram tomadas;
+- o 19b (ordem fixa dos planos) e a parte do agente no 19a, feitos em
+  2026-09-26.
 
 - **P1 — o que segura a 1.4:**
-  - **19a.** agente: a folha de gerenciamento da Apple no "Gerenciar"
-    (`showManageSubscriptions`) **e o preço que acompanha a troca de loja**
-    (`Storefront.updates`), no mesmo módulo, com teste vermelho antes.
-    **Destrava o 4** e pede uma build `development` nova ao dono;
+  - **19a.** dono: **build `development` nova no EAS** com este branch. O
+    código do agente está pronto desde 2026-09-26: a folha do "Gerenciar" e o
+    preço que acompanha a troca de loja, compilados localmente para o
+    simulador ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). No iPhone, abrir a folha, fazer o 4 e
+    trocar de conta de sandbox com os planos na tela. **Destrava o 4**;
   - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
     Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
     volta ao dono, pelo grupo familiar no sandbox;
@@ -78,7 +81,6 @@ destravado**, hoje o **19a**.
     decúbito dorsal visto por trás, e mostrar ao dono só os itens que mudaram;
   - **7b.** dono: confirmar os itens alterados. Destrava o 15.
 - **P4 — agente, destravado:**
-  - **19b.** ordem fixa dos planos, com o mensal primeiro. É só JavaScript;
   - **12.** conserto do aquecimento (achado 5 do StoreKit, abaixo);
   - **13.** XP da aprovação do checkpoint;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
@@ -198,14 +200,17 @@ Cada conserto é um run, com teste vermelho antes.
    - **Não visto na tela,** porque o sandbox não produz a renovação
      desconhecida sob comando.
 2. **Preço de outra loja até o app recarregar** (medido) — **decidido em
-   2026-09-25: consertar com `Storefront.updates`, junto com o 19a**
+   2026-09-25: consertar com `Storefront.updates`, junto com o 19a** —
+   **implementado em 2026-09-26, sem aparelho** ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md))
    ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 4):
    - os preços carregados antes do login ficaram em dólar, enquanto a Apple
      cobrava em reais;
    - o módulo não observa a troca de loja (`Storefront.updates`);
    - afeta só quem troca a conta da App Store com o app aberto.
 3. **"Gerenciar" não gerencia** — **decidido em 2026-09-25: opção A, a folha
-   da Apple dentro do app** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)). É o item 19a da ordem de
+   da Apple dentro do app** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)),
+   **implementada em 2026-09-26 e ainda não vista em aparelho**
+   ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). É o item 19a da ordem de
    prioridade, acima. O texto abaixo é o achado original: o botão do
    cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
    alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
@@ -214,7 +219,8 @@ Cada conserto é um run, com teste vermelho antes.
    pela Apple passa pelos Ajustes, que fecham no iOS 27.2. A mesma folha
    resolveria a troca e o cancelamento.
 4. **A ordem dos planos muda de um dia para o outro** — **decidido em
-   2026-09-25: o mensal primeiro, numa ordem fixa com teste (19b)**
+   2026-09-25: o mensal primeiro, numa ordem fixa com teste (19b)** —
+   **implementado em 2026-09-26** ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md))
    ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 3). Medido em 2026-09-24 e
    2026-09-25): num dia o mensal veio primeiro, e no outro, o anual. O app não
    ordena a lista e usa a ordem em que `Product.products(for:)` devolve os

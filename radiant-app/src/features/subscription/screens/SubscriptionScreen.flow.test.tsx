@@ -146,6 +146,33 @@ describe('SubscriptionScreen — estados', () => {
         expect(screen.queryByRole('button', { name: /^Assinar/u })).toBeNull();
     });
 
+    it('assinante gerencia pela folha da Apple, e ao fechá-la a tela mostra o que mudou nela', async () => {
+        // ADR de 2026-09-25, "Gerenciar", opção A: troca de plano e cancelamento
+        // acontecem na folha; a tela relê a assinatura quando ela fecha.
+        const currentEntitlement = jest.fn()
+            .mockResolvedValueOnce(direito())
+            .mockResolvedValue(direito({ willRenew: false }));
+        const manageSubscriptions = jest.fn(async () => ({ kind: 'shown' as const }));
+        abrir(loja({ currentEntitlement, manageSubscriptions }));
+
+        fireEvent.press(await screen.findByRole('button', { name: 'Gerenciar assinatura' }));
+
+        expect(await screen.findByText(/Cancelada — válida até 14\/10\/2026/u)).toBeTruthy();
+        expect(manageSubscriptions).toHaveBeenCalledTimes(1);
+    });
+
+    it('se a folha da Apple não abre, avisa e o caminho pelos Ajustes continua na tela', async () => {
+        abrir(loja({
+            currentEntitlement: jest.fn(async () => direito()),
+            manageSubscriptions: jest.fn(async () => ({ kind: 'failed' as const, message: 'unrecoverable' })),
+        }));
+
+        fireEvent.press(await screen.findByRole('button', { name: 'Gerenciar assinatura' }));
+
+        expect(await screen.findByText(/O gerenciamento da Apple não abriu agora/u)).toBeTruthy();
+        expect(screen.getByText(/Ajustes do iOS/u)).toBeTruthy();
+    });
+
     it('assinatura cancelada mostra até quando vale', async () => {
         abrir(loja({ currentEntitlement: jest.fn(async () => direito({ willRenew: false })) }));
 
@@ -157,6 +184,31 @@ describe('SubscriptionScreen — estados', () => {
 
         expect(await screen.findByText(/Ativa — acesso até 14\/10\/2026/u)).toBeTruthy();
         expect(screen.queryByText(/Cancelada/u)).toBeNull();
+    });
+
+    it('com os planos na tela, a troca de loja da conta recarrega os preços (ADR de 2026-09-25, item 4)', async () => {
+        // No aparelho, os preços pedidos antes do login ficaram em dólar
+        // enquanto a Apple cobrava em reais.
+        let avisar: () => void = () => undefined;
+        const loadProducts = jest.fn()
+            .mockResolvedValueOnce([{ ...produtos[0], displayPrice: 'US$ 2,99' }, { ...produtos[1], displayPrice: 'US$ 22,99' }])
+            .mockResolvedValue(produtos);
+        const pararDeEscutar = jest.fn();
+        const { unmount } = abrir(loja({
+            loadProducts,
+            onStorefrontChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return pararDeEscutar;
+            }),
+        }));
+        expect(await screen.findByText('US$ 2,99')).toBeTruthy();
+
+        act(() => avisar());
+
+        expect(await screen.findByText('R$ 19,90')).toBeTruthy();
+        expect(screen.queryByText('US$ 2,99')).toBeNull();
+        unmount();
+        expect(pararDeEscutar).toHaveBeenCalledTimes(1);
     });
 
     it('restaurar compras recupera o direito e confirma na tela', async () => {

@@ -2123,3 +2123,18 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
   estado: ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em
   2026-09-25, no branch `feat/d4-decisoes-de-revisao`
   ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-26, pelo código do "Gerenciar", do preço da loja e da ordem dos planos ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)):
+
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app,
+     que o agente vai implementar, numa build `development` nova. Se a folha
+     também fechar no iOS 27.2, ele passa ao StoreKit Testing do Xcode;
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-09-23**, no Mac, em `757f43f` — mesma árvore do
+app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
+3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
+testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+(`.github/workflows/radiant-app-quality.yml`).

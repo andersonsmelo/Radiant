@@ -23,6 +23,7 @@ type Notice =
     | { kind: 'cancelled' }
     | { kind: 'failed'; message: string }
     | { kind: 'store-unavailable' }
+    | { kind: 'manage-failed' }
     | null;
 
 const CANCEL_COPY = 'Para gerenciar ou cancelar: Ajustes do iOS → seu nome → Assinaturas.';
@@ -64,6 +65,22 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
             alive = false;
         };
     }, [attempt, nowMs, service]);
+
+    // A troca de loja da conta muda a moeda: os preços já na tela ficam errados
+    // até serem pedidos de novo (ADR de 2026-09-25, item 4). Só as ofertas são
+    // recarregadas; o estado da assinatura não depende da loja.
+    useEffect(() => {
+        let alive = true;
+        const parar = service.watchStorefront(() => {
+            void service.loadOffers().then((nextOffers) => {
+                if (alive) setOffers(nextOffers);
+            });
+        });
+        return () => {
+            alive = false;
+            parar();
+        };
+    }, [service]);
 
     const purchase = useCallback(async (product: StoreProduct) => {
         setBusy(true);
@@ -108,6 +125,21 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         }
     }, [nowMs, service]);
 
+    // Troca de plano e cancelamento acontecem na folha da Apple (ADR de
+    // 2026-09-25, "Gerenciar", opção A). Quando ela fecha, o serviço relê a
+    // assinatura, e a tela mostra o que mudou lá.
+    const manage = useCallback(async () => {
+        setBusy(true);
+        setNotice(null);
+        try {
+            const result = await service.manageSubscription(nowMs());
+            if (result.kind === 'shown') setStatus(result.status);
+            else setNotice({ kind: 'manage-failed' });
+        } finally {
+            setBusy(false);
+        }
+    }, [nowMs, service]);
+
     const close = useCallback(() => {
         router.back();
     }, []);
@@ -147,6 +179,16 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                             ? `Renova em ${formatShortDate(status.expiresAt)}. Suas vidas são ilimitadas até lá — e continuam, enquanto a assinatura renovar.`
                             : `Cancelada — válida até ${formatShortDate(status.expiresAt)}. Depois disso, suas vidas voltam a 5 e continuam se recuperando.`}
                 </Text>
+                <AppButton
+                    label="Gerenciar assinatura"
+                    variant="secondary"
+                    disabled={busy}
+                    onPress={() => void manage()}
+                    accessibilityHint="Abre a folha da Apple para trocar de plano ou cancelar."
+                />
+                {notice?.kind === 'manage-failed' ? (
+                    <Text style={styles.notice}>O gerenciamento da Apple não abriu agora. Tente de novo mais tarde.</Text>
+                ) : null}
                 <Text style={styles.body}>{CANCEL_COPY}</Text>
             </View>
         );

@@ -1460,6 +1460,12 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
       [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md),
       os planos passaram a ter ordem fixa, com o mensal primeiro, e o preço
       passou a acompanhar a troca de loja, junto com a folha.
+  - **em 2026-09-26:** a folha do "Gerenciar", o preço que acompanha a troca
+    de loja e a ordem fixa dos planos foram implementados, com 12 testes
+    vistos vermelhos. O gate deu 151 suítes / 1446 testes, e o Swift compilou
+    localmente para o simulador. Falta a build `development` nova e o
+    aparelho
+    ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

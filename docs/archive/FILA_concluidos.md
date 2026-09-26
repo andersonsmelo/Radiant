@@ -1438,3 +1438,15 @@ O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de 
 dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
 pedia para não fazer ao contrário.
 
+
+## Lote de 2026-09-26 — 19b feito e 19a com a parte do agente pronta
+
+Retirados sem edição da "Ordem de prioridade" pelo run
+`run-1790430075902-df36447c` ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). O 19a continua na
+fila, agora como a build e a conferência no aparelho, que são do dono.
+
+  - **19a.** agente: a folha de gerenciamento da Apple no "Gerenciar"
+    (`showManageSubscriptions`) **e o preço que acompanha a troca de loja**
+    (`Storefront.updates`), no mesmo módulo, com teste vermelho antes.
+    **Destrava o 4** e pede uma build `development` nova ao dono;
+  - **19b.** ordem fixa dos planos, com o mensal primeiro. É só JavaScript;

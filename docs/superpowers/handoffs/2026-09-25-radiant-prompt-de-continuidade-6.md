@@ -67,7 +67,7 @@ git switch --no-track -c <nova> origin/main
 3. `docs/FILA.md`.
 4. O relatório, a medição ou a ADR da frente que você pegar.
 
-## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 22:00)
+## 3. Todas as pendências, em ordem de prioridade (2026-09-26)
 
 Ordem combinada com o dono em 2026-09-25, às 21:10, juntando a lista dele com a
 do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
@@ -94,7 +94,7 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 |---|---|---|---|
 | ~~1~~ | ~~**Merge de #35 → #36 → #37**~~ | dono | ✅ Feito em 2026-09-25, pelo agente, com autorização do dono |
 | ~~2~~ | ~~**StoreKit: decidir o "Gerenciar"**~~ | dono | ✅ Decidido: opção A, a folha da Apple |
-| 19a | **A folha de gerenciamento da Apple no "Gerenciar"** (`AppStore.showManageSubscriptions`) **e o preço que acompanha a troca de loja** (`Storefront.updates`), no mesmo módulo, com teste vermelho antes | agente | **Próximo item do agente.** Destrava o 4 e pede uma build `development` nova ao dono |
+| 19a | **Build `development` nova no EAS** com este branch, e no iPhone: abrir "Gerenciar assinatura", fazer o 4 e trocar de conta de sandbox com os planos na tela | dono | O código do agente está pronto desde 2026-09-26 ([relatório](2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Destrava o 4 |
 | 5 | **Ask to Buy no StoreKit Testing do Xcode**, no simulador | agente | Primeiro, conferir que o módulo Swift funciona ali; se não funcionar, volta ao dono, pelo grupo familiar no sandbox |
 | 3 | **VoiceOver num iPhone físico** (checkpoint e HUD com vidas em recarga) | dono | Ele decidiu fazer. Bloqueia a 1.4 |
 | 4 | **Cancelamento pela folha, no aparelho** | dono | Depois do 19a e da build nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit Testing |
@@ -116,7 +116,7 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 
 | # | Tarefa | Dono | Observação |
 |---|---|---|---|
-| 19b | **Ordem fixa dos planos, com o mensal primeiro** | agente | Só JavaScript, com teste; não depende de build |
+| ~~19b~~ | ~~**Ordem fixa dos planos, com o mensal primeiro**~~ | agente | ✅ Feito em 2026-09-26, junto com o 19a |
 | 12 | **Conserto do aquecimento:** parar o fundo animado fora de foco e medir de novo M1 e M4 | agente | FILA, achado 5. Antes do 14, para o aparelho medir a versão consertada |
 | 13 | **XP da aprovação do checkpoint** | agente | A tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
 | 16 | **Caminho 3 do E2E afirma o estado da L1** | agente | Destravado: a #36 entrou. Detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
@@ -141,9 +141,10 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 **Qual frente pegar agora:**
 - se o dono já tiver confirmado os itens alterados da amostra (7b), grave a
   aprovação (15);
-- se não, pegue o **19a** (a folha do "Gerenciar" e o preço da loja), que
-  está na P1. Depois, o **5** (Ask to Buy no StoreKit Testing) e o **7a**
-  (variantes da amostra). O 19b, o 12, o 13 e o 16 vêm em seguida. Um por
+- se não, pegue o **5** (Ask to Buy no StoreKit Testing), que está na P1. A
+  mesma configuração deve permitir abrir a folha do 19a no simulador. Depois,
+  o **7a** (variantes da amostra); o 12, o 13 e o 16 vêm em seguida. O 19a e
+  o 19b ficaram prontos em 2026-09-26, e falta a build do dono. Um por
   conversa.
 
 ## 4. Frentes em detalhe

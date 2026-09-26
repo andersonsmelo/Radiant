@@ -40,20 +40,27 @@ const PRODUTOS_NATIVOS: StoreKitNativeProduct[] = [
 type Ouvinte = () => void;
 
 function fakeNative(overrides: Partial<RadiantStoreKitNative> = {}) {
-    const ouvintes = new Set<Ouvinte>();
+    // Um conjunto de ouvintes por evento: o módulo emite mais de um, e um
+    // ouvinte de transação não pode ser acordado por troca de loja.
+    const porEvento = new Map<string, Set<Ouvinte>>();
+    const ouvintesDe = (evento: string) => {
+        if (!porEvento.has(evento)) porEvento.set(evento, new Set());
+        return porEvento.get(evento)!;
+    };
     const native = {
         loadProducts: jest.fn(async () => PRODUTOS_NATIVOS),
         currentEntitlements: jest.fn(async (): Promise<StoreKitNativeTransaction[]> => []),
         purchase: jest.fn(async () => ({ kind: 'success' as const, transaction: transacao() })),
         sync: jest.fn(async () => undefined),
-        addListener: jest.fn((_evento: 'onTransactionsUpdated', ouvinte: Ouvinte) => {
-            ouvintes.add(ouvinte);
-            return { remove: () => ouvintes.delete(ouvinte) };
+        showManageSubscriptions: jest.fn(async () => undefined),
+        addListener: jest.fn((evento: string, ouvinte: Ouvinte) => {
+            ouvintesDe(evento).add(ouvinte);
+            return { remove: () => ouvintesDe(evento).delete(ouvinte) };
         }),
         ...overrides,
     };
-    const emitir = () => ouvintes.forEach((ouvinte) => ouvinte());
-    return { native: native as jest.Mocked<RadiantStoreKitNative>, emitir, ouvintes };
+    const emitir = (evento = 'onTransactionsUpdated') => ouvintesDe(evento).forEach((ouvinte) => ouvinte());
+    return { native: native as unknown as jest.Mocked<RadiantStoreKitNative>, emitir, ouvintes: ouvintesDe('onTransactionsUpdated'), ouvintesDe };
 }
 
 function nativeErro(code: string): Error & { code: string } {
@@ -84,6 +91,16 @@ describe('StoreKit2Adapter — produtos', () => {
         const produtos = await new StoreKit2Adapter(native).loadProducts([...SUBSCRIPTION_PRODUCT_IDS, 'monthly_plus']);
 
         expect(produtos.map((produto) => produto.id)).toEqual([MENSAL, ANUAL]);
+    });
+
+    it('o mensal vem primeiro mesmo quando a Apple devolve o anual antes (ADR de 2026-09-25, item 3)', async () => {
+        // A Apple não garante a ordem de `Product.products(for:)`: no aparelho,
+        // num dia veio o mensal primeiro e no outro, o anual.
+        const { native } = fakeNative({ loadProducts: jest.fn(async () => [...PRODUTOS_NATIVOS].reverse()) });
+
+        const produtos = await new StoreKit2Adapter(native).loadProducts(SUBSCRIPTION_PRODUCT_IDS);
+
+        expect(produtos.map((produto) => produto.period)).toEqual(['monthly', 'annual']);
     });
 
     it('lista vazia é loja indisponível, não uma tela de planos sem planos', async () => {
@@ -339,6 +356,44 @@ describe('StoreKit2Adapter — atualizações de transação', () => {
         expect(native.addListener).toHaveBeenCalledWith('onTransactionsUpdated', expect.any(Function));
         expect(ouvinte).toHaveBeenCalledTimes(1);
         expect(ouvintes.size).toBe(0);
+    });
+});
+
+describe('StoreKit2Adapter — gerenciar a assinatura', () => {
+    it('abre a folha de gerenciamento da Apple e informa que ela foi mostrada', async () => {
+        const { native } = fakeNative();
+
+        const resultado = await new StoreKit2Adapter(native).manageSubscriptions();
+
+        expect(native.showManageSubscriptions).toHaveBeenCalledTimes(1);
+        expect(resultado).toEqual({ kind: 'shown' });
+    });
+
+    it('falha nativa ao abrir a folha vira falha com o código estável, sem lançar', async () => {
+        const { native } = fakeNative({
+            showManageSubscriptions: jest.fn(async () => { throw nativeErro('unrecoverable'); }),
+        });
+
+        const resultado = await new StoreKit2Adapter(native).manageSubscriptions();
+
+        expect(resultado).toEqual({ kind: 'failed', message: 'unrecoverable' });
+    });
+});
+
+describe('StoreKit2Adapter — troca de loja', () => {
+    it('avisa o ouvinte quando o nativo recebe Storefront.updates, e só por esse evento', () => {
+        const { native, emitir, ouvintesDe } = fakeNative();
+        const ouvinte = jest.fn();
+
+        const cancelar = new StoreKit2Adapter(native).onStorefrontChanged(ouvinte);
+        emitir('onTransactionsUpdated');
+        emitir('onStorefrontChanged');
+        cancelar();
+        emitir('onStorefrontChanged');
+
+        expect(native.addListener).toHaveBeenCalledWith('onStorefrontChanged', expect.any(Function));
+        expect(ouvinte).toHaveBeenCalledTimes(1);
+        expect(ouvintesDe('onStorefrontChanged').size).toBe(0);
     });
 });
 

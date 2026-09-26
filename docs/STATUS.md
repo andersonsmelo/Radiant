@@ -57,9 +57,12 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    - reinstalação.
 
    Falta, pela [ADR de 2026-09-25, às 21:20](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md):
-   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app,
-     que o agente vai implementar, numa build `development` nova. Se a folha
-     também fechar no iOS 27.2, ele passa ao StoreKit Testing do Xcode;
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app.
+     **O código está pronto desde 2026-09-26** e compilou localmente para o
+     simulador, junto com o preço que acompanha a troca de loja e a ordem fixa
+     dos planos ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Falta a build `development` nova no EAS,
+     que é do dono, e o aparelho. Se a folha também fechar no iOS 27.2, o
+     cancelamento passa ao StoreKit Testing do Xcode;
    - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
      do Xcode. Falta conferir que o módulo Swift funciona ali;
    - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
@@ -223,10 +226,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-23**, no Mac, em `757f43f` — mesma árvore do
-app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
-3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
-testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-26**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com as mudanças do "Gerenciar" e da loja, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **151 suítes
+/ 1446 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira

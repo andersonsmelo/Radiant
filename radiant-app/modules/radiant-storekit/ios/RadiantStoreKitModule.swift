@@ -1,5 +1,6 @@
 import ExpoModulesCore
 import StoreKit
+import UIKit
 
 /**
  Assinatura "Radiant Ilimitado" pelo StoreKit 2, sem terceiro no caminho da
@@ -14,12 +15,15 @@ import StoreKit
  Nada sai do aparelho além da conversa com a Apple: nenhum identificador de
  transação atravessa a fronteira, nada é gravado e nada é escrito em log.
 
- ATENÇÃO: este arquivo nunca foi compilado contra o ExpoModulesCore real nem
- executado. Em 2026-09-23 ele passou em `swiftc -parse` e em `swiftc -typecheck`
- (modos Swift 5 e 6) contra o SDK do iOS com um STUB do ExpoModulesCore — o que
- confere as APIs do StoreKit, não a integração com o Expo. Ele só pode ser
- considerado validado depois de um build interno rodar em aparelho e a
- sandbox comprovar compra, Ask to Buy, restauração e renovação.
+ O QUE FOI VERIFICADO, E ONDE:
+ - 2026-09-24: compilado contra o ExpoModulesCore real no EAS (build
+   `development` `ac4b49df`). No sandbox, num iPhone com iOS 27.2, passaram
+   preços, compra, renovação acelerada, expiração e reinstalação.
+ - 2026-09-26: `showManageSubscriptions` e `Storefront.updates` compilaram
+   localmente com o Xcode 27, para o simulador, sem aviso neste arquivo. O app
+   abriu com eles num simulador iOS 26.5. A folha e a troca de loja ainda não
+   rodaram em aparelho.
+ Ask to Buy, restauração e cancelamento ainda não foram vistos.
  */
 
 /// Erro com `code` estável, que é o campo que o adaptador TypeScript lê.
@@ -38,14 +42,16 @@ internal final class StoreKitException: Exception {
 }
 
 private let kUpdatesEvent = "onTransactionsUpdated"
+private let kStorefrontEvent = "onStorefrontChanged"
 
 public final class RadiantStoreKitModule: Module {
   private var updatesTask: Task<Void, Never>?
+  private var storefrontTask: Task<Void, Never>?
 
   public func definition() -> ModuleDefinition {
     Name("RadiantStoreKit")
 
-    Events(kUpdatesEvent)
+    Events(kUpdatesEvent, kStorefrontEvent)
 
     // `Transaction.updates` desde a abertura (ADR, regra 4): renovação,
     // reembolso, Ask to Buy aprovado e compra em outro aparelho chegam por
@@ -54,10 +60,12 @@ public final class RadiantStoreKitModule: Module {
     // criação do contexto do app, e não quando o JavaScript o pede.
     OnCreate {
       self.escutarAtualizacoes()
+      self.escutarLoja()
     }
 
     OnDestroy {
       self.updatesTask?.cancel()
+      self.storefrontTask?.cancel()
     }
 
     AsyncFunction("loadProducts") { (ids: [String]) -> [[String: Any]] in
@@ -123,6 +131,40 @@ public final class RadiantStoreKitModule: Module {
         try await AppStore.sync()
       } catch {
         throw Self.traduzir(error)
+      }
+    }
+
+    // Troca de plano e cancelamento acontecem nesta folha, e não no app (ADR de
+    // 2026-09-25, "Gerenciar", opção A). Resolve quando a folha fecha; quem
+    // relê a assinatura é o TypeScript, porque cancelar não gera transação.
+    AsyncFunction("showManageSubscriptions") { () in
+      try await Self.mostrarGerenciamento()
+    }
+  }
+
+  /// A folha precisa de uma `UIWindowScene`. O app não adota o ciclo de vida
+  /// por cenas, mas o UIKit cria a cena implícita desde o iOS 13 (inferido da
+  /// documentação, não medido neste app).
+  @MainActor
+  private static func mostrarGerenciamento() async throws {
+    let cenas = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+    guard let cena = cenas.first(where: { $0.activationState == .foregroundActive }) ?? cenas.first else {
+      throw StoreKitException(code: "unrecoverable", reason: "Nenhuma cena para mostrar a folha de assinaturas.")
+    }
+    do {
+      try await AppStore.showManageSubscriptions(in: cena)
+    } catch {
+      throw traduzir(error)
+    }
+  }
+
+  /// `Storefront.updates` avisa quando a loja da conta muda — e com ela a moeda
+  /// dos preços (ADR de 2026-09-25, item 4). Evento sem corpo: o TypeScript
+  /// pede os produtos de novo.
+  private func escutarLoja() {
+    storefrontTask = Task.detached { [weak self] in
+      for await _ in Storefront.updates {
+        self?.sendEvent(kStorefrontEvent, [:])
       }
     }
   }
