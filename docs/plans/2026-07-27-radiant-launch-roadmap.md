@@ -585,7 +585,11 @@ código.
   cada item com estado (✅/⏳/⛔) e link para a task detalhada, mais um resumo dos
   bloqueios de submissão. É o checklist que se percorre antes de cada submissão,
   não uma reescrita do roadmap.
-- **D4 [P0]** Gate editorial. **Triado em 2026-07-31 — a redação anterior, "triar
+- **D4 [P0, fechada em 2026-09-25]** Gate editorial. **Fechada como superada
+  pelo V3 e pela auditoria de 2026-08-27**, por decisão do dono
+  ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2). A capa, os
+  excertos de radioterapia e a regeneração da cadeia foram arquivados sem
+  execução. O texto abaixo é o histórico. **Triado em 2026-07-31 — a redação anterior, "triar
   os 42 itens `formatNeedsReview`", descrevia mal o trabalho nas duas direções.**
   **18 de 19 aprovadas pelo dono em 2026-09-25.** As propostas do agente
   estão em `review-decisions.json`, que o classificador lê. O dono aprovou 18
@@ -1452,6 +1456,10 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
       o "Gerenciar" abre a folha da Apple dentro do app, o cancelamento é
       testado por ela, e o Ask to Buy passa ao StoreKit Testing do Xcode.
       O VoiceOver continua com o dono, no iPhone.
+    - na mesma noite, pela
+      [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md),
+      os planos passaram a ter ordem fixa, com o mensal primeiro, e o preço
+      passou a acompanhar a troca de loja, junto com a folha.
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

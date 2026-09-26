@@ -67,7 +67,7 @@ git switch --no-track -c <nova> origin/main
 3. `docs/FILA.md`.
 4. O relatório, a medição ou a ADR da frente que você pegar.
 
-## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 21:30)
+## 3. Todas as pendências, em ordem de prioridade (2026-09-25, 22:00)
 
 Ordem combinada com o dono em 2026-09-25, às 21:10, juntando a lista dele com a
 do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
@@ -82,13 +82,19 @@ entraram na `main` (`e992686`), e o dono decidiu o "Gerenciar", o Ask to Buy e
 o cancelamento ([ADR](../../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)). Com isso, a folha do "Gerenciar" (19a) subiu
 para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 
+**Atualizada às 22:00**, pela [ADR da amostra da L1, da D4 e dos planos](../../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md):
+- a D4 fechou como superada, e com ela saíram o 8, o 9, o 10, o 17 e o 18;
+- a amostra da L1 vai ser corrigida antes de aprovar (7a e 7b);
+- os planos terão o mensal primeiro (19b);
+- o preço passa a acompanhar a troca de loja, dentro do 19a.
+
 **P1 — o que segura a 1.4**
 
 | # | Tarefa | Dono | Destrava / depende |
 |---|---|---|---|
 | ~~1~~ | ~~**Merge de #35 → #36 → #37**~~ | dono | ✅ Feito em 2026-09-25, pelo agente, com autorização do dono |
 | ~~2~~ | ~~**StoreKit: decidir o "Gerenciar"**~~ | dono | ✅ Decidido: opção A, a folha da Apple |
-| 19a | **A folha de gerenciamento da Apple no "Gerenciar"** (`AppStore.showManageSubscriptions`), com teste vermelho antes | agente | **Próximo item do agente.** Destrava o 4 e pede uma build `development` nova ao dono |
+| 19a | **A folha de gerenciamento da Apple no "Gerenciar"** (`AppStore.showManageSubscriptions`) **e o preço que acompanha a troca de loja** (`Storefront.updates`), no mesmo módulo, com teste vermelho antes | agente | **Próximo item do agente.** Destrava o 4 e pede uma build `development` nova ao dono |
 | 5 | **Ask to Buy no StoreKit Testing do Xcode**, no simulador | agente | Primeiro, conferir que o módulo Swift funciona ali; se não funcionar, volta ao dono, pelo grupo familiar no sandbox |
 | 3 | **VoiceOver num iPhone físico** (checkpoint e HUD com vidas em recarga) | dono | Ele decidiu fazer. Bloqueia a 1.4 |
 | 4 | **Cancelamento pela folha, no aparelho** | dono | Depois do 19a e da build nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit Testing |
@@ -99,20 +105,18 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 |---|---|---|---|
 | 6 | **F2:** faltam 7 testadores aceitarem | dono | Não bloqueia a 1.4 no iOS, mas os 14 dias só começam com 12. Cada dia parado é um dia a mais no Android |
 
-**P3 — decisões do dono que destravam o agente**
+**P3 — o piloto da L1, que destrava o V3**
 
 | # | Tarefa | Dono | Destrava |
 |---|---|---|---|
-| 7 | **Aprovar a amostra do piloto L1** (3 perguntas, e o item 18 da amostra, que parece idêntico ao item 1 dela) | dono | O 15, e depois o teste com 3 a 5 pessoas e a L2 v7: a fila inteira do V3 |
-| 8 | **D4-b:** o que a D4 ainda bloqueia (§4.1) | dono | O 17. **Vem antes do 9 e do 10:** se a D4 fechar como superada, eles podem perder o objeto |
-| 9 | **D4-a:** como representar a exclusão da capa (§4.1; o agente recomenda A) | dono | O 18 |
-| 10 | **D4-c:** destino dos 4 excertos de radioterapia (§4.1) | dono | O 18 |
-| 11 | **StoreKit:** ordem dos planos e preço de outra loja até recarregar | dono | O 19b |
+| 7a | **Corrigir as variantes da amostra:** o item 18, que duplica o 1, e as do decúbito dorsal visto por trás. Mostrar ao dono só os itens que mudaram | agente | O 7b |
+| 7b | **Confirmar os itens alterados da amostra** | dono | O 15, depois o teste com 3 a 5 pessoas e a L2 v7 |
 
 **P4 — agente, destravado agora**
 
 | # | Tarefa | Dono | Observação |
 |---|---|---|---|
+| 19b | **Ordem fixa dos planos, com o mensal primeiro** | agente | Só JavaScript, com teste; não depende de build |
 | 12 | **Conserto do aquecimento:** parar o fundo animado fora de foco e medir de novo M1 e M4 | agente | FILA, achado 5. Antes do 14, para o aparelho medir a versão consertada |
 | 13 | **XP da aprovação do checkpoint** | agente | A tela mostrou "XP total: 90", igual a antes. Conferir se o checkpoint devia dar XP |
 | 16 | **Caminho 3 do E2E afirma o estado da L1** | agente | Destravado: a #36 entrou. Detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
@@ -122,10 +126,7 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 | # | Tarefa | Dono | Depende de |
 |---|---|---|---|
 | 14 | **Aquecimento no aparelho:** 5 min fora do carregador, com e sem Reduzir Movimento, anotando as telas visitadas antes | dono, com o agente | Idealmente do 12, numa build `preview` |
-| 15 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | 7 |
-| 17 | **Regerar conceitos e bundles** da cadeia desatualizada | agente | 8 |
-| 18 | **Aplicar a D4-a e a D4-c** | agente | 9 e 10, num run que reabre `Conteúdo/classificação` |
-| 19b | **Ordem dos planos e preço de outra loja** | agente | 11 |
+| 15 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | 7b |
 | 20 | **Bump para `1.4.0`** | agente | **Por último:** 3, 4 e 5 |
 
 **Depois da 1.4, ou sem prazo**
@@ -138,15 +139,16 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 | 24 | **Ações de um passo:** E3 e IARC, chave do Play (A5), pedido ao INCA, `~/.lmstudio` e Ollama, `checkHeuristics` | dono |
 
 **Qual frente pegar agora:**
-- se o dono já tiver respondido algum item da P3, aplique a resposta pelo
-  item correspondente da P5;
-- se não, pegue o **19a** (a folha do "Gerenciar"), que está na P1. Depois,
-  o **5** (Ask to Buy no StoreKit Testing). O 12, o 13 e o 16 vêm em seguida.
-  Um por conversa.
+- se o dono já tiver confirmado os itens alterados da amostra (7b), grave a
+  aprovação (15);
+- se não, pegue o **19a** (a folha do "Gerenciar" e o preço da loja), que
+  está na P1. Depois, o **5** (Ask to Buy no StoreKit Testing) e o **7a**
+  (variantes da amostra). O 19b, o 12, o 13 e o 16 vêm em seguida. Um por
+  conversa.
 
 ## 4. Frentes em detalhe
 
-### 4.1. D4 (itens 8, 9 e 10 da §3): as três perguntas do dono
+### 4.1. D4: **resolvida em 2026-09-25, às 21:50 — fechada como superada** ([ADR](../../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2). O texto abaixo é o registro das opções
 
 **(a) Como representar a exclusão da capa (p1).** O contrato só conhece
 `approved` e `needs-review`, e o classificador recusa exclusão aprovada.

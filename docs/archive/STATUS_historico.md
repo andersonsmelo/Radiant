@@ -2108,3 +2108,18 @@ Medido em 2026-09-25, às 08:47:
   mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
   ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](../release/2026-09-25-branches-remotos-apagados.md).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md):
+
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
+  modelos pelo dono ([FILA](../FILA.md)); depois, o teste com 3 a 5 pessoas antes
+  de escalar.
+- **Conteúdo editorial (D4)** — **18 das 19 propostas do agente aprovadas
+  pelo dono** em 2026-09-25, e o `planet-radioterapia` criado (`planned`, sem
+  lição). São 105 registros: 104 `approved` e 1 `needs-review`, a capa, cuja
+  exclusão ainda não tem representação. O catálogo do app não depende desse
+  estado: ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em
+  2026-09-25, no branch `feat/d4-decisoes-de-revisao`
+  ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).

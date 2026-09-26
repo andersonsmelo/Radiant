@@ -174,16 +174,17 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) está **na `main`
   desde 2026-09-23 (PR #24)**, sem build de distribuição: 12 itens gerados por
   regra, som e vibração, custo de vida só no desafio, rota `/licao-hibrida`
-  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
-  modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
-  de escalar.
-- **Conteúdo editorial (D4)** — **18 das 19 propostas do agente aprovadas
-  pelo dono** em 2026-09-25, e o `planet-radioterapia` criado (`planned`, sem
-  lição). São 105 registros: 104 `approved` e 1 `needs-review`, a capa, cuja
-  exclusão ainda não tem representação. O catálogo do app não depende desse
-  estado: ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em
-  2026-09-25, no branch `feat/d4-decisoes-de-revisao`
-  ([medição](content/2026-09-25-d4-propostas-e-cascata.md), [FILA](FILA.md)).
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. **A amostra foi decidida em
+  2026-09-25** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o agente corrige o item 18, que duplica
+  o 1, e as variantes do decúbito dorsal visto por trás, e o dono confirma os
+  itens alterados antes de a aprovação ser gravada ([FILA](FILA.md), 7a e 7b).
+  Depois, o teste com 3 a 5 pessoas antes de escalar.
+- **Conteúdo editorial (D4)** — **fechada como superada** em 2026-09-25, pela
+  [ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2. A classificação da apostila não alimenta o app nem o
+  V3, e o conteúdo que ela devia liberar está no ar desde a 1.3.1. O risco do
+  catálogo que está no ar segue na auditoria de 2026-08-27 e na migração para o
+  V3. **Risco aberto:** não se sabe quem marcou os `ai-bundles.json`, de onde
+  sai o catálogo, como `approved`, nem com que critério.
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado e
   na `main`** (PR #34, mergeada em 2026-09-25), conforme a
   [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):

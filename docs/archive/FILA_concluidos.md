@@ -1217,3 +1217,224 @@ Trecho do cabeçalho da seção da 1.4 substituído no run anterior, das 21:10,
 sem edição (só o link relativo reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md`](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md), que traz todas as pendências em ordem de criticidade;
+
+## Lote de 2026-09-25, 22:00 — D4 fechada como superada; decisões da amostra e do StoreKit
+
+Retirados sem edição (só os links relativos reajustados ao novo diretório),
+pela [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md).
+
+Da "Ordem de prioridade, combinada em 2026-09-25":
+
+  - **8.** D4-b, o que a D4 ainda bloqueia. Destrava o 17 e **vem antes do 9 e
+    do 10**;
+  - **9.** D4-a, a exclusão da capa;
+  - **10.** D4-c, os 4 excertos de radioterapia;
+  - **11.** StoreKit: ordem dos planos e preço de outra loja. Destrava o 19b.
+  - **17.** agente: regerar conceitos e bundles, depois do 8;
+  - **18.** agente: aplicar a D4-a e a D4-c, depois do 9 e do 10;
+  - **7.** aprovar a amostra do piloto L1. Destrava o 15 e o resto do V3;
+  - **19b.** agente: ordem dos planos e preço de outra loja, depois do 11;
+
+A seção inteira da D4, encerrada como superada pelo V3 e pela auditoria de
+2026-08-27:
+
+### 3. D4 — 18 de 19 aprovadas pelo dono em 2026-09-25; falta a capa
+
+> **Atualizado em 2026-09-25, no branch `feat/d4-decisoes-de-revisao`. O bloco
+> "Remedida em 2026-09-25" e o texto de 2026-08-08, abaixo, estão vencidos.**
+> Detalhe e medição em [`2026-09-25-d4-propostas-e-cascata.md`](../content/2026-09-25-d4-propostas-e-cascata.md).
+>
+> - **Feito:** o classificador lê as decisões de
+>   `conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/review-decisions.json`.
+>   O agente propôs destino para os 19, e **o dono aprovou 18** na conversa.
+>   São 105 registros: **104 `approved` e 1 `needs-review`**.
+> - **Radioterapia:** o `planet-radioterapia` entrou em `galaxy-tecnologia`,
+>   `planned` e sem lição, por decisão do dono. Recebeu o p30 e o p32.
+> - **Achado:** dos 9 "com sinal fraco", a proposta confirmou 4 e moveu 5. O p32
+>   é radioterapia e estava em pneumotórax.
+> - **DONO — o que falta, e ele pediu mais informação:**
+>   1. como representar a exclusão da capa (p1), que hoje o classificador
+>      recusa aprovar;
+>   2. o que a D4 ainda bloqueia, com o V3 como direção.
+> - **Cadeia desatualizada, só registrada, por decisão do dono:** conceitos e
+>   bundles determinísticos não foram regerados desde 2026-08-08. Regerados
+>   hoje, aprovariam os 16 conceitos. **Isso não governa o app:** o catálogo é
+>   promovido de `ai-bundles.json`, que está 96 de 96 `approved`, e já leva os
+>   16 conceitos.
+> - **Guardas religadas:** `validate-foundation.test.mjs`, vermelho desde
+>   2026-08-08, e `classify-source.test.py` agora rodam no `loop validate`.
+> - **DONO — decidir (2026-09-25):** o vocabulário de radioterapia foi
+>   medido e **não aplicado**. A medição achou 3 excertos de radioterapia
+>   aprovados pela máquina no lugar errado (p31:c1, p31:c2 e p32:c2) e um misto
+>   (p29:c1). O agente recomenda propor destino para os quatro no
+>   `review-decisions.json` e deixar o vocabulário para uma segunda fonte.
+>   Detalhe na [medição](../content/2026-09-25-d4-propostas-e-cascata.md).
+> - **Guarda de sincronia (2026-09-25):** o `classify-source.test.py` regera a
+>   classificação num diretório temporário e compara com o disco, byte a byte.
+>   Uma decisão editada, ou uma regra de vocabulário mudada, sem regerar passa a
+>   reprovar o `loop validate`. Vista falhando pelos dois defeitos.
+> - **Janela:** `Conteúdo/classificação` foi aberta em `f39ec65`, fechada em
+>   `b108651`, reaberta em `d152863` para as aprovações e fechada no run
+>   seguinte.
+>
+> **Remedida em 2026-09-25. O texto abaixo, de 2026-08-08, está vencido.**
+> Medido em `Conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json`:
+> - **105 registros:** 86 `approved` e **19 `needs-review`**, e não 30;
+> - **a estrela já é opcional:** 44 registros estão sem `starId`, e o
+>   `validate-foundation.mjs:414` aceita `null`. O "bloqueio de contrato"
+>   abaixo foi resolvido;
+> - **os 4 fragmentos foram resolvidos** por remapeamento, e não por
+>   reextração, que se provou impossível. Detalhe nos comentários de
+>   `writePolicy` do `.loop/project.yaml`, janelas de 2026-08-08.
+>
+> **Os 19 restantes:**
+> - **10 sem nenhum sinal:** `matches ['fallback']`, seis deles com confiança
+>   de 0,35;
+> - **9 com sinal fraco:** confiança entre 0,48 e 0,82.
+>
+> A maior concentração (9 dos 19) está em `planet-formacao-imagem`.
+>
+> **O que falta decidir:** ler a governança do conteúdo para saber se o agente
+> pode aprovar os 9 com sinal ou só propor. Mudar qualquer registro reabre a
+> janela de `Conteúdo/classificação` em `allowedRoots`, num run próprio e
+> anterior, com a grafia do disco. O dono autorizou essa janela em
+> 2026-09-25.
+
+**Estado:** aberto, P0, bloqueia produção — mas decomposta.
+**Bloqueio:** trocou de lugar, não morreu. **Dono:** agente nas duas primeiras
+fatias; revisor de domínio só na terceira.
+
+Medição: [`2026-08-08-d4-destino-existe.md`](../content/2026-08-08-d4-destino-existe.md).
+
+O bloqueio registrado era "os sete conceitos não têm nó de destino", e ele caiu
+em 2026-08-07 com o eixo técnico. Mas **`scripts/content/classify-source.py`
+carrega a taxonomia hardcoded em Python**, versão `mvp-2026-04-04`, e não conhece
+`galaxy-tecnologia` nem os seis planetas novos. É a **terceira cópia** da mesma
+estrutura; as outras duas já foram reconciliadas. O bloqueio não morreu — mudou
+de lugar, e agora é ferramenta que não enxerga o destino, não destino ausente.
+
+Os 30 `needs-review` medidos contra o eixo técnico:
+
+| Fatia | Tamanho | Quem resolve |
+| --- | --- | --- |
+| Achariam destino com o classificador enxergando o eixo técnico | **19** | agente |
+| Fragmento de extração abaixo de 80 caracteres, o menor com 3 | **4** | agente |
+| Resíduo real, sinal fraco ou nenhum | **~7** | revisor de domínio |
+
+Os 4 fragmentos seguem no disco porque **a extração desta fonte nunca foi
+regerada** depois da correção do extrator em 2026-08-07. Reexecutar o extrator os
+elimina sem decisão de ninguém.
+
+**A ordem que este item declarava estava errada, e eu a escrevi.** Dizia
+"reexecutar o extrator primeiro, porque é o mais barato". Medido em 2026-08-08:
+não é. `excerpts.json` e `pages.json` não são rastreados, mas
+`extraction-job.json` é, e `Conteúdo/extrações` foi **deliberadamente removido**
+de `allowedRoots` com motivo escrito no próprio `project.yaml`. Reextrair também
+muda as fronteiras de excerto, o que invalida `classifications.json` — rastreado,
+e sob a mesma armadilha de grafia. As duas fatias de agente **compartilham a
+parte cara**, então fazer a extração primeiro reclassifica duas vezes.
+
+É a Observação #195 mordendo o texto de quem a escreveu: estimei "barato" sem
+medir, uma iteração depois de registrar que o campo tamanho é o que convida a
+verificar menos.
+
+**A fatia de 19 tem um bloqueio de contrato, achado em 2026-08-08.** Não é
+vocabulário:
+
+- o schema `classification-record` exige `starId` como `string`, **não nulável**;
+- `validate-foundation.mjs:409` reprova `starId` que não exista na taxonomia;
+- `classify_excerpt` indexa `PLANET_STAR_IDS[planet_id]` e `[0]` sem fallback;
+- e o dono decidiu que **os planetas novos não ganham estrela**.
+
+Um excerto não consegue pousar num planeta técnico. A única saída compatível com
+a decisão aprovada é **tornar `starId` nulável** — schema, validador,
+classificador e a forma dos 109 registros. Criar estrelas resolveria o contrato
+contradizendo a decisão, e pela razão que a decisão dá: estrela é trilha curta e
+não há nenhuma produzida.
+
+Detalhe numérico que morde junto: a confiança é
+`0.5·galáxia + 0.3·planeta + 0.2·estrela`. Sem a parcela da estrela, planeta sem
+estrela cai abaixo do limiar de 0,7 **por construção** e vira `needs-review` —
+o oposto do objetivo. Precisa renormalizar para `0.625·galáxia + 0.375·planeta`,
+com teste próprio.
+
+**Ordem corrigida:**
+
+1. ✅ **contrato** — `starId` nulável no schema, no `validate-foundation`, no
+   `classify_excerpt` **e na guarda irmã do `classify_source`**, que eu não
+   varri na primeira passada e o teste do bundle pegou. Confiança renormalizada
+   para `0.625/0.375`. Feito em `af7b202`;
+2. ✅ **vocabulário** — `galaxy-tecnologia` e os seis planetas em
+   `classify-source.py`, `TAXONOMY_VERSION` em `eixo-tecnico-2026-08-07`.
+   Medido contra os 109 excertos reais: **`needs-review` cai de 30 para 22**, e
+   **45 registros passam a ter `starId` nulo** — os planetas sem estrela ficaram
+   alcançáveis;
+3. ✅ **regeneração da classificação** — feita em 2026-08-08.
+   `classifications.json` no disco passou de **79/30 para 87/22**, com 45
+   registros no eixo técnico e 45 com `starId` nulo. `validate-foundation` em 0.
+
+4. ✅ **a reextração FOI feita em 2026-08-08**, depois que a conclusão abaixo
+   caiu na medição. **105 excertos, zero fragmentos abaixo de 80 caracteres,
+   `needs-review` em 19.** O texto abaixo fica como registro do erro.
+
+   **O que eu concluí, e por que estava errado.** Vendo os 18 erros do
+   `validate-foundation`, inferi que remover os fragmentos exigiria re-derivar
+   conceitos e formatos — as lições geradas — e portanto motor de IA local.
+   **Inferi, não medi.** O conserto do extrator **funde** o órfão no pedaço
+   anterior da mesma página; não o descarta. Medido nos quatro: o texto do órfão
+   está **contido** no `c1` da extração nova, e as contagens fecham
+   (1392 + 51 → 1444). E nas **76 ocorrências em lista, em 17 arquivos
+   rastreados, todas** vinham acompanhadas do irmão `c1`.
+
+   Então remover o id órfão não perdeu proveniência nenhuma: o texto segue
+   citado, dentro do irmão. Era **remapeamento de referência**, não regeneração
+   de conteúdo — e não precisou de Ollama nem de motor nenhum.
+
+   Duas armadilhas do remapeamento, ambas achadas pelo gate e não pela revisão:
+   os conceitos citam o mesmo excerto em **duas formas de id** — `excerpt:…` e
+   `classification:excerpt:…` —, e limpar só a primeira deixa a cadeia de
+   proveniência 1:1 quebrada; e `Conteúdo/extrações/index.json` carrega uma
+   **cópia** do `extraction-job`, então atualizar só o job deixa os dois em
+   desacordo.
+
+   *Registro do erro original:*
+
+   A triagem da D4 registrou os 4 fragmentos abaixo de 80 caracteres como
+   "defeito de extração, trabalho de pipeline, some sem decisão de ninguém". Eu
+   repeti isso na medição da manhã. **É falso, e foi medido executando.**
+
+   Reextrair leva 109 excertos a 105 e zera os fragmentos — o conserto do
+   extrator funciona. Mas `validate-foundation` reprovou com 18 erros, porque
+   `conteúdo/conceitos/` e `conteúdo/formatos/` **citam nominalmente** os
+   excertos que sumiram: `p41:c2` e `p42:c2` sustentam o conceito de preservação
+   de alimentos, `p71:c2` o de qualidade de imagem, `p33:c2` o de tomografia. Os
+   órfãos são **load-bearing**: sustentam a proveniência de lições que já
+   embarcam.
+
+   Restaurado rodando o extrator com `MIN_CHARS = 0` num rascunho fora do
+   repositório, o que reproduz exatamente a forma anterior — 109 excertos, os
+   quatro ids de volta.
+
+   **Isto não é uma limpeza de pipeline; é regeneração de conteúdo.** Tirar os
+   fragmentos exige re-derivar conceitos e bundles de formato, que são as lições
+   geradas. Fica como item próprio, com esse escopo declarado, e **não** como
+   "trabalho pequeno".
+
+**Pendência operacional:** a janela de escrita aberta em `4b28bd5` para
+`Conteúdo/extrações` e `Conteúdo/classificação` **precisa ser fechada** em run
+próprio, como o comentário no `project.yaml` promete.
+
+**O achado que vale mais que o número, e quase me fez enviar a versão errada.**
+Um primeiro vocabulário, mais agressivo, levava `needs-review` de 30 para **17** —
+melhor manchete. Mas **12 dos 20 resgates pousavam em
+`planet-profissao-e-aplicacoes`**, numa fonte onde profissão é uma lição só. A
+causa: `tecnico em radiologia` aparece em **77 dos 109 excertos** porque é o
+cabeçalho de página do módulo. O termo de maior aparência semântica era o do
+rodapé, e a métrica de manchete **premiava a colocação errada** — exatamente o
+risco que a medição de 2026-08-03 nomeou, chegando por outra porta. A versão
+podada resgata 12 com 4 regressões, e resgata para lugares plausíveis.
+
+O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de o
+dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
+pedia para não fazer ao contrário.
+
