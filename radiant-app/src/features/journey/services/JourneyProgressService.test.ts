@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
-import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore } from '../../../types/journey';
+import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore, type JourneySnapshot } from '../../../types/journey';
 import type { ContentLesson, LearningTrack, LessonCatalogSummary } from '../../content/content.types';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { JourneyProgressService } from './JourneyProgressService';
+import { computeSegmentPrimaryProgress } from './JourneyUnitProgress';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
     getItem: jest.fn(),
@@ -216,7 +217,61 @@ describe('JourneyProgressService', () => {
         });
         expect(snapshot.nextRecommendedNode?.id).toBe('node:foundation-1');
     });
+
+    // Defeito 1 do E2E (2026-09-24), opção A da ADR de 2026-09-25: o concluído
+    // vence o retomável e o atual. Reabrir uma lição concluída e sair no meio
+    // não pode mudar a trilha: nem o status do nó, nem a contagem do
+    // cabeçalho, nem a recomendação, nem a unidade em foco.
+    describe('reabrir e abandonar uma lição concluída não muda a trilha', () => {
+        let antes: JourneySnapshot;
+        let depois: JourneySnapshot;
+
+        beforeEach(async () => {
+            await JourneyProgressService.bootstrap();
+            antes = await JourneyProgressService.markNodeCompleted('node:foundation-1');
+
+            // O que a LessonFlowScreen faz ao abrir a lição e ao sair no meio.
+            await JourneyProgressService.setCurrentNode('node:foundation-1');
+            await JourneyProgressService.setResumableNode('node:foundation-1');
+            depois = await JourneyProgressService.setResumableNode('node:foundation-1', 2);
+        });
+
+        it('o nó continua concluído', () => {
+            expect(nodeStatus(depois, 'node:foundation-1')).toBe('completed');
+        });
+
+        it('a contagem do cabeçalho não cai', () => {
+            expect(computeSegmentPrimaryProgress(depois.track.units)).toEqual(
+                computeSegmentPrimaryProgress(antes.track.units),
+            );
+        });
+
+        it('a recomendação não volta para a lição concluída', () => {
+            expect(depois.nextRecommendedNode?.id).toBe(antes.nextRecommendedNode?.id);
+        });
+
+        // A unidade em foco está em JourneyRecommendationService.test.ts: esta
+        // trilha de teste tem uma unidade só, e o foco não teria para onde ir.
+    });
+
+    it('reabrir uma lição concluída não apaga a retomada de outra lição em andamento', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        await JourneyProgressService.markNodeCompleted('node:checkpoint:foundations');
+        await JourneyProgressService.setResumableNode('node:foundation-2', 1);
+
+        await JourneyProgressService.setCurrentNode('node:foundation-1');
+        await JourneyProgressService.setResumableNode('node:foundation-1');
+        const depois = await JourneyProgressService.setResumableNode('node:foundation-1', 2);
+
+        expect(depois.progress.resumableNodeId).toBe('node:foundation-2');
+        expect(depois.progress.resumableStepIndex).toBe(1);
+    });
 });
+
+function nodeStatus(snapshot: JourneySnapshot, nodeId: string): string | undefined {
+    return snapshot.track.units.flatMap((unit) => unit.nodes).find((node) => node.id === nodeId)?.status;
+}
 
 describe('JourneyProgressService — avanço sequencial de trilha', () => {
     const storageState: Record<string, string> = {};

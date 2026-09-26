@@ -1943,3 +1943,12 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
 
   - o `E3C547AE-…` guarda o dia 1 do caminho 2 do E2E e **não pode ser
     reinstalado nem limpo** antes do dia 2.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelo conserto do defeito 1:
+
+   - **o defeito 1** foi decidido pelo dono em 2026-09-25: o concluído vence o
+     retomável
+     ([ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
+     O conserto é do agente, com teste vermelho antes.

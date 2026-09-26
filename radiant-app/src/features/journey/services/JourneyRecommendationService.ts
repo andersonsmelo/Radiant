@@ -28,6 +28,18 @@ function isNodeCompleted(progress: JourneyProgress, nodeId: string): boolean {
     return progress.completedNodeIds.includes(nodeId);
 }
 
+/**
+ * Concluído e sem pendência: o aluno fechou o nó, e ele não está devido de
+ * novo. Uma revisão já feita que venceu outra vez NÃO está assentada.
+ *
+ * ADR de 2026-09-25 (defeito 1 do E2E, opção A): um nó assentado continua
+ * concluído mesmo que o aluno o reabra e saia no meio. Retomável e atual não o
+ * rebaixam, não puxam a recomendação e não mudam a unidade em foco.
+ */
+export function isSettledCompletion(progress: JourneyProgress, nodeId: string): boolean {
+    return isNodeCompleted(progress, nodeId) && !progress.pendingReviewNodeIds.includes(nodeId);
+}
+
 function unlockRuleSatisfied(node: JourneyNodeDefinition, progress: JourneyProgress): boolean {
     const requiresNodeIds = node.unlockRule?.requiresNodeIds ?? [];
     const requiresReviewClear = node.unlockRule?.requiresReviewClear ?? false;
@@ -44,11 +56,13 @@ function unlockRuleSatisfied(node: JourneyNodeDefinition, progress: JourneyProgr
 }
 
 function resolveNodeStatus(node: JourneyNodeDefinition, progress: JourneyProgress): JourneyNode['status'] {
-    if (progress.resumableNodeId === node.id) {
+    const settled = isSettledCompletion(progress, node.id);
+
+    if (!settled && progress.resumableNodeId === node.id) {
         return 'resumable';
     }
 
-    if (progress.currentNodeId === node.id) {
+    if (!settled && progress.currentNodeId === node.id) {
         return 'active';
     }
 
@@ -250,7 +264,7 @@ export class JourneyRecommendationService {
     static resolveCurrentUnitId(track: JourneyTrack, progress: JourneyProgress): string {
         const resumableNode = track.units
             .flatMap((unit) => unit.nodes)
-            .find((node) => node.id === progress.resumableNodeId);
+            .find((node) => node.id === progress.resumableNodeId && !isSettledCompletion(progress, node.id));
 
         if (resumableNode) {
             return resumableNode.unitId;
@@ -258,7 +272,7 @@ export class JourneyRecommendationService {
 
         const activeNode = track.units
             .flatMap((unit) => unit.nodes)
-            .find((node) => node.id === progress.currentNodeId);
+            .find((node) => node.id === progress.currentNodeId && !isSettledCompletion(progress, node.id));
 
         if (activeNode) {
             return activeNode.unitId;

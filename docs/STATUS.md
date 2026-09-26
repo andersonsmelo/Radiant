@@ -75,10 +75,11 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    do app ([FILA](FILA.md), item 4 da Task 8):
    - **os defeitos 2 e 3** foram corrigidos e **estão na `main`** desde
      2026-09-25 (PR #34, com o CI verde);
-   - **o defeito 1** foi decidido pelo dono em 2026-09-25: o concluído vence o
-     retomável
-     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
-     O conserto é do agente, com teste vermelho antes.
+   - **o defeito 1** foi corrigido em 2026-09-25, pela opção A da
+     [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
+     no branch `fix/defeito-1-licao-concluida`, sem push. Foi visto na tela, e o
+     gate deu 151 suítes / 1430 testes
+     ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
