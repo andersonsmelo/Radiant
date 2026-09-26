@@ -152,6 +152,13 @@ describe('SubscriptionScreen — estados', () => {
         expect(await screen.findByText(/Cancelada — válida até 14\/10\/2026/u)).toBeTruthy();
     });
 
+    it('renovação desconhecida mostra o acesso, e nunca "Cancelada"', async () => {
+        abrir(loja({ currentEntitlement: jest.fn(async () => direito({ willRenew: null })) }));
+
+        expect(await screen.findByText(/Ativa — acesso até 14\/10\/2026/u)).toBeTruthy();
+        expect(screen.queryByText(/Cancelada/u)).toBeNull();
+    });
+
     it('restaurar compras recupera o direito e confirma na tela', async () => {
         abrir(loja({ restore: jest.fn(async () => direito()) }));
 

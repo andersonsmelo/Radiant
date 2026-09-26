@@ -65,8 +65,11 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
    [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
-   A renovação desconhecida passa a mostrar "Ativa · acesso até DD/MM". O
-   conserto é do agente.
+   A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
+   corrigida em 2026-09-25 na
+   [PR #37](https://github.com/andersonsmelo/Radiant/pull/37), que aguarda
+   merge, com o gate em 151 suítes / 1434 testes
+   ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
 2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
    simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
    com relógio real
@@ -77,8 +80,8 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      2026-09-25 (PR #34, com o CI verde);
    - **o defeito 1** foi corrigido em 2026-09-25, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
-     no branch `fix/defeito-1-licao-concluida`, sem push. Foi visto na tela, e o
-     gate deu 151 suítes / 1430 testes
+     na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), que aguarda
+     merge. Foi visto na tela, e o gate deu 151 suítes / 1430 testes
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
@@ -245,32 +248,35 @@ Medido em 2026-09-25, às 08:47:
   - o defeito 1, o reembolso e a renovação desconhecida foram decididos
     ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
   - a amostra do piloto ficou **sem decisão**.
-- **O remoto tem só a `main`.** Os 25 branches já mergeados foram apagados em
-  2026-09-25, por decisão do dono. A lista, com a ponta de cada um para
-  restaurar, está em
+- **PRs abertas, medido em 2026-09-25 às 14:51.** O merge vai nesta ordem,
+  porque cada uma está empilhada sobre a anterior:
+  1. [#35](https://github.com/andersonsmelo/Radiant/pull/35), `docs/estado-2026-09-25`:
+     estado do dia, relatório da nuvem, ADR e E2E completo. CI verde;
+  2. [#36](https://github.com/andersonsmelo/Radiant/pull/36), `fix/defeito-1-licao-concluida`:
+     defeito 1, com a revisão do Codex respondida e o Auto-fix do app ligado.
+     O CI estava rodando de novo, depois do push da resposta;
+  3. [#37](https://github.com/andersonsmelo/Radiant/pull/37), `fix/renovacao-desconhecida`:
+     renovação desconhecida e o prompt (5). CI verde.
+
+  As três apontam para a `main`. A #36 e a #37 mostram também os commits das
+  anteriores até elas entrarem.
+- **O remoto tem só a `main` e os três branches acima.** Os 25 branches já
+  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
+  ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-  Os branches locais deste Mac ficaram.
-- **Prompt de continuidade** da sessão local:
-  [`2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md).
-  Os itens 1 e 7 dele já não estão pendentes: o merge e a regra de vidas. Do
-  item 14, só falta o simulador da H4.
+- **Prompt de continuidade:**
+  [`2026-09-25-radiant-prompt-de-continuidade-5.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
+  Ele substitui o (3) e o (4).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
     tela, por decisão do dono;
-  - o `E3C547AE-…` já cumpriu o dia 2, em 2026-09-25, e está livre. Rodar o
-    caminho 2 de novo exige repetir o dia 1 e esperar 24 h.
+  - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
 
-**Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24, com o
-aval do dono, e o histórico local de runs dela foi junto.
-- A afirmação anterior de que ela tinha 4 alterações não commitadas não valia
-  mais: medido em 2026-09-24 às 21:22, não havia nada rastreado alterado.
-- Os 4 arquivos que ela tinha, fora do git, eram cópias idênticas, conferidas
-  por hash, dos subprodutos das extrações do checkout principal.
-
-Continuam em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a
-`sharp-dijkstra-747d12` e a `trusting-mestorf-a5ca83`, cada uma com runs do
-Loop que o git ignora. A `Radiant-release` está numa `main` local antiga
-(`21c42b6`), e quem for usá-la começa por `git pull`.
+**Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
+em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
+e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora. A
+`Radiant-release` está numa `main` local antiga (`21c42b6`), e quem for usá-la
+começa por `git pull`.
 
 ```bash
 git fetch origin && gh pr list --state open

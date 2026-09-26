@@ -30,9 +30,13 @@ function describe(status: SubscriptionStatus): { headline: string; detail: strin
         case 'unlimited':
             return {
                 headline: 'Assinante · vidas ilimitadas',
-                detail: status.willRenew
-                    ? `Renova em ${formatShortDate(status.expiresAt)}`
-                    : `Cancelada · válida até ${formatShortDate(status.expiresAt)}`,
+                detail: status.willRenew === null
+                    // Desconhecida: ativa, sem prometer renovação nem afirmar
+                    // cancelamento (ADR de 2026-09-25, 2A).
+                    ? `Ativa · acesso até ${formatShortDate(status.expiresAt)}`
+                    : status.willRenew
+                        ? `Renova em ${formatShortDate(status.expiresAt)}`
+                        : `Cancelada · válida até ${formatShortDate(status.expiresAt)}`,
                 action: 'Gerenciar',
             };
         case 'expired':

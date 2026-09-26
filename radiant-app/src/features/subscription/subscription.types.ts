@@ -21,7 +21,12 @@ export type SubscriptionEntitlement = {
     period: SubscriptionPeriod;
     /** Fim do período pago corrente, ISO 8601. */
     expiresAt: string;
-    willRenew: boolean;
+    /**
+     * `null` quando a Apple não informou a renovação. É um estado próprio,
+     * e não "não renova" (ADR de 2026-09-25, 2A): o aluno lê que o acesso
+     * está ativo, e não que cancelou.
+     */
+    willRenew: boolean | null;
     /** Reembolso ou revogação pela Apple; quando presente, o direito não vale. */
     revokedAt: string | null;
 };
@@ -63,7 +68,7 @@ export function isStoreUnavailable(error: unknown): error is StoreUnavailableErr
 export type SubscriptionStatus =
     | { kind: 'none' }
     | { kind: 'pending'; since: string }
-    | { kind: 'unlimited'; expiresAt: string; willRenew: boolean }
+    | { kind: 'unlimited'; expiresAt: string; willRenew: boolean | null }
     | { kind: 'expired'; expiredAt: string };
 
 export type SubscriptionOffers =
