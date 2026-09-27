@@ -1450,3 +1450,17 @@ fila, agora como a build e a conferência no aparelho, que são do dono.
     (`Storefront.updates`), no mesmo módulo, com teste vermelho antes.
     **Destrava o 4** e pede uma build `development` nova ao dono;
   - **19b.** ordem fixa dos planos, com o mensal primeiro. É só JavaScript;
+
+## Lote de 2026-09-27 — 19a e 4 conferidos no iPhone
+
+Retirados sem edição (só os links relativos reajustados ao novo diretório) da
+"Ordem de prioridade" ([evidência](../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
+
+  - **19a.** dono: **build `development` nova no EAS** com este branch. O
+    código do agente está pronto desde 2026-09-26: a folha do "Gerenciar" e o
+    preço que acompanha a troca de loja, compilados localmente para o
+    simulador ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). No iPhone, abrir a folha, fazer o 4 e
+    trocar de conta de sandbox com os planos na tela. **Destrava o 4**;
+  - **4.** dono: cancelamento pela folha, no aparelho, depois do 19a e da build
+    nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit
+    Testing.

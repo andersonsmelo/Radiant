@@ -2138,3 +2138,16 @@ app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
 3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pela conferência no iPhone ([evidência](../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)):
+
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app.
+     **O código está pronto desde 2026-09-26** e compilou localmente para o
+     simulador, junto com o preço que acompanha a troca de loja e a ordem fixa
+     dos planos ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Falta a build `development` nova no EAS,
+     que é do dono, e o aparelho. Se a folha também fechar no iOS 27.2, o
+     cancelamento passa ao StoreKit Testing do Xcode;
+
+**Ainda não passou por uma build real** ([FILA](../FILA.md), achado 6).

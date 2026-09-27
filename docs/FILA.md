@@ -51,7 +51,8 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado**, hoje o **5**.
+destravado**, hoje o **5**, que é também o último item da 1.4 que não é do
+dono.
 
 **Cumpridos ou encerrados em 2026-09-25,** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -59,21 +60,16 @@ destravado**, hoje o **5**.
 - o 8, o 9 e o 10 e o 17 e o 18, porque a D4 fechou como superada;
 - o 11, porque as decisões do StoreKit foram tomadas;
 - o 19b (ordem fixa dos planos) e a parte do agente no 19a, feitos em
-  2026-09-26.
+  2026-09-26;
+- o 19a e o 4, conferidos no iPhone em 2026-09-27 com a build `c4eeeb44`: a
+  folha abriu, o cancelamento passou por ela e a tela atualizou sozinha
+  ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
 
 - **P1 — o que segura a 1.4:**
-  - **19a.** dono: **build `development` nova no EAS** com este branch. O
-    código do agente está pronto desde 2026-09-26: a folha do "Gerenciar" e o
-    preço que acompanha a troca de loja, compilados localmente para o
-    simulador ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). No iPhone, abrir a folha, fazer o 4 e
-    trocar de conta de sandbox com os planos na tela. **Destrava o 4**;
   - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
     Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
     volta ao dono, pelo grupo familiar no sandbox;
   - **3.** dono: VoiceOver num iPhone físico, que ele decidiu fazer;
-  - **4.** dono: cancelamento pela folha, no aparelho, depois do 19a e da build
-    nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit
-    Testing.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
@@ -87,7 +83,7 @@ destravado**, hoje o **5**.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-  - **20.** agente: bump para `1.4.0`, **por último**, depois do 3, 4 e 5.
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 3 e do 5.
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;
@@ -149,7 +145,9 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      - **compra anual, em 2026-09-25**: a folha dizia "R$ 149,90 por ano", e
        depois apareceram o ∞ e o cartão de assinante.
    - **falta:**
-     - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
+     - ✅ **cancelamento: feito em 2026-09-27, pela folha da Apple dentro do
+       app** ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). O texto a seguir é o registro de antes:
+       os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
        gerenciamento do sandbox. **Decidido em 2026-09-25** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)):
        testar pela folha da Apple dentro do app, depois do item 19a; se ela
        também fechar, passa ao StoreKit Testing do Xcode;
@@ -199,7 +197,11 @@ Cada conserto é um run, com teste vermelho antes.
    - **Testes:** 5 novos, todos vistos vermelhos.
    - **Não visto na tela,** porque o sandbox não produz a renovação
      desconhecida sob comando.
-2. **Preço de outra loja até o app recarregar** (medido) — **decidido em
+2. **Preço de outra loja até o app recarregar** (medido) — **não
+   reproduzível no aparelho em 2026-09-27:** sem a conta de sandbox, os preços
+   continuaram em R$. Exercitar exigiria um testador de outro país, e o dono
+   decidiu não criar ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). O conserto segue coberto por teste.
+   **Decidido em
    2026-09-25: consertar com `Storefront.updates`, junto com o 19a** —
    **implementado em 2026-09-26, sem aparelho** ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md))
    ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 4):
@@ -207,7 +209,9 @@ Cada conserto é um run, com teste vermelho antes.
      cobrava em reais;
    - o módulo não observa a troca de loja (`Storefront.updates`);
    - afeta só quem troca a conta da App Store com o app aberto.
-3. **"Gerenciar" não gerencia** — **decidido em 2026-09-25: opção A, a folha
+3. ✅ **"Gerenciar" não gerencia — resolvido e visto no iPhone em
+   2026-09-27:** a folha abre, cancela e oferece "Ver todos os planos", que é a
+   troca de plano ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). **Decidido em 2026-09-25: opção A, a folha
    da Apple dentro do app** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)),
    **implementada em 2026-09-26 e ainda não vista em aparelho**
    ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). É o item 19a da ordem de
@@ -269,8 +273,10 @@ Cada conserto é um run, com teste vermelho antes.
      `--json` de `eas build:list` e `build:view` troca `project`, `channel` e
      `runtimeVersion` por `app`, `updateChannel` e `runtime`. Nenhum script do
      repositório lê esse formato.
-   - **Ainda não verificado numa build real.** Para o próximo que disparar uma:
-     confira o `eas build:list` antes de tentar de novo.
+   - ✅ **Verificado numa build real em 2026-09-27:** a `c4eeeb44` foi criada e
+     terminou sem o falso "Build request failed" ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). A regra
+     continua: diante de falha, confira o `eas build:list` antes de tentar de
+     novo.
 
 ### AGENTE — o que sobrou da Task 8
 

@@ -57,12 +57,12 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    - reinstalação.
 
    Falta, pela [ADR de 2026-09-25, às 21:20](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md):
-   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app.
-     **O código está pronto desde 2026-09-26** e compilou localmente para o
-     simulador, junto com o preço que acompanha a troca de loja e a ordem fixa
-     dos planos ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Falta a build `development` nova no EAS,
-     que é do dono, e o aparelho. Se a folha também fechar no iOS 27.2, o
-     cancelamento passa ao StoreKit Testing do Xcode;
+   - ✅ **cancelamento: feito em 2026-09-27**, pela folha da Apple dentro do
+     app, no iPhone com iOS 27.2 e na build `c4eeeb44`. A tela passou a
+     "Cancelada" sozinha, e a folha também resolve a troca de plano. O preço
+     que acompanha a troca de loja **não pôde ser reproduzido** no aparelho,
+     porque sem a conta de sandbox os preços ficaram em R$
+     ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
    - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
      do Xcode. Falta conferir que o módulo Swift funciona ali;
    - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
@@ -128,7 +128,8 @@ como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
 **O eas-cli do projeto é o 24.8.0** desde 2026-09-25, no branch
 `feat/d4-decisoes-de-revisao`, e o `cli.version` do `eas.json` exige
 `>= 24.8.0`. O 16.32 imprimia "Build request failed" com a build já criada.
-**Ainda não passou por uma build real** ([FILA](FILA.md), achado 6).
+**Passou pela primeira build real em 2026-09-27** (`c4eeeb44`), sem o falso
+erro ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
 
 **A primeira build `development` da 1.4 no EAS reprovou** em 2026-09-24
 (`0a545c74-…`, commit `c4be0c8`), com `XCODE_BUILD_ERROR`. A causa não foi o

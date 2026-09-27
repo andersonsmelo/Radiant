@@ -67,7 +67,7 @@ git switch --no-track -c <nova> origin/main
 3. `docs/FILA.md`.
 4. O relatório, a medição ou a ADR da frente que você pegar.
 
-## 3. Todas as pendências, em ordem de prioridade (2026-09-26)
+## 3. Todas as pendências, em ordem de prioridade (2026-09-27)
 
 Ordem combinada com o dono em 2026-09-25, às 21:10, juntando a lista dele com a
 do agente. **Ela substitui a numeração anterior desta seção:** o 9 antigo
@@ -94,10 +94,10 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 |---|---|---|---|
 | ~~1~~ | ~~**Merge de #35 → #36 → #37**~~ | dono | ✅ Feito em 2026-09-25, pelo agente, com autorização do dono |
 | ~~2~~ | ~~**StoreKit: decidir o "Gerenciar"**~~ | dono | ✅ Decidido: opção A, a folha da Apple |
-| 19a | **Build `development` nova no EAS** com este branch, e no iPhone: abrir "Gerenciar assinatura", fazer o 4 e trocar de conta de sandbox com os planos na tela | dono | O código do agente está pronto desde 2026-09-26 ([relatório](2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Destrava o 4 |
+| ~~19a~~ | ~~**Build `development` nova e conferência no iPhone**~~ | dono | ✅ Feito em 2026-09-27, com a build `c4eeeb44` ([evidência](../../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)) |
 | 5 | **Ask to Buy no StoreKit Testing do Xcode**, no simulador | agente | Primeiro, conferir que o módulo Swift funciona ali; se não funcionar, volta ao dono, pelo grupo familiar no sandbox |
 | 3 | **VoiceOver num iPhone físico** (checkpoint e HUD com vidas em recarga) | dono | Ele decidiu fazer. Bloqueia a 1.4 |
-| 4 | **Cancelamento pela folha, no aparelho** | dono | Depois do 19a e da build nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit Testing |
+| ~~4~~ | ~~**Cancelamento pela folha, no aparelho**~~ | dono | ✅ Feito em 2026-09-27: a folha abriu no iOS 27.2 e a tela atualizou sozinha |
 
 **P2 — relógio longo: começar cedo**
 
@@ -127,7 +127,7 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 |---|---|---|---|
 | 14 | **Aquecimento no aparelho:** 5 min fora do carregador, com e sem Reduzir Movimento, anotando as telas visitadas antes | dono, com o agente | Idealmente do 12, numa build `preview` |
 | 15 | **Gravar a aprovação** em `L1_TEMPLATE_APPROVAL` | agente | 7b |
-| 20 | **Bump para `1.4.0`** | agente | **Por último:** 3, 4 e 5 |
+| 20 | **Bump para `1.4.0`** | agente | **Por último:** 3 e 5 |
 
 **Depois da 1.4, ou sem prazo**
 
@@ -141,11 +141,11 @@ para a P1, porque destrava o 4, e o 5 e o 16 passaram ao agente.
 **Qual frente pegar agora:**
 - se o dono já tiver confirmado os itens alterados da amostra (7b), grave a
   aprovação (15);
-- se não, pegue o **5** (Ask to Buy no StoreKit Testing), que está na P1. A
-  mesma configuração deve permitir abrir a folha do 19a no simulador. Depois,
-  o **7a** (variantes da amostra); o 12, o 13 e o 16 vêm em seguida. O 19a e
-  o 19b ficaram prontos em 2026-09-26, e falta a build do dono. Um por
-  conversa.
+- se não, pegue o **5** (Ask to Buy no StoreKit Testing), que está na P1 e é
+  o último item da 1.4 que não é do dono. Depois, o **7a** (variantes da
+  amostra); o 12, o 13 e o 16 vêm em seguida. O 19a, o 19b e o 4 estão
+  feitos: o código em 2026-09-26, e a conferência no iPhone em 2026-09-27. Um
+  por conversa.
 
 ## 4. Frentes em detalhe
 
