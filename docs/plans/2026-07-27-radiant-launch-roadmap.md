@@ -1471,6 +1471,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     também resolve a troca de plano. O preço da loja não pôde ser reproduzido
     no aparelho. Foi também a primeira build real do eas-cli 24.8.0
     ([evidência](../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
+  - **também em 2026-09-27:** o VoiceOver foi encerrado pelo dono, que
+    assumiu a responsabilidade. Os anúncios do checkpoint estão certos, mas a
+    perda de vida não é anunciada ao leitor de tela, e isso virou item do
+    agente
+    ([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

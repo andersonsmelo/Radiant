@@ -1464,3 +1464,16 @@ Retirados sem edição (só os links relativos reajustados ao novo diretório) d
   - **4.** dono: cancelamento pela folha, no aparelho, depois do 19a e da build
     nova. Se a folha também fechar no iOS 27.2, passa ao agente, no StoreKit
     Testing.
+
+## Lote de 2026-09-27 — VoiceOver encerrado pelo dono
+
+Retirado sem edição da "Ordem de prioridade"
+([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
+Os achados viraram o 25, o 26 e o 27.
+
+  - **3.** dono: VoiceOver num iPhone físico, que ele decidiu fazer;
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md), que traz todas as pendências na ordem abaixo;

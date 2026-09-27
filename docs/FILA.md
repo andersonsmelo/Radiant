@@ -42,34 +42,36 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ## Ordem de prioridade, combinada em 2026-09-25
 
-Combinada com o dono em 2026-09-25, às 21:10, e **atualizada às 22:00**,
-depois do merge de #35 a #37 e de duas ADRs do mesmo dia:
-- a [do "Gerenciar", do Ask to Buy e do cancelamento](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md);
-- a [da amostra da L1, da D4 e dos planos](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md).
+Combinada com o dono em 2026-09-25, às 21:10, e **atualizada em 2026-09-27**,
+depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
+- a [ADR do "Gerenciar", do Ask to Buy e do cancelamento](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md);
+- a [ADR da amostra da L1, da D4 e dos planos](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md).
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (6)](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md),
+[prompt (7)](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado**, hoje o **5**, que é também o último item da 1.4 que não é do
-dono.
+destravado**, hoje o **5**, que é o último da 1.4 além do bump.
 
-**Cumpridos ou encerrados em 2026-09-25,** e movidos para
+**Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
-- o 1 (merge) e o 2 (decisão do "Gerenciar");
-- o 8, o 9 e o 10 e o 17 e o 18, porque a D4 fechou como superada;
-- o 11, porque as decisões do StoreKit foram tomadas;
-- o 19b (ordem fixa dos planos) e a parte do agente no 19a, feitos em
-  2026-09-26;
-- o 19a e o 4, conferidos no iPhone em 2026-09-27 com a build `c4eeeb44`: a
-  folha abriu, o cancelamento passou por ela e a tela atualizou sozinha
-  ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
+- em 2026-09-25: o 1 (merge), o 2 (decisão do "Gerenciar"), o 8, o 9, o 10, o
+  17 e o 18 (D4 superada) e o 11 (decisões do StoreKit);
+- em 2026-09-26: o 19b (ordem dos planos) e o código do 19a;
+- em 2026-09-27, no iPhone:
+  - o 19a e o 4, com a build `c4eeeb44`
+    ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
+  - o 3 (VoiceOver), **encerrado pelo dono, que assumiu a responsabilidade**,
+    com três achados, que são o 25, o 26 e o 27 ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
 
 - **P1 — o que segura a 1.4:**
   - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
     Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
     volta ao dono, pelo grupo familiar no sandbox;
-  - **3.** dono: VoiceOver num iPhone físico, que ele decidiu fazer;
+  - **25.** agente: **anunciar a perda de vida ao leitor de tela**, no anúncio
+    que já existe (`LessonFlowScreen.tsx:240`), por exemplo "Resposta
+    incorreta. Você perdeu uma vida; restam 4." É pequeno, e o agente
+    recomenda fazer antes do bump. Um run, com teste vermelho antes.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
@@ -83,7 +85,13 @@ dono.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-  - **20.** agente: bump para `1.4.0`, **por último**, depois do 3 e do 5.
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 5 e, se o dono
+    concordar, do 25.
+- **Decisões do dono, sem prazo:**
+  - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda;
+  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
+    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
+    espaçada está certa. O agente propõe algo como "Disponível amanhã".
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;
@@ -97,7 +105,7 @@ dono.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -171,7 +179,9 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
    simulador (item 5 da ordem de prioridade). Se o módulo Swift não funcionar
    ali, volta ao dono, pelo grupo familiar no sandbox (App Store Connect →
    Sandbox → Compartilhamento Familiar).
-5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
+5. ✅ **VoiceOver: encerrado pelo dono em 2026-09-27**, assumindo a
+   responsabilidade, com três achados ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). O texto a seguir é
+   o registro de antes. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
    [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
    com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
    reforço, aprovação) e o HUD da trilha com vidas em recarga. Saiu da H4 porque

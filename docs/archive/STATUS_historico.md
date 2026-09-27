@@ -2151,3 +2151,17 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
      cancelamento passa ao StoreKit Testing do Xcode;
 
 **Ainda não passou por uma build real** ([FILA](../FILA.md), achado 6).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pelo VoiceOver no iPhone e pelo prompt (7) ([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)):
+
+   - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
+     que decidiu fazê-lo. Ele saiu da H4 pela
+     [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 12 commits à frente da
+  `main` (medido às 21:24) e enviado ao remoto. Leva a D4, a guarda de sincronia, o eas-cli
+  e as evidências da regra de vidas e do aquecimento.
+- **Prompt de continuidade:**
+  [`2026-09-25-radiant-prompt-de-continuidade-6.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).
+  Ele substitui o (5).

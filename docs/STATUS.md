@@ -65,9 +65,11 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
    - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
      do Xcode. Falta conferir que o módulo Swift funciona ali;
-   - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
-     que decidiu fazê-lo. Ele saiu da H4 pela
-     [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+   - ✅ **VoiceOver: encerrado pelo dono em 2026-09-27**, que assumiu a
+     responsabilidade antes do reforço, da tela de aprovação e do HUD em
+     recarga ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). Anúncios, ordem e estado das alternativas
+     estão certos, e o HUD não lê número duplicado. **Achado:** a perda de vida
+     não é anunciada ao leitor de tela, e o conserto é do agente (FILA, 25).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
@@ -276,9 +278,14 @@ Medido em 2026-09-25, às 21:24:
   sessão na nuvem
   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
-- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 12 commits à frente da
-  `main` (medido às 21:24) e enviado ao remoto. Leva a D4, a guarda de sincronia, o eas-cli
-  e as evidências da regra de vidas e do aquecimento. O aquecimento ganhou, às
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 16 commits à frente da
+  `main` (medido em 2026-09-27, às 18:50, antes do commit deste run) e enviado
+  ao remoto. Leva:
+  - a D4, a guarda de sincronia, o eas-cli e as evidências da regra de vidas e
+    do aquecimento;
+  - as três ADRs de 2026-09-25;
+  - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
+  - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
   ~42 % para ~66 % ([evidência](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md),
@@ -292,8 +299,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-25-radiant-prompt-de-continuidade-6.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).
-  Ele substitui o (5).
+  [`2026-09-27-radiant-prompt-de-continuidade-7.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md).
+  Ele substitui o (6).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

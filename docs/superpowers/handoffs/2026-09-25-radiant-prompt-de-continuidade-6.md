@@ -1,5 +1,9 @@
 # Prompt de continuidade (6) — 2026-09-25
 
+> **Substituído em 2026-09-27 pelo
+> [prompt (7)](2026-09-27-radiant-prompt-de-continuidade-7.md).** Não execute
+> itens deste arquivo: os abertos foram copiados para o (7).
+
 Você vai continuar o Radiant, um app iOS de treinamento em radiologia (Expo 54 /
 React Native 0.81). Você trabalha com o dono: ele decide loja, aparelho, build
 de distribuição e merge.
