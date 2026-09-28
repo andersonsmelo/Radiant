@@ -306,6 +306,43 @@ defeito que se queria pegar.
   "ok" que não estava no seu transcrito. O conteúdo estava certo, mas a
   autorização não. Diante de um sim sem pergunta correspondente, pergunte.
 
+### Quatro lições de 2026-09-28 (uma sessão, cinco frentes)
+
+- **Timeout de validador que o diff não toca é medida da máquina, não do
+  código.** Com a carga média entre 24 e 104, por causa do Spotlight, de um
+  Radiant esquecido havia 6 h no simulador e do uso do dono, o `loop validate`
+  estourou o prazo no `app-test`, no `api-test` e depois no `app-quality`, e o
+  validador que falhava mudava a cada tentativa. **Cada tentativa gasta um
+  ciclo, e o limite de "sem progresso" é 3.**
+  - Antes de validar, leia a carga com `sysctl -n vm.loadavg` e os maiores
+    consumidores com `ps -Ao pid,pcpu,comm -r | head`, sem imprimir a linha
+    de comando.
+  - Espere a carga de 1 minuto cair abaixo de ~5.
+  - Rode sob `caffeinate -i`, porque o Mac dormia entre os comandos e o prazo
+    conta o tempo de sono.
+  - Ao terminar um teste no simulador, **encerre o app e desligue o
+    simulador**: o fundo animado continua gastando CPU.
+- **`.claude/launch.json` fica fora de `allowedRoots`:** declará-lo no
+  `abrir.mjs` dá `INVALID_SCOPE` e deixa um run órfão em `context_ready`
+  segurando o lock. Não declare. Crie o arquivo só para o `preview_start` do
+  Metro e apague-o logo depois que o servidor subir. Criado e apagado dentro do
+  run, ele não aparece no guarda.
+- **Sem ouvido, o som se verifica pelo log.** Siga o log do processo com
+  `xcrun simctl spawn <udid> log stream --predicate 'process == "Radiant"'`.
+  Cada som é identificado pela duração que o player registra
+  (`endTime is duration`), e os seis arquivos de `assets/sounds/` têm
+  durações distintas (`afinfo`). Foi assim que se mediu o coração tocando 2 ms
+  depois do erro. **O que o log não prova, se o som é audível e agradável, é do
+  dono.** Duas armadilhas da automação:
+  - a captura de tela vem atrasada em relação à tela. Tocar pela captura depois
+    de uma rolagem caiu num link: tire duas capturas iguais antes de tocar;
+  - o `Switch` nativo não aciona com toque sintético curto. Use ~0,2 s.
+- **Uma frase de prompt sobre "o mesmo fluxo" é crença de quem escreveu, e
+  não medida.** O prompt (8) dizia que o checkpoint usava o fluxo da lição, mas
+  um `grep` pelo efeito (`heartsRepository.spend`) achou quatro chamadores. Antes
+  de combinar a condição de pronto de um conserto, **enumere os chamadores do
+  efeito** e diga quais o aluno alcança.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

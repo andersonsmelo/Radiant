@@ -154,6 +154,19 @@ writePolicy:
     # proposito, a entrada saiu. Artefato de extracao e subproduto local — se
     # precisar entrar de novo, entra pela mesma porta: run proprio, anterior, e
     # com o motivo escrito.
+    # A janela de 2026-09-25 para `Conteúdo/classificação`, na grafia do DISCO
+    # (`Conteúdo` em NFD, `classificação` em NFC), foi ABERTA em f39ec65 e
+    # FECHADA aqui, cumprido o proposito. Autorizada pelo dono em 2026-09-25,
+    # para a D4. Ela entregou em e054755 o `review-decisions.json`, lido por
+    # `classify-source.py`, e as 19 propostas do agente, que continuam
+    # `needs-review` ate um revisor aprovar. Aprovar uma proposta muda
+    # `review-decisions.json` e regera `classifications.json`, entao reabre esta
+    # janela pela mesma porta: run proprio, anterior, e com o motivo escrito.
+    # REABERTA em d152863 (2026-09-25), pela mesma porta, porque o dono aprovou
+    # na conversa as propostas da D4 e a criacao do planeta de radioterapia, e
+    # FECHADA de novo aqui, depois de 0d02d1a: 18 decisoes aprovadas, 104
+    # `approved` e 1 `needs-review` (a capa, cuja exclusao ainda nao tem
+    # representacao no contrato).
     - .loop/project.yaml
 validators:
   - id: docs-contract
@@ -163,7 +176,8 @@ validators:
     timeoutMs: 120000
   - id: content-foundation
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
-      scripts/content/validate-foundation.mjs
+      scripts/content/validate-foundation.mjs && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
+      node --test scripts/content/validate-foundation.test.mjs
     timeoutMs: 120000
   - id: content-wave1
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
@@ -192,7 +206,7 @@ validators:
       scripts/content/extract-source.test.py
       scripts/content/embed-excerpts.test.py scripts/content/anchor-lesson.test.py
       scripts/content/calibration-report.test.py scripts/content/destination-state.test.py
-      scripts/content/sampling-queue.test.py; do python3 "$suite" || estado=1; done;
+      scripts/content/sampling-queue.test.py scripts/content/classify-source.test.py; do python3 "$suite" || estado=1; done;
       exit $estado'
     timeoutMs: 120000
   - id: app-quality

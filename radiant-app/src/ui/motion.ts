@@ -20,6 +20,7 @@ import {
 } from 'react-native-reanimated';
 import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
+import { useScreenFocused } from './useScreenFocused';
 
 // ============================================================================
 // DURATION TOKENS (milliseconds)
@@ -534,14 +535,17 @@ export function useHeartLossAnimation(filled: boolean, losing: boolean) {
 
 /**
  * Mantém um indicador de estado vivo com uma respiração discreta. Sob reduced
- * motion devolve imediatamente a escala estática e legível.
+ * motion, ou com a tela fora de foco, devolve imediatamente a escala estática
+ * e legível: o laço infinito numa tela escondida só gasta CPU (FILA, 33).
  */
 export function useBreathingScale() {
     const reducedMotionEnabled = useReducedMotionPreference();
+    const focused = useScreenFocused();
+    const still = reducedMotionEnabled || !focused;
     const scale = useSharedValue(1);
 
     useEffect(() => {
-        if (reducedMotionEnabled) {
+        if (still) {
             scale.value = 1;
             return;
         }
@@ -560,7 +564,7 @@ export function useBreathingScale() {
             -1,
             false,
         );
-    }, [reducedMotionEnabled, scale]);
+    }, [still, scale]);
 
     const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 

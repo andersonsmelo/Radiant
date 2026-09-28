@@ -1,5 +1,5 @@
 appId: com.ascendcreative.radiant
-name: Local-first learning path through checkpoint and progress
+name: Local-first learning path through two lessons and progress
 tags:
   - critical-path
   - local-first
@@ -8,21 +8,10 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
-- runFlow:
-    when:
-      visible: 'Connected to:'
-    commands:
-      - tapOn: Close
+# O dev client entra por espera explícita, e não por `runFlow when`, que é
+# avaliado uma vez só e perde a folha que sobe depois (medido em 2026-09-24 e
+# de novo em 2026-09-28; ver o subflow).
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 - openLink:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
@@ -56,11 +45,22 @@ tags:
 # always-present last-step footer action instead.
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
+# O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
+# e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
+# medido em 2026-09-28, no simulador, parava aqui.
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
+# título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
+# texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
+# Sem checkpoint entre as lições desde a ADR de 2026-09-28: o próximo nó
+# recomendado é a lição seguinte, e o CTA da home diz "Continuar jornada"
+# (`continueLabel` em `JourneyHomeScreen`, pinado pelo contrato).
 # The home CTA renders after the full journey map, far below the fold. It is an
 # AppButton, which sets accessibilityRole+accessibilityLabel on the Pressable,
 # so iOS collapses the inner Text and the node exposes only accessibilityText.
@@ -70,43 +70,16 @@ tags:
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 # The guarded repeat stops the moment the CTA enters the tree, which on a fast
 # Android emulator leaves it resting UNDER the floating tab bar (measured: CTA at
-# y2212-2277 vs tab bar y2198-2387), so a bare tapOn lands on the bar and the
-# checkpoint never opens. One more scroll lifts the CTA clear of the bar before
-# the tap. (iOS and slower Androids happened to leave it tappable; this makes it
-# deterministic on both.)
+# y2212-2277 vs tab bar y2198-2387), so a bare tapOn lands on the bar. One more
+# scroll lifts the CTA clear of the bar before the tap. (iOS and slower Androids
+# happened to leave it tappable; this makes it deterministic on both.)
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-# Same pattern on every screen below: the footer action sits past the fold, and
-# the guarded repeat is a no-op when the element is already visible.
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-# Lift the CTA clear of the floating tab bar before tapping (see note above).
-- scroll
-- tapOn: Concluir checkpoint
-# A celebração do checkpoint foi migrada para pt-BR em 2026-07-27 (commit
-# fb1af1f): a tarja passou de inglês para "CONQUISTA DESBLOQUEADA" e o CTA
-# deixou de ser um rótulo fixo — agora é o próximo nó recomendado. Depois deste
-# checkpoint o próximo nó é uma lição, então o rótulo é "Abrir próxima lição".
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-# Lift the CTA clear of the floating tab bar before tapping (see note above).
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -129,17 +102,20 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # The reward node is deliberately NOT covered here. The active track is
 # generated from the catalog (7 lessons), not from defaultTrack.ts (2 lessons),
 # and JourneyDefinitionService unlocks the reward only after the LAST lesson —
 # so the achievement stays "Bloqueado" at this point and is unreachable in a
 # smoke run. This flow proves the local-first loop through progress instead:
-# lesson -> checkpoint -> achievement -> next lesson -> progress.
+# lesson -> home -> next lesson -> progress. (Until the ADR of 2026-09-28 a
+# catalog checkpoint and its celebration sat between the two lessons.)
 # Progresso e Missões deixaram de ser abas em 2026-08-21: viraram seções da aba
 # Perfil, junto da identidade do aluno. A barra tem duas abas.
 # The tab's accessible name differs per platform: iOS composes

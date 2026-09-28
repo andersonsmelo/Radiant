@@ -40,6 +40,143 @@ remede**, porque contagem escrita envelhece e comando não.
 
 ---
 
+## Ordem de prioridade, combinada em 2026-09-25
+
+Combinada com o dono em 2026-09-25, às 21:10, e **atualizada em 2026-09-27**,
+depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
+- a [ADR do "Gerenciar", do Ask to Buy e do cancelamento](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md);
+- a [ADR da amostra da L1, da D4 e dos planos](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md).
+
+O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
+numeração é a mesma da §3 do
+[prompt (16)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12, o 33 e o 34 feitos
+e o 29 decidido, esse item é o **13**. O que segura a 1.4 agora é só do dono:
+o 28 e o 30.
+
+**Cumpridos ou encerrados** e movidos para
+[`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
+- em 2026-09-25: o 1 (merge), o 2 (decisão do "Gerenciar"), o 8, o 9, o 10, o
+  17 e o 18 (D4 superada) e o 11 (decisões do StoreKit);
+- em 2026-09-26: o 19b (ordem dos planos) e o código do 19a;
+- em 2026-09-27, no iPhone:
+  - o 19a e o 4, com a build `c4eeeb44`
+    ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
+  - o 3 (VoiceOver), **encerrado pelo dono, que assumiu a responsabilidade**,
+    com três achados, que são o 25, o 26 e o 27 ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md));
+  - o 5 (Ask to Buy), pelo agente, no StoreKit Testing do Xcode, com o
+    conserto da tela da assinatura que não atualizava com a aprovação
+    ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+- em 2026-09-28: o 25 (anúncio da perda de vida na lição), pelo agente
+  ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)),
+  e o 20 (bump para `1.4.0`), pelo agente, com o ok do dono
+  ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)),
+  e o 7a (variantes da L1), pelo agente, com a regra escolhida pelo dono
+  ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)),
+  e o 31 (sons e vibração na lição do aluno), aberto e cumprido no mesmo dia
+  a partir de um achado do dono
+  ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)),
+  e o 12 (conserto do aquecimento), pelo agente: o fundo animado para fora de
+  foco ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)),
+  e o 33 (o ícone de sequência), pelo agente: com as abas cobertas, o custo
+  foi de ~31 % para 0,1 % ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)),
+  e o 29 (o que fazer com o checkpoint), decidido pelo dono: saem os 15
+  checkpoints de botão, e as 5 avaliações da V2 ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)),
+  e o 34, a remoção, pelo agente, na 1.4 a pedido do dono
+  ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md), [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+
+- **P1 — o que segura a 1.4:**
+  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
+    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
+    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
+    `1.4.0` (20). Um agente que pegar outro item antes do merge trabalha no
+    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
+  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
+    do 28. O EAS incrementa o número de build sozinho
+    (`appVersionSource: remote`). Pela regra 8 da
+    [ADR de produtos](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
+    os dois produtos da assinatura vão **junto com a versão**, na primeira
+    submissão, nunca antes. **Para conferir antes do envio:** a captura de
+    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
+    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
+    decisão do dono; o agente não viu a captura.
+- **P2 — relógio longo:**
+  - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
+- **P3 — o piloto da L1, que destrava o V3:**
+  - **7b.** dono: confirmar os **8 itens alterados** pelo 7a em 2026-09-28,
+    com o antes e o depois no
+    [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
+    Destrava o 15.
+- **P4 — agente, destravado:**
+  - **13.** XP da aprovação **das avaliações da V2**, que ficam pela
+    [ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md): aprovar não soma XP, e a tela mostra o total igual;
+  - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
+    (`CheckpointScreen.tsx:324`), como o 25 fez na lição. Ficou fora do 25 à
+    espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
+    mas não se achou link para `/quiz` no app;
+  - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
+  - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
+    desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três
+    `student-checkpoint-*` que afirmam a trilha). Eles ancoram na Estude por
+    `'^\d+ de \d+$'`, que não existe mais na árvore desde os consertos de
+    acessibilidade, e guardam o dev client com `runFlow when`, que perde a
+    folha atrasada. Os fluxos que o 34 tocou foram consertados assim e passaram
+    ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). No mesmo item: o ramo da tela do checkpoint sem
+    perguntas ("Concluir checkpoint") ficou inalcançável e pode sair;
+- **P5 — esperando outra coisa:**
+  - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
+    nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
+    foco ainda custa ~39 %, e as telas escondidas, quase nada;
+  - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
+- **Decisões do dono, sem prazo:**
+  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
+    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
+    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
+    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
+    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+  - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
+    **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
+    ouviu no iPhone que o som do coração não se distinguia, e o log do
+    simulador mediu que ele começava 2 ms depois do erro. Sem uma animação em
+    primeiro plano que o justifique, o dono tirou o som e a vibração do coração
+    da lição. Quando a animação for desenhada, eles voltam **tocando depois do
+    erro**, e não colados nele
+    ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
+  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
+    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
+    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
+    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
+    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
+    disponível". A conquista, porém, continua esperando a coleta, e só se
+    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
+    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
+    conquista coletável como um degrau do motor, depois do checkpoint. Se
+    entra na 1.4 é decisão do dono;
+  - **37.** **a vitrine da loja perdeu duas capturas.** O `store-capture`
+    fotografava o checkpoint de botão (`04-checkpoint`) e a celebração
+    (`05-conquista`), e o `APP_STORE_LISTING_MATRIX.md` descreve a vitrine com
+    elas. Sem o checkpoint no começo da trilha, as duas saíram do fluxo, e os
+    números das outras não foram mudados. Se a matriz e as capturas publicadas
+    mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
+  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
+    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
+    espaçada está certa. O agente propõe algo como "Disponível amanhã".
+- **Depois da 1.4, ou sem prazo:**
+  - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
+  - **22.** agente: L2 v7, depois do teste do piloto;
+  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
+  - **24.** dono: as ações de um passo da seção 7, abaixo;
+  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
+    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
+    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
+    informações). Pede desenho antes: o que entra, a navegação e o que fica no
+    Perfil.
+
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 
 **Estado:** spec aprovada pelo dono
@@ -47,7 +184,7 @@ remede**, porque contagem escrita envelhece e comando não.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-3.md), que traz todas as pendências em ordem de criticidade;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -95,9 +232,12 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      - **compra anual, em 2026-09-25**: a folha dizia "R$ 149,90 por ano", e
        depois apareceram o ∞ e o cartão de assinante.
    - **falta:**
-     - **cancelamento**: os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
-       gerenciamento do sandbox, então é preciso outro aparelho ou outra versão
-       do iOS;
+     - ✅ **cancelamento: feito em 2026-09-27, pela folha da Apple dentro do
+       app** ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). O texto a seguir é o registro de antes:
+       os Ajustes do iOS 27.2 (`24B5089g`) fecham ao abrir o
+       gerenciamento do sandbox. **Decidido em 2026-09-25** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)):
+       testar pela folha da Apple dentro do app, depois do item 19a; se ela
+       também fechar, passa ao StoreKit Testing do Xcode;
      - tocar em **Restaurar compras**, que importa para quem troca de
        aparelho.
    - **reembolso:** o app não tem a entrada `beginRefundRequest`, que é a
@@ -108,15 +248,23 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
    - **modo avião:** saiu do roteiro por decisão do dono em 2026-09-24
      ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md)).
-4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
+4. ✅ **Ask to Buy: visto em 2026-09-27 pelo agente, no StoreKit Testing do
+   Xcode**: pendente, recusado e aprovado, com o aprovado chegando por
+   `Transaction.updates` ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+   O texto a seguir é o registro de antes.
+   ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
    ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 5). Planos e
    Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem
    botão. Falta só o que o aparelho mede: ver no sandbox um pedido recusado e
-   um aprovado dentro das 24 h. **Continua aberto em 2026-09-24:** precisa de
-   um grupo familiar no sandbox (App Store Connect → Sandbox →
-   Compartilhamento Familiar).
-5. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
+   um aprovado dentro das 24 h. **Decidido em 2026-09-25** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)): sai
+   do aparelho e passa ao **agente, no StoreKit Testing do Xcode**, no
+   simulador (item 5 da ordem de prioridade). Se o módulo Swift não funcionar
+   ali, volta ao dono, pelo grupo familiar no sandbox (App Store Connect →
+   Sandbox → Compartilhamento Familiar).
+5. ✅ **VoiceOver: encerrado pelo dono em 2026-09-27**, assumindo a
+   responsabilidade, com três achados ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). O texto a seguir é
+   o registro de antes. **VoiceOver no aparelho, no mesmo build** (decidido em 2026-09-24,
    [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)): percorrer
    com o leitor de tela uma avaliação do checkpoint (alternativas, envio,
    reforço, aprovação) e o HUD da trilha com vidas em recarga. Saiu da H4 porque
@@ -130,8 +278,8 @@ Nenhum bloqueia a 1.4. Os detalhes estão na
 Cada conserto é um run, com teste vermelho antes.
 
 1. ✅ **Estado de renovação desconhecido aparecia como "Cancelada"** —
-   corrigido em 2026-09-25, na PR #37 (`fix/renovacao-desconhecida`), à espera de merge, e
-   sem build, pela opção 2A da
+   corrigido em 2026-09-25, na PR #37 (`fix/renovacao-desconhecida`), **na `main`
+   desde a mesma data** (merge `e992686`), e sem build, pela opção 2A da
    [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
    ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
    - **O estado:** `willRenew` passou a ser `boolean | null`. O adaptador e a
@@ -142,37 +290,87 @@ Cada conserto é um run, com teste vermelho antes.
    - **Testes:** 5 novos, todos vistos vermelhos.
    - **Não visto na tela,** porque o sandbox não produz a renovação
      desconhecida sob comando.
-2. **Preço de outra loja até o app recarregar** (medido):
+2. **Preço de outra loja até o app recarregar** (medido) — **não
+   reproduzível no aparelho em 2026-09-27:** sem a conta de sandbox, os preços
+   continuaram em R$. Exercitar exigiria um testador de outro país, e o dono
+   decidiu não criar ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). O conserto segue coberto por teste.
+   **Decidido em
+   2026-09-25: consertar com `Storefront.updates`, junto com o 19a** —
+   **implementado em 2026-09-26, sem aparelho** ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md))
+   ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 4):
    - os preços carregados antes do login ficaram em dólar, enquanto a Apple
      cobrava em reais;
    - o módulo não observa a troca de loja (`Storefront.updates`);
    - afeta só quem troca a conta da App Store com o app aberto.
-3. **"Gerenciar" não gerencia** (decisão de produto do dono): o botão do
+3. ✅ **"Gerenciar" não gerencia — resolvido e visto no iPhone em
+   2026-09-27:** a folha abre, cancela e oferece "Ver todos os planos", que é a
+   troca de plano ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). **Decidido em 2026-09-25: opção A, a folha
+   da Apple dentro do app** ([ADR](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)),
+   **implementada em 2026-09-26 e ainda não vista em aparelho**
+   ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). É o item 19a da ordem de
+   prioridade, acima. O texto abaixo é o achado original: o botão do
    cartão do Perfil abre a tela interna, que só manda o aluno aos Ajustes. A
    alternativa é a folha da Apple dentro do app, `showManageSubscriptions`.
    **Medido em 2026-09-24:** quem já assina **não consegue trocar de plano**
    dentro do app, porque a tela de assinante não mostra os planos. A troca
    pela Apple passa pelos Ajustes, que fecham no iOS 27.2. A mesma folha
    resolveria a troca e o cancelamento.
-4. **A ordem dos planos muda de um dia para o outro** (medido em 2026-09-24 e
+4. **A ordem dos planos muda de um dia para o outro** — **decidido em
+   2026-09-25: o mensal primeiro, numa ordem fixa com teste (19b)** —
+   **implementado em 2026-09-26** ([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md))
+   ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 3). Medido em 2026-09-24 e
    2026-09-25): num dia o mensal veio primeiro, e no outro, o anual. O app não
    ordena a lista e usa a ordem em que `Product.products(for:)` devolve os
    produtos, que a Apple não garante (`RadiantStoreKitModule.swift:65`). O
    conserto candidato é uma ordem fixa no adaptador, com teste. A ordem certa
    é decisão do dono.
-5. **Aquecimento com a build `development`** (relatado, não medido):
-   - **hipótese:** o `StarfieldBackground` mantém de 90 a 120 animações
-     infinitas, e as abas visitadas continuam montadas;
-   - **medir antes de mexer:** fora do carregador, 5 minutos com e sem
-     Reduzir Movimento, idealmente numa build `preview`.
-6. **O eas-cli do projeto está velho** (medido em 2026-09-24): o fixado é o
-   16.32, e o atual é o 24.7.
-   - **O que aconteceu:** ele imprimiu "Build request failed" com a build já
-     criada no EAS.
-   - **Para o próximo que disparar uma build:** confira o `eas build:list`
-     antes de tentar de novo.
-   - **Conserto candidato:** atualizar a dependência e fixar a versão em
-     `cli.version` no `eas.json`, num run próprio.
+5. **Aquecimento com a build `development`** (relatado; medido só de forma
+   indireta em 2026-09-25):
+   - **no simulador, com a trilha parada:** ~94 % de um núcleo com as
+     animações e **0,4 %** com Reduzir Movimento. Voltou a ~95 % ao desligar de
+     novo. Na trilha, só o `StarfieldBackground` tem animação infinita que
+     obedece a essa preferência
+     ([medição](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md));
+   - **isolado no simulador em 2026-09-25, às 18:06** (segunda passagem da
+     [medição](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md)):
+     - uma estrela só já custa 28 %; as 120 estrelas custam 39 %, e as 3
+       nebulosas, 30 %. O custo é quase todo um **piso por fundo animado**, e
+       não o número de estrelas;
+     - **a aba visitada continua montada e animando.** O log mostrou o
+       segundo fundo montar e nenhum desmontar, e a CPU foi de ~42 % para
+       ~66 % depois de passar pelo Perfil;
+     - a primeira passagem deu ~94 % e esta ~42 %, na mesma tela. Compare só
+       dentro da mesma passagem;
+   - **falta, com o dono:** o aparelho, fora do carregador, 5 minutos com e
+     sem Reduzir Movimento, idealmente numa build `preview`, anotando por
+     quais abas e telas passou antes;
+   - ✅ **conserto feito em 2026-09-28** (item 12): o `StarfieldBackground`
+     para a animação fora de foco. No simulador, na mesma passagem, o Perfil
+     depois da Estude foi de 63,6 % para 43,9 %, e a tela da assinatura
+     empilhada sobre as abas, de 65,3 % para 31,4 %. A tela em foco custa o
+     mesmo, ~39 %. O resto, com as abas cobertas, é o item 33
+     ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md)).
+   - ✅ **o 33 também, em 2026-09-28:** com o ícone de sequência pausado fora
+     de foco, a assinatura sobre as abas foi de 30,7 % para 0,1 %.
+6. ✅ **eas-cli atualizado em 2026-09-25**, de 16.32 para **24.8.0**, no
+   branch `feat/d4-decisoes-de-revisao`. Em 2026-09-24 ele tinha impresso
+   "Build request failed" com a build já criada no EAS.
+   - **A trava:** `cli.version` no `eas.json` passou a `>= 24.8.0`. Conferido:
+     o 16.32.0 é recusado com saída 1.
+   - **Conferido com o 24.8.0:** o `eas config` do perfil `production` lê o
+     `eas.json` e as variáveis do EAS sem erro.
+   - **O lock também moveu cinco pacotes que não são só de desenvolvimento,**
+     por deduplicação e dentro das faixas declaradas:
+     `@babel/helper-validator-identifier` 7.28.5 → 7.29.7, `tar`, `tinyglobby`,
+     `picomatch` e `node-forge`.
+   - **Das mudanças incompatíveis de 16 a 24,** só uma encosta no uso daqui: o
+     `--json` de `eas build:list` e `build:view` troca `project`, `channel` e
+     `runtimeVersion` por `app`, `updateChannel` e `runtime`. Nenhum script do
+     repositório lê esse formato.
+   - ✅ **Verificado numa build real em 2026-09-27:** a `c4eeeb44` foi criada e
+     terminou sem o falso "Build request failed" ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)). A regra
+     continua: diante de falha, confira o `eas build:list` antes de tentar de
+     novo.
 
 ### AGENTE — o que sobrou da Task 8
 
@@ -192,8 +390,8 @@ Cada conserto é um run, com teste vermelho antes.
    **Defeitos do app que o E2E expôs (2026-09-24)** — um run cada, com teste
    vermelho antes:
    - ✅ **Lição concluída volta como "Continuar de onde parou"** — corrigido
-     em 2026-09-25, na PR #36 (`fix/defeito-1-licao-concluida`), à espera de merge, sem
-     build, pela opção A da
+     em 2026-09-25, na PR #36 (`fix/defeito-1-licao-concluida`), **na `main` desde a
+     mesma data** (merge `cab01c0`), sem build, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
      - **Na leitura:** um nó concluído e sem pendência
@@ -272,7 +470,17 @@ Pendente, nesta ordem:
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-   **Ainda sem decisão em 2026-09-25.** O dono pulou o item na sessão na
+   **Corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
+   a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
+   ventral visto por trás. Mudaram 8 dos 20 itens, e falta o dono confirmá-los
+   (7b).
+   **Decidido em 2026-09-25, às 21:40** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o item 18 e
+   as variantes do decúbito dorsal visto por trás são corrigidos antes; a
+   aprovação vale para a amostra corrigida, depois que o dono confirmar os
+   itens alterados (7a e 7b da ordem de prioridade). As descrições do tórax
+   ficam, e o leitor de tela que entrega parte da resposta é aceito no piloto,
+   com pendência antes de chegar ao aluno. O texto abaixo é o registro de
+   antes da decisão. **Ainda sem decisão em 2026-09-25, até as 21:40.** O dono pulou o item na sessão na
    nuvem. A leitura do snapshot na nuvem achou um ponto para levar à
    aprovação: o **item 18** (`h10-lat-ventral-v`) é idêntico ao **item 1**
    (`h01`), com a mesma postura, a mesma pergunta, as mesmas opções e o mesmo
@@ -461,9 +669,12 @@ nova tentativa reprovada, ciclo 2 e terceira tentativa ainda não aprovada.
 
    Três testes de tela vistos vermelhos pelo defeito: 2 cobranças em vez de 1
    ao remontar; 2 em vez de 3 depois de reprovar; e a lista ainda gravada
-   depois de aprovar. **Não conferido no simulador**, por decisão do dono
-   sobre a condição de pronto
+   depois de aprovar. Na entrega não foi conferido no simulador, por decisão
+   do dono sobre a condição de pronto
    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md)).
+   **Conferido no simulador em 2026-09-25**, nos cinco cenários, pela tela e
+   pelo AsyncStorage
+   ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md)).
 
 **Decidido pelo dono em 2026-09-24 ([ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)):** a H4 fecha
 com os defeitos 1 e 2 corrigidos e o checkpoint conferido de novo no simulador.
@@ -472,169 +683,6 @@ sai da H4 e vira item próprio da 1.4, junto com o build `development` no
 aparelho.
 
 ---
-
-### 3. D4 — remedida em 2026-08-08, e agora são três fatias com donos diferentes
-
-> **Remedida em 2026-09-25. O texto abaixo, de 2026-08-08, está vencido.**
-> Medido em `Conteúdo/classificação/fundamentos-de-radiologia-everton-costa-pinto/classifications.json`:
-> - **105 registros:** 86 `approved` e **19 `needs-review`**, e não 30;
-> - **a estrela já é opcional:** 44 registros estão sem `starId`, e o
->   `validate-foundation.mjs:414` aceita `null`. O "bloqueio de contrato"
->   abaixo foi resolvido;
-> - **os 4 fragmentos foram resolvidos** por remapeamento, e não por
->   reextração, que se provou impossível. Detalhe nos comentários de
->   `writePolicy` do `.loop/project.yaml`, janelas de 2026-08-08.
->
-> **Os 19 restantes:**
-> - **10 sem nenhum sinal:** `matches ['fallback']`, seis deles com confiança
->   de 0,35;
-> - **9 com sinal fraco:** confiança entre 0,48 e 0,82.
->
-> A maior concentração (9 dos 19) está em `planet-formacao-imagem`.
->
-> **O que falta decidir:** ler a governança do conteúdo para saber se o agente
-> pode aprovar os 9 com sinal ou só propor. Mudar qualquer registro reabre a
-> janela de `Conteúdo/classificação` em `allowedRoots`, num run próprio e
-> anterior, com a grafia do disco. O dono autorizou essa janela em
-> 2026-09-25.
-
-**Estado:** aberto, P0, bloqueia produção — mas decomposta.
-**Bloqueio:** trocou de lugar, não morreu. **Dono:** agente nas duas primeiras
-fatias; revisor de domínio só na terceira.
-
-Medição: [`2026-08-08-d4-destino-existe.md`](content/2026-08-08-d4-destino-existe.md).
-
-O bloqueio registrado era "os sete conceitos não têm nó de destino", e ele caiu
-em 2026-08-07 com o eixo técnico. Mas **`scripts/content/classify-source.py`
-carrega a taxonomia hardcoded em Python**, versão `mvp-2026-04-04`, e não conhece
-`galaxy-tecnologia` nem os seis planetas novos. É a **terceira cópia** da mesma
-estrutura; as outras duas já foram reconciliadas. O bloqueio não morreu — mudou
-de lugar, e agora é ferramenta que não enxerga o destino, não destino ausente.
-
-Os 30 `needs-review` medidos contra o eixo técnico:
-
-| Fatia | Tamanho | Quem resolve |
-| --- | --- | --- |
-| Achariam destino com o classificador enxergando o eixo técnico | **19** | agente |
-| Fragmento de extração abaixo de 80 caracteres, o menor com 3 | **4** | agente |
-| Resíduo real, sinal fraco ou nenhum | **~7** | revisor de domínio |
-
-Os 4 fragmentos seguem no disco porque **a extração desta fonte nunca foi
-regerada** depois da correção do extrator em 2026-08-07. Reexecutar o extrator os
-elimina sem decisão de ninguém.
-
-**A ordem que este item declarava estava errada, e eu a escrevi.** Dizia
-"reexecutar o extrator primeiro, porque é o mais barato". Medido em 2026-08-08:
-não é. `excerpts.json` e `pages.json` não são rastreados, mas
-`extraction-job.json` é, e `Conteúdo/extrações` foi **deliberadamente removido**
-de `allowedRoots` com motivo escrito no próprio `project.yaml`. Reextrair também
-muda as fronteiras de excerto, o que invalida `classifications.json` — rastreado,
-e sob a mesma armadilha de grafia. As duas fatias de agente **compartilham a
-parte cara**, então fazer a extração primeiro reclassifica duas vezes.
-
-É a Observação #195 mordendo o texto de quem a escreveu: estimei "barato" sem
-medir, uma iteração depois de registrar que o campo tamanho é o que convida a
-verificar menos.
-
-**A fatia de 19 tem um bloqueio de contrato, achado em 2026-08-08.** Não é
-vocabulário:
-
-- o schema `classification-record` exige `starId` como `string`, **não nulável**;
-- `validate-foundation.mjs:409` reprova `starId` que não exista na taxonomia;
-- `classify_excerpt` indexa `PLANET_STAR_IDS[planet_id]` e `[0]` sem fallback;
-- e o dono decidiu que **os planetas novos não ganham estrela**.
-
-Um excerto não consegue pousar num planeta técnico. A única saída compatível com
-a decisão aprovada é **tornar `starId` nulável** — schema, validador,
-classificador e a forma dos 109 registros. Criar estrelas resolveria o contrato
-contradizendo a decisão, e pela razão que a decisão dá: estrela é trilha curta e
-não há nenhuma produzida.
-
-Detalhe numérico que morde junto: a confiança é
-`0.5·galáxia + 0.3·planeta + 0.2·estrela`. Sem a parcela da estrela, planeta sem
-estrela cai abaixo do limiar de 0,7 **por construção** e vira `needs-review` —
-o oposto do objetivo. Precisa renormalizar para `0.625·galáxia + 0.375·planeta`,
-com teste próprio.
-
-**Ordem corrigida:**
-
-1. ✅ **contrato** — `starId` nulável no schema, no `validate-foundation`, no
-   `classify_excerpt` **e na guarda irmã do `classify_source`**, que eu não
-   varri na primeira passada e o teste do bundle pegou. Confiança renormalizada
-   para `0.625/0.375`. Feito em `af7b202`;
-2. ✅ **vocabulário** — `galaxy-tecnologia` e os seis planetas em
-   `classify-source.py`, `TAXONOMY_VERSION` em `eixo-tecnico-2026-08-07`.
-   Medido contra os 109 excertos reais: **`needs-review` cai de 30 para 22**, e
-   **45 registros passam a ter `starId` nulo** — os planetas sem estrela ficaram
-   alcançáveis;
-3. ✅ **regeneração da classificação** — feita em 2026-08-08.
-   `classifications.json` no disco passou de **79/30 para 87/22**, com 45
-   registros no eixo técnico e 45 com `starId` nulo. `validate-foundation` em 0.
-
-4. ✅ **a reextração FOI feita em 2026-08-08**, depois que a conclusão abaixo
-   caiu na medição. **105 excertos, zero fragmentos abaixo de 80 caracteres,
-   `needs-review` em 19.** O texto abaixo fica como registro do erro.
-
-   **O que eu concluí, e por que estava errado.** Vendo os 18 erros do
-   `validate-foundation`, inferi que remover os fragmentos exigiria re-derivar
-   conceitos e formatos — as lições geradas — e portanto motor de IA local.
-   **Inferi, não medi.** O conserto do extrator **funde** o órfão no pedaço
-   anterior da mesma página; não o descarta. Medido nos quatro: o texto do órfão
-   está **contido** no `c1` da extração nova, e as contagens fecham
-   (1392 + 51 → 1444). E nas **76 ocorrências em lista, em 17 arquivos
-   rastreados, todas** vinham acompanhadas do irmão `c1`.
-
-   Então remover o id órfão não perdeu proveniência nenhuma: o texto segue
-   citado, dentro do irmão. Era **remapeamento de referência**, não regeneração
-   de conteúdo — e não precisou de Ollama nem de motor nenhum.
-
-   Duas armadilhas do remapeamento, ambas achadas pelo gate e não pela revisão:
-   os conceitos citam o mesmo excerto em **duas formas de id** — `excerpt:…` e
-   `classification:excerpt:…` —, e limpar só a primeira deixa a cadeia de
-   proveniência 1:1 quebrada; e `Conteúdo/extrações/index.json` carrega uma
-   **cópia** do `extraction-job`, então atualizar só o job deixa os dois em
-   desacordo.
-
-   *Registro do erro original:*
-
-   A triagem da D4 registrou os 4 fragmentos abaixo de 80 caracteres como
-   "defeito de extração, trabalho de pipeline, some sem decisão de ninguém". Eu
-   repeti isso na medição da manhã. **É falso, e foi medido executando.**
-
-   Reextrair leva 109 excertos a 105 e zera os fragmentos — o conserto do
-   extrator funciona. Mas `validate-foundation` reprovou com 18 erros, porque
-   `conteúdo/conceitos/` e `conteúdo/formatos/` **citam nominalmente** os
-   excertos que sumiram: `p41:c2` e `p42:c2` sustentam o conceito de preservação
-   de alimentos, `p71:c2` o de qualidade de imagem, `p33:c2` o de tomografia. Os
-   órfãos são **load-bearing**: sustentam a proveniência de lições que já
-   embarcam.
-
-   Restaurado rodando o extrator com `MIN_CHARS = 0` num rascunho fora do
-   repositório, o que reproduz exatamente a forma anterior — 109 excertos, os
-   quatro ids de volta.
-
-   **Isto não é uma limpeza de pipeline; é regeneração de conteúdo.** Tirar os
-   fragmentos exige re-derivar conceitos e bundles de formato, que são as lições
-   geradas. Fica como item próprio, com esse escopo declarado, e **não** como
-   "trabalho pequeno".
-
-**Pendência operacional:** a janela de escrita aberta em `4b28bd5` para
-`Conteúdo/extrações` e `Conteúdo/classificação` **precisa ser fechada** em run
-próprio, como o comentário no `project.yaml` promete.
-
-**O achado que vale mais que o número, e quase me fez enviar a versão errada.**
-Um primeiro vocabulário, mais agressivo, levava `needs-review` de 30 para **17** —
-melhor manchete. Mas **12 dos 20 resgates pousavam em
-`planet-profissao-e-aplicacoes`**, numa fonte onde profissão é uma lição só. A
-causa: `tecnico em radiologia` aparece em **77 dos 109 excertos** porque é o
-cabeçalho de página do módulo. O termo de maior aparência semântica era o do
-rodapé, e a métrica de manchete **premiava a colocação errada** — exatamente o
-risco que a medição de 2026-08-03 nomeou, chegando por outra porta. A versão
-podada resgata 12 com 4 regressões, e resgata para lugares plausíveis.
-
-O revisor de domínio passa a receber **7 itens em vez de 30**, e só depois de o
-dicionário estar consertado — que é exatamente o que a triagem de 2026-07-31
-pedia para não fazer ao contrário.
 
 ## DONO — nada que o agente faça encurta
 

@@ -13,6 +13,7 @@ import LessonFlowScreen from '../../lesson-flow/screens/LessonFlowScreen';
 import CheckpointScreen from '../../checkpoint/screens/CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from './JourneyProgressService';
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Este arquivo é o contraponto dos testes de tela: aqui o
@@ -170,7 +171,16 @@ const mockedLessonFlowService = LessonFlowService as jest.Mocked<typeof LessonFl
 // (`JourneyDefinitionService.buildUnit`), então os ids abaixo não são
 // literais escolhidos: são o que o app constrói para duas lições.
 const REWARD_NODE_ID = 'node:reward:foundations';
-const CHECKPOINT_NODE_ID = 'node:checkpoint:foundations';
+// Este id existia até a ADR de 2026-09-28, que tirou o checkpoint de botão das
+// trilhas do catálogo. Um link antigo ainda pode apontar para ele.
+const REMOVED_CATALOG_CHECKPOINT_ID = 'node:checkpoint:foundations';
+
+// O checkpoint que ficou: a primeira avaliação da trilha V2, montada por
+// `ProductionCurriculumCatalog.journeyFor`, e bloqueada até a última atividade
+// do estágio.
+const PRODUCTION_TRACK = ProductionCurriculumCatalog.listTracks()[0];
+const PRODUCTION_CHECKPOINT_NODE_ID = ProductionCurriculumCatalog.getJourneyTrackDefinition(PRODUCTION_TRACK.id)!
+  .units[0].nodes.find((node) => node.type === 'checkpoint')!.id;
 const LESSON_BLOCK_ID = 'block:foundation-1:intro';
 
 const trackFixtures: LearningTrack[] = [
@@ -345,11 +355,21 @@ describe('markNodeCompleted authorization boundary', () => {
   it('recusa o checkpoint bloqueado alcançado pela tela de checkpoint', async () => {
     // Caminho 3: `CheckpointScreen` resolve o nó por id filtrando por TIPO e
     // não por status, então um checkpoint ainda bloqueado é alcançável por
-    // deep link e o botão de concluir aparece igual.
-    renderWithProviders(<CheckpointScreen nodeId={CHECKPOINT_NODE_ID} />);
+    // deep link. Desde a ADR de 2026-09-28, os únicos checkpoints são as
+    // avaliações da V2: o aluno responde as perguntas, acerta todas, e a
+    // conclusão ainda assim tem de ser recusada.
+    mockedLessonCatalog.listTracks.mockReturnValue([PRODUCTION_TRACK]);
+    const items = ProductionCurriculumCatalog.getCheckpointByNodeId(PRODUCTION_CHECKPOINT_NODE_ID)!.items;
+    expect(items.length).toBeGreaterThan(0);
 
-    const completeButton = await screen.findByText('Concluir checkpoint');
-    fireEvent.press(completeButton);
+    renderWithProviders(<CheckpointScreen nodeId={PRODUCTION_CHECKPOINT_NODE_ID} />);
+
+    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    for (const [index, item] of items.entries()) {
+      const correct = item.options.find((option) => option.id === item.correctOptionId)!;
+      fireEvent.press(await screen.findByLabelText(correct.label));
+      fireEvent.press(screen.getByText(index === items.length - 1 ? 'Enviar checkpoint' : 'Próxima questão'));
+    }
 
     // A tela não pode comemorar o que foi recusado. Ela compara o nó com o
     // snapshot que o serviço devolveu e cai no estado de erro que já existia,
@@ -360,11 +380,23 @@ describe('markNodeCompleted authorization boundary', () => {
     });
     expect(screen.queryByText('CONQUISTA DESBLOQUEADA')).toBeNull();
 
-    const progress = storedTrack();
-    expect(progress.completedNodeIds).not.toContain(CHECKPOINT_NODE_ID);
-    expect(progress.pendingSyncEvents.map((event) => event.nodeId)).not.toContain(CHECKPOINT_NODE_ID);
+    const progress = readStoredProgress()!.tracks[PRODUCTION_TRACK.id];
+    expect(progress.completedNodeIds).not.toContain(PRODUCTION_CHECKPOINT_NODE_ID);
+    expect(progress.pendingSyncEvents.map((event) => event.nodeId)).not.toContain(PRODUCTION_CHECKPOINT_NODE_ID);
     expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining(`Refused to complete locked node "${CHECKPOINT_NODE_ID}"`)
+      expect.stringContaining(`Refused to complete locked node "${PRODUCTION_CHECKPOINT_NODE_ID}"`)
+    );
+  });
+
+  it('um link antigo para o checkpoint de catálogo que saiu não oferece conclusão nem grava nada', async () => {
+    renderWithProviders(<CheckpointScreen nodeId={REMOVED_CATALOG_CHECKPOINT_ID} />);
+
+    expect(await screen.findByText('Checkpoint indisponível')).toBeTruthy();
+    expect(screen.queryByText('Concluir checkpoint')).toBeNull();
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    const store = readStoredProgress();
+    expect(store?.tracks['track-radiology-foundations']?.completedNodeIds ?? []).not.toContain(
+      REMOVED_CATALOG_CHECKPOINT_ID
     );
   });
 
@@ -379,11 +411,11 @@ describe('markNodeCompleted authorization boundary', () => {
     expect(snapshot.progress.completedNodeIds).toContain('node:foundation-1');
     expect(snapshot.progress.pendingSyncEvents.map((event) => event.type)).toEqual(['node_completed']);
 
-    // E o checkpoint que dependia dela passa a ser gravável — a mesma guarda,
+    // E a lição que dependia dela passa a ser gravável — a mesma guarda,
     // agora respondendo "sim", que é o que prova que ela lê a regra e não um
-    // literal.
-    const afterCheckpoint = await JourneyProgressService.markNodeCompleted(CHECKPOINT_NODE_ID);
-    expect(afterCheckpoint.progress.completedNodeIds).toContain(CHECKPOINT_NODE_ID);
+    // literal. (Até a ADR de 2026-09-28, quem dependia dela era o checkpoint.)
+    const afterNext = await JourneyProgressService.markNodeCompleted('node:foundation-2');
+    expect(afterNext.progress.completedNodeIds).toContain('node:foundation-2');
   });
 
   it('continua gravando a revisão vencida, que lê como bloqueada sem estar', async () => {

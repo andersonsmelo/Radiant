@@ -9,7 +9,8 @@ tags:
 # prova o estado bloqueado; ele **não** prova a regra de destravamento, e diz
 # isso de si mesmo. Esta é a regra: `JourneyDefinitionService` abre o reward com
 # `requiresNodeIds: [node:<última lição>]`, e a trilha ativa tem sete lições
-# encadeadas por checkpoint — lição → checkpoint → lição, seis vezes.
+# encadeadas uma na outra — lição → lição, seis vezes. Até a ADR de 2026-09-28
+# havia um checkpoint de botão entre cada par; ele saiu.
 #
 # Os dois flows apontam para o **mesmo** nó, `node:reward:fundamentos:final`.
 # Um afirma que ele não se deixa coletar bloqueado; o outro, que ele se deixa
@@ -20,10 +21,10 @@ tags:
 # `radiantapp://reward?nodeId=…` provaria de novo o que o irmão já prova e
 # deixaria a regra descoberta outra vez, sem que nada ficasse vermelho. O
 # caminho é o do produto: o CTA da home, que sai de `continueLabel` em
-# `JourneyHomeScreen`, e o CTA do checkpoint, que sai de `resolveNextAction`.
+# `JourneyHomeScreen`, que leva de uma lição à seguinte e, no fim, à conquista.
 # `scripts/maestro-contract.test.mjs` proíbe o deep link aqui.
 #
-# Custo: sete lições e seis checkpoints, ~3,2× a `learning-critical-path`.
+# Custo: sete lições, ~3× a `learning-critical-path`.
 # Ele é longo porque a regra é longa — encurtar a trilha exigiria fixture, e
 # uma fixture de 2 lições cai no ramo `lessonCount <= 2` de `rewardNodeId()`,
 # que constrói um id que produção nunca constrói.
@@ -31,27 +32,19 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
-- runFlow:
-    when:
-      visible: 'Connected to:'
-    commands:
-      - tapOn: Close
+# O dev client entra por espera explícita, e não por `runFlow when`, que é
+# avaliado uma vez só e perde a folha que sobe depois (medido em 2026-09-24 e
+# de novo em 2026-09-28; ver o subflow).
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
+# título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
+# texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Unidade 1 ────────────────────────────────────────────────────────────────
 # Só a primeira lição entra por deep link, como na `learning-critical-path`:
@@ -87,45 +80,31 @@ tags:
 # resposta, não o título do payload. A ação de rodapé é o que sempre existe.
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+# O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
+# e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
+# medido em 2026-09-28, no simulador, parava aqui.
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 1 ─────────────────────────────────────────────────────────────
-# O CTA da home renderiza depois do mapa inteiro, abaixo da dobra. É um
-# AppButton: iOS colapsa a subárvore e o nó expõe só `accessibilityText`, com
-# `text` vazio — `scrollUntilVisible` casa com `element.text` e nunca resolve
-# aqui, enquanto `visible`/`tapOn` casam. Daí o `repeat` guardado.
+# ── Para a lição 2 ───────────────────────────────────────────────────────────
+# Sem checkpoint entre as lições (ADR de 2026-09-28): o próximo nó recomendado é
+# a lição seguinte, e o CTA da home diz "Continuar jornada". Ele renderiza
+# depois do mapa inteiro, abaixo da dobra. É um AppButton: iOS colapsa a
+# subárvore e o nó expõe só `accessibilityText`, com `text` vazio —
+# `scrollUntilVisible` casa com `element.text` e nunca resolve aqui, enquanto
+# `visible`/`tapOn` casam. Daí o `repeat` guardado.
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 # A guarda para no instante em que o CTA entra na árvore, o que num emulador
 # rápido o deixa descansando SOB a tab bar flutuante. Uma rolagem a mais o
 # levanta antes do toque.
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-# Depois do checkpoint o próximo nó recomendado é a lição seguinte, então
-# `resolveNextAction` devolve este rótulo e o toque já entra na lição — não
-# passa pela home.
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 2 ────────────────────────────────────────────────────────────────
 - assertVisible: Princípios de Tomografia Computadorizada
@@ -144,35 +123,19 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 2 ─────────────────────────────────────────────────────────────
+# ── Para a lição 3 ───────────────────────────────────────────────────────────
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Profissão e atuação do técnico em radiologia'
@@ -191,35 +154,19 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 3 ─────────────────────────────────────────────────────────────
+# ── Para a lição 4 ───────────────────────────────────────────────────────────
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 4 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Energia e matéria'
@@ -238,35 +185,19 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 4 ─────────────────────────────────────────────────────────────
+# ── Para a lição 5 ───────────────────────────────────────────────────────────
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Estrutura da matéria e núcleo atômico'
@@ -285,35 +216,19 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 5 ─────────────────────────────────────────────────────────────
+# ── Para a lição 6 ───────────────────────────────────────────────────────────
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Radioatividade, partículas e atividade'
@@ -332,38 +247,19 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# ── Checkpoint 6 — o último ──────────────────────────────────────────────────
-# `buildUnit` cria checkpoint para toda lição menos a última, então são seis
-# para sete lições. Este é o `lessons.length - 2`, o único cujo título é
-# "Checkpoint da unidade" — os anteriores são "Checkpoint N".
+# ── Para a lição 7 ───────────────────────────────────────────────────────────
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint da unidade
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-- assertVisible: CONQUISTA DESBLOQUEADA
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 
 # ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
 - assertVisible: 'Quiz: Raios X: descoberta e propriedades'
@@ -382,7 +278,9 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── A conquista destravou ────────────────────────────────────────────────────
 # Aqui está a asserção que dá sentido ao flow inteiro: o CTA da home mudou.
@@ -403,10 +301,11 @@ tags:
 # O espelho exato da asserção do flow irmão: lá, "Bloqueada até a unidade
 # fechar"; aqui, o mesmo `GalaxyStatRow` dizendo o contrário sobre o mesmo nó.
 - assertVisible: Pronta para ser coletada
-# 14 nós primários na unidade (7 lições + 6 checkpoints + o reward); 13 feitos.
-# Este número é o que separa "a tela mudou de texto" de "o progresso existe":
-# era exatamente ele, em "0 de 14", que denunciava o defeito de 2026-08-04.
-- assertVisible: 13 de 14 marcos da unidade concluídos
+# 8 nós primários na unidade (7 lições + o reward); 7 feitos. Eram 14 até a
+# ADR de 2026-09-28, com os 6 checkpoints. Este número é o que separa "a tela
+# mudou de texto" de "o progresso existe": era exatamente ele, em "0 de 14",
+# que denunciava o defeito de 2026-08-04.
+- assertVisible: 7 de 8 marcos da unidade concluídos
 # Rolar até o card de ação antes de afirmar. A presença também precisa do lugar
 # onde ela apareceria estar sendo olhado — e nesta tela todo nó expõe
 # `accessibilityText` com `text` vazio, então `scrollUntilVisible` não resolve.
@@ -426,4 +325,4 @@ tags:
 # ele faz o que promete.
 - assertVisible: Conquista registrada
 - assertVisible: Salva no seu progresso
-- assertVisible: 14 de 14 marcos da unidade concluídos
+- assertVisible: 8 de 8 marcos da unidade concluídos

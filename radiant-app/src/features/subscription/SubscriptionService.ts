@@ -7,6 +7,7 @@ import { SUBSCRIPTION_PRODUCT_IDS } from './subscriptionProducts';
 import { UnavailableStoreKitAdapter } from './UnavailableStoreKitAdapter';
 import {
     isStoreUnavailable,
+    type ManageResult,
     type PurchaseResult,
     type RestoreResult,
     type StoreKitPort,
@@ -178,15 +179,42 @@ export class SubscriptionService {
      * Relê o direito sempre que a loja avisa de transação nova (renovação,
      * reembolso, Ask to Buy aprovado). A escuta nativa de `Transaction.updates`
      * começa na criação do módulo; isto só liga o aviso à releitura.
+     *
+     * `onStatus` recebe o estado relido: uma tela aberta no momento do aviso
+     * não remonta, e sem isso seguia mostrando o pedido pendente depois da
+     * aprovação (medido no StoreKit Testing em 2026-09-27).
      */
-    watchStoreUpdates(nowMs: () => number): () => void {
+    watchStoreUpdates(nowMs: () => number, onStatus?: (status: SubscriptionStatus) => void): () => void {
         const escutar = this.store.onEntitlementsChanged;
         if (escutar === undefined) return () => undefined;
         return escutar.call(this.store, () => {
-            this.refresh(nowMs()).catch((cause) => {
+            this.refresh(nowMs()).then(onStatus).catch((cause) => {
                 console.error('[SubscriptionService] Falha ao reler o direito após atualização da loja:', cause);
             });
         });
+    }
+
+    /**
+     * Abre a folha de gerenciamento da Apple e, quando ela fecha, relê o direito
+     * (ADR de 2026-09-25, "Gerenciar"). Cancelar na folha muda a renovação sem
+     * criar transação, então o aviso de `Transaction.updates` não chega: a
+     * releitura tem de partir daqui.
+     */
+    async manageSubscription(nowMs: number): Promise<ManageResult> {
+        if (this.store.manageSubscriptions === undefined) return { kind: 'store-unavailable' };
+        const outcome = await this.store.manageSubscriptions();
+        if (outcome.kind === 'failed') return { kind: 'failed' };
+        return { kind: 'shown', status: await this.refresh(nowMs) };
+    }
+
+    /**
+     * Avisa quando a loja da conta muda, para que quem mostra preços os peça de
+     * novo (ADR de 2026-09-25, item 4). Loja sem aviso não quebra quem escuta.
+     */
+    watchStorefront(listener: () => void): () => void {
+        const escutar = this.store.onStorefrontChanged;
+        if (escutar === undefined) return () => undefined;
+        return escutar.call(this.store, listener);
     }
 
     async loadOffers(): Promise<SubscriptionOffers> {

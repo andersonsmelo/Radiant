@@ -50,7 +50,21 @@ export interface StoreKitPort {
      * indisponível não tem o que avisar. Devolve a função que para de escutar.
      */
     onEntitlementsChanged?(listener: () => void): () => void;
+    /**
+     * Folha de gerenciamento da Apple, onde se troca de plano e se cancela
+     * (ADR de 2026-09-25, "Gerenciar", opção A). Opcional: a loja indisponível
+     * não tem o que abrir.
+     */
+    manageSubscriptions?(): Promise<ManageOutcome>;
+    /**
+     * Aviso de que a loja da conta mudou — e com ela a moeda. Os preços já
+     * carregados ficam errados até serem pedidos de novo (ADR de 2026-09-25,
+     * item 4). Devolve a função que para de escutar.
+     */
+    onStorefrontChanged?(listener: () => void): () => void;
 }
+
+export type ManageOutcome = { kind: 'shown' } | { kind: 'failed'; message: string };
 
 export class StoreUnavailableError extends Error {
     readonly code = 'store-unavailable' as const;
@@ -85,6 +99,11 @@ export type PurchaseResult =
 export type RestoreResult =
     | { kind: 'restored'; status: SubscriptionStatus }
     | { kind: 'nothing-to-restore' }
+    | { kind: 'store-unavailable' };
+
+export type ManageResult =
+    | { kind: 'shown'; status: SubscriptionStatus }
+    | { kind: 'failed' }
     | { kind: 'store-unavailable' };
 
 /** Cache persistido do direito, para que o estudo offline nunca dependa da loja. */

@@ -16,6 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { galaxyColors } from '../theme';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+import { useScreenFocused } from '../useScreenFocused';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -54,19 +55,20 @@ interface StarProps {
   maxOpacity: number;
   duration: number;
   delay: number;
-  reducedMotion: boolean;
+  /** Sem animação: Reduzir Movimento ligado ou tela fora de foco. */
+  still: boolean;
 }
 
 const Star = React.memo(function Star({
-  x, y, size, minOpacity, maxOpacity, duration, delay, reducedMotion,
+  x, y, size, minOpacity, maxOpacity, duration, delay, still,
 }: StarProps) {
-  // Com reduced motion a estrela fica parada num brilho intermediário: o céu
-  // continua estrelado, sem o cintilar infinito.
+  // Parada, a estrela fica num brilho intermediário: o céu continua estrelado,
+  // sem o cintilar infinito. Atribuir o valor cancela o laço em andamento.
   const restingOpacity = (minOpacity + maxOpacity) / 2;
-  const opacity = useSharedValue(reducedMotion ? restingOpacity : minOpacity);
+  const opacity = useSharedValue(still ? restingOpacity : minOpacity);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (still) {
       opacity.value = restingOpacity;
       return;
     }
@@ -82,7 +84,7 @@ const Star = React.memo(function Star({
         false,
       ),
     );
-  }, [reducedMotion]);
+  }, [still]);
 
   const style = useAnimatedStyle(() => ({ opacity: opacity.value }));
 
@@ -116,12 +118,12 @@ function Nebula({
   driftY = 12,
   driftDuration = 9000,
   driftDelay = 0,
-}: NebulaConfig) {
-  const reducedMotion = useReducedMotionPreference();
+  still,
+}: NebulaConfig & { still: boolean }) {
   const drift = useSharedValue(0);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (still) {
       drift.value = 0;
       return;
     }
@@ -137,7 +139,7 @@ function Nebula({
         false,
       ),
     );
-  }, [driftDelay, driftDuration, reducedMotion]);
+  }, [driftDelay, driftDuration, still]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -206,9 +208,11 @@ export function StarfieldBackground({
 }: StarfieldBackgroundProps) {
 
   const reducedMotion = useReducedMotionPreference();
+  const focused = useScreenFocused();
+  const still = reducedMotion || !focused;
 
   // Gera estrelas deterministicamente (sem re-render)
-  const stars = useMemo<Omit<StarProps, 'reducedMotion'>[]>(() => {
+  const stars = useMemo<Omit<StarProps, 'still'>[]>(() => {
     // seed simples para reprodutibilidade
     const rng = (seed: number) => {
       const x = Math.sin(seed) * 10000;
@@ -243,11 +247,11 @@ export function StarfieldBackground({
     <View style={[StyleSheet.absoluteFillObject, { backgroundColor }]} pointerEvents="none">
       {/* Nebulas */}
       {allNebulas.map((n, i) => (
-        <Nebula key={`nebula-${i}`} {...n} />
+        <Nebula key={`nebula-${i}`} {...n} still={still} />
       ))}
       {/* Stars */}
       {stars.map((s, i) => (
-        <Star key={`star-${i}`} {...s} reducedMotion={reducedMotion} />
+        <Star key={`star-${i}`} {...s} still={still} />
       ))}
     </View>
   );

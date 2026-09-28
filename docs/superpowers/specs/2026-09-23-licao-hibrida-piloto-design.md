@@ -30,7 +30,7 @@ custo de produzi-la.
 | Dimensão | Duolingo | O que o Radiant adota |
 | --- | --- | --- |
 | Lição | ~15 itens curtos, feedback imediato, som e vibração | 10–15 itens, uma ação cada, explicação dentro do feedback |
-| Erro | O item errado volta no fim da lição | Igual, com variação (outra postura, outro par) |
+| Erro | O item errado volta no fim da lição | Igual, com variação. **Desde 2026-09-28:** mesma postura, outra vista real ou a pergunta oposta ([ADR](../../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)) |
 | Caminho | Linear, com revisão intercalada ([blog](https://blog.duolingo.com/new-duolingo-home-screen-design)) | Já é assim: a trilha decide o próximo passo |
 | Custo do erro | Corações; em 2025 viraram energia gasta por exercício, com forte rejeição ([duoplanet](https://duoplanet.com/duolingo-energy-system/), [Class Central](https://www.classcentral.com/report/duolingo-breaks-hearts-for-energy/)) | Só o desafio custa vida; o primeiro contato nunca custa |
 | Personagem | Rive com máquina de estados e reação por resposta ([Rive](https://rive.app/blog/duolingo-s-ai-powered-video-call-brings-lily-to-life)) | Fase 2. Na fase 1 o Pixel reage só em momentos-chave |

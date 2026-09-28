@@ -1,0 +1,16 @@
+appId: com.ascendcreative.radiant
+---
+- tapOn: 'Abrir checkpoint'
+- scrollUntilVisible:
+    element: 'Iniciar checkpoint'
+    direction: DOWN
+- tapOn: 'Iniciar checkpoint'
+- scrollUntilVisible:
+    element: 'Qualquer luz visível'
+    direction: DOWN
+- tapOn: 'Qualquer luz visível'
+- scrollUntilVisible:
+    element: 'Próxima questão'
+    direction: DOWN
+- tapOn: 'Próxima questão'
+- assertVisible: 'Qual afirmação separa intensidade de energia individual\?'

@@ -7,6 +7,7 @@ import {
 } from './storekitNative.types';
 import {
     StoreUnavailableError,
+    type ManageOutcome,
     type PurchaseOutcome,
     type StoreKitPort,
     type StoreProduct,
@@ -45,6 +46,8 @@ function paraDireito(transacao: StoreKitNativeTransaction): SubscriptionEntitlem
     };
 }
 
+const ORDEM_DOS_PLANOS = { monthly: 0, annual: 1 } as const;
+
 /** Entre vários direitos válidos, vale o que dura mais. */
 function melhorDireito(transacoes: StoreKitNativeTransaction[]): SubscriptionEntitlement | null {
     let melhor: SubscriptionEntitlement | null = null;
@@ -80,7 +83,10 @@ export class StoreKit2Adapter implements StoreKitPort {
         // erro. Uma tela de planos sem planos não ajuda ninguém; "a loja não
         // respondeu" é a verdade que a tela já sabe dizer.
         if (produtos.length === 0) throw new StoreUnavailableError('Nenhum produto da assinatura foi encontrado.');
-        return produtos;
+        // O mensal primeiro, sempre (ADR de 2026-09-25, item 3): a Apple não
+        // garante a ordem de `Product.products(for:)`, e no aparelho ela mudou
+        // de um dia para o outro.
+        return produtos.sort((a, b) => ORDEM_DOS_PLANOS[a.period] - ORDEM_DOS_PLANOS[b.period]);
     }
 
     async currentEntitlement(): Promise<SubscriptionEntitlement | null> {
@@ -123,6 +129,20 @@ export class StoreKit2Adapter implements StoreKitPort {
 
     onEntitlementsChanged(listener: () => void): () => void {
         const assinatura = this.native.addListener('onTransactionsUpdated', listener);
+        return () => assinatura.remove();
+    }
+
+    async manageSubscriptions(): Promise<ManageOutcome> {
+        try {
+            await this.native.showManageSubscriptions();
+            return { kind: 'shown' };
+        } catch (cause) {
+            return { kind: 'failed', message: nativeErrorCode(cause) ?? 'unrecoverable' };
+        }
+    }
+
+    onStorefrontChanged(listener: () => void): () => void {
+        const assinatura = this.native.addListener('onStorefrontChanged', listener);
         return () => assinatura.remove();
     }
 }

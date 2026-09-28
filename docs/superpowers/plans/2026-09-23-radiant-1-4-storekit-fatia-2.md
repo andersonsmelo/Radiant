@@ -51,6 +51,12 @@ Nenhuma fonte encontrada afirma se `subscriptionStatus` / `RenewalInfo` responde
 
 ### 1.2 Onde mora o arquivo `.storekit` — **decidido, arquivo a gerar pelo dono**
 
+> **Superado em 2026-09-27, na parte de "como nasce":** o dono decidiu que o
+> arquivo seria local e escrito pelo agente, sem sincronia. A divergência de
+> IDs, que era a razão da sincronia, passou a ser barrada pela guarda
+> `storekitTestingConfig.contract.test.ts`. O caminho abaixo continua valendo
+> ([evidência](../../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+
 - **Onde:** `radiant-app/modules/radiant-storekit/testing/RadiantIlimitado.storekit`.
   Fica ao lado do módulo que ele testa, dentro de `writePolicy.allowedRoots`
   (`radiant-app/modules`) e **fora** do glob do podspec

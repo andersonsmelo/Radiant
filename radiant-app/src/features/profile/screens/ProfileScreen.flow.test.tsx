@@ -161,8 +161,19 @@ describe('ProfileScreen — a porta do console de desenvolvimento', () => {
 
     expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
     expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
-    // Os sons só existem no piloto: o aluno não vê interruptor de algo que nunca ouve.
-    expect(screen.queryByText('Sons e vibração')).toBeNull();
+  });
+
+  it('o aluno vê os interruptores de sons e vibração: desde 2026-09-28 a lição dele toca e vibra', () => {
+    // Até 2026-09-28 os sons existiam só no piloto, e o card ficava atrás de
+    // SHOW_DEV_TOOLS para o aluno não ver interruptor de algo que nunca ouve.
+    // Com a camada ligada à lição do aluno, esconder o card tiraria dele o
+    // único jeito de desligar o som dentro do app.
+    AppConfig.SHOW_DEV_TOOLS = false;
+    render(<ProfileScreen />);
+
+    expect(screen.getByText('Sons e vibração')).toBeTruthy();
+    expect(screen.getByLabelText('Sons')).toBeTruthy();
+    expect(screen.getByLabelText('Vibração')).toBeTruthy();
   });
 });
 

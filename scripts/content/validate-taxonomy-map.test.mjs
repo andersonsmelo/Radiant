@@ -170,6 +170,21 @@ test('os planetas de interpretacao seguem planned, intocados', () => {
   }
 });
 
+// Aprovado pelo dono em 2026-09-25, na D4: os excertos de radioterapia (p30 e
+// p32 da fonte piloto) nao tinham no. Nasce `planned` porque nenhuma licao do
+// catalogo aponta para ele, e `active` quer dizer licao embarcada.
+test('planet-radioterapia existe, planned, na galaxia de tecnologia e sem licao', () => {
+  const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');
+  const radioterapia = planetas.find((p) => p.id === 'planet-radioterapia');
+  assert.ok(radioterapia, 'planet-radioterapia ausente de planetas.json');
+  assert.equal(radioterapia.galaxyId, 'galaxy-tecnologia');
+  assert.equal(radioterapia.status, 'planned');
+  assert.equal(radioterapia.trackKind, 'long-form');
+  const mapa = lerReal('content-manifest', 'taxonomy-catalog-map.json');
+  const licoes = mapa.filter((e) => e.taxonomyId === 'planet-radioterapia');
+  assert.deepEqual(licoes, [], 'planeta planned nao pode ter licao mapeada');
+});
+
 test('toda galaxyId de planeta resolve numa galaxia existente', () => {
   const galaxias = lerReal('conteúdo', 'taxonomia', 'galaxias.json');
   const planetas = lerReal('conteúdo', 'taxonomia', 'planetas.json');

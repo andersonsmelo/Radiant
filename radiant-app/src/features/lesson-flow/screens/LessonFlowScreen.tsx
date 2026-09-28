@@ -36,7 +36,9 @@ import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
 import { computeUnitPrimaryProgress } from '../../journey/services/JourneyUnitProgress';
 import { Confetti } from '../../../components/ui/Confetti';
-import { hapticCelebrate } from '../../../ui/feedback/haptics';
+import { createLessonFeedback, type LessonFeedback, type LessonFeedbackEvent } from '../../../ui/feedback/lessonFeedback';
+import { createLessonSoundPlayer } from '../../../ui/feedback/lessonSounds';
+import { readFeedbackPreferences } from '../../../ui/feedback/feedbackPreferences';
 import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
 import type { XpAward } from '../../../types/gamification';
 import type { JourneySnapshot } from '../../../types/journey';
@@ -74,6 +76,25 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
     const chargedInteractions = useRef(new Set<string>());
+
+    // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
+    // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
+    // sons carregam na abertura e saem na desmontagem; até as preferências
+    // chegarem, nada toca. Som é enfeite: falha aqui nunca para a lição.
+    const feedbackRef = useRef<LessonFeedback | null>(null);
+    useEffect(() => {
+        const sounds = createLessonSoundPlayer();
+        let alive = true;
+        void readFeedbackPreferences().then((preferences) => {
+            if (alive) feedbackRef.current = createLessonFeedback(sounds, preferences);
+        });
+        return () => {
+            alive = false;
+            feedbackRef.current = null;
+            sounds.release();
+        };
+    }, []);
+    const emit = useCallback((event: LessonFeedbackEvent) => feedbackRef.current?.emit(event), []);
 
     // A conclusão passa a ser um estado desta tela. Antes daqui, terminar a
     // última interação chamava `router.replace('/(tabs)')` e devolvia o aluno
@@ -221,6 +242,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         // assíncrono e no último passo o estado ainda não conteria esta
         // resposta.
         let nextHearts = hearts;
+        let heartLossCopy = '';
         if (currentInteraction) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
 
@@ -232,13 +254,30 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 // Marca antes do await: um segundo toque durante a escrita não
                 // pode debitar a mesma confirmação duas vezes.
                 chargedInteractions.current.add(currentInteraction.id);
+                // O erro soa antes da escrita da vida: o retorno não espera o disco.
+                emit('incorrect');
                 nextHearts = await heartsRepository.spend(Date.now());
                 setHearts(nextHearts);
+
+                // Quem enxerga vê o coração mudar no HUD; o leitor de tela
+                // precisa ouvir. Segue a queda real do contador, e não a
+                // chamada a `spend`: o assinante e quem já está em zero não
+                // perdem nada, e não podem ouvir que perderam.
+                if (nextHearts.status !== 'unlimited' && nextHearts.count < hearts.count) {
+                    heartLossCopy = nextHearts.count === 0
+                        ? ' Você perdeu sua última vida.'
+                        : ` Você perdeu uma vida; restam ${nextHearts.count}.`;
+                    // Sem som nem vibração próprios (decisão do dono, 2026-09-28):
+                    // saíam 2 ms depois do erro e soavam como um só. Voltam com
+                    // a animação do coração em primeiro plano (FILA, 26).
+                }
+            } else {
+                emit('correct');
             }
 
             const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
             AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}`,
+                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}${heartLossCopy}`,
             );
         }
 
@@ -397,9 +436,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
     useEffect(() => {
         if (lessonPassed) {
-            hapticCelebrate();
+            emit('lesson_complete');
         }
-    }, [lessonPassed]);
+    }, [emit, lessonPassed]);
 
     if (loading) {
         return (
@@ -525,7 +564,10 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 <ActivityInteractionRenderer
                                     interaction={currentInteraction}
                                     value={player.value}
-                                    onChange={player.setValue}
+                                    onChange={(value) => {
+                                        emit('option_tap');
+                                        player.setValue(value);
+                                    }}
                                 />
                             ) : null}
 

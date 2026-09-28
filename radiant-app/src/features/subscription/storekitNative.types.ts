@@ -53,8 +53,21 @@ export interface RadiantStoreKitNative {
     currentEntitlements(): Promise<StoreKitNativeTransaction[]>;
     purchase(productId: string): Promise<StoreKitNativePurchase>;
     sync(): Promise<void>;
-    /** Evento sem corpo: avisa que `Transaction.updates` entregou algo. */
-    addListener(eventName: 'onTransactionsUpdated', listener: () => void): StoreKitNativeSubscription;
+    /**
+     * Abre a folha de gerenciamento de assinaturas da Apple
+     * (`AppStore.showManageSubscriptions`) sobre a cena ativa. Resolve quando a
+     * folha fecha; troca de plano e cancelamento acontecem nela, não no app.
+     */
+    showManageSubscriptions(): Promise<void>;
+    /**
+     * Eventos sem corpo: `onTransactionsUpdated` avisa que `Transaction.updates`
+     * entregou algo; `onStorefrontChanged`, que `Storefront.updates` mudou a loja
+     * da conta, e com ela a moeda dos preços.
+     */
+    addListener(
+        eventName: 'onTransactionsUpdated' | 'onStorefrontChanged',
+        listener: () => void,
+    ): StoreKitNativeSubscription;
 }
 
 export function nativeErrorCode(cause: unknown): string | null {

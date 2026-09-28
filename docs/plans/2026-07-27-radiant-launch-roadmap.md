@@ -585,8 +585,19 @@ código.
   cada item com estado (✅/⏳/⛔) e link para a task detalhada, mais um resumo dos
   bloqueios de submissão. É o checklist que se percorre antes de cada submissão,
   não uma reescrita do roadmap.
-- **D4 [P0]** Gate editorial. **Triado em 2026-07-31 — a redação anterior, "triar
+- **D4 [P0, fechada em 2026-09-25]** Gate editorial. **Fechada como superada
+  pelo V3 e pela auditoria de 2026-08-27**, por decisão do dono
+  ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2). A capa, os
+  excertos de radioterapia e a regeneração da cadeia foram arquivados sem
+  execução. O texto abaixo é o histórico. **Triado em 2026-07-31 — a redação anterior, "triar
   os 42 itens `formatNeedsReview`", descrevia mal o trabalho nas duas direções.**
+  **18 de 19 aprovadas pelo dono em 2026-09-25.** As propostas do agente
+  estão em `review-decisions.json`, que o classificador lê. O dono aprovou 18
+  e criou o planeta de radioterapia. Falta a capa (p1), cuja exclusão ainda
+  não tem representação. O
+  catálogo do app não depende deste estado: ele sai de `ai-bundles.json`, que
+  está todo `approved`. [Medição](../content/2026-09-25-d4-propostas-e-cascata.md)
+  e [FILA](../FILA.md).
   **Auditoria adicional concluída em 2026-08-27; correções abertas:** a captura
   do iPhone revelou um mockup de tórax no quiz de profissão. A inspeção também
   encontrou ensino genérico e ordem previsível de respostas no catálogo
@@ -1353,6 +1364,12 @@ canônica é
   na [`FILA.md`](../FILA.md).
   Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
   e a suíte verde **não** detecta o Q1.
+  **Em 2026-09-28, a amostra do piloto foi corrigida:** a variante fica na
+  mesma postura, só com vistas reais, e o h08 passou ao ventral visto por
+  trás. Mudaram 8 dos 20 itens, e a aprovação espera o dono confirmá-los
+  (FILA, 7b)
+  ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+  [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.
@@ -1400,7 +1417,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
 - **K6 [PARCIAL — CloudKit validado em aparelho em 2026-09-16; Sentry mínimo
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
   2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
-  em 2026-09-24, com cancelamento, anual, Ask to Buy e VoiceOver pendentes]**
+  em 2026-09-24; anual em 2026-09-25; cancelamento e VoiceOver no iPhone e Ask
+  to Buy no StoreKit Testing em 2026-09-27; falta o bump da 1.4.0]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1413,7 +1431,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   - **1**, a lição concluída que voltava como "Continuar de onde parou":
     corrigido em 2026-09-25 pela opção A da
     [ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
-    na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36)
+    na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), na `main`
+    desde a mesma data
     ([relatório](../superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
 
   Android e aparelho físico não foram executados.
@@ -1426,6 +1445,65 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   - achados na FILA: "Cancelada" para estado desconhecido, preço de outra loja
     até recarregar, "Gerenciar" sem gerenciamento e aquecimento
     ([evidência](../../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
+  - **em 2026-09-25:**
+    - o eas-cli foi para 24.8.0, com a versão mínima fixada no `eas.json`
+      (achado 6);
+    - o aquecimento foi medido de forma indireta no simulador: ~94 % de um
+      núcleo com as animações e 0,4 % com Reduzir Movimento
+      ([medição](../../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md)).
+      Falta o aparelho (achado 5).
+    - na segunda passagem, no mesmo dia, o custo foi isolado: é quase todo um
+      piso por fundo animado (uma estrela só custa 28 %), e a aba visitada
+      continua montada e animando (~42 % → ~66 %). O conserto ficou como item
+      do agente na FILA
+      ([relatório](../superpowers/handoffs/2026-09-25-radiant-aquecimento-isolado-relatorio.md)).
+    - à noite, as PRs #35, #36 e #37 entraram na `main` (`e992686`), e o dono
+      decidiu o "Gerenciar", o Ask to Buy e o cancelamento
+      ([ADR](../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md)):
+      o "Gerenciar" abre a folha da Apple dentro do app, o cancelamento é
+      testado por ela, e o Ask to Buy passa ao StoreKit Testing do Xcode.
+      O VoiceOver continua com o dono, no iPhone.
+    - na mesma noite, pela
+      [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md),
+      os planos passaram a ter ordem fixa, com o mensal primeiro, e o preço
+      passou a acompanhar a troca de loja, junto com a folha.
+  - **em 2026-09-26:** a folha do "Gerenciar", o preço que acompanha a troca
+    de loja e a ordem fixa dos planos foram implementados, com 12 testes
+    vistos vermelhos. O gate deu 151 suítes / 1446 testes, e o Swift compilou
+    localmente para o simulador. Falta a build `development` nova e o
+    aparelho
+    ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)).
+  - **em 2026-09-27, no iPhone (build `c4eeeb44`):** a folha abriu no iOS
+    27.2, o cancelamento passou por ela e a tela atualizou sozinha. A folha
+    também resolve a troca de plano. O preço da loja não pôde ser reproduzido
+    no aparelho. Foi também a primeira build real do eas-cli 24.8.0
+    ([evidência](../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
+  - **também em 2026-09-27:** o VoiceOver foi encerrado pelo dono, que
+    assumiu a responsabilidade. Os anúncios do checkpoint estão certos, mas a
+    perda de vida não é anunciada ao leitor de tela, e isso virou item do
+    agente
+    ([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
+  - **também em 2026-09-27, no simulador:** o Ask to Buy foi visto pelo
+    agente no StoreKit Testing do Xcode, com um `.storekit` local e uma guarda
+    que amarra os IDs ao app. O módulo Swift funciona ali. Pendente, recusado
+    e aprovado passaram, e o aprovado virou ∞ sem reabrir o app. A tela da
+    assinatura aberta não atualizava com a aprovação, e o conserto entrou no
+    mesmo run
+    ([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+  - **em 2026-09-28:** a lição passou a anunciar a perda de vida ao leitor de
+    tela, com "Você perdeu uma vida; restam N." ou "Você perdeu sua última
+    vida.". O assinante não ouve nada sobre vidas. O checkpoint ficou fora,
+    porque o dono quer removê-lo (FILA, 29)
+    ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+  - **também em 2026-09-28:** bump para `1.4.0` no `app.json`, no
+    `package.json` e no `package-lock.json`, com uma guarda que exige os
+    quatro valores iguais. A build de produção e o envio são do dono (FILA, 30)
+    ([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+  - **também em 2026-09-28:** a lição do aluno passou a tocar os sons e a
+    vibrar, com o card "Sons e vibração" no Perfil de produção. Antes, só o
+    piloto do V3 tinha som. Visto no simulador pelo log do sistema
+    ([ADR](../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
+    [relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

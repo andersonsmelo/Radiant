@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -23,6 +23,7 @@ type Notice =
     | { kind: 'cancelled' }
     | { kind: 'failed'; message: string }
     | { kind: 'store-unavailable' }
+    | { kind: 'manage-failed' }
     | null;
 
 const CANCEL_COPY = 'Para gerenciar ou cancelar: Ajustes do iOS → seu nome → Assinaturas.';
@@ -43,27 +44,63 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     const [notice, setNotice] = useState<Notice>(null);
     const [busy, setBusy] = useState(false);
     const [attempt, setAttempt] = useState(0);
+    // Só a carga de ofertas mais recente escreve na tela. A da abertura e a da
+    // troca de loja correm juntas, e sem ordem a mais antiga podia chegar por
+    // último e trazer a moeda velha de volta (revisão da PR #38).
+    const ultimaCargaDeOfertas = useRef(0);
 
     useEffect(() => {
         let alive = true;
+        const carga = ++ultimaCargaDeOfertas.current;
         setStatus(null);
         setOffers(null);
         void Promise.all([service.refresh(nowMs()), service.loadOffers()])
             .then(([nextStatus, nextOffers]) => {
                 if (!alive) return;
                 setStatus(nextStatus);
-                setOffers(nextOffers);
+                if (carga === ultimaCargaDeOfertas.current) setOffers(nextOffers);
             })
             .catch((cause) => {
                 console.error('[SubscriptionScreen] Falha ao carregar a assinatura:', cause);
                 if (!alive) return;
                 setStatus({ kind: 'none' });
-                setOffers({ status: 'store-unavailable' });
+                if (carga === ultimaCargaDeOfertas.current) setOffers({ status: 'store-unavailable' });
             });
         return () => {
             alive = false;
         };
     }, [attempt, nowMs, service]);
+
+    // Ask to Buy aprovado, renovação ou reembolso chegam com a tela aberta, e ela
+    // não remonta: sem esta escuta, o pedido aprovado seguia como pendente até
+    // fechar e abrir de novo (medido no StoreKit Testing em 2026-09-27).
+    useEffect(() => {
+        let alive = true;
+        const parar = service.watchStoreUpdates(nowMs, (nextStatus) => {
+            if (alive) setStatus(nextStatus);
+        });
+        return () => {
+            alive = false;
+            parar();
+        };
+    }, [nowMs, service]);
+
+    // A troca de loja da conta muda a moeda: os preços já na tela ficam errados
+    // até serem pedidos de novo (ADR de 2026-09-25, item 4). Só as ofertas são
+    // recarregadas; o estado da assinatura não depende da loja.
+    useEffect(() => {
+        let alive = true;
+        const parar = service.watchStorefront(() => {
+            const carga = ++ultimaCargaDeOfertas.current;
+            void service.loadOffers().then((nextOffers) => {
+                if (alive && carga === ultimaCargaDeOfertas.current) setOffers(nextOffers);
+            });
+        });
+        return () => {
+            alive = false;
+            parar();
+        };
+    }, [service]);
 
     const purchase = useCallback(async (product: StoreProduct) => {
         setBusy(true);
@@ -108,6 +145,21 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         }
     }, [nowMs, service]);
 
+    // Troca de plano e cancelamento acontecem na folha da Apple (ADR de
+    // 2026-09-25, "Gerenciar", opção A). Quando ela fecha, o serviço relê a
+    // assinatura, e a tela mostra o que mudou lá.
+    const manage = useCallback(async () => {
+        setBusy(true);
+        setNotice(null);
+        try {
+            const result = await service.manageSubscription(nowMs());
+            if (result.kind === 'shown') setStatus(result.status);
+            else setNotice({ kind: 'manage-failed' });
+        } finally {
+            setBusy(false);
+        }
+    }, [nowMs, service]);
+
     const close = useCallback(() => {
         router.back();
     }, []);
@@ -147,6 +199,16 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
                             ? `Renova em ${formatShortDate(status.expiresAt)}. Suas vidas são ilimitadas até lá — e continuam, enquanto a assinatura renovar.`
                             : `Cancelada — válida até ${formatShortDate(status.expiresAt)}. Depois disso, suas vidas voltam a 5 e continuam se recuperando.`}
                 </Text>
+                <AppButton
+                    label="Gerenciar assinatura"
+                    variant="secondary"
+                    disabled={busy}
+                    onPress={() => void manage()}
+                    accessibilityHint="Abre a folha da Apple para trocar de plano ou cancelar."
+                />
+                {notice?.kind === 'manage-failed' ? (
+                    <Text style={styles.notice}>O gerenciamento da Apple não abriu agora. Tente de novo mais tarde.</Text>
+                ) : null}
                 <Text style={styles.body}>{CANCEL_COPY}</Text>
             </View>
         );

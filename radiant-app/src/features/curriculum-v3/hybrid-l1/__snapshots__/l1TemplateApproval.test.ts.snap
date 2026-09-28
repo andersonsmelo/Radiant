@@ -57,8 +57,8 @@ Se acertar: Superficial está mais perto da superfície.
 Se errar: Compare as duas camadas locais, não a altura delas no quadro.
 Dica de primeiro contato: Superficial é a camada mais externa.
 
-h08-ant-post · desafio · choice · prone/front
-Pergunta: Em decúbito ventral, vista de frente, qual superfície do tórax é a anterior?
+h08-ant-post · desafio · choice · prone/back
+Pergunta: Em decúbito ventral, vista por trás, qual superfície do tórax é a anterior?
     Superfície 1: Painel com traço pontilhado.
   ✓ Superfície 2: Painel com contorno contínuo.
 Se acertar: Anterior continua sendo a frente do corpo; a referência anatômica não vira cima ou baixo quando a pessoa deita.
@@ -99,10 +99,10 @@ Se acertar: Proximal se aproxima da ligação do membro.
 Se errar: Use a ligação com o tronco como referência do membro.
 Dica de primeiro contato: Proximal é perto da ligação com o tronco.
 
-h05-lat-dorsal-v · desafio · tap · supine/back · variante
-Pergunta: Em decúbito dorsal, vista por trás, qual mão pertence ao lado direito da pessoa?
-    Mão 1: Aparece na parte de baixo do quadro.
-  ✓ Mão 2: Aparece na parte de cima do quadro.
+h05-lat-dorsal-v · desafio · tap · supine/front · variante
+Pergunta: Em decúbito dorsal, vista de frente, qual mão pertence ao lado esquerdo da pessoa?
+  ✓ Mão 1: Aparece na parte de baixo do quadro.
+    Mão 2: Aparece na parte de cima do quadro.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
@@ -115,8 +115,8 @@ Se acertar: Proximal se aproxima da ligação do membro.
 Se errar: Use a ligação com o tronco como referência do membro.
 Dica de primeiro contato: Proximal é perto da ligação com o tronco.
 
-h07-sup-prof-v · desafio · tap · supine/front · variante
-Pergunta: Em decúbito dorsal, vista de frente, qual marcador está na camada mais profunda?
+h07-sup-prof-v · desafio · tap · anatomical/front · variante
+Pergunta: Na posição anatômica, vista de frente, qual marcador está na camada mais profunda?
     Marcador 1: Marcador no contorno sólido mais externo.
   ✓ Marcador 2: Marcador na camada tracejada interna.
 Se acertar: Superficial está mais perto da superfície.
@@ -124,40 +124,40 @@ Se errar: Compare as duas camadas locais, não a altura delas no quadro.
 Dica de primeiro contato: Superficial é a camada mais externa.
 
 h08-ant-post-v · desafio · choice · prone/back · variante
-Pergunta: Em decúbito ventral, vista por trás, qual superfície do tórax é a anterior?
-    Superfície 1: Painel com traço pontilhado.
-  ✓ Superfície 2: Painel com contorno contínuo.
+Pergunta: Em decúbito ventral, vista por trás, qual superfície do tórax é a posterior?
+  ✓ Superfície 1: Painel com traço pontilhado.
+    Superfície 2: Painel com contorno contínuo.
 Se acertar: Anterior continua sendo a frente do corpo; a referência anatômica não vira cima ou baixo quando a pessoa deita.
 Se errar: Não use a gravidade como referência. Anterior e posterior permanecem definidos pelo corpo, mesmo em outra postura.
 Dica de primeiro contato: Anterior é a frente do corpo, mesmo deitado.
 
-h09-vf-med-lat-v · desafio · true_false · supine/back · variante
-Pergunta: Em decúbito dorsal, vista por trás, verdadeiro ou falso: o marcador 1 está mais afastado da linha mediana.
+h09-vf-med-lat-v · desafio · true_false · supine/front · variante
+Pergunta: Em decúbito dorsal, vista de frente, verdadeiro ou falso: o marcador 1 está mais próximo da linha mediana.
   No mapa: 1 = Marcador junto ao contorno externo do braço. · 2 = Marcador junto à linha tracejada central.
-  ✓ Verdadeiro: A afirmação está correta.
-    Falso: A afirmação está errada.
+    Verdadeiro: A afirmação está correta.
+  ✓ Falso: A afirmação está errada.
 Se acertar: Medial é a relação com a linha mediana.
 Se errar: Compare cada marcador com a linha mediana, não com a borda da tela.
 Dica de primeiro contato: Medial é perto da linha mediana, não da borda.
 
-h10-lat-ventral-v · desafio · choice · anatomical/front · variante
-Pergunta: Na posição anatômica, vista de frente, qual mão pertence ao lado esquerdo da pessoa?
-    Mão 1: Aparece à esquerda de quem observa.
-  ✓ Mão 2: Aparece à direita de quem observa.
+h10-lat-ventral-v · desafio · choice · prone/back · variante
+Pergunta: Em decúbito ventral, vista por trás, qual mão pertence ao lado direito da pessoa?
+  ✓ Mão 1: Aparece na parte de baixo do quadro.
+    Mão 2: Aparece na parte de cima do quadro.
 Se acertar: Você tomou o corpo examinado como referência, não o seu lado da tela.
 Se errar: O lado direito ou esquerdo pertence ao corpo descrito. Troque a perspectiva do observador pela referência anatômica.
 Dica de primeiro contato: Você usou o seu lado, não o da pessoa.
 
-h11-sup-inf-v · desafio · tap · supine/back · variante
-Pergunta: Em decúbito dorsal, vista por trás, qual marcador está mais próximo dos pés?
-  ✓ Marcador 1: Marcador junto à extremidade dos pés.
-    Marcador 2: Marcador junto à extremidade da cabeça.
+h11-sup-inf-v · desafio · tap · supine/front · variante
+Pergunta: Em decúbito dorsal, vista de frente, qual marcador está mais próximo da cabeça?
+    Marcador 1: Marcador junto à extremidade dos pés.
+  ✓ Marcador 2: Marcador junto à extremidade da cabeça.
 Se acertar: Superior descreve proximidade da cabeça, não a parte mais alta da tela.
 Se errar: Use a referência cabeça–pés do corpo, não a altura do quadro.
 Dica de primeiro contato: Superior é perto da cabeça, não o alto da tela.
 
-h12-vf-prox-dist-v · desafio · true_false · supine/front · variante
-Pergunta: Em decúbito dorsal, vista de frente, verdadeiro ou falso: o marcador 2 está mais longe da ligação do braço com o tronco.
+h12-vf-prox-dist-v · desafio · true_false · anatomical/front · variante
+Pergunta: Na posição anatômica, vista de frente, verdadeiro ou falso: o marcador 2 está mais longe da ligação do braço com o tronco.
   No mapa: 1 = Marcador junto ao punho. · 2 = Marcador junto à ligação do braço com o tronco.
     Verdadeiro: A afirmação está correta.
   ✓ Falso: A afirmação está errada.

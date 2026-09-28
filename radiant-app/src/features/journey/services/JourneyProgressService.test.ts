@@ -257,7 +257,6 @@ describe('JourneyProgressService', () => {
     it('reabrir uma lição concluída não apaga a retomada de outra lição em andamento', async () => {
         await JourneyProgressService.bootstrap();
         await JourneyProgressService.markNodeCompleted('node:foundation-1');
-        await JourneyProgressService.markNodeCompleted('node:checkpoint:foundations');
         await JourneyProgressService.setResumableNode('node:foundation-2', 1);
 
         await JourneyProgressService.setCurrentNode('node:foundation-1');
@@ -512,5 +511,85 @@ describe('JourneyProgressService — backup best-effort na conclusão de nó', (
 
         expect(snapshot.progress.completedNodeIds).toContain('node:foundation-1');
         expect(backupNow).toHaveBeenCalledTimes(1);
+    });
+});
+
+// ADR de 2026-09-28: os checkpoints das trilhas do catálogo saíram da trilha.
+// Quem já usa o app tem progresso gravado com eles: concluídos, ou como nó
+// atual e último concluído. A leitura precisa ignorar esses ids e abrir a lição
+// seguinte pela lição anterior, sem quebrar.
+describe('JourneyProgressService — progresso gravado com os checkpoints que saíram', () => {
+    const storageState: Record<string, string> = {};
+    const OLD_CHECKPOINT_ID = 'node:checkpoint:foundations';
+
+    function storeFoundationsProgress(progress: {
+        completedNodeIds: string[];
+        currentNodeId: string | null;
+        lastCompletedNodeId?: string;
+    }) {
+        storageState[STORAGE_KEYS.JOURNEY_PROGRESS] = JSON.stringify({
+            schemaVersion: JOURNEY_PROGRESS_SCHEMA_VERSION,
+            activeTrackId: 'track-radiology-foundations',
+            tracks: {
+                'track-radiology-foundations': {
+                    schemaVersion: JOURNEY_PROGRESS_SCHEMA_VERSION,
+                    activeTrackId: 'track-radiology-foundations',
+                    currentUnitId: 'unit-radiology-foundations-1',
+                    pendingReviewNodeIds: [],
+                    lastUpdatedAt: '2026-09-20T12:00:00.000Z',
+                    pendingSyncEvents: [],
+                    ...progress,
+                },
+            },
+        });
+    }
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        Object.keys(storageState).forEach((key) => {
+            delete storageState[key];
+        });
+        storage.getItem.mockImplementation(async (key) => storageState[key] ?? null);
+        storage.setItem.mockImplementation(async (key, value) => {
+            storageState[key] = value;
+        });
+        storage.removeItem.mockImplementation(async (key) => {
+            delete storageState[key];
+        });
+        mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue(['foundation-1']);
+        mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
+        mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    it('quem concluiu a lição e o checkpoint tem a lição seguinte aberta, e o id velho é ignorado', async () => {
+        storeFoundationsProgress({
+            completedNodeIds: ['node:foundation-1', OLD_CHECKPOINT_ID],
+            currentNodeId: OLD_CHECKPOINT_ID,
+            lastCompletedNodeId: OLD_CHECKPOINT_ID,
+        });
+
+        const snapshot = await JourneyProgressService.bootstrap();
+
+        expect(nodeStatus(snapshot, 'node:foundation-1')).toBe('completed');
+        expect(nodeStatus(snapshot, 'node:foundation-2')).toBe('available');
+        expect(snapshot.progress.completedNodeIds).not.toContain(OLD_CHECKPOINT_ID);
+        expect(snapshot.track.units.flatMap((unit) => unit.nodes).some((node) => node.id === OLD_CHECKPOINT_ID)).toBe(false);
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:foundation-2');
+    });
+
+    it('quem concluiu a lição sem o checkpoint tem a lição seguinte aberta', async () => {
+        storeFoundationsProgress({
+            completedNodeIds: ['node:foundation-1'],
+            currentNodeId: null,
+            lastCompletedNodeId: 'node:foundation-1',
+        });
+
+        const snapshot = await JourneyProgressService.bootstrap();
+
+        expect(nodeStatus(snapshot, 'node:foundation-2')).toBe('available');
+        expect(snapshot.nextRecommendedNode?.id).toBe('node:foundation-2');
     });
 });
