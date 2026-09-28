@@ -286,6 +286,20 @@ class ClassifySourceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "planet-modalidades"):
             self._aplicar(record, self._decisao(galaxyId="galaxy-fisica"))
 
+    def test_colocacao_sem_destino_e_recusada(self):
+        # Revisao da PR #38: com galaxia e planeta nulos, `planet_galaxy.get(None)`
+        # e `None` e a comparacao passava, aprovando um registro sem destino. O
+        # mesmo com planeta que nao existe e galaxia nula.
+        record = self._registro_em_revisao()
+        aprovada = {"status": "approved", "reviewedBy": "revisor", "reviewedAt": "2026-10-01"}
+        for destino in (
+            {"galaxyId": None, "planetId": None, "starId": None},
+            {"galaxyId": None, "planetId": "planet-inexistente", "starId": None},
+        ):
+            with self.subTest(destino=destino):
+                with self.assertRaisesRegex(ValueError, "destino"):
+                    self._aplicar(record, self._decisao(**aprovada, **destino))
+
     def test_estrela_que_nao_e_do_planeta_e_recusada(self):
         record = self._registro_em_revisao()
         with self.assertRaisesRegex(ValueError, "star-pneumotorax"):

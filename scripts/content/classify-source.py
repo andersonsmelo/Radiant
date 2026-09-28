@@ -528,7 +528,11 @@ def _validate_placement(decision: dict, taxonomy: dict) -> None:
     excerpt_id = decision["sourceExcerptId"]
     galaxy_id, planet_id, star_id = decision["galaxyId"], decision["planetId"], decision["starId"]
     planet_galaxy = {item["id"]: item["galaxyId"] for item in taxonomy["planets"]}
-    if planet_galaxy.get(planet_id) != galaxy_id:
+    # Sem esta checagem, galaxia e planeta nulos (resto de uma exclusao editada
+    # para colocacao) passavam, porque `planet_galaxy.get(None)` e `None`.
+    if galaxy_id is None or planet_id not in planet_galaxy:
+        raise ValueError(f"Decisao de {excerpt_id}: colocacao sem destino valido ({galaxy_id}, {planet_id})")
+    if planet_galaxy[planet_id] != galaxy_id:
         raise ValueError(f"Decisao de {excerpt_id}: {planet_id} nao pertence a {galaxy_id}")
     star_ids = PLANET_STAR_IDS.get(planet_id, [])
     if star_id is None and star_ids:

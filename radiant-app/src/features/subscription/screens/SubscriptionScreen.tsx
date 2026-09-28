@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -44,22 +44,27 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     const [notice, setNotice] = useState<Notice>(null);
     const [busy, setBusy] = useState(false);
     const [attempt, setAttempt] = useState(0);
+    // Só a carga de ofertas mais recente escreve na tela. A da abertura e a da
+    // troca de loja correm juntas, e sem ordem a mais antiga podia chegar por
+    // último e trazer a moeda velha de volta (revisão da PR #38).
+    const ultimaCargaDeOfertas = useRef(0);
 
     useEffect(() => {
         let alive = true;
+        const carga = ++ultimaCargaDeOfertas.current;
         setStatus(null);
         setOffers(null);
         void Promise.all([service.refresh(nowMs()), service.loadOffers()])
             .then(([nextStatus, nextOffers]) => {
                 if (!alive) return;
                 setStatus(nextStatus);
-                setOffers(nextOffers);
+                if (carga === ultimaCargaDeOfertas.current) setOffers(nextOffers);
             })
             .catch((cause) => {
                 console.error('[SubscriptionScreen] Falha ao carregar a assinatura:', cause);
                 if (!alive) return;
                 setStatus({ kind: 'none' });
-                setOffers({ status: 'store-unavailable' });
+                if (carga === ultimaCargaDeOfertas.current) setOffers({ status: 'store-unavailable' });
             });
         return () => {
             alive = false;
@@ -86,8 +91,9 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
     useEffect(() => {
         let alive = true;
         const parar = service.watchStorefront(() => {
+            const carga = ++ultimaCargaDeOfertas.current;
             void service.loadOffers().then((nextOffers) => {
-                if (alive) setOffers(nextOffers);
+                if (alive && carga === ultimaCargaDeOfertas.current) setOffers(nextOffers);
             });
         });
         return () => {

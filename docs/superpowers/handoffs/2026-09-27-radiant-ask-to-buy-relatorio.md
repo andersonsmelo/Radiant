@@ -111,3 +111,29 @@ ignorados pelo git, e o backup do esquema está no scratchpad desta sessão.
 - **Agente:** o **25**, anunciar a perda de vida ao leitor de tela. Depois
   dele, o 20 (bump), se o dono concordar.
 - **Dono:** nada deste item.
+
+## Revisão da PR #38 (2026-09-27, à noite)
+
+O revisor automático da PR ([andersonsmelo/Radiant#38](https://github.com/andersonsmelo/Radiant/pull/38))
+apontou dois defeitos. Os dois foram confirmados no código e consertados no
+run `run-1790558846552-7c4a9040`, com teste vermelho antes:
+
+- **`scripts/content/classify-source.py`, `_validate_placement`:** uma
+  decisão `place` aprovada com galáxia e planeta nulos passava, porque
+  `planet_galaxy.get(None)` é `None`. O mesmo acontecia com um planeta
+  inexistente e galáxia nula. O registro saía aprovado sem destino.
+  - Agora a validação exige galáxia não nula e planeta que exista na
+    taxonomia.
+  - Vermelho: "ValueError not raised" nos dois casos.
+  - As 18 decisões `place` reais da fonte versionada continuam válidas.
+- **`SubscriptionScreen`:** a carga de ofertas da abertura e a da troca de
+  loja corriam sem ordem. Se a da abertura, com a moeda antiga, chegava por
+  último, ela sobrescrevia os preços certos.
+  - Agora um contador de geração deixa só a carga mais recente escrever.
+  - Vermelho: "Unable to find an element with text: R$ 19,90", com
+    "US$ 2,99" na tela.
+
+**Gate depois da revisão** (Node `v20.20.2`): exit 0, **152 suítes / 1451
+testes**. É um teste Jest a mais que às 20:00, o da tela; o teste Python roda
+fora do Jest. Lint com 0 erros e 26 avisos, visual QA sem regressão. O
+arquivo `classify-source.test.py` passou inteiro, com 25 testes.

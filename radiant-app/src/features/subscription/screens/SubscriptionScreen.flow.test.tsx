@@ -238,6 +238,31 @@ describe('SubscriptionScreen — estados', () => {
         expect(pararDeEscutar).toHaveBeenCalledTimes(1);
     });
 
+    it('a carga de preços da abertura, se chega depois da troca de loja, não volta a moeda antiga', async () => {
+        // Revisão da PR #38: as duas cargas não tinham ordem, e a da abertura,
+        // pedida antes da troca, sobrescrevia os preços certos.
+        let liberarAntiga: (value: StoreProduct[]) => void = () => undefined;
+        let avisar: () => void = () => undefined;
+        const loadProducts = jest.fn()
+            .mockImplementationOnce(() => new Promise<StoreProduct[]>(resolve => { liberarAntiga = resolve; }))
+            .mockResolvedValue(produtos);
+        abrir(loja({
+            loadProducts,
+            onStorefrontChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return () => undefined;
+            }),
+        }));
+
+        await act(async () => { avisar(); });
+        await act(async () => {
+            liberarAntiga([{ ...produtos[0], displayPrice: 'US$ 2,99' }, { ...produtos[1], displayPrice: 'US$ 22,99' }]);
+        });
+
+        expect(await screen.findByText('R$ 19,90')).toBeTruthy();
+        expect(screen.queryByText('US$ 2,99')).toBeNull();
+    });
+
     it('restaurar compras recupera o direito e confirma na tela', async () => {
         abrir(loja({ restore: jest.fn(async () => direito()) }));
 
