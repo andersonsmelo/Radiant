@@ -15,7 +15,7 @@ export function buildL1HybridPlan(seed: number = L1_HYBRID_SEED): readonly Hybri
     lateralityItem({ id: 'h05-lat-dorsal', posture: 'supine', perspective: 'front', side: 'right', phase: 'challenge', format: 'tap' }, rng),
     relationItem({ id: 'h06-prox-dist', relation: 'proximal-distal', termIndex: 0, posture: 'anatomical', perspective: 'front', phase: 'challenge', format: 'choice' }, rng),
     relationItem({ id: 'h07-sup-prof', relation: 'superficial-deep', termIndex: 1, posture: 'anatomical', perspective: 'back', phase: 'challenge', format: 'tap' }, rng),
-    relationItem({ id: 'h08-ant-post', relation: 'anterior-posterior', termIndex: 0, posture: 'prone', perspective: 'front', phase: 'challenge', format: 'choice' }, rng),
+    relationItem({ id: 'h08-ant-post', relation: 'anterior-posterior', termIndex: 0, posture: 'prone', perspective: 'back', phase: 'challenge', format: 'choice' }, rng),
     trueFalseItem(relationItem({ id: 'h09-base', relation: 'medial-lateral', termIndex: 1, posture: 'supine', perspective: 'front', phase: 'challenge', format: 'choice' }, rng), 0, 'h09-vf-med-lat'),
     lateralityItem({ id: 'h10-lat-ventral', posture: 'prone', perspective: 'back', side: 'left', phase: 'challenge', format: 'choice' }, rng),
     relationItem({ id: 'h11-sup-inf', relation: 'superior-inferior', termIndex: 1, posture: 'supine', perspective: 'front', phase: 'challenge', format: 'tap' }, rng),

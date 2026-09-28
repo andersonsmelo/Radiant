@@ -11,9 +11,17 @@ const POSTURE_TEXT: Readonly<Record<BodyPosture, string>> = { anatomical: 'Na po
 const PERSPECTIVE_TEXT: Readonly<Record<BodyPerspective, string>> = { front: 'vista de frente', back: 'vista por trás' };
 const ACCESSIBLE_SUFFIX = 'As opções são numeradas; as descrições indicam posições, não a resposta.';
 
-const SCENARIOS: readonly (readonly [BodyPosture, BodyPerspective])[] = [
-  ['anatomical', 'front'], ['anatomical', 'back'], ['supine', 'front'], ['supine', 'back'], ['prone', 'front'], ['prone', 'back'],
-];
+/**
+ * As vistas que existem na rotina (ADR 2026-09-25, item 1b, e ADR 2026-09-28).
+ * O desenho é uma figura só, girada no decúbito e espelhada na vista por trás:
+ * o dorsal visto por trás e o ventral visto de frente seriam o corpo visto por
+ * baixo da mesa, e ficam fora. Sobra uma vista real para cada decúbito.
+ */
+const REAL_PERSPECTIVES: Readonly<Record<BodyPosture, readonly BodyPerspective[]>> = {
+  anatomical: ['front', 'back'],
+  supine: ['front'],
+  prone: ['back'],
+};
 
 export const TRUE_FALSE_OPTIONS: readonly HybridOption[] = [
   { id: 'verdadeiro', label: 'Verdadeiro', landmarkId: null, textDescription: 'A afirmação está correta.' },
@@ -34,9 +42,17 @@ export function describeRegion(region: ScreenRegion): string {
   return region === 'cima' ? 'na parte de cima do quadro' : 'na parte de baixo do quadro';
 }
 
-export function nextScenario(posture: BodyPosture, perspective: BodyPerspective): readonly [BodyPosture, BodyPerspective] {
-  const index = SCENARIOS.findIndex(([p, v]) => p === posture && v === perspective);
-  return SCENARIOS[(index + 1) % SCENARIOS.length];
+export type VariantScenario = Readonly<{ posture: BodyPosture; perspective: BodyPerspective; askOpposite: boolean }>;
+
+/**
+ * Onde cai a variante (ADR 2026-09-28): na mesma postura, porque ela retesta a
+ * confusão daquela postura. Havendo outra vista real, troca de vista e mantém
+ * a pergunta; não havendo, fica na mesma vista e pergunta o oposto — a outra
+ * mão, ou o outro termo da relação —, para a resposta mudar de lugar.
+ */
+export function variantScenario(posture: BodyPosture, perspective: BodyPerspective): VariantScenario {
+  const other = REAL_PERSPECTIVES[posture].find((candidate) => candidate !== perspective);
+  return other ? { posture, perspective: other, askOpposite: false } : { posture, perspective, askOpposite: true };
 }
 
 const accessible = (prompt: string): string => `${prompt} ${ACCESSIBLE_SUFFIX}`;
@@ -98,16 +114,18 @@ export function trueFalseItem(base: HybridItem, optionIndex: number, id: string)
   };
 }
 
-/** O item que volta depois de um erro: mesma regra, próximo cenário, nova ordem de opções. */
+/** O item que volta depois de um erro: mesma regra, mesma postura (`variantScenario`), nova ordem de opções. */
 export function variantOf(item: HybridItem, rng: Rng): HybridItem {
-  const [posture, perspective] = nextScenario(item.posture, item.perspective);
+  const { posture, perspective, askOpposite } = variantScenario(item.posture, item.perspective);
   const id = `${item.id}-v`;
   const source = item.source;
   if (source.kind === 'laterality') {
-    return { ...lateralityItem({ id, posture, perspective, side: source.side, phase: 'challenge', format: item.format === 'true_false' ? 'choice' : item.format }, rng), variant: true };
+    const side = askOpposite ? (source.side === 'left' ? 'right' : 'left') : source.side;
+    return { ...lateralityItem({ id, posture, perspective, side, phase: 'challenge', format: item.format === 'true_false' ? 'choice' : item.format }, rng), variant: true };
   }
   if (source.kind === 'relation') {
-    return { ...relationItem({ id, relation: source.relation, termIndex: source.termIndex, posture, perspective, phase: 'challenge', format: item.format === 'true_false' ? 'choice' : item.format }, rng), variant: true };
+    const termIndex = askOpposite ? (source.termIndex === 0 ? 1 : 0) : source.termIndex;
+    return { ...relationItem({ id, relation: source.relation, termIndex, posture, perspective, phase: 'challenge', format: item.format === 'true_false' ? 'choice' : item.format }, rng), variant: true };
   }
   const base = variantOf(source.base, rng);
   return { ...trueFalseItem(base, source.optionIndex, id), variant: true };

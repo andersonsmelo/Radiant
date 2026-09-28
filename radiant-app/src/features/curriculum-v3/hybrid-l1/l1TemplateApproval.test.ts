@@ -21,6 +21,28 @@ describe('aprovação dos modelos da L1', () => {
     expect(reviewSample().map(describeForReview).join('\n\n')).toMatchSnapshot();
   });
 
+  it('nenhuma pergunta se repete na amostra: a variante não duplica outro item', () => {
+    // ADR 2026-09-25, item 1a: o h10-v saía idêntico ao h01. Mesma pergunta
+    // no mesmo cenário é o mesmo gabarito; a pergunta inclui o cenário.
+    const porPergunta = new Map<string, string[]>();
+    for (const item of reviewSample()) {
+      porPergunta.set(item.prompt, [...(porPergunta.get(item.prompt) ?? []), item.id]);
+    }
+    const repetidas = [...porPergunta.values()].filter((ids) => ids.length > 1);
+
+    expect(repetidas).toEqual([]);
+    expect(porPergunta.size).toBe(20);
+  });
+
+  it('nenhum item da amostra usa uma vista que só existiria por baixo da mesa', () => {
+    // ADR 2026-09-25, item 1b, e ADR 2026-09-28 (o h08 incluído pelo dono).
+    const porBaixo = reviewSample()
+      .filter((item) => (item.posture === 'supine' && item.perspective === 'back') || (item.posture === 'prone' && item.perspective === 'front'))
+      .map((item) => `${item.id} · ${item.posture}/${item.perspective}`);
+
+    expect(porBaixo).toEqual([]);
+  });
+
   it('a impressão digital é estável', () => {
     expect(l1TemplateFingerprint()).toBe(l1TemplateFingerprint());
     expect(l1TemplateFingerprint()).toMatch(/^[0-9a-f]{8}$/);
