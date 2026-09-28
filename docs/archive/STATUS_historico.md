@@ -2252,3 +2252,18 @@ strict. **Última medição: 2026-09-28, às 00:56**, no Mac, no branch
 árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
 suítes / 1455 testes**, lint com 0 erros e 26 avisos, visual QA sem
 regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+
+## Retirado em 2026-09-28 — variantes da amostra da L1 (FILA, 7a)
+
+  2026-09-25** ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o agente corrige o item 18, que duplica
+  o 1, e as variantes do decúbito dorsal visto por trás, e o dono confirma os
+  itens alterados antes de a aprovação ser gravada ([FILA](../FILA.md), 7a e 7b).
+
+strict. **Última medição: 2026-09-28, às 07:50**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o bump para `1.4.0` (FILA, 20), e a árvore
+sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
+1457 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-10.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md).
+  Ele substitui o (9).

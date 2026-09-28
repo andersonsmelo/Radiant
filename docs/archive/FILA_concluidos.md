@@ -1526,3 +1526,19 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — variantes da amostra da L1 (7a)
+
+Retirados sem edição da "Ordem de prioridade"
+([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+[relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
+O 7b continua na FILA, reescrito com os 8 itens alterados.
+
+  - **7a.** agente: corrigir as variantes da amostra, o item 18 duplicado e o
+    decúbito dorsal visto por trás, e mostrar ao dono só os itens que mudaram;
+  - **7b.** dono: confirmar os itens alterados. Destrava o 15.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md), que traz todas as pendências na ordem abaixo;

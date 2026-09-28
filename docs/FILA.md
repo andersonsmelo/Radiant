@@ -49,10 +49,10 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (10)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md),
+[prompt (11)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25 e o 20 feitos, esse item é o
-**7a**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
+**12**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -70,7 +70,10 @@ destravado.** Desde 2026-09-28, com o 25 e o 20 feitos, esse item é o
 - em 2026-09-28: o 25 (anúncio da perda de vida na lição), pelo agente
   ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)),
   e o 20 (bump para `1.4.0`), pelo agente, com o ok do dono
-  ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+  ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)),
+  e o 7a (variantes da L1), pelo agente, com a regra escolhida pelo dono
+  ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
@@ -90,9 +93,10 @@ destravado.** Desde 2026-09-28, com o 25 e o 20 feitos, esse item é o
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
-  - **7a.** agente: corrigir as variantes da amostra, o item 18 duplicado e o
-    decúbito dorsal visto por trás, e mostrar ao dono só os itens que mudaram;
-  - **7b.** dono: confirmar os itens alterados. Destrava o 15.
+  - **7b.** dono: confirmar os **8 itens alterados** pelo 7a em 2026-09-28,
+    com o antes e o depois no
+    [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
+    Destrava o 15.
 - **P4 — agente, destravado:**
   - **12.** conserto do aquecimento (achado 5 do StoreKit, abaixo);
   - **13.** XP da aprovação do checkpoint;
@@ -128,7 +132,7 @@ destravado.** Desde 2026-09-28, com o 25 e o 20 feitos, esse item é o
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -413,6 +417,10 @@ Pendente, nesta ordem:
    `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
    — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
    digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
+   **Corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
+   a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
+   ventral visto por trás. Mudaram 8 dos 20 itens, e falta o dono confirmá-los
+   (7b).
    **Decidido em 2026-09-25, às 21:40** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o item 18 e
    as variantes do decúbito dorsal visto por trás são corrigidos antes; a
    aprovação vale para a amostra corrigida, depois que o dono confirmar os

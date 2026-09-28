@@ -1364,6 +1364,12 @@ canônica é
   na [`FILA.md`](../FILA.md).
   Medido pela suíte: 5 suítes, 51 testes da lição, todos aprovados (2026-09-22),
   e a suíte verde **não** detecta o Q1.
+  **Em 2026-09-28, a amostra do piloto foi corrigida:** a variante fica na
+  mesma postura, só com vistas reais, e o h08 passou ao ventral visto por
+  trás. Mudaram 8 dos 20 itens, e a aprovação espera o dono confirmá-los
+  (FILA, 7b)
+  ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
+  [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
 - **J4 [P0]** Executar revisão técnica especializada e QA real de VoiceOver,
   controle alternativo, Reduce Motion, redundância sem cor e equivalência entre
   variantes visual e textual.
