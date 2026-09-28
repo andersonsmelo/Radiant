@@ -245,6 +245,15 @@ exibição e o envio da fila de sync; o auth decide por `isApiConfigured()`.
 mexer nisso afeta login, sync e o contrato de telemetria. Detalhe em
 [`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
 
+**A Estude nunca oferece a conquista** (medido em 2026-09-28, no E2E do item
+34). O motor de recomendação da 1.4 exclui o nó de conquista
+(`JourneyRecommendationService`, desde `75cc9da`, de 2026-09-14). Depois da
+última lição de uma trilha, o botão diz "Aguardando nova etapa" e o card diz
+"Você concluiu tudo que está disponível", com a conquista ainda por coletar.
+Ela só se alcança achando o card na trilha. Vale para a 1.4 como está; recomendar
+a conquista é decisão do dono (FILA, 39;
+[evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+
 ## Kill switches reais
 
 Dois, medidos em 2026-09-23: `ENABLE_LEARNING_ROAD` (trilha contra Home antiga)
@@ -260,12 +269,12 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-28, às 15:40**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com o ícone de sequência pausado fora de foco
-(FILA, 33), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit
-0, **155 suítes / 1479 testes**, lint com 0 erros e 26 avisos, visual QA sem
+strict. **Última medição: 2026-09-28, às 20:37**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com a trilha sem os checkpoints de botão (FILA,
+34), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
+**155 suítes / 1482 testes**, lint com 0 erros e 26 avisos, visual QA sem
 regressão
-([relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)). O CI roda o mesmo comando inteiro
+([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -312,8 +321,8 @@ Medido em 2026-09-25, às 21:24:
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
 - **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
   do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
-  22:20 com o ok do dono. **Em 2026-09-28, às 15:41, estava com 32 commits
-  à frente da `main`,** com o CI verde na `cbb3025`: Content Scripts e
+  22:20 com o ok do dono. **Em 2026-09-28, às 20:37, estava com 34 commits
+  à frente da `main`,** com o CI verde na `e990bf6`: Content Scripts e
   Radiant App Quality. O commit deste run entra depois dessa medição.
   - O CI também passou em cada push anterior do dia.
   - A revisão do Codex apontou dois defeitos, que foram consertados na
@@ -339,6 +348,11 @@ Medido em 2026-09-25, às 21:24:
     ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md));
   - de 2026-09-28, na mesma sessão, o ícone de sequência pausado fora de foco
     (FILA, 33), com o hook de foco compartilhado em `src/ui/useScreenFocused.ts`;
+  - de 2026-09-28, na mesma sessão, **a trilha sem os checkpoints de botão**
+    (FILA, 29 e 34): as trilhas do catálogo passam de lição a lição, e as 5
+    avaliações da V2 ficam
+    ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md),
+    [relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
@@ -360,8 +374,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-28-radiant-prompt-de-continuidade-15.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md).
-  Ele substitui o (14).
+  [`2026-09-28-radiant-prompt-de-continuidade-16.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md).
+  Ele substitui o (15).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

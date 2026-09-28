@@ -1655,3 +1655,32 @@ Da abertura da "Ordem de prioridade", substituído sem edição:
 destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos, esse
 item é o **16**; o 13 vem antes na lista, mas pede pergunta ao dono, que quer
 remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## Lote de 2026-09-28 — os checkpoints de botão saíram da trilha (34)
+
+Retirado sem edição da "Ordem de prioridade"
+([relatório](../superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md),
+[evidência](../../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+O dono decidiu que ele entra na 1.4. No lugar entraram o 37 (a vitrine da loja)
+e o 38 (os fluxos E2E antigos e o código morto).
+
+  - **34.** agente: **tirar os 15 checkpoints de botão** das trilhas do
+    catálogo, que não fazem pergunta nenhuma. A lição seguinte passa a exigir
+    só a anterior. As 5 avaliações da trilha "Matéria, energia e radiação"
+    ficam ([ADR](../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Um run, com teste vermelho antes, conferindo quem já
+    tem progresso e os 9 fluxos E2E que citam "checkpoint". Se entra na 1.4 ou
+    depois, o dono decide;
+
+Da abertura da "Ordem de prioridade", substituído sem edição (só o link
+relativo reajustado ao novo diretório):
+
+[prompt (15)](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos e o
+29 decidido, esse item é o **34**. Se ele entra na 1.4 ou depois, o dono
+decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md), que traz todas as pendências na ordem abaixo;

@@ -2344,3 +2344,19 @@ strict. **Última medição: 2026-09-28, às 14:52**, no Mac, no branch
      **O checkpoint ficou fora, por decisão do dono,** que quer removê-lo até
      entender a função dele (FILA, 29). Enquanto ele existir, o erro ali
      debita vida sem anúncio (`CheckpointScreen.tsx:324`).
+
+## Retirado em 2026-09-28 — a trilha sem os checkpoints de botão (FILA, 34)
+
+strict. **Última medição: 2026-09-28, às 15:40**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o ícone de sequência pausado fora de foco
+(FILA, 33), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit
+0, **155 suítes / 1479 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 15:41, estava com 32 commits
+  à frente da `main`,** com o CI verde na `cbb3025`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-15.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md).
+  Ele substitui o (14).

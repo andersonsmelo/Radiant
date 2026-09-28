@@ -7,6 +7,9 @@ tags:
     clearState: true
     permissions:
       all: deny
+# O dev client entra por espera explícita (ver o subflow). Num build de loja ele
+# não aparece, e a espera só custa o prazo.
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 
 # A home limpa nao entra na vitrine: XP e sequencia aparecem zerados. A trilha e
@@ -15,7 +18,10 @@ tags:
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
+# título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
+# texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # CTA da home fica abaixo da dobra, e o repeat guardado para no instante em que o
 # elemento entra na arvore — o que no emulador rapido o deixa sob a tab bar
@@ -62,42 +68,30 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
+# O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
+# e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
+# medido em 2026-09-28, no simulador, parava aqui.
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
 
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
+# Até a ADR de 2026-09-28 havia um checkpoint de botão entre as duas lições, e
+# esta passagem capturava `shots/04-checkpoint` e `shots/05-conquista`. Ele
+# saiu da trilha, e as duas capturas saíram com ele. Os números restantes não
+# foram renumerados, para não mexer em quem os consome; o que a vitrine da loja
+# passa a mostrar é decisão do dono (FILA, 37).
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
 - scroll
-- tapOn: Abrir checkpoint
-- assertVisible: Checkpoint
-- takeScreenshot: shots/04-checkpoint
-- repeat:
-    times: 15
-    while:
-      notVisible: Concluir checkpoint
-    commands:
-      - scroll
-- scroll
-- tapOn: Concluir checkpoint
-
-- assertVisible: CONQUISTA DESBLOQUEADA
-- takeScreenshot: shots/05-conquista
-
-- repeat:
-    times: 15
-    while:
-      notVisible: Abrir próxima lição
-    commands:
-      - scroll
-- scroll
-- tapOn: Abrir próxima lição
+- tapOn: Continuar jornada
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -120,13 +114,15 @@ tags:
 - tapOn: Continuar
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
 
 # Agora sim: home com progresso preenchido.
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - takeScreenshot: shots/01-home
 
 # Aba Perfil — que desde 2026-08-21 agrega identidade, missões e progresso.

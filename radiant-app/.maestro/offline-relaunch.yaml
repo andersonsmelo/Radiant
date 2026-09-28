@@ -8,21 +8,10 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
-- runFlow:
-    when:
-      visible: 'Connected to:'
-    commands:
-      - tapOn: Close
+# O dev client entra por espera explícita, e não por `runFlow when`, que é
+# avaliado uma vez só e perde a folha que sobe depois (medido em 2026-09-24 e
+# de novo em 2026-09-28; ver o subflow).
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 - openLink:
     link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
@@ -59,23 +48,38 @@ tags:
     id: lesson-option-q1:option:1
 - tapOn: Continuar
 - tapOn: Concluir e voltar
+# O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
+# e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
+# medido em 2026-09-28, no simulador, parava aqui.
+- assertVisible: A lição foi concluída
+- tapOn: Continuar
 # Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
+# título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
+# texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # setAirplaneMode takes enabled/disabled, not a boolean — `true` fails to parse.
 - setAirplaneMode: enabled
 - killApp
 - launchApp
-- assertVisible: '^\d+ de \d+$'
+# Num build com dev client, a reabertura para no launcher ("DEVELOPMENT
+# SERVERS"), esperando a escolha do servidor (medido em 2026-09-28). O subflow
+# cobre esse estado; num build de loja ele não aparece.
+- runFlow: subflows/dismiss-dev-client.yaml
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # The CTA sits past the fold, below the journey map, so scroll before asserting
-# that the restored progress advanced the next step to the checkpoint.
+# that the restored progress advanced the next step to the next lesson. Until the
+# ADR of 2026-09-28 a catalog checkpoint came first, and the CTA read
+# "Abrir checkpoint"; now the next node is lesson 2 and the CTA is
+# `continueLabel`'s lesson label.
 - repeat:
     times: 15
     while:
-      notVisible: Abrir checkpoint
+      notVisible: Continuar jornada
     commands:
       - scroll
-- assertVisible: Abrir checkpoint
+- assertVisible: Continuar jornada
 - setAirplaneMode: disabled

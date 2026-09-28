@@ -22,7 +22,7 @@ tags:
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
-# Revisão devida vence o checkpoint na recomendação (`NextNodeResolver`), e o
+# Revisão devida vence a lição seguinte na recomendação (`NextNodeResolver`), e o
 # nó recomendado anuncia o motivo no lugar do estado.
 - assertVisible: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
 - tapOn: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'

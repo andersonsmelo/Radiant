@@ -181,16 +181,6 @@ function resolveTrackLessons(track: LearningTrack): ContentLesson[] {
         .filter((lesson): lesson is ContentLesson => Boolean(lesson));
 }
 
-function checkpointNodeId(track: LearningTrack, lesson: ContentLesson, lessonIndex: number, lessonCount: number): string {
-    const trackSegment = slugSegment(track.slug || track.id);
-
-    if (lessonCount === 2 && lessonIndex === 0) {
-        return `node:checkpoint:${trackSegment}`;
-    }
-
-    return `node:checkpoint:${trackSegment}:${lesson.id}`;
-}
-
 function rewardNodeId(track: LearningTrack, lessonCount: number): string {
     const trackSegment = slugSegment(track.slug || track.id);
 
@@ -205,9 +195,12 @@ function buildUnit(track: LearningTrack, trackIndex: number, lessons: ContentLes
     const unitId = trackIndex === 0 ? 'unit-radiology-foundations-1' : `unit:${track.id}`;
     const nodes: JourneyNodeDefinition[] = [];
 
+    // Sem checkpoint entre as lições (ADR de 2026-09-28): nas trilhas do
+    // catálogo ele era só um botão, sem pergunta nem custo de vida. A lição
+    // seguinte exige a anterior. As avaliações da V2 são montadas em
+    // `ProductionCurriculumCatalog.journeyFor` e continuam.
     lessons.forEach((lesson, lessonIndex) => {
-        const previousCheckpointId =
-            lessonIndex > 0 ? checkpointNodeId(track, lessons[lessonIndex - 1], lessonIndex - 1, lessons.length) : null;
+        const previousLessonNodeId = lessonIndex > 0 ? `node:${lessons[lessonIndex - 1].id}` : null;
 
         nodes.push({
             id: `node:${lesson.id}`,
@@ -216,9 +209,9 @@ function buildUnit(track: LearningTrack, trackIndex: number, lessons: ContentLes
             title: lesson.title,
             lessonId: lesson.id,
             blockId: `block:${lesson.id}:intro`,
-            unlockRule: previousCheckpointId
+            unlockRule: previousLessonNodeId
                 ? {
-                      requiresNodeIds: [previousCheckpointId],
+                      requiresNodeIds: [previousLessonNodeId],
                   }
                 : undefined,
         });
@@ -234,22 +227,6 @@ function buildUnit(track: LearningTrack, trackIndex: number, lessons: ContentLes
                 requiresNodeIds: [`node:${lesson.id}`],
             },
         });
-
-        if (lessonIndex < lessons.length - 1) {
-            nodes.push({
-                id: checkpointNodeId(track, lesson, lessonIndex, lessons.length),
-                unitId,
-                type: 'checkpoint',
-                title: lessonIndex === lessons.length - 2 ? 'Checkpoint da unidade' : `Checkpoint ${lessonIndex + 1}`,
-                description:
-                    lessonIndex === lessons.length - 2
-                        ? 'Fecha a etapa atual antes de avançar.'
-                        : 'Valida este trecho antes de abrir a próxima lição.',
-                unlockRule: {
-                    requiresNodeIds: [`node:${lesson.id}`],
-                },
-            });
-        }
     });
 
     const lastLesson = lessons[lessons.length - 1];

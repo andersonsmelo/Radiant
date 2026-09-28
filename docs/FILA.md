@@ -49,11 +49,11 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (15)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md),
+[prompt (16)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos e o
-29 decidido, esse item é o **34**. Se ele entra na 1.4 ou depois, o dono
-decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12, o 33 e o 34 feitos
+e o 29 decidido, esse item é o **13**. O que segura a 1.4 agora é só do dono:
+o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -86,7 +86,9 @@ decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
   foi de ~31 % para 0,1 % ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
   [relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)),
   e o 29 (o que fazer com o checkpoint), decidido pelo dono: saem os 15
-  checkpoints de botão, e as 5 avaliações da V2 ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)).
+  checkpoints de botão, e as 5 avaliações da V2 ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)),
+  e o 34, a remoção, pelo agente, na 1.4 a pedido do dono
+  ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md), [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
@@ -111,12 +113,6 @@ decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **34.** agente: **tirar os 15 checkpoints de botão** das trilhas do
-    catálogo, que não fazem pergunta nenhuma. A lição seguinte passa a exigir
-    só a anterior. As 5 avaliações da trilha "Matéria, energia e radiação"
-    ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Um run, com teste vermelho antes, conferindo quem já
-    tem progresso e os 9 fluxos E2E que citam "checkpoint". Se entra na 1.4 ou
-    depois, o dono decide;
   - **13.** XP da aprovação **das avaliações da V2**, que ficam pela
     [ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md): aprovar não soma XP, e a tela mostra o total igual;
   - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
@@ -124,6 +120,14 @@ decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
     espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
     mas não se achou link para `/quiz` no app;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
+  - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
+    desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três
+    `student-checkpoint-*` que afirmam a trilha). Eles ancoram na Estude por
+    `'^\d+ de \d+$'`, que não existe mais na árvore desde os consertos de
+    acessibilidade, e guardam o dev client com `runFlow when`, que perde a
+    folha atrasada. Os fluxos que o 34 tocou foram consertados assim e passaram
+    ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). No mesmo item: o ramo da tela do checkpoint sem
+    perguntas ("Concluir checkpoint") ficou inalcançável e pode sair;
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
@@ -143,6 +147,22 @@ decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
     da lição. Quando a animação for desenhada, eles voltam **tocando depois do
     erro**, e não colados nele
     ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
+  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
+    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
+    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
+    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
+    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
+    disponível". A conquista, porém, continua esperando a coleta, e só se
+    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
+    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
+    conquista coletável como um degrau do motor, depois do checkpoint. Se
+    entra na 1.4 é decisão do dono;
+  - **37.** **a vitrine da loja perdeu duas capturas.** O `store-capture`
+    fotografava o checkpoint de botão (`04-checkpoint`) e a celebração
+    (`05-conquista`), e o `APP_STORE_LISTING_MATRIX.md` descreve a vitrine com
+    elas. Sem o checkpoint no começo da trilha, as duas saíram do fluxo, e os
+    números das outras não foram mudados. Se a matriz e as capturas publicadas
+    mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
   - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
     como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
     espaçada está certa. O agente propõe algo como "Disponível amanhã".
@@ -164,7 +184,7 @@ decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

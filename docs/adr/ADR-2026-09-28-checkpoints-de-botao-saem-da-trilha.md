@@ -1,6 +1,7 @@
 # ADR — Os checkpoints de botão saem da trilha; as avaliações da V2 ficam (2026-09-28)
 
-**Status:** aceita; implementação pendente (FILA, 34)  
+**Status:** aceita; implementada em 2026-09-28, na 1.4, a pedido do dono (FILA, 34;
+[relatório](../superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md))  
 **Decisor:** Anderson Melo (dono do projeto), em 2026-09-28, à tarde. O agente
 levantou o que o checkpoint faz hoje e levou três opções. O dono escolheu a
 recomendada (1).  
@@ -90,5 +91,5 @@ decisão não o toca.
     mudar o texto é decisão do dono.
 - **A spec da 1.4** continua certa. A tabela de vidas fala em "checkpoint", e
   agora isso quer dizer as avaliações da V2.
-- **Se a remoção entra na 1.4 ou depois** é decisão do dono. A PR #38 está
-  pronta para merge sem ela.
+- **Se a remoção entra na 1.4 ou depois** era decisão do dono. Ele decidiu,
+  em 2026-09-28, que entra na 1.4, dentro da PR #38.
