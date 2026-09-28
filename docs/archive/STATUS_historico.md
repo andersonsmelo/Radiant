@@ -2300,3 +2300,19 @@ nenhum arquivo alheio ao run.
 
   [`2026-09-28-radiant-prompt-de-continuidade-12.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md).
   Ele substitui o (11).
+
+## Retirado em 2026-09-28 — conserto do aquecimento (FILA, 12)
+
+strict. **Última medição: 2026-09-28, às 11:19**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os sons na lição, já sem o som do coração
+(FILA, 31), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes / 1467
+testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 12:30, estava com 30 commits
+  à frente da `main`,** sem conflito (`MERGEABLE`, `CLEAN`), e com o CI verde
+  na `72c599f`: Content Scripts e Radiant App Quality. O commit deste run
+  entra depois dessa medição.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-13.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md).
+  Ele substitui o (12).

@@ -1563,3 +1563,37 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — conserto do aquecimento (12)
+
+Retirados sem edição da "Ordem de prioridade" e do achado 5 do StoreKit
+([evidência](../../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
+[relatório](../superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)).
+No lugar entrou o 33, o ícone de sequência que respira fora de foco, que
+sobrou da medição. O 14 continua na FILA, reescrito sem a dependência do 12.
+
+  - **12.** conserto do aquecimento (achado 5 do StoreKit, abaixo);
+  - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
+
+Do achado 5 do StoreKit:
+
+   - **AGENTE, conserto (aberto em 2026-09-25):** parar a animação do fundo
+     quando a tela sai de foco e medir de novo, M1 e M4, na mesma passagem.
+     Candidatos: `freezeOnBlur` nas abas, que não alcança as abas cobertas
+     por uma tela empilhada, ou o `StarfieldBackground` pausar com
+     `useIsFocused`, que alcançaria as duas situações (inferido; as telas
+     empilhadas não foram medidas). Um run, com teste vermelho antes. Ficou
+     fora da medição por decisão do dono.
+
+Da abertura da "Ordem de prioridade", substituído sem edição (só o link
+relativo reajustado ao novo diretório):
+
+[prompt (13)](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
+**12**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md), que traz todas as pendências na ordem abaixo;

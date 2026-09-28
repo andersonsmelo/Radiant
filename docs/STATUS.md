@@ -259,11 +259,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-28, às 11:19**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com os sons na lição, já sem o som do coração
-(FILA, 31), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes / 1467
-testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
-([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)). O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-28, às 14:52**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o conserto do aquecimento (FILA, 12), e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **154 suítes
+/ 1473 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -310,10 +310,9 @@ Medido em 2026-09-25, às 21:24:
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
 - **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
   do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
-  22:20 com o ok do dono. **Em 2026-09-28, às 12:30, estava com 30 commits
-  à frente da `main`,** sem conflito (`MERGEABLE`, `CLEAN`), e com o CI verde
-  na `72c599f`: Content Scripts e Radiant App Quality. O commit deste run
-  entra depois dessa medição.
+  22:20 com o ok do dono. **Em 2026-09-28, às 14:08, estava com 31 commits
+  à frente da `main`,** com o CI verde na `2049a63`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
   - O CI também passou em cada push anterior do dia.
   - A revisão do Codex apontou dois defeitos, que foram consertados na
     `3db5f8d`, com as threads respondidas e resolvidas.
@@ -333,11 +332,20 @@ Medido em 2026-09-25, às 21:24:
     - os sons e a vibração na lição do aluno, já sem o som do coração
       (FILA, 31 e 26);
     - as lições de medição, de escopo e de simulador, no AGENTS.md;
+  - de 2026-09-28, em outra sessão, o conserto do aquecimento (FILA, 12): o
+    fundo animado para fora de foco
+    ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md));
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
   ~42 % para ~66 % ([evidência](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md),
   [FILA](FILA.md), achado 5).
+  - **Consertado em 2026-09-28:** com o fundo parado fora de foco, o Perfil
+    depois da Estude foi de 63,6 % para 43,9 %, e a assinatura empilhada
+    sobre as abas, de 65,3 % para 31,4 %, na mesma passagem. A tela em foco
+    custa o mesmo, ~39 %. O resto com as abas cobertas zera com Reduzir
+    Movimento; o agente atribui ao ícone de sequência, sem ter isolado
+    (FILA, 33).
 - **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
   **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono.
   A de 2026-09-27 é a #38.
@@ -347,8 +355,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-28-radiant-prompt-de-continuidade-13.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md).
-  Ele substitui o (12).
+  [`2026-09-28-radiant-prompt-de-continuidade-14.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md).
+  Ele substitui o (13).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25
@@ -357,6 +365,9 @@ Medido em 2026-09-25, às 21:24:
     dono decide;
   - o `E3C547AE-…` ("iPhone 17 (iOS 26.5)") foi usado no StoreKit Testing em
     2026-09-27 e ficou com uma assinatura mensal de teste aprovada, ∞ no HUD.
+    Em 2026-09-28, das 14:31 às 14:47, mediu o conserto do aquecimento, e
+    terminou desligado, com Reduzir Movimento desligado. Abrir o Perfil
+    regravou `@radiant:journey_progress_v1`, e não se sabe se o conteúdo mudou.
     As transações se apagam no Transaction Manager do Xcode.
     `radiant-app/ios/` ficou com o `.storekit` e o esquema marcado; um
     `prebuild --clean` desfaz isso.

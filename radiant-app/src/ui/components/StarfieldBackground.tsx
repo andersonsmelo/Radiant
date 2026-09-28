@@ -4,8 +4,9 @@
  * Reutilizável em todas as telas da galáxia.
  */
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { NavigationContext } from '@react-navigation/native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -54,19 +55,20 @@ interface StarProps {
   maxOpacity: number;
   duration: number;
   delay: number;
-  reducedMotion: boolean;
+  /** Sem animação: Reduzir Movimento ligado ou tela fora de foco. */
+  still: boolean;
 }
 
 const Star = React.memo(function Star({
-  x, y, size, minOpacity, maxOpacity, duration, delay, reducedMotion,
+  x, y, size, minOpacity, maxOpacity, duration, delay, still,
 }: StarProps) {
-  // Com reduced motion a estrela fica parada num brilho intermediário: o céu
-  // continua estrelado, sem o cintilar infinito.
+  // Parada, a estrela fica num brilho intermediário: o céu continua estrelado,
+  // sem o cintilar infinito. Atribuir o valor cancela o laço em andamento.
   const restingOpacity = (minOpacity + maxOpacity) / 2;
-  const opacity = useSharedValue(reducedMotion ? restingOpacity : minOpacity);
+  const opacity = useSharedValue(still ? restingOpacity : minOpacity);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (still) {
       opacity.value = restingOpacity;
       return;
     }
@@ -82,7 +84,7 @@ const Star = React.memo(function Star({
         false,
       ),
     );
-  }, [reducedMotion]);
+  }, [still]);
 
   const style = useAnimatedStyle(() => ({ opacity: opacity.value }));
 
@@ -116,12 +118,12 @@ function Nebula({
   driftY = 12,
   driftDuration = 9000,
   driftDelay = 0,
-}: NebulaConfig) {
-  const reducedMotion = useReducedMotionPreference();
+  still,
+}: NebulaConfig & { still: boolean }) {
   const drift = useSharedValue(0);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (still) {
       drift.value = 0;
       return;
     }
@@ -137,7 +139,7 @@ function Nebula({
         false,
       ),
     );
-  }, [driftDelay, driftDuration, reducedMotion]);
+  }, [driftDelay, driftDuration, still]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -197,6 +199,37 @@ function Nebula({
   );
 }
 
+// ── Foco da tela ──────────────────────────────────────────────
+
+/**
+ * Se a tela que contém o fundo está em foco.
+ *
+ * A aba visitada continua montada, e a tela empilhada deixa as abas montadas
+ * embaixo. Sem isso, cada fundo escondido seguia animando: medido no simulador
+ * em 2026-09-25, o segundo fundo somava ~24 pontos de CPU (item 12 da FILA).
+ *
+ * Lê o `NavigationContext` direto, e não `useIsFocused`, porque este lança
+ * erro fora de um navegador. Sem navegador, não há tela para perder o foco, e
+ * o fundo anima.
+ */
+function useScreenFocused(): boolean {
+  const navigation = useContext(NavigationContext);
+  const [focused, setFocused] = useState(() => navigation?.isFocused() ?? true);
+
+  useEffect(() => {
+    if (!navigation) return undefined;
+    setFocused(navigation.isFocused());
+    const offFocus = navigation.addListener('focus', () => setFocused(true));
+    const offBlur = navigation.addListener('blur', () => setFocused(false));
+    return () => {
+      offFocus();
+      offBlur();
+    };
+  }, [navigation]);
+
+  return focused;
+}
+
 // ── Componente principal ──────────────────────────────────────
 
 export function StarfieldBackground({
@@ -206,9 +239,11 @@ export function StarfieldBackground({
 }: StarfieldBackgroundProps) {
 
   const reducedMotion = useReducedMotionPreference();
+  const focused = useScreenFocused();
+  const still = reducedMotion || !focused;
 
   // Gera estrelas deterministicamente (sem re-render)
-  const stars = useMemo<Omit<StarProps, 'reducedMotion'>[]>(() => {
+  const stars = useMemo<Omit<StarProps, 'still'>[]>(() => {
     // seed simples para reprodutibilidade
     const rng = (seed: number) => {
       const x = Math.sin(seed) * 10000;
@@ -243,11 +278,11 @@ export function StarfieldBackground({
     <View style={[StyleSheet.absoluteFillObject, { backgroundColor }]} pointerEvents="none">
       {/* Nebulas */}
       {allNebulas.map((n, i) => (
-        <Nebula key={`nebula-${i}`} {...n} />
+        <Nebula key={`nebula-${i}`} {...n} still={still} />
       ))}
       {/* Stars */}
       {stars.map((s, i) => (
-        <Star key={`star-${i}`} {...s} reducedMotion={reducedMotion} />
+        <Star key={`star-${i}`} {...s} still={still} />
       ))}
     </View>
   );

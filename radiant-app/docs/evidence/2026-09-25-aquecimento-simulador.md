@@ -134,3 +134,6 @@ diferença possível é que a janela do Simulador estivesse aberta. Por isso,
   - build `preview` ou `production`, sem o modo de desenvolvimento.
 - **Conserto, fora desta medição por decisão do dono em 2026-09-25:** item
   próprio na [FILA](../../../docs/FILA.md), achado 5 do StoreKit.
+  - **Feito em 2026-09-28:** o fundo para fora de foco. A medição antes e
+    depois, com a aba coberta por uma tela empilhada, está em
+    [2026-09-28-aquecimento-conserto-simulador.md](2026-09-28-aquecimento-conserto-simulador.md).
