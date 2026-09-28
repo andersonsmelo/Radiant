@@ -34,7 +34,7 @@ outra opção era sair sem som e esperar as lições do V3.
 | Tocar numa alternativa | toque | seleção |
 | "Continuar" com acerto | acerto | sucesso |
 | "Continuar" com erro | erro | erro |
-| A vida cai de fato (o mesmo critério do anúncio ao leitor de tela) | vida | perda de vida |
+| ~~A vida cai de fato~~ — **retirado na revisão abaixo** | — | — |
 | Fim da lição aprovada | fim | comemoração |
 
 - **O card "Sons e vibração" passa a aparecer no Perfil de produção.** Os dois
@@ -53,3 +53,25 @@ outra opção era sair sem som e esperar as lições do V3.
   pedido, e não que saiu.
 - **Escala futura:** a lição híbrida e a lição do aluno montam a camada cada
   uma do seu jeito. Quando o V3 substituir as lições legadas, sobra uma só.
+
+## Revisão em 2026-09-28, depois do teste do dono no iPhone
+
+**O teste:** o dono percorreu o roteiro no iPhone, com a build `development`
+`c4eeeb44` e o Metro. Tudo funcionou, menos o som do coração, que ele não
+ouviu. Ele estava sem assinatura, e o coração caiu.
+
+**A medição:** num simulador sem assinatura, o log do sistema mostrou o erro
+começando às 09:55:53.222 e a vida às 09:55:53.224, 2 ms depois. O som tocava,
+mas por baixo do erro, e os dois soavam como um só. O piloto do V3 tem o mesmo
+padrão.
+
+**A decisão do dono:** entre trazer a queda do coração para o primeiro plano,
+com o som, e tirar o som, **ficou tirar o som**, com a recomendação do agente.
+- **Na lição do aluno, o erro dispara só o som e a vibração de erro.** A queda
+  do coração fica sutil no HUD, e o anúncio ao leitor de tela (item 25)
+  continua dizendo quantas vidas restam.
+- **O piloto do V3 não muda:** o som do coração dele é da spec do piloto, e
+  ele não sai na 1.4.
+- **O som e a vibração do coração voltam com a animação em primeiro plano**
+  (FILA, 26), **tocando depois do erro**, e não colados nele.
+

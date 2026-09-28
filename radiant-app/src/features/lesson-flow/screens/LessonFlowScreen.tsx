@@ -267,7 +267,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     heartLossCopy = nextHearts.count === 0
                         ? ' Você perdeu sua última vida.'
                         : ` Você perdeu uma vida; restam ${nextHearts.count}.`;
-                    emit('heart_lost');
+                    // Sem som nem vibração próprios (decisão do dono, 2026-09-28):
+                    // saíam 2 ms depois do erro e soavam como um só. Voltam com
+                    // a animação do coração em primeiro plano (FILA, 26).
                 }
             } else {
                 emit('correct');

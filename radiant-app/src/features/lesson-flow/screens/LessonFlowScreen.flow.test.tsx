@@ -1043,15 +1043,21 @@ describe('LessonFlowScreen — sons e vibração', () => {
     expect(haptics.hapticSelection).toHaveBeenCalledTimes(1);
   });
 
-  it('continuar com erro toca o erro e, quando a vida cai, o som da vida', async () => {
+  it('continuar com erro toca só o erro, mesmo quando a vida cai', async () => {
+    // Decisão do dono, 2026-09-28, depois de ouvir no iPhone: o som do coração
+    // saía 2 ms depois do erro (medido no log do simulador) e os dois viravam
+    // um só. Sem animação em primeiro plano que o justifique, o coração cai só
+    // no HUD e no anúncio ao leitor de tela. O som volta com o item 26.
     await abrir();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByText('Continuar'));
 
-    await waitFor(() => expect(tocados()).toContain('vida'));
-    expect(tocados()).toEqual(['toque', 'erro', 'vida']);
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    expect(announceForAccessibility).toHaveBeenCalledWith(expect.stringContaining('Você perdeu uma vida; restam 4.'));
+    expect(tocados()).toEqual(['toque', 'erro']);
     expect(haptics.hapticError).toHaveBeenCalledTimes(1);
-    expect(haptics.hapticLifeLost).toHaveBeenCalledTimes(1);
+    expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
   });
 
   it('continuar com acerto toca o acerto e vibra o sucesso', async () => {
@@ -1064,7 +1070,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
     expect(haptics.hapticSuccess).toHaveBeenCalledTimes(1);
   });
 
-  it('o assinante erra sem ouvir a vida: o som segue a queda real do contador', async () => {
+  it('o assinante erra e também ouve só o erro', async () => {
     const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
     heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
     heartsRepository.spend.mockResolvedValue(ilimitada);
