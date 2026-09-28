@@ -162,6 +162,20 @@ jest.mock('../../../ui/feedback/haptics', () => ({
   hapticCelebrate: jest.fn(),
   hapticSelection: jest.fn(),
   hapticError: jest.fn(),
+  hapticSuccess: jest.fn(),
+  hapticLifeLost: jest.fn(),
+  hapticStreak: jest.fn(),
+}));
+
+// Os sons são o mesmo tocador do piloto (`lessonSounds.ts`); aqui só se mede
+// o que a lição pede. Um objeto só, para os testes lerem as chamadas.
+const mockSoundPlayer = { play: jest.fn(), release: jest.fn() };
+jest.mock('../../../ui/feedback/lessonSounds', () => ({
+  createLessonSoundPlayer: jest.fn(() => mockSoundPlayer),
+}));
+
+jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
+  readFeedbackPreferences: jest.fn().mockResolvedValue({ sounds: true, haptics: true }),
 }));
 
 jest.mock('../services/LessonFlowService', () => ({
@@ -985,5 +999,114 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     } finally {
       errorSpy.mockRestore();
     }
+  });
+});
+
+describe('LessonFlowScreen — sons e vibração', () => {
+  // A camada de som existia só no piloto do V3; a lição do aluno passava em
+  // silêncio e só vibrava ao concluir (achado do dono na build `c4eeeb44`,
+  // decisão B de 2026-09-28). Aqui se mede o que a lição PEDE à camada.
+  const haptics = jest.requireMock('../../../ui/feedback/haptics') as Record<string, jest.Mock>;
+  const preferences = jest.requireMock('../../../ui/feedback/feedbackPreferences') as { readFeedbackPreferences: jest.Mock };
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const tocados = () => mockSoundPlayer.play.mock.calls.map(([id]) => id);
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(null);
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: true, haptics: true });
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null });
+    mockedOutcome.recordCompletion.mockResolvedValue(outcomeFixture);
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  async function abrir() {
+    const view = renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    // As preferências chegam por promessa: assenta antes do primeiro toque.
+    await act(async () => {});
+    return view;
+  }
+
+  it('tocar numa alternativa toca o som de toque e vibra a seleção', async () => {
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+
+    expect(tocados()).toEqual(['toque']);
+    expect(haptics.hapticSelection).toHaveBeenCalledTimes(1);
+  });
+
+  it('continuar com erro toca o erro e, quando a vida cai, o som da vida', async () => {
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await waitFor(() => expect(tocados()).toContain('vida'));
+    expect(tocados()).toEqual(['toque', 'erro', 'vida']);
+    expect(haptics.hapticError).toHaveBeenCalledTimes(1);
+    expect(haptics.hapticLifeLost).toHaveBeenCalledTimes(1);
+  });
+
+  it('continuar com acerto toca o acerto e vibra o sucesso', async () => {
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await waitFor(() => expect(tocados()).toContain('acerto'));
+    expect(tocados()).toEqual(['toque', 'acerto']);
+    expect(haptics.hapticSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('o assinante erra sem ouvir a vida: o som segue a queda real do contador', async () => {
+    const ilimitada = { count: 0, status: 'unlimited', nextRefillAt: null, unlimitedUntil: '2026-10-14T12:00:00.000Z' };
+    heartsRepository.getSnapshot.mockResolvedValue(ilimitada);
+    heartsRepository.spend.mockResolvedValue(ilimitada);
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Continuar'));
+
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
+    await act(async () => {});
+    expect(tocados()).toEqual(['toque', 'erro']);
+    expect(haptics.hapticLifeLost).not.toHaveBeenCalled();
+  });
+
+  it('a lição aprovada termina com o som de fim e a comemoração', async () => {
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    await waitFor(() => expect(tocados()).toContain('fim'));
+    expect(haptics.hapticCelebrate).toHaveBeenCalledTimes(1);
+  });
+
+  it('com os interruptores desligados, nada toca e nada vibra, nem a comemoração', async () => {
+    preferences.readFeedbackPreferences.mockResolvedValue({ sounds: false, haptics: false });
+    await abrir();
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+    await act(async () => {});
+    expect(mockSoundPlayer.play).not.toHaveBeenCalled();
+    expect(haptics.hapticSelection).not.toHaveBeenCalled();
+    expect(haptics.hapticSuccess).not.toHaveBeenCalled();
+    expect(haptics.hapticCelebrate).not.toHaveBeenCalled();
+  });
+
+  it('libera os sons ao sair da lição', async () => {
+    const { unmount } = await abrir();
+    unmount();
+
+    expect(mockSoundPlayer.release).toHaveBeenCalledTimes(1);
   });
 });
