@@ -179,12 +179,16 @@ export class SubscriptionService {
      * Relê o direito sempre que a loja avisa de transação nova (renovação,
      * reembolso, Ask to Buy aprovado). A escuta nativa de `Transaction.updates`
      * começa na criação do módulo; isto só liga o aviso à releitura.
+     *
+     * `onStatus` recebe o estado relido: uma tela aberta no momento do aviso
+     * não remonta, e sem isso seguia mostrando o pedido pendente depois da
+     * aprovação (medido no StoreKit Testing em 2026-09-27).
      */
-    watchStoreUpdates(nowMs: () => number): () => void {
+    watchStoreUpdates(nowMs: () => number, onStatus?: (status: SubscriptionStatus) => void): () => void {
         const escutar = this.store.onEntitlementsChanged;
         if (escutar === undefined) return () => undefined;
         return escutar.call(this.store, () => {
-            this.refresh(nowMs()).catch((cause) => {
+            this.refresh(nowMs()).then(onStatus).catch((cause) => {
                 console.error('[SubscriptionService] Falha ao reler o direito após atualização da loja:', cause);
             });
         });

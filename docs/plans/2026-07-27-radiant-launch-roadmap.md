@@ -1411,7 +1411,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
 - **K6 [PARCIAL — CloudKit validado em aparelho em 2026-09-16; Sentry mínimo
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
   2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
-  em 2026-09-24, com cancelamento, anual, Ask to Buy e VoiceOver pendentes]**
+  em 2026-09-24; anual em 2026-09-25; cancelamento e VoiceOver no iPhone e Ask
+  to Buy no StoreKit Testing em 2026-09-27; falta o bump da 1.4.0]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1476,6 +1477,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     perda de vida não é anunciada ao leitor de tela, e isso virou item do
     agente
     ([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
+  - **também em 2026-09-27, no simulador:** o Ask to Buy foi visto pelo
+    agente no StoreKit Testing do Xcode, com um `.storekit` local e uma guarda
+    que amarra os IDs ao app. O módulo Swift funciona ali. Pendente, recusado
+    e aprovado passaram, e o aprovado virou ∞ sem reabrir o app. A tela da
+    assinatura aberta não atualizava com a aprovação, e o conserto entrou no
+    mesmo run
+    ([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

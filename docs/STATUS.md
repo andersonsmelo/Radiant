@@ -63,8 +63,13 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      que acompanha a troca de loja **não pôde ser reproduzido** no aparelho,
      porque sem a conta de sandbox os preços ficaram em R$
      ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
-   - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
-     do Xcode. Falta conferir que o módulo Swift funciona ali;
+   - ✅ **Ask to Buy: feito em 2026-09-27 pelo agente**, no StoreKit Testing
+     do Xcode, num simulador iOS 26.5, com um `.storekit` local versionado em
+     `radiant-app/modules/radiant-storekit/testing/`. O módulo Swift funciona
+     ali. Pendente, recusado e aprovado foram vistos, e o aprovado chegou por
+     `Transaction.updates` e virou ∞ sem reabrir o app. A tela da assinatura,
+     se estivesse aberta, não atualizava com a aprovação, e o conserto entrou
+     no mesmo run ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md));
    - ✅ **VoiceOver: encerrado pelo dono em 2026-09-27**, que assumiu a
      responsabilidade antes do reforço, da tela de aprovação e do HUD em
      recarga ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). Anúncios, ordem e estado das alternativas
@@ -97,6 +102,8 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
+   Desde 2026-09-27, com o Ask to Buy feito, o bump espera só o anúncio da
+   perda de vida ao leitor de tela, se o dono concordar ([FILA](FILA.md), 25).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
@@ -229,11 +236,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-26**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com as mudanças do "Gerenciar" e da loja, e a
-árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **151 suítes
-/ 1446 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
-([relatório](superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-27, às 20:00**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o Ask to Buy e o conserto da tela da
+assinatura, e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **152 suítes / 1450 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -278,13 +285,15 @@ Medido em 2026-09-25, às 21:24:
   sessão na nuvem
   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
-- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 16 commits à frente da
-  `main` (medido em 2026-09-27, às 18:50, antes do commit deste run) e enviado
-  ao remoto. Leva:
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 17 commits à frente da
+  `main` (medido em 2026-09-27, às 20:02, antes do commit do Ask to Buy) e
+  enviado ao remoto. Leva:
   - a D4, a guarda de sincronia, o eas-cli e as evidências da regra de vidas e
     do aquecimento;
   - as três ADRs de 2026-09-25;
   - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
+  - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
+    2026-09-27;
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de

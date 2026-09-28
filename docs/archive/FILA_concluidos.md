@@ -1477,3 +1477,15 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-27 — Ask to Buy no StoreKit Testing
+
+Retirados sem edição da "Ordem de prioridade"
+([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+O 20 continua na FILA, reescrito sem a dependência do 5.
+
+  - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
+    Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
+    volta ao dono, pelo grupo familiar no sandbox;
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 5 e, se o dono
+    concordar, do 25.

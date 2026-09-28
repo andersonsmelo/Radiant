@@ -346,6 +346,28 @@ describe('SubscriptionService — atualizações da loja', () => {
         expect(hearts.setUnlimited).toHaveBeenCalledWith(DAQUI_A_30_DIAS, AGORA);
     });
 
+    it('entrega o estado relido a quem escuta: o Ask to Buy aprovado chega a uma tela já aberta', async () => {
+        // Medido no StoreKit Testing em 2026-09-27: a aprovação regravou o
+        // cache e as vidas, mas a tela da assinatura seguiu no pendente, porque
+        // só lia o estado ao montar.
+        let avisar: () => void = () => undefined;
+        const store = loja({
+            currentEntitlement: jest.fn(async () => direito()),
+            onEntitlementsChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return () => undefined;
+            }),
+        });
+        const { service } = servico(store);
+        const recebido = jest.fn();
+
+        service.watchStoreUpdates(() => AGORA, recebido);
+        avisar();
+        await new Promise((resolve) => setImmediate(resolve));
+
+        expect(recebido).toHaveBeenCalledWith({ kind: 'unlimited', expiresAt: DAQUI_A_30_DIAS, willRenew: true });
+    });
+
     it('loja sem aviso de atualização (indisponível) não quebra quem pede para escutar', () => {
         const { service } = servico(lojaIndisponivel());
 

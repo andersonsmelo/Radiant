@@ -2165,3 +2165,30 @@ Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reaju
 - **Prompt de continuidade:**
   [`2026-09-25-radiant-prompt-de-continuidade-6.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).
   Ele substitui o (5).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pelo Ask to Buy no StoreKit Testing ([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)):
+
+   - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
+     do Xcode. Falta conferir que o módulo Swift funciona ali;
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pela medição do gate do Ask to Buy ([relatório](../superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)):
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-09-26**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com as mudanças do "Gerenciar" e da loja, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **151 suítes
+/ 1446 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). O CI roda o mesmo comando inteiro
+(`.github/workflows/radiant-app-quality.yml`).
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição, em 2026-09-27, pela contagem do branch antes do commit do Ask to Buy:
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 16 commits à frente da
+  `main` (medido em 2026-09-27, às 18:50, antes do commit deste run) e enviado
+  ao remoto. Leva:

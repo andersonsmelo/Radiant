@@ -124,6 +124,33 @@ describe('SubscriptionScreen — estados', () => {
         expect(screen.getByRole('button', { name: 'Restaurar compras' })).toBeTruthy();
     });
 
+    it('Ask to Buy aprovado com a tela aberta vira assinante sem reabrir, e fechar para de escutar', async () => {
+        // Medido no StoreKit Testing em 2026-09-27: aprovado no Xcode, o cache
+        // e o HUD viraram ∞, mas esta tela seguiu em "Pedido enviado para
+        // aprovação" até ser fechada e aberta de novo.
+        let avisar: () => void = () => undefined;
+        const currentEntitlement = jest.fn(async (): Promise<SubscriptionEntitlement | null> => null);
+        const pararDeEscutar = jest.fn();
+        const { unmount } = abrir(loja({
+            currentEntitlement,
+            purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'pending' })),
+            onEntitlementsChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return pararDeEscutar;
+            }),
+        }));
+        fireEvent.press(await screen.findByRole('button', { name: 'Assinar Radiant Ilimitado mensal' }));
+        expect(await screen.findByText(/Pedido enviado para aprovação/u)).toBeTruthy();
+
+        currentEntitlement.mockResolvedValue(direito());
+        act(() => avisar());
+
+        expect(await screen.findByText('Você é assinante')).toBeTruthy();
+        expect(screen.queryByText(/Pedido enviado para aprovação/u)).toBeNull();
+        unmount();
+        expect(pararDeEscutar).toHaveBeenCalledTimes(1);
+    });
+
     it('pedido com mais de 24 h não é mais anunciado: a tela volta ao normal', async () => {
         const DIA = 24 * 60 * 60 * 1000;
         let agora = AGORA;

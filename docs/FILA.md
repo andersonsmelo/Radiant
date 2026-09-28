@@ -51,7 +51,7 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (7)](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado**, hoje o **5**, que é o último da 1.4 além do bump.
+destravado**, hoje o **25**, que é o último da 1.4 além do bump.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -62,12 +62,12 @@ destravado**, hoje o **5**, que é o último da 1.4 além do bump.
   - o 19a e o 4, com a build `c4eeeb44`
     ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
   - o 3 (VoiceOver), **encerrado pelo dono, que assumiu a responsabilidade**,
-    com três achados, que são o 25, o 26 e o 27 ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)).
+    com três achados, que são o 25, o 26 e o 27 ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md));
+  - o 5 (Ask to Buy), pelo agente, no StoreKit Testing do Xcode, com o
+    conserto da tela da assinatura que não atualizava com a aprovação
+    ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
 
 - **P1 — o que segura a 1.4:**
-  - **5.** agente: Ask to Buy no StoreKit Testing do Xcode, no simulador.
-    Primeiro, conferir que o módulo Swift funciona ali; se não funcionar,
-    volta ao dono, pelo grupo familiar no sandbox;
   - **25.** agente: **anunciar a perda de vida ao leitor de tela**, no anúncio
     que já existe (`LessonFlowScreen.tsx:240`), por exemplo "Resposta
     incorreta. Você perdeu uma vida; restam 4." É pequeno, e o agente
@@ -85,8 +85,8 @@ destravado**, hoje o **5**, que é o último da 1.4 além do bump.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-  - **20.** agente: bump para `1.4.0`, **por último**, depois do 5 e, se o dono
-    concordar, do 25.
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 25, se o
+    dono concordar. O 5 foi feito em 2026-09-27.
 - **Decisões do dono, sem prazo:**
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda;
   - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
@@ -169,7 +169,11 @@ O código está pronto e testado; **nenhum teste da suíte fecha estes itens**.
      ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md)).
    - **modo avião:** saiu do roteiro por decisão do dono em 2026-09-24
      ([ADR](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md)).
-4. ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
+4. ✅ **Ask to Buy: visto em 2026-09-27 pelo agente, no StoreKit Testing do
+   Xcode**: pendente, recusado e aprovado, com o aprovado chegando por
+   `Transaction.updates` ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+   O texto a seguir é o registro de antes.
+   ✅ **Ask to Buy pendente: decidido e implementado em 2026-09-23**
    ([ADR](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md), item 5). Planos e
    Restaurar ficam sempre visíveis; o aviso de pedido pendente dura **24 h**,
    o prazo oficial da Apple, e some sozinho; o cartão do Perfil nunca fica sem

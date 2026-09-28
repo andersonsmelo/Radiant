@@ -66,6 +66,20 @@ export default function SubscriptionScreen({ service = subscriptionService, nowM
         };
     }, [attempt, nowMs, service]);
 
+    // Ask to Buy aprovado, renovação ou reembolso chegam com a tela aberta, e ela
+    // não remonta: sem esta escuta, o pedido aprovado seguia como pendente até
+    // fechar e abrir de novo (medido no StoreKit Testing em 2026-09-27).
+    useEffect(() => {
+        let alive = true;
+        const parar = service.watchStoreUpdates(nowMs, (nextStatus) => {
+            if (alive) setStatus(nextStatus);
+        });
+        return () => {
+            alive = false;
+            parar();
+        };
+    }, [nowMs, service]);
+
     // A troca de loja da conta muda a moeda: os preços já na tela ficam errados
     // até serem pedidos de novo (ADR de 2026-09-25, item 4). Só as ofertas são
     // recarregadas; o estado da assinatura não depende da loja.

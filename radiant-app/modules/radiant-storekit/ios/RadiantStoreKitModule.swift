@@ -21,9 +21,12 @@ import UIKit
    preços, compra, renovação acelerada, expiração e reinstalação.
  - 2026-09-26: `showManageSubscriptions` e `Storefront.updates` compilaram
    localmente com o Xcode 27, para o simulador, sem aviso neste arquivo. O app
-   abriu com eles num simulador iOS 26.5. A folha e a troca de loja ainda não
-   rodaram em aparelho.
- Ask to Buy, restauração e cancelamento ainda não foram vistos.
+   abriu com eles num simulador iOS 26.5.
+ - 2026-09-27: a folha e o cancelamento por ela rodaram num iPhone com iOS
+   27.2 (build `c4eeeb44`). No simulador, sob o StoreKit Testing do Xcode, o
+   Ask to Buy devolveu `.pending`, e o pedido aprovado chegou por
+   `Transaction.updates` (docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md).
+ A restauração com compra real e a troca de loja ainda não foram vistas.
  */
 
 /// Erro com `code` estável, que é o campo que o adaptador TypeScript lê.
