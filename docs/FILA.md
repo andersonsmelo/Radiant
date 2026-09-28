@@ -72,6 +72,10 @@ destravado**, hoje o **25**, que é o último da 1.4 além do bump.
     que já existe (`LessonFlowScreen.tsx:240`), por exemplo "Resposta
     incorreta. Você perdeu uma vida; restam 4." É pequeno, e o agente
     recomenda fazer antes do bump. Um run, com teste vermelho antes.
+  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
+    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
+    a D4. Um agente que pegar o 25 antes do merge trabalha no próprio
+    `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**

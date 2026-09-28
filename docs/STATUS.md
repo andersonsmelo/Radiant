@@ -236,11 +236,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-27, às 20:00**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com o Ask to Buy e o conserto da tela da
-assinatura, e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
-exit 0, **152 suítes / 1450 testes**, lint com 0 erros e 26 avisos, visual QA
-sem regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)). O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-27, às 22:30**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os consertos da revisão da PR #38, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
+suítes / 1451 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -285,38 +285,50 @@ Medido em 2026-09-25, às 21:24:
   sessão na nuvem
   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
-- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 17 commits à frente da
-  `main` (medido em 2026-09-27, às 20:02, antes do commit do Ask to Buy) e
-  enviado ao remoto. Leva:
+- **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
+  do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
+  22:20 com o ok do dono. São 19 commits à frente da `main`, medidos às
+  22:34, antes do commit deste run.
+  - O CI passou na `32597a4` e na `3db5f8d`: Content Scripts e Radiant App
+    Quality verdes, conferidos às 22:37.
+  - A revisão do Codex apontou dois defeitos, que foram consertados na
+    `3db5f8d`, com as threads respondidas e resolvidas.
+  - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.
+
+  O branch leva:
   - a D4, a guarda de sincronia, o eas-cli e as evidências da regra de vidas e
     do aquecimento;
   - as três ADRs de 2026-09-25;
   - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
   - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
-    2026-09-27;
+    2026-09-27, e os consertos da revisão da PR (`3db5f8d`);
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
   ~42 % para ~66 % ([evidência](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md),
   [FILA](FILA.md), achado 5).
 - **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
-  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
-  PR de 2026-09-25 ainda não foi aberta, por decisão dele.
+  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono.
+  A de 2026-09-27 é a #38.
 - **O remoto tem a `main`, o branch da D4 e os três das PRs #35 a #37**, que
   já entraram e não foram apagados (medido às 21:24). Apagá-los é do dono. Os
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-27-radiant-prompt-de-continuidade-7.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md).
-  Ele substitui o (6).
+  [`2026-09-27-radiant-prompt-de-continuidade-8.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-8.md).
+  Ele substitui o (7).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25
     ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md)).
     Ficou com o checkpoint aprovado e 2 vidas. Se ele fica ou é apagado, o
     dono decide;
-  - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
+  - o `E3C547AE-…` ("iPhone 17 (iOS 26.5)") foi usado no StoreKit Testing em
+    2026-09-27 e ficou com uma assinatura mensal de teste aprovada, ∞ no HUD.
+    As transações se apagam no Transaction Manager do Xcode.
+    `radiant-app/ios/` ficou com o `.storekit` e o esquema marcado; um
+    `prebuild --clean` desfaz isso.
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`

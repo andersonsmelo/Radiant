@@ -2192,3 +2192,25 @@ Trecho do `STATUS.md` substituído, sem edição, em 2026-09-27, pela contagem d
 - **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 16 commits à frente da
   `main` (medido em 2026-09-27, às 18:50, antes do commit deste run) e enviado
   ao remoto. Leva:
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27 às 22:35, pela abertura da PR #38 e pelo prompt (8):
+
+strict. **Última medição: 2026-09-27, às 20:00**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o Ask to Buy e o conserto da tela da
+assinatura, e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **152 suítes / 1450 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 17 commits à frente da
+  `main` (medido em 2026-09-27, às 20:02, antes do commit do Ask to Buy) e
+  enviado ao remoto. Leva:
+
+  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
+  PR de 2026-09-25 ainda não foi aberta, por decisão dele.
+
+  [`2026-09-27-radiant-prompt-de-continuidade-7.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md).
+  Ele substitui o (6).
+
+  - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
