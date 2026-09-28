@@ -105,12 +105,17 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      ([PR #36](https://github.com/andersonsmelo/Radiant/pull/36), merge
      `cab01c0`). Foi visto na tela, e o gate deu 151 suítes / 1430 testes
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
-3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
-   sobem junto com a versão (regra 8 da
+3. ✅ **Bump para `1.4.0`: feito em 2026-09-28 pelo agente**, com o ok do
+   dono, no `feat/d4-decisoes-de-revisao`. A versão está no `app.json`, no
+   `package.json` e nas duas raízes do `package-lock.json`, e uma guarda
+   (`src/config/appVersion.contract.test.ts`) exige que os quatro concordem.
+   O número de build fica com o EAS (`appVersionSource: remote`), e a
+   `runtimeVersion` passa a `1.4.0`
+   ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+4. **Dono:** o merge da #38 ([FILA](FILA.md), 28) e, depois dele, a build de
+   produção e o envio ([FILA](FILA.md), 30). Os produtos de assinatura sobem
+   junto com a versão, nunca antes (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
-   Desde 2026-09-28, com o Ask to Buy e o anúncio da perda de vida feitos,
-   o bump está destravado: **o dono deu o ok** na mesma data, e ele fica para
-   a próxima sessão ([FILA](FILA.md), 20).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
@@ -243,11 +248,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-28, às 00:56**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida (FILA, 25), e a
-árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
-suítes / 1455 testes**, lint com 0 erros e 26 avisos, visual QA sem
-regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)). O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-09-28, às 07:50**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o bump para `1.4.0` (FILA, 20), e a árvore
+sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
+1457 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -309,8 +314,8 @@ Medido em 2026-09-25, às 21:24:
   - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
   - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
     2026-09-27, e os consertos da revisão da PR (`3db5f8d`);
-  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25). Com ele,
-    o CI da #38 roda de novo;
+  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25);
+  - o bump para `1.4.0`, de 2026-09-28 (FILA, 20);
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
@@ -325,8 +330,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-27-radiant-prompt-de-continuidade-9.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md).
-  Ele substitui o (8).
+  [`2026-09-28-radiant-prompt-de-continuidade-10.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md).
+  Ele substitui o (9).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

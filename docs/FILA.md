@@ -49,10 +49,10 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (9)](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md),
+[prompt (10)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25 feito e o ok do dono dado, esse
-item é o **20**, o bump.
+destravado.** Desde 2026-09-28, com o 25 e o 20 feitos, esse item é o
+**7a**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -68,14 +68,25 @@ item é o **20**, o bump.
     conserto da tela da assinatura que não atualizava com a aprovação
     ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
 - em 2026-09-28: o 25 (anúncio da perda de vida na lição), pelo agente
-  ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+  ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)),
+  e o 20 (bump para `1.4.0`), pelo agente, com o ok do dono
+  ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
     aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
-    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25). Um agente que
-    pegar outro item antes do merge trabalha no próprio
-    `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
+    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
+    `1.4.0` (20). Um agente que pegar outro item antes do merge trabalha no
+    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
+  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
+    do 28. O EAS incrementa o número de build sozinho
+    (`appVersionSource: remote`). Pela regra 8 da
+    [ADR de produtos](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
+    os dois produtos da assinatura vão **junto com a versão**, na primeira
+    submissão, nunca antes. **Para conferir antes do envio:** a captura de
+    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
+    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
+    decisão do dono; o agente não viu a captura.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
@@ -89,11 +100,6 @@ item é o **20**, o bump.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho, depois do 12;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-  - **20.** agente: bump para `1.4.0`, **por último**. O 5 foi feito em
-    2026-09-27 e o 25 em 2026-09-28. **O dono deu o ok em 2026-09-28**, na
-    conversa do 25, em resposta à pergunta "a próxima frente é o 20, se você
-    der o ok para o bump". Por uma frente por conversa, o bump fica para a
-    sessão seguinte, que combina com ele a condição de pronto antes do run.
 - **Decisões do dono, sem prazo:**
   - **29.** **remover o checkpoint** até entender a função dele no app. O dono
     disse em 2026-09-28 que ele não parece importante para o usuário. É uma
@@ -122,7 +128,7 @@ item é o **20**, o bump.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

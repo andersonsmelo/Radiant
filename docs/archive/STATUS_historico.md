@@ -2232,3 +2232,23 @@ regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-ask-to-buy-r
   [`2026-09-27-radiant-prompt-de-continuidade-8.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-8.md).
   Ele substitui o (7).
 
+## Retirado em 2026-09-28 — bump para 1.4.0 (FILA, 20)
+
+3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
+   sobem junto com a versão (regra 8 da
+   [ADR](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
+   Desde 2026-09-28, com o Ask to Buy e o anúncio da perda de vida feitos,
+   o bump está destravado: **o dono deu o ok** na mesma data, e ele fica para
+   a próxima sessão ([FILA](../FILA.md), 20).
+
+  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25). Com ele,
+    o CI da #38 roda de novo;
+
+  [`2026-09-27-radiant-prompt-de-continuidade-9.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md).
+  Ele substitui o (8).
+
+strict. **Última medição: 2026-09-28, às 00:56**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida (FILA, 25), e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
+suítes / 1455 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).

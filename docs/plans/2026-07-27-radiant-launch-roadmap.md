@@ -1489,6 +1489,10 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     vida.". O assinante não ouve nada sobre vidas. O checkpoint ficou fora,
     porque o dono quer removê-lo (FILA, 29)
     ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+  - **também em 2026-09-28:** bump para `1.4.0` no `app.json`, no
+    `package.json` e no `package-lock.json`, com uma guarda que exige os
+    quatro valores iguais. A build de produção e o envio são do dono (FILA, 30)
+    ([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

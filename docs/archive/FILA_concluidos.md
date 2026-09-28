@@ -1508,3 +1508,21 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — bump para 1.4.0
+
+Retirado sem edição da "Ordem de prioridade"
+([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+O ok do dono veio na mesma conversa do 25, que seguiu para o 20 a pedido dele.
+No lugar entrou o 30, a build de produção e o envio, que é do dono.
+
+  - **20.** agente: bump para `1.4.0`, **por último**. O 5 foi feito em
+    2026-09-27 e o 25 em 2026-09-28. **O dono deu o ok em 2026-09-28**, na
+    conversa do 25, em resposta à pergunta "a próxima frente é o 20, se você
+    der o ok para o bump". Por uma frente por conversa, o bump fica para a
+    sessão seguinte, que combina com ele a condição de pronto antes do run.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md), que traz todas as pendências na ordem abaixo;
