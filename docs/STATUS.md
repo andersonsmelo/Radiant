@@ -310,10 +310,11 @@ Medido em 2026-09-25, às 21:24:
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
 - **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
   do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
-  22:20 com o ok do dono. São 19 commits à frente da `main`, medidos às
-  22:34, antes do commit deste run.
-  - O CI passou na `32597a4` e na `3db5f8d`: Content Scripts e Radiant App
-    Quality verdes, conferidos às 22:37.
+  22:20 com o ok do dono. **Em 2026-09-28, às 12:30, estava com 30 commits
+  à frente da `main`,** sem conflito (`MERGEABLE`, `CLEAN`), e com o CI verde
+  na `72c599f`: Content Scripts e Radiant App Quality. O commit deste run
+  entra depois dessa medição.
+  - O CI também passou em cada push anterior do dia.
   - A revisão do Codex apontou dois defeitos, que foram consertados na
     `3db5f8d`, com as threads respondidas e resolvidas.
   - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.
@@ -325,10 +326,13 @@ Medido em 2026-09-25, às 21:24:
   - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
   - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
     2026-09-27, e os consertos da revisão da PR (`3db5f8d`);
-  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25);
-  - o bump para `1.4.0`, de 2026-09-28 (FILA, 20);
-  - as variantes da amostra da L1, de 2026-09-28 (FILA, 7a);
-  - os sons e a vibração na lição do aluno, de 2026-09-28 (FILA, 31);
+  - de 2026-09-28, numa sessão só:
+    - o anúncio da perda de vida na lição (FILA, 25);
+    - o bump para `1.4.0` (FILA, 20);
+    - as variantes da amostra da L1 (FILA, 7a);
+    - os sons e a vibração na lição do aluno, já sem o som do coração
+      (FILA, 31 e 26);
+    - as lições de medição, de escopo e de simulador, no AGENTS.md;
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
@@ -343,8 +347,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-28-radiant-prompt-de-continuidade-12.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md).
-  Ele substitui o (11).
+  [`2026-09-28-radiant-prompt-de-continuidade-13.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md).
+  Ele substitui o (12).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

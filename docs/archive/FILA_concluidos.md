@@ -1556,3 +1556,10 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md), que traz todas as pendências na ordem abaixo;
+
+## Fim da sessão de 2026-09-28 — prompt (13)
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md), que traz todas as pendências na ordem abaixo;

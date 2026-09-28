@@ -2290,3 +2290,13 @@ sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
 strict. **Última medição: 2026-09-28, às 08:58**, no Mac, no branch
 `feat/d4-decisoes-de-revisao` com os sons na lição (FILA, 31), e a árvore sem
 nenhum arquivo alheio ao run.
+
+## Retirado em 2026-09-28 — fim da sessão: PR #38 remedida e prompt (13)
+
+  22:20 com o ok do dono. São 19 commits à frente da `main`, medidos às
+  22:34, antes do commit deste run.
+  - O CI passou na `32597a4` e na `3db5f8d`: Content Scripts e Radiant App
+    Quality verdes, conferidos às 22:37.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-12.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md).
+  Ele substitui o (11).
