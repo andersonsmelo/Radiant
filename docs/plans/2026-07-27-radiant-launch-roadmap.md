@@ -1484,6 +1484,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     assinatura aberta não atualizava com a aprovação, e o conserto entrou no
     mesmo run
     ([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)).
+  - **em 2026-09-28:** a lição passou a anunciar a perda de vida ao leitor de
+    tela, com "Você perdeu uma vida; restam N." ou "Você perdeu sua última
+    vida.". O assinante não ouve nada sobre vidas. O checkpoint ficou fora,
+    porque o dono quer removê-lo (FILA, 29)
+    ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

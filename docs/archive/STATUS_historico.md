@@ -2214,3 +2214,21 @@ sem regressão
   Ele substitui o (6).
 
   - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
+
+## Retirado em 2026-09-28 — anúncio da perda de vida (FILA, 25)
+
+     estão certos, e o HUD não lê número duplicado. **Achado:** a perda de vida
+     não é anunciada ao leitor de tela, e o conserto é do agente (FILA, 25).
+
+   Desde 2026-09-27, com o Ask to Buy feito, o bump espera só o anúncio da
+   perda de vida ao leitor de tela, se o dono concordar ([FILA](../FILA.md), 25).
+
+strict. **Última medição: 2026-09-27, às 22:30**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os consertos da revisão da PR #38, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
+suítes / 1451 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)).
+
+  [`2026-09-27-radiant-prompt-de-continuidade-8.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-8.md).
+  Ele substitui o (7).
+

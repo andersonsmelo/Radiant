@@ -74,7 +74,13 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      responsabilidade antes do reforço, da tela de aprovação e do HUD em
      recarga ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). Anúncios, ordem e estado das alternativas
      estão certos, e o HUD não lê número duplicado. **Achado:** a perda de vida
-     não é anunciada ao leitor de tela, e o conserto é do agente (FILA, 25).
+     não era anunciada ao leitor de tela. **Consertado na lição em
+     2026-09-28:** o anúncio passou a dizer "Você perdeu uma vida; restam N."
+     ou "Você perdeu sua última vida.", e o assinante não ouve nada sobre vidas
+     ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+     **O checkpoint ficou fora, por decisão do dono,** que quer removê-lo até
+     entender a função dele (FILA, 29). Enquanto ele existir, o erro ali
+     debita vida sem anúncio (`CheckpointScreen.tsx:324`).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
@@ -102,8 +108,9 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
 3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
    sobem junto com a versão (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
-   Desde 2026-09-27, com o Ask to Buy feito, o bump espera só o anúncio da
-   perda de vida ao leitor de tela, se o dono concordar ([FILA](FILA.md), 25).
+   Desde 2026-09-28, com o Ask to Buy e o anúncio da perda de vida feitos,
+   o bump está destravado: **o dono deu o ok** na mesma data, e ele fica para
+   a próxima sessão ([FILA](FILA.md), 20).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
@@ -236,11 +243,11 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-27, às 22:30**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com os consertos da revisão da PR #38, e a
+strict. **Última medição: 2026-09-28, às 00:56**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida (FILA, 25), e a
 árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
-suítes / 1451 testes**, lint com 0 erros e 26 avisos, visual QA sem
-regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)). O CI roda o mesmo comando inteiro
+suítes / 1455 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -302,6 +309,8 @@ Medido em 2026-09-25, às 21:24:
   - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
   - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
     2026-09-27, e os consertos da revisão da PR (`3db5f8d`);
+  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25). Com ele,
+    o CI da #38 roda de novo;
   - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
   18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
   núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
@@ -316,8 +325,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-27-radiant-prompt-de-continuidade-8.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-8.md).
-  Ele substitui o (7).
+  [`2026-09-27-radiant-prompt-de-continuidade-9.md`](superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md).
+  Ele substitui o (8).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

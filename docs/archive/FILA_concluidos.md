@@ -1489,3 +1489,22 @@ O 20 continua na FILA, reescrito sem a dependência do 5.
     volta ao dono, pelo grupo familiar no sandbox;
   - **20.** agente: bump para `1.4.0`, **por último**, depois do 5 e, se o dono
     concordar, do 25.
+
+## Lote de 2026-09-28 — anúncio da perda de vida na lição
+
+Retirados sem edição da "Ordem de prioridade"
+([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+O checkpoint ficou fora do conserto por decisão do dono, que quer removê-lo;
+isso virou o 29. O 20 continua na FILA, reescrito sem a dependência do 25.
+
+  - **25.** agente: **anunciar a perda de vida ao leitor de tela**, no anúncio
+    que já existe (`LessonFlowScreen.tsx:240`), por exemplo "Resposta
+    incorreta. Você perdeu uma vida; restam 4." É pequeno, e o agente
+    recomenda fazer antes do bump. Um run, com teste vermelho antes.
+  - **20.** agente: bump para `1.4.0`, **por último**, depois do 25, se o
+    dono concordar. O 5 foi feito em 2026-09-27.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md), que traz todas as pendências na ordem abaixo;
