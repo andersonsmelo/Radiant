@@ -1627,3 +1627,31 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — o 29 decidido: os checkpoints de botão saem
+
+Retirados sem edição da "Ordem de prioridade"
+([ADR](../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). O dono
+escolheu a opção 1 do levantamento: saem os 15 checkpoints de botão das
+trilhas do catálogo, e as 5 avaliações da V2 ficam. No lugar do 29 entraram o
+34 (a remoção), o 35 (o anúncio da perda de vida nas avaliações) e o 36 (o
+reforço que só existe no texto). O 13 continua na FILA, reescrito para as
+avaliações que ficam.
+
+  - **29.** **remover o checkpoint** até entender a função dele no app. O dono
+    disse em 2026-09-28 que ele não parece importante para o usuário. É uma
+    frente própria, e ainda não há decisão. Antes de remover, o agente pode
+    levantar o que o checkpoint faz hoje: o que ele libera na trilha, a regra
+    de vidas da [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)
+    e o reforço depois da reprovação. **Enquanto ele existir,** o erro no
+    checkpoint debita vida sem nenhum anúncio ao leitor de tela
+    (`CheckpointScreen.tsx:324`). Isso ficou fora do 25 por decisão do dono.
+    O quiz antigo (`useQuiz.ts:153`) também debita em silêncio, mas não se
+    achou link para `/quiz` no app;
+  - **13.** XP da aprovação do checkpoint;
+
+Da abertura da "Ordem de prioridade", substituído sem edição:
+
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos, esse
+item é o **16**; o 13 vem antes na lista, mas pede pergunta ao dono, que quer
+remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.

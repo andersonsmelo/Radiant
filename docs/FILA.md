@@ -51,9 +51,9 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (15)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos, esse
-item é o **16**; o 13 vem antes na lista, mas pede pergunta ao dono, que quer
-remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos e o
+29 decidido, esse item é o **34**. Se ele entra na 1.4 ou depois, o dono
+decide. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -84,7 +84,9 @@ remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
   [relatório](superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)),
   e o 33 (o ícone de sequência), pelo agente: com as abas cobertas, o custo
   foi de ~31 % para 0,1 % ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
-  [relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)),
+  e o 29 (o que fazer com o checkpoint), decidido pelo dono: saem os 15
+  checkpoints de botão, e as 5 avaliações da V2 ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
@@ -109,7 +111,18 @@ remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **13.** XP da aprovação do checkpoint;
+  - **34.** agente: **tirar os 15 checkpoints de botão** das trilhas do
+    catálogo, que não fazem pergunta nenhuma. A lição seguinte passa a exigir
+    só a anterior. As 5 avaliações da trilha "Matéria, energia e radiação"
+    ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Um run, com teste vermelho antes, conferindo quem já
+    tem progresso e os 9 fluxos E2E que citam "checkpoint". Se entra na 1.4 ou
+    depois, o dono decide;
+  - **13.** XP da aprovação **das avaliações da V2**, que ficam pela
+    [ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md): aprovar não soma XP, e a tela mostra o total igual;
+  - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
+    (`CheckpointScreen.tsx:324`), como o 25 fez na lição. Ficou fora do 25 à
+    espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
+    mas não se achou link para `/quiz` no app;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
@@ -117,16 +130,11 @@ remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
 - **Decisões do dono, sem prazo:**
-  - **29.** **remover o checkpoint** até entender a função dele no app. O dono
-    disse em 2026-09-28 que ele não parece importante para o usuário. É uma
-    frente própria, e ainda não há decisão. Antes de remover, o agente pode
-    levantar o que o checkpoint faz hoje: o que ele libera na trilha, a regra
-    de vidas da [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md)
-    e o reforço depois da reprovação. **Enquanto ele existir,** o erro no
-    checkpoint debita vida sem nenhum anúncio ao leitor de tela
-    (`CheckpointScreen.tsx:324`). Isso ficou fora do 25 por decisão do dono.
-    O quiz antigo (`useQuiz.ts:153`) também debita em silêncio, mas não se
-    achou link para `/quiz` no app;
+  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
+    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
+    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
+    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
+    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
     **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
     ouviu no iPhone que o som do coração não se distinguia, e o log do

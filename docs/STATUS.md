@@ -78,9 +78,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      2026-09-28:** o anúncio passou a dizer "Você perdeu uma vida; restam N."
      ou "Você perdeu sua última vida.", e o assinante não ouve nada sobre vidas
      ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
-     **O checkpoint ficou fora, por decisão do dono,** que quer removê-lo até
-     entender a função dele (FILA, 29). Enquanto ele existir, o erro ali
-     debita vida sem anúncio (`CheckpointScreen.tsx:324`).
+     **O checkpoint ficou fora.** Em 2026-09-28, o dono decidiu que saem os
+     checkpoints de botão, que não cobram vida, e ficam as 5 avaliações da V2
+     ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Nelas,
+     o erro debita vida sem anúncio (`CheckpointScreen.tsx:324`; FILA, 35).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),

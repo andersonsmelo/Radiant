@@ -2338,3 +2338,9 @@ strict. **Última medição: 2026-09-28, às 14:52**, no Mac, no branch
 
     terminou desligado, com Reduzir Movimento desligado. Abrir o Perfil
     regravou `@radiant:journey_progress_v1`, e não se sabe se o conteúdo mudou.
+
+## Retirado em 2026-09-28 — o 29 decidido: os checkpoints de botão saem
+
+     **O checkpoint ficou fora, por decisão do dono,** que quer removê-lo até
+     entender a função dele (FILA, 29). Enquanto ele existir, o erro ali
+     debita vida sem anúncio (`CheckpointScreen.tsx:324`).

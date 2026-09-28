@@ -31,6 +31,10 @@ Uma conversa fez cinco frentes, a pedido do dono, e outra fez os itens 12 e 33:
 - o texto do anúncio da perda de vida;
 - **o checkpoint fica fora das mudanças,** porque o dono quer removê-lo até
   entender a função dele (item 29, decisão dele);
+- **o 29, decidido à tarde** (acrescentado a este prompt no mesmo dia): saem os
+  15 checkpoints de botão das trilhas do catálogo, que não fazem pergunta
+  nenhuma, e ficam as 5 avaliações da trilha "Matéria, energia e radiação"
+  ([ADR](../../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). A remoção é o 34;
 - o bump para `1.4.0`, com a guarda de versão;
 - as variantes da L1 pelo caminho 1, e o h08 no ventral visto por trás;
 - **a 1.4 sai com som (decisão B),** mas **sem o som do coração**, que volta
@@ -110,7 +114,9 @@ encerrados, e estão em `docs/archive/FILA_concluidos.md`.
 
 | # | Tarefa | Estado |
 |---|---|---|
-| 13 | XP da aprovação do checkpoint: a tela mostrou "XP total" igual a antes | **Pergunte antes:** o dono quer remover o checkpoint (29) |
+| 34 | Tirar os 15 checkpoints de botão das trilhas do catálogo ([ADR](../../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)) | **Destravado.** Pergunte ao dono se entra na 1.4 ou depois |
+| 13 | XP da aprovação das avaliações da V2: a tela mostrou "XP total" igual a antes | Destravado |
+| 35 | Anunciar a perda de vida nas avaliações da V2 (`CheckpointScreen.tsx:324`) | Destravado |
 | 16 | O caminho 3 do E2E afirma o estado da L1 | **Destravado**; detalhe na §4.1 |
 
 **P5 — esperando outra coisa**
@@ -121,17 +127,16 @@ encerrados, e estão em `docs/archive/FILA_concluidos.md`.
 | 15 | Gravar `L1_TEMPLATE_APPROVAL` | agente | Do 7b |
 
 **Decisões do dono, sem prazo:** 26, a animação visual da perda de vida; 27,
-o rótulo da revisão não devida, que hoje aparece como "Bloqueado"; e **29,
-remover o checkpoint**. Antes da decisão, o agente pode levantar o que o
-checkpoint faz hoje, se o dono pedir.
+o rótulo da revisão não devida, que hoje aparece como "Bloqueado"; e **36, o
+reforço das avaliações que só existe no texto**: impor a espera ou mudar o
+texto.
 
 **Depois da 1.4:** 21, o SDK 58 com `UIScene`, até abril de 2027; 22, a L2 v7;
 23, o simulador `A5FA5443`; 24, as ações de um passo do dono; 32, a aba
 "Configurações" no Perfil, que pede desenho antes.
 
-**Qual frente pegar agora:** o **16**. O 13 vem antes, mas pergunte ao dono
-primeiro, porque ele quer remover o checkpoint (29). O que segura a 1.4 é só
-do dono.
+**Qual frente pegar agora:** o **34**, depois de perguntar ao dono se ele
+entra na 1.4. O que segura a 1.4 é só do dono.
 
 ## 4. Frentes em detalhe
 
