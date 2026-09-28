@@ -32,7 +32,7 @@ foi fechada de `context_ready` e reaberta sem esse arquivo.
   |---|---|---|
   | Tocar numa alternativa | toque | seleção |
   | "Continuar" com erro | erro | erro |
-  | A vida cai de fato (mesmo critério do anúncio do item 25) | vida | perda de vida |
+  | A vida cai de fato (mesmo critério do anúncio do item 25) | ~~vida~~ | ~~perda de vida~~ (retirados na revisão, abaixo) |
   | "Continuar" com acerto | acerto | sucesso |
   | Fim da lição aprovada | fim | comemoração |
 
@@ -102,6 +102,34 @@ desligados.
 - **Uma nota de método:** o primeiro toque no interruptor, curto, não o
   acionou. Um toque de 0,2 s acionou. É limite da entrada sintética no
   `Switch` nativo, e não do app.
+
+## O teste do dono no iPhone, e a revisão
+
+**Em 2026-09-28, perto das 11h,** o dono percorreu o roteiro no iPhone, com a
+build `development` `c4eeeb44` e o Metro com o JS novo. Estava sem assinatura.
+- **Funcionou:** o toque, o erro, o acerto, o fim, o card no Perfil, os dois
+  interruptores e o modo silencioso.
+- **Não ouviu o som do coração,** embora o coração tenha caído.
+
+**A medição,** no simulador `A5FA5443`, sem assinatura e com 5 corações: o
+erro começou às 09:55:53.222 e a vida às 09:55:53.224, **2 ms depois**. O som
+tocava, mas por baixo do erro.
+
+**A decisão do dono,** com a recomendação do agente: tirar da lição o som e a
+vibração do coração, e deixar a queda sutil no HUD. Eles voltam com a animação
+em primeiro plano (FILA, 26), tocando depois do erro
+([ADR](../../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão).
+
+**O conserto,** no run `run-1790605035321-a6d79351`:
+- **Vermelho antes:** o teste do erro passou a exigir só `['toque', 'erro']` e
+  nenhuma vibração de perda de vida, e reprovou com um `"vida"` a mais.
+- **A asserção da vibração, vista falhando sozinha:** com uma
+  `hapticLifeLost()` injetada, ela deu "Received number of calls: 1".
+- **Verde:** 33 de 33, com `tsc` e `eslint` limpos. O anúncio "Você perdeu uma
+  vida; restam N" continua.
+
+**A ideia do dono para depois:** uma aba "Configurações" dentro do Perfil,
+reunindo os cards de configuração (FILA, 32).
 
 ## Arquivos
 

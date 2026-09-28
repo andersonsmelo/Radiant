@@ -2278,3 +2278,15 @@ sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
 
   [`2026-09-28-radiant-prompt-de-continuidade-11.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md).
   Ele substitui o (10).
+
+## Retirado em 2026-09-28 — som do coração fora da lição (FILA, 31 e 26)
+
+   Antes, os sons existiam só no piloto do V3, e a 1.4 sairia muda. O card
+   "Sons e vibração" passou a aparecer no Perfil de produção. No simulador
+   iOS 26.5, o log do sistema mostrou o toque, o erro, o acerto e o fim tocando
+   nos momentos certos, e nada com "Sons" desligado
+   ([relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+
+strict. **Última medição: 2026-09-28, às 08:58**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os sons na lição (FILA, 31), e a árvore sem
+nenhum arquivo alheio ao run.

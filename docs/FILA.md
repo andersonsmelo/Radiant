@@ -119,7 +119,14 @@ destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
     (`CheckpointScreen.tsx:324`). Isso ficou fora do 25 por decisão do dono.
     O quiz antigo (`useQuiz.ts:153`) também debita em silêncio, mas não se
     achou link para `/quiz` no app;
-  - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda;
+  - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
+    **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
+    ouviu no iPhone que o som do coração não se distinguia, e o log do
+    simulador mediu que ele começava 2 ms depois do erro. Sem uma animação em
+    primeiro plano que o justifique, o dono tirou o som e a vibração do coração
+    da lição. Quando a animação for desenhada, eles voltam **tocando depois do
+    erro**, e não colados nele
+    ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
   - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
     como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
     espaçada está certa. O agente propõe algo como "Disponível amanhã".
@@ -127,7 +134,12 @@ destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;
   - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
-  - **24.** dono: as ações de um passo da seção 7, abaixo.
+  - **24.** dono: as ações de um passo da seção 7, abaixo;
+  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
+    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
+    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
+    informações). Pede desenho antes: o que entra, a navegação e o que fica no
+    Perfil.
 
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 

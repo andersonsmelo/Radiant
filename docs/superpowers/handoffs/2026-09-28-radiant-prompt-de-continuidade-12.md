@@ -20,7 +20,7 @@ Uma conversa só fez os quatro itens, a pedido do dono.
 |---|---|---|
 | **25 — anunciar a perda de vida ao leitor de tela, na lição** | ✅ "… Você perdeu uma vida; restam N." ou "… Você perdeu sua última vida.". O assinante não ouve nada sobre vidas | [relatório](2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md) |
 | **20 — bump para `1.4.0`** | ✅ `app.json`, `package.json` e as duas raízes do `package-lock.json`, com a guarda `src/config/appVersion.contract.test.ts` | [relatório](2026-09-28-radiant-bump-1-4-0-relatorio.md) |
-| **31 — sons e vibração na lição do aluno** | ✅ A camada do piloto foi ligada à lição do aluno, e o card "Sons e vibração" aparece no Perfil de produção. No simulador, o log mostrou cada som no momento certo | [ADR](../../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), [relatório](2026-09-28-radiant-sons-na-licao-relatorio.md) |
+| **31 — sons e vibração na lição do aluno** | ✅ A camada do piloto foi ligada à lição do aluno, e o card "Sons e vibração" aparece no Perfil de produção. O dono ouviu no iPhone. O som e a vibração do coração saíram: soavam colados no erro (FILA, 26) | [ADR](../../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), [relatório](2026-09-28-radiant-sons-na-licao-relatorio.md) |
 | **7a — variantes da amostra da L1** | ✅ A variante fica na mesma postura e só usa vistas reais; o h08 foi para o ventral visto por trás. Mudaram 8 dos 20 itens, e o dono os confirma (7b) | [ADR](../../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md), [relatório](2026-09-28-radiant-variantes-l1-relatorio.md) |
 
 **Decidido pelo dono em 2026-09-28:**
@@ -29,8 +29,11 @@ Uma conversa só fez os quatro itens, a pedido do dono.
   função dele no app (item 29, decisão dele). Enquanto ele existir, o erro ali
   debita vida sem anúncio ao leitor de tela (`CheckpointScreen.tsx:324`);
 - o bump recebeu o ok, e a guarda de versão entrou;
-- **a 1.4 sai com som (decisão B):** antes, só o piloto tocava
-  ([ADR](../../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md));
+- **a 1.4 sai com som (decisão B):** antes, só o piloto tocava. Depois do
+  teste no iPhone, **o som e a vibração do coração saíram da lição**, e voltam
+  com a animação em primeiro plano (26)
+  ([ADR](../../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
+- **ideia do dono para depois:** uma aba "Configurações" no Perfil (32);
 - **as variantes da L1 seguem o caminho 1:** a variante fica na postura; sem
   outra vista real, pergunta o oposto. O h08 passou ao ventral visto por trás
   ([ADR](../../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)).
@@ -127,7 +130,8 @@ remover o checkpoint**. Antes da decisão, o agente pode levantar o que o
 checkpoint faz hoje, se o dono pedir.
 
 **Depois da 1.4:** 21, o SDK 58 com `UIScene`, até abril de 2027; 22, a L2 v7;
-23, o simulador `A5FA5443`; 24, as ações de um passo do dono.
+23, o simulador `A5FA5443`; 24, as ações de um passo do dono; 32, a aba
+"Configurações" no Perfil, que pede desenho antes.
 
 **Qual frente pegar agora:** o **12**. O que segura a 1.4 é só do dono.
 

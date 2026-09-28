@@ -115,9 +115,11 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    ✅ **Sons e vibração na lição do aluno: ligados em 2026-09-28 pelo agente,
    por decisão do dono** ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md)).
    Antes, os sons existiam só no piloto do V3, e a 1.4 sairia muda. O card
-   "Sons e vibração" passou a aparecer no Perfil de produção. No simulador
-   iOS 26.5, o log do sistema mostrou o toque, o erro, o acerto e o fim tocando
-   nos momentos certos, e nada com "Sons" desligado
+   "Sons e vibração" passou a aparecer no Perfil de produção. **O dono ouviu
+   no iPhone**, e tudo funcionou, menos o som do coração, que o log mediu
+   começando 2 ms depois do erro. **O som e a vibração do coração saíram da
+   lição** por decisão do dono, e voltam com a animação em primeiro plano
+   (FILA, 26)
    ([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
 4. **Dono:** o merge da #38 ([FILA](FILA.md), 28) e, depois dele, a build de
    produção e o envio ([FILA](FILA.md), 30). Os produtos de assinatura sobem
@@ -257,9 +259,9 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-28, às 08:58**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com os sons na lição (FILA, 31), e a árvore sem
-nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes / 1467
+strict. **Última medição: 2026-09-28, às 11:19**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os sons na lição, já sem o som do coração
+(FILA, 31), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes / 1467
 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
 ([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
