@@ -486,6 +486,77 @@ describe('LessonFlowScreen — economia de vidas', () => {
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
   });
 
+  describe('anúncio da perda de vida ao leitor de tela', () => {
+    // Quem enxerga vê o coração mudar no HUD; quem usa VoiceOver só ouvia
+    // "Resposta incorreta" e descobria a perda indo até os corações (achado do
+    // VoiceOver no iPhone, 2026-09-27, FILA 25).
+    const incorreta = 'Resposta incorreta. A opacidade focal com broncograma aéreo sugere consolidação alveolar.';
+
+    async function errarEConfirmar() {
+      renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+      expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+      fireEvent.press(screen.getByLabelText('Pneumotórax'));
+      fireEvent.press(screen.getByText('Continuar'));
+      await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    }
+
+    it('anuncia a vida perdida e quantas restam junto da resposta incorreta', async () => {
+      await errarEConfirmar();
+
+      expect(announceForAccessibility).toHaveBeenCalledTimes(1);
+      expect(announceForAccessibility).toHaveBeenCalledWith(`${incorreta} Você perdeu uma vida; restam 4.`);
+    });
+
+    it('na última vida, anuncia que ela acabou em vez de "restam 0"', async () => {
+      heartsRepository.getSnapshot.mockResolvedValue({
+        count: 1,
+        status: 'recovering',
+        nextRefillAt: '2026-09-14T12:30:00.000Z',
+        unlimitedUntil: null,
+      });
+      heartsRepository.spend.mockResolvedValue({
+        count: 0,
+        status: 'empty',
+        nextRefillAt: '2026-09-14T12:30:00.000Z',
+        unlimitedUntil: null,
+      });
+      await errarEConfirmar();
+
+      expect(announceForAccessibility).toHaveBeenCalledTimes(1);
+      expect(announceForAccessibility).toHaveBeenCalledWith(`${incorreta} Você perdeu sua última vida.`);
+      expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    });
+
+    it('assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas', async () => {
+      // `setUnlimited` preserva a contagem: quem assinou sem vidas carrega
+      // `count: 0`. Se a leitura das vidas ainda não pousou, a tela compara
+      // contra o padrão de 5, e só o estado impede o "perdeu sua última vida".
+      heartsRepository.getSnapshot.mockReturnValue(new Promise(() => {}));
+      heartsRepository.spend.mockResolvedValue({
+        count: 0,
+        status: 'unlimited',
+        nextRefillAt: null,
+        unlimitedUntil: '2026-10-14T12:00:00.000Z',
+      });
+      await errarEConfirmar();
+
+      expect(announceForAccessibility).toHaveBeenCalledTimes(1);
+      expect(announceForAccessibility).toHaveBeenCalledWith(incorreta);
+    });
+
+    it('sem queda real do contador, não anuncia débito', async () => {
+      // `spend` não desconta quando não há o que descontar. O anúncio segue o
+      // contador que voltou, não o fato de a cobrança ter sido chamada.
+      const quatro = { count: 4, status: 'recovering', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null };
+      heartsRepository.getSnapshot.mockResolvedValue(quatro);
+      heartsRepository.spend.mockResolvedValue(quatro);
+      await errarEConfirmar();
+
+      expect(announceForAccessibility).toHaveBeenCalledTimes(1);
+      expect(announceForAccessibility).toHaveBeenCalledWith(incorreta);
+    });
+  });
+
   it('protege uma confirmação dupla contra cobrança duplicada', async () => {
     let releaseSpend: ((value: unknown) => void) | undefined;
     heartsRepository.spend.mockReturnValue(new Promise(resolve => { releaseSpend = resolve; }));
@@ -499,6 +570,9 @@ describe('LessonFlowScreen — economia de vidas', () => {
     await act(async () => {
       releaseSpend?.({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
     });
+    // Uma vida por pergunta por tentativa (ADR 2026-09-24, decisão 2): o
+    // segundo toque não debita, então também não pode anunciar débito.
+    expect(announceForAccessibility).toHaveBeenCalledTimes(1);
   });
 
   it('pausa no próximo passo ao chegar a zero e preserva a retomada', async () => {

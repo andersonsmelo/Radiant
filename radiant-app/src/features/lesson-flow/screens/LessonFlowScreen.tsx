@@ -221,6 +221,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         // assíncrono e no último passo o estado ainda não conteria esta
         // resposta.
         let nextHearts = hearts;
+        let heartLossCopy = '';
         if (currentInteraction) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
 
@@ -234,11 +235,21 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 chargedInteractions.current.add(currentInteraction.id);
                 nextHearts = await heartsRepository.spend(Date.now());
                 setHearts(nextHearts);
+
+                // Quem enxerga vê o coração mudar no HUD; o leitor de tela
+                // precisa ouvir. Segue a queda real do contador, e não a
+                // chamada a `spend`: o assinante e quem já está em zero não
+                // perdem nada, e não podem ouvir que perderam.
+                if (nextHearts.status !== 'unlimited' && nextHearts.count < hearts.count) {
+                    heartLossCopy = nextHearts.count === 0
+                        ? ' Você perdeu sua última vida.'
+                        : ` Você perdeu uma vida; restam ${nextHearts.count}.`;
+                }
             }
 
             const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
             AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}`,
+                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}${heartLossCopy}`,
             );
         }
 
