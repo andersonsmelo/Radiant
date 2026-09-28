@@ -1499,6 +1499,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     `package.json` e no `package-lock.json`, com uma guarda que exige os
     quatro valores iguais. A build de produção e o envio são do dono (FILA, 30)
     ([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+  - **também em 2026-09-28:** a lição do aluno passou a tocar os sons e a
+    vibrar, com o card "Sons e vibração" no Perfil de produção. Antes, só o
+    piloto do V3 tinha som. Visto no simulador pelo log do sistema
+    ([ADR](../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
+    [relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

@@ -1542,3 +1542,17 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — sons e vibração na lição do aluno (31)
+
+O item nasceu e foi cumprido no mesmo dia, sem passar pela "Ordem de
+prioridade". O dono notou que a lição não tocava os sons escolhidos em
+2026-09-23; a camada existia só no piloto do V3. Pela decisão B do dono, ela
+foi ligada à lição do aluno antes da build da 1.4
+([ADR](../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
+[relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md), que traz todas as pendências na ordem abaixo;

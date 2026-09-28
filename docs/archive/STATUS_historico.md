@@ -2267,3 +2267,14 @@ sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
 
   [`2026-09-28-radiant-prompt-de-continuidade-10.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md).
   Ele substitui o (9).
+
+## Retirado em 2026-09-28 — sons e vibração na lição (FILA, 31)
+
+strict. **Última medição: 2026-09-28, às 08:19**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com as variantes da L1 (FILA, 7a), e a árvore
+sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
+1459 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-11.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md).
+  Ele substitui o (10).

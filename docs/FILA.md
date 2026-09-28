@@ -49,7 +49,7 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (11)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md),
+[prompt (12)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
 **12**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
@@ -73,7 +73,11 @@ destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
   ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)),
   e o 7a (variantes da L1), pelo agente, com a regra escolhida pelo dono
   ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md),
-  [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)),
+  e o 31 (sons e vibração na lição do aluno), aberto e cumprido no mesmo dia
+  a partir de um achado do dono
+  ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
@@ -132,7 +136,7 @@ destravado.** Desde 2026-09-28, com o 25, o 20 e o 7a feitos, esse item é o
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
