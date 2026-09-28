@@ -4,9 +4,8 @@
  * Reutilizável em todas as telas da galáxia.
  */
 
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NavigationContext } from '@react-navigation/native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -17,6 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { galaxyColors } from '../theme';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+import { useScreenFocused } from '../useScreenFocused';
 
 // ── Tipos ──────────────────────────────────────────────────────
 
@@ -197,37 +197,6 @@ function Nebula({
       />
     </Animated.View>
   );
-}
-
-// ── Foco da tela ──────────────────────────────────────────────
-
-/**
- * Se a tela que contém o fundo está em foco.
- *
- * A aba visitada continua montada, e a tela empilhada deixa as abas montadas
- * embaixo. Sem isso, cada fundo escondido seguia animando: medido no simulador
- * em 2026-09-25, o segundo fundo somava ~24 pontos de CPU (item 12 da FILA).
- *
- * Lê o `NavigationContext` direto, e não `useIsFocused`, porque este lança
- * erro fora de um navegador. Sem navegador, não há tela para perder o foco, e
- * o fundo anima.
- */
-function useScreenFocused(): boolean {
-  const navigation = useContext(NavigationContext);
-  const [focused, setFocused] = useState(() => navigation?.isFocused() ?? true);
-
-  useEffect(() => {
-    if (!navigation) return undefined;
-    setFocused(navigation.isFocused());
-    const offFocus = navigation.addListener('focus', () => setFocused(true));
-    const offBlur = navigation.addListener('blur', () => setFocused(false));
-    return () => {
-      offFocus();
-      offBlur();
-    };
-  }, [navigation]);
-
-  return focused;
 }
 
 // ── Componente principal ──────────────────────────────────────

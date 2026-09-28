@@ -1597,3 +1597,33 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-09-28 — o ícone de sequência fora de foco (33)
+
+Retirado sem edição da "Ordem de prioridade"
+([evidência](../../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
+[relatório](../superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)).
+O 14 continua na FILA, reescrito: não espera mais nada.
+
+  - **33.** agente, aberto em 2026-09-28 pelo 12: **o ícone de sequência do
+    HUD da Estude continua respirando fora de foco** (`StreakIcon`, com
+    `useBreathingScale`, em `src/ui/motion.ts`). Com as duas abas cobertas
+    pela tela da assinatura, sobram ~31 % de CPU no simulador, e esse resto
+    zera com Reduzir Movimento. Que o resto é o ícone é inferido; não foi
+    isolado ([evidência](../../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md)). O conserto é o mesmo do fundo: pausar fora de
+    foco, com teste vermelho antes. Convém antes do 14;
+  - **14.** dono, com o agente: aquecimento no aparelho. O 12 foi feito em
+    2026-09-28; o agente recomenda fazer o 33 antes;
+
+Da abertura da "Ordem de prioridade", substituído sem edição (só o link
+relativo reajustado ao novo diretório):
+
+[prompt (14)](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a e o 12 feitos, esse item
+é o **33**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+Link do cabeçalho da seção da 1.4, substituído sem edição (só o link relativo
+reajustado ao novo diretório):
+
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md), que traz todas as pendências na ordem abaixo;

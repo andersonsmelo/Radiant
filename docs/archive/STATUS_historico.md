@@ -2316,3 +2316,25 @@ testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
 
   [`2026-09-28-radiant-prompt-de-continuidade-13.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md).
   Ele substitui o (12).
+
+## Retirado em 2026-09-28 — o ícone de sequência fora de foco (FILA, 33)
+
+strict. **Última medição: 2026-09-28, às 14:52**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o conserto do aquecimento (FILA, 12), e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **154 suítes
+/ 1473 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 14:08, estava com 31 commits
+  à frente da `main`,** com o CI verde na `2049a63`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
+
+    custa o mesmo, ~39 %. O resto com as abas cobertas zera com Reduzir
+    Movimento; o agente atribui ao ícone de sequência, sem ter isolado
+    (FILA, 33).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-14.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md).
+  Ele substitui o (13).
+
+    terminou desligado, com Reduzir Movimento desligado. Abrir o Perfil
+    regravou `@radiant:journey_progress_v1`, e não se sabe se o conteúdo mudou.

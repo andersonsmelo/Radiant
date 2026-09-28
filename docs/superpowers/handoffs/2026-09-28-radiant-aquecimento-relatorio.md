@@ -76,6 +76,11 @@ assinatura.
   Reduzir Movimento; e o valor bate com o piso de uma animação só (28 %).
   Não foi isolado, porque o arquivo está fora do escopo do run. Virou o
   **item 33** da FILA.
+  - **Confirmado e corrigido pelo item 33, no mesmo dia:** com o ícone
+    pausado fora de foco, o M5 foi de 30,7 % para 0,1 %. A atribuição acima
+    estava incompleta: o ícone também está no Perfil, nas seções de Missões e
+    de Progresso
+    ([relatório do 33](2026-09-28-radiant-icone-sequencia-relatorio.md)).
 - O `freezeOnBlur` não teria parado as animações do Reanimated, que rodam fora
   das renderizações do React. Isso não foi medido.
 

@@ -49,10 +49,11 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (14)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md),
+[prompt (15)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25, o 20, o 7a e o 12 feitos, esse item
-é o **33**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12 e o 33 feitos, esse
+item é o **16**; o 13 vem antes na lista, mas pede pergunta ao dono, que quer
+remover o checkpoint. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -80,7 +81,10 @@ destravado.** Desde 2026-09-28, com o 25, o 20, o 7a e o 12 feitos, esse item
   [relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)),
   e o 12 (conserto do aquecimento), pelo agente: o fundo animado para fora de
   foco ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
-  [relatório](superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)),
+  e o 33 (o ícone de sequência), pelo agente: com as abas cobertas, o custo
+  foi de ~31 % para 0,1 % ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md),
+  [relatório](superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
@@ -105,18 +109,12 @@ destravado.** Desde 2026-09-28, com o 25, o 20, o 7a e o 12 feitos, esse item
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **33.** agente, aberto em 2026-09-28 pelo 12: **o ícone de sequência do
-    HUD da Estude continua respirando fora de foco** (`StreakIcon`, com
-    `useBreathingScale`, em `src/ui/motion.ts`). Com as duas abas cobertas
-    pela tela da assinatura, sobram ~31 % de CPU no simulador, e esse resto
-    zera com Reduzir Movimento. Que o resto é o ícone é inferido; não foi
-    isolado ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md)). O conserto é o mesmo do fundo: pausar fora de
-    foco, com teste vermelho antes. Convém antes do 14;
   - **13.** XP da aprovação do checkpoint;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
 - **P5 — esperando outra coisa:**
-  - **14.** dono, com o agente: aquecimento no aparelho. O 12 foi feito em
-    2026-09-28; o agente recomenda fazer o 33 antes;
+  - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
+    nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
+    foco ainda custa ~39 %, e as telas escondidas, quase nada;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
 - **Decisões do dono, sem prazo:**
   - **29.** **remover o checkpoint** até entender a função dele no app. O dono
@@ -158,7 +156,7 @@ destravado.** Desde 2026-09-28, com o 25, o 20, o 7a e o 12 feitos, esse item
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
@@ -324,6 +322,8 @@ Cada conserto é um run, com teste vermelho antes.
      empilhada sobre as abas, de 65,3 % para 31,4 %. A tela em foco custa o
      mesmo, ~39 %. O resto, com as abas cobertas, é o item 33
      ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md)).
+   - ✅ **o 33 também, em 2026-09-28:** com o ícone de sequência pausado fora
+     de foco, a assinatura sobre as abas foi de 30,7 % para 0,1 %.
 6. ✅ **eas-cli atualizado em 2026-09-25**, de 16.32 para **24.8.0**, no
    branch `feat/d4-decisoes-de-revisao`. Em 2026-09-24 ele tinha impresso
    "Build request failed" com a build já criada no EAS.
