@@ -1738,3 +1738,33 @@ Da abertura da "Ordem de prioridade", substituído sem edição:
 
 destravado.** Desde 2026-10-09, com o 13 e o 35 feitos, esse item é o **16**.
 O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## Lote de 2026-10-09 — o merge da #38 e o envio da 1.4.0 (28 e 30)
+
+Retirado sem edição da "Ordem de prioridade" (só os links relativos reajustados
+ao novo diretório)
+([relatório](../superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+No lugar entrou o 40: liberar a 1.4.0 depois da aprovação.
+
+  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
+    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
+    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
+    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13),
+    o anúncio da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1
+    (16).
+    Um agente que pegar outro item antes do merge trabalha no
+    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
+  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
+    do 28. O EAS incrementa o número de build sozinho
+    (`appVersionSource: remote`). Pela regra 8 da
+    [ADR de produtos](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
+    os dois produtos da assinatura vão **junto com a versão**, na primeira
+    submissão, nunca antes. **Para conferir antes do envio:** a captura de
+    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
+    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
+    decisão do dono; o agente não viu a captura.
+
+Da abertura da "Ordem de prioridade", substituído sem edição:
+
+destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
+**38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.

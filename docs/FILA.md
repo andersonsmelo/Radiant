@@ -52,7 +52,8 @@ numeração é a mesma da §3 do
 [prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
-**38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+**38**. A 1.4.0 (12) está na revisão da Apple desde 2026-10-09; o que falta
+é a aprovação e a liberação manual pelo dono (40).
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -100,26 +101,16 @@ destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
   depois da folha), pelo agente, visto vermelho com o defeito 1 reinjetado e
   verde no simulador
   ([evidência](../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md),
-  [relatório](superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md)),
+  e o 28 e o 30, pelo agente com o ok do dono: a PR #38 entrou às 16:18
+  (`221e2ec`), e a `1.4.0 (12)` foi enviada à revisão às 17:17, com os dois
+  produtos da assinatura, o grupo e a captura de revisão refeita
+  ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
-  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
-    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
-    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
-    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13),
-    o anúncio da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1
-    (16).
-    Um agente que pegar outro item antes do merge trabalha no
-    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
-  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
-    do 28. O EAS incrementa o número de build sozinho
-    (`appVersionSource: remote`). Pela regra 8 da
-    [ADR de produtos](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
-    os dois produtos da assinatura vão **junto com a versão**, na primeira
-    submissão, nunca antes. **Para conferir antes do envio:** a captura de
-    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
-    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
-    decisão do dono; o agente não viu a captura.
+  - **40.** dono: **liberar a `1.4.0` na App Store** depois da aprovação. A
+    versão foi enviada em 2026-10-09, às 17:17, com liberação manual. Se a
+    Apple reprovar, a resposta é do agente com o dono, como na 1.3.1.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**

@@ -21,7 +21,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 
 | Frente | Estado | Medido em |
 | --- | --- | --- |
-| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). | 2026-09-23 |
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` enviada à revisão em 2026-10-09, às 17:17, "Aguardando revisão"**, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. Binário = `main` em `221e2ec`. | 2026-10-09 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
 | **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`. O app não depende dela: o sync remoto está desligado em todos os perfis do EAS. | 2026-09-23 |
@@ -128,10 +128,19 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    lição** por decisão do dono, e voltam com a animação em primeiro plano
    (FILA, 26)
    ([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
-4. **Dono:** o merge da #38 ([FILA](FILA.md), 28) e, depois dele, a build de
-   produção e o envio ([FILA](FILA.md), 30). Os produtos de assinatura sobem
-   junto com a versão, nunca antes (regra 8 da
-   [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
+4. ✅ **Merge e envio: feitos em 2026-10-09 pelo agente, com o ok do dono na
+   conversa** ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)):
+   - a PR #38 entrou às 16:18, por merge commit (`221e2ec`), com o CI verde;
+   - a build de produção `1.4.0 (12)` saiu do EAS (`18d0c9aa`, imagem
+     `macos-sequoia-15.6-xcode-26.0`) e subiu ao App Store Connect pelo
+     `--auto-submit`;
+   - às 17:17, a versão foi enviada à revisão junto com os dois produtos e o
+     grupo de assinaturas, como manda a regra 8 da
+     [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A
+     captura de revisão dos produtos foi refeita no simulador, com a tela
+     atual ([captura](../radiant-app/docs/evidence/2026-10-09-envio-1-4-0/captura-revisao-assinatura.png));
+   - **falta:** a aprovação da Apple e, depois dela, **a liberação manual
+     pelo dono** ([FILA](FILA.md), 40).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e
@@ -325,15 +334,14 @@ Medido em 2026-09-25, às 21:24:
   sessão na nuvem
   ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
-- **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
-  do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
-  22:20 com o ok do dono. **Em 2026-10-09, antes deste run, estava com 35
-  commits à frente da `main`,** com o CI verde na `54ba3b8`: `content` e `quality`.
-  O commit do XP da aprovação (FILA, 13) entra depois dessa medição.
+- **A [#38](https://github.com/andersonsmelo/Radiant/pull/38) entrou na `main`
+  em 2026-10-09, às 16:18,** por merge commit (`221e2ec`), feito pelo agente
+  com o ok do dono na conversa. Tinha 42 commits e o CI verde na `1522bda`:
+  `content` e `quality`. O branch remoto `feat/d4-decisoes-de-revisao` não
+  foi apagado; apagá-lo é do dono.
   - O CI também passou em cada push anterior do dia.
   - A revisão do Codex apontou dois defeitos, que foram consertados na
     `3db5f8d`, com as threads respondidas e resolvidas.
-  - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.
 
   O branch leva:
   - a D4, a guarda de sincronia, o eas-cli e as evidências da regra de vidas e

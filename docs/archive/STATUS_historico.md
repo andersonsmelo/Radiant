@@ -2390,3 +2390,20 @@ e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
 **155 suítes / 1490 testes**, lint com 0 erros e 26 avisos, visual QA sem
 regressão
 ([relatório](../superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)). O CI roda o mesmo comando inteiro
+
+## Retirado em 2026-10-09 — o merge da #38 e o envio da 1.4.0 (12)
+
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). | 2026-09-23 |
+
+4. **Dono:** o merge da #38 ([FILA](../FILA.md), 28) e, depois dele, a build de
+   produção e o envio ([FILA](../FILA.md), 30). Os produtos de assinatura sobem
+   junto com a versão, nunca antes (regra 8 da
+   [ADR](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
+
+- **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
+  do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
+  22:20 com o ok do dono. **Em 2026-10-09, antes deste run, estava com 35
+  commits à frente da `main`,** com o CI verde na `54ba3b8`: `content` e `quality`.
+  O commit do XP da aprovação (FILA, 13) entra depois dessa medição.
+
+  - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.

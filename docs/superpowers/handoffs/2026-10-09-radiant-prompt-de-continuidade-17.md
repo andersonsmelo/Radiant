@@ -1,4 +1,4 @@
-# Prompt de continuidade (17) — 2026-10-09, depois do 13, do 35 e do 16
+# Prompt de continuidade (17) — 2026-10-09, depois do 13, do 35, do 16 e do envio da 1.4.0
 
 Você vai continuar o Radiant, um app iOS de treinamento em radiologia (Expo 54 /
 React Native 0.81). Você trabalha com o dono, que decide sobre loja, aparelho,
@@ -20,6 +20,7 @@ anteriores.**
 | **13 — o XP da aprovação das avaliações da V2** | ✅ Aprovar credita pela regra da lição (na prática, +18 XP), conta para a sequência e a meta diária e paga só na primeira aprovação. O crédito vem antes de concluir o nó, porque a conclusão dispara o backup que leva o XP. A celebração mostra "+18 XP" e o total novo | [ADR, revisão de 2026-10-09](../../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md), [relatório](2026-10-09-radiant-xp-da-aprovacao-relatorio.md) |
 | **35 — o anúncio da perda de vida nas avaliações da V2** | ✅ Errar numa avaliação anuncia "Você perdeu uma vida; restam N." ou "Você perdeu sua última vida.", sem "Resposta incorreta.", porque a avaliação não diz se a resposta estava certa. O assinante, quem não perde vida e a pergunta já cobrada não ouvem nada. A frase saiu da lição para `src/features/hearts/heartLossAnnouncement.ts`, usada pelas duas telas | [relatório](2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md) |
 | **16 — o caminho 3 do E2E afirma a L1** | ✅ Depois da folha de vidas, o `radiant-1-4-vidas-esgotadas` afirma a L1 "Concluído" e o cabeçalho em "1 de N", e o contrato exige isso. No simulador, reprovou com o defeito 1 reinjetado e passou sem ele | [evidência](../../../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md), [relatório](2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md) |
+| **28 e 30 — o merge da #38 e o envio da 1.4.0** | ✅ Feitos pelo agente com o ok do dono. A #38 entrou às 16:18 (`221e2ec`). A build `1.4.0 (12)` saiu do EAS e foi enviada à revisão às 17:17, com os dois produtos da assinatura, o grupo e a captura de revisão refeita no simulador. Liberação manual | [relatório](2026-10-09-radiant-envio-1-4-0-relatorio.md) |
 
 **Decidido pelo dono em 2026-10-09:** o XP da aprovação segue a regra da
 lição, e a celebração mostra o ganho e o total novo.
@@ -61,26 +62,25 @@ uptime
 ```
 
 **Esperado depois de 2026-10-09:**
-- **a PR #38 aberta,** com os commits dos itens 13, 35 e 16 no topo: o do
-  código do 13 é o `df75d33`, e os do 35, do 16 e os de documentação vêm
-  depois dele. Não há contagem aqui de
-  propósito, porque o commit que a grava a falsifica. Confira que o CI ficou
-  verde no último push;
-- a `origin/main` em `e992686`;
-- no remoto, além da `main` e do `feat/d4-decisoes-de-revisao`, os branches já
-  mergeados das PRs #35 a #37. Apagá-los é do dono;
+- **a PR #38 mergeada** em 2026-10-09, às 16:18, no `221e2ec`. A `origin/main`
+  está nele ou depois dele, com os commits de documentação do envio, se o dono
+  já tiver mergeado a PR deles;
+- **a `1.4.0 (12)` em revisão na Apple ou já aprovada.** Confira no App Store
+  Connect antes de falar dela; se aprovada, liberá-la é do dono (40);
+- no remoto, além da `main`, os branches já mergeados das PRs #35 a #38.
+  Apagá-los é do dono;
 - **o Metro desligado, e os simuladores `E3C547AE` e `A5FA5443` desligados;**
 - **a carga da máquina baixa.** Leia as "Quatro lições de 2026-09-28" no
   AGENTS.md antes do primeiro `loop validate`.
 
-**Se a #38 já tiver entrado,** parta da `main`:
+**Parta da `main`:**
 
 ```bash
 git switch --no-track -c <nova> origin/main
 ```
 
-Se não tiver, continue no próprio `feat/d4-decisoes-de-revisao`. Se o CI da
-#38 estiver vermelho, conserte isso antes de qualquer frente: é do agente.
+Se o CI da `main` estiver vermelho, conserte isso antes de qualquer frente: é
+do agente.
 
 ## 2. Leia, nesta ordem
 
@@ -94,12 +94,11 @@ Se não tiver, continue no próprio `feat/d4-decisoes-de-revisao`. Se o CI da
 A numeração é a mesma da FILA. Os números que faltam foram cumpridos ou
 encerrados, e estão em `docs/archive/FILA_concluidos.md`.
 
-**P1 — o que segura a 1.4: tudo do dono**
+**P1 — a 1.4 na loja: do dono**
 
 | # | Tarefa | Dono | Estado |
 |---|---|---|---|
-| 28 | **Merge da PR #38** | dono | Aberta |
-| 30 | **Build de produção da `1.4.0` e envio à App Store** | dono | Depois do 28. Os produtos da assinatura vão junto com a versão (regra 8 da [ADR de produtos](../../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)). A captura de revisão dos produtos é de 2026-09-15, antes do "Gerenciar" e da nova ordem dos planos; refazê-la é decisão do dono |
+| 40 | **Liberar a `1.4.0` na App Store** depois da aprovação | dono | Enviada à revisão em 2026-10-09, às 17:17, com liberação manual. Se a Apple reprovar, a resposta é do agente com o dono |
 
 **P2 — relógio longo**
 
