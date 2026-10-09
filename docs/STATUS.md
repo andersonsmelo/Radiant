@@ -81,7 +81,7 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      **O checkpoint ficou fora.** Em 2026-09-28, o dono decidiu que saem os
      checkpoints de botão, que não cobram vida, e ficam as 5 avaliações da V2
      ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Nelas,
-     o erro debita vida sem anúncio (`CheckpointScreen.tsx:324`; FILA, 35).
+     o erro debita vida sem anúncio (`CheckpointScreen.tsx:326`; FILA, 35).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
@@ -269,12 +269,12 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-28, às 20:37**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com a trilha sem os checkpoints de botão (FILA,
-34), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
-**155 suítes / 1482 testes**, lint com 0 erros e 26 avisos, visual QA sem
+strict. **Última medição: 2026-10-09, às 14:31**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o XP da aprovação das avaliações (FILA, 13),
+e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
+**155 suítes / 1490 testes**, lint com 0 erros e 26 avisos, visual QA sem
 regressão
-([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md)). O CI roda o mesmo comando inteiro
+([relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -321,9 +321,9 @@ Medido em 2026-09-25, às 21:24:
   [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
 - **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
   do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
-  22:20 com o ok do dono. **Em 2026-09-28, às 20:37, estava com 34 commits
-  à frente da `main`,** com o CI verde na `e990bf6`: Content Scripts e
-  Radiant App Quality. O commit deste run entra depois dessa medição.
+  22:20 com o ok do dono. **Em 2026-10-09, antes deste run, estava com 35
+  commits à frente da `main`,** com o CI verde na `54ba3b8`: `content` e `quality`.
+  O commit do XP da aprovação (FILA, 13) entra depois dessa medição.
   - O CI também passou em cada push anterior do dia.
   - A revisão do Codex apontou dois defeitos, que foram consertados na
     `3db5f8d`, com as threads respondidas e resolvidas.
@@ -374,8 +374,8 @@ Medido em 2026-09-25, às 21:24:
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-28-radiant-prompt-de-continuidade-16.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md).
-  Ele substitui o (15).
+  [`2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md).
+  Ele substitui o (16).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

@@ -49,11 +49,10 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (16)](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md),
+[prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-09-28, com o 25, o 20, o 7a, o 12, o 33 e o 34 feitos
-e o 29 decidido, esse item é o **13**. O que segura a 1.4 agora é só do dono:
-o 28 e o 30.
+destravado.** Desde 2026-10-09, com o 13 feito, esse item é o **35**. O que
+segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -89,12 +88,18 @@ o 28 e o 30.
   checkpoints de botão, e as 5 avaliações da V2 ficam ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)),
   e o 34, a remoção, pelo agente, na 1.4 a pedido do dono
   ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md), [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+- em 2026-10-09: o 13 (XP da aprovação das avaliações da V2), pelo agente, pela
+  regra da lição, que o dono escolheu: na prática, +18 XP na primeira aprovação,
+  com o ganho e o total novo na celebração
+  ([ADR, revisão](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md),
+  [relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
     aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
     a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
-    `1.4.0` (20). Um agente que pegar outro item antes do merge trabalha no
+    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13).
+    Um agente que pegar outro item antes do merge trabalha no
     próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
   - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
     do 28. O EAS incrementa o número de build sozinho
@@ -113,10 +118,8 @@ o 28 e o 30.
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **13.** XP da aprovação **das avaliações da V2**, que ficam pela
-    [ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md): aprovar não soma XP, e a tela mostra o total igual;
   - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
-    (`CheckpointScreen.tsx:324`), como o 25 fez na lição. Ficou fora do 25 à
+    (`CheckpointScreen.tsx:326`), como o 25 fez na lição. Ficou fora do 25 à
     espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
     mas não se achou link para `/quiz` no app;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
@@ -184,7 +187,7 @@ o 28 e o 30.
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md`](superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

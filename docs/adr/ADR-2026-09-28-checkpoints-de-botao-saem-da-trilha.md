@@ -93,3 +93,21 @@ decisão não o toca.
   agora isso quer dizer as avaliações da V2.
 - **Se a remoção entra na 1.4 ou depois** era decisão do dono. Ele decidiu,
   em 2026-09-28, que entra na 1.4, dentro da PR #38.
+
+## Revisão em 2026-10-09 — o XP da aprovação (FILA, 13)
+
+**Decisor:** o dono, na conversa de 2026-10-09, entre três propostas: a regra
+da lição, um valor fixo maior e nenhum XP.
+
+- **Quanto:** aprovar uma avaliação da V2 rende XP pela **regra da lição**:
+  10 de base, mais 5 com 80 % de acerto ou 8 com 90 % ou mais. A aprovação
+  também conta para a sequência e para a meta diária, e paga **só na primeira
+  aprovação** do nó, pela mesma régua de elegibilidade da lição.
+- **A celebração** mostra o ganho ("+18 XP") e o total já com ele. Sem
+  crédito, ela mostra só o total.
+- **Na prática, toda aprovação rende 18 XP.** A avaliação do estágio 1 tem 2
+  itens, e 80 % de 2 são os 2: aprovar exige 100 %. A contagem dos outros
+  quatro estágios não foi conferida.
+
+Implementado no mesmo dia
+([relatório](../superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)).
