@@ -154,7 +154,10 @@ test('keeps every below-the-fold action reachable before it is tapped', async ()
   // Guarded repeat-scroll is the pattern that works; keep it in place.
   const flow = await readAppFile('.maestro/learning-critical-path.yaml');
 
-  for (const label of ['Abrir checkpoint', 'Concluir checkpoint', 'Abrir próxima lição']) {
+  // Até a ADR de 2026-09-28 o caminho passava por "Abrir checkpoint",
+  // "Concluir checkpoint" e "Abrir próxima lição". O checkpoint de botão saiu
+  // da trilha, e o único CTA abaixo da dobra entre as lições é o da home.
+  for (const label of ['Continuar jornada']) {
     assert.match(
       flow,
       new RegExp(`while:\\n\\s+notVisible: ${label}\\n\\s+commands:\\n\\s+- scroll`),
@@ -172,35 +175,36 @@ test('keeps every below-the-fold action reachable before it is tapped', async ()
   }
 });
 
-test('ties the celebration assertions to the copy CheckpointScreen actually renders', async () => {
-  // Duas vezes seguidas o flow crítico afirmou texto que a tela já não mostrava:
-  // a migração pt-BR de 2026-07-27 trocou a tarja da celebração e substituiu o
-  // CTA fixo pelo rótulo do próximo nó, e o contrato seguiu verde porque só lia
-  // o YAML. Uma asserção sobre o texto de um artefato confirma o que alguém
-  // escreveu, nunca o que a tela renderiza — então ancore as duas strings na
-  // fonte, que é o único lado que o device vê.
-  const [flow, screen] = await Promise.all([
+test('keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson', async () => {
+  // ADR de 2026-09-28: os checkpoints das trilhas do catálogo eram só um botão
+  // e saíram. Entre as duas lições o flow passava por "Abrir checkpoint",
+  // "Concluir checkpoint" e pela celebração; agora ele volta à home e segue
+  // pelo CTA que ela mostra quando o próximo nó é uma lição. O rótulo é pinado
+  // à fonte, porque um rótulo renomeado deixaria o flow tocando outro botão.
+  const [flow, home] = await Promise.all([
     readAppFile('.maestro/learning-critical-path.yaml'),
-    readAppFile('src/features/checkpoint/screens/CheckpointScreen.tsx'),
+    readAppFile('src/features/journey/screens/JourneyHomeScreen.tsx'),
   ]);
 
-  const eyebrow = screen.match(/styles\.celebrationEyebrow\}>([^<]+)</)?.[1].trim();
-  assert.ok(eyebrow, 'expected CheckpointScreen to render a celebration eyebrow');
+  // O último `return` de `continueLabel` é o do nó que não é revisão,
+  // checkpoint nem conquista: a lição.
+  const lessonLabel = home.match(/return 'Receber conquista';\s*\}\s*return '([^']+)';\s*\}, \[homeNextNode\]\)/)?.[1];
+  assert.ok(lessonLabel, 'expected JourneyHomeScreen.continueLabel to end with the lesson CTA');
   assert.match(
     flow,
-    new RegExp(`^- assertVisible: ${eyebrow}$`, 'm'),
-    `the critical path must assert the eyebrow the screen renders ("${eyebrow}")`
+    new RegExp(`^- tapOn: ${lessonLabel}$`, 'm'),
+    `the critical path must reach lesson 2 through the home CTA "${lessonLabel}"`
   );
 
-  // O CTA da celebração é o rótulo do próximo nó recomendado, não um literal da
-  // tela de celebração: o flow só pode tocar num rótulo que resolveNextAction
-  // realmente produz.
-  const tapped = flow.slice(flow.indexOf(`- assertVisible: ${eyebrow}`)).match(/^- tapOn: (.+)$/m)?.[1];
-  assert.ok(tapped, 'expected a tap after the celebration assertion');
-  assert.match(
-    screen,
-    new RegExp(`label: '${tapped}'`),
-    `"${tapped}" is not a label resolveNextAction can return`
+  // Só os passos contam: os comentários explicam, de propósito, o que saiu.
+  const executableFlow = flow
+    .split('\n')
+    .filter((line) => !/^\s*#/.test(line))
+    .join('\n');
+  assert.doesNotMatch(
+    executableFlow,
+    /checkpoint|CONQUISTA DESBLOQUEADA/i,
+    'the critical path must not walk through a catalog checkpoint — buildUnit no longer creates one'
   );
 });
 
@@ -844,10 +848,12 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
 
   assert.ok(lessonCount >= 3, 'the unlock rule is only meaningful on a track with more than two lessons');
 
-  // `buildUnit` cria um checkpoint para toda lição menos a última e um reward
-  // no fim, então a unidade tem `2 * lessonCount` nós primários — é esse o
-  // denominador que a tela mostra. O numerador antes da coleta é ele menos um.
-  const totalPrimaryNodes = lessonCount * 2;
+  // `buildUnit` cria uma lição por entrada do catálogo e um reward no fim, sem
+  // checkpoint entre as lições desde a ADR de 2026-09-28, então a unidade tem
+  // `lessonCount + 1` nós primários — é esse o denominador que a tela mostra.
+  // O numerador antes da coleta é ele menos um. (Até a ADR eram
+  // `2 * lessonCount`, com um checkpoint para toda lição menos a última.)
+  const totalPrimaryNodes = lessonCount + 1;
 
   assert.match(
     rewardScreen,
@@ -856,7 +862,7 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
   );
 
   for (const [completed, why] of [
-    [totalPrimaryNodes - 1, 'antes da coleta: todas as lições e checkpoints, menos o próprio reward'],
+    [totalPrimaryNodes - 1, 'antes da coleta: todas as lições, menos o próprio reward'],
     [totalPrimaryNodes, 'depois da coleta: é o que separa "o botão apareceu" de "a coleta gravou"'],
   ]) {
     assert.match(
@@ -866,10 +872,12 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
     );
   }
 
-  // Uma lição a mais no catálogo é um checkpoint a mais no caminho. Contar os
+  // Uma lição a mais no catálogo é uma passagem a mais pela home. Contar os
   // toques é o que faz o flow acompanhar a trilha em vez de descrever a de
   // ontem — e é a checagem que fica vermelha primeiro quando o currículo cresce.
   const countSteps = (pattern) => (flow.match(pattern) ?? []).length;
+  const lessonLabel = home.match(/return 'Receber conquista';\s*\}\s*return '([^']+)';\s*\}, \[homeNextNode\]\)/)?.[1];
+  assert.ok(lessonLabel, 'expected JourneyHomeScreen.continueLabel to end with the lesson CTA');
 
   assert.equal(
     countSteps(/^- tapOn: Concluir e voltar$/gm),
@@ -877,9 +885,14 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
     `reward-unlock.yaml must finish exactly ${lessonCount} lessons — one per lesson the catalog puts in "${track.id}"`
   );
   assert.equal(
-    countSteps(/^- tapOn: Concluir checkpoint$/gm),
+    countSteps(new RegExp(`^- tapOn: ${lessonLabel}$`, 'gm')),
     lessonCount - 1,
-    `reward-unlock.yaml must clear exactly ${lessonCount - 1} checkpoints — buildUnit creates one per lesson except the last`
+    `reward-unlock.yaml must reach each lesson after the first through the home CTA "${lessonLabel}" — ${lessonCount - 1} times`
+  );
+  assert.equal(
+    countSteps(/^- tapOn: .*checkpoint.*$/gim),
+    0,
+    'reward-unlock.yaml must not tap a catalog checkpoint — buildUnit no longer creates one (ADR de 2026-09-28)'
   );
 
   // As lições geradas expõem o id da pergunta como `<lessonId>:qN`, então a
@@ -1143,4 +1156,26 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
     'on the trail the hearts HUD is a button whose label adds the refill ETA — assert "0 de N vidas; próxima em … minutos", not the bare count'
   );
   assert.ok(closeAt > sheetAt && zeroAt > closeAt, 'assert the emptied hearts only after the modal sheet is closed');
+
+  // Defeito 1 do E2E (ADR de 2026-09-25, opção A; FILA, 16): a L1 concluída,
+  // reaberta e abandonada pela folha, voltava como retomável, com o cabeçalho em
+  // "0 de N". Depois da folha, o caminho 3 afirma o estado certo — a L1 concluída
+  // e o cabeçalho contando a etapa —, e não mais um padrão que casa com os dois.
+  const completedCopy = card.match(/case 'completed':\s*return '([^']+)';/)?.[1];
+  assert.ok(completedCopy, 'expected JourneyNodeCard to label the completed status');
+  const stageHeader = await readAppFile('src/features/journey/components/JourneyStageHeader.tsx');
+  assert.match(stageHeader, /accessibilityLabel=\{`\$\{title\}\. \$\{completed\} de \$\{total\} etapas concluídas\.`\}/);
+  const afterSheet = hearts.slice(closeAt);
+  assert.ok(
+    afterSheet.includes(`- assertVisible: '^Fundamentos de Radiologia\\. ${completedCopy}\\.$'`),
+    `after the hearts sheet closes, path 3 must assert L1 still "${completedCopy}"`
+  );
+  assert.ok(
+    afterSheet.includes("- assertVisible: '^Fundamentos de Radiologia\\. 1 de \\d+ etapas concluídas\\.$'"),
+    'after the hearts sheet closes, path 3 must assert the stage header counting L1 ("1 de N")'
+  );
+  assert.ok(
+    !afterSheet.includes('\\. \\d+ de \\d+ etapas concluídas'),
+    'a header pattern that matches "0 de N" as well as "1 de N" cannot tell defect 1 apart'
+  );
 });

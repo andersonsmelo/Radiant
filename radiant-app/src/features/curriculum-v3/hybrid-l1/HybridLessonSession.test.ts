@@ -41,7 +41,7 @@ describe('sessão da lição híbrida', () => {
     expect(session.current()!.id).toBe(first.id);
   });
 
-  it('erro de desafio custa vida e o item volta no fim em outro cenário', () => {
+  it('erro de desafio custa vida e o item volta no fim como variante', () => {
     const session = createHybridLessonSession({ plan });
     for (let i = 0; i < 4; i += 1) { session.answer(session.current()!.correctOptionId); session.advance(); }
     const challenge = session.current()!;

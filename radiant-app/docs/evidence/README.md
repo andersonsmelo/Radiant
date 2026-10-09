@@ -95,3 +95,12 @@ separadas para iOS e Android e identificar o responsável e a próxima ação.
   como coletável, com o botão gravando `markNodeCompleted` por deep link.
   Corrigido primeiro, coberto depois. Registra que a **regra de destravamento
   segue sem cobertura** e duas armadilhas de seletor da tela.
+- [Regra de vidas do checkpoint, no simulador — 2026-09-25](2026-09-25-regra-de-vidas-simulador.md)
+  — cinco cenários conferidos pela tela e pelo AsyncStorage: errar a mesma
+  pergunta depois de sair não cobra de novo, a tentativa nova depois de
+  reprovar cobra, e aprovar ou reprovar limpa a lista. Flows do Maestro na
+  pasta ao lado.
+- [Aquecimento: medição indireta no simulador — 2026-09-25](2026-09-25-aquecimento-simulador.md)
+  — CPU do app com a trilha parada: ~94 % de um núcleo com as animações e
+  0,4 % com Reduzir Movimento, reproduzido ao desligar de novo. Indica o fundo
+  de estrelas; a medição no aparelho continua pendente.

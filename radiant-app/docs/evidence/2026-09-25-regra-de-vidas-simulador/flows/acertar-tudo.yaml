@@ -1,0 +1,23 @@
+appId: com.ascendcreative.radiant
+---
+- tapOn: 'Abrir checkpoint'
+- scrollUntilVisible:
+    element: 'Iniciar checkpoint'
+    direction: DOWN
+- tapOn: 'Iniciar checkpoint'
+- scrollUntilVisible:
+    element: 'Interação capaz de remover elétron'
+    direction: DOWN
+- tapOn: 'Interação capaz de remover elétron'
+- scrollUntilVisible:
+    element: 'Próxima questão'
+    direction: DOWN
+- tapOn: 'Próxima questão'
+- scrollUntilVisible:
+    element: 'Aumentar a quantidade de fótons não altera a energia de cada fóton'
+    direction: DOWN
+- tapOn: 'Aumentar a quantidade de fótons não altera a energia de cada fóton'
+- scrollUntilVisible:
+    element: 'Enviar checkpoint'
+    direction: DOWN
+- tapOn: 'Enviar checkpoint'

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,6 +16,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { canOpenJourneyNode, getJourneyNodeHref } from '../../journey/services/JourneyNodeRouting';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
 import { GamificationService } from '../../gamification/services/GamificationService';
+import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
 import type { GamificationSnapshot } from '../../../types/gamification';
 import { galaxyColors } from '../../../ui/theme';
 import { layout, radius, space, typography } from '../../../ui/styles';
@@ -30,6 +31,7 @@ import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } 
 import { checkpointChargeLedger } from '../checkpointChargeLedger';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -100,6 +102,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [checkpointEvaluation, setCheckpointEvaluation] = useState<UnitCheckpointEvaluation | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
+  const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
   const processingAnswer = useRef(false);
@@ -324,6 +327,14 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         const nextHearts = await heartsRepository.spend(Date.now());
         setHearts(nextHearts);
 
+        // FILA, 35: quem enxerga vê o coração cair no HUD; o leitor de tela
+        // ouve a mesma frase da lição. A avaliação não diz se a resposta estava
+        // certa, então o anúncio é só o da vida.
+        const heartLoss = heartLossAnnouncement(hearts, nextHearts);
+        if (heartLoss) {
+          AccessibilityInfo.announceForAccessibility(heartLoss);
+        }
+
         // O estado decide, não o número: assinante pode carregar `count: 0`.
         if (nextHearts.status === 'empty') {
           setHeartsSheetVisible(true);
@@ -379,6 +390,22 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       await checkpointChargeLedger.clear(checkpointNode.id);
       setCheckpointEvaluation(evaluation);
       if (evaluation.attempt.passed) {
+        // FILA, 13: a aprovação paga pela regra da lição, só na primeira vez.
+        // O crédito vem ANTES de concluir: a conclusão dispara o backup, que
+        // leva o XP, e na ordem inversa a nuvem guardaria o total de antes.
+        const approval = await LessonOutcomeService.recordAssessmentApproval({
+          nodeId: checkpointNode.id,
+          totalQuestions: itemOutcomes.length,
+          correctAnswers: itemOutcomes.filter((outcome) => outcome.outcome === 'correct').length,
+          answeredAt: new Date(committedAt),
+        });
+        setXpAwarded(approval.award?.totalXpAwarded ?? null);
+        // O total foi lido ao abrir a tela; sem reler, a celebração repetia o
+        // número de antes do crédito. Falhar aqui não pode impedir a conclusão:
+        // o XP já foi pago, e uma nova tentativa pagaria de novo.
+        await GamificationService.getSnapshot().then(setGamification, (cause: unknown) => {
+          console.error('[CheckpointScreen] Failed to reload XP after approval:', cause);
+        });
         await handleComplete();
       }
     } catch (cause) {
@@ -395,6 +422,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     checkpointNode,
     currentProductionItem,
     handleComplete,
+    hearts,
     productionBatch,
     productionCheckpoint,
     productionItems,
@@ -456,6 +484,10 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               <Text style={styles.celebrationDescription}>
                 {checkpointNode?.description ?? 'Você completou esta etapa da trilha com sucesso.'}
               </Text>
+
+              {xpAwarded != null && xpAwarded > 0 && (
+                <Text style={styles.celebrationXpGain}>{`+${xpAwarded} XP`}</Text>
+              )}
 
               {/* XP box — total real acumulado */}
               {gamification?.totalXp != null && (
@@ -864,6 +896,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     color: galaxyColors.xpColor,
+  },
+  celebrationXpGain: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: galaxyColors.xpColor,
+    marginTop: 8,
   },
   celebrationCtas: {
     alignSelf: 'stretch',

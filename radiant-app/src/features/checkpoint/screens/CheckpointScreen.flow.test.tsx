@@ -1,9 +1,12 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AccessibilityInfo } from 'react-native';
 import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -117,6 +120,12 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   },
 }));
 
+jest.mock('../../lesson-flow/services/LessonOutcomeService', () => ({
+  LessonOutcomeService: {
+    recordAssessmentApproval: jest.fn(),
+  },
+}));
+
 jest.mock('../../paywall/PaywallService', () => ({
   PaywallService: {
     maybePresentOffer: jest.fn().mockResolvedValue(null),
@@ -143,6 +152,8 @@ jest.mock('../../paywall/components/PaywallOfferCard', () => {
 });
 
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
+const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
+const mockedLessonOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 
 const availableSnapshot = {
   track: {
@@ -264,6 +275,8 @@ describe('CheckpointScreen flow', () => {
     await AsyncStorage.clear();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
+    mockedGamification.getSnapshot.mockResolvedValue({ totalXp: 120, streakDays: 3 } as any);
+    mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award: null, rewarded: false });
   });
 
   // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no
@@ -325,6 +338,96 @@ describe('CheckpointScreen flow', () => {
 
       const stored = JSON.parse(await AsyncStorage.getItem('@radiant:checkpoint_charged_items_v1') ?? '{}');
       expect(stored[productionNodeId]).toBeUndefined();
+    });
+  });
+
+  // FILA, 35: errar numa avaliação debita a vida, e quem enxerga vê o coração
+  // cair no HUD. O leitor de tela passa a ouvir a mesma frase da lição (FILA,
+  // 25). A avaliação não diz se a resposta estava certa, então o anúncio é só
+  // o da vida.
+  describe('anúncio da perda de vida ao leitor de tela', () => {
+    const heartsRepository = () =>
+      require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+    const vidas = (count: number, status: string) => ({ count, status, nextRefillAt: null, unlimitedUntil: null });
+    let announce: jest.SpyInstance;
+    const anunciosDeVida = () =>
+      announce.mock.calls.map(([texto]) => texto as string).filter((texto) => /vida/u.test(texto));
+
+    async function responderAPrimeira(certa: boolean): Promise<void> {
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      const item = productionStageItems[0];
+      expect(await screen.findByText(item.prompt)).toBeTruthy();
+      const opcao = item.options.find(option => (option.id === item.correctOptionId) === certa)!;
+      fireEvent.press(screen.getByLabelText(opcao.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+      expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    }
+
+    beforeEach(() => {
+      announce = jest.spyOn(AccessibilityInfo, 'announceForAccessibility').mockImplementation(() => undefined);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    });
+
+    afterEach(() => {
+      announce.mockRestore();
+      // Os padrões do mock do módulo, para não vazar para os testes seguintes.
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(5, 'full'));
+      heartsRepository().spend.mockResolvedValue(vidas(4, 'recovering'));
+    });
+
+    it('errar anuncia a vida perdida e quantas restam', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(5, 'full'));
+      heartsRepository().spend.mockResolvedValue(vidas(4, 'recovering'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(false);
+
+      expect(anunciosDeVida()).toEqual(['Você perdeu uma vida; restam 4.']);
+    });
+
+    it('errar com a última vida anuncia que foi a última', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(1, 'recovering'));
+      heartsRepository().spend.mockResolvedValue(vidas(0, 'empty'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      const item = productionStageItems[0];
+      fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id !== item.correctOptionId)!.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+
+      expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
+      expect(anunciosDeVida()).toEqual(['Você perdeu sua última vida.']);
+    });
+
+    it('o assinante não ouve nada sobre vidas', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(0, 'unlimited'));
+      heartsRepository().spend.mockResolvedValue(vidas(0, 'unlimited'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(false);
+
+      expect(heartsRepository().spend).toHaveBeenCalledTimes(1);
+      expect(anunciosDeVida()).toEqual([]);
+    });
+
+    it('acertar não anuncia perda', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(true);
+
+      expect(anunciosDeVida()).toEqual([]);
+    });
+
+    it('a mesma pergunta, errada de novo na mesma tentativa, não anuncia de novo', async () => {
+      const primeiraVisita = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await responderAPrimeira(false);
+      primeiraVisita.unmount();
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await responderAPrimeira(false);
+
+      expect(heartsRepository().spend).toHaveBeenCalledTimes(1);
+      expect(anunciosDeVida()).toEqual(['Você perdeu uma vida; restam 4.']);
     });
   });
 
@@ -455,6 +558,68 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
     });
     expect(await screen.findByText(/^Avaliação 1 de /u)).toBeTruthy();
+  });
+
+  // FILA, 13 (decidido pelo dono em 2026-10-09): aprovar rende XP pela regra
+  // da lição, e a celebração mostra o ganho e o total depois dele. Antes, a
+  // aprovação só concluía o nó, e a caixa repetia o total lido ao abrir a tela.
+  describe('XP da aprovação', () => {
+    const award = { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' as const };
+
+    beforeEach(() => {
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+    });
+
+    it('credita o XP antes de concluir o nó, com os acertos da avaliação', async () => {
+      mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award, rewarded: true });
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      await waitFor(() => {
+        expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
+      });
+      expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledWith(expect.objectContaining({
+        nodeId: productionNodeId,
+        totalQuestions: productionStageItems.length,
+        correctAnswers: productionStageItems.length,
+      }));
+      // O backup do iCloud sai da conclusão e leva o XP: creditar depois dela
+      // mandaria para a nuvem o total de antes.
+      expect(mockedLessonOutcome.recordAssessmentApproval.mock.invocationCallOrder[0])
+        .toBeLessThan(mockedJourneyProgressService.markNodeCompleted.mock.invocationCallOrder[0]);
+    });
+
+    it('a celebração mostra o ganho e o total depois dele', async () => {
+      mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award, rewarded: true });
+      mockedGamification.getSnapshot
+        .mockResolvedValueOnce({ totalXp: 120, streakDays: 3 } as any)
+        .mockResolvedValue({ totalXp: 138, streakDays: 3 } as any);
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      expect(await screen.findByText('+18 XP')).toBeTruthy();
+      expect(screen.getByText('XP total: 138')).toBeTruthy();
+      expect(screen.queryByText('XP total: 120')).toBeNull();
+    });
+
+    it('sem crédito, a celebração mostra só o total', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      expect(await screen.findByText('XP total: 120')).toBeTruthy();
+      expect(screen.queryByText(/^\+/u)).toBeNull();
+    });
+
+    it('reprovar não credita XP', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(false);
+
+      expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+      expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+    });
   });
 
   // Achado 1 do gate H4 (2026-09-24): a tela ainda descrevia a avaliação única

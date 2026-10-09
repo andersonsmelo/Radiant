@@ -36,10 +36,11 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **157 commits e 327 arquivos à frente** do que está na App Store
-(medido em 2026-09-25, `v1.3.1..c9062da`). Nada disso chegou ao usuário:
-vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
-currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
+A `main` está **168 commits e 333 arquivos à frente** do que está na App Store
+(medido em 2026-09-25, às 21:24, `v1.3.1..e992686`). Nada disso chegou ao
+usuário: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
+(CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
+ao app do aluno).
 
 ```bash
 git fetch origin && git rev-list --count v1.3.1..origin/main
@@ -55,20 +56,43 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    - renovação acelerada e expiração;
    - reinstalação.
 
-   Falta:
-   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
-   - Ask to Buy;
-   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
-     pela [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+   Falta, pela [ADR de 2026-09-25, às 21:20](adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md):
+   - ✅ **cancelamento: feito em 2026-09-27**, pela folha da Apple dentro do
+     app, no iPhone com iOS 27.2 e na build `c4eeeb44`. A tela passou a
+     "Cancelada" sozinha, e a folha também resolve a troca de plano. O preço
+     que acompanha a troca de loja **não pôde ser reproduzido** no aparelho,
+     porque sem a conta de sandbox os preços ficaram em R$
+     ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md));
+   - ✅ **Ask to Buy: feito em 2026-09-27 pelo agente**, no StoreKit Testing
+     do Xcode, num simulador iOS 26.5, com um `.storekit` local versionado em
+     `radiant-app/modules/radiant-storekit/testing/`. O módulo Swift funciona
+     ali. Pendente, recusado e aprovado foram vistos, e o aprovado chegou por
+     `Transaction.updates` e virou ∞ sem reabrir o app. A tela da assinatura,
+     se estivesse aberta, não atualizava com a aprovação, e o conserto entrou
+     no mesmo run ([evidência](../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md));
+   - ✅ **VoiceOver: encerrado pelo dono em 2026-09-27**, que assumiu a
+     responsabilidade antes do reforço, da tela de aprovação e do HUD em
+     recarga ([evidência](../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)). Anúncios, ordem e estado das alternativas
+     estão certos, e o HUD não lê número duplicado. **Achado:** a perda de vida
+     não era anunciada ao leitor de tela. **Consertado na lição em
+     2026-09-28:** o anúncio passou a dizer "Você perdeu uma vida; restam N."
+     ou "Você perdeu sua última vida.", e o assinante não ouve nada sobre vidas
+     ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+     **O checkpoint ficou fora.** Em 2026-09-28, o dono decidiu que saem os
+     checkpoints de botão, que não cobram vida, e ficam as 5 avaliações da V2
+     ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)).
+     **Nelas, o anúncio entrou em 2026-10-09** (FILA, 35), com a mesma frase,
+     agora numa função compartilhada pelas duas telas
+     ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
    [ADR de 2026-09-25](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
    [evidência](../radiant-app/docs/evidence/2026-09-24-storekit-development-iphone.md)).
    A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
-   corrigida em 2026-09-25 na
-   [PR #37](https://github.com/andersonsmelo/Radiant/pull/37), que aguarda
-   merge, com o gate em 151 suítes / 1434 testes
+   corrigida em 2026-09-25 e **na `main` desde a mesma data**
+   ([PR #37](https://github.com/andersonsmelo/Radiant/pull/37), merge
+   `e992686`), com o gate em 151 suítes / 1434 testes
    ([relatório](superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
 2. **Agente:** E2E dos três caminhos dourados — **os três estão `passed` no
    simulador iOS 26.5 desde 2026-09-25.** O dia 2 do caminho 2 rodou às 13:20,
@@ -80,11 +104,33 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      2026-09-25 (PR #34, com o CI verde);
    - **o defeito 1** foi corrigido em 2026-09-25, pela opção A da
      [ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
-     na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), que aguarda
-     merge. Foi visto na tela, e o gate deu 151 suítes / 1430 testes
+     e **está na `main`** desde a mesma data
+     ([PR #36](https://github.com/andersonsmelo/Radiant/pull/36), merge
+     `cab01c0`). Foi visto na tela, e o gate deu 151 suítes / 1430 testes
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
-3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
-   sobem junto com a versão (regra 8 da
+     **Desde 2026-10-09, o caminho 3 afirma esse estado** (FILA, 16): a L1
+     concluída e o cabeçalho em "1 de N" depois da folha. No simulador, ele
+     reprovou com o defeito reinjetado e passou sem ele
+     ([evidência](../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md)).
+3. ✅ **Bump para `1.4.0`: feito em 2026-09-28 pelo agente**, com o ok do
+   dono, no `feat/d4-decisoes-de-revisao`. A versão está no `app.json`, no
+   `package.json` e nas duas raízes do `package-lock.json`, e uma guarda
+   (`src/config/appVersion.contract.test.ts`) exige que os quatro concordem.
+   O número de build fica com o EAS (`appVersionSource: remote`), e a
+   `runtimeVersion` passa a `1.4.0`
+   ([relatório](superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+   ✅ **Sons e vibração na lição do aluno: ligados em 2026-09-28 pelo agente,
+   por decisão do dono** ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md)).
+   Antes, os sons existiam só no piloto do V3, e a 1.4 sairia muda. O card
+   "Sons e vibração" passou a aparecer no Perfil de produção. **O dono ouviu
+   no iPhone**, e tudo funcionou, menos o som do coração, que o log mediu
+   começando 2 ms depois do erro. **O som e a vibração do coração saíram da
+   lição** por decisão do dono, e voltam com a animação em primeiro plano
+   (FILA, 26)
+   ([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+4. **Dono:** o merge da #38 ([FILA](FILA.md), 28) e, depois dele, a build de
+   produção e o envio ([FILA](FILA.md), 30). Os produtos de assinatura sobem
+   junto com a versão, nunca antes (regra 8 da
    [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
@@ -115,6 +161,12 @@ como opção no 57.0.23. **Decidido pelo dono em 2026-09-24**
   --platform ios`;
 - o `UIScene` entra pela atualização do SDK, depois da 1.4 e antes de abril de
   2027.
+
+**O eas-cli do projeto é o 24.8.0** desde 2026-09-25, no branch
+`feat/d4-decisoes-de-revisao`, e o `cli.version` do `eas.json` exige
+`>= 24.8.0`. O 16.32 imprimia "Build request failed" com a build já criada.
+**Passou pela primeira build real em 2026-09-27** (`c4eeeb44`), sem o falso
+erro ([evidência](../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)).
 
 **A primeira build `development` da 1.4 no EAS reprovou** em 2026-09-24
 (`0a545c74-…`, commit `c4be0c8`), com `XCODE_BUILD_ERROR`. A causa não foi o
@@ -163,14 +215,19 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) está **na `main`
   desde 2026-09-23 (PR #24)**, sem build de distribuição: 12 itens gerados por
   regra, som e vibração, custo de vida só no desafio, rota `/licao-hibrida`
-  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
-  modelos pelo dono ([FILA](FILA.md)); depois, o teste com 3 a 5 pessoas antes
-  de escalar.
-- **Conteúdo editorial (D4)** — **19 `needs-review`** de 105 registros,
-  remedido em 2026-09-25: 10 sem nenhum sinal e 9 com sinal fraco. A estrela já
-  é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
-  governança para saber quem aprova, e reabrir a janela de
-  `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](FILA.md)).
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. **A amostra foi decidida em
+  2026-09-25** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1) e
+  **corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
+  a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
+  ventral visto por trás. Mudaram 8 dos 20 itens, e o dono os confirma antes
+  de a aprovação ser gravada ([FILA](FILA.md), 7b e 15).
+  Depois, o teste com 3 a 5 pessoas antes de escalar.
+- **Conteúdo editorial (D4)** — **fechada como superada** em 2026-09-25, pela
+  [ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2. A classificação da apostila não alimenta o app nem o
+  V3, e o conteúdo que ela devia liberar está no ar desde a 1.3.1. O risco do
+  catálogo que está no ar segue na auditoria de 2026-08-27 e na migração para o
+  V3. **Risco aberto:** não se sabe quem marcou os `ai-bundles.json`, de onde
+  sai o catálogo, como `approved`, nem com que critério.
 - **Gate H4** (checkpoint, reforço, retomada e acessibilidade) — **fechado e
   na `main`** (PR #34, mergeada em 2026-09-25), conforme a
   [ADR](adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md):
@@ -178,9 +235,11 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
     e texto grande) e reconferidos no simulador
     ([relatório](superpowers/handoffs/2026-09-24-radiant-gate-h4-relatorio.md));
   - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) está na
-    mesma PR, sem conferência no simulador. O gate do branch deu 151 suítes /
-    1423 testes, no Node 20
-    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+    mesma PR
+    ([relatório](superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md))
+    e foi **conferida no simulador em 2026-09-25**, em cinco cenários, pela tela
+    e pelo AsyncStorage
+    ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md));
   - o VoiceOver em aparelho segue aberto na [FILA](FILA.md).
 
 ## Defeito conhecido
@@ -191,6 +250,15 @@ exibição e o envio da fila de sync; o auth decide por `isApiConfigured()`.
 `EXPO_PUBLIC_API_BASE_URL` (medido em 2026-09-23). Aberto por decisão do dono:
 mexer nisso afeta login, sync e o contrato de telemetria. Detalhe em
 [`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
+
+**A Estude nunca oferece a conquista** (medido em 2026-09-28, no E2E do item
+34). O motor de recomendação da 1.4 exclui o nó de conquista
+(`JourneyRecommendationService`, desde `75cc9da`, de 2026-09-14). Depois da
+última lição de uma trilha, o botão diz "Aguardando nova etapa" e o card diz
+"Você concluiu tudo que está disponível", com a conquista ainda por coletar.
+Ela só se alcança achando o card na trilha. Vale para a 1.4 como está; recomendar
+a conquista é decisão do dono (FILA, 39;
+[evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
 
 ## Kill switches reais
 
@@ -207,10 +275,12 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-09-23**, no Mac, em `757f43f` — mesma árvore do
-app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
-3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
-testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-10-09, às 15:14**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida nas avaliações
+(FILA, 35), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **156 suítes / 1499 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão
+([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -236,41 +306,97 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-25, às 08:47:
-- **`origin/main` está em `c9062da`, com o CI verde.** As PRs #32 (E2E), #33
-  (prompt 2) e #34 (defeitos 2 e 3, H4, vida por tentativa, perfil
-  `development` do EAS e evidência do StoreKit) entraram em 2026-09-25, com a
-  cabeça travada, por uma sessão na nuvem
-  ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
-  O relatório dessa sessão foi registrado em 2026-09-25
-  ([guardado](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)):
-  - o F2 foi remedido;
-  - o defeito 1, o reembolso e a renovação desconhecida foram decididos
-    ([ADR](adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
-  - a amostra do piloto ficou **sem decisão**.
-- **PRs abertas, medido em 2026-09-25 às 14:51.** O merge vai nesta ordem,
-  porque cada uma está empilhada sobre a anterior:
-  1. [#35](https://github.com/andersonsmelo/Radiant/pull/35), `docs/estado-2026-09-25`:
-     estado do dia, relatório da nuvem, ADR e E2E completo. CI verde;
-  2. [#36](https://github.com/andersonsmelo/Radiant/pull/36), `fix/defeito-1-licao-concluida`:
-     defeito 1, com a revisão do Codex respondida e o Auto-fix do app ligado.
-     O CI estava rodando de novo, depois do push da resposta;
-  3. [#37](https://github.com/andersonsmelo/Radiant/pull/37), `fix/renovacao-desconhecida`:
-     renovação desconhecida e o prompt (5). CI verde.
+Medido em 2026-09-25, às 21:24:
+- **`origin/main` está em `e992686`.** As PRs
+  [#35](https://github.com/andersonsmelo/Radiant/pull/35) (estado do dia,
+  relatório da nuvem, ADR e E2E completo),
+  [#36](https://github.com/andersonsmelo/Radiant/pull/36) (defeito 1) e
+  [#37](https://github.com/andersonsmelo/Radiant/pull/37) (renovação
+  desconhecida e prompt (5)) entraram na noite de 2026-09-25, nessa ordem e
+  por merge commit. Quem fez o merge foi o agente, com autorização do dono na
+  conversa. O CI de cada PR estava verde, e **o da `main` passou nos três
+  merges**: `Content Scripts` e `Radiant App Quality` verdes no `15e0257`, no
+  `cab01c0` e no `e992686`, este às 21:24.
 
-  As três apontam para a `main`. A #36 e a #37 mostram também os commits das
-  anteriores até elas entrarem.
-- **O remoto tem só a `main` e os três branches acima.** Os 25 branches já
-  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
-  ponta de cada um para restaurar, está em
+  ```bash
+  gh run list --branch main --limit 6
+  ```
+- **Antes delas,** as PRs #32, #33 e #34 entraram em 2026-09-25, por uma
+  sessão na nuvem
+  ([prompt (4)](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md),
+  [relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)).
+- **PR aberta:** [#38](https://github.com/andersonsmelo/Radiant/pull/38),
+  do `feat/d4-decisoes-de-revisao` para a `main`, aberta em 2026-09-27 às
+  22:20 com o ok do dono. **Em 2026-10-09, antes deste run, estava com 35
+  commits à frente da `main`,** com o CI verde na `54ba3b8`: `content` e `quality`.
+  O commit do XP da aprovação (FILA, 13) entra depois dessa medição.
+  - O CI também passou em cada push anterior do dia.
+  - A revisão do Codex apontou dois defeitos, que foram consertados na
+    `3db5f8d`, com as threads respondidas e resolvidas.
+  - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.
+
+  O branch leva:
+  - a D4, a guarda de sincronia, o eas-cli e as evidências da regra de vidas e
+    do aquecimento;
+  - as três ADRs de 2026-09-25;
+  - o "Gerenciar", o preço da loja e a ordem dos planos (`4afcd15`);
+  - o Ask to Buy no StoreKit Testing e o conserto da tela da assinatura, de
+    2026-09-27, e os consertos da revisão da PR (`3db5f8d`);
+  - de 2026-09-28, numa sessão só:
+    - o anúncio da perda de vida na lição (FILA, 25);
+    - o bump para `1.4.0` (FILA, 20);
+    - as variantes da amostra da L1 (FILA, 7a);
+    - os sons e a vibração na lição do aluno, já sem o som do coração
+      (FILA, 31 e 26);
+    - as lições de medição, de escopo e de simulador, no AGENTS.md;
+  - de 2026-09-28, em outra sessão, o conserto do aquecimento (FILA, 12): o
+    fundo animado para fora de foco
+    ([evidência](../radiant-app/docs/evidence/2026-09-28-aquecimento-conserto-simulador.md));
+  - de 2026-09-28, na mesma sessão, o ícone de sequência pausado fora de foco
+    (FILA, 33), com o hook de foco compartilhado em `src/ui/useScreenFocused.ts`;
+  - de 2026-09-28, na mesma sessão, **a trilha sem os checkpoints de botão**
+    (FILA, 29 e 34): as trilhas do catálogo passam de lição a lição, e as 5
+    avaliações da V2 ficam
+    ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md),
+    [relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
+  - as conferências no iPhone de 2026-09-27. O aquecimento ganhou, às
+  18:06, a segunda passagem no simulador: uma estrela só já custa 28 % de um
+  núcleo, e a aba visitada continua montada e animando, o que leva a CPU de
+  ~42 % para ~66 % ([evidência](../radiant-app/docs/evidence/2026-09-25-aquecimento-simulador.md),
+  [FILA](FILA.md), achado 5).
+  - **Consertado em 2026-09-28:** com o fundo parado fora de foco, o Perfil
+    depois da Estude foi de 63,6 % para 43,9 %, e a assinatura empilhada
+    sobre as abas, de 65,3 % para 31,4 %, na mesma passagem. A tela em foco
+    custa o mesmo, ~39 %.
+  - **O resto, também consertado em 2026-09-28** (FILA, 33): era o ícone de
+    sequência, que respirava fora de foco no HUD e no Perfil. Com ele
+    pausado, a assinatura sobre as abas foi de 30,7 % para 0,1 %.
+- **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
+  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono.
+  A de 2026-09-27 é a #38.
+- **O remoto tem a `main`, o branch da D4 e os três das PRs #35 a #37**, que
+  já entraram e não foram apagados (medido às 21:24). Apagá-los é do dono. Os
+  25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
+  A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-09-25-radiant-prompt-de-continuidade-5.md`](superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
-  Ele substitui o (3) e o (4).
+  [`2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md).
+  Ele substitui o (16).
 - **Simuladores:**
-  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
-    tela, por decisão do dono;
-  - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
+  - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
+    2026-09-25
+    ([evidência](../radiant-app/docs/evidence/2026-09-25-regra-de-vidas-simulador.md)).
+    Ficou com o checkpoint aprovado e 2 vidas. Se ele fica ou é apagado, o
+    dono decide;
+  - o `E3C547AE-…` ("iPhone 17 (iOS 26.5)") foi usado no StoreKit Testing em
+    2026-09-27 e ficou com uma assinatura mensal de teste aprovada, ∞ no HUD.
+    Em 2026-09-28, das 14:31 às 14:47, mediu o conserto do aquecimento, e
+    terminou desligado, com Reduzir Movimento desligado. Das 15:28 às 15:40,
+    mediu o ícone de sequência, e terminou do mesmo jeito. Nessa segunda
+    passagem, as chaves de progresso ficaram byte-idênticas às do início.
+    As transações se apagam no Transaction Manager do Xcode.
+    `radiant-app/ios/` ficou com o `.storekit` e o esquema marcado; um
+    `prebuild --clean` desfaz isso.
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`

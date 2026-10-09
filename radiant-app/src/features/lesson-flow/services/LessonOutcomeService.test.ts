@@ -123,7 +123,7 @@ const cardFixture: SRCardState = {
 
 function snapshotWith(overrides: {
     nodeId: string;
-    nodeType: 'lesson' | 'review';
+    nodeType: 'lesson' | 'review' | 'checkpoint';
     completedNodeIds?: string[];
     pendingReviewNodeIds?: string[];
     unlockRule?: UnlockRule;
@@ -790,5 +790,98 @@ describe('alimentação do agendador por competência', () => {
         })).resolves.not.toThrow();
 
         errorSpy.mockRestore();
+    });
+});
+
+// FILA, 13 (decidido pelo dono em 2026-10-09): aprovar uma avaliação da V2
+// rende XP pela mesma regra da lição — base mais bônus de acerto, sequência e
+// meta diária —, só na primeira aprovação. A tentativa já foi registrada pelo
+// `UnitCheckpointService`; daqui só sai a recompensa.
+describe('LessonOutcomeService — aprovação de avaliação da V2', () => {
+    const nodeId = 'node:checkpoint-1:competencia-1';
+    const answeredAt = new Date('2026-10-09T15:00:00.000Z');
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockedGamification.recordQuizCompletion.mockResolvedValue({
+            snapshot: { totalXp: 138, streakDays: 4, lastActiveDate: '2026-10-09' },
+            award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
+        });
+        mockedDailyGoal.recordXp.mockResolvedValue({
+            goalPerDay: 3,
+            completedToday: 1,
+            isCompleted: false,
+            dateKey: '2026-10-09',
+        });
+    });
+
+    it('credita XP, sequência e meta diária na primeira aprovação', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId, nodeType: 'checkpoint' }));
+
+        const outcome = await LessonOutcomeService.recordAssessmentApproval({
+            nodeId,
+            totalQuestions: 2,
+            correctAnswers: 2,
+            answeredAt,
+        });
+
+        expect(outcome.rewarded).toBe(true);
+        expect(outcome.award?.totalXpAwarded).toBe(18);
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledWith(
+            expect.objectContaining({ totalQuestions: 2, correctAnswers: 2, answeredAt }),
+        );
+        expect(mockedDailyGoal.recordXp).toHaveBeenCalledWith(18, answeredAt);
+    });
+
+    it('não credita de novo uma avaliação já aprovada', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId, nodeType: 'checkpoint', completedNodeIds: [nodeId] }),
+        );
+
+        const outcome = await LessonOutcomeService.recordAssessmentApproval({
+            nodeId,
+            totalQuestions: 2,
+            correctAnswers: 2,
+            answeredAt,
+        });
+
+        expect(outcome).toEqual({ award: null, rewarded: false });
+        expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
+        expect(mockedDailyGoal.recordXp).not.toHaveBeenCalled();
+    });
+
+    it('não credita uma avaliação que não está destravada', async () => {
+        jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId, nodeType: 'checkpoint', unlockRule: { requiresNodeIds: ['node:lesson-1'] } }),
+        );
+
+        const outcome = await LessonOutcomeService.recordAssessmentApproval({
+            nodeId,
+            totalQuestions: 2,
+            correctAnswers: 2,
+            answeredAt,
+        });
+
+        expect(outcome).toEqual({ award: null, rewarded: false });
+        expect(mockedGamification.recordQuizCompletion).not.toHaveBeenCalled();
+        jest.restoreAllMocks();
+    });
+
+    it('não grava de novo a tentativa: nem recall, nem evidência, nem sync', async () => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId, nodeType: 'checkpoint' }));
+
+        await LessonOutcomeService.recordAssessmentApproval({
+            nodeId,
+            totalQuestions: 2,
+            correctAnswers: 2,
+            answeredAt,
+        });
+
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        expect(mockedSpacedRepetition.recordQuizResult).not.toHaveBeenCalled();
+        expect(mockedAttempts.append).not.toHaveBeenCalled();
+        expect(mockedEvidence.append).not.toHaveBeenCalled();
+        expect(mockedSyncQueue.enqueueLessonProgressFromQuizResult).not.toHaveBeenCalled();
     });
 });

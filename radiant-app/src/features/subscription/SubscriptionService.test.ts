@@ -346,10 +346,99 @@ describe('SubscriptionService — atualizações da loja', () => {
         expect(hearts.setUnlimited).toHaveBeenCalledWith(DAQUI_A_30_DIAS, AGORA);
     });
 
+    it('entrega o estado relido a quem escuta: o Ask to Buy aprovado chega a uma tela já aberta', async () => {
+        // Medido no StoreKit Testing em 2026-09-27: a aprovação regravou o
+        // cache e as vidas, mas a tela da assinatura seguiu no pendente, porque
+        // só lia o estado ao montar.
+        let avisar: () => void = () => undefined;
+        const store = loja({
+            currentEntitlement: jest.fn(async () => direito()),
+            onEntitlementsChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return () => undefined;
+            }),
+        });
+        const { service } = servico(store);
+        const recebido = jest.fn();
+
+        service.watchStoreUpdates(() => AGORA, recebido);
+        avisar();
+        await new Promise((resolve) => setImmediate(resolve));
+
+        expect(recebido).toHaveBeenCalledWith({ kind: 'unlimited', expiresAt: DAQUI_A_30_DIAS, willRenew: true });
+    });
+
     it('loja sem aviso de atualização (indisponível) não quebra quem pede para escutar', () => {
         const { service } = servico(lojaIndisponivel());
 
         const parar = service.watchStoreUpdates(() => AGORA);
+
+        expect(() => parar()).not.toThrow();
+    });
+});
+
+describe('SubscriptionService — gerenciar a assinatura (ADR de 2026-09-25, "Gerenciar")', () => {
+    it('abre a folha e, quando ela fecha, relê a assinatura: o cancelamento feito na folha aparece', async () => {
+        // Cancelar na folha muda a renovação, e não cria transação: o aviso de
+        // `Transaction.updates` não chega, então a releitura é do serviço.
+        const ordem: string[] = [];
+        const store = loja({
+            manageSubscriptions: jest.fn(async () => { ordem.push('folha'); return { kind: 'shown' as const }; }),
+            currentEntitlement: jest.fn(async () => { ordem.push('releitura'); return direito({ willRenew: false }); }),
+        });
+        const { service } = servico(store);
+
+        const resultado = await service.manageSubscription(AGORA);
+
+        expect(ordem).toEqual(['folha', 'releitura']);
+        expect(resultado).toEqual({
+            kind: 'shown',
+            status: { kind: 'unlimited', expiresAt: DAQUI_A_30_DIAS, willRenew: false },
+        });
+    });
+
+    it('folha que não abre é falha, e a assinatura não é relida', async () => {
+        const store = loja({ manageSubscriptions: jest.fn(async () => ({ kind: 'failed' as const, message: 'unrecoverable' })) });
+        const { service } = servico(store);
+
+        const resultado = await service.manageSubscription(AGORA);
+
+        expect(resultado).toEqual({ kind: 'failed' });
+        expect(store.currentEntitlement).not.toHaveBeenCalled();
+    });
+
+    it('loja sem folha (indisponível) informa, sem lançar', async () => {
+        const { service } = servico(lojaIndisponivel());
+
+        await expect(service.manageSubscription(AGORA)).resolves.toEqual({ kind: 'store-unavailable' });
+    });
+});
+
+describe('SubscriptionService — troca de loja (ADR de 2026-09-25, item 4)', () => {
+    it('avisa quem pediu quando a loja da conta muda, e para ao cancelar', () => {
+        let avisar: () => void = () => undefined;
+        const parouDeEscutar = jest.fn();
+        const store = loja({
+            onStorefrontChanged: jest.fn((ouvinte: () => void) => {
+                avisar = ouvinte;
+                return parouDeEscutar;
+            }),
+        });
+        const { service } = servico(store);
+        const ouvinte = jest.fn();
+
+        const parar = service.watchStorefront(ouvinte);
+        avisar();
+        parar();
+
+        expect(ouvinte).toHaveBeenCalledTimes(1);
+        expect(parouDeEscutar).toHaveBeenCalledTimes(1);
+    });
+
+    it('loja sem aviso de troca (indisponível) não quebra quem pede para escutar', () => {
+        const { service } = servico(lojaIndisponivel());
+
+        const parar = service.watchStorefront(() => undefined);
 
         expect(() => parar()).not.toThrow();
     });
@@ -369,6 +458,7 @@ describe('SubscriptionService com o StoreKit2Adapter — estados de ponta a pont
             currentEntitlements: jest.fn(async () => transacoes),
             purchase: jest.fn(async () => ({ kind: 'pending' as const })),
             sync: jest.fn(async () => undefined),
+            showManageSubscriptions: jest.fn(async () => undefined),
             addListener: jest.fn(() => ({ remove: () => undefined })),
         };
     }

@@ -1,0 +1,89 @@
+{
+  "identifier" : "5B6D2C1E",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : true,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "pt_BR",
+    "_storefront" : "BRA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21000001",
+      "localizations" : [
+
+      ],
+      "name" : "Radiant Ilimitado",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "19.90",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6700000001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Vidas ilimitadas, renovação mensal.",
+              "displayName" : "Radiant Ilimitado Mensal",
+              "locale" : "pt_BR"
+            }
+          ],
+          "productID" : "com.andersonmelo.radiant.ilimitado.mensal",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Radiant Ilimitado Mensal",
+          "subscriptionGroupID" : "21000001",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "149.90",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6700000002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Vidas ilimitadas, renovação anual.",
+              "displayName" : "Radiant Ilimitado Anual",
+              "locale" : "pt_BR"
+            }
+          ],
+          "productID" : "com.andersonmelo.radiant.ilimitado.anual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Radiant Ilimitado Anual",
+          "subscriptionGroupID" : "21000001",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

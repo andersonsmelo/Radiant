@@ -148,7 +148,11 @@ describe('JourneyDefinitionService', () => {
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonFixtureById[lessonId] ?? null);
     });
 
-    it('builds the journey in catalog order with milestones between lessons', () => {
+    // ADR de 2026-09-28: os checkpoints das trilhas do catálogo eram só um
+    // botão, sem pergunta nem custo de vida, e saíram. A lição seguinte passa
+    // a exigir a anterior. As avaliações da V2 ficam, e o teste de delegação,
+    // abaixo, cuida delas.
+    it('builds the journey in catalog order, each lesson unlocked by the previous one', () => {
         const definition = JourneyDefinitionService.getTrackDefinition();
         const unit = definition.units[0];
 
@@ -159,16 +163,23 @@ describe('JourneyDefinitionService', () => {
         expect(unit.nodes.map((node) => node.id)).toEqual([
             'node:lesson-b',
             'node:review:lesson-b',
-            'node:checkpoint:radiology:lesson-b',
             'node:lesson-a',
             'node:review:lesson-a',
-            'node:checkpoint:radiology:lesson-a',
             'node:lesson-c',
             'node:review:lesson-c',
             'node:reward:radiology:final',
         ]);
+        expect(unit.nodes.some((node) => node.type === 'checkpoint')).toBe(false);
+        expect(unit.nodes.find((node) => node.id === 'node:lesson-b')?.unlockRule).toBeUndefined();
         expect(unit.nodes.find((node) => node.id === 'node:lesson-a')?.unlockRule).toEqual({
-            requiresNodeIds: ['node:checkpoint:radiology:lesson-b'],
+            requiresNodeIds: ['node:lesson-b'],
+        });
+        expect(unit.nodes.find((node) => node.id === 'node:lesson-c')?.unlockRule).toEqual({
+            requiresNodeIds: ['node:lesson-a'],
+        });
+        // Validade: a conquista continua exigindo a última lição.
+        expect(unit.nodes.find((node) => node.id === 'node:reward:radiology:final')?.unlockRule).toEqual({
+            requiresNodeIds: ['node:lesson-c'],
         });
     });
 
@@ -183,6 +194,14 @@ describe('JourneyDefinitionService', () => {
         expect(definition.id).toBe(productionTrack.id);
         expect(definition.units[0].nodes.filter((node) => node.type === 'lesson')).toHaveLength(12);
         expect(definition.units[0].nodes.at(-2)?.type).toBe('checkpoint');
+        // Validade da ADR de 2026-09-28: as 5 avaliações da V2 ficam.
+        expect(definition.units[0].nodes.filter((node) => node.type === 'checkpoint').map((node) => node.title)).toEqual([
+            'Avaliação 1 de 5',
+            'Avaliação 2 de 5',
+            'Avaliação 3 de 5',
+            'Avaliação 4 de 5',
+            'Avaliação 5 de 5',
+        ]);
     });
 
     it('builds lesson blocks from the current catalog payloads', () => {

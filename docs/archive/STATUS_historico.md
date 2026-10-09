@@ -1998,3 +1998,395 @@ Continuam em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a
 `sharp-dijkstra-747d12` e a `trusting-mestorf-a5ca83`, cada uma com runs do
 Loop que o git ignora. A `Radiant-release` está numa `main` local antiga
 (`21c42b6`), e quem for usá-la começa por `git pull`.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelas propostas do agente para a D4:
+
+- **Conteúdo editorial (D4)** — **19 `needs-review`** de 105 registros,
+  remedido em 2026-09-25: 10 sem nenhum sinal e 9 com sinal fraco. A estrela já
+  é opcional, e os fragmentos já foram resolvidos em 2026-08-08. Falta ler a
+  governança para saber quem aprova, e reabrir a janela de
+  `Conteúdo/classificação`, que o dono autorizou em 2026-09-25 ([FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela aprovação do dono na D4:
+
+- **Conteúdo editorial (D4)** — as **19 propostas de destino do agente** estão
+  gravadas em `review-decisions.json` e **esperam o revisor**: os registros
+  continuam `needs-review` (105 registros, 86 aprovados e 19 em revisão). O
+  agente não aprova, porque o `approved` do classificador é limiar e a
+  governança exige revisão humana. O catálogo do app não depende desse estado:
+  ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em 2026-09-25, no
+  branch `feat/d4-decisoes-de-revisao`
+  ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela conferência da regra de vidas no simulador:
+
+- **Simuladores:**
+  - o `A5FA5443-…`, do gate H4, fica até alguém conferir a regra de vidas na
+    tela, por decisão do dono;
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela atualização de fim de sessão e pelo prompt (6):
+
+  - a regra de uma vida por pergunta por tentativa (decisão 2 da ADR) está na
+    mesma PR, sem conferência no simulador. O gate do branch deu 151 suítes /
+    1423 testes, no Node 20
+    ([relatório](../superpowers/handoffs/2026-09-24-radiant-vida-por-tentativa-relatorio.md));
+- **PRs abertas, medido em 2026-09-25 às 14:51.** O merge vai nesta ordem,
+  porque cada uma está empilhada sobre a anterior:
+- **O remoto tem só a `main` e os três branches acima.** Os 25 branches já
+  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
+- **Prompt de continuidade:**
+  [`2026-09-25-radiant-prompt-de-continuidade-5.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-5.md).
+  Ele substitui o (3) e o (4).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela segunda passagem do aquecimento no simulador:
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
+  enviado ao remoto em 2026-09-25. Leva a D4, a guarda de sincronia, o eas-cli
+  e as evidências da regra de vidas e do aquecimento.
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pelo merge de #35 a #37 e pela [ADR do "Gerenciar", do Ask to Buy e do cancelamento](../adr/ADR-2026-09-25-storekit-gerenciar-ask-to-buy-e-cancelamento.md):
+
+A `main` está **157 commits e 327 arquivos à frente** do que está na App Store
+(medido em 2026-09-25, `v1.3.1..c9062da`). Nada disso chegou ao usuário:
+vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud (CloudKit) e o
+currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado ao app do aluno).
+   Falta:
+   - cancelamento, que os Ajustes do iOS 27.2 não deixaram abrir;
+   - Ask to Buy;
+   - o VoiceOver no checkpoint e na trilha, no mesmo build. Ele saiu da H4
+     pela [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+   A renovação desconhecida passou a mostrar "Ativa · acesso até DD/MM/AAAA",
+   corrigida em 2026-09-25 na
+   [PR #37](https://github.com/andersonsmelo/Radiant/pull/37), que aguarda
+   merge, com o gate em 151 suítes / 1434 testes
+   ([relatório](../superpowers/handoffs/2026-09-25-radiant-renovacao-desconhecida-relatorio.md)).
+   - **o defeito 1** foi corrigido em 2026-09-25, pela opção A da
+     [ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md),
+     na [PR #36](https://github.com/andersonsmelo/Radiant/pull/36), que aguarda
+     merge. Foi visto na tela, e o gate deu 151 suítes / 1430 testes
+     ([relatório](../superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
+Medido em 2026-09-25, às 08:47:
+- **`origin/main` está em `c9062da`, com o CI verde.** As PRs #32 (E2E), #33
+  (prompt 2) e #34 (defeitos 2 e 3, H4, vida por tentativa, perfil
+  `development` do EAS e evidência do StoreKit) entraram em 2026-09-25, com a
+  cabeça travada, por uma sessão na nuvem
+  ([prompt (4)](../superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade-4-nuvem.md)).
+  O relatório dessa sessão foi registrado em 2026-09-25
+  ([guardado](../superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md)):
+  - o F2 foi remedido;
+  - o defeito 1, o reembolso e a renovação desconhecida foram decididos
+    ([ADR](../adr/ADR-2026-09-25-defeito-1-reembolso-e-renovacao-desconhecida.md));
+  - a amostra do piloto ficou **sem decisão**.
+- **PRs abertas, remedido em 2026-09-25 às 17:43; nenhuma entrou.** O merge vai
+  nesta ordem, porque cada uma está empilhada sobre a anterior:
+  1. [#35](https://github.com/andersonsmelo/Radiant/pull/35), `docs/estado-2026-09-25`:
+     estado do dia, relatório da nuvem, ADR e E2E completo. CI verde;
+  2. [#36](https://github.com/andersonsmelo/Radiant/pull/36), `fix/defeito-1-licao-concluida`:
+     defeito 1, com a revisão do Codex respondida e o Auto-fix do app ligado.
+     O CI estava rodando de novo, depois do push da resposta;
+  3. [#37](https://github.com/andersonsmelo/Radiant/pull/37), `fix/renovacao-desconhecida`:
+     renovação desconhecida e o prompt (5). CI verde.
+
+  As três apontam para a `main`. A #36 e a #37 mostram também os commits das
+  anteriores até elas entrarem.
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, empilhado sobre a #37 e
+  enviado ao remoto em 2026-09-25.
+- **O remoto tem a `main`, os três branches acima e o da D4** (medido às
+  17:43). Os 25 branches já
+  mergeados foram apagados em 2026-09-25, por decisão do dono. A lista, com a
+  ponta de cada um para restaurar, está em
+  [`release/2026-09-25-branches-remotos-apagados.md`](../release/2026-09-25-branches-remotos-apagados.md).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-25, pela [ADR da amostra da L1, da D4 e dos planos](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md):
+
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. Bloqueio: a aprovação dos
+  modelos pelo dono ([FILA](../FILA.md)); depois, o teste com 3 a 5 pessoas antes
+  de escalar.
+- **Conteúdo editorial (D4)** — **18 das 19 propostas do agente aprovadas
+  pelo dono** em 2026-09-25, e o `planet-radioterapia` criado (`planned`, sem
+  lição). São 105 registros: 104 `approved` e 1 `needs-review`, a capa, cuja
+  exclusão ainda não tem representação. O catálogo do app não depende desse
+  estado: ele sai de `ai-bundles.json`, 96 de 96 `approved`. Medido em
+  2026-09-25, no branch `feat/d4-decisoes-de-revisao`
+  ([medição](../content/2026-09-25-d4-propostas-e-cascata.md), [FILA](../FILA.md)).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-26, pelo código do "Gerenciar", do preço da loja e da ordem dos planos ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)):
+
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app,
+     que o agente vai implementar, numa build `development` nova. Se a folha
+     também fechar no iOS 27.2, ele passa ao StoreKit Testing do Xcode;
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-09-23**, no Mac, em `757f43f` — mesma árvore do
+app que a `main` atual (`3343eca`), conferido com `git diff --stat 757f43f
+3343eca -- radiant-app` vazio —, Node `v20.20.2`: exit 0, **147 suítes / 1374
+testes**, lint com 0 erros e 26 avisos, visual QA sem regressão. O CI roda o mesmo comando inteiro
+(`.github/workflows/radiant-app-quality.yml`).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pela conferência no iPhone ([evidência](../../radiant-app/docs/evidence/2026-09-27-storekit-gerenciar-iphone.md)):
+
+   - **cancelamento:** pela folha de gerenciamento da Apple dentro do app.
+     **O código está pronto desde 2026-09-26** e compilou localmente para o
+     simulador, junto com o preço que acompanha a troca de loja e a ordem fixa
+     dos planos ([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). Falta a build `development` nova no EAS,
+     que é do dono, e o aparelho. Se a folha também fechar no iOS 27.2, o
+     cancelamento passa ao StoreKit Testing do Xcode;
+
+**Ainda não passou por uma build real** ([FILA](../FILA.md), achado 6).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pelo VoiceOver no iPhone e pelo prompt (7) ([evidência](../../radiant-app/docs/evidence/2026-09-27-voiceover-iphone.md)):
+
+   - **o VoiceOver** no checkpoint e na trilha, no mesmo build, com o dono,
+     que decidiu fazê-lo. Ele saiu da H4 pela
+     [ADR](../adr/ADR-2026-09-24-h4-fechamento-e-vida-no-checkpoint.md).
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 12 commits à frente da
+  `main` (medido às 21:24) e enviado ao remoto. Leva a D4, a guarda de sincronia, o eas-cli
+  e as evidências da regra de vidas e do aquecimento.
+- **Prompt de continuidade:**
+  [`2026-09-25-radiant-prompt-de-continuidade-6.md`](../superpowers/handoffs/2026-09-25-radiant-prompt-de-continuidade-6.md).
+  Ele substitui o (5).
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pelo Ask to Buy no StoreKit Testing ([evidência](../../radiant-app/docs/evidence/2026-09-27-ask-to-buy-storekit-testing.md)):
+
+   - **Ask to Buy:** saiu do aparelho e passou ao agente, no StoreKit Testing
+     do Xcode. Falta conferir que o módulo Swift funciona ali;
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27, pela medição do gate do Ask to Buy ([relatório](../superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)):
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-09-26**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com as mudanças do "Gerenciar" e da loja, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **151 suítes
+/ 1446 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-26-radiant-gerenciar-e-loja-relatorio.md)). O CI roda o mesmo comando inteiro
+(`.github/workflows/radiant-app-quality.yml`).
+
+---
+
+Trecho do `STATUS.md` substituído, sem edição, em 2026-09-27, pela contagem do branch antes do commit do Ask to Buy:
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 16 commits à frente da
+  `main` (medido em 2026-09-27, às 18:50, antes do commit deste run) e enviado
+  ao remoto. Leva:
+
+---
+
+Trechos do `STATUS.md` substituídos, sem edição (só os links relativos reajustados ao novo diretório), em 2026-09-27 às 22:35, pela abertura da PR #38 e pelo prompt (8):
+
+strict. **Última medição: 2026-09-27, às 20:00**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o Ask to Buy e o conserto da tela da
+assinatura, e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **152 suítes / 1450 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão
+
+- **Branch sem PR:** `feat/d4-decisoes-de-revisao`, 17 commits à frente da
+  `main` (medido em 2026-09-27, às 20:02, antes do commit do Ask to Buy) e
+  enviado ao remoto. Leva:
+
+  **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono. A
+  PR de 2026-09-25 ainda não foi aberta, por decisão dele.
+
+  [`2026-09-27-radiant-prompt-de-continuidade-7.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-7.md).
+  Ele substitui o (6).
+
+  - o `E3C547AE-…` já cumpriu o dia 2 e está livre.
+
+## Retirado em 2026-09-28 — anúncio da perda de vida (FILA, 25)
+
+     estão certos, e o HUD não lê número duplicado. **Achado:** a perda de vida
+     não é anunciada ao leitor de tela, e o conserto é do agente (FILA, 25).
+
+   Desde 2026-09-27, com o Ask to Buy feito, o bump espera só o anúncio da
+   perda de vida ao leitor de tela, se o dono concordar ([FILA](../FILA.md), 25).
+
+strict. **Última medição: 2026-09-27, às 22:30**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os consertos da revisão da PR #38, e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
+suítes / 1451 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-ask-to-buy-relatorio.md)).
+
+  [`2026-09-27-radiant-prompt-de-continuidade-8.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-8.md).
+  Ele substitui o (7).
+
+## Retirado em 2026-09-28 — bump para 1.4.0 (FILA, 20)
+
+3. **Agente, por último:** bump para `1.4.0` — os produtos de assinatura só
+   sobem junto com a versão (regra 8 da
+   [ADR](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md)).
+   Desde 2026-09-28, com o Ask to Buy e o anúncio da perda de vida feitos,
+   o bump está destravado: **o dono deu o ok** na mesma data, e ele fica para
+   a próxima sessão ([FILA](../FILA.md), 20).
+
+  - o anúncio da perda de vida na lição, de 2026-09-28 (FILA, 25). Com ele,
+    o CI da #38 roda de novo;
+
+  [`2026-09-27-radiant-prompt-de-continuidade-9.md`](../superpowers/handoffs/2026-09-27-radiant-prompt-de-continuidade-9.md).
+  Ele substitui o (8).
+
+strict. **Última medição: 2026-09-28, às 00:56**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida (FILA, 25), e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **152
+suítes / 1455 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão ([relatório](../superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
+
+## Retirado em 2026-09-28 — variantes da amostra da L1 (FILA, 7a)
+
+  2026-09-25** ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o agente corrige o item 18, que duplica
+  o 1, e as variantes do decúbito dorsal visto por trás, e o dono confirma os
+  itens alterados antes de a aprovação ser gravada ([FILA](../FILA.md), 7a e 7b).
+
+strict. **Última medição: 2026-09-28, às 07:50**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o bump para `1.4.0` (FILA, 20), e a árvore
+sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
+1457 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-bump-1-4-0-relatorio.md)).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-10.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-10.md).
+  Ele substitui o (9).
+
+## Retirado em 2026-09-28 — sons e vibração na lição (FILA, 31)
+
+strict. **Última medição: 2026-09-28, às 08:19**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com as variantes da L1 (FILA, 7a), e a árvore
+sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes /
+1459 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md)).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-11.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-11.md).
+  Ele substitui o (10).
+
+## Retirado em 2026-09-28 — som do coração fora da lição (FILA, 31 e 26)
+
+   Antes, os sons existiam só no piloto do V3, e a 1.4 sairia muda. O card
+   "Sons e vibração" passou a aparecer no Perfil de produção. No simulador
+   iOS 26.5, o log do sistema mostrou o toque, o erro, o acerto e o fim tocando
+   nos momentos certos, e nada com "Sons" desligado
+   ([relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+
+strict. **Última medição: 2026-09-28, às 08:58**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os sons na lição (FILA, 31), e a árvore sem
+nenhum arquivo alheio ao run.
+
+## Retirado em 2026-09-28 — fim da sessão: PR #38 remedida e prompt (13)
+
+  22:20 com o ok do dono. São 19 commits à frente da `main`, medidos às
+  22:34, antes do commit deste run.
+  - O CI passou na `32597a4` e na `3db5f8d`: Content Scripts e Radiant App
+    Quality verdes, conferidos às 22:37.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-12.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-12.md).
+  Ele substitui o (11).
+
+## Retirado em 2026-09-28 — conserto do aquecimento (FILA, 12)
+
+strict. **Última medição: 2026-09-28, às 11:19**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com os sons na lição, já sem o som do coração
+(FILA, 31), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **153 suítes / 1467
+testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 12:30, estava com 30 commits
+  à frente da `main`,** sem conflito (`MERGEABLE`, `CLEAN`), e com o CI verde
+  na `72c599f`: Content Scripts e Radiant App Quality. O commit deste run
+  entra depois dessa medição.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-13.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-13.md).
+  Ele substitui o (12).
+
+## Retirado em 2026-09-28 — o ícone de sequência fora de foco (FILA, 33)
+
+strict. **Última medição: 2026-09-28, às 14:52**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o conserto do aquecimento (FILA, 12), e a
+árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0, **154 suítes
+/ 1473 testes**, lint com 0 erros e 26 avisos, visual QA sem regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-aquecimento-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 14:08, estava com 31 commits
+  à frente da `main`,** com o CI verde na `2049a63`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
+
+    custa o mesmo, ~39 %. O resto com as abas cobertas zera com Reduzir
+    Movimento; o agente atribui ao ícone de sequência, sem ter isolado
+    (FILA, 33).
+
+  [`2026-09-28-radiant-prompt-de-continuidade-14.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-14.md).
+  Ele substitui o (13).
+
+    terminou desligado, com Reduzir Movimento desligado. Abrir o Perfil
+    regravou `@radiant:journey_progress_v1`, e não se sabe se o conteúdo mudou.
+
+## Retirado em 2026-09-28 — o 29 decidido: os checkpoints de botão saem
+
+     **O checkpoint ficou fora, por decisão do dono,** que quer removê-lo até
+     entender a função dele (FILA, 29). Enquanto ele existir, o erro ali
+     debita vida sem anúncio (`CheckpointScreen.tsx:324`).
+
+## Retirado em 2026-09-28 — a trilha sem os checkpoints de botão (FILA, 34)
+
+strict. **Última medição: 2026-09-28, às 15:40**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o ícone de sequência pausado fora de foco
+(FILA, 33), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit
+0, **155 suítes / 1479 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-icone-sequencia-relatorio.md)). O CI roda o mesmo comando inteiro
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 15:41, estava com 32 commits
+  à frente da `main`,** com o CI verde na `cbb3025`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-15.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-15.md).
+  Ele substitui o (14).
+
+## Retirado em 2026-10-09 — o XP da aprovação das avaliações (FILA, 13)
+
+strict. **Última medição: 2026-09-28, às 20:37**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com a trilha sem os checkpoints de botão (FILA,
+34), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
+**155 suítes / 1482 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão
+([relatório](../superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md)). O CI roda o mesmo comando inteiro
+
+     o erro debita vida sem anúncio (`CheckpointScreen.tsx:324`; FILA, 35).
+
+  22:20 com o ok do dono. **Em 2026-09-28, às 20:37, estava com 34 commits
+  à frente da `main`,** com o CI verde na `e990bf6`: Content Scripts e
+  Radiant App Quality. O commit deste run entra depois dessa medição.
+
+  [`2026-09-28-radiant-prompt-de-continuidade-16.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md).
+  Ele substitui o (15).
+
+## Retirado em 2026-10-09 — o anúncio da perda de vida nas avaliações (FILA, 35)
+
+     ([ADR](../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Nelas,
+     o erro debita vida sem anúncio (`CheckpointScreen.tsx:326`; FILA, 35).
+
+strict. **Última medição: 2026-10-09, às 14:31**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o XP da aprovação das avaliações (FILA, 13),
+e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
+**155 suítes / 1490 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão
+([relatório](../superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)). O CI roda o mesmo comando inteiro

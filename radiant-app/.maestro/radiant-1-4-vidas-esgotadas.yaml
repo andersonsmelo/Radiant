@@ -149,11 +149,12 @@ tags:
 # "Voltar" fecha a folha e devolve à trilha; as vidas continuam zeradas lá. Na
 # trilha o HUD é um botão, e o rótulo dele soma o prazo da próxima recarga.
 #
-# O estado da L1 aqui NÃO é afirmado, de propósito. Medido em 2026-09-24: a
-# lição concluída quatro vezes volta como "Continuar de onde parou" e o
-# cabeçalho cai para "0 de N etapas", porque `resolveNodeStatus` testa o nó
-# retomável antes do concluído. É defeito do app, registrado na FILA; afirmar o
-# comportamento atual o codificaria, e afirmar o correto deixaria este caminho
-# vermelho por algo que ele não existe para cobrir.
-- assertVisible: '^Fundamentos de Radiologia\. \d+ de \d+ etapas concluídas\.$'
+# A L1 continua concluída, e o cabeçalho conta a etapa (defeito 1 do E2E, ADR
+# de 2026-09-25, opção A; FILA, 16). Medido em 2026-09-24, antes do conserto: a
+# lição concluída, reaberta e abandonada pela folha, voltava como "Continuar de
+# onde parou", com o cabeçalho em "0 de N etapas", porque `resolveNodeStatus`
+# testava o retomável antes do concluído. Um padrão `\d+ de \d+` aqui casaria
+# com os dois estados.
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - assertVisible: '^0 de 5 vidas; próxima em \d+ minutos$'

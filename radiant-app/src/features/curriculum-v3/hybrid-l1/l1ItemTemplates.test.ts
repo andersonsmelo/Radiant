@@ -1,6 +1,6 @@
 import { LANDMARK_POSITIONS, isBoxInsideFrame, markerBounds, landmarkScreenRegion, type BodyPerspective, type BodyPosture } from '../l1-body-reference/bodyMapGeometry';
 import { L1_RELATION_TABLE } from './l1RelationTable';
-import { REFERENCE_FRAME_WIDTH, describeRegion, lateralityItem, nextScenario, relationItem, trueFalseItem, variantOf } from './l1ItemTemplates';
+import { REFERENCE_FRAME_WIDTH, describeRegion, lateralityItem, relationItem, trueFalseItem, variantOf } from './l1ItemTemplates';
 import { createRng } from './seededRandom';
 import type { HybridItem } from './hybridItem.types';
 
@@ -22,6 +22,21 @@ const REVIEWED_KEY: Readonly<Record<string, readonly [string, string]>> = {
   'superficial-deep': ['outer-layer', 'inner-layer'],
   'anterior-posterior': ['anterior-thorax', 'posterior-thorax'],
 };
+
+/**
+ * Cópia literal da decisão do dono (ADR 2026-09-25, item 1b, e ADR
+ * 2026-09-28): o dorsal visto por trás e o ventral visto de frente só existem
+ * vistos por baixo da mesa. De propósito fora do código de produção.
+ */
+function isRealView(posture: BodyPosture, perspective: BodyPerspective): boolean {
+  return !(posture === 'supine' && perspective === 'back') && !(posture === 'prone' && perspective === 'front');
+}
+
+/** A regra que o item exercita: o tipo e, na relação, qual relação. */
+function ruleOf(item: HybridItem): string {
+  const source = item.source.kind === 'true_false' ? item.source.base.source : item.source;
+  return source.kind === 'relation' ? `relation:${source.relation}` : source.kind;
+}
 
 function everyItem(): HybridItem[] {
   const rng = createRng(11);
@@ -116,15 +131,24 @@ describe('modelos de exercício da L1', () => {
     }
   });
 
-  it('variação: o item que volta usa outro cenário, a mesma regra e é marcado como variante', () => {
+  it('variação: o item que volta fica na postura, numa vista real, com a mesma regra e sem repetir o original', () => {
+    // ADR 2026-09-28: a variante retesta a confusão na mesma postura. A
+    // anatômica troca de vista; dorsal e ventral só têm uma vista real e
+    // perguntam o oposto. Difere E continua válida (AGENTS.md, guardas, regra 1).
     const rng = createRng(5);
-    const original = relationItem({ id: 'o', relation: 'proximal-distal', termIndex: 1, posture: 'anatomical', perspective: 'back', phase: 'challenge', format: 'choice' }, rng);
-    const variant = variantOf(original, rng);
-    expect([variant.posture, variant.perspective]).toEqual(nextScenario('anatomical', 'back'));
-    expect([variant.posture, variant.perspective]).not.toEqual(['anatomical', 'back']);
-    expect(variant.source).toEqual(original.source);
-    expect(variant.variant).toBe(true);
-    expect(variant.id).toBe('o-v');
+    const originais = everyItem().filter((item) => isRealView(item.posture, item.perspective));
+    expect(originais.length).toBeGreaterThan(0);
+    for (const original of originais) {
+      const variant = variantOf(original, rng);
+      const onde = `${original.id} → ${variant.posture}/${variant.perspective}`;
+      expect({ onde, posture: variant.posture }).toEqual({ onde, posture: original.posture });
+      expect({ onde, real: isRealView(variant.posture, variant.perspective) }).toEqual({ onde, real: true });
+      expect({ onde, repete: variant.prompt === original.prompt }).toEqual({ onde, repete: false });
+      expect(ruleOf(variant)).toEqual(ruleOf(original));
+      expect(variant.options.map((option) => option.id)).toContain(variant.correctOptionId);
+      expect(variant.variant).toBe(true);
+      expect(variant.id).toBe(`${original.id}-v`);
+    }
   });
 
   it('determinismo: a mesma semente gera os mesmos itens', () => {

@@ -116,12 +116,9 @@ export default function ProfileScreen() {
           <MissionsScreen embedded />
           <SubscriptionCard status={subscription} onOpen={() => router.push('/subscription')} />
           <ICloudBackupCard state={backup} onToggle={toggleBackup} busy={backupBusy} />
-          {/* Só no piloto: os sons existem apenas na lição híbrida, e o aluno
-              não pode ver um interruptor de algo que nunca ouve. Tirar o
-              gate quando a camada de som chegar às lições do aluno. */}
-          {AppConfig.SHOW_DEV_TOOLS ? (
-            <FeedbackPreferencesCard preferences={feedbackPreferences} onChange={changeFeedbackPreferences} />
-          ) : null}
+          {/* Sem gate desde 2026-09-28: a camada de som chegou à lição do
+              aluno, e este card é o único jeito de desligá-la no app. */}
+          <FeedbackPreferencesCard preferences={feedbackPreferences} onChange={changeFeedbackPreferences} />
           <ProgressScreen embedded />
 
           {AppConfig.SHOW_DEV_TOOLS ? (
