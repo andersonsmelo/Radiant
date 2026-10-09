@@ -1725,3 +1725,16 @@ Da abertura da "Ordem de prioridade", substituído sem edição:
 
 destravado.** Desde 2026-10-09, com o 13 feito, esse item é o **35**. O que
 segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## Lote de 2026-10-09 — o caminho 3 do E2E afirma o estado da L1 (16)
+
+Retirado sem edição da "Ordem de prioridade"
+([relatório](../superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md),
+[evidência](../../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md)).
+
+  - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
+
+Da abertura da "Ordem de prioridade", substituído sem edição:
+
+destravado.** Desde 2026-10-09, com o 13 e o 35 feitos, esse item é o **16**.
+O que segura a 1.4 agora é só do dono: o 28 e o 30.

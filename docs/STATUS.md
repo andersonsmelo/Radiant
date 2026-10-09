@@ -108,6 +108,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      ([PR #36](https://github.com/andersonsmelo/Radiant/pull/36), merge
      `cab01c0`). Foi visto na tela, e o gate deu 151 suítes / 1430 testes
      ([relatório](superpowers/handoffs/2026-09-25-radiant-defeito-1-relatorio.md)).
+     **Desde 2026-10-09, o caminho 3 afirma esse estado** (FILA, 16): a L1
+     concluída e o cabeçalho em "1 de N" depois da folha. No simulador, ele
+     reprovou com o defeito reinjetado e passou sem ele
+     ([evidência](../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md)).
 3. ✅ **Bump para `1.4.0`: feito em 2026-09-28 pelo agente**, com o ok do
    dono, no `feat/d4-decisoes-de-revisao`. A versão está no `app.json`, no
    `package.json` e nas duas raízes do `package-lock.json`, e uma guarda

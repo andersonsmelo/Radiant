@@ -1,4 +1,4 @@
-# Prompt de continuidade (17) — 2026-10-09, depois do XP e do anúncio de vida nas avaliações
+# Prompt de continuidade (17) — 2026-10-09, depois do 13, do 35 e do 16
 
 Você vai continuar o Radiant, um app iOS de treinamento em radiologia (Expo 54 /
 React Native 0.81). Você trabalha com o dono, que decide sobre loja, aparelho,
@@ -19,6 +19,7 @@ anteriores.**
 |---|---|---|
 | **13 — o XP da aprovação das avaliações da V2** | ✅ Aprovar credita pela regra da lição (na prática, +18 XP), conta para a sequência e a meta diária e paga só na primeira aprovação. O crédito vem antes de concluir o nó, porque a conclusão dispara o backup que leva o XP. A celebração mostra "+18 XP" e o total novo | [ADR, revisão de 2026-10-09](../../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md), [relatório](2026-10-09-radiant-xp-da-aprovacao-relatorio.md) |
 | **35 — o anúncio da perda de vida nas avaliações da V2** | ✅ Errar numa avaliação anuncia "Você perdeu uma vida; restam N." ou "Você perdeu sua última vida.", sem "Resposta incorreta.", porque a avaliação não diz se a resposta estava certa. O assinante, quem não perde vida e a pergunta já cobrada não ouvem nada. A frase saiu da lição para `src/features/hearts/heartLossAnnouncement.ts`, usada pelas duas telas | [relatório](2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md) |
+| **16 — o caminho 3 do E2E afirma a L1** | ✅ Depois da folha de vidas, o `radiant-1-4-vidas-esgotadas` afirma a L1 "Concluído" e o cabeçalho em "1 de N", e o contrato exige isso. No simulador, reprovou com o defeito 1 reinjetado e passou sem ele | [evidência](../../../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md), [relatório](2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md) |
 
 **Decidido pelo dono em 2026-10-09:** o XP da aprovação segue a regra da
 lição, e a celebração mostra o ganho e o total novo.
@@ -60,8 +61,9 @@ uptime
 ```
 
 **Esperado depois de 2026-10-09:**
-- **a PR #38 aberta,** com os commits dos itens 13 e 35 no topo: o do código
-  do 13 é o `df75d33`, e os do 35 e os de documentação vêm depois dele. Não há contagem aqui de
+- **a PR #38 aberta,** com os commits dos itens 13, 35 e 16 no topo: o do
+  código do 13 é o `df75d33`, e os do 35, do 16 e os de documentação vêm
+  depois dele. Não há contagem aqui de
   propósito, porque o commit que a grava a falsifica. Confira que o CI ficou
   verde no último push;
 - a `origin/main` em `e992686`;
@@ -115,8 +117,7 @@ encerrados, e estão em `docs/archive/FILA_concluidos.md`.
 
 | # | Tarefa | Estado |
 |---|---|---|
-| 16 | O caminho 3 do E2E afirma o estado da L1 | **Destravado**; detalhe na §4.1 |
-| 38 | Seis fluxos E2E antigos desatualizados, e o ramo sem perguntas da tela do checkpoint, que ficou inalcançável | Destravado; detalhe na FILA |
+| 38 | Seis fluxos E2E antigos desatualizados, e o ramo sem perguntas da tela do checkpoint, que ficou inalcançável | **Destravado**; detalhe na §4.1 |
 
 **P5 — esperando outra coisa**
 
@@ -132,27 +133,37 @@ texto; **37, a vitrine da loja**, que perdeu as capturas `04-checkpoint` e
 `05-conquista`; e **39, a Estude nunca oferece a conquista**: depois da última
 lição, o botão diz "Aguardando nova etapa" com a conquista por coletar. É
 anterior ao 34 e vale para a 1.4 como está. Se o dono quiser o 39 na 1.4, ele
-vem antes do 16.
+vem antes do 38.
 
 **Depois da 1.4:** 21, o SDK 58 com `UIScene`, até abril de 2027; 22, a L2 v7;
 23, o simulador `A5FA5443`; 24, as ações de um passo do dono; 32, a aba
 "Configurações" no Perfil, que pede desenho antes.
 
-**Qual frente pegar agora:** o **16**. O que segura a 1.4 é só do dono.
+**Qual frente pegar agora:** o **38**. O que segura a 1.4 é só do dono.
 
 ## 4. Frentes em detalhe
 
-### 4.1. O caminho 3 do E2E afirma o estado da L1 (item 16)
+### 4.1. Os seis fluxos E2E antigos e o ramo sem perguntas (item 38)
 
-- O detalhe está na §4.2 do
-  [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md), onde o item
-  se chamava 8. A dependência dele, o merge da #36, foi cumprida em 2026-09-25.
-- **Antes de escrever, meça:** o fluxo do caminho 3 mudou com o 34, que tirou
-  os checkpoints de botão. Confira na
-  [evidência do 34](../../../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)
-  o estado atual do fluxo antes de confiar no prompt (5).
-- E2E roda num simulador temporário, com as regras da §5. Não rode
-  `loop validate` com o E2E rodando.
+- **Os fluxos:** `boot-to-home`, `rating-prompt`, `reward-locked` e os três
+  `student-checkpoint-*` que afirmam a trilha. Eles ancoram na Estude por
+  `'^\d+ de \d+$'`, que não existe mais na árvore desde os consertos de
+  acessibilidade, e guardam o dev client com `runFlow when`, que perde a folha
+  atrasada.
+- **O conserto já existe nos fluxos que o 34 tocou:** a âncora
+  `'^.+\. \d+ de \d+ etapas concluídas\.$'` e o subflow
+  `subflows/dismiss-dev-client.yaml` logo depois do `launchApp`. Veja a
+  [evidência do 34](../../../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md).
+- **Rode cada fluxo antes de editá-lo,** para separar o apodrecimento antigo
+  do efeito da mudança.
+- **O ramo "Concluir checkpoint"** da `CheckpointScreen`, que trata o
+  checkpoint sem perguntas, ficou inalcançável com o 34 e pode sair. Antes,
+  enumere quem o alcança, inclusive testes como o "completes an available
+  checkpoint" do `CheckpointScreen.flow.test.tsx`.
+- **O ambiente do E2E de 2026-10-09:** o build Debug de
+  `ios/build/dd/Build/Products/Debug-iphonesimulator/Radiant.app` (24/09)
+  ainda serve, com o JS do Metro. Detalhes na
+  [evidência do 16](../../../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md).
 
 ## 5. Regras que valem sempre
 

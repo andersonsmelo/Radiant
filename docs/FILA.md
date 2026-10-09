@@ -51,8 +51,8 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-10-09, com o 13 e o 35 feitos, esse item é o **16**.
-O que segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
+**38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -95,14 +95,20 @@ O que segura a 1.4 agora é só do dono: o 28 e o 30.
   [relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)),
   e o 35 (o anúncio da perda de vida nas avaliações da V2), pelo agente, com a
   frase da lição, agora numa função compartilhada pelas duas telas
-  ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)).
+  ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)),
+  e o 16 (o caminho 3 do E2E afirma a L1 concluída e o cabeçalho em "1 de N"
+  depois da folha), pelo agente, visto vermelho com o defeito 1 reinjetado e
+  verde no simulador
+  ([evidência](../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md),
+  [relatório](superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
     aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
     a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
-    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13) e
-    o anúncio da perda de vida nelas (35).
+    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13),
+    o anúncio da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1
+    (16).
     Um agente que pegar outro item antes do merge trabalha no
     próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
   - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
@@ -122,7 +128,6 @@ O que segura a 1.4 agora é só do dono: o 28 e o 30.
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
   - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
     desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três
     `student-checkpoint-*` que afirmam a trilha). Eles ancoram na Estude por
