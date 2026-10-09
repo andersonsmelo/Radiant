@@ -1,4 +1,4 @@
-# Prompt de continuidade (17) — 2026-10-09, depois do XP da aprovação das avaliações
+# Prompt de continuidade (17) — 2026-10-09, depois do XP e do anúncio de vida nas avaliações
 
 Você vai continuar o Radiant, um app iOS de treinamento em radiologia (Expo 54 /
 React Native 0.81). Você trabalha com o dono, que decide sobre loja, aparelho,
@@ -18,6 +18,7 @@ anteriores.**
 | Item | Estado | Onde |
 |---|---|---|
 | **13 — o XP da aprovação das avaliações da V2** | ✅ Aprovar credita pela regra da lição (na prática, +18 XP), conta para a sequência e a meta diária e paga só na primeira aprovação. O crédito vem antes de concluir o nó, porque a conclusão dispara o backup que leva o XP. A celebração mostra "+18 XP" e o total novo | [ADR, revisão de 2026-10-09](../../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md), [relatório](2026-10-09-radiant-xp-da-aprovacao-relatorio.md) |
+| **35 — o anúncio da perda de vida nas avaliações da V2** | ✅ Errar numa avaliação anuncia "Você perdeu uma vida; restam N." ou "Você perdeu sua última vida.", sem "Resposta incorreta.", porque a avaliação não diz se a resposta estava certa. O assinante, quem não perde vida e a pergunta já cobrada não ouvem nada. A frase saiu da lição para `src/features/hearts/heartLossAnnouncement.ts`, usada pelas duas telas | [relatório](2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md) |
 
 **Decidido pelo dono em 2026-10-09:** o XP da aprovação segue a regra da
 lição, e a celebração mostra o ganho e o total novo.
@@ -59,8 +60,8 @@ uptime
 ```
 
 **Esperado depois de 2026-10-09:**
-- **a PR #38 aberta,** com os commits do item 13 no topo: o do código é o
-  `df75d33`, e os de documentação vêm depois dele. Não há contagem aqui de
+- **a PR #38 aberta,** com os commits dos itens 13 e 35 no topo: o do código
+  do 13 é o `df75d33`, e os do 35 e os de documentação vêm depois dele. Não há contagem aqui de
   propósito, porque o commit que a grava a falsifica. Confira que o CI ficou
   verde no último push;
 - a `origin/main` em `e992686`;
@@ -114,8 +115,7 @@ encerrados, e estão em `docs/archive/FILA_concluidos.md`.
 
 | # | Tarefa | Estado |
 |---|---|---|
-| 35 | Anunciar a perda de vida nas avaliações da V2 (`CheckpointScreen.tsx:326`) | **Destravado**; detalhe na §4.1 |
-| 16 | O caminho 3 do E2E afirma o estado da L1 | Destravado; detalhe na §4.2 do [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md) |
+| 16 | O caminho 3 do E2E afirma o estado da L1 | **Destravado**; detalhe na §4.1 |
 | 38 | Seis fluxos E2E antigos desatualizados, e o ramo sem perguntas da tela do checkpoint, que ficou inalcançável | Destravado; detalhe na FILA |
 
 **P5 — esperando outra coisa**
@@ -132,33 +132,27 @@ texto; **37, a vitrine da loja**, que perdeu as capturas `04-checkpoint` e
 `05-conquista`; e **39, a Estude nunca oferece a conquista**: depois da última
 lição, o botão diz "Aguardando nova etapa" com a conquista por coletar. É
 anterior ao 34 e vale para a 1.4 como está. Se o dono quiser o 39 na 1.4, ele
-vem antes do 35.
+vem antes do 16.
 
 **Depois da 1.4:** 21, o SDK 58 com `UIScene`, até abril de 2027; 22, a L2 v7;
 23, o simulador `A5FA5443`; 24, as ações de um passo do dono; 32, a aba
 "Configurações" no Perfil, que pede desenho antes.
 
-**Qual frente pegar agora:** o **35**. O que segura a 1.4 é só do dono.
+**Qual frente pegar agora:** o **16**. O que segura a 1.4 é só do dono.
 
 ## 4. Frentes em detalhe
 
-### 4.1. O anúncio da perda de vida nas avaliações da V2 (item 35)
+### 4.1. O caminho 3 do E2E afirma o estado da L1 (item 16)
 
-- **O que se sabe:**
-  - na avaliação, a resposta errada debita a vida em
-    `CheckpointScreen.tsx:326` (`heartsRepository.spend`), sem anúncio ao
-    leitor de tela;
-  - a lição já anuncia, desde o 25: "… Você perdeu uma vida; restam N." ou
-    "… Você perdeu sua última vida." (`LessonFlowScreen.tsx:268`), e o
-    assinante não ouve nada sobre vidas
-    ([relatório do 25](2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
-- **O quiz antigo** (`useQuiz.ts:153`) também debita em silêncio, mas não se
-  achou link para `/quiz` no app. Enumere os chamadores de
-  `heartsRepository.spend` antes de fechar o escopo.
-- Teste vermelho antes, pelo defeito específico: errar na avaliação não anuncia
-  a perda.
-- O texto é o mesmo da lição, já decidido pelo dono em 2026-09-28. Mudar o
-  texto é decisão dele.
+- O detalhe está na §4.2 do
+  [prompt (5)](2026-09-25-radiant-prompt-de-continuidade-5.md), onde o item
+  se chamava 8. A dependência dele, o merge da #36, foi cumprida em 2026-09-25.
+- **Antes de escrever, meça:** o fluxo do caminho 3 mudou com o 34, que tirou
+  os checkpoints de botão. Confira na
+  [evidência do 34](../../../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)
+  o estado atual do fluxo antes de confiar no prompt (5).
+- E2E roda num simulador temporário, com as regras da §5. Não rode
+  `loop validate` com o E2E rodando.
 
 ## 5. Regras que valem sempre
 
@@ -180,8 +174,8 @@ vem antes do 35.
   - testes, builds, Metro e `eas`, no 20;
   - o shell padrão abre no 24. Confira com `node --version`.
 - **O gate** é `EXPO_NO_DOTENV=1 npm run quality`, em `radiant-app`, com a
-  suíte inteira citada. Última medição: **155 suítes / 1490 testes**, em
-  2026-10-09 às 14:31.
+  suíte inteira citada. Última medição: **156 suítes / 1499 testes**, em
+  2026-10-09 às 15:14.
   - A regra R4 do `visual:qa:strict` é textual e varre também os testes: um
     `import` de `react-native-reanimated` num teste reprova o gate.
 - **Toda guarda nova precisa ser vista falhando pelo defeito que nomeia.** Numa

@@ -51,8 +51,8 @@ O critério é o que cada item destrava; no empate, vence o relógio mais longo.
 numeração é a mesma da §3 do
 [prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-10-09, com o 13 feito, esse item é o **35**. O que
-segura a 1.4 agora é só do dono: o 28 e o 30.
+destravado.** Desde 2026-10-09, com o 13 e o 35 feitos, esse item é o **16**.
+O que segura a 1.4 agora é só do dono: o 28 e o 30.
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -92,13 +92,17 @@ segura a 1.4 agora é só do dono: o 28 e o 30.
   regra da lição, que o dono escolheu: na prática, +18 XP na primeira aprovação,
   com o ganho e o total novo na celebração
   ([ADR, revisão](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md),
-  [relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)),
+  e o 35 (o anúncio da perda de vida nas avaliações da V2), pelo agente, com a
+  frase da lição, agora numa função compartilhada pelas duas telas
+  ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)).
 
 - **P1 — o que segura a 1.4:**
   - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
     aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
     a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
-    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13).
+    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13) e
+    o anúncio da perda de vida nelas (35).
     Um agente que pegar outro item antes do merge trabalha no
     próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
   - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
@@ -118,10 +122,6 @@ segura a 1.4 agora é só do dono: o 28 e o 30.
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
-    (`CheckpointScreen.tsx:326`), como o 25 fez na lição. Ficou fora do 25 à
-    espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
-    mas não se achou link para `/quiz` no app;
   - **16.** o caminho 3 do E2E afirma a L1. A #36 entrou.
   - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
     desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três

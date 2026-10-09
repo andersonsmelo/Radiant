@@ -2378,3 +2378,15 @@ regressão
 
   [`2026-09-28-radiant-prompt-de-continuidade-16.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md).
   Ele substitui o (15).
+
+## Retirado em 2026-10-09 — o anúncio da perda de vida nas avaliações (FILA, 35)
+
+     ([ADR](../adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Nelas,
+     o erro debita vida sem anúncio (`CheckpointScreen.tsx:326`; FILA, 35).
+
+strict. **Última medição: 2026-10-09, às 14:31**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o XP da aprovação das avaliações (FILA, 13),
+e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
+**155 suítes / 1490 testes**, lint com 0 erros e 26 avisos, visual QA sem
+regressão
+([relatório](../superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)). O CI roda o mesmo comando inteiro

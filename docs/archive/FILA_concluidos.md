@@ -1708,3 +1708,20 @@ Link do cabeçalho da seção da 1.4, substituído sem edição (só o link rela
 reajustado ao novo diretório):
 
 [`superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md`](../superpowers/handoffs/2026-09-28-radiant-prompt-de-continuidade-16.md), que traz todas as pendências na ordem abaixo;
+
+## Lote de 2026-10-09 — o anúncio da perda de vida nas avaliações da V2 (35)
+
+Retirado sem edição da "Ordem de prioridade"
+([relatório](../superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)).
+O quiz antigo segue debitando em silêncio: a rota `/quiz` continua sem ponto de
+entrada no app.
+
+  - **35.** agente: **anunciar a perda de vida nas avaliações da V2**
+    (`CheckpointScreen.tsx:326`), como o 25 fez na lição. Ficou fora do 25 à
+    espera do 29. O quiz antigo (`useQuiz.ts:153`) também debita em silêncio,
+    mas não se achou link para `/quiz` no app;
+
+Da abertura da "Ordem de prioridade", substituído sem edição:
+
+destravado.** Desde 2026-10-09, com o 13 feito, esse item é o **35**. O que
+segura a 1.4 agora é só do dono: o 28 e o 30.

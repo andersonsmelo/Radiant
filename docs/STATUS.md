@@ -80,8 +80,10 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      ([relatório](superpowers/handoffs/2026-09-27-radiant-anuncio-perda-de-vida-relatorio.md)).
      **O checkpoint ficou fora.** Em 2026-09-28, o dono decidiu que saem os
      checkpoints de botão, que não cobram vida, e ficam as 5 avaliações da V2
-     ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)). Nelas,
-     o erro debita vida sem anúncio (`CheckpointScreen.tsx:326`; FILA, 35).
+     ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md)).
+     **Nelas, o anúncio entrou em 2026-10-09** (FILA, 35), com a mesma frase,
+     agora numa função compartilhada pelas duas telas
+     ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)).
 
    O modo avião e o reembolso saíram do roteiro no aparelho
    ([ADR de 2026-09-24](adr/ADR-2026-09-24-storekit-roteiro-no-aparelho.md),
@@ -269,12 +271,12 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-10-09, às 14:31**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com o XP da aprovação das avaliações (FILA, 13),
-e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`: exit 0,
-**155 suítes / 1490 testes**, lint com 0 erros e 26 avisos, visual QA sem
-regressão
-([relatório](superpowers/handoffs/2026-10-09-radiant-xp-da-aprovacao-relatorio.md)). O CI roda o mesmo comando inteiro
+strict. **Última medição: 2026-10-09, às 15:14**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida nas avaliações
+(FILA, 35), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **156 suítes / 1499 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão
+([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
