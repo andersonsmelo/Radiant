@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
+import { GamificationService } from '../../gamification/services/GamificationService';
+import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeService';
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -117,6 +119,12 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
   },
 }));
 
+jest.mock('../../lesson-flow/services/LessonOutcomeService', () => ({
+  LessonOutcomeService: {
+    recordAssessmentApproval: jest.fn(),
+  },
+}));
+
 jest.mock('../../paywall/PaywallService', () => ({
   PaywallService: {
     maybePresentOffer: jest.fn().mockResolvedValue(null),
@@ -143,6 +151,8 @@ jest.mock('../../paywall/components/PaywallOfferCard', () => {
 });
 
 const mockedJourneyProgressService = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
+const mockedGamification = GamificationService as jest.Mocked<typeof GamificationService>;
+const mockedLessonOutcome = LessonOutcomeService as jest.Mocked<typeof LessonOutcomeService>;
 
 const availableSnapshot = {
   track: {
@@ -264,6 +274,8 @@ describe('CheckpointScreen flow', () => {
     await AsyncStorage.clear();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
+    mockedGamification.getSnapshot.mockResolvedValue({ totalXp: 120, streakDays: 3 } as any);
+    mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award: null, rewarded: false });
   });
 
   // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no
@@ -455,6 +467,68 @@ describe('CheckpointScreen flow', () => {
       expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
     });
     expect(await screen.findByText(/^Avaliação 1 de /u)).toBeTruthy();
+  });
+
+  // FILA, 13 (decidido pelo dono em 2026-10-09): aprovar rende XP pela regra
+  // da lição, e a celebração mostra o ganho e o total depois dele. Antes, a
+  // aprovação só concluía o nó, e a caixa repetia o total lido ao abrir a tela.
+  describe('XP da aprovação', () => {
+    const award = { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' as const };
+
+    beforeEach(() => {
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+      mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(productionCompletedSnapshot);
+    });
+
+    it('credita o XP antes de concluir o nó, com os acertos da avaliação', async () => {
+      mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award, rewarded: true });
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      await waitFor(() => {
+        expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId);
+      });
+      expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledWith(expect.objectContaining({
+        nodeId: productionNodeId,
+        totalQuestions: productionStageItems.length,
+        correctAnswers: productionStageItems.length,
+      }));
+      // O backup do iCloud sai da conclusão e leva o XP: creditar depois dela
+      // mandaria para a nuvem o total de antes.
+      expect(mockedLessonOutcome.recordAssessmentApproval.mock.invocationCallOrder[0])
+        .toBeLessThan(mockedJourneyProgressService.markNodeCompleted.mock.invocationCallOrder[0]);
+    });
+
+    it('a celebração mostra o ganho e o total depois dele', async () => {
+      mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award, rewarded: true });
+      mockedGamification.getSnapshot
+        .mockResolvedValueOnce({ totalXp: 120, streakDays: 3 } as any)
+        .mockResolvedValue({ totalXp: 138, streakDays: 3 } as any);
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      expect(await screen.findByText('+18 XP')).toBeTruthy();
+      expect(screen.getByText('XP total: 138')).toBeTruthy();
+      expect(screen.queryByText('XP total: 120')).toBeNull();
+    });
+
+    it('sem crédito, a celebração mostra só o total', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+
+      expect(await screen.findByText('XP total: 120')).toBeTruthy();
+      expect(screen.queryByText(/^\+/u)).toBeNull();
+    });
+
+    it('reprovar não credita XP', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(false);
+
+      expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+      expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+    });
   });
 
   // Achado 1 do gate H4 (2026-09-24): a tela ainda descrevia a avaliação única

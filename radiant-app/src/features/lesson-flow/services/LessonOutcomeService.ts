@@ -7,7 +7,9 @@
  *
  * Regra de premiação (spec §3): nó de lição paga só na primeira conclusão; nó de
  * revisão paga sempre que estava vencido. Quem decide se uma revisão está
- * vencida é o SM-2, não o usuário — por isso a revisão não é farmável.
+ * vencida é o SM-2, não o usuário — por isso a revisão não é farmável. Desde
+ * 2026-10-09 (FILA, 13), a aprovação de uma avaliação da V2 paga pela regra da
+ * lição, também só na primeira vez.
  *
  * Consequência decidida e registrada: uma conclusão anterior à v1.3 (quando o laço
  * de gamificação ainda não tinha escritor alcançável) nunca é paga, e **não existe
@@ -75,6 +77,13 @@ export type LessonOutcome = {
     result: QuizResult;
 };
 
+export type AssessmentApprovalInput = {
+    nodeId: string;
+    totalQuestions: number;
+    correctAnswers: number;
+    answeredAt: Date;
+};
+
 class LessonOutcomeServiceImpl {
     async recordCompletion(input: LessonOutcomeInput): Promise<LessonOutcome> {
         // A elegibilidade vem PRIMEIRO: gravar o recall avança o intervalo do
@@ -111,6 +120,29 @@ class LessonOutcomeServiceImpl {
 
         const award = await this.recordReward(result);
         return { award, rewarded: true, result };
+    }
+
+    /**
+     * Credita a aprovação de uma avaliação da V2 (FILA, 13). A tentativa já foi
+     * registrada pelo `UnitCheckpointService`, então daqui só sai a recompensa:
+     * nada de recall, evidência ou sync, que gravariam a mesma tentativa duas
+     * vezes. A elegibilidade é a mesma régua da lição, e a tela chama isto ANTES
+     * de `markNodeCompleted`, cujo backup leva o XP.
+     */
+    async recordAssessmentApproval(input: AssessmentApprovalInput): Promise<Omit<LessonOutcome, 'result'>> {
+        const { rewarded } = await this.resolveNode(input.nodeId);
+
+        if (!rewarded) {
+            return { award: null, rewarded: false };
+        }
+
+        const award = await this.recordReward({
+            lessonId: input.nodeId,
+            totalQuestions: input.totalQuestions,
+            correctAnswers: input.correctAnswers,
+            answeredAt: input.answeredAt,
+        });
+        return { award, rewarded: true };
     }
 
     /**

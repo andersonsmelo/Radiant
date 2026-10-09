@@ -118,6 +118,9 @@ jest.mock('../../lesson-flow/services/LessonOutcomeService', () => ({
         answeredAt: new Date('2026-08-15T12:00:00.000Z'),
       },
     }),
+    // A aprovação da avaliação credita XP antes de concluir (FILA, 13). Num nó
+    // bloqueado, o serviço real recusa pela mesma régua de `markNodeCompleted`.
+    recordAssessmentApproval: jest.fn().mockResolvedValue({ award: null, rewarded: false }),
   },
 }));
 
