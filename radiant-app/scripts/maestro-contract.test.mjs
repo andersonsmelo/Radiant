@@ -1156,4 +1156,26 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
     'on the trail the hearts HUD is a button whose label adds the refill ETA — assert "0 de N vidas; próxima em … minutos", not the bare count'
   );
   assert.ok(closeAt > sheetAt && zeroAt > closeAt, 'assert the emptied hearts only after the modal sheet is closed');
+
+  // Defeito 1 do E2E (ADR de 2026-09-25, opção A; FILA, 16): a L1 concluída,
+  // reaberta e abandonada pela folha, voltava como retomável, com o cabeçalho em
+  // "0 de N". Depois da folha, o caminho 3 afirma o estado certo — a L1 concluída
+  // e o cabeçalho contando a etapa —, e não mais um padrão que casa com os dois.
+  const completedCopy = card.match(/case 'completed':\s*return '([^']+)';/)?.[1];
+  assert.ok(completedCopy, 'expected JourneyNodeCard to label the completed status');
+  const stageHeader = await readAppFile('src/features/journey/components/JourneyStageHeader.tsx');
+  assert.match(stageHeader, /accessibilityLabel=\{`\$\{title\}\. \$\{completed\} de \$\{total\} etapas concluídas\.`\}/);
+  const afterSheet = hearts.slice(closeAt);
+  assert.ok(
+    afterSheet.includes(`- assertVisible: '^Fundamentos de Radiologia\\. ${completedCopy}\\.$'`),
+    `after the hearts sheet closes, path 3 must assert L1 still "${completedCopy}"`
+  );
+  assert.ok(
+    afterSheet.includes("- assertVisible: '^Fundamentos de Radiologia\\. 1 de \\d+ etapas concluídas\\.$'"),
+    'after the hearts sheet closes, path 3 must assert the stage header counting L1 ("1 de N")'
+  );
+  assert.ok(
+    !afterSheet.includes('\\. \\d+ de \\d+ etapas concluídas'),
+    'a header pattern that matches "0 de N" as well as "1 de N" cannot tell defect 1 apart'
+  );
 });
