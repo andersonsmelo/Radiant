@@ -59,8 +59,10 @@ uptime
 ```
 
 **Esperado depois de 2026-10-09:**
-- **a PR #38 aberta,** com 36 commits à frente da `main`, com o commit do
-  item 13 por último. Confira que o CI ficou verde no último push;
+- **a PR #38 aberta,** com os commits do item 13 no topo: o do código é o
+  `df75d33`, e os de documentação vêm depois dele. Não há contagem aqui de
+  propósito, porque o commit que a grava a falsifica. Confira que o CI ficou
+  verde no último push;
 - a `origin/main` em `e992686`;
 - no remoto, além da `main` e do `feat/d4-decisoes-de-revisao`, os branches já
   mergeados das PRs #35 a #37. Apagá-los é do dono;
