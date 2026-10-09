@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,6 +31,7 @@ import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } 
 import { checkpointChargeLedger } from '../checkpointChargeLedger';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -326,6 +327,14 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         const nextHearts = await heartsRepository.spend(Date.now());
         setHearts(nextHearts);
 
+        // FILA, 35: quem enxerga vê o coração cair no HUD; o leitor de tela
+        // ouve a mesma frase da lição. A avaliação não diz se a resposta estava
+        // certa, então o anúncio é só o da vida.
+        const heartLoss = heartLossAnnouncement(hearts, nextHearts);
+        if (heartLoss) {
+          AccessibilityInfo.announceForAccessibility(heartLoss);
+        }
+
         // O estado decide, não o número: assinante pode carregar `count: 0`.
         if (nextHearts.status === 'empty') {
           setHeartsSheetVisible(true);
@@ -413,6 +422,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     checkpointNode,
     currentProductionItem,
     handleComplete,
+    hearts,
     productionBatch,
     productionCheckpoint,
     productionItems,

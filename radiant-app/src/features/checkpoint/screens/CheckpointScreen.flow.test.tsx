@@ -1,6 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AccessibilityInfo } from 'react-native';
 import CheckpointScreen from './CheckpointScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
@@ -337,6 +338,96 @@ describe('CheckpointScreen flow', () => {
 
       const stored = JSON.parse(await AsyncStorage.getItem('@radiant:checkpoint_charged_items_v1') ?? '{}');
       expect(stored[productionNodeId]).toBeUndefined();
+    });
+  });
+
+  // FILA, 35: errar numa avaliação debita a vida, e quem enxerga vê o coração
+  // cair no HUD. O leitor de tela passa a ouvir a mesma frase da lição (FILA,
+  // 25). A avaliação não diz se a resposta estava certa, então o anúncio é só
+  // o da vida.
+  describe('anúncio da perda de vida ao leitor de tela', () => {
+    const heartsRepository = () =>
+      require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+    const vidas = (count: number, status: string) => ({ count, status, nextRefillAt: null, unlimitedUntil: null });
+    let announce: jest.SpyInstance;
+    const anunciosDeVida = () =>
+      announce.mock.calls.map(([texto]) => texto as string).filter((texto) => /vida/u.test(texto));
+
+    async function responderAPrimeira(certa: boolean): Promise<void> {
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      const item = productionStageItems[0];
+      expect(await screen.findByText(item.prompt)).toBeTruthy();
+      const opcao = item.options.find(option => (option.id === item.correctOptionId) === certa)!;
+      fireEvent.press(screen.getByLabelText(opcao.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+      expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    }
+
+    beforeEach(() => {
+      announce = jest.spyOn(AccessibilityInfo, 'announceForAccessibility').mockImplementation(() => undefined);
+      mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    });
+
+    afterEach(() => {
+      announce.mockRestore();
+      // Os padrões do mock do módulo, para não vazar para os testes seguintes.
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(5, 'full'));
+      heartsRepository().spend.mockResolvedValue(vidas(4, 'recovering'));
+    });
+
+    it('errar anuncia a vida perdida e quantas restam', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(5, 'full'));
+      heartsRepository().spend.mockResolvedValue(vidas(4, 'recovering'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(false);
+
+      expect(anunciosDeVida()).toEqual(['Você perdeu uma vida; restam 4.']);
+    });
+
+    it('errar com a última vida anuncia que foi a última', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(1, 'recovering'));
+      heartsRepository().spend.mockResolvedValue(vidas(0, 'empty'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+      const item = productionStageItems[0];
+      fireEvent.press(await screen.findByLabelText(item.options.find(option => option.id !== item.correctOptionId)!.label));
+      fireEvent.press(screen.getByText('Próxima questão'));
+
+      expect(await screen.findByText('Checkpoint pausado por falta de vidas')).toBeTruthy();
+      expect(anunciosDeVida()).toEqual(['Você perdeu sua última vida.']);
+    });
+
+    it('o assinante não ouve nada sobre vidas', async () => {
+      heartsRepository().getSnapshot.mockResolvedValue(vidas(0, 'unlimited'));
+      heartsRepository().spend.mockResolvedValue(vidas(0, 'unlimited'));
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(false);
+
+      expect(heartsRepository().spend).toHaveBeenCalledTimes(1);
+      expect(anunciosDeVida()).toEqual([]);
+    });
+
+    it('acertar não anuncia perda', async () => {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+
+      await responderAPrimeira(true);
+
+      expect(anunciosDeVida()).toEqual([]);
+    });
+
+    it('a mesma pergunta, errada de novo na mesma tentativa, não anuncia de novo', async () => {
+      const primeiraVisita = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await responderAPrimeira(false);
+      primeiraVisita.unmount();
+
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await responderAPrimeira(false);
+
+      expect(heartsRepository().spend).toHaveBeenCalledTimes(1);
+      expect(anunciosDeVida()).toEqual(['Você perdeu uma vida; restam 4.']);
     });
   });
 

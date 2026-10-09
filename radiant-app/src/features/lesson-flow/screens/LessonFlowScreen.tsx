@@ -49,6 +49,7 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
@@ -260,13 +261,11 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 setHearts(nextHearts);
 
                 // Quem enxerga vê o coração mudar no HUD; o leitor de tela
-                // precisa ouvir. Segue a queda real do contador, e não a
-                // chamada a `spend`: o assinante e quem já está em zero não
-                // perdem nada, e não podem ouvir que perderam.
-                if (nextHearts.status !== 'unlimited' && nextHearts.count < hearts.count) {
-                    heartLossCopy = nextHearts.count === 0
-                        ? ' Você perdeu sua última vida.'
-                        : ` Você perdeu uma vida; restam ${nextHearts.count}.`;
+                // precisa ouvir (`heartLossAnnouncement`, a mesma frase das
+                // avaliações da V2).
+                const heartLoss = heartLossAnnouncement(hearts, nextHearts);
+                if (heartLoss) {
+                    heartLossCopy = ` ${heartLoss}`;
                     // Sem som nem vibração próprios (decisão do dono, 2026-09-28):
                     // saíam 2 ms depois do erro e soavam como um só. Voltam com
                     // a animação do coração em primeiro plano (FILA, 26).
