@@ -2426,3 +2426,16 @@ Medido em 2026-09-25, às 21:24:
 
   [`2026-10-09-radiant-prompt-de-continuidade-17.md`](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md).
   Ele substitui o (16).
+
+## Retirado em 2026-10-10 — a 1.4.0 reprovada pela 3.1.2 e reenviada
+
+Da tabela "Produção", linha App Store:
+
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` enviada à revisão em 2026-10-09, às 17:17, "Aguardando revisão"**, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. Binário = `main` em `221e2ec`. | 2026-10-09 |
+
+Da seção "Entre produção e `main` — a 1.4":
+
+**A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
+Apple desde 2026-10-09, às 17:17.** O estado da revisão não foi remedido em
+2026-10-10: o Chrome estava desconectado, e não havia e-mail da Apple no Gmail.
+Os avisos da revisão vão para o e-mail de contato da ficha, no Outlook.

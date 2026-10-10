@@ -1419,7 +1419,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
   em 2026-09-24; anual em 2026-09-25; cancelamento e VoiceOver no iPhone e Ask
   to Buy no StoreKit Testing em 2026-09-27; bump para 1.4.0 em 2026-09-28;
-  `1.4.0 (12)` ENVIADA À REVISÃO DA APP STORE EM 2026-10-09]**
+  `1.4.0 (12)` ENVIADA À REVISÃO DA APP STORE EM 2026-10-09; REPROVADA PELA
+  3.1.2 E REENVIADA EM 2026-10-10]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1512,6 +1513,12 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     produtos da assinatura, o grupo e a captura de revisão refeita. A
     liberação é manual e fica com o dono (FILA, 40)
     ([relatório](../superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+  - **em 2026-10-10:** a Apple reprovou a `1.4.0 (12)` às 03:18, pela
+    diretriz 3.1.2, porque os metadados não tinham link para os Termos de Uso
+    (EULA). O dono pôs a seção "Assinatura", com o EULA padrão da Apple e a
+    política de privacidade, na Descrição, e reenviou às 11:12, com o mesmo
+    binário
+    ([relatório](../superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem
