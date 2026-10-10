@@ -1418,7 +1418,8 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
   2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
   em 2026-09-24; anual em 2026-09-25; cancelamento e VoiceOver no iPhone e Ask
-  to Buy no StoreKit Testing em 2026-09-27; falta o bump da 1.4.0]**
+  to Buy no StoreKit Testing em 2026-09-27; bump para 1.4.0 em 2026-09-28;
+  `1.4.0 (12)` ENVIADA À REVISÃO DA APP STORE EM 2026-10-09]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1504,6 +1505,13 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     piloto do V3 tinha som. Visto no simulador pelo log do sistema
     ([ADR](../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
     [relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+  - **em 2026-10-09:** o XP da aprovação das avaliações (FILA, 13), o anúncio
+    da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1 (16)
+    entraram na PR #38, mergeada às 16:18 (`221e2ec`). A build de produção
+    `1.4.0 (12)` saiu do EAS e foi **enviada à revisão às 17:17**, com os dois
+    produtos da assinatura, o grupo e a captura de revisão refeita. A
+    liberação é manual e fica com o dono (FILA, 40)
+    ([relatório](../superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

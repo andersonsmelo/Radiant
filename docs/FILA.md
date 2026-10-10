@@ -49,7 +49,7 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
+[prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
 **38**. A 1.4.0 (12) está na revisão da Apple desde 2026-10-09; o que falta
@@ -183,7 +183,7 @@ destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

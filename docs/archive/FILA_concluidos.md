@@ -1768,3 +1768,11 @@ Da abertura da "Ordem de prioridade", substituído sem edição:
 
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
 **38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## 2026-10-10 — o prompt (18) substitui o (17)
+
+Links substituídos sem edição (só o caminho relativo reajustado ao novo diretório):
+
+[prompt (17)](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
+
+[`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;

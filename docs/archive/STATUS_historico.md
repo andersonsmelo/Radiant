@@ -2407,3 +2407,22 @@ regressão
   O commit do XP da aprovação (FILA, 13) entra depois dessa medição.
 
   - O conserto automático do CI está ligado nesta sessão, e o merge é do dono.
+
+## Retirado em 2026-10-10 — remedição do dia seguinte ao envio da 1.4.0
+
+A `main` está **168 commits e 333 arquivos à frente** do que está na App Store
+(medido em 2026-09-25, às 21:24, `v1.3.1..e992686`). Nada disso chegou ao
+usuário: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
+(CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
+ao app do aluno).
+
+Medido em 2026-09-25, às 21:24:
+- **`origin/main` está em `e992686`.** As PRs
+
+  A de 2026-09-27 é a #38.
+
+- **O remoto tem a `main`, o branch da D4 e os três das PRs #35 a #37**, que
+  já entraram e não foram apagados (medido às 21:24). Apagá-los é do dono. Os
+
+  [`2026-10-09-radiant-prompt-de-continuidade-17.md`](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md).
+  Ele substitui o (16).

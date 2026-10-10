@@ -36,11 +36,14 @@ O estado do Play só se mede abrindo o Play Console; não há comando.
 
 ## Entre produção e `main` — a 1.4
 
-A `main` está **168 commits e 333 arquivos à frente** do que está na App Store
-(medido em 2026-09-25, às 21:24, `v1.3.1..e992686`). Nada disso chegou ao
-usuário: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
+A `main` está **211 commits e 414 arquivos à frente** do que está na App Store
+(medido em 2026-10-10, às 09:55, `v1.3.1..221e2ec`). Nada disso chegou ao
+usuário ainda: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
 (CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
-ao app do aluno).
+ao app do aluno). **A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
+Apple desde 2026-10-09, às 17:17.** O estado da revisão não foi remedido em
+2026-10-10: o Chrome estava desconectado, e não havia e-mail da Apple no Gmail.
+Os avisos da revisão vão para o e-mail de contato da ficha, no Outlook.
 
 ```bash
 git fetch origin && git rev-list --count v1.3.1..origin/main
@@ -315,8 +318,9 @@ com `node --version` antes de citar qualquer número.
 
 ## Repositório
 
-Medido em 2026-09-25, às 21:24:
-- **`origin/main` está em `e992686`.** As PRs
+Medido em 2026-10-10, às 09:55:
+- **`origin/main` está em `221e2ec`,** o merge da #38, com o CI verde:
+  `Content Scripts` e `Radiant App Quality`. Antes dela, as PRs
   [#35](https://github.com/andersonsmelo/Radiant/pull/35) (estado do dia,
   relatório da nuvem, ADR e E2E completo),
   [#36](https://github.com/andersonsmelo/Radiant/pull/36) (defeito 1) e
@@ -381,15 +385,20 @@ Medido em 2026-09-25, às 21:24:
     pausado, a assinatura sobre as abas foi de 30,7 % para 0,1 %.
 - **Push e PR, decidido pelo dono em 2026-09-25:** o push está autorizado; PR,
   **uma por dia, às 21 h**, com o acumulado. O merge continua sendo do dono.
-  A de 2026-09-27 é a #38.
-- **O remoto tem a `main`, o branch da D4 e os três das PRs #35 a #37**, que
-  já entraram e não foram apagados (medido às 21:24). Apagá-los é do dono. Os
+  A de 2026-09-27 é a #38, que entrou em 2026-10-09. O branch
+  `docs/envio-1-4-0`, com o registro do envio e a documentação de 2026-10-10,
+  está no remoto e **aguarda PR**, que precisa do ok do dono.
+- **O remoto tem a `main`, os quatro branches das PRs #35 a #38**, que já
+  entraram e não foram apagados (`docs/estado-2026-09-25`,
+  `fix/defeito-1-licao-concluida`, `fix/renovacao-desconhecida` e
+  `feat/d4-decisoes-de-revisao`), **e o `docs/envio-1-4-0`**, ainda sem PR
+  (medido em 2026-10-10, às 09:55). Apagar os mergeados é do dono. Os
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
 - **Prompt de continuidade:**
-  [`2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md).
-  Ele substitui o (16).
+  [`2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md).
+  Ele substitui o (17).
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25

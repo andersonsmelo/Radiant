@@ -343,6 +343,50 @@ defeito que se queria pegar.
   de combinar a condição de pronto de um conserto, **enumere os chamadores do
   efeito** e diga quais o aluno alcança.
 
+### Cinco lições de 2026-10-09 (três itens, o merge da #38 e o envio da 1.4.0)
+
+- **Para ver falhar a guarda de um defeito já consertado, desfaça o conserto
+  INTEIRO.** O conserto do defeito 1 tinha duas metades: a precedência do
+  concluído em `resolveNodeStatus` e a guarda de `setResumableNode`. Com uma só
+  desfeita, a L1 continuava concluída, e a asserção nova pareceria cega. Leia o
+  commit do conserto e confira que a reprodução mostra o sintoma relatado
+  ("Continuar de onde parou", "0 de 8"), e não uma falha qualquer.
+- **Numa tabela de injeções, toda âncora é única ou mirada pela posição.**
+  Exija `count == 1` antes de trocar o texto. A linha "Concluído" aparece cinco
+  vezes no caminho 3, e a checagem abortou a injeção antes de ela mirar a
+  linha errada. Duas outras armadilhas da mesma tabela:
+  - asserção de **ausência** casa a forma mais larga do que vaza. A guarda
+    `^\+\d+ XP$` deixou passar "+null XP";
+  - injeção **move** o comportamento certo, e não acrescenta o errado ao lado.
+    Uma segunda chamada fora de ordem deixou verde a asserção sobre a primeira.
+- **A worktree de release fica com as dependências da última vez que foi
+  usada.** A `Radiant-release` tinha o eas-cli 16.32, e o `eas.json` exige
+  `>= 24.8.0`. Antes de uma build de produção, rode nela
+  `git merge --ff-only origin/main` e `npm ci` no Node 20, e confira
+  `npx eas --version`. O caminho que funcionou:
+  `npx eas build --profile production --platform ios --non-interactive --auto-submit`,
+  que compila e sobe ao TestFlight com a chave da API guardada no EAS.
+- **No App Store Connect, a primeira assinatura não aparece na página da
+  versão.** Os dois produtos e o **grupo** "Radiant Ilimitado" entram pelo
+  botão "Adicionar para revisão" da página de cada um, no mesmo rascunho de
+  envio da versão. Sem o grupo, o rascunho recusa o envio. E o preenchimento
+  de formulário pelo navegador **mente**: a ferramenta respondeu "valor
+  definido", e o campo de notas continuou com o texto da versão anterior. Leia
+  o campo de volta antes de salvar, e de novo depois de recarregar.
+- **Captura de tela com os preços do StoreKit exige o app lançado pelo Xcode.**
+  Os passos:
+  - compile com `xcodebuild`, sem `-derivedDataPath`;
+  - troque o destino em Product → Destination. O padrão era o `E3C547AE`, que
+    tem uma assinatura comprada e mostraria a tela de assinante;
+  - lance com Product → Perform Action → Run Without Building.
+
+  O dev client não acha o Metro sozinho. Use
+  `xcrun simctl openurl <udid> "radiantapp://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"`,
+  e depois `radiantapp://subscription` para abrir a tela. **Antes de propor
+  refazer um artefato porque "a tela mudou", olhe o artefato:** a captura de
+  2026-09-15 era quase igual à nova, porque a mudança só aparece para quem já
+  assina.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
