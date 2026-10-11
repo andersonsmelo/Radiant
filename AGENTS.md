@@ -387,6 +387,35 @@ defeito que se queria pegar.
   2026-09-15 era quase igual à nova, porque a mudança só aparece para quem já
   assina.
 
+### Quatro lições de 2026-10-10 e 11 (duas reprovações da 1.4.0 e quatro envios)
+
+- **Submissão reprovada prende os itens dela.** Tirar uma assinatura da
+  submissão (o ⊖ da linha) a deixa como "Removido", mas ainda ligada a ela. O
+  "Adicionar para revisão" da página da assinatura devolve então um erro
+  genérico, que por baixo é o 409 `ITEM_PART_OF_ANOTHER_SUBMISSION`. Enquanto o
+  item está numa submissão, o campo de imagem dele também fica desativado, sem o
+  ⊖ de apagar. A saída é **Cancelar envio** da submissão inteira e montar outra.
+- **O rascunho se monta pelas assinaturas, com a versão por último.** Escolha
+  sempre "Rascunho de envio (N)" no menu do botão, nunca "Criar novo envio". Em
+  2026-10-11, a versão foi adicionada primeiro, sem rascunho, e foi à revisão
+  **sozinha** em 10 segundos. Teve de ser cancelada, porque a primeira
+  assinatura precisa ir com a versão. Com as assinaturas e o grupo já no
+  rascunho, o diálogo avisa o que falta e mantém o envio desativado.
+- **No App Store Connect, quem edita é o dono, e o agente confere.** O
+  classificador do modo automático bloqueou cliques e teclas do agente no
+  console nas três tentativas, mesmo com "faça isso" do dono. O que funcionou:
+  - o dono clica;
+  - o agente lê pela API interna da página, só com GET: `fetch('/iris/v1/...',
+    {credentials:'include'})` em `apps/<id>/reviewSubmissions`,
+    `reviewSubmissions/<id>/items` e `subscriptions/<id>/images`. O `id` de
+    cada item, decodificado de base64, diz o tipo: 6 é versão, 18 é assinatura,
+    19 é grupo;
+  - o erro real de um botão se lê no `read_network_requests`.
+- **Navegador interno:** a sessão do App Store Connect expira de um dia para o
+  outro, e o login é sempre do dono. Página renderizada pequena num canto é
+  emulação de tamanho que ficou presa: `resize_window` com `preset: desktop`
+  resolve.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

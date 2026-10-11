@@ -2439,3 +2439,18 @@ Da seção "Entre produção e `main` — a 1.4":
 Apple desde 2026-10-09, às 17:17.** O estado da revisão não foi remedido em
 2026-10-10: o Chrome estava desconectado, e não havia e-mail da Apple no Gmail.
 Os avisos da revisão vão para o e-mail de contato da ficha, no Outlook.
+
+## Retirado em 2026-10-11 — a 1.4.0 reprovada pela 2.3.2 e enviada pela terceira vez
+
+Da tabela "Produção", linha App Store:
+
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` reenviada à revisão em 2026-10-10, às 11:12, "Aguardando revisão"**, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. O primeiro envio, de 2026-10-09, foi reprovado pela diretriz 3.1.2 (sem link de EULA nos metadados); o conserto foi só na Descrição, com o mesmo binário. Binário = `main` em `221e2ec`. | 2026-10-10 |
+
+Da seção "Entre produção e `main` — a 1.4":
+
+**A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
+Apple desde 2026-10-10, às 11:12**, reenviada depois da reprovação descrita no
+item 4, abaixo.
+
+Em 2026-10-10, o App Store Connect foi lido pelo navegador interno do Claude,
+com o login feito pelo dono.

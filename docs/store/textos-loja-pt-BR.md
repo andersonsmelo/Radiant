@@ -126,6 +126,17 @@ Política de Privacidade: https://saudediagnostica.com/radiant/privacidade/
 
 ---
 
+## Imagem das assinaturas (App Store Connect, opcional)
+
+**Hoje as duas assinaturas não têm imagem, e isso é de propósito.** A Apple
+reprovou a `1.4.0 (12)` em 2026-10-10, pela diretriz 2.3.2, porque a imagem de
+1024 × 1024 do Mensal e do Anual era o ícone do app, e a mesma nos dois. Esse
+campo só serve para promover a compra na página da App Store e para ofertas de
+reconquista ou de código, e nenhuma das duas está ligada. O dono apagou as
+imagens em 2026-10-11. Se um dia houver promoção ou oferta, cada plano precisa
+de uma imagem própria, diferente do ícone e da do outro plano, que represente a
+compra (vidas ilimitadas).
+
 ## Keywords (App Store, ≤100, separadas por vírgula)
 
 `radiologia,estudo,medicina,raio-x,anatomia,quiz,revisão,residência,imagem,tórax,abdome,aprender`

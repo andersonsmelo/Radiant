@@ -52,9 +52,9 @@ numeração é a mesma da §3 do
 [prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
-**38**. A 1.4.0 (12) está na revisão da Apple desde 2026-10-10, às 11:12,
-reenviada depois de reprovada pela 3.1.2; o que falta é a aprovação e a
-liberação manual pelo dono (40).
+**38**. A 1.4.0 (12) está na revisão da Apple desde 2026-10-11, às 20:00,
+reenviada depois de reprovada pela 3.1.2 e pela 2.3.2; o que falta é
+a aprovação e a liberação manual pelo dono (40).
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -116,8 +116,13 @@ liberação manual pelo dono (40).
     com o EULA padrão da Apple, na Descrição, e reenviou às 11:12, com o mesmo
     binário ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
     O estado se lê no App Store Connect, em Distribuição → Revisão de apps: o
-    e-mail da reprovação caiu na pasta Lixo do Outlook. Se a Apple reprovar
-    de novo, a resposta é do agente com o dono.
+    e-mail da reprovação caiu na pasta Lixo do Outlook. **Reprovada de novo
+    às 11:54, pela 2.3.2:** a imagem promocional das duas assinaturas era o
+    ícone do app. O dono apagou as imagens, cancelou a submissão e montou
+    outra, e a versão foi reenviada em 2026-10-11, às 20:00
+    (`a5e5a094`, 4 itens)
+    ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
+    Se a Apple reprovar de novo, a resposta é do agente com o dono.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**

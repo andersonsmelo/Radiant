@@ -21,7 +21,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 
 | Frente | Estado | Medido em |
 | --- | --- | --- |
-| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` reenviada à revisão em 2026-10-10, às 11:12, "Aguardando revisão"**, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. O primeiro envio, de 2026-10-09, foi reprovado pela diretriz 3.1.2 (sem link de EULA nos metadados); o conserto foi só na Descrição, com o mesmo binário. Binário = `main` em `221e2ec`. | 2026-10-10 |
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` reenviada em 2026-10-11, às 20:00, "Aguardando revisão"**, na submissão `a5e5a094`, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. Ela foi reprovada duas vezes: pela 3.1.2 em 2026-10-10 (sem link de EULA nos metadados) e pela 2.3.2 em 2026-10-10, às 11:54 (imagem promocional das assinaturas igual ao ícone). Os dois consertos foram só de metadado, com o mesmo binário. Binário = `main` em `221e2ec`. | 2026-10-11 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
 | **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`. O app não depende dela: o sync remoto está desligado em todos os perfis do EAS. | 2026-09-23 |
@@ -41,15 +41,16 @@ A `main` está **211 commits e 414 arquivos à frente** do que está na App Stor
 usuário ainda: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
 (CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
 ao app do aluno). **A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
-Apple desde 2026-10-10, às 11:12**, reenviada depois da reprovação descrita no
-item 4, abaixo.
+Apple desde 2026-10-11, às 20:00**, reenviada depois das duas
+reprovações descritas no item 4, abaixo.
 
 **Onde se lê o estado da revisão:** no App Store Connect, em Distribuição →
 Revisão de apps, que é a fonte autoritativa. O e-mail é só aviso: vai para o
 Outlook do contato da ficha, e o da reprovação de 2026-10-10 **caiu na pasta
 Lixo**, não na Caixa de Entrada. "Nenhum e-mail" não prova que nada aconteceu.
-Em 2026-10-10, o App Store Connect foi lido pelo navegador interno do Claude,
-com o login feito pelo dono.
+Em 2026-10-10 e 2026-10-11, o App Store Connect foi lido pelo navegador
+interno do Claude, com o login feito pelo dono, e a API interna da página
+(`/iris/v1/...`, só leitura) deu o estado exato dos envios e dos itens.
 
 ```bash
 git fetch origin && git rev-list --count v1.3.1..origin/main
@@ -159,6 +160,18 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
      leu o campo antes de salvar e depois de recarregar (2011 caracteres, os
      dois links com HTTP 200), e o dono **reenviou às 11:12**, com os 4 itens
      ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md));
+   - **reprovada de novo em 2026-10-10, às 11:54, pela diretriz 2.3.2**, já por
+     um revisor humano, num iPad Air 11" (M4). O EULA não voltou a ser
+     apontado. O motivo: a imagem promocional opcional das duas assinaturas
+     era o ícone do app, e a mesma nas duas. Como não há promoção nem oferta
+     de reconquista, o dono decidiu **apagar a imagem** dos dois produtos, em
+     vez de desenhar duas novas. Em 2026-10-11, o dono tirou as assinaturas
+     da submissão, apagou as imagens, cancelou a submissão `3c9bcdda` e
+     montou outra. A versão chegou a ser enviada sozinha às 19:39, e esse
+     envio foi cancelado. O envio seguinte, `a5e5a094`, saiu **às 20:00**,
+     com os 4 itens, depois de o agente conferir pela API: as duas
+     assinaturas sem imagem e a Descrição com o EULA
+     ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md));
    - **falta:** a aprovação da Apple e, depois dela, **a liberação manual
      pelo dono** ([FILA](FILA.md), 40).
 
