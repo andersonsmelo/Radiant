@@ -1664,6 +1664,16 @@ parte do piloto híbrido existente, com comparação de presença/voz do Pixel.
 Documentação concluída; propostas ainda em discussão. Não escolhe dependência,
 não altera o app e não encerra os gates do piloto híbrido ou do currículo.
 
+### Planejamento de evolução — documentado em 2026-10-12
+
+[Levantamento e plano de evolução](2026-10-12-radiant-evolution-plan.md)
+cruza o código em `550c70e` com as pesquisas consolidadas. Anderson escolheu
+experiência de estudo (layout, Pixel e uma unidade piloto) como foco inicial.
+O plano propõe pacotes, dependências, critérios de aceite, métricas e gates;
+preserva as pendências da FILA e as decisões editoriais/comerciais vigentes.
+Entrega documental; não aprova novos desenhos, ativa V3, reordena a FILA,
+instala dependências ou autoriza release. STATUS continua sendo o estado vivo.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

@@ -55,6 +55,10 @@ Quando documentos divergirem, use esta ordem:
   layout/usabilidade, retenção/assinatura, automação/escala e animação/voz do
   Pixel com IA. Contém fontes, limites da evidência e hipóteses de pilotos;
   não substitui decisões aprovadas, specs ou o estado vivo.
+- [`Plano de evolução`](plans/2026-10-12-radiant-evolution-plan.md) — levantamento
+  datado do código e programa proposto de melhorias, com foco escolhido em
+  layout, Pixel e uma unidade piloto; dependências, critérios de saída,
+  métricas e gates antes da expansão e da monetização.
 
 ### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
 
