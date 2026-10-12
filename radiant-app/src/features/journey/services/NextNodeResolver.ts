@@ -64,6 +64,13 @@ export const NextNodeResolver = {
             };
         }
 
+        const reward = available
+            .filter(candidate => candidate.type === 'reward')
+            .sort(byCurriculumOrder)[0];
+        if (reward) {
+            return { nodeId: reward.nodeId, reason: 'reward', dueReviewCount };
+        }
+
         const lesson = available
             .filter(candidate => candidate.type === 'lesson')
             .sort(byCurriculumOrder)[0];

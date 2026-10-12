@@ -10,6 +10,7 @@ import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeSe
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
@@ -317,6 +318,11 @@ describe('CheckpointScreen flow', () => {
       expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
       expect(heartsRepository.spend).toHaveBeenCalledTimes(productionStageItems.length);
       tentativaReprovada.unmount();
+
+      for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+        const answers = Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : []));
+        await assessmentAttemptRepository.completeActivity(activity, answers);
+      }
 
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
       await errarAPrimeiraPergunta();
@@ -652,5 +658,53 @@ describe('CheckpointScreen flow', () => {
     ).toBeTruthy();
     expect(screen.getByText('Revisar competência frágil')).toBeTruthy();
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+  });
+
+  it('sair e voltar após reprovar preserva o reforço e impede uma nova tentativa', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const first = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    first.unmount();
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+  });
+
+  it('concluir o reforço permite uma nova tentativa ao reabrir a tela', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const first = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    first.unmount();
+    for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+      await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
+    }
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    const start = await screen.findByText('Iniciar checkpoint');
+    await waitFor(() => expect(screen.queryByText('Reforço necessário antes de tentar novamente')).toBeNull());
+    fireEvent.press(start);
+    expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+  });
+
+  it('voltar do reforço na mesma instância inicia na primeira questão, sem reutilizar respostas antigas', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+      await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
+    }
+    voltarParaATela();
+    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+    expect(screen.queryByText(productionStageItems[1].prompt)).toBeNull();
+    const firstItem = productionStageItems[0];
+    fireEvent.press(screen.getByLabelText(firstItem.options.find(option => option.id === firstItem.correctOptionId)!.label));
+    fireEvent.press(screen.getByText('Próxima questão'));
+    expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    voltarParaATela();
+    await waitFor(() => expect(screen.getByText(productionStageItems[1].prompt)).toBeTruthy());
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
   });
 });

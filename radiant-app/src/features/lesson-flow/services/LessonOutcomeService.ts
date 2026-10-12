@@ -33,6 +33,7 @@ import { LearningEvidenceRepository } from '../../mastery/repositories/LearningE
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import type { DurationBand } from '../../../types/learningEvidence';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -112,6 +113,7 @@ class LessonOutcomeServiceImpl {
         await this.recordRecall(result);
         await LearningAttemptRecorder.record(result, topicId);
         await this.recordEvidence(input.activity, input, result);
+        await assessmentAttemptRepository.completeActivity(input.activity, input.confirmedAnswers);
         await this.enqueueSync(result);
 
         if (!rewarded) {

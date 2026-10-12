@@ -221,9 +221,15 @@ export class JourneyRecommendationService {
             (options.dueReviews ?? []).map(({ nodeId, dueAtMs }) => [nodeId, dueAtMs]),
         );
         const orderedNodes = resolvedTrack.units.flatMap(unit => unit.nodes);
+        for (const node of orderedNodes) {
+            const date = dueAtByNodeId.get(node.id);
+            if (node.type === 'review' && date !== undefined && Number.isFinite(date)
+                && unlockRuleSatisfied(node, progress)) {
+                node.reviewAvailableAtMs = date;
+            }
+        }
         const candidates: NextNodeCandidate[] = orderedNodes
             .map((node, order): NextNodeCandidate | null => {
-                if (node.type === 'reward') return null;
                 const scheduledDueAt = dueAtByNodeId.get(node.id);
                 const dueAtMs = scheduledDueAt ?? (
                     !explicitSchedule && node.status === 'due-review' ? nowMs : undefined

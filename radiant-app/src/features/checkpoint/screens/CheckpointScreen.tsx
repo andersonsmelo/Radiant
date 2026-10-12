@@ -26,7 +26,8 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
-import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
+import type { UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } from '../checkpointRuleCopy';
 import { checkpointChargeLedger } from '../checkpointChargeLedger';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
@@ -100,12 +101,15 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [checkpointAnswers, setCheckpointAnswers] = useState<Record<string, string>>({});
   const [checkpointEvaluation, setCheckpointEvaluation] = useState<UnitCheckpointEvaluation | null>(null);
+  const [remainingReinforcementIds, setRemainingReinforcementIds] = useState<string[]>([]);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
   const processingAnswer = useRef(false);
+  const reinforcementBlocked = useRef(false);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
@@ -181,6 +185,27 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     [checkpointNode],
   );
   const productionItems = useMemo(() => productionCheckpoint?.items ?? [], [productionCheckpoint]);
+  useFocusEffect(useCallback(() => {
+    if (!checkpointNode) return;
+    let cancelled = false;
+    setHistoryLoaded(false);
+    void assessmentAttemptRepository.getState(checkpointNode.id).then(state => {
+      if (cancelled) return;
+      setCheckpointEvaluation(state.blocked ? state.evaluation : null);
+      setRemainingReinforcementIds(state.remainingActivityIds);
+      if (reinforcementBlocked.current && !state.blocked) {
+        setCheckpointStarted(false);
+        setCheckpointItemIndex(0);
+        setCheckpointAnswers({});
+        setSelectedOptionId(null);
+      }
+      reinforcementBlocked.current = state.blocked;
+      setHistoryLoaded(true);
+    }, () => {
+      if (!cancelled) setError('Não foi possível carregar o histórico. Tente abrir a avaliação novamente.');
+    });
+    return () => { cancelled = true; };
+  }, [checkpointNode]));
   const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
   const productionRequiredCorrect = requiredCorrectItems(
     productionItems.length,
@@ -368,11 +393,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         durationBucket: 'unknown',
       };
     });
-    const evaluate = (checkpointId: string) => UnitCheckpointService.evaluate({
-      operationId: `operation:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
+    const evaluate = (checkpointId: string) => assessmentAttemptRepository.submit({
+      operationId: `operation:assessment:${attemptSuffix}`,
       checkpointId,
       flowId: `unit-checkpoint:${checkpointNode.id}`,
-      attemptId: `attempt:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
+      attemptId: `attempt:assessment:${attemptSuffix}`,
       checkpointDefinitionId: productionCheckpoint?.id ?? productionBatch.checkpoint.id,
       unitId: productionBatch.unitId,
       journeyNodeId: checkpointNode.id,
@@ -381,14 +406,17 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       curriculumKind: 'v2',
       committedAt,
       itemOutcomes,
-    });
+    }, productionBatch.activities);
 
       setSubmitting(true);
-      const evaluation = evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
-      await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
+      const evaluation = await evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
+      await activeCheckpoint.commit((checkpointId) => ({ ...evaluation.intent, checkpointId }));
       // A avaliação está registrada: a tentativa acabou, e a próxima cobra de novo.
       await checkpointChargeLedger.clear(checkpointNode.id);
       setCheckpointEvaluation(evaluation);
+      const retryState = await assessmentAttemptRepository.getState(checkpointNode.id);
+      setRemainingReinforcementIds(retryState.remainingActivityIds);
+      reinforcementBlocked.current = retryState.blocked;
       if (evaluation.attempt.passed) {
         // FILA, 13: a aprovação paga pela regra da lição, só na primeira vez.
         // O crédito vem ANTES de concluir: a conclusão dispara o backup, que
@@ -649,12 +677,13 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   {' '}{checkpointRequirementCopy(productionRequiredCorrect)} A próxima tentativa só será liberada após revisar as competências frágeis.
                 </Text>
                 <Text style={styles.reinforcementLabel}>
-                  Ciclo 1: explicação causal e prática guiada
+                  {checkpointEvaluation.attempt.resultingSupportState === 'support-required'
+                    ? 'Você precisa de apoio antes de uma nova tentativa.'
+                    : `Ciclo ${checkpointEvaluation.reinforcementPlan?.reinforcementCycle}: conclua as atividades de reforço das competências frágeis.`}
                 </Text>
                 <AppButton
                   onPress={() => {
-                    const weakCompetency = checkpointEvaluation.attempt.weakCompetencyIds[0];
-                    const recoveryActivity = productionBatch.activities.find((activity) => activity.competencyIds.includes(weakCompetency));
+                    const recoveryActivity = productionBatch.activities.find((activity) => remainingReinforcementIds.includes(activity.id));
                     if (recoveryActivity) {
                       router.replace({
                         pathname: '/learn',
@@ -681,9 +710,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
                 {nextAction.label}
               </AppButton>
-            ) : productionBatch && !checkpointStarted ? (
+            ) : productionBatch && !checkpointStarted && !checkpointEvaluation && historyLoaded ? (
               <AppButton
+                disabled={!historyLoaded}
                 onPress={() => {
+                  if (!historyLoaded || checkpointEvaluation) return;
                   if (hearts.status === 'empty') {
                     setHeartsSheetVisible(true);
                     return;

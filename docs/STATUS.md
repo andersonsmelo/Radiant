@@ -270,13 +270,14 @@ exibição e o envio da fila de sync; o auth decide por `isApiConfigured()`.
 mexer nisso afeta login, sync e o contrato de telemetria. Detalhe em
 [`2026-08-21-varredura-qa.md`](../radiant-app/docs/evidence/2026-08-21-varredura-qa.md).
 
-**A Estude nunca oferece a conquista** (medido em 2026-09-28, no E2E do item
+**Na 1.4 publicada, a Estude nunca oferece a conquista** (medido em 2026-09-28, no E2E do item
 34). O motor de recomendação da 1.4 exclui o nó de conquista
 (`JourneyRecommendationService`, desde `75cc9da`, de 2026-09-14). Depois da
 última lição de uma trilha, o botão diz "Aguardando nova etapa" e o card diz
 "Você concluiu tudo que está disponível", com a conquista ainda por coletar.
-Ela só se alcança achando o card na trilha. Vale para a 1.4 como está; recomendar
-a conquista é decisão do dono (FILA, 39;
+Ela só se alcança achando o card na trilha. A correção local da recomendação
+está nos itens 36/39/27 abaixo, por decisão do dono de 2026-10-12
+([FILA](FILA.md);
 [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
 
 ## Kill switches reais
@@ -287,6 +288,16 @@ em build, então só se acionam por build novo ou OTA. A guarda
 `src/config/killSwitches.contract.test.ts` barra flag `ENABLE_*` fixa ou sem
 leitor.
 
+## Melhorias locais — itens 36, 39 e 27 (2026-10-12)
+
+Implementados no checkout: reforço persistente nas avaliações V2, recomendação
+da conquista desbloqueada na Estude e data/hora da revisão agendada.
+Validação final aprovada: 14/14 validadores e E2E da conquista passed. A revisão independente
+não deixou achados bloqueantes. **Ainda fora da versão publicada**, que
+continua em `221e2ec`, sem nova build de distribuição ou OTA.
+[Evidência](evidence/2026-10-12-itens-36-39-27.md) e
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
+
 ## Gate de qualidade
 
 ```bash
@@ -294,17 +305,15 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-10-12**, no branch
-`codex/radiant-e2e-maintenance`, com a manutenção do item 38 e sem trabalho
-alheio na árvore. O `app-quality` completo e o `app-test` passaram no
-Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
-`loop validate` do run `run-1791807821359-a6af946b`:
-**14/14 validadores aprovados**. Contratos Maestro em **26/26**; os dois
-arquivos focados de avaliação e guarda haviam passado em **29/29** no run
-anterior, e a suíte completa foi reproduzida nesta validação.
-CI remoto não foi remedido; os E2E reais são uma medição separada abaixo
-([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
-O CI roda o mesmo gate completo em `.github/workflows/radiant-app-quality.yml`.
+strict. **Última medição: 2026-10-12**, no checkout
+`codex/radiant-e2e-maintenance`, base `376d8de`, com os itens 36/39/27 locais.
+O único ciclo de `loop validate` do run `run-1791835753802-82105001` passou:
+**14/14 validadores**, incluindo `app-quality` e a suíte completa do
+`app-test`, no Node 20, `EXPO_NO_DOTENV=1` e `CI=1`. O E2E `reward-unlock`
+passou no simulador iOS 26.5, em 14m25s, e é uma medição separada do gate.
+O CI remoto dessas mudanças locais não foi executado, e elas ainda não
+integram o binário da App Store. [Evidência](evidence/2026-10-12-itens-36-39-27.md).
+O CI usa o gate completo em `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.

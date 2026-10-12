@@ -1644,6 +1644,14 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   esse passo produz um app aprovado que escreve num schema inexistente, falhando
   apenas em produção e em silêncio. *(Esta lista é de 2026-09-15; o estado vivo desses itens está no `STATUS.md` e na `FILA.md`. Em 2026-09-23 o Sentry mínimo e o adaptador StoreKit já existiam no código — ver o topo do K6.)*
 
+### Melhorias pós-publicação — itens 36, 39 e 27
+
+Implementação local em 2026-10-12: reforço obrigatório persistente V2,
+conquista na recomendação da Estude e data de disponibilidade da revisão.
+Testes focados verdes; validação final aprovada (14/14), com E2E da conquista passed. Ainda sem publicação.
+[ADR](../adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
+[evidência](../evidence/2026-10-12-itens-36-39-27.md).
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

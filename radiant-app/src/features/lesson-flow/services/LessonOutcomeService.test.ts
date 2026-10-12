@@ -11,6 +11,11 @@ import { LearningAttemptsRepository } from '../../progress/services/LearningAtte
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { LessonOutcomeService } from './LessonOutcomeService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../student-checkpoints/production-batches';
+
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 jest.mock('../../gamification/services/GamificationService', () => ({
     GamificationService: { recordQuizCompletion: jest.fn() },
@@ -173,8 +178,9 @@ function snapshotWith(overrides: {
 }
 
 describe('LessonOutcomeService', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.clearAllMocks();
+        await AsyncStorage.clear();
         mockedGamification.recordQuizCompletion.mockResolvedValue({
             snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
@@ -464,6 +470,27 @@ describe('LessonOutcomeService', () => {
 });
 
 describe('LessonOutcomeService — evidência por interação', () => {
+    it('a conclusão real de uma atividade reduz o reforço persistido; sair sem concluir não reduz', async () => {
+        await AsyncStorage.clear();
+        const activity = productionBatch.activities[0];
+        await assessmentAttemptRepository.submit({
+            operationId: 'operation:integration', checkpointId: 'checkpoint:integration', flowId: 'flow:integration',
+            attemptId: 'attempt:integration', checkpointDefinitionId: 'definition:integration', unitId: productionBatch.unitId,
+            journeyNodeId: 'node:assessment-integration', activityId: productionBatch.batchId,
+            contentVersion: productionBatch.contentVersion, curriculumKind: 'v2', committedAt: '2026-10-12T12:00:00Z',
+            itemOutcomes: [{ itemId: 'item:integration', activityId: activity.id, competencyIds: [...activity.competencyIds],
+                evidenceKind: 'independent-recall', outcome: 'incorrect', isCriticalError: false, hintUsed: false, durationBucket: 'unknown' }],
+        }, productionBatch.activities);
+        expect((await assessmentAttemptRepository.getState('node:assessment-integration')).remainingActivityIds)
+            .toEqual(['activity:materia-energia-e-radiacao:01', 'activity:materia-energia-e-radiacao:02', 'activity:materia-energia-e-radiacao:03']);
+        await LessonOutcomeService.recordActivityCompletion({
+            activity, nodeId: 'node:lesson-1',
+            confirmedAnswers: Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])),
+        });
+        const state = await assessmentAttemptRepository.getState('node:assessment-integration');
+        expect(state.remainingActivityIds).toEqual(['activity:materia-energia-e-radiacao:02', 'activity:materia-energia-e-radiacao:03']);
+        expect(state.blocked).toBe(true);
+    });
     beforeEach(() => {
         // Este describe é irmão do de cima, não filho: o beforeEach dele não roda
         // aqui, e sem limpar os mocks as contagens de chamada acumulam entre os

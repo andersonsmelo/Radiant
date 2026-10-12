@@ -24,6 +24,35 @@ function vencida(competencyId: string, criticalSafety = false): DueCompetency {
 }
 
 describe('motivo da recomendação', () => {
+    it('oferece a conquista liberada até ela ser coletada', () => {
+        const track: JourneyTrackDefinition = {
+            id: 'track', title: 'Trilha', initialUnitId: 'u',
+            units: [{ id: 'u', title: 'Unidade', nodes: [
+                { id: 'lesson', unitId: 'u', type: 'lesson', title: 'Lição' },
+                { id: 'reward', unitId: 'u', type: 'reward', title: 'Conquista', unlockRule: { requiresNodeIds: ['lesson'] } },
+            ] }],
+        };
+        expect(JourneyRecommendationService.computeSnapshot(track, progressoInicial()).nextRecommendedNode?.id).toBe('lesson');
+        const progress = { ...progressoInicial(), completedNodeIds: ['lesson'] };
+        expect(JourneyRecommendationService.computeSnapshot(track, progress).nextRecommendedNode?.id).toBe('reward');
+        expect(JourneyRecommendationService.computeSnapshot(track, { ...progress, completedNodeIds: ['lesson', 'reward'] }).nextRecommendedNode).toBeNull();
+    });
+
+    it('leva a data futura ao cartão sem antecipar a revisão nem ignorar pré-requisitos', () => {
+        const track: JourneyTrackDefinition = {
+            id: 'track', title: 'Trilha', initialUnitId: 'u',
+            units: [{ id: 'u', title: 'Unidade', nodes: [
+                { id: 'lesson', unitId: 'u', type: 'lesson', title: 'Lição' },
+                { id: 'review', unitId: 'u', type: 'review', title: 'Revisão', unlockRule: { requiresNodeIds: ['lesson'] } },
+            ] }],
+        };
+        const nowMs = Date.parse('2026-10-12T23:59:00Z');
+        const options = { nowMs, dueReviews: [{ nodeId: 'review', dueAtMs: nowMs + 60_000 }] };
+        const snapshot = JourneyRecommendationService.computeSnapshot(track, { ...progressoInicial(), completedNodeIds: ['lesson'] }, [], options);
+        expect(snapshot.track.units[0].nodes[1]).toMatchObject({ status: 'locked', reviewAvailableAtMs: nowMs + 60_000 });
+        expect(snapshot.nextRecommendedNode).toBeNull();
+        expect(JourneyRecommendationService.computeSnapshot(track, progressoInicial(), [], options).track.units[0].nodes[1]).not.toHaveProperty('reviewAvailableAtMs');
+    });
     it('GUARDA DE REGRESSÃO: sem vencidas, o motivo é next-new', () => {
         const snapshot = JourneyRecommendationService.computeSnapshot(defaultTrack, progressoInicial());
 

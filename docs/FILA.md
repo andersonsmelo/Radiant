@@ -146,15 +146,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
+- **Implementação local dos itens 36, 39 e 27 em 2026-10-12:** reforço
+  persistente, conquista recomendada e data da revisão. Testes focados verdes;
+  validação final aprovada (14/14), com E2E da conquista passed. Ainda fora do binário publicado.
+  [Evidência](evidence/2026-10-12-itens-36-39-27.md).
 - **Decisões de produto e implementações aprovadas, sem prazo:**
-  - **36.** **DECIDIDO pelo dono em 2026-10-12: exigir concluir o reforço.**
-    Resposta literal: "Exigir concluir o reforço". **Estado:** decisão aprovada,
-    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
-    Hoje a tela promete essa condição, mas sair e voltar permite tentar de
-    novo; o 2º ciclo não é alcançado porque falta a tentativa anterior.
-    Implementar a exigência persistente e preservar o histórico de tentativas;
-    registrar a decisão em ADR no run da implementação
-    ([contexto](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
     **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
     ouviu no iPhone que o som do coração não se distinguia, e o log do
@@ -163,27 +159,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     da lição. Quando a animação for desenhada, eles voltam **tocando depois do
     erro**, e não colados nele
     ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
-  - **39.** **DECIDIDO pelo dono em 2026-10-12: oferecer a conquista.**
-    Resposta literal: "Sim, oferecer a conquista". **Estado:** decisão aprovada,
-    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
-    A Estude deve oferecer "Receber conquista" quando o nó estiver liberado
-    e ainda não coletado, preservando seus pré-requisitos e a coleta única.
-    Hoje `JourneyRecommendationService` exclui `reward`; depois da última
-    lição mostra "Aguardando nova etapa" mesmo com conquista coletável.
-    Implementar a recomendação, registrar ADR e repetir `reward-unlock`
-    ([evidência do achado](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
   - **37.** **a vitrine da loja perdeu duas capturas.** O `store-capture`
     fotografava o checkpoint de botão (`04-checkpoint`) e a celebração
     (`05-conquista`), e o `APP_STORE_LISTING_MATRIX.md` descreve a vitrine com
     elas. Sem o checkpoint no começo da trilha, as duas saíram do fluxo, e os
     números das outras não foram mudados. Se a matriz e as capturas publicadas
     mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
-  - **27.** **DECIDIDO pelo dono em 2026-10-12: mostrar a data de disponibilidade.**
-    Resposta literal: "Mostrar data de disponibilidade". **Estado:** decisão
-    aprovada, implementação pendente. **Bloqueio de decisão:** nenhum.
-    **Dono:** agente. Substituir "Bloqueado" na revisão agendada pelo momento
-    em que ficará disponível, preservando a regra de repetição espaçada.
-    Registrar ADR e testar datas/virada de dia no run da implementação.
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;

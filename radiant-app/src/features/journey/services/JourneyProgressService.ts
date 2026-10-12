@@ -301,7 +301,9 @@ class JourneyProgressServiceImpl {
         // Alguns consumidores de teste e adaptadores antigos fornecem uma porta
         // parcial do SM-2. A decisão continua compatível nesses ambientes e usa
         // a fila já hidratada; o runtime atual sempre oferece a agenda completa.
-        const schedule = typeof SpacedRepetitionService.getDueReviewSchedule === 'function'
+        const schedule = typeof SpacedRepetitionService.getReviewSchedule === 'function'
+            ? await SpacedRepetitionService.getReviewSchedule()
+            : typeof SpacedRepetitionService.getDueReviewSchedule === 'function'
             ? await SpacedRepetitionService.getDueReviewSchedule(new Date(nowMs))
             : [];
         const dueReviews = schedule.flatMap(({ lessonId, dueAtMs }) => {

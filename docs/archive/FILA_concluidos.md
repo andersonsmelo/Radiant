@@ -1837,3 +1837,35 @@ Textos anteriores retirados da fila, sem edição:
   - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
     como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
     espaçada está certa. O agente propõe algo como "Disponível amanhã".
+
+
+## 2026-10-12 — implementação local dos itens 36, 39 e 27
+
+Código e testes focados implementados; validação final aprovada (14/14), com E2E da conquista passed.
+Ainda sem publicação. [Evidência](../evidence/2026-10-12-itens-36-39-27.md).
+
+Textos anteriores da fila, preservados sem edição:
+
+  - **36.** **DECIDIDO pelo dono em 2026-10-12: exigir concluir o reforço.**
+    Resposta literal: "Exigir concluir o reforço". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    Hoje a tela promete essa condição, mas sair e voltar permite tentar de
+    novo; o 2º ciclo não é alcançado porque falta a tentativa anterior.
+    Implementar a exigência persistente e preservar o histórico de tentativas;
+    registrar a decisão em ADR no run da implementação
+    ([contexto](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+  - **39.** **DECIDIDO pelo dono em 2026-10-12: oferecer a conquista.**
+    Resposta literal: "Sim, oferecer a conquista". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    A Estude deve oferecer "Receber conquista" quando o nó estiver liberado
+    e ainda não coletado, preservando seus pré-requisitos e a coleta única.
+    Hoje `JourneyRecommendationService` exclui `reward`; depois da última
+    lição mostra "Aguardando nova etapa" mesmo com conquista coletável.
+    Implementar a recomendação, registrar ADR e repetir `reward-unlock`
+    ([evidência do achado](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+  - **27.** **DECIDIDO pelo dono em 2026-10-12: mostrar a data de disponibilidade.**
+    Resposta literal: "Mostrar data de disponibilidade". **Estado:** decisão
+    aprovada, implementação pendente. **Bloqueio de decisão:** nenhum.
+    **Dono:** agente. Substituir "Bloqueado" na revisão agendada pelo momento
+    em que ficará disponível, preservando a regra de repetição espaçada.
+    Registrar ADR e testar datas/virada de dia no run da implementação.

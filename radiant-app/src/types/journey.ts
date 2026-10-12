@@ -30,11 +30,12 @@ export type JourneyNodeDefinition = {
 
 export type JourneyNode = JourneyNodeDefinition & {
     status: JourneyNodeStatus;
+    reviewAvailableAtMs?: number;
 };
 
 export type NextNodeCandidate = {
     nodeId: string;
-    type: 'lesson' | 'review' | 'checkpoint';
+    type: JourneyNodeType;
     order: number;
     unlocked: boolean;
     completed: boolean;
@@ -44,7 +45,7 @@ export type NextNodeCandidate = {
 
 export type NextNodeDecision = {
     nodeId: string;
-    reason: 'paused-lesson' | 'due-review' | 'checkpoint' | 'next-lesson';
+    reason: 'paused-lesson' | 'due-review' | 'checkpoint' | 'next-lesson' | 'reward';
     resumeStepIndex?: number;
     dueReviewCount: number;
 };

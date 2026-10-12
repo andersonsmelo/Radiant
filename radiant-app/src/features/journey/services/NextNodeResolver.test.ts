@@ -20,6 +20,13 @@ function candidato(
 }
 
 describe('NextNodeResolver', () => {
+    it('oferece a conquista ainda não coletada antes da próxima lição, sem vencer revisão devida', () => {
+        const candidates = [candidato('reward', 'reward', 1), candidato('lesson', 'lesson', 2)];
+        expect(NextNodeResolver.resolve({ candidates, nowMs: AGORA })?.reason).toBe('reward');
+        expect(NextNodeResolver.resolve({ candidates: [{ ...candidates[0], completed: true }, candidates[1]], nowMs: AGORA })?.nodeId).toBe('lesson');
+        expect(NextNodeResolver.resolve({ candidates: [...candidates, candidato('due', 'review', 3, { dueAtMs: AGORA })], nowMs: AGORA })?.nodeId).toBe('due');
+        expect(NextNodeResolver.resolve({ candidates: [{ ...candidates[0], unlocked: false }, candidates[1]], nowMs: AGORA })?.nodeId).toBe('lesson');
+    });
     it('retoma a lição pausada no passo salvo antes de qualquer outro degrau', () => {
         const decision = NextNodeResolver.resolve({
             nowMs: AGORA,

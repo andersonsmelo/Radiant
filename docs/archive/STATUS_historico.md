@@ -2559,3 +2559,32 @@ Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
 passaram em **25/25** testes; os dois arquivos focados de avaliação e guarda
 em **29/29**. Isso é validação local, sem nova medição de E2E nem CI remoto
 ([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).
+
+
+## 2026-10-12 — decisão da recomendação de conquista implementada localmente
+
+Texto anterior preservado sem edição; a correção local ainda não foi publicada.
+
+**A Estude nunca oferece a conquista** (medido em 2026-09-28, no E2E do item
+34). O motor de recomendação da 1.4 exclui o nó de conquista
+(`JourneyRecommendationService`, desde `75cc9da`, de 2026-09-14). Depois da
+última lição de uma trilha, o botão diz "Aguardando nova etapa" e o card diz
+"Você concluiu tudo que está disponível", com a conquista ainda por coletar.
+Ela só se alcança achando o card na trilha. Vale para a 1.4 como está; recomendar
+a conquista é decisão do dono (FILA, 39;
+[evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+
+## 2026-10-12 — medição anterior do gate antes dos itens 36/39/27
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-10-12**, no branch
+`codex/radiant-e2e-maintenance`, com a manutenção do item 38 e sem trabalho
+alheio na árvore. O `app-quality` completo e o `app-test` passaram no
+Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
+`loop validate` do run `run-1791807821359-a6af946b`:
+**14/14 validadores aprovados**. Contratos Maestro em **26/26**; os dois
+arquivos focados de avaliação e guarda haviam passado em **29/29** no run
+anterior, e a suíte completa foi reproduzida nesta validação.
+CI remoto não foi remedido; os E2E reais são uma medição separada abaixo
+([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
+O CI roda o mesmo gate completo em `.github/workflows/radiant-app-quality.yml`.

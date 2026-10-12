@@ -266,11 +266,15 @@ export class SpacedRepetitionService {
     static async getDueReviewSchedule(
         now: Date = new Date(),
     ): Promise<{ lessonId: QuizLessonId; dueAtMs: number }[]> {
+        return (await this.getReviewSchedule()).filter(card => card.dueAtMs <= now.getTime());
+    }
+
+    static async getReviewSchedule(): Promise<{ lessonId: QuizLessonId; dueAtMs: number }[]> {
         try {
             const store = await this.loadStore();
             return Object.values(store.cards)
                 .map(card => this.deserializeCard(card))
-                .filter(card => card.nextReviewAt <= now)
+                .filter(card => Number.isFinite(card.nextReviewAt.getTime()))
                 .sort((left, right) => left.nextReviewAt.getTime() - right.nextReviewAt.getTime())
                 .map(card => ({
                     lessonId: card.lessonId,

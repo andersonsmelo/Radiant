@@ -18,6 +18,7 @@ jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
         getTrackedLessonIds: jest.fn(),
         getDueLessons: jest.fn(),
         getDueReviewSchedule: jest.fn(),
+        getReviewSchedule: jest.fn(),
     },
 }));
 
@@ -146,9 +147,22 @@ describe('JourneyProgressService', () => {
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    it('leva a agenda futura real à trilha, sem torná-la devida', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        const future = Date.now() + 24 * 60 * 60 * 1000;
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([{ lessonId: 'foundation-1', dueAtMs: future }]);
+        const snapshot = await JourneyProgressService.getSnapshot();
+        expect(snapshot.track.units.flatMap(unit => unit.nodes).find(node => node.id === 'node:review:foundation-1'))
+            .toMatchObject({ status: 'locked', reviewAvailableAtMs: future });
+        expect(snapshot.progress.pendingReviewNodeIds).not.toContain('node:review:foundation-1');
+        expect(snapshot.nextRecommendedNode?.id).not.toBe('node:review:foundation-1');
     });
 
     it('bootstraps the default catalog track into a versioned multi-track store', async () => {
@@ -382,6 +396,7 @@ describe('JourneyProgressService — backup best-effort na conclusão de nó', (
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
@@ -559,6 +574,7 @@ describe('JourneyProgressService — progresso gravado com os checkpoints que sa
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue(['foundation-1']);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);

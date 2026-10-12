@@ -46,6 +46,13 @@ describe('SpacedRepetitionService — relógio injetado', () => {
         ]);
     });
 
+    it('preserva a data futura na agenda sem colocá-la na fila devida antes do instante exato', async () => {
+        expect((await SpacedRepetitionService.getReviewSchedule()).find(entry => entry.lessonId === 'future'))
+            .toEqual({ lessonId: 'future', dueAtMs: Date.parse('2026-09-14T12:00:00.001Z') });
+        expect((await SpacedRepetitionService.getDueReviewSchedule(new Date('2026-09-14T12:00:00.000Z'))).map(entry => entry.lessonId)).not.toContain('future');
+        expect((await SpacedRepetitionService.getDueReviewSchedule(new Date('2026-09-14T12:00:00.001Z'))).map(entry => entry.lessonId)).toContain('future');
+    });
+
     it('usa o mesmo relógio em cartões e contagem', async () => {
         const now = new Date('2026-09-14T12:00:00.000Z');
 
