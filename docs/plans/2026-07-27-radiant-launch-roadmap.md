@@ -1674,6 +1674,11 @@ preserva as pendências da FILA e as decisões editoriais/comerciais vigentes.
 Entrega documental; não aprova novos desenhos, ativa V3, reordena a FILA,
 instala dependências ou autoriza release. STATUS continua sendo o estado vivo.
 
+**Primeiro marco visual, 2026-10-12:** [auditoria e direção candidata](../design/2026-10-12-study-experience-review.md)
+com capturas de Estude/atividade/conclusão e [prancheta navegável](../design/2026-10-12-study-experience.html).
+Preparado para avaliação do dono; não marca M1 aprovado, não altera o app e
+mantém pendentes a confirmação editorial da L1 e o piloto com alunos.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

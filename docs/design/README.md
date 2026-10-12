@@ -4,6 +4,15 @@ Material visual de referência. **Nada aqui é código de produção** e nada aq
 importado pelo app — o app vive em `radiant-app/`, e a fonte de verdade do
 sistema visual são os tokens em `radiant-app/src/ui/`.
 
+## Experiência de estudo — proposta de 2026-10-12
+
+[Prancheta navegável](2026-10-12-study-experience.html) e
+[auditoria/direção](2026-10-12-study-experience-review.md), com capturas nativas
+do app na baseline `2bb144e`. Primeiro marco do plano de evolução: Estude,
+atividade e conclusão. Proposta para avaliação, com números demonstrativos;
+não é implementação nem aprovação da L1 híbrida. Preserva a identidade galaxy
+e reaproveita Pixel/Sora; não altera as referências aprovadas abaixo.
+
 ## `2026-08-12-hud-assets-approved.html`
 
 Prancheta dos três ícones animados do HUD aprovada pelo dono e recuperada do
