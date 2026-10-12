@@ -14,11 +14,13 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   subflow) and reaches the learning-road home (`Foco de hoje`). **A clean
   install no longer boots straight to the home** — see the 2026-08-02 entry
   below.
-- `learning-critical-path.yaml`: dismisses first-run, then completes both
-  seeded lessons, checkpoint, reward and reaches Progress.
+- `learning-critical-path.yaml`: dismisses first-run, completes the first
+  two catalog lessons through their summaries and reaches Perfil. Since the
+  2026-09-28 decision, no button checkpoint sits between those lessons;
+  reward collection is covered separately.
 - `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
   relaunches with airplane mode enabled, then confirms the persisted
-  checkpoint is still available.
+  progress offers the next lesson.
 - `rating-prompt.yaml`: the only flow that reaches the store-review prompt's
   eligibility gate. `RatingPromptService` requires `countEvents('app_open') >=
   MIN_APP_OPENS` (3), and every other flow opens the app once — twice for
@@ -65,7 +67,7 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   every flow above except `first-run.yaml` itself, which asserts the welcome
   directly.
 - **The three 1.4 golden paths** (spec 1.4, §8 item 6), added 2026-09-24. They
-  are the only flows that run `subflows/dismiss-dev-client.yaml` (below):
+  run `subflows/dismiss-dev-client.yaml` after each launch (below):
   - `radiant-1-4-primeira-execucao.yaml`: clean install → welcome → "Começar"
     → the four steps of L1 → the lesson summary → the trail with L1
     `Concluído` and its review `Bloqueado`. Its end state is **day 1 of path
@@ -89,6 +91,32 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   consecutive clean installs of the same binary) the sheet rose *after* the
   guard had been skipped, covering the welcome, and the next run stopped at the
   launcher instead. On a Release build both waits only cost their timeout.
+
+## Item 38 — local maintenance, 2026-10-12
+
+Six navigation flows (`boot-to-home`, `rating-prompt`, `reward-locked`,
+`student-checkpoint-active-resume`, `student-checkpoint-no-duplicate-effect`
+and `student-checkpoint-performance-baseline`) now assert the grouped
+accessible header, including its title and completed-stage count. The
+contract parses `JourneyStageHeader.tsx` with TypeScript's AST and the flow
+commands with YAML; it rejects a selector that only matches the hidden count
+or matches unrelated screen text.
+
+Every launch and relaunch in these flows, and in
+`student-checkpoint-short-viewport`, now invokes the existing dev-client
+wait subflow. The idempotency flow passes through the lesson summary before
+capturing XP and restarting. The checkpoint screen no longer offers a
+completion button for a node without a registered assessment batch.
+
+**Static and component validation only:** 25 Maestro contracts and 29 focused
+checkpoint/completion tests passed. **No new device PASS:** Xcode 27.0
+currently lists no iOS runtimes or devices. Installing a runtime, provisioning
+a temporary simulator and a compatible build remain necessary. Do not replace
+that prerequisite with a YAML contract PASS. `rating-prompt` still requires
+production configuration, and the active-resume/idempotency flows still
+require the internal `active` profile; keep those environments separate.
+
+[Reproduction and evidence](evidence/2026-10-12-item-38-maestro.md).
 
 ## Current execution state
 

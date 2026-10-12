@@ -123,14 +123,19 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
-    desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três
-    `student-checkpoint-*` que afirmam a trilha). Eles ancoram na Estude por
-    `'^\d+ de \d+$'`, que não existe mais na árvore desde os consertos de
-    acessibilidade, e guardam o dev client com `runFlow when`, que perde a
-    folha atrasada. Os fluxos que o 34 tocou foram consertados assim e passaram
-    ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). No mesmo item: o ramo da tela do checkpoint sem
-    perguntas ("Concluir checkpoint") ficou inalcançável e pode sair;
+  - **38.** agente, **parcial em 2026-10-12**: os seis fluxos de navegação
+    foram corrigidos localmente, e o `student-checkpoint-short-viewport`
+    recebeu a mesma espera de dev client. Os seletores casam com o cabeçalho
+    acessível real; cada abertura e reabertura espera o dev client; o fluxo
+    de idempotência atravessa o resumo da lição. O ramo "Concluir checkpoint"
+    sem avaliação saiu da tela. **25 contratos Maestro e 29 testes focados
+    passaram. Bloqueio para fechar:** execução real dos fluxos no simulador.
+    Em 2026-10-12, `xcrun simctl list runtimes -j` e `list devices -j`
+    devolveram listas vazias; o Xcode instalado é o 27.0. Requer provisionar
+    um runtime compatível; nenhum foi baixado nesta medição. **Dono:** agente, após provisionar o ambiente; modo interno
+    `active` e configuração de produção do `rating-prompt` continuam
+    obrigatórios, como no runbook.
+    [Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md).
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em

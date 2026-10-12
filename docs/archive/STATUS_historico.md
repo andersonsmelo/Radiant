@@ -2513,3 +2513,24 @@ Do item 4, sem edição:
      ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md));
    - **falta:** a aprovação da Apple e, depois dela, **a liberação manual
      pelo dono** ([FILA](FILA.md), 40).
+
+
+## Retirado em 2026-10-12 — API reconfirmada como inativa
+
+Linha anterior da tabela de produção, sem edição:
+
+| **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`. O app não depende dela: o sync remoto está desligado em todos os perfis do EAS. | 2026-09-23 |
+
+
+## Retirado em 2026-10-12 — gate de qualidade remedido no item 38
+
+Medição anterior, sem edição:
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-10-09, às 15:14**, no Mac, no branch
+`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida nas avaliações
+(FILA, 35), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
+exit 0, **156 suítes / 1499 testes**, lint com 0 erros e 26 avisos, visual QA
+sem regressão
+([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)). O CI roda o mesmo comando inteiro
+(`.github/workflows/radiant-app-quality.yml`).

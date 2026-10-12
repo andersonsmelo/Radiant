@@ -508,7 +508,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     );
   }
 
-  if (!checkpointNode || !activeUnit) {
+  if (!checkpointNode || !activeUnit || !productionBatch) {
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
@@ -673,9 +673,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 <Text style={styles.actionBody}>
                   {completed
                     ? 'Seu progresso está salvo e o próximo passo já está preparado.'
-                    : productionBatch
-                      ? checkpointIntroCopy(productionItems.length, productionRequiredCorrect)
-                      : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
+                    : checkpointIntroCopy(productionItems.length, productionRequiredCorrect)}
                 </Text>
               </>
             )}
@@ -696,20 +694,6 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               >
                 Iniciar checkpoint
               </AppButton>
-            ) : !productionBatch ? (
-              <>
-                <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
-                  {submitting ? 'Concluindo checkpoint...' : 'Concluir checkpoint'}
-                </AppButton>
-                <AppButton
-                  onPress={() => router.replace('/(tabs)')}
-                  variant="ghost"
-                  style={styles.fullWidthButton}
-                  textStyle={{ color: galaxyColors.textSecondary }}
-                >
-                  Voltar para jornada
-                </AppButton>
-              </>
             ) : null}
           </View>
         </ScrollView>

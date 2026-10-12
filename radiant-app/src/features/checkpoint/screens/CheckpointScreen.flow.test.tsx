@@ -531,20 +531,14 @@ describe('CheckpointScreen flow', () => {
     });
   });
 
-  it('completes an available checkpoint and updates the journey snapshot', async () => {
+  it('a checkpoint without an assessment cannot be completed by a legacy button', async () => {
     renderWithProviders(<CheckpointScreen nodeId="checkpoint-1" />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Pronto para fechar esta etapa?')).toBeTruthy();
-    });
-
-    fireEvent.press(screen.getByText('Concluir checkpoint'));
-
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith('checkpoint-1');
-    });
-
-    expect(await screen.findByText('Etapa validada.')).toBeTruthy();
+    expect(await screen.findByText('Checkpoint indisponível')).toBeTruthy();
+    expect(screen.queryByText('Concluir checkpoint')).toBeNull();
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Voltar para jornada'));
+    expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
   });
 
   it('aplica as questões do estágio e só conclui quando atinge 80%', async () => {

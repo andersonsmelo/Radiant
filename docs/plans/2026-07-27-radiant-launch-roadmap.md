@@ -1540,6 +1540,14 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     página pública brasileira em `1.4.0` às 08:50, publicação confirmada
     ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
+  - **em 2026-10-12, após a publicação (FILA, 38):** seis fluxos de
+    navegação atualizados localmente, espera do dev client também no fluxo
+    de viewport curta e ramo de checkpoint sem avaliação removido.
+    25 contratos Maestro e 29 testes focados passaram; execução no
+    simulador pendente porque o Xcode não lista runtimes nem dispositivos.
+    O item permanece **parcial**, sem nova build nem OTA
+    ([evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).
+
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem
   dependência npm ([ADR](../adr/ADR-2026-09-23-storekit-modulo-expo-local.md),

@@ -24,7 +24,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | **App Store** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
-| **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`. O app não depende dela: o sync remoto está desligado em todos os perfis do EAS. | 2026-09-23 |
+| **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`, reconfirmado em 2026-10-12. O app não depende dela: o perfil de produção mantém `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. | 2026-10-12 |
 
 ```bash
 curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([(r['version'],r['currentVersionReleaseDate']) for r in json.load(sys.stdin)['results']])"
@@ -294,24 +294,42 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-10-09, às 15:14**, no Mac, no branch
-`feat/d4-decisoes-de-revisao` com o anúncio da perda de vida nas avaliações
-(FILA, 35), e a árvore sem nenhum arquivo alheio ao run. Node `v20.20.2`:
-exit 0, **156 suítes / 1499 testes**, lint com 0 erros e 26 avisos, visual QA
-sem regressão
-([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)). O CI roda o mesmo comando inteiro
-(`.github/workflows/radiant-app-quality.yml`).
+strict. **Última medição: 2026-10-12**, no branch
+`codex/radiant-e2e-maintenance`, com as mudanças do item 38 e sem trabalho
+alheio na árvore. O `app-quality` completo e o `app-test` passaram no
+Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
+`loop validate`: **14/14 validadores aprovados**. Os contratos Maestro
+passaram em **25/25** testes; os dois arquivos focados de avaliação e guarda
+em **29/29**. Isso é validação local, sem nova medição de E2E nem CI remoto
+([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).
+O CI roda o mesmo gate completo em `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.
+
+### Item 38 — manutenção local dos E2E (2026-10-12)
+
+**Implementado e validado localmente:** seis fluxos de navegação corrigidos,
+espera do dev client também no `student-checkpoint-short-viewport`, travessia
+do resumo da lição no fluxo de idempotência e retirada do botão legado que
+concluía checkpoint sem avaliação. Novos contratos leem o cabeçalho por AST e
+os comandos por parser YAML. Os testes foram vistos falhando antes da
+correção e passaram depois: **25 contratos Maestro e 29 testes focados**.
+
+**Execução em simulador ainda não realizada:** o Xcode 27.0 não lista runtimes
+nem dispositivos (`xcrun simctl list runtimes -j`, `list devices -j`). O item
+38 permanece parcial. Esta alteração local não foi publicada por build nem
+OTA; o binário da App Store continua sendo o `221e2ec`.
+[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md).
 
 ### O que o gate NÃO pega
 
 - **Não empacota o app.** Um app que não abre passa nos 19 passos (aconteceu em
   2026-08-21). Subir no simulador faz parte de verificar uma entrega.
-- **Os flows do Maestro não rodam no gate**; só o contrato deles, que confere
-  estrutura e não texto de tela. Ao mudar texto, procure em `.maestro/` no
-  mesmo passo.
+- **Os flows do Maestro não rodam no gate.** O contrato confere estrutura e,
+  desde 2026-10-12, cruza os seletores da navegação com o rótulo acessível do
+  cabeçalho por AST. Isso ainda não verifica renderização, toques nem diálogo
+  da loja; estes exigem execução no simulador ou aparelho.
 - **`npm run quality` e `loop validate` são conjuntos diferentes.** Ao mexer em
   documentação governada, rode os dois.
 - **Os testes de `scripts/content` rodam no CI desde 2026-09-23**, em

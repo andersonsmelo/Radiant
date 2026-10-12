@@ -3,6 +3,11 @@ import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const ts = require('typescript');
+const { parseAllDocuments } = require('yaml');
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const appId = 'com.ascendcreative.radiant';
@@ -33,6 +38,83 @@ const UNESCAPED_QUESTION_MARK = /(?<!\\)\?/;
 async function readAppFile(relativePath) {
   return readFile(path.join(appRoot, relativePath), 'utf8');
 }
+
+const NAVIGATION_FLOWS = [
+  'boot-to-home.yaml',
+  'rating-prompt.yaml',
+  'reward-locked.yaml',
+  'student-checkpoint-active-resume.yaml',
+  'student-checkpoint-no-duplicate-effect.yaml',
+  'student-checkpoint-performance-baseline.yaml',
+];
+
+async function flowCommands(name) {
+  const documents = parseAllDocuments(await readAppFile(`.maestro/${name}`));
+  assert.equal(documents.length, 2, `${name}: expected metadata and commands`);
+  assert.deepEqual(documents.flatMap((document) => document.errors), []);
+  const commands = documents[1].toJS();
+  assert.ok(Array.isArray(commands), `${name}: expected a command sequence`);
+  return commands;
+}
+
+test('navigation flows match the accessible journey header, not its hidden count', async () => {
+  const source = ts.createSourceFile(
+    'JourneyStageHeader.tsx',
+    await readAppFile('src/features/journey/components/JourneyStageHeader.tsx'),
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX,
+  );
+  const templates = [];
+  const visit = (node) => {
+    if (ts.isJsxAttribute(node) && node.name.getText(source) === 'accessibilityLabel') {
+      const expression = node.initializer?.expression;
+      if (expression && ts.isTemplateExpression(expression)) templates.push(expression);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  assert.equal(templates.length, 1, 'expected one accessible header template');
+  const labels = [
+    { title: 'Fundamentos de Radiologia', completed: 0, total: 8 },
+    { title: 'Fundamentos de Radiologia', completed: 1, total: 8 },
+    { title: 'Matéria, energia e radiação', completed: 8, total: 8 },
+  ].map((values) => templates[0].head.text + templates[0].templateSpans.map((span) => {
+    assert.ok(ts.isIdentifier(span.expression), 'header substitutions must be named values');
+    assert.ok(Object.hasOwn(values, span.expression.text));
+    return String(values[span.expression.text]) + span.literal.text;
+  }).join(''));
+
+  for (const name of NAVIGATION_FLOWS) {
+    const selectors = (await flowCommands(name))
+      .filter((command) => typeof command?.assertVisible === 'string'
+        && command.assertVisible.startsWith('^') && command.assertVisible.includes(' de '))
+      .map((command) => command.assertVisible);
+    assert.ok(selectors.length > 0, `${name}: expected a journey header assertion`);
+    for (const selector of selectors) {
+      const pattern = new RegExp(selector);
+      for (const label of labels) {
+        assert.ok(pattern.test(label), `${name}: ${selector} does not match the accessible header "${label}"`);
+      }
+      for (const unrelated of ['0 de 8', 'Fundamentos de Radiologia', '10 XP', 'Tela 2 de 3. Boas-vindas']) {
+        assert.ok(!pattern.test(unrelated), `${name}: ${selector} also matches another screen or the hidden count`);
+      }
+    }
+  }
+});
+
+test('navigation flows wait for the dev client after every launch and relaunch', async () => {
+  for (const name of [...NAVIGATION_FLOWS, 'student-checkpoint-short-viewport.yaml']) {
+    const commands = await flowCommands(name);
+    const launches = commands.flatMap((command, index) =>
+      command === 'launchApp' || Object.hasOwn(command ?? {}, 'launchApp') ? [index] : []);
+    assert.ok(launches.length > 0, `${name}: expected an app launch`);
+    for (const index of launches) {
+      assert.equal(commands[index + 1]?.runFlow, 'subflows/dismiss-dev-client.yaml',
+        `${name}: wait for the dev client immediately after launch ${index}`);
+    }
+  }
+});
 
 async function listMaestroFlows() {
   const entries = await readdir(path.join(appRoot, '.maestro'), { withFileTypes: true });
@@ -120,10 +202,8 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   // the retired onboarding-to-home.yaml drove an unfinished prototype removed on
   // 2026-07-28. Keep the deep-link out and the stable home assertion in.
   assert.match(flows[0], /clearState: true/);
-  // Âncora da home: era `Foco de hoje` até 2026-08-21, quando o card de retomada
-  // saiu e a aba Estude virou a trilha. O contador do cabeçalho de estágio é o
-  // que existe ali agora, e em nenhuma outra tela.
-  assert.match(flows[0], /assertVisible: '\^\\d\+ de \\d\+\$'/);
+  // O contrato de navegação acima compara os seletores com o rótulo acessível
+  // real do cabeçalho, incluindo título e contagem no mesmo nó.
   assert.doesNotMatch(flows[0], /radiantapp:\/\/onboarding/);
   assert.match(flows[1], /lesson-option-q1:option:1/);
   // O caminho crítico termina no Perfil — que desde 2026-08-21 agrega o que eram
