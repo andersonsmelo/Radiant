@@ -1654,6 +1654,16 @@ reconciliados em 2026-10-12.
 [ADR](../adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
 [evidência](../evidence/2026-10-12-itens-36-39-27.md).
 
+### Pesquisas de evolução do produto — documentadas em 2026-10-12
+
+As pesquisas de aprendizagem/trilhas, layout/usabilidade, retenção/assinatura,
+automação/escala e personagem/voz/IA estão consolidadas em
+[RESEARCH_DECISIONS.md](../RESEARCH_DECISIONS.md). Referências externas,
+observações locais e hipóteses permanecem diferenciadas. O recorte proposto
+parte do piloto híbrido existente, com comparação de presença/voz do Pixel.
+Documentação concluída; propostas ainda em discussão. Não escolhe dependência,
+não altera o app e não encerra os gates do piloto híbrido ou do currículo.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

@@ -48,6 +48,14 @@ Quando documentos divergirem, use esta ordem:
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
 - [`STATUS.md`](STATUS.md) — estado vivo e handoff para a próxima sessão
 
+### Pesquisas para evolução do produto
+
+- [`RESEARCH_DECISIONS.md`](RESEARCH_DECISIONS.md) — pesquisas consolidadas em
+  2026-10-12: referências Duolingo/Brilliant/Clover, aprendizagem e trilhas,
+  layout/usabilidade, retenção/assinatura, automação/escala e animação/voz do
+  Pixel com IA. Contém fontes, limites da evidência e hipóteses de pilotos;
+  não substitui decisões aprovadas, specs ou o estado vivo.
+
 ### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
 
 - decisão: [ADR 2026-09-14](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md);
