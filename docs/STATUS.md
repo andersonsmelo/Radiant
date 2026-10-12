@@ -21,7 +21,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 
 | Frente | Estado | Medido em |
 | --- | --- | --- |
-| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` reenviada em 2026-10-11, às 20:00, "Aguardando revisão"**, na submissão `a5e5a094`, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. Ela foi reprovada duas vezes: pela 3.1.2 em 2026-10-10 (sem link de EULA nos metadados) e pela 2.3.2 em 2026-10-10, às 11:54 (imagem promocional das assinaturas igual ao ícone). Os dois consertos foram só de metadado, com o mesmo binário. Binário = `main` em `221e2ec`. | 2026-10-11 |
+| **App Store** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
 | **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`. O app não depende dela: o sync remoto está desligado em todos os perfis do EAS. | 2026-09-23 |
@@ -34,15 +34,21 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Entre produção e `main` — a 1.4
+## A 1.4 publicada
 
-A `main` está **211 commits e 414 arquivos à frente** do que está na App Store
-(medido em 2026-10-10, às 09:55, `v1.3.1..221e2ec`). Nada disso chegou ao
-usuário ainda: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
-(CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
-ao app do aluno). **A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
-Apple desde 2026-10-11, às 20:00**, reenviada depois das duas
-reprovações descritas no item 4, abaixo.
+**A `1.4.0 (12)`, compilada do `221e2ec`, foi aprovada e liberada no
+App Store Connect em 2026-10-12, às 08:47 (America/Bahia), para o Brasil.**
+O console passou de "Liberação do desenvolvedor pendente" para
+"Pronto para distribuição". A liberação foi autorizada pelo dono nesta
+conversa e executada pelo agente. Os quatro itens da submissão `a5e5a094`
+foram aprovados: versão, mensal, anual e grupo "Radiant Ilimitado".
+
+A página pública da App Store brasileira já mostra **`1.4.0` às 08:50** de
+2026-10-12, com mensal de R$ 19,90 e anual de R$ 149,90. A consulta pública
+por `lookup` ainda devolvia `1.3.1` às 08:47, antes dessa propagação.
+As novidades da build liberada incluem vidas, assinatura StoreKit, backup no
+iCloud e sons nas lições. O currículo V3 continua fora do app do aluno.
+[Evidência da liberação](evidence/2026-10-12-radiant-liberacao-1-4-0.md).
 
 **Onde se lê o estado da revisão:** no App Store Connect, em Distribuição →
 Revisão de apps, que é a fonte autoritativa. O e-mail é só aviso: vai para o
@@ -56,7 +62,7 @@ interno do Claude, com o login feito pelo dono, e a API interna da página
 git fetch origin && git rev-list --count v1.3.1..origin/main
 ```
 
-**O que falta para a 1.4 sair** — detalhe e dono de cada item na
+**Validações e liberação da 1.4** — detalhe e dono de cada item na
 [`FILA.md`](FILA.md#prioridade--a-14-desenhada-em-2026-09-14):
 
 1. **Dono:** StoreKit no aparelho. **Em 2026-09-24, o build `development`
@@ -138,42 +144,13 @@ git fetch origin && git rev-list --count v1.3.1..origin/main
    lição** por decisão do dono, e voltam com a animação em primeiro plano
    (FILA, 26)
    ([relatório](superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
-4. ✅ **Merge e envio: feitos em 2026-10-09 pelo agente, com o ok do dono na
-   conversa** ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)):
-   - a PR #38 entrou às 16:18, por merge commit (`221e2ec`), com o CI verde;
-   - a build de produção `1.4.0 (12)` saiu do EAS (`18d0c9aa`, imagem
-     `macos-sequoia-15.6-xcode-26.0`) e subiu ao App Store Connect pelo
-     `--auto-submit`;
-   - às 17:17, a versão foi enviada à revisão junto com os dois produtos e o
-     grupo de assinaturas, como manda a regra 8 da
-     [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A
-     captura de revisão dos produtos foi refeita no simulador, com a tela
-     atual ([captura](../radiant-app/docs/evidence/2026-10-09-envio-1-4-0/captura-revisao-assinatura.png));
-   - **reprovada em 2026-10-10, às 03:18, pela diretriz 3.1.2**, numa
-     mensagem automática: o app vende assinatura com renovação automática, e
-     os metadados da página na App Store não tinham link para os Termos de Uso
-     (EULA). O app já mostrava os dois links na tela da assinatura
-     (`radiant-app/src/config/legal.ts`), então o binário não mudou. O dono
-     acrescentou a seção "Assinatura", com o EULA padrão da Apple e a política
-     de privacidade, ao fim da Descrição da 1.4.0 (texto em
-     [`store/textos-loja-pt-BR.md`](store/textos-loja-pt-BR.md)). O agente
-     leu o campo antes de salvar e depois de recarregar (2011 caracteres, os
-     dois links com HTTP 200), e o dono **reenviou às 11:12**, com os 4 itens
-     ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md));
-   - **reprovada de novo em 2026-10-10, às 11:54, pela diretriz 2.3.2**, já por
-     um revisor humano, num iPad Air 11" (M4). O EULA não voltou a ser
-     apontado. O motivo: a imagem promocional opcional das duas assinaturas
-     era o ícone do app, e a mesma nas duas. Como não há promoção nem oferta
-     de reconquista, o dono decidiu **apagar a imagem** dos dois produtos, em
-     vez de desenhar duas novas. Em 2026-10-11, o dono tirou as assinaturas
-     da submissão, apagou as imagens, cancelou a submissão `3c9bcdda` e
-     montou outra. A versão chegou a ser enviada sozinha às 19:39, e esse
-     envio foi cancelado. O envio seguinte, `a5e5a094`, saiu **às 20:00**,
-     com os 4 itens, depois de o agente conferir pela API: as duas
-     assinaturas sem imagem e a Descrição com o EULA
-     ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md));
-   - **falta:** a aprovação da Apple e, depois dela, **a liberação manual
-     pelo dono** ([FILA](FILA.md), 40).
+4. ✅ **Aprovação e liberação: confirmadas em 2026-10-12, às 08:47
+   (America/Bahia).** A `1.4.0 (12)`, compilada de `221e2ec`, e os dois
+   produtos e o grupo da assinatura foram aprovados na submissão `a5e5a094`.
+   Com autorização do dono, o agente liberou a versão para o Brasil, e o
+   App Store Connect passou a "Pronto para distribuição". A página pública
+   brasileira já mostra `1.4.0` às 08:50; publicação pública confirmada
+   ([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
 Já fechado para a 1.4 (2026-09-23): acordo de apps pagos **Ativo** no App Store
 Connect, com banco e formulários fiscais ativos; Ask to Buy decidido e

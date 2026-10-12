@@ -972,7 +972,7 @@ código.
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
-- **F4 [P0 — APPLE AGUARDANDO REVISÃO, RECONFIRMADO EM 2026-08-09; PLAY ESPERA F2]** Solicitar acesso a produção
+- **F4 [P0 — APPLE 1.4.0 (12) APROVADA EM 2026-10-12; PLAY ESPERA F2]** Solicitar acesso a produção
   no Play (questionário) e submeter revisão final na App Store (App Review;
   primeira revisão típica de 24–48h, planejar retrabalho). **Apple não depende
   da F2:** em 2026-08-08, privacy foi publicada como **Dados não coletados**, o
@@ -980,8 +980,16 @@ código.
   enviada à revisão com a versão `1.3.1`. O console foi consultado novamente em
   2026-08-09 e continuava em **Aguardando revisão**, com liberação manual. O lado
   Apple da submissão está concluído; o lado Play continua esperando F2.
+  **Remedido em 2026-10-12:** a versão `1.4.0 (12)`, mensal, anual e grupo
+  "Radiant Ilimitado" estão aprovados na submissão `a5e5a094`
+  ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 - **F5 [P0]** Lançamento: rollout faseado no Play (10% → 50% → 100%);
   liberação manual no iOS após aprovação.
+  **iOS: liberação da `1.4.0 (12)` concluída em 2026-10-12, às 08:47
+  (America/Bahia), no Brasil**, pelo agente com autorização do dono.
+  Console em "Pronto para distribuição"; página pública brasileira em
+  `1.4.0` às 08:50. O lado Play continua pendente
+  ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 - **F6 [P1]** Pós-lançamento (2 primeiras semanas): monitorar Sentry
   crash-free ≥ 99%, reviews das lojas, funil de onboarding; hotfix por OTA
   (Expo Updates) apenas para JS compatível com `runtimeVersion`, senão novo
@@ -1421,7 +1429,7 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   to Buy no StoreKit Testing em 2026-09-27; bump para 1.4.0 em 2026-09-28;
   `1.4.0 (12)` ENVIADA À REVISÃO DA APP STORE EM 2026-10-09; REPROVADA PELA
   3.1.2 E REENVIADA EM 2026-10-10; REPROVADA PELA 2.3.2 E REENVIADA EM
-  2026-10-11]**
+  2026-10-11; APROVADA E LIBERADA NO BRASIL EM 2026-10-12]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1525,6 +1533,12 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     do app. O dono apagou as imagens, cancelou a submissão e montou outra, e
     a versão foi reenviada às 20:00, com o mesmo binário
     ([relatório](../superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
+
+  - **em 2026-10-12, às 08:47 (America/Bahia):** versão `1.4.0 (12)` e
+    os três itens da assinatura aprovados; liberação no Brasil executada
+    pelo agente, autorizada pelo dono. Console em "Pronto para distribuição";
+    página pública brasileira em `1.4.0` às 08:50, publicação confirmada
+    ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

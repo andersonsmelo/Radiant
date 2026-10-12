@@ -2454,3 +2454,62 @@ item 4, abaixo.
 
 Em 2026-10-10, o App Store Connect foi lido pelo navegador interno do Claude,
 com o login feito pelo dono.
+
+
+## Retirado em 2026-10-12 — a 1.4.0 aprovada e liberada no Brasil
+
+Da tabela "Produção", linha App Store, sem edição:
+
+| **App Store** | `1.3.1 (11)` publicado desde 2026-09-14. Binário = tag `v1.3.1` (`063770d`). **`1.4.0 (12)` reenviada em 2026-10-11, às 20:00, "Aguardando revisão"**, na submissão `a5e5a094`, com os dois produtos da assinatura e o grupo "Radiant Ilimitado"; liberação manual. Ela foi reprovada duas vezes: pela 3.1.2 em 2026-10-10 (sem link de EULA nos metadados) e pela 2.3.2 em 2026-10-10, às 11:54 (imagem promocional das assinaturas igual ao ícone). Os dois consertos foram só de metadado, com o mesmo binário. Binário = `main` em `221e2ec`. | 2026-10-11 |
+
+Da seção "Entre produção e `main` — a 1.4", sem edição:
+
+## Entre produção e `main` — a 1.4
+
+A `main` está **211 commits e 414 arquivos à frente** do que está na App Store
+(medido em 2026-10-10, às 09:55, `v1.3.1..221e2ec`). Nada disso chegou ao
+usuário ainda: vidas, assinatura StoreKit (Radiant Ilimitado), backup no iCloud
+(CloudKit) e o currículo V3 (L1, L2 e o piloto da lição híbrida, nenhum ligado
+ao app do aluno). **A `1.4.0 (12)`, compilada do `221e2ec`, está na revisão da
+Apple desde 2026-10-11, às 20:00**, reenviada depois das duas
+reprovações descritas no item 4, abaixo.
+
+
+Do item 4, sem edição:
+
+4. ✅ **Merge e envio: feitos em 2026-10-09 pelo agente, com o ok do dono na
+   conversa** ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)):
+   - a PR #38 entrou às 16:18, por merge commit (`221e2ec`), com o CI verde;
+   - a build de produção `1.4.0 (12)` saiu do EAS (`18d0c9aa`, imagem
+     `macos-sequoia-15.6-xcode-26.0`) e subiu ao App Store Connect pelo
+     `--auto-submit`;
+   - às 17:17, a versão foi enviada à revisão junto com os dois produtos e o
+     grupo de assinaturas, como manda a regra 8 da
+     [ADR](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md). A
+     captura de revisão dos produtos foi refeita no simulador, com a tela
+     atual ([captura](../radiant-app/docs/evidence/2026-10-09-envio-1-4-0/captura-revisao-assinatura.png));
+   - **reprovada em 2026-10-10, às 03:18, pela diretriz 3.1.2**, numa
+     mensagem automática: o app vende assinatura com renovação automática, e
+     os metadados da página na App Store não tinham link para os Termos de Uso
+     (EULA). O app já mostrava os dois links na tela da assinatura
+     (`radiant-app/src/config/legal.ts`), então o binário não mudou. O dono
+     acrescentou a seção "Assinatura", com o EULA padrão da Apple e a política
+     de privacidade, ao fim da Descrição da 1.4.0 (texto em
+     [`store/textos-loja-pt-BR.md`](store/textos-loja-pt-BR.md)). O agente
+     leu o campo antes de salvar e depois de recarregar (2011 caracteres, os
+     dois links com HTTP 200), e o dono **reenviou às 11:12**, com os 4 itens
+     ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md));
+   - **reprovada de novo em 2026-10-10, às 11:54, pela diretriz 2.3.2**, já por
+     um revisor humano, num iPad Air 11" (M4). O EULA não voltou a ser
+     apontado. O motivo: a imagem promocional opcional das duas assinaturas
+     era o ícone do app, e a mesma nas duas. Como não há promoção nem oferta
+     de reconquista, o dono decidiu **apagar a imagem** dos dois produtos, em
+     vez de desenhar duas novas. Em 2026-10-11, o dono tirou as assinaturas
+     da submissão, apagou as imagens, cancelou a submissão `3c9bcdda` e
+     montou outra. A versão chegou a ser enviada sozinha às 19:39, e esse
+     envio foi cancelado. O envio seguinte, `a5e5a094`, saiu **às 20:00**,
+     com os 4 itens, depois de o agente conferir pela API: as duas
+     assinaturas sem imagem e a Descrição com o EULA
+     ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md));
+   - **falta:** a aprovação da Apple e, depois dela, **a liberação manual
+     pelo dono** ([FILA](FILA.md), 40).

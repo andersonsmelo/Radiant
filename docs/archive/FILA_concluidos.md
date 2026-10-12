@@ -1776,3 +1776,29 @@ Links substituídos sem edição (só o caminho relativo reajustado ao novo dire
 [prompt (17)](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
 
 [`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;
+
+
+## 2026-10-12 — item 40: liberação da 1.4.0 no Brasil
+
+Encerrado às 08:47 (America/Bahia), pelo agente com autorização do dono.
+App Store Connect: "Pronto para distribuição"; quatro itens aprovados.
+Publicação pública confirmada às 08:50: a página brasileira mostra `1.4.0`.
+[Evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md).
+
+Texto retirado da fila, sem edição:
+
+- **P1 — o que segura a 1.4:**
+  - **40.** dono: **liberar a `1.4.0` na App Store** depois da aprovação. A
+    versão foi enviada em 2026-10-09, às 17:17, com liberação manual, e
+    **reprovada em 2026-10-10, às 03:18, pela diretriz 3.1.2**: faltava o link
+    dos Termos de Uso (EULA) nos metadados. O dono pôs a seção "Assinatura",
+    com o EULA padrão da Apple, na Descrição, e reenviou às 11:12, com o mesmo
+    binário ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
+    O estado se lê no App Store Connect, em Distribuição → Revisão de apps: o
+    e-mail da reprovação caiu na pasta Lixo do Outlook. **Reprovada de novo
+    às 11:54, pela 2.3.2:** a imagem promocional das duas assinaturas era o
+    ícone do app. O dono apagou as imagens, cancelou a submissão e montou
+    outra, e a versão foi reenviada em 2026-10-11, às 20:00
+    (`a5e5a094`, 4 itens)
+    ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
+    Se a Apple reprovar de novo, a resposta é do agente com o dono.

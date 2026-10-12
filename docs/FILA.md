@@ -52,9 +52,12 @@ numeração é a mesma da §3 do
 [prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
-**38**. A 1.4.0 (12) está na revisão da Apple desde 2026-10-11, às 20:00,
-reenviada depois de reprovada pela 3.1.2 e pela 2.3.2; o que falta é
-a aprovação e a liberação manual pelo dono (40).
+**38**. A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
+versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
+com autorização do dono. O item 40 está encerrado; o console mostra
+"Pronto para distribuição". A página pública brasileira confirmou `1.4.0`
+às 08:50 de 2026-10-12
+([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -107,22 +110,11 @@ a aprovação e a liberação manual pelo dono (40).
   (`221e2ec`), e a `1.4.0 (12)` foi enviada à revisão às 17:17, com os dois
   produtos da assinatura, o grupo e a captura de revisão refeita
   ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+- em 2026-10-12: o **40** (liberação da `1.4.0 (12)` no Brasil), pelo
+  agente com autorização do dono. Versão e os três itens da assinatura
+  aprovados; console em "Pronto para distribuição"
+  ([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
-- **P1 — o que segura a 1.4:**
-  - **40.** dono: **liberar a `1.4.0` na App Store** depois da aprovação. A
-    versão foi enviada em 2026-10-09, às 17:17, com liberação manual, e
-    **reprovada em 2026-10-10, às 03:18, pela diretriz 3.1.2**: faltava o link
-    dos Termos de Uso (EULA) nos metadados. O dono pôs a seção "Assinatura",
-    com o EULA padrão da Apple, na Descrição, e reenviou às 11:12, com o mesmo
-    binário ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
-    O estado se lê no App Store Connect, em Distribuição → Revisão de apps: o
-    e-mail da reprovação caiu na pasta Lixo do Outlook. **Reprovada de novo
-    às 11:54, pela 2.3.2:** a imagem promocional das duas assinaturas era o
-    ícone do app. O dono apagou as imagens, cancelou a submissão e montou
-    outra, e a versão foi reenviada em 2026-10-11, às 20:00
-    (`a5e5a094`, 4 itens)
-    ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
-    Se a Apple reprovar de novo, a resposta é do agente com o dono.
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
