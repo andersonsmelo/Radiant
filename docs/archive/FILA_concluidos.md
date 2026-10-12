@@ -1802,3 +1802,38 @@ Texto retirado da fila, sem edição:
     (`a5e5a094`, 4 itens)
     ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
     Se a Apple reprovar de novo, a resposta é do agente com o dono.
+
+
+## 2026-10-12 — item 23: simulador antigo ausente
+
+Encerrado por medição: o inventário inicial de dispositivos do `simctl`
+estava vazio. Nenhum simulador do dono foi apagado pelo agente.
+
+Texto retirado da fila, sem edição:
+
+  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
+
+## 2026-10-12 — decisões do dono dos itens 36, 39 e 27 encerradas
+
+As decisões foram respondidas diretamente pelo dono nesta conversa. As
+implementações continuam abertas na FILA: não são itens técnicos concluídos.
+Textos anteriores retirados da fila, sem edição:
+
+  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
+    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
+    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
+    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
+    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
+    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
+    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
+    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
+    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
+    disponível". A conquista, porém, continua esperando a coleta, e só se
+    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
+    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
+    conquista coletável como um degrau do motor, depois do checkpoint. Se
+    entra na 1.4 é decisão do dono;
+  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
+    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
+    espaçada está certa. O agente propõe algo como "Disponível amanhã".

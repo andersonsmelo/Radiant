@@ -2534,3 +2534,28 @@ exit 0, **156 suítes / 1499 testes**, lint com 0 erros e 26 avisos, visual QA
 sem regressão
 ([relatório](superpowers/handoffs/2026-10-09-radiant-anuncio-perda-de-vida-avaliacao-relatorio.md)). O CI roda o mesmo comando inteiro
 (`.github/workflows/radiant-app-quality.yml`).
+
+
+## Retirado em 2026-10-12 — runtime iOS provisionado para o item 38
+
+Bloqueio anterior, sem edição:
+
+**Execução em simulador ainda não realizada:** o Xcode 27.0 não lista runtimes
+nem dispositivos (`xcrun simctl list runtimes -j`, `list devices -j`). O item
+38 permanece parcial. Esta alteração local não foi publicada por build nem
+OTA; o binário da App Store continua sendo o `221e2ec`.
+[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md).
+
+## 2026-10-12 — nova validação e E2E complementar do item 38
+
+Medição do run anterior substituída, sem edição:
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-10-12**, no branch
+`codex/radiant-e2e-maintenance`, com as mudanças do item 38 e sem trabalho
+alheio na árvore. O `app-quality` completo e o `app-test` passaram no
+Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
+`loop validate`: **14/14 validadores aprovados**. Os contratos Maestro
+passaram em **25/25** testes; os dois arquivos focados de avaliação e guarda
+em **29/29**. Isso é validação local, sem nova medição de E2E nem CI remoto
+([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).

@@ -115,6 +115,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   aprovados; console em "Pronto para distribuição"
   ([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
+- em 2026-10-12: o **23** (decidir apagar ou manter o simulador `A5FA5443`),
+  encerrado por ausência: o inventário inicial de dispositivos estava vazio.
+  Nenhum simulador do dono foi apagado pelo agente.
+
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
 - **P3 — o piloto da L1, que destrava o V3:**
@@ -123,30 +127,34 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **38.** agente, **parcial em 2026-10-12**: os seis fluxos de navegação
-    foram corrigidos localmente, e o `student-checkpoint-short-viewport`
-    recebeu a mesma espera de dev client. Os seletores casam com o cabeçalho
-    acessível real; cada abertura e reabertura espera o dev client; o fluxo
-    de idempotência atravessa o resumo da lição. O ramo "Concluir checkpoint"
-    sem avaliação saiu da tela. **25 contratos Maestro e 29 testes focados
-    passaram. Bloqueio para fechar:** execução real dos fluxos no simulador.
-    Em 2026-10-12, `xcrun simctl list runtimes -j` e `list devices -j`
-    devolveram listas vazias; o Xcode instalado é o 27.0. Requer provisionar
-    um runtime compatível; nenhum foi baixado nesta medição. **Dono:** agente, após provisionar o ambiente; modo interno
-    `active` e configuração de produção do `rating-prompt` continuam
-    obrigatórios, como no runbook.
-    [Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md).
+  - **38.** agente, **parcial, remedido em 2026-10-12**: seis fluxos
+    distintos passaram no iOS 26.5, em nove execuções; retomada no SE de
+    375 × 667 pt passou em `medium`, AX3, AX4 e AX5. O runtime está
+    provisionado e o build Debug assinado pelo Xcode funciona. O resumo do
+    `rating-prompt` recebeu correção e guarda AST/YAML vermelha/verde.
+    **Dono:** agente. **Pendência real:** repontar esse E2E para uma revisão
+    devida com fixture sintética. Desde `949f013`, o quiz não chama o prompt
+    da loja, por decisão de separar a avaliação da aula; o teste chegou a
+    três aberturas, mas não emitiu evento `rating_prompt_*` nem abriu diálogo.
+    Não reintroduzir o prompt no quiz. Preservar a asserção nativa e provar
+    bloqueio antes de três aberturas, elegibilidade depois, no perfil de
+    produção. **Bloqueio de ambiente:** nenhum; a fixture e a nova navegação
+    ainda faltam. Sem nova build de distribuição/OTA.
+    [Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-- **Decisões do dono, sem prazo:**
-  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
-    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
-    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
-    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
-    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+- **Decisões de produto e implementações aprovadas, sem prazo:**
+  - **36.** **DECIDIDO pelo dono em 2026-10-12: exigir concluir o reforço.**
+    Resposta literal: "Exigir concluir o reforço". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    Hoje a tela promete essa condição, mas sair e voltar permite tentar de
+    novo; o 2º ciclo não é alcançado porque falta a tentativa anterior.
+    Implementar a exigência persistente e preservar o histórico de tentativas;
+    registrar a decisão em ADR no run da implementação
+    ([contexto](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
     **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
     ouviu no iPhone que o som do coração não se distinguia, e o log do
@@ -155,29 +163,30 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     da lição. Quando a animação for desenhada, eles voltam **tocando depois do
     erro**, e não colados nele
     ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
-  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
-    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
-    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
-    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
-    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
-    disponível". A conquista, porém, continua esperando a coleta, e só se
-    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
-    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
-    conquista coletável como um degrau do motor, depois do checkpoint. Se
-    entra na 1.4 é decisão do dono;
+  - **39.** **DECIDIDO pelo dono em 2026-10-12: oferecer a conquista.**
+    Resposta literal: "Sim, oferecer a conquista". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    A Estude deve oferecer "Receber conquista" quando o nó estiver liberado
+    e ainda não coletado, preservando seus pré-requisitos e a coleta única.
+    Hoje `JourneyRecommendationService` exclui `reward`; depois da última
+    lição mostra "Aguardando nova etapa" mesmo com conquista coletável.
+    Implementar a recomendação, registrar ADR e repetir `reward-unlock`
+    ([evidência do achado](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
   - **37.** **a vitrine da loja perdeu duas capturas.** O `store-capture`
     fotografava o checkpoint de botão (`04-checkpoint`) e a celebração
     (`05-conquista`), e o `APP_STORE_LISTING_MATRIX.md` descreve a vitrine com
     elas. Sem o checkpoint no começo da trilha, as duas saíram do fluxo, e os
     números das outras não foram mudados. Se a matriz e as capturas publicadas
     mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
-  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
-    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
-    espaçada está certa. O agente propõe algo como "Disponível amanhã".
+  - **27.** **DECIDIDO pelo dono em 2026-10-12: mostrar a data de disponibilidade.**
+    Resposta literal: "Mostrar data de disponibilidade". **Estado:** decisão
+    aprovada, implementação pendente. **Bloqueio de decisão:** nenhum.
+    **Dono:** agente. Substituir "Bloqueado" na revisão agendada pelo momento
+    em que ficará disponível, preservando a regra de repetição espaçada.
+    Registrar ADR e testar datas/virada de dia no run da implementação.
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;
-  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
   - **24.** dono: as ações de um passo da seção 7, abaixo;
   - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
     dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
@@ -199,8 +208,9 @@ o dono lê o relatório no fim.
 
 **Estado:** decidido pelo dono em 2026-09-24
 ([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)). A 1.4 compila no Xcode
-26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a 1.4 sair
-primeiro. **Dono:** agente, com build e E2E autorizados pelo dono.
+26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a publicação da
+1.4 foi cumprida em 2026-10-12; esta frente está desbloqueada para planejamento e migração local. **Dono:** agente,
+com build e E2E autorizados pelo dono.
 
 A partir de abril de 2027, a Apple só aceita envio compilado com o SDK do iOS
 27, e nesse SDK o app sem `UIScene` fecha na abertura. O SDK 54 não tem
@@ -216,8 +226,9 @@ inclui:
 Custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
-**Falta medir antes, sem esperar esta frente:** o primeiro build `development`
-da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
+**Pré-requisito já cumprido:** o primeiro build `development` da 1.4
+(StoreKit) compilou e abriu num iPhone com iOS 27.2 em 2026-09-24, conforme
+a evidência da seção seguinte. Não repetir essa task como pendente.
 
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 

@@ -295,13 +295,15 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
 strict. **Última medição: 2026-10-12**, no branch
-`codex/radiant-e2e-maintenance`, com as mudanças do item 38 e sem trabalho
+`codex/radiant-e2e-maintenance`, com a manutenção do item 38 e sem trabalho
 alheio na árvore. O `app-quality` completo e o `app-test` passaram no
 Node `v20.20.2`, com `EXPO_NO_DOTENV=1` e `CI=1`, no único ciclo de
-`loop validate`: **14/14 validadores aprovados**. Os contratos Maestro
-passaram em **25/25** testes; os dois arquivos focados de avaliação e guarda
-em **29/29**. Isso é validação local, sem nova medição de E2E nem CI remoto
-([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).
+`loop validate` do run `run-1791807821359-a6af946b`:
+**14/14 validadores aprovados**. Contratos Maestro em **26/26**; os dois
+arquivos focados de avaliação e guarda haviam passado em **29/29** no run
+anterior, e a suíte completa foi reproduzida nesta validação.
+CI remoto não foi remedido; os E2E reais são uma medição separada abaixo
+([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
 O CI roda o mesmo gate completo em `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -316,11 +318,25 @@ concluía checkpoint sem avaliação. Novos contratos leem o cabeçalho por AST 
 os comandos por parser YAML. Os testes foram vistos falhando antes da
 correção e passaram depois: **25 contratos Maestro e 29 testes focados**.
 
-**Execução em simulador ainda não realizada:** o Xcode 27.0 não lista runtimes
-nem dispositivos (`xcrun simctl list runtimes -j`, `list devices -j`). O item
-38 permanece parcial. Esta alteração local não foi publicada por build nem
-OTA; o binário da App Store continua sendo o `221e2ec`.
-[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md).
+**E2E em simulador, medido em 2026-10-12:** runtime oficial iOS 26.5
+(`23F73`, arm64) instalado; build Debug assinado pelo Xcode funcional, com
+mínimo iOS 15.1 só na invocação local. **Seis fluxos distintos passaram em
+nove execuções**, incluindo a retomada no SE de 375 × 667 pt em `medium`,
+AX3, AX4 e AX5. O `rating-prompt` continua vermelho: o resumo antigo foi
+corrigido, mas o segundo quiz não chama mais a avaliação da loja desde
+`949f013`, por decisão de separar a avaliação da aula. A telemetria confirmou
+três aberturas e `first_value_moment_reached` em `production`, com zero eventos
+`rating_prompt_*`. Os chamadores atuais são revisão e conquista.
+**Falta:** fixture sintética de revisão devida e nova navegação do E2E,
+mantendo bloqueio antes de três aberturas e diálogo nativo depois. O item 38
+continua parcial; o runtime deixou de ser bloqueio. A guarda adicional
+AST/YAML passou depois de três injeções específicas vistas vermelhas.
+
+App/Metro encerrados e simuladores temporários desligados ao terminar.
+O binário publicado continua sendo `221e2ec`; nenhuma build nem OTA nova
+foi enviada. Modo avião não funciona no simulador iOS; os resultados não
+comprovam ausência de rede, novo VoiceOver ou novo gate estatístico H3.
+[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
 
 ### O que o gate NÃO pega
 

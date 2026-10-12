@@ -1276,7 +1276,7 @@ a trilha de lojas.
 
 - **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
   Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
-- **I2 [P1 — APROVADA pelo dono em 2026-08-15; plano pronto, não implementada]**
+- **I2 [P1 — PARCIAL; NAVEGAÇÃO ESTUDE/PERFIL IMPLEMENTADA; `/quiz` AINDA EXISTE, REMEDIDO EM 2026-10-12]**
   Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. **Estude passa
   a ser a trilha**, em rolagem contínua e com o currículo inteiro, e a **Galáxia é
   absorvida** — a trilha morava nela. A separação da `ProgressScreen` foi definida em
@@ -1290,9 +1290,20 @@ a trilha de lojas.
   **Onde o risco se concentra:** a trilha passa a carregar o currículo inteiro em vez das
   unidades da trilha ativa. É a única parte que mexe em dado, e sem virtualização a
   rolagem morre em catálogo grande.
-- **I3 [P2]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
+  **Remedido no código em 2026-10-12:** duas abas em
+  `src/app/(tabs)/_layout.tsx`; Estude aponta para `JourneyHomeScreen`, que
+  consome `JourneyCurriculumService`; Perfil incorpora `MissionsScreen`,
+  `ProgressScreen` e identidade, e o console fica sob `SHOW_DEV_TOOLS`.
+  `/learn` já usa `QuizTopBar` e `LessonSummary`. A Task 18 do plano ainda
+  não foi executada: `src/app/quiz.tsx` e `QuizScreen` continuam presentes;
+  `rating-prompt.yaml` usa essa rota para atingir o gate da avaliação da
+  loja. Não remover a rota sem preservar seus consumidores e essa prova.
+- **I3 [P2 — PARCIAL, REMEDIDO EM 2026-10-12]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
   de aulas. Depende de I2. O histórico tem substrato pronto em
   `LearningAttemptsRepository`.
+  Já existe `ProfileScreen` com identidade local "Estudante", XP,
+  sequência, Missões e Progresso incorporados. Não é task para recriar a
+  tela; completar os critérios de personalização/histórico continua aberto.
 - **I4 [P2]** Marca no topo com símbolo de radiação, cintilante. Não existe asset de
   marca no `radiant-app` hoje; a arte precisa existir antes do código. Merece ADR
   próprio por ser identidade de produto.
@@ -1543,10 +1554,15 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   - **em 2026-10-12, após a publicação (FILA, 38):** seis fluxos de
     navegação atualizados localmente, espera do dev client também no fluxo
     de viewport curta e ramo de checkpoint sem avaliação removido.
-    25 contratos Maestro e 29 testes focados passaram; execução no
-    simulador pendente porque o Xcode não lista runtimes nem dispositivos.
-    O item permanece **parcial**, sem nova build nem OTA
-    ([evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-maestro.md)).
+    O runtime iOS 26.5 foi provisionado; seis fluxos distintos passaram em
+    nove execuções, incluindo `medium`, AX3, AX4 e AX5 no SE. O resumo do
+    `rating-prompt` recebeu correção e guarda AST/YAML (26 contratos verdes).
+    O fluxo continua vermelho: `949f013` retirou o prompt da loja do quiz,
+    por decisão de produto, e o E2E ainda mira essa rota. **Falta:** fixture
+    sintética de revisão devida e disparo por `/review`, com prova dos gates
+    antes/depois de três aberturas e do diálogo nativo. Item **parcial**, sem
+    nova build de distribuição nem OTA
+    ([evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem

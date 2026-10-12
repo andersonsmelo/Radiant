@@ -722,7 +722,54 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
   }
 });
 
-test('ties the rating-prompt flow to the eligibility gate it exists to reach', async () => {
+test('rating flow leaves the rendered quiz summary before accumulating app opens', async () => {
+  const summary = ts.createSourceFile(
+    'LessonSummary.tsx',
+    await readAppFile('src/features/quiz/components/LessonSummary.tsx'),
+    ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX,
+  );
+  const subtitles = [];
+  const buttons = [];
+  const visit = (node) => {
+    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(summary) === 'Text') {
+      const style = node.openingElement.attributes.properties.find((attribute) =>
+        ts.isJsxAttribute(attribute) && attribute.name.getText(summary) === 'style');
+      const expression = style?.initializer?.expression;
+      if (expression && ts.isPropertyAccessExpression(expression)
+        && expression.expression.getText(summary) === 'styles'
+        && expression.name.text === 'subtitle') {
+        subtitles.push(node.children.filter(ts.isJsxText).map((child) => child.text.trim()).join(''));
+      }
+    }
+    if (ts.isJsxSelfClosingElement(node) && node.tagName.getText(summary) === 'AppButton') {
+      const label = node.attributes.properties.find((attribute) =>
+        ts.isJsxAttribute(attribute) && attribute.name.getText(summary) === 'label');
+      if (label?.initializer && ts.isStringLiteral(label.initializer)) buttons.push(label.initializer.text);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(summary);
+  assert.equal(subtitles.length, 1, 'expected one rendered summary subtitle');
+  assert.equal(buttons.length, 1, 'expected one fixed summary CTA');
+
+  const commands = await flowCommands('rating-prompt.yaml');
+  const firstLink = commands.findIndex((command) => command.openLink?.link?.startsWith('radiantapp://quiz?'));
+  assert.ok(firstLink >= 0);
+  const nextLaunch = commands.findIndex((command, index) => index > firstLink
+    && (command === 'launchApp' || Object.hasOwn(command, 'launchApp')));
+  assert.ok(nextLaunch > firstLink);
+  const firstQuiz = commands.slice(firstLink, nextLaunch);
+  const lastAnswer = firstQuiz.findLastIndex((command) => command.tapOn === 'Próxima');
+  assert.ok(lastAnswer >= 0);
+  assert.deepEqual(firstQuiz[lastAnswer + 1], { assertVisible: subtitles[0] },
+    'rating flow must wait for the actual summary after its first quiz');
+  assert.deepEqual(firstQuiz[lastAnswer + 2], { tapOn: buttons[0] },
+    'rating flow must leave the summary through its rendered CTA');
+  assert.deepEqual(commands.at(-1), { assertVisible: subtitles[0] },
+    'rating flow must assert the rendered summary after dismissing the store dialog');
+});
+
+test('preserves rating eligibility prerequisites and the native dialog assertion', async () => {
   // Este flow existe por um único motivo: alcançar o gate
   // `countEvents('app_open') >= MIN_APP_OPENS` do `RatingPromptService`, que
   // nenhum outro flow atinge — quatro abrem o app uma vez e o
@@ -759,21 +806,18 @@ test('ties the rating-prompt flow to the eligibility gate it exists to reach', a
     'rating-prompt.yaml must clear state exactly once — the later launches accumulate the app_open count'
   );
 
-  // `maybePromptForReview` é chamado por `QuizScreen` (rota `/quiz`),
-  // `ReviewScreen` e `RewardScreen` — nunca pelo lesson-flow da rota `/learn`.
-  // A primeira versão deste flow completou a lição e passou verde sem tocar o
-  // call site: a telemetria do aparelho não trouxe um único evento
-  // `rating_prompt_*`. O contrato prende a rota, que é o que faz o flow medir
-  // o que o nome dele diz.
+  // /quiz cria first_value_moment_reached, pré-requisito da elegibilidade.
+  // Desde 949f013 essa tela NÃO chama o prompt da loja. Este contrato protege
+  // só a preparação do marco; o E2E ainda precisa migrar seu disparo para
+  // ReviewScreen/RewardScreen, conforme a pendência explícita no YAML.
   assert.match(
     flow,
     /radiantapp:\/\/quiz\?lessonId=/,
-    'rating-prompt.yaml must drive the /quiz route — /learn never reaches maybePromptForReview'
+    'rating-prompt.yaml must drive /quiz to prepare the first value moment'
   );
 
   // O gate exige `first_value_moment_reached`, emitido no primeiro
-  // `quiz_complete`, e o `QuizScreen` retorna antes de chamar o prompt quando a
-  // nota fica abaixo de PASSING_SCORE. Então o flow precisa **acertar**, e as
+  // `quiz_complete`. A preparação preserva um quiz aprovado e as
   // respostas certas vêm da fonte do conteúdo: editar `lessons.ts` sem editar o
   // flow tornaria a nota insuficiente e o vermelho se leria como falha do gate.
   const lessons = await readAppFile('src/data/lessons.ts');

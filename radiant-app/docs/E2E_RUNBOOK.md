@@ -21,20 +21,16 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
 - `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
   relaunches with airplane mode enabled, then confirms the persisted
   progress offers the next lesson.
-- `rating-prompt.yaml`: the only flow that reaches the store-review prompt's
-  eligibility gate. `RatingPromptService` requires `countEvents('app_open') >=
-  MIN_APP_OPENS` (3), and every other flow opens the app once — twice for
-  `offline-relaunch` — so the prompt always stopped at `insufficient_sessions`
-  and had never been exercised on a device. It drives the **`/quiz` route**, not
-  `/learn`: the prompt's call sites are `QuizScreen`, `ReviewScreen` and
-  `RewardScreen`, and the lesson-flow reaches none of them. It completes a
-  passing quiz (which emits `first_value_moment_reached`, the gate's other
-  precondition), relaunches twice without clearing state, then completes a
-  second quiz.
-  **It requires a production-equivalent build**: eligibility returns
-  `blocked: non_production_build` whenever `APP_ENV !== 'production'`, and the
-  `e2e-test` profile declares `development`. The dialog assertion is iOS-only
-  and is pinned by the contract — see "Rating prompt" below.
+- `rating-prompt.yaml`: legacy store-review gate, **still failing as measured
+  on 2026-10-12**. It prepares the first value moment through `/quiz` and
+  accumulates three app opens, but its second quiz no longer calls the review
+  service. Since `949f013`, only `ReviewScreen` and `RewardScreen` call it;
+  quiz completion deliberately keeps lesson rating separate from store rating.
+  Retarget the trigger to a due review with a synthetic fixture, preserving
+  the before/after-three-opens proof and the native iOS dialog assertion.
+  Production configuration remains required (`APP_ENV=production`); a Debug
+  Metro run with that flag is not a full Release measurement. The flow carries
+  `requires-review-fixture` until this prerequisite is implemented.
 - `reward-locked.yaml`: covers the reward node from the only side a smoke can
   reach it. The node unlocks on `requiresNodeIds: [node:<last lesson>]` and the
   active track has 7 lessons, so the achievement is unreachable in a smoke —
@@ -108,15 +104,36 @@ wait subflow. The idempotency flow passes through the lesson summary before
 capturing XP and restarting. The checkpoint screen no longer offers a
 completion button for a node without a registered assessment batch.
 
-**Static and component validation only:** 25 Maestro contracts and 29 focused
-checkpoint/completion tests passed. **No new device PASS:** Xcode 27.0
-currently lists no iOS runtimes or devices. Installing a runtime, provisioning
-a temporary simulator and a compatible build remain necessary. Do not replace
-that prerequisite with a YAML contract PASS. `rating-prompt` still requires
-production configuration, and the active-resume/idempotency flows still
-require the internal `active` profile; keep those environments separate.
+**Measured on 2026-10-12:** Xcode 27.0 now has the official iOS 26.5
+runtime (`23F73`, arm64). A signed Debug simulator build passed six distinct
+flows in nine successful executions, including the short viewport on SE
+(375 × 667 pt) at medium, AX3, AX4 and AX5. The rating flow's summary
+assertions and exit CTA were corrected, with a new AST/YAML guard seen
+failing for each stale value (26 contracts total now pass). Its production
+retest still failed at the native dialog: telemetry confirmed three app opens
+and the first value moment in production, but zero rating-prompt events.
+The quiz no longer calls that service; retargeting to a due-review fixture
+remains the actual open part of item 38.
 
-[Reproduction and evidence](evidence/2026-10-12-item-38-maestro.md).
+For local builds under Xcode 27, the existing Pods' old deployment targets
+require `IPHONEOS_DEPLOYMENT_TARGET=15.1` on the build invocation. Let Xcode
+sign the simulator build with `CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=-`:
+an unsigned build aborted for missing CloudKit entitlement, and manually
+signing with the distribution entitlement file failed to launch. This is a
+local test recipe, not a change to the production EAS profile.
+
+Keep the off, active and production JS profiles separate. If `.env.local`
+conflicts with production, use an isolated copy of tracked app files without
+`.env*`, with local copies of the dependencies; symlinked dependencies produced
+an invalid Metro entry URL outside the copy. Run the environment precedence
+check in that copy before starting Metro with a clean cache.
+
+Maestro's airplane mode is unavailable on the iOS simulator. Relaunch/resume
+PASS is not proof of OS network isolation, VoiceOver, physical-device behaviour
+or a new statistical H3 performance result.
+
+[Implementation evidence](evidence/2026-10-12-item-38-maestro.md) and
+[device runs, profiles and build recipe](evidence/2026-10-12-item-38-e2e.md).
 
 ## Current execution state
 

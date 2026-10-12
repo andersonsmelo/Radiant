@@ -81,3 +81,11 @@ contratos de documentação/conteúdo, lint/typecheck/testes da API e
 `EXPO_NO_DOTENV=1` e `CI=1`; o controle do Loop usou Node 24.
 `docs-contract` e `git diff --check` passaram sobre a documentação final.
 Nenhum desses validadores executa os fluxos do Maestro no simulador.
+
+## Medição complementar de 2026-10-12
+
+O estado parcial acima é a medição do run original. O runtime foi depois
+provisionado e os gates E2E foram retomados em outro run; resultados e uma
+correção adicional do resumo no `rating-prompt` estão na
+[evidência complementar](2026-10-12-item-38-e2e.md). Não usar o inventário
+vazio desta primeira medição como bloqueio atual.
