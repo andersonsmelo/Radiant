@@ -225,8 +225,11 @@ O levantamento visual das três telas e a direção candidata estão na
 [auditoria de experiência](../design/2026-10-12-study-experience-review.md),
 com capturas nativas; a [prancheta navegável](../design/2026-10-12-study-experience.html)
 permite avaliar hierarquia, seleção/feedback e estados da jornada.
-Entrega de design para revisão de Anderson. M1 ainda requer sua avaliação;
-não implementa o desenho nem fecha os gates editoriais/educacionais de M2/M3.
+**Direção visual de M1 aprovada por Anderson em 2026-10-12**, com solicitação
+de preparar a implementação. [Spec](../superpowers/specs/2026-10-12-study-experience-design.md)
+e [plano executável](../superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados. Ainda não implementa o desenho nem fecha os gates
+editoriais/educacionais de M2/M3 ou a matriz nativa do novo layout.
 
 Usadas para esta entrega: `find-skills`, Loop e `writing-plans`; revisão independente orientada por `requesting-code-review`. A busca encontrou [roadmap-update, da Anthropic](https://github.com/anthropics/knowledge-work-plugins/blob/main/product-management/skills/roadmap-update/SKILL.md), candidato de fonte oficial com cerca de 3 mil instalações na consulta de 2026-10-12; não instalado. Popularidade serve como triagem, não prova qualidade ou compatibilidade. As skills já disponíveis bastam para este planejamento.
 

@@ -9,7 +9,10 @@ sistema visual são os tokens em `radiant-app/src/ui/`.
 [Prancheta navegável](2026-10-12-study-experience.html) e
 [auditoria/direção](2026-10-12-study-experience-review.md), com capturas nativas
 do app na baseline `2bb144e`. Primeiro marco do plano de evolução: Estude,
-atividade e conclusão. Proposta para avaliação, com números demonstrativos;
+atividade e conclusão. Direção visual aprovada por Anderson em 2026-10-12,
+com [spec](../superpowers/specs/2026-10-12-study-experience-design.md) e
+[plano executável](../superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados; o HTML conserva a prancheta avaliada, com números demonstrativos;
 não é implementação nem aprovação da L1 híbrida. Preserva a identidade galaxy
 e reaproveita Pixel/Sora; não altera as referências aprovadas abaixo.
 

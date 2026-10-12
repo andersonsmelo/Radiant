@@ -307,6 +307,18 @@ fluxo, arquitetura, fila e roadmap vinculados ao commit da implementação;
 `loop validate` passou 14/14 em um único ciclo. O E2E citado pertence à
 implementação e não foi repetido por esta atualização documental.
 
+## Evolução visual — direção aprovada (2026-10-12)
+
+Anderson aprovou a direção de Estude, atividade e conclusão pela resposta
+“Aprovar esta direção e preparar a implementação”. Referência avaliada:
+[prancheta](design/2026-10-12-study-experience.html), commit `bb450a5`;
+[auditoria/capturas](design/2026-10-12-study-experience-review.md).
+[Spec](superpowers/specs/2026-10-12-study-experience-design.md) e
+[plano executável](superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados. **Implementação visual ainda não iniciada.** Aprovação não inclui
+conteúdo L1, voz/Rive, analytics, mudança da assinatura ou release. Gates
+editoriais e piloto permanecem como descritos na FILA.
+
 ## Gate de qualidade
 
 ```bash

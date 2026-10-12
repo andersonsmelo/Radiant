@@ -1676,7 +1676,8 @@ instala dependências ou autoriza release. STATUS continua sendo o estado vivo.
 
 **Primeiro marco visual, 2026-10-12:** [auditoria e direção candidata](../design/2026-10-12-study-experience-review.md)
 com capturas de Estude/atividade/conclusão e [prancheta navegável](../design/2026-10-12-study-experience.html).
-Preparado para avaliação do dono; não marca M1 aprovado, não altera o app e
+**Direção visual aprovada pelo dono em 2026-10-12**; [spec e pacote executável](../superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados. A implementação e a matriz nativa ainda não foram executadas;
 mantém pendentes a confirmação editorial da L1 e o piloto com alunos.
 
 ## 7. Recursos necessários

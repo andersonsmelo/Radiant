@@ -2,7 +2,7 @@
 
 **2026-10-12 · baseline `2bb144e` · marco M1 do [plano de evolução](../plans/2026-10-12-radiant-evolution-plan.md).**
 
-Entrega: inspeção do app atual, capturas nativas e [protótipo navegável](2026-10-12-study-experience.html). Direção proposta para avaliação de Anderson; não altera o app, não aprova conteúdo, não ativa V3 e não substitui a spec do piloto híbrido. O foco inicial em layout, Pixel e uma unidade foi escolhido por Anderson.
+Entrega: inspeção do app atual, capturas nativas e [protótipo navegável](2026-10-12-study-experience.html). **Direção visual aprovada por Anderson em 2026-10-12**, pela resposta “Aprovar esta direção e preparar a implementação”. O HTML no commit `bb450a5` é a referência avaliada. [Spec de implementação](../superpowers/specs/2026-10-12-study-experience-design.md) e [plano executável](../superpowers/plans/2026-10-12-study-experience-plan.md) traduzem essa direção para o runtime; não altera o app, não aprova conteúdo, não ativa V3 e não substitui a spec do piloto híbrido. O foco inicial em layout, Pixel e uma unidade foi escolhido por Anderson.
 
 ## Evidência e método
 
@@ -60,7 +60,7 @@ Não há redução/alteração da regra de vidas. No app futuro, a diferença en
 
 ## Aceite do próximo pacote de implementação
 
-Antes de editar o app, fechar com Anderson a estrutura e a redução da faixa de celebração, a presença do Pixel e o tratamento do mapa. Registrar a decisão em spec/ADR apropriada; não promover este HTML a contrato automaticamente.
+Anderson aprovou a direção visual. Antes de editar o app, seguir a spec preparada, que preserva a trilha/serviços nativos e separa as fixtures da prancheta das regras reais. Nenhuma aprovação de conteúdo foi inferida dessa decisão.
 
 1. Reconciliar os três fluxos com o código vivo; definir estados de carregamento, erro e dados indisponíveis, além dos já mostrados. Reservar tratamento visual para dados longos e progresso zero.
 2. Mapear layout/ações a `JourneyHomeScreen`/componentes da jornada, `LessonFlowScreen`/renderers e `LessonSummary`. Services permanecem donos de recomendação, cursor, XP, avaliação e vidas.
@@ -77,4 +77,4 @@ Pares sólidos de texto conferidos: branco/CTA `#2155FF` = 5,51:1; secundário `
 
 A revisão independente encontrou e confirmou a correção da fixture de continuidade: após a primeira lição, uma revisão futura não bloqueia a próxima lição elegível. Nenhum achado remanescente nos trechos corrigidos. Resultado do gate Loop e das checagens finais é reportado no fechamento da tarefa. Nenhum resultado pedagógico ou comercial foi medido.
 
-Pendentes: avaliação de Anderson da direção; spec de implementação aprovada; conteúdo L1; participantes; testes nativos do novo desenho; eventual voz. A primeira decisão visual pode ser tomada nesta prancheta sem esperar Rive, analytics ou mudança de assinatura.
+Pendentes: execução do pacote preparado; conteúdo L1; participantes; testes nativos do novo desenho; eventual voz. A aprovação visual não depende de Rive, analytics ou mudança de assinatura e não aprova essas frentes.
