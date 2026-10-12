@@ -2,6 +2,9 @@
 
 Data: 2026-10-12. Decisor: Anderson Melo. Itens 36, 39 e 27 da FILA.
 
+Implementação local: commit `a366295`, branch
+`codex/radiant-study-improvements`; run de implementação fechado.
+
 As três decisões foram aprovadas pelo dono em 2026-10-12 e a implementação
 conjunta foi autorizada nesta conversa. Valem para uma próxima entrega: o
 binário publicado continua sendo `1.4.0 (12)`, em `221e2ec`.

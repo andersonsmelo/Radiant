@@ -6,7 +6,7 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](archive/EXECUTION_STATUS_2026-08-13.md) e não faz parte do caminho
+[`status canônico`](STATUS.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
@@ -17,6 +17,12 @@ Componentes principais:
   catálogo, jornada, player e checkpoint;
 - `JourneyDefinitionService`: projeta trilhas do catálogo para a jornada;
 - `JourneyProgressService`: mantém seleção e progresso por trilha;
+- `NextNodeResolver`: prioriza retomada, revisão devida, avaliação, conquista
+  coletável e lição, sem liberar pré-requisitos;
+- `AssessmentAttemptRepository`: histórico local das avaliações V2 e conclusão
+  das atividades de reforço posteriores à reprovação;
+- `SpacedRepetitionService`: agenda SM-2 completa, com filtro separado da fila
+  devida; a data futura pode informar o cartão sem antecipar uma revisão;
 - `LessonOutcomeService`: registra resultado, XP e evidência de conclusão;
 - `LegacyLessonAdapter`: converte bloco legado em atividade v2, puro e 1:1;
 - `ActivityRendererRegistry` + `useLearningActivity`: player desacoplado dos
@@ -43,6 +49,38 @@ antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
 `nextRecommendedNode` pela mesma política de roteamento da jornada, somente
 depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
 de lição fixo, e falha ou nó não navegável degrada para Home.
+
+## Contratos locais dos itens 36, 39 e 27 — commit `a366295`
+
+Reconciliados com o código em 2026-10-12. A disponibilidade nas lojas é
+registrada somente no STATUS; esta seção descreve implementação local.
+
+- **Reforço persistente:** `AssessmentAttemptRepository` serializa operações
+  na chave `@radiant:assessment_attempts_v1`. A avaliação consulta a tentativa
+  anterior, exige nova conclusão integral do conjunto de atividades das
+  competências frágeis e registra os vínculos de ciclo. O player entrega a
+  conclusão por `LessonOutcomeService.recordActivityCompletion`, inclusive
+  para lições que já estavam concluídas na jornada. Concluir antes da falha
+  ou apenas abrir o conteúdo não satisfaz o reforço. Reentrada reseta respostas
+  somente na transição bloqueado→liberado. Leitura/gravação inválida não
+  presume conclusão. O histórico ainda está fora do backup iCloud.
+- **Currículo e kernel:** o reforço V2 reutiliza atividades já aprovadas e
+  funciona independentemente do modo do kernel. Os metadados de modalidades
+  novas do plano do kernel não são prova de que esses materiais foram
+  entregues. O contrato preserva dois ciclos e o estado terminal de apoio.
+- **Conquista:** `JourneyRecommendationService` inclui `reward` entre os
+  candidatos; `NextNodeResolver` o escolhe depois de retomada, revisão devida
+  e checkpoint, antes da próxima lição. Pré-requisitos e conclusão permanecem
+  soberanos. A escrita/coleta continua no serviço da jornada, sem concessão
+  automática pela recomendação.
+- **Revisão futura:** `getReviewSchedule` expõe instantes futuros, enquanto
+  `getDueReviewSchedule` continua filtrando `dueAtMs <= agora`. O snapshot
+  transporta `reviewAvailableAtMs` apenas quando os pré-requisitos foram
+  cumpridos; `JourneyNodeCard` apresenta data/hora local e rótulo acessível.
+  Intervalos, fila devida e progresso não são alterados pela apresentação.
+
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
+[evidência](evidence/2026-10-12-itens-36-39-27.md) concentram decisões e provas.
 
 ## Kernel de checkpoints — `active` interno medido, produção em `off`
 
@@ -186,8 +224,9 @@ conveniência e decai):
 - checkpoint e reforço adaptativo (Task 12 educacional): **corte vertical da
   primeira unidade conectado em 2026-08-13**. O player consome as 12 atividades
   v2 nativas e registra competência/contentVersion reais; o checkpoint apresenta
-  10 itens, aplica 80%, só conclui a jornada em aprovação e encaminha falha para
-  reforço da competência frágil. O kernel continua `off` em produção; quando
+  cinco avaliações de dois itens (desde a decisão de 2026-08-21), aplica 80%,
+  só conclui a jornada em aprovação e encaminha falha para reforço da
+  competência frágil. O kernel continua `off` em produção; quando
   `active` interno, o hook constrói o intent com o `checkpointId` emitido pelo
   runtime, evitando mismatch de autoridade.
 

@@ -146,9 +146,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
   - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-- **Implementação local dos itens 36, 39 e 27 em 2026-10-12:** reforço
+- **Implementação local dos itens 36, 39 e 27 em `a366295`, 2026-10-12:** reforço
   persistente, conquista recomendada e data da revisão. Testes focados verdes;
-  validação final aprovada (14/14), com E2E da conquista passed. Ainda fora do binário publicado.
+  validação final aprovada (14/14), com E2E da conquista passed. Run fechado.
+  Ainda fora do binário publicado; integração e distribuição seguem pendentes.
   [Evidência](evidence/2026-10-12-itens-36-39-27.md).
 - **Decisões de produto e implementações aprovadas, sem prazo:**
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.

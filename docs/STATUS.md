@@ -290,13 +290,22 @@ leitor.
 
 ## Melhorias locais — itens 36, 39 e 27 (2026-10-12)
 
-Implementados no checkout: reforço persistente nas avaliações V2, recomendação
-da conquista desbloqueada na Estude e data/hora da revisão agendada.
-Validação final aprovada: 14/14 validadores e E2E da conquista passed. A revisão independente
-não deixou achados bloqueantes. **Ainda fora da versão publicada**, que
-continua em `221e2ec`, sem nova build de distribuição ou OTA.
-[Evidência](evidence/2026-10-12-itens-36-39-27.md) e
-[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
+Implementados e commitados em **`a366295175a2ab77e4e2d8cc81cf725d0a37f29c`**,
+no branch local `codex/radiant-study-improvements`: reforço persistente nas
+avaliações V2, conquista recomendada na Estude e data/hora da revisão.
+Validação da implementação: 14/14 validadores; E2E `reward-unlock` passed em
+14m25s. Run `run-1791835753802-82105001` fechado, memória validada gravada e
+sessões de leitura fechadas. O histórico de reforço é local, sem inclusão no
+backup iCloud. **Ainda fora da versão publicada**, que continua em `221e2ec`;
+nenhuma build de distribuição ou OTA foi enviada para estas melhorias.
+[Evidência](evidence/2026-10-12-itens-36-39-27.md),
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md),
+[fluxo](CLIENT_FLOW.md) e [arquitetura](ARCHITECTURE_STATE.md).
+
+Reconciliação documental em 2026-10-12, run `run-1791837586006-e2b3a012`:
+fluxo, arquitetura, fila e roadmap vinculados ao commit da implementação;
+`loop validate` passou 14/14 em um único ciclo. O E2E citado pertence à
+implementação e não foi repetido por esta atualização documental.
 
 ## Gate de qualidade
 
@@ -367,6 +376,12 @@ comprovam ausência de rede, novo VoiceOver ou novo gate estatístico H3.
   propósito, porque aponta para o acervo local.
 
 ## Repositório
+
+**Remedido em 2026-10-12:** `git ls-remote origin refs/heads/main` confirma
+`221e2ecc3253266d5498090f4d7a4f51f875c1fe`; `gh pr list --state open` não lista
+PR aberta. A implementação `a366295` está somente no branch local
+`codex/radiant-study-improvements`, depois da base `376d8de`. Esta atualização
+é documental, sem push, merge ou publicação.
 
 Medido em 2026-10-10, às 09:55:
 - **`origin/main` está em `221e2ec`,** o merge da #38, com o CI verde:

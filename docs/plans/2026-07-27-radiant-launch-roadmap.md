@@ -1646,9 +1646,11 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
 
 ### Melhorias pós-publicação — itens 36, 39 e 27
 
-Implementação local em 2026-10-12: reforço obrigatório persistente V2,
+Implementação local concluída em `a366295`, 2026-10-12: reforço persistente V2,
 conquista na recomendação da Estude e data de disponibilidade da revisão.
-Testes focados verdes; validação final aprovada (14/14), com E2E da conquista passed. Ainda sem publicação.
+Validação aprovada (14/14), E2E da conquista passed e run fechado.
+Ainda sem integração à `main` ou publicação. Fluxo e arquitetura foram
+reconciliados em 2026-10-12.
 [ADR](../adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
 [evidência](../evidence/2026-10-12-itens-36-39-27.md).
 
@@ -1717,7 +1719,9 @@ Regras de loja mudam com frequência; revalidar §4 nas datas de M0 e M4.
    `codex/wave1-hardening-api-smoke` (ou `main` após merge), TDD onde couber,
    `npm run quality` verde, evidência em `radiant-app/docs/evidence/` ou
    `docs/evidence/`.
-3. Atualizar o status canônico (`docs/EXECUTION_STATUS_*.md`) a cada marco
-   fechado; este roadmap não substitui o status.
+3. Atualizar `docs/STATUS.md` a cada marco, com a data da medição, e mover
+   afirmações superadas para `docs/archive/STATUS_historico.md`. Não criar
+   novos `EXECUTION_STATUS_*`; este roadmap guarda o plano e não substitui o
+   estado vivo.
 4. Para as Tasks 12, 15 e 16 detalhadas, usar os blocos correspondentes do
    [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md).

@@ -2588,3 +2588,13 @@ anterior, e a suíte completa foi reproduzida nesta validação.
 CI remoto não foi remedido; os E2E reais são uma medição separada abaixo
 ([evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
 O CI roda o mesmo gate completo em `.github/workflows/radiant-app-quality.yml`.
+
+## 2026-10-12 — estado local antes da vinculação ao commit a366295
+
+Implementados no checkout: reforço persistente nas avaliações V2, recomendação
+da conquista desbloqueada na Estude e data/hora da revisão agendada.
+Validação final aprovada: 14/14 validadores e E2E da conquista passed. A revisão independente
+não deixou achados bloqueantes. **Ainda fora da versão publicada**, que
+continua em `221e2ec`, sem nova build de distribuição ou OTA.
+[Evidência](evidence/2026-10-12-itens-36-39-27.md) e
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).

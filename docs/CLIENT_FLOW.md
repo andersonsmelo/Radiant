@@ -1,11 +1,12 @@
 # Fluxo do cliente — o que o app faz com quem o usa
 
-> **Atualizado em 2026-09-14:** o fluxo da **1.4** está desenhado em
-> [`superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)
-> e decidido na [ADR 2026-09-14](adr/ADR-2026-09-14-1-4-freemium-por-vidas-storekit-e-icloud.md).
-> Este documento descreve o app **como está publicado (1.3.1)** e continua
-> valendo para ele; onde os dois discordam (vidas, próximo nó, assinatura,
-> backup), a spec descreve o que está sendo construído.
+> **Atualizado em 2026-10-12:** descreve o código local do commit
+> `a366295`, incluindo os itens 36, 39 e 27 já validados. Essas três melhorias
+> ainda não foram publicadas. O estado das lojas vive exclusivamente no
+> [STATUS.md](STATUS.md); as decisões da entrega estão na
+> [ADR de 2026-10-12](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
+> A [spec da 1.4](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)
+> preserva o desenho aprovado de vidas, StoreKit e iCloud.
 
 Escrito em 2026-08-06 a partir do **código**, não do roadmap. Cada afirmação
 abaixo aponta para o arquivo que a sustenta, porque um diagrama sem procedência
@@ -19,7 +20,9 @@ envelhece sem avisar.
 
 Em 2026-08-08, a pedido do dono, o caminho da pessoa ganhou uma projeção
 renderizável no módulo opcional `10 Fluxo do usuário.md` do cérebro do Radiant.
-Ela serve como mapa de navegação e raciocínio no Obsidian; **não substitui este
+A projeção de 2026-08-08 e o PDF imprimível não foram regenerados nesta
+atualização e devem ser tratados como históricos. Ela serve como mapa de
+navegação e raciocínio no Obsidian; **não substitui este
 arquivo como fonte operacional**. O módulo declara essa precedência, aponta para
 o PDF imprimível `docs/CLIENT_FLOW_PRINT.pdf` e só pode ser reprojetado pela CLI
 pública do Loop — nunca por edição manual do vault.
@@ -32,28 +35,27 @@ Misturar os dois é o que torna esse tipo de desenho ilegível.
 
 ```mermaid
 flowchart TD
-    A[Instalação] --> B[Apresentação do Pixel<br/>3 telas, puláveis]
-    B -->|Começar| E[Próximo passo recomendado]
-    B -->|Pular apresentação| D{{Home — Foco de hoje}}
-
-    D -->|CTA único<br/>rótulo muda com o estado| E
-
-    D -.->|navegação livre| G[Galáxia: mapa]
-    G --> G2[Interior da galáxia<br/>mundos: ativo · disponível · bloqueado]
-    G2 --> G3[Interior do planeta] --> E
-    D -.-> P[Progresso<br/>XP · sequência · precisão · revisões · tópicos]
-    D -.-> M[Missões]
-    D -.-> H[Ajuda e informações<br/>privacidade · suporte]
-
+    A[Instalação] --> B[Apresentação do Pixel]
+    B -->|Começar| E[Próximo passo elegível]
+    B -->|Pular apresentação| D[Estude: trilha e próximo passo]
+    D -->|CTA conforme o estado| E
+    D <-->|Abas| P[Perfil]
+    P --> M[Missões e progresso]
+    P --> S[Assinatura e vidas ilimitadas]
+    P --> C[Backup no iCloud]
+    P --> F[Sons e vibração]
+    P --> H[Privacidade e suporte]
     E --> L[Lição]
-    E --> CK[Checkpoint]
-    E --> RV[Revisão]
+    E --> CK[Avaliação V2]
+    E --> RV[Revisão devida]
     E --> RW[Conquista da unidade]
-
+    CK -->|Reprovação nos primeiros ciclos| RF[Reforço das competências frágeis]
+    RF -->|Todas as atividades concluídas| CK
+    CK -->|Reprovação após dois ciclos| AP[Apoio necessário]
     L --> D
-    CK --> D
+    CK -->|Aprovada| D
     RV --> D
-    RW --> D
+    RW -->|Coleta única| D
 ```
 
 Na primeira instalação, **Começar** persiste o encerramento da apresentação,
@@ -62,16 +64,28 @@ lição. **Pular apresentação** persiste a mesma saída e abre a Home. Não ex
 wizard de especialidade/meta nesse caminho, e rever a apresentação a partir do
 app não dispara navegação automática no final.
 
-O **CTA da home é um só**, e o rótulo é que carrega o estado:
+O **CTA da Estude é um só**, e o rótulo é que carrega o estado:
 `Aguardando nova etapa` quando não há próximo nó, `Retomar etapa` quando o nó
-está retomável, `Fazer revisão` quando venceu revisão, e o rótulo da conquista
-quando o próximo nó é o reward
+está retomável, `Fazer revisão` quando venceu revisão, `Receber conquista` quando o próximo nó é o reward
 ([`JourneyHomeScreen.tsx`](../radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx)).
 Isso importa para quem testa: **o mesmo botão anuncia coisas diferentes**, e o
 roteiro de acessibilidade depende de saber qual estado está na tela.
 
-Tudo isso funciona **sem conta e sem rede**. O relaunch com modo avião
-preserva XP, sequência e catálogo — medido em iPhone físico em 2026-08-05.
+O código local prioriza lição pausada, revisão devida, avaliação, conquista
+coletável e próxima lição, nessa ordem
+([`NextNodeResolver.ts`](../radiant-app/src/features/journey/services/NextNodeResolver.ts)).
+A conquista só entra depois dos pré-requisitos; coletá-la a retira da
+recomendação. O E2E `reward-unlock` confirmou o CTA e a gravação em
+2026-10-12 ([evidência](evidence/2026-10-12-itens-36-39-27.md)).
+
+As abas atuais são **Estude e Perfil**. Missões, progresso, configuração de
+sons, backup, assinatura e ajuda são acessados pelo Perfil. As rotas legadas
+de mapa não são abas do fluxo principal.
+
+O estudo, catálogo e progresso local funcionam **sem conta e sem API**.
+Compra e backup dependem dos serviços da Apple. A evidência física de
+2026-08-05 comprovou relaunch em modo avião com XP, sequência e catálogo
+preservados naquela versão; não é um reteste físico do commit local atual.
 
 ## 2. O que decide se o próximo passo abre
 
@@ -84,8 +98,8 @@ stateDiagram-v2
     [*] --> Disponível
 
     Disponível --> Lição: abrir
-    Lição --> Quiz: contexto → ideia-chave → questão
-    Quiz --> Concluída: "Concluir e voltar"
+    Lição --> Questao: contexto → ideia-chave → questão
+    Questao --> Concluída: "Concluir e voltar"
 
     Concluída --> AgendaSR: recordQuizResult
     note right of AgendaSR
@@ -96,8 +110,12 @@ stateDiagram-v2
         o de erro total.
     end note
 
-    AgendaSR --> Checkpoint: libera o próximo nó
-    Checkpoint --> Disponível: "Concluir checkpoint"
+    AgendaSR --> Disponível: segue para a próxima lição legada
+    AgendaSR --> AvaliacaoV2: quando o estágio V2 exige avaliação
+    AvaliacaoV2 --> Disponível: aprovação em 80% sem erro crítico
+    AvaliacaoV2 --> ReforcoV2: reprovação nos primeiros ciclos
+    AvaliacaoV2 --> Apoio: reprovação após dois ciclos
+    ReforcoV2 --> AvaliacaoV2: concluir todo o reforço após reprovar
 
     AgendaSR --> CardVencido: passou o intervalo
     CardVencido --> Revisão: vira nó recomendado
@@ -116,33 +134,58 @@ Três regras que o desenho existe para tornar visíveis:
    vence.** `getDueLessons` filtra `nextReviewAt <= agora`
    ([`SpacedRepetitionService.ts`](../radiant-app/src/features/spaced-repetition/services/SpacedRepetitionService.ts)),
    e `recordQuizResult` cria o card **e** aplica o SM-2 na mesma chamada, com
-   todo ramo terminando em intervalo ≥ 1 dia. Consequência prática, que já foi
-   confundida com defeito: **`REVISÕES 0` no mesmo dia da lição é o único
-   resultado possível**, e não autoriza patch.
+   todo ramo terminando em intervalo ≥ 1 dia. Uma conclusão nova não cria
+   revisão imediatamente devida; cartões anteriores podem estar vencidos.
+   Ausência de revisão imediata após uma lição não é, por si só, defeito.
 2. **A conquista tem duas portas.** O nó de reward abre com
    `requiresNodeIds: [node:<última lição>]`; antes disso a tela existe, mostra
    `Bloqueada até a unidade fechar` e **não oferece botão de coleta**. É por
    isso que a cobertura de E2E são dois flows sobre o mesmo nó —
    `reward-locked.yaml` prova a recusa, `reward-unlock.yaml` prova a regra.
-3. **Errar não trava a jornada.** Um quiz com 0% de acerto ainda concede XP e
-   ainda agenda revisão: o ramo de falha do SM-2 reseta o intervalo para 1 dia
-   em vez de zerar o progresso.
+3. **A avaliação V2 exige aprovação; a lição legada tem outra regra.** A
+   avaliação requer 80% e nenhum erro crítico; nos estágios atuais de dois
+   itens, isso exige os dois acertos. Na lição legada, errar ainda agenda
+   revisão, mas vidas vazias pausam a lição pela folha de vidas. Revisões
+   permanecem acessíveis sem vidas.
 
-## 3. Evolução aprovada — checkpoints das telas principais
+### As três melhorias locais do commit `a366295`
 
-O desenho aprovado em 2026-08-09 acrescentará checkpoints mínimos nas telas
-principais: apresentação, Home, mapa e interiores da Galáxia, Missões,
-Progresso, Lição, quiz legado, checkpoint de unidade, Revisão e recompensa.
-Isso **não está implementado** e não muda os dois diagramas de comportamento
-vigente acima.
+- **Reforço:** reprovar grava a tentativa e suas atividades pendentes no
+  `AssessmentAttemptRepository`. Sair, voltar ou concluir só parte do reforço
+  não libera a avaliação. `LessonOutcomeService.recordActivityCompletion`
+  registra a conclusão real de cada atividade após a falha; ao completar o
+  conjunto, a nova tentativa começa sem respostas antigas. Voltar da
+  assinatura no meio dela preserva o progresso. O histórico mantém os dois
+  ciclos e chega ao estado de apoio se as três tentativas forem reprovadas.
+- **Conquista:** a Estude oferece `Receber conquista` para um nó liberado e
+  não coletado. A recomendação não concede a recompensa; a coleta continua
+  autorizada e idempotente pelo serviço da jornada.
+- **Revisão futura:** o cartão recebe a agenda completa do SM-2 e mostra
+  `Disponível em DD/MM/AAAA às HH:MM`, também no rótulo acessível, no fuso do
+  aparelho. A informação não antecipa a fila devida nem libera pré-requisitos.
+
+O reforço usa as atividades V2 já aprovadas, sem declarar novas modalidades
+curriculares entregues. Seu histórico persiste no aparelho, mas ainda não
+integra o backup no iCloud. Detalhes e provas na
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e na
+[evidência](evidence/2026-10-12-itens-36-39-27.md).
+
+## 3. Kernel de retomada — implementado, produção em `off`
+
+O kernel desenhado em 2026-08-09 já tem stores, adaptadores, diário de commit
+idempotente e retomada implementados. Produção continua em `off`; o modo
+`active` foi exercitado internamente, inclusive nos E2E do item 38 em
+2026-10-12 ([estado medido](STATUS.md#item-38--manutenção-local-dos-e2e-2026-10-12)).
+Esse kernel guarda retomada de tela; a exigência de reforço V2 acima usa um
+repositório independente e funciona mesmo com o kernel desligado.
 
 Checkpoint de tela não significa registrar cada toque. Ele guarda somente o
 necessário para reconciliar uma retomada com a jornada atual: superfície, ids
-estáveis, versão do conteúdo, cursor, progresso agregado e próxima ação. A
-primeira ativação interna poderá retomar apresentação, Lição, Revisão e
-checkpoint; as demais superfícies voltarão pela recomendação canônica da Home.
+estáveis, versão do conteúdo, cursor, progresso agregado e próxima ação. Em
+`active` interno, apresentação, Lição, Revisão e avaliação têm retomada; as
+demais superfícies usam a recomendação canônica da Estude.
 
-O rollout será `off → shadow → active interno`. Em `shadow`, o cálculo não pode
+O rollout permanece `off → shadow → active interno`. Em `shadow`, o cálculo não pode
 alterar navegação, XP, domínio, desbloqueio ou sync. Duas falhas consecutivas de
 restauração invalidam apenas o checkpoint e voltam à Home; progresso pedagógico
 confirmado nunca é apagado. Contrato completo:
@@ -150,19 +193,19 @@ confirmado nunca é apagado. Contrato completo:
 
 ## O que estes diagramas NÃO dizem
 
-- **Não descrevem a paywall.** O `PaywallOfferCard` existe no `CheckpointScreen`,
-  mas `ENABLE_PAYWALL` não é declarada em nenhum perfil do `eas.json` e o
-  default é `false` — na build que embarca, esse caminho não acontece.
-- **Não descrevem sincronização remota.** `ENABLE_REMOTE_SYNC` é `false` nos
-  perfis `preview` e `production`, e o sync já exigia `isApiConfigured()`.
-- **Não descrevem o kernel como ativo.** O design dos checkpoints de tela está
-  aprovado, mas a fundação, stores, adaptadores e retomada ainda não existem.
+- **Não detalham todo o ciclo StoreKit/iCloud.** A assinatura opcional oferece
+  vidas ilimitadas; contratos e roteiro estão na spec da 1.4 e no STATUS.
+- **Não descrevem sincronização remota ativa.** O perfil de produção desliga
+  `ENABLE_REMOTE_SYNC` e não define URL da API. A flag sozinha não desliga o
+  `AuthService`; esse limite está registrado no STATUS.
+- **Não afirmam kernel ativo em produção.** O mecanismo existe, mas `active`
+  é uma validação interna distinta da configuração distribuída.
 - **Não descrevem a recomendação por competência como ativa.** A Task 11 já
   grava cartões por competência, mas `CompetencyReviewService.getDue` não tem
   chamador de produção e `computeSnapshot` não recebe vencimentos. A guarda já
   falha fechada para competência sintética legada; ativação ainda exige conteúdo
   curricular v2. Até lá, quem decide revisões visíveis continua sendo o
   `SpacedRepetitionService` legado.
-- **Não são especificação.** Descrevem o comportamento observado no código em
-  2026-08-09. Onde divergirem do código, **o código está certo e este arquivo
+- **Não são especificação.** Descrevem o código reconciliado em
+  2026-10-12, com provas de execução explicitamente datadas. Onde divergirem do código, **o código está certo e este arquivo
   está velho** — corrija-o no mesmo commit que mudar o fluxo.
