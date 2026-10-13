@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
 import { JourneyProgressService } from '../services/JourneyProgressService';
 import type { JourneyNode, JourneySnapshot } from '../../../types/journey';
-import { canOpenJourneyNode, getJourneyNodeHref } from '../services/JourneyNodeRouting';
+import { canOpenJourneyNode, getJourneyNodeHref, getNextNodeHref } from '../services/JourneyNodeRouting';
 import { AppButton } from '../../../components/ui/AppButton';
 import { StarfieldBackground } from '../../../ui/components/StarfieldBackground';
 import { HUD } from '../../../ui/components/HUD';
@@ -23,7 +23,7 @@ import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
-import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
+import { JourneyRecommendationCard } from '../components/JourneyRecommendationCard';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -72,35 +72,6 @@ export default function JourneyHomeScreen() {
 
   const homeNextNode = snapshot?.nextRecommendedNode ?? null;
 
-  const continueLabel = useMemo(() => {
-    const nextNode = homeNextNode;
-
-    if (!nextNode) {
-      return 'Aguardando nova etapa';
-    }
-
-    if (nextNode.status === 'resumable') {
-      return 'Retomar etapa';
-    }
-
-    // Só chega aqui quando a revisão é a única coisa aberta na unidade: nesse
-    // caso o botão diz o que vai abrir, porque prometer "continuar jornada" e
-    // entregar uma revisão é pior que nomeá-la.
-    if (nextNode.type === 'review' || nextNode.status === 'due-review') {
-      return 'Fazer revisão';
-    }
-
-    if (nextNode.type === 'checkpoint') {
-      return 'Abrir checkpoint';
-    }
-
-    if (nextNode.type === 'reward') {
-      return 'Receber conquista';
-    }
-
-    return 'Continuar jornada';
-  }, [homeNextNode]);
-
   /**
    * O estágio que o cabeçalho nomeia e conta.
    *
@@ -136,22 +107,18 @@ export default function JourneyHomeScreen() {
     return { title: segment.trackTitle, ...computeSegmentPrimaryProgress(segment.units) };
   }, [trail, snapshot?.nextRecommendedNode?.id, snapshot?.track.title]);
 
-  // Com texto grande, o cabeçalho fixo acima da trilha ocupava a tela inteira:
-  // a trilha ficava com altura zero e o CTA ia para baixo da barra de abas
-  // (achado 2 do gate H4, em AX5). Ali ele passa a rolar junto com a trilha.
-  const largeText = useLargeTextLayout();
-  const stageHeader = (
-    <JourneyStageHeader
-      title={currentStage.title}
-      completed={currentStage.completed}
-      total={currentStage.total}
-    />
-  );
-
-  const canOpenNode = useCallback((node: JourneyNode) => canOpenJourneyNode(node), []);
+  const canOpenNode = useCallback((node: JourneyNode) => {
+    // A data futura permanece informativa, mesmo se um snapshot estiver stale.
+    const futureReview = node.type === 'review' && Number.isFinite(node.reviewAvailableAtMs)
+      && node.reviewAvailableAtMs! > Date.now();
+    return !futureReview && canOpenJourneyNode(node);
+  }, []);
 
   const openNode = useCallback(async (node: JourneyNode) => {
-    const href = getJourneyNodeHref(node);
+    const decision = snapshot?.nextDecision;
+    const href = decision?.nodeId === node.id
+      ? getNextNodeHref(node, decision)
+      : getJourneyNodeHref(node);
 
     if (!canOpenNode(node) || !href) {
       Alert.alert('Ainda não disponível', 'Esse nó ainda não está elegível na jornada.');
@@ -160,11 +127,27 @@ export default function JourneyHomeScreen() {
 
     await JourneyProgressService.setCurrentNode(node.id);
     router.push(href);
-  }, [canOpenNode]);
+  }, [canOpenNode, snapshot?.nextDecision]);
 
-  const noNextStepMessage = snapshot && !snapshot.nextRecommendedNode
-    ? 'Você concluiu tudo que está disponível. Revisões e checkpoints continuarão aparecendo aqui.'
-    : null;
+  const futureReviewAtMs = useMemo(() => {
+    const dates = (snapshot?.track.units.flatMap(unit => unit.nodes) ?? [])
+      .filter(node => node.type === 'review' && Number.isFinite(node.reviewAvailableAtMs)
+        && node.reviewAvailableAtMs! > Date.now())
+      .map(node => node.reviewAvailableAtMs!);
+    return dates.length > 0 ? Math.min(...dates) : undefined;
+  }, [snapshot]);
+
+  const trailHeader = (
+    <View style={styles.trailHeader}>
+      <JourneyStageHeader title={currentStage.title} completed={currentStage.completed} total={currentStage.total} />
+      <JourneyRecommendationCard
+        node={homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null}
+        reason={snapshot?.nextDecision?.reason}
+        futureReviewAtMs={futureReviewAtMs}
+        onOpen={() => { if (homeNextNode) void openNode(homeNextNode); }}
+      />
+    </View>
+  );
 
   const dueReviewNode = useMemo(
     () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node => node.status === 'due-review') ?? null,
@@ -173,7 +156,7 @@ export default function JourneyHomeScreen() {
 
   return (
     <View style={styles.root} testID="journey-home-screen">
-      <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
+      <StarfieldBackground variant="focused" backgroundColor={galaxyColors.background} />
       <SafeAreaView style={styles.safe} edges={['top']}>
         <HUD
           totalXp={gamification?.totalXp ?? 0}
@@ -202,10 +185,8 @@ export default function JourneyHomeScreen() {
           </View>
         ) : (
           <View style={styles.content}>
-            {largeText ? null : stageHeader}
-
             <JourneyTrail
-              header={largeText ? stageHeader : undefined}
+              header={trailHeader}
               segments={trail?.segments ?? []}
               recommendedNodeId={snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId}
               recommendationReason={snapshot?.nextDecision?.reason}
@@ -215,27 +196,6 @@ export default function JourneyHomeScreen() {
               }}
               isNodeDisabled={(node) => !canOpenNode(node)}
             />
-
-            {noNextStepMessage ? (
-              <View style={styles.messageCard}>
-                <Text style={styles.messageTitle}>Novo arco em breve</Text>
-                <Text style={styles.messageText}>{noNextStepMessage}</Text>
-              </View>
-            ) : null}
-
-            <AppButton
-              onPress={() => {
-                if (homeNextNode) {
-                  void openNode(homeNextNode);
-                }
-              }}
-              disabled={!homeNextNode || !canOpenNode(homeNextNode)}
-              style={styles.cta}
-              accessibilityLabel={continueLabel}
-              accessibilityHint="Abre o próximo passo elegível da trilha ativa."
-            >
-              {continueLabel}
-            </AppButton>
           </View>
         )}
       </SafeAreaView>
@@ -268,16 +228,7 @@ const styles = StyleSheet.create({
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: space.s3, gap: space.s2 },
   loadingText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
   content: { flex: 1, padding: space.s3, gap: space.s3, paddingBottom: tabBarClearance },
-  messageCard: {
-    backgroundColor: galaxyColors.surface,
-    borderRadius: radius.rLg,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    padding: space.s3,
-    gap: space.s1,
-  },
-  messageTitle: { ...typography.body, color: galaxyColors.textPrimary, fontWeight: '700' },
-  messageText: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  trailHeader: { gap: space.s3 },
   errorCard: {
     backgroundColor: 'rgba(255,59,48,0.10)',
     borderRadius: radius.rMd,
@@ -287,5 +238,4 @@ const styles = StyleSheet.create({
   },
   errorText: { ...typography.bodyRegular, color: '#FF6B6B' },
   retry: { marginTop: space.s1 },
-  cta: { marginTop: space.s1 },
 });

@@ -17,7 +17,7 @@ type JourneyTrailProps = {
   dueReviewCount?: number;
   onNodePress: (node: JourneyNode) => void;
   isNodeDisabled: (node: JourneyNode) => boolean;
-  /** Rola junto com a trilha. A tela usa com texto grande (achado 2 do gate H4). */
+  /** Rola junto com a trilha. Contém contexto e a única recomendação, em todos os tamanhos de texto. */
   header?: React.ReactElement;
 };
 

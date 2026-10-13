@@ -77,12 +77,14 @@ jest.mock('../../../components/ui/AppButton', () => {
   return {
     AppButton: ({
       children,
+      label,
       onPress,
       disabled,
       accessibilityLabel,
       accessibilityHint,
     }: {
-      children: React.ReactNode;
+      children?: React.ReactNode;
+      label?: string;
       onPress: () => void;
       disabled?: boolean;
       accessibilityLabel?: string;
@@ -95,7 +97,7 @@ jest.mock('../../../components/ui/AppButton', () => {
         disabled={disabled}
         onPress={onPress}
       >
-        <Text>{children}</Text>
+        <Text>{label ?? children}</Text>
       </Pressable>
     ),
   };
@@ -502,7 +504,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     expect(await screen.findByTestId('journey-trail')).toBeTruthy();
   });
 
-  it('explica que um novo arco vem aí quando tudo disponível foi concluído', async () => {
+  it('informa ausência de etapas sem prometer um novo arco', async () => {
     const complete = createSnapshot(
       'track-radiology-foundations',
       'Fundamentos de radiologia',
@@ -516,7 +518,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    expect(await screen.findByText('Novo arco em breve')).toBeTruthy();
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
   });
 
   describe('folha de vidas e a loja', () => {
@@ -570,7 +572,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
   // Achado 2 do gate H4, conferido em AX5 (2026-09-24): o título do estágio,
   // fixo acima da trilha, ocupava a tela inteira, a trilha ficava com altura
   // zero e o CTA ia para baixo da barra de abas. Com texto grande o cabeçalho
-  // entra na rolagem da trilha; no tamanho padrão continua fixo acima dela.
+  // entra na rolagem da trilha; o header padrão agora também rola.
   describe('texto grande', () => {
     function headerIsInsideTrail() {
       const header = screen.getByLabelText(/etapas concluídas\.$/u);
@@ -588,11 +590,107 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
       expect(headerIsInsideTrail()).toBe(true);
     });
 
-    it('mantém o cabeçalho fixo acima da trilha no tamanho padrão', async () => {
+    it('põe também o cabeçalho padrão na rolagem da trilha', async () => {
       renderWithProviders(<JourneyHomeScreen />);
       await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-      expect(headerIsInsideTrail()).toBe(false);
+      expect(headerIsInsideTrail()).toBe(true);
     });
+  });
+});
+
+
+describe('JourneyHomeScreen — recomendação acionável', () => {
+  beforeEach(() => { jest.clearAllMocks(); });
+  function base() { return createSnapshot('track-radiology-foundations', 'Lição atual', 'lesson-1', 'block-1'); }
+  it('retoma a lição com o cursor real na rota', async () => {
+    const snapshot = base();
+    snapshot.nextRecommendedNode.status = 'resumable';
+    snapshot.nextDecision = { nodeId: 'lesson-1', reason: 'paused-lesson', resumeStepIndex: 3, dueReviewCount: 0 };
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+    fireEvent.press(await screen.findByRole('button', { name: 'Retomar lição' }));
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1', resumeCursorId: 'step-3' } }));
+    expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('lesson-1');
+  });
+  it.each([
+    ['review', 'resumable', 'Retomar revisão', '/learn'],
+    ['checkpoint', 'resumable', 'Retomar avaliação', '/checkpoint'],
+    ['review', 'due-review', 'Fazer revisão', '/learn'],
+    ['checkpoint', 'available', 'Fazer avaliação', '/checkpoint'],
+    ['reward', 'available', 'Receber conquista', '/reward'],
+  ])('abre %s/%s com ação %s e rota real', async (type, status, action, pathname) => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type, status });
+    snapshot.nextDecision.reason = status === 'resumable' ? 'paused-lesson' : 'next-lesson';
+    snapshot.nextDecision.resumeStepIndex = status === 'resumable' ? 2 : undefined;
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    fireEvent.press(await screen.findByRole('button', { name: action }));
+    const params = pathname === '/learn'
+      ? { nodeId: 'lesson-1', blockId: 'block-1', ...(status === 'resumable' ? { resumeCursorId: 'step-2' } : {}) }
+      : { nodeId: 'lesson-1' };
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname, params }));
+    expect(mockedRouter.push).toHaveBeenCalledTimes(1);
+    expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('lesson-1');
+    expect(screen.getAllByTestId('journey-recommendation-action')).toHaveLength(1);
+  });
+
+  it('conquista já coletada não oferece nem executa uma nova coleta', async () => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type: 'reward', status: 'completed' });
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByTestId('journey-recommendation-action')).toBeNull();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
+    expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
+  });
+
+  it('próxima lição continua acionável junto da data real de revisão futura', async () => {
+    const snapshot = base();
+    const availableAt = Date.now() + 86400000;
+    snapshot.track.units[0].nodes.push({ ...snapshot.nextRecommendedNode, id: 'future-review', type: 'review', status: 'locked', reviewAvailableAtMs: availableAt });
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    const action = await screen.findByRole('button', { name: 'Continuar jornada' });
+    const date = new Date(availableAt);
+    const dateText = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()} às ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    expect(screen.getByText(`Próxima revisão em ${dateText}`)).toBeTruthy();
+    fireEvent.press(action);
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1' } }));
+  });
+
+  it('revisão ainda futura não ganha ação mesmo com status stale de disponível', async () => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type: 'review', reviewAvailableAtMs: Date.now() + 86400000 });
+    snapshot.track.units[0].nodes = [snapshot.nextRecommendedNode];
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByTestId('journey-recommendation-action')).toBeNull();
+    expect(screen.getByText(/^Próxima revisão em /)).toBeTruthy();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
+  });
+
+  it('ausência de data não fabrica prazo de revisão', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(base());
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByRole('button', { name: 'Continuar jornada' });
+    expect(screen.queryByText(/^Próxima revisão em /)).toBeNull();
+  });
+
+  it('sem próxima etapa não promete novo arco nem mostra CTA inerte', async () => {
+    const snapshot = base(); snapshot.nextRecommendedNode = null;
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Aguardando nova etapa' })).toBeNull();
+    expect(screen.queryByText('Novo arco em breve')).toBeNull();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
   });
 });
