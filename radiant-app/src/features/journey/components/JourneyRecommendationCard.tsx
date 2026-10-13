@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
 import { AppButton } from '../../../components/ui/AppButton';
-import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
@@ -16,6 +15,8 @@ type Props = {
   reason?: NextNodeDecision['reason'];
   futureReviewAtMs?: number;
   onOpen: () => void;
+  /** Elemento decorativo opcional fornecido pela tela. */
+  accessory?: React.ReactNode;
 };
 
 function recommendationCopy(node: JourneyNode, reason?: Props['reason']) {
@@ -33,7 +34,7 @@ function recommendationCopy(node: JourneyNode, reason?: Props['reason']) {
 }
 
 /** Sem resolver ou efeitos: apresenta o nó e delega a abertura à tela. */
-export function JourneyRecommendationCard({ node, reason, futureReviewAtMs, onOpen }: Props) {
+export function JourneyRecommendationCard({ node, reason, futureReviewAtMs, onOpen, accessory }: Props) {
   const copy = node ? recommendationCopy(node, reason) : null;
   const date = futureReviewAtMs !== undefined && Number.isFinite(futureReviewAtMs)
     ? new Date(futureReviewAtMs) : null;
@@ -45,9 +46,11 @@ export function JourneyRecommendationCard({ node, reason, futureReviewAtMs, onOp
     <View style={styles.card} testID="journey-recommendation-card">
       <View style={styles.heading}>
         <Text style={styles.state} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{copy?.state ?? 'Sua jornada'}</Text>
-        <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" pointerEvents="none">
-          <PixelIllustration size="sm" state="guide" />
-        </View>
+        {accessory ? (
+          <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" pointerEvents="none">
+            {accessory}
+          </View>
+        ) : null}
       </View>
       <Text style={styles.title} maxFontSizeMultiplier={CARD_TITLE_MAX_FONT_SCALE} accessibilityRole="header">{node?.title ?? 'Nenhuma etapa disponível agora'}</Text>
       {node?.description ? <Text style={styles.description}>{node.description}</Text> : null}

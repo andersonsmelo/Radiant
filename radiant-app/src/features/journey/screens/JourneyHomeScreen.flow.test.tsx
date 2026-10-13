@@ -6,6 +6,7 @@ import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { StyleSheet } from 'react-native';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -143,20 +144,6 @@ jest.mock('../../hearts/HeartsRepository', () => ({
     }),
   },
 }));
-
-jest.mock('../../../ui/characters/PixelIllustration', () => {
-  const React = require('react');
-  const { Text, View } = require('react-native');
-
-  return {
-    PIXEL_SIZE_MAP: { sm: 60, md: 108, lg: 176 },
-    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
-      <View>
-        <Text testID="journey-hero-expression">{expression}</Text>
-      </View>
-    ),
-  };
-});
 
 jest.mock('../components/JourneyTrail', () => {
   const React = require('react');
@@ -603,6 +590,22 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 describe('JourneyHomeScreen — recomendação acionável', () => {
   beforeEach(() => { jest.clearAllMocks(); });
   function base() { return createSnapshot('track-radiology-foundations', 'Lição atual', 'lesson-1', 'block-1'); }
+  it('renderiza o Pixel pequeno real como decoração oculta na recomendação da Home', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(base());
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByRole('button', { name: 'Continuar jornada' });
+
+    expect(screen.queryByLabelText('Mascote Pixel')).toBeNull();
+    const pixel = screen.getByLabelText('Mascote Pixel', { includeHiddenElements: true });
+    expect(StyleSheet.flatten(pixel.props.style).width).toBe(60);
+    expect(pixel.props.source).toBeTruthy();
+    let wrapper = pixel.parent;
+    while (wrapper && wrapper.props.importantForAccessibility !== 'no-hide-descendants') wrapper = wrapper.parent;
+    expect(wrapper).not.toBeNull();
+    expect(wrapper?.props.accessible).toBe(false);
+    expect(wrapper?.props.accessibilityElementsHidden).toBe(true);
+    expect(wrapper?.props.pointerEvents).toBe('none');
+  });
   it('retoma a lição com o cursor real na rota', async () => {
     const snapshot = base();
     snapshot.nextRecommendedNode.status = 'resumable';

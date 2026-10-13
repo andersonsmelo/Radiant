@@ -24,6 +24,7 @@ import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { JourneyRecommendationCard } from '../components/JourneyRecommendationCard';
+import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -152,6 +153,7 @@ export default function JourneyHomeScreen() {
         reason={snapshot?.nextDecision?.reason}
         futureReviewAtMs={futureReviewAtMs}
         onOpen={() => { if (homeNextNode) void openNode(homeNextNode); }}
+        accessory={<PixelIllustration size="sm" state="guide" />}
       />
     </View>
   );
