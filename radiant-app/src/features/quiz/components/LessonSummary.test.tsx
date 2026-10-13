@@ -89,9 +89,11 @@ describe('LessonSummary', () => {
   beforeEach(() => {
     mockAnimateIn.mockClear();
     mockSetValue.mockClear();
+    base.onRate.mockClear();
+    base.onContinue.mockClear();
   });
 
-  it('mostra os dois cards de placar da tentativa', () => {
+  it('mostra os resultados da tentativa', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('9 de 10 corretas')).toBeTruthy();
     expect(screen.getByText('+30 XP nesta tentativa')).toBeTruthy();
@@ -104,14 +106,66 @@ describe('LessonSummary', () => {
     // pisca. Ver Minor do review final.
     render(<LessonSummary {...base} xpAwarded={null} />);
     expect(screen.getByText('Sem XP nesta tentativa')).toBeTruthy();
-    expect(screen.queryByText(/\+0 XP/)).toBeNull();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
   });
 
   it('reconhece a conclusão sem exibir ganho zero de XP', () => {
     render(<LessonSummary {...base} xpAwarded={0} />);
     expect(screen.getByText('Progresso registrado')).toBeTruthy();
-    expect(screen.queryByText(/\+0 XP/)).toBeNull();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
   });
+
+  it('agrupa cada resultado em uma linha acessível factual', () => {
+    render(<LessonSummary {...base} />);
+    expect(screen.getByLabelText('Respostas corretas: 9 de 10 corretas')).toBeTruthy();
+    expect(screen.getByLabelText('XP: +30 XP nesta tentativa')).toBeTruthy();
+    expect(screen.getByLabelText('Progresso da unidade: 7 de 14 etapas')).toBeTruthy();
+  });
+
+  it('mantém a celebração no conteúdo rolável junto dos resultados', () => {
+    render(<LessonSummary {...base} />);
+    const pixel = screen.getByLabelText('Pixel comemorando');
+    let ancestor = pixel.parent;
+    while (ancestor && ancestor.type !== ScrollView) ancestor = ancestor.parent;
+    expect(ancestor).not.toBeNull();
+  });
+
+  it('permite continuar sem avaliar a aula e comunica o retorno para Estude', () => {
+    const onContinue = jest.fn();
+    const onRate = jest.fn();
+    render(<LessonSummary {...base} onContinue={onContinue} onRate={onRate} />);
+    expect(screen.getByText('Avalie a aula')).toBeTruthy();
+    expect(screen.getByText('É opcional')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(onContinue).toHaveBeenCalledTimes(1);
+    expect(onRate).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityHint)
+      .toBe('Volta para Estude');
+  });
+
+  it('preserva uma repetição sem ganho de XP ou nova melhora de estrelas', () => {
+    render(<LessonSummary {...base} xpAwarded={0} starsImproved={false} currentRating={4} />);
+    expect(screen.getByText('Progresso registrado')).toBeTruthy();
+    expect(screen.getByText('7 de 14 etapas')).toBeTruthy();
+    expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
+    expect(mockAnimateIn).not.toHaveBeenCalled();
+    expect(base.onRate).not.toHaveBeenCalled();
+    expect(base.onContinue).not.toHaveBeenCalled();
+  });
+
+  it.each([null, undefined])('omite revisão sem intervalo real (%s)', (nextReviewInDays) => {
+    render(<LessonSummary {...base} nextReviewInDays={nextReviewInDays} habitLine={null} />);
+    expect(screen.queryByText(/Próxima revisão/)).toBeNull();
+    expect(screen.queryByText('Meta do dia fechada.')).toBeNull();
+  });
+
+  it.each<[number, string]>([[1, 'dia'], [7, 'dias'], [0, 'dias']])(
+    'usa o intervalo fornecido de %s %s sem fixar um dia', (days, noun) => {
+      render(<LessonSummary {...base} nextReviewInDays={days} />);
+      expect(screen.getByText(`Próxima revisão em ${days} ${noun}`)).toBeTruthy();
+    },
+  );
 
   it('mostra o progresso da unidade', () => {
     render(<LessonSummary {...base} />);
@@ -129,7 +183,7 @@ describe('LessonSummary', () => {
     // sem nó correspondente) — nenhum dos dois casos pode produzir o
     // literal "0 de 0 lições" na tela. Ver Achado Importante 2 do review.
     render(<LessonSummary {...base} unitCompleted={0} unitTotal={0} />);
-    expect(screen.queryByText(/de 0 lições/)).toBeNull();
+    expect(screen.queryByText(/de 0 etapas/)).toBeNull();
     expect(screen.queryByText('Progresso da unidade')).toBeNull();
   });
 
@@ -157,6 +211,7 @@ describe('LessonSummary', () => {
     // que já foi respondido é incoerente com "Você avaliou esta aula...".
     rerender(<LessonSummary {...base} currentRating={4} />);
     expect(screen.queryByText('Avalie a aula')).toBeNull();
+    expect(screen.queryByText('É opcional')).toBeNull();
   });
 
   it('reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo', () => {
