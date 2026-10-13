@@ -4,7 +4,7 @@
 motor de estudo. **Spec:** [contrato visual](../specs/2026-10-12-study-experience-design.md).
 **Baseline da preparação:** `bb450a5`; execução partiu de `3fc25af`.
 **Medido em 2026-10-13:** tarefas 1–4 implementadas/revisadas; pacote de código
-até `8f5b4f2`. Tarefa 5: matriz iOS registrada; revisão final e gate integral em fechamento.
+até `b65be72`. Tarefa 5: matriz iOS registrada; revisão final aprovada; gate integral em fechamento.
 **Architecture:** React Native/Expo; serviços atuais continuam donos de estado,
 elegibilidade, vidas, XP e persistência. Componentes só apresentam e encaminham
 ações. **Tech stack:** Expo 54, RN 0.81.5, Reanimated existente, Node 20 no app;
@@ -108,7 +108,7 @@ PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:$PATH EXPO_NO_DOTENV=1 npx 
   vêm do simulador/aparelho, separadas da prancheta web.
 - [ ] VoiceOver/TalkBack e gesto de voltar: registrar o que foi realmente
   executado e a plataforma; ausência de aparelho não vira PASS.
-- [ ] Atualizar flows apenas para copy/seletores reais, mantendo asserções
+- [x] Atualizar flows apenas para copy/seletores reais, mantendo asserções
   de progresso e feedback. Executar critical-path/offline e recompensa
   conforme o recorte afetado, na build/fixture correta; flows que limpam
   estado ficam no simulador dedicado. Rating prompt segue pendente no item

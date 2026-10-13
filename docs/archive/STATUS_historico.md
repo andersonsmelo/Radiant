@@ -2641,3 +2641,25 @@ da assinatura. Piloto/editorial, VoiceOver audível/TalkBack, aparelho físico,
 assinante real e desempenho comparativo mantêm gates próprios.
 
 <!-- fase intermediária arquivada -->
+
+## Evolução visual — implementada localmente (2026-10-13)
+
+Direção aprovada por Anderson em 2026-10-12; código até `8f5b4f2`: recomendação
+no header rolável de Estude, fundo focado, confirmação explícita de múltipla
+escolha e conclusão compacta/factual. Serviços atuais continuam donos das regras.
+
+Testes focados e revisões por tarefa aprovados. **Quatro flows nativos iOS
+passaram:** duas lições, offline, conquista bloqueada e coleta após sete lições.
+SE 375pt com texto AX2 passou; erros 5→0 abriram recarga mantendo 1/8; repetição
+correta no iPhone 17 manteve 110 XP e 8/8. Nove capturas reais registradas.
+**Revisão final e validação integral do Loop em fechamento.**
+[Evidência e limites](evidence/2026-10-12-study-experience-implementation.md),
+[spec/plano](superpowers/plans/2026-10-12-study-experience-plan.md).
+
+Sem publicação ou integração à main. Editorial/piloto L1, VoiceOver audível,
+TalkBack/Android, aparelho físico, assinante real e desempenho comparativo
+seguem nos gates próprios. Reduce Motion foi validado em código; tentativa de
+controle nativo indisponível não recebeu PASS. Nenhuma mudança em V3,
+voz/Rive, analytics, assinatura ou backend.
+
+<!-- Arquivo histórico: medição anterior ao ajuste integrado b65be72. -->

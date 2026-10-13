@@ -309,7 +309,7 @@ implementação e não foi repetido por esta atualização documental.
 
 ## Evolução visual — implementada localmente (2026-10-13)
 
-Direção aprovada por Anderson em 2026-10-12; código até `8f5b4f2`: recomendação
+Direção aprovada por Anderson em 2026-10-12; código até `b65be72`: recomendação
 no header rolável de Estude, fundo focado, confirmação explícita de múltipla
 escolha e conclusão compacta/factual. Serviços atuais continuam donos das regras.
 
@@ -317,7 +317,10 @@ Testes focados e revisões por tarefa aprovados. **Quatro flows nativos iOS
 passaram:** duas lições, offline, conquista bloqueada e coleta após sete lições.
 SE 375pt com texto AX2 passou; erros 5→0 abriram recarga mantendo 1/8; repetição
 correta no iPhone 17 manteve 110 XP e 8/8. Nove capturas reais registradas.
-**Revisão final e validação integral do Loop em fechamento.**
+Revisão integrada corrigiu a retomada defasada e o hint compartilhado da
+conclusão; 254 testes focados e retomada nativa suplementar passaram.
+Rerevisão aprovada: cursor e hint corrigidos, sem novos defeitos.
+**Validação integral do Loop em fechamento.**
 [Evidência e limites](evidence/2026-10-12-study-experience-implementation.md),
 [spec/plano](superpowers/plans/2026-10-12-study-experience-plan.md).
 

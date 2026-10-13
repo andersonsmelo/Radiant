@@ -32,7 +32,7 @@ Código local; nenhuma publicação, OTA, push, merge ou build de distribuição
 Testes focados usaram `EXPO_NO_DOTENV=1`, `--runInBand`, no Node 20; ESLint e
 `git diff --check` dos arquivos alterados passaram. Revisores independentes
 aprovaram cada tarefa e as correções de título. Logs completos do trabalho
-estão temporariamente no workspace SDD local; esta evidência versionada conserva
+serão preservados em `radiant-app/.maestro/artifacts/study-implementation/sdd-audit/`; esta evidência versionada conserva
 comandos, sintomas, resultados e limites. Validação integral ainda pendente.
 
 Comandos focados: `npx jest --runInBand --runTestsByPath` para background,
@@ -109,7 +109,7 @@ Não há alegação de ganho de bateria, FPS, retenção ou conversão.
 
 O piloto editorial da L1, V3, Rive/voz, analytics, monetização e distribuição
 continuam nos gates próprios. Estado vivo: [STATUS](../STATUS.md); esta página
-é evidência de implementação, não outro status. Validação integral, revisão final e encerramento do run/sessão ainda pendentes.
+é evidência de implementação, não outro status. Revisão integrada identificou duas correções, implementadas em `b65be72`; rerevisão aprovada, validação integral ainda em fechamento. Os estados finais do run e sessão são medidos pela CLI.
 
 ## Execuções vermelhas preservadas
 
@@ -306,3 +306,55 @@ not ok 2 - reward-unlock.yaml reaches the reward status through a bounded access
 # skipped 0
 ```
 
+
+## Correção da integração após a revisão final — 2026-10-13
+
+A revisão do pacote inteiro encontrou o cursor de retomada com uma etapa de
+defasagem: o progresso salva índice a partir de zero, mas `/learn` recebe
+cursor ordinal. `b65be72` converte esse índice apenas na fronteira Home→/learn,
+reusando o helper real, sem mudar serviços, checkpoint ou deep links. O teste
+monta produtor, resolver real, recomendação e consumidor da rota; cobre a
+segunda etapa, a primeira interação e a proteção de resposta não persistida.
+
+A descrição acessível da conclusão agora tem default neutro `Continua o estudo`;
+`/learn` fornece `Volta para Estude`, enquanto a fila de revisões mantém seu
+callback para a próxima revisão. Nenhum destino é inventado pelo componente.
+
+Vermelho exato: 3 falhas / 2 passes / 59 ignorados; verde novo: 6/6; integração
+focada final: **21 suítes / 254 testes**, ESLint dos seis arquivos e diff check
+passaram no Node 20. O log vermelho inicial tinha uma expectativa de fixture
+incorreta adicional; foi corrigida antes do vermelho exato e antes do código.
+
+Retomada nativa suplementar passou **1/1 em 1m30s**, SE/iOS 26.5: pausar em
+`Passo 2 de 4` e `Passo 3 de 4`, voltar para Estude, tocar Retomar lição e
+reabrir exatamente o conteúdo salvo. JUnit local:
+`radiant-app/.maestro/artifacts/study-implementation/resume-regression.xml`.
+As quatro execuções anteriores continuam medidas sobre o código anterior à
+correção; o teste suplementar cobre a fronteira alterada. Nenhuma execução foi
+renomeada como evidência do SHA seguinte.
+
+O único Minor restante é ruído preexistente de testes assíncronos: dois avisos
+da conclusão/progresso e quatro do carregador de ícones, com as mesmas pilhas
+dos logs anteriores. Nenhuma supressão global foi introduzida. Limpeza do
+harness fica pendente; não foi inferido defeito de execução a partir dos avisos.
+
+- Ruling: normalize the saved zero-based index to the existing one-based cursor only at Home→/learn boundary and retain actual routing helper reuse — routing helper/checkpoint files are outside declared scope and their conventions must stay compatible — cost if wrong: another consumer could diverge, requiring route compatibility rework.
+
+Log vermelho exato preservado: `final-fix-red-exact.log`, SHA-256 `8af32ffca1cdb14e5e71a9909706e31525035f88d888b2854e75adae7a13f311`. Sintomas observados: índice salvo 1 reabria o primeiro contexto; índice salvo 2 reabria o segundo contexto; hint neutro recebia a descrição Estude.
+
+Trecho da execução vermelha real, anterior ao conserto:
+
+```text
+pausa no índice 1 e reabre o passo privado esperado 1 pela ação real
+Unable to find an element with text: Observe antes de responder.
+pausa no índice 2 e reabre o passo privado esperado 2 pela ação real
+Unable to find an element with text: Qual achado deve ser confirmado novamente?
+Expected: "Continua o estudo"
+Received: "Volta para Estude"
+Test Suites: 2 failed, 2 total
+Tests: 3 failed, 59 skipped, 2 passed, 64 total
+```
+
+Rerevisão de `a2ac10d..b65be72`: PASS, cursor e hint corrigidos, nenhum novo defeito; 0 Critical / 0 Important / 1 Minor preexistente de harness.
+
+- Ruling: defer the existing asynchronous test-harness warnings after the scoped review confirmed no new runtime breakage — no global suppression or unrelated harness refactor in this package — cost if wrong: noisy logs can obscure a new warning and need a later test-lifecycle cleanup.
