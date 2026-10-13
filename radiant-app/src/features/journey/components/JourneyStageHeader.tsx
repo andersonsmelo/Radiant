@@ -43,7 +43,7 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
       accessibilityLabel={`${title}. ${completed} de ${total} etapas concluídas.`}
     >
       <View style={[styles.headline, largeText && styles.headlineStacked]}>
-        <Text style={styles.title} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+        <Text style={styles.title} numberOfLines={largeText ? undefined : 2} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
           {title}
         </Text>
         <Text style={styles.count}>{`${completed} de ${total}`}</Text>

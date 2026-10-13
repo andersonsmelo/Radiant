@@ -20,7 +20,19 @@ const mockReducedMotion = useReducedMotionPreference as jest.MockedFunction<
 >;
 
 type FocusEvent = 'focus' | 'blur';
-type TestNode = ReturnType<typeof render>['UNSAFE_root'];
+// react-test-renderer não fornece tipos neste checkout. Declare somente a
+// estrutura real que estas inspeções usam, sem herdar o any de UNSAFE_root.
+type TestNode = {
+  type: unknown;
+  props: {
+    style?: unknown;
+    jestAnimatedStyle?: { value: Record<string, unknown> };
+  };
+  findAll: (predicate: (node: TestNode) => boolean) => TestNode[];
+};
+type AnimatedTestNode = TestNode & {
+  props: TestNode['props'] & { jestAnimatedStyle: { value: Record<string, unknown> } };
+};
 
 /**
  * O pedaço do contrato de navegação que uma tela usa para saber se está em
@@ -64,15 +76,15 @@ function renderInScreen(
  * `jestAnimatedStyle.value` do nó nativo, que é o que o `getAnimatedStyle` dele
  * lê. O invólucro `Animated.View` não carrega esse valor.
  */
-function animatedNodes(screen: ReturnType<typeof render>) {
-  return screen.UNSAFE_root.findAll(
-    (node: TestNode) => typeof node.type === 'string' && node.props.jestAnimatedStyle !== undefined,
-  );
+function animatedNodes(screen: ReturnType<typeof render>): AnimatedTestNode[] {
+  const root: TestNode = screen.UNSAFE_root;
+  return root.findAll((node) => typeof node.type === 'string')
+    .filter((node): node is AnimatedTestNode => node.props.jestAnimatedStyle !== undefined);
 }
 
 /** O quadro do fundo: o estilo animado de cada estrela e nebulosa, agora. */
 function frame(screen: ReturnType<typeof render>) {
-  return animatedNodes(screen).map((node: TestNode) => JSON.stringify(node.props.jestAnimatedStyle.value));
+  return animatedNodes(screen).map((node) => JSON.stringify(node.props.jestAnimatedStyle.value));
 }
 
 function advance(ms: number) {
@@ -178,7 +190,7 @@ describe('StarfieldBackground focado para leitura', () => {
 
     expect(nodes.filter((node) => 'transform' in node.props.jestAnimatedStyle.value)).toHaveLength(0);
     expect(nodes.filter((node) => 'opacity' in node.props.jestAnimatedStyle.value)).toHaveLength(24);
-    expect(screen.UNSAFE_root.findAll((node) =>
+    expect(screen.UNSAFE_root.findAll((node: TestNode) =>
       typeof node.type === 'string' &&
       JSON.stringify(node.props.style).includes('#FF00FF'),
     )).toHaveLength(0);
