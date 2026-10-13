@@ -307,17 +307,25 @@ fluxo, arquitetura, fila e roadmap vinculados ao commit da implementação;
 `loop validate` passou 14/14 em um único ciclo. O E2E citado pertence à
 implementação e não foi repetido por esta atualização documental.
 
-## Evolução visual — direção aprovada (2026-10-12)
+## Evolução visual — implementada localmente (2026-10-13)
 
-Anderson aprovou a direção de Estude, atividade e conclusão pela resposta
-“Aprovar esta direção e preparar a implementação”. Referência avaliada:
-[prancheta](design/2026-10-12-study-experience.html), commit `bb450a5`;
-[auditoria/capturas](design/2026-10-12-study-experience-review.md).
-[Spec](superpowers/specs/2026-10-12-study-experience-design.md) e
-[plano executável](superpowers/plans/2026-10-12-study-experience-plan.md)
-preparados. **Implementação visual ainda não iniciada.** Aprovação não inclui
-conteúdo L1, voz/Rive, analytics, mudança da assinatura ou release. Gates
-editoriais e piloto permanecem como descritos na FILA.
+Direção aprovada por Anderson em 2026-10-12; código até `8f5b4f2`: recomendação
+no header rolável de Estude, fundo focado, confirmação explícita de múltipla
+escolha e conclusão compacta/factual. Serviços atuais continuam donos das regras.
+
+Testes focados e revisões por tarefa aprovados. **Quatro flows nativos iOS
+passaram:** duas lições, offline, conquista bloqueada e coleta após sete lições.
+SE 375pt com texto AX2 passou; erros 5→0 abriram recarga mantendo 1/8; repetição
+correta no iPhone 17 manteve 110 XP e 8/8. Nove capturas reais registradas.
+**Revisão final e validação integral do Loop em fechamento.**
+[Evidência e limites](evidence/2026-10-12-study-experience-implementation.md),
+[spec/plano](superpowers/plans/2026-10-12-study-experience-plan.md).
+
+Sem publicação ou integração à main. Editorial/piloto L1, VoiceOver audível,
+TalkBack/Android, aparelho físico, assinante real e desempenho comparativo
+seguem nos gates próprios. Reduce Motion foi validado em código; tentativa de
+controle nativo indisponível não recebeu PASS. Nenhuma mudança em V3,
+voz/Rive, analytics, assinatura ou backend.
 
 ## Gate de qualidade
 

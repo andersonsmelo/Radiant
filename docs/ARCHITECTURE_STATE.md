@@ -27,6 +27,12 @@ Componentes principais:
 - `LegacyLessonAdapter`: converte bloco legado em atividade v2, puro e 1:1;
 - `ActivityRendererRegistry` + `useLearningActivity`: player desacoplado dos
   tipos de atividade, com contrato único `interaction/value/onChange`;
+- `JourneyRecommendationCard`: apresentação do próximo nó existente, no header
+  rolável da `JourneyTrail`; nenhuma resolução/persistência própria;
+- `StarfieldBackground`: variante opcional `focused` (24 estrelas, sem nebulosas),
+  default galaxy preservado; foco e movimento reduzido continuam nos hooks;
+- `LessonSummary`: celebração e resultados roláveis/factuais; callbacks e
+  avaliação da aula independentes da loja, sem outro serviço de resultado;
 - `LearningEvidenceRepository`: evidência estruturada por interação;
 - `CompetencyMasteryService`: domínio por competência, puro e determinístico;
 - `CompetencyReviewService`: store e agendamento por competência, ainda sem

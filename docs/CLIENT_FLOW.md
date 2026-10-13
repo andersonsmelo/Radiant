@@ -1,12 +1,13 @@
 # Fluxo do cliente — o que o app faz com quem o usa
 
-> **Atualizado em 2026-10-12:** descreve o código local do commit
-> `a366295`, incluindo os itens 36, 39 e 27 já validados. Essas três melhorias
-> ainda não foram publicadas. O estado das lojas vive exclusivamente no
-> [STATUS.md](STATUS.md); as decisões da entrega estão na
-> [ADR de 2026-10-12](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
+> **Atualizado em 2026-10-13:** descreve o código local até `8f5b4f2`,
+> incluindo itens 36/39/27 e o primeiro pacote visual de estudo. Mudanças locais
+> ainda sem publicação; lojas e gates ficam exclusivamente no [STATUS](STATUS.md).
+> [Contrato visual](superpowers/specs/2026-10-12-study-experience-design.md) e
+> [evidência](evidence/2026-10-12-study-experience-implementation.md).
 > A [spec da 1.4](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)
-> preserva o desenho aprovado de vidas, StoreKit e iCloud.
+> preserva vidas, StoreKit e iCloud; os itens 36/39/27 seguem sua
+> [ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
 
 Escrito em 2026-08-06 a partir do **código**, não do roadmap. Cada afirmação
 abaixo aponta para o arquivo que a sustenta, porque um diagrama sem procedência
@@ -64,12 +65,22 @@ lição. **Pular apresentação** persiste a mesma saída e abre a Home. Não ex
 wizard de especialidade/meta nesse caminho, e rever a apresentação a partir do
 app não dispara navegação automática no final.
 
-O **CTA da Estude é um só**, e o rótulo é que carrega o estado:
-`Aguardando nova etapa` quando não há próximo nó, `Retomar etapa` quando o nó
-está retomável, `Fazer revisão` quando venceu revisão, `Receber conquista` quando o próximo nó é o reward
-([`JourneyHomeScreen.tsx`](../radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx)).
-Isso importa para quem testa: **o mesmo botão anuncia coisas diferentes**, e o
-roteiro de acessibilidade depende de saber qual estado está na tela.
+A Estude coloca contexto/progresso e **uma recomendação** no header rolável da
+trilha virtualizada. O card recebe o próximo nó do snapshot; a tela reutiliza
+as rotas/eligibilidade existentes. A ação distingue `Retomar lição`, `Retomar
+revisão`, `Retomar avaliação`, `Fazer revisão`, `Fazer avaliação`, `Receber
+conquista` e `Continuar jornada`. Sem próximo nó elegível, há mensagem factual
+sem botão inerte; revisão futura informa data real e não bloqueia outra lição.
+([Tela](../radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx),
+[card](../radiant-app/src/features/journey/components/JourneyRecommendationCard.tsx)).
+
+Na múltipla escolha do player, selecionar/trocar alternativa permanece separado
+de **Conferir resposta**. Confirmar continua sendo responsabilidade do player;
+cores e texto indicam seleção/feedback, sem nova cobrança ou transação.
+A conclusão mostra Pixel/estrelas compactos e resultados factuais em linhas:
+XP positivo/zero/null, total da unidade e revisão do resultado atual. Avaliar a
+aula é opcional e separado da avaliação da loja. O retorno continua sendo
+`Continuar` (hint “Volta para Estude”).
 
 O código local prioriza lição pausada, revisão devida, avaliação, conquista
 coletável e próxima lição, nessa ordem
@@ -99,7 +110,8 @@ stateDiagram-v2
 
     Disponível --> Lição: abrir
     Lição --> Questao: contexto → ideia-chave → questão
-    Questao --> Concluída: "Concluir e voltar"
+    Questao --> Reforço: "Conferir resposta"
+    Reforço --> Concluída: "Concluir e voltar"
 
     Concluída --> AgendaSR: recordQuizResult
     note right of AgendaSR

@@ -151,6 +151,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   validação final aprovada (14/14), com E2E da conquista passed. Run fechado.
   Ainda fora do binário publicado; integração e distribuição seguem pendentes.
   [Evidência](evidence/2026-10-12-itens-36-39-27.md).
+- **Primeiro pacote visual local, 2026-10-13:** Estude, atividade e conclusão
+  implementadas/revisadas até `8f5b4f2`, testes focados,4 flows iOS, AX2,
+  zero vidas e repetição sem XP aprovados; fechamento integral em andamento. Sem release;
+  não encerra piloto L1/editorial ou os gates físicos/acessibilidade audível.
+  [Evidência](evidence/2026-10-12-study-experience-implementation.md).
 - **Decisões de produto e implementações aprovadas, sem prazo:**
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
     **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono

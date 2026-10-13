@@ -2598,3 +2598,46 @@ não deixou achados bloqueantes. **Ainda fora da versão publicada**, que
 continua em `221e2ec`, sem nova build de distribuição ou OTA.
 [Evidência](evidence/2026-10-12-itens-36-39-27.md) e
 [ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md).
+
+
+---
+
+Transferido em 2026-10-13 pela implementação visual local.
+
+## Evolução visual — direção aprovada (2026-10-12)
+
+Anderson aprovou a direção de Estude, atividade e conclusão pela resposta
+“Aprovar esta direção e preparar a implementação”. Referência avaliada:
+[prancheta](design/2026-10-12-study-experience.html), commit `bb450a5`;
+[auditoria/capturas](design/2026-10-12-study-experience-review.md).
+[Spec](superpowers/specs/2026-10-12-study-experience-design.md) e
+[plano executável](superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados. **Implementação visual ainda não iniciada.** Aprovação não inclui
+conteúdo L1, voz/Rive, analytics, mudança da assinatura ou release. Gates
+editoriais e piloto permanecem como descritos na FILA.
+
+<!-- transferência do pacote visual registrada em 2026-10-13 -->
+
+
+---
+
+Fase intermediária do mesmo run, medida em2026-10-13.
+
+## Evolução visual — implementação local (2026-10-13)
+
+Direção aprovada por Anderson em 2026-10-12; código implementado e revisado
+localmente até `8f5b4f2`: recomendação no header rolável de Estude, fundo focado,
+confirmação explícita de múltipla escolha e conclusão compacta/factual. Catálogo,
+vidas, StoreKit, reforço e resultados continuam nos serviços existentes.
+
+Testes focados passaram; matriz nativa no SE/iOS26.5 cobre o percurso de duas
+lições, offline e texto AX2. Conquista bloqueada passou após ajuste de alcance
+no viewport curto. Coleta da unidade inteira, fechamento integral do Loop e
+capturas finais em andamento. [Evidência](evidence/2026-10-12-study-experience-implementation.md)
+e [spec/plano](superpowers/plans/2026-10-12-study-experience-plan.md).
+
+Sem publicação, integração à main, conteúdo L1, voz/Rive, analytics ou alteração
+da assinatura. Piloto/editorial, VoiceOver audível/TalkBack, aparelho físico,
+assinante real e desempenho comparativo mantêm gates próprios.
+
+<!-- fase intermediária arquivada -->
