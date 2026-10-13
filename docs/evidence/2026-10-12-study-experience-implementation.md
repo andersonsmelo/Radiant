@@ -358,3 +358,18 @@ Tests: 3 failed, 59 skipped, 2 passed, 64 total
 Rerevisão de `a2ac10d..b65be72`: PASS, cursor e hint corrigidos, nenhum novo defeito; 0 Critical / 0 Important / 1 Minor preexistente de harness.
 
 - Ruling: defer the existing asynchronous test-harness warnings after the scoped review confirmed no new runtime breakage — no global suppression or unrelated harness refactor in this package — cost if wrong: noisy logs can obscure a new warning and need a later test-lifecycle cleanup.
+
+Primeiro ciclo integral do run: **12/14 passaram**; `app-quality` reprovou
+por cinco TS7006 no teste do fundo, e `app-test` por uma regressão do contrato
+de duas linhas no título padrão. Diagnóstico com o mesmo ambiente Node20/CI:
+157 suítes, 1 falhou / 156 passaram; 1550 testes, 1 falhou / 1549 passaram,
+1 snapshot passou. A repetição do gate será feita após corrigir essas causas,
+sem atribuir a falha à carga da máquina. O contrato ampliado continua sem
+limite de linhas.
+
+Correção do gate em `ede4c6e`: tipos estruturais dos nós renderizados no teste
+do fundo, sem `any`/supressões; título padrão volta a duas linhas e texto
+ampliado continua sem limite e com cap2. O teste antigo do cabeçalho não foi
+editado. **2 suítes / 19 testes**, typecheck completo, ESLint dos dois arquivos
+e diff check passaram no mesmo Node20/CI. A matriz nativa anterior tem seu SHA
+original preservado; a correção restaura o contrato padrão e não altera rotas.
