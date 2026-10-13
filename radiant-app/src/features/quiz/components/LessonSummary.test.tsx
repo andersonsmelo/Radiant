@@ -130,7 +130,7 @@ describe('LessonSummary', () => {
     expect(ancestor).not.toBeNull();
   });
 
-  it('permite continuar sem avaliar a aula e comunica o retorno para Estude', () => {
+  it('permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados', () => {
     const onContinue = jest.fn();
     const onRate = jest.fn();
     render(<LessonSummary {...base} onContinue={onContinue} onRate={onRate} />);
@@ -140,7 +140,16 @@ describe('LessonSummary', () => {
     expect(onContinue).toHaveBeenCalledTimes(1);
     expect(onRate).not.toHaveBeenCalled();
     expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityHint)
-      .toBe('Volta para Estude');
+      .toBe('Continua o estudo');
+  });
+
+  it('comunica o destino fornecido pelo chamador e preserva o callback', () => {
+    const onContinue = jest.fn();
+    render(<LessonSummary {...base} continueHint="Volta para Estude" onContinue={onContinue} />);
+    const button = screen.getByRole('button', { name: 'Continuar' });
+    expect(button.props.accessibilityHint).toBe('Volta para Estude');
+    fireEvent.press(button);
+    expect(onContinue).toHaveBeenCalledTimes(1);
   });
 
   it('preserva uma repetição sem ganho de XP ou nova melhora de estrelas', () => {

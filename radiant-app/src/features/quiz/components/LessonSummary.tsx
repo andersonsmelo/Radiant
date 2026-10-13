@@ -26,6 +26,7 @@ export type LessonSummaryProps = {
   currentRating: number | null;
   onRate: (rating: number) => void;
   onContinue: () => void;
+  continueHint?: string;
 };
 
 const TOTAL_STARS = 3;
@@ -119,6 +120,7 @@ export function LessonSummary({
   currentRating,
   onRate,
   onContinue,
+  continueHint = 'Continua o estudo',
 }: LessonSummaryProps) {
   const largeText = useLargeTextLayout();
   const xpResult = xpAwarded === null
@@ -187,7 +189,7 @@ export function LessonSummary({
       </ScrollView>
 
       <View style={styles.footer}>
-        <AppButton label="Continuar" accessibilityHint="Volta para Estude" onPress={onContinue} variant="galaxy" />
+        <AppButton label="Continuar" accessibilityHint={continueHint} onPress={onContinue} variant="galaxy" />
       </View>
     </View>
   );

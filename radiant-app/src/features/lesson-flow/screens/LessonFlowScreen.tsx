@@ -483,6 +483,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
                             }}
                             onContinue={exitLesson}
+                            continueHint="Volta para Estude"
                         />
                     ) : (
                         <View style={styles.centered}>

@@ -12,6 +12,10 @@ import { LearningAttemptsRepository } from '../../progress/services/LearningAtte
 import { LessonRatingService } from '../../quiz/services/LessonRatingService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import JourneyHomeScreen from '../../journey/screens/JourneyHomeScreen';
+import LearnRoute from '../../../app/learn';
+import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
+import type { JourneySnapshot } from '../../../types/journey';
 
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
@@ -24,11 +28,13 @@ const announceForAccessibility = jest.spyOn(AccessibilityInfo, 'announceForAcces
 // Foco controlável: a tela relê as vidas ao voltar de outra rota, e o teste
 // precisa simular essa volta sem desmontar a tela.
 const mockFocusCallbacks = new Set<() => void>();
+let mockLearnParams: Record<string, string> = {};
 function voltarParaATela() {
   act(() => mockFocusCallbacks.forEach(callback => callback()));
 }
 
 jest.mock('expo-router', () => ({
+  useLocalSearchParams: () => mockLearnParams,
   router: {
     replace: jest.fn(),
     push: jest.fn(),
@@ -67,9 +73,13 @@ jest.mock('../../../components/ui/AppButton', () => {
   const { Pressable, Text } = require('react-native');
 
   return {
-    AppButton: ({ children, onPress, disabled }: { children: React.ReactNode; onPress: () => void; disabled?: boolean }) => (
-      <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}>
-        <Text>{children}</Text>
+    AppButton: ({ children, label, onPress, disabled, accessibilityLabel, accessibilityHint }: {
+      children?: React.ReactNode; label?: string; onPress: () => void; disabled?: boolean;
+      accessibilityLabel?: string; accessibilityHint?: string;
+    }) => (
+      <Pressable accessibilityRole="button" accessibilityLabel={accessibilityLabel}
+        accessibilityHint={accessibilityHint} onPress={onPress} disabled={disabled}>
+        <Text>{label ?? children}</Text>
       </Pressable>
     ),
   };
@@ -94,6 +104,7 @@ jest.mock('../../../ui/components/HUD', () => {
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     setCurrentNode: jest.fn().mockResolvedValue(undefined),
+    bootstrap: jest.fn(),
     setResumableNode: jest.fn().mockResolvedValue(undefined),
     // Devolve um snapshot porque a tela USA o retorno para localizar a unidade
     // ativa. Ler o snapshot à parte correria em paralelo com esta escrita e
@@ -101,6 +112,21 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
     markNodeCompleted: jest.fn().mockResolvedValue({ track: { units: [] } }),
   },
 }));
+
+// Integração da retomada: somente I/O e a trilha fora do objetivo são isolados.
+// Card, resolver, helper de rota, /learn e player permanecem reais.
+jest.mock('../../telemetry/hooks/useAppOpenLifecycle', () => ({ useAppOpenLifecycle: () => undefined }));
+jest.mock('../../telemetry/TelemetryService', () => ({
+  TelemetryService: { track: jest.fn().mockResolvedValue(undefined) },
+}));
+jest.mock('../../journey/services/JourneyCurriculumService', () => ({
+  JourneyCurriculumService: { getCurriculumTrail: jest.fn().mockResolvedValue({ segments: [] }) },
+}));
+jest.mock('../../journey/components/JourneyTrail', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  return { JourneyTrail: ({ header }: { header: React.ReactNode }) => <View>{header}</View> };
+});
 
 jest.mock('../../gamification/services/GamificationService', () => ({
   GamificationService: {
@@ -899,6 +925,80 @@ describe('LessonFlowScreen — retomada sem persistir respostas', () => {
   });
 });
 
+describe('retomada pela recomendação de Estude — produtor até passo exibido', () => {
+  const resumeFixture: LessonBlock = {
+    ...privacySafeResumeFixture,
+    steps: [
+      {
+        step: { type: 'context', payload: { title: 'Primeiro contexto', body: 'Contexto antes da pausa.' } },
+        contract: { id: 'step-first-context', type: 'context', completionRule: 'displayed',
+          retryRule: 'allow_continue', branching: 'none' },
+      },
+      ...privacySafeResumeFixture.steps,
+    ],
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(resumeFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(null);
+  });
+
+  it.each([
+    [1, 1, 'Observe antes de responder.'],
+    [2, 2, 'Qual achado deve ser confirmado novamente?'],
+    [3, 2, 'Qual achado deve ser confirmado novamente?'],
+  ])('pausa no índice %s e reabre o passo privado esperado %s pela ação real', async (pausedIndex, expectedIndex, expectedText) => {
+    const lesson = renderWithProviders(<LessonFlowScreen blockId="block-3" nodeId="node-3" />);
+    await screen.findByText('Contexto antes da pausa.');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Observe antes de responder.');
+    if (pausedIndex >= 2) {
+      fireEvent.press(screen.getByText('Continuar'));
+      await screen.findByText('Qual achado deve ser confirmado novamente?');
+    }
+    if (pausedIndex === 3) {
+      fireEvent.press(screen.getByLabelText('Achado B'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
+      await screen.findByText('Resposta correta');
+    }
+    expect(screen.getByText(`Passo ${pausedIndex + 1} de 4`)).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+    await waitFor(() => expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)'));
+    const [, savedIndex] = mockedJourneyProgress.setResumableNode.mock.calls.at(-1)!;
+    expect(savedIndex).toBe(pausedIndex);
+    lesson.unmount();
+
+    const node = { id: 'node-3', unitId: 'unit-1', type: 'lesson' as const,
+      title: 'Lição pausada', status: 'resumable' as const, blockId: 'block-3' };
+    const nextDecision = NextNodeResolver.resolve({
+      candidates: [{ nodeId: node.id, type: node.type, order: 0, unlocked: true,
+        completed: false, pausedStepIndex: savedIndex as number }], nowMs: Date.now(),
+    });
+    mockedJourneyProgress.bootstrap.mockResolvedValue({
+      track: { title: 'Unidade', units: [{ id: 'unit-1', nodes: [node] }] },
+      nextRecommendedNode: node, nextDecision, dueReviewCount: 0,
+    } as JourneySnapshot);
+    const home = renderWithProviders(<JourneyHomeScreen />);
+    fireEvent.press(await screen.findByRole('button', { name: 'Retomar lição' }));
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledTimes(1));
+    const href = mockedRouter.push.mock.calls[0][0];
+    if (typeof href !== 'object') throw new Error('A recomendação não abriu /learn com parâmetros');
+    expect(href.pathname).toBe('/learn');
+    mockLearnParams = href.params as Record<string, string>;
+    home.unmount();
+
+    renderWithProviders(<LearnRoute />);
+    await screen.findByText(expectedText);
+    expect(screen.getByText(`Passo ${expectedIndex + 1} de 4`)).toBeTruthy();
+    if (pausedIndex >= 2) {
+      expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+      expect(screen.getByLabelText('Achado B').props.accessibilityState.selected).toBe(false);
+      expect(screen.queryByText('Reforço final')).toBeNull();
+    }
+  });
+});
+
 describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -1003,6 +1103,14 @@ describe('LessonFlowScreen — conclusão da lição', () => {
 
     expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
     expect(mockedRouter.replace).not.toHaveBeenCalled();
+  });
+
+  it('anuncia Estude na conclusão de /learn e o Continuar executa esse retorno', async () => {
+    await completeLesson();
+    const button = await screen.findByRole('button', { name: 'Continuar' });
+    expect(button.props.accessibilityHint).toBe('Volta para Estude');
+    fireEvent.press(button);
+    await waitFor(() => expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)'));
   });
 
   it('tira as estrelas da melhor tentativa, e não só da que acabou', async () => {

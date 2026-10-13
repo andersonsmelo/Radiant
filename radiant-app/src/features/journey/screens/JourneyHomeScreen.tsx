@@ -116,8 +116,15 @@ export default function JourneyHomeScreen() {
 
   const openNode = useCallback(async (node: JourneyNode) => {
     const decision = snapshot?.nextDecision;
-    const href = decision?.nodeId === node.id
-      ? getNextNodeHref(node, decision)
+    // O progresso salva o índice do player (base zero); /learn e o helper
+    // serializam IDs de cursor (base um), como os checkpoints. Converta só
+    // nesta fronteira, sem alterar o índice salvo nem a convenção do helper.
+    const routeDecision = decision && (node.type === 'lesson' || node.type === 'review')
+      && decision.reason === 'paused-lesson' && decision.resumeStepIndex !== undefined
+      ? { ...decision, resumeStepIndex: decision.resumeStepIndex + 1 }
+      : decision;
+    const href = routeDecision?.nodeId === node.id
+      ? getNextNodeHref(node, routeDecision)
       : getJourneyNodeHref(node);
 
     if (!canOpenNode(node) || !href) {

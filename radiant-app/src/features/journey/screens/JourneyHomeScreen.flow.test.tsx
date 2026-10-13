@@ -610,7 +610,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
     renderWithProviders(<JourneyHomeScreen />);
     fireEvent.press(await screen.findByRole('button', { name: 'Retomar lição' }));
-    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1', resumeCursorId: 'step-3' } }));
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1', resumeCursorId: 'step-4' } }));
     expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('lesson-1');
   });
   it.each([
@@ -629,7 +629,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
 
     fireEvent.press(await screen.findByRole('button', { name: action }));
     const params = pathname === '/learn'
-      ? { nodeId: 'lesson-1', blockId: 'block-1', ...(status === 'resumable' ? { resumeCursorId: 'step-2' } : {}) }
+      ? { nodeId: 'lesson-1', blockId: 'block-1', ...(status === 'resumable' ? { resumeCursorId: 'step-3' } : {}) }
       : { nodeId: 'lesson-1' };
     await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname, params }));
     expect(mockedRouter.push).toHaveBeenCalledTimes(1);
