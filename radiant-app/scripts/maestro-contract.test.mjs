@@ -57,6 +57,29 @@ async function flowCommands(name) {
   return commands;
 }
 
+for (const [name, status] of [
+  ['reward-locked.yaml', 'Bloqueada até a unidade fechar'],
+  ['reward-unlock.yaml', 'Pronta para ser coletada'],
+]) {
+  test(`${name} reaches the reward status through a bounded accessibility-label scroll`, async () => {
+    const commands = await flowCommands(name);
+    const screen = commands.findIndex(command => command?.assertVisible === 'Conquista da unidade');
+    assert.ok(screen >= 0, `${name}: expected the reward screen assertion`);
+    const statuses = commands.flatMap((command, index) => command?.assertVisible === status ? [index] : []);
+    assert.equal(statuses.length, 1, `${name}: assert the actual reward status exactly once`);
+    const index = statuses[0];
+    assert.ok(index > screen, `${name}: check status after entering the reward screen`);
+    // iOS exposes accessibilityText here, so the repeat condition uses the
+    // same semantic selector as the assertion. A blind scroll or text-based
+    // scrollUntilVisible cannot establish that this offscreen row was reached.
+    assert.deepEqual(commands[index - 1]?.repeat, {
+      times: 10,
+      while: { notVisible: status },
+      commands: ['scroll'],
+    }, `${name}: reach the status label before asserting it on a short viewport`);
+  });
+}
+
 test('navigation flows match the accessible journey header, not its hidden count', async () => {
   const source = ts.createSourceFile(
     'JourneyStageHeader.tsx',

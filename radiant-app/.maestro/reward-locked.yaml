@@ -41,6 +41,14 @@ tags:
     commands:
       - tapOn: Abrir
 - assertVisible: Conquista da unidade
+# Em telas curtas, o estado fica abaixo do hero. A guarda usa o rótulo
+# acessível, como a rolagem até o card de ação abaixo, antes de confirmar.
+- repeat:
+    times: 10
+    while:
+      notVisible: Bloqueada até a unidade fechar
+    commands:
+      - scroll
 - assertVisible: Bloqueada até a unidade fechar
 # O card de ação fica abaixo da dobra. Rolar até ele **antes** das asserções de
 # ausência não é conveniência: sem isso, `assertNotVisible` passaria por o card

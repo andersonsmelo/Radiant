@@ -287,6 +287,13 @@ tags:
 - assertVisible: Conquista da unidade
 # O espelho exato da asserção do flow irmão: lá, "Bloqueada até a unidade
 # fechar"; aqui, o mesmo `GalaxyStatRow` dizendo o contrário sobre o mesmo nó.
+# Em telas curtas, alcançar a linha pelo rótulo acessível antes de afirmar.
+- repeat:
+    times: 10
+    while:
+      notVisible: Pronta para ser coletada
+    commands:
+      - scroll
 - assertVisible: Pronta para ser coletada
 # 8 nós primários na unidade (7 lições + o reward); 7 feitos. Eram 14 até a
 # ADR de 2026-09-28, com os 6 checkpoints. Este número é o que separa "a tela
