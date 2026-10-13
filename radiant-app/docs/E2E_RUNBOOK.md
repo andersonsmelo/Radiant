@@ -1,5 +1,50 @@
 # Maestro local E2E runbook
 
+## Current broad QA, 2026-10-13
+
+[Functional report](../../docs/evidence/2026-10-13-qa-ampla-simulador.md),
+[memory report](../../docs/evidence/2026-10-13-qa-memoria-simulador.md),
+[matrix](../../docs/evidence/2026-10-13-qa-matriz-funcional.csv).
+Current local JS: `c9169ee`. Generated native wrapper compiled and installed as
+**1.3.1 (3)**; app.json declares **1.4.0 (3)**. Reconcile generated metadata and
+entitlements, preserving local customizations, before distribution QA.
+
+Original battery: 10 flows, **5 PASS / 5 FAIL due to stale consumers**. Passing
+contracts do not execute these native flows. The report preserves original
+failures and local derivatives separately; versioned YAMLs were not changed.
+
+Known native defect: `/review` renders an unreadable white card with overlapping
+options/button; `Mostrar resposta` does not keep rating actions visible. A
+stationary reveal probe failed. The review and native store-rating dialog are
+not signed off. L1 normal also did not emit `first_value_moment_reached`; only
+legacy QuizScreen calls OnboardingService.markAction in the measured source.
+
+When maintaining the flows:
+
+- MC selection is followed by **Conferir resposta**.
+- Summary values are grouped accessibility rows, e.g.
+  **Respostas corretas: 1 de 1 corretas** and **XP: Sem XP nesta tentativa**.
+- A future review node announces **Disponível em DD/MM/AAAA às HH:MM**,
+  rather than the old Bloqueado assertion.
+- The primary Home CTA is in the scrolling header. Bring the actual target
+  into view; remove assumptions about the previous fixed footer.
+- `centerElement: true` can fail for an already visible target at a scroll
+  boundary. Native logs in this audit showed visibility 1.0 followed by a
+  failed centering search. Use centering where the container has room to move
+  the target; keep explicit visibility and post-action assertions.
+- Observe the tree with `maestro --device <dedicated-udid> hierarchy` and run
+  `maestro check-syntax <flow.yaml>` before newly generated scenarios.
+- Use the dev-client dismissal subflow, including CONNECTED TO / Close.
+- A synthetic due card is a controlled `/review` fixture, **not** the 24 h
+  real-clock golden path. Do not replace the native dialog assertion with a
+  telemetry event or reintroduce prompting at quiz completion.
+
+Run app tooling with Node 20 / Java 17, dotenv disabled; Loop uses Node 24.
+Use a dedicated simulator for clearState. This audit preserved the primary
+simulator, performed no purchase/upload/submission and changed no app code.
+For local Xcode builds, SENTRY_DISABLE_AUTO_UPLOAD=true prevented the missing
+organization upload phase from aborting QA; release configuration was not edited.
+
 The `.maestro` workspace covers the real local-first route, not a mocked API:
 
 - `first-run.yaml`: a clean install (`clearState`) now lands on the first-run
@@ -20,7 +65,8 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   reward collection is covered separately.
 - `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
   relaunches with airplane mode enabled, then confirms the persisted
-  progress offers the next lesson.
+  progress offers the next lesson. On iOS Simulator, that airplane-mode command
+  is not evidence of network isolation; this flow proves local persistence.
 - `rating-prompt.yaml`: legacy store-review gate, **still failing as measured
   on 2026-10-12**. It prepares the first value moment through `/quiz` and
   accumulates three app opens, but its second quiz no longer calls the review
@@ -37,25 +83,16 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   `learning-critical-path` even forbids asserting it. This flow deep-links
   `radiantapp://reward?nodeId=…` instead, because `findReward` resolves by id
   **without** checking status. It asserts the locked state and, above all, the
-  **absence** of the collect button. **It does not prove the unlock rule**; that
-  half stays uncovered. See
+  **absence** of the collect button. **It does not prove the unlock rule**; the sibling
+  `reward-unlock.yaml` covers that half (native PASS, 2026-10-13). See
   [`2026-08-04-b5-reward-deep-link.md`](evidence/2026-08-04-b5-reward-deep-link.md).
-- `reward-unlock.yaml`: the other half of the reward node — the unlock rule
-  itself, which `reward-locked.yaml` states it does not prove. It walks the
-  whole active track: 7 lessons chained by 6 checkpoints, lesson → checkpoint →
-  lesson, and only then does the achievement become collectable. **It is
-  forbidden from deep-linking the reward** (the contract enforces it): arriving
-  by `radiantapp://reward` would re-prove what the sibling already proves and
-  leave the rule uncovered with nothing going red. It arrives by the product
-  path instead — the home CTA, whose label comes from `continueLabel`, and the
-  checkpoint CTA, from `resolveNextAction`. The assertion that carries the flow
-  is that label: `continueLabel` returns "Receber conquista" **only** when the
-  recommended node is a reward, and the reward is recommended only once
-  `requiresNodeIds: [node:<last lesson>]` is satisfied — the six earlier lessons
-  each produced "Abrir checkpoint" instead. It then collects and asserts the
-  milestone counter moved from 13 of 14 to 14 of 14, which is what separates
-  "the button appeared" from "the collect wrote". **Not yet run on a device —
-  see the sign-off note below.**
+- `reward-unlock.yaml`: proves the unlock rule through the product path after
+  seven lessons, without deep-linking the reward. The current active track has
+  no button checkpoint between lessons (ADR 2026-09-28). It asserts
+  `Receber conquista`, collects, and verifies the counter changes from 7/8 to
+  8/8. **Executed successfully on SE / iOS 26.5 on 2026-10-13**, JUnit 370 s.
+  The locked and unlocked halves both have native evidence in the
+  [broad QA report](../../docs/evidence/2026-10-13-qa-ampla-simulador.md).
 - `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
   by `when: visible`) that taps "Pular apresentação" only if the first-run
   welcome is on screen. Flows that already ran once without `clearState` never

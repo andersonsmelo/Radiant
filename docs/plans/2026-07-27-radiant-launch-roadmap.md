@@ -1682,6 +1682,18 @@ Estude/atividade/conclusão aplicadas e revisadas; testes focados, 4 flows iOS,
 AX2, zero vidas, retomada e repetição sem XP aprovados; gate integral 14/14. [Evidência](../evidence/2026-10-12-study-experience-implementation.md).
 Sem publicação; confirmação editorial da L1 e piloto com alunos seguem pendentes.
 
+### QA amplo posterior ao pacote visual — 2026-10-13
+
+Auditoria local do código `c9169ee`: estudo, persistência, conquista e retomada
+passaram; modo interno também passou, incluindo SE/AX5. **A revisão direta
+apresentou defeito P1** (legibilidade e classificação que não permanece),
+com correção pendente. Marco de primeiro valor e metadados nativos locais
+precisam de reconciliação. Cinco roteiros originais falharam por premissas
+antigas de menu/ação/posição do CTA. Memória medida: footprint 291.1M → 553.0M e telas nativas 6 → 48 após vinte
+ciclos no mesmo PID, com origem a investigar; nove leaks/4.720 bytes iguais.
+Gate final configurado aprovado: **14/14, ciclo único**. Correções dos achados continuam pendentes. [Relatório e limites](../evidence/2026-10-13-qa-ampla-simulador.md).
+Isso registra QA, sem promoção de V3, integração à main ou distribuição.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

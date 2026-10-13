@@ -2701,3 +2701,33 @@ passou no simulador iOS 26.5, em 14m25s, e é uma medição separada do gate.
 O CI remoto dessas mudanças locais não foi executado, e elas ainda não
 integram o binário da App Store. [Evidência](evidence/2026-10-12-itens-36-39-27.md).
 <!-- Histórico preservado, medição corrente no STATUS. -->
+
+
+## API pública — medição substituída em 2026-10-13
+
+| **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`, reconfirmado em 2026-10-12. O app não depende dela: o perfil de produção mantém `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. | 2026-10-12 |
+
+
+## Gate de qualidade — medição substituída no QA de 2026-10-13
+
+## Gate de qualidade
+
+```bash
+cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
+```
+
+19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
+strict. **Última medição: 2026-10-13**, branch
+`codex/radiant-study-improvements`, código `c9169ee`, base `3fc25af`.
+O run `run-1791845691312-da319838` passou **14/14 validadores** no terceiro
+ciclo, incluindo `app-quality` completo e `app-test` no Node 20,
+`EXPO_NO_DOTENV=1` e `CI=1`. Os dois ciclos anteriores tiveram causas específicas
+registradas e corrigidas: tipagem/duas linhas e propriedade da composição Pixel.
+Diagnóstico pelo gate completo passou 157 suítes / 1550 testes / 1 snapshot;
+QA visual final: 0 regressões, 61 baselines/3 exceções já existentes.
+Quatro flows iOS e retomada suplementar são medições nativas separadas.
+CI remoto, integração à main e distribuição não foram executados.
+[Evidência do pacote](evidence/2026-10-12-study-experience-implementation.md).
+O CI usa o gate completo em `.github/workflows/radiant-app-quality.yml`.
+
+<!-- Conteudo historico preservado; medicao corrente no STATUS. -->

@@ -24,7 +24,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | **App Store** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
 | **Google Play** | `1.3.0 (4)` em teste fechado (`alpha`), lista "Radiant Alpha". **Não está em produção.** | 2026-08-24 ⚠️ vencida |
-| **API pública** | Inativa: HTTP 502 em `/health`, `/ready` e `/v1/content/catalog`, reconfirmado em 2026-10-12. O app não depende dela: o perfil de produção mantém `EXPO_PUBLIC_ENABLE_REMOTE_SYNC=false`. | 2026-10-12 |
+| **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-13; `/v1/content/catalog` teve última medição em 2026-10-12. O app medido não depende dela: sync remoto está desligado. [QA local](evidence/2026-10-13-qa-ampla-simulador.md). | 2026-10-13 |
 
 ```bash
 curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c "import json,sys;print([(r['version'],r['currentVersionReleaseDate']) for r in json.load(sys.stdin)['results']])"
@@ -332,25 +332,52 @@ seguem nos gates próprios. Reduce Motion foi validado em código; tentativa de
 controle nativo indisponível não recebeu PASS. Nenhuma mudança em V3,
 voz/Rive, analytics, assinatura ou backend.
 
+## QA amplo local — medido em 2026-10-13
+
+Estudo principal passou no SE: duas lições, persistência, conquista 8/8,
+retomada, rotas inválidas, preferências e três cenários internos (incluindo
+AX5). **A revisão direta `/review` apresentou defeito P1:** cartão ilegível e
+resposta que não mantém a classificação; sessão não concluída. O destino é
+usado pelos callbacks de revisão da folha de vidas. L1 normal também não
+registrou o marco `first_value_moment_reached` (lacuna P2 de integração).
+
+Bateria original: **5 PASS / 5 FAIL por roteiros desatualizados**. Reexecuções
+locais e falhas próprias dos testes permanecem separadas. Wrapper nativo
+compilado/instalado **1.3.1 (3)** versus `app.json` **1.4.0 (3)**: configuração
+local ainda precisa de reconciliação antes de QA de distribuição. Memória,
+mesmo PID: **291.1M → 442.9M → 553.0M**, telas nativas 6 → 28 → 48 em
+aquecimento/dez/vinte ciclos; origem da retenção a investigar. Nove leaks /
+4.720 bytes permaneceram iguais. Validação final deste run: **14/14 aprovados, ciclo 1**.
+
+[Relatório funcional](evidence/2026-10-13-qa-ampla-simulador.md),
+[memória](evidence/2026-10-13-qa-memoria-simulador.md),
+[matriz](evidence/2026-10-13-qa-matriz-funcional.csv).
+Nenhuma correção no app ou publicação neste run. Diálogo nativo de avaliação,
+24 h reais, StoreKit/CloudKit autenticados, VoiceOver audível, Android e
+Release continuam com gates próprios.
+
 ## Gate de qualidade
 
 ```bash
 cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
-19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-10-13**, branch
-`codex/radiant-study-improvements`, código `c9169ee`, base `3fc25af`.
-O run `run-1791845691312-da319838` passou **14/14 validadores** no terceiro
-ciclo, incluindo `app-quality` completo e `app-test` no Node 20,
-`EXPO_NO_DOTENV=1` e `CI=1`. Os dois ciclos anteriores tiveram causas específicas
-registradas e corrigidas: tipagem/duas linhas e propriedade da composição Pixel.
-Diagnóstico pelo gate completo passou 157 suítes / 1550 testes / 1 snapshot;
-QA visual final: 0 regressões, 61 baselines/3 exceções já existentes.
-Quatro flows iOS e retomada suplementar são medições nativas separadas.
-CI remoto, integração à main e distribuição não foram executados.
-[Evidência do pacote](evidence/2026-10-12-study-experience-implementation.md).
-O CI usa o gate completo em `.github/workflows/radiant-app-quality.yml`.
+**Remedido em 2026-10-13:** run `run-1791911865200-18814983`, primeiro e único
+ciclo final, **14/14 validadores aprovados**. Inclui `app-quality` íntegro
+(lint, typecheck, contratos, Jest em banda única e visual QA strict),
+`app-test --runInBand --no-cache`, validadores de conteúdo, testes/lint/tipos
+da API, documentos e links do cérebro. App e API no Node 20,
+`EXPO_NO_DOTENV=1`/`CI=1`; Loop no Node 24. Apps de teste encerrados.
+
+A CLI guarda hashes e uma prévia curta da saída; as contagens do diagnóstico
+anterior não são reapresentadas como uma nova medição. Evidências principais:
+`app-quality` = `evidence-e676e9b9-c84f-4115-9770-ba492e71c2ec`;
+`app-test` = `evidence-6a919cc8-9ea7-481e-84fa-899aa8cd94c8`.
+[QA funcional, memória e limites](evidence/2026-10-13-qa-ampla-simulador.md).
+**Os defeitos nativos da revisão e o crescimento de memória continuam
+abertos; esse gate não é aprovação de distribuição.** CI remoto,
+integração à main e publicação não executados. Autoridade do comando de CI:
+`.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.
