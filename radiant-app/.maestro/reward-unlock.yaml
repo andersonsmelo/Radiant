@@ -75,7 +75,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-q1:option:1'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 # O passo de reforço depois de uma pergunta respondida mostra o feedback da
 # resposta, não o título do payload. A ação de rodapé é o que sempre existe.
 - assertVisible: Concluir e voltar
@@ -89,21 +89,14 @@ tags:
 
 # ── Para a lição 2 ───────────────────────────────────────────────────────────
 # Sem checkpoint entre as lições (ADR de 2026-09-28): o próximo nó recomendado é
-# a lição seguinte, e o CTA da home diz "Continuar jornada". Ele renderiza
-# depois do mapa inteiro, abaixo da dobra. É um AppButton: iOS colapsa a
-# subárvore e o nó expõe só `accessibilityText`, com `text` vazio —
-# `scrollUntilVisible` casa com `element.text` e nunca resolve aqui, enquanto
-# `visible`/`tapOn` casam. Daí o `repeat` guardado.
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-# A guarda para no instante em que o CTA entra na árvore, o que num emulador
-# rápido o deixa descansando SOB a tab bar flutuante. Uma rolagem a mais o
-# levanta antes do toque.
-- scroll
+# a lição seguinte, e o CTA da home diz "Continuar jornada". Centralizar o
+# botão do header rolável antes de tocar preserva alcance em telas curtas.
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 2 ────────────────────────────────────────────────────────────────
@@ -120,7 +113,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ct-q3:option:2'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -128,13 +121,12 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 3 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
@@ -151,7 +143,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -159,13 +151,12 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 4 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 4 ────────────────────────────────────────────────────────────────
@@ -182,7 +173,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -190,13 +181,12 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 5 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
@@ -213,7 +203,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -221,13 +211,12 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 6 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
@@ -244,7 +233,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -252,13 +241,12 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 7 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
@@ -275,7 +263,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -289,13 +277,12 @@ tags:
 # `requiresNodeIds: [node:<última lição>]` está satisfeito. As seis lições
 # anteriores nunca produziram este rótulo — cada uma produziu "Abrir
 # checkpoint". O rótulo é a regra falando.
-- repeat:
-    times: 15
-    while:
-      notVisible: Receber conquista
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Receber conquista
 - assertVisible: Conquista da unidade
 # O espelho exato da asserção do flow irmão: lá, "Bloqueada até a unidade

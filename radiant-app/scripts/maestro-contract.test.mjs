@@ -226,66 +226,85 @@ test('keeps each shipped flow tied to the installed mobile identifier', async ()
   assert.doesNotMatch(flows[2], /setAirplaneMode: (?:true|false)/);
 });
 
-test('keeps every below-the-fold action reachable before it is tapped', async () => {
-  // Primary actions are AppButtons, which set accessibilityRole plus
-  // accessibilityLabel on the Pressable. iOS collapses the subtree, so the node
-  // exposes accessibilityText and no text attribute: scrollUntilVisible's
-  // `element.text` never resolves against them, while visible/tapOn do match.
-  // Guarded repeat-scroll is the pattern that works; keep it in place.
-  const flow = await readAppFile('.maestro/learning-critical-path.yaml');
-
-  // Até a ADR de 2026-09-28 o caminho passava por "Abrir checkpoint",
-  // "Concluir checkpoint" e "Abrir próxima lição". O checkpoint de botão saiu
-  // da trilha, e o único CTA abaixo da dobra entre as lições é o da home.
-  for (const label of ['Continuar jornada']) {
-    assert.match(
-      flow,
-      new RegExp(`while:\\n\\s+notVisible: ${label}\\n\\s+commands:\\n\\s+- scroll`),
-      `expected a guarded scroll before tapping "${label}"`
-    );
-    // The guarded repeat stops with the CTA under the floating tab bar on a fast
-    // Android emulator (CTA y2212-2277 vs tab bar y2198-2387), so the tap lands
-    // on the bar. A top-level lift-scroll must immediately precede the tap to
-    // move the CTA clear — removing it reintroduces the occluded tap.
-    assert.match(
-      flow,
-      new RegExp(`\\n- scroll\\n- tapOn: ${label}`),
-      `expected a lift-scroll immediately before tapping "${label}" to clear the floating tab bar`
-    );
+test('centers the recommendation header action before each native tap', async () => {
+  for (const name of ['learning-critical-path.yaml', 'reward-unlock.yaml']) {
+    const commands = await flowCommands(name);
+    const rewardScreen = commands.findIndex(command => command?.assertVisible === 'Conquista da unidade');
+    const actions = commands.flatMap((command, index) =>
+      (rewardScreen < 0 || index < rewardScreen)
+      && ['Continuar jornada', 'Receber conquista'].includes(command?.tapOn) ? [index] : []);
+    assert.equal(actions.length, name === 'reward-unlock.yaml' ? 7 : 1);
+    for (const index of actions) {
+      assert.deepEqual(commands[index - 1]?.scrollUntilVisible, {
+        element: { id: 'journey-recommendation-action' }, direction: 'DOWN',
+        centerElement: true, visibilityPercentage: 100,
+      }, `${name}: center the native button bounds immediately before its semantic tap`);
+    }
   }
+  const offline = await flowCommands('offline-relaunch.yaml');
+  const index = offline.findIndex(command => command?.assertVisible === 'Continuar jornada');
+  assert.ok(index > 0);
+  assert.deepEqual(offline[index - 1]?.scrollUntilVisible, {
+    element: { id: 'journey-recommendation-action' }, direction: 'DOWN',
+    centerElement: true, visibilityPercentage: 100,
+  }, 'offline relaunch must expose the restored recommendation');
 });
 
+async function recommendationActionLabels() {
+  const source = ts.createSourceFile('JourneyRecommendationCard.tsx',
+    await readAppFile('src/features/journey/components/JourneyRecommendationCard.tsx'),
+    ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const nodes = [];
+  const visit = node => { nodes.push(node); ts.forEachChild(node, visit); };
+  visit(source);
+  const copy = nodes.find(node => ts.isFunctionDeclaration(node) && node.name?.text === 'recommendationCopy');
+  assert.ok(copy?.body, 'expected the recommendation copy function');
+  const defaults = [];
+  const findDefaults = node => {
+    if (ts.isDefaultClause(node)) defaults.push(node);
+    ts.forEachChild(node, findDefaults);
+  };
+  findDefaults(copy.body);
+  assert.equal(defaults.length, 1);
+  const returned = defaults[0].statements.find(ts.isReturnStatement)?.expression;
+  assert.ok(returned && ts.isObjectLiteralExpression(returned));
+  const action = returned.properties.find(node => ts.isPropertyAssignment(node) && node.name.getText(source) === 'action')?.initializer;
+  assert.ok(action && ts.isConditionalExpression(action), 'default action distinguishes resume from the next lesson');
+  assert.ok(ts.isStringLiteral(action.whenFalse));
+  const lessonLabel = action.whenFalse.text;
+  const button = nodes.find(node => ts.isJsxSelfClosingElement(node) && node.tagName.getText(source) === 'AppButton');
+  assert.ok(button, 'expected the actual rendered recommendation button');
+  for (const name of ['label', 'accessibilityLabel']) {
+    const attribute = button.attributes.properties.find(node => ts.isJsxAttribute(node) && node.name.getText(source) === name);
+    assert.equal(attribute?.initializer?.expression?.getText(source), 'copy.action', `${name} must use the computed action`);
+  }
+  const rewardCase = nodes.find(node => ts.isCaseClause(node) && ts.isStringLiteral(node.expression) && node.expression.text === 'reward');
+  const rewardReturn = rewardCase?.statements.find(ts.isReturnStatement)?.expression;
+  assert.ok(rewardReturn && ts.isObjectLiteralExpression(rewardReturn));
+  const rewardAction = rewardReturn.properties.find(node => ts.isPropertyAssignment(node) && node.name.getText(source) === 'action')?.initializer;
+  assert.ok(rewardAction && ts.isStringLiteral(rewardAction));
+  return { lessonLabel, rewardLabel: rewardAction.text };
+}
+
 test('keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson', async () => {
-  // ADR de 2026-09-28: os checkpoints das trilhas do catálogo eram só um botão
-  // e saíram. Entre as duas lições o flow passava por "Abrir checkpoint",
-  // "Concluir checkpoint" e pela celebração; agora ele volta à home e segue
-  // pelo CTA que ela mostra quando o próximo nó é uma lição. O rótulo é pinado
-  // à fonte, porque um rótulo renomeado deixaria o flow tocando outro botão.
-  const [flow, home] = await Promise.all([
-    readAppFile('.maestro/learning-critical-path.yaml'),
-    readAppFile('src/features/journey/screens/JourneyHomeScreen.tsx'),
-  ]);
+  const { lessonLabel } = await recommendationActionLabels();
+  assert.equal(lessonLabel, 'Continuar jornada');
+  const commands = await flowCommands('learning-critical-path.yaml');
+  assert.ok(commands.some(command => command?.tapOn === lessonLabel));
+  assert.doesNotMatch(JSON.stringify(commands), /checkpoint|CONQUISTA DESBLOQUEADA/i,
+    'critical path must reach lesson 2 without a catalog checkpoint');
+});
 
-  // O último `return` de `continueLabel` é o do nó que não é revisão,
-  // checkpoint nem conquista: a lição.
-  const lessonLabel = home.match(/return 'Receber conquista';\s*\}\s*return '([^']+)';\s*\}, \[homeNextNode\]\)/)?.[1];
-  assert.ok(lessonLabel, 'expected JourneyHomeScreen.continueLabel to end with the lesson CTA');
-  assert.match(
-    flow,
-    new RegExp(`^- tapOn: ${lessonLabel}$`, 'm'),
-    `the critical path must reach lesson 2 through the home CTA "${lessonLabel}"`
-  );
-
-  // Só os passos contam: os comentários explicam, de propósito, o que saiu.
-  const executableFlow = flow
-    .split('\n')
-    .filter((line) => !/^\s*#/.test(line))
-    .join('\n');
-  assert.doesNotMatch(
-    executableFlow,
-    /checkpoint|CONQUISTA DESBLOQUEADA/i,
-    'the critical path must not walk through a catalog checkpoint — buildUnit no longer creates one'
-  );
+test('native learning flows confirm selected multiple-choice answers with the explicit action', async () => {
+  for (const [name, expected] of [['learning-critical-path.yaml', 2], ['offline-relaunch.yaml', 1], ['reward-unlock.yaml', 7]]) {
+    const commands = await flowCommands(name);
+    const choices = commands.flatMap((command, index) =>
+      command?.tapOn?.id?.startsWith('lesson-option-') ? [index] : []);
+    assert.equal(choices.length, expected, `${name}: preserve every answer in the path`);
+    for (const index of choices) {
+      assert.equal(commands[index + 1]?.tapOn, 'Conferir resposta', `${name}: confirm the selected answer explicitly`);
+    }
+  }
 });
 
 test('keeps icon glyphs out of the accessibility tree', async () => {
@@ -955,10 +974,9 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
   // tamanho da mesma fonte que o app usa. Se alguém acrescentar uma lição ao
   // catálogo, o flow passa a descrever uma trilha que não existe — e sem este
   // teste isso só apareceria queimando uma janela de aparelho.
-  const [flow, catalog, home, rewardScreen] = await Promise.all([
+  const [flow, catalog, rewardScreen] = await Promise.all([
     readAppFile('.maestro/reward-unlock.yaml'),
     readAppFile('src/data/catalog.ts'),
-    readAppFile('src/features/journey/screens/JourneyHomeScreen.tsx'),
     readAppFile('src/features/rewards/screens/RewardScreen.tsx'),
   ]);
 
@@ -1000,8 +1018,7 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
   // toques é o que faz o flow acompanhar a trilha em vez de descrever a de
   // ontem — e é a checagem que fica vermelha primeiro quando o currículo cresce.
   const countSteps = (pattern) => (flow.match(pattern) ?? []).length;
-  const lessonLabel = home.match(/return 'Receber conquista';\s*\}\s*return '([^']+)';\s*\}, \[homeNextNode\]\)/)?.[1];
-  assert.ok(lessonLabel, 'expected JourneyHomeScreen.continueLabel to end with the lesson CTA');
+  const { lessonLabel } = await recommendationActionLabels();
 
   assert.equal(
     countSteps(/^- tapOn: Concluir e voltar$/gm),
@@ -1038,12 +1055,11 @@ test('keeps the unlock-rule flow walking the whole track the catalog declares', 
     cursor = at + marker.length;
   }
 
-  // O rótulo do CTA é a regra falando: `continueLabel` só devolve este literal
+  // O card nomeia a ação de reward pelo tipo real; a jornada só recomenda esse nó
   // quando o nó recomendado é do tipo reward, e o reward só é recomendado com
   // `requiresNodeIds: [node:<última lição>]` satisfeito. Pinado à fonte porque
   // um rótulo renomeado deixaria o flow verde tocando outro botão qualquer.
-  const rewardLabel = home.match(/if \(nextNode\.type === 'reward'\) \{\s*return '([^']+)';/)?.[1];
-  assert.ok(rewardLabel, 'expected JourneyHomeScreen.continueLabel to name the reward CTA');
+  const { rewardLabel } = await recommendationActionLabels();
 
   // O rótulo aparece duas vezes com papéis diferentes: primeiro é o CTA da home,
   // que só existe porque a regra foi satisfeita, e depois é o botão de coleta na
