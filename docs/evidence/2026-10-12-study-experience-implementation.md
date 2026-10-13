@@ -373,3 +373,36 @@ ampliado continua sem limite e com cap2. O teste antigo do cabeçalho não foi
 editado. **2 suítes / 19 testes**, typecheck completo, ESLint dos dois arquivos
 e diff check passaram no mesmo Node20/CI. A matriz nativa anterior tem seu SHA
 original preservado; a correção restaura o contrato padrão e não altera rotas.
+
+Segundo ciclo integral: **13/14 passaram**; suíte `app-test` passou, enquanto
+`app-quality` chegou até o QA visual. O diagnóstico pelo comando exato
+`EXPO_NO_DOTENV=1 CI=1 npm run quality` confirmou **157 suítes / 1550 testes /
+1 snapshot PASS**, lint com 0 erros/26 avisos, typecheck e contratos aprovados.
+Única reprovação: R5 sobre `PixelIllustration` importado pelo card genérico.
+A correção mantém a composição do personagem na Home e injeta o elemento no
+slot decorativo do card, preservando aparência e acessibilidade. Política,
+baseline e regra de QA não são alteradas.
+
+```text
+Unapproved regressions:
+src/features/journey/components/JourneyRecommendationCard.tsx:5 [R5]
+Character usage in potential non-standard screen: JourneyRecommendationCard.tsx.
+Scanned 380 files.
+Found 65 issues: 1 regressions, 61 baselined, 3 scoped exceptions.
+Visual QA failed.
+```
+
+- Ruling: keep character composition owned by JourneyHomeScreen and inject it into the generic card presentation slot — follows existing allowed Home archetype without widening scope or weakening visual policy — cost if wrong: decorative character may disappear or gain an accessibility stop; rendered assertion and native final view check it.
+
+Correção visual em `c9169ee`: Home compõe o Pixel pequeno/guide; Card recebe
+`accessory` opcional no mesmo wrapper decorativo oculto ao leitor de tela.
+Teste usa o Pixel real, asset/imagem de 60pt e ancestral acessível, sem mock ou
+espelho de props. **79 testes**, typecheck, ESLint/diff passaram; QA visual
+estrito passou com **0 regressões**, 61 baselines e 3 exceções já existentes
+inalteradas. Nenhuma política/regra/baseline foi flexibilizada.
+
+Home nativa recapturada no iPhone17 às12:51, código `c9169ee`: Pixel visível,
+título padrão em duas linhas, 110XP/8de8/5vidas preservados; sem clearState.
+`home.png` é esta captura final; as demais oito capturas conservam suas
+medições anteriores. Simulador dedicado desligado e app principal parado
+antes da repetição integral. A abertura para avaliação acontece após o gate.
