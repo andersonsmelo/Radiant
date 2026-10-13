@@ -4,7 +4,7 @@
 motor de estudo. **Spec:** [contrato visual](../specs/2026-10-12-study-experience-design.md).
 **Baseline da preparação:** `bb450a5`; execução partiu de `3fc25af`.
 **Medido em 2026-10-13:** tarefas 1–4 implementadas/revisadas; pacote de código
-até `b65be72`. Tarefa 5: matriz iOS registrada; revisão final aprovada; gate integral em fechamento.
+até `c9169ee`. Tarefa 5: matriz iOS registrada; revisão final aprovada; gate integral 14/14.
 **Architecture:** React Native/Expo; serviços atuais continuam donos de estado,
 elegibilidade, vidas, XP e persistência. Componentes só apresentam e encaminham
 ações. **Tech stack:** Expo 54, RN 0.81.5, Reanimated existente, Node 20 no app;
@@ -115,8 +115,9 @@ PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:$PATH EXPO_NO_DOTENV=1 npx 
   38 e não é consertado recolocando a chamada no quiz.
 - [ ] Revisão independente de invariantes/diff. Comparar desempenho no mesmo
   device/tarefa/build-base; não alegar ganho de bateria a partir do simulador.
-- [ ] Sem E2E rodando, executar uma validação final configurada do Loop,
-  incluindo o gate `EXPO_NO_DOTENV=1 npm run quality` do Node 20. Repetir só
+- [x] Sem E2E rodando, executar a validação final configurada do Loop,
+  incluindo o gate `EXPO_NO_DOTENV=1 npm run quality` do Node 20: 14/14 no
+  terceiro ciclo, após correções específicas documentadas. Repetir só
   após falha real corrigida. Fechar `validate → step finish → [memory] → close`
   e a sessão separadamente; atualizar STATUS/FILA/roadmap com evidência por SHA.
 

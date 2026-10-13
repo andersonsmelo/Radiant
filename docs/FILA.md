@@ -152,8 +152,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   Ainda fora do binário publicado; integração e distribuição seguem pendentes.
   [Evidência](evidence/2026-10-12-itens-36-39-27.md).
 - **Primeiro pacote visual local, 2026-10-13:** Estude, atividade e conclusão
-  implementadas/revisadas até `8f5b4f2`, testes focados,4 flows iOS, AX2,
-  zero vidas e repetição sem XP aprovados; fechamento integral em andamento. Sem release;
+  implementadas/revisadas até `c9169ee`, testes focados, 4 flows iOS, AX2,
+  zero vidas, retomada e repetição sem XP aprovados; gate integral 14/14. Sem release;
   não encerra piloto L1/editorial ou os gates físicos/acessibilidade audível.
   [Evidência](evidence/2026-10-12-study-experience-implementation.md).
 - **Decisões de produto e implementações aprovadas, sem prazo:**

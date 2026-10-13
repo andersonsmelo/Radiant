@@ -309,7 +309,7 @@ implementação e não foi repetido por esta atualização documental.
 
 ## Evolução visual — implementada localmente (2026-10-13)
 
-Direção aprovada por Anderson em 2026-10-12; código até `b65be72`: recomendação
+Direção aprovada por Anderson em 2026-10-12; código até `c9169ee`: recomendação
 no header rolável de Estude, fundo focado, confirmação explícita de múltipla
 escolha e conclusão compacta/factual. Serviços atuais continuam donos das regras.
 
@@ -320,7 +320,9 @@ correta no iPhone 17 manteve 110 XP e 8/8. Nove capturas reais registradas.
 Revisão integrada corrigiu a retomada defasada e o hint compartilhado da
 conclusão; 254 testes focados e retomada nativa suplementar passaram.
 Rerevisão aprovada: cursor e hint corrigidos, sem novos defeitos.
-**Validação integral do Loop em fechamento.**
+**Validação integral aprovada: 14/14**, no terceiro ciclo do mesmo run,
+após corrigir causas específicas dos dois ciclos anteriores. QA visual estrito
+com 0 regressões; nenhum guarda ou baseline foi flexibilizado.
 [Evidência e limites](evidence/2026-10-12-study-experience-implementation.md),
 [spec/plano](superpowers/plans/2026-10-12-study-experience-plan.md).
 
@@ -337,14 +339,17 @@ cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
 19 passos: lint, typecheck, 15 contratos, Jest em banda única e visual QA
-strict. **Última medição: 2026-10-12**, no checkout
-`codex/radiant-e2e-maintenance`, base `376d8de`, com os itens 36/39/27 locais.
-O único ciclo de `loop validate` do run `run-1791835753802-82105001` passou:
-**14/14 validadores**, incluindo `app-quality` e a suíte completa do
-`app-test`, no Node 20, `EXPO_NO_DOTENV=1` e `CI=1`. O E2E `reward-unlock`
-passou no simulador iOS 26.5, em 14m25s, e é uma medição separada do gate.
-O CI remoto dessas mudanças locais não foi executado, e elas ainda não
-integram o binário da App Store. [Evidência](evidence/2026-10-12-itens-36-39-27.md).
+strict. **Última medição: 2026-10-13**, branch
+`codex/radiant-study-improvements`, código `c9169ee`, base `3fc25af`.
+O run `run-1791845691312-da319838` passou **14/14 validadores** no terceiro
+ciclo, incluindo `app-quality` completo e `app-test` no Node 20,
+`EXPO_NO_DOTENV=1` e `CI=1`. Os dois ciclos anteriores tiveram causas específicas
+registradas e corrigidas: tipagem/duas linhas e propriedade da composição Pixel.
+Diagnóstico pelo gate completo passou 157 suítes / 1550 testes / 1 snapshot;
+QA visual final: 0 regressões, 61 baselines/3 exceções já existentes.
+Quatro flows iOS e retomada suplementar são medições nativas separadas.
+CI remoto, integração à main e distribuição não foram executados.
+[Evidência do pacote](evidence/2026-10-12-study-experience-implementation.md).
 O CI usa o gate completo em `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira

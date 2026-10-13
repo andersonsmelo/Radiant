@@ -33,7 +33,7 @@ Testes focados usaram `EXPO_NO_DOTENV=1`, `--runInBand`, no Node 20; ESLint e
 `git diff --check` dos arquivos alterados passaram. Revisores independentes
 aprovaram cada tarefa e as correções de título. Logs completos do trabalho
 serão preservados em `radiant-app/.maestro/artifacts/study-implementation/sdd-audit/`; esta evidência versionada conserva
-comandos, sintomas, resultados e limites. Validação integral ainda pendente.
+comandos, sintomas, resultados e limites. Validação integral final aprovada: 14/14.
 
 Comandos focados: `npx jest --runInBand --runTestsByPath` para background,
 Home/Trail; `npx jest --runInBand src/features/lesson-flow` e
@@ -109,7 +109,7 @@ Não há alegação de ganho de bateria, FPS, retenção ou conversão.
 
 O piloto editorial da L1, V3, Rive/voz, analytics, monetização e distribuição
 continuam nos gates próprios. Estado vivo: [STATUS](../STATUS.md); esta página
-é evidência de implementação, não outro status. Revisão integrada identificou duas correções, implementadas em `b65be72`; rerevisão aprovada, validação integral ainda em fechamento. Os estados finais do run e sessão são medidos pela CLI.
+é evidência de implementação, não outro status. Revisão integrada identificou duas correções, implementadas em `b65be72`; rerevisão aprovada e validação integral final 14/14. Os estados finais do run e sessão são medidos pela CLI.
 
 ## Execuções vermelhas preservadas
 
@@ -401,8 +401,26 @@ espelho de props. **79 testes**, typecheck, ESLint/diff passaram; QA visual
 estrito passou com **0 regressões**, 61 baselines e 3 exceções já existentes
 inalteradas. Nenhuma política/regra/baseline foi flexibilizada.
 
-Home nativa recapturada no iPhone17 às12:51, código `c9169ee`: Pixel visível,
-título padrão em duas linhas, 110XP/8de8/5vidas preservados; sem clearState.
+Home nativa recapturada no iPhone 17 às 12:52, código `c9169ee`: Pixel visível,
+título padrão em duas linhas, 110 XP / 8 de 8 / 5 vidas preservados; sem clearState.
 `home.png` é esta captura final; as demais oito capturas conservam suas
 medições anteriores. Simulador dedicado desligado e app principal parado
 antes da repetição integral. A abertura para avaliação acontece após o gate.
+
+Revisões das correções dos gates (`ede4c6e` e `c9169ee`): PASS, sem novos defeitos. A revisão visual conferiu também a captura nativa final.
+
+## Gate integral final — 2026-10-13
+
+`loop validate --run run-1791845691312-da319838`: **VALIDATION_PASSED**,
+**14/14**, ciclo3. Repetições justificadas exclusivamente pelas causas
+corrigidas nos ciclos1 e2; cada correção recebeu revisão. Apps parados,
+SE desligado, `caffeinate -i`. CLI Node24; validadores app/API Node20/CI
+conforme `.loop/project.yaml`. `app-quality` executou o comando completo
+`EXPO_NO_DOTENV=1 npm run quality`; `app-test` inclui `--runInBand --no-cache`.
+
+Passaram: docs-contract, content-foundation, content-wave1, content-anchoring,
+content-anchoring-data, content-no-verbatim, content-source-rights, content-python,
+app-quality, app-test, api-lint, api-typecheck, api-test e brain-links.
+Código `c9169ee`; nenhuma publicação/push/merge/build de distribuição.
+O estado de fechamento é comprovado pela CLI; run e sessão são lifecycles
+separados (`brain-session-1791845312892-add20fed`).

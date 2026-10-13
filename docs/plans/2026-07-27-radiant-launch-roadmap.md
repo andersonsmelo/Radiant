@@ -1677,9 +1677,9 @@ instala dependências ou autoriza release. STATUS continua sendo o estado vivo.
 **Primeiro marco visual, 2026-10-12:** [auditoria e direção candidata](../design/2026-10-12-study-experience-review.md)
 com capturas de Estude/atividade/conclusão e [prancheta navegável](../design/2026-10-12-study-experience.html).
 **Direção visual aprovada pelo dono em 2026-10-12**; [spec e pacote executável](../superpowers/plans/2026-10-12-study-experience-plan.md)
-preparados. **Implementação local medida em 2026-10-13, até `8f5b4f2`:**
-Estude/atividade/conclusão aplicadas e revisadas; testes focados,4 flows iOS,
-AX2, zero vidas e repetição sem XP aprovados; gate integral em fechamento. [Evidência](../evidence/2026-10-12-study-experience-implementation.md).
+preparados. **Implementação local medida em 2026-10-13, até `c9169ee`:**
+Estude/atividade/conclusão aplicadas e revisadas; testes focados, 4 flows iOS,
+AX2, zero vidas, retomada e repetição sem XP aprovados; gate integral 14/14. [Evidência](../evidence/2026-10-12-study-experience-implementation.md).
 Sem publicação; confirmação editorial da L1 e piloto com alunos seguem pendentes.
 
 ## 7. Recursos necessários

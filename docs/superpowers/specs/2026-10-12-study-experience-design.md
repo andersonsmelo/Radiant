@@ -5,7 +5,8 @@
 [prancheta](../../design/2026-10-12-study-experience.html), commit `bb450a5`.
 Esta spec traduz a direção para o runtime. Contrato aplicado localmente em
 2026-10-13; [evidência e limites](../../evidence/2026-10-12-study-experience-implementation.md).
-Matriz iOS registrada; revisão final e validação integral em fechamento.
+Matriz iOS registrada; revisão final aprovada e validação integral 14/14 em
+2026-10-13, código `c9169ee`.
 Sem publicação; limitações nativas permanecem explicitadas na evidência.
 
 ## Objetivo e limites
