@@ -141,7 +141,7 @@ export function LessonSummary({
           <StarRow stars={stars} animate={starsImproved} />
         </View>
 
-        <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+        <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={Math.min(LABEL_MAX_FONT_SCALE, 1.75)}>
           {phrase}
         </Text>
         <Text style={styles.subtitle}>A lição foi concluída</Text>
