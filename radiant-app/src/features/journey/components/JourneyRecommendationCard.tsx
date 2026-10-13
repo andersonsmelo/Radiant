@@ -7,6 +7,9 @@ import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 
+// Em 375 pt, o padding do card deixa menos largura para palavras longas que o estágio.
+const CARD_TITLE_MAX_FONT_SCALE = Math.min(LABEL_MAX_FONT_SCALE, 1.75);
+
 type Props = {
   /** A tela entrega somente a recomendação elegível do snapshot existente. */
   node: JourneyNode | null;
@@ -46,7 +49,7 @@ export function JourneyRecommendationCard({ node, reason, futureReviewAtMs, onOp
           <PixelIllustration size="sm" state="guide" />
         </View>
       </View>
-      <Text style={styles.title} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">{node?.title ?? 'Nenhuma etapa disponível agora'}</Text>
+      <Text style={styles.title} maxFontSizeMultiplier={CARD_TITLE_MAX_FONT_SCALE} accessibilityRole="header">{node?.title ?? 'Nenhuma etapa disponível agora'}</Text>
       {node?.description ? <Text style={styles.description}>{node.description}</Text> : null}
       {node && copy ? (
         <View testID="journey-recommendation-action" collapsable={false}>
