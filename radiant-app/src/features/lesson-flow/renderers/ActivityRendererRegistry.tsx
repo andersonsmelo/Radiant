@@ -29,11 +29,12 @@ export type InteractionRendererProps = {
     interaction: LearningInteractionV2;
     value: string | undefined;
     onChange: (value: string) => void;
+    confirmationLabel?: string;
 };
 
 type InteractionRenderer = (props: InteractionRendererProps) => React.ReactElement;
 
-function MultipleChoiceInteraction({ interaction, value, onChange }: InteractionRendererProps) {
+function MultipleChoiceInteraction({ interaction, value, onChange, confirmationLabel = 'Continuar' }: InteractionRendererProps) {
     if (interaction.type !== 'multiple-choice') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
@@ -51,6 +52,7 @@ function MultipleChoiceInteraction({ interaction, value, onChange }: Interaction
             }}
             selectedOptionId={value}
             onSelect={onChange}
+            confirmationLabel={confirmationLabel}
         />
     );
 }

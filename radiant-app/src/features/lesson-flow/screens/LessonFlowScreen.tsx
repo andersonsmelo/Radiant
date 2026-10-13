@@ -11,7 +11,8 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
-import { space, typography } from '../../../ui/styles';
+import { semanticColors } from '../../../ui/semantic-colors';
+import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
 import { TeachStepRenderer } from '../renderers/TeachStepRenderer';
 import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
@@ -226,6 +227,10 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         ? player.currentStep.interaction
         : null;
 
+    const confirmationLabel = currentInteraction?.type === 'multiple-choice'
+        ? 'Conferir resposta'
+        : isLastStep ? 'Concluir e voltar' : 'Continuar';
+
     const handleContinue = async () => {
         if (!activity || !currentStep || !canContinue) {
             return;
@@ -237,7 +242,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
-        // A escolha vale no instante do "Continuar", não no toque: trocar de
+        // A escolha vale no instante da confirmação, não no toque: trocar de
         // alternativa antes de confirmar não penaliza. `confirm()` devolve o
         // mapa novo em vez de deixar a tela ler o estado — `setState` é
         // assíncrono e no último passo o estado ainda não conteria esta
@@ -442,7 +447,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     if (loading) {
         return (
             <View style={styles.root}>
-                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
                 <SafeAreaView style={styles.safe}>
                     <View style={styles.centered}>
                         <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
@@ -492,7 +497,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     if (error || !activity || !currentStep) {
         return (
             <View style={styles.root}>
-                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
                 <SafeAreaView style={styles.safe}>
                     <View style={styles.centered}>
                         <View style={styles.errorCard}>
@@ -507,7 +512,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
     return (
         <View style={styles.root}>
-            <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+            <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
             <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
                 <View style={styles.container}>
                     {/*
@@ -563,6 +568,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 <ActivityInteractionRenderer
                                     interaction={currentInteraction}
                                     value={player.value}
+                                    confirmationLabel={confirmationLabel}
                                     onChange={(value) => {
                                         emit('option_tap');
                                         player.setValue(value);
@@ -598,7 +604,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
                     <View style={styles.footer}>
                         <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
-                            {isLastStep ? 'Concluir e voltar' : 'Continuar'}
+                            {confirmationLabel}
                         </AppButton>
                     </View>
                 </View>
@@ -667,18 +673,18 @@ const styles = StyleSheet.create({
         gap: space.s3,
     },
     contentCard: {
-        backgroundColor: galaxyColors.surface,
-        borderRadius: 16,
+        backgroundColor: semanticColors.galaxy.surface,
+        borderRadius: radius.rLg,
         borderWidth: 1,
         borderColor: galaxyColors.border,
-        padding: space.s3,
-        gap: space.s3,
+        padding: space.s4,
+        gap: space.s4,
     },
     footer: {
         paddingHorizontal: space.s3,
         paddingTop: space.s2,
         paddingBottom: space.s3,
-        backgroundColor: 'rgba(3,3,13,0.92)',
+        backgroundColor: semanticColors.galaxy.surface,
     },
     primaryAction: {
         width: '100%',

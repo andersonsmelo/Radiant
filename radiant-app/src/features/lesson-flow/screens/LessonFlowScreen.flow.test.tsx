@@ -424,6 +424,29 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     LessonFlowService.getActivityById.mockReturnValue(null);
   });
 
+  it('bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso', async () => {
+    const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository;
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    await screen.findByText('Qual padrão radiográfico está presente?');
+
+    expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+    const savedCursorCalls = mockedJourneyProgress.setResumableNode.mock.calls.length;
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
+
+    expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeEnabled();
+    expect(screen.getByLabelText('Consolidação alveolar').props.accessibilityHint).toContain('Conferir resposta');
+    expect(screen.getByText('Selecionada')).toBeTruthy();
+    expect(screen.queryByText('Resposta correta')).toBeNull();
+    expect(announceForAccessibility).not.toHaveBeenCalled();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+    expect(mockedOutcome.recordActivityCompletion).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.markNodeCompleted).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledTimes(savedCursorCalls);
+  });
+
   it('permite trocar a alternativa selecionada antes de confirmar', async () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
 
@@ -435,7 +458,7 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
     fireEvent.press(wrong);
     expect(wrong.props.accessibilityState.selected).toBe(true);
 
-    // O primeiro toque não pode congelar a escolha: até o "Continuar" nada foi
+    // O primeiro toque não pode congelar a escolha: até conferir nada foi
     // confirmado, então trocar de alternativa tem de continuar possível.
     expect(wrong.props.accessibilityState.disabled).toBeFalsy();
 
@@ -451,7 +474,7 @@ describe('LessonFlowScreen — escolha da alternativa', () => {
 
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     // A alternativa valendo é a última selecionada, não a primeira tocada: quem
     // errou e corrigiu antes de confirmar vê o reforço de acerto.
@@ -496,7 +519,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     expect(heartsRepository.spend).not.toHaveBeenCalled();
 
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
   });
 
@@ -510,7 +533,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
       renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
       expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
       fireEvent.press(screen.getByLabelText('Pneumotórax'));
-      fireEvent.press(screen.getByText('Continuar'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
       await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
     }
 
@@ -578,8 +601,8 @@ describe('LessonFlowScreen — economia de vidas', () => {
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
 
-    fireEvent.press(screen.getByText('Continuar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
     await act(async () => {
       releaseSpend?.({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
@@ -599,7 +622,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', 1);
@@ -615,7 +638,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
     renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     // Assenta a tela ANTES de observar, em vez de esperar o relógio.
     //
@@ -649,7 +672,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
       renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
       expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
       fireEvent.press(screen.getByLabelText('Pneumotórax'));
-      fireEvent.press(screen.getByText('Continuar'));
+      fireEvent.press(screen.getByText('Conferir resposta'));
       expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     }
 
@@ -780,7 +803,7 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     // Erra, corrige, e só então confirma: vale a escolha confirmada.
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     expect(await screen.findByText('Resposta correta')).toBeTruthy();
     // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
@@ -808,7 +831,7 @@ describe('LessonFlowScreen — registro da conclusão', () => {
     // erro do ReinforceStepRenderer ("Vamos reforçar") é igual ao
     // payload.title da fixture, então casá-lo não provaria nada.
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
     fireEvent.press(await screen.findByText('Concluir e voltar'));
 
@@ -840,8 +863,8 @@ describe('LessonFlowScreen — registro da conclusão', () => {
 
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    // Último passo do bloco: o rótulo do botão muda para "Concluir e voltar".
-    fireEvent.press(screen.getByText('Concluir e voltar'));
+    // Mesmo no último passo, a múltipla escolha explicita a confirmação.
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1));
 
@@ -870,7 +893,7 @@ describe('LessonFlowScreen — retomada sem persistir respostas', () => {
     expect(screen.queryByText('Reforço final')).toBeNull();
 
     fireEvent.press(screen.getByLabelText('Achado B'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     expect(await screen.findByText('Resposta correta')).toBeTruthy();
   });
@@ -898,6 +921,31 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
     expect(screen.getByLabelText('Elétron')).toBeTruthy();
   });
 
+  it.each([false, true])('preserva o CTA da comparação V2 (último passo: %s)', async (lastStep) => {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction') throw new Error('Fixture sem interação');
+    const comparisonActivity: LearningActivityV2 = {
+      ...promotedActivityFixture,
+      steps: [
+        { kind: 'interaction', interaction: { ...original.interaction, type: 'comparison', payload: {
+          prompt: 'Compare as cargas.',
+          options: [{ id: 'proton', label: 'Próton' }, { id: 'eletron', label: 'Elétron' }],
+          correctOptionId: 'eletron',
+        } } },
+        ...(lastStep ? [] : [promotedActivityFixture.steps[2]]),
+      ],
+    };
+    mockedLessonFlowService.getActivityById.mockReturnValue(comparisonActivity);
+    renderWithProviders(<LessonFlowScreen blockId={comparisonActivity.id} nodeId="node-comparison" />);
+    await screen.findByText('Compare as cargas.');
+
+    const label = lastStep ? 'Concluir e voltar' : 'Continuar';
+    expect(screen.getByRole('button', { name: label })).toBeDisabled();
+    expect(screen.queryByText('Conferir resposta')).toBeNull();
+    fireEvent.press(screen.getByLabelText('Elétron'));
+    expect(screen.getByRole('button', { name: label })).toBeEnabled();
+  });
+
   it('registra a conclusão usando a atividade nativa e sua resposta confirmada', async () => {
     mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
 
@@ -911,7 +959,7 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
     expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
     fireEvent.press(screen.getByText('Continuar'));
     fireEvent.press(await screen.findByLabelText('Elétron'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
 
     await waitFor(() => expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1));
@@ -942,7 +990,7 @@ describe('LessonFlowScreen — conclusão da lição', () => {
 
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
   }
 
@@ -1050,7 +1098,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
     // no HUD e no anúncio ao leitor de tela. O som volta com o item 26.
     await abrir();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
@@ -1063,7 +1111,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
   it('continuar com acerto toca o acerto e vibra o sucesso', async () => {
     await abrir();
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(tocados()).toContain('acerto'));
     expect(tocados()).toEqual(['toque', 'acerto']);
@@ -1076,7 +1124,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
     heartsRepository.spend.mockResolvedValue(ilimitada);
     await abrir();
     fireEvent.press(screen.getByLabelText('Pneumotórax'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
 
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
     await act(async () => {});
@@ -1087,7 +1135,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
   it('a lição aprovada termina com o som de fim e a comemoração', async () => {
     await abrir();
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
 
     await waitFor(() => expect(tocados()).toContain('fim'));
@@ -1098,7 +1146,7 @@ describe('LessonFlowScreen — sons e vibração', () => {
     preferences.readFeedbackPreferences.mockResolvedValue({ sounds: false, haptics: false });
     await abrir();
     fireEvent.press(screen.getByLabelText('Consolidação alveolar'));
-    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
     fireEvent.press(await screen.findByText('Concluir e voltar'));
 
     expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
