@@ -5,6 +5,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
+import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 
 type Props = {
   /** A tela entrega somente a recomendação elegível do snapshot existente. */
@@ -40,12 +41,12 @@ export function JourneyRecommendationCard({ node, reason, futureReviewAtMs, onOp
   return (
     <View style={styles.card} testID="journey-recommendation-card">
       <View style={styles.heading}>
-        <Text style={styles.state}>{copy?.state ?? 'Sua jornada'}</Text>
+        <Text style={styles.state} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{copy?.state ?? 'Sua jornada'}</Text>
         <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" pointerEvents="none">
           <PixelIllustration size="sm" state="guide" />
         </View>
       </View>
-      <Text style={styles.title} accessibilityRole="header">{node?.title ?? 'Nenhuma etapa disponível agora'}</Text>
+      <Text style={styles.title} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">{node?.title ?? 'Nenhuma etapa disponível agora'}</Text>
       {node?.description ? <Text style={styles.description}>{node.description}</Text> : null}
       {node && copy ? (
         <View testID="journey-recommendation-action" collapsable={false}>
