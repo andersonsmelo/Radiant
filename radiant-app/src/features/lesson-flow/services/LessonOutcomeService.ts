@@ -34,6 +34,7 @@ import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import type { DurationBand } from '../../../types/learningEvidence';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
+import { OnboardingService } from '../../onboarding/OnboardingService';
 
 export type LessonOutcomeInput = {
     block: LessonBlock;
@@ -90,13 +91,14 @@ class LessonOutcomeServiceImpl {
         // A elegibilidade vem PRIMEIRO: gravar o recall avança o intervalo do
         // SM-2 e o card deixa de estar vencido, então na ordem inversa uma
         // revisão vencida nunca pagaria.
-        const { rewarded, topicId } = await this.resolveNode(input.nodeId);
+        const { rewarded, topicId, valueAction } = await this.resolveNode(input.nodeId);
         const result = this.toQuizResult(input);
 
         await this.recordRecall(result);
         await LearningAttemptRecorder.record(result, topicId);
         await this.recordEvidence(adaptLegacyBlock(input.block), input, result);
         await this.enqueueSync(result);
+        if (valueAction) await OnboardingService.markAction(valueAction);
 
         if (!rewarded) {
             return { award: null, rewarded: false, result };
@@ -107,7 +109,7 @@ class LessonOutcomeServiceImpl {
     }
 
     async recordActivityCompletion(input: ActivityOutcomeInput): Promise<LessonOutcome> {
-        const { rewarded, topicId } = await this.resolveNode(input.nodeId);
+        const { rewarded, topicId, valueAction } = await this.resolveNode(input.nodeId);
         const result = this.activityToQuizResult(input);
 
         await this.recordRecall(result);
@@ -115,6 +117,7 @@ class LessonOutcomeServiceImpl {
         await this.recordEvidence(input.activity, input, result);
         await assessmentAttemptRepository.completeActivity(input.activity, input.confirmedAnswers);
         await this.enqueueSync(result);
+        if (valueAction) await OnboardingService.markAction(valueAction);
 
         if (!rewarded) {
             return { award: null, rewarded: false, result };
@@ -152,7 +155,11 @@ class LessonOutcomeServiceImpl {
      * tentativa é registrada pelo gravador compartilhado, que também resolve
      * a unidade para os dois caminhos de conclusão.
      */
-    private async resolveNode(nodeId: string): Promise<{ rewarded: boolean; topicId: string | null }> {
+    private async resolveNode(nodeId: string): Promise<{
+        rewarded: boolean;
+        topicId: string | null;
+        valueAction?: 'quiz_complete' | 'review_complete';
+    }> {
         try {
             const snapshot = await JourneyProgressService.getSnapshot();
             const unit = snapshot.track.units.find((entry) => entry.nodes.some((node) => node.id === nodeId));
@@ -184,10 +191,10 @@ class LessonOutcomeServiceImpl {
             }
 
             if (node.type === 'review') {
-                return { rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId };
+                return { rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId, valueAction: 'review_complete' };
             }
 
-            return { rewarded: !snapshot.progress.completedNodeIds.includes(nodeId), topicId };
+            return { rewarded: !snapshot.progress.completedNodeIds.includes(nodeId), topicId, valueAction: 'quiz_complete' };
         } catch (error) {
             // Falhar para "não premiar" é o lado seguro: nunca paga duas vezes.
             console.error('[LessonOutcomeService] Falha ao resolver elegibilidade:', error);

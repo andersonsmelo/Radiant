@@ -1694,6 +1694,19 @@ ciclos no mesmo PID, com origem a investigar; nove leaks/4.720 bytes iguais.
 Gate final configurado aprovado: **14/14, ciclo único**. Correções dos achados continuam pendentes. [Relatório e limites](../evidence/2026-10-13-qa-ampla-simulador.md).
 Isso registra QA, sem promoção de V3, integração à main ou distribuição.
 
+### Remediação dos achados locais — 2026-10-14
+
+Cartão/rolagem/HUD de revisão, hidratação dos marcos de primeiro valor,
+retornos à Home e consumidores Maestro corrigidos. Cinco roteiros anteriormente
+reprovados passaram; L1/revisão aprovadas após hidratação. Diálogo nativo de
+avaliação passou com JS de produção isolado, wrapper Debug. Metadados nativos
+locais reconciliados em 1.4.0 (3). AX5 integral permanece parcial; resultado/retorno
+foram verificados separadamente. Memória após vinte ciclos: 285,9→309,5 M,
+2 telas e 178 componentes constantes; uma única Home. Vazamentos pequenos
+sem origem determinada permanecem. Gate final **14/14, ciclo único**, com estado
+corrente exclusivamente em STATUS. [Evidências](../evidence/2026-10-14-qa-remediacao.md).
+Sem integração à main, publicação ou promoção dos gates externos.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

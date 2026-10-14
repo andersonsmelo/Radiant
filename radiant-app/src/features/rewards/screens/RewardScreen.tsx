@@ -88,12 +88,12 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   const nextNode = snapshot?.nextRecommendedNode;
 
   if (!nextNode) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   const href = getJourneyNodeHref(nextNode);
   if (!canOpenJourneyNode(nextNode) || !href) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   if (nextNode.type === 'review') {
@@ -112,7 +112,7 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
     return { label: 'Receber próxima conquista', action: () => router.replace(href) };
   }
 
-  return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+  return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
 }
 
 export default function RewardScreen({ nodeId }: RewardScreenProps) {
@@ -268,7 +268,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
               <Text style={styles.emptyBody}>
                 Nenhuma recompensa está elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
               </Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>
@@ -418,7 +418,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
             </Text>
 
             {rewardLocked ? (
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             ) : rewardCompleted ? (
@@ -431,7 +431,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
                   {submitting ? 'Registrando conquista...' : 'Receber conquista'}
                 </AppButton>
                 <AppButton
-                  onPress={() => router.replace('/(tabs)')}
+                  onPress={() => router.dismissTo('/(tabs)')}
                   variant="ghost"
                   style={styles.fullWidthButton}
                   textStyle={{ color: galaxyColors.textSecondary }}

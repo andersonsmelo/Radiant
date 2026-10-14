@@ -25,12 +25,6 @@ tags:
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - setAirplaneMode: disabled
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- assertVisible: Continuar jornada
 - tapOn: Continuar jornada
 - assertVisible: Fundamentos de Radiologia

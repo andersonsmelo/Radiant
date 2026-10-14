@@ -2731,3 +2731,49 @@ CI remoto, integração à main e distribuição não foram executados.
 O CI usa o gate completo em `.github/workflows/radiant-app-quality.yml`.
 
 <!-- Conteudo historico preservado; medicao corrente no STATUS. -->
+
+
+## Estado anterior à remediação de QA de 2026-10-14
+
+| **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-13; `/v1/content/catalog` teve última medição em 2026-10-12. O app medido não depende dela: sync remoto está desligado. [QA local](evidence/2026-10-13-qa-ampla-simulador.md). | 2026-10-13 |
+
+## QA amplo local — medido em 2026-10-13
+
+Estudo principal passou no SE: duas lições, persistência, conquista 8/8,
+retomada, rotas inválidas, preferências e três cenários internos (incluindo
+AX5). **A revisão direta `/review` apresentou defeito P1:** cartão ilegível e
+resposta que não mantém a classificação; sessão não concluída. O destino é
+usado pelos callbacks de revisão da folha de vidas. L1 normal também não
+registrou o marco `first_value_moment_reached` (lacuna P2 de integração).
+
+Bateria original: **5 PASS / 5 FAIL por roteiros desatualizados**. Reexecuções
+locais e falhas próprias dos testes permanecem separadas. Wrapper nativo
+compilado/instalado **1.3.1 (3)** versus `app.json` **1.4.0 (3)**: configuração
+local ainda precisa de reconciliação antes de QA de distribuição. Memória,
+mesmo PID: **291.1M → 442.9M → 553.0M**, telas nativas 6 → 28 → 48 em
+aquecimento/dez/vinte ciclos; origem da retenção a investigar. Nove leaks /
+4.720 bytes permaneceram iguais. Validação final deste run: **14/14 aprovados, ciclo 1**.
+
+[Relatório funcional](evidence/2026-10-13-qa-ampla-simulador.md),
+[memória](evidence/2026-10-13-qa-memoria-simulador.md),
+[matriz](evidence/2026-10-13-qa-matriz-funcional.csv).
+Nenhuma correção no app ou publicação neste run. Diálogo nativo de avaliação,
+24 h reais, StoreKit/CloudKit autenticados, VoiceOver audível, Android e
+Release continuam com gates próprios.
+
+**Remedido em 2026-10-13:** run `run-1791911865200-18814983`, primeiro e único
+ciclo final, **14/14 validadores aprovados**. Inclui `app-quality` íntegro
+(lint, typecheck, contratos, Jest em banda única e visual QA strict),
+`app-test --runInBand --no-cache`, validadores de conteúdo, testes/lint/tipos
+da API, documentos e links do cérebro. App e API no Node 20,
+`EXPO_NO_DOTENV=1`/`CI=1`; Loop no Node 24. Apps de teste encerrados.
+
+A CLI guarda hashes e uma prévia curta da saída; as contagens do diagnóstico
+anterior não são reapresentadas como uma nova medição. Evidências principais:
+`app-quality` = `evidence-e676e9b9-c84f-4115-9770-ba492e71c2ec`;
+`app-test` = `evidence-6a919cc8-9ea7-481e-84fa-899aa8cd94c8`.
+[QA funcional, memória e limites](evidence/2026-10-13-qa-ampla-simulador.md).
+**Os defeitos nativos da revisão e o crescimento de memória continuam
+abertos; esse gate não é aprovação de distribuição.** CI remoto,
+integração à main e publicação não executados. Autoridade do comando de CI:
+`.github/workflows/radiant-app-quality.yml`.

@@ -1,107 +1,55 @@
 appId: com.ascendcreative.radiant
-name: Store-review prompt becomes eligible after three app opens
+name: Store review after real first value and three app opens
 tags:
   - rating-prompt
   - production-config
   - requires-review-fixture
 ---
-# Este flow existe porque o `RatingPromptService` tem gates que nenhum outro
-# flow alcança. `evaluateEligibility()` exige, em ordem:
-#
-#   1. `APP_ENV === 'production'`  — o perfil `e2e-test` declara `development`,
-#      então build de e2e comum para em `non_production_build`;
-#   2. `first_value_moment_reached` — emitido por `OnboardingService.markAction`
-#      no primeiro `quiz_complete`;
-#   3. `countEvents('app_open') >= MIN_APP_OPENS` (3) — os outros flows abrem o
-#      app uma vez, e o `offline-relaunch`, duas.
-#
-# Build exigida: as sete variáveis do perfil `e2e-test` com
-# `EXPO_PUBLIC_APP_ENV=production` e `EXPO_PUBLIC_ENABLE_PUSH=true`.
-#
-# PENDENTE, medido em 2026-10-12: desde 949f013, QuizScreen não chama mais
-# maybePromptForReview, para separar a avaliação da aula da avaliação da loja.
-# A rota /quiz continua criando first_value_moment_reached, mas o segundo
-# quiz abaixo não alcança o serviço. Restam ReviewScreen e RewardScreen como
-# chamadores. Este flow reprova no diálogo; não é um gate fechado nem PASS.
-# Próxima correção: preparar uma revisão devida e concluir /review depois das
-# três aberturas, mantendo a asserção nativa. Não reintroduzir o prompt no quiz.
-#
-# ── Abertura 1 ──────────────────────────────────────────────────────────────
-- launchApp:
-    clearState: true
-    permissions:
-      all: deny
-- runFlow: subflows/dismiss-dev-client.yaml
-- runFlow: subflows/dismiss-first-run.yaml
-# Primeiro quiz: emite `first_value_moment_reached`. Não chama o serviço da
-# loja; a prova do bloqueio antes de três aberturas precisa vir da revisão.
-- openLink:
-    link: radiantapp://quiz?lessonId=lesson-1
-- runFlow:
-    when:
-      visible: 'Abrir com “Radiant”\?'
-    commands:
-      - tapOn: Abrir
-# As três respostas vêm de `src/data/lessons.ts` (lesson-1, correctAnswerIndex
-# 1, 2 e 1). 3 de 3 supera `QUIZ_THRESHOLDS.PASSING_SCORE`, e nota abaixo dele
-# faz o `QuizScreen` retornar antes de chamar o prompt.
-- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-- tapOn: Visualização de estruturas internas
-- tapOn: Próxima
-- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
-- tapOn: Osso
-- tapOn: Próxima
-- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
-- tapOn: Diferença de densidade entre estruturas
-- tapOn: Próxima
-# O quiz usa o mesmo LessonSummary de /learn; seu CTA volta para Estude.
-- assertVisible: A lição foi concluída
-- tapOn: Continuar
-# Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
-- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
-#
-# ── Aberturas 2 e 3 ─────────────────────────────────────────────────────────
-# Sem `clearState`: é o estado que acumula a contagem, e limpá-lo aqui zeraria
-# o gate sem que nada falhasse.
+# Exige perfil production, L1 concluída e seu cartão sintético devido.
+# Preparar antes de executar, com o app parado; não injetar telemetria.
+# Não limpar estado: a conclusão real criou o marco de primeiro valor.
+- killApp
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
-- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
+- assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
+- killApp
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
-- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
-#
-# ── Segundo quiz legado: substituir por revisão devida (ver pendência acima)
+- assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
+- killApp
+- launchApp
+- runFlow: subflows/dismiss-dev-client.yaml
+- assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - openLink:
-    link: radiantapp://quiz?lessonId=lesson-1
-- runFlow:
-    when:
-      visible: 'Abrir com “Radiant”\?'
-    commands:
-      - tapOn: Abrir
-- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-- tapOn: Visualização de estruturas internas
-- tapOn: Próxima
-- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
-- tapOn: Osso
-- tapOn: Próxima
-- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
-- tapOn: Diferença de densidade entre estruturas
-- tapOn: Próxima
-# O diálogo é do `SKStoreReviewController`: um alerta do sistema, sem atributo
-# `text`, exposto só por `accessibilityText` — `assertVisible` casa com ele.
-# A forma foi lida em `maestro hierarchy` no simulador em 2026-08-03, não
-# suposta. O `?` é escapado porque o seletor do Maestro é regex de
-# correspondência total: sem a barra, `t?` tornaria o "t" opcional e o literal
-# `?` do título não teria com o que casar.
-#
-# Só iOS — mas não pela razão que parecia. Medido no emulador `google_apis` em
-# 2026-08-03: `StoreReview.isAvailableAsync()` devolve **verdadeiro** e o gate
-# abre igual ao iOS (`rating_prompt_eligible`). Quem falha é a chamada seguinte,
-# ao `ReviewManager` do Play, que devolve
-# `deferred: "Android ReviewManager task was not successful"`. Ou seja: o
-# caminho do app é o mesmo nas duas plataformas, e só o serviço da loja
-# difere. Prova de diálogo em Android exige instalação por faixa fechada do
-# Play (task C4), não uma imagem de emulador diferente.
+    link: radiantapp://review
+- assertVisible: Revisão
+- scrollUntilVisible:
+    element: Começar revisão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Começar revisão
+- assertVisible: Micro revisão
+- scrollUntilVisible:
+    element: Mostrar resposta
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Mostrar resposta
+- assertVisible: Resposta correta
+- scrollUntilVisible:
+    element: Acertei
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Acertei
+# A prova é o diálogo da Apple; não substitua por evento de elegibilidade.
 - runFlow:
     when:
       platform: iOS
@@ -109,6 +57,10 @@ tags:
       - assertVisible: 'Curtindo o app Radiant\?'
       - takeScreenshot: rating-prompt-ios-dialog
       - tapOn: Agora Não
-# Nas duas plataformas o resumo continua atrás do diálogo. Afirmá-lo depois é o
-# que prova que a tela sobreviveu ao prompt em vez de ser substituída por ele.
-- assertVisible: A lição foi concluída
+- assertVisible: Sessão concluída
+- scrollUntilVisible:
+    element: Resultado da sessão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- assertVisible: Resultado da sessão

@@ -26,6 +26,7 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
+import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
   count: 5,
@@ -44,6 +45,7 @@ type ReviewScreenProps = {
 };
 
 export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
+  const largeText = useLargeTextLayout();
   const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitRating } = useReview({
     resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
   });
@@ -66,6 +68,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
 
   useEffect(() => {
     if (state === 'finished') {
+      void GamificationService.getSnapshot().then(setGamification);
       void checkPushOptIn();
       void RatingPromptService.maybePromptForReview({
         trigger: 'review_complete',
@@ -137,7 +140,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
       'Vamos continuar pela jornada',
       'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
     );
-    router.replace('/(tabs)');
+    router.dismissTo('/(tabs)');
   }, []);
   const activeCheckpoint = useActiveCheckpoint({
     surface: 'review',
@@ -185,10 +188,10 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             maxHearts={5}
             heartsSnapshot={hearts}
           />
-          <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <ScrollView key="review-start" contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.headerRow}>
               <Pressable
-                onPress={() => router.replace('/(tabs)')}
+                onPress={() => router.dismissTo('/(tabs)')}
                 accessibilityRole="button"
                 accessibilityLabel="Fechar revisão"
                 style={styles.iconButton}
@@ -197,6 +200,24 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               </Pressable>
               <Text style={styles.headerLabel}>Revisão</Text>
               <View style={styles.iconSpacer} />
+            </View>
+
+            <View style={styles.actionCard}>
+              {hasItems ? (
+                <AppButton onPress={startReview} style={styles.fullWidthButton}>
+                  Começar revisão
+                </AppButton>
+              ) : (
+                <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
+                  Voltar para jornada
+                </AppButton>
+              )}
+              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{hasItems ? 'Pronto para limpar a fila?' : 'Nenhuma revisão pendente'}</Text>
+              <Text style={styles.actionBody}>
+                {hasItems
+                  ? 'A sessão está curta o suficiente para caber agora. Não vale adiar uma fila desse tamanho.'
+                  : 'Você pode voltar para a jornada e continuar o próximo nó recomendado.'}
+              </Text>
             </View>
 
             <Animated.View style={fadeAnim.style}>
@@ -215,7 +236,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             </Animated.View>
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle} accessibilityRole="header">Como essa sessão funciona</Text>
+              <Text style={styles.sectionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">Como essa sessão funciona</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -235,23 +256,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               </View>
             </View>
 
-            <View style={styles.actionCard}>
-              <Text style={styles.actionTitle}>{hasItems ? 'Pronto para limpar a fila?' : 'Nenhuma revisão pendente'}</Text>
-              <Text style={styles.actionBody}>
-                {hasItems
-                  ? 'A sessão está curta o suficiente para caber agora. Não vale adiar uma fila desse tamanho.'
-                  : 'Você pode voltar para a jornada e continuar o próximo nó recomendado.'}
-              </Text>
-              {hasItems ? (
-                <AppButton onPress={startReview} style={styles.fullWidthButton}>
-                  Começar revisão
-                </AppButton>
-              ) : (
-                <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
-                  Voltar para jornada
-                </AppButton>
-              )}
-            </View>
+
           </ScrollView>
         </SafeAreaView>
       </View>
@@ -270,10 +275,10 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             maxHearts={5}
             heartsSnapshot={hearts}
           />
-          <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <ScrollView key="review-finished" contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.headerRow}>
               <Pressable
-                onPress={() => router.replace('/(tabs)')}
+                onPress={() => router.dismissTo('/(tabs)')}
                 accessibilityRole="button"
                 accessibilityLabel="Fechar revisão"
                 style={styles.iconButton}
@@ -300,7 +305,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             </Animated.View>
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle} accessibilityRole="header">Resultado da sessão</Text>
+              <Text style={styles.sectionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE} accessibilityRole="header">Resultado da sessão</Text>
               <View style={styles.statsList}>
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="task-alt" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -327,11 +332,11 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             ) : null}
 
             <View style={styles.actionCard}>
-              <Text style={styles.actionTitle}>Fila limpa</Text>
+              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Fila limpa</Text>
               <Text style={styles.actionBody}>
                 A próxima decisão agora volta para a jornada principal. Revise só quando realmente estiver devido.
               </Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>
@@ -353,10 +358,15 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           heartsSnapshot={hearts}
           compact
         />
-        <View style={[layout.container, styles.activeLayout]}>
+        <ScrollView
+          key={`review-active:${currentItem?.question.id}`}
+          style={layout.container}
+          contentContainerStyle={styles.activeLayout}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.headerRow}>
             <Pressable
-              onPress={() => router.replace('/(tabs)')}
+              onPress={() => router.dismissTo('/(tabs)')}
               accessibilityRole="button"
               accessibilityLabel="Fechar revisão"
               style={styles.iconButton}
@@ -368,9 +378,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           </View>
 
           <View style={styles.activeHeroCard}>
-            <View style={styles.activeHeroHeader}>
-              <View style={styles.activeHeroCopy}>
-                <Text style={styles.activeTitle}>Sessão ativa</Text>
+            <View style={[styles.activeHeroHeader, largeText && styles.activeHeroHeaderStacked]}>
+              <View style={[styles.activeHeroCopy, largeText && styles.activeHeroCopyStacked]}>
+                <Text style={styles.activeTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Sessão ativa</Text>
                 <Text style={styles.activeBody}>
                   Responda rápido, revele a resposta e classifique sem hesitar. O objetivo aqui é retenção, não exploração.
                 </Text>
@@ -387,7 +397,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           <View style={styles.focusArea}>
             {currentItem ? <ReviewCard question={currentItem.question} onRate={submitRating} /> : null}
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -398,7 +408,7 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   content: { padding: space.s3, gap: space.s3, paddingBottom: space.s5 },
-  activeLayout: { flex: 1, padding: space.s3, gap: space.s3, maxWidth: SCREEN_MAX_WIDTH },
+  activeLayout: { flexGrow: 1, padding: space.s3, gap: space.s3, maxWidth: SCREEN_MAX_WIDTH, width: '100%', alignSelf: 'center' },
   headerRow: { ...layout.rowBetween, width: '100%' },
   iconButton: {
     width: ICON_BUTTON_SIZE,
@@ -464,8 +474,10 @@ const styles = StyleSheet.create({
     gap: space.s2,
   },
   activeHeroHeader: { flexDirection: 'row', alignItems: 'center', gap: space.s3 },
+  activeHeroHeaderStacked: { flexDirection: 'column', alignItems: 'stretch' },
   activeHeroCopy: { flex: 1, gap: space.s1 },
+  activeHeroCopyStacked: { flex: 0 },
   activeTitle: { ...typography.h3, color: galaxyColors.textPrimary },
   activeBody: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
-  focusArea: { flex: 1, justifyContent: 'center' },
+  focusArea: { width: '100%' },
 });

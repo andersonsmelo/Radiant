@@ -2,6 +2,10 @@ import { act, renderHook, waitFor } from '@testing-library/react-native';
 import { useReview } from './useReview';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
+import { OnboardingService } from '../../onboarding/OnboardingService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
     SpacedRepetitionService: {
@@ -42,11 +46,24 @@ const question = (id: string) => ({
 });
 
 describe('useReview resume', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.clearAllMocks();
+        await AsyncStorage.clear();
+        await OnboardingService.reset();
         (SpacedRepetitionService.getDueLessons as jest.Mock).mockResolvedValue(['lesson-1', 'lesson-2']);
         (LessonCatalogService.getReviewQuestionsForLesson as jest.Mock)
             .mockImplementation((lessonId: string) => [question(`question-${lessonId}`)]);
+    });
+
+    it('persists first review value before exposing the finished state to the prompt caller', async () => {
+        const { result } = renderHook(() => useReview());
+        await waitFor(() => expect(result.current.loading).toBe(false));
+        act(() => result.current.startReview());
+        await act(async () => result.current.submitRating(true));
+        expect(JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!).firstReviewAt).toBeNull();
+        await act(async () => result.current.submitRating(true));
+        expect(result.current.state).toBe('finished');
+        expect(JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!).firstReviewAt).toEqual(expect.any(Number));
     });
 
     it('enters the explicitly resumed due card after the external CTA', async () => {

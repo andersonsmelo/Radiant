@@ -11,6 +11,7 @@ import { LearningAttemptsRepository } from '../../progress/services/LearningAtte
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { LessonOutcomeService } from './LessonOutcomeService';
+import { OnboardingService } from '../../onboarding/OnboardingService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../student-checkpoints/production-batches';
@@ -181,6 +182,7 @@ describe('LessonOutcomeService', () => {
     beforeEach(async () => {
         jest.clearAllMocks();
         await AsyncStorage.clear();
+        await OnboardingService.reset();
         mockedGamification.recordQuizCompletion.mockResolvedValue({
             snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
@@ -195,6 +197,19 @@ describe('LessonOutcomeService', () => {
         // clearAllMocks zera chamadas, não implementações — reafirmar aqui evita
         // que a resolução vaze (ou falte) conforme a ordem dos describes.
         mockedAttempts.append.mockResolvedValue(undefined);
+    });
+
+    it.each(['legacy', 'activity'] as const)('records first value once after a %s lesson completes', async (kind) => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        const complete = () => kind === 'legacy'
+            ? LessonOutcomeService.recordCompletion({ block, nodeId: 'node:lesson-1', confirmedAnswers: { 'lesson-1-question': true } })
+            : LessonOutcomeService.recordActivityCompletion({ activity: nativeActivity, nodeId: 'node:lesson-1', confirmedAnswers: { 'native-question': true } });
+        await complete();
+        const first = JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!);
+        expect(first.firstQuizAt).toEqual(expect.any(Number));
+        await complete();
+        const repeated = JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!);
+        expect(repeated.firstQuizAt).toBe(first.firstQuizAt);
     });
 
     it('premia a primeira conclusão de um nó de lição e reavalia o card', async () => {
@@ -253,6 +268,7 @@ describe('LessonOutcomeService', () => {
         });
 
         expect(outcome.rewarded).toBe(true);
+        expect(JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!).firstReviewAt).toEqual(expect.any(Number));
         expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
     });
 

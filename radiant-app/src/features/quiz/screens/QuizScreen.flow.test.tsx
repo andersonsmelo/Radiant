@@ -23,6 +23,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 jest.mock('expo-router', () => ({
   router: {
     replace: jest.fn(),
+    dismissTo: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
   },
@@ -622,7 +623,7 @@ describe('QuizScreen flow', () => {
       '../../onboarding/OnboardingService'
     ) as { OnboardingService: { markAction: jest.Mock } };
     const { router: mockedRouter } = jest.requireMock('expo-router') as {
-      router: { replace: jest.Mock };
+      router: { replace: jest.Mock; dismissTo: jest.Mock };
     };
 
     LessonCatalogService.getLessonById.mockReturnValue(lessonFixture);
@@ -638,7 +639,7 @@ describe('QuizScreen flow', () => {
 
     await waitFor(() => {
       expect(mockedOnboardingService.markAction).toHaveBeenCalledWith('review_complete');
-      expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
+      expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
     });
   });
 

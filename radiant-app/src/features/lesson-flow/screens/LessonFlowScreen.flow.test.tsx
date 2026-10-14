@@ -37,6 +37,7 @@ jest.mock('expo-router', () => ({
   useLocalSearchParams: () => mockLearnParams,
   router: {
     replace: jest.fn(),
+    dismissTo: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
   },
@@ -761,7 +762,7 @@ describe('LessonFlowScreen — economia de vidas', () => {
     expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Fechar quiz'));
     await waitFor(() => expect(mockedJourneyProgress.setResumableNode).toHaveBeenCalledWith('node-1', 0));
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
+    expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
   });
 });
 
@@ -964,7 +965,7 @@ describe('retomada pela recomendação de Estude — produtor até passo exibido
     }
     expect(screen.getByText(`Passo ${pausedIndex + 1} de 4`)).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Fechar quiz'));
-    await waitFor(() => expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)'));
+    await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
     const [, savedIndex] = mockedJourneyProgress.setResumableNode.mock.calls.at(-1)!;
     expect(savedIndex).toBe(pausedIndex);
     lesson.unmount();
@@ -1103,6 +1104,7 @@ describe('LessonFlowScreen — conclusão da lição', () => {
 
     expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
     expect(mockedRouter.replace).not.toHaveBeenCalled();
+    expect(mockedRouter.dismissTo).not.toHaveBeenCalled();
   });
 
   it('anuncia Estude na conclusão de /learn e o Continuar executa esse retorno', async () => {
@@ -1110,7 +1112,7 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     const button = await screen.findByRole('button', { name: 'Continuar' });
     expect(button.props.accessibilityHint).toBe('Volta para Estude');
     fireEvent.press(button);
-    await waitFor(() => expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)'));
+    await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
   });
 
   it('tira as estrelas da melhor tentativa, e não só da que acabou', async () => {

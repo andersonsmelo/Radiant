@@ -64,12 +64,12 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   const nextNode = snapshot?.nextRecommendedNode;
 
   if (!nextNode) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   const href = getJourneyNodeHref(nextNode);
   if (!canOpenJourneyNode(nextNode) || !href) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   if (nextNode.type === 'review') {
@@ -88,7 +88,7 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
     return { label: 'Abrir checkpoint', action: () => router.replace(href) };
   }
 
-  return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+  return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
 }
 
 export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCursorId }: CheckpointScreenProps) {
@@ -249,7 +249,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       'Vamos continuar pela jornada',
       'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
     );
-    router.replace('/(tabs)');
+    router.dismissTo('/(tabs)');
   }, []);
   const activeCheckpoint = useActiveCheckpoint({
     surface: 'unit-checkpoint',
@@ -547,7 +547,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               <Text style={styles.emptyBody}>
                 Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
               </Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>

@@ -72,7 +72,7 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [], lessonId }
 
   const handleFinishReview = () => {
     void OnboardingService.markAction('review_complete');
-    router.replace('/(tabs)');
+    router.dismissTo('/(tabs)');
   };
 
   if (loading) {
@@ -98,7 +98,7 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [], lessonId }
             <View style={styles.emptyCard}>
               <Text style={styles.emptyTitle}>Nenhuma lição disponível</Text>
               <Text style={styles.emptyBody}>Não existe conteúdo elegível para este quiz agora.</Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>
@@ -380,7 +380,7 @@ function QuizSession({
                   }
                   return;
                 }
-                router.replace('/(tabs)');
+                router.dismissTo('/(tabs)');
               }}
             />
           ) : null}
@@ -400,7 +400,7 @@ function QuizSession({
             hearts={hearts}
             maxHearts={maxHearts}
             unlimited={heartsUnlimited}
-            onClose={() => router.replace('/(tabs)')}
+            onClose={() => router.dismissTo('/(tabs)')}
           />
 
           <Text style={styles.questionCounter}>

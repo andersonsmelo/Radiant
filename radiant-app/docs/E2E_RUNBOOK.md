@@ -1,23 +1,22 @@
 # Maestro local E2E runbook
 
-## Current broad QA, 2026-10-13
+## Current QA remediation, 2026-10-14
 
-[Functional report](../../docs/evidence/2026-10-13-qa-ampla-simulador.md),
-[memory report](../../docs/evidence/2026-10-13-qa-memoria-simulador.md),
-[matrix](../../docs/evidence/2026-10-13-qa-matriz-funcional.csv).
-Current local JS: `c9169ee`. Generated native wrapper compiled and installed as
-**1.3.1 (3)**; app.json declares **1.4.0 (3)**. Reconcile generated metadata and
-entitlements, preserving local customizations, before distribution QA.
+[Remediation report](../../docs/evidence/2026-10-14-qa-remediacao.md) supersedes
+the defects measured in the [October 13 audit](../../docs/evidence/2026-10-13-qa-ampla-simulador.md).
+Generated native wrapper and app.json now agree: **1.4.0 (3)**. Run
+`npm run ios:doctor` before building; `node scripts/check-native-version.mjs --sync`
+changes only the two version fields in the existing Info.plist. Local Xcode 27
+build passed with `IPHONEOS_DEPLOYMENT_TARGET=15.1` and
+`SENTRY_DISABLE_AUTO_UPLOAD=true`, preserving project/scheme customizations.
 
-Original battery: 10 flows, **5 PASS / 5 FAIL due to stale consumers**. Passing
-contracts do not execute these native flows. The report preserves original
-failures and local derivatives separately; versioned YAMLs were not changed.
-
-Known native defect: `/review` renders an unreadable white card with overlapping
-options/button; `Mostrar resposta` does not keep rating actions visible. A
-stationary reveal probe failed. The review and native store-rating dialog are
-not signed off. L1 normal also did not emit `first_value_moment_reached`; only
-legacy QuizScreen calls OnboardingService.markAction in the measured source.
+Five previously failing flows passed after selector/viewport maintenance.
+L1 and direct review passed again after fixing fresh-process onboarding
+hydration; persisted first-value markers and a single event were read back.
+The native store-review dialog passed in an isolated production-configured JS
+projection (144 s). This is a Debug wrapper measurement. AX5 reached completion,
+but its full script failed the last result lookup; a separate tail check passed.
+Preserve these distinct results. Memory and final gates are recorded in the report.
 
 When maintaining the flows:
 
@@ -41,7 +40,8 @@ When maintaining the flows:
 
 Run app tooling with Node 20 / Java 17, dotenv disabled; Loop uses Node 24.
 Use a dedicated simulator for clearState. This audit preserved the primary
-simulator, performed no purchase/upload/submission and changed no app code.
+simulator and performed no purchase/upload/submission. App and flow corrections
+are documented in the remediation report.
 For local Xcode builds, SENTRY_DISABLE_AUTO_UPLOAD=true prevented the missing
 organization upload phase from aborting QA; release configuration was not edited.
 
@@ -67,16 +67,19 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   relaunches with airplane mode enabled, then confirms the persisted
   progress offers the next lesson. On iOS Simulator, that airplane-mode command
   is not evidence of network isolation; this flow proves local persistence.
-- `rating-prompt.yaml`: legacy store-review gate, **still failing as measured
-  on 2026-10-12**. It prepares the first value moment through `/quiz` and
-  accumulates three app opens, but its second quiz no longer calls the review
-  service. Since `949f013`, only `ReviewScreen` and `RewardScreen` call it;
-  quiz completion deliberately keeps lesson rating separate from store rating.
-  Retarget the trigger to a due review with a synthetic fixture, preserving
-  the before/after-three-opens proof and the native iOS dialog assertion.
-  Production configuration remains required (`APP_ENV=production`); a Debug
-  Metro run with that flag is not a full Release measurement. The flow carries
-  `requires-review-fixture` until this prerequisite is implemented.
+- `rating-prompt.yaml`: uses `/review`, with L1 completed and a real due-card
+  fixture prepared while the app is stopped. Change only the L1 card's
+  `nextReviewAt`; preserve milestones and telemetry. Do not clear state in this
+  flow. It performs three process restarts and asserts the native iOS dialog,
+  then declines it. Threshold blocking is separately covered by unit tests;
+  the native positive run had 12 opens, so it does not prove exactly-three timing.
+  Production configuration is required. Verify `build_channel` in actual events;
+  a requested env value can be overridden by local dotenv configuration.
+  The October 14 test used a temporary public-code projection without copying
+  or editing env files. `ReviewScreen`/`RewardScreen` are the callers; do not
+  restore store prompting to quiz completion. Debug is not Release proof.
+- `review-due.yaml`: exercises reveal, rating, and completed summary with the
+  same prepared due-card prerequisite, without clearing existing progress.
 - `reward-locked.yaml`: covers the reward node from the only side a smoke can
   reach it. The node unlocks on `requiresNodeIds: [node:<last lesson>]` and the
   active track has 7 lessons, so the achievement is unreachable in a smoke —

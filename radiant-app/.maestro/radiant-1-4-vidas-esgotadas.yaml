@@ -25,6 +25,12 @@ tags:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
+- assertVisible: '^Fundamentos de Radiologia\. 0 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Próximo passo\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Próximo passo\.$'
 # Tentativa 1: 5 → 4 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Próximo passo\.$'
@@ -42,12 +48,18 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:0
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: '4 de 5 vidas'
 - assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 # Tentativa 2: 4 → 3 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -65,12 +77,18 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:0
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: '3 de 5 vidas'
 - assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 # Tentativa 3: 3 → 2 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -88,12 +106,18 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:0
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: '2 de 5 vidas'
 - assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 # Tentativa 4: 2 → 1 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -111,12 +135,18 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:0
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: '1 de 5 vidas'
 - assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 # Tentativa 5: 1 → 0 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -134,7 +164,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:0
-- tapOn: Continuar
+- tapOn: Conferir resposta
 # A folha sobe por cima da lição logo depois da resposta — no lugar do reforço
 # ("Vamos reforçar") e da conclusão que as quatro tentativas anteriores viram.
 # Ela abre pelo ramo "não é o último passo" do `LessonFlowScreen`: a lição está
@@ -155,6 +185,11 @@ tags:
 # onde parou", com o cabeçalho em "0 de N etapas", porque `resolveNodeStatus`
 # testava o retomável antes do concluído. Um padrão `\d+ de \d+` aqui casaria
 # com os dois estados.
-- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
+- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: '^0 de 5 vidas; próxima em \d+ minutos$'

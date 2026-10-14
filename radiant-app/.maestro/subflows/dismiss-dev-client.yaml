@@ -17,7 +17,7 @@ name: Dispensa o launcher, a apresentação e o menu do dev client
 # O launcher é reconhecido pelo título da seção, não pela URL: o menu do dev
 # client também exibe "http://localhost:8081", e tocar nele ali não conecta.
 - extendedWaitUntil:
-    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*'
+    visible: 'DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)'
     timeout: 20000
     optional: true
 - runFlow:
@@ -37,6 +37,6 @@ name: Dispensa o launcher, a apresentação e o menu do dev client
 # Depois do Continue o menu fica aberto, mostrando o servidor conectado.
 - runFlow:
     when:
-      visible: 'Connected to:'
+      visible: '(?i:connected to:?)'
     commands:
       - tapOn: Close

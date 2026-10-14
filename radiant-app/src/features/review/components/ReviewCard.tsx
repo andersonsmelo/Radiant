@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
@@ -7,6 +7,7 @@ import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
+import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 
 const galaxy = semanticColors.galaxy;
 
@@ -16,32 +17,40 @@ interface ReviewCardProps {
 }
 
 export function ReviewCard({ question, onRate }: ReviewCardProps) {
+  const largeText = useLargeTextLayout();
   const [revealed, setRevealed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const pendingRating = useRef<ReturnType<typeof setTimeout> | null>(null);
   const enterAnim = useCardEnter();
+  const { reset, animateIn } = enterAnim;
   const shakeAnim = useShakeError();
 
   useEffect(() => {
     setRevealed(false);
-    enterAnim.reset();
-    enterAnim.animateIn();
-  }, [enterAnim, question.id]);
+    setSubmitting(false);
+    reset();
+    animateIn();
+    return () => {
+      if (pendingRating.current !== null) clearTimeout(pendingRating.current);
+      pendingRating.current = null;
+    };
+  }, [reset, animateIn, question.id]);
 
   const handleRate = (correct: boolean) => {
+    if (pendingRating.current !== null) return;
+    setSubmitting(true);
     if (!correct) {
       shakeAnim.animateIn();
-      setTimeout(() => onRate(false), 500);
-      return;
     }
-
-    setTimeout(() => onRate(true), 300);
+    pendingRating.current = setTimeout(() => onRate(correct), correct ? 300 : 500);
   };
 
   return (
     <Animated.View style={[styles.container, enterAnim.animatedStyle, shakeAnim.style]}>
-      <SurfaceCard variant="elevated" style={styles.card}>
+      <SurfaceCard variant="galaxyElevated" style={styles.card} contentStyle={styles.cardContent}>
         <View style={styles.header}>
           <Text style={styles.eyebrow}>Micro revisão</Text>
-          <Text style={styles.prompt}>{question.prompt}</Text>
+          <Text style={styles.prompt} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.prompt}</Text>
         </View>
 
         <View style={styles.contentArea}>
@@ -50,14 +59,14 @@ export function ReviewCard({ question, onRate }: ReviewCardProps) {
               {question.options.map((option, index) => (
                 <View key={`${question.id}:${index}:${option.label}`} style={styles.optionRow}>
                   <View style={styles.optionBullet} />
-                  <Text style={styles.optionText}>{option.label}</Text>
+                  <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
                 </View>
               ))}
             </View>
           ) : (
             <View style={styles.answerShell}>
               <Text style={styles.answerLabel}>Resposta correta</Text>
-              <Text style={styles.answerText}>{question.options[question.correctAnswerIndex].label}</Text>
+              <Text style={styles.answerText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.options[question.correctAnswerIndex].label}</Text>
               <Text style={styles.explanation}>{question.explanation}</Text>
             </View>
           )}
@@ -69,10 +78,11 @@ export function ReviewCard({ question, onRate }: ReviewCardProps) {
               Mostrar resposta
             </AppButton>
           ) : (
-            <View style={styles.ratingRow}>
-              <View style={styles.ratingButton}>
+            <View style={[styles.ratingRow, largeText && styles.ratingRowStacked]}>
+              <View style={[styles.ratingButton, largeText && styles.ratingButtonStacked]}>
                 <AppButton
                   onPress={() => handleRate(false)}
+                  disabled={submitting}
                   variant="secondary"
                   style={styles.attentionButton}
                   textStyle={styles.attentionButtonText}
@@ -80,8 +90,8 @@ export function ReviewCard({ question, onRate }: ReviewCardProps) {
                   Revisar depois
                 </AppButton>
               </View>
-              <View style={styles.ratingButton}>
-                <AppButton onPress={() => handleRate(true)} style={styles.successButton}>
+              <View style={[styles.ratingButton, largeText && styles.ratingButtonStacked]}>
+                <AppButton onPress={() => handleRate(true)} disabled={submitting}>
                   Acertei
                 </AppButton>
               </View>
@@ -100,8 +110,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   card: {
-    gap: space.s3,
     minHeight: 360,
+  },
+  cardContent: {
+    gap: space.s3,
   },
   header: {
     gap: space.s1,
@@ -117,7 +129,6 @@ const styles = StyleSheet.create({
     color: galaxyColors.textPrimary,
   },
   contentArea: {
-    flex: 1,
     justifyContent: 'center',
   },
   optionsPreview: {
@@ -181,14 +192,18 @@ const styles = StyleSheet.create({
   ratingButton: {
     flex: 1,
   },
+  ratingRowStacked: {
+    flexDirection: 'column',
+  },
+  ratingButtonStacked: {
+    flex: 0,
+    width: '100%',
+  },
   attentionButton: {
     backgroundColor: 'rgba(245,166,35,0.16)',
     borderColor: galaxyColors.xpColor,
   },
   attentionButtonText: {
     color: galaxyColors.textPrimary,
-  },
-  successButton: {
-    backgroundColor: galaxy.statusSuccess,
   },
 });

@@ -25,6 +25,7 @@ function voltarParaATela() {
 jest.mock('expo-router', () => ({
   router: {
     replace: jest.fn(),
+    dismissTo: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
   },
@@ -544,7 +545,7 @@ describe('CheckpointScreen flow', () => {
     expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
     fireEvent.press(screen.getByText('Voltar para jornada'));
-    expect(mockedRouter.replace).toHaveBeenCalledWith('/(tabs)');
+    expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
   });
 
   it('aplica as questões do estágio e só conclui quando atinge 80%', async () => {

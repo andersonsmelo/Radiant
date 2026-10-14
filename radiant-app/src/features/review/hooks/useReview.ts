@@ -5,6 +5,7 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import type { QuizLessonId, QuizQuestion } from '../../../types/quiz';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
+import { OnboardingService } from '../../onboarding/OnboardingService';
 
 export type ReviewItem = {
     lessonId: QuizLessonId;
@@ -109,6 +110,8 @@ export function useReview(options: UseReviewOptions = {}) {
         if (currentIndex < queue.length - 1) {
             setCurrentIndex(prev => prev + 1);
         } else {
+            // Persist the value milestone before the summary can ask for a store review.
+            await OnboardingService.markAction('review_complete');
             const durationMs = TelemetryService.stopTimer('review');
             TelemetryService.track('review_complete', {
                 itemsCount: queue.length,

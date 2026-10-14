@@ -205,7 +205,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             'Vamos continuar pela jornada',
             'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
         );
-        router.replace('/(tabs)');
+        router.dismissTo('/(tabs)');
     }, []);
     const activeCheckpoint = useActiveCheckpoint({
         surface: 'lesson',
@@ -327,7 +327,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             if (!outcome) {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex);
             }
-            router.replace('/(tabs)');
+            router.dismissTo('/(tabs)');
         })();
     }, [nodeId, outcome, stepIndex]);
 

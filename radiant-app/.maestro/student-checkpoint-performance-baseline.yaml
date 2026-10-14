@@ -13,12 +13,6 @@ tags:
 - runFlow: subflows/dismiss-first-run.yaml
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- assertVisible: Continuar jornada
 - tapOn: Continuar jornada
 - assertVisible: Fundamentos de Radiologia

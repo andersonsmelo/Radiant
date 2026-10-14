@@ -109,6 +109,8 @@ test('navigation flows match the accessible journey header, not its hidden count
   }).join(''));
 
   for (const name of NAVIGATION_FLOWS) {
+    // This fixture explicitly requires a completed L1; other flows start at any progress.
+    const reachableLabels = name === 'rating-prompt.yaml' ? [labels[1]] : labels;
     const selectors = (await flowCommands(name))
       .filter((command) => typeof command?.assertVisible === 'string'
         && command.assertVisible.startsWith('^') && command.assertVisible.includes(' de '))
@@ -116,7 +118,7 @@ test('navigation flows match the accessible journey header, not its hidden count
     assert.ok(selectors.length > 0, `${name}: expected a journey header assertion`);
     for (const selector of selectors) {
       const pattern = new RegExp(selector);
-      for (const label of labels) {
+      for (const label of reachableLabels) {
         assert.ok(pattern.test(label), `${name}: ${selector} does not match the accessible header "${label}"`);
       }
       for (const unrelated of ['0 de 8', 'Fundamentos de Radiologia', '10 XP', 'Tela 2 de 3. Boas-vindas']) {
@@ -764,51 +766,15 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
   }
 });
 
-test('rating flow leaves the rendered quiz summary before accumulating app opens', async () => {
-  const summary = ts.createSourceFile(
-    'LessonSummary.tsx',
-    await readAppFile('src/features/quiz/components/LessonSummary.tsx'),
-    ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX,
-  );
-  const subtitles = [];
-  const buttons = [];
-  const visit = (node) => {
-    if (ts.isJsxElement(node) && node.openingElement.tagName.getText(summary) === 'Text') {
-      const style = node.openingElement.attributes.properties.find((attribute) =>
-        ts.isJsxAttribute(attribute) && attribute.name.getText(summary) === 'style');
-      const expression = style?.initializer?.expression;
-      if (expression && ts.isPropertyAccessExpression(expression)
-        && expression.expression.getText(summary) === 'styles'
-        && expression.name.text === 'subtitle') {
-        subtitles.push(node.children.filter(ts.isJsxText).map((child) => child.text.trim()).join(''));
-      }
-    }
-    if (ts.isJsxSelfClosingElement(node) && node.tagName.getText(summary) === 'AppButton') {
-      const label = node.attributes.properties.find((attribute) =>
-        ts.isJsxAttribute(attribute) && attribute.name.getText(summary) === 'label');
-      if (label?.initializer && ts.isStringLiteral(label.initializer)) buttons.push(label.initializer.text);
-    }
-    ts.forEachChild(node, visit);
-  };
-  visit(summary);
-  assert.equal(subtitles.length, 1, 'expected one rendered summary subtitle');
-  assert.equal(buttons.length, 1, 'expected one fixed summary CTA');
-
+test('rating flow completes the current review caller and preserves the native dialog', async () => {
   const commands = await flowCommands('rating-prompt.yaml');
-  const firstLink = commands.findIndex((command) => command.openLink?.link?.startsWith('radiantapp://quiz?'));
-  assert.ok(firstLink >= 0);
-  const nextLaunch = commands.findIndex((command, index) => index > firstLink
-    && (command === 'launchApp' || Object.hasOwn(command, 'launchApp')));
-  assert.ok(nextLaunch > firstLink);
-  const firstQuiz = commands.slice(firstLink, nextLaunch);
-  const lastAnswer = firstQuiz.findLastIndex((command) => command.tapOn === 'Próxima');
-  assert.ok(lastAnswer >= 0);
-  assert.deepEqual(firstQuiz[lastAnswer + 1], { assertVisible: subtitles[0] },
-    'rating flow must wait for the actual summary after its first quiz');
-  assert.deepEqual(firstQuiz[lastAnswer + 2], { tapOn: buttons[0] },
-    'rating flow must leave the summary through its rendered CTA');
-  assert.deepEqual(commands.at(-1), { assertVisible: subtitles[0] },
-    'rating flow must assert the rendered summary after dismissing the store dialog');
+  const review = commands.findIndex(command => command.openLink?.link === 'radiantapp://review');
+  assert.ok(review >= 0);
+  const taps = commands.slice(review).filter(command => command.tapOn).map(command => command.tapOn);
+  assert.deepEqual(taps, ['Começar revisão', 'Mostrar resposta', 'Acertei']);
+  const dialog = commands.find(command => command.runFlow?.when?.platform === 'iOS');
+  assert.deepEqual(dialog.runFlow.commands[0], { assertVisible: 'Curtindo o app Radiant\\?' });
+  assert.deepEqual(commands.at(-1), { assertVisible: 'Resultado da sessão' });
 });
 
 test('preserves rating eligibility prerequisites and the native dialog assertion', async () => {
@@ -838,55 +804,15 @@ test('preserves rating eligibility prerequisites and the native dialog assertion
     `.maestro/rating-prompt.yaml must launch the app at least MIN_APP_OPENS (${minAppOpens}) times to reach eligibility; it launches ${launches.length}`
   );
 
-  // Só a primeira abertura limpa o estado. As outras precisam preservá-lo — é o
-  // estado que acumula a contagem, e um `clearState` a mais a zera sem que nada
-  // falhe: o flow seguiria verde medindo um gate que nunca abriu.
-  const clearingLaunches = flow.match(/clearState: true/g) ?? [];
-  assert.equal(
-    clearingLaunches.length,
-    1,
-    'rating-prompt.yaml must clear state exactly once — the later launches accumulate the app_open count'
-  );
-
-  // /quiz cria first_value_moment_reached, pré-requisito da elegibilidade.
-  // Desde 949f013 essa tela NÃO chama o prompt da loja. Este contrato protege
-  // só a preparação do marco; o E2E ainda precisa migrar seu disparo para
-  // ReviewScreen/RewardScreen, conforme a pendência explícita no YAML.
-  assert.match(
-    flow,
-    /radiantapp:\/\/quiz\?lessonId=/,
-    'rating-prompt.yaml must drive /quiz to prepare the first value moment'
-  );
-
-  // O gate exige `first_value_moment_reached`, emitido no primeiro
-  // `quiz_complete`. A preparação preserva um quiz aprovado e as
-  // respostas certas vêm da fonte do conteúdo: editar `lessons.ts` sem editar o
-  // flow tornaria a nota insuficiente e o vermelho se leria como falha do gate.
-  const lessons = await readAppFile('src/data/lessons.ts');
-  const lessonOne = lessons.slice(lessons.indexOf("id: 'lesson-1'"));
-  const questionsBlock = lessonOne.slice(0, lessonOne.indexOf("id: 'lesson-2'"));
-
-  const correctLabels = [];
-  const questionRe = /options:\s*\[([\s\S]*?)\][\s\S]*?correctAnswerIndex:\s*(\d+)/g;
-  let match;
-  while ((match = questionRe.exec(questionsBlock)) !== null) {
-    const labels = [...match[1].matchAll(/label:\s*'([^']+)'/g)].map((m) => m[1]);
-    const correct = labels[Number(match[2])];
-    if (correct) correctLabels.push(correct);
-  }
-
-  assert.ok(
-    correctLabels.length >= 3,
-    `expected to derive lesson-1 answers from lessons.ts; got ${correctLabels.length}`
-  );
-
-  for (const label of correctLabels) {
-    assert.match(
-      flow,
-      new RegExp(`^- tapOn: ${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm'),
-      `rating-prompt.yaml must tap "${label}" — it is the answer lessons.ts marks correct, and a failing score skips the prompt entirely`
-    );
-  }
+  const commands = await flowCommands('rating-prompt.yaml');
+  assert.ok(commands.every(command => !command.launchApp?.clearState),
+    'the prepared lesson/due-card fixture must survive every launch');
+  assert.equal(commands.filter(command => command === 'killApp').length, minAppOpens,
+    'every counted launch must be a real new process');
+  assert.ok(commands.some(command => command.openLink?.link === 'radiantapp://review'));
+  assert.ok(commands.every(command => !command.openLink?.link?.includes('/quiz')));
+  assert.ok(commands.some(command => command.assertVisible === '^.+\\. 1 de \\d+ etapas concluídas\\.$'),
+    'require actual lesson completion before the store review route');
 
   // A prova do diálogo é do iOS e só dele. O AVD do projeto usa imagem
   // `google_apis`, sem Play Store, e mesmo com imagem de Play Store o in-app
@@ -1263,7 +1189,7 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   assert.ok(reviewTitle, 'expected the lesson-1 review block to be titled "Revisar ${lesson1.title}"');
   assert.match(card, /default:\s*return 'Bloqueado';/);
   // O fim do caminho 1 é o dia 1 do caminho 2: a revisão agendada e fechada.
-  assert.match(first, /^- assertVisible: '\^Revisar Fundamentos de Radiologia\\\. Bloqueado\\\.\$'$/m);
+  assert.ok((await flowCommands('radiant-1-4-primeira-execucao.yaml')).some(command => typeof command.assertVisible === 'string' && new RegExp(command.assertVisible).test('Revisar Fundamentos de Radiologia. Disponível em 15/10/2026 às 08:00.')), 'scheduled review must display its availability date');
 
   // Caminho 2 — relógio real. Sem clearState, e a revisão devida é a PRIMEIRA
   // coisa afirmada, antes de qualquer toque: rodado antes das 24 h, ele reprova

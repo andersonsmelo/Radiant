@@ -23,20 +23,8 @@ tags:
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
-# CTA da home fica abaixo da dobra, e o repeat guardado para no instante em que o
-# elemento entra na arvore — o que no emulador rapido o deixa sob a tab bar
-# flutuante. O scroll extra levanta o CTA antes do tap.
-# Scroll FIXO, sem condicao. Um `repeat ... while notVisible` reavalia a condicao
-# a cada volta, e cada reavaliacao dumpa a arvore — sobre o fundo galactico, que
-# anima sem parar, o dump espera o idle e pode levar minutos por iteracao (medido:
-# uma execucao passou aqui em <1min, outra ficou 20min presa no mesmo ponto).
-# O CTA renderiza DEPOIS do mapa inteiro da jornada, no fim da pagina: com 3
-# rolagens a tela ainda estava em 'Seu proximo trecho' (verificado no screenshot
-# de falha do Maestro). 12 leva ao fim; rolar alem do fim e no-op.
-- repeat:
-    times: 12
-    commands:
-      - scroll
+# A recomendação fica no header rolável; aguarde o botão antes de tocar.
+- assertVisible: Continuar jornada
 - tapOn: Continuar jornada
 
 - assertVisible: Fundamentos de Radiologia
@@ -65,7 +53,7 @@ tags:
 - scroll
 - tapOn:
     id: lesson-option-q1:option:1
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 # O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
@@ -84,13 +72,7 @@ tags:
 # saiu da trilha, e as duas capturas saíram com ele. Os números restantes não
 # foram renumerados, para não mexer em quem os consome; o que a vitrine da loja
 # passa a mostrar é decisão do dono (FILA, 37).
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- assertVisible: Continuar jornada
 - tapOn: Continuar jornada
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
@@ -111,7 +93,7 @@ tags:
 - scroll
 - tapOn:
     id: lesson-option-ct-q3:option:2
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída

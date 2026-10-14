@@ -34,7 +34,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:1
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 # O efeito acontece aqui: a conclusão da lição comita XP, progresso e recibo de
 # idempotência no mesmo journal.

@@ -1,5 +1,7 @@
 import React from 'react';
-import { act, screen } from '@testing-library/react-native';
+import { act, render, screen } from '@testing-library/react-native';
+import { StyleSheet, View } from 'react-native';
+import { galaxyColors } from '../../../ui/theme';
 import type { QuizQuestion } from '../../../types/quiz';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { ReviewCard } from './ReviewCard';
@@ -21,7 +23,8 @@ const mockPressScale = {
 };
 
 jest.mock('../../../ui/motion', () => ({
-  useCardEnter: () => mockCardEnter,
+  // The real hook creates a new wrapper on every render, with stable callbacks.
+  useCardEnter: () => ({ ...mockCardEnter }),
   useShakeError: () => mockShakeError,
   usePressScale: () => mockPressScale,
 }));
@@ -43,15 +46,6 @@ jest.mock('../../../components/ui/AppButton', () => {
       mockAppButton({ children, onPress, disabled });
       return <Text>{children}</Text>;
     },
-  };
-});
-
-jest.mock('../../../components/ui/SurfaceCard', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
-  return {
-    SurfaceCard: ({ children }: { children: React.ReactNode }) => <View>{children}</View>,
   };
 });
 
@@ -98,6 +92,42 @@ describe('ReviewCard', () => {
     ).toBeTruthy();
     expect(screen.getByText('Revisar depois')).toBeTruthy();
     expect(screen.getByText('Acertei')).toBeTruthy();
+    expect(onRate).not.toHaveBeenCalled();
+  });
+
+  it('renders the question on the dark product surface', () => {
+    renderWithProviders(<ReviewCard question={questionFixture} onRate={jest.fn()} />);
+    const surfaces = screen.UNSAFE_getAllByType(View).map(node => StyleSheet.flatten(node.props.style));
+    expect(surfaces.some(style => style?.backgroundColor === galaxyColors.galaxySurface2)).toBe(true);
+  });
+
+  it('keeps the answer revealed on a parent render and resets for the next question', () => {
+    const onRate = jest.fn();
+    const view = render(<ReviewCard question={questionFixture} onRate={onRate} />);
+    act(() => mockAppButton.mock.calls.at(-1)?.[0].onPress());
+    view.rerender(<ReviewCard question={questionFixture} onRate={onRate} />);
+    expect(screen.getByText('Acertei')).toBeTruthy();
+    view.rerender(<ReviewCard question={{ ...questionFixture, id: 'next' }} onRate={onRate} />);
+    expect(screen.getByText('Mostrar resposta')).toBeTruthy();
+    expect(screen.queryByText('Acertei')).toBeNull();
+  });
+
+  it('submits only one rating when pressed twice', () => {
+    const onRate = jest.fn();
+    renderWithProviders(<ReviewCard question={questionFixture} onRate={onRate} />);
+    act(() => mockAppButton.mock.calls.at(-1)?.[0].onPress());
+    const rate = mockAppButton.mock.calls.find(([props]) => props.children === 'Acertei')?.[0].onPress;
+    act(() => { rate?.(); rate?.(); jest.advanceTimersByTime(300); });
+    expect(onRate).toHaveBeenCalledTimes(1);
+  });
+
+  it('cancels a pending rating when the card is unmounted', () => {
+    const onRate = jest.fn();
+    const view = renderWithProviders(<ReviewCard question={questionFixture} onRate={onRate} />);
+    act(() => mockAppButton.mock.calls.at(-1)?.[0].onPress());
+    act(() => mockAppButton.mock.calls.find(([props]) => props.children === 'Acertei')?.[0].onPress());
+    view.unmount();
+    act(() => jest.advanceTimersByTime(300));
     expect(onRate).not.toHaveBeenCalled();
   });
 
