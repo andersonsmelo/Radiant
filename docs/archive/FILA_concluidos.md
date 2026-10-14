@@ -1869,3 +1869,20 @@ Textos anteriores da fila, preservados sem edição:
     **Dono:** agente. Substituir "Bloqueado" na revisão agendada pelo momento
     em que ficará disponível, preservando a regra de repetição espaçada.
     Registrar ADR e testar datas/virada de dia no run da implementação.
+
+## Item 38 — pendência substituída em 2026-10-14
+
+  - **38.** agente, **parcial, remedido em 2026-10-12**: seis fluxos
+    distintos passaram no iOS 26.5, em nove execuções; retomada no SE de
+    375 × 667 pt passou em `medium`, AX3, AX4 e AX5. O runtime está
+    provisionado e o build Debug assinado pelo Xcode funciona. O resumo do
+    `rating-prompt` recebeu correção e guarda AST/YAML vermelha/verde.
+    **Dono:** agente. **Pendência real:** repontar esse E2E para uma revisão
+    devida com fixture sintética. Desde `949f013`, o quiz não chama o prompt
+    da loja, por decisão de separar a avaliação da aula; o teste chegou a
+    três aberturas, mas não emitiu evento `rating_prompt_*` nem abriu diálogo.
+    Não reintroduzir o prompt no quiz. Preservar a asserção nativa e provar
+    bloqueio antes de três aberturas, elegibilidade depois, no perfil de
+    produção. **Bloqueio de ambiente:** nenhum; a fixture e a nova navegação
+    ainda faltam. Sem nova build de distribuição/OTA.
+    [Evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).

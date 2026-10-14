@@ -112,3 +112,36 @@ API pública remensurada em 14/10: `/health` e `/ready` seguem HTTP 502. A consu
 ## Proveniência Loop
 
 Sessão `brain-session-1791975409119-40678edb`. Runs `run-1791975548407-1c47f40b` e `run-1791975848642-4ce97b1a` encerrados sem validação: primeiro por omissão do contrato Maestro no escopo, depois pela descoberta de hidratação no serviço de onboarding durante o teste nativo. Alterações preservadas, sem rollback. Run de entrega `run-1791978395898-e847c951` inclui esses arquivos e herda a baseline das alterações anteriores. Os runs anteriores não são apresentados como validados ou concluídos.
+
+### Fechamento confirmado e pacote versionado
+
+Correções e documentos entregues no commit **`13ee173`**, conferido em
+2026-10-14 na branch `codex/radiant-study-improvements` (39 arquivos).
+`loop-step-finish.json`: `STEP_SUCCEEDED`; `loop-memory-write.json`:
+`MEMORY_WRITTEN`; `loop-close.json`: `RUN_CLOSED`; `brain-close.json`:
+`BRAIN_SESSION_CLOSED`. Estado do run conferido `closed`, um ciclo de validação.
+O aprendizado foi gravado exclusivamente pela CLI, após `succeeded`, antes do
+fechamento. Checkout limpo após o commit; os dois simuladores estavam desligados.
+
+Esta consolidação documental não executou novamente os cenários nativos nem
+repetiu medições de serviços externos. Os resultados de QA/HTTP acima mantêm
+a data e o escopo das capturas originais. Pendências restantes estão na [fila](../FILA.md),
+com estado operacional no [STATUS](../STATUS.md). Não houve push, merge ou release.
+
+### Consolidação documental posterior
+
+Escopo exclusivamente documental, iniciado sobre `13ee173`: README/índice,
+status vivo, fila, arquivos históricos, changelog e roadmap. Sessão
+`brain-session-1792017362997-94287a39`; run `run-1792017443998-8ca34b51`.
+O item 38 permanece parcial somente pelos controles nativos de limiar ainda
+não comprovados; fixture/nova rota/diálogo positivo já foram entregues.
+Nenhum cenário nativo ou serviço externo foi remensurado nesta etapa.
+
+Validação desta consolidação: `VALIDATION_PASSED`, **14/14**, ciclo 1.
+Docs-contract = `evidence-8196312e-5a49-440e-9ea5-d39533b66434`;
+app-quality = `evidence-99f1b011-f87d-45d8-ba2a-f6eff8facb72`;
+app-test = `evidence-cb936161-dca5-4d13-8608-aa25110f78de`.
+Contrato de documentação focado: 14/14 testes; links novos e preservação dos
+blocos históricos conferidos; `git diff --check` sem erros. App/API em Node 20,
+Loop em Node 24. A execução completa verifica o monorepo, sem ampliar a
+atualização para código, distribuição ou sistemas externos.

@@ -127,20 +127,20 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P4 — agente, destravado:**
-  - **38.** agente, **parcial, remedido em 2026-10-12**: seis fluxos
-    distintos passaram no iOS 26.5, em nove execuções; retomada no SE de
-    375 × 667 pt passou em `medium`, AX3, AX4 e AX5. O runtime está
-    provisionado e o build Debug assinado pelo Xcode funciona. O resumo do
-    `rating-prompt` recebeu correção e guarda AST/YAML vermelha/verde.
-    **Dono:** agente. **Pendência real:** repontar esse E2E para uma revisão
-    devida com fixture sintética. Desde `949f013`, o quiz não chama o prompt
-    da loja, por decisão de separar a avaliação da aula; o teste chegou a
-    três aberturas, mas não emitiu evento `rating_prompt_*` nem abriu diálogo.
-    Não reintroduzir o prompt no quiz. Preservar a asserção nativa e provar
-    bloqueio antes de três aberturas, elegibilidade depois, no perfil de
-    produção. **Bloqueio de ambiente:** nenhum; a fixture e a nova navegação
-    ainda faltam. Sem nova build de distribuição/OTA.
-    [Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+  - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
+    devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo
+    iOS passou com 12 aberturas reais e um primeiro valor, em wrapper Debug
+    com JS de produção isolado. **Resta:** prova nativa negativa antes de três
+    aberturas e positiva no limiar, com estado inicial controlado; a passagem
+    positiva com 12 aberturas e os testes unitários de limiar são evidências
+    distintas. Preservar asserção do diálogo e não restaurar prompt no quiz.
+    Release/Android continuam nos gates próprios. [Relatório](evidence/2026-10-14-qa-remediacao.md).
+  - **QA posterior a `13ee173`:** reproduzir o roteiro integral de revisão em
+    AX5 até resultado/retorno; investigar a origem dos pequenos leaks constantes
+    sem confundi-los com o acúmulo de telas já corrigido; diagnosticar a API em
+    502 antes de propor alteração externa. Aparelho físico, VoiceOver audível,
+    compras/CloudKit autenticados e distribuição exigem os gates respectivos.
+    Não refazer revisão, primeiro valor, navegação ou metadados já entregues.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em

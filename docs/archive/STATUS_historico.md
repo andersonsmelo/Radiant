@@ -2777,3 +2777,42 @@ anterior não são reapresentadas como uma nova medição. Evidências principai
 abertos; esse gate não é aprovação de distribuição.** CI remoto,
 integração à main e publicação não executados. Autoridade do comando de CI:
 `.github/workflows/radiant-app-quality.yml`.
+
+## Item 38 — registro substituído em 2026-10-14
+
+Bloco original preservado literalmente; links no texto tinham como base
+`docs/STATUS.md`. [Evidência histórica](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+
+```markdown
+### Item 38 — manutenção local dos E2E (2026-10-12)
+
+Registro histórico desta etapa; remediação de seletores/fixture e diálogo nativo
+medida em 2026-10-14 na seção corrente acima. Os gates externos permanecem separados.
+
+**Implementado e validado localmente:** seis fluxos de navegação corrigidos,
+espera do dev client também no `student-checkpoint-short-viewport`, travessia
+do resumo da lição no fluxo de idempotência e retirada do botão legado que
+concluía checkpoint sem avaliação. Novos contratos leem o cabeçalho por AST e
+os comandos por parser YAML. Os testes foram vistos falhando antes da
+correção e passaram depois: **25 contratos Maestro e 29 testes focados**.
+
+**E2E em simulador, medido em 2026-10-12:** runtime oficial iOS 26.5
+(`23F73`, arm64) instalado; build Debug assinado pelo Xcode funcional, com
+mínimo iOS 15.1 só na invocação local. **Seis fluxos distintos passaram em
+nove execuções**, incluindo a retomada no SE de 375 × 667 pt em `medium`,
+AX3, AX4 e AX5. O `rating-prompt` continua vermelho: o resumo antigo foi
+corrigido, mas o segundo quiz não chama mais a avaliação da loja desde
+`949f013`, por decisão de separar a avaliação da aula. A telemetria confirmou
+três aberturas e `first_value_moment_reached` em `production`, com zero eventos
+`rating_prompt_*`. Os chamadores atuais são revisão e conquista.
+**Falta:** fixture sintética de revisão devida e nova navegação do E2E,
+mantendo bloqueio antes de três aberturas e diálogo nativo depois. O item 38
+continua parcial; o runtime deixou de ser bloqueio. A guarda adicional
+AST/YAML passou depois de três injeções específicas vistas vermelhas.
+
+App/Metro encerrados e simuladores temporários desligados ao terminar.
+O binário publicado continua sendo `221e2ec`; nenhuma build nem OTA nova
+foi enviada. Modo avião não funciona no simulador iOS; os resultados não
+comprovam ausência de rede, novo VoiceOver ou novo gate estatístico H3.
+[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+```

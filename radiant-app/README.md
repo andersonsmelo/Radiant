@@ -2,6 +2,16 @@
 
 Cliente mobile do Radiant, construído com Expo, React Native, Expo Router e TypeScript.
 
+## QA e continuidade
+
+- Estado operacional: [STATUS](../docs/STATUS.md), único documento vivo.
+- Trabalho executável: [FILA](../docs/FILA.md).
+- Pacote local `13ee173`, 2026-10-14: [remediação de QA](../docs/evidence/2026-10-14-qa-remediacao.md).
+- Procedimentos e fixtures: [runbook E2E](docs/E2E_RUNBOOK.md).
+
+O relatório distingue testes de código, execução nativa Debug, memória,
+acessibilidade parcial e gates externos; não representa aprovação de Release.
+
 ## Objetivo
 
 O app implementa o núcleo do produto Radiant:
@@ -297,20 +307,10 @@ Arquivos principais:
 
 ## Release e EAS
 
-Estado operacional validado em **2026-08-09** — detalhes e bloqueios no
-[`status canônico`](../docs/archive/EXECUTION_STATUS_2026-08-10.md):
-
-- projeto EAS vinculado a `@hashi1802/radiant-app`, com contadores de build
-  governados remotamente;
-- Apple Developer e App Store Connect ativos; `1.3.1 (11)` **publicada em
-  2026-09-14** (a `(7)` foi rejeitada em 14/08 sob Guideline 2.1; a resposta e
-  as correções estão em `docs/release/APP_REVIEW_REPLY_1.3.1.md`);
-- Android `1.3.0 (4)` ativo no teste fechado `alpha`; o gate é 12+ opt-ins por
-  14 dias consecutivos, não a quantidade de contas vinculadas;
-- `EXPO_PUBLIC_API_BASE_URL` não é declarado nos perfis distribuídos; o app
-  permanece local-first e a API pública conhecida está registrada em HTTP 502;
-- `expo-updates` configurado; crash reporting e sync remoto desligados na build
-  distribuída.
+Versões publicadas, aprovações e configuração externa são medições datadas no
+[status canônico](../docs/STATUS.md). Não use snapshots arquivados como instrução
+de release. A build local de QA e o binário distribuído têm proveniências
+diferentes, identificadas no relatório correspondente.
 
 Perfis principais em [`eas.json`](eas.json):
 
@@ -323,7 +323,9 @@ Estado dos caminhos iOS:
 
 - `development-simulator`: simulador sem assinatura de distribuição;
 - `preview`: distribuição interna com o team Apple ativo;
-- `production`: App Store/TestFlight; comprovado pelas builds `1.3.1 (7)`, `(9)`, `(10)` e `(11)` — a última é a publicada. Builds de produção saem de um checkout limpo (`../Radiant-release`), nunca da árvore de trabalho.
+- `production`: App Store/TestFlight. A versão efetivamente distribuída e sua
+  proveniência estão no [STATUS](../docs/STATUS.md). Builds de produção usam
+  checkout limpo; confira a worktree de release com `git worktree list`.
 
 ## Comandos
 
@@ -343,9 +345,21 @@ npm run quality
 
 Para homologação iOS antes de build distribuível:
 
-- `npm run ios:doctor` valida Xcode, `simctl` e resolução da config Expo;
+- `npm run ios:doctor` valida Xcode, `simctl`, resolução da config Expo e, quando
+  o projeto iOS existe, igualdade de versão/buildNumber com `app.json`;
 - `npm run ios:preflight` executa qualidade do app e o check do ambiente iOS em sequência;
 - `npm run ios:v2` sobe o simulador com a combinação oficial de flags da Learning Road V2.
+
+Se houver divergência no projeto iOS gerado, execute no Node 20:
+
+```bash
+node scripts/check-native-version.mjs
+node scripts/check-native-version.mjs --sync
+```
+
+`--sync` altera somente `CFBundleShortVersionString` e `CFBundleVersion` no
+Info.plist existente, preservando as demais customizações. Não regenerar o
+projeto para corrigir esses campos. App/testes usam Node 20; a CLI Loop usa 24.
 
 Para build Android local (usado no E2E de 2026-07-28, o primeiro do projeto):
 
@@ -546,14 +560,10 @@ Esse preflight valida:
 - autenticação Expo via `eas login` ou `EXPO_TOKEN`;
 - tooling Apple local via `npm run ios:doctor`.
 
-Estado operacional atual:
-
-- homologação em simulador já é viável com `xcodebuild` e `simctl` funcionando localmente;
-- a build iOS nativa já foi revalidada em `iPhone 17` com `expo run:ios` e `ios:v2` conectando no bundle atual;
-- smoke principal de produto já está documentado com captura de `cold start`, `auth restore`, `quiz`, `review`, `journey` e `progresso/sync`;
-- o smoke físico de sete cenários passou em 2026-08-05 e o Gate 2/VoiceOver
-  fechou em 2026-08-06; o último estado observado no App Store Connect, em
-  2026-09-14, é `1.3.1 (11)` **publicada na App Store**.
+A homologação local e seus limites estão no
+[relatório de QA de 2026-10-14](../docs/evidence/2026-10-14-qa-remediacao.md).
+Gates históricos de aparelho/VoiceOver não substituem validação do pacote
+local atual. Versões e aprovações externas ficam no [STATUS](../docs/STATUS.md).
 
 ### Gate de comando central (repositório)
 
@@ -564,11 +574,15 @@ cd "$(git rev-parse --show-toplevel)"
 bash scripts/launch-war-room.sh
 ```
 
-Resultado esperado atual: `PASS=13 FAIL=0`.
+Essa rotina é diagnóstico auxiliar. Para o gate do app, use
+`EXPO_NO_DOTENV=1 npm run quality` no Node 20; o comando é governado por
+[CI](../.github/workflows/radiant-app-quality.yml). O Loop executa os validadores
+configurados do monorepo. Resultados e data da execução ficam no STATUS.
 
 ## Estado do projeto
 
-O app está em transição de beta local-first para produto distribuível.
+O [STATUS](../docs/STATUS.md) distingue o produto distribuído dos pacotes locais
+ainda em validação, integração ou preparação para release.
 
 Prioridades imediatas:
 
@@ -588,7 +602,7 @@ Prioridades imediatas:
 - PRD: [`../docs/PRD.md`](../docs/PRD.md)
 - arquitetura vigente: [`../docs/ARCHITECTURE_STATE.md`](../docs/ARCHITECTURE_STATE.md)
 - fluxo do cliente: [`../docs/CLIENT_FLOW.md`](../docs/CLIENT_FLOW.md)
-- status canônico: [`../docs/archive/EXECUTION_STATUS_2026-08-10.md`](../docs/archive/EXECUTION_STATUS_2026-08-10.md)
+- status canônico: [`../docs/STATUS.md`](../docs/STATUS.md)
 - roadmap ativo: [`../docs/plans/2026-07-27-radiant-launch-roadmap.md`](../docs/plans/2026-07-27-radiant-launch-roadmap.md)
 - checklist de release: [`../docs/release/CHECKLIST_RELEASE_V1.3.md`](../docs/release/CHECKLIST_RELEASE_V1.3.md)
 - acessibilidade: [`docs/ACCESSIBILITY_QA_V1.md`](docs/ACCESSIBILITY_QA_V1.md)

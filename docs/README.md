@@ -48,6 +48,17 @@ Quando documentos divergirem, use esta ordem:
 - [`CONTENT_PIPELINE.md`](CONTENT_PIPELINE.md)
 - [`STATUS.md`](STATUS.md) — estado vivo e handoff para a próxima sessão
 
+### Qualidade e evidências locais
+
+- [Remediação de QA de 2026-10-14](evidence/2026-10-14-qa-remediacao.md) —
+  pacote `13ee173`, resultados nativos, comparação de memória e fechamento Loop;
+  as pendências executáveis permanecem em [FILA](FILA.md).
+- [Runbook E2E](../radiant-app/docs/E2E_RUNBOOK.md) — comandos, perfil, fixtures
+  de revisão e limites da prova Debug.
+- [Auditoria de 2026-10-13](evidence/2026-10-13-qa-ampla-simulador.md) e
+  [memória anterior](evidence/2026-10-13-qa-memoria-simulador.md) — registros
+  históricos preservados; não representam defeitos ainda abertos por si sós.
+
 ### Pesquisas para evolução do produto
 
 - [`RESEARCH_DECISIONS.md`](RESEARCH_DECISIONS.md) — pesquisas consolidadas em
@@ -71,7 +82,7 @@ Quando documentos divergirem, use esta ordem:
 - prompt da Task 8, fatia 2 (2026-09-23, **executado** na mesma data): [`superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-1-4-storekit-prompt-de-continuidade.md);
 - prompt pós-sessão de 2026-09-23 (manhã; **executado** na mesma data): [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade.md);
 - prompt pós-sessão da tarde de 2026-09-23 (**substituído** em 2026-09-24): [`superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md`](superpowers/handoffs/2026-09-23-radiant-prompt-de-continuidade-2.md);
-- **prompt atual (2026-09-24):** [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md) — o que a sessão de 2026-09-23/24 entregou, as frentes do agente (E2E no simulador iOS 26.5, gate H4, pesquisa do iOS 27, aprovação do piloto) e o que é do dono;
+- **prompt histórico (2026-09-24):** [`superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md`](superpowers/handoffs/2026-09-24-radiant-prompt-de-continuidade.md) — o que a sessão de 2026-09-23/24 entregou, as frentes do agente (E2E no simulador iOS 26.5, gate H4, pesquisa do iOS 27, aprovação do piloto) e o que é do dono;
 - relatório da sessão de 2026-09-23: [`superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao.md`](superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao.md);
 - relatório da sessão da tarde de 2026-09-23 (vidas do assinante, PRs #15–#20): [`superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao-2.md`](superpowers/handoffs/2026-09-23-radiant-relatorio-da-sessao-2.md);
 - decisões de 2026-09-15 e 2026-09-23: [produtos StoreKit](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md), [StoreKit por módulo local](adr/ADR-2026-09-23-storekit-modulo-expo-local.md), [decisões do dono — I2, C6, kill switches, flags de analytics, Ask to Buy](adr/ADR-2026-09-23-decisoes-l2-l1-kill-switches.md);
@@ -83,9 +94,9 @@ Quando documentos divergirem, use esta ordem:
 - **checklist de declarações à loja da 1.4:**
   [`release/CHECKLIST_DECLARACOES_1.4.md`](release/CHECKLIST_DECLARACOES_1.4.md)
   — confere cada declaração da §9 da spec contra o código e traz o comando que
-  remede a afirmação de privacidade. As linhas de assinatura continuam
-  bloqueadas: o adaptador StoreKit existe desde 2026-09-23, mas espera build e
-  sandbox. O acordo de apps pagos foi lido *Ativo* na mesma data.
+  remede a afirmação de privacidade. O histórico de execução de build, sandbox e aprovação está no
+  [status canônico](STATUS.md); as pendências de 2026-09-23 não devem ser
+  reapresentadas como estado atual.
 - [`archive/`](archive/) — os 21 status datados, de 2026-04-05 a 2026-08-15,
   mantidos porque ADRs e planos os citam como evidência
 - [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md)

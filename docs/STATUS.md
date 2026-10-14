@@ -334,6 +334,10 @@ voz/Rive, analytics, assinatura ou backend.
 
 ## Remediação de QA local — medida em 2026-10-14
 
+Pacote local versionado em `13ee173`, branch `codex/radiant-study-improvements`.
+Run de entrega fechado, memória validada gravada e sessão do cérebro encerrada.
+[Evidência do fechamento](evidence/2026-10-14-qa-remediacao.md#proveniência-loop).
+
 Revisão direta corrigida: superfície legível, resposta persistente, classificação
 sem duplicidade, rolagem por pergunta/fase e HUD atualizado. Lição/revisão
 hidratam e preservam os marcos de primeiro valor. Retornos à jornada reutilizam
@@ -376,37 +380,12 @@ Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.
 
-### Item 38 — manutenção local dos E2E (2026-10-12)
-
-Registro histórico desta etapa; remediação de seletores/fixture e diálogo nativo
-medida em 2026-10-14 na seção corrente acima. Os gates externos permanecem separados.
-
-**Implementado e validado localmente:** seis fluxos de navegação corrigidos,
-espera do dev client também no `student-checkpoint-short-viewport`, travessia
-do resumo da lição no fluxo de idempotência e retirada do botão legado que
-concluía checkpoint sem avaliação. Novos contratos leem o cabeçalho por AST e
-os comandos por parser YAML. Os testes foram vistos falhando antes da
-correção e passaram depois: **25 contratos Maestro e 29 testes focados**.
-
-**E2E em simulador, medido em 2026-10-12:** runtime oficial iOS 26.5
-(`23F73`, arm64) instalado; build Debug assinado pelo Xcode funcional, com
-mínimo iOS 15.1 só na invocação local. **Seis fluxos distintos passaram em
-nove execuções**, incluindo a retomada no SE de 375 × 667 pt em `medium`,
-AX3, AX4 e AX5. O `rating-prompt` continua vermelho: o resumo antigo foi
-corrigido, mas o segundo quiz não chama mais a avaliação da loja desde
-`949f013`, por decisão de separar a avaliação da aula. A telemetria confirmou
-três aberturas e `first_value_moment_reached` em `production`, com zero eventos
-`rating_prompt_*`. Os chamadores atuais são revisão e conquista.
-**Falta:** fixture sintética de revisão devida e nova navegação do E2E,
-mantendo bloqueio antes de três aberturas e diálogo nativo depois. O item 38
-continua parcial; o runtime deixou de ser bloqueio. A guarda adicional
-AST/YAML passou depois de três injeções específicas vistas vermelhas.
-
-App/Metro encerrados e simuladores temporários desligados ao terminar.
-O binário publicado continua sendo `221e2ec`; nenhuma build nem OTA nova
-foi enviada. Modo avião não funciona no simulador iOS; os resultados não
-comprovam ausência de rede, novo VoiceOver ou novo gate estatístico H3.
-[Evidência](../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+**Consolidação documental validada em 2026-10-14:** run
+`run-1792017443998-8ca34b51`, **14/14, ciclo único**, sobre o pacote `13ee173`.
+Contrato documental = `evidence-8196312e-5a49-440e-9ea5-d39533b66434`;
+app-quality = `evidence-99f1b011-f87d-45d8-ba2a-f6eff8facb72`.
+Essa etapa não repetiu o QA nativo nem as medições externas; preserva a
+proveniência e os limites registrados no relatório.
 
 ### O que o gate NÃO pega
 

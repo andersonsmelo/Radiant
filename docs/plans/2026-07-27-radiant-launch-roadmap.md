@@ -1684,6 +1684,9 @@ Sem publicação; confirmação editorial da L1 e piloto com alunos seguem pende
 
 ### QA amplo posterior ao pacote visual — 2026-10-13
 
+Registro histórico anterior às correções `13ee173`; o resultado posterior
+está na remediação de 2026-10-14 abaixo.
+
 Auditoria local do código `c9169ee`: estudo, persistência, conquista e retomada
 passaram; modo interno também passou, incluindo SE/AX5. **A revisão direta
 apresentou defeito P1** (legibilidade e classificação que não permanece),
@@ -1695,6 +1698,9 @@ Gate final configurado aprovado: **14/14, ciclo único**. Correções dos achado
 Isso registra QA, sem promoção de V3, integração à main ou distribuição.
 
 ### Remediação dos achados locais — 2026-10-14
+
+Entregue localmente em **`13ee173`**; run `run-1791978395898-e847c951` fechado,
+memória validada gravada e sessão encerrada, conforme relatório.
 
 Cartão/rolagem/HUD de revisão, hidratação dos marcos de primeiro valor,
 retornos à Home e consumidores Maestro corrigidos. Cinco roteiros anteriormente
