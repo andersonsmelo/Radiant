@@ -1914,3 +1914,15 @@ Textos anteriores da fila, preservados sem edição:
     paralela sem custo de vida e o lembrete ligado de verdade, com o convite em
     Estude. [ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
     [evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).
+
+## Item 46 — concluído localmente em 2026-10-16
+
+  - **46.** agente: os 13 roteiros Maestro que usam o cabeçalho de Estude como
+    âncora reprovam desde a trilha centralizada (`f39ac9e`). Rolar até o
+    cabeçalho antes de afirmá-lo e rodar a bateria
+    ([evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md));
+    **Concluído em 2026-10-16:** 12 roteiros (a contagem de 13 estava errada)
+    rolam até o cabeçalho. O `reward-unlock` ganhou prazo de 120 s nessa
+    rolagem e passou no simulador, numa execução separada dos outros 7 da
+    bateria padrão.
+    [Evidência](../evidence/2026-10-16-e2e-ancora-de-estude.md).

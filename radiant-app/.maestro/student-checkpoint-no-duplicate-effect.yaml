@@ -42,6 +42,15 @@ tags:
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # O valor é capturado, não fixado. XP é base mais bônus, então afirmar um número
 # literal amarraria o flow às regras de gamificação em vez de à idempotência —
@@ -55,5 +64,14 @@ tags:
 # A lição foi concluída, então não há retomada a oferecer — o que o relançamento
 # exercita é a reconciliação do journal. Se ela reaplicasse o efeito, o XP
 # dobraria.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - assertVisible: ${maestro.copiedText}

@@ -16,6 +16,11 @@ const appId = 'com.ascendcreative.radiant';
 // diretório, porque um flow novo que role deve entrar aqui por decisão — é
 // nesta lista que as duas regras de `scrollUntilVisible` pegam.
 const MAESTRO_FLOWS_WITH_SCROLL = [
+  // Rolam até o cabeçalho de Estude desde a trilha centralizada (2026-10-16).
+  'boot-to-home.yaml',
+  'rating-prompt.yaml',
+  'student-checkpoint-active-resume.yaml',
+  'student-checkpoint-performance-baseline.yaml',
   'learning-critical-path.yaml',
   'offline-relaunch.yaml',
   'reward-locked.yaml',

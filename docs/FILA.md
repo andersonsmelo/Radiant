@@ -133,10 +133,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de
     conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5);
-  - **46.** agente: os 13 roteiros Maestro que usam o cabeçalho de Estude como
-    âncora reprovam desde a trilha centralizada (`f39ac9e`). Rolar até o
-    cabeçalho antes de afirmá-lo e rodar a bateria
-    ([evidência](evidence/2026-10-16-pacote-de-confianca-da-trilha.md));
+  - **48.** dono: o `store-capture` passa a mostrar o convite do lembrete em
+    Estude depois da 1ª lição. Decidir se a captura de loja fica com ele ou se
+    o roteiro o dispensa antes de fotografar
+    ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md));
   - **47.** agente: a frase de 0 estrela ainda supõe um quase acerto ("Faltou
     pouco", "pela metade"), e o Pixel comemora mesmo com 0 estrela. O
     `LearningAttemptRecorder` resolve o tópico pela trilha ativa.

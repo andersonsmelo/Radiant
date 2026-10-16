@@ -296,9 +296,13 @@ no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-
 - a revisão de uma trilha anterior volta a registrar conclusão e XP;
 - o lembrete diário saiu do modo sombra e agenda de verdade.
 
-**Regressão aberta:** o E2E `learning-critical-path` reprovou, porque a trilha
-centralizada (`f39ac9e`) tira da tela o cabeçalho que 13 roteiros usam como
-âncora. O conserto vai num run próprio.
+**E2E de volta ao verde** (medido em 2026-10-16, no simulador iOS, sem
+Android): a trilha centralizada (`f39ac9e`) tirava da tela o cabeçalho que 12
+roteiros usam como âncora. Eles agora rolam até ele. A bateria padrão passou
+7 de 8 numa execução, e o `reward-unlock` passou sozinho depois, com o prazo de
+rolagem ampliado.
+`rating-prompt`, `store-capture` e os `student-checkpoint-*` não foram
+executados ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md)).
 
 ## Kill switches reais
 

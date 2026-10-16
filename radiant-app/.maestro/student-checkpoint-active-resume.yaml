@@ -23,6 +23,15 @@ tags:
 - assertVisible: 'Tela 2 de 3\..*'
 - tapOn: Pular apresentação
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - setAirplaneMode: disabled
 - assertVisible: Continuar jornada

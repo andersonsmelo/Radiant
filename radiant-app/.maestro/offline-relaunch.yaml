@@ -60,6 +60,15 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # setAirplaneMode takes enabled/disabled, not a boolean — `true` fails to parse.
 - setAirplaneMode: enabled
@@ -69,6 +78,15 @@ tags:
 # SERVERS"), esperando a escolha do servidor (medido em 2026-09-28). O subflow
 # cobre esse estado; num build de loja ele não aparece.
 - runFlow: subflows/dismiss-dev-client.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # A recomendação fica no header rolável; a rota continua vindo do próximo nó.
 - scrollUntilVisible:

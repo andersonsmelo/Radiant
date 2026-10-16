@@ -16,4 +16,13 @@ tags:
 # 2026-07-28; this flow proves what actually matters — a fresh install, welcome
 # dismissed, reaches the local-first home — against a stable pt-BR assertion.
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'

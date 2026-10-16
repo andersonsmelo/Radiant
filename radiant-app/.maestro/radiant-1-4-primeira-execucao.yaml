@@ -61,6 +61,15 @@ tags:
 - tapOn: Continuar
 # De volta à trilha: a L1 concluída e a revisão dela agendada, ainda fechada.
 # A contagem de etapas fica em `\d+` porque depende do catálogo, não do flow.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'

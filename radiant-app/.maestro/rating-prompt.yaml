@@ -11,14 +11,41 @@ tags:
 - killApp
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - killApp
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - killApp
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - openLink:
     link: radiantapp://review

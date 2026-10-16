@@ -29,6 +29,15 @@ tags:
 - runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 # Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # Instalação limpa: a conquista da unidade está bloqueada, porque nenhuma lição
 # foi concluída. O id vem de `rewardNodeId()` em JourneyDefinitionService, sobre
@@ -77,4 +86,13 @@ tags:
 # A saída oferecida devolve à jornada, em vez de deixar a pessoa presa numa tela
 # que ela alcançou por um link.
 - tapOn: Voltar para jornada
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'

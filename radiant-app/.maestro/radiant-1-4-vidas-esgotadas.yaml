@@ -25,6 +25,15 @@ tags:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 0 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 0 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Próximo passo\.$'
@@ -54,6 +63,15 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -83,6 +101,15 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -112,6 +139,15 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -141,6 +177,15 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
@@ -185,6 +230,15 @@ tags:
 # onde parou", com o cabeçalho em "0 de N etapas", porque `resolveNodeStatus`
 # testava o retomável antes do concluído. Um padrão `\d+ de \d+` aqui casaria
 # com os dois estados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'

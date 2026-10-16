@@ -44,6 +44,23 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+# O prazo de 120 s não substitui a espera: a trilha já está na árvore (o
+# `assertVisible` acima), e o cabeçalho existe, só que acima da dobra. Medido em
+# 2026-10-16: com o fundo animado a tela não assenta, cada tentativa custa ~8 s,
+# e depois da 1ª lição o convite do lembrete sobe por cima do cabeçalho. Como a
+# trilha abre no PRÓXIMO, a distância cresce a cada lição: as oito rolagens
+# levaram 0,1 / 8 / 17 / 25 / 33 / 33 / 41 / 50 s. Os 20 s padrão acabaram na 4ª
+# com o cabeçalho já na tela, e 60 s deixariam a 8ª com 10 s de folga.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Unidade 1 ────────────────────────────────────────────────────────────────
@@ -85,6 +102,16 @@ tags:
 # medido em 2026-09-28, no simulador, parava aqui.
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 2 ───────────────────────────────────────────────────────────
@@ -118,6 +145,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 3 ───────────────────────────────────────────────────────────
@@ -148,6 +185,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 4 ───────────────────────────────────────────────────────────
@@ -178,6 +225,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 5 ───────────────────────────────────────────────────────────
@@ -208,6 +265,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 6 ───────────────────────────────────────────────────────────
@@ -238,6 +305,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 7 ───────────────────────────────────────────────────────────
@@ -268,6 +345,16 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── A conquista destravou ────────────────────────────────────────────────────

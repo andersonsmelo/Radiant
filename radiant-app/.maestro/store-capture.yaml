@@ -21,6 +21,15 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # A recomendação fica no header rolável; aguarde o botão antes de tocar.
@@ -66,6 +75,15 @@ tags:
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # Até a ADR de 2026-09-28 havia um checkpoint de botão entre as duas lições, e
 # esta passagem capturava `shots/04-checkpoint` e `shots/05-conquista`. Ele
@@ -104,6 +122,15 @@ tags:
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - takeScreenshot: shots/01-home
 
