@@ -70,6 +70,19 @@ Quando documentos divergirem, use esta ordem:
   datado do código e programa proposto de melhorias, com foco escolhido em
   layout, Pixel e uma unidade piloto; dependências, critérios de saída,
   métricas e gates antes da expansão e da monetização.
+- [Reavaliação da trilha de 2026-10-16](evidence/2026-10-16-reavaliacao-da-trilha.md)
+  — crítica com dois avaliadores isolados depois do pacote de confiança (22/40
+  em Nielsen), com a comparação de mercado e os problemas priorizados.
+- [Plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md)
+  — três horizontes escolhidos pelo dono em 2026-10-16, com o
+  [pacote P1 tarefa a tarefa](superpowers/plans/2026-10-16-licao-legada-honesta.md).
+- [`research/`](research/) — pesquisas de 2026-10-16 que embasam o planejamento
+  da trilha: o
+  [benchmark de trilhas gamificadas e de educação em radiologia](research/2026-10-16-benchmark-trilhas-gamificadas.md)
+  e as
+  [práticas de desenvolvimento com agentes](research/2026-10-16-praticas-desenvolvimento-com-agentes.md),
+  com MCPs, skills, plugins e fluxos. Cada uma traz grau de evidência e o que a
+  sessão conferiu.
 
 ### 1.4 — fluxo do usuário, vidas, assinatura e backup (desenhada em 2026-09-14)
 

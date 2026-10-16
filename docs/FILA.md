@@ -127,8 +127,19 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
 - **P1 — trilha, avaliação de 2026-10-16** ([relatório](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
-  O dono definiu a trilha como o investimento principal. A ordem abaixo segue
-  o relatório e espera o dono escolher o foco:
+  O dono definiu a trilha como o investimento principal. O foco foi escolhido
+  em 2026-10-16 e está no
+  [plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md),
+  com base na [reavaliação da tarde](evidence/2026-10-16-reavaliacao-da-trilha.md):
+  - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
+    porque barateia o E2E do 50;
+  - **50.** agente: **P1, a lição legada honesta**, executando o
+    [plano tarefa a tarefa](superpowers/plans/2026-10-16-licao-legada-honesta.md).
+    Fecha a parte da frase do 47;
+  - **51.** agente propõe e dono aprova: **E2**, o hook que protege testes e as
+    skills e MCPs só do domínio do app;
+  - **52.** agente: **P6**, o levantamento de imagens com licença comercial
+    verificada. Pode correr em paralelo com o 50;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de

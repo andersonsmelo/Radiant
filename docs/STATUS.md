@@ -287,6 +287,21 @@ no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-
   (`JourneyDefinitionService.ts`), e não há nenhuma imagem radiológica.
 - **P1-4, medição:** o analytics de produto é um adaptador vazio. Fica com o
   dono (FILA 43).
+- **Reavaliação da tarde, depois do pacote** (22/40 em Nielsen;
+  [síntese](evidence/2026-10-16-reavaliacao-da-trilha.md)): o teto passou para
+  dentro da lição.
+  - Cada lição mostra **uma** pergunta. A segunda vai para o nó de revisão.
+  - O fim reprovado diz "Refazer agora" sem botão para refazer.
+  - O erro é explicado com o mesmo texto do acerto.
+  - A alternativa certa é a mais longa em 18 de 32 perguntas, e as alternativas
+    não são embaralhadas.
+  - Três textos de estado da trilha ficam abaixo do contraste AA.
+
+  O [plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md)
+  saiu dessa síntese e das pesquisas em [`research/`](research/), com as
+  escolhas do dono de 2026-10-16: consertar a lição legada em paralelo ao
+  piloto híbrido, ter um item de imagem por trilha neste ciclo e abrir as quatro
+  frentes de engenharia. A próxima é a FILA 49.
 
 **Consertados localmente no mesmo dia, sem publicação**
 ([ADR](adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
