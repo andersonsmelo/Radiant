@@ -126,6 +126,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     com o antes e o depois no
     [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
     Destrava o 15.
+- **P1 — trilha, avaliação de 2026-10-16** ([relatório](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
+  O dono definiu a trilha como o investimento principal. A ordem abaixo segue
+  o relatório e espera o dono escolher o foco:
+  - **41.** agente: o resumo mostra a nota **da tentativa**, e não a melhor já
+    obtida. A revisão ganha título e texto próprios, e o erro não recebe XP de
+    acerto (P0-2);
+  - **42.** dono decide e agente executa: a revisão deixa de ser portão da
+    trilha seguinte, e a faixa "BLOQUEADO" diz o que abre e quando (P0-3, pede
+    ADR). Antes, um teste reproduz a rebaixa da trilha seguinte quando uma
+    revisão antiga vence;
+  - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
+    agente liga as métricas mínimas da seção 7 do relatório (P1-4);
+  - **44.** agente: o convite ao lembrete diário sai do fim da primeira lição
+    da trilha (P2-8);
+  - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de
+    conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5).
 - **P4 — agente, destravado:**
   - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
     devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo

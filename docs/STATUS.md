@@ -280,6 +280,24 @@ está nos itens 36/39/27 abaixo, por decisão do dono de 2026-10-12
 ([FILA](FILA.md);
 [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
 
+**A trilha no ar ensina pouco, comemora erro e trava sem explicar** (medido em
+2026-10-16, no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
+Quatro achados de prioridade, na ordem da avaliação:
+- **P0-1, conteúdo:** as 18 lições somam ≈38 perguntas de múltipla escolha só
+  em texto. Abertura e "ideia-chave" são frases geradas por modelo
+  (`JourneyDefinitionService.ts:71,89`), e não há nenhuma imagem radiológica.
+- **P0-2, resumo:** a revisão errada (0 de 1) mostra "Três estrelas. Nada passou
+  despercebido." e dá +10 XP, porque o resumo exibe a melhor nota já obtida
+  (`resolveBestLessonStars`).
+- **P0-3, progressão:** com 8 de 8 e a conquista feitas, a trilha 2 continua
+  "BLOQUEADO" sem dizer por quê. `isTrackCompleted` exige as revisões, inclusive
+  uma só disponível em 21/10.
+- **P1-4, medição:** o analytics de produto é um adaptador vazio, e nenhum dado
+  de uso sai do aparelho.
+
+A avaliação dá 20/40 nas heurísticas de Nielsen. Ordem de ataque na
+[FILA](FILA.md).
+
 ## Kill switches reais
 
 Dois, medidos em 2026-09-23: `ENABLE_LEARNING_ROAD` (trilha contra Home antiga)

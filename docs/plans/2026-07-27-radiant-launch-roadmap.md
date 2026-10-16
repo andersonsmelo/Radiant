@@ -1732,6 +1732,14 @@ vermelhos e cada guarda derrubada pela sua injeção; conferido no simulador.
 [Evidência](../evidence/2026-10-16-configuracao-no-perfil.md). Sem integração
 à main nem publicação.
 
+### Avaliação completa da trilha — 2026-10-16 [CONCLUÍDA]
+
+Ponto de partida do investimento na trilha, pedido do dono. A estrutura está à
+frente do conteúdo: as lições no ar não ensinam o que o produto promete, o
+resumo comemora erro, a trilha seguinte trava sem explicação, e não há
+medição. Itens 41–45 da FILA.
+[Relatório](../evidence/2026-10-16-avaliacao-completa-da-trilha.md).
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**
