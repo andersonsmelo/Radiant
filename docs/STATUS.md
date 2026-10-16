@@ -358,6 +358,16 @@ uma única Home na pilha. Acúmulo de telas corrigido no cenário Debug medido;
 API pública continua em 502; aparelho físico, compras/CloudKit autenticados,
 24 horas reais, Android e distribuição permanecem nos gates próprios.
 
+## Estude abre no nó PRÓXIMO — medido em 2026-10-16
+
+Local, no branch `codex/radiant-study-improvements`, sem publicação. A trilha
+abre com o PRÓXIMO centralizado, e voltar à aba preserva a posição: a releitura
+de foco deixou de trocar a lista pelo esqueleto. Título e cartão de
+recomendação continuam no topo da rolagem. Conferido no simulador (iPhone 17,
+1.4.0 (3)); a recentralização depois de concluir uma lição e o AX5 não foram
+vistos na tela. [ADR](adr/ADR-2026-10-16-estude-abre-no-proximo-no.md),
+[evidência](evidence/2026-10-16-trilha-ancorada-no-proximo.md).
+
 ## Gate de qualidade
 
 ```bash

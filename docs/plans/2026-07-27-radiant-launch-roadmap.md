@@ -1713,6 +1713,15 @@ sem origem determinada permanecem. Gate final **14/14, ciclo único**, com estad
 corrente exclusivamente em STATUS. [Evidências](../evidence/2026-10-14-qa-remediacao.md).
 Sem integração à main, publicação ou promoção dos gates externos.
 
+### Estude abre no nó PRÓXIMO — 2026-10-16 [CONCLUÍDA LOCALMENTE]
+
+Pedido do dono durante a avaliação no simulador; opção A do
+[ADR](../adr/ADR-2026-10-16-estude-abre-no-proximo-no.md). A trilha centraliza
+o PRÓXIMO uma vez por recomendação, e a volta à aba não reseta a posição.
+Testes vistos vermelhos e cada guarda derrubada pela sua injeção;
+conferido no simulador. [Evidência](../evidence/2026-10-16-trilha-ancorada-no-proximo.md).
+Sem integração à main nem publicação.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

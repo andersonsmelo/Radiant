@@ -473,6 +473,35 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     await screen.findByTestId('journey-trail');
   });
 
+  it('voltar à aba relê a trilha sem trocá-la pelo carregamento', async () => {
+    // Visto no simulador em 2026-10-16: o aluno rolava até o PRÓXIMO, ia ao
+    // Perfil e voltava com a trilha no topo. A releitura do foco punha o
+    // esqueleto no lugar da lista, e a lista desmontada perdia a posição.
+    renderWithProviders(<JourneyHomeScreen />);
+    const trilha = await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    let release: ((value: ReturnType<typeof createSnapshot>) => void) | undefined;
+    mockedJourneyProgressService.bootstrap.mockReturnValue(
+      new Promise(resolve => {
+        release = resolve;
+      }) as never,
+    );
+    voltarParaATela();
+
+    expect(screen.queryByText('Preparando sua trilha…')).toBeNull();
+    expect(screen.getByTestId('journey-trail')).toBe(trilha);
+
+    await act(async () => {
+      release?.(createSnapshot(
+        'track-radiology-foundations',
+        'Fundamentos de radiologia',
+        'node-foundations-lesson',
+        'block-foundations',
+      ));
+    });
+    expect(screen.getByTestId('journey-trail')).toBe(trilha);
+  });
+
   it('oferece tentar novamente quando a leitura local falha', async () => {
     mockedJourneyProgressService.bootstrap.mockRejectedValueOnce(new Error('storage unavailable'));
 

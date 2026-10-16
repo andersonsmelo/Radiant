@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useFocusEffect } from 'expo-router';
@@ -39,10 +39,14 @@ export default function JourneyHomeScreen() {
   const [trail, setTrail] = useState<CurriculumTrail | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  // O esqueleto é só da primeira leitura. Na volta à aba a releitura é
+  // silenciosa: trocar a lista pelo carregamento a desmontava, e o aluno
+  // voltava com a trilha no topo (visto no simulador em 2026-10-16).
+  const hasLoadedRef = useRef(false);
 
   const loadSnapshot = useCallback(async () => {
     try {
-      setLoading(true);
+      if (!hasLoadedRef.current) setLoading(true);
       setError(null);
       // A meta do dia saiu daqui com o hero: ela tem superfície própria e
       // completa na aba Missões, com seleção de nível, e duplicá-la na trilha
@@ -55,6 +59,7 @@ export default function JourneyHomeScreen() {
       setSnapshot(nextSnapshot);
       setTrail(nextTrail);
       setHearts(nextHearts);
+      hasLoadedRef.current = true;
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
       setError('Não foi possível carregar a jornada.');
