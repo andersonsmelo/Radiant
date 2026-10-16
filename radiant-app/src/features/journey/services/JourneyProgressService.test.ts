@@ -355,6 +355,49 @@ describe('JourneyProgressService — avanço sequencial de trilha', () => {
         expect(next.progress.activeTrackId).toBe('track-radiology-foundations');
     });
 
+    it('avança com lições e conquista concluídas, sem esperar as revisões', async () => {
+        // As duas réguas de "trilha concluída" (esta e a da tela, em
+        // `JourneyCurriculumService`) passaram a ser a mesma em 2026-10-16:
+        // revisão é prática paralela e não fecha trilha.
+        const snapshot = await JourneyProgressService.bootstrap();
+        const obrigatorios = snapshot.track.units
+            .flatMap((unit) => unit.nodes)
+            .filter((node) => node.type !== 'review')
+            .map((node) => node.id);
+
+        for (const nodeId of obrigatorios) {
+            await JourneyProgressService.markNodeCompleted(nodeId);
+        }
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-thorax-patterns');
+    });
+
+    it('conclui a revisão de uma trilha anterior, já fora da trilha ativa', async () => {
+        // Visto no simulador em 2026-10-16, logo depois de a revisão deixar de
+        // fechar trilha: o aluno avançou para a trilha 2, abriu uma revisão
+        // vencida da trilha 1 e o serviço não achou o nó ("Nó desconhecido").
+        // Nada foi gravado, nem XP, nem a vida que a revisão devolve. A
+        // conclusão passa a localizar a trilha do nó.
+        mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
+        const snapshot = await JourneyProgressService.bootstrap();
+        const nodes = snapshot.track.units.flatMap((unit) => unit.nodes);
+        for (const node of nodes.filter((entry) => entry.type !== 'review')) {
+            await JourneyProgressService.markNodeCompleted(node.id);
+        }
+        const revisaoDaTrilha1 = nodes.find((node) => node.type === 'review')!.id;
+        expect((await JourneyProgressService.bootstrap()).progress.activeTrackId).toBe('track-thorax-patterns');
+
+        await JourneyProgressService.markNodeCompleted(revisaoDaTrilha1);
+
+        const stored = JSON.parse(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]);
+        expect(stored.tracks['track-radiology-foundations'].completedNodeIds).toContain(revisaoDaTrilha1);
+        const daRevisao = await JourneyProgressService.getSnapshotForNode(revisaoDaTrilha1);
+        expect(daRevisao.track.id).toBe('track-radiology-foundations');
+    });
+
     it('fica na última trilha quando todas terminaram, em vez de ficar sem trilha', async () => {
         await completeEveryNodeOfActiveTrack();
         await completeEveryNodeOfActiveTrack();

@@ -1740,6 +1740,18 @@ resumo comemora erro, a trilha seguinte trava sem explicação, e não há
 medição. Itens 41–45 da FILA.
 [Relatório](../evidence/2026-10-16-avaliacao-completa-da-trilha.md).
 
+### Pacote de confiança da trilha — 2026-10-16 [CONCLUÍDO LOCALMENTE]
+
+Itens 41, 42 e 44 da FILA, por decisão do dono:
+- o resumo mostra a tentativa, com o recorde à parte;
+- a revisão vira prática paralela, sem custo de vida, e não fecha trilha;
+- a revisão de uma trilha anterior volta a premiar;
+- o lembrete diário sai do modo sombra.
+
+A regressão de E2E que a trilha centralizada abriu ficou no item 46.
+[ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
+[evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**

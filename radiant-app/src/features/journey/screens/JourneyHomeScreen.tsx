@@ -25,6 +25,8 @@ import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { JourneyRecommendationCard } from '../components/JourneyRecommendationCard';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+import { PushService } from '../../push/services/PushService';
+import { PushOptInCard } from '../../push/components/PushOptInCard';
 
 export default function JourneyHomeScreen() {
   // A home oficial é quem responde pela abertura do app. Enquanto isso vivia só
@@ -39,6 +41,11 @@ export default function JourneyHomeScreen() {
   const [trail, setTrail] = useState<CurriculumTrail | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot | null>(null);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
+  // Lembrete diário (ADR de 2026-10-16). A Home legada era a única que
+  // agendava e convidava, e ela não se alcança com a trilha. O convite aparece
+  // uma vez aqui, na volta da primeira lição concluída, e não no resumo da
+  // lição, que fica limpo por decisão de 2026-08-14.
+  const [pushInviteVisible, setPushInviteVisible] = useState(false);
   // O esqueleto é só da primeira leitura. Na volta à aba a releitura é
   // silenciosa: trocar a lista pelo carregamento a desmontava, e o aluno
   // voltava com a trilha no topo (visto no simulador em 2026-10-16).
@@ -59,6 +66,14 @@ export default function JourneyHomeScreen() {
       setSnapshot(nextSnapshot);
       setTrail(nextTrail);
       setHearts(nextHearts);
+      const hasCompletedLesson = nextTrail.segments.some((segment) =>
+        segment.units.some((unit) =>
+          unit.nodes.some((node) => node.type === 'lesson' && node.status === 'completed'),
+        ),
+      );
+      if (hasCompletedLesson) {
+        void PushService.getOptIn().then((decision) => setPushInviteVisible(decision === null));
+      }
       hasLoadedRef.current = true;
     } catch (cause) {
       console.error('[JourneyHomeScreen] Failed to load journey snapshot:', cause);
@@ -71,6 +86,7 @@ export default function JourneyHomeScreen() {
   useFocusEffect(
     useCallback(() => {
       void TelemetryService.track('screen_view', { screen: 'journey_home' });
+      void PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
       void loadSnapshot();
       void GamificationService.getSnapshot().then(setGamification);
     }, [loadSnapshot])
@@ -152,6 +168,7 @@ export default function JourneyHomeScreen() {
 
   const trailHeader = (
     <View style={styles.trailHeader}>
+      {pushInviteVisible ? <PushOptInCard onDismiss={() => setPushInviteVisible(false)} /> : null}
       <JourneyStageHeader title={currentStage.title} completed={currentStage.completed} total={currentStage.total} />
       <JourneyRecommendationCard
         node={homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null}

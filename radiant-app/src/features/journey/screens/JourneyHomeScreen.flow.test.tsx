@@ -159,6 +159,15 @@ jest.mock('../components/JourneyTrail', () => {
   };
 });
 
+jest.mock('../../push/services/PushService', () => ({
+  PushService: {
+    onAppOpen: jest.fn().mockResolvedValue(undefined),
+    scheduleDailyIfEligible: jest.fn().mockResolvedValue(undefined),
+    getOptIn: jest.fn().mockResolvedValue(true),
+    setOptIn: jest.fn().mockResolvedValue(undefined),
+  },
+}));
+
 jest.mock('../services/JourneyCurriculumService', () => ({
   JourneyCurriculumService: {
     getCurriculumTrail: jest.fn().mockResolvedValue({
@@ -205,10 +214,6 @@ jest.mock('../../telemetry/TelemetryService', () => ({
     track: jest.fn().mockResolvedValue(undefined),
     markDayOpen: jest.fn().mockResolvedValue(undefined),
   },
-}));
-
-jest.mock('../../push/services/PushService', () => ({
-  PushService: { onAppOpen: jest.fn().mockResolvedValue(undefined) },
 }));
 
 // O primeiro teste do arquivo paga um custo único de ~900ms dentro da janela do
@@ -724,5 +729,88 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     expect(screen.queryByRole('button', { name: 'Aguardando nova etapa' })).toBeNull();
     expect(screen.queryByText('Novo arco em breve')).toBeNull();
     expect(mockedRouter.push).not.toHaveBeenCalled();
+  });
+});
+
+// Lembrete diário, ligado em 2026-10-16 (ADR do dia). A Home legada era a única
+// que agendava e convidava, e ela não se alcança com a trilha: quem estudava
+// por Estude nunca era convidado. O convite NÃO entra no resumo da lição, que
+// fica limpo por decisão de 2026-08-14; ele aparece uma vez no topo de Estude,
+// na volta da primeira lição concluída.
+describe('JourneyHomeScreen — lembrete diário', () => {
+  const { PushService } = jest.requireMock('../../push/services/PushService') as {
+    PushService: { scheduleDailyIfEligible: jest.Mock; getOptIn: jest.Mock };
+  };
+  const { JourneyCurriculumService } = jest.requireMock('../services/JourneyCurriculumService') as {
+    JourneyCurriculumService: { getCurriculumTrail: jest.Mock };
+  };
+
+  function trilhaCom(status: 'completed' | 'available') {
+    return {
+      segments: [
+        {
+          trackId: 'track-radiology-foundations',
+          trackTitle: 'Fundamentos de radiologia',
+          order: 0,
+          unlocked: true,
+          completed: false,
+          units: [
+            {
+              id: 'u1',
+              title: 'Fundamentos',
+              nodes: [{ id: 'node:l1', unitId: 'u1', type: 'lesson', title: 'L1', status }],
+            },
+          ],
+        },
+      ],
+      recommendedNodeId: 'node-foundations-lesson',
+    };
+  }
+
+  beforeEach(() => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(
+      createSnapshot('track-radiology-foundations', 'Fundamentos de radiologia', 'node-foundations-lesson', 'block-foundations'),
+    );
+    PushService.getOptIn.mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    PushService.getOptIn.mockResolvedValue(true);
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
+  });
+
+  it('ao abrir Estude, reavalia o lembrete do dia', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(PushService.scheduleDailyIfEligible).toHaveBeenCalledWith({ reason: 'journey_focus' });
+  });
+
+  it('depois da primeira lição concluída, convida ao lembrete', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Quer um lembrete suave?')).toBeTruthy();
+  });
+
+  it('antes de concluir uma lição, não convida', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
+
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
+  });
+
+  it('quem já decidiu não é convidado de novo', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+    PushService.getOptIn.mockResolvedValue(false);
+
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await waitFor(() => expect(PushService.getOptIn).toHaveBeenCalled());
+
+    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
   });
 });

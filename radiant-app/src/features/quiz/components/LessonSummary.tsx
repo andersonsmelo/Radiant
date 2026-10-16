@@ -13,7 +13,12 @@ import { galaxyColors } from '../../../ui/theme';
 import type { LessonStars } from '../services/resolveLessonStars';
 
 export type LessonSummaryProps = {
+  /** Estrelas DESTA tentativa (ADR de 2026-10-16). */
   stars: LessonStars;
+  /** O recorde da lição; aparece à parte quando é maior que esta tentativa. */
+  recordStars?: LessonStars;
+  /** Revisão da trilha não é aula: muda o subtítulo e não pede avaliação. */
+  kind?: 'lesson' | 'review';
   starsImproved: boolean;
   phrase: string;
   xpAwarded: number | null;
@@ -108,6 +113,8 @@ function ResultRow({ label, value, stacked }: { label: string; value: string; st
 
 export function LessonSummary({
   stars,
+  recordStars,
+  kind = 'lesson',
   starsImproved,
   phrase,
   xpAwarded,
@@ -146,7 +153,18 @@ export function LessonSummary({
         <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={Math.min(LABEL_MAX_FONT_SCALE, 1.75)}>
           {phrase}
         </Text>
-        <Text style={styles.subtitle}>A lição foi concluída</Text>
+        {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
+            que o caminho dourado 1 afirma. */}
+        {kind !== 'review' ? (
+          <Text style={styles.subtitle}>A lição foi concluída</Text>
+        ) : (
+          <Text style={styles.subtitle}>Revisão concluída</Text>
+        )}
+        {recordStars !== undefined && recordStars > stars ? (
+          <Text style={styles.record}>
+            {`Seu recorde nesta lição: ${recordStars} ${recordStars === 1 ? 'estrela' : 'estrelas'}`}
+          </Text>
+        ) : null}
 
         <View style={styles.results}>
           <ResultRow label="Respostas corretas" value={`${correctAnswers} de ${totalQuestions} corretas`} stacked={largeText} />
@@ -165,7 +183,7 @@ export function LessonSummary({
           </Text>
         ) : null}
 
-        {currentRating === null ? (
+        {kind === 'review' ? null : currentRating === null ? (
           <View style={styles.ratingSection}>
             <Text style={styles.ratingLabel}>Avalie a aula</Text>
             <Text style={styles.ratingOptional}>É opcional</Text>
@@ -227,6 +245,11 @@ const styles = StyleSheet.create({
   subtitle: {
     ...typography.bodyRegular,
     color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  record: {
+    ...typography.caption,
+    color: galaxyColors.textTertiary,
     textAlign: 'center',
   },
   reviewSchedule: {

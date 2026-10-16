@@ -28,6 +28,7 @@ import { DailyGoalService } from '../../daily-goal/services/DailyGoalService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { JourneyRecommendationService } from '../../journey/services/JourneyRecommendationService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
+import { heartsRepository } from '../../hearts/HeartsRepository';
 import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
@@ -71,7 +72,7 @@ export type LessonOutcome = {
      * `lessonId` e `answeredAt` para montar estrelas e placar. Devolvê-los aqui,
      * em vez de deixar a tela derivá-los de novo do bloco ou da atividade,
      * fecha duas portas: a contagem não pode divergir da que alimentou a
-     * acurácia, e `resolveBestLessonStars` recebe o MESMO `answeredAt` que
+     * acurácia, e `resolveAttemptStars` recebe o MESMO `answeredAt` que
      * `recordAttempt` persistiu — é por esse carimbo que ela exclui a tentativa
      * atual do histórico ao calcular a melhor anterior. Um `new Date()` novo na
      * tela não casaria, e `improved` sairia sempre falso.
@@ -105,6 +106,7 @@ class LessonOutcomeServiceImpl {
         }
 
         const award = await this.recordReward(result);
+        if (valueAction === 'review_complete') await this.refundReviewHeart();
         return { award, rewarded: true, result };
     }
 
@@ -124,6 +126,7 @@ class LessonOutcomeServiceImpl {
         }
 
         const award = await this.recordReward(result);
+        if (valueAction === 'review_complete') await this.refundReviewHeart();
         return { award, rewarded: true, result };
     }
 
@@ -161,7 +164,9 @@ class LessonOutcomeServiceImpl {
         valueAction?: 'quiz_complete' | 'review_complete';
     }> {
         try {
-            const snapshot = await JourneyProgressService.getSnapshot();
+            // A trilha do nó, e não a ativa: a revisão de uma trilha anterior
+            // era "nó desconhecido" e não premiava (2026-10-16).
+            const snapshot = await JourneyProgressService.getSnapshotForNode(nodeId);
             const unit = snapshot.track.units.find((entry) => entry.nodes.some((node) => node.id === nodeId));
             const node = unit?.nodes.find((entry) => entry.id === nodeId);
 
@@ -348,6 +353,21 @@ class LessonOutcomeServiceImpl {
             await SyncQueueService.flush();
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao enfileirar sincronização:', error);
+        }
+    }
+
+    /**
+     * ADR de 2026-09-14: "concluir uma revisão devida devolve uma" vida. Só a
+     * tela `/review` devolvia; a revisão da trilha, que passa por aqui, não
+     * (avaliação de 2026-10-16). Chega aqui só a revisão vencida, a que premia,
+     * então refazer fora de prazo não vira fonte de vidas. Best-effort: vida
+     * não pode derrubar a conclusão.
+     */
+    private async refundReviewHeart(): Promise<void> {
+        try {
+            await heartsRepository.rewardReview(Date.now());
+        } catch (error) {
+            console.error('[LessonOutcomeService] Falha ao devolver a vida da revisão:', error);
         }
     }
 

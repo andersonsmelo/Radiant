@@ -30,6 +30,7 @@ type TrailBandItem = {
   kind: 'band';
   key: string;
   segment: CurriculumSegment;
+  previousTrackTitle: string;
 };
 
 type TrailNodeItem = {
@@ -57,7 +58,12 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
 
   segments.forEach((segment, segmentIndex) => {
     if (segmentIndex > 0) {
-      items.push({ kind: 'band', key: `band:${segment.trackId}`, segment });
+      items.push({
+        kind: 'band',
+        key: `band:${segment.trackId}`,
+        segment,
+        previousTrackTitle: segments[segmentIndex - 1].trackTitle,
+      });
     }
 
     segment.units.forEach(unit => {
@@ -175,6 +181,7 @@ export function JourneyTrail({
               trackId={item.segment.trackId}
               trackTitle={item.segment.trackTitle}
               unlocked={item.segment.unlocked}
+              previousTrackTitle={item.previousTrackTitle}
             />
           );
         }

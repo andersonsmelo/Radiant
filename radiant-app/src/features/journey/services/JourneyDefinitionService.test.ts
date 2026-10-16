@@ -183,6 +183,14 @@ describe('JourneyDefinitionService', () => {
         });
     });
 
+    // A lição precisa saber se o nó é revisão para não cobrar vida no erro
+    // (ADR de 2026-10-16), e o nó pode estar em qualquer trilha do percurso.
+    it('devolve o tipo de um nó de qualquer trilha, e null para id desconhecido', () => {
+        expect(JourneyDefinitionService.getNodeType('node:review:lesson-a')).toBe('review');
+        expect(JourneyDefinitionService.getNodeType('node:lesson-a')).toBe('lesson');
+        expect(JourneyDefinitionService.getNodeType('node:inexistente')).toBeNull();
+    });
+
     it('returns the default catalog track id for journey bootstrap', () => {
         expect(JourneyDefinitionService.getDefaultTrackId()).toBe('track-thorax');
     });

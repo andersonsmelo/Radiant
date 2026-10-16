@@ -30,9 +30,21 @@ jest.mock('../../daily-goal/services/DailyGoalService', () => ({
     DailyGoalService: { recordXp: jest.fn() },
 }));
 
-jest.mock('../../journey/services/JourneyProgressService', () => ({
-    JourneyProgressService: { getSnapshot: jest.fn() },
+jest.mock('../../hearts/HeartsRepository', () => ({
+    heartsRepository: { rewardReview: jest.fn().mockResolvedValue(undefined) },
 }));
+
+// A conclusão lê a trilha DO NÓ (`getSnapshotForNode`); os casos configuram
+// `getSnapshot`, e as duas portas devolvem o mesmo snapshot aqui.
+jest.mock('../../journey/services/JourneyProgressService', () => {
+    const getSnapshot = jest.fn();
+    return {
+        JourneyProgressService: {
+            getSnapshot,
+            getSnapshotForNode: jest.fn((...args: unknown[]) => getSnapshot(...args)),
+        },
+    };
+});
 
 jest.mock('../../sync/SyncQueueService', () => ({
     SyncQueueService: {
@@ -270,6 +282,71 @@ describe('LessonOutcomeService', () => {
         expect(outcome.rewarded).toBe(true);
         expect(JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!).firstReviewAt).toEqual(expect.any(Number));
         expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+    });
+
+    // ADR de 2026-09-14: "concluir uma revisão devida devolve uma" vida. Só a
+    // tela `/review` devolvia; a revisão da trilha, não (avaliação de
+    // 2026-10-16). A devolução vale para a revisão vencida, a que premia.
+    it('revisão vencida da trilha devolve uma vida', async () => {
+        const { heartsRepository } = jest.requireMock('../../hearts/HeartsRepository') as {
+            heartsRepository: { rewardReview: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({
+                nodeId: 'node:review:lesson-1',
+                nodeType: 'review',
+                completedNodeIds: ['node:review:lesson-1'],
+                pendingReviewNodeIds: ['node:review:lesson-1'],
+            })
+        );
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': false },
+        });
+
+        expect(heartsRepository.rewardReview).toHaveBeenCalledTimes(1);
+    });
+
+    it('resolve a premiação pela trilha do nó, que pode não ser a ativa', async () => {
+        const { JourneyProgressService: journey } = jest.requireMock('../../journey/services/JourneyProgressService') as {
+            JourneyProgressService: { getSnapshotForNode: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:review:lesson-1', nodeType: 'review', pendingReviewNodeIds: ['node:review:lesson-1'] })
+        );
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(journey.getSnapshotForNode).toHaveBeenCalledWith('node:review:lesson-1');
+    });
+
+    it('revisão fora de prazo e lição não devolvem vida', async () => {
+        const { heartsRepository } = jest.requireMock('../../hearts/HeartsRepository') as {
+            heartsRepository: { rewardReview: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:review:lesson-1', nodeType: 'review', pendingReviewNodeIds: [] })
+        );
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(heartsRepository.rewardReview).not.toHaveBeenCalled();
     });
 
     it('não premia uma revisão refeita fora de prazo, mas reavalia o card', async () => {

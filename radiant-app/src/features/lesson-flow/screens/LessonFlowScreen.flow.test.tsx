@@ -117,6 +117,16 @@ jest.mock('../../journey/services/JourneyProgressService', () => ({
 // Integração da retomada: somente I/O e a trilha fora do objetivo são isolados.
 // Card, resolver, helper de rota, /learn e player permanecem reais.
 jest.mock('../../telemetry/hooks/useAppOpenLifecycle', () => ({ useAppOpenLifecycle: () => undefined }));
+// A integração de retomada monta a Home da trilha, que agenda o lembrete
+// diário ao ganhar foco (ADR de 2026-10-16). O serviço real fala com o
+// AsyncStorage nativo; aqui ele só precisa existir.
+jest.mock('../../push/services/PushService', () => ({
+  PushService: {
+    scheduleDailyIfEligible: jest.fn().mockResolvedValue(undefined),
+    getOptIn: jest.fn().mockResolvedValue(true),
+    setOptIn: jest.fn().mockResolvedValue(undefined),
+  },
+}));
 jest.mock('../../telemetry/TelemetryService', () => ({
   TelemetryService: { track: jest.fn().mockResolvedValue(undefined) },
 }));
@@ -203,6 +213,12 @@ jest.mock('../../../ui/feedback/lessonSounds', () => ({
 
 jest.mock('../../../ui/feedback/feedbackPreferences', () => ({
   readFeedbackPreferences: jest.fn().mockResolvedValue({ sounds: true, haptics: true }),
+}));
+
+// O tipo do nó decide se errar custa vida (ADR de 2026-10-16: revisão não
+// custa). Padrão `lesson`; a suíte da revisão troca para `review`.
+jest.mock('../../journey/services/JourneyDefinitionService', () => ({
+  JourneyDefinitionService: { getNodeType: jest.fn(() => 'lesson') },
 }));
 
 jest.mock('../services/LessonFlowService', () => ({
@@ -1115,13 +1131,11 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
   });
 
-  it('tira as estrelas da melhor tentativa, e não só da que acabou', async () => {
-    // A regra da melhor tentativa estava inerte porque só /quiz a exibia, e
-    // /quiz nunca grava tentativa. Aqui ela funciona sem código novo de
-    // persistência: /learn JÁ é o escritor de LearningAttemptsRepository.
-    //
-    // Tentativa anterior perfeita e atual pior: as estrelas continuam sendo as
-    // da melhor, e a tela não pode animar um ganho que não houve.
+  it('mostra as estrelas desta tentativa, com o recorde à parte', async () => {
+    // Até 2026-10-16 a tela mostrava a MELHOR tentativa com a frase dela: no
+    // simulador, uma revisão errada (0 de 1) dizia "Três estrelas. Nada passou
+    // despercebido." O resumo honesto (ADR de 2026-10-16) mostra esta
+    // tentativa e o recorde numa linha à parte, sem animar ganho que não houve.
     (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([
       {
         lessonId: 'lesson-1',
@@ -1139,7 +1153,9 @@ describe('LessonFlowScreen — conclusão da lição', () => {
     await completeLesson();
 
     expect(await screen.findByText('0 de 4 corretas')).toBeTruthy();
-    expect(screen.getByLabelText('3 de 3 estrelas')).toBeTruthy();
+    expect(screen.getByLabelText('0 de 3 estrelas')).toBeTruthy();
+    expect(screen.getByText('Seu recorde nesta lição: 3 estrelas')).toBeTruthy();
+    expect(screen.queryByText(/Nada passou despercebido|Perfeito|Marca cheia/u)).toBeNull();
   });
 
   it('chega ao Continuar mesmo quando a leitura do histórico falha', async () => {
@@ -1272,5 +1288,86 @@ describe('LessonFlowScreen — sons e vibração', () => {
     unmount();
 
     expect(mockSoundPlayer.release).toHaveBeenCalledTimes(1);
+  });
+});
+
+// ADR de 2026-09-14: "Revisão nunca consome vida" e vidas "não bloqueiam
+// revisão". A revisão da trilha corre nesta tela, que cobrava todo erro: no
+// simulador em 2026-10-16, errar a revisão levou de 5 para 4 vidas. Desde a ADR
+// de 2026-10-16 a tela sabe o tipo do nó e trata revisão como prática.
+describe('LessonFlowScreen — revisão da trilha não custa vida', () => {
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const cheia = { count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null };
+  const vazia = { count: 0, status: 'empty', nextRefillAt: '2026-09-14T12:30:00.000Z', unlimitedUntil: null };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('review');
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(undefined as never);
+    heartsRepository.getSnapshot.mockResolvedValue(cheia);
+    heartsRepository.spend.mockResolvedValue({ ...cheia, count: 4, status: 'recovering' });
+    mockedOutcome.recordCompletion.mockResolvedValue({
+      ...outcomeFixture,
+      result: { ...outcomeFixture.result, correctAnswers: 0 },
+    });
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+  });
+
+  async function errarARevisao() {
+    renderWithProviders(<LessonFlowScreen blockId="block:review:lesson-1" nodeId="node:review:lesson-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+  }
+
+  it('errar na revisão não gasta vida nem anuncia perda', async () => {
+    await errarARevisao();
+
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(announceForAccessibility).toHaveBeenCalledWith(
+      'Resposta incorreta. A opacidade focal com broncograma aéreo sugere consolidação alveolar.',
+    );
+  });
+
+  it('sem vidas, a revisão continua e não pausa', async () => {
+    heartsRepository.getSnapshot.mockResolvedValue(vazia);
+
+    await errarARevisao();
+
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(await screen.findByText('Concluir e voltar')).toBeTruthy();
+  });
+
+  it('a revisão termina como revisão, sem pedir avaliação de aula', async () => {
+    await errarARevisao();
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    expect(await screen.findByText('Revisão concluída')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.queryByText('Avalie a aula')).toBeNull();
+  });
+
+  it('a lição continua custando vida no erro', async () => {
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+
+    await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
   });
 });

@@ -176,6 +176,26 @@ describe('LessonSummary', () => {
     },
   );
 
+  // Resumo honesto (ADR de 2026-10-16): as estrelas e a frase são desta
+  // tentativa; o recorde, quando maior, vem numa linha à parte.
+  it('mostra o recorde à parte quando a tentativa ficou abaixo dele', () => {
+    render(<LessonSummary {...base} stars={0} recordStars={3} starsImproved={false} />);
+    expect(screen.getByLabelText('0 de 3 estrelas')).toBeTruthy();
+    expect(screen.getByText('Seu recorde nesta lição: 3 estrelas')).toBeTruthy();
+  });
+
+  it('não repete o recorde quando a tentativa o igualou ou superou', () => {
+    render(<LessonSummary {...base} stars={2} recordStars={2} />);
+    expect(screen.queryByText(/Seu recorde/u)).toBeNull();
+  });
+
+  it('na revisão, diz que a revisão terminou e não pede avaliação de aula', () => {
+    render(<LessonSummary {...base} kind="review" />);
+    expect(screen.getByText('Revisão concluída')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.queryByText('Avalie a aula')).toBeNull();
+  });
+
   it('mostra o progresso da unidade', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('7 de 14 etapas')).toBeTruthy();

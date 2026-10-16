@@ -118,6 +118,15 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
     expect(screen.queryByTestId('journey-level-band-t1')).toBeNull();
   });
 
+  it('a faixa fechada nomeia a trilha anterior como o que falta', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
+      segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['locked'])], { unlocked: false, order: 1 }),
+    ]);
+
+    expect(screen.getByText('Abre ao concluir Fundamentos')).toBeTruthy();
+  });
+
   it('não desenha faixa nenhuma quando há um único segmento', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),

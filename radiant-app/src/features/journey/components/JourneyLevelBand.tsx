@@ -9,6 +9,11 @@ type JourneyLevelBandProps = {
   trackId: string;
   trackTitle: string;
   unlocked: boolean;
+  /**
+   * A trilha que precisa ser concluída para esta abrir. Desde 2026-10-16 o
+   * cadeado diz o que fazer: "BLOQUEADO" sozinho deixava o aluno sem saída.
+   */
+  previousTrackTitle?: string;
 };
 
 /**
@@ -23,14 +28,15 @@ type JourneyLevelBandProps = {
  * sinal que o nó bloqueado usa, e não é o único: o rótulo também muda de
  * palavra. Cor sozinha nunca carrega informação neste projeto.
  */
-export function JourneyLevelBand({ trackId, trackTitle, unlocked }: JourneyLevelBandProps) {
+export function JourneyLevelBand({ trackId, trackTitle, unlocked, previousTrackTitle }: JourneyLevelBandProps) {
   const eyebrow = unlocked ? 'Próximo nível' : 'Bloqueado';
+  const unlockHint = !unlocked && previousTrackTitle ? `Abre ao concluir ${previousTrackTitle}` : null;
 
   return (
     <View
       testID={`journey-level-band-${trackId}`}
       accessibilityRole="header"
-      accessibilityLabel={`${eyebrow}: ${trackTitle}.`}
+      accessibilityLabel={`${eyebrow}: ${trackTitle}.${unlockHint ? ` ${unlockHint}.` : ''}`}
       style={styles.band}
     >
       <View style={styles.rule} />
@@ -43,6 +49,7 @@ export function JourneyLevelBand({ trackId, trackTitle, unlocked }: JourneyLevel
           <Text style={styles.title} numberOfLines={2}>
             {trackTitle}
           </Text>
+          {unlockHint ? <Text style={styles.hint}>{unlockHint}</Text> : null}
         </View>
       </View>
       <View style={styles.rule} />
@@ -91,5 +98,11 @@ const styles = StyleSheet.create({
     color: galaxyColors.textPrimary,
     fontWeight: '800',
     textAlign: 'center',
+  },
+  hint: {
+    ...typography.micro,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+    marginTop: space.s0,
   },
 });

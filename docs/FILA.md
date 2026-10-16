@@ -129,19 +129,17 @@ com autorização do dono. O item 40 está encerrado; o console mostra
 - **P1 — trilha, avaliação de 2026-10-16** ([relatório](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
   O dono definiu a trilha como o investimento principal. A ordem abaixo segue
   o relatório e espera o dono escolher o foco:
-  - **41.** agente: o resumo mostra a nota **da tentativa**, e não a melhor já
-    obtida. A revisão ganha título e texto próprios, e o erro não recebe XP de
-    acerto (P0-2);
-  - **42.** dono decide e agente executa: a revisão deixa de ser portão da
-    trilha seguinte, e a faixa "BLOQUEADO" diz o que abre e quando (P0-3, pede
-    ADR). Antes, um teste reproduz a rebaixa da trilha seguinte quando uma
-    revisão antiga vence;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
-  - **44.** agente: o convite ao lembrete diário sai do fim da primeira lição
-    da trilha (P2-8);
   - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de
-    conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5).
+    conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5);
+  - **46.** agente: os 13 roteiros Maestro que usam o cabeçalho de Estude como
+    âncora reprovam desde a trilha centralizada (`f39ac9e`). Rolar até o
+    cabeçalho antes de afirmá-lo e rodar a bateria
+    ([evidência](evidence/2026-10-16-pacote-de-confianca-da-trilha.md));
+  - **47.** agente: a frase de 0 estrela ainda supõe um quase acerto ("Faltou
+    pouco", "pela metade"), e o Pixel comemora mesmo com 0 estrela. O
+    `LearningAttemptRecorder` resolve o tópico pela trilha ativa.
 - **P4 — agente, destravado:**
   - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
     devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo

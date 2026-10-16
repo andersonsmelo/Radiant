@@ -15,6 +15,7 @@ import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { progressSyncService } from '../../progress-sync/ProgressSyncService';
 import { resolveActiveTrackId } from './JourneyTrackUnlockService';
+import { isTrackCompleted } from './trackCompletion';
 
 const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
 
@@ -54,6 +55,21 @@ class JourneyProgressServiceImpl {
 
     async getSnapshot(trackDefinition?: JourneyTrackDefinition): Promise<JourneySnapshot> {
         const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
+        const progress = await this.ensureProgress(resolvedTrackDefinition);
+        return this.computeSnapshot(resolvedTrackDefinition, progress);
+    }
+
+    /**
+     * O snapshot da trilha que CONTÉM o nó, que pode não ser a ativa.
+     *
+     * Desde 2026-10-16 a revisão não fecha trilha, então o aluno avança e as
+     * revisões da trilha anterior continuam vencendo. Lidas pela trilha ativa,
+     * elas eram "nó desconhecido": a conclusão não gravava, não pagava XP nem
+     * devolvia a vida (visto no simulador). O defeito já existia para revisões
+     * que venciam de novo; a ADR do dia o tornou o caminho de todo aluno.
+     */
+    async getSnapshotForNode(nodeId: string): Promise<JourneySnapshot> {
+        const resolvedTrackDefinition = await this.resolveTrackDefinitionForNode(nodeId);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
         return this.computeSnapshot(resolvedTrackDefinition, progress);
     }
@@ -121,7 +137,8 @@ class JourneyProgressServiceImpl {
         nodeId: string,
         trackDefinition?: JourneyTrackDefinition
     ): Promise<JourneySnapshot> {
-        const resolvedTrackDefinition = await this.resolveTrackDefinition(trackDefinition);
+        // A trilha do nó, e não a ativa: ver `getSnapshotForNode`.
+        const resolvedTrackDefinition = trackDefinition ?? await this.resolveTrackDefinitionForNode(nodeId);
         const progress = await this.ensureProgress(resolvedTrackDefinition);
         const node = this.findNode(resolvedTrackDefinition, nodeId);
 
@@ -322,7 +339,8 @@ class JourneyProgressServiceImpl {
     }
 
     /**
-     * Uma trilha está concluída quando TODOS os seus nós estão concluídos.
+     * Uma trilha está concluída pela régua única de `trackCompletion.ts`: todo
+     * nó obrigatório concluído, e revisão não conta (ADR de 2026-10-16).
      *
      * Trilha sem progresso guardado não está concluída — e trilha sem nós
      * também não, senão um catálogo vazio ou ainda não hidratado destravaria o
@@ -336,15 +354,11 @@ class JourneyProgressServiceImpl {
             return false;
         }
 
-        const nodeIds = JourneyDefinitionService.getTrackDefinition(trackId)
-            .units.flatMap((unit) => unit.nodes.map((node) => node.id));
-
-        if (nodeIds.length === 0) {
-            return false;
-        }
-
+        const nodes = JourneyDefinitionService.getTrackDefinition(trackId)
+            .units.flatMap((unit) => unit.nodes);
         const completed = new Set(progress.completedNodeIds);
-        return nodeIds.every((nodeId) => completed.has(nodeId));
+
+        return isTrackCompleted(nodes, (node) => completed.has(node.id));
     }
 
     /**
@@ -360,6 +374,14 @@ class JourneyProgressServiceImpl {
      * O fallback para `activeTrackId` e depois para o default cobre o catálogo
      * ainda não hidratado, quando não há trilha nenhuma para ordenar.
      */
+    private async resolveTrackDefinitionForNode(nodeId: string): Promise<JourneyTrackDefinition> {
+        for (const track of LessonCatalogService.listTracks()) {
+            const definition = JourneyDefinitionService.getTrackDefinition(track.id);
+            if (this.findNode(definition, nodeId)) return definition;
+        }
+        return this.resolveTrackDefinition();
+    }
+
     private async resolveTrackDefinition(trackDefinition?: JourneyTrackDefinition): Promise<JourneyTrackDefinition> {
         if (trackDefinition) {
             return trackDefinition;

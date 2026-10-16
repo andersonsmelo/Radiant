@@ -1898,3 +1898,19 @@ Textos anteriores da fila, preservados sem edição:
     Perfil, abrindo a tela Configuração empilhada, e decidiu que a assinatura
     vai junto. [ADR](../adr/ADR-2026-10-16-configuracao-no-perfil.md),
     [evidência](../evidence/2026-10-16-configuracao-no-perfil.md).
+
+## Itens 41, 42 e 44 — concluídos localmente em 2026-10-16
+
+  - **41.** agente: o resumo mostra a nota **da tentativa**, e não a melhor já
+    obtida. A revisão ganha título e texto próprios, e o erro não recebe XP de
+    acerto (P0-2);
+  - **42.** dono decide e agente executa: a revisão deixa de ser portão da
+    trilha seguinte, e a faixa "BLOQUEADO" diz o que abre e quando (P0-3, pede
+    ADR). Antes, um teste reproduz a rebaixa da trilha seguinte quando uma
+    revisão antiga vence;
+  - **44.** agente: o convite ao lembrete diário sai do fim da primeira lição
+    da trilha (P2-8);
+    **Concluídos em 2026-10-16:** o resumo honesto, a revisão como prática
+    paralela sem custo de vida e o lembrete ligado de verdade, com o convite em
+    Estude. [ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
+    [evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).

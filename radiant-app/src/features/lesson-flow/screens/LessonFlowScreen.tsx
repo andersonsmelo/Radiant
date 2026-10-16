@@ -28,7 +28,7 @@ import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 import { QuizTopBar } from '../../quiz/components/QuizTopBar';
 import { LessonSummary } from '../../quiz/components/LessonSummary';
 import {
-    resolveBestLessonStars,
+    resolveAttemptStars,
     resolveLessonStars,
     type LessonStars,
 } from '../../quiz/services/resolveLessonStars';
@@ -50,6 +50,7 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
@@ -78,6 +79,11 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
     const chargedInteractions = useRef(new Set<string>());
+    // Revisão é prática, não prova (ADR de 2026-09-14: "Revisão nunca consome
+    // vida"; vidas "não bloqueiam revisão"). Esta tela atende lição e revisão
+    // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
+    // revisão levou de 5 para 4 vidas. ADR de 2026-10-16.
+    const isReview = useMemo(() => JourneyDefinitionService.getNodeType(nodeId) === 'review', [nodeId]);
 
     // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
     // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
@@ -109,6 +115,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     });
     const [summary, setSummary] = useState<{
         stars: LessonStars;
+        recordStars: LessonStars;
         improved: boolean;
         phrase: string;
         rating: number | null;
@@ -237,7 +244,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
-        if (hearts.status === 'empty' && currentInteraction) {
+        if (!isReview && hearts.status === 'empty' && currentInteraction) {
             setHeartsSheetVisible(true);
             return;
         }
@@ -252,7 +259,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         if (currentInteraction) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
 
-            if (!correct) {
+            if (!correct && isReview) {
+                emit('incorrect');
+            } else if (!correct) {
                 if (chargedInteractions.current.has(currentInteraction.id)) {
                     return;
                 }
@@ -288,7 +297,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         const nextConfirmed = player.confirm();
 
         if (!isLastStep) {
-            if (nextHearts.status === 'empty') {
+            if (!isReview && nextHearts.status === 'empty') {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
@@ -356,7 +365,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
     // Estrelas, frase e nota da conclusão.
     //
-    // `resolveBestLessonStars` exclui a tentativa atual do histórico comparando
+    // `resolveAttemptStars` exclui a tentativa atual do histórico comparando
     // `completedAt` — por isso o carimbo precisa ser exatamente o que
     // `recordAttempt` persistiu, que é `result.answeredAt`. Um `new Date()`
     // novo aqui não casaria, e `improved` sairia sempre falso.
@@ -376,7 +385,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         void (async () => {
             try {
                 const attempts = await LearningAttemptsRepository.getAll();
-                const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+                const { stars, recordStars, improved } = resolveAttemptStars(result.lessonId, attempts, {
                     correctAnswers: result.correctAnswers,
                     totalQuestions: result.totalQuestions,
                     completedAt: result.answeredAt.toISOString(),
@@ -391,7 +400,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     return;
                 }
 
-                setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+                setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
             } catch (cause) {
                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
 
@@ -402,6 +411,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
                 setSummary({
                     stars,
+                    recordStars: stars,
                     improved: false,
                     phrase: pickSummaryPhrase(stars, null),
                     rating: null,
@@ -468,6 +478,8 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     {summary ? (
                         <LessonSummary
                             stars={summary.stars}
+                            recordStars={summary.recordStars}
+                            kind={isReview ? 'review' : 'lesson'}
                             starsImproved={summary.improved}
                             phrase={summary.phrase}
                             xpAwarded={outcome.award?.totalXpAwarded ?? null}

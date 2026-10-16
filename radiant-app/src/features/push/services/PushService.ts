@@ -25,7 +25,11 @@ let notificationsModule: Promise<typeof import('expo-notifications')> | null = n
 let notificationHandlerConfigured = false;
 
 async function getNotifications() {
-    notificationsModule ??= import('expo-notifications');
+    // `require` adiado em vez de `import()`: o carregamento continua sob
+    // demanda, e o Jest consegue exercitar o serviço real (o `import()`
+    // dinâmico exige `--experimental-vm-modules`).
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Resolve the native module only when push is used.
+    notificationsModule ??= Promise.resolve().then(() => require('expo-notifications') as typeof import('expo-notifications'));
     const Notifications = await notificationsModule;
 
     if (!notificationHandlerConfigured) {
@@ -139,7 +143,29 @@ class PushServiceImpl {
             return;
         }
 
-        // 3. Rate Limit (Max 1 per day)
+        // 3. Content: is there still a reason to remind?
+        // Decided BEFORE the rate limit (2026-10-16): the evening goal reminder
+        // says "sua meta do dia segue disponível", so once the goal closes, a
+        // reminder already scheduled would arrive lying. Re-evaluated on every
+        // Estude focus; with no reason left, the pending one is cancelled.
+        const dueLessons = await SpacedRepetitionService.getDueLessons();
+        let type: 'review' | 'goal' | null = dueLessons.length > 0 ? 'review' : null;
+        if (!type) {
+            const goal = await DailyGoalService.getSnapshot();
+            // v1: if the goal is open, remind in the evening window; the app
+            // runs only on open (local-only), so this is decided now.
+            if (!goal.isCompleted) type = 'goal';
+        }
+
+        if (!type) {
+            const Notifications = await getNotifications();
+            await Notifications.cancelAllScheduledNotificationsAsync();
+            await AsyncStorage.removeItem(KEYS.LAST_SCHEDULED);
+            await this.logDecision(context.reason, 'cancelled_nothing_to_push');
+            return;
+        }
+
+        // 4. Rate Limit (Max 1 per day)
         const now = new Date();
         const todayStr = now.toISOString().split('T')[0];
 
@@ -159,45 +185,7 @@ class PushServiceImpl {
             }
         }
 
-        // 4. Content Logic
-        // Primary: Review Pending
-        const dueLessons = await SpacedRepetitionService.getDueLessons();
-        if (dueLessons.length > 0) {
-            await this.scheduleOrShadow('review', todayStr);
-            return;
-        }
-
-        // Secondary: Goal Reminder
-        // Only if goal NOT complete
-        const goal = await DailyGoalService.getSnapshot();
-        if (!goal.isCompleted) {
-            // Heuristic (Placeholder): Check if user has basic activity pattern (e.g. at least 3 days active)
-            // For v1, let's just send it if they are opted in and haven't finished goal.
-            // But strict rule: "User has not opened app today"?
-            // We can't really know if they will open it later.
-            // Better rule: Schedule for evening window. If they open app before then, we can cancel/reschedule?
-            // For v1 simple: Schedule it.
-
-            // NOTE: The user requested "Only if within day window and user has not opened app today".
-            // Since this method runs ON app open/interaction, they ARE opening the app.
-            // So technically, we shouldn't schedule *while* they are using it?
-            // Actually, the goal is: "When 18h comes, if they haven't learned, ping them."
-            // So we schedule it. But if they complete the goal later today, does it cancel?
-            // Currently, 'cancelAll' happens on opt-out.
-            // Ideally, 'DailyGoalService' should trigger a check to cancel pending goal pushes.
-            // For v1 minimal: Just schedule. If they finish, they finish.
-            // Wait, constraint says: "Only if ... user has not opened app today".
-            // This implies a background check. But we are local only.
-            // Local Pulse: We can schedule a notification for 18:00 *now*.
-            // If the user opens the app at 19:00, they see the notif.
-            // If they open at 17:00 and study, we should probably CANCEL the scheduled one?
-            // Simpler v1: Schedule one for tonight.
-
-            await this.scheduleOrShadow('goal', todayStr);
-            return;
-        }
-
-        await this.logDecision(context.reason, 'skipped_nothing_to_push');
+        await this.scheduleOrShadow(type, todayStr);
     }
 
     private async scheduleOrShadow(type: 'review' | 'goal', dateStr: string) {
@@ -220,7 +208,6 @@ class PushServiceImpl {
             return;
         }
 
-        const trigger: any = targetTime; // Schedule for specific time
 
         // Copy Rotation Logic (Day of month modulo 3)
         const variantIndex = new Date().getDate() % 3;
@@ -247,6 +234,10 @@ class PushServiceImpl {
             await this.logDecision('shadow_schedule', `would_schedule_${type}_${targetTime.toLocaleTimeString()}`);
         } else {
             const Notifications = await getNotifications();
+            // Formato de 0.32: um `Date` cru é recusado em tempo de execução
+            // ("needs to contain a `type` or `channelId` entry"). Este ramo
+            // nunca tinha rodado até sair do modo sombra, em 2026-10-16.
+            const trigger = { type: Notifications.SchedulableTriggerInputTypes.DATE, date: targetTime } as const;
             // Real Schedule
             await Notifications.cancelAllScheduledNotificationsAsync(); // Enforce 1 pending max
             await Notifications.scheduleNotificationAsync({
