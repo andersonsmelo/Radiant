@@ -1886,3 +1886,15 @@ Textos anteriores da fila, preservados sem edição:
     produção. **Bloqueio de ambiente:** nenhum; a fixture e a nova navegação
     ainda faltam. Sem nova build de distribuição/OTA.
     [Evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+
+## Item 32 — concluído localmente em 2026-10-16
+
+  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
+    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
+    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
+    informações). Pede desenho antes: o que entra, a navegação e o que fica no
+    Perfil.
+    **Concluído em 2026-10-16:** o dono escolheu a engrenagem no cabeçalho do
+    Perfil, abrindo a tela Configuração empilhada, e decidiu que a assinatura
+    vai junto. [ADR](../adr/ADR-2026-10-16-configuracao-no-perfil.md),
+    [evidência](../evidence/2026-10-16-configuracao-no-perfil.md).

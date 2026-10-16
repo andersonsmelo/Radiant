@@ -175,11 +175,6 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
   - **22.** agente: L2 v7, depois do teste do piloto;
   - **24.** dono: as ações de um passo da seção 7, abaixo;
-  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
-    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
-    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
-    informações). Pede desenho antes: o que entra, a navegação e o que fica no
-    Perfil.
 
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 

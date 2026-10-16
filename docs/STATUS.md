@@ -368,6 +368,17 @@ recomendação continuam no topo da rolagem. Conferido no simulador (iPhone 17,
 vistos na tela. [ADR](adr/ADR-2026-10-16-estude-abre-no-proximo-no.md),
 [evidência](evidence/2026-10-16-trilha-ancorada-no-proximo.md).
 
+## Configuração sai do Perfil — medido em 2026-10-16
+
+Local, no mesmo branch, sem publicação; fecha o item 32 da FILA. Uma
+engrenagem no cabeçalho do Perfil abre a tela Configuração (`/settings`), com
+assinatura, backup no iCloud, sons e vibração, conta e sincronização (só com o
+sync remoto ligado), ajuda com "Rever apresentação" e a porta do console (só
+em desenvolvimento). O Perfil guarda identidade, missões e progresso. Conferido
+no simulador (iPhone 17, 1.4.0 (3)); o cartão de conta com sync ligado e o AX5
+não foram vistos na tela. [ADR](adr/ADR-2026-10-16-configuracao-no-perfil.md),
+[evidência](evidence/2026-10-16-configuracao-no-perfil.md).
+
 ## Gate de qualidade
 
 ```bash

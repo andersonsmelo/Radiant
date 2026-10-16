@@ -82,11 +82,14 @@ jest.mock('../../progress/screens/ProgressScreen', () => {
 
 jest.mock('../components/ProfileIdentityHeader', () => {
   const React = require('react');
-  const { Text, View } = require('react-native');
+  const { Pressable, Text, View } = require('react-native');
   return {
-    ProfileIdentityHeader: () => (
+    ProfileIdentityHeader: ({ onOpenSettings }: { onOpenSettings?: () => void }) => (
       <View testID="profile-identity-header">
         <Text>identidade</Text>
+        {onOpenSettings ? (
+          <Pressable accessibilityRole="button" accessibilityLabel="Configuração" onPress={onOpenSettings} />
+        ) : null}
       </View>
     ),
   };
@@ -135,106 +138,39 @@ describe('ProfileScreen — uma aba só, com identidade, missões e progresso', 
   });
 });
 
-describe('ProfileScreen — a porta do console de desenvolvimento', () => {
-  // O console saiu da ProgressScreen para rota própria no sub-projeto 2, o que
-  // destravou a aba Perfil — mas ninguém criou porta de entrada. Ele ficou
-  // alcançável só por deep link, e o checklist de release registra que a
-  // homologação em aparelho depende dessa tela. Medido em 2026-08-21.
-  afterEach(() => {
-    AppConfig.SHOW_DEV_TOOLS = true;
-  });
-
-  it('oferece a entrada quando as ferramentas de desenvolvimento estão ligadas', () => {
-    AppConfig.SHOW_DEV_TOOLS = true;
-    render(<ProfileScreen />);
-
-    expect(screen.getByText('Console de desenvolvimento')).toBeTruthy();
-    expect(screen.getByText('Sons e vibração')).toBeTruthy();
-  });
-
-  it('não mostra nada disso no build do aluno', () => {
-    // `SHOW_DEV_TOOLS` é `__DEV__ || EXPO_PUBLIC_ENABLE_DEV_TOOLS`, então em
-    // release sem a flag a porta simplesmente não existe — e não é só um botão
-    // desabilitado, que ainda contaria uma história ao aluno.
-    AppConfig.SHOW_DEV_TOOLS = false;
-    render(<ProfileScreen />);
-
-    expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
-    expect(screen.queryByText(/desenvolvimento/iu)).toBeNull();
-  });
-
-  it('o aluno vê os interruptores de sons e vibração: desde 2026-09-28 a lição dele toca e vibra', () => {
-    // Até 2026-09-28 os sons existiam só no piloto, e o card ficava atrás de
-    // SHOW_DEV_TOOLS para o aluno não ver interruptor de algo que nunca ouve.
-    // Com a camada ligada à lição do aluno, esconder o card tiraria dele o
-    // único jeito de desligar o som dentro do app.
-    AppConfig.SHOW_DEV_TOOLS = false;
-    render(<ProfileScreen />);
-
-    expect(screen.getByText('Sons e vibração')).toBeTruthy();
-    expect(screen.getByLabelText('Sons')).toBeTruthy();
-    expect(screen.getByLabelText('Vibração')).toBeTruthy();
-  });
-});
-
-describe('ProfileScreen — assinatura e backup na configuração de produção', () => {
+// Desde 2026-10-16 (FILA 32, decisão do dono): assinatura, backup, sons e
+// vibração, conta, ajuda e a porta do console moram na tela Configuração, que a
+// engrenagem do cabeçalho abre. O Perfil guarda identidade, missões e progresso.
+describe('ProfileScreen — a configuração mora atrás da engrenagem', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    AppConfig.SHOW_DEV_TOOLS = false;
-    mockedSubscription.getStatus.mockResolvedValue({ kind: 'none' });
-    mockedProgressSync.getState.mockResolvedValue({ enabled: false, lastBackupAt: null, lastError: null });
-  });
-
-  afterEach(() => {
     AppConfig.SHOW_DEV_TOOLS = true;
   });
 
-  it('mostra os cartões de assinatura e de backup, e nada de login, e-mail, token, API, sync ou backend', async () => {
+  it('a engrenagem do cabeçalho abre a tela Configuração', () => {
     render(<ProfileScreen />);
 
-    expect(await screen.findByText('Vidas ilimitadas — e só isso.')).toBeTruthy();
-    expect(await screen.findByText('Backup no iCloud')).toBeTruthy();
-    expect(screen.getByText('Nenhum backup ainda')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Configuração' }));
 
-    for (const proibido of [/login/iu, /e-?mail/iu, /senha/iu, /token/iu, /\bAPI\b/u, /sync/iu, /backend/iu, /servidor/iu]) {
-      expect(screen.queryByText(proibido)).toBeNull();
-    }
+    expect(mockedRouter.push).toHaveBeenCalledWith('/settings');
   });
 
-  it('o cartão de assinatura abre a tela de assinatura', async () => {
+  it('não mostra assinatura, backup, sons e vibração nem a porta do console', async () => {
+    // Com SHOW_DEV_TOOLS ligado, o caso em que a porta do console apareceria.
     render(<ProfileScreen />);
+    await waitFor(() => expect(screen.getByTestId('progress-section')).toBeTruthy());
 
-    fireEvent.press(await screen.findByRole('button', { name: 'Conhecer' }));
-
-    expect(mockedRouter.push).toHaveBeenCalledWith('/subscription');
+    expect(screen.queryByText('Vidas ilimitadas — e só isso.')).toBeNull();
+    expect(screen.queryByText('Backup no iCloud')).toBeNull();
+    expect(screen.queryByText('Sons e vibração')).toBeNull();
+    expect(screen.queryByText('Console de desenvolvimento')).toBeNull();
   });
 
-  it('assinante vê a renovação e expirado vê renovar', async () => {
-    mockedSubscription.getStatus.mockResolvedValue({ kind: 'unlimited', expiresAt: '2026-10-14T12:00:00.000Z', willRenew: true });
-    const { unmount } = render(<ProfileScreen />);
-    expect(await screen.findByText('Renova em 14/10/2026')).toBeTruthy();
-    unmount();
-
-    mockedSubscription.getStatus.mockResolvedValue({ kind: 'expired', expiredAt: '2026-09-01T12:00:00.000Z' });
-    render(<ProfileScreen />);
-    expect(await screen.findByRole('button', { name: 'Renovar' })).toBeTruthy();
-  });
-
-  it('ligar o backup passa pelo serviço e mostra o estado devolvido, com erro que informa sem bloquear', async () => {
-    render(<ProfileScreen />);
-    const interruptor = await screen.findByLabelText('Backup no iCloud');
-
-    fireEvent(interruptor, 'valueChange', true);
-
-    await waitFor(() => expect(mockedProgressSync.setEnabled).toHaveBeenCalledWith(true, expect.any(Number)));
-    expect(await screen.findByText(/ainda não está disponível nesta versão/u)).toBeTruthy();
-    expect(screen.getByLabelText('Backup no iCloud').props.value).toBe(true);
-  });
-
-  it('backup ativo mostra a data do último backup', async () => {
-    mockedProgressSync.getState.mockResolvedValue({ enabled: true, lastBackupAt: '2026-09-14T12:00:00.000Z', lastError: null });
+  it('não lê assinatura, backup nem preferências: quem lê é a Configuração', () => {
     render(<ProfileScreen />);
 
-    expect(await screen.findByText(/Último backup em 14\/09\/2026/u)).toBeTruthy();
+    expect(mockedSubscription.getStatus).not.toHaveBeenCalled();
+    expect(mockedProgressSync.getState).not.toHaveBeenCalled();
+    expect(jest.requireMock('../../../ui/feedback/feedbackPreferences').readFeedbackPreferences).not.toHaveBeenCalled();
   });
 });

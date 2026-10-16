@@ -1722,6 +1722,16 @@ Testes vistos vermelhos e cada guarda derrubada pela sua injeção;
 conferido no simulador. [Evidência](../evidence/2026-10-16-trilha-ancorada-no-proximo.md).
 Sem integração à main nem publicação.
 
+### Configuração sai do Perfil — 2026-10-16 [CONCLUÍDA LOCALMENTE]
+
+Item 32 da FILA. Engrenagem no cabeçalho do Perfil abre a tela Configuração;
+assinatura, backup, sons e vibração, conta, ajuda e a porta do console foram
+para lá, por decisão do dono
+([ADR](../adr/ADR-2026-10-16-configuracao-no-perfil.md)). Testes vistos
+vermelhos e cada guarda derrubada pela sua injeção; conferido no simulador.
+[Evidência](../evidence/2026-10-16-configuracao-no-perfil.md). Sem integração
+à main nem publicação.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**
