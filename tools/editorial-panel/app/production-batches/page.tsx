@@ -8,7 +8,7 @@ export default function ProductionBatchesPage() {
       <div>
         <h1 className="text-xl font-bold">Batches de produção</h1>
         <p className="mt-2 text-sm text-gray-400">
-          Visão somente leitura do catálogo que o app compila. A promoção gravável exige expected hash e rename atômico pela biblioteca versionada.
+          Catálogo compilado pelo app. A conferência usa o mesmo contrato da promoção, incluindo fontes, competências e seis aprovações vinculadas ao material.
         </p>
       </div>
       {batches.map((batch) => (
@@ -26,8 +26,14 @@ export default function ProductionBatchesPage() {
             <span>{batch.competencyCount} competências</span>
           </div>
           <div className="text-xs text-gray-400">
+            {batch.sourceCount} fontes · {batch.claimCount} afirmações rastreadas
+          </div>
+          <div className="text-xs text-gray-400">
             Gates: {batch.approvalGates.join(", ")}
           </div>
+          <p className={batch.validationIssues.length ? "text-sm text-red-400" : "text-sm text-green-400"}>
+            {batch.validationIssues.length ? `Pendências: ${batch.validationIssues.join(", ")}` : "Contrato íntegro; sem pendências detectadas."}
+          </p>
           <code className="block break-all rounded bg-gray-900 p-2 text-xs text-gray-400">
             sha256:{batch.materialSha256}
           </code>

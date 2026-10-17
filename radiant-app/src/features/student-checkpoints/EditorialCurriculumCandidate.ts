@@ -1,5 +1,4 @@
 import {
-    validateLearningActivity,
     type EvidenceKind,
     type LearningActivityV2,
     type LearningInteractionV2,
@@ -15,7 +14,7 @@ export type EditorialSourceV1 = Readonly<{
     attribution: string;
     url: string;
     license: Readonly<{ label: 'CC BY 4.0'; url: 'https://creativecommons.org/licenses/by/4.0/' }>;
-    accessedAt: '2026-08-13';
+    accessedAt: string;
     /**
      * Fingerprint histórico do corpo HTTPS recuperado. Identifica a captura,
      * mas HTML dinâmico pode mudar entre requisições; não prova sozinho deriva
@@ -149,33 +148,5 @@ export const MATERIA_ENERGIA_E_RADIACAO_CANDIDATE: EditorialCurriculumCandidateV
     claimProvenance: [...activities.flatMap(claimsForActivity), ...checkpointItems.flatMap(claimsForCheckpoint)],
 };
 
-export function validateEditorialCurriculumCandidate(candidate: EditorialCurriculumCandidateV1): string[] {
-    const issues: string[] = [];
-    const sourceIds = new Set(candidate.sources.map((source) => source.id));
-    if (candidate.schemaVersion !== 1 || candidate.promotionState !== 'human-gates-pending') issues.push('candidate-must-remain-unpromotable');
-    if (Object.values(candidate.approvals).some((approval) => approval !== 'pending')) issues.push('human-approval-must-remain-pending');
-    if (candidate.sources.length !== 8 || candidate.sources.some((source) =>
-        !/^https:/.test(source.url)
-        || !/^[a-f0-9]{64}$/.test(source.retrievedMaterialSha256)
-        || source.license.label !== LICENSE.label
-        || source.license.url !== LICENSE.url
-    )) issues.push('invalid-source-metadata');
-    if (candidate.activities.length !== 12) issues.push('expected-twelve-activities');
-    candidate.activities.forEach((value) => {
-        if (validateLearningActivity(value).length > 0) issues.push(`invalid-activity:${value.id}`);
-        const interaction = value.steps.find((step) => step.kind === 'interaction');
-        if (!interaction || interaction.kind !== 'interaction' || interaction.interaction.criticalSafety || interaction.interaction.competencyIds.length !== 1 || value.provenance.sourceIds.some((id) => !sourceIds.has(id))) issues.push(`invalid-activity-contract:${value.id}`);
-    });
-    if (candidate.checkpoint.targetScoreBasisPoints !== 8000 || candidate.checkpoint.items.length !== 10) issues.push('invalid-checkpoint-shape');
-    const correctPositions = new Set(candidate.checkpoint.items.map((item) => item.options.findIndex((option) => option.id === item.correctOptionId)));
-    if (correctPositions.size !== 4) issues.push('checkpoint-answer-position-bias');
-    COMPETENCIES.forEach((competencyId) => { if (candidate.checkpoint.items.filter((item) => item.competencyIds.includes(competencyId)).length !== 2) issues.push(`checkpoint-coverage:${competencyId}`); });
-    const requiredClaims = [...candidate.activities.flatMap(claimsForActivity), ...candidate.checkpoint.items.flatMap(claimsForCheckpoint)];
-    const suppliedClaims = new Map(candidate.claimProvenance.map((claim) => [claim.claimId, claim]));
-    requiredClaims.forEach((claim) => {
-        const supplied = suppliedClaims.get(claim.claimId);
-        const distractor = claim.claimKind === 'distractor';
-        if (!supplied || supplied.claimKind !== claim.claimKind || supplied.provenanceKind !== claim.provenanceKind || (distractor ? supplied.sourceIds.length !== 0 : supplied.sourceIds.length === 0) || supplied.sourceIds.some((id) => !sourceIds.has(id))) issues.push(`missing-claim-provenance:${claim.claimId}`);
-    });
-    return [...new Set(issues)];
-}
+// O H4 permanece como fixture histórica; a validação compartilhada não depende de seus IDs ou tamanhos.
+export { validateEditorialBatchContract as validateEditorialCurriculumCandidate } from './EditorialBatchContract';

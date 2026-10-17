@@ -7,34 +7,15 @@ import {
   fingerprint,
   fingerprintProductionBatchMaterial,
   promoteProductionBatchArtifact,
+  validatePromotedBatch,
 } from './production-batch.mjs';
 
+import appContract from './load-app-contract.cjs';
+const { loadAppContract } = appContract;
+const baseline = JSON.parse(JSON.stringify(loadAppContract('features/student-checkpoints/production-batches.ts').PRODUCTION_BATCHES[0]));
+const { createProductionCurriculumCatalog } = loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
 function batch(overrides = {}) {
-  const material = {
-    schemaVersion: 1,
-    state: 'promoted',
-    batchId: 'production-batch:test:1',
-    trackId: 'track:test',
-    unitId: 'unit:test',
-    contentVersion: 'test-v1',
-    competencyIds: ['competency:test'],
-    sources: [{ id: 'source:test' }],
-    activities: [{ id: 'activity:1' }],
-    checkpoint: { id: 'checkpoint:1' },
-    reinforcement: { cycles: [] },
-    claimProvenance: [],
-    promotedAt: '2026-08-13T20:00:00.000Z',
-    ...overrides,
-  };
-  const materialSha256 = fingerprintProductionBatchMaterial(material);
-  return {
-    ...material,
-    materialSha256,
-    approvals: ['technical', 'editorial', 'accessibility', 'rights', 'schema', 'product'].map((gate) => ({
-      gate, decision: 'approved', materialSha256,
-    })),
-    ...overrides,
-  };
+  return { ...JSON.parse(JSON.stringify(baseline)), ...overrides };
 }
 
 describe('production batch atomic catalog', () => {
@@ -49,6 +30,9 @@ describe('production batch atomic catalog', () => {
       assert.equal(persisted.batches.length, 1);
       assert.equal(persisted.changes[0].rollback.restoreCatalogSha256, 'absent');
       assert.equal(result.catalogSha256, fingerprint(persisted));
+      const compiled = createProductionCurriculumCatalog([{ batch: persisted.batches[0], presentation: { slug: 'fixture', title: 'Fixture', description: 'Fixture', unitTitle: 'Fixture', reward: { id: 'reward:fixture', title: 'Fixture', description: 'Fixture' } } }]);
+      assert.equal(compiled.listLessonSummaries().length, 12);
+      assert.equal(compiled.getActivityById(baseline.activities[0].id).id, baseline.activities[0].id);
     } finally { await rm(root, { recursive: true, force: true }); }
   });
 
@@ -92,7 +76,7 @@ describe('production batch atomic catalog', () => {
       missingGate.approvals = missingGate.approvals.slice(1);
       await assert.rejects(
         promoteProductionBatchArtifact({ batch: missingGate, catalogPath, expectedCatalogSha256: 'absent' }),
-        /approval-count:technical/,
+        /missing-approval:technical/,
       );
       const first = await promoteProductionBatchArtifact({ batch: batch(), catalogPath, expectedCatalogSha256: 'absent' });
       await assert.rejects(
@@ -112,6 +96,18 @@ describe('production batch atomic catalog', () => {
         promoteProductionBatchArtifact({ batch: tampered, catalogPath, expectedCatalogSha256: 'absent' }),
         /production-batch-material-hash-mismatch/,
       );
+    } finally { await rm(root, { recursive: true, force: true }); }
+  });
+
+  it('recusa colisão entre lotes sem perder o catálogo anterior', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'radiant-g3-collision-'));
+    try {
+      const catalogPath = join(root, 'catalog.json');
+      const first = await promoteProductionBatchArtifact({ batch: batch(), catalogPath, expectedCatalogSha256: 'absent' });
+      const before = await readFile(catalogPath, 'utf8');
+      await assert.rejects(promoteProductionBatchArtifact({ batch: batch({ batchId: 'batch:different-id' }), catalogPath, expectedCatalogSha256: first.catalogSha256 }), /production-catalog-duplicate-identity/);
+      assert.equal(await readFile(catalogPath, 'utf8'), before);
+      assert.deepEqual((await readdir(root)).filter(name => name.endsWith('.lock') || name.includes('.tmp-')), []);
     } finally { await rm(root, { recursive: true, force: true }); }
   });
 
@@ -146,11 +142,47 @@ describe('production batch atomic catalog', () => {
       await first;
 
       const persisted = JSON.parse(await readFile(catalogPath, 'utf8'));
-      assert.deepEqual(persisted.batches.map((entry) => entry.batchId), ['production-batch:test:1']);
+      assert.deepEqual(persisted.batches.map((entry) => entry.batchId), [baseline.batchId]);
       assert.deepEqual((await readdir(root)).filter((name) => name.endsWith('.lock')), []);
     } finally {
       releaseFirst?.();
       await rm(root, { recursive: true, force: true });
     }
+  });
+});
+
+describe('shared app/CLI contract', () => {
+  it('matches SHA256 from Node crypto and keeps historical material unchanged', () => {
+    const shared = loadAppContract('features/student-checkpoints/ProductionBatch.ts');
+    assert.equal(shared.fingerprintProductionBatchMaterial(baseline), fingerprintProductionBatchMaterial(baseline));
+    assert.equal(baseline.materialSha256, fingerprintProductionBatchMaterial(baseline));
+    assert.deepEqual(Array.from(validatePromotedBatch(baseline)), []);
+  });
+  for (const [name, mutate, issue] of [
+    ['invalid payload with fresh hash', b => { b.checkpoint.items[0].correctOptionId = 'unknown'; }, 'invalid-checkpoint-item'],
+    ['missing claim with fresh hash', b => { b.claimProvenance.shift(); }, 'missing-claim-provenance'],
+    ['reviewer absent', b => { delete b.approvals[0].reviewerRef; }, 'invalid-approval:technical'],
+    ['duplicate gate', b => { b.approvals.push(b.approvals[0]); }, 'duplicate-approval:technical'],
+    ['unknown gate', b => { b.approvals.push({ ...b.approvals[0], gate: 'unknown' }); }, 'unknown-approval-gate'],
+    ['unapproved media', b => { b.media = ['image:unapproved']; }, 'unapproved-production-batch-media'],
+    ['unknown schema', b => { b.schemaRefs.batch = 'production-batch.v2'; }, 'invalid-production-batch-schema-refs'],
+    ['missing promotion', b => { b.promotionRef = ''; }, 'invalid-promotion-authorization'],
+  ]) {
+    it(`rejects ${name} before any write`, async () => {
+      const root = await mkdtemp(join(tmpdir(), 'radiant-g3-rejected-'));
+      try {
+        const value = batch();
+        mutate(value);
+        value.materialSha256 = fingerprintProductionBatchMaterial(value);
+        value.approvals.forEach(a => { a.materialSha256 = value.materialSha256; });
+        const issues = Array.from(validatePromotedBatch(value));
+        assert.ok(issues.some(entry => entry.includes(issue)), issues.join(','));
+        await assert.rejects(promoteProductionBatchArtifact({ batch: value, catalogPath: join(root, 'catalog.json'), expectedCatalogSha256: 'absent' }), /production-batch-invalid/);
+        assert.deepEqual(await readdir(root), []);
+      } finally { await rm(root, { recursive: true, force: true }); }
+    });
+  }
+  it('rejects malformed JSON values without treating untested input as valid', () => {
+    for (const value of [null, [], {}, { state: 'promoted', approvals: {} }]) assert.ok(validatePromotedBatch(value).length);
   });
 });

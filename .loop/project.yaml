@@ -183,6 +183,11 @@ validators:
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
       --test scripts/content/wave-1-priority-tracks.test.mjs
     timeoutMs: 120000
+  - id: content-production
+    command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
+      --test scripts/content/production-batch.test.mjs scripts/content/audit-production-batches.test.mjs
+      && PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node scripts/content/audit-production-batches.mjs --check
+    timeoutMs: 120000
   - id: content-anchoring
     command: PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin node
       --test scripts/content/validate-content-anchoring.test.mjs scripts/content/validate-taxonomy-map.test.mjs
