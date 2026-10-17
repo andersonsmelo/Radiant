@@ -23,4 +23,14 @@ describe('lessonSummaryPhrases', () => {
     const frase = pickSummaryPhrase(2, anterior, () => 0);
     expect(frase).not.toBe(anterior);
   });
+
+  it('não diz "pela metade" na faixa de 0 estrelas (0 acertos nunca é metade)', () => {
+    LESSON_SUMMARY_PHRASES[0].forEach((frase) => {
+      expect(frase.toLowerCase()).not.toContain('metade');
+    });
+    expect(LESSON_SUMMARY_PHRASES[0]).toContain(
+      'Zero desta vez — rever agora fixa melhor do que seguir.'
+    );
+  });
 });
+

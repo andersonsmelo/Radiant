@@ -32,6 +32,8 @@ export type ReinforcePayload = {
     title: string;
     body: string;
     tone: 'positive' | 'neutral' | 'corrective';
+    prompt?: string;
+    correctAnswerLabel?: string;
 };
 
 export type AdvancePayload = {

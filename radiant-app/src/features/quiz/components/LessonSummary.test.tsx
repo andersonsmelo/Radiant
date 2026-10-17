@@ -298,4 +298,17 @@ describe('LessonSummary', () => {
     render(<LessonSummary {...base} stars={2} />);
     expect(screen.getByLabelText('2 de 3 estrelas')).toBeTruthy();
   });
+
+  it('não celebra nem diz que a lição foi concluída com 0 estrelas, usando faixa neutra e Pixel de orientação', () => {
+    render(<LessonSummary {...base} stars={0} correctAnswers={0} starsImproved={false} />);
+    expect(screen.getByText('A lição ainda não fechou')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.getByLabelText('Pixel incentivando a tentar novamente')).toBeTruthy();
+    expect(screen.queryByLabelText('Pixel comemorando')).toBeNull();
+    const bandStyle = StyleSheet.flatten(screen.getByTestId('lesson-summary-band').props.style);
+    expect(bandStyle.backgroundColor).not.toBe(
+      StyleSheet.flatten(render(<LessonSummary {...base} stars={3} />).getByTestId('lesson-summary-band').props.style).backgroundColor
+    );
+  });
 });
+
