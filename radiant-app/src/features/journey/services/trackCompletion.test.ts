@@ -40,3 +40,9 @@ describe('isTrackCompleted — revisão é prática paralela (ADR 2026-10-16)', 
     expect(isTrackCompleted([node('r1', 'review')], done(['r1']))).toBe(false);
   });
 });
+
+it('conclui a área com conquista opcional pendente, sem aceitar lição opcional por engano', () => {
+  expect(isTrackCompleted([{ id: 'l', type: 'lesson' }, { id: 'c', type: 'checkpoint' }, { id: 'r', type: 'reward', optionalForProgression: true }], done(['l', 'c']))).toBe(true);
+  expect(isTrackCompleted([{ id: 'done', type: 'lesson' }, { id: 'l', type: 'lesson', optionalForProgression: true }], done(['done']))).toBe(false);
+  expect(isTrackCompleted([{ id: 'r', type: 'reward', optionalForProgression: true }], done([]))).toBe(false);
+});

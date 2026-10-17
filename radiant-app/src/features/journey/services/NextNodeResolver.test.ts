@@ -166,3 +166,11 @@ describe('NextNodeResolver', () => {
         })?.nodeId).toBe('checkpoint:alive');
     });
 });
+
+it('recomenda a lição aberta antes da conquista opcional e mantém a coleta ao terminar', () => {
+    const reward = candidato('optional', 'reward', 1, { optionalForProgression: true });
+    const lesson = candidato('lesson', 'lesson', 2);
+    expect(NextNodeResolver.resolve({ candidates: [reward, lesson], nowMs: AGORA })?.nodeId).toBe('lesson');
+    expect(NextNodeResolver.resolve({ candidates: [reward, { ...lesson, completed: true }], nowMs: AGORA })?.nodeId).toBe('optional');
+    expect(NextNodeResolver.resolve({ candidates: [{ ...reward, unlocked: false }], nowMs: AGORA })).toBeNull();
+});

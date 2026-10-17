@@ -71,6 +71,7 @@ jest.mock('../../../components/ui/SurfaceCard', () => {
 jest.mock('../../journey/services/JourneyProgressService', () => ({
   JourneyProgressService: {
     bootstrap: jest.fn(),
+    getSnapshotForNode: jest.fn(),
     setCurrentNode: jest.fn(),
     markNodeCompleted: jest.fn(),
   },
@@ -212,8 +213,36 @@ describe('RewardScreen flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(availableSnapshot);
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.setCurrentNode.mockResolvedValue(availableSnapshot);
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
+  });
+
+  it('carrega a conquista da área anterior pelo destino e preserva o contexto da coleta', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue({ ...availableSnapshot, track: { units: [{ id: 'other-unit', title: 'Outra área', nodes: [] }] } } as any);
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(availableSnapshot);
+    renderWithProviders(<RewardScreen nodeId="reward-1" />);
+    await waitFor(() => expect(mockedJourneyProgressService.getSnapshotForNode).toHaveBeenCalledWith('reward-1'));
+    await waitFor(() => expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('reward-1', availableSnapshot.track));
+    fireEvent.press(await screen.findByText('Receber conquista'));
+    await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith('reward-1'));
+    expect(await screen.findByText('Conquista registrada')).toBeTruthy();
+  });
+
+  it('um destino inexistente não oferece outra conquista disponível', async () => {
+    renderWithProviders(<RewardScreen nodeId="reward-inexistente" />);
+    expect(await screen.findByText(/Nenhuma recompensa está elegível/)).toBeTruthy();
+    expect(screen.queryByText('Receber conquista')).toBeNull();
+    expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+  });
+
+  it('explica que a coleta opcional não libera etapas', async () => {
+    const optional = { ...availableSnapshot, track: { ...availableSnapshot.track, units: availableSnapshot.track.units.map((unit: any) => ({ ...unit, nodes: unit.nodes.map((node: any) => node.type === 'reward' ? { ...node, optionalForProgression: true } : node) })) } };
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(optional);
+    mockedJourneyProgressService.setCurrentNode.mockResolvedValue(optional);
+    renderWithProviders(<RewardScreen nodeId="reward-1" />);
+    expect(await screen.findByText('A coleta é opcional e não bloqueia seus estudos.')).toBeTruthy();
+    expect(screen.queryByText(/Coletar marca esta etapa como concluída e libera/)).toBeNull();
   });
 
   it('collects an available reward and updates the journey snapshot', async () => {
@@ -241,6 +270,7 @@ describe('RewardScreen flow', () => {
     // snapshot que ELE devolve, não o de bootstrap — os dois precisam
     // apontar para o mesmo fixture.
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshotWithUnitProgress);
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(snapshotWithUnitProgress);
     mockedJourneyProgressService.setCurrentNode.mockResolvedValue(snapshotWithUnitProgress);
 
     renderWithProviders(<RewardScreen nodeId="reward-1" />);
@@ -256,6 +286,7 @@ describe('RewardScreen flow', () => {
     // conquista da unidade. Estes dois testes existem para que o caminho de
     // coleta nunca volte a ignorar o status.
     mockedJourneyProgressService.bootstrap.mockResolvedValue(lockedSnapshot);
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(lockedSnapshot);
 
     renderWithProviders(<RewardScreen nodeId="reward-1" />);
 
@@ -270,6 +301,7 @@ describe('RewardScreen flow', () => {
     // tela, o caminho de gravacao precisa recusar. Gravar progressao e
     // irreversivel, e quem chega por deep link chega por fora do controle do app.
     mockedJourneyProgressService.bootstrap.mockResolvedValue(lockedSnapshot);
+    mockedJourneyProgressService.getSnapshotForNode.mockResolvedValue(lockedSnapshot);
 
     renderWithProviders(<RewardScreen nodeId="reward-1" />);
 

@@ -53,9 +53,7 @@ function findReward(snapshot: JourneySnapshot | null, nodeId?: string): JourneyN
       .flatMap((unit) => unit.nodes)
       .find((node) => node.id === nodeId && node.type === 'reward');
 
-    if (targetNode) {
-      return targetNode;
-    }
+    return targetNode ?? null;
   }
 
   return findFallbackReward(snapshot);
@@ -136,11 +134,13 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
       setLoading(true);
       setError(null);
 
-      const baseSnapshot = await JourneyProgressService.bootstrap();
+      const baseSnapshot = nodeId
+        ? await JourneyProgressService.getSnapshotForNode(nodeId)
+        : await JourneyProgressService.bootstrap();
       const rewardNode = findReward(baseSnapshot, nodeId);
 
       if (rewardNode && (rewardNode.status === 'available' || rewardNode.status === 'active')) {
-        const nextSnapshot = await JourneyProgressService.setCurrentNode(rewardNode.id);
+        const nextSnapshot = await JourneyProgressService.setCurrentNode(rewardNode.id, baseSnapshot.track);
         setSnapshot(nextSnapshot);
         return;
       }
@@ -187,6 +187,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
     return activeUnit.nodes.filter((node) => node.type === 'review' && node.status === 'due-review').length;
   }, [activeUnit]);
 
+  const rewardOptional = rewardNode?.optionalForProgression === true;
   const rewardCompleted = completed || rewardNode?.status === 'completed';
   // Até 2026-08-04 a tela dizia "Pronta para ser coletada" com 0 de 14 marcos e
   // o botão de coletar gravava `markNodeCompleted`, entregando a conquista da
@@ -308,8 +309,8 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
             <PixelHeroSplit
               eyebrow="Jornada de Radiologia"
               message={rewardCompleted
-                ? 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
-                : 'Você chegou até aqui. Recolha sua conquista antes de seguir.'}
+                ? rewardOptional ? 'Conquista sua! O registro está salvo na sua jornada.' : 'Conquista sua! Já deixei o próximo passo pronto quando você quiser voltar.'
+                : rewardOptional ? 'Você chegou até aqui. Colete sua conquista quando quiser.' : 'Você chegou até aqui. Recolha sua conquista antes de seguir.'}
               ringValue={completedPrimaryNodes}
               ringTotal={Math.max(totalPrimaryNodes, 1)}
               ringLabel="Marcos concluídos"
@@ -326,7 +327,7 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
           <View style={styles.sectionCard}>
             <Text style={styles.sectionTitle} accessibilityRole="header">{rewardNode.title}</Text>
             <Text style={styles.sectionBody}>
-              {rewardNode.description ?? 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.'}
+              {rewardNode.description ?? (rewardOptional ? 'Reconhecimento pelas etapas que você concluiu.' : 'Esta conquista fecha o ciclo atual antes do próximo trecho da estrada.')}
             </Text>
 
             <View style={styles.statsList}>
@@ -411,10 +412,10 @@ export default function RewardScreen({ nodeId }: RewardScreenProps) {
             </Text>
             <Text style={styles.actionBody}>
               {rewardCompleted
-                ? 'Seu progresso está salvo e o próximo passo já está esperando por você.'
+                ? rewardOptional ? 'Sua conquista está salva. Volte à jornada para continuar ou rever o que estudou.' : 'Seu progresso está salvo e o próximo passo já está esperando por você.'
                 : rewardLocked
                   ? 'Ela abre quando os marcos da unidade forem concluídos. O progresso acima mostra quanto falta.'
-                  : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
+                  : rewardOptional ? 'A coleta é opcional e não bloqueia seus estudos.' : 'Coletar marca esta etapa como concluída e libera a próxima parte da trilha.'}
             </Text>
 
             {rewardLocked ? (

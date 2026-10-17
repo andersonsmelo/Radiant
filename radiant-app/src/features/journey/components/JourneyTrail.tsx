@@ -1,9 +1,12 @@
+import { galaxyColors } from '../../../ui/theme';
+import { JourneyUnitNavigation } from './JourneyUnitNavigation';
+import { computeUnitPrimaryProgress } from '../services/JourneyUnitProgress';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
+import type { JourneyNode, JourneyUnit, NextNodeDecision } from '../../../types/journey';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
-import { space } from '../../../ui/styles';
+import { space, typography } from '../../../ui/styles';
 import { JourneyLevelBand } from './JourneyLevelBand';
 import { JourneyNodeCard } from './JourneyNodeCard';
 import { JourneyTrailSpine, type SpinePosition } from './JourneyTrailSpine';
@@ -42,9 +45,11 @@ type TrailNodeItem = {
   position: SpinePosition;
 };
 
-type TrailItem = TrailBandItem | TrailNodeItem;
+type TrailUnitItem = { kind: 'unit'; key: string; unit: JourneyUnit; trackTitle: string; unitNumber: number; unitCount: number };
+type TrailItem = TrailBandItem | TrailNodeItem | TrailUnitItem;
 
 function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string): TrailItem[] {
+  const showUnits = segments.some(segment => segment.units.length > 1);
   const flatNodes = segments.flatMap(segment => segment.units.flatMap(unit => unit.nodes));
   const lastIndex = flatNodes.length - 1;
   const recommendedIndex = flatNodes.findIndex(node => node.id === recommendedNodeId);
@@ -66,7 +71,9 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
       });
     }
 
-    segment.units.forEach(unit => {
+    segment.units.forEach((unit, unitIndex) => {
+      if (showUnits) items.push({ kind: 'unit', key: `unit:${segment.trackId}:${unit.id}`, unit,
+        trackTitle: segment.trackTitle, unitNumber: unitIndex + 1, unitCount: segment.units.length });
       unit.nodes.forEach(node => {
         const position: SpinePosition = lastIndex === 0
           ? 'only'
@@ -92,7 +99,7 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
 }
 
 /**
- * Percurso único e virtualizado. Bandas e nós compartilham a mesma lista para
+ * Percurso único e virtualizado. Bandas, unidades e nós compartilham a lista para
  * preservar a ordem e as chaves estáveis mesmo quando o currículo crescer.
  */
 export function JourneyTrail({
@@ -120,6 +127,7 @@ export function JourneyTrail({
   const listRef = useRef<FlatList<TrailItem>>(null);
   const anchoredNodeIdRef = useRef<string | undefined>(undefined);
   const measuredRef = useRef(false);
+  const requestedPositionRef = useRef(ANCHOR_VIEW_POSITION);
   const retriesRef = useRef(0);
   const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -127,15 +135,23 @@ export function JourneyTrail({
     if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
   }, []);
 
-  const centerOn = useCallback((index: number) => {
-    listRef.current?.scrollToIndex({ index, viewPosition: ANCHOR_VIEW_POSITION, animated: false });
+  const centerOn = useCallback((index: number, viewPosition = requestedPositionRef.current) => {
+    requestedPositionRef.current = viewPosition;
+    listRef.current?.scrollToIndex({ index, viewPosition, animated: false });
   }, []);
+
+  const navigateToUnit = useCallback((index: number) => {
+    retriesRef.current = 0;
+    if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    centerOn(index, 0);
+  }, [centerOn]);
 
   const anchorToRecommended = useCallback(() => {
     if (recommendedIndex < 0 || anchoredNodeIdRef.current === recommendedNodeId) return;
     anchoredNodeIdRef.current = recommendedNodeId;
     retriesRef.current = 0;
-    centerOn(recommendedIndex);
+    if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    centerOn(recommendedIndex, ANCHOR_VIEW_POSITION);
   }, [centerOn, recommendedIndex, recommendedNodeId]);
 
   // Concluir um nó troca rótulos, não alturas: a lista já medida pode não
@@ -173,7 +189,14 @@ export function JourneyTrail({
       windowSize={7}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.trail}
-      ListHeaderComponent={header}
+      ListHeaderComponent={items.some(item => item.kind === 'unit') ? <>
+        {header}
+        <JourneyUnitNavigation
+          destinations={items.flatMap((item, itemIndex) => item.kind === 'unit' ? [{ key: item.key, unitId: item.unit.id,
+            title: item.unit.title, trackTitle: item.trackTitle, unitNumber: item.unitNumber, unitCount: item.unitCount, itemIndex }] : [])}
+          onSelect={navigateToUnit}
+        />
+      </> : header}
       renderItem={({ item }) => {
         if (item.kind === 'band') {
           return (
@@ -184,6 +207,23 @@ export function JourneyTrail({
               previousTrackTitle={item.previousTrackTitle}
             />
           );
+        }
+
+        if (item.kind === 'unit') {
+          const progress = computeUnitPrimaryProgress(item.unit);
+          const finished = progress.total > 0 && progress.completed === progress.total;
+          const state = finished ? 'Concluída' : item.unit.nodes.every(node => node.status === 'locked') ? 'Bloqueada'
+            : item.unit.nodes.some(node => ['completed', 'active', 'resumable'].includes(node.status)) ? 'Em andamento' : 'Disponível';
+          const optionalReward = item.unit.nodes.some(node => node.type === 'reward' && node.optionalForProgression && node.status === 'available');
+          return <View accessible accessibilityRole="header"
+            accessibilityLabel={`Unidade ${item.unitNumber} de ${item.unitCount}: ${item.unit.title}. ${state}. ${progress.completed} de ${progress.total} etapas.${optionalReward ? ' Conquista opcional disponível.' : ''}`}
+            style={styles.unit}>
+            <Text style={styles.unitCaption}>Unidade {item.unitNumber} de {item.unitCount} · {state}</Text>
+            <Text style={styles.unitTitle}>{item.unit.title}</Text>
+            <Text style={styles.unitCaption}>{progress.completed} de {progress.total} etapas</Text>
+            {optionalReward ? <Text style={styles.unitCaption}>Conquista opcional disponível</Text> : null}
+            {state === 'Bloqueada' ? <Text style={styles.unitCaption}>Conclua as etapas anteriores para estudar esta unidade.</Text> : null}
+          </View>;
         }
 
         const alignRight = item.nodeIndex % 2 === 1;
@@ -221,4 +261,7 @@ const styles = StyleSheet.create({
     paddingBottom: space.s3,
   },
   row: { position: 'relative' },
+  unit: { paddingVertical: space.s2, gap: space.s0 },
+  unitTitle: { ...typography.label, color: galaxyColors.textPrimary },
+  unitCaption: { ...typography.micro, color: galaxyColors.textSecondary },
 });

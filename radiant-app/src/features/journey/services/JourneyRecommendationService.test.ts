@@ -295,3 +295,22 @@ describe('lição concluída reaberta e abandonada', () => {
         expect(revisao?.status).toBe('resumable');
     });
 });
+
+describe('área composta com conquista opcional', () => {
+    const track: JourneyTrackDefinition = { id: 'composed', title: 'Área', initialUnitId: 'u1', units: [
+        { id: 'u1', title: 'Primeira', nodes: [
+            { id: 'l1', unitId: 'u1', type: 'lesson', title: 'L1' },
+            { id: 'c1', unitId: 'u1', type: 'checkpoint', title: 'C1', unlockRule: { requiresNodeIds: ['l1'] } },
+            { id: 'r1', unitId: 'u1', type: 'reward', title: 'R1', optionalForProgression: true, unlockRule: { requiresNodeIds: ['c1'] } },
+        ] },
+        { id: 'u2', title: 'Segunda', nodes: [{ id: 'l2', unitId: 'u2', type: 'lesson', title: 'L2', unlockRule: { requiresNodeIds: ['c1'] } }] },
+    ] };
+    it('snapshot, recomendação e foco apontam para a próxima unidade sem coleta obrigatória', () => {
+        const progress = { ...progressoInicial(), activeTrackId: track.id, currentUnitId: 'u1', completedNodeIds: ['l1', 'c1'] };
+        const snapshot = JourneyRecommendationService.computeSnapshot(track, progress);
+        expect(snapshot.nextRecommendedNode?.id).toBe('l2');
+        expect(JourneyRecommendationService.getNextRecommendedNode(snapshot.track)?.id).toBe('l2');
+        expect(JourneyRecommendationService.resolveCurrentUnitId(snapshot.track, progress)).toBe('u2');
+        expect(snapshot.track.units[0].nodes[2].status).toBe('available');
+    });
+});

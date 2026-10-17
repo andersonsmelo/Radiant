@@ -1,3 +1,4 @@
+import { isOptionalProgressionReward } from './trackCompletion';
 import { resolveNodeCompetencies } from './JourneyNodeCompetencyResolver';
 import type { DueCompetency } from '../../../types/competencyReview';
 import type {
@@ -172,6 +173,19 @@ export class JourneyRecommendationService {
     }
 
     static getNextRecommendedNode(track: JourneyTrack, currentUnitId: string = track.initialUnitId): JourneyNode | null {
+        // As composições usam a mesma prioridade global do snapshot. Uma
+        // conquista opcional nunca mantém o foco na unidade anterior.
+        const nodes = track.units.flatMap(unit => unit.nodes);
+        if (nodes.some(isOptionalProgressionReward)) {
+            const decision = NextNodeResolver.resolve({ nowMs: 0, candidates: nodes.map((node, order) => ({
+                nodeId: node.id, type: node.type, order,
+                unlocked: node.status !== 'locked', completed: node.status === 'completed',
+                optionalForProgression: node.optionalForProgression,
+                pausedStepIndex: node.status === 'resumable' ? 0 : undefined,
+                dueAtMs: node.status === 'due-review' ? 0 : undefined,
+            })) });
+            return nodes.find(node => node.id === decision?.nodeId) ?? null;
+        }
         const currentUnitIndex = Math.max(track.units.findIndex((unit) => unit.id === currentUnitId), 0);
 
         const searchUnits = [
@@ -238,6 +252,7 @@ export class JourneyRecommendationService {
                 return {
                     nodeId: node.id,
                     type: node.type,
+                    optionalForProgression: node.optionalForProgression,
                     order,
                     unlocked: node.status !== 'locked',
                     completed: node.status === 'completed',

@@ -48,6 +48,8 @@ function spineStates(screen: ReturnType<typeof render>): string[] {
     );
 }
 
+jest.mock('../../../components/ui/DecorativeIcon', () => ({ DecorativeIcon: () => null }));
+
 const onNodePress = jest.fn();
 const isNodeDisabled = (node: { status: JourneyNodeStatus }) => node.status === 'locked';
 
@@ -78,11 +80,10 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
     expect(screen.getByText('Unidade 2 — nó 1')).toBeTruthy();
   });
 
-  it('não emite o título da unidade como cabeçalho que parte o caminho', () => {
+  it('não acrescenta navegação de unidades ao percurso legado de uma unidade por área', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [
         unit('u1', 'Unidade 1', ['completed']),
-        unit('u2', 'Unidade 2', ['available']),
       ]),
     ]);
 
@@ -381,4 +382,44 @@ describe('JourneyTrail — abre no ponto do aluno', () => {
       jest.useRealTimers();
     }
   });
+});
+
+
+describe('JourneyTrail — navegação por unidades compostas', () => {
+  it('identifica as unidades e permite consultar a bloqueada sem disparar um nó', () => {
+    const scroll = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});
+    try {
+      onNodePress.mockClear();
+      const screen = renderTrail([segment('t', 'Área', [unit('u1', 'Primeira unidade', ['completed']), unit('u2', 'Segunda unidade', ['locked'])])]);
+      expect(screen.getByRole('header', { name: /Unidade 1 de 2: Primeira unidade/ })).toBeTruthy();
+      expect(screen.getByRole('header', { name: /Unidade 2 de 2: Segunda unidade/ })).toBeTruthy();
+      fireEvent.press(screen.getByRole('button', { name: 'Ver unidade 2 de 2: Segunda unidade. Área' }));
+      // Cabeçalho u1, nó u1, cabeçalho u2: os novos cabeçalhos entram no índice.
+      expect(scroll).toHaveBeenLastCalledWith({ index: 2, viewPosition: 0, animated: false });
+      expect(onNodePress).not.toHaveBeenCalled();
+      expect(screen.getByText(/Bloqueada/)).toBeTruthy();
+    } finally { scroll.mockRestore(); }
+  });
+  it('reinicia a recuperação de rolagem ao escolher outra unidade distante', async () => {
+    jest.useFakeTimers();
+    const scroll = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});
+    const offset = jest.spyOn(FlatList.prototype, 'scrollToOffset').mockImplementation(() => {});
+    try {
+      const screen = renderTrail([segment('t', 'Área', [unit('u1', 'Primeira', ['completed']), unit('u2', 'Segunda', ['available'])])], 'u2-node-0');
+      await act(async () => {});
+      const main = screen.UNSAFE_getAllByType(FlatList).find(list => list.props.testID === 'journey-trail')!;
+      fireEvent(screen.getByTestId('journey-trail'), 'contentSizeChange', 400, 3000);
+      for (let i = 0; i < 3; i += 1) {
+        main.props.onScrollToIndexFailed({ index: 3, averageItemLength: 100 });
+        act(() => { jest.runOnlyPendingTimers(); });
+      }
+      fireEvent.press(screen.getByRole('button', { name: 'Ver unidade 2 de 2: Segunda. Área' }));
+      const before = scroll.mock.calls.length;
+      main.props.onScrollToIndexFailed({ index: 2, averageItemLength: 100 });
+      act(() => { jest.runOnlyPendingTimers(); });
+      expect(scroll).toHaveBeenCalledTimes(before + 1);
+      expect(scroll).toHaveBeenLastCalledWith({ index: 2, viewPosition: 0, animated: false });
+    } finally { scroll.mockRestore(); offset.mockRestore(); jest.useRealTimers(); }
+  });
+
 });
