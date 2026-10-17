@@ -1738,7 +1738,7 @@ Ponto de partida do investimento na trilha, pedido do dono. A estrutura está à
 frente do conteúdo: as lições no ar não ensinam o que o produto promete, o
 resumo comemora erro, a trilha seguinte trava sem explicação, e não há
 medição. Itens 41–45 da FILA.
-[Relatório](../evidence/2026-10-16-avaliacao-completa-da-trilha.md).
+[Relatório](../trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md).
 
 ### Pacote de confiança da trilha — 2026-10-16 [CONCLUÍDO LOCALMENTE]
 
@@ -1751,6 +1751,92 @@ Itens 41, 42 e 44 da FILA, por decisão do dono:
 A regressão de E2E que a trilha centralizada abriu ficou no item 46.
 [ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
 [evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).
+
+### Exercícios sobre imagem no celular — 2026-10-16 [PESQUISA DOCUMENTADA]
+
+Contribuição de OpenAI Codex (família GPT-6), sem reescrever a avaliação ou o
+plano anteriores: [pesquisa com cinco estudos primários](../trilha/pesquisas/2026-10-16-exercicios-imagem-celular-evidencias.md)
+e [proposta de piloto](../trilha/plano/2026-10-16-piloto-imagem-sem-pistas.md).
+Inspeção estática distingue seleção guiada de busca visual independente e
+aponta riscos de pistas textuais, coordenadas e recorte; não é validação nativa.
+Anderson escolheu **qualidade técnica da imagem** como foco
+([ADR](../adr/ADR-2026-10-16-foco-piloto-imagem-qualidade-tecnica.md)).
+A proposta de piloto/FILA 53 foi superada pela direção global posterior de
+2026-10-16, descrita abaixo; a pesquisa visual permanece como referência.
+Esta pesquisa não importou imagens nem alterou o runtime.
+
+### Evolução global da trilha — 2026-10-16 [DIAGNÓSTICO E PLANO DOCUMENTADOS]
+
+Anderson retirou a aula piloto da ordem de avanço da frente global
+([ADR](../adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+A dependência de amostra/piloto registrada anteriormente em J3 não bloqueia
+diagnóstico, generalização do motor ou preparação de produção por lotes; isso
+não aprova L1, não ativa V3 e não dispensa revisão editorial ou distribuição.
+
+[Diagnóstico estrutural](../trilha/avaliacoes/2026-10-16-diagnostico-estrutural-global-da-trilha.md):
+18 lições legadas/38 perguntas, 12 atividades V2 e composição de quatro
+trilhas/30 resumos. [Plano global G0–G8](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md)
+liga pesquisa, inventário, arquitetura, organização curricular, produção,
+QA em escala, publicação autorizada e observação contínua.
+
+**Primeira entrega de G0/G1 implementada em 2026-10-16 (FILA 54):** registro de
+apresentação por lote, índices imutáveis, identidades sem colisão e inventário
+pelos serviços reais de jornada/player sobre catálogo local. Projeção histórica
+preservada; 56 testes focados e fixture de 100 lotes/1.200 atividades.
+[Evidências e limitações](../evidence/2026-10-16-trilha-g0-g1-catalogo.md).
+Restam cobertura fonte/competência/item, contratos de composição multiunidade,
+persistência/migração e G2–G8. Nenhum novo conteúdo ou release; sem nova medição
+nativa. Estado vivo em STATUS/FILA.
+
+**Segunda entrega G0/G1 — 2026-10-16:** matriz de 22 itens promovidos,
+oito fontes e 154 claims resolvidos; 36 itens legados explicitamente sem
+mapeamento editorial. Composição explícita de várias unidades na mesma área,
+IDs e progresso preservados; nove suítes/101 testes e 100 unidades sintéticas.
+[Evidência](../evidence/2026-10-16-trilha-cobertura-e-multiunidade.md).
+Anderson decidiu liberação pela avaliação final e conquista opcional
+([ADR](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)).
+A continuidade é G2: harmonizar conclusão/recomendação/foco e organização do mapa;
+a promoção editorial genérica é G3. Estado vivo em STATUS/FILA, sem conteúdo novo
+ou publicação nesta etapa.
+
+**Camada G2 da evolução global — implementada localmente em 2026-10-16:**
+conclusão/contagem/recomendação/foco coerentes com conquistas opcionais nas
+composições, índice/marcadores de unidades e coleta por destino da área anterior.
+Onze suítes/141 testes focados; [evidência e limites](../evidence/2026-10-16-trilha-g2-progressao-e-unidades.md).
+O próximo pacote é G3, produção editorial genérica. A validação nativa e o mapa
+curricular amplo de G2 seguem pendentes antes de ativar áreas compostas; nenhuma
+nova área/conteúdo foi publicada. Estado vivo em STATUS/FILA.
+
+**Camada G3 da evolução global — implementada localmente em 2026-10-17:**
+contrato editorial sem quantidades/IDs fixos do H4, validação comum ao app e ao
+publicador de artefatos, cobertura/proveniência, seis gates e relatório por lote.
+Seis suítes/65 testes do app, 20 testes dos scripts, oito injeções e 100 lotes
+sintéticos menores/400 atividades. [Evidências](../evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+Sem conteúdo novo ou publicação. G3 ainda requer produção/revisão real e
+medição longitudinal de retrabalho; G4 é a próxima camada técnica, com QA nativo
+G2, P1 e decisões curriculares preservados no programa. Estado vivo em STATUS/FILA.
+
+**Camada G4 — implementada localmente em 2026-10-17:** tentativa e agenda por
+item na mesma escrita, deduplicação, primeira resposta/ajuda separadas, fila ativa
+em `/review`, migração conservadora retomável e vencimentos compartilhados com
+trilha/push/contadores. Onze suítes/187 testes focados; 13 mutações e fixture de
+10 mil itens. [Evidências](../evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+**Continuação G4 em 2026-10-17:** avaliações V2 projetadas no journal comum, com
+lote atômico de itens, recibo retomável, retry estável e conclusão de aprovação
+salva. Nove suítes/160 testes focados e cinco mutações.
+[Evidências](../evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md).
+**Continuação G4 em 2026-10-17:** resposta antes do gabarito na revisão, correção
+pelo catálogo, confirmação antes do feedback e sinal temporal sem promoção de
+retenção. Nove suítes/126 testes focados e quatro mutações.
+[Evidências](../evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+G4 permanece aberto para validação nativa e critério pedagógico de retenção. QA nativo/performance e backup/sync têm gates
+próprios. Sem conteúdo novo, V3, build ou publicação; estado vivo em STATUS/FILA.
+
+**Passagem documental de 2026-10-17:** por pedido de Anderson, a implementação
+para aqui. [Índice de pesquisas/entregas](../trilha/README.md) e
+[prompt de continuidade](../trilha/PROMPT-PARA-IAS.md) consolidados; estado e
+retomada exclusivamente em STATUS/FILA. Não marcar G0–G8 inteiros como concluídos
+nem a árvore local como release.
 
 ## 7. Recursos necessários
 

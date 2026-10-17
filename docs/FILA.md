@@ -18,6 +18,15 @@ histórico sai **no mesmo run que o fecha** e vai, sem edição, para o fim de
 Todo run do Loop que edita esta fila declara também esse arquivo no
 `abrir.mjs`: depois de aberto, o escopo não se amplia.
 
+## Direção da trilha — atualizada em 2026-10-16
+
+O dono pediu diagnóstico da trilha inteira, melhoria global de implementação e
+produção escalável. Aulas piloto não são condição de avanço desta frente.
+[Diagnóstico](trilha/avaliacoes/2026-10-16-diagnostico-estrutural-global-da-trilha.md),
+[plano global](trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md) e
+[decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
+G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
+
 ## Política de decisão
 
 O agente **decide por padrão** e executa. Escalam ao dono apenas:
@@ -121,29 +130,65 @@ com autorização do dono. O item 40 está encerrado; o console mostra
 
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
-- **P3 — o piloto da L1, que destrava o V3:**
-  - **7b.** dono: confirmar os **8 itens alterados** pelo 7a em 2026-09-28,
-    com o antes e o depois no
-    [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
-    Destrava o 15.
-- **P1 — trilha, avaliação de 2026-10-16** ([relatório](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
+- **P1 — trilha, avaliação de 2026-10-16** ([relatório](trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md)).
   O dono definiu a trilha como o investimento principal. O foco foi escolhido
   em 2026-10-16 e está no
-  [plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md),
-  com base na [reavaliação da tarde](evidence/2026-10-16-reavaliacao-da-trilha.md):
+  [plano de melhoria da trilha](trilha/plano/2026-10-16-plano-de-melhoria-da-trilha.md),
+  com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
   - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
     porque barateia o E2E do 50;
   - **50.** agente: **P1, a lição legada honesta**, executando o
-    [plano tarefa a tarefa](superpowers/plans/2026-10-16-licao-legada-honesta.md).
+    [plano tarefa a tarefa](trilha/plano/2026-10-16-licao-legada-honesta.md).
     Fecha a parte da frase do 47;
   - **51.** agente propõe e dono aprova: **E2**, o hook que protege testes e as
     skills e MCPs só do domínio do app;
   - **52.** agente: **P6**, o levantamento de imagens com licença comercial
-    verificada. Pode correr em paralelo com o 50;
+    verificada. Pode correr em paralelo com o 50.
+    **Brief pronto para o Gemini em 2026-10-17:**
+    [`trilha/PROMPT-GEMINI.md`](trilha/PROMPT-GEMINI.md). A IA que pegar o item
+    registra a reserva aqui;
+  - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Retomada:** Anderson pediu parar em 2026-10-17 e consolidar contexto;
+    não iniciar execução automaticamente. Próxima IA deve ler o
+    [índice completo](trilha/README.md) e o [prompt](trilha/PROMPT-PARA-IAS.md),
+    medir a árvore compartilhada e escolher um objetivo após nova autorização.
+    **Estado:** revisão ativa exige resposta antes do gabarito em 2026-10-17;
+    correção pelo catálogo, journal antes do feedback, ajuda explícita sem XP,
+    retry estável e referência temporal validada. Nove suítes/126 testes
+    focados e quatro mutações. [Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+    **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
+    `delayed-retention`; esse critério requer validação pedagógica e decisão.
+    **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
+    Próximo: QA nativo G4/G6, performance e recuperação/backup/reset G7.
+    Permanecem limites de histórico e janela entre XP e jornada; G3 real,
+    acervo G5, mapa G2 e P1 (50). Aprovação libera próxima; conquista opcional.
+    **Remedir:** comandos do relatório; gate/estado no run
+    `run-1792269695725-1c4f438c`.
+  - **55.** agente: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
+    Hoje uma `contentVersion` nova tira a lição da revisão para sempre: a
+    sonda mostrou fila e agenda vazias 60 dias depois. O teste da linha 71
+    fixa esse defeito como comportamento esperado.
+    **Correção:** reconciliar por `(lessonId, itemId)`. O item herda só a
+    agenda, nunca a evidência. O teste novo exige diferença **e** validade e
+    precisa ser visto falhando no código atual.
+    **Dono:** decide se a mudança material reinicia o intervalo ou o
+    preserva.
+    [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
+    [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
+  - **56.** dono autoriza, agente executa: **commitar em fatias o trabalho
+    G0–G4 do Codex**, hoje só na árvore suja. As fatias são G0/G1, G2, G3, G4
+    e documentação, numa branch própria com PR. Cada fatia passa o
+    `EXPO_NO_DOTENV=1 npm run quality` sozinha (R1);
+  - **57.** dono decide: **o destino do E1 (FILA 49)**. São 22 arquivos não
+    commitados na worktree `.claude/worktrees/trusting-mestorf-a5ca83`, desde
+    2026-10-16. Três deles conflitam com a árvore principal: `rating-prompt.yaml`,
+    `review-due.yaml` e `maestro-contract.test.mjs`. As opções são integrar
+    depois do 56 ou descartar (R2);
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
-  - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de
-    conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5);
+  - **45.** dono: decisões curriculares e de governança da produção em série,
+    com revisão de conteúdo e banco de imagens de licença verificada. A direção
+    global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
   - **48.** dono: o `store-capture` passa a mostrar o convite do lembrete em
     Estude depois da 1ª lição. Decidir se a captura de loja fica com ele ou se
     o roteiro o dispensa antes de fotografar
@@ -170,7 +215,6 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
-  - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
 - **Implementação local dos itens 36, 39 e 27 em `a366295`, 2026-10-12:** reforço
   persistente, conquista recomendada e data da revisão. Testes focados verdes;
   validação final aprovada (14/14), com E2E da conquista passed. Run fechado.
@@ -198,7 +242,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
-  - **22.** agente: L2 v7, depois do teste do piloto;
+  - **22.** agente: dívida editorial da L2, replanejada dentro do programa global; sem dependência de teste de piloto. Não é a próxima entrega.
   - **24.** dono: as ações de um passo da seção 7, abaixo;
 
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
@@ -468,61 +512,15 @@ Não faz build, envio nem push sem autorização datada.
 
 ## AGENTE — conteúdo e pipeline
 
-### DONO — Piloto da lição híbrida na L1: revisar a amostra (implementado em 2026-09-23)
+### Direção atual — evolução global, 2026-10-16
 
-**Estado:** implementado localmente em 2026-09-23, **sem build de
-distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
-[plano](superpowers/plans/2026-09-23-licao-hibrida-piloto.md). Gate e desvios no
-[relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
-execuções vermelhas das guardas nos
-[vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
-Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
-desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
-quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
-espelhados na vista de costas, marcadores fora do desenho e textos técnicos
-demais. **O boneco do mapa é ilustração de piloto** (decisão do dono em
-2026-09-24): desenho esquemático feito em código, aceito para o piloto e o
-teste com pessoas; antes de a lição chegar ao aluno, precisa de arte
-definitiva, com as posições em `LANDMARK_POSITIONS` reajustadas e as guardas de
-geometria verdes. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
-gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
-descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
-"Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
-a sessão local.
-
-Pendente, nesta ordem:
-
-1. **Dono:** revisar a amostra
-   `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
-   — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
-   digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-   **Corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
-   a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
-   ventral visto por trás. Mudaram 8 dos 20 itens, e falta o dono confirmá-los
-   (7b).
-   **Decidido em 2026-09-25, às 21:40** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o item 18 e
-   as variantes do decúbito dorsal visto por trás são corrigidos antes; a
-   aprovação vale para a amostra corrigida, depois que o dono confirmar os
-   itens alterados (7a e 7b da ordem de prioridade). As descrições do tórax
-   ficam, e o leitor de tela que entrega parte da resposta é aceito no piloto,
-   com pendência antes de chegar ao aluno. O texto abaixo é o registro de
-   antes da decisão. **Ainda sem decisão em 2026-09-25, até as 21:40.** O dono pulou o item na sessão na
-   nuvem. A leitura do snapshot na nuvem achou um ponto para levar à
-   aprovação: o **item 18** (`h10-lat-ventral-v`) é idêntico ao **item 1**
-   (`h01`), com a mesma postura, a mesma pergunta, as mesmas opções e o mesmo
-   gabarito, embora o nome diga "ventral". A sessão local não reconferiu isso
-   ([relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
-   §2.3).
-2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
-   causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
-   `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
-   "Risco de build" do [STATUS](STATUS.md): `xcodebuild` com os contornos, num
-   simulador com **iOS 26.5**, porque no iOS 27 o app fecha na abertura.
-3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
-   critério da §5.4 da
-   [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
-
-**Substitui a v7 da L2 como próximo item de conteúdo.**
+A revisão da amostra e o teste de piloto saíram da ordem de avanço desta frente
+por decisão explícita de Anderson
+([ADR](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+Os itens 7b, 15 e 53 e o antigo roteiro imediato foram preservados no
+[histórico](archive/FILA_concluidos.md). Isso não aprova a L1 nem ativa V3.
+O próximo trabalho de expansão é o item 54; o detalhamento anterior da L2
+abaixo é dívida existente a replanejar, não uma exigência de aula piloto.
 
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
 

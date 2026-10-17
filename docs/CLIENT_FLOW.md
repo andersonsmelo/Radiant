@@ -221,3 +221,37 @@ confirmado nunca é apagado. Contrato completo:
 - **Não são especificação.** Descrevem o código reconciliado em
   2026-10-12, com provas de execução explicitamente datadas. Onde divergirem do código, **o código está certo e este arquivo
   está velho** — corrija-o no mesmo commit que mudar o fluxo.
+
+
+## Revisão por item — camada local G4, 2026-10-17
+
+O caminho de conclusão de `/learn` envia identidade e data estáveis da tentativa.
+A mesma confirmação não volta a registrar agenda/estatística/recompensa. O
+progresso de jornada continua com seus serviços atuais. A evidência separa o erro
+inicial do acerto final após ajuda; dados não confirmados não viram domínio.
+
+`/review` consulta itens vencidos do conteúdo atual e monta até 50 cartões.
+A agenda antiga é importada gradualmente, sem fabricar respostas ou XP. O aluno
+seleciona e confirma uma alternativa antes do feedback. Pedir a resposta com
+ajuda confirma um item assistido, sem acerto presumido ou XP; sem ajuda, a
+correção é feita pelo catálogo atual. O feedback só abre após confirmar o journal
+e o avanço depende de Continuar. A gravação vem antes do avanço;
+se falhar, há retry explícito, sem exibir uma fila vazia como sinal de que está
+em dia. Vencimentos de outros itens são preservados após responder um deles.
+
+Em continuação de 2026-10-17, avaliações V2 persistem o resultado no histórico
+operacional e confirmam seus itens no journal comum. Falha mantém o resultado
+pendente e o retry usa o mesmo ID/data/respostas. Reabrir retoma a projeção;
+uma aprovação salva permite concluir sem refazer as questões. O payload dos
+itens vencidos é resolvido pelo catálogo atual em `/review`.
+
+É implementação local, sem nova execução em aparelho ou distribuição. XP e
+jornada continuam em stores distintos; não há transação global. O novo journal
+não entra nos backups/sync anteriores.
+[Integração das avaliações](evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md). [Evidências](evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+
+Referência temporal G4 em 2026-10-17: `review-answer` conserva vencimento e
+confirmação anterior, conferidos pelo repositório. O sinal após intervalo não
+promove automaticamente retenção nem domínio. A fachada antiga de autoavaliação
+continua por compatibilidade, sem ligação com `ReviewCard` na tela ativa.
+[Evidência](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).

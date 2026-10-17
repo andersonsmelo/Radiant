@@ -27,8 +27,8 @@ conteúdo novo.
 **Stack:** React Native/Expo, TypeScript, Jest (`--runInBand` no gate),
 Maestro.
 
-**Spec:** a [reavaliação da trilha](../../evidence/2026-10-16-reavaliacao-da-trilha.md)
-(problemas 1 a 6) e o [programa](../../plans/2026-10-16-plano-de-melhoria-da-trilha.md)
+**Spec:** a [reavaliação da trilha](../avaliacoes/2026-10-16-reavaliacao-da-trilha.md)
+(problemas 1 a 6) e o [programa](2026-10-16-plano-de-melhoria-da-trilha.md)
 (pacote P1).
 
 ## Restrições globais

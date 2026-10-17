@@ -227,20 +227,13 @@ de desenvolvedor Android → `com.ascendcreative.radiant`.
   dias não começaram. Faltam 7 aceites, e a margem máxima é de 2
   ([FILA](FILA.md)). Só o dono mede, no Play Console. Também abertos:
   questionário IARC (E4), aparelho Android físico (C4) e TalkBack (C5).
-- **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
-  revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O
-  **piloto da lição híbrida na L1**
-  ([spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
-  [ADR](adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) está **na `main`
-  desde 2026-09-23 (PR #24)**, sem build de distribuição: 12 itens gerados por
-  regra, som e vibração, custo de vida só no desafio, rota `/licao-hibrida`
-  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. **A amostra foi decidida em
-  2026-09-25** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1) e
-  **corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
-  a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
-  ventral visto por trás. Mudaram 8 dos 20 itens, e o dono os confirma antes
-  de a aprovação ser gravada ([FILA](FILA.md), 7b e 15).
-  Depois, o teste com 3 a 5 pessoas antes de escalar.
+- **Currículo e expansão da trilha — direção corrigida em 2026-10-16.**
+  O código de migração mantém currículo ativo legado; V3 não foi ativado.
+  A base híbrida/L1 e a dívida editorial da L2 continuam no repositório, mas
+  revisar uma amostra de aula ou executar piloto deixou de ser condição de
+  avanço da frente global, por [decisão do dono](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
+  O trabalho seguinte é generalizar catálogo/motor e produção por lotes
+  (FILA 54); aprovação de conteúdo e distribuição continuam nos gates próprios.
 - **Conteúdo editorial (D4)** — **fechada como superada** em 2026-09-25, pela
   [ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 2. A classificação da apostila não alimenta o app nem o
   V3, e o conteúdo que ela devia liberar está no ar desde a 1.3.1. O risco do
@@ -281,14 +274,14 @@ está nos itens 36/39/27 abaixo, por decisão do dono de 2026-10-12
 [evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
 
 **A trilha no ar ainda ensina pouco e não é medida** (medido em 2026-10-16,
-no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
+no simulador e no código; [avaliação completa](trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md)).
 - **P0-1, conteúdo:** as 18 lições somam ≈38 perguntas de múltipla escolha só
   em texto, com abertura e "ideia-chave" geradas por modelo
   (`JourneyDefinitionService.ts`), e não há nenhuma imagem radiológica.
 - **P1-4, medição:** o analytics de produto é um adaptador vazio. Fica com o
   dono (FILA 43).
 - **Reavaliação da tarde, depois do pacote** (22/40 em Nielsen;
-  [síntese](evidence/2026-10-16-reavaliacao-da-trilha.md)): o teto passou para
+  [síntese](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md)): o teto passou para
   dentro da lição.
   - Cada lição mostra **uma** pergunta. A segunda vai para o nó de revisão.
   - O fim reprovado diz "Refazer agora" sem botão para refazer.
@@ -297,8 +290,8 @@ no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-
     não são embaralhadas.
   - Três textos de estado da trilha ficam abaixo do contraste AA.
 
-  O [plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md)
-  saiu dessa síntese e das pesquisas em [`research/`](research/), com as
+  O [plano de melhoria da trilha](trilha/plano/2026-10-16-plano-de-melhoria-da-trilha.md)
+  saiu dessa síntese e das pesquisas reunidas em [`trilha/`](trilha/README.md), com as
   escolhas do dono de 2026-10-16: consertar a lição legada em paralelo ao
   piloto híbrido, ter um item de imagem por trilha neste ciclo e abrir as quatro
   frentes de engenharia. A próxima é a FILA 49.
@@ -590,3 +583,66 @@ têm fatos vencidos. A `05 Aprendizados validados` tem 319 entradas, porque
 `loop memory write` só acrescenta nessa nota. **Para estado, vale este
 arquivo, não o cérebro.** Reprojetar as notas exige um comando novo no Loop,
 decidido pelo dono em 2026-09-23 e ainda não construído.
+
+## Evolução global da trilha — medida em 2026-10-17
+
+**Ponto de parada solicitado por Anderson em 2026-10-17:** implementação
+encerrada por enquanto; nenhuma frente nova deve ser iniciada sem retomada
+autorizada. [Índice consolidado das pesquisas/entregas](trilha/README.md) e
+[prompt para a próxima IA](trilha/PROMPT-PARA-IAS.md) atualizados. O código da
+trilha permanece local e não commitado na árvore compartilhada de
+`codex/radiant-study-improvements`, HEAD `2c1b5f0`; preservar trabalho e renomes
+staged de outras sessões. O run documental de consolidação é
+`run-1792270280343-e58c9352`; seu gate/estado se consulta pela CLI.
+
+**G4 — revisão com resposta antes do gabarito implementada localmente.** O aluno
+seleciona uma alternativa e confirma; o serviço corrige pelo catálogo atual e
+confirma a tentativa/agenda antes de mostrar feedback. Pedir a resposta com
+ajuda registra `skipped`, ajuda e nenhum XP. Não existe mais autodeclaração de
+acerto na tela ativa. Primeiro resultado, data e escolha em memória são estáveis
+no retry; duplo envio não duplica confirmação. O aluno lê a explicação antes de
+pressionar Continuar. Falha de storage mantém o gabarito oculto e oferece retry.
+
+O journal registra `review-answer` e a referência temporal conferida contra o
+cartão persistido. Uma revisão sem ajuda é `independent-recall` para conteúdo
+promovido; legado conserva competência sintética e sua classificação legada.
+O sinal operacional `after-interval` exige tentativa anterior confirmada,
+vencimento alcançado e ao menos 24 h desde a confirmação anterior; cartões
+apenas migrados são `unverified`. Isso não promove `delayed-retention`, não
+ativa adaptação e não prova retenção, transferência ou eficácia clínica.
+
+**Evidência local:** nove suítes/126 testes focados, atividade promovida real,
+correção contra gabarito adulterado na UI, ajuda sem XP, retry estável e quatro
+mutações discriminantes. [Entrega](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+Gate/estado: `loop run status --run run-1792269695725-1c4f438c`.
+Sessão `brain-session-1792269181556-0098c53e` fechada separadamente.
+
+As camadas anteriores de [journal/fila por item](evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md)
+e [avaliações retomáveis](evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md)
+permanecem: fila de 50, migração aditiva, histórico de reforço, catálogos G0–G3,
+IDs e progresso preservados. Avaliação final aprovada libera a próxima unidade;
+[conquista opcional](adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md).
+
+**Ainda aberto:** critério pedagógico/revisão independente para promover evidência
+retardada a domínio; QA nativo/VoiceOver/Android e desempenho G6; backup/reset,
+limites de histórico e recuperação da janela de XP/jornada G7. Os tetos continuam
+2 mil tentativas, 20 mil cartões e projeção de mil evidências. Store exclusivamente
+local, fora dos snapshots/sync antigos. G3 requer produção/revisão real; acervo
+G5 e mapa curricular amplo continuam no programa. Sem build, execução nativa,
+conteúdo novo aprovado, V3, publicação, commit, push ou merge nesta etapa.
+
+**Revisão independente — medida em 2026-10-17 pelo Claude Opus 5.5.**
+Os 15 validadores passam na árvore atual: 173 suítes e 1.728 testes no app,
+13 na API. A revisão achou três problemas:
+
+- **A1:** uma `contentVersion` nova tira a lição da revisão para sempre
+  ([FILA 55](FILA.md));
+- **A2:** nos tetos declarados, o store de revisão ocupa cerca de 12 MiB,
+  acima dos 6 MB padrão do AsyncStorage no Android;
+- **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
+  árvore ([FILA 57](FILA.md)).
+
+O trabalho G0–G4 continua não commitado ([FILA 56](FILA.md)). Desde 17/10, o
+Claude revisa e coordena as IAs.
+[Revisão](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md) e
+[protocolo](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).

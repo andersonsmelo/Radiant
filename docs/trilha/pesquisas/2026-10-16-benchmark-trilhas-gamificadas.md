@@ -1,7 +1,7 @@
 # Benchmark: trilhas gamificadas e educação em saúde/radiologia
 
 > **Proveniência e verificação.** Pesquisa feita por um subagente em 2026-10-16,
-> a pedido do dono, como base da [reavaliação da trilha](../evidence/2026-10-16-reavaliacao-da-trilha.md).
+> a pedido do dono, como base da [reavaliação da trilha](../avaliacoes/2026-10-16-reavaliacao-da-trilha.md).
 > A sessão que a encomendou conferiu por amostragem: os números do Duolingo do
 > 2º trimestre de 2026 (58,7 mi de DAU, 12,7 mi de assinantes, 84% de CURR e
 > 15,4 mi na revivência de sequência) batem com o Form 8-K e com a imprensa.

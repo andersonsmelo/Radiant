@@ -2820,7 +2820,7 @@ comprovam ausência de rede, novo VoiceOver ou novo gate estatístico H3.
 ## Retirado do STATUS em 2026-10-16 (pacote de confiança da trilha)
 
 **A trilha no ar ensina pouco, comemora erro e trava sem explicar** (medido em
-2026-10-16, no simulador e no código; [avaliação completa](evidence/2026-10-16-avaliacao-completa-da-trilha.md)).
+2026-10-16, no simulador e no código; [avaliação completa](../trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md)).
 Quatro achados de prioridade, na ordem da avaliação:
 - **P0-1, conteúdo:** as 18 lições somam ≈38 perguntas de múltipla escolha só
   em texto. Abertura e "ideia-chave" são frases geradas por modelo
@@ -2836,3 +2836,345 @@ Quatro achados de prioridade, na ordem da avaliação:
 
 A avaliação dá 20/40 nas heurísticas de Nielsen. Ordem de ataque na
 [FILA](FILA.md).
+
+
+## Direção anterior de piloto substituída — 2026-10-16
+
+Registros anteriores preservados; links ajustados à pasta de arquivo. A direção
+global atual está no STATUS e na ADR de 2026-10-16.
+
+- **Currículo V3** — L1 aprovada no parecer v4. **L2 reprovada nas seis
+  revisões** (a v6 em 2026-09-22), e a v7 **pausada** em 2026-09-23. O
+  **piloto da lição híbrida na L1**
+  ([spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md),
+  [ADR](../adr/ADR-2026-09-23-licao-hibrida-e-custo-de-vida.md)) está **na `main`
+  desde 2026-09-23 (PR #24)**, sem build de distribuição: 12 itens gerados por
+  regra, som e vibração, custo de vida só no desafio, rota `/licao-hibrida`
+  atrás de `SHOW_DEV_TOOLS`. O V3 segue desligado. **A amostra foi decidida em
+  2026-09-25** ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1) e
+  **corrigida em 2026-09-28** ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
+  a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
+  ventral visto por trás. Mudaram 8 dos 20 itens, e o dono os confirma antes
+  de a aprovação ser gravada ([FILA](../FILA.md), 7b e 15).
+  Depois, o teste com 3 a 5 pessoas antes de escalar.
+
+## Pesquisa de exercícios sobre imagem — documentada em 2026-10-16
+
+[Pesquisa complementar](../trilha/pesquisas/2026-10-16-exercicios-imagem-celular-evidencias.md)
+de OpenAI Codex (família GPT-6), com cinco estudos primários e inspeção estática
+dos renderizadores no HEAD inicial `2c1b5f0`. Distingue seleção guiada de busca
+visual independente; aponta pistas textuais e riscos condicionais de
+alinhamento/recorte. Não mede eficácia no público do Radiant nem comprova
+comportamento no aparelho.
+
+**Foco escolhido por Anderson nesta conversa em 2026-10-16:** qualidade técnica
+da imagem ([ADR](../adr/ADR-2026-10-16-foco-piloto-imagem-qualidade-tecnica.md)).
+A [proposta de piloto](../trilha/plano/2026-10-16-piloto-imagem-sem-pistas.md) continua
+pendente de revisão do desenho (FILA 53). P6/FILA 52, licenças, gabaritos e os
+gates do piloto híbrido da L1 continuam abertos. Nenhum código, asset ou estado
+de produção foi alterado por esta contribuição.
+
+Run documental: `run-1792190792742-6f6af402`; consultar o estado e as evidências com
+`loop run status --run run-1792190792742-6f6af402`. A escrita começou depois do
+encerramento autorizado do run `run-1792189174961-950b0d70`, preservando os
+arquivos preexistentes; esse encerramento, isoladamente, não validou a
+reorganização da outra sessão.
+
+
+### Planejamento global antes da primeira implementação — substituído em 2026-10-16
+
+## Evolução global da trilha — medida em 2026-10-16
+
+O dono retirou o foco em aulas piloto e pediu diagnóstico atual, melhorias de
+implementação global e produção em escala
+([ADR](../adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+A antiga revisão do piloto/FILA 53 foi substituída; qualidade técnica da imagem
+é uma competência transversal proposta, sem restringir o programa inteiro.
+
+**Remedição estrutural:** 18 lições legadas/38 perguntas, zero perguntas com
+imagem nesse conjunto; 12 atividades V2 promovidas compiladas. A composição da
+fachada local tem quatro trilhas e 30 resumos — não 30 quizzes legados.
+O código fixa metadados/ID de conquista de um lote e rejeita mídia no contrato
+atual de promoção. A trilha já usa FlatList. Não houve nova medição nativa.
+
+[Inventário](../trilha/avaliacoes/2026-10-16-inventario-estrutural.json),
+[diagnóstico e referências de código](../trilha/avaliacoes/2026-10-16-diagnostico-estrutural-global-da-trilha.md),
+[pesquisa de produção escalável](../trilha/pesquisas/2026-10-16-producao-escalavel-e-qualidade-da-trilha.md) e
+[fluxo global com pacotes G0–G8](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md).
+
+Entregues nesta etapa: diagnóstico, instrumento de medição e plano. A
+implementação global, ampliação de conteúdo e distribuição permanecem
+pendentes, com próximo trabalho na FILA 54. Sem alteração de runtime, build ou
+publicação. Fontes e limites constam dos documentos; o 22/40 anterior não foi
+recalculado.
+
+Remedir: `node scripts/qa/trilha-structural-inventory.cjs`, no Node 20.
+Run documental/instrumentação: `run-1792191399171-d0285625`; verificar evidências e estado
+por `loop run status --run run-1792191399171-d0285625`.
+
+
+### Primeira entrega G0/G1 — substituída pela cobertura e composição em 2026-10-16
+
+## Evolução global da trilha — medida em 2026-10-16
+
+A direção do dono é implementação global e produção escalável, sem piloto como
+condição de avanço ([ADR](../adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+A FILA 54 entregou a primeira parte de G0/G1: registro de apresentação por lote,
+índices imutáveis de catálogo e auditoria que executa os serviços reais de
+jornada/player sobre uma porta de catálogo local sem storage/rede.
+
+**Medição local:** quatro trilhas/30 resumos; 57 nós estruturalmente alcançáveis,
+48 atividades resolvidas (36 legadas + 12 V2), cinco avaliações/10 itens e quatro
+conquistas; zero violações. O percurso legado de Estude alcança 36 das 38
+perguntas: `q3` e `ct-q2` ficam fora desses nós. Isso não mede outras rotas de
+quiz/revisão ou disponibilidade num perfil real. Não houve nova nota Nielsen.
+
+**Compatibilidade:** a projeção histórica do lote H4 permanece idêntica e os
+IDs persistidos foram preservados. O registro real continua com um lote;
+100 lotes/1.200 atividades/1.800 nós foram fixtures de teste, sem publicação.
+O contrato de promoção continua rejeitando mídia. Dois lotes com o mesmo
+trackId são recusados até haver contrato de composição entre unidades.
+
+[Evidências e limites](../evidence/2026-10-16-trilha-g0-g1-catalogo.md),
+[inventário executado](../trilha/avaliacoes/2026-10-16-alcancabilidade-apos-g0-g1.json)
+e [programa G0–G8](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md).
+Seis suítes focadas/56 testes passaram; sete injeções discriminantes da auditoria
+foram detectadas. Gate integral e estado do run:
+`loop run status --run run-1792192200409-156b04d8`.
+Sessão de leitura `brain-session-1792192145306-494c2ce9` fechada separadamente.
+
+**Restam:** cobertura por fonte/competência/item, persistência/migrações,
+composição de várias unidades por área e organização curricular. A FILA 50/P1
+continua responsável pela lição legada completa e pelo feedback. A frente global
+não está concluída; não houve nova build, validação nativa, ampliação de conteúdo,
+ativação V3 ou publicação. A árvore compartilhada anterior foi preservada.
+
+Remedir: `node scripts/qa/trilha-structural-inventory.cjs --check`, no Node 20.
+
+
+### Cobertura e composição antes de G2 — substituída em 2026-10-16
+
+## Evolução global da trilha — medida em 2026-10-16
+
+A FILA 54 entregou catálogo multi-lotes, inventário por serviços reais e, nesta
+segunda etapa, matriz item/competência/fonte/claim e composição explícita de
+várias unidades na mesma área. A direção continua global, sem piloto como gate.
+
+**Decisão de Anderson:** a avaliação final aprovada libera a próxima unidade;
+a conquista fica opcional. [ADR](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md).
+O compositor protege essa regra; a aplicação completa à conclusão de áreas
+compostas e ao foco visual é continuidade G2, sem reabrir a decisão.
+
+**Medição local:** quatro trilhas/30 resumos, 57 nós e 48 atividades resolvidas;
+12 interações promovidas e dez itens de avaliação ligados aos nós, cinco
+competências/oito fontes declaradas, 154/154 claims com referências e classificação
+resolvidas. Isso não revalida conteúdo clínico ou licenças. Os 36 itens legados
+continuam sem mapeamento editorial estruturado; `q3` e `ct-q2` permanecem fora
+dos nós de Estude. Nenhuma competência do lote tem item marcado como retenção
+tardia; atenuação já tem transferência aplicada, e as demais quatro não.
+
+**Compatibilidade e capacidade:** projeção histórica/IDs preservados; teste de
+progresso acrescenta unidade e reabre sem perder conclusões. Fixture de 100
+unidades na mesma área, 1.200 atividades e 1.800 nós passou. O registro de
+produção segue com um lote/uma unidade, sem novo conteúdo ou configuração
+curricular ativada. Não houve build, medição nativa, ativação V3 ou publicação.
+
+[Evidências e limites](../evidence/2026-10-16-trilha-cobertura-e-multiunidade.md) e
+[inventário schema 3](../trilha/avaliacoes/2026-10-16-cobertura-e-composicao-da-trilha.json).
+Nove suítes focadas/101 testes, typecheck e 16 injeções discriminantes passaram.
+Gate integral e fechamento pelo run `run-1792193013965-901cfa98`;
+sessão `brain-session-1792192927180-9ffb0102` fechada separadamente.
+
+**Próximo:** G2, com navegação/mapa, foco e conclusão das áreas compostas
+coerentes com conquistas opcionais. A regra atual de conclusão de área ainda
+exige conquistas e a recomendação prioriza a pendente; esses consumidores devem
+ser harmonizados antes da ativação de novas áreas. P1/FILA 50 continua na lição
+legada; produção genérica G3 deve remover regras específicas do H4. Persistência,
+migrações em aparelho e demais pacotes G2–G8 seguem no programa global.
+
+Remedir no Node 20: `node scripts/qa/trilha-structural-inventory.cjs --check`.
+A árvore compartilhada anterior foi preservada; sem push ou merge.
+
+## 2026-10-17 — estado G2 substituído pela camada G3
+
+## Evolução global da trilha — medida em 2026-10-16
+
+**G2 — camada local de progressão/navegação implementada:** composições explícitas
+marcam conquistas opcionais; conclusão de área e contadores usam a mesma regra;
+recomendação e foco permitem avançar para outra unidade/área sem coleta. O teste
+real dos serviços confirma o avanço da área ativa, a projeção aberta no currículo
+e a coleta posterior sem desfazer progresso. A tela agora resolve a conquista
+pelo destino, mantém sua área em setCurrentNode e não troca ID inexistente por
+outra recompensa. [Decisão de Anderson](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)
+preservada, sem reabrir a escolha.
+
+Áreas com várias unidades recebem marcadores com estado/contagem e índice
+horizontal virtualizado na lista contínua. Consultar unidade bloqueada só rola
+o mapa; não abre atividade. A recuperação de rolagem reinicia por destino.
+Percursos com uma unidade por área conservam sua apresentação anterior.
+
+**Evidência local:** onze suítes/141 testes focados, typecheck, lint e 14 mutações
+detectadas. QA visual estático: 403 arquivos, zero regressões novas.
+[Evidência completa e limites](../evidence/2026-10-16-trilha-g2-progressao-e-unidades.md).
+Gate integral/fechamento: `loop run status --run run-1792194941402-0eed2a97`.
+Sessão `brain-session-1792194324689-c5fd2849` fechada separadamente.
+O run anterior foi substituído por ampliação necessária do escopo, sem desfazer
+arquivos; a referência validável da entrega é o run acima.
+
+**Catálogo atual:** quatro trilhas/30 resumos, um lote promovido/uma unidade.
+Inventário schema 3 sem violações; G0/G1 e a matriz permanecem documentados.
+IDs/projeção histórica e schema de progresso preservados. Conquistas sem marca
+explícita seguem as regras anteriores. Sem novo conteúdo, ativação V3, build,
+execução nativa, publicação, push ou merge.
+
+**Próximo:** G3, generalizando o contrato editorial específico do H4 para produção
+por lotes, com fontes/proveniência e seis gates. A qualidade nativa da navegação
+G2 (iOS/Android, texto grande/leitor de tela/rolagem distante) e o mapa curricular
+amplo ainda precisam de validação antes de ativar áreas compostas. P1/FILA 50
+continua na lição legada. O programa global G0–G8 permanece em execução.
+
+Remedir no Node 20: `node scripts/qa/trilha-structural-inventory.cjs --check`.
+A árvore compartilhada anterior foi preservada.
+
+## 2026-10-17 — G3, antes da camada G4 por item
+
+## Evolução global da trilha — medida em 2026-10-17
+
+**G3 — camada local do contrato editorial genérico implementada:** o validador
+não depende mais das quantidades/IDs do H4. Fontes, competências, atividades,
+itens e claims são conferidos por lote. Permanecem o limiar de 80%, os dois
+ciclos de reforço, a política atual CC BY 4.0 e o recorte v1 sem mídia, com uma
+múltipla escolha por atividade. Outros formatos exigem contrato próprio antes
+de promoção. Os seis gates continuam obrigatórios e vinculados ao hash. O registro histórico
+fixa o fingerprint aprovado; editar o candidato invalida sua importação, em vez
+de recalcular suas aprovações automaticamente.
+
+App e publicação de artefatos executam o mesmo contrato TypeScript. A publicação
+recusa também colisões entre lotes, além de proteger o arquivo com lock,
+compare-and-swap e rename atômico. O relatório de auditoria apresenta cobertura,
+pendências e rendimento de validação por lote; não mede aprendizagem nem tempo
+editorial. O painel continua somente leitura e exibe fontes/claims/pendências.
+
+**Evidência local:** seis suítes/65 testes do app e 20 testes dos scripts;
+100 lotes sintéticos menores/400 atividades, oito injeções detectadas. O lote
+real foi remedido: 12 atividades, dez itens, cinco competências, oito fontes e
+154 claims, sem pendência estrutural. Compatibilidade histórica preservada.
+[Evidências e limites](../evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+Gate integral/fechamento: `loop run status --run run-1792257625981-6ca008b4`.
+Sessão `brain-session-1792256752025-cf15d952` fechada separadamente.
+
+**Catálogo atual:** quatro trilhas/30 resumos; ainda um lote promovido/uma unidade.
+G2 local mantém navegação por unidades e conquista opcional, com coleta posterior
+na área correta. [Decisão de Anderson](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)
+preservada: avaliação final aprovada libera a próxima unidade; coleta opcional.
+Não houve novo conteúdo aprovado/ativado, migração de progresso, build, execução
+nativa, publicação, commit, push ou merge nesta etapa.
+
+**Continuidade:** G4, evidência/revisão por item, e G5 após acervo autorizado;
+G3 ainda requer produção editorial real, revisão independente dos novos lotes e
+medição de retrabalho ao longo do fluxo. O mapa curricular amplo é decisão do
+dono. QA nativo de G2 (iOS/Android, texto grande/leitor de tela/rolagem distante)
+permanece antes da ativação de áreas compostas. P1/FILA 50 continua na lição
+legada; o programa G0–G8 permanece aberto.
+
+Remedir no Node 20: `node scripts/content/audit-production-batches.mjs --check`
+e `node scripts/qa/trilha-structural-inventory.cjs --check`.
+A árvore compartilhada anterior foi preservada.
+
+## Arquivado em 2026-10-17 — G4 antes da integração das avaliações
+
+## Evolução global da trilha — medida em 2026-10-17
+
+**G4 — camada local de tentativas e revisão por item implementada:**
+`@radiant:item_review_v1` persiste a tentativa confirmada e sua agenda na mesma
+escrita. Identidade inclui lição/item/versão; primeira resposta, resposta final
+e ajuda são distintas. Escritores concorrentes são serializados; repetição do
+mesmo commit não duplica tentativa, agenda, rollup ou recompensa. Schema futuro,
+JSON inválido e falha de leitura não autorizam sobrescrever o store.
+
+O player envia identidade/data estáveis na conclusão. `/review` usa a fila por
+item, com resolução do payload atual, limite de 50 cartões e retry explícito se
+não conseguir salvar. Autoavaliação depois de revelar a resposta é assistida e
+não concede pontuação de recuperação independente. Falha de leitura é exibida
+como indisponibilidade, sem afirmar que não há pendências. O SM-2 existente foi
+extraído para função pura, com relógio explícito; não houve escolha de FSRS.
+
+**Migração conservadora:** a agenda antiga permanece intacta. Até 50 lições são
+semeadas por abertura em uma escrita; o retry retoma só as ainda não migradas.
+O primeiro vencimento é preservado e os itens adicionais são distribuídos nos
+dias seguintes, sem fabricar tentativas, acertos, domínio ou XP. Versões materiais
+não recebem equivalência automática. Trilha, push e contadores leem os vencimentos
+dos itens atuais; os agregados legados continuam como compatibilidade.
+
+**Evidência local:** onze suítes/187 testes focados, fixture de 10 mil itens,
+janela de migração de 51 lições, integração com atividade promovida real e
+13 mutações discriminantes. Tipos/lint e gate integral são registrados no run.
+[Evidências e limites](../evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+Conferir gate/fechamento: `loop run status --run run-1792258583607-c48e2add`.
+Sessão `brain-session-1792258367507-a9cee5e0` fechada separadamente.
+
+**Preservado:** catálogo com quatro trilhas/30 resumos e um lote promovido;
+contratos G0–G3, aprovações vinculadas ao material, IDs e progresso anteriores.
+Avaliação final aprovada libera a próxima unidade e conquista fica opcional,
+conforme [decisão de Anderson](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md).
+Sem conteúdo novo aprovado, V3 ativado, build, execução nativa, publicação,
+commit, push ou merge nesta etapa.
+
+**G4 continua aberto:** falta consolidar as tentativas das avaliações no journal
+comum e definir/validar recuperação independente e retenção após intervalo; a
+micro revisão atual continua sendo autoavaliação. Os históricos são limitados
+(2 mil tentativas no journal, projeção de mil evidências, 20 mil cartões), sem
+promessa de histórico clínico ou retenção ilimitada. O novo store é local e não
+entrou no backup/sync remoto, nem nos snapshots V3/backup da migração 1.4.
+QA nativo/VoiceOver/Android, desempenho em aparelho e compatibilidade de backup
+continuam nos gates de G4/G6/G7. G3 ainda exige produção/revisão real; mapa
+curricular amplo é do dono. G2 nativo e P1/FILA 50 permanecem no programa.
+
+Remedir no Node 20: testes do relatório e
+`node scripts/qa/trilha-structural-inventory.cjs --check`.
+A árvore compartilhada anterior foi preservada; G0–G8 não está encerrado.
+
+## Arquivado em 2026-10-17 — G4 antes da resposta de revisão
+
+## Evolução global da trilha — medida em 2026-10-17
+
+**G4 — avaliações V2 integradas ao journal por item local.** Lições, revisões e
+novas avaliações usam `@radiant:item_review_v1`. A avaliação inteira confirma
+seus itens e agendas numa escrita; o histórico de aprovação/reforço mantém um
+marcador persistente para retomar a projeção após falha. Não há transação global
+entre histórico, journal, XP, kernel e jornada.
+
+A tela repete o mesmo ID/data/resultados no retry e oferece concluir uma
+aprovação salva após reabrir. As competências atribuídas, ajuda, duração e erro
+crítico são preservados; erro crítico não se torna evidência correta. Itens de
+avaliações vencidos resolvem o payload atual em `/review`; essa revisão revelada
+continua assistida. Históricos anteriores sem marcador não geram backfill.
+
+**Evidência local:** nove suítes/160 testes focados; lote de mil itens em uma
+escrita, concorrência entre instâncias, falhas nas três etapas, retomada após
+reabrir, payload real de avaliação e cinco mutações discriminantes.
+[Entrega e limites](../evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md).
+Gate/estado: `loop run status --run run-1792262643188-24b24d6e`.
+Sessão `brain-session-1792262582465-8d8de2c6` encerrada separadamente.
+
+A [camada anterior G4](../evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md)
+preserva fila de 50, migração aditiva de até 50 lições por abertura, separação da
+primeira resposta/ajuda e vencimentos comuns à trilha/push/contadores. G0–G3,
+catálogo de quatro trilhas/30 resumos e aprovações editoriais permanecem.
+Anderson já decidiu: avaliação final aprovada libera a próxima unidade;
+[conquista opcional](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md).
+
+**G4 ainda aberto:** recuperação independente/retenção após intervalo no fluxo
+de revisão, sem ativar adaptação. Históricos continuam limitados (2 mil
+tentativas, projeção de mil evidências, 20 mil cartões); evicção de tentativa
+antes de confirmar um recibo pendente pode exigir recuperação explícita, nunca
+sucesso presumido. Histórico de avaliações ainda não tem política de arquivo.
+XP/jornada não têm transação conjunta com o journal; o retry na mesma montagem
+não volta a pedir XP, mas morte entre crédito e conclusão precisa de gate
+próprio. Novo store ainda fora de backup/sync e snapshots antigos (G7).
+QA nativo/VoiceOver/Android e desempenho em aparelho continuam em G4/G6.
+G3 exige produção/revisão real; acervo G5, mapa amplo, G2 nativo e P1 continuam.
+
+Remedir no Node 20 pelos comandos do relatório e inventário estrutural. Sem
+conteúdo novo aprovado, alteração de release, V3 ativado, execução nativa,
+build, publicação, commit, push ou merge. Árvore compartilhada preservada.

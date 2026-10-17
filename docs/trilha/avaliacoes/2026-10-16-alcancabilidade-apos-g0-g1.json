@@ -1,0 +1,457 @@
+{
+  "schemaVersion": 2,
+  "authorship": {
+    "ai": "OpenAI Codex",
+    "model": "GPT-6 family; exact variant not exposed"
+  },
+  "evidenceGrade": "code",
+  "method": "Execute trusted local source modules, substitute only the offline LessonCatalogService port, audit prerequisites and resolve all lesson/review/checkpoint nodes.",
+  "measuredAtUtc": "2026-10-16T23:17:16.037Z",
+  "timezoneForInterpretation": "America/Bahia",
+  "head": "2c1b5f0bccf15d1fbf5b9dd7a48d51bd0d85e24b",
+  "scope": "Offline local manifest port; real composition, journey builder, lesson-flow resolver and adapter. Graph reachability assuming prerequisites completed; not device availability, remote hydration, clinical validation or learning efficacy.",
+  "legacy": {
+    "lessons": 18,
+    "questions": 38,
+    "imageQuestions": 0,
+    "correctLongestIncludingTies": 22,
+    "correctStrictLongest": 21,
+    "authoredJourneyIntro": 2,
+    "aiOnly": {
+      "lessons": 16,
+      "questions": 32,
+      "imageQuestions": 0,
+      "correctLongestIncludingTies": 19,
+      "correctStrictLongest": 18
+    },
+    "tracks": [
+      {
+        "id": "track-radiology-foundations",
+        "slug": "fundamentos",
+        "title": "Fundamentos de Radiologia",
+        "lessons": 7,
+        "questions": 16,
+        "nodesFromJourneyService": 15
+      },
+      {
+        "id": "track-thorax-patterns",
+        "slug": "torax",
+        "title": "Radiação, Modalidades e Equipamento",
+        "lessons": 6,
+        "questions": 12,
+        "nodesFromJourneyService": 13
+      },
+      {
+        "id": "track-abdomen-essentials",
+        "slug": "abdome",
+        "title": "Prática, Qualidade e Profissão",
+        "lessons": 5,
+        "questions": 10,
+        "nodesFromJourneyService": 11
+      }
+    ]
+  },
+  "production": [
+    {
+      "id": "track:fundamentos-e-seguranca-radiologica",
+      "title": "Matéria, energia e radiação",
+      "activities": 12,
+      "nodes": 18
+    }
+  ],
+  "facade": {
+    "tracks": 4,
+    "lessonSummaries": 30
+  },
+  "reachability": {
+    "issues": [],
+    "tracks": [
+      {
+        "trackId": "track-radiology-foundations",
+        "nodes": 15,
+        "structurallyReachableNodes": 15,
+        "resolvedActivityNodes": 14,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 7,
+          "review": 7,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 14
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 14
+        },
+        "competencyIds": [
+          "competency:legacy:lesson-1",
+          "competency:legacy:lesson-2",
+          "competency:legacy:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+          "competency:legacy:ai-lesson:energia-e-materia",
+          "competency:legacy:ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+          "competency:legacy:ai-lesson:radioatividade-particulas-e-atividade",
+          "competency:legacy:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "sourceIds": [
+          "lesson-1",
+          "lesson-2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+          "ai-lesson:energia-e-materia",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+          "ai-lesson:radioatividade-particulas-e-atividade",
+          "ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "q1:option:0",
+          "q1:option:1",
+          "q1:option:2",
+          "q1:option:3",
+          "q2:option:0",
+          "q2:option:1",
+          "q2:option:2",
+          "q2:option:3",
+          "ct-q3:option:0",
+          "ct-q3:option:1",
+          "ct-q3:option:2",
+          "ct-q3:option:3",
+          "ct-q1:option:0",
+          "ct-q1:option:1",
+          "ct-q1:option:2",
+          "ct-q1:option:3",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:3",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:1",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:3",
+          "ai-lesson:energia-e-materia:q1:option:0",
+          "ai-lesson:energia-e-materia:q1:option:1",
+          "ai-lesson:energia-e-materia:q1:option:2",
+          "ai-lesson:energia-e-materia:q1:option:3",
+          "ai-lesson:energia-e-materia:q2:option:0",
+          "ai-lesson:energia-e-materia:q2:option:1",
+          "ai-lesson:energia-e-materia:q2:option:2",
+          "ai-lesson:energia-e-materia:q2:option:3",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:1",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:3",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:0",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:2",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:3",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:0",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:1",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:2",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:3",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:0",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:1",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:2",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:3",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:1",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:2",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:3",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:0",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:1",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track-thorax-patterns",
+        "nodes": 13,
+        "structurallyReachableNodes": 13,
+        "resolvedActivityNodes": 12,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 6,
+          "review": 6,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 12
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 12
+        },
+        "competencyIds": [
+          "competency:legacy:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+          "competency:legacy:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+          "competency:legacy:ai-lesson:tomografia-computadorizada",
+          "competency:legacy:ai-lesson:ressonancia-magnetica",
+          "competency:legacy:ai-lesson:equipamentos-de-radiologia-convencional",
+          "competency:legacy:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "sourceIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+          "ai-lesson:tomografia-computadorizada",
+          "ai-lesson:ressonancia-magnetica",
+          "ai-lesson:equipamentos-de-radiologia-convencional",
+          "ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:0",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:1",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:2",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:3",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:0",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:1",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:2",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:3",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:0",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:1",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:2",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:3",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:0",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:1",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:2",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:3",
+          "ai-lesson:tomografia-computadorizada:q1:option:0",
+          "ai-lesson:tomografia-computadorizada:q1:option:1",
+          "ai-lesson:tomografia-computadorizada:q1:option:2",
+          "ai-lesson:tomografia-computadorizada:q1:option:3",
+          "ai-lesson:tomografia-computadorizada:q2:option:0",
+          "ai-lesson:tomografia-computadorizada:q2:option:1",
+          "ai-lesson:tomografia-computadorizada:q2:option:2",
+          "ai-lesson:tomografia-computadorizada:q2:option:3",
+          "ai-lesson:ressonancia-magnetica:q1:option:0",
+          "ai-lesson:ressonancia-magnetica:q1:option:1",
+          "ai-lesson:ressonancia-magnetica:q1:option:2",
+          "ai-lesson:ressonancia-magnetica:q1:option:3",
+          "ai-lesson:ressonancia-magnetica:q2:option:0",
+          "ai-lesson:ressonancia-magnetica:q2:option:1",
+          "ai-lesson:ressonancia-magnetica:q2:option:2",
+          "ai-lesson:ressonancia-magnetica:q2:option:3",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:0",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:1",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:2",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:3",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:0",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:1",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:2",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:3",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:0",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:1",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:2",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:3",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:0",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:1",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:2",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track-abdomen-essentials",
+        "nodes": 11,
+        "structurallyReachableNodes": 11,
+        "resolvedActivityNodes": 10,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 5,
+          "review": 5,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 10
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 10
+        },
+        "competencyIds": [
+          "competency:legacy:ai-lesson:preservacao-de-alimentos-por-irradicao",
+          "competency:legacy:ai-lesson:acessorios-radiologicos",
+          "competency:legacy:ai-lesson:processamento-radiografico",
+          "competency:legacy:ai-lesson:producao-dos-raios-x",
+          "competency:legacy:ai-lesson:qualidade-de-imagem"
+        ],
+        "sourceIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao",
+          "ai-lesson:acessorios-radiologicos",
+          "ai-lesson:processamento-radiografico",
+          "ai-lesson:producao-dos-raios-x",
+          "ai-lesson:qualidade-de-imagem"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:0",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:1",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:2",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:3",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:0",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:1",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:2",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:3",
+          "ai-lesson:acessorios-radiologicos:q1:option:0",
+          "ai-lesson:acessorios-radiologicos:q1:option:1",
+          "ai-lesson:acessorios-radiologicos:q1:option:2",
+          "ai-lesson:acessorios-radiologicos:q1:option:3",
+          "ai-lesson:acessorios-radiologicos:q2:option:0",
+          "ai-lesson:acessorios-radiologicos:q2:option:1",
+          "ai-lesson:acessorios-radiologicos:q2:option:2",
+          "ai-lesson:acessorios-radiologicos:q2:option:3",
+          "ai-lesson:processamento-radiografico:q1:option:0",
+          "ai-lesson:processamento-radiografico:q1:option:1",
+          "ai-lesson:processamento-radiografico:q1:option:2",
+          "ai-lesson:processamento-radiografico:q1:option:3",
+          "ai-lesson:processamento-radiografico:q2:option:0",
+          "ai-lesson:processamento-radiografico:q2:option:1",
+          "ai-lesson:processamento-radiografico:q2:option:2",
+          "ai-lesson:processamento-radiografico:q2:option:3",
+          "ai-lesson:producao-dos-raios-x:q1:option:0",
+          "ai-lesson:producao-dos-raios-x:q1:option:1",
+          "ai-lesson:producao-dos-raios-x:q1:option:2",
+          "ai-lesson:producao-dos-raios-x:q1:option:3",
+          "ai-lesson:producao-dos-raios-x:q2:option:0",
+          "ai-lesson:producao-dos-raios-x:q2:option:1",
+          "ai-lesson:producao-dos-raios-x:q2:option:2",
+          "ai-lesson:producao-dos-raios-x:q2:option:3",
+          "ai-lesson:qualidade-de-imagem:q1:option:0",
+          "ai-lesson:qualidade-de-imagem:q1:option:1",
+          "ai-lesson:qualidade-de-imagem:q1:option:2",
+          "ai-lesson:qualidade-de-imagem:q1:option:3",
+          "ai-lesson:qualidade-de-imagem:q2:option:0",
+          "ai-lesson:qualidade-de-imagem:q2:option:1",
+          "ai-lesson:qualidade-de-imagem:q2:option:2",
+          "ai-lesson:qualidade-de-imagem:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "nodes": 18,
+        "structurallyReachableNodes": 18,
+        "resolvedActivityNodes": 12,
+        "resolvedCheckpointNodes": 5,
+        "checkpointItems": 10,
+        "nodeTypes": {
+          "lesson": 12,
+          "checkpoint": 5,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 12
+        },
+        "evidenceKinds": {
+          "guided-practice": 7,
+          "independent-recall": 4,
+          "applied-transfer": 1
+        },
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao",
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia",
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro",
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s7",
+          "source:h4:s2",
+          "source:h4:s4",
+          "source:h4:s3",
+          "source:h4:s5",
+          "source:h4:s6",
+          "source:h4:s8"
+        ],
+        "contentVersions": [
+          "h4-materia-energia-e-radiacao-candidate-2026-08-13"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "activity:materia-energia-e-radiacao:01:option:1",
+          "activity:materia-energia-e-radiacao:01:option:2",
+          "activity:materia-energia-e-radiacao:01:option:3",
+          "activity:materia-energia-e-radiacao:01:option:4",
+          "activity:materia-energia-e-radiacao:02:option:1",
+          "activity:materia-energia-e-radiacao:02:option:2",
+          "activity:materia-energia-e-radiacao:02:option:3",
+          "activity:materia-energia-e-radiacao:02:option:4",
+          "activity:materia-energia-e-radiacao:03:option:1",
+          "activity:materia-energia-e-radiacao:03:option:2",
+          "activity:materia-energia-e-radiacao:03:option:3",
+          "activity:materia-energia-e-radiacao:03:option:4",
+          "activity:materia-energia-e-radiacao:04:option:1",
+          "activity:materia-energia-e-radiacao:04:option:2",
+          "activity:materia-energia-e-radiacao:04:option:3",
+          "activity:materia-energia-e-radiacao:04:option:4",
+          "activity:materia-energia-e-radiacao:05:option:1",
+          "activity:materia-energia-e-radiacao:05:option:2",
+          "activity:materia-energia-e-radiacao:05:option:3",
+          "activity:materia-energia-e-radiacao:05:option:4",
+          "activity:materia-energia-e-radiacao:06:option:1",
+          "activity:materia-energia-e-radiacao:06:option:2",
+          "activity:materia-energia-e-radiacao:06:option:3",
+          "activity:materia-energia-e-radiacao:06:option:4",
+          "activity:materia-energia-e-radiacao:07:option:1",
+          "activity:materia-energia-e-radiacao:07:option:2",
+          "activity:materia-energia-e-radiacao:07:option:3",
+          "activity:materia-energia-e-radiacao:07:option:4",
+          "activity:materia-energia-e-radiacao:08:option:1",
+          "activity:materia-energia-e-radiacao:08:option:2",
+          "activity:materia-energia-e-radiacao:08:option:3",
+          "activity:materia-energia-e-radiacao:08:option:4",
+          "activity:materia-energia-e-radiacao:09:option:1",
+          "activity:materia-energia-e-radiacao:09:option:2",
+          "activity:materia-energia-e-radiacao:09:option:3",
+          "activity:materia-energia-e-radiacao:09:option:4",
+          "activity:materia-energia-e-radiacao:10:option:1",
+          "activity:materia-energia-e-radiacao:10:option:2",
+          "activity:materia-energia-e-radiacao:10:option:3",
+          "activity:materia-energia-e-radiacao:10:option:4",
+          "activity:materia-energia-e-radiacao:11:option:1",
+          "activity:materia-energia-e-radiacao:11:option:2",
+          "activity:materia-energia-e-radiacao:11:option:3",
+          "activity:materia-energia-e-radiacao:11:option:4",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:option:2",
+          "activity:materia-energia-e-radiacao:12:option:3",
+          "activity:materia-energia-e-radiacao:12:option:4"
+        ]
+      }
+    ]
+  },
+  "legacyQuestionCoverage": {
+    "available": 38,
+    "reachedByStudyNodes": 36,
+    "absentFromStudyNodes": [
+      "q3",
+      "ct-q2"
+    ],
+    "interpretation": "Absence is from Estude lesson/review nodes only, not proof of absence from every quiz or review route."
+  },
+  "inventoryScriptSha256": "b7818bb19fcd8caa20e9054e32476aeeb57381d1c4fce908b83c50bc2afb50e2",
+  "sourceHashes": {
+    "radiant-app/src/data/catalog.ts": "496c9c206657a640ef60dc5dfadb86bee72312c81d2177af382a9197a17ffd1b",
+    "radiant-app/src/data/lessons.ts": "dd138d4ab2a81ae63668591d6cde556e6de727eba7012a506d05846129c07bc9",
+    "radiant-app/src/data/ai-lessons.ts": "5d4646376e313b5fd94a0ae024b5aa45bf24659325ea1179140643726f6ff7fe",
+    "radiant-app/src/features/student-checkpoints/ProductionCurriculumCatalog.ts": "b1eb383ce1464fd0e02287f9f210258b5c1c84f0b7e739268c75e86311ad51fa",
+    "radiant-app/src/features/student-checkpoints/createProductionCurriculumCatalog.ts": "8df381cd246e107bc7e711c46f6e03fbe475e10bb97093932b6fe73f17808155",
+    "radiant-app/src/features/student-checkpoints/production-catalog-entries.ts": "d6516ba33d286a8127e64d6493a837577161793fb09d419435caf43d30c190d3",
+    "radiant-app/src/features/student-checkpoints/production-batches.ts": "9c202e4c90b3cdc616bd814a8ce0e3c354896de2bc04415ce7704d72bf55ebca",
+    "radiant-app/src/features/student-checkpoints/EditorialCurriculumCandidate.ts": "2d926dca8fb57edc71d840c6c0eb9821168450b86606fce613d21fb5f6306d1f",
+    "radiant-app/src/types/learningActivity.ts": "74f6076354267c5d39ca7f2d82b7c41dc50114da64d0d086739e0a9bcf26ab5c",
+    "radiant-app/src/features/student-checkpoints/ProductionBatch.ts": "38a6a01d91806b8491be18635e0e3269db345957de1c605af68c5736df31e63e",
+    "radiant-app/src/features/content/services/composeCurriculumCatalog.ts": "039cdbcd54f05875fd17b000bf51eff2c058c8fc532c09811d75aed54d22e6b4",
+    "radiant-app/src/features/journey/services/JourneyDefinitionService.ts": "45fd062f7b66e2218463d6920a8048e99420e0741bc0d8763603037b31bb113b",
+    "radiant-app/src/features/lesson-flow/services/LessonFlowService.ts": "5635c029e93ec02a0a283c381a4049fdf5fec79abf5299bc6c955c538b2974d0",
+    "radiant-app/src/features/lesson-flow/services/LegacyLessonAdapter.ts": "4f63ed03d01269a25b469cda060523035b6e47c8fcf6e2821db1989379d6d6a8",
+    "radiant-app/src/features/journey/services/JourneyCatalogAudit.ts": "0848dc21379edf63249bb11200453017e7ab94c8262b1c5c5e8983f72ddcee90"
+  }
+}

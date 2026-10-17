@@ -17,8 +17,8 @@ documentação como base do planejamento de melhoria.
 **Documentos desta rodada:**
 - [revisão de design (A)](2026-10-16-reavaliacao-da-trilha-design.md);
 - [evidência mecânica (B)](2026-10-16-reavaliacao-da-trilha-mecanica.md);
-- [benchmark de trilhas gamificadas e de educação em radiologia](../research/2026-10-16-benchmark-trilhas-gamificadas.md);
-- [práticas de desenvolvimento com agentes](../research/2026-10-16-praticas-desenvolvimento-com-agentes.md);
+- [benchmark de trilhas gamificadas e de educação em radiologia](../pesquisas/2026-10-16-benchmark-trilhas-gamificadas.md);
+- [práticas de desenvolvimento com agentes](../pesquisas/2026-10-16-praticas-desenvolvimento-com-agentes.md);
 - a [avaliação da manhã](2026-10-16-avaliacao-completa-da-trilha.md), anterior ao pacote.
 
 ---
@@ -109,7 +109,7 @@ pergunta, o padrão da alternativa mais longa e a contradição do fim reprovado
 ## 3. Comparação com o mercado
 
 Detalhe por app no
-[benchmark](../research/2026-10-16-benchmark-trilhas-gamificadas.md).
+[benchmark](../pesquisas/2026-10-16-benchmark-trilhas-gamificadas.md).
 
 | Eixo | Radiant hoje | Líderes | Menor mudança que fecha mais distância |
 | --- | --- | --- | --- |

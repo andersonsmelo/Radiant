@@ -1,7 +1,7 @@
 # ADR — Revisão como prática paralela, resumo honesto e lembrete diário ligado
 
 Data: 2026-10-16. Decisor: Anderson Melo. Executa os itens 41, 42 e 44 da FILA,
-abertos pela [avaliação completa da trilha](../evidence/2026-10-16-avaliacao-completa-da-trilha.md).
+abertos pela [avaliação completa da trilha](../trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md).
 Substitui a regra de estrelas da [spec de 2026-08-14](../superpowers/specs/2026-08-14-atividade-e-fim-de-licao-design.md),
 que mostrava a melhor tentativa.
 

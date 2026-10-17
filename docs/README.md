@@ -70,17 +70,22 @@ Quando documentos divergirem, use esta ordem:
   datado do código e programa proposto de melhorias, com foco escolhido em
   layout, Pixel e uma unidade piloto; dependências, critérios de saída,
   métricas e gates antes da expansão e da monetização.
-- [Reavaliação da trilha de 2026-10-16](evidence/2026-10-16-reavaliacao-da-trilha.md)
+- [Reavaliação da trilha de 2026-10-16](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md)
   — crítica com dois avaliadores isolados depois do pacote de confiança (22/40
   em Nielsen), com a comparação de mercado e os problemas priorizados.
-- [Plano de melhoria da trilha](plans/2026-10-16-plano-de-melhoria-da-trilha.md)
+- [Plano de melhoria da trilha](trilha/plano/2026-10-16-plano-de-melhoria-da-trilha.md)
   — três horizontes escolhidos pelo dono em 2026-10-16, com o
-  [pacote P1 tarefa a tarefa](superpowers/plans/2026-10-16-licao-legada-honesta.md).
-- [`research/`](research/) — pesquisas de 2026-10-16 que embasam o planejamento
+  [pacote P1 tarefa a tarefa](trilha/plano/2026-10-16-licao-legada-honesta.md).
+- [Continuidade da trilha para outra IA](trilha/PROMPT-PARA-IAS.md) — passagem
+  de 2026-10-17, após pedido de parar: decisões, evidências G0–G4, árvore suja,
+  limites e pendências; estado vivo permanece em STATUS/FILA.
+- [`trilha/`](trilha/README.md) — **ponto de entrada da melhoria da trilha**:
+  pesquisas, avaliações, plano e um prompt de contexto para outras IAs. As
+  pesquisas de 2026-10-16 que embasam o planejamento
   da trilha: o
-  [benchmark de trilhas gamificadas e de educação em radiologia](research/2026-10-16-benchmark-trilhas-gamificadas.md)
+  [benchmark de trilhas gamificadas e de educação em radiologia](trilha/pesquisas/2026-10-16-benchmark-trilhas-gamificadas.md)
   e as
-  [práticas de desenvolvimento com agentes](research/2026-10-16-praticas-desenvolvimento-com-agentes.md),
+  [práticas de desenvolvimento com agentes](trilha/pesquisas/2026-10-16-praticas-desenvolvimento-com-agentes.md),
   com MCPs, skills, plugins e fluxos. Cada uma traz grau de evidência e o que a
   sessão conferiu.
 
