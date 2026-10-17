@@ -31,6 +31,8 @@ import { SyncQueueService } from '../../sync/SyncQueueService';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { LearningAttemptRecorder } from '../../progress/services/LearningAttemptRecorder';
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { canonicalStudyItemId } from '../../spaced-repetition/services/ItemReviewService';
 import { adaptLegacyBlock } from './LegacyLessonAdapter';
 import type { DurationBand } from '../../../types/learningEvidence';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
@@ -43,6 +45,8 @@ export type LessonOutcomeInput = {
     /** stepId do passo interativo → a escolha confirmada estava correta */
     confirmedAnswers: Record<string, boolean>;
     answeredAt?: Date;
+    attemptId?: string;
+    firstConfirmedAnswers?: Record<string, boolean>;
     /**
      * Opcionais porque o player legado não os mede. Declarados desde já para que
      * o motor v2 possa preenchê-los sem mudar este contrato — e ausentes viram
@@ -59,7 +63,7 @@ export type ActivityOutcomeInput = Omit<LessonOutcomeInput, 'block'> & {
 
 type MeasuredInteractionAnswers = Pick<
     LessonOutcomeInput,
-    'confirmedAnswers' | 'durationBandByInteraction' | 'hintUsedByInteraction'
+    'confirmedAnswers' | 'durationBandByInteraction' | 'hintUsedByInteraction' | 'attemptId' | 'firstConfirmedAnswers'
 >;
 
 export type LessonOutcome = {
@@ -92,13 +96,19 @@ class LessonOutcomeServiceImpl {
         // A elegibilidade vem PRIMEIRO: gravar o recall avança o intervalo do
         // SM-2 e o card deixa de estar vencido, então na ordem inversa uma
         // revisão vencida nunca pagaria.
-        const { rewarded, topicId, valueAction } = await this.resolveNode(input.nodeId);
+        const { rewarded, topicId, valueAction, authorized } = await this.resolveNode(input.nodeId);
         const result = this.toQuizResult(input);
 
-        await this.recordRecall(result);
-        await LearningAttemptRecorder.record(result, topicId);
-        await this.recordEvidence(adaptLegacyBlock(input.block), input, result);
-        await this.enqueueSync(result);
+        const evidenceResult = authorized && input.attemptId ? await this.recordEvidence(adaptLegacyBlock(input.block), input, result) : null;
+        if (!input.attemptId || (evidenceResult?.persisted && !evidenceResult.duplicate)) {
+            await this.recordRecall(result);
+            await LearningAttemptRecorder.record(result, topicId);
+        }
+        if (authorized) {
+            if (!input.attemptId) await this.recordEvidence(adaptLegacyBlock(input.block), input, result);
+            await this.enqueueSync(result);
+        }
+        if (evidenceResult?.duplicate) return { award: null, rewarded: false, result };
         if (valueAction) await OnboardingService.markAction(valueAction);
 
         if (!rewarded) {
@@ -111,14 +121,20 @@ class LessonOutcomeServiceImpl {
     }
 
     async recordActivityCompletion(input: ActivityOutcomeInput): Promise<LessonOutcome> {
-        const { rewarded, topicId, valueAction } = await this.resolveNode(input.nodeId);
+        const { rewarded, topicId, valueAction, authorized } = await this.resolveNode(input.nodeId);
         const result = this.activityToQuizResult(input);
 
-        await this.recordRecall(result);
-        await LearningAttemptRecorder.record(result, topicId);
-        await this.recordEvidence(input.activity, input, result);
-        await assessmentAttemptRepository.completeActivity(input.activity, input.confirmedAnswers);
-        await this.enqueueSync(result);
+        const evidenceResult = authorized && input.attemptId ? await this.recordEvidence(input.activity, input, result) : null;
+        if (!input.attemptId || (evidenceResult?.persisted && !evidenceResult.duplicate)) {
+            await this.recordRecall(result);
+            await LearningAttemptRecorder.record(result, topicId);
+        }
+        if (authorized) {
+            if (!input.attemptId) await this.recordEvidence(input.activity, input, result);
+            await assessmentAttemptRepository.completeActivity(input.activity, input.confirmedAnswers);
+            await this.enqueueSync(result);
+        }
+        if (evidenceResult?.duplicate) return { award: null, rewarded: false, result };
         if (valueAction) await OnboardingService.markAction(valueAction);
 
         if (!rewarded) {
@@ -160,6 +176,7 @@ class LessonOutcomeServiceImpl {
      */
     private async resolveNode(nodeId: string): Promise<{
         rewarded: boolean;
+        authorized: boolean;
         topicId: string | null;
         valueAction?: 'quiz_complete' | 'review_complete';
     }> {
@@ -172,7 +189,7 @@ class LessonOutcomeServiceImpl {
 
             if (!node) {
                 console.warn(`[LessonOutcomeService] Nó desconhecido "${nodeId}"; nada será premiado.`);
-                return { rewarded: false, topicId: null };
+                return { rewarded: false, authorized: false, topicId: null };
             }
 
             const topicId = node.unitId ?? unit?.id ?? null;
@@ -192,18 +209,18 @@ class LessonOutcomeServiceImpl {
                 console.warn(
                     `[LessonOutcomeService] Nó "${nodeId}" não está destravado; nada será premiado.`
                 );
-                return { rewarded: false, topicId };
+                return { rewarded: false, authorized: false, topicId };
             }
 
             if (node.type === 'review') {
-                return { rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId, valueAction: 'review_complete' };
+                return { authorized: true, rewarded: snapshot.progress.pendingReviewNodeIds.includes(nodeId), topicId, valueAction: 'review_complete' };
             }
 
-            return { rewarded: !snapshot.progress.completedNodeIds.includes(nodeId), topicId, valueAction: 'quiz_complete' };
+            return { authorized: true, rewarded: !snapshot.progress.completedNodeIds.includes(nodeId), topicId, valueAction: 'quiz_complete' };
         } catch (error) {
             // Falhar para "não premiar" é o lado seguro: nunca paga duas vezes.
             console.error('[LessonOutcomeService] Falha ao resolver elegibilidade:', error);
-            return { rewarded: false, topicId: null };
+            return { rewarded: false, authorized: false, topicId: null };
         }
     }
 
@@ -222,30 +239,47 @@ class LessonOutcomeServiceImpl {
         activity: LearningActivityV2,
         input: MeasuredInteractionAnswers,
         result: QuizResult,
-    ): Promise<void> {
+    ): Promise<{ persisted: boolean; duplicate: boolean }> {
         try {
             const recordedAt = result.answeredAt.toISOString();
 
+            let persisted = true;
+            let newEvidence = false;
             for (const step of activity.steps) {
                 if (step.kind !== 'interaction') continue;
 
                 const { interaction } = step;
-                await LearningEvidenceRepository.append({
+                const evidence = {
                     activityId: activity.id,
                     interactionId: interaction.id,
                     competencyId: interaction.competencyIds[0],
                     evidenceKind: interaction.evidenceKind,
-                    outcome: input.confirmedAnswers[interaction.id] === true ? 'correct' : 'incorrect',
+                    outcome: (input.firstConfirmedAnswers ?? input.confirmedAnswers)[interaction.id] === true ? 'correct' as const : 'incorrect' as const,
                     hintUsed: input.hintUsedByInteraction?.[interaction.id] ?? false,
                     durationBand: input.durationBandByInteraction?.[interaction.id] ?? 'unknown',
                     contentVersion: activity.provenance.contentVersion,
                     recordedAt,
-                });
+                };
+                if (input.attemptId) {
+                    const recorded = await itemReviewRepository.record({ attemptId: input.attemptId,
+                        item: { activityId: activity.id, itemId: canonicalStudyItemId(interaction), lessonId: result.lessonId,
+                            competencyId: evidence.competencyId, contentVersion: evidence.contentVersion, evidenceKind: evidence.evidenceKind },
+                        firstOutcome: evidence.outcome, finalOutcome: input.confirmedAnswers[interaction.id] ? 'correct' : 'incorrect',
+                        hintUsed: evidence.hintUsed, durationBand: evidence.durationBand, recordedAt, mode: 'study' });
+                    persisted = persisted && recorded.accepted;
+                    newEvidence = newEvidence || (recorded.accepted && !recorded.duplicate);
+                } else {
+                    const result = await LearningEvidenceRepository.append(evidence);
+                    persisted = persisted && result?.accepted === true;
+                    newEvidence = newEvidence || result?.accepted === true;
+                }
             }
 
-            await this.observeCompetencies(activity, input, recordedAt);
+            if (persisted && newEvidence) await this.observeCompetencies(activity, input, recordedAt);
+            return { persisted, duplicate: persisted && !newEvidence };
         } catch (error) {
             console.error('[LessonOutcomeService] Falha ao registrar evidência:', error);
+            return { persisted: false, duplicate: false };
         }
     }
 
@@ -275,7 +309,7 @@ class LessonOutcomeServiceImpl {
                 const competencyId = interaction.competencyIds[0];
                 if (!competencyId) continue;
 
-                const acertou = input.confirmedAnswers[interaction.id] === true;
+                const acertou = (input.firstConfirmedAnswers ?? input.confirmedAnswers)[interaction.id] === true;
                 const usouDica = input.hintUsedByInteraction?.[interaction.id] ?? false;
                 const atual = porCompetencia.get(competencyId);
 

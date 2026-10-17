@@ -1084,6 +1084,9 @@ describe('LessonFlowScreen — atividade curricular v2 promovida', () => {
       activity: promotedActivityFixture,
       nodeId: 'node:activity:materia-energia-e-radiacao:01',
       confirmedAnswers: { 'activity-01-question': true },
+      firstConfirmedAnswers: { 'activity-01-question': true },
+      attemptId: expect.stringMatching(/^study:/),
+      answeredAt: expect.any(Date),
     });
     expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
   });

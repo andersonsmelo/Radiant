@@ -79,6 +79,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
     const chargedInteractions = useRef(new Set<string>());
+    const completions = useRef(new Map<string, { finishing: boolean; finished: boolean; identity: { attemptId: string; answeredAt: Date } | null }>());
     // Revisão é prática, não prova (ADR de 2026-09-14: "Revisão nunca consome
     // vida"; vidas "não bloqueiam revisão"). Esta tela atende lição e revisão
     // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
@@ -239,7 +240,10 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 
     const handleContinue = async () => {
-        if (!activity || !currentStep || !canContinue) {
+        const key = JSON.stringify([blockId, nodeId]);
+        if (!completions.current.has(key)) completions.current.set(key, { finishing: false, finished: false, identity: null });
+        const completion = completions.current.get(key)!;
+        if (!activity || !currentStep || !canContinue || completion.finishing || completion.finished) {
             return;
         }
 
@@ -304,31 +308,40 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             return;
         }
 
-        const lessonOutcome = block
-            ? await LessonOutcomeService.recordCompletion({
-                  block,
-                  nodeId,
-                  confirmedAnswers: nextConfirmed,
-              })
-            : await LessonOutcomeService.recordActivityCompletion({
-                  activity,
-                  nodeId,
-                  confirmedAnswers: nextConfirmed,
-              });
+        if (completion.finishing || completion.finished) return;
+        completion.finishing = true;
+        completion.identity ??= { attemptId: `study:${Date.now()}:${Math.random().toString(36).slice(2)}`, answeredAt: new Date() };
+        try {
+            const lessonOutcome = block
+                ? await LessonOutcomeService.recordCompletion({
+                      block,
+                      nodeId,
+                      confirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: nextConfirmed,
+                      ...completion.identity,
+                  })
+                : await LessonOutcomeService.recordActivityCompletion({
+                      activity,
+                      nodeId,
+                      confirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: nextConfirmed,
+                      ...completion.identity,
+                  });
 
-        // O snapshot vem do RETORNO de `markNodeCompleted`, não de uma leitura
-        // solta via `getSnapshot()`. As duas correriam em paralelo com a
-        // escrita, e a leitura pode terminar antes de a marcação pousar —
-        // mostrando a unidade sem a lição que acabou de fechar. Encadear a
-        // partir da própria marcação elimina a corrida.
-        const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
-        await JourneyProgressService.setCurrentNode(null);
-        await JourneyProgressService.setResumableNode(undefined);
-        await activeCheckpoint.finish();
+            // O snapshot vem do RETORNO de `markNodeCompleted`, não de uma leitura
+            // solta via `getSnapshot()`. As duas correriam em paralelo com a
+            // escrita, e a leitura pode terminar antes de a marcação pousar —
+            // mostrando a unidade sem a lição que acabou de fechar. Encadear a
+            // partir da própria marcação elimina a corrida.
+            const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
+            await JourneyProgressService.setCurrentNode(null);
+            await JourneyProgressService.setResumableNode(undefined);
+            await activeCheckpoint.finish();
 
-        setJourneySnapshot(snapshot);
-        setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
-
+            setJourneySnapshot(snapshot);
+            setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
+            completion.finished = true;
+        } finally { completion.finishing = false; }
     };
 
     const exitLesson = useCallback(() => {

@@ -40,6 +40,11 @@ function fullPath(): LearningEvidence[] {
 }
 
 describe('calculateCompetencyMastery — os cinco estados', () => {
+    it('acerto após ajuda ou autoavaliação não concede pontuação de recuperação independente', () => {
+        const assisted = fullPath().map(entry => ({ ...entry, hintUsed: true }));
+        expect(calculateCompetencyMastery(COMPETENCY, assisted, params())).toMatchObject({ score: 0, state: 'introduced' });
+        expect(calculateCompetencyMastery(COMPETENCY, fullPath(), params()).score).toBeGreaterThan(0);
+    });
     it('devolve not-started quando não há evidência alguma', () => {
         const mastery = calculateCompetencyMastery(COMPETENCY, [], params());
 

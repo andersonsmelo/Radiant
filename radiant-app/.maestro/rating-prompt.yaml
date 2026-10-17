@@ -6,6 +6,7 @@ tags:
   - requires-review-fixture
 ---
 # Exige perfil production, L1 concluída e seu cartão sintético devido.
+# Vencer UM item do journal atual; usar agregado só se ainda não migrado.
 # Preparar antes de executar, com o app parado; não injetar telemetria.
 # Não limpar estado: a conclusão real criou o marco de primeiro valor.
 - killApp
@@ -58,24 +59,34 @@ tags:
 - waitForAnimationToEnd:
     timeout: 2000
 - tapOn: Começar revisão
-- assertVisible: Micro revisão
+- assertVisible: Sessão ativa
 - scrollUntilVisible:
-    element: Mostrar resposta
+    element:
+      id: review-option-0
     direction: DOWN
     centerElement: false
     visibilityPercentage: 80
 - waitForAnimationToEnd:
     timeout: 2000
-- tapOn: Mostrar resposta
-- assertVisible: Resposta correta
+- tapOn:
+    id: review-option-0
 - scrollUntilVisible:
-    element: Acertei
+    element: Confirmar resposta
     direction: DOWN
     centerElement: false
     visibilityPercentage: 80
 - waitForAnimationToEnd:
     timeout: 2000
-- tapOn: Acertei
+- tapOn: Confirmar resposta
+- assertVisible: 'Resposta correta|Vamos revisar este ponto'
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Continuar
 # A prova é o diálogo da Apple; não substitua por evento de elegibilidade.
 - runFlow:
     when:

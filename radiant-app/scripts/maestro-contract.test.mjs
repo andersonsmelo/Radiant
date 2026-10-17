@@ -776,7 +776,7 @@ test('rating flow completes the current review caller and preserves the native d
   const review = commands.findIndex(command => command.openLink?.link === 'radiantapp://review');
   assert.ok(review >= 0);
   const taps = commands.slice(review).filter(command => command.tapOn).map(command => command.tapOn);
-  assert.deepEqual(taps, ['Começar revisão', 'Mostrar resposta', 'Acertei']);
+  assert.deepEqual(taps, ['Começar revisão', { id: 'review-option-0' }, 'Confirmar resposta', 'Continuar']);
   const dialog = commands.find(command => command.runFlow?.when?.platform === 'iOS');
   assert.deepEqual(dialog.runFlow.commands[0], { assertVisible: 'Curtindo o app Radiant\\?' });
   assert.deepEqual(commands.at(-1), { assertVisible: 'Resultado da sessão' });

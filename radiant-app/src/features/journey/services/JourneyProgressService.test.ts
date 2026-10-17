@@ -1,3 +1,7 @@
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+import { JourneyCurriculumService } from './JourneyCurriculumService';
+import { createProductionCurriculumCatalog, type ProductionCatalogEntry } from '../../student-checkpoints/createProductionCurriculumCatalog';
+import { PRODUCTION_CATALOG_ENTRIES } from '../../student-checkpoints/production-catalog-entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore, type JourneySnapshot } from '../../../types/journey';
@@ -151,6 +155,69 @@ describe('JourneyProgressService', () => {
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    it('preserva o progresso e libera a próxima unidade pela avaliação, com conquista opcional', async () => {
+        const first = PRODUCTION_CATALOG_ENTRIES[0];
+        const secondBatch = JSON.parse(JSON.stringify(first.batch).replaceAll('materia-energia-e-radiacao', 'fixture-progresso-2')) as typeof first.batch;
+        const second: ProductionCatalogEntry = { batch: secondBatch, presentation: { ...first.presentation,
+            unitTitle: 'Segunda unidade sintética', reward: { ...first.presentation.reward, id: 'node:reward:fixture-progresso-2' } } };
+        const original = createProductionCurriculumCatalog([first]).getJourneyTrackDefinition(first.batch.trackId)!;
+        await JourneyProgressService.bootstrap(original);
+        const completed: string[] = [];
+        for (const node of original.units[0].nodes.filter(node => node.type !== 'reward')) {
+            await JourneyProgressService.markNodeCompleted(node.id, original);
+            completed.push(node.id);
+        }
+        const gate = original.units[0].nodes.filter(node => node.type === 'checkpoint').at(-1)!.id;
+        const catalog = createProductionCurriculumCatalog([second, first], [{ trackId: first.batch.trackId, units: [
+            { unitId: first.batch.unitId, requiresNodeIds: [] }, { unitId: second.batch.unitId, requiresNodeIds: [gate] },
+        ] }]);
+        const expanded = catalog.getJourneyTrackDefinition(first.batch.trackId)!;
+        const newNode = expanded.units[1].nodes[0];
+        const snapshot = await JourneyProgressService.bootstrap(expanded);
+        expect(snapshot.progress.completedNodeIds).toEqual(expect.arrayContaining(completed));
+        expect(snapshot.track.units[1].nodes[0].status).toBe('available');
+        expect(snapshot.progress.completedNodeIds).not.toContain(first.presentation.reward.id);
+        await JourneyProgressService.markNodeCompleted(newNode.id, expanded);
+        const reopened = await JourneyProgressService.bootstrap(expanded);
+        expect(reopened.progress.completedNodeIds).toEqual(expect.arrayContaining([...completed, newNode.id]));
+        expect(reopened.track.units[1].nodes[0].status).toBe('completed');
+        expect(reopened.nextRecommendedNode?.unitId).toBe(second.batch.unitId);
+        expect(reopened.progress.currentUnitId).toBe(second.batch.unitId);
+        expect(reopened.track.units[0].nodes.at(-1)?.status).toBe('available');
+        const collected = await JourneyProgressService.markNodeCompleted(first.presentation.reward.id, expanded);
+        expect(collected.progress.currentUnitId).toBe(second.batch.unitId);
+    });
+
+    it('avança para a área seguinte sem coletar conquistas opcionais e permite coletá-las depois', async () => {
+        const first = PRODUCTION_CATALOG_ENTRIES[0];
+        const batch = JSON.parse(JSON.stringify(first.batch).replaceAll('materia-energia-e-radiacao', 'fixture-g2-2')) as typeof first.batch;
+        const second: ProductionCatalogEntry = { batch, presentation: { ...first.presentation, unitTitle: 'Segunda', reward: { ...first.presentation.reward, id: 'node:reward:fixture-g2-2' } } };
+        const original = createProductionCurriculumCatalog([first]).getJourneyTrackDefinition(first.batch.trackId)!;
+        const checkpoint = original.units[0].nodes.filter(node => node.type === 'checkpoint').at(-1)!.id;
+        const catalog = createProductionCurriculumCatalog([first, second], [{ trackId: first.batch.trackId, units: [
+            { unitId: first.batch.unitId, requiresNodeIds: [] }, { unitId: batch.unitId, requiresNodeIds: [checkpoint] },
+        ] }]);
+        const definition = catalog.getJourneyTrackDefinition(first.batch.trackId)!;
+        mockedLessonCatalogService.listTracks.mockReturnValue([catalog.listTracks()[0], trackFixtures[1]]);
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue([...catalog.listLessonSummaries(), ...lessonSummaries.filter(lesson => lesson.trackId === trackFixtures[1].id)]);
+        const lookup = jest.spyOn(ProductionCurriculumCatalog, 'getJourneyTrackDefinition').mockImplementation(id => catalog.getJourneyTrackDefinition(id));
+        try {
+            for (const node of definition.units.flatMap(unit => unit.nodes).filter(node => node.type !== 'reward')) {
+                await JourneyProgressService.markNodeCompleted(node.id, definition);
+            }
+            const reopened = await JourneyProgressService.bootstrap();
+            expect(reopened.progress.activeTrackId).toBe(trackFixtures[1].id);
+            const trail = await JourneyCurriculumService.getCurriculumTrail();
+            expect(trail.segments[0].completed).toBe(true);
+            expect(trail.segments[1].unlocked).toBe(true);
+            expect(trail.segments[0].units[0].nodes.at(-1)?.status).toBe('available');
+            await JourneyProgressService.markNodeCompleted(first.presentation.reward.id);
+            expect((await JourneyProgressService.bootstrap()).progress.activeTrackId).toBe(trackFixtures[1].id);
+            const oldArea = await JourneyProgressService.getSnapshot(definition);
+            expect(oldArea.progress.completedNodeIds).toContain(first.presentation.reward.id);
+        } finally { lookup.mockRestore(); }
     });
 
     it('leva a agenda futura real à trilha, sem torná-la devida', async () => {

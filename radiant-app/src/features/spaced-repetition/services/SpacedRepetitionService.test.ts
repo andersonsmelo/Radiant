@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SpacedRepetitionService } from './SpacedRepetitionService';
+import { itemReviewRepository } from '../repositories/ItemReviewRepository';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
     getItem: jest.fn(),
@@ -22,6 +25,20 @@ function card(lessonId: string, nextReviewAt: string) {
 }
 
 describe('SpacedRepetitionService — relógio injetado', () => {
+    it('trilha, push e contadores recebem o vencimento do item promovido real, em vez do agregado antigo', async () => {
+        const activity = MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities[0];
+        const step = activity.steps.find(entry => entry.kind === 'interaction');
+        if (!step || step.kind !== 'interaction') throw Error('fixture');
+        const data = new Map([[STORAGE_KEYS.SPACED_REPETITION_SCHEDULE as string, JSON.stringify({ cards: { [activity.id]: card(activity.id, '2026-09-01T00:00:00.000Z') }, reviewHistory: [] })]]);
+        storage.getItem.mockImplementation(async key => data.get(key) ?? null);
+        storage.setItem.mockImplementation(async (key, value) => { data.set(key, value); });
+        await itemReviewRepository.record({ attemptId: 'study:real-schedule', item: { lessonId: activity.id, activityId: activity.id, itemId: step.interaction.id,
+            contentVersion: activity.provenance.contentVersion, evidenceKind: step.interaction.evidenceKind, competencyId: step.interaction.competencyIds[0] },
+            firstOutcome: 'correct', finalOutcome: 'correct', hintUsed: false, mode: 'study', durationBand: 'unknown', recordedAt: '2026-10-17T12:00:00.000Z' });
+        expect(await SpacedRepetitionService.getDueLessons(new Date('2026-10-17T12:00:00.000Z'))).toEqual([]);
+        expect(await SpacedRepetitionService.getDueLessons(new Date('2026-10-18T12:00:00.000Z'))).toEqual([activity.id]);
+        expect(await SpacedRepetitionService.getDueCount(new Date('2026-10-18T12:00:00.000Z'))).toBe(1);
+    });
     beforeEach(() => {
         jest.clearAllMocks();
         storage.getItem.mockResolvedValue(JSON.stringify({

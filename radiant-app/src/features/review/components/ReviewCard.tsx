@@ -1,102 +1,61 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
-import { useCardEnter, useShakeError } from '../../../ui/motion';
+import { useCardEnter } from '../../../ui/motion';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import type { QuizQuestion } from '../../../types/quiz';
-import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
-
+import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 const galaxy = semanticColors.galaxy;
-
+export type ReviewAnswerFeedback = { correct: boolean; assisted: boolean };
 interface ReviewCardProps {
   question: QuizQuestion;
-  onRate: (isCorrect: boolean) => void;
+  onAnswer: (answerIndex: number | null) => void | Promise<void>;
+  onContinue: () => void | Promise<void>;
+  feedback: ReviewAnswerFeedback | null;
+  saving: boolean;
 }
-
-export function ReviewCard({ question, onRate }: ReviewCardProps) {
-  const largeText = useLargeTextLayout();
-  const [revealed, setRevealed] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const pendingRating = useRef<ReturnType<typeof setTimeout> | null>(null);
+export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }: ReviewCardProps) {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const locked = useRef(false);
   const enterAnim = useCardEnter();
   const { reset, animateIn } = enterAnim;
-  const shakeAnim = useShakeError();
-
-  useEffect(() => {
-    setRevealed(false);
-    setSubmitting(false);
-    reset();
-    animateIn();
-    return () => {
-      if (pendingRating.current !== null) clearTimeout(pendingRating.current);
-      pendingRating.current = null;
-    };
-  }, [reset, animateIn, question.id]);
-
-  const handleRate = (correct: boolean) => {
-    if (pendingRating.current !== null) return;
-    setSubmitting(true);
-    if (!correct) {
-      shakeAnim.animateIn();
-    }
-    pendingRating.current = setTimeout(() => onRate(correct), correct ? 300 : 500);
+  useEffect(() => { setSelected(null); setSubmitted(false); locked.current = false; reset(); animateIn(); }, [question.id, reset, animateIn]);
+  const confirm = (index: number | null) => {
+    if (locked.current || saving || feedback) return;
+    locked.current = true;
+    setSubmitted(true);
+    void Promise.resolve(onAnswer(index)).finally(() => { locked.current = false; });
   };
-
   return (
-    <Animated.View style={[styles.container, enterAnim.animatedStyle, shakeAnim.style]}>
+    <Animated.View style={[styles.container, enterAnim.animatedStyle]}>
       <SurfaceCard variant="galaxyElevated" style={styles.card} contentStyle={styles.cardContent}>
         <View style={styles.header}>
-          <Text style={styles.eyebrow}>Micro revisão</Text>
+          <Text style={styles.eyebrow}>Revisão</Text>
           <Text style={styles.prompt} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.prompt}</Text>
         </View>
-
-        <View style={styles.contentArea}>
-          {!revealed ? (
-            <View style={styles.optionsPreview}>
-              {question.options.map((option, index) => (
-                <View key={`${question.id}:${index}:${option.label}`} style={styles.optionRow}>
-                  <View style={styles.optionBullet} />
-                  <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
-                </View>
-              ))}
-            </View>
-          ) : (
-            <View style={styles.answerShell}>
-              <Text style={styles.answerLabel}>Resposta correta</Text>
-              <Text style={styles.answerText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{question.options[question.correctAnswerIndex].label}</Text>
-              <Text style={styles.explanation}>{question.explanation}</Text>
-            </View>
-          )}
-        </View>
-
+        {!feedback ? <View accessibilityRole="radiogroup" style={styles.optionsPreview}>
+          {question.options.map((option, index) => <Pressable key={`${question.id}:${index}`} testID={`review-option-${index}`} accessibilityRole="radio"
+            accessibilityLabel={option.label} accessibilityState={{ selected: selected === index, disabled: submitted || saving }}
+            disabled={submitted || saving} onPress={() => setSelected(index)}
+            style={[styles.optionRow, selected === index && { borderColor: galaxyColors.borderActive }]}>
+            <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
+          </Pressable>)}
+        </View> : <View style={styles.answerShell} accessibilityLiveRegion="polite">
+          <Text style={styles.answerLabel}>{feedback.assisted ? 'Resposta consultada' : feedback.correct ? 'Resposta correta' : 'Vamos revisar este ponto'}</Text>
+          <Text style={styles.answerText}>{question.options[question.correctAnswerIndex]?.label}</Text>
+          <Text style={styles.explanation}>{question.explanation}</Text>
+        </View>}
         <View style={styles.footer}>
-          {!revealed ? (
-            <AppButton onPress={() => setRevealed(true)} style={styles.button}>
-              Mostrar resposta
+          {feedback ? <AppButton onPress={() => { void onContinue(); }} disabled={saving}>Continuar</AppButton> : <>
+            <AppButton onPress={() => { if (selected !== null) confirm(selected); }} disabled={selected === null || saving}>
+              {saving ? 'Salvando resposta…' : 'Confirmar resposta'}
             </AppButton>
-          ) : (
-            <View style={[styles.ratingRow, largeText && styles.ratingRowStacked]}>
-              <View style={[styles.ratingButton, largeText && styles.ratingButtonStacked]}>
-                <AppButton
-                  onPress={() => handleRate(false)}
-                  disabled={submitting}
-                  variant="secondary"
-                  style={styles.attentionButton}
-                  textStyle={styles.attentionButtonText}
-                >
-                  Revisar depois
-                </AppButton>
-              </View>
-              <View style={[styles.ratingButton, largeText && styles.ratingButtonStacked]}>
-                <AppButton onPress={() => handleRate(true)} disabled={submitting}>
-                  Acertei
-                </AppButton>
-              </View>
-            </View>
-          )}
+            <AppButton variant="secondary" onPress={() => confirm(null)} disabled={submitted || saving}>Ver resposta com ajuda</AppButton>
+          </>}
         </View>
       </SurfaceCard>
     </Animated.View>

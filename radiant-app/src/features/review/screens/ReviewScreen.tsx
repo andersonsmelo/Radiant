@@ -46,9 +46,17 @@ type ReviewScreenProps = {
 
 export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: ReviewScreenProps) {
   const largeText = useLargeTextLayout();
-  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitRating } = useReview({
+  const { state, queue, currentItem, currentIndex, totalItems, sessionXp, loading, startReview, submitAnswer, continueReview, answerFeedback, saving, persistenceError, retrySubmission } = useReview({
     resumeCursorId: resumeCheckpointId ? resumeCursorId : undefined,
   });
+  const retryRef = useRef(retrySubmission);
+  retryRef.current = retrySubmission;
+  useEffect(() => {
+    if (persistenceError) Alert.alert('Revisão preservada', persistenceError, [
+      { text: 'Tentar novamente', onPress: () => { void retryRef.current(); } },
+      { text: 'Voltar à trilha', onPress: () => router.dismissTo('/(tabs)') },
+    ]);
+  }, [persistenceError]);
   const fadeAnim = useFadeInUp(duration.ui);
   const [showPushOptIn, setShowPushOptIn] = useState(false);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
@@ -203,7 +211,11 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
             </View>
 
             <View style={styles.actionCard}>
-              {hasItems ? (
+              {persistenceError ? (
+                <AppButton onPress={() => { void retrySubmission(); }} style={styles.fullWidthButton}>
+                  Tentar novamente
+                </AppButton>
+              ) : hasItems ? (
                 <AppButton onPress={startReview} style={styles.fullWidthButton}>
                   Começar revisão
                 </AppButton>
@@ -212,10 +224,10 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
                   Voltar para jornada
                 </AppButton>
               )}
-              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{hasItems ? 'Pronto para limpar a fila?' : 'Nenhuma revisão pendente'}</Text>
+              <Text style={styles.actionTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{persistenceError ? 'Revisão indisponível' : hasItems ? 'Revise no seu ritmo' : 'Nenhuma revisão pendente'}</Text>
               <Text style={styles.actionBody}>
-                {hasItems
-                  ? 'A sessão está curta o suficiente para caber agora. Não vale adiar uma fila desse tamanho.'
+                {persistenceError ? persistenceError : hasItems
+                  ? 'Revise os itens disponíveis e acompanhe sua próxima revisão.'
                   : 'Você pode voltar para a jornada e continuar o próximo nó recomendado.'}
               </Text>
             </View>
@@ -224,10 +236,10 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               <View style={styles.heroCard}>
                 <PixelHeroSplit
                   eyebrow="Repetição espaçada"
-                  message={hasItems ? 'Você tem uma fila curta e objetiva. Fecha isso agora e mantém a curva de retenção saudável.' : 'Sem pendências críticas. Sua trilha está limpa por enquanto.'}
+                  message={persistenceError ? 'Seu progresso foi preservado. Tente abrir a revisão novamente.' : hasItems ? 'Confira o que você lembra, um item por vez.' : 'Sua fila de revisão está em dia.'}
                   ringValue={0}
                   ringTotal={Math.max(queue.length, 1)}
-                  ringLabel={hasItems ? `${queue.length} itens na fila` : 'Nenhum item agora'}
+                  ringLabel={persistenceError ? 'Revisão indisponível' : hasItems ? `${queue.length} itens na fila` : 'Nenhum item agora'}
                   state={hasItems ? 'guide' : 'idle'}
                   tier={hasItems ? 'intermediate' : 'starter'}
                   accessibilityLabel="Pixel guiando a revisão"
@@ -241,7 +253,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Formato"
-                  value="Uma pergunta por item, resposta rápida e rating direto"
+                  value="Revele a resposta e avalie se lembrou de cada item"
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="timeline" size={20} color={galaxyColors.ctaGradientEnd} />}
@@ -251,7 +263,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="workspace-premium" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Recompensa"
-                  value="XP só entra quando você realmente acerta"
+                  value="XP por resposta correta sem consultar o gabarito"
                 />
               </View>
             </View>
@@ -382,7 +394,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
               <View style={[styles.activeHeroCopy, largeText && styles.activeHeroCopyStacked]}>
                 <Text style={styles.activeTitle} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Sessão ativa</Text>
                 <Text style={styles.activeBody}>
-                  Responda rápido, revele a resposta e classifique sem hesitar. O objetivo aqui é retenção, não exploração.
+                  Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.
                 </Text>
               </View>
               <ProgressRing
@@ -395,7 +407,9 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
           </View>
 
           <View style={styles.focusArea}>
-            {currentItem ? <ReviewCard question={currentItem.question} onRate={submitRating} /> : null}
+            {currentItem ? <ReviewCard key={`${currentItem.lessonId}:${currentItem.question.id}`}
+              question={currentItem.question} onAnswer={submitAnswer} onContinue={continueReview}
+              feedback={answerFeedback ?? null} saving={saving ?? false} /> : null}
           </View>
         </ScrollView>
       </SafeAreaView>

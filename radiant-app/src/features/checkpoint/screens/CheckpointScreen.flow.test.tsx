@@ -11,6 +11,9 @@ import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-check
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
 
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
@@ -279,6 +282,65 @@ describe('CheckpointScreen flow', () => {
     mockedJourneyProgressService.markNodeCompleted.mockResolvedValue(completedSnapshot);
     mockedGamification.getSnapshot.mockResolvedValue({ totalXp: 120, streakDays: 3 } as any);
     mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award: null, rewarded: false });
+  });
+
+  it('retry após falha de gravação envia o mesmo ID e as mesmas respostas, sem concluir antes', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const submit = jest.spyOn(assessmentAttemptRepository, 'submit');
+    const setItem = (AsyncStorage.setItem as jest.Mock).getMockImplementation()!;
+    let failed = false;
+    const write = jest.spyOn(AsyncStorage, 'setItem').mockImplementation(async (key, raw) => {
+      if (!failed && key === STORAGE_KEYS.ITEM_REVIEW) { failed = true; throw Error('full'); }
+      return setItem(key, raw);
+    });
+    try {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+      expect(await screen.findByText(/Suas respostas não foram presumidas/u)).toBeTruthy();
+      expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+      expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+      const first = submit.mock.calls[0][0];
+      fireEvent.press(screen.getByText('Enviar checkpoint'));
+      await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
+      expect(submit.mock.calls[1][0]).toEqual(first);
+      expect(await itemReviewRepository.getAttempts()).toHaveLength(productionStageItems.length);
+      const due = new Date(Date.now() + 2 * 86400000);
+      const queue = await ItemReviewService.loadQueue([], due);
+      expect(queue.map(entry => entry.question.id).sort()).toEqual(productionStageItems.map(item => item.id).sort());
+      expect((await ItemReviewService.recordReview(queue[0], true, due)).accepted).toBe(true);
+      expect((await itemReviewRepository.getAttempts()).at(-1)).toMatchObject({ mode: 'self-review', hintUsed: true });
+    } finally {
+      submit.mockRestore(); write.mockRestore();
+      (AsyncStorage.setItem as jest.Mock).mockImplementation(setItem);
+    }
+  });
+
+  it('reabrir uma aprovação salva oferece concluir sem refazer nem duplicar a tentativa', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const original = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    const recordApproval = mockedLessonOutcome.recordAssessmentApproval;
+    recordApproval.mockRejectedValueOnce(Error('after-journal'));
+    await answerProductionCheckpoint(true);
+    expect(await screen.findByText('Concluir avaliação registrada')).toBeTruthy();
+    const before = await itemReviewRepository.getAttempts();
+    original.unmount();
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    fireEvent.press(await screen.findByText('Concluir avaliação registrada'));
+    await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
+    expect(await itemReviewRepository.getAttempts()).toEqual(before);
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+  });
+
+  it('retry da conclusão na mesma tela não volta a pedir crédito de XP', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    mockedJourneyProgressService.markNodeCompleted
+      .mockResolvedValueOnce(productionAvailableSnapshot).mockResolvedValue(productionCompletedSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(true);
+    expect(await screen.findByText('Nao foi possivel concluir o checkpoint agora.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Concluir avaliação registrada'));
+    await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledTimes(2));
+    expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledTimes(1);
   });
 
   // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no

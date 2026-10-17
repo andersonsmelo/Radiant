@@ -4,8 +4,9 @@ tags:
   - review
   - requires-review-fixture
 ---
-# Pré-requisito: L1 concluída; preparar somente nextReviewAt com o app parado
-# num simulador descartável. Não limpar estado nem alterar o relógio.
+# Pré-requisito: L1 concluída; preparar somente o vencimento de UM item
+# em @radiant:item_review_v1 (ou nextReviewAt se ainda não migrado), app parado
+# num simulador descartável. Não fabricar tentativa, limpar estado ou alterar relógio.
 - launchApp
 - runFlow: subflows/dismiss-dev-client.yaml
 - openLink:
@@ -19,24 +20,34 @@ tags:
 - waitForAnimationToEnd:
     timeout: 2000
 - tapOn: Começar revisão
-- assertVisible: Micro revisão
+- assertVisible: Sessão ativa
 - scrollUntilVisible:
-    element: Mostrar resposta
+    element:
+      id: review-option-0
     direction: DOWN
     centerElement: false
     visibilityPercentage: 80
 - waitForAnimationToEnd:
     timeout: 2000
-- tapOn: Mostrar resposta
-- assertVisible: Resposta correta
+- tapOn:
+    id: review-option-0
 - scrollUntilVisible:
-    element: Acertei
+    element: Confirmar resposta
     direction: DOWN
     centerElement: false
     visibilityPercentage: 80
 - waitForAnimationToEnd:
     timeout: 2000
-- tapOn: Acertei
+- tapOn: Confirmar resposta
+- assertVisible: 'Resposta correta|Vamos revisar este ponto'
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Continuar
 - assertVisible: Sessão concluída
 - scrollUntilVisible:
     element: Resultado da sessão

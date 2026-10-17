@@ -15,6 +15,9 @@ import { OnboardingService } from '../../onboarding/OnboardingService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../student-checkpoints/production-batches';
+import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
@@ -1003,5 +1006,52 @@ describe('LessonOutcomeService — aprovação de avaliação da V2', () => {
         expect(mockedAttempts.append).not.toHaveBeenCalled();
         expect(mockedEvidence.append).not.toHaveBeenCalled();
         expect(mockedSyncQueue.enqueueLessonProgressFromQuizResult).not.toHaveBeenCalled();
+    });
+});
+
+describe('LessonOutcomeService — journal G4 no caminho real', () => {
+    beforeEach(async () => {
+        jest.clearAllMocks();
+        await AsyncStorage.clear();
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedGamification.recordQuizCompletion.mockResolvedValue({ snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null }, award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' } });
+        mockedSyncQueue.enqueueLessonProgressFromQuizResult.mockResolvedValue(undefined);
+    });
+    const promotedInteraction = productionBatch.activities[0].steps.find(step => step.kind === 'interaction');
+    const interactionId = promotedInteraction?.kind === 'interaction' ? promotedInteraction.interaction.id : '';
+    const input = () => ({ activity: productionBatch.activities[0], nodeId: 'node:lesson-1', attemptId: 'study:integration',
+        confirmedAnswers: { [interactionId]: true }, answeredAt: new Date('2026-10-17T12:00:00.000Z') });
+    it('deduplica tentativa, agenda, rollup e recompensa após repetir o mesmo commit', async () => {
+        const first = await LessonOutcomeService.recordActivityCompletion(input());
+        const second = await LessonOutcomeService.recordActivityCompletion(input());
+        expect(first.rewarded).toBe(true); expect(second.rewarded).toBe(false);
+        expect(await itemReviewRepository.getAttempts()).toHaveLength(1);
+        expect(await itemReviewRepository.getCards()).toHaveLength(1);
+        expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
+        expect(mockedAttempts.append).toHaveBeenCalledTimes(1);
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        expect(mockedReview.observeExposure).toHaveBeenCalledTimes(1);
+    });
+    it('resolve a atividade promovida real na fila vencida e registra a autoavaliação assistida', async () => {
+        await LessonOutcomeService.recordActivityCompletion(input());
+        const queue = await ItemReviewService.loadQueue([], new Date('2026-10-18T12:00:00.000Z'));
+        expect(queue).toHaveLength(1);
+        expect(queue[0].question.id).toBe(interactionId);
+        expect(queue[0].lessonId).toBe(productionBatch.activities[0].id);
+        expect((await ItemReviewService.recordReview(queue[0], true, new Date('2026-10-18T12:00:00.000Z'))).accepted).toBe(true);
+        expect((await itemReviewRepository.getAttempts())[1]).toMatchObject({ mode: 'self-review', hintUsed: true });
+    });
+    it('não observa domínio/agenda de competência quando o journal não pode persistir', async () => {
+        const raw = '{"schemaVersion":"item-review.v9","future":true}';
+        await AsyncStorage.setItem(STORAGE_KEYS.ITEM_REVIEW, raw);
+        await LessonOutcomeService.recordActivityCompletion(input());
+        expect(mockedReview.observeExposure).not.toHaveBeenCalled();
+        expect(mockedSpacedRepetition.recordQuizResult).not.toHaveBeenCalled();
+        expect(await AsyncStorage.getItem(STORAGE_KEYS.ITEM_REVIEW)).toBe(raw);
+    });
+    it('mantém o erro inicial mesmo quando a resposta final veio correta após ajuda', async () => {
+        await LessonOutcomeService.recordActivityCompletion({ ...input(), firstConfirmedAnswers: { [interactionId]: false }, hintUsedByInteraction: { [interactionId]: true } });
+        expect((await itemReviewRepository.getAttempts())[0]).toMatchObject({ firstOutcome: 'incorrect', finalOutcome: 'correct', hintUsed: true });
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(expect.objectContaining({ grade: { outcome: 'incorrect', hintUsed: true } }));
     });
 });

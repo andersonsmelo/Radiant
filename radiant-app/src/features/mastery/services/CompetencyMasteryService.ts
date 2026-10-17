@@ -89,7 +89,7 @@ export function calculateCompetencyMastery(
     }
 
     const correctKinds = new Set(
-        relevant.filter((entry) => entry.outcome === 'correct').map((entry) => entry.evidenceKind),
+        relevant.filter((entry) => entry.outcome === 'correct' && !entry.hintUsed).map((entry) => entry.evidenceKind),
     );
 
     // Tipos distintos, não tentativas: repetir a mesma prática dez vezes não é
