@@ -232,4 +232,64 @@ describe('ReviewScreen — falha de persistência', () => {
       expect(retry).toHaveBeenCalledTimes(1);
     } finally { alert.mockRestore(); }
   });
+
+  it('descreve o formato de resposta antes do gabarito na abertura e diferencia visualmente acerto, consulta e erro no ReviewCard', async () => {
+    mockUseReview.mockReturnValue({
+      state: 'start',
+      queue: [{ lessonId: 'lesson-1', question: questionFixture }],
+      currentItem: null,
+      currentIndex: 0,
+      totalItems: 1,
+      sessionXp: 0,
+      loading: false,
+      startReview: jest.fn(),
+      submitRating: jest.fn(),
+    });
+
+    renderWithProviders(<ReviewScreen />);
+    expect(await screen.findByText('Escolha uma alternativa e confirme, ou consulte a resposta com ajuda')).toBeTruthy();
+    expect(screen.queryByText('Revele a resposta e avalie se lembrou de cada item')).toBeNull();
+
+    const { ReviewCard } = require('../components/ReviewCard');
+    const { StyleSheet } = require('react-native');
+    const { semanticColors } = require('../../../ui/semantic-colors');
+
+    const wrongCard = renderWithProviders(
+      <ReviewCard
+        question={questionFixture}
+        onAnswer={jest.fn()}
+        onContinue={jest.fn()}
+        feedback={{ correct: false, assisted: false }}
+        saving={false}
+      />
+    );
+    const wrongLabelStyle = StyleSheet.flatten(wrongCard.getByTestId('review-feedback-label').props.style);
+    expect(wrongLabelStyle.color).toBe(semanticColors.galaxy.statusError);
+    expect(wrongLabelStyle.color).not.toBe(semanticColors.galaxy.statusSuccess);
+
+    const assistedCard = renderWithProviders(
+      <ReviewCard
+        question={questionFixture}
+        onAnswer={jest.fn()}
+        onContinue={jest.fn()}
+        feedback={{ correct: false, assisted: true }}
+        saving={false}
+      />
+    );
+    const assistedLabelStyle = StyleSheet.flatten(assistedCard.getByTestId('review-feedback-label').props.style);
+    expect(assistedLabelStyle.color).toBe(semanticColors.galaxy.statusWarning);
+
+    const correctCard = renderWithProviders(
+      <ReviewCard
+        question={questionFixture}
+        onAnswer={jest.fn()}
+        onContinue={jest.fn()}
+        feedback={{ correct: true, assisted: false }}
+        saving={false}
+      />
+    );
+    const correctLabelStyle = StyleSheet.flatten(correctCard.getByTestId('review-feedback-label').props.style);
+    expect(correctLabelStyle.color).toBe(semanticColors.galaxy.statusSuccess);
+  });
 });
+

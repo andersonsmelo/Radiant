@@ -152,4 +152,25 @@ describe('referência temporal da resposta de revisão', () => {
         expect(await repo.getAttempts()).toHaveLength(2);
         expect((await repo.record({ ...review, recordedAt: new Date(Date.parse(card.dueAt) + 1000).toISOString() }, card.dueAt))).toMatchObject({ accepted: true, duplicate: true });
     });
+
+    it('reutiliza o snapshot validado entre leituras consecutivas sem reexecutar JSON.parse quando o payload bruto não mudou', async () => {
+        const s = storage();
+        const repo = new ItemReviewRepository(s);
+        await repo.record(attempt());
+
+        const parseSpy = jest.spyOn(JSON, 'parse');
+        try {
+            await repo.getCards();
+            await repo.getAttempts();
+            await repo.inspect();
+            expect(parseSpy).toHaveBeenCalledTimes(0);
+
+            // Se o armazenamento subjacente mudar externamente, o repositório revalida.
+            s.data.set(STORAGE_KEYS.ITEM_REVIEW, '{corrompido');
+            expect(await repo.inspect()).toEqual({ readable: false, cards: [] });
+        } finally {
+            parseSpy.mockRestore();
+        }
+    });
 });
+

@@ -8,6 +8,20 @@ type Store = { schemaVersion: 'item-review.v1'; cards: Record<string, ItemCard>;
 export const ITEM_ATTEMPT_CAP = 2000;
 export const ITEM_CARD_CAP = 20000;
 const queues = new WeakMap<Storage, Promise<unknown>>();
+const validatedStores = new WeakMap<Storage, { raw: string; store: Store }>();
+function cloneStore(store: Store): Store {
+    const cards: Record<string, ItemCard> = {};
+    for (const [key, card] of Object.entries(store.cards)) {
+        cards[key] = { ...card, item: { ...card.item } };
+    }
+    const attempts = store.attempts.map(attempt => ({
+        ...attempt,
+        item: { ...attempt.item },
+        ...(attempt.assessment ? { assessment: { ...attempt.assessment, competencyIds: [...attempt.assessment.competencyIds] } } : {}),
+        ...(attempt.review ? { review: { ...attempt.review } } : {}),
+    }));
+    return { schemaVersion: 'item-review.v1', cards, attempts };
+}
 const exactFields = (value: object, fields: string[]) => Object.keys(value).length === fields.length && Object.keys(value).every(key => fields.includes(key));
 const timestamp = (value: string) => typeof value === 'string' && Number.isFinite(Date.parse(value)) && new Date(value).toISOString() === value;
 function identityValid(item: ItemIdentity): boolean {
@@ -59,7 +73,14 @@ export class ItemReviewRepository {
     }
     private async load(): Promise<Store> {
         const raw = await this.storage.getItem(STORAGE_KEYS.ITEM_REVIEW);
-        if (raw === null) return { schemaVersion: 'item-review.v1', cards: {}, attempts: [] };
+        if (raw === null) {
+            validatedStores.delete(this.storage);
+            return { schemaVersion: 'item-review.v1', cards: {}, attempts: [] };
+        }
+        const cached = validatedStores.get(this.storage);
+        if (cached && cached.raw === raw) {
+            return cloneStore(cached.store);
+        }
         const store = JSON.parse(raw) as Store;
         if (!exactFields(store, ['schemaVersion', 'cards', 'attempts']) || store.schemaVersion !== 'item-review.v1'
             || !store.cards || typeof store.cards !== 'object' || Array.isArray(store.cards)
@@ -67,6 +88,7 @@ export class ItemReviewRepository {
             || !Object.entries(store.cards).every(([key, card]) => cardValid(card) && key === itemKey(card.item))
             || !store.attempts.every(attemptValid)
             || new Set(store.attempts.map(attempt => JSON.stringify([attempt.attemptId, itemKey(attempt.item)]))).size !== store.attempts.length) throw new Error('item-review-store-unavailable');
+        validatedStores.set(this.storage, { raw, store: cloneStore(store) });
         return store;
     }
     record(attempt: ItemAttempt, expectedDueAt?: string): Promise<{ accepted: boolean; duplicate: boolean }> {
@@ -107,7 +129,11 @@ export class ItemReviewRepository {
                     store.attempts = [...store.attempts, attempt].slice(-ITEM_ATTEMPT_CAP);
                     changed = true;
                 }
-                if (changed) await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, JSON.stringify(store));
+                if (changed) {
+                    const serialized = JSON.stringify(store);
+                    await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);
+                    validatedStores.set(this.storage, { raw: serialized, store: cloneStore(store) });
+                }
                 return { accepted: true, duplicate: !changed };
             } catch { return { accepted: false, duplicate: false }; }
         });
@@ -148,13 +174,22 @@ export class ItemReviewRepository {
                     managed.add(items[0].lessonId);
                     changed = true;
                 }
-                if (changed) await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, JSON.stringify(store));
+                if (changed) {
+                    const serialized = JSON.stringify(store);
+                    await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);
+                    validatedStores.set(this.storage, { raw: serialized, store: cloneStore(store) });
+                }
                 return true;
             } catch { return false; }
         });
     }
 
-    clear(): Promise<void> { return this.serialize(() => this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW)); }
+    clear(): Promise<void> {
+        return this.serialize(async () => {
+            await this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW);
+            validatedStores.delete(this.storage);
+        });
+    }
 }
 function nativeStorage(): Storage {
     // eslint-disable-next-line @typescript-eslint/no-require-imports -- A porta em memória não depende de NativeModule.
