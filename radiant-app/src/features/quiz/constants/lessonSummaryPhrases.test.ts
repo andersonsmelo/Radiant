@@ -24,13 +24,17 @@ describe('lessonSummaryPhrases', () => {
     expect(frase).not.toBe(anterior);
   });
 
-  it('não diz "pela metade" na faixa de 0 estrelas (0 acertos nunca é metade)', () => {
-    LESSON_SUMMARY_PHRASES[0].forEach((frase) => {
-      expect(frase.toLowerCase()).not.toContain('metade');
-    });
-    expect(LESSON_SUMMARY_PHRASES[0]).toContain(
-      'Zero desta vez — rever agora fixa melhor do que seguir.'
-    );
-  });
+  // 0 estrela é zero acerto: nenhuma frase pode supor quase acerto. E a lição
+  // de 0 estrela conta como concluída na trilha (radiant-1-4-vidas-esgotadas
+  // afirma "1 de N etapas concluídas" logo depois), então nenhuma frase pode
+  // dizer que ela não fechou.
+  it.each(['metade', 'faltou pouco', 'quase', 'não fechou'])(
+    'a faixa de 0 estrelas não diz "%s"',
+    (marcador) => {
+      LESSON_SUMMARY_PHRASES[0].forEach((frase) => {
+        expect(frase.toLowerCase()).not.toContain(marcador);
+      });
+    },
+  );
 });
 

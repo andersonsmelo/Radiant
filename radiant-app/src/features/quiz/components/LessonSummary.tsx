@@ -156,12 +156,10 @@ export function LessonSummary({
         </Text>
         {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
             que o caminho dourado 1 afirma. */}
+        {/* Com 0 estrela a lição também conta como concluída na trilha: o
+            subtítulo diz o estado, e a faixa, o Pixel e a frase dizem o resultado. */}
         {kind !== 'review' ? (
-          stars > 0 ? (
-            <Text style={styles.subtitle}>A lição foi concluída</Text>
-          ) : (
-            <Text style={styles.subtitle}>A lição ainda não fechou</Text>
-          )
+          <Text style={styles.subtitle}>A lição foi concluída</Text>
         ) : (
           <Text style={styles.subtitle}>Revisão concluída</Text>
         )}
