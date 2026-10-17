@@ -137,42 +137,44 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
   - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
     porque barateia o E2E do 50;
-  - **50.** agente (Argon, 2026-10-17, branch `argon/trilha-melhorias-e-avaliacao`):
-    **P1, a lição legada honesta — implementado nas partes de UI/fluxo e verificado
-    no simulador iOS.** Removido o prefixo `"Quiz: "` nos títulos dos nós da trilha
-    (`JourneyDefinitionService.ts`, preservando `lesson.title` no passo 1 para o
-    contrato `.maestro/reward-unlock.yaml`), corrigida a tela de resumo para 0
-    estrelas (`LessonSummary.tsx` e `lessonSummaryPhrases.ts`: `"A lição ainda não
-    fechou"`, faixa neutra `zeroBand`, Pixel em `state="guide"`, sem `"pela metade"`,
-    preservando o contrato `maestro-contract.test.mjs:1186`) e reconectada a
-    explicação à pergunta e ao gabarito no passo 4 (`ReinforceStepRenderer.tsx`).
-    Documentado o bloqueio de `disabled={` em `MultipleChoiceStepRenderer.tsx`
-    (`maestro-contract.test.mjs:508`) e o viés de comprimento em `AI_LESSONS`
-    (23/32 com alternativa certa mais longa).
+  - **50.** agente: **P1, a lição legada honesta — parcial, na
+    [PR #40](https://github.com/andersonsmelo/Radiant/pull/40), em 2026-10-17.**
+    Já feito (Argon, com correções do Claude):
+    - sem "Quiz:" nos nós da trilha (o passo 1 da lição mantém o prefixo, por
+      causa de `reward-unlock.yaml`);
+    - pergunta e gabarito acima da explicação no passo de reforço;
+    - resumo de 0 estrela sem celebração, com faixa neutra e Pixel de orientação.
+      O subtítulo continua "A lição foi concluída", porque a lição de 0 estrela
+      conta como concluída na trilha.
+    **Ainda aberto:** o D1 do diagnóstico, uma só pergunta por lição
+    (`buildIntroBlock`), e o viés de comprimento: a certa é a mais longa em
+    18/32 perguntas do `AI_LESSONS`, 19 com empates. Na tela, só o título da
+    trilha foi visto no simulador; o reforço e o resumo de 0 estrela, não.
     [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) ·
     [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md);
   - **51.** agente propõe e dono aprova: **E2**, o hook que protege testes e as
     skills e MCPs só do domínio do app;
-  - **52.** ✅ **Pesquisa concluída pelo Argon em 2026-10-17** (branch
-    `argon/trilha-melhorias-e-avaliacao`): **P6, levantamento jurídico de imagens
-    com licença comercial e demandas de prova/mercado no Brasil**
-    ([relatório](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md)).
-    Verificadas 9 fontes (`NCI IDC`, `Open-i / PMC CC BY 4.0`, `Wikimedia Commons`,
-    `NIH ChestX-ray14` aprovadas; `MedPix`, `Radiopaedia`, `VinDr-CXR`,
-    `MIMIC-CXR` e `PadChest` reprovadas para uso comercial sem autorização
-    individual) e proposta lista de 15 imagens iniciais (6 diagramas SVG autorais +
-    9 exames reais `CC0`/`CC BY 4.0`). **Pendente do dono:** aprovar a seleção das
-    15 imagens antes de comitar arquivos de mídia (Regra 3 e Regra 4);
+  - **52.** agente: **P6 — pesquisa entregue pelo Argon em 2026-10-17; a saída
+    do P6 continua aberta.** A saída é pelo menos 3 imagens por trilha com
+    licença, fonte e hash registrados e aprovadas pelo dono. A
+    [pesquisa](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md)
+    aprova para uso comercial o IDC (cerca de 97% sob CC BY, conferido), o
+    Open-i/PMC filtrado por CC BY ou CC0, o Wikimedia Commons por arquivo e o
+    NIH ChestX-ray14 com atribuição. Reprova o MedPix, o Radiopaedia, o
+    PhysioNet e o PadChest. Propõe 15 imagens iniciais: 6 SVG autorais e 9
+    exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
+    repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
-    **Atualização Argon (2026-10-17, branch `argon/trilha-melhorias-e-avaliacao`):**
-    executada a verificação nativa no simulador iOS (`iPhone 17 Pro`, iOS 26.5) de
-    `G2` e `G4` (`R1`), corrigidos 2 defeitos da `ReviewScreen` (`G4`: texto de
-    formato obsoleto `"Revele a resposta e avalie se lembrou de cada item"` e
-    destaque verde `statusSuccess` em respostas erradas/com ajuda no `ReviewCard.tsx`)
-    e implementado cache em memória por snapshot em `ItemReviewRepository.ts`
-    (`A2`), eliminando `JSON.parse` + >4.000 validações redundantes em leituras
-    consecutivas ([avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md),
-    [evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
+    **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
+    da revisão foram corrigidos. O texto de formato ainda descrevia a
+    autoavaliação, e o rótulo do feedback ficava verde também no erro e na
+    ajuda. Entrou também um cache que pula o parse e a validação do
+    `ItemReviewRepository` quando a string não muda: **reduz CPU, mas não resolve
+    o A2**. Nos tetos, o store continua com cerca de 12 MiB, acima dos 6 MB do
+    Android. **Prova nativa:** no simulador iOS foram vistas só três telas (a
+    trilha, a tela inicial da revisão e o passo 1 de uma lição). Nenhuma
+    seleção, confirmação, ajuda ou feedback do G4 foi exercitada; a prova
+    nativa do G4 segue pendente (R5).
     **Estado anterior (Codex):** revisão ativa exige resposta antes do gabarito em
     2026-10-17; correção pelo catálogo, journal antes do feedback, ajuda explícita
     sem XP, retry estável e referência temporal validada.
@@ -180,17 +182,21 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
     `delayed-retention`; esse critério requer validação pedagógica e decisão.
     **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
-    Próximo: QA em aparelho Android, performance G6 e recuperação/backup/reset G7.
+    Próximo: QA nativo das interações do G4, Android, performance G6 e
+    recuperação/backup/reset G7.
+    **Remedir:** comandos dos relatórios; gate/estado no run
+    `run-1792269695725-1c4f438c`.
   - **55.** agente + dono: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
     Hoje uma `contentVersion` nova tira a lição da revisão para sempre: a
     sonda mostrou fila e agenda vazias 60 dias depois. O teste da linha 71
     fixa esse defeito como comportamento esperado.
-    **Análise do Argon em 2026-10-17:** mapeadas as 3 opções de produto na Seção
-    3.2 da [avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md)
-    (Opção 1 recomendada: `getCompletedLessonIdsForReview` aceitando qualquer
-    conclusão histórica do ledger cujo `itemId` permaneça no catálogo).
-    **Dono:** decide entre as Opções 1, 2 e 3 e se mudança material reinicia ou
-    preserva o intervalo.
+    **Correção:** reconciliar por `(lessonId, itemId)`. O item herda só a
+    agenda, nunca a evidência. O teste novo exige diferença **e** validade e
+    precisa ser visto falhando no código atual.
+    **Dono:** decide se a mudança material reinicia o intervalo ou o
+    preserva. A análise de 2026-10-17 que atribuía o A1 a um
+    `CompletionLedgerService` foi retirada: esse arquivo não existe
+    ([revisão do Argon, B2/B3](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md)).
     [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
     [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
@@ -212,13 +218,13 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Estude depois da 1ª lição. Decidir se a captura de loja fica com ele ou se
     o roteiro o dispensa antes de fotografar
     ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md));
-  - **47.** agente (parcialmente resolvido pelo Argon em 2026-10-17 na branch
-    `argon/trilha-melhorias-e-avaliacao`): a frase de 0 estrela (`"Esta ficou pela
-    metade"` → `"Zero desta vez — rever agora fixa melhor do que seguir."`), o
-    subtítulo (`"A lição ainda não fechou"`), a faixa neutra e o Pixel em
-    `state="guide"` quando `stars === 0` foram corrigidos em `LessonSummary.tsx` e
-    `lessonSummaryPhrases.ts` ([evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
-    **Resta:** `LearningAttemptRecorder` que resolve o tópico pela trilha ativa.
+  - **47.** agente: **a parte da frase e do Pixel foi resolvida em 2026-10-17
+    (PR #40).** As frases de 0 estrela não supõem mais quase acerto: saíram
+    "pela metade" e "Faltou pouco para o corte". Um teste barra "metade",
+    "faltou pouco", "quase" e "não fechou". O Pixel orienta em vez de
+    comemorar, e a faixa fica neutra
+    ([evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
+    **Resta:** o `LearningAttemptRecorder` resolve o tópico pela trilha ativa.
 - **P4 — agente, destravado:**
   - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
     devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo

@@ -8,6 +8,14 @@
 - **Método:** Verificação documental primária dos termos de licença e políticas de direitos autorais de 9 repositórios de imagem médica (`MedPix`, `Open-i / PMC`, `NCI Imaging Data Commons`, `TCIA`, `Wikimedia Commons`, `NIH ChestX-ray14`, `VinDr-CXR`, `MIMIC-CXR`, `PadChest`), cruzamento com provas/editais recentes de Técnico em Radiologia no Brasil e levantamento dos aplicativos de radiologia em português na Google Play Store e Apple App Store.
 - **Grau das afirmações:** `[oficial]`, `[terceiro]`, `[usuário]`, `[estudo]`, `[código]`, `[visto]`, `[inferido]`.
 
+> **Correções do Claude (Opus 5.5), 2026-10-17, a pedido de Anderson.** Revisão
+> [B3](../avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md). O IDC foi
+> conferido na fonte, e o NIH ChestX-ray14 e o MedPix em fontes secundárias.
+> Uma premissa atribuída à FILA 52 não existia, a coluna do catálogo estava
+> errada, os pesos de prova e as queixas de lojas não têm fonte aberta, e o G4
+> não usa FSRS. Os trechos corrigidos estão marcados. Os vereditos de licença
+> se mantêm.
+
 ---
 
 ## Parte 1 — Licenciamento de imagens radiológicas para uso comercial no Radiant (`P6` / `FILA 52`)
@@ -18,19 +26,19 @@ Como o Radiant é distribuído comercialmente com assinatura paga (`Radiant Ilim
 
 | Fonte / Dataset | Licença oficial verificada | Uso comercial permitido? | Obras derivadas (anotação/crop)? | Redistribuição no bundle/CDN do app? | Veredito para o Radiant |
 |---|---|---|---|---|---|
-| **NCI Imaging Data Commons (IDC)** | `CC BY 4.0`, `CC BY 3.0` ou `CC0` em >95% dos casos (metadado `LicenseURL` por série/instância no BigQuery/portal) `[oficial]` | **Sim** (exceto subconjunto ~3% `CC BY-NC`) `[oficial]` | **Sim** (com indicação de modificação e crédito) `[oficial]` | **Sim** `[oficial]` | **APROVADO (Fonte Primária #1 para TC/RM/RX clínicos)** `[inferido]` |
+| **NCI Imaging Data Commons (IDC)** | *[Corrigido pelo Claude em 2026-10-17]* cerca de 97% dos dados, por tamanho, sob CC BY (74,7% CC BY 4.0 e 22,1% CC BY 3.0); 2,9% CC BY-NC e 0,3% sob termos da NLM. A licença vale por série, e 39 das 176 coleções misturam licenças. A página não lista CC0. `[oficial]` | **Sim** (exceto subconjunto ~3% `CC BY-NC`) `[oficial]` | **Sim** (com indicação de modificação e crédito) `[oficial]` | **Sim** `[oficial]` | **APROVADO (Fonte Primária #1 para TC/RM/RX clínicos)** `[inferido]` |
 | **Open-i (NLM / NIH) — filtro `CC BY` / `CC0`** | Herda a licença do artigo no PubMed Central (`PMC Open Access Subset`). Aceita filtro por licença (`CC BY 4.0`, `CC0`) `[oficial]` | **Sim, somente nos itens com licença `CC BY` ou `CC0`** (proibido nos itens `CC BY-NC` ou `MedPix`) `[oficial]` | **Sim** (exceto `ND`) `[oficial]` | **Sim** `[oficial]` | **APROVADO COM FILTRO ESTRITO (`license: CC BY 4.0` ou `CC0`)** `[inferido]` |
 | **Wikimedia Commons (categorias de Radiologia)** | Licenças por arquivo (`CC0`, `Public Domain`, `CC BY 4.0`, `CC BY-SA 4.0`) `[oficial]` | **Sim** `[oficial]` | **Sim** (nota: `CC BY-SA` exige `ShareAlike` apenas na imagem derivada, não no código do app, mas `CC0`/`CC BY` são preferíveis) `[oficial]` | **Sim** `[oficial]` | **APROVADO (preferir `CC0`, `PD` e `CC BY 4.0`)** `[inferido]` |
-| **NIH ChestX-ray14 (NIH Clinical Center / Box)** | Domínio público governamental EUA / uso irrestrito com citação obrigatória de link + artigo (Wang et al., CVPR 2017) `[oficial]` | **Sim** (com atribuição obrigatória) `[oficial]` | **Sim** `[oficial]` | **Sim** `[oficial]` | **APROVADO (excelente para radiografia de tórax PA/AP e patologias torácicas)** `[inferido]` |
+| **NIH ChestX-ray14 (NIH Clinical Center / Box)** | *[Corrigido pelo Claude em 2026-10-17]* Sem restrição de uso, com três exigências de atribuição: link do NIH, citação do artigo CVPR 2017 e crédito ao NIH Clinical Center. Fonte: espelho do Google Cloud; o README do Box não foi aberto. `[terceiro]` | **Sim** (com atribuição obrigatória) `[oficial]` | **Sim** `[oficial]` | **Sim** `[oficial]` | **APROVADO (excelente para radiografia de tórax PA/AP e patologias torácicas)** `[inferido]` |
 | **Diagramas SVG autorais (produzidos no próprio repositório)** | Autoria própria (Radiant) `[código]` | **Sim** | **Sim** | **Sim** | **APROVADO E RECOMENDADO para posicionamento radiográfico, raio central, chassis e linhas cranianas** `[inferido]` |
-| **MedPix (NLM / NIH)** | Termos próprios: *"Images and text in MedPix are free for educational use only... You must get permission from the original author for any commercial use"* `[oficial]` | **Não** (uso gratuito restrito a fins educacionais não comerciais; uso comercial exige autorização individual do autor de cada caso) `[oficial]` | Não para fins comerciais `[oficial]` | Não para fins comerciais `[oficial]` | **REPROVADO para uso sem autorização individual do autor** `[oficial]` |
+| **MedPix (NLM / NIH)** | *[Corrigido pelo Claude em 2026-10-17]* Sem licença Creative Commons. Uso pessoal e ensino local; para outros usos, permissão do contribuidor. É paráfrase de guia de biblioteca: a citação literal do texto original não foi encontrada na fonte. `[terceiro]` | **Não** (uso gratuito restrito a fins educacionais não comerciais; uso comercial exige autorização individual do autor de cada caso) `[oficial]` | Não para fins comerciais `[oficial]` | Não para fins comerciais `[oficial]` | **REPROVADO para uso sem autorização individual do autor** `[oficial]` |
 | **Radiopaedia.org** | `CC BY-NC-SA 3.0` `[oficial]` | **Não** (`NC` proíbe uso comercial sem licença empresarial separada) `[oficial]` | Não para uso comercial `[oficial]` | **Não** `[oficial]` | **REPROVADO** `[oficial]` |
 | **VinDr-CXR / MIMIC-CXR (PhysioNet)** | *PhysioNet Credentialed Health Data License v1.5.0* `[oficial]` | **Não** (*"solely for lawful use in scientific research"*) `[oficial]` | **Não** `[oficial]` | **Não** (proíbe redistribuição a terceiros) `[oficial]` | **REPROVADO** `[oficial]` |
 | **PadChest (BIMCV)** | *BIMCV Academic / Research Use Agreement* `[oficial]` | **Não** (restrito a pesquisa acadêmica) `[oficial]` | **Não** `[oficial]` | **Não** `[oficial]` | **REPROVADO** `[oficial]` |
 
-### 1.2. Alerta crítico sobre o plano anterior (`P6` / `FILA 52`)
+### 1.2. MedPix: confirmação, não correção
 
-O item `FILA 52` mencionava *"Fontes candidatas com licença compatível com uso comercial: MedPix (NIH, domínio público), Open-i (NLM, filtro CC-BY/PD), Wikimedia Commons"*. **A premissa de que o MedPix inteiro está em domínio público é falsa:** embora seja hospedado pela NLM/NIH, os casos clínicos do MedPix foram submetidos por médicos externos que retiveram o copyright comercial, concedendo à NLM apenas licença de uso educacional gratuito (`[oficial]`). Além disso, quando o motor de busca do **Open-i** retorna imagens vindas da coleção MedPix, elas carregam essa mesma restrição. `[oficial]`
+*[Corrigido pelo Claude em 2026-10-17]* O texto original dizia que a FILA 52 tratava o MedPix como domínio público. Nenhum documento do repositório diz isso. A [pesquisa de 16/10](2026-10-16-praticas-desenvolvimento-com-agentes.md) já registrava que o MedPix não tem licença Creative Commons. Esta pesquisa confirma: imagem do MedPix só entra com permissão escrita do contribuidor de cada caso. `[terceiro]`
 
 Portanto, a regra de governança para entrada de qualquer imagem no Radiant deve exigir obrigatoriamente:
 1. `sourceUrl` (URL permanente do item original no PMC, IDC, Wikimedia Commons ou NIH Clinical Center); `[inferido]`
@@ -73,7 +81,7 @@ O público-alvo do Radiant divide-se em dois momentos com dores distintas: `[est
 
 O levantamento das provas recentes de Técnico em Radiologia organizadas por **IBFC (`EBSERH`)**, **FGV** e **VUNESP** mostra uma concentração temática muito diferente do estado atual do catálogo do Radiant: `[terceiro]` `[código]`
 
-| Eixo temático | Peso aproximado nas provas de Técnico em Radiologia (IBFC/EBSERH, FGV, VUNESP) `[terceiro]` | Participação atual no catálogo ativo do Radiant (`16 lições AI_LESSONS + 2 LESSONS`) `[código]` | Diagnóstico de lacuna `[inferido]` |
+| Eixo temático | Peso aproximado nas provas (IBFC/EBSERH, FGV, VUNESP) `[inferido]`, sem fonte aberta; ver correção | Participação no catálogo (`16 lições AI_LESSONS + 2 LESSONS`), **coluna incorreta; ver correção** | Diagnóstico de lacuna `[inferido]` |
 |---|---|---|---|
 | **1. Posicionamento radiográfico e incidências (rotina + especiais, raio central, chassi, DFoFi, critérios de qualidade)** | **30% a 40%** | **~6%** (apenas 1 lição geral em `ai-lessons.ts`: `posicionamento-radiografico`) | **Lacuna crítica #1:** é o tema mais cobrado em provas e o mais usado no plantão diário, mas quase inexiste por região anatômica (tórax, crânio, coluna, membros superiores/inferiores) no app. |
 | **2. Proteção radiológica e legislação brasileira (`RDC ANVISA nº 611/2022`, `INs 90 a 97/2021`, `CNEN NN 3.01`, `Lei 7.394/1985`, Código de Ética CONTER)** | **20% a 25%** | **~17%** (3 lições em `ai-lessons.ts`: proteção, princípios/limites de dose e equipamento de proteção) | **Desatualização normativa:** as bancas de 2023–2026 cobram pesadamente a **`RDC ANVISA nº 611/2022`** (que revogou a antiga Portaria SVS/MS 453/1998) e os princípios de justificação, otimização (ALARA) e limitação de dose da **`CNEN NN 3.01`**. |
@@ -81,17 +89,23 @@ O levantamento das provas recentes de Técnico em Radiologia organizadas por **I
 | **4. Anatomia radiológica (identificação de estruturas em RX/TC/RM)** | **10% a 15%** | **~6%** (sem imagens no app atual) | **Lacuna crítica #2:** sem imagem (`G3`), o aluno decora texto sobre anatomia em vez de reconhecer a estrutura na imagem. |
 | **5. Tomografia Computadorizada (`TC` — geração, pitch, unidades Hounsfield `UH`, janelamento `WW`/`WL`, meios de contraste), Mamografia e Ressonância Magnética (`RM`)** | **10% a 15%** | **~22%** (3 lições em `ai-lessons.ts` + `lesson-2`) | Bom ponto de partida teórico; precisa de casos práticos de **unidades Hounsfield (`UH`)**, **janelamento** e **segurança em RM / meios de contraste**. |
 
+*[Corrigido pelo Claude em 2026-10-17]* **Sobre a tabela acima:**
+- **Pesos:** nenhuma prova ou edital está entre as fontes. As faixas por tema valem como hipótese `[inferido]`, até alguém tabular provas reais com URL.
+- **Catálogo:** a contagem real nos títulos de `AI_LESSONS` é outra `[código]`. Posicionamento radiográfico tem **0 lições** dedicadas, e não existe lição `posicionamento-radiografico`. Proteção tem **1** ("Interação das radiações e proteção radiológica"). TC e RM têm **2**. Anatomia radiológica tem **0**. O resto é física, equipamento, processamento, qualidade de imagem, profissão e aplicações.
+
+  A conclusão de lacuna em posicionamento fica mais forte, e não mais fraca.
+
 ### 2.2. O que existe nas lojas brasileiras (Google Play e App Store) e o que os usuários reclamam
 
-Levantamento dos aplicativos voltados a estudantes e técnicos de radiologia no Brasil em 2026-10-17: `[terceiro]` `[usuário]`
+Levantamento dos aplicativos voltados a estudantes e técnicos de radiologia no Brasil em 2026-10-17. *[Corrigido pelo Claude em 2026-10-17]* A única fonte é uma URL de busca da Play Store, e o registro de execução mostra buscas sem páginas abertas. Os nomes de apps e as queixas abaixo não foram auditados: trate como `[inferido]` até alguém citar as páginas e avaliações lidas.
 
 1. **Apps de consulta de posicionamento (`RX - Posicionamento Radiográfico`, `Manual Técnico em Radiologia`, `Radiologia - Posicionamentos` na Google Play):** `[terceiro]` `[usuário]`
    - Funcionam como **apostilas estáticas de bolso** (listas de texto + fotos de baixa resolução mostrando distância foco-filme, tamanho de chassi e angulação do raio central).
    - **Principais queixas dos usuários nas avaliações:** excesso de anúncios intrusivos abrindo em tela cheia durante o estudo/estágio, interface datada, textos copiados sem revisão, ausência de exercícios interativos e falta de atualização. `[usuário]`
 2. **Apps de simulado de concurso (`Simutec Radio`, `Questões de Radiologia`):** `[terceiro]` `[usuário]`
-   - Bancos de questões cruas no formato de prova antiga, sem trilha estruturada, sem repetição espaçada (`FSRS`) e frequentemente **sem comentário explicativo nas alternativas incorretas** (mostram apenas a letra do gabarito). `[usuário]`
+   - Bancos de questões cruas no formato de prova antiga, sem trilha estruturada, sem repetição espaçada e frequentemente **sem comentário explicativo nas alternativas incorretas** (mostram apenas a letra do gabarito). `[usuário]`
 3. **Diferencial competitivo claro para o Radiant:** `[inferido]`
-   - Nenhum concorrente brasileiro combina **trilha gamificada progressiva + repetição espaçada científica (`FSRS` já implementado em `G4`) + explicação imediata da alternativa incorreta (`G1`) + inspeção visual de posicionamento e anatomia (`G3`)** em uma interface limpa e sem anúncios.
+   - Nenhum concorrente brasileiro combina **trilha gamificada progressiva + repetição espaçada por item (SM-2 no G4; *[Corrigido pelo Claude em 2026-10-17]* o FSRS não foi adotado) + explicação junto da pergunta + inspeção visual de posicionamento e anatomia (`G3`)** em uma interface limpa e sem anúncios.
    - Porém, para capturar a demanda real do técnico brasileiro, o currículo da trilha precisa incorporar rapidamente:
      1. **Unidade prática de Posicionamento Radiográfico por região anatômica** (Tórax/Abdome, Membros Superiores, Membros Inferiores, Coluna e Crânio, com raio central, `DFoFi`, linha de referência e critério de qualidade da imagem); `[inferido]`
      2. **Questões atualizadas para a `RDC ANVISA nº 611/2022` e `CNEN NN 3.01`** (deixando claro nas explicações quando uma pegadinha de banca tenta usar termos da antiga Portaria 453/1998); `[inferido]`
@@ -104,7 +118,7 @@ Levantamento dos aplicativos voltados a estudantes e técnicos de radiologia no 
 1. **NLM / NIH — MedPix Copyright and Usage Policy:** `https://medpix.nlm.nih.gov/home` e FAQ da NLM (`https://support.nlm.nih.gov/knowledgebase/article/KA-03305/en-us`), acessados em 2026-10-17. `[oficial]`
 2. **NLM / NIH — Open-i Biomedical Image Search Engine FAQ & License Filter:** `https://openi.nlm.nih.gov/faq`, acessado em 2026-10-17. `[oficial]`
 3. **PubMed Central (PMC) — Open Access Subset Licensing Terms:** `https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/`, acessado em 2026-10-17. `[oficial]`
-4. **NCI Imaging Data Commons (IDC) — Data Licensing Policy:** `https://learn.canceridc.dev/data/organization-of-data/licensing`, acessado em 2026-10-17. `[oficial]`
+4. **NCI Imaging Data Commons (IDC) — Data Licensing Policy:** `https://learn.canceridc.dev/data/licensing`, acessado em 2026-10-17. *[Corrigido pelo Claude em 2026-10-17]* O link original dava página inexistente. `[oficial]`
 5. **The Cancer Imaging Archive (TCIA) — Data Usage Policies and Restrictions:** `https://www.cancerimagingarchive.net/data-usage-policies-and-restrictions/`, acessado em 2026-10-17. `[oficial]`
 6. **NIH Clinical Center — ChestX-ray14 Dataset Box Repository & Usage Notice:** `https://nihcc.app.box.com/v/ChestXray-NIHCC`, acessado em 2026-10-17. `[oficial]`
 7. **PhysioNet — Credentialed Health Data License 1.5.0 (`VinDr-CXR`, `MIMIC-CXR`):** `https://physionet.org/content/vindr-cxr/view-license/1.0.0/`, acessado em 2026-10-17. `[oficial]`

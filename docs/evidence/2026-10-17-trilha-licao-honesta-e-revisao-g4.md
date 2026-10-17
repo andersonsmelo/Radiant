@@ -168,3 +168,52 @@
 
 - **Fontes:** Código e suíte de testes de `radiant-app` na branch `argon/trilha-melhorias-e-avaliacao` (acesso em 2026-10-17). `[código]`
 - **Limites:** Os testes de componente usam `@testing-library/react-native` sob Jest; a verificação visual nativa foi feita no simulador iOS (`iPhone 17 Pro`).
+
+---
+
+## 5. Correções do Claude (Opus 5.5), 2026-10-17, a pedido de Anderson
+
+Revisão completa: [B1–B5](../trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md),
+na branch `feat/trilha-evolucao-global-g0-g4`.
+
+- **O ciclo 2 foi substituído (B1).** `radiant-1-4-vidas-esgotadas.yaml` toca
+  `lesson-option-q1:option:0`, mas a correta é a de índice 1
+  (`src/data/lessons.ts:38`). Depois desse erro, o roteiro afirma "A lição foi
+  concluída" e "1 de N etapas concluídas". `[código]` A lição de 0 estrela
+  conta, portanto, como concluída, e "A lição ainda não fechou" quebrava esse
+  roteiro e contradizia o app. O contrato estático só confere o caminho 1.
+  - **Correção:** o subtítulo volta a ser sempre "A lição foi concluída".
+    Trocam-se as frases "Faltou pouco para o corte" (quase acerto) e "Ainda não
+    fechou" (contradição). Faixa neutra, Pixel de orientação e "Zero desta vez"
+    ficam.
+  - **Vermelho**, com os testes novos sobre o código do Argon, falhando pelo
+    motivo previsto: `[visto]`
+    ```text
+      ● LessonSummary › com 0 estrelas, diz a verdade sobre a conclusão sem celebrar: faixa neutra e Pixel de orientação
+        Unable to find an element with text: A lição foi concluída
+      ● lessonSummaryPhrases › a faixa de 0 estrelas não diz "faltou pouco"
+        Expected substring: not "faltou pouco"
+        Received string:        "faltou pouco para o corte. a segunda passada costuma render."
+      ● lessonSummaryPhrases › a faixa de 0 estrelas não diz "não fechou"
+        Expected substring: not "não fechou"
+        Received string:        "ainda não fechou. refazer agora é o caminho mais curto."
+    Tests:       3 failed, 34 passed, 37 total
+    ```
+  - **Verde** depois da correção: `src/features/quiz` com 7 suítes e 82 testes,
+    e `maestro-contract.test.mjs` com 29 aprovados e 0 falhas. Nenhum roteiro
+    `.maestro` afirma as frases trocadas nem o rótulo do Pixel. `[visto]`
+  - O roteiro Maestro não foi executado no simulador.
+- **O A2 continua aberto.** O ciclo 5 reduz CPU: pula o parse e a validação
+  quando a string não muda. O tamanho do store não muda: com tetos de 20.000
+  cartões e 2.000 tentativas, chega a cerca de 12 MiB, acima dos 6 MB do banco
+  do AsyncStorage no Android. `[código]`
+- **Prova nativa (seção 2):** foram as três telas listadas. Nenhuma interação
+  do G4 (seleção, confirmação, ajuda, feedback) foi exercitada. A seção é rotulada
+  "R1", mas no plano de coordenação a prova nativa é a R5. `[visto]`
+- **O caminho do run, que o relatório omitia:** o primeiro run,
+  `run-1792273771417-406f34c9`, foi fechado depois de um `OUT_OF_SCOPE_CHANGE`
+  causado pelo `radiant-app/expo-env.d.ts`, que o `npx expo start` gera. O
+  trabalho foi refeito no `run-1792276493622-43dba884`, que precisou de três
+  ciclos de validação. O `app-quality` passou só depois que o simulador foi
+  desligado. `[visto]` A causa, carga de CPU, é inferência do Argon. `[inferido]`
+
