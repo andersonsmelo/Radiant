@@ -26,6 +26,8 @@ export type JourneyNodeDefinition = {
     lessonId?: QuizLessonId;
     blockId?: string;
     unlockRule?: UnlockRule;
+    /** Apenas conquistas marcadas pelo catálogo composto deixam de ser portão. */
+    optionalForProgression?: boolean;
 };
 
 export type JourneyNode = JourneyNodeDefinition & {
@@ -39,6 +41,7 @@ export type NextNodeCandidate = {
     order: number;
     unlocked: boolean;
     completed: boolean;
+    optionalForProgression?: boolean;
     pausedStepIndex?: number;
     dueAtMs?: number;
 };

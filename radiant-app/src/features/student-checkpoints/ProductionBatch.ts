@@ -159,7 +159,26 @@ function isFilled(value: unknown): value is string {
 }
 
 function isIsoTimestamp(value: unknown): value is string {
-    return isFilled(value) && !Number.isNaN(Date.parse(value));
+    return isFilled(value) && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
+/** Mesma validação para artefato JSON externo e catálogo compilado; nunca confia só no hash declarado. */
+export function validatePromotedProductionBatch(value: unknown): string[] {
+    try {
+        const batch = value as ProductionBatchV1;
+        const issues: string[] = [];
+        if (batch.state !== 'promoted') issues.push('invalid-promoted-envelope');
+        if (!isIsoTimestamp(batch.promotedAt) || !isFilled(batch.promotionRef)) issues.push('invalid-promotion-authorization');
+        const candidate: EditorialCurriculumCandidateV1 = {
+            schemaVersion: 1, promotionState: 'human-gates-pending',
+            trackId: batch.trackId, unitId: batch.unitId, contentVersion: batch.contentVersion,
+            competencyIds: batch.competencyIds, sources: batch.sources, activities: batch.activities,
+            checkpoint: batch.checkpoint, reinforcement: batch.reinforcement, claimProvenance: batch.claimProvenance,
+            approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' },
+        };
+        issues.push(...validateProductionBatchDraft({ ...batch, state: 'ready-for-promotion', candidate }));
+        return issues;
+    } catch { return ['invalid-production-batch-shape']; }
 }
 
 function deepCloneAndFreeze<T>(value: T): T {

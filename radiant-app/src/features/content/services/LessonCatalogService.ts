@@ -1,3 +1,4 @@
+import { composeCurriculumCatalog } from './composeCurriculumCatalog';
 import { LESSON_CATALOG } from '../../../data/catalog';
 import { LESSONS } from '../../../data/lessons';
 import { AI_LESSONS } from '../../../data/ai-lessons';
@@ -19,21 +20,7 @@ function createLocalManifest(): LessonCatalogManifest {
 }
 
 function withProductionCurriculum(manifest: LessonCatalogManifest): LessonCatalogManifest {
-    const productionTracks = ProductionCurriculumCatalog.listTracks();
-    const productionTrackIds = new Set(productionTracks.map((track) => track.id));
-    const productionLessons = ProductionCurriculumCatalog.listLessonSummaries();
-    const productionLessonIds = new Set(productionLessons.map((lesson) => lesson.id));
-    return {
-        ...manifest,
-        tracks: [
-            ...manifest.tracks.filter((track) => !productionTrackIds.has(track.id)),
-            ...productionTracks,
-        ],
-        lessons: [
-            ...manifest.lessons.filter((lesson) => !productionLessonIds.has(lesson.id)),
-            ...productionLessons,
-        ],
-    };
+    return composeCurriculumCatalog(manifest, ProductionCurriculumCatalog);
 }
 
 function sanitizeRemoteManifest(
