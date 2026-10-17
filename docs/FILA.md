@@ -137,43 +137,60 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
   - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
     porque barateia o E2E do 50;
-  - **50.** agente: **P1, a lição legada honesta**, executando o
-    [plano tarefa a tarefa](trilha/plano/2026-10-16-licao-legada-honesta.md).
-    Fecha a parte da frase do 47;
+  - **50.** agente (Argon, 2026-10-17, branch `argon/trilha-melhorias-e-avaliacao`):
+    **P1, a lição legada honesta — implementado nas partes de UI/fluxo e verificado
+    no simulador iOS.** Removido o prefixo `"Quiz: "` nos títulos dos nós da trilha
+    (`JourneyDefinitionService.ts`, preservando `lesson.title` no passo 1 para o
+    contrato `.maestro/reward-unlock.yaml`), corrigida a tela de resumo para 0
+    estrelas (`LessonSummary.tsx` e `lessonSummaryPhrases.ts`: `"A lição ainda não
+    fechou"`, faixa neutra `zeroBand`, Pixel em `state="guide"`, sem `"pela metade"`,
+    preservando o contrato `maestro-contract.test.mjs:1186`) e reconectada a
+    explicação à pergunta e ao gabarito no passo 4 (`ReinforceStepRenderer.tsx`).
+    Documentado o bloqueio de `disabled={` em `MultipleChoiceStepRenderer.tsx`
+    (`maestro-contract.test.mjs:508`) e o viés de comprimento em `AI_LESSONS`
+    (23/32 com alternativa certa mais longa).
+    [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) ·
+    [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md);
   - **51.** agente propõe e dono aprova: **E2**, o hook que protege testes e as
     skills e MCPs só do domínio do app;
-  - **52.** agente: **P6**, o levantamento de imagens com licença comercial
-    verificada. Pode correr em paralelo com o 50.
-    Em 2026-10-17, o Argon (Gemini) recebeu o
-    [`trilha/PROMPT-ARGON.md`](trilha/PROMPT-ARGON.md), um norte sem escopo
-    fechado; o P6 é uma das frentes sugeridas. A IA que pegar o item registra
-    a reserva aqui;
+  - **52.** ✅ **Pesquisa concluída pelo Argon em 2026-10-17** (branch
+    `argon/trilha-melhorias-e-avaliacao`): **P6, levantamento jurídico de imagens
+    com licença comercial e demandas de prova/mercado no Brasil**
+    ([relatório](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md)).
+    Verificadas 9 fontes (`NCI IDC`, `Open-i / PMC CC BY 4.0`, `Wikimedia Commons`,
+    `NIH ChestX-ray14` aprovadas; `MedPix`, `Radiopaedia`, `VinDr-CXR`,
+    `MIMIC-CXR` e `PadChest` reprovadas para uso comercial sem autorização
+    individual) e proposta lista de 15 imagens iniciais (6 diagramas SVG autorais +
+    9 exames reais `CC0`/`CC BY 4.0`). **Pendente do dono:** aprovar a seleção das
+    15 imagens antes de comitar arquivos de mídia (Regra 3 e Regra 4);
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
-    **Retomada:** Anderson pediu parar em 2026-10-17 e consolidar contexto;
-    não iniciar execução automaticamente. Próxima IA deve ler o
-    [índice completo](trilha/README.md) e o [prompt](trilha/PROMPT-PARA-IAS.md),
-    medir a árvore compartilhada e escolher um objetivo após nova autorização.
-    **Estado:** revisão ativa exige resposta antes do gabarito em 2026-10-17;
-    correção pelo catálogo, journal antes do feedback, ajuda explícita sem XP,
-    retry estável e referência temporal validada. Nove suítes/126 testes
-    focados e quatro mutações. [Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+    **Atualização Argon (2026-10-17, branch `argon/trilha-melhorias-e-avaliacao`):**
+    executada a verificação nativa no simulador iOS (`iPhone 17 Pro`, iOS 26.5) de
+    `G2` e `G4` (`R1`), corrigidos 2 defeitos da `ReviewScreen` (`G4`: texto de
+    formato obsoleto `"Revele a resposta e avalie se lembrou de cada item"` e
+    destaque verde `statusSuccess` em respostas erradas/com ajuda no `ReviewCard.tsx`)
+    e implementado cache em memória por snapshot em `ItemReviewRepository.ts`
+    (`A2`), eliminando `JSON.parse` + >4.000 validações redundantes em leituras
+    consecutivas ([avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md),
+    [evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
+    **Estado anterior (Codex):** revisão ativa exige resposta antes do gabarito em
+    2026-10-17; correção pelo catálogo, journal antes do feedback, ajuda explícita
+    sem XP, retry estável e referência temporal validada.
+    [Evidências G4](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
     **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
     `delayed-retention`; esse critério requer validação pedagógica e decisão.
     **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
-    Próximo: QA nativo G4/G6, performance e recuperação/backup/reset G7.
-    Permanecem limites de histórico e janela entre XP e jornada; G3 real,
-    acervo G5, mapa G2 e P1 (50). Aprovação libera próxima; conquista opcional.
-    **Remedir:** comandos do relatório; gate/estado no run
-    `run-1792269695725-1c4f438c`.
-  - **55.** agente: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
+    Próximo: QA em aparelho Android, performance G6 e recuperação/backup/reset G7.
+  - **55.** agente + dono: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
     Hoje uma `contentVersion` nova tira a lição da revisão para sempre: a
     sonda mostrou fila e agenda vazias 60 dias depois. O teste da linha 71
     fixa esse defeito como comportamento esperado.
-    **Correção:** reconciliar por `(lessonId, itemId)`. O item herda só a
-    agenda, nunca a evidência. O teste novo exige diferença **e** validade e
-    precisa ser visto falhando no código atual.
-    **Dono:** decide se a mudança material reinicia o intervalo ou o
-    preserva.
+    **Análise do Argon em 2026-10-17:** mapeadas as 3 opções de produto na Seção
+    3.2 da [avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md)
+    (Opção 1 recomendada: `getCompletedLessonIdsForReview` aceitando qualquer
+    conclusão histórica do ledger cujo `itemId` permaneça no catálogo).
+    **Dono:** decide entre as Opções 1, 2 e 3 e se mudança material reinicia ou
+    preserva o intervalo.
     [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
     [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
@@ -195,9 +212,13 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Estude depois da 1ª lição. Decidir se a captura de loja fica com ele ou se
     o roteiro o dispensa antes de fotografar
     ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md));
-  - **47.** agente: a frase de 0 estrela ainda supõe um quase acerto ("Faltou
-    pouco", "pela metade"), e o Pixel comemora mesmo com 0 estrela. O
-    `LearningAttemptRecorder` resolve o tópico pela trilha ativa.
+  - **47.** agente (parcialmente resolvido pelo Argon em 2026-10-17 na branch
+    `argon/trilha-melhorias-e-avaliacao`): a frase de 0 estrela (`"Esta ficou pela
+    metade"` → `"Zero desta vez — rever agora fixa melhor do que seguir."`), o
+    subtítulo (`"A lição ainda não fechou"`), a faixa neutra e o Pixel em
+    `state="guide"` quando `stars === 0` foram corrigidos em `LessonSummary.tsx` e
+    `lessonSummaryPhrases.ts` ([evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
+    **Resta:** `LearningAttemptRecorder` que resolve o tópico pela trilha ativa.
 - **P4 — agente, destravado:**
   - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
     devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo
