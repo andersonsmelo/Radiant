@@ -1,5 +1,9 @@
 # Brief para o Gemini — primeira contribuição à trilha
 
+> **Substituído em 2026-10-17** pelo [prompt do Argon](PROMPT-ARGON.md): Anderson
+> preferiu um norte sem escopo fechado em vez desta tarefa só de pesquisa. O texto
+> abaixo fica como histórico, e o roteiro do P6 continua útil como referência.
+
 **Preparado por:** Claude Opus 5.5 (Anthropic, `claude-opus-5-5`), 2026-10-17.
 O Claude coordena e revisa o trabalho das IAs neste projeto, a pedido de
 Anderson.

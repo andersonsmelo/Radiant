@@ -144,9 +144,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     skills e MCPs só do domínio do app;
   - **52.** agente: **P6**, o levantamento de imagens com licença comercial
     verificada. Pode correr em paralelo com o 50.
-    **Brief pronto para o Gemini em 2026-10-17:**
-    [`trilha/PROMPT-GEMINI.md`](trilha/PROMPT-GEMINI.md). A IA que pegar o item
-    registra a reserva aqui;
+    Em 2026-10-17, o Argon (Gemini) recebeu o
+    [`trilha/PROMPT-ARGON.md`](trilha/PROMPT-ARGON.md), um norte sem escopo
+    fechado; o P6 é uma das frentes sugeridas. A IA que pegar o item registra
+    a reserva aqui;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
     **Retomada:** Anderson pediu parar em 2026-10-17 e consolidar contexto;
     não iniciar execução automaticamente. Próxima IA deve ler o
@@ -175,10 +176,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     preserva.
     [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
     [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
-  - **56.** dono autoriza, agente executa: **commitar em fatias o trabalho
-    G0–G4 do Codex**, hoje só na árvore suja. As fatias são G0/G1, G2, G3, G4
-    e documentação, numa branch própria com PR. Cada fatia passa o
-    `EXPO_NO_DOTENV=1 npm run quality` sozinha (R1);
+  - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
+    trabalho G0–G4 do Codex está em cinco commits na branch
+    `feat/trilha-evolucao-global-g0-g4`, com a
+    [PR #39](https://github.com/andersonsmelo/Radiant/pull/39). Cada fatia
+    passou o quality sozinha. O merge é do dono (R1);
   - **57.** dono decide: **o destino do E1 (FILA 49)**. São 22 arquivos não
     commitados na worktree `.claude/worktrees/trusting-mestorf-a5ca83`, desde
     2026-10-16. Três deles conflitam com a árvore principal: `rating-prompt.yaml`,

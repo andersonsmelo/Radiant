@@ -3178,3 +3178,14 @@ G3 exige produção/revisão real; acervo G5, mapa amplo, G2 nativo e P1 continu
 Remedir no Node 20 pelos comandos do relatório e inventário estrutural. Sem
 conteúdo novo aprovado, alteração de release, V3 ativado, execução nativa,
 build, publicação, commit, push ou merge. Árvore compartilhada preservada.
+
+---
+
+### Saído do STATUS em 2026-10-17 (PR #39 publicou o trabalho G0–G4)
+
+> O código da
+> trilha permanece local e não commitado na árvore compartilhada de
+> `codex/radiant-study-improvements`, HEAD `2c1b5f0`; preservar trabalho e renomes
+> staged de outras sessões.
+
+> O trabalho G0–G4 continua não commitado ([FILA 56](FILA.md)).

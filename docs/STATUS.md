@@ -590,9 +590,12 @@ decidido pelo dono em 2026-09-23 e ainda não construído.
 encerrada por enquanto; nenhuma frente nova deve ser iniciada sem retomada
 autorizada. [Índice consolidado das pesquisas/entregas](trilha/README.md) e
 [prompt para a próxima IA](trilha/PROMPT-PARA-IAS.md) atualizados. O código da
-trilha permanece local e não commitado na árvore compartilhada de
-`codex/radiant-study-improvements`, HEAD `2c1b5f0`; preservar trabalho e renomes
-staged de outras sessões. O run documental de consolidação é
+trilha está em cinco commits, um por pacote (G0/G1, G2, G3, G4 e docs), na
+branch `feat/trilha-evolucao-global-g0-g4`, com a
+[PR #39](https://github.com/andersonsmelo/Radiant/pull/39) aberta contra a
+`main` em 2026-10-17. Cada fatia passou sozinha o `npm run quality`. A PR
+também carrega 39 commits locais de 2026-10-09 a 16 que nunca tinham sido
+publicados. O merge é do dono. O run documental de consolidação é
 `run-1792270280343-e58c9352`; seu gate/estado se consulta pela CLI.
 
 **G4 — revisão com resposta antes do gabarito implementada localmente.** O aluno
@@ -642,7 +645,7 @@ Os 15 validadores passam na árvore atual: 173 suítes e 1.728 testes no app,
 - **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
   árvore ([FILA 57](FILA.md)).
 
-O trabalho G0–G4 continua não commitado ([FILA 56](FILA.md)). Desde 17/10, o
+O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39) ([FILA 56](FILA.md), feita). Desde 17/10, o
 Claude revisa e coordena as IAs.
 [Revisão](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md) e
 [protocolo](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).

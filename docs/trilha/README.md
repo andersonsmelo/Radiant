@@ -19,7 +19,11 @@ de Anderson. Leia estes dois documentos antes de escolher trabalho:
   - nada commitado.
 - [Avanços e protocolo entre IAs](plano/2026-10-17-avancos-e-coordenacao-multi-ia.md):
   a sequência R1–R8, quem faz o quê e as regras de reserva, entrega e revisão.
-- [Brief do Gemini](PROMPT-GEMINI.md): pesquisa do P6, licenças de imagem.
+- [Prompt do Argon](PROMPT-ARGON.md): o norte, sem escopo fechado, para o
+  Argon (Gemini) avaliar, pesquisar e implementar. Ele substitui o
+  [brief do Gemini](PROMPT-GEMINI.md), que era só de pesquisa.
+- O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39),
+  em cinco commits.
 
 ## Direção atual — evolução global, 2026-10-16
 
