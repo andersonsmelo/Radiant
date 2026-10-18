@@ -1,0 +1,182 @@
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.620167
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+  ---
+  duration_ms: 7.905791
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count
+  ---
+  duration_ms: 13.443708
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch
+  ---
+  duration_ms: 8.760292
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked
+  ---
+  duration_ms: 1.002666
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier
+  ---
+  duration_ms: 0.588208
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap
+  ---
+  duration_ms: 8.711917
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 8 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+  ---
+  duration_ms: 4.481416
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 9 - native learning flows confirm selected multiple-choice answers with the explicit action
+  ---
+  duration_ms: 5.264208
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 10 - keeps icon glyphs out of the accessibility tree
+  ---
+  duration_ms: 22.898791
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 11 - keeps the journey trail on the dark galaxy theme it renders inside
+  ---
+  duration_ms: 1.252583
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 12 - never lets a route fall back to the native header
+  ---
+  duration_ms: 0.220792
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 13 - keeps the e2e build local-first and bypasses the beta gate
+  ---
+  duration_ms: 0.201292
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 14 - keeps active checkpoints confined to the dedicated internal profile
+  ---
+  duration_ms: 0.206833
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 15 - every EAS build profile disables the Sentry source map upload, inheritance resolved
+  ---
+  duration_ms: 0.194834
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 16 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+  ---
+  duration_ms: 0.282208
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 17 - keeps lesson-answer selectors accessible and deterministic
+  ---
+  duration_ms: 0.190958
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 18 - ties the first-run flow to the copy WelcomeFlowScreen actually renders
+  ---
+  duration_ms: 0.779125
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 19 - requires dated per-platform device evidence before any e2e pass is claimed
+  ---
+  duration_ms: 0.371791
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 20 - makes every scroll-until-visible wait for the screen it is about to scroll
+  ---
+  duration_ms: 1.283917
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 21 - makes every scroll-until-visible state the visibility bar it is measured by
+  ---
+  duration_ms: 1.970583
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 22 - never lets a scroll-until-visible hide behind a visibility guard
+  ---
+  duration_ms: 1.344666
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 23 - rating flow completes the current review caller and preserves the native dialog
+  ---
+  duration_ms: 0.728334
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 24 - preserves rating eligibility prerequisites and the native dialog assertion
+  ---
+  duration_ms: 2.051375
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 25 - ties the locked-reward flow to the node id the app actually builds
+  ---
+  duration_ms: 0.6655
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 26 - keeps the unlock-rule flow walking the whole track the catalog declares
+  ---
+  duration_ms: 4.460875
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 27 - escapes every "?" in every selector of every flow
+  ---
+  duration_ms: 2.909375
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 28 - keeps one visibility bar per selector across every flow
+  ---
+  duration_ms: 2.847792
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 29 - ties the three 1.4 golden paths to the rules and copy they exist to exercise
+  ---
+  duration_ms: 4.99075
+  ...
+# Subtest: vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+not ok 30 - vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts
+  ---
+  duration_ms: 3.137125
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/review-42/radiant-app/scripts/maestro-contract.test.mjs:1294:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    losing the last heart still completes
+    + actual - expected
+    
+    + 'Suas vidas acabaram'
+    - 'A lição foi concluída'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'A lição foi concluída'
+  actual: 'Suas vidas acabaram'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/review-42/radiant-app/scripts/maestro-contract.test.mjs:1299:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+ok 31 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 36.287917
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 30
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 311.593917

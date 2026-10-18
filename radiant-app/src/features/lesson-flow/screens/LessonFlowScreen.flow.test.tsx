@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
-import { AccessibilityInfo } from 'react-native';
+import { AccessibilityInfo, StyleSheet } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import LessonFlowScreen from './LessonFlowScreen';
@@ -16,6 +16,7 @@ import JourneyHomeScreen from '../../journey/screens/JourneyHomeScreen';
 import LearnRoute from '../../../app/learn';
 import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
+import { semanticColors } from '../../../ui/semantic-colors';
 
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
@@ -1454,7 +1455,9 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(screen.getByText('Conferir resposta')).toBeTruthy();
     expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
   });
-  it('M4 deixa ler o feedback do último débito antes de abrir a folha, sem concluir', async () => {
+  // Decisão do dono (ADR de 2026-10-18, régua e última vida): perder a última
+  // vida no último retorno conclui a lição, como na lição legada.
+  it('M4 a última vida perdida no último retorno conclui a lição, sem abrir a folha', async () => {
     heartsRepository.spend.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
     await open();
     await answer('Pneumotórax');
@@ -1462,9 +1465,38 @@ describe('FILA 58 — integração do motor híbrido', () => {
     await answer('Resposta dois');
     fireEvent.press(screen.getByText('Continuar'));
     await answer('Pneumotórax');
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId('lesson-item-feedback')).toBeTruthy();
-    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
     fireEvent.press(screen.getByText('Concluir e voltar'));
+    expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      firstConfirmedAnswers: { 'step-choice': false, 'step-q2': true },
+    }));
+  });
+
+  it('M4 a última vida perdida num retorno que não é o último pausa antes do próximo retorno', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue({ ...hybridBlock, steps: [...hybridBlock.steps, {
+      ...blockFixture.steps[0],
+      contract: { ...blockFixture.steps[0].contract, id: 'step-q3' },
+      step: { type: 'multiple-choice', payload: {
+        prompt: 'Terceira pergunta?', options: [{ id: 'third-a', label: 'Resposta três' }, { id: 'third-b', label: 'Errada três' }],
+        correctOptionId: 'third-a', explanation: 'Explicação três.',
+      } },
+    }] } as LessonBlock);
+    heartsRepository.spend.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    await screen.findByText('Qual padrão radiográfico está presente?');
+    await answer('Pneumotórax');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Errada três');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Pneumotórax');
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    fireEvent.press(screen.getByText('Continuar'));
     expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
     expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
   });
@@ -1504,6 +1536,20 @@ describe('FILA 58 — integração do motor híbrido', () => {
       start.mockRestore();
       modeSpy.mockRestore();
     }
+  });
+
+  it('C2 o feedback tem o tom do resultado: erro em statusError, acerto em statusSuccess', async () => {
+    await open();
+    await answer('Pneumotórax');
+    const errado = StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style);
+    expect(errado.borderColor).toBe(semanticColors.galaxy.statusError);
+    expect(StyleSheet.flatten(screen.getByText('Vamos reforçar').props.style).color).toBe(semanticColors.galaxy.statusError);
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    const certo = StyleSheet.flatten(screen.getByTestId('lesson-item-feedback').props.style);
+    expect(certo.borderColor).toBe(semanticColors.galaxy.statusSuccess);
+    expect(StyleSheet.flatten(screen.getByText('Resposta correta').props.style).color).toBe(semanticColors.galaxy.statusSuccess);
+    expect(certo.borderWidth).toBeGreaterThan(0);
   });
 
   it('M2 limita a escala do título do feedback e mantém o corpo sem teto', async () => {

@@ -6,6 +6,13 @@ ou IA que entre no projeto entenda o trabalho em poucos minutos e possa somar a
 ele. **Contribuições são bem-vindas, inclusive as que discordam do que está
 aqui.**
 
+## Revisão da PR #42 — 2026-10-18
+
+O motor híbrido do Codex foi aprovado com ajustes:
+[revisão](avaliacoes/2026-10-18-revisao-da-pr-42.md) ·
+[ADR da régua e da última vida](../adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md) ·
+[relatório dos ajustes](../evidence/2026-10-18-pr42-ajustes.md).
+
 ## Próximo passo — 2026-10-18
 
 Anderson decidiu três coisas, depois de avaliar no simulador o estado

@@ -203,12 +203,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   - **58.** agente (Codex, com revisão do Claude): **motor da lição híbrida nas
     lições legadas**, com o conteúdo que já existe. Escolhido por Anderson em
     2026-10-18 ([ADR](adr/ADR-2026-10-18-motor-hibrido-nas-licoes-legadas.md)).
-    **Em andamento: Codex GPT-6, 2026-10-18.** Worktree própria; entrega
-    sujeita à revisão do Claude e aprovação da régua de estrelas pelo dono.
-    **Entrega candidata para revisão**, validada em 2026-10-18: quality com
-    173 suítes/1.757 testes e Loop 15/15. Provas nativas e nove capturas nos
-    [vermelhos, gates e evidências](evidence/2026-10-18-motor-hibrido.md).
-    Não marcar como feita antes da revisão do coordenador.
+    **Revisado pelo Claude em 2026-10-18: aprovado com ajustes**
+    ([revisão](trilha/avaliacoes/2026-10-18-revisao-da-pr-42.md)). O dono
+    aprovou a régua de estrelas e decidiu que a última vida perdida no último
+    retorno conclui a lição
+    ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Entrega do
+    Codex na PR #42; ajustes do Claude na branch `claude/pr42-ajustes`. **Fica
+    feito quando as duas entrarem na `main`.** Ficou de fora: limpar
+    `questionIndex` e `reinforceBody` do contrato de conteúdo, na API e no app.
     O escopo:
     - todas as 2 ou 3 perguntas de cada lição, em vez de uma;
     - feedback com a opção marcada logo após cada resposta;

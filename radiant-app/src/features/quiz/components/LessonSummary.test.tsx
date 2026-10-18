@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LessonSummary } from './LessonSummary';
 import { space } from '../../../ui/styles';
+import { semanticColors } from '../../../ui/semantic-colors';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -337,4 +338,13 @@ it('M7 resultado parcial com estrelas não anuncia aprovação nem domínio', ()
   expect(screen.queryByText(/Passou!/)).toBeNull();
   expect(screen.getByText('Você avançou. Vale reforçar os pontos que faltaram.')).toBeTruthy();
   expect(screen.getByText('1 de 2 corretas')).toBeTruthy();
+});
+
+it('C2 Refazer é a ação secundária: Continuar segue como a principal', () => {
+  render(<LessonSummary {...base} correctAnswers={1} totalQuestions={2} onRetry={jest.fn()} />);
+  const refazer = StyleSheet.flatten(screen.getByRole('button', { name: 'Refazer' }).props.style);
+  const continuar = StyleSheet.flatten(screen.getByRole('button', { name: 'Continuar' }).props.style);
+  expect(continuar.backgroundColor).toBe(semanticColors.galaxy.actionPrimary);
+  expect(refazer.backgroundColor).toBe(semanticColors.galaxy.surfaceElevated);
+  expect(refazer.borderWidth).toBe(1);
 });

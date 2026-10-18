@@ -1,0 +1,57 @@
+FAIL src/features/quiz/components/LessonSummary.test.tsx
+  ✕ C2 Refazer é a ação secundária: Continuar segue como a principal (17 ms)
+  ○ skipped M6 oferece Refazer somente para resultado incompleto de lição e executa a ação
+  ○ skipped M7 resultado parcial com estrelas não anuncia aprovação nem domínio
+  LessonSummary
+    ○ skipped mostra os resultados da tentativa
+    ○ skipped mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou
+    ○ skipped reconhece a conclusão sem exibir ganho zero de XP
+    ○ skipped agrupa cada resultado em uma linha acessível factual
+    ○ skipped mantém a celebração no conteúdo rolável junto dos resultados
+    ○ skipped permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados
+    ○ skipped comunica o destino fornecido pelo chamador e preserva o callback
+    ○ skipped preserva uma repetição sem ganho de XP ou nova melhora de estrelas
+    ○ skipped omite revisão sem intervalo real (null)
+    ○ skipped omite revisão sem intervalo real (undefined)
+    ○ skipped usa o intervalo fornecido de 1 dia sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 7 dias sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 0 dias sem fixar um dia
+    ○ skipped mostra o recorde à parte quando a tentativa ficou abaixo dele
+    ○ skipped não repete o recorde quando a tentativa o igualou ou superou
+    ○ skipped na revisão, diz que a revisão terminou e não pede avaliação de aula
+    ○ skipped mostra o progresso da unidade
+    ○ skipped mostra quando a próxima revisão foi agendada
+    ○ skipped não renderiza o card de progresso da unidade quando unitTotal é 0
+    ○ skipped emite a nota escolhida
+    ○ skipped não pede avaliação quando a lição já foi avaliada
+    ○ skipped mostra o rótulo visível "Avalie a aula" só quando ainda não há nota
+    ○ skipped reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo
+    ○ skipped não renderiza oferta de assinatura nem pedido de notificação
+    ○ skipped não mostra texto de leitura sobre a faixa de comemoração
+    ○ skipped anima o ganho das estrelas quando a marca melhorou
+    ○ skipped não anima as estrelas quando a marca não melhorou — a escala vai direto para 1
+    ○ skipped expõe a contagem de estrelas como rótulo de acessibilidade único
+    ○ skipped com 0 estrelas, diz a verdade sobre a conclusão sem celebrar: faixa neutra e Pixel de orientação
+
+  ● C2 Refazer é a ação secundária: Continuar segue como a principal
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "rgba(255, 255, 255, 0.05)"
+    Received: "#1535E8"
+
+      346 |   const continuar = StyleSheet.flatten(screen.getByRole('button', { name: 'Continuar' }).props.style);
+      347 |   expect(continuar.backgroundColor).toBe(semanticColors.galaxy.actionPrimary);
+    > 348 |   expect(refazer.backgroundColor).toBe(semanticColors.galaxy.surfaceElevated);
+          |                                   ^
+      349 |   expect(refazer.borderWidth).toBe(1);
+      350 | });
+      351 |
+
+      at Object.toBe (src/features/quiz/components/LessonSummary.test.tsx:348:35)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 31 skipped, 32 total
+Snapshots:   0 total
+Time:        1.169 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx/i with tests matching "C2 Refazer".

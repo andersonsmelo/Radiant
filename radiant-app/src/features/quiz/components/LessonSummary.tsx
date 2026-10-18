@@ -216,10 +216,11 @@ export function LessonSummary({
       </ScrollView>
 
       <View style={styles.footer}>
-        {kind === 'lesson' && correctAnswers < totalQuestions && onRetry ? (
-          <AppButton label="Refazer" onPress={onRetry} variant="galaxy" />
-        ) : null}
         <AppButton label="Continuar" accessibilityHint={continueHint} onPress={onContinue} variant="galaxy" />
+        {/* Continuar segue como a ação principal; Refazer é a alternativa. */}
+        {kind === 'lesson' && correctAnswers < totalQuestions && onRetry ? (
+          <AppButton label="Refazer" onPress={onRetry} variant="secondary" />
+        ) : null}
       </View>
     </View>
   );
