@@ -664,6 +664,15 @@ Claude revisa e coordena as IAs.
 
 
 
+## A1 corrigido — FILA 55, 2026-10-18
+
+Uma versão nova de conteúdo não tira mais a lição da revisão. O mesmo item herda
+só a data de revisão, sem evidência nem intervalo. O item removido sai da agenda
+e o item novo é semeado
+([ADR](adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md),
+[relatório](evidence/2026-10-18-a1-preserva-data.md)). Branch
+`claude/fila-55-a1`, aguardando merge. Gates medidos em 2026-10-18 no relatório.
+
 ## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
 
 Implementação candidata na branch `codex/motor-hibrido-licao`, sobre

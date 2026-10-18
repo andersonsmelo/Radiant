@@ -1,0 +1,121 @@
+FAIL src/features/spaced-repetition/services/ItemReviewService.test.ts
+  revisão por item
+    ✕ A1 versão nova preserva a data de cada item, sem herdar evidência nem intervalo (4 ms)
+    ✕ A1 item removido sai da agenda e item novo é semeado depois dos herdados
+    ✓ A1 catálogo sem definições não apaga a agenda da lição
+    ✕ A1 cartão da versão nova já criado por estudo prevalece sobre o herdado (1 ms)
+    ○ skipped corrige pelo catálogo atual, ignora gabarito adulterado na UI e não converte migração em intervalo confirmado
+    ○ skipped separa ajuda, resultado e intervalo para a resposta null, sem fabricar delayed-retention
+    ○ skipped separa ajuda, resultado e intervalo para a resposta 0, sem fabricar delayed-retention
+    ○ skipped separa ajuda, resultado e intervalo para a resposta 1, sem fabricar delayed-retention
+    ○ skipped recusa índice inválido e conteúdo fora da versão sem persistir resposta
+    ○ skipped migra só a agenda; responde um item e preserva o vencimento do outro
+    ○ skipped retry da mesma revisão não cria segunda tentativa mesmo se o relógio avançar
+    ○ skipped limita a sessão a 50 de 10000 itens, sem produzir evidência da migração
+    ○ skipped migra no máximo 50 lições por abertura, retomando a janela seguinte sem duplicar
+    ○ skipped uma fonte antiga sem payload não bloqueia a migração de outra lição disponível
+    ○ skipped não mostra schema futuro indisponível como uma fila vazia saudável
+    ○ skipped preserva o ID da interação promovida e resolve a questão original no adaptador legado
+
+  ● revisão por item › A1 versão nova preserva a data de cada item, sem herdar evidência nem intervalo
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+    -   "v2",
+    -   "v2",
+    +   "v1",
+    +   "v1",
+      ]
+
+      82 |         expect(await coordinator.loadQueue([], now)).toEqual([]);
+      83 |         const cards = await repository.getCards();
+    > 84 |         expect(cards.map(card => card.item.contentVersion)).toEqual(['v2', 'v2']);
+         |                                                             ^
+      85 |         for (const card of cards) {
+      86 |             expect(card.dueAt).toBe(before.get(card.item.itemId)!.dueAt);
+      87 |             expect(card).toMatchObject({ interval: 1, repetitions: 0, easeFactor: 2.5, lastAttemptId: null });
+
+      at Object.toEqual (src/features/spaced-repetition/services/ItemReviewService.test.ts:84:61)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● revisão por item › A1 item removido sai da agenda e item novo é semeado depois dos herdados
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "item:0",
+    -   "item:new",
+    +   "item:1",
+      ]
+
+      109 |         await coordinator.loadQueue([], now);
+      110 |         const cards = new Map((await repository.getCards()).map(card => [card.item.itemId, card]));
+    > 111 |         expect([...cards.keys()].sort()).toEqual(['item:0', 'item:new']);
+          |                                          ^
+      112 |         expect(cards.get('item:0')!.dueAt).toBe(before.get('item:0')!.dueAt);
+      113 |         expect(Date.parse(cards.get('item:new')!.dueAt)).toBe(Math.max(Date.parse(before.get('item:0')!.dueAt), now.getTime()) + 86400000);
+      114 |         expect(cards.get('item:new')).toMatchObject({ item: added.item, interval: 1, repetitions: 0, lastAttemptId: null });
+
+      at Object.toEqual (src/features/spaced-repetition/services/ItemReviewService.test.ts:111:42)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● revisão por item › A1 cartão da versão nova já criado por estudo prevalece sobre o herdado
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  0
+    + Received  + 17
+
+    @@ -1,8 +1,25 @@
+      Array [
+        Object {
+          "createdAt": "2026-10-17T12:00:00.000Z",
+    +     "dueAt": "2026-10-16T12:00:00.000Z",
+    +     "easeFactor": 2.5,
+    +     "interval": 1,
+    +     "item": Object {
+    +       "activityId": "activity:1",
+    +       "competencyId": "competency:1",
+    +       "contentVersion": "v1",
+    +       "evidenceKind": "independent-recall",
+    +       "itemId": "item:0",
+    +       "lessonId": "lesson:1",
+    +     },
+    +     "lastAttemptId": null,
+    +     "lastReviewedAt": "2026-10-17T12:00:00.000Z",
+    +     "repetitions": 0,
+    +   },
+    +   Object {
+    +     "createdAt": "2026-10-17T12:00:00.000Z",
+          "dueAt": "2026-10-18T12:00:00.000Z",
+          "easeFactor": 2.5,
+          "interval": 1,
+          "item": Object {
+            "activityId": "activity:1",
+
+      131 |         const studied = (await repository.getCards()).find(card => card.item.contentVersion === 'v2')!;
+      132 |         await coordinator.loadQueue([], now);
+    > 133 |         expect(await repository.getCards()).toEqual([studied]);
+          |                                             ^
+      134 |     });
+      135 |     it('limita a sessão a 50 de 10000 itens, sem produzir evidência da migração', async () => {
+      136 |         const { coordinator, repository } = setup(10000);
+
+      at Object.toEqual (src/features/spaced-repetition/services/ItemReviewService.test.ts:133:45)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 12 skipped, 1 passed, 16 total
+Snapshots:   0 total
+Time:        0.672 s, estimated 1 s
+Ran all test suites matching /src\/features\/spaced-repetition\/services\/ItemReviewService.test.ts/i with tests matching "A1".

@@ -44,6 +44,20 @@ const catalog: ReviewCatalogPort = {
 
 export class ItemReviewCoordinator {
     constructor(private readonly repository: ItemReviewRepository, private readonly catalog: ReviewCatalogPort) {}
+    /** A1: troca cartões de versões antigas pelos itens atuais, preservando a data (ver `reconcileVersions`). */
+    private async reconcile(now: Date): Promise<boolean> {
+        const snapshot = await this.repository.inspect();
+        if (!snapshot.readable) return false;
+        const plans: { lessonId: string; current: ItemIdentity[] }[] = [];
+        for (const lessonId of new Set(snapshot.cards.map(card => card.item.lessonId))) {
+            const current = this.catalog.definitions(lessonId).map(definition => definition.item);
+            const keys = new Set(current.map(itemKey));
+            if (current.length && snapshot.cards.some(card => card.item.lessonId === lessonId && !keys.has(itemKey(card.item)))) {
+                plans.push({ lessonId, current });
+            }
+        }
+        return plans.length === 0 || this.repository.reconcileVersions(plans, now.toISOString());
+    }
     async loadQueue(legacyCards: { lessonId: string; nextReviewAt: Date }[], now: Date = new Date()): Promise<ReviewItem[]> {
         const definitions = new Map<string, ItemDefinition[]>();
         const byItem = new Map<string, ItemDefinition>();
@@ -69,6 +83,7 @@ export class ItemReviewCoordinator {
             if (groups.length === 50) break;
         }
         if (groups.length && !await this.repository.seedLegacyGroups(groups, now.toISOString())) throw new Error('review-store-unavailable');
+        if (!await this.reconcile(now)) throw new Error('review-store-unavailable');
 
         const snapshot = await this.repository.inspect();
         if (!snapshot.readable) throw new Error('review-store-unavailable');
@@ -84,7 +99,9 @@ export class ItemReviewCoordinator {
         }
         return queue;
     }
-    async effectiveSchedule(legacy: { lessonId: string; dueAtMs: number }[]) {
+    async effectiveSchedule(legacy: { lessonId: string; dueAtMs: number }[], now: Date = new Date()) {
+        // Falha ao reconciliar não esconde a agenda: os órfãos só são ignorados abaixo.
+        await this.reconcile(now);
         const result = new Map(legacy.map(entry => [entry.lessonId, entry]));
         const minimum = new Map<string, number>();
         const definitions = new Map<string, Set<string>>();
