@@ -38,8 +38,9 @@ chave quando o valor **não** é booleano. Foi lido no bytecode: o ramo
 ## Vermelho antes do conserto
 
 Os testes novos rodaram contra o hook ainda sem o conserto, em `cc67243`
-(saída integral em `radiant-app/.maestro/artifacts/e1/jest-vermelho.txt`, fora
-do git): **4 falharam e 12 passaram**. Os quatro são os casos com argumento:
+(saída integral em
+[`jest-vermelho.txt`](2026-10-18-e1-animacao-desligavel-em-teste/jest-vermelho.txt)):
+**4 falharam e 12 passaram**. Os quatro são os casos com argumento:
 
 | Caso | Esperado | Recebido |
 | --- | --- | --- |
@@ -60,9 +61,11 @@ vendo a animação. O arquivo caiu para 4,4 s.
 
 ## Contrato, visto falhando por injeção
 
-`radiant-app/.maestro/artifacts/e1/injecoes.py` troca uma âncora única, roda
+[`injecoes.py`](2026-10-18-e1-animacao-desligavel-em-teste/injecoes.py), rodado
+de dentro de `radiant-app/`, troca uma âncora única, roda
 `npm run test:maestro-contract` e restaura o arquivo. Cada guarda reprovou
-com o defeito que nomeia:
+com o defeito que nomeia (saída em
+[`contrato-injecoes.txt`](2026-10-18-e1-animacao-desligavel-em-teste/contrato-injecoes.txt)):
 
 | Injeção | Reprova | Mensagem |
 | --- | --- | --- |
@@ -146,6 +149,13 @@ desta branch (`8114401`). O Metro rodou em modo CI e serviu as 7 variáveis do
 perfil e2e-test. Os 7 roteiros passaram, sem nenhum `FAILED` nos logs, e todo
 lançamento registra `-radiantReduceMotion`, inclusive a reabertura do
 `offline-relaunch`.
+
+Os logs estão em `2026-10-18-e1-animacao-desligavel-em-teste/`: um
+`bateria-<roteiro>.log` por roteiro, com a carga, a duração e a saída do
+Maestro, e o `bateria-metro.log`, que mostra o Metro servindo da worktree da
+bateria. Foram copiados em 2026-10-18 da pasta ignorada
+`radiant-app/.maestro/artifacts/e1-bateria/` dessa worktree, que esteve no
+`8114401` das 14:40 às 14:50, como mostra o reflog dela.
 
 | Roteiro | Resultado | Duração |
 | --- | --- | --- |

@@ -1,0 +1,22 @@
+## booleano (.maestro/reward-unlock.yaml, ocorrências da âncora: 1, trocada a 1ª)
+not ok 32 - launches every flow with the launch argument that turns off decorative motion
+reward-unlock.yaml: launchApp must pass radiantReduceMotion as a quoted string — a boolean reaches iOS without the "-" and is ignored
+
+## valor errado (.maestro/reward-unlock.yaml, ocorrências da âncora: 1, trocada a 1ª)
+not ok 32 - launches every flow with the launch argument that turns off decorative motion
+reward-unlock.yaml: launchApp must pass radiantReduceMotion: '1'
+
+## sem argumento (.maestro/reward-unlock.yaml, ocorrências da âncora: 1, trocada a 1ª)
+not ok 32 - launches every flow with the launch argument that turns off decorative motion
+error: 'reward-unlock.yaml: launchApp must pass the radiantReduceMotion argument'
+
+## launchApp pelado (.maestro/rating-prompt.yaml, ocorrências da âncora: 2, trocada a 1ª)
+not ok 32 - launches every flow with the launch argument that turns off decorative motion
+error: 'rating-prompt.yaml: a bare launchApp starts the app without the radiantReduceMotion argument'
+
+## openLink com app parado (.maestro/review-due.yaml, ocorrências da âncora: 1, trocada a 1ª)
+not ok 33 - never lets a deep link start the app the launch argument did not start
+error: 'review-due.yaml: openLink must follow a launchApp, or it starts the app without the argument'
+
+## sem a volta do centramento (.maestro/reward-unlock.yaml, ocorrências da âncora: 7, trocada a 1ª)
+not ok 7 - centers the recommendation header action before each native tap

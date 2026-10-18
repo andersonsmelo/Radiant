@@ -1,0 +1,282 @@
+# Bateria do E1, roteiro radiant-1-4-vidas-esgotadas. Copiado em 2026-10-18 de
+# radiant-app/.maestro/artifacts/e1-bateria/radiant-1-4-vidas-esgotadas/ (resumo.txt e saida.txt) da worktree
+# dazzling-ishizaka-883871, que estava no 8114401 das 14:40:19 às 14:50:25.
+
+inicio 14:46:47 carga { 6.19 7.84 6.97 }
+fim 14:48:52 rc=0 duracao=125s carga { 3.14 6.14 6.42 }
+
+Running on Radiant E2E item 38 - iOS 26.5 - 0A1B5AAA-A517-484B-A386-0F48D3B229A1
+ > Flow Caminho dourado 3 — primeiro contato grátis e erro no retorno esgota vidas
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Próximo passo\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Próximo passo\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "5 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "5 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "4 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "4 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "4 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "3 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "3 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "3 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "2 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "2 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "2 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "1 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "1 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "1 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "0 de 5 vidas" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 2 de 3 corretas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "^Fundamentos de Radiologia\. Concluído\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Assert that "0 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "0 de 5 vidas" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that "Suas vidas acabaram" is visible... COMPLETED
+Assert that "^Próxima vida em \d+ min$" is visible... COMPLETED
+Tap on "Voltar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until "^Fundamentos de Radiologia\. Concluído\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "^Fundamentos de Radiologia\. Concluído\.$" is visible... COMPLETED
+Assert that "^0 de 5 vidas; próxima em \d+ minutos$" is visible... COMPLETED

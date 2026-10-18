@@ -1,0 +1,31 @@
+# Bateria do E1, roteiro boot-to-home. Copiado em 2026-10-18 de
+# radiant-app/.maestro/artifacts/e1-bateria/boot-to-home/ (resumo.txt e saida.txt) da worktree
+# dazzling-ishizaka-883871, que estava no 8114401 das 14:40:19 às 14:50:25.
+
+inicio 14:45:48 carga { 5.83 8.06 6.98 }
+fim 14:46:07 rc=0 duracao=19s carga { 7.19 8.21 7.06 }
+
+Running on Radiant E2E item 38 - iOS 26.5 - 0A1B5AAA-A517-484B-A386-0F48D3B229A1
+ > Flow Clean install passes through the first-run welcome and reaches the local-first home
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED

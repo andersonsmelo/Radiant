@@ -566,7 +566,13 @@ Medido em 2026-10-10, às 09:55:
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
-e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora. A
+e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.
+Desde 2026-10-18, os logs da bateria do E1 (da `dazzling-ishizaka-883871`) e
+os do vermelho do E1 (da `trusting-mestorf-a5ca83`) estão versionados em
+`docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste/`. O resto da
+`radiant-app/.maestro/artifacts/` das duas não foi copiado e se perde com a
+remoção: as capturas e os logs completos, uns 400 MB, inclusive o
+`reward-unlock` antes e depois. A
 `Radiant-release` está numa `main` local antiga (`21c42b6`), e quem for usá-la
 começa por `git pull`.
 

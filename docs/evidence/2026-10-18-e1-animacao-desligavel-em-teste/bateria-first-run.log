@@ -1,0 +1,32 @@
+# Bateria do E1, roteiro first-run. Copiado em 2026-10-18 de
+# radiant-app/.maestro/artifacts/e1-bateria/first-run/ (resumo.txt e saida.txt) da worktree
+# dazzling-ishizaka-883871, que estava no 8114401 das 14:40:19 às 14:50:25.
+
+inicio 14:45:26 carga { 5.49 8.15 6.98 }
+fim 14:45:48 rc=0 duracao=22s carga { 5.83 8.06 6.98 }
+
+Running on Radiant E2E item 38 - iOS 26.5 - 0A1B5AAA-A517-484B-A386-0F48D3B229A1
+ > Flow First-run welcome presents Pixel and opens the first learning step
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Tela 1 de 3\. Oi, eu sou o Pixel\..*$" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "^Tela 2 de 3\. Trilha, quiz e revisão\..*$" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "^Tela 3 de 3\. Funciona offline, sem conta\..*$" is visible... COMPLETED
+Assert that ".*Radiant é um app educacional\. Não substitui avaliação, diagnóstico ou conduta médica profissional\.$" is visible... COMPLETED
+Tap on "Começar"... COMPLETED
+Assert that "^Tela 1 de 3\. Oi, eu sou o Pixel\..*$" is not visible... COMPLETED
+Assert that "Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade." is visible... COMPLETED
