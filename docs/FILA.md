@@ -186,11 +186,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     recuperação/backup/reset G7.
     **Remedir:** comandos dos relatórios; gate/estado no run
     `run-1792269695725-1c4f438c`.
-  - **55.** agente + dono: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
-    **Corrigido pelo Claude em 2026-10-18, na branch `claude/fila-55-a1`**
+  - **55.** ✅ **Feito em 2026-10-18**: PR #45 mergeada na `main` a pedido de
+    Anderson. Agente + dono: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
+    Corrigido pelo Claude
     ([relatório](evidence/2026-10-18-a1-preserva-data.md)). A versão nova
     preserva a data de cada item, sem herdar evidência; o item removido sai e o
-    item novo é semeado. **Fica feito quando a PR entrar na `main`.**
+    item novo é semeado.
     Antes da correção, uma `contentVersion` nova tira a lição da revisão para sempre: a
     sonda mostrou fila e agenda vazias 60 dias depois. O teste da linha 71
     fixa esse defeito como comportamento esperado.

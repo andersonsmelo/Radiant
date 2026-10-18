@@ -671,7 +671,8 @@ só a data de revisão, sem evidência nem intervalo. O item removido sai da age
 e o item novo é semeado
 ([ADR](adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md),
 [relatório](evidence/2026-10-18-a1-preserva-data.md)). Branch
-`claude/fila-55-a1`, aguardando merge. Gates medidos em 2026-10-18 no relatório.
+`claude/fila-55-a1`, na `main` desde 2026-10-18 pela PR #45. Gates medidos em
+2026-10-18 no relatório.
 
 ## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
 
