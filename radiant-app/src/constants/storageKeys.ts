@@ -18,6 +18,7 @@ export const STORAGE_KEYS = {
     LEARNING_ATTEMPTS: '@radiant:learning_attempts_v1',
     LEARNING_EVIDENCE: '@radiant:learning_evidence_v1',
     ITEM_REVIEW: '@radiant:item_review_v1',
+    ITEM_REVIEW_QUARANTINE: '@radiant:item_review_quarantine_v1',
     COMPETENCY_MASTERY: '@radiant:competency_mastery_v1',
     LESSON_RATINGS: '@radiant:lesson_ratings_v1',
     HEARTS: '@radiant:hearts_v1',

@@ -7,6 +7,9 @@ type Storage = { getItem(key: string): Promise<string | null>; setItem(key: stri
 type Store = { schemaVersion: 'item-review.v1'; cards: Record<string, ItemCard>; attempts: ItemAttempt[] };
 export const ITEM_ATTEMPT_CAP = 2000;
 export const ITEM_CARD_CAP = 20000;
+export const ITEM_QUARANTINE_CAP = 200;
+type QuarantineEntry = { kind: 'card'; key: string; record: unknown; quarantinedAt: string }
+    | { kind: 'attempt'; record: unknown; quarantinedAt: string };
 const queues = new WeakMap<Storage, Promise<unknown>>();
 const validatedStores = new WeakMap<Storage, { raw: string; store: Store }>();
 function cloneStore(store: Store): Store {
@@ -54,6 +57,20 @@ function attemptValid(attempt: ItemAttempt): boolean {
         && validateLearningEvidence(itemAttemptEvidence(attempt)).length === 0
         && validateLearningEvidence({ ...itemAttemptEvidence(attempt), interactionId: attempt.attemptId }).length === 0;
 }
+/** Um registro de outro tipo (nulo, número) faz o validador lançar; aqui ele só é inválido. */
+function safely(check: () => boolean): boolean {
+    try { return check(); } catch { return false; }
+}
+function readQuarantine(raw: string): QuarantineEntry[] {
+    const parsed = JSON.parse(raw) as { schemaVersion: string; entries: QuarantineEntry[] };
+    if (!parsed || typeof parsed !== 'object' || !exactFields(parsed, ['schemaVersion', 'entries'])
+        || parsed.schemaVersion !== 'item-review-quarantine.v1' || !Array.isArray(parsed.entries)) {
+        throw new Error('item-review-quarantine-unavailable');
+    }
+    return parsed.entries;
+}
+const quarantineFingerprint = (entry: QuarantineEntry) =>
+    JSON.stringify([entry.kind, entry.kind === 'card' ? entry.key : null, entry.record]);
 function cardValid(card: ItemCard): boolean {
     return exactFields(card, ['item', 'easeFactor', 'interval', 'repetitions', 'createdAt', 'lastReviewedAt', 'dueAt', 'lastAttemptId'])
         && identityValid(card.item) && Number.isFinite(card.easeFactor) && card.easeFactor >= 1.3 && card.easeFactor <= 2.5
@@ -84,12 +101,49 @@ export class ItemReviewRepository {
         const store = JSON.parse(raw) as Store;
         if (!exactFields(store, ['schemaVersion', 'cards', 'attempts']) || store.schemaVersion !== 'item-review.v1'
             || !store.cards || typeof store.cards !== 'object' || Array.isArray(store.cards)
-            || Object.keys(store.cards).length > ITEM_CARD_CAP || !Array.isArray(store.attempts) || store.attempts.length > ITEM_ATTEMPT_CAP
-            || !Object.entries(store.cards).every(([key, card]) => cardValid(card) && key === itemKey(card.item))
-            || !store.attempts.every(attemptValid)
-            || new Set(store.attempts.map(attempt => JSON.stringify([attempt.attemptId, itemKey(attempt.item)]))).size !== store.attempts.length) throw new Error('item-review-store-unavailable');
+            || Object.keys(store.cards).length > ITEM_CARD_CAP || !Array.isArray(store.attempts)
+            || store.attempts.length > ITEM_ATTEMPT_CAP) throw new Error('item-review-store-unavailable');
+        // R6 (A3): o envelope é válido, então um registro inválido sai sozinho, em
+        // vez de bloquear a revisão inteira. A tentativa repetida fica com a primeira.
+        const quarantinedAt = new Date().toISOString();
+        const rejected: QuarantineEntry[] = [];
+        for (const [key, card] of Object.entries(store.cards)) {
+            if (safely(() => cardValid(card) && key === itemKey(card.item))) continue;
+            rejected.push({ kind: 'card', key, record: card, quarantinedAt });
+            delete store.cards[key];
+        }
+        const seen = new Set<string>();
+        store.attempts = store.attempts.filter(attempt => {
+            const identity = safely(() => attemptValid(attempt)) ? JSON.stringify([attempt.attemptId, itemKey(attempt.item)]) : null;
+            if (identity !== null && !seen.has(identity)) {
+                seen.add(identity);
+                return true;
+            }
+            rejected.push({ kind: 'attempt', record: attempt, quarantinedAt });
+            return false;
+        });
+        if (rejected.length) {
+            // A quarentena grava ANTES do store: se ela falhar, o store fica como
+            // estava e indisponível, sem perder o registro.
+            await this.quarantine(rejected);
+            const serialized = JSON.stringify(store);
+            await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);
+            validatedStores.set(this.storage, { raw: serialized, store: cloneStore(store) });
+            return store;
+        }
         validatedStores.set(this.storage, { raw, store: cloneStore(store) });
         return store;
+    }
+    /** Acrescenta os registros à quarentena, sem repetir o que ela já guarda, até o teto. */
+    private async quarantine(entries: QuarantineEntry[]): Promise<void> {
+        const raw = await this.storage.getItem(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE);
+        const existing = raw === null ? [] : readQuarantine(raw);
+        const known = new Set(existing.map(quarantineFingerprint));
+        const added = entries.filter(entry => !known.has(quarantineFingerprint(entry)));
+        if (!added.length) return;
+        const kept = [...existing, ...added].slice(-ITEM_QUARANTINE_CAP);
+        await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE,
+            JSON.stringify({ schemaVersion: 'item-review-quarantine.v1', entries: kept }));
     }
     record(attempt: ItemAttempt, expectedDueAt?: string): Promise<{ accepted: boolean; duplicate: boolean }> {
         return this.recordMany([attempt], expectedDueAt);
@@ -247,6 +301,7 @@ export class ItemReviewRepository {
     clear(): Promise<void> {
         return this.serialize(async () => {
             await this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW);
+            await this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE);
             validatedStores.delete(this.storage);
         });
     }

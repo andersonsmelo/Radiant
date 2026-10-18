@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LessonCatalogService } from './LessonCatalogService';
 import { RemoteCatalogService } from './RemoteCatalogService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
+import type { QuizLessonJourneyStageCopy } from '../../../types/quiz';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({ getItem: jest.fn(), setItem: jest.fn() }));
 
@@ -22,6 +23,14 @@ jest.mock('../../telemetry/TelemetryService', () => ({
 const fetchManifest = RemoteCatalogService.fetchManifest as jest.MockedFunction<
   typeof RemoteCatalogService.fetchManifest
 >;
+
+// C1: o typecheck reprova se os dois campos voltarem ao estágio da jornada.
+// @ts-expect-error questionIndex saiu do estágio da jornada
+const stageWithIndex: QuizLessonJourneyStageCopy = { questionIndex: 0 };
+// @ts-expect-error reinforceBody saiu do estágio da jornada
+const stageWithReinforce: QuizLessonJourneyStageCopy = { reinforceBody: 'Reforço' };
+void stageWithIndex;
+void stageWithReinforce;
 
 describe('LessonCatalogService', () => {
   let storageValues: Map<string, string>;
@@ -127,10 +136,8 @@ describe('LessonCatalogService', () => {
             difficulty: 'beginner',
             journey: {
               intro: {
-                questionIndex: 0,
                 contextBody: 'Contexto remoto de introdução',
                 teachBody: 'Ensino remoto principal',
-                reinforceBody: 'Reforço remoto principal',
               },
             },
             questions: [
@@ -186,6 +193,32 @@ describe('LessonCatalogService', () => {
       'Contexto remoto de introdução'
     );
     expect(LessonCatalogService.getLessonById('lesson-2')?.questions[0]?.id).toBe('remote-q2');
+  });
+
+  // C1: `questionIndex` e `reinforceBody` saíram do contrato. Um payload de uma
+  // API antiga que ainda os traga, mesmo com outro tipo, continua válido, e os
+  // dois campos são ignorados como qualquer chave desconhecida.
+  it('aceita payload remoto antigo com questionIndex e reinforceBody e ignora os dois campos', async () => {
+    const legacyStage = { questionIndex: 'legado', contextBody: 'Contexto remoto antigo', reinforceBody: 42 };
+    fetchManifest.mockResolvedValueOnce({
+      version: 'v3-remote-legado',
+      initialLessonId: 'lesson-1',
+      tracks: [{ id: 'track-radiology-foundations', slug: 'radiology-foundations', title: 'Fundamentos de Radiologia',
+        description: 'Base inicial.', lessonIds: ['lesson-1'] }],
+      lessons: [{ id: 'lesson-1', slug: 'fundamentos-de-radiologia', title: 'Fundamentos de Radiologia', difficulty: 'beginner',
+        trackId: 'track-radiology-foundations', order: 1,
+        payload: { id: 'lesson-1', title: 'Fundamentos de Radiologia', difficulty: 'beginner',
+          journey: { intro: legacyStage, review: legacyStage },
+          questions: [{ id: 'remote-q1', type: 'multiple-choice', prompt: 'Pergunta remota', options: [{ label: 'A' }, { label: 'B' }],
+            correctAnswerIndex: 0, explanation: 'Explicação remota' }] } }],
+      source: 'remote',
+      refreshedAtIso: '2026-10-18T00:00:00.000Z',
+    } as never);
+
+    const manifest = await LessonCatalogService.bootstrap();
+
+    expect(manifest.source).toBe('remote');
+    expect(LessonCatalogService.getLessonById('lesson-1')?.journey?.intro?.contextBody).toBe('Contexto remoto antigo');
   });
 
   it('filters remote lessons that are not available in the local payload set', async () => {

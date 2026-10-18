@@ -32,7 +32,7 @@ G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a 
 16 a 18/10 está no
 [levantamento](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada
 da próxima sessão é o
-[prompt (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+[prompt (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
 
 ## Política de decisão
 
@@ -190,6 +190,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
+    medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
+    5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2
+    continua aberto: trocar o storage é decisão do dono, e o tempo no aparelho
+    é do G6. O A3 foi consertado: com o envelope válido, o registro inválido vai
+    para a quarentena `@radiant:item_review_quarantine_v1`, e a revisão segue
+    com o resto. O cartão em quarentena sai da agenda, por decisão do dono
+    ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)).
+    **Atualização de 2026-10-18 (Claude, A4):** o cartão legado da lição avança
+    uma vez por sessão, no último item dela na fila e com o resultado agregado,
+    e não mais uma vez por item. A decisão foi do dono
+    ([evidência](evidence/2026-10-18-a4-agregado-legado.md)).
+    **Atualização de 2026-10-18 (Claude, R8 e A7):** o README da trilha caiu
+    de 2.344 para 796 palavras, com mapa dos 28 arquivos da pasta e o texto
+    antigo num anexo. O `docs-contract` agora reprova arquivo da pasta fora do
+    mapa ([evidência](evidence/2026-10-18-r8-readme-da-trilha.md)).
     **Atualização de 2026-10-18 (Claude, FILA 59):** a prova nativa do G4 foi
     feita no simulador iOS. Foram exercitados seleção, confirmação, acerto,
     erro, ajuda e o resumo, com seis capturas versionadas com hash
@@ -249,8 +265,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     aprovou a régua de estrelas e decidiu que a última vida perdida no último
     retorno conclui a lição
     ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Entrega do
-    Codex na PR #42; ajustes do Claude na PR #43. Ficou de fora: limpar
-    `questionIndex` e `reinforceBody` do contrato de conteúdo, na API e no app.
+    Codex na PR #42; ajustes do Claude na PR #43. O que tinha ficado de fora,
+    tirar `questionIndex` e `reinforceBody` do contrato de conteúdo na API e no
+    app (C1), foi feito em 2026-10-18
+    ([evidência](evidence/2026-10-18-c1-contrato-de-conteudo.md)).
     O escopo:
     - todas as 2 ou 3 perguntas de cada lição, em vez de uma;
     - feedback com a opção marcada logo após cada resposta;
@@ -300,6 +318,30 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - `decelerationRate` muda o app para o aluno.
 
     Ver a [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md);
+  - **61.** dono decide, com um passo do agente antes: **o storage da revisão
+    por item (A2).** Medido no R6 em 2026-10-18: com 5.000 cartões o store tem
+    4,01 MiB, 67% dos 6 MB que o AsyncStorage dá ao app inteiro no Android, e o
+    teto declarado de 20.000 passa de 12 MiB
+    ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)). **Recomendação
+    do agente, a mais segura:** particionar o store por lição no próprio
+    AsyncStorage, aumentar o limite do banco no Android
+    (`AsyncStorage_db_size_in_MB`, que exige build nova) e migrar com cópia de
+    segurança: copiar, conferir, trocar e manter a chave antiga por uma ou duas
+    versões. SQLite só se a medição no aparelho mostrar que ainda falta.
+    [inferido, não verificado] No Android, um valor único acima de ~2 MB pode
+    falhar na leitura ("Row too big to fit into CursorWindow"), o que tornaria o
+    problema mais urgente que a cota.
+    **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
+    por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
+    escolher o caminho depois da medição;
+  - **62.** agente: **dois roteiros que rolam estão fora das guardas de rolagem
+    do contrato do Maestro.** O `review-due.yaml` e o
+    `hybrid-native-evidence.yaml` usam `scrollUntilVisible`, mas não estão nas
+    listas de `scripts/maestro-contract.test.mjs` que exigem
+    `visibilityPercentage` e proíbem rolagem aninhada. Achado em 2026-10-18 pelo
+    Claude, ao tratar a revisão do Codex na PR #48. Incluir os dois e ver cada guarda falhar com o
+    defeito que nomeia. O G4 fica fora da lista da espera por `assertVisible`,
+    por decisão do dono;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,

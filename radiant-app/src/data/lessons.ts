@@ -9,19 +9,13 @@ export const LESSONS: QuizLesson[] = [
     difficulty: 'beginner',
     journey: {
       intro: {
-        questionIndex: 0,
         contextBody:
           'Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade.',
         teachBody:
           'Radiologia diagnóstica existe para tornar estruturas internas visíveis de modo comparável, útil e clinicamente interpretável.',
-        reinforceBody:
-          'O valor do exame está em distinguir estruturas internas com contraste suficiente para guiar decisão clínica.',
       },
       review: {
-        questionIndex: 1,
         contextBody: 'Retome rapidamente o conceito central antes de seguir adiante.',
-        reinforceBody:
-          'Quando a densidade sobe, a estrutura tende a absorver mais raios-X e aparecer mais radiopaca.',
       },
     },
     questions: [
@@ -75,19 +69,13 @@ export const LESSONS: QuizLesson[] = [
     difficulty: 'beginner',
     journey: {
       intro: {
-        questionIndex: 2,
         contextBody:
           'Agora você entra no raciocínio seccional da tomografia e nas diferenças entre voxel, atenuação e sobreposição.',
         teachBody:
           'A tomografia reduz a sobreposição anatômica ao gerar cortes, o que muda a clareza com que enxergamos estruturas internas.',
-        reinforceBody:
-          'Cada corte melhora a leitura anatômica ao reduzir a mistura de estruturas no mesmo plano de imagem.',
       },
       review: {
-        questionIndex: 0,
         contextBody: 'Faça uma verificação rápida do conceito mais importante desta etapa.',
-        reinforceBody:
-          'Voxel é a unidade volumétrica que sustenta a leitura seccional da tomografia.',
       },
     },
     questions: [

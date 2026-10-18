@@ -1,4 +1,4 @@
-import { ItemReviewRepository } from './ItemReviewRepository';
+import { ItemReviewRepository, ITEM_QUARANTINE_CAP } from './ItemReviewRepository';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { itemAttemptEvidenceEntries, itemKey, type ItemAttempt } from '../../../types/itemReview';
 
@@ -174,3 +174,118 @@ describe('referência temporal da resposta de revisão', () => {
     });
 });
 
+
+// R6 (A3): com o envelope válido, um registro inválido não bloqueia a revisão
+// inteira. Ele sai do store e o original vai para a quarentena, gravada ANTES
+// de o store ser regravado sem ele. O cartão em quarentena sai da agenda
+// (decisão de Anderson, 2026-10-18). Schema futuro, JSON quebrado e falha de
+// leitura continuam indisponíveis, sem escrita (teste acima).
+describe('quarentena do registro inválido (R6)', () => {
+    const second = () => attempt({ attemptId: 'attempt:2', item: { ...attempt().item, itemId: 'item:2' } });
+    async function seeded() {
+        const s = storage();
+        await new ItemReviewRepository(s).recordBatch([attempt(), second()]);
+        return s;
+    }
+    function corrupt(s: ReturnType<typeof storage>, edit: (store: { cards: Record<string, unknown>; attempts: unknown[] }) => void) {
+        const store = JSON.parse(s.data.get(STORAGE_KEYS.ITEM_REVIEW)!);
+        edit(store);
+        const raw = JSON.stringify(store);
+        s.data.set(STORAGE_KEYS.ITEM_REVIEW, raw);
+        return raw;
+    }
+    const quarantine = (s: ReturnType<typeof storage>) => JSON.parse(s.data.get(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE) ?? 'null');
+
+    it('um cartão inválido vai para a quarentena e a revisão segue com os outros cartões', async () => {
+        const s = await seeded(); const key = itemKey(second().item);
+        let bad: unknown;
+        corrupt(s, store => { (store.cards[key] as { easeFactor: number }).easeFactor = 9; bad = store.cards[key]; });
+
+        const snapshot = await new ItemReviewRepository(s).inspect();
+        expect(snapshot.readable).toBe(true);
+        expect(snapshot.cards.map(card => card.item.itemId)).toEqual(['item:1']);
+        expect(quarantine(s)).toEqual({ schemaVersion: 'item-review-quarantine.v1',
+            entries: [{ kind: 'card', key, record: bad, quarantinedAt: expect.any(String) }] });
+        expect(Number.isFinite(Date.parse(quarantine(s).entries[0].quarantinedAt))).toBe(true);
+        expect(Object.keys(JSON.parse(s.data.get(STORAGE_KEYS.ITEM_REVIEW)!).cards)).toEqual([itemKey(attempt().item)]);
+        expect(await new ItemReviewRepository(s).getAttempts()).toHaveLength(2);
+    });
+    it('uma tentativa inválida vai para a quarentena sem levar o cartão dela', async () => {
+        const s = await seeded();
+        corrupt(s, store => { (store.attempts[1] as { mode: string }).mode = 'inventado'; });
+
+        const repo = new ItemReviewRepository(s);
+        expect((await repo.getAttempts()).map(entry => entry.attemptId)).toEqual(['attempt:1']);
+        expect(await repo.getCards()).toHaveLength(2);
+        expect(quarantine(s).entries).toEqual([{ kind: 'attempt', record: expect.objectContaining({ attemptId: 'attempt:2', mode: 'inventado' }),
+            quarantinedAt: expect.any(String) }]);
+    });
+    it('registro nulo ou de outro tipo vai para a quarentena em vez de derrubar a leitura', async () => {
+        const s = await seeded(); const key = itemKey(second().item);
+        corrupt(s, store => { store.cards[key] = null; store.attempts.push(42); });
+
+        expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+        expect(quarantine(s).entries.map((entry: { kind: string; record: unknown }) => [entry.kind, entry.record])).toEqual([['card', null], ['attempt', 42]]);
+    });
+    it('tentativa repetida fica com a primeira e manda a cópia para a quarentena', async () => {
+        const s = await seeded();
+        corrupt(s, store => { store.attempts.push({ ...(store.attempts[0] as object), durationBand: 'under-10s' }); });
+
+        const attempts = await new ItemReviewRepository(s).getAttempts();
+        expect(attempts.map(entry => [entry.attemptId, entry.durationBand])).toEqual([['attempt:1', 'unknown'], ['attempt:2', 'unknown']]);
+        expect(quarantine(s).entries).toEqual([{ kind: 'attempt', record: expect.objectContaining({ attemptId: 'attempt:1', durationBand: 'under-10s' }), quarantinedAt: expect.any(String) }]);
+    });
+    it('sem conseguir gravar a quarentena, não regrava o store e o mantém indisponível', async () => {
+        const s = await seeded();
+        const raw = corrupt(s, store => { (store.cards[itemKey(second().item)] as { interval: number }).interval = 0; });
+        s.setItem.mockClear();
+        s.setItem.mockImplementation(async (key: string, value: string) => {
+            if (key === STORAGE_KEYS.ITEM_REVIEW_QUARANTINE) throw new Error('full');
+            s.data.set(key, value);
+        });
+
+        expect(await new ItemReviewRepository(s).inspect()).toEqual({ readable: false, cards: [] });
+        expect(s.data.get(STORAGE_KEYS.ITEM_REVIEW)).toBe(raw);
+        expect(s.setItem.mock.calls.map(([key]) => key)).not.toContain(STORAGE_KEYS.ITEM_REVIEW);
+    });
+    it('uma quarentena existente ilegível não é sobrescrita', async () => {
+        const s = await seeded();
+        const raw = corrupt(s, store => { (store.cards[itemKey(second().item)] as { interval: number }).interval = 0; });
+        s.data.set(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE, '{quebrada');
+
+        expect((await new ItemReviewRepository(s).inspect()).readable).toBe(false);
+        expect(s.data.get(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE)).toBe('{quebrada');
+        expect(s.data.get(STORAGE_KEYS.ITEM_REVIEW)).toBe(raw);
+    });
+    it('se o store não regrava depois da quarentena, a nova tentativa não duplica a entrada', async () => {
+        const s = await seeded();
+        corrupt(s, store => { (store.cards[itemKey(second().item)] as { interval: number }).interval = 0; });
+        s.setItem.mockImplementationOnce(async (key: string, value: string) => { s.data.set(key, value); })
+            .mockImplementationOnce(async () => { throw new Error('full'); });
+
+        expect((await new ItemReviewRepository(s).inspect()).readable).toBe(false);
+        expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+        expect(quarantine(s).entries).toHaveLength(1);
+    });
+    it('a quarentena guarda só as entradas mais recentes, até o teto', async () => {
+        const s = await seeded();
+        const old = Array.from({ length: ITEM_QUARANTINE_CAP }, (_, index) => ({ kind: 'attempt', record: index, quarantinedAt: '2026-10-01T00:00:00.000Z' }));
+        s.data.set(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE, JSON.stringify({ schemaVersion: 'item-review-quarantine.v1', entries: old }));
+        corrupt(s, store => { store.attempts.push('nova'); });
+
+        expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+        const entries = quarantine(s).entries;
+        expect(entries).toHaveLength(ITEM_QUARANTINE_CAP);
+        expect(entries[0].record).toBe(1);
+        expect(entries.at(-1).record).toBe('nova');
+    });
+    it('clear apaga também a quarentena', async () => {
+        const s = await seeded();
+        corrupt(s, store => { store.attempts.push(42); });
+        const repo = new ItemReviewRepository(s);
+        await repo.inspect();
+        await repo.clear();
+        expect(s.data.has(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE)).toBe(false);
+        expect(s.data.has(STORAGE_KEYS.ITEM_REVIEW)).toBe(false);
+    });
+});

@@ -3343,3 +3343,31 @@ build, publicação, commit, push ou merge. Árvore compartilhada preservada.
 > FILA 59. Os outros 16 roteiros não foram executados com o argumento.
 
 > Branch `feat/e1-animacao-desligavel`, sem push.
+
+---
+
+### Saído do STATUS em 2026-10-18 (gate remedido no fim do dia; a medição de 2026-10-14 deixou de ser a última)
+
+> **Remedido em 2026-10-14:** run `run-1791978395898-e847c951`, primeiro e único
+> ciclo final, **14/14 aprovados** (`VALIDATION_PASSED`). Inclui `app-quality`
+> íntegro, `app-test --runInBand --no-cache`, contratos/conteúdo, testes/lint/tipos
+> da API, documentos e links do cérebro. App/API no Node 20,
+> `EXPO_NO_DOTENV=1`/`CI=1`; Loop no Node 24. App/Metro encerrados e SE desligado.
+>
+> Evidências principais: `app-quality` = `evidence-53076ae2-3874-4540-a43e-5f1905cfe982`;
+> `app-test` = `evidence-176e8c7f-13b0-4e8b-a253-e8b61a5f7836`.
+> A CLI retém hashes e prévias; contagens focadas são identificadas separadamente
+> no [relatório de remediação](evidence/2026-10-14-qa-remediacao.md).
+> É validação local; CI remoto, integração à main e publicação não executados.
+> Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
+>
+> **Consolidação documental validada em 2026-10-14:** run
+> `run-1792017443998-8ca34b51`, **14/14, ciclo único**, sobre o pacote `13ee173`.
+> Contrato documental = `evidence-8196312e-5a49-440e-9ea5-d39533b66434`;
+> app-quality = `evidence-99f1b011-f87d-45d8-ba2a-f6eff8facb72`.
+> Essa etapa não repetiu o QA nativo nem as medições externas; preserva a
+> proveniência e os limites registrados no relatório.
+>
+> **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
+> em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
+> e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.

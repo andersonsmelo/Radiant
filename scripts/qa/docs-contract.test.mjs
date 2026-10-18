@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import {
   CURRENT_STATE_DOCUMENTS,
+  FOLDER_MAPS,
   NON_INSTRUCTION_RELEASE_DOCUMENTS,
   RELEASE_INSTRUCTION_DOCUMENTS,
   inspectDocument,
+  inspectFolderMap,
+  listFolderFiles,
   inspectReleaseDocument,
   readDistributedCapabilities,
 } from './docs-contract.mjs';
@@ -219,4 +222,49 @@ test('accepts a smoke step written against the surfaces the build actually has',
     }),
     []
   );
+});
+
+// R8 (A7, 2026-10-17): o README da trilha prometia "entender em poucos minutos",
+// e o mapa da pasta listava 2 das 4 pesquisas, 4 das 8 avaliações e 2 dos 4
+// planos. Um mapa escrito à mão envelhece no primeiro arquivo novo; esta regra
+// faz o arquivo não mapeado reprovar o contrato.
+test('flags a file in the folder that the folder README does not link', () => {
+  const violations = inspectFolderMap({
+    readme: 'docs/trilha/README.md',
+    content: '[Plano](plano/a.md)',
+    files: ['plano/a.md', 'pesquisas/b.md'],
+  });
+
+  assert.deepEqual(violations, [
+    'docs/trilha/README.md: the folder map does not link pesquisas/b.md; every file in the folder must appear in its entry point.',
+  ]);
+});
+
+test('accepts a folder map that links every file, with anchors and ./ prefixes', () => {
+  const violations = inspectFolderMap({
+    readme: 'docs/trilha/README.md',
+    content: '[A](./plano/a.md) · [B](pesquisas/b.md#metodo) · [C](<historico.md>)',
+    files: ['plano/a.md', 'pesquisas/b.md', 'historico.md'],
+  });
+
+  assert.deepEqual(violations, []);
+});
+
+test('does not count a link to the subfolder or a mention in code as mapping the file', () => {
+  const violations = inspectFolderMap({
+    readme: 'docs/trilha/README.md',
+    content: '[Pesquisas](pesquisas/) e `pesquisas/b.md`',
+    files: ['pesquisas/b.md'],
+  });
+
+  assert.equal(violations.length, 1);
+});
+
+test('the trail entry point maps every file in its folder', () => {
+  for (const { readme, dir } of FOLDER_MAPS) {
+    const content = readFileSync(path.join(repoRoot, readme), 'utf8');
+    const files = listFolderFiles(path.join(repoRoot, dir)).filter((file) => file !== path.basename(readme));
+    assert.ok(files.length > 20, `${dir}: the walk found only ${files.length} files`);
+    assert.deepEqual(inspectFolderMap({ readme, content, files }), []);
+  }
 });

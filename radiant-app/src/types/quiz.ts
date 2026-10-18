@@ -42,14 +42,8 @@ export type QuizQuestion = {
 };
 
 export type QuizLessonJourneyStageCopy = {
-  /** Sem leitor desde o motor híbrido (FILA 58): a lição usa todas as perguntas.
-   * Continua no tipo porque faz parte do contrato de conteúdo da radiant-api. */
-  questionIndex?: number;
   contextBody?: string;
   teachBody?: string;
-  /** Sem leitor desde o motor híbrido (FILA 58): a explicação vem no feedback
-   * de cada item. Continua no tipo pelo contrato de conteúdo da radiant-api. */
-  reinforceBody?: string;
 };
 
 export type QuizLessonJourneyCopy = {

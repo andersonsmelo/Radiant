@@ -38,15 +38,11 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
                         difficulty: 'beginner',
                         journey: {
                             intro: {
-                                questionIndex: 0,
                                 contextBody: 'Contexto remoto de introdução',
                                 teachBody: 'Ensino remoto principal',
-                                reinforceBody: 'Reforço remoto principal',
                             },
                             review: {
-                                questionIndex: 0,
                                 contextBody: 'Contexto remoto de revisão',
-                                reinforceBody: 'Reforço remoto de revisão',
                             },
                         },
                         questions: [
@@ -101,15 +97,11 @@ test('GET /v1/content/catalog returns the launch catalog contract', async (t) =>
                     difficulty: 'beginner',
                     journey: {
                         intro: {
-                            questionIndex: 0,
                             contextBody: 'Contexto remoto de introdução',
                             teachBody: 'Ensino remoto principal',
-                            reinforceBody: 'Reforço remoto principal',
                         },
                         review: {
-                            questionIndex: 0,
                             contextBody: 'Contexto remoto de revisão',
-                            reinforceBody: 'Reforço remoto de revisão',
                         },
                     },
                     questions: [

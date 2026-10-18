@@ -161,6 +161,17 @@ describe('revisão por item', () => {
         await expect(coordinator.loadQueue(legacy, now)).rejects.toThrow('review-store-unavailable');
         expect(data.get(STORAGE_KEYS.ITEM_REVIEW)).toBe(raw);
     });
+    it('um cartão corrompido sai da fila e não bloqueia a revisão dos outros (R6)', async () => {
+        const { coordinator, data } = setup(2);
+        await coordinator.loadQueue(legacy, now);
+        const store = JSON.parse(data.get(STORAGE_KEYS.ITEM_REVIEW)!);
+        const corrupted = Object.keys(store.cards).find(key => store.cards[key].item.itemId === 'item:1')!;
+        store.cards[corrupted].dueAt = 'ontem';
+        data.set(STORAGE_KEYS.ITEM_REVIEW, JSON.stringify(store));
+        const later = new Date('2026-10-20T12:00:00.000Z');
+        expect((await coordinator.loadQueue([], later)).map(entry => entry.question.id)).toEqual(['item:0']);
+        expect(JSON.parse(data.get(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE)!).entries).toHaveLength(1);
+    });
     it('preserva o ID da interação promovida e resolve a questão original no adaptador legado', () => {
         const activity = MATERIA_ENERGIA_E_RADIACAO_CANDIDATE.activities[0];
         const step = activity.steps.find(entry => entry.kind === 'interaction');

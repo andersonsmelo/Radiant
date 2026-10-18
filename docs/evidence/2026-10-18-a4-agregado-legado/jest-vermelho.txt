@@ -1,0 +1,110 @@
+# A4: os testes novos contra o useReview sem o agregado (base 8e1b08e), 2026-10-18, Node 20.20.2
+# npx jest --runInBand src/features/review/hooks/useReview.test.ts
+
+FAIL src/features/review/hooks/useReview.test.ts
+  useReview resume
+    ✓ persists first review value before exposing the finished state to the prompt caller (62 ms)
+    ✓ enters the explicitly resumed due card after the external CTA (52 ms)
+    ✓ falls back to the review intro when the saved card is no longer due (52 ms)
+  useReview — commit por item
+    ✓ recusa avançar/premiar se a escrita falha e permite retry explícito (55 ms)
+    ✓ dois envios concorrentes confirmam e premiam um único item (53 ms)
+  useReview — resposta corrigida antes do feedback
+    ✓ percorre o catálogo promovido real, persiste primeira resposta independente e só termina após o feedback (54 ms)
+    ✓ falha não revela feedback; retry conserva escolha/data e confirmação espera Continuar (52 ms)
+    ✓ ajuda não premia XP e dois envios não duplicam a confirmação (52 ms)
+  useReview — o cartão legado avança uma vez por lição na sessão (A4)
+    ✕ na autoavaliação, agrega os itens da lição e avança só no último dela (52 ms)
+    ✕ na resposta corrigida, agrega os itens da lição e avança só no último dela (51 ms)
+    ✕ uma resposta que não foi gravada não entra no agregado (52 ms)
+
+  ● useReview — o cartão legado avança uma vez por lição na sessão (A4) › na autoavaliação, agrega os itens da lição e avança só no último dela
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 12
+
+    - Array []
+    + Array [
+    +   Array [
+    +     "lesson:1",
+    +     1,
+    +     1,
+    +   ],
+    +   Array [
+    +     "lesson:1",
+    +     1,
+    +     0,
+    +   ],
+    + ]
+
+      202 |         await act(async () => result.current.submitRating(true));
+      203 |         await act(async () => result.current.submitRating(false));
+    > 204 |         expect(legacyCalls()).toEqual([]);
+          |                               ^
+      205 |         await act(async () => result.current.submitRating(true));
+      206 |         expect(legacyCalls()).toEqual([['lesson:2', 1, 1]]);
+      207 |         await act(async () => result.current.submitRating(true));
+
+
+  ● useReview — o cartão legado avança uma vez por lição na sessão (A4) › na resposta corrigida, agrega os itens da lição e avança só no último dela
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 7
+
+    - Array []
+    + Array [
+    +   Array [
+    +     "lesson:1",
+    +     1,
+    +     0,
+    +   ],
+    + ]
+
+      219 |
+      220 |         await act(async () => result.current.submitAnswer(1));
+    > 221 |         expect(legacyCalls()).toEqual([]);
+          |                               ^
+      222 |         await act(async () => result.current.continueReview());
+      223 |         await act(async () => result.current.submitAnswer(0));
+      224 |         expect(legacyCalls()).toEqual([['lesson:1', 2, 1]]);
+
+
+  ● useReview — o cartão legado avança uma vez por lição na sessão (A4) › uma resposta que não foi gravada não entra no agregado
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+      Array [
+        Array [
+          "lesson:1",
+    -     2,
+    +     1,
+    +     1,
+    +   ],
+    +   Array [
+    +     "lesson:1",
+          1,
+    +     0,
+        ],
+      ]
+
+      236 |         expect(result.current.persistenceError).toBeTruthy();
+      237 |         await act(async () => result.current.retrySubmission());
+    > 238 |         expect(legacyCalls()).toEqual([['lesson:1', 2, 1]]);
+          |                               ^
+      239 |     });
+      240 | });
+      241 |
+
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 8 passed, 11 total
+Snapshots:   0 total
+Time:        1.07 s
+Ran all test suites matching /src\/features\/review\/hooks\/useReview.test.ts/i.
