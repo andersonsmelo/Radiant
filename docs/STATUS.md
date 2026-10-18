@@ -417,12 +417,12 @@ não foram vistos na tela. [ADR](adr/ADR-2026-10-16-configuracao-no-perfil.md),
 cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
-**Remedido em 2026-10-18,** na branch `claude/r6-store-revisao`, já com a `main`
-das PRs #47 a #49: o `loop validate` do run `run-1792355528928-015db1b9` deu
-**15/15**, com o `app-quality` (`npm run quality`) aprovado. No `9c107b6`, com o
-mesmo código do app, o `EXPO_NO_DOTENV=1 npx jest --runInBand` deu **174 suítes
-e 1.787 testes**, e a API, 14 testes. A contagem é do Jest em banda única, e não do log do gate.
-É validação local. O CI da `main` em `b59e216` passou pela PR #48.
+**Remedido em 2026-10-18 às 18:11,** na branch `claude/fila62-guardas-de-rolagem`,
+sobre a `main` em `2304c94` (PR #50) mais o diff da FILA 62:
+`EXPO_NO_DOTENV=1 npm run quality` deu `exit=0`, com **174 suítes e 1.787
+testes** no Jest em banda única e o contrato do Maestro em 34/34
+([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/gate.txt)). É
+validação local. O CI da PR #50 passou no `a31c651`.
 Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
@@ -552,13 +552,14 @@ Medido em 2026-10-10, às 09:55:
     `radiant-app/ios/` ficou com o `.storekit` e o esquema marcado; um
     `prebuild --clean` desfaz isso.
 
-**Worktrees, medidas em 2026-10-18 às 17 h:** a `zealous-shannon-01c8e3` foi
+**Worktrees, medidas em 2026-10-18 às 18 h:** a `zealous-shannon-01c8e3` foi
 removida em 2026-09-24. Em `.claude/worktrees/`, todas limpas:
 - `trusting-mestorf-a5ca83` e `dazzling-ishizaka-883871`, do E1, já na `main`
   pela #49;
 - `maestro-nativo` (#48) e `review-42` (#47), já na `main`;
 - `argon-trilha` e `sharp-dijkstra-747d12`, já na `main`;
-- `r6-store-revisao`, a branch das entregas de 2026-10-18 (R6, A4, R8 e C1).
+- `r6-store-revisao` (R6, A4, R8 e C1), já na `main` pela #50;
+- `fila62-rolagem`, a branch da FILA 62.
 
 Cada uma guarda runs do Loop que o git ignora. Remover as já integradas é
 decisão do dono.
@@ -588,7 +589,7 @@ decidido pelo dono em 2026-09-23 e ainda não construído.
 
 ## Trilha — estado em 2026-10-18
 
-**Na `main` em `b59e216` (medido em 2026-10-18, às 17 h), sem build nova:** a loja segue
+**Na `main` em `2304c94` (medido em 2026-10-18, às 18 h), sem build nova:** a loja segue
 com a `1.4.0 (12)`, do `221e2ec`. Levantamento completo do período em
 [`trilha/2026-10-18-levantamento-do-que-foi-feito.md`](trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 
@@ -614,10 +615,18 @@ idêntica à da `main` em `b59e216` (`git diff` vazio). O `loop validate` desse
 commit deu 15/15. Antes, na branch da PR #45, o `npm run quality` tinha dado 173
 suítes e 1.763 testes.
 
-**Feitos em 2026-10-18 na branch `claude/r6-store-revisao`, proposta na PR do
-dia:** o A3 (quarentena do registro inválido) e o A4 (agregado legado), na seção
-abaixo; o R8 (README curto da trilha); e o C1 (contrato de conteúdo). Cada um
-tem evidência própria em `evidence/2026-10-18-*`.
+**Integrados em 2026-10-18 pela [PR #50](https://github.com/andersonsmelo/Radiant/pull/50)
+(`2304c94`):** o A3 (quarentena do registro inválido) e o A4 (agregado legado),
+na seção abaixo; o R8 (README curto da trilha); e o C1 (contrato de conteúdo).
+Cada um tem evidência própria em `evidence/2026-10-18-*`.
+
+**FILA 62, feita em 2026-10-18 na branch `claude/fila62-guardas-de-rolagem`,
+com PR contra a `main`:** as duas guardas de rolagem do contrato do Maestro
+leem a `MAESTRO_FLOWS_WITH_SCROLL`, agora com os 17 roteiros que rolam, e uma
+guarda nova reprova quando a lista e o diretório divergem. A guarda do
+aninhamento tinha uma lista própria e não lia sete roteiros, e não dois como a
+FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
+([evidência](evidence/2026-10-18-fila62-guardas-de-rolagem.md)).
 
 **Ainda aberto:**
 - **A2:** o store de revisão passa dos 6 MB do Android nos tetos. Foi medido no

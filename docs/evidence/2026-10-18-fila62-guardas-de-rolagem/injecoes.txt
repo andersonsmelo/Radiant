@@ -1,0 +1,68 @@
+FILA 62 — injeções no contrato do Maestro (radiant-app/scripts/maestro-contract.test.mjs)
+Medido em 2026-10-18, Node v20.20.2, worktree a partir da main 2304c94.
+Script de injeção: um defeito por vez, restaurado byte a byte depois de cada execução.
+  vis  = apaga o visibilityPercentage do primeiro scrollUntilVisible de topo do roteiro
+  nest = aninha o primeiro scrollUntilVisible de topo sob runFlow when visible
+  lista = põe na MAESTRO_FLOWS_WITH_SCROLL um roteiro que não rola
+Contrato sem injeção: 33/33 na main; 34/34 depois do conserto.
+
+=== Passo 0 — contrato da main (2304c94), sem edição: a guarda é cega?
+--- vis:review-due.yaml (defeito na linha 21) exit=0
+    testes reprovados: 0
+--- vis:hybrid-native-evidence.yaml (defeito na linha 25) exit=0
+    testes reprovados: 0
+--- nest:review-due.yaml (defeito na linha 25) exit=0
+    testes reprovados: 0
+--- nest:hybrid-native-evidence.yaml (defeito na linha 29) exit=0
+    testes reprovados: 0
+--- nest:boot-to-home.yaml (defeito na linha 33) exit=0
+    testes reprovados: 0
+--- nest:student-checkpoint-active-resume.yaml (defeito na linha 42) exit=0
+    testes reprovados: 0
+--- nest:student-checkpoint-performance-baseline.yaml (defeito na linha 29) exit=0
+    testes reprovados: 0
+--- nest:student-checkpoint-no-duplicate-effect.yaml (defeito na linha 36) exit=0
+    testes reprovados: 0
+--- nest:student-checkpoint-short-viewport.yaml (defeito na linha 41) exit=0
+    testes reprovados: 0
+
+=== Passo C — contrato corrigido: cada guarda reprova pelo defeito que nomeia
+--- vis:review-due.yaml (defeito na linha 21) exit=1
+    testes reprovados: 1
+    not ok - makes every scroll-until-visible state the visibility bar it is measured by
+    mensagem: review-due.yaml:21: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer overlaps the tar
+--- vis:hybrid-native-evidence.yaml (defeito na linha 25) exit=1
+    testes reprovados: 1
+    not ok - makes every scroll-until-visible state the visibility bar it is measured by
+    mensagem: hybrid-native-evidence.yaml:25: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer over
+--- nest:review-due.yaml (defeito na linha 25) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: review-due.yaml:25: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:hybrid-native-evidence.yaml (defeito na linha 29) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: hybrid-native-evidence.yaml:29: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:boot-to-home.yaml (defeito na linha 33) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: boot-to-home.yaml:33: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:student-checkpoint-active-resume.yaml (defeito na linha 42) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-active-resume.yaml:42: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:student-checkpoint-performance-baseline.yaml (defeito na linha 29) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-performance-baseline.yaml:29: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding agai
+--- nest:student-checkpoint-no-duplicate-effect.yaml (defeito na linha 36) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-no-duplicate-effect.yaml:36: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding again
+--- nest:student-checkpoint-short-viewport.yaml (defeito na linha 41) exit=1
+    testes reprovados: 1
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-short-viewport.yaml:41: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- lista:first-run.yaml (roteiro que nao rola, posto na lista) exit=1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: first-run.yaml are listed in MAESTRO_FLOWS_WITH_SCROLL but no longer use scrollUntilVisible

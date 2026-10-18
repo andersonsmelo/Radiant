@@ -2137,3 +2137,21 @@ Pendente, nesta ordem:
     Avaliação libera a próxima; conquista opcional permanece decidida.
     **Remedir:** comandos do relatório; gate/estado no run
     `run-1792262643188-24b24d6e`.
+
+## Arquivado em 2026-10-18 — FILA 62, guardas de rolagem do Maestro
+
+**Feito em 2026-10-18** pelo Claude, a pedido de Anderson na conversa: as duas
+guardas de rolagem leem a `MAESTRO_FLOWS_WITH_SCROLL`, agora com os 17 roteiros
+que rolam, e uma guarda nova reprova quando a lista e o diretório divergem. A
+proibição de aninhamento tinha uma lista própria, com 10 roteiros: ali
+faltavam sete, e não dois. [Evidência](../evidence/2026-10-18-fila62-guardas-de-rolagem.md).
+O texto do item, como estava na fila:
+
+  - **62.** agente: **dois roteiros que rolam estão fora das guardas de rolagem
+    do contrato do Maestro.** O `review-due.yaml` e o
+    `hybrid-native-evidence.yaml` usam `scrollUntilVisible`, mas não estão nas
+    listas de `scripts/maestro-contract.test.mjs` que exigem
+    `visibilityPercentage` e proíbem rolagem aninhada. Achado em 2026-10-18 pelo
+    Claude, ao tratar a revisão do Codex na PR #48. Incluir os dois e ver cada guarda falhar com o
+    defeito que nomeia. O G4 fica fora da lista da espera por `assertVisible`,
+    por decisão do dono;
