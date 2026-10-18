@@ -1,0 +1,27 @@
+Running on Radiant FILA 58 Codex - iOS 26.5 - 17D1EBE2-3F91-48C5-937D-8970B55CEE8D
+ > Flow FILA 58 texto ampliado após esgotar vidas
+Launch app "com.ascendcreative.radiant"... COMPLETED
+Run ../../../radiant-app/.maestro/subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../../../radiant-app/.maestro/subflows/dismiss-dev-client.yaml... COMPLETED
+Open radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "0 de 5 vidas" is visible... COMPLETED
+Take screenshot 08-feedback-texto-ampliado... COMPLETED
+Scroll vertically... COMPLETED
+Assert that "Continuar" is visible... COMPLETED
+Take screenshot 09-rolagem-texto-ampliado... COMPLETED

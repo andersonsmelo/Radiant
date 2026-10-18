@@ -1054,4 +1054,26 @@ describe('LessonOutcomeService — journal G4 no caminho real', () => {
         expect((await itemReviewRepository.getAttempts())[0]).toMatchObject({ firstOutcome: 'incorrect', finalOutcome: 'correct', hintUsed: true });
         expect(mockedReview.observeExposure).toHaveBeenCalledWith(expect.objectContaining({ grade: { outcome: 'incorrect', hintUsed: true } }));
     });
+    it('M3 journal tem um registro por item, placar inicial e correção final sem duplicar crédito', async () => {
+        const second = { ...block.steps[1], contract: { ...block.steps[1].contract, id: 'lesson-1-q2' } };
+        const hybrid: LessonBlock = { ...block, sessionMode: 'hybrid-lesson', steps: [...block.steps, second] };
+        const input = {
+            block: hybrid, nodeId: 'node:lesson-1', attemptId: 'hybrid:once',
+            firstConfirmedAnswers: { 'lesson-1-question': false, 'lesson-1-q2': true },
+            confirmedAnswers: { 'lesson-1-question': true, 'lesson-1-q2': true },
+            answeredAt: new Date('2026-10-18T12:00:00.000Z'),
+        };
+        const first = await LessonOutcomeService.recordCompletion(input);
+        await LessonOutcomeService.recordCompletion(input);
+        expect(first.result).toMatchObject({ correctAnswers: 1, totalQuestions: 2 });
+        expect(await itemReviewRepository.getAttempts()).toHaveLength(2);
+        expect(await itemReviewRepository.getAttempts()).toEqual(expect.arrayContaining([
+            expect.objectContaining({ firstOutcome: 'incorrect', finalOutcome: 'correct' }),
+            expect.objectContaining({ firstOutcome: 'correct', finalOutcome: 'correct' }),
+        ]));
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
+        expect(mockedAttempts.append).toHaveBeenCalledTimes(1);
+    });
+
 });

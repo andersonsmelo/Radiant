@@ -662,3 +662,26 @@ Claude revisa e coordena as IAs.
 - **P6 (FILA 52):** pesquisa entregue, e a seleção de imagens aguarda o dono. Os pesos de prova citados não têm fonte.
 - Gates: 15 validadores e 1.734 testes verdes no commit `a133576`. Revisão: [B1–B5](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md) (branch `feat/trilha-evolucao-global-g0-g4`). [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) · [Pesquisa](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md) · [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md).
 
+
+
+## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
+
+Implementação candidata na branch `codex/motor-hibrido-licao`, sobre
+`claude/motor-hibrido-e-decisoes-2026-10-18`, em worktree própria. Aguarda a
+revisão do Claude antes de ser marcada como feita e a aprovação do Anderson da
+régua de estrelas proposta na PR. Usa todas as perguntas do catálogo, feedback
+por resposta, retorno único do item errado, primeiro contato sem débito de vida,
+remoção do passo de molde e ação Refazer no resumo incompleto. O nó de revisão
+não enfileira retorno na mesma sessão.
+
+Gates medidos em 2026-10-18: quality no Node 20 com 173 suítes e 1.757 testes,
+visual QA sem regressões não aprovadas; Loop 15/15 no primeiro ciclo do run
+final `run-1792326922046-8d387120`. Prova nativa no simulador iOS: lição de IA
+com dois itens, erro e retorno com débito só no retorno, resumo/Refazer,
+esgotamento de vidas e passagem de feedback com texto ampliado. Nove capturas
+versionadas. Os outros sete roteiros do plano, VoiceOver auditivo, Android e
+aparelho físico não foram executados.
+
+O [relatório e as evidências](evidence/2026-10-18-motor-hibrido.md) registram os
+vermelhos, os gates, as capturas nativas e os limites. A FILA 55 não foi alterada:
+o pacote seguinte continua sendo A1, preservando a data pela ADR de 2026-10-18.

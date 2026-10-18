@@ -1,0 +1,38 @@
+[
+  {
+    "file": "01-sem-molde.png",
+    "sha256": "6077622f592b474bd3d234259f91e35b204c8b4027d58511d1bf2f16f5479a79"
+  },
+  {
+    "file": "02-primeiro-erro-gratis.png",
+    "sha256": "b28031dc921fa46ffa856c6814be99944900f271bf798a05ad0875bc18e3d058"
+  },
+  {
+    "file": "03-segundo-item.png",
+    "sha256": "e77226e1515a0eb259abc9070fb70a109f23a6c9eda214d381bbbf37091aaa8c"
+  },
+  {
+    "file": "04-retorno.png",
+    "sha256": "e82b99edb8fc67cfc5fe71cfc411e458797c7fa6b72bba4758eb8956325cdfbe"
+  },
+  {
+    "file": "05-debito-no-retorno.png",
+    "sha256": "d7dc7ecedaf3b1baad65d0db7d9f99bf68b6c399f9ceea02d0f810b122fc7195"
+  },
+  {
+    "file": "06-resumo.png",
+    "sha256": "cfc1b772bdc751f2f81d90b9ac510d1613b24ce22e893887396b714974783f17"
+  },
+  {
+    "file": "07-refazer.png",
+    "sha256": "c6ac827a4ab7ff27aa2c3cff92f1bd37cc1a1d7a69c9f3570b0b870aac37455a"
+  },
+  {
+    "file": "08-feedback-texto-ampliado.png",
+    "sha256": "f6887c080f51cdc1aea1db28eef2cb4b9b24750f275e3b1e8a6b73a661db5739"
+  },
+  {
+    "file": "09-rolagem-texto-ampliado.png",
+    "sha256": "ee8d54ac1becbb1c5634452ab3e169ed80d3ad1da7c1decab3bca777854cfbb5"
+  }
+]

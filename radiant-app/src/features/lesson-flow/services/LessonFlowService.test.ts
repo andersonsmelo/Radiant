@@ -417,3 +417,18 @@ describe('LessonFlowService — contrato legado preservado', () => {
         expect(LessonFlowService.getBlockById('activity:materia-energia-e-radiacao:01')).toBeNull();
     });
 });
+
+
+it('M1 serviço aceita bloco híbrido de três perguntas e mantém a adaptação V2', () => {
+    const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService');
+    const steps = [1, 2, 3].map(n => ({
+        contract: { id: `q${n}`, type: 'multiple-choice', completionRule: 'answered', retryRule: 'allow_continue', branching: 'none' },
+        step: { type: 'multiple-choice', payload: {
+            prompt: `Pergunta ${n}`, options: [{ id: `${n}:a`, label: 'A' }, { id: `${n}:b`, label: 'B' }],
+            correctOptionId: `${n}:a`, explanation: 'Explicação válida.',
+        } },
+    }));
+    JourneyDefinitionService.getBlockById.mockReturnValue({ id: 'hybrid', lessonId: 'lesson-1', sessionMode: 'hybrid-lesson', steps });
+    expect(() => LessonFlowService.getActivityById('hybrid')).not.toThrow();
+    expect(LessonFlowService.getActivityById('hybrid')?.steps).toHaveLength(3);
+});

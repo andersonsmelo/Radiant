@@ -26,21 +26,51 @@ tags:
 # nó recomendado anuncia o motivo no lugar do estado.
 - assertVisible: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
 - tapOn: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
-- assertVisible: 'Passo 1 de 3'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: 'Retome rapidamente o conceito central antes de seguir adiante.'
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Continuar
 - assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q2:option:2
+      id: 'lesson-option-q2:option:2'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q2:option:2
+    id: 'lesson-option-q2:option:2'
 - tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
 - assertVisible: Resposta correta
 - tapOn: Concluir e voltar
-- assertVisible: A lição foi concluída
+- assertVisible: Revisão concluída
 - tapOn: Continuar
 - assertVisible: '^Revisar Fundamentos de Radiologia\. Concluído\.$'

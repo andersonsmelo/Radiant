@@ -37,85 +37,38 @@ function buildMultipleChoiceStep(stepId: string, lesson: ContentLesson, question
     };
 }
 
-function resolveQuestionIndex(lesson: ContentLesson, preferredIndex: number | undefined, fallbackIndex: number): number {
-    if (typeof preferredIndex === 'number' && lesson.questions[preferredIndex]) {
-        return preferredIndex;
-    }
-
-    return lesson.questions[fallbackIndex] ? fallbackIndex : 0;
+function questionSteps(lesson: ContentLesson, prefix: string): LessonStepDefinition[] {
+    return lesson.questions.map((question, index) => buildMultipleChoiceStep(
+        index === 0 ? `${prefix}-question` : `${prefix}-question:${question.id}`,
+        lesson,
+        index,
+    ));
 }
 
 function buildIntroBlock(track: LearningTrack, lesson: ContentLesson, lessonOrder: number): LessonBlock {
     const introCopy = lesson.journey?.intro;
-    const questionIndex = resolveQuestionIndex(lesson, introCopy?.questionIndex, 0);
-    const question = lesson.questions[questionIndex] ?? lesson.questions[0];
-    const correctAnswerLabel = question?.options[question.correctAnswerIndex]?.label;
-
-    return {
-        id: `block:${lesson.id}:intro`,
-        lessonId: lesson.id,
-        steps: [
-            {
-                contract: {
-                    id: `${lesson.id}-context`,
-                    type: 'context',
-                    completionRule: 'displayed',
-                    retryRule: 'allow_continue',
-                    branching: 'none',
-                },
-                step: {
-                    type: 'context',
-                    payload: {
-                        eyebrow: `Unidade ${lessonOrder}`,
-                        title: lesson.title,
-                        body:
-                            introCopy?.contextBody ??
-                            `Agora você entra em ${lesson.title.toLowerCase()} dentro de ${track.title.toLowerCase()}.`,
-                    },
-                },
+    const steps: LessonStepDefinition[] = [{
+        contract: {
+            id: `${lesson.id}-context`, type: 'context', completionRule: 'displayed',
+            retryRule: 'allow_continue', branching: 'none',
+        },
+        step: { type: 'context', payload: {
+            eyebrow: `Unidade ${lessonOrder}`, title: lesson.title,
+            body: introCopy?.contextBody ??
+                `Agora você entra em ${lesson.title.toLowerCase()} dentro de ${track.title.toLowerCase()}.`,
+        } },
+    }];
+    if (introCopy?.teachBody?.trim()) {
+        steps.push({
+            contract: {
+                id: `${lesson.id}-teach`, type: 'teach', completionRule: 'displayed',
+                retryRule: 'allow_continue', branching: 'none',
             },
-            {
-                contract: {
-                    id: `${lesson.id}-teach`,
-                    type: 'teach',
-                    completionRule: 'displayed',
-                    retryRule: 'allow_continue',
-                    branching: 'none',
-                },
-                step: {
-                    type: 'teach',
-                    payload: {
-                        title: 'Ideia-chave',
-                        body:
-                            introCopy?.teachBody ??
-                            `O objetivo desta etapa é consolidar o conceito central de ${lesson.title.toLowerCase()} antes do quiz.`,
-                    },
-                },
-            },
-            buildMultipleChoiceStep(`${lesson.id}-question`, lesson, questionIndex),
-            {
-                contract: {
-                    id: `${lesson.id}-reinforce`,
-                    type: 'reinforce',
-                    completionRule: 'confirmed',
-                    retryRule: 'allow_continue',
-                    branching: 'none',
-                },
-                step: {
-                    type: 'reinforce',
-                    payload: {
-                        title: 'Fixe este ponto',
-                        body:
-                            introCopy?.reinforceBody ??
-                            `Se este conceito ficar claro, a próxima parte de ${track.title.toLowerCase()} anda com menos atrito.`,
-                        tone: 'neutral',
-                        prompt: question?.prompt,
-                        correctAnswerLabel,
-                    },
-                },
-            },
-        ],
-    };
+            step: { type: 'teach', payload: { title: 'Ideia-chave', body: introCopy.teachBody } },
+        });
+    }
+    steps.push(...questionSteps(lesson, lesson.id));
+    return { id: `block:${lesson.id}:intro`, lessonId: lesson.id, sessionMode: 'hybrid-lesson', steps };
 }
 
 function displayLessonTitle(rawTitle: string): string {
@@ -123,58 +76,22 @@ function displayLessonTitle(rawTitle: string): string {
 }
 
 function buildReviewBlock(lesson: ContentLesson): LessonBlock {
-    const reviewCopy = lesson.journey?.review;
-    const questionIndex = resolveQuestionIndex(lesson, reviewCopy?.questionIndex, 1);
-    const question = lesson.questions[questionIndex] ?? lesson.questions[0];
-    const correctAnswerLabel = question?.options[question.correctAnswerIndex]?.label;
     const lessonTitle = displayLessonTitle(lesson.title);
-
     return {
         id: `block:review:${lesson.id}`,
         lessonId: lesson.id,
-        steps: [
-            {
-                contract: {
-                    id: `review-${lesson.id}-context`,
-                    type: 'context',
-                    completionRule: 'displayed',
-                    retryRule: 'allow_continue',
-                    branching: 'none',
-                },
-                step: {
-                    type: 'context',
-                    payload: {
-                        eyebrow: 'Revisão',
-                        title: `Revisar ${lessonTitle}`,
-                        body:
-                            reviewCopy?.contextBody ??
-                            `Retome rapidamente o conceito central de ${lessonTitle.toLowerCase()} antes de avançar.`,
-                    },
-                },
+        sessionMode: 'hybrid-review',
+        steps: [{
+            contract: {
+                id: `review-${lesson.id}-context`, type: 'context', completionRule: 'displayed',
+                retryRule: 'allow_continue', branching: 'none',
             },
-            buildMultipleChoiceStep(`review-${lesson.id}-question`, lesson, questionIndex),
-            {
-                contract: {
-                    id: `review-${lesson.id}-reinforce`,
-                    type: 'reinforce',
-                    completionRule: 'confirmed',
-                    retryRule: 'allow_continue',
-                    branching: 'none',
-                },
-                step: {
-                    type: 'reinforce',
-                    payload: {
-                        title: 'Revisão consolidada',
-                        body:
-                            reviewCopy?.reinforceBody ??
-                            `Se essa revisão sair natural, ${lessonTitle.toLowerCase()} já está virando repertório.`,
-                        tone: 'neutral',
-                        prompt: question?.prompt,
-                        correctAnswerLabel,
-                    },
-                },
-            },
-        ],
+            step: { type: 'context', payload: {
+                eyebrow: 'Revisão', title: `Revisar ${lessonTitle}`,
+                body: lesson.journey?.review?.contextBody ??
+                    `Retome rapidamente o conceito central de ${lessonTitle.toLowerCase()} antes de avançar.`,
+            } },
+        }, ...questionSteps(lesson, `review-${lesson.id}`)],
     };
 }
 

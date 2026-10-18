@@ -30,11 +30,12 @@ export type InteractionRendererProps = {
     value: string | undefined;
     onChange: (value: string) => void;
     confirmationLabel?: string;
+    submitted?: boolean;
 };
 
 type InteractionRenderer = (props: InteractionRendererProps) => React.ReactElement;
 
-function MultipleChoiceInteraction({ interaction, value, onChange, confirmationLabel = 'Continuar' }: InteractionRendererProps) {
+function MultipleChoiceInteraction({ interaction, value, onChange, confirmationLabel = 'Continuar', submitted = false }: InteractionRendererProps) {
     if (interaction.type !== 'multiple-choice') {
         return <UnsupportedInteraction interaction={interaction} />;
     }
@@ -45,14 +46,13 @@ function MultipleChoiceInteraction({ interaction, value, onChange, confirmationL
                 prompt: interaction.payload.prompt,
                 options: interaction.payload.options,
                 correctOptionId: interaction.payload.correctOptionId,
-                // O renderizador legado não exibe a explicação — ela é do
-                // reforço —, mas o tipo a exige. O feedback de acerto é o
-                // equivalente v2, e passá-lo evita inventar texto vazio.
+                // A tela do player apresenta o feedback, preservando a explicação autoral.
                 explanation: interaction.feedback.correct,
             }}
             selectedOptionId={value}
             onSelect={onChange}
             confirmationLabel={confirmationLabel}
+            submitted={submitted}
         />
     );
 }

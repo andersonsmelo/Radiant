@@ -11,6 +11,7 @@ type MultipleChoiceStepRendererProps = {
     selectedOptionId?: string;
     onSelect: (optionId: string) => void;
     confirmationLabel?: string;
+    submitted?: boolean;
 };
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
@@ -21,6 +22,7 @@ export function MultipleChoiceStepRenderer({
     selectedOptionId,
     onSelect,
     confirmationLabel = 'Continuar',
+    submitted = false,
 }: MultipleChoiceStepRendererProps) {
     return (
         <View style={styles.container}>
@@ -32,16 +34,16 @@ export function MultipleChoiceStepRenderer({
                     return (
                         <Pressable
                             key={option.id}
-                            onPress={() => onSelect(option.id)}
+                            onPress={() => { if (!submitted) onSelect(option.id); }}
                             testID={`lesson-option-${option.id}`}
                             accessibilityRole="button"
                             accessibilityLabel={option.label}
                             accessibilityHint={
-                                selected
+                                submitted ? 'Resposta já conferida. Leia o feedback e continue.' : selected
                                     ? `Selecionada. Toque em outra alternativa para trocar antes de ${confirmationLabel}.`
                                     : `Seleciona esta resposta. Você confirma em ${confirmationLabel}.`
                             }
-                            accessibilityState={{ selected }}
+                            accessibilityState={{ selected, disabled: submitted }}
                             style={[
                                 styles.option,
                                 selected && styles.optionSelected,

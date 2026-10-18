@@ -1,49 +1,27 @@
 appId: com.ascendcreative.radiant
-name: Caminho dourado 3 — vidas acabando no meio da lição até a folha
+name: Caminho dourado 3 — primeiro contato grátis e erro no retorno esgota vidas
 tags:
   - golden-path
   - radiant-1-4
 ---
-# Spec 1.4 (2026-09-14), §8, item 6: "vidas acabando no meio da lição até a
-# folha".
-#
-# Sem atalho de estado: as vidas acabam do jeito que acabam para o aluno, errando.
-# Cada interação errada debita UMA vida (`LessonFlowScreen`, uma vez por
-# interação e por montagem da tela), e a L1 tem uma interação só — no passo 3 de
-# 4. Refazer a L1 pela trilha é o caminho que o próprio app oferece; o aluno que
-# erra cinco vezes seguidas é quem chega à folha.
-#
-# As quatro primeiras tentativas erram e concluem (5 → 1). Na quinta, o erro no
-# passo 3 zera as vidas com a lição ainda aberta — o passo seguinte não é o
-# último —, e a folha sobe no meio da lição.
-#
-# Recarga: uma vida a cada 30 min desde o primeiro débito (`REFILL_MIN`). O flow
-# inteiro precisa caber nesse prazo, ou a contagem das asserções diverge.
+# ADR de 2026-10-18: só o erro no retorno custa vida. Sem injeção de estado.
+# A primeira pergunta erra no contato e no retorno; as outras duas acertam.
+# Cinco sessões consomem cinco vidas, uma por sessão; a quinta pausa no feedback.
 - launchApp:
     clearState: true
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
-    element: '^Fundamentos de Radiologia\. 0 de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. 0 de \d+ etapas concluídas\.$'
-- scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Próximo passo\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. Próximo passo\.$'
-# Tentativa 1: 5 → 4 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Próximo passo\.$'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '5 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -51,37 +29,74 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:0
+      id: 'lesson-option-q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:0
+    id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '5 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
 - assertVisible: '4 de 5 vidas'
-- assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
+- assertVisible: 'Respostas corretas: 2 de 3 corretas'
 - tapOn: Continuar
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
-    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-- scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
-# Tentativa 2: 4 → 3 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '4 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -89,37 +104,74 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:0
+      id: 'lesson-option-q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:0
+    id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '4 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
 - assertVisible: '3 de 5 vidas'
-- assertVisible: Vamos reforçar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
+- assertVisible: 'Respostas corretas: 2 de 3 corretas'
 - tapOn: Continuar
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
-    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-- scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
-# Tentativa 3: 3 → 2 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '3 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -127,37 +179,74 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:0
+      id: 'lesson-option-q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:0
+    id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: '2 de 5 vidas'
+- assertVisible:
+    id: lesson-item-feedback
 - assertVisible: Vamos reforçar
+- assertVisible: '3 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '2 de 5 vidas'
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
+- assertVisible: 'Respostas corretas: 2 de 3 corretas'
 - tapOn: Continuar
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
-    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-- scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
-# Tentativa 4: 2 → 1 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '2 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -165,37 +254,74 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:0
+      id: 'lesson-option-q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:0
+    id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: '1 de 5 vidas'
+- assertVisible:
+    id: lesson-item-feedback
 - assertVisible: Vamos reforçar
+- assertVisible: '2 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '1 de 5 vidas'
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
+- assertVisible: 'Respostas corretas: 2 de 3 corretas'
 - tapOn: Continuar
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
-    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-    direction: UP
-    centerElement: false
-    visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
-- scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
-- assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
-# Tentativa 5: 1 → 0 vidas.
 - tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '1 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -203,35 +329,65 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:0
+      id: 'lesson-option-q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:0
+    id: 'lesson-option-q1:option:0'
 - tapOn: Conferir resposta
-# A folha sobe por cima da lição logo depois da resposta — no lugar do reforço
-# ("Vamos reforçar") e da conclusão que as quatro tentativas anteriores viram.
-# Ela abre pelo ramo "não é o último passo" do `LessonFlowScreen`: a lição está
-# aberta, sem desfecho registrado.
-#
-# A folha é modal (`accessibilityViewIsModal`): enquanto ela está aberta, o HUD
-# e o passo de trás saem da árvore de acessibilidade — medido em 2026-09-24.
-# Por isso "0 de 5 vidas" só é afirmado depois de fechá-la.
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '1 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '0 de 5 vidas'
+- tapOn: Concluir e voltar
 - assertVisible: Suas vidas acabaram
 - assertVisible: '^Próxima vida em \d+ min$'
 - tapOn: Voltar
-# "Voltar" fecha a folha e devolve à trilha; as vidas continuam zeradas lá. Na
-# trilha o HUD é um botão, e o rótulo dele soma o prazo da próxima recarga.
-#
-# A L1 continua concluída, e o cabeçalho conta a etapa (defeito 1 do E2E, ADR
-# de 2026-09-25, opção A; FILA, 16). Medido em 2026-09-24, antes do conserto: a
-# lição concluída, reaberta e abandonada pela folha, voltava como "Continuar de
-# onde parou", com o cabeçalho em "0 de N etapas", porque `resolveNodeStatus`
-# testava o retomável antes do concluído. Um padrão `\d+ de \d+` aqui casaria
-# com os dois estados.
-# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
-# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
@@ -243,7 +399,7 @@ tags:
 - scrollUntilVisible:
     element: '^Fundamentos de Radiologia\. Concluído\.$'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
 - assertVisible: '^0 de 5 vidas; próxima em \d+ minutos$'

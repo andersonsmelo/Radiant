@@ -1,0 +1,29 @@
+Running on Radiant FILA 58 Codex - iOS 26.5 - 17D1EBE2-3F91-48C5-937D-8970B55CEE8D
+ > Flow FILA 58 texto ampliado após esgotar vidas
+Launch app "com.ascendcreative.radiant"... COMPLETED
+Run ../../../radiant-app/.maestro/subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run ../../../radiant-app/.maestro/subflows/dismiss-dev-client.yaml... COMPLETED
+Open radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro... COMPLETED
+Assert that "Passo 1 de 5" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Tap on "Continuar"... FAILED
+
+Element not found: Text matching regex: Continuar
+
+Element with Text matching regex: Continuar not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/Developer/Radiant/.superpowers/worktrees/motor-hibrido-licao/radiant-app/.maestro/artifacts/fila58-ax5-title-verified/2026-10-18_092754

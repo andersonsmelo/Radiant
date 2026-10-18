@@ -287,3 +287,49 @@ describe('useLearningActivity — respostas estruturadas da Task 10', () => {
         expect(confirmed).toEqual({ 'step:structured': false });
     });
 });
+
+
+describe('motor híbrido — M2, M3 e M8', () => {
+    const hybrid = () => activity([interaction('q1'), interaction('q2')]);
+    it('M2 mantém pergunta e opção marcada no feedback antes de avançar', () => {
+        const { result } = renderHook(() => useLearningActivity(hybrid(), 0, { feedbackPerItem: true, repeatIncorrect: true }));
+        act(() => result.current.setValue('b'));
+        act(() => { result.current.confirm(); });
+        expect(result.current.stepIndex).toBe(0);
+        expect(result.current.value).toBe('b');
+        expect(result.current).toMatchObject({ showingFeedback: true, firstConfirmedAnswers: { q1: false } });
+        act(() => result.current.setValue('a'));
+        expect(result.current.value).toBe('b');
+        act(() => { result.current.confirm(); });
+        expect(result.current.currentStep).toMatchObject({ kind: 'interaction', interaction: { id: 'q2' } });
+    });
+    it('M3 enfileira erro no fim uma só vez e conserva primeira e última resposta', () => {
+        const { result } = renderHook(() => useLearningActivity(hybrid(), 0, { feedbackPerItem: true, repeatIncorrect: true }));
+        act(() => result.current.setValue('b'));
+        act(() => { result.current.confirm(); });
+        expect(result.current.totalSteps).toBe(3);
+        act(() => { result.current.confirm(); });
+        act(() => result.current.setValue('a'));
+        act(() => { result.current.confirm(); });
+        act(() => { result.current.confirm(); });
+        expect(result.current.currentStep).toMatchObject({ kind: 'interaction', interaction: { id: 'q1' } });
+        expect(result.current).toMatchObject({ isRetry: true, isLastStep: true });
+        act(() => result.current.setValue('b'));
+        act(() => { result.current.confirm(); });
+        expect(result.current.totalSteps).toBe(3);
+        expect(result.current.firstConfirmedAnswers).toEqual({ q1: false, q2: true });
+        expect(result.current.confirmedAnswers).toEqual({ q1: false, q2: true });
+    });
+    it('M8 erro na revisão não repete item e ainda permite terminar com evidência válida', () => {
+        const { result } = renderHook(() => useLearningActivity(hybrid(), 0, { feedbackPerItem: true, repeatIncorrect: false }));
+        for (const value of ['b', 'a']) {
+            act(() => result.current.setValue(value));
+            act(() => { result.current.confirm(); });
+            expect(result.current.showingFeedback).toBe(true);
+            act(() => { result.current.confirm(); });
+        }
+        expect(result.current.totalSteps).toBe(2);
+        expect(result.current.isLastStep).toBe(true);
+        expect(result.current.confirmedAnswers).toEqual({ q1: false, q2: true });
+    });
+});

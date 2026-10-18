@@ -11,6 +11,7 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
+import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
@@ -71,7 +72,15 @@ type LessonFlowScreenProps = {
     resumeCursorId?: string;
 };
 
-export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, resumeCursorId }: LessonFlowScreenProps) {
+export default function LessonFlowScreen(props: LessonFlowScreenProps) {
+    const [attempt, setAttempt] = useState(0);
+    return <LessonFlowAttempt key={`${props.blockId}:${props.nodeId}:${attempt}`} {...props}
+        resumeCheckpointId={attempt === 0 ? props.resumeCheckpointId : undefined}
+        resumeCursorId={attempt === 0 ? props.resumeCursorId : undefined}
+        onRetry={() => setAttempt(value => value + 1)} />;
+}
+
+function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId, onRetry }: LessonFlowScreenProps & { onRetry: () => void }) {
     const [block, setBlock] = useState<LessonBlock | null>(null);
     const [activity, setActivity] = useState<LearningActivityV2 | null>(null);
     const [loading, setLoading] = useState(true);
@@ -91,6 +100,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     // sons carregam na abertura e saem na desmontagem; até as preferências
     // chegarem, nada toca. Som é enfeite: falha aqui nunca para a lição.
     const feedbackRef = useRef<LessonFeedback | null>(null);
+    const scrollRef = useRef<ScrollView>(null);
     useEffect(() => {
         const sounds = createLessonSoundPlayer();
         let alive = true;
@@ -129,13 +139,16 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         if (!match) return 0;
         const requestedIndex = Number(match[1]) - 1;
         const interactionIndex = activity.steps.findIndex((step) => step.kind === 'interaction');
-        // Respostas não entram no checkpoint. Se o cursor já passou pela única
-        // interação ainda não commitada, refazemos essa interação em vez de
-        // inventar um outcome ou registrar a ausência como erro.
+        // Respostas e fila de retorno não entram no checkpoint. Retomamos desde
+        // a primeira interação para reconstruir a sessão sem inventar respostas.
         const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
         return Math.max(0, Math.min(privacySafeIndex, activity.steps.length - 1));
     }, [activity, resumeCursorId]);
-    const player = useLearningActivity(activity, resumeStepIndex);
+    const hybrid = Boolean(block?.sessionMode);
+    const player = useLearningActivity(activity, resumeStepIndex, {
+        feedbackPerItem: hybrid,
+        repeatIncorrect: block?.sessionMode === 'hybrid-lesson' && !isReview,
+    });
 
     useEffect(() => {
         let alive = true;
@@ -186,12 +199,18 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     }, [blockId, nodeId]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
+    useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
     // O passo legado continua disponível enquanto o catálogo antigo coexistir
     // com o v2. A atividade promovida, porém, não precisa fabricar esse bloco.
-    const legacyStep = block?.steps[stepIndex];
+    const legacyStep = player.isRetry ? undefined : block?.steps[stepIndex];
     const currentStep = player.currentStep;
+    // A lista de cursores compatíveis é estável: acrescentar um retorno não
+    // deve criar outro checkpoint da mesma sessão. Reservamos até um por item.
+    const checkpointCapacity = block?.sessionMode === 'hybrid-lesson' && activity
+        ? activity.steps.length + activity.steps.filter(step => step.kind === 'interaction').length
+        : totalSteps;
     const shadowCursorIds = Array.from(
-        { length: Math.max(totalSteps, 1) },
+        { length: Math.max(checkpointCapacity, 1) },
         (_, cursorIndex) => `step-${cursorIndex + 1}`,
     );
 
@@ -235,7 +254,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         ? player.currentStep.interaction
         : null;
 
-    const confirmationLabel = currentInteraction?.type === 'multiple-choice'
+    const confirmationLabel = player.showingFeedback
+        ? isLastStep ? 'Concluir e voltar' : 'Continuar'
+        : currentInteraction?.type === 'multiple-choice'
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 
@@ -248,7 +269,13 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
-        if (!isReview && hearts.status === 'empty' && currentInteraction) {
+        const costsHeart = !isReview && (!hybrid || player.isRetry);
+        if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
+            setHeartsSheetVisible(true);
+            return;
+        }
+
+        if (costsHeart && hearts.status === 'empty' && player.showingFeedback) {
             setHeartsSheetVisible(true);
             return;
         }
@@ -260,10 +287,10 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         // resposta.
         let nextHearts = hearts;
         let heartLossCopy = '';
-        if (currentInteraction) {
+        if (currentInteraction && !player.showingFeedback) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
 
-            if (!correct && isReview) {
+            if (!correct && !costsHeart) {
                 emit('incorrect');
             } else if (!correct) {
                 if (chargedInteractions.current.has(currentInteraction.id)) {
@@ -293,15 +320,24 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             }
 
             const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
+            const choice = currentInteraction.type === 'multiple-choice'
+                ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
+            const answer = currentInteraction.type === 'multiple-choice'
+                ? currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label : undefined;
+            const recap = hybrid && choice && answer ? `Sua resposta: ${choice}. Resposta certa: ${answer}. ` : '';
             AccessibilityInfo.announceForAccessibility(
-                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${message}${heartLossCopy}`,
+                `${correct ? 'Resposta correta.' : 'Resposta incorreta.'} ${recap}${message}${heartLossCopy}`,
             );
         }
 
         const nextConfirmed = player.confirm();
+        // Conferir mantém a pergunta na tela. Só o segundo toque avança ou conclui.
+        if (hybrid && currentInteraction && !player.showingFeedback) {
+            return;
+        }
 
         if (!isLastStep) {
-            if (!isReview && nextHearts.status === 'empty') {
+            if (costsHeart && nextHearts.status === 'empty') {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
@@ -317,14 +353,14 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                       block,
                       nodeId,
                       confirmedAnswers: nextConfirmed,
-                      firstConfirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: hybrid ? player.firstConfirmedAnswers : nextConfirmed,
                       ...completion.identity,
                   })
                 : await LessonOutcomeService.recordActivityCompletion({
                       activity,
                       nodeId,
                       confirmedAnswers: nextConfirmed,
-                      firstConfirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: hybrid ? player.firstConfirmedAnswers : nextConfirmed,
                       ...completion.identity,
                   });
 
@@ -508,6 +544,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
                             }}
                             onContinue={exitLesson}
+                            onRetry={onRetry}
                             continueHint="Volta para Estude"
                         />
                     ) : (
@@ -562,6 +599,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     </View>
 
                     <ScrollView
+                        ref={scrollRef}
                         style={styles.scroll}
                         contentContainerStyle={styles.scrollContent}
                         showsVerticalScrollIndicator={false}
@@ -590,16 +628,33 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 }} />
                             ) : null}
 
+                            {player.isRetry ? <Text style={styles.retryLabel}>Vamos tentar novamente</Text> : null}
                             {currentInteraction ? (
                                 <ActivityInteractionRenderer
                                     interaction={currentInteraction}
                                     value={player.value}
                                     confirmationLabel={confirmationLabel}
+                                    submitted={player.showingFeedback}
                                     onChange={(value) => {
+                                        if (player.showingFeedback) return;
                                         emit('option_tap');
                                         player.setValue(value);
                                     }}
                                 />
+                            ) : null}
+
+                            {player.showingFeedback && currentInteraction?.type === 'multiple-choice' ? (
+                                <View testID="lesson-item-feedback" accessibilityLiveRegion="polite" style={styles.itemFeedback}
+                                    onLayout={event => scrollRef.current?.scrollTo({
+                                        y: Math.max(0, event.nativeEvent.layout.y - space.s3), animated: false,
+                                    })}>
+                                    <Text style={styles.feedbackTitle} accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+                                        {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
+                                    </Text>
+                                    <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
+                                    <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                    <Text style={styles.feedbackText}>{player.lastFeedback?.message}</Text>
+                                </View>
                             ) : null}
 
                             {legacyStep?.step.type === 'reinforce' ? (
@@ -712,6 +767,13 @@ const styles = StyleSheet.create({
         paddingBottom: space.s3,
         backgroundColor: semanticColors.galaxy.surface,
     },
+    retryLabel: { ...typography.bodyStrong, color: galaxyColors.textPrimary },
+    itemFeedback: {
+        gap: space.s2, padding: space.s3, borderRadius: radius.rMd,
+        backgroundColor: semanticColors.galaxy.surfaceElevated,
+    },
+    feedbackTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+    feedbackText: { ...typography.bodyRegular, color: galaxyColors.textPrimary },
     primaryAction: {
         width: '100%',
     },

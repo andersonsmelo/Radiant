@@ -1,0 +1,229 @@
+
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx -t FILA 58
+
+FAIL src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (7.224 s)
+  LessonFlowScreen — escolha da alternativa
+    ○ skipped bloqueia Conferir resposta sem seleção e mantém escolhas sem transação ou progresso
+    ○ skipped permite trocar a alternativa selecionada antes de confirmar
+    ○ skipped confirma a escolha corrente ao continuar e revela o reforço
+  LessonFlowScreen — economia de vidas
+    ○ skipped não cobra ao trocar alternativa e cobra uma vez na primeira confirmação errada
+    ○ skipped protege uma confirmação dupla contra cobrança duplicada
+    ○ skipped pausa no próximo passo ao chegar a zero e preserva a retomada
+    ○ skipped assinante com contagem zero não é pausado: o estado, não o número, decide o bloqueio
+    ○ skipped assinante vê ∞ no topo da lição, sem as vidas
+    ○ skipped quem não assina vê as vidas no topo da lição, sem ∞
+    ○ skipped salva o passo atual antes de fechar
+    anúncio da perda de vida ao leitor de tela
+      ○ skipped anuncia a vida perdida e quantas restam junto da resposta incorreta
+      ○ skipped na última vida, anuncia que ela acabou em vez de "restam 0"
+      ○ skipped assinante não perde vida e não ouve falar dela, mesmo antes de a tela ler as vidas
+      ○ skipped sem queda real do contador, não anuncia débito
+    folha de vidas e a loja
+      ○ skipped com loja no binário, a folha oferece a assinatura e leva à tela dela
+      ○ skipped sem loja no binário, a folha não oferece a assinatura
+      ○ skipped voltando da compra, a lição relê as vidas e mostra ∞
+  LessonFlowScreen — apresentação do passo legado
+    ○ skipped não promete uma interação que não existe no passo legado
+  LessonFlowScreen — registro da conclusão
+    ○ skipped registra a conclusão com a escolha confirmada antes de marcar o nó
+    ○ skipped registra escolha confirmada incorreta como incorreta
+    ○ skipped usa a resposta confirmada no mesmo Continuar quando o passo interativo é o último do bloco
+  LessonFlowScreen — retomada sem persistir respostas
+    ○ skipped recua para a interação não confirmada quando o cursor salvo já passou por ela
+  retomada pela recomendação de Estude — produtor até passo exibido
+    ○ skipped pausa no índice 1 e reabre o passo privado esperado 1 pela ação real
+    ○ skipped pausa no índice 2 e reabre o passo privado esperado 2 pela ação real
+    ○ skipped pausa no índice 3 e reabre o passo privado esperado 2 pela ação real
+  LessonFlowScreen — atividade curricular v2 promovida
+    ○ skipped renderiza o material promovido sem depender de bloco legado
+    ○ skipped preserva o CTA da comparação V2 (último passo: false)
+    ○ skipped preserva o CTA da comparação V2 (último passo: true)
+    ○ skipped registra a conclusão usando a atividade nativa e sua resposta confirmada
+  LessonFlowScreen — conclusão da lição
+    ○ skipped mostra a conclusão em vez de devolver o aluno em silêncio para a aba
+    ○ skipped anuncia Estude na conclusão de /learn e o Continuar executa esse retorno
+    ○ skipped mostra as estrelas desta tentativa, com o recorde à parte
+    ○ skipped chega ao Continuar mesmo quando a leitura do histórico falha
+  LessonFlowScreen — sons e vibração
+    ○ skipped tocar numa alternativa toca o som de toque e vibra a seleção
+    ○ skipped continuar com erro toca só o erro, mesmo quando a vida cai
+    ○ skipped continuar com acerto toca o acerto e vibra o sucesso
+    ○ skipped o assinante erra e também ouve só o erro
+    ○ skipped a lição aprovada termina com o som de fim e a comemoração
+    ○ skipped com os interruptores desligados, nada toca e nada vibra, nem a comemoração
+    ○ skipped libera os sons ao sair da lição
+  LessonFlowScreen — revisão da trilha não custa vida
+    ○ skipped errar na revisão não gasta vida nem anuncia perda
+    ○ skipped sem vidas, a revisão continua e não pausa
+    ○ skipped a revisão termina como revisão, sem pedir avaliação de aula
+    ○ skipped a lição continua custando vida no erro
+  FILA 58 — integração do motor híbrido
+    ✕ M4 primeiro contato não custa; só erro no retorno custa uma vida (109 ms)
+    ✕ M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção (1061 ms)
+
+  ● FILA 58 — integração do motor híbrido › M4 primeiro contato não custa; só erro no retorno custa uma vida
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: 1792324848922
+
+      1418 |     fireEvent.press(screen.getByText('Conferir resposta'));
+      1419 |     await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    > 1420 |     expect(heartsRepository.spend).not.toHaveBeenCalled();
+           |                                        ^
+      1421 |     expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+      1422 |     expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+      1423 |     expect(screen.getByText('Resposta certa: Consolidação alveolar')).toBeTruthy();
+
+      at Object.toHaveBeenCalled (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1420:40)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● FILA 58 — integração do motor híbrido › M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção
+
+    Unable to find an element with testID: lesson-item-feedback
+
+    [36m<RNCSafeAreaProvider>[39m
+      [36m<View>[39m
+        [36m<RNCSafeAreaView>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Fechar quiz"[39m
+                  [33maccessibilityRole[39m=[32m"button"[39m
+                  [33maccessible[39m=[32m{true}[39m
+                [36m>[39m
+                  [36m<MaterialIcons[39m
+                    [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                    [33maccessible[39m=[32m{false}[39m
+                    [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                  [36m/>[39m
+                [36m</View>[39m
+                [36m<View>[39m
+                  [36m<View[39m
+                    [33maccessibilityRole[39m=[32m"progressbar"[39m
+                    [33maccessibilityValue[39m=[32m{
+                      {
+                        "max": 100,
+                        "min": 0,
+                        "now": 100,
+                      }
+                    }[39m
+                  [36m>[39m
+                    [36m<View[39m
+                      [33mnativeID[39m=[32m"2"[39m
+                    [36m>[39m
+                      [36m<ViewManagerAdapter_ExpoLinearGradient />[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+                [36m<View[39m
+                  [33mtestID[39m=[32m"hearts-display"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<Text>[39m
+                [0mPasso [0m
+                [0m2[0m
+                [0m de [0m
+                [0m2[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<RCTScrollView>[39m
+              [36m<View>[39m
+                [36m<View>[39m
+                  [36m<View>[39m
+                    [36m<Text>[39m
+                      [0mSegunda pergunta?[0m
+                    [36m</Text>[39m
+                    [36m<View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta resposta. Você confirma em Conferir resposta."[39m
+                        [33maccessibilityLabel[39m=[32m"Resposta dois"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                        [33mtestID[39m=[32m"lesson-option-second-a"[39m
+                      [36m>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0mResposta dois[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                      [36m<View[39m
+                        [33maccessibilityHint[39m=[32m"Seleciona esta resposta. Você confirma em Conferir resposta."[39m
+                        [33maccessibilityLabel[39m=[32m"Outra resposta"[39m
+                        [33maccessibilityRole[39m=[32m"button"[39m
+                        [33maccessibilityState[39m=[32m{
+                          {
+                            "selected": false,
+                          }
+                        }[39m
+                        [33maccessible[39m=[32m{true}[39m
+                        [33mtestID[39m=[32m"lesson-option-second-b"[39m
+                      [36m>[39m
+                        [36m<View>[39m
+                          [36m<Text>[39m
+                            [0mOutra resposta[0m
+                          [36m</Text>[39m
+                        [36m</View>[39m
+                      [36m</View>[39m
+                    [36m</View>[39m
+                  [36m</View>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+            [36m</RCTScrollView>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessibilityState[39m=[32m{
+                  {
+                    "disabled": true,
+                  }
+                }[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<Text>[39m
+                  [0mConferir resposta[0m
+                [36m</Text>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</RNCSafeAreaView>[39m
+      [36m</View>[39m
+    [36m</RNCSafeAreaProvider>[39m
+
+      1411 |     fireEvent.press(screen.getByLabelText(label));
+      1412 |     fireEvent.press(screen.getByText('Conferir resposta'));
+    > 1413 |     await screen.findByTestId('lesson-item-feedback');
+           |                  ^
+      1414 |   }
+      1415 |   it('M4 primeiro contato não custa; só erro no retorno custa uma vida', async () => {
+      1416 |     await open();
+
+      at findByTestId (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1413:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12
+      at apply (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1414:4)
+      at apply (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1410:24)
+      at Object.answer (src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx:1440:11)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 44 skipped, 46 total
+Snapshots:   0 total
+Time:        7.38 s
+Ran all test suites matching /src\/features\/lesson-flow\/screens\/LessonFlowScreen.flow.test.tsx/i with tests matching "FILA 58".

@@ -1,0 +1,494 @@
+
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/journey/services/JourneyDefinitionService.test.ts src/features/lesson-flow/hooks/useLearningActivity.test.ts src/features/quiz/services/resolveLessonStars.test.ts src/features/quiz/components/LessonSummary.test.tsx
+
+FAIL src/features/quiz/components/LessonSummary.test.tsx (9.102 s)
+  ● M6 oferece Refazer somente para resultado incompleto de lição e executa a ação
+
+    Unable to find an element with role: button, name: Refazer
+
+    [36m<View>[39m
+      [36m<RCTScrollView>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33mtestID[39m=[32m"lesson-summary-band"[39m
+          [36m>[39m
+            [36m<View>[39m
+              [36m<View />[39m
+              [36m<View />[39m
+              [36m<View>[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+              [36m</View>[39m
+              [36m<View>[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+                [36m<View />[39m
+              [36m</View>[39m
+              [36m<View>[39m
+                [36m<View[39m
+                  [33maccessibilityLabel[39m=[32m"Pixel comemorando"[39m
+                [36m/>[39m
+                [36m<View[39m
+                  [33mpointerEvents[39m=[32m"none"[39m
+                [36m>[39m
+                  [36m<View />[39m
+                  [36m<View />[39m
+                  [36m<RNSVGSvgView>[39m
+                    [36m<RNSVGGroup>[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                      [36m<RNSVGPath />[39m
+                    [36m</RNSVGGroup>[39m
+                  [36m</RNSVGSvgView>[39m
+                [36m</View>[39m
+              [36m</View>[39m
+              [36m<View />[39m
+              [36m<View />[39m
+              [36m<View />[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33maccessibilityLabel[39m=[32m"2 de 3 estrelas"[39m
+              [33maccessibilityRole[39m=[32m"text"[39m
+              [33maccessible[39m=[32m{true}[39m
+            [36m>[39m
+              [36m<View>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text[39m
+            [33maccessibilityRole[39m=[32m"header"[39m
+          [36m>[39m
+            [0mMuito bom.[0m
+          [36m</Text>[39m
+          [36m<Text>[39m
+            [0mA lição foi concluída[0m
+          [36m</Text>[39m
+          [36m<View>[39m
+            [36m<View[39m
+              [33maccessibilityLabel[39m=[32m"Respostas corretas: 1 de 2 corretas"[39m
+              [33maccessibilityRole[39m=[32m"text"[39m
+              [33maccessible[39m=[32m{true}[39m
+            [36m>[39m
+              [36m<Text>[39m
+                [0mRespostas corretas[0m
+              [36m</Text>[39m
+              [36m<Text>[39m
+                [0m1 de 2 corretas[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33maccessibilityLabel[39m=[32m"XP: +30 XP nesta tentativa"[39m
+              [33maccessibilityRole[39m=[32m"text"[39m
+              [33maccessible[39m=[32m{true}[39m
+            [36m>[39m
+              [36m<Text>[39m
+                [0mXP[0m
+              [36m</Text>[39m
+              [36m<Text>[39m
+                [0m+30 XP nesta tentativa[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<View[39m
+              [33maccessibilityLabel[39m=[32m"Progresso da unidade: 7 de 14 etapas"[39m
+              [33maccessibilityRole[39m=[32m"text"[39m
+              [33maccessible[39m=[32m{true}[39m
+            [36m>[39m
+              [36m<Text>[39m
+                [0mProgresso da unidade[0m
+              [36m</Text>[39m
+              [36m<Text>[39m
+                [0m7 de 14 etapas[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+          [36m<Text>[39m
+            [0mMeta do dia fechada.[0m
+          [36m</Text>[39m
+          [36m<Text>[39m
+            [0mPróxima revisão em 3 dias[0m
+          [36m</Text>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mAvalie a aula[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mÉ opcional[0m
+            [36m</Text>[39m
+            [36m<View>[39m
+              [36m<View[39m
+                [33maccessibilityLabel[39m=[32m"Avaliar a aula com 1 de 5"[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View[39m
+                [33maccessibilityLabel[39m=[32m"Avaliar a aula com 2 de 5"[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View[39m
+                [33maccessibilityLabel[39m=[32m"Avaliar a aula com 3 de 5"[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View[39m
+                [33maccessibilityLabel[39m=[32m"Avaliar a aula com 4 de 5"[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+              [36m<View[39m
+                [33maccessibilityLabel[39m=[32m"Avaliar a aula com 5 de 5"[39m
+                [33maccessibilityRole[39m=[32m"button"[39m
+                [33maccessible[39m=[32m{true}[39m
+              [36m>[39m
+                [36m<MaterialIcons[39m
+                  [33maccessibilityElementsHidden[39m=[32m{true}[39m
+                  [33maccessible[39m=[32m{false}[39m
+                  [33mimportantForAccessibility[39m=[32m"no-hide-descendants"[39m
+                [36m/>[39m
+              [36m</View>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</RCTScrollView>[39m
+      [36m<View>[39m
+        [36m<View>[39m
+          [36m<View[39m
+            [33maccessibilityHint[39m=[32m"Continua o estudo"[39m
+            [33maccessibilityLabel[39m=[32m"Continuar"[39m
+            [33maccessibilityRole[39m=[32m"button"[39m
+            [33maccessibilityState[39m=[32m{
+              {
+                "busy": false,
+                "disabled": false,
+              }
+            }[39m
+            [33maccessible[39m=[32m{true}[39m
+          [36m>[39m
+            [36m<Text>[39m
+              [0mContinuar[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+    [36m</View>[39m
+
+      321 |   const retry = jest.fn();
+      322 |   const { rerender } = render(<LessonSummary {...base} correctAnswers={1} totalQuestions={2} onRetry={retry} />);
+    > 323 |   fireEvent.press(screen.getByRole('button', { name: 'Refazer' }));
+          |                          ^
+      324 |   expect(retry).toHaveBeenCalledTimes(1);
+      325 |   expect(screen.getByText('1 de 2 corretas')).toBeTruthy();
+      326 |   rerender(<LessonSummary {...base} correctAnswers={2} totalQuestions={2} onRetry={retry} />);
+
+      at Object.getByRole (src/features/quiz/components/LessonSummary.test.tsx:323:26)
+
+FAIL src/features/lesson-flow/hooks/useLearningActivity.test.ts
+  ● motor híbrido — M2, M3 e M8 › M2 mantém pergunta e opção marcada no feedback antes de avançar
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      296 |         act(() => result.current.setValue('b'));
+      297 |         act(() => { result.current.confirm(); });
+    > 298 |         expect(result.current.stepIndex).toBe(0);
+          |                                          ^
+      299 |         expect(result.current.value).toBe('b');
+      300 |         expect(result.current).toMatchObject({ showingFeedback: true, firstConfirmedAnswers: { q1: false } });
+      301 |         act(() => result.current.setValue('a'));
+
+      at Object.toBe (src/features/lesson-flow/hooks/useLearningActivity.test.ts:298:42)
+
+  ● motor híbrido — M2, M3 e M8 › M3 enfileira erro no fim uma só vez e conserva primeira e última resposta
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 3
+    Received: 2
+
+      308 |         act(() => result.current.setValue('b'));
+      309 |         act(() => { result.current.confirm(); });
+    > 310 |         expect(result.current.totalSteps).toBe(3);
+          |                                           ^
+      311 |         act(() => { result.current.confirm(); });
+      312 |         act(() => result.current.setValue('a'));
+      313 |         act(() => { result.current.confirm(); });
+
+      at Object.toBe (src/features/lesson-flow/hooks/useLearningActivity.test.ts:310:43)
+
+  ● motor híbrido — M2, M3 e M8 › M8 erro na revisão não repete item e ainda permite terminar com evidência válida
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: undefined
+
+      326 |             act(() => result.current.setValue(value));
+      327 |             act(() => { result.current.confirm(); });
+    > 328 |             expect(result.current.showingFeedback).toBe(true);
+          |                                                    ^
+      329 |             act(() => { result.current.confirm(); });
+      330 |         }
+      331 |         expect(result.current.totalSteps).toBe(2);
+
+      at toBe (src/features/lesson-flow/hooks/useLearningActivity.test.ts:328:52)
+      at Object._loop (src/features/lesson-flow/hooks/useLearningActivity.test.ts:325:39)
+
+FAIL src/features/journey/services/JourneyDefinitionService.test.ts
+  ● JourneyDefinitionService › M1 usa todas as perguntas, com IDs únicos e gabaritos válidos
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 2
+    Received length: 1
+    Received array:  [{"contract": {"branching": "none", "completionRule": "answered", "id": "lesson-a-question", "retryRule": "allow_continue", "type": "multiple-choice"}, "step": {"payload": {"correctOptionId": "anatomia-q2:option:0", "explanation": "A traqueia ocupa o mediastino superior.", "options": [{"id": "anatomia-q2:option:0", "label": "Traqueia"}, {"id": "anatomia-q2:option:1", "label": "Pleura"}], "prompt": "Qual estrutura cruza o mediastino?"}, "type": "multiple-choice"}}]
+
+      276 |         const block = JourneyDefinitionService.getBlockById('block:lesson-a:intro')!;
+      277 |         const choices = block.steps.filter(s => s.step.type === 'multiple-choice');
+    > 278 |         expect(choices).toHaveLength(2);
+          |                         ^
+      279 |         expect(new Set(choices.map(s => s.contract.id)).size).toBe(2);
+      280 |         expect(choices.map(s => s.step.type === 'multiple-choice' && s.step.payload.prompt))
+      281 |             .toEqual(['Onde está o hilo pulmonar?', 'Qual estrutura cruza o mediastino?']);
+
+      at Object.toHaveLength (src/features/journey/services/JourneyDefinitionService.test.ts:278:25)
+
+  ● JourneyDefinitionService › M5 retira o molde e preserva o texto autoral e as interações
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 0
+    + Received  + 2
+
+      Array [
+        "context",
+    +   "teach",
+        "multiple-choice",
+    +   "reinforce",
+      ]
+
+      289 |     it('M5 retira o molde e preserva o texto autoral e as interações', () => {
+      290 |         const plain = JourneyDefinitionService.getBlockById('block:lesson-b:intro')!;
+    > 291 |         expect(plain.steps.map(s => s.step.type)).toEqual(['context', 'multiple-choice']);
+          |                                                   ^
+      292 |         const authored = JourneyDefinitionService.getBlockById('block:lesson-a:intro')!;
+      293 |         expect(authored.steps.filter(s => s.step.type === 'teach')).toHaveLength(1);
+      294 |         expect(authored.steps.some(s => s.step.type === 'teach' && s.step.payload.body === 'Leia os marcos antes de responder.')).toBe(true);
+
+      at Object.toEqual (src/features/journey/services/JourneyDefinitionService.test.ts:291:51)
+
+  ● JourneyDefinitionService › M8 revisão usa os itens distintos uma vez e declara sessão sem retorno
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "context",
+        "multiple-choice",
+    -   "multiple-choice",
+    +   "reinforce",
+      ]
+
+      296 |     it('M8 revisão usa os itens distintos uma vez e declara sessão sem retorno', () => {
+      297 |         const block = JourneyDefinitionService.getBlockById('block:review:lesson-a')!;
+    > 298 |         expect(block.steps.map(s => s.step.type)).toEqual(['context', 'multiple-choice', 'multiple-choice']);
+          |                                                   ^
+      299 |         expect(new Set(block.steps.map(s => s.contract.id)).size).toBe(3);
+      300 |         expect(block).toMatchObject({ sessionMode: 'hybrid-review' });
+      301 |     });
+
+      at Object.toEqual (src/features/journey/services/JourneyDefinitionService.test.ts:298:51)
+
+FAIL src/features/quiz/services/resolveLessonStars.test.ts
+  ● M7 proposta para N perguntas › N=2 reconhece acerto parcial sem declarar perfeição
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        0,
+    -   1,
+    +   0,
+        3,
+      ]
+
+      66 |     [15, [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]],
+      67 |   ])('N=%i reconhece acerto parcial sem declarar perfeição', (n, stars) => {
+    > 68 |     expect(stars.map((_, correct) => resolveLessonStars(correct, n))).toEqual(stars);
+         |                                                                       ^
+      69 |   });
+      70 | });
+      71 |
+
+      at toEqual (src/features/quiz/services/resolveLessonStars.test.ts:68:71)
+
+  ● M7 proposta para N perguntas › N=3 reconhece acerto parcial sem declarar perfeição
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+        0,
+    -   1,
+    -   2,
+    +   0,
+    +   0,
+        3,
+      ]
+
+      66 |     [15, [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]],
+      67 |   ])('N=%i reconhece acerto parcial sem declarar perfeição', (n, stars) => {
+    > 68 |     expect(stars.map((_, correct) => resolveLessonStars(correct, n))).toEqual(stars);
+         |                                                                       ^
+      69 |   });
+      70 | });
+      71 |
+
+      at toEqual (src/features/quiz/services/resolveLessonStars.test.ts:68:71)
+
+  ● M7 proposta para N perguntas › N=10 reconhece acerto parcial sem declarar perfeição
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 6
+    + Received  + 6
+
+      Array [
+        0,
+    -   1,
+    -   1,
+    -   1,
+    -   1,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+        1,
+        1,
+    -   2,
+    -   2,
+        2,
+        3,
+      ]
+
+      66 |     [15, [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]],
+      67 |   ])('N=%i reconhece acerto parcial sem declarar perfeição', (n, stars) => {
+    > 68 |     expect(stars.map((_, correct) => resolveLessonStars(correct, n))).toEqual(stars);
+         |                                                                       ^
+      69 |   });
+      70 | });
+      71 |
+
+      at toEqual (src/features/quiz/services/resolveLessonStars.test.ts:68:71)
+
+  ● M7 proposta para N perguntas › N=15 reconhece acerto parcial sem declarar perfeição
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 10
+    + Received  + 10
+
+      Array [
+        0,
+    -   1,
+    -   1,
+    -   1,
+    -   1,
+    -   1,
+    -   1,
+    -   1,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+    +   0,
+        1,
+        1,
+    -   2,
+    -   2,
+    -   2,
+        2,
+        2,
+        3,
+      ]
+
+      66 |     [15, [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]],
+      67 |   ])('N=%i reconhece acerto parcial sem declarar perfeição', (n, stars) => {
+    > 68 |     expect(stars.map((_, correct) => resolveLessonStars(correct, n))).toEqual(stars);
+         |                                                                       ^
+      69 |   });
+      70 | });
+      71 |
+
+      at toEqual (src/features/quiz/services/resolveLessonStars.test.ts:68:71)
+
+Test Suites: 4 failed, 4 total
+Tests:       11 failed, 59 passed, 70 total
+Snapshots:   0 total
+Time:        10.276 s
+Ran all test suites matching /src\/features\/journey\/services\/JourneyDefinitionService.test.ts|src\/features\/lesson-flow\/hooks\/useLearningActivity.test.ts|src\/features\/quiz\/services\/resolveLessonStars.test.ts|src\/features\/quiz\/components\/LessonSummary.test.tsx/i.

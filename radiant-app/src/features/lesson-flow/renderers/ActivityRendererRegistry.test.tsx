@@ -149,3 +149,14 @@ describe('ActivityRendererRegistry', () => {
     });
 });
 
+
+it('M2 anuncia opções conferidas como indisponíveis e preserva a escolha na tela', () => {
+    const onChange = jest.fn();
+    const { getByLabelText } = render(<ActivityInteractionRenderer
+        interaction={multipleChoice()} value="b" onChange={onChange} submitted />);
+    expect(getByLabelText('Ar').props.accessibilityState).toMatchObject({ selected: true, disabled: true });
+    expect(getByLabelText('Osso').props.accessibilityHint).toBe('Resposta já conferida. Leia o feedback e continue.');
+    fireEvent.press(getByLabelText('Osso'));
+    expect(onChange).not.toHaveBeenCalled();
+    expect(getByLabelText('Ar')).toBeTruthy();
+});

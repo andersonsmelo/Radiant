@@ -1,0 +1,120 @@
+Running on Radiant FILA 58 Codex - iOS 26.5 - 17D1EBE2-3F91-48C5-937D-8970B55CEE8D
+ > Flow FILA 58 — prova nativa de lição IA com dois itens
+Launch app "com.ascendcreative.radiant" with clear state... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Open radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro... COMPLETED
+Assert that "Fundamentos de Radiologia" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Open radiantapp://learn?nodeId=node%3Alesson-2&blockId=block%3Alesson-2%3Aintro... COMPLETED
+Assert that "Princípios de Tomografia Computadorizada" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Na tomografia computadorizada, o que representa um voxel\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura costuma apresentar atenuação mais baixa na TC sem contraste\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q2:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q2:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "A principal vantagem da TC em relação à radiografia simples é:" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q3:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q3:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Open radiantapp://learn?nodeId=node%3Aai-lesson%3Aprofissao-e-atuacao-do-tecnico-em-radiologia&blockId=block%3Aai-lesson%3Aprofissao-e-atuacao-do-tecnico-em-radiologia%3Aintro... COMPLETED
+Assert that "Quiz: Profissão e atuação do técnico em radiologia" is visible... COMPLETED
+Assert that "Passo 1 de 3" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?" is visible... COMPLETED
+Assert that "Ideia-chave" is not visible... COMPLETED
+Take screenshot 01-sem-molde... COMPLETED
+Assert that "Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "5 de 5 vidas" is visible... COMPLETED
+Take screenshot 02-primeiro-erro-gratis... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual das seguintes atividades está dentro das atribuições do técnico em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Take screenshot 03-segundo-item... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Vamos tentar novamente" is visible... COMPLETED
+Take screenshot 04-retorno... COMPLETED
+Assert that "Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Vamos reforçar" is visible... COMPLETED
+Assert that "4 de 5 vidas" is visible... COMPLETED
+Take screenshot 05-debito-no-retorno... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Assert that "Respostas corretas: 1 de 2 corretas" is visible... COMPLETED
+Assert that "1 de 3 estrelas" is visible... COMPLETED
+Assert that "Refazer" is visible... COMPLETED
+Take screenshot 06-resumo... COMPLETED
+Tap on "Refazer"... COMPLETED
+Assert that "Passo 1 de 3" is visible... COMPLETED
+Take screenshot 07-refazer... COMPLETED

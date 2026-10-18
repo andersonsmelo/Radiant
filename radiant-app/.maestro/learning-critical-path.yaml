@@ -25,25 +25,46 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-# A régua é a mesma que `reward-unlock.yaml` usa para este seletor, e o contrato
-# exige que seja. Ela saiu de medição, não de gosto: em 2026-08-06 o padrão de
-# 100% reprovou uma opção que estava na tela e clicável, porque um brilho
-# decorativo cobria ~11% dos bounds no Android. Dois flows exigindo 100 e um
-# exigindo 80 sobre o MESMO elemento da MESMA tela é uma contradição que só
-# aparece queimando uma janela de aparelho de 15 minutos.
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:1
+      id: 'lesson-option-q1:option:1'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:1
+    id: 'lesson-option-q1:option:1'
 - tapOn: Conferir resposta
-# Reinforce step after an answered question shows the answer feedback
-# ("Resposta correta"/"Vamos reforçar"), not the payload title. Assert the
-# always-present last-step footer action instead.
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 # O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
 # e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
@@ -83,23 +104,47 @@ tags:
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
-- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
-# A régua é a mesma que `reward-unlock.yaml` usa para este seletor, e o contrato
-# exige que seja. Ela saiu de medição, não de gosto: em 2026-08-06 o padrão de
-# 100% reprovou uma opção que estava na tela e clicável, porque um brilho
-# decorativo cobria ~11% dos bounds no Android. Dois flows exigindo 100 e um
-# exigindo 80 sobre o MESMO elemento da MESMA tela é uma contradição que só
-# aparece queimando uma janela de aparelho de 15 minutos.
+- assertVisible: 'Na tomografia computadorizada, o que representa um voxel\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-ct-q3:option:2
+      id: 'lesson-option-ct-q1:option:1'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-ct-q3:option:2
+    id: 'lesson-option-ct-q1:option:1'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura costuma apresentar atenuação mais baixa na TC sem contraste\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q2:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q2:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q3:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q3:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
