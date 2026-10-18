@@ -28,7 +28,13 @@ tags:
 # Ele é longo porque a regra é longa — encurtar a trilha exigiria fixture, e
 # uma fixture de 2 lições cai no ramo `lessonCount <= 2` de `rewardNodeId()`,
 # que constrói um id que produção nunca constrói.
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny
@@ -53,6 +59,9 @@ tags:
 # trilha abre no PRÓXIMO, a distância cresce a cada lição: as oito rolagens
 # levaram 0,1 / 8 / 17 / 25 / 33 / 33 / 41 / 50 s. Os 20 s padrão acabaram na 4ª
 # com o cabeçalho já na tela, e 60 s deixariam a 8ª com 10 s de folga.
+# Com `radiantReduceMotion` (FILA 49, medido em 2026-10-18), a tentativa caiu
+# para 2,3–3,7 s e a 8ª rolagem para 21 s: ainda acima dos 20 s padrão, por
+# isso o prazo fica. O que resta é a desaceleração da própria lista.
 - assertVisible:
     id: journey-trail
 - scrollUntilVisible:
@@ -146,6 +155,21 @@ tags:
     direction: DOWN
     centerElement: true
     visibilityPercentage: 100
+# Volta do centramento (2026-10-18). O `centerElement` do Maestro 2.7 dá UM
+# deslize fixo (~505 pt num iPhone 17 Pro) quando o centro do botão está a
+# mais de 1/5 da altura do centro da tela, e aceita onde ele parar. Com o
+# centro entre ~611 e ~690 pt, o botão para sob o HUD, ainda "visível" na
+# árvore, e o toque cai no HUD (medido no `reward-unlock`, 3ª lição). A volta
+# para cima não faz nada se o botão já está na faixa central e o devolve à
+# posição anterior, livre do HUD e da barra de abas, se passou.
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 2 ────────────────────────────────────────────────────────────────
@@ -216,6 +240,14 @@ tags:
     direction: DOWN
     centerElement: true
     visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
@@ -268,6 +300,14 @@ tags:
     element:
       id: journey-recommendation-action
     direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
     centerElement: true
     visibilityPercentage: 100
 - tapOn: Continuar jornada
@@ -324,6 +364,14 @@ tags:
     direction: DOWN
     centerElement: true
     visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
@@ -378,6 +426,14 @@ tags:
     direction: DOWN
     centerElement: true
     visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
@@ -430,6 +486,14 @@ tags:
     element:
       id: journey-recommendation-action
     direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
     centerElement: true
     visibilityPercentage: 100
 - tapOn: Continuar jornada
@@ -490,6 +554,14 @@ tags:
     element:
       id: journey-recommendation-action
     direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
     centerElement: true
     visibilityPercentage: 100
 - tapOn: Receber conquista

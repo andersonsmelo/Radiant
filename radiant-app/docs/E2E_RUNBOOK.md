@@ -1,5 +1,26 @@
 # Maestro local E2E runbook
 
+## Native run on `main` before a build, 2026-10-18
+
+[Report](../../docs/evidence/2026-10-18-main-pronta-para-build.md), on `main` at
+`cc67243`, with a Debug dev client built by Xcode 27.1 on iPhone 17 Pro / iOS 26.5:
+- these flows passed natively: `learning-critical-path`, `offline-relaunch`,
+  `student-checkpoint-no-duplicate-effect`, `store-capture`, `reward-unlock`
+  and `radiant-1-4-primeira-execucao`;
+- `radiant-1-4-segundo-dia` passed only as a same-day probe with a fixture. Its
+  real-clock day 2 is FILA 59;
+- two flows had gone stale against the app and were fixed:
+  - `store-capture` now centres `journey-recommendation-action` before tapping
+    it;
+  - `segundo-dia` now asserts the 4-step review activity and the
+    "Disponível em …" label that `a366295` gave to scheduled review nodes.
+
+`g4-native-evidence.yaml` captures the G4 review states. It needs the L1 cards
+made due by `docs/evidence/2026-10-18-main-pronta-para-build/preparar-revisao-devida.py`,
+run while the app is stopped. **A clock-gated flow gets a same-day fixture probe
+on a separate simulator before its real-clock run**, so the 24 h window is not
+spent discovering a stale flow.
+
 ## Current QA remediation, 2026-10-14
 
 [Remediation report](../../docs/evidence/2026-10-14-qa-remediacao.md) supersedes
@@ -393,6 +414,15 @@ maestro test .maestro/offline-relaunch.yaml
 maestro test .maestro/reward-locked.yaml
 maestro test .maestro/reward-unlock.yaml
 ```
+
+Every `launchApp` passes `arguments: { radiantReduceMotion: '1' }` (FILA 49,
+2026-10-18). On iOS it reaches the app as `-radiantReduceMotion 1`, and the app
+takes the "Reduce Motion" branch: the starfield stops and no confetti falls, so
+the screen settles before each scroll. In `reward-unlock` this cut a scroll
+attempt from 8–11 s to 2.3–3.7 s and the run from 18 to 4 minutes. Keep the
+value a quoted string: Maestro 2.7 drops the leading `-` for booleans, and iOS
+then ignores the argument. Android does not read it.
+[Evidence](../../docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).
 
 The 1.4 golden paths have an **order**, because path 2 consumes the state path
 1 leaves behind:

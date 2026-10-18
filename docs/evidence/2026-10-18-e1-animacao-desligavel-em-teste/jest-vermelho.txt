@@ -1,0 +1,285 @@
+FAIL src/ui/accessibility/useReducedMotionPreference.test.ts
+  ● com o argumento de lançamento que desliga o movimento (FILA 49) › já resolve como redução na primeira renderização, sem esperar o sistema
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "reducedMotionEnabled": true,
+    -   "resolved": true,
+    +   "reducedMotionEnabled": false,
+    +   "resolved": false,
+      }
+
+      197 |     const { result } = renderHook(() => useReducedMotionPreferenceState());
+      198 |
+    > 199 |     expect(result.current).toEqual({ reducedMotionEnabled: true, resolved: true });
+          |                            ^
+      200 |     expect(query).not.toHaveBeenCalled();
+      201 |   });
+      202 |
+
+      at Object.toEqual (src/ui/accessibility/useReducedMotionPreference.test.ts:199:28)
+
+  ● com o argumento de lançamento que desliga o movimento (FILA 49) › não volta a animar quando a preferência do sistema muda
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      208 |     act(() => listener?.(false));
+      209 |
+    > 210 |     await waitFor(() => expect(result.current).toBe(true));
+          |                  ^
+      211 |   });
+      212 | });
+      213 |
+
+      at Object.<anonymous> (src/ui/accessibility/useReducedMotionPreference.test.ts:210:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+FAIL src/ui/accessibility/motionLaunchArgument.test.tsx (70.78 s)
+  ● Console
+
+    console.error
+      An update to StarfieldBackground inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to Confetti inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to StarfieldBackground inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to Confetti inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to StarfieldBackground inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to StarfieldBackground inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+    console.error
+      An update to StarfieldBackground inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      37 |       .then((enabled) => {
+      38 |         if (mounted) {
+    > 39 |           setPreference({ reducedMotionEnabled: enabled, resolved: true });
+         |           ^
+      40 |         }
+      41 |       })
+      42 |       .catch(() => {
+
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11801:19
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:1574:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:11800:9)
+      at scheduleUpdateOnFiber (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:10326:9)
+      at dispatchSetStateInternal (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4148:13)
+      at dispatchSetState (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4107:7)
+      at setPreference (src/ui/accessibility/useReducedMotionPreference.ts:39:11)
+
+  ● argumento de lançamento que desliga o movimento (E1) › com o argumento, o fundo estrelado não anima
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 5
+
+      92 |     // 3 nebulosas + 12 estrelas. Sem conferir, zero nós daria um quadro só.
+      93 |     expect(animatedNodes(screen)).toHaveLength(15);
+    > 94 |     expect(distinctFramesOverTime(screen)).toBe(1);
+         |                                            ^
+      95 |   });
+      96 |
+      97 |   it('com o argumento, o confete não roda', () => {
+
+      at Object.toBe (src/ui/accessibility/motionLaunchArgument.test.tsx:94:44)
+
+  ● argumento de lançamento que desliga o movimento (E1) › com o argumento, o confete não roda
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 0
+    Received length: 40
+    Received array:  [{"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, {"_fiber": [FiberNode]}, …]
+
+       99 |     const screen = render(<Confetti count={40} />);
+      100 |
+    > 101 |     expect(animatedNodes(screen)).toHaveLength(0);
+          |                                   ^
+      102 |   });
+      103 |
+      104 |   // Validade: o mesmo arnês, sem o argumento, VÊ a animação. Sem estes dois
+
+      at Object.toHaveLength (src/ui/accessibility/motionLaunchArgument.test.tsx:101:35)
+
+Test Suites: 2 failed, 2 total
+Tests:       4 failed, 12 passed, 16 total
+Snapshots:   0 total
+Time:        74.872 s
+Ran all test suites matching /src\/ui\/accessibility\/motionLaunchArgument.test.tsx|src\/ui\/accessibility\/useReducedMotionPreference.test.ts/i.

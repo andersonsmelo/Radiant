@@ -18,7 +18,13 @@ tags:
 # Rodado antes das 24 horas, ele REPROVA na primeira asserção — a revisão
 # ainda está "Bloqueado". É o comportamento pretendido: sem clearState, o flow
 # não tem como passar vazio.
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml
@@ -26,7 +32,11 @@ tags:
 # nó recomendado anuncia o motivo no lugar do estado.
 - assertVisible: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
 - tapOn: '^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$'
-- assertVisible: 'Passo 1 de 5'
+# A atividade de revisão tem 4 passos (abertura e as três perguntas), e não os
+# 5 da lição, que tem também a Ideia-chave. Medido em 2026-10-18 numa sonda com
+# os cartões vencidos por fixture. A última passagem nativa com "5" é de
+# 2026-09-25.
+- assertVisible: 'Passo 1 de 4'
 - assertVisible: 'Retome rapidamente o conceito central antes de seguir adiante.'
 - tapOn: Continuar
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
@@ -73,4 +83,7 @@ tags:
 - tapOn: Concluir e voltar
 - assertVisible: Revisão concluída
 - tapOn: Continuar
-- assertVisible: '^Revisar Fundamentos de Radiologia\. Concluído\.$'
+# Desde `a366295` (2026-10-12), o nó de revisão com a próxima data no futuro
+# anuncia essa data no lugar de "Concluído" (`getStatusCopy`, em
+# `JourneyNodeCard.tsx`). O ícone continua o selo de concluído.
+- assertVisible: '^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$'

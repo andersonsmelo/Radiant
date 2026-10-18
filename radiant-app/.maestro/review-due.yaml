@@ -7,7 +7,13 @@ tags:
 # Pré-requisito: L1 concluída; preparar somente o vencimento de UM item
 # em @radiant:item_review_v1 (ou nextReviewAt se ainda não migrado), app parado
 # num simulador descartável. Não fabricar tentativa, limpar estado ou alterar relógio.
-- launchApp
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 - openLink:
     link: radiantapp://review

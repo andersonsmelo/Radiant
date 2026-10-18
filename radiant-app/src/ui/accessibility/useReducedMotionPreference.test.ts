@@ -4,6 +4,17 @@ import {
   useReducedMotionPreference,
   useReducedMotionPreferenceState,
 } from './useReducedMotionPreference';
+import { isReduceMotionForcedByLaunchArgument } from './motionLaunchArgument';
+
+// Desligado por padrão: os casos sobre a preferência do SISTEMA não veem
+// argumento de lançamento nenhum. O último bloco o liga.
+jest.mock('./motionLaunchArgument', () => ({
+  isReduceMotionForcedByLaunchArgument: jest.fn(() => false),
+}));
+
+const mockForcedByLaunchArgument = isReduceMotionForcedByLaunchArgument as jest.MockedFunction<
+  typeof isReduceMotionForcedByLaunchArgument
+>;
 
 describe('useReducedMotionPreferenceState', () => {
   let listener: ((enabled: boolean) => void) | null = null;
@@ -152,5 +163,50 @@ describe('useReducedMotionPreference', () => {
     await waitFor(() => {
       expect(result.current).toBe(true);
     });
+  });
+});
+
+describe('com o argumento de lançamento que desliga o movimento (FILA 49)', () => {
+  let listener: ((enabled: boolean) => void) | null = null;
+
+  beforeEach(() => {
+    listener = null;
+    mockForcedByLaunchArgument.mockReturnValue(true);
+    jest
+      .spyOn(AccessibilityInfo, 'addEventListener')
+      .mockImplementation(((_event: string, handler: (enabled: boolean) => void) => {
+        listener = handler;
+        return { remove: jest.fn() };
+      }) as never);
+  });
+
+  afterEach(() => {
+    mockForcedByLaunchArgument.mockReturnValue(false);
+    jest.restoreAllMocks();
+  });
+
+  it('já resolve como redução na primeira renderização, sem esperar o sistema', () => {
+    // A preferência do sistema nunca responde: só o argumento pode resolver.
+    const query = jest
+      .spyOn(AccessibilityInfo, 'isReduceMotionEnabled')
+      .mockReturnValue(new Promise<boolean>(() => undefined));
+    // O setup do React Native já entrega um `jest.fn` aqui, e o espião herda as
+    // chamadas dos casos anteriores.
+    query.mockClear();
+
+    const { result } = renderHook(() => useReducedMotionPreferenceState());
+
+    expect(result.current).toEqual({ reducedMotionEnabled: true, resolved: true });
+    expect(query).not.toHaveBeenCalled();
+  });
+
+  it('não volta a animar quando a preferência do sistema muda', async () => {
+    jest.spyOn(AccessibilityInfo, 'isReduceMotionEnabled').mockResolvedValue(false);
+
+    const { result } = renderHook(() => useReducedMotionPreference());
+
+    act(() => listener?.(false));
+
+    await waitFor(() => expect(result.current).toBe(true));
   });
 });

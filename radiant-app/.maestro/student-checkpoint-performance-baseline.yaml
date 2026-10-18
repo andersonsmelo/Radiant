@@ -5,7 +5,13 @@ tags:
   - performance-baseline
   - local-first
 ---
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny

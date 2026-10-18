@@ -1,0 +1,26 @@
+[
+  {
+    "file": "g4-01-sessao-ativa.png",
+    "sha256": "220745407c579251803df79ae6f6a41f5547ffee1990f812af96d5a1a6bab8dc"
+  },
+  {
+    "file": "g4-02-alternativa-selecionada.png",
+    "sha256": "68fac7882a4e7a0ba238a691d5815ee48ab9a222a2fdd868a35f8f3e10c42dcd"
+  },
+  {
+    "file": "g4-03-resposta-correta.png",
+    "sha256": "9edd7d6fce996916c9ab4f3d7107f43c3f0ef94d314e93a724611af1d5aa09f6"
+  },
+  {
+    "file": "g4-04-resposta-errada.png",
+    "sha256": "0848486d2eb2388a213fc7386e150c6f2aec9bd75ff0e0bce47b49116dd596b1"
+  },
+  {
+    "file": "g4-05-resposta-com-ajuda.png",
+    "sha256": "7ee8a6deb36ff9acda2be3c5b546e0fe4342ebc7347597a719b4c7dcfe5f0816"
+  },
+  {
+    "file": "g4-06-sessao-concluida.png",
+    "sha256": "27c4802b81ed4f24d867570724ae7ff75ddbc10579963529547c7cdd3dc64fd1"
+  }
+]

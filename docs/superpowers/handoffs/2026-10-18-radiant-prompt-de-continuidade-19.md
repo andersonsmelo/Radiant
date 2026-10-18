@@ -41,7 +41,11 @@ de prompts anteriores.**
   - **motor híbrido** (#42 e #43): todas as perguntas, feedback por item,
     retorno do erro, vidas só no retorno, régua de estrelas para N perguntas e
     a última vida concluindo a lição;
-  - **A1** (#45): a versão nova de conteúdo preserva a data de revisão.
+  - **A1** (#45): a versão nova de conteúdo preserva a data de revisão;
+  - **E2E sem animação** (#49, FILA 49 e 57) e **`main` pronta para build**
+    (#48, FILA 59), na `main` desde a tarde de 2026-10-18;
+  - **R6, A4, R8 e C1**, feitos em 2026-10-18 na branch
+    `claude/r6-store-revisao`, que vai na PR do dia. O merge é do dono.
 
 **Decidido pelo dono em 2026-10-18:**
 - a régua de estrelas: algum acerto vale 1, 2/3 valem 2, tudo vale 3, contando a
@@ -66,15 +70,16 @@ curl -s 'https://itunes.apple.com/lookup?id=6797078156&country=br' | python3 -c 
 ```
 
 **Esperado depois de 2026-10-18:**
-- a `origin/main` na PR desta documentação, ou em `cc67243` se ela ainda não
-  entrou, com o CI verde;
+- a `origin/main` na PR desta documentação, ou em `b59e216` (PRs #48 e #49) se
+  ela ainda não entrou, com o CI verde;
 - a App Store em `1.4.0`;
 - **o checkout principal na branch velha `feat/trilha-evolucao-global-g0-g4`**,
   em `69e6532`. Não trabalhe nele: crie uma worktree ou uma branch a partir da
   `origin/main`;
 - worktrees em `.claude/worktrees/`. Elas estão na §7 do levantamento.
-  **`trusting-mestorf-a5ca83` tem 22 arquivos sujos da FILA 57: não mexa sem o
-  dono;**
+  As do E1, `trusting-mestorf-a5ca83` e `dazzling-ishizaka-883871`, estão
+  limpas. O E1 está na `main`, e os logs que sustentam a evidência dele estão
+  versionados, então elas podem ser removidas quando o dono disser;
 - Metro desligado, nenhum simulador ligado e carga baixa.
 
 **Parta da `main`:**
@@ -117,36 +122,27 @@ Sem segunda IA, quem garante a qualidade é o processo. Para cada frente:
 
 ## 4. Pendências, por prioridade (2026-10-18)
 
-**Do agente, destravadas:**
+**Do agente** (estado de 2026-10-18, às 17 h):
 
-1. **Preparar a `main` para uma build.** Ela tem 5 PRs de trilha que a loja não
-   tem.
-   - Rode nativamente os 7 roteiros Maestro que só passaram pelo contrato
-     estático: `learning-critical-path`, `radiant-1-4-primeira-execucao`,
-     `offline-relaunch`, `radiant-1-4-segundo-dia`, `reward-unlock`,
-     `store-capture` e `student-checkpoint-no-duplicate-effect`.
-   - Faça as capturas versionadas do G4.
-   - **Pronto:** os 7 roteiros passam ou viram defeito registrado, e a evidência
-     tem data e hash. A build e o envio são do dono.
-2. **R6, capacidade do store de revisão (A2 e A3).**
-   - Meça leitura e escrita com 1k e 5k cartões.
-   - Coloque em quarentena o registro inválido, para ele não bloquear a revisão
-     inteira.
-   - Trocar o storage (particionar ou SQLite) é decisão do dono.
-   - **Pronto:** números medidos e um teste de registro corrompido que não
-     bloqueia, visto falhando antes.
-3. **A4:** o agregado legado avança uma vez por item. A descrição está na
-   [revisão do Codex](../../trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md).
-4. **R8:** um README da trilha curto, que se lê em 5 minutos, com o histórico
-   num anexo.
-5. **C1:** tirar `questionIndex` e `reinforceBody` do contrato de conteúdo **na
-   API e no app juntos**.
+1. **Preparar a `main` para uma build** (FILA 59): feito na PR #48. Seis dos 7
+   roteiros passaram nativamente, e as capturas do G4 estão versionadas com
+   hash. **Falta o dia 2** do `radiant-1-4-segundo-dia`, a partir de
+   2026-10-19 às 12:45 (−03), no simulador `5FD8C926`. A receita está na FILA
+   59. A build e o envio são do dono.
+2. **R6, A4, R8 e C1:** feitos em 2026-10-18 na branch `claude/r6-store-revisao`,
+   cada um com evidência em `docs/evidence/2026-10-18-*`. A branch vai na PR do
+   dia, e o merge é do dono. Do R6, o A3 foi consertado com uma quarentena, e o
+   A2 foi medido e continua aberto: com 5.000 cartões, o store usa 67% dos 6 MB
+   do Android.
 
 **Do dono, o que destrava:**
 - **FILA 45:** currículo e governança. Libera os 10 a 15 itens por lição e a
   correção do viés de comprimento;
 - **FILA 52:** as 15 imagens;
-- **FILA 57:** o E1;
+- **A2:** trocar o storage da revisão, particionado ou SQLite;
+- **FILA 60:** aceitar os 3,3 s por tentativa de rolagem do E1 ou buscar menos
+  de 2 s;
+- **o merge da PR do dia**, com o R6, o A4, o R8 e o C1;
 - **FILA 48:** a captura de loja;
 - **FILA 43:** o analytics;
 - **FILA 6:** os opt-ins Android;

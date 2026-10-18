@@ -13,6 +13,10 @@ O estado vivo continua sendo o [`STATUS`](../STATUS.md), e o executável, a
 [`FILA`](../FILA.md). Este documento conta o que aconteceu e onde está cada
 coisa.
 
+> **Atualizado em 2026-10-18, às 17 h**, ao atualizar a PR #47 com a `main`,
+> depois do merge das PRs #48 e #49 (`main` em `b59e216`). Mudaram as §5, §6 e
+> §7. As outras seções continuam na base `cc67243`.
+
 ## 1. Em uma frase
 
 Em três dias, a trilha passou a ter:
@@ -81,35 +85,36 @@ roda a `1.4.0 (12)`, compilada do `221e2ec` em 2026-10-09 (ver STATUS).
 | Achado | Estado em 2026-10-18 |
 | --- | --- |
 | A1: a versão nova apagava a revisão | ✅ Corrigido (#45) |
-| A2: o store de revisão passa dos 6 MB do Android nos tetos | ⏳ Aberto. O cache do Argon reduz CPU, não tamanho (R6) |
-| A3: um registro inválido bloqueia a revisão inteira | ⏳ Aberto (R6) |
-| A4: o agregado legado avança uma vez por item | ⏳ Aberto, sem pacote |
+| A2: o store de revisão passa dos 6 MB do Android nos tetos | ⏳ Aberto. Medido no R6: 4,01 MiB com 5.000 cartões, 67% dos 6 MB. Trocar o storage é do dono |
+| A3: um registro inválido bloqueia a revisão inteira | ✅ Consertado com uma quarentena, na branch `claude/r6-store-revisao` |
+| A4: o agregado legado avança uma vez por item | ✅ Consertado na branch `claude/r6-store-revisao`: avança uma vez por lição na sessão |
 | A5: código denso para revisão entre IAs | Processo. Perde peso com uma IA só |
-| A6: o E1 parado na worktree `trusting-mestorf-a5ca83`, com 22 arquivos sujos | ⏳ Decisão do dono (FILA 57) |
-| A7: o README da trilha longo e com mapa desatualizado | ⏳ Aberto (R8) |
+| A6: o E1 parado na worktree `trusting-mestorf-a5ca83`, com 22 arquivos sujos | ✅ O dono decidiu integrar (FILA 57), e o E1 entrou pela #49 |
+| A7: o README da trilha longo e com mapa desatualizado | ✅ Consertado na branch `claude/r6-store-revisao` (R8), com regra no `docs-contract` |
 | A8: infraestrutura à frente do conteúdo | Em curso: o motor híbrido priorizou a lição. O conteúdo depende da FILA 45 |
 | B1–B3: copy de 0 estrela, FILA com afirmações falsas, citações inventadas | ✅ Corrigidos antes do merge da #40 |
 | D1 do diagnóstico: uma pergunta por lição | ✅ Com o que existe (2 ou 3). Os 10 a 15 itens dependem da FILA 45 |
 | Viés de comprimento: a certa é a mais longa em 18 de 32 perguntas | ⏳ Aberto. Depende de conteúdo |
-| C1: `questionIndex` e `reinforceBody` sem leitor, mas no contrato da API | ⏳ Aberto. Limpar na API e no app juntos |
+| C1: `questionIndex` e `reinforceBody` sem leitor, mas no contrato da API | ✅ Saíram da API e do app juntos, na branch `claude/r6-store-revisao` |
 | C2: a barra de progresso recua quando o aluno erra | ⏳ Aberto. Observação de design |
 
 ## 6. O que ficou aberto
 
-**O agente pode fazer sem decisão nova:**
-1. **R6, capacidade do store (A2 e A3):** medir com 1k e 5k cartões e colocar em
-   quarentena o registro inválido. Trocar o storage é decisão do dono.
-2. **R5, QA nativo do G4 com capturas versionadas,** e os 7 roteiros Maestro
-   que só rodaram pelo contrato estático.
-3. **A4,** o agregado legado.
-4. **R8,** o README da trilha curto.
-5. **C1,** a limpeza do contrato de conteúdo, na API e no app juntos.
+**O agente pode fazer sem decisão nova:** em 2026-10-18 à tarde, a lista que
+estava aqui foi feita.
+- **R5 e os 7 roteiros Maestro** entraram pela #48 (FILA 59). Falta o dia 2 do
+  `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45.
+- **R6, A4, R8 e C1** estão na branch `claude/r6-store-revisao`, que vai na PR
+  do dia.
 
 **Depende do dono:**
 - **FILA 45:** currículo e governança. Libera os 10 a 15 itens por lição e o
   viés de comprimento;
 - **FILA 52:** aprovar as 15 imagens;
-- **FILA 57:** integrar ou descartar o E1;
+- **A2:** trocar o storage da revisão, particionado ou SQLite;
+- **FILA 60:** aceitar os 3,3 s por tentativa de rolagem do E1 ou buscar menos
+  de 2 s;
+- **o merge da PR do dia**, com o R6, o A4, o R8 e o C1;
 - **FILA 48:** a captura de loja com ou sem o convite do lembrete;
 - **FILA 43:** o analytics;
 - **FILA 6:** os opt-ins do closed test Android;
@@ -120,9 +125,12 @@ roda a `1.4.0 (12)`, compilada do `221e2ec` em 2026-10-09 (ver STATUS).
 | Worktree | Branch | Estado |
 | --- | --- | --- |
 | `.claude/worktrees/review-42` | a desta documentação | Limpa ao fim do run |
-| `.claude/worktrees/trusting-mestorf-a5ca83` | `feat/e1-e2e-sem-movimento` | 22 arquivos sujos (FILA 57). Não mexer sem o dono |
+| `.claude/worktrees/trusting-mestorf-a5ca83` | `feat/e1-animacao-desligavel` | Limpa. Na `main` pela #49, com os logs do vermelho versionados. Pode ser removida com o sim do dono |
+| `.claude/worktrees/maestro-nativo` | `claude/main-pronta-para-build` | Limpa. Na `main` pela #48 |
+| `.claude/worktrees/r6-store-revisao` | `claude/r6-store-revisao` | Limpa. R6, A4, R8 e C1, para a PR do dia |
 | `.claude/worktrees/argon-trilha` | `argon/trilha-melhorias-e-avaliacao` | Limpa, já na `main` |
-| `.claude/worktrees/dazzling-ishizaka-883871` e `sharp-dijkstra-747d12` | destacadas, de 23/09 | Limpas, já na `main` |
+| `.claude/worktrees/dazzling-ishizaka-883871` | `claude/eloquent-heyrovsky-fa6e4c` | Limpa. Rodou a bateria do E1, cujos logs estão versionados |
+| `.claude/worktrees/sharp-dijkstra-747d12` | destacada, de 23/09 | Limpa, já na `main` |
 | `.superpowers/worktrees/motor-hibrido-licao` e `release` | do Codex e de release | Não inspecionadas |
 
 O checkout principal está em `feat/trilha-evolucao-global-g0-g4`, em

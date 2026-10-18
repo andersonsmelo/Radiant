@@ -5,7 +5,13 @@ tags:
   - active-internal
   - idempotency
 ---
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny
@@ -84,7 +90,9 @@ tags:
 - copyTextFrom:
     text: '^[0-9][0-9.,]* XP$'
 - killApp
-- launchApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 # A lição foi concluída, então não há retomada a oferecer — o que o relançamento
 # exercita é a reconciliação do journal. Se ela reaplicasse o efeito, o XP

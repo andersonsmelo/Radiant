@@ -31,6 +31,8 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'radiant-1-4-primeira-execucao.yaml',
   'radiant-1-4-segundo-dia.yaml',
   'radiant-1-4-vidas-esgotadas.yaml',
+  // Rola até cada botão da sessão de revisão do G4 (FILA 59, 2026-10-18).
+  'g4-native-evidence.yaml',
 ];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
@@ -265,20 +267,35 @@ test('centers the recommendation header action before each native tap', async ()
       && ['Continuar jornada', 'Receber conquista'].includes(command?.tapOn) ? [index] : []);
     assert.equal(actions.length, name === 'reward-unlock.yaml' ? 7 : 1);
     for (const index of actions) {
-      assert.deepEqual(commands[index - 1]?.scrollUntilVisible, {
-        element: { id: 'journey-recommendation-action' }, direction: 'DOWN',
-        centerElement: true, visibilityPercentage: 100,
-      }, `${name}: center the native button bounds immediately before its semantic tap`);
+      assertCenteredRecommendation(commands, index, `${name}: center the native button bounds immediately before its semantic tap`);
     }
   }
   const offline = await flowCommands('offline-relaunch.yaml');
   const index = offline.findIndex(command => command?.assertVisible === 'Continuar jornada');
   assert.ok(index > 0);
-  assert.deepEqual(offline[index - 1]?.scrollUntilVisible, {
-    element: { id: 'journey-recommendation-action' }, direction: 'DOWN',
-    centerElement: true, visibilityPercentage: 100,
-  }, 'offline relaunch must expose the restored recommendation');
+  assertCenteredRecommendation(offline, index, 'offline relaunch must expose the restored recommendation');
 });
+
+/**
+ * O botão da recomendação centrado, e de volta se o centramento passou dele.
+ * O `centerElement` do Maestro 2.7 dá UM deslize fixo quando o centro do
+ * elemento está a mais de 1/5 da altura do centro da tela, e aceita onde ele
+ * parar: com o botão um pouco abaixo da faixa central, o deslize o leva para
+ * baixo do HUD, onde ele continua "visível" na árvore e o toque cai no HUD
+ * (medido em 2026-10-18, `reward-unlock`, 3ª lição). A rolagem centrada para
+ * cima, logo depois, não faz nada na faixa e desfaz o excesso fora dela.
+ */
+function assertCenteredRecommendation(commands, index, message) {
+  const centered = (direction) => ({
+    element: { id: 'journey-recommendation-action' }, direction,
+    centerElement: true, visibilityPercentage: 100,
+  });
+  assert.deepEqual(commands[index - 3]?.scrollUntilVisible, centered('DOWN'), message);
+  assert.deepEqual(commands[index - 2]?.assertVisible, { id: 'journey-recommendation-action' },
+    `${message} — the scroll back waits for the button it is about to scroll`);
+  assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered('UP'),
+    `${message} — and scrolls it back from under the HUD when the centering swipe overshoots`);
+}
 
 async function recommendationActionLabels() {
   const source = ts.createSourceFile('JourneyRecommendationCard.tsx',
@@ -756,6 +773,7 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
     'radiant-1-4-primeira-execucao.yaml',
     'radiant-1-4-segundo-dia.yaml',
     'radiant-1-4-vidas-esgotadas.yaml',
+    'g4-native-evidence.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
@@ -1344,5 +1362,90 @@ test('M1-M8 all eight lesson-answer flows exercise every catalog item and its in
     }
     assert.ok(groups > 0, `${name}: at least one valid session is exercised`);
     assert.deepEqual(answered, [], `${name}: no incomplete answer sequence`);
+  }
+});
+
+/**
+ * As constantes exportadas de um módulo do app, lidas pela AST: a busca por
+ * texto casaria também com a menção num comentário.
+ */
+async function exportedStringConstants(relativePath) {
+  const source = ts.createSourceFile(relativePath, await readAppFile(relativePath),
+    ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const constants = {};
+  for (const statement of source.statements) {
+    if (!ts.isVariableStatement(statement)) continue;
+    if (!statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)) continue;
+    for (const declaration of statement.declarationList.declarations) {
+      if (ts.isIdentifier(declaration.name) && declaration.initializer
+        && ts.isStringLiteral(declaration.initializer)) {
+        constants[declaration.name.text] = declaration.initializer.text;
+      }
+    }
+  }
+  return constants;
+}
+
+/** Todos os comandos de uma sequência, inclusive os aninhados em `runFlow`, `repeat` e `retry`. */
+function everyCommand(commands) {
+  return commands.flatMap((command) => {
+    const nested = ['runFlow', 'repeat', 'retry']
+      .map((key) => command?.[key]?.commands)
+      .filter(Array.isArray);
+    return [command, ...nested.flatMap(everyCommand)];
+  });
+}
+
+// FILA 49 (E1). Com o fundo estrelado em laço infinito, a tela nunca assenta e
+// o Maestro espera por ela a cada tentativa de rolagem: em 2026-10-16, 8 a 11 s
+// por tentativa no `reward-unlock`. O argumento liga "Reduzir movimento" no app,
+// e um processo lançado sem ele volta a animar. Por isso a regra vale para
+// TODO lançamento, inclusive as reaberturas depois de `killApp`.
+test('launches every flow with the launch argument that turns off decorative motion', async () => {
+  const constants = await exportedStringConstants('src/ui/accessibility/motionLaunchArgument.ts');
+  const key = constants.REDUCE_MOTION_LAUNCH_ARGUMENT;
+  const value = constants.REDUCE_MOTION_LAUNCH_VALUE;
+  assert.ok(key && value, 'expected motionLaunchArgument.ts to export the argument and its value');
+
+  const flows = await listMaestroFlows();
+  const subflows = (await readdir(path.join(appRoot, '.maestro/subflows')))
+    .filter((name) => name.endsWith('.yaml'))
+    .map((name) => `subflows/${name}`);
+  let launches = 0;
+
+  for (const name of [...flows, ...subflows]) {
+    for (const command of everyCommand(await flowCommands(name))) {
+      assert.notEqual(command, 'launchApp',
+        `${name}: a bare launchApp starts the app without the ${key} argument`);
+      if (!Object.hasOwn(command ?? {}, 'launchApp')) continue;
+      launches += 1;
+      const argument = command.launchApp?.arguments?.[key];
+      assert.notEqual(argument, undefined, `${name}: launchApp must pass the ${key} argument`);
+      // O Maestro 2.7 só põe o `-` antes da chave quando o valor não é
+      // booleano; sem o `-`, o iOS não leva o argumento ao NSUserDefaults.
+      assert.equal(typeof argument, 'string',
+        `${name}: launchApp must pass ${key} as a quoted string — a boolean reaches iOS without the "-" and is ignored`);
+      assert.equal(argument, value, `${name}: launchApp must pass ${key}: '${value}'`);
+    }
+  }
+
+  // Validade: a regra acima passa vazia se nenhum lançamento for encontrado.
+  assert.ok(launches >= flows.length, `expected at least one launch per flow, found ${launches}`);
+});
+
+// `openLink` com o app parado também lança o processo, e sem argumento nenhum.
+test('never lets a deep link start the app the launch argument did not start', async () => {
+  for (const name of await listMaestroFlows()) {
+    let running = false;
+    for (const command of await flowCommands(name)) {
+      if (Object.hasOwn(command ?? {}, 'launchApp')) running = true;
+      if (command === 'killApp' || command === 'stopApp'
+        || Object.hasOwn(command ?? {}, 'killApp') || Object.hasOwn(command ?? {}, 'stopApp')) {
+        running = false;
+      }
+      if (Object.hasOwn(command ?? {}, 'openLink')) {
+        assert.ok(running, `${name}: openLink must follow a launchApp, or it starts the app without the argument`);
+      }
+    }
   }
 });

@@ -294,7 +294,7 @@ no simulador e no código; [avaliação completa](trilha/avaliacoes/2026-10-16-a
   saiu dessa síntese e das pesquisas reunidas em [`trilha/`](trilha/README.md), com as
   escolhas do dono de 2026-10-16: consertar a lição legada em paralelo ao
   piloto híbrido, ter um item de imagem por trilha neste ciclo e abrir as quatro
-  frentes de engenharia. A próxima é a FILA 49.
+  frentes de engenharia.
 
 **Consertados localmente no mesmo dia, sem publicação**
 ([ADR](adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
@@ -566,7 +566,13 @@ Medido em 2026-10-10, às 09:55:
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
-e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora. A
+e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.
+Desde 2026-10-18, os logs da bateria do E1 (da `dazzling-ishizaka-883871`) e
+os do vermelho do E1 (da `trusting-mestorf-a5ca83`) estão versionados em
+`docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste/`. O resto da
+`radiant-app/.maestro/artifacts/` das duas não foi copiado e se perde com a
+remoção: as capturas e os logs completos, uns 400 MB, inclusive o
+`reward-unlock` antes e depois. A
 `Radiant-release` está numa `main` local antiga (`21c42b6`), e quem for usá-la
 começa por `git pull`.
 
@@ -586,7 +592,7 @@ decidido pelo dono em 2026-09-23 e ainda não construído.
 
 ## Trilha — estado em 2026-10-18
 
-**Na `main` em `cc67243` (medido em 2026-10-18), sem build nova:** a loja segue
+**Na `main` em `b59e216` (medido em 2026-10-18, às 17 h), sem build nova:** a loja segue
 com a `1.4.0 (12)`, do `221e2ec`. Levantamento completo do período em
 [`trilha/2026-10-18-levantamento-do-que-foi-feito.md`](trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 
@@ -604,18 +610,23 @@ com a `1.4.0 (12)`, do `221e2ec`. Levantamento completo do período em
   [ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)).
 - **A1** (PR #45): a versão nova de conteúdo preserva a data de revisão do item,
   sem herdar evidência ([relatório](evidence/2026-10-18-a1-preserva-data.md)).
+- **E2E sem animação** (PR #49, FILA 49 e 57) e **`main` pronta para build**
+  (PR #48, FILA 59): seções próprias abaixo.
 
-**Gate medido em 2026-10-18** na branch da PR #45, igual à `main` em código:
-`EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu 173 suítes e 1.763 testes,
-visual QA com 0 regressões, e `loop validate` deu 15/15. Uma execução anterior
-reprovou uma vez no `CheckpointScreen.flow.test.tsx`, que não reproduziu.
+**Gate medido em 2026-10-18:** o CI da PR #48 passou no `20292e9`, cuja árvore é
+idêntica à da `main` em `b59e216` (`git diff` vazio). O `loop validate` desse
+commit deu 15/15. Antes, na branch da PR #45, o `npm run quality` tinha dado 173
+suítes e 1.763 testes.
+
+**Na branch `claude/r6-store-revisao`, que vai na PR do dia (2026-10-18):** o
+A3 (quarentena do registro inválido), o A4 (agregado legado), o R8 (README curto
+da trilha) e o C1 (contrato de conteúdo), cada um com evidência própria. O merge
+é do dono.
 
 **Ainda aberto:**
-- **A2:** o store de revisão passa dos 6 MB do Android nos tetos;
-- **A3:** um registro inválido bloqueia a revisão;
-- **A4:** o agregado legado;
-- QA nativo do G4 com capturas versionadas, e os 7 roteiros Maestro que só
-  passaram pelo contrato;
+- **A2:** o store de revisão passa dos 6 MB do Android nos tetos. Foi medido no
+  R6, e trocar o storage é decisão do dono;
+- o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
 - Android, VoiceOver e desempenho (G6) e backup e reset (G7);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
@@ -623,3 +634,46 @@ reprovou uma vez no `CheckpointScreen.flow.test.tsx`, que não reproduziu.
 estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
 documento de entrada é o
 [prompt de continuidade (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+
+## A `main` pronta para build — FILA 59, medido em 2026-10-18
+
+Na `main` em `cc67243`, num dev client Debug do Xcode 27.1 e em dois simuladores
+iPhone 17 Pro com iOS 26.5:
+- 6 dos 7 roteiros que só tinham passado pelo contrato estático passaram
+  nativamente: `learning-critical-path`, `offline-relaunch`,
+  `student-checkpoint-no-duplicate-effect`, `store-capture`, `reward-unlock` e
+  `radiant-1-4-primeira-execucao`;
+- o `radiant-1-4-segundo-dia` passou numa sonda com fixture. **O dia 2 com
+  relógio real fica para 2026-10-19, a partir das 12:45 (−03)**, no simulador
+  `5FD8C926` (FILA 59);
+- `store-capture` e `segundo-dia` estavam desatualizados em relação ao app e
+  foram corrigidos. Nenhum defeito do app apareceu;
+- a prova nativa do G4 está feita, com seis capturas versionadas com hash.
+  Ela rodou sem o argumento do E1; depois do merge da #49, o roteiro passou a
+  lançar com ele, como o contrato exige, e não foi reexecutado.
+
+[Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
+Debug não prova a build Release; a build e o envio continuam com o dono.
+
+## E2E sem animação — FILA 49, medido em 2026-10-18
+
+Lançado com `-radiantReduceMotion 1`, o app liga "Reduzir movimento" sem mexer
+no sistema: o fundo estrelado para e o confete não sobe. Os 24 `launchApp` dos
+18 roteiros Maestro passam o argumento, e o contrato exige isso (contagem do
+YAML em 2026-10-18, já com o roteiro do G4). Só no iOS: no Android o argumento
+não chega ao app.
+
+No `reward-unlock`, no simulador iOS e sobre a `main` em `cc67243`, o roteiro
+inteiro caiu de 18 min 10 s para 3 min 48 s. A tentativa de rolagem até o
+cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
+**não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
+FILA 60. A bateria padrão passou 7 de 7 com o argumento, no mesmo dia. Não
+rodaram com o argumento `rating-prompt`, `review-due`, os
+`student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
+`radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
+FILA 59.
+
+O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
+jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
+Integrado na `main` em 2026-10-18 pela [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`).
+[Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).

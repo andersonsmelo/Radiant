@@ -1,0 +1,48 @@
+# Bateria do E1, roteiro reward-locked. Copiado em 2026-10-18 de
+# radiant-app/.maestro/artifacts/e1-bateria/reward-locked/ (resumo.txt e saida.txt) da worktree
+# dazzling-ishizaka-883871, que estava no 8114401 das 14:40:19 às 14:50:25.
+
+inicio 14:46:07 carga { 7.19 8.21 7.06 }
+fim 14:46:47 rc=0 duracao=40s carga { 6.19 7.84 6.97 }
+
+Running on Radiant E2E item 38 - iOS 26.5 - 0A1B5AAA-A517-484B-A386-0F48D3B229A1
+ > Flow Locked reward reached by deep link cannot be collected
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Open radiantapp://reward?nodeId=node%3Areward%3Afundamentos%3Afinal... COMPLETED
+Run flow when "Abrir com “Radiant”\?" is visible...
+Run flow when "Abrir com “Radiant”\?" is visible... SKIPPED
+Assert that "Conquista da unidade" is visible... COMPLETED
+Repeat while "Bloqueada até a unidade fechar" is not visible (up to 10 times)...
+Repeat while "Bloqueada até a unidade fechar" is not visible (up to 10 times)... SKIPPED
+Assert that "Bloqueada até a unidade fechar" is visible... COMPLETED
+Repeat while "Esta conquista ainda não abriu" is not visible (up to 10 times)...
+  Scroll vertically... COMPLETED
+Repeat while "Esta conquista ainda não abriu" is not visible (up to 10 times)... COMPLETED
+Assert that "Esta conquista ainda não abriu" is visible... COMPLETED
+Assert that "Receber conquista" is not visible... COMPLETED
+Assert that "Pronto para coletar essa conquista\?" is not visible... COMPLETED
+Tap on "Voltar para jornada"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
