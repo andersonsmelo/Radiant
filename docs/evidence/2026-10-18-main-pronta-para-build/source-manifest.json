@@ -1,0 +1,19 @@
+{
+  "medidoEm": "2026-10-18",
+  "commit": "cc67243b73c12c3a7c733bd9f489740bff4f140f",
+  "binario": {
+    "configuracao": "Debug (dev client), JS servido pelo Metro da worktree",
+    "versao": "1.4.0",
+    "build": "3",
+    "executavelSha256": "22408fc7e98ea89ae420c5ad8658a0bac306cf0f5277456e5214918786a0ba5d",
+    "compiladoCom": "Xcode 27.1 / Build version 27A9275",
+    "flags": "IPHONEOS_DEPLOYMENT_TARGET=15.1 SENTRY_DISABLE_AUTO_UPLOAD=true"
+  },
+  "simuladores": {
+    "principal": "E262D4C1-99BE-496B-8567-0291C14E6533 (iPhone 17 Pro, iOS 26.5)",
+    "dia2": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 (iPhone 17 Pro, iOS 26.5)"
+  },
+  "maestro": "2.7.0",
+  "node": "v20.20.2",
+  "metroEnv": "perfil e2e-test do eas.json, EXPO_NO_DOTENV=1, EXPO_NO_TYPESCRIPT_SETUP=1"
+}

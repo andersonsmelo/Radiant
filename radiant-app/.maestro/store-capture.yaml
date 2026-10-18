@@ -115,7 +115,16 @@ tags:
 # saiu da trilha, e as duas capturas saíram com ele. Os números restantes não
 # foram renumerados, para não mexer em quem os consome; o que a vitrine da loja
 # passa a mostrar é decisão do dono (FILA, 37).
-- assertVisible: Continuar jornada
+# Centraliza o CTA antes de tocar, como `learning-critical-path.yaml`. Em
+# 2026-10-18, no iPhone 17 Pro, ele estava sob a barra de abas depois do convite
+# do lembrete: o toque não abriu a lição, e o título do card da home satisfez a
+# asserção seguinte, que só reprovou no "Continuar" da lição.
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar

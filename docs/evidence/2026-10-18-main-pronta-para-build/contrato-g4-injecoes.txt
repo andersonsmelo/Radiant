@@ -1,0 +1,58 @@
+# Guardas de rolagem do contrato do Maestro sobre o g4-native-evidence.yaml
+# 2026-10-18, Node 20.20.2, em radiant-app/: python3 injecoes_g4.py <fase>.
+# Cada injeção troca uma âncora única, roda npm run test:maestro-contract e restaura o roteiro.
+# 'antes': o contrato sem o G4 nas listas (cego, 33/33). 'depois': com o G4 nas duas listas.
+
+# fase: antes
+
+## sem régua (âncora: 1 ocorrência, saída 0)
+# pass 33
+# fail 0
+
+## rolagem aninhada sob guarda (âncora: 1 ocorrência, saída 0)
+# pass 33
+# fail 0
+
+
+# fase: depois
+
+## sem régua (âncora: 1 ocorrência, saída 1)
+not ok 21 - makes every scroll-until-visible state the visibility bar it is measured by
+error: 'g4-native-evidence.yaml:25: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer overlaps the target'
+# pass 32
+# fail 1
+
+## rolagem aninhada sob guarda (âncora: 1 ocorrência, saída 1)
+not ok 22 - never lets a scroll-until-visible hide behind a visibility guard
+error: 'g4-native-evidence.yaml:29: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+# pass 32
+# fail 1
+
+
+# injecoes_g4.py
+import subprocess, pathlib, sys
+fase = sys.argv[1]
+f = pathlib.Path('.maestro/g4-native-evidence.yaml')
+alvo = ("- scrollUntilVisible:\n    element: Começar revisão\n    direction: DOWN\n"
+        "    centerElement: false\n    visibilityPercentage: 80\n")
+INJ = [
+  ('sem régua', alvo, alvo.replace("    visibilityPercentage: 80\n", "")),
+  ('rolagem aninhada sob guarda', alvo,
+   "- runFlow:\n    when:\n      notVisible: Começar revisão\n    commands:\n"
+   "      - scrollUntilVisible:\n          element: Começar revisão\n          direction: DOWN\n"
+   "          centerElement: false\n          visibilityPercentage: 80\n"),
+]
+out = [f"# fase: {fase}"]
+for nome, a, b in INJ:
+    orig = f.read_text(encoding='utf8')
+    n = orig.count(a); assert n == 1, (nome, n)
+    f.write_text(orig.replace(a, b, 1), encoding='utf8')
+    try:
+        r = subprocess.run(['npm', 'run', '-s', 'test:maestro-contract'], capture_output=True, text=True)
+    finally:
+        f.write_text(orig, encoding='utf8')
+    linhas = [l.strip() for l in r.stdout.splitlines()
+              if l.startswith('not ok') or l.startswith('# pass') or l.startswith('# fail')
+              or ('g4-native-evidence.yaml' in l and 'scrollUntilVisible' in l)]
+    out.append(f"## {nome} (âncora: {n} ocorrência, saída {r.returncode})\n" + "\n".join(linhas[:8]))
+print("\n\n".join(out))

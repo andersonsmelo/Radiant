@@ -710,23 +710,45 @@ retorno conclui a lição
 ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Os ajustes estão
 na branch `claude/pr42-ajustes`, com seu [relatório](evidence/2026-10-18-pr42-ajustes.md).
 
+## A `main` pronta para build — FILA 59, medido em 2026-10-18
+
+Na `main` em `cc67243`, num dev client Debug do Xcode 27.1 e em dois simuladores
+iPhone 17 Pro com iOS 26.5:
+- 6 dos 7 roteiros que só tinham passado pelo contrato estático passaram
+  nativamente: `learning-critical-path`, `offline-relaunch`,
+  `student-checkpoint-no-duplicate-effect`, `store-capture`, `reward-unlock` e
+  `radiant-1-4-primeira-execucao`;
+- o `radiant-1-4-segundo-dia` passou numa sonda com fixture. **O dia 2 com
+  relógio real fica para 2026-10-19, a partir das 12:45 (−03)**, no simulador
+  `5FD8C926` (FILA 59);
+- `store-capture` e `segundo-dia` estavam desatualizados em relação ao app e
+  foram corrigidos. Nenhum defeito do app apareceu;
+- a prova nativa do G4 está feita, com seis capturas versionadas com hash.
+  Ela rodou sem o argumento do E1; depois do merge da #49, o roteiro passou a
+  lançar com ele, como o contrato exige, e não foi reexecutado.
+
+[Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
+Debug não prova a build Release; a build e o envio continuam com o dono.
+
 ## E2E sem animação — FILA 49, medido em 2026-10-18
 
 Lançado com `-radiantReduceMotion 1`, o app liga "Reduzir movimento" sem mexer
-no sistema: o fundo estrelado para e o confete não sobe. Os 22 `launchApp` dos
-17 roteiros Maestro passam o argumento, e o contrato exige isso. Só no iOS: no
-Android o argumento não chega ao app.
+no sistema: o fundo estrelado para e o confete não sobe. Os 24 `launchApp` dos
+18 roteiros Maestro passam o argumento, e o contrato exige isso (contagem do
+YAML em 2026-10-18, já com o roteiro do G4). Só no iOS: no Android o argumento
+não chega ao app.
 
 No `reward-unlock`, no simulador iOS e sobre a `main` em `cc67243`, o roteiro
 inteiro caiu de 18 min 10 s para 3 min 48 s. A tentativa de rolagem até o
 cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
 **não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
 FILA 60. A bateria padrão passou 7 de 7 com o argumento, no mesmo dia. Não
-rodaram o `radiant-1-4-segundo-dia` (só a partir de 2026-10-19 14:49),
-`rating-prompt`, `review-due`, os `student-checkpoint-*`, `store-capture` e
-`hybrid-native-evidence`.
+rodaram com o argumento `rating-prompt`, `review-due`, os
+`student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
+`radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
+FILA 59.
 
 O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
 jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
-Na [PR #49](https://github.com/andersonsmelo/Radiant/pull/49), aberta em 2026-10-18 com o CI verde; o merge é do dono.
+Integrado na `main` em 2026-10-18 pela [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`).
 [Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).
