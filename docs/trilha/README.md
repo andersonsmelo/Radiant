@@ -6,6 +6,12 @@ ou IA que entre no projeto entenda o trabalho em poucos minutos e possa somar a
 ele. **Contribuições são bem-vindas, inclusive as que discordam do que está
 aqui.**
 
+## A1 corrigido — 2026-10-18
+
+A versão nova de conteúdo preserva a data de revisão do item (FILA 55):
+[relatório](../evidence/2026-10-18-a1-preserva-data.md) ·
+[ADR](../adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md).
+
 ## Revisão da PR #42 — 2026-10-18
 
 O motor híbrido do Codex foi aprovado com ajustes:

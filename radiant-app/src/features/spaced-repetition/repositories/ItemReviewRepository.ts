@@ -184,6 +184,66 @@ export class ItemReviewRepository {
         });
     }
 
+    /**
+     * A1 (ADR de 2026-10-18, a versão nova preserva a data). Para cada lição com
+     * cartões de uma versão que o catálogo não tem mais:
+     * - o mesmo `itemId` na versão atual herda só o `dueAt`, sem intervalo,
+     *   repetições ou tentativa (a evidência fica na versão em que foi
+     *   registrada);
+     * - o item que saiu do catálogo sai da agenda;
+     * - o item novo é semeado como na migração do legado, depois dos herdados.
+     *
+     * Lição sem definições atuais fica intacta: uma falha do catálogo não pode
+     * apagar a agenda. Um cartão da versão atual já existente, criado por
+     * estudo, prevalece sobre o herdado. Tudo numa única escrita.
+     */
+    reconcileVersions(plans: { lessonId: string; current: ItemIdentity[] }[], now: string): Promise<boolean> {
+        return this.serialize(async () => {
+            try {
+                if (!timestamp(now)) return false;
+                const store = await this.load();
+                let changed = false;
+                for (const { lessonId, current } of plans) {
+                    if (!current.length) continue;
+                    if (!current.every(item => identityValid(item) && item.lessonId === lessonId)
+                        || new Set(current.map(itemKey)).size !== current.length) return false;
+                    const currentKeys = new Set(current.map(itemKey));
+                    const lessonCards = Object.values(store.cards).filter(card => card.item.lessonId === lessonId);
+                    const orphans = lessonCards.filter(card => !currentKeys.has(itemKey(card.item)))
+                        .sort((a, b) => Date.parse(a.dueAt) - Date.parse(b.dueAt) || itemKey(a.item).localeCompare(itemKey(b.item)));
+                    if (!orphans.length) continue;
+                    const earliest = Math.min(...lessonCards.map(card => Date.parse(card.dueAt)));
+                    const byItemId = new Map(current.map(item => [item.itemId, item]));
+                    for (const orphan of orphans) {
+                        delete store.cards[itemKey(orphan.item)];
+                        const next = byItemId.get(orphan.item.itemId);
+                        if (next && !store.cards[itemKey(next)]) {
+                            store.cards[itemKey(next)] = { item: next, interval: 1, repetitions: 0, easeFactor: 2.5,
+                                createdAt: now, lastReviewedAt: now, dueAt: orphan.dueAt, lastAttemptId: null };
+                        }
+                    }
+                    const missing = current.filter(item => !store.cards[itemKey(item)]);
+                    const offset = current.length > missing.length ? 1 : 0;
+                    missing.forEach((item, index) => {
+                        const slot = index + offset;
+                        const scheduled = slot === 0 ? new Date(earliest).toISOString()
+                            : new Date(Math.max(earliest, Date.parse(now)) + slot * 86400000).toISOString();
+                        store.cards[itemKey(item)] = { item, interval: 1, repetitions: 0, easeFactor: 2.5,
+                            createdAt: now, lastReviewedAt: now, dueAt: scheduled, lastAttemptId: null };
+                    });
+                    changed = true;
+                }
+                if (Object.keys(store.cards).length > ITEM_CARD_CAP) return false;
+                if (changed) {
+                    const serialized = JSON.stringify(store);
+                    await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);
+                    validatedStores.set(this.storage, { raw: serialized, store: cloneStore(store) });
+                }
+                return true;
+            } catch { return false; }
+        });
+    }
+
     clear(): Promise<void> {
         return this.serialize(async () => {
             await this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW);

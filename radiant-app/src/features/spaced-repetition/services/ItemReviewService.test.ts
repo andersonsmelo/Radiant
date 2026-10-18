@@ -68,13 +68,69 @@ describe('revisão por item', () => {
         expect(await repository.getAttempts()).toHaveLength(1);
         expect((await coordinator.recordReview(item, false, new Date(now.getTime() + 2000))).accepted).toBe(false);
     });
-    it('não transfere a agenda/evidência de uma versão material para outra', async () => {
-        const { coordinator, repository, definitions } = setup(); await coordinator.loadQueue(legacy, now);
-        definitions.forEach(definition => { definition.item.contentVersion = 'v2'; });
-        expect(await coordinator.loadQueue(legacy, now)).toEqual([]);
+    // A1 (ADR de 2026-10-18, a versão nova preserva a data): o mesmo item numa
+    // versão nova herda só o vencimento. Evidência e intervalo ficam na versão
+    // em que foram registrados, e a lição continua revisável.
+    it('A1 versão nova preserva a data de cada item, sem herdar evidência nem intervalo', async () => {
+        const { coordinator, repository, definitions } = setup();
+        const [first] = await coordinator.loadQueue(legacy, now);
+        expect((await coordinator.recordReview(first, true, now)).accepted).toBe(true);
+        const before = new Map((await repository.getCards()).map(card => [card.item.itemId, card]));
+        expect(before.get('item:0')!.lastAttemptId).not.toBeNull();
+        definitions.forEach(definition => { definition.item = { ...definition.item, contentVersion: 'v2' }; });
+
+        expect(await coordinator.loadQueue([], now)).toEqual([]);
+        const cards = await repository.getCards();
+        expect(cards.map(card => card.item.contentVersion)).toEqual(['v2', 'v2']);
+        for (const card of cards) {
+            expect(card.dueAt).toBe(before.get(card.item.itemId)!.dueAt);
+            expect(card).toMatchObject({ interval: 1, repetitions: 0, easeFactor: 2.5, lastAttemptId: null });
+        }
+        const attempts = await repository.getAttempts();
+        expect(attempts).toHaveLength(1);
+        expect(attempts[0].item.contentVersion).toBe('v1');
+
+        const inherited = Math.min(...[...before.values()].map(card => Date.parse(card.dueAt)));
+        expect(await coordinator.effectiveSchedule([{ lessonId: 'lesson:1', dueAtMs: 0 }])).toEqual([{ lessonId: 'lesson:1', dueAtMs: inherited }]);
+        const due = new Date(Math.max(...[...before.values()].map(card => Date.parse(card.dueAt))));
+        const queue = await coordinator.loadQueue([], due);
+        expect(queue.map(item => [item.question.id, item.card!.item.contentVersion])).toEqual([['item:0', 'v2'], ['item:1', 'v2']]);
+        expect(await coordinator.dueCount([{ lessonId: 'lesson:1', dueAtMs: 0 }], due)).toBe(2);
+    });
+    it('A1 item removido sai da agenda e item novo é semeado depois dos herdados', async () => {
+        const { coordinator, repository, definitions } = setup();
+        await coordinator.loadQueue(legacy, now);
+        const before = new Map((await repository.getCards()).map(card => [card.item.itemId, card]));
+        const kept = { ...definitions[0], item: { ...definitions[0].item, contentVersion: 'v2' } };
+        const added = { ...definitions[0], item: { ...definitions[0].item, itemId: 'item:new', contentVersion: 'v2' },
+            question: { ...definitions[0].question, id: 'item:new' } };
+        definitions.splice(0, definitions.length, kept, added);
+
+        await coordinator.loadQueue([], now);
+        const cards = new Map((await repository.getCards()).map(card => [card.item.itemId, card]));
+        expect([...cards.keys()].sort()).toEqual(['item:0', 'item:new']);
+        expect(cards.get('item:0')!.dueAt).toBe(before.get('item:0')!.dueAt);
+        expect(Date.parse(cards.get('item:new')!.dueAt)).toBe(Math.max(Date.parse(before.get('item:0')!.dueAt), now.getTime()) + 86400000);
+        expect(cards.get('item:new')).toMatchObject({ item: added.item, interval: 1, repetitions: 0, lastAttemptId: null });
         expect(await repository.getAttempts()).toEqual([]);
-        expect((await repository.getCards()).every(card => card.item.contentVersion === 'v1')).toBe(true);
-        expect(await coordinator.effectiveSchedule([{ lessonId: 'lesson:1', dueAtMs: 0 }])).toEqual([]);
+    });
+    it('A1 catálogo sem definições não apaga a agenda da lição', async () => {
+        const { coordinator, repository, definitions } = setup();
+        await coordinator.loadQueue(legacy, now);
+        const before = await repository.getCards();
+        definitions.splice(0, definitions.length);
+        expect(await coordinator.loadQueue([], now)).toEqual([]);
+        expect(await repository.getCards()).toEqual(before);
+    });
+    it('A1 cartão da versão nova já criado por estudo prevalece sobre o herdado', async () => {
+        const { coordinator, repository, definitions } = setup(1);
+        await coordinator.loadQueue(legacy, now);
+        definitions[0].item = { ...definitions[0].item, contentVersion: 'v2' };
+        await repository.record({ attemptId: 'study:v2', item: definitions[0].item, mode: 'study', firstOutcome: 'correct',
+            finalOutcome: 'correct', hintUsed: false, durationBand: 'unknown', recordedAt: now.toISOString() });
+        const studied = (await repository.getCards()).find(card => card.item.contentVersion === 'v2')!;
+        await coordinator.loadQueue([], now);
+        expect(await repository.getCards()).toEqual([studied]);
     });
     it('limita a sessão a 50 de 10000 itens, sem produzir evidência da migração', async () => {
         const { coordinator, repository } = setup(10000);
