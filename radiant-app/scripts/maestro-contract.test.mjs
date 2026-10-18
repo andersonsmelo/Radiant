@@ -326,7 +326,7 @@ test('keeps the critical path walking lesson to lesson on the CTA the home rende
 });
 
 test('native learning flows confirm selected multiple-choice answers with the explicit action', async () => {
-  for (const [name, expected] of [['learning-critical-path.yaml', 2], ['offline-relaunch.yaml', 1], ['reward-unlock.yaml', 7]]) {
+  for (const [name, expected] of [['learning-critical-path.yaml', 6], ['offline-relaunch.yaml', 3], ['reward-unlock.yaml', 16]]) {
     const commands = await flowCommands(name);
     const choices = commands.flatMap((command, index) =>
       command?.tapOn?.id?.startsWith('lesson-option-') ? [index] : []);
@@ -504,7 +504,7 @@ test('keeps lesson-answer selectors accessible and deterministic', async () => {
   // A alternativa não trava depois do primeiro toque: quem confirma é o
   // "Continuar" do rodapé, então o estado exposto é só `selected`. O contrato
   // proíbe reintroduzir `disabled` aqui — seria voltar a impedir a troca.
-  assert.match(source, /accessibilityState=\{\{ selected \}\}/);
+  assert.match(source, /accessibilityState=\{\{ selected, disabled: submitted \}\}/);
   assert.doesNotMatch(source, /disabled=\{/);
 });
 
@@ -1222,22 +1222,19 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   const q1 = lessons.match(/id: 'q1',[\s\S]*?correctAnswerIndex: (\d+),/);
   assert.ok(q1, 'expected lesson q1 to declare its correct answer');
   const q1Correct = Number(q1[1]);
-  const taps = [...hearts.matchAll(/^- tapOn:\n\s+id: lesson-option-q1:option:(\d+)$/gm)].map((match) => Number(match[1]));
-  assert.equal(taps.length, maxHearts, `path 3 must answer exactly MAX_HEARTS (${maxHearts}) times — one heart per wrong answer`);
+  const heartCommands = await flowCommands(GOLDEN[2]);
+  const taps = heartCommands.flatMap(command => command?.tapOn?.id?.startsWith('lesson-option-q1:option:')
+    ? [Number(command.tapOn.id.split(':option:')[1])] : []);
+  assert.equal(taps.length, maxHearts * 2, 'first contact and one retry per heart');
   for (const option of taps) {
-    assert.notEqual(option, q1Correct, 'every answer in path 3 must be wrong, or it spends no heart');
+    assert.ok(Number.isInteger(option) && option >= 0 && option < 4, 'valid answer option');
+    assert.notEqual(option, q1Correct, 'both q1 attempts are wrong');
   }
-  // A última resposta errada zera as vidas com a lição aberta: as anteriores
-  // chegam ao reforço, a última não.
-  assert.equal(
-    [...hearts.matchAll(/^- assertVisible: Vamos reforçar$/gm)].length,
-    maxHearts - 1,
-    'only the attempts before the last one reach the reinforce step'
-  );
+  assert.equal(heartCommands.filter(command => command.assertVisible === 'Vamos reforçar').length, maxHearts * 2);
   const emptyTitle = sheet.match(/snapshot\.count === 0 \? '([^']+)'/)?.[1];
   assert.ok(emptyTitle, 'expected HeartsSheet to title the empty state');
   const sheetAt = hearts.indexOf(`- assertVisible: ${emptyTitle}`);
-  const lastTapAt = hearts.lastIndexOf('id: lesson-option-q1:option:');
+  const lastTapAt = hearts.lastIndexOf("id: 'lesson-option-q1:option:");
   assert.ok(sheetAt > lastTapAt, 'the empty-hearts sheet must be asserted after the last wrong answer');
   // A folha é modal: o HUD de trás sai da árvore enquanto ela está aberta, então
   // as vidas zeradas só são afirmáveis depois de fechá-la.
@@ -1272,4 +1269,54 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
     !afterSheet.includes('\\. \\d+ de \\d+ etapas concluídas'),
     'a header pattern that matches "0 de N" as well as "1 de N" cannot tell defect 1 apart'
   );
+});
+
+async function hybridCatalogLessons() {
+  const modules = await Promise.all(['lessons.ts', 'ai-lessons.ts'].map(async name => {
+    const exports = {};
+    const source = await readAppFile(`src/data/${name}`);
+    const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+    Function('exports', compiled)(exports);
+    return exports.LESSONS ?? exports.AI_LESSONS;
+  }));
+  return modules.flat();
+}
+
+const HYBRID_ANSWER_FLOWS = [
+  'learning-critical-path.yaml', 'radiant-1-4-primeira-execucao.yaml',
+  'radiant-1-4-vidas-esgotadas.yaml', 'offline-relaunch.yaml',
+  'radiant-1-4-segundo-dia.yaml', 'reward-unlock.yaml', 'store-capture.yaml',
+  'student-checkpoint-no-duplicate-effect.yaml',
+];
+
+test('M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback', async () => {
+  const lessons = await hybridCatalogLessons();
+  for (const name of HYBRID_ANSWER_FLOWS) {
+    const commands = await flowCommands(name);
+    let answered = [];
+    let groups = 0;
+    for (let index = 0; index < commands.length; index++) {
+      const id = commands[index]?.tapOn?.id;
+      if (id?.startsWith('lesson-option-')) {
+        const itemId = id.slice('lesson-option-'.length).split(':option:')[0];
+        answered.push(itemId);
+        assert.equal(commands[index + 1]?.tapOn, 'Conferir resposta', `${name}: confirmation for ${itemId}`);
+        assert.deepEqual(commands[index + 2]?.assertVisible, { id: 'lesson-item-feedback' }, `${name}: visible feedback for ${itemId}`);
+      }
+      if (answered.length > 0 && (commands[index]?.tapOn === 'Concluir e voltar' || commands[index]?.assertVisible === 'Suas vidas acabaram')) {
+        const lesson = lessons.find(entry => entry.questions.some(q => q.id === answered[0]));
+        assert.ok(lesson, `${name}: each completed/paused session must answer a real lesson`);
+        const expected = lesson.questions.map(q => q.id);
+        assert.deepEqual(answered.slice(0, expected.length), expected, `${name}: all items in catalog order`);
+        assert.equal(new Set(answered.slice(0, expected.length)).size, expected.length);
+        if (name === 'radiant-1-4-segundo-dia.yaml') assert.deepEqual(answered, expected, 'review never repeats');
+        else if (name !== 'radiant-1-4-vidas-esgotadas.yaml') assert.deepEqual(answered, expected, `${name}: correct path needs no retries`);
+        else assert.deepEqual(answered, [...expected, expected[0]], 'only the wrong item returns once');
+        answered = [];
+        groups++;
+      }
+    }
+    assert.ok(groups > 0, `${name}: at least one valid session is exercised`);
+    assert.deepEqual(answered, [], `${name}: no incomplete answer sequence`);
+  }
 });

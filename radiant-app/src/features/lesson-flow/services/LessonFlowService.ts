@@ -6,8 +6,9 @@ import { JourneyDefinitionService } from '../../journey/services/JourneyDefiniti
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 function validateBlock(block: LessonBlock): void {
-    if (block.steps.length < 2 || block.steps.length > 4) {
-        throw new Error(`[lesson-flow] Block "${block.id}" must have between 2 and 4 steps.`);
+    const maxSteps = block.sessionMode ? 32 : 4;
+    if (block.steps.length < 2 || block.steps.length > maxSteps) {
+        throw new Error(`[lesson-flow] Block "${block.id}" must have between 2 and ${maxSteps} steps.`);
     }
 
     const ids = new Set<string>();
@@ -36,8 +37,8 @@ function validateBlock(block: LessonBlock): void {
         }
     });
 
-    if (interactiveCount !== 1) {
-        throw new Error(`[lesson-flow] Block "${block.id}" must contain exactly one interactive step.`);
+    if (interactiveCount < 1 || (!block.sessionMode && interactiveCount !== 1)) {
+        throw new Error(`[lesson-flow] Block "${block.id}" must contain valid interactive steps.`);
     }
 
     const advanceIndex = block.steps.findIndex((step) => step.step.type === 'advance');
@@ -60,8 +61,8 @@ class LessonFlowServiceImpl {
 
     /**
      * Entrada v2. Devolve a lista de violações em vez de lançar, ao contrário do
-     * caminho legado acima: o comportamento legado não muda, e os dois contratos
-     * ficam alcançáveis pelo mesmo serviço durante a migração.
+     * caminho de blocos acima. Atividades promovidas e blocos híbridos coexistem
+     * durante a migração.
      */
     validateActivity(activity: LearningActivityV2): ValidationIssue[] {
         return validateLearningActivity(activity);
@@ -71,8 +72,8 @@ class LessonFlowServiceImpl {
      * Devolve o bloco legado já convertido em atividade v2.
      *
      * A busca no catálogo mora aqui, e não no adaptador, que é puro de propósito.
-     * O caminho legado (`getBlockById`) continua existindo e inalterado: as duas
-     * leituras convivem, e nenhuma tela precisa migrar de uma vez.
+     * O caminho de blocos (`getBlockById`) continua disponível; o modo da sessão
+     * habilita várias perguntas nos blocos híbridos.
      */
     getActivityById(blockId: string): LearningActivityV2 | null {
         const promoted = ProductionCurriculumCatalog.getActivityById(blockId);

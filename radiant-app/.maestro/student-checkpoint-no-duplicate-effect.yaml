@@ -23,21 +23,46 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-# Mesma régua de `learning-critical-path.yaml`, e o contrato exige que seja: em
-# 2026-08-06 o padrão de 100% reprovou uma opção clicável porque um brilho
-# decorativo cobria ~11% dos bounds.
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:1
+      id: 'lesson-option-q1:option:1'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:1
+    id: 'lesson-option-q1:option:1'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
-# O efeito acontece aqui: a conclusão da lição comita XP, progresso e recibo de
-# idempotência no mesmo journal.
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar

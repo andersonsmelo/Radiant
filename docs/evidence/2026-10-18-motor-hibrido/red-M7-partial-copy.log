@@ -1,0 +1,59 @@
+
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/quiz/components/LessonSummary.test.tsx -t M7 resultado parcial
+
+FAIL src/features/quiz/components/LessonSummary.test.tsx
+  ✕ M7 resultado parcial com estrelas não anuncia aprovação nem domínio (115 ms)
+  ○ skipped M6 oferece Refazer somente para resultado incompleto de lição e executa a ação
+  LessonSummary
+    ○ skipped mostra os resultados da tentativa
+    ○ skipped mostra "Sem XP nesta tentativa" quando xpAwarded ainda não chegou
+    ○ skipped reconhece a conclusão sem exibir ganho zero de XP
+    ○ skipped agrupa cada resultado em uma linha acessível factual
+    ○ skipped mantém a celebração no conteúdo rolável junto dos resultados
+    ○ skipped permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados
+    ○ skipped comunica o destino fornecido pelo chamador e preserva o callback
+    ○ skipped preserva uma repetição sem ganho de XP ou nova melhora de estrelas
+    ○ skipped omite revisão sem intervalo real (null)
+    ○ skipped omite revisão sem intervalo real (undefined)
+    ○ skipped usa o intervalo fornecido de 1 dia sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 7 dias sem fixar um dia
+    ○ skipped usa o intervalo fornecido de 0 dias sem fixar um dia
+    ○ skipped mostra o recorde à parte quando a tentativa ficou abaixo dele
+    ○ skipped não repete o recorde quando a tentativa o igualou ou superou
+    ○ skipped na revisão, diz que a revisão terminou e não pede avaliação de aula
+    ○ skipped mostra o progresso da unidade
+    ○ skipped mostra quando a próxima revisão foi agendada
+    ○ skipped não renderiza o card de progresso da unidade quando unitTotal é 0
+    ○ skipped emite a nota escolhida
+    ○ skipped não pede avaliação quando a lição já foi avaliada
+    ○ skipped mostra o rótulo visível "Avalie a aula" só quando ainda não há nota
+    ○ skipped reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo
+    ○ skipped não renderiza oferta de assinatura nem pedido de notificação
+    ○ skipped não mostra texto de leitura sobre a faixa de comemoração
+    ○ skipped anima o ganho das estrelas quando a marca melhorou
+    ○ skipped não anima as estrelas quando a marca não melhorou — a escala vai direto para 1
+    ○ skipped expõe a contagem de estrelas como rótulo de acessibilidade único
+    ○ skipped com 0 estrelas, diz a verdade sobre a conclusão sem celebrar: faixa neutra e Pixel de orientação
+
+  ● M7 resultado parcial com estrelas não anuncia aprovação nem domínio
+
+    expect(received).toBeNull()
+
+    Received: {"_fiber": {"_debugHookTypes": null, "_debugInfo": null, "_debugNeedsRemount": false, "_debugOwner": [FiberNode], "_debugStack": [Error: react-stack-top-frame], "_debugTask": null, "actualDuration": 0, "actualStartTime": 1792325660190, "alternate": null, "child": [FiberNode], "childLanes": 0, "deletions": null, "dependencies": null, "elementType": "Text", "flags": 0, "index": 0, "key": null, "lanes": 0, "memoizedProps": [Object], "memoizedState": null, "mode": 3, "pendingProps": [Object], "ref": null, "refCleanup": null, "return": [FiberNode], "selfBaseDuration": 0, "sibling": null, "stateNode": [Object], "subtreeFlags": 0, "tag": 5, "treeBaseDuration": 0, "type": "Text", "updateQueue": null}}
+
+      335 |   render(<LessonSummary {...base} stars={1} correctAnswers={1} totalQuestions={2}
+      336 |     phrase="Passou! Dá para apertar o resultado repetindo." />);
+    > 337 |   expect(screen.queryByText(/Passou!/)).toBeNull();
+          |                                         ^
+      338 |   expect(screen.getByText('Você avançou. Vale reforçar os pontos que faltaram.')).toBeTruthy();
+      339 |   expect(screen.getByText('1 de 2 corretas')).toBeTruthy();
+      340 | });
+
+      at Object.toBeNull (src/features/quiz/components/LessonSummary.test.tsx:337:41)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 30 skipped, 31 total
+Snapshots:   0 total
+Time:        1.939 s
+Ran all test suites matching /src\/features\/quiz\/components\/LessonSummary.test.tsx/i with tests matching "M7 resultado parcial".

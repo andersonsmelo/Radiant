@@ -1,0 +1,28 @@
+appId: com.ascendcreative.radiant
+name: FILA 58 texto ampliado após esgotar vidas
+---
+- launchApp
+- runFlow: ../../../radiant-app/.maestro/subflows/dismiss-dev-client.yaml
+- openLink:
+    link: radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro
+- assertVisible: 'Passo 1 de 5'
+- tapOn: Continuar
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: lesson-option-q1:option:0
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: lesson-option-q1:option:0
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '0 de 5 vidas'
+- takeScreenshot: 08-feedback-texto-ampliado
+- scroll
+- assertVisible: Continuar
+- takeScreenshot: 09-rolagem-texto-ampliado

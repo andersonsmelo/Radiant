@@ -1,0 +1,44 @@
+
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx -t M2 anuncia
+
+FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+  ✕ M2 anuncia opções conferidas como indisponíveis e preserva a escolha na tela (47 ms)
+  ActivityRendererRegistry
+    ○ skipped resolve o tipo registrado e renderiza o enunciado e as opções
+    ○ skipped expõe o contrato comum: onChange recebe o valor escolhido
+    ○ skipped reflete o valor corrente vindo de fora, sem guardar estado próprio
+    ○ skipped sincroniza hints com a confirmação explícita recebida e mostra o estado selecionado
+    ○ skipped mantém Continuar como default para chamadores do registry e do renderer legado
+    ○ skipped rejeita tipo desconhecido com erro seguro, sem lançar
+    ○ skipped declara os cinco tipos que já têm renderizador
+    ○ skipped mantém a pergunta e o gabarito visíveis junto à explicação no passo de reforço
+
+  ● M2 anuncia opções conferidas como indisponíveis e preserva a escolha na tela
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "disabled": true,
+    +   "disabled": undefined,
+        "selected": true,
+      }
+
+      155 |     const { getByLabelText } = render(<ActivityInteractionRenderer
+      156 |         interaction={multipleChoice()} value="b" onChange={onChange} submitted />);
+    > 157 |     expect(getByLabelText('Ar').props.accessibilityState).toMatchObject({ selected: true, disabled: true });
+          |                                                           ^
+      158 |     expect(getByLabelText('Osso').props.accessibilityHint).toBe('Resposta já conferida. Leia o feedback e continue.');
+      159 |     fireEvent.press(getByLabelText('Osso'));
+      160 |     expect(onChange).not.toHaveBeenCalled();
+
+      at Object.toMatchObject (src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx:157:59)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 8 skipped, 9 total
+Snapshots:   0 total
+Time:        0.851 s, estimated 3 s
+Ran all test suites matching /src\/features\/lesson-flow\/renderers\/ActivityRendererRegistry.test.tsx/i with tests matching "M2 anuncia".

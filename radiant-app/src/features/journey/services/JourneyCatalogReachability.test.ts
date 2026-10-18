@@ -42,7 +42,9 @@ it('o inventário executável publica a cobertura separando legado de fonte edit
     const root = resolve(__dirname, '../../../../..');
     const report = JSON.parse(execFileSync(process.execPath, ['scripts/qa/trilha-structural-inventory.cjs', '--check'], { cwd: root, encoding: 'utf8' }));
     expect(report.schemaVersion).toBe(3);
-    expect(report.coverage.summary).toMatchObject({ promotedPracticeItems: 12, promotedCheckpointItems: 10, legacyItems: 36, declaredSources: 8, checkpointItemsWithNodes: 10 });
+    // Ocorrências por atividade: todas as perguntas no introdutório e na revisão.
+    // O catálogo não recebeu conteúdo novo.
+    expect(report.coverage.summary).toMatchObject({ promotedPracticeItems: 12, promotedCheckpointItems: 10, legacyItems: 76, declaredSources: 8, checkpointItemsWithNodes: 10 });
     expect(report.coverage.issues).toEqual([]);
-    expect(report.coverage.items.filter((item: { provenance: string }) => item.provenance === 'legacy-unmapped')).toHaveLength(36);
+    expect(report.coverage.items.filter((item: { provenance: string }) => item.provenance === 'legacy-unmapped')).toHaveLength(76);
 });

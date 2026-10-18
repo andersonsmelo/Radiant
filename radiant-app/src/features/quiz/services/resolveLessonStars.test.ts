@@ -10,15 +10,11 @@ const attempt = (over: Partial<{ lessonId: string; correctAnswers: number; total
 });
 
 describe('resolveLessonStars', () => {
-  it('reprova abaixo da nota de corte', () => {
-    expect(resolveLessonStars(69, 100)).toBe(0);
-  });
-  it('dá uma estrela exatamente na nota de corte', () => {
-    expect(resolveLessonStars(70, 100)).toBe(1);
-  });
-  it('dá duas estrelas a partir de 85%', () => {
-    expect(resolveLessonStars(84, 100)).toBe(1);
-    expect(resolveLessonStars(85, 100)).toBe(2);
+  it('reconhece algum acerto e só dá duas estrelas com dois terços', () => {
+    expect(resolveLessonStars(1, 100)).toBe(1);
+    expect(resolveLessonStars(66, 100)).toBe(1);
+    expect(resolveLessonStars(67, 100)).toBe(2);
+    expect(resolveLessonStars(0, 100)).toBe(0);
   });
   it('dá três estrelas só em 100%', () => {
     expect(resolveLessonStars(99, 100)).toBe(2);
@@ -36,7 +32,7 @@ describe('resolveLessonStars', () => {
 describe('resolveAttemptStars', () => {
   it('usa a tentativa atual quando não há histórico, e ela é o recorde', () => {
     expect(resolveAttemptStars('licao-1', [], { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, recordStars: 1, improved: true });
+      .toEqual({ stars: 2, recordStars: 2, improved: true });
   });
 
   it('mostra as estrelas desta tentativa quando ela é pior, com o recorde à parte', () => {
@@ -48,12 +44,23 @@ describe('resolveAttemptStars', () => {
   it('ignora a própria tentativa atual já persistida', () => {
     const historico = [attempt({ correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' })];
     expect(resolveAttemptStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, recordStars: 1, improved: true });
+      .toEqual({ stars: 2, recordStars: 2, improved: true });
   });
 
   it('ignora tentativas de outras lições', () => {
     const historico = [attempt({ lessonId: 'outra', correctAnswers: 10, totalQuestions: 10, completedAt: 'antes' })];
     expect(resolveAttemptStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, recordStars: 1, improved: true });
+      .toEqual({ stars: 2, recordStars: 2, improved: true });
+  });
+});
+
+
+describe('M7 proposta para N perguntas', () => {
+  it.each([
+    [2, [0, 1, 3]], [3, [0, 1, 2, 3]],
+    [10, [0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3]],
+    [15, [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]],
+  ])('N=%i reconhece acerto parcial sem declarar perfeição', (n, stars) => {
+    expect(stars.map((_, correct) => resolveLessonStars(correct, n))).toEqual(stars);
   });
 });

@@ -1,0 +1,180 @@
+TAP version 13
+# Subtest: reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 1 - reward-locked.yaml reaches the reward status through a bounded accessibility-label scroll # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.49825
+  ...
+# Subtest: reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll
+ok 2 - reward-unlock.yaml reaches the reward status through a bounded accessibility-label scroll # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.044292
+  ...
+# Subtest: navigation flows match the accessible journey header, not its hidden count
+ok 3 - navigation flows match the accessible journey header, not its hidden count # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.08475
+  ...
+# Subtest: navigation flows wait for the dev client after every launch and relaunch
+ok 4 - navigation flows wait for the dev client after every launch and relaunch # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.033667
+  ...
+# Subtest: keeps Maestro discovery explicit and artifact output untracked
+ok 5 - keeps Maestro discovery explicit and artifact output untracked # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.073875
+  ...
+# Subtest: keeps each shipped flow tied to the installed mobile identifier
+ok 6 - keeps each shipped flow tied to the installed mobile identifier # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.027875
+  ...
+# Subtest: centers the recommendation header action before each native tap
+ok 7 - centers the recommendation header action before each native tap # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.031209
+  ...
+# Subtest: keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson
+ok 8 - keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.031375
+  ...
+# Subtest: native learning flows confirm selected multiple-choice answers with the explicit action
+ok 9 - native learning flows confirm selected multiple-choice answers with the explicit action # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.076875
+  ...
+# Subtest: keeps icon glyphs out of the accessibility tree
+ok 10 - keeps icon glyphs out of the accessibility tree # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.081083
+  ...
+# Subtest: keeps the journey trail on the dark galaxy theme it renders inside
+ok 11 - keeps the journey trail on the dark galaxy theme it renders inside # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.035458
+  ...
+# Subtest: never lets a route fall back to the native header
+ok 12 - never lets a route fall back to the native header # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.0295
+  ...
+# Subtest: keeps the e2e build local-first and bypasses the beta gate
+ok 13 - keeps the e2e build local-first and bypasses the beta gate # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.029958
+  ...
+# Subtest: keeps active checkpoints confined to the dedicated internal profile
+ok 14 - keeps active checkpoints confined to the dedicated internal profile # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.067
+  ...
+# Subtest: every EAS build profile disables the Sentry source map upload, inheritance resolved
+ok 15 - every EAS build profile disables the Sentry source map upload, inheritance resolved # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.028375
+  ...
+# Subtest: keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path
+ok 16 - keeps the active and baseline performance flows on the same cold-start and Home-to-Lesson path # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.095042
+  ...
+# Subtest: keeps lesson-answer selectors accessible and deterministic
+ok 17 - keeps lesson-answer selectors accessible and deterministic # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.031959
+  ...
+# Subtest: ties the first-run flow to the copy WelcomeFlowScreen actually renders
+ok 18 - ties the first-run flow to the copy WelcomeFlowScreen actually renders # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.11725
+  ...
+# Subtest: requires dated per-platform device evidence before any e2e pass is claimed
+ok 19 - requires dated per-platform device evidence before any e2e pass is claimed # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.0365
+  ...
+# Subtest: makes every scroll-until-visible wait for the screen it is about to scroll
+ok 20 - makes every scroll-until-visible wait for the screen it is about to scroll # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.08625
+  ...
+# Subtest: makes every scroll-until-visible state the visibility bar it is measured by
+ok 21 - makes every scroll-until-visible state the visibility bar it is measured by # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.032292
+  ...
+# Subtest: never lets a scroll-until-visible hide behind a visibility guard
+ok 22 - never lets a scroll-until-visible hide behind a visibility guard # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.021917
+  ...
+# Subtest: rating flow completes the current review caller and preserves the native dialog
+ok 23 - rating flow completes the current review caller and preserves the native dialog # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.0195
+  ...
+# Subtest: preserves rating eligibility prerequisites and the native dialog assertion
+ok 24 - preserves rating eligibility prerequisites and the native dialog assertion # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.019709
+  ...
+# Subtest: ties the locked-reward flow to the node id the app actually builds
+ok 25 - ties the locked-reward flow to the node id the app actually builds # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.023208
+  ...
+# Subtest: keeps the unlock-rule flow walking the whole track the catalog declares
+ok 26 - keeps the unlock-rule flow walking the whole track the catalog declares # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.023792
+  ...
+# Subtest: escapes every "?" in every selector of every flow
+ok 27 - escapes every "?" in every selector of every flow # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.018667
+  ...
+# Subtest: keeps one visibility bar per selector across every flow
+ok 28 - keeps one visibility bar per selector across every flow # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.018791
+  ...
+# Subtest: ties the three 1.4 golden paths to the rules and copy they exist to exercise
+ok 29 - ties the three 1.4 golden paths to the rules and copy they exist to exercise # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.019875
+  ...
+# Subtest: M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+not ok 30 - M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback
+  ---
+  duration_ms: 41.073708
+  location: '/Users/anderson/Developer/Radiant/.superpowers/worktrees/motor-hibrido-licao/radiant-app/scripts/maestro-contract.test.mjs:1295:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    learning-critical-path.yaml: visible feedback for q1
+    + actual - expected
+    
+    + 'Concluir e voltar'
+    - {
+    -   id: 'lesson-item-feedback'
+    - }
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    id: 'lesson-item-feedback'
+  actual: 'Concluir e voltar'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.superpowers/worktrees/motor-hibrido-licao/radiant-app/scripts/maestro-contract.test.mjs:1307:16)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 29
+# todo 0
+# duration_ms 257.825167

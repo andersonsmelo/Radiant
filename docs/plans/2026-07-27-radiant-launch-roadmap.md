@@ -26,6 +26,12 @@ dentro do roadmap e foi movida, sem edição, para
 O roadmap guarda o plano: objetivo, estratégia, marcos e o estado de cada task
 nas ondas abaixo.
 
+**FILA 58 — 2026-10-18:** motor híbrido nas lições legadas implementado como
+candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
+[especificação](../trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md) e a
+[evidência](../evidence/2026-10-18-motor-hibrido.md) definem escopo e prova; o
+estado vivo continua no STATUS. Não é entrega de loja.
+
 ## 3. Estratégia
 
 1. **Local-first é o produto lançável.** A API não entra no caminho crítico do

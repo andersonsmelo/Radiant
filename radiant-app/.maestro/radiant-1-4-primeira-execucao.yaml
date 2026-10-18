@@ -5,7 +5,7 @@ tags:
   - radiant-1-4
 ---
 # Spec 1.4 (2026-09-14), §8, item 6: "primeira execução até a conclusão da L1".
-# Instalação limpa → apresentação do Pixel → "Começar" → os quatro passos da L1
+# Instalação limpa → apresentação do Pixel → "Começar" → os cinco passos iniciais da L1
 # → tela de conclusão → trilha com a L1 concluída.
 #
 # O fim do flow é também o DIA 1 do caminho 2: a L1 concluída agenda a revisão
@@ -23,7 +23,7 @@ tags:
 - assertVisible: '^Tela 3 de 3\. Funciona offline, sem conta\..*$'
 - tapOn: 'Começar'
 - assertVisible: 'Você vai começar pelo papel dos raios-X e pelo raciocínio básico de contraste e radiopacidade.'
-- assertVisible: 'Passo 1 de 4'
+- assertVisible: 'Passo 1 de 5'
 - assertVisible: '5 de 5 vidas'
 - tapOn: Continuar
 - assertVisible: Ideia-chave
@@ -31,21 +31,49 @@ tags:
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
 - scrollUntilVisible:
     element:
-      id: lesson-option-q1:option:1
+      id: 'lesson-option-q1:option:1'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:1
+    id: 'lesson-option-q1:option:1'
 - tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
 - assertVisible: Resposta correta
-# Acerto não debita vida.
-- assertVisible: '5 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 # A conclusão é um estado da tela da lição desde a 1.4; antes, o último passo
 # devolvia o aluno à aba em silêncio.
 - assertVisible: A lição foi concluída
-- assertVisible: 'Respostas corretas: 1 de 1 corretas'
+- assertVisible: 'Respostas corretas: 3 de 3 corretas'
 - scrollUntilVisible:
     element: '^Próxima revisão em \d+ (dia|dias)$'
     direction: DOWN

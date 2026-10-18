@@ -268,7 +268,7 @@ describe('LessonSummary', () => {
   it('não mostra texto de leitura sobre a faixa de comemoração', () => {
     render(<LessonSummary {...base} />);
     // A faixa carrega só a arte do Pixel; frase e subtítulo vivem no corpo.
-    expect(screen.getByText('Muito bom.')).toBeTruthy();
+    expect(screen.getByText('Você avançou. Vale reforçar os pontos que faltaram.')).toBeTruthy();
     expect(screen.getByText('A lição foi concluída')).toBeTruthy();
   });
 
@@ -315,3 +315,26 @@ describe('LessonSummary', () => {
   });
 });
 
+
+
+it('M6 oferece Refazer somente para resultado incompleto de lição e executa a ação', () => {
+  const retry = jest.fn();
+  const { rerender } = render(<LessonSummary {...base} correctAnswers={1} totalQuestions={2} onRetry={retry} />);
+  fireEvent.press(screen.getByRole('button', { name: 'Refazer' }));
+  expect(retry).toHaveBeenCalledTimes(1);
+  expect(screen.getByText('1 de 2 corretas')).toBeTruthy();
+  rerender(<LessonSummary {...base} correctAnswers={2} totalQuestions={2} onRetry={retry} />);
+  expect(screen.queryByRole('button', { name: 'Refazer' })).toBeNull();
+  expect(screen.getByText('2 de 2 corretas')).toBeTruthy();
+  rerender(<LessonSummary {...base} kind="review" correctAnswers={0} totalQuestions={2} onRetry={retry} />);
+  expect(screen.queryByRole('button', { name: 'Refazer' })).toBeNull();
+  expect(screen.getByText('Revisão concluída')).toBeTruthy();
+});
+
+it('M7 resultado parcial com estrelas não anuncia aprovação nem domínio', () => {
+  render(<LessonSummary {...base} stars={1} correctAnswers={1} totalQuestions={2}
+    phrase="Passou! Dá para apertar o resultado repetindo." />);
+  expect(screen.queryByText(/Passou!/)).toBeNull();
+  expect(screen.getByText('Você avançou. Vale reforçar os pontos que faltaram.')).toBeTruthy();
+  expect(screen.getByText('1 de 2 corretas')).toBeTruthy();
+});

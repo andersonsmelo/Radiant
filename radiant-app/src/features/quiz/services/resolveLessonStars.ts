@@ -1,17 +1,14 @@
-import { QUIZ_THRESHOLDS } from '../../../constants/quiz';
 import type { LearningAttempt } from '../../progress/services/LearningStatsService';
 
 export type LessonStars = 0 | 1 | 2 | 3;
 
-const TWO_STAR_ACCURACY = 85;
-
+// Proposta M7 (2026-10-18), pendente da aprovação do dono na PR.
 export function resolveLessonStars(correctAnswers: number, totalQuestions: number): LessonStars {
-  if (totalQuestions <= 0) { return 0; }
-  const accuracy = (correctAnswers / totalQuestions) * 100;
-  if (accuracy >= 100) { return 3; }
-  if (accuracy >= TWO_STAR_ACCURACY) { return 2; }
-  if (accuracy >= QUIZ_THRESHOLDS.PASSING_SCORE) { return 1; }
-  return 0;
+  if (!Number.isInteger(totalQuestions) || !Number.isInteger(correctAnswers) ||
+      totalQuestions <= 0 || correctAnswers <= 0 || correctAnswers > totalQuestions) return 0;
+  if (correctAnswers === totalQuestions) return 3;
+  if (correctAnswers * 3 >= totalQuestions * 2) return 2;
+  return 1;
 }
 
 /**

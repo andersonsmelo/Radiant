@@ -232,12 +232,8 @@ describe('JourneyDefinitionService', () => {
         expect(reviewBlock?.steps[0].step.type === 'context' ? reviewBlock.steps[0].step.payload.body : null).toBe(
             'Feche o posicionamento antes de avançar.'
         );
-        expect(introBlock?.steps[3].step.type === 'reinforce' ? introBlock.steps[3].step.payload.prompt : null).toBe(
-            'Qual padrão sugere derrame pleural?'
-        );
-        expect(introBlock?.steps[3].step.type === 'reinforce' ? introBlock.steps[3].step.payload.correctAnswerLabel : null).toBe(
-            'Menisco'
-        );
+        expect(introBlock?.steps.filter(s => s.step.type === 'multiple-choice')).toHaveLength(2);
+        expect(introBlock?.steps[3].step.type).toBe('multiple-choice');
     });
 
     it('remove o prefixo "Quiz: " dos nós de lição e de revisão na trilha sem alterar títulos sem prefixo', () => {
@@ -272,5 +268,33 @@ describe('JourneyDefinitionService', () => {
             'Revisar Raios X: descoberta e propriedades'
         );
     });
+    it('M1 usa todas as perguntas, com IDs únicos e gabaritos válidos', () => {
+        const block = JourneyDefinitionService.getBlockById('block:lesson-a:intro')!;
+        const choices = block.steps.filter(s => s.step.type === 'multiple-choice');
+        expect(choices).toHaveLength(2);
+        expect(new Set(choices.map(s => s.contract.id)).size).toBe(2);
+        expect(choices.map(s => s.step.type === 'multiple-choice' && s.step.payload.prompt))
+            .toEqual(['Onde está o hilo pulmonar?', 'Qual estrutura cruza o mediastino?']);
+        for (const { step } of choices) {
+            if (step.type === 'multiple-choice') {
+                expect(step.payload.options.some(o => o.id === step.payload.correctOptionId)).toBe(true);
+                expect(step.payload.explanation.length).toBeGreaterThan(0);
+            }
+        }
+    });
+    it('M5 retira o molde e preserva o texto autoral e as interações', () => {
+        const plain = JourneyDefinitionService.getBlockById('block:lesson-b:intro')!;
+        expect(plain.steps.map(s => s.step.type)).toEqual(['context', 'multiple-choice']);
+        const authored = JourneyDefinitionService.getBlockById('block:lesson-a:intro')!;
+        expect(authored.steps.filter(s => s.step.type === 'teach')).toHaveLength(1);
+        expect(authored.steps.some(s => s.step.type === 'teach' && s.step.payload.body === 'Leia os marcos antes de responder.')).toBe(true);
+    });
+    it('M8 revisão usa os itens distintos uma vez e declara sessão sem retorno', () => {
+        const block = JourneyDefinitionService.getBlockById('block:review:lesson-a')!;
+        expect(block.steps.map(s => s.step.type)).toEqual(['context', 'multiple-choice', 'multiple-choice']);
+        expect(new Set(block.steps.map(s => s.contract.id)).size).toBe(3);
+        expect(block).toMatchObject({ sessionMode: 'hybrid-review' });
+    });
+
 });
 

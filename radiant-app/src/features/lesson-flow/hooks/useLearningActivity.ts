@@ -40,16 +40,30 @@ export type UseLearningActivity = {
     confirm: () => Record<string, boolean>;
     confirmedAnswers: Record<string, boolean>;
     lastFeedback: LearningActivityFeedback | null;
+    firstConfirmedAnswers: Record<string, boolean>;
+    showingFeedback: boolean;
+    isRetry: boolean;
 };
 
-export function useLearningActivity(activity: LearningActivityV2 | null, initialStepIndex = 0): UseLearningActivity {
+export function useLearningActivity(
+    activity: LearningActivityV2 | null,
+    initialStepIndex = 0,
+    options: { feedbackPerItem?: boolean; repeatIncorrect?: boolean } = {},
+): UseLearningActivity {
     const [stepIndex, setStepIndex] = useState(() => activity ? Math.max(0, initialStepIndex) : 0);
     const initialCursorAppliedRef = useRef(activity !== null);
     const [value, setValue] = useState<string | undefined>();
     const [confirmedAnswers, setConfirmedAnswers] = useState<Record<string, boolean>>({});
     const [lastFeedback, setLastFeedback] = useState<LearningActivityFeedback | null>(null);
 
-    const steps = activity?.steps ?? [];
+    const [firstConfirmedAnswers, setFirstConfirmedAnswers] = useState<Record<string, boolean>>({});
+    const [showingFeedback, setShowingFeedback] = useState(false);
+    const [retries, setRetries] = useState<LearningStepV2[]>([]);
+    const answeredRef = useRef(false);
+    const baseSteps = activity?.steps ?? [];
+    const steps = [...baseSteps, ...retries];
+    const isRetry = stepIndex >= baseSteps.length && retries.length > 0;
+    const { feedbackPerItem = false, repeatIncorrect = false } = options;
     const totalSteps = steps.length;
     const currentStep = steps[stepIndex] ?? null;
     const isLastStep = totalSteps > 0 && stepIndex === totalSteps - 1;
@@ -63,10 +77,11 @@ export function useLearningActivity(activity: LearningActivityV2 | null, initial
 
     const canContinue = useMemo(() => {
         if (!currentStep) return false;
+        if (showingFeedback) return true;
         // Passo de apresentação não produz evidência: nada a validar.
         if (currentStep.kind === 'presentation') return true;
         return isCompleteInteractionValue(currentStep.interaction, value);
-    }, [currentStep, value]);
+    }, [currentStep, showingFeedback, value]);
 
     const confirm = useCallback((): Record<string, boolean> => {
         if (!currentStep || !canContinue) {
@@ -75,16 +90,28 @@ export function useLearningActivity(activity: LearningActivityV2 | null, initial
 
         let nextConfirmed = confirmedAnswers;
 
-        if (currentStep.kind === 'interaction') {
+        if (currentStep.kind === 'interaction' && !showingFeedback) {
+            if (answeredRef.current) return confirmedAnswers;
+            answeredRef.current = true;
             const { interaction } = currentStep;
             const correct = isCorrectInteractionValue(interaction, value);
 
             nextConfirmed = { ...confirmedAnswers, [interaction.id]: correct };
             setConfirmedAnswers(nextConfirmed);
+            if (!Object.hasOwn(firstConfirmedAnswers, interaction.id)) {
+                setFirstConfirmedAnswers({ ...firstConfirmedAnswers, [interaction.id]: correct });
+            }
+            if (repeatIncorrect && !isRetry && !correct) {
+                setRetries(current => [...current, currentStep]);
+            }
             setLastFeedback({
                 correct,
                 message: correct ? interaction.feedback.correct : interaction.feedback.incorrect,
             });
+            if (feedbackPerItem) {
+                setShowingFeedback(true);
+                return nextConfirmed;
+            }
         }
 
         if (!isLastStep) {
@@ -92,10 +119,17 @@ export function useLearningActivity(activity: LearningActivityV2 | null, initial
             // Zerar aqui, e não ao entrar no passo, evita que a resposta da
             // interação anterior apareça pré-selecionada na próxima.
             setValue(undefined);
+            setShowingFeedback(false);
+            answeredRef.current = false;
         }
 
         return nextConfirmed;
-    }, [canContinue, confirmedAnswers, currentStep, isLastStep, value]);
+    }, [canContinue, confirmedAnswers, currentStep, feedbackPerItem, firstConfirmedAnswers,
+        isLastStep, isRetry, repeatIncorrect, showingFeedback, value]);
+
+    const selectValue = useCallback((next: string) => {
+        if (!showingFeedback && !answeredRef.current) setValue(next);
+    }, [showingFeedback]);
 
     return {
         stepIndex,
@@ -104,10 +138,13 @@ export function useLearningActivity(activity: LearningActivityV2 | null, initial
         isLastStep,
         progress,
         value,
-        setValue,
+        setValue: selectValue,
         canContinue,
         confirm,
         confirmedAnswers,
         lastFeedback,
+        firstConfirmedAnswers,
+        showingFeedback,
+        isRetry,
     };
 }

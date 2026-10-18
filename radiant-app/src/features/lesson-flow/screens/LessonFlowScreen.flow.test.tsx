@@ -1374,3 +1374,169 @@ describe('LessonFlowScreen — revisão da trilha não custa vida', () => {
     await waitFor(() => expect(heartsRepository.spend).toHaveBeenCalledTimes(1));
   });
 });
+
+
+describe('FILA 58 — integração do motor híbrido', () => {
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService');
+  const { heartsRepository } = require('../../hearts/HeartsRepository');
+  const hybridBlock = {
+    ...blockFixture,
+    sessionMode: 'hybrid-lesson',
+    steps: [blockFixture.steps[0], {
+      ...blockFixture.steps[0],
+      contract: { ...blockFixture.steps[0].contract, id: 'step-q2' },
+      step: { type: 'multiple-choice', payload: {
+        prompt: 'Segunda pergunta?', options: [{ id: 'second-a', label: 'Resposta dois' }, { id: 'second-b', label: 'Outra resposta' }],
+        correctOptionId: 'second-a', explanation: 'Explicação dois.',
+      } },
+    }],
+  } as LessonBlock;
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(hybridBlock);
+    mockedLessonFlowService.getActivityById.mockReturnValue(undefined as never);
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    mockedOutcome.recordCompletion.mockResolvedValue({ ...outcomeFixture, result: { ...outcomeFixture.result, totalQuestions: 2, correctAnswers: 1 } });
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+  async function open() {
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    await screen.findByText('Qual padrão radiográfico está presente?');
+  }
+  async function answer(label: string) {
+    fireEvent.press(screen.getByLabelText(label));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+  it('M4 primeiro contato não custa; só erro no retorno custa uma vida', async () => {
+    await open();
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalled());
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+    expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+    expect(screen.getByText('Resposta certa: Consolidação alveolar')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(screen.getByText('Vamos tentar novamente')).toBeTruthy();
+    await answer('Pneumotórax');
+    expect(heartsRepository.spend).toHaveBeenCalledTimes(1);
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: { 'step-choice': false, 'step-q2': true },
+      firstConfirmedAnswers: { 'step-choice': false, 'step-q2': true },
+    }));
+  });
+  it('M6 Refazer abre tentativa limpa e conserva primeira resposta distinta da correção', async () => {
+    await open();
+    await answer('Pneumotórax');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Consolidação alveolar');
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: { 'step-choice': true, 'step-q2': true },
+      firstConfirmedAnswers: { 'step-choice': false, 'step-q2': true },
+    }));
+    fireEvent.press(screen.getByRole('button', { name: 'Refazer' }));
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.getByText('Conferir resposta')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).toHaveBeenCalledTimes(1);
+  });
+  it('M4 deixa ler o feedback do último débito antes de abrir a folha, sem concluir', async () => {
+    heartsRepository.spend.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    await open();
+    await answer('Pneumotórax');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Pneumotórax');
+    expect(screen.getByTestId('lesson-item-feedback')).toBeTruthy();
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+  });
+
+  it('M6 refazer uma lição retomada começa no contexto, sem reutilizar o cursor consumido', async () => {
+    const withContext: LessonBlock = { ...hybridBlock, steps: [{
+      contract: { id: 'intro', type: 'context', completionRule: 'displayed', retryRule: 'allow_continue', branching: 'none' },
+      step: { type: 'context', payload: { title: 'Contexto da nova tentativa', body: 'Comece aqui.' } },
+    }, ...hybridBlock.steps] };
+    mockedLessonFlowService.getBlockById.mockReturnValue(withContext);
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" resumeCursorId="step-2" />);
+    await screen.findByText('Qual padrão radiográfico está presente?');
+    await answer('Pneumotórax');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Resposta dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    await answer('Consolidação alveolar');
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+    fireEvent.press(await screen.findByText('Refazer'));
+    expect(await screen.findByText('Contexto da nova tentativa')).toBeTruthy();
+    expect(screen.getByText('Continuar')).toBeTruthy();
+    expect(screen.queryByText('Qual padrão radiográfico está presente?')).toBeNull();
+  });
+
+  it('M3 acrescentar retorno não reinicia o checkpoint ativo da mesma sessão', async () => {
+    const mode = require('../../student-checkpoints/mode');
+    const runtime = require('../../student-checkpoints/ActiveCheckpointRuntime');
+    const modeSpy = jest.spyOn(mode, 'resolveStudentCheckpointRuntimeMode').mockReturnValue('active');
+    const start = jest.spyOn(runtime.ActiveCheckpointRuntime.prototype, 'start').mockResolvedValue({ status: 'off', handle: null });
+    try {
+      await open();
+      expect(start).toHaveBeenCalledTimes(1);
+      await answer('Pneumotórax');
+      expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+      expect(start).toHaveBeenCalledTimes(1);
+    } finally {
+      start.mockRestore();
+      modeSpy.mockRestore();
+    }
+  });
+
+  it('M2 limita a escala do título do feedback e mantém o corpo sem teto', async () => {
+    await open();
+    await answer('Pneumotórax');
+    expect(screen.getByText('Vamos reforçar').props.maxFontSizeMultiplier).toBe(2);
+    expect(screen.getByText('A opacidade focal com broncograma aéreo sugere consolidação alveolar.').props.maxFontSizeMultiplier).toBeUndefined();
+    expect(screen.getByText('Sua resposta: Pneumotórax')).toBeTruthy();
+  });
+
+  it('M4 sem vidas o contexto libera o primeiro contato e só o retorno pausa', async () => {
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    mockedLessonFlowService.getBlockById.mockReturnValue({ ...hybridBlock, steps: [{
+      contract: { id: 'intro', type: 'context', completionRule: 'displayed', retryRule: 'allow_continue', branching: 'none' },
+      step: { type: 'context', payload: { title: 'Contexto livre', body: 'Comece aqui.' } },
+    }, ...hybridBlock.steps] });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="node-1" />);
+    await screen.findByText('Contexto livre');
+    await act(async () => { await Promise.resolve(); });
+    await act(async () => { fireEvent.press(screen.getByText('Continuar')); });
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    expect(screen.getByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+    await answer('Pneumotórax');
+    expect(screen.queryByText('Sua lição está pausada')).toBeNull();
+    await act(async () => { fireEvent.press(screen.getByText('Continuar')); });
+    await answer('Resposta dois');
+    await act(async () => { fireEvent.press(screen.getByText('Continuar')); });
+    expect(screen.getByText('Vamos tentar novamente')).toBeTruthy();
+    await act(async () => { fireEvent.press(screen.getByLabelText('Pneumotórax')); });
+    await act(async () => { fireEvent.press(screen.getByText('Conferir resposta')); });
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+    expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
+  });
+
+});

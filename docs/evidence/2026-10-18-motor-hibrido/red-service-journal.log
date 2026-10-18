@@ -1,0 +1,59 @@
+
+> radiant-app@1.4.0 test
+> jest --runInBand src/features/lesson-flow/services/LessonFlowService.test.ts src/features/lesson-flow/services/LessonOutcomeService.test.ts -t M1 serviço|M3 journal
+
+FAIL src/features/lesson-flow/services/LessonOutcomeService.test.ts
+  ● LessonOutcomeService — journal G4 no caminho real › M3 journal tem um registro por item, placar inicial e correção final sem duplicar crédito
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "correctAnswers": 1,
+    +   "correctAnswers": 2,
+        "totalQuestions": 2,
+      }
+
+      1066 |         const first = await LessonOutcomeService.recordCompletion(input);
+      1067 |         await LessonOutcomeService.recordCompletion(input);
+    > 1068 |         expect(first.result).toMatchObject({ correctAnswers: 1, totalQuestions: 2 });
+           |                              ^
+      1069 |         expect(await itemReviewRepository.getAttempts()).toHaveLength(2);
+      1070 |         expect(await itemReviewRepository.getAttempts()).toEqual(expect.arrayContaining([
+      1071 |             expect.objectContaining({ firstOutcome: 'incorrect', finalOutcome: 'correct' }),
+
+      at Object.toMatchObject (src/features/lesson-flow/services/LessonOutcomeService.test.ts:1068:30)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/lesson-flow/services/LessonFlowService.test.ts
+  ● M1 serviço aceita bloco híbrido de três perguntas e mantém a adaptação V2
+
+    expect(received).not.toThrow()
+
+    Error name:    "Error"
+    Error message: "[lesson-flow] Block \"hybrid\" must contain exactly one interactive step."
+
+          38 |
+          39 |     if (interactiveCount !== 1) {
+        > 40 |         throw new Error(`[lesson-flow] Block "${block.id}" must contain exactly one interactive step.`);
+             |               ^
+          41 |     }
+          42 |
+          43 |     const advanceIndex = block.steps.findIndex((step) => step.step.type === 'advance');
+
+      at validateBlock (src/features/lesson-flow/services/LessonFlowService.ts:40:15)
+      at LessonFlowServiceImpl.validateBlock [as getActivityById] (src/features/lesson-flow/services/LessonFlowService.ts:86:9)
+      at getActivityById (src/features/lesson-flow/services/LessonFlowService.test.ts:432:36)
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at Object.toThrow (src/features/lesson-flow/services/LessonFlowService.test.ts:432:67)
+      at Object.toThrow (src/features/lesson-flow/services/LessonFlowService.test.ts:432:67)
+
+Test Suites: 2 failed, 2 total
+Tests:       2 failed, 62 skipped, 64 total
+Snapshots:   0 total
+Time:        0.914 s
+Ran all test suites matching /src\/features\/lesson-flow\/services\/LessonFlowService.test.ts|src\/features\/lesson-flow\/services\/LessonOutcomeService.test.ts/i with tests matching "M1 serviço|M3 journal".

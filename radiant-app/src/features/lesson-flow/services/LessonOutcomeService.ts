@@ -338,7 +338,7 @@ class LessonOutcomeServiceImpl {
         }
     }
 
-    private toQuizResult({ block, confirmedAnswers, answeredAt }: LessonOutcomeInput): QuizResult {
+    private toQuizResult({ block, confirmedAnswers, firstConfirmedAnswers, answeredAt }: LessonOutcomeInput): QuizResult {
         const choiceStepIds = block.steps
             .filter((definition) => definition.step.type === 'multiple-choice')
             .map((definition) => definition.contract.id);
@@ -346,7 +346,9 @@ class LessonOutcomeServiceImpl {
         return {
             lessonId: block.lessonId,
             totalQuestions: choiceStepIds.length,
-            correctAnswers: choiceStepIds.filter((stepId) => confirmedAnswers[stepId] === true).length,
+            correctAnswers: choiceStepIds.filter((stepId) =>
+                (block.sessionMode ? firstConfirmedAnswers ?? confirmedAnswers : confirmedAnswers)[stepId] === true
+            ).length,
             answeredAt: answeredAt ?? new Date(),
         };
     }

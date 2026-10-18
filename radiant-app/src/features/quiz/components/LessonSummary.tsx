@@ -31,6 +31,7 @@ export type LessonSummaryProps = {
   currentRating: number | null;
   onRate: (rating: number) => void;
   onContinue: () => void;
+  onRetry?: () => void;
   continueHint?: string;
 };
 
@@ -127,10 +128,15 @@ export function LessonSummary({
   currentRating,
   onRate,
   onContinue,
+  onRetry,
   continueHint = 'Continua o estudo',
 }: LessonSummaryProps) {
   const largeText = useLargeTextLayout();
   const isZeroStars = stars === 0;
+  // A nova régua reconhece acertos parciais sem prometer aprovação ou domínio.
+  const resultPhrase = stars > 0 && correctAnswers < totalQuestions
+    ? 'Você avançou. Vale reforçar os pontos que faltaram.'
+    : phrase;
   const xpResult = xpAwarded === null
     ? 'Sem XP nesta tentativa'
     : xpAwarded === 0
@@ -152,7 +158,7 @@ export function LessonSummary({
         </View>
 
         <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={Math.min(LABEL_MAX_FONT_SCALE, 1.75)}>
-          {phrase}
+          {resultPhrase}
         </Text>
         {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
             que o caminho dourado 1 afirma. */}
@@ -210,6 +216,9 @@ export function LessonSummary({
       </ScrollView>
 
       <View style={styles.footer}>
+        {kind === 'lesson' && correctAnswers < totalQuestions && onRetry ? (
+          <AppButton label="Refazer" onPress={onRetry} variant="galaxy" />
+        ) : null}
         <AppButton label="Continuar" accessibilityHint={continueHint} onPress={onContinue} variant="galaxy" />
       </View>
     </View>
@@ -334,6 +343,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   footer: {
+    gap: space.s2,
     padding: space.s3,
   },
 });

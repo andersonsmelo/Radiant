@@ -43,27 +43,46 @@ tags:
 - tapOn: Continuar
 
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-- takeScreenshot: shots/03-quiz
-# Scroll de elevacao FIXO, sem guarda — mesma correcao que o segundo quiz deste
-# arquivo ja recebeu em f7b602a, aplicada aqui em 2026-08-03.
-#
-# A versao anterior usava `runFlow when notVisible: scrollUntilVisible`. A guarda
-# nasceu de um problema real: a 1080x1920 a alternativa ja nasce visivel e a
-# lista nao rola mais, entao um scrollUntilVisible com centerElement falha por
-# nao conseguir centralizar. Mas ela e cega a OCLUSAO, que e o outro caso: no
-# iPhone 17 Pro a alternativa esta na arvore e portanto "visivel" para a guarda,
-# so que por baixo do CTA flutuante — a guarda pulava a rolagem, o tap caia no
-# botao desabilitado, e o flow parava com o quiz em 0% selecionado (medido em
-# 2026-08-02 e de novo em 2026-08-03).
-#
-# O scroll fixo serve aos dois casos porque rolar alem do fim e no-op: onde a
-# lista nao rola ele nao faz nada, onde a alternativa esta oclusa ele a levanta.
-# A guarda so servia a um. Visibilidade nao e tocabilidade.
-- scroll
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-q1:option:1
+    id: 'lesson-option-q1:option:1'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 # O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
 # e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
@@ -96,23 +115,47 @@ tags:
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
-- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
-# Scroll de elevacao FIXO, sem guarda. A versao anterior usava
-# `runFlow when notVisible: scrollUntilVisible`, e a guarda e inutil aqui porque
-# o Maestro nao modela OCLUSAO: no iPhone 16 Plus (932pt de altura) a alternativa
-# fica em y850-932, dentro da tela e na arvore — logo "visivel" para a guarda —
-# mas por baixo do CTA "Continuar" flutuante. A guarda pulava, o tap caia no
-# botao desabilitado e o flow parava no passo 3/4 (medido em 2026-07-30).
-# E o mesmo defeito ja corrigido no Android em 2026-07-29 para os CTAs abaixo da
-# dobra oclusos pela tab bar: visibilidade nao e o mesmo que tocabilidade.
-# No Android a 1080x1920 a lista nao rola mais neste ponto, entao o scroll e
-# no-op e a alternativa segue em y1382-1534 — por isso um scroll fixo serve as
-# duas plataformas, enquanto a guarda so servia a uma.
-- scroll
+- assertVisible: 'Na tomografia computadorizada, o que representa um voxel\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q1:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
 - tapOn:
-    id: lesson-option-ct-q3:option:2
+    id: 'lesson-option-ct-q1:option:1'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura costuma apresentar atenuação mais baixa na TC sem contraste\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q2:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q2:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q3:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q3:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar

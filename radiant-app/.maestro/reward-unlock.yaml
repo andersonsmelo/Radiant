@@ -78,24 +78,46 @@ tags:
 - assertVisible: Ideia-chave
 - tapOn: Continuar
 - assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
-# A régua é declarada, não herdada. O Maestro pede 100% por padrão, e em
-# 2026-08-06 isso reprovou uma opção que estava na tela e clicável: um brilho
-# decorativo cobria ~11% dos bounds no Android, medido na árvore no instante da
-# falha. `assertVisible` e `tapOn` do mesmo id passaram, e o scroll passou a
-# 80%. 80 é margem sobre os 89% medidos — não é "aceitar menos", é parar de
-# medir com uma régua que ninguém escolheu.
 - scrollUntilVisible:
     element:
       id: 'lesson-option-q1:option:1'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-q1:option:1'
 - tapOn: Conferir resposta
-# O passo de reforço depois de uma pergunta respondida mostra o feedback da
-# resposta, não o título do payload. A ação de rodapé é o que sempre existe.
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 # O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
 # e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
@@ -131,17 +153,47 @@ tags:
 - tapOn: Continuar
 - assertVisible: Ideia-chave
 - tapOn: Continuar
+- assertVisible: 'Na tomografia computadorizada, o que representa um voxel\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q1:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q1:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura costuma apresentar atenuação mais baixa na TC sem contraste\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ct-q2:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ct-q2:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
 - assertVisible: 'A principal vantagem da TC em relação à radiografia simples é:'
 - scrollUntilVisible:
     element:
       id: 'lesson-option-ct-q3:option:2'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ct-q3:option:2'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
@@ -169,19 +221,33 @@ tags:
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Profissão e atuação do técnico em radiologia'
 - tapOn: Continuar
-- assertVisible: Ideia-chave
-- tapOn: Continuar
 - assertVisible: 'Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?'
 - scrollUntilVisible:
     element:
       id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual das seguintes atividades está dentro das atribuições do técnico em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
@@ -209,19 +275,33 @@ tags:
 # ── Unidade 4 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Energia e matéria'
 - tapOn: Continuar
-- assertVisible: Ideia-chave
-- tapOn: Continuar
 - assertVisible: 'Como a energia de um fóton de raios X se relaciona com sua frequência\?'
 - scrollUntilVisible:
     element:
       id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual tecido absorve MAIS energia de raios X, produzindo a região mais clara na imagem\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:energia-e-materia:q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:energia-e-materia:q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
@@ -249,19 +329,33 @@ tags:
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Estrutura da matéria e núcleo atômico'
 - tapOn: Continuar
-- assertVisible: Ideia-chave
-- tapOn: Continuar
 - assertVisible: 'O que diferencia dois isótopos de um mesmo elemento químico\?'
 - scrollUntilVisible:
     element:
-      id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
+      id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
+    id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual partícula do átomo determina o elemento químico ao qual ele pertence\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
@@ -289,19 +383,33 @@ tags:
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
 - assertVisible: 'Quiz: Radioatividade, partículas e atividade'
 - tapOn: Continuar
-- assertVisible: Ideia-chave
-- tapOn: Continuar
 - assertVisible: 'Qual tipo de radiação possui MENOR poder de penetração nos tecidos\?'
 - scrollUntilVisible:
     element:
-      id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
+      id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:2'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
-    id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
+    id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:2'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Se um radioisótopo tem atividade inicial de 1000 MBq e meia-vida de 2 horas, qual será sua atividade após 6 horas\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q2:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q2:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
@@ -329,19 +437,33 @@ tags:
 # ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
 - assertVisible: 'Quiz: Raios X: descoberta e propriedades'
 - tapOn: Continuar
-- assertVisible: Ideia-chave
-- tapOn: Continuar
 - assertVisible: 'Quem descobriu os raios X e em que ano\?'
 - scrollUntilVisible:
     element:
       id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
     direction: DOWN
-    centerElement: true
+    centerElement: false
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
 - tapOn: Conferir resposta
-- assertVisible: Concluir e voltar
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'Qual propriedade dos raios X é diretamente responsável pela formação da imagem radiológica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
