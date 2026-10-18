@@ -678,6 +678,24 @@ e o item novo é semeado
 `claude/fila-55-a1`, na `main` desde 2026-10-18 pela PR #45. Gates medidos em
 2026-10-18 no relatório.
 
+## Store de revisão — R6, medido em 2026-10-18
+
+No Node, com identificadores no comprimento dos do catálogo V2:
+- 1.000 cartões e 1.000 tentativas ocupam 1,09 MiB, com leitura fria de 18 ms;
+- 5.000 cartões e 2.000 tentativas ocupam 4,01 MiB, com leitura fria de 61 ms.
+  São 67% dos 6 MB padrão do AsyncStorage no Android, divididos com as outras
+  chaves.
+
+O **A2 continua aberto**: o teto declarado de 20.000 cartões não cabe nesse
+desenho. Trocar o storage é decisão do dono, e o tempo no aparelho é do G6.
+
+O **A3 está consertado**. Um cartão ou uma tentativa inválidos não deixam mais
+o store inteiro ilegível: o registro vai para a quarentena
+`@radiant:item_review_quarantine_v1`, gravada antes do store, e a revisão segue
+com o resto. O cartão em quarentena sai da agenda, por decisão do dono. Schema
+futuro e JSON quebrado continuam indisponíveis, sem escrita.
+[Evidência](evidence/2026-10-18-r6-store-de-revisao.md).
+
 ## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
 
 Implementação candidata na branch `codex/motor-hibrido-licao`, sobre

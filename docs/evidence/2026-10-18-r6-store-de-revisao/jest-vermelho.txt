@@ -1,0 +1,136 @@
+# R6: os testes novos contra o código sem a quarentena (base e2e0524, a main com a #49), 2026-10-18, Node 20.20.2
+# npx jest --runInBand src/features/spaced-repetition/repositories/ItemReviewRepository.test.ts src/features/spaced-repetition/services/ItemReviewService.test.ts
+
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.test.ts
+  ● quarentena do registro inválido (R6) › um cartão inválido vai para a quarentena e a revisão segue com os outros cartões
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      203 |
+      204 |         const snapshot = await new ItemReviewRepository(s).inspect();
+    > 205 |         expect(snapshot.readable).toBe(true);
+          |                                   ^
+      206 |         expect(snapshot.cards.map(card => card.item.itemId)).toEqual(['item:1']);
+      207 |         expect(quarantine(s)).toEqual({ schemaVersion: 'item-review-quarantine.v1',
+      208 |             entries: [{ kind: 'card', key, record: bad, quarantinedAt: expect.any(String) }] });
+
+
+  ● quarentena do registro inválido (R6) › uma tentativa inválida vai para a quarentena sem levar o cartão dela
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 1
+
+    - Array [
+    -   "attempt:1",
+    - ]
+    + Array []
+
+      216 |
+      217 |         const repo = new ItemReviewRepository(s);
+    > 218 |         expect((await repo.getAttempts()).map(entry => entry.attemptId)).toEqual(['attempt:1']);
+          |                                                                          ^
+      219 |         expect(await repo.getCards()).toHaveLength(2);
+      220 |         expect(quarantine(s).entries).toEqual([{ kind: 'attempt', record: expect.objectContaining({ attemptId: 'attempt:2', mode: 'inventado' }),
+      221 |             quarantinedAt: expect.any(String) }]);
+
+
+  ● quarentena do registro inválido (R6) › registro nulo ou de outro tipo vai para a quarentena em vez de derrubar a leitura
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      225 |         corrupt(s, store => { store.cards[key] = null; store.attempts.push(42); });
+      226 |
+    > 227 |         expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+          |                                                                        ^
+      228 |         expect(quarantine(s).entries.map((entry: { kind: string; record: unknown }) => [entry.kind, entry.record])).toEqual([['card', null], ['attempt', 42]]);
+      229 |     });
+      230 |     it('tentativa repetida fica com a primeira e manda a cópia para a quarentena', async () => {
+
+
+  ● quarentena do registro inválido (R6) › tentativa repetida fica com a primeira e manda a cópia para a quarentena
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 10
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "attempt:1",
+    -     "unknown",
+    -   ],
+    -   Array [
+    -     "attempt:2",
+    -     "unknown",
+    -   ],
+    - ]
+    + Array []
+
+      233 |
+      234 |         const attempts = await new ItemReviewRepository(s).getAttempts();
+    > 235 |         expect(attempts.map(entry => [entry.attemptId, entry.durationBand])).toEqual([['attempt:1', 'unknown'], ['attempt:2', 'unknown']]);
+          |                                                                              ^
+      236 |         expect(quarantine(s).entries).toEqual([{ kind: 'attempt', record: expect.objectContaining({ attemptId: 'attempt:1', durationBand: 'under-10s' }), quarantinedAt: expect.any(String) }]);
+      237 |     });
+      238 |     it('sem conseguir gravar a quarentena, não regrava o store e o mantém indisponível', async () => {
+
+
+  ● quarentena do registro inválido (R6) › se o store não regrava depois da quarentena, a nova tentativa não duplica a entrada
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      265 |
+      266 |         expect((await new ItemReviewRepository(s).inspect()).readable).toBe(false);
+    > 267 |         expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+          |                                                                        ^
+      268 |         expect(quarantine(s).entries).toHaveLength(1);
+      269 |     });
+      270 |     it('a quarentena guarda só as entradas mais recentes, até o teto', async () => {
+
+
+  ● quarentena do registro inválido (R6) › a quarentena guarda só as entradas mais recentes, até o teto
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      274 |         corrupt(s, store => { store.attempts.push('nova'); });
+      275 |
+    > 276 |         expect((await new ItemReviewRepository(s).inspect()).readable).toBe(true);
+          |                                                                        ^
+      277 |         const entries = quarantine(s).entries;
+      278 |         expect(entries).toHaveLength(ITEM_QUARANTINE_CAP);
+      279 |         expect(entries[0].record).toBe(1);
+
+
+FAIL src/features/spaced-repetition/services/ItemReviewService.test.ts
+  ● revisão por item › um cartão corrompido sai da fila e não bloqueia a revisão dos outros (R6)
+
+    review-store-unavailable
+
+      71 |         };
+      72 |         const previous = await this.repository.inspect();
+    > 73 |         if (!previous.readable) throw new Error('review-store-unavailable');
+         |                                       ^
+      74 |         const managed = new Set(previous.cards.map(card => card.item.lessonId));
+      75 |         // Janela de 50 lições por abertura, um commit atômico. Presença dos itens
+      76 |         // é o cursor durável; um retry pega somente o lote ainda não persistido.
+
+
+Test Suites: 2 failed, 2 total
+Tests:       7 failed, 35 passed, 42 total
+Snapshots:   0 total
+Time:        1.186 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.test.ts|src\/features\/spaced-repetition\/services\/ItemReviewService.test.ts/i.

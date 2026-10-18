@@ -1,0 +1,83 @@
+# R6: cada guarda da quarentena vista falhando com o defeito que nomeia, 2026-10-18, Node 20.20.2.
+# O script troca uma âncora única de ItemReviewRepository.ts, roda só o teste-alvo (-t) e restaura o arquivo.
+# Linhas longas de Expected/Received foram cortadas em 240 caracteres.
+
+## store regravado antes da quarentena (âncora: 1 ocorrência; teste: "sem conseguir gravar a quarentena"; saída 1)
+    ✕ sem conseguir gravar a quarentena, não regrava o store e o mantém indisponível (4 ms)
+    Expected: "{\"schemaVersion\":\"item-review.v1\",\"cards\":{\"[\\\"lesson:1\\\",\\\"item:1\\\",\\\"v1\\\"]\":{\"item\":{\"lessonId\":\"lesson:1\",\"itemId\":\"item:1\",\"activityId\":\"activity:1\",\"competencyId\":\"competency:1\",\"co …
+    Received: "{\"schemaVersion\":\"item-review.v1\",\"cards\":{\"[\\\"lesson:1\\\",\\\"item:1\\\",\\\"v1\\\"]\":{\"item\":{\"lessonId\":\"lesson:1\",\"itemId\":\"item:1\",\"activityId\":\"activity:1\",\"competencyId\":\"competency:1\",\"co …
+Tests:       1 failed, 24 skipped, 25 total
+
+## falha da quarentena engolida (âncora: 1 ocorrência; teste: "sem conseguir gravar a quarentena"; saída 1)
+    ✕ sem conseguir gravar a quarentena, não regrava o store e o mantém indisponível (4 ms)
+    - Expected  -  2
+    + Received  + 20
+Tests:       1 failed, 24 skipped, 25 total
+
+## quarentena ilegível tratada como vazia (âncora: 1 ocorrência; teste: "quarentena existente ilegível"; saída 1)
+    ✕ uma quarentena existente ilegível não é sobrescrita (3 ms)
+    Expected: false
+    Received: true
+Tests:       1 failed, 24 skipped, 25 total
+
+## sem deduplicar a quarentena (âncora: 1 ocorrência; teste: "não duplica a entrada"; saída 1)
+    ✕ se o store não regrava depois da quarentena, a nova tentativa não duplica a entrada (4 ms)
+    Expected length: 1
+    Received length: 2
+    Received array:  [{"key": "[\"lesson:1\",\"item:2\",\"v1\"]", "kind": "card", "quarantinedAt": "2026-10-18T19:35:20.379Z", "record": {"createdAt": "2026-10-17T12:00:00.000Z", "dueAt": "2026-10-18T12:00:00.000Z", "easeFactor": 2.5, "inte …
+Tests:       1 failed, 24 skipped, 25 total
+
+## sem o teto da quarentena (âncora: 1 ocorrência; teste: "até o teto"; saída 1)
+    ✕ a quarentena guarda só as entradas mais recentes, até o teto (4 ms)
+    Expected length: 200
+    Received length: 201
+    Received array:  [{"kind": "attempt", "quarantinedAt": "2026-10-01T00:00:00.000Z", "record": 0}, {"kind": "attempt", "quarantinedAt": "2026-10-01T00:00:00.000Z", "record": 1}, {"kind": "attempt", "quarantinedAt": "2026-10-01T00:00:00.00 …
+Tests:       1 failed, 24 skipped, 25 total
+
+## clear sem apagar a quarentena (âncora: 1 ocorrência; teste: "clear apaga também a quarentena"; saída 1)
+    ✕ clear apaga também a quarentena (3 ms)
+    Expected: false
+    Received: true
+Tests:       1 failed, 24 skipped, 25 total
+
+## a tentativa repetida não é descartada (âncora: 1 ocorrência; teste: "tentativa repetida fica com a primeira"; saída 1)
+    ✕ tentativa repetida fica com a primeira e manda a cópia para a quarentena (4 ms)
+    - Expected  - 0
+    + Received  + 4
+Tests:       1 failed, 24 skipped, 25 total
+
+# injecoes_r6.py (rodado em radiant-app/)
+import subprocess, pathlib
+f = pathlib.Path('src/features/spaced-repetition/repositories/ItemReviewRepository.ts')
+INJ = [
+  ('store regravado antes da quarentena', 'sem conseguir gravar a quarentena',
+   "            await this.quarantine(rejected);\n            const serialized = JSON.stringify(store);\n            await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);\n",
+   "            const serialized = JSON.stringify(store);\n            await this.storage.setItem(STORAGE_KEYS.ITEM_REVIEW, serialized);\n            await this.quarantine(rejected);\n"),
+  ('falha da quarentena engolida', 'sem conseguir gravar a quarentena',
+   "            await this.quarantine(rejected);\n", "            await this.quarantine(rejected).catch(() => undefined);\n"),
+  ('quarentena ilegível tratada como vazia', 'quarentena existente ilegível',
+   "        const existing = raw === null ? [] : readQuarantine(raw);\n",
+   "        let existing: QuarantineEntry[] = []; try { existing = raw === null ? [] : readQuarantine(raw); } catch { existing = []; }\n"),
+  ('sem deduplicar a quarentena', 'não duplica a entrada',
+   "        const added = entries.filter(entry => !known.has(quarantineFingerprint(entry)));\n", "        const added = entries; void known;\n"),
+  ('sem o teto da quarentena', 'até o teto',
+   "        const kept = [...existing, ...added].slice(-ITEM_QUARANTINE_CAP);\n", "        const kept = [...existing, ...added];\n"),
+  ('clear sem apagar a quarentena', 'clear apaga também a quarentena',
+   "            await this.storage.removeItem(STORAGE_KEYS.ITEM_REVIEW_QUARANTINE);\n", ""),
+  ('tentativa repetida fica com a última', 'tentativa repetida fica com a primeira',
+   "            if (identity !== null && !seen.has(identity)) {\n", "            if (identity !== null) {\n"),
+]
+out = []
+for nome, teste, a, b in INJ:
+    orig = f.read_text(encoding='utf8')
+    n = orig.count(a); assert n == 1, (nome, n)
+    f.write_text(orig.replace(a, b, 1), encoding='utf8')
+    try:
+        r = subprocess.run(['npx', 'jest', '--runInBand', 'src/features/spaced-repetition/repositories/ItemReviewRepository.test.ts', '-t', teste],
+                           capture_output=True, text=True)
+    finally:
+        f.write_text(orig, encoding='utf8')
+    txt = r.stdout + r.stderr
+    linhas = [l.rstrip() for l in txt.splitlines() if ('✕' in l or '✓' in l or l.startswith('Tests:') or 'Expected' in l or 'Received' in l)]
+    out.append(f"## {nome} (âncora: {n} ocorrência; teste: \"{teste}\"; saída {r.returncode})\n" + "\n".join(linhas[:10]))
+print("\n\n".join(out))

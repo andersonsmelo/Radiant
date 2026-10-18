@@ -179,6 +179,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
+    medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
+    5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2
+    continua aberto: trocar o storage é decisão do dono, e o tempo no aparelho
+    é do G6. O A3 foi consertado: com o envelope válido, o registro inválido vai
+    para a quarentena `@radiant:item_review_quarantine_v1`, e a revisão segue
+    com o resto. O cartão em quarentena sai da agenda, por decisão do dono
+    ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)).
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na
