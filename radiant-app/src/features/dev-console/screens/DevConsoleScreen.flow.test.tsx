@@ -1,3 +1,5 @@
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
+
 import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 
@@ -58,6 +60,13 @@ jest.mock('../../../lib/api', () => ({
   isApiConfigured: jest.fn(() => true),
 }));
 
+// O medidor da FILA 61 fica de verdade no `isStoreBenchEnabled`; só a medição
+// é falsa, para o teste ver quem a chama.
+jest.mock('../../spaced-repetition/repositories/ItemReviewRepository.deviceBench', () => ({
+  ...jest.requireActual('../../spaced-repetition/repositories/ItemReviewRepository.deviceBench'),
+  runStoreDeviceBench: jest.fn(() => Promise.resolve([])),
+}));
+
 const mockedApiRequest = apiRequest as jest.MockedFunction<typeof apiRequest>;
 
 describe('DevConsoleScreen', () => {
@@ -65,6 +74,31 @@ describe('DevConsoleScreen', () => {
     jest.clearAllMocks();
     (isApiConfigured as jest.Mock).mockReturnValue(true);
     AppConfig.ENABLE_BETA_GATE = false;
+  });
+
+  describe('medidor do store de revisão (FILA 61)', () => {
+    const { runStoreDeviceBench } = jest.requireMock('../../spaced-repetition/repositories/ItemReviewRepository.deviceBench');
+    const original = process.env.EXPO_PUBLIC_RADIANT_STORE_BENCH;
+    afterEach(() => {
+      if (original === undefined) delete process.env.EXPO_PUBLIC_RADIANT_STORE_BENCH;
+      else process.env.EXPO_PUBLIC_RADIANT_STORE_BENCH = original;
+    });
+
+    it('não mede nada sem a variável', async () => {
+      delete process.env.EXPO_PUBLIC_RADIANT_STORE_BENCH;
+      renderWithProviders(<DevConsoleScreen />);
+
+      expect(await screen.findByText('Catálogo local')).toBeTruthy();
+      expect(runStoreDeviceBench).not.toHaveBeenCalled();
+    });
+
+    it('mede uma vez ao abrir, com a variável em desenvolvimento', async () => {
+      process.env.EXPO_PUBLIC_RADIANT_STORE_BENCH = '1';
+      renderWithProviders(<DevConsoleScreen />);
+
+      expect(await screen.findByText('Catálogo local')).toBeTruthy();
+      await waitFor(() => expect(runStoreDeviceBench).toHaveBeenCalledTimes(1));
+    });
   });
 
   it('reúne os painéis de diagnóstico que saíram da tela do aluno', async () => {

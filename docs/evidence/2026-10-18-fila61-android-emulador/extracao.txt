@@ -1,0 +1,14 @@
+FILA 61 — extração do gerador do bench do R6, feita antes de qualquer outra mudança
+Medido em 2026-10-18, Node v20.20.2, worktree a partir da main d7bd696.
+
+1. As linhas que saíram de ItemReviewRepository.capacity.bench.ts (sem os imports) contra as que entraram
+   em itemReviewBenchFixtures.ts, com o prefixo 'export ' retirado:
+$ diff saiu.txt entrou.txt
+47d46
+< 
+   -> única diferença: a linha em branco que separava o bloco do measure().       46 linhas idênticas.
+
+2. O bench do R6, rodado depois da extração, monta o mesmo store, byte a byte:
+$ BENCH_OUT=<arquivo> npx jest --runInBand --testMatch '**/*.capacity.bench.ts' src/features/spaced-repetition
+   1000 cartões, 1000 tentativas: 1143057 bytes agora; 1143057 no medicao.json do R6 -> igual
+   5000 cartões, 2000 tentativas: 4203057 bytes agora; 4203057 no medicao.json do R6 -> igual

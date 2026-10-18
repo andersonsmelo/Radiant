@@ -211,6 +211,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     erro, ajuda e o resumo, com seis capturas versionadas com hash
     ([relatório](evidence/2026-10-18-main-pronta-para-build.md#as-capturas-do-g4)).
     O R5 fica cumprido no iOS. Seguem abertos Android, VoiceOver, G6 e G7.
+    **Atualização de 2026-10-18 (Codex, FILA 61, passo 1):** capacidade medida
+    no emulador Android; 5.000 cartões excedem a janela de leitura por valor.
+    [Evidência](evidence/2026-10-18-fila61-android-emulador.md). A2 volta à decisão
+    do dono; isso não fecha performance em aparelho físico nem G6 inteiro.
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na
@@ -318,22 +322,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - `decelerationRate` muda o app para o aluno.
 
     Ver a [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md);
-  - **61.** dono decide, com um passo do agente antes: **o storage da revisão
-    por item (A2).** Medido no R6 em 2026-10-18: com 5.000 cartões o store tem
-    4,01 MiB, 67% dos 6 MB que o AsyncStorage dá ao app inteiro no Android, e o
-    teto declarado de 20.000 passa de 12 MiB
-    ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)). **Recomendação
-    do agente, a mais segura:** particionar o store por lição no próprio
-    AsyncStorage, aumentar o limite do banco no Android
-    (`AsyncStorage_db_size_in_MB`, que exige build nova) e migrar com cópia de
-    segurança: copiar, conferir, trocar e manter a chave antiga por uma ou duas
-    versões. SQLite só se a medição no aparelho mostrar que ainda falta.
-    [inferido, não verificado] No Android, um valor único acima de ~2 MB pode
-    falhar na leitura ("Row too big to fit into CursorWindow"), o que tornaria o
-    problema mais urgente que a cota.
-    **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
-    por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
-    escolher o caminho depois da medição;
+  - **61.** **dono decide:** o storage da revisão por item (A2).
+    **Passo 1 do agente concluído em emulador em 2026-10-18, às 18:57:**
+    Android 14 / API 34 / arm64, 2 GB de RAM, num Mac M5. Valor de 1,9 MiB
+    voltou íntegro; de 2,0 MiB em diante, a leitura falhou na CursorWindow.
+    O store de 1.000 cartões (1.143.057 bytes) foi legível, com mediana de
+    leitura fria de 137,5 ms; 5.000 (4.203.057 bytes) gravaram, mas não puderam
+    ser lidos. Os tempos **não representam aparelho de entrada**. O build
+    manteve a cota padrão de 6 MiB. `getCards()` esconde falha de leitura como
+    `[]`; o medidor usa `inspect()`, que reconheceu o store ilegível.
+    [Evidência, log nativo e guardas](evidence/2026-10-18-fila61-android-emulador.md).
+    **Escolha pendente do dono:** particionar por lição no AsyncStorage,
+    aumentar a cota total no Android e migrar com cópia de segurança,
+    conferência e preservação da chave antiga por uma ou duas versões
+    (recomendação do agente); SQLite só se ainda necessário. **Aumentar só a
+    cota não resolve o limite por valor observado.** Nenhuma troca, migração ou
+    alteração de cota foi implementada. Aparelho físico permanece fora da prova;
   - **63.** agente: **um teste do checkpoint reprovou uma vez no CI, e não
     reproduz aqui.** Em 2026-10-18, no job `quality` da PR #51 (`0cb5441`),
     `CheckpointScreen flow › XP da aprovação › a celebração mostra o ganho e o

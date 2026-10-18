@@ -2155,3 +2155,23 @@ O texto do item, como estava na fila:
     Claude, ao tratar a revisão do Codex na PR #48. Incluir os dois e ver cada guarda falhar com o
     defeito que nomeia. O G4 fica fora da lista da espera por `assertVisible`,
     por decisão do dono;
+
+
+## FILA 61 — texto anterior ao passo 1 medido em 2026-10-18
+
+  - **61.** dono decide, com um passo do agente antes: **o storage da revisão
+    por item (A2).** Medido no R6 em 2026-10-18: com 5.000 cartões o store tem
+    4,01 MiB, 67% dos 6 MB que o AsyncStorage dá ao app inteiro no Android, e o
+    teto declarado de 20.000 passa de 12 MiB
+    ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)). **Recomendação
+    do agente, a mais segura:** particionar o store por lição no próprio
+    AsyncStorage, aumentar o limite do banco no Android
+    (`AsyncStorage_db_size_in_MB`, que exige build nova) e migrar com cópia de
+    segurança: copiar, conferir, trocar e manter a chave antiga por uma ou duas
+    versões. SQLite só se a medição no aparelho mostrar que ainda falta.
+    [inferido, não verificado] No Android, um valor único acima de ~2 MB pode
+    falhar na leitura ("Row too big to fit into CursorWindow"), o que tornaria o
+    problema mais urgente que a cota.
+    **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
+    por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
+    escolher o caminho depois da medição;

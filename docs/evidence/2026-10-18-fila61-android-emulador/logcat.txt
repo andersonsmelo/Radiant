@@ -1,0 +1,24 @@
+Medição nativa em 2026-10-18, Android Emulator 37.2.12.0 (build 16428233), AVD radiant-entrada-api34.
+Android 14 / API 34 / arm64-v8a; Pixel 4a virtual; RAM 2048 MB; 2 núcleos.
+Host: Apple M5, macOS 27.2. Dev client Debug 1.4.0 (3), Hermes; Metro Node v20.20.2.
+Base Git: d7bd6966668af467a22f5d2cc22d9e6cb3abf3d7 + diff FILA 61.
+Build: ./gradlew :app:assembleDebug; gradle exit=0.
+BuildConfig gerado do AsyncStorage: AsyncStorage_db_size = 6L (6 MiB); sem override.
+Comando da captura: adb -s emulator-5554 logcat -d, filtrado por [radiant-store-bench].
+APK SHA-256: 2acba055d18376ca36b7a9b9136d3260982c274937263b67ccf913c9dd5d9ef0
+
+10-18 18:57:39.460  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"header","measuredAt":"2026-10-18T21:57:39.459Z","platform":"android","osVersion":34,"repetitions":5}
+10-18 18:57:39.776  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":1,"bytes":1048576,"written":true,"readMs":13,"read":true}
+10-18 18:57:40.031  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":1.5,"bytes":1572864,"written":true,"readMs":25,"read":true}
+10-18 18:57:40.146  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":1.9,"bytes":1992294,"written":true,"readMs":40,"read":true}
+10-18 18:57:40.264  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":2,"bytes":2097152,"written":true,"read":false,"readError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1"}
+10-18 18:57:40.326  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":2.1,"bytes":2202010,"written":true,"read":false,"readError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1"}
+10-18 18:57:40.392  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":2.5,"bytes":2621440,"written":true,"read":false,"readError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1"}
+10-18 18:57:40.462  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":3,"bytes":3145728,"written":true,"read":false,"readError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1"}
+10-18 18:57:40.548  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"probe","sizeMiB":4,"bytes":4194304,"written":true,"read":false,"readError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1"}
+10-18 18:57:41.726  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"store","cards":1000,"bytes":1143057,"written":true,"nativeReadIntact":true,"readable":true,"cardsRead":1000,"medianMs":{"nativeRead":9.1,"coldRead":137.5},"samplesMs":{"nativeRead":[9.149625000005472,14.481124999991152,8.331374999994296,24.929917000001296,8.056250000023283],"coldRead":[399.26208299999416,137.46850000000268,111.44904099999985,116.87212499999441,194.42054200000712]}}
+10-18 18:57:43.260  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"store","cards":5000,"bytes":4203057,"written":true,"nativeReadIntact":false,"nativeReadError":"Row too big to fit into CursorWindow requiredPos=0, totalRows=1","readable":false,"cardsRead":0,"medianMs":{"nativeRead":null,"coldRead":8},"samplesMs":{"nativeRead":[],"coldRead":[3.8922920000040904,7.958582999999635,8.062458000000333,15.858042000007117,7.217792000010377]}}
+10-18 18:57:43.260  3752  4436 I ReactNativeJS: [radiant-store-bench] {"kind":"done"}
+
+Verificação após done e am force-stop: cópia local do RKStorage via adb exec-out run-as.
+SQLite: SELECT count(*) FROM catalystLocalStorage WHERE key LIKE '@radiant:bench:%'; -> 0
