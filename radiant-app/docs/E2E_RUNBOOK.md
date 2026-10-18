@@ -394,6 +394,15 @@ maestro test .maestro/reward-locked.yaml
 maestro test .maestro/reward-unlock.yaml
 ```
 
+Every `launchApp` passes `arguments: { radiantReduceMotion: '1' }` (FILA 49,
+2026-10-18). On iOS it reaches the app as `-radiantReduceMotion 1`, and the app
+takes the "Reduce Motion" branch: the starfield stops and no confetti falls, so
+the screen settles before each scroll. In `reward-unlock` this cut a scroll
+attempt from 8–11 s to 2.3–3.7 s and the run from 18 to 4 minutes. Keep the
+value a quoted string: Maestro 2.7 drops the leading `-` for booleans, and iOS
+then ignores the argument. Android does not read it.
+[Evidence](../../docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).
+
 The 1.4 golden paths have an **order**, because path 2 consumes the state path
 1 leaves behind:
 

@@ -3200,3 +3200,12 @@ build, publicação, commit, push ou merge. Árvore compartilhada preservada.
 > - **Prova nativa no simulador iOS (`R1`):** verificados `G2`, `G4` (`/review`) e o fluxo de lição (`/learn`) no simulador `iPhone 17 Pro` (iOS 26.5).
 > - **Pesquisa `P6` (`FILA 52`) e mercado brasileiro:** auditadas 9 fontes de imagem médica (`NCI IDC`, `Open-i / PMC CC BY 4.0`, `Wikimedia Commons` e `NIH ChestX-ray14` aprovadas para uso comercial; `MedPix`, `Radiopaedia`, `VinDr-CXR`, `MIMIC-CXR` e `PadChest` reprovadas) e mapeados os pesos das bancas brasileiras (`EBSERH/IBFC`, `FGV`, `VUNESP`).
 > - [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) · [Pesquisa](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md) · [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md).
+
+---
+
+### Saído do STATUS em 2026-10-18 (FILA 49 e 57 feitas: o E1 integrado sobre a `main`)
+
+> frentes de engenharia. A próxima é a FILA 49.
+
+> - **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
+>   árvore ([FILA 57](FILA.md)).

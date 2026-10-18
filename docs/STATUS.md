@@ -294,7 +294,7 @@ no simulador e no código; [avaliação completa](trilha/avaliacoes/2026-10-16-a
   saiu dessa síntese e das pesquisas reunidas em [`trilha/`](trilha/README.md), com as
   escolhas do dono de 2026-10-16: consertar a lição legada em paralelo ao
   piloto híbrido, ter um item de imagem por trilha neste ciclo e abrir as quatro
-  frentes de engenharia. A próxima é a FILA 49.
+  frentes de engenharia.
 
 **Consertados localmente no mesmo dia, sem publicação**
 ([ADR](adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
@@ -641,9 +641,7 @@ Os 15 validadores passam na árvore atual: 173 suítes e 1.728 testes no app,
 - **A1:** uma `contentVersion` nova tira a lição da revisão para sempre
   ([FILA 55](FILA.md));
 - **A2:** nos tetos declarados, o store de revisão ocupa cerca de 12 MiB,
-  acima dos 6 MB padrão do AsyncStorage no Android;
-- **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
-  árvore ([FILA 57](FILA.md)).
+  acima dos 6 MB padrão do AsyncStorage no Android.
 
 O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39) ([FILA 56](FILA.md), feita). Desde 17/10, o
 Claude revisa e coordena as IAs.
@@ -705,3 +703,21 @@ aprovou a régua de estrelas e decidiu que a última vida perdida no último
 retorno conclui a lição
 ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Os ajustes estão
 na branch `claude/pr42-ajustes`, com seu [relatório](evidence/2026-10-18-pr42-ajustes.md).
+
+## E2E sem animação — FILA 49, medido em 2026-10-18
+
+Lançado com `-radiantReduceMotion 1`, o app liga "Reduzir movimento" sem mexer
+no sistema: o fundo estrelado para e o confete não sobe. Os 22 `launchApp` dos
+17 roteiros Maestro passam o argumento, e o contrato exige isso. Só no iOS: no
+Android o argumento não chega ao app.
+
+No `reward-unlock`, no simulador iOS e sobre a `main` em `cc67243`, o roteiro
+inteiro caiu de 18 min 10 s para 3 min 48 s. A tentativa de rolagem até o
+cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
+**não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
+FILA 59. Os outros 16 roteiros não foram executados com o argumento.
+
+O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
+jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
+Branch `feat/e1-animacao-desligavel`, sem push.
+[Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).
