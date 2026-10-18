@@ -705,3 +705,21 @@ aprovou a régua de estrelas e decidiu que a última vida perdida no último
 retorno conclui a lição
 ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Os ajustes estão
 na branch `claude/pr42-ajustes`, com seu [relatório](evidence/2026-10-18-pr42-ajustes.md).
+
+## A `main` pronta para build — FILA 59, medido em 2026-10-18
+
+Na `main` em `cc67243`, num dev client Debug do Xcode 27.1 e em dois simuladores
+iPhone 17 Pro com iOS 26.5:
+- 6 dos 7 roteiros que só tinham passado pelo contrato estático passaram
+  nativamente: `learning-critical-path`, `offline-relaunch`,
+  `student-checkpoint-no-duplicate-effect`, `store-capture`, `reward-unlock` e
+  `radiant-1-4-primeira-execucao`;
+- o `radiant-1-4-segundo-dia` passou numa sonda com fixture. **O dia 2 com
+  relógio real fica para 2026-10-19, a partir das 12:45 (−03)**, no simulador
+  `5FD8C926` (FILA 59);
+- `store-capture` e `segundo-dia` estavam desatualizados em relação ao app e
+  foram corrigidos. Nenhum defeito do app apareceu;
+- a prova nativa do G4 está feita, com seis capturas versionadas com hash.
+
+[Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
+Debug não prova a build Release; a build e o envio continuam com o dono.

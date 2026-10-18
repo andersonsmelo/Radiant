@@ -1,0 +1,44 @@
+# SONDA COM FIXTURE, não é a prova de relógio real do caminho 2.
+# Simulador principal (E262D4C1), roteiro de dia 1 seguido de preparar-revisao-devida.py e do dia 2.
+# Dia 1 da sonda:
+#   inicio 2026-10-18T12:45:50-0300
+#   exit=0
+#   fim 2026-10-18T12:48:52-0300
+# Fixture:
+#   {"itemId": "q1", "antes": "2026-10-19T15:48:27.634Z", "depois": "2026-10-18T12:48:55.904Z"}
+#   {"itemId": "q2", "antes": "2026-10-19T15:48:27.634Z", "depois": "2026-10-18T13:48:55.904Z"}
+#   {"itemId": "q3", "antes": "2026-10-19T15:48:27.634Z", "depois": "2026-10-18T14:48:55.904Z"}
+#   {"cartoes_no_store": 3, "tentativas": 3, "alterados": 3}
+# Dia 2 da sonda:
+inicio 2026-10-18T12:48:55-0300
+udid=E262D4C1-99BE-496B-8567-0291C14E6533 flow=radiant-1-4-segundo-dia maestro=2.7.0 head=cc67243
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant"... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Tap on "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$"... COMPLETED
+Assert that "Passo 1 de 5" is visible... FAILED
+
+Assertion is false: "Passo 1 de 5" is visible
+
+Assertion '"Passo 1 de 5" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/.maestro/tests/2026-10-18_124859
+exit=1
+fim 2026-10-18T12:49:55-0300

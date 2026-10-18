@@ -165,6 +165,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-18 (Claude, FILA 59):** a prova nativa do G4 foi
+    feita no simulador iOS. Foram exercitados seleção, confirmação, acerto,
+    erro, ajuda e o resumo, com seis capturas versionadas com hash
+    ([relatório](evidence/2026-10-18-main-pronta-para-build.md#as-capturas-do-g4)).
+    O R5 fica cumprido no iOS. Seguem abertos Android, VoiceOver, G6 e G7.
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na
@@ -232,6 +237,21 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     está em [`trilha/PROMPT-CODEX-2026-10-18.md`](trilha/PROMPT-CODEX-2026-10-18.md).
     **Fora:** conteúdo novo, variantes e imagens. Os 10 a 15 itens da ADR de
     2026-09-23 dependem da FILA 45;
+  - **59.** agente: **preparar a `main` para uma build**, o item 1 da §4 do
+    prompt (19). **Estado em 2026-10-18:** 6 dos 7 roteiros passaram
+    nativamente, e as capturas do G4 estão versionadas com hash
+    ([relatório](evidence/2026-10-18-main-pronta-para-build.md)). O
+    `store-capture` e o `radiant-1-4-segundo-dia` estavam desatualizados e
+    foram corrigidos. Nenhum defeito do app apareceu.
+    **Falta:** o dia 2 do caminho 2 com relógio real. O dia 1 rodou às 12:45 de
+    2026-10-18 no simulador `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` ("Radiant
+    E2E dia 2 (2026-10-18)"). A partir de **2026-10-19, 12:45 (−03)**, sem
+    `clearState` no meio, ligue o simulador, instale o mesmo dev client, suba o
+    Metro com o perfil `e2e-test` e rode
+    `maestro --device 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 test .maestro/radiant-1-4-segundo-dia.yaml`,
+    num run próprio.
+    **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
+    Anderson;
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
     trabalho G0–G4 do Codex está em cinco commits na branch
     `feat/trilha-evolucao-global-g0-g4`, com a

@@ -1,0 +1,70 @@
+# SONDA COM FIXTURE, não é a prova de relógio real do caminho 2.
+# Simulador principal (E262D4C1), roteiro de dia 1 seguido de preparar-revisao-devida.py e do dia 2.
+# Dia 1 da sonda:
+#   inicio 2026-10-18T12:50:25-0300
+#   exit=0
+#   fim 2026-10-18T12:52:51-0300
+# Fixture:
+#   {"itemId": "q1", "antes": "2026-10-19T15:52:26.898Z", "depois": "2026-10-18T12:52:53.923Z"}
+#   {"itemId": "q2", "antes": "2026-10-19T15:52:26.898Z", "depois": "2026-10-18T13:52:53.923Z"}
+#   {"itemId": "q3", "antes": "2026-10-19T15:52:26.898Z", "depois": "2026-10-18T14:52:53.923Z"}
+#   {"cartoes_no_store": 3, "tentativas": 3, "alterados": 3}
+# Dia 2 da sonda:
+inicio 2026-10-18T12:52:53-0300
+udid=E262D4C1-99BE-496B-8567-0291C14E6533 flow=radiant-1-4-segundo-dia maestro=2.7.0 head=cc67243
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant"... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Tap on "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$"... COMPLETED
+Assert that "Passo 1 de 4" is visible... COMPLETED
+Assert that "Retome rapidamente o conceito central antes de seguir adiante." is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "Revisão concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Concluído\.$" is visible... FAILED
+
+Assertion is false: "^Revisar Fundamentos de Radiologia\. Concluído\.$" is visible
+
+Assertion '"^Revisar Fundamentos de Radiologia\. Concluído\.$" is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/.maestro/tests/2026-10-18_125257
+exit=1
+fim 2026-10-18T12:55:05-0300

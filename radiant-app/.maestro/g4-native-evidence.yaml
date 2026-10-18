@@ -1,0 +1,111 @@
+appId: com.ascendcreative.radiant
+name: G4 — prova nativa da revisão com resposta antes do gabarito
+tags:
+  - g4-evidence
+  - requires-review-fixture
+---
+# Pré-requisito: L1 concluída por um roteiro real e os três cartões dela vencidos
+# por `docs/evidence/2026-10-18-main-pronta-para-build/preparar-revisao-devida.py`,
+# com o app parado, num simulador descartável. A fixture escalona o vencimento na
+# ordem do itemId, então a sessão traz q1, q2 e q3 da L1, nessa ordem.
+# Cada item exercita um caminho do G4: acerto, erro e ajuda. As capturas saem com
+# nome simples, porque caminho relativo para fora da pasta de artefatos falhou
+# na FILA 58.
+- launchApp
+- runFlow: subflows/dismiss-dev-client.yaml
+- openLink:
+    link: radiantapp://review
+- assertVisible: Revisão
+- scrollUntilVisible:
+    element: Começar revisão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Começar revisão
+- assertVisible: Sessão ativa
+# Item 1 (q1, certa na posição 1): a pergunta chega sem gabarito e sem seleção.
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: g4-01-sessao-ativa
+- scrollUntilVisible:
+    element:
+      id: review-option-1
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: review-option-1
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: g4-02-alternativa-selecionada
+- scrollUntilVisible:
+    element: Confirmar resposta
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Confirmar resposta
+- assertVisible: Resposta correta
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: g4-03-resposta-correta
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Continuar
+# Item 2 (q2, certa na posição 2): a posição 0 é um erro.
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: review-option-0
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: review-option-0
+- scrollUntilVisible:
+    element: Confirmar resposta
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Confirmar resposta
+- assertVisible: Vamos revisar este ponto
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: g4-04-resposta-errada
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Continuar
+# Item 3 (q3): a ajuda mostra a resposta sem passar por uma alternativa.
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element: Ver resposta com ajuda
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Ver resposta com ajuda
+- assertVisible: Resposta consultada
+- waitForAnimationToEnd:
+    timeout: 2000
+- takeScreenshot: g4-05-resposta-com-ajuda
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn: Continuar
+- assertVisible: Sessão concluída
+- scrollUntilVisible:
+    element: Resultado da sessão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- assertVisible: '3 concluídos nesta rodada'
+- takeScreenshot: g4-06-sessao-concluida

@@ -1,0 +1,224 @@
+inicio 2026-10-18T12:18:21-0300
+udid=E262D4C1-99BE-496B-8567-0291C14E6533 flow=reward-unlock maestro=2.7.0 head=cc67243
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow Reward unlocks only after the last lesson of the track
+Launch app "com.ascendcreative.radiant" with clear state... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... COMPLETED
+    Assert that (Optional) "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible...
+    Tap on "Continue"... COMPLETED
+  Run flow when "This is the developer menu\. .*" is visible... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible...
+    Tap on "Close"... COMPLETED
+  Run flow when "(?i:connected to:?)" is visible... COMPLETED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Run subflows/dismiss-first-run.yaml...
+  Run flow when "Pular apresentação" is visible...
+    Tap on "Pular apresentação"... COMPLETED
+  Run flow when "Pular apresentação" is visible... COMPLETED
+Run subflows/dismiss-first-run.yaml... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Open radiantapp://learn?nodeId=node%3Alesson-1&blockId=block%3Alesson-1%3Aintro... COMPLETED
+Run flow when "Abrir com “Radiant”\?" is visible...
+Run flow when "Abrir com “Radiant”\?" is visible... SKIPPED
+Assert that "Fundamentos de Radiologia" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Princípios de Tomografia Computadorizada" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Ideia-chave" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Na tomografia computadorizada, o que representa um voxel\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura costuma apresentar atenuação mais baixa na TC sem contraste\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q2:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q2:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "A principal vantagem da TC em relação à radiografia simples é:" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ct-q3:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ct-q3:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Quiz: Profissão e atuação do técnico em radiologia" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual órgão regulamenta o exercício da profissão de técnico em radiologia no Brasil\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual das seguintes atividades está dentro das atribuições do técnico em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Quiz: Energia e matéria" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Como a energia de um fóton de raios X se relaciona com sua frequência\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:energia-e-materia:q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:energia-e-materia:q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual tecido absorve MAIS energia de raios X, produzindo a região mais clara na imagem\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:energia-e-materia:q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:energia-e-materia:q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Quiz: Estrutura da matéria e núcleo atômico" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que diferencia dois isótopos de um mesmo elemento químico\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual partícula do átomo determina o elemento químico ao qual ele pertence\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Quiz: Radioatividade, partículas e atividade" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual tipo de radiação possui MENOR poder de penetração nos tecidos\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Se um radioisótopo tem atividade inicial de 1000 MBq e meia-vida de 2 horas, qual será sua atividade após 6 horas\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q2:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q2:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Continuar jornada"... COMPLETED
+Assert that "Quiz: Raios X: descoberta e propriedades" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Quem descobriu os raios X e em que ano\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual propriedade dos raios X é diretamente responsável pela formação da imagem radiológica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "A lição foi concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that id: journey-trail is visible... COMPLETED
+Scrolling UP until "^.+\. \d+ de \d+ etapas concluídas\.$" is visible with speed 40, visibility percentage 100%, timeout 120000 ms, with centering disabled... COMPLETED
+Assert that "^.+\. \d+ de \d+ etapas concluídas\.$" is visible... COMPLETED
+Scrolling DOWN until id: journey-recommendation-action is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "Receber conquista"... COMPLETED
+Assert that "Conquista da unidade" is visible... COMPLETED
+Repeat while "Pronta para ser coletada" is not visible (up to 10 times)...
+Repeat while "Pronta para ser coletada" is not visible (up to 10 times)... SKIPPED
+Assert that "Pronta para ser coletada" is visible... COMPLETED
+Assert that "7 de 8 marcos da unidade concluídos" is visible... COMPLETED
+Repeat while "Pronto para coletar essa conquista\?" is not visible (up to 10 times)...
+  Scroll vertically... COMPLETED
+Repeat while "Pronto para coletar essa conquista\?" is not visible (up to 10 times)... COMPLETED
+Assert that "Pronto para coletar essa conquista\?" is visible... COMPLETED
+Assert that "Receber conquista" is visible... COMPLETED
+Tap on "Receber conquista"... COMPLETED
+Assert that "Conquista registrada" is visible... COMPLETED
+Assert that "Salva no seu progresso" is visible... COMPLETED
+Assert that "8 de 8 marcos da unidade concluídos" is visible... COMPLETED
+exit=0
+fim 2026-10-18T12:32:23-0300
