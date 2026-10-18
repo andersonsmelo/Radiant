@@ -193,12 +193,31 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Correção:** reconciliar por `(lessonId, itemId)`. O item herda só a
     agenda, nunca a evidência. O teste novo exige diferença **e** validade e
     precisa ser visto falhando no código atual.
-    **Dono:** decide se a mudança material reinicia o intervalo ou o
-    preserva. A análise de 2026-10-17 que atribuía o A1 a um
+    **Decidido por Anderson em 2026-10-18: preserva a data**
+    ([ADR](adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md)). Está
+    pronto para execução e pode correr em paralelo com o 58. A análise de 2026-10-17 que atribuía o A1 a um
     `CompletionLedgerService` foi retirada: esse arquivo não existe
     ([revisão do Argon, B2/B3](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md)).
     [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
     [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
+  - **58.** agente (Codex, com revisão do Claude): **motor da lição híbrida nas
+    lições legadas**, com o conteúdo que já existe. Escolhido por Anderson em
+    2026-10-18 ([ADR](adr/ADR-2026-10-18-motor-hibrido-nas-licoes-legadas.md)).
+    O escopo:
+    - todas as 2 ou 3 perguntas de cada lição, em vez de uma;
+    - feedback com a opção marcada logo após cada resposta;
+    - o item errado volta no fim;
+    - primeiro contato sem custo de vida;
+    - sem o passo "Ideia-chave" de molde;
+    - "Refazer" no resumo;
+    - régua de estrelas para N perguntas, proposta pelo Codex e aprovada pelo
+      dono.
+
+    Especificação, quem é afetado (8 roteiros Maestro) e critérios de pronto no
+    [plano](trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md). O prompt
+    está em [`trilha/PROMPT-CODEX-2026-10-18.md`](trilha/PROMPT-CODEX-2026-10-18.md).
+    **Fora:** conteúdo novo, variantes e imagens. Os 10 a 15 itens da ADR de
+    2026-09-23 dependem da FILA 45;
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
     trabalho G0–G4 do Codex está em cinco commits na branch
     `feat/trilha-evolucao-global-g0-g4`, com a

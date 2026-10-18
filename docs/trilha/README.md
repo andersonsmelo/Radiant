@@ -6,6 +6,20 @@ ou IA que entre no projeto entenda o trabalho em poucos minutos e possa somar a
 ele. **Contribuições são bem-vindas, inclusive as que discordam do que está
 aqui.**
 
+## Próximo passo — 2026-10-18
+
+Anderson decidiu três coisas, depois de avaliar no simulador o estado
+integrado das PRs #39 e #40:
+- o próximo pacote é o **motor da lição híbrida nas lições legadas** (FILA 58),
+  executado pelo Codex com revisão do Claude;
+- no A1, a versão nova **preserva a data** de revisão;
+- nas lições com várias perguntas, **o primeiro contato não custa vida**.
+
+[Plano do pacote](plano/2026-10-18-pacote-motor-hibrido-na-licao.md) ·
+[prompt do Codex](PROMPT-CODEX-2026-10-18.md) ·
+[ADR do motor](../adr/ADR-2026-10-18-motor-hibrido-nas-licoes-legadas.md) ·
+[ADR do A1](../adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md).
+
 ## Revisão e coordenação — 2026-10-17, Claude Opus 5.5
 
 A partir de 2026-10-17, o Claude revisa as entregas e coordena as IAs, a pedido
