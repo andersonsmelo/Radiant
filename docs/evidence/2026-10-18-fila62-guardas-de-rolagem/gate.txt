@@ -1,0 +1,22 @@
+FILA 62 — gate completo, extrato do log
+$ cd radiant-app && EXPO_NO_DOTENV=1 caffeinate -i npm run quality
+node v20.20.2 em 2304c94 + diff da FILA 62, 2026-10-18 18:11 -0300
+
+-- contrato do Maestro (node --test):
+# tests 34
+# pass 34
+# fail 0
+
+-- lint:
+✖ 27 problems (0 errors, 27 warnings)
+   (nenhum aviso em scripts/maestro-contract.test.mjs: o nome do arquivo aparece no log só na linha do script npm)
+
+-- jest --runInBand:
+Test Suites: 174 passed, 174 total
+Tests:       1787 passed, 1787 total
+Snapshots:   1 passed, 1 total
+
+-- visual:qa:strict:
+Found 60 issues: 0 regressions, 57 baselined, 3 scoped exceptions.
+
+exit=0

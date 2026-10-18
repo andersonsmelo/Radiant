@@ -334,14 +334,6 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
     por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
     escolher o caminho depois da medição;
-  - **62.** agente: **dois roteiros que rolam estão fora das guardas de rolagem
-    do contrato do Maestro.** O `review-due.yaml` e o
-    `hybrid-native-evidence.yaml` usam `scrollUntilVisible`, mas não estão nas
-    listas de `scripts/maestro-contract.test.mjs` que exigem
-    `visibilityPercentage` e proíbem rolagem aninhada. Achado em 2026-10-18 pelo
-    Claude, ao tratar a revisão do Codex na PR #48. Incluir os dois e ver cada guarda falhar com o
-    defeito que nomeia. O G4 fica fora da lista da espera por `assertVisible`,
-    por decisão do dono;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,

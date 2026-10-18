@@ -3371,3 +3371,26 @@ build, publicação, commit, push ou merge. Árvore compartilhada preservada.
 > **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 > em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
 > e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.
+
+## Arquivado em 2026-10-18 — STATUS antes da FILA 62
+
+Trechos do STATUS que deixaram de valer com o merge da PR #50 e a FILA 62, movidos sem edição.
+
+**Remedido em 2026-10-18,** na branch `claude/r6-store-revisao`, já com a `main`
+das PRs #47 a #49: o `loop validate` do run `run-1792355528928-015db1b9` deu
+**15/15**, com o `app-quality` (`npm run quality`) aprovado. No `9c107b6`, com o
+mesmo código do app, o `EXPO_NO_DOTENV=1 npx jest --runInBand` deu **174 suítes
+e 1.787 testes**, e a API, 14 testes. A contagem é do Jest em banda única, e não do log do gate.
+É validação local. O CI da `main` em `b59e216` passou pela PR #48.
+Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
+
+**Na `main` em `b59e216` (medido em 2026-10-18, às 17 h), sem build nova:** a loja segue
+
+**Feitos em 2026-10-18 na branch `claude/r6-store-revisao`, proposta na PR do
+dia:** o A3 (quarentena do registro inválido) e o A4 (agregado legado), na seção
+abaixo; o R8 (README curto da trilha); e o C1 (contrato de conteúdo). Cada um
+tem evidência própria em `evidence/2026-10-18-*`.
+
+**Worktrees, medidas em 2026-10-18 às 17 h:** a `zealous-shannon-01c8e3` foi
+
+- `r6-store-revisao`, a branch das entregas de 2026-10-18 (R6, A4, R8 e C1).

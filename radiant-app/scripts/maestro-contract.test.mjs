@@ -33,6 +33,9 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'radiant-1-4-vidas-esgotadas.yaml',
   // Rola até cada botão da sessão de revisão do G4 (FILA 59, 2026-10-18).
   'g4-native-evidence.yaml',
+  // Rolavam fora da lista até a FILA 62 (2026-10-18), e as guardas não os liam.
+  'review-due.yaml',
+  'hybrid-native-evidence.yaml',
 ];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
@@ -713,6 +716,39 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
   }
 });
 
+test('lists exactly the flows that scroll until an element is visible', async () => {
+  // A lista acima é explícita por decisão, mas uma lista à mão esquece. Em
+  // 2026-10-18, `review-due` e `hybrid-native-evidence` rolavam e estavam fora
+  // dela, e as duas guardas abaixo passavam sem ler esses roteiros: com o
+  // `visibilityPercentage` apagado ou a rolagem aninhada sob um `runFlow when`,
+  // o contrato continuava verde (FILA 62). Esta guarda não decide quem entra;
+  // ela reprova quando um roteiro que rola ficou de fora, e quando a lista cita
+  // um roteiro que não rola mais.
+  const scrolling = [];
+  for (const name of await listMaestroFlows()) {
+    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
+    if (lines.some((line) => /scrollUntilVisible:/.test(line) && !/^\s*#/.test(line))) {
+      scrolling.push(name);
+    }
+  }
+
+  assert.ok(scrolling.length > 0, 'expected at least one Maestro flow to use scrollUntilVisible');
+
+  const missing = scrolling.filter((name) => !MAESTRO_FLOWS_WITH_SCROLL.includes(name));
+  assert.deepEqual(
+    missing,
+    [],
+    `${missing.join(', ')} use scrollUntilVisible but are missing from MAESTRO_FLOWS_WITH_SCROLL — the scroll guards only read the flows listed there`
+  );
+
+  const stale = MAESTRO_FLOWS_WITH_SCROLL.filter((name) => !scrolling.includes(name));
+  assert.deepEqual(
+    stale,
+    [],
+    `${stale.join(', ')} are listed in MAESTRO_FLOWS_WITH_SCROLL but no longer use scrollUntilVisible`
+  );
+});
+
 test('makes every scroll-until-visible state the visibility bar it is measured by', async () => {
   // O Maestro exige 100% de visibilidade por PADRÃO, e nenhum flow declarava
   // isso. Em 2026-08-06 o `reward-unlock` falhou no Android em
@@ -763,18 +799,11 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
   // Atenção: isto NÃO proíbe `repeat ... while: notVisible` sobre os CTAs de
   // rodapé — esses são exigidos pelo teste de alcançabilidade acima e não
   // envolvem `scrollUntilVisible`.
-  for (const name of [
-    'learning-critical-path.yaml',
-    'offline-relaunch.yaml',
-    'store-capture.yaml',
-    'rating-prompt.yaml',
-    'reward-locked.yaml',
-    'reward-unlock.yaml',
-    'radiant-1-4-primeira-execucao.yaml',
-    'radiant-1-4-segundo-dia.yaml',
-    'radiant-1-4-vidas-esgotadas.yaml',
-    'g4-native-evidence.yaml',
-  ]) {
+  //
+  // Até 2026-10-18 esta guarda tinha a sua própria lista, com 10 dos 17 flows
+  // que rolam. Os sete de fora podiam aninhar a rolagem sem reprovar (FILA 62).
+  // Ela lê a mesma lista da guarda acima, que a de completude mantém exata.
+  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 
     lines.forEach((line, index) => {

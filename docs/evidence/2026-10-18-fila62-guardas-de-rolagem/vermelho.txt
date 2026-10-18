@@ -1,0 +1,23 @@
+FILA 62 — passo vermelho da guarda de completude
+Guarda nova escrita, MAESTRO_FLOWS_WITH_SCROLL ainda como na main 2304c94 (15 roteiros).
+Saída TAP do node --test, sem as linhas de duração e local.
+
+=== Passo A — guarda de completude escrita, lista ainda como na main (2304c94)
+$ node --test --test-reporter=tap scripts/maestro-contract.test.mjs   (Node v20.20.2)
+exit=1
+not ok 21 - lists exactly the flows that scroll until an element is visible
+  ---
+  failureType: 'testCodeFailure'
+  error: |-
+    hybrid-native-evidence.yaml, review-due.yaml use scrollUntilVisible but are missing from MAESTRO_FLOWS_WITH_SCROLL — the scroll guards only read the flows listed there
+    + actual - expected
+    
+    + [
+    +   'hybrid-native-evidence.yaml',
+    +   'review-due.yaml'
+    + ]
+    - []
+  code: 'ERR_ASSERTION'
+# tests 34
+# pass 33
+# fail 1
