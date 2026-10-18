@@ -27,6 +27,13 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
+**Desde 2026-10-18, o Claude planeja e executa**, e Codex e Argon estão em pausa
+([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O que foi feito de
+16 a 18/10 está no
+[levantamento](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada
+da próxima sessão é o
+[prompt (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+
 ## Política de decisão
 
 O agente **decide por padrão** e executa. Escalam ao dono apenas:
@@ -137,8 +144,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
   - **49.** ✅ **Feito em 2026-10-18**, pelo agente, na branch
     `feat/e1-animacao-desligavel`: o argumento de lançamento
-    `-radiantReduceMotion 1` liga "Reduzir movimento" no app, e os 22
-    `launchApp` dos 17 roteiros o passam. O `reward-unlock` caiu de 18 min 10 s
+    `-radiantReduceMotion 1` liga "Reduzir movimento" no app, e os 24
+    `launchApp` dos 18 roteiros o passam (contagem do YAML depois do merge da
+    #48, com o roteiro do G4). O `reward-unlock` caiu de 18 min 10 s
     para 3 min 48 s, e a tentativa de rolagem caiu de 8–11 s para 2,3–3,7 s.
     **O critério de menos de 2 s não foi atingido.** O que resta é a
     desaceleração da própria lista. O E1 também revelou um toque que caía sob
@@ -146,11 +154,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     recomendação. Só iOS. A [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md)
     traz o vermelho, as injeções e os tempos. No mesmo dia, a bateria padrão
     passou 7 de 7 com o argumento. Não rodaram:
-    - o `radiant-1-4-segundo-dia`, que só pode rodar a partir de 2026-10-19
-      14:49;
+    - o `radiant-1-4-segundo-dia`, que já leva o argumento e roda no dia 2 da
+      FILA 59;
     - os roteiros que exigem preparo prévio dos dados.
 
-    Na [PR #49](https://github.com/andersonsmelo/Radiant/pull/49), aberta; o merge é do dono;
+    Integrado na `main` em 2026-10-18 pela
+    [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`);
   - **50.** agente: **P1, a lição legada honesta — parcial, na
     [PR #40](https://github.com/andersonsmelo/Radiant/pull/40), em 2026-10-17.**
     Já feito (Argon, com correções do Claude):
@@ -160,8 +169,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - resumo de 0 estrela sem celebração, com faixa neutra e Pixel de orientação.
       O subtítulo continua "A lição foi concluída", porque a lição de 0 estrela
       conta como concluída na trilha.
-    **Ainda aberto:** o D1 do diagnóstico, uma só pergunta por lição
-    (`buildIntroBlock`), e o viés de comprimento: a certa é a mais longa em
+    **Atualização de 2026-10-18:** o D1, uma só pergunta por lição, foi
+    resolvido com o conteúdo que existe pelo motor híbrido (FILA 58): a lição
+    usa as 2 ou 3 perguntas que tem. Os 10 a 15 itens dependem da FILA 45.
+    **Ainda aberto:** o viés de comprimento: a certa é a mais longa em
     18/32 perguntas do `AI_LESSONS`, 19 com empates. Na tela, só o título da
     trilha foi visto no simulador; o reforço e o resumo de 0 estrela, não.
     [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) ·
@@ -195,6 +206,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     de 2.344 para 796 palavras, com mapa dos 28 arquivos da pasta e o texto
     antigo num anexo. O `docs-contract` agora reprova arquivo da pasta fora do
     mapa ([evidência](evidence/2026-10-18-r8-readme-da-trilha.md)).
+    **Atualização de 2026-10-18 (Claude, FILA 59):** a prova nativa do G4 foi
+    feita no simulador iOS. Foram exercitados seleção, confirmação, acerto,
+    erro, ajuda e o resumo, com seis capturas versionadas com hash
+    ([relatório](evidence/2026-10-18-main-pronta-para-build.md#as-capturas-do-g4)).
+    O R5 fica cumprido no iOS. Seguem abertos Android, VoiceOver, G6 e G7.
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na
@@ -212,8 +228,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
     `delayed-retention`; esse critério requer validação pedagógica e decisão.
     **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
-    Próximo: QA nativo das interações do G4, Android, performance G6 e
-    recuperação/backup/reset G7.
+    **Visto no simulador iOS em 2026-10-18 (Claude), sem capturas
+    versionadas:** com 7 itens vencidos, a revisão mostrou a seleção, a
+    confirmação, o feedback do erro em rosa, "Ver resposta com ajuda" com o
+    feedback âmbar e a passagem ao item seguinte. Faltam capturas versionadas.
+    Próximo: capturas versionadas do G4, Android, performance G6,
+    recuperação/backup/reset G7 e capacidade do store (A2 e A3).
     **Remedir:** comandos dos relatórios; gate/estado no run
     `run-1792269695725-1c4f438c`.
   - **55.** ✅ **Feito em 2026-10-18**: PR #45 mergeada na `main` a pedido de
@@ -264,6 +284,23 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     está em [`trilha/PROMPT-CODEX-2026-10-18.md`](trilha/PROMPT-CODEX-2026-10-18.md).
     **Fora:** conteúdo novo, variantes e imagens. Os 10 a 15 itens da ADR de
     2026-09-23 dependem da FILA 45;
+  - **59.** agente: **preparar a `main` para uma build**, o item 1 da §4 do
+    prompt (19). **Estado em 2026-10-18:** 6 dos 7 roteiros passaram
+    nativamente, e as capturas do G4 estão versionadas com hash
+    ([relatório](evidence/2026-10-18-main-pronta-para-build.md)). O
+    `store-capture` e o `radiant-1-4-segundo-dia` estavam desatualizados e
+    foram corrigidos. Nenhum defeito do app apareceu. A prova do G4 rodou sem
+    o argumento do E1; depois do merge da #49, o roteiro passou a lançar com
+    ele, como o contrato exige, e não foi reexecutado.
+    **Falta:** o dia 2 do caminho 2 com relógio real. O dia 1 rodou às 12:45 de
+    2026-10-18 no simulador `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` ("Radiant
+    E2E dia 2 (2026-10-18)"). A partir de **2026-10-19, 12:45 (−03)**, sem
+    `clearState` no meio, ligue o simulador, instale o mesmo dev client, suba o
+    Metro com o perfil `e2e-test` e rode
+    `maestro --device 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 test .maestro/radiant-1-4-segundo-dia.yaml`,
+    num run próprio.
+    **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
+    Anderson;
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
     trabalho G0–G4 do Codex está em cinco commits na branch
     `feat/trilha-evolucao-global-g0-g4`, com a

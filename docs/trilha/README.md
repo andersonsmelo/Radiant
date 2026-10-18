@@ -6,6 +6,11 @@ XP, sequência e vidas, e o dono a definiu como o investimento principal do
 produto. Esta página se lê em cinco minutos. O que veio antes, seção por seção e
 com data, está no [histórico](historico.md).
 
+**Comece pelo [levantamento de 16 a 18/10](2026-10-18-levantamento-do-que-foi-feito.md)**,
+que traz as PRs, as decisões e o que ficou aberto, e pelo
+[prompt de continuidade (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md),
+a entrada da próxima sessão.
+
 **Contribuições são bem-vindas, inclusive as que discordam do que está aqui.**
 
 ## Direção
@@ -22,6 +27,9 @@ com data, está no [histórico](historico.md).
 - **A revisão é por item.** O item é respondido antes de o gabarito aparecer, e
   uma versão nova de conteúdo preserva a data
   ([ADR do A1](../adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md)).
+- **O Claude planeja e executa** desde 2026-10-18, e Codex e Argon estão em
+  pausa ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)). Os
+  prompts para eles, no mapa abaixo, viraram histórico.
 - **Decisões que não se reabrem:** a
   [composição em várias unidades](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)
   e a [revisão paralela com lembrete](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md).
@@ -44,15 +52,18 @@ Todo arquivo da pasta está aqui. O `docs-contract` reprova um arquivo novo que
 não entre neste mapa.
 
 **Entrada e prompts**
+- [`2026-10-18-levantamento-do-que-foi-feito.md`](2026-10-18-levantamento-do-que-foi-feito.md):
+  o levantamento de 16 a 18/10, com o estado de cada achado.
 - [`historico.md`](historico.md): este README até 2026-10-18, com o índice
   consolidado das entregas G0–G4.
 - [`PROMPT-PARA-IAS.md`](PROMPT-PARA-IAS.md): contexto pronto para colar em
   outra IA.
-- [`PROMPT-ARGON.md`](PROMPT-ARGON.md): o norte que guiou o Argon (Gemini).
-- [`PROMPT-GEMINI.md`](PROMPT-GEMINI.md): o primeiro brief do Gemini, só de
-  pesquisa. Foi substituído pelo do Argon.
-- [`PROMPT-CODEX-2026-10-18.md`](PROMPT-CODEX-2026-10-18.md): o pacote do motor
-  híbrido para o Codex (FILA 58).
+- Históricos, porque Codex e Argon estão em pausa:
+  - [`PROMPT-ARGON.md`](PROMPT-ARGON.md), o norte que guiou o Argon (Gemini);
+  - [`PROMPT-GEMINI.md`](PROMPT-GEMINI.md), o primeiro brief do Gemini, só de
+    pesquisa, substituído pelo do Argon;
+  - [`PROMPT-CODEX-2026-10-18.md`](PROMPT-CODEX-2026-10-18.md), o pacote do
+    motor híbrido para o Codex (FILA 58).
 
 **Pesquisas** (`pesquisas/`)
 - [Trilhas gamificadas e educação em radiologia](pesquisas/2026-10-16-benchmark-trilhas-gamificadas.md):

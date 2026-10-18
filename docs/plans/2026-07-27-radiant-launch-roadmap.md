@@ -26,7 +26,13 @@ dentro do roadmap e foi movida, sem edição, para
 O roadmap guarda o plano: objetivo, estratégia, marcos e o estado de cada task
 nas ondas abaixo.
 
-**FILA 58 — 2026-10-18:** motor híbrido nas lições legadas implementado como
+**Trilha — 2026-10-18:** a FILA 58 (motor híbrido, PRs #42 e #43) e a FILA 55
+(A1, PR #45) estão **feitas e na `main`**, ainda sem build de loja. O período
+está no [levantamento](../trilha/2026-10-18-levantamento-do-que-foi-feito.md).
+Desde 18/10, o Claude planeja e executa
+([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)).
+
+**FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como
 candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
 [especificação](../trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md) e a
 [evidência](../evidence/2026-10-18-motor-hibrido.md) definem escopo e prova; o

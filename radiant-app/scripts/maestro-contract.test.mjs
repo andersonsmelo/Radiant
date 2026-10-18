@@ -31,6 +31,8 @@ const MAESTRO_FLOWS_WITH_SCROLL = [
   'radiant-1-4-primeira-execucao.yaml',
   'radiant-1-4-segundo-dia.yaml',
   'radiant-1-4-vidas-esgotadas.yaml',
+  // Rola até cada botão da sessão de revisão do G4 (FILA 59, 2026-10-18).
+  'g4-native-evidence.yaml',
 ];
 
 // As chaves do Maestro que recebem um SELETOR — todas casam por regex de
@@ -771,6 +773,7 @@ test('never lets a scroll-until-visible hide behind a visibility guard', async (
     'radiant-1-4-primeira-execucao.yaml',
     'radiant-1-4-segundo-dia.yaml',
     'radiant-1-4-vidas-esgotadas.yaml',
+    'g4-native-evidence.yaml',
   ]) {
     const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
 

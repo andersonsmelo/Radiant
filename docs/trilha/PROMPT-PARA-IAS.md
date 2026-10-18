@@ -1,5 +1,10 @@
 # Contexto e continuidade para outra IA
 
+> **Histórico, não usar.** Substituído em 2026-10-18 pelo
+> [prompt de continuidade (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+> Desde essa data o Claude planeja e executa, e Codex e Argon estão em pausa
+> ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)).
+
 **Consolidação:** 2026-10-17, America/Bahia.  
 **Autoria:** OpenAI Codex, família GPT-6; variante exata não exposta.  
 **Método:** inventário dos relatórios/pesquisas e conferência de Git/runs locais.
