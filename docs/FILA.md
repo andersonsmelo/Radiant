@@ -144,7 +144,13 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     desaceleração da própria lista. O E1 também revelou um toque que caía sob
     o HUD depois do centramento, consertado nos três roteiros que tocam a
     recomendação. Só iOS. A [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md)
-    traz o vermelho, as injeções e os tempos;
+    traz o vermelho, as injeções e os tempos. No mesmo dia, a bateria padrão
+    passou 7 de 7 com o argumento. Não rodaram:
+    - o `radiant-1-4-segundo-dia`, que só pode rodar a partir de 2026-10-19
+      14:49;
+    - os roteiros que exigem preparo prévio dos dados.
+
+    Na [PR #49](https://github.com/andersonsmelo/Radiant/pull/49), aberta; o merge é do dono;
   - **50.** agente: **P1, a lição legada honesta — parcial, na
     [PR #40](https://github.com/andersonsmelo/Radiant/pull/40), em 2026-10-17.**
     Já feito (Argon, com correções do Claude):
@@ -249,7 +255,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     2026-10-16 foi fechado sem gravar nada, e o trabalho foi refeito a partir
     da `origin/main` (`cc67243`). Os conflitos com a árvore principal sumiram.
     Ver o 49;
-  - **59.** dono decide: **aceitar os 3,3 s por tentativa de rolagem do E1 ou
+  - **60.** dono decide: **aceitar os 3,3 s por tentativa de rolagem do E1 ou
     ir atrás dos menos de 2 s do plano.** O resto é a desaceleração da lista
     depois de cada deslize, ~2,5 s. Os dois caminhos têm custo:
     - `waitToSettleTimeoutMs` nos roteiros arrisca ler a posição antes de a

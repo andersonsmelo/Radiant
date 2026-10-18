@@ -55,9 +55,12 @@ function frame(screen: ReturnType<typeof render>) {
  * à preferência do sistema responder: um argumento que só valesse depois dela
  * deixaria a animação começar.
  */
-function distinctFramesOverTime(screen: ReturnType<typeof render>) {
+function distinctFramesOverTime(
+  screen: ReturnType<typeof render>,
+  steps: number[] = [700, 1900, 3100, 6300],
+) {
   const frames = [frame(screen)];
-  for (const step of [700, 1900, 3100, 6300]) {
+  for (const step of steps) {
     act(() => {
       jest.advanceTimersByTime(step);
     });
@@ -110,11 +113,14 @@ describe('argumento de lançamento que desliga o movimento (E1)', () => {
     expect(distinctFramesOverTime(screen)).toBeGreaterThan(1);
   });
 
+  // Oito peças e um passo de 700 ms: cada peça começa a cair em até 600 ms.
+  // Quarenta peças por 12 s custavam ~7 s de Jest em cada gate (achado da
+  // revisão da PR #49).
   it('sem o argumento, o confete roda', () => {
-    const screen = render(<Confetti count={40} />);
+    const screen = render(<Confetti count={8} />);
 
-    expect(animatedNodes(screen)).toHaveLength(40);
-    expect(distinctFramesOverTime(screen)).toBeGreaterThan(1);
+    expect(animatedNodes(screen)).toHaveLength(8);
+    expect(distinctFramesOverTime(screen, [700])).toBeGreaterThan(1);
   });
 
   // O Maestro 2.7 lança `-chave true` sem o `-` quando o valor é booleano, e o

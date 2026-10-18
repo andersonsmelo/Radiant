@@ -715,9 +715,12 @@ No `reward-unlock`, no simulador iOS e sobre a `main` em `cc67243`, o roteiro
 inteiro caiu de 18 min 10 s para 3 min 48 s. A tentativa de rolagem até o
 cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
 **não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
-FILA 59. Os outros 16 roteiros não foram executados com o argumento.
+FILA 60. A bateria padrão passou 7 de 7 com o argumento, no mesmo dia. Não
+rodaram o `radiant-1-4-segundo-dia` (só a partir de 2026-10-19 14:49),
+`rating-prompt`, `review-due`, os `student-checkpoint-*`, `store-capture` e
+`hybrid-native-evidence`.
 
 O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
 jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
-Branch `feat/e1-animacao-desligavel`, sem push.
+Na [PR #49](https://github.com/andersonsmelo/Radiant/pull/49), aberta em 2026-10-18 com o CI verde; o merge é do dono.
 [Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).

@@ -52,6 +52,12 @@ Os casos de validade passaram já no vermelho: sem argumento, o mesmo arnês vê
 o fundo animar e o confete rodar. Depois do conserto: **34/34** em
 `src/ui/accessibility` mais `StarfieldBackground.test.tsx`.
 
+A revisão da PR #49 apontou o custo do caso de validade do confete: 40 peças
+simuladas por 12 s. A revisão estimou o arquivo em 62 s, mas a medida aqui deu
+13 s, dos quais 7 s eram esse caso. Ele passou a usar 8 peças e um passo de
+700 ms, o bastante porque toda peça começa a cair em até 600 ms. Continua
+vendo a animação. O arquivo caiu para 4,4 s.
+
 ## Contrato, visto falhando por injeção
 
 `radiant-app/.maestro/artifacts/e1/injecoes.py` troca uma âncora única, roda
@@ -133,6 +139,29 @@ faz quando o botão já está na faixa, e desfaz o excesso fora dela. São 9 pon
 O contrato passou a exigir a sequência. Na 2ª execução "depois", ela agiu
 exatamente uma vez: na 3ª lição, o botão foi a `y=92` e voltou a `y=603`.
 
+## Bateria padrão com o argumento
+
+Rodada em 2026-10-18 por uma sessão à parte, no mesmo simulador e com o código
+desta branch (`8114401`). O Metro rodou em modo CI e serviu as 7 variáveis do
+perfil e2e-test. Os 7 roteiros passaram, sem nenhum `FAILED` nos logs, e todo
+lançamento registra `-radiantReduceMotion`, inclusive a reabertura do
+`offline-relaunch`.
+
+| Roteiro | Resultado | Duração |
+| --- | --- | --- |
+| `learning-critical-path` | passed | 88 s |
+| `offline-relaunch` | passed | 74 s |
+| `first-run` | passed | 22 s |
+| `boot-to-home` | passed | 19 s |
+| `reward-locked` | passed | 40 s |
+| `radiant-1-4-vidas-esgotadas` | passed | 125 s (o runbook estimava ~8 min) |
+| `radiant-1-4-primeira-execucao` | passed | 38 s |
+
+A volta do centramento passou nos dois roteiros novos, mas não precisou mover
+o botão. No `learning-critical-path`, ele parou dentro da faixa central. No
+`offline-relaunch`, já estava visível, e o roteiro não toca nele. O excesso
+para baixo do HUD continua visto só no `reward-unlock`.
+
 ## Processo: o run que caiu em `needs_human`
 
 O run `run-1792339168008-ef5804f3` validou 15/15 e reprovou no `step finish`
@@ -151,9 +180,14 @@ aberto a partir de uma lista explícita, com a contagem (28) e a igualdade com o
 
 ## Limites
 
-- Só o `reward-unlock` rodou, nas duas pontas. Os outros 16 roteiros ganharam o
-  argumento sem execução. `learning-critical-path` e `offline-relaunch` também
-  ganharam a volta do centramento sem execução.
+- Antes e depois, só o `reward-unlock` foi medido. Da bateria padrão, sete
+  roteiros passaram com o argumento (acima).
+- Não rodaram com o argumento:
+  - o `radiant-1-4-segundo-dia`, que precisa de 24 h de relógio desde o
+    `primeira-execucao` (das 14:49 de 2026-10-18);
+  - `rating-prompt`, `review-due`, os `student-checkpoint-*`, `store-capture`
+    e `hybrid-native-evidence`, que exigem preparo prévio dos dados ou outro
+    ambiente.
 - **Android não foi executado.** Lá o argumento não chega ao app, e o E2E
   continua com a animação.
 - Com o argumento, o E2E roda no ramo de "Reduzir movimento" de todo o app, e

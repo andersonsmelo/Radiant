@@ -3209,3 +3209,11 @@ build, publicação, commit, push ou merge. Árvore compartilhada preservada.
 
 > - **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
 >   árvore ([FILA 57](FILA.md)).
+
+---
+
+### Saído do STATUS em 2026-10-18 (a bateria padrão rodou com o argumento; a branch do E1 subiu na PR #49; a pendência virou FILA 60, porque a 59 é da PR #48)
+
+> FILA 59. Os outros 16 roteiros não foram executados com o argumento.
+
+> Branch `feat/e1-animacao-desligavel`, sem push.
