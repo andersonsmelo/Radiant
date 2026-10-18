@@ -416,6 +416,18 @@ defeito que se queria pegar.
   emulação de tamanho que ficou presa: `resize_window` com `preset: desktop`
   resolve.
 
+### Uma lição de 2026-10-18 (revisão da PR #42)
+
+- **Metro aberto dentro da worktree do run cria `radiant-app/expo-env.d.ts`, e
+  isso derruba o run.** O arquivo é ignorado pelo git, mas o guarda de escopo
+  fotografa o disco. Ele não estava na abertura, apareceu durante o run e o
+  `step finish` devolveu `OUT_OF_SCOPE_CHANGE`, mesmo com `loop validate` 15/15.
+  O run caiu em `needs_human`, de onde nenhum comando público volta a `editing`,
+  e a memória se perdeu. Suba o Metro com `EXPO_NO_TYPESCRIPT_SETUP=1`, como o
+  Codex fez na FILA 58, e confira `ls radiant-app/expo-env.d.ts` antes de
+  validar. Não declare o arquivo: `expo-env.d.ts` está fora de
+  `allowedRoots`, e declará-lo dá `INVALID_SCOPE`.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
