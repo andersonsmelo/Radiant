@@ -6,7 +6,9 @@ tags:
 ---
 # ADR de 2026-10-18: só o erro no retorno custa vida. Sem injeção de estado.
 # A primeira pergunta erra no contato e no retorno; as outras duas acertam.
-# Cinco sessões consomem cinco vidas, uma por sessão; a quinta pausa no feedback.
+# Cinco sessões consomem cinco vidas, uma por sessão; a quinta ainda conclui
+# (ADR de 2026-10-18, régua e última vida). A sexta, sem vidas, faz o primeiro
+# contato e é barrada ao conferir o retorno, antes de a resposta contar.
 - launchApp:
     clearState: true
     permissions:
@@ -385,6 +387,76 @@ tags:
 - assertVisible: Vamos reforçar
 - assertVisible: '0 de 5 vidas'
 - tapOn: Concluir e voltar
+- assertVisible: A lição foi concluída
+- assertVisible: 'Respostas corretas: 2 de 3 corretas'
+- tapOn: Continuar
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 100
+- tapOn: '^Fundamentos de Radiologia\. Concluído\.$'
+- assertVisible: 'Passo 1 de 5'
+- assertVisible: '0 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: Ideia-chave
+- tapOn: Continuar
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Vamos reforçar
+- assertVisible: '0 de 5 vidas'
+- tapOn: Continuar
+- assertVisible: 'Qual estrutura é mais radiopaca em uma radiografia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q2:option:2'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q2:option:2'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: 'O que significa o termo "contraste" em radiologia\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q3:option:1'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q3:option:1'
+- tapOn: Conferir resposta
+- assertVisible:
+    id: lesson-item-feedback
+- assertVisible: Resposta correta
+- tapOn: Continuar
+- assertVisible: Vamos tentar novamente
+- assertVisible: 'Qual é a principal função dos raios-X na radiologia diagnóstica\?'
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-q1:option:0'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- tapOn:
+    id: 'lesson-option-q1:option:0'
+- tapOn: Conferir resposta
 - assertVisible: Suas vidas acabaram
 - assertVisible: '^Próxima vida em \d+ min$'
 - tapOn: Voltar

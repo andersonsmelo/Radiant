@@ -1225,12 +1225,15 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   const heartCommands = await flowCommands(GOLDEN[2]);
   const taps = heartCommands.flatMap(command => command?.tapOn?.id?.startsWith('lesson-option-q1:option:')
     ? [Number(command.tapOn.id.split(':option:')[1])] : []);
-  assert.equal(taps.length, maxHearts * 2, 'first contact and one retry per heart');
+  // Cada vida custa um primeiro contato grátis e um retorno errado. Depois, sem
+  // vidas, uma sessão a mais erra o primeiro contato e é barrada no retorno.
+  assert.equal(taps.length, maxHearts * 2 + 2, 'first contact and one retry per heart, then the blocked session');
   for (const option of taps) {
     assert.ok(Number.isInteger(option) && option >= 0 && option < 4, 'valid answer option');
     assert.notEqual(option, q1Correct, 'both q1 attempts are wrong');
   }
-  assert.equal(heartCommands.filter(command => command.assertVisible === 'Vamos reforçar').length, maxHearts * 2);
+  // O retorno barrado não mostra feedback: a folha toma o lugar dele.
+  assert.equal(heartCommands.filter(command => command.assertVisible === 'Vamos reforçar').length, maxHearts * 2 + 1);
   const emptyTitle = sheet.match(/snapshot\.count === 0 \? '([^']+)'/)?.[1];
   assert.ok(emptyTitle, 'expected HeartsSheet to title the empty state');
   const sheetAt = hearts.indexOf(`- assertVisible: ${emptyTitle}`);
@@ -1289,6 +1292,23 @@ const HYBRID_ANSWER_FLOWS = [
   'student-checkpoint-no-duplicate-effect.yaml',
 ];
 
+// ADR de 2026-10-18 (régua e última vida): a última vida perdida no último
+// retorno conclui a lição; a folha só aparece antes de responder um retorno.
+test('vidas-esgotadas: the last heart lost on the final retry completes the lesson; the next session pauses before the retry counts', async () => {
+  const commands = await flowCommands('radiant-1-4-vidas-esgotadas.yaml');
+  const lastHeart = commands.findIndex((command) => command?.assertVisible === '0 de 5 vidas');
+  assert.ok(lastHeart > 0, 'the flow reaches zero hearts inside a lesson');
+  assert.equal(commands[lastHeart + 1]?.tapOn, 'Concluir e voltar', 'the debit happens on the final retry');
+  assert.equal(commands[lastHeart + 2]?.assertVisible, 'A lição foi concluída', 'losing the last heart still completes');
+  const sheet = commands.findIndex((command) => command?.assertVisible === 'Suas vidas acabaram');
+  assert.ok(sheet > lastHeart + 2, 'the hearts sheet comes in a later session');
+  assert.equal(commands[sheet - 1]?.tapOn, 'Conferir resposta', 'the sheet blocks a retry confirmation');
+  assert.match(String(commands[sheet - 2]?.tapOn?.id), /^lesson-option-/, 'a retry option was chosen before the block');
+  const retryMarker = commands.slice(lastHeart + 2, sheet).findLastIndex((command) => command === 'Vamos tentar novamente'
+    || command?.assertVisible === 'Vamos tentar novamente');
+  assert.ok(retryMarker >= 0, 'the blocked item is a retry, not a first contact');
+});
+
 test('M1-M8 all eight lesson-answer flows exercise every catalog item and its inline feedback', async () => {
   const lessons = await hybridCatalogLessons();
   for (const name of HYBRID_ANSWER_FLOWS) {
@@ -1301,7 +1321,13 @@ test('M1-M8 all eight lesson-answer flows exercise every catalog item and its in
         const itemId = id.slice('lesson-option-'.length).split(':option:')[0];
         answered.push(itemId);
         assert.equal(commands[index + 1]?.tapOn, 'Conferir resposta', `${name}: confirmation for ${itemId}`);
-        assert.deepEqual(commands[index + 2]?.assertVisible, { id: 'lesson-item-feedback' }, `${name}: visible feedback for ${itemId}`);
+        // Só o roteiro de vidas pode encontrar a folha no lugar do feedback: sem
+        // vidas, o retorno é barrado ao conferir, antes de a resposta contar.
+        const blockedRetry = name === 'radiant-1-4-vidas-esgotadas.yaml'
+          && commands[index + 2]?.assertVisible === 'Suas vidas acabaram';
+        if (!blockedRetry) {
+          assert.deepEqual(commands[index + 2]?.assertVisible, { id: 'lesson-item-feedback' }, `${name}: visible feedback for ${itemId}`);
+        }
       }
       if (answered.length > 0 && (commands[index]?.tapOn === 'Concluir e voltar' || commands[index]?.assertVisible === 'Suas vidas acabaram')) {
         const lesson = lessons.find(entry => entry.questions.some(q => q.id === answered[0]));

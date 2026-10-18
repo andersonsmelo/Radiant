@@ -269,13 +269,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
+        // Sem vidas, o bloqueio vem antes de responder um item que custa vida.
+        // Depois do feedback de um débito, seguir é livre: a última vida perdida
+        // no último retorno conclui a lição (ADR de 2026-10-18, régua e última vida).
         const costsHeart = !isReview && (!hybrid || player.isRetry);
         if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
-            setHeartsSheetVisible(true);
-            return;
-        }
-
-        if (costsHeart && hearts.status === 'empty' && player.showingFeedback) {
             setHeartsSheetVisible(true);
             return;
         }
@@ -644,11 +642,13 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                             ) : null}
 
                             {player.showingFeedback && currentInteraction?.type === 'multiple-choice' ? (
-                                <View testID="lesson-item-feedback" accessibilityLiveRegion="polite" style={styles.itemFeedback}
+                                <View testID="lesson-item-feedback" accessibilityLiveRegion="polite"
+                                    style={[styles.itemFeedback, player.lastFeedback?.correct ? styles.itemFeedbackCorrect : styles.itemFeedbackIncorrect]}
                                     onLayout={event => scrollRef.current?.scrollTo({
                                         y: Math.max(0, event.nativeEvent.layout.y - space.s3), animated: false,
                                     })}>
-                                    <Text style={styles.feedbackTitle} accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
+                                    <Text style={[styles.feedbackTitle, player.lastFeedback?.correct ? styles.feedbackTitleCorrect : styles.feedbackTitleIncorrect]}
+                                        accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
                                         {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
                                     </Text>
                                     <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
@@ -772,7 +772,13 @@ const styles = StyleSheet.create({
         gap: space.s2, padding: space.s3, borderRadius: radius.rMd,
         backgroundColor: semanticColors.galaxy.surfaceElevated,
     },
+    // O tom segue o cartão da revisão G4: borda e título dizem o resultado, e o
+    // texto continua em `textPrimary` para manter o contraste do corpo.
+    itemFeedbackCorrect: { borderWidth: 1, borderColor: semanticColors.galaxy.statusSuccess },
+    itemFeedbackIncorrect: { borderWidth: 1, borderColor: semanticColors.galaxy.statusError },
     feedbackTitle: { ...typography.h3, color: galaxyColors.textPrimary },
+    feedbackTitleCorrect: { color: semanticColors.galaxy.statusSuccess },
+    feedbackTitleIncorrect: { color: semanticColors.galaxy.statusError },
     feedbackText: { ...typography.bodyRegular, color: galaxyColors.textPrimary },
     primaryAction: {
         width: '100%',
