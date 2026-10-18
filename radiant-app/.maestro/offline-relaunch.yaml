@@ -4,7 +4,13 @@ tags:
   - offline
   - local-first
 ---
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny
@@ -98,7 +104,9 @@ tags:
 # setAirplaneMode takes enabled/disabled, not a boolean — `true` fails to parse.
 - setAirplaneMode: enabled
 - killApp
-- launchApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 # Num build com dev client, a reabertura para no launcher ("DEVELOPMENT
 # SERVERS"), esperando a escolha do servidor (medido em 2026-09-28). O subflow
 # cobre esse estado; num build de loja ele não aparece.
@@ -118,6 +126,21 @@ tags:
     element:
       id: journey-recommendation-action
     direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
+# Volta do centramento (2026-10-18). O `centerElement` do Maestro 2.7 dá UM
+# deslize fixo (~505 pt num iPhone 17 Pro) quando o centro do botão está a
+# mais de 1/5 da altura do centro da tela, e aceita onde ele parar. Com o
+# centro entre ~611 e ~690 pt, o botão para sob o HUD, ainda "visível" na
+# árvore, e o toque cai no HUD (medido no `reward-unlock`, 3ª lição). A volta
+# para cima não faz nada se o botão já está na faixa central e o devolve à
+# posição anterior, livre do HUD e da barra de abas, se passou.
+- assertVisible:
+    id: journey-recommendation-action
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: UP
     centerElement: true
     visibilityPercentage: 100
 - assertVisible: Continuar jornada

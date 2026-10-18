@@ -5,7 +5,13 @@ tags:
   - active-internal
   - accessibility
 ---
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny
@@ -15,7 +21,9 @@ tags:
 - assertVisible: 'Tela 2 de 3\..*'
 - setAirplaneMode: enabled
 - killApp
-- launchApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 - assertVisible: 'Continuar de onde você parou\?'
 - assertNotVisible: 'Tela 2 de 3\..*'

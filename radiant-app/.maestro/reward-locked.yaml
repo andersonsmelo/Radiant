@@ -22,7 +22,13 @@ tags:
 # Até 2026-08-04 esta tela dizia "Pronta para ser coletada" com 0 de 14 marcos
 # concluídos, e o botão gravava `markNodeCompleted`: dava para colher a conquista
 # da unidade sem estudar nada. As asserções abaixo são a guarda desse defeito.
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     clearState: true
     permissions:
       all: deny
