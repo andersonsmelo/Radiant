@@ -686,6 +686,8 @@ O [relatório e as evidências](evidence/2026-10-18-motor-hibrido.md) registram 
 vermelhos, os gates, as capturas nativas e os limites. A FILA 55 não foi alterada:
 o pacote seguinte continua sendo A1, preservando a data pela ADR de 2026-10-18.
 
+**Na `main` desde 2026-10-18:** PRs #42 e #43 mergeadas a pedido de Anderson; FILA 58 feita.
+
 **Revisão de 2026-10-18 (Claude):** aprovado com ajustes
 ([revisão](trilha/avaliacoes/2026-10-18-revisao-da-pr-42.md)). O gate foi
 reproduzido numa worktree limpa no SHA `f773585`, com os mesmos números. O dono

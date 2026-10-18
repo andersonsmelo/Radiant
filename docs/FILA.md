@@ -200,7 +200,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     ([revisão do Argon, B2/B3](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md)).
     [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
     [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
-  - **58.** agente (Codex, com revisão do Claude): **motor da lição híbrida nas
+  - **58.** ✅ **Feito em 2026-10-18**: PRs #42 (Codex) e #43 (ajustes do
+    Claude) mergeadas na `main` a pedido de Anderson. Agente (Codex, com
+    revisão do Claude): **motor da lição híbrida nas
     lições legadas**, com o conteúdo que já existe. Escolhido por Anderson em
     2026-10-18 ([ADR](adr/ADR-2026-10-18-motor-hibrido-nas-licoes-legadas.md)).
     **Revisado pelo Claude em 2026-10-18: aprovado com ajustes**
@@ -208,8 +210,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     aprovou a régua de estrelas e decidiu que a última vida perdida no último
     retorno conclui a lição
     ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Entrega do
-    Codex na PR #42; ajustes do Claude na branch `claude/pr42-ajustes`. **Fica
-    feito quando as duas entrarem na `main`.** Ficou de fora: limpar
+    Codex na PR #42; ajustes do Claude na PR #43. Ficou de fora: limpar
     `questionIndex` e `reinforceBody` do contrato de conteúdo, na API e no app.
     O escopo:
     - todas as 2 ou 3 perguntas de cada lição, em vez de uma;
