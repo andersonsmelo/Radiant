@@ -11,7 +11,13 @@ tags:
 # Cada item exercita um caminho do G4: acerto, erro e ajuda. As capturas saem com
 # nome simples, porque caminho relativo para fora da pasta de artefatos falhou
 # na FILA 58.
-- launchApp
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 - openLink:
     link: radiantapp://review

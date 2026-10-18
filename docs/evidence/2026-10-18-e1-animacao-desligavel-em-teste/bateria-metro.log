@@ -1,0 +1,154 @@
+# Metro da bateria do E1, servido da worktree dazzling-ishizaka-883871 no 8114401.
+# Copiado em 2026-10-18 de radiant-app/.maestro/artifacts/e1-bateria/metro.log.
+
+[33m› [1m[@sentry/react-native/expo][22m Missing config for [1morganization, project[22m. Environment variables will be used as a fallback during the build. https://docs.sentry.io/platforms/react-native/manual-setup/[0m
+Starting project at /Users/anderson/Developer/Radiant/.claude/worktrees/dazzling-ishizaka-883871/radiant-app
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Skipping TypeScript setup: EXPO_NO_TYPESCRIPT_SETUP is enabled.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+iOS node_modules/expo-router/entry.js ▓▓▓▓░░░░░░░░░░░░ 25.7% (186/367)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 68.3% ( 898/1155)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 79.0% (1752/1971)
+iOS Bundled 10485ms node_modules/expo-router/entry.js (2326 modules)
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 1205ms node_modules/expo-router/entry.js (2326 modules)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 173ms node_modules/@react-native-async-storage/async-storage/src/index.ts (473 modules)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+ LOG  VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. {"contentLength": 11410, "dt": 1636, "prevDt": 13198}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 66ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 24ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 78ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":true,"decisaoLocalRegistrada":false,"ligado":false}
+iOS Bundled 65ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 58ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 29ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 55ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 33ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 57ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 28ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 66ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 49ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS Bundled 51ms node_modules/expo-router/entry.js (1 module)
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/LessonProgressSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+ WARN  Require cycle: src/features/auth/AuthService.ts -> src/features/auth/LocalAccountMigrationService.ts -> src/features/sync/SyncQueueService.ts -> src/features/sync/repositories/ReviewCardsSyncRepository.ts -> src/features/auth/AuthService.ts
+
+Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+iOS Bundled 22ms node_modules/@react-native-async-storage/async-storage/src/index.ts (1 module)
+ LOG  [abertura:backup] {"etapa":"inicio","chaveLocalExiste":false,"decisaoLocalRegistrada":false,"ligado":false}
+ LOG  [abertura:backup] {"etapa":"hidratacao","ok":true}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"inicio"}
+ LOG  [abertura:backup] {"etapa":"pull","operacao":"restore","fase":"erro","erro":"cloud-unavailable"}
+ LOG  [abertura:backup] {"etapa":"restore","ok":true,"decisaoLocalRegistrada":false,"ligado":false,"temData":false,"ultimoErro":"cloud-unavailable"}

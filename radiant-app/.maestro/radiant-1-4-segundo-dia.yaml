@@ -18,7 +18,13 @@ tags:
 # Rodado antes das 24 horas, ele REPROVA na primeira asserção — a revisão
 # ainda está "Bloqueado". É o comportamento pretendido: sem clearState, o flow
 # não tem como passar vazio.
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
 - launchApp:
+    arguments:
+      radiantReduceMotion: '1'
     permissions:
       all: deny
 - runFlow: subflows/dismiss-dev-client.yaml

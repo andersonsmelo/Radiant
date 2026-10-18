@@ -117,6 +117,11 @@ O `loop validate` do run `run-1792335759604-67e957fb` está no envelope do run.
 ## O que não foi verificado
 
 - o dia 2 com relógio real, que fica para 2026-10-19;
+- o G4 com o argumento do E1. As capturas acima saíram de um lançamento sem
+  ele. Depois do merge da [PR #49](https://github.com/andersonsmelo/Radiant/pull/49),
+  em 2026-10-18, o `launchApp` do roteiro passou a levar
+  `radiantReduceMotion: '1'`, como o contrato exige, e o roteiro não foi
+  reexecutado;
 - a build Release, Android, VoiceOver e aparelho físico;
 - o `review-due` e o `rating-prompt`, que estão fora dos 7 roteiros do item;
 - a sonda e o G4 dependem de uma fixture que muda o armazenamento do app. O

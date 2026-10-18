@@ -10,7 +10,13 @@ tags:
 # Preparar antes de executar, com o app parado; não injetar telemetria.
 # Não limpar estado: a conclusão real criou o marco de primeiro valor.
 - killApp
-- launchApp
+# `radiantReduceMotion` liga "Reduzir movimento" no app: o fundo estrelado
+# para e o confete não sobe, e a tela assenta antes de cada rolagem
+# (FILA 49; ver `src/ui/accessibility/motionLaunchArgument.ts`). Vale para
+# todo lançamento: um processo aberto sem ele volta a animar.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 # A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
 # acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
@@ -23,7 +29,9 @@ tags:
     visibilityPercentage: 100
 - assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - killApp
-- launchApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 # A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
 # acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
@@ -36,7 +44,9 @@ tags:
     visibilityPercentage: 100
 - assertVisible: '^.+\. 1 de \d+ etapas concluídas\.$'
 - killApp
-- launchApp
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
 - runFlow: subflows/dismiss-dev-client.yaml
 # A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
 # acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.

@@ -294,7 +294,7 @@ no simulador e no código; [avaliação completa](trilha/avaliacoes/2026-10-16-a
   saiu dessa síntese e das pesquisas reunidas em [`trilha/`](trilha/README.md), com as
   escolhas do dono de 2026-10-16: consertar a lição legada em paralelo ao
   piloto híbrido, ter um item de imagem por trilha neste ciclo e abrir as quatro
-  frentes de engenharia. A próxima é a FILA 49.
+  frentes de engenharia.
 
 **Consertados localmente no mesmo dia, sem publicação**
 ([ADR](adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
@@ -566,7 +566,13 @@ Medido em 2026-10-10, às 09:55:
 
 **Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
 em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
-e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora. A
+e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.
+Desde 2026-10-18, os logs da bateria do E1 (da `dazzling-ishizaka-883871`) e
+os do vermelho do E1 (da `trusting-mestorf-a5ca83`) estão versionados em
+`docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste/`. O resto da
+`radiant-app/.maestro/artifacts/` das duas não foi copiado e se perde com a
+remoção: as capturas e os logs completos, uns 400 MB, inclusive o
+`reward-unlock` antes e depois. A
 `Radiant-release` está numa `main` local antiga (`21c42b6`), e quem for usá-la
 começa por `git pull`.
 
@@ -641,9 +647,7 @@ Os 15 validadores passam na árvore atual: 173 suítes e 1.728 testes no app,
 - **A1:** uma `contentVersion` nova tira a lição da revisão para sempre
   ([FILA 55](FILA.md));
 - **A2:** nos tetos declarados, o store de revisão ocupa cerca de 12 MiB,
-  acima dos 6 MB padrão do AsyncStorage no Android;
-- **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
-  árvore ([FILA 57](FILA.md)).
+  acima dos 6 MB padrão do AsyncStorage no Android.
 
 O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39) ([FILA 56](FILA.md), feita). Desde 17/10, o
 Claude revisa e coordena as IAs.
@@ -720,6 +724,31 @@ iPhone 17 Pro com iOS 26.5:
 - `store-capture` e `segundo-dia` estavam desatualizados em relação ao app e
   foram corrigidos. Nenhum defeito do app apareceu;
 - a prova nativa do G4 está feita, com seis capturas versionadas com hash.
+  Ela rodou sem o argumento do E1; depois do merge da #49, o roteiro passou a
+  lançar com ele, como o contrato exige, e não foi reexecutado.
 
 [Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
 Debug não prova a build Release; a build e o envio continuam com o dono.
+
+## E2E sem animação — FILA 49, medido em 2026-10-18
+
+Lançado com `-radiantReduceMotion 1`, o app liga "Reduzir movimento" sem mexer
+no sistema: o fundo estrelado para e o confete não sobe. Os 24 `launchApp` dos
+18 roteiros Maestro passam o argumento, e o contrato exige isso (contagem do
+YAML em 2026-10-18, já com o roteiro do G4). Só no iOS: no Android o argumento
+não chega ao app.
+
+No `reward-unlock`, no simulador iOS e sobre a `main` em `cc67243`, o roteiro
+inteiro caiu de 18 min 10 s para 3 min 48 s. A tentativa de rolagem até o
+cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
+**não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
+FILA 60. A bateria padrão passou 7 de 7 com o argumento, no mesmo dia. Não
+rodaram com o argumento `rating-prompt`, `review-due`, os
+`student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
+`radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
+FILA 59.
+
+O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
+jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
+Integrado na `main` em 2026-10-18 pela [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`).
+[Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).

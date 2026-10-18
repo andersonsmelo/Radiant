@@ -135,8 +135,24 @@ com autorização do dono. O item 40 está encerrado; o console mostra
   em 2026-10-16 e está no
   [plano de melhoria da trilha](trilha/plano/2026-10-16-plano-de-melhoria-da-trilha.md),
   com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
-  - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
-    porque barateia o E2E do 50;
+  - **49.** ✅ **Feito em 2026-10-18**, pelo agente, na branch
+    `feat/e1-animacao-desligavel`: o argumento de lançamento
+    `-radiantReduceMotion 1` liga "Reduzir movimento" no app, e os 24
+    `launchApp` dos 18 roteiros o passam (contagem do YAML depois do merge da
+    #48, com o roteiro do G4). O `reward-unlock` caiu de 18 min 10 s
+    para 3 min 48 s, e a tentativa de rolagem caiu de 8–11 s para 2,3–3,7 s.
+    **O critério de menos de 2 s não foi atingido.** O que resta é a
+    desaceleração da própria lista. O E1 também revelou um toque que caía sob
+    o HUD depois do centramento, consertado nos três roteiros que tocam a
+    recomendação. Só iOS. A [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md)
+    traz o vermelho, as injeções e os tempos. No mesmo dia, a bateria padrão
+    passou 7 de 7 com o argumento. Não rodaram:
+    - o `radiant-1-4-segundo-dia`, que já leva o argumento e roda no dia 2 da
+      FILA 59;
+    - os roteiros que exigem preparo prévio dos dados.
+
+    Integrado na `main` em 2026-10-18 pela
+    [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`);
   - **50.** agente: **P1, a lição legada honesta — parcial, na
     [PR #40](https://github.com/andersonsmelo/Radiant/pull/40), em 2026-10-17.**
     Já feito (Argon, com correções do Claude):
@@ -242,7 +258,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     nativamente, e as capturas do G4 estão versionadas com hash
     ([relatório](evidence/2026-10-18-main-pronta-para-build.md)). O
     `store-capture` e o `radiant-1-4-segundo-dia` estavam desatualizados e
-    foram corrigidos. Nenhum defeito do app apareceu.
+    foram corrigidos. Nenhum defeito do app apareceu. A prova do G4 rodou sem
+    o argumento do E1; depois do merge da #49, o roteiro passou a lançar com
+    ele, como o contrato exige, e não foi reexecutado.
     **Falta:** o dia 2 do caminho 2 com relógio real. O dia 1 rodou às 12:45 de
     2026-10-18 no simulador `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` ("Radiant
     E2E dia 2 (2026-10-18)"). A partir de **2026-10-19, 12:45 (−03)**, sem
@@ -257,11 +275,18 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     `feat/trilha-evolucao-global-g0-g4`, com a
     [PR #39](https://github.com/andersonsmelo/Radiant/pull/39). Cada fatia
     passou o quality sozinha. O merge é do dono (R1);
-  - **57.** dono decide: **o destino do E1 (FILA 49)**. São 22 arquivos não
-    commitados na worktree `.claude/worktrees/trusting-mestorf-a5ca83`, desde
-    2026-10-16. Três deles conflitam com a árvore principal: `rating-prompt.yaml`,
-    `review-due.yaml` e `maestro-contract.test.mjs`. As opções são integrar
-    depois do 56 ou descartar (R2);
+  - **57.** ✅ **Decidido em 2026-10-18 por Anderson: integrar.** O run de
+    2026-10-16 foi fechado sem gravar nada, e o trabalho foi refeito a partir
+    da `origin/main` (`cc67243`). Os conflitos com a árvore principal sumiram.
+    Ver o 49;
+  - **60.** dono decide: **aceitar os 3,3 s por tentativa de rolagem do E1 ou
+    ir atrás dos menos de 2 s do plano.** O resto é a desaceleração da lista
+    depois de cada deslize, ~2,5 s. Os dois caminhos têm custo:
+    - `waitToSettleTimeoutMs` nos roteiros arrisca ler a posição antes de a
+      lista parar;
+    - `decelerationRate` muda o app para o aluno.
+
+    Ver a [evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md);
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,

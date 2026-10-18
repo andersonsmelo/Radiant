@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo } from 'react-native';
+import { isReduceMotionForcedByLaunchArgument } from './motionLaunchArgument';
 
 export type ReducedMotionPreference = {
   /** `true` quando a pessoa pediu menos movimento. */
@@ -21,16 +22,29 @@ export type ReducedMotionPreference = {
 const UNDETERMINED: ReducedMotionPreference = { reducedMotionEnabled: false, resolved: false };
 
 /**
+ * Lançado com `-radiantReduceMotion 1` (FILA 49, o E2E): a preferência é
+ * conhecida já na primeira renderização, e o sistema não é consultado nem
+ * escutado. Mudar a preferência do aparelho não religa o movimento.
+ */
+const FORCED_BY_LAUNCH_ARGUMENT: ReducedMotionPreference = { reducedMotionEnabled: true, resolved: true };
+
+/**
  * O estado completo da preferência de movimento, incluindo o intervalo em que
  * ela ainda é desconhecida.
  *
  * `AccessibilityInfo` reporta o valor inicial de forma assíncrona e avisa
- * quando alguém muda a preferência com o app aberto.
+ * quando alguém muda a preferência com o app aberto. O argumento de lançamento
+ * de `motionLaunchArgument.ts` vence os dois.
  */
 export function useReducedMotionPreferenceState(): ReducedMotionPreference {
-  const [preference, setPreference] = useState<ReducedMotionPreference>(UNDETERMINED);
+  const [forced] = useState(isReduceMotionForcedByLaunchArgument);
+  const [preference, setPreference] = useState<ReducedMotionPreference>(
+    forced ? FORCED_BY_LAUNCH_ARGUMENT : UNDETERMINED,
+  );
 
   useEffect(() => {
+    if (forced) return undefined;
+
     let mounted = true;
 
     AccessibilityInfo.isReduceMotionEnabled()
@@ -55,7 +69,7 @@ export function useReducedMotionPreferenceState(): ReducedMotionPreference {
       mounted = false;
       subscription.remove();
     };
-  }, []);
+  }, [forced]);
 
   return preference;
 }
