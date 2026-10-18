@@ -116,10 +116,8 @@ function isValidJourneyStageCopy(stage: ContentLesson['journey'] extends infer T
 
     return (
         typeof stage === 'object' &&
-        (stage.questionIndex === undefined || typeof stage.questionIndex === 'number') &&
         (stage.contextBody === undefined || typeof stage.contextBody === 'string') &&
-        (stage.teachBody === undefined || typeof stage.teachBody === 'string') &&
-        (stage.reinforceBody === undefined || typeof stage.reinforceBody === 'string')
+        (stage.teachBody === undefined || typeof stage.teachBody === 'string')
     );
 }
 

@@ -245,8 +245,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     aprovou a régua de estrelas e decidiu que a última vida perdida no último
     retorno conclui a lição
     ([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Entrega do
-    Codex na PR #42; ajustes do Claude na PR #43. Ficou de fora: limpar
-    `questionIndex` e `reinforceBody` do contrato de conteúdo, na API e no app.
+    Codex na PR #42; ajustes do Claude na PR #43. O que tinha ficado de fora,
+    tirar `questionIndex` e `reinforceBody` do contrato de conteúdo na API e no
+    app (C1), foi feito em 2026-10-18
+    ([evidência](evidence/2026-10-18-c1-contrato-de-conteudo.md)).
     O escopo:
     - todas as 2 ou 3 perguntas de cada lição, em vez de uma;
     - feedback com a opção marcada logo após cada resposta;

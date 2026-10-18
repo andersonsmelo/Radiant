@@ -108,16 +108,12 @@ async function buildCatalog(database: SqlClient): Promise<ApiCatalogResponse> {
                 difficulty: 'beginner' | 'intermediate' | 'advanced';
                 journey?: {
                     intro?: {
-                        questionIndex?: number;
                         contextBody?: string;
                         teachBody?: string;
-                        reinforceBody?: string;
                     };
                     review?: {
-                        questionIndex?: number;
                         contextBody?: string;
                         teachBody?: string;
-                        reinforceBody?: string;
                     };
                 };
                 questions: {

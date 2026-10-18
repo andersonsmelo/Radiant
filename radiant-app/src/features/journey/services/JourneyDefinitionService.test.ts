@@ -55,15 +55,11 @@ const lessonFixtureById: Record<string, ContentLesson> = {
         difficulty: 'beginner',
         journey: {
             intro: {
-                questionIndex: 1,
                 contextBody: 'Mapa anatômico inicial.',
                 teachBody: 'Leia os marcos antes de responder.',
-                reinforceBody: 'Anatomia bem vista reduz erro grosseiro.',
             },
             review: {
-                questionIndex: 0,
                 contextBody: 'Revisão rápida da anatomia.',
-                reinforceBody: 'Anatomia repetida vira referência visual.',
             },
         },
         questions: [
@@ -91,9 +87,7 @@ const lessonFixtureById: Record<string, ContentLesson> = {
         difficulty: 'beginner',
         journey: {
             review: {
-                questionIndex: 0,
                 contextBody: 'Feche o posicionamento antes de avançar.',
-                reinforceBody: 'Boa incidência melhora a leitura inteira.',
             },
         },
         questions: [
@@ -113,10 +107,8 @@ const lessonFixtureById: Record<string, ContentLesson> = {
         difficulty: 'intermediate',
         journey: {
             intro: {
-                questionIndex: 0,
                 contextBody: 'Agora entram padrões de achado.',
                 teachBody: 'Compare forma, distribuição e densidade.',
-                reinforceBody: 'Nomear o padrão certo encurta o raciocínio.',
             },
         },
         questions: [
