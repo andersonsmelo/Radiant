@@ -178,3 +178,79 @@ describe('useReview — resposta corrigida antes do feedback', () => {
         expect(result.current.answerFeedback?.assisted).toBe(true);
     });
 });
+
+// A4 (revisão do Codex, 2026-10-17): cada resposta chamava recordQuizResult com
+// totalQuestions 1, e uma lição com três itens na sessão avançava o cartão
+// legado três vezes. Agora ele avança uma vez, no último item da lição na fila,
+// com o resultado agregado (decisão de Anderson, 2026-10-18).
+describe('useReview — o cartão legado avança uma vez por lição na sessão (A4)', () => {
+    afterEach(() => jest.restoreAllMocks());
+    beforeEach(() => jest.clearAllMocks());
+    const reviewItem = (lessonId: string, id: string) =>
+        ({ lessonId, question: question(id), card: {} }) as unknown as Awaited<ReturnType<typeof ItemReviewService.loadQueue>>[number];
+    const legacyCalls = () => (SpacedRepetitionService.recordQuizResult as jest.Mock).mock.calls
+        .map(([result]) => [result.lessonId, result.totalQuestions, result.correctAnswers]);
+
+    it('na autoavaliação, agrega os itens da lição e avança só no último dela', async () => {
+        jest.spyOn(ItemReviewService, 'loadQueue').mockResolvedValue([reviewItem('lesson:1', 'item:a'), reviewItem('lesson:1', 'item:b'),
+            reviewItem('lesson:2', 'item:c'), reviewItem('lesson:1', 'item:d')]);
+        jest.spyOn(ItemReviewService, 'recordReview').mockResolvedValue({ accepted: true, duplicate: false });
+        const { result } = renderHook(() => useReview());
+        await waitFor(() => expect(result.current.loading).toBe(false));
+        act(() => result.current.startReview());
+
+        await act(async () => result.current.submitRating(true));
+        await act(async () => result.current.submitRating(false));
+        expect(legacyCalls()).toEqual([]);
+        await act(async () => result.current.submitRating(true));
+        expect(legacyCalls()).toEqual([['lesson:2', 1, 1]]);
+        await act(async () => result.current.submitRating(true));
+        expect(legacyCalls()).toEqual([['lesson:2', 1, 1], ['lesson:1', 3, 2]]);
+        expect(result.current.state).toBe('finished');
+    });
+    it('na resposta corrigida, agrega os itens da lição e avança só no último dela', async () => {
+        jest.spyOn(ItemReviewService, 'loadQueue').mockResolvedValue([reviewItem('lesson:1', 'item:a'), reviewItem('lesson:1', 'item:b')]);
+        jest.spyOn(ItemReviewService, 'recordAnswer')
+            .mockResolvedValueOnce({ accepted: true, duplicate: false, correct: false, assisted: false })
+            .mockResolvedValueOnce({ accepted: true, duplicate: false, correct: true, assisted: false });
+        const { result } = renderHook(() => useReview());
+        await waitFor(() => expect(result.current.loading).toBe(false));
+        act(() => result.current.startReview());
+
+        await act(async () => result.current.submitAnswer(1));
+        expect(legacyCalls()).toEqual([]);
+        await act(async () => result.current.continueReview());
+        await act(async () => result.current.submitAnswer(0));
+        expect(legacyCalls()).toEqual([['lesson:1', 2, 1]]);
+    });
+    it('recarregar a fila recomeça o agregado, sem somar respostas da fila anterior', async () => {
+        const load = jest.spyOn(ItemReviewService, 'loadQueue')
+            .mockResolvedValueOnce([reviewItem('lesson:1', 'item:a'), reviewItem('lesson:1', 'item:b')])
+            .mockResolvedValue([reviewItem('lesson:1', 'item:c')]);
+        jest.spyOn(ItemReviewService, 'recordReview').mockResolvedValue({ accepted: true, duplicate: false });
+        const { result, rerender } = renderHook((props: { resumeCursorId?: string }) => useReview(props), { initialProps: {} });
+        await waitFor(() => expect(result.current.loading).toBe(false));
+        act(() => result.current.startReview());
+        await act(async () => result.current.submitRating(true));
+
+        rerender({ resumeCursorId: 'item:c' });
+        await waitFor(() => expect(load).toHaveBeenCalledTimes(2));
+        await waitFor(() => expect(result.current.currentItem?.question.id).toBe('item:c'));
+        await act(async () => result.current.submitRating(false));
+        expect(legacyCalls()).toEqual([['lesson:1', 1, 0]]);
+    });
+    it('uma resposta que não foi gravada não entra no agregado', async () => {
+        jest.spyOn(ItemReviewService, 'loadQueue').mockResolvedValue([reviewItem('lesson:1', 'item:a'), reviewItem('lesson:1', 'item:b')]);
+        jest.spyOn(ItemReviewService, 'recordReview').mockResolvedValueOnce({ accepted: true, duplicate: false })
+            .mockResolvedValueOnce({ accepted: false, duplicate: false }).mockResolvedValue({ accepted: true, duplicate: false });
+        const { result } = renderHook(() => useReview());
+        await waitFor(() => expect(result.current.loading).toBe(false));
+        act(() => result.current.startReview());
+
+        await act(async () => result.current.submitRating(true));
+        await act(async () => result.current.submitRating(false));
+        expect(result.current.persistenceError).toBeTruthy();
+        await act(async () => result.current.retrySubmission());
+        expect(legacyCalls()).toEqual([['lesson:1', 2, 1]]);
+    });
+});

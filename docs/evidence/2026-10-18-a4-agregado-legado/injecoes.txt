@@ -1,0 +1,43 @@
+# A4: cada guarda vista falhando com o defeito que nomeia, 2026-10-18, Node 20.20.2.
+# O script troca uma âncora única de useReview.ts, roda só o teste-alvo (-t) e restaura o arquivo.
+
+## avança em todo item, sem esperar o último da lição (âncora: 1 ocorrência; teste: "agrega os itens da lição"; saída 1)
+    ✕ na autoavaliação, agrega os itens da lição e avança só no último dela (58 ms)
+    ✕ na resposta corrigida, agrega os itens da lição e avança só no último dela (54 ms)
+Tests:       2 failed, 10 skipped, 12 total
+
+## não recomeça o agregado ao recarregar a fila (âncora: 1 ocorrência; teste: "recarregar a fila recomeça"; saída 1)
+    ✕ recarregar a fila recomeça o agregado, sem somar respostas da fila anterior (120 ms)
+Tests:       1 failed, 11 skipped, 12 total
+
+## conta a resposta antes de ela ser gravada (âncora: 1 ocorrência; teste: "não foi gravada"; saída 1)
+    ✕ uma resposta que não foi gravada não entra no agregado (65 ms)
+Tests:       1 failed, 11 skipped, 12 total
+
+
+# injecoes_a4.py (rodado em radiant-app/)
+import subprocess, pathlib
+f = pathlib.Path('src/features/review/hooks/useReview.ts')
+INJ = [
+  ('avança em todo item, sem esperar o último da lição', 'agrega os itens da lição',
+   "        if (queue.slice(index + 1).some(item => item.lessonId === lessonId)) return;\n", ""),
+  ('não recomeça o agregado ao recarregar a fila', 'recarregar a fila recomeça',
+   "            legacyTally.current.clear();\n", ""),
+  ('conta a resposta antes de ela ser gravada', 'não foi gravada',
+   "            let duplicate = false;\n",
+   "            let duplicate = false;\n            const early = legacyTally.current.get(currentItem.lessonId) ?? { total: 0, correct: 0 };\n"
+   "            early.total += 1; legacyTally.current.set(currentItem.lessonId, early);\n"),
+]
+out = []
+for nome, teste, a, b in INJ:
+    orig = f.read_text(encoding='utf8')
+    n = orig.count(a); assert n == 1, (nome, n)
+    f.write_text(orig.replace(a, b, 1), encoding='utf8')
+    try:
+        r = subprocess.run(['npx', 'jest', '--runInBand', 'src/features/review/hooks/useReview.test.ts', '-t', teste], capture_output=True, text=True)
+    finally:
+        f.write_text(orig, encoding='utf8')
+    txt = r.stdout + r.stderr
+    linhas = [l.rstrip() for l in txt.splitlines() if ('✕' in l or '✓' in l or l.startswith('Tests:'))]
+    out.append(f"## {nome} (âncora: {n} ocorrência; teste: \"{teste}\"; saída {r.returncode})\n" + "\n".join(linhas[:8]))
+print("\n\n".join(out))

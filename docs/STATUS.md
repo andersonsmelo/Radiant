@@ -696,6 +696,11 @@ com o resto. O cartão em quarentena sai da agenda, por decisão do dono. Schema
 futuro e JSON quebrado continuam indisponíveis, sem escrita.
 [Evidência](evidence/2026-10-18-r6-store-de-revisao.md).
 
+No mesmo dia, o **A4 foi consertado**. O cartão legado da lição avançava uma
+vez por item respondido, e agora avança uma vez por sessão, no último item da
+lição na fila, com o resultado agregado.
+[Evidência](evidence/2026-10-18-a4-agregado-legado.md).
+
 ## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
 
 Implementação candidata na branch `codex/motor-hibrido-licao`, sobre

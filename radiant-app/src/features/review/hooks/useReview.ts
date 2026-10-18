@@ -29,6 +29,9 @@ export function useReview(options: UseReviewOptions = {}) {
     const pendingRating = useRef<boolean | null>(null);
     const pendingAnswer = useRef<{ index: number | null; at: Date } | null>(null);
     const [answerFeedback, setAnswerFeedback] = useState<ReviewAnswerFeedback | null>(null);
+    // A4: o cartão legado da lição avança uma vez por sessão, no último item dela
+    // na fila, com o resultado agregado, e não uma vez por item.
+    const legacyTally = useRef(new Map<string, { total: number; correct: number }>());
     const [saving, setSaving] = useState(false);
 
     const loadDueReviews = useCallback(async () => {
@@ -45,6 +48,7 @@ export function useReview(options: UseReviewOptions = {}) {
                 }).slice(0, 50);
             }
 
+            legacyTally.current.clear();
             setQueue(items);
             setCurrentIndex(0);
             if (options.resumeCursorId && options.resumeCursorId !== 'review-start') {
@@ -64,6 +68,23 @@ export function useReview(options: UseReviewOptions = {}) {
         }
     }, [options.resumeCursorId]);
     useEffect(() => { void loadDueReviews(); }, [loadDueReviews]);
+
+    /** Soma a resposta gravada e, no último item da lição na fila, avança o cartão legado uma vez. */
+    const recordLegacyLesson = useCallback(async (index: number, correct: boolean, answeredAt: Date) => {
+        const { lessonId } = queue[index];
+        const tally = legacyTally.current.get(lessonId) ?? { total: 0, correct: 0 };
+        tally.total += 1;
+        if (correct) tally.correct += 1;
+        legacyTally.current.set(lessonId, tally);
+        if (queue.slice(index + 1).some(item => item.lessonId === lessonId)) return;
+        await SpacedRepetitionService.recordQuizResult({
+            lessonId, totalQuestions: tally.total, correctAnswers: tally.correct, answeredAt,
+        });
+        try {
+            const card = await SpacedRepetitionService.getCardState(lessonId);
+            if (card) { await SyncQueueService.enqueueReviewCard(card); void SyncQueueService.flush(); }
+        } catch { /* Sync secundário não invalida uma resposta já persistida. */ }
+    }, [queue]);
 
     const startReview = () => {
         if (queue.length > 0) {
@@ -91,22 +112,8 @@ export function useReview(options: UseReviewOptions = {}) {
             consumed.current.add(token);
             pendingRating.current = null;
 
-            // 1. Record SR Result (Micro-quiz: 1 question)
-            await SpacedRepetitionService.recordQuizResult({
-                lessonId: currentItem.lessonId,
-                totalQuestions: 1,
-                correctAnswers: isCorrect ? 1 : 0,
-                answeredAt: new Date(),
-            });
-
-            try {
-            const updatedCard = await SpacedRepetitionService.getCardState(currentItem.lessonId);
-            if (updatedCard) {
-                await SyncQueueService.enqueueReviewCard(updatedCard);
-                void SyncQueueService.flush();
-            }
-
-            } catch { /* Sync secundário não invalida uma resposta já persistida. */ }
+            // 1. Agregado legado da lição (A4): avança no último item dela na fila.
+            await recordLegacyLesson(currentIndex, isCorrect, new Date());
 
             // 2. Award XP/Stats
             if (isCorrect && !duplicate) {
@@ -138,7 +145,7 @@ export function useReview(options: UseReviewOptions = {}) {
         } catch {
             setPersistenceError('Não foi possível salvar esta revisão. Tente novamente.');
         } finally { busy.current = false; }
-    }, [queue, currentIndex]);
+    }, [queue, currentIndex, recordLegacyLesson]);
 
     const submitAnswer = useCallback(async (index: number | null) => {
         const item = queue[currentIndex];
@@ -156,10 +163,7 @@ export function useReview(options: UseReviewOptions = {}) {
             pendingAnswer.current = null;
             setAnswerFeedback({ correct: committed.correct, assisted: committed.assisted });
             try {
-                await SpacedRepetitionService.recordQuizResult({ lessonId: item.lessonId, totalQuestions: 1,
-                    correctAnswers: committed.correct ? 1 : 0, answeredAt: request.at });
-                const card = await SpacedRepetitionService.getCardState(item.lessonId);
-                if (card) { await SyncQueueService.enqueueReviewCard(card); void SyncQueueService.flush(); }
+                await recordLegacyLesson(currentIndex, committed.correct, request.at);
             } catch { /* Agregado/sync secundários não repetem a tentativa confirmada. */ }
             if (committed.correct && !committed.assisted && !committed.duplicate) {
                 try {
@@ -171,7 +175,7 @@ export function useReview(options: UseReviewOptions = {}) {
             TelemetryService.track('review_item', { lessonId: item.lessonId, correct: committed.correct });
         } catch { setPersistenceError('Não foi possível salvar esta revisão. Tente novamente.'); }
         finally { busy.current = false; setSaving(false); }
-    }, [queue, currentIndex, answerFeedback]);
+    }, [queue, currentIndex, answerFeedback, recordLegacyLesson]);
 
     const continueReview = useCallback(async () => {
         if (!answerFeedback || busy.current) return;

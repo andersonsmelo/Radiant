@@ -187,6 +187,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     para a quarentena `@radiant:item_review_quarantine_v1`, e a revisão segue
     com o resto. O cartão em quarentena sai da agenda, por decisão do dono
     ([evidência](evidence/2026-10-18-r6-store-de-revisao.md)).
+    **Atualização de 2026-10-18 (Claude, A4):** o cartão legado da lição avança
+    uma vez por sessão, no último item dela na fila e com o resultado agregado,
+    e não mais uma vez por item. A decisão foi do dono
+    ([evidência](evidence/2026-10-18-a4-agregado-legado.md)).
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na
