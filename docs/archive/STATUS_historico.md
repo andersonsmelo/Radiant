@@ -3426,3 +3426,16 @@ testes** no Jest em banda única e o contrato do Maestro em 34/34
 ([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/gate.txt)). É
 validação local. O CI da PR #50 passou no `a31c651`.
 Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
+
+
+## Arquivado em 2026-10-18 — entrada substituída pelo prompt (22)
+
+**Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
+estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
+documento de entrada é o
+[prompt de continuidade (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+
+
+- **Prompt de continuidade:**
+  [`2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md).
+  Ele substitui o (17).

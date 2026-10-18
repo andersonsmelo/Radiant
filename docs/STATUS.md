@@ -534,9 +534,9 @@ Medido em 2026-10-10, às 09:55:
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-- **Prompt de continuidade:**
-  [`2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md).
-  Ele substitui o (17).
+- **Prompt de continuidade, atualizado em 2026-10-18:**
+  [prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+  As referências anteriores ficam no histórico; não representam a ordem atual.
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25
@@ -637,10 +637,12 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
 - Android, VoiceOver e desempenho (G6) e backup e reset (G7);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
-**Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
-estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
-documento de entrada é o
-[prompt de continuidade (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+**Continuidade atualizada em 2026-10-18:**
+[prompt de continuidade (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+A entrega da FILA 61 e esta passagem documental foram executadas pelo Codex a
+pedido do dono, preservando os gates de produto, currículo, distribuição e merge.
+A [ADR de coordenação](adr/ADR-2026-10-18-claude-planejador-e-executor.md)
+permanece como registro da decisão anterior.
 
 ## Store de revisão — R6, medido em 2026-10-18
 
@@ -661,6 +663,16 @@ emulador, sem equivalência com aparelho de entrada.** O build manteve 6 MiB.
 do `inspect()` usado na medição. Trocar o desenho do storage continua sendo
 decisão do dono; aparelho físico e G6 amplo permanecem abertos.
 [Evidência e limites](evidence/2026-10-18-fila61-android-emulador.md).
+
+**Entrega publicada em 2026-10-18 na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52),
+aberta contra a `main`:** medidor, testes e documentação no commit
+`e6fab1203482098ed3311d0b5e7053c4f3ad88d6`. Os checks `content` e `quality`
+desse commit terminaram em `SUCCESS` (último às 19:10:16, America/Bahia).
+`loop validate` aprovou 15/15 em um ciclo; run `run-1792360977572-2fb18e53`
+fechado após `STEP_SUCCEEDED` e `MEMORY_WRITTEN`, e sessão de leitura fechada.
+App, emulador e Metro encerrados; link temporário da API removido.
+**A2 e merge continuam com o dono.** Commits documentais posteriores exigem
+conferir novamente o HEAD e os checks; esse CI é evidência do SHA citado.
 
 O **A3 está consertado**. Um cartão ou uma tentativa inválidos não deixam mais
 o store inteiro ilegível: o registro vai para a quarentena

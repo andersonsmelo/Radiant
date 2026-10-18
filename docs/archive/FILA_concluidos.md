@@ -2175,3 +2175,28 @@ O texto do item, como estava na fila:
     **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
     por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
     escolher o caminho depois da medição;
+
+
+## Entrada de continuidade substituída em 2026-10-18
+
+**Desde 2026-10-18, o Claude planeja e executa**, e Codex e Argon estão em pausa
+([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O que foi feito de
+16 a 18/10 está no
+[levantamento](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada
+da próxima sessão é o
+[prompt (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+
+
+### Orientações de entrada substituídas pelo prompt (22)
+
+numeração é a mesma da §3 do
+[prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
+que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
+destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
+**38**.
+
+**Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
+push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
+atual em
+[`superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md), que traz todas as pendências na ordem abaixo;
+o dono lê o relatório no fim.

@@ -155,5 +155,17 @@ e não evidência validada daquele run.
 A validação final usa **`run-1792360977572-2fb18e53`**, aberto pelo embrulho
 oficial, com os **mesmos 15 arquivos** e sem recuperar ou contornar lock. Sua
 baseline já contém a entrega preservada: o run valida esse estado existente,
-sem atribuir retroativamente as edições ao run original. Fechamento e PR são
-informados na entrega; a decisão A2 e o merge continuam com o dono.
+sem atribuir retroativamente as edições ao run original. O resultado foi
+**15/15 validadores aprovados em um ciclo**, seguido de `STEP_SUCCEEDED`,
+`MEMORY_WRITTEN` e `RUN_CLOSED`. A sessão
+`brain-session-1792360332452-ad9e1eeb` também foi fechada.
+
+A entrega foi publicada na **[PR #52](https://github.com/andersonsmelo/Radiant/pull/52)**,
+contra `main`, no commit `e6fab1203482098ed3311d0b5e7053c4f3ad88d6`.
+Os checks `content` e `quality` desse SHA concluíram com `SUCCESS`, o último
+às **19:10:16 de 2026-10-18 (America/Bahia)**. A PR estava aberta, sem auto-merge,
+e a worktree limpa na conferência posterior. Essa prova pertence ao SHA
+citado; confira novamente os checks se houver commit documental posterior.
+A decisão A2 e o merge continuam com o dono.
+
+O prompt de continuidade está [versionado aqui](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).

@@ -27,12 +27,12 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
-**Desde 2026-10-18, o Claude planeja e executa**, e Codex e Argon estão em pausa
-([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O que foi feito de
-16 a 18/10 está no
-[levantamento](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada
-da próxima sessão é o
-[prompt (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+A decisão de coordenação de 2026-10-18 está na
+[ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md). A entrega da FILA 61
+e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
+dono permanecem. O levantamento de 16 a 18/10 está
+[aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
 
 ## Política de decisão
 
@@ -64,11 +64,12 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 - a [ADR da amostra da L1, da D4 e dos planos](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md).
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
-numeração é a mesma da §3 do
-[prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
-que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
-destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
-**38**. A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
+numeração preserva a fila histórica. **A ordem atual de execução está no
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md),
+atualizado em 2026-10-18:** FILA 61 aguarda decisões do dono; a próxima execução
+do agente é o dia 2 da FILA 59, na janela de relógio indicada, seguida da 63.
+
+A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
 versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
 com autorização do dono. O item 40 está encerrado; o console mostra
 "Pronto para distribuição". A página pública brasileira confirmou `1.4.0`
@@ -332,6 +333,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     manteve a cota padrão de 6 MiB. `getCards()` esconde falha de leitura como
     `[]`; o medidor usa `inspect()`, que reconheceu o store ilegível.
     [Evidência, log nativo e guardas](evidence/2026-10-18-fila61-android-emulador.md).
+    **Entrega na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52):**
+    aberta contra `main`; CI `content` e `quality` verde no `e6fab12`, confirmado
+    em 2026-10-18. Merge depende do dono; remeça o HEAD e os checks antes dele.
     **Escolha pendente do dono:** particionar por lição no AsyncStorage,
     aumentar a cota total no Android e migrar com cópia de segurança,
     conferência e preservação da chave antiga por uma ou duas versões
@@ -420,11 +424,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
 
 **Estado:** spec aprovada pelo dono
 ([`2026-09-14-radiant-1-4-fluxo-do-usuario-design.md`](superpowers/specs/2026-09-14-radiant-1-4-fluxo-do-usuario-design.md)).
-**Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
-push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
-atual em
-[`superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md), que traz todas as pendências na ordem abaixo;
-o dono lê o relatório no fim.
+**Execução atualizada em 2026-10-18:** build de distribuição, envio e merge
+continuam com o dono; push e abertura de PR da frente concluída estão autorizados.
+A ordem e os gates atuais estão no
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md);
+esta seção preserva o detalhamento das pendências da 1.4.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
 
