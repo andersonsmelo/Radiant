@@ -114,6 +114,19 @@ run, com todas as mudanças de código desta frente
 
 O `loop validate` do run `run-1792335759604-67e957fb` está no envelope do run.
 
+**Atualização de 2026-10-18, depois da revisão do Codex na PR #48.** O "já
+cobrem" acima valia para a maior parte do contrato, mas não para as duas guardas
+de rolagem, que leem listas explícitas de roteiros. O G4 não estava nelas, e um
+`scrollUntilVisible` sem `visibilityPercentage` ou aninhado sob uma condição
+passava 33/33. Agora o roteiro está nas duas listas, e cada guarda reprova com o
+defeito que nomeia: o teste 21 com a régua retirada e o teste 22 com a rolagem
+aninhada
+([execuções e script](2026-10-18-main-pronta-para-build/contrato-g4-injecoes.txt)).
+A terceira lista, a da espera por `assertVisible` antes de rolar, não recebeu o
+G4. Ele a violaria em 6 das 10 rolagens, porque nelas o passo anterior é um
+`takeScreenshot` ou um `tapOn`. Ajustar isso muda o roteiro que rodou
+nativamente, e a decisão fica com o dono.
+
 ## O que não foi verificado
 
 - o dia 2 com relógio real, que fica para 2026-10-19;
