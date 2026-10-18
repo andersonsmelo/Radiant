@@ -1,0 +1,27 @@
+CI da PR #51, run 39167231546 (job quality), commit 0cb5441, 2026-10-18 ~21:20 UTC
+Extrato do log, sem ANSI e sem carimbo de hora:
+
+FAIL src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx (5.958 s)
+  ● CheckpointScreen flow › XP da aprovação › a celebração mostra o ganho e o total depois dele
+
+    [...árvore renderizada omitida: a tela ainda mostra 'Avaliação 1 de 5'...]
+      664 |       await answerProductionCheckpoint(true);
+      665 |
+    > 666 |       expect(await screen.findByText('+18 XP')).toBeTruthy();
+      667 |       expect(screen.getByText('XP total: 138')).toBeTruthy();
+      668 |       expect(screen.queryByText('XP total: 120')).toBeNull();
+      669 |     });
+      at Object.findByText (src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx:666:27)
+
+Test Suites: 1 failed, 173 passed, 174 total
+Tests:       1 failed, 1786 passed, 1787 total
+
+Mesma árvore do app que a main 2304c94, cujo workflow Radiant App Quality passou.
+
+Reprodução local, Node v20.20.2, carga ~3,6, CPU presa nos núcleos de eficiência:
+$ EXPO_NO_DOTENV=1 /usr/sbin/taskpolicy -b npx jest --runInBand --no-cache src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx
+  execução 1: Tests: 29 passed, 29 total — caso: celebração mostra o ganho e o total depois dele (199 ms)
+  execução 2: Tests: 29 passed, 29 total — caso: celebração mostra o ganho e o total depois dele (235 ms)
+  execução 3: Tests: 29 passed, 29 total — caso: celebração mostra o ganho e o total depois dele (236 ms)
+
+Reenvio do job que falhou (gh run rerun 39167231546 --failed): tentativa 2, conclusão success, mesmo commit 0cb5441.

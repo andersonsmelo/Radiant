@@ -716,6 +716,20 @@ test('makes every scroll-until-visible wait for the screen it is about to scroll
   }
 });
 
+// Conta os comandos `scrollUntilVisible` na árvore do YAML, em qualquer
+// profundidade. A chave casa pelo nome que o Maestro lê, e não pela grafia do
+// arquivo: entre aspas ou explícita (`? scrollUntilVisible`), é o mesmo comando.
+function countScrollCommands(value) {
+  if (Array.isArray(value)) {
+    return value.reduce((sum, item) => sum + countScrollCommands(item), 0);
+  }
+  if (!value || typeof value !== 'object') return 0;
+  return Object.entries(value).reduce(
+    (sum, [key, item]) => sum + (key === 'scrollUntilVisible' ? 1 : 0) + countScrollCommands(item),
+    0
+  );
+}
+
 test('lists exactly the flows that scroll until an element is visible', async () => {
   // A lista acima é explícita por decisão, mas uma lista à mão esquece. Em
   // 2026-10-18, `review-due` e `hybrid-native-evidence` rolavam e estavam fora
@@ -723,13 +737,12 @@ test('lists exactly the flows that scroll until an element is visible', async ()
   // `visibilityPercentage` apagado ou a rolagem aninhada sob um `runFlow when`,
   // o contrato continuava verde (FILA 62). Esta guarda não decide quem entra;
   // ela reprova quando um roteiro que rola ficou de fora, e quando a lista cita
-  // um roteiro que não rola mais.
+  // um roteiro que não rola mais. Ela acha a rolagem pela AST: na primeira
+  // versão, uma busca de texto não via `- 'scrollUntilVisible':` (revisão do
+  // Codex na PR #51).
   const scrolling = [];
   for (const name of await listMaestroFlows()) {
-    const lines = (await readAppFile(`.maestro/${name}`)).split('\n');
-    if (lines.some((line) => /scrollUntilVisible:/.test(line) && !/^\s*#/.test(line))) {
-      scrolling.push(name);
-    }
+    if (countScrollCommands(await flowCommands(name)) > 0) scrolling.push(name);
   }
 
   assert.ok(scrolling.length > 0, 'expected at least one Maestro flow to use scrollUntilVisible');
@@ -747,6 +760,21 @@ test('lists exactly the flows that scroll until an element is visible', async ()
     [],
     `${stale.join(', ')} are listed in MAESTRO_FLOWS_WITH_SCROLL but no longer use scrollUntilVisible`
   );
+
+  // As duas guardas abaixo leem texto, e só enxergam a rolagem escrita como
+  // passo de topo `- scrollUntilVisible:`. Com outra grafia, a chave escapa
+  // delas mesmo num roteiro listado: o parser e o texto têm de contar o mesmo.
+  for (const name of MAESTRO_FLOWS_WITH_SCROLL) {
+    const parsed = countScrollCommands(await flowCommands(name));
+    const written = (await readAppFile(`.maestro/${name}`))
+      .split('\n')
+      .filter((line) => /^- scrollUntilVisible:/.test(line)).length;
+    assert.equal(
+      written,
+      parsed,
+      `${name}: ${parsed} scrollUntilVisible commands parsed, ${written} written as a top-level \`- scrollUntilVisible:\` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them`
+    );
+  }
 });
 
 test('makes every scroll-until-visible state the visibility bar it is measured by', async () => {

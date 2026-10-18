@@ -1,0 +1,91 @@
+PR #51 — injeções do P1 da revisão do Codex (comentário 4308793744)
+Medido em 2026-10-18, Node v20.20.2. Achado: a guarda de completude do 0cb5441 achava a rolagem por texto.
+  novo      = cria um roteiro fora da lista, com uma rolagem de chave entre aspas
+  aspas     = o 1º '- scrollUntilVisible:' de topo vira "- 'scrollUntilVisible':" e perde o visibilityPercentage
+  explicita = o mesmo bloco vira '- ? scrollUntilVisible' / '  : ...' e perde o visibilityPercentage
+Cada injeção é YAML válido; o script confere que o parser conta as mesmas rolagens antes e com a injeção,
+e restaura o arquivo byte a byte (o roteiro novo é apagado).
+
+=== Passo 0 do P1 — contrato do 0cb5441 (detecção por texto), sem edição
+--- novo:zz-injecao-p1.yaml exit=0; rolagens pelo parser no roteiro novo: 1
+    testes reprovados: 0
+--- aspas:review-due.yaml (defeito na linha 21) exit=0; rolagens pelo parser: 5 antes e 5 com a injeção
+    testes reprovados: 0
+--- explicita:hybrid-native-evidence.yaml (defeito na linha 25) exit=0; rolagens pelo parser: 9 antes e 9 com a injeção
+    testes reprovados: 0
+--- aspas:boot-to-home.yaml (defeito na linha 29) exit=1; rolagens pelo parser: 1 antes e 1 com a injeção
+    testes reprovados: 1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: boot-to-home.yaml are listed in MAESTRO_FLOWS_WITH_SCROLL but no longer use scrollUntilVisible
+
+Contrato com a detecção pela AST, sem injeção: 34 de 34 testes passaram.
+
+=== Passo C do P1 — contrato com a detecção pela AST e a asserção da grafia
+--- novo:zz-injecao-p1.yaml exit=1; rolagens pelo parser no roteiro novo: 1
+    testes reprovados: 1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: zz-injecao-p1.yaml use scrollUntilVisible but are missing from MAESTRO_FLOWS_WITH_SCROLL — the scroll guards only read the flows listed there
+--- aspas:review-due.yaml (defeito na linha 21) exit=1; rolagens pelo parser: 5 antes e 5 com a injeção
+    testes reprovados: 1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: review-due.yaml: 5 scrollUntilVisible commands parsed, 4 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+--- explicita:hybrid-native-evidence.yaml (defeito na linha 25) exit=1; rolagens pelo parser: 9 antes e 9 com a injeção
+    testes reprovados: 1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: hybrid-native-evidence.yaml: 9 scrollUntilVisible commands parsed, 8 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+--- aspas:boot-to-home.yaml (defeito na linha 29) exit=1; rolagens pelo parser: 1 antes e 1 com a injeção
+    testes reprovados: 1
+    not ok - lists exactly the flows that scroll until an element is visible
+    mensagem: boot-to-home.yaml: 1 scrollUntilVisible commands parsed, 0 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+
+=== Regressão do passo C da FILA 62 — as 9 injeções originais contra o contrato do P1
+--- vis:review-due.yaml (defeito na linha 21) exit=1
+    testes reprovados: 1
+    not ok - makes every scroll-until-visible state the visibility bar it is measured by
+    mensagem: review-due.yaml:21: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer overlaps the tar
+--- vis:hybrid-native-evidence.yaml (defeito na linha 25) exit=1
+    testes reprovados: 1
+    not ok - makes every scroll-until-visible state the visibility bar it is measured by
+    mensagem: hybrid-native-evidence.yaml:25: scrollUntilVisible must declare visibilityPercentage — Maestro defaults to 100%, and an inherited bar is a decision nobody made until it fails on the platform where a decorative layer over
+--- nest:review-due.yaml (defeito na linha 25) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: review-due.yaml: 5 scrollUntilVisible commands parsed, 4 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+    mensagem: review-due.yaml:25: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:hybrid-native-evidence.yaml (defeito na linha 29) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: hybrid-native-evidence.yaml: 9 scrollUntilVisible commands parsed, 8 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+    mensagem: hybrid-native-evidence.yaml:29: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:boot-to-home.yaml (defeito na linha 33) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: boot-to-home.yaml: 1 scrollUntilVisible commands parsed, 0 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes them
+    mensagem: boot-to-home.yaml:33: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:student-checkpoint-active-resume.yaml (defeito na linha 42) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-active-resume.yaml: 1 scrollUntilVisible commands parsed, 0 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes 
+    mensagem: student-checkpoint-active-resume.yaml:42: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
+--- nest:student-checkpoint-performance-baseline.yaml (defeito na linha 29) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-performance-baseline.yaml: 1 scrollUntilVisible commands parsed, 0 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key e
+    mensagem: student-checkpoint-performance-baseline.yaml:29: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding agai
+--- nest:student-checkpoint-no-duplicate-effect.yaml (defeito na linha 36) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-no-duplicate-effect.yaml: 5 scrollUntilVisible commands parsed, 4 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key es
+    mensagem: student-checkpoint-no-duplicate-effect.yaml:36: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding again
+--- nest:student-checkpoint-short-viewport.yaml (defeito na linha 41) exit=1
+    testes reprovados: 2
+    not ok - lists exactly the flows that scroll until an element is visible
+    not ok - never lets a scroll-until-visible hide behind a visibility guard
+    mensagem: student-checkpoint-short-viewport.yaml: 1 scrollUntilVisible commands parsed, 0 written as a top-level `- scrollUntilVisible:` step — the scroll guards read only that spelling, so a quoted, explicit or nested key escapes
+    mensagem: student-checkpoint-short-viewport.yaml:41: scrollUntilVisible must be a top-level step, never nested under a conditional — a visibility guard cannot see occlusion, and that is exactly what it would be guarding against'
