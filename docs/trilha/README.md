@@ -6,6 +6,15 @@ ou IA que entre no projeto entenda o trabalho em poucos minutos e possa somar a
 ele. **Contribuições são bem-vindas, inclusive as que discordam do que está
 aqui.**
 
+## Levantamento e continuidade — 2026-10-18
+
+- [**Levantamento de 16 a 18/10**](2026-10-18-levantamento-do-que-foi-feito.md):
+  PRs #39 a #46, decisões, achados e o que ficou aberto.
+- [**Prompt de continuidade (19)**](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md):
+  a entrada da próxima sessão.
+- [**ADR: o Claude planeja e executa**](../adr/ADR-2026-10-18-claude-planejador-e-executor.md).
+  Codex e Argon estão em pausa, e os prompts para eles abaixo viraram histórico.
+
 ## A1 corrigido — 2026-10-18
 
 A versão nova de conteúdo preserva a data de revisão do item (FILA 55):

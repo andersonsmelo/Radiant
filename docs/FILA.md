@@ -27,6 +27,13 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
+**Desde 2026-10-18, o Claude planeja e executa**, e Codex e Argon estão em pausa
+([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O que foi feito de
+16 a 18/10 está no
+[levantamento](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada
+da próxima sessão é o
+[prompt (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+
 ## Política de decisão
 
 O agente **decide por padrão** e executa. Escalam ao dono apenas:
@@ -162,8 +169,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - resumo de 0 estrela sem celebração, com faixa neutra e Pixel de orientação.
       O subtítulo continua "A lição foi concluída", porque a lição de 0 estrela
       conta como concluída na trilha.
-    **Ainda aberto:** o D1 do diagnóstico, uma só pergunta por lição
-    (`buildIntroBlock`), e o viés de comprimento: a certa é a mais longa em
+    **Atualização de 2026-10-18:** o D1, uma só pergunta por lição, foi
+    resolvido com o conteúdo que existe pelo motor híbrido (FILA 58): a lição
+    usa as 2 ou 3 perguntas que tem. Os 10 a 15 itens dependem da FILA 45.
+    **Ainda aberto:** o viés de comprimento: a certa é a mais longa em
     18/32 perguntas do `AI_LESSONS`, 19 com empates. Na tela, só o título da
     trilha foi visto no simulador; o reforço e o resumo de 0 estrela, não.
     [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) ·
@@ -203,8 +212,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
     `delayed-retention`; esse critério requer validação pedagógica e decisão.
     **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
-    Próximo: QA nativo das interações do G4, Android, performance G6 e
-    recuperação/backup/reset G7.
+    **Visto no simulador iOS em 2026-10-18 (Claude), sem capturas
+    versionadas:** com 7 itens vencidos, a revisão mostrou a seleção, a
+    confirmação, o feedback do erro em rosa, "Ver resposta com ajuda" com o
+    feedback âmbar e a passagem ao item seguinte. Faltam capturas versionadas.
+    Próximo: capturas versionadas do G4, Android, performance G6,
+    recuperação/backup/reset G7 e capacidade do store (A2 e A3).
     **Remedir:** comandos dos relatórios; gate/estado no run
     `run-1792269695725-1c4f438c`.
   - **55.** ✅ **Feito em 2026-10-18**: PR #45 mergeada na `main` a pedido de
