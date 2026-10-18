@@ -130,6 +130,7 @@ export function LessonSummary({
   continueHint = 'Continua o estudo',
 }: LessonSummaryProps) {
   const largeText = useLargeTextLayout();
+  const isZeroStars = stars === 0;
   const xpResult = xpAwarded === null
     ? 'Sem XP nesta tentativa'
     : xpAwarded === 0
@@ -140,12 +141,12 @@ export function LessonSummary({
     <View style={styles.root}>
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
         {/* A celebração compacta também rola: não disputa altura fixa com o texto ampliado. */}
-        <View style={styles.band}>
+        <View testID="lesson-summary-band" style={[styles.band, isZeroStars && styles.zeroBand]}>
           <PixelIllustration
-            state="celebrate"
+            state={isZeroStars ? 'guide' : 'celebrate'}
             tier="intermediate"
             size="md"
-            accessibilityLabel="Pixel comemorando"
+            accessibilityLabel={isZeroStars ? 'Pixel incentivando a tentar novamente' : 'Pixel comemorando'}
           />
           <StarRow stars={stars} animate={starsImproved} />
         </View>
@@ -155,6 +156,8 @@ export function LessonSummary({
         </Text>
         {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
             que o caminho dourado 1 afirma. */}
+        {/* Com 0 estrela a lição também conta como concluída na trilha: o
+            subtítulo diz o estado, e a faixa, o Pixel e a frase dizem o resultado. */}
         {kind !== 'review' ? (
           <Text style={styles.subtitle}>A lição foi concluída</Text>
         ) : (
@@ -226,6 +229,11 @@ const styles = StyleSheet.create({
     gap: space.s2,
     paddingVertical: space.s1,
     borderRadius: radius.rLg,
+  },
+  zeroBand: {
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
   },
   body: {
     padding: space.s3,

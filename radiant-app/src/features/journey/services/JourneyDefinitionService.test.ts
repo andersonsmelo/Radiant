@@ -232,5 +232,45 @@ describe('JourneyDefinitionService', () => {
         expect(reviewBlock?.steps[0].step.type === 'context' ? reviewBlock.steps[0].step.payload.body : null).toBe(
             'Feche o posicionamento antes de avançar.'
         );
+        expect(introBlock?.steps[3].step.type === 'reinforce' ? introBlock.steps[3].step.payload.prompt : null).toBe(
+            'Qual padrão sugere derrame pleural?'
+        );
+        expect(introBlock?.steps[3].step.type === 'reinforce' ? introBlock.steps[3].step.payload.correctAnswerLabel : null).toBe(
+            'Menisco'
+        );
+    });
+
+    it('remove o prefixo "Quiz: " dos nós de lição e de revisão na trilha sem alterar títulos sem prefixo', () => {
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue([
+            lessonSummaryFixture[0],
+            lessonSummaryFixture[1],
+            {
+                ...lessonSummaryFixture[2],
+                title: 'Quiz: Raios X: descoberta e propriedades',
+            },
+        ]);
+        mockedLessonCatalogService.getLessonById.mockImplementation((id: string) => {
+            if (id === 'lesson-c') {
+                return {
+                    ...lessonFixtureById['lesson-c'],
+                    title: 'Quiz: Raios X: descoberta e propriedades',
+                };
+            }
+            return lessonFixtureById[id] ?? null;
+        });
+
+        const [unit] = JourneyDefinitionService.getTrackDefinition('track-thorax').units;
+        const lessonANode = unit.nodes.find((node) => node.id === 'node:lesson-a');
+        const lessonCNode = unit.nodes.find((node) => node.id === 'node:lesson-c');
+        const reviewCNode = unit.nodes.find((node) => node.id === 'node:review:lesson-c');
+        const reviewCBlock = JourneyDefinitionService.getBlockById('block:review:lesson-c');
+
+        expect(lessonANode?.title).toBe('Anatomia');
+        expect(lessonCNode?.title).toBe('Raios X: descoberta e propriedades');
+        expect(reviewCNode?.title).toBe('Revisar Raios X: descoberta e propriedades');
+        expect(reviewCBlock?.steps[0].step.type === 'context' ? reviewCBlock.steps[0].step.payload.title : null).toBe(
+            'Revisar Raios X: descoberta e propriedades'
+        );
     });
 });
+

@@ -3189,3 +3189,14 @@ build, publicação, commit, push ou merge. Árvore compartilhada preservada.
 > staged de outras sessões.
 
 > O trabalho G0–G4 continua não commitado ([FILA 56](FILA.md)).
+
+---
+
+### Saído do STATUS em 2026-10-17 (revisão do Claude sobre a PR #40: afirmações não sustentadas)
+
+> **Entrega do Argon (Gemini 4 Argon High) — medida em 2026-10-17 na branch `argon/trilha-melhorias-e-avaliacao`:**
+> - **Lição legada honesta (`FILA 50` / `FILA 47`):** removido o prefixo `"Quiz: "` nos títulos dos nós da trilha (`JourneyDefinitionService.ts`), corrigida a tela de conclusão com 0 estrelas (`LessonSummary.tsx` e `lessonSummaryPhrases.ts`: subtítulo `"A lição ainda não fechou"`, faixa neutra `zeroBand`, Pixel em `state="guide"`, frase sem `"pela metade"`) e reconectada a explicação à pergunta e ao gabarito no passo 4 (`ReinforceStepRenderer.tsx`), preservando os 29 contratos de `scripts/maestro-contract.test.mjs`.
+> - **Correções em `G4` e `A2` (`FILA 54`):** corrigida a instrução de formato em `ReviewScreen.tsx` (`"Escolha uma alternativa e confirme, ou consulte a resposta com ajuda"`), corrigida a cor de revelação do gabarito pós-erro/ajuda em `ReviewCard.tsx` (`statusError` / `statusWarning` em vez de sempre `statusSuccess` verde) e implementado cache em memória por snapshot em `ItemReviewRepository.ts` (`A2`), eliminando `JSON.parse` e validações redundantes em leituras consecutivas.
+> - **Prova nativa no simulador iOS (`R1`):** verificados `G2`, `G4` (`/review`) e o fluxo de lição (`/learn`) no simulador `iPhone 17 Pro` (iOS 26.5).
+> - **Pesquisa `P6` (`FILA 52`) e mercado brasileiro:** auditadas 9 fontes de imagem médica (`NCI IDC`, `Open-i / PMC CC BY 4.0`, `Wikimedia Commons` e `NIH ChestX-ray14` aprovadas para uso comercial; `MedPix`, `Radiopaedia`, `VinDr-CXR`, `MIMIC-CXR` e `PadChest` reprovadas) e mapeados os pesos das bancas brasileiras (`EBSERH/IBFC`, `FGV`, `VUNESP`).
+> - [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) · [Pesquisa](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md) · [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md).

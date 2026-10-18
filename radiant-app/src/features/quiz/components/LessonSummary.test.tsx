@@ -298,4 +298,20 @@ describe('LessonSummary', () => {
     render(<LessonSummary {...base} stars={2} />);
     expect(screen.getByLabelText('2 de 3 estrelas')).toBeTruthy();
   });
+
+  // A lição de 0 estrela conta como concluída na trilha; a copy diz a verdade
+  // sobre o estado e deixa a honestidade sobre o resultado para a faixa, o
+  // Pixel e a frase. Os roteiros Maestro afirmam este subtítulo depois de erro.
+  it('com 0 estrelas, diz a verdade sobre a conclusão sem celebrar: faixa neutra e Pixel de orientação', () => {
+    render(<LessonSummary {...base} stars={0} correctAnswers={0} starsImproved={false} />);
+    expect(screen.getByText('A lição foi concluída')).toBeTruthy();
+    expect(screen.queryByText(/não fechou/)).toBeNull();
+    expect(screen.getByLabelText('Pixel incentivando a tentar novamente')).toBeTruthy();
+    expect(screen.queryByLabelText('Pixel comemorando')).toBeNull();
+    const bandStyle = StyleSheet.flatten(screen.getByTestId('lesson-summary-band').props.style);
+    expect(bandStyle.backgroundColor).not.toBe(
+      StyleSheet.flatten(render(<LessonSummary {...base} stars={3} />).getByTestId('lesson-summary-band').props.style).backgroundColor
+    );
+  });
 });
+

@@ -2,9 +2,9 @@ import type { LessonStars } from '../services/resolveLessonStars';
 
 export const LESSON_SUMMARY_PHRASES: Record<LessonStars, readonly string[]> = {
   0: [
-    'Ainda não fechou. Refazer agora é o caminho mais curto.',
-    'Faltou pouco para o corte. A segunda passada costuma render.',
-    'Esta ficou pela metade — vale rever antes de seguir.',
+    'Desta vez não veio. Refazer agora é o caminho mais curto.',
+    'O erro mostra onde rever. A segunda passada costuma render.',
+    'Zero desta vez — rever agora fixa melhor do que seguir.',
   ],
   1: [
     'Você conseguiu. Vamos continuar assim!',

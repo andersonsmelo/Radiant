@@ -7,6 +7,7 @@ import {
     isInteractionTypeRegistered,
 } from './ActivityRendererRegistry';
 import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
+import { ReinforceStepRenderer } from './ReinforceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -121,4 +122,30 @@ describe('ActivityRendererRegistry', () => {
         expect(REGISTERED_INTERACTION_TYPES).toContain('multiple-choice');
         expect(REGISTERED_INTERACTION_TYPES).toHaveLength(5);
     });
+
+    it('mantém a pergunta e o gabarito visíveis junto à explicação no passo de reforço', () => {
+        const { getByText, getByTestId } = render(
+            <ReinforceStepRenderer
+                payload={{
+                    title: 'Fixe este ponto',
+                    body: 'Resumo de fallback.',
+                    tone: 'neutral',
+                    prompt: 'Qual estrutura aparece mais radiopaca?',
+                    correctAnswerLabel: 'Osso cortical',
+                }}
+                answeredCorrectly={false}
+                explanation="Estruturas densas atenuam mais fótons de raios X."
+            />,
+        );
+
+        expect(getByText('Vamos reforçar')).toBeTruthy();
+        expect(getByTestId('reinforce-question-recap')).toHaveTextContent(
+            'Pergunta: Qual estrutura aparece mais radiopaca?'
+        );
+        expect(getByTestId('reinforce-correct-answer')).toHaveTextContent(
+            'Gabarito: Osso cortical'
+        );
+        expect(getByText('Estruturas densas atenuam mais fótons de raios X.')).toBeTruthy();
+    });
 });
+

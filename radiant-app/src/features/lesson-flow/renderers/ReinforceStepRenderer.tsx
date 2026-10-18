@@ -30,6 +30,8 @@ export function ReinforceStepRenderer({
                 ? 'rgba(245,166,35,0.30)'
                 : galaxyColors.border;
 
+    const hasQuestionContext = Boolean(payload.prompt || payload.correctAnswerLabel);
+
     return (
         <View style={[styles.card, { backgroundColor, borderColor }]}>
             <Text style={styles.title}>
@@ -39,6 +41,20 @@ export function ReinforceStepRenderer({
                         ? 'Vamos reforçar'
                         : payload.title}
             </Text>
+            {hasQuestionContext ? (
+                <View testID="reinforce-question-context" style={styles.recapBox}>
+                    {payload.prompt ? (
+                        <Text testID="reinforce-question-recap" style={styles.recapPrompt}>
+                            {`Pergunta: ${payload.prompt}`}
+                        </Text>
+                    ) : null}
+                    {payload.correctAnswerLabel ? (
+                        <Text testID="reinforce-correct-answer" style={styles.recapAnswer}>
+                            {`Gabarito: ${payload.correctAnswerLabel}`}
+                        </Text>
+                    ) : null}
+                </View>
+            ) : null}
             <Text style={styles.body}>{explanation ?? payload.body}</Text>
         </View>
     );
@@ -55,8 +71,25 @@ const styles = StyleSheet.create({
         ...typography.h3,
         color: galaxyColors.textPrimary,
     },
+    recapBox: {
+        borderRadius: radius.rMd,
+        backgroundColor: galaxyColors.surface,
+        borderWidth: 1,
+        borderColor: galaxyColors.border,
+        padding: space.s3,
+        gap: space.s1,
+    },
+    recapPrompt: {
+        ...typography.caption,
+        color: galaxyColors.textSecondary,
+    },
+    recapAnswer: {
+        ...typography.bodyStrong,
+        color: galaxyColors.textPrimary,
+    },
     body: {
         ...typography.bodyRegular,
         color: galaxyColors.textSecondary,
     },
 });
+

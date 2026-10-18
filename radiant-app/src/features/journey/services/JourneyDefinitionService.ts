@@ -48,6 +48,8 @@ function resolveQuestionIndex(lesson: ContentLesson, preferredIndex: number | un
 function buildIntroBlock(track: LearningTrack, lesson: ContentLesson, lessonOrder: number): LessonBlock {
     const introCopy = lesson.journey?.intro;
     const questionIndex = resolveQuestionIndex(lesson, introCopy?.questionIndex, 0);
+    const question = lesson.questions[questionIndex] ?? lesson.questions[0];
+    const correctAnswerLabel = question?.options[question.correctAnswerIndex]?.label;
 
     return {
         id: `block:${lesson.id}:intro`,
@@ -107,6 +109,8 @@ function buildIntroBlock(track: LearningTrack, lesson: ContentLesson, lessonOrde
                             introCopy?.reinforceBody ??
                             `Se este conceito ficar claro, a próxima parte de ${track.title.toLowerCase()} anda com menos atrito.`,
                         tone: 'neutral',
+                        prompt: question?.prompt,
+                        correctAnswerLabel,
                     },
                 },
             },
@@ -114,9 +118,16 @@ function buildIntroBlock(track: LearningTrack, lesson: ContentLesson, lessonOrde
     };
 }
 
+function displayLessonTitle(rawTitle: string): string {
+    return rawTitle.replace(/^Quiz:\s*/i, '').trim();
+}
+
 function buildReviewBlock(lesson: ContentLesson): LessonBlock {
     const reviewCopy = lesson.journey?.review;
     const questionIndex = resolveQuestionIndex(lesson, reviewCopy?.questionIndex, 1);
+    const question = lesson.questions[questionIndex] ?? lesson.questions[0];
+    const correctAnswerLabel = question?.options[question.correctAnswerIndex]?.label;
+    const lessonTitle = displayLessonTitle(lesson.title);
 
     return {
         id: `block:review:${lesson.id}`,
@@ -134,10 +145,10 @@ function buildReviewBlock(lesson: ContentLesson): LessonBlock {
                     type: 'context',
                     payload: {
                         eyebrow: 'Revisão',
-                        title: `Revisar ${lesson.title}`,
+                        title: `Revisar ${lessonTitle}`,
                         body:
                             reviewCopy?.contextBody ??
-                            `Retome rapidamente o conceito central de ${lesson.title.toLowerCase()} antes de avançar.`,
+                            `Retome rapidamente o conceito central de ${lessonTitle.toLowerCase()} antes de avançar.`,
                     },
                 },
             },
@@ -156,8 +167,10 @@ function buildReviewBlock(lesson: ContentLesson): LessonBlock {
                         title: 'Revisão consolidada',
                         body:
                             reviewCopy?.reinforceBody ??
-                            `Se essa revisão sair natural, ${lesson.title.toLowerCase()} já está virando repertório.`,
+                            `Se essa revisão sair natural, ${lessonTitle.toLowerCase()} já está virando repertório.`,
                         tone: 'neutral',
+                        prompt: question?.prompt,
+                        correctAnswerLabel,
                     },
                 },
             },
@@ -201,12 +214,13 @@ function buildUnit(track: LearningTrack, trackIndex: number, lessons: ContentLes
     // `ProductionCurriculumCatalog.journeyFor` e continuam.
     lessons.forEach((lesson, lessonIndex) => {
         const previousLessonNodeId = lessonIndex > 0 ? `node:${lessons[lessonIndex - 1].id}` : null;
+        const lessonTitle = displayLessonTitle(lesson.title);
 
         nodes.push({
             id: `node:${lesson.id}`,
             unitId,
             type: 'lesson',
-            title: lesson.title,
+            title: lessonTitle,
             lessonId: lesson.id,
             blockId: `block:${lesson.id}:intro`,
             unlockRule: previousLessonNodeId
@@ -220,7 +234,7 @@ function buildUnit(track: LearningTrack, trackIndex: number, lessons: ContentLes
             id: `node:review:${lesson.id}`,
             unitId,
             type: 'review',
-            title: `Revisar ${lesson.title}`,
+            title: `Revisar ${lessonTitle}`,
             lessonId: lesson.id,
             blockId: `block:review:${lesson.id}`,
             unlockRule: {

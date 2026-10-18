@@ -25,6 +25,23 @@ de Anderson. Leia estes dois documentos antes de escolher trabalho:
 - O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39),
   em cinco commits.
 
+## Entrega do Argon — 2026-10-17, Gemini 4 Argon (High)
+
+> Revisada pelo Claude em 2026-10-17: [revisão B1–B5](avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md), na branch `feat/trilha-evolucao-global-g0-g4`. As correções entraram na própria PR #40.
+
+Na branch `argon/trilha-melhorias-e-avaliacao` (baseada em `origin/feat/trilha-evolucao-global-g0-g4`):
+
+- [Avaliação técnica: lição legada honesta, revisão G4, contratos E2E e prova nativa](avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md):
+  - mapeamento de 3 colisões entre o plano P1 e `scripts/maestro-contract.test.mjs` / `.maestro/reward-unlock.yaml`;
+  - implementação da lição legada honesta (`FILA 50` / `FILA 47`): remoção de `"Quiz: "` nos títulos da trilha (`JourneyDefinitionService.ts`), resumo de 0 estrela sem celebração e com frases sem quase acerto (`LessonSummary.tsx` e `lessonSummaryPhrases.ts`); o subtítulo continua "A lição foi concluída", corrigido pelo Claude e recap de pergunta + gabarito no passo 4 (`ReinforceStepRenderer.tsx`);
+  - correção de 2 defeitos da `ReviewScreen` (`G4`): instrução obsoleta de autoavaliação substituída e destaque de gabarito pós-erro/ajuda em `ReviewCard.tsx` diferenciado por cor (`statusError` / `statusWarning` em vez de sempre `statusSuccess` verde);
+  - cache validado por snapshot em `ItemReviewRepository.ts`, que reduz CPU mas não resolve o tamanho do store (A2 segue aberto);
+  - três telas vistas no simulador iOS (trilha, início da revisão e passo 1 da lição); as interações do G4 não foram exercitadas.
+- [Pesquisa: fontes de imagens radiológicas com licença comercial (P6 / FILA 52) e mercado brasileiro](pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md):
+  - auditoria jurídica de 9 repositórios de imagens médicas (com alerta de que o `MedPix` **não** autoriza uso comercial sem permissão do autor original, ao contrário de `NCI IDC`, `Open-i / PMC CC BY 4.0`, `Wikimedia Commons CC0/CC BY` e `NIH ChestX-ray14`) e proposta de 15 imagens iniciais;
+  - cruzamento com provas brasileiras de Técnico em Radiologia (`EBSERH/IBFC`, `FGV`, `VUNESP`) e concorrentes nas lojas; os pesos por tema e as queixas de usuários não têm fonte aberta e valem como hipótese.
+- [Evidência de código, ciclos TDD (RED → GREEN) e simulador](../evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md).
+
 ## Direção atual — evolução global, 2026-10-16
 
 **Anderson retirou o foco em aulas piloto.** A frente agora parte de pesquisas e

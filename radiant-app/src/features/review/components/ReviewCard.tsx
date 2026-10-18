@@ -44,8 +44,31 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
             style={[styles.optionRow, selected === index && { borderColor: galaxyColors.borderActive }]}>
             <Text style={styles.optionText} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>{option.label}</Text>
           </Pressable>)}
-        </View> : <View style={styles.answerShell} accessibilityLiveRegion="polite">
-          <Text style={styles.answerLabel}>{feedback.assisted ? 'Resposta consultada' : feedback.correct ? 'Resposta correta' : 'Vamos revisar este ponto'}</Text>
+        </View> : <View
+          testID="review-feedback-shell"
+          style={[
+            styles.answerShell,
+            feedback.assisted
+              ? styles.answerShellAssisted
+              : feedback.correct
+                ? styles.answerShellCorrect
+                : styles.answerShellIncorrect,
+          ]}
+          accessibilityLiveRegion="polite"
+        >
+          <Text
+            testID="review-feedback-label"
+            style={[
+              styles.answerLabel,
+              feedback.assisted
+                ? styles.answerLabelAssisted
+                : feedback.correct
+                  ? styles.answerLabelCorrect
+                  : styles.answerLabelIncorrect,
+            ]}
+          >
+            {feedback.assisted ? 'Resposta consultada' : feedback.correct ? 'Resposta correta' : 'Vamos revisar este ponto'}
+          </Text>
           <Text style={styles.answerText}>{question.options[question.correctAnswerIndex]?.label}</Text>
           <Text style={styles.explanation}>{question.explanation}</Text>
         </View>}
@@ -123,11 +146,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: galaxyColors.borderActive,
   },
+  answerShellCorrect: {
+    backgroundColor: 'rgba(93,227,174,0.16)',
+    borderColor: 'rgba(93,227,174,0.36)',
+  },
+  answerShellAssisted: {
+    backgroundColor: 'rgba(245,166,35,0.14)',
+    borderColor: 'rgba(245,166,35,0.36)',
+  },
+  answerShellIncorrect: {
+    backgroundColor: 'rgba(255,130,152,0.14)',
+    borderColor: 'rgba(255,130,152,0.36)',
+  },
   answerLabel: {
     ...typography.caption,
     color: galaxy.statusSuccess,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
+  },
+  answerLabelCorrect: {
+    color: galaxy.statusSuccess,
+  },
+  answerLabelAssisted: {
+    color: galaxy.statusWarning,
+  },
+  answerLabelIncorrect: {
+    color: galaxy.statusError,
   },
   answerText: {
     ...typography.body,

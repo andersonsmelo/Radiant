@@ -253,7 +253,7 @@ export default function ReviewScreen({ resumeCheckpointId, resumeCursorId }: Rev
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="flash-on" size={20} color={galaxyColors.ctaGradientEnd} />}
                   label="Formato"
-                  value="Revele a resposta e avalie se lembrou de cada item"
+                  value="Escolha uma alternativa e confirme, ou consulte a resposta com ajuda"
                 />
                 <GalaxyStatRow
                   icon={<DecorativeIcon name="timeline" size={20} color={galaxyColors.ctaGradientEnd} />}
