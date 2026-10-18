@@ -684,6 +684,14 @@ iPhone 17 Pro com iOS 26.5:
 [Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
 Debug não prova a build Release; a build e o envio continuam com o dono.
 
+**Defeito achado depois, em 2026-10-18 à noite (FILA 63), e consertado só na
+branch `claude/fila63-checkpoint-instavel`.** Na `main` desde `a1f26f6`, o journal
+por item recusa ~1 em 1.613 avaliações aprovadas e ~1 em 1.061 lições, porque o
+sufixo aleatório do id compõe "rg", "cpf" ou "pacs" e o detector de dado
+sensível o reprova. A avaliação fica em "Nao foi possivel registrar o checkpoint
+agora.". **Uma build da `main` antes desse merge leva o defeito.** A `1.4.0`
+publicada não tem o journal. [Evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md).
+
 ## E2E sem animação — FILA 49, medido em 2026-10-18
 
 Lançado com `-radiantReduceMotion 1`, o app liga "Reduzir movimento" sem mexer

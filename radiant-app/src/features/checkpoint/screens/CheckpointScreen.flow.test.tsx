@@ -668,6 +668,25 @@ describe('CheckpointScreen flow', () => {
       expect(screen.queryByText('XP total: 120')).toBeNull();
     });
 
+    // FILA 63 (2026-10-18): este sorteio fazia o `attemptId` terminar em
+    // "rg5i…", o detector de dado sensível recusava o id no journal, e a
+    // aprovação caía em "Nao foi possivel registrar o checkpoint agora." — a
+    // falha do CI da PR #51, que ocorria em ~1 de 1.600 envios.
+    it('o sorteio do id não impede o registro da aprovação', async () => {
+      const random = jest.spyOn(Math, 'random').mockReturnValue(0.7624635631001372);
+      mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award, rewarded: true });
+      try {
+        renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+        await answerProductionCheckpoint(true);
+
+        expect(await screen.findByText('+18 XP')).toBeTruthy();
+        expect(screen.queryByText(/Nao foi possivel registrar o checkpoint/u)).toBeNull();
+        expect(await itemReviewRepository.getAttempts()).toHaveLength(productionStageItems.length);
+      } finally {
+        random.mockRestore();
+      }
+    });
+
     it('sem crédito, a celebração mostra só o total', async () => {
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
       await answerProductionCheckpoint(true);
