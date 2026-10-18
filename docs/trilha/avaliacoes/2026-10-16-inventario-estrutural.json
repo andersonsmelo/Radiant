@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "measuredAtUtc": "2026-10-16T22:57:00.888Z",
+  "timezoneForInterpretation": "America/Bahia",
+  "head": "2c1b5f0bccf15d1fbf5b9dd7a48d51bd0d85e24b",
+  "scope": "Pure local catalog composition. Not device visibility, production API, clinical validation or learning efficacy.",
+  "legacy": {
+    "lessons": 18,
+    "questions": 38,
+    "imageQuestions": 0,
+    "correctLongestIncludingTies": 22,
+    "correctStrictLongest": 21,
+    "authoredJourneyIntro": 2,
+    "aiOnly": {
+      "lessons": 16,
+      "questions": 32,
+      "imageQuestions": 0,
+      "correctLongestIncludingTies": 19,
+      "correctStrictLongest": 18
+    },
+    "tracks": [
+      {
+        "id": "track-radiology-foundations",
+        "slug": "fundamentos",
+        "title": "Fundamentos de Radiologia",
+        "lessons": 7,
+        "questions": 16,
+        "projectedNodesFromCurrentBuilder": 15
+      },
+      {
+        "id": "track-thorax-patterns",
+        "slug": "torax",
+        "title": "Radiação, Modalidades e Equipamento",
+        "lessons": 6,
+        "questions": 12,
+        "projectedNodesFromCurrentBuilder": 13
+      },
+      {
+        "id": "track-abdomen-essentials",
+        "slug": "abdome",
+        "title": "Prática, Qualidade e Profissão",
+        "lessons": 5,
+        "questions": 10,
+        "projectedNodesFromCurrentBuilder": 11
+      }
+    ]
+  },
+  "production": [
+    {
+      "id": "track:fundamentos-e-seguranca-radiologica",
+      "title": "Matéria, energia e radiação",
+      "activities": 12,
+      "nodes": 18
+    }
+  ],
+  "facade": {
+    "tracks": 4,
+    "lessonSummaries": 30
+  },
+  "sourceHashes": {
+    "radiant-app/src/data/catalog.ts": "496c9c206657a640ef60dc5dfadb86bee72312c81d2177af382a9197a17ffd1b",
+    "radiant-app/src/data/lessons.ts": "dd138d4ab2a81ae63668591d6cde556e6de727eba7012a506d05846129c07bc9",
+    "radiant-app/src/data/ai-lessons.ts": "5d4646376e313b5fd94a0ae024b5aa45bf24659325ea1179140643726f6ff7fe",
+    "radiant-app/src/features/student-checkpoints/ProductionCurriculumCatalog.ts": "61cf0444a801e1d9e450671da3b6af43d89decde086cc0d40f7ac9eb04c82e2c",
+    "radiant-app/src/features/student-checkpoints/production-batches.ts": "9c202e4c90b3cdc616bd814a8ce0e3c354896de2bc04415ce7704d72bf55ebca",
+    "radiant-app/src/features/student-checkpoints/EditorialCurriculumCandidate.ts": "2d926dca8fb57edc71d840c6c0eb9821168450b86606fce613d21fb5f6306d1f",
+    "radiant-app/src/types/learningActivity.ts": "74f6076354267c5d39ca7f2d82b7c41dc50114da64d0d086739e0a9bcf26ab5c",
+    "radiant-app/src/features/student-checkpoints/ProductionBatch.ts": "38a6a01d91806b8491be18635e0e3269db345957de1c605af68c5736df31e63e"
+  }
+}

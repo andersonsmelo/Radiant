@@ -74,3 +74,12 @@ describe('computeSegmentPrimaryProgress — o trecho inteiro, pela mesma regra',
     expect(computeSegmentPrimaryProgress([])).toEqual({ completed: 0, total: 0 });
   });
 });
+
+it('exclui a conquista opcional do denominador, inclusive depois da coleta', () => {
+  const composed = { id: 'u', title: 'U', nodes: [
+    { id: 'l', unitId: 'u', title: 'L', type: 'lesson' as const, status: 'completed' as const },
+    { id: 'r', unitId: 'u', title: 'R', type: 'reward' as const, status: 'available' as const, optionalForProgression: true },
+  ] };
+  expect(computeSegmentPrimaryProgress([composed])).toEqual({ completed: 1, total: 1 });
+  expect(computeSegmentPrimaryProgress([{ ...composed, nodes: composed.nodes.map(node => ({ ...node, status: 'completed' as const })) }])).toEqual({ completed: 1, total: 1 });
+});

@@ -20,6 +20,7 @@ import { LessonCatalogService } from '../../content/services/LessonCatalogServic
 import { JourneyDefinitionService } from './JourneyDefinitionService';
 import { JourneyProgressService } from './JourneyProgressService';
 import { resolveTrackAccess } from './JourneyTrackUnlockService';
+import { isTrackCompleted } from './trackCompletion';
 
 /** Um trecho do percurso: uma trilha, com suas unidades e seu estado de acesso. */
 export type CurriculumSegment = {
@@ -37,17 +38,12 @@ export type CurriculumTrail = {
     recommendedNodeId?: string;
 };
 
-/**
- * Uma trilha está concluída quando todo nó que a compõe está concluído.
- *
- * Trilha sem nó nenhum NÃO conta como concluída: um catálogo que ainda não
- * produziu conteúdo abriria a trilha seguinte de graça, e o cadeado existe
- * justamente para impedir pular adiante.
- */
-function isTrackCompleted(units: JourneyUnit[]): boolean {
-    const nodes = units.flatMap((unit) => unit.nodes);
-
-    return nodes.length > 0 && nodes.every((node) => node.status === 'completed');
+/** A régua de `trackCompletion.ts`, lida pelo status que a tela mostra. */
+function isTrackUnitsCompleted(units: JourneyUnit[]): boolean {
+    return isTrackCompleted(
+        units.flatMap((unit) => unit.nodes),
+        (node) => node.status === 'completed',
+    );
 }
 
 /**
@@ -107,7 +103,7 @@ class JourneyCurriculumServiceImpl {
         // dos nós e do progresso, e é o que se calcula aqui.
         const completedTrackIds = new Set(
             [...snapshotByTrackId.entries()]
-                .filter(([, snapshot]) => isTrackCompleted(snapshot.track.units))
+                .filter(([, snapshot]) => isTrackUnitsCompleted(snapshot.track.units))
                 .map(([trackId]) => trackId)
         );
 

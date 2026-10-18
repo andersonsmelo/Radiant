@@ -10,6 +10,10 @@ import { LessonOutcomeService } from '../../lesson-flow/services/LessonOutcomeSe
 import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH } from '../../student-checkpoints/production-batches';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
 
 const mockedRouter = router as jest.Mocked<typeof router>;
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
@@ -24,6 +28,7 @@ function voltarParaATela() {
 jest.mock('expo-router', () => ({
   router: {
     replace: jest.fn(),
+    dismissTo: jest.fn(),
     push: jest.fn(),
     back: jest.fn(),
   },
@@ -279,6 +284,65 @@ describe('CheckpointScreen flow', () => {
     mockedLessonOutcome.recordAssessmentApproval.mockResolvedValue({ award: null, rewarded: false });
   });
 
+  it('retry após falha de gravação envia o mesmo ID e as mesmas respostas, sem concluir antes', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const submit = jest.spyOn(assessmentAttemptRepository, 'submit');
+    const setItem = (AsyncStorage.setItem as jest.Mock).getMockImplementation()!;
+    let failed = false;
+    const write = jest.spyOn(AsyncStorage, 'setItem').mockImplementation(async (key, raw) => {
+      if (!failed && key === STORAGE_KEYS.ITEM_REVIEW) { failed = true; throw Error('full'); }
+      return setItem(key, raw);
+    });
+    try {
+      renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+      await answerProductionCheckpoint(true);
+      expect(await screen.findByText(/Suas respostas não foram presumidas/u)).toBeTruthy();
+      expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+      expect(mockedLessonOutcome.recordAssessmentApproval).not.toHaveBeenCalled();
+      const first = submit.mock.calls[0][0];
+      fireEvent.press(screen.getByText('Enviar checkpoint'));
+      await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
+      expect(submit.mock.calls[1][0]).toEqual(first);
+      expect(await itemReviewRepository.getAttempts()).toHaveLength(productionStageItems.length);
+      const due = new Date(Date.now() + 2 * 86400000);
+      const queue = await ItemReviewService.loadQueue([], due);
+      expect(queue.map(entry => entry.question.id).sort()).toEqual(productionStageItems.map(item => item.id).sort());
+      expect((await ItemReviewService.recordReview(queue[0], true, due)).accepted).toBe(true);
+      expect((await itemReviewRepository.getAttempts()).at(-1)).toMatchObject({ mode: 'self-review', hintUsed: true });
+    } finally {
+      submit.mockRestore(); write.mockRestore();
+      (AsyncStorage.setItem as jest.Mock).mockImplementation(setItem);
+    }
+  });
+
+  it('reabrir uma aprovação salva oferece concluir sem refazer nem duplicar a tentativa', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const original = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    const recordApproval = mockedLessonOutcome.recordAssessmentApproval;
+    recordApproval.mockRejectedValueOnce(Error('after-journal'));
+    await answerProductionCheckpoint(true);
+    expect(await screen.findByText('Concluir avaliação registrada')).toBeTruthy();
+    const before = await itemReviewRepository.getAttempts();
+    original.unmount();
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    fireEvent.press(await screen.findByText('Concluir avaliação registrada'));
+    await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith(productionNodeId));
+    expect(await itemReviewRepository.getAttempts()).toEqual(before);
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+  });
+
+  it('retry da conclusão na mesma tela não volta a pedir crédito de XP', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    mockedJourneyProgressService.markNodeCompleted
+      .mockResolvedValueOnce(productionAvailableSnapshot).mockResolvedValue(productionCompletedSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(true);
+    expect(await screen.findByText('Nao foi possivel concluir o checkpoint agora.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Concluir avaliação registrada'));
+    await waitFor(() => expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledTimes(2));
+    expect(mockedLessonOutcome.recordAssessmentApproval).toHaveBeenCalledTimes(1);
+  });
+
   // ADR 2026-09-24, decisão 2: numa mesma tentativa, cada pergunta custa no
   // máximo uma vida, mesmo que o aluno saia e volte. A tentativa vai do
   // "Iniciar checkpoint" até o envio.
@@ -317,6 +381,11 @@ describe('CheckpointScreen flow', () => {
       expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
       expect(heartsRepository.spend).toHaveBeenCalledTimes(productionStageItems.length);
       tentativaReprovada.unmount();
+
+      for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+        const answers = Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : []));
+        await assessmentAttemptRepository.completeActivity(activity, answers);
+      }
 
       renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
       await errarAPrimeiraPergunta();
@@ -531,20 +600,14 @@ describe('CheckpointScreen flow', () => {
     });
   });
 
-  it('completes an available checkpoint and updates the journey snapshot', async () => {
+  it('a checkpoint without an assessment cannot be completed by a legacy button', async () => {
     renderWithProviders(<CheckpointScreen nodeId="checkpoint-1" />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Pronto para fechar esta etapa?')).toBeTruthy();
-    });
-
-    fireEvent.press(screen.getByText('Concluir checkpoint'));
-
-    await waitFor(() => {
-      expect(mockedJourneyProgressService.markNodeCompleted).toHaveBeenCalledWith('checkpoint-1');
-    });
-
-    expect(await screen.findByText('Etapa validada.')).toBeTruthy();
+    expect(await screen.findByText('Checkpoint indisponível')).toBeTruthy();
+    expect(screen.queryByText('Concluir checkpoint')).toBeNull();
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+    expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+    fireEvent.press(screen.getByText('Voltar para jornada'));
+    expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)');
   });
 
   it('aplica as questões do estágio e só conclui quando atinge 80%', async () => {
@@ -658,5 +721,53 @@ describe('CheckpointScreen flow', () => {
     ).toBeTruthy();
     expect(screen.getByText('Revisar competência frágil')).toBeTruthy();
     expect(mockedJourneyProgressService.markNodeCompleted).not.toHaveBeenCalled();
+  });
+
+  it('sair e voltar após reprovar preserva o reforço e impede uma nova tentativa', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const first = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    first.unmount();
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
+  });
+
+  it('concluir o reforço permite uma nova tentativa ao reabrir a tela', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    const first = renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    first.unmount();
+    for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+      await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
+    }
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    const start = await screen.findByText('Iniciar checkpoint');
+    await waitFor(() => expect(screen.queryByText('Reforço necessário antes de tentar novamente')).toBeNull());
+    fireEvent.press(start);
+    expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+  });
+
+  it('voltar do reforço na mesma instância inicia na primeira questão, sem reutilizar respostas antigas', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(productionAvailableSnapshot);
+    renderWithProviders(<CheckpointScreen nodeId={productionNodeId} />);
+    await answerProductionCheckpoint(false);
+    expect(await screen.findByText('Reforço necessário antes de tentar novamente')).toBeTruthy();
+    for (const activity of MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH.activities.filter(entry => entry.competencyIds.includes(productionStageCompetencyId))) {
+      await assessmentAttemptRepository.completeActivity(activity, Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])));
+    }
+    voltarParaATela();
+    fireEvent.press(await screen.findByText('Iniciar checkpoint'));
+    expect(await screen.findByText(productionStageItems[0].prompt)).toBeTruthy();
+    expect(screen.queryByText(productionStageItems[1].prompt)).toBeNull();
+    const firstItem = productionStageItems[0];
+    fireEvent.press(screen.getByLabelText(firstItem.options.find(option => option.id === firstItem.correctOptionId)!.label));
+    fireEvent.press(screen.getByText('Próxima questão'));
+    expect(await screen.findByText(productionStageItems[1].prompt)).toBeTruthy();
+    voltarParaATela();
+    await waitFor(() => expect(screen.getByText(productionStageItems[1].prompt)).toBeTruthy());
+    expect(screen.queryByText('Iniciar checkpoint')).toBeNull();
   });
 });

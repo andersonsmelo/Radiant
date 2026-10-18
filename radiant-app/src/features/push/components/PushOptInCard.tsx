@@ -26,11 +26,19 @@ export const PushOptInCard = ({ onDismiss }: Props) => {
     const handleEnable = async () => {
         setLoading(true);
         TelemetryService.track('push_optin_accepted');
-        await PushService.setOptIn(true);
-        // Force a schedule check immediately since they just opted in
-        await PushService.scheduleDailyIfEligible({ reason: 'optin_immediate' });
-        setLoading(false);
-        onDismiss();
+        try {
+            await PushService.setOptIn(true);
+            // Force a schedule check immediately since they just opted in
+            await PushService.scheduleDailyIfEligible({ reason: 'optin_immediate' });
+        } catch (cause) {
+            // O aceite fica registrado e a próxima abertura de Estude reagenda.
+            // Sem isto o cartão ficava preso em "Ativando..." (simulador,
+            // 2026-10-16).
+            console.error('[PushOptInCard] Falha ao ativar o lembrete:', cause);
+        } finally {
+            setLoading(false);
+            onDismiss();
+        }
     };
 
     const handleDismiss = async () => {

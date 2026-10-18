@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { AnimatedProgressBar } from '../../../components/ui/AnimatedProgressBar';
 import { AppButton } from '../../../components/ui/AppButton';
 import { DecorativeIcon } from '../../../components/ui/DecorativeIcon';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
@@ -8,12 +7,18 @@ import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
 // visual — `scripts/visual-qa.mjs`): animação reutilizável vive em
 // `ui/motion.ts`. `useScalePop` já resolve movimento reduzido por dentro.
 import { useScalePop } from '../../../ui/motion';
+import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
 import { radius, space, typography } from '../../../ui/styles';
 import { galaxyColors } from '../../../ui/theme';
 import type { LessonStars } from '../services/resolveLessonStars';
 
 export type LessonSummaryProps = {
+  /** Estrelas DESTA tentativa (ADR de 2026-10-16). */
   stars: LessonStars;
+  /** O recorde da lição; aparece à parte quando é maior que esta tentativa. */
+  recordStars?: LessonStars;
+  /** Revisão da trilha não é aula: muda o subtítulo e não pede avaliação. */
+  kind?: 'lesson' | 'review';
   starsImproved: boolean;
   phrase: string;
   xpAwarded: number | null;
@@ -26,6 +31,7 @@ export type LessonSummaryProps = {
   currentRating: number | null;
   onRate: (rating: number) => void;
   onContinue: () => void;
+  continueHint?: string;
 };
 
 const TOTAL_STARS = 3;
@@ -40,7 +46,7 @@ const RATING_SLOTS = Array.from({ length: RATING_MAX }, (_, index) => index + 1)
 // avaliação) renderiza cortado ou fica invisível no primeiro paint atrás do
 // botão. Esta tela não é uma tab, então ganha sua própria constante nomeada
 // em vez de importar `tabBarClearance` — mesmo desenho, valor próprio.
-const CTA_HEIGHT = 56; // altura fixa do AppButton, components/ui/AppButton.tsx
+const CTA_HEIGHT = 56; // altura mínima do AppButton, components/ui/AppButton.tsx
 const ctaClearance = space.s3 * 2 /* padding vertical do rodapé */ + CTA_HEIGHT + space.s3; /* respiro */
 
 /**
@@ -90,8 +96,25 @@ function StarRow({ stars, animate }: { stars: LessonStars; animate: boolean }) {
   );
 }
 
+/** Uma linha pode empilhar com texto ampliado; o corpo continua sem teto de escala. */
+function ResultRow({ label, value, stacked }: { label: string; value: string; stacked: boolean }) {
+  return (
+    <View
+      style={[styles.resultRow, stacked && styles.resultRowStacked]}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${label}: ${value}`}
+    >
+      <Text style={[styles.resultLabel, stacked && styles.resultTextStacked]}>{label}</Text>
+      <Text style={[styles.resultValue, stacked && styles.resultTextStacked]}>{value}</Text>
+    </View>
+  );
+}
+
 export function LessonSummary({
   stars,
+  recordStars,
+  kind = 'lesson',
   starsImproved,
   phrase,
   xpAwarded,
@@ -104,61 +127,53 @@ export function LessonSummary({
   currentRating,
   onRate,
   onContinue,
+  continueHint = 'Continua o estudo',
 }: LessonSummaryProps) {
+  const largeText = useLargeTextLayout();
+  const xpResult = xpAwarded === null
+    ? 'Sem XP nesta tentativa'
+    : xpAwarded === 0
+      ? 'Progresso registrado'
+      : `+${xpAwarded} XP nesta tentativa`;
+
   return (
     <View style={styles.root}>
-      {/* Faixa de comemoração: só arte do Pixel, nenhum texto de leitura sobre ela. */}
-      <View style={styles.band}>
-        <PixelIllustration
-          state="celebrate"
-          tier="intermediate"
-          size="lg"
-          accessibilityLabel="Pixel comemorando"
-        />
-      </View>
-
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
-        <StarRow stars={stars} animate={starsImproved} />
-
-        <Text style={styles.phrase} accessibilityRole="header">
-          {phrase}
-        </Text>
-        <Text style={styles.subtitle}>A lição foi concluída</Text>
-
-        <View style={styles.scoreRow}>
-          <View style={styles.scoreCard}>
-            <Text style={styles.scoreValue}>
-          {xpAwarded === null
-            ? 'Sem XP nesta tentativa'
-            : xpAwarded === 0
-              ? 'Progresso registrado'
-              : `+${xpAwarded} XP nesta tentativa`}
-            </Text>
-          </View>
-          <View style={styles.scoreCard}>
-            <Text style={styles.scoreValue}>{`${correctAnswers} de ${totalQuestions} corretas`}</Text>
-          </View>
+        {/* A celebração compacta também rola: não disputa altura fixa com o texto ampliado. */}
+        <View style={styles.band}>
+          <PixelIllustration
+            state="celebrate"
+            tier="intermediate"
+            size="md"
+            accessibilityLabel="Pixel comemorando"
+          />
+          <StarRow stars={stars} animate={starsImproved} />
         </View>
 
-        {unitTotal > 0 ? (
-          <View style={styles.unitCard}>
-            <Text style={styles.unitLabel}>Progresso da unidade</Text>
-            {/*
-              "etapas", e não "lições": o total vem de
-              `computeUnitPrimaryProgress`, que conta todo nó que não é revisão
-              — lições, checkpoints e a conquista. Chamar 14 de "14 lições"
-              quando 7 delas não são lição foi medido em 2026-08-21, junto com o
-              cabeçalho da trilha, que contava com outro denominador. É o mesmo
-              rótulo que `CheckpointScreen` já usava.
-            */}
-            <Text style={styles.unitValue}>{`${unitCompleted} de ${unitTotal} etapas`}</Text>
-            <AnimatedProgressBar
-              ratio={unitCompleted / unitTotal}
-              height={10}
-              accessibilityLabel="Progresso da unidade"
-            />
-          </View>
+        <Text style={styles.phrase} accessibilityRole="header" maxFontSizeMultiplier={Math.min(LABEL_MAX_FONT_SCALE, 1.75)}>
+          {phrase}
+        </Text>
+        {/* Literais, com o da lição primeiro: `maestro-contract` extrai daqui a copy
+            que o caminho dourado 1 afirma. */}
+        {kind !== 'review' ? (
+          <Text style={styles.subtitle}>A lição foi concluída</Text>
+        ) : (
+          <Text style={styles.subtitle}>Revisão concluída</Text>
+        )}
+        {recordStars !== undefined && recordStars > stars ? (
+          <Text style={styles.record}>
+            {`Seu recorde nesta lição: ${recordStars} ${recordStars === 1 ? 'estrela' : 'estrelas'}`}
+          </Text>
         ) : null}
+
+        <View style={styles.results}>
+          <ResultRow label="Respostas corretas" value={`${correctAnswers} de ${totalQuestions} corretas`} stacked={largeText} />
+          <ResultRow label="XP" value={xpResult} stacked={largeText} />
+          {/* O total inclui lições, checkpoints e conquista; o rótulo continua sendo etapas. */}
+          {unitTotal > 0 ? (
+            <ResultRow label="Progresso da unidade" value={`${unitCompleted} de ${unitTotal} etapas`} stacked={largeText} />
+          ) : null}
+        </View>
 
         {habitLine ? <Text style={styles.habitLine}>{habitLine}</Text> : null}
 
@@ -168,9 +183,10 @@ export function LessonSummary({
           </Text>
         ) : null}
 
-        {currentRating === null ? (
+        {kind === 'review' ? null : currentRating === null ? (
           <View style={styles.ratingSection}>
             <Text style={styles.ratingLabel}>Avalie a aula</Text>
+            <Text style={styles.ratingOptional}>É opcional</Text>
             <View style={styles.ratingRow}>
               {RATING_SLOTS.map((n) => (
                 <Pressable
@@ -191,7 +207,7 @@ export function LessonSummary({
       </ScrollView>
 
       <View style={styles.footer}>
-        <AppButton label="Continuar" onPress={onContinue} variant="galaxy" />
+        <AppButton label="Continuar" accessibilityHint={continueHint} onPress={onContinue} variant="galaxy" />
       </View>
     </View>
   );
@@ -206,7 +222,10 @@ const styles = StyleSheet.create({
     backgroundColor: galaxyColors.celebrationBand,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: space.s5,
+    flexDirection: 'row',
+    gap: space.s2,
+    paddingVertical: space.s1,
+    borderRadius: radius.rLg,
   },
   body: {
     padding: space.s3,
@@ -228,45 +247,48 @@ const styles = StyleSheet.create({
     color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
+  record: {
+    ...typography.caption,
+    color: galaxyColors.textTertiary,
+    textAlign: 'center',
+  },
   reviewSchedule: {
     ...typography.body,
     color: galaxyColors.textSecondary,
     textAlign: 'center',
   },
-  scoreRow: {
+  results: {
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+    borderRadius: radius.rLg,
+    paddingHorizontal: space.s3,
+  },
+  resultRow: {
     flexDirection: 'row',
-    gap: space.s2,
-  },
-  scoreCard: {
-    flex: 1,
-    backgroundColor: galaxyColors.surface,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    borderRadius: radius.rLg,
-    padding: space.s3,
     alignItems: 'center',
+    gap: space.s2,
+    paddingVertical: space.s3,
   },
-  scoreValue: {
-    ...typography.bodyStrong,
-    color: galaxyColors.textPrimary,
-    textAlign: 'center',
-  },
-  unitCard: {
-    backgroundColor: galaxyColors.surface,
-    borderWidth: 1,
-    borderColor: galaxyColors.border,
-    borderRadius: radius.rLg,
-    padding: space.s3,
+  resultRowStacked: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
     gap: space.s1,
   },
-  unitLabel: {
-    ...typography.caption,
+  resultLabel: {
+    ...typography.bodyRegular,
+    flex: 1,
     color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
   },
-  unitValue: {
-    ...typography.h3,
+  resultValue: {
+    ...typography.bodyStrong,
+    flex: 1,
     color: galaxyColors.textPrimary,
+    textAlign: 'right',
+  },
+  resultTextStacked: {
+    flex: 0,
+    textAlign: 'left',
   },
   habitLine: {
     ...typography.bodyRegular,
@@ -277,9 +299,13 @@ const styles = StyleSheet.create({
     gap: space.s1,
   },
   ratingLabel: {
+    ...typography.bodyRegular,
+    color: galaxyColors.textSecondary,
+    textAlign: 'center',
+  },
+  ratingOptional: {
     ...typography.caption,
     color: galaxyColors.textSecondary,
-    textTransform: 'uppercase',
     textAlign: 'center',
   },
   ratingRow: {
@@ -288,6 +314,10 @@ const styles = StyleSheet.create({
     gap: space.s2,
   },
   ratingButton: {
+    minWidth: 48,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: space.s1,
   },
   ratingGiven: {

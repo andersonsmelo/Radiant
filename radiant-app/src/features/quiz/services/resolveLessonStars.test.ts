@@ -1,4 +1,4 @@
-import { resolveLessonStars, resolveBestLessonStars } from './resolveLessonStars';
+import { resolveLessonStars, resolveAttemptStars } from './resolveLessonStars';
 
 const attempt = (over: Partial<{ lessonId: string; correctAnswers: number; totalQuestions: number; completedAt: string }> = {}) => ({
   lessonId: 'licao-1',
@@ -29,27 +29,31 @@ describe('resolveLessonStars', () => {
   });
 });
 
-describe('resolveBestLessonStars', () => {
-  it('usa a tentativa atual quando não há histórico', () => {
-    expect(resolveBestLessonStars('licao-1', [], { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, improved: true });
+// Até 2026-10-16 o resumo mostrava a MELHOR nota já obtida, com a frase dela.
+// Visto no simulador: revisão errada (0 de 1) e "Três estrelas. Nada passou
+// despercebido." Desde então as estrelas são desta tentativa, e o recorde vem
+// à parte (ADR de 2026-10-16).
+describe('resolveAttemptStars', () => {
+  it('usa a tentativa atual quando não há histórico, e ela é o recorde', () => {
+    expect(resolveAttemptStars('licao-1', [], { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
+      .toEqual({ stars: 1, recordStars: 1, improved: true });
   });
 
-  it('mantém a melhor marca quando a tentativa atual é pior', () => {
+  it('mostra as estrelas desta tentativa quando ela é pior, com o recorde à parte', () => {
     const historico = [attempt({ correctAnswers: 10, totalQuestions: 10, completedAt: 'antes' })];
-    expect(resolveBestLessonStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 3, improved: false });
+    expect(resolveAttemptStars('licao-1', historico, { correctAnswers: 0, totalQuestions: 1, completedAt: 'agora' }))
+      .toEqual({ stars: 0, recordStars: 3, improved: false });
   });
 
   it('ignora a própria tentativa atual já persistida', () => {
     const historico = [attempt({ correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' })];
-    expect(resolveBestLessonStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, improved: true });
+    expect(resolveAttemptStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
+      .toEqual({ stars: 1, recordStars: 1, improved: true });
   });
 
   it('ignora tentativas de outras lições', () => {
     const historico = [attempt({ lessonId: 'outra', correctAnswers: 10, totalQuestions: 10, completedAt: 'antes' })];
-    expect(resolveBestLessonStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
-      .toEqual({ stars: 1, improved: true });
+    expect(resolveAttemptStars('licao-1', historico, { correctAnswers: 7, totalQuestions: 10, completedAt: 'agora' }))
+      .toEqual({ stars: 1, recordStars: 1, improved: true });
   });
 });

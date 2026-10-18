@@ -51,6 +51,25 @@ function statusColor(screen: ReturnType<typeof render>, status: JourneyNodeStatu
 }
 
 describe('JourneyNodeCard — o estado é legível sem ler o rótulo', () => {
+  it('mostra o instante da revisão futura também ao leitor de tela e mantém o botão desativado', () => {
+    const clock = jest.spyOn(Date, 'now').mockReturnValue(new Date(2026, 9, 12, 23, 59).getTime());
+    const review: JourneyNode = { ...node('locked'), type: 'review', reviewAvailableAtMs: new Date(2026, 9, 13, 0, 5).getTime() };
+    const view = renderCard('locked', { node: review });
+    expect(view.getByText('Disponível em 13/10/2026 às 00:05')).toBeTruthy();
+    expect(view.getByLabelText(/Disponível em 13\/10\/2026 às 00:05/u)).toBeTruthy();
+    expect(view.getByRole('button').props.accessibilityState.disabled).toBe(true);
+    expect(view.queryByText('Bloqueado')).toBeNull();
+    clock.mockRestore();
+  });
+
+  it('não mostra data inválida nem mantém uma promessa futura depois do instante agendado', () => {
+    const clock = jest.spyOn(Date, 'now').mockReturnValue(new Date(2026, 9, 13, 0, 5).getTime());
+    const due = renderCard('due-review', { node: { ...node('due-review'), type: 'review', reviewAvailableAtMs: Date.now() } });
+    expect(due.getByText('Revisar')).toBeTruthy();
+    const invalid = renderCard('locked', { node: { ...node('locked'), type: 'review', reviewAvailableAtMs: NaN } });
+    expect(invalid.getByText('Bloqueado')).toBeTruthy();
+    clock.mockRestore();
+  });
   // O defeito que estes casos travam: até 2026-08-14 concluído e bloqueado
   // desenhavam o MESMO cartão cinza com o MESMO ícone azul, e a diferença
   // vivia inteira numa palavra de rodapé em cinza apagado. Na trilha, o aluno

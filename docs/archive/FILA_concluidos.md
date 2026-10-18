@@ -1738,3 +1738,402 @@ Da abertura da "Ordem de prioridade", substituído sem edição:
 
 destravado.** Desde 2026-10-09, com o 13 e o 35 feitos, esse item é o **16**.
 O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## Lote de 2026-10-09 — o merge da #38 e o envio da 1.4.0 (28 e 30)
+
+Retirado sem edição da "Ordem de prioridade" (só os links relativos reajustados
+ao novo diretório)
+([relatório](../superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+No lugar entrou o 40: liberar a 1.4.0 depois da aprovação.
+
+  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
+    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
+    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
+    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13),
+    o anúncio da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1
+    (16).
+    Um agente que pegar outro item antes do merge trabalha no
+    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
+  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
+    do 28. O EAS incrementa o número de build sozinho
+    (`appVersionSource: remote`). Pela regra 8 da
+    [ADR de produtos](../adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
+    os dois produtos da assinatura vão **junto com a versão**, na primeira
+    submissão, nunca antes. **Para conferir antes do envio:** a captura de
+    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
+    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
+    decisão do dono; o agente não viu a captura.
+
+Da abertura da "Ordem de prioridade", substituído sem edição:
+
+destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
+**38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+
+## 2026-10-10 — o prompt (18) substitui o (17)
+
+Links substituídos sem edição (só o caminho relativo reajustado ao novo diretório):
+
+[prompt (17)](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
+
+[`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](../superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;
+
+
+## 2026-10-12 — item 40: liberação da 1.4.0 no Brasil
+
+Encerrado às 08:47 (America/Bahia), pelo agente com autorização do dono.
+App Store Connect: "Pronto para distribuição"; quatro itens aprovados.
+Publicação pública confirmada às 08:50: a página brasileira mostra `1.4.0`.
+[Evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md).
+
+Texto retirado da fila, sem edição:
+
+- **P1 — o que segura a 1.4:**
+  - **40.** dono: **liberar a `1.4.0` na App Store** depois da aprovação. A
+    versão foi enviada em 2026-10-09, às 17:17, com liberação manual, e
+    **reprovada em 2026-10-10, às 03:18, pela diretriz 3.1.2**: faltava o link
+    dos Termos de Uso (EULA) nos metadados. O dono pôs a seção "Assinatura",
+    com o EULA padrão da Apple, na Descrição, e reenviou às 11:12, com o mesmo
+    binário ([relatório](superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
+    O estado se lê no App Store Connect, em Distribuição → Revisão de apps: o
+    e-mail da reprovação caiu na pasta Lixo do Outlook. **Reprovada de novo
+    às 11:54, pela 2.3.2:** a imagem promocional das duas assinaturas era o
+    ícone do app. O dono apagou as imagens, cancelou a submissão e montou
+    outra, e a versão foi reenviada em 2026-10-11, às 20:00
+    (`a5e5a094`, 4 itens)
+    ([relatório](superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
+    Se a Apple reprovar de novo, a resposta é do agente com o dono.
+
+
+## 2026-10-12 — item 23: simulador antigo ausente
+
+Encerrado por medição: o inventário inicial de dispositivos do `simctl`
+estava vazio. Nenhum simulador do dono foi apagado pelo agente.
+
+Texto retirado da fila, sem edição:
+
+  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
+
+## 2026-10-12 — decisões do dono dos itens 36, 39 e 27 encerradas
+
+As decisões foram respondidas diretamente pelo dono nesta conversa. As
+implementações continuam abertas na FILA: não são itens técnicos concluídos.
+Textos anteriores retirados da fila, sem edição:
+
+  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
+    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
+    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
+    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
+    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
+    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
+    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
+    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
+    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
+    disponível". A conquista, porém, continua esperando a coleta, e só se
+    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
+    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
+    conquista coletável como um degrau do motor, depois do checkpoint. Se
+    entra na 1.4 é decisão do dono;
+  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
+    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
+    espaçada está certa. O agente propõe algo como "Disponível amanhã".
+
+
+## 2026-10-12 — implementação local dos itens 36, 39 e 27
+
+Código e testes focados implementados; validação final aprovada (14/14), com E2E da conquista passed.
+Ainda sem publicação. [Evidência](../evidence/2026-10-12-itens-36-39-27.md).
+
+Textos anteriores da fila, preservados sem edição:
+
+  - **36.** **DECIDIDO pelo dono em 2026-10-12: exigir concluir o reforço.**
+    Resposta literal: "Exigir concluir o reforço". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    Hoje a tela promete essa condição, mas sair e voltar permite tentar de
+    novo; o 2º ciclo não é alcançado porque falta a tentativa anterior.
+    Implementar a exigência persistente e preservar o histórico de tentativas;
+    registrar a decisão em ADR no run da implementação
+    ([contexto](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+  - **39.** **DECIDIDO pelo dono em 2026-10-12: oferecer a conquista.**
+    Resposta literal: "Sim, oferecer a conquista". **Estado:** decisão aprovada,
+    implementação pendente. **Bloqueio de decisão:** nenhum. **Dono:** agente.
+    A Estude deve oferecer "Receber conquista" quando o nó estiver liberado
+    e ainda não coletado, preservando seus pré-requisitos e a coleta única.
+    Hoje `JourneyRecommendationService` exclui `reward`; depois da última
+    lição mostra "Aguardando nova etapa" mesmo com conquista coletável.
+    Implementar a recomendação, registrar ADR e repetir `reward-unlock`
+    ([evidência do achado](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)).
+  - **27.** **DECIDIDO pelo dono em 2026-10-12: mostrar a data de disponibilidade.**
+    Resposta literal: "Mostrar data de disponibilidade". **Estado:** decisão
+    aprovada, implementação pendente. **Bloqueio de decisão:** nenhum.
+    **Dono:** agente. Substituir "Bloqueado" na revisão agendada pelo momento
+    em que ficará disponível, preservando a regra de repetição espaçada.
+    Registrar ADR e testar datas/virada de dia no run da implementação.
+
+## Item 38 — pendência substituída em 2026-10-14
+
+  - **38.** agente, **parcial, remedido em 2026-10-12**: seis fluxos
+    distintos passaram no iOS 26.5, em nove execuções; retomada no SE de
+    375 × 667 pt passou em `medium`, AX3, AX4 e AX5. O runtime está
+    provisionado e o build Debug assinado pelo Xcode funciona. O resumo do
+    `rating-prompt` recebeu correção e guarda AST/YAML vermelha/verde.
+    **Dono:** agente. **Pendência real:** repontar esse E2E para uma revisão
+    devida com fixture sintética. Desde `949f013`, o quiz não chama o prompt
+    da loja, por decisão de separar a avaliação da aula; o teste chegou a
+    três aberturas, mas não emitiu evento `rating_prompt_*` nem abriu diálogo.
+    Não reintroduzir o prompt no quiz. Preservar a asserção nativa e provar
+    bloqueio antes de três aberturas, elegibilidade depois, no perfil de
+    produção. **Bloqueio de ambiente:** nenhum; a fixture e a nova navegação
+    ainda faltam. Sem nova build de distribuição/OTA.
+    [Evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md).
+
+## Item 32 — concluído localmente em 2026-10-16
+
+  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
+    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
+    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
+    informações). Pede desenho antes: o que entra, a navegação e o que fica no
+    Perfil.
+    **Concluído em 2026-10-16:** o dono escolheu a engrenagem no cabeçalho do
+    Perfil, abrindo a tela Configuração empilhada, e decidiu que a assinatura
+    vai junto. [ADR](../adr/ADR-2026-10-16-configuracao-no-perfil.md),
+    [evidência](../evidence/2026-10-16-configuracao-no-perfil.md).
+
+## Itens 41, 42 e 44 — concluídos localmente em 2026-10-16
+
+  - **41.** agente: o resumo mostra a nota **da tentativa**, e não a melhor já
+    obtida. A revisão ganha título e texto próprios, e o erro não recebe XP de
+    acerto (P0-2);
+  - **42.** dono decide e agente executa: a revisão deixa de ser portão da
+    trilha seguinte, e a faixa "BLOQUEADO" diz o que abre e quando (P0-3, pede
+    ADR). Antes, um teste reproduz a rebaixa da trilha seguinte quando uma
+    revisão antiga vence;
+  - **44.** agente: o convite ao lembrete diário sai do fim da primeira lição
+    da trilha (P2-8);
+    **Concluídos em 2026-10-16:** o resumo honesto, a revisão como prática
+    paralela sem custo de vida e o lembrete ligado de verdade, com o convite em
+    Estude. [ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
+    [evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).
+
+## Item 46 — concluído localmente em 2026-10-16
+
+  - **46.** agente: os 13 roteiros Maestro que usam o cabeçalho de Estude como
+    âncora reprovam desde a trilha centralizada (`f39ac9e`). Rolar até o
+    cabeçalho antes de afirmá-lo e rodar a bateria
+    ([evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md));
+    **Concluído em 2026-10-16:** 12 roteiros (a contagem de 13 estava errada)
+    rolam até o cabeçalho. O `reward-unlock` ganhou prazo de 120 s nessa
+    rolagem e passou no simulador, numa execução separada dos outros 7 da
+    bateria padrão.
+    [Evidência](../evidence/2026-10-16-e2e-ancora-de-estude.md).
+
+
+## Substituídos pela direção global da trilha — 2026-10-16
+
+Registros anteriores preservados; links ajustados à pasta de arquivo. A revisão
+de piloto não é mais a próxima ação da frente global.
+
+- **P3 — o piloto da L1, que destrava o V3:**
+  - **7b.** dono: confirmar os **8 itens alterados** pelo 7a em 2026-09-28,
+    com o antes e o depois no
+    [relatório](../superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
+    Destrava o 15.
+
+  - **53.** dono: revisar o desenho do [piloto de imagem](../trilha/plano/2026-10-16-piloto-imagem-sem-pistas.md).
+    **Estado:** foco em **qualidade técnica da imagem** decidido por Anderson
+    em 2026-10-16 ([ADR](../adr/ADR-2026-10-16-foco-piloto-imagem-qualidade-tecnica.md));
+    pesquisa complementar documentada, parâmetros e execução ainda propostos.
+    **Bloqueio:** aprovação do desenho e, para imagens reais, acervo/gabaritos
+    revisados e P6. **Dono:** Anderson para a decisão; agente para a futura
+    execução delimitada. Não conclui o 52 e não reabre a escolha do foco.
+    **Remedir:** `rg -n 'Estado:|Decisão|qualidade técnica' docs/adr/ADR-2026-10-16-foco-piloto-imagem-qualidade-tecnica.md docs/trilha/plano/2026-10-16-piloto-imagem-sem-pistas.md`;
+
+  - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
+
+### DONO — Piloto da lição híbrida na L1: revisar a amostra (implementado em 2026-09-23)
+
+**Estado:** implementado localmente em 2026-09-23, **sem build de
+distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
+[plano](../superpowers/plans/2026-09-23-licao-hibrida-piloto.md). Gate e desvios no
+[relatório](../superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
+execuções vermelhas das guardas nos
+[vermelhos](../superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
+Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
+desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
+quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
+espelhados na vista de costas, marcadores fora do desenho e textos técnicos
+demais. **O boneco do mapa é ilustração de piloto** (decisão do dono em
+2026-09-24): desenho esquemático feito em código, aceito para o piloto e o
+teste com pessoas; antes de a lição chegar ao aluno, precisa de arte
+definitiva, com as posições em `LANDMARK_POSITIONS` reajustadas e as guardas de
+geometria verdes. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
+gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
+descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
+"Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
+a sessão local.
+
+Pendente, nesta ordem:
+
+1. **Dono:** revisar a amostra
+   `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
+   — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
+   digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
+   **Corrigida em 2026-09-28** ([ADR](../adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
+   a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
+   ventral visto por trás. Mudaram 8 dos 20 itens, e falta o dono confirmá-los
+   (7b).
+   **Decidido em 2026-09-25, às 21:40** ([ADR](../adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o item 18 e
+   as variantes do decúbito dorsal visto por trás são corrigidos antes; a
+   aprovação vale para a amostra corrigida, depois que o dono confirmar os
+   itens alterados (7a e 7b da ordem de prioridade). As descrições do tórax
+   ficam, e o leitor de tela que entrega parte da resposta é aceito no piloto,
+   com pendência antes de chegar ao aluno. O texto abaixo é o registro de
+   antes da decisão. **Ainda sem decisão em 2026-09-25, até as 21:40.** O dono pulou o item na sessão na
+   nuvem. A leitura do snapshot na nuvem achou um ponto para levar à
+   aprovação: o **item 18** (`h10-lat-ventral-v`) é idêntico ao **item 1**
+   (`h01`), com a mesma postura, a mesma pergunta, as mesmas opções e o mesmo
+   gabarito, embora o nome diga "ventral". A sessão local não reconferiu isso
+   ([relatório](../superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
+   §2.3).
+2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
+   causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
+   `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
+   "Risco de build" do [STATUS](../STATUS.md): `xcodebuild` com os contornos, num
+   simulador com **iOS 26.5**, porque no iOS 27 o app fecha na abertura.
+3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
+   critério da §5.4 da
+   [spec](../superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
+
+**Substitui a v7 da L2 como próximo item de conteúdo.**
+
+
+
+### Redação anterior do item 45 — substituída em 2026-10-16
+
+  - **45.** dono: decidir o piloto híbrido (7b) e o processo de produção de
+    conteúdo em série, com banco de imagens de licença verificada (P0-1 e P1-5);
+
+
+### FILA 54 — redação de abertura substituída em 2026-10-16
+
+  - **54.** agente: iniciar a implementação global pelo G0/G1 do
+    [loop de evolução e produção da trilha](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md).
+    **Estado:** diagnóstico estrutural e plano documentados em 2026-10-16;
+    implementação dos pacotes ainda não iniciada.
+    **Bloqueio:** nenhum piloto ou aprovação da amostra da L1 para avançar
+    nesta frente. **Dono:** agente na execução técnica; Anderson nas decisões
+    de produto, governança editorial e release.
+    Próxima entrega: inventário de alcançabilidade e generalização dos
+    metadados/IDs do catálogo para múltiplos lotes; E1/P1 continuam no programa.
+    **Remedir:** `node scripts/qa/trilha-structural-inventory.cjs`;
+
+
+### FILA 54 — primeira entrega G0/G1, atualização em 2026-10-16
+
+  - **54.** agente: evolução global pelo G0/G1 do
+    [programa da trilha](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md).
+    **Estado:** primeira entrega implementada localmente em 2026-10-16:
+    inventário de alcançabilidade, metadados por lote, índices e IDs sem colisão;
+    56 testes focados e fixture de 100 lotes/1.200 atividades.
+    [Evidências](../evidence/2026-10-16-trilha-g0-g1-catalogo.md).
+    **Bloqueio:** nenhum piloto para avançar; novos conteúdos e release mantêm
+    gates próprios. **Dono:** agente na execução técnica; Anderson nas decisões
+    de currículo, governança e distribuição.
+    Próximo: fechar cobertura por fonte/competência/item e contratos de
+    composição multiunidade/progresso. E1/P1 (49/50) continuam no programa;
+    o inventário confirma duas perguntas fora dos nós legados de Estude.
+    **Remedir:** `node scripts/qa/trilha-structural-inventory.cjs --check`;
+    gate integral/estado pelo run `run-1792192200409-156b04d8`;
+
+
+### FILA 54 — cobertura/composição antes de G2, substituída em 2026-10-16
+
+  - **54.** agente: evolução global da trilha, G0/G1 e continuidade G2.
+    **Estado:** cobertura item/competência/fonte/claim e composição explícita
+    multiunidade implementadas localmente em 2026-10-16; nove suítes/101 testes,
+    retomada com progresso preservado e fixture de 100 unidades/1.200 atividades.
+    [Evidências](../evidence/2026-10-16-trilha-cobertura-e-multiunidade.md).
+    **Decidido pelo dono:** avaliação final aprovada libera a próxima unidade;
+    conquista opcional ([ADR](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)).
+    **Bloqueio:** nenhum piloto; novos lotes/distribuição mantêm gates próprios.
+    **Dono:** agente na implementação; Anderson no currículo, governança e release.
+    Próximo: G2, harmonizando conclusão de áreas compostas/recomendação/foco com
+    a decisão de conquista opcional e organizando navegação curricular. A régua
+    atual de conclusão de área ainda inclui conquistas; corrigir antes de ativar
+    áreas novas. P1 (50) e contrato editorial genérico G3 seguem no programa.
+    **Remedir:** `node scripts/qa/trilha-structural-inventory.cjs --check`;
+    gate integral/estado pelo run `run-1792193013965-901cfa98`;
+
+## 2026-10-17 — FILA 54, contexto anterior à camada G3
+
+  - **54.** agente: evolução global da trilha — produção G3 e validação de G2.
+    **Estado:** camada G2 de progressão/navegação implementada localmente em
+    2026-10-16: conquistas opcionais nas composições, contadores/conclusão/foco
+    coerentes, índice de unidades e coleta posterior por destino na tela.
+    Onze suítes/141 testes focados e 14 injeções passaram.
+    [Evidências](../evidence/2026-10-16-trilha-g2-progressao-e-unidades.md).
+    **Decisão preservada:** avaliação final aprovada libera a unidade seguinte;
+    conquista opcional. **Bloqueio:** nenhum piloto; ativar áreas compostas ainda
+    requer conteúdos/configuração aprovados e QA nativo de G2.
+    **Dono:** agente na implementação; Anderson no currículo, governança e release.
+    Próximo: G3, contrato editorial genérico, sem regras específicas do H4 e com
+    proveniência/seis gates. QA nativo do mapa G2 e P1 (50) seguem no programa.
+    **Remedir:** `node scripts/qa/trilha-structural-inventory.cjs --check`;
+    gate integral/estado pelo run `run-1792194941402-0eed2a97`;
+
+## 2026-10-17 — FILA 54, antes da camada G4 por item
+
+  - **54.** agente: evolução global da trilha — G4 e continuidade editorial/nativa.
+    **Estado:** camada G3 de contrato genérico implementada localmente em
+    2026-10-17: app/artefato compartilham validação, relatório por lote,
+    cobertura/proveniência, seis gates e rejeição de colisões. Seis suítes/65
+    testes do app, 20 testes dos scripts e oito injeções; 100 lotes sintéticos
+    menores/400 atividades. [Evidências](../evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+    **Decisão preservada:** avaliação final aprovada libera a unidade seguinte;
+    conquista opcional. **Bloqueio:** nenhum piloto. Produzir/ativar conteúdo real
+    exige revisão e gates do lote; ativar áreas compostas requer QA nativo de G2.
+    **Dono:** agente na implementação; Anderson no currículo, governança e release.
+    Próximo técnico: G4, evidência/revisão por item; G5 depende de acervo autorizado.
+    G3 ainda requer produção real e medição de retrabalho; QA nativo do mapa G2
+    e P1 (50) continuam no programa, sem nova aprovação editorial nesta etapa.
+    **Remedir:** `node scripts/content/audit-production-batches.mjs --check`;
+    `node scripts/qa/trilha-structural-inventory.cjs --check`;
+    gate integral/estado pelo run `run-1792257625981-6ca008b4`;
+
+## Arquivado em 2026-10-17 — G4 antes da integração das avaliações
+
+  - **54.** agente: evolução global da trilha — consolidar G4 e validar nativamente.
+    **Estado:** camada G4 por item implementada localmente em 2026-10-17:
+    journal/agenda atômicos, deduplicação, primeira resposta/ajuda diferenciadas,
+    fila usada em `/review`, migração conservadora e vencimentos comuns à trilha,
+    push e contadores. Onze suítes/187 testes focados, 13 mutações; fixture de
+    10 mil itens e janela de 51 lições. [Evidências](../evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+    **Bloqueio:** nenhum piloto. G4 ainda precisa consolidar evidência das
+    avaliações e validar recuperação independente/retenção após intervalo.
+    Micro revisão revelada continua autoavaliação assistida. Novo store apenas
+    local; backup/sync e snapshots anteriores não o incluem.
+    **Dono:** agente na implementação; Anderson no currículo, governança e release.
+    Próximo: consolidar G4; QA nativo/performance G6 e compatibilidade de backup
+    G7. G5 depende de acervo autorizado. Produção editorial real G3, mapa G2 e
+    P1 (50) continuam no programa. Liberação pela avaliação e conquista opcional
+    permanecem decididas; sem novo conteúdo aprovado nesta etapa.
+    **Remedir:** testes focados no relatório; `node scripts/qa/trilha-structural-inventory.cjs --check`;
+    gate integral/estado pelo run `run-1792258583607-c48e2add`;
+
+## Arquivado em 2026-10-17 — G4 antes da resposta de revisão
+
+  - **54.** agente: evolução global da trilha — concluir a cadeia de recuperação G4.
+    **Estado:** avaliações V2 integradas ao journal por item em 2026-10-17,
+    com confirmação atômica dos itens, marcador persistente para retomada,
+    retry estável e aprovação salva retomável. Evidência para todas as
+    competências do item, ajuda e erro crítico preservados. Nove suítes/160
+    testes focados e cinco mutações; [evidências](../evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md).
+    **Bloqueio:** nenhum piloto. Revisão revelada continua assistida; falta
+    recuperação independente/retenção após intervalo e validação nativa.
+    **Dono:** agente na implementação; Anderson no currículo, governança e release.
+    Próximo: recuperação independente G4; QA/performance G6 e backup/reset G7.
+    Históricos limitados e janela de morte entre XP e jornada exigem gate próprio.
+    G5 depende de acervo autorizado; G3 real, mapa G2 e P1 (50) continuam.
+    Avaliação libera a próxima; conquista opcional permanece decidida.
+    **Remedir:** comandos do relatório; gate/estado no run
+    `run-1792262643188-24b24d6e`.

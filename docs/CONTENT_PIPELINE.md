@@ -68,6 +68,43 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 3. revisar a unidade como lote completo;
 4. provar checkpoint e retenção antes de expandir para a unidade seguinte.
 
+## Contrato genérico de lotes v1 — 2026-10-17
+
+`EditorialBatchContract.ts` substitui o validador de quantidades fixas do H4.
+Cada lote declara competências, fontes, atividades e itens. O recorte v1 mantém
+uma múltipla escolha sem mídia por atividade, uma competência por item/atividade,
+ao menos uma prática e dois itens de avaliação por competência, limiar de 80%
+e os dois ciclos de reforço existentes. O teste histórico mantém as quantidades
+12/10/5/8 e o conteúdo do H4; elas não viram regra de toda unidade.
+
+Toda origem exige HTTPS, atribuição, data válida, fingerprint e a licença
+CC BY 4.0 já admitida. Ampliar licenças, mídia ou famílias de interação exige
+contrato/revisão próprios. Claims precisam corresponder ao item e suas fontes;
+distratores autorais são identificados como tais. Duplicados, órfãos, versões
+incoerentes e cobertura ausente impedem promoção. Isso verifica estrutura e
+rastreabilidade; a correção clínica e o uso permitido continuam com os revisores.
+
+A publicação em arquivo executa o mesmo validador do app, carregando somente
+módulos TypeScript locais confiáveis; dados JSON nunca são executados. É preciso
+ter as dependências do app instaladas, ou TypeScript 5.9.2 via `NODE_PATH`, como
+no job de conteúdo do CI. O catálogo anterior também é validado e colisões entre
+lotes impedem a escrita. A confirmação de hash/revisores/schemas e os seis gates
+são obrigatórios, mesmo quando o material isolado é estruturalmente válido.
+
+`audit-production-batches.mjs` lê o registro compilado por padrão, ou um array
+JSON com artefatos/drafts por `--input=<arquivo>`. O relatório distingue material
+válido de promoção válida, apresenta cobertura por competência e quantidade de
+lotes com pendência em cada regra. `--check` retorna erro se algum lote não tiver
+promoção íntegra. É rendimento de validação da amostra, não eficácia pedagógica,
+volume aprovado para publicação ou medida longitudinal de custo/retrabalho.
+
+O painel `/production-batches` é somente leitura. Um JSON publicado em arquivo
+não passa automaticamente a integrar o app: o registro de lotes/apresentação e a
+composição precisam da revisão de integração e dos gates de ativação. O gate
+Loop `content-production` roda testes de publicação/auditoria e o registro real.
+O job Linux instala apenas o compilador fixado; a execução remota não foi rodada
+nesta etapa. [Evidência](evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+
 ## Ferramentas
 
 | Comando | Finalidade |
@@ -106,3 +143,8 @@ Para o sistema por competências, antes dos passos 3–8 também é obrigatório
 - declarar o catálogo pronto somente com os gates correspondentes executados.
 - nunca reutilizar uma aprovação depois de mudança no hash material;
 - nunca publicar lote v2 sem os seis gates ou sem o hash esperado do catálogo.
+
+O registro histórico `production-batches.ts` fixa o hash do material já promovido;
+não o recalcula ao importar uma edição do candidato. O teste importa esse registro
+com material alterado e exige a recusa, protegendo a invalidade das decisões
+anteriores no caminho real. Mudança futura exige novas aprovações explícitas.

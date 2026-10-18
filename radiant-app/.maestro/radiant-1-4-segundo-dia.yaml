@@ -38,7 +38,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q2:option:2
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Resposta correta
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída

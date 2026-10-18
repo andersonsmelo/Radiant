@@ -3,7 +3,8 @@ import { open, readFile, rename, rm } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const GATES = ['technical', 'editorial', 'accessibility', 'rights', 'schema', 'product'];
+import appContract from './load-app-contract.cjs';
+const shared = appContract.loadAppContract('features/student-checkpoints/ProductionBatch.ts');
 
 function canonicalize(value) {
   if (Array.isArray(value)) return value.map(canonicalize);
@@ -36,20 +37,7 @@ export function fingerprintProductionBatchMaterial(batch) {
 }
 
 export function validatePromotedBatch(batch) {
-  const issues = [];
-  if (batch?.schemaVersion !== 1 || batch?.state !== 'promoted' || !batch?.batchId) issues.push('invalid-envelope');
-  if (!/^[a-f0-9]{64}$/.test(batch?.materialSha256 ?? '')) issues.push('invalid-material-hash');
-  if (batch?.materialSha256 !== fingerprintProductionBatchMaterial(batch)) issues.push('production-batch-material-hash-mismatch');
-  if (!Array.isArray(batch?.activities) || batch.activities.length === 0 || !batch?.checkpoint) issues.push('missing-learning-material');
-  if (!Array.isArray(batch?.approvals)) issues.push('missing-approvals');
-  for (const gate of GATES) {
-    const decisions = batch?.approvals?.filter((approval) => approval.gate === gate) ?? [];
-    if (decisions.length !== 1) issues.push(`approval-count:${gate}`);
-    else if (decisions[0].decision !== 'approved' || decisions[0].materialSha256 !== batch.materialSha256) {
-      issues.push(`approval-invalid:${gate}`);
-    }
-  }
-  return issues;
+  return shared.validatePromotedProductionBatch(batch);
 }
 
 async function readCatalog(catalogPath) {
@@ -60,6 +48,23 @@ async function readCatalog(catalogPath) {
     if (error?.code !== 'ENOENT') throw error;
     const value = { schemaVersion: 1, batches: [], changes: [] };
     return { raw: null, value, sha256: 'absent' };
+  }
+}
+
+function assertCatalogIdentities(batches) {
+  const ids = new Set(batches.map(batch => batch.trackId));
+  for (const batch of batches) {
+    if (validatePromotedBatch(batch).length) throw new Error('production-catalog-invalid-batch');
+    const identities = [batch.batchId, batch.unitId, batch.checkpoint.id,
+      ...batch.competencyIds.map(id => `${batch.checkpoint.id}:${id.split(':').at(-1)}`),
+      ...batch.activities.flatMap(activity => [activity.id, ...activity.steps.flatMap(step => step.kind === 'interaction'
+        ? [step.interaction.id, ...step.interaction.payload.options.map(option => option.id)] : [step.id])]),
+      ...batch.checkpoint.items.flatMap(item => [item.id, ...item.options.map(option => option.id)]),
+    ];
+    for (const id of identities) {
+      if (ids.has(id)) throw new Error(`production-catalog-duplicate-identity:${id}`);
+      ids.add(id);
+    }
   }
 }
 
@@ -95,6 +100,8 @@ export async function promoteProductionBatchArtifact({
     if (current.value.batches.some((entry) => entry.batchId === batch.batchId)) {
       throw new Error('production-batch-id-already-published');
     }
+
+    assertCatalogIdentities([...current.value.batches, batch]);
 
     const next = {
       schemaVersion: 1,

@@ -18,6 +18,15 @@ histórico sai **no mesmo run que o fecha** e vai, sem edição, para o fim de
 Todo run do Loop que edita esta fila declara também esse arquivo no
 `abrir.mjs`: depois de aberto, o escopo não se amplia.
 
+## Direção da trilha — atualizada em 2026-10-16
+
+O dono pediu diagnóstico da trilha inteira, melhoria global de implementação e
+produção escalável. Aulas piloto não são condição de avanço desta frente.
+[Diagnóstico](trilha/avaliacoes/2026-10-16-diagnostico-estrutural-global-da-trilha.md),
+[plano global](trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md) e
+[decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
+G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
+
 ## Política de decisão
 
 O agente **decide por padrão** e executa. Escalam ao dono apenas:
@@ -49,10 +58,15 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração é a mesma da §3 do
-[prompt (17)](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md),
+[prompt (18)](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md),
 que traz o detalhe de cada linha. **Um agente pega o primeiro item `agente`
 destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
-**38**. O que segura a 1.4 agora é só do dono: o 28 e o 30.
+**38**. A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
+versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
+com autorização do dono. O item 40 está encerrado; o console mostra
+"Pronto para distribuição". A página pública brasileira confirmou `1.4.0`
+às 08:50 de 2026-10-12
+([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
 **Cumpridos ou encerrados** e movidos para
 [`archive/FILA_concluidos.md`](archive/FILA_concluidos.md):
@@ -100,53 +114,120 @@ destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
   depois da folha), pelo agente, visto vermelho com o defeito 1 reinjetado e
   verde no simulador
   ([evidência](../radiant-app/docs/evidence/2026-10-09-e2e-caminho-3-estado-da-l1.md),
-  [relatório](superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md)).
+  [relatório](superpowers/handoffs/2026-10-09-radiant-caminho-3-estado-da-l1-relatorio.md)),
+  e o 28 e o 30, pelo agente com o ok do dono: a PR #38 entrou às 16:18
+  (`221e2ec`), e a `1.4.0 (12)` foi enviada à revisão às 17:17, com os dois
+  produtos da assinatura, o grupo e a captura de revisão refeita
+  ([relatório](superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+- em 2026-10-12: o **40** (liberação da `1.4.0 (12)` no Brasil), pelo
+  agente com autorização do dono. Versão e os três itens da assinatura
+  aprovados; console em "Pronto para distribuição"
+  ([evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 
-- **P1 — o que segura a 1.4:**
-  - **28.** dono: **merge da [PR #38](https://github.com/andersonsmelo/Radiant/pull/38)**,
-    aberta em 2026-09-27. Leva o "Gerenciar", o Ask to Buy, o eas-cli 24.8 e
-    a D4 e, desde 2026-09-28, o anúncio da perda de vida (25) e o bump para
-    `1.4.0` (20) e, desde 2026-10-09, o XP da aprovação das avaliações (13),
-    o anúncio da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1
-    (16).
-    Um agente que pegar outro item antes do merge trabalha no
-    próprio `feat/d4-decisoes-de-revisao`; depois do merge, parte da `main`.
-  - **30.** dono: **build de produção da `1.4.0` e envio à App Store**, depois
-    do 28. O EAS incrementa o número de build sozinho
-    (`appVersionSource: remote`). Pela regra 8 da
-    [ADR de produtos](adr/ADR-2026-09-15-radiant-ilimitado-storekit-products.md),
-    os dois produtos da assinatura vão **junto com a versão**, na primeira
-    submissão, nunca antes. **Para conferir antes do envio:** a captura de
-    revisão dos produtos é de 2026-09-15, e a tela da assinatura mudou desde
-    então ("Gerenciar" e ordem dos planos). Se ela precisa ser refeita é
-    decisão do dono; o agente não viu a captura.
+- em 2026-10-12: o **23** (decidir apagar ou manter o simulador `A5FA5443`),
+  encerrado por ausência: o inventário inicial de dispositivos estava vazio.
+  Nenhum simulador do dono foi apagado pelo agente.
+
 - **P2 — relógio longo:**
   - **6.** dono: F2, faltam 7 aceites. Os 14 dias só começam com 12.
-- **P3 — o piloto da L1, que destrava o V3:**
-  - **7b.** dono: confirmar os **8 itens alterados** pelo 7a em 2026-09-28,
-    com o antes e o depois no
-    [relatório](superpowers/handoffs/2026-09-28-radiant-variantes-l1-relatorio.md).
-    Destrava o 15.
+- **P1 — trilha, avaliação de 2026-10-16** ([relatório](trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md)).
+  O dono definiu a trilha como o investimento principal. O foco foi escolhido
+  em 2026-10-16 e está no
+  [plano de melhoria da trilha](trilha/plano/2026-10-16-plano-de-melhoria-da-trilha.md),
+  com base na [reavaliação da tarde](trilha/avaliacoes/2026-10-16-reavaliacao-da-trilha.md):
+  - **49.** agente: **E1**, a animação desligável em teste. Vai primeiro,
+    porque barateia o E2E do 50;
+  - **50.** agente: **P1, a lição legada honesta**, executando o
+    [plano tarefa a tarefa](trilha/plano/2026-10-16-licao-legada-honesta.md).
+    Fecha a parte da frase do 47;
+  - **51.** agente propõe e dono aprova: **E2**, o hook que protege testes e as
+    skills e MCPs só do domínio do app;
+  - **52.** agente: **P6**, o levantamento de imagens com licença comercial
+    verificada. Pode correr em paralelo com o 50.
+    Em 2026-10-17, o Argon (Gemini) recebeu o
+    [`trilha/PROMPT-ARGON.md`](trilha/PROMPT-ARGON.md), um norte sem escopo
+    fechado; o P6 é uma das frentes sugeridas. A IA que pegar o item registra
+    a reserva aqui;
+  - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Retomada:** Anderson pediu parar em 2026-10-17 e consolidar contexto;
+    não iniciar execução automaticamente. Próxima IA deve ler o
+    [índice completo](trilha/README.md) e o [prompt](trilha/PROMPT-PARA-IAS.md),
+    medir a árvore compartilhada e escolher um objetivo após nova autorização.
+    **Estado:** revisão ativa exige resposta antes do gabarito em 2026-10-17;
+    correção pelo catálogo, journal antes do feedback, ajuda explícita sem XP,
+    retry estável e referência temporal validada. Nove suítes/126 testes
+    focados e quatro mutações. [Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+    **Bloqueio:** nenhum piloto. Sinal após intervalo não promove evidência a
+    `delayed-retention`; esse critério requer validação pedagógica e decisão.
+    **Dono:** agente na implementação/QA; Anderson no currículo, governança e release.
+    Próximo: QA nativo G4/G6, performance e recuperação/backup/reset G7.
+    Permanecem limites de histórico e janela entre XP e jornada; G3 real,
+    acervo G5, mapa G2 e P1 (50). Aprovação libera próxima; conquista opcional.
+    **Remedir:** comandos do relatório; gate/estado no run
+    `run-1792269695725-1c4f438c`.
+  - **55.** agente: **corrigir o A1 do G4 antes de qualquer lote G3 real.**
+    Hoje uma `contentVersion` nova tira a lição da revisão para sempre: a
+    sonda mostrou fila e agenda vazias 60 dias depois. O teste da linha 71
+    fixa esse defeito como comportamento esperado.
+    **Correção:** reconciliar por `(lessonId, itemId)`. O item herda só a
+    agenda, nunca a evidência. O teste novo exige diferença **e** validade e
+    precisa ser visto falhando no código atual.
+    **Dono:** decide se a mudança material reinicia o intervalo ou o
+    preserva.
+    [Revisão, A1](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md);
+    [proposta, R3](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
+  - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
+    trabalho G0–G4 do Codex está em cinco commits na branch
+    `feat/trilha-evolucao-global-g0-g4`, com a
+    [PR #39](https://github.com/andersonsmelo/Radiant/pull/39). Cada fatia
+    passou o quality sozinha. O merge é do dono (R1);
+  - **57.** dono decide: **o destino do E1 (FILA 49)**. São 22 arquivos não
+    commitados na worktree `.claude/worktrees/trusting-mestorf-a5ca83`, desde
+    2026-10-16. Três deles conflitam com a árvore principal: `rating-prompt.yaml`,
+    `review-due.yaml` e `maestro-contract.test.mjs`. As opções são integrar
+    depois do 56 ou descartar (R2);
+  - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
+    agente liga as métricas mínimas da seção 7 do relatório (P1-4);
+  - **45.** dono: decisões curriculares e de governança da produção em série,
+    com revisão de conteúdo e banco de imagens de licença verificada. A direção
+    global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
+  - **48.** dono: o `store-capture` passa a mostrar o convite do lembrete em
+    Estude depois da 1ª lição. Decidir se a captura de loja fica com ele ou se
+    o roteiro o dispensa antes de fotografar
+    ([evidência](evidence/2026-10-16-e2e-ancora-de-estude.md));
+  - **47.** agente: a frase de 0 estrela ainda supõe um quase acerto ("Faltou
+    pouco", "pela metade"), e o Pixel comemora mesmo com 0 estrela. O
+    `LearningAttemptRecorder` resolve o tópico pela trilha ativa.
 - **P4 — agente, destravado:**
-  - **38.** agente, aberto pelo 34: **seis fluxos E2E antigos estão
-    desatualizados** (`boot-to-home`, `rating-prompt`, `reward-locked` e os três
-    `student-checkpoint-*` que afirmam a trilha). Eles ancoram na Estude por
-    `'^\d+ de \d+$'`, que não existe mais na árvore desde os consertos de
-    acessibilidade, e guardam o dev client com `runFlow when`, que perde a
-    folha atrasada. Os fluxos que o 34 tocou foram consertados assim e passaram
-    ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). No mesmo item: o ramo da tela do checkpoint sem
-    perguntas ("Concluir checkpoint") ficou inalcançável e pode sair;
+  - **38.** agente, **parcial, medido em 2026-10-14**: fixture de revisão
+    devida e navegação por `/review` implementadas em `13ee173`. Diálogo nativo
+    iOS passou com 12 aberturas reais e um primeiro valor, em wrapper Debug
+    com JS de produção isolado. **Resta:** prova nativa negativa antes de três
+    aberturas e positiva no limiar, com estado inicial controlado; a passagem
+    positiva com 12 aberturas e os testes unitários de limiar são evidências
+    distintas. Preservar asserção do diálogo e não restaurar prompt no quiz.
+    Release/Android continuam nos gates próprios. [Relatório](evidence/2026-10-14-qa-remediacao.md).
+  - **QA posterior a `13ee173`:** reproduzir o roteiro integral de revisão em
+    AX5 até resultado/retorno; investigar a origem dos pequenos leaks constantes
+    sem confundi-los com o acúmulo de telas já corrigido; diagnosticar a API em
+    502 antes de propor alteração externa. Aparelho físico, VoiceOver audível,
+    compras/CloudKit autenticados e distribuição exigem os gates respectivos.
+    Não refazer revisão, primeiro valor, navegação ou metadados já entregues.
 - **P5 — esperando outra coisa:**
   - **14.** dono, com o agente: aquecimento no aparelho. **Não espera mais
     nada:** o 12 e o 33 foram feitos em 2026-09-28. No simulador, a tela em
     foco ainda custa ~39 %, e as telas escondidas, quase nada;
-  - **15.** agente: gravar `L1_TEMPLATE_APPROVAL`, depois do 7b;
-- **Decisões do dono, sem prazo:**
-  - **36.** **o reforço das avaliações da V2 só existe no texto.** A tela diz
-    que a próxima tentativa só abre depois do reforço, mas nada impede tentar
-    de novo ao sair e voltar, e o 2º ciclo de reforço nunca é alcançado,
-    porque a avaliação é chamada sem a tentativa anterior. O dono decide entre
-    impor a espera ou mudar o texto ([ADR](adr/ADR-2026-09-28-checkpoints-de-botao-saem-da-trilha.md));
+- **Implementação local dos itens 36, 39 e 27 em `a366295`, 2026-10-12:** reforço
+  persistente, conquista recomendada e data da revisão. Testes focados verdes;
+  validação final aprovada (14/14), com E2E da conquista passed. Run fechado.
+  Ainda fora do binário publicado; integração e distribuição seguem pendentes.
+  [Evidência](evidence/2026-10-12-itens-36-39-27.md).
+- **Primeiro pacote visual local, 2026-10-13:** Estude, atividade e conclusão
+  implementadas/revisadas até `c9169ee`, testes focados, 4 flows iOS, AX2,
+  zero vidas, retomada e repetição sem XP aprovados; gate integral 14/14. Sem release;
+  não encerra piloto L1/editorial ou os gates físicos/acessibilidade audível.
+  [Evidência](evidence/2026-10-12-study-experience-implementation.md).
+- **Decisões de produto e implementações aprovadas, sem prazo:**
   - **26.** animação visual da perda de vida. Hoje só o coração do HUD muda.
     **Desde 2026-09-28, o som e a vibração do coração dependem dela:** o dono
     ouviu no iPhone que o som do coração não se distinguia, e o log do
@@ -155,35 +236,16 @@ destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
     da lição. Quando a animação for desenhada, eles voltam **tocando depois do
     erro**, e não colados nele
     ([ADR](adr/ADR-2026-09-28-sons-na-licao-da-1-4.md), revisão);
-  - **39.** **a Estude nunca oferece a conquista.** Achado no E2E do 34, em
-    2026-09-28, e anterior a ele: o motor de recomendação da 1.4 exclui o nó de
-    conquista (`JourneyRecommendationService`, `if (node.type === 'reward')
-    return null;`, desde `75cc9da`). Depois da última lição da trilha, o botão
-    diz "Aguardando nova etapa", e o card diz "Você concluiu tudo que está
-    disponível". A conquista, porém, continua esperando a coleta, e só se
-    alcança achando o card dela na trilha. O `reward-unlock` depende disso e
-    reprova nesse passo ([evidência](../radiant-app/docs/evidence/2026-09-28-e2e-sem-checkpoints-de-botao.md)). O agente propõe recomendar a
-    conquista coletável como um degrau do motor, depois do checkpoint. Se
-    entra na 1.4 é decisão do dono;
   - **37.** **a vitrine da loja perdeu duas capturas.** O `store-capture`
     fotografava o checkpoint de botão (`04-checkpoint`) e a celebração
     (`05-conquista`), e o `APP_STORE_LISTING_MATRIX.md` descreve a vitrine com
     elas. Sem o checkpoint no começo da trilha, as duas saíram do fluxo, e os
     números das outras não foram mudados. Se a matriz e as capturas publicadas
     mudam é decisão do dono ([relatório](superpowers/handoffs/2026-09-28-radiant-sem-checkpoints-de-botao-relatorio.md));
-  - **27.** o rótulo da revisão que ainda não está devida. Hoje ela aparece
-    como "Bloqueado", como se faltasse pré-requisito. A regra de repetição
-    espaçada está certa. O agente propõe algo como "Disponível amanhã".
 - **Depois da 1.4, ou sem prazo:**
   - **21.** agente: SDK 58 com `UIScene`, até abril de 2027;
-  - **22.** agente: L2 v7, depois do teste do piloto;
-  - **23.** dono: o simulador `A5FA5443`, apagar ou manter;
+  - **22.** agente: dívida editorial da L2, replanejada dentro do programa global; sem dependência de teste de piloto. Não é a próxima entrega.
   - **24.** dono: as ações de um passo da seção 7, abaixo;
-  - **32.** agente, ideia do dono em 2026-09-28: **uma aba "Configurações"
-    dentro do Perfil**, reunindo os cards de configuração, que hoje ficam
-    soltos na rolagem (sons e vibração, backup no iCloud, assinatura, ajuda e
-    informações). Pede desenho antes: o que entra, a navegação e o que fica no
-    Perfil.
 
 ## PRIORIDADE — a 1.4, desenhada em 2026-09-14
 
@@ -192,15 +254,16 @@ destravado.** Desde 2026-10-09, com o 13, o 35 e o 16 feitos, esse item é o
 **Bloqueio:** nenhum para planejar e implementar localmente; build, envio e
 push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
-[`superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md`](superpowers/handoffs/2026-10-09-radiant-prompt-de-continuidade-17.md), que traz todas as pendências na ordem abaixo;
+[`superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)
 
 **Estado:** decidido pelo dono em 2026-09-24
 ([ADR](adr/ADR-2026-09-24-ios27-imagem-xcode-26.md)). A 1.4 compila no Xcode
-26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a 1.4 sair
-primeiro. **Dono:** agente, com build e E2E autorizados pelo dono.
+26.0, fixado nos perfis de iOS do `eas.json`. **Bloqueio:** a publicação da
+1.4 foi cumprida em 2026-10-12; esta frente está desbloqueada para planejamento e migração local. **Dono:** agente,
+com build e E2E autorizados pelo dono.
 
 A partir de abril de 2027, a Apple só aceita envio compilado com o SDK do iOS
 27, e nesse SDK o app sem `UIScene` fecha na abertura. O SDK 54 não tem
@@ -216,8 +279,9 @@ inclui:
 Custo e risco em
 [`release/2026-09-24-ios27-decisao-xcode-uiscene.md`](release/2026-09-24-ios27-decisao-xcode-uiscene.md).
 
-**Falta medir antes, sem esperar esta frente:** o primeiro build `development`
-da 1.4 (StoreKit) abrindo num iPhone com iOS 27.
+**Pré-requisito já cumprido:** o primeiro build `development` da 1.4
+(StoreKit) compilou e abriu num iPhone com iOS 27.2 em 2026-09-24, conforme
+a evidência da seção seguinte. Não repetir essa task como pendente.
 
 ### DONO — aberto em 2026-09-23: o que fecha a fatia 2 (StoreKit)
 
@@ -450,61 +514,15 @@ Não faz build, envio nem push sem autorização datada.
 
 ## AGENTE — conteúdo e pipeline
 
-### DONO — Piloto da lição híbrida na L1: revisar a amostra (implementado em 2026-09-23)
+### Direção atual — evolução global, 2026-10-16
 
-**Estado:** implementado localmente em 2026-09-23, **sem build de
-distribuição**, na `main` desde 2026-09-23 (PR #24), pelo
-[plano](superpowers/plans/2026-09-23-licao-hibrida-piloto.md). Gate e desvios no
-[relatório](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-relatorio.md);
-execuções vermelhas das guardas nos
-[vermelhos](superpowers/handoffs/2026-09-23-radiant-licao-hibrida-vermelhos.md).
-Só existe na rota `/licao-hibrida`, atrás de `SHOW_DEV_TOOLS`; o V3 segue
-desligado. **Visto rodando no simulador em 2026-09-23** (iPhone 17, iOS 26.5):
-quatro defeitos de tela corrigidos no mesmo dia — retorno fora da tela, números
-espelhados na vista de costas, marcadores fora do desenho e textos técnicos
-demais. **O boneco do mapa é ilustração de piloto** (decisão do dono em
-2026-09-24): desenho esquemático feito em código, aceito para o piloto e o
-teste com pessoas; antes de a lição chegar ao aluno, precisa de arte
-definitiva, com as posições em `LANDMARK_POSITIONS` reajustadas e as guardas de
-geometria verdes. **Revisado e validado no Loop pela sessão local em 2026-09-23:**
-gate no Mac com exit 0 (147 suítes / 1345 testes), e um defeito corrigido — a
-descrição acessível aparecia no botão e entregava a resposta. Detalhe na seção
-"Revisão local" do relatório, que também traz três perguntas para a aprovação. **Bloqueio:** aprovação dos modelos pelo dono. **Dono:** dono, depois
-a sessão local.
-
-Pendente, nesta ordem:
-
-1. **Dono:** revisar a amostra
-   `radiant-app/src/features/curriculum-v3/hybrid-l1/__snapshots__/l1TemplateApproval.test.ts.snap`
-   — 20 itens, com o gabarito marcado. Aprovando, o agente grava a impressão
-   digital em `l1TemplateApproval.ts`, e a tela deixa de mostrar "Prévia".
-   **Corrigida em 2026-09-28** ([ADR](adr/ADR-2026-09-28-variantes-da-l1-na-postura.md)):
-   a variante fica na mesma postura e só usa vistas reais, e o h08 passou ao
-   ventral visto por trás. Mudaram 8 dos 20 itens, e falta o dono confirmá-los
-   (7b).
-   **Decidido em 2026-09-25, às 21:40** ([ADR](adr/ADR-2026-09-25-amostra-l1-d4-e-planos.md), item 1): o item 18 e
-   as variantes do decúbito dorsal visto por trás são corrigidos antes; a
-   aprovação vale para a amostra corrigida, depois que o dono confirmar os
-   itens alterados (7a e 7b da ordem de prioridade). As descrições do tórax
-   ficam, e o leitor de tela que entrega parte da resposta é aceito no piloto,
-   com pendência antes de chegar ao aluno. O texto abaixo é o registro de
-   antes da decisão. **Ainda sem decisão em 2026-09-25, até as 21:40.** O dono pulou o item na sessão na
-   nuvem. A leitura do snapshot na nuvem achou um ponto para levar à
-   aprovação: o **item 18** (`h10-lat-ventral-v`) é idêntico ao **item 1**
-   (`h01`), com a mesma postura, a mesma pergunta, as mesmas opções e o mesmo
-   gabarito, embora o nome diga "ventral". A sessão local não reconferiu isso
-   ([relatório](superpowers/handoffs/2026-09-25-radiant-relatorio-sessao-nuvem.md),
-   §2.3).
-2. **Dono, quando quiser ver:** recompilar o cliente de desenvolvimento, por
-   causa do `expo-audio` (módulo nativo novo). Nesta máquina (Xcode 27) o
-   `npx expo run:ios` trava; o caminho que funcionou em 2026-09-23 está na seção
-   "Risco de build" do [STATUS](STATUS.md): `xcodebuild` com os contornos, num
-   simulador com **iOS 26.5**, porque no iOS 27 o app fecha na abertura.
-3. **Dono, quando decidir:** build de teste e teste com 3 a 5 pessoas, pelo
-   critério da §5.4 da
-   [spec](superpowers/specs/2026-09-23-licao-hibrida-piloto-design.md).
-
-**Substitui a v7 da L2 como próximo item de conteúdo.**
+A revisão da amostra e o teste de piloto saíram da ordem de avanço desta frente
+por decisão explícita de Anderson
+([ADR](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+Os itens 7b, 15 e 53 e o antigo roteiro imediato foram preservados no
+[histórico](archive/FILA_concluidos.md). Isso não aprova a L1 nem ativa V3.
+O próximo trabalho de expansão é o item 54; o detalhamento anterior da L2
+abaixo é dívida existente a replanejar, não uma exigência de aula piloto.
 
 ### AGENTE — J3: produzir o Arco 1 — corrigir a L2, que reprovou em v6
 

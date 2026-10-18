@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { IconSymbol } from '../../../../components/ui/icon-symbol';
 import { galaxyColors } from '../../../ui/theme';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -9,6 +10,11 @@ type ProfileIdentityHeaderProps = {
   email: string | null;
   streakDays: number;
   totalXp: number;
+  /**
+   * Abre a tela Configuração. Sem ele não há engrenagem: um botão que não leva a
+   * lugar nenhum contaria ao aluno uma história falsa.
+   */
+  onOpenSettings?: () => void;
 };
 
 /**
@@ -35,6 +41,7 @@ export function ProfileIdentityHeader({
   email,
   streakDays,
   totalXp,
+  onOpenSettings,
 }: ProfileIdentityHeaderProps) {
   const displayName = email ? email.split('@')[0] : 'Estudante';
   const accountLabel = email ?? 'Estudo local, sem conta';
@@ -54,6 +61,21 @@ export function ProfileIdentityHeader({
             {accountLabel}
           </Text>
         </View>
+
+        {/* Desde 2026-10-16 (FILA 32): assinatura, backup, sons, conta e ajuda
+            moram atrás desta engrenagem, e o Perfil guarda o aluno. */}
+        {onOpenSettings ? (
+          <Pressable
+            onPress={onOpenSettings}
+            accessibilityRole="button"
+            accessibilityLabel="Configuração"
+            accessibilityHint="Assinatura, backup, sons e vibração, ajuda."
+            hitSlop={space.s1}
+            style={({ pressed }) => [styles.settingsButton, pressed && styles.settingsButtonPressed]}
+          >
+            <IconSymbol name="gearshape.fill" size={22} color={galaxyColors.textSecondary} />
+          </Pressable>
+        ) : null}
       </View>
 
       <View style={styles.metricRow}>
@@ -104,6 +126,17 @@ const styles = StyleSheet.create({
   identityText: { flex: 1, gap: space.s0 },
   name: { ...typography.h3, color: galaxyColors.textPrimary, fontWeight: '800' },
   account: { ...typography.bodyRegular, color: galaxyColors.textSecondary },
+  settingsButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 999,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: galaxyColors.surface,
+    borderWidth: 1,
+    borderColor: galaxyColors.border,
+  },
+  settingsButtonPressed: { opacity: 0.7 },
   metricRow: { flexDirection: 'row', gap: space.s2 },
   metric: {
     flex: 1,

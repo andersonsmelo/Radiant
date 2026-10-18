@@ -37,11 +37,13 @@ interface NebulaConfig {
 }
 
 interface StarfieldBackgroundProps {
+  /** Galáxia padrão ou fundo discreto para telas de leitura. */
+  variant?: 'galaxy' | 'focused';
   /** Cor de fundo — padrão galaxyColors.background */
   backgroundColor?: string;
-  /** Nebulas extras além das padrão */
+  /** Nebulas extras além das padrão; ignoradas na variante focada. */
   extraNebulas?: NebulaConfig[];
-  /** Número de estrelas (padrão 90) */
+  /** Número de estrelas (padrão 90 na galáxia, 24 no fundo focado). */
   starCount?: number;
 }
 
@@ -202,9 +204,10 @@ function Nebula({
 // ── Componente principal ──────────────────────────────────────
 
 export function StarfieldBackground({
+  variant = 'galaxy',
   backgroundColor = galaxyColors.background,
   extraNebulas = [],
-  starCount = 90,
+  starCount = variant === 'focused' ? 24 : 90,
 }: StarfieldBackgroundProps) {
 
   const reducedMotion = useReducedMotionPreference();
@@ -241,7 +244,7 @@ export function StarfieldBackground({
     { color: 'rgba(21, 30, 100, 0.14)', x: 0.2, y: 0.35, w: 240, h: 180, driftX: 14, driftY: -20, driftDelay: 2400 },
   ];
 
-  const allNebulas = [...defaultNebulas, ...extraNebulas];
+  const allNebulas = variant === 'focused' ? [] : [...defaultNebulas, ...extraNebulas];
 
   return (
     <View style={[StyleSheet.absoluteFillObject, { backgroundColor }]} pointerEvents="none">

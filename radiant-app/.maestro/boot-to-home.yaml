@@ -8,29 +8,21 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
-- runFlow:
-    when:
-      visible: 'Connected to:'
-    commands:
-      - tapOn: Close
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
 # A clean install (clearState) now passes through the first-run welcome before
 # the Learning Road home — the subflow above dismisses it. The retired
 # onboarding smoke deep-linked into an unfinished prototype that was removed on
 # 2026-07-28; this flow proves what actually matters — a fresh install, welcome
 # dismissed, reaches the local-first home — against a stable pt-BR assertion.
-# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
-# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
-# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
-# serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'

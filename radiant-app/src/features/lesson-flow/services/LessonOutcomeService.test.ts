@@ -11,6 +11,15 @@ import { LearningAttemptsRepository } from '../../progress/services/LearningAtte
 import { LearningEvidenceRepository } from '../../mastery/repositories/LearningEvidenceRepository';
 import { CompetencyReviewService } from '../../spaced-repetition/services/CompetencyReviewService';
 import { LessonOutcomeService } from './LessonOutcomeService';
+import { OnboardingService } from '../../onboarding/OnboardingService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
+import { MATERIA_ENERGIA_E_RADIACAO_PRODUCTION_BATCH as productionBatch } from '../../student-checkpoints/production-batches';
+import { ItemReviewService } from '../../spaced-repetition/services/ItemReviewService';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { STORAGE_KEYS } from '../../../constants/storageKeys';
+
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
 
 jest.mock('../../gamification/services/GamificationService', () => ({
     GamificationService: { recordQuizCompletion: jest.fn() },
@@ -24,9 +33,21 @@ jest.mock('../../daily-goal/services/DailyGoalService', () => ({
     DailyGoalService: { recordXp: jest.fn() },
 }));
 
-jest.mock('../../journey/services/JourneyProgressService', () => ({
-    JourneyProgressService: { getSnapshot: jest.fn() },
+jest.mock('../../hearts/HeartsRepository', () => ({
+    heartsRepository: { rewardReview: jest.fn().mockResolvedValue(undefined) },
 }));
+
+// A conclusão lê a trilha DO NÓ (`getSnapshotForNode`); os casos configuram
+// `getSnapshot`, e as duas portas devolvem o mesmo snapshot aqui.
+jest.mock('../../journey/services/JourneyProgressService', () => {
+    const getSnapshot = jest.fn();
+    return {
+        JourneyProgressService: {
+            getSnapshot,
+            getSnapshotForNode: jest.fn((...args: unknown[]) => getSnapshot(...args)),
+        },
+    };
+});
 
 jest.mock('../../sync/SyncQueueService', () => ({
     SyncQueueService: {
@@ -173,8 +194,10 @@ function snapshotWith(overrides: {
 }
 
 describe('LessonOutcomeService', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.clearAllMocks();
+        await AsyncStorage.clear();
+        await OnboardingService.reset();
         mockedGamification.recordQuizCompletion.mockResolvedValue({
             snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null },
             award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' },
@@ -189,6 +212,19 @@ describe('LessonOutcomeService', () => {
         // clearAllMocks zera chamadas, não implementações — reafirmar aqui evita
         // que a resolução vaze (ou falte) conforme a ordem dos describes.
         mockedAttempts.append.mockResolvedValue(undefined);
+    });
+
+    it.each(['legacy', 'activity'] as const)('records first value once after a %s lesson completes', async (kind) => {
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        const complete = () => kind === 'legacy'
+            ? LessonOutcomeService.recordCompletion({ block, nodeId: 'node:lesson-1', confirmedAnswers: { 'lesson-1-question': true } })
+            : LessonOutcomeService.recordActivityCompletion({ activity: nativeActivity, nodeId: 'node:lesson-1', confirmedAnswers: { 'native-question': true } });
+        await complete();
+        const first = JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!);
+        expect(first.firstQuizAt).toEqual(expect.any(Number));
+        await complete();
+        const repeated = JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!);
+        expect(repeated.firstQuizAt).toBe(first.firstQuizAt);
     });
 
     it('premia a primeira conclusão de um nó de lição e reavalia o card', async () => {
@@ -247,7 +283,73 @@ describe('LessonOutcomeService', () => {
         });
 
         expect(outcome.rewarded).toBe(true);
+        expect(JSON.parse((await AsyncStorage.getItem('@radiant/onboarding'))!).firstReviewAt).toEqual(expect.any(Number));
         expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+    });
+
+    // ADR de 2026-09-14: "concluir uma revisão devida devolve uma" vida. Só a
+    // tela `/review` devolvia; a revisão da trilha, não (avaliação de
+    // 2026-10-16). A devolução vale para a revisão vencida, a que premia.
+    it('revisão vencida da trilha devolve uma vida', async () => {
+        const { heartsRepository } = jest.requireMock('../../hearts/HeartsRepository') as {
+            heartsRepository: { rewardReview: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({
+                nodeId: 'node:review:lesson-1',
+                nodeType: 'review',
+                completedNodeIds: ['node:review:lesson-1'],
+                pendingReviewNodeIds: ['node:review:lesson-1'],
+            })
+        );
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': false },
+        });
+
+        expect(heartsRepository.rewardReview).toHaveBeenCalledTimes(1);
+    });
+
+    it('resolve a premiação pela trilha do nó, que pode não ser a ativa', async () => {
+        const { JourneyProgressService: journey } = jest.requireMock('../../journey/services/JourneyProgressService') as {
+            JourneyProgressService: { getSnapshotForNode: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:review:lesson-1', nodeType: 'review', pendingReviewNodeIds: ['node:review:lesson-1'] })
+        );
+
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(journey.getSnapshotForNode).toHaveBeenCalledWith('node:review:lesson-1');
+    });
+
+    it('revisão fora de prazo e lição não devolvem vida', async () => {
+        const { heartsRepository } = jest.requireMock('../../hearts/HeartsRepository') as {
+            heartsRepository: { rewardReview: jest.Mock };
+        };
+        mockedJourney.getSnapshot.mockResolvedValue(
+            snapshotWith({ nodeId: 'node:review:lesson-1', nodeType: 'review', pendingReviewNodeIds: [] })
+        );
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:review:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        await LessonOutcomeService.recordCompletion({
+            block,
+            nodeId: 'node:lesson-1',
+            confirmedAnswers: { 'lesson-1-question': true },
+        });
+
+        expect(heartsRepository.rewardReview).not.toHaveBeenCalled();
     });
 
     it('não premia uma revisão refeita fora de prazo, mas reavalia o card', async () => {
@@ -464,6 +566,27 @@ describe('LessonOutcomeService', () => {
 });
 
 describe('LessonOutcomeService — evidência por interação', () => {
+    it('a conclusão real de uma atividade reduz o reforço persistido; sair sem concluir não reduz', async () => {
+        await AsyncStorage.clear();
+        const activity = productionBatch.activities[0];
+        await assessmentAttemptRepository.submit({
+            operationId: 'operation:integration', checkpointId: 'checkpoint:integration', flowId: 'flow:integration',
+            attemptId: 'attempt:integration', checkpointDefinitionId: 'definition:integration', unitId: productionBatch.unitId,
+            journeyNodeId: 'node:assessment-integration', activityId: productionBatch.batchId,
+            contentVersion: productionBatch.contentVersion, curriculumKind: 'v2', committedAt: '2026-10-12T12:00:00Z',
+            itemOutcomes: [{ itemId: 'item:integration', activityId: activity.id, competencyIds: [...activity.competencyIds],
+                evidenceKind: 'independent-recall', outcome: 'incorrect', isCriticalError: false, hintUsed: false, durationBucket: 'unknown' }],
+        }, productionBatch.activities);
+        expect((await assessmentAttemptRepository.getState('node:assessment-integration')).remainingActivityIds)
+            .toEqual(['activity:materia-energia-e-radiacao:01', 'activity:materia-energia-e-radiacao:02', 'activity:materia-energia-e-radiacao:03']);
+        await LessonOutcomeService.recordActivityCompletion({
+            activity, nodeId: 'node:lesson-1',
+            confirmedAnswers: Object.fromEntries(activity.steps.flatMap(step => step.kind === 'interaction' ? [[step.interaction.id, true]] : [])),
+        });
+        const state = await assessmentAttemptRepository.getState('node:assessment-integration');
+        expect(state.remainingActivityIds).toEqual(['activity:materia-energia-e-radiacao:02', 'activity:materia-energia-e-radiacao:03']);
+        expect(state.blocked).toBe(true);
+    });
     beforeEach(() => {
         // Este describe é irmão do de cima, não filho: o beforeEach dele não roda
         // aqui, e sem limpar os mocks as contagens de chamada acumulam entre os
@@ -883,5 +1006,52 @@ describe('LessonOutcomeService — aprovação de avaliação da V2', () => {
         expect(mockedAttempts.append).not.toHaveBeenCalled();
         expect(mockedEvidence.append).not.toHaveBeenCalled();
         expect(mockedSyncQueue.enqueueLessonProgressFromQuizResult).not.toHaveBeenCalled();
+    });
+});
+
+describe('LessonOutcomeService — journal G4 no caminho real', () => {
+    beforeEach(async () => {
+        jest.clearAllMocks();
+        await AsyncStorage.clear();
+        mockedJourney.getSnapshot.mockResolvedValue(snapshotWith({ nodeId: 'node:lesson-1', nodeType: 'lesson' }));
+        mockedGamification.recordQuizCompletion.mockResolvedValue({ snapshot: { totalXp: 18, streakDays: 1, lastActiveDate: null }, award: { baseXp: 10, bonusXp: 8, totalXpAwarded: 18, reason: 'quiz_complete' } });
+        mockedSyncQueue.enqueueLessonProgressFromQuizResult.mockResolvedValue(undefined);
+    });
+    const promotedInteraction = productionBatch.activities[0].steps.find(step => step.kind === 'interaction');
+    const interactionId = promotedInteraction?.kind === 'interaction' ? promotedInteraction.interaction.id : '';
+    const input = () => ({ activity: productionBatch.activities[0], nodeId: 'node:lesson-1', attemptId: 'study:integration',
+        confirmedAnswers: { [interactionId]: true }, answeredAt: new Date('2026-10-17T12:00:00.000Z') });
+    it('deduplica tentativa, agenda, rollup e recompensa após repetir o mesmo commit', async () => {
+        const first = await LessonOutcomeService.recordActivityCompletion(input());
+        const second = await LessonOutcomeService.recordActivityCompletion(input());
+        expect(first.rewarded).toBe(true); expect(second.rewarded).toBe(false);
+        expect(await itemReviewRepository.getAttempts()).toHaveLength(1);
+        expect(await itemReviewRepository.getCards()).toHaveLength(1);
+        expect(mockedSpacedRepetition.recordQuizResult).toHaveBeenCalledTimes(1);
+        expect(mockedAttempts.append).toHaveBeenCalledTimes(1);
+        expect(mockedGamification.recordQuizCompletion).toHaveBeenCalledTimes(1);
+        expect(mockedReview.observeExposure).toHaveBeenCalledTimes(1);
+    });
+    it('resolve a atividade promovida real na fila vencida e registra a autoavaliação assistida', async () => {
+        await LessonOutcomeService.recordActivityCompletion(input());
+        const queue = await ItemReviewService.loadQueue([], new Date('2026-10-18T12:00:00.000Z'));
+        expect(queue).toHaveLength(1);
+        expect(queue[0].question.id).toBe(interactionId);
+        expect(queue[0].lessonId).toBe(productionBatch.activities[0].id);
+        expect((await ItemReviewService.recordReview(queue[0], true, new Date('2026-10-18T12:00:00.000Z'))).accepted).toBe(true);
+        expect((await itemReviewRepository.getAttempts())[1]).toMatchObject({ mode: 'self-review', hintUsed: true });
+    });
+    it('não observa domínio/agenda de competência quando o journal não pode persistir', async () => {
+        const raw = '{"schemaVersion":"item-review.v9","future":true}';
+        await AsyncStorage.setItem(STORAGE_KEYS.ITEM_REVIEW, raw);
+        await LessonOutcomeService.recordActivityCompletion(input());
+        expect(mockedReview.observeExposure).not.toHaveBeenCalled();
+        expect(mockedSpacedRepetition.recordQuizResult).not.toHaveBeenCalled();
+        expect(await AsyncStorage.getItem(STORAGE_KEYS.ITEM_REVIEW)).toBe(raw);
+    });
+    it('mantém o erro inicial mesmo quando a resposta final veio correta após ajuda', async () => {
+        await LessonOutcomeService.recordActivityCompletion({ ...input(), firstConfirmedAnswers: { [interactionId]: false }, hintUsedByInteraction: { [interactionId]: true } });
+        expect((await itemReviewRepository.getAttempts())[0]).toMatchObject({ firstOutcome: 'incorrect', finalOutcome: 'correct', hintUsed: true });
+        expect(mockedReview.observeExposure).toHaveBeenCalledWith(expect.objectContaining({ grade: { outcome: 'incorrect', hintUsed: true } }));
     });
 });

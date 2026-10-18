@@ -20,7 +20,19 @@ const mockReducedMotion = useReducedMotionPreference as jest.MockedFunction<
 >;
 
 type FocusEvent = 'focus' | 'blur';
-type TestNode = ReturnType<typeof render>['UNSAFE_root'];
+// react-test-renderer não fornece tipos neste checkout. Declare somente a
+// estrutura real que estas inspeções usam, sem herdar o any de UNSAFE_root.
+type TestNode = {
+  type: unknown;
+  props: {
+    style?: unknown;
+    jestAnimatedStyle?: { value: Record<string, unknown> };
+  };
+  findAll: (predicate: (node: TestNode) => boolean) => TestNode[];
+};
+type AnimatedTestNode = TestNode & {
+  props: TestNode['props'] & { jestAnimatedStyle: { value: Record<string, unknown> } };
+};
 
 /**
  * O pedaço do contrato de navegação que uma tela usa para saber se está em
@@ -44,8 +56,11 @@ function fakeNavigation(initiallyFocused: boolean) {
   return { navigation, emit };
 }
 
-function renderInScreen(navigation: ReturnType<typeof fakeNavigation>['navigation'] | null) {
-  const background = <StarfieldBackground starCount={12} />;
+function renderInScreen(
+  navigation: ReturnType<typeof fakeNavigation>['navigation'] | null,
+  variant?: 'galaxy' | 'focused',
+) {
+  const background = <StarfieldBackground starCount={12} variant={variant} />;
   return render(
     navigation === null ? (
       background
@@ -61,15 +76,15 @@ function renderInScreen(navigation: ReturnType<typeof fakeNavigation>['navigatio
  * `jestAnimatedStyle.value` do nó nativo, que é o que o `getAnimatedStyle` dele
  * lê. O invólucro `Animated.View` não carrega esse valor.
  */
-function animatedNodes(screen: ReturnType<typeof render>) {
-  return screen.UNSAFE_root.findAll(
-    (node: TestNode) => typeof node.type === 'string' && node.props.jestAnimatedStyle !== undefined,
-  );
+function animatedNodes(screen: ReturnType<typeof render>): AnimatedTestNode[] {
+  const root: TestNode = screen.UNSAFE_root;
+  return root.findAll((node) => typeof node.type === 'string')
+    .filter((node): node is AnimatedTestNode => node.props.jestAnimatedStyle !== undefined);
 }
 
 /** O quadro do fundo: o estilo animado de cada estrela e nebulosa, agora. */
 function frame(screen: ReturnType<typeof render>) {
-  return animatedNodes(screen).map((node: TestNode) => JSON.stringify(node.props.jestAnimatedStyle.value));
+  return animatedNodes(screen).map((node) => JSON.stringify(node.props.jestAnimatedStyle.value));
 }
 
 function advance(ms: number) {
@@ -79,10 +94,10 @@ function advance(ms: number) {
 }
 
 /** Quadros tirados ao longo de ~12 s, mais que o ciclo mais longo de estrela (5 s). */
-function framesOverTime(screen: ReturnType<typeof render>) {
-  // 3 nebulosas e 12 estrelas. Sem esta conferência, zero nós daria um quadro
-  // só, e todo caso "parado" passaria sem ler nada.
-  expect(animatedNodes(screen)).toHaveLength(15);
+function framesOverTime(screen: ReturnType<typeof render>, expectedNodeCount = 15) {
+  // Galáxia: 3 nebulosas + 12 estrelas; focado: só 12 estrelas. Sem conferir
+  // a contagem, zero nós daria um quadro só e todo caso "parado" passaria.
+  expect(animatedNodes(screen)).toHaveLength(expectedNodeCount);
   const frames = [frame(screen)];
   for (const step of [700, 1900, 3100, 6300]) {
     advance(step);
@@ -152,5 +167,56 @@ describe('StarfieldBackground e o foco da tela', () => {
     const screen = renderInScreen(navigation);
 
     expect(distinct(framesOverTime(screen))).toBe(1);
+  });
+});
+
+describe('StarfieldBackground focado para leitura', () => {
+  it('preserva por padrão as três nebulosas e as 90 estrelas da galáxia', () => {
+    const screen = render(<StarfieldBackground />);
+    const nodes = animatedNodes(screen);
+
+    expect(nodes.filter((node) => 'transform' in node.props.jestAnimatedStyle.value)).toHaveLength(3);
+    expect(nodes.filter((node) => 'opacity' in node.props.jestAnimatedStyle.value)).toHaveLength(90);
+  });
+
+  it('remove as camadas reais de nebulosa, inclusive extras, e reduz as estrelas', () => {
+    const screen = render(
+      <StarfieldBackground
+        variant="focused"
+        extraNebulas={[{ color: '#FF00FF', x: 0.5, y: 0.5, w: 200, h: 200 }]}
+      />,
+    );
+    const nodes = animatedNodes(screen);
+
+    expect(nodes.filter((node) => 'transform' in node.props.jestAnimatedStyle.value)).toHaveLength(0);
+    expect(nodes.filter((node) => 'opacity' in node.props.jestAnimatedStyle.value)).toHaveLength(24);
+    expect(screen.UNSAFE_root.findAll((node: TestNode) =>
+      typeof node.type === 'string' &&
+      JSON.stringify(node.props.style).includes('#FF00FF'),
+    )).toHaveLength(0);
+  });
+
+  it('preserva a contagem explícita de estrelas na variante focada', () => {
+    const screen = render(<StarfieldBackground starCount={12} variant="focused" />);
+    expect(animatedNodes(screen)).toHaveLength(12);
+  });
+
+  it('para e retoma o cintilar focado quando a tela perde e recupera o foco', () => {
+    const { navigation, emit } = fakeNavigation(true);
+    const screen = renderInScreen(navigation, 'focused');
+
+    expect(distinct(framesOverTime(screen, 12))).toBeGreaterThan(1);
+    emit('blur');
+    expect(distinct(framesOverTime(screen, 12))).toBe(1);
+    emit('focus');
+    expect(distinct(framesOverTime(screen, 12))).toBeGreaterThan(1);
+  });
+
+  it('com Reduzir Movimento mantém o quadro focado estático', () => {
+    mockReducedMotion.mockReturnValue(true);
+    const { navigation } = fakeNavigation(true);
+    const screen = renderInScreen(navigation, 'focused');
+
+    expect(distinct(framesOverTime(screen, 12))).toBe(1);
   });
 });

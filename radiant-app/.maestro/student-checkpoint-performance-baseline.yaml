@@ -9,33 +9,19 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
-- runFlow:
-    when:
-      visible: 'Connected to:'
-    commands:
-      - tapOn: Close
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
-# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
-# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
-# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
-# serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+# Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
+- assertVisible: Continuar jornada
 - tapOn: Continuar jornada
 - assertVisible: Fundamentos de Radiologia

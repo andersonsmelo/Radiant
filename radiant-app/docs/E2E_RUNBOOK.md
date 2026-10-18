@@ -1,5 +1,50 @@
 # Maestro local E2E runbook
 
+## Current QA remediation, 2026-10-14
+
+[Remediation report](../../docs/evidence/2026-10-14-qa-remediacao.md) supersedes
+the defects measured in the [October 13 audit](../../docs/evidence/2026-10-13-qa-ampla-simulador.md).
+Generated native wrapper and app.json now agree: **1.4.0 (3)**. Run
+`npm run ios:doctor` before building; `node scripts/check-native-version.mjs --sync`
+changes only the two version fields in the existing Info.plist. Local Xcode 27
+build passed with `IPHONEOS_DEPLOYMENT_TARGET=15.1` and
+`SENTRY_DISABLE_AUTO_UPLOAD=true`, preserving project/scheme customizations.
+
+Five previously failing flows passed after selector/viewport maintenance.
+L1 and direct review passed again after fixing fresh-process onboarding
+hydration; persisted first-value markers and a single event were read back.
+The native store-review dialog passed in an isolated production-configured JS
+projection (144 s). This is a Debug wrapper measurement. AX5 reached completion,
+but its full script failed the last result lookup; a separate tail check passed.
+Preserve these distinct results. Memory and final gates are recorded in the report.
+
+When maintaining the flows:
+
+- MC selection is followed by **Conferir resposta**.
+- Summary values are grouped accessibility rows, e.g.
+  **Respostas corretas: 1 de 1 corretas** and **XP: Sem XP nesta tentativa**.
+- A future review node announces **Disponível em DD/MM/AAAA às HH:MM**,
+  rather than the old Bloqueado assertion.
+- The primary Home CTA is in the scrolling header. Bring the actual target
+  into view; remove assumptions about the previous fixed footer.
+- `centerElement: true` can fail for an already visible target at a scroll
+  boundary. Native logs in this audit showed visibility 1.0 followed by a
+  failed centering search. Use centering where the container has room to move
+  the target; keep explicit visibility and post-action assertions.
+- Observe the tree with `maestro --device <dedicated-udid> hierarchy` and run
+  `maestro check-syntax <flow.yaml>` before newly generated scenarios.
+- Use the dev-client dismissal subflow, including CONNECTED TO / Close.
+- A synthetic due card is a controlled `/review` fixture, **not** the 24 h
+  real-clock golden path. Do not replace the native dialog assertion with a
+  telemetry event or reintroduce prompting at quiz completion.
+
+Run app tooling with Node 20 / Java 17, dotenv disabled; Loop uses Node 24.
+Use a dedicated simulator for clearState. This audit preserved the primary
+simulator and performed no purchase/upload/submission. App and flow corrections
+are documented in the remediation report.
+For local Xcode builds, SENTRY_DISABLE_AUTO_UPLOAD=true prevented the missing
+organization upload phase from aborting QA; release configuration was not edited.
+
 The `.maestro` workspace covers the real local-first route, not a mocked API:
 
 - `first-run.yaml`: a clean install (`clearState`) now lands on the first-run
@@ -14,50 +59,43 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   subflow) and reaches the learning-road home (`Foco de hoje`). **A clean
   install no longer boots straight to the home** — see the 2026-08-02 entry
   below.
-- `learning-critical-path.yaml`: dismisses first-run, then completes both
-  seeded lessons, checkpoint, reward and reaches Progress.
+- `learning-critical-path.yaml`: dismisses first-run, completes the first
+  two catalog lessons through their summaries and reaches Perfil. Since the
+  2026-09-28 decision, no button checkpoint sits between those lessons;
+  reward collection is covered separately.
 - `offline-relaunch.yaml`: dismisses first-run, completes a local lesson,
   relaunches with airplane mode enabled, then confirms the persisted
-  checkpoint is still available.
-- `rating-prompt.yaml`: the only flow that reaches the store-review prompt's
-  eligibility gate. `RatingPromptService` requires `countEvents('app_open') >=
-  MIN_APP_OPENS` (3), and every other flow opens the app once — twice for
-  `offline-relaunch` — so the prompt always stopped at `insufficient_sessions`
-  and had never been exercised on a device. It drives the **`/quiz` route**, not
-  `/learn`: the prompt's call sites are `QuizScreen`, `ReviewScreen` and
-  `RewardScreen`, and the lesson-flow reaches none of them. It completes a
-  passing quiz (which emits `first_value_moment_reached`, the gate's other
-  precondition), relaunches twice without clearing state, then completes a
-  second quiz.
-  **It requires a production-equivalent build**: eligibility returns
-  `blocked: non_production_build` whenever `APP_ENV !== 'production'`, and the
-  `e2e-test` profile declares `development`. The dialog assertion is iOS-only
-  and is pinned by the contract — see "Rating prompt" below.
+  progress offers the next lesson. On iOS Simulator, that airplane-mode command
+  is not evidence of network isolation; this flow proves local persistence.
+- `rating-prompt.yaml`: uses `/review`, with L1 completed and a real due-card
+  fixture prepared while the app is stopped. Change only the L1 card's
+  `nextReviewAt`; preserve milestones and telemetry. Do not clear state in this
+  flow. It performs three process restarts and asserts the native iOS dialog,
+  then declines it. Threshold blocking is separately covered by unit tests;
+  the native positive run had 12 opens, so it does not prove exactly-three timing.
+  Production configuration is required. Verify `build_channel` in actual events;
+  a requested env value can be overridden by local dotenv configuration.
+  The October 14 test used a temporary public-code projection without copying
+  or editing env files. `ReviewScreen`/`RewardScreen` are the callers; do not
+  restore store prompting to quiz completion. Debug is not Release proof.
+- `review-due.yaml`: exercises reveal, rating, and completed summary with the
+  same prepared due-card prerequisite, without clearing existing progress.
 - `reward-locked.yaml`: covers the reward node from the only side a smoke can
   reach it. The node unlocks on `requiresNodeIds: [node:<last lesson>]` and the
   active track has 7 lessons, so the achievement is unreachable in a smoke —
   `learning-critical-path` even forbids asserting it. This flow deep-links
   `radiantapp://reward?nodeId=…` instead, because `findReward` resolves by id
   **without** checking status. It asserts the locked state and, above all, the
-  **absence** of the collect button. **It does not prove the unlock rule**; that
-  half stays uncovered. See
+  **absence** of the collect button. **It does not prove the unlock rule**; the sibling
+  `reward-unlock.yaml` covers that half (native PASS, 2026-10-13). See
   [`2026-08-04-b5-reward-deep-link.md`](evidence/2026-08-04-b5-reward-deep-link.md).
-- `reward-unlock.yaml`: the other half of the reward node — the unlock rule
-  itself, which `reward-locked.yaml` states it does not prove. It walks the
-  whole active track: 7 lessons chained by 6 checkpoints, lesson → checkpoint →
-  lesson, and only then does the achievement become collectable. **It is
-  forbidden from deep-linking the reward** (the contract enforces it): arriving
-  by `radiantapp://reward` would re-prove what the sibling already proves and
-  leave the rule uncovered with nothing going red. It arrives by the product
-  path instead — the home CTA, whose label comes from `continueLabel`, and the
-  checkpoint CTA, from `resolveNextAction`. The assertion that carries the flow
-  is that label: `continueLabel` returns "Receber conquista" **only** when the
-  recommended node is a reward, and the reward is recommended only once
-  `requiresNodeIds: [node:<last lesson>]` is satisfied — the six earlier lessons
-  each produced "Abrir checkpoint" instead. It then collects and asserts the
-  milestone counter moved from 13 of 14 to 14 of 14, which is what separates
-  "the button appeared" from "the collect wrote". **Not yet run on a device —
-  see the sign-off note below.**
+- `reward-unlock.yaml`: proves the unlock rule through the product path after
+  seven lessons, without deep-linking the reward. The current active track has
+  no button checkpoint between lessons (ADR 2026-09-28). It asserts
+  `Receber conquista`, collects, and verifies the counter changes from 7/8 to
+  8/8. **Executed successfully on SE / iOS 26.5 on 2026-10-13**, JUnit 370 s.
+  The locked and unlocked halves both have native evidence in the
+  [broad QA report](../../docs/evidence/2026-10-13-qa-ampla-simulador.md).
 - `subflows/dismiss-first-run.yaml`: a conditional subflow (`runFlow` guarded
   by `when: visible`) that taps "Pular apresentação" only if the first-run
   welcome is on screen. Flows that already ran once without `clearState` never
@@ -65,7 +103,7 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   every flow above except `first-run.yaml` itself, which asserts the welcome
   directly.
 - **The three 1.4 golden paths** (spec 1.4, §8 item 6), added 2026-09-24. They
-  are the only flows that run `subflows/dismiss-dev-client.yaml` (below):
+  run `subflows/dismiss-dev-client.yaml` after each launch (below):
   - `radiant-1-4-primeira-execucao.yaml`: clean install → welcome → "Começar"
     → the four steps of L1 → the lesson summary → the trail with L1
     `Concluído` and its review `Bloqueado`. Its end state is **day 1 of path
@@ -89,6 +127,53 @@ The `.maestro` workspace covers the real local-first route, not a mocked API:
   consecutive clean installs of the same binary) the sheet rose *after* the
   guard had been skipped, covering the welcome, and the next run stopped at the
   launcher instead. On a Release build both waits only cost their timeout.
+
+## Item 38 — local maintenance, 2026-10-12
+
+Six navigation flows (`boot-to-home`, `rating-prompt`, `reward-locked`,
+`student-checkpoint-active-resume`, `student-checkpoint-no-duplicate-effect`
+and `student-checkpoint-performance-baseline`) now assert the grouped
+accessible header, including its title and completed-stage count. The
+contract parses `JourneyStageHeader.tsx` with TypeScript's AST and the flow
+commands with YAML; it rejects a selector that only matches the hidden count
+or matches unrelated screen text.
+
+Every launch and relaunch in these flows, and in
+`student-checkpoint-short-viewport`, now invokes the existing dev-client
+wait subflow. The idempotency flow passes through the lesson summary before
+capturing XP and restarting. The checkpoint screen no longer offers a
+completion button for a node without a registered assessment batch.
+
+**Measured on 2026-10-12:** Xcode 27.0 now has the official iOS 26.5
+runtime (`23F73`, arm64). A signed Debug simulator build passed six distinct
+flows in nine successful executions, including the short viewport on SE
+(375 × 667 pt) at medium, AX3, AX4 and AX5. The rating flow's summary
+assertions and exit CTA were corrected, with a new AST/YAML guard seen
+failing for each stale value (26 contracts total now pass). Its production
+retest still failed at the native dialog: telemetry confirmed three app opens
+and the first value moment in production, but zero rating-prompt events.
+The quiz no longer calls that service; retargeting to a due-review fixture
+remains the actual open part of item 38.
+
+For local builds under Xcode 27, the existing Pods' old deployment targets
+require `IPHONEOS_DEPLOYMENT_TARGET=15.1` on the build invocation. Let Xcode
+sign the simulator build with `CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=-`:
+an unsigned build aborted for missing CloudKit entitlement, and manually
+signing with the distribution entitlement file failed to launch. This is a
+local test recipe, not a change to the production EAS profile.
+
+Keep the off, active and production JS profiles separate. If `.env.local`
+conflicts with production, use an isolated copy of tracked app files without
+`.env*`, with local copies of the dependencies; symlinked dependencies produced
+an invalid Metro entry URL outside the copy. Run the environment precedence
+check in that copy before starting Metro with a clean cache.
+
+Maestro's airplane mode is unavailable on the iOS simulator. Relaunch/resume
+PASS is not proof of OS network isolation, VoiceOver, physical-device behaviour
+or a new statistical H3 performance result.
+
+[Implementation evidence](evidence/2026-10-12-item-38-maestro.md) and
+[device runs, profiles and build recipe](evidence/2026-10-12-item-38-e2e.md).
 
 ## Current execution state
 

@@ -47,6 +47,20 @@ function draft(overrides: Partial<ProductionBatchDraftV1> = {}): ProductionBatch
 }
 
 describe('ProductionBatchV1', () => {
+    it('invalida a aprovação histórica se o candidato importado mudar, sem reaprovar no registro', () => {
+        const changed = JSON.parse(JSON.stringify(MATERIA_ENERGIA_E_RADIACAO_CANDIDATE));
+        changed.activities[0].steps[0].payload.title = 'Mutação material de teste';
+        try {
+            jest.isolateModules(() => {
+                jest.doMock('./EditorialCurriculumCandidate', () => ({
+                    ...jest.requireActual('./EditorialCurriculumCandidate'),
+                    MATERIA_ENERGIA_E_RADIACAO_CANDIDATE: changed,
+                }));
+                expect(() => require('./production-batches')).toThrow('production-batch-material-hash-mismatch');
+            });
+        } finally { jest.dontMock('./EditorialCurriculumCandidate'); }
+    });
+
     it('promove o lote inteiro e imutável somente com os seis gates vinculados ao mesmo material', () => {
         const batch = promoteProductionBatch(draft(), {
             promotedAt: '2026-08-13T20:10:00.000Z',

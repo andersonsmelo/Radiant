@@ -26,7 +26,8 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
-import { UnitCheckpointService, type UnitCheckpointEvaluation } from '../../student-checkpoints/UnitCheckpointService';
+import type { UnitCheckpointEvaluation, UnitCheckpointEvaluationInput } from '../../student-checkpoints/UnitCheckpointService';
+import { assessmentAttemptRepository } from '../../student-checkpoints/AssessmentAttemptRepository';
 import { checkpointIntroCopy, checkpointRequirementCopy, requiredCorrectItems } from '../checkpointRuleCopy';
 import { checkpointChargeLedger } from '../checkpointChargeLedger';
 import type { ItemOutcomeV1 } from '../../student-checkpoints/contracts';
@@ -42,6 +43,7 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
   nextRefillAt: null,
   unlimitedUntil: null,
 };
+const HISTORY_LOAD_ERROR = 'Não foi possível carregar o histórico. Tente abrir a avaliação novamente.';
 
 interface CheckpointScreenProps {
   nodeId?: string;
@@ -63,12 +65,12 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
   const nextNode = snapshot?.nextRecommendedNode;
 
   if (!nextNode) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   const href = getJourneyNodeHref(nextNode);
   if (!canOpenJourneyNode(nextNode) || !href) {
-    return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+    return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
   }
 
   if (nextNode.type === 'review') {
@@ -87,7 +89,7 @@ function resolveNextAction(snapshot: JourneySnapshot | null) {
     return { label: 'Abrir checkpoint', action: () => router.replace(href) };
   }
 
-  return { label: 'Voltar para jornada', action: () => router.replace('/(tabs)') };
+  return { label: 'Voltar para jornada', action: () => router.dismissTo('/(tabs)') };
 }
 
 export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCursorId }: CheckpointScreenProps) {
@@ -100,12 +102,18 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [checkpointAnswers, setCheckpointAnswers] = useState<Record<string, string>>({});
   const [checkpointEvaluation, setCheckpointEvaluation] = useState<UnitCheckpointEvaluation | null>(null);
+  const [remainingReinforcementIds, setRemainingReinforcementIds] = useState<string[]>([]);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [gamification, setGamification] = useState<GamificationSnapshot | null>(null);
   const [xpAwarded, setXpAwarded] = useState<number | null>(null);
   const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
   const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
   const processingAnswer = useRef(false);
+  const reinforcementBlocked = useRef(false);
+  const pendingSubmission = useRef<UnitCheckpointEvaluationInput | null>(null);
+  const creditedApprovals = useRef(new Set<string>());
+  const [historyReload, setHistoryReload] = useState(0);
 
   useEffect(() => {
     void GamificationService.getSnapshot().then(setGamification);
@@ -181,6 +189,34 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     [checkpointNode],
   );
   const productionItems = useMemo(() => productionCheckpoint?.items ?? [], [productionCheckpoint]);
+  useFocusEffect(useCallback(() => {
+    if (!checkpointNode) return;
+    let cancelled = false;
+    setHistoryLoaded(false);
+    void assessmentAttemptRepository.getState(checkpointNode.id).then(async state => {
+      if (cancelled) return;
+      const recoverableApproval = state.evaluation?.attempt.passed
+        && !snapshot?.progress?.completedNodeIds.includes(checkpointNode.id);
+      if (state.blocked || recoverableApproval) await checkpointChargeLedger.clear(checkpointNode.id);
+      if (cancelled) return;
+      setCheckpointEvaluation(state.blocked || recoverableApproval ? state.evaluation : null);
+      setRemainingReinforcementIds(state.remainingActivityIds);
+      if (reinforcementBlocked.current && !state.blocked) {
+        setCheckpointStarted(false);
+        setCheckpointItemIndex(0);
+        setCheckpointAnswers({});
+        setSelectedOptionId(null);
+        pendingSubmission.current = null;
+      }
+      reinforcementBlocked.current = state.blocked;
+      setError(current => current === HISTORY_LOAD_ERROR ? null : current);
+      setHistoryLoaded(true);
+    }).catch(() => {
+      if (!cancelled) setError(HISTORY_LOAD_ERROR);
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- O contador permite repetir a leitura no mesmo foco após falha.
+  }, [checkpointNode, historyReload, snapshot?.progress?.completedNodeIds]));
   const currentProductionItem = productionItems[checkpointItemIndex] ?? null;
   const productionRequiredCorrect = requiredCorrectItems(
     productionItems.length,
@@ -224,7 +260,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       'Vamos continuar pela jornada',
       'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
     );
-    router.replace('/(tabs)');
+    router.dismissTo('/(tabs)');
   }, []);
   const activeCheckpoint = useActiveCheckpoint({
     surface: 'unit-checkpoint',
@@ -312,12 +348,37 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     }
   }, [activeCheckpoint, checkpointNode]);
 
+  const applyEvaluation = useCallback(async (evaluation: UnitCheckpointEvaluation) => {
+    if (!checkpointNode) return;
+    await activeCheckpoint.commit((checkpointId) => ({ ...evaluation.intent, checkpointId }));
+    await checkpointChargeLedger.clear(checkpointNode.id);
+    setCheckpointEvaluation(evaluation);
+    const retryState = await assessmentAttemptRepository.getState(checkpointNode.id);
+    setRemainingReinforcementIds(retryState.remainingActivityIds);
+    reinforcementBlocked.current = retryState.blocked;
+    if (evaluation.attempt.passed) {
+      if (!creditedApprovals.current.has(evaluation.attempt.attemptId)) {
+        const approval = await LessonOutcomeService.recordAssessmentApproval({
+          nodeId: checkpointNode.id, totalQuestions: evaluation.attempt.totalItemCount,
+          correctAnswers: evaluation.attempt.correctItemCount, answeredAt: new Date(evaluation.attempt.committedAt),
+        });
+        creditedApprovals.current.add(evaluation.attempt.attemptId);
+        setXpAwarded(approval.award?.totalXpAwarded ?? null);
+      }
+      await GamificationService.getSnapshot().then(setGamification, (cause: unknown) => {
+        console.error('[CheckpointScreen] Failed to reload XP after approval:', cause);
+      });
+      await handleComplete();
+    }
+  }, [activeCheckpoint, checkpointNode, handleComplete]);
+
   const handleProductionAnswer = useCallback(async () => {
     if (!productionBatch || !currentProductionItem || !selectedOptionId || !checkpointNode || processingAnswer.current) {
       return;
     }
 
     processingAnswer.current = true;
+    setError(null);
 
     try {
       const isIncorrect = selectedOptionId !== currentProductionItem.correctOptionId;
@@ -351,7 +412,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         return;
       }
 
-    const committedAt = new Date().toISOString();
+    const committedAt = pendingSubmission.current?.committedAt ?? new Date().toISOString();
     const attemptSuffix = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const itemOutcomes: ItemOutcomeV1[] = productionItems.map((item) => {
       const activityId = productionBatch.activities.find((activity) => (
@@ -368,11 +429,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
         durationBucket: 'unknown',
       };
     });
-    const evaluate = (checkpointId: string) => UnitCheckpointService.evaluate({
-      operationId: `operation:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
-      checkpointId,
+    pendingSubmission.current ??= {
+      operationId: `operation:assessment:${attemptSuffix}`,
+      checkpointId: productionCheckpoint?.id ?? productionBatch.checkpoint.id,
       flowId: `unit-checkpoint:${checkpointNode.id}`,
-      attemptId: `attempt:${productionCheckpoint?.id ?? productionBatch.checkpoint.id}:${attemptSuffix}`,
+      attemptId: `attempt:assessment:${attemptSuffix}`,
       checkpointDefinitionId: productionCheckpoint?.id ?? productionBatch.checkpoint.id,
       unitId: productionBatch.unitId,
       journeyNodeId: checkpointNode.id,
@@ -381,33 +442,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       curriculumKind: 'v2',
       committedAt,
       itemOutcomes,
-    });
+    };
 
       setSubmitting(true);
-      const evaluation = evaluate(productionCheckpoint?.id ?? productionBatch.checkpoint.id);
-      await activeCheckpoint.commit((checkpointId) => evaluate(checkpointId).intent);
-      // A avaliação está registrada: a tentativa acabou, e a próxima cobra de novo.
-      await checkpointChargeLedger.clear(checkpointNode.id);
-      setCheckpointEvaluation(evaluation);
-      if (evaluation.attempt.passed) {
-        // FILA, 13: a aprovação paga pela regra da lição, só na primeira vez.
-        // O crédito vem ANTES de concluir: a conclusão dispara o backup, que
-        // leva o XP, e na ordem inversa a nuvem guardaria o total de antes.
-        const approval = await LessonOutcomeService.recordAssessmentApproval({
-          nodeId: checkpointNode.id,
-          totalQuestions: itemOutcomes.length,
-          correctAnswers: itemOutcomes.filter((outcome) => outcome.outcome === 'correct').length,
-          answeredAt: new Date(committedAt),
-        });
-        setXpAwarded(approval.award?.totalXpAwarded ?? null);
-        // O total foi lido ao abrir a tela; sem reler, a celebração repetia o
-        // número de antes do crédito. Falhar aqui não pode impedir a conclusão:
-        // o XP já foi pago, e uma nova tentativa pagaria de novo.
-        await GamificationService.getSnapshot().then(setGamification, (cause: unknown) => {
-          console.error('[CheckpointScreen] Failed to reload XP after approval:', cause);
-        });
-        await handleComplete();
-      }
+      const evaluation = await assessmentAttemptRepository.submit(pendingSubmission.current, productionBatch.activities);
+      await applyEvaluation(evaluation);
     } catch (cause) {
       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
       setError('Nao foi possivel registrar o checkpoint agora. Suas respostas não foram presumidas como concluídas.');
@@ -416,12 +455,11 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       processingAnswer.current = false;
     }
   }, [
-    activeCheckpoint,
+    applyEvaluation,
     checkpointAnswers,
     checkpointItemIndex,
     checkpointNode,
     currentProductionItem,
-    handleComplete,
     hearts,
     productionBatch,
     productionCheckpoint,
@@ -508,7 +546,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
     );
   }
 
-  if (!checkpointNode || !activeUnit) {
+  if (!checkpointNode || !activeUnit || !productionBatch) {
     return (
       <View style={styles.root}>
         <StarfieldBackground backgroundColor={galaxyColors.background} starCount={120} />
@@ -519,7 +557,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               <Text style={styles.emptyBody}>
                 Não existe um checkpoint elegível neste momento. Volte para a jornada e siga o próximo nó liberado.
               </Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>
@@ -602,11 +640,25 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
           {error ? (
             <View style={styles.errorCard}>
               <Text style={styles.errorText}>{error}</Text>
+              {!historyLoaded ? <AppButton onPress={() => setHistoryReload(value => value + 1)}>Tentar carregar histórico</AppButton> : null}
             </View>
           ) : null}
 
           <View style={styles.actionCard}>
-            {productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation ? (
+            {checkpointEvaluation?.attempt.passed ? (
+              <>
+                <Text style={styles.actionTitle}>Avaliação registrada</Text>
+                <Text style={styles.actionBody}>Sua aprovação foi salva. Conclua esta etapa sem responder novamente.</Text>
+                <AppButton disabled={submitting} onPress={() => {
+                  if (processingAnswer.current) return;
+                  processingAnswer.current = true;
+                  setSubmitting(true);
+                  setError(null);
+                  void applyEvaluation(checkpointEvaluation).catch(() => setError('Não foi possível concluir a avaliação. Tente novamente.'))
+                    .finally(() => { processingAnswer.current = false; setSubmitting(false); });
+                }}>Concluir avaliação registrada</AppButton>
+              </>
+            ) : productionBatch && checkpointStarted && currentProductionItem && !checkpointEvaluation ? (
               <>
                 <Text style={styles.checkpointCounter}>
                   Questão {checkpointItemIndex + 1} de {productionItems.length}
@@ -620,7 +672,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                     return (
                       <Pressable
                         key={option.id}
-                        onPress={() => setSelectedOptionId(option.id)}
+                        onPress={() => { if (!pendingSubmission.current) setSelectedOptionId(option.id); }}
                         accessibilityRole="radio"
                         accessibilityLabel={option.label}
                         accessibilityState={{ selected }}
@@ -649,12 +701,13 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                   {' '}{checkpointRequirementCopy(productionRequiredCorrect)} A próxima tentativa só será liberada após revisar as competências frágeis.
                 </Text>
                 <Text style={styles.reinforcementLabel}>
-                  Ciclo 1: explicação causal e prática guiada
+                  {checkpointEvaluation.attempt.resultingSupportState === 'support-required'
+                    ? 'Você precisa de apoio antes de uma nova tentativa.'
+                    : `Ciclo ${checkpointEvaluation.reinforcementPlan?.reinforcementCycle}: conclua as atividades de reforço das competências frágeis.`}
                 </Text>
                 <AppButton
                   onPress={() => {
-                    const weakCompetency = checkpointEvaluation.attempt.weakCompetencyIds[0];
-                    const recoveryActivity = productionBatch.activities.find((activity) => activity.competencyIds.includes(weakCompetency));
+                    const recoveryActivity = productionBatch.activities.find((activity) => remainingReinforcementIds.includes(activity.id));
                     if (recoveryActivity) {
                       router.replace({
                         pathname: '/learn',
@@ -673,9 +726,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
                 <Text style={styles.actionBody}>
                   {completed
                     ? 'Seu progresso está salvo e o próximo passo já está preparado.'
-                    : productionBatch
-                      ? checkpointIntroCopy(productionItems.length, productionRequiredCorrect)
-                      : 'Concluir o checkpoint firma o que você viu nesta unidade e libera a próxima lição.'}
+                    : checkpointIntroCopy(productionItems.length, productionRequiredCorrect)}
                 </Text>
               </>
             )}
@@ -683,33 +734,22 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
               <AppButton onPress={nextAction.action} style={styles.fullWidthButton}>
                 {nextAction.label}
               </AppButton>
-            ) : productionBatch && !checkpointStarted ? (
+            ) : productionBatch && !checkpointStarted && !checkpointEvaluation && historyLoaded ? (
               <AppButton
+                disabled={!historyLoaded}
                 onPress={() => {
+                  if (!historyLoaded || checkpointEvaluation) return;
                   if (hearts.status === 'empty') {
                     setHeartsSheetVisible(true);
                     return;
                   }
+                  pendingSubmission.current = null;
                   setCheckpointStarted(true);
                 }}
                 style={styles.fullWidthButton}
               >
                 Iniciar checkpoint
               </AppButton>
-            ) : !productionBatch ? (
-              <>
-                <AppButton onPress={() => void handleComplete()} disabled={submitting} style={styles.fullWidthButton}>
-                  {submitting ? 'Concluindo checkpoint...' : 'Concluir checkpoint'}
-                </AppButton>
-                <AppButton
-                  onPress={() => router.replace('/(tabs)')}
-                  variant="ghost"
-                  style={styles.fullWidthButton}
-                  textStyle={{ color: galaxyColors.textSecondary }}
-                >
-                  Voltar para jornada
-                </AppButton>
-              </>
             ) : null}
           </View>
         </ScrollView>

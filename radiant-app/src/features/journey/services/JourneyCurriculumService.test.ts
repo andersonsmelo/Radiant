@@ -126,6 +126,31 @@ describe('JourneyCurriculumService', () => {
     expect(recommendedNodeId).toBe('b-node-0');
   });
 
+  it('abre a trilha seguinte com revisões vencidas ou futuras na anterior', async () => {
+    // Visto no simulador em 2026-10-16: "8 DE 8" e conquista feita, e a
+    // trilha seguinte trancada por uma revisão disponível só em 21/10. Desde a
+    // ADR de 2026-10-16 a revisão é prática paralela e não fecha trilha.
+    mockedCatalog.listTracks.mockReturnValue([
+      track('a', 'Primeira', 1),
+      track('b', 'Segunda', 2),
+    ] as never);
+    const anterior = snapshot('a', 'Primeira', ['completed', 'locked', 'due-review', 'completed']);
+    const nos = anterior.track.units[0].nodes as { type: string }[];
+    nos[1].type = 'review';
+    nos[2].type = 'review';
+    nos[3].type = 'reward';
+    snapshotsFor({
+      a: anterior,
+      b: snapshot('b', 'Segunda', ['available'], 'b-node-0'),
+    });
+
+    const { segments } = await JourneyCurriculumService.getCurriculumTrail();
+
+    expect(segments[0].completed).toBe(true);
+    expect(segments[1].unlocked).toBe(true);
+    expect(segments[1].units[0].nodes[0].status).toBe('available');
+  });
+
   it('preserva conclusões antigas dentro de uma trilha fechada', async () => {
     // Uma trilha pode estar atrás do cadeado e conter conclusões anteriores.
     // Rebaixá-las reescreveria o passado do aluno.

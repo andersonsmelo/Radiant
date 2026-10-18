@@ -46,7 +46,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:1
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - tapOn: Concluir e voltar
 # O resumo da lição (`LessonSummary`), que entrou na 1.4, fica entre a lição
 # e a trilha. Este flow é anterior a ele e seguia direto para a trilha;
@@ -60,6 +60,15 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # setAirplaneMode takes enabled/disabled, not a boolean — `true` fails to parse.
 - setAirplaneMode: enabled
@@ -69,17 +78,22 @@ tags:
 # SERVERS"), esperando a escolha do servidor (medido em 2026-09-28). O subflow
 # cobre esse estado; num build de loja ele não aparece.
 - runFlow: subflows/dismiss-dev-client.yaml
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
-# The CTA sits past the fold, below the journey map, so scroll before asserting
-# that the restored progress advanced the next step to the next lesson. Until the
-# ADR of 2026-09-28 a catalog checkpoint came first, and the CTA read
-# "Abrir checkpoint"; now the next node is lesson 2 and the CTA is
-# `continueLabel`'s lesson label.
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
+# A recomendação fica no header rolável; a rota continua vindo do próximo nó.
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - assertVisible: Continuar jornada
 - setAirplaneMode: disabled

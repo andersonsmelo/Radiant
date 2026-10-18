@@ -23,7 +23,7 @@ import {
   useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { LessonSummary } from '../components/LessonSummary';
-import { resolveBestLessonStars, resolveLessonStars, type LessonStars } from '../services/resolveLessonStars';
+import { resolveAttemptStars, resolveLessonStars, type LessonStars } from '../services/resolveLessonStars';
 import { pickSummaryPhrase } from '../constants/lessonSummaryPhrases';
 import { LessonRatingService } from '../services/LessonRatingService';
 import { LearningAttemptsRepository } from '../../progress/services/LearningAttemptsRepository';
@@ -72,7 +72,7 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [], lessonId }
 
   const handleFinishReview = () => {
     void OnboardingService.markAction('review_complete');
-    router.replace('/(tabs)');
+    router.dismissTo('/(tabs)');
   };
 
   if (loading) {
@@ -98,7 +98,7 @@ export default function QuizScreen({ mode = 'normal', lessonIds = [], lessonId }
             <View style={styles.emptyCard}>
               <Text style={styles.emptyTitle}>Nenhuma lição disponível</Text>
               <Text style={styles.emptyBody}>Não existe conteúdo elegível para este quiz agora.</Text>
-              <AppButton onPress={() => router.replace('/(tabs)')} style={styles.fullWidthButton}>
+              <AppButton onPress={() => router.dismissTo('/(tabs)')} style={styles.fullWidthButton}>
                 Voltar para jornada
               </AppButton>
             </View>
@@ -176,6 +176,7 @@ function QuizSession({
   const [summaryHelper, setSummaryHelper] = useState<{ message: string; type: 'habit' | 'consistency' } | null>(null);
   const [summary, setSummary] = useState<{
     stars: LessonStars;
+    recordStars: LessonStars;
     improved: boolean;
     phrase: string;
     rating: number | null;
@@ -243,7 +244,7 @@ function QuizSession({
   }, [isFinished, mode, result]);
 
   // Resolve estrelas, frase e nota antes de renderizar o resumo: attempts vem
-  // do LearningAttemptsRepository, e resolveBestLessonStars exclui a própria
+  // do LearningAttemptsRepository, e resolveAttemptStars exclui a própria
   // tentativa atual comparando completedAt — por isso precisa ser
   // exatamente result.answeredAt.toISOString().
   //
@@ -263,7 +264,7 @@ function QuizSession({
       try {
         await LearningAttemptRecorder.record(result);
         const attempts = await LearningAttemptsRepository.getAll();
-        const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+        const { stars, recordStars, improved } = resolveAttemptStars(result.lessonId, attempts, {
           correctAnswers: result.correctAnswers,
           totalQuestions: result.totalQuestions,
           completedAt: result.answeredAt.toISOString(),
@@ -272,14 +273,14 @@ function QuizSession({
         if (cancelado) {
           return;
         }
-        setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating });
+        setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating });
       } catch (cause) {
         console.error('[QuizScreen] Falha ao resolver o resumo da lição:', cause);
         if (cancelado) {
           return;
         }
         const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
-        setSummary({ stars, improved: false, phrase: pickSummaryPhrase(stars, null), rating: null });
+        setSummary({ stars, recordStars: stars, improved: false, phrase: pickSummaryPhrase(stars, null), rating: null });
       }
     })();
 
@@ -358,6 +359,7 @@ function QuizSession({
           {summary ? (
             <LessonSummary
               stars={summary.stars}
+              recordStars={summary.recordStars}
               starsImproved={summary.improved}
               phrase={summary.phrase}
               xpAwarded={xpAward?.totalXpAwarded ?? null}
@@ -380,7 +382,7 @@ function QuizSession({
                   }
                   return;
                 }
-                router.replace('/(tabs)');
+                router.dismissTo('/(tabs)');
               }}
             />
           ) : null}
@@ -400,7 +402,7 @@ function QuizSession({
             hearts={hearts}
             maxHearts={maxHearts}
             unlimited={heartsUnlimited}
-            onClose={() => router.replace('/(tabs)')}
+            onClose={() => router.dismissTo('/(tabs)')}
           />
 
           <Text style={styles.questionCounter}>

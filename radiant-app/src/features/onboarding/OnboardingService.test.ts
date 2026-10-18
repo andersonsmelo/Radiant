@@ -27,6 +27,42 @@ describe('OnboardingService', () => {
     telemetryTrack.mockClear();
   });
 
+  it('hydrates a previous value milestone on a fresh process before recording review completion', async () => {
+    const stored = { startedAt: 100, dismissedIntro: true, firstQuizAt: 200, firstReviewAt: null, completed: false };
+    let service: typeof OnboardingService;
+    let storage: typeof mockedStorage;
+    let track: typeof telemetryTrack;
+    jest.isolateModules(() => {
+      service = require('./OnboardingService').OnboardingService;
+      storage = require('@react-native-async-storage/async-storage');
+      track = require('../telemetry/TelemetryService').TelemetryService.track;
+      storage.getItem.mockResolvedValue(JSON.stringify(stored));
+      storage.setItem.mockClear();
+      track.mockClear();
+    });
+    await service!.markAction('review_complete');
+    const saved = JSON.parse(storage!.setItem.mock.calls.at(-1)![1]);
+    expect(saved.startedAt).toBe(100);
+    expect(saved.firstQuizAt).toBe(200);
+    expect(saved.firstReviewAt).toEqual(expect.any(Number));
+    expect(track!.mock.calls.filter(([name]) => name === 'first_value_moment_reached')).toHaveLength(0);
+  });
+
+  it('does not overwrite onboarding when the stored state cannot be loaded', async () => {
+    let service: typeof OnboardingService;
+    let storage: typeof mockedStorage;
+    jest.isolateModules(() => {
+      service = require('./OnboardingService').OnboardingService;
+      storage = require('@react-native-async-storage/async-storage');
+      storage.getItem.mockRejectedValue(new Error('storage unavailable'));
+      storage.setItem.mockClear();
+    });
+    const error = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    await service!.markAction('review_complete');
+    expect(storage!.setItem).not.toHaveBeenCalled();
+    error.mockRestore();
+  });
+
   it('emits first value moment only once on the first meaningful action', async () => {
     await OnboardingService.markAction('quiz_complete');
     await OnboardingService.markAction('review_complete');

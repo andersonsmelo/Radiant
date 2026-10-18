@@ -972,7 +972,7 @@ código.
 - **F3 [P0]** Ciclo de triagem de feedback beta: P0/P1 corrigidos e novo build
   se necessário (cada novo ciclo de closed test não reinicia os 14 dias, mas
   quedas abaixo de 12 testadores sim — monitorar diariamente).
-- **F4 [P0 — APPLE AGUARDANDO REVISÃO, RECONFIRMADO EM 2026-08-09; PLAY ESPERA F2]** Solicitar acesso a produção
+- **F4 [P0 — APPLE 1.4.0 (12) APROVADA EM 2026-10-12; PLAY ESPERA F2]** Solicitar acesso a produção
   no Play (questionário) e submeter revisão final na App Store (App Review;
   primeira revisão típica de 24–48h, planejar retrabalho). **Apple não depende
   da F2:** em 2026-08-08, privacy foi publicada como **Dados não coletados**, o
@@ -980,8 +980,16 @@ código.
   enviada à revisão com a versão `1.3.1`. O console foi consultado novamente em
   2026-08-09 e continuava em **Aguardando revisão**, com liberação manual. O lado
   Apple da submissão está concluído; o lado Play continua esperando F2.
+  **Remedido em 2026-10-12:** a versão `1.4.0 (12)`, mensal, anual e grupo
+  "Radiant Ilimitado" estão aprovados na submissão `a5e5a094`
+  ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 - **F5 [P0]** Lançamento: rollout faseado no Play (10% → 50% → 100%);
   liberação manual no iOS após aprovação.
+  **iOS: liberação da `1.4.0 (12)` concluída em 2026-10-12, às 08:47
+  (America/Bahia), no Brasil**, pelo agente com autorização do dono.
+  Console em "Pronto para distribuição"; página pública brasileira em
+  `1.4.0` às 08:50. O lado Play continua pendente
+  ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
 - **F6 [P1]** Pós-lançamento (2 primeiras semanas): monitorar Sentry
   crash-free ≥ 99%, reviews das lojas, funil de onboarding; hotfix por OTA
   (Expo Updates) apenas para JS compatível com `runtimeVersion`, senão novo
@@ -1268,7 +1276,7 @@ a trilha de lojas.
 
 - **I1 [CONCLUÍDA em 2026-08-15]** Atividade enxuta e conclusão de lição extraída.
   Publicada em PR a partir de `feat/atividade-fim-licao`; ver status canônico.
-- **I2 [P1 — APROVADA pelo dono em 2026-08-15; plano pronto, não implementada]**
+- **I2 [P1 — PARCIAL; NAVEGAÇÃO ESTUDE/PERFIL IMPLEMENTADA; `/quiz` AINDA EXISTE, REMEDIDO EM 2026-10-12]**
   Topologia de navegação: Estude + Perfil, com Progresso e Missões dentro. **Estude passa
   a ser a trilha**, em rolagem contínua e com o currículo inteiro, e a **Galáxia é
   absorvida** — a trilha morava nela. A separação da `ProgressScreen` foi definida em
@@ -1282,9 +1290,20 @@ a trilha de lojas.
   **Onde o risco se concentra:** a trilha passa a carregar o currículo inteiro em vez das
   unidades da trilha ativa. É a única parte que mexe em dado, e sem virtualização a
   rolagem morre em catálogo grande.
-- **I3 [P2]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
+  **Remedido no código em 2026-10-12:** duas abas em
+  `src/app/(tabs)/_layout.tsx`; Estude aponta para `JourneyHomeScreen`, que
+  consome `JourneyCurriculumService`; Perfil incorpora `MissionsScreen`,
+  `ProgressScreen` e identidade, e o console fica sob `SHOW_DEV_TOOLS`.
+  `/learn` já usa `QuizTopBar` e `LessonSummary`. A Task 18 do plano ainda
+  não foi executada: `src/app/quiz.tsx` e `QuizScreen` continuam presentes;
+  `rating-prompt.yaml` usa essa rota para atingir o gate da avaliação da
+  loja. Não remover a rota sem preservar seus consumidores e essa prova.
+- **I3 [P2 — PARCIAL, REMEDIDO EM 2026-10-12]** Tela de Perfil do aluno — nome, nível, sequência, conquistas e histórico
   de aulas. Depende de I2. O histórico tem substrato pronto em
   `LearningAttemptsRepository`.
+  Já existe `ProfileScreen` com identidade local "Estudante", XP,
+  sequência, Missões e Progresso incorporados. Não é task para recriar a
+  tela; completar os critérios de personalização/histórico continua aberto.
 - **I4 [P2]** Marca no topo com símbolo de radiação, cintilante. Não existe asset de
   marca no `radiant-app` hoje; a arte precisa existir antes do código. Merece ADR
   próprio por ser identidade de produto.
@@ -1418,7 +1437,10 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   fixado em 2026-09-22, portão fechado; adaptador StoreKit implementado em
   2026-09-23; StoreKit compilado e medido no sandbox num iPhone com iOS 27.2
   em 2026-09-24; anual em 2026-09-25; cancelamento e VoiceOver no iPhone e Ask
-  to Buy no StoreKit Testing em 2026-09-27; falta o bump da 1.4.0]**
+  to Buy no StoreKit Testing em 2026-09-27; bump para 1.4.0 em 2026-09-28;
+  `1.4.0 (12)` ENVIADA À REVISÃO DA APP STORE EM 2026-10-09; REPROVADA PELA
+  3.1.2 E REENVIADA EM 2026-10-10; REPROVADA PELA 2.3.2 E REENVIADA EM
+  2026-10-11; APROVADA E LIBERADA NO BRASIL EM 2026-10-12]**
   Ligar StoreKit 2, iCloud e Sentry; medir E2E, acessibilidade, desempenho e
   tamanho antes de qualquer submissão.
 
@@ -1504,6 +1526,43 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
     piloto do V3 tinha som. Visto no simulador pelo log do sistema
     ([ADR](../adr/ADR-2026-09-28-sons-na-licao-da-1-4.md),
     [relatório](../superpowers/handoffs/2026-09-28-radiant-sons-na-licao-relatorio.md)).
+  - **em 2026-10-09:** o XP da aprovação das avaliações (FILA, 13), o anúncio
+    da perda de vida nelas (35) e o caminho 3 do E2E afirmando a L1 (16)
+    entraram na PR #38, mergeada às 16:18 (`221e2ec`). A build de produção
+    `1.4.0 (12)` saiu do EAS e foi **enviada à revisão às 17:17**, com os dois
+    produtos da assinatura, o grupo e a captura de revisão refeita. A
+    liberação é manual e fica com o dono (FILA, 40)
+    ([relatório](../superpowers/handoffs/2026-10-09-radiant-envio-1-4-0-relatorio.md)).
+  - **em 2026-10-10:** a Apple reprovou a `1.4.0 (12)` às 03:18, pela
+    diretriz 3.1.2, porque os metadados não tinham link para os Termos de Uso
+    (EULA). O dono pôs a seção "Assinatura", com o EULA padrão da Apple e a
+    política de privacidade, na Descrição, e reenviou às 11:12, com o mesmo
+    binário
+    ([relatório](../superpowers/handoffs/2026-10-10-radiant-reprovacao-1-4-0-relatorio.md)).
+  - **em 2026-10-10, às 11:54, e em 2026-10-11:** a Apple reprovou de novo,
+    pela 2.3.2, porque a imagem promocional das duas assinaturas era o ícone
+    do app. O dono apagou as imagens, cancelou a submissão e montou outra, e
+    a versão foi reenviada às 20:00, com o mesmo binário
+    ([relatório](../superpowers/handoffs/2026-10-11-radiant-reprovacao-2-3-2-relatorio.md)).
+
+  - **em 2026-10-12, às 08:47 (America/Bahia):** versão `1.4.0 (12)` e
+    os três itens da assinatura aprovados; liberação no Brasil executada
+    pelo agente, autorizada pelo dono. Console em "Pronto para distribuição";
+    página pública brasileira em `1.4.0` às 08:50, publicação confirmada
+    ([evidência](../evidence/2026-10-12-radiant-liberacao-1-4-0.md)).
+
+  - **em 2026-10-12, após a publicação (FILA, 38):** seis fluxos de
+    navegação atualizados localmente, espera do dev client também no fluxo
+    de viewport curta e ramo de checkpoint sem avaliação removido.
+    O runtime iOS 26.5 foi provisionado; seis fluxos distintos passaram em
+    nove execuções, incluindo `medium`, AX3, AX4 e AX5 no SE. O resumo do
+    `rating-prompt` recebeu correção e guarda AST/YAML (26 contratos verdes).
+    O fluxo continua vermelho: `949f013` retirou o prompt da loja do quiz,
+    por decisão de produto, e o E2E ainda mira essa rota. **Falta:** fixture
+    sintética de revisão devida e disparo por `/review`, com prova dos gates
+    antes/depois de três aberturas e do diálogo nativo. Item **parcial**, sem
+    nova build de distribuição nem OTA
+    ([evidência](../../radiant-app/docs/evidence/2026-10-12-item-38-e2e.md)).
 
   **Fatia StoreKit (2026-09-23):** `StoreKit2Adapter` atrás da `StoreKitPort`
   e módulo Swift `radiant-app/modules/radiant-storekit/`, só StoreKit 2 e sem
@@ -1585,6 +1644,200 @@ Esta onda não ativa o V3, não publica binário e não substitui J3–J5.
   esse passo produz um app aprovado que escreve num schema inexistente, falhando
   apenas em produção e em silêncio. *(Esta lista é de 2026-09-15; o estado vivo desses itens está no `STATUS.md` e na `FILA.md`. Em 2026-09-23 o Sentry mínimo e o adaptador StoreKit já existiam no código — ver o topo do K6.)*
 
+### Melhorias pós-publicação — itens 36, 39 e 27
+
+Implementação local concluída em `a366295`, 2026-10-12: reforço persistente V2,
+conquista na recomendação da Estude e data de disponibilidade da revisão.
+Validação aprovada (14/14), E2E da conquista passed e run fechado.
+Ainda sem integração à `main` ou publicação. Fluxo e arquitetura foram
+reconciliados em 2026-10-12.
+[ADR](../adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
+[evidência](../evidence/2026-10-12-itens-36-39-27.md).
+
+### Pesquisas de evolução do produto — documentadas em 2026-10-12
+
+As pesquisas de aprendizagem/trilhas, layout/usabilidade, retenção/assinatura,
+automação/escala e personagem/voz/IA estão consolidadas em
+[RESEARCH_DECISIONS.md](../RESEARCH_DECISIONS.md). Referências externas,
+observações locais e hipóteses permanecem diferenciadas. O recorte proposto
+parte do piloto híbrido existente, com comparação de presença/voz do Pixel.
+Documentação concluída; propostas ainda em discussão. Não escolhe dependência,
+não altera o app e não encerra os gates do piloto híbrido ou do currículo.
+
+### Planejamento de evolução — documentado em 2026-10-12
+
+[Levantamento e plano de evolução](2026-10-12-radiant-evolution-plan.md)
+cruza o código em `550c70e` com as pesquisas consolidadas. Anderson escolheu
+experiência de estudo (layout, Pixel e uma unidade piloto) como foco inicial.
+O plano propõe pacotes, dependências, critérios de aceite, métricas e gates;
+preserva as pendências da FILA e as decisões editoriais/comerciais vigentes.
+Entrega documental; não aprova novos desenhos, ativa V3, reordena a FILA,
+instala dependências ou autoriza release. STATUS continua sendo o estado vivo.
+
+**Primeiro marco visual, 2026-10-12:** [auditoria e direção candidata](../design/2026-10-12-study-experience-review.md)
+com capturas de Estude/atividade/conclusão e [prancheta navegável](../design/2026-10-12-study-experience.html).
+**Direção visual aprovada pelo dono em 2026-10-12**; [spec e pacote executável](../superpowers/plans/2026-10-12-study-experience-plan.md)
+preparados. **Implementação local medida em 2026-10-13, até `c9169ee`:**
+Estude/atividade/conclusão aplicadas e revisadas; testes focados, 4 flows iOS,
+AX2, zero vidas, retomada e repetição sem XP aprovados; gate integral 14/14. [Evidência](../evidence/2026-10-12-study-experience-implementation.md).
+Sem publicação; confirmação editorial da L1 e piloto com alunos seguem pendentes.
+
+### QA amplo posterior ao pacote visual — 2026-10-13
+
+Registro histórico anterior às correções `13ee173`; o resultado posterior
+está na remediação de 2026-10-14 abaixo.
+
+Auditoria local do código `c9169ee`: estudo, persistência, conquista e retomada
+passaram; modo interno também passou, incluindo SE/AX5. **A revisão direta
+apresentou defeito P1** (legibilidade e classificação que não permanece),
+com correção pendente. Marco de primeiro valor e metadados nativos locais
+precisam de reconciliação. Cinco roteiros originais falharam por premissas
+antigas de menu/ação/posição do CTA. Memória medida: footprint 291.1M → 553.0M e telas nativas 6 → 48 após vinte
+ciclos no mesmo PID, com origem a investigar; nove leaks/4.720 bytes iguais.
+Gate final configurado aprovado: **14/14, ciclo único**. Correções dos achados continuam pendentes. [Relatório e limites](../evidence/2026-10-13-qa-ampla-simulador.md).
+Isso registra QA, sem promoção de V3, integração à main ou distribuição.
+
+### Remediação dos achados locais — 2026-10-14
+
+Entregue localmente em **`13ee173`**; run `run-1791978395898-e847c951` fechado,
+memória validada gravada e sessão encerrada, conforme relatório.
+
+Cartão/rolagem/HUD de revisão, hidratação dos marcos de primeiro valor,
+retornos à Home e consumidores Maestro corrigidos. Cinco roteiros anteriormente
+reprovados passaram; L1/revisão aprovadas após hidratação. Diálogo nativo de
+avaliação passou com JS de produção isolado, wrapper Debug. Metadados nativos
+locais reconciliados em 1.4.0 (3). AX5 integral permanece parcial; resultado/retorno
+foram verificados separadamente. Memória após vinte ciclos: 285,9→309,5 M,
+2 telas e 178 componentes constantes; uma única Home. Vazamentos pequenos
+sem origem determinada permanecem. Gate final **14/14, ciclo único**, com estado
+corrente exclusivamente em STATUS. [Evidências](../evidence/2026-10-14-qa-remediacao.md).
+Sem integração à main, publicação ou promoção dos gates externos.
+
+### Estude abre no nó PRÓXIMO — 2026-10-16 [CONCLUÍDA LOCALMENTE]
+
+Pedido do dono durante a avaliação no simulador; opção A do
+[ADR](../adr/ADR-2026-10-16-estude-abre-no-proximo-no.md). A trilha centraliza
+o PRÓXIMO uma vez por recomendação, e a volta à aba não reseta a posição.
+Testes vistos vermelhos e cada guarda derrubada pela sua injeção;
+conferido no simulador. [Evidência](../evidence/2026-10-16-trilha-ancorada-no-proximo.md).
+Sem integração à main nem publicação.
+
+### Configuração sai do Perfil — 2026-10-16 [CONCLUÍDA LOCALMENTE]
+
+Item 32 da FILA. Engrenagem no cabeçalho do Perfil abre a tela Configuração;
+assinatura, backup, sons e vibração, conta, ajuda e a porta do console foram
+para lá, por decisão do dono
+([ADR](../adr/ADR-2026-10-16-configuracao-no-perfil.md)). Testes vistos
+vermelhos e cada guarda derrubada pela sua injeção; conferido no simulador.
+[Evidência](../evidence/2026-10-16-configuracao-no-perfil.md). Sem integração
+à main nem publicação.
+
+### Avaliação completa da trilha — 2026-10-16 [CONCLUÍDA]
+
+Ponto de partida do investimento na trilha, pedido do dono. A estrutura está à
+frente do conteúdo: as lições no ar não ensinam o que o produto promete, o
+resumo comemora erro, a trilha seguinte trava sem explicação, e não há
+medição. Itens 41–45 da FILA.
+[Relatório](../trilha/avaliacoes/2026-10-16-avaliacao-completa-da-trilha.md).
+
+### Pacote de confiança da trilha — 2026-10-16 [CONCLUÍDO LOCALMENTE]
+
+Itens 41, 42 e 44 da FILA, por decisão do dono:
+- o resumo mostra a tentativa, com o recorde à parte;
+- a revisão vira prática paralela, sem custo de vida, e não fecha trilha;
+- a revisão de uma trilha anterior volta a premiar;
+- o lembrete diário sai do modo sombra.
+
+A regressão de E2E que a trilha centralizada abriu ficou no item 46.
+[ADR](../adr/ADR-2026-10-16-revisao-paralela-e-lembrete.md),
+[evidência](../evidence/2026-10-16-pacote-de-confianca-da-trilha.md).
+
+### Exercícios sobre imagem no celular — 2026-10-16 [PESQUISA DOCUMENTADA]
+
+Contribuição de OpenAI Codex (família GPT-6), sem reescrever a avaliação ou o
+plano anteriores: [pesquisa com cinco estudos primários](../trilha/pesquisas/2026-10-16-exercicios-imagem-celular-evidencias.md)
+e [proposta de piloto](../trilha/plano/2026-10-16-piloto-imagem-sem-pistas.md).
+Inspeção estática distingue seleção guiada de busca visual independente e
+aponta riscos de pistas textuais, coordenadas e recorte; não é validação nativa.
+Anderson escolheu **qualidade técnica da imagem** como foco
+([ADR](../adr/ADR-2026-10-16-foco-piloto-imagem-qualidade-tecnica.md)).
+A proposta de piloto/FILA 53 foi superada pela direção global posterior de
+2026-10-16, descrita abaixo; a pesquisa visual permanece como referência.
+Esta pesquisa não importou imagens nem alterou o runtime.
+
+### Evolução global da trilha — 2026-10-16 [DIAGNÓSTICO E PLANO DOCUMENTADOS]
+
+Anderson retirou a aula piloto da ordem de avanço da frente global
+([ADR](../adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md)).
+A dependência de amostra/piloto registrada anteriormente em J3 não bloqueia
+diagnóstico, generalização do motor ou preparação de produção por lotes; isso
+não aprova L1, não ativa V3 e não dispensa revisão editorial ou distribuição.
+
+[Diagnóstico estrutural](../trilha/avaliacoes/2026-10-16-diagnostico-estrutural-global-da-trilha.md):
+18 lições legadas/38 perguntas, 12 atividades V2 e composição de quatro
+trilhas/30 resumos. [Plano global G0–G8](../trilha/plano/2026-10-16-loop-global-de-evolucao-da-trilha.md)
+liga pesquisa, inventário, arquitetura, organização curricular, produção,
+QA em escala, publicação autorizada e observação contínua.
+
+**Primeira entrega de G0/G1 implementada em 2026-10-16 (FILA 54):** registro de
+apresentação por lote, índices imutáveis, identidades sem colisão e inventário
+pelos serviços reais de jornada/player sobre catálogo local. Projeção histórica
+preservada; 56 testes focados e fixture de 100 lotes/1.200 atividades.
+[Evidências e limitações](../evidence/2026-10-16-trilha-g0-g1-catalogo.md).
+Restam cobertura fonte/competência/item, contratos de composição multiunidade,
+persistência/migração e G2–G8. Nenhum novo conteúdo ou release; sem nova medição
+nativa. Estado vivo em STATUS/FILA.
+
+**Segunda entrega G0/G1 — 2026-10-16:** matriz de 22 itens promovidos,
+oito fontes e 154 claims resolvidos; 36 itens legados explicitamente sem
+mapeamento editorial. Composição explícita de várias unidades na mesma área,
+IDs e progresso preservados; nove suítes/101 testes e 100 unidades sintéticas.
+[Evidência](../evidence/2026-10-16-trilha-cobertura-e-multiunidade.md).
+Anderson decidiu liberação pela avaliação final e conquista opcional
+([ADR](../adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md)).
+A continuidade é G2: harmonizar conclusão/recomendação/foco e organização do mapa;
+a promoção editorial genérica é G3. Estado vivo em STATUS/FILA, sem conteúdo novo
+ou publicação nesta etapa.
+
+**Camada G2 da evolução global — implementada localmente em 2026-10-16:**
+conclusão/contagem/recomendação/foco coerentes com conquistas opcionais nas
+composições, índice/marcadores de unidades e coleta por destino da área anterior.
+Onze suítes/141 testes focados; [evidência e limites](../evidence/2026-10-16-trilha-g2-progressao-e-unidades.md).
+O próximo pacote é G3, produção editorial genérica. A validação nativa e o mapa
+curricular amplo de G2 seguem pendentes antes de ativar áreas compostas; nenhuma
+nova área/conteúdo foi publicada. Estado vivo em STATUS/FILA.
+
+**Camada G3 da evolução global — implementada localmente em 2026-10-17:**
+contrato editorial sem quantidades/IDs fixos do H4, validação comum ao app e ao
+publicador de artefatos, cobertura/proveniência, seis gates e relatório por lote.
+Seis suítes/65 testes do app, 20 testes dos scripts, oito injeções e 100 lotes
+sintéticos menores/400 atividades. [Evidências](../evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+Sem conteúdo novo ou publicação. G3 ainda requer produção/revisão real e
+medição longitudinal de retrabalho; G4 é a próxima camada técnica, com QA nativo
+G2, P1 e decisões curriculares preservados no programa. Estado vivo em STATUS/FILA.
+
+**Camada G4 — implementada localmente em 2026-10-17:** tentativa e agenda por
+item na mesma escrita, deduplicação, primeira resposta/ajuda separadas, fila ativa
+em `/review`, migração conservadora retomável e vencimentos compartilhados com
+trilha/push/contadores. Onze suítes/187 testes focados; 13 mutações e fixture de
+10 mil itens. [Evidências](../evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+**Continuação G4 em 2026-10-17:** avaliações V2 projetadas no journal comum, com
+lote atômico de itens, recibo retomável, retry estável e conclusão de aprovação
+salva. Nove suítes/160 testes focados e cinco mutações.
+[Evidências](../evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md).
+**Continuação G4 em 2026-10-17:** resposta antes do gabarito na revisão, correção
+pelo catálogo, confirmação antes do feedback e sinal temporal sem promoção de
+retenção. Nove suítes/126 testes focados e quatro mutações.
+[Evidências](../evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+G4 permanece aberto para validação nativa e critério pedagógico de retenção. QA nativo/performance e backup/sync têm gates
+próprios. Sem conteúdo novo, V3, build ou publicação; estado vivo em STATUS/FILA.
+
+**Passagem documental de 2026-10-17:** por pedido de Anderson, a implementação
+para aqui. [Índice de pesquisas/entregas](../trilha/README.md) e
+[prompt de continuidade](../trilha/PROMPT-PARA-IAS.md) consolidados; estado e
+retomada exclusivamente em STATUS/FILA. Não marcar G0–G8 inteiros como concluídos
+nem a árvore local como release.
+
 ## 7. Recursos necessários
 
 **Contas e serviços (custo direto):**
@@ -1650,7 +1903,9 @@ Regras de loja mudam com frequência; revalidar §4 nas datas de M0 e M4.
    `codex/wave1-hardening-api-smoke` (ou `main` após merge), TDD onde couber,
    `npm run quality` verde, evidência em `radiant-app/docs/evidence/` ou
    `docs/evidence/`.
-3. Atualizar o status canônico (`docs/EXECUTION_STATUS_*.md`) a cada marco
-   fechado; este roadmap não substitui o status.
+3. Atualizar `docs/STATUS.md` a cada marco, com a data da medição, e mover
+   afirmações superadas para `docs/archive/STATUS_historico.md`. Não criar
+   novos `EXECUTION_STATUS_*`; este roadmap guarda o plano e não substitui o
+   estado vivo.
 4. Para as Tasks 12, 15 e 16 detalhadas, usar os blocos correspondentes do
    [roadmap de continuação](2026-07-23-radiant-continuation-roadmap.md).

@@ -26,22 +26,19 @@ tags:
     clearState: true
     permissions:
       all: deny
-- runFlow:
-    when:
-      visible: 'http://localhost:8081'
-    commands:
-      - tapOn: 'http://localhost:8081'
-- runFlow:
-    when:
-      visible: 'This is the developer menu. It gives you access to useful tools in your development builds.'
-    commands:
-      - tapOn: Continue
+- runFlow: subflows/dismiss-dev-client.yaml
 - runFlow: subflows/dismiss-first-run.yaml
-# Âncora da aba Estude. `Foco de hoje` valia até 2026-08-21, quando o card de
-# retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
-# ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
-# serve, porque coincide com o título de uma lição.
-- assertVisible: '^\d+ de \d+$'
+# Cabeçalho acessível da Estude, incluindo título e progresso agrupados.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # Instalação limpa: a conquista da unidade está bloqueada, porque nenhuma lição
 # foi concluída. O id vem de `rewardNodeId()` em JourneyDefinitionService, sobre
 # o slug da primeira trilha do catálogo — o contrato deriva e confere os dois.
@@ -53,6 +50,14 @@ tags:
     commands:
       - tapOn: Abrir
 - assertVisible: Conquista da unidade
+# Em telas curtas, o estado fica abaixo do hero. A guarda usa o rótulo
+# acessível, como a rolagem até o card de ação abaixo, antes de confirmar.
+- repeat:
+    times: 10
+    while:
+      notVisible: Bloqueada até a unidade fechar
+    commands:
+      - scroll
 - assertVisible: Bloqueada até a unidade fechar
 # O card de ação fica abaixo da dobra. Rolar até ele **antes** das asserções de
 # ausência não é conveniência: sem isso, `assertNotVisible` passaria por o card
@@ -81,4 +86,13 @@ tags:
 # A saída oferecida devolve à jornada, em vez de deixar a pessoa presa numa tela
 # que ela alcançou por um link.
 - tapOn: Voltar para jornada
-- assertVisible: '^\d+ de \d+$'
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+- assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'

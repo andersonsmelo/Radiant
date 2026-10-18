@@ -6,6 +6,8 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ItemReviewService } from './ItemReviewService';
+import { advanceItemSm2 } from '../models/itemSm2';
 import type {
     SRCardState,
     SRCardStatePersisted,
@@ -16,10 +18,8 @@ import type {
 } from '../../../types/spacedRepetition';
 import type { QuizResult, QuizLessonId } from '../../../types/quiz';
 import {
-    SM2_PARAMS,
     SR_STORAGE_KEYS,
     SR_SAFETY_CAPS,
-    SR_RATING_THRESHOLDS,
     SR_DEFAULTS,
 } from '../../../constants/spacedRepetition';
 
@@ -90,49 +90,10 @@ export class SpacedRepetitionService {
      * Apply SM-2 algorithm to calculate next review interval
      */
     private static applySM2(card: SRCardState, quality: SRRating): SRCardState {
-        const newCard = { ...card };
-
-        // If quality < 3, reset the card
-        if (quality < SR_RATING_THRESHOLDS.SUCCESS_THRESHOLD) {
-            newCard.interval = SM2_PARAMS.INITIAL_INTERVALS[0];
-            newCard.repetitions = 0;
-        } else {
-            // Successful review - increase interval
-            if (newCard.repetitions === 0) {
-                newCard.interval = SM2_PARAMS.INITIAL_INTERVALS[0];
-            } else if (newCard.repetitions === 1) {
-                newCard.interval = SM2_PARAMS.INITIAL_INTERVALS[1];
-            } else {
-                newCard.interval = Math.round(newCard.interval * newCard.easeFactor);
-            }
-            newCard.repetitions += 1;
-        }
-
-        // Update ease factor using SM-2 formula
-        newCard.easeFactor =
-            newCard.easeFactor +
-            (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-
-        // Apply ease factor constraints
-        if (newCard.easeFactor < SM2_PARAMS.MIN_EASE) {
-            newCard.easeFactor = SM2_PARAMS.MIN_EASE;
-        }
-        if (newCard.easeFactor > SM2_PARAMS.MAX_EASE) {
-            newCard.easeFactor = SM2_PARAMS.MAX_EASE;
-        }
-
-        // Apply interval safety caps
-        if (newCard.interval > SR_SAFETY_CAPS.MAX_INTERVAL_DAYS) {
-            newCard.interval = SR_SAFETY_CAPS.MAX_INTERVAL_DAYS;
-        }
-        if (newCard.interval < SR_SAFETY_CAPS.MIN_INTERVAL_DAYS) {
-            newCard.interval = SR_SAFETY_CAPS.MIN_INTERVAL_DAYS;
-        }
-
-        // Calculate next review date
         const now = new Date();
-        newCard.nextReviewAt = new Date(now.getTime() + newCard.interval * 24 * 60 * 60 * 1000);
-        newCard.lastReviewedAt = now;
+        const next = advanceItemSm2(card, quality, now.getTime());
+        const newCard = { ...card, interval: next.interval, repetitions: next.repetitions, easeFactor: next.easeFactor,
+            nextReviewAt: new Date(next.dueAtMs), lastReviewedAt: now };
 
         return newCard;
     }
@@ -266,16 +227,21 @@ export class SpacedRepetitionService {
     static async getDueReviewSchedule(
         now: Date = new Date(),
     ): Promise<{ lessonId: QuizLessonId; dueAtMs: number }[]> {
+        return (await this.getReviewSchedule()).filter(card => card.dueAtMs <= now.getTime());
+    }
+
+    static async getReviewSchedule(): Promise<{ lessonId: QuizLessonId; dueAtMs: number }[]> {
         try {
             const store = await this.loadStore();
-            return Object.values(store.cards)
+            const legacy = Object.values(store.cards)
                 .map(card => this.deserializeCard(card))
-                .filter(card => card.nextReviewAt <= now)
+                .filter(card => Number.isFinite(card.nextReviewAt.getTime()))
                 .sort((left, right) => left.nextReviewAt.getTime() - right.nextReviewAt.getTime())
                 .map(card => ({
                     lessonId: card.lessonId,
                     dueAtMs: card.nextReviewAt.getTime(),
                 }));
+            return ItemReviewService.effectiveSchedule(legacy);
         } catch (error) {
             console.error('[SpacedRepetitionService] Error getting due review schedule:', error);
             return [];
@@ -352,8 +318,7 @@ export class SpacedRepetitionService {
      */
     static async getDueCount(now: Date = new Date()): Promise<number> {
         try {
-            const dueCards = await this.getDueCards(now);
-            return dueCards.length;
+            return await ItemReviewService.dueCount(await this.getReviewSchedule(), now);
         } catch (error) {
             console.error('[SpacedRepetitionService] Error getting due count:', error);
             return 0;

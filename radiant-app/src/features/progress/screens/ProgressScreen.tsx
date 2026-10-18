@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-    Modal,
     ScrollView,
     StyleSheet,
     Text,
-    TextInput,
-    TouchableOpacity,
     View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,28 +12,19 @@ import {
     useShadowCheckpoint,
 } from '../../student-checkpoints/useShadowCheckpoint';
 
-import { AppButton } from '../../../components/ui/AppButton';
-import WelcomeFlowScreen from '../../first-run/screens/WelcomeFlowScreen';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { GamificationService } from '../../gamification/services/GamificationService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
-import { AuthService } from '../../auth/AuthService';
-import { SyncQueueService } from '../../sync/SyncQueueService';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
 import { LearningStatsService, type LearningStatsSnapshot } from '../services/LearningStatsService';
 import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
-import { LegalLinksCard } from '../components/LegalLinksCard';
 import type { GamificationSnapshot } from '../../../types/gamification';
-import type { AuthSession } from '../../auth/types';
-import { AppConfig } from '../../../config';
-import { isApiConfigured } from '../../../lib/api';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { productCopy } from '../../../ui/copy/pt-BR';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, tabBarClearance, typography } from '../../../ui/styles';
 import { StreakIcon, XpIcon } from '../../../ui/components/HudIcons';
-import { ActionButton, CardRow, CardTitle, GlassCard } from '../../../ui/components/InfoCards';
 
 // ── Paleta (identidade galaxy dark — ADR-2026-07-27) ─────────────
 // Alias de tokens: nenhum valor próprio de cor vive nesta tela.
@@ -62,6 +50,10 @@ const D = {
 // para `src/ui/components/InfoCards.tsx` quando o console de desenvolvimento
 // saiu desta tela: as duas telas resultantes usam o mesmo formato, e duplicá-lo
 // deixaria os dois lados livres para divergirem em silêncio.
+//
+// Conta e sincronização, Ajuda e informações e "Rever apresentação" também
+// moravam aqui. Saíram em 2026-10-16 para a tela Configuração (FILA 32): o
+// Perfil, que embute esta tela, guarda só identidade, missões e progresso.
 
 function StreakCalendarCard({ streakDays }: { streakDays: number }) {
     return <View style={styles.metricCard}><Text style={styles.sectionLabel}>SEQUÊNCIA ATUAL</Text><View style={styles.metricValueRow}><StreakIcon size={24} /><Text style={styles.streakNumber}>{streakDays} {streakDays === 1 ? 'dia' : 'dias'}</Text></View><Text style={styles.streakSub}>O calendário por dia será exibido quando o histórico local estiver disponível.</Text></View>;
@@ -160,20 +152,8 @@ type EmbeddableProps = { embedded?: boolean };
 export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
     const [snapshot, setSnapshot] = useState<GamificationSnapshot | null>(null);
     const [dueCount, setDueCount] = useState(0);
-    const [authSession, setAuthSession] = useState<AuthSession | null>(null);
-    const [syncQueueCount, setSyncQueueCount] = useState(0);
-    const [syncRetryingCount, setSyncRetryingCount] = useState(0);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
-    const [resetToken, setResetToken] = useState('');
-    const [submitting, setSubmitting] = useState(false);
-    const [syncing, setSyncing] = useState(false);
-    const [statusMessage, setStatusMessage] = useState<string | null>(null);
-    const [statusTone, setStatusTone] = useState<'neutral' | 'success' | 'warning' | 'error'>('neutral');
     const [learningStats, setLearningStats] = useState<LearningStatsSnapshot | null>(null);
     const [topicLabels, setTopicLabels] = useState<Record<string, string>>({});
-    const [showWelcomeReplay, setShowWelcomeReplay] = useState(false);
 
     useShadowCheckpoint({
         surface: 'progress',
@@ -190,18 +170,13 @@ export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
         try {
             await LessonCatalogService.bootstrap();
 
-            const [gamificationSnapshot, reviewDueCount, session, queueSummary] = await Promise.all([
+            const [gamificationSnapshot, reviewDueCount] = await Promise.all([
                 GamificationService.getSnapshot(),
                 SpacedRepetitionService.getDueCount(),
-                AuthService.bootstrap(),
-                SyncQueueService.getSummary(),
             ]);
 
             setSnapshot(gamificationSnapshot);
             setDueCount(reviewDueCount);
-            setAuthSession(session);
-            setSyncQueueCount(queueSummary.pending);
-            setSyncRetryingCount(queueSummary.retrying);
         } catch (error) {
             console.error('[ProgressScreen] Failed to load progress data:', error);
         }
@@ -236,180 +211,6 @@ export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
         }, [load])
     );
 
-    const remoteSyncAvailable = AppConfig.ENABLE_REMOTE_SYNC && isApiConfigured();
-    const isAuthenticated = Boolean(authSession?.user?.id);
-
-    const setFeedback = (
-        message: string,
-        tone: 'neutral' | 'success' | 'warning' | 'error' = 'neutral'
-    ) => {
-        setStatusMessage(message);
-        setStatusTone(tone);
-    };
-
-    const handleAuthSubmit = async () => {
-        if (!remoteSyncAvailable) {
-            setFeedback('Configure a API remota e ative o sync para autenticar.', 'warning');
-            return;
-        }
-
-        const normalizedEmail = email.trim().toLowerCase();
-        if (!normalizedEmail || !password) {
-            setFeedback('Preencha email e senha.', 'warning');
-            return;
-        }
-
-        try {
-            setSubmitting(true);
-            setFeedback(authMode === 'login' ? 'Entrando...' : 'Criando conta...');
-
-            const session =
-                authMode === 'login'
-                    ? await AuthService.login(normalizedEmail, password)
-                    : await AuthService.register(normalizedEmail, password);
-
-            setAuthSession(session);
-            await SyncQueueService.flush();
-            const queueSummary = await SyncQueueService.getSummary();
-            setSyncQueueCount(queueSummary.pending);
-            setSyncRetryingCount(queueSummary.retrying);
-            setPassword('');
-            setFeedback(
-                authMode === 'login'
-                    ? 'Sessão autenticada e fila sincronizada.'
-                    : 'Conta criada e fila sincronizada.',
-                'success'
-            );
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to authenticate:', error);
-            setFeedback(error instanceof Error ? error.message : 'Falha ao autenticar.', 'error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handlePasswordResetRequest = async () => {
-        if (!remoteSyncAvailable) {
-            setFeedback('Configure a API remota e ative o sync para recuperar a senha.', 'warning');
-            return;
-        }
-
-        const normalizedEmail = email.trim().toLowerCase();
-        if (!normalizedEmail) {
-            setFeedback('Informe o email da conta para solicitar o reset.', 'warning');
-            return;
-        }
-
-        try {
-            setSubmitting(true);
-            setFeedback('Solicitando reset de senha...');
-            const result = await AuthService.requestPasswordReset(normalizedEmail);
-            if (result.resetToken) {
-                setResetToken(result.resetToken);
-                setFeedback(
-                    `Reset solicitado. Token de homologação disponível: ${result.resetToken}`,
-                    'success'
-                );
-            } else {
-                setFeedback(
-                    'Se o email existir, um token de redefinição foi emitido para esse usuário.',
-                    'success'
-                );
-            }
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to request password reset:', error);
-            setFeedback(
-                error instanceof Error ? error.message : 'Falha ao solicitar reset de senha.',
-                'error'
-            );
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handlePasswordResetConfirm = async () => {
-        if (!remoteSyncAvailable) {
-            setFeedback('Configure a API remota e ative o sync para redefinir a senha.', 'warning');
-            return;
-        }
-
-        const normalizedEmail = email.trim().toLowerCase();
-        if (!normalizedEmail || !resetToken.trim() || !password) {
-            setFeedback('Preencha email, token e nova senha.', 'warning');
-            return;
-        }
-
-        try {
-            setSubmitting(true);
-            setFeedback('Redefinindo senha...');
-            await AuthService.confirmPasswordReset(normalizedEmail, resetToken, password);
-            setPassword('');
-            setResetToken('');
-            setAuthMode('login');
-            setFeedback('Senha redefinida. Você já pode entrar com a nova senha.', 'success');
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to confirm password reset:', error);
-            setFeedback(
-                error instanceof Error ? error.message : 'Falha ao redefinir a senha.',
-                'error'
-            );
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handleLogout = async () => {
-        try {
-            setSubmitting(true);
-            await AuthService.logout();
-            setAuthSession(null);
-            setFeedback('Sessão removida deste dispositivo.', 'success');
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to logout:', error);
-            setFeedback('Falha ao encerrar sessão.', 'error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handleFlushSync = async () => {
-        if (!remoteSyncAvailable) {
-            setFeedback('Sync remoto desativado no ambiente atual.', 'warning');
-            return;
-        }
-
-        if (!AuthService.hasAuthenticatedSession()) {
-            setFeedback('Entre com uma conta para enviar a fila pendente.', 'warning');
-            return;
-        }
-
-        try {
-            setSyncing(true);
-            setFeedback('Sincronizando fila...');
-            await SyncQueueService.flush();
-            const queueSummary = await SyncQueueService.getSummary();
-            setSyncQueueCount(queueSummary.pending);
-            setSyncRetryingCount(queueSummary.retrying);
-            const refreshedSession = await AuthService.hydrateUser();
-            setAuthSession(refreshedSession);
-            setFeedback('Sincronização concluída.', 'success');
-        } catch (error) {
-            console.error('[ProgressScreen] Failed to flush sync queue:', error);
-            setFeedback(error instanceof Error ? error.message : 'Falha ao sincronizar.', 'error');
-        } finally {
-            setSyncing(false);
-        }
-    };
-
-    const statusColor =
-        statusTone === 'success'
-            ? D.success
-            : statusTone === 'warning'
-              ? D.warning
-              : statusTone === 'error'
-                ? D.error
-                : D.textSec;
-
     const body = (
         <>
                 {/* ── Header ── */}
@@ -429,177 +230,6 @@ export default function ProgressScreen({ embedded = false }: EmbeddableProps) {
                 <View style={styles.metricCard}>
                     <TopicsMasteredList stats={learningStats} topicLabels={topicLabels} />
                 </View>
-
-                {/* ── Conta e sincronização ── */}
-                {/* Só existe quando o sync remoto está de fato disponível. Em
-                    produção (`ENABLE_REMOTE_SYNC=false`, sem API configurada) o
-                    cartão inteiro some: renderizar o formulário com os handlers
-                    travados pôs sete controles inertes no Perfil do build
-                    1.3.1 (10) — botões que não fazem nada são "App Completeness",
-                    e um login visível contradiz "no account, login, or
-                    credentials" na resposta à App Review. Login e assinatura
-                    são desenho da 1.4, não um condicional aqui. */}
-                {remoteSyncAvailable ? (
-                <GlassCard>
-                    <CardTitle>Conta e sincronização</CardTitle>
-                    <CardRow
-                        label="Modo"
-                        value={remoteSyncAvailable ? 'sync remoto disponível' : 'local-first'}
-                    />
-                    <CardRow label="Pendentes" value={String(syncQueueCount)} />
-                    <CardRow label="Em retry" value={String(syncRetryingCount)} />
-
-                    <Text style={styles.cardHint}>
-                        O estudo continua funcionando localmente mesmo sem rede ou autenticação ativa.
-                    </Text>
-
-                    {isAuthenticated ? (
-                        <View style={styles.btnGroup}>
-                            <View style={styles.authBadge}>
-                                <View style={styles.authDot} />
-                                <Text style={styles.authBadgeText}>
-                                    {authSession?.user.email}
-                                </Text>
-                            </View>
-                            <ActionButton
-                                onPress={handleFlushSync}
-                                disabled={syncing || submitting}
-                            >
-                                {syncing ? 'Sincronizando...' : 'Sincronizar agora'}
-                            </ActionButton>
-                            <ActionButton
-                                onPress={handleLogout}
-                                disabled={submitting || syncing}
-                                variant="secondary"
-                            >
-                                Sair
-                            </ActionButton>
-                        </View>
-                    ) : (
-                        <View style={styles.btnGroup}>
-                            <View style={styles.authModeRow}>
-                                <TouchableOpacity
-                                    onPress={() => setAuthMode('login')}
-                                    style={[
-                                        styles.modeTab,
-                                        authMode === 'login' && styles.modeTabActive,
-                                    ]}
-                                >
-                                    <Text
-                                        style={[
-                                            styles.modeTabText,
-                                            authMode === 'login' && styles.modeTabTextActive,
-                                        ]}
-                                    >
-                                        Entrar
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => setAuthMode('register')}
-                                    style={[
-                                        styles.modeTab,
-                                        authMode === 'register' && styles.modeTabActive,
-                                    ]}
-                                >
-                                    <Text
-                                        style={[
-                                            styles.modeTabText,
-                                            authMode === 'register' && styles.modeTabTextActive,
-                                        ]}
-                                    >
-                                        Criar conta
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <TextInput
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                placeholder="Email"
-                                placeholderTextColor={D.textSec}
-                                value={email}
-                                onChangeText={setEmail}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                secureTextEntry
-                                placeholder="Senha ou nova senha"
-                                placeholderTextColor={D.textSec}
-                                value={password}
-                                onChangeText={setPassword}
-                                style={styles.input}
-                            />
-
-                            <TextInput
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                placeholder="Token de reset (opcional até confirmar)"
-                                placeholderTextColor={D.textSec}
-                                value={resetToken}
-                                onChangeText={setResetToken}
-                                style={styles.input}
-                            />
-
-                            <ActionButton
-                                onPress={handleAuthSubmit}
-                                disabled={submitting || syncing}
-                            >
-                                {submitting
-                                    ? authMode === 'login'
-                                        ? 'Entrando...'
-                                        : 'Criando conta...'
-                                    : authMode === 'login'
-                                      ? 'Entrar para sincronizar'
-                                      : 'Criar conta e sincronizar'}
-                            </ActionButton>
-
-                            <ActionButton
-                                onPress={handlePasswordResetRequest}
-                                disabled={submitting || syncing}
-                                variant="secondary"
-                            >
-                                {submitting ? 'Processando...' : 'Solicitar reset de senha'}
-                            </ActionButton>
-
-                            <ActionButton
-                                onPress={handlePasswordResetConfirm}
-                                disabled={submitting || syncing || !resetToken.trim()}
-                                variant="ghost"
-                            >
-                                Confirmar reset com token
-                            </ActionButton>
-                        </View>
-                    )}
-
-                    {statusMessage ? (
-                        <Text style={[styles.statusMessage, { color: statusColor }]}>
-                            {statusMessage}
-                        </Text>
-                    ) : null}
-                </GlassCard>
-                ) : null}
-
-                {/* ── Ajuda e informações ── */}
-                <LegalLinksCard
-                    footer={
-                        <AppButton
-                            label="Rever apresentação"
-                            variant="ghost"
-                            onPress={() => setShowWelcomeReplay(true)}
-                        />
-                    }
-                />
-
-                <Modal
-                    visible={showWelcomeReplay}
-                    animationType="slide"
-                    onRequestClose={() => setShowWelcomeReplay(false)}
-                >
-                    {/* Aqui `onFinish` só fecha: rever não pode reescrever o estado de primeiro uso. */}
-                    <WelcomeFlowScreen onFinish={() => setShowWelcomeReplay(false)} />
-                </Modal>
-
         </>
     );
 
@@ -714,76 +344,5 @@ const styles = StyleSheet.create({
         ...typography.micro,
         color: D.textSec,
         marginTop: 2,
-    },
-
-    // ── GlassCard (legacy sections) ──
-    cardHint: {
-        ...typography.micro,
-        color: D.textTert,
-        lineHeight: 18,
-        marginTop: 4,
-    },
-
-    // ── Buttons ──
-    btnGroup: { gap: 10, marginTop: 12 },
-
-    // ── Auth ──
-    authBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-        backgroundColor: 'rgba(93,227,174,0.12)',
-        borderRadius: 10,
-        paddingHorizontal: 12,
-        paddingVertical: 8,
-    },
-    authDot: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: D.success,
-    },
-    authBadgeText: {
-        ...typography.micro,
-        color: D.success,
-    },
-    authModeRow: {
-        flexDirection: 'row',
-        backgroundColor: D.surfaceAlt,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: D.border,
-        overflow: 'hidden',
-    },
-    modeTab: {
-        flex: 1,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modeTabActive: {
-        backgroundColor: D.primary,
-    },
-    modeTabText: {
-        ...typography.caption,
-        color: D.textSec,
-    },
-    modeTabTextActive: {
-        color: '#FFFFFF',
-    },
-    input: {
-        height: 48,
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: D.border,
-        backgroundColor: D.inputBg,
-        color: D.text,
-        paddingHorizontal: 14,
-        ...typography.bodyRegular,
-    },
-    statusMessage: {
-        ...typography.micro,
-        marginTop: 4,
-        lineHeight: 18,
     },
 });

@@ -20,12 +20,23 @@ const DEFAULT_STATE: OnboardingState = {
 class OnboardingServiceImpl {
     private state: OnboardingState = { ...DEFAULT_STATE };
     private initialized = false;
+    private initialization: Promise<void> | null = null;
 
     /**
      * Initializes the service, loading state from storage.
      * Sets 'startedAt' if it's the first ever launch.
      */
     async init(): Promise<void> {
+        if (this.initialization) return this.initialization;
+        this.initialization = this.load();
+        try {
+            await this.initialization;
+        } finally {
+            this.initialization = null;
+        }
+    }
+
+    private async load(): Promise<void> {
         try {
             const stored = await AsyncStorage.getItem(STORE_KEY);
             if (stored) {
@@ -92,6 +103,9 @@ class OnboardingServiceImpl {
      * Call when user completes a key action (quiz or review).
      */
     async markAction(action: 'quiz_complete' | 'review_complete'): Promise<void> {
+        if (!this.initialized || this.initialization) await this.init();
+        // A failed read must not replace an existing milestone with defaults.
+        if (!this.initialized) return;
         let changed = false;
         const now = Date.now();
         const hadReachedValue = Boolean(this.state.firstQuizAt || this.state.firstReviewAt);

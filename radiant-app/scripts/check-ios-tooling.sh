@@ -68,6 +68,14 @@ else
   has_error=1
 fi
 
+if [[ -f "$PROJECT_ROOT/ios/Radiant/Info.plist" ]]; then
+  if node "$PROJECT_ROOT/scripts/check-native-version.mjs"; then
+    pass "Native version/buildNumber match app.json"
+  else
+    has_error=1
+  fi
+fi
+
 if [[ "$has_error" -ne 0 ]]; then
   printf "\n"
   info "Recommended next steps:"

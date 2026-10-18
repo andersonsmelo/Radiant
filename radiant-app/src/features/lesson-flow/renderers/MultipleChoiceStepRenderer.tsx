@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MultipleChoicePayload } from '../../../types/lessonFlow';
-import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 
@@ -11,15 +10,17 @@ type MultipleChoiceStepRendererProps = {
     payload: MultipleChoicePayload;
     selectedOptionId?: string;
     onSelect: (optionId: string) => void;
+    confirmationLabel?: string;
 };
 
 // Selecionar não confirma: enquanto o passo está na tela, a escolha continua
-// trocável e nada foi commitado. Quem confirma é o "Continuar" do rodapé — por
+// trocável e nada foi commitado. Quem confirma é a ação do rodapé — por
 // isso não existe estado travado aqui.
 export function MultipleChoiceStepRenderer({
     payload,
     selectedOptionId,
     onSelect,
+    confirmationLabel = 'Continuar',
 }: MultipleChoiceStepRendererProps) {
     return (
         <View style={styles.container}>
@@ -37,8 +38,8 @@ export function MultipleChoiceStepRenderer({
                             accessibilityLabel={option.label}
                             accessibilityHint={
                                 selected
-                                    ? 'Selecionada. Toque em outra alternativa para trocar antes de continuar.'
-                                    : 'Seleciona esta resposta. Você confirma em Continuar.'
+                                    ? `Selecionada. Toque em outra alternativa para trocar antes de ${confirmationLabel}.`
+                                    : `Seleciona esta resposta. Você confirma em ${confirmationLabel}.`
                             }
                             accessibilityState={{ selected }}
                             style={[
@@ -46,7 +47,10 @@ export function MultipleChoiceStepRenderer({
                                 selected && styles.optionSelected,
                             ]}
                         >
-                            <Text style={styles.optionLabel}>{option.label}</Text>
+                            <View style={styles.optionContent}>
+                                <Text style={styles.optionLabel}>{option.label}</Text>
+                                {selected ? <Text style={styles.selectionLabel}>Selecionada</Text> : null}
+                            </View>
                         </Pressable>
                     );
                 })}
@@ -57,28 +61,37 @@ export function MultipleChoiceStepRenderer({
 
 const styles = StyleSheet.create({
     container: {
-        gap: space.s3,
+        gap: space.s4,
     },
     prompt: {
         ...typography.h3,
-        color: galaxyColors.textPrimary,
+        color: galaxy.textPrimary,
     },
     options: {
         gap: space.s2,
     },
     option: {
-        backgroundColor: galaxyColors.surface,
+        minHeight: 56,
+        justifyContent: 'center',
+        backgroundColor: galaxy.surface,
         borderWidth: 1,
-        borderColor: galaxyColors.border,
+        borderColor: galaxy.border,
         borderRadius: radius.rLg,
         padding: space.s3,
     },
     optionSelected: {
-        backgroundColor: galaxyColors.surfaceActive,
+        backgroundColor: galaxy.surfaceElevated,
         borderColor: galaxy.statusInformation,
+    },
+    optionContent: {
+        gap: space.s1,
+    },
+    selectionLabel: {
+        ...typography.micro,
+        color: galaxy.statusInformation,
     },
     optionLabel: {
         ...typography.body,
-        color: galaxyColors.textPrimary,
+        color: galaxy.textPrimary,
     },
 });

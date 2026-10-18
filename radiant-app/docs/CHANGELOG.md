@@ -8,6 +8,23 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ## [Não lançado]
 
+### Remediação local de QA — 2026-10-14
+
+Pacote `13ee173`, sem distribuição. [Evidências e limites](../../docs/evidence/2026-10-14-qa-remediacao.md).
+
+- Corrigida a superfície/rolagem da revisão, persistência da resposta revelada,
+  proteção de classificação duplicada e atualização do HUD no resumo.
+- Corrigida a hidratação dos marcos de primeiro valor em processos frios,
+  preservando progresso e unicidade do evento.
+- Retornos à jornada reutilizam a Home; vinte ciclos mantiveram constantes as
+  telas/componentes nativos no cenário Debug medido. Não é prova de zero leaks.
+- Roteiros Maestro seguem seletores/CTA atuais; avaliação da loja usa revisão
+  devida e preserva a asserção do diálogo nativo.
+- Adicionado checker de versão/buildNumber nativos, sync limitado aos dois
+  campos do Info.plist e contratos ligados ao `quality`/`ios:doctor`.
+- AX5 integral, vazamentos pequenos sem origem identificada e gates externos
+  permanecem separados das correções aprovadas localmente.
+
 ### Adicionado
 - **Aquecimento da resolução do módulo de storage no bootstrap (2026-08-10)** — entra pela **validade da medição**, não por desempenho. Como `inspectLaunch` em `off` retorna antes de tocar o store, só o lado `active` pagava a resolução do AsyncStorage, e o delta de `first_frame` media essa assimetria em vez do kernel (que custa <2 ms). `warmNativeStorage()` passou a rodar no `Promise.all` do bootstrap, **independente do modo** e sem tocar chave alguma, então os dois lados pagam igual. Medido: `launch_inspection` em `active` caiu de 184–357 ms para **1,0–1,9 ms**, e o delta de medianas de `first_frame` de +344/+441 ms para **−28,7 ms** — o candidato ficou marginalmente mais rápido, que é o esperado. **Uma predição foi refutada pela medição e o registro fica:** supunha-se que a busca se sobreporia ao resto do bootstrap, tirando ~200 ms do lançamento em desenvolvimento; o `Promise.all` espera o mais lento, a busca (191–662 ms) é mais lenta que o resto (~232 ms), e o `first_frame` em `off` **subiu** para ~580 ms. O ganho é simetria, não velocidade, e em produção o custo é ~0 porque o bundle é único. Duas guardas com mutação provada, e uma delas é **estrutural** de propósito: `import()` dinâmico não executa sob Jest, então um teste de runtime da propriedade "não toca chave" passaria vazio — foi o que aconteceu na primeira versão, e só a mutação pegou
 - **Medida da resolução de módulo, `storage_module_resolution` (2026-08-10)** — fecha a pergunta que a fronteira deixou aberta, e a resposta inverte a atribuição: dos ~440 ms que o piloto somou à partida em `active`, a resolução do AsyncStorage por `await import()` responde por **177–622 ms** e a leitura da chave por **menos de 2 ms**, em todos os seis lançamentos. Duas explicações sobreviviam com remédios opostos — resolução de módulo (artefato do Dev Client) contra abertura do banco nativo (real em produção) — e medir a resolução sozinha separa as duas por subtração. A prova estática dispensou build: `npx expo export` emite **um único** artefato JS (`entry-<hash>.hbc`, 6,4 MB) e `metadata.json` declara um bundle com 37 assets, **sem nenhum chunk assíncrono**, então num build embarcado o `import()` não tem o que buscar. **O kernel de checkpoints custa menos de 2 ms na partida** — a mais baixa das três medidas do kernel, contra 23,1 ms de persistência e 9,0 ms de restauração. Consequência sobre o instrumento: o delta de `first_frame` colhido em Dev Client **não pode julgar esta onda**, porque só um lado percorre o caminho de chunk; o remédio é aquecer a resolução no bootstrap nos dois modos, o que é validade de medição e não otimização. **16/16** no módulo do probe

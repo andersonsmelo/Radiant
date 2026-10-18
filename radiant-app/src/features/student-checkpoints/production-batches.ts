@@ -1,13 +1,15 @@
 import { MATERIA_ENERGIA_E_RADIACAO_CANDIDATE } from './EditorialCurriculumCandidate';
 import {
     PRODUCTION_BATCH_APPROVAL_GATES,
-    fingerprintProductionBatchMaterial,
     promoteProductionBatch,
     type ProductionBatchApprovalV1,
     type ProductionBatchDraftV1,
 } from './ProductionBatch';
 
-const materialSha256 = fingerprintProductionBatchMaterial(MATERIA_ENERGIA_E_RADIACAO_CANDIDATE);
+// Identidade do material já promovido no registro versionado, fixada em G3.
+// Nunca recalcular as aprovações a partir de uma futura edição do candidato:
+// alterações precisam de novas decisões explícitas para o novo fingerprint.
+const materialSha256 = '9adbcc6094303a6ed1618b364aa12c345c12a944396b597f89e1d083cb86fba5';
 
 /**
  * As seis decisões são registros independentes do mesmo aceite explícito do

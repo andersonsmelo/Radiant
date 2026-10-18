@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { LearningEvidence } from '../../../types/learningEvidence';
 import { validateLearningEvidence } from '../../../types/learningEvidence';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
 import {
     LEARNING_EVIDENCE_CAP,
     LearningEvidenceRepository,
@@ -84,6 +85,56 @@ describe('validateLearningEvidence — contrato permitido', () => {
 });
 
 describe('LearningEvidenceRepository', () => {
+    it('projeta cada competência da avaliação, preservando ajuda e erro crítico sem promover domínio', async () => {
+        const data = new Map<string, string>();
+        storage.getItem.mockImplementation(async key => data.get(key) ?? null);
+        storage.setItem.mockImplementation(async (key, raw) => { data.set(key, raw); });
+        const value = {
+            attemptId: 'assessment:projection', mode: 'assessment' as const,
+            item: { lessonId: 'node:assessment', itemId: 'item:one', activityId: 'activity:one', competencyId: 'competency:one', contentVersion: 'v1', evidenceKind: 'independent-recall' as const },
+            firstOutcome: 'correct' as const, finalOutcome: 'correct' as const, hintUsed: true,
+            durationBand: '10-30s' as const, recordedAt: '2026-10-17T12:00:00.000Z',
+            assessment: { competencyIds: ['competency:one', 'competency:two'], isCriticalError: true },
+        };
+        expect((await itemReviewRepository.recordBatch([value])).accepted).toBe(true);
+        const records = await LearningEvidenceRepository.getAll();
+        expect(records).toHaveLength(2);
+        expect(records.map(entry => entry.competencyId)).toEqual(['competency:one', 'competency:two']);
+        records.forEach(entry => {
+            expect(entry).toMatchObject({ outcome: 'incorrect', hintUsed: true, durationBand: '10-30s' });
+            expect(validateLearningEvidence(entry)).toEqual([]);
+        });
+    });
+    it('projeta somente tentativa confirmada no journal, preservando erro inicial e ajuda', async () => {
+        const data = new Map<string, string>();
+        storage.getItem.mockImplementation(async key => data.get(key) ?? null);
+        storage.setItem.mockImplementation(async (key, value) => { data.set(key, value); });
+        const recorded = await itemReviewRepository.record({ attemptId: 'study:projection',
+            item: { lessonId: 'lesson:projection', itemId: 'item:projection', activityId: 'activity:projection', competencyId: 'competency:projection', contentVersion: 'v1', evidenceKind: 'independent-recall' },
+            firstOutcome: 'incorrect', finalOutcome: 'correct', hintUsed: true, mode: 'study', durationBand: 'unknown', recordedAt: '2026-10-17T12:00:00.000Z' });
+        expect(recorded.accepted).toBe(true);
+        const records = await LearningEvidenceRepository.getAll();
+        expect(records).toHaveLength(1);
+        expect(records[0]).toMatchObject({ outcome: 'incorrect', hintUsed: true });
+        expect(validateLearningEvidence(records[0])).toEqual([]);
+    });
+    it('recusa sobrescrever schema futuro e falha transitória de leitura', async () => {
+        const raw = JSON.stringify({ schemaVersion: 'learning-evidence.v9', future: true });
+        storage.getItem.mockResolvedValue(raw);
+        expect((await LearningEvidenceRepository.append(evidence())).accepted).toBe(false);
+        expect(storage.setItem).not.toHaveBeenCalled();
+        storage.getItem.mockRejectedValueOnce(new Error('transient'));
+        expect((await LearningEvidenceRepository.append(evidence())).accepted).toBe(false);
+        expect(storage.setItem).not.toHaveBeenCalled();
+    });
+    it('serializa append concorrente e não duplica o mesmo evento confirmado', async () => {
+        let raw: string | null = null;
+        storage.getItem.mockImplementation(async key => key.includes('learning_evidence') ? raw : null);
+        storage.setItem.mockImplementation(async (_key, value) => { raw = value; });
+        await Promise.all([LearningEvidenceRepository.append(evidence()), LearningEvidenceRepository.append(evidence()),
+            LearningEvidenceRepository.append(evidence({ interactionId: 'different' }))]);
+        expect(JSON.parse(raw!).evidence).toHaveLength(2);
+    });
     it('grava em chave versionada e devolve o que gravou', async () => {
         await LearningEvidenceRepository.append(evidence());
 

@@ -26,25 +26,29 @@ export type JourneyNodeDefinition = {
     lessonId?: QuizLessonId;
     blockId?: string;
     unlockRule?: UnlockRule;
+    /** Apenas conquistas marcadas pelo catálogo composto deixam de ser portão. */
+    optionalForProgression?: boolean;
 };
 
 export type JourneyNode = JourneyNodeDefinition & {
     status: JourneyNodeStatus;
+    reviewAvailableAtMs?: number;
 };
 
 export type NextNodeCandidate = {
     nodeId: string;
-    type: 'lesson' | 'review' | 'checkpoint';
+    type: JourneyNodeType;
     order: number;
     unlocked: boolean;
     completed: boolean;
+    optionalForProgression?: boolean;
     pausedStepIndex?: number;
     dueAtMs?: number;
 };
 
 export type NextNodeDecision = {
     nodeId: string;
-    reason: 'paused-lesson' | 'due-review' | 'checkpoint' | 'next-lesson';
+    reason: 'paused-lesson' | 'due-review' | 'checkpoint' | 'next-lesson' | 'reward';
     resumeStepIndex?: number;
     dueReviewCount: number;
 };

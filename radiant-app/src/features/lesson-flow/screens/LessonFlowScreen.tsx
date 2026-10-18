@@ -11,7 +11,8 @@ import { ActivityInteractionRenderer } from '../renderers/ActivityRendererRegist
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
-import { space, typography } from '../../../ui/styles';
+import { semanticColors } from '../../../ui/semantic-colors';
+import { radius, space, typography } from '../../../ui/styles';
 import { ContextStepRenderer } from '../renderers/ContextStepRenderer';
 import { TeachStepRenderer } from '../renderers/TeachStepRenderer';
 import { ReinforceStepRenderer } from '../renderers/ReinforceStepRenderer';
@@ -27,7 +28,7 @@ import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
 import { QuizTopBar } from '../../quiz/components/QuizTopBar';
 import { LessonSummary } from '../../quiz/components/LessonSummary';
 import {
-    resolveBestLessonStars,
+    resolveAttemptStars,
     resolveLessonStars,
     type LessonStars,
 } from '../../quiz/services/resolveLessonStars';
@@ -49,6 +50,7 @@ import {
 } from '../../student-checkpoints/useShadowCheckpoint';
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
+import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
@@ -77,6 +79,12 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     const [hearts, setHearts] = useState<HeartsSnapshot>(DEFAULT_HEARTS);
     const [heartsSheetVisible, setHeartsSheetVisible] = useState(false);
     const chargedInteractions = useRef(new Set<string>());
+    const completions = useRef(new Map<string, { finishing: boolean; finished: boolean; identity: { attemptId: string; answeredAt: Date } | null }>());
+    // Revisão é prática, não prova (ADR de 2026-09-14: "Revisão nunca consome
+    // vida"; vidas "não bloqueiam revisão"). Esta tela atende lição e revisão
+    // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
+    // revisão levou de 5 para 4 vidas. ADR de 2026-10-16.
+    const isReview = useMemo(() => JourneyDefinitionService.getNodeType(nodeId) === 'review', [nodeId]);
 
     // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
     // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
@@ -108,6 +116,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     });
     const [summary, setSummary] = useState<{
         stars: LessonStars;
+        recordStars: LessonStars;
         improved: boolean;
         phrase: string;
         rating: number | null;
@@ -204,7 +213,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             'Vamos continuar pela jornada',
             'Não foi possível retomar esse ponto com segurança. Seu progresso confirmado foi preservado.',
         );
-        router.replace('/(tabs)');
+        router.dismissTo('/(tabs)');
     }, []);
     const activeCheckpoint = useActiveCheckpoint({
         surface: 'lesson',
@@ -226,18 +235,25 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         ? player.currentStep.interaction
         : null;
 
+    const confirmationLabel = currentInteraction?.type === 'multiple-choice'
+        ? 'Conferir resposta'
+        : isLastStep ? 'Concluir e voltar' : 'Continuar';
+
     const handleContinue = async () => {
-        if (!activity || !currentStep || !canContinue) {
+        const key = JSON.stringify([blockId, nodeId]);
+        if (!completions.current.has(key)) completions.current.set(key, { finishing: false, finished: false, identity: null });
+        const completion = completions.current.get(key)!;
+        if (!activity || !currentStep || !canContinue || completion.finishing || completion.finished) {
             return;
         }
 
         // O estado decide, não o número: assinante pode carregar `count: 0`.
-        if (hearts.status === 'empty' && currentInteraction) {
+        if (!isReview && hearts.status === 'empty' && currentInteraction) {
             setHeartsSheetVisible(true);
             return;
         }
 
-        // A escolha vale no instante do "Continuar", não no toque: trocar de
+        // A escolha vale no instante da confirmação, não no toque: trocar de
         // alternativa antes de confirmar não penaliza. `confirm()` devolve o
         // mapa novo em vez de deixar a tela ler o estado — `setState` é
         // assíncrono e no último passo o estado ainda não conteria esta
@@ -247,7 +263,9 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         if (currentInteraction) {
             const correct = isCorrectInteractionValue(currentInteraction, player.value);
 
-            if (!correct) {
+            if (!correct && isReview) {
+                emit('incorrect');
+            } else if (!correct) {
                 if (chargedInteractions.current.has(currentInteraction.id)) {
                     return;
                 }
@@ -283,38 +301,47 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         const nextConfirmed = player.confirm();
 
         if (!isLastStep) {
-            if (nextHearts.status === 'empty') {
+            if (!isReview && nextHearts.status === 'empty') {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
             return;
         }
 
-        const lessonOutcome = block
-            ? await LessonOutcomeService.recordCompletion({
-                  block,
-                  nodeId,
-                  confirmedAnswers: nextConfirmed,
-              })
-            : await LessonOutcomeService.recordActivityCompletion({
-                  activity,
-                  nodeId,
-                  confirmedAnswers: nextConfirmed,
-              });
+        if (completion.finishing || completion.finished) return;
+        completion.finishing = true;
+        completion.identity ??= { attemptId: `study:${Date.now()}:${Math.random().toString(36).slice(2)}`, answeredAt: new Date() };
+        try {
+            const lessonOutcome = block
+                ? await LessonOutcomeService.recordCompletion({
+                      block,
+                      nodeId,
+                      confirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: nextConfirmed,
+                      ...completion.identity,
+                  })
+                : await LessonOutcomeService.recordActivityCompletion({
+                      activity,
+                      nodeId,
+                      confirmedAnswers: nextConfirmed,
+                      firstConfirmedAnswers: nextConfirmed,
+                      ...completion.identity,
+                  });
 
-        // O snapshot vem do RETORNO de `markNodeCompleted`, não de uma leitura
-        // solta via `getSnapshot()`. As duas correriam em paralelo com a
-        // escrita, e a leitura pode terminar antes de a marcação pousar —
-        // mostrando a unidade sem a lição que acabou de fechar. Encadear a
-        // partir da própria marcação elimina a corrida.
-        const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
-        await JourneyProgressService.setCurrentNode(null);
-        await JourneyProgressService.setResumableNode(undefined);
-        await activeCheckpoint.finish();
+            // O snapshot vem do RETORNO de `markNodeCompleted`, não de uma leitura
+            // solta via `getSnapshot()`. As duas correriam em paralelo com a
+            // escrita, e a leitura pode terminar antes de a marcação pousar —
+            // mostrando a unidade sem a lição que acabou de fechar. Encadear a
+            // partir da própria marcação elimina a corrida.
+            const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
+            await JourneyProgressService.setCurrentNode(null);
+            await JourneyProgressService.setResumableNode(undefined);
+            await activeCheckpoint.finish();
 
-        setJourneySnapshot(snapshot);
-        setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
-
+            setJourneySnapshot(snapshot);
+            setOutcome({ result: lessonOutcome.result, award: lessonOutcome.award });
+            completion.finished = true;
+        } finally { completion.finishing = false; }
     };
 
     const exitLesson = useCallback(() => {
@@ -322,7 +349,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
             if (!outcome) {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex);
             }
-            router.replace('/(tabs)');
+            router.dismissTo('/(tabs)');
         })();
     }, [nodeId, outcome, stepIndex]);
 
@@ -351,7 +378,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
     // Estrelas, frase e nota da conclusão.
     //
-    // `resolveBestLessonStars` exclui a tentativa atual do histórico comparando
+    // `resolveAttemptStars` exclui a tentativa atual do histórico comparando
     // `completedAt` — por isso o carimbo precisa ser exatamente o que
     // `recordAttempt` persistiu, que é `result.answeredAt`. Um `new Date()`
     // novo aqui não casaria, e `improved` sairia sempre falso.
@@ -371,7 +398,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
         void (async () => {
             try {
                 const attempts = await LearningAttemptsRepository.getAll();
-                const { stars, improved } = resolveBestLessonStars(result.lessonId, attempts, {
+                const { stars, recordStars, improved } = resolveAttemptStars(result.lessonId, attempts, {
                     correctAnswers: result.correctAnswers,
                     totalQuestions: result.totalQuestions,
                     completedAt: result.answeredAt.toISOString(),
@@ -386,7 +413,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     return;
                 }
 
-                setSummary({ stars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
+                setSummary({ stars, recordStars, improved, phrase: pickSummaryPhrase(stars, null), rating, nextReviewInDays });
             } catch (cause) {
                 console.error('[LessonFlowScreen] Falha ao resolver o resumo da lição:', cause);
 
@@ -397,6 +424,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                 const stars = resolveLessonStars(result.correctAnswers, result.totalQuestions);
                 setSummary({
                     stars,
+                    recordStars: stars,
                     improved: false,
                     phrase: pickSummaryPhrase(stars, null),
                     rating: null,
@@ -442,7 +470,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     if (loading) {
         return (
             <View style={styles.root}>
-                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
                 <SafeAreaView style={styles.safe}>
                     <View style={styles.centered}>
                         <ActivityIndicator size="large" color={galaxyColors.ctaGradientEnd} />
@@ -463,6 +491,8 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                     {summary ? (
                         <LessonSummary
                             stars={summary.stars}
+                            recordStars={summary.recordStars}
+                            kind={isReview ? 'review' : 'lesson'}
                             starsImproved={summary.improved}
                             phrase={summary.phrase}
                             xpAwarded={outcome.award?.totalXpAwarded ?? null}
@@ -478,6 +508,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 setSummary((atual) => (atual ? { ...atual, rating: nota } : atual));
                             }}
                             onContinue={exitLesson}
+                            continueHint="Volta para Estude"
                         />
                     ) : (
                         <View style={styles.centered}>
@@ -492,7 +523,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
     if (error || !activity || !currentStep) {
         return (
             <View style={styles.root}>
-                <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+                <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
                 <SafeAreaView style={styles.safe}>
                     <View style={styles.centered}>
                         <View style={styles.errorCard}>
@@ -507,7 +538,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
     return (
         <View style={styles.root}>
-            <StarfieldBackground backgroundColor={galaxyColors.background} starCount={80} />
+            <StarfieldBackground backgroundColor={galaxyColors.background} variant="focused" />
             <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
                 <View style={styles.container}>
                     {/*
@@ -563,6 +594,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
                                 <ActivityInteractionRenderer
                                     interaction={currentInteraction}
                                     value={player.value}
+                                    confirmationLabel={confirmationLabel}
                                     onChange={(value) => {
                                         emit('option_tap');
                                         player.setValue(value);
@@ -598,7 +630,7 @@ export default function LessonFlowScreen({ blockId, nodeId, resumeCheckpointId, 
 
                     <View style={styles.footer}>
                         <AppButton onPress={() => void handleContinue()} disabled={!canContinue} style={styles.primaryAction}>
-                            {isLastStep ? 'Concluir e voltar' : 'Continuar'}
+                            {confirmationLabel}
                         </AppButton>
                     </View>
                 </View>
@@ -667,18 +699,18 @@ const styles = StyleSheet.create({
         gap: space.s3,
     },
     contentCard: {
-        backgroundColor: galaxyColors.surface,
-        borderRadius: 16,
+        backgroundColor: semanticColors.galaxy.surface,
+        borderRadius: radius.rLg,
         borderWidth: 1,
         borderColor: galaxyColors.border,
-        padding: space.s3,
-        gap: space.s3,
+        padding: space.s4,
+        gap: space.s4,
     },
     footer: {
         paddingHorizontal: space.s3,
         paddingTop: space.s2,
         paddingBottom: space.s3,
-        backgroundColor: 'rgba(3,3,13,0.92)',
+        backgroundColor: semanticColors.galaxy.surface,
     },
     primaryAction: {
         width: '100%',

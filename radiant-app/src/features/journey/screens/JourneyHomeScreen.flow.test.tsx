@@ -6,6 +6,7 @@ import { JourneyProgressService } from '../services/JourneyProgressService';
 import { TelemetryService } from '../../telemetry/TelemetryService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { StyleSheet } from 'react-native';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -77,12 +78,14 @@ jest.mock('../../../components/ui/AppButton', () => {
   return {
     AppButton: ({
       children,
+      label,
       onPress,
       disabled,
       accessibilityLabel,
       accessibilityHint,
     }: {
-      children: React.ReactNode;
+      children?: React.ReactNode;
+      label?: string;
       onPress: () => void;
       disabled?: boolean;
       accessibilityLabel?: string;
@@ -95,7 +98,7 @@ jest.mock('../../../components/ui/AppButton', () => {
         disabled={disabled}
         onPress={onPress}
       >
-        <Text>{children}</Text>
+        <Text>{label ?? children}</Text>
       </Pressable>
     ),
   };
@@ -142,20 +145,6 @@ jest.mock('../../hearts/HeartsRepository', () => ({
   },
 }));
 
-jest.mock('../../../ui/characters/PixelIllustration', () => {
-  const React = require('react');
-  const { Text, View } = require('react-native');
-
-  return {
-    PIXEL_SIZE_MAP: { sm: 60, md: 108, lg: 176 },
-    PixelIllustration: ({ expression = 'neutro' }: { expression?: string }) => (
-      <View>
-        <Text testID="journey-hero-expression">{expression}</Text>
-      </View>
-    ),
-  };
-});
-
 jest.mock('../components/JourneyTrail', () => {
   const React = require('react');
   const { Text, View } = require('react-native');
@@ -169,6 +158,15 @@ jest.mock('../components/JourneyTrail', () => {
     ),
   };
 });
+
+jest.mock('../../push/services/PushService', () => ({
+  PushService: {
+    onAppOpen: jest.fn().mockResolvedValue(undefined),
+    scheduleDailyIfEligible: jest.fn().mockResolvedValue(undefined),
+    getOptIn: jest.fn().mockResolvedValue(true),
+    setOptIn: jest.fn().mockResolvedValue(undefined),
+  },
+}));
 
 jest.mock('../services/JourneyCurriculumService', () => ({
   JourneyCurriculumService: {
@@ -216,10 +214,6 @@ jest.mock('../../telemetry/TelemetryService', () => ({
     track: jest.fn().mockResolvedValue(undefined),
     markDayOpen: jest.fn().mockResolvedValue(undefined),
   },
-}));
-
-jest.mock('../../push/services/PushService', () => ({
-  PushService: { onAppOpen: jest.fn().mockResolvedValue(undefined) },
 }));
 
 // O primeiro teste do arquivo paga um custo único de ~900ms dentro da janela do
@@ -484,6 +478,35 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     await screen.findByTestId('journey-trail');
   });
 
+  it('voltar à aba relê a trilha sem trocá-la pelo carregamento', async () => {
+    // Visto no simulador em 2026-10-16: o aluno rolava até o PRÓXIMO, ia ao
+    // Perfil e voltava com a trilha no topo. A releitura do foco punha o
+    // esqueleto no lugar da lista, e a lista desmontada perdia a posição.
+    renderWithProviders(<JourneyHomeScreen />);
+    const trilha = await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    let release: ((value: ReturnType<typeof createSnapshot>) => void) | undefined;
+    mockedJourneyProgressService.bootstrap.mockReturnValue(
+      new Promise(resolve => {
+        release = resolve;
+      }) as never,
+    );
+    voltarParaATela();
+
+    expect(screen.queryByText('Preparando sua trilha…')).toBeNull();
+    expect(screen.getByTestId('journey-trail')).toBe(trilha);
+
+    await act(async () => {
+      release?.(createSnapshot(
+        'track-radiology-foundations',
+        'Fundamentos de radiologia',
+        'node-foundations-lesson',
+        'block-foundations',
+      ));
+    });
+    expect(screen.getByTestId('journey-trail')).toBe(trilha);
+  });
+
   it('oferece tentar novamente quando a leitura local falha', async () => {
     mockedJourneyProgressService.bootstrap.mockRejectedValueOnce(new Error('storage unavailable'));
 
@@ -502,7 +525,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     expect(await screen.findByTestId('journey-trail')).toBeTruthy();
   });
 
-  it('explica que um novo arco vem aí quando tudo disponível foi concluído', async () => {
+  it('informa ausência de etapas sem prometer um novo arco', async () => {
     const complete = createSnapshot(
       'track-radiology-foundations',
       'Fundamentos de radiologia',
@@ -516,7 +539,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    expect(await screen.findByText('Novo arco em breve')).toBeTruthy();
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
   });
 
   describe('folha de vidas e a loja', () => {
@@ -570,7 +593,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
   // Achado 2 do gate H4, conferido em AX5 (2026-09-24): o título do estágio,
   // fixo acima da trilha, ocupava a tela inteira, a trilha ficava com altura
   // zero e o CTA ia para baixo da barra de abas. Com texto grande o cabeçalho
-  // entra na rolagem da trilha; no tamanho padrão continua fixo acima dela.
+  // entra na rolagem da trilha; o header padrão agora também rola.
   describe('texto grande', () => {
     function headerIsInsideTrail() {
       const header = screen.getByLabelText(/etapas concluídas\.$/u);
@@ -588,11 +611,206 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
       expect(headerIsInsideTrail()).toBe(true);
     });
 
-    it('mantém o cabeçalho fixo acima da trilha no tamanho padrão', async () => {
+    it('põe também o cabeçalho padrão na rolagem da trilha', async () => {
       renderWithProviders(<JourneyHomeScreen />);
       await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-      expect(headerIsInsideTrail()).toBe(false);
+      expect(headerIsInsideTrail()).toBe(true);
     });
+  });
+});
+
+
+describe('JourneyHomeScreen — recomendação acionável', () => {
+  beforeEach(() => { jest.clearAllMocks(); });
+  function base() { return createSnapshot('track-radiology-foundations', 'Lição atual', 'lesson-1', 'block-1'); }
+  it('renderiza o Pixel pequeno real como decoração oculta na recomendação da Home', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(base());
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByRole('button', { name: 'Continuar jornada' });
+
+    expect(screen.queryByLabelText('Mascote Pixel')).toBeNull();
+    const pixel = screen.getByLabelText('Mascote Pixel', { includeHiddenElements: true });
+    expect(StyleSheet.flatten(pixel.props.style).width).toBe(60);
+    expect(pixel.props.source).toBeTruthy();
+    let wrapper = pixel.parent;
+    while (wrapper && wrapper.props.importantForAccessibility !== 'no-hide-descendants') wrapper = wrapper.parent;
+    expect(wrapper).not.toBeNull();
+    expect(wrapper?.props.accessible).toBe(false);
+    expect(wrapper?.props.accessibilityElementsHidden).toBe(true);
+    expect(wrapper?.props.pointerEvents).toBe('none');
+  });
+  it('retoma a lição com o cursor real na rota', async () => {
+    const snapshot = base();
+    snapshot.nextRecommendedNode.status = 'resumable';
+    snapshot.nextDecision = { nodeId: 'lesson-1', reason: 'paused-lesson', resumeStepIndex: 3, dueReviewCount: 0 };
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+    fireEvent.press(await screen.findByRole('button', { name: 'Retomar lição' }));
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1', resumeCursorId: 'step-4' } }));
+    expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('lesson-1');
+  });
+  it.each([
+    ['review', 'resumable', 'Retomar revisão', '/learn'],
+    ['checkpoint', 'resumable', 'Retomar avaliação', '/checkpoint'],
+    ['review', 'due-review', 'Fazer revisão', '/learn'],
+    ['checkpoint', 'available', 'Fazer avaliação', '/checkpoint'],
+    ['reward', 'available', 'Receber conquista', '/reward'],
+  ])('abre %s/%s com ação %s e rota real', async (type, status, action, pathname) => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type, status });
+    snapshot.nextDecision.reason = status === 'resumable' ? 'paused-lesson' : 'next-lesson';
+    snapshot.nextDecision.resumeStepIndex = status === 'resumable' ? 2 : undefined;
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    fireEvent.press(await screen.findByRole('button', { name: action }));
+    const params = pathname === '/learn'
+      ? { nodeId: 'lesson-1', blockId: 'block-1', ...(status === 'resumable' ? { resumeCursorId: 'step-3' } : {}) }
+      : { nodeId: 'lesson-1' };
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname, params }));
+    expect(mockedRouter.push).toHaveBeenCalledTimes(1);
+    expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('lesson-1');
+    expect(screen.getAllByTestId('journey-recommendation-action')).toHaveLength(1);
+  });
+
+  it('conquista já coletada não oferece nem executa uma nova coleta', async () => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type: 'reward', status: 'completed' });
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByTestId('journey-recommendation-action')).toBeNull();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
+    expect(mockedJourneyProgressService.setCurrentNode).not.toHaveBeenCalled();
+  });
+
+  it('próxima lição continua acionável junto da data real de revisão futura', async () => {
+    const snapshot = base();
+    const availableAt = Date.now() + 86400000;
+    snapshot.track.units[0].nodes.push({ ...snapshot.nextRecommendedNode, id: 'future-review', type: 'review', status: 'locked', reviewAvailableAtMs: availableAt });
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    const action = await screen.findByRole('button', { name: 'Continuar jornada' });
+    const date = new Date(availableAt);
+    const dateText = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()} às ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    expect(screen.getByText(`Próxima revisão em ${dateText}`)).toBeTruthy();
+    fireEvent.press(action);
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1' } }));
+  });
+
+  it('revisão ainda futura não ganha ação mesmo com status stale de disponível', async () => {
+    const snapshot = base();
+    Object.assign(snapshot.nextRecommendedNode, { type: 'review', reviewAvailableAtMs: Date.now() + 86400000 });
+    snapshot.track.units[0].nodes = [snapshot.nextRecommendedNode];
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByTestId('journey-recommendation-action')).toBeNull();
+    expect(screen.getByText(/^Próxima revisão em /)).toBeTruthy();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
+  });
+
+  it('ausência de data não fabrica prazo de revisão', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(base());
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByRole('button', { name: 'Continuar jornada' });
+    expect(screen.queryByText(/^Próxima revisão em /)).toBeNull();
+  });
+
+  it('sem próxima etapa não promete novo arco nem mostra CTA inerte', async () => {
+    const snapshot = base(); snapshot.nextRecommendedNode = null;
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
+    renderWithProviders(<JourneyHomeScreen />);
+    expect(await screen.findByText('Nenhuma etapa disponível agora')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Aguardando nova etapa' })).toBeNull();
+    expect(screen.queryByText('Novo arco em breve')).toBeNull();
+    expect(mockedRouter.push).not.toHaveBeenCalled();
+  });
+});
+
+// Lembrete diário, ligado em 2026-10-16 (ADR do dia). A Home legada era a única
+// que agendava e convidava, e ela não se alcança com a trilha: quem estudava
+// por Estude nunca era convidado. O convite NÃO entra no resumo da lição, que
+// fica limpo por decisão de 2026-08-14; ele aparece uma vez no topo de Estude,
+// na volta da primeira lição concluída.
+describe('JourneyHomeScreen — lembrete diário', () => {
+  const { PushService } = jest.requireMock('../../push/services/PushService') as {
+    PushService: { scheduleDailyIfEligible: jest.Mock; getOptIn: jest.Mock };
+  };
+  const { JourneyCurriculumService } = jest.requireMock('../services/JourneyCurriculumService') as {
+    JourneyCurriculumService: { getCurriculumTrail: jest.Mock };
+  };
+
+  function trilhaCom(status: 'completed' | 'available') {
+    return {
+      segments: [
+        {
+          trackId: 'track-radiology-foundations',
+          trackTitle: 'Fundamentos de radiologia',
+          order: 0,
+          unlocked: true,
+          completed: false,
+          units: [
+            {
+              id: 'u1',
+              title: 'Fundamentos',
+              nodes: [{ id: 'node:l1', unitId: 'u1', type: 'lesson', title: 'L1', status }],
+            },
+          ],
+        },
+      ],
+      recommendedNodeId: 'node-foundations-lesson',
+    };
+  }
+
+  beforeEach(() => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(
+      createSnapshot('track-radiology-foundations', 'Fundamentos de radiologia', 'node-foundations-lesson', 'block-foundations'),
+    );
+    PushService.getOptIn.mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    PushService.getOptIn.mockResolvedValue(true);
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
+  });
+
+  it('ao abrir Estude, reavalia o lembrete do dia', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(PushService.scheduleDailyIfEligible).toHaveBeenCalledWith({ reason: 'journey_focus' });
+  });
+
+  it('depois da primeira lição concluída, convida ao lembrete', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('Quer um lembrete suave?')).toBeTruthy();
+  });
+
+  it('antes de concluir uma lição, não convida', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
+
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
+  });
+
+  it('quem já decidiu não é convidado de novo', async () => {
+    JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
+    PushService.getOptIn.mockResolvedValue(false);
+
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await waitFor(() => expect(PushService.getOptIn).toHaveBeenCalled());
+
+    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
   });
 });

@@ -1,7 +1,8 @@
+import { isRequiredProgressionNode } from './trackCompletion';
 import type { JourneyUnit } from '../../../types/journey';
 
 /**
- * Marcos "primários" de uma unidade — todo nó que não é de revisão — e
+ * Marcos obrigatórios de uma unidade — pela régua compartilhada de progressão — e
  * quantos já foram concluídos.
  *
  * Extraído porque `RewardScreen` e `QuizScreen` mantinham cada um sua
@@ -15,7 +16,7 @@ export function computeUnitPrimaryProgress(unit: JourneyUnit | null): { complete
     return { completed: 0, total: 0 };
   }
 
-  const primaryNodes = unit.nodes.filter((node) => node.type !== 'review');
+  const primaryNodes = unit.nodes.filter(isRequiredProgressionNode);
 
   return {
     completed: primaryNodes.filter((node) => node.status === 'completed').length,
@@ -34,7 +35,7 @@ export function computeUnitPrimaryProgress(unit: JourneyUnit | null): { complete
  * currículo, com minutos de diferença. Dois números de progresso que discordam
  * não somam informação: eles tiram a confiança dos dois.
  *
- * A regra é uma só — revisão não conta como marco — e agora as duas telas a
+ * A regra é uma só — revisão e conquista explicitamente opcional não contam — e as telas a
  * leem daqui.
  */
 export function computeSegmentPrimaryProgress(

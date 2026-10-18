@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
-import { render } from '@testing-library/react-native';
+import { act, fireEvent, render } from '@testing-library/react-native';
 import { galaxyColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
@@ -48,6 +48,8 @@ function spineStates(screen: ReturnType<typeof render>): string[] {
     );
 }
 
+jest.mock('../../../components/ui/DecorativeIcon', () => ({ DecorativeIcon: () => null }));
+
 const onNodePress = jest.fn();
 const isNodeDisabled = (node: { status: JourneyNodeStatus }) => node.status === 'locked';
 
@@ -78,11 +80,10 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
     expect(screen.getByText('Unidade 2 — nó 1')).toBeTruthy();
   });
 
-  it('não emite o título da unidade como cabeçalho que parte o caminho', () => {
+  it('não acrescenta navegação de unidades ao percurso legado de uma unidade por área', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [
         unit('u1', 'Unidade 1', ['completed']),
-        unit('u2', 'Unidade 2', ['available']),
       ]),
     ]);
 
@@ -116,6 +117,15 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
     expect(screen.getByText('Tórax')).toBeTruthy();
     expect(screen.getAllByTestId(/^journey-level-band-/)).toHaveLength(1);
     expect(screen.queryByTestId('journey-level-band-t1')).toBeNull();
+  });
+
+  it('a faixa fechada nomeia a trilha anterior como o que falta', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
+      segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['locked'])], { unlocked: false, order: 1 }),
+    ]);
+
+    expect(screen.getByText('Abre ao concluir Fundamentos')).toBeTruthy();
   });
 
   it('não desenha faixa nenhuma quando há um único segmento', () => {
@@ -245,4 +255,171 @@ describe('JourneyTrail — cabeçalho na rolagem', () => {
 
     expect(insideScroll).toBe(true);
   });
+});
+
+// Pedido do dono em 2026-10-16, conferido no simulador: a trilha abria sempre
+// no topo, e o nó PRÓXIMO ficava abaixo da dobra. A Home precisa levar o aluno
+// ao ponto em que ele está. Jest não faz layout, então a asserção é sobre o
+// pedido de rolagem que a lista recebe, que é o que determina a posição.
+describe('JourneyTrail — abre no ponto do aluno', () => {
+  const trilhaComDuasTrilhas = () => [
+    segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'completed'])]),
+    segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['completed', 'available'])], { order: 1 }),
+  ];
+
+  let scrollToIndex: jest.SpyInstance;
+  let scrollToOffset: jest.SpyInstance;
+
+  beforeEach(() => {
+    scrollToIndex = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});
+    scrollToOffset = jest.spyOn(FlatList.prototype, 'scrollToOffset').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    scrollToIndex.mockRestore();
+    scrollToOffset.mockRestore();
+  });
+
+  function medirConteudo(screen: ReturnType<typeof render>) {
+    fireEvent(screen.getByTestId('journey-trail'), 'contentSizeChange', 402, 3000);
+  }
+
+  it('centraliza o nó recomendado quando o conteúdo é medido', () => {
+    // Itens: 3 nós de t1, a faixa de Tórax, e os 2 nós de t2. O PRÓXIMO é o 6º.
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
+    medirConteudo(screen);
+
+    expect(scrollToIndex).toHaveBeenCalledTimes(1);
+    expect(scrollToIndex).toHaveBeenCalledWith({ index: 5, viewPosition: 0.5, animated: false });
+  });
+
+  it('não volta a centralizar enquanto a recomendação é a mesma', () => {
+    // O conteúdo muda de tamanho a cada lote virtualizado. Recentralizar a cada
+    // medição arrancaria o aluno do lugar para onde ele rolou.
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
+    medirConteudo(screen);
+    medirConteudo(screen);
+
+    expect(scrollToIndex).toHaveBeenCalledTimes(1);
+  });
+
+  it('centraliza o novo PRÓXIMO quando a recomendação muda', () => {
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-0');
+    medirConteudo(screen);
+    screen.rerender(
+      <JourneyTrail
+        segments={trilhaComDuasTrilhas()}
+        recommendedNodeId="u2-node-1"
+        onNodePress={onNodePress}
+        isNodeDisabled={isNodeDisabled as never}
+      />,
+    );
+    medirConteudo(screen);
+
+    expect(scrollToIndex).toHaveBeenCalledTimes(2);
+    expect(scrollToIndex).toHaveBeenLastCalledWith({ index: 5, viewPosition: 0.5, animated: false });
+  });
+
+  it('centraliza o novo PRÓXIMO mesmo quando o conteúdo não muda de tamanho', () => {
+    // Concluir uma lição troca rótulos, não alturas: a lista já medida não
+    // recebe nova medição, e a recomendação nova ficaria fora da tela.
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-0');
+    medirConteudo(screen);
+    screen.rerender(
+      <JourneyTrail
+        segments={trilhaComDuasTrilhas()}
+        recommendedNodeId="u2-node-1"
+        onNodePress={onNodePress}
+        isNodeDisabled={isNodeDisabled as never}
+      />,
+    );
+
+    expect(scrollToIndex).toHaveBeenCalledTimes(2);
+    expect(scrollToIndex).toHaveBeenLastCalledWith({ index: 5, viewPosition: 0.5, animated: false });
+  });
+
+  it('não centraliza antes de a lista ser medida', () => {
+    // Sem medida, `scrollToIndex` falha e gasta as tentativas à toa.
+    renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
+
+    expect(scrollToIndex).not.toHaveBeenCalled();
+  });
+
+  it('sem nó recomendado, não rola', () => {
+    const screen = renderTrail(trilhaComDuasTrilhas());
+    medirConteudo(screen);
+
+    expect(scrollToIndex).not.toHaveBeenCalled();
+  });
+
+  it('recomendação que não está na trilha não vira índice inválido', () => {
+    // O snapshot e o currículo são lidos em paralelo; um id que o currículo não
+    // tem daria `scrollToIndex(-1)`.
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'no-que-nao-existe');
+    medirConteudo(screen);
+
+    expect(scrollToIndex).not.toHaveBeenCalled();
+  });
+
+  it('quando o nó ainda não foi medido, aproxima pela altura média e tenta de novo', () => {
+    // Fora da primeira janela virtualizada, `scrollToIndex` falha sem medida.
+    jest.useFakeTimers();
+    try {
+      const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
+      screen.UNSAFE_getByType(FlatList).props.onScrollToIndexFailed({
+        index: 5,
+        highestMeasuredFrameIndex: 2,
+        averageItemLength: 200,
+      });
+
+      expect(scrollToOffset).toHaveBeenCalledWith({ offset: 1000, animated: false });
+      expect(scrollToIndex).not.toHaveBeenCalled();
+      act(() => {
+        jest.runOnlyPendingTimers();
+      });
+      expect(scrollToIndex).toHaveBeenCalledWith({ index: 5, viewPosition: 0.5, animated: false });
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+});
+
+
+describe('JourneyTrail — navegação por unidades compostas', () => {
+  it('identifica as unidades e permite consultar a bloqueada sem disparar um nó', () => {
+    const scroll = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});
+    try {
+      onNodePress.mockClear();
+      const screen = renderTrail([segment('t', 'Área', [unit('u1', 'Primeira unidade', ['completed']), unit('u2', 'Segunda unidade', ['locked'])])]);
+      expect(screen.getByRole('header', { name: /Unidade 1 de 2: Primeira unidade/ })).toBeTruthy();
+      expect(screen.getByRole('header', { name: /Unidade 2 de 2: Segunda unidade/ })).toBeTruthy();
+      fireEvent.press(screen.getByRole('button', { name: 'Ver unidade 2 de 2: Segunda unidade. Área' }));
+      // Cabeçalho u1, nó u1, cabeçalho u2: os novos cabeçalhos entram no índice.
+      expect(scroll).toHaveBeenLastCalledWith({ index: 2, viewPosition: 0, animated: false });
+      expect(onNodePress).not.toHaveBeenCalled();
+      expect(screen.getByText(/Bloqueada/)).toBeTruthy();
+    } finally { scroll.mockRestore(); }
+  });
+  it('reinicia a recuperação de rolagem ao escolher outra unidade distante', async () => {
+    jest.useFakeTimers();
+    const scroll = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});
+    const offset = jest.spyOn(FlatList.prototype, 'scrollToOffset').mockImplementation(() => {});
+    try {
+      const screen = renderTrail([segment('t', 'Área', [unit('u1', 'Primeira', ['completed']), unit('u2', 'Segunda', ['available'])])], 'u2-node-0');
+      await act(async () => {});
+      const main = screen.UNSAFE_getAllByType(FlatList).find(list => list.props.testID === 'journey-trail')!;
+      fireEvent(screen.getByTestId('journey-trail'), 'contentSizeChange', 400, 3000);
+      for (let i = 0; i < 3; i += 1) {
+        main.props.onScrollToIndexFailed({ index: 3, averageItemLength: 100 });
+        act(() => { jest.runOnlyPendingTimers(); });
+      }
+      fireEvent.press(screen.getByRole('button', { name: 'Ver unidade 2 de 2: Segunda. Área' }));
+      const before = scroll.mock.calls.length;
+      main.props.onScrollToIndexFailed({ index: 2, averageItemLength: 100 });
+      act(() => { jest.runOnlyPendingTimers(); });
+      expect(scroll).toHaveBeenCalledTimes(before + 1);
+      expect(scroll).toHaveBeenLastCalledWith({ index: 2, viewPosition: 0, animated: false });
+    } finally { scroll.mockRestore(); offset.mockRestore(); jest.useRealTimers(); }
+  });
+
 });

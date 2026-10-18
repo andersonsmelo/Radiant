@@ -16,6 +16,8 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { itemReviewRepository } from '../../spaced-repetition/repositories/ItemReviewRepository';
+import { itemAttemptEvidenceEntries } from '../../../types/itemReview';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import type { LearningEvidence } from '../../../types/learningEvidence';
 import type { ValidationIssue } from '../../../types/learningActivity';
@@ -24,9 +26,8 @@ import { isLearningEvidence, validateLearningEvidence } from '../../../types/lea
 const SCHEMA_VERSION = 'learning-evidence.v1';
 
 /**
- * Teto de registros. O cálculo de domínio agrega por competência e dá peso a
- * recuperação recente, então histórico além disso não muda a leitura de forma
- * perceptível — e um array sem limite em AsyncStorage cresce para sempre.
+ * Projeção limitada para conter o crescimento em AsyncStorage. Não representa
+ * histórico completo; o efeito do descarte sobre o domínio exige validação.
  */
 export const LEARNING_EVIDENCE_CAP = 1000;
 
@@ -41,24 +42,25 @@ type LearningEvidenceStore = {
 };
 
 class LearningEvidenceRepositoryImpl {
+    private pending: Promise<unknown> = Promise.resolve();
+    private serialize<T>(work: () => Promise<T>): Promise<T> {
+        const operation = this.pending.then(work);
+        this.pending = operation.then(() => undefined, () => undefined);
+        return operation;
+    }
+    private async readLegacy(forWrite = false): Promise<LearningEvidence[]> {
+        const raw = await AsyncStorage.getItem(STORAGE_KEYS.LEARNING_EVIDENCE);
+        if (raw === null) return [];
+        const parsed = JSON.parse(raw) as LearningEvidenceStore;
+        if (parsed?.schemaVersion !== SCHEMA_VERSION || !Array.isArray(parsed.evidence)) throw new Error('evidence-store-unavailable');
+        if (forWrite && !parsed.evidence.every(isLearningEvidence)) throw new Error('evidence-store-invalid');
+        return parsed.evidence.filter(isLearningEvidence);
+    }
     async getAll(): Promise<LearningEvidence[]> {
-        try {
-            const raw = await AsyncStorage.getItem(STORAGE_KEYS.LEARNING_EVIDENCE);
-            if (!raw) return [];
-
-            const parsed: unknown = JSON.parse(raw);
-            if (typeof parsed !== 'object' || parsed === null) return [];
-
-            const entries = (parsed as Record<string, unknown>).evidence;
-            if (!Array.isArray(entries)) return [];
-
-            // Revalida na leitura, e não só na escrita: um registro pode ter
-            // vindo de uma versão anterior do contrato, ou de escrita manual.
-            return entries.filter(isLearningEvidence);
-        } catch (error) {
-            console.error('[LearningEvidenceRepository] Falha ao ler evidências:', error);
-            return [];
-        }
+        let legacy: LearningEvidence[] = [];
+        try { legacy = await this.readLegacy(); } catch { /* Ausência de prova não vira evidência. */ }
+        const current = (await itemReviewRepository.getAttempts()).flatMap(itemAttemptEvidenceEntries);
+        return [...legacy, ...current].sort((a, b) => Date.parse(a.recordedAt) - Date.parse(b.recordedAt)).slice(-LEARNING_EVIDENCE_CAP);
     }
 
     async getByCompetency(competencyId: string): Promise<LearningEvidence[]> {
@@ -75,19 +77,17 @@ class LearningEvidenceRepositoryImpl {
             return { accepted: false, issues };
         }
 
-        try {
-            const entries = [...(await this.getAll()), evidence];
-            const store: LearningEvidenceStore = {
-                schemaVersion: SCHEMA_VERSION,
-                evidence: entries.slice(-LEARNING_EVIDENCE_CAP),
-            };
-
-            await AsyncStorage.setItem(STORAGE_KEYS.LEARNING_EVIDENCE, JSON.stringify(store));
-            return { accepted: true, issues: [] };
-        } catch (error) {
-            console.error('[LearningEvidenceRepository] Falha ao gravar evidência:', error);
-            return { accepted: false, issues: [] };
-        }
+        return this.serialize(async () => {
+            try {
+                const previous = await this.readLegacy(true);
+                const key = (entry: LearningEvidence) => JSON.stringify([entry.activityId, entry.interactionId, entry.competencyId, entry.contentVersion, entry.recordedAt]);
+                const duplicate = previous.find(entry => key(entry) === key(evidence));
+                if (duplicate) return { accepted: JSON.stringify(duplicate) === JSON.stringify(evidence), issues: [] };
+                const store: LearningEvidenceStore = { schemaVersion: SCHEMA_VERSION, evidence: [...previous, evidence].slice(-LEARNING_EVIDENCE_CAP) };
+                await AsyncStorage.setItem(STORAGE_KEYS.LEARNING_EVIDENCE, JSON.stringify(store));
+                return { accepted: true, issues: [] };
+            } catch { return { accepted: false, issues: [] }; }
+        });
     }
 
     async clear(): Promise<void> {

@@ -1,4 +1,5 @@
 import { PRODUCTION_BATCHES } from "../../../radiant-app/src/features/student-checkpoints/production-batches";
+import { validatePromotedProductionBatch } from "../../../radiant-app/src/features/student-checkpoints/ProductionBatch";
 
 export type ProductionBatchPanelItem = {
   batchId: string;
@@ -8,6 +9,9 @@ export type ProductionBatchPanelItem = {
   activityCount: number;
   checkpointItemCount: number;
   competencyCount: number;
+  sourceCount: number;
+  claimCount: number;
+  validationIssues: string[];
   approvalGates: string[];
   promotedAt: string;
   promotionRef: string;
@@ -22,6 +26,9 @@ export function getProductionBatchStatus(): ProductionBatchPanelItem[] {
     activityCount: batch.activities.length,
     checkpointItemCount: batch.checkpoint.items.length,
     competencyCount: batch.competencyIds.length,
+    sourceCount: batch.sources.length,
+    claimCount: batch.claimProvenance.length,
+    validationIssues: validatePromotedProductionBatch(batch),
     approvalGates: batch.approvals.map((approval) => approval.gate),
     promotedAt: batch.promotedAt,
     promotionRef: batch.promotionRef,

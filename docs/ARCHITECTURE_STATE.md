@@ -6,7 +6,7 @@ Radiant é um app Expo/React Native local-first. Catálogo, lições, progresso 
 revisões permanecem utilizáveis sem backend. A API Fastify/PostgreSQL existe
 para autenticação e sincronização, mas a API pública conhecida está registrada
 como inativa (HTTP 502) no
-[`status canônico`](archive/EXECUTION_STATUS_2026-08-13.md) e não faz parte do caminho
+[`status canônico`](STATUS.md) e não faz parte do caminho
 crítico do teste fechado.
 
 Componentes principais:
@@ -17,10 +17,22 @@ Componentes principais:
   catálogo, jornada, player e checkpoint;
 - `JourneyDefinitionService`: projeta trilhas do catálogo para a jornada;
 - `JourneyProgressService`: mantém seleção e progresso por trilha;
+- `NextNodeResolver`: prioriza retomada, revisão devida, avaliação, conquista
+  coletável e lição, sem liberar pré-requisitos;
+- `AssessmentAttemptRepository`: histórico local das avaliações V2 e conclusão
+  das atividades de reforço posteriores à reprovação;
+- `SpacedRepetitionService`: agenda SM-2 completa, com filtro separado da fila
+  devida; a data futura pode informar o cartão sem antecipar uma revisão;
 - `LessonOutcomeService`: registra resultado, XP e evidência de conclusão;
 - `LegacyLessonAdapter`: converte bloco legado em atividade v2, puro e 1:1;
 - `ActivityRendererRegistry` + `useLearningActivity`: player desacoplado dos
   tipos de atividade, com contrato único `interaction/value/onChange`;
+- `JourneyRecommendationCard`: apresentação do próximo nó existente, no header
+  rolável da `JourneyTrail`; nenhuma resolução/persistência própria;
+- `StarfieldBackground`: variante opcional `focused` (24 estrelas, sem nebulosas),
+  default galaxy preservado; foco e movimento reduzido continuam nos hooks;
+- `LessonSummary`: celebração e resultados roláveis/factuais; callbacks e
+  avaliação da aula independentes da loja, sem outro serviço de resultado;
 - `LearningEvidenceRepository`: evidência estruturada por interação;
 - `CompetencyMasteryService`: domínio por competência, puro e determinístico;
 - `CompetencyReviewService`: store e agendamento por competência, ainda sem
@@ -43,6 +55,38 @@ antes de consultar `JourneyProgressService`. O desfecho **Começar** abre o
 `nextRecommendedNode` pela mesma política de roteamento da jornada, somente
 depois que o `Stack` está montado; **Pular apresentação** abre a Home. Não há id
 de lição fixo, e falha ou nó não navegável degrada para Home.
+
+## Contratos locais dos itens 36, 39 e 27 — commit `a366295`
+
+Reconciliados com o código em 2026-10-12. A disponibilidade nas lojas é
+registrada somente no STATUS; esta seção descreve implementação local.
+
+- **Reforço persistente:** `AssessmentAttemptRepository` serializa operações
+  na chave `@radiant:assessment_attempts_v1`. A avaliação consulta a tentativa
+  anterior, exige nova conclusão integral do conjunto de atividades das
+  competências frágeis e registra os vínculos de ciclo. O player entrega a
+  conclusão por `LessonOutcomeService.recordActivityCompletion`, inclusive
+  para lições que já estavam concluídas na jornada. Concluir antes da falha
+  ou apenas abrir o conteúdo não satisfaz o reforço. Reentrada reseta respostas
+  somente na transição bloqueado→liberado. Leitura/gravação inválida não
+  presume conclusão. O histórico ainda está fora do backup iCloud.
+- **Currículo e kernel:** o reforço V2 reutiliza atividades já aprovadas e
+  funciona independentemente do modo do kernel. Os metadados de modalidades
+  novas do plano do kernel não são prova de que esses materiais foram
+  entregues. O contrato preserva dois ciclos e o estado terminal de apoio.
+- **Conquista:** `JourneyRecommendationService` inclui `reward` entre os
+  candidatos; `NextNodeResolver` o escolhe depois de retomada, revisão devida
+  e checkpoint, antes da próxima lição. Pré-requisitos e conclusão permanecem
+  soberanos. A escrita/coleta continua no serviço da jornada, sem concessão
+  automática pela recomendação.
+- **Revisão futura:** `getReviewSchedule` expõe instantes futuros, enquanto
+  `getDueReviewSchedule` continua filtrando `dueAtMs <= agora`. O snapshot
+  transporta `reviewAvailableAtMs` apenas quando os pré-requisitos foram
+  cumpridos; `JourneyNodeCard` apresenta data/hora local e rótulo acessível.
+  Intervalos, fila devida e progresso não são alterados pela apresentação.
+
+[ADR](adr/ADR-2026-10-12-reforco-conquista-e-disponibilidade.md) e
+[evidência](evidence/2026-10-12-itens-36-39-27.md) concentram decisões e provas.
 
 ## Kernel de checkpoints — `active` interno medido, produção em `off`
 
@@ -186,8 +230,9 @@ conveniência e decai):
 - checkpoint e reforço adaptativo (Task 12 educacional): **corte vertical da
   primeira unidade conectado em 2026-08-13**. O player consome as 12 atividades
   v2 nativas e registra competência/contentVersion reais; o checkpoint apresenta
-  10 itens, aplica 80%, só conclui a jornada em aprovação e encaminha falha para
-  reforço da competência frágil. O kernel continua `off` em produção; quando
+  cinco avaliações de dois itens (desde a decisão de 2026-08-21), aplica 80%,
+  só conclui a jornada em aprovação e encaminha falha para reforço da
+  competência frágil. O kernel continua `off` em produção; quando
   `active` interno, o hook constrói o intent com o `checkpointId` emitido pelo
   runtime, evitando mismatch de autoridade.
 
@@ -225,11 +270,134 @@ Fonte `reference-only` serve somente para consulta factual e redação original.
 Fonte `blocked` não alimenta conteúdo. Nenhum ativo de imagem entra no app sem
 autorização e anonimização verificadas.
 
+## Catálogo de lotes — contrato de implementação de 2026-10-16
+
+`ProductionCurriculumCatalog` é o singleton de um snapshot criado por
+`createProductionCurriculumCatalog`. A apresentação é declarada por batchId em
+`production-catalog-entries`: slug, nome, descrição, unidade e ID/texto da conquista.
+O registro enumera `PRODUCTION_BATCHES`; falta de metadados é erro explícito.
+A configuração de apresentação permanece compilada e separada do fingerprint
+do material clínico; novos registros exigem apresentação revisada e lote promovido.
+
+Os índices de atividade/checkpoint/jornada são construídos uma vez por snapshot,
+com dados clonados e congelados. IDs existentes são mantidos; colisões e etapas
+sem avaliação são recusadas. A composição aceita lotes de trilhas distintas e, com
+`ProductionTrackComposition` explícito, várias unidades no mesmo trackId.
+Ordem, conjunto de unidades, grafo e consistência de metadados são verificados;
+resumos recebem ordem contínua. Sem plano explícito, sobreposição é recusada.
+O contrato de 2026-10-16 exige o checkpoint final da unidade anterior, preservando
+a coleta opcional de conquista; [decisão e continuidade G2](adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md). A mudança não grava storage nem altera o schema do
+progresso, o contrato de promoção ou os seis gates editoriais.
+
+`composeCurriculumCatalog` contém a composição local/remota existente usada por
+`LessonCatalogService` e pelo inventário. `JourneyCatalogAudit` verifica grafo e
+resolução com portas explícitas; a medição offline chama os mesmos serviços de
+jornada/player, substituindo somente a porta local do catálogo. O estado operacional,
+o gate integral e os próximos passos pertencem ao [STATUS](STATUS.md).
+[Evidência e método](evidence/2026-10-16-trilha-g0-g1-catalogo.md).
+
+`ProductionCurriculumCoverage` é uma auditoria offline de referências por item,
+competência, fonte e claim; distingue placeholders do legado, não valida clínica
+ou direitos. O inventário schema 3 resolve também os itens dos checkpoints pelos
+nós reais. A convenção de claims permanece a do candidato V1 e a promoção ainda
+contém regras específicas do H4, a generalizar em G3. O singleton real mantém o
+lote existente; nova composição curricular exige configuração e gates próprios.
+[Evidência desta extensão](evidence/2026-10-16-trilha-cobertura-e-multiunidade.md).
+
+### Progressão e navegação das composições — G2
+
+`ProductionCatalogComposition` marca apenas conquistas com
+`optionalForProgression`. A régua em `trackCompletion` é consumida pela conclusão
+de áreas e por `JourneyUnitProgress`; lições e avaliações nunca são dispensadas.
+`NextNodeResolver` mantém retomada/revisão/avaliação e recomenda estudo antes de
+conquista opcional. O foco das composições consome essa prioridade. A marca é do
+catálogo, não é estado novo no storage e não altera identidades.
+
+`JourneyTrail` mantém índices de nós estáveis e inclui marcadores/índice virtualizado
+de unidades quando houver composições. A seleção rola a lista, sem autorizar
+atividade. `RewardScreen` resolve destino explícito por `getSnapshotForNode` e
+conserva o contexto da área; ID inexistente não vira fallback para outra conquista.
+[Evidência e limites de validação](evidence/2026-10-16-trilha-g2-progressao-e-unidades.md).
+
+## Contrato editorial genérico da trilha — 2026-10-17
+
+`EditorialBatchContract` é a validação pura dos lotes v1, sem dependência do
+candidato H4. O candidato histórico reexporta a função por compatibilidade;
+`ProductionBatch` preserva promoção imutável e expõe validação de artefato promovido.
+O publicador Node usa esses mesmos módulos via carregador restrito a `src`, sem
+executar o JSON recebido. Conteúdo, cobertura, claims, gates e fingerprints são
+conferidos antes da escrita; colisões entre lotes impedem persistir um catálogo
+incompilável por identidades repetidas. A apresentação/composição continuam fora
+do artefato editorial e exigem revisão de integração antes de ativar conteúdo.
+
+Contrato v1: uma múltipla escolha por atividade sem mídia, competência única,
+fontes CC BY 4.0, limiar de 80% e reforço de dois ciclos. Não altera IDs, progresso
+nem o lote real. Auditoria e painel mostram pendências e cobertura estrutural;
+não concedem aprovação humana. [Pipeline](CONTENT_PIPELINE.md) e
+[evidência](evidence/2026-10-17-trilha-g3-contrato-editorial.md).
+
+## Evidência e agenda por item — camada G4, 2026-10-17
+
+`ItemReviewRepository` guarda tentativa confirmada e agenda em uma escrita no
+store local `@radiant:item_review_v1`. A chave reúne lição, item e versão. O
+registro guarda IDs, resultados estruturados, ajuda, faixa de duração e tempo;
+não guarda alternativas escolhidas, prosa ou mídia. Escritores usam fila por
+porta de storage; falta de leitura/schema conhecido impede escrita, preservando
+os bytes originais. Duplicação conflitante é recusada e não é nova tentativa.
+
+`ItemReviewCoordinator` resolve o payload atual e limita a sessão a 50 itens.
+A migração aditiva importa até 50 lições por abertura, em um commit, sem converter
+resultado agregado em evidência. Presença dos cartões é o cursor durável; versões
+materiais não são equiparadas. O SM-2 puro compartilhado preserva a fórmula
+existente. `SpacedRepetitionService` oferece o vencimento mínimo atual por lição
+para trilha/push e conta itens para os contadores de missão/progresso. A vista
+legada `getDueCards` continua uma leitura de cartões agregados por lição; a fila
+ativa usa o coordenador por item.
+
+`LessonFlowScreen` fornece ID/data estáveis; `LessonOutcomeService` evita repetir
+rollups/recompensa de um commit já confirmado e só observa competências após
+persistir evidência. `/review` confirma a escrita antes de avançar/premiar e
+oferece retry em falha. A revisão ativa confirma alternativa antes do feedback;
+a ajuda explícita é assistida. A projeção para `LearningEvidenceRepository`
+mantém o erro inicial, e o cálculo de domínio não pontua acertos com ajuda. A revisão não promove retenção retardada automaticamente.
+
+Limites: journal de 2 mil tentativas, 20 mil cartões e projeção de mil evidências;
+sem cobertura nova de backup/sync ou snapshots V3/1.4. Avaliações mantêm seu
+histórico próprio; sua projeção no journal está descrita abaixo. Sem ativação de adaptação,
+V3 ou prova nativa. [Evidência](evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md).
+
+### Avaliações no journal — continuação de 2026-10-17
+
+`AssessmentAttemptRepository` mantém a autoridade de aprovação/reforço, com
+`journalStatus` pendente/confirmado no mesmo registro da avaliação. `submit`
+confirma todos os itens numa escrita do journal; `getState` retoma projeção
+pendente após reabrir. Histórico anterior sem marcador permanece legível e não
+é importado implicitamente. Mesmo ID com outro material é recusado.
+
+O modo `assessment` acrescenta competências atribuídas e sinal de erro crítico;
+a projeção de evidência expande as competências e não pontua erro crítico como
+acerto. Há um cartão por item, com versão, resolvido pelo checkpoint atual.
+A porta nativa compartilhada preserva serialização entre as fachadas de escrita.
+Não altera rollout do kernel, limiar de aprovação, reforço, vidas ou equivalência
+entre versões. Os stores de XP/jornada/backup continuam separados.
+[Evidências e limites](evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md).
+
+### Resposta de revisão — continuação de 2026-10-17
+
+`recordAnswer` corrige pelo catálogo atual; `ReviewCard` não envia booleano de
+acerto. O journal confirma antes do feedback, registra `review-answer` e valida
+vencimento/data anterior/ausência de tentativa anterior contra o cartão salvo.
+Não persiste índice escolhido. A projeção de conteúdo promovido usa recuperação
+independente sem ajuda e prática guiada ao consultar resposta; legado permanece
+legado. `itemReviewTiming` fornece sinal temporal operacional, sem promoção a
+`delayed-retention`. A adaptação continua sem ativação nova.
+[Evidências](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
+
 ## Fontes de verdade
 
 | Tema | Documento |
 | --- | --- |
-| Estado operacional | [`archive/EXECUTION_STATUS_2026-08-13.md`](archive/EXECUTION_STATUS_2026-08-13.md) |
+| Estado operacional | [`STATUS.md`](STATUS.md) |
 | Produto | [`PRD.md`](PRD.md) |
 | Ordem entre as frentes | [`plans/2026-08-01-radiant-roadmap-mestre.md`](plans/2026-08-01-radiant-roadmap-mestre.md) |
 | Roadmap de lançamento | [`plans/2026-07-27-radiant-launch-roadmap.md`](plans/2026-07-27-radiant-launch-roadmap.md) |
@@ -326,3 +494,8 @@ permanece como histórico.
   vidas bloqueiam lição nova e checkpoint; **nunca bloqueiam revisão**;
 - nenhuma mudança de binário entra no closed test sem repetir os gates de
   release aplicáveis.
+
+O registro histórico `production-batches.ts` fixa o hash do material já promovido;
+não o recalcula ao importar uma edição do candidato. O teste importa esse registro
+com material alterado e exige a recusa, protegendo a invalidade das decisões
+anteriores no caminho real. Mudança futura exige novas aprovações explícitas.

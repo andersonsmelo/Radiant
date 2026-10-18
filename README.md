@@ -3,20 +3,19 @@
 Radiant é um aplicativo mobile educacional de radiologia, local-first, com
 microaprendizagem, prática ativa, revisão espaçada e gamificação não punitiva.
 
-## Estado atual
+## Documentação e validação
 
-| Frente | Estado verificado |
-| --- | --- |
-| App | Expo/React Native; catálogo e progresso funcionam offline |
-| Android | versão `1.3.0 (4)` publicada no teste fechado `alpha`; última leitura em 2026-08-03: 14 contas vinculadas e 2 opt-ins; faltam ≥10 opt-ins e a janela de 14 dias |
-| iOS | versão `1.3.1`, build `11`; **publicada na App Store em 2026-09-14** (aprovada e liberada no mesmo dia, após a rejeição de 14/08 respondida item a item); tag `v1.3.1`; https://apps.apple.com/app/radiant-radiologia/id6797078156. A 1.4 está desenhada e parcialmente implementada — ver [`docs/STATUS.md`](docs/STATUS.md) |
-| E2E local | Maestro **6/6 nas duas plataformas** em 2026-08-03; após a mudança de primeira vitória, o `first-run.yaml` atualizado passou **1/1 no iOS 26.5 e 1/1 no Android API 36** em 2026-08-09 |
-| API pública | fora do caminho crítico; o status canônico registra HTTP 502 |
-| Conteúdo legado | 18 atividades prontas nas trilhas Fundamentos, Tórax e Abdome |
-| Sistema educacional v2 | H3 encerrada por aceitação do dono, preservando a coorte histórica `inconclusive`; H4 integrada à `main` com `ProductionBatchV1`, 12 atividades e checkpoint real; gate em aparelho ainda aberto e produção `off` |
+O [status canônico](docs/STATUS.md) concentra versões publicadas, estado dos
+serviços, gates e bloqueios, com a data de cada medição. A
+[fila](docs/FILA.md) registra o que está executável; o
+[mapa da documentação](docs/README.md) aponta specs, pesquisas e evidências.
 
-O estado operacional completo e os bloqueios vigentes estão em
-[`docs/STATUS.md`](docs/STATUS.md).
+As correções locais de revisão, primeiro valor, navegação e QA foram entregues
+em `13ee173` (2026-10-14). Consulte o
+[relatório de remediação](docs/evidence/2026-10-14-qa-remediacao.md) para resultados
+nativos, comparação de memória e limitações. Esse pacote não foi distribuído.
+Os procedimentos de build/teste ficam no [README do app](radiant-app/README.md)
+e no [runbook E2E](radiant-app/docs/E2E_RUNBOOK.md).
 
 ## Evolução educacional
 

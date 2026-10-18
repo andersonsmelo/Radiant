@@ -6,6 +6,7 @@ import {
     REGISTERED_INTERACTION_TYPES,
     isInteractionTypeRegistered,
 } from './ActivityRendererRegistry';
+import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
@@ -66,6 +67,32 @@ describe('ActivityRendererRegistry', () => {
 
         expect(getByLabelText('Ar').props.accessibilityState.selected).toBe(true);
         expect(getByLabelText('Osso').props.accessibilityState.selected).toBe(false);
+    });
+
+    it('sincroniza hints com a confirmação explícita recebida e mostra o estado selecionado', () => {
+        const { getByLabelText, getByText } = render(
+            <ActivityInteractionRenderer interaction={multipleChoice()} value="a" onChange={jest.fn()} confirmationLabel="Conferir resposta" />,
+        );
+
+        expect(getByLabelText('Osso').props.accessibilityHint).toContain('Conferir resposta');
+        expect(getByLabelText('Ar').props.accessibilityHint).toBe('Seleciona esta resposta. Você confirma em Conferir resposta.');
+        expect(getByText('Selecionada')).toBeTruthy();
+    });
+
+    it('mantém Continuar como default para chamadores do registry e do renderer legado', () => {
+        const registry = render(
+            <ActivityInteractionRenderer interaction={multipleChoice()} value="a" onChange={jest.fn()} />,
+        );
+        expect(registry.getByLabelText('Osso').props.accessibilityHint).toContain('Continuar');
+        registry.unmount();
+
+        const direct = render(
+            <MultipleChoiceStepRenderer
+                payload={{ prompt: 'Escolha', options: [{ id: 'a', label: 'Osso' }], correctOptionId: 'a', explanation: 'Isso mesmo.' }}
+                onSelect={jest.fn()}
+            />,
+        );
+        expect(direct.getByLabelText('Osso').props.accessibilityHint).toBe('Seleciona esta resposta. Você confirma em Continuar.');
     });
 
     it('rejeita tipo desconhecido com erro seguro, sem lançar', () => {

@@ -1,13 +1,11 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { screen } from '@testing-library/react-native';
 import ProgressScreen from './ProgressScreen';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { AuthService } from '../../auth/AuthService';
 import { SyncQueueService } from '../../sync/SyncQueueService';
-import { ApiError, apiRequest, isApiConfigured } from '../../../lib/api';
 import { LearningAttemptsRepository } from '../services/LearningAttemptsRepository';
 import { JourneyProgressService } from '../../journey/services/JourneyProgressService';
-import { AppConfig } from '../../../config';
 
 jest.mock('expo-router', () => ({
   Link: ({ children }: { children: React.ReactNode }) => children,
@@ -134,7 +132,6 @@ const mockedAuthService = AuthService as jest.Mocked<typeof AuthService>;
 const mockedSyncQueueService = SyncQueueService as jest.Mocked<typeof SyncQueueService>;
 const mockedLearningAttempts = LearningAttemptsRepository as jest.Mocked<typeof LearningAttemptsRepository>;
 const mockedJourneyProgress = JourneyProgressService as jest.Mocked<typeof JourneyProgressService>;
-const mockedApiRequest = apiRequest as jest.MockedFunction<typeof apiRequest>;
 
 describe('ProgressScreen flow', () => {
   beforeEach(() => {
@@ -154,59 +151,6 @@ describe('ProgressScreen flow', () => {
     } as never);
   });
 
-  it('allows login and flushes the sync queue', async () => {
-    mockedAuthService.login.mockResolvedValue({
-      accessToken: 'access-token',
-      refreshToken: 'refresh-token',
-      expiresAt: '2026-04-03T00:00:00.000Z',
-      user: {
-        id: 'user-1',
-        email: 'user@example.com',
-      },
-    });
-
-    renderWithProviders(<ProgressScreen />);
-
-    await screen.findByText('Conta e sincronização');
-
-    fireEvent.changeText(screen.getByPlaceholderText('Email'), 'USER@example.com');
-    fireEvent.changeText(screen.getByPlaceholderText('Senha ou nova senha'), 'password123');
-    fireEvent.press(screen.getByText('Entrar para sincronizar'));
-
-    await waitFor(() => {
-      expect(mockedAuthService.login).toHaveBeenCalledWith('user@example.com', 'password123');
-    });
-
-    await waitFor(() => {
-      expect(mockedSyncQueueService.flush).toHaveBeenCalled();
-    });
-
-    expect(await screen.findByText('Sessão autenticada e fila sincronizada.')).toBeTruthy();
-    expect(await screen.findByText('user@example.com')).toBeTruthy();
-  });
-
-  it('requests a password reset and surfaces the homologation token', async () => {
-    mockedAuthService.requestPasswordReset.mockResolvedValue({
-      accepted: true,
-      resetToken: 'reset-token-1234567890',
-    });
-
-    renderWithProviders(<ProgressScreen />);
-
-    await screen.findByText('Conta e sincronização');
-
-    fireEvent.changeText(screen.getByPlaceholderText('Email'), 'user@example.com');
-    fireEvent.press(screen.getByText('Solicitar reset de senha'));
-
-    await waitFor(() => {
-      expect(mockedAuthService.requestPasswordReset).toHaveBeenCalledWith('user@example.com');
-    });
-
-    expect(
-      await screen.findByText('Reset solicitado. Token de homologação disponível: reset-token-1234567890')
-    ).toBeTruthy();
-  });
-
   it('não expõe nenhum controle de console de desenvolvimento', async () => {
     // A separação vem antes da agregação (ADR-2026-08-15): esta tela é agregada
     // ao Perfil do aluno, e o console — flags de build, health de API, reset de
@@ -215,7 +159,7 @@ describe('ProgressScreen flow', () => {
     // este teste o vê.
     renderWithProviders(<ProgressScreen />);
 
-    await screen.findByText('Conta e sincronização');
+    await screen.findByText('3 dias');
 
     expect(screen.queryByText('Catálogo local')).toBeNull();
     expect(screen.queryByText('Homologação iOS V2')).toBeNull();
@@ -270,53 +214,17 @@ describe('ProgressScreen flow', () => {
   // beta gate — seguiram o painel para
   // `src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx`.
 
-  it('keeps legal help available in the progress screen', async () => {
+  it('não carrega configuração: conta, ajuda e apresentação moram na tela Configuração', async () => {
+    // Desde 2026-10-16 (FILA 32) o Perfil, que embute esta tela, guarda só
+    // identidade, missões e progresso. Esta suíte roda com sync remoto ligado,
+    // o caso em que o cartão de conta apareceria se tivesse ficado aqui.
     renderWithProviders(<ProgressScreen />);
 
-    expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Central de Suporte' })).toBeTruthy();
-  });
-
-  // Toda esta suíte roda com sync remoto LIGADO (AppConfig e isApiConfigured
-  // mockados como true) — a configuração de produção, com os dois desligados,
-  // nunca tinha sido renderizada por teste nenhum. Foi assim que o build
-  // 1.3.1 (10) chegou ao aparelho com um formulário de login inerte no Perfil:
-  // `remoteSyncAvailable` só travava os handlers, não a renderização. A
-  // resposta à Apple diz "no account, login, or credentials", e o revisor lê a
-  // tela, não a configuração.
-  describe('sem sync remoto disponível (configuração de produção)', () => {
-    const isApiConfiguredMock = isApiConfigured as jest.MockedFunction<typeof isApiConfigured>;
-
-    beforeEach(() => {
-      isApiConfiguredMock.mockReturnValue(false);
-      (AppConfig as { ENABLE_REMOTE_SYNC: boolean }).ENABLE_REMOTE_SYNC = false;
-    });
-
-    afterEach(() => {
-      isApiConfiguredMock.mockReturnValue(true);
-      (AppConfig as { ENABLE_REMOTE_SYNC: boolean }).ENABLE_REMOTE_SYNC = true;
-    });
-
-    it('não renderiza nenhum controle de conta, login ou sincronização', async () => {
-      renderWithProviders(<ProgressScreen />);
-
-      expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
-
-      expect(screen.queryByText('Conta e sincronização')).toBeNull();
-      expect(screen.queryByPlaceholderText('Email')).toBeNull();
-      expect(screen.queryByPlaceholderText('Senha ou nova senha')).toBeNull();
-      expect(screen.queryByText('Entrar para sincronizar')).toBeNull();
-      expect(screen.queryByText('Criar conta')).toBeNull();
-      expect(screen.queryByText('Solicitar reset de senha')).toBeNull();
-    });
-
-    it('mantém a ajuda legal mesmo sem o cartão de conta', async () => {
-      renderWithProviders(<ProgressScreen />);
-
-      expect(await screen.findByText('Ajuda e informações')).toBeTruthy();
-      expect(screen.getByRole('link', { name: 'Política de Privacidade' })).toBeTruthy();
-      expect(screen.getByRole('link', { name: 'Central de Suporte' })).toBeTruthy();
-    });
+    expect(await screen.findByText('3 dias')).toBeTruthy();
+    expect(screen.queryByText('Conta e sincronização')).toBeNull();
+    expect(screen.queryByPlaceholderText('Email')).toBeNull();
+    expect(screen.queryByText('Ajuda e informações')).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Política de Privacidade' })).toBeNull();
+    expect(screen.queryByText('Rever apresentação')).toBeNull();
   });
 });

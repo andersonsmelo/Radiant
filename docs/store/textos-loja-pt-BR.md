@@ -67,7 +67,14 @@ espaçada que fixam o conteúdo. Funciona offline e sem login — estude no seu 
 > como está publica os `**` literais na ficha. Antes de colar, converta: remova os
 > asteriscos, ponha os títulos de seção em caixa alta e troque os `-` de lista por
 > `•`. O conteúdo é o mesmo — só a marcação sai. Convertido assim, o texto tem
-> **1605** caracteres.
+> **1605** caracteres sem a seção "Assinatura" e **2011** com ela.
+>
+> **A seção "Assinatura" é só da App Store e não sai de lá.** A Apple reprovou a
+> `1.4.0 (12)` em 2026-10-10, pela diretriz 3.1.2, porque o app vende assinatura
+> com renovação automática e os metadados não traziam link para os Termos de Uso
+> (EULA). Com o EULA padrão da Apple, o link precisa estar na Descrição. O texto
+> abaixo foi colado pelo dono na 1.4.0 e reenviado no mesmo dia. No Play ele não
+> entra: o link é o EULA da Apple, e o Android não vende a assinatura.
 
 **Radiant é um app para estudar radiologia com método — no seu ritmo, em qualquer
 lugar.**
@@ -108,7 +115,27 @@ O Radiant é um aplicativo **educacional** e **não substitui a avaliação, o
 diagnóstico ou a orientação de um profissional de saúde**. O conteúdo é para
 estudo e treino, não para uso clínico ou decisão sobre pacientes.
 
+**Assinatura** (só App Store)
+
+O Radiant Ilimitado é opcional, mensal ou anual, com renovação automática, e o
+único benefício é ter vidas ilimitadas. Todo o conteúdo continua aberto para
+todo mundo. Você gerencia ou cancela a assinatura nos Ajustes do iPhone.
+
+Termos de Uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de Privacidade: https://saudediagnostica.com/radiant/privacidade/
+
 ---
+
+## Imagem das assinaturas (App Store Connect, opcional)
+
+**Hoje as duas assinaturas não têm imagem, e isso é de propósito.** A Apple
+reprovou a `1.4.0 (12)` em 2026-10-10, pela diretriz 2.3.2, porque a imagem de
+1024 × 1024 do Mensal e do Anual era o ícone do app, e a mesma nos dois. Esse
+campo só serve para promover a compra na página da App Store e para ofertas de
+reconquista ou de código, e nenhuma das duas está ligada. O dono apagou as
+imagens em 2026-10-11. Se um dia houver promoção ou oferta, cada plano precisa
+de uma imagem própria, diferente do ícone e da do outro plano, que represente a
+compra (vidas ilimitadas).
 
 ## Keywords (App Store, ≤100, separadas por vírgula)
 

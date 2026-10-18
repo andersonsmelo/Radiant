@@ -89,9 +89,11 @@ describe('LessonSummary', () => {
   beforeEach(() => {
     mockAnimateIn.mockClear();
     mockSetValue.mockClear();
+    base.onRate.mockClear();
+    base.onContinue.mockClear();
   });
 
-  it('mostra os dois cards de placar da tentativa', () => {
+  it('mostra os resultados da tentativa', () => {
     render(<LessonSummary {...base} />);
     expect(screen.getByText('9 de 10 corretas')).toBeTruthy();
     expect(screen.getByText('+30 XP nesta tentativa')).toBeTruthy();
@@ -104,13 +106,94 @@ describe('LessonSummary', () => {
     // pisca. Ver Minor do review final.
     render(<LessonSummary {...base} xpAwarded={null} />);
     expect(screen.getByText('Sem XP nesta tentativa')).toBeTruthy();
-    expect(screen.queryByText(/\+0 XP/)).toBeNull();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
   });
 
   it('reconhece a conclusão sem exibir ganho zero de XP', () => {
     render(<LessonSummary {...base} xpAwarded={0} />);
     expect(screen.getByText('Progresso registrado')).toBeTruthy();
-    expect(screen.queryByText(/\+0 XP/)).toBeNull();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
+  });
+
+  it('agrupa cada resultado em uma linha acessível factual', () => {
+    render(<LessonSummary {...base} />);
+    expect(screen.getByLabelText('Respostas corretas: 9 de 10 corretas')).toBeTruthy();
+    expect(screen.getByLabelText('XP: +30 XP nesta tentativa')).toBeTruthy();
+    expect(screen.getByLabelText('Progresso da unidade: 7 de 14 etapas')).toBeTruthy();
+  });
+
+  it('mantém a celebração no conteúdo rolável junto dos resultados', () => {
+    render(<LessonSummary {...base} />);
+    const pixel = screen.getByLabelText('Pixel comemorando');
+    let ancestor = pixel.parent;
+    while (ancestor && ancestor.type !== ScrollView) ancestor = ancestor.parent;
+    expect(ancestor).not.toBeNull();
+  });
+
+  it('permite continuar sem avaliar e usa orientação neutra para os consumidores compartilhados', () => {
+    const onContinue = jest.fn();
+    const onRate = jest.fn();
+    render(<LessonSummary {...base} onContinue={onContinue} onRate={onRate} />);
+    expect(screen.getByText('Avalie a aula')).toBeTruthy();
+    expect(screen.getByText('É opcional')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    expect(onContinue).toHaveBeenCalledTimes(1);
+    expect(onRate).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Continuar' }).props.accessibilityHint)
+      .toBe('Continua o estudo');
+  });
+
+  it('comunica o destino fornecido pelo chamador e preserva o callback', () => {
+    const onContinue = jest.fn();
+    render(<LessonSummary {...base} continueHint="Volta para Estude" onContinue={onContinue} />);
+    const button = screen.getByRole('button', { name: 'Continuar' });
+    expect(button.props.accessibilityHint).toBe('Volta para Estude');
+    fireEvent.press(button);
+    expect(onContinue).toHaveBeenCalledTimes(1);
+  });
+
+  it('preserva uma repetição sem ganho de XP ou nova melhora de estrelas', () => {
+    render(<LessonSummary {...base} xpAwarded={0} starsImproved={false} currentRating={4} />);
+    expect(screen.getByText('Progresso registrado')).toBeTruthy();
+    expect(screen.getByText('7 de 14 etapas')).toBeTruthy();
+    expect(screen.getByText('Você avaliou esta aula com 4 de 5')).toBeTruthy();
+    expect(screen.queryByText(/\+.* XP/)).toBeNull();
+    expect(mockAnimateIn).not.toHaveBeenCalled();
+    expect(base.onRate).not.toHaveBeenCalled();
+    expect(base.onContinue).not.toHaveBeenCalled();
+  });
+
+  it.each([null, undefined])('omite revisão sem intervalo real (%s)', (nextReviewInDays) => {
+    render(<LessonSummary {...base} nextReviewInDays={nextReviewInDays} habitLine={null} />);
+    expect(screen.queryByText(/Próxima revisão/)).toBeNull();
+    expect(screen.queryByText('Meta do dia fechada.')).toBeNull();
+  });
+
+  it.each<[number, string]>([[1, 'dia'], [7, 'dias'], [0, 'dias']])(
+    'usa o intervalo fornecido de %s %s sem fixar um dia', (days, noun) => {
+      render(<LessonSummary {...base} nextReviewInDays={days} />);
+      expect(screen.getByText(`Próxima revisão em ${days} ${noun}`)).toBeTruthy();
+    },
+  );
+
+  // Resumo honesto (ADR de 2026-10-16): as estrelas e a frase são desta
+  // tentativa; o recorde, quando maior, vem numa linha à parte.
+  it('mostra o recorde à parte quando a tentativa ficou abaixo dele', () => {
+    render(<LessonSummary {...base} stars={0} recordStars={3} starsImproved={false} />);
+    expect(screen.getByLabelText('0 de 3 estrelas')).toBeTruthy();
+    expect(screen.getByText('Seu recorde nesta lição: 3 estrelas')).toBeTruthy();
+  });
+
+  it('não repete o recorde quando a tentativa o igualou ou superou', () => {
+    render(<LessonSummary {...base} stars={2} recordStars={2} />);
+    expect(screen.queryByText(/Seu recorde/u)).toBeNull();
+  });
+
+  it('na revisão, diz que a revisão terminou e não pede avaliação de aula', () => {
+    render(<LessonSummary {...base} kind="review" />);
+    expect(screen.getByText('Revisão concluída')).toBeTruthy();
+    expect(screen.queryByText('A lição foi concluída')).toBeNull();
+    expect(screen.queryByText('Avalie a aula')).toBeNull();
   });
 
   it('mostra o progresso da unidade', () => {
@@ -129,7 +212,7 @@ describe('LessonSummary', () => {
     // sem nó correspondente) — nenhum dos dois casos pode produzir o
     // literal "0 de 0 lições" na tela. Ver Achado Importante 2 do review.
     render(<LessonSummary {...base} unitCompleted={0} unitTotal={0} />);
-    expect(screen.queryByText(/de 0 lições/)).toBeNull();
+    expect(screen.queryByText(/de 0 etapas/)).toBeNull();
     expect(screen.queryByText('Progresso da unidade')).toBeNull();
   });
 
@@ -157,6 +240,7 @@ describe('LessonSummary', () => {
     // que já foi respondido é incoerente com "Você avaliou esta aula...".
     rerender(<LessonSummary {...base} currentRating={4} />);
     expect(screen.queryByText('Avalie a aula')).toBeNull();
+    expect(screen.queryByText('É opcional')).toBeNull();
   });
 
   it('reserva no scroll espaço suficiente para o botão fixo não cobrir o fim do conteúdo', () => {

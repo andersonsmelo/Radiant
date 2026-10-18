@@ -44,6 +44,23 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+# O prazo de 120 s não substitui a espera: a trilha já está na árvore (o
+# `assertVisible` acima), e o cabeçalho existe, só que acima da dobra. Medido em
+# 2026-10-16: com o fundo animado a tela não assenta, cada tentativa custa ~8 s,
+# e depois da 1ª lição o convite do lembrete sobe por cima do cabeçalho. Como a
+# trilha abre no PRÓXIMO, a distância cresce a cada lição: as oito rolagens
+# levaram 0,1 / 8 / 17 / 25 / 33 / 33 / 41 / 50 s. Os 20 s padrão acabaram na 4ª
+# com o cabeçalho já na tela, e 60 s deixariam a 8ª com 10 s de folga.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Unidade 1 ────────────────────────────────────────────────────────────────
@@ -75,7 +92,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-q1:option:1'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 # O passo de reforço depois de uma pergunta respondida mostra o feedback da
 # resposta, não o título do payload. A ação de rodapé é o que sempre existe.
 - assertVisible: Concluir e voltar
@@ -85,25 +102,28 @@ tags:
 # medido em 2026-09-28, no simulador, parava aqui.
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 2 ───────────────────────────────────────────────────────────
 # Sem checkpoint entre as lições (ADR de 2026-09-28): o próximo nó recomendado é
-# a lição seguinte, e o CTA da home diz "Continuar jornada". Ele renderiza
-# depois do mapa inteiro, abaixo da dobra. É um AppButton: iOS colapsa a
-# subárvore e o nó expõe só `accessibilityText`, com `text` vazio —
-# `scrollUntilVisible` casa com `element.text` e nunca resolve aqui, enquanto
-# `visible`/`tapOn` casam. Daí o `repeat` guardado.
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-# A guarda para no instante em que o CTA entra na árvore, o que num emulador
-# rápido o deixa descansando SOB a tab bar flutuante. Uma rolagem a mais o
-# levanta antes do toque.
-- scroll
+# a lição seguinte, e o CTA da home diz "Continuar jornada". Centralizar o
+# botão do header rolável antes de tocar preserva alcance em telas curtas.
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 2 ────────────────────────────────────────────────────────────────
@@ -120,21 +140,30 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ct-q3:option:2'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 3 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 3 ────────────────────────────────────────────────────────────────
@@ -151,21 +180,30 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 4 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 4 ────────────────────────────────────────────────────────────────
@@ -182,21 +220,30 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:energia-e-materia:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 5 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 5 ────────────────────────────────────────────────────────────────
@@ -213,21 +260,30 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 6 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 6 ────────────────────────────────────────────────────────────────
@@ -244,21 +300,30 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:radioatividade-particulas-e-atividade:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── Para a lição 7 ───────────────────────────────────────────────────────────
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 
 # ── Unidade 7 — a última lição, a que destrava ───────────────────────────────
@@ -275,11 +340,21 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: 'lesson-option-ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0'
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
 - tapOn: Continuar
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
+    timeout: 120000
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # ── A conquista destravou ────────────────────────────────────────────────────
@@ -289,17 +364,23 @@ tags:
 # `requiresNodeIds: [node:<última lição>]` está satisfeito. As seis lições
 # anteriores nunca produziram este rótulo — cada uma produziu "Abrir
 # checkpoint". O rótulo é a regra falando.
-- repeat:
-    times: 15
-    while:
-      notVisible: Receber conquista
-    commands:
-      - scroll
-- scroll
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Receber conquista
 - assertVisible: Conquista da unidade
 # O espelho exato da asserção do flow irmão: lá, "Bloqueada até a unidade
 # fechar"; aqui, o mesmo `GalaxyStatRow` dizendo o contrário sobre o mesmo nó.
+# Em telas curtas, alcançar a linha pelo rótulo acessível antes de afirmar.
+- repeat:
+    times: 10
+    while:
+      notVisible: Pronta para ser coletada
+    commands:
+      - scroll
 - assertVisible: Pronta para ser coletada
 # 8 nós primários na unidade (7 lições + o reward); 7 feitos. Eram 14 até a
 # ADR de 2026-09-28, com os 6 checkpoints. Este número é o que separa "a tela

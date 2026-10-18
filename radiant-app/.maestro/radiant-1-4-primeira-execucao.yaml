@@ -9,7 +9,7 @@ tags:
 # → tela de conclusão → trilha com a L1 concluída.
 #
 # O fim do flow é também o DIA 1 do caminho 2: a L1 concluída agenda a revisão
-# para dali a 1 dia, e a trilha ainda a mostra bloqueada. O
+# para dali a 1 dia, e a trilha informa a data em que ficará disponível. O
 # `radiant-1-4-segundo-dia.yaml` parte deste estado, sem clearState.
 - launchApp:
     clearState: true
@@ -37,7 +37,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:1
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Resposta correta
 # Acerto não debita vida.
 - assertVisible: '5 de 5 vidas'
@@ -45,7 +45,12 @@ tags:
 # A conclusão é um estado da tela da lição desde a 1.4; antes, o último passo
 # devolvia o aluno à aba em silêncio.
 - assertVisible: A lição foi concluída
-- assertVisible: 1 de 1 corretas
+- assertVisible: 'Respostas corretas: 1 de 1 corretas'
+- scrollUntilVisible:
+    element: '^Próxima revisão em \d+ (dia|dias)$'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
 # O número de dias NÃO é afirmado. Medido em 2026-09-24 (1 de 3 execuções):
 # o texto disse "2 dias" para uma revisão que vence em exatas 24 h, porque o
 # cartão do SM-2 carimba o próprio relógio 1 ms depois do `answeredAt`, e
@@ -56,6 +61,25 @@ tags:
 - tapOn: Continuar
 # De volta à trilha: a L1 concluída e a revisão dela agendada, ainda fechada.
 # A contagem de etapas fica em `\d+` porque depende do catálogo, não do flow.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. 1 de \d+ etapas concluídas\.$'
+- scrollUntilVisible:
+    element: '^Fundamentos de Radiologia\. Concluído\.$'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^Fundamentos de Radiologia\. Concluído\.$'
-- assertVisible: '^Revisar Fundamentos de Radiologia\. Bloqueado\.$'
+- scrollUntilVisible:
+    element: '^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$'
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 100
+- assertVisible: '^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$'

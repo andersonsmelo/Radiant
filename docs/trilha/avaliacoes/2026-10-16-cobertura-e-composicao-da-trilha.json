@@ -1,0 +1,2862 @@
+{
+  "schemaVersion": 3,
+  "authorship": {
+    "ai": "OpenAI Codex",
+    "model": "GPT-6 family; exact variant not exposed"
+  },
+  "evidenceGrade": "code",
+  "method": "Execute trusted local source modules, substitute only the offline LessonCatalogService port, audit prerequisites, resolve all lesson/review/checkpoint nodes, and link items to declared competencies/sources/claims without clinical or licensing revalidation.",
+  "measuredAtUtc": "2026-10-16T23:32:35.217Z",
+  "timezoneForInterpretation": "America/Bahia",
+  "head": "2c1b5f0bccf15d1fbf5b9dd7a48d51bd0d85e24b",
+  "scope": "Offline local manifest port; real composition, journey builder, lesson-flow resolver and adapter. Graph reachability assuming prerequisites completed; not device availability, remote hydration, clinical validation or learning efficacy.",
+  "legacy": {
+    "lessons": 18,
+    "questions": 38,
+    "imageQuestions": 0,
+    "correctLongestIncludingTies": 22,
+    "correctStrictLongest": 21,
+    "authoredJourneyIntro": 2,
+    "aiOnly": {
+      "lessons": 16,
+      "questions": 32,
+      "imageQuestions": 0,
+      "correctLongestIncludingTies": 19,
+      "correctStrictLongest": 18
+    },
+    "tracks": [
+      {
+        "id": "track-radiology-foundations",
+        "slug": "fundamentos",
+        "title": "Fundamentos de Radiologia",
+        "lessons": 7,
+        "questions": 16,
+        "nodesFromJourneyService": 15
+      },
+      {
+        "id": "track-thorax-patterns",
+        "slug": "torax",
+        "title": "Radiação, Modalidades e Equipamento",
+        "lessons": 6,
+        "questions": 12,
+        "nodesFromJourneyService": 13
+      },
+      {
+        "id": "track-abdomen-essentials",
+        "slug": "abdome",
+        "title": "Prática, Qualidade e Profissão",
+        "lessons": 5,
+        "questions": 10,
+        "nodesFromJourneyService": 11
+      }
+    ]
+  },
+  "production": [
+    {
+      "id": "track:fundamentos-e-seguranca-radiologica",
+      "title": "Matéria, energia e radiação",
+      "activities": 12,
+      "nodes": 18
+    }
+  ],
+  "facade": {
+    "tracks": 4,
+    "lessonSummaries": 30
+  },
+  "reachability": {
+    "issues": [],
+    "tracks": [
+      {
+        "trackId": "track-radiology-foundations",
+        "nodes": 15,
+        "structurallyReachableNodes": 15,
+        "resolvedActivityNodes": 14,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 7,
+          "review": 7,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 14
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 14
+        },
+        "competencyIds": [
+          "competency:legacy:lesson-1",
+          "competency:legacy:lesson-2",
+          "competency:legacy:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+          "competency:legacy:ai-lesson:energia-e-materia",
+          "competency:legacy:ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+          "competency:legacy:ai-lesson:radioatividade-particulas-e-atividade",
+          "competency:legacy:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "sourceIds": [
+          "lesson-1",
+          "lesson-2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+          "ai-lesson:energia-e-materia",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+          "ai-lesson:radioatividade-particulas-e-atividade",
+          "ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "q1:option:0",
+          "q1:option:1",
+          "q1:option:2",
+          "q1:option:3",
+          "q2:option:0",
+          "q2:option:1",
+          "q2:option:2",
+          "q2:option:3",
+          "ct-q3:option:0",
+          "ct-q3:option:1",
+          "ct-q3:option:2",
+          "ct-q3:option:3",
+          "ct-q1:option:0",
+          "ct-q1:option:1",
+          "ct-q1:option:2",
+          "ct-q1:option:3",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:0",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:1",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q1:option:3",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:0",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:1",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:2",
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:q2:option:3",
+          "ai-lesson:energia-e-materia:q1:option:0",
+          "ai-lesson:energia-e-materia:q1:option:1",
+          "ai-lesson:energia-e-materia:q1:option:2",
+          "ai-lesson:energia-e-materia:q1:option:3",
+          "ai-lesson:energia-e-materia:q2:option:0",
+          "ai-lesson:energia-e-materia:q2:option:1",
+          "ai-lesson:energia-e-materia:q2:option:2",
+          "ai-lesson:energia-e-materia:q2:option:3",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:0",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:1",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:2",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q1:option:3",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:0",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:1",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:2",
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico:q2:option:3",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:0",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:1",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:2",
+          "ai-lesson:radioatividade-particulas-e-atividade:q1:option:3",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:0",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:1",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:2",
+          "ai-lesson:radioatividade-particulas-e-atividade:q2:option:3",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:0",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:1",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:2",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q1:option:3",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:0",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:1",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:2",
+          "ai-lesson:raios-x-descoberta-e-propriedades:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track-thorax-patterns",
+        "nodes": 13,
+        "structurallyReachableNodes": 13,
+        "resolvedActivityNodes": 12,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 6,
+          "review": 6,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 12
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 12
+        },
+        "competencyIds": [
+          "competency:legacy:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+          "competency:legacy:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+          "competency:legacy:ai-lesson:tomografia-computadorizada",
+          "competency:legacy:ai-lesson:ressonancia-magnetica",
+          "competency:legacy:ai-lesson:equipamentos-de-radiologia-convencional",
+          "competency:legacy:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "sourceIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+          "ai-lesson:tomografia-computadorizada",
+          "ai-lesson:ressonancia-magnetica",
+          "ai-lesson:equipamentos-de-radiologia-convencional",
+          "ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:0",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:1",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:2",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q1:option:3",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:0",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:1",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:2",
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:q2:option:3",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:0",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:1",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:2",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q1:option:3",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:0",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:1",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:2",
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:q2:option:3",
+          "ai-lesson:tomografia-computadorizada:q1:option:0",
+          "ai-lesson:tomografia-computadorizada:q1:option:1",
+          "ai-lesson:tomografia-computadorizada:q1:option:2",
+          "ai-lesson:tomografia-computadorizada:q1:option:3",
+          "ai-lesson:tomografia-computadorizada:q2:option:0",
+          "ai-lesson:tomografia-computadorizada:q2:option:1",
+          "ai-lesson:tomografia-computadorizada:q2:option:2",
+          "ai-lesson:tomografia-computadorizada:q2:option:3",
+          "ai-lesson:ressonancia-magnetica:q1:option:0",
+          "ai-lesson:ressonancia-magnetica:q1:option:1",
+          "ai-lesson:ressonancia-magnetica:q1:option:2",
+          "ai-lesson:ressonancia-magnetica:q1:option:3",
+          "ai-lesson:ressonancia-magnetica:q2:option:0",
+          "ai-lesson:ressonancia-magnetica:q2:option:1",
+          "ai-lesson:ressonancia-magnetica:q2:option:2",
+          "ai-lesson:ressonancia-magnetica:q2:option:3",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:0",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:1",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:2",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q1:option:3",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:0",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:1",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:2",
+          "ai-lesson:equipamentos-de-radiologia-convencional:q2:option:3",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:0",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:1",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:2",
+          "ai-lesson:componentes-basicos-do-equipamento:q1:option:3",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:0",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:1",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:2",
+          "ai-lesson:componentes-basicos-do-equipamento:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track-abdomen-essentials",
+        "nodes": 11,
+        "structurallyReachableNodes": 11,
+        "resolvedActivityNodes": 10,
+        "resolvedCheckpointNodes": 0,
+        "checkpointItems": 0,
+        "nodeTypes": {
+          "lesson": 5,
+          "review": 5,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 10
+        },
+        "evidenceKinds": {
+          "legacy-lesson-recall": 10
+        },
+        "competencyIds": [
+          "competency:legacy:ai-lesson:preservacao-de-alimentos-por-irradicao",
+          "competency:legacy:ai-lesson:acessorios-radiologicos",
+          "competency:legacy:ai-lesson:processamento-radiografico",
+          "competency:legacy:ai-lesson:producao-dos-raios-x",
+          "competency:legacy:ai-lesson:qualidade-de-imagem"
+        ],
+        "sourceIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao",
+          "ai-lesson:acessorios-radiologicos",
+          "ai-lesson:processamento-radiografico",
+          "ai-lesson:producao-dos-raios-x",
+          "ai-lesson:qualidade-de-imagem"
+        ],
+        "contentVersions": [
+          "legacy-lesson-catalog"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:0",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:1",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:2",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q1:option:3",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:0",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:1",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:2",
+          "ai-lesson:preservacao-de-alimentos-por-irradicao:q2:option:3",
+          "ai-lesson:acessorios-radiologicos:q1:option:0",
+          "ai-lesson:acessorios-radiologicos:q1:option:1",
+          "ai-lesson:acessorios-radiologicos:q1:option:2",
+          "ai-lesson:acessorios-radiologicos:q1:option:3",
+          "ai-lesson:acessorios-radiologicos:q2:option:0",
+          "ai-lesson:acessorios-radiologicos:q2:option:1",
+          "ai-lesson:acessorios-radiologicos:q2:option:2",
+          "ai-lesson:acessorios-radiologicos:q2:option:3",
+          "ai-lesson:processamento-radiografico:q1:option:0",
+          "ai-lesson:processamento-radiografico:q1:option:1",
+          "ai-lesson:processamento-radiografico:q1:option:2",
+          "ai-lesson:processamento-radiografico:q1:option:3",
+          "ai-lesson:processamento-radiografico:q2:option:0",
+          "ai-lesson:processamento-radiografico:q2:option:1",
+          "ai-lesson:processamento-radiografico:q2:option:2",
+          "ai-lesson:processamento-radiografico:q2:option:3",
+          "ai-lesson:producao-dos-raios-x:q1:option:0",
+          "ai-lesson:producao-dos-raios-x:q1:option:1",
+          "ai-lesson:producao-dos-raios-x:q1:option:2",
+          "ai-lesson:producao-dos-raios-x:q1:option:3",
+          "ai-lesson:producao-dos-raios-x:q2:option:0",
+          "ai-lesson:producao-dos-raios-x:q2:option:1",
+          "ai-lesson:producao-dos-raios-x:q2:option:2",
+          "ai-lesson:producao-dos-raios-x:q2:option:3",
+          "ai-lesson:qualidade-de-imagem:q1:option:0",
+          "ai-lesson:qualidade-de-imagem:q1:option:1",
+          "ai-lesson:qualidade-de-imagem:q1:option:2",
+          "ai-lesson:qualidade-de-imagem:q1:option:3",
+          "ai-lesson:qualidade-de-imagem:q2:option:0",
+          "ai-lesson:qualidade-de-imagem:q2:option:1",
+          "ai-lesson:qualidade-de-imagem:q2:option:2",
+          "ai-lesson:qualidade-de-imagem:q2:option:3"
+        ]
+      },
+      {
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "nodes": 18,
+        "structurallyReachableNodes": 18,
+        "resolvedActivityNodes": 12,
+        "resolvedCheckpointNodes": 5,
+        "checkpointItems": 10,
+        "nodeTypes": {
+          "lesson": 12,
+          "checkpoint": 5,
+          "reward": 1
+        },
+        "interactionTypes": {
+          "multiple-choice": 12
+        },
+        "evidenceKinds": {
+          "guided-practice": 7,
+          "independent-recall": 4,
+          "applied-transfer": 1
+        },
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao",
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia",
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro",
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s7",
+          "source:h4:s2",
+          "source:h4:s4",
+          "source:h4:s3",
+          "source:h4:s5",
+          "source:h4:s6",
+          "source:h4:s8"
+        ],
+        "contentVersions": [
+          "h4-materia-energia-e-radiacao-candidate-2026-08-13"
+        ],
+        "presentationMediaRefs": [],
+        "multipleChoiceOptionIds": [
+          "activity:materia-energia-e-radiacao:01:option:1",
+          "activity:materia-energia-e-radiacao:01:option:2",
+          "activity:materia-energia-e-radiacao:01:option:3",
+          "activity:materia-energia-e-radiacao:01:option:4",
+          "activity:materia-energia-e-radiacao:02:option:1",
+          "activity:materia-energia-e-radiacao:02:option:2",
+          "activity:materia-energia-e-radiacao:02:option:3",
+          "activity:materia-energia-e-radiacao:02:option:4",
+          "activity:materia-energia-e-radiacao:03:option:1",
+          "activity:materia-energia-e-radiacao:03:option:2",
+          "activity:materia-energia-e-radiacao:03:option:3",
+          "activity:materia-energia-e-radiacao:03:option:4",
+          "activity:materia-energia-e-radiacao:04:option:1",
+          "activity:materia-energia-e-radiacao:04:option:2",
+          "activity:materia-energia-e-radiacao:04:option:3",
+          "activity:materia-energia-e-radiacao:04:option:4",
+          "activity:materia-energia-e-radiacao:05:option:1",
+          "activity:materia-energia-e-radiacao:05:option:2",
+          "activity:materia-energia-e-radiacao:05:option:3",
+          "activity:materia-energia-e-radiacao:05:option:4",
+          "activity:materia-energia-e-radiacao:06:option:1",
+          "activity:materia-energia-e-radiacao:06:option:2",
+          "activity:materia-energia-e-radiacao:06:option:3",
+          "activity:materia-energia-e-radiacao:06:option:4",
+          "activity:materia-energia-e-radiacao:07:option:1",
+          "activity:materia-energia-e-radiacao:07:option:2",
+          "activity:materia-energia-e-radiacao:07:option:3",
+          "activity:materia-energia-e-radiacao:07:option:4",
+          "activity:materia-energia-e-radiacao:08:option:1",
+          "activity:materia-energia-e-radiacao:08:option:2",
+          "activity:materia-energia-e-radiacao:08:option:3",
+          "activity:materia-energia-e-radiacao:08:option:4",
+          "activity:materia-energia-e-radiacao:09:option:1",
+          "activity:materia-energia-e-radiacao:09:option:2",
+          "activity:materia-energia-e-radiacao:09:option:3",
+          "activity:materia-energia-e-radiacao:09:option:4",
+          "activity:materia-energia-e-radiacao:10:option:1",
+          "activity:materia-energia-e-radiacao:10:option:2",
+          "activity:materia-energia-e-radiacao:10:option:3",
+          "activity:materia-energia-e-radiacao:10:option:4",
+          "activity:materia-energia-e-radiacao:11:option:1",
+          "activity:materia-energia-e-radiacao:11:option:2",
+          "activity:materia-energia-e-radiacao:11:option:3",
+          "activity:materia-energia-e-radiacao:11:option:4",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:option:2",
+          "activity:materia-energia-e-radiacao:12:option:3",
+          "activity:materia-energia-e-radiacao:12:option:4"
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "summary": {
+      "promotedPracticeItems": 12,
+      "promotedCheckpointItems": 10,
+      "legacyItems": 36,
+      "checkpointItemsWithNodes": 10,
+      "declaredSources": 8,
+      "declaredCompetencies": 5,
+      "expectedClaims": 154,
+      "matchedClaims": 154,
+      "sourceBackedClaims": 88,
+      "authorialDistractorClaims": 66
+    },
+    "issues": [],
+    "gaps": [
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "lesson-1-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-lesson-1-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "lesson-2-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-lesson-2-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:energia-e-materia-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:energia-e-materia-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:estrutura-da-materia-e-nucleo-atomico-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:estrutura-da-materia-e-nucleo-atomico-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:radioatividade-particulas-e-atividade-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:radioatividade-particulas-e-atividade-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:raios-x-descoberta-e-propriedades-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:raios-x-descoberta-e-propriedades-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:tomografia-computadorizada-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:tomografia-computadorizada-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:ressonancia-magnetica-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:ressonancia-magnetica-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:equipamentos-de-radiologia-convencional-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:equipamentos-de-radiologia-convencional-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:componentes-basicos-do-equipamento-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:componentes-basicos-do-equipamento-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:preservacao-de-alimentos-por-irradicao-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:preservacao-de-alimentos-por-irradicao-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:acessorios-radiologicos-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:acessorios-radiologicos-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:processamento-radiografico-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:processamento-radiografico-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:producao-dos-raios-x-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:producao-dos-raios-x-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "ai-lesson:qualidade-de-imagem-question"
+      },
+      {
+        "code": "legacy-without-editorial-mapping",
+        "id": "review-ai-lesson:qualidade-de-imagem-question"
+      }
+    ],
+    "items": [
+      {
+        "id": "activity:materia-energia-e-radiacao:01:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:01",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:01"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s7"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:01:prompt",
+          "activity:materia-energia-e-radiacao:01:option:1",
+          "activity:materia-energia-e-radiacao:01:option:2",
+          "activity:materia-energia-e-radiacao:01:option:3",
+          "activity:materia-energia-e-radiacao:01:option:4",
+          "activity:materia-energia-e-radiacao:01:feedback:correct",
+          "activity:materia-energia-e-radiacao:01:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:02:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:02",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:02"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "independent-recall",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:02:prompt",
+          "activity:materia-energia-e-radiacao:02:option:1",
+          "activity:materia-energia-e-radiacao:02:option:2",
+          "activity:materia-energia-e-radiacao:02:option:3",
+          "activity:materia-energia-e-radiacao:02:option:4",
+          "activity:materia-energia-e-radiacao:02:feedback:correct",
+          "activity:materia-energia-e-radiacao:02:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:03:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:03",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:03"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:03:prompt",
+          "activity:materia-energia-e-radiacao:03:option:1",
+          "activity:materia-energia-e-radiacao:03:option:2",
+          "activity:materia-energia-e-radiacao:03:option:3",
+          "activity:materia-energia-e-radiacao:03:option:4",
+          "activity:materia-energia-e-radiacao:03:feedback:correct",
+          "activity:materia-energia-e-radiacao:03:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:04:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:04",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:04"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "sourceIds": [
+          "source:h4:s2",
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:04:prompt",
+          "activity:materia-energia-e-radiacao:04:option:1",
+          "activity:materia-energia-e-radiacao:04:option:2",
+          "activity:materia-energia-e-radiacao:04:option:3",
+          "activity:materia-energia-e-radiacao:04:option:4",
+          "activity:materia-energia-e-radiacao:04:feedback:correct",
+          "activity:materia-energia-e-radiacao:04:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:05:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:05",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:05"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "sourceIds": [
+          "source:h4:s2",
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "independent-recall",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:05:prompt",
+          "activity:materia-energia-e-radiacao:05:option:1",
+          "activity:materia-energia-e-radiacao:05:option:2",
+          "activity:materia-energia-e-radiacao:05:option:3",
+          "activity:materia-energia-e-radiacao:05:option:4",
+          "activity:materia-energia-e-radiacao:05:feedback:correct",
+          "activity:materia-energia-e-radiacao:05:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:06:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:06",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:06"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "sourceIds": [
+          "source:h4:s3"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:06:prompt",
+          "activity:materia-energia-e-radiacao:06:option:1",
+          "activity:materia-energia-e-radiacao:06:option:2",
+          "activity:materia-energia-e-radiacao:06:option:3",
+          "activity:materia-energia-e-radiacao:06:option:4",
+          "activity:materia-energia-e-radiacao:06:feedback:correct",
+          "activity:materia-energia-e-radiacao:06:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:07:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:07",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:07"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "sourceIds": [
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "independent-recall",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:07:prompt",
+          "activity:materia-energia-e-radiacao:07:option:1",
+          "activity:materia-energia-e-radiacao:07:option:2",
+          "activity:materia-energia-e-radiacao:07:option:3",
+          "activity:materia-energia-e-radiacao:07:option:4",
+          "activity:materia-energia-e-radiacao:07:feedback:correct",
+          "activity:materia-energia-e-radiacao:07:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:08:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:08",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:08"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "sourceIds": [
+          "source:h4:s3",
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:08:prompt",
+          "activity:materia-energia-e-radiacao:08:option:1",
+          "activity:materia-energia-e-radiacao:08:option:2",
+          "activity:materia-energia-e-radiacao:08:option:3",
+          "activity:materia-energia-e-radiacao:08:option:4",
+          "activity:materia-energia-e-radiacao:08:feedback:correct",
+          "activity:materia-energia-e-radiacao:08:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:09:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:09",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:09"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "sourceIds": [
+          "source:h4:s5"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:09:prompt",
+          "activity:materia-energia-e-radiacao:09:option:1",
+          "activity:materia-energia-e-radiacao:09:option:2",
+          "activity:materia-energia-e-radiacao:09:option:3",
+          "activity:materia-energia-e-radiacao:09:option:4",
+          "activity:materia-energia-e-radiacao:09:feedback:correct",
+          "activity:materia-energia-e-radiacao:09:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:10:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:10",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:10"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "sourceIds": [
+          "source:h4:s5",
+          "source:h4:s6"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "independent-recall",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:10:prompt",
+          "activity:materia-energia-e-radiacao:10:option:1",
+          "activity:materia-energia-e-radiacao:10:option:2",
+          "activity:materia-energia-e-radiacao:10:option:3",
+          "activity:materia-energia-e-radiacao:10:option:4",
+          "activity:materia-energia-e-radiacao:10:feedback:correct",
+          "activity:materia-energia-e-radiacao:10:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:11:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:11",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:11"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s6",
+          "source:h4:s7"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "guided-practice",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:11:prompt",
+          "activity:materia-energia-e-radiacao:11:option:1",
+          "activity:materia-energia-e-radiacao:11:option:2",
+          "activity:materia-energia-e-radiacao:11:option:3",
+          "activity:materia-energia-e-radiacao:11:option:4",
+          "activity:materia-energia-e-radiacao:11:feedback:correct",
+          "activity:materia-energia-e-radiacao:11:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "activity:materia-energia-e-radiacao:12:interaction",
+        "kind": "practice-interaction",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": "activity:materia-energia-e-radiacao:12",
+        "nodeIds": [
+          "node:activity:materia-energia-e-radiacao:12"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s6",
+          "source:h4:s7",
+          "source:h4:s8"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "applied-transfer",
+        "expectedClaimIds": [
+          "activity:materia-energia-e-radiacao:12:prompt",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:option:2",
+          "activity:materia-energia-e-radiacao:12:option:3",
+          "activity:materia-energia-e-radiacao:12:option:4",
+          "activity:materia-energia-e-radiacao:12:feedback:correct",
+          "activity:materia-energia-e-radiacao:12:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:01",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:01:prompt",
+          "checkpoint:materia-energia-e-radiacao:01:option:1",
+          "checkpoint:materia-energia-e-radiacao:01:option:2",
+          "checkpoint:materia-energia-e-radiacao:01:option:3",
+          "checkpoint:materia-energia-e-radiacao:01:option:4",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:02",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao"
+        ],
+        "sourceIds": [
+          "source:h4:s2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:02:prompt",
+          "checkpoint:materia-energia-e-radiacao:02:option:1",
+          "checkpoint:materia-energia-e-radiacao:02:option:2",
+          "checkpoint:materia-energia-e-radiacao:02:option:3",
+          "checkpoint:materia-energia-e-radiacao:02:option:4",
+          "checkpoint:materia-energia-e-radiacao:02:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:02:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:03",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "sourceIds": [
+          "source:h4:s2",
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:03:prompt",
+          "checkpoint:materia-energia-e-radiacao:03:option:1",
+          "checkpoint:materia-energia-e-radiacao:03:option:2",
+          "checkpoint:materia-energia-e-radiacao:03:option:3",
+          "checkpoint:materia-energia-e-radiacao:03:option:4",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:04",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante"
+        ],
+        "sourceIds": [
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:04:prompt",
+          "checkpoint:materia-energia-e-radiacao:04:option:1",
+          "checkpoint:materia-energia-e-radiacao:04:option:2",
+          "checkpoint:materia-energia-e-radiacao:04:option:3",
+          "checkpoint:materia-energia-e-radiacao:04:option:4",
+          "checkpoint:materia-energia-e-radiacao:04:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:04:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:05",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "sourceIds": [
+          "source:h4:s3",
+          "source:h4:s4"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:05:prompt",
+          "checkpoint:materia-energia-e-radiacao:05:option:1",
+          "checkpoint:materia-energia-e-radiacao:05:option:2",
+          "checkpoint:materia-energia-e-radiacao:05:option:3",
+          "checkpoint:materia-energia-e-radiacao:05:option:4",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:06",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia"
+        ],
+        "sourceIds": [
+          "source:h4:s3"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:06:prompt",
+          "checkpoint:materia-energia-e-radiacao:06:option:1",
+          "checkpoint:materia-energia-e-radiacao:06:option:2",
+          "checkpoint:materia-energia-e-radiacao:06:option:3",
+          "checkpoint:materia-energia-e-radiacao:06:option:4",
+          "checkpoint:materia-energia-e-radiacao:06:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:06:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:07",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "sourceIds": [
+          "source:h4:s5"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:07:prompt",
+          "checkpoint:materia-energia-e-radiacao:07:option:1",
+          "checkpoint:materia-energia-e-radiacao:07:option:2",
+          "checkpoint:materia-energia-e-radiacao:07:option:3",
+          "checkpoint:materia-energia-e-radiacao:07:option:4",
+          "checkpoint:materia-energia-e-radiacao:07:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:07:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:08",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:raios-x-no-espectro"
+        ],
+        "sourceIds": [
+          "source:h4:s5",
+          "source:h4:s6"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:08:prompt",
+          "checkpoint:materia-energia-e-radiacao:08:option:1",
+          "checkpoint:materia-energia-e-radiacao:08:option:2",
+          "checkpoint:materia-energia-e-radiacao:08:option:3",
+          "checkpoint:materia-energia-e-radiacao:08:option:4",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:09",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s6",
+          "source:h4:s7",
+          "source:h4:s8"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:09:prompt",
+          "checkpoint:materia-energia-e-radiacao:09:option:1",
+          "checkpoint:materia-energia-e-radiacao:09:option:2",
+          "checkpoint:materia-energia-e-radiacao:09:option:3",
+          "checkpoint:materia-energia-e-radiacao:09:option:4",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "checkpoint:materia-energia-e-radiacao:10",
+        "kind": "checkpoint-item",
+        "provenance": "promoted",
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "trackId": "track:fundamentos-e-seguranca-radiologica",
+        "unitId": "unit:materia-energia-e-radiacao",
+        "activityId": null,
+        "nodeIds": [
+          "node:checkpoint:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "contentVersion": "h4-materia-energia-e-radiacao-candidate-2026-08-13",
+        "competencyIds": [
+          "competency:materia-energia-e-radiacao:atenuacao-como-ponte"
+        ],
+        "sourceIds": [
+          "source:h4:s6",
+          "source:h4:s7",
+          "source:h4:s8"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": null,
+        "expectedClaimIds": [
+          "checkpoint:materia-energia-e-radiacao:10:prompt",
+          "checkpoint:materia-energia-e-radiacao:10:option:1",
+          "checkpoint:materia-energia-e-radiacao:10:option:2",
+          "checkpoint:materia-energia-e-radiacao:10:option:3",
+          "checkpoint:materia-energia-e-radiacao:10:option:4",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:incorrect"
+        ]
+      },
+      {
+        "id": "lesson-1-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:lesson-1:intro",
+        "nodeIds": [
+          "node:lesson-1"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:lesson-1"
+        ],
+        "sourceIds": [
+          "lesson-1"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-lesson-1-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:lesson-1",
+        "nodeIds": [
+          "node:review:lesson-1"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:lesson-1"
+        ],
+        "sourceIds": [
+          "lesson-1"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "lesson-2-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:lesson-2:intro",
+        "nodeIds": [
+          "node:lesson-2"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:lesson-2"
+        ],
+        "sourceIds": [
+          "lesson-2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-lesson-2-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:lesson-2",
+        "nodeIds": [
+          "node:review:lesson-2"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:lesson-2"
+        ],
+        "sourceIds": [
+          "lesson-2"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia:intro",
+        "nodeIds": [
+          "node:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "sourceIds": [
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "nodeIds": [
+          "node:review:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "sourceIds": [
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:energia-e-materia-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:ai-lesson:energia-e-materia:intro",
+        "nodeIds": [
+          "node:ai-lesson:energia-e-materia"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:energia-e-materia"
+        ],
+        "sourceIds": [
+          "ai-lesson:energia-e-materia"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:energia-e-materia-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:ai-lesson:energia-e-materia",
+        "nodeIds": [
+          "node:review:ai-lesson:energia-e-materia"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:energia-e-materia"
+        ],
+        "sourceIds": [
+          "ai-lesson:energia-e-materia"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:estrutura-da-materia-e-nucleo-atomico-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:ai-lesson:estrutura-da-materia-e-nucleo-atomico:intro",
+        "nodeIds": [
+          "node:ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "sourceIds": [
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:estrutura-da-materia-e-nucleo-atomico-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+        "nodeIds": [
+          "node:review:ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "sourceIds": [
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:radioatividade-particulas-e-atividade-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:ai-lesson:radioatividade-particulas-e-atividade:intro",
+        "nodeIds": [
+          "node:ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "sourceIds": [
+          "ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:radioatividade-particulas-e-atividade-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:ai-lesson:radioatividade-particulas-e-atividade",
+        "nodeIds": [
+          "node:review:ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "sourceIds": [
+          "ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:raios-x-descoberta-e-propriedades-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:ai-lesson:raios-x-descoberta-e-propriedades:intro",
+        "nodeIds": [
+          "node:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "sourceIds": [
+          "ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:raios-x-descoberta-e-propriedades-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-radiology-foundations",
+        "unitId": "unit-radiology-foundations-1",
+        "activityId": "activity:legacy:block:review:ai-lesson:raios-x-descoberta-e-propriedades",
+        "nodeIds": [
+          "node:review:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "sourceIds": [
+          "ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica:intro",
+        "nodeIds": [
+          "node:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "sourceIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+        "nodeIds": [
+          "node:review:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "sourceIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear:intro",
+        "nodeIds": [
+          "node:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "sourceIds": [
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "nodeIds": [
+          "node:review:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "sourceIds": [
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:tomografia-computadorizada-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:tomografia-computadorizada:intro",
+        "nodeIds": [
+          "node:ai-lesson:tomografia-computadorizada"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:tomografia-computadorizada"
+        ],
+        "sourceIds": [
+          "ai-lesson:tomografia-computadorizada"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:tomografia-computadorizada-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:tomografia-computadorizada",
+        "nodeIds": [
+          "node:review:ai-lesson:tomografia-computadorizada"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:tomografia-computadorizada"
+        ],
+        "sourceIds": [
+          "ai-lesson:tomografia-computadorizada"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:ressonancia-magnetica-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:ressonancia-magnetica:intro",
+        "nodeIds": [
+          "node:ai-lesson:ressonancia-magnetica"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:ressonancia-magnetica"
+        ],
+        "sourceIds": [
+          "ai-lesson:ressonancia-magnetica"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:ressonancia-magnetica-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:ressonancia-magnetica",
+        "nodeIds": [
+          "node:review:ai-lesson:ressonancia-magnetica"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:ressonancia-magnetica"
+        ],
+        "sourceIds": [
+          "ai-lesson:ressonancia-magnetica"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:equipamentos-de-radiologia-convencional-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:equipamentos-de-radiologia-convencional:intro",
+        "nodeIds": [
+          "node:ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "sourceIds": [
+          "ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:equipamentos-de-radiologia-convencional-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:equipamentos-de-radiologia-convencional",
+        "nodeIds": [
+          "node:review:ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "sourceIds": [
+          "ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:componentes-basicos-do-equipamento-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:ai-lesson:componentes-basicos-do-equipamento:intro",
+        "nodeIds": [
+          "node:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "sourceIds": [
+          "ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:componentes-basicos-do-equipamento-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-thorax-patterns",
+        "unitId": "unit:track-thorax-patterns",
+        "activityId": "activity:legacy:block:review:ai-lesson:componentes-basicos-do-equipamento",
+        "nodeIds": [
+          "node:review:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "sourceIds": [
+          "ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:preservacao-de-alimentos-por-irradicao-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:ai-lesson:preservacao-de-alimentos-por-irradicao:intro",
+        "nodeIds": [
+          "node:ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "sourceIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:preservacao-de-alimentos-por-irradicao-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:review:ai-lesson:preservacao-de-alimentos-por-irradicao",
+        "nodeIds": [
+          "node:review:ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "sourceIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:acessorios-radiologicos-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:ai-lesson:acessorios-radiologicos:intro",
+        "nodeIds": [
+          "node:ai-lesson:acessorios-radiologicos"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:acessorios-radiologicos"
+        ],
+        "sourceIds": [
+          "ai-lesson:acessorios-radiologicos"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:acessorios-radiologicos-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:review:ai-lesson:acessorios-radiologicos",
+        "nodeIds": [
+          "node:review:ai-lesson:acessorios-radiologicos"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:acessorios-radiologicos"
+        ],
+        "sourceIds": [
+          "ai-lesson:acessorios-radiologicos"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:processamento-radiografico-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:ai-lesson:processamento-radiografico:intro",
+        "nodeIds": [
+          "node:ai-lesson:processamento-radiografico"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:processamento-radiografico"
+        ],
+        "sourceIds": [
+          "ai-lesson:processamento-radiografico"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:processamento-radiografico-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:review:ai-lesson:processamento-radiografico",
+        "nodeIds": [
+          "node:review:ai-lesson:processamento-radiografico"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:processamento-radiografico"
+        ],
+        "sourceIds": [
+          "ai-lesson:processamento-radiografico"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:producao-dos-raios-x-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:ai-lesson:producao-dos-raios-x:intro",
+        "nodeIds": [
+          "node:ai-lesson:producao-dos-raios-x"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:producao-dos-raios-x"
+        ],
+        "sourceIds": [
+          "ai-lesson:producao-dos-raios-x"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:producao-dos-raios-x-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:review:ai-lesson:producao-dos-raios-x",
+        "nodeIds": [
+          "node:review:ai-lesson:producao-dos-raios-x"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:producao-dos-raios-x"
+        ],
+        "sourceIds": [
+          "ai-lesson:producao-dos-raios-x"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "ai-lesson:qualidade-de-imagem-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:ai-lesson:qualidade-de-imagem:intro",
+        "nodeIds": [
+          "node:ai-lesson:qualidade-de-imagem"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:qualidade-de-imagem"
+        ],
+        "sourceIds": [
+          "ai-lesson:qualidade-de-imagem"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      },
+      {
+        "id": "review-ai-lesson:qualidade-de-imagem-question",
+        "kind": "practice-interaction",
+        "provenance": "legacy-unmapped",
+        "batchId": null,
+        "trackId": "track-abdomen-essentials",
+        "unitId": "unit:track-abdomen-essentials",
+        "activityId": "activity:legacy:block:review:ai-lesson:qualidade-de-imagem",
+        "nodeIds": [
+          "node:review:ai-lesson:qualidade-de-imagem"
+        ],
+        "contentVersion": "legacy-lesson-catalog",
+        "competencyIds": [
+          "competency:legacy:ai-lesson:qualidade-de-imagem"
+        ],
+        "sourceIds": [
+          "ai-lesson:qualidade-de-imagem"
+        ],
+        "interactionType": "multiple-choice",
+        "evidenceKind": "legacy-lesson-recall",
+        "expectedClaimIds": []
+      }
+    ],
+    "competencies": [
+      {
+        "id": "competency:materia-energia-e-radiacao:estrutura-atomica-e-ionizacao",
+        "classification": "declared",
+        "practiceItemIds": [
+          "activity:materia-energia-e-radiacao:01:interaction",
+          "activity:materia-energia-e-radiacao:02:interaction",
+          "activity:materia-energia-e-radiacao:03:interaction"
+        ],
+        "checkpointItemIds": [
+          "checkpoint:materia-energia-e-radiacao:01",
+          "checkpoint:materia-energia-e-radiacao:02"
+        ],
+        "sourceIds": [
+          "source:h4:s1",
+          "source:h4:s7",
+          "source:h4:s2"
+        ],
+        "evidenceKinds": [
+          "guided-practice",
+          "independent-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:materia-energia-e-radiacao:ionizante-e-nao-ionizante",
+        "classification": "declared",
+        "practiceItemIds": [
+          "activity:materia-energia-e-radiacao:04:interaction",
+          "activity:materia-energia-e-radiacao:05:interaction"
+        ],
+        "checkpointItemIds": [
+          "checkpoint:materia-energia-e-radiacao:03",
+          "checkpoint:materia-energia-e-radiacao:04"
+        ],
+        "sourceIds": [
+          "source:h4:s2",
+          "source:h4:s4"
+        ],
+        "evidenceKinds": [
+          "guided-practice",
+          "independent-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:materia-energia-e-radiacao:frequencia-comprimento-e-energia",
+        "classification": "declared",
+        "practiceItemIds": [
+          "activity:materia-energia-e-radiacao:06:interaction",
+          "activity:materia-energia-e-radiacao:07:interaction",
+          "activity:materia-energia-e-radiacao:08:interaction"
+        ],
+        "checkpointItemIds": [
+          "checkpoint:materia-energia-e-radiacao:05",
+          "checkpoint:materia-energia-e-radiacao:06"
+        ],
+        "sourceIds": [
+          "source:h4:s3",
+          "source:h4:s4"
+        ],
+        "evidenceKinds": [
+          "guided-practice",
+          "independent-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:materia-energia-e-radiacao:raios-x-no-espectro",
+        "classification": "declared",
+        "practiceItemIds": [
+          "activity:materia-energia-e-radiacao:09:interaction",
+          "activity:materia-energia-e-radiacao:10:interaction"
+        ],
+        "checkpointItemIds": [
+          "checkpoint:materia-energia-e-radiacao:07",
+          "checkpoint:materia-energia-e-radiacao:08"
+        ],
+        "sourceIds": [
+          "source:h4:s5",
+          "source:h4:s6"
+        ],
+        "evidenceKinds": [
+          "guided-practice",
+          "independent-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:materia-energia-e-radiacao:atenuacao-como-ponte",
+        "classification": "declared",
+        "practiceItemIds": [
+          "activity:materia-energia-e-radiacao:11:interaction",
+          "activity:materia-energia-e-radiacao:12:interaction"
+        ],
+        "checkpointItemIds": [
+          "checkpoint:materia-energia-e-radiacao:09",
+          "checkpoint:materia-energia-e-radiacao:10"
+        ],
+        "sourceIds": [
+          "source:h4:s6",
+          "source:h4:s7",
+          "source:h4:s8"
+        ],
+        "evidenceKinds": [
+          "guided-practice",
+          "applied-transfer"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "independent-recall",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:lesson-1",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "lesson-1-question",
+          "review-lesson-1-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "lesson-1"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:lesson-2",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "lesson-2-question",
+          "review-lesson-2-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "lesson-2"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question",
+          "review-ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:profissao-e-atuacao-do-tecnico-em-radiologia"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:energia-e-materia",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:energia-e-materia-question",
+          "review-ai-lesson:energia-e-materia-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:energia-e-materia"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:estrutura-da-materia-e-nucleo-atomico",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico-question",
+          "review-ai-lesson:estrutura-da-materia-e-nucleo-atomico-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:estrutura-da-materia-e-nucleo-atomico"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:radioatividade-particulas-e-atividade",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:radioatividade-particulas-e-atividade-question",
+          "review-ai-lesson:radioatividade-particulas-e-atividade-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:radioatividade-particulas-e-atividade"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:raios-x-descoberta-e-propriedades",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:raios-x-descoberta-e-propriedades-question",
+          "review-ai-lesson:raios-x-descoberta-e-propriedades-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:raios-x-descoberta-e-propriedades"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:interacao-das-radiacoes-e-protecao-radiologica",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question",
+          "review-ai-lesson:interacao-das-radiacoes-e-protecao-radiologica-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:interacao-das-radiacoes-e-protecao-radiologica"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question",
+          "review-ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:aplicacoes-radioisotopicas-e-medicina-nuclear"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:tomografia-computadorizada",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:tomografia-computadorizada-question",
+          "review-ai-lesson:tomografia-computadorizada-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:tomografia-computadorizada"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:ressonancia-magnetica",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:ressonancia-magnetica-question",
+          "review-ai-lesson:ressonancia-magnetica-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:ressonancia-magnetica"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:equipamentos-de-radiologia-convencional",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:equipamentos-de-radiologia-convencional-question",
+          "review-ai-lesson:equipamentos-de-radiologia-convencional-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:equipamentos-de-radiologia-convencional"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:componentes-basicos-do-equipamento",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:componentes-basicos-do-equipamento-question",
+          "review-ai-lesson:componentes-basicos-do-equipamento-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:componentes-basicos-do-equipamento"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:preservacao-de-alimentos-por-irradicao",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao-question",
+          "review-ai-lesson:preservacao-de-alimentos-por-irradicao-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:preservacao-de-alimentos-por-irradicao"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:acessorios-radiologicos",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:acessorios-radiologicos-question",
+          "review-ai-lesson:acessorios-radiologicos-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:acessorios-radiologicos"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:processamento-radiografico",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:processamento-radiografico-question",
+          "review-ai-lesson:processamento-radiografico-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:processamento-radiografico"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:producao-dos-raios-x",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:producao-dos-raios-x-question",
+          "review-ai-lesson:producao-dos-raios-x-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:producao-dos-raios-x"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      },
+      {
+        "id": "competency:legacy:ai-lesson:qualidade-de-imagem",
+        "classification": "synthetic-legacy",
+        "practiceItemIds": [
+          "ai-lesson:qualidade-de-imagem-question",
+          "review-ai-lesson:qualidade-de-imagem-question"
+        ],
+        "checkpointItemIds": [],
+        "sourceIds": [
+          "ai-lesson:qualidade-de-imagem"
+        ],
+        "evidenceKinds": [
+          "legacy-lesson-recall"
+        ],
+        "missingAuthoredEvidenceKinds": [
+          "guided-practice",
+          "independent-recall",
+          "applied-transfer",
+          "delayed-retention"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s1",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:01:interaction",
+          "activity:materia-energia-e-radiacao:02:interaction",
+          "activity:materia-energia-e-radiacao:03:interaction",
+          "checkpoint:materia-energia-e-radiacao:01"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:01:prompt",
+          "activity:materia-energia-e-radiacao:01:option:2",
+          "activity:materia-energia-e-radiacao:01:feedback:correct",
+          "activity:materia-energia-e-radiacao:01:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:02:prompt",
+          "activity:materia-energia-e-radiacao:02:option:1",
+          "activity:materia-energia-e-radiacao:02:feedback:correct",
+          "activity:materia-energia-e-radiacao:02:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:03:prompt",
+          "activity:materia-energia-e-radiacao:03:option:1",
+          "activity:materia-energia-e-radiacao:03:feedback:correct",
+          "activity:materia-energia-e-radiacao:03:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:01:prompt",
+          "checkpoint:materia-energia-e-radiacao:01:option:3",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s2",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:02:interaction",
+          "activity:materia-energia-e-radiacao:03:interaction",
+          "activity:materia-energia-e-radiacao:04:interaction",
+          "activity:materia-energia-e-radiacao:05:interaction",
+          "checkpoint:materia-energia-e-radiacao:01",
+          "checkpoint:materia-energia-e-radiacao:02",
+          "checkpoint:materia-energia-e-radiacao:03"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:02:prompt",
+          "activity:materia-energia-e-radiacao:02:option:1",
+          "activity:materia-energia-e-radiacao:02:feedback:correct",
+          "activity:materia-energia-e-radiacao:02:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:03:prompt",
+          "activity:materia-energia-e-radiacao:03:option:1",
+          "activity:materia-energia-e-radiacao:03:feedback:correct",
+          "activity:materia-energia-e-radiacao:03:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:04:prompt",
+          "activity:materia-energia-e-radiacao:04:option:3",
+          "activity:materia-energia-e-radiacao:04:feedback:correct",
+          "activity:materia-energia-e-radiacao:04:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:05:prompt",
+          "activity:materia-energia-e-radiacao:05:option:2",
+          "activity:materia-energia-e-radiacao:05:feedback:correct",
+          "activity:materia-energia-e-radiacao:05:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:01:prompt",
+          "checkpoint:materia-energia-e-radiacao:01:option:3",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:01:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:02:prompt",
+          "checkpoint:materia-energia-e-radiacao:02:option:2",
+          "checkpoint:materia-energia-e-radiacao:02:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:02:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:03:prompt",
+          "checkpoint:materia-energia-e-radiacao:03:option:3",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s3",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:06:interaction",
+          "activity:materia-energia-e-radiacao:08:interaction",
+          "checkpoint:materia-energia-e-radiacao:05",
+          "checkpoint:materia-energia-e-radiacao:06"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:06:prompt",
+          "activity:materia-energia-e-radiacao:06:option:2",
+          "activity:materia-energia-e-radiacao:06:feedback:correct",
+          "activity:materia-energia-e-radiacao:06:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:08:prompt",
+          "activity:materia-energia-e-radiacao:08:option:2",
+          "activity:materia-energia-e-radiacao:08:feedback:correct",
+          "activity:materia-energia-e-radiacao:08:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:05:prompt",
+          "checkpoint:materia-energia-e-radiacao:05:option:4",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:06:prompt",
+          "checkpoint:materia-energia-e-radiacao:06:option:2",
+          "checkpoint:materia-energia-e-radiacao:06:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:06:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s4",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:04:interaction",
+          "activity:materia-energia-e-radiacao:05:interaction",
+          "activity:materia-energia-e-radiacao:07:interaction",
+          "activity:materia-energia-e-radiacao:08:interaction",
+          "checkpoint:materia-energia-e-radiacao:03",
+          "checkpoint:materia-energia-e-radiacao:04",
+          "checkpoint:materia-energia-e-radiacao:05"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:04:prompt",
+          "activity:materia-energia-e-radiacao:04:option:3",
+          "activity:materia-energia-e-radiacao:04:feedback:correct",
+          "activity:materia-energia-e-radiacao:04:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:05:prompt",
+          "activity:materia-energia-e-radiacao:05:option:2",
+          "activity:materia-energia-e-radiacao:05:feedback:correct",
+          "activity:materia-energia-e-radiacao:05:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:07:prompt",
+          "activity:materia-energia-e-radiacao:07:option:1",
+          "activity:materia-energia-e-radiacao:07:feedback:correct",
+          "activity:materia-energia-e-radiacao:07:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:08:prompt",
+          "activity:materia-energia-e-radiacao:08:option:2",
+          "activity:materia-energia-e-radiacao:08:feedback:correct",
+          "activity:materia-energia-e-radiacao:08:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:03:prompt",
+          "checkpoint:materia-energia-e-radiacao:03:option:3",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:03:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:04:prompt",
+          "checkpoint:materia-energia-e-radiacao:04:option:2",
+          "checkpoint:materia-energia-e-radiacao:04:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:04:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:05:prompt",
+          "checkpoint:materia-energia-e-radiacao:05:option:4",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:05:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s5",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:09:interaction",
+          "activity:materia-energia-e-radiacao:10:interaction",
+          "checkpoint:materia-energia-e-radiacao:07",
+          "checkpoint:materia-energia-e-radiacao:08"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:09:prompt",
+          "activity:materia-energia-e-radiacao:09:option:4",
+          "activity:materia-energia-e-radiacao:09:feedback:correct",
+          "activity:materia-energia-e-radiacao:09:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:10:prompt",
+          "activity:materia-energia-e-radiacao:10:option:3",
+          "activity:materia-energia-e-radiacao:10:feedback:correct",
+          "activity:materia-energia-e-radiacao:10:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:07:prompt",
+          "checkpoint:materia-energia-e-radiacao:07:option:2",
+          "checkpoint:materia-energia-e-radiacao:07:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:07:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:08:prompt",
+          "checkpoint:materia-energia-e-radiacao:08:option:3",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s6",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:10:interaction",
+          "activity:materia-energia-e-radiacao:11:interaction",
+          "activity:materia-energia-e-radiacao:12:interaction",
+          "checkpoint:materia-energia-e-radiacao:08",
+          "checkpoint:materia-energia-e-radiacao:09",
+          "checkpoint:materia-energia-e-radiacao:10"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:10:prompt",
+          "activity:materia-energia-e-radiacao:10:option:3",
+          "activity:materia-energia-e-radiacao:10:feedback:correct",
+          "activity:materia-energia-e-radiacao:10:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:11:prompt",
+          "activity:materia-energia-e-radiacao:11:option:1",
+          "activity:materia-energia-e-radiacao:11:feedback:correct",
+          "activity:materia-energia-e-radiacao:11:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:12:prompt",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:feedback:correct",
+          "activity:materia-energia-e-radiacao:12:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:08:prompt",
+          "checkpoint:materia-energia-e-radiacao:08:option:3",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:08:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:09:prompt",
+          "checkpoint:materia-energia-e-radiacao:09:option:4",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:10:prompt",
+          "checkpoint:materia-energia-e-radiacao:10:option:1",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s7",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:01:interaction",
+          "activity:materia-energia-e-radiacao:11:interaction",
+          "activity:materia-energia-e-radiacao:12:interaction",
+          "checkpoint:materia-energia-e-radiacao:09",
+          "checkpoint:materia-energia-e-radiacao:10"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:01:prompt",
+          "activity:materia-energia-e-radiacao:01:option:2",
+          "activity:materia-energia-e-radiacao:01:feedback:correct",
+          "activity:materia-energia-e-radiacao:01:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:11:prompt",
+          "activity:materia-energia-e-radiacao:11:option:1",
+          "activity:materia-energia-e-radiacao:11:feedback:correct",
+          "activity:materia-energia-e-radiacao:11:feedback:incorrect",
+          "activity:materia-energia-e-radiacao:12:prompt",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:feedback:correct",
+          "activity:materia-energia-e-radiacao:12:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:09:prompt",
+          "checkpoint:materia-energia-e-radiacao:09:option:4",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:10:prompt",
+          "checkpoint:materia-energia-e-radiacao:10:option:1",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:incorrect"
+        ]
+      },
+      {
+        "batchId": "production-batch:materia-energia-e-radiacao:2026-08-13",
+        "sourceId": "source:h4:s8",
+        "itemIds": [
+          "activity:materia-energia-e-radiacao:12:interaction",
+          "checkpoint:materia-energia-e-radiacao:09",
+          "checkpoint:materia-energia-e-radiacao:10"
+        ],
+        "claimIds": [
+          "activity:materia-energia-e-radiacao:12:prompt",
+          "activity:materia-energia-e-radiacao:12:option:1",
+          "activity:materia-energia-e-radiacao:12:feedback:correct",
+          "activity:materia-energia-e-radiacao:12:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:09:prompt",
+          "checkpoint:materia-energia-e-radiacao:09:option:4",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:09:feedback:incorrect",
+          "checkpoint:materia-energia-e-radiacao:10:prompt",
+          "checkpoint:materia-energia-e-radiacao:10:option:1",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:correct",
+          "checkpoint:materia-energia-e-radiacao:10:feedback:incorrect"
+        ]
+      }
+    ]
+  },
+  "legacyQuestionCoverage": {
+    "available": 38,
+    "reachedByStudyNodes": 36,
+    "absentFromStudyNodes": [
+      "q3",
+      "ct-q2"
+    ],
+    "interpretation": "Absence is from Estude lesson/review nodes only, not proof of absence from every quiz or review route."
+  },
+  "inventoryScriptSha256": "d8042c3f594dc9cd88bd4bebed319a42a0007c265692d30c6cca0f33b5770553",
+  "sourceHashes": {
+    "radiant-app/src/data/catalog.ts": "496c9c206657a640ef60dc5dfadb86bee72312c81d2177af382a9197a17ffd1b",
+    "radiant-app/src/data/lessons.ts": "dd138d4ab2a81ae63668591d6cde556e6de727eba7012a506d05846129c07bc9",
+    "radiant-app/src/data/ai-lessons.ts": "5d4646376e313b5fd94a0ae024b5aa45bf24659325ea1179140643726f6ff7fe",
+    "radiant-app/src/features/student-checkpoints/ProductionCurriculumCatalog.ts": "b1eb383ce1464fd0e02287f9f210258b5c1c84f0b7e739268c75e86311ad51fa",
+    "radiant-app/src/features/student-checkpoints/createProductionCurriculumCatalog.ts": "18cc7845225b859841f2dda16ed0d5e2486bcd5b0df7cedcc06197fcdc41cdef",
+    "radiant-app/src/features/student-checkpoints/ProductionCatalogComposition.ts": "a963bc8a09f5292a15bdfaad6bbd50c103bca9b1ac8635e9f644a45b73828beb",
+    "radiant-app/src/features/student-checkpoints/production-catalog-entries.ts": "d6516ba33d286a8127e64d6493a837577161793fb09d419435caf43d30c190d3",
+    "radiant-app/src/features/student-checkpoints/production-batches.ts": "9c202e4c90b3cdc616bd814a8ce0e3c354896de2bc04415ce7704d72bf55ebca",
+    "radiant-app/src/features/student-checkpoints/EditorialCurriculumCandidate.ts": "2d926dca8fb57edc71d840c6c0eb9821168450b86606fce613d21fb5f6306d1f",
+    "radiant-app/src/types/learningActivity.ts": "74f6076354267c5d39ca7f2d82b7c41dc50114da64d0d086739e0a9bcf26ab5c",
+    "radiant-app/src/features/student-checkpoints/ProductionBatch.ts": "38a6a01d91806b8491be18635e0e3269db345957de1c605af68c5736df31e63e",
+    "radiant-app/src/features/content/services/composeCurriculumCatalog.ts": "039cdbcd54f05875fd17b000bf51eff2c058c8fc532c09811d75aed54d22e6b4",
+    "radiant-app/src/features/journey/services/JourneyDefinitionService.ts": "45fd062f7b66e2218463d6920a8048e99420e0741bc0d8763603037b31bb113b",
+    "radiant-app/src/features/lesson-flow/services/LessonFlowService.ts": "5635c029e93ec02a0a283c381a4049fdf5fec79abf5299bc6c955c538b2974d0",
+    "radiant-app/src/features/lesson-flow/services/LegacyLessonAdapter.ts": "4f63ed03d01269a25b469cda060523035b6e47c8fcf6e2821db1989379d6d6a8",
+    "radiant-app/src/features/journey/services/JourneyCatalogAudit.ts": "0848dc21379edf63249bb11200453017e7ab94c8262b1c5c5e8983f72ddcee90",
+    "radiant-app/src/features/student-checkpoints/ProductionCurriculumCoverage.ts": "7a08f726df9aaef101a6a7406d9fa6a83b74f5e94f5cb6e4c0964323f0bf76bb"
+  }
+}

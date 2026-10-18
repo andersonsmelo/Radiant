@@ -14,11 +14,18 @@ export function resolveLessonStars(correctAnswers: number, totalQuestions: numbe
   return 0;
 }
 
-export function resolveBestLessonStars(
+/**
+ * As estrelas DESTA tentativa, o recorde da lição e se houve melhora.
+ *
+ * Até 2026-10-16 o resumo exibia a melhor nota já obtida, com a frase dela: a
+ * revisão errada (0 de 1) dizia "Três estrelas. Nada passou despercebido." O
+ * resumo honesto (ADR de 2026-10-16) mostra esta tentativa e o recorde à parte.
+ */
+export function resolveAttemptStars(
   lessonId: string,
   attempts: readonly LearningAttempt[],
   current: { correctAnswers: number; totalQuestions: number; completedAt: string },
-): { stars: LessonStars; improved: boolean } {
+): { stars: LessonStars; recordStars: LessonStars; improved: boolean } {
   const currentStars = resolveLessonStars(current.correctAnswers, current.totalQuestions);
 
   const previousBest = attempts.reduce<LessonStars>((best, entry) => {
@@ -29,7 +36,8 @@ export function resolveBestLessonStars(
   }, 0);
 
   return {
-    stars: currentStars > previousBest ? currentStars : previousBest,
+    stars: currentStars,
+    recordStars: currentStars > previousBest ? currentStars : previousBest,
     improved: currentStars > previousBest,
   };
 }

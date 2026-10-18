@@ -39,7 +39,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-q1:option:1
-- tapOn: Continuar
+- tapOn: Conferir resposta
 # Reinforce step after an answered question shows the answer feedback
 # ("Resposta correta"/"Vamos reforçar"), not the payload title. Assert the
 # always-present last-step footer action instead.
@@ -57,28 +57,27 @@ tags:
 # Desde os consertos de acessibilidade da 1.4, o contador é lido junto com o
 # título no rótulo do cabeçalho ("<trilha>. N de M etapas concluídas."), e o
 # texto solto "N de M" não aparece mais na árvore. Medido em 2026-09-28.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # Sem checkpoint entre as lições desde a ADR de 2026-09-28: o próximo nó
 # recomendado é a lição seguinte, e o CTA da home diz "Continuar jornada"
 # (`continueLabel` em `JourneyHomeScreen`, pinado pelo contrato).
-# The home CTA renders after the full journey map, far below the fold. It is an
-# AppButton, which sets accessibilityRole+accessibilityLabel on the Pressable,
-# so iOS collapses the inner Text and the node exposes only accessibilityText.
-# scrollUntilVisible's `element.text` matches the text attribute only and never
-# resolves here; `visible`/`tapOn` do match accessibilityText, so scroll with a
-# guarded repeat instead.
-- repeat:
-    times: 15
-    while:
-      notVisible: Continuar jornada
-    commands:
-      - scroll
-# The guarded repeat stops the moment the CTA enters the tree, which on a fast
-# Android emulator leaves it resting UNDER the floating tab bar (measured: CTA at
-# y2212-2277 vs tab bar y2198-2387), so a bare tapOn lands on the bar. One more
-# scroll lifts the CTA clear of the bar before the tap. (iOS and slower Androids
-# happened to leave it tappable; this makes it deterministic on both.)
-- scroll
+# A recomendação agora está no header rolável. Centralizar os bounds nativos
+# do botão antes de tocar evita a barra de abas em telas curtas e texto grande.
+- scrollUntilVisible:
+    element:
+      id: journey-recommendation-action
+    direction: DOWN
+    centerElement: true
+    visibilityPercentage: 100
 - tapOn: Continuar jornada
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
@@ -99,7 +98,7 @@ tags:
     visibilityPercentage: 80
 - tapOn:
     id: lesson-option-ct-q3:option:2
-- tapOn: Continuar
+- tapOn: Conferir resposta
 - assertVisible: Concluir e voltar
 - tapOn: Concluir e voltar
 - assertVisible: A lição foi concluída
@@ -108,6 +107,15 @@ tags:
 # retomada saiu e a aba virou a trilha. O contador do cabeçalho de estágio
 # ("2 de 21") é o que existe ali e em nenhuma outra tela; o título da trilha não
 # serve, porque coincide com o título de uma lição.
+# A trilha abre no PRÓXIMO (2026-10-16, `f39ac9e`): o cabeçalho pode estar
+# acima da tela. Espera a trilha e rola até ele antes de afirmá-lo.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element: '^.+\. \d+ de \d+ etapas concluídas\.$'
+    direction: UP
+    centerElement: false
+    visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # The reward node is deliberately NOT covered here. The active track is
 # generated from the catalog (7 lessons), not from defaultTrack.ts (2 lessons),

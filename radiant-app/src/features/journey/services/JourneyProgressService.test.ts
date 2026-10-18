@@ -1,3 +1,7 @@
+import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
+import { JourneyCurriculumService } from './JourneyCurriculumService';
+import { createProductionCurriculumCatalog, type ProductionCatalogEntry } from '../../student-checkpoints/createProductionCurriculumCatalog';
+import { PRODUCTION_CATALOG_ENTRIES } from '../../student-checkpoints/production-catalog-entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { JOURNEY_PROGRESS_SCHEMA_VERSION, type JourneyProgressStore, type JourneySnapshot } from '../../../types/journey';
@@ -18,6 +22,7 @@ jest.mock('../../spaced-repetition/services/SpacedRepetitionService', () => ({
         getTrackedLessonIds: jest.fn(),
         getDueLessons: jest.fn(),
         getDueReviewSchedule: jest.fn(),
+        getReviewSchedule: jest.fn(),
     },
 }));
 
@@ -146,9 +151,85 @@ describe('JourneyProgressService', () => {
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
+    });
+
+    it('preserva o progresso e libera a próxima unidade pela avaliação, com conquista opcional', async () => {
+        const first = PRODUCTION_CATALOG_ENTRIES[0];
+        const secondBatch = JSON.parse(JSON.stringify(first.batch).replaceAll('materia-energia-e-radiacao', 'fixture-progresso-2')) as typeof first.batch;
+        const second: ProductionCatalogEntry = { batch: secondBatch, presentation: { ...first.presentation,
+            unitTitle: 'Segunda unidade sintética', reward: { ...first.presentation.reward, id: 'node:reward:fixture-progresso-2' } } };
+        const original = createProductionCurriculumCatalog([first]).getJourneyTrackDefinition(first.batch.trackId)!;
+        await JourneyProgressService.bootstrap(original);
+        const completed: string[] = [];
+        for (const node of original.units[0].nodes.filter(node => node.type !== 'reward')) {
+            await JourneyProgressService.markNodeCompleted(node.id, original);
+            completed.push(node.id);
+        }
+        const gate = original.units[0].nodes.filter(node => node.type === 'checkpoint').at(-1)!.id;
+        const catalog = createProductionCurriculumCatalog([second, first], [{ trackId: first.batch.trackId, units: [
+            { unitId: first.batch.unitId, requiresNodeIds: [] }, { unitId: second.batch.unitId, requiresNodeIds: [gate] },
+        ] }]);
+        const expanded = catalog.getJourneyTrackDefinition(first.batch.trackId)!;
+        const newNode = expanded.units[1].nodes[0];
+        const snapshot = await JourneyProgressService.bootstrap(expanded);
+        expect(snapshot.progress.completedNodeIds).toEqual(expect.arrayContaining(completed));
+        expect(snapshot.track.units[1].nodes[0].status).toBe('available');
+        expect(snapshot.progress.completedNodeIds).not.toContain(first.presentation.reward.id);
+        await JourneyProgressService.markNodeCompleted(newNode.id, expanded);
+        const reopened = await JourneyProgressService.bootstrap(expanded);
+        expect(reopened.progress.completedNodeIds).toEqual(expect.arrayContaining([...completed, newNode.id]));
+        expect(reopened.track.units[1].nodes[0].status).toBe('completed');
+        expect(reopened.nextRecommendedNode?.unitId).toBe(second.batch.unitId);
+        expect(reopened.progress.currentUnitId).toBe(second.batch.unitId);
+        expect(reopened.track.units[0].nodes.at(-1)?.status).toBe('available');
+        const collected = await JourneyProgressService.markNodeCompleted(first.presentation.reward.id, expanded);
+        expect(collected.progress.currentUnitId).toBe(second.batch.unitId);
+    });
+
+    it('avança para a área seguinte sem coletar conquistas opcionais e permite coletá-las depois', async () => {
+        const first = PRODUCTION_CATALOG_ENTRIES[0];
+        const batch = JSON.parse(JSON.stringify(first.batch).replaceAll('materia-energia-e-radiacao', 'fixture-g2-2')) as typeof first.batch;
+        const second: ProductionCatalogEntry = { batch, presentation: { ...first.presentation, unitTitle: 'Segunda', reward: { ...first.presentation.reward, id: 'node:reward:fixture-g2-2' } } };
+        const original = createProductionCurriculumCatalog([first]).getJourneyTrackDefinition(first.batch.trackId)!;
+        const checkpoint = original.units[0].nodes.filter(node => node.type === 'checkpoint').at(-1)!.id;
+        const catalog = createProductionCurriculumCatalog([first, second], [{ trackId: first.batch.trackId, units: [
+            { unitId: first.batch.unitId, requiresNodeIds: [] }, { unitId: batch.unitId, requiresNodeIds: [checkpoint] },
+        ] }]);
+        const definition = catalog.getJourneyTrackDefinition(first.batch.trackId)!;
+        mockedLessonCatalogService.listTracks.mockReturnValue([catalog.listTracks()[0], trackFixtures[1]]);
+        mockedLessonCatalogService.listLessonSummaries.mockReturnValue([...catalog.listLessonSummaries(), ...lessonSummaries.filter(lesson => lesson.trackId === trackFixtures[1].id)]);
+        const lookup = jest.spyOn(ProductionCurriculumCatalog, 'getJourneyTrackDefinition').mockImplementation(id => catalog.getJourneyTrackDefinition(id));
+        try {
+            for (const node of definition.units.flatMap(unit => unit.nodes).filter(node => node.type !== 'reward')) {
+                await JourneyProgressService.markNodeCompleted(node.id, definition);
+            }
+            const reopened = await JourneyProgressService.bootstrap();
+            expect(reopened.progress.activeTrackId).toBe(trackFixtures[1].id);
+            const trail = await JourneyCurriculumService.getCurriculumTrail();
+            expect(trail.segments[0].completed).toBe(true);
+            expect(trail.segments[1].unlocked).toBe(true);
+            expect(trail.segments[0].units[0].nodes.at(-1)?.status).toBe('available');
+            await JourneyProgressService.markNodeCompleted(first.presentation.reward.id);
+            expect((await JourneyProgressService.bootstrap()).progress.activeTrackId).toBe(trackFixtures[1].id);
+            const oldArea = await JourneyProgressService.getSnapshot(definition);
+            expect(oldArea.progress.completedNodeIds).toContain(first.presentation.reward.id);
+        } finally { lookup.mockRestore(); }
+    });
+
+    it('leva a agenda futura real à trilha, sem torná-la devida', async () => {
+        await JourneyProgressService.bootstrap();
+        await JourneyProgressService.markNodeCompleted('node:foundation-1');
+        const future = Date.now() + 24 * 60 * 60 * 1000;
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([{ lessonId: 'foundation-1', dueAtMs: future }]);
+        const snapshot = await JourneyProgressService.getSnapshot();
+        expect(snapshot.track.units.flatMap(unit => unit.nodes).find(node => node.id === 'node:review:foundation-1'))
+            .toMatchObject({ status: 'locked', reviewAvailableAtMs: future });
+        expect(snapshot.progress.pendingReviewNodeIds).not.toContain('node:review:foundation-1');
+        expect(snapshot.nextRecommendedNode?.id).not.toBe('node:review:foundation-1');
     });
 
     it('bootstraps the default catalog track into a versioned multi-track store', async () => {
@@ -341,6 +422,49 @@ describe('JourneyProgressService — avanço sequencial de trilha', () => {
         expect(next.progress.activeTrackId).toBe('track-radiology-foundations');
     });
 
+    it('avança com lições e conquista concluídas, sem esperar as revisões', async () => {
+        // As duas réguas de "trilha concluída" (esta e a da tela, em
+        // `JourneyCurriculumService`) passaram a ser a mesma em 2026-10-16:
+        // revisão é prática paralela e não fecha trilha.
+        const snapshot = await JourneyProgressService.bootstrap();
+        const obrigatorios = snapshot.track.units
+            .flatMap((unit) => unit.nodes)
+            .filter((node) => node.type !== 'review')
+            .map((node) => node.id);
+
+        for (const nodeId of obrigatorios) {
+            await JourneyProgressService.markNodeCompleted(nodeId);
+        }
+
+        const next = await JourneyProgressService.bootstrap();
+
+        expect(next.progress.activeTrackId).toBe('track-thorax-patterns');
+    });
+
+    it('conclui a revisão de uma trilha anterior, já fora da trilha ativa', async () => {
+        // Visto no simulador em 2026-10-16, logo depois de a revisão deixar de
+        // fechar trilha: o aluno avançou para a trilha 2, abriu uma revisão
+        // vencida da trilha 1 e o serviço não achou o nó ("Nó desconhecido").
+        // Nada foi gravado, nem XP, nem a vida que a revisão devolve. A
+        // conclusão passa a localizar a trilha do nó.
+        mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
+        const snapshot = await JourneyProgressService.bootstrap();
+        const nodes = snapshot.track.units.flatMap((unit) => unit.nodes);
+        for (const node of nodes.filter((entry) => entry.type !== 'review')) {
+            await JourneyProgressService.markNodeCompleted(node.id);
+        }
+        const revisaoDaTrilha1 = nodes.find((node) => node.type === 'review')!.id;
+        expect((await JourneyProgressService.bootstrap()).progress.activeTrackId).toBe('track-thorax-patterns');
+
+        await JourneyProgressService.markNodeCompleted(revisaoDaTrilha1);
+
+        const stored = JSON.parse(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]);
+        expect(stored.tracks['track-radiology-foundations'].completedNodeIds).toContain(revisaoDaTrilha1);
+        const daRevisao = await JourneyProgressService.getSnapshotForNode(revisaoDaTrilha1);
+        expect(daRevisao.track.id).toBe('track-radiology-foundations');
+    });
+
     it('fica na última trilha quando todas terminaram, em vez de ficar sem trilha', async () => {
         await completeEveryNodeOfActiveTrack();
         await completeEveryNodeOfActiveTrack();
@@ -382,6 +506,7 @@ describe('JourneyProgressService — backup best-effort na conclusão de nó', (
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);
@@ -559,6 +684,7 @@ describe('JourneyProgressService — progresso gravado com os checkpoints que sa
         mockedSpacedRepetitionService.getTrackedLessonIds.mockResolvedValue(['foundation-1']);
         mockedSpacedRepetitionService.getDueLessons.mockResolvedValue([]);
         mockedSpacedRepetitionService.getDueReviewSchedule.mockResolvedValue([]);
+        mockedSpacedRepetitionService.getReviewSchedule.mockResolvedValue([]);
         mockedLessonCatalogService.listTracks.mockReturnValue(trackFixtures);
         mockedLessonCatalogService.listLessonSummaries.mockReturnValue(lessonSummaries);
         mockedLessonCatalogService.getLessonById.mockImplementation((lessonId) => lessonsById[lessonId] ?? null);

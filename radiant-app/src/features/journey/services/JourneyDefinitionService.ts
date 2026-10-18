@@ -1,7 +1,7 @@
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import type { ContentLesson, LearningTrack } from '../../content/content.types';
 import type { LessonBlock, LessonStepDefinition } from '../../../types/lessonFlow';
-import type { JourneyNodeDefinition, JourneyTrackDefinition, JourneyUnitDefinition } from '../../../types/journey';
+import type { JourneyNodeDefinition, JourneyNodeType, JourneyTrackDefinition, JourneyUnitDefinition } from '../../../types/journey';
 import { ProductionCurriculumCatalog } from '../../student-checkpoints/ProductionCurriculumCatalog';
 
 const EMPTY_JOURNEY_ID = 'learning-road-v2';
@@ -270,6 +270,22 @@ class JourneyDefinitionServiceImpl {
 
     getBlockById(blockId: string): LessonBlock | null {
         return this.getLessonBlocks().find((block) => block.id === blockId) ?? null;
+    }
+
+    /**
+     * O tipo de um nó em qualquer trilha do percurso, ou `null` se o id não
+     * existe. A lição usa isto para tratar revisão como prática, sem custo de
+     * vida (ADR de 2026-10-16): a rota só carrega o id, e o nó pode estar numa
+     * trilha que não é a ativa.
+     */
+    getNodeType(nodeId: string): JourneyNodeType | null {
+        for (const track of LessonCatalogService.listTracks()) {
+            const node = this.getTrackDefinition(track.id)
+                .units.flatMap((unit) => unit.nodes)
+                .find((candidate) => candidate.id === nodeId);
+            if (node) return node.type;
+        }
+        return null;
     }
 
     getDefaultTrackId(): string | null {

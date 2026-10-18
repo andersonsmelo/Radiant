@@ -1,0 +1,59 @@
+appId: com.ascendcreative.radiant
+name: Concluir revisão direta com cartão sintético devido
+tags:
+  - review
+  - requires-review-fixture
+---
+# Pré-requisito: L1 concluída; preparar somente o vencimento de UM item
+# em @radiant:item_review_v1 (ou nextReviewAt se ainda não migrado), app parado
+# num simulador descartável. Não fabricar tentativa, limpar estado ou alterar relógio.
+- launchApp
+- runFlow: subflows/dismiss-dev-client.yaml
+- openLink:
+    link: radiantapp://review
+- assertVisible: Revisão
+- scrollUntilVisible:
+    element: Começar revisão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Começar revisão
+- assertVisible: Sessão ativa
+- scrollUntilVisible:
+    element:
+      id: review-option-0
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    id: review-option-0
+- scrollUntilVisible:
+    element: Confirmar resposta
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Confirmar resposta
+- assertVisible: 'Resposta correta|Vamos revisar este ponto'
+- scrollUntilVisible:
+    element: Continuar
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn: Continuar
+- assertVisible: Sessão concluída
+- scrollUntilVisible:
+    element: Resultado da sessão
+    direction: DOWN
+    centerElement: false
+    visibilityPercentage: 80
+- assertVisible: Resultado da sessão
+- assertVisible: '1 concluídos nesta rodada'
+- takeScreenshot: review-completed

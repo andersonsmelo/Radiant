@@ -1,3 +1,4 @@
+import { isOptionalProgressionReward } from './trackCompletion';
 import type { NextNodeCandidate, NextNodeDecision } from '../../../types/journey';
 
 export type NextNodeResolverInput = {
@@ -64,6 +65,13 @@ export const NextNodeResolver = {
             };
         }
 
+        const reward = available
+            .filter(candidate => candidate.type === 'reward' && !isOptionalProgressionReward(candidate))
+            .sort(byCurriculumOrder)[0];
+        if (reward) {
+            return { nodeId: reward.nodeId, reason: 'reward', dueReviewCount };
+        }
+
         const lesson = available
             .filter(candidate => candidate.type === 'lesson')
             .sort(byCurriculumOrder)[0];
@@ -75,6 +83,8 @@ export const NextNodeResolver = {
             };
         }
 
+        const optionalReward = available.filter(isOptionalProgressionReward).sort(byCurriculumOrder)[0];
+        if (optionalReward) return { nodeId: optionalReward.nodeId, reason: 'reward', dueReviewCount };
         return null;
     },
 };
