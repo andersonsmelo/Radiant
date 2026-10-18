@@ -124,8 +124,9 @@ aninhada
 ([execuções e script](2026-10-18-main-pronta-para-build/contrato-g4-injecoes.txt)).
 A terceira lista, a da espera por `assertVisible` antes de rolar, não recebeu o
 G4. Ele a violaria em 6 das 10 rolagens, porque nelas o passo anterior é um
-`takeScreenshot` ou um `tapOn`. Ajustar isso muda o roteiro que rodou
-nativamente, e a decisão fica com o dono.
+`takeScreenshot` ou um `tapOn`. Ajustar isso mudaria o roteiro que rodou
+nativamente. **Decidido por Anderson em 2026-10-18:** o G4 fica fora dessa
+lista, e o roteiro fica como rodou.
 
 ## O que não foi verificado
 
