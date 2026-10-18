@@ -191,6 +191,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     uma vez por sessão, no último item dela na fila e com o resultado agregado,
     e não mais uma vez por item. A decisão foi do dono
     ([evidência](evidence/2026-10-18-a4-agregado-legado.md)).
+    **Atualização de 2026-10-18 (Claude, R8 e A7):** o README da trilha caiu
+    de 2.344 para 796 palavras, com mapa dos 28 arquivos da pasta e o texto
+    antigo num anexo. O `docs-contract` agora reprova arquivo da pasta fora do
+    mapa ([evidência](evidence/2026-10-18-r8-readme-da-trilha.md)).
     **Atualização de 2026-10-17 (Argon, PR #40):** dois defeitos de copy e cor
     da revisão foram corrigidos. O texto de formato ainda descrevia a
     autoavaliação, e o rótulo do feedback ficava verde também no erro e na

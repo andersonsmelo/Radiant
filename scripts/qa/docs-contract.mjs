@@ -45,6 +45,34 @@ export const NON_INSTRUCTION_RELEASE_DOCUMENTS = [
 
 // Tetos da App Store, em caracteres. São limites de plataforma, não escolha
 // deste projeto — por isso ficam como constante e não derivam de fonte nenhuma.
+// Pastas cujo README é a porta de entrada e precisa mapear todos os arquivos
+// dela (R8, A7 de 2026-10-17).
+export const FOLDER_MAPS = [{ readme: 'docs/trilha/README.md', dir: 'docs/trilha' }];
+
+/** Os arquivos da pasta, com caminho relativo a ela, sem arquivos ocultos. */
+export function listFolderFiles(dir, prefix = '') {
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => !entry.name.startsWith('.'))
+    .flatMap((entry) => (entry.isDirectory()
+      ? listFolderFiles(path.join(dir, entry.name), `${prefix}${entry.name}/`)
+      : [`${prefix}${entry.name}`]))
+    .sort();
+}
+
+/** Destinos dos links Markdown, normalizados para a pasta: sem `./`, sem âncora. */
+function markdownLinkTargets(content) {
+  return [...content.matchAll(/\]\(<?([^)\s>]+)>?\)/g)]
+    .map(([, target]) => target.replace(/#.*$/, '').replace(/^\.\//, ''))
+    .filter(Boolean);
+}
+
+export function inspectFolderMap({ readme, content, files }) {
+  const linked = new Set(markdownLinkTargets(content));
+  return files
+    .filter((file) => !linked.has(file))
+    .map((file) => `${readme}: the folder map does not link ${file}; every file in the folder must appear in its entry point.`);
+}
+
 const APP_STORE_FIELD_LIMITS = {
   Subtitle: 30,
   'Promo text': 170,
@@ -162,6 +190,7 @@ export function runDocsContract({
   rootDir = REPO_ROOT,
   documents = CURRENT_STATE_DOCUMENTS,
   releaseDocuments = RELEASE_INSTRUCTION_DOCUMENTS,
+  folderMaps = FOLDER_MAPS,
 } = {}) {
   const violations = [];
 
@@ -174,6 +203,16 @@ export function runDocsContract({
     }
 
     violations.push(...inspectDocument({ relativePath, content: fs.readFileSync(absolutePath, 'utf8') }));
+  }
+
+  for (const { readme, dir } of folderMaps) {
+    const absoluteReadme = path.join(rootDir, readme);
+    if (!fs.existsSync(absoluteReadme)) {
+      violations.push(`${readme}: folder entry point is missing.`);
+      continue;
+    }
+    const files = listFolderFiles(path.join(rootDir, dir)).filter((file) => file !== path.basename(readme));
+    violations.push(...inspectFolderMap({ readme, content: fs.readFileSync(absoluteReadme, 'utf8'), files }));
   }
 
   const capabilities = readDistributedCapabilities({ rootDir });
