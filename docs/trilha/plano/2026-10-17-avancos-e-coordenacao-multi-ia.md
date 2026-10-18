@@ -1,5 +1,11 @@
 # Avanços da trilha e coordenação entre IAs — proposta de 2026-10-17
 
+> **Coordenação substituída em 2026-10-18:** o Claude passou a planejar e
+> executar, e Codex e Argon estão em pausa
+> ([ADR](../../adr/ADR-2026-10-18-claude-planejador-e-executor.md)). A tabela
+> R1–R8 abaixo continua útil. Estado de cada item no
+> [levantamento](../2026-10-18-levantamento-do-que-foi-feito.md), §5 e §6.
+
 **Autoria:** Claude Opus 5.5 (Anthropic, `claude-opus-5-5`), no papel de
 revisor e coordenador pedido por Anderson em 2026-10-17.
 **Base:** a [revisão do trabalho do Codex](../avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md),

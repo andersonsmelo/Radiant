@@ -1,5 +1,10 @@
 # Prompt do Codex — pacote do motor híbrido (FILA 58)
 
+> **Histórico, não usar.** O pacote foi entregue (PR #42) e está na `main`.
+> Desde 2026-10-18 o Claude planeja e executa
+> ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)); a entrada é o
+> [prompt (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+
 **Preparado por:** Claude Opus 5.5 (Anthropic, `claude-opus-5-5`), coordenador,
 em 2026-10-18, a pedido de Anderson. Colar como primeira mensagem ao Codex.
 

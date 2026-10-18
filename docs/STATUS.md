@@ -584,124 +584,42 @@ têm fatos vencidos. A `05 Aprendizados validados` tem 319 entradas, porque
 arquivo, não o cérebro.** Reprojetar as notas exige um comando novo no Loop,
 decidido pelo dono em 2026-09-23 e ainda não construído.
 
-## Evolução global da trilha — medida em 2026-10-17
+## Trilha — estado em 2026-10-18
 
-**Ponto de parada solicitado por Anderson em 2026-10-17:** implementação
-encerrada por enquanto; nenhuma frente nova deve ser iniciada sem retomada
-autorizada. [Índice consolidado das pesquisas/entregas](trilha/README.md) e
-[prompt para a próxima IA](trilha/PROMPT-PARA-IAS.md) atualizados. O código da
-trilha está em cinco commits, um por pacote (G0/G1, G2, G3, G4 e docs), na
-branch `feat/trilha-evolucao-global-g0-g4`, com a
-[PR #39](https://github.com/andersonsmelo/Radiant/pull/39) aberta contra a
-`main` em 2026-10-17. Cada fatia passou sozinha o `npm run quality`. A PR
-também carrega 39 commits locais de 2026-10-09 a 16 que nunca tinham sido
-publicados. O merge é do dono. O run documental de consolidação é
-`run-1792270280343-e58c9352`; seu gate/estado se consulta pela CLI.
+**Na `main` em `cc67243` (medido em 2026-10-18), sem build nova:** a loja segue
+com a `1.4.0 (12)`, do `221e2ec`. Levantamento completo do período em
+[`trilha/2026-10-18-levantamento-do-que-foi-feito.md`](trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 
-**G4 — revisão com resposta antes do gabarito implementada localmente.** O aluno
-seleciona uma alternativa e confirma; o serviço corrige pelo catálogo atual e
-confirma a tentativa/agenda antes de mostrar feedback. Pedir a resposta com
-ajuda registra `skipped`, ajuda e nenhum XP. Não existe mais autodeclaração de
-acerto na tela ativa. Primeiro resultado, data e escolha em memória são estáveis
-no retry; duplo envio não duplica confirmação. O aluno lê a explicação antes de
-pressionar Continuar. Falha de storage mantém o gabarito oculto e oferece retry.
+- **G0–G4** (PR #39, Codex): catálogo, unidades, contrato editorial e revisão
+  por item com journal. O aluno responde antes do gabarito, e a ajuda não dá XP
+  ([evidência G4](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md)).
+- **Lição honesta** (PR #40, Argon): sem "Quiz:", resumo de 0 estrela sem
+  celebração ([evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md)).
+- **Motor híbrido** (PRs #42 e #43): a lição usa todas as perguntas, mostra o
+  feedback por item e devolve o erro no fim. O primeiro contato não custa vida.
+  A régua de estrelas é para N perguntas, e perder a última vida no último
+  retorno conclui a lição
+  ([relatório](evidence/2026-10-18-motor-hibrido.md),
+  [ajustes](evidence/2026-10-18-pr42-ajustes.md),
+  [ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)).
+- **A1** (PR #45): a versão nova de conteúdo preserva a data de revisão do item,
+  sem herdar evidência ([relatório](evidence/2026-10-18-a1-preserva-data.md)).
 
-O journal registra `review-answer` e a referência temporal conferida contra o
-cartão persistido. Uma revisão sem ajuda é `independent-recall` para conteúdo
-promovido; legado conserva competência sintética e sua classificação legada.
-O sinal operacional `after-interval` exige tentativa anterior confirmada,
-vencimento alcançado e ao menos 24 h desde a confirmação anterior; cartões
-apenas migrados são `unverified`. Isso não promove `delayed-retention`, não
-ativa adaptação e não prova retenção, transferência ou eficácia clínica.
+**Gate medido em 2026-10-18** na branch da PR #45, igual à `main` em código:
+`EXPO_NO_DOTENV=1 npm run quality` no Node 20 deu 173 suítes e 1.763 testes,
+visual QA com 0 regressões, e `loop validate` deu 15/15. Uma execução anterior
+reprovou uma vez no `CheckpointScreen.flow.test.tsx`, que não reproduziu.
 
-**Evidência local:** nove suítes/126 testes focados, atividade promovida real,
-correção contra gabarito adulterado na UI, ajuda sem XP, retry estável e quatro
-mutações discriminantes. [Entrega](evidence/2026-10-17-trilha-g4-resposta-antes-do-gabarito.md).
-Gate/estado: `loop run status --run run-1792269695725-1c4f438c`.
-Sessão `brain-session-1792269181556-0098c53e` fechada separadamente.
+**Ainda aberto:**
+- **A2:** o store de revisão passa dos 6 MB do Android nos tetos;
+- **A3:** um registro inválido bloqueia a revisão;
+- **A4:** o agregado legado;
+- QA nativo do G4 com capturas versionadas, e os 7 roteiros Maestro que só
+  passaram pelo contrato;
+- Android, VoiceOver e desempenho (G6) e backup e reset (G7);
+- conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
-As camadas anteriores de [journal/fila por item](evidence/2026-10-17-trilha-g4-evidencia-e-revisao-por-item.md)
-e [avaliações retomáveis](evidence/2026-10-17-trilha-g4-avaliacoes-no-journal.md)
-permanecem: fila de 50, migração aditiva, histórico de reforço, catálogos G0–G3,
-IDs e progresso preservados. Avaliação final aprovada libera a próxima unidade;
-[conquista opcional](adr/ADR-2026-10-16-composicao-multiunidade-da-trilha.md).
-
-**Ainda aberto:** critério pedagógico/revisão independente para promover evidência
-retardada a domínio; QA nativo/VoiceOver/Android e desempenho G6; backup/reset,
-limites de histórico e recuperação da janela de XP/jornada G7. Os tetos continuam
-2 mil tentativas, 20 mil cartões e projeção de mil evidências. Store exclusivamente
-local, fora dos snapshots/sync antigos. G3 requer produção/revisão real; acervo
-G5 e mapa curricular amplo continuam no programa. Sem build, execução nativa,
-conteúdo novo aprovado, V3, publicação, commit, push ou merge nesta etapa.
-
-**Revisão independente — medida em 2026-10-17 pelo Claude Opus 5.5.**
-Os 15 validadores passam na árvore atual: 173 suítes e 1.728 testes no app,
-13 na API. A revisão achou três problemas:
-
-- **A1:** uma `contentVersion` nova tira a lição da revisão para sempre
-  ([FILA 55](FILA.md));
-- **A2:** nos tetos declarados, o store de revisão ocupa cerca de 12 MiB,
-  acima dos 6 MB padrão do AsyncStorage no Android;
-- **A6:** o E1 tem 22 arquivos não commitados numa worktree e conflita com a
-  árvore ([FILA 57](FILA.md)).
-
-O trabalho G0–G4 está na [PR #39](https://github.com/andersonsmelo/Radiant/pull/39) ([FILA 56](FILA.md), feita). Desde 17/10, o
-Claude revisa e coordena as IAs.
-[Revisão](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-codex.md) e
-[protocolo](trilha/plano/2026-10-17-avancos-e-coordenacao-multi-ia.md).
-
-**Entrega do Argon (Gemini 4 Argon High), revisada pelo Claude — medida em 2026-10-17, [PR #40](https://github.com/andersonsmelo/Radiant/pull/40):**
-- **Lição legada (FILA 50 e 47):**
-  - sem "Quiz:" nos nós da trilha;
-  - pergunta e gabarito acima da explicação no reforço;
-  - resumo de 0 estrela sem celebração, com faixa neutra e Pixel de orientação, e frases sem quase acerto. O subtítulo continua "A lição foi concluída", porque a lição de 0 estrela conta como concluída.
-
-  O D1, uma pergunta por lição, segue aberto.
-- **Revisão G4:** copy de formato e cor do feedback corrigidas. O cache do `ItemReviewRepository` reduz CPU, mas não muda o A2: o store continua com cerca de 12 MiB nos tetos, acima dos 6 MB do Android.
-- **Prova nativa:** só três telas foram vistas no simulador iOS. As interações do G4 seguem sem prova nativa.
-- **P6 (FILA 52):** pesquisa entregue, e a seleção de imagens aguarda o dono. Os pesos de prova citados não têm fonte.
-- Gates: 15 validadores e 1.734 testes verdes no commit `a133576`. Revisão: [B1–B5](trilha/avaliacoes/2026-10-17-revisao-do-trabalho-do-argon.md) (branch `feat/trilha-evolucao-global-g0-g4`). [Avaliação](trilha/avaliacoes/2026-10-17-avaliacao-argon-licao-revisao-e-contratos.md) · [Pesquisa](trilha/pesquisas/2026-10-17-fontes-imagens-comerciais-e-mercado-br.md) · [Evidência](evidence/2026-10-17-trilha-licao-honesta-e-revisao-g4.md).
-
-
-
-## A1 corrigido — FILA 55, 2026-10-18
-
-Uma versão nova de conteúdo não tira mais a lição da revisão. O mesmo item herda
-só a data de revisão, sem evidência nem intervalo. O item removido sai da agenda
-e o item novo é semeado
-([ADR](adr/ADR-2026-10-18-a1-nova-versao-preserva-a-data.md),
-[relatório](evidence/2026-10-18-a1-preserva-data.md)). Branch
-`claude/fila-55-a1`, na `main` desde 2026-10-18 pela PR #45. Gates medidos em
-2026-10-18 no relatório.
-
-## Motor híbrido nas lições legadas — FILA 58, 2026-10-18
-
-Implementação candidata na branch `codex/motor-hibrido-licao`, sobre
-`claude/motor-hibrido-e-decisoes-2026-10-18`, em worktree própria. Aguarda a
-revisão do Claude antes de ser marcada como feita e a aprovação do Anderson da
-régua de estrelas proposta na PR. Usa todas as perguntas do catálogo, feedback
-por resposta, retorno único do item errado, primeiro contato sem débito de vida,
-remoção do passo de molde e ação Refazer no resumo incompleto. O nó de revisão
-não enfileira retorno na mesma sessão.
-
-Gates medidos em 2026-10-18: quality no Node 20 com 173 suítes e 1.757 testes,
-visual QA sem regressões não aprovadas; Loop 15/15 no primeiro ciclo do run
-final `run-1792326922046-8d387120`. Prova nativa no simulador iOS: lição de IA
-com dois itens, erro e retorno com débito só no retorno, resumo/Refazer,
-esgotamento de vidas e passagem de feedback com texto ampliado. Nove capturas
-versionadas. Os outros sete roteiros do plano, VoiceOver auditivo, Android e
-aparelho físico não foram executados.
-
-O [relatório e as evidências](evidence/2026-10-18-motor-hibrido.md) registram os
-vermelhos, os gates, as capturas nativas e os limites. A FILA 55 não foi alterada:
-o pacote seguinte continua sendo A1, preservando a data pela ADR de 2026-10-18.
-
-**Na `main` desde 2026-10-18:** PRs #42 e #43 mergeadas a pedido de Anderson; FILA 58 feita.
-
-**Revisão de 2026-10-18 (Claude):** aprovado com ajustes
-([revisão](trilha/avaliacoes/2026-10-18-revisao-da-pr-42.md)). O gate foi
-reproduzido numa worktree limpa no SHA `f773585`, com os mesmos números. O dono
-aprovou a régua de estrelas e decidiu que a última vida perdida no último
-retorno conclui a lição
-([ADR](adr/ADR-2026-10-18-regua-de-estrelas-e-ultima-vida.md)). Os ajustes estão
-na branch `claude/pr42-ajustes`, com seu [relatório](evidence/2026-10-18-pr42-ajustes.md).
+**Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
+estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
+documento de entrada é o
+[prompt de continuidade (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
