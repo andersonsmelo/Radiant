@@ -417,28 +417,16 @@ não foram vistos na tela. [ADR](adr/ADR-2026-10-16-configuracao-no-perfil.md),
 cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
-**Remedido em 2026-10-14:** run `run-1791978395898-e847c951`, primeiro e único
-ciclo final, **14/14 aprovados** (`VALIDATION_PASSED`). Inclui `app-quality`
-íntegro, `app-test --runInBand --no-cache`, contratos/conteúdo, testes/lint/tipos
-da API, documentos e links do cérebro. App/API no Node 20,
-`EXPO_NO_DOTENV=1`/`CI=1`; Loop no Node 24. App/Metro encerrados e SE desligado.
-
-Evidências principais: `app-quality` = `evidence-53076ae2-3874-4540-a43e-5f1905cfe982`;
-`app-test` = `evidence-176e8c7f-13b0-4e8b-a253-e8b61a5f7836`.
-A CLI retém hashes e prévias; contagens focadas são identificadas separadamente
-no [relatório de remediação](evidence/2026-10-14-qa-remediacao.md).
-É validação local; CI remoto, integração à main e publicação não executados.
+**Remedido em 2026-10-18,** na branch `claude/r6-store-revisao`, já com a `main`
+das PRs #47 a #49: o `loop validate` do run `run-1792355528928-015db1b9` deu
+**15/15**, com o `app-quality` (`npm run quality`) aprovado. No `9c107b6`, com o
+mesmo código do app, o `EXPO_NO_DOTENV=1 npx jest --runInBand` deu **174 suítes
+e 1.787 testes**, e a API, 14 testes. A contagem é do Jest em banda única, e não do log do gate.
+É validação local. O CI da `main` em `b59e216` passou pela PR #48.
 Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.
-
-**Consolidação documental validada em 2026-10-14:** run
-`run-1792017443998-8ca34b51`, **14/14, ciclo único**, sobre o pacote `13ee173`.
-Contrato documental = `evidence-8196312e-5a49-440e-9ea5-d39533b66434`;
-app-quality = `evidence-99f1b011-f87d-45d8-ba2a-f6eff8facb72`.
-Essa etapa não repetiu o QA nativo nem as medições externas; preserva a
-proveniência e os limites registrados no relatório.
 
 ### O que o gate NÃO pega
 
@@ -564,9 +552,17 @@ Medido em 2026-10-10, às 09:55:
     `radiant-app/ios/` ficou com o `.storekit` e o esquema marcado; um
     `prebuild --clean` desfaz isso.
 
-**Worktrees:** a `zealous-shannon-01c8e3` foi removida em 2026-09-24. Continuam
-em `.claude/worktrees/` a `dazzling-ishizaka-883871`, a `sharp-dijkstra-747d12`
-e a `trusting-mestorf-a5ca83`, cada uma com runs do Loop que o git ignora.
+**Worktrees, medidas em 2026-10-18 às 17 h:** a `zealous-shannon-01c8e3` foi
+removida em 2026-09-24. Em `.claude/worktrees/`, todas limpas:
+- `trusting-mestorf-a5ca83` e `dazzling-ishizaka-883871`, do E1, já na `main`
+  pela #49;
+- `maestro-nativo` (#48) e `review-42` (#47), já na `main`;
+- `argon-trilha` e `sharp-dijkstra-747d12`, já na `main`;
+- `r6-store-revisao`, a branch das entregas de 2026-10-18 (R6, A4, R8 e C1).
+
+Cada uma guarda runs do Loop que o git ignora. Remover as já integradas é
+decisão do dono.
+
 Desde 2026-10-18, os logs da bateria do E1 (da `dazzling-ishizaka-883871`) e
 os do vermelho do E1 (da `trusting-mestorf-a5ca83`) estão versionados em
 `docs/evidence/2026-10-18-e1-animacao-desligavel-em-teste/`. O resto da
@@ -625,7 +621,8 @@ tem evidência própria em `evidence/2026-10-18-*`.
 
 **Ainda aberto:**
 - **A2:** o store de revisão passa dos 6 MB do Android nos tetos. Foi medido no
-  R6, e trocar o storage é decisão do dono;
+  R6, e trocar o storage é decisão do dono. A recomendação do agente e o passo
+  de medição no aparelho estão na [FILA 61](FILA.md);
 - o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
 - Android, VoiceOver e desempenho (G6) e backup e reset (G7);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
@@ -633,7 +630,7 @@ tem evidência própria em `evidence/2026-10-18-*`.
 **Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
 estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
 documento de entrada é o
-[prompt de continuidade (19)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md).
+[prompt de continuidade (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
 
 ## Store de revisão — R6, medido em 2026-10-18
 

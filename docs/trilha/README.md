@@ -8,7 +8,7 @@ com data, está no [histórico](historico.md).
 
 **Comece pelo [levantamento de 16 a 18/10](2026-10-18-levantamento-do-que-foi-feito.md)**,
 que traz as PRs, as decisões e o que ficou aberto, e pelo
-[prompt de continuidade (19)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-19.md),
+[prompt de continuidade (20)](../superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md),
 a entrada da próxima sessão.
 
 **Contribuições são bem-vindas, inclusive as que discordam do que está aqui.**

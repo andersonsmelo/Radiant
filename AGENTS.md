@@ -428,6 +428,41 @@ defeito que se queria pegar.
   validar. Não declare o arquivo: `expo-env.d.ts` está fora de
   `allowedRoots`, e declará-lo dá `INVALID_SCOPE`.
 
+### Cinco lições de 2026-10-18, tarde (quatro entregas e três merges)
+
+- **O shell do agente é zsh, e ele expande diferente do bash.** Cada um destes
+  custou algo no mesmo dia:
+  - uma lista de caminhos numa variável não se divide em palavras. O
+    `abrir.mjs` recebeu 8 caminhos como um argumento só, e o run ficou órfão.
+    Monte a lista num array (`files+=(...)`, passado como `"${files[@]}"`) e
+    confira a contagem antes;
+  - `$B:radiant-app/...` perde o `r`, porque `:r` é um modificador do zsh. Use
+    `"${B}:caminho"`;
+  - um heredoc sem aspas executa a crase do texto que ele escreve. Uma frase da
+    FILA saiu sem o nome do validador. Use `<<'EOF'` e releia o que escreveu.
+- **Evidência que só existe em pasta ignorada de uma worktree some na
+  limpeza.** Os logs que sustentavam o "7 de 7" do E1 estavam em
+  `radiant-app/.maestro/artifacts/`, e o relatório propunha remover a worktree.
+  Antes de propor uma remoção, procure na evidência todo caminho em
+  `artifacts/` e versione o que sustenta uma afirmação: logs pequenos sim,
+  capturas de centenas de MB não.
+- **Merge sem conflito no git pode reprovar o contrato que uma das PRs criou.**
+  A #49 passou a exigir o argumento em todo `launchApp`, e o roteiro novo da
+  #48 não o passava. Cada PR estava verde sozinha. Quando uma PR cria uma regra
+  que vale para todo arquivo de um tipo, simule o merge com cada PR aberta
+  (`git merge-tree --write-tree`) e rode o contrato na árvore resultante.
+  Também não vira conflito a frase velha num arquivo que a outra branch não
+  toca: procure pelos identificadores (item da FILA, nome da worktree) nas
+  linhas que cada branch aberta acrescenta.
+- **"Fiz o merge" se confere no GitHub antes de seguir a ordem combinada,**
+  com `gh pr view <n> --json state`. Duas vezes no mesmo dia o merge relatado
+  não tinha acontecido, e seguir em frente teria atualizado uma PR contra a
+  `main` errada.
+- **Arquivo novo em `docs/trilha/` entra no mapa do README no mesmo run.** O
+  `docs-contract` reprova arquivo da pasta que não seja destino de um link no
+  README (`FOLDER_MAPS`, em `scripts/qa/docs-contract.mjs`). Outra pasta com
+  README de entrada passa a valer com uma linha nessa lista.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
