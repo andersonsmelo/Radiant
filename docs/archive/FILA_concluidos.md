@@ -2290,3 +2290,14 @@ estão feitas, e a FILA 61 aguarda a decisão A2 do dono.
 
 A ordem e os gates atuais estão no
 [prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md);
+
+## Arquivado em 2026-10-19 à noite — o G7 antes do merge da #61
+
+atualizado em 2026-10-19 à noite:** as PRs #52 a #60 entraram na `main`, a 59 e
+a 63 estão feitas, a #61 (G7) espera o merge do dono e a FILA 61 aguarda a
+decisão A2.
+
+    com `schemaVersion` que não conhece. Os consertos estão na branch
+    `claude/g7-schema-desconhecido`, ainda não integrada:
+
+    - **dono:** o merge da branch do G7;

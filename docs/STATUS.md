@@ -641,16 +641,16 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
     ([evidência](evidence/2026-10-19-g6-caminho-de-dados.md));
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
-  - **dono:** a saída das cinco stores sem `schemaVersion` e o merge do G7
-    das stores (branch `claude/g7-schema-desconhecido`);
+  - **dono:** a saída das cinco stores sem `schemaVersion`, levantadas pelo G7
+    das stores;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Continuidade atualizada em 2026-10-19 à noite:**
 [prompt de continuidade (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md).
-Em 2026-10-19, o Claude integrou as PRs #52 a #60 com autorização do dono,
-dada na conversa, e conferiu cada merge no GitHub. A
-[PR #61](https://github.com/andersonsmelo/Radiant/pull/61), do G7, estava aberta
-às 19:00, conflitando com a `main` só na documentação.
+Em 2026-10-19, o Claude integrou as PRs #52 a #62 com autorização do dono,
+dada na conversa, e conferiu cada merge no GitHub. A última foi a
+[PR #61](https://github.com/andersonsmelo/Radiant/pull/61), do G7, às 19:09, depois de a branch ser atualizada com a
+`main` e o CI passar de novo.
 A [ADR de coordenação](adr/ADR-2026-10-18-claude-planejador-e-executor.md)
 permanece como registro da decisão anterior.
 
@@ -726,8 +726,8 @@ recuperação foram tomadas por Anderson e executadas no mesmo dia
   plataforma. A versão publicada continua a de 2026-07-29 até ser republicada.
 
 **Na tarde de 2026-10-19, a regra da jornada foi estendida às outras stores de
-aprendizagem e economia**, na branch `claude/g7-schema-desconhecido`, ainda não
-integrada. Das 22 chaves, 8 já recusavam e 5 gravavam por cima ou apagavam: as
+aprendizagem e economia**, e entrou na `main` pela [PR #61](https://github.com/andersonsmelo/Radiant/pull/61)
+(`d2ec52c`) às 19:09. Das 22 chaves, 8 já recusavam e 5 gravavam por cima ou apagavam: as
 tentativas, o domínio, a assinatura e os dois checkpoints. Essas 5 agora
 recusam. A mescla do backup do iCloud, que escrevia na jornada por fora da
 guarda, também recusa. A migração da 1.4 não zera mais as vidas diante do

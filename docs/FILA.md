@@ -66,9 +66,8 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração preserva a fila histórica. **A ordem atual de execução está no
 [prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md),
-atualizado em 2026-10-19 à noite:** as PRs #52 a #60 entraram na `main`, a 59 e
-a 63 estão feitas, a #61 (G7) espera o merge do dono e a FILA 61 aguarda a
-decisão A2.
+atualizado em 2026-10-19 à noite:** as PRs #52 a #62 entraram na `main`, a #61
+(G7) inclusive, a 59 e a 63 estão feitas e a FILA 61 aguarda a decisão A2.
 
 A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
 versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
@@ -195,8 +194,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Atualização de 2026-10-19, à tarde (Claude, G7 nas outras stores):** a
     regra da jornada vale agora para toda store de aprendizagem e economia que
     declara `schemaVersion`. Uma versão antiga não grava por cima de um store
-    com `schemaVersion` que não conhece. Os consertos estão na branch
-    `claude/g7-schema-desconhecido`, ainda não integrada:
+    com `schemaVersion` que não conhece. Os consertos entraram na `main` pela
+    [PR #61](https://github.com/andersonsmelo/Radiant/pull/61) (`d2ec52c`), em 2026-10-19:
     - passaram a recusar as tentativas, o domínio e a assinatura, que gravavam
       por cima, e os dois checkpoints, que **apagavam** o store futuro;
     - a mescla do backup do iCloud escrevia na jornada por fora da guarda, e
@@ -210,7 +209,6 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - **dono:** escolher a saída das cinco stores sem `schemaVersion` (agenda
       SM-2, gamificação, meta diária, vidas e ledger de cobrança), pela
       [proposta](evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono);
-    - **dono:** o merge da branch do G7;
     - **dono:** republicar as duas páginas legais e só então enviar a build
       com a chave de backup. A mesma build leva a guarda das stores;
     - **G6, caminho de dados, medido em 2026-10-19** no emulador

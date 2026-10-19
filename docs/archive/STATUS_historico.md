@@ -3528,3 +3528,16 @@ FILA 59.
 [prompt de continuidade (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
 Em 2026-10-19, o Claude integrou as PRs #52 a #59 com autorização do dono,
 dada na conversa, e conferiu cada merge no GitHub.
+
+## Saiu do STATUS em 2026-10-19 à noite — o G7 antes do merge da #61
+
+  - **dono:** a saída das cinco stores sem `schemaVersion` e o merge do G7
+    das stores (branch `claude/g7-schema-desconhecido`);
+
+Em 2026-10-19, o Claude integrou as PRs #52 a #60 com autorização do dono,
+dada na conversa, e conferiu cada merge no GitHub. A
+[PR #61](https://github.com/andersonsmelo/Radiant/pull/61), do G7, estava aberta
+às 19:00, conflitando com a `main` só na documentação.
+
+aprendizagem e economia**, na branch `claude/g7-schema-desconhecido`, ainda não
+integrada. Das 22 chaves,
