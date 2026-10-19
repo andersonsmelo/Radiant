@@ -1,0 +1,136 @@
+# Árvore de acessibilidade do G4 no iOS — 2026-10-19, 09:06–09:08 (−03)
+
+Simulador descartável `E262D4C1` (iPhone 17 Pro, iOS 26.5; nunca o `5FD8C926`
+da FILA 59), dev client Debug já instalado, lançado com `radiantReduceMotion`.
+JS servido pelo Metro da worktree `claude/fila54-g4-nativo` (main `d7bd696` mais
+o diff deste run). Lida com `maestro hierarchy` (Maestro 2.7.0). O simulador não
+tem VoiceOver: isto é a árvore que ele consumiria, não o que ele fala.
+
+### 01-pergunta
+accessibilityText='Radiant' | selected='false' | enabled='true'
+accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='Fechar revisão' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+resource-id='review-option-0' | accessibilityText='Tratamento de tumores' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+resource-id='review-option-1' | accessibilityText='Visualização de estruturas internas' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+resource-id='review-option-2' | accessibilityText='Esterilização de equipamentos' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+resource-id='review-option-3' | accessibilityText='Aquecimento de tecidos' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+accessibilityText='Confirmar resposta' | selected='false' | enabled='false'
+accessibilityText='Ver resposta com ajuda' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='09:06' | selected='false' | enabled='true'
+accessibilityText='Celular' | value='Sem sinal' | text='Sem sinal' | selected='false' | enabled='true'
+resource-id='3 de 3 barras Wi-Fi' | value='SSID, 3 de 3 barras Wi-Fi' | text='SSID, 3 de 3 barras Wi-Fi' | selected='false' | enabled='true'
+accessibilityText='carga da bateria, 100%' | value='Não está carregando' | text='Não está carregando' | selected='false' | enabled='true'
+
+### 02-selecionada
+accessibilityText='Radiant' | selected='false' | enabled='true'
+accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='Fechar revisão' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+resource-id='review-option-0' | accessibilityText='Tratamento de tumores' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+resource-id='review-option-1' | accessibilityText='Visualização de estruturas internas' | value='radio button' | text='radio button' | selected='true' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+resource-id='review-option-2' | accessibilityText='Esterilização de equipamentos' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+resource-id='review-option-3' | accessibilityText='Aquecimento de tecidos' | value='radio button' | text='radio button' | selected='false' | enabled='true'
+accessibilityText='Confirmar resposta' | selected='false' | enabled='true'
+accessibilityText='Ver resposta com ajuda' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='09:07' | selected='false' | enabled='true'
+accessibilityText='Celular' | value='Sem sinal' | text='Sem sinal' | selected='false' | enabled='true'
+resource-id='3 de 3 barras Wi-Fi' | value='SSID, 3 de 3 barras Wi-Fi' | text='SSID, 3 de 3 barras Wi-Fi' | selected='false' | enabled='true'
+accessibilityText='carga da bateria, 100%' | value='Não está carregando' | text='Não está carregando' | selected='false' | enabled='true'
+
+### 03-acerto
+accessibilityText='Radiant' | selected='false' | enabled='true'
+accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='5' | selected='false' | enabled='true'
+accessibilityText='Fechar revisão' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='1/3' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Sessão ativa' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='REVISÃO' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+accessibilityText='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+resource-id='review-feedback-shell' | selected='false' | enabled='true'
+resource-id='review-feedback-label' | accessibilityText='RESPOSTA CORRETA' | selected='false' | enabled='true'
+accessibilityText='RESPOSTA CORRETA' | selected='false' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+accessibilityText='Visualização de estruturas internas' | selected='false' | enabled='true'
+accessibilityText='Os raios-X são usados principalmente para criar imagens de estruturas internas do corpo, permitindo o diagnóstico de diversas condições médicas.' | selected='false' | enabled='true'
+accessibilityText='Os raios-X são usados principalmente para criar imagens de estruturas internas do corpo, permitindo o diagnóstico de diversas condições médicas.' | selected='false' | enabled='true'
+accessibilityText='Continuar' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='Horizontal scroll bar, 1 page' | value='0%' | text='0%' | selected='false' | enabled='true'
+accessibilityText='09:07' | selected='false' | enabled='true'
+accessibilityText='Celular' | value='Sem sinal' | text='Sem sinal' | selected='false' | enabled='true'
+resource-id='3 de 3 barras Wi-Fi' | value='SSID, 3 de 3 barras Wi-Fi' | text='SSID, 3 de 3 barras Wi-Fi' | selected='false' | enabled='true'
+accessibilityText='carga da bateria, 100%' | value='Não está carregando' | text='Não está carregando' | selected='false' | enabled='true'
+
+## Conserto: o resultado da revisão passa a ser anunciado (ReviewCard)
+
+Antes, o cartão de feedback tinha só `accessibilityLiveRegion="polite"`, que o
+React Native aplica apenas no Android. No iOS nada anunciava "Resposta correta",
+"Vamos revisar este ponto" ou "Resposta consultada"; a lição anuncia o dela por
+`AccessibilityInfo.announceForAccessibility` desde 2026-09-28. Agora o cartão
+anuncia, nas duas plataformas e uma vez por item, o rótulo, a resposta certa e a
+explicação; a live region saiu para o Android não ouvir duas vezes.
+
+Vermelho do teste final, com cada metade do conserto desfeita isoladamente:
+
+## anúncio retirado do ReviewCard (o efeito inteiro), teste final intacto
+exit=1
+  ✓ não revela gabarito antes de selecionar, confirmar e receber confirmação persistida (70 ms)
+  ✓ pedir gabarito envia ajuda, sem autodeclarar acerto (3 ms)
+  ✓ dois toques imediatos enviam uma única resposta e a seleção confirmada fica bloqueada (4 ms)
+  ✕ anuncia ao leitor de tela o resultado, a resposta certa e a explicação, uma vez por item (4 ms)
+  Expected number of calls: 1
+  Received number of calls: 0
+  Tests:       1 failed, 3 passed, 4 total
+restaurado byte a byte; verde final: Tests:       4 passed, 4 total exit=0
+
+## sem a trava de uma vez por item (anuncia a cada rerender com feedback)
+exit=1
+  ✕ anuncia ao leitor de tela o resultado, a resposta certa e a explicação, uma vez por item (4 ms)
+  Expected number of calls: 1
+  Received number of calls: 2
+  Tests:       1 failed, 3 passed, 4 total
+restaurado byte a byte

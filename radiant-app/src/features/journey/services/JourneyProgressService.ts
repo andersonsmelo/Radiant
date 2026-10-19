@@ -18,6 +18,25 @@ import { resolveActiveTrackId } from './JourneyTrackUnlockService';
 import { isTrackCompleted } from './trackCompletion';
 
 const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
+const KNOWN_JOURNEY_SCHEMA_VERSIONS: ReadonlySet<unknown> = new Set([
+    LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION,
+    JOURNEY_PROGRESS_SCHEMA_VERSION,
+]);
+
+/**
+ * Store com um `schemaVersion` que este app não conhece: em geral, gravado por
+ * uma versão mais nova (TestFlight, teste interno, backup restaurado num
+ * aparelho com versão velha). Ele não é lido, mas também nunca é sobrescrito:
+ * a versão nova o encontra intacto quando voltar (G7, ADR de 2026-10-19).
+ * Store sem `schemaVersion` ou que nem é objeto continua tratado como ausente.
+ */
+function isUnrecognizedJourneyStore(raw: unknown): boolean {
+    return typeof raw === 'object'
+        && raw !== null
+        && !Array.isArray(raw)
+        && 'schemaVersion' in raw
+        && !KNOWN_JOURNEY_SCHEMA_VERSIONS.has((raw as { schemaVersion: unknown }).schemaVersion);
+}
 
 function nowIso(): string {
     return new Date().toISOString();
@@ -431,6 +450,13 @@ class JourneyProgressServiceImpl {
     }
 
     private async writeStore(store: JourneyProgressStore): Promise<void> {
+        // Toda escrita passa aqui, inclusive a que `ensureProgress` faz a cada
+        // leitura: a guarda vale para abrir a Home, e não só para concluir nó.
+        const current = await readJsonStorage<unknown | null>(STORAGE_KEYS.JOURNEY_PROGRESS, null);
+        if (isUnrecognizedJourneyStore(current)) {
+            console.warn('[JourneyProgressService] Store com schema desconhecido preservado, sem escrita.');
+            return;
+        }
         await writeJsonStorage(STORAGE_KEYS.JOURNEY_PROGRESS, store);
     }
 

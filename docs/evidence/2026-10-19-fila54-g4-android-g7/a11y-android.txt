@@ -1,0 +1,208 @@
+# Árvore de acessibilidade do G4 no Android — 2026-10-19, 09:00–09:06 (−03)
+
+Emulador `radiant-entrada-api34` (API 34, 2 GB, 2 núcleos), dev client Debug
+1.4.0 (3) da FILA 61, JS servido pelo Metro da worktree `claude/fila54-g4-nativo`
+(main `d7bd696` mais o diff deste run, inclusive o anúncio novo do ReviewCard).
+Lida com `maestro hierarchy` (Maestro 2.7.0), que expõe a árvore que o TalkBack
+consome: classe, rótulo (`accessibilityText`), `resource-id`, `selected`,
+`checked`, `clickable` e `enabled`. Campos `false` de checked, clickable e
+focused foram omitidos para leitura; `enabled='false'` aparece quando vale.
+
+Limites:
+- o `checkable` não aparece no `maestro hierarchy`, e o `uiautomator dump`, que
+  o mostraria, não responde com animação na tela (devolveu vazio em três
+  tentativas). Não se sabe se o TalkBack diria "não marcado" numa alternativa
+  selecionada;
+- nada foi ouvido: a imagem `google_apis` não traz o TalkBack.
+
+Estados 01–09: escalas de animação do sistema no padrão (1). Estados 11–13: as
+três escalas em 0, que é o "Remover animações" da Acessibilidade do Android.
+
+### 01-pergunta
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-0' | accessibilityText='Tratamento de tumores' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Tratamento de tumores' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-1' | accessibilityText='Visualização de estruturas internas' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Visualização de estruturas internas' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-2' | accessibilityText='Esterilização de equipamentos' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Esterilização de equipamentos' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-3' | accessibilityText='Aquecimento de tecidos' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Aquecimento de tecidos' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Confirmar resposta' | selected='false' | clickable='true' | enabled='false'
+class='android.widget.TextView' | text='Confirmar resposta' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Ver resposta com ajuda' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Ver resposta com ajuda' | selected='false' | enabled='true'
+
+### 02-selecionada
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-0' | accessibilityText='Tratamento de tumores' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Tratamento de tumores' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-1' | accessibilityText='Visualização de estruturas internas' | selected='true' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Visualização de estruturas internas' | selected='true' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-2' | accessibilityText='Esterilização de equipamentos' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Esterilização de equipamentos' | selected='false' | enabled='true'
+class='android.widget.RadioButton' | resource-id='review-option-3' | accessibilityText='Aquecimento de tecidos' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Aquecimento de tecidos' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Confirmar resposta' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Confirmar resposta' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Ver resposta com ajuda' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Ver resposta com ajuda' | selected='false' | enabled='true'
+
+### 03-acerto
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Qual é a principal função dos raios-X na radiologia diagnóstica?' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='review-feedback-shell' | selected='false' | enabled='true'
+class='android.widget.TextView' | resource-id='review-feedback-label' | text='RESPOSTA CORRETA' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Visualização de estruturas internas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Os raios-X são usados principalmente para criar imagens de estruturas internas do corpo, permitindo o diagnóstico de diversas condições médicas.' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Continuar' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Continuar' | selected='false' | enabled='true'
+
+### 06-erro
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='2/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Qual estrutura é mais radiopaca em uma radiografia?' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='review-feedback-shell' | selected='false' | enabled='true'
+class='android.widget.TextView' | resource-id='review-feedback-label' | text='VAMOS REVISAR ESTE PONTO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Osso' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='O osso é a estrutura mais radiopaca devido à sua alta densidade e conteúdo de cálcio, que absorve mais raios-X.' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Continuar' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Continuar' | selected='false' | enabled='true'
+
+### 08-ajuda
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='3/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='O que significa o termo "contraste" em radiologia?' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='review-feedback-shell' | selected='false' | enabled='true'
+class='android.widget.TextView' | resource-id='review-feedback-label' | text='RESPOSTA CONSULTADA' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Diferença de densidade entre estruturas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Contraste refere-se à diferença de densidade entre diferentes estruturas, permitindo distingui-las na imagem radiográfica.' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Continuar' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Continuar' | selected='false' | enabled='true'
+
+### 09-resumo
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='22 XP' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='22' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='1 dia de sequência' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1d' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='SESSÃO CONCLUÍDA' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='journey-hero-illustration' | selected='false' | enabled='true'
+class='android.widget.ImageView' | accessibilityText='Pixel celebrando a revisão' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='journey-hero-bubble-tail' | selected='false' | enabled='true'
+class='android.widget.TextView' | resource-id='journey-hero-bubble' | text='Boa. Você fechou a fila de revisão e devolveu estabilidade para a trilha.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='FILA ENCERRADA' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='de 3' | selected='false' | enabled='true'
+class='android.view.View' | text='Resultado da sessão' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='\ue2e6' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='ITENS' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='3 concluídos nesta rodada' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='\ue8d0' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='XP' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='+4 XP confirmado' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='\ue627' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='ESTADO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Cards já atualizados no fluxo local-first' | selected='false' | enabled='true'
+
+## Remover animações (as três escalas em 0): o cartão da pergunta não entra na árvore
+
+### 11-escala0-revisao
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='22 XP' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='22' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='1 dia de sequência' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1d' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Começar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='Começar revisão' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Revise no seu ritmo' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Revise os itens disponíveis e acompanhe sua próxima revisão.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REPETIÇÃO ESPAÇADA' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='journey-hero-illustration' | selected='false' | enabled='true'
+class='android.widget.ImageView' | accessibilityText='Pixel guiando a revisão' | selected='false' | enabled='true'
+class='android.view.ViewGroup' | resource-id='journey-hero-bubble-tail' | selected='false' | enabled='true'
+class='android.widget.TextView' | resource-id='journey-hero-bubble' | text='Confira o que você lembra, um item por vez.' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='3 ITENS NA FILA' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='0' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='de 3' | selected='false' | enabled='true'
+class='android.view.View' | text='Como essa sessão funciona' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='FORMATO' | selected='false' | enabled='true'
+
+### 12-escala0-sessao
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+
+### 13-escala0-sessao-25s
+class='android.widget.FrameLayout' | resource-id='android:id/content' | selected='false' | enabled='true'
+class='android.widget.TextView' | accessibilityText='5 de 5 vidas' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='5' | selected='false' | enabled='true'
+class='android.widget.Button' | accessibilityText='Fechar revisão' | selected='false' | clickable='true' | enabled='true'
+class='android.widget.TextView' | text='\ue5cd' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='REVISÃO' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='1/3' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Sessão ativa' | selected='false' | enabled='true'
+class='android.widget.TextView' | text='Escolha uma alternativa e confirme. Depois, confira a explicação no seu ritmo. Se precisar, consulte a resposta com ajuda.' | selected='false' | enabled='true'
+
+Em 12 e 13 (13 é 25 s depois de 12) não há pergunta, alternativa (review-option-*), Confirmar nem ajuda: a sessão mostra só o cabeçalho "1/3" e "Sessão ativa". Com a escala em 1, os mesmos passos mostram o cartão (estado 01).

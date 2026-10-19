@@ -1,0 +1,33 @@
+serial=emulator-5554 avd=radiant-entrada-api34 flow=learning-critical-path maestro=2.7.0 head=d7bd696 inicio=2026-10-19T08:44:28-0300
+Running on emulator-5554
+ > Flow Local-first learning path through two lessons and progress
+Launch app "com.ascendcreative.radiant" with clear state (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... COMPLETED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+    Tap on "http://localhost:8081"... FAILED
+  Run flow when "DEVELOPMENT SERVERS" is visible... FAILED
+Run subflows/dismiss-dev-client.yaml... FAILED
+
+Element not found: Text matching regex: http://localhost:8081
+
+Element with Text matching regex: http://localhost:8081 not found. Check the UI hierarchy in debug artifacts to verify if the element exists.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state.
+- This could be a real regression that needs to be addressed.
+
+==== Debug output (logs & screenshots) ====
+
+/Users/anderson/.maestro/tests/2026-10-19_084429
+╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                │
+│   Debug tests faster by easy access to test recordings, maestro logs, screenshots, and more.   │
+│                                                                                                │
+│   Run your flows on Maestro Cloud:                                                             │
+│   maestro cloud app_file flows_folder/                                                         │
+│                                                                                                │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+exit=1 fim=2026-10-19T08:45:00-0300
