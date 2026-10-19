@@ -741,3 +741,22 @@ O E1 expôs também que o centramento do Maestro podia deixar o botão "Continua
 jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
 Integrado na `main` em 2026-10-18 pela [PR #49](https://github.com/andersonsmelo/Radiant/pull/49) (`e2e0524`).
 [Evidência](evidence/2026-10-18-e1-animacao-desligavel-em-teste.md).
+
+## "Remover animações" no Android — FILA 64, medido em 2026-10-19
+
+Com as três escalas de animação do Android em 0, que é o que "Remover animações"
+faz, o cartão da revisão não aparecia na `main` em `d7bd696`. A sessão mostrava
+"1/3" e "Sessão ativa", sem pergunta nem alternativas. A causa, medida no
+emulador `radiant-entrada-api34`: o `useCardEnter` começava a animação antes de
+saber a preferência, e o retorno nativo da animação interrompida gravava
+opacidade 0 por cima do 1.
+
+O conserto está na branch `claude/fila64-cartao-sem-animacao`, ainda **não**
+integrada, e muda só o hook. Com ele, revisão, quiz e início legado mostram o
+cartão com escala 0 e com escala 1. O Android não está em produção (a 1.3.0
+segue em teste fechado), e o iOS com "Reduzir movimento" no sistema não foi
+medido. [Evidência](evidence/2026-10-19-fila64-cartao-sem-animacao.md).
+
+```bash
+cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx
+```

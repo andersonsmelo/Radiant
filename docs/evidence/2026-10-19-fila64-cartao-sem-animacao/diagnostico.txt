@@ -1,0 +1,162 @@
+# Diagnóstico da FILA 64 — logs do useCardEnter no emulador, 2026-10-19, 09:24–09:32 (−03)
+
+Emulador radiant-entrada-api34 (Android 14), dev client Debug 1.4.0 (3), JS do
+Metro desta worktree (Node 20.20.2, EXPO_NO_TYPESCRIPT_SETUP=1), as três escalas
+de animação em 0. Cada execução: app reaberto do zero, `radiantapp://review`,
+toque em "Começar revisão" (ver conduzir.sh).
+
+A instrumentação foi TEMPORÁRIA, só neste diagnóstico, e não está no commit:
+console.log em render, reset, animateIn e no callback de start(); um
+setTimeout lê o valor JS da opacidade 500 ms e 3 s depois do setValue(1); na
+execução C, um embrulho em `__onAnimatedValueUpdateReceived`, o método que o
+RN chama quando o lado nativo devolve o valor de uma animação que terminou
+(node_modules/react-native/Libraries/Animated/animations/Animation.js,
+linhas 139–167, RN 0.81.5). Logo depois de gravar o valor, esse mesmo trecho
+chama `node.update()` nos AnimatedProps, o que empurra o valor JS para a view.
+
+## A — com um listener na opacidade (opacity.addListener): o cartão APARECEU
+O listener liga o envio contínuo do valor nativo para o JS e mudou o resultado:
+observar desse jeito esconde o defeito. Por isso foi retirado em B e C.
+[fila64 1] render reduced=false
+[fila64 1] reset
+[fila64 1] opacity nativo/listener=0
+[fila64 1] animateIn reduced=false
+[fila64 1] render reduced=true
+[fila64 1] reset
+[fila64 1] start-callback finished=false opacity JS=0
+[fila64 1] opacity nativo/listener=0
+[fila64 1] animateIn reduced=true
+[fila64 1] opacity nativo/listener=1
+[fila64 1] render reduced=true
+[fila64 1] opacity nativo/listener=0
+[fila64 1] opacity nativo/listener=1
+[fila64 1] +500ms opacity JS=1
+[fila64 1] +3s opacity JS=1
+
+## B — sem listener, só os logs: o cartão NÃO apareceu (árvore sem pergunta nem alternativas)
+O valor JS era 1 logo após o setValue(1) e virou 0 antes de 500 ms, sem nenhum
+setValue(0) no meio.
+[fila64 1] render reduced=false
+[fila64 1] reset
+[fila64 1] animateIn reduced=false
+[fila64 1] render reduced=true
+[fila64 1] reset
+[fila64 1] start-callback finished=false opacity JS=0
+[fila64 1] animateIn reduced=true
+[fila64 1] render reduced=true
+[fila64 1] +500ms opacity JS=0
+[fila64 1] +3s opacity JS=0
+
+## C — com o embrulho no retorno nativo: o cartão NÃO apareceu
+A sequência que explica o defeito, nesta ordem:
+1. primeira passada, preferência ainda desconhecida (`reduced=false`): reset e
+   animação nativa começada;
+2. a preferência chega `true`; o efeito do ReviewCard roda de novo porque
+   `animateIn` mudou de identidade: reset (setValue(0) interrompe a animação)
+   e setValue(1);
+3. o retorno nativo da animação interrompida chega DEPOIS e grava 0 por cima
+   do 1 ("JS antes=1"); o node.update() que segue leva o 0 para a view.
+[fila64 1] render reduced=false
+[fila64 1] reset
+[fila64 1] setValue(0)
+[fila64 1] animateIn reduced=false
+[fila64 1] render reduced=true
+[fila64 1] reset
+[fila64 1] setValue(0)
+[fila64 1] start-callback finished=false opacity JS=0
+[fila64 1] animateIn reduced=true
+[fila64 1] setValue(1)
+[fila64 1] render reduced=true
+[fila64 1] retorno nativo grava value=0 (JS antes=1)
+[fila64 1] +500ms opacity JS=0
+
+## Fora da conta, registrados para não esconder nada
+- Uma remontagem por Fast Refresh, entre A e B, terminou com o valor JS em 1
+  aos 500 ms; o app foi fechado antes da leitura dos 3 s. A corrida depende da
+  ordem de chegada do retorno nativo e não precisa perder sempre.
+- Uma remontagem por Fast Refresh, entre B e C, começou já com `reduced=true`:
+  nenhuma animação começou e o cartão apareceu. É o caminho que o conserto
+  torna obrigatório.
+[fila64 1] render reduced=false
+[fila64 1] reset
+[fila64 1] animateIn reduced=false
+[fila64 1] render reduced=true
+[fila64 1] reset
+[fila64 1] start-callback finished=false opacity JS=0
+[fila64 1] animateIn reduced=true
+[fila64 1] +500ms opacity JS=1
+
+[fila64 1] render reduced=true
+[fila64 1] reset
+[fila64 1] setValue(0)
+[fila64 1] animateIn reduced=true
+[fila64 1] setValue(1)
+[fila64 1] render reduced=true
+[fila64 1] render reduced=true
+[fila64 1] +500ms opacity JS=1
+
+## Reprodução sem instrumentação
+Com o motion.ts da main (d7bd696) intacto, a mesma condução às 09:31 deixou a
+sessão em "1/3" e "Sessão ativa", sem pergunta nem alternativas, 25 s depois do
+toque: estado "antes" de a11y-android.txt e antes-revisao-escala0.png.
+
+## A instrumentação usada em C (diff contra a main, descartado depois)
+--- a/radiant-app/src/ui/motion.ts	2026-10-19 09:41:29
++++ b/radiant-app/src/ui/motion.ts	2026-10-19 09:29:30
+@@ -93,7 +93,7 @@
+                 easing: easing.out,
+                 useNativeDriver: true,
+             }),
+-        ]).start();
++        ]).start(({ finished }) => console.log(`[fila64 ${fila64Tag(opacity)}] start-callback finished=${finished} opacity JS=${(opacity as any).__getValue()}`));
+     }, [customDuration, opacity, reducedMotionEnabled, translateY]);
+ 
+     const style = {
+@@ -245,20 +245,38 @@
+  * Initial: opacity=0, translateY=6
+  * Final: opacity=1, translateY=0
+  */
++let fila64DiagCounter = 0; // FILA64-DIAG
++function fila64Tag(v: any): string { if (!v.__fila64) v.__fila64 = String(++fila64DiagCounter); return v.__fila64; }
+ export function useCardEnter(customDuration?: number) {
+     const opacity = useRef(new Animated.Value(0)).current;
+     const translateY = useRef(new Animated.Value(6)).current;
+     const reducedMotionEnabled = useReducedMotionPreference();
++    // FILA64-DIAG (temporário)
++    console.log(`[fila64 ${fila64Tag(opacity)}] render reduced=${reducedMotionEnabled}`);
++    if (!(opacity as any).__fila64Patched) {
++        (opacity as any).__fila64Patched = true;
++        const original = (opacity as any).__onAnimatedValueUpdateReceived.bind(opacity);
++        (opacity as any).__onAnimatedValueUpdateReceived = (value: number, offset?: number) => {
++            console.log(`[fila64 ${fila64Tag(opacity)}] retorno nativo grava value=${value} (JS antes=${(opacity as any).__getValue()})`);
++            original(value, offset);
++        };
++        const originalSet = opacity.setValue.bind(opacity);
++        (opacity as any).setValue = (value: number) => { console.log(`[fila64 ${fila64Tag(opacity)}] setValue(${value})`); originalSet(value); };
++    }
+ 
+     const reset = useCallback(() => {
++        console.log(`[fila64 ${fila64Tag(opacity)}] reset`);
+         opacity.setValue(0);
+         translateY.setValue(6);
+     }, [opacity, translateY]);
+ 
+     const animateIn = useCallback(() => {
++        console.log(`[fila64 ${fila64Tag(opacity)}] animateIn reduced=${reducedMotionEnabled}`);
+         if (reducedMotionEnabled) {
+             opacity.setValue(1);
+             translateY.setValue(0);
++            setTimeout(() => console.log(`[fila64 ${fila64Tag(opacity)}] +500ms opacity JS=${(opacity as any).__getValue()}`), 500);
++            setTimeout(() => console.log(`[fila64 ${fila64Tag(opacity)}] +3s opacity JS=${(opacity as any).__getValue()}`), 3000);
+             return;
+         }
+ 
+@@ -275,7 +293,7 @@
+                 easing: easing.out,
+                 useNativeDriver: true,
+             }),
+-        ]).start();
++        ]).start(({ finished }) => console.log(`[fila64 ${fila64Tag(opacity)}] start-callback finished=${finished} opacity JS=${(opacity as any).__getValue()}`));
+     }, [customDuration, opacity, reducedMotionEnabled, translateY]);
+ 
+     const animatedStyle = {
