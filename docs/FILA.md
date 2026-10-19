@@ -32,7 +32,7 @@ A decisão de coordenação de 2026-10-18 está na
 e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
 dono permanecem. O levantamento de 16 a 18/10 está
 [aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o
-[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
 
 ## Política de decisão
 
@@ -65,9 +65,9 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração preserva a fila histórica. **A ordem atual de execução está no
-[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md),
-atualizado em 2026-10-18:** FILA 61 aguarda decisões do dono; a próxima execução
-do agente é o dia 2 da FILA 59, na janela de relógio indicada, seguida da 63.
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md),
+atualizado em 2026-10-19:** as PRs #52 a #59 entraram na `main`, a 59 e a 63
+estão feitas, e a FILA 61 aguarda a decisão A2 do dono.
 
 A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
 versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
@@ -212,7 +212,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - não haverá reset dentro do app. A política e a página de suporte agora
       explicam o backup e como zerar em cada plataforma.
     **Próximo:**
-    - o cartão invisível em `motion.ts`, em sessão própria;
+    - o cartão invisível em `motion.ts`: consertado na FILA 64 e integrado
+      pela #55 em 2026-10-19;
     - **dono:** republicar as duas páginas legais e só então enviar a build
       com a chave de backup;
     - **G6, caminho de dados, medido em 2026-10-19** no emulador
@@ -351,7 +352,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     trabalho G0–G4 do Codex está em cinco commits na branch
     `feat/trilha-evolucao-global-g0-g4`, com a
     [PR #39](https://github.com/andersonsmelo/Radiant/pull/39). Cada fatia
-    passou o quality sozinha. O merge é do dono (R1);
+    passou o quality sozinha. A PR #39 entrou na `main` em 2026-10-18;
   - **57.** ✅ **Decidido em 2026-10-18 por Anderson: integrar.** O run de
     2026-10-16 foi fechado sem gravar nada, e o trabalho foi refeito a partir
     da `origin/main` (`cc67243`). Os conflitos com a árvore principal sumiram.
@@ -374,9 +375,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     manteve a cota padrão de 6 MiB. `getCards()` esconde falha de leitura como
     `[]`; o medidor usa `inspect()`, que reconheceu o store ilegível.
     [Evidência, log nativo e guardas](evidence/2026-10-18-fila61-android-emulador.md).
-    **Entrega na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52):**
-    aberta contra `main`; CI `content` e `quality` verde no `e6fab12`, confirmado
-    em 2026-10-18. Merge depende do dono; remeça o HEAD e os checks antes dele.
+    **Integrada em 2026-10-19 pela [PR #52](https://github.com/andersonsmelo/Radiant/pull/52)**
+    (`cb0bedc`), com a `main` combinada e os checks verdes no `313ca8b`.
     **Escolha pendente do dono:** particionar por lição no AsyncStorage,
     aumentar a cota total no Android e migrar com cópia de segurança,
     conferência e preservação da chave antiga por uma ou duas versões
@@ -387,8 +387,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     medidor entraram no `STORAGE_INVENTORY` como telemetria. Sem a linha, a
     guarda `storageInventory.test.ts` reprovava na árvore combinada, e com ela
     passa 5 de 5;
-  - **63.** agente: **consertada em 2026-10-18 na branch
-    `claude/fila63-checkpoint-instavel`; o merge é do dono.** A falha não era de
+  - **63.** ✅ **Consertada em 2026-10-18 e integrada em 2026-10-19 pela
+    [PR #53](https://github.com/andersonsmelo/Radiant/pull/53) (`ef82969`).** A falha não era de
     tempo. O log completo da tentativa que reprovou no CI da PR #51 (`0cb5441`)
     mostra a tela no erro "Nao foi possivel registrar o checkpoint agora." e um
     `assessment-journal-unavailable` que o reenvio aprovado do mesmo commit não
@@ -406,11 +406,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     ficou intacto. As guardas foram vistas falhando contra o gerador antigo
     ([vermelho](evidence/2026-10-18-fila63-id-recusado-pelo-detector/vermelho.txt), [verde](evidence/2026-10-18-fila63-id-recusado-pelo-detector/verde.txt),
     [evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md)). Só a `main` tem o defeito, desde `a1f26f6`
-    (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. **Uma build da
-    `main` antes deste merge leva o defeito;**
+    (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. A `main` tem o
+    conserto desde `ef82969`;
   - **64.** agente: **"Remover animações" escondia o cartão da revisão no
-    Android — consertado em 2026-10-19, na branch
-    `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.
+    Android — consertado e integrado em 2026-10-19 pela
+    [PR #55](https://github.com/andersonsmelo/Radiant/pull/55) (`59e69e5`).** Achado na FILA 54.
     O `useCardEnter` começava a animação nativa antes de saber a preferência de
     movimento. Com a resposta `true`, a animação era interrompida e o cartão
     recebia opacidade 1, mas o retorno nativo atrasado gravava 0 por cima.
@@ -426,8 +426,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Remede:** `cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx`;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
-  - **66.** ✅ **Feito em 2026-10-19, na branch
-    `claude/fila66-guarda-glifos-ast`; o merge é do dono: a guarda dos glifos
+  - **66.** ✅ **Feito e integrado em 2026-10-19 pela
+    [PR #57](https://github.com/andersonsmelo/Radiant/pull/57) (`c1b1719`): a guarda dos glifos
     de ícone lê a AST.** A FILA 65 depende do `DecorativeIcon` esconder os
     glifos, e a guarda `keeps icon glyphs out of the accessibility tree` lia
     texto. Sobre 13 defeitos injetados, ela ficou verde em 9, entre eles cada
@@ -509,7 +509,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
 **Execução atualizada em 2026-10-18:** build de distribuição, envio e merge
 continuam com o dono; push e abertura de PR da frente concluída estão autorizados.
 A ordem e os gates atuais estão no
-[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md);
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md);
 esta seção preserva o detalhamento das pendências da 1.4.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

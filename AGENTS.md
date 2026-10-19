@@ -463,6 +463,38 @@ defeito que se queria pegar.
   README (`FOLDER_MAPS`, em `scripts/qa/docs-contract.mjs`). Outra pasta com
   README de entrada passa a valer com uma linha nessa lista.
 
+### Cinco lições de 2026-10-19 (oito merges, um dia 2 e o G6)
+
+- **O `gh` dentro do sandbox do Bash não lê o token do keychain.** Depois de um
+  `gh auth login`, a chamada dentro do sandbox continuou com 401 ("The token in
+  default is invalid"), e a mesma chamada fora dele autenticou. Nos primeiros
+  minutos depois do login, até fora do sandbox ela oscilou, levando de 30 a 60 s
+  por chamada, provavelmente com o keychain esperando aprovação. Depois
+  estabilizou em ~1 s. O `git` por SSH não depende disso.
+- **Merge é por `gh pr merge <n> --merge`, e push direto na `main` é barrado.**
+  O classificador do modo automático tratou `git push origin HEAD:main` como
+  desvio do CI, mesmo com o merge autorizado pelo dono e a árvore idêntica à da
+  PR verde. Depois do merge, confira `gh pr view <n> --json state,mergeCommit`.
+  Quando o merge de uma PR muda a `main`, a seguinte pode passar a conflitar:
+  atualize a branch dela com a `main`, resolva e espere o CI antes do merge.
+- **A árvore que a ferramenta lista não é a que o leitor de tela lê.** No
+  Android, o `maestro hierarchy` e o `uiautomator dump` completo mostram também
+  os nós que o sistema marca como não importantes para acessibilidade. Os glifos
+  de ícone apareciam ali, embora o `DecorativeIcon` já os escondesse. Leia o
+  `uiautomator dump --compressed`, com as animações em 0. Confira também um
+  controle: os controles com rótulo precisam continuar na árvore comprimida.
+- **Num E2E de relógio real, a falha não necessariamente gasta a janela.** No
+  dia 2 da FILA 59, o toque no nó da revisão caiu na barra de abas, porque o
+  nó estava no fim da trilha visível, e o app ficou na Home com a revisão ainda
+  devida. Antes de repetir, olhe a captura e a árvore. O `assertVisible` passa
+  com o alvo sob a barra; só o toque falha. Centre o alvo antes de tocar, como
+  a recomendação já faz.
+- **O dev client do Android só carregou o bundle por
+  `exp+radiant-app://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081`,
+  com `adb reverse tcp:8081 tcp:8081`.** A URL da FILA 61, com `radiantapp://`
+  e `10.0.2.2`, deixou a tela branca em 2026-10-19, sem pedido de bundle no
+  Metro.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
