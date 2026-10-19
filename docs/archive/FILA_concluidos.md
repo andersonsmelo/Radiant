@@ -2224,3 +2224,37 @@ o dono lê o relatório no fim.
 ## Arquivado em 2026-10-19 — FILA 54, linha do G6 antes da medição
 
     - G6 depois do merge da #52;
+
+## Arquivado em 2026-10-19 — trechos da FILA que os merges #52 a #59 tornaram falsos
+
+O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
+numeração preserva a fila histórica. **A ordem atual de execução está no
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md),
+atualizado em 2026-10-18:** FILA 61 aguarda decisões do dono; a próxima execução
+do agente é o dia 2 da FILA 59, na janela de relógio indicada, seguida da 63.
+
+[aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+
+A ordem e os gates atuais estão no
+[prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md);
+
+    passou o quality sozinha. O merge é do dono (R1);
+
+    - o cartão invisível em `motion.ts`, em sessão própria;
+
+    **Entrega na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52):**
+    aberta contra `main`; CI `content` e `quality` verde no `e6fab12`, confirmado
+    em 2026-10-18. Merge depende do dono; remeça o HEAD e os checks antes dele.
+
+  - **63.** agente: **consertada em 2026-10-18 na branch
+    `claude/fila63-checkpoint-instavel`; o merge é do dono.** A falha não era de
+
+    (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. **Uma build da
+    `main` antes deste merge leva o defeito;**
+
+    Android — consertado em 2026-10-19, na branch
+    `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.
+
+  - **66.** ✅ **Feito em 2026-10-19, na branch
+    `claude/fila66-guarda-glifos-ast`; o merge é do dono: a guarda dos glifos
