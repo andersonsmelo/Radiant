@@ -1,0 +1,11 @@
+{
+  "medido": "2026-10-19, emulador radiant-entrada-api34, escalas de animação no padrão; capturas por adb exec-out screencap durante a condução por adb",
+  "sha256": {
+    "g4-android-01-sessao-ativa.png": "c88671153c4a2569b31f61daf5c40fd533e7f2a67182af48b7ed93acde2a4407",
+    "g4-android-02-alternativa-selecionada.png": "938c82d392e342feda0f1ae76f88f5edcf4ce0538d45f9515740da60cdc5d829",
+    "g4-android-03-resposta-correta.png": "909a752657b93baca2d004454db4c02194f08cd6ce1cd055635ef634af338399",
+    "g4-android-04-resposta-errada.png": "847b07b9f4b8d2d304110a416d135be1c404788fef4413e4e0df629e581ad1cf",
+    "g4-android-05-resposta-com-ajuda.png": "dc1c09926043b4ea9a17268cc090dbea50f38f5f52f108e6b1e2166a837d2f99",
+    "g4-android-06-sessao-concluida.png": "e1ceca8abe3cca0ef768ffda59564270877dc158531b73394eba0b2f1c1c27da"
+  }
+}

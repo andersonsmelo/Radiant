@@ -1,0 +1,13 @@
+# python3 -I preparar-revisao-devida-android.py emulator-5554 — 2026-10-19T08:50:22-0300
+{"itemId": "q1", "antes": "2026-10-20T11:48:28.931Z", "depois": "2026-10-19T08:50:22.236Z"}
+{"itemId": "q2", "antes": "2026-10-20T11:48:28.931Z", "depois": "2026-10-19T09:50:22.236Z"}
+{"itemId": "q3", "antes": "2026-10-20T11:48:28.931Z", "depois": "2026-10-19T10:50:22.236Z"}
+{"cartoes_no_store": 3, "tentativas": 3, "alterados": 3, "releitura": "confere"}
+exit=0
+
+# segunda preparação, para o ensaio com Remover animações — 2026-10-19T09:04:07-0300
+{"itemId": "q1", "antes": "2026-10-22T12:02:16.522Z", "depois": "2026-10-19T09:04:08.223Z"}
+{"itemId": "q2", "antes": "2026-10-20T12:03:01.801Z", "depois": "2026-10-19T10:04:08.223Z"}
+{"itemId": "q3", "antes": "2026-10-20T12:03:29.133Z", "depois": "2026-10-19T11:04:08.223Z"}
+{"cartoes_no_store": 3, "tentativas": 6, "alterados": 3, "releitura": "confere"}
+exit=0

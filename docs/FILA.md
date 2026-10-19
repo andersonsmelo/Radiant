@@ -190,6 +190,28 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-19 (Claude, partes 1–3 combinadas com Anderson):**
+    - o G4 funciona no emulador Android de entrada: acerto, erro, ajuda e
+      resumo "3 de 3" com "+4 XP", em seis capturas com hash;
+    - o roteiro do G4 passou no iOS com o argumento do E1;
+    - a árvore de acessibilidade foi lida nas duas plataformas. A revisão passou
+      a anunciar o resultado ao leitor de tela, que antes só o Android recebia;
+    - o inventário G7 lista 65 chaves, com uma guarda de AST vista falhando.
+    **Defeito novo:** no Android, com "Remover animações" ligado, o cartão da
+    revisão não aparece. A causa provável está no `useCardEnter`
+    (`src/ui/motion.ts`), que também serve a `HomeScreen` e `QuizQuestion`.
+    **Para o dono:**
+    - o iOS exclui o AsyncStorage do backup do iCloud por padrão, então quem
+      troca de iPhone recomeça do zero;
+    - uma versão antiga do app grava por cima da jornada salva com schema mais
+      novo.
+    ([evidência](evidence/2026-10-19-fila54-g4-android-g7.md)).
+    **Próximo:**
+    - consertar o cartão invisível em `motion.ts`, com a reprodução da
+      evidência como prova nativa;
+    - decidir backup do iOS, schema futuro da jornada e reset (dono);
+    - G6 depois do merge da #52;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).
     **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
     medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
     5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2

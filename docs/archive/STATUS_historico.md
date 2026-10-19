@@ -3394,3 +3394,15 @@ tem evidência própria em `evidence/2026-10-18-*`.
 **Worktrees, medidas em 2026-10-18 às 17 h:** a `zealous-shannon-01c8e3` foi
 
 - `r6-store-revisao`, a branch das entregas de 2026-10-18 (R6, A4, R8 e C1).
+
+## Saiu do STATUS em 2026-10-19 (FILA 54)
+
+Da lista "Ainda aberto":
+
+- Android, VoiceOver e desempenho (G6) e backup e reset (G7);
+
+Da seção "A `main` pronta para build — FILA 59, medido em 2026-10-18":
+
+- a prova nativa do G4 está feita, com seis capturas versionadas com hash.
+  Ela rodou sem o argumento do E1; depois do merge da #49, o roteiro passou a
+  lançar com ele, como o contrato exige, e não foi reexecutado.

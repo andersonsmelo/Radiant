@@ -1,0 +1,37 @@
+# Guarda G7: cada defeito nomeado, injetado isolado e restaurado — 2026-10-19T08:49:27-0300, node v20.20.2, head d7bd696 + diff do run
+
+## chave nova gravada direto na chamada (src/features/review/screens/ReviewScreen.tsx)
+exit=1  Tests:       1 failed, 4 passed, 5 total
+  ✕ toda chave gravada pelo app está no inventário (2 ms)
+  +   "@radiant:chave_nova_v1 (exact, src/features/review/screens/ReviewScreen.tsx:500)",
+  falhou só o teste esperado ("toda chave gravada…"): sim
+
+## chave nova declarada como constante (src/features/review/screens/ReviewScreen.tsx)
+exit=1  Tests:       1 failed, 4 passed, 5 total
+  ✕ toda chave gravada pelo app está no inventário (2 ms)
+  +   "review.nova.v1 (exact, src/features/review/screens/ReviewScreen.tsx:499)",
+  falhou só o teste esperado ("toda chave gravada…"): sim
+
+## entrada removida do inventário (src/storage/storageInventory.ts)
+exit=1  Tests:       1 failed, 4 passed, 5 total
+  ✕ toda chave gravada pelo app está no inventário (1 ms)
+  +   "@radiant:item_review_quarantine_v1 (exact, src/constants/storageKeys.ts:21)",
+  +   "@radiant:item_review_quarantine_v1 (exact, src/features/spaced-repetition/repositories/ItemReviewRepository.ts:139)",
+  +   "@radiant:item_review_quarantine_v1 (exact, src/features/spaced-repetition/repositories/ItemReviewRepository.ts:145)",
+  +   "@radiant:item_review_quarantine_v1 (exact, src/features/spaced-repetition/repositories/ItemReviewRepository.ts:304)",
+  falhou só o teste esperado ("toda chave gravada…"): sim
+
+## entrada fantasma no inventário (src/storage/storageInventory.ts)
+exit=1  Tests:       1 failed, 4 passed, 5 total
+  ✕ toda entrada do inventário existe no código (1 ms)
+  +   "@radiant:fantasma_v1",
+  falhou só o teste esperado ("toda entrada do inventário…"): sim
+
+## chamada com chave não resolvível (src/features/review/screens/ReviewScreen.tsx)
+exit=1  Tests:       1 failed, 4 passed, 5 total
+  ✕ chamada com chave não resolvível só existe onde foi declarada como repasse (1 ms)
+  +   "src/features/review/screens/ReviewScreen.tsx#getItem#id",
+  falhou só o teste esperado ("chamada com chave não resolvível…"): sim
+
+restaurados byte a byte: src/storage/storageInventory.ts, src/features/review/screens/ReviewScreen.tsx
+verde final: Tests:       5 passed, 5 total exit=0

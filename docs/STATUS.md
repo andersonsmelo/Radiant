@@ -633,7 +633,12 @@ FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
   R6, e trocar o storage é decisão do dono. A recomendação do agente e o passo
   de medição no aparelho estão na [FILA 61](FILA.md);
 - o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
-- Android, VoiceOver e desempenho (G6) e backup e reset (G7);
+- da FILA 54:
+  - o cartão da revisão some no Android com "Remover animações" ligado;
+  - VoiceOver e TalkBack audíveis;
+  - o G6, depois do merge da #52;
+  - as decisões do dono sobre backup do iOS, schema futuro da jornada e reset
+    (G7);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
@@ -664,6 +669,33 @@ vez por item respondido, e agora avança uma vez por sessão, no último item da
 lição na fila, com o resultado agregado.
 [Evidência](evidence/2026-10-18-a4-agregado-legado.md).
 
+## G4 no Android, acessibilidade e G7 — FILA 54, medido em 2026-10-19
+
+No emulador Android de entrada (API 34, 2 GB), com o dev client da FILA 61:
+- **o G4 funciona:** acerto, erro, ajuda e resumo "3 de 3" com "+4 XP", em
+  seis capturas com hash;
+- **defeito novo:** com "Remover animações" ligado, o cartão da revisão não
+  aparece na tela nem na árvore de acessibilidade. A causa provável está no
+  `useCardEnter` de `src/ui/motion.ts`, que também serve a `HomeScreen` e
+  `QuizQuestion`;
+- **o roteiro do G4 não serve no Android hoje.** Com animação, o Maestro não
+  avança; sem animação, o cartão some.
+
+Acessibilidade, lida pela árvore nas duas plataformas, sem leitor audível:
+rótulos, papel e estado das alternativas estão certos. A revisão passou a
+anunciar o resultado ao leitor de tela. Antes, só o Android o recebia, pela live
+region.
+
+G7: o inventário tem 65 chaves do AsyncStorage em 8 classes, e uma guarda de AST
+reprova chave nova fora dele. Lido no código, sem ensaio em aparelho:
+- o iOS exclui o AsyncStorage do backup do iCloud por padrão, e o app não muda
+  isso. Quem troca de iPhone recomeça do zero;
+- o Android tem `allowBackup` ligado;
+- uma versão antiga do app grava por cima da jornada salva com schema mais novo;
+- não há reset de progresso no app.
+
+[Evidência](evidence/2026-10-19-fila54-g4-android-g7.md).
+
 ## A `main` pronta para build — FILA 59, medido em 2026-10-18
 
 Na `main` em `cc67243`, num dev client Debug do Xcode 27.1 e em dois simuladores
@@ -678,8 +710,8 @@ iPhone 17 Pro com iOS 26.5:
 - `store-capture` e `segundo-dia` estavam desatualizados em relação ao app e
   foram corrigidos. Nenhum defeito do app apareceu;
 - a prova nativa do G4 está feita, com seis capturas versionadas com hash.
-  Ela rodou sem o argumento do E1; depois do merge da #49, o roteiro passou a
-  lançar com ele, como o contrato exige, e não foi reexecutado.
+  Em 2026-10-19, o roteiro passou de novo, sem alteração e com o argumento do
+  E1, no simulador `E262D4C1` (FILA 54).
 
 [Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
 Debug não prova a build Release; a build e o envio continuam com o dono.

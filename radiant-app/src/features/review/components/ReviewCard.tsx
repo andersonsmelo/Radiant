@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../../../components/ui/AppButton';
 import { SurfaceCard } from '../../../components/ui/SurfaceCard';
 import { useCardEnter } from '../../../ui/motion';
@@ -10,6 +10,8 @@ import type { QuizQuestion } from '../../../types/quiz';
 import { LABEL_MAX_FONT_SCALE } from '../../../ui/accessibility/useLargeTextLayout';
 const galaxy = semanticColors.galaxy;
 export type ReviewAnswerFeedback = { correct: boolean; assisted: boolean };
+const feedbackLabel = (feedback: ReviewAnswerFeedback) =>
+  feedback.assisted ? 'Resposta consultada' : feedback.correct ? 'Resposta correta' : 'Vamos revisar este ponto';
 interface ReviewCardProps {
   question: QuizQuestion;
   onAnswer: (answerIndex: number | null) => void | Promise<void>;
@@ -24,6 +26,17 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
   const enterAnim = useCardEnter();
   const { reset, animateIn } = enterAnim;
   useEffect(() => { setSelected(null); setSubmitted(false); locked.current = false; reset(); animateIn(); }, [question.id, reset, animateIn]);
+  // O resultado é anunciado nas duas plataformas, como na lição: o
+  // `accessibilityLiveRegion` que havia aqui só existe no Android, e o VoiceOver
+  // não ouvia nada (FILA 54). Uma vez por item, mesmo que o feedback rerenderize.
+  const announcedFor = useRef<string | null>(null);
+  useEffect(() => {
+    if (!feedback || announcedFor.current === question.id) return;
+    announcedFor.current = question.id;
+    AccessibilityInfo.announceForAccessibility(
+      `${feedbackLabel(feedback)}. Resposta certa: ${question.options[question.correctAnswerIndex]?.label}. ${question.explanation}`,
+    );
+  }, [feedback, question]);
   const confirm = (index: number | null) => {
     if (locked.current || saving || feedback) return;
     locked.current = true;
@@ -54,7 +67,6 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
                 ? styles.answerShellCorrect
                 : styles.answerShellIncorrect,
           ]}
-          accessibilityLiveRegion="polite"
         >
           <Text
             testID="review-feedback-label"
@@ -67,7 +79,7 @@ export function ReviewCard({ question, onAnswer, onContinue, feedback, saving }:
                   : styles.answerLabelIncorrect,
             ]}
           >
-            {feedback.assisted ? 'Resposta consultada' : feedback.correct ? 'Resposta correta' : 'Vamos revisar este ponto'}
+            {feedbackLabel(feedback)}
           </Text>
           <Text style={styles.answerText}>{question.options[question.correctAnswerIndex]?.label}</Text>
           <Text style={styles.explanation}>{question.explanation}</Text>
