@@ -1,6 +1,17 @@
 import type { QuizLessonId } from './quiz';
 
 export const JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v2';
+export const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
+
+/**
+ * Toda versão do store da jornada que este app sabe ler. Fora dela, o store é
+ * de uma versão mais nova e ninguém grava nele: nem o `JourneyProgressService`
+ * nem a mescla do backup (`LocalProgressAdapter`). Ver `schemaVersionGuard.ts`.
+ */
+export const KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS: readonly string[] = [
+    LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION,
+    JOURNEY_PROGRESS_SCHEMA_VERSION,
+];
 
 export type JourneyNodeType = 'lesson' | 'review' | 'checkpoint' | 'reward';
 

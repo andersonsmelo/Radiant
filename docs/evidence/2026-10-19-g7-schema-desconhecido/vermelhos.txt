@@ -1,0 +1,297 @@
+# Vermelho: testes novos do G7 contra o código antigo
+# HEAD 7726296 (origin/main), só os testes alterados; 2026-10-19 14:28 -0300; node v20.20.2
+
+FAIL src/features/subscription/SubscriptionService.test.ts
+  ● SubscriptionService — schema desconhecido (G7) › a releitura da loja não grava por cima do espelho com schema desconhecido
+
+    expect(jest.fn()).not.toHaveBeenCalledWith(...expected)
+
+    Expected: not "@radiant:subscription_v1", Anything
+    Received:     0, ["@radiant:subscription_v1", "{\"schemaVersion\":1,\"entitlement\":{\"productId\":\"monthly_plus\",\"period\":\"monthly\",\"expiresAt\":\"2026-10-14T12:00:00.000Z\",\"willRenew\":true,\"revokedAt\":null},\"pendingSince\":null,\"checkedAt\":\"2026-09-14T12:00:00.000Z\"}"]
+
+    Number of calls: 1
+
+    [0m [90m 620 |[39m         [36mconst[39m status [33m=[39m [36mawait[39m service[33m.[39mrefresh([33mAGORA[39m)[33m;[39m
+     [90m 621 |[39m
+    [31m[1m>[22m[39m[90m 622 |[39m         expect(storage[33m.[39msetItem)[33m.[39mnot[33m.[39mtoHaveBeenCalledWith([33mCHAVE[39m[33m,[39m expect[33m.[39manything())[33m;[39m
+     [90m     |[39m                                     [31m[1m^[22m[39m
+     [90m 623 |[39m         [90m// O direito lido da loja continua valendo nesta abertura.[39m
+     [90m 624 |[39m         expect(status)[33m.[39mtoEqual({ kind[33m:[39m [32m'unlimited'[39m[33m,[39m expiresAt[33m:[39m [33mDAQUI_A_30_DIAS[39m[33m,[39m willRenew[33m:[39m [36mtrue[39m })[33m;[39m
+     [90m 625 |[39m         expect(hearts[33m.[39msetUnlimited)[33m.[39mtoHaveBeenCalledWith([33mDAQUI_A_30_DIAS[39m[33m,[39m [33mAGORA[39m)[33m;[39m[0m
+
+      at Object.toHaveBeenCalledWith (src/features/subscription/SubscriptionService.test.ts:622:37)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● SubscriptionService — schema desconhecido (G7) › a compra confirmada libera as vidas sem gravar por cima do espelho
+
+    expect(jest.fn()).not.toHaveBeenCalledWith(...expected)
+
+    Expected: not "@radiant:subscription_v1", Anything
+    Received:     0, ["@radiant:subscription_v1", "{\"schemaVersion\":1,\"entitlement\":{\"productId\":\"monthly_plus\",\"period\":\"monthly\",\"expiresAt\":\"2026-10-14T12:00:00.000Z\",\"willRenew\":true,\"revokedAt\":null},\"pendingSince\":null,\"checkedAt\":\"2026-09-14T12:00:00.000Z\"}"]
+
+    Number of calls: 1
+
+    [0m [90m 634 |[39m         [36mconst[39m resultado [33m=[39m [36mawait[39m service[33m.[39mpurchase([32m'monthly_plus'[39m[33m,[39m [33mAGORA[39m)[33m;[39m
+     [90m 635 |[39m
+    [31m[1m>[22m[39m[90m 636 |[39m         expect(storage[33m.[39msetItem)[33m.[39mnot[33m.[39mtoHaveBeenCalledWith([33mCHAVE[39m[33m,[39m expect[33m.[39manything())[33m;[39m
+     [90m     |[39m                                     [31m[1m^[22m[39m
+     [90m 637 |[39m         expect(resultado[33m.[39mkind)[33m.[39mtoBe([32m'purchased'[39m)[33m;[39m
+     [90m 638 |[39m         expect(hearts[33m.[39msetUnlimited)[33m.[39mtoHaveBeenCalledWith([33mDAQUI_A_30_DIAS[39m[33m,[39m [33mAGORA[39m)[33m;[39m
+     [90m 639 |[39m     })[33m;[39m[0m
+
+      at Object.toHaveBeenCalledWith (src/features/subscription/SubscriptionService.test.ts:636:37)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/student-checkpoints/repositories.test.ts
+  ● student checkpoint repositories › future schema (G7) › keeps the active store byte for byte on load and refuses every write
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":2,\"campoNovo\":true}"
+    Received: undefined
+
+    [0m [90m 165 |[39m
+     [90m 166 |[39m             expect(([36mawait[39m store[33m.[39mload())[33m.[39mcurrentBySurface)[33m.[39mtoEqual({})[33m;[39m
+    [31m[1m>[22m[39m[90m 167 |[39m             expect(storage[33m.[39msnapshot()[key])[33m.[39mtoBe([33mFUTURE[39m)[33m;[39m
+     [90m     |[39m                                             [31m[1m^[22m[39m
+     [90m 168 |[39m
+     [90m 169 |[39m             [36mawait[39m expect(store[33m.[39msaveCheckpoint(checkpoint()))[33m.[39mrejects[33m.[39mtoThrow([32m'checkpoint-store-future-schema'[39m)[33m;[39m
+     [90m 170 |[39m             [36mawait[39m expect(store[33m.[39mcreateJournal(lessonIntent()))[33m.[39mrejects[33m.[39mtoThrow([32m'checkpoint-store-future-schema'[39m)[33m;[39m[0m
+
+      at toBe (src/features/student-checkpoints/repositories.test.ts:167:45)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● student checkpoint repositories › future schema (G7) › keeps the shadow store byte for byte on load and refuses every write
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":2,\"campoNovo\":true}"
+    Received: undefined
+
+    [0m [90m 165 |[39m
+     [90m 166 |[39m             expect(([36mawait[39m store[33m.[39mload())[33m.[39mcurrentBySurface)[33m.[39mtoEqual({})[33m;[39m
+    [31m[1m>[22m[39m[90m 167 |[39m             expect(storage[33m.[39msnapshot()[key])[33m.[39mtoBe([33mFUTURE[39m)[33m;[39m
+     [90m     |[39m                                             [31m[1m^[22m[39m
+     [90m 168 |[39m
+     [90m 169 |[39m             [36mawait[39m expect(store[33m.[39msaveCheckpoint(checkpoint()))[33m.[39mrejects[33m.[39mtoThrow([32m'checkpoint-store-future-schema'[39m)[33m;[39m
+     [90m 170 |[39m             [36mawait[39m expect(store[33m.[39mcreateJournal(lessonIntent()))[33m.[39mrejects[33m.[39mtoThrow([32m'checkpoint-store-future-schema'[39m)[33m;[39m[0m
+
+      at toBe (src/features/student-checkpoints/repositories.test.ts:167:45)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/storage-migration/StorageMigrationService.test.ts
+  ● StorageMigration › versão de schema desconhecida (G7) › não escreve nem apaga nada quando o marcador é de uma versão que não conhece
+
+    expect(received).resolves.toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "status": "unchanged",
+    +   "status": "migrated",
+      }
+
+    [0m [90m 157 |[39m             storage[33m.[39mvalues[33m.[39m[36mset[39m([33mSTORAGE_KEYS[39m[33m.[39m[33mV14_MIGRATION_STATE[39m[33m,[39m [32m'complete'[39m)[33m;[39m
+     [90m 158 |[39m
+    [31m[1m>[22m[39m[90m 159 |[39m             [36mawait[39m expect([36mnew[39m [33mStorageMigration[39m(storage[33m,[39m now)[33m.[39mmigrateToV14())[33m.[39mresolves[33m.[39mtoEqual({ status[33m:[39m [32m'unchanged'[39m })[33m;[39m
+     [90m     |[39m                                                                                      [31m[1m^[22m[39m
+     [90m 160 |[39m
+     [90m 161 |[39m             expect(storage[33m.[39moperations[33m.[39mfilter(operation [33m=>[39m operation[33m.[39mkind [33m!==[39m [32m'get'[39m))[33m.[39mtoEqual([])[33m;[39m
+     [90m 162 |[39m             expect(storage[33m.[39mvalues[33m.[39m[36mget[39m([33mSTORAGE_KEYS[39m[33m.[39m[33mHEARTS[39m))[33m.[39mtoBe(vidas)[33m;[39m[0m
+
+      at Object.toEqual (../../../../radiant-app/node_modules/expect/build/index.js:174:22)
+      at Object.toEqual (src/features/storage-migration/StorageMigrationService.test.ts:159:86)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at ../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+FAIL src/features/progress-sync/LocalProgressAdapter.test.ts
+  ● LocalProgressAdapter › schema desconhecido da jornada (G7) › não grava na jornada com schemaVersion desconhecido
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":\"journey-progress.v3\",\"activeTrackId\":\"track-1\",\"tracks\":{\"track-1\":{\"completedNodeIds\":[\"n1\"],\"campoNovo\":true}}}"
+    Received: "{\"schemaVersion\":\"journey-progress.v3\",\"activeTrackId\":\"track-1\",\"tracks\":{\"track-1\":{\"completedNodeIds\":[\"n1\",\"n2\"],\"campoNovo\":true}}}"
+
+    [0m [90m 172 |[39m             [36mawait[39m adapter[33m.[39mapply(merged)[33m;[39m
+     [90m 173 |[39m
+    [31m[1m>[22m[39m[90m 174 |[39m             expect([36mawait[39m [33mAsyncStorage[39m[33m.[39mgetItem([33mSTORAGE_KEYS[39m[33m.[39m[33mJOURNEY_PROGRESS[39m))[33m.[39mtoBe([33mFUTURO[39m)[33m;[39m
+     [90m     |[39m                                                                               [31m[1m^[22m[39m
+     [90m 175 |[39m         })[33m;[39m
+     [90m 176 |[39m
+     [90m 177 |[39m         it([32m'o resto da mescla segue aplicado'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.toBe (src/features/progress-sync/LocalProgressAdapter.test.ts:174:79)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/mastery/repositories/CompetencyMasteryRepository.test.ts
+  ● Console
+
+    console.error
+      [CompetencyMasteryRepository] Falha ao ler domínio: Error: storage indisponível
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/clever-einstein-b85928/radiant-app/src/features/mastery/repositories/CompetencyMasteryRepository.test.ts:107:43)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+    [0m [90m 65 |[39m             ) [36mas[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m [33mCompetencyMastery[39m[33m>[39m[33m;[39m
+     [90m 66 |[39m         } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 67 |[39m             console[33m.[39merror([32m'[CompetencyMasteryRepository] Falha ao ler domínio:'[39m[33m,[39m error)[33m;[39m
+     [90m    |[39m                     [31m[1m^[22m[39m
+     [90m 68 |[39m             [36mreturn[39m {}[33m;[39m
+     [90m 69 |[39m         }
+     [90m 70 |[39m     }[0m
+
+      at CompetencyMasteryRepositoryImpl.error (src/features/mastery/repositories/CompetencyMasteryRepository.ts:67:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.error
+      [CompetencyMasteryRepository] Falha ao gravar domínio: Error: disco cheio
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/clever-einstein-b85928/radiant-app/src/features/mastery/repositories/CompetencyMasteryRepository.test.ts:111:43)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    [0m [90m 84 |[39m             [36mawait[39m [33mAsyncStorage[39m[33m.[39msetItem([33mSTORAGE_KEYS[39m[33m.[39m[33mCOMPETENCY_MASTERY[39m[33m,[39m [33mJSON[39m[33m.[39mstringify(store))[33m;[39m
+     [90m 85 |[39m         } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 86 |[39m             console[33m.[39merror([32m'[CompetencyMasteryRepository] Falha ao gravar domínio:'[39m[33m,[39m error)[33m;[39m
+     [90m    |[39m                     [31m[1m^[22m[39m
+     [90m 87 |[39m         }
+     [90m 88 |[39m     }
+     [90m 89 |[39m[0m
+
+      at CompetencyMasteryRepositoryImpl.error (src/features/mastery/repositories/CompetencyMasteryRepository.ts:86:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+  ● CompetencyMasteryRepository — schema desconhecido (G7) › não grava por cima de um store com schemaVersion desconhecido
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: "@radiant:competency_mastery_v1", "{\"schemaVersion\":\"competency-mastery.v1\",\"mastery\":{\"competency:protecao-radiologica:tempo-distancia-e-blindagem\":{\"competencyId\":\"competency:protecao-radiologica:tempo-distancia-e-blindagem\",\"state\":\"retained\",\"score\":0.75,\"evidenceCount\":3,\"blockedBy\":[],\"evaluatedAt\":\"2026-08-02T12:00:00.000Z\",\"confianca\":0.9},\"competency:outra\":{\"competencyId\":\"competency:outra\",\"state\":\"retained\",\"score\":0.75,\"evidenceCount\":3,\"blockedBy\":[],\"evaluatedAt\":\"2026-08-02T12:00:00.000Z\"}}}"
+
+    [0m [90m 127 |[39m         [36mawait[39m [33mCompetencyMasteryRepository[39m[33m.[39msave(mastery({ competencyId[33m:[39m [32m'competency:outra'[39m }))[33m;[39m
+     [90m 128 |[39m
+    [31m[1m>[22m[39m[90m 129 |[39m         expect(storage[33m.[39msetItem)[33m.[39mnot[33m.[39mtoHaveBeenCalled()[33m;[39m
+     [90m     |[39m                                     [31m[1m^[22m[39m
+     [90m 130 |[39m     })[33m;[39m
+     [90m 131 |[39m
+     [90m 132 |[39m     it([32m'continua resolvendo sem lançar'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.toHaveBeenCalled (src/features/mastery/repositories/CompetencyMasteryRepository.test.ts:129:37)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/progress/services/LearningAttemptsRepository.test.ts
+  ● Console
+
+    console.error
+      [LearningAttemptsRepository] Falha ao ler tentativas: SyntaxError: Expected property name or '}' in JSON at position 1
+          at JSON.parse (<anonymous>)
+          at LearningAttemptsRepositoryImpl.parse (/Users/anderson/Developer/Radiant/.claude/worktrees/clever-einstein-b85928/radiant-app/src/features/progress/services/LearningAttemptsRepository.ts:51:42)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    [0m [90m 57 |[39m             [36mreturn[39m attempts[33m.[39mfilter(isValidAttempt)[33m;[39m
+     [90m 58 |[39m         } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 59 |[39m             console[33m.[39merror([32m'[LearningAttemptsRepository] Falha ao ler tentativas:'[39m[33m,[39m error)[33m;[39m
+     [90m    |[39m                     [31m[1m^[22m[39m
+     [90m 60 |[39m             [36mreturn[39m [][33m;[39m
+     [90m 61 |[39m         }
+     [90m 62 |[39m     }[0m
+
+      at LearningAttemptsRepositoryImpl.error (src/features/progress/services/LearningAttemptsRepository.ts:59:21)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.error
+      [LearningAttemptsRepository] Falha ao gravar tentativa: Error: disco cheio
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/.claude/worktrees/clever-einstein-b85928/radiant-app/src/features/progress/services/LearningAttemptsRepository.test.ts:98:49)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+          at _next (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+          at /Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+          at new Promise (<anonymous>)
+          at Object.<anonymous> (/Users/anderson/Developer/Radiant/radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+          at Promise.then.completed (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/utils.js:298:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/utils.js:231:10)
+          at _callCircusTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:316:40)
+          at _runTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:252:3)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:126:9)
+          at _runTestsForDescribeBlock (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:121:9)
+          at run (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/run.js:71:3)
+          at runAndTransformResultsToJestFormat (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+          at jestAdapter (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+          at runTestInternal (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-runner/build/runTest.js:367:16)
+          at runTest (/Users/anderson/Developer/Radiant/radiant-app/node_modules/jest-runner/build/runTest.js:444:34)
+
+    [0m [90m 72 |[39m             [36mawait[39m [33mAsyncStorage[39m[33m.[39msetItem([33mSTORAGE_KEYS[39m[33m.[39m[33mLEARNING_ATTEMPTS[39m[33m,[39m [33mJSON[39m[33m.[39mstringify(store))[33m;[39m
+     [90m 73 |[39m         } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 74 |[39m             console[33m.[39merror([32m'[LearningAttemptsRepository] Falha ao gravar tentativa:'[39m[33m,[39m error)[33m;[39m
+     [90m    |[39m                     [31m[1m^[22m[39m
+     [90m 75 |[39m         }
+     [90m 76 |[39m     }
+     [90m 77 |[39m[0m
+
+      at LearningAttemptsRepositoryImpl.error (src/features/progress/services/LearningAttemptsRepository.ts:74:21)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+  ● LearningAttemptsRepository — schema desconhecido (G7) › não grava por cima de um store com schemaVersion desconhecido
+
+    expect(jest.fn()).not.toHaveBeenCalledWith(...expected)
+
+    Expected: not "@radiant:learning_attempts_v1", Anything
+    Received:     0, ["@radiant:learning_attempts_v1", "{\"schemaVersion\":\"learning-attempts.v1\",\"attempts\":[{\"lessonId\":\"lesson-futura\",\"topicId\":\"unit-1\",\"correctAnswers\":1,\"totalQuestions\":1,\"completedAt\":\"2026-07-30T12:00:00.000Z\"},{\"lessonId\":\"lesson-nova\",\"topicId\":\"unit-1\",\"correctAnswers\":1,\"totalQuestions\":1,\"completedAt\":\"2026-07-30T12:00:00.000Z\"}]}"]
+
+    Number of calls: 1
+
+    [0m [90m 120 |[39m         [36mawait[39m [33mLearningAttemptsRepository[39m[33m.[39mappend(attempt({ lessonId[33m:[39m [32m'lesson-nova'[39m }))[33m;[39m
+     [90m 121 |[39m
+    [31m[1m>[22m[39m[90m 122 |[39m         expect(mockedStorage[33m.[39msetItem)[33m.[39mnot[33m.[39mtoHaveBeenCalledWith([33mSTORAGE_KEYS[39m[33m.[39m[33mLEARNING_ATTEMPTS[39m[33m,[39m expect[33m.[39manything())[33m;[39m
+     [90m     |[39m                                           [31m[1m^[22m[39m
+     [90m 123 |[39m     })[33m;[39m
+     [90m 124 |[39m
+     [90m 125 |[39m     it([32m'continua resolvendo sem lançar, para não derrubar a conclusão da lição'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.toHaveBeenCalledWith (src/features/progress/services/LearningAttemptsRepository.test.ts:122:43)
+      at asyncGeneratorStep (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (../../../../radiant-app/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 6 failed, 6 total
+Tests:       8 failed, 88 passed, 96 total
+Snapshots:   0 total
+Time:        4.955 s
+Ran all test suites matching /src\/features\/progress\/services\/LearningAttemptsRepository.test.ts|src\/features\/mastery\/repositories\/CompetencyMasteryRepository.test.ts|src\/features\/subscription\/SubscriptionService.test.ts|src\/features\/student-checkpoints\/repositories.test.ts|src\/features\/progress-sync\/LocalProgressAdapter.test.ts|src\/features\/storage-migration\/StorageMigrationService.test.ts/i.
+exit=1

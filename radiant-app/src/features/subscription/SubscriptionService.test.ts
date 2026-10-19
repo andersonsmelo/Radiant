@@ -595,3 +595,46 @@ describe('SubscriptionService — escolha do adaptador padrão', () => {
         expect(requireOptionalNativeModule).not.toHaveBeenCalled();
     });
 });
+
+describe('SubscriptionService — schema desconhecido (G7)', () => {
+    const CHAVE = '@radiant:subscription_v1';
+    // Gravado por uma versão mais nova do app, com um campo que esta não conhece.
+    const FUTURO = JSON.stringify({
+        schemaVersion: 2,
+        entitlement: direito(),
+        pendingSince: null,
+        checkedAt: ONTEM,
+        familia: true,
+    });
+
+    function memoriaComFuturo() {
+        const storage = memoria();
+        storage.getItem.mockImplementation(async (key: string) => (key === CHAVE ? FUTURO : null));
+        return storage;
+    }
+
+    it('a releitura da loja não grava por cima do espelho com schema desconhecido', async () => {
+        const storage = memoriaComFuturo();
+        const { service, hearts } = servico(loja({ currentEntitlement: jest.fn(async () => direito()) }), storage);
+
+        const status = await service.refresh(AGORA);
+
+        expect(storage.setItem).not.toHaveBeenCalledWith(CHAVE, expect.anything());
+        // O direito lido da loja continua valendo nesta abertura.
+        expect(status).toEqual({ kind: 'unlimited', expiresAt: DAQUI_A_30_DIAS, willRenew: true });
+        expect(hearts.setUnlimited).toHaveBeenCalledWith(DAQUI_A_30_DIAS, AGORA);
+    });
+
+    it('a compra confirmada libera as vidas sem gravar por cima do espelho', async () => {
+        const storage = memoriaComFuturo();
+        const { service, hearts } = servico(loja({
+            purchase: jest.fn(async (): Promise<PurchaseOutcome> => ({ kind: 'purchased', entitlement: direito() })),
+        }), storage);
+
+        const resultado = await service.purchase('monthly_plus', AGORA);
+
+        expect(storage.setItem).not.toHaveBeenCalledWith(CHAVE, expect.anything());
+        expect(resultado.kind).toBe('purchased');
+        expect(hearts.setUnlimited).toHaveBeenCalledWith(DAQUI_A_30_DIAS, AGORA);
+    });
+});

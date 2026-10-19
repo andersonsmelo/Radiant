@@ -1,7 +1,10 @@
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 import { readJsonStorage, removeStorageKey, writeJsonStorage } from '../../../storage';
+import { hasUnknownSchemaVersion } from '../../../storage/schemaVersionGuard';
 import {
     JOURNEY_PROGRESS_SCHEMA_VERSION,
+    KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS,
+    LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION,
     type JourneyNodeDefinition,
     type JourneyProgress,
     type JourneyProgressStore,
@@ -17,12 +20,6 @@ import { progressSyncService } from '../../progress-sync/ProgressSyncService';
 import { resolveActiveTrackId } from './JourneyTrackUnlockService';
 import { isTrackCompleted } from './trackCompletion';
 
-const LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v1';
-const KNOWN_JOURNEY_SCHEMA_VERSIONS: ReadonlySet<unknown> = new Set([
-    LEGACY_JOURNEY_PROGRESS_SCHEMA_VERSION,
-    JOURNEY_PROGRESS_SCHEMA_VERSION,
-]);
-
 /**
  * Store com um `schemaVersion` que este app não conhece: em geral, gravado por
  * uma versão mais nova (TestFlight, teste interno, backup restaurado num
@@ -31,11 +28,7 @@ const KNOWN_JOURNEY_SCHEMA_VERSIONS: ReadonlySet<unknown> = new Set([
  * Store sem `schemaVersion` ou que nem é objeto continua tratado como ausente.
  */
 function isUnrecognizedJourneyStore(raw: unknown): boolean {
-    return typeof raw === 'object'
-        && raw !== null
-        && !Array.isArray(raw)
-        && 'schemaVersion' in raw
-        && !KNOWN_JOURNEY_SCHEMA_VERSIONS.has((raw as { schemaVersion: unknown }).schemaVersion);
+    return hasUnknownSchemaVersion(raw, KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS);
 }
 
 function nowIso(): string {

@@ -1,4 +1,5 @@
 import { STUDENT_CHECKPOINT_STORAGE_KEYS } from '../../constants/storageKeys';
+import { hasUnknownSchemaVersion, rawHasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import type { CheckpointSurface, CommitIntentV1, CommitJournalEntryV1, StudentCheckpointV1 } from './contracts';
 import { canTransitionCheckpointPhase, createCommitOperation, stableStringify, validateCommitJournalEntry, validateStudentCheckpoint } from './schemas';
 import type { KeyValueStorage } from './storage';
@@ -72,8 +73,11 @@ export class CheckpointStore {
             await this.quarantine('corrupt');
             return emptyEnvelope();
         }
-        if (isRecord(parsed) && parsed.schemaVersion !== 1) {
-            await this.quarantine('future-schema');
+        // Store de uma versão mais nova do app (G7): a marca vai para a
+        // quarentena, mas o store fica onde está, byte a byte, e `persist`
+        // recusa escrever nele. Só o corrompido e o inválido saem da chave.
+        if (hasUnknownSchemaVersion(parsed, [1])) {
+            await this.quarantine('future-schema', { keepStore: true });
             return emptyEnvelope();
         }
         const envelope = validateEnvelope(parsed);
@@ -165,11 +169,14 @@ export class CheckpointStore {
     }
 
     private async persist(envelope: CheckpointStoreEnvelopeV1): Promise<void> {
+        if (rawHasUnknownSchemaVersion(await this.storage.getItem(this.storageKey), [1])) {
+            throw new Error('checkpoint-store-future-schema');
+        }
         await this.storage.setItem(this.storageKey, stableStringify(envelope));
     }
 
-    private async quarantine(reasonCode: string): Promise<void> {
+    private async quarantine(reasonCode: string, options: { keepStore?: boolean } = {}): Promise<void> {
         await this.storage.setItem(this.quarantineKey, stableStringify({ schemaVersion: 1, reasonCode, quarantinedAt: this.now() }));
-        await this.storage.removeItem(this.storageKey);
+        if (!options.keepStore) await this.storage.removeItem(this.storageKey);
     }
 }

@@ -100,3 +100,41 @@ describe('LearningAttemptsRepository', () => {
         await expect(LearningAttemptsRepository.append(attempt())).resolves.toBeUndefined();
     });
 });
+
+describe('LearningAttemptsRepository — schema desconhecido (G7)', () => {
+    // Gravado por uma versão mais nova do app: campo novo e schema que esta
+    // versão não conhece. A versão antiga não pode gravar por cima.
+    const FUTURO = JSON.stringify({
+        schemaVersion: 'learning-attempts.v2',
+        attempts: [attempt({ lessonId: 'lesson-futura' })],
+        porLicao: { 'lesson-futura': 1 },
+    });
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockedStorage.getItem.mockResolvedValue(FUTURO);
+        mockedStorage.setItem.mockResolvedValue(undefined);
+    });
+
+    it('não grava por cima de um store com schemaVersion desconhecido', async () => {
+        await LearningAttemptsRepository.append(attempt({ lessonId: 'lesson-nova' }));
+
+        expect(mockedStorage.setItem).not.toHaveBeenCalledWith(STORAGE_KEYS.LEARNING_ATTEMPTS, expect.anything());
+    });
+
+    it('continua resolvendo sem lançar, para não derrubar a conclusão da lição', async () => {
+        await expect(LearningAttemptsRepository.append(attempt())).resolves.toBeUndefined();
+    });
+
+    it('store sem schemaVersion segue tratado como antes e é regravado no schema atual', async () => {
+        mockedStorage.getItem.mockResolvedValue(JSON.stringify({ attempts: [attempt()] }));
+
+        await LearningAttemptsRepository.append(attempt({ lessonId: 'lesson-2' }));
+
+        const [, payload] = mockedStorage.setItem.mock.calls[0];
+        expect(JSON.parse(payload)).toEqual({
+            schemaVersion: 'learning-attempts.v1',
+            attempts: [attempt(), attempt({ lessonId: 'lesson-2' })],
+        });
+    });
+});

@@ -150,4 +150,35 @@ describe('student checkpoint repositories', () => {
         expect((await store.load()).schemaVersion).toBe(1);
         expect(storage.snapshot()[STUDENT_CHECKPOINT_STORAGE_KEYS.ACTIVE_QUARANTINE]).toContain('invalid-contract');
     });
+
+    describe('future schema (G7)', () => {
+        // Written by a newer app version. An older version must neither delete
+        // nor overwrite it: the newer one finds it intact when it comes back.
+        const FUTURE = '{"schemaVersion":2,"campoNovo":true}';
+
+        it.each([
+            ['active', STUDENT_CHECKPOINT_STORAGE_KEYS.ACTIVE, (storage: MemoryKeyValueStorage) => CheckpointStore.active(storage, () => FIXED_NOW)],
+            ['shadow', STUDENT_CHECKPOINT_STORAGE_KEYS.SHADOW, (storage: MemoryKeyValueStorage) => CheckpointStore.shadow(storage, () => FIXED_NOW)],
+        ] as const)('keeps the %s store byte for byte on load and refuses every write', async (_name, key, open) => {
+            const storage = new MemoryKeyValueStorage({ [key]: FUTURE });
+            const store = open(storage);
+
+            expect((await store.load()).currentBySurface).toEqual({});
+            expect(storage.snapshot()[key]).toBe(FUTURE);
+
+            await expect(store.saveCheckpoint(checkpoint())).rejects.toThrow('checkpoint-store-future-schema');
+            await expect(store.createJournal(lessonIntent())).rejects.toThrow('checkpoint-store-future-schema');
+            expect(storage.snapshot()[key]).toBe(FUTURE);
+        });
+
+        it('still writes over a store without schemaVersion after quarantining it, as before', async () => {
+            const storage = new MemoryKeyValueStorage({ [STUDENT_CHECKPOINT_STORAGE_KEYS.ACTIVE]: '{"currentBySurface":{}}' });
+            const store = CheckpointStore.active(storage, () => FIXED_NOW);
+
+            await store.saveCheckpoint(checkpoint());
+
+            expect(storage.snapshot()[STUDENT_CHECKPOINT_STORAGE_KEYS.ACTIVE]).toContain('checkpoint-1');
+        });
+    });
 });
+

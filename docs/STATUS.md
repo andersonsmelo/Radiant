@@ -638,6 +638,8 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
   - o G6, destravado: a #52 entrou na `main` em 2026-10-19;
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
+  - **dono:** a saída das cinco stores sem `schemaVersion` e o merge do G7
+    das stores (branch `claude/g7-schema-desconhecido`);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Continuidade atualizada em 2026-10-18:**
@@ -718,6 +720,20 @@ recuperação foram tomadas por Anderson e executadas no mesmo dia
   nova;
 - não há reset dentro do app. A política e o suporte explicam como zerar em cada
   plataforma. A versão publicada continua a de 2026-07-29 até ser republicada.
+
+**Na tarde de 2026-10-19, a regra da jornada foi estendida às outras stores de
+aprendizagem e economia**, na branch `claude/g7-schema-desconhecido`, ainda não
+integrada. Das 22 chaves, 8 já recusavam e 5 gravavam por cima ou apagavam: as
+tentativas, o domínio, a assinatura e os dois checkpoints. Essas 5 agora
+recusam. A mescla do backup do iCloud, que escrevia na jornada por fora da
+guarda, também recusa. A migração da 1.4 não zera mais as vidas diante do
+marcador de uma versão mais nova. Cinco stores não têm `schemaVersion` e
+esperam a decisão do dono. Nada disso protege a `1.4.0` publicada, só a build
+que levar o código ([evidência](evidence/2026-10-19-g7-schema-desconhecido.md)).
+
+```bash
+cd radiant-app && npx jest src/storage src/features/student-checkpoints/repositories.test.ts src/features/progress-sync/LocalProgressAdapter.test.ts src/features/storage-migration
+```
 
 ## A `main` pronta para build — FILA 59, medido em 2026-10-18
 

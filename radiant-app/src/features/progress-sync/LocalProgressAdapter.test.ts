@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { JOURNEY_PROGRESS_SCHEMA_VERSION } from '../../types/journey';
 import { LocalProgressAdapter } from './LocalProgressAdapter';
 import type { ProgressBackup } from './progressSync.types';
 
@@ -36,7 +37,7 @@ function trilha(completedNodeIds: string[]) {
 
 async function semear() {
     await AsyncStorage.setItem(STORAGE_KEYS.JOURNEY_PROGRESS, JSON.stringify({
-        schemaVersion: '1',
+        schemaVersion: JOURNEY_PROGRESS_SCHEMA_VERSION,
         activeTrackId: 'track-1',
         tracks: { 'track-1': trilha(['n1', 'n2']) },
     }));
@@ -143,5 +144,46 @@ describe('LocalProgressAdapter', () => {
 
         const hearts = JSON.parse((await AsyncStorage.getItem(STORAGE_KEYS.HEARTS))!);
         expect(hearts.lastRefillAt).toBe('2026-09-14T11:00:00.000Z');
+    });
+
+    describe('schema desconhecido da jornada (G7)', () => {
+        // Gravado por uma versão mais nova do app. A mescla do backup não pode
+        // escrever nele: esta versão não sabe o que os campos significam.
+        const FUTURO = JSON.stringify({
+            schemaVersion: 'journey-progress.v3',
+            activeTrackId: 'track-1',
+            tracks: { 'track-1': { completedNodeIds: ['n1'], campoNovo: true } },
+        });
+
+        const merged: ProgressBackup = {
+            schemaVersion: 1,
+            savedAt: AGORA_ISO,
+            completedNodesByTrack: { 'track-1': ['n1', 'n2'] },
+            reviewSchedule: { l2: cartao('l2', '2026-09-12T00:00:00.000Z') },
+            totalXp: 300,
+            streakDays: 9,
+            lastRefillAt: null,
+        };
+
+        it('não grava na jornada com schemaVersion desconhecido', async () => {
+            await AsyncStorage.setItem(STORAGE_KEYS.JOURNEY_PROGRESS, FUTURO);
+            const adapter = new LocalProgressAdapter({ gamification: gamificacao(120, 4) });
+
+            await adapter.apply(merged);
+
+            expect(await AsyncStorage.getItem(STORAGE_KEYS.JOURNEY_PROGRESS)).toBe(FUTURO);
+        });
+
+        it('o resto da mescla segue aplicado', async () => {
+            await AsyncStorage.setItem(STORAGE_KEYS.JOURNEY_PROGRESS, FUTURO);
+            const gami = gamificacao(120, 4);
+            const adapter = new LocalProgressAdapter({ gamification: gami });
+
+            await adapter.apply(merged);
+
+            const schedule = JSON.parse((await AsyncStorage.getItem(STORAGE_KEYS.SPACED_REPETITION_SCHEDULE))!);
+            expect(schedule.cards).toEqual(merged.reviewSchedule);
+            expect(gami.absorbBackup).toHaveBeenCalledWith({ totalXp: 300, streakDays: 9 });
+        });
     });
 });

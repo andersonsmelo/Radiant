@@ -2220,3 +2220,15 @@ o dono lê o relatório no fim.
     num run próprio.
     **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
     Anderson;
+
+## Arquivado em 2026-10-19 — FILA 54, "Próximo" anterior ao G7 das stores
+
+Substituído na tarde de 2026-10-19 pela lista da atualização do G7 nas outras
+stores. O texto é o original.
+
+    **Próximo:**
+    - o cartão invisível em `motion.ts`, em sessão própria;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup;
+    - G6 depois do merge da #52;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).

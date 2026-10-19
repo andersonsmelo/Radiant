@@ -20,7 +20,13 @@ versão nova.
 
 **O conserto [medido].** `writeStore`, por onde passa toda escrita, relê o que
 está gravado e não escreve quando o `schemaVersion` não é `journey-progress.v1`
-nem `v2`. Duas situações continuam como antes:
+nem `v2`.
+
+> **Errata de 2026-10-19, à tarde (G7, schema desconhecido):** "toda escrita"
+> vale só dentro do `JourneyProgressService`. A mescla do backup do iCloud
+> (`LocalProgressAdapter.applyJourney`) grava a mesma chave direto e não passava
+> pela guarda. O conserto está na
+> [evidência do schema desconhecido](2026-10-19-g7-schema-desconhecido.md). Duas situações continuam como antes:
 - store sem `schemaVersion`, ou que nem é objeto, segue tratado como ausente;
 - o `reset()` explícito apaga a chave antes de escrever, então continua
   funcionando.

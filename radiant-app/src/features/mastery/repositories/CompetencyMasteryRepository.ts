@@ -13,6 +13,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { rawHasUnknownSchemaVersion } from '../../../storage/schemaVersionGuard';
 import type { CompetencyMastery, MasteryState } from '../../../types/mastery';
 import { MASTERY_ORDER } from '../../../types/mastery';
 
@@ -76,6 +77,13 @@ class CompetencyMasteryRepositoryImpl {
 
     async save(mastery: CompetencyMastery): Promise<void> {
         try {
+            // Store de uma versão mais nova do app: esta não grava por cima (G7).
+            const raw = await AsyncStorage.getItem(STORAGE_KEYS.COMPETENCY_MASTERY);
+            if (rawHasUnknownSchemaVersion(raw, [SCHEMA_VERSION])) {
+                console.warn('[CompetencyMasteryRepository] Store com schema desconhecido preservado, sem escrita.');
+                return;
+            }
+
             const store: CompetencyMasteryStore = {
                 schemaVersion: SCHEMA_VERSION,
                 mastery: { ...(await this.getAll()), [mastery.competencyId]: mastery },

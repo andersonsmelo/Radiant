@@ -1,0 +1,27 @@
+# git merge-tree --write-tree --name-only, 2026-10-19 14:35 -0300
+# G7 = commit temporário 756731a6e07f044d5b1704cea45b056a3281cd09: a árvore de trabalho do run sobre 7726296, sem mover a branch
+# PRs abertas: só a #60 (claude/docs-estado-2026-10-19, 61f086a)
+
+== G7 x origin/main (2415de5)
+4c1e969332f94edbcc0732e39d50ddf764945acd
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+
+Auto-merging docs/FILA.md
+CONFLICT (content): Merge conflict in docs/FILA.md
+Auto-merging docs/STATUS.md
+Auto-merging docs/archive/FILA_concluidos.md
+CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
+exit=1
+
+== G7 x FETCH_HEAD (61f086a)
+29af005bae730bdb11f3ed87e3341ead0fc792a6
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+
+Auto-merging docs/FILA.md
+CONFLICT (content): Merge conflict in docs/FILA.md
+Auto-merging docs/STATUS.md
+Auto-merging docs/archive/FILA_concluidos.md
+CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
+exit=1

@@ -191,6 +191,31 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-19, à tarde (Claude, G7 nas outras stores):** a
+    regra da jornada vale agora para toda store de aprendizagem e economia que
+    declara `schemaVersion`. Uma versão antiga não grava por cima de um store
+    com `schemaVersion` que não conhece. Os consertos estão na branch `claude/g7-schema-desconhecido`, ainda não
+    integrada:
+    - passaram a recusar as tentativas, o domínio e a assinatura, que gravavam
+      por cima, e os dois checkpoints, que **apagavam** o store futuro;
+    - a mescla do backup do iCloud escrevia na jornada por fora da guarda, e
+      agora recusa;
+    - a migração da 1.4 zerava as vidas diante do marcador de uma versão mais
+      nova, e não zera mais;
+    - os 8 testes do defeito foram vistos falhando no código antigo.
+    A tabela, os vermelhos e duas erratas estão na
+    [evidência](evidence/2026-10-19-g7-schema-desconhecido.md).
+    **Próximo:**
+    - **dono:** escolher a saída das cinco stores sem `schemaVersion` (agenda
+      SM-2, gamificação, meta diária, vidas e ledger de cobrança), pela
+      [proposta](evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono);
+    - **dono:** o merge da branch do G7;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup. A mesma build leva a guarda das stores;
+    - o G6, destravado: a #52 está na `main`;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).
+    O cartão invisível em `motion.ts` saiu da lista: a FILA 64 entrou na `main`
+    pela [PR #55](https://github.com/andersonsmelo/Radiant/pull/55).
     **Atualização de 2026-10-19 (Claude, partes 1–3 combinadas com Anderson):**
     - o G4 funciona no emulador Android de entrada: acerto, erro, ajuda e
       resumo "3 de 3" com "+4 XP", em seis capturas com hash;
@@ -211,12 +236,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       `app.json` liga e desliga o atributo de exclusão;
     - não haverá reset dentro do app. A política e a página de suporte agora
       explicam o backup e como zerar em cada plataforma.
-    **Próximo:**
-    - o cartão invisível em `motion.ts`, em sessão própria;
-    - **dono:** republicar as duas páginas legais e só então enviar a build
-      com a chave de backup;
-    - G6 depois do merge da #52;
-    - VoiceOver e TalkBack audíveis (dono, no aparelho).
+    **Próximo:** ver a atualização da tarde, acima.
     **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
     medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
     5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2
