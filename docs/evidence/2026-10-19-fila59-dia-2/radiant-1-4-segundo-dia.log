@@ -1,0 +1,48 @@
+inicio 2026-10-19T13:56:07-0300
+udid=5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 flow=radiant-1-4-segundo-dia maestro=2.7.0 head=cb0bedc + roteiro com centramento (árvore de trabalho)
+Running on Radiant E2E dia 2 (2026-10-18) - iOS 26.5 - 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3
+ > Flow Caminho dourado 2 — segundo dia com revisão devida
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling DOWN until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible... COMPLETED
+Scrolling UP until "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$" is visible with speed 40, visibility percentage 100%, timeout 20000 ms, with centering enabled... COMPLETED
+Tap on "^Revisar Fundamentos de Radiologia\. Revisão devida · \d+ (devida|devidas)\.$"... COMPLETED
+Assert that "Passo 1 de 4" is visible... COMPLETED
+Assert that "Retome rapidamente o conceito central antes de seguir adiante." is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q1:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q1:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q2:option:2 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q2:option:2... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until id: lesson-option-q3:option:1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: lesson-option-q3:option:1... COMPLETED
+Tap on "Conferir resposta"... COMPLETED
+Assert that id: lesson-item-feedback is visible... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Tap on "Concluir e voltar"... COMPLETED
+Assert that "Revisão concluída" is visible... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$" is visible... COMPLETED
+exit=0
+fim 2026-10-19T13:56:54-0300

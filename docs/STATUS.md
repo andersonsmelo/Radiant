@@ -633,11 +633,9 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
   **emulador Android** em 2026-10-18: 5.000 cartões gravam, mas a leitura do
   valor único falha na CursorWindow. A cota total também continua sendo um
   limite nos tetos; aumentar só essa cota não resolve a leitura por valor;
-- o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
 - da FILA 54:
-  - o cartão da revisão some no Android com "Remover animações" ligado;
   - VoiceOver e TalkBack audíveis;
-  - o G6, depois do merge da #52;
+  - o G6, destravado: a #52 entrou na `main` em 2026-10-19;
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
@@ -740,6 +738,13 @@ iPhone 17 Pro com iOS 26.5:
 
 [Relatório, logs e capturas](evidence/2026-10-18-main-pronta-para-build.md). O
 Debug não prova a build Release; a build e o envio continuam com o dono.
+
+**Dia 2 em 2026-10-19 (FILA 59):** o `radiant-1-4-segundo-dia` passou com
+relógio real no `5FD8C926`, às 13:56, servido pela `main` em `cb0bedc`. O
+roteiro passou a centrar o nó da revisão antes do toque, que antes caía na
+barra de abas ([evidência](evidence/2026-10-19-fila59-dia-2.md)). No mesmo dia,
+as PRs #52 a #56 entraram na `main`, e o gate local da `cb0bedc` passou: 178
+suítes, 1811 testes, os contratos e o QA visual.
 
 **Defeito achado depois, em 2026-10-18 à noite (FILA 63), e consertado só na
 branch `claude/fila63-checkpoint-instavel`.** Na `main` desde `a1f26f6`, o journal

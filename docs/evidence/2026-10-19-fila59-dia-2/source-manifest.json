@@ -1,0 +1,18 @@
+{
+  "medidoEm": "2026-10-19",
+  "commit": "cb0bedc (main) + o roteiro e a guarda deste run",
+  "binario": {
+    "configuracao": "Debug (dev client), o mesmo do dia 1, já instalado no simulador",
+    "versao": "1.4.0",
+    "build": "3",
+    "executavelSha256Prefixo": "22408fc7e98ea89a"
+  },
+  "simulador": "5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 (iPhone 17 Pro, iOS 26.5), dia 1 em 2026-10-18 às 12:41–12:45, sem clearState desde então",
+  "maestro": "2.7.0",
+  "node": "v20.20.2",
+  "metroEnv": "perfil e2e-test do eas.json, EXPO_NO_DOTENV=1, EXPO_NO_TYPESCRIPT_SETUP=1",
+  "capturas": {
+    "final.png": "089e3ea91999303ebca860d31e6aee0d95d8ada97d9460aadf05385ff838a00a",
+    "falha-1.png": "403475a063d544debbb6d39a35ed809e2b40cf51392afa1cd27cb60a53ed4b20"
+  }
+}
