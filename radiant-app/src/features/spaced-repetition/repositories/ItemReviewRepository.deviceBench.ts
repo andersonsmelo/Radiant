@@ -2,7 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
 import { ItemReviewRepository } from './ItemReviewRepository';
-import { buildStore, median, time } from './itemReviewBenchFixtures';
+import { benchCatalog, buildStore, median, percentile, time } from './itemReviewBenchFixtures';
+import { ItemReviewCoordinator, type ReviewItem } from '../services/ItemReviewService';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
 
 // FILA 61, passo 1: mede no aparelho (ou no emulador) o que o bench do R6 só
@@ -13,6 +14,9 @@ import { STORAGE_KEYS } from '../../../constants/storageKeys';
 //      a CursorWindow não volta;
 //   2. quanto custa ler o store de revisão com 1.000 e 5.000 cartões, montado
 //      pelo mesmo gerador do R6.
+// E uma do G6: quanto custam, pelo coordenador real da revisão, abrir a sessão
+// (`loadQueue`) e confirmar uma resposta (`recordAnswer`) com 1.000 cartões.
+// Mede o caminho de dados que cresce com o store, e não a renderização da tela.
 //
 // Só roda em desenvolvimento e com `EXPO_PUBLIC_RADIANT_STORE_BENCH=1` no
 // Metro: o console de desenvolvimento chama `isStoreBenchEnabled()` ao montar.
@@ -24,6 +28,8 @@ export const STORE_BENCH_LOG_TAG = '[radiant-store-bench]';
 export const STORE_BENCH_KEY_PREFIX = '@radiant:bench:';
 export const STORE_BENCH_PROBE_SIZES_MIB = [1.0, 1.5, 1.9, 2.0, 2.1, 2.5, 3.0, 4.0];
 export const STORE_BENCH_CARD_COUNTS = [1000, 5000];
+// 5.000 não entra: no Android o valor não volta da leitura (FILA 61).
+export const STORE_BENCH_SESSION_CARD_COUNTS = [1000];
 
 const MIB = 1024 * 1024;
 const PROBE_KEY = `${STORE_BENCH_KEY_PREFIX}probe`;
@@ -38,6 +44,8 @@ type BenchOptions = {
     storage?: BenchStorage;
     probeSizesMiB?: number[];
     cardCounts?: number[];
+    sessionCardCounts?: number[];
+    sessionRepetitions?: number;
     repetitions?: number;
     log?: (line: string) => void;
 };
@@ -138,6 +146,59 @@ async function measureStore(storage: BenchStorage, cards: number, repetitions: n
     }
 }
 
+const stats = (samples: Record<string, number[]>, p: number) =>
+    Object.fromEntries(Object.entries(samples).map(([name, values]) => [name, values.length ? percentile(values, p) : null]));
+
+// Cada rodada repõe o store original fora do cronômetro, para que a resposta da
+// rodada anterior não mude o tamanho nem a fila da seguinte.
+//   - openCold: `loadQueue` num coordenador novo, sem o store validado em cache;
+//   - openWarm: o segundo `loadQueue` do mesmo coordenador, como na volta à tela;
+//   - confirm: `recordAnswer` do primeiro item da fila, que lê e grava o store.
+async function measureSession(storage: BenchStorage, cards: number, repetitions: number) {
+    const raw = await buildStore(cards);
+    const key = STORE_BENCH_KEY_PREFIX + STORAGE_KEYS.ITEM_REVIEW;
+    const catalog = benchCatalog(cards);
+    const result: Record<string, unknown> = { kind: 'session', cards, bytes: utf8Bytes(raw) };
+    const samples: Record<string, number[]> = { openCold: [], openWarm: [], confirm: [] };
+    let accepted = 0;
+    try {
+        for (let round = 0; round < repetitions; round += 1) {
+            try {
+                await storage.setItem(key, raw);
+                result.written = true;
+            } catch (error) {
+                result.written = false;
+                result.writeError = errorMessage(error);
+                return result;
+            }
+            const coordinator = new ItemReviewCoordinator(new ItemReviewRepository(prefixed(storage)), catalog);
+            const now = new Date();
+            let queue: ReviewItem[] = [];
+            try {
+                samples.openCold.push(await time(async () => { queue = await coordinator.loadQueue([], now); }));
+                samples.openWarm.push(await time(() => coordinator.loadQueue([], now)));
+            } catch (error) {
+                result.openError = errorMessage(error);
+                return result;
+            }
+            result.queueLength = queue.length;
+            if (!queue.length) return result;
+            let recorded = { accepted: false };
+            samples.confirm.push(await time(async () => { recorded = await coordinator.recordAnswer(queue[0], 0, now); }));
+            if (recorded.accepted) accepted += 1;
+        }
+        result.confirmAccepted = accepted;
+        return result;
+    } finally {
+        result.p50Ms = stats(samples, 50);
+        result.p95Ms = stats(samples, 95);
+        result.samplesMs = samples;
+        for (const suffix of [STORAGE_KEYS.ITEM_REVIEW, STORAGE_KEYS.ITEM_REVIEW_QUARANTINE]) {
+            await storage.removeItem(STORE_BENCH_KEY_PREFIX + suffix).catch(() => undefined);
+        }
+    }
+}
+
 export async function runStoreDeviceBench(options: BenchOptions = {}): Promise<Record<string, unknown>[]> {
     const storage = options.storage ?? AsyncStorage;
     const log = options.log ?? ((line: string) => console.log(line));
@@ -152,6 +213,11 @@ export async function runStoreDeviceBench(options: BenchOptions = {}): Promise<R
     }
     for (const cards of options.cardCounts ?? STORE_BENCH_CARD_COUNTS) {
         const result = await measureStore(storage, cards, repetitions);
+        results.push(result);
+        log(`${STORE_BENCH_LOG_TAG} ${JSON.stringify(result)}`);
+    }
+    for (const cards of options.sessionCardCounts ?? STORE_BENCH_SESSION_CARD_COUNTS) {
+        const result = await measureSession(storage, cards, options.sessionRepetitions ?? options.repetitions ?? 30);
         results.push(result);
         log(`${STORE_BENCH_LOG_TAG} ${JSON.stringify(result)}`);
     }

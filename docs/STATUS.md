@@ -635,7 +635,10 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
   limite nos tetos; aumentar só essa cota não resolve a leitura por valor;
 - da FILA 54:
   - VoiceOver e TalkBack audíveis;
-  - o G6, destravado: a #52 entrou na `main` em 2026-10-19;
+  - o G6 em aparelho e na tela inteira. O caminho de dados foi medido em
+    2026-10-19 no emulador: abrir a revisão com 1.000 cartões teve p95 de
+    ~380 ms a frio, e confirmar, ~80 ms
+    ([evidência](evidence/2026-10-19-g6-caminho-de-dados.md));
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
   - **dono:** a saída das cinco stores sem `schemaVersion` e o merge do G7

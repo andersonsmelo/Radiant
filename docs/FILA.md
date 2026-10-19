@@ -194,8 +194,8 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Atualização de 2026-10-19, à tarde (Claude, G7 nas outras stores):** a
     regra da jornada vale agora para toda store de aprendizagem e economia que
     declara `schemaVersion`. Uma versão antiga não grava por cima de um store
-    com `schemaVersion` que não conhece. Os consertos estão na branch `claude/g7-schema-desconhecido`, ainda não
-    integrada:
+    com `schemaVersion` que não conhece. Os consertos estão na branch
+    `claude/g7-schema-desconhecido`, ainda não integrada:
     - passaram a recusar as tentativas, o domínio e a assinatura, que gravavam
       por cima, e os dois checkpoints, que **apagavam** o store futuro;
     - a mescla do backup do iCloud escrevia na jornada por fora da guarda, e
@@ -212,7 +212,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - **dono:** o merge da branch do G7;
     - **dono:** republicar as duas páginas legais e só então enviar a build
       com a chave de backup. A mesma build leva a guarda das stores;
-    - o G6, destravado: a #52 está na `main`;
+    - **G6, caminho de dados, medido em 2026-10-19** no emulador
+      `radiant-entrada-api34`, com 1.000 cartões e duas passadas de 30 rodadas.
+      Abrir a revisão (`loadQueue`) teve p50 de 211 a 215 ms e p95 de 371 a
+      386 ms a frio. Confirmar uma resposta (`recordAnswer`) teve p50 de 31 a
+      56 ms e p95 de 74 a 81 ms. Emulador e Debug: não prova aparelho de
+      entrada, Release nem o tempo da tela
+      ([evidência](evidence/2026-10-19-g6-caminho-de-dados.md)). Falta o G6 em
+      aparelho e na tela inteira;
     - VoiceOver e TalkBack audíveis (dono, no aparelho).
     O cartão invisível em `motion.ts` saiu da lista: a FILA 64 entrou na `main`
     pela [PR #55](https://github.com/andersonsmelo/Radiant/pull/55).

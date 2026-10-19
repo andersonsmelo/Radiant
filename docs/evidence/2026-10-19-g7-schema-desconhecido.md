@@ -164,11 +164,32 @@ As duas receberam nota de errata no lugar.
 - **[não verificado]** Nada foi ensaiado numa volta de versão real, com duas
   builds no mesmo aparelho. A prova é a dos testes de unidade.
 
+## Merge com a `main` e com a PR aberta
+
+**[medido]** ([merge-tree.log](2026-10-19-g7-schema-desconhecido/merge-tree.log))
+Durante o run, a `main` recebeu a #59 (G6, `2415de5`). A simulação deu conflito
+em `docs/FILA.md` e `docs/archive/FILA_concluidos.md`, só de documentação. A #59
+também tinha reescrito a lista "Próximo" da FILA 54 e acrescentado ao fim do
+histórico. A `main` entrou na branch por merge, num segundo run
+(`run-1792431612850-d9f75c02`), com esta resolução:
+- o "Próximo" da FILA 54 aponta para a lista nova, e a linha do G6 da #59 entrou
+  nela sem edição;
+- no histórico ficam as duas entradas: a da #59 e a desta frente, que agora
+  arquiva o "Próximo" da `main`, com a linha do G6.
+
+A única PR aberta, a #60 (`61f086a`, documentação de estado), conflita com a
+árvore integrada nos mesmos dois arquivos. Ela reescreve a mesma linha
+"Próximo" (o item do `motion.ts`) e acrescenta ao fim do mesmo histórico. Quem
+entrar em segundo resolve: manter a lista nova desta frente, que já registra o
+`motion.ts` como integrado, e as entradas de histórico das duas.
+
 ## Gates
 
 **[medido]** `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, nesta worktree,
 com todas as mudanças de código
 ([log](2026-10-19-g7-schema-desconhecido/quality.log), `exit=0`): 179 suítes e
 1.832 testes do Jest, todos os contratos verdes e o visual QA com 0 regressões.
-São 1.811 testes da `main` mais os 21 desta frente. O `loop validate` do run
+São 1.811 testes da `main` mais os 21 desta frente. O `loop validate` do
+`run-1792430821117-6fdea6d0` passou 15/15. Na árvore integrada com a #59, o
+gate é o `app-quality` do `loop validate` do `run-1792431612850-d9f75c02`, que
 fica no envelope do run.
