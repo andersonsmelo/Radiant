@@ -1,0 +1,68 @@
+# python3 -I analisar.py . <rotulo> — 2026-10-19, emulador radiant-entrada-api34
+## intro — maestro: 285 nós, 27 com texto/rótulo, 1 com glifo de uso privado
+   glifo: '\ue5cd' android.widget.TextView [85,396][146,459]
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Começar revisão': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## intro — uiautomator completo: 258 nós, 21 com texto/rótulo, 1 com glifo de uso privado
+   glifo: '\ue5cd' android.widget.TextView [85,396][146,459]
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Começar revisão': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## intro — uiautomator comprimido: 39 nós, 18 com texto/rótulo, 0 com glifo de uso privado
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Começar revisão': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## sessao — maestro: 199 nós, 28 com texto/rótulo, 1 com glifo de uso privado
+   glifo: '\ue5cd' android.widget.TextView [85,374][146,437]
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Confirmar resposta': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false'), ('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## sessao — uiautomator completo: 172 nós, 22 com texto/rótulo, 1 com glifo de uso privado
+   glifo: '\ue5cd' android.widget.TextView [85,374][146,437]
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Confirmar resposta': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false'), ('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## sessao — uiautomator comprimido: 36 nós, 21 com texto/rótulo, 0 com glifo de uso privado
+   controle 'Fechar revisão': [('Button', 'desc', 'true')]
+   controle 'Confirmar resposta': [('Button', 'desc', 'true'), ('TextView', 'text', 'false')]
+   controle 'REVISÃO': [('TextView', 'text', 'false'), ('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## home — maestro: 174 nós, 39 com texto/rótulo, 5 com glifo de uso privado
+   glifo: '\ue86c' android.widget.TextView [99,523][160,586]
+   glifo: '\ue5d5' android.widget.TextView [648,1000][709,1063]
+   glifo: '\uea19' android.widget.TextView [99,1592][160,1655]
+   glifo: '\ue80c' android.widget.TextView [236,2158][302,2226]
+   glifo: '\ue7fd' android.widget.TextView [776,2158][842,2226]
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('Button', 'desc', 'true'), ('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## home — uiautomator completo: 147 nós, 35 com texto/rótulo, 5 com glifo de uso privado
+   glifo: '\ue86c' android.widget.TextView [99,523][160,586]
+   glifo: '\ue5d5' android.widget.TextView [648,1000][709,1063]
+   glifo: '\uea19' android.widget.TextView [99,1592][160,1655]
+   glifo: '\ue80c' android.widget.TextView [236,2158][302,2226]
+   glifo: '\ue7fd' android.widget.TextView [776,2158][842,2226]
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('Button', 'desc', 'true'), ('TextView', 'desc', 'false')]
+   texto '5' cru: 1
+## home — uiautomator comprimido: 44 nós, 26 com texto/rótulo, 0 com glifo de uso privado
+   controle 'REVISÃO': [('TextView', 'text', 'false')]
+   controle '5 de 5 vidas': [('Button', 'desc', 'true')]
+   texto '5' cru: 1
+
+# texto/rótulo presente só na leitura completa (uiautomator)
+intro ["'26'", "'1d'", "'\\ue5cd'"]
+sessao ["'\\ue5cd'"]
+home ["'26'", "'1d'", "'\\ue86c'", "'PR\\xd3XIMO'", "'\\ue5d5'", "'\\uea19'", "'\\ue80c'", "'\\ue7fd'"]

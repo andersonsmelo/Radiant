@@ -301,6 +301,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     num run próprio.
     **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
     Anderson;
+  - **65.** ✅ **Encerrado em 2026-10-19, sem código: no Android, os glifos de
+    ícone ficam fora da árvore que o leitor de tela lê.** Achado da FILA 54,
+    que leu a árvore com `maestro hierarchy` e viu o `` do "Fechar" como
+    `TextView`. O `DecorativeIcon` já os esconde desde 2026-07-26. No emulador
+    `radiant-entrada-api34`, a mesma tela foi lida de três jeitos:
+    - o `maestro hierarchy` e o `uiautomator dump` completo mostram 1 glifo na
+      revisão e 5 na Home;
+    - o `uiautomator dump --compressed`, que exclui os nós não importantes para
+      acessibilidade, mostra 0, e mantém todos os controles conferidos.
+
+    O Maestro lista o que o leitor ignora
+    ([evidência](evidence/2026-10-19-fila65-glifos-android.md)).
+    **Resta, com o dono:** ouvir com TalkBack num Android físico, porque a
+    imagem do emulador não traz o leitor. Na mesma escuta, conferir se o "5" do
+    HUD é lido depois de "5 de 5 vidas": ele continua na árvore nas duas
+    plataformas;
   - **56.** ✅ **Feito em 2026-10-17**, com autorização de Anderson: o
     trabalho G0–G4 do Codex está em cinco commits na branch
     `feat/trilha-evolucao-global-g0-g4`, com a
