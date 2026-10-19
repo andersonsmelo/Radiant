@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { hasUnknownSchemaVersion, rawHasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import { HeartsService } from './HeartsService';
 import type { HeartsSnapshot, HeartsState } from './hearts.types';
 
@@ -7,6 +8,13 @@ export type HeartsStorage = Pick<typeof AsyncStorage, 'getItem' | 'setItem'>;
 
 const storageQueues = new WeakMap<HeartsStorage, Promise<unknown>>();
 const STATE_KEYS = ['count', 'lastRefillAt', 'unlimitedUntil'];
+
+/**
+ * As vidas nunca gravaram `schemaVersion`, então esta versão não conhece
+ * nenhuma: qualquer versão declarada veio de uma build mais nova (G7, decisão
+ * do dono em 2026-10-19). O formato gravado continua o de hoje.
+ */
+export const KNOWN_HEARTS_SCHEMA_VERSIONS: readonly unknown[] = [];
 
 function isIsoTimestamp(value: unknown): value is string {
     return typeof value === 'string' && Number.isFinite(Date.parse(value));
@@ -18,13 +26,20 @@ function parseState(raw: string | null): HeartsState | null {
         const value: unknown = JSON.parse(raw);
         if (typeof value !== 'object' || value === null || Array.isArray(value)) return null;
         const record = value as Record<string, unknown>;
-        if (Object.keys(record).sort().join('|') !== [...STATE_KEYS].sort().join('|')) return null;
+        // Vidas de uma versão mais nova trazem campos que esta não conhece. Vale
+        // o que ela entende, só em memória: `write` não grava por cima (G7).
+        const foreign = hasUnknownSchemaVersion(record, KNOWN_HEARTS_SCHEMA_VERSIONS);
+        if (!foreign && Object.keys(record).sort().join('|') !== [...STATE_KEYS].sort().join('|')) return null;
         if (!Number.isInteger(record.count) || (record.count as number) < 0 || (record.count as number) > 5) {
             return null;
         }
         if (record.lastRefillAt !== null && !isIsoTimestamp(record.lastRefillAt)) return null;
         if (record.unlimitedUntil !== null && !isIsoTimestamp(record.unlimitedUntil)) return null;
-        return value as HeartsState;
+        return {
+            count: record.count as number,
+            lastRefillAt: record.lastRefillAt as string | null,
+            unlimitedUntil: record.unlimitedUntil as string | null,
+        };
     } catch {
         return null;
     }
@@ -84,6 +99,13 @@ export class HeartsRepository {
     }
 
     private async write(state: HeartsState): Promise<void> {
+        // Vidas de uma versão mais nova do app: esta não grava por cima (G7). O
+        // gasto vale só para quem já o recebeu; a próxima leitura volta ao dado.
+        const raw = await this.storage.getItem(STORAGE_KEYS.HEARTS);
+        if (rawHasUnknownSchemaVersion(raw, KNOWN_HEARTS_SCHEMA_VERSIONS)) {
+            console.warn('[HeartsRepository] Vidas com schema desconhecido preservadas, sem escrita.');
+            return;
+        }
         await this.storage.setItem(STORAGE_KEYS.HEARTS, JSON.stringify(state));
     }
 

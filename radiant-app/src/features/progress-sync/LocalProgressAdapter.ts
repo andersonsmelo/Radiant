@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from '../../constants/storageKeys';
 import { hasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import { KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS } from '../../types/journey';
 import { GamificationService } from '../gamification/services/GamificationService';
+import { KNOWN_HEARTS_SCHEMA_VERSIONS } from '../hearts/HeartsRepository';
 import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 import type { LocalProgressPort, ProgressBackup } from './progressSync.types';
 
@@ -130,6 +131,8 @@ export class LocalProgressAdapter implements LocalProgressPort {
         if (merged.lastRefillAt === null) return;
         const hearts = await readJson<HeartsShape>(this.storage, STORAGE_KEYS.HEARTS);
         if (!hearts) return;
+        // Vidas de uma versão mais nova do app não recebem a mescla (G7).
+        if (hasUnknownSchemaVersion(hearts, KNOWN_HEARTS_SCHEMA_VERSIONS)) return;
         const current = typeof hearts.lastRefillAt === 'string' ? Date.parse(hearts.lastRefillAt) : Number.NEGATIVE_INFINITY;
         if (Date.parse(merged.lastRefillAt) <= current) return;
         await this.storage.setItem(STORAGE_KEYS.HEARTS, JSON.stringify({ ...hearts, lastRefillAt: merged.lastRefillAt }));

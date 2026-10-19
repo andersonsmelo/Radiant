@@ -1,0 +1,5 @@
+# Merge simulado — 2026-10-19 19:51 -0300
+# origin/main: 8a902e0
+# base da branch: 8a902e0
+origin/main é ancestral da branch: o merge é fast-forward da base, sem conflito possível.
+# PRs abertas às 19:51 (gh pr list --state open): nenhuma. Não há outra PR com que simular.

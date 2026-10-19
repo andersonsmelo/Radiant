@@ -142,6 +142,9 @@ Recomendo a 1 para as vidas e a meta diária, que perdem dado com campo novo, e 
 2 para as outras três, que regravam o objeto preservado ou são descartáveis por
 desenho (o ledger vive só durante uma tentativa).
 
+**Decidido pelo dono em 2026-10-19 à noite, como recomendado.** A aplicação
+está na [evidência das vidas e da meta diária](2026-10-19-g7-vidas-e-meta-diaria.md).
+
 ## Errata
 
 Duas afirmações das evidências anteriores estavam erradas, e os dois erros

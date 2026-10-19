@@ -3541,3 +3541,16 @@ dada na conversa, e conferiu cada merge no GitHub. A
 
 aprendizagem e economia**, na branch `claude/g7-schema-desconhecido`, ainda não
 integrada. Das 22 chaves,
+
+## Saiu do STATUS em 2026-10-19 à noite — a decisão das cinco stores sem `schemaVersion`
+
+  - **dono:** a saída das cinco stores sem `schemaVersion`, levantadas pelo G7
+    das stores;
+
+marcador de uma versão mais nova. Cinco stores não têm `schemaVersion` e
+esperam a decisão do dono. Nada disso protege a `1.4.0` publicada, só a build
+que levar o código ([evidência](evidence/2026-10-19-g7-schema-desconhecido.md)).
+
+```bash
+cd radiant-app && npx jest src/storage src/features/student-checkpoints/repositories.test.ts src/features/progress-sync/LocalProgressAdapter.test.ts src/features/storage-migration
+```

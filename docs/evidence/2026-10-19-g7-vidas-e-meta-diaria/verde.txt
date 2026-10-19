@@ -1,0 +1,100 @@
+# Verde — G7 vidas e meta diária, depois do conserto
+# base 8a902e0 + diff do run, 2026-10-19 19:49 -0300, node v20.20.2
+# npx jest --runInBand --ci --verbose <3 arquivos>
+PASS src/features/progress-sync/LocalProgressAdapter.test.ts
+  LocalProgressAdapter
+    ✓ fotografa nós concluídos, agenda, XP, sequência e lastRefillAt (1 ms)
+    ✓ numa instalação limpa a fotografia é vazia, sem lançar
+    ✓ aplica a mescla sem apagar o que só existia localmente (1 ms)
+    ✓ não retrocede o lastRefillAt local quando o da mescla é mais antigo
+    schema desconhecido da jornada (G7)
+      ✓ não grava na jornada com schemaVersion desconhecido
+      ✓ o resto da mescla segue aplicado
+    schema desconhecido das vidas (G7)
+      ✓ não grava o lastRefillAt da mescla em vidas de uma versão mais nova
+
+  console.warn
+    [DailyGoalService] Meta com schema desconhecido preservada, sem escrita.
+
+      82 |             const raw = await AsyncStorage.getItem(DAILY_GOAL_STORAGE_KEY);
+      83 |             if (rawHasUnknownSchemaVersion(raw, KNOWN_DAILY_GOAL_SCHEMA_VERSIONS)) {
+    > 84 |                 console.warn('[DailyGoalService] Meta com schema desconhecido preservada, sem escrita.');
+         |                         ^
+      85 |                 return;
+      86 |             }
+      87 |             await AsyncStorage.setItem(DAILY_GOAL_STORAGE_KEY, JSON.stringify(store));
+
+      at DailyGoalServiceClass.warn (src/features/daily-goal/services/DailyGoalService.ts:84:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  console.warn
+    [DailyGoalService] Meta com schema desconhecido preservada, sem escrita.
+
+      82 |             const raw = await AsyncStorage.getItem(DAILY_GOAL_STORAGE_KEY);
+      83 |             if (rawHasUnknownSchemaVersion(raw, KNOWN_DAILY_GOAL_SCHEMA_VERSIONS)) {
+    > 84 |                 console.warn('[DailyGoalService] Meta com schema desconhecido preservada, sem escrita.');
+         |                         ^
+      85 |                 return;
+      86 |             }
+      87 |             await AsyncStorage.setItem(DAILY_GOAL_STORAGE_KEY, JSON.stringify(store));
+
+      at DailyGoalServiceClass.warn (src/features/daily-goal/services/DailyGoalService.ts:84:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/daily-goal/services/DailyGoalService.test.ts
+  DailyGoalService
+    ✓ persiste o reset quando a leitura encontra o progresso de um dia anterior (1 ms)
+    schema desconhecido (G7)
+      ✓ getSnapshot na virada do dia não grava por cima (8 ms)
+      ✓ recordXp soma em memória e não grava por cima
+
+  console.warn
+    [HeartsRepository] Vidas com schema desconhecido preservadas, sem escrita.
+
+      104 |         const raw = await this.storage.getItem(STORAGE_KEYS.HEARTS);
+      105 |         if (rawHasUnknownSchemaVersion(raw, KNOWN_HEARTS_SCHEMA_VERSIONS)) {
+    > 106 |             console.warn('[HeartsRepository] Vidas com schema desconhecido preservadas, sem escrita.');
+          |                     ^
+      107 |             return;
+      108 |         }
+      109 |         await this.storage.setItem(STORAGE_KEYS.HEARTS, JSON.stringify(state));
+
+      at HeartsRepository.warn (src/features/hearts/HeartsRepository.ts:106:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  console.warn
+    [HeartsRepository] Vidas com schema desconhecido preservadas, sem escrita.
+
+      104 |         const raw = await this.storage.getItem(STORAGE_KEYS.HEARTS);
+      105 |         if (rawHasUnknownSchemaVersion(raw, KNOWN_HEARTS_SCHEMA_VERSIONS)) {
+    > 106 |             console.warn('[HeartsRepository] Vidas com schema desconhecido preservadas, sem escrita.');
+          |                     ^
+      107 |             return;
+      108 |         }
+      109 |         await this.storage.setItem(STORAGE_KEYS.HEARTS, JSON.stringify(state));
+
+      at HeartsRepository.warn (src/features/hearts/HeartsRepository.ts:106:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS src/features/hearts/HeartsRepository.test.ts
+  HeartsRepository
+    ✓ cria CHEIA quando não existe estado e persiste somente os três campos
+    ✓ recupera pelo tempo ao ler e grava o estado normalizado
+    ✓ serializa gastos concorrentes sem perder atualização
+    ✓ persiste recompensa e direito ilimitado usando o mesmo contrato
+    ✓ se bytes inválidos escaparem da migração, recupera em CHEIA sem expor o conteúdo
+    schema desconhecido (G7)
+      ✓ getSnapshot não grava por cima
+      ✓ lê em memória os campos que conhece (1 ms)
+      ✓ spend devolve o gasto e não grava por cima (1 ms)
+      ✓ sem campos que entenda, usa CHEIA em memória e não grava (1 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       19 passed, 19 total
+Snapshots:   0 total
+Time:        0.301 s, estimated 1 s
+Ran all test suites matching /src\/features\/hearts\/HeartsRepository.test.ts|src\/features\/daily-goal\/services\/DailyGoalService.test.ts|src\/features\/progress-sync\/LocalProgressAdapter.test.ts/i.
