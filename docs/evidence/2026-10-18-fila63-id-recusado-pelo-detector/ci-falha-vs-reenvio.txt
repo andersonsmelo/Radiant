@@ -1,0 +1,56 @@
+FILA 63 — falha do CI da PR #51 comparada com o reenvio aprovado do mesmo commit
+Run 39167231546, commit 0cb5441, job quality.
+Tentativa 1: job 117792604304, conclusão failure. Tentativa 2: job 117794299597, conclusão success.
+Logs baixados em 2026-10-18 com: gh api repos/andersonsmelo/Radiant/actions/jobs/<job>/logs
+Extrato sem ANSI e sem carimbo de hora.
+
+== Tentativa 1 (falhou): erros de console do arquivo CheckpointScreen.flow.test.tsx, em ordem
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: assessment-journal-unavailable
+> 451 |       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: after-journal
+> 451 |       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: assessment-journal-unavailable
+> 451 |       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+
+== Tentativa 2 (passou): os mesmos erros de console
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: assessment-journal-unavailable
+> 451 |       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: after-journal
+> 451 |       console.error('[CheckpointScreen] Failed to evaluate production checkpoint:', cause);
+
+Os dois primeiros são injetados de propósito: o primeiro pelo caso de retry após falha
+de gravação (linha 287), o segundo pelo caso de reabrir uma aprovação salva (linha 318).
+O terceiro, assessment-journal-unavailable, só existe na tentativa que falhou.
+
+== Tentativa 1: o caso que falhou e os textos visíveis da árvore renderizada
+● CheckpointScreen flow › XP da aprovação › a celebração mostra o ganho e o total depois dele
+
+Unable to find an element with text: +18 XP
+Checkpoint
+Unidade ativa
+Matéria, energia e radiação
+Avaliação 1 de 5
+2 itens desta competência. A aprovação exige 80%.
+Progresso
+0 de 1 etapas concluídas
+Revisão
+Nenhuma revisão pendente
+O que vem depois
+Concluir este checkpoint libera a próxima lição
+Nao foi possivel registrar o checkpoint agora. Suas respostas não foram presumidas como concluídas.
+Questão 
+2
+de 
+2
+Qual descrição relaciona ionização e estrutura corretamente?
+Parte sempre o núcleo
+Exige energia e altera a estrutura eletrônica sem declarar ruptura nuclear
+Remove próton sem energia
+Não altera carga
+Enviar checkpoint
+664 |       await answerProductionCheckpoint(true);
+665 |
+|                           ^
+667 |       expect(screen.getByText('XP total: 138')).toBeTruthy();
+668 |       expect(screen.queryByText('XP total: 120')).toBeNull();
+at Object.findByText (src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx:666:27)

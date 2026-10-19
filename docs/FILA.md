@@ -360,19 +360,27 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Passo 1, do agente e sem decisão:** medir num Android de entrada o limite
     por valor e o tempo de leitura com 1.000 e 5.000 cartões (G6). **Dono:**
     escolher o caminho depois da medição;
-  - **63.** agente: **um teste do checkpoint reprovou uma vez no CI, e não
-    reproduz aqui.** Em 2026-10-18, no job `quality` da PR #51 (`0cb5441`),
-    `CheckpointScreen flow › XP da aprovação › a celebração mostra o ganho e o
-    total depois dele` não achou `+18 XP` com o `findByText`, e a tela ainda
-    mostrava "Avaliação 1 de 5". A `main` em `2304c94`, com o mesmo código do
-    app, passou no mesmo workflow, e o reenvio do job passou com o mesmo commit.
-    Aqui, com `taskpolicy -b`, o arquivo passou 3 de 3, e o caso levou de 199 a
-    236 ms
-    ([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/ci-instavel.txt)).
-    [inferido, não medido] A cadeia assíncrona depois de "Enviar checkpoint"
-    pode passar dos 1000 ms do `findByText` no CI. **Passo 1:** reproduzir, ou
-    medir o tempo da cadeia no CI, antes de mexer no prazo. A lição de
-    2026-09-23 pede tirar o custo da janela, e não aumentar o prazo;
+  - **63.** agente: **consertada em 2026-10-18 na branch
+    `claude/fila63-checkpoint-instavel`; o merge é do dono.** A falha não era de
+    tempo. O log completo da tentativa que reprovou no CI da PR #51 (`0cb5441`)
+    mostra a tela no erro "Nao foi possivel registrar o checkpoint agora." e um
+    `assessment-journal-unavailable` que o reenvio aprovado do mesmo commit não
+    tem ([comparação](evidence/2026-10-18-fila63-id-recusado-pelo-detector/ci-falha-vs-reenvio.txt)). O
+    [extrato anterior](evidence/2026-10-18-fila62-guardas-de-rolagem/ci-instavel.txt)
+    omitia essa árvore, e a hipótese da cadeia acima de 1000 ms foi refutada.
+    **Causa:** o `attemptId` da avaliação e o id de estudo da lição terminavam
+    num sorteio em base 36. Quando ele compunha "rg", "cpf" ou "pacs" entre
+    dígitos, o detector de dado sensível do validador de evidência reprovava o
+    id, e o journal por item recusava a tentativa. Medido em 2 milhões de
+    sorteios: ~1 em 1.613 avaliações e ~1 em 1.061 lições. A nova tentativa
+    reaproveita o mesmo id [inferido do código, não medido no app].
+    **Conserto, escolhido pelo dono:** `attemptIds.ts` sorteia em hexadecimal,
+    que não compõe nenhuma sigla do detector, com a mesma entropia; o detector
+    ficou intacto. As guardas foram vistas falhando contra o gerador antigo
+    ([vermelho](evidence/2026-10-18-fila63-id-recusado-pelo-detector/vermelho.txt), [verde](evidence/2026-10-18-fila63-id-recusado-pelo-detector/verde.txt),
+    [evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md)). Só a `main` tem o defeito, desde `a1f26f6`
+    (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. **Uma build da
+    `main` antes deste merge leva o defeito;**
   - **64.** agente: **"Remover animações" escondia o cartão da revisão no
     Android — consertado em 2026-10-19, na branch
     `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.

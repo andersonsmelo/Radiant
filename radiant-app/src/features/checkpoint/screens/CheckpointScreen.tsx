@@ -36,6 +36,7 @@ import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
+import { assessmentAttemptSuffix } from '../../spaced-repetition/attemptIds';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
   count: 5,
@@ -413,7 +414,7 @@ export default function CheckpointScreen({ nodeId, resumeCheckpointId, resumeCur
       }
 
     const committedAt = pendingSubmission.current?.committedAt ?? new Date().toISOString();
-    const attemptSuffix = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const attemptSuffix = assessmentAttemptSuffix();
     const itemOutcomes: ItemOutcomeV1[] = productionItems.map((item) => {
       const activityId = productionBatch.activities.find((activity) => (
         activity.competencyIds.includes(item.competencyIds[0])
