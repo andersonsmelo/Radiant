@@ -1,0 +1,56 @@
+udid=E262D4C1 (iPhone 17 Pro, iOS 26.5) flow=radiant-app/.maestro/g4-native-evidence.yaml sem alteração, com radiantReduceMotion maestro=2.7.0 head=d7bd696 inicio=2026-10-19T08:57:21-0300
+Running on Radiant E2E 17 Pro - iOS 26.5 - E262D4C1-99BE-496B-8567-0291C14E6533
+ > Flow G4 — prova nativa da revisão com resposta antes do gabarito
+Launch app "com.ascendcreative.radiant" (launch arguments: {radiantReduceMotion=1})... COMPLETED
+Run subflows/dismiss-dev-client.yaml...
+  Assert that (Optional) "DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)" is visible... WARNED
+  Run flow when "DEVELOPMENT SERVERS" is visible...
+  Run flow when "DEVELOPMENT SERVERS" is visible... SKIPPED
+  Run flow when "This is the developer menu\. .*" is visible...
+  Run flow when "This is the developer menu\. .*" is visible... SKIPPED
+  Run flow when "(?i:connected to:?)" is visible...
+  Run flow when "(?i:connected to:?)" is visible... SKIPPED
+Run subflows/dismiss-dev-client.yaml... COMPLETED
+Open radiantapp://review... COMPLETED
+Assert that "Revisão" is visible... COMPLETED
+Scrolling DOWN until "Começar revisão" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Tap on "Começar revisão"... COMPLETED
+Assert that "Sessão ativa" is visible... COMPLETED
+Assert that "Qual é a principal função dos raios-X na radiologia diagnóstica\?" is visible... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Take screenshot g4-01-sessao-ativa... COMPLETED
+Scrolling DOWN until id: review-option-1 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: review-option-1... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Take screenshot g4-02-alternativa-selecionada... COMPLETED
+Scrolling DOWN until "Confirmar resposta" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Confirmar resposta"... COMPLETED
+Assert that "Resposta correta" is visible... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Take screenshot g4-03-resposta-correta... COMPLETED
+Scrolling DOWN until "Continuar" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Qual estrutura é mais radiopaca em uma radiografia\?" is visible... COMPLETED
+Scrolling DOWN until id: review-option-0 is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on id: review-option-0... COMPLETED
+Scrolling DOWN until "Confirmar resposta" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Confirmar resposta"... COMPLETED
+Assert that "Vamos revisar este ponto" is visible... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Take screenshot g4-04-resposta-errada... COMPLETED
+Scrolling DOWN until "Continuar" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "O que significa o termo "contraste" em radiologia\?" is visible... COMPLETED
+Scrolling DOWN until "Ver resposta com ajuda" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Ver resposta com ajuda"... COMPLETED
+Assert that "Resposta consultada" is visible... COMPLETED
+Wait for animation to end within 2000 ms... COMPLETED
+Take screenshot g4-05-resposta-com-ajuda... COMPLETED
+Scrolling DOWN until "Continuar" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Tap on "Continuar"... COMPLETED
+Assert that "Sessão concluída" is visible... COMPLETED
+Scrolling DOWN until "Resultado da sessão" is visible with speed 40, visibility percentage 80%, timeout 20000 ms, with centering disabled... COMPLETED
+Assert that "3 concluídos nesta rodada" is visible... COMPLETED
+Take screenshot g4-06-sessao-concluida... COMPLETED
+exit=0 fim=2026-10-19T08:58:10-0300

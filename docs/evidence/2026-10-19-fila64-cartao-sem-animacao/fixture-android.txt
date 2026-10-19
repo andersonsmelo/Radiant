@@ -1,0 +1,11 @@
+# Saída de preparar-revisao-devida-android.py (vence os 3 cartões da L1), 2026-10-19
+## 1ª execução (escala 0)
+{"itemId": "q1", "antes": "2026-10-19T09:04:08.223Z", "depois": "2026-10-19T09:23:35.647Z"}
+{"itemId": "q2", "antes": "2026-10-19T10:04:08.223Z", "depois": "2026-10-19T10:23:35.647Z"}
+{"itemId": "q3", "antes": "2026-10-19T11:04:08.223Z", "depois": "2026-10-19T11:23:35.647Z"}
+{"cartoes_no_store": 3, "tentativas": 6, "alterados": 3, "releitura": "confere"}
+## 2ª execução (antes das medições com escala 1)
+{"itemId": "q1", "antes": "2026-10-27T12:32:44.526Z", "depois": "2026-10-19T09:33:13.984Z"}
+{"itemId": "q2", "antes": "2026-10-19T10:23:35.647Z", "depois": "2026-10-19T10:33:13.984Z"}
+{"itemId": "q3", "antes": "2026-10-19T11:23:35.647Z", "depois": "2026-10-19T11:33:13.984Z"}
+{"cartoes_no_store": 3, "tentativas": 7, "alterados": 3, "releitura": "confere"}

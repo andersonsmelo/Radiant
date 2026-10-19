@@ -190,6 +190,32 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-19 (Claude, partes 1–3 combinadas com Anderson):**
+    - o G4 funciona no emulador Android de entrada: acerto, erro, ajuda e
+      resumo "3 de 3" com "+4 XP", em seis capturas com hash;
+    - o roteiro do G4 passou no iOS com o argumento do E1;
+    - a árvore de acessibilidade foi lida nas duas plataformas. A revisão passou
+      a anunciar o resultado ao leitor de tela, que antes só o Android recebia;
+    - o inventário G7 lista 65 chaves, com uma guarda de AST vista falhando.
+    **Defeito novo:** no Android, com "Remover animações" ligado, o cartão da
+    revisão não aparece. A causa provável está no `useCardEnter`
+    (`src/ui/motion.ts`), que também serve a `HomeScreen` e `QuizQuestion`.
+    ([evidência](evidence/2026-10-19-fila54-g4-android-g7.md)).
+    **Decisões G7 de 2026-10-19 (Anderson), já executadas**
+    ([ADR](adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md),
+    [evidência](evidence/2026-10-19-g7-decisoes-de-recuperacao.md)):
+    - a jornada não grava mais por cima de um store com schema desconhecido;
+      o teste foi visto falhando;
+    - o iOS passa a incluir o progresso no backup. No simulador, a chave do
+      `app.json` liga e desliga o atributo de exclusão;
+    - não haverá reset dentro do app. A política e a página de suporte agora
+      explicam o backup e como zerar em cada plataforma.
+    **Próximo:**
+    - o cartão invisível em `motion.ts`, em sessão própria;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup;
+    - G6 depois do merge da #52;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).
     **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
     medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
     5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2
@@ -355,6 +381,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md)). Só a `main` tem o defeito, desde `a1f26f6`
     (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. **Uma build da
     `main` antes deste merge leva o defeito;**
+  - **64.** agente: **"Remover animações" escondia o cartão da revisão no
+    Android — consertado em 2026-10-19, na branch
+    `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.
+    O `useCardEnter` começava a animação nativa antes de saber a preferência de
+    movimento. Com a resposta `true`, a animação era interrompida e o cartão
+    recebia opacidade 1, mas o retorno nativo atrasado gravava 0 por cima.
+    O hook agora espera a preferência, e o vermelho do teste está registrado.
+    No emulador `radiant-entrada-api34`, revisão, quiz e início legado mostram
+    o cartão com escala 0 e com escala 1
+    ([evidência](evidence/2026-10-19-fila64-cartao-sem-animacao.md)).
+    **Resta, pequeno:**
+    - o `useFadeInUp` tem o mesmo padrão no código. Não falhou nos dois usos
+      medidos;
+    - falta medir o resumo da revisão com escala 0.
+
+    **Remede:** `cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx`;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,

@@ -1,0 +1,69 @@
+# Vermelho do useCardEnter.test.tsx contra a main d7bd696 (motion.ts sem alteração), 2026-10-19 09:30 −03
+# Comando: cd radiant-app && EXPO_NO_DOTENV=1 npx jest src/ui/__tests__/useCardEnter.test.tsx (Node 20.20.2). Linhas de pilha omitidas.
+
+FAIL src/ui/__tests__/useCardEnter.test.tsx (8.168 s)
+  useCardEnter
+    ✕ não começa animação antes de saber a preferência; com "Remover animações", o cartão entra parado e visível (17 ms)
+    ✕ sem redução, anima uma vez só, depois que a preferência chega (2 ms)
+    ✕ a chegada da preferência não refaz o reset de quem chamou (2 ms)
+    ✓ com o argumento de lançamento do E1, entra visível já na primeira passada (1 ms)
+
+  ● useCardEnter › não começa animação antes de saber a preferência; com "Remover animações", o cartão entra parado e visível
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 2
+
+    1: 0, {"duration": 220, "easing": [Function BezierEasing], "toValue": 1, "useNativeDriver": true}
+    2: 6, {"duration": 220, "easing": [Function BezierEasing], "toValue": 0, "useNativeDriver": true}
+
+      71 |         // atrasado para sobrescrever.
+      72 |         const { values } = mount();
+    > 73 |         expect(timing).not.toHaveBeenCalled();
+         |                            ^
+      74 |
+      75 |         await act(async () => {
+      76 |             resolvePreference(true);
+
+
+  ● useCardEnter › sem redução, anima uma vez só, depois que a preferência chega
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 2
+
+    1: 0, {"duration": 220, "easing": [Function BezierEasing], "toValue": 1, "useNativeDriver": true}
+    2: 6, {"duration": 220, "easing": [Function BezierEasing], "toValue": 0, "useNativeDriver": true}
+
+      84 |     it('sem redução, anima uma vez só, depois que a preferência chega', async () => {
+      85 |         mount();
+    > 86 |         expect(timing).not.toHaveBeenCalled();
+         |                            ^
+      87 |
+      88 |         await act(async () => {
+      89 |             resolvePreference(false);
+
+
+  ● useCardEnter › a chegada da preferência não refaz o reset de quem chamou
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 1
+    Received number of calls: 2
+
+      105 |         });
+      106 |
+    > 107 |         expect(onEffect).toHaveBeenCalledTimes(1);
+          |                          ^
+      108 |     });
+      109 |
+      110 |     it('com o argumento de lançamento do E1, entra visível já na primeira passada', () => {
+
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 1 passed, 4 total
+Snapshots:   0 total
+Time:        8.586 s
+Ran all test suites matching /src\/ui\/__tests__\/useCardEnter.test.tsx/i.

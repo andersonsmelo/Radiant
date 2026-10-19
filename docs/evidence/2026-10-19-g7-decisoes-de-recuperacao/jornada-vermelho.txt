@@ -1,0 +1,7 @@
+# Vermelho do teste novo da jornada, antes do conserto — 2026-10-19T09:42:58-0300, node v20.20.2, head f8bc17e + teste novo
+
+      ✕ abrir e usar a jornada não grava por cima, e o app segue com um snapshot utilizável (5 ms)
+      ✓ o reset explícito continua apagando e recomeçando no schema atual
+    Expected: "{\"schemaVersion\":\"journey-progress.v3\",\"activeTrackId\":\"track-radiology-foundations\",\"tracks\":{\"track-radiology-foundations\":{\"completedNodeIds\":[\"node:foundation-1\"],\"campoNovo\":1}}}"
+    Received: "{\"schemaVersion\":\"journey-progress.v2\",\"activeTrackId\":\"track-radiology-foundations\",\"tracks\":{\"track-radiology-foundations\":{\"schemaVersion\":\"journey-progress.v2\",\"activeTrackId\":\"track-radiology-foundations\",\"currentUnitId\":\"unit-radiology-foundations-1\",\"currentNodeId\":null,\"completedNodeIds\":[\"node:foundation-1\"],\"pendingReviewNodeIds\":[],\"lastUpdatedAt\":\"2026-10-19T12:43:00.703Z\",\"lastCompletedNodeId\":\"node:foundation-1\",\"pendingSyncEvents\":[{\"id\":\"node_completed:node:foundation-1:2026-10-19T12:43:00.703Z\",\"type\":\"node_completed\",\"nodeId\":\"node:foundation-1\",\"occurredAt\":\"2026-10-19T12:43:00.703Z\"}]}}}"
+Tests:       1 failed, 28 skipped, 1 passed, 30 total

@@ -19,7 +19,7 @@ import {
     withTiming,
 } from 'react-native-reanimated';
 import { G, Path } from 'react-native-svg';
-import { useReducedMotionPreference } from './accessibility/useReducedMotionPreference';
+import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
 import { useScreenFocused } from './useScreenFocused';
 
 // ============================================================================
@@ -244,18 +244,25 @@ export function usePressScale(customDuration?: number) {
  * Card entry animation (Subtle Fade In Up)
  * Initial: opacity=0, translateY=6
  * Final: opacity=1, translateY=0
+ *
+ * A entrada só começa quando a preferência de movimento é conhecida (FILA 64).
+ * Antes disso, `animateIn` apenas anota o pedido, e o hook o cumpre quando a
+ * resposta chega. Medido no Android em 2026-10-19, com "Remover animações": a
+ * versão anterior começava a animação nativa na primeira passada, a resposta
+ * `true` a interrompia com `setValue(1)`, e o retorno nativo da animação
+ * interrompida chegava depois, gravando opacidade 0 por cima. O cartão ficava
+ * invisível. `reset` e `animateIn` não mudam de identidade quando a preferência
+ * chega, para que o efeito de quem chama não rode de novo e interrompa a
+ * entrada em curso.
  */
 export function useCardEnter(customDuration?: number) {
     const opacity = useRef(new Animated.Value(0)).current;
     const translateY = useRef(new Animated.Value(6)).current;
-    const reducedMotionEnabled = useReducedMotionPreference();
+    const preference = useReducedMotionPreferenceState();
+    const preferenceRef = useRef(preference);
+    const pendingEnter = useRef(false);
 
-    const reset = useCallback(() => {
-        opacity.setValue(0);
-        translateY.setValue(6);
-    }, [opacity, translateY]);
-
-    const animateIn = useCallback(() => {
+    const enter = useCallback((reducedMotionEnabled: boolean) => {
         if (reducedMotionEnabled) {
             opacity.setValue(1);
             translateY.setValue(0);
@@ -276,7 +283,32 @@ export function useCardEnter(customDuration?: number) {
                 useNativeDriver: true,
             }),
         ]).start();
-    }, [customDuration, opacity, reducedMotionEnabled, translateY]);
+    }, [customDuration, opacity, translateY]);
+
+    // Declarado antes de qualquer efeito de quem chama, então roda primeiro na
+    // mesma confirmação: o `animateIn` do chamador já lê a preferência nova.
+    useEffect(() => {
+        preferenceRef.current = preference;
+        if (preference.resolved && pendingEnter.current) {
+            pendingEnter.current = false;
+            enter(preference.reducedMotionEnabled);
+        }
+    }, [enter, preference]);
+
+    const reset = useCallback(() => {
+        pendingEnter.current = false;
+        opacity.setValue(0);
+        translateY.setValue(6);
+    }, [opacity, translateY]);
+
+    const animateIn = useCallback(() => {
+        const { reducedMotionEnabled, resolved } = preferenceRef.current;
+        if (!resolved) {
+            pendingEnter.current = true;
+            return;
+        }
+        enter(reducedMotionEnabled);
+    }, [enter]);
 
     const animatedStyle = {
         opacity,

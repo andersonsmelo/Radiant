@@ -23,6 +23,7 @@
       },
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
+        "RCTAsyncStorageExcludeFromBackup": false,
         "NSUserNotificationUsageDescription": "Radiant usa notificações para lembrar revisões e metas diárias de estudo."
       }
     },

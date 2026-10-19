@@ -19,13 +19,18 @@ existem prontas neste repositório e nunca foram publicadas.
 3. Quando ela responder, me avise — eu verifico as duas URLs de fora e confirmo
    que estão publicadas de verdade, não só que alguém disse que subiu.
 
+**Atualizado em 2026-10-19:** as duas páginas passaram a explicar o backup do
+sistema (iCloud e Google) e como zerar o progresso em cada plataforma
+([ADR](../adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md)). A versão
+no ar continua a de 2026-07-29 até ser republicada.
+
 **Checksums das fontes (SHA-256).** Servem para detectar divergência entre o que
 está aqui e o que foi publicado:
 
 | Arquivo | SHA-256 |
 | --- | --- |
-| `politica-de-privacidade.html` | `0f309c05f336cba5d6aafe58980982d8f481a2e3502ea9a299cec18c9f07c749` |
-| `pagina-de-suporte.html` | `668a8b3936e8fd7d41bd69837eac233aa0d0d98313db51c0e908cbe660307c13` |
+| `politica-de-privacidade.html` | `358e1a168525e5df127e72743ad640df8975f3fe69f1ee8c3057fcf75e0d6988` |
+| `pagina-de-suporte.html` | `75dacf48a0475d90cd0a1d5ede73f33844ab18256e0cedf8c68fe527cf963a95` |
 
 ---
 
@@ -146,19 +151,19 @@ Quando terminar, me mande:
   <header>
     <h1>Política de Privacidade do Radiant</h1>
     <p class="meta"><strong>Aplicativo:</strong> Radiant — aplicativo educacional de radiologia</p>
-    <p class="meta"><strong>Última atualização:</strong> 29 de julho de 2026</p>
+    <p class="meta"><strong>Última atualização:</strong> 19 de outubro de 2026</p>
     <p class="meta"><strong>Controlador dos dados:</strong> Anderson Melo (pessoa física)</p>
     <p class="meta"><strong>Contato para privacidade:</strong> <a href="mailto:anderson.smelo94@gmail.com">anderson.smelo94@gmail.com</a></p>
   </header>
 
   <h2>1. Resumo em uma frase</h2>
-  <p class="lead">O Radiant é um aplicativo <strong>local-first</strong>: ele funciona sem conta e, na configuração distribuída nas lojas, <strong>os seus dados de estudo ficam apenas no seu dispositivo</strong> e não são enviados para nós nem vendidos a terceiros.</p>
+  <p class="lead">O Radiant é um aplicativo <strong>local-first</strong>: ele funciona sem conta e, na configuração distribuída nas lojas, <strong>os seus dados de estudo ficam no seu dispositivo</strong> (e no backup da sua própria conta Apple ou Google, se ele estiver ativo) e não são enviados para nós nem vendidos a terceiros.</p>
 
   <h2>2. Quem somos</h2>
   <p>O Radiant é um app educacional para estudo de radiologia. O responsável pelo tratamento de dados (controlador, nos termos da Lei Geral de Proteção de Dados — LGPD, Lei nº 13.709/2018) é <strong>Anderson Melo</strong>, que pode ser contatado pelo e-mail <a href="mailto:anderson.smelo94@gmail.com">anderson.smelo94@gmail.com</a> para qualquer assunto de privacidade.</p>
 
   <h2>3. O que o app trata e onde isso fica</h2>
-  <h3>3.1. Dados que ficam apenas no seu dispositivo</h3>
+  <h3>3.1. Dados que ficam no seu dispositivo</h3>
   <p>O app guarda as informações abaixo <strong>localmente</strong>, no armazenamento privado do próprio aplicativo (sandbox do sistema operacional). Elas <strong>não são transmitidas para nós</strong>:</p>
   <ul>
     <li><strong>Progresso de aprendizado</strong>: trilhas, lições, quizzes, revisões e checkpoints concluídos, e o progresso separado por trilha (Fundamentos, Tórax, Abdome).</li>
@@ -167,6 +172,7 @@ Quando terminar, me mande:
     <li><strong>Métricas de uso do próprio app</strong> (telemetria): eventos de navegação e contadores agregados por dia/coorte, usados apenas dentro do dispositivo para o funcionamento do app. Nesta versão essa telemetria <strong>não é enviada</strong> a nenhum servidor.</li>
     <li><strong>Estado dos lembretes de estudo</strong>: preferências e histórico de agendamento das notificações locais.</li>
   </ul>
+  <p><strong>Backup do sistema.</strong> Se o backup do iCloud (iPhone) ou do Google (Android) estiver ativo no seu aparelho, uma cópia desses dados pode entrar no backup da <strong>sua</strong> conta, sob as regras da Apple ou do Google, e voltar quando você restaura um aparelho a partir dele. Nós não temos acesso a esse backup.</p>
   <p>Você pode apagar todos esses dados a qualquer momento (ver seção 8).</p>
 
   <h3>3.2. Notificações locais</h3>
@@ -201,13 +207,13 @@ Quando terminar, me mande:
   <p>Os dados locais (seção 3.1) permanecem no dispositivo <strong>enquanto o app estiver instalado</strong>. Você pode apagá-los a qualquer momento:</p>
   <ul>
     <li><strong>Desinstalando o aplicativo</strong>; ou</li>
-    <li><strong>Limpando os dados do app</strong> nas configurações do sistema (Android); ou</li>
-    <li>Usando a opção de reinício/limpeza de progresso dentro do app, quando disponível.</li>
+    <li><strong>Limpando os dados do app</strong> nas configurações do sistema (Android).</li>
   </ul>
+  <p>Se o backup do sistema estiver ativo, uma cópia pode continuar no backup da sua conta Apple ou Google até ele ser substituído ou apagado. No Android, o sistema pode devolvê-la quando você reinstala o app; para zerar sem essa restauração, limpe os dados do app em vez de desinstalar.</p>
   <p>Dados de diagnóstico de falha (quando o recurso estiver ativo) são retidos pela Sentry conforme a configuração de retenção do serviço e depois descartados.</p>
 
   <h2>9. Seus direitos (LGPD)</h2>
-  <p>Como titular, você tem direito a confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação e informação sobre compartilhamento. Como a maior parte dos dados fica <strong>apenas no seu dispositivo</strong>, você exerce acesso e eliminação diretamente no aparelho (seção 8). Para os demais pedidos, escreva para <a href="mailto:anderson.smelo94@gmail.com">anderson.smelo94@gmail.com</a> e responderemos no prazo legal.</p>
+  <p>Como titular, você tem direito a confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação e informação sobre compartilhamento. Como a maior parte dos dados fica <strong>no seu dispositivo</strong>, você exerce acesso e eliminação diretamente no aparelho (seção 8). Para os demais pedidos, escreva para <a href="mailto:anderson.smelo94@gmail.com">anderson.smelo94@gmail.com</a> e responderemos no prazo legal.</p>
 
   <h2>10. Crianças e adolescentes</h2>
   <p>O Radiant é voltado a <strong>estudantes e profissionais de radiologia</strong> e não é direcionado a crianças. Não coletamos intencionalmente dados de menores. Se você acredita que um menor forneceu dados pessoais, entre em contato para que sejam removidos.</p>
@@ -282,7 +288,7 @@ Quando terminar, me mande:
   <header>
     <h1>Suporte — Radiant</h1>
     <p class="meta"><strong>Aplicativo:</strong> Radiant — aplicativo educacional de radiologia</p>
-    <p class="meta"><strong>Última atualização:</strong> 29 de julho de 2026</p>
+    <p class="meta"><strong>Última atualização:</strong> 19 de outubro de 2026</p>
   </header>
 
   <h2>Como falar com a gente</h2>
@@ -299,10 +305,13 @@ Quando terminar, me mande:
     <p>Sim. O catálogo, o progresso e as revisões funcionam <strong>offline</strong>; seu progresso fica salvo no próprio aparelho.</p>
 
     <h3>Onde fica o meu progresso?</h3>
-    <p>No <strong>seu dispositivo</strong>. Ele não é enviado para servidores nem sincronizado nesta versão — veja a <a href="https://saudediagnostica.com/radiant/privacidade">Política de Privacidade</a>.</p>
+    <p>No <strong>seu dispositivo</strong>. Ele não é enviado para servidores nem sincronizado nesta versão. Se o backup do iCloud ou do Google estiver ativo, uma cópia vai no backup da sua conta — veja a <a href="https://saudediagnostica.com/radiant/privacidade">Política de Privacidade</a>.</p>
+
+    <h3>Troquei de celular. Meu progresso vem junto?</h3>
+    <p>Vem se você configurar o aparelho novo a partir de um backup do antigo: iCloud ou computador no iPhone, Google no Android. Sem backup, o app começa do zero, porque nesta versão o progresso não é sincronizado com servidor.</p>
 
     <h3>Como reinicio ou apago meu progresso?</h3>
-    <p>Você pode limpar os dados do app nas configurações do sistema, ou desinstalar o app. (Se houver uma opção de reinício dentro do app, ela também zera o progresso.)</p>
+    <p>No <strong>iPhone</strong>, apague o app e instale de novo: a reinstalação começa do zero. No <strong>Android</strong>, vá em Configurações → Apps → Radiant → Armazenamento → <strong>Limpar armazenamento</strong> (os nomes variam um pouco entre fabricantes). Só desinstalar pode não bastar no Android: com o backup do Google ativo, o sistema pode devolver o progresso quando você reinstala.</p>
 
     <h3>Não estou recebendo os lembretes de estudo.</h3>
     <p>Os lembretes são <strong>notificações locais</strong> e dependem da permissão de notificações. Verifique em Ajustes → Notificações se o Radiant está autorizado.</p>

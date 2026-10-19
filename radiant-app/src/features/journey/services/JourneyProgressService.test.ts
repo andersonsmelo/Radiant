@@ -286,6 +286,38 @@ describe('JourneyProgressService', () => {
         expect(stored.tracks['track-radiology-foundations'].completedNodeIds).toContain('node:foundation-1');
     });
 
+    describe('store gravado por uma versão mais nova do app (G7, 2026-10-19)', () => {
+        // Uma versão antiga lendo dado de versão nova (TestFlight, teste interno,
+        // backup restaurado) tratava o schema como ausente e gravava um store
+        // novo por cima na primeira leitura: a jornada salva sumia.
+        const futureStore = JSON.stringify({
+            schemaVersion: 'journey-progress.v3',
+            activeTrackId: 'track-radiology-foundations',
+            tracks: { 'track-radiology-foundations': { completedNodeIds: ['node:foundation-1'], campoNovo: 1 } },
+        });
+
+        it('abrir e usar a jornada não grava por cima, e o app segue com um snapshot utilizável', async () => {
+            storageState[STORAGE_KEYS.JOURNEY_PROGRESS] = futureStore;
+
+            const snapshot = await JourneyProgressService.bootstrap();
+            await JourneyProgressService.setCurrentNode('node:foundation-1');
+            await JourneyProgressService.markLessonNodeCompleted('foundation-1');
+
+            expect(snapshot.progress.activeTrackId).toBe('track-radiology-foundations');
+            expect(snapshot.progress.schemaVersion).toBe(JOURNEY_PROGRESS_SCHEMA_VERSION);
+            expect(storageState[STORAGE_KEYS.JOURNEY_PROGRESS]).toBe(futureStore);
+            expect(storage.setItem.mock.calls.filter(([key]) => key === STORAGE_KEYS.JOURNEY_PROGRESS)).toEqual([]);
+        });
+
+        it('o reset explícito continua apagando e recomeçando no schema atual', async () => {
+            storageState[STORAGE_KEYS.JOURNEY_PROGRESS] = futureStore;
+
+            await JourneyProgressService.reset();
+
+            expect(readStoredJourney().schemaVersion).toBe(JOURNEY_PROGRESS_SCHEMA_VERSION);
+        });
+    });
+
     it('persiste o passo retomável e o devolve na decisão sem quebrar o nó legado', async () => {
         const snapshot = await JourneyProgressService.setResumableNode('node:foundation-1', 2);
         const stored = readStoredJourney();
