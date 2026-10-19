@@ -2301,3 +2301,9 @@ decisão A2.
     `claude/g7-schema-desconhecido`, ainda não integrada:
 
     - **dono:** o merge da branch do G7;
+
+## Arquivado em 2026-10-19 à noite — a decisão das cinco stores sem `schemaVersion`
+
+    - **dono:** escolher a saída das cinco stores sem `schemaVersion` (agenda
+      SM-2, gamificação, meta diária, vidas e ledger de cobrança), pela
+      [proposta](evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono);

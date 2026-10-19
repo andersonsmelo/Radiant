@@ -1,0 +1,164 @@
+# Vermelhos — G7 vidas e meta diária, antes do conserto
+# HEAD 8a902e0, 2026-10-19 19:48 -0300, node v20.20.2
+# npx jest --runInBand --ci <3 arquivos>
+FAIL src/features/progress-sync/LocalProgressAdapter.test.ts
+  ● LocalProgressAdapter › schema desconhecido das vidas (G7) › não grava o lastRefillAt da mescla em vidas de uma versão mais nova
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":2,\"count\":3,\"lastRefillAt\":\"2026-09-14T11:00:00.000Z\",\"unlimitedUntil\":null,\"campoNovo\":true}"
+    Received: "{\"schemaVersion\":2,\"count\":3,\"lastRefillAt\":\"2026-09-14T11:30:00.000Z\",\"unlimitedUntil\":null,\"campoNovo\":true}"
+
+      210 |             });
+      211 |
+    > 212 |             expect(await AsyncStorage.getItem(STORAGE_KEYS.HEARTS)).toBe(futuro);
+          |                                                                     ^
+      213 |         });
+      214 |     });
+      215 | });
+
+      at Object.toBe (src/features/progress-sync/LocalProgressAdapter.test.ts:212:69)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/hearts/HeartsRepository.test.ts
+  ● HeartsRepository › schema desconhecido (G7) › getSnapshot não grava por cima
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":2,\"count\":2,\"lastRefillAt\":\"2026-09-14T11:50:00.000Z\",\"unlimitedUntil\":null,\"campoNovo\":true}"
+    Received: "{\"count\":5,\"lastRefillAt\":null,\"unlimitedUntil\":null}"
+
+      121 |             await new HeartsRepository(storage).getSnapshot(AGORA);
+      122 |
+    > 123 |             expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(FUTURO);
+          |                                                             ^
+      124 |             expect(storage.writes).toEqual([]);
+      125 |         });
+      126 |
+
+      at Object.toBe (src/features/hearts/HeartsRepository.test.ts:123:61)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● HeartsRepository › schema desconhecido (G7) › lê em memória os campos que conhece
+
+    expect(received).resolves.toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "count": 2,
+    +   "count": 5,
+      }
+
+      129 |             storage.values.set(STORAGE_KEYS.HEARTS, FUTURO);
+      130 |
+    > 131 |             await expect(new HeartsRepository(storage).getSnapshot(AGORA)).resolves.toMatchObject({ count: 2 });
+          |                                                                                     ^
+      132 |         });
+      133 |
+      134 |         it('spend devolve o gasto e não grava por cima', async () => {
+
+      at Object.toMatchObject (node_modules/expect/build/index.js:174:22)
+      at Object.toMatchObject (src/features/hearts/HeartsRepository.test.ts:131:85)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ● HeartsRepository › schema desconhecido (G7) › spend devolve o gasto e não grava por cima
+
+    expect(received).resolves.toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "count": 1,
+    +   "count": 4,
+      }
+
+      136 |             storage.values.set(STORAGE_KEYS.HEARTS, FUTURO);
+      137 |
+    > 138 |             await expect(new HeartsRepository(storage).spend(AGORA)).resolves.toMatchObject({ count: 1 });
+          |                                                                               ^
+      139 |             expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(FUTURO);
+      140 |             expect(storage.writes).toEqual([]);
+      141 |         });
+
+      at Object.toMatchObject (node_modules/expect/build/index.js:174:22)
+      at Object.toMatchObject (src/features/hearts/HeartsRepository.test.ts:138:79)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ● HeartsRepository › schema desconhecido (G7) › sem campos que entenda, usa CHEIA em memória e não grava
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "{\"schemaVersion\":2,\"saldo\":{\"atual\":1}}"
+    Received: "{\"count\":5,\"lastRefillAt\":null,\"unlimitedUntil\":null}"
+
+      150 |                 status: 'full',
+      151 |             });
+    > 152 |             expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(formatoNovo);
+          |                                                             ^
+      153 |             expect(storage.writes).toEqual([]);
+      154 |         });
+      155 |     });
+
+      at Object.toBe (src/features/hearts/HeartsRepository.test.ts:152:61)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/daily-goal/services/DailyGoalService.test.ts
+  ● DailyGoalService › schema desconhecido (G7) › getSnapshot na virada do dia não grava por cima
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: "radiant:daily-goal:v1", "{\"dateKey\":\"2026-08-13\",\"completedToday\":0,\"goalPerDay\":20,\"tierId\":\"rhythm\"}"
+
+      61 |
+      62 |       expect(snapshot).toMatchObject({ dateKey: '2026-08-13', earnedXpToday: 0, goalXp: 20 });
+    > 63 |       expect(mockedStorage.setItem).not.toHaveBeenCalled();
+         |                                         ^
+      64 |     });
+      65 |
+      66 |     it('recordXp soma em memória e não grava por cima', async () => {
+
+      at Object.toHaveBeenCalled (src/features/daily-goal/services/DailyGoalService.test.ts:63:41)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● DailyGoalService › schema desconhecido (G7) › recordXp soma em memória e não grava por cima
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: "radiant:daily-goal:v1", "{\"dateKey\":\"2026-08-13\",\"completedToday\":15,\"goalPerDay\":20,\"tierId\":\"rhythm\"}"
+
+      70 |
+      71 |       expect(snapshot).toMatchObject({ earnedXpToday: 15, goalXp: 20 });
+    > 72 |       expect(mockedStorage.setItem).not.toHaveBeenCalled();
+         |                                         ^
+      73 |     });
+      74 |   });
+      75 | });
+
+      at Object.toHaveBeenCalled (src/features/daily-goal/services/DailyGoalService.test.ts:72:41)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 3 failed, 3 total
+Tests:       7 failed, 12 passed, 19 total
+Snapshots:   0 total
+Time:        1.772 s
+Ran all test suites matching /src\/features\/hearts\/HeartsRepository.test.ts|src\/features\/daily-goal\/services\/DailyGoalService.test.ts|src\/features\/progress-sync\/LocalProgressAdapter.test.ts/i.

@@ -91,3 +91,21 @@ a mesma: uma versão antiga do app não grava por cima de um store com
 
 A proteção só existe a partir da build que levar o código. A `1.4.0` publicada
 continua gravando por cima nessas stores.
+
+## As cinco stores sem `schemaVersion`, decididas em 2026-10-19 à noite
+
+**Decisor:** o dono, Anderson, na conversa com o Claude.
+
+- **Vidas e meta diária: saída 1.** Passam a ler `schemaVersion` sem mudar o
+  formato. Como nunca gravaram uma versão, qualquer versão declarada é de outra
+  build, e esta recusa gravar por cima. A leitura usa os campos que entende,
+  só em memória.
+- **Agenda SM-2, gamificação e ledger de cobrança: saída 2.** Ficam como
+  estão até a primeira mudança de formato de cada uma, e a decisão volta ali.
+- **O gasto de vidas na build antiga não é salvo nem guardado em memória.** O
+  cenário é raro (volta de versão, TestFlight, backup restaurado), e a postura
+  é a mesma das outras stores: segue com o que tem e não grava.
+
+A mescla do backup do iCloud, que grava o `lastRefillAt` das vidas por fora do
+repositório, segue a mesma regra
+([evidência](../evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).

@@ -32,7 +32,9 @@ keychain (`AGENTS.md`, lições de 2026-10-19). Os números abaixo foram medidos
 
 ## 2. Estado em 2026-10-19, 19:15
 
-**A `main` está em `d2ec52c`, e não há PR aberta.** Em 2026-10-19 entraram as
+**A `main` contém a #63, e não havia PR aberta às 19:41.** O hash da `main` não
+fica aqui: este arquivo entra na `main` pelo próprio commit e o deixaria velho.
+Remeça com `git log -1 origin/main`. Em 2026-10-19 entraram as
 PRs #52 a #62, todas integradas pelo Claude com autorização do dono, dada na
 conversa, e conferidas com `gh pr view <n> --json state`. O resumo de cada uma está no
 [prompt (24)](2026-10-19-radiant-prompt-de-continuidade-24.md), §2. A #60 trouxe
@@ -63,10 +65,11 @@ G7 (`d2ec52c`):
 
 ### Dono
 
-1. **As 5 stores sem `schemaVersion`,** levantadas pela #61: agenda SM-2,
-   gamificação, meta diária, vidas e ledger de cobrança. A
-   [proposta](../../evidence/2026-10-19-g7-schema-desconhecido.md) recomenda ler um `schemaVersion` sem mudar o formato nas vidas e na
-   meta diária.
+1. **As 5 stores sem `schemaVersion`: decidido em 2026-10-19 à noite.** Saída
+   1 nas vidas e na meta diária, saída 2 nas outras três, e o gasto de vidas
+   da build antiga não é guardado. Falta o **merge** da branch
+   `claude/g7-vidas-meta-diaria`
+   ([evidência](../../evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
 2. **Republicar a política e o suporte** (pacote em
    `docs/legal/PROMPT_PUBLICACAO_PAGINAS.md`) **antes** da build que leva a
    chave de backup do iOS. A versão publicada ainda é a de 2026-07-29.
@@ -92,8 +95,9 @@ Percorra as decisões uma por vez.
 
 ### Agente
 
-1. **Aplicar a decisão do dono sobre as 5 stores sem `schemaVersion`,** com
-   teste visto falhando.
+1. ~~Aplicar a decisão do dono sobre as 5 stores sem `schemaVersion`.~~ Feito
+   em 2026-10-19 à noite, com 7 testes vistos falhando, na branch
+   `claude/g7-vidas-meta-diaria`.
 2. **Maestro no Android** (achados da FILA 54, sem conserto):
    - o subflow `dismiss-dev-client.yaml` só conhece `localhost:8081`;
    - o argumento do E1 (`radiantReduceMotion`) não chega ao app no Android, e,

@@ -186,4 +186,30 @@ describe('LocalProgressAdapter', () => {
             expect(gami.absorbBackup).toHaveBeenCalledWith({ totalXp: 300, streakDays: 9 });
         });
     });
+
+    describe('schema desconhecido das vidas (G7)', () => {
+        it('não grava o lastRefillAt da mescla em vidas de uma versão mais nova', async () => {
+            const futuro = JSON.stringify({
+                schemaVersion: 2,
+                count: 3,
+                lastRefillAt: '2026-09-14T11:00:00.000Z',
+                unlimitedUntil: null,
+                campoNovo: true,
+            });
+            await AsyncStorage.setItem(STORAGE_KEYS.HEARTS, futuro);
+            const adapter = new LocalProgressAdapter({ gamification: gamificacao(120, 4) });
+
+            await adapter.apply({
+                schemaVersion: 1,
+                savedAt: AGORA_ISO,
+                completedNodesByTrack: {},
+                reviewSchedule: {},
+                totalXp: 0,
+                streakDays: 0,
+                lastRefillAt: '2026-09-14T11:30:00.000Z',
+            });
+
+            expect(await AsyncStorage.getItem(STORAGE_KEYS.HEARTS)).toBe(futuro);
+        });
+    });
 });

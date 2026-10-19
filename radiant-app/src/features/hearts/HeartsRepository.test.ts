@@ -101,4 +101,56 @@ describe('HeartsRepository', () => {
             JSON.stringify({ count: 5, lastRefillAt: null, unlimitedUntil: null }),
         );
     });
+
+    describe('schema desconhecido (G7)', () => {
+        // Gravado por uma versão mais nova do app, que passou a versionar as
+        // vidas. Esta versão nunca gravou `schemaVersion`, então não conhece
+        // nenhuma: lê o que entende, em memória, e deixa o dado intacto.
+        const FUTURO = JSON.stringify({
+            schemaVersion: 2,
+            count: 2,
+            lastRefillAt: '2026-09-14T11:50:00.000Z',
+            unlimitedUntil: null,
+            campoNovo: true,
+        });
+
+        it('getSnapshot não grava por cima', async () => {
+            const storage = new MemoryStorage();
+            storage.values.set(STORAGE_KEYS.HEARTS, FUTURO);
+
+            await new HeartsRepository(storage).getSnapshot(AGORA);
+
+            expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(FUTURO);
+            expect(storage.writes).toEqual([]);
+        });
+
+        it('lê em memória os campos que conhece', async () => {
+            const storage = new MemoryStorage();
+            storage.values.set(STORAGE_KEYS.HEARTS, FUTURO);
+
+            await expect(new HeartsRepository(storage).getSnapshot(AGORA)).resolves.toMatchObject({ count: 2 });
+        });
+
+        it('spend devolve o gasto e não grava por cima', async () => {
+            const storage = new MemoryStorage();
+            storage.values.set(STORAGE_KEYS.HEARTS, FUTURO);
+
+            await expect(new HeartsRepository(storage).spend(AGORA)).resolves.toMatchObject({ count: 1 });
+            expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(FUTURO);
+            expect(storage.writes).toEqual([]);
+        });
+
+        it('sem campos que entenda, usa CHEIA em memória e não grava', async () => {
+            const storage = new MemoryStorage();
+            const formatoNovo = JSON.stringify({ schemaVersion: 2, saldo: { atual: 1 } });
+            storage.values.set(STORAGE_KEYS.HEARTS, formatoNovo);
+
+            await expect(new HeartsRepository(storage).getSnapshot(AGORA)).resolves.toMatchObject({
+                count: 5,
+                status: 'full',
+            });
+            expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(formatoNovo);
+            expect(storage.writes).toEqual([]);
+        });
+    });
 });

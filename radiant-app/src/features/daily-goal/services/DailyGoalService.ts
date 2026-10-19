@@ -9,6 +9,14 @@ import {
     DEFAULT_DAILY_GOAL,
     formatLocalDateKey
 } from '../../../constants/dailyGoal';
+import { rawHasUnknownSchemaVersion } from '../../../storage/schemaVersionGuard';
+
+/**
+ * A meta diária nunca gravou `schemaVersion`, então esta versão não conhece
+ * nenhuma: qualquer versão declarada veio de uma build mais nova (G7, decisão
+ * do dono em 2026-10-19). O formato gravado continua o de hoje.
+ */
+const KNOWN_DAILY_GOAL_SCHEMA_VERSIONS: readonly unknown[] = [];
 
 /**
  * Internal storage structure for daily goal data
@@ -69,6 +77,13 @@ class DailyGoalServiceClass {
      */
     private async saveStore(store: DailyGoalStore): Promise<void> {
         try {
+            // Meta de uma versão mais nova do app: esta não grava por cima
+            // (G7). O que `loadStore` entendeu segue valendo em memória.
+            const raw = await AsyncStorage.getItem(DAILY_GOAL_STORAGE_KEY);
+            if (rawHasUnknownSchemaVersion(raw, KNOWN_DAILY_GOAL_SCHEMA_VERSIONS)) {
+                console.warn('[DailyGoalService] Meta com schema desconhecido preservada, sem escrita.');
+                return;
+            }
             await AsyncStorage.setItem(DAILY_GOAL_STORAGE_KEY, JSON.stringify(store));
         } catch (error) {
             console.error('[DailyGoalService] Failed to save store:', error);

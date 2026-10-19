@@ -641,8 +641,8 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
     ([evidência](evidence/2026-10-19-g6-caminho-de-dados.md));
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
-  - **dono:** a saída das cinco stores sem `schemaVersion`, levantadas pelo G7
-    das stores;
+  - **dono:** o merge da branch `claude/g7-vidas-meta-diaria`, que aplica a
+    saída escolhida em 2026-10-19 para as cinco stores sem `schemaVersion`;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Continuidade atualizada em 2026-10-19 à noite:**
@@ -731,12 +731,20 @@ aprendizagem e economia**, e entrou na `main` pela [PR #61](https://github.com/a
 tentativas, o domínio, a assinatura e os dois checkpoints. Essas 5 agora
 recusam. A mescla do backup do iCloud, que escrevia na jornada por fora da
 guarda, também recusa. A migração da 1.4 não zera mais as vidas diante do
-marcador de uma versão mais nova. Cinco stores não têm `schemaVersion` e
-esperam a decisão do dono. Nada disso protege a `1.4.0` publicada, só a build
+marcador de uma versão mais nova. Nada disso protege a `1.4.0` publicada, só a build
 que levar o código ([evidência](evidence/2026-10-19-g7-schema-desconhecido.md)).
 
+**Cinco stores não têm `schemaVersion`. O dono decidiu em 2026-10-19 à
+noite:** as vidas e a meta diária passam a ler `schemaVersion` sem mudar o
+formato e recusam gravar por cima de qualquer versão declarada, porque nunca
+gravaram uma; a agenda SM-2, a gamificação e o ledger ficam como estão até a
+primeira mudança de formato de cada uma. Diante de vidas de uma versão mais
+nova, a build antiga usa o que entende só em memória e não guarda o gasto.
+O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
+([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
+
 ```bash
-cd radiant-app && npx jest src/storage src/features/student-checkpoints/repositories.test.ts src/features/progress-sync/LocalProgressAdapter.test.ts src/features/storage-migration
+cd radiant-app && npx jest src/storage src/features/student-checkpoints/repositories.test.ts src/features/progress-sync/LocalProgressAdapter.test.ts src/features/storage-migration src/features/hearts src/features/daily-goal
 ```
 
 ## A `main` pronta para build — FILA 59, medido em 2026-10-18

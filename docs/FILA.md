@@ -206,9 +206,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     A tabela, os vermelhos e duas erratas estão na
     [evidência](evidence/2026-10-19-g7-schema-desconhecido.md).
     **Próximo:**
-    - **dono:** escolher a saída das cinco stores sem `schemaVersion` (agenda
-      SM-2, gamificação, meta diária, vidas e ledger de cobrança), pela
-      [proposta](evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono);
+    - **feito pelo agente em 2026-10-19 à noite, na branch
+      `claude/g7-vidas-meta-diaria`:** o dono escolheu a saída 1 (ler
+      `schemaVersion` sem mudar o formato) para as vidas e a meta diária, e a
+      saída 2 (deixar como está) para a agenda SM-2, a gamificação e o ledger.
+      As vidas, a mescla do iCloud nas vidas e a meta diária recusam agora
+      gravar por cima de versão desconhecida; 7 testes vistos falhando
+      ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
+      **Dono:** o merge da PR;
     - **dono:** republicar as duas páginas legais e só então enviar a build
       com a chave de backup. A mesma build leva a guarda das stores;
     - **G6, caminho de dados, medido em 2026-10-19** no emulador
