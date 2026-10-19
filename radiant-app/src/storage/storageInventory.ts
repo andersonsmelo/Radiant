@@ -112,6 +112,7 @@ export const STORAGE_INVENTORY: readonly StorageInventoryEntry[] = [
     exact('heuristics.shown.v1', 'telemetria'),
     exact('health.score.v1', 'telemetria'),
     exact('@radiant:v3:hybrid_lesson_metrics_v1', 'telemetria'),
+    prefix('@radiant:bench:', 'telemetria'),
 
     exact('@radiant:sr_history_v1', 'legado'),
     exact('@radiant:quiz_progress', 'legado'),

@@ -367,7 +367,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     conferência e preservação da chave antiga por uma ou duas versões
     (recomendação do agente); SQLite só se ainda necessário. **Aumentar só a
     cota não resolve o limite por valor observado.** Nenhuma troca, migração ou
-    alteração de cota foi implementada. Aparelho físico permanece fora da prova;
+    alteração de cota foi implementada. Aparelho físico permanece fora da prova.
+    **No merge com a #54, em 2026-10-19:** as chaves `@radiant:bench:` do
+    medidor entraram no `STORAGE_INVENTORY` como telemetria. Sem a linha, a
+    guarda `storageInventory.test.ts` reprovava na árvore combinada, e com ela
+    passa 5 de 5;
   - **63.** agente: **consertada em 2026-10-18 na branch
     `claude/fila63-checkpoint-instavel`; o merge é do dono.** A falha não era de
     tempo. O log completo da tentativa que reprovou no CI da PR #51 (`0cb5441`)
