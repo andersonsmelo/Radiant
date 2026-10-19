@@ -32,7 +32,7 @@ A decisão de coordenação de 2026-10-18 está na
 e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
 dono permanecem. O levantamento de 16 a 18/10 está
 [aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o
-[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+[prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md).
 
 ## Política de decisão
 
@@ -65,9 +65,10 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração preserva a fila histórica. **A ordem atual de execução está no
-[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md),
-atualizado em 2026-10-19:** as PRs #52 a #59 entraram na `main`, a 59 e a 63
-estão feitas, e a FILA 61 aguarda a decisão A2 do dono.
+[prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md),
+atualizado em 2026-10-19 à noite:** as PRs #52 a #60 entraram na `main`, a 59 e
+a 63 estão feitas, a #61 (G7) espera o merge do dono e a FILA 61 aguarda a
+decisão A2.
 
 A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
 versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
@@ -528,7 +529,7 @@ com autorização do dono. O item 40 está encerrado; o console mostra
 **Execução atualizada em 2026-10-18:** build de distribuição, envio e merge
 continuam com o dono; push e abertura de PR da frente concluída estão autorizados.
 A ordem e os gates atuais estão no
-[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md);
+[prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md);
 esta seção preserva o detalhamento das pendências da 1.4.
 
 ### AGENTE — depois da 1.4: atualizar o SDK para adotar `UIScene` (prazo: abril de 2027)

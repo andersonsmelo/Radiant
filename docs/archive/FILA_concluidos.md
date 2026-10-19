@@ -2278,3 +2278,15 @@ stores. O texto é o original; só o link relativo foi reajustado ao diretório.
       ([evidência](../evidence/2026-10-19-g6-caminho-de-dados.md)). Falta o G6 em
       aparelho e na tela inteira;
     - VoiceOver e TalkBack audíveis (dono, no aparelho).
+
+## Arquivado em 2026-10-19 à noite — referências ao prompt (24)
+
+[aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md),
+atualizado em 2026-10-19:** as PRs #52 a #59 entraram na `main`, a 59 e a 63
+estão feitas, e a FILA 61 aguarda a decisão A2 do dono.
+
+A ordem e os gates atuais estão no
+[prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md);
