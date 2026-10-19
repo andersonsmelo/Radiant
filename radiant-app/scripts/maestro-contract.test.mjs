@@ -279,6 +279,25 @@ test('centers the recommendation header action before each native tap', async ()
   assertCenteredRecommendation(offline, index, 'offline relaunch must expose the restored recommendation');
 });
 
+test('centers the due review node before the second-day tap', async () => {
+  // O nó da revisão fica no fim da trilha visível. No dia 2 com relógio real
+  // (FILA 59, 2026-10-19), o centro dele estava em y≈797 de 874, em cima da
+  // barra de abas: o toque caiu na aba "Estude" e a revisão não abriu.
+  const node = '^Revisar Fundamentos de Radiologia\\. Revisão devida · \\d+ (devida|devidas)\\.$';
+  const commands = await flowCommands('radiant-1-4-segundo-dia.yaml');
+  const taps = commands.flatMap((command, index) => command?.tapOn === node ? [index] : []);
+  assert.equal(taps.length, 1, 'the second day taps the due review node once');
+  const [index] = taps;
+  const centered = (direction) => ({
+    element: { text: node }, direction, centerElement: true, visibilityPercentage: 100,
+  });
+  const message = 'center the due review node clear of the tab bar immediately before tapping it';
+  assert.deepEqual(commands[index - 3]?.scrollUntilVisible, centered('DOWN'), message);
+  assert.deepEqual(commands[index - 2]?.assertVisible, node, `${message} — the scroll back waits for the node`);
+  assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered('UP'),
+    `${message} — and scrolls it back when the centering swipe overshoots`);
+});
+
 /**
  * O botão da recomendação centrado, e de volta se o centramento passou dele.
  * O `centerElement` do Maestro 2.7 dá UM deslize fixo quando o centro do

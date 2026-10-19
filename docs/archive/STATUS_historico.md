@@ -3470,3 +3470,12 @@ reprova chave nova fora dele. Lido no código, sem ensaio em aparelho:
 - não há reset de progresso no app.
 
 [Evidência](evidence/2026-10-19-fila54-g4-android-g7.md).
+
+## Saiu do STATUS em 2026-10-19 (FILA 59, dia 2, e merges das PRs #52 a #56)
+
+Da lista "Ainda aberto":
+
+- o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
+- da FILA 54:
+  - o cartão da revisão some no Android com "Remover animações" ligado;
+  - o G6, depois do merge da #52;

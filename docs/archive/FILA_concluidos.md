@@ -2200,3 +2200,23 @@ push ficam com o dono. **Dono:** IA executora, pelo prompt de continuidade
 atual em
 [`superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md), que traz todas as pendências na ordem abaixo;
 o dono lê o relatório no fim.
+
+## Arquivado em 2026-10-19 — FILA 59, texto anterior ao dia 2
+
+  - **59.** agente: **preparar a `main` para uma build**, o item 1 da §4 do
+    prompt (19). **Estado em 2026-10-18:** 6 dos 7 roteiros passaram
+    nativamente, e as capturas do G4 estão versionadas com hash
+    ([relatório](evidence/2026-10-18-main-pronta-para-build.md)). O
+    `store-capture` e o `radiant-1-4-segundo-dia` estavam desatualizados e
+    foram corrigidos. Nenhum defeito do app apareceu. A prova do G4 rodou sem
+    o argumento do E1; depois do merge da #49, o roteiro passou a lançar com
+    ele, como o contrato exige, e não foi reexecutado.
+    **Falta:** o dia 2 do caminho 2 com relógio real. O dia 1 rodou às 12:45 de
+    2026-10-18 no simulador `5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3` ("Radiant
+    E2E dia 2 (2026-10-18)"). A partir de **2026-10-19, 12:45 (−03)**, sem
+    `clearState` no meio, ligue o simulador, instale o mesmo dev client, suba o
+    Metro com o perfil `e2e-test` e rode
+    `maestro --device 5FD8C926-BC5A-4E9E-B5BE-2E080B2ED2A3 test .maestro/radiant-1-4-segundo-dia.yaml`,
+    num run próprio.
+    **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
+    Anderson;
