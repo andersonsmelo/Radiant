@@ -1,0 +1,33 @@
+# FILA 66: merge simulado com cada PR aberta, 2026-10-19 10:50 -0300, node v20.20.2
+# base: HEAD da branch claude/fila66-guarda-glifos-ast sobre origin/main d7bd696
+== PR #52 (claude/fila61-android-medicao, 254f7d6)
+merge-tree: sem conflito, árvore f9ac88f
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok
+== PR #53 (claude/fila63-checkpoint-instavel, ed236f1)
+merge-tree: sem conflito, árvore 7ce326f
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok
+acumulado: #53 conflita com #52 em docs/FILA.md, sem a FILA 66 no meio (git merge-tree origin/#52 origin/#53); fica fora do acumulado
+== PR #54 (claude/fila54-g4-nativo, c420bdf)
+merge-tree: sem conflito, árvore 75d7a00
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok
+acumulado: #54 conflita com #52 em docs/archive/STATUS_historico.md, sem a FILA 66 no meio; fica fora do acumulado
+== PR #55 (claude/fila64-cartao-sem-animacao, 0fb41ea)
+merge-tree: sem conflito, árvore 297c034
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok
+== PR #56 (claude/fila65-glifos-android, 66622e7)
+merge-tree: sem conflito, árvore 0f377bb
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok
+== acumulado: FILA 66 + #52 + #55 + #56, em ordem de número (as que se combinam sem conflito entre si)
+✔ keeps icon glyphs out of the accessibility tree
+maestro-contract inteiro: # tests 34 # pass 34 # fail 0 
+docs-contract: ok

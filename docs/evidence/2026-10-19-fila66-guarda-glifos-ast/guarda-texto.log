@@ -1,0 +1,40 @@
+# Guarda de texto de origin/main (d7bd696), antes da FILA 66
+# node injetar.mjs texto <guarda de origin/main> radiant-app
+guarda: guarda-texto.test.mjs (texto), node v20.20.2
+
+[verde] controle, sem defeito (src/components/ui/DecorativeIcon.tsx)
+
+[verde] accessible={false} sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+
+[verde] accessibilityElementsHidden sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+
+[verde] importantForAccessibility sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+
+[vermelho] accessible={true} (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /accessible=\{false\}/. Input:
+
+[verde] accessibilityElementsHidden={false} (src/components/ui/DecorativeIcon.tsx)
+
+[vermelho] importantForAccessibility="auto" (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /importantForAccessibility="no-hide-descendants"/. Input:
+
+[verde] {...props} depois dos atributos: quem chama sobrescreve (src/components/ui/DecorativeIcon.tsx)
+
+[vermelho] import default numa tela de feature (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import MaterialIcons directly instead of DecorativeIcon
+
+[verde] import default em src/ui (src/ui/components/HUD.tsx)
+
+[vermelho] require() numa tela de feature (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import MaterialIcons directly instead of DecorativeIcon
+
+[verde] reexportação num módulo .ts (src/ui/motion.ts)
+
+[verde] MaterialIcons pelo barril @expo/vector-icons (src/features/review/screens/ReviewScreen.tsx)
+
+[verde] outra família da mesma fonte de ícones (src/features/review/screens/ReviewScreen.tsx)
+
+[vermelho] controle, o módulo só citado num comentário da tela (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import MaterialIcons directly instead of DecorativeIcon
+
+15 injeções, 0 fora do esperado

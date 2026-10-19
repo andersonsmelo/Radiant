@@ -427,6 +427,19 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Remede:** `cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx`;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
+  - **66.** ✅ **Feito em 2026-10-19, na branch
+    `claude/fila66-guarda-glifos-ast`; o merge é do dono: a guarda dos glifos
+    de ícone lê a AST.** A FILA 65 depende do `DecorativeIcon` esconder os
+    glifos, e a guarda `keeps icon glyphs out of the accessibility tree` lia
+    texto. Sobre 13 defeitos injetados, ela ficou verde em 9, entre eles cada
+    atributo fora do JSX e citado num comentário. Ficou vermelha com o módulo
+    só citado num comentário. A guarda nova lê o elemento que o
+    `DecorativeIcon` devolve e os imports de `@expo/vector-icons` em todo
+    `.ts` e `.tsx` de `components` e `src`. Cada asserção foi vista falhando
+    com o seu defeito
+    ([evidência](evidence/2026-10-19-fila66-guarda-glifos-ast.md)).
+    **Remede com** o `injetar.mjs` da evidência, que termina com código 1 se
+    alguma injeção sair do esperado;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
