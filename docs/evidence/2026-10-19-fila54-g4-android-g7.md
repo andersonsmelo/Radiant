@@ -239,6 +239,20 @@ com todas as mudanças do run ([log](2026-10-19-fila54-g4-android-g7/quality.log
 regressões. O `loop validate` do run
 `run-1792410162650-54b79f08` fica no envelope do run.
 
+## Merge com as PRs abertas
+
+**[medido]** em 2026-10-19, com `git merge-tree --write-tree` e numa worktree
+temporária com as três branches combinadas:
+- **[PR #53](https://github.com/andersonsmelo/Radiant/pull/53):** entra sem
+  conflito, e a guarda segue verde;
+- **[PR #52](https://github.com/andersonsmelo/Radiant/pull/52), conflito no
+  git:** só no fim de `docs/archive/STATUS_historico.md`, onde as duas branches
+  acrescentam um bloco. Os dois blocos ficam;
+- **PR #52, reprovação sem conflito:** a guarda reprova a árvore combinada,
+  porque a #52 grava chaves `@radiant:bench:` no medidor do aparelho. A linha
+  `prefix('@radiant:bench:', 'telemetria')` no inventário deixa os 5 testes
+  verdes. Quem entrar por último acrescenta essa linha.
+
 ## O que não foi verificado
 
 - **Leitores de tela:** VoiceOver e TalkBack audíveis, inclusive o anúncio novo;
