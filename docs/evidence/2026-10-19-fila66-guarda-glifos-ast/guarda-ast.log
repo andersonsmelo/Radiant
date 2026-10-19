@@ -1,0 +1,54 @@
+# Guarda AST da FILA 66, sobre a mesma tabela de injeções
+# node injetar.mjs ast radiant-app/scripts/maestro-contract.test.mjs radiant-app
+guarda: maestro-contract.test.mjs (ast), node v20.20.2
+
+[verde] controle, sem defeito (src/components/ui/DecorativeIcon.tsx)
+
+[vermelho] accessible={false} sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon must pass accessible to MaterialIcons
+
+[vermelho] accessibilityElementsHidden sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon must pass accessibilityElementsHidden to MaterialIcons
+
+[vermelho] importantForAccessibility sai do JSX e fica num comentário (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon must pass importantForAccessibility to MaterialIcons
+
+[vermelho] accessible={true} (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon: accessible must be false
+
+[vermelho] accessibilityElementsHidden={false} (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon: accessibilityElementsHidden must be true
+
+[vermelho] importantForAccessibility="auto" (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon: importantForAccessibility must be no-hide-descendants
+
+[vermelho] {...props} depois dos atributos: quem chama sobrescreve (src/components/ui/DecorativeIcon.tsx)
+  AssertionError [ERR_ASSERTION]: DecorativeIcon: accessible must come after {...props}, or a caller overrides it
+
+[vermelho] import default numa tela de feature (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/features/review/screens/ReviewScreen.tsx
+
+[vermelho] import default em src/ui (src/ui/components/HUD.tsx)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/ui/components/HUD.tsx
+
+[vermelho] require() numa tela de feature (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/features/review/screens/ReviewScreen.tsx
+
+[vermelho] reexportação num módulo .ts (src/ui/motion.ts)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/ui/motion.ts
+
+[vermelho] MaterialIcons pelo barril @expo/vector-icons (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/features/review/screens/ReviewScreen.tsx
+
+[vermelho] outra família da mesma fonte de ícones (src/features/review/screens/ReviewScreen.tsx)
+  AssertionError [ERR_ASSERTION]: these files import the icon font directly instead of DecorativeIcon: src/features/review/screens/ReviewScreen.tsx
+
+[verde] controle, o módulo só citado num comentário da tela (src/features/review/screens/ReviewScreen.tsx)
+
+[vermelho] a varredura perde a raiz components, onde mora icon-symbol (scripts/maestro-contract.test.mjs)
+  AssertionError [ERR_ASSERTION]: the scan must reach both icon-font wrappers
+
+[vermelho] o detector de import fica cego (prefixo errado) (scripts/maestro-contract.test.mjs)
+  AssertionError [ERR_ASSERTION]: the scan must see the import DecorativeIcon renders with
+
+17 injeções, 0 fora do esperado

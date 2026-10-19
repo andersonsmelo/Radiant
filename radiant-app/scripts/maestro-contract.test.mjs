@@ -357,41 +357,128 @@ test('native learning flows confirm selected multiple-choice answers with the ex
   }
 });
 
+// Os atributos que tiram o glifo da árvore de acessibilidade, com o valor que
+// cada um precisa ter no JSX. A guarda lê a AST desde a FILA 66 (2026-10-19):
+// a versão de texto casava com a menção num comentário e continuava verde com o
+// atributo fora do JSX, com `accessibilityElementsHidden={false}` e com o
+// `{...props}` depois dos atributos.
+const GLYPH_HIDING_ATTRIBUTES = {
+  accessible: 'false',
+  accessibilityElementsHidden: 'true',
+  importantForAccessibility: 'no-hide-descendants',
+};
+
+// DecorativeIcon e icon-symbol SÃO os envoltórios autorizados da fonte de
+// ícones: importam MaterialIcons de propósito e escondem o glifo. Todo outro
+// componente renderiza por eles.
+const ICON_FONT_WRAPPERS = new Set([
+  'components/ui/icon-symbol.tsx',
+  'src/components/ui/DecorativeIcon.tsx',
+]);
+
+function parseAppSource(relativePath, text) {
+  return ts.createSourceFile(relativePath, text, ts.ScriptTarget.Latest, true,
+    relativePath.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+}
+
+// O valor estático de um atributo JSX: a forma curta vale 'true'; uma expressão
+// que não é literal devolve undefined, porque não prova valor nenhum.
+function staticJsxAttributeValue(attribute) {
+  const initializer = attribute.initializer;
+  if (!initializer) return 'true';
+  if (ts.isStringLiteral(initializer)) return initializer.text;
+  const expression = initializer.expression;
+  if (expression?.kind === ts.SyntaxKind.TrueKeyword) return 'true';
+  if (expression?.kind === ts.SyntaxKind.FalseKeyword) return 'false';
+  if (expression && ts.isStringLiteralLike(expression)) return expression.text;
+  return undefined;
+}
+
+// O elemento JSX que a função DecorativeIcon devolve, sem descer em funções
+// aninhadas: o `return` de um callback interno não é o dela.
+function decorativeIconElement(source) {
+  const component = source.statements.find((node) =>
+    ts.isFunctionDeclaration(node) && node.name?.text === 'DecorativeIcon');
+  assert.ok(component?.body, 'DecorativeIcon must stay a function declaration');
+  const returns = [];
+  const visit = (node) => {
+    if (ts.isFunctionLike(node)) return;
+    if (ts.isReturnStatement(node)) returns.push(node);
+    ts.forEachChild(node, visit);
+  };
+  ts.forEachChild(component.body, visit);
+  assert.equal(returns.length, 1, 'DecorativeIcon must have one return');
+  let element = returns[0].expression;
+  while (element && ts.isParenthesizedExpression(element)) element = element.expression;
+  const opening = element && ts.isJsxElement(element) ? element.openingElement : element;
+  assert.ok(opening && (ts.isJsxSelfClosingElement(opening) || ts.isJsxOpeningElement(opening)),
+    'DecorativeIcon must return a JSX element');
+  assert.equal(opening.tagName.getText(source), 'MaterialIcons', 'DecorativeIcon must render MaterialIcons');
+  return opening;
+}
+
+// Os módulos da fonte de ícones que o arquivo traz por import, export-from,
+// require() ou import(). Qualquer família de @expo/vector-icons desenha glifo
+// de uso privado; o barril também. Comentário e texto não contam.
+function iconFontModules(source) {
+  const modules = [];
+  const visit = (node) => {
+    let specifier;
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) specifier = node.moduleSpecifier;
+    else if (ts.isCallExpression(node)
+      && (node.expression.kind === ts.SyntaxKind.ImportKeyword
+        || ts.isIdentifier(node.expression) && node.expression.text === 'require')) {
+      specifier = node.arguments[0];
+    }
+    if (specifier && ts.isStringLiteralLike(specifier)
+      && /^@expo\/vector-icons(\/|$)/.test(specifier.text)) modules.push(specifier.text);
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  return modules;
+}
+
 test('keeps icon glyphs out of the accessibility tree', async () => {
   // Icon fonts render private-use codepoints, so an exposed glyph is announced
-  // as an unreadable character. DecorativeIcon hides them; importing
-  // MaterialIcons directly in a screen puts them back on the tree.
-  const wrapper = await readAppFile('src/components/ui/DecorativeIcon.tsx');
+  // as an unreadable character. DecorativeIcon hides them; importing the icon
+  // font directly in a screen puts them back on the tree.
+  const wrapperPath = 'src/components/ui/DecorativeIcon.tsx';
+  const wrapper = parseAppSource(wrapperPath, await readAppFile(wrapperPath));
+  const attributes = decorativeIconElement(wrapper).attributes.properties;
+  // O último vence no JSX: um atributo antes do spread é sobrescrito por quem chama.
+  const lastSpread = attributes.findLastIndex(ts.isJsxSpreadAttribute);
+  for (const [name, expected] of Object.entries(GLYPH_HIDING_ATTRIBUTES)) {
+    const index = attributes.findLastIndex((node) =>
+      ts.isJsxAttribute(node) && node.name.getText(wrapper) === name);
+    assert.notEqual(index, -1, `DecorativeIcon must pass ${name} to MaterialIcons`);
+    assert.equal(staticJsxAttributeValue(attributes[index]), expected, `DecorativeIcon: ${name} must be ${expected}`);
+    assert.ok(index > lastSpread, `DecorativeIcon: ${name} must come after {...props}, or a caller overrides it`);
+  }
 
-  assert.match(wrapper, /accessibilityElementsHidden/);
-  assert.match(wrapper, /importantForAccessibility="no-hide-descendants"/);
-  assert.match(wrapper, /accessible=\{false\}/);
-
-  // DecorativeIcon and icon-symbol ARE the sanctioned icon-font wrappers: they
-  // import MaterialIcons on purpose and hide the glyph from the a11y tree. Every
-  // other component must render through them. Scan both component roots too, not
-  // just the feature/app screens — the Android blank-icon/glyph-in-name defect
-  // (2026-07-28) lived in components/ui/icon-symbol.tsx, which the old scan of
-  // src/features + src/app never reached. src/components is included for the same
-  // reason: DecorativeIcon lives there, so leaving it unscanned would open the
-  // symmetric blind spot.
-  const ICON_FONT_WRAPPERS = new Set([
-    'components/ui/icon-symbol.tsx',
-    'src/components/ui/DecorativeIcon.tsx',
-  ]);
-
+  // Varre as duas raízes de código do app inteiras. A versão anterior lia só
+  // components, src/components, src/features e src/app, e um import em src/ui
+  // passava (FILA 66). O defeito de 2026-07-28, ícone vazio e glifo no nome no
+  // Android, morava em components/ui/icon-symbol.tsx, fora da varredura de então.
   const offenders = [];
-  for (const dir of ['components', 'src/components', 'src/features', 'src/app']) {
+  const wrappersSeen = [];
+  for (const dir of ['components', 'src']) {
     for (const entry of await readdir(path.join(appRoot, dir), { recursive: true })) {
-      if (!/\.tsx$/.test(entry) || /\.test\.tsx$/.test(entry)) continue;
+      if (!/\.tsx?$/.test(entry) || /\.test\.tsx?$/.test(entry)) continue;
       const relative = `${dir}/${entry}`;
-      if (ICON_FONT_WRAPPERS.has(relative)) continue;
-      const source = await readAppFile(relative);
-      if (/@expo\/vector-icons\/MaterialIcons/.test(source)) offenders.push(relative);
+      const modules = iconFontModules(parseAppSource(relative, await readAppFile(relative)));
+      if (ICON_FONT_WRAPPERS.has(relative)) wrappersSeen.push([relative, modules]);
+      else if (modules.length > 0) offenders.push(relative);
     }
   }
 
-  assert.deepEqual(offenders, [], 'these files import MaterialIcons directly instead of DecorativeIcon');
+  // Validade da própria guarda: uma varredura que não alcançasse os envoltórios,
+  // ou que não visse o import do DecorativeIcon, estaria cega, e não limpa.
+  assert.deepEqual(wrappersSeen.map(([relative]) => relative).sort(), [...ICON_FONT_WRAPPERS].sort(),
+    'the scan must reach both icon-font wrappers');
+  assert.deepEqual(new Map(wrappersSeen).get(wrapperPath), ['@expo/vector-icons/MaterialIcons'],
+    'the scan must see the import DecorativeIcon renders with');
+  assert.deepEqual(offenders, [],
+    `these files import the icon font directly instead of DecorativeIcon: ${offenders.join(', ')}`);
 });
 
 test('keeps the journey trail on the dark galaxy theme it renders inside', async () => {
