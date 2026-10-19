@@ -87,7 +87,11 @@ export class StorageMigration {
     async migrateToV14(
         onProgress: (step: StorageMigrationProgress) => void = () => undefined,
     ): Promise<StorageMigrationResult> {
-        if (await this.storage.getItem(STORAGE_KEYS.APP_SCHEMA_VERSION) === TARGET_VERSION) {
+        // Antes da 1.4 a chave não existia, então qualquer outro valor foi
+        // gravado por uma versão mais nova do app. Refazer a migração por cima
+        // zeraria as vidas e rebaixaria o marcador que ela lê ao voltar (G7).
+        const appSchemaVersion = await this.storage.getItem(STORAGE_KEYS.APP_SCHEMA_VERSION);
+        if (appSchemaVersion !== null) {
             return { status: 'unchanged' };
         }
 

@@ -12,6 +12,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../../../constants/storageKeys';
+import { rawHasUnknownSchemaVersion } from '../../../storage/schemaVersionGuard';
 import type { LearningAttempt } from './LearningStatsService';
 
 const SCHEMA_VERSION = 'learning-attempts.v1';
@@ -63,6 +64,13 @@ class LearningAttemptsRepositoryImpl {
 
     async append(attempt: LearningAttempt): Promise<void> {
         try {
+            // Store de uma versão mais nova do app: esta não grava por cima (G7).
+            const raw = await AsyncStorage.getItem(STORAGE_KEYS.LEARNING_ATTEMPTS);
+            if (rawHasUnknownSchemaVersion(raw, [SCHEMA_VERSION])) {
+                console.warn('[LearningAttemptsRepository] Store com schema desconhecido preservado, sem escrita.');
+                return;
+            }
+
             const attempts = [...(await this.getAll()), attempt];
             const store: LearningAttemptsStore = {
                 schemaVersion: SCHEMA_VERSION,

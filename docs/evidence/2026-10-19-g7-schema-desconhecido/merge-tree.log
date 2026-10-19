@@ -1,0 +1,45 @@
+# git merge-tree --write-tree --name-only, 2026-10-19 14:35 -0300
+# G7 = commit temporário 756731a6e07f044d5b1704cea45b056a3281cd09: a árvore de trabalho do run sobre 7726296, sem mover a branch
+# PRs abertas: só a #60 (claude/docs-estado-2026-10-19, 61f086a)
+
+== G7 x origin/main (2415de5)
+4c1e969332f94edbcc0732e39d50ddf764945acd
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+
+Auto-merging docs/FILA.md
+CONFLICT (content): Merge conflict in docs/FILA.md
+Auto-merging docs/STATUS.md
+Auto-merging docs/archive/FILA_concluidos.md
+CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
+exit=1
+
+== G7 x FETCH_HEAD (61f086a)
+29af005bae730bdb11f3ed87e3341ead0fc792a6
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+
+Auto-merging docs/FILA.md
+CONFLICT (content): Merge conflict in docs/FILA.md
+Auto-merging docs/STATUS.md
+Auto-merging docs/archive/FILA_concluidos.md
+CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
+exit=1
+
+# Depois do merge da main (2415de5) na branch, conflitos resolvidos: commit temporário 24c9c339a3be25a22a4eb4da16cb5b71137a371f
+== G7+main x #60 (61f086a), 2026-10-19 14:40 -0300
+e51f38aea7ff9db8199c20c51b810a54630611de
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+
+Auto-merging docs/FILA.md
+CONFLICT (content): Merge conflict in docs/FILA.md
+Auto-merging docs/STATUS.md
+Auto-merging docs/archive/FILA_concluidos.md
+CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
+exit=1
+
+# 2026-10-19 18:59 -0300: a #60 entrou na main (a411ba7). O merge real na branch deu os mesmos dois conflitos previstos acima:
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+Resolvidos no run-1792447152319-121eead0.

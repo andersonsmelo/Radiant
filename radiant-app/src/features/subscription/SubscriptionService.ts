@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { rawHasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
 import { heartsRepository } from '../hearts/HeartsRepository';
 import { resolveStoreKitAdapter } from './StoreKit2Adapter';
 import { SUBSCRIPTION_PRODUCT_IDS } from './subscriptionProducts';
@@ -301,7 +302,17 @@ export class SubscriptionService {
         return parseCache(await this.storage.getItem(STORAGE_KEYS.SUBSCRIPTION));
     }
 
+    /**
+     * Espelho gravado por uma versão mais nova do app: esta não grava por cima
+     * (G7). O direito lido agora continua valendo em memória nesta abertura, e
+     * a Apple o confirma de novo pelo StoreKit na próxima.
+     */
     private async writeCache(cache: SubscriptionCacheV1): Promise<void> {
+        const raw = await this.storage.getItem(STORAGE_KEYS.SUBSCRIPTION);
+        if (rawHasUnknownSchemaVersion(raw, [cache.schemaVersion])) {
+            console.warn('[SubscriptionService] Espelho com schema desconhecido preservado, sem escrita.');
+            return;
+        }
         await this.storage.setItem(STORAGE_KEYS.SUBSCRIPTION, JSON.stringify(cache));
     }
 }

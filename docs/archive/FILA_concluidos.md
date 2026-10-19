@@ -2259,6 +2259,26 @@ A ordem e os gates atuais estão no
   - **66.** ✅ **Feito em 2026-10-19, na branch
     `claude/fila66-guarda-glifos-ast`; o merge é do dono: a guarda dos glifos
 
+## Arquivado em 2026-10-19 — FILA 54, "Próximo" anterior ao G7 das stores
+
+Substituído na tarde de 2026-10-19 pela lista da atualização do G7 nas outras
+stores. O texto é o original; só o link relativo foi reajustado ao diretório.
+
+    **Próximo:**
+    - o cartão invisível em `motion.ts`: consertado na FILA 64 e integrado
+      pela #55 em 2026-10-19;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup;
+    - **G6, caminho de dados, medido em 2026-10-19** no emulador
+      `radiant-entrada-api34`, com 1.000 cartões e duas passadas de 30 rodadas.
+      Abrir a revisão (`loadQueue`) teve p50 de 211 a 215 ms e p95 de 371 a
+      386 ms a frio. Confirmar uma resposta (`recordAnswer`) teve p50 de 31 a
+      56 ms e p95 de 74 a 81 ms. Emulador e Debug: não prova aparelho de
+      entrada, Release nem o tempo da tela
+      ([evidência](../evidence/2026-10-19-g6-caminho-de-dados.md)). Falta o G6 em
+      aparelho e na tela inteira;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).
+
 ## Arquivado em 2026-10-19 à noite — referências ao prompt (24)
 
 [aqui](trilha/2026-10-18-levantamento-do-que-foi-feito.md), e a entrada atual é o

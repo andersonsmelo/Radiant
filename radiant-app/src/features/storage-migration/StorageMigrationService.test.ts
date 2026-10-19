@@ -143,4 +143,33 @@ describe('StorageMigration', () => {
         expect(progress).toEqual(['preparing-backup', 'organizing-progress', 'complete']);
         expect(progress.join(' ')).not.toContain('120');
     });
+
+    describe('versão de schema desconhecida (G7)', () => {
+        // Uma versão mais nova do app gravou o marcador dela. Esta, a 1.4, não
+        // pode refazer a própria migração por cima: zeraria as vidas e
+        // rebaixaria o marcador que a versão nova lê ao voltar.
+        it('não escreve nem apaga nada quando o marcador é de uma versão que não conhece', async () => {
+            const storage = new MemoryStorage();
+            seedV131(storage);
+            const vidas = JSON.stringify({ count: 2, lastRefillAt: '2026-09-14T11:00:00.000Z', unlimitedUntil: null });
+            storage.values.set(STORAGE_KEYS.HEARTS, vidas);
+            storage.values.set(STORAGE_KEYS.APP_SCHEMA_VERSION, '1.5');
+            storage.values.set(STORAGE_KEYS.V14_MIGRATION_STATE, 'complete');
+
+            await expect(new StorageMigration(storage, now).migrateToV14()).resolves.toEqual({ status: 'unchanged' });
+
+            expect(storage.operations.filter(operation => operation.kind !== 'get')).toEqual([]);
+            expect(storage.values.get(STORAGE_KEYS.HEARTS)).toBe(vidas);
+            expect(storage.values.get(STORAGE_KEYS.APP_SCHEMA_VERSION)).toBe('1.5');
+        });
+
+        it('a instalação 1.3.1, que não tem marcador, segue migrando', async () => {
+            const storage = new MemoryStorage();
+            seedV131(storage);
+
+            await expect(new StorageMigration(storage, now).migrateToV14()).resolves.toEqual({ status: 'migrated' });
+            expect(storage.values.get(STORAGE_KEYS.APP_SCHEMA_VERSION)).toBe('1.4');
+        });
+    });
 });
+

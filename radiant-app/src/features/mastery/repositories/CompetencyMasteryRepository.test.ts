@@ -112,3 +112,38 @@ describe('CompetencyMasteryRepository — persistência', () => {
         await expect(CompetencyMasteryRepository.save(mastery())).resolves.toBeUndefined();
     });
 });
+
+describe('CompetencyMasteryRepository — schema desconhecido (G7)', () => {
+    // Gravado por uma versão mais nova do app. A versão antiga não pode gravar
+    // por cima: a nova o encontra intacto quando voltar.
+    const FUTURO = JSON.stringify({
+        schemaVersion: 'competency-mastery.v2',
+        mastery: { [COMPETENCY]: { ...mastery(), confianca: 0.9 } },
+    });
+
+    it('não grava por cima de um store com schemaVersion desconhecido', async () => {
+        storage.getItem.mockResolvedValue(FUTURO);
+
+        await CompetencyMasteryRepository.save(mastery({ competencyId: 'competency:outra' }));
+
+        expect(storage.setItem).not.toHaveBeenCalled();
+    });
+
+    it('continua resolvendo sem lançar', async () => {
+        storage.getItem.mockResolvedValue(FUTURO);
+
+        await expect(CompetencyMasteryRepository.save(mastery())).resolves.toBeUndefined();
+    });
+
+    it('store sem schemaVersion segue regravado no schema atual', async () => {
+        storage.getItem.mockResolvedValue(JSON.stringify({ mastery: {} }));
+
+        await CompetencyMasteryRepository.save(mastery());
+
+        const [, payload] = storage.setItem.mock.calls[0];
+        expect(JSON.parse(payload)).toEqual({
+            schemaVersion: 'competency-mastery.v1',
+            mastery: { [COMPETENCY]: mastery() },
+        });
+    });
+});

@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { hasUnknownSchemaVersion } from '../../storage/schemaVersionGuard';
+import { KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS } from '../../types/journey';
 import { GamificationService } from '../gamification/services/GamificationService';
 import type { SRCardStatePersisted } from '../../types/spacedRepetition';
 import type { LocalProgressPort, ProgressBackup } from './progressSync.types';
@@ -95,6 +97,10 @@ export class LocalProgressAdapter implements LocalProgressPort {
     private async applyJourney(merged: ProgressBackup): Promise<void> {
         const journey = await readJson<JourneyStoreShape>(this.storage, STORAGE_KEYS.JOURNEY_PROGRESS);
         if (!journey || !isRecord(journey.tracks)) return;
+        // Escreve direto no storage, fora do `JourneyProgressService`, então a
+        // regra do G7 precisa valer aqui também: jornada de uma versão mais
+        // nova do app não recebe a mescla. Ela continua guardada na nuvem.
+        if (hasUnknownSchemaVersion(journey, KNOWN_JOURNEY_PROGRESS_SCHEMA_VERSIONS)) return;
 
         let changed = false;
         for (const [trackId, nodeIds] of Object.entries(merged.completedNodesByTrack)) {

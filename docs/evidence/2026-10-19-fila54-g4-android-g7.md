@@ -212,6 +212,12 @@ lido no código das stores de aprendizagem:**
 
 As demais stores não foram avaliadas nesta frente.
 
+> **Errata de 2026-10-19, à tarde (G7, schema desconhecido):** a linha dos
+> checkpoints está errada. A quarentena `future-schema` recebe só a marca, sem o
+> dado, e o `CheckpointStore` removia o store, então o dado salvo era
+> **apagado**, e não preservado. O conserto e a tabela de todas as stores estão na
+> [evidência do schema desconhecido](2026-10-19-g7-schema-desconhecido.md).
+
 **[medido] A guarda: [`storageInventory.test.ts`](../../radiant-app/src/storage/storageInventory.test.ts).**
 Ela lê a AST de `src/` com o verificador de tipos do TypeScript, nunca o texto.
 Junta as chaves por dois caminhos:

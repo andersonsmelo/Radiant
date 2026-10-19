@@ -71,3 +71,23 @@ de recuperação.
   Google. A prova do item 2 é o atributo de exclusão no simulador, ligado e
   desligado pela chave
   ([evidência](../evidence/2026-10-19-g7-decisoes-de-recuperacao.md)).
+
+## Extensão da decisão 1, em 2026-10-19 à tarde
+
+A regra, decidida para a jornada, passou a valer para as outras stores de
+aprendizagem e economia, como a sessão que coordena o G7 pediu. A regra continua
+a mesma: uma versão antiga do app não grava por cima de um store com
+`schemaVersion` que ela não conhece. Ela mora agora em
+`radiant-app/src/storage/schemaVersionGuard.ts`.
+- **Passaram a recusar:** tentativas, domínio, assinatura, os dois stores de
+  checkpoint, que antes **apagavam** o store futuro, e a mescla do backup do
+  iCloud, que escrevia na jornada por fora da guarda.
+- **A migração da 1.4** não se refaz mais por cima do marcador de uma versão
+  mais nova. Antes, ela zerava as vidas.
+- **Ficam com o dono:** cinco stores não têm `schemaVersion` (agenda SM-2,
+  gamificação, meta diária, vidas e ledger de cobrança). Não houve formato
+  inventado. A proposta está na
+  [evidência](../evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono).
+
+A proteção só existe a partir da build que levar o código. A `1.4.0` publicada
+continua gravando por cima nessas stores.
