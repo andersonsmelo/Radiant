@@ -32,7 +32,7 @@ keychain (`AGENTS.md`, lições de 2026-10-19). Os números abaixo foram medidos
 
 ## 2. Estado em 2026-10-19, 19:15
 
-**A `main` contém a #63, e não havia PR aberta às 19:41.** O hash da `main` não
+**A `main` contém a #64, e não havia PR aberta às 20:03.** O hash da `main` não
 fica aqui: este arquivo entra na `main` pelo próprio commit e o deixaria velho.
 Remeça com `git log -1 origin/main`. Em 2026-10-19 entraram as
 PRs #52 a #62, todas integradas pelo Claude com autorização do dono, dada na
@@ -61,33 +61,36 @@ G7 (`d2ec52c`):
 - **não verificado:** nenhuma volta de versão real com duas builds no mesmo
   aparelho. A proteção só chega ao aluno numa build nova.
 
+**Depois, às 20:00:** a [PR #64](https://github.com/andersonsmelo/Radiant/pull/64),
+G7 nas vidas e na meta diária, com a decisão do dono sobre as 5 stores sem
+`schemaVersion`: saída 1 nas vidas e na meta diária, saída 2 na agenda SM-2, na
+gamificação e no ledger, e o gasto de vidas da build antiga não é guardado. Os 7
+testes do defeito foram vistos falhando, e o gate passou com 179 suítes e 1.841
+testes ([evidência](../../evidence/2026-10-19-g7-vidas-e-meta-diaria.md)). Vale o
+mesmo "não verificado" da #61.
+
 ## 3. Pendências
 
 ### Dono
 
-1. **As 5 stores sem `schemaVersion`: decidido em 2026-10-19 à noite.** Saída
-   1 nas vidas e na meta diária, saída 2 nas outras três, e o gasto de vidas
-   da build antiga não é guardado. Falta o **merge** da branch
-   `claude/g7-vidas-meta-diaria`
-   ([evidência](../../evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
-2. **Republicar a política e o suporte** (pacote em
+1. **Republicar a política e o suporte** (pacote em
    `docs/legal/PROMPT_PUBLICACAO_PAGINAS.md`) **antes** da build que leva a
    chave de backup do iOS. A versão publicada ainda é a de 2026-07-29.
-3. **Build e distribuição** da `main`: levam a
+2. **Build e distribuição** da `main`: levam a
    chave de backup, o anúncio da revisão, os consertos de 2026-10-19 e as
    guardas de schema. Uma atualização OTA não leva a mudança de `Info.plist`.
-4. **Ouvir no aparelho:**
+3. **Ouvir no aparelho:**
    - **VoiceOver no iPhone:** o anúncio do resultado da revisão;
    - **TalkBack num Android físico:**
      - se a alternativa escolhida soa "não marcado";
      - se os glifos de ícone ficam calados, como a árvore indica;
      - se o "5" do HUD é lido depois de "5 de 5 vidas".
-5. **FILA 61, A2:** decidir o desenho do storage. O G6 acrescenta que o
+4. **FILA 61, A2:** decidir o desenho do storage. O G6 acrescenta que o
    `loadQueue` relê o store inteiro três vezes por abertura (inferido do
    código). **Aumentar só a cota não resolve o limite por valor.**
-6. FILA 60 (rolagem de 3,3 s no E1), 45 (currículo), 52 (15 imagens), 48
+5. FILA 60 (rolagem de 3,3 s no E1), 45 (currículo), 52 (15 imagens), 48
    (captura com o lembrete), 43 (analytics) e 6 (aceites Android).
-7. **Autorizar a remoção das worktrees já integradas.** A `fila61-android`
+6. **Autorizar a remoção das worktrees já integradas.** A `fila61-android`
    guarda o APK do dev client do Android: se for removida, ele precisa ser
    recompilado.
 
@@ -95,21 +98,18 @@ Percorra as decisões uma por vez.
 
 ### Agente
 
-1. ~~Aplicar a decisão do dono sobre as 5 stores sem `schemaVersion`.~~ Feito
-   em 2026-10-19 à noite, com 7 testes vistos falhando, na branch
-   `claude/g7-vidas-meta-diaria`.
-2. **Maestro no Android** (achados da FILA 54, sem conserto):
+1. **Maestro no Android** (achados da FILA 54, sem conserto):
    - o subflow `dismiss-dev-client.yaml` só conhece `localhost:8081`;
    - o argumento do E1 (`radiantReduceMotion`) não chega ao app no Android, e,
      com animação, o Maestro não avança;
    - no G4, a rolagem até "Começar revisão" desce antes de a tela assentar.
 
    Proponha antes de mexer: pode exigir mudança nativa e build.
-3. **G6 em aparelho e na tela inteira,** quando o dono tiver um Android de
+2. **G6 em aparelho e na tela inteira,** quando o dono tiver um Android de
    entrada. O medidor da #59 roda nele sem mudança.
-4. **`useFadeInUp`:** tem no código o mesmo padrão do defeito da FILA 64, sem
+3. **`useFadeInUp`:** tem no código o mesmo padrão do defeito da FILA 64, sem
    falha medida. Falta também medir o resumo da revisão com escala 0.
-5. FILA 50, que depende da 45.
+4. FILA 50, que depende da 45.
 
 Antes de abrir uma frente, diga o item, a condição de pronto e o que fica de
 fora, e combine com Anderson.

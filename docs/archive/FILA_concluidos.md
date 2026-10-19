@@ -2307,3 +2307,14 @@ decisão A2.
     - **dono:** escolher a saída das cinco stores sem `schemaVersion` (agenda
       SM-2, gamificação, meta diária, vidas e ledger de cobrança), pela
       [proposta](evidence/2026-10-19-g7-schema-desconhecido.md#as-stores-sem-schemaversion-proposta-ao-dono);
+
+## Arquivado em 2026-10-19 à noite — o G7 das vidas e da meta diária antes do merge da #64
+
+atualizado em 2026-10-19 à noite:** as PRs #52 a #62 entraram na `main`, a #61
+(G7) inclusive, a 59 e a 63 estão feitas e a FILA 61 aguarda a decisão A2.
+
+    - **feito pelo agente em 2026-10-19 à noite, na branch
+      `claude/g7-vidas-meta-diaria`:** o dono escolheu
+
+      ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
+      **Dono:** o merge da PR;

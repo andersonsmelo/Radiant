@@ -641,8 +641,6 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
     ([evidência](evidence/2026-10-19-g6-caminho-de-dados.md));
   - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
     da build que inclui o progresso no backup do iOS;
-  - **dono:** o merge da branch `claude/g7-vidas-meta-diaria`, que aplica a
-    saída escolhida em 2026-10-19 para as cinco stores sem `schemaVersion`;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Continuidade atualizada em 2026-10-19 à noite:**
@@ -740,7 +738,7 @@ formato e recusam gravar por cima de qualquer versão declarada, porque nunca
 gravaram uma; a agenda SM-2, a gamificação e o ledger ficam como estão até a
 primeira mudança de formato de cada uma. Diante de vidas de uma versão mais
 nova, a build antiga usa o que entende só em memória e não guarda o gasto.
-O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
+O código entrou na `main` pela [PR #64](https://github.com/andersonsmelo/Radiant/pull/64), em 2026-10-19 às 20:00
 ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
 
 ```bash

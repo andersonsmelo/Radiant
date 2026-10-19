@@ -66,8 +66,9 @@ depois do merge de #35 a #37, de duas ADRs e das conferências no iPhone:
 O critério é o que cada item destrava; no empate, vence o relógio mais longo. A
 numeração preserva a fila histórica. **A ordem atual de execução está no
 [prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md),
-atualizado em 2026-10-19 à noite:** as PRs #52 a #62 entraram na `main`, a #61
-(G7) inclusive, a 59 e a 63 estão feitas e a FILA 61 aguarda a decisão A2.
+atualizado em 2026-10-19 à noite:** as PRs #52 a #64 entraram na `main`, as
+duas do G7 (#61 e #64) inclusive, a 59 e a 63 estão feitas e a FILA 61 aguarda
+a decisão A2.
 
 A `1.4.0 (12)` e os três itens da assinatura foram aprovados, e a
 versão foi liberada para o Brasil em 2026-10-12, às 08:47 (America/Bahia),
@@ -206,14 +207,13 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     A tabela, os vermelhos e duas erratas estão na
     [evidência](evidence/2026-10-19-g7-schema-desconhecido.md).
     **Próximo:**
-    - **feito pelo agente em 2026-10-19 à noite, na branch
-      `claude/g7-vidas-meta-diaria`:** o dono escolheu a saída 1 (ler
+    - **feito pelo agente em 2026-10-19 à noite e integrado na `main` pela
+      [PR #64](https://github.com/andersonsmelo/Radiant/pull/64), às 20:00:** o dono escolheu a saída 1 (ler
       `schemaVersion` sem mudar o formato) para as vidas e a meta diária, e a
       saída 2 (deixar como está) para a agenda SM-2, a gamificação e o ledger.
       As vidas, a mescla do iCloud nas vidas e a meta diária recusam agora
       gravar por cima de versão desconhecida; 7 testes vistos falhando
-      ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
-      **Dono:** o merge da PR;
+      ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md));
     - **dono:** republicar as duas páginas legais e só então enviar a build
       com a chave de backup. A mesma build leva a guarda das stores;
     - **G6, caminho de dados, medido em 2026-10-19** no emulador
