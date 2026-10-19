@@ -1,0 +1,176 @@
+FILA 61 — validação final, 2026-10-18
+Node v20.20.2; worktree fila61-android, main d7bd696 + diff declarado.
+App encerrado; AVD desligado; Metro parado; loadavg 1 min: 4.12.
+Comando: EXPO_NO_DOTENV=1 npm run quality (sob caffeinate -i)
+
+> radiant-app@1.4.0 quality
+> npm run lint && npm run typecheck && npm run test:qa && npm run test:storybook-config && npm run test:maestro-contract && npm run test:checkpoint-performance-report && npm run test:checkpoint-instrument && npm run test:reanimated-easing-contract && npm run test:tab-bar-clearance-contract && npm run test:contrast-contract && npm run test:identity-palette-contract && npm run test:icon-assets-contract && npm run test:pixel-screen-geometry-contract && npm run test:pixel-face-anchor-contract && npm run test:route-tree-purity-contract && npm run test:env-precedence-contract && npm run test:ci-gate-parity-contract && npm run test:native-version-contract && npm run test -- --runInBand && npm run visual:qa:strict
+> radiant-app@1.4.0 lint
+> eslint src components constants hooks scripts eslint.config.js
+> radiant-app@1.4.0 typecheck
+> tsc --noEmit
+> radiant-app@1.4.0 test:qa
+> node --test scripts/visual-qa.test.mjs
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:storybook-config
+> node --test scripts/storybook-config.test.mjs
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:maestro-contract
+> node --test scripts/maestro-contract.test.mjs
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:checkpoint-performance-report
+> node --test scripts/checkpoint-performance-report.test.mjs
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:checkpoint-instrument
+> node --test scripts/checkpoint-cdp-collector.test.mjs scripts/checkpoint-cohort-runner.test.mjs
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:reanimated-easing-contract
+> node --test scripts/reanimated-easing-contract.test.mjs
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:tab-bar-clearance-contract
+> node --test scripts/tab-bar-clearance-contract.test.mjs
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:contrast-contract
+> node --test scripts/contrast-contract.test.mjs
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:identity-palette-contract
+> node --test scripts/identity-palette-contract.test.mjs
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:icon-assets-contract
+> node --test scripts/icon-assets-contract.test.mjs
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:pixel-screen-geometry-contract
+> node --test scripts/pixel-screen-geometry-contract.test.mjs
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:pixel-face-anchor-contract
+> node --test scripts/pixel-face-anchor-contract.test.mjs
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:route-tree-purity-contract
+> node --test scripts/route-tree-purity-contract.test.mjs
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:env-precedence-contract
+> node --test scripts/check-env-precedence.test.mjs
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:ci-gate-parity-contract
+> node --test scripts/ci-gate-parity-contract.test.mjs
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test:native-version-contract
+> node --test scripts/check-native-version.test.mjs
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+> radiant-app@1.4.0 test
+> jest --runInBand
+Test Suites: 175 passed, 175 total
+Tests:       1794 passed, 1794 total
+Snapshots:   1 passed, 1 total
+Time:        63.479 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+> radiant-app@1.4.0 visual:qa:strict
+> node scripts/visual-qa.mjs --strict
+Scanned 417 files.
+Found 60 issues: 0 regressions, 57 baselined, 3 scoped exceptions.
+✅ Visual QA passed without unapproved regressions.
+quality exit=0
+
+Tentativa de validação do run do handoff: INVALID_TRANSITION, from=closed, to=validating.
+Eventos do run original: run-closed em 2026-10-18T21:52:02.012Z, previousState=editing, validationCycles=0.
+Substituição normal pelo abrir.mjs, mesmos 15 arquivos: run-1792360977572-2fb18e53, STEP_STARTED confirmado.
+
+Comando: loop validate --run run-1792360977572-2fb18e53 (Node v24.14.1, caffeinate -i)
+{"schemaVersion": 1, "ok": true, "code": "VALIDATION_PASSED", "runId": "run-1792360977572-2fb18e53", "state": "validating", "data": {"evidence": [{"id": "evidence-c47d42ca-212c-437d-87da-b5c2896bb8ed", "validatorId": "docs-contract", "status": "passed", "exitCode": 0, "outputHash": "fcecff9d24c2e32822aaf32a7bc8ae02b4b74610784e6195b49c2ffae819cd01", "durationMs": 90}, {"id": "evidence-802e4909-2f01-41fa-a865-873f01ff7cf7", "validatorId": "content-foundation", "status": "passed", "exitCode": 0, "outputHash": "aaf322ecc6efada29b1e9376637e24f261a2de104f4024f69a6fed5f562dbfb2", "durationMs": 139}, {"id": "evidence-a7c7401f-b3b6-4e20-a239-72611b95f681", "validatorId": "content-wave1", "status": "passed", "exitCode": 0, "outputHash": "56bbad26622ea583dfde21d4ab1dbb778d401b55a782ab110ee0e88154e1e83f", "durationMs": 54}, {"id": "evidence-7472b092-bf6a-4285-8cfe-f19f991c6e0d", "validatorId": "content-production", "status": "passed", "exitCode": 0, "outputHash": "856f29d66e15fa63a1f9e67158b4b427179ea522bdbaac4a927a3391dffb460e", "durationMs": 1432}, {"id": "evidence-3850457a-d6b2-4e6f-aed7-242b9da11498", "validatorId": "content-anchoring", "status": "passed", "exitCode": 0, "outputHash": "751a6eaa8624c3bff214b06d8b161484157b125f794beb5a9721f92eb2bc3a4d", "durationMs": 86}, {"id": "evidence-c029fce3-6df7-4d15-abb5-902a6f42d162", "validatorId": "content-anchoring-data", "status": "passed", "exitCode": 0, "outputHash": "c19faf27141e71c3bd75b2287baddd34bdbbc106fcf099f0654e34b271f569f5", "durationMs": 27}, {"id": "evidence-12168784-cac0-4cbd-9b4b-cacb2f8e521b", "validatorId": "content-no-verbatim", "status": "passed", "exitCode": 0, "outputHash": "9aaf55b2617f9ac5138d85ba81597fdd1b4bdc3799fb913f1a5c54f7ae1e083d", "durationMs": 1033}, {"id": "evidence-9108d848-79c0-461f-a763-3dbdd27bd4be", "validatorId": "content-source-rights", "status": "passed", "exitCode": 0, "outputHash": "ae71475d37b2478129c15d44b5716da63201bf8e84abf4f27f5bb4f6319b16ba", "durationMs": 83}, {"id": "evidence-03f68952-8e6e-4209-b16c-d58cd250dfbd", "validatorId": "content-python", "status": "passed", "exitCode": 0, "outputHash": "0801240f5eacf80bd8f9a8c7fa6a02783b8e7508c2e3595f852ee840b3a62b97", "durationMs": 1673}, {"id": "evidence-86e67722-597f-444d-9517-4b1382219f55", "validatorId": "app-quality", "status": "passed", "exitCode": 0, "outputHash": "7b87a947fd7c93cb93956caea2ba6f7b7016f6f9dc772f5c02b6cc74c3fef742", "durationMs": 66930}, {"id": "evidence-f644bc7a-d562-44db-89ab-d1a31cce54bb", "validatorId": "app-test", "status": "passed", "exitCode": 0, "outputHash": "a688b1182767263edeed86a5b8a6f60aa491acc31b0dafbcf8555b6845a8e9b6", "durationMs": 66298}, {"id": "evidence-9cac9a71-e010-4c94-b29a-648dddab72ac", "validatorId": "api-lint", "status": "passed", "exitCode": 0, "outputHash": "907f957b2c9f6d6c6fd2ec67ed9b0c3e07599e9183aafa044fdf3677fe87d9a5", "durationMs": 1256}, {"id": "evidence-a09e76da-288c-48f6-80eb-c6d19149f15d", "validatorId": "api-typecheck", "status": "passed", "exitCode": 0, "outputHash": "7c59e05b7d4f5d6e0931516b0d960bc141a1ef3d3b829791939b4e501f5e3de0", "durationMs": 1868}, {"id": "evidence-39540a48-2f1c-4967-9014-fcac0305fda2", "validatorId": "api-test", "status": "passed", "exitCode": 0, "outputHash": "b6a585e666a1ecb32c2a4af85ee4e55d8e0d74a95ed70a503c302d2061469e1f", "durationMs": 793}, {"id": "evidence-bbf4f676-8432-43b8-b88f-4d216ad99f6b", "validatorId": "brain-links", "status": "passed", "exitCode": 0, "outputHash": "ea5d3638131b710becc14dbed3dc0bda7181bcb5af67498a776be0a8563c1432", "durationMs": 664}]}}

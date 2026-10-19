@@ -1,0 +1,247 @@
+FAIL src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx (12.627 s)
+  ● DevConsoleScreen › medidor do store de revisão (FILA 61) › mede uma vez ao abrir, com a variável em desenvolvimento
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 1
+    Received number of calls: 0
+
+       98 |
+       99 |       expect(await screen.findByText('Catálogo local')).toBeTruthy();
+    > 100 |       await waitFor(() => expect(runStoreDeviceBench).toHaveBeenCalledTimes(1));
+          |                    ^
+      101 |     });
+      102 |   });
+      103 |
+
+      at Object.<anonymous> (src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx:100:20)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  ● isStoreBenchEnabled › só liga em desenvolvimento e com a variável
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      35 |         expect(isStoreBenchEnabled('0', true)).toBe(false);
+      36 |         expect(isStoreBenchEnabled('1', false)).toBe(false);
+    > 37 |         expect(isStoreBenchEnabled('1', true)).toBe(true);
+         |                                                ^
+      38 |     });
+      39 | });
+      40 |
+
+      at Object.toBe (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:37:48)
+
+  ● runStoreDeviceBench › registra a falha de leitura com a mensagem, em vez de um store vazio
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 0
+
+      Object {
+    -   "cardsRead": 0,
+        "kind": "store",
+        "nativeReadError": "Row too big to fit into CursorWindow",
+        "nativeReadIntact": false,
+    -   "readable": false,
+        "written": true,
+      }
+
+      71 |             kind: 'probe', written: true, read: false, readError: 'Row too big to fit into CursorWindow',
+      72 |         });
+    > 73 |         expect(results[2]).toMatchObject({
+         |                            ^
+      74 |             kind: 'store', written: true, nativeReadIntact: false,
+      75 |             nativeReadError: 'Row too big to fit into CursorWindow', readable: false, cardsRead: 0,
+      76 |         });
+
+      at Object.toMatchObject (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:73:28)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 2 failed, 2 total
+Tests:       3 failed, 8 passed, 11 total
+Snapshots:   0 total
+Time:        13.866 s, estimated 23 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts|src\/features\/dev-console\/screens\/DevConsoleScreen.flow.test.tsx/i.
+
+
+MUTAÇÃO: Flag sempre ligada
+COMANDO: ./node_modules/.bin/jest --runInBand --no-cache src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts -t só liga em desenvolvimento
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  isStoreBenchEnabled
+    ✕ só liga em desenvolvimento e com a variável (2 ms)
+  runStoreDeviceBench
+    ○ skipped lê o valor e o store inteiros, e não deixa chave nenhuma para trás
+    ○ skipped nunca toca as chaves do aluno
+    ○ skipped registra a falha de leitura com a mensagem, em vez de um store vazio
+    ○ skipped escreve uma linha de log por medida, com a etiqueta
+
+  ● isStoreBenchEnabled › só liga em desenvolvimento e com a variável
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      32 | describe('isStoreBenchEnabled', () => {
+      33 |     it('só liga em desenvolvimento e com a variável', () => {
+    > 34 |         expect(isStoreBenchEnabled(undefined, true)).toBe(false);
+         |                                                      ^
+      35 |         expect(isStoreBenchEnabled('0', true)).toBe(false);
+      36 |         expect(isStoreBenchEnabled('1', false)).toBe(false);
+      37 |         expect(isStoreBenchEnabled('1', true)).toBe(true);
+
+      at Object.toBe (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:34:54)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 4 skipped, 5 total
+Snapshots:   0 total
+Time:        1.411 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts/i with tests matching "só liga em desenvolvimento".
+
+exit=1
+
+
+MUTAÇÃO: Console sem checar a flag
+COMANDO: ./node_modules/.bin/jest --runInBand --no-cache src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx -t não mede nada sem a variável
+FAIL src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx (5.698 s)
+  DevConsoleScreen
+    ○ skipped reúne os painéis de diagnóstico que saíram da tela do aluno
+    ○ skipped surfaces DNS/network API health failures with an actionable label
+    ○ skipped does not report remote sync as active when no API is configured
+    ○ skipped does not report the beta gate as active while dev tools bypass it
+    medidor do store de revisão (FILA 61)
+      ✕ não mede nada sem a variável (1758 ms)
+      ○ skipped mede uma vez ao abrir, com a variável em desenvolvimento
+
+  ● DevConsoleScreen › medidor do store de revisão (FILA 61) › não mede nada sem a variável
+
+    expect(jest.fn()).not.toHaveBeenCalled()
+
+    Expected number of calls: 0
+    Received number of calls: 1
+
+    1: called with 0 arguments
+
+      90 |
+      91 |       expect(await screen.findByText('Catálogo local')).toBeTruthy();
+    > 92 |       expect(runStoreDeviceBench).not.toHaveBeenCalled();
+         |                                       ^
+      93 |     });
+      94 |
+      95 |     it('mede uma vez ao abrir, com a variável em desenvolvimento', async () => {
+
+      at Object.toHaveBeenCalled (src/features/dev-console/screens/DevConsoleScreen.flow.test.tsx:92:39)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 5 skipped, 6 total
+Snapshots:   0 total
+Time:        5.984 s
+Ran all test suites matching /src\/features\/dev-console\/screens\/DevConsoleScreen.flow.test.tsx/i with tests matching "não mede nada sem a variável".
+
+exit=1
+
+
+MUTAÇÃO: getCards no lugar de inspect
+COMANDO: ./node_modules/.bin/jest --runInBand --no-cache src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts -t registra a falha de leitura
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  isStoreBenchEnabled
+    ○ skipped só liga em desenvolvimento e com a variável
+  runStoreDeviceBench
+    ✕ registra a falha de leitura com a mensagem, em vez de um store vazio (86 ms)
+    ○ skipped lê o valor e o store inteiros, e não deixa chave nenhuma para trás
+    ○ skipped nunca toca as chaves do aluno
+    ○ skipped escreve uma linha de log por medida, com a etiqueta
+
+  ● runStoreDeviceBench › registra a falha de leitura com a mensagem, em vez de um store vazio
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "cardsRead": 0,
+        "kind": "store",
+        "nativeReadError": "Row too big to fit into CursorWindow",
+        "nativeReadIntact": false,
+    -   "readable": false,
+    +   "readable": true,
+        "written": true,
+      }
+
+      71 |             kind: 'probe', written: true, read: false, readError: 'Row too big to fit into CursorWindow',
+      72 |         });
+    > 73 |         expect(results[2]).toMatchObject({
+         |                            ^
+      74 |             kind: 'store', written: true, nativeReadIntact: false,
+      75 |             nativeReadError: 'Row too big to fit into CursorWindow', readable: false, cardsRead: 0,
+      76 |         });
+
+      at Object.toMatchObject (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:73:28)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 4 skipped, 5 total
+Snapshots:   0 total
+Time:        1.969 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts/i with tests matching "registra a falha de leitura".
+
+exit=1
+
+
+MUTAÇÃO: Erro de getItem engolido
+COMANDO: ./node_modules/.bin/jest --runInBand --no-cache src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts -t registra a falha de leitura
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  isStoreBenchEnabled
+    ○ skipped só liga em desenvolvimento e com a variável
+  runStoreDeviceBench
+    ✕ registra a falha de leitura com a mensagem, em vez de um store vazio (68 ms)
+    ○ skipped lê o valor e o store inteiros, e não deixa chave nenhuma para trás
+    ○ skipped nunca toca as chaves do aluno
+    ○ skipped escreve uma linha de log por medida, com a etiqueta
+
+  ● runStoreDeviceBench › registra a falha de leitura com a mensagem, em vez de um store vazio
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 0
+
+      Object {
+        "cardsRead": 0,
+        "kind": "store",
+    -   "nativeReadError": "Row too big to fit into CursorWindow",
+        "nativeReadIntact": false,
+        "readable": false,
+        "written": true,
+      }
+
+      71 |             kind: 'probe', written: true, read: false, readError: 'Row too big to fit into CursorWindow',
+      72 |         });
+    > 73 |         expect(results[2]).toMatchObject({
+         |                            ^
+      74 |             kind: 'store', written: true, nativeReadIntact: false,
+      75 |             nativeReadError: 'Row too big to fit into CursorWindow', readable: false, cardsRead: 0,
+      76 |         });
+
+      at Object.toMatchObject (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:73:28)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 4 skipped, 5 total
+Snapshots:   0 total
+Time:        2.357 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts/i with tests matching "registra a falha de leitura".
+
+exit=1

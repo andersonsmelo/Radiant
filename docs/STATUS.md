@@ -417,13 +417,14 @@ não foram vistos na tela. [ADR](adr/ADR-2026-10-16-configuracao-no-perfil.md),
 cd radiant-app && EXPO_NO_DOTENV=1 npm run quality
 ```
 
-**Remedido em 2026-10-18 às 18:11,** na branch `claude/fila62-guardas-de-rolagem`,
-sobre a `main` em `2304c94` (PR #50) mais o diff da FILA 62:
-`EXPO_NO_DOTENV=1 npm run quality` deu `exit=0`, com **174 suítes e 1.787
-testes** no Jest em banda única e o contrato do Maestro em 34/34
-([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/gate.txt)). É
-validação local. O CI da PR #50 passou no `a31c651`.
-Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
+**Remedido em 2026-10-18, após a medição da FILA 61,** na branch
+`claude/fila61-android-medicao`, sobre a `main` em `d7bd696` mais os 15 arquivos
+declarados desta frente: `EXPO_NO_DOTENV=1 npm run quality`, no Node v20.20.2,
+deu **exit=0**, com **175 suítes e 1.794 testes** no Jest em banda única,
+1 snapshot e zero regressões não aprovadas no Visual QA estrito
+([extrato e validação do Loop](evidence/2026-10-18-fila61-android-emulador/gate.txt)).
+É validação local; o CI da `main` em `d7bd696` foi confirmado verde antes da
+frente. Autoridade do comando: `.github/workflows/radiant-app-quality.yml`.
 
 Testes e builds do app rodam no **Node 20**; só a CLI `loop` usa o 24. Confira
 com `node --version` antes de citar qualquer número.
@@ -533,9 +534,9 @@ Medido em 2026-10-10, às 09:55:
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-- **Prompt de continuidade:**
-  [`2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md).
-  Ele substitui o (17).
+- **Prompt de continuidade, atualizado em 2026-10-18:**
+  [prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+  As referências anteriores ficam no histórico; não representam a ordem atual.
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
     2026-09-25
@@ -589,7 +590,8 @@ decidido pelo dono em 2026-09-23 e ainda não construído.
 
 ## Trilha — estado em 2026-10-18
 
-**Na `main` em `2304c94` (medido em 2026-10-18, às 18 h), sem build nova:** a loja segue
+**Na `main` em `d7bd696` (medido em 2026-10-18, às 18:57), sem build de distribuição
+nova:** o merge da PR #51 está confirmado, com o CI da `main` verde. A loja segue
 com a `1.4.0 (12)`, do `221e2ec`. Levantamento completo do período em
 [`trilha/2026-10-18-levantamento-do-que-foi-feito.md`](trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 
@@ -620,18 +622,17 @@ suítes e 1.763 testes.
 na seção abaixo; o R8 (README curto da trilha); e o C1 (contrato de conteúdo).
 Cada um tem evidência própria em `evidence/2026-10-18-*`.
 
-**FILA 62, feita em 2026-10-18 na branch `claude/fila62-guardas-de-rolagem`,
-com PR contra a `main`:** as duas guardas de rolagem do contrato do Maestro
-leem a `MAESTRO_FLOWS_WITH_SCROLL`, agora com os 17 roteiros que rolam, e uma
-guarda nova reprova quando a lista e o diretório divergem. A guarda do
-aninhamento tinha uma lista própria e não lia sete roteiros, e não dois como a
-FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
+**FILA 62, integrada em 2026-10-18 pela [PR #51](https://github.com/andersonsmelo/Radiant/pull/51)
+(`d7bd696`):** as duas guardas de rolagem do Maestro leem os 17 roteiros que
+rolam. A completude usa a AST e confere também a grafia consumida pelas guardas.
+Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
 ([evidência](evidence/2026-10-18-fila62-guardas-de-rolagem.md)).
 
 **Ainda aberto:**
-- **A2:** o store de revisão passa dos 6 MB do Android nos tetos. Foi medido no
-  R6, e trocar o storage é decisão do dono. A recomendação do agente e o passo
-  de medição no aparelho estão na [FILA 61](FILA.md);
+- **A2:** decisão do dono na [FILA 61](FILA.md). O passo 1 foi medido em
+  **emulador Android** em 2026-10-18: 5.000 cartões gravam, mas a leitura do
+  valor único falha na CursorWindow. A cota total também continua sendo um
+  limite nos tetos; aumentar só essa cota não resolve a leitura por valor;
 - o dia 2 do `radiant-1-4-segundo-dia`, a partir de 2026-10-19 às 12:45 (FILA 59);
 - da FILA 54:
   - o cartão da revisão some no Android com "Remover animações" ligado;
@@ -641,10 +642,12 @@ FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
     da build que inclui o progresso no backup do iOS;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
-**Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
-estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
-documento de entrada é o
-[prompt de continuidade (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+**Continuidade atualizada em 2026-10-18:**
+[prompt de continuidade (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+A entrega da FILA 61 e esta passagem documental foram executadas pelo Codex a
+pedido do dono, preservando os gates de produto, currículo, distribuição e merge.
+A [ADR de coordenação](adr/ADR-2026-10-18-claude-planejador-e-executor.md)
+permanece como registro da decisão anterior.
 
 ## Store de revisão — R6, medido em 2026-10-18
 
@@ -654,8 +657,27 @@ No Node, com identificadores no comprimento dos do catálogo V2:
   São 67% dos 6 MB padrão do AsyncStorage no Android, divididos com as outras
   chaves.
 
-O **A2 continua aberto**: o teto declarado de 20.000 cartões não cabe nesse
-desenho. Trocar o storage é decisão do dono, e o tempo no aparelho é do G6.
+O **A2 continua aberto**, agora com o passo 1 da FILA 61 medido em
+**emulador Android 14 / API 34 / arm64**, com 2 GB de RAM, num Mac M5,
+em 2026-10-18 às 18:57. Valor de 1,9 MiB voltou íntegro; de 2,0 MiB em diante,
+falhou na CursorWindow. O store de 1.000 cartões (1.143.057 bytes) foi legível,
+com mediana de leitura fria de **137,5 ms**; o de 5.000 (4.203.057 bytes) foi
+gravado, mas não lido, com `inspect().readable=false`. **Os tempos são do
+emulador, sem equivalência com aparelho de entrada.** O build manteve 6 MiB.
+`getCards()` captura o erro e devolve `[]`, ao contrário do estado explícito
+do `inspect()` usado na medição. Trocar o desenho do storage continua sendo
+decisão do dono; aparelho físico e G6 amplo permanecem abertos.
+[Evidência e limites](evidence/2026-10-18-fila61-android-emulador.md).
+
+**Entrega publicada em 2026-10-18 na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52),
+aberta contra a `main`:** medidor, testes e documentação no commit
+`e6fab1203482098ed3311d0b5e7053c4f3ad88d6`. Os checks `content` e `quality`
+desse commit terminaram em `SUCCESS` (último às 19:10:16, America/Bahia).
+`loop validate` aprovou 15/15 em um ciclo; run `run-1792360977572-2fb18e53`
+fechado após `STEP_SUCCEEDED` e `MEMORY_WRITTEN`, e sessão de leitura fechada.
+App, emulador e Metro encerrados; link temporário da API removido.
+**A2 e merge continuam com o dono.** Commits documentais posteriores exigem
+conferir novamente o HEAD e os checks; esse CI é evidência do SHA citado.
 
 O **A3 está consertado**. Um cartão ou uma tentativa inválidos não deixam mais
 o store inteiro ilegível: o registro vai para a quarentena

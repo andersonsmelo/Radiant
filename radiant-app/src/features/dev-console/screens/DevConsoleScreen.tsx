@@ -13,6 +13,11 @@ import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 import { HybridLessonMetricsCard } from '../components/HybridLessonMetricsCard';
 import {
+    isStoreBenchEnabled,
+    runStoreDeviceBench,
+    STORE_BENCH_LOG_TAG,
+} from '../../spaced-repetition/repositories/ItemReviewRepository.deviceBench';
+import {
     ActionButton,
     CardRow,
     CardTitle,
@@ -83,6 +88,16 @@ export default function DevConsoleScreen() {
     useEffect(() => {
         load();
     }, [load]);
+
+    // FILA 61: com `EXPO_PUBLIC_RADIANT_STORE_BENCH=1` no Metro, em
+    // desenvolvimento, abrir o console mede o store de revisão no aparelho e
+    // escreve o resultado no log. Sem a variável, nada roda.
+    useEffect(() => {
+        if (!isStoreBenchEnabled()) return;
+        runStoreDeviceBench().catch(error => {
+            console.warn(`${STORE_BENCH_LOG_TAG} falhou`, error);
+        });
+    }, []);
 
     const tracks = LessonCatalogService.listTracks();
     const remoteSyncAvailable = AppConfig.ENABLE_REMOTE_SYNC && isApiConfigured();

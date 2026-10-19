@@ -3395,6 +3395,51 @@ tem evidência própria em `evidence/2026-10-18-*`.
 
 - `r6-store-revisao`, a branch das entregas de 2026-10-18 (R6, A4, R8 e C1).
 
+
+## Arquivado em 2026-10-18 — FILA 61, passo 1, e merge da PR #51
+
+**Na `main` em `2304c94` (medido em 2026-10-18, às 18 h), sem build nova:** a loja segue
+com a `1.4.0 (12)`, do `221e2ec`.
+
+**FILA 62, feita em 2026-10-18 na branch `claude/fila62-guardas-de-rolagem`,
+com PR contra a `main`:** as duas guardas de rolagem do contrato do Maestro
+leem a `MAESTRO_FLOWS_WITH_SCROLL`, agora com os 17 roteiros que rolam, e uma
+guarda nova reprova quando a lista e o diretório divergem. A guarda do
+aninhamento tinha uma lista própria e não lia sete roteiros, e não dois como a
+FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
+([evidência](evidence/2026-10-18-fila62-guardas-de-rolagem.md)).
+
+- **A2:** o store de revisão passa dos 6 MB do Android nos tetos. Foi medido no
+  R6, e trocar o storage é decisão do dono. A recomendação do agente e o passo
+  de medição no aparelho estão na [FILA 61](FILA.md);
+
+O **A2 continua aberto**: o teto declarado de 20.000 cartões não cabe nesse
+desenho. Trocar o storage é decisão do dono, e o tempo no aparelho é do G6.
+
+
+### Gate substituído pela medição final da FILA 61
+
+**Remedido em 2026-10-18 às 18:11,** na branch `claude/fila62-guardas-de-rolagem`,
+sobre a `main` em `2304c94` (PR #50) mais o diff da FILA 62:
+`EXPO_NO_DOTENV=1 npm run quality` deu `exit=0`, com **174 suítes e 1.787
+testes** no Jest em banda única e o contrato do Maestro em 34/34
+([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/gate.txt)). É
+validação local. O CI da PR #50 passou no `a31c651`.
+Autoridade do comando de CI: `.github/workflows/radiant-app-quality.yml`.
+
+
+## Arquivado em 2026-10-18 — entrada substituída pelo prompt (22)
+
+**Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
+estão em pausa ([ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md)). O
+documento de entrada é o
+[prompt de continuidade (20)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-20.md).
+
+
+- **Prompt de continuidade:**
+  [`2026-10-10-radiant-prompt-de-continuidade-18.md`](superpowers/handoffs/2026-10-10-radiant-prompt-de-continuidade-18.md).
+  Ele substitui o (17).
+
 ## Saiu do STATUS em 2026-10-19 (FILA 54)
 
 Da lista "Ainda aberto":
