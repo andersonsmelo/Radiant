@@ -1,0 +1,48 @@
+FILA 63 — passo vermelho, 2026-10-18, worktree sobre a main d7bd696, Node v20.20.2
+Estado do código: gerador extraído VERBATIM para attemptIds.ts (base 36, como antes), guardas novas já escritas.
+Comando:
+EXPO_NO_DOTENV=1 npx jest --runInBand --no-cache src/features/spaced-repetition/attemptIds.test.ts src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx
+
+FAIL src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx (13.309 s)
+  ● CheckpointScreen flow › XP da aprovação › o sorteio do id não impede o registro da aprovação
+FAIL src/features/spaced-repetition/attemptIds.test.ts
+  ● ids de tentativa do journal por item › o journal aceita a avaliação cujo sorteio compunha "rg"
+  ● ids de tentativa do journal por item › o journal aceita o estudo cujo sorteio compunha "rg"
+  ● ids de tentativa do journal por item › nenhum de 20 mil sorteios produz id que o validador de evidência recuse
+Tests:       4 failed, 30 passed, 34 total
+
+Sintoma do caso do checkpoint (o mesmo do CI da PR #51):
+Unable to find an element with text: +18 XP
+[CheckpointScreen] Failed to evaluate production checkpoint: Error: assessment-journal-unavailable
+
+Ids recusados na amostra de 20 mil sorteios (34 no total, contra ~31 esperados pelas taxas medidas; os 8 primeiros):
+"study:1792365401058:hsy3rg3k8d",
+"study:1792365401511:rg4tdm1tf58",
+"attempt:assessment:1792365401638-bij6rg",
+"attempt:assessment:1792365402405-z3w9rg",
+"study:1792365402497:oexn4rg2lw",
+"attempt:assessment:1792365402993-e6rg6v",
+"study:1792365403754:zlgnwfsr3rg",
+"attempt:assessment:1792365403974-rg8rev",
+
+A guarda de formato e unicidade passou neste passo: ela não acusa o detector.
+Ela foi vista falhando pelas injeções abaixo, feitas sobre o conserto e desfeitas
+em seguida (hash do attemptIds.ts igual antes e depois: 64d380eacf152299).
+
+=== injeção: sufixo constante (exit 1)
+    ✓ o journal aceita a avaliação cujo sorteio compunha "rg" (3 ms)
+    ✓ o journal aceita o estudo cujo sorteio compunha "rg"
+    ✓ nenhum de 20 mil sorteios produz id que o validador de evidência recuse (74 ms)
+    ✕ o id continua no formato do journal, com o instante e um sufixo que varia (2 ms)
+Tests:       1 failed, 3 passed, 4 total
+=== injeção: hexadecimal maiúsculo (exit 1)
+    ✕ o journal aceita a avaliação cujo sorteio compunha "rg" (3 ms)
+    ✕ o journal aceita o estudo cujo sorteio compunha "rg"
+    ✕ nenhum de 20 mil sorteios produz id que o validador de evidência recuse (309 ms)
+    ✕ o id continua no formato do journal, com o instante e um sufixo que varia (49 ms)
+Tests:       4 failed, 4 total
+
+Reprodução anterior ao run, numa cópia temporária do teste já apagada, com o
+Math.random fixado no caso 'a celebração mostra o ganho e o total depois dele':
+  0.7624635631001372 -> sufixo rg5i… -> ✕ Unable to find +18 XP, assessment-journal-unavailable
+  0.5616748113854595 -> sufixo k7xhzz -> ✓

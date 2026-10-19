@@ -191,6 +191,32 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     exames. **Dono:** aprovar a seleção antes de qualquer mídia entrar no
     repositório;
   - **54.** agente: evolução global — validar G4 nativamente e avançar G6/G7.
+    **Atualização de 2026-10-19 (Claude, partes 1–3 combinadas com Anderson):**
+    - o G4 funciona no emulador Android de entrada: acerto, erro, ajuda e
+      resumo "3 de 3" com "+4 XP", em seis capturas com hash;
+    - o roteiro do G4 passou no iOS com o argumento do E1;
+    - a árvore de acessibilidade foi lida nas duas plataformas. A revisão passou
+      a anunciar o resultado ao leitor de tela, que antes só o Android recebia;
+    - o inventário G7 lista 65 chaves, com uma guarda de AST vista falhando.
+    **Defeito novo:** no Android, com "Remover animações" ligado, o cartão da
+    revisão não aparece. A causa provável está no `useCardEnter`
+    (`src/ui/motion.ts`), que também serve a `HomeScreen` e `QuizQuestion`.
+    ([evidência](evidence/2026-10-19-fila54-g4-android-g7.md)).
+    **Decisões G7 de 2026-10-19 (Anderson), já executadas**
+    ([ADR](adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md),
+    [evidência](evidence/2026-10-19-g7-decisoes-de-recuperacao.md)):
+    - a jornada não grava mais por cima de um store com schema desconhecido;
+      o teste foi visto falhando;
+    - o iOS passa a incluir o progresso no backup. No simulador, a chave do
+      `app.json` liga e desliga o atributo de exclusão;
+    - não haverá reset dentro do app. A política e a página de suporte agora
+      explicam o backup e como zerar em cada plataforma.
+    **Próximo:**
+    - o cartão invisível em `motion.ts`, em sessão própria;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup;
+    - G6 depois do merge da #52;
+    - VoiceOver e TalkBack audíveis (dono, no aparelho).
     **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi
     medido no Node com 1.000 cartões (1,09 MiB, leitura fria de 18 ms) e com
     5.000 (4,01 MiB, 67% dos 6 MB do Android, leitura fria de 61 ms). O A2
@@ -342,19 +368,43 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     (recomendação do agente); SQLite só se ainda necessário. **Aumentar só a
     cota não resolve o limite por valor observado.** Nenhuma troca, migração ou
     alteração de cota foi implementada. Aparelho físico permanece fora da prova;
-  - **63.** agente: **um teste do checkpoint reprovou uma vez no CI, e não
-    reproduz aqui.** Em 2026-10-18, no job `quality` da PR #51 (`0cb5441`),
-    `CheckpointScreen flow › XP da aprovação › a celebração mostra o ganho e o
-    total depois dele` não achou `+18 XP` com o `findByText`, e a tela ainda
-    mostrava "Avaliação 1 de 5". A `main` em `2304c94`, com o mesmo código do
-    app, passou no mesmo workflow, e o reenvio do job passou com o mesmo commit.
-    Aqui, com `taskpolicy -b`, o arquivo passou 3 de 3, e o caso levou de 199 a
-    236 ms
-    ([extrato](evidence/2026-10-18-fila62-guardas-de-rolagem/ci-instavel.txt)).
-    [inferido, não medido] A cadeia assíncrona depois de "Enviar checkpoint"
-    pode passar dos 1000 ms do `findByText` no CI. **Passo 1:** reproduzir, ou
-    medir o tempo da cadeia no CI, antes de mexer no prazo. A lição de
-    2026-09-23 pede tirar o custo da janela, e não aumentar o prazo;
+  - **63.** agente: **consertada em 2026-10-18 na branch
+    `claude/fila63-checkpoint-instavel`; o merge é do dono.** A falha não era de
+    tempo. O log completo da tentativa que reprovou no CI da PR #51 (`0cb5441`)
+    mostra a tela no erro "Nao foi possivel registrar o checkpoint agora." e um
+    `assessment-journal-unavailable` que o reenvio aprovado do mesmo commit não
+    tem ([comparação](evidence/2026-10-18-fila63-id-recusado-pelo-detector/ci-falha-vs-reenvio.txt)). O
+    [extrato anterior](evidence/2026-10-18-fila62-guardas-de-rolagem/ci-instavel.txt)
+    omitia essa árvore, e a hipótese da cadeia acima de 1000 ms foi refutada.
+    **Causa:** o `attemptId` da avaliação e o id de estudo da lição terminavam
+    num sorteio em base 36. Quando ele compunha "rg", "cpf" ou "pacs" entre
+    dígitos, o detector de dado sensível do validador de evidência reprovava o
+    id, e o journal por item recusava a tentativa. Medido em 2 milhões de
+    sorteios: ~1 em 1.613 avaliações e ~1 em 1.061 lições. A nova tentativa
+    reaproveita o mesmo id [inferido do código, não medido no app].
+    **Conserto, escolhido pelo dono:** `attemptIds.ts` sorteia em hexadecimal,
+    que não compõe nenhuma sigla do detector, com a mesma entropia; o detector
+    ficou intacto. As guardas foram vistas falhando contra o gerador antigo
+    ([vermelho](evidence/2026-10-18-fila63-id-recusado-pelo-detector/vermelho.txt), [verde](evidence/2026-10-18-fila63-id-recusado-pelo-detector/verde.txt),
+    [evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md)). Só a `main` tem o defeito, desde `a1f26f6`
+    (2026-10-17): o journal não existe no `221e2ec` da `1.4.0`. **Uma build da
+    `main` antes deste merge leva o defeito;**
+  - **64.** agente: **"Remover animações" escondia o cartão da revisão no
+    Android — consertado em 2026-10-19, na branch
+    `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.
+    O `useCardEnter` começava a animação nativa antes de saber a preferência de
+    movimento. Com a resposta `true`, a animação era interrompida e o cartão
+    recebia opacidade 1, mas o retorno nativo atrasado gravava 0 por cima.
+    O hook agora espera a preferência, e o vermelho do teste está registrado.
+    No emulador `radiant-entrada-api34`, revisão, quiz e início legado mostram
+    o cartão com escala 0 e com escala 1
+    ([evidência](evidence/2026-10-19-fila64-cartao-sem-animacao.md)).
+    **Resta, pequeno:**
+    - o `useFadeInUp` tem o mesmo padrão no código. Não falhou nos dois usos
+      medidos;
+    - falta medir o resumo da revisão com escala 0.
+
+    **Remede:** `cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx`;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,

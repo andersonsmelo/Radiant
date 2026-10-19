@@ -1,0 +1,69 @@
+{
+  "emulador": "radiant-entrada-api34 (Android 14, API 34)",
+  "app": "dev client Debug 1.4.0 (3), APK da FILA 61",
+  "capturas": [
+    {
+      "arquivo": "antes-revisao-escala0.png",
+      "sha256": "9de34e1b6843e5afeaaaf14eb4857b353994c3ba25709f8e615ca0b2d3f26e82",
+      "capturadaEm": "2026-10-19T09:31:57-03:00",
+      "codigo": "main d7bd696 sem alteração",
+      "tela": "revisao",
+      "escalasDeAnimacao": 0,
+      "oQueSeVe": "Só o cabeçalho: '1/3' e 'Sessão ativa'. Sem pergunta, alternativas nem botões, 25 s depois do toque."
+    },
+    {
+      "arquivo": "revisao-escala0.png",
+      "sha256": "80c03d66b93b8f8599e996cc7eb0fd03bb3369ca2789fa3e26904154289a3c2d",
+      "capturadaEm": "2026-10-19T09:32:37-03:00",
+      "codigo": "com o conserto",
+      "tela": "revisao",
+      "escalasDeAnimacao": 0,
+      "oQueSeVe": "Pergunta do item 1, quatro alternativas, 'Confirmar resposta' desativado e 'Ver resposta com ajuda'."
+    },
+    {
+      "arquivo": "revisao-escala1.png",
+      "sha256": "1732d382e47175bd4116cca079e03f3138650f48b4a80a5d309c5cc3e776dbbb",
+      "capturadaEm": "2026-10-19T09:33:47-03:00",
+      "codigo": "com o conserto",
+      "tela": "revisao",
+      "escalasDeAnimacao": 1,
+      "oQueSeVe": "O mesmo cartão do item 1, com as escalas no padrão."
+    },
+    {
+      "arquivo": "quiz-escala0.png",
+      "sha256": "fff575e1ee3f1f17db2e10d4ec478858023111ed293221de688bf7481b93beba",
+      "capturadaEm": "2026-10-19T09:35:08-03:00",
+      "codigo": "com o conserto",
+      "tela": "quiz",
+      "escalasDeAnimacao": 0,
+      "oQueSeVe": "'Pergunta 1 de 3' e as quatro alternativas do QuizQuestion."
+    },
+    {
+      "arquivo": "quiz-escala1.png",
+      "sha256": "5eab5aa128b342e7bfa66a86fe8d31f50b37bb47ca59c509df90aaed68d76dcd",
+      "capturadaEm": "2026-10-19T09:34:34-03:00",
+      "codigo": "com o conserto",
+      "tela": "quiz",
+      "escalasDeAnimacao": 1,
+      "oQueSeVe": "O mesmo cartão do quiz, com as escalas no padrão."
+    },
+    {
+      "arquivo": "inicio-escala0.png",
+      "sha256": "b842cefccef570bfa295c8f86586a076e4acfe8b910dce808e69467529c3a94f",
+      "capturadaEm": "2026-10-19T09:39:06-03:00",
+      "codigo": "com o conserto",
+      "tela": "inicio",
+      "escalasDeAnimacao": 0,
+      "oQueSeVe": "HomeScreen legada (EXPO_PUBLIC_ENABLE_LEARNING_ROAD=false), rolada até 'Revisões pendentes'."
+    },
+    {
+      "arquivo": "inicio-escala1.png",
+      "sha256": "554ea15ad7f4cb2287f51446da732a0fc29727a804bd6bc0f7fb085b25a5cef9",
+      "capturadaEm": "2026-10-19T09:40:26-03:00",
+      "codigo": "com o conserto",
+      "tela": "inicio",
+      "escalasDeAnimacao": 1,
+      "oQueSeVe": "A mesma seção, com as escalas no padrão."
+    }
+  ]
+}

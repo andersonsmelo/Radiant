@@ -1,4 +1,5 @@
 import React from 'react';
+import { AccessibilityInfo } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { renderWithProviders } from '../../../test/renderWithProviders';
 import { ReviewCard } from './ReviewCard';
@@ -50,5 +51,26 @@ describe('ReviewCard — resposta antes do gabarito', () => {
     fireEvent.press(screen.getByLabelText('B'));
     expect(screen.getByLabelText('A').props.accessibilityState.selected).toBe(true);
     await act(async () => finish());
+  });
+  // FILA 54: `accessibilityLiveRegion` só existe no Android, então o VoiceOver
+  // não ouvia o resultado da revisão. A lição anuncia o dela desde 2026-09-28.
+  it('anuncia ao leitor de tela o resultado, a resposta certa e a explicação, uma vez por item', () => {
+    // O setup do React Native já entrega `announceForAccessibility` como
+    // `jest.fn`, e o espião herda as chamadas dos testes anteriores.
+    const announce = jest.spyOn(AccessibilityInfo, 'announceForAccessibility').mockImplementation(() => {});
+    announce.mockClear();
+    const props = { question, onAnswer: jest.fn(), onContinue: jest.fn(), saving: false };
+    const view = render(<ReviewCard {...props} feedback={null} />);
+    expect(announce.mock.calls).toEqual([]);
+    view.rerender(<ReviewCard {...props} feedback={{ correct: false, assisted: false }} />);
+    expect(announce).toHaveBeenCalledTimes(1);
+    expect(announce).toHaveBeenLastCalledWith('Vamos revisar este ponto. Resposta certa: A. Explicação somente depois da confirmação');
+    view.rerender(<ReviewCard {...props} feedback={{ correct: false, assisted: false }} />);
+    expect(announce).toHaveBeenCalledTimes(1);
+    view.rerender(<ReviewCard {...props} question={{ ...question, id: 'item:2' }} feedback={null} />);
+    view.rerender(<ReviewCard {...props} question={{ ...question, id: 'item:2' }} feedback={{ correct: false, assisted: true }} />);
+    expect(announce).toHaveBeenCalledTimes(2);
+    expect(announce).toHaveBeenLastCalledWith('Resposta consultada. Resposta certa: A. Explicação somente depois da confirmação');
+    announce.mockRestore();
   });
 });

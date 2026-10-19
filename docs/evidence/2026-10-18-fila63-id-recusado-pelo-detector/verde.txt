@@ -1,0 +1,23 @@
+FILA 63 — passo verde, 2026-10-18, mesma worktree, Node v20.20.2, gerador hexadecimal
+Comando:
+EXPO_NO_DOTENV=1 npx jest --runInBand --no-cache src/features/spaced-repetition/attemptIds.test.ts src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx src/features/spaced-repetition
+
+PASS src/features/lesson-flow/screens/LessonFlowScreen.flow.test.tsx (13.36 s)
+PASS src/features/checkpoint/screens/CheckpointScreen.flow.test.tsx
+PASS src/features/spaced-repetition/repositories/ItemReviewRepository.test.ts
+PASS src/features/spaced-repetition/services/ItemReviewService.test.ts
+PASS src/features/spaced-repetition/services/CompetencyReviewService.test.ts
+PASS src/features/spaced-repetition/models/memoryModel.test.ts
+PASS src/features/spaced-repetition/attemptIds.test.ts
+PASS src/features/spaced-repetition/services/SpacedRepetitionService.test.ts
+PASS src/features/spaced-repetition/models/itemSm2.test.ts
+Test Suites: 9 passed, 9 total
+Tests:       183 passed, 183 total
+
+Gate do app, depois do conserto, no mesmo Node, sob caffeinate -i, carga 4,07:
+EXPO_NO_DOTENV=1 npm run quality   (em radiant-app/)
+exit 0
+Test Suites: 175 passed, 175 total
+Tests:       1792 passed, 1792 total
+Snapshots:   1 passed, 1 total
+Visual QA passed without unapproved regressions.

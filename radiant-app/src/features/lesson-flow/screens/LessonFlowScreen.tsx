@@ -57,6 +57,7 @@ import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { SpacedRepetitionService } from '../../spaced-repetition/services/SpacedRepetitionService';
+import { studyAttemptId } from '../../spaced-repetition/attemptIds';
 
 const DEFAULT_HEARTS: HeartsSnapshot = {
     count: 5,
@@ -344,7 +345,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
         if (completion.finishing || completion.finished) return;
         completion.finishing = true;
-        completion.identity ??= { attemptId: `study:${Date.now()}:${Math.random().toString(36).slice(2)}`, answeredAt: new Date() };
+        completion.identity ??= { attemptId: studyAttemptId(), answeredAt: new Date() };
         try {
             const lessonOutcome = block
                 ? await LessonOutcomeService.recordCompletion({

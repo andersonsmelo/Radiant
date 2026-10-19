@@ -5,7 +5,7 @@
 > nas fichas da App Store e do Google Play (campo obrigatório das duas lojas).
 
 **Aplicativo:** Radiant — aplicativo educacional de radiologia
-**Última atualização:** 2026-07-29
+**Última atualização:** 2026-10-19
 
 ## Como falar com a gente
 
@@ -30,11 +30,19 @@ fica salvo no próprio aparelho.
 
 **Onde fica o meu progresso?**
 No **seu dispositivo**. Ele não é enviado para servidores nem sincronizado nesta
-versão — veja a [Política de Privacidade](https://saudediagnostica.com/radiant/privacidade).
+versão. Se o backup do iCloud ou do Google estiver ativo, uma cópia vai no backup
+da sua conta — veja a [Política de Privacidade](https://saudediagnostica.com/radiant/privacidade).
+
+**Troquei de celular. Meu progresso vem junto?**
+Vem se você configurar o aparelho novo a partir de um backup do antigo: iCloud ou
+computador no iPhone, Google no Android. Sem backup, o app começa do zero, porque
+nesta versão o progresso não é sincronizado com servidor.
 
 **Como reinicio ou apago meu progresso?**
-Você pode limpar os dados do app nas configurações do sistema, ou desinstalar o
-app. (Se houver uma opção de reinício dentro do app, ela também zera o progresso.)
+No **iPhone**, apague o app e instale de novo: a reinstalação começa do zero.
+No **Android**, vá em Configurações → Apps → Radiant → Armazenamento → **Limpar
+armazenamento** (os nomes variam um pouco entre fabricantes). Só desinstalar pode não bastar no Android: com o backup do Google
+ativo, o sistema pode devolver o progresso quando você reinstala.
 
 **Não estou recebendo os lembretes de estudo.**
 Os lembretes são **notificações locais** e dependem da permissão de notificações.
