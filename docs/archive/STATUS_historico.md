@@ -3518,3 +3518,13 @@ publicada não tem o journal.
 `student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
 `radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
 FILA 59.
+
+## Saiu do STATUS em 2026-10-19 à noite — referências ao prompt (24)
+
+- **Prompt de continuidade, atualizado em 2026-10-19:**
+  [prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+
+**Continuidade atualizada em 2026-10-19:**
+[prompt de continuidade (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+Em 2026-10-19, o Claude integrou as PRs #52 a #59 com autorização do dono,
+dada na conversa, e conferiu cada merge no GitHub.

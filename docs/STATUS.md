@@ -534,8 +534,8 @@ Medido em 2026-10-10, às 09:55:
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-- **Prompt de continuidade, atualizado em 2026-10-19:**
-  [prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+- **Prompt de continuidade, atualizado em 2026-10-19 à noite:**
+  [prompt (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md).
   As referências anteriores ficam no histórico; não representam a ordem atual.
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
@@ -643,10 +643,12 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
     da build que inclui o progresso no backup do iOS;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
-**Continuidade atualizada em 2026-10-19:**
-[prompt de continuidade (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
-Em 2026-10-19, o Claude integrou as PRs #52 a #59 com autorização do dono,
-dada na conversa, e conferiu cada merge no GitHub.
+**Continuidade atualizada em 2026-10-19 à noite:**
+[prompt de continuidade (25)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-25.md).
+Em 2026-10-19, o Claude integrou as PRs #52 a #60 com autorização do dono,
+dada na conversa, e conferiu cada merge no GitHub. A
+[PR #61](https://github.com/andersonsmelo/Radiant/pull/61), do G7, estava aberta
+às 19:00, conflitando com a `main` só na documentação.
 A [ADR de coordenação](adr/ADR-2026-10-18-claude-planejador-e-executor.md)
 permanece como registro da decisão anterior.
 
