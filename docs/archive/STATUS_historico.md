@@ -3479,3 +3479,9 @@ Da lista "Ainda aberto":
 - da FILA 54:
   - o cartão da revisão some no Android com "Remover animações" ligado;
   - o G6, depois do merge da #52;
+
+## Saiu do STATUS em 2026-10-19 (G6, caminho de dados)
+
+Da lista "Ainda aberto", em "da FILA 54":
+
+  - o G6, destravado: a #52 entrou na `main` em 2026-10-19;

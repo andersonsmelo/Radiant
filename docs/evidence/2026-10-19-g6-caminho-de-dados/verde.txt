@@ -1,0 +1,16 @@
+PASS src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  isStoreBenchEnabled
+    ✓ só liga em desenvolvimento e com a variável (1 ms)
+  runStoreDeviceBench
+    ✓ lê o valor e o store inteiros, e não deixa chave nenhuma para trás (13 ms)
+    ✓ nunca toca as chaves do aluno (6 ms)
+    ✓ registra a falha de leitura com a mensagem, em vez de um store vazio
+    ✓ mede abrir e confirmar a revisão pelo coordenador real, com p50 e p95 (12 ms)
+    ✓ para a sessão e registra o erro quando o store não pode ser lido (1 ms)
+    ✓ escreve uma linha de log por medida, com a etiqueta (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        0.575 s, estimated 1 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts/i.

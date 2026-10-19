@@ -42,7 +42,7 @@ describe('runStoreDeviceBench', () => {
     it('lê o valor e o store inteiros, e não deixa chave nenhuma para trás', async () => {
         const storage = memoryStorage();
         const results = await runStoreDeviceBench({
-            storage, probeSizesMiB: [0.01], cardCounts: [40], repetitions: 2, log: quiet,
+            storage, probeSizesMiB: [0.01], cardCounts: [40], sessionCardCounts: [], repetitions: 2, log: quiet,
         });
 
         expect(results[0]).toMatchObject({ kind: 'probe', written: true, read: true });
@@ -54,7 +54,7 @@ describe('runStoreDeviceBench', () => {
 
     it('nunca toca as chaves do aluno', async () => {
         const storage = memoryStorage();
-        await runStoreDeviceBench({ storage, probeSizesMiB: [0.01], cardCounts: [10], repetitions: 1, log: quiet });
+        await runStoreDeviceBench({ storage, probeSizesMiB: [0.01], cardCounts: [10], sessionCardCounts: [12], repetitions: 1, log: quiet });
 
         expect([...storage.touched].filter(key => !key.startsWith(STORE_BENCH_KEY_PREFIX))).toEqual([]);
         expect(storage.touched.has(STORAGE_KEYS.ITEM_REVIEW)).toBe(false);
@@ -63,7 +63,7 @@ describe('runStoreDeviceBench', () => {
     it('registra a falha de leitura com a mensagem, em vez de um store vazio', async () => {
         const storage = memoryStorage(1024);
         const results = await runStoreDeviceBench({
-            storage, probeSizesMiB: [0.0005, 0.01], cardCounts: [10], repetitions: 1, log: quiet,
+            storage, probeSizesMiB: [0.0005, 0.01], cardCounts: [10], sessionCardCounts: [], repetitions: 1, log: quiet,
         });
 
         expect(results[0]).toMatchObject({ kind: 'probe', read: true });
@@ -77,13 +77,40 @@ describe('runStoreDeviceBench', () => {
         expect(storage.data.size).toBe(0);
     });
 
+    it('mede abrir e confirmar a revisão pelo coordenador real, com p50 e p95', async () => {
+        const storage = memoryStorage();
+        const results = await runStoreDeviceBench({
+            storage, probeSizesMiB: [], cardCounts: [], sessionCardCounts: [60], repetitions: 4, log: quiet,
+        });
+        const session = results.find(result => result.kind === 'session') as Record<string, any>;
+
+        // 60 cartões vencidos, e a sessão para no teto de 50.
+        expect(session).toMatchObject({ kind: 'session', cards: 60, written: true, queueLength: 50, confirmAccepted: 4 });
+        for (const measure of ['openCold', 'openWarm', 'confirm']) {
+            expect(session.samplesMs[measure]).toHaveLength(4);
+            expect(session.p50Ms[measure]).toEqual(expect.any(Number));
+            expect(session.p95Ms[measure]).toBeGreaterThanOrEqual(session.p50Ms[measure]);
+        }
+        expect(storage.data.size).toBe(0);
+    });
+
+    it('para a sessão e registra o erro quando o store não pode ser lido', async () => {
+        const storage = memoryStorage(1024);
+        const results = await runStoreDeviceBench({
+            storage, probeSizesMiB: [], cardCounts: [], sessionCardCounts: [10], repetitions: 2, log: quiet,
+        });
+
+        expect(results[0]).toMatchObject({ kind: 'session', cards: 10, written: true, openError: 'review-store-unavailable' });
+        expect(storage.data.size).toBe(0);
+    });
+
     it('escreve uma linha de log por medida, com a etiqueta', async () => {
         const lines: string[] = [];
         await runStoreDeviceBench({
-            storage: memoryStorage(), probeSizesMiB: [0.01], cardCounts: [10], repetitions: 1, log: line => lines.push(line),
+            storage: memoryStorage(), probeSizesMiB: [0.01], cardCounts: [10], sessionCardCounts: [10], repetitions: 1, log: line => lines.push(line),
         });
 
         expect(lines.map(line => JSON.parse(line.replace('[radiant-store-bench] ', '')).kind))
-            .toEqual(['header', 'probe', 'store', 'done']);
+            .toEqual(['header', 'probe', 'store', 'session', 'done']);
     });
 });

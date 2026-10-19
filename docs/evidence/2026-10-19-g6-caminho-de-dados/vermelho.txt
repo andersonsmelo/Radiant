@@ -1,0 +1,83 @@
+FAIL src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts
+  isStoreBenchEnabled
+    ✓ só liga em desenvolvimento e com a variável
+  runStoreDeviceBench
+    ✓ lê o valor e o store inteiros, e não deixa chave nenhuma para trás (36 ms)
+    ✓ nunca toca as chaves do aluno (1 ms)
+    ✓ registra a falha de leitura com a mensagem, em vez de um store vazio (1 ms)
+    ✕ mede abrir e confirmar a revisão pelo coordenador real, com p50 e p95 (1 ms)
+    ✕ para a sessão e registra o erro quando o store não pode ser lido
+    ✕ escreve uma linha de log por medida, com a etiqueta (5 ms)
+
+  ● runStoreDeviceBench › mede abrir e confirmar a revisão pelo coordenador real, com p50 e p95
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      86 |
+      87 |         // 60 cartões vencidos, e a sessão para no teto de 50.
+    > 88 |         expect(session).toMatchObject({ kind: 'session', cards: 60, written: true, queueLength: 50, confirmAccepted: 4 });
+         |                         ^
+      89 |         for (const measure of ['openCold', 'openWarm', 'confirm']) {
+      90 |             expect(session.samplesMs[measure]).toHaveLength(4);
+      91 |             expect(session.p50Ms[measure]).toEqual(expect.any(Number));
+
+      at Object.toMatchObject (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:88:25)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● runStoreDeviceBench › para a sessão e registra o erro quando o store não pode ser lido
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      101 |         });
+      102 |
+    > 103 |         expect(results[0]).toMatchObject({ kind: 'session', cards: 10, written: true, openError: 'review-store-unavailable' });
+          |                            ^
+      104 |         expect(storage.data.size).toBe(0);
+      105 |     });
+      106 |
+
+      at Object.toMatchObject (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:103:28)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ● runStoreDeviceBench › escreve uma linha de log por medida, com a etiqueta
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 0
+
+      Array [
+        "header",
+        "probe",
+        "store",
+    -   "session",
+        "done",
+      ]
+
+      112 |
+      113 |         expect(lines.map(line => JSON.parse(line.replace('[radiant-store-bench] ', '')).kind))
+    > 114 |             .toEqual(['header', 'probe', 'store', 'session', 'done']);
+          |              ^
+      115 |     });
+      116 | });
+      117 |
+
+      at Object.toEqual (src/features/spaced-repetition/repositories/ItemReviewRepository.deviceBench.test.ts:114:14)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 4 passed, 7 total
+Snapshots:   0 total
+Time:        1.571 s
+Ran all test suites matching /src\/features\/spaced-repetition\/repositories\/ItemReviewRepository.deviceBench.test.ts/i.
