@@ -2220,3 +2220,7 @@ o dono lê o relatório no fim.
     num run próprio.
     **Bloqueio:** só o relógio. **Dono:** agente; a build e o envio são de
     Anderson;
+
+## Arquivado em 2026-10-19 — FILA 54, linha do G6 antes da medição
+
+    - G6 depois do merge da #52;

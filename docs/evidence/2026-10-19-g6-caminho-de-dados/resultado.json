@@ -1,0 +1,43 @@
+{
+  "medidoEm": "2026-10-19",
+  "emulador": "radiant-entrada-api34 (Android 14 / API 34, 2 GB, 2 núcleos, arm64, num Mac M5)",
+  "app": "dev client Debug 1.4.0 (3) da FILA 61, JS do Metro da worktree claude/g6-caminho-de-dados (main 7726296 + este run)",
+  "passadas": [
+    {
+      "arquivo": "logcat.txt",
+      "cards": 1000,
+      "bytes": 1143057,
+      "queueLength": 50,
+      "confirmAccepted": 30,
+      "amostras": 30,
+      "p50Ms": {
+        "openCold": 215.1,
+        "openWarm": 179.7,
+        "confirm": 55.7
+      },
+      "p95Ms": {
+        "openCold": 386.3,
+        "openWarm": 274.1,
+        "confirm": 74.3
+      }
+    },
+    {
+      "arquivo": "logcat-2.txt",
+      "cards": 1000,
+      "bytes": 1143057,
+      "queueLength": 50,
+      "confirmAccepted": 30,
+      "amostras": 30,
+      "p50Ms": {
+        "openCold": 210.8,
+        "openWarm": 167.8,
+        "confirm": 30.7
+      },
+      "p95Ms": {
+        "openCold": 370.9,
+        "openWarm": 277.8,
+        "confirm": 80.9
+      }
+    }
+  ]
+}
