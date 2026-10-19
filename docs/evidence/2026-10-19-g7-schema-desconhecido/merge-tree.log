@@ -38,3 +38,8 @@ Auto-merging docs/STATUS.md
 Auto-merging docs/archive/FILA_concluidos.md
 CONFLICT (content): Merge conflict in docs/archive/FILA_concluidos.md
 exit=1
+
+# 2026-10-19 18:59 -0300: a #60 entrou na main (a411ba7). O merge real na branch deu os mesmos dois conflitos previstos acima:
+docs/FILA.md
+docs/archive/FILA_concluidos.md
+Resolvidos no run-1792447152319-121eead0.

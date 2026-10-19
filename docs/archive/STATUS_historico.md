@@ -3485,3 +3485,36 @@ Da lista "Ainda aberto":
 Da lista "Ainda aberto", em "da FILA 54":
 
   - o G6, destravado: a #52 entrou na `main` em 2026-10-19;
+
+## Saiu do STATUS em 2026-10-19 — trechos que os merges #52 a #59 tornaram falsos
+
+- **Prompt de continuidade, atualizado em 2026-10-18:**
+  [prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+
+**Continuidade atualizada em 2026-10-18:**
+[prompt de continuidade (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+A entrega da FILA 61 e esta passagem documental foram executadas pelo Codex a
+pedido do dono, preservando os gates de produto, currículo, distribuição e merge.
+
+**Entrega publicada em 2026-10-18 na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52),
+aberta contra a `main`:** medidor, testes e documentação no commit
+
+**A2 e merge continuam com o dono.** Commits documentais posteriores exigem
+conferir novamente o HEAD e os checks; esse CI é evidência do SHA citado.
+
+- **defeito novo:** com "Remover animações" ligado, o cartão da revisão não
+  aparece na tela nem na árvore de acessibilidade. A causa provável está no
+  `useCardEnter` de `src/ui/motion.ts`, que também serve a `HomeScreen` e
+  `QuizQuestion`;
+- **o roteiro do G4 não serve no Android hoje.** Com animação, o Maestro não
+  avança; sem animação, o cartão some.
+
+**Defeito achado depois, em 2026-10-18 à noite (FILA 63), e consertado só na
+branch `claude/fila63-checkpoint-instavel`.** Na `main` desde `a1f26f6`, o journal
+
+agora.". **Uma build da `main` antes desse merge leva o defeito.** A `1.4.0`
+publicada não tem o journal.
+
+`student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
+`radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
+FILA 59.

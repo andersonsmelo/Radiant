@@ -183,6 +183,11 @@ A única PR aberta, a #60 (`61f086a`, documentação de estado), conflita com a
 entrar em segundo resolve: manter a lista nova desta frente, que já registra o
 `motion.ts` como integrado, e as entradas de histórico das duas.
 
+A #60 entrou primeiro (`a411ba7`), e a resolução seguiu esse desenho num
+terceiro run (`run-1792447152319-121eead0`). O "Próximo" da FILA 54 aponta para
+a lista nova. No histórico ficam a entrada da #60 e a desta frente, que arquiva
+o "Próximo" como a #60 o deixou.
+
 ## Gates
 
 **[medido]** `EXPO_NO_DOTENV=1 npm run quality` no Node 20.20.2, nesta worktree,

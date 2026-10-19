@@ -534,8 +534,8 @@ Medido em 2026-10-10, às 09:55:
   25 branches mergeados antes foram apagados em 2026-09-25, por decisão dele.
   A lista, com a ponta de cada um para restaurar, está em
   [`release/2026-09-25-branches-remotos-apagados.md`](release/2026-09-25-branches-remotos-apagados.md).
-- **Prompt de continuidade, atualizado em 2026-10-18:**
-  [prompt (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
+- **Prompt de continuidade, atualizado em 2026-10-19:**
+  [prompt (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
   As referências anteriores ficam no histórico; não representam a ordem atual.
 - **Simuladores:**
   - o `A5FA5443-…`, do gate H4, já conferiu a regra de vidas na tela, em
@@ -645,10 +645,10 @@ Nenhum YAML mudou. CI da `main` confirmado verde em 2026-10-18
     das stores (branch `claude/g7-schema-desconhecido`);
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
-**Continuidade atualizada em 2026-10-18:**
-[prompt de continuidade (22)](superpowers/handoffs/2026-10-18-radiant-prompt-de-continuidade-22.md).
-A entrega da FILA 61 e esta passagem documental foram executadas pelo Codex a
-pedido do dono, preservando os gates de produto, currículo, distribuição e merge.
+**Continuidade atualizada em 2026-10-19:**
+[prompt de continuidade (24)](superpowers/handoffs/2026-10-19-radiant-prompt-de-continuidade-24.md).
+Em 2026-10-19, o Claude integrou as PRs #52 a #59 com autorização do dono,
+dada na conversa, e conferiu cada merge no GitHub.
 A [ADR de coordenação](adr/ADR-2026-10-18-claude-planejador-e-executor.md)
 permanece como registro da decisão anterior.
 
@@ -672,15 +672,14 @@ do `inspect()` usado na medição. Trocar o desenho do storage continua sendo
 decisão do dono; aparelho físico e G6 amplo permanecem abertos.
 [Evidência e limites](evidence/2026-10-18-fila61-android-emulador.md).
 
-**Entrega publicada em 2026-10-18 na [PR #52](https://github.com/andersonsmelo/Radiant/pull/52),
-aberta contra a `main`:** medidor, testes e documentação no commit
+**Entrega integrada em 2026-10-19 pela [PR #52](https://github.com/andersonsmelo/Radiant/pull/52)
+(`cb0bedc`).** Na abertura, em 2026-10-18: medidor, testes e documentação no commit
 `e6fab1203482098ed3311d0b5e7053c4f3ad88d6`. Os checks `content` e `quality`
 desse commit terminaram em `SUCCESS` (último às 19:10:16, America/Bahia).
 `loop validate` aprovou 15/15 em um ciclo; run `run-1792360977572-2fb18e53`
 fechado após `STEP_SUCCEEDED` e `MEMORY_WRITTEN`, e sessão de leitura fechada.
 App, emulador e Metro encerrados; link temporário da API removido.
-**A2 e merge continuam com o dono.** Commits documentais posteriores exigem
-conferir novamente o HEAD e os checks; esse CI é evidência do SHA citado.
+**A2 continua com o dono.**
 
 O **A3 está consertado**. Um cartão ou uma tentativa inválidos não deixam mais
 o store inteiro ilegível: o registro vai para a quarentena
@@ -699,12 +698,12 @@ lição na fila, com o resultado agregado.
 No emulador Android de entrada (API 34, 2 GB), com o dev client da FILA 61:
 - **o G4 funciona:** acerto, erro, ajuda e resumo "3 de 3" com "+4 XP", em
   seis capturas com hash;
-- **defeito novo:** com "Remover animações" ligado, o cartão da revisão não
-  aparece na tela nem na árvore de acessibilidade. A causa provável está no
-  `useCardEnter` de `src/ui/motion.ts`, que também serve a `HomeScreen` e
-  `QuizQuestion`;
-- **o roteiro do G4 não serve no Android hoje.** Com animação, o Maestro não
-  avança; sem animação, o cartão some.
+- **defeito achado e consertado no mesmo dia:** com "Remover animações"
+  ligado, o cartão da revisão não aparecia. O `useCardEnter` foi consertado na
+  FILA 64 e integrado pela #55 (`59e69e5`)
+  ([evidência](evidence/2026-10-19-fila64-cartao-sem-animacao.md));
+- **o roteiro do G4 ainda não serve no Android:** com animação, o Maestro não
+  avança, e o argumento do E1 não chega ao app no Android.
 
 Acessibilidade, lida pela árvore nas duas plataformas, sem leitor audível:
 rótulos, papel e estado das alternativas estão certos. A revisão passou a
@@ -765,13 +764,13 @@ barra de abas ([evidência](evidence/2026-10-19-fila59-dia-2.md)). No mesmo dia,
 as PRs #52 a #56 entraram na `main`, e o gate local da `cb0bedc` passou: 178
 suítes, 1811 testes, os contratos e o QA visual.
 
-**Defeito achado depois, em 2026-10-18 à noite (FILA 63), e consertado só na
-branch `claude/fila63-checkpoint-instavel`.** Na `main` desde `a1f26f6`, o journal
-por item recusa ~1 em 1.613 avaliações aprovadas e ~1 em 1.061 lições, porque o
-sufixo aleatório do id compõe "rg", "cpf" ou "pacs" e o detector de dado
-sensível o reprova. A avaliação fica em "Nao foi possivel registrar o checkpoint
-agora.". **Uma build da `main` antes desse merge leva o defeito.** A `1.4.0`
-publicada não tem o journal. [Evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md).
+**Defeito achado em 2026-10-18 à noite (FILA 63) e consertado na `main` desde
+`ef82969` (PR #53, 2026-10-19).** Entre `a1f26f6` e esse merge, o journal
+por item recusava ~1 em 1.613 avaliações aprovadas e ~1 em 1.061 lições, porque
+o sufixo aleatório do id compunha "rg", "cpf" ou "pacs" e o detector de dado
+sensível o reprovava. A avaliação ficava em "Nao foi possivel registrar o
+checkpoint agora.". Uma build feita de um commit anterior a `ef82969` leva o defeito. A
+`1.4.0` publicada não tem o journal. [Evidência](evidence/2026-10-18-fila63-id-recusado-pelo-detector.md).
 
 ## E2E sem animação — FILA 49, medido em 2026-10-18
 
@@ -787,9 +786,9 @@ cabeçalho caiu de 8–11 s para 2,3–3,7 s. O plano pedia menos de 2 s, e isso
 **não** foi atingido: o resto é a desaceleração da lista, e a decisão está na
 FILA 60. A bateria padrão passou 7 de 7 com o argumento, no mesmo dia. Não
 rodaram com o argumento `rating-prompt`, `review-due`, os
-`student-checkpoint-*`, `store-capture`, `hybrid-native-evidence` e o
-`radiant-1-4-segundo-dia`. Este último já leva o argumento e roda no dia 2 da
-FILA 59.
+`student-checkpoint-*`, `store-capture` e `hybrid-native-evidence`. O
+`radiant-1-4-segundo-dia` rodou com o argumento em 2026-10-19, no dia 2 da
+FILA 59, e passou.
 
 O E1 expôs também que o centramento do Maestro podia deixar o botão "Continuar
 jornada" sob o HUD. Os três roteiros que o tocam agora rolam de volta.
