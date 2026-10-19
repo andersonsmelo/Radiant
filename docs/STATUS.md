@@ -637,8 +637,8 @@ FILA dizia. Os 17 cumprem as duas regras; nenhum YAML mudou
   - o cartão da revisão some no Android com "Remover animações" ligado;
   - VoiceOver e TalkBack audíveis;
   - o G6, depois do merge da #52;
-  - as decisões do dono sobre backup do iOS, schema futuro da jornada e reset
-    (G7);
+  - **dono:** republicar a política e o suporte (versão de 2026-10-19) antes
+    da build que inclui o progresso no backup do iOS;
 - conteúdo de 10 a 15 itens por lição, que depende da FILA 45.
 
 **Coordenação desde 2026-10-18:** o Claude planeja e executa, e Codex e Argon
@@ -687,14 +687,17 @@ anunciar o resultado ao leitor de tela. Antes, só o Android o recebia, pela liv
 region.
 
 G7: o inventário tem 65 chaves do AsyncStorage em 8 classes, e uma guarda de AST
-reprova chave nova fora dele. Lido no código, sem ensaio em aparelho:
-- o iOS exclui o AsyncStorage do backup do iCloud por padrão, e o app não muda
-  isso. Quem troca de iPhone recomeça do zero;
-- o Android tem `allowBackup` ligado;
-- uma versão antiga do app grava por cima da jornada salva com schema mais novo;
-- não há reset de progresso no app.
-
-[Evidência](evidence/2026-10-19-fila54-g4-android-g7.md).
+reprova chave nova fora dele
+([evidência](evidence/2026-10-19-fila54-g4-android-g7.md)). As três decisões de
+recuperação foram tomadas por Anderson e executadas no mesmo dia
+([ADR](adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md),
+[evidência](evidence/2026-10-19-g7-decisoes-de-recuperacao.md)):
+- a jornada deixou de gravar por cima de um store com schema mais novo;
+- o `app.json` inclui o progresso no backup do iOS. Medido no simulador: a chave
+  liga e desliga o atributo de exclusão. O efeito chega ao aluno só numa build
+  nova;
+- não há reset dentro do app. A política e o suporte explicam como zerar em cada
+  plataforma. A versão publicada continua a de 2026-07-29 até ser republicada.
 
 ## A `main` pronta para build — FILA 59, medido em 2026-10-18
 

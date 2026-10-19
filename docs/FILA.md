@@ -200,16 +200,20 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Defeito novo:** no Android, com "Remover animações" ligado, o cartão da
     revisão não aparece. A causa provável está no `useCardEnter`
     (`src/ui/motion.ts`), que também serve a `HomeScreen` e `QuizQuestion`.
-    **Para o dono:**
-    - o iOS exclui o AsyncStorage do backup do iCloud por padrão, então quem
-      troca de iPhone recomeça do zero;
-    - uma versão antiga do app grava por cima da jornada salva com schema mais
-      novo.
     ([evidência](evidence/2026-10-19-fila54-g4-android-g7.md)).
+    **Decisões G7 de 2026-10-19 (Anderson), já executadas**
+    ([ADR](adr/ADR-2026-10-19-recuperacao-local-backup-schema-e-reset.md),
+    [evidência](evidence/2026-10-19-g7-decisoes-de-recuperacao.md)):
+    - a jornada não grava mais por cima de um store com schema desconhecido;
+      o teste foi visto falhando;
+    - o iOS passa a incluir o progresso no backup. No simulador, a chave do
+      `app.json` liga e desliga o atributo de exclusão;
+    - não haverá reset dentro do app. A política e a página de suporte agora
+      explicam o backup e como zerar em cada plataforma.
     **Próximo:**
-    - consertar o cartão invisível em `motion.ts`, com a reprodução da
-      evidência como prova nativa;
-    - decidir backup do iOS, schema futuro da jornada e reset (dono);
+    - o cartão invisível em `motion.ts`, em sessão própria;
+    - **dono:** republicar as duas páginas legais e só então enviar a build
+      com a chave de backup;
     - G6 depois do merge da #52;
     - VoiceOver e TalkBack audíveis (dono, no aparelho).
     **Atualização de 2026-10-18 (Claude, R6, A2 e A3):** o store de revisão foi

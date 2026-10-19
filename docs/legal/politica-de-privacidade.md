@@ -6,7 +6,7 @@
 > recomendada como boa prática, mas não bloqueia a publicação — o conteúdo
 > reflete fielmente o tratamento de dados atual.
 
-**Última atualização:** 2026-07-29
+**Última atualização:** 2026-10-19
 **Aplicativo:** Radiant — aplicativo educacional de radiologia
 **Controlador dos dados:** Anderson Melo (pessoa física)
 **Contato para privacidade:** anderson.smelo94@gmail.com
@@ -17,8 +17,9 @@
 ## 1. Resumo em uma frase
 
 O Radiant é um aplicativo **local-first**: ele funciona sem conta e, na
-configuração distribuída nas lojas, **os seus dados de estudo ficam apenas no seu
-dispositivo** e não são enviados para nós nem vendidos a terceiros.
+configuração distribuída nas lojas, **os seus dados de estudo ficam no seu
+dispositivo** (e no backup da sua própria conta Apple ou Google, se ele estiver
+ativo) e não são enviados para nós nem vendidos a terceiros.
 
 ## 2. Quem somos
 
@@ -29,7 +30,7 @@ LGPD, Lei nº 13.709/2018) é **Anderson Melo**, que pode ser contatado pelo e-m
 
 ## 3. O que o app trata e onde isso fica
 
-### 3.1. Dados que ficam apenas no seu dispositivo
+### 3.1. Dados que ficam no seu dispositivo
 
 O app guarda as informações abaixo **localmente**, no armazenamento privado do
 próprio aplicativo (sandbox do sistema operacional). Elas **não são transmitidas
@@ -46,6 +47,11 @@ para nós**:
   nenhum servidor.
 - **Estado dos lembretes de estudo**: preferências e histórico de agendamento
   das notificações locais.
+
+**Backup do sistema.** Se o backup do iCloud (iPhone) ou do Google (Android)
+estiver ativo no seu aparelho, uma cópia desses dados pode entrar no backup da
+**sua** conta, sob as regras da Apple ou do Google, e voltar quando você
+restaura um aparelho a partir dele. Nós não temos acesso a esse backup.
 
 Você pode apagar todos esses dados a qualquer momento (ver seção 8).
 
@@ -134,9 +140,12 @@ Os dados locais (seção 3.1) permanecem no dispositivo **enquanto o app estiver
 instalado**. Você pode apagá-los a qualquer momento:
 
 - **Desinstalando o aplicativo**; ou
-- **Limpando os dados do app** nas configurações do sistema (Android); ou
-- Usando a opção de reinício/limpeza de progresso dentro do app, quando
-  disponível.
+- **Limpando os dados do app** nas configurações do sistema (Android).
+
+Se o backup do sistema estiver ativo, uma cópia pode continuar no backup da sua
+conta Apple ou Google até ele ser substituído ou apagado. No Android, o sistema
+pode devolvê-la quando você reinstala o app; para zerar sem essa restauração,
+limpe os dados do app em vez de desinstalar.
 
 Dados de diagnóstico de falha (quando o recurso estiver ativo) são retidos pela
 Sentry conforme a configuração de retenção do serviço e depois descartados.
@@ -145,7 +154,7 @@ Sentry conforme a configuração de retenção do serviço e depois descartados.
 
 Como titular, você tem direito a confirmação de tratamento, acesso, correção,
 anonimização, portabilidade, eliminação e informação sobre compartilhamento.
-Como a maior parte dos dados fica **apenas no seu dispositivo**, você exerce
+Como a maior parte dos dados fica **no seu dispositivo**, você exerce
 acesso e eliminação diretamente no aparelho (seção 8). Para os demais pedidos ou
 para os dados tratados por terceiros, escreva para **anderson.smelo94@gmail.com**
 e responderemos no prazo legal.

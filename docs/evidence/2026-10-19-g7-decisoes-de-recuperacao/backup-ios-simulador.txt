@@ -1,0 +1,33 @@
+# Backup do iOS: a chave RCTAsyncStorageExcludeFromBackup controla a exclusão — 2026-10-19, 09:44–09:47 (−03)
+
+Simulador descartável E262D4C1 (iPhone 17 Pro, iOS 26.5; nunca o 5FD8C926 da
+FILA 59), dev client Debug já instalado, JS pelo Metro da worktree
+claude/fila54-g4-nativo. O atributo lido é o que o iOS usa para pular um item no
+backup: `com.apple.metadata:com_apple_backup_excludeItem`, posto pelo
+`NSURLIsExcludedFromBackupKey` que o RNCAsyncStorage aplica na pasta
+`Library/Application Support/com.ascendcreative.radiant/RCTAsyncLocalStorage_V1`
+(RNCAsyncStorage.mm, linhas 37–57 e 519–527).
+
+1. Como o app está hoje (Info.plist sem a chave):
+   PlistBuddy Print :RCTAsyncStorageExcludeFromBackup -> Does Not Exist
+   xattr -l RCTAsyncLocalStorage_V1:
+     com.apple.metadata:com_apple_backup_excludeItem: com.apple.MobileBackup
+   -> a pasta inteira do progresso fica FORA do backup.
+
+2. Mesma instalação, com a chave adicionada ao Info.plist do app instalado
+   (PlistBuddy Add :RCTAsyncStorageExcludeFromBackup bool false), app relançado
+   e conectado ao Metro; leitura 40 s depois:
+   xattr -l RCTAsyncLocalStorage_V1: (nenhum atributo)
+   -> a pasta passa a ENTRAR no backup. O app abriu com o progresso intacto
+   (lições concluídas, 44 XP): mudar a chave não toca nos dados.
+
+3. Contraprova: Info.plist original restaurado (SHA-256 f8b993fa…20c0c7, o mesmo
+   de antes do passo 2), app relançado; leitura 40 s depois:
+   com.apple.metadata:com_apple_backup_excludeItem: com.apple.MobileBackup
+   -> o atributo volta. A chave é o controle, e o efeito vale também para
+   instalações existentes: o RNCAsyncStorage reaplica o valor a cada abertura.
+
+Limites: o passo 2 editou o Info.plist de um app instalado no simulador, e não
+uma build gerada pelo app.json; a ligação app.json -> Info.plist está em
+expo-config-infoplist.txt. Não houve backup e restauração reais do iCloud, que o
+simulador não faz. O simulador terminou com o Info.plist original.
