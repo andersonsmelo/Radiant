@@ -347,6 +347,22 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     pode passar dos 1000 ms do `findByText` no CI. **Passo 1:** reproduzir, ou
     medir o tempo da cadeia no CI, antes de mexer no prazo. A lição de
     2026-09-23 pede tirar o custo da janela, e não aumentar o prazo;
+  - **64.** agente: **"Remover animações" escondia o cartão da revisão no
+    Android — consertado em 2026-10-19, na branch
+    `claude/fila64-cartao-sem-animacao`; o merge é do dono.** Achado na FILA 54.
+    O `useCardEnter` começava a animação nativa antes de saber a preferência de
+    movimento. Com a resposta `true`, a animação era interrompida e o cartão
+    recebia opacidade 1, mas o retorno nativo atrasado gravava 0 por cima.
+    O hook agora espera a preferência, e o vermelho do teste está registrado.
+    No emulador `radiant-entrada-api34`, revisão, quiz e início legado mostram
+    o cartão com escala 0 e com escala 1
+    ([evidência](evidence/2026-10-19-fila64-cartao-sem-animacao.md)).
+    **Resta, pequeno:**
+    - o `useFadeInUp` tem o mesmo padrão no código. Não falhou nos dois usos
+      medidos;
+    - falta medir o resumo da revisão com escala 0.
+
+    **Remede:** `cd radiant-app && npx jest src/ui/__tests__/useCardEnter.test.tsx`;
   - **43.** dono: escolher o provedor de analytics e o contrato de privacidade;
     agente liga as métricas mínimas da seção 7 do relatório (P1-4);
   - **45.** dono: decisões curriculares e de governança da produção em série,
