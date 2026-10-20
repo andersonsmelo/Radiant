@@ -67,6 +67,8 @@ Depois do conserto, os mesmos três arquivos: 19 de 19
   ([saída](2026-10-19-g7-vidas-e-meta-diaria/quality.log)).
 - `loop validate`: registrado no run do Loop desta frente.
 - Merge simulado com a `main`: [log](2026-10-19-g7-vidas-e-meta-diaria/merge-tree.log).
+- **Merge real:** a [PR #64](https://github.com/andersonsmelo/Radiant/pull/64) entrou na `main` em 2026-10-19 às 20:00 (−03),
+  conferido com `gh pr view 64 --json state` (`MERGED`).
 
 ## Limites
 

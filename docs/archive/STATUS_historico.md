@@ -3554,3 +3554,11 @@ que levar o código ([evidência](evidence/2026-10-19-g7-schema-desconhecido.md)
 ```bash
 cd radiant-app && npx jest src/storage src/features/student-checkpoints/repositories.test.ts src/features/progress-sync/LocalProgressAdapter.test.ts src/features/storage-migration
 ```
+
+## Saiu do STATUS em 2026-10-19 à noite — o G7 das vidas e da meta diária antes do merge da #64
+
+  - **dono:** o merge da branch `claude/g7-vidas-meta-diaria`, que aplica a
+    saída escolhida em 2026-10-19 para as cinco stores sem `schemaVersion`;
+
+O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
+([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
