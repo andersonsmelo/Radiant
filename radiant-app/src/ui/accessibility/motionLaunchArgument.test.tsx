@@ -1,7 +1,6 @@
 import React from 'react';
 import { AccessibilityInfo } from 'react-native';
 import { act, render } from '@testing-library/react-native';
-import { StarfieldBackground } from '../components/StarfieldBackground';
 import { Confetti } from '../../components/ui/Confetti';
 import {
   REDUCE_MOTION_LAUNCH_ARGUMENT,
@@ -13,6 +12,10 @@ import {
 // confete, porque só a preferência do SISTEMA desligava o movimento. O Maestro
 // espera a tela assentar antes de cada rolagem, e o fundo em laço infinito não
 // deixa: medido em 2026-10-16, cada tentativa custou de 8 a 11 s.
+//
+// Plano 1 (Medalhão), tarefa 3: o fundo virou grafite liso e não anima mais, então
+// o objeto animado destes casos passou a ser o confete, que continua animando e
+// respeitando o mesmo caminho de "Reduzir movimento".
 //
 // A preferência do sistema fica DESLIGADA em todos os casos. O hook é o real,
 // não um mock: o que se prova é que o argumento entra pelo mesmo caminho de
@@ -88,13 +91,20 @@ afterEach(() => {
 });
 
 describe('argumento de lançamento que desliga o movimento (E1)', () => {
-  it('com o argumento, o fundo estrelado não anima', () => {
+  // Desde o PRIMEIRO quadro e depois da resposta assíncrona do sistema (que diz
+  // "sem redução"): o argumento vence a consulta, e nada começa a cair. A
+  // validade, de que este arnês vê peça animada, está nos casos sem argumento.
+  it('com o argumento, o confete não anima nem depois da resposta do sistema', async () => {
     launchWithArgument(REDUCE_MOTION_LAUNCH_VALUE);
-    const screen = render(<StarfieldBackground starCount={12} />);
+    const screen = render(<Confetti count={12} />);
 
-    // 3 nebulosas + 12 estrelas. Sem conferir, zero nós daria um quadro só.
-    expect(animatedNodes(screen)).toHaveLength(15);
-    expect(distinctFramesOverTime(screen)).toBe(1);
+    expect(animatedNodes(screen)).toHaveLength(0);
+    for (const step of [700, 1900, 3100, 6300]) {
+      await act(async () => {
+        jest.advanceTimersByTime(step);
+      });
+      expect(animatedNodes(screen)).toHaveLength(0);
+    }
   });
 
   it('com o argumento, o confete não roda', () => {
@@ -106,10 +116,10 @@ describe('argumento de lançamento que desliga o movimento (E1)', () => {
 
   // Validade: o mesmo arnês, sem o argumento, VÊ a animação. Sem estes dois
   // casos, os de cima passariam com um arnês cego.
-  it('sem o argumento, o fundo anima', () => {
-    const screen = render(<StarfieldBackground starCount={12} />);
+  it('sem o argumento, o confete anima ao longo do tempo', () => {
+    const screen = render(<Confetti count={12} />);
 
-    expect(animatedNodes(screen)).toHaveLength(15);
+    expect(animatedNodes(screen)).toHaveLength(12);
     expect(distinctFramesOverTime(screen)).toBeGreaterThan(1);
   });
 
@@ -125,10 +135,11 @@ describe('argumento de lançamento que desliga o movimento (E1)', () => {
 
   // O Maestro 2.7 lança `-chave true` sem o `-` quando o valor é booleano, e o
   // iOS não põe isso no `NSUserDefaults`. Outro valor não liga nada.
-  it.each([['0'], ['true'], [true]])('com o valor %p, o fundo continua animando', (value) => {
+  it.each([['0'], ['true'], [true]])('com o valor %p, o confete continua animando', (value) => {
     launchWithArgument(value);
-    const screen = render(<StarfieldBackground starCount={12} />);
+    const screen = render(<Confetti count={8} />);
 
-    expect(distinctFramesOverTime(screen)).toBeGreaterThan(1);
+    expect(animatedNodes(screen)).toHaveLength(8);
+    expect(distinctFramesOverTime(screen, [700])).toBeGreaterThan(1);
   });
 });
