@@ -4,6 +4,21 @@ Material visual de referência. **Nada aqui é código de produção** e nada aq
 importado pelo app — o app vive em `radiant-app/`, e a fonte de verdade do
 sistema visual são os tokens em `radiant-app/src/ui/`.
 
+## Trilha Medalhão e aula-bancada — aprovadas em 2026-10-21
+
+As pranchetas da [trilha](2026-10-21-trilha-medalhao.html) e da
+[aula-bancada](2026-10-21-aula-bancada.html) foram aprovadas por Anderson em
+2026-10-21, junto com a
+[spec](../superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)
+e a [ADR](../adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md).
+O Medalhão substitui o "céu navegável" no app inteiro.
+
+Cada HTML abre sozinho no navegador e é o arquivo avaliado, com a imagem do
+Pixel embutida. Na aula, a radiografia é um fantoma estilizado calculado no
+navegador. Não é incidência real nem conteúdo aprovado: números, textos e
+temas são de demonstração. As pranchetas anteriores abaixo ficam como registro
+histórico.
+
 ## Experiência de estudo — proposta de 2026-10-12
 
 [Prancheta navegável](2026-10-12-study-experience.html) e

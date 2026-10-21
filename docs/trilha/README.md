@@ -15,6 +15,18 @@ a entrada da próxima sessão.
 
 ## Direção
 
+- **A trilha e a aula são redesenhadas, e o conteúdo recomeça.** Decidido por
+  Anderson em 2026-10-21:
+  - trilha na direção Medalhão;
+  - aula no formato bancada, em que o aluno opera o equipamento e a imagem;
+  - o mundo visual novo vale para o app inteiro;
+  - todas as aulas atuais saem, com a fonte, e o currículo novo é escolhido em
+    conjunto.
+
+  ([ADR](../adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md) ·
+  [spec](../superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md) ·
+  [prancheta da trilha](../design/2026-10-21-trilha-medalhao.html) ·
+  [prancheta da aula](../design/2026-10-21-aula-bancada.html))
 - **Evolução global, sem aula piloto como gate.** Decidido por Anderson em
   2026-10-16. A frente parte do diagnóstico da trilha inteira para uma
   implementação compartilhada, um currículo organizado e conteúdo em escala

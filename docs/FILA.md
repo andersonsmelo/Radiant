@@ -27,6 +27,13 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
+**Atualizada em 2026-10-21:** o dono decidiu redesenhar a trilha e a aula e
+recomeçar o conteúdo. A trilha vai para a direção Medalhão e a aula para o
+formato bancada. O mundo visual novo vale para o app inteiro, e todas as aulas
+atuais saem, com a fonte. A execução é o item 67
+([ADR](adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md),
+[spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)).
+
 A decisão de coordenação de 2026-10-18 está na
 [ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md). A entrega da FILA 61
 e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
@@ -462,6 +469,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     ([evidência](evidence/2026-10-19-fila66-guarda-glifos-ast.md)).
     **Remede com** o `injetar.mjs` da evidência, que termina com código 1 se
     alguma injeção sair do esperado;
+  - **67.** agente, aberto em 2026-10-21: **trilha Medalhão e aula-bancada**, em
+    duas fases. A primeira tem tokens, DESIGN.md, a trilha, o motor da bancada
+    e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
+    Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer
+    build: o **inventário do que sai** e a **revisão do conteúdo** das aulas de
+    exemplo. Nenhuma build de loja sai sem o primeiro lote do currículo novo.
+    O plano de implementação vem a seguir
+    ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md));
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
