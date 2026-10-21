@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, Pressable, ViewStyle, TextStyle, StyleProp } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, Pressable, View, ViewStyle, TextStyle, StyleProp } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,12 +8,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import { semanticColors } from '../../ui/semantic-colors';
 import { fontFamily, space } from '../../ui/styles';
+import { depth, feedbackColors, galaxyColors, medalColors } from '../../ui/theme';
 import { duration } from '../../ui/motion';
 import { useReducedMotionPreference } from '../../ui/accessibility/useReducedMotionPreference';
 import { hapticTap } from '../../ui/feedback/haptics';
 import { LABEL_MAX_FONT_SCALE } from '../../ui/accessibility/useLargeTextLayout';
 
-type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost';
+type Variant = 'primary' | 'galaxy' | 'secondary' | 'ghost' | 'success' | 'error';
 
 /**
  * Variantes que recebem retorno tátil ao serem tocadas.
@@ -34,6 +35,30 @@ const HAPTIC_VARIANTS: ReadonlySet<Variant> = new Set<Variant>(['primary', 'gala
 
 const light = semanticColors.light;
 const galaxy = semanticColors.galaxy;
+
+/**
+ * Cor do lábio por papel. `ghost` não tem lábio: é texto sem superfície, e um
+ * relevo ali o faria passar por botão cheio.
+ *
+ * O lábio do `secondary` é o degrau mais escuro da escala de superfícies que
+ * ainda se separa do fundo da tela (`backgroundAlt`, `#171920`, contra
+ * `background`, `#13151c`); a face dele é `surface`, `#1b1e27`.
+ */
+const LIP_COLOR: Record<Exclude<Variant, 'ghost'>, string> = {
+  primary: medalColors.unit.lip,
+  galaxy: medalColors.unit.lip,
+  secondary: galaxyColors.backgroundAlt,
+  success: feedbackColors.success.lip,
+  error: feedbackColors.error.lip,
+};
+
+// Quanto a face desce ao ser pressionada: até 1 pt do fim do lábio, para que a
+// borda dele ainda apareça e o botão não pareça achatado contra o fundo.
+const PRESSED_OFFSET = depth.lip - 1;
+
+// A face é o próprio `Pressable`: ele carrega o papel `button`, o fundo, o foco
+// e agora também a translação animada.
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export interface AppButtonProps {
   label?: string;
@@ -69,10 +94,11 @@ export function AppButton({
   const isDisabled = disabled || loading;
   const reducedMotionEnabled = useReducedMotionPreference();
   const [focused, setFocused] = useState(false);
-  const scale = useSharedValue(1);
+  const translateY = useSharedValue(0);
+  const hasLip = variant !== 'ghost';
 
   const animStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
+    transform: [{ translateY: translateY.value }],
   }));
 
   // Disparado no `onPress` (commit), e não no `onPressIn` (toque). Vibrar no
@@ -88,66 +114,101 @@ export function AppButton({
     onPress?.();
   };
 
-  const onPressIn = () => {
-    if (reducedMotionEnabled) {
+  // Sob "reduzir movimento" a face continua descendo, que é a resposta ao
+  // toque, mas de uma vez: a troca é instantânea, sem `withTiming`.
+  const moveFaceTo = (target: number) => {
+    if (!hasLip) {
       return;
     }
 
-    scale.value = withTiming(0.97, {
-      duration: duration.micro,
-      easing: Easing.bezier(0.22, 1, 0.36, 1),
-    });
+    translateY.value = reducedMotionEnabled
+      ? target
+      : withTiming(target, {
+          duration: duration.micro,
+          easing: Easing.bezier(0.22, 1, 0.36, 1),
+        });
   };
-  const onPressOut = () => {
-    if (reducedMotionEnabled) {
-      scale.value = 1;
-      return;
-    }
+  const onPressIn = () => moveFaceTo(PRESSED_OFFSET);
+  const onPressOut = () => moveFaceTo(0);
 
-    scale.value = withTiming(1.0, {
-      duration: duration.micro,
-      easing: Easing.bezier(0.22, 1, 0.36, 1),
-    });
-  };
+  const onFillLabel =
+    variant === 'success'
+      ? feedbackColors.success.onFill
+      : variant === 'error'
+        ? feedbackColors.error.onFill
+        : undefined;
+
+  // Só entradas verdadeiras: o Reanimated, em jest, percorre o array de estilo
+  // com `in`, que lança diante de `false`.
+  const faceStyle: StyleProp<ViewStyle>[] = [styles.base, VARIANT_STYLE[variant]];
+  if (!hasLip && isDisabled) {
+    // Com lábio, a opacidade do desabilitado vai no conjunto: na face sozinha,
+    // o lábio apareceria através dela.
+    faceStyle.push(styles.disabled);
+  }
+  if (focused) {
+    faceStyle.push(variant === 'galaxy' || variant === 'secondary' ? styles.focusGalaxy : styles.focusLight);
+  }
+  if (hasLip) {
+    faceStyle.push(animStyle);
+  }
+
+  const face = (
+    <AnimatedPressable
+      testID="app-button-face"
+      onPress={handlePress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      disabled={isDisabled}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? resolvedLabel}
+      accessibilityHint={accessibilityHint}
+      accessibilityState={{ disabled: isDisabled, busy: loading }}
+      style={faceStyle}
+    >
+      {loading ? (
+        <ActivityIndicator
+          size="small"
+          color={variant === 'secondary' ? galaxy.textPrimary : (onFillLabel ?? light.textOnAccent)}
+        />
+      ) : null}
+      {icon != null && icon}
+      <Text
+        style={[
+          styles.label,
+          variant === 'secondary' && styles.labelSecondary,
+          variant === 'ghost' && styles.labelGhost,
+          onFillLabel != null && { color: onFillLabel },
+          textStyle,
+        ]}
+        maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
+      >
+        {resolvedLabel}
+      </Text>
+    </AnimatedPressable>
+  );
 
   return (
-    <Animated.View style={[animStyle, fullWidth && { width: '100%' }, style]}>
-      <Pressable
-        onPress={handlePress}
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        disabled={isDisabled}
-        accessibilityRole="button"
-        accessibilityLabel={accessibilityLabel ?? resolvedLabel}
-        accessibilityHint={accessibilityHint}
-        accessibilityState={{ disabled: isDisabled, busy: loading }}
-        style={[
-          styles.base,
-          variant === 'primary' && styles.primary,
-          variant === 'galaxy' && styles.galaxy,
-          variant === 'secondary' && styles.secondary,
-          variant === 'ghost' && styles.ghost,
-          isDisabled && styles.disabled,
-          focused && (variant === 'galaxy' || variant === 'secondary' ? styles.focusGalaxy : styles.focusLight),
-        ]}
-      >
-        {loading ? <ActivityIndicator size="small" color={variant === 'secondary' ? galaxy.textPrimary : light.textOnAccent} /> : null}
-        {icon != null && icon}
-        <Text
+    <View style={[fullWidth && { width: '100%' }, style]}>
+      {variant === 'ghost' ? (
+        face
+      ) : (
+        // A altura do conjunto vem dos filhos: a face (que cresce com o rótulo)
+        // mais o `paddingBottom` fixo do lábio. Nada aqui tem altura própria.
+        <View
+          testID="app-button-lip"
           style={[
-            styles.label,
-            variant === 'secondary' && styles.labelSecondary,
-            variant === 'ghost' && styles.labelGhost,
-            textStyle,
+            styles.lip,
+            { backgroundColor: LIP_COLOR[variant] },
+            isDisabled && styles.disabled,
           ]}
-          maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}
         >
-          {resolvedLabel}
-        </Text>
-      </Pressable>
-    </Animated.View>
+          {face}
+        </View>
+      )}
+    </View>
   );
 }
 
@@ -164,21 +225,23 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 24,
   },
+  // O relevo é o lábio, e não sombra: `shadow*` e `elevation` borram a borda e
+  // variam entre iOS e Android.
+  lip: {
+    borderRadius: 18,
+    paddingBottom: depth.lip,
+  },
   primary: {
     backgroundColor: light.actionPrimary,
-    shadowColor: light.actionPrimary,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.45,
-    shadowRadius: 16,
-    elevation: 8,
   },
   galaxy: {
     backgroundColor: galaxy.actionPrimary,
-    shadowColor: galaxy.statusInformation,
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.55,
-    shadowRadius: 20,
-    elevation: 10,
+  },
+  success: {
+    backgroundColor: feedbackColors.success.fill,
+  },
+  error: {
+    backgroundColor: feedbackColors.error.fill,
   },
   secondary: {
     backgroundColor: galaxy.surfaceElevated,
@@ -212,3 +275,12 @@ const styles = StyleSheet.create({
     color: light.actionPrimary,
   },
 });
+
+const VARIANT_STYLE: Record<Variant, ViewStyle> = {
+  primary: styles.primary,
+  galaxy: styles.galaxy,
+  secondary: styles.secondary,
+  ghost: styles.ghost,
+  success: styles.success,
+  error: styles.error,
+};

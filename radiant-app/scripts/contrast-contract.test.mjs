@@ -454,6 +454,11 @@ test('medalhão: o texto sobre a ação primária passa AA', async () => {
 
 test('medalhão: cada lábio é mais escuro que a face e a silhueta se distingue do bloqueado', async () => {
   const MIN_SILHOUETTE = 1.3;
+  // Piso de validade do lábio. "Mais escuro" sozinho aprova um lábio quase
+  // igual à face, e o relevo some na tela. O lábio mais fraco do Medalhão (o do
+  // bloqueado) rendia 1,33:1 em 2026-10-21; o piso de 1,2:1 deixa folga e barra
+  // o quase igual.
+  const MIN_LIP = 1.2;
 
   for (const group of ['gold', 'unit', 'locked']) {
     const { face, lip } = await readNestedTheme('medalColors', group);
@@ -461,6 +466,11 @@ test('medalhão: cada lábio é mais escuro que a face e a silhueta se distingue
     assert.ok(
       relativeLuminance(parseHex(lip)) < relativeLuminance(parseHex(face)),
       `medalColors.${group}: o lábio (${lip}) precisa ser mais escuro que a face (${face})`,
+    );
+    const lipRatio = contrastRatio(parseHex(lip), parseHex(face));
+    assert.ok(
+      lipRatio >= MIN_LIP,
+      `medalColors.${group}: o lábio (${lip}) sobre a face (${face}): ${lipRatio.toFixed(2)}:1, exigido ${MIN_LIP}:1`,
     );
   }
 

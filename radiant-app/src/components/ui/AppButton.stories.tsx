@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { View } from 'react-native';
 import { fn } from 'storybook/test';
@@ -13,7 +14,7 @@ const meta = {
     onPress: fn(),
   },
   argTypes: {
-    variant: { control: 'select', options: ['primary', 'galaxy', 'secondary', 'ghost'] },
+    variant: { control: 'select', options: ['primary', 'galaxy', 'secondary', 'ghost', 'success', 'error'] },
   },
 } satisfies Meta<typeof AppButton>;
 
@@ -47,4 +48,27 @@ export const Galaxy: Story = {
 
 export const Ghost: Story = {
   args: { variant: 'ghost', label: 'Ver detalhes' },
+};
+
+const onGalaxy = [
+  (Story: () => React.JSX.Element) => (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: semanticColors.galaxy.surface }}>
+      <Story />
+    </View>
+  ),
+];
+
+export const Secondary: Story = {
+  args: { variant: 'secondary', label: 'Agora não' },
+  decorators: onGalaxy,
+};
+
+export const SuccessFeedback: Story = {
+  args: { variant: 'success', label: 'Continuar' },
+  decorators: onGalaxy,
+};
+
+export const ErrorFeedback: Story = {
+  args: { variant: 'error', label: 'Entendi' },
+  decorators: onGalaxy,
 };
