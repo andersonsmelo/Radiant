@@ -453,31 +453,25 @@ test('keeps the system status bar legible against the surface the app actually p
 // baixo. Os pares abaixo são medidos na composição que o aluno vê (texto sobre
 // o preenchimento, preenchimento sobre a superfície), nunca token isolado.
 
-// Lê `grupo: { chave: '#hex', ... }` dentro de um bloco `export const`.
-async function readNestedTheme(block, group) {
-  const source = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
-  const blockMatch = source.match(new RegExp(`export const ${block} = \\{([\\s\\S]*?)\\n\\} as const;`, 'u'));
-  assert.ok(blockMatch, `bloco ${block} não encontrado em theme.ts (exportado com "as const")`);
-  const groupMatch = blockMatch[1].match(new RegExp(`\\n\\s*${group}:\\s*\\{([^}]*)\\}`, 'u'));
-  assert.ok(groupMatch, `grupo ${block}.${group} não encontrado`);
+// Lê `bloco.grupo` de theme.ts pela AST e devolve cada chave com a cor que o
+// código exporta. Uma busca por texto casava com uma paleta antiga deixada num
+// comentário de bloco e validava o valor comentado (achado do Codex na PR #66).
+function readNestedTheme(block, group) {
+  const node = resolveProperty(resolveNode(ts.factory.createIdentifier(block), sourceOf('src/ui/theme.ts')), group);
+  assert.ok(node.object, `${block}.${group} precisa ser um objeto literal em theme.ts`);
   const values = {};
-  for (const entry of groupMatch[1].matchAll(/(\w+):\s*'(#[0-9a-fA-F]{6})'/gu)) {
-    values[entry[1]] = entry[2];
+  for (const entry of node.object.properties) {
+    if (!ts.isPropertyAssignment(entry)) continue;
+    const key = entry.name.getText(node.source);
+    const resolved = resolveNode(entry.initializer, node.source);
+    assert.ok(typeof resolved.value === 'string', `${block}.${group}.${key} não resolve para uma cor literal`);
+    values[key] = resolved.value;
   }
   return values;
 }
 
-test('medalhão: o texto sobre a ação primária passa AA', async () => {
-  const semantic = await readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8');
-  const galaxyBlock = semantic.match(/galaxy:\s*\{([\s\S]*?)\n\s{2}\}/u);
-  assert.ok(galaxyBlock, 'bloco galaxy não encontrado em semantic-colors.ts');
-
-  const read = (token) => {
-    const match = galaxyBlock[1].match(new RegExp(`\\n\\s*${token}:\\s*'(#[0-9a-fA-F]{6})'`, 'u'));
-    assert.ok(match, `semanticColors.galaxy.${token} precisa ser um hex literal`);
-    return match[1];
-  };
-
+test('medalhão: o texto sobre a ação primária passa AA', () => {
+  const read = (token) => resolveColor('src/ui/semantic-colors.ts', 'semanticColors', 'galaxy', token);
   const textOnAccent = read('textOnAccent');
   const actionPrimary = read('actionPrimary');
   const ratio = contrastRatio(parseHex(textOnAccent), parseHex(actionPrimary));
@@ -542,14 +536,14 @@ test('medalhão: o texto do retorno passa AA no preenchimento e na superfície',
   }
 });
 
-test('medalhão: o fundo é o grafite', async () => {
-  const { read } = await readTheme();
-  assert.equal(read('galaxyColors', 'background'), '#13151c');
+test('medalhão: o fundo é o grafite', () => {
+  assert.equal(resolveColor('src/ui/theme.ts', 'galaxyColors', 'background'), '#13151c');
 });
 
-// ── Revisão final do plano 1 ─────────────────────────────────────────────
-// As guardas abaixo leem o código por AST: uma busca por texto casaria com a
-// menção do token num comentário e passaria com o valor errado no código.
+// ── Leitura por AST ──────────────────────────────────────────────────────
+// As guardas do Medalhão leem o código por AST: uma busca por texto casaria com
+// a menção do token num comentário e passaria com o valor errado no código.
+// As funções abaixo são declarações e ficam disponíveis para os testes acima.
 
 const sourceFiles = new Map();
 function sourceOf(relativePath) {
