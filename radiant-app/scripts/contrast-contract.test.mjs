@@ -410,3 +410,92 @@ test('keeps the system status bar legible against the surface the app actually p
     );
   }
 });
+
+// ── Paleta Medalhão (plano 1, tarefa 1) ───────────────────────────────────
+// A trilha ganha relevo: cada peça tem uma face e um lábio mais escuro por
+// baixo. Os pares abaixo são medidos na composição que o aluno vê (texto sobre
+// o preenchimento, preenchimento sobre a superfície), nunca token isolado.
+
+// Lê `grupo: { chave: '#hex', ... }` dentro de um bloco `export const`.
+async function readNestedTheme(block, group) {
+  const source = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
+  const blockMatch = source.match(new RegExp(`export const ${block} = \\{([\\s\\S]*?)\\n\\} as const;`, 'u'));
+  assert.ok(blockMatch, `bloco ${block} não encontrado em theme.ts (exportado com "as const")`);
+  const groupMatch = blockMatch[1].match(new RegExp(`\\n\\s*${group}:\\s*\\{([^}]*)\\}`, 'u'));
+  assert.ok(groupMatch, `grupo ${block}.${group} não encontrado`);
+  const values = {};
+  for (const entry of groupMatch[1].matchAll(/(\w+):\s*'(#[0-9a-fA-F]{6})'/gu)) {
+    values[entry[1]] = entry[2];
+  }
+  return values;
+}
+
+test('medalhão: o texto sobre a ação primária passa AA', async () => {
+  const semantic = await readFile(path.join(appRoot, 'src/ui/semantic-colors.ts'), 'utf8');
+  const galaxyBlock = semantic.match(/galaxy:\s*\{([\s\S]*?)\n\s{2}\}/u);
+  assert.ok(galaxyBlock, 'bloco galaxy não encontrado em semantic-colors.ts');
+
+  const read = (token) => {
+    const match = galaxyBlock[1].match(new RegExp(`\\n\\s*${token}:\\s*'(#[0-9a-fA-F]{6})'`, 'u'));
+    assert.ok(match, `semanticColors.galaxy.${token} precisa ser um hex literal`);
+    return match[1];
+  };
+
+  const textOnAccent = read('textOnAccent');
+  const actionPrimary = read('actionPrimary');
+  const ratio = contrastRatio(parseHex(textOnAccent), parseHex(actionPrimary));
+
+  // `#2F6BFF` rendia 4,50:1 com branco, exatamente no limite; `#2559E6` rende 5,75:1.
+  assert.ok(
+    ratio >= MIN_NORMAL_TEXT,
+    `texto sobre a ação primária (${textOnAccent} sobre ${actionPrimary}): ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+  );
+});
+
+test('medalhão: cada lábio é mais escuro que a face e a silhueta se distingue do bloqueado', async () => {
+  const MIN_SILHOUETTE = 1.3;
+
+  for (const group of ['gold', 'unit', 'locked']) {
+    const { face, lip } = await readNestedTheme('medalColors', group);
+    assert.ok(face && lip, `medalColors.${group} precisa de face e lip em hex`);
+    assert.ok(
+      relativeLuminance(parseHex(lip)) < relativeLuminance(parseHex(face)),
+      `medalColors.${group}: o lábio (${lip}) precisa ser mais escuro que a face (${face})`,
+    );
+  }
+
+  // Diferença não basta: uma silhueta de outra cor mas indistinguível da face
+  // passa em "difere" e some na tela. A validade é a razão mínima de contraste.
+  const { face, silhouette } = await readNestedTheme('medalColors', 'locked');
+  assert.ok(silhouette, 'medalColors.locked precisa de silhouette');
+  const ratio = contrastRatio(parseHex(silhouette), parseHex(face));
+  assert.ok(
+    ratio >= MIN_SILHOUETTE,
+    `silhueta (${silhouette}) sobre a face do bloqueado (${face}): ${ratio.toFixed(2)}:1, exigido ${MIN_SILHOUETTE}:1`,
+  );
+});
+
+test('medalhão: o texto do retorno passa AA no preenchimento e na superfície', async () => {
+  for (const group of ['success', 'error']) {
+    const { fill, surface, onFill } = await readNestedTheme('feedbackColors', group);
+    assert.ok(fill && surface && onFill, `feedbackColors.${group} precisa de fill, surface e onFill em hex`);
+
+    const onFillRatio = contrastRatio(parseHex(onFill), parseHex(fill));
+    assert.ok(
+      onFillRatio >= MIN_NORMAL_TEXT,
+      `feedbackColors.${group}: texto ${onFill} sobre o preenchimento ${fill}: ${onFillRatio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+
+    // O título do retorno é pintado na cor do preenchimento sobre a superfície.
+    const titleRatio = contrastRatio(parseHex(fill), parseHex(surface));
+    assert.ok(
+      titleRatio >= MIN_NORMAL_TEXT,
+      `feedbackColors.${group}: título ${fill} sobre a superfície ${surface}: ${titleRatio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+  }
+});
+
+test('medalhão: o fundo é o grafite', async () => {
+  const { read } = await readTheme();
+  assert.equal(read('galaxyColors', 'background'), '#13151c');
+});

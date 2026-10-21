@@ -95,21 +95,26 @@ export const navigationTheme: Theme = {
 // ── Dark Galaxy Theme ────────────────────────────────────────────
 // Tokens para o redesign galáctico (dark mode unificado)
 export const galaxyColors = {
-  background: '#03030d',
-  backgroundAlt: '#070718',
-  surface: 'rgba(255, 255, 255, 0.05)',
-  surfaceMuted: 'rgba(255, 255, 255, 0.03)',
-  surfaceActive: 'rgba(255, 255, 255, 0.09)',
-  border: 'rgba(255, 255, 255, 0.08)',
-  borderActive: 'rgba(255, 255, 255, 0.22)',
-  textPrimary: '#FFFFFF',
-  textSecondary: 'rgba(255, 255, 255, 0.55)',
-  // 4.61:1 sobre o fundo galaxy e 4.68:1 sobre surface. O valor anterior
-  // (0.28) reprovava WCAG AA até para texto grande (2.34:1).
-  textTertiary: 'rgba(255, 255, 255, 0.46)',
-  spine: 'rgba(255, 255, 255, 0.12)',
-  hudPill: 'rgba(255, 255, 255, 0.07)',
-  hudPillBorder: 'rgba(255, 255, 255, 0.10)',
+  // Paleta Medalhão (2026-10-21): grafite opaco no lugar do céu e das
+  // superfícies translúcidas. Quem lia `surface` como transparência sobre o
+  // céu passa a ler a cor final. Escala de superfícies, do fundo para cima:
+  // #13151c, #171920, #1b1e27, #232733, #2a2e3a.
+  background: '#13151c',
+  backgroundAlt: '#171920',
+  surface: '#1b1e27',
+  surfaceMuted: '#2a2e3a',
+  surfaceActive: '#232733',
+  border: '#323747',
+  borderActive: '#4a5166',
+  textPrimary: '#eef0f6',
+  // 7,15:1 sobre surface.
+  textSecondary: '#a3aabb',
+  // 5,68:1 sobre surface. O valor anterior (0.28) reprovava WCAG AA até para
+  // texto grande (2.34:1).
+  textTertiary: '#8f97a9',
+  spine: '#2a2e3a',
+  hudPill: '#232733',
+  hudPillBorder: '#323747',
   heartFull: '#FF3B30',
   heartEmpty: 'rgba(255, 255, 255, 0.20)',
   xpColor: '#F5A623',
@@ -121,12 +126,19 @@ export const galaxyColors = {
   // seu brilho vive no canal azul, que responde por 7,22% da luminância
   // percebida. Este é o azul de estado ativo, foco e seleção; o `#2155FF`
   // continua sendo superfície e CTA grande.
-  navBlue: '#4A9EFF',
-  tabBarSurface: 'rgba(10, 10, 30, 0.92)',
-  tabBarInactive: 'rgba(255, 255, 255, 0.5)',
+  //
+  // Paleta Medalhão (2026-10-21): subiu de `#4A9EFF` para `#7DB4FF`. Com o
+  // inativo da aba em `#8a91a3` (5,57:1), o antigo rendia 6,37:1 sobre a barra,
+  // só 1,15x de separação, e o estado ativo deixava de existir. Este rende
+  // 8,23:1 (1,48x). A tarefa das abas troca o ativo por `textPrimary`.
+  navBlue: '#7DB4FF',
+  tabBarSurface: '#171920',
+  // A prancheta dava `#6d7487`, 3,76:1 sobre a barra (reprova AA no rótulo de
+  // 11px). Este rende 5,57:1.
+  tabBarInactive: '#8a91a3',
   shadowHard: '#000000',
-  nodeCompleted: 'rgba(255, 255, 255, 0.03)',
-  nodeLocked: 'rgba(255, 255, 255, 0.04)',
+  nodeCompleted: '#171920',
+  nodeLocked: '#1b1e27',
   // Verde do modo galaxy. O `colors.success` (#1A9C71) é da paleta clara e o
   // contrato de identidade proíbe usá-lo em `features` — além de ser escuro
   // demais para ler sobre o fundo galaxy. Este marca CONCLUÍDO, e existe
@@ -152,23 +164,45 @@ export const galaxyColors = {
   celebrationBand: '#F5C518',
 
   // Galaxy mode extended
-  galaxyBg2: '#07091c',
-  galaxyBg3: '#0D1230',
-  galaxySurface2: 'rgba(255,255,255,0.08)',
-  galaxyBorder2: 'rgba(255,255,255,0.16)',
+  galaxyBg2: '#171920',
+  galaxyBg3: '#1b1e27',
+  galaxySurface2: '#232733',
+  galaxyBorder2: '#3a4052',
   galaxyGlow: 'rgba(61,202,232,0.55)',
   galaxyCtaStart: '#1535E8',
   galaxyCtaEnd: '#3060FF',
 } as const;
 
+// ── Medalhão ─────────────────────────────────────────────────────
+// Cada peça da trilha tem relevo: uma face e um lábio mais escuro por baixo.
+// `inner` é o miolo, a área central da medalha. O desenho vive em Skia; as
+// cores vivem aqui, nunca em arquivo de tela.
+export const medalColors = {
+  gold: { face: '#FFC21A', lip: '#C98A00', inner: '#F2AE00' },
+  unit: { face: '#2F6BFF', lip: '#1846C9', inner: '#275CEB' },
+  // `silhouette` é o contorno do ícone sobre a face bloqueada (1,3:1 ou mais).
+  locked: { face: '#343947', lip: '#22252f', inner: '#2d313d', silhouette: '#4B5163' },
+} as const;
+
+// Retorno de acerto e erro. `onFill` é o texto escuro pintado SOBRE o
+// preenchimento (8,1:1 e 7,12:1); o título usa o próprio `fill` sobre
+// `surface` (8,14:1 e 7,07:1).
+export const feedbackColors = {
+  success: { fill: '#2BD67B', lip: '#1A9E58', surface: '#14281f', onFill: '#0b2a18' },
+  error: { fill: '#FF8298', lip: '#C9566B', surface: '#2c1820', onFill: '#3a0d17' },
+} as const;
+
+// Profundidade em pontos: lábio de 5 no botão e de 8 na medalha.
+export const depth = { lip: 5, medalLip: 8 } as const;
+
 export const galaxyNavigationTheme: Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#4A9EFF',
-    background: '#03030d',
-    card: '#07071a',
-    text: '#FFFFFF',
+    primary: galaxyColors.navBlue,
+    background: galaxyColors.background,
+    card: galaxyColors.backgroundAlt,
+    text: galaxyColors.textPrimary,
     border: 'transparent',
     notification: '#3DCAE8',
   },

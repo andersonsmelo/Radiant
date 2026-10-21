@@ -6,6 +6,7 @@ import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.
 import { HUD } from './HUD';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+import { galaxyColors } from '../theme';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -288,7 +289,8 @@ describe('HUD — perda de vida', () => {
 
     const crack = getByTestId('hud-heart-crack-2');
     expect(crack.props.d).toBe('M26 14 l-4 9 l6 4 l-4 8');
-    expect(crack.props.stroke.payload).toBe(0xff03030d);
+    // O traço do racha é o fundo do tema: o coração parece partir a medalha.
+    expect(crack.props.stroke.payload).toBe(0xff000000 + parseInt(galaxyColors.background.slice(1), 16));
     expect(crack.props.strokeWidth).toBe(2.5);
     // react-native-svg normaliza `round` para o enum nativo 1.
     expect(crack.props.strokeLinecap).toBe(1);
