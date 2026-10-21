@@ -324,6 +324,40 @@ test('a barra de abas usa token do tema e distingue de fato o estado ativo', asy
   );
 });
 
+test('o ícone da aba rende 3:1 sobre a barra, ativo e inativo', async () => {
+  const theme = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
+
+  const galaxySource = theme.slice(theme.indexOf('export const galaxyColors'));
+  const readGalaxyToken = (token) => {
+    const match = galaxySource.match(new RegExp(`\\n\\s*${token}:\\s*'([^']+)'`, 'u'));
+    assert.ok(match, `galaxyColors.${token} não encontrado`);
+    return match[1];
+  };
+  const unit = theme.match(
+    /unit:\s*\{\s*face:\s*'(#[0-9a-fA-F]{6})',\s*lip:\s*'(#[0-9a-fA-F]{6})',\s*inner:\s*'(#[0-9a-fA-F]{6})'/u,
+  );
+  assert.ok(unit, 'medalColors.unit não encontrado');
+
+  const barra = parseColor(readGalaxyToken('tabBarSurface'), parseHex(readGalaxyToken('background')));
+
+  // O ícone ativo tem três tons. O lábio é relevo, mais escuro de propósito, e
+  // não carrega a forma: a face e o miolo juntos desenham o capelo e a pessoa.
+  // Cada tom que carrega a forma precisa de 3:1 sobre a barra; o lábio fica de
+  // fora porque a forma continua legível sem ele.
+  const tons = [
+    ['face da unidade (ativo)', unit[1]],
+    ['miolo da unidade (ativo)', unit[3]],
+    ['tabBarInactive (inativo)', readGalaxyToken('tabBarInactive')],
+  ];
+  for (const [nome, cor] of tons) {
+    const ratio = contrastRatio(parseHex(cor), barra);
+    assert.ok(
+      ratio >= MIN_NON_TEXT,
+      `${nome} (${cor}) rende ${ratio.toFixed(2)}:1 sobre a barra, exigido ${MIN_NON_TEXT}:1`,
+    );
+  }
+});
+
 test('as duas moedas da gamificação não compartilham a mesma cor', async () => {
   const theme = await readFile(path.join(appRoot, 'src/ui/theme.ts'), 'utf8');
 

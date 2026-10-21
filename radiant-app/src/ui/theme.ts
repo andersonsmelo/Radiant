@@ -127,11 +127,10 @@ export const galaxyColors = {
   // percebida. Este é o azul de estado ativo, foco e seleção; o `#2155FF`
   // continua sendo superfície e CTA grande.
   //
-  // Paleta Medalhão (2026-10-21): subiu de `#4A9EFF` para `#7DB4FF`. Com o
-  // inativo da aba em `#8a91a3` (5,57:1), o antigo rendia 6,37:1 sobre a barra,
-  // só 1,15x de separação, e o estado ativo deixava de existir. Este rende
-  // 8,23:1 (1,48x). A tarefa das abas troca o ativo por `textPrimary`.
-  navBlue: '#7DB4FF',
+  // Paleta Medalhão (2026-10-21): a aba ativa deixou de usar este azul e passou
+  // a `textPrimary` (15,4:1; 2,77x de separação do inativo `#8a91a3`), então o
+  // valor original voltou. O ícone da aba ativa vem de `medalColors.unit`.
+  navBlue: '#4A9EFF',
   tabBarSurface: '#171920',
   // A prancheta dava `#6d7487`, 3,76:1 sobre a barra (reprova AA no rótulo de
   // 11px). Este rende 5,57:1.
@@ -182,6 +181,15 @@ export const medalColors = {
   unit: { face: '#2F6BFF', lip: '#1846C9', inner: '#275CEB' },
   // `silhouette` é o contorno do ícone sobre a face bloqueada (1,3:1 ou mais).
   locked: { face: '#343947', lip: '#22252f', inner: '#2d313d', silhouette: '#4B5163' },
+} as const;
+
+// Tons dos ícones do HUD, desenhados em três tons como as peças do Medalhão
+// (traçados da prancheta da trilha). O corpo da chama é `galaxyColors.streakColor`,
+// que já existia; aqui vive o que é novo.
+export const hudIconTones = {
+  bolt: { face: '#FFC21A', light: '#FFE07A', shade: '#E59A00' },
+  flame: { core: '#FFC21A' },
+  heart: { face: '#FF4B4B', shade: '#D92F3A', highlight: '#FFB3B3' },
 } as const;
 
 // Retorno de acerto e erro. `onFill` é o texto escuro pintado SOBRE o

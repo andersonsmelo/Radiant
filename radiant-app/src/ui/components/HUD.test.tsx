@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
-import Svg from 'react-native-svg';
+import Svg, { Ellipse, Path } from 'react-native-svg';
 import type { HeartsSnapshot, HeartsStatus } from '../../features/hearts/hearts.types';
 import { HUD } from './HUD';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
@@ -366,6 +366,34 @@ describe('HUD — identidade dos ícones', () => {
     // dentro dele. Separar os dois mantém o contrato de animação que já existia.
     expect(getByTestId('hud-heart-fill-0').props.fill)
       .not.toBe(getByTestId('hud-heart-fill-4').props.fill);
+  });
+
+  it('o raio pinta os três tons da prancheta', () => {
+    const screen = render(<HUD totalXp={44} streakDays={1} hearts={5} />);
+    const boltFills = render(<XpIcon value={44} />)
+      .UNSAFE_getAllByType(Path)
+      .map((path) => path.props.fill);
+
+    expect(boltFills).toEqual(expect.arrayContaining(['#FFC21A', '#FFE07A', '#E59A00']));
+    // O rótulo agregado do HUD segue um nó só, lido como "44 XP".
+    expect(screen.getByLabelText(/^44 XP$/)).toBeTruthy();
+  });
+
+  it('o coração cheio pinta os três tons e o vazio fica sem relevo', () => {
+    const filled = render(<HeartIcon filled />).UNSAFE_getAllByType(Path).map((p) => p.props.fill);
+    const empty = render(<HeartIcon filled={false} />).UNSAFE_getAllByType(Path).map((p) => p.props.fill);
+
+    expect(filled).toEqual(expect.arrayContaining(['#FF4B4B', '#D92F3A']));
+    expect(render(<HeartIcon filled />).UNSAFE_getAllByType(Ellipse).map((e) => e.props.fill)).toEqual(['#FFB3B3']);
+    expect(empty).not.toContain('#D92F3A');
+    expect(empty).not.toContain('#FF4B4B');
+    expect(render(<HeartIcon filled={false} />).UNSAFE_queryAllByType(Ellipse)).toHaveLength(0);
+  });
+
+  it('a chama pinta o miolo claro sobre o corpo laranja', () => {
+    const fills = render(<StreakIcon />).UNSAFE_getAllByType(Path).map((p) => p.props.fill);
+
+    expect(fills).toEqual([galaxyColors.streakColor, '#FFC21A']);
   });
 
   it('desenha as quatro fagulhas aprovadas ao redor do raio de XP', () => {
