@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Radiação: IL.atom da prancheta docs/design/2026-10-21-trilha-medalhao.html.
+     Arte em 80x80 centrada em 0,0, posta no quadro de 120 com escala 1,4.
+     Pose principal (quadro 64 do Lottie). Classe no-sil: luz, some na silhueta. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g transform="translate(60 60) scale(1.4)">
+    <g transform="rotate(0)">
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#FFF7DE" stroke-width="4.2"/>
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#E8A400" stroke-width="1.6" stroke-dasharray="0 0 48 200" opacity=".55"/>
+    <circle class="no-sil" cx="-26.49" cy="5.97" r="4.6" fill="#2F6BFF"/>
+    </g>
+    <g transform="rotate(60)">
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#FFF7DE" stroke-width="4.2"/>
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#E8A400" stroke-width="1.6" stroke-dasharray="0 0 48 200" opacity=".55"/>
+    <circle class="no-sil" cx="-6.67" cy="-11.23" r="4.6" fill="#2F6BFF"/>
+    </g>
+    <g transform="rotate(-60)">
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#FFF7DE" stroke-width="4.2"/>
+    <ellipse rx="31" ry="11.5" fill="none" stroke="#E8A400" stroke-width="1.6" stroke-dasharray="0 0 48 200" opacity=".55"/>
+    <circle class="no-sil" cx="30.46" cy="2.14" r="4.6" fill="#2F6BFF"/>
+    </g>
+    <circle cx="-4" cy="-2" r="8" fill="#F0562E"/>
+    <circle cx="5" cy="-1" r="8" fill="#FF7A45"/>
+    <circle cx="0" cy="6" r="8" fill="#D8431F"/>
+    <circle cx="2" cy="-4" r="3" fill="#FFC3A6"/>
+  </g>
+</svg>

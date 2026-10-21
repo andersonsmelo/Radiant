@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { typography } from '../styles';
 import { galaxyColors, medalColors } from '../theme';
-import type { IllustrationState } from './illustrationPlayback';
+import { ILLUSTRATION_THEMES, type IllustrationState, type IllustrationTheme } from './illustrationPlayback';
 import { ThemeIllustration } from './ThemeIllustration';
 
 // A ilustração sobre um disco na cor da face da medalha, só para conferir a
@@ -27,7 +27,7 @@ const MEDAL = 100;
 // na escala 0,92, um pouco acima do centro.
 const ILLUSTRATION = Math.round((MEDAL / 92) * 0.92 * (120 / 1.4));
 
-function OnMedal({ state, theme }: { state: IllustrationState; theme: 'tubo' }) {
+function OnMedal({ state, theme }: { state: IllustrationState; theme: IllustrationTheme }) {
   return (
     <View style={styles.cell}>
       <View style={[styles.medal, { backgroundColor: FACE[state] }]}>
@@ -45,6 +45,7 @@ const meta = {
   component: ThemeIllustration,
   args: { theme: 'tubo', state: 'done', size: 160 },
   argTypes: {
+    theme: { control: 'select', options: [...ILLUSTRATION_THEMES] },
     state: { control: 'select', options: ['done', 'next', 'locked'] },
   },
   decorators: [
@@ -61,12 +62,29 @@ type Story = StoryObj<typeof meta>;
 
 export const Solta: Story = {};
 
-export const TuboNosTresEstados: Story = {
-  render: () => (
+function ThemeInThreeStates({ theme }: { theme: IllustrationTheme }) {
+  return (
     <View style={styles.row}>
-      <OnMedal theme="tubo" state="done" />
-      <OnMedal theme="tubo" state="next" />
-      <OnMedal theme="tubo" state="locked" />
+      <OnMedal theme={theme} state="done" />
+      <OnMedal theme={theme} state="next" />
+      <OnMedal theme={theme} state="locked" />
+    </View>
+  );
+}
+
+export const TuboNosTresEstados: Story = { render: () => <ThemeInThreeStates theme="tubo" /> };
+export const RadiacaoNosTresEstados: Story = { render: () => <ThemeInThreeStates theme="radiacao" /> };
+export const TomografiaNosTresEstados: Story = { render: () => <ThemeInThreeStates theme="tomografia" /> };
+export const ProtecaoNosTresEstados: Story = { render: () => <ThemeInThreeStates theme="protecao" /> };
+export const RessonanciaNosTresEstados: Story = { render: () => <ThemeInThreeStates theme="ressonancia" /> };
+
+/** Os cinco temas nos três estados, como a trilha os mostra juntos. */
+export const TodosNosTresEstados: Story = {
+  render: () => (
+    <View style={styles.column}>
+      {ILLUSTRATION_THEMES.map((theme) => (
+        <ThemeInThreeStates key={theme} theme={theme} />
+      ))}
     </View>
   ),
 };
@@ -80,6 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: galaxyColors.background,
   },
   row: { flexDirection: 'row', gap: 12 },
+  column: { gap: 4 },
   cell: { alignItems: 'center', gap: 8 },
   medal: {
     width: MEDAL,

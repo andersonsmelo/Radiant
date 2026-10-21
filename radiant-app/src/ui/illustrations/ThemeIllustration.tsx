@@ -16,6 +16,7 @@ import { useReducedMotionPreferenceState } from '../accessibility/useReducedMoti
 import { useLottieFrameLoop } from '../motion';
 import { medalColors } from '../theme';
 import {
+  DEFAULT_POSTER_FRAME,
   posterFrameOrDefault,
   resolvePlayback,
   type IllustrationState,
@@ -38,12 +39,18 @@ export type LottieSource = { meta?: { posterFrame?: number } } & Record<string, 
  * prancheta centra o `IL[tema]`.
  */
 export const illustrationAssets: Partial<Record<IllustrationTheme, LottieSource>> = {
+  radiacao: require('../../../assets/illustrations/radiacao.json'),
   tubo: require('../../../assets/illustrations/tubo.json'),
+  tomografia: require('../../../assets/illustrations/tomografia.json'),
+  protecao: require('../../../assets/illustrations/protecao.json'),
+  ressonancia: require('../../../assets/illustrations/ressonancia.json'),
 };
 
 /**
- * O slot escalar dos JSON que multiplica a opacidade de tudo o que é luz
- * (feixe, fótons, anodo aceso): 100 aceso, 0 na silhueta do nó bloqueado, como
+ * O slot escalar dos JSON que multiplica a opacidade de tudo o que é luz (no
+ * tubo, feixe, fótons e anodo; na radiação, os elétrons; na tomografia, o ponto
+ * e a faixa de status; na proteção, o brilho; na ressonância, a luz de status e
+ * os anéis): 100 aceso, 0 na silhueta do nó bloqueado, como
  * o `.no-sil` da prancheta. É slot, e não `setOpacity` por camada, porque o
  * RN Skia 2.2.12 declara `setOpacity` no tipo mas não o expõe no objeto nativo
  * (medido no simulador em 2026-10-21: "setOpacity is not a function").
@@ -108,15 +115,21 @@ export function ThemeIllustration({
   // Até a preferência responder, a ilustração fica parada: o laço é
   // agendamento, e não pode começar a animação que a pessoa pediu para não ver.
   const reducedMotion = motion.reducedMotionEnabled || !motion.resolved;
-  const posterFrame = illustrationAssets[theme]?.meta?.posterFrame;
+  const fps = animation ? animation.fps() : 0;
+  const totalFrames = animation ? Math.round(animation.duration() * fps) : 0;
+  // O quadro de pose é conferido (e avisado) uma vez, aqui, e o mesmo valor vai
+  // para o quadro parado e para o laço. Só quando há o que tocar: um tema sem
+  // ilustração já avisou pela falta dela.
+  const posterFrame = animation
+    ? posterFrameOrDefault(illustrationAssets[theme]?.meta?.posterFrame, { totalFrames, label: theme })
+    : DEFAULT_POSTER_FRAME;
   const playback = resolvePlayback({ state, reducedMotion, posterFrame });
 
-  const fps = animation ? animation.fps() : 0;
   // O laço (relógio, foco, reduzir movimento) mora em `motion.ts`.
   const frame = useLottieFrameLoop({
-    totalFrames: animation ? Math.round(animation.duration() * fps) : 0,
+    totalFrames,
     fps,
-    posterFrame: posterFrameOrDefault(posterFrame),
+    posterFrame,
     playing: playback.mode === 'animate',
   });
 

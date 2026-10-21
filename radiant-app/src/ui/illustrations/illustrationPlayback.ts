@@ -9,7 +9,10 @@
  *   estar vazio (no tubo, os fótons ainda invisíveis e o feixe no mínimo).
  */
 
-export type IllustrationTheme = 'radiacao' | 'tubo' | 'tomografia' | 'protecao' | 'ressonancia';
+/** Os temas da trilha, um por ilustração. O tipo sai daqui, para a lista não divergir dele. */
+export const ILLUSTRATION_THEMES = ['radiacao', 'tubo', 'tomografia', 'protecao', 'ressonancia'] as const;
+
+export type IllustrationTheme = (typeof ILLUSTRATION_THEMES)[number];
 
 export type IllustrationState = 'done' | 'next' | 'locked';
 
@@ -25,28 +28,56 @@ export type IllustrationPlayback = {
  */
 export const DEFAULT_POSTER_FRAME = 60;
 
-/** O quadro de pose declarado, ou o padrão quando falta ou não serve. */
-export function posterFrameOrDefault(posterFrame: number | undefined): number {
-  return typeof posterFrame === 'number' && Number.isFinite(posterFrame) && posterFrame > 0
-    ? posterFrame
-    : DEFAULT_POSTER_FRAME;
+const warnedLabels = new Set<string>();
+
+/**
+ * O quadro de pose declarado, ou o padrão quando falta ou não serve.
+ *
+ * Serve o inteiro de 1 a `totalFrames − 1`: o 0 pode estar vazio, e o
+ * `totalFrames` já é o 0 da volta seguinte. Fora disso, cai no padrão e avisa
+ * uma vez por `label` (o tema), e não uma por nó da trilha: sem o aviso, um JSON
+ * novo sem quadro de pose pararia em silêncio num quadro que ninguém escolheu.
+ */
+export function posterFrameOrDefault(
+  posterFrame: number | undefined,
+  { totalFrames, label = 'Lottie' }: { totalFrames?: number; label?: string } = {},
+): number {
+  const last = typeof totalFrames === 'number' && totalFrames > 0 ? totalFrames - 1 : Number.POSITIVE_INFINITY;
+  if (typeof posterFrame === 'number' && Number.isInteger(posterFrame) && posterFrame >= 1 && posterFrame <= last) {
+    return posterFrame;
+  }
+  if (!warnedLabels.has(label)) {
+    warnedLabels.add(label);
+    console.warn(
+      `[ThemeIllustration] "${label}": meta.posterFrame ${
+        posterFrame === undefined ? 'ausente' : `${String(posterFrame)} fora do laço`
+      }; parado no quadro ${DEFAULT_POSTER_FRAME}.`,
+    );
+  }
+  return DEFAULT_POSTER_FRAME;
 }
 
 export function resolvePlayback({
   state,
   reducedMotion,
   posterFrame,
+  totalFrames,
+  label,
 }: {
   state: IllustrationState;
   reducedMotion: boolean;
   /** `meta.posterFrame` do JSON; ausente ou inválido, vale `DEFAULT_POSTER_FRAME`. */
   posterFrame?: number;
+  /** Quadros do laço (o `op`); com ele, o quadro de pose não passa de `op − 1`. */
+  totalFrames?: number;
+  /** Quem avisa quando o quadro de pose não serve (o tema). */
+  label?: string;
 }): IllustrationPlayback {
   if (state === 'locked') {
-    return { mode: 'silhouette', frame: posterFrameOrDefault(posterFrame) };
+    return { mode: 'silhouette', frame: posterFrameOrDefault(posterFrame, { totalFrames, label }) };
   }
   if (reducedMotion) {
-    return { mode: 'still', frame: posterFrameOrDefault(posterFrame) };
+    return { mode: 'still', frame: posterFrameOrDefault(posterFrame, { totalFrames, label }) };
   }
   return { mode: 'animate', frame: null };
 }
