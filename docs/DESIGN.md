@@ -357,11 +357,17 @@ de 1 px, nunca por sombra.
 ### Named Rules
 
 **A Regra do Lábio.** O relevo é um lábio sólido, nunca `shadow*` nem
-`elevation`, que borram a borda e variam entre iOS e Android. O lábio tem
-contraste mínimo de 1,2:1 com a face (o ouro mede 1,82:1, a unidade 1,69:1 e o
-bloqueado 1,33:1; o `contrast-contract` cobra o piso). O `ghost` não tem lábio,
-porque é texto sem superfície. Sob "reduzir movimento", a face desce de uma vez,
-sem transição.
+`elevation`, que borram a borda e variam entre iOS e Android. **Na medalha**, o
+lábio tem contraste mínimo de 1,2:1 com a face, e o `contrast-contract` cobra
+esse piso só sobre `medalColors` (o ouro mede 1,82:1, a unidade 1,69:1 e o
+bloqueado 1,33:1). **Nos botões, o piso não é cobrado.** Em 2026-10-21, os
+lábios de `galaxy`, `primary`, `success` e `error` medem 1,32, 1,38, 1,81 e
+1,77:1 [calculado]. O do `secondary` (`#171920` sob a face `#1b1e27`) mede
+**1,05:1**, porque é o degrau seguinte da escada de neutros, e fica quase
+invisível. Esse lábio está pendente de decisão do dono
+([evidência, "Para o dono olhar"](evidence/2026-10-21-fundacao-medalhao.md#para-o-dono-olhar)).
+O `ghost` não tem lábio, porque é texto sem superfície. Sob "reduzir
+movimento", a face desce de uma vez, sem transição.
 
 **A Regra da Luz de Cima à Esquerda.** Toda peça desenhada usa três tons: a
 face, um tom claro no lado de cima e da esquerda, e um tom escuro no lado de
