@@ -210,6 +210,26 @@ app); e `SENTRY_DISABLE_AUTO_UPLOAD=true`. O `expo run:ios` também trava ao
 consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 `xcrun simctl`.
 
+## Branch da trilha Medalhão — dependência nativa (medido em 2026-10-21)
+
+- **Medido em 2026-10-21:** a branch `claude/trilha-medalhao-design` traz o
+  `@shopify/react-native-skia` 2.2.12, uma dependência **nativa**, com
+  `runtimeVersion.policy: appVersion` e `version` `1.4.0` no `app.json`. Hoje
+  nenhuma rota importa o Skia: só o módulo `src/ui/illustrations/`, as
+  histórias e os testes dele o usam. **Antes de o plano 2 pôr a ilustração numa
+  rota, é obrigatório** subir a `version` ou passar a `runtimeVersion` para
+  `fingerprint`. Sem isso, um `eas update` chega aos binários 1.4.0 da loja,
+  que não têm o Skia, e derruba o app. O splash novo também só chega com build
+  nativa. **Remede com**, na raiz do repositório:
+
+  ```bash
+  node -e "const a=require('./radiant-app/app.json').expo;console.log(a.version, JSON.stringify(a.runtimeVersion))"
+  grep -n '"@shopify/react-native-skia"' radiant-app/package.json
+  # importadores fora do módulo (vazio = nenhuma rota usa o Skia):
+  grep -rlE "illustrations/|react-native-skia" radiant-app/src --include='*.ts' --include='*.tsx' \
+    | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
+  ```
+
 ## Prazos de relógio
 
 Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android

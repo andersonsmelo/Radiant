@@ -483,10 +483,21 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     HUD e abas desenhados, Skia com as cinco ilustrações e o
     [DESIGN.md](DESIGN.md) novo
     ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
-    [evidência](evidence/2026-10-21-fundacao-medalhao.md)). **Falta, em
-    2026-10-21:** o olhar do dono sobre as ilustrações e as capturas, a rodada
-    de correção da revisão final, a remedição de quadros no AVD com a tela do
-    Mac desbloqueada, a PR e o merge, que é do dono;
+    [evidência](evidence/2026-10-21-fundacao-medalhao.md)). **A rodada de
+    correção da revisão final foi feita em 2026-10-21**, na mesma branch: o
+    lábio do botão passou para trás da face, o `ghost` ganhou retorno de
+    pressão e rótulo que passa AA, o desabilitado compõe em grupo no Android,
+    o coração e os números do HUD foram para os tons do Medalhão e a mesa da
+    ressonância voltou para dentro do quadro
+    ([evidência](evidence/2026-10-21-fundacao-medalhao.md#rodada-de-correção-final)).
+    Dos achados da evidência, o 1 (rótulo do `ghost` reprovando AA) foi
+    corrigido nessa rodada. O 2 (cartão laranja do Missions), o 3 (Perfil no
+    maior texto) e o 4 (`PushOptInCard`) vão para o plano 5 (R21). A
+    remedição de quadros **com rolagem**, no AVD e com a tela do Mac
+    desbloqueada, vai para o plano 2 (R22). **Falta, em 2026-10-21:** o olhar
+    do dono sobre as ilustrações e as capturas, e o merge. A PR é aberta pelo
+    agente quando a frente fica pronta, sem esperar o dono; **só o merge é do
+    dono**;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;

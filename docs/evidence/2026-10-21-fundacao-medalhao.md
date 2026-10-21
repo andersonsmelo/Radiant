@@ -12,10 +12,12 @@ e na [ADR de 2026-10-21](../adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-re
 - O [DESIGN.md](../DESIGN.md) foi reescrito para o mundo Medalhão. O cabeçalho
   YAML bate com os tokens: **97 comparações iguais e 0 divergências**, por
   script que lê o código por AST [código].
-- **As cinco ilustrações passam no critério do plano**, nas medições válidas.
-  Com 15 medalhas na tela, 10 delas animando, de 0,26% a 1,56% dos quadros
-  ficaram acima de 32 ms, contra o teto de 5% [visto, três rodadas]. A medição
-  tem dois limites, explicados abaixo:
+- **O que se mediu:** nas três rodadas válidas, numa história do Storybook
+  **sem rolagem**, em build **Debug**, com 15 medalhas na tela e 10 delas
+  animando, de 0,26% a 1,56% dos quadros ficaram acima de 32 ms, abaixo do teto
+  de 5% do plano [visto, três rodadas]. **A rolagem não foi medida**, então
+  isto não fecha o critério do plano para a trilha: a remedição fica no plano 2
+  (R22). Os limites estão explicados abaixo:
   - a história não rola, porque cabe na tela;
   - **a partir de 12:18 o emulador degradou** e nenhuma medição seguinte vale.
 - As nove capturas e a saída do `gfxinfo` estão em
@@ -47,10 +49,14 @@ hexadecimal do corpo do texto que não esteja no cabeçalho.
 | As 27 cores da tabela "Valores da paleta" do plano | todas no YAML, menos `#6d7487`, o valor da prancheta que reprovou |
 | Cores do corpo fora do YAML | `#6d7487`, citado como valor rejeitado, e `#000000`, a cor da sombra da barra (`shadowHard`) |
 
-**Uma divergência conhecida, de propósito:** o YAML dá ao rótulo do
-`button-ghost` o Azul de Navegação. O código pinta o rótulo com
+**Uma divergência conhecida, de propósito, na medição das 12:48:** o YAML dá
+ao rótulo do `button-ghost` o Azul de Navegação. O código pintava o rótulo com
 `semanticColors.light.actionPrimary` (`#2155FF`), que mede **3,31:1** sobre o
-grafite e reprova AA. Ver Achados, item 1.
+grafite e reprova AA. Ver Achados, item 1. **Fechada na rodada de correção
+final:** o código passou a `galaxy.borderFocus`, e o mesmo script, estendido
+com o rótulo do ghost, os três tons de número do HUD e o raio e o `depth` do
+lábio novo, deu **103 iguais e 0 divergências** (ver
+[Rodada de correção final](#rodada-de-correção-final)).
 
 ## 2. Medição no AVD de entrada (Passo 2, ruling R7)
 
@@ -166,7 +172,7 @@ contraste com ela.
 | Superfície de retorno: botão `error` | `#ff8298` | `#3a0d17` | **7,12:1** | iOS, Storybook |
 | Botão `secondary` | `#1b1e27` | `#eef0f6` | 14,61:1 | iOS, Storybook |
 | Aba ativa / inativa | `#171920` | `#eef0f6` / `#8a91a3` | **15,41 / 5,57:1** | iOS e Android |
-| HUD: XP / sequência | `#232733` | `#f5a623` / `#ff6b2c` | 7,35 / 5,24:1 | iOS (XP também no Android) |
+| HUD: XP / sequência | `#232733` | `#f5a623` / `#ff6b2c` | 7,35 / 5,24:1 | iOS (XP também no Android), antes da rodada final |
 | Rótulo "2 DE 8" | `#13151c` | `#a3aabb` | 7,84:1 | iOS, Estude |
 | Título branco no cartão laranja do Perfil | `#ff6d2e` | `#ffffff` | **2,81:1, reprova** | iOS, Perfil |
 | Subtítulo no cartão laranja | `#ff6e2f` | `#ffede3` | **2,46:1, reprova** | iOS, Perfil |
@@ -183,8 +189,9 @@ contraste com ela.
 1. **O rótulo do `ghost` reprova AA sobre o grafite** [código, calculado]:
    `#2155FF` sobre `#13151c` mede 3,31:1. É anterior ao plano 1: em `02b6a5d`
    já era `light.actionPrimary`, a 3,55:1 sobre o vazio antigo. Aparece em
-   telas escuras, como "Rever apresentação" nos Ajustes. A correção é de uma
-   linha, `labelGhost` → `galaxy.borderFocus`, e não estava no escopo.
+   telas escuras, como "Rever apresentação" nos Ajustes. **Corrigido na rodada
+   final (R20):** `labelGhost` → `galaxy.borderFocus` (`#4A9EFF`), 6,62:1 no
+   grafite e 6,04:1 na superfície, com guarda no `contrast-contract`.
 2. **O cartão laranja do Perfil reprova AA** [visto]: 2,81:1 no título e 2,46:1
    no subtítulo. A cor é um gradiente local em `MissionsScreen.tsx`
    (`#FF8A4C` → `#FF6B2C`), com brilho, contra a regra de não declarar paleta em
@@ -225,9 +232,14 @@ tarefa 5 ou 6.
   texto, o rótulo quebrado fica alinhado à esquerda (captura de rascunho).
 - **Capelo da aba ativa:** face `#2F6BFF` e miolo `#275CEB` a 1,22:1, próximos
   demais (`ios-estude.jpg`, barra de abas).
-- **Mesa da ressonância:** sai 1,6 pt de cada lado do quadro. O conserto (R19)
-  está na rodada de correção final.
-- Os achados 1 a 3 acima, que são decisão de prioridade.
+- **Mesa da ressonância:** saía 1,6 pt de cada lado do quadro. **Corrigida na
+  rodada final (R19)**: a mesa passou a ±42,8, ou ±59,92 pt no quadro de 120.
+  Não houve captura nova.
+- **Botão pressionado:** a captura do estado pressionado não foi produzida (ver
+  [Rodada de correção final](#rodada-de-correção-final)). O relevo novo, com o
+  topo descobrindo o fundo e não o lábio, está provado só por teste estrutural.
+- Os achados 2 e 3 acima, que são decisão de prioridade. O plano 5 (R21) os
+  recebe, junto com o 4; o 1 foi corrigido na rodada final.
 
 ## Gate
 
@@ -241,6 +253,45 @@ tarefa 5 ou 6.
 - `visual:qa:strict` com 0 regressões, 57 itens na baseline e 2 exceções.
 
 Este diff não toca código do app: só documentação e um comentário.
+
+## Rodada de correção final
+
+Feita em **2026-10-21**, sobre `c0d55aa`, depois da revisão final do plano 1
+("pronta para merge, com correções"). Commits `aa8cb0d` (AppButton), `048cc2e`
+(HUD) e `718622c` (ressonância), mais o desta documentação. Toda asserção nova
+foi vista falhando antes da correção, contra o código de `c0d55aa` ou com o
+defeito que ela nomeia injetado e desfeito em seguida [visto].
+
+| Item | O que mudou | Teste | Vermelho visto |
+| --- | --- | --- | --- |
+| Important 1: lábio por cima da face na pressão | o conjunto fica sem cor, com `paddingBottom: depth.lip`; o lábio vira irmão absoluto **atrás** da face, de `top: depth.lip` até o fim, com o raio da face | `AppButton.test.tsx`, "o lábio fica atrás da face…" | contra `c0d55aa`: o lábio sem `position`/`top`; com essa asserção tirada, o lábio não é irmão da face (índice −1); com as duas tiradas, o pai da face pinta `#1846C9` |
+| Minor 4: desabilitado no Android | `needsOffscreenAlphaCompositing={isDisabled}` no conjunto que recebe 0,45 | "desabilitado, o conjunto que recebe a opacidade compõe em grupo" | contra `c0d55aa`: `undefined`, esperado `true` |
+| Cancelar arrastando para fora | nenhuma (o código já fazia certo) | "arrastar o dedo para fora cancela…" | com `onPressOut` vazio, a face fica em 4; com `onPressOut` chamando o `onPress`, 1 chamada |
+| R11: ghost sem retorno de pressão | rótulo a 0,6 enquanto pressionado, por estado | "ghost esmaece o rótulo…", com e sem reduzir movimento | contra `c0d55aa`: opacidade 1, esperado 0,6; sem o retorno ao soltar, fica em 0,6; com `withTiming` no esmaecer, 1 chamada |
+| R20: rótulo do ghost reprova AA | `labelGhost` → `galaxy.borderFocus` (`#4A9EFF`) | `contrast-contract`, "o rótulo do ghost passa AA…", lendo o `AppButton` por AST | contra `c0d55aa`: `#2155FF` a 3,31:1 no grafite; com `#7f7f7f`, passa no grafite e reprova a 4,16:1 na superfície |
+| R12: coração com cor fixa | a drenagem vai de `hudIconTones.heart.face` a `galaxyColors.heartEmpty`; o fundo estático usa a mesma face | `HUD.test.tsx`, "na perda, o fundo animado fica à mostra…" | contra `c0d55aa`: a faixa começa em `#FF3B30`; com o desenho de três tons mantido na perda, as camadas ganham dois `Path` por cima do fundo |
+| R13: números do HUD | token `hudLabelTones` (`#FFC21A`, `#FF8A4C`, `#FF6B6B`) no XP, na sequência e no resumo de vidas | `HUD.test.tsx`, "pinta os números…"; `contrast-contract`, "os números do HUD passam AA sobre a pílula" | contra `c0d55aa`: `#F5A623`, `#FF6B2C` e `#a3aabb`; tons mutados dão 2,94, 3,10 e 2,87:1 |
+| R19: mesa da ressonância cortada | os dois retângulos da mesa a ±42,8 (±59,92 pt no quadro de 120), no SVG e no Lottie | as guardas da T6 (`src/ui/illustrations`, 50 testes) seguem verdes | sem asserção nova |
+
+O "44 XP" segue lido como nó único (asserção no teste do R13). O mesmo script
+da seção 1, estendido com o rótulo do ghost, os três tons de número do HUD e o
+raio e o `depth` do lábio novo, deu **103 iguais e 0 divergências**. Com o
+ghost de volta a `light.actionPrimary` e a sequência a `#FF6B2C`, deu 2
+divergências e saída 1 [visto].
+
+**Não produzida:** a captura do botão pressionado
+(`ios-botao-pressionado.jpg`). Não há estado pressionado forçável sem criar uma
+propriedade só para a história, e o toque longo não fica preso durante a
+captura do simulador. A geometria do relevo está provada só pelo teste
+estrutural, e o olhar do dono sobre o toque fica para o gate dele.
+
+**Gate:** `EXPO_NO_DOTENV=1 npm run quality` em `radiant-app`, no Node
+v20.20.2, saída 0:
+- lint com 0 erros e 33 avisos anteriores;
+- typecheck limpo;
+- os 16 blocos `node --test` com `fail 0`;
+- jest `--runInBand` com **182 suítes e 1927 testes**, de 182 e 1927;
+- `visual:qa:strict` com 0 regressões, 57 itens na baseline e 2 exceções.
 
 ## Reprodução
 

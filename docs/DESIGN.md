@@ -47,6 +47,9 @@ colors:
   heart-face: "#FF4B4B"
   heart-shade: "#D92F3A"
   heart-highlight: "#FFB3B3"
+  hud-xp-label: "#FFC21A"
+  hud-streak-label: "#FF8A4C"
+  hud-hearts-label: "#FF6B6B"
 typography:
   display:
     fontFamily: "Sora-ExtraBold"
@@ -253,11 +256,15 @@ lábio e miolo.
 
 ### Tertiary
 - **Âmbar de XP** (`#F5A623`), **Brasa de Sequência** (`#FF6B2C`) e
-  **Vermelho de Vida** (`#FF3B30`): as moedas do HUD, sempre com ícone e número.
-  Sobre a pílula do HUD (`#232733`), o âmbar mede 7,35:1 e a brasa 5,24:1.
+  **Vermelho de Vida** (`#FF3B30`): as moedas como papéis de status e
+  recompensa fora do HUD. O `∞` do assinante usa o vermelho de vida.
+- **Números do HUD** (`hudLabelTones`): XP `#FFC21A`, sequência `#FF8A4C` e
+  vidas `#FF6B6B`, os tons da prancheta. Sobre a pílula do HUD (`#232733`),
+  medem 9,21, 6,38 e 5,37:1 [calculado], e o `contrast-contract` cobra 4,5:1.
 - **Tons dos ícones do HUD** (`hudIconTones`): raio `#FFC21A` / `#FFE07A` /
   `#E59A00`, miolo da chama `#FFC21A`, coração `#FF4B4B` / `#D92F3A` /
-  `#FFB3B3`. São desenho, não texto.
+  `#FFB3B3`. São desenho, não texto. Na perda de vida, o fundo que drena parte
+  do mesmo `#FF4B4B` do desenho, sem salto de cor no instante 0.
 - **Verde de Acerto** (preenchimento `#2BD67B`, lábio `#1A9E58`, superfície
   `#14281f`) e **Rosa de Erro** (`#FF8298`, `#C9566B`, `#2c1820`): o retorno da
   resposta. O texto sobre o preenchimento é escuro, `#0b2a18` (8,10:1) e
@@ -346,6 +353,12 @@ na borda de baixo. O lábio mede 5 pt no botão e 8 pt na medalha
 (`depth.lip` e `depth.medalLip`). Ao ser pressionada, a face desce 4 pt e
 deixa 1 pt do lábio à vista, para o botão não parecer achatado.
 
+No `AppButton`, o lábio é uma camada **atrás** da face, com a mesma forma e
+deslocada `depth.lip` para baixo. O conjunto não tem cor: quando a face desce,
+o topo que ela descobre é o fundo da tela, e não o lábio. Até a revisão final
+do plano 1, o lábio era o contêiner pintado na área toda, e a pressão mostrava
+uma faixa dele no topo, com o relevo invertido.
+
 As superfícies internas se separam por degrau da escada de grafite e por borda
 de 1 px, nunca por sombra.
 
@@ -385,14 +398,19 @@ as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
 - **`primary`** (padrão): Azul de Contraste com rótulo branco e o mesmo lábio.
 - **`secondary`:** face `#1b1e27`, borda de 1 px em Azul de Navegação, rótulo no
   texto principal e lábio `#171920`. Alternativa da tela.
-- **`ghost`:** sem face nem lábio; só o rótulo. Saída e "agora não".
+- **`ghost`:** sem face nem lábio; só o rótulo, em Azul de Navegação
+  (`#4A9EFF`: 6,62:1 no grafite e 6,04:1 na superfície). Saída e "agora não".
+  Pressionado, o rótulo cai para opacidade 0,6, por troca de estado e não por
+  animação, então vale igual sob "reduzir movimento".
 - **`success` e `error`:** preenchimento de retorno com rótulo escuro e lábio
   do mesmo par.
 - **Pressão:** a face desce 4 pt em `duration.micro`; sob "reduzir movimento",
   de uma vez.
 - **Foco:** borda de 3 px em Azul de Navegação nas variantes escuras.
-- **Desabilitado:** opacidade 0,45 no conjunto, face e lábio juntos. Na face
-  sozinha, o lábio apareceria através dela.
+- **Desabilitado:** opacidade 0,45 no conjunto, face e lábio juntos, com
+  `needsOffscreenAlphaCompositing`. No iOS, a camada já é composta em grupo;
+  no Android, o `ReactViewGroup` só faz isso com essa propriedade. Sem ela,
+  cada filho recebe 0,45 sozinho e o lábio aparece através da face.
 
 ### Cards / Containers
 - **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
@@ -410,8 +428,9 @@ tela rolável reserva 102 pt de folga inferior (`tabBarClearance`).
 ### HUD (componente de assinatura)
 Trilho de XP, sequência e vidas no topo das telas do produto. As pílulas são
 `#232733` com borda `#323747` e raio de 20 px. Os ícones são desenhados em três
-tons (raio, chama e coração), e cada pílula é lida pelo leitor de tela como um
-nó só ("44 XP"). Vidas são cinco corações; o que se esvazia recebe o pulso de
+tons (raio, chama e coração), e os números ao lado deles nos tons de
+`hudLabelTones`. Cada pílula é lida pelo leitor de tela como um nó só
+("44 XP"). Vidas são cinco corações; o que se esvazia recebe o pulso de
 perda, e o rótulo "3 de 5 vidas" continua informando sob "reduzir movimento".
 Os ícones de XP e sequência medem 24 pt e os corações 28 pt.
 
@@ -461,7 +480,7 @@ no cartão é proibida, porque derruba junto o contraste do texto.
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** consumir cor por `galaxyColors`, `medalColors`, `feedbackColors`, `hudIconTones` e `semanticColors.galaxy`.
+- **Do** consumir cor por `galaxyColors`, `medalColors`, `feedbackColors`, `hudIconTones`, `hudLabelTones` e `semanticColors.galaxy`.
 - **Do** pintar a aba ativa com o texto principal e o ícone com os três tons da unidade.
 - **Do** medir contraste de **composição**: o par que importa é a cor final sobre a superfície final.
 - **Do** dar a todo estado um segundo canal além da cor: ícone, forma ou texto.
