@@ -24,6 +24,7 @@ import {
 import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
 import { useScreenFocused } from './useScreenFocused';
+import { galaxyColors, hudIconTones } from './theme';
 
 // ============================================================================
 // DURATION TOKENS (milliseconds)
@@ -560,7 +561,10 @@ export function useHeartLossAnimation(filled: boolean, losing: boolean) {
         fill: interpolateColor(
             drain.value,
             [0, 1],
-            ['#FF3B30', 'rgba(255, 255, 255, 0.20)'],
+            // Parte do vermelho do desenho de três tons, que some na perda: com
+            // outro vermelho, o instante 0 dava um salto de cor e a borda
+            // antialiased do desenho deixava uma franja do de baixo.
+            [hudIconTones.heart.face, galaxyColors.heartEmpty],
         ),
     }));
     const crackAnimatedProps = useAnimatedProps(() => ({ opacity: crackOpacity.value }));

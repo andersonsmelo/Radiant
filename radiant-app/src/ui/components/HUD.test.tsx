@@ -37,8 +37,9 @@ jest.mock('react-native-reanimated', () => {
     ...actual,
     __esModule: true,
     default: { ...animated, createAnimatedComponent },
-    interpolateColor: (value: number, _input: number[], colors: string[]) =>
-      value >= 1 ? colors[1] : colors[0],
+    // Espiado: a cor de saída depende da faixa que o código entrega aqui.
+    interpolateColor: jest.fn((value: number, _input: number[], colors: string[]) =>
+      value >= 1 ? colors[1] : colors[0]),
     withDelay: jest.fn((_delay: number, animation: unknown) => animation),
     withSequence: jest.fn((...animations: unknown[]) => animations.at(-1)),
     withTiming: jest.fn((value: unknown) => value),
@@ -46,6 +47,7 @@ jest.mock('react-native-reanimated', () => {
 });
 
 const reanimated = jest.requireMock('react-native-reanimated') as {
+  interpolateColor: jest.Mock;
   withDelay: jest.Mock;
   withSequence: jest.Mock;
   withTiming: jest.Mock;
@@ -388,6 +390,47 @@ describe('HUD — identidade dos ícones', () => {
     expect(empty).not.toContain('#D92F3A');
     expect(empty).not.toContain('#FF4B4B');
     expect(render(<HeartIcon filled={false} />).UNSAFE_queryAllByType(Ellipse)).toHaveLength(0);
+  });
+
+  // R12 da revisão final: a drenagem partia de `#FF3B30`, e o desenho de três
+  // tons é `#FF4B4B`. No instante 0 da perda o vermelho pulava de um para o
+  // outro, e a borda antialiased do desenho deixava a franja do de baixo.
+  // O mock do Reanimated recria o valor compartilhado a cada render, então o
+  // instante 0 não aparece no nó: a asserção recai sobre a faixa entregue ao
+  // `interpolateColor`, que é o que determina a cor.
+  it('na perda, o fundo animado fica à mostra e parte do vermelho do desenho', () => {
+    reanimated.interpolateColor.mockClear();
+    const heart = render(<HeartIcon filled={false} losing testID="hud-heart-fill-0" />);
+
+    // Ordem de pintura: só o fundo animado e, por cima, o racha. O desenho de
+    // três tons saiu, e nada cobre o fundo que drena.
+    const layers = heart.UNSAFE_getAllByType(Path).map((path) => path.props.testID);
+    expect(layers).toEqual(['hud-heart-fill-0', 'hud-heart-crack-0']);
+    expect(heart.UNSAFE_queryAllByType(Ellipse)).toHaveLength(0);
+
+    expect(reanimated.interpolateColor).toHaveBeenCalled();
+    const [, input, range] = reanimated.interpolateColor.mock.calls.at(-1) as [number, number[], string[]];
+    expect(input).toEqual([0, 1]);
+    expect(range).toEqual(['#FF4B4B', galaxyColors.heartEmpty]);
+  });
+
+  // R13: os números do HUD nos tons da prancheta, e não nos das moedas antigas.
+  it('pinta os números de XP, sequência e vidas nos tons de rótulo da prancheta', () => {
+    const screen = render(
+      <HUD
+        totalXp={44}
+        streakDays={3}
+        hearts={3}
+        heartsSnapshot={{ count: 3, status: 'recovering', nextRefillAt: null, unlimitedUntil: null }}
+      />,
+    );
+    const colorOf = (text: string) => StyleSheet.flatten(screen.getByText(text).props.style).color;
+
+    expect(colorOf('44')).toBe('#FFC21A');
+    expect(colorOf('3d')).toBe('#FF8A4C');
+    expect(colorOf('3')).toBe('#FF6B6B');
+    // O par ícone+número continua um nó só.
+    expect(screen.getByLabelText(/^44 XP$/)).toBeTruthy();
   });
 
   it('a chama pinta o miolo claro sobre o corpo laranja', () => {

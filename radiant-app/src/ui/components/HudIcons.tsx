@@ -114,7 +114,7 @@ export function HeartIcon({
             animatedProps={fillAnimatedProps}
             testID={testID}
             d={HEART_BODY}
-            fill={filled ? galaxyColors.heartFull : galaxyColors.heartEmpty}
+            fill={filled ? face : galaxyColors.heartEmpty}
           />
           {filled ? (
             <>

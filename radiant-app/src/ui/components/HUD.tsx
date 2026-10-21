@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { HeartsSnapshot } from '../../features/hearts/hearts.types';
-import { galaxyColors } from '../theme';
+import { galaxyColors, hudLabelTones } from '../theme';
 import { space } from '../styles';
 import { HeartIcon, StreakIcon, XpIcon } from './HudIcons';
 import { CHROME_MAX_FONT_SCALE } from '../accessibility/useLargeTextLayout';
@@ -215,13 +215,13 @@ export function HUD({
         <HUDPill
           icon={<XpIcon value={totalXp} />}
           value={totalXp.toLocaleString()}
-          color={galaxyColors.xpColor}
+          color={hudLabelTones.xp}
           accessibilityLabel={`${totalXp.toLocaleString()} XP`}
         />
         <HUDPill
           icon={<StreakIcon />}
           value={`${streakDays}d`}
-          color={galaxyColors.streakColor}
+          color={hudLabelTones.streak}
           accessibilityLabel={`${streakDays} ${streakDays === 1 ? 'dia' : 'dias'} de sequência`}
         />
       </View>
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   heartsButtonPressed: { backgroundColor: galaxyColors.surfaceActive },
-  heartsSummary: { fontSize: 12, fontWeight: '700', color: galaxyColors.textSecondary },
+  heartsSummary: { fontSize: 12, fontWeight: '700', color: hudLabelTones.hearts },
   infinity: { fontSize: 24, fontWeight: '800', color: galaxyColors.heartFull },
   heartIcon: {
     fontSize: 18,

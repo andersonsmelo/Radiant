@@ -192,6 +192,15 @@ export const hudIconTones = {
   heart: { face: '#FF4B4B', shade: '#D92F3A', highlight: '#FFB3B3' },
 } as const;
 
+// Números do HUD ao lado de cada ícone, nos tons da prancheta. Sobre a pílula
+// (`hudPill`, `#232733`): 9,21, 6,38 e 5,37:1. `xpColor` e `streakColor`
+// continuam como papéis de status e recompensa fora do HUD.
+export const hudLabelTones = {
+  xp: '#FFC21A',
+  streak: '#FF8A4C',
+  hearts: '#FF6B6B',
+} as const;
+
 // Retorno de acerto e erro. `onFill` é o texto escuro pintado SOBRE o
 // preenchimento (8,1:1 e 7,12:1); o título usa o próprio `fill` sobre
 // `surface` (8,14:1 e 7,07:1).

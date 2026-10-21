@@ -666,3 +666,19 @@ test('o rótulo do ghost passa AA sobre o grafite e sobre a superfície', () => 
     );
   }
 });
+
+test('os números do HUD passam AA sobre a pílula', () => {
+  // R13: XP, sequência e vidas nos tons da prancheta. A pílula `#232733` é o
+  // fundo mais claro em que o número aparece (o resumo de vidas também fica
+  // nele, quando o botão está pressionado).
+  const pill = parseHex(resolveColor('src/ui/theme.ts', 'galaxyColors', 'hudPill'));
+
+  for (const tone of ['xp', 'streak', 'hearts']) {
+    const color = resolveColor('src/ui/theme.ts', 'hudLabelTones', tone);
+    const ratio = contrastRatio(parseHex(color), pill);
+    assert.ok(
+      ratio >= MIN_NORMAL_TEXT,
+      `hudLabelTones.${tone} (${color}) sobre a pílula: ${ratio.toFixed(2)}:1, exigido ${MIN_NORMAL_TEXT}:1`,
+    );
+  }
+});
