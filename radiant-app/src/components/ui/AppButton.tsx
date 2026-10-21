@@ -52,6 +52,9 @@ const LIP_COLOR: Record<Exclude<Variant, 'ghost'>, string> = {
   error: feedbackColors.error.lip,
 };
 
+// Raio comum à face e ao lábio: o lábio é a mesma forma, deslocada para baixo.
+const BUTTON_RADIUS = 18;
+
 // Quanto a face desce ao ser pressionada: até 1 pt do fim do lábio, para que a
 // borda dele ainda apareça e o botão não pareça achatado contra o fundo.
 const PRESSED_OFFSET = depth.lip - 1;
@@ -94,6 +97,10 @@ export function AppButton({
   const isDisabled = disabled || loading;
   const reducedMotionEnabled = useReducedMotionPreference();
   const [focused, setFocused] = useState(false);
+  // Retorno de pressão do `ghost`, que não tem face para descer: o rótulo
+  // esmaece. É troca de estado, não animação, e vale igual sob "reduzir
+  // movimento".
+  const [ghostPressed, setGhostPressed] = useState(false);
   const translateY = useSharedValue(0);
   const hasLip = variant !== 'ghost';
 
@@ -128,8 +135,18 @@ export function AppButton({
           easing: Easing.bezier(0.22, 1, 0.36, 1),
         });
   };
-  const onPressIn = () => moveFaceTo(PRESSED_OFFSET);
-  const onPressOut = () => moveFaceTo(0);
+  const onPressIn = () => {
+    if (!hasLip) {
+      setGhostPressed(true);
+    }
+    moveFaceTo(PRESSED_OFFSET);
+  };
+  const onPressOut = () => {
+    if (!hasLip) {
+      setGhostPressed(false);
+    }
+    moveFaceTo(0);
+  };
 
   const onFillLabel =
     variant === 'success'
@@ -142,8 +159,8 @@ export function AppButton({
   // com `in`, que lança diante de `false`.
   const faceStyle: StyleProp<ViewStyle>[] = [styles.base, VARIANT_STYLE[variant]];
   if (!hasLip && isDisabled) {
-    // Com lábio, a opacidade do desabilitado vai no conjunto: na face sozinha,
-    // o lábio apareceria através dela.
+    // Com lábio, a opacidade do desabilitado vai no conjunto (ver o retorno):
+    // na face sozinha, o lábio apareceria através dela.
     faceStyle.push(styles.disabled);
   }
   if (focused) {
@@ -180,6 +197,7 @@ export function AppButton({
           styles.label,
           variant === 'secondary' && styles.labelSecondary,
           variant === 'ghost' && styles.labelGhost,
+          ghostPressed && styles.labelGhostPressed,
           onFillLabel != null && { color: onFillLabel },
           textStyle,
         ]}
@@ -195,16 +213,29 @@ export function AppButton({
       {variant === 'ghost' ? (
         face
       ) : (
-        // A altura do conjunto vem dos filhos: a face (que cresce com o rótulo)
-        // mais o `paddingBottom` fixo do lábio. Nada aqui tem altura própria.
+        // O conjunto não tem cor. A altura dele vem dos filhos: a face (que
+        // cresce com o rótulo) mais o `paddingBottom` fixo do lábio.
+        //
+        // O lábio é um irmão absoluto ATRÁS da face, deslocado `depth.lip` para
+        // baixo: aparece só na borda de baixo, e a face, ao descer, descobre no
+        // topo o fundo da tela. Quando o lábio era o `View` pai, pintado na
+        // área toda, a descida descobria no topo uma faixa na cor dele, e o
+        // relevo aparecia invertido em todo toque (revisão final do plano 1).
+        //
+        // A opacidade do desabilitado vai no conjunto. No iOS a camada já é
+        // composta em grupo; no Android, o `ReactViewGroup` só faz isso com
+        // `needsOffscreenAlphaCompositing`. Sem ele, cada filho recebe 0,45
+        // sozinho, e o lábio aparece através da face.
         <View
-          testID="app-button-lip"
-          style={[
-            styles.lip,
-            { backgroundColor: LIP_COLOR[variant] },
-            isDisabled && styles.disabled,
-          ]}
+          testID="app-button-relief"
+          style={[styles.relief, isDisabled && styles.disabled]}
+          needsOffscreenAlphaCompositing={isDisabled}
         >
+          <View
+            testID="app-button-lip"
+            pointerEvents="none"
+            style={[styles.lip, { backgroundColor: LIP_COLOR[variant] }]}
+          />
           {face}
         </View>
       )}
@@ -218,7 +249,7 @@ const styles = StyleSheet.create({
     // cresce, em vez de cortar ("Continuar i", achado 2 do gate H4).
     minHeight: 56,
     paddingVertical: space.s1,
-    borderRadius: 18,
+    borderRadius: BUTTON_RADIUS,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -227,9 +258,17 @@ const styles = StyleSheet.create({
   },
   // O relevo é o lábio, e não sombra: `shadow*` e `elevation` borram a borda e
   // variam entre iOS e Android.
-  lip: {
-    borderRadius: 18,
+  relief: {
     paddingBottom: depth.lip,
+  },
+  // Mesmo raio da face (`base`), deslocado `depth.lip` para baixo.
+  lip: {
+    position: 'absolute',
+    top: depth.lip,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: BUTTON_RADIUS,
   },
   primary: {
     backgroundColor: light.actionPrimary,
@@ -271,8 +310,13 @@ const styles = StyleSheet.create({
   labelSecondary: {
     color: galaxy.textPrimary,
   },
+  // O `#2155FF` da paleta clara rendia 3,31:1 no grafite e 3,02:1 na
+  // superfície. O Azul de Navegação rende 6,62 e 6,04:1.
   labelGhost: {
-    color: light.actionPrimary,
+    color: galaxy.borderFocus,
+  },
+  labelGhostPressed: {
+    opacity: 0.6,
   },
 });
 

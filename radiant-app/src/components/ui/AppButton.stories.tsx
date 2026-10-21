@@ -35,6 +35,14 @@ export const LongLabel: Story = {
   args: { label: 'Continuar a revisão de casos de tórax com prioridade clínica' },
 };
 
+const onGalaxy = [
+  (Story: () => React.JSX.Element) => (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: semanticColors.galaxy.surface }}>
+      <Story />
+    </View>
+  ),
+];
+
 export const Galaxy: Story = {
   args: { variant: 'galaxy', label: 'Resgatar recompensa' },
   decorators: [
@@ -46,17 +54,11 @@ export const Galaxy: Story = {
   ],
 };
 
+// O rótulo do ghost é o Azul de Navegação, feito para o grafite (6,62:1).
 export const Ghost: Story = {
   args: { variant: 'ghost', label: 'Ver detalhes' },
+  decorators: onGalaxy,
 };
-
-const onGalaxy = [
-  (Story: () => React.JSX.Element) => (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: semanticColors.galaxy.surface }}>
-      <Story />
-    </View>
-  ),
-];
 
 export const Secondary: Story = {
   args: { variant: 'secondary', label: 'Agora não' },
