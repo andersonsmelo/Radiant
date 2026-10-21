@@ -475,7 +475,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer
     build: o **inventário do que sai** e a **revisão do conteúdo** das aulas de
     exemplo. Nenhuma build de loja sai sem o primeiro lote do currículo novo.
-    O plano de implementação vem a seguir
+    Os cinco planos e as dependências entre eles estão no
+    [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md). O primeiro,
+    a [fundação visual](superpowers/plans/2026-10-21-fundacao-visual-medalhao.md),
+    está escrito
     ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md));
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
