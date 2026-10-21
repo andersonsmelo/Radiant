@@ -9,14 +9,17 @@ import { Animated, Easing } from 'react-native';
 import {
     default as Reanimated,
     Easing as ReanimatedEasing,
+    cancelAnimation,
     interpolateColor,
     useAnimatedProps,
     useAnimatedStyle,
+    useDerivedValue,
     useSharedValue,
     withDelay,
     withRepeat,
     withSequence,
     withTiming,
+    type DerivedValue,
 } from 'react-native-reanimated';
 import { G, Path } from 'react-native-svg';
 import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
@@ -601,4 +604,73 @@ export function useBreathingScale() {
     const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
     return { animatedStyle };
+}
+
+/**
+ * O quadro corrente de um Lottie em laço, para o `<Skottie frame>` do Skia.
+ *
+ * Um relógio anda de 0 a `totalFrames` em tempo linear (a curva de cada
+ * movimento mora no próprio JSON), e o quadro é o relógio somado ao de pose,
+ * módulo o total: o laço começa exatamente na imagem que estava parada, e o
+ * fim de um ciclo encosta no começo do seguinte sem costura.
+ *
+ * Fica parado no quadro de pose quando `playing` é falso, quando a pessoa
+ * pediu menos movimento e enquanto essa preferência ainda não respondeu (um
+ * laço é agendamento; ver `useReducedMotionPreferenceState`). Fora de foco, o
+ * laço pausa onde está e retoma dali ao voltar o foco: animação infinita numa
+ * tela escondida só gasta CPU (FILA, 33).
+ */
+export function useLottieFrameLoop({
+    totalFrames,
+    fps,
+    posterFrame,
+    playing,
+}: {
+    /** Quadros do laço (`duration() * fps()` da animação). */
+    totalFrames: number;
+    fps: number;
+    /** O quadro de pose, de onde o laço parte e onde fica parado. */
+    posterFrame: number;
+    /** O chamador quer o laço (estado desbloqueado). */
+    playing: boolean;
+}): DerivedValue<number> {
+    const motion = useReducedMotionPreferenceState();
+    const focused = useScreenFocused();
+    const reduced = motion.reducedMotionEnabled || !motion.resolved;
+    const valid = totalFrames > 0 && fps > 0;
+    const still = !playing || reduced || !valid;
+    const running = !still && focused;
+    const clock = useSharedValue(0);
+
+    useEffect(() => {
+        if (still) {
+            cancelAnimation(clock);
+            clock.value = 0;
+            return undefined;
+        }
+        if (!running) {
+            cancelAnimation(clock);
+            return undefined;
+        }
+        const cycleMs = (totalFrames / fps) * 1000;
+        const from = clock.value % totalFrames;
+        clock.value = from;
+        clock.value = withSequence(
+            withTiming(totalFrames, {
+                duration: ((totalFrames - from) / totalFrames) * cycleMs,
+                easing: ReanimatedEasing.linear,
+            }),
+            withRepeat(
+                withSequence(
+                    withTiming(0, { duration: 0 }),
+                    withTiming(totalFrames, { duration: cycleMs, easing: ReanimatedEasing.linear }),
+                ),
+                -1,
+                false,
+            ),
+        );
+        return () => cancelAnimation(clock);
+    }, [still, running, clock, fps, totalFrames]);
+
+    return useDerivedValue(() => (valid ? (posterFrame + clock.value) % totalFrames : posterFrame));
 }
