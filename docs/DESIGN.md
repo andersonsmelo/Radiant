@@ -1,21 +1,52 @@
 ---
 name: Radiant
-description: Sistema visual do treinador diário de raciocínio radiológico — céu escuro navegável, tipografia Sora, profundidade por luz acumulada
+description: Sistema visual do treinador diário de raciocínio radiológico — mundo Medalhão, com grafite liso, peças com relevo, ilustração em três tons e tipografia Sora
 colors:
-  void: "#03030d"
-  void-alt: "#070718"
+  graphite: "#13151c"
+  graphite-alt: "#171920"
+  surface: "#1b1e27"
+  surface-active: "#232733"
+  surface-muted: "#2a2e3a"
+  border: "#323747"
+  border-active: "#4a5166"
+  text-primary: "#eef0f6"
+  text-secondary: "#a3aabb"
+  text-tertiary: "#8f97a9"
+  tab-inactive: "#8a91a3"
+  ink-on-accent: "#FFFFFF"
+  action-primary: "#2559E6"
+  action-primary-pressed: "#1846C9"
   contrast-blue: "#2155FF"
-  phosphor-cyan: "#3DCAE8"
   nav-blue: "#4A9EFF"
-  cta-start: "#1535E8"
-  cta-end: "#3060FF"
-  ink-on-dark: "#FFFFFF"
+  signal-cyan: "#3DCAE8"
+  medal-gold-face: "#FFC21A"
+  medal-gold-lip: "#C98A00"
+  medal-gold-inner: "#F2AE00"
+  medal-unit-face: "#2F6BFF"
+  medal-unit-lip: "#1846C9"
+  medal-unit-inner: "#275CEB"
+  medal-locked-face: "#343947"
+  medal-locked-lip: "#22252f"
+  medal-locked-inner: "#2d313d"
+  medal-locked-silhouette: "#4B5163"
+  success-fill: "#2BD67B"
+  success-lip: "#1A9E58"
+  success-surface: "#14281f"
+  success-on-fill: "#0b2a18"
+  error-fill: "#FF8298"
+  error-lip: "#C9566B"
+  error-surface: "#2c1820"
+  error-on-fill: "#3a0d17"
   xp-amber: "#F5A623"
   streak-ember: "#FF6B2C"
   heart-full: "#FF3B30"
-  critical-rose: "#FF8298"
-  paper: "#F5FAFF"
-  ink: "#14233F"
+  bolt-face: "#FFC21A"
+  bolt-light: "#FFE07A"
+  bolt-shade: "#E59A00"
+  flame-core: "#FFC21A"
+  heart-face: "#FF4B4B"
+  heart-shade: "#D92F3A"
+  heart-highlight: "#FFB3B3"
 typography:
   display:
     fontFamily: "Sora-ExtraBold"
@@ -46,11 +77,16 @@ typography:
     fontWeight: 700
     lineHeight: "14px"
     letterSpacing: "1px"
+  button:
+    fontFamily: "Sora-ExtraBold"
+    fontSize: "16px"
+    letterSpacing: "-0.1px"
 rounded:
   rSm: "8px"
   rMd: "12px"
   rLg: "16px"
   rXl: "20px"
+  button: "18px"
 spacing:
   s0: "4px"
   s1: "8px"
@@ -59,120 +95,219 @@ spacing:
   s4: "20px"
   s5: "24px"
   s6: "32px"
+depth:
+  lip: "5px"
+  medal-lip: "8px"
 components:
+  button-galaxy:
+    backgroundColor: "{colors.action-primary}"
+    textColor: "{colors.ink-on-accent}"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+    padding: "8px 24px"
+    height: "56px"
+  button-galaxy-lip:
+    backgroundColor: "{colors.medal-unit-lip}"
+    rounded: "{rounded.button}"
+    height: "{depth.lip}"
   button-primary:
-    backgroundColor: "{colors.cta-end}"
-    textColor: "{colors.ink-on-dark}"
-    typography: "{typography.body}"
-    rounded: "{rounded.rMd}"
-    padding: "16px 24px"
+    backgroundColor: "{colors.contrast-blue}"
+    textColor: "{colors.ink-on-accent}"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+    padding: "8px 24px"
+    height: "56px"
+  button-secondary:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.text-primary}"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+    padding: "8px 24px"
+    height: "56px"
+  button-secondary-lip:
+    backgroundColor: "{colors.graphite-alt}"
+    rounded: "{rounded.button}"
+    height: "{depth.lip}"
   button-ghost:
     backgroundColor: "transparent"
     textColor: "{colors.nav-blue}"
-    typography: "{typography.body}"
-    rounded: "{rounded.rMd}"
-    padding: "16px 24px"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+    padding: "8px 24px"
+  button-success:
+    backgroundColor: "{colors.success-fill}"
+    textColor: "{colors.success-on-fill}"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+  button-success-lip:
+    backgroundColor: "{colors.success-lip}"
+    height: "{depth.lip}"
+  button-error:
+    backgroundColor: "{colors.error-fill}"
+    textColor: "{colors.error-on-fill}"
+    typography: "{typography.button}"
+    rounded: "{rounded.button}"
+  button-error-lip:
+    backgroundColor: "{colors.error-lip}"
+    height: "{depth.lip}"
+  feedback-success:
+    backgroundColor: "{colors.success-surface}"
+    textColor: "{colors.success-fill}"
+  feedback-error:
+    backgroundColor: "{colors.error-surface}"
+    textColor: "{colors.error-fill}"
   card-surface:
-    backgroundColor: "rgba(255,255,255,0.05)"
-    textColor: "{colors.ink-on-dark}"
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.text-primary}"
+    rounded: "{rounded.rLg}"
+    padding: "16px"
+  card-elevated:
+    backgroundColor: "{colors.surface-active}"
+    textColor: "{colors.text-primary}"
     rounded: "{rounded.rLg}"
     padding: "16px"
   hud-pill:
-    backgroundColor: "rgba(255,255,255,0.07)"
-    textColor: "{colors.ink-on-dark}"
+    backgroundColor: "{colors.surface-active}"
+    textColor: "{colors.text-primary}"
     rounded: "{rounded.rXl}"
     padding: "5px 10px"
   tab-bar:
-    backgroundColor: "rgba(10,10,30,0.92)"
-    textColor: "{colors.nav-blue}"
-    typography: "{typography.label}"
+    backgroundColor: "{colors.graphite-alt}"
+    textColor: "{colors.tab-inactive}"
     rounded: "{rounded.rXl}"
     height: "72px"
+  tab-bar-active:
+    textColor: "{colors.text-primary}"
+  medal-done:
+    backgroundColor: "{colors.medal-gold-face}"
+  medal-next:
+    backgroundColor: "{colors.medal-unit-face}"
+  medal-locked:
+    backgroundColor: "{colors.medal-locked-face}"
+    textColor: "{colors.medal-locked-silhouette}"
 ---
 
 # Design System: Radiant
 
+Reescrito em 2026-10-21, no fim do plano 1 da trilha Medalhão. Substitui o
+"céu navegável" de 2026-07-27, pela
+[ADR de 2026-10-21](adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md).
+Os valores do cabeçalho foram comparados por script com `src/ui/theme.ts`,
+`src/ui/semantic-colors.ts`, `src/ui/styles.ts` e o `AppButton`
+([evidência](evidence/2026-10-21-fundacao-medalhao.md)). A fonte operacional
+continua sendo o código: se este arquivo e um token discordarem, o token vence,
+e este arquivo está errado.
+
 ## 1. Overview
 
-**Creative North Star: "O Céu Navegável"**
+**Creative North Star: "O Medalhão"**
 
-O Radiant é um céu escuro que a pessoa atravessa. Competências são pontos de luz,
-trilhas são rotas entre eles, e o progresso é território que deixa de ser
-desconhecido. A metáfora não é decorativa: ela decide densidade, luz e ritmo. Um
-céu tem vazio — e o vazio é o que faz o ponto de luz significar alguma coisa.
-Interface cheia é céu poluído.
+Cada passo do aluno é uma peça cunhada. A medalha tem face, lábio e miolo, e o
+relevo vem de um lábio sólido por baixo, não de sombra. A luz vem sempre de
+cima e da esquerda, na medalha, no botão e na ilustração. O fundo é um grafite
+liso, como o veludo de uma vitrine: não compete com as peças e deixa o ouro e o
+azul lerem como metal.
 
-A paleta empresta os nomes de onde a profissão tira sua própria luz. O azul é a
-janela de contraste; o ciano é o brilho do fósforo no intensificador de imagem.
-São cores de instrumento, não de tendência — e é por isso que o escuro aqui não é
-moda de dark mode: é a condição real em que radiologia se lê.
+O que conta o progresso é o estado da peça. Ouro é concluída, azul da unidade é
+a próxima, e grafite com silhueta é bloqueada. A ilustração do tema da aula
+(tubo, radiação, tomografia, proteção, ressonância) vive dentro da medalha e só
+se move nas peças desbloqueadas.
 
-O sistema rejeita explicitamente a estética de **dashboard hospitalar**:
-prontuário eletrônico, tabela densa em cinza, densidade de software que se usa
-por obrigação. O Radiant é aberto por escolha, todo dia, e cada tela precisa
-merecer esse retorno. Rejeita também o oposto — enfeite que sugere mais certeza
-do que a evidência sustenta. Conteúdo é médico; a interface nunca decora por cima
-disso.
+O sistema rejeita duas coisas por escrito:
+- o **dashboard hospitalar**, com prontuário, tabela densa em cinza e densidade
+  de software usado por obrigação. O Radiant é aberto por escolha, todo dia;
+- o **template de IA**, com gradiente genérico, brilho sem fonte de luz e ícone
+  de biblioteca. Foi esse o motivo de o dono rejeitar a primeira versão do
+  Medalhão: "muita cara de IA".
 
 **Key Characteristics:**
-- Fundo quase preto (#03030d) com superfícies de luz acumulada, nunca de sombra
-- Uma família tipográfica só (Sora) em cinco papéis, com hierarquia por peso e corte óptico
-- Vazio deliberado: o ponto de luz depende do escuro em volta
-- Movimento contido e sempre com alternativa sob movimento reduzido
-- Cor carrega ênfase, nunca informação sozinha
+- Fundo grafite opaco (`#13151c`) e uma escada de cinco superfícies opacas
+- Relevo por lábio sólido: 5 pt no botão e 8 pt na medalha
+- Ilustração em três tons, com luz de cima à esquerda, em Lottie tocado pelo Skia
+- Ícones desenhados em SVG, nunca emoji nem caractere de texto
+- Uma família tipográfica (Sora) em cinco papéis, mais o rótulo de botão
+- Movimento só nas peças desbloqueadas, sempre com quadro parado sob "reduzir movimento"
 
 ## 2. Colors
 
-Paleta de instrumento sobre vazio: um azul de ação, um ciano de sinal, e uma
-escada de branco translúcido que constrói toda a profundidade.
+Grafite neutro, dois metais (ouro e azul da unidade), um azul de ação e dois
+pares de retorno (acerto e erro). Cada cor de peça vem em três tons: face,
+lábio e miolo.
 
 ### Primary
-- **Azul de Contraste** (#2155FF): a cor da marca e do CTA de peso. Vive em
-  superfície grande e em gradiente de botão — **nunca** como estado ativo pequeno
-  sobre fundo escuro, onde mede 3,55:1 e some. Ver a Regra do Azul que Não Brilha.
-- **Azul de Navegação** (#4A9EFF): o mesmo azul, clareado para sobreviver ao
-  escuro. Mede 7,11:1 sobre a barra de navegação. É esta a cor de estado ativo,
-  ícone selecionado, link e foco.
+- **Azul de Ação** (`#2559E6`): a ação principal da tela, no `AppButton`
+  `galaxy`. Texto branco sobre ele mede **5,75:1**. A prancheta pedia
+  `#2F6BFF`, mas o branco ali dá 4,50:1, no limite, e o valor foi escurecido
+  em 2026-10-21. O lábio é `#1846C9`, o mesmo do azul da unidade.
+- **Azul de Contraste** (`#2155FF`): a variante `primary` do `AppButton`, que
+  é a padrão. Branco sobre ele mede 5,51:1. É superfície, nunca texto: sobre o
+  grafite mede **3,31:1** e reprova.
 
 ### Secondary
-- **Ciano de Fósforo** (#3DCAE8): sinal e destaque pontual. Marca o que está vivo
-  agora — brilho de nó ativo, borda de foco, acento de conquista. Sua raridade é
-  o que o faz funcionar.
+- **Ouro da Medalha** (face `#FFC21A`, lábio `#C98A00`, miolo `#F2AE00`): a
+  peça concluída. O raio do XP usa a mesma face. Nenhum texto é pintado sobre o
+  ouro hoje; se um dia for, o texto é grafite (`#13151c` sobre `#FFC21A` dá
+  11,27:1), nunca branco.
+- **Azul da Unidade** (face `#2F6BFF`, lábio `#1846C9`, miolo `#275CEB`): a
+  peça seguinte e o ícone da aba ativa. Não recebe texto por cima.
 
 ### Tertiary
-- **Âmbar de XP** (#F5A623) e **Brasa de Sequência** (#FF6B2C): as duas moedas da
-  gamificação. Sempre acompanhadas de ícone e número; a cor sozinha nunca diz que
-  moeda é.
-- **Vermelho de Vida** (#FF3B30) e **Rosa Crítico** (#FF8298): perda e erro. O
-  rosa existe porque o vermelho puro reprova como texto sobre o vazio.
+- **Âmbar de XP** (`#F5A623`), **Brasa de Sequência** (`#FF6B2C`) e
+  **Vermelho de Vida** (`#FF3B30`): as moedas do HUD, sempre com ícone e número.
+  Sobre a pílula do HUD (`#232733`), o âmbar mede 7,35:1 e a brasa 5,24:1.
+- **Tons dos ícones do HUD** (`hudIconTones`): raio `#FFC21A` / `#FFE07A` /
+  `#E59A00`, miolo da chama `#FFC21A`, coração `#FF4B4B` / `#D92F3A` /
+  `#FFB3B3`. São desenho, não texto.
+- **Verde de Acerto** (preenchimento `#2BD67B`, lábio `#1A9E58`, superfície
+  `#14281f`) e **Rosa de Erro** (`#FF8298`, `#C9566B`, `#2c1820`): o retorno da
+  resposta. O texto sobre o preenchimento é escuro, `#0b2a18` (8,10:1) e
+  `#3a0d17` (7,12:1). O título na superfície usa o próprio preenchimento:
+  8,14:1 e 7,07:1.
 
 ### Neutral
-- **Vazio** (#03030d): o fundo de todas as telas do produto. Não é preto — tem
-  azul suficiente para o starfield não parecer ruído sobre cinza.
-- **Vazio Alternativo** (#070718): segundo plano de seções e do cartão da barra.
-- **Branco Tinta** (#FFFFFF): texto primário sobre o escuro.
-- **Escada de superfície** — branco a 3%, 5%, 8% e 9%: os quatro degraus de
-  elevação. Bordas usam branco a 8%, e a 22% quando ativas.
-- **Papel** (#F5FAFF) e **Tinta** (#14233F): o contexto claro. Existe para
-  superfícies fora do produto; **não** pertence a nenhuma tela do app.
+- **Grafite** (`#13151c`): o fundo de todas as telas. Texto principal sobre ele
+  mede 16,00:1.
+- **Escada de superfície**, do fundo para cima: `#171920` (fundo alternativo e
+  barra de abas), `#1b1e27` (cartão), `#232733` (pílula do HUD, cartão
+  destacado e estado pressionado), `#2a2e3a` (superfície apagada). Todas são
+  **opacas**: quem lê uma delas lê a cor final, sem conta de transparência.
+- **Bordas**: `#323747`, e `#4a5166` quando ativa.
+- **Texto**: principal `#eef0f6`, secundário `#a3aabb` (7,15:1 no cartão) e
+  terciário `#8f97a9` (5,68:1 no cartão).
+- **Aba inativa** (`#8a91a3`): 5,57:1 sobre a barra. A prancheta dava
+  `#6d7487`, que mede 3,76:1 e reprova no rótulo de 11 px.
+- **Bloqueado** (face `#343947`, lábio `#22252f`, miolo `#2d313d`, silhueta
+  `#4B5163`): a peça que ainda não abriu.
+- **Azul de Navegação** (`#4A9EFF`): o foco (`borderFocus`). Mede 6,62:1 sobre
+  o grafite.
+- **Ciano de Sinal** (`#3DCAE8`): `statusInformation`, raro.
 
 ### Named Rules
 
-**A Regra do Azul que Não Brilha.** Azul saturado é uma cor escura: quase todo o
-seu brilho está no canal azul, que responde por 7,22% da luminância percebida.
-`#2155FF` sobre o vazio mede 3,55:1 — praticamente o mesmo que o cinza inativo
-(3,14:1), e por isso um item "ativo" pintado de azul de marca não parece ativo.
-Estado ativo usa Azul de Navegação (#4A9EFF) ou Ciano de Fósforo. Teste de um
+**A Regra do Azul que Não Brilha.** Azul saturado é uma cor escura: quase todo
+o seu brilho está no canal azul, que pesa 7,22% na luminância. Sobre o grafite,
+o Azul de Contraste mede 3,31:1 e o Azul de Ação 3,17:1. Por isso o azul do
+Medalhão é **superfície com texto branco por cima**, nunca texto nem estado
+ativo pequeno sobre o grafite. A aba ativa usa o texto principal (`#eef0f6`,
+15,41:1) contra o inativo (5,57:1), uma separação de 2,77 vezes, e o ícone dela
+ganha os três tons da unidade. O foco usa o Azul de Navegação. Teste de um
 segundo: se ativo e inativo tiverem contraste parecido, não existe estado ativo.
 
-**A Regra das Duas Paletas.** Existem dois contextos de cor e eles nunca se
-misturam. Importar o contexto claro dentro de uma tela do produto é defeito, não
-escolha — foi assim que texto pedagógico chegou a renderizar a 1,21:1. Telas do
-app consomem exclusivamente o contexto galaxy, através de `semantic-colors`.
+**A Regra das Duas Paletas.** O app tem **uma** identidade, e as telas consomem
+só o contexto galaxy, por `galaxyColors`, `medalColors`, `feedbackColors` e
+`semanticColors.galaxy`. A paleta clara `colors` vive em `src/ui` e em
+`src/components/ui` para superfícies fora do produto. Importá-la em
+`src/features/**` ou `src/app/**` é defeito: foi assim que texto pedagógico já
+renderizou a 1,21:1. O `identity-palette-contract` barra as duas portas, o
+`colors` e o `semanticColors.light`.
 
-**A Regra da Cor Muda.** Cor nunca carrega informação sozinha. Todo estado
-comunicado por cor traz também ícone, forma ou texto. Vale para vida, sequência,
-acerto, erro e progresso.
+**A Regra da Cor Muda.** Cor nunca carrega informação sozinha. Cada estado tem
+também forma, ícone ou texto:
+- a peça concluída tem ouro **e** estrelas **e** a ilustração em movimento;
+- a próxima tem o azul da unidade **e** o anel que pulsa;
+- a bloqueada tem o grafite **e** a silhueta parada, sem luz;
+- o retorno da resposta tem verde ou rosa **e** ícone **e** texto;
+- vida, sequência e XP têm ícone desenhado **e** número.
 
 ## 3. Typography
 
@@ -180,128 +315,166 @@ acerto, erro e progresso.
 **Body Font:** Sora (SemiBold / Regular)
 **Label Font:** Sora Bold em caixa alta
 
-**Character:** uma família só, em cinco papéis. Sora é geométrica com terminações
-levemente humanistas — técnica sem ser fria, o que é exatamente a tensão do
-produto. A hierarquia vem de peso e corte óptico, não de troca de família: títulos
-grandes fecham o espacejamento (até −1px) porque letras grandes já respiram
-sozinhas; o rótulo em caixa alta abre para +1px porque maiúscula encosta.
+**Character:** uma família só. Sora é geométrica com terminações levemente
+humanistas, técnica sem ser fria. A hierarquia vem de peso e corte, não de
+troca de família: títulos grandes fecham o espacejamento (até −1 px), e o
+rótulo em caixa alta abre para +1 px, porque maiúscula encosta.
 
 ### Hierarchy
 - **Display** (ExtraBold, 40/46, −1): abertura de tela e número de celebração. Um por tela, no máximo.
 - **Headline** (ExtraBold, 32/38, −0,6): título de seção maior e telas de resultado.
-- **Title** (Bold, 24/30, −0,4): título de card e de bloco. É o papel mais usado do app.
-- **Body** (SemiBold, 16/24): texto corrido, enunciado e alternativa de quiz. A variante Regular carrega parágrafo longo.
-- **Label** (Bold, 11/14, +1, caixa alta): rótulo de métrica e de aba. Sempre acompanhado do valor que ele nomeia.
+- **Title** (Bold, 24/30, −0,4): título de cartão e de bloco. É o papel mais usado.
+- **Body** (SemiBold, 16/24): texto corrido, enunciado e alternativa. A variante Regular carrega parágrafo longo.
+- **Label** (Bold, 11/14, +1, caixa alta): rótulo de métrica. Sempre ao lado do valor que nomeia.
+- **Rótulo de botão** (ExtraBold, 16, −0,1): só no `AppButton`. Cresce com o texto do sistema até o teto de `LABEL_MAX_FONT_SCALE`, e o botão cresce junto.
 
 ### Named Rules
 
 **A Regra da Escala Única.** Todo tamanho de texto vem de `typography.*`. Um
-`fontSize` numérico literal em tela nova é defeito: além de furar a escala, ele
-costuma vir sem `fontFamily`, e o texto renderiza em fonte de sistema — a marca
-desaparece sem ninguém perceber.
+`fontSize` numérico literal em tela nova é defeito: ele costuma vir sem
+`fontFamily`, e o texto sai em fonte de sistema sem ninguém perceber.
 
-**A Regra do Rótulo Visível.** Rótulo de acessibilidade complementa o texto
-visível, nunca o substitui. Se o significado de um número existe apenas em
+**A Regra do Rótulo Visível.** O rótulo de acessibilidade complementa o texto
+visível, nunca o substitui. Se o significado de um número só existe em
 `accessibilityLabel`, falta o rótulo visual.
 
-## 4. Elevation
+## 4. Elevation & Depth
 
-Profundidade é **luz acumulada, não sombra**. Cada nível de elevação acrescenta
-branco translúcido sobre o vazio: 3% para superfície recuada, 5% para card
-padrão, 8% para superfície destacada, 9% para estado ativo. Bordas de 1px a 8%
-fecham a forma; a 22% marcam seleção. O resultado é um empilhamento que continua
-legível num fundo quase preto, onde sombra — por definição escura — não teria
-como se separar.
+Profundidade é **relevo**, não sombra nem luz acumulada. Uma peça com relevo é
+duas camadas: a face e, por baixo, um lábio sólido mais escuro que aparece só
+na borda de baixo. O lábio mede 5 pt no botão e 8 pt na medalha
+(`depth.lip` e `depth.medalLip`). Ao ser pressionada, a face desce 4 pt e
+deixa 1 pt do lábio à vista, para o botão não parecer achatado.
 
-Sombra é reservada ao que literalmente flutua sobre o conteúdo.
+As superfícies internas se separam por degrau da escada de grafite e por borda
+de 1 px, nunca por sombra.
 
 ### Shadow Vocabulary
-- **Flutuação** (`shadowRadius: 24, shadowOpacity: 0.5, offset 0/8, elevation 16`): barra de abas destacada do fundo e folhas modais. Único uso legítimo de sombra no contexto galaxy.
-- **Brilho** (`shadowRadius: 18, offset 0/0`, cor do próprio acento): halo difuso sob elemento de destaque. Enfatiza, não eleva.
+- **Flutuação** (`shadowRadius: 24`, `shadowOpacity: 0.5`, deslocamento 0/8,
+  `elevation: 16`, cor `#000000`): a barra de abas, que flutua sobre o
+  conteúdo. É o único uso de sombra.
 
 ### Named Rules
 
-**A Regra do Empilhamento por Luz.** No escuro, profundidade sobe — não desce. Se
-uma proposta pede sombra para separar duas superfícies internas, a resposta certa
-é subir um degrau da escada de branco. Sombra dentro de card é sempre erro.
+**A Regra do Lábio.** O relevo é um lábio sólido, nunca `shadow*` nem
+`elevation`, que borram a borda e variam entre iOS e Android. O lábio tem
+contraste mínimo de 1,2:1 com a face (o ouro mede 1,82:1, a unidade 1,69:1 e o
+bloqueado 1,33:1; o `contrast-contract` cobra o piso). O `ghost` não tem lábio,
+porque é texto sem superfície. Sob "reduzir movimento", a face desce de uma vez,
+sem transição.
+
+**A Regra da Luz de Cima à Esquerda.** Toda peça desenhada usa três tons: a
+face, um tom claro no lado de cima e da esquerda, e um tom escuro no lado de
+baixo e da direita. Vale para a medalha, os ícones do HUD, os ícones das abas e
+as cinco ilustrações. Brilho sem fonte de luz é sinal de template.
 
 ## 5. Components
 
 ### Buttons
-- **Shape:** cantos suavemente curvos (12px)
-- **Primary:** gradiente do Azul de Contraste (#1535E8 → #3060FF) com texto branco, preenchendo a largura por padrão; padding vertical de 16px
-- **Hover / Focus:** não há hover em toque. Pressão encolhe a escala e o foco desenha borda em Azul de Navegação
-- **Ghost / Secondary:** sem preenchimento, texto em Azul de Navegação; usado para alternativa e saída, nunca para a ação principal da tela
+- **Forma:** raio de 18 px, altura mínima de 56 pt, padding de 8 × 24 pt e
+  lábio de 5 pt por baixo. A altura é mínima, não fixa: com texto grande o
+  rótulo quebra linha e o botão cresce.
+- **`galaxy`:** Azul de Ação com rótulo branco e lábio `#1846C9`. É a ação
+  principal das telas do produto.
+- **`primary`** (padrão): Azul de Contraste com rótulo branco e o mesmo lábio.
+- **`secondary`:** face `#1b1e27`, borda de 1 px em Azul de Navegação, rótulo no
+  texto principal e lábio `#171920`. Alternativa da tela.
+- **`ghost`:** sem face nem lábio; só o rótulo. Saída e "agora não".
+- **`success` e `error`:** preenchimento de retorno com rótulo escuro e lábio
+  do mesmo par.
+- **Pressão:** a face desce 4 pt em `duration.micro`; sob "reduzir movimento",
+  de uma vez.
+- **Foco:** borda de 3 px em Azul de Navegação nas variantes escuras.
+- **Desabilitado:** opacidade 0,45 no conjunto, face e lábio juntos. Na face
+  sozinha, o lábio apareceria através dela.
 
 ### Cards / Containers
-- **Corner Style:** 16px; 20px quando o container flutua
-- **Background:** branco a 5% sobre o vazio
-- **Shadow Strategy:** nenhuma — ver Elevation
-- **Border:** 1px de branco a 8%
-- **Internal Padding:** 16px, com 12px entre itens internos
+- **Cartão** (`SurfaceCard` `galaxy`): `#1b1e27`, borda de 1 px `#323747`,
+  raio de 16 px e padding de 16 px.
+- **Cartão destacado** (`galaxyElevated`): `#232733`, borda `#4a5166`.
+- **Sem sombra:** ver Elevation & Depth.
 
 ### Navigation
-Barra de abas flutuante, destacada 14px do rodapé e 16px das laterais, com raio
-de 20px e altura de 72px sobre `rgba(10,10,30,0.92)`. Ícone e rótulo compartilham
-a cor do estado: **Azul de Navegação** quando ativo, branco a 35% quando inativo.
-Por flutuar sobre o conteúdo, toda tela rolável reserva 102px de folga inferior
-(`tabBarClearance`) — sem isso o último elemento fica embaixo da barra e nunca
-pode ser tocado.
+Barra de abas flutuante, a 14 pt do rodapé e 16 pt das laterais, com raio de
+20 px, altura de 72 pt e fundo `#171920`, com borda de cima `#323747`. São duas
+abas, Estude e Perfil. A ativa pinta o rótulo no texto principal (`#eef0f6`) e
+o ícone nos três tons da unidade; a inativa pinta os dois em `#8a91a3`. Toda
+tela rolável reserva 102 pt de folga inferior (`tabBarClearance`).
 
 ### HUD (componente de assinatura)
-Trilho persistente de XP, sequência e vidas no topo das telas do produto. Pílulas
-de branco a 7% com borda a 10%; ícone e valor lidos como um nó único pelo leitor
-de tela ("1.234 XP"), nunca como ícone decorativo seguido de número solto. Vidas
-são cinco marcas na horizontal; a que se esvazia recebe pulso de perda, e o
-rótulo agregado ("3 de 5 vidas") continua informando quando o movimento está
-reduzido. Após inspeção no aparelho pelo dono, XP e sequência renderizam a
-**18pt** e as vidas a **22pt**: abaixo disso os glifos perdem presença contra o
-texto e o céu da Home.
+Trilho de XP, sequência e vidas no topo das telas do produto. As pílulas são
+`#232733` com borda `#323747` e raio de 20 px. Os ícones são desenhados em três
+tons (raio, chama e coração), e cada pílula é lida pelo leitor de tela como um
+nó só ("44 XP"). Vidas são cinco corações; o que se esvazia recebe o pulso de
+perda, e o rótulo "3 de 5 vidas" continua informando sob "reduzir movimento".
+Os ícones de XP e sequência medem 24 pt e os corações 28 pt.
 
-### Home e Galáxia (uma progressão)
+### Medalha e ilustração de tema
+- **Estados:** concluída em ouro, próxima no azul da unidade com anel que
+  pulsa, bloqueada em grafite com a silhueta do tema.
+- **Ilustração:** cinco temas, `tubo`, `radiacao`, `tomografia`, `protecao` e
+  `ressonancia`. Cada um é um Lottie de 120 × 120 a 60 fps, tocado pelo Skottie
+  do `@shopify/react-native-skia` 2.2.12, com laço de 2,4 s. O objeto pode
+  passar da borda da medalha.
+- **Bloqueada:** a mesma arte pintada inteira em `#4B5163` sobre `#343947`, e
+  parada.
+- **"Reduzir movimento":** a ilustração para no quadro de pose declarado em
+  `meta.posterFrame` do JSON, e não no quadro 0, que pode estar vazio.
+- **Arquivo ausente ou corrompido:** a medalha aparece sem ilustração e o erro
+  vai para o log. A tela não quebra.
+- **Leitor de tela:** a ilustração é decorativa; quem nomeia a peça é o nó.
 
-A Home é uma superfície de retomada curta: hero, foco do dia e CTA para o
-próximo nó. Não contém catálogo horizontal nem mapa. A Galáxia é a única
-superfície exploratória: nela o aluno escolhe a trilha e percorre o
-`JourneyMap`. As duas consomem o mesmo `JourneyProgressService`; um estado
-visual vindo de `GALAXY_CATALOG` não pode competir com o progresso real.
+Em 2026-10-21 a ilustração existe como componente (`ThemeIllustration`, com os
+estados `done`, `next` e `locked`) e como história do Storybook [código]. A
+trilha em zigue-zague que a usa, com o anel que pulsa, as estrelas e o caminho,
+é o plano 2, desenhado na
+[prancheta da trilha](design/2026-10-21-trilha-medalhao.html).
 
-### Fala ambiental do Pixel
+### Fundo
+Grafite liso em toda tela, sem estrela, nebulosa nem gradiente. O componente
+ainda se chama `StarfieldBackground` e aceita `starCount` e `variant` sem
+efeito; o renome é do plano 5.
 
-O balão da Home não é permanente nem foi removido. Ele surge após 1,2–2,6s,
-permanece por 6,5s e volta somente depois de 28–45s de silêncio. A frase vem do
-pool de abertura do `PixelMood`, não repete a anterior e nunca contém informação
-funcional. A entrada e a saída podem ser instantâneas; não há movimento
-obrigatório a ser reproduzido quando “reduzir movimento” estiver ativo.
+### Pixel
+O Pixel continua mascote. A fala dele é opcional, breve e espaçada, e nunca
+carrega instrução, erro ou próxima ação.
 
 ### Named Rules
 
-**A Regra do Sinal Proporcional.** Retorno tátil pertence só à ação principal da
-tela — as variantes `primary` e `galaxy`. Quando tudo vibra, a vibração para de
-significar. Alternativa e saída respondem com cor e escala, sem háptico.
+**A Regra do Sinal Proporcional.** O sinal acompanha o peso do evento.
+- Retorno tátil pertence só à ação principal da tela, as variantes `primary` e
+  `galaxy`. Alternativa e saída respondem com o relevo, sem háptico. Quando
+  tudo vibra, a vibração para de significar.
+- Movimento pertence só ao que está aberto. A peça bloqueada fica parada, e só
+  a próxima tem o anel que pulsa.
+
+**A Regra da Silhueta.** O bloqueado mostra o que vem, e não o que é: só a
+silhueta do tema, sem luz, sem cor da unidade e sem movimento. Opacidade global
+no cartão é proibida, porque derruba junto o contraste do texto.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** consumir cor por `semantic-colors`, que já mantém o mesmo papel nos dois contextos.
-- **Do** usar **Azul de Navegação** (#4A9EFF) para estado ativo, seleção e foco no escuro.
-- **Do** medir contraste de **composição**, não de token isolado: o par que importa é a cor final sobre a superfície final, depois de aplicada a transparência.
-- **Do** dar a todo estado um segundo canal além da cor — ícone, forma ou texto.
-- **Do** reservar 102px de folga inferior em toda tela rolável com barra de abas.
-- **Do** oferecer alternativa sob movimento reduzido em toda animação, tipicamente crossfade ou transição instantânea.
-- **Do** manter escolha de trilha e mapa exclusivamente na Galáxia, projetados da jornada canônica.
-- **Do** tratar a fala do Pixel como conteúdo opcional, breve e espaçado.
-- **Do** subir um degrau da escada de branco quando precisar separar superfícies.
+- **Do** consumir cor por `galaxyColors`, `medalColors`, `feedbackColors`, `hudIconTones` e `semanticColors.galaxy`.
+- **Do** pintar a aba ativa com o texto principal e o ícone com os três tons da unidade.
+- **Do** medir contraste de **composição**: o par que importa é a cor final sobre a superfície final.
+- **Do** dar a todo estado um segundo canal além da cor: ícone, forma ou texto.
+- **Do** fazer relevo com lábio sólido de 5 pt no botão e 8 pt na medalha.
+- **Do** desenhar peça e ícone em três tons, com a luz de cima à esquerda.
+- **Do** parar a ilustração no quadro de pose sob "reduzir movimento".
+- **Do** reservar 102 pt de folga inferior em toda tela rolável com barra de abas.
+- **Do** separar superfícies internas por degrau da escada de grafite e borda de 1 px.
 
 ### Don't:
-- **Don't** parecer um **dashboard hospitalar** — prontuário, tabela densa em cinza, densidade de software de uso obrigatório. É a anti-referência declarada do produto.
-- **Don't** pintar estado ativo com o Azul de Contraste (#2155FF) sobre o escuro: 3,55:1 contra 3,14:1 do inativo não produz estado ativo nenhum.
-- **Don't** importar a paleta do contexto claro dentro de `src/features/**` ou `src/app/**`.
-- **Don't** declarar paleta local dentro de um arquivo de tela. Se falta um papel, ele nasce em `semantic-colors`, não num objeto de constantes ao lado do componente.
-- **Don't** usar emoji do sistema como ícone. Emoji ignora token de cor, renderiza ao gosto do sistema operacional e é lido um a um pelo leitor de tela.
+- **Don't** parecer um **dashboard hospitalar**: prontuário, tabela densa em cinza, densidade de software de uso obrigatório.
+- **Don't** parecer **template de IA**: gradiente genérico, brilho sem fonte de luz, ícone de biblioteca.
+- **Don't** pintar texto ou estado ativo pequeno com azul saturado sobre o grafite: `#2155FF` mede 3,31:1 e `#2559E6` mede 3,17:1.
+- **Don't** pintar texto branco sobre o ouro ou sobre o azul da unidade.
+- **Don't** importar a paleta clara dentro de `src/features/**` ou `src/app/**`.
+- **Don't** declarar paleta local num arquivo de tela. Cor nova nasce em `src/ui/theme.ts` ou `semantic-colors.ts`.
+- **Don't** usar emoji ou caractere de texto como ícone, nem `@expo/vector-icons` novo.
 - **Don't** escrever `fontSize` numérico em tela nova; o papel existe em `typography.*`.
 - **Don't** deixar o significado de um dado apenas em `accessibilityLabel`.
-- **Don't** manter uma trilha estática na Galáxia em paralelo à progressão real.
-- **Don't** colocar instrução, erro ou próxima ação apenas no balão do Pixel.
-- **Don't** usar sombra para separar superfícies internas; sombra só para o que flutua.
-- **Don't** encher o céu. Vazio é o material que faz o ponto de luz significar.
+- **Don't** fazer relevo com `shadow*` ou `elevation`. Sombra só para a barra de abas.
+- **Don't** animar a peça bloqueada, nem deixar animação sem quadro parado sob "reduzir movimento".
+- **Don't** voltar ao céu: estrela, nebulosa e superfície translúcida saíram em 2026-10-21.

@@ -478,8 +478,15 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     Os cinco planos e as dependências entre eles estão no
     [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md). O primeiro,
     a [fundação visual](superpowers/plans/2026-10-21-fundacao-visual-medalhao.md),
-    está escrito
-    ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md));
+    teve as sete tarefas executadas em 2026-10-21 na branch
+    `claude/trilha-medalhao-design`: tokens, botões com lábio, fundo grafite,
+    HUD e abas desenhados, Skia com as cinco ilustrações e o
+    [DESIGN.md](DESIGN.md) novo
+    ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
+    [evidência](evidence/2026-10-21-fundacao-medalhao.md)). **Falta, em
+    2026-10-21:** o olhar do dono sobre as ilustrações e as capturas, a rodada
+    de correção da revisão final, a remedição de quadros no AVD com a tela do
+    Mac desbloqueada, a PR e o merge, que é do dono;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
