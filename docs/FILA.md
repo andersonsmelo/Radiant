@@ -510,12 +510,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       aplicado;
     - o plano 6 (Pixel) está concluído e revisado;
     - o plano 2 está com as tarefas 0 a 6 implementadas e revisadas;
-    - a retomada da 6 passou os 15 validadores no segundo run, após corrigir
-      o mock de um consumidor que descartava o novo botão. A revisão
-      independente aprovou a correção. A tarefa 7 e a revisão final do plano
-      permanecem pendentes, com a ocupação da cabeça de 48 pt no texto grande
-      ainda sem prova nativa
-      ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
+    - a retomada da 6 (`7615827`) passou os 15 validadores no segundo run,
+      após corrigir o mock consumidor; a revisão independente aprovou a
+      correção;
+    - a tarefa 7 foi medida, **com aceite pendente**: Pixel fora da tela no
+      nativo, Maestro 2 PASS / 1 FAIL (dia2 passou depois do vencimento real); AVD ~59,88–59,93 FPS estimados, apenas
+      três nós desbloqueados. A revisão final e a onda de correção continuam
+      abertas ([evidência nativa](evidence/2026-10-22-trilha-medalhao.md));
+      planos 3 e 5 continuam não iniciados.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

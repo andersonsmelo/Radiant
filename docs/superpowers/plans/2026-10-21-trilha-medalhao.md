@@ -424,7 +424,7 @@ medalha.
 Run: `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`
 Expected: código 0.
 
-- [ ] **Passo 5: Commit**
+- [x] **Passo 5: Commit**
 
 ```bash
 git add -A radiant-app/src/features/journey radiant-app/src/ui/motion.ts
@@ -467,7 +467,8 @@ git commit -m "docs(trilha): evidência da trilha Medalhão no simulador e no AV
 **Estado:**
 - **Tarefas 0 a 5:** concluídas e revisadas.
 - **Tarefa 6:** implementada e revisada em 2026-10-22; gate completo aprovado no segundo run (15/15), após corrigir o mock consumidor. Prova nativa é da tarefa 7.
-- **Tarefa 7 e revisão final do plano:** por fazer.
+- **Tarefa 7:** coleta executada em 2026-10-22; aceite pendente, com achados e um roteiro FAIL.
+- **Revisão final:** preliminar forte concluída; onda de correção e aprovação final pendentes.
 
 Execução com subagentes: um implementador e um revisor por tarefa.
 
@@ -586,3 +587,43 @@ continuar:
 - A linha do lembrete é um rodapé fixo e ocupa cerca de 60 pt da área da
   trilha.
 - Uma banda ou um cabeçalho de unidade entre dois nós interrompe o pontilhado.
+
+
+**Tarefa 7, coleta em 2026-10-22 (Codex):**
+- Fonte `76158274b0f253e56467a3a61a6370ff2b9f6f97`, run documental
+  `run-1792686789421-4d7b1961`, 25 arquivos declarados. O agente de preflight
+  esgotou a quota antes de executar; o controlador realizou a coleta.
+- Reutilizados dev clients Debug 1.4.0 (3) com Skia e Metro deste worktree.
+  Sem build, EAS, merge, loja ou alteração de dados/relógio. O simulador de
+  dia 2 recebeu o binário compatível sem desinstalar/limpar seu container.
+- Capturas iOS na abertura, vídeo real de retorno e três quadros, dois PNGs
+  idênticos sob movimento reduzido e texto máximo. **Não aprovam o momento**:
+  a cabeça 48×46 está montada em x=-249,75 pt, fora do viewport. A medida
+  nativa sustenta que `right: '100%'` está resolvendo contra a linha de 370 pt,
+  não a medalha de 80 pt. Android também sem cabeça visível. A correção exige
+  nova prova nativa, incluindo coluna e clipping entre células.
+- Maestro canônico: primeira execução PASS; segundo dia PASS na terceira
+  tentativa, após vencer naturalmente a revisão22/10 às13h56 no mesmo
+  simulador (as duas tentativas anteriores eram prematuras); vidas FAIL ao tocar L1 concluída sob o HUD. Probe
+  complementar com centralização PASS abriu a L1, sem aprovar vidas esgotadas.
+- Android: trilha real de 57 nós, três desbloqueados. Três rodadas de ponta a
+  ponta e volta com HWUI estimaram 59,919 / 59,925 / 59,879 FPS; pior quadro
+  preservado 67,185 ms. Depois de excluir linhas transitórias inválidas, a coleta tem uma linha
+  válida por rodada a menos que o total; a causa não foi estabelecida. Não
+  declarar pior quadro absoluto nem cenário de 40 medalhas desbloqueadas.
+  O medidor G6 mede dados/abertura, não FPS contínuo; não foi usado para
+  inventar taxa de rolagem.
+- [Evidência e limites completos](../../evidence/2026-10-22-trilha-medalhao.md).
+  Apps, simuladores, AVD e Metro encerrados antes da validação configurada.
+- **Tarefa 7 não aprovada funcionalmente; Plano 2 não concluído.** A revisão
+  forte preliminar confirmou cinco itens além do achado nativo: cabeça inteira
+  invade título na coluna; medalhas fora do viewport seguem animando; data da
+  revisão futura só no label acessível; faixa reduz contraste a 3,368:1;
+  faixa usa token do jaleco. A altura em cache na transição continua lacuna
+  de prova. Tratar tudo na onda única final, com vermelho/verde específico,
+  evidência nativa remediada e revisão independente final.
+
+- Gate documental T7: **15/15**, `VALIDATION_PASSED`; após ajustes da revisão,
+  docs-contract **18/18 + PASS**. Revisão independente forte aprovou o registro
+  negativo (métricas, vídeo, hashes e logs), **sem aprovar o Plano 2**. O
+  fechamento do writer segue a CLI pública; sessão de cérebro T7 `closed`.

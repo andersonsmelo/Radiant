@@ -252,16 +252,24 @@ mudaram o texto do plano e pendências.
 
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.
-- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas** em 2026-10-22.
-  A retomada da 6 entrega percurso do Pixel e botão sob a medalha, com guardas
-  para medição tardia, texto grande e movimento reduzido. O primeiro gate
-  completo reprovou por três testes de retomada cujo mock descartava o botão.
-  O segundo run, depois do ajuste mínimo desse consumidor, passou os 15
-  validadores; a revisão independente aprovou a correção
-  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)). A regressão do
-  `visual:qa:strict` relatada no handoff não foi reproduzida. Faltam a tarefa 7
-  (iOS, AVD e cabeça de 48 pt, incluindo ocupação no texto grande) e a revisão
-  final do plano. A aprovação estática não comprova ausência de sobreposição no nativo.
+- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas**, commit
+  `7615827`; o segundo run da 6 aprovou 15/15 validadores após corrigir o mock
+  consumidor ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
+  **Tarefa 7 com coleta executada e aceite pendente** em 2026-10-22:
+  a cabeça 48×46 está montada fora da tela (x=-249,75 pt no iOS); a primeira
+  execução Maestro passou; dia 2 passou após vencer naturalmente às 13h56
+  (as duas tentativas anteriores foram prematuras); vidas falhou no
+  toque da medalha sob o HUD. Um probe centralizado reabriu a aula. O AVD
+  mediu ~59,88–59,93 FPS estimados em três rodadas, pior quadro capturado
+  67,185 ms, com apenas três nós desbloqueados; não aprova 40 medalhas
+  animadas. Veja [capturas, vídeo, logs e limites](evidence/2026-10-22-trilha-medalhao.md).
+  **Revisão final não aprovada.** A onda de correção precisa tratar posição
+  nativa do Pixel, ocupação inteira da cabeça na coluna, playback fora do
+  viewport, data futura visível e contraste/token da faixa; depois repetir
+  a evidência e os três roteiros até seus cenários esperados. O aceite
+  estático da 6 não comprovou a composição nativa. O registro documental da
+  7 passou 15/15 e foi aprovado pela revisão independente forte como evidência
+  com defeitos pendentes, sem aprovação funcional.
 - **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
