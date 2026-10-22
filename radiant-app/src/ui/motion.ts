@@ -4,12 +4,14 @@
  * Aligned with RADIANT_UI_KIT.md motion tokens
  */
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Easing } from 'react-native';
 import {
     default as Reanimated,
     Easing as ReanimatedEasing,
+    Extrapolation,
     cancelAnimation,
+    interpolate,
     interpolateColor,
     useAnimatedProps,
     useAnimatedStyle,
@@ -736,4 +738,183 @@ export function useLottieFrameLoop({
     }, [still, running, clock, fps, totalFrames]);
 
     return useDerivedValue(() => (valid ? (posterFrame + clock.value) % totalFrames : posterFrame));
+}
+
+// ============================================================================
+// O MOMENTO DO PIXEL NA TRILHA (spec 2026-10-21, seção 4)
+// ============================================================================
+
+/** O trecho até a próxima acende. */
+const TRAIL_MOMENT_SEGMENT_MS = 300;
+/** O Pixel percorre o caminho e para ao lado da medalha. */
+const TRAIL_MOMENT_PIXEL_MS = 450;
+/** A medalha cresce até 1,08 e volta: a ida chama atenção, a volta assenta. */
+const TRAIL_MOMENT_MEDAL_RISE_MS = duration.micro;
+const TRAIL_MOMENT_MEDAL_SETTLE_MS = duration.ui;
+const TRAIL_MOMENT_MEDAL_PEAK = 1.08;
+/** O botão entra. */
+const TRAIL_MOMENT_CTA_MS = 250;
+/** Quanto o botão sobe ao entrar. */
+const TRAIL_MOMENT_CTA_RISE = 8;
+/** Do começo do trecho ao fim da entrada do botão. */
+export const TRAIL_MOMENT_MS = TRAIL_MOMENT_SEGMENT_MS + TRAIL_MOMENT_PIXEL_MS
+    + TRAIL_MOMENT_MEDAL_RISE_MS + TRAIL_MOMENT_MEDAL_SETTLE_MS + TRAIL_MOMENT_CTA_MS;
+
+/**
+ * O caminho do Pixel, em amostras: em cada fração `progress` (de 0 a 1, pelo
+ * comprimento do caminho), o deslocamento `x`/`y` do Pixel em relação ao lugar
+ * onde ele descansa. A última amostra é sempre `(0, 0)`.
+ */
+export type TrailMomentRoute = {
+    progress: number[];
+    x: number[];
+    y: number[];
+    /** O Pixel aparece no começo do caminho, em vez de já estar ali. */
+    fadeIn?: boolean;
+};
+
+/**
+ * O momento em que o Pixel percorre a trilha até a próxima aula, em sequência:
+ * o trecho acende em 300 ms, o Pixel anda pelo caminho até o lado da medalha
+ * em 450 ms, a medalha cresce de 1 a 1,08 e volta, e o botão entra em 250 ms.
+ *
+ * Fora do momento, e com "reduzir movimento", tudo fica no estado final desde o
+ * primeiro quadro: o trecho aceso, o Pixel no lugar, a medalha em 1 e o botão
+ * à vista. Com "reduzir movimento" o momento acaba na hora (`onFinished`).
+ * Enquanto a preferência não respondeu, o momento espera, no estado final.
+ *
+ * `ready` espera as medidas nativas da origem e do destino; a virtualização
+ * não gasta a duração antes de montar a cabeça. A rota é congelada na partida.
+ * `holding` cobre o quadro antes da partida. Um estilo animado só chega à
+ * vista no quadro seguinte à troca dos valores, e uma vista que acaba de montar
+ * nasce com o primeiro estilo que o hook calculou, o final: sem a espera, o
+ * Pixel, o trecho aceso e o botão piscariam no lugar final antes de voltar ao
+ * começo. Quem desenha esconde essas camadas, com estilo comum, enquanto
+ * `holding` for verdadeiro. `momentKey` recomeça o momento quando outro
+ * começa sem o anterior ter acabado.
+ *
+ * O trecho é um estilo (opacidade da camada acesa sobre a apagada), e não
+ * propriedades do traçado: o desenho do pontilhado fica em `JourneyPathSegment`
+ * e a camada acesa é o mesmo desenho, percorrido, por cima. São dois estilos do
+ * mesmo valor, um para cada parte do trecho (`outgoing` na linha de cima,
+ * `incoming` na de baixo): cada vista animada tem o seu.
+ */
+export function useTrailMomentStyles(
+    playing: boolean,
+    {
+        route,
+        onFinished,
+        momentKey,
+        ready = true,
+    }: { route?: TrailMomentRoute; onFinished?: () => void; momentKey?: string; ready?: boolean } = {},
+) {
+    const preference = useReducedMotionPreferenceState();
+    const wantsMotion = playing && preference.resolved && !preference.reducedMotionEnabled;
+    const animate = wantsMotion && ready;
+    const [activeRoute, setActiveRoute] = useState<TrailMomentRoute | undefined>(undefined);
+    const routeRef = useRef(route);
+    useEffect(() => { routeRef.current = route; }, [route]);
+    const [startedKey, setStartedKey] = useState<string | undefined>(undefined);
+    const runKey = momentKey ?? 'moment';
+    const finishAtOnce = playing && preference.resolved && preference.reducedMotionEnabled;
+    const segment = useSharedValue(1);
+    const travel = useSharedValue(1);
+    const medal = useSharedValue(1);
+    const cta = useSharedValue(1);
+    const onFinishedRef = useRef(onFinished);
+
+    useEffect(() => {
+        onFinishedRef.current = onFinished;
+    }, [onFinished]);
+
+    useEffect(() => {
+        const settle = () => {
+            cancelAnimation(segment);
+            cancelAnimation(travel);
+            cancelAnimation(medal);
+            cancelAnimation(cta);
+            segment.value = 1;
+            travel.value = 1;
+            medal.value = 1;
+            cta.value = 1;
+        };
+
+        if (!animate) {
+            settle();
+            setStartedKey(undefined);
+            if (finishAtOnce) onFinishedRef.current?.();
+            return undefined;
+        }
+
+        const pixelAt = TRAIL_MOMENT_SEGMENT_MS;
+        const medalAt = pixelAt + TRAIL_MOMENT_PIXEL_MS;
+        const ctaAt = medalAt + TRAIL_MOMENT_MEDAL_RISE_MS + TRAIL_MOMENT_MEDAL_SETTLE_MS;
+
+        // A geometria fica fixa após a medição do destino virtualizado.
+        setActiveRoute(routeRef.current);
+        segment.value = 0;
+        travel.value = 0;
+        medal.value = 1;
+        cta.value = 0;
+        segment.value = withTiming(1, {
+            duration: TRAIL_MOMENT_SEGMENT_MS,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        });
+        travel.value = withDelay(pixelAt, withTiming(1, {
+            duration: TRAIL_MOMENT_PIXEL_MS,
+            easing: ReanimatedEasing.inOut(ReanimatedEasing.cubic),
+        }));
+        medal.value = withDelay(medalAt, withSequence(
+            withTiming(TRAIL_MOMENT_MEDAL_PEAK, {
+                duration: TRAIL_MOMENT_MEDAL_RISE_MS,
+                easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+            }),
+            withTiming(1, {
+                duration: TRAIL_MOMENT_MEDAL_SETTLE_MS,
+                easing: ReanimatedEasing.inOut(ReanimatedEasing.quad),
+            }),
+        ));
+        cta.value = withDelay(ctaAt, withTiming(1, {
+            duration: TRAIL_MOMENT_CTA_MS,
+            easing: ReanimatedEasing.bezier(0.22, 1, 0.36, 1),
+        }));
+        setStartedKey(runKey);
+        // O fim é contado no relógio do JS, e não no retorno da animação: quem
+        // ouve é a tela, e ela precisa saber mesmo que a linha saia da janela
+        // virtualizada no meio do caminho.
+        const timer = setTimeout(() => onFinishedRef.current?.(), TRAIL_MOMENT_MS);
+        return () => {
+            clearTimeout(timer);
+            settle();
+        };
+    }, [animate, finishAtOnce, runKey, segment, travel, medal, cta]);
+
+    const outgoing = useAnimatedStyle(() => ({ opacity: segment.value }));
+    const incoming = useAnimatedStyle(() => ({ opacity: segment.value }));
+    const pixel = useAnimatedStyle(() => {
+        const t = travel.value;
+        if (!activeRoute || activeRoute.progress.length < 2) {
+            return { opacity: 1, transform: [{ translateX: 0 }, { translateY: 0 }] };
+        }
+        return {
+            opacity: activeRoute.fadeIn ? interpolate(t, [0, 0.15], [0, 1], Extrapolation.CLAMP) : 1,
+            transform: [
+                { translateX: interpolate(t, activeRoute.progress, activeRoute.x, Extrapolation.CLAMP) },
+                { translateY: interpolate(t, activeRoute.progress, activeRoute.y, Extrapolation.CLAMP) },
+            ],
+        };
+    });
+    const medalStyle = useAnimatedStyle(() => ({ transform: [{ scale: medal.value }] }));
+    const ctaStyle = useAnimatedStyle(() => ({
+        opacity: cta.value,
+        transform: [{ translateY: (1 - cta.value) * TRAIL_MOMENT_CTA_RISE }],
+    }));
+
+    return {
+        segment: { outgoing, incoming },
+        pixel,
+        medal: medalStyle,
+        cta: ctaStyle,
+        holding: wantsMotion && (!ready || startedKey !== runKey),
+    };
 }

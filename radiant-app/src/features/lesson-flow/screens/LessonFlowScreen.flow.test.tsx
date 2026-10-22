@@ -137,7 +137,7 @@ jest.mock('../../journey/services/JourneyCurriculumService', () => ({
 jest.mock('../../journey/components/JourneyTrail', () => {
   const React = require('react');
   const { View } = require('react-native');
-  return { JourneyTrail: ({ header }: { header: React.ReactNode }) => <View>{header}</View> };
+  return { JourneyTrail: ({ header, recommendedAction }: { header: React.ReactNode; recommendedAction?: React.ReactNode }) => <View>{header}{recommendedAction}</View> };
 });
 
 jest.mock('../../gamification/services/GamificationService', () => ({

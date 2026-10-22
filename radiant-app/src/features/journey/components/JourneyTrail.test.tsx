@@ -1,12 +1,24 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { act, fireEvent, render } from '@testing-library/react-native';
 import { Path } from 'react-native-svg';
-import { galaxyColors, medalColors } from '../../../ui/theme';
+import { depth, galaxyColors, medalColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
 import { JourneyMedal } from './JourneyMedal';
 import { JourneyPathSegment } from './JourneyPathSegment';
-import { TRAIL_SEAM_PHASE, outgoingPath } from './trailLayout';
+import {
+  MEDAL_RADIUS,
+  NEXT_MEDAL_RADIUS,
+  TRAIL_LEAD,
+  TRAIL_MEDAL_TOP,
+  TRAIL_SEAM_PHASE,
+  TRAIL_SIDE_GAP,
+  outgoingPath,
+} from './trailLayout';
+import { TRAIL_MOMENT_MS } from '../../../ui/motion';
+import { readMotionStyle as getAnimatedStyle } from '../../../test/readMotionStyle';
+import { space } from '../../../ui/styles';
+import { useReducedMotionPreferenceState } from '../../../ui/accessibility/useReducedMotionPreference';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
 import type { JourneyNode, JourneyNodeStatus, JourneyUnit } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
@@ -493,6 +505,311 @@ describe('JourneyTrail — o encaixe do Pixel', () => {
     // u1-node-0 está à esquerda: o encaixe vai à esquerda dela; u1-node-1, à direita.
     expect(side('u1-node-0').right).toBe('100%');
     expect(side('u1-node-1').left).toBe('100%');
+  });
+});
+
+describe('JourneyTrail — a ação sob a medalha recomendada', () => {
+  const trilha = () => [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])];
+  const acao = <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar jornada" />;
+
+  it('fica sob a medalha recomendada, e só nela', () => {
+    const screen = renderTrail(trilha(), 'u1-node-1', { recommendedAction: acao });
+
+    const action = screen.getByTestId('acao');
+    let anchor: string | undefined;
+    for (let node = action.parent; node; node = node.parent) {
+      if (/^journey-anchor-/u.test(node.props.testID ?? '')) { anchor = node.props.testID; break; }
+    }
+    expect(anchor).toBe('journey-anchor-u1-node-1');
+    expect(screen.getAllByTestId('acao', HIDDEN)).toHaveLength(1);
+  });
+
+  it('o leitor de tela alcança o botão, fora do bloco escondido do Pixel', () => {
+    const screen = renderTrail(trilha(), 'u1-node-1', {
+      recommendedAction: acao,
+      pixelSlot: (nodeId) => (nodeId === 'u1-node-1' ? <View testID="pixel" /> : null),
+    });
+
+    // Sem `includeHiddenElements`: o que está escondido não é achado.
+    expect(screen.getByRole('button', { name: 'Continuar jornada' })).toBeTruthy();
+    expect(screen.queryByTestId('pixel')).toBeNull();
+  });
+
+  it('sem recomendado, não há ação', () => {
+    const screen = renderTrail(trilha(), undefined, { recommendedAction: acao });
+
+    expect(screen.queryByTestId('acao', HIDDEN)).toBeNull();
+  });
+});
+
+// O momento (spec, seção 4): ao voltar de uma aula concluída, o trecho até a
+// próxima acende, o Pixel percorre o caminho e para ao lado da medalha, a
+// medalha cresce e o botão aparece. Com "reduzir movimento", troca instantânea.
+describe('JourneyTrail — o momento do Pixel', () => {
+  const mockedPreference = useReducedMotionPreferenceState as jest.Mock;
+  // A cabeça do Pixel no tamanho `sm`: 48 de largura, 46 de altura.
+  const HEAD = { width: 48, height: 46 };
+  const ROW = 180;
+  /** Meia-largura 200: as medalhas ficam a ±70 do centro. */
+  const OFFSET = 70;
+
+  beforeEach(() => { jest.useFakeTimers(); });
+  afterEach(() => {
+    jest.useRealTimers();
+    mockedPreference.mockReturnValue({ reducedMotionEnabled: false, resolved: true });
+  });
+
+  function trilha() {
+    // u1-node-0 à esquerda, u1-node-1 à direita (acabou de ser concluído) e
+    // u1-node-2 à esquerda, o novo recomendado.
+    return [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available'])])];
+  }
+
+  function renderMoment(moment?: { fromNodeId: string; toNodeId: string }, onDone = jest.fn()) {
+    const screen = renderTrail(trilha(), 'u1-node-2', {
+      pixelSlot: (nodeId) => (nodeId === 'u1-node-2' ? <View testID="pixel" /> : null),
+      recommendedAction: <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar jornada" />,
+      moment: moment ? { ...moment, onDone } : undefined,
+    });
+    medirLargura(screen);
+    medirLinhas(screen, ROW);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    // O estilo animado chega à vista no quadro seguinte: o primeiro quadro do momento.
+    act(() => { jest.advanceTimersByTime(16); });
+    return { screen, onDone };
+  }
+
+  type Transform = { translateX?: number; translateY?: number; scale?: number }[];
+  const styleOf = (screen: ReturnType<typeof render>, testID: string) =>
+    getAnimatedStyle(screen.getByTestId(testID, HIDDEN)) as { opacity?: number; transform?: Transform };
+  const transformOf = (screen: ReturnType<typeof render>, testID: string) => {
+    const entries = styleOf(screen, testID).transform ?? [];
+    return {
+      x: entries.find((entry) => entry.translateX !== undefined)?.translateX ?? 0,
+      y: entries.find((entry) => entry.translateY !== undefined)?.translateY ?? 0,
+      scale: entries.find((entry) => entry.scale !== undefined)?.scale ?? 1,
+    };
+  };
+
+  // Onde a cabeça descansa, em relação ao centro da trilha e ao topo da linha:
+  // do lado de fora da medalha recomendada (à esquerda), centrada na caixa da
+  // medalha com o lábio.
+  const rest = {
+    x: -OFFSET - (NEXT_MEDAL_RADIUS + space.s1 + HEAD.width / 2),
+    y: TRAIL_MEDAL_TOP + (2 * NEXT_MEDAL_RADIUS + depth.medalLip) / 2,
+  };
+  /** O centro da cabeça agora, nas mesmas coordenadas. */
+  const pixelCenter = (screen: ReturnType<typeof render>) => {
+    const { x, y } = transformOf(screen, 'journey-pixel-slot-u1-node-2');
+    return { x: rest.x + x, y: rest.y + y };
+  };
+  /** A linha do trecho que sai do nó concluído, na altura do centro dele. */
+  const lineY = -ROW + TRAIL_MEDAL_TOP + MEDAL_RADIUS;
+  const advance = (ms: number) => act(() => { jest.advanceTimersByTime(ms); });
+
+  it('fora do momento, tudo está no estado final: o Pixel ao lado da medalha e o botão à vista', () => {
+    const { screen } = renderMoment();
+
+    expect(transformOf(screen, 'journey-pixel-slot-u1-node-2')).toMatchObject({ x: 0, y: 0 });
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(1);
+    expect(screen.queryByTestId(/^journey-moment-segment-/u, HIDDEN)).toBeNull();
+  });
+
+  it('o Pixel parte do lado da medalha concluída, montado no pontilhado', () => {
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    const start = pixelCenter(screen);
+
+    // Do lado de dentro da medalha concluída (à direita, em +70), virado para
+    // a próxima, sem cobrir a medalha.
+    expect(start.x).toBeCloseTo(OFFSET - (MEDAL_RADIUS + TRAIL_SIDE_GAP) - HEAD.width / 2, 1);
+    // Em cima da linha: o centro acima dela, e a base encostando nela.
+    expect(start.y).toBeLessThan(lineY);
+    expect(start.y + HEAD.height / 2).toBeGreaterThanOrEqual(lineY);
+  });
+
+  it('percorre o caminho: corre na horizontal, desce a vertical da próxima e para ao lado dela', () => {
+    const { screen, onDone } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    const start = pixelCenter(screen);
+    const samples: { x: number; y: number }[] = [];
+    // Até o último quadro antes do fim (o primeiro já passou em `renderMoment`).
+    for (let elapsed = 16; elapsed < TRAIL_MOMENT_MS - 16; elapsed += 16) {
+      advance(16);
+      samples.push(pixelCenter(screen));
+    }
+
+    // A perna horizontal, na altura da linha, entre a concluída e a próxima.
+    expect(samples.some(({ x, y }) => x < start.x - 20 && x > -OFFSET + 20 && Math.abs(y - start.y) < 1)).toBe(true);
+    // A descida, na vertical da próxima, entre a linha e o topo da linha dela.
+    expect(samples.some(({ x, y }) => Math.abs(x + OFFSET) < 1 && y > start.y + 20 && y < TRAIL_LEAD)).toBe(true);
+    // Nunca volta para trás nem sai do caminho para o lado de dentro.
+    for (const { x } of samples) {
+      expect(x).toBeLessThanOrEqual(start.x + 0.5);
+      expect(x).toBeGreaterThanOrEqual(rest.x - 0.5);
+    }
+    expect(pixelCenter(screen).x).toBeCloseTo(rest.x, 1);
+    expect(pixelCenter(screen).y).toBeCloseTo(rest.y, 1);
+    expect(onDone).not.toHaveBeenCalled();
+
+    advance(50);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it('em sequência: o trecho acende, o Pixel anda, a medalha cresce e volta, e o botão entra', () => {
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    const lit = () => screen.getAllByTestId(/^journey-moment-segment-/u, HIDDEN)
+      .map((node) => (getAnimatedStyle(node) as { opacity: number }).opacity);
+
+    // As duas partes do trecho: a que sai da concluída e a que chega à próxima.
+    expect(screen.getByTestId('journey-moment-segment-out', HIDDEN)).toBeTruthy();
+    expect(screen.getByTestId('journey-moment-segment-in', HIDDEN)).toBeTruthy();
+    // O primeiro quadro: o trecho começa a acender, o botão ainda não entrou.
+    for (const opacity of lit()) expect(opacity).toBeLessThan(0.3);
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+
+    advance(304);
+    expect(lit()).toEqual([1, 1]);
+    expect(transformOf(screen, 'journey-medal-u1-node-2').scale).toBe(1);
+
+    // O Pixel chega aos 750 ms; a medalha cresce até 1,08 e volta.
+    let peak = 1;
+    for (let elapsed = 336; elapsed <= 1136; elapsed += 16) {
+      advance(16);
+      peak = Math.max(peak, transformOf(screen, 'journey-medal-u1-node-2').scale);
+    }
+    expect(peak).toBeCloseTo(1.08, 2);
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+
+    advance(TRAIL_MOMENT_MS - 1136 + 16);
+    expect(transformOf(screen, 'journey-medal-u1-node-2').scale).toBe(1);
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(1);
+    expect(transformOf(screen, 'journey-action-u1-node-2').y).toBe(0);
+  });
+
+  it('durante o momento, o trecho debaixo do aceso é o apagado', () => {
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    const lit = screen.getAllByTestId(/^journey-moment-segment-/u, HIDDEN)
+      .flatMap((node) => node.findAllByType(JourneyPathSegment).map((piece: { props: SegmentProps }) => piece.props.traveled));
+
+    expect(lit).toEqual([true, true]);
+    // Em ordem: o trecho entre u1-node-0 e u1-node-1, andado há tempo, segue
+    // percorrido; o do momento fica apagado embaixo, com a camada acesa por cima.
+    expect(pathPieces(screen, 'out').map((props) => props.traveled)).toEqual([true, false, true]);
+    expect(pathPieces(screen, 'in').map((props) => props.traveled)).toEqual([true, false, true]);
+  });
+
+  it('se o concluído não é o nó logo acima, o Pixel desce só o trecho que chega', () => {
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2' });
+    const start = pixelCenter(screen);
+
+    expect(start.x).toBeCloseTo(-OFFSET, 1);
+    expect(start.y).toBeLessThan(TRAIL_LEAD);
+    expect(screen.queryByTestId('journey-moment-segment-out', HIDDEN)).toBeNull();
+    expect(screen.getByTestId('journey-moment-segment-in', HIDDEN)).toBeTruthy();
+  });
+
+  it('espera o destino virtualizado medir antes de consumir o tempo do momento', () => {
+    const onDone = jest.fn();
+    const screen = renderTrail(trilha(), 'u1-node-2', {
+      pixelSlot: nodeId => nodeId === 'u1-node-2' ? <View testID="pixel" /> : null,
+      recommendedAction: <Pressable testID="acao" />,
+      moment: { fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2', onDone },
+    });
+    medirLargura(screen);
+    medirLinhas(screen, ROW);
+    // Uma lista longa pode montar/medir o encaixe depois de toda a duração.
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    advance(16);
+    expect(pixelCenter(screen).y).toBeLessThan(lineY);
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it('espera também a origem adjacente medir, mesmo com o destino já montado', () => {
+    const onDone = jest.fn();
+    const screen = renderTrail(trilha(), 'u1-node-2', {
+      pixelSlot: nodeId => nodeId === 'u1-node-2' ? <View testID="pixel" /> : null,
+      moment: { fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2', onDone },
+    });
+    medirLargura(screen);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    medirLinhas(screen, ROW);
+    advance(16);
+    expect(pixelCenter(screen).y).toBeLessThan(lineY);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it('uma nova medição da origem não reposiciona o Pixel depois da partida', () => {
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    // O trecho ainda acende: a cabeça espera no início, já com a rota fixada.
+    advance(100);
+    const before = pixelCenter(screen);
+    fireEvent(screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, width: 400, height: ROW + 80 } },
+    });
+    // O estilo do novo layout chega à vista no próximo quadro.
+    advance(16);
+    expect(pixelCenter(screen)).toEqual(before);
+  });
+
+  it('com texto grande, parte da cauda desenhada depois do título e segue a coluna', () => {
+    mockWindow.fontScale = 1.65;
+    const { screen } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+    const tail = screen.getByTestId('journey-moment-segment-out', HIDDEN);
+    const tailHeight = tail.findByType(JourneyPathSegment).props.height as number;
+    // Coordenada do primeiro ponto do traçado efetivamente entregue ao SVG,
+    // não a borda da medalha nem um espelho da rota do Pixel.
+    const d = tail.findByType(Path).props.d as string;
+    const firstPoint = /^M([^,]+),([^ ]+)/u.exec(d);
+    expect(firstPoint).not.toBeNull();
+    const lineStartY = -tailHeight + Number(firstPoint![2]);
+    const columnRest = {
+      x: -(NEXT_MEDAL_RADIUS + space.s1 + HEAD.width / 2),
+      y: rest.y,
+    };
+    const center = () => {
+      const transform = transformOf(screen, 'journey-pixel-slot-u1-node-2');
+      return { x: columnRest.x + transform.x, y: columnRest.y + transform.y };
+    };
+    const start = center();
+    expect(start.x).toBeCloseTo(0, 1);
+    // A base da cabeça apoia 4pt sobre a linha (mesmo apoio do zigue-zague).
+    expect(start.y + HEAD.height / 2).toBeCloseTo(lineStartY + 4, 1);
+    const samples: { x: number; y: number }[] = [];
+    for (let elapsed = 16; elapsed < TRAIL_MOMENT_MS; elapsed += 16) {
+      advance(16);
+      samples.push(center());
+    }
+    // Nunca sobe para a região anterior à cauda (o bloco de título/estrelas).
+    expect(samples.every(point => point.y >= start.y - 0.5)).toBe(true);
+    expect(samples.some(point => Math.abs(point.x) < 1 && point.y > start.y + 10)).toBe(true);
+    expect(center().x).toBeCloseTo(columnRest.x, 1);
+    expect(center().y).toBeCloseTo(columnRest.y, 1);
+  });
+
+  it('com "reduzir movimento", o primeiro quadro já é o final e o momento acaba na hora', () => {
+    mockedPreference.mockReturnValue({ reducedMotionEnabled: true, resolved: true });
+    const { screen, onDone } = renderMoment({ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2' });
+
+    expect(transformOf(screen, 'journey-pixel-slot-u1-node-2')).toMatchObject({ x: 0, y: 0 });
+    expect(styleOf(screen, 'journey-pixel-slot-u1-node-2').opacity).toBe(1);
+    expect(transformOf(screen, 'journey-medal-u1-node-2').scale).toBe(1);
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(1);
+    for (const node of screen.getAllByTestId(/^journey-moment-segment-/u, HIDDEN)) {
+      expect((getAnimatedStyle(node) as { opacity: number }).opacity).toBe(1);
+    }
+    expect(onDone).toHaveBeenCalledTimes(1);
   });
 });
 

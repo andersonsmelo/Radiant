@@ -398,7 +398,7 @@ git commit -m "feat(trilha): cabeçalho da unidade, linha de revisão e lembrete
     "Começar" entra em 250 ms. Com "reduzir movimento", tudo no estado final no
     primeiro quadro.
 
-- [ ] **Passo 1: Escrever os testes que falham**
+- [x] **Passo 1: Escrever os testes que falham**
 
 - primeira leitura com recomendado `a`: `playing` falso;
 - recomendado muda de `a` para `b` com `a` concluído: `playing` verdadeiro, e
@@ -408,18 +408,18 @@ git commit -m "feat(trilha): cabeçalho da unidade, linha de revisão e lembrete
 - na tela, o Pixel (cabeça, `size="sm"`) aparece ao lado da medalha
   recomendada, com o rosto `feliz`.
 
-- [ ] **Passo 2: Ver falhar**
+- [x] **Passo 2: Ver falhar**
 
 Run: `cd radiant-app && npx jest src/features/journey`
 Expected: FAIL.
 
-- [ ] **Passo 3: Implementar**
+- [x] **Passo 3: Implementar**
 
 O "Começar" é um `AppButton` pequeno sob a medalha recomendada. Ele aparece
 sempre; o momento só anima a entrada dele. Ele chama o mesmo `openNode` da
 medalha.
 
-- [ ] **Passo 4: Ver passar, com o gate**
+- [x] **Passo 4: Ver passar, com o gate**
 
 Run: `cd radiant-app && EXPO_NO_DOTENV=1 npm run quality`
 Expected: código 0.
@@ -466,7 +466,7 @@ git commit -m "docs(trilha): evidência da trilha Medalhão no simulador e no AV
 
 **Estado:**
 - **Tarefas 0 a 5:** concluídas e revisadas.
-- **Tarefa 6:** interrompida, com trabalho parcial numa branch à parte.
+- **Tarefa 6:** implementada e revisada em 2026-10-22; gate completo aprovado no segundo run (15/15), após corrigir o mock consumidor. Prova nativa é da tarefa 7.
 - **Tarefa 7 e revisão final do plano:** por fazer.
 
 Execução com subagentes: um implementador e um revisor por tarefa.
@@ -478,7 +478,7 @@ Execução com subagentes: um implementador e um revisor por tarefa.
 | 3 | `4dd5229` | `JourneyMedal`, `nodeCopy.ts`, `medalColors.silver` |
 | 4 | `f04171f`, `2ca3839` | caminho de medalhas; uma rodada de correção (geometria) |
 | 5 | `318df2e`, `a8f5dd9` | cabeçalho, linha de revisão, lembrete e estrelas na tela; uma rodada de correção (barra) |
-| 6 | `5ffefee`, branch `claude/trilha-t6-wip` | **não revisado**; parou com uma regressão do `visual:qa:strict` aberta |
+| 6 | base `5ffefee`, reaplicada sobre `453d7a4` | implementada e aprovada pela revisão independente em 2026-10-22; 15/15 validadores no segundo run, com ajuste mínimo do mock consumidor |
 
 **Decisões que mudam ou completam o texto do plano.** Elas valem para quem
 continuar:
@@ -517,27 +517,45 @@ continuar:
   fora do escopo precisou mudar, o run foi fechado sem validar e reaberto
   declarando tudo.
 
-**A tarefa 6, para retomar:**
-- Comece pela branch `claude/trilha-t6-wip` (`git cherry-pick 5ffefee` sobre
-  `claude/trilha-medalhao-design`) ou refaça a partir do brief. Leia o diff
-  inteiro antes: ninguém revisou esse commit.
-- **O que já está nele:**
-  - `useTrailMoment` e o teste dele;
-  - hooks novos em `motion.ts`;
-  - o botão sob a medalha;
-  - a copy de ação em `nodeCopy.ts`;
-  - o cartão apagado;
-  - o `maestro-contract` reapontado.
-- **O que falta:**
-  - fechar a regressão do `visual:qa:strict`;
-  - rodar o gate inteiro;
-  - fazer a revisão da tarefa.
-- **O que exigir do momento:** o Pixel percorre o caminho entre as duas
-  medalhas, e não só aparece no lugar. Ele não toca na primeira abertura nem a
-  cada foco da aba. Sob "reduzir movimento", vai direto ao estado final.
-- **O Pixel** é `PixelIllustration variant="head" size="sm" expression="feliz"`
-  no `pixelSlot`, do lado de fora da medalha, com cerca de 98 pt de folga numa
-  tela de 402 pt.
+**Tarefa 6, retomada em 2026-10-22:**
+- O diff inteiro do WIP `5ffefee` foi lido e reaplicado por arquivo sobre
+  `453d7a4`, dentro do run `run-1792669270895-535089fb`.
+- O Pixel percorre o pontilhado; na coluna de texto grande parte da cauda
+  desenhada depois do título da origem, com o apoio alinhado ao Path. O momento
+  espera as medidas nativas da origem adjacente
+  e do destino virtualizado antes de gastar o tempo. A rota fica fixa depois
+  da partida, para uma medição posterior não reposicionar a cabeça.
+- A revisão da tarefa 6 resolveu a expressão "faz a mola" do plano a favor
+  da spec §4 (o nó cresce) e do DESIGN (mola só na cunhagem): ficam os dois
+  `withTiming` de crescimento e assentamento, sem spring nova. A mesma
+  revisão corrigiu a partida da coluna, que antes passava pelo título; o teste
+  compara o apoio da cabeça ao primeiro ponto do `Path` realmente desenhado.
+- O `AppButton` sob a recomendada preserva `journey-recommendation-action`,
+  as palavras de ação atuais e o mesmo `openNode` da medalha. O cartão saiu;
+  a fonte do `maestro-contract` foi reapontada por AST.
+- Primeira leitura, foco repetido e mudança sem conclusão não tocam o momento.
+  "Reduzir movimento" chega ao estado final imediatamente, sem esperar layout.
+- O helper `getAnimatedStyle` ficou só em `src/test/readMotionStyle.ts`, sem
+  dependência de teste no módulo de animação do app. A política do visual QA
+  não mudou. Na retomada, o `visual:qa:strict` já retornou zero regressões;
+  a falha relatada no handoff não foi reproduzida.
+- Evidência vermelha e verde:
+  [tarefa 6](../../evidence/2026-10-22-trilha-medalhao-t6.md).
+  **Gate final aprovado: 15/15 validadores no segundo run.** A revisão
+  independente inicial encontrou um P2 da coluna, corrigido e conferido pelo
+  controlador. A releitura independente foi retomada e aprovou a correção em
+  spec, qualidade e movimento. Rasterização e ocupação do retângulo inteiro
+  da cabeça de 48 pt com texto grande vão para a tarefa 7; alinhamento do apoio
+  ao Path não prova ausência de sobreposição.
+- O primeiro gate completo reprovou em 2026-10-22: 13/15 validadores passaram;
+  os dois do app encontraram os mesmos três testes de retomada com dublê da
+  trilha que descartava `recommendedAction`. O consumidor é um 18º arquivo,
+  fora do run original. O primeiro run `run-1792669270895-535089fb` fechou
+  sem sucesso, e o produto foi preservado em WIP local limpo. O segundo run,
+  `run-1792685891709-af8000bd`, declarou 18 arquivos, ajustou só o encaminhamento
+  da prop no mock e passou os 15 validadores. Sua baseline já contém o produto.
+- O Pixel é `PixelIllustration variant="head" size="sm" expression="feliz"`
+  no `pixelSlot`. A conferência de sua captura nativa a 48 pt é da tarefa 7.
 
 **Pendências antes do merge (corrigir na revisão final do plano):**
 - a faixa clara da barra passa sob o "N de M" e baixa o contraste do número

@@ -13,7 +13,7 @@ não existem.
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
 | 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
-| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefas 0-5 concluídas**; a 6 parou no meio (branch `claude/trilha-t6-wip`, não revisada); faltam a 7 e a revisão final |
+| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefas 0-6 concluídas e revisadas** em 2026-10-22; gate da 6 aprovado em 15/15 no segundo run; faltam a 7 e a revisão final do plano |
 | 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | escrito, não começado |
 | 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | a escrever, quando o 3 terminar |
 | 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | escrito, não começado; recebeu entradas da execução (fim do plano) |
@@ -48,7 +48,7 @@ com o dono. Build e distribuição continuam com o dono.
 ## Como continuar (2026-10-22)
 
 **Ordem:**
-1. Plano 2, tarefa 6. O trabalho parcial está em `claude/trilha-t6-wip`.
+1. Plano 2, tarefa 6 concluída e revisada em 2026-10-22, com gate 15/15 no segundo run. A evidência e a proveniência dos dois runs estão no registro do plano.
 2. Plano 2, tarefa 7.
 3. Revisão final do plano 2, com a onda de correção dela.
 4. Planos 3 e 5.

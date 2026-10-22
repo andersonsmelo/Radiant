@@ -509,9 +509,13 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - o dono escolheu `fingerprint` para a versão nativa, e isso já foi
       aplicado;
     - o plano 6 (Pixel) está concluído e revisado;
-    - o plano 2 está com as tarefas 0 a 5 concluídas e revisadas;
-    - a tarefa 6 parou no meio, na branch `claude/trilha-t6-wip`, não
-      revisada.
+    - o plano 2 está com as tarefas 0 a 6 implementadas e revisadas;
+    - a retomada da 6 passou os 15 validadores no segundo run, após corrigir
+      o mock de um consumidor que descartava o novo botão. A revisão
+      independente aprovou a correção. A tarefa 7 e a revisão final do plano
+      permanecem pendentes, com a ocupação da cabeça de 48 pt no texto grande
+      ainda sem prova nativa
+      ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

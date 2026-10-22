@@ -1,5 +1,5 @@
 import type { JourneyNode, JourneyNodeStatus } from '../../../types/journey';
-import { getRecommendationCopy, getStatusCopy } from './nodeCopy';
+import { getRecommendationActionCopy, getRecommendationCopy, getStatusCopy } from './nodeCopy';
 
 // As palavras do estado são lidas pelos roteiros Maestro (`<título>. <estado>.`).
 // Estes testes fixam o que o cartão dizia no dia em que elas saíram dele.
@@ -72,4 +72,26 @@ describe('getRecommendationCopy', () => {
       expect(getRecommendationCopy(true, reason, 0)).toBe('Próximo passo');
     },
   );
+});
+
+// A ação sob a medalha recomendada. Ela saiu do cartão de recomendação, que a
+// trilha substituiu, com as mesmas palavras: os roteiros Maestro tocam
+// "Continuar jornada" e "Receber conquista" pelo texto.
+describe('getRecommendationActionCopy', () => {
+  it.each([
+    ['lesson', 'available', 'next-lesson', 'Continuar jornada'],
+    ['lesson', 'active', undefined, 'Continuar jornada'],
+    ['lesson', 'resumable', 'next-lesson', 'Retomar lição'],
+    ['lesson', 'available', 'paused-lesson', 'Retomar lição'],
+    ['review', 'due-review', 'due-review', 'Fazer revisão'],
+    ['review', 'resumable', 'due-review', 'Retomar revisão'],
+    ['review', 'available', 'paused-lesson', 'Retomar revisão'],
+    ['checkpoint', 'available', 'checkpoint', 'Fazer avaliação'],
+    ['checkpoint', 'resumable', 'checkpoint', 'Retomar avaliação'],
+    ['reward', 'available', 'reward', 'Receber conquista'],
+    // A conquista não se retoma: mesmo pausada, ela só se recebe.
+    ['reward', 'resumable', 'paused-lesson', 'Receber conquista'],
+  ] as const)('%s em %s, pelo motivo %s, diz "%s"', (type, status, reason, copy) => {
+    expect(getRecommendationActionCopy(node(status, { type }), reason)).toBe(copy);
+  });
 });

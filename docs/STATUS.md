@@ -252,11 +252,16 @@ mudaram o texto do plano e pendências.
 
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.
-- **Plano 2 (trilha): tarefas 0 a 5 concluídas e revisadas** (`e10a553` a
-  `a8f5dd9`). **A tarefa 6 parou no meio**, pelo limite de uso: o trabalho
-  parcial está na branch `claude/trilha-t6-wip` (`5ffefee`), **não revisado**,
-  com uma regressão do `visual:qa:strict` ainda aberta. Falta a tarefa 7
-  (evidência no simulador e no AVD) e a revisão final do plano.
+- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas** em 2026-10-22.
+  A retomada da 6 entrega percurso do Pixel e botão sob a medalha, com guardas
+  para medição tardia, texto grande e movimento reduzido. O primeiro gate
+  completo reprovou por três testes de retomada cujo mock descartava o botão.
+  O segundo run, depois do ajuste mínimo desse consumidor, passou os 15
+  validadores; a revisão independente aprovou a correção
+  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)). A regressão do
+  `visual:qa:strict` relatada no handoff não foi reproduzida. Faltam a tarefa 7
+  (iOS, AVD e cabeça de 48 pt, incluindo ocupação no texto grande) e a revisão
+  final do plano. A aprovação estática não comprova ausência de sobreposição no nativo.
 - **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
