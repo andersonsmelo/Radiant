@@ -194,6 +194,16 @@ describe('PixelIllustration — variante cabeça', () => {
     expect(faceProps(screen).imageHeight).toBeCloseTo((48 * 864) / 344, 6);
   });
 
+  // A janela da cabeça pega a altura dos ombros: em `acena` e `comemora`, mangas
+  // e mãos entrariam no recorte. Na prancheta, a cabeça é sempre `repouso`.
+  it.each(STATES)('no estado %s, a cabeça fica em repouso e não acena', (state) => {
+    const screen = render(<PixelIllustration state={state} size="md" variant="head" />);
+    const body = screen.UNSAFE_getByType(PixelBody).props;
+
+    expect(body.pose).toBe('repouso');
+    expect(body.waving).toBe(false);
+  });
+
   it('mantém um só rótulo e o corpo escondido', () => {
     const screen = render(<PixelIllustration variant="head" size="sm" />);
 

@@ -49,6 +49,25 @@ const motion = (reducedMotionEnabled: boolean, resolved = true) =>
 const rightArmOf = (screen: ReturnType<typeof render>) =>
   screen.UNSAFE_getAllByType(G).find((group) => group.props.testID === 'pixel-right-arm');
 
+// O `RNSVGGroup` nativo só entende `matrix` ([a, b, c, d, tx, ty]); `rotation`,
+// `originX` e `originY` só viram matriz no caminho JS do `G`, e o Reanimated
+// manda as props animadas direto ao nativo. Por isso o aceno é medido na matriz.
+const IDENTIDADE = [1, 0, 0, 1, 0, 0];
+
+// rotate(-14, 360, 408) do SVG, à mão: c = cos(-14°), s = sin(-14°),
+// [c, s, -s, c, 360 - 360c + 408s, 408 - 360s - 408c].
+const ACENO_NO_ALTO = [
+  0.9702957262759965, -0.24192189559966773, 0.24192189559966773, 0.9702957262759965, -88.01059486402316,
+  99.21122609527384,
+];
+
+const expectMatrix = (actual: unknown, expected: number[]) => {
+  expect(Array.isArray(actual)).toBe(true);
+  const matrix = actual as number[];
+  expect(matrix).toHaveLength(6);
+  expected.forEach((value, index) => expect(matrix[index]).toBeCloseTo(value, 9));
+};
+
 // O corpo do Pixel é SVG, e o Jest não rasteriza SVG. As asserções recaem sobre
 // o que decide o que o aluno vê: onde a tela escura cai, qual traçado cada pose
 // desenha e de que cor cada peça é pintada.
@@ -193,11 +212,13 @@ describe('PixelBody', () => {
 });
 
 describe('PixelBody — aceno', () => {
-  it('com "reduzir movimento", o braço fica em 0 grau e nada é agendado', () => {
+  it('com "reduzir movimento", o braço fica na matriz identidade e nada é agendado', () => {
     motion(true);
     const screen = render(<PixelBody pose="acena" width={288} height={432} waving />);
+    screen.rerender(<PixelBody pose="acena" width={288} height={432} waving />);
 
-    expect(rightArmOf(screen)?.props.rotation).toBe(0);
+    expectMatrix(rightArmOf(screen)?.props.matrix, IDENTIDADE);
+    expect(rightArmOf(screen)?.props).not.toHaveProperty('rotation');
     expect(reanimated.withRepeat).not.toHaveBeenCalled();
     expect(reanimated.withTiming).not.toHaveBeenCalled();
   });
@@ -223,8 +244,18 @@ describe('PixelBody — aceno', () => {
     expect(repeticoes).toBe(-1);
     expect(vaiEVolta).toBe(true);
     expect(opcoes.duration * 2).toBe(1600);
+  });
 
-    expect(rightArmOf(screen)?.props).toMatchObject({ originX: 360, originY: 408 });
+  it('no alto do aceno, entrega ao nativo a matriz de -14 graus em volta do ombro (360, 408)', () => {
+    const screen = render(<PixelBody pose="acena" width={288} height={432} waving />);
+    // As props animadas são lidas na renderização; o efeito agenda depois dela.
+    screen.rerender(<PixelBody pose="acena" width={288} height={432} waving />);
+
+    const matrix = rightArmOf(screen)?.props.matrix as number[];
+    expectMatrix(matrix, ACENO_NO_ALTO);
+    // O ombro é o ponto fixo da rotação.
+    expect(matrix[0] * 360 + matrix[2] * 408 + matrix[4]).toBeCloseTo(360, 9);
+    expect(matrix[1] * 360 + matrix[3] * 408 + matrix[5]).toBeCloseTo(408, 9);
   });
 
   it('só acena na pose "acena"', () => {
@@ -237,6 +268,20 @@ describe('PixelBody — aceno', () => {
     const screen = render(<PixelBody pose="acena" width={288} height={432} />);
 
     expect(reanimated.withRepeat).not.toHaveBeenCalled();
-    expect(rightArmOf(screen)?.props.rotation).toBe(0);
+    expectMatrix(rightArmOf(screen)?.props.matrix, IDENTIDADE);
+  });
+
+  it('quando `waving` desliga, cancela o laço e o braço volta à identidade', () => {
+    const screen = render(<PixelBody pose="acena" width={288} height={432} waving />);
+    screen.rerender(<PixelBody pose="acena" width={288} height={432} waving />);
+    expectMatrix(rightArmOf(screen)?.props.matrix, ACENO_NO_ALTO);
+
+    screen.rerender(<PixelBody pose="acena" width={288} height={432} waving={false} />);
+    screen.rerender(<PixelBody pose="acena" width={288} height={432} waving={false} />);
+
+    // Atribuir um número ao shared value cancela o laço: nada se reagenda e a
+    // matriz volta à identidade.
+    expectMatrix(rightArmOf(screen)?.props.matrix, IDENTIDADE);
+    expect(reanimated.withRepeat).toHaveBeenCalledTimes(1);
   });
 });

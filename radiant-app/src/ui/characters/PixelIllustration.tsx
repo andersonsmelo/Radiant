@@ -45,7 +45,8 @@ const FLOAT_HALF_CYCLE_MS = 1600;
 /** Curva do flutuar: sobe e desce, então entra e sai suave nas duas pontas. */
 const FLUTUA = { easing: Easing.inOut(Easing.quad) } as const;
 
-type PixelVariant = 'full' | 'head';
+/** `full` é o corpo inteiro; `head`, só a cabeça recortada da mesma caixa. */
+export type PixelVariant = 'full' | 'head';
 
 interface PixelIllustrationProps {
   state?: CharacterState;
@@ -158,11 +159,14 @@ export function PixelIllustration({
             isHead && { position: 'absolute', left: offsetLeft, top: offsetTop },
           ]}
         >
+          {/* A janela da cabeça pega a altura dos ombros: em `acena` e `comemora`
+              mangas e mãos entrariam no recorte. Como na prancheta, a cabeça é
+              sempre `repouso`, sem aceno. */}
           <PixelBody
-            pose={poseForState(state)}
+            pose={isHead ? 'repouso' : poseForState(state)}
             width={imageWidth}
             height={imageHeight}
-            waving={state === 'happy'}
+            waving={!isHead && state === 'happy'}
           />
           <PixelFace expression={expression} imageWidth={imageWidth} imageHeight={imageHeight} />
         </View>

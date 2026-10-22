@@ -211,8 +211,9 @@ export const feedbackColors = {
 
 // O Pixel, em três tons por material (base, sombra, luz), como as peças do
 // Medalhão. Valores `pixel-*` do DESIGN.md, aprovados na prancheta de
-// 2026-10-21. `glow` é o ciano do rosto e da luz da tela: só existe sobre
-// `visor`. O desenho vive em `PixelBody`; as cores vivem aqui.
+// 2026-10-21. `glow` é o ciano do rosto (`PixelFace`) e só existe sobre
+// `visor`; o crescente de luz da tela é `visor.light`, não `glow`. O desenho
+// vive em `PixelBody`; as cores vivem aqui.
 export const pixelColors = {
   coat: { base: '#EEF2F9', shade: '#C3CDE0', light: '#FFFFFF' },
   blue: { base: '#6FB2FF', shade: '#3F86E8', light: '#A9D2FF' },
