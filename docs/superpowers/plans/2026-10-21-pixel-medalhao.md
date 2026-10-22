@@ -46,8 +46,8 @@ build de loja. E mais:
 - **Movimento:** flutuar 10 unidades da caixa em 3,2 s com `Easing.inOut(Easing.quad)`;
   acenar ±14° em 1,6 s em volta do ombro (360, 408). Com "reduzir movimento",
   nada se move e a pose fica.
-- **A exceção R4 de `src/ui/characters/**` vence em 2026-10-23** no
-  `scripts/visual-qa-policy.json`. Se ela já tiver vencido quando este plano
+- **A exceção R4 de `src/ui/characters/**` vencia em 2026-10-23** no
+  `scripts/visual-qa-policy.json`, e a PR #67 a renova para 2026-11-30. Se ela já tiver vencido quando este plano
   rodar, o gate reprova em qualquer tarefa que toque `src/ui/characters/`.
   Ver o foco 5 abaixo.
 
@@ -78,7 +78,7 @@ fonte do desenho: copie as coordenadas, não as redesenhe.
    ("Mascote Pixel"), e o aceno não gera anúncio. Tarefa 3.
 4. **"Reduzir movimento".** Nem flutuar, nem acenar, nem piscar; a pose do
    estado fica. Tarefas 2 e 3.
-5. **Exceção R4 vencida.** Se `2026-10-23` passou, a tarefa 0 renova o prazo com
+5. **Exceção R4 vencida.** Se o prazo do registro passou, a tarefa 0 renova o prazo com
    motivo e dono antes de qualquer outra coisa. Tarefa 0.
 
 ---

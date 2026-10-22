@@ -27,9 +27,11 @@ telas no Medalhão, ele aplica a Regra Sem Cara de IA e o glossário de texto
 único que apaga coisa, e só depois do inventário aprovado.
 
 **Prazo de relógio:** os 23 registros de `radiant-app/scripts/visual-qa-policy.json`
-vencem em **2026-10-23**. Depois disso, o `npm run quality` reprova em qualquer
-branch que tenha esses arquivos, a `main` inclusive. Os planos 5 e 6 têm uma
-tarefa 0 para isso, mas o prazo chega antes deles.
+venciam em 2026-10-23. A [PR #67](https://github.com/andersonsmelo/Radiant/pull/67),
+aberta em 2026-10-21 a pedido do dono, renova todos para **2026-11-30**,
+amarrados ao fim do plano 5. Depois dessa data, o `npm run quality` reprova em
+qualquer branch que ainda tenha esses arquivos. A tarefa 0 dos planos 5 e 6
+confere o prazo antes de começar.
 
 **Paralelismo:**
 - o inventário do plano 4 só lê o repositório e pode correr junto com o plano 1;

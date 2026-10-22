@@ -58,7 +58,8 @@ valem todas. E mais:
 - **Texto grande:** cada tela passa no maior Dynamic Type sem cortar texto nem
   sobrepor peça (é o achado 3 da evidência do plano 1, Perfil no maior texto).
 - **A política do `visual:qa:strict`.** Em 2026-10-21, os 23 registros de
-  `scripts/visual-qa-policy.json` vencem em 2026-10-23. Cada tarefa que refaz
+  `scripts/visual-qa-policy.json` venciam em 2026-10-23, e a PR #67 os renova
+  para 2026-11-30, amarrados ao fim deste plano. Cada tarefa que refaz
   uma tela apaga os registros daquele arquivo; nenhuma tarefa renova prazo sem
   dizer por quê.
 
@@ -87,8 +88,9 @@ valem todas. E mais:
 
 - [ ] **Passo 1: Comparar a data de hoje com os prazos**
 
-Run: `date +%F; grep -c '"expiresOn": "2026-10-23"' radiant-app/scripts/visual-qa-policy.json`
-Expected: a data e a contagem (23 em 2026-10-21).
+Run: `date +%F; grep -o '"expiresOn": "[0-9-]*"' radiant-app/scripts/visual-qa-policy.json | sort | uniq -c`
+Expected: a data de hoje e os prazos por contagem (23 em 2026-11-30, se a PR #67
+foi mergeada; 23 em 2026-10-23, se não).
 
 - [ ] **Passo 2: Se já venceu, renovar com motivo**
 
