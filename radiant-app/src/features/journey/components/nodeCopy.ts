@@ -43,3 +43,26 @@ export function getRecommendationCopy(
   }
   return 'Próximo passo';
 }
+
+/**
+ * O que o botão sob a medalha recomendada diz: a ação, pelo tipo do nó e por
+ * ele estar pausado. Veio do cartão de recomendação, que a trilha substituiu,
+ * com as mesmas palavras: os roteiros Maestro tocam "Continuar jornada" e
+ * "Receber conquista" pelo texto, e o `maestro-contract` lê esta função.
+ */
+export function getRecommendationActionCopy(
+  node: JourneyNode,
+  reason: NextNodeDecision['reason'] | undefined,
+): string {
+  const resuming = node.status === 'resumable' || reason === 'paused-lesson';
+  switch (node.type) {
+    case 'review':
+      return resuming ? 'Retomar revisão' : 'Fazer revisão';
+    case 'checkpoint':
+      return resuming ? 'Retomar avaliação' : 'Fazer avaliação';
+    case 'reward':
+      return 'Receber conquista';
+    default:
+      return resuming ? 'Retomar lição' : 'Continuar jornada';
+  }
+}

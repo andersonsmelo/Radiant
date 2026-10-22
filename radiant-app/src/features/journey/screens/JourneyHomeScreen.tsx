@@ -23,8 +23,9 @@ import { MAX_HEARTS } from '../../hearts/HeartsService';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
 import { subscriptionService } from '../../subscription/SubscriptionService';
-import { JourneyRecommendationCard } from '../components/JourneyRecommendationCard';
 import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+import { getRecommendationActionCopy } from '../components/nodeCopy';
+import { useTrailMoment } from '../hooks/useTrailMoment';
 import { PushService } from '../../push/services/PushService';
 import { ReminderRow } from '../../push/components/ReminderRow';
 import { JourneyReviewRow } from '../components/JourneyReviewRow';
@@ -168,14 +169,6 @@ export default function JourneyHomeScreen() {
     router.push(href);
   }, [canOpenNode, snapshot?.nextDecision]);
 
-  const futureReviewAtMs = useMemo(() => {
-    const dates = (snapshot?.track.units.flatMap(unit => unit.nodes) ?? [])
-      .filter(node => node.type === 'review' && Number.isFinite(node.reviewAvailableAtMs)
-        && node.reviewAvailableAtMs! > Date.now())
-      .map(node => node.reviewAvailableAtMs!);
-    return dates.length > 0 ? Math.min(...dates) : undefined;
-  }, [snapshot]);
-
   const dueReviewNode = useMemo(
     () => snapshot?.track.units.flatMap(unit => unit.nodes).find(node => node.status === 'due-review') ?? null,
     [snapshot],
@@ -191,15 +184,35 @@ export default function JourneyHomeScreen() {
         dueCount={dueReviewNode ? dueReviewCount : 0}
         onPress={() => { if (dueReviewNode) void openNode(dueReviewNode); }}
       />
-      <JourneyRecommendationCard
-        node={homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null}
-        reason={snapshot?.nextDecision?.reason}
-        futureReviewAtMs={futureReviewAtMs}
-        onOpen={() => { if (homeNextNode) void openNode(homeNextNode); }}
-        accessory={<PixelIllustration size="sm" state="guide" />}
-      />
     </View>
   );
+
+  const recommendedNodeId = snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId;
+  const completedNodeIds = useMemo(() => new Set(
+    (trail?.segments ?? []).flatMap(segment => segment.units.flatMap(unit =>
+      unit.nodes.filter(node => node.status === 'completed').map(node => node.id))),
+  ), [trail]);
+  // O momento do Pixel: na volta de uma aula concluída, ele anda até a próxima.
+  const moment = useTrailMoment(recommendedNodeId, completedNodeIds);
+
+  // A medalha azul com o Pixel ao lado é a recomendação (Regra Sem Cara de IA):
+  // o cartão saiu, e o botão que ele tinha fica sob a medalha. Ele abre o mesmo
+  // nó que a medalha, e só existe quando esse nó abre agora. A revisão que
+  // ainda não abriu diz quando abre no rótulo da própria medalha.
+  const actionNode = homeNextNode && canOpenNode(homeNextNode) ? homeNextNode : null;
+  const actionLabel = actionNode ? getRecommendationActionCopy(actionNode, snapshot?.nextDecision?.reason) : null;
+  const recommendedAction = actionNode && actionLabel ? (
+    <View testID="journey-recommendation-action" collapsable={false}>
+      <AppButton
+        label={actionLabel}
+        variant="galaxy"
+        fullWidth={false}
+        onPress={() => { void openNode(actionNode); }}
+        accessibilityLabel={actionLabel}
+        accessibilityHint="Abre o próximo passo elegível da trilha ativa."
+      />
+    </View>
+  ) : null;
 
   return (
     <View style={styles.root} testID="journey-home-screen">
@@ -235,7 +248,7 @@ export default function JourneyHomeScreen() {
             <JourneyTrail
               header={trailHeader}
               segments={trail?.segments ?? []}
-              recommendedNodeId={snapshot?.nextRecommendedNode?.id ?? trail?.recommendedNodeId}
+              recommendedNodeId={recommendedNodeId}
               recommendationReason={snapshot?.nextDecision?.reason}
               dueReviewCount={dueReviewCount}
               starsByLessonId={starsByLessonId}
@@ -243,6 +256,13 @@ export default function JourneyHomeScreen() {
                 void openNode(node);
               }}
               isNodeDisabled={(node) => !canOpenNode(node)}
+              pixelSlot={(nodeId) => (nodeId === recommendedNodeId
+                ? <PixelIllustration variant="head" size="sm" expression="feliz" />
+                : null)}
+              recommendedAction={recommendedAction}
+              moment={moment.playing && moment.fromNodeId && moment.toNodeId
+                ? { fromNodeId: moment.fromNodeId, toNodeId: moment.toNodeId, onDone: moment.done }
+                : undefined}
             />
             <ReminderRow visible={reminderVisible} />
           </View>
