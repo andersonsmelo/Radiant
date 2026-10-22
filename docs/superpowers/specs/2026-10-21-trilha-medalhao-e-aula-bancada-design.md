@@ -245,3 +245,65 @@ Fica para o construtor:
 
 Tudo isso desde que respeite os contratos acima e as guardas que já existem: o
 `schemaVersion`, o contraste AA medido na composição e o easing do Reanimated.
+
+## 11. Adendo de 2026-10-21, à noite: o Pixel e o app inteiro sem cara de IA
+
+**Estado:** aprovado pelo dono em 2026-10-21, em duas respostas: "Aprovado o
+Pixel. Siga para a prancheta do app inteiro." e "Aprovada a prancheta do app
+inteiro. Registre no repositório e escreva os planos."
+**Pranchetas:** o [Pixel no Medalhão](../../design/2026-10-21-pixel-medalhao.html)
+e o [app inteiro no Medalhão](../../design/2026-10-21-app-medalhao.html).
+
+**Origem.** Depois da fundação visual, o dono pediu para "revirar todo o app com
+um intuito em mente retirar a cara de app feito por IA", com Perfil e
+Configurações incluídos. A auditoria de 2026-10-21 capturou oito telas no
+simulador e varreu o código. Ela achou dez padrões, e o maior deles era o Pixel
+em render 3D brilhante, que contradiz as ilustrações em três tons. O dono pediu
+então: "Redesenhe o Pixel no estilo Medalhão (três tons, luz de cima-esquerda),
+mantendo o personagem."
+
+### 11.1 O Pixel
+
+- **Mesmo personagem.** Robô médico de jaleco, estetoscópio, tela escura no
+  rosto, antena, orelhas azuis, base flutuante e o aceno.
+- **Desenho vetorial em três tons por material**, com a luz de cima à esquerda.
+  Os valores estão no DESIGN.md (`pixel-*`). Saem halo, partícula, painel
+  holográfico e o PNG 3D.
+- **A tela do rosto fica onde está:** x 168, y 200, 168 × 112 numa caixa de
+  576 × 864. `PixelFace`, as sete expressões e os dois contratos de geometria
+  continuam valendo.
+- **Poses:** acenar, apontar, comemorar, pensar e repouso.
+- **Abaixo de 64 pt, só a cabeça [escolha do agente, vista na prancheta].**
+- **Quatro momentos:** boas-vindas, ao lado da próxima aula, a explicação na
+  aula e a comemoração do resultado. Ele sai da revisão, da avaliação e dos
+  cartões.
+
+### 11.2 As regras para todas as telas
+
+São seis, mais a regra do texto, e estão no DESIGN.md como **A Regra Sem Cara de
+IA**: o título diz a coisa, cartão só para o que se toca, cada número uma vez,
+ouro é conquista, o Pixel fala e não decora, e movimento com motivo. A
+auditoria mediu, em 2026-10-21, 29 etiquetas em caixa alta em 18 arquivos, 20
+textos com travessão de efeito e 20 com jargão interno.
+
+### 11.3 Tela a tela
+
+| Tela | Direção aprovada |
+| --- | --- |
+| Boas-vindas | A primeira tela é uma bancada: o aluno mexe no kV antes de qualquer cadastro. O Pixel se apresenta numa linha |
+| Estude | A trilha de medalhas, com a cabeça do Pixel ao lado da próxima aula. A revisão devida é uma linha acima da trilha, e o lembrete, uma linha com interruptor que só aparece depois da primeira aula |
+| Resultado | A medalha do tema é cunhada em ouro, as estrelas caem nela, o XP aparece em número grande sem caixa, e o Pixel comemora uma vez |
+| Recompensa sem recompensa | A tela "Conquista indisponível" deixa de existir. A rota volta para a trilha |
+| Revisão | Título, contagem real ("5 itens de Fundamentos"), a lista dos itens com a medalha de origem, e um botão embaixo. Sem anel e sem Pixel |
+| Avaliação | Medalha de prata da unidade, a regra numa frase e o botão. Fechada, a mesma tela diz quantas aulas faltam |
+| Perfil | Estante de medalhas, a sequência como semana e as metas de hoje como linhas. Saem os blocos de métrica, a faixa laranja e os chips |
+| Configurações | Lista agrupada do iOS, com explicação só no rodapé do grupo. O backup ainda indisponível aparece como "Em breve" |
+| Assinatura | Uma frase direta, os dois planos lado a lado como medalhas, o anual em ouro e com o preço por mês, um botão só e o texto legal inteiro, menor |
+| Sem vidas | Os cinco corações, o tempo até a próxima vida, "Revisar agora" como ação principal e a assinatura como link |
+
+**O que não muda:** as regras de vida, de estrela, de avaliação e de revisão.
+Os números nas pranchetas são de demonstração. O texto legal da assinatura
+continua inteiro.
+
+**Fora desta prancheta:** a aula, que segue a prancheta da aula-bancada (seção
+5).

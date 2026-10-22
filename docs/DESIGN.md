@@ -50,6 +50,18 @@ colors:
   hud-xp-label: "#FFC21A"
   hud-streak-label: "#FF8A4C"
   hud-hearts-label: "#FF6B6B"
+  pixel-coat: "#EEF2F9"
+  pixel-coat-shade: "#C3CDE0"
+  pixel-coat-light: "#FFFFFF"
+  pixel-blue: "#6FB2FF"
+  pixel-blue-shade: "#3F86E8"
+  pixel-blue-light: "#A9D2FF"
+  pixel-visor: "#0E1A3D"
+  pixel-visor-light: "#24366B"
+  pixel-stethoscope: "#1F2B57"
+  pixel-metal: "#D6DDEA"
+  pixel-metal-shade: "#9AA6BF"
+  pixel-glow: "#5CF0FF"
 typography:
   display:
     fontFamily: "Sora-ExtraBold"
@@ -434,6 +446,11 @@ tons (raio, chama e coração), e os números ao lado deles nos tons de
 perda, e o rótulo "3 de 5 vidas" continua informando sob "reduzir movimento".
 Os ícones de XP e sequência medem 24 pt e os corações 28 pt.
 
+**Aprovado em 2026-10-21, entra no plano 5:** as vidas passam a ser **um
+coração e o número**, como XP e sequência, e o "5" repetido embaixo dos cinco
+corações sai. Os cinco corações aparecem só na folha de vidas, que é onde o
+estado de cada um importa ([prancheta do app](design/2026-10-21-app-medalhao.html)).
+
 ### Medalha e ilustração de tema
 - **Estados:** concluída em ouro, próxima no azul da unidade com anel que
   pulsa, bloqueada em grafite com a silhueta do tema.
@@ -464,7 +481,44 @@ efeito; o renome é do plano 5.
 O Pixel continua mascote. A fala dele é opcional, breve e espaçada, e nunca
 carrega instrução, erro ou próxima ação.
 
+**Redesenhado em 2026-10-21** ([prancheta](design/2026-10-21-pixel-medalhao.html)).
+É o mesmo personagem, o robô médico de jaleco, com estetoscópio, tela escura no
+rosto, antena, orelhas azuis e base flutuante, agora em três tons por material
+(os `pixel-*` acima) e com a luz de cima à esquerda. Saem o halo, o brilho de
+plástico e o painel holográfico.
+- **A tela do rosto não mudou de lugar:** 168 × 112 numa caixa de 576 × 864,
+  em x 168 e y 200. `PixelFace` e as sete expressões continuam valendo.
+- **O rosto é a única parte que brilha:** ciano `#5CF0FF` sobre a tela escura.
+- **Poses:** acenar, apontar, comemorar, pensar e repouso. A figura é a mesma;
+  só os braços mudam.
+- **Abaixo de 64 pt, só a cabeça.** O rosto do corpo inteiro some em tamanho
+  pequeno, como ao lado da medalha na trilha.
+- **Movimento:** flutua 10 unidades da caixa em 3,2 s, pisca a cada 4,6 s e
+  acena em 1,6 s. Para com "reduzir movimento".
+- **Onde aparece:** quatro momentos, as boas-vindas, ao lado da próxima aula, a
+  explicação na aula e a comemoração do resultado. Fora deles, ele não aparece.
+
 ### Named Rules
+
+**A Regra Sem Cara de IA** (aprovada em 2026-10-21, na
+[prancheta do app](design/2026-10-21-app-medalhao.html)):
+- **O título diz a coisa.** Nada de etiqueta em caixa alta acima do título
+  ("MISSÕES", "REVISÃO DISPONÍVEL"). Se a etiqueta parece necessária, o título
+  está fraco.
+- **Cartão só para o que se toca.** Lista é linha com divisória. Cartão aparece
+  quando agrupa uma ação, e nunca um cartão dentro de outro.
+- **Cada número aparece uma vez.** XP, sequência e vidas moram no HUD. Nenhuma
+  tela repete em bloco o que o HUD mostra.
+- **Ouro é conquista.** Ouro só em medalha ganha, estrela e plano anual. Azul é
+  ação e unidade atual; prata, avaliação; grafite, o que ainda não abriu.
+- **O Pixel fala, não decora.** Só nos quatro momentos da seção Pixel.
+- **Movimento com motivo.** Uma curva só, de saída rápida e chegada suave, entre
+  200 e 450 ms. Mola apenas quando a medalha é cunhada. Tudo para com
+  "reduzir movimento".
+- **Texto sem efeito.** Sem travessão de efeito, sem tríade de frase curta
+  ("Sem pressão. Sem cobrança."), sem palavra interna do código na tela:
+  "jornada" é "trilha", "nó liberado" é "próxima aula", e "elegível" não
+  aparece. Estado vazio sem saída não existe: a rota leva o aluno de volta.
 
 **A Regra do Sinal Proporcional.** O sinal acompanha o peso do evento.
 - Retorno tátil pertence só à ação principal da tela, as variantes `primary` e
@@ -503,3 +557,5 @@ no cartão é proibida, porque derruba junto o contraste do texto.
 - **Don't** fazer relevo com `shadow*` ou `elevation`. Sombra só para a barra de abas.
 - **Don't** animar a peça bloqueada, nem deixar animação sem quadro parado sob "reduzir movimento".
 - **Don't** voltar ao céu: estrela, nebulosa e superfície translúcida saíram em 2026-10-21.
+- **Don't** pôr etiqueta em caixa alta acima de título, anel de progresso decorativo, faixa em degradê ou fileira de chips.
+- **Don't** usar o render 3D antigo do Pixel nem halo, partícula ou painel holográfico em volta dele.

@@ -232,7 +232,15 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Prazos de relógio
 
-Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+- **2026-10-23: vence a política de visual QA** (medido em 2026-10-21). Os 23
+  registros de `radiant-app/scripts/visual-qa-policy.json` têm `expiresOn`
+  `2026-10-23`, e o `scripts/visual-qa.mjs` passa a tratar cada um como
+  regressão no dia seguinte (UTC). Depois disso, `npm run quality` reprova em
+  qualquer branch que tenha esses arquivos, a `main` inclusive. Os planos 5 e
+  6 da trilha Medalhão têm uma tarefa 0 para isso, mas o prazo chega antes
+  deles. **Remede com:** `grep -c '"expiresOn": "2026-10-23"' radiant-app/scripts/visual-qa-policy.json`.
+
+Além desse, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
 de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
 aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
 assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),

@@ -88,3 +88,26 @@ escolhida.
   - primeiro contato sem custo de vida;
   - estrelas pela primeira resposta;
   - o Pixel como mascote.
+
+## Adendo de 2026-10-21, à noite
+
+**Estado:** aceito. Mesmo decisor, mesma conversa.
+
+8. **O Pixel é redesenhado no Medalhão, e o personagem fica.** "Redesenhe o
+   Pixel no estilo Medalhão (três tons, luz de cima-esquerda), mantendo o
+   personagem." Depois da prancheta: "Aprovado o Pixel." O render 3D sai do
+   app. A tela do rosto fica no mesmo lugar, então o `PixelFace` e as
+   expressões continuam.
+9. **O app inteiro segue as regras que tiram a cara de app feito por IA.**
+   "voce deve revirar todo o app com um intuito em mente retirar a cara de app
+   feito por IA", com Perfil e Configurações incluídos. Depois da prancheta:
+   "Aprovada a prancheta do app inteiro." As regras e a direção de cada tela
+   estão na seção 11 da spec e no DESIGN.md.
+
+**Consequências do adendo:**
+- O plano 5 cresce: além de pôr as telas no Medalhão, ele aplica as regras e o
+  glossário de texto em todas elas.
+- O Pixel novo ganha um plano próprio, o 6, que vem antes dos momentos do
+  Pixel no plano 2 e nas telas do plano 5.
+- Os contratos de geometria do Pixel passam a ler o desenho vetorial em vez do
+  PNG. A régua continua: a tela em x 168, y 200, 168 × 112.

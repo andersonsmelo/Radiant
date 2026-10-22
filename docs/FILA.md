@@ -497,7 +497,15 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     desbloqueada, vai para o plano 2 (R22). **Falta, em 2026-10-21:** o olhar
     do dono sobre as ilustrações e as capturas, e o merge. A PR é aberta pelo
     agente quando a frente fica pronta, sem esperar o dono; **só o merge é do
-    dono**;
+    dono**. **Em 2026-10-21, à noite, o dono aprovou o Pixel redesenhado e a
+    prancheta do app inteiro sem cara de IA**
+    ([Pixel](design/2026-10-21-pixel-medalhao.html),
+    [app](design/2026-10-21-app-medalhao.html), seção 11 da spec, decisões 8 e
+    9 da ADR). Os planos 2, 3, 5 e o novo 6 (Pixel) estão escritos; o 4 é
+    escrito quando o 3 terminar. Ordem sugerida: 6, depois 2 e 3, depois 5,
+    depois 4. **Gates do dono pela frente:** a política de versão nativa
+    (tarefa 0 do plano 2), a revisão do conteúdo das aulas-bancada (plano 3) e
+    o inventário (plano 4);
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;
