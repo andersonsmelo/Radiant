@@ -212,18 +212,30 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Branch da trilha Medalhão — dependência nativa (medido em 2026-10-21)
 
-- **Medido em 2026-10-21:** a branch `claude/trilha-medalhao-design` traz o
-  `@shopify/react-native-skia` 2.2.12, uma dependência **nativa**, com
-  `runtimeVersion.policy: appVersion` e `version` `1.4.0` no `app.json`. Hoje
-  nenhuma rota importa o Skia: só o módulo `src/ui/illustrations/`, as
-  histórias e os testes dele o usam. **Antes de o plano 2 pôr a ilustração numa
-  rota, é obrigatório** subir a `version` ou passar a `runtimeVersion` para
-  `fingerprint`. Sem isso, um `eas update` chega aos binários 1.4.0 da loja,
-  que não têm o Skia, e derruba o app. O splash novo também só chega com build
-  nativa. **Remede com**, na raiz do repositório:
+- **Decidido pelo dono em 2026-10-21 e aplicado:** `runtimeVersion` agora é
+  `{"policy":"fingerprint"}` no `app.json` (era `appVersion`). A `version`
+  continua `1.4.0` e o `buildNumber` não mudou. O motivo: a branch
+  `claude/trilha-medalhao-design` traz o `@shopify/react-native-skia` 2.2.12,
+  uma dependência **nativa**, e com `appVersion` um `eas update` de uma rota com
+  Skia chegaria aos binários 1.4.0 da loja, que não têm o Skia, e derrubaria o
+  app. Hoje nenhuma rota importa o Skia: só o módulo `src/ui/illustrations/`, as
+  histórias e os testes dele o usam.
+- **O que muda no `eas update`:** o runtime deixa de ser o número da versão e
+  passa a ser a impressão digital do projeto nativo. Um binário sem Skia tem
+  outro runtime que um binário com Skia, então uma atualização com Skia nunca
+  chega ao primeiro. Vale o inverso também: qualquer mudança nativa futura
+  (módulo, plugin, `app.json` nativo) cria um runtime novo, e quem ficou num
+  binário antigo para de receber atualizações até instalar o build novo. O
+  binário 1.4.0 da loja hoje foi publicado sob o runtime `1.4.0`: ele só recebe
+  atualização publicada para esse runtime, e o primeiro build feito com
+  `fingerprint` ganha um runtime próprio, que ainda não foi medido. Build e
+  distribuição seguem com o dono. O splash novo também só chega com build
+  nativa.
+- **Remede com**, na raiz do repositório:
 
   ```bash
   node -e "const a=require('./radiant-app/app.json').expo;console.log(a.version, JSON.stringify(a.runtimeVersion))"
+  # esperado em 2026-10-21: 1.4.0 {"policy":"fingerprint"}
   grep -n '"@shopify/react-native-skia"' radiant-app/package.json
   # importadores fora do módulo (vazio = nenhuma rota usa o Skia):
   grep -rlE "illustrations/|react-native-skia" radiant-app/src --include='*.ts' --include='*.tsx' \
