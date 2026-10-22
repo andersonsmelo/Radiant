@@ -15,14 +15,18 @@ import { JourneyMedal, medalStateFor } from './JourneyMedal';
 import { JourneyPathSegment } from './JourneyPathSegment';
 import { getRecommendationCopy, getStatusCopy } from './nodeCopy';
 import {
-  NEXT_MEDAL_RADIUS,
-  TRAIL_RING_ROOM,
-  TRAIL_SEGMENT_HEIGHT,
-  TRAIL_TITLE_MAX_WIDTH,
+  TRAIL_LEAD,
+  TRAIL_MEDAL_TOP,
+  TRAIL_PATH_STROKE,
+  TRAIL_ROW_BOTTOM,
   medalOffsetX,
+  medalRadiusFor,
+  trailTitleWidth,
 } from './trailLayout';
 
 const TRAIL_GAP = space.s3;
+/** Em coluna (texto grande), a descida abaixo do título até a linha de baixo. */
+const TRAIL_COLUMN_TAIL = 24;
 /** O nó PRÓXIMO fica no meio da tela, com o que veio antes e o que vem depois. */
 const ANCHOR_VIEW_POSITION = 0.5;
 /** Fora da janela virtualizada, cada tentativa aproxima pela altura média. */
@@ -68,6 +72,10 @@ type TrailNodeItem = {
   nodeIndex: number;
   /** O trecho que chega a este nó já foi andado. */
   traveled: boolean;
+  /** Há um nó depois deste no percurso: a linha desenha o trecho que sai. */
+  hasNext: boolean;
+  /** O trecho que sai deste nó já foi andado. */
+  nextTraveled: boolean;
 };
 
 type TrailUnitItem = { kind: 'unit'; key: string; unit: JourneyUnit; trackTitle: string; unitNumber: number; unitCount: number };
@@ -107,6 +115,8 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
           unitNumber: unitIndex + 1,
           nodeIndex,
           traveled: nodeIndex <= reachedIndex,
+          hasNext: nodeIndex < flatNodes.length - 1,
+          nextTraveled: nodeIndex + 1 <= reachedIndex,
         });
         nodeIndex += 1;
       });
@@ -228,6 +238,7 @@ export function JourneyTrail({
       windowSize={7}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.trail}
+      ListHeaderComponentStyle={styles.spacedHeader}
       ListHeaderComponent={items.some(item => item.kind === 'unit') ? <>
         {header}
         <JourneyUnitNavigation
@@ -239,12 +250,14 @@ export function JourneyTrail({
       renderItem={({ item }) => {
         if (item.kind === 'band') {
           return (
-            <JourneyLevelBand
-              trackId={item.segment.trackId}
-              trackTitle={item.segment.trackTitle}
-              unlocked={item.segment.unlocked}
-              previousTrackTitle={item.previousTrackTitle}
-            />
+            <View style={styles.spaced}>
+              <JourneyLevelBand
+                trackId={item.segment.trackId}
+                trackTitle={item.segment.trackTitle}
+                unlocked={item.segment.unlocked}
+                previousTrackTitle={item.previousTrackTitle}
+              />
+            </View>
           );
         }
 
@@ -265,82 +278,162 @@ export function JourneyTrail({
           </View>;
         }
 
-        const { node } = item;
-        const isRecommended = node.id === recommendedNodeId;
-        const offset = medalOffsetX(item.nodeIndex, halfWidth, largeText);
-        const status = getRecommendationCopy(isRecommended, recommendationReason, dueReviewCount) ?? getStatusCopy(node);
-        const stars = node.type === 'lesson' && node.status === 'completed' && node.lessonId
-          ? starsByLessonId[node.lessonId]
-          : undefined;
-        const slot = pixelSlot?.(node.id);
+        const isRecommended = item.node.id === recommendedNodeId;
         return (
-          <View testID={`journey-trail-row-${node.id}`} style={styles.row}>
-            {item.nodeIndex > 0 ? (
-              <JourneyPathSegment
-                fromX={medalOffsetX(item.nodeIndex - 1, halfWidth, largeText)}
-                toX={offset}
-                height={TRAIL_SEGMENT_HEIGHT}
-                traveled={item.traveled}
-              />
-            ) : null}
-            <View
-              testID={`journey-anchor-${node.id}`}
-              style={[styles.column, largeText && styles.columnLargeText, { transform: [{ translateX: offset }] }]}
-            >
-              <View style={styles.medalBox}>
-                <JourneyMedal
-                  node={node}
-                  theme={resolveNodeTheme(node, item.unit)}
-                  state={medalStateFor(node, isRecommended)}
-                  pulsing={isRecommended}
-                  stars={stars}
-                  size={isRecommended ? NEXT_MEDAL_RADIUS : undefined}
-                  unitNumber={node.type === 'checkpoint' ? item.unitNumber : undefined}
-                  onPress={() => onNodePress(node)}
-                  disabled={isNodeDisabled(node)}
-                  accessibilityLabel={`${node.title}. ${status}.`}
-                />
-                {slot !== undefined && slot !== null && slot !== false ? (
-                  // Para dentro da trilha, onde sobra espaço ao lado da medalha.
-                  <View
-                    pointerEvents="box-none"
-                    {...hiddenFromReader}
-                    style={[styles.slot, offset < 0 ? styles.slotRight : styles.slotLeft]}
-                  >
-                    {slot}
-                  </View>
-                ) : null}
-              </View>
-              {/* O título já está no rótulo da medalha; aqui é só para ver. */}
-              <Text
-                {...hiddenFromReader}
-                numberOfLines={largeText ? undefined : 2}
-                style={[
-                  styles.nodeTitle,
-                  largeText && styles.nodeTitleLargeText,
-                  node.status === 'locked' && styles.nodeTitleLocked,
-                ]}
-              >
-                {node.title}
-              </Text>
-            </View>
-          </View>
+          <TrailNodeRow
+            item={item}
+            isRecommended={isRecommended}
+            status={getRecommendationCopy(isRecommended, recommendationReason, dueReviewCount) ?? getStatusCopy(item.node)}
+            halfWidth={halfWidth}
+            column={largeText}
+            stars={item.node.type === 'lesson' && item.node.status === 'completed' && item.node.lessonId
+              ? starsByLessonId[item.node.lessonId]
+              : undefined}
+            slot={pixelSlot?.(item.node.id)}
+            disabled={isNodeDisabled(item.node)}
+            onPress={onNodePress}
+          />
         );
       }}
     />
   );
 }
 
+type TrailNodeRowProps = {
+  item: TrailNodeItem;
+  isRecommended: boolean;
+  /** A palavra de estado do rótulo: a da recomendação ou a do nó. */
+  status: string;
+  halfWidth: number;
+  /** Texto grande: coluna centrada, sem zigue-zague. */
+  column: boolean;
+  stars?: LessonStars;
+  slot: React.ReactNode;
+  disabled: boolean;
+  onPress: (node: JourneyNode) => void;
+};
+
+/**
+ * Uma linha da trilha: o fim da descida que chega ao nó, a medalha deslocada
+ * com o título embaixo e o começo do trecho que sai dela. O trecho entre dois
+ * nós é desenhado em duas partes, uma em cada linha, que se encontram na mesma
+ * vertical na borda entre as linhas. A parte que sai precisa da altura da
+ * linha (o título tem uma ou duas linhas), por isso só aparece depois da
+ * primeira medida.
+ */
+function TrailNodeRow({
+  item,
+  isRecommended,
+  status,
+  halfWidth,
+  column,
+  stars,
+  slot,
+  disabled,
+  onPress,
+}: TrailNodeRowProps) {
+  const { node } = item;
+  const [rowHeight, setRowHeight] = useState<number | undefined>(undefined);
+  const handleLayout = useCallback((event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setRowHeight(previous => (previous === height ? previous : height));
+  }, []);
+  const offset = medalOffsetX(item.nodeIndex, halfWidth, column);
+  const nextOffset = medalOffsetX(item.nodeIndex + 1, halfWidth, column);
+  const radius = medalRadiusFor(node.type, isRecommended);
+  // O trecho que sai nasce meio traço acima do centro da medalha, para a
+  // ponta redonda do primeiro ponto caber.
+  const outTop = TRAIL_MEDAL_TOP + radius - TRAIL_PATH_STROKE / 2;
+  const showSlot = slot !== undefined && slot !== null && slot !== false;
+
+  return (
+    <View
+      testID={`journey-trail-row-${node.id}`}
+      onLayout={handleLayout}
+      style={[styles.row, column && item.hasNext ? null : styles.rowBottom]}
+    >
+      {item.hasNext && !column && rowHeight !== undefined && rowHeight > outTop ? (
+        <View pointerEvents="none" style={[styles.outPiece, { top: outTop }]}>
+          <JourneyPathSegment
+            part="out"
+            fromX={offset}
+            toX={nextOffset}
+            fromRadius={radius}
+            height={rowHeight - outTop}
+            traveled={item.nextTraveled}
+          />
+        </View>
+      ) : null}
+      {item.nodeIndex > 0 ? (
+        <View pointerEvents="none" style={styles.inPiece}>
+          <JourneyPathSegment part="in" fromX={offset} toX={offset} height={TRAIL_LEAD} traveled={item.traveled} />
+        </View>
+      ) : null}
+      <View
+        testID={`journey-anchor-${node.id}`}
+        style={[styles.column, column && styles.columnLargeText, { transform: [{ translateX: offset }] }]}
+      >
+        <View style={styles.medalBox}>
+          <JourneyMedal
+            node={node}
+            theme={resolveNodeTheme(node, item.unit)}
+            state={medalStateFor(node, isRecommended)}
+            pulsing={isRecommended}
+            stars={stars}
+            size={isRecommended ? radius : undefined}
+            unitNumber={node.type === 'checkpoint' ? item.unitNumber : undefined}
+            onPress={() => onPress(node)}
+            disabled={disabled}
+            accessibilityLabel={`${node.title}. ${status}.`}
+          />
+          {showSlot ? (
+            // Do lado de fora da trilha: do lado de dentro corre o pontilhado.
+            <View
+              pointerEvents="box-none"
+              {...hiddenFromReader}
+              style={[styles.slot, offset > 0 ? styles.slotRight : styles.slotLeft]}
+            >
+              {slot}
+            </View>
+          ) : null}
+        </View>
+        {/* O título já está no rótulo da medalha; aqui é só para ver. */}
+        <Text
+          {...hiddenFromReader}
+          numberOfLines={column ? undefined : 2}
+          style={[
+            styles.nodeTitle,
+            column ? styles.nodeTitleLargeText : { maxWidth: trailTitleWidth(halfWidth) },
+            node.status === 'locked' && styles.nodeTitleLocked,
+          ]}
+        >
+          {node.title}
+        </Text>
+      </View>
+      {item.hasNext && column ? (
+        <JourneyPathSegment part="out" fromX={0} toX={0} height={TRAIL_COLUMN_TAIL} traveled={item.nextTraveled} />
+      ) : null}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  // Sem `gap` entre as linhas: o pontilhado passa de uma linha para a outra
+  // na borda entre elas, e uma folga ali o cortaria. Faixas e unidades trazem
+  // a própria margem.
   trail: {
     position: 'relative',
-    gap: TRAIL_GAP,
     paddingBottom: space.s3,
   },
+  spacedHeader: { marginBottom: TRAIL_GAP },
+  spaced: { marginVertical: TRAIL_GAP / 2 },
   row: { alignItems: 'center' },
+  rowBottom: { paddingBottom: TRAIL_ROW_BOTTOM },
   // Sem `overflow: 'hidden'` em lugar nenhum da linha: o anel da próxima sai
   // da caixa da medalha, e a folga de cima é o que o mantém inteiro.
-  column: { alignItems: 'center', paddingTop: TRAIL_RING_ROOM },
+  outPiece: { position: 'absolute', left: 0, right: 0, bottom: 0 },
+  inPiece: { position: 'absolute', left: 0, right: 0, top: 0 },
+  column: { alignItems: 'center', paddingTop: TRAIL_MEDAL_TOP },
   columnLargeText: { alignSelf: 'stretch' },
   medalBox: { alignItems: 'center' },
   slot: { position: 'absolute', top: 0, bottom: 0, justifyContent: 'center' },
@@ -350,14 +443,13 @@ const styles = StyleSheet.create({
     ...typography.caption,
     color: galaxyColors.textPrimary,
     textAlign: 'center',
-    maxWidth: TRAIL_TITLE_MAX_WIDTH,
     marginTop: space.s0,
   },
   nodeTitleLargeText: { maxWidth: '100%' },
   // Sem `opacity`: ela apagaria o título junto, e o contrato de contraste não
   // a enxerga. O bloqueado fica no cinza secundário e continua legível.
   nodeTitleLocked: { color: galaxyColors.textSecondary },
-  unit: { paddingVertical: space.s2, gap: space.s0 },
+  unit: { paddingVertical: space.s2, marginVertical: TRAIL_GAP / 2, gap: space.s0 },
   unitTitle: { ...typography.label, color: galaxyColors.textPrimary },
   unitCaption: { ...typography.micro, color: galaxyColors.textSecondary },
 });

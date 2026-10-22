@@ -6,6 +6,7 @@ import { galaxyColors, medalColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
 import { JourneyMedal } from './JourneyMedal';
 import { JourneyPathSegment } from './JourneyPathSegment';
+import { TRAIL_SEAM_PHASE, outgoingPath } from './trailLayout';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
 import type { JourneyNode, JourneyNodeStatus, JourneyUnit } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
@@ -84,15 +85,35 @@ function renderTrail(segments: CurriculumSegment[], recommendedNodeId?: string, 
   );
 }
 
-/** A lista mede 400 de largura: meia-largura 200, deslocamentos de 44 e 60. */
+/** A lista mede 400 de largura: meia-largura 200, medalhas a ±70 do centro. */
 function medirLargura(screen: ReturnType<typeof render>, width = 400) {
   fireEvent(screen.getByTestId('journey-trail'), 'layout', {
     nativeEvent: { layout: { x: 0, y: 0, width, height: 800 } },
   });
 }
 
-function pathSegments(screen: ReturnType<typeof render>) {
-  return screen.UNSAFE_getAllByType(JourneyPathSegment).map((element) => element.props as React.ComponentProps<typeof JourneyPathSegment>);
+/** O trecho que sai de cada nó precisa da altura da linha, que o Jest não mede. */
+function medirLinhas(screen: ReturnType<typeof render>, height = 180) {
+  for (const row of screen.queryAllByTestId(/^journey-trail-row-/u, HIDDEN)) {
+    fireEvent(row, 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 400, height } } });
+  }
+}
+
+type SegmentProps = React.ComponentProps<typeof JourneyPathSegment>;
+
+function pathPieces(screen: ReturnType<typeof render>, part: SegmentProps['part']): SegmentProps[] {
+  return screen.UNSAFE_queryAllByType(JourneyPathSegment)
+    .map((element) => element.props as SegmentProps)
+    .filter((props) => props.part === part);
+}
+
+/** O estado de cada trecho entre nós, de cima para baixo, conferindo as duas partes. */
+function traveledStates(screen: ReturnType<typeof render>): boolean[] {
+  medirLinhas(screen);
+  const outgoing = pathPieces(screen, 'out').map((props) => props.traveled);
+  const incoming = pathPieces(screen, 'in').map((props) => props.traveled);
+  expect(outgoing).toEqual(incoming);
+  return incoming;
 }
 
 function medalProps(screen: ReturnType<typeof render>, nodeId: string) {
@@ -171,19 +192,19 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 });
 
 describe('JourneyTrail — o zigue-zague', () => {
-  it('desloca as medalhas no ciclo da prancheta, pela meia-largura medida', () => {
+  it('alterna as medalhas entre esquerda e direita, a 35% da meia-largura medida', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked', 'locked'])]),
     ], 'u1-node-2');
     medirLargura(screen);
 
     expect([0, 1, 2, 3, 4].map((index) => offsetOf(screen, `u1-node-${index}`)))
-      .toEqual([0, 44, 60, 44, 0].map((value) => expect.closeTo(value, 6)));
+      .toEqual([-70, 70, -70, 70, -70].map((value) => expect.closeTo(value, 6)));
   });
 
   it('segue o índice do percurso inteiro, sem reiniciar a cada unidade', () => {
     // Duas unidades de um nó cada. Se o índice reiniciasse por unidade, os dois
-    // nós cairiam no centro; num caminho só, o segundo já sai para o lado.
+    // nós cairiam do mesmo lado; num caminho só, o segundo alterna.
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [
         unit('u1', 'Unidade 1', ['completed']),
@@ -192,18 +213,37 @@ describe('JourneyTrail — o zigue-zague', () => {
     ]);
     medirLargura(screen);
 
-    expect(offsetOf(screen, 'u1-node-0')).toBe(0);
-    expect(offsetOf(screen, 'u2-node-0')).toBeCloseTo(44, 6);
+    expect(offsetOf(screen, 'u1-node-0')).toBeCloseTo(-70, 6);
+    expect(offsetOf(screen, 'u2-node-0')).toBeCloseTo(70, 6);
   });
 
-  it('cada trecho sai do deslocamento do nó anterior e chega ao do seguinte', () => {
+  it('cada trecho sai da lateral de um nó e a descida continua no topo do seguinte, na mesma vertical', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked', 'locked'])]),
     ], 'u1-node-2');
     medirLargura(screen);
+    medirLinhas(screen, 180);
 
-    const pairs = pathSegments(screen).map(({ fromX, toX }) => [Math.round(fromX), Math.round(toX)]);
-    expect(pairs).toEqual([[0, 44], [44, 60], [60, 44], [44, 0]]);
+    const outgoing = pathPieces(screen, 'out');
+    const incoming = pathPieces(screen, 'in');
+    expect(outgoing.map(({ fromX, toX }) => [Math.round(fromX), Math.round(toX)]))
+      .toEqual([[-70, 70], [70, -70], [-70, 70], [70, -70]]);
+    expect(incoming.map(({ toX }) => Math.round(toX))).toEqual([70, -70, 70, -70]);
+    // A parte que sai começa no centro da medalha (meio traço acima, para a
+    // ponta redonda) e vai até a borda de baixo da linha.
+    expect(outgoing[0].fromRadius).toBe(34);
+    expect(outgoing[1].fromRadius).toBe(34);
+    expect(outgoing[2].fromRadius).toBe(40);
+    expect(outgoing[0].height).toBe(180 - (25 + 34 - 5));
+    expect(outgoing[2].height).toBe(180 - (25 + 40 - 5));
+  });
+
+  it('o trecho que sai só aparece depois de a linha ser medida', () => {
+    const screen = renderTrail([segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available'])])], 'u1-node-1');
+
+    expect(pathPieces(screen, 'out')).toHaveLength(0);
+    medirLinhas(screen);
+    expect(pathPieces(screen, 'out')).toHaveLength(1);
   });
 });
 
@@ -214,7 +254,7 @@ describe('JourneyTrail — o caminho percorrido', () => {
       'u1-node-2',
     );
 
-    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, true, false, false]);
+    expect(traveledStates(screen)).toEqual([true, true, false, false]);
   });
 
   it('não listra o caminho quando um nó pendente aparece no meio do trecho já andado', () => {
@@ -227,7 +267,7 @@ describe('JourneyTrail — o caminho percorrido', () => {
       'u1-node-3',
     );
 
-    const estados = pathSegments(screen).map((props) => props.traveled);
+    const estados = traveledStates(screen);
     expect(estados).toEqual([true, true, true, false]);
     expect(estados.filter((estado, i) => i > 0 && estado !== estados[i - 1])).toHaveLength(1);
   });
@@ -237,7 +277,7 @@ describe('JourneyTrail — o caminho percorrido', () => {
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'locked'])]),
     ]);
 
-    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, false]);
+    expect(traveledStates(screen)).toEqual([true, false]);
   });
 
   it('não desenha caminho nenhum num percurso de um nó só', () => {
@@ -245,6 +285,7 @@ describe('JourneyTrail — o caminho percorrido', () => {
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
     ]);
 
+    medirLinhas(screen);
     expect(screen.UNSAFE_queryAllByType(JourneyPathSegment)).toHaveLength(0);
   });
 
@@ -259,7 +300,7 @@ describe('JourneyTrail — o caminho percorrido', () => {
       'u2-node-0',
     );
 
-    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, true]);
+    expect(traveledStates(screen)).toEqual([true, true]);
   });
 });
 
@@ -330,11 +371,13 @@ describe('JourneyTrail — a medalha de cada nó', () => {
       { pixelSlot: (nodeId) => (nodeId === 'u1-node-1' ? <View testID="pixel-no-encaixe" /> : null) },
     );
 
+    medirLinhas(screen);
     expect(screen.getAllByRole('button')).toHaveLength(3);
     expect(screen.queryByText('Unidade 1 — nó 1')).toBeNull();
     expect(screen.getByText('Unidade 1 — nó 1', HIDDEN)).toBeTruthy();
-    expect(screen.queryByTestId('journey-path-segment')).toBeNull();
-    expect(screen.getAllByTestId('journey-path-segment', HIDDEN)).toHaveLength(2);
+    expect(screen.queryByTestId(/^journey-path-/u)).toBeNull();
+    expect(screen.getAllByTestId('journey-path-in', HIDDEN)).toHaveLength(2);
+    expect(screen.getAllByTestId('journey-path-out', HIDDEN)).toHaveLength(2);
     expect(screen.queryByTestId('pixel-no-encaixe')).toBeNull();
     expect(screen.getByTestId('pixel-no-encaixe', HIDDEN)).toBeTruthy();
   });
@@ -429,15 +472,37 @@ describe('JourneyTrail — o encaixe do Pixel', () => {
     }
     expect(insideAnchor).toBe(true);
   });
+
+  it('fica do lado de fora da trilha, porque do lado de dentro corre o pontilhado', () => {
+    const slot = (nodeId: string) => <View testID={`pixel-${nodeId}`} />;
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available'])])],
+      'u1-node-1',
+      { pixelSlot: slot },
+    );
+    medirLargura(screen);
+    // O estilo do encaixe que envolve o que a tela passou.
+    const side = (nodeId: string) => {
+      for (let node = screen.getByTestId(`pixel-${nodeId}`, HIDDEN).parent; node; node = node.parent) {
+        const style = StyleSheet.flatten(node.props.style);
+        if (style?.position === 'absolute') return style;
+      }
+      throw new Error(`encaixe de ${nodeId} sem posição`);
+    };
+
+    // u1-node-0 está à esquerda: o encaixe vai à esquerda dela; u1-node-1, à direita.
+    expect(side('u1-node-0').right).toBe('100%');
+    expect(side('u1-node-1').left).toBe('100%');
+  });
 });
 
 describe('JourneyPathSegment', () => {
-  function strokeOf(traveled: boolean) {
-    const screen = render(<JourneyPathSegment fromX={0} toX={44} height={40} traveled={traveled} />);
+  function strokeOf(traveled: boolean, part: SegmentProps['part'] = 'out') {
+    const screen = render(<JourneyPathSegment part={part} fromX={-70} toX={70} height={120} traveled={traveled} />);
     return screen.UNSAFE_getByType(Path).props;
   }
 
-  it('pontilhado de traço 10, intervalo 18 e ponta redonda', () => {
+  it('linha de 10 com traço 1 e intervalo 18 de ponta redonda: pontos redondos de 10 a cada 19', () => {
     const path = strokeOf(true);
 
     expect(path.strokeWidth).toBe(10);
@@ -445,16 +510,27 @@ describe('JourneyPathSegment', () => {
     expect(path.strokeLinecap).toBe('round');
   });
 
-  it('o percorrido é da cor da unidade, e o restante, apagado', () => {
+  it('o percorrido é da cor da unidade, e o restante, apagado, nas duas partes', () => {
     expect(strokeOf(true).stroke).toBe(medalColors.unit.face);
     expect(strokeOf(false).stroke).toBe(galaxyColors.surfaceMuted);
+    expect(strokeOf(true, 'in').stroke).toBe(medalColors.unit.face);
+    expect(strokeOf(false, 'in').stroke).toBe(galaxyColors.surfaceMuted);
+  });
+
+  it('a parte que sai acerta o passo dos pontos para a costura com a de baixo', () => {
+    const screen = render(<JourneyPathSegment part="out" fromX={-70} toX={70} height={120} traveled />);
+    const path = outgoingPath(-70, 70, 34, 120);
+
+    expect(screen.UNSAFE_getByType(Path).props.d).toBe(path.d);
+    expect(screen.UNSAFE_getByType(Path).props.strokeDashoffset).toBeCloseTo(path.dashOffset, 6);
+    expect(strokeOf(true, 'in').strokeDashoffset).toBe(TRAIL_SEAM_PHASE);
   });
 
   it('ocupa a altura pedida e fica fora do leitor de tela', () => {
-    const screen = render(<JourneyPathSegment fromX={-44} toX={0} height={40} traveled={false} />);
-    const view = screen.getByTestId('journey-path-segment', HIDDEN);
+    const screen = render(<JourneyPathSegment part="in" fromX={70} toX={70} height={15} traveled={false} />);
+    const view = screen.getByTestId('journey-path-in', HIDDEN);
 
-    expect(StyleSheet.flatten(view.props.style).height).toBe(40);
+    expect(StyleSheet.flatten(view.props.style).height).toBe(15);
     expect(view.props.accessibilityElementsHidden).toBe(true);
     expect(view.props.importantForAccessibility).toBe('no-hide-descendants');
   });
@@ -470,9 +546,12 @@ describe('JourneyTrail — texto grande', () => {
     mockWindow.fontScale = 1.65;
     const screen = renderTrail(trilha(), 'u1-node-1');
     medirLargura(screen);
+    medirLinhas(screen);
 
     expect([0, 1, 2].map((index) => offsetOf(screen, `u1-node-${index}`))).toEqual([0, 0, 0]);
-    expect(pathSegments(screen).every(({ fromX, toX }) => fromX === 0 && toX === 0)).toBe(true);
+    const pieces = screen.UNSAFE_getAllByType(JourneyPathSegment).map((element) => element.props as SegmentProps);
+    expect(pieces).toHaveLength(4);
+    expect(pieces.every(({ fromX, toX }) => fromX === 0 && toX === 0)).toBe(true);
     expect(screen.getByText('Unidade 1 — nó 2', HIDDEN).props.numberOfLines).toBeUndefined();
   });
 
@@ -480,8 +559,17 @@ describe('JourneyTrail — texto grande', () => {
     const screen = renderTrail(trilha(), 'u1-node-1');
     medirLargura(screen);
 
-    expect(offsetOf(screen, 'u1-node-1')).toBeCloseTo(44, 6);
-    expect(screen.getByText('Unidade 1 — nó 2', HIDDEN).props.numberOfLines).toBeGreaterThan(0);
+    expect(offsetOf(screen, 'u1-node-1')).toBeCloseTo(70, 6);
+    expect(screen.getByText('Unidade 1 — nó 2', HIDDEN).props.numberOfLines).toBe(2);
+  });
+
+  it('no zigue-zague o título vai até a meia-largura menos 16, em até duas linhas', () => {
+    const screen = renderTrail(trilha(), 'u1-node-1');
+    medirLargura(screen);
+    const title = screen.getByText('Unidade 1 — nó 2', HIDDEN);
+
+    expect(StyleSheet.flatten(title.props.style).maxWidth).toBe(200 - 16);
+    expect(title.props.numberOfLines).toBe(2);
   });
 });
 

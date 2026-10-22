@@ -3,56 +3,73 @@ import { StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { galaxyColors, medalColors } from '../../../ui/theme';
+import {
+  MEDAL_RADIUS,
+  TRAIL_PATH_DASH,
+  TRAIL_PATH_STROKE,
+  incomingPath,
+  outgoingPath,
+} from './trailLayout';
 
 type JourneyPathSegmentProps = {
-  /** Deslocamento do nó anterior, a partir do centro da trilha. */
+  /** Deslocamento do nó de onde o trecho sai, a partir do centro da trilha. */
   fromX: number;
-  /** Deslocamento deste nó, a partir do centro da trilha. */
+  /** Deslocamento do nó aonde o trecho chega, a partir do centro da trilha. */
   toX: number;
   height: number;
   /** O aluno já passou por aqui: o trecho chega a um nó até a posição dele. */
   traveled: boolean;
+  /**
+   * Um trecho entre dois nós vem em duas partes, uma em cada linha da lista:
+   * `out` sai da lateral da medalha de cima e desce até a borda da linha; `in`
+   * continua a descida no topo da linha de baixo até perto da medalha.
+   */
+  part: 'out' | 'in';
+  /** Raio da medalha de onde o trecho sai (só `out`). */
+  fromRadius?: number;
 };
 
-// O pontilhado da prancheta: traço 10, intervalo 18, ponta redonda. Com a
-// ponta redonda, o traço de 1 vira um ponto do diâmetro da linha.
-const STROKE_WIDTH = 10;
-const DASH = '1 18';
-
 /**
- * O trecho pontilhado que desce do nó anterior até o topo deste. A curva
- * nasce na vertical sob o nó de cima e chega na vertical à medalha de baixo,
- * para o caminho se ler como uma linha só de uma linha da lista para a outra.
+ * O pontilhado que liga uma medalha à seguinte, como o `seg()` da prancheta:
+ * sai da lateral de um nó e desce até o topo do seguinte. As duas partes se
+ * encontram na mesma vertical e com o mesmo passo de pontos (`trailLayout`).
  *
  * Sinal visual, não conteúdo: o rótulo de cada medalha já diz o estado, e o
  * leitor de tela não deve ler o caminho.
  */
-export function JourneyPathSegment({ fromX, toX, height, traveled }: JourneyPathSegmentProps): React.ReactElement {
-  const half = STROKE_WIDTH / 2;
-  const left = Math.min(fromX, toX) - half;
-  const width = Math.abs(toX - fromX) + STROKE_WIDTH;
-  const startX = fromX - left;
-  const endX = toX - left;
-  const startY = half;
-  const endY = Math.max(half, height - half);
-  const middleY = height / 2;
+export function JourneyPathSegment({
+  fromX,
+  toX,
+  height,
+  traveled,
+  part,
+  fromRadius = MEDAL_RADIUS,
+}: JourneyPathSegmentProps): React.ReactElement {
+  const geometry = part === 'out'
+    ? outgoingPath(fromX, toX, fromRadius, height)
+    : incomingPath(toX, height);
 
   return (
     <View
-      testID="journey-path-segment"
+      testID={`journey-path-${part}`}
       pointerEvents="none"
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
-      style={[styles.box, { height }]}
+      style={[styles.box, { height: geometry.height }]}
     >
-      <Svg width={width} height={height} style={[styles.svg, { marginLeft: left }]}>
+      <Svg
+        width={geometry.width}
+        height={geometry.height}
+        style={[styles.svg, { marginLeft: geometry.left }]}
+      >
         <Path
-          d={`M${startX},${startY} C${startX},${middleY} ${endX},${middleY} ${endX},${endY}`}
+          d={geometry.d}
           fill="none"
           stroke={traveled ? medalColors.unit.face : galaxyColors.surfaceMuted}
-          strokeWidth={STROKE_WIDTH}
+          strokeWidth={TRAIL_PATH_STROKE}
           strokeLinecap="round"
-          strokeDasharray={DASH}
+          strokeDasharray={TRAIL_PATH_DASH}
+          strokeDashoffset={geometry.dashOffset}
         />
       </Svg>
     </View>
