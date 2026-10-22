@@ -19,11 +19,25 @@
  * O braço direito fica num `G` próprio (`testID="pixel-right-arm"`) e a parte
  * que flutua num segundo (`testID="pixel-float"`): é nelas que o movimento
  * encaixa, sem mexer no desenho.
+ *
+ * O aceno gira o braço direito em volta do ombro, entre 0 e -14 graus, num
+ * ciclo de 1,6 s. Só existe na pose `acena` e com `waving`; com "reduzir
+ * movimento" o braço fica parado onde a pose o põe. A flutuação do corpo inteiro
+ * é do frame (`PixelIllustration`), porque o rosto é desenhado FORA deste SVG e
+ * precisa subir e descer junto com ele.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Svg, { Circle, Ellipse, G, Path, Rect } from 'react-native-svg';
+import Animated, {
+  Easing,
+  useAnimatedProps,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 import { pixelColors } from '../theme';
+import { useReducedMotionPreferenceState } from '../accessibility/useReducedMotionPreference';
 import { PIXEL_ARMS, type PixelArm, type PixelPose } from './pixelPoses';
 
 /** A caixa em que o corpo é desenhado, a mesma do PNG antigo. */
@@ -43,11 +57,22 @@ type PixelBodyProps = {
   width: number;
   height: number;
   /**
-   * Reservado para o movimento do aceno. O corpo não anima por conta própria;
-   * o grupo `pixel-right-arm` é o ponto de encaixe.
+   * Liga o aceno do braço direito. Só tem efeito na pose `acena` e com o
+   * movimento permitido; fora disso o braço fica na posição da pose.
    */
   waving?: boolean;
 };
+
+/** O ombro direito, em volta do qual o braço gira (unidades da caixa). */
+const WAVE_ORIGIN = { x: 360, y: 408 } as const;
+/** Quanto o braço se inclina no ponto mais alto do aceno, em graus. */
+const WAVE_DEGREES = -14;
+/** Meio ciclo: ida ou volta. O ciclo inteiro dura 1,6 s. */
+const WAVE_HALF_CYCLE_MS = 800;
+/** Curva do aceno, a mesma do respirar do `PixelIllustration`. */
+const ACENA = { easing: Easing.inOut(Easing.quad) } as const;
+
+const AnimatedG = Animated.createAnimatedComponent(G);
 
 const { coat, blue, visor, metal, stethoscope } = pixelColors;
 
@@ -102,8 +127,32 @@ function Arm({ sleeve, hand }: PixelArm) {
   );
 }
 
-export function PixelBody({ pose, width, height }: PixelBodyProps): React.ReactElement {
+export function PixelBody({ pose, width, height, waving = false }: PixelBodyProps): React.ReactElement {
   const arms = PIXEL_ARMS[pose];
+  // O aceno é um laço perpétuo: só se agenda depois que a preferência de
+  // movimento respondeu, senão ele começaria antes de saber se pode.
+  const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+  const shouldWave = pose === 'acena' && waving && resolved && !reducedMotionEnabled;
+  const rotation = useSharedValue(0);
+
+  useEffect(() => {
+    if (!shouldWave) {
+      // Atribuir um número cancela o laço em andamento e devolve o braço à pose.
+      rotation.value = 0;
+      return;
+    }
+
+    rotation.value = withRepeat(withTiming(WAVE_DEGREES, { duration: WAVE_HALF_CYCLE_MS, ...ACENA }), -1, true);
+    return () => {
+      rotation.value = 0;
+    };
+  }, [rotation, shouldWave]);
+
+  const rightArmProps = useAnimatedProps(() => ({
+    rotation: rotation.value,
+    originX: WAVE_ORIGIN.x,
+    originY: WAVE_ORIGIN.y,
+  }));
 
   return (
     <Svg
@@ -163,9 +212,9 @@ export function PixelBody({ pose, width, height }: PixelBodyProps): React.ReactE
         <Circle cx={320} cy={464} r={12} fill={metal.base} />
         <Circle cx={244} cy={494} r={7} fill={stethoscope} />
 
-        <G testID="pixel-right-arm">
+        <AnimatedG testID="pixel-right-arm" animatedProps={rightArmProps}>
           <Arm {...arms.right} />
-        </G>
+        </AnimatedG>
 
         {/* pescoço */}
         <Rect x={226} y={350} width={52} height={36} rx={10} fill={blue.shade} />

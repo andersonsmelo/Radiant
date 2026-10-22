@@ -2,9 +2,52 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import Svg, { Circle, Ellipse, G, Path, Rect } from 'react-native-svg';
 import { pixelColors } from '../theme';
+import { useReducedMotionPreferenceState } from '../accessibility/useReducedMotionPreference';
 import { PixelBody, PIXEL_SCREEN_RECT, PIXEL_VIEWBOX } from './PixelBody';
 import { PIXEL_ARMS, poseForState, type PixelPose } from './pixelPoses';
 import type { CharacterState } from './types';
+
+jest.mock('../accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreferenceState: jest.fn(),
+}));
+
+// Mesmo mock de `PixelFace.test.tsx`: shared values persistem entre renders, os
+// callbacks animados rodam na hora e `withTiming`/`withRepeat` devolvem o alvo
+// que receberam, para o valor ficar observável sem um relógio de animação.
+jest.mock('react-native-reanimated', () => {
+  const ReactActual = jest.requireActual('react') as typeof React;
+
+  const createAnimatedComponent = (Component: React.ComponentType<Record<string, unknown>>) =>
+    (props: Record<string, unknown>) => {
+      const { animatedProps, ...rest } = props;
+      return ReactActual.createElement(Component, { ...rest, ...(animatedProps as object) });
+    };
+
+  return {
+    __esModule: true,
+    default: { createAnimatedComponent },
+    Easing: { inOut: (value: unknown) => value, quad: 'quad' },
+    useSharedValue: (initial: number) => ReactActual.useRef({ value: initial }).current,
+    useAnimatedProps: (updater: () => Record<string, unknown>) => updater(),
+    withTiming: jest.fn((value: number) => value),
+    withRepeat: jest.fn((animation: number) => animation),
+  };
+});
+
+const reanimated = jest.requireMock('react-native-reanimated') as {
+  withRepeat: jest.Mock;
+  withTiming: jest.Mock;
+};
+
+const mockedReducedMotion = useReducedMotionPreferenceState as jest.MockedFunction<
+  typeof useReducedMotionPreferenceState
+>;
+
+const motion = (reducedMotionEnabled: boolean, resolved = true) =>
+  mockedReducedMotion.mockReturnValue({ reducedMotionEnabled, resolved });
+
+const rightArmOf = (screen: ReturnType<typeof render>) =>
+  screen.UNSAFE_getAllByType(G).find((group) => group.props.testID === 'pixel-right-arm');
 
 // O corpo do Pixel é SVG, e o Jest não rasteriza SVG. As asserções recaem sobre
 // o que decide o que o aluno vê: onde a tela escura cai, qual traçado cada pose
@@ -30,6 +73,11 @@ const sleeveBasePaths = (pose: PixelPose) =>
   render(<PixelBody pose={pose} width={288} height={432} />)
     .UNSAFE_getAllByType(Path)
     .filter((path) => path.props.strokeWidth === SLEEVE_BASE_WIDTH);
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  motion(false);
+});
 
 describe('poseForState', () => {
   it.each<[CharacterState, PixelPose]>([
@@ -141,5 +189,54 @@ describe('PixelBody', () => {
 
     expect(root.props.accessibilityElementsHidden).toBe(true);
     expect(root.props.importantForAccessibility).toBe('no-hide-descendants');
+  });
+});
+
+describe('PixelBody — aceno', () => {
+  it('com "reduzir movimento", o braço fica em 0 grau e nada é agendado', () => {
+    motion(true);
+    const screen = render(<PixelBody pose="acena" width={288} height={432} waving />);
+
+    expect(rightArmOf(screen)?.props.rotation).toBe(0);
+    expect(reanimated.withRepeat).not.toHaveBeenCalled();
+    expect(reanimated.withTiming).not.toHaveBeenCalled();
+  });
+
+  it('enquanto a preferência não responde, ainda não agenda o aceno', () => {
+    motion(false, false);
+    render(<PixelBody pose="acena" width={288} height={432} waving />);
+
+    expect(reanimated.withRepeat).not.toHaveBeenCalled();
+  });
+
+  it('com o movimento ligado, repete um ciclo de 1600 ms em volta do ombro', () => {
+    const screen = render(<PixelBody pose="acena" width={288} height={432} waving />);
+
+    expect(reanimated.withRepeat).toHaveBeenCalledTimes(1);
+    // Vai e volta: a meia-volta dura 800 ms, o ciclo inteiro 1600.
+    expect(reanimated.withTiming).toHaveBeenCalledTimes(1);
+    const [alvo, opcoes] = reanimated.withTiming.mock.calls[0];
+    expect(alvo).toBe(-14);
+    expect(opcoes.duration).toBe(800);
+    expect(opcoes.easing).toBe('quad');
+    const [, repeticoes, vaiEVolta] = reanimated.withRepeat.mock.calls[0];
+    expect(repeticoes).toBe(-1);
+    expect(vaiEVolta).toBe(true);
+    expect(opcoes.duration * 2).toBe(1600);
+
+    expect(rightArmOf(screen)?.props).toMatchObject({ originX: 360, originY: 408 });
+  });
+
+  it('só acena na pose "acena"', () => {
+    render(<PixelBody pose="aponta" width={288} height={432} waving />);
+
+    expect(reanimated.withRepeat).not.toHaveBeenCalled();
+  });
+
+  it('sem `waving`, o braço fica parado', () => {
+    const screen = render(<PixelBody pose="acena" width={288} height={432} />);
+
+    expect(reanimated.withRepeat).not.toHaveBeenCalled();
+    expect(rightArmOf(screen)?.props.rotation).toBe(0);
   });
 });
