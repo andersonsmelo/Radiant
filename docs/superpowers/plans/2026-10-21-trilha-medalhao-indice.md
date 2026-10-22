@@ -12,11 +12,11 @@ não existem.
 | # | Plano | Depende de | Gate do dono | Estado em 2026-10-21 |
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
-| 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | escrito |
-| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota | escrito |
-| 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | escrito |
+| 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
+| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefas 0-5 concluídas**; a 6 parou no meio (branch `claude/trilha-t6-wip`, não revisada); faltam a 7 e a revisão final |
+| 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | escrito, não começado |
 | 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | a escrever, quando o 3 terminar |
-| 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | escrito |
+| 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | escrito, não começado; recebeu entradas da execução (fim do plano) |
 
 O plano 6 nasceu do adendo de 2026-10-21 à noite (ADR, decisão 8), quando o dono
 aprovou o Pixel redesenhado. O plano 5 cresceu com a decisão 9: além de pôr as
@@ -44,3 +44,32 @@ confere o prazo antes de começar.
 **Saída para a loja:** nenhuma build de loja antes de os cinco planos estarem na
 `main` **e** existir o primeiro lote do currículo novo, que é o projeto seguinte,
 com o dono. Build e distribuição continuam com o dono.
+
+## Como continuar (2026-10-22)
+
+**Ordem:**
+1. Plano 2, tarefa 6. O trabalho parcial está em `claude/trilha-t6-wip`.
+2. Plano 2, tarefa 7.
+3. Revisão final do plano 2, com a onda de correção dela.
+4. Planos 3 e 5.
+5. Plano 4.
+
+**Antes de cada plano, a varredura do texto.** O plano é o argumento, e a spec
+é a autoridade. Na execução dos planos 6 e 2, a varredura achou conflitos entre
+o texto do plano e a spec, os roteiros Maestro ou a prancheta: o rótulo das
+medalhas, o ciclo do zigue-zague, o cartão de recomendação e o brilho da barra.
+Cada um foi decidido a favor da spec e registrado no "Registro de execução" do
+plano. Leia esses registros antes de continuar.
+
+**O que custou retrabalho e vale conferir sempre:**
+- **Prop animada de SVG que o nativo não declara.** O mock do Reanimated
+  esconde o defeito. Anime props nativas (`matrix`, `opacity`, `transform` de
+  View) e teste essas props.
+- **Arquivo fora do escopo do run.** O Loop não amplia o escopo de um run
+  aberto: feche sem validar e reabra declarando tudo.
+- **Pasta declarada no `abrir.mjs`.** O guarda só aceita arquivos: declare cada
+  arquivo de captura.
+- **O `maestro-contract`.** Ele lê fontes de copy por AST. Mudar de arquivo a
+  copy que um roteiro lê exige reapontar o contrato.
+- **O simulador.** Ver a tela pegou o que os testes não pegam: pontilhado
+  solto, brilho com sombra, aceno parado.

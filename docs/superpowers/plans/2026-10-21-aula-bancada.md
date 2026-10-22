@@ -420,3 +420,11 @@ As aulas não saem do catálogo de exemplo sem o ok dele.
 git add docs/evidence/
 git commit -m "docs(aula): evidência da aula-bancada no simulador e no AVD"
 ```
+
+---
+
+## Estado em 2026-10-22
+
+Não começado. O pré-requisito da tarefa 6 está cumprido: a `runtimeVersion` é
+`fingerprint` desde `e10a553` (plano 2, tarefa 0). `@react-native-community/slider`
+5.x continua dependência sem uso em `src`, como o plano supõe.

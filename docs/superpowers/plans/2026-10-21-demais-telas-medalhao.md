@@ -664,3 +664,28 @@ Expected: todos passam.
 git add -A radiant-app docs/DESIGN.md docs/evidence/
 git commit -m "docs(telas): evidência do app inteiro no Medalhão, guarda de texto em zero"
 ```
+
+---
+
+## Entradas vindas da execução dos planos 6 e 2 (2026-10-22)
+
+**Estado:** não começado. Estes achados chegaram durante a execução dos outros
+planos e entram nas tarefas indicadas:
+
+- **"Continuar jornada" e mais seis rótulos de ação** saíram do cartão de
+  recomendação para `nodeCopy.ts` (plano 2, tarefa 6) e ainda dizem "jornada".
+  Sete roteiros Maestro tocam "Continuar jornada" ou o testID
+  `journey-recommendation-action`. A troca do texto entra na tarefa 1 (guarda de
+  texto), com os YAMLs e o `maestro-contract` atualizados na mesma tarefa.
+- **Tarefa 3 (boas-vindas):** o "Pular" fica sob a barra de status e não
+  respondeu ao toque no simulador em 2026-10-21.
+- **Tarefa 6 (revisão):** a seta do `SpeechBubble` corta a primeira letra de
+  uma linha ("'tem por vez"). O balão sai com o Pixel da revisão.
+- **Tarefa 9 (Ajustes):** os links de Ajuda usam emoji (↗️) como ícone.
+- **`HybridLessonCharacter.tsx`** ainda troca `celebrate` por `happy` sob
+  "reduzir movimento". Com o Pixel novo, isso troca a pose (comemorar vira
+  acenar) em vez de acalmar a animação. Tire a troca na tarefa 4.
+- **`JourneyMedal`** já aceita uso sem `onPress` (imagem com rótulo) e
+  `unitNumber` para a medalha de avaliação. As tarefas 4, 7 e 8 usam assim.
+- **O HUD (tarefa 2)** ainda mostra os cinco corações e o "5" embaixo, visto em
+  2026-10-22.

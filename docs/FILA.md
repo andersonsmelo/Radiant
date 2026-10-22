@@ -505,7 +505,16 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     escrito quando o 3 terminar. Ordem sugerida: 6, depois 2 e 3, depois 5,
     depois 4. **Gates do dono pela frente:** a política de versão nativa
     (tarefa 0 do plano 2), a revisão do conteúdo das aulas-bancada (plano 3) e
-    o inventário (plano 4);
+    o inventário (plano 4). **Em 2026-10-22:**
+    - o dono escolheu `fingerprint` para a versão nativa, e isso já foi
+      aplicado;
+    - o plano 6 (Pixel) está concluído e revisado;
+    - o plano 2 está com as tarefas 0 a 5 concluídas e revisadas;
+    - a tarefa 6 parou no meio, na branch `claude/trilha-t6-wip`, não
+      revisada.
+
+    O estado detalhado está no STATUS ("Execução dos planos da trilha
+    Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;

@@ -218,8 +218,9 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
   `claude/trilha-medalhao-design` traz o `@shopify/react-native-skia` 2.2.12,
   uma dependência **nativa**, e com `appVersion` um `eas update` de uma rota com
   Skia chegaria aos binários 1.4.0 da loja, que não têm o Skia, e derrubaria o
-  app. Hoje nenhuma rota importa o Skia: só o módulo `src/ui/illustrations/`, as
-  histórias e os testes dele o usam.
+  app. **Desde 2026-10-22 a aba Estude usa o Skia:** a `JourneyMedal` do plano
+  2 desenha o `ThemeIllustration`, e por isso a política acima deixou de ser
+  opcional. Nenhuma build saiu com isso ainda.
 - **O que muda no `eas update`:** o runtime deixa de ser o número da versão e
   passa a ser a impressão digital do projeto nativo. Um binário sem Skia tem
   outro runtime que um binário com Skia, então uma atualização com Skia nunca
@@ -237,9 +238,36 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
   node -e "const a=require('./radiant-app/app.json').expo;console.log(a.version, JSON.stringify(a.runtimeVersion))"
   # esperado em 2026-10-21: 1.4.0 {"policy":"fingerprint"}
   grep -n '"@shopify/react-native-skia"' radiant-app/package.json
-  # importadores fora do módulo (vazio = nenhuma rota usa o Skia):
+  # importadores fora do módulo (em 2026-10-22: JourneyMedal.tsx, resolveNodeTheme.ts e types/journey.ts):
   grep -rlE "illustrations/|react-native-skia" radiant-app/src --include='*.ts' --include='*.tsx' \
     | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
+  ```
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
+
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável. Os planos
+estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
+cada plano tem uma seção "Registro de execução" com commits, decisões que
+mudaram o texto do plano e pendências.
+
+- **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
+  dela (`a294d97`). O aceno foi conferido no simulador.
+- **Plano 2 (trilha): tarefas 0 a 5 concluídas e revisadas** (`e10a553` a
+  `a8f5dd9`). **A tarefa 6 parou no meio**, pelo limite de uso: o trabalho
+  parcial está na branch `claude/trilha-t6-wip` (`5ffefee`), **não revisado**,
+  com uma regressão do `visual:qa:strict` ainda aberta. Falta a tarefa 7
+  (evidência no simulador e no AVD) e a revisão final do plano.
+- **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
+- **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
+  revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
+  relatórios) ficam em `.superpowers/sdd/` do worktree
+  `.claude/worktrees/trilha-2026-10-20`, que o git ignora. O que importa deles
+  está nos registros de execução dos planos.
+- **Remede com:**
+
+  ```bash
+  git log --oneline origin/main..origin/claude/trilha-medalhao-design | head -40
+  git log --oneline -1 origin/claude/trilha-t6-wip
   ```
 
 ## Prazos de relógio

@@ -459,3 +459,112 @@ Expected: os três passam.
 git add docs/evidence/
 git commit -m "docs(trilha): evidência da trilha Medalhão no simulador e no AVD"
 ```
+
+---
+
+## Registro de execução (2026-10-22)
+
+**Estado:**
+- **Tarefas 0 a 5:** concluídas e revisadas.
+- **Tarefa 6:** interrompida, com trabalho parcial numa branch à parte.
+- **Tarefa 7 e revisão final do plano:** por fazer.
+
+Execução com subagentes: um implementador e um revisor por tarefa.
+
+| Tarefa | Commits | Observação |
+| --- | --- | --- |
+| 0 | `e10a553` | `runtimeVersion: { "policy": "fingerprint" }`, decidido pelo dono em 2026-10-21 |
+| 1, 2 | `6d968ed`, `6b916f6` | tema por nó; recorde de estrelas por aula |
+| 3 | `4dd5229` | `JourneyMedal`, `nodeCopy.ts`, `medalColors.silver` |
+| 4 | `f04171f`, `2ca3839` | caminho de medalhas; uma rodada de correção (geometria) |
+| 5 | `318df2e`, `a8f5dd9` | cabeçalho, linha de revisão, lembrete e estrelas na tela; uma rodada de correção (barra) |
+| 6 | `5ffefee`, branch `claude/trilha-t6-wip` | **não revisado**; parou com uma regressão do `visual:qa:strict` aberta |
+
+**Decisões que mudam ou completam o texto do plano.** Elas valem para quem
+continuar:
+- **Rótulos (tarefa 3):** o rótulo da medalha continua exatamente
+  `"<título>. <estado>."`, com a copy de hoje ("Concluído", "Próximo passo",
+  "Revisão devida · N devidas", "Disponível em …"). As estrelas vão em
+  `accessibilityValue` ("2 estrelas", "1 estrela", "0 estrelas"). O exemplo
+  "Concluída, 2 estrelas." do plano quebraria os roteiros Maestro.
+- **Copy dos nós (tarefa 3):** `getStatusCopy` e `getRecommendationCopy` moram
+  em `src/features/journey/components/nodeCopy.ts`. O `maestro-contract` lê
+  esse arquivo.
+- **Estrelas (tarefa 3):** sem tentativa registrada, nenhuma estrela; com
+  tentativa sem acerto, três vazias.
+- **Geometria (tarefa 4):** **o ciclo de deslocamento do plano foi trocado.**
+  As medalhas alternam esquerda e direita a ±0,35 da meia-largura, como pedem a
+  spec §4 e a prancheta. O pontilhado sai da lateral da medalha, na altura do
+  centro, e desce até o topo da seguinte, em duas peças (uma por linha da
+  `FlatList`) alinhadas no mesmo x. Os títulos ficam sob a medalha, em até 2
+  linhas. Os pontos são redondos (`"1 18"`, espessura 10).
+- **Altura da trilha (tarefa 4):** o passo entre medalhas é de 135 a 175 pt,
+  maior que o da prancheta. Foi aceito, porque compactar exigiria sobrepor
+  linhas virtualizadas. Vai para o dono.
+- **Barra de progresso (tarefa 5):** azul `actionPrimary`, com a faixa clara
+  interna da prancheta e sem sombra. O "N de M" fica em minúsculas, branco, a
+  5,75:1 sobre o azul e 13,55:1 sobre o trilho.
+- **Estrelas na tela (tarefa 5):** carregadas no mesmo `Promise.all` da tela.
+  Se a leitura falhar, a trilha abre sem estrelas.
+- **`PushOptInCard`:** fica no repositório, porque a `HomeScreen` antiga o usa.
+  Só deixou de ser montado em Estude.
+- **O cartão de recomendação sai na tarefa 6, não na 5.** Sete roteiros Maestro
+  tocam "Continuar jornada" e o testID `journey-recommendation-action`. O botão
+  sob a medalha recomendada herda esse testID e a copy de ação do cartão, que
+  vai para `nodeCopy.ts`. O `maestro-contract` passa a ler a nova fonte. Trocar
+  o texto "Continuar jornada" é do plano 5, junto com os YAMLs.
+- **Escopo:** o Loop não amplia o escopo de um run aberto. Quando um arquivo
+  fora do escopo precisou mudar, o run foi fechado sem validar e reaberto
+  declarando tudo.
+
+**A tarefa 6, para retomar:**
+- Comece pela branch `claude/trilha-t6-wip` (`git cherry-pick 5ffefee` sobre
+  `claude/trilha-medalhao-design`) ou refaça a partir do brief. Leia o diff
+  inteiro antes: ninguém revisou esse commit.
+- **O que já está nele:**
+  - `useTrailMoment` e o teste dele;
+  - hooks novos em `motion.ts`;
+  - o botão sob a medalha;
+  - a copy de ação em `nodeCopy.ts`;
+  - o cartão apagado;
+  - o `maestro-contract` reapontado.
+- **O que falta:**
+  - fechar a regressão do `visual:qa:strict`;
+  - rodar o gate inteiro;
+  - fazer a revisão da tarefa.
+- **O que exigir do momento:** o Pixel percorre o caminho entre as duas
+  medalhas, e não só aparece no lugar. Ele não toca na primeira abertura nem a
+  cada foco da aba. Sob "reduzir movimento", vai direto ao estado final.
+- **O Pixel** é `PixelIllustration variant="head" size="sm" expression="feliz"`
+  no `pixelSlot`, do lado de fora da medalha, com cerca de 98 pt de folga numa
+  tela de 402 pt.
+
+**Pendências antes do merge (corrigir na revisão final do plano):**
+- a faixa clara da barra passa sob o "N de M" e baixa o contraste do número
+  para cerca de 3,4:1 quando o preenchimento passa de ~60%;
+- a faixa usa `pixelColors.coat.light`; deve usar
+  `semanticColors.galaxy.textOnAccent`.
+
+**Menores que ficam:**
+- `types/journey.ts` importa um tipo da camada de UI (`illustrationPlayback`);
+- os raios das medalhas estão duplicados entre `trailLayout.ts` e
+  `JourneyMedal.tsx`;
+- a peça de saída do pontilhado aparece um quadro depois da linha;
+- o título mede a meia-largura antes do `onLayout`;
+- o teste de "reduzir movimento" do anel não prova o comportamento no
+  aparelho;
+- os glifos claros sobre o ouro (~1,8:1, decorativos);
+- `medalStateFor` não tem caso para nó bloqueado e recomendado;
+- o interruptor do lembrete reflete o opt-in salvo, não a permissão do sistema;
+- duas leituras de permissão ao ligar o lembrete;
+- o comentário de `src/config/appVersion.contract.test.ts:11-12` e
+  `docs/store/EAS_SUBMIT_SETUP.md:110-111` ainda falam da política
+  `appVersion`.
+
+**Para o dono:**
+- Com `fingerprint`, um `eas update` comum não chega mais ao binário 1.4.0 da
+  loja. Uma correção OTA para ele exige publicar com o runtime `1.4.0`
+  explícito.
+- A linha do lembrete é um rodapé fixo e ocupa cerca de 60 pt da área da
+  trilha.
+- Uma banda ou um cabeçalho de unidade entre dois nós interrompe o pontilhado.

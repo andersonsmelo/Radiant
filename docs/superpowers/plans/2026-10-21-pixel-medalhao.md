@@ -330,3 +330,46 @@ aqui o que for do plano 5 (por exemplo, o Pixel que ainda sobra na revisão).
 git add docs/evidence/
 git commit -m "docs(pixel): evidência do Pixel vetorial no simulador"
 ```
+
+---
+
+## Registro de execução (2026-10-21 e 22)
+
+**Estado: concluído e revisado.** Executado com subagentes: um implementador e
+um revisor por tarefa, e uma revisão final do plano no modelo mais capaz.
+Commits em `claude/trilha-medalhao-design`:
+
+| Tarefa | Commits | Observação |
+| --- | --- | --- |
+| 0 | `4201ac4` | o mesmo conteúdo da PR #67 (prazos do visual QA até 2026-11-30), trazido para a branch; as duas PRs mergeiam sem conflito |
+| 1 | `3390c99` | `pixelColors`, `PixelBody`, `pixelPoses`; os helpers de AST saíram do `contrast-contract` para `scripts/ast-helpers.mjs` |
+| 2 | `f29d83b` | aceno e rosto ciano |
+| 3 | `3fd2eb8` | `PixelIllustration` com o corpo vetorial e a variante cabeça; o escopo foi ampliado a `LessonSummary.test.tsx` e `JourneyHomeScreen.flow.test.tsx`, que esperavam o PNG |
+| 4 | `9bfd734`, `79afc03` | [evidência](../../evidence/2026-10-21-pixel-medalhao.md), feita pelo controlador porque o simulador estava na sessão dele |
+| correção da revisão final | `a294d97` | ver abaixo |
+
+**Decisões que mudam o texto do plano:**
+- O aceno anima a prop nativa `matrix` do grupo SVG, e não `rotation`,
+  `originX` e `originY`. O `RNSVGGroup` nativo ignora as três, e no aparelho o
+  braço ficava parado. A matriz é a rotação em torno de (360, 408). Os testes
+  verificam a `matrix`, porque o mock do Reanimated esconde a diferença.
+- A variante cabeça usa sempre a pose `repouso` e nunca acena. Com a pose do
+  estado, apareciam pedaços de braço no recorte.
+- A flutuação é do frame inteiro (corpo e rosto juntos), e não de um grupo do
+  SVG. O `G testID="pixel-float"` saiu.
+- `PixelBody.tsx` entrou na lista do `reanimated-easing-contract`.
+
+**Pendências:**
+- **Captura da cabeça a 48 pt:** passou para a tarefa 7 do plano 2, a primeira
+  tela que usa a cabeça.
+- **Para o plano 5:** o `HybridLessonCharacter` troca de pose sob "reduzir
+  movimento" (resto da lógica antiga de pulsar).
+- **Para o dono:** o Pixel agora é uma parada do VoiceOver (frame `accessible`,
+  com papel de imagem); antes, provavelmente não era.
+- **Menores que ficam:**
+  - a sombra do chão usa `'black'` sem token e sobe junto com a flutuação (na
+    prancheta, fica no chão e pulsa);
+  - mangas sem `fill="none"` explícito;
+  - literais repetidos nos testes;
+  - o contrato de âncora compara só o nome das props;
+  - três assinaturas de "reduzir movimento" por Pixel.
