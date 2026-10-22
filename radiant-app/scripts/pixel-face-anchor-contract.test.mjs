@@ -47,15 +47,34 @@ test('PixelFace mede contra a imagem, nunca contra o frame', async () => {
   );
 });
 
-test('PixelIllustration põe imagem e rosto na mesma caixa', async () => {
+test('PixelIllustration põe corpo e rosto na mesma caixa', async () => {
   const source = await readFile(
     path.join(appRoot, 'src/ui/characters/PixelIllustration.tsx'),
     'utf8',
   );
   assert.match(source, /<PixelFace/, 'PixelIllustration renderiza PixelFace');
-  assert.match(
-    source,
-    /imageWidth=\{[^}]+\}[\s\S]{0,120}imageHeight=\{[^}]+\}/,
-    'PixelFace recebe as MESMAS dimensões usadas pela Image',
+  assert.match(source, /<PixelBody/, 'PixelIllustration renderiza PixelBody');
+  assert.doesNotMatch(source, /<Image\b/, 'PixelIllustration não desenha mais uma imagem raster');
+
+  // O corpo e o rosto recebem as MESMAS dimensões da caixa inteira, até na
+  // variante cabeça: ela recorta a caixa, não a redesenha. Cada elemento é
+  // lido até o próprio fechamento, para a comparação não vazar de um para o outro.
+  const body = source.match(/<PixelBody\b([\s\S]*?)\/>/);
+  const face = source.match(/<PixelFace\b([\s\S]*?)\/>/);
+  assert.ok(body, 'PixelBody é renderizado com props');
+  assert.ok(face, 'PixelFace é renderizado com props');
+
+  const prop = (attributes, name) => attributes.match(new RegExp(`\\b${name}=\\{([^}]+)\\}`))?.[1].trim();
+  assert.ok(prop(body[1], 'width'), 'PixelBody recebe width');
+  assert.ok(prop(body[1], 'height'), 'PixelBody recebe height');
+  assert.equal(
+    prop(face[1], 'imageWidth'),
+    prop(body[1], 'width'),
+    'PixelFace.imageWidth é a mesma largura do PixelBody',
+  );
+  assert.equal(
+    prop(face[1], 'imageHeight'),
+    prop(body[1], 'height'),
+    'PixelFace.imageHeight é a mesma altura do PixelBody',
   );
 });

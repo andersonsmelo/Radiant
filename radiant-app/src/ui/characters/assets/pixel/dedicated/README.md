@@ -1,19 +1,8 @@
 # Dedicated Pixel Renders
 
-Drop final production PNGs for Pixel here when the art pack is ready.
+Pasta histórica. O contrato de renders dedicados por estado, camada e tamanho
+(`pixel_[state]_[tier]_[size].png`) nunca chegou a ser usado e foi aposentado em
+2026-10-21, quando o Pixel passou a ser o desenho vetorial `PixelBody`. A pose
+sai do estado por `poseForState`, e o `tier` não muda mais o visual.
 
-Expected pattern:
-
-- `pixel_[state]_[tier]_[size].png`
-
-Examples:
-
-- `pixel_idle_starter_sm.png`
-- `pixel_thinking_intermediate_md.png`
-- `pixel_guide_intermediate_lg.png`
-- `pixel_happy_intermediate_md.png`
-- `pixel_celebrate_advanced_lg.png`
-- `pixel_oops_starter_md.png`
-
-The app is already prepared to resolve these files through `src/ui/characters/pixelAssets.ts`.
-Until they are registered there, PixelIllustration continues using the size-based base exports and UI-composed overlays.
+Nada aqui entra no app.

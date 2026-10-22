@@ -1,31 +1,19 @@
 # Pixel Assets
 
-This folder contains the base production asset contract for the `Pixel` mascot system.
+Desde 2026-10-21 o Pixel **não usa mais PNG no app**. O corpo é o desenho
+vetorial `src/ui/characters/PixelBody.tsx` (SVG numa caixa de 576 × 864, em três
+tons, com as poses de `pixelPoses.ts`), e o rosto continua sendo desenhado por
+`PixelFace` por cima da tela escura.
 
-Current runtime strategy:
+Os arquivos desta pasta ficam só como **referência histórica** e não entram no
+bundle, porque nada mais os importa:
 
-- `pixel_core.png` is the current base render used in runtime for all size buckets;
-- it is exported at **576×864**, which is the largest size the app can actually
-  paint it: `PIXEL_SIZE_MAP.lg` is 176pt, the biggest `imageScale` in
-  `PixelIllustration` is 1.06, and 176 × 1.06 × 3 (@3x) ≈ 560px. Anything wider
-  ships bytes no screen renders — the previous 1024×1536 export cost 2.2MB
-  against 257KB at the size in use. Re-export at 576 wide when the art changes,
-  and raise it only together with `PIXEL_SIZE_MAP`;
-- state variation is still composed in UI with glow, scan, orbit and face overlays;
-- `src/ui/characters/pixelAssets.ts` is the single resolver for future dedicated renders;
-- dedicated state/tier renders can be added later without touching the consuming screens.
+- `pixel_core.png` é o render 3D antigo, com o rosto pintado, exportado em
+  **576×864**;
+- `pixel_core_faceless.png` é o mesmo render sem rosto, que foi a base de
+  `PixelIllustration` até a troca;
+- `dedicated/` guardava o contrato de renders por estado e tamanho, que o desenho
+  vetorial dispensa: a pose sai do estado (`poseForState`).
 
-Future exports (optional optimization):
-
-- `exports/pixel_sm.png` for compact references
-- `exports/pixel_md.png` for card-scale references
-- `exports/pixel_lg.png` for hero and promo references
-
-Future dedicated render contract:
-
-- `dedicated/pixel_idle_starter_sm.png`
-- `dedicated/pixel_thinking_intermediate_md.png`
-- `dedicated/pixel_guide_intermediate_lg.png`
-- `dedicated/pixel_happy_intermediate_md.png`
-- `dedicated/pixel_celebrate_advanced_lg.png`
-- `dedicated/pixel_oops_starter_md.png`
+A medida da tela do rosto (`PIXEL_SCREEN` em `pixelScreenGeometry.ts`) agora
+vem do SVG, e o `pixel-screen-geometry-contract` a confere.

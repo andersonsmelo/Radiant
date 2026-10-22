@@ -7,6 +7,7 @@ import { TelemetryService } from '../../telemetry/TelemetryService';
 import { router } from 'expo-router';
 import { subscriptionService } from '../../subscription/SubscriptionService';
 import { StyleSheet } from 'react-native';
+import { PixelBody } from '../../../ui/characters/PixelBody';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -122,6 +123,7 @@ jest.mock('../../../ui/components/HUD', () => {
 
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: () => false,
+  useReducedMotionPreferenceState: () => ({ reducedMotionEnabled: false, resolved: true }),
 }));
 
 jest.mock('../../gamification/services/GamificationService', () => ({
@@ -632,7 +634,8 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     expect(screen.queryByLabelText('Mascote Pixel')).toBeNull();
     const pixel = screen.getByLabelText('Mascote Pixel', { includeHiddenElements: true });
     expect(StyleSheet.flatten(pixel.props.style).width).toBe(60);
-    expect(pixel.props.source).toBeTruthy();
+    // O Pixel é o desenho vetorial: o frame rotulado contém o corpo.
+    expect(pixel.findByType(PixelBody)).toBeTruthy();
     let wrapper = pixel.parent;
     while (wrapper && wrapper.props.importantForAccessibility !== 'no-hide-descendants') wrapper = wrapper.parent;
     expect(wrapper).not.toBeNull();

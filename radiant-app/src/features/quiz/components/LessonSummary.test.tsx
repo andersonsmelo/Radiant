@@ -47,6 +47,7 @@ jest.mock('expo-image', () => {
 // contrato desta tarefa.
 jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
   useReducedMotionPreference: jest.fn(() => false),
+  useReducedMotionPreferenceState: jest.fn(() => ({ reducedMotionEnabled: false, resolved: true })),
 }));
 
 jest.mock('react-native-reanimated', () => {
