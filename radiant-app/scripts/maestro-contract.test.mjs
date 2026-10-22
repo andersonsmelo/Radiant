@@ -1337,10 +1337,10 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   const present = (await listMaestroFlows()).filter((name) => name.startsWith('radiant-1-4-'));
   assert.deepEqual(present, GOLDEN, 'the 1.4 golden paths are exactly the three of spec §8 item 6');
 
-  const [first, second, hearts, summary, card, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
+  const [first, second, hearts, summary, nodeCopy, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
     ...GOLDEN.map((name) => readAppFile(`.maestro/${name}`)),
     readAppFile('src/features/quiz/components/LessonSummary.tsx'),
-    readAppFile('src/features/journey/components/JourneyNodeCard.tsx'),
+    readAppFile('src/features/journey/components/nodeCopy.ts'),
     readAppFile('src/features/hearts/components/HeartsSheet.tsx'),
     readAppFile('src/features/hearts/HeartsService.ts'),
     readAppFile('src/data/lessons.ts'),
@@ -1373,7 +1373,7 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   assert.match(first, /^- assertVisible: '\^Próxima revisão em \\d\+ \(dia\|dias\)\$'$/m);
   const reviewTitle = blocks.match(/eyebrow: 'Revisão',\s*title: `Revisar \$\{lesson1\.title\}`/);
   assert.ok(reviewTitle, 'expected the lesson-1 review block to be titled "Revisar ${lesson1.title}"');
-  assert.match(card, /default:\s*return 'Bloqueado';/);
+  assert.match(nodeCopy, /default:\s*return 'Bloqueado';/);
   // O fim do caminho 1 é o dia 1 do caminho 2: a revisão agendada e fechada.
   assert.ok((await flowCommands('radiant-1-4-primeira-execucao.yaml')).some(command => typeof command.assertVisible === 'string' && new RegExp(command.assertVisible).test('Revisar Fundamentos de Radiologia. Disponível em 15/10/2026 às 08:00.')), 'scheduled review must display its availability date');
 
@@ -1383,8 +1383,8 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   // Só a CHAVE conta: o comentário do flow explica o clearState e não pode
   // nem satisfazer nem reprovar esta guarda.
   assert.doesNotMatch(second, /^\s+clearState:/m, 'path 2 starts from the state path 1 left one day earlier; clearing it makes day 2 unreachable');
-  const dueCopy = card.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
-  assert.ok(dueCopy, 'expected JourneyNodeCard to announce a due review');
+  const dueCopy = nodeCopy.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
+  assert.ok(dueCopy, 'expected nodeCopy.ts to announce a due review');
   const secondSteps = topLevel(second);
   const firstAssertion = secondSteps.find((line) => line.startsWith('- assertVisible:'));
   const firstTap = secondSteps.findIndex((line) => line.startsWith('- tapOn:'));
@@ -1436,8 +1436,8 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   // reaberta e abandonada pela folha, voltava como retomável, com o cabeçalho em
   // "0 de N". Depois da folha, o caminho 3 afirma o estado certo — a L1 concluída
   // e o cabeçalho contando a etapa —, e não mais um padrão que casa com os dois.
-  const completedCopy = card.match(/case 'completed':\s*return '([^']+)';/)?.[1];
-  assert.ok(completedCopy, 'expected JourneyNodeCard to label the completed status');
+  const completedCopy = nodeCopy.match(/case 'completed':\s*return '([^']+)';/)?.[1];
+  assert.ok(completedCopy, 'expected nodeCopy.ts to label the completed status');
   const stageHeader = await readAppFile('src/features/journey/components/JourneyStageHeader.tsx');
   assert.match(stageHeader, /accessibilityLabel=\{`\$\{title\}\. \$\{completed\} de \$\{total\} etapas concluídas\.`\}/);
   const afterSheet = hearts.slice(closeAt);

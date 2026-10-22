@@ -181,6 +181,26 @@ export const medalColors = {
   unit: { face: '#2F6BFF', lip: '#1846C9', inner: '#275CEB' },
   // `silhouette` é o contorno do ícone sobre a face bloqueada (1,3:1 ou mais).
   locked: { face: '#343947', lip: '#22252f', inner: '#2d313d', silhouette: '#4B5163' },
+  // A medalha de checkpoint: prata, para não ser lida como lição (azul) nem como
+  // conquista (ouro).
+  silver: { face: '#C9D1DE', lip: '#8E99AE', inner: '#B6BFCE' },
+} as const;
+
+// As estrelas de lição abaixo da medalha, nos tons da prancheta da trilha:
+// acesa em ouro com um brilho no ombro, apagada em cinza-azulado.
+export const medalStarTones = {
+  on: { face: '#FFC21A', edge: '#E59A00', light: '#FFF1B8' },
+  off: { face: '#353a47', edge: '#2a2e39' },
+} as const;
+
+// Os glifos desenhados sobre a face (revisão, conquista, número do checkpoint),
+// em três tons como as peças do Medalhão. `ink` é o número escuro sobre a
+// prata (≥ 7:1 sobre `silver.inner`).
+export const medalGlyphTones = {
+  face: '#F4F6FB',
+  shade: '#B9C4DC',
+  light: '#FFFFFF',
+  ink: '#1F2430',
 } as const;
 
 // Tons dos ícones do HUD, desenhados em três tons como as peças do Medalhão

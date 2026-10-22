@@ -610,6 +610,65 @@ export function useBreathingScale() {
     return { animatedStyle };
 }
 
+/** Um pulso do anel da próxima medalha, de ponta a ponta. */
+export const MEDAL_PULSE_MS = 1600;
+const MEDAL_PULSE_SCALE_TO = 1.18;
+const MEDAL_PULSE_OPACITY_FROM = 0.5;
+
+/**
+ * O anel que pulsa em volta da medalha da próxima aula: sai do tamanho da face
+ * (escala 1, opacidade 0,5) e cresce até 1,18 enquanto some, em 1,6 s, sem fim.
+ *
+ * Parado e invisível com "reduzir movimento", com `enabled` falso e com a tela
+ * fora de foco: o laço infinito numa tela escondida só gasta CPU (FILA, 33).
+ * O anel continua sendo decoração; quem diz "próximo passo" é o rótulo.
+ */
+export function useMedalPulse(enabled: boolean) {
+    const reducedMotionEnabled = useReducedMotionPreference();
+    const focused = useScreenFocused();
+    const running = enabled && !reducedMotionEnabled && focused;
+    const scale = useSharedValue(1);
+    const opacity = useSharedValue(0);
+
+    useEffect(() => {
+        if (!running) {
+            cancelAnimation(scale);
+            cancelAnimation(opacity);
+            scale.value = 1;
+            opacity.value = 0;
+            return undefined;
+        }
+
+        scale.value = 1;
+        opacity.value = MEDAL_PULSE_OPACITY_FROM;
+        scale.value = withRepeat(
+            withTiming(MEDAL_PULSE_SCALE_TO, {
+                duration: MEDAL_PULSE_MS,
+                easing: ReanimatedEasing.out(ReanimatedEasing.quad),
+            }),
+            -1,
+            false,
+        );
+        opacity.value = withRepeat(
+            withTiming(0, {
+                duration: MEDAL_PULSE_MS,
+                easing: ReanimatedEasing.out(ReanimatedEasing.quad),
+            }),
+            -1,
+            false,
+        );
+        return () => {
+            cancelAnimation(scale);
+            cancelAnimation(opacity);
+        };
+    }, [running, scale, opacity]);
+
+    return useAnimatedStyle(() => ({
+        opacity: opacity.value,
+        transform: [{ scale: scale.value }],
+    }));
+}
+
 /**
  * O quadro corrente de um Lottie em laço, para o `<Skottie frame>` do Skia.
  *
