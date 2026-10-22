@@ -152,10 +152,15 @@ jest.mock('../components/JourneyTrail', () => {
   const { Text, View } = require('react-native');
 
   return {
-    JourneyTrail: ({ segments, header }: { segments: { trackтатTitle?: string }[]; header?: React.ReactNode }) => (
+    JourneyTrail: ({ segments, header, starsByLessonId }: {
+      segments: { trackтатTitle?: string }[];
+      header?: React.ReactNode;
+      starsByLessonId?: Record<string, number>;
+    }) => (
       <View testID="journey-trail">
         {header}
         <Text>{`percurso com ${segments.length} trecho(s)`}</Text>
+        <Text>{`estrelas: ${JSON.stringify(starsByLessonId)}`}</Text>
       </View>
     ),
   };
@@ -167,6 +172,13 @@ jest.mock('../../push/services/PushService', () => ({
     scheduleDailyIfEligible: jest.fn().mockResolvedValue(undefined),
     getOptIn: jest.fn().mockResolvedValue(true),
     setOptIn: jest.fn().mockResolvedValue(undefined),
+    requestPermissionIfNeeded: jest.fn().mockResolvedValue('granted'),
+  },
+}));
+
+jest.mock('../services/JourneyStarsService', () => ({
+  JourneyStarsService: {
+    getRecordStarsByLessonId: jest.fn().mockResolvedValue({}),
   },
 }));
 
@@ -514,7 +526,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    expect(await screen.findByText('Não foi possível carregar a jornada.')).toBeTruthy();
+    expect(await screen.findByText('Não foi possível carregar a trilha.')).toBeTruthy();
     mockedJourneyProgressService.bootstrap.mockResolvedValue(
       createSnapshot(
         'track-radiology-foundations',
@@ -789,31 +801,115 @@ describe('JourneyHomeScreen — lembrete diário', () => {
     expect(PushService.scheduleDailyIfEligible).toHaveBeenCalledWith({ reason: 'journey_focus' });
   });
 
-  it('depois da primeira lição concluída, convida ao lembrete', async () => {
+  it('depois da primeira lição concluída, mostra a linha do lembrete', async () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
 
     renderWithProviders(<JourneyHomeScreen />);
 
-    expect(await screen.findByText('Quer um lembrete suave?')).toBeTruthy();
+    expect(await screen.findByText('Lembrete diário')).toBeTruthy();
+    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
   });
 
-  it('antes de concluir uma lição, não convida', async () => {
+  it('antes de concluir uma lição, não mostra a linha do lembrete', async () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('available'));
 
     renderWithProviders(<JourneyHomeScreen />);
     await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
-    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
+    expect(screen.queryByText('Lembrete diário')).toBeNull();
   });
 
-  it('quem já decidiu não é convidado de novo', async () => {
+  it('quem já decidiu continua vendo a linha, com o interruptor no estado que escolheu', async () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaCom('completed'));
     PushService.getOptIn.mockResolvedValue(false);
 
     renderWithProviders(<JourneyHomeScreen />);
-    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
-    await waitFor(() => expect(PushService.getOptIn).toHaveBeenCalled());
 
-    expect(screen.queryByText('Quer um lembrete suave?')).toBeNull();
+    const toggle = await screen.findByRole('switch', { name: 'Lembrete diário' });
+    expect(toggle.props.value).toBe(false);
+  });
+});
+
+describe('JourneyHomeScreen — cabeçalho da unidade, revisão e estrelas', () => {
+  const { JourneyStarsService } = jest.requireMock('../services/JourneyStarsService') as {
+    JourneyStarsService: { getRecordStarsByLessonId: jest.Mock };
+  };
+
+  function snapshotComRevisaoDevida(dueCount: number) {
+    const base = createSnapshot(
+      'track-radiology-foundations',
+      'Fundamentos de radiologia',
+      'node-foundations-lesson',
+      'block-foundations',
+    );
+    const review = {
+      id: 'node-review',
+      unitId: base.progress.currentUnitId,
+      type: 'review',
+      title: 'Revisar Fundamentos',
+      status: 'due-review',
+      blockId: 'block-foundations',
+    };
+    base.track.units[0].nodes = [review, ...base.track.units[0].nodes];
+    base.nextDecision = { nodeId: 'node-foundations-lesson', reason: 'next-lesson', dueReviewCount: dueCount };
+    base.dueReviewCount = dueCount;
+    return base;
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyStarsService.getRecordStarsByLessonId.mockResolvedValue({});
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(
+      createSnapshot('track-radiology-foundations', 'Fundamentos de radiologia', 'node-foundations-lesson', 'block-foundations'),
+    );
+    mockedJourneyProgressService.setCurrentNode.mockResolvedValue(undefined as any);
+  });
+
+  it('mostra o cabeçalho do estágio dentro da trilha', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(screen.getByTestId('journey-stage-progress-track')).toBeTruthy();
+    expect(screen.getByTestId('journey-stage-progress-fill')).toBeTruthy();
+  });
+
+  it('sem revisão devida, não mostra a linha de revisão', async () => {
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByTestId('journey-trail', {}, { timeout: FIRST_RENDER_TIMEOUT_MS });
+
+    expect(screen.queryByText(/para revisar$/u)).toBeNull();
+  });
+
+  it('com revisão devida, a linha conta os itens e abre o nó da revisão', async () => {
+    mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshotComRevisaoDevida(2));
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('2 itens para revisar')).toBeTruthy();
+    fireEvent.press(screen.getByRole('button', { name: '2 itens para revisar. Revisar.' }));
+
+    await waitFor(() => expect(mockedRouter.push).toHaveBeenCalled());
+    expect(mockedJourneyProgressService.setCurrentNode).toHaveBeenCalledWith('node-review');
+  });
+
+  it('entrega à trilha o recorde de estrelas por aula', async () => {
+    JourneyStarsService.getRecordStarsByLessonId.mockResolvedValue({ 'lesson-a': 3, 'lesson-b': 1 });
+
+    renderWithProviders(<JourneyHomeScreen />);
+
+    expect(await screen.findByText('estrelas: {"lesson-a":3,"lesson-b":1}')).toBeTruthy();
+  });
+
+  it('se a leitura das estrelas falhar, a tela abre com a trilha sem estrelas', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    JourneyStarsService.getRecordStarsByLessonId.mockRejectedValue(new Error('storage'));
+    try {
+      renderWithProviders(<JourneyHomeScreen />);
+
+      expect(await screen.findByText('estrelas: {}')).toBeTruthy();
+      expect(screen.queryByText('Não foi possível carregar a trilha.')).toBeNull();
+    } finally {
+      errorSpy.mockRestore();
+    }
   });
 });

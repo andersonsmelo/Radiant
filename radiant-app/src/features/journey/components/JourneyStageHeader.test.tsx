@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { JourneyStageHeader } from './JourneyStageHeader';
+import { galaxyColors } from '../../../ui/theme';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -21,10 +22,6 @@ function hostAncestors(node: HostNode): HostNode[] {
     if (typeof current.type === 'string') chain.push(current);
   }
   return chain;
-}
-function sharedHostAncestor(a: HostNode, b: HostNode): HostNode | undefined {
-  const fromB = new Set(hostAncestors(b));
-  return hostAncestors(a).find((node) => fromB.has(node));
 }
 
 
@@ -54,6 +51,18 @@ describe('JourneyStageHeader — o aluno se localiza também pelo número', () =
     expect(
       screen.getByLabelText('Fundamentos de Radiologia. 7 de 21 etapas concluídas.'),
     ).toBeTruthy();
+  });
+
+  it('desenha a barra de 22 pt com o "N de M" dentro e o brilho do verde de concluído', () => {
+    const screen = renderHeader();
+    const track = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-track').props.style);
+    const fill = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style);
+
+    expect(track.height).toBe(22);
+    expect(fill.shadowColor).toBe(galaxyColors.nodeCompletedAccent);
+    expect(hostAncestors(screen.getByText('7 de 21'))).toContain(
+      screen.getByTestId('journey-stage-progress-track'),
+    );
   });
 
   it('preenche a barra na proporção do percurso', () => {
@@ -88,14 +97,14 @@ describe('JourneyStageHeader — o aluno se localiza também pelo número', () =
 // contagem. Com texto grande a contagem desce para baixo do título e o título
 // não tem limite de linhas.
 describe('JourneyStageHeader — texto grande', () => {
-  it('não corta o título e põe a contagem embaixo dele', () => {
+  it('não corta o título e deixa a contagem dentro da barra', () => {
     mockWindow.fontScale = 1.65;
     const screen = renderHeader({ title: 'Matéria, energia e radiação' });
     const title = screen.getByText('Matéria, energia e radiação');
-    const headline = sharedHostAncestor(title, screen.getByText('7 de 21'));
+    const bar = screen.getByTestId('journey-stage-progress-track');
 
     expect(title.props.numberOfLines).toBeUndefined();
-    expect(StyleSheet.flatten(headline?.props.style)?.flexDirection).toBe('column');
+    expect(hostAncestors(screen.getByText('7 de 21'))).toContain(bar);
   });
 
   it('continua com duas linhas e a contagem ao lado no tamanho padrão', () => {
