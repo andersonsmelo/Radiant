@@ -41,6 +41,16 @@ desligada, o mesmo par de capturas sai diferente, porque o Pixel está
 flutuando. A comparação ao contrário garante que o primeiro resultado não veio
 de uma tela parada por outro motivo.
 
+**O aceno, depois da correção da revisão final (commit `a294d97`).** A
+revisão final do plano achou que o aceno animava `rotation`, `originX` e
+`originY`, props que o `RNSVGGroup` nativo ignora: no aparelho, o braço ficaria
+parado. A correção passou a animar a `matrix` nativa. Para conferir, respondi
+certo a primeira pergunta do quiz (`radiantapp://quiz?lessonId=lesson-1`), o que
+leva o Pixel do retorno ao estado `happy`, e tirei capturas com 0,6 s de
+intervalo. A mão muda de lugar entre os quadros, então o braço está girando em
+volta do ombro: [1](2026-10-21-pixel-medalhao/aceno-1.png),
+[2](2026-10-21-pixel-medalhao/aceno-2.png), [3](2026-10-21-pixel-medalhao/aceno-3.png).
+
 **Não vistas no aparelho, com o motivo:**
 - `CheckpointScreen` e `RewardScreen` só desenham o Pixel quando há avaliação
   ou recompensa válida. Pelo deep link sem nó, as duas abrem no estado vazio,
@@ -51,7 +61,10 @@ de uma tela parada por outro motivo.
 
 A cabeça sozinha (`variant="head"`) ainda não tem tela que a use: a primeira é
 a trilha do plano 2. A geometria dela foi conferida na revisão da tarefa 3. Nos
-três tamanhos, o rosto cai dentro da tela a menos de 0,12 pt.
+três tamanhos, o rosto cai dentro da tela a menos de 0,12 pt. Depois da
+revisão final, a cabeça fica sempre na pose de repouso, sem aceno, em qualquer
+estado, como na prancheta. A captura dela a 48 pt passa para a tarefa 7 do
+plano 2.
 
 ## Para o dono olhar
 
