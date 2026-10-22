@@ -467,8 +467,8 @@ git commit -m "docs(trilha): evidência da trilha Medalhão no simulador e no AV
 **Estado:**
 - **Tarefas 0 a 5:** concluídas e revisadas.
 - **Tarefa 6:** implementada e revisada em 2026-10-22; gate completo aprovado no segundo run (15/15), após corrigir o mock consumidor. Prova nativa é da tarefa 7.
-- **Tarefa 7:** coleta executada em 2026-10-22; aceite pendente, com achados e um roteiro FAIL.
-- **Revisão final:** preliminar forte concluída; onda de correção e aprovação final pendentes.
+- **Tarefa 7:** coleta parcial em 2026-10-22/23; correções implementadas, aceite nativo pendente. Pausa solicitada pelo dono em 2026-10-23; ver o adendo final abaixo.
+- **Revisão final:** fonte corrigida com parecer favorável; pacote nativo e aprovação integral pendentes. O histórico abaixo conserva os achados que motivaram a onda.
 
 Execução com subagentes: um implementador e um revisor por tarefa.
 
@@ -627,3 +627,52 @@ continuar:
   docs-contract **18/18 + PASS**. Revisão independente forte aprovou o registro
   negativo (métricas, vídeo, hashes e logs), **sem aprovar o Plano 2**. O
   fechamento do writer segue a CLI pública; sessão de cérebro T7 `closed`.
+
+
+## Pausa e correção final — 2026-10-23
+
+O dono pediu encerrar a implementação/coleta e deixar documentação e prompt
+versionados. **Não marcar o Plano 2 ou a tarefa 7 como concluídos.** O histórico
+acima descreve a medição anterior; o estado atual está no STATUS e nesta
+[evidência consolidada](../../evidence/2026-10-22-trilha-medalhao-final.md).
+
+A onda corrigiu os seis achados iniciais e os três P2 da revisão integral:
+largura da data, reconciliação do lembrete após falha e topologia real
+L1 → revisão futura → L2. O percurso agora espera medidas atuais/positivas de
+todas as linhas e contorna os nós intermediários. Corredores permanentes64pt
+na coluna e reserva inferior31pt no zigue-zague foram considerados compatíveis
+com a spec, preservando fonte e texto integral, sem reflow ao fim do momento.
+A faixa usa `textOnAccent` e evita o retângulo medido do contador (5,75:1).
+
+Vermelhos específicos e verdes foram preservados: 8 suítes/260 testes focais;
+lembrete13/13; contrato Maestro final37/37; typecheck/lint passaram. A revisão
+forte conferiu a fonte congelada e não confirmou novo P1/P2. Isso não substitui
+a aprovação nativa nem o gate configurado de fechamento.
+
+- iOS normal: vídeo e três quadros provam cabeça inteira atravessando a área
+  de outra célula, contorno visível e chegada. L1 está acima da janela pela
+  ancoragem existente; sua partida é prova de fonte/geometria, não da câmera.
+- Movimento reduzido e texto máximo iOS: coletas completas preservadas; falta
+  revisão independente integral. O vídeo iOS contém normal seguido de máximo.
+- Android: texto200% e cabeça48×45,818dp registrados. Vídeo do momento
+  inconclusivo:142quadros/19,5985s e lacuna1,785622s na transição; causa não
+  estabelecida. Medir âncora, ready/holding, scroll, slot e onDone com timestamps
+  antes de decidir qualquer patch. Não aumentar a duração para fabricar PASS.
+- Primeira execução e vidas iOS: PASS completos. Segundo dia Android: FAIL
+  somente na assert final do roteiro anterior, após revisão3/3 e retorno.
+  Corrigidos espera pela trilha e scrollUP100% com500ms de assentamento,
+  preservando a regex completa. Contrato37/37 e checkpoint complementarPASS;
+  **fullrerun do YAML corrigido ainda depende de revisão naturalmente devida**.
+- Storybook `Trilha/JourneyTrail/QuarentaConcluidas` prepara40nós sintéticos
+  concluídos com cinco temas, sem ler/escrever progresso. Benchmark e prova
+  de playback nativo fora do viewport não foram executados nesse cenário.
+- Planos 3 e5 não iniciados; Plano 4 não escrito e depende do3. Nenhuma remoção,
+  build, EAS, merge ou ação de loja está autorizada por esta pausa.
+
+O writer atual declara57arquivos; duas janelas anteriores fecharam sem
+validação apenas para ampliar o escopo. Nenhum lock foi contornado. O resultado
+do gate e o fechamento estão na evidência. Sessão do cérebro já encerrada;
+nenhuma memória nova foi gravada nesta onda. Reabrir contexto/sessão e writer
+para o próximo objetivo, depois de reconciliar a árvore e o remoto.
+
+Prompt completo: [continuidade](2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23).

@@ -298,6 +298,19 @@ test('centers the due review node before the second-day tap', async () => {
     `${message} — and scrolls it back when the centering swipe overshoots`);
 });
 
+test('exposes the scheduled review before the final second-day assertion', async () => {
+  const node = '^Revisar Fundamentos de Radiologia\\. Disponível em \\d{2}/\\d{2}/\\d{4} às \\d{2}:\\d{2}\\.$';
+  const commands = await flowCommands('radiant-1-4-segundo-dia.yaml');
+  assert.deepEqual(commands.at(-1), { assertVisible: node }, 'preserve the full review label and date assertion');
+  assert.deepEqual(commands.at(-3), { assertVisible: { id: 'journey-trail' } }, 'wait for the trail before scrolling');
+  assert.deepEqual(commands.at(-2), {
+    scrollUntilVisible: {
+      element: { text: node }, direction: 'UP', centerElement: true,
+      visibilityPercentage: 100, waitToSettleTimeoutMs: 500,
+    },
+  }, 'bring the review medal back into the viewport after anchoring the next lesson');
+});
+
 /**
  * O botão da recomendação centrado, e de volta se o centramento passou dele.
  * O `centerElement` do Maestro 2.7 dá UM deslize fixo quando o centro do
@@ -318,6 +331,23 @@ function assertCenteredRecommendation(commands, index, message) {
   assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered('UP'),
     `${message} — and scrolls it back from under the HUD when the centering swipe overshoots`);
 }
+
+test('centers every completed lesson replay above the HUD in the lives flow', async () => {
+  const node = '^Fundamentos de Radiologia\\. Concluído\\.$';
+  const commands = await flowCommands('radiant-1-4-vidas-esgotadas.yaml');
+  const centered = {
+    element: node, direction: 'UP', centerElement: true, visibilityPercentage: 100,
+  };
+  const taps = commands.flatMap((command, index) => command?.tapOn === node ? [index] : []);
+  assert.equal(taps.length, 5, 'preserve all five real replays that spend the remaining hearts');
+  for (const index of taps) {
+    assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered,
+      'bring the completed medal back below the HUD immediately before tapping it');
+  }
+  const scrolls = commands.filter(command => command?.scrollUntilVisible?.element === node);
+  assert.equal(scrolls.length, 6, 'include the final completed medal assertion after the zero-heart pause');
+  for (const command of scrolls) assert.deepEqual(command.scrollUntilVisible, centered);
+});
 
 /**
  * Os rótulos que os roteiros tocam pelo texto, lidos da fonte. A ação mora em

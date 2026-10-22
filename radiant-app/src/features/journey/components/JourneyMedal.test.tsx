@@ -197,6 +197,12 @@ describe('JourneyMedal — acessibilidade', () => {
 });
 
 describe('JourneyMedal — a ilustração', () => {
+  it('passa a visibilidade real à ilustração e a preserva quando volta', () => {
+    const view = renderMedal({ visible: false });
+    expect(illustration).toHaveBeenLastCalledWith(expect.objectContaining({ playing: false }), undefined);
+    view.rerender(<JourneyMedal node={{ id: 'n1', type: 'lesson' }} theme="tubo" state="done" pulsing={false} visible accessibilityLabel="Aula" />);
+    expect(illustration).toHaveBeenLastCalledWith(expect.objectContaining({ playing: true }), undefined);
+  });
   it('passa tema e estado ao ThemeIllustration', () => {
     renderMedal({ theme: 'tomografia', state: 'next' });
     expect(illustration).toHaveBeenCalledWith(

@@ -173,3 +173,24 @@ export function incomingPath(toX: number, height: number = TRAIL_LEAD): TrailPat
     dashOffset: TRAIL_SEAM_PHASE,
   };
 }
+
+/** Respiro antes da cauda: a cabeça inteira passa abaixo do título, com4pt. */
+export function trailColumnClearance(headHeight: number): number {
+  const rideOverlap = 4;
+  const textGap = 4;
+  return Math.max(0, headHeight - rideOverlap - TRAIL_PATH_STROKE / 2 + textGap);
+}
+
+/** Janela da cabeça sm do Pixel; o layout reserva os corredores também parado. */
+export const TRAIL_PIXEL_HEAD_WIDTH = 48;
+export const TRAIL_PIXEL_HEAD_HEIGHT = 46;
+
+/** Troca de lado acima da medalha: cabeça inteira entre os dois blocos, com4pt. */
+export function trailRowBottom(headHeight: number): number {
+  return Math.max(TRAIL_ROW_BOTTOM, headHeight - TRAIL_LEAD - 4 + 4);
+}
+
+/** A coluna preserva uma faixa de cabeça + duas folgas de8pt em cada lado. */
+export function trailColumnContentWidth(halfWidth: number, headWidth: number, gap: number): number {
+  return Math.max(0, halfWidth * 2 - 2 * (headWidth + gap * 2));
+}

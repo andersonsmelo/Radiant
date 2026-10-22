@@ -5,7 +5,7 @@ import type { JourneyNode, NextNodeDecision } from '../../../types/journey';
  * a medalha as usa no rótulo de acessibilidade (`"<título>. <estado>."`) e os
  * roteiros Maestro leem esses rótulos ao pé da letra.
  */
-export function getStatusCopy(node: JourneyNode) {
+export function getScheduledReviewCopy(node: JourneyNode): string | null {
   if (node.type === 'review' && Number.isFinite(node.reviewAvailableAtMs)
     && node.reviewAvailableAtMs! > Date.now()) {
     const date = new Date(node.reviewAvailableAtMs!);
@@ -15,6 +15,12 @@ export function getStatusCopy(node: JourneyNode) {
     const minute = String(date.getMinutes()).padStart(2, '0');
     return `Disponível em ${day}/${month}/${date.getFullYear()} às ${hour}:${minute}`;
   }
+  return null;
+}
+
+export function getStatusCopy(node: JourneyNode) {
+  const scheduled = getScheduledReviewCopy(node);
+  if (scheduled) return scheduled;
   switch (node.status) {
     case 'completed':
       return 'Concluído';

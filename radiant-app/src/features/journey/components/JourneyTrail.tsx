@@ -2,7 +2,7 @@ import { depth, galaxyColors } from '../../../ui/theme';
 import { JourneyUnitNavigation } from './JourneyUnitNavigation';
 import { computeUnitPrimaryProgress } from '../services/JourneyUnitProgress';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, useWindowDimensions, type LayoutChangeEvent } from 'react-native';
+import { FlatList, StyleSheet, Text, View, useWindowDimensions, type FlatListProps, type NativeScrollEvent, type NativeSyntheticEvent, type ViewToken, type LayoutChangeEvent } from 'react-native';
 
 import type { JourneyNode, JourneyUnit, NextNodeDecision } from '../../../types/journey';
 import type { LessonStars } from '../../quiz/services/resolveLessonStars';
@@ -14,17 +14,21 @@ import { MotionView, useTrailMomentStyles, type TrailMomentRoute } from '../../.
 import { JourneyLevelBand } from './JourneyLevelBand';
 import { JourneyMedal, medalStateFor } from './JourneyMedal';
 import { JourneyPathSegment } from './JourneyPathSegment';
-import { getRecommendationCopy, getStatusCopy } from './nodeCopy';
+import { getRecommendationCopy, getScheduledReviewCopy, getStatusCopy } from './nodeCopy';
 import {
   TRAIL_CORNER,
   TRAIL_LEAD,
   TRAIL_MEDAL_TOP,
   TRAIL_PATH_STROKE,
-  TRAIL_ROW_BOTTOM,
+  TRAIL_PIXEL_HEAD_WIDTH,
+  TRAIL_PIXEL_HEAD_HEIGHT,
   TRAIL_SIDE_GAP,
   medalOffsetX,
   medalRadiusFor,
   trailTitleWidth,
+  trailColumnClearance,
+  trailColumnContentWidth,
+  trailRowBottom,
 } from './trailLayout';
 
 const TRAIL_GAP = space.s3;
@@ -144,6 +148,60 @@ function flattenTrail(segments: CurriculumSegment[], recommendedNodeId?: string)
   return items;
 }
 
+type CellProps = React.ComponentProps<NonNullable<FlatListProps<TrailItem>['CellRendererComponent']>>;
+
+/** A célula pode seguir visível só pelo título; quem anima é o corpo da medalha. */
+function useVisibleMedals(items: TrailItem[], recommendedNodeId?: string) {
+  const nodesRef = useRef(items);
+  const recommendedRef = useRef(recommendedNodeId);
+  nodesRef.current = items;
+  recommendedRef.current = recommendedNodeId;
+  const framesRef = useRef(new Map<string, { y: number; height: number }>());
+  const viewportRef = useRef({ top: 0, height: 0 });
+  const candidatesRef = useRef(new Set<string>());
+  const [visibleNodeIds, setVisibleNodeIds] = useState<ReadonlySet<string>>(() => new Set());
+  const update = useCallback(() => {
+    const { top, height } = viewportRef.current;
+    const ids = new Set<string>();
+    if (height > 0) for (const item of nodesRef.current) {
+      if (item.kind !== 'node' || !candidatesRef.current.has(item.key)) continue;
+      const frame = framesRef.current.get(item.key);
+      if (!frame) continue;
+      const medalTop = frame.y + TRAIL_MEDAL_TOP;
+      const medalBottom = medalTop + medalRadiusFor(item.node.type, item.node.id === recommendedRef.current) * 2 + depth.medalLip;
+      if (medalBottom > top && medalTop < top + height) ids.add(item.node.id);
+    }
+    setVisibleNodeIds(previous => previous.size === ids.size && [...ids].every(id => previous.has(id)) ? previous : ids);
+  }, []);
+  const onCellLayout = useCallback((key: string, layout: { y: number; height: number }) => {
+    framesRef.current.set(key, layout);
+    update();
+  }, [update]);
+  // Identidade estável: rolar não remonta nenhuma célula nem reinicia o Lottie.
+  const CellRenderer = useMemo(() => function TrailCell({ item, children, style, onLayout, onFocusCapture }: CellProps) {
+    // A lista fornece este evento interno, ausente do ViewProps público.
+    return <View style={style} {...{ onFocusCapture }} testID={`journey-trail-cell-${item.key}`}
+      onLayout={event => {
+        onLayout?.(event);
+        onCellLayout(item.key, event.nativeEvent.layout);
+      }}>{children}</View>;
+  }, [onCellLayout]);
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<TrailItem>[] }) => {
+    candidatesRef.current = new Set(viewableItems.filter(token => token.isViewable).map(token => token.item.key));
+    update();
+  }, [update]);
+  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    viewportRef.current = { top: event.nativeEvent.contentOffset.y, height: event.nativeEvent.layoutMeasurement.height };
+    update();
+  }, [update]);
+  const onLayout = useCallback((height: number) => {
+    viewportRef.current.height = height;
+    update();
+  }, [update]);
+  useEffect(update, [items, recommendedNodeId, update]);
+  return { visibleNodeIds, CellRenderer, onViewableItemsChanged, onScroll, onLayout };
+}
+
 type Point = { x: number; y: number };
 
 function quadraticPoints(from: Point, control: Point, to: Point, steps: number): Point[] {
@@ -165,8 +223,10 @@ type MomentRouteInput = {
   toRadius: number;
   /** O que o encaixe mediu: o tamanho do Pixel. */
   slot: { width: number; height: number };
-  /** A medalha concluída logo acima, quando o caminho vem dela. */
-  from?: { offset: number; radius: number; rowHeight: number };
+  /** Linhas contínuas da concluída até a recomendada, com medidas atuais. */
+  rows?: { offset: number; radius: number; rowHeight: number }[];
+  /** Corredor da coluna, fora do conteúdo e dentro da janela. */
+  columnLane: number;
   column: boolean;
 };
 
@@ -175,14 +235,14 @@ type MomentRouteInput = {
  * partir do centro da trilha, y a partir do topo da linha), convertido em
  * deslocamentos a partir do lugar onde ele descansa, no encaixe.
  *
- * Com a medalha concluída logo acima, é o mesmo caminho do pontilhado
+ * A partir da medalha concluída, segue os conectores medidos do pontilhado
  * (`outgoingPath` e `incomingPath`): sai da lateral dela, corre na horizontal,
  * faz a curva, desce a vertical da recomendada até perto do topo dela e, por
- * fim, salta para o lado de fora da medalha. O Pixel vai montado na linha.
- * Sem ela (há uma unidade no meio), ele aparece no topo da linha e desce só o trecho que
- * chega.
+ * fim, salta para o lado de fora da medalha. Nós intermediários são contornados
+ * por corredores livres de texto/corpo; as bandas/cabeçalhos interrompem a
+ * conexão e permitem aparecer no trecho de chegada.
  */
-function momentRoute({ toOffset, toRadius, slot, from, column }: MomentRouteInput): TrailMomentRoute {
+function momentRoute({ toOffset, toRadius, slot, rows, column, columnLane }: MomentRouteInput): TrailMomentRoute {
   const side = toOffset > 0 ? 1 : -1;
   const rest: Point = {
     x: toOffset + side * (toRadius + space.s1 + slot.width / 2),
@@ -191,23 +251,39 @@ function momentRoute({ toOffset, toRadius, slot, from, column }: MomentRouteInpu
   const lift = slot.height / 2 - MOMENT_RIDE_OVERLAP;
   const points: Point[] = [];
 
-  if (from) {
-    const direction = Math.sign(toOffset - from.offset);
-    // Na coluna, a cauda fica depois do bloco de medalha, estrelas e título.
-    // Partir abaixo da medalha faria a cabeça atravessar o texto em x=0.
-    const lineY = column
-      ? -TRAIL_COLUMN_TAIL + TRAIL_PATH_STROKE / 2
-      : -from.rowHeight + TRAIL_MEDAL_TOP + from.radius;
-    // Meio Pixel além do começo do pontilhado, para ele não cobrir a medalha.
-    const startX = from.offset + direction * (from.radius + TRAIL_SIDE_GAP + slot.width / 2);
-    const corner = Math.max(0, Math.min(TRAIL_CORNER, Math.abs(toOffset - startX)));
-    const turn: Point = { x: toOffset - direction * corner, y: lineY };
-    points.push({ x: startX, y: lineY }, turn);
-    points.push(...quadraticPoints(turn, { x: toOffset, y: lineY }, { x: toOffset, y: lineY + corner }, 8));
+  if (rows && rows.length > 1) {
+    let top = -rows.slice(0, -1).reduce((height, row) => height + row.rowHeight, 0);
+    for (let index = 0; index < rows.length - 1; index += 1) {
+      const row = rows[index];
+      const next = rows[index + 1];
+      const nextTop = top + row.rowHeight;
+      if (index === 0) {
+        const direction = Math.sign(next.offset - row.offset);
+        const lineY = column ? nextTop - TRAIL_COLUMN_TAIL + TRAIL_PATH_STROKE / 2
+          : top + TRAIL_MEDAL_TOP + row.radius;
+        const startX = row.offset + direction * (row.radius + TRAIL_SIDE_GAP + slot.width / 2);
+        const corner = Math.max(0, Math.min(TRAIL_CORNER, Math.abs(next.offset - startX)));
+        const turn = { x: next.offset - direction * corner, y: lineY };
+        points.push({ x: startX, y: lineY }, turn);
+        points.push(...quadraticPoints(turn, { x: next.offset, y: lineY }, { x: next.offset, y: lineY + corner }, 8));
+      } else if (column) {
+        // Contorna todo o bloco intermediário por uma faixa permanente. A
+        // travessia abaixo do texto reencontra o primeiro M real da cauda.
+        const tailY = nextTop - TRAIL_COLUMN_TAIL + TRAIL_PATH_STROKE / 2;
+        points.push({ x: columnLane, y: top + TRAIL_LEAD },
+          { x: columnLane, y: tailY }, { x: row.offset, y: tailY });
+      } else {
+        // Acima do corpo, troca para o lado interno. Esta vertical reencontra
+        // o outgoing real depois da curva, sem tocar título, data ou medalha.
+        points.push({ x: next.offset, y: top + TRAIL_LEAD });
+      }
+      points.push({ x: next.offset, y: nextTop + TRAIL_LEAD });
+      top = nextTop;
+    }
   } else {
-    points.push({ x: toOffset, y: 0 });
+    // Uma banda/cabeçalho interrompe a conexão desenhada; aparece no trecho novo.
+    points.push({ x: toOffset, y: 0 }, { x: toOffset, y: TRAIL_LEAD });
   }
-  points.push({ x: toOffset, y: TRAIL_LEAD });
 
   const riding = points.map(point => ({ x: point.x, y: point.y - lift }));
   const landing = riding[riding.length - 1];
@@ -236,7 +312,7 @@ function momentRoute({ toOffset, toRadius, slot, from, column }: MomentRouteInpu
     progress: lengths.map(length => length / total),
     x: samples.map(point => point.x - rest.x),
     y: samples.map(point => point.y - rest.y),
-    fadeIn: from === undefined,
+    fadeIn: !rows || rows.length < 2,
   };
 }
 
@@ -267,13 +343,9 @@ export function JourneyTrail({
   const largeText = useLargeTextLayout();
   // O zigue-zague é fração da meia-largura da lista. Até a primeira medida,
   // vale a largura da janela, para a trilha não abrir em coluna e saltar.
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, fontScale } = useWindowDimensions();
   const [measuredWidth, setMeasuredWidth] = useState<number | undefined>(undefined);
   const halfWidth = (measuredWidth ?? windowWidth) / 2;
-  const handleLayout = useCallback((event: LayoutChangeEvent) => {
-    const { width } = event.nativeEvent.layout;
-    setMeasuredWidth(previous => (previous === width ? previous : width));
-  }, []);
 
   const items = useMemo(
     () => flattenTrail(segments, recommendedNodeId),
@@ -284,35 +356,62 @@ export function JourneyTrail({
     [items, recommendedNodeId],
   );
 
-  // O momento do Pixel. Ele só anda pelo pontilhado quando o nó concluído é a
-  // linha logo acima da recomendada: é ela que desenha a parte do trecho que
-  // sai. A altura dela vem da medida da própria linha, guardada aqui; quando
-  // ela muda no meio do momento (a concluída ganhou estrelas), o caminho segue.
+  const visibility = useVisibleMedals(items, recommendedNodeId);
+  const onViewportLayout = visibility.onLayout;
+  const handleLayout = useCallback((event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    setMeasuredWidth(previous => (previous === width ? previous : width));
+    onViewportLayout(height);
+  }, [onViewportLayout]);
+
+  // O momento acompanha o intervalo contínuo de nós da concluída até a
+  // recomendada, inclusive revisões futuras intermediárias. Cada linha deve
+  // ter medida atual antes de congelar a rota: concluir muda raio, ação e
+  // estrelas. Só bandas/cabeçalhos interrompem a conexão entre os percursos.
   const playing = moment !== undefined && moment.toNodeId === recommendedNodeId && recommendedIndex >= 0;
   const momentFromId = playing ? moment.fromNodeId : undefined;
-  const rowHeightsRef = useRef(new Map<string, number>());
-  const momentFromRef = useRef<string | undefined>(undefined);
-  momentFromRef.current = momentFromId;
-  const [fromRowHeight, setFromRowHeight] = useState<{ nodeId: string; height: number } | undefined>(undefined);
-  const handleRowHeight = useCallback((nodeId: string, height: number) => {
-    rowHeightsRef.current.set(nodeId, height);
-    if (nodeId !== momentFromRef.current) return;
-    setFromRowHeight(previous => (previous?.nodeId === nodeId && previous.height === height ? previous : { nodeId, height }));
-  }, []);
   const [slotSize, setSlotSize] = useState<{ nodeId: string; width: number; height: number } | undefined>(undefined);
   const handleSlotLayout = useCallback((nodeId: string, width: number, height: number) => {
     setSlotSize(previous => (previous?.nodeId === nodeId && previous.width === width && previous.height === height
       ? previous
       : { nodeId, width, height }));
   }, []);
-
+  // Reservas permanentes: iniciar/terminar o momento não muda o texto nem
+  // desloca o percurso. Medidas maiores que sm também ganham espaço real.
+  const headWidth = Math.max(TRAIL_PIXEL_HEAD_WIDTH, slotSize?.width ?? 0);
+  const headHeight = Math.max(TRAIL_PIXEL_HEAD_HEIGHT, slotSize?.height ?? 0);
+  const columnClearance = largeText ? trailColumnClearance(headHeight) : 0;
+  const columnContentWidth = trailColumnContentWidth(halfWidth, headWidth, space.s1);
+  const rowBottom = trailRowBottom(headHeight);
+  const rowSignature = useCallback((item: TrailNodeItem) => JSON.stringify([
+    item.node.id, item.node.type, item.node.title, item.node.status, item.node.reviewAvailableAtMs,
+    item.node.id === recommendedNodeId, Boolean(item.node.id === recommendedNodeId && recommendedAction),
+    item.node.lessonId ? starsByLessonId[item.node.lessonId] : undefined,
+    halfWidth, fontScale, largeText, columnClearance, columnContentWidth, rowBottom,
+  ]), [recommendedNodeId, recommendedAction, starsByLessonId, halfWidth, fontScale, largeText,
+    columnClearance, columnContentWidth, rowBottom]);
+  const validSignaturesRef = useRef(new Set<string>());
+  validSignaturesRef.current = new Set(items.flatMap(item => item.kind === 'node' ? [rowSignature(item)] : []));
+  const [rowMeasures, setRowMeasures] = useState<ReadonlyMap<string, number>>(() => new Map());
+  const handleRowHeight = useCallback((_nodeId: string, signature: string, height: number) => {
+    if (!validSignaturesRef.current.has(signature) || !Number.isFinite(height) || height <= 0) return;
+    setRowMeasures(previous => {
+      if (previous.get(signature) === height) return previous;
+      const current = new Map([...previous].filter(([key]) => validSignaturesRef.current.has(key)));
+      current.set(signature, height);
+      return current;
+    });
+  }, []);
   const toItem = playing ? items[recommendedIndex] : undefined;
-  const aboveItem = playing ? items[recommendedIndex - 1] : undefined;
-  const fromItem = aboveItem?.kind === 'node' && aboveItem.node.id === momentFromId ? aboveItem : undefined;
-  const measuredFromHeight = fromItem
-    ? (fromRowHeight?.nodeId === fromItem.node.id ? fromRowHeight.height : rowHeightsRef.current.get(fromItem.node.id))
-    : undefined;
-  const travelsFromAbove = fromItem !== undefined && measuredFromHeight !== undefined;
+  const fromIndex = playing ? items.findIndex(item => item.kind === 'node' && item.node.id === momentFromId) : -1;
+  const routeNodes = useMemo(() => {
+    if (fromIndex < 0 || fromIndex >= recommendedIndex) return [];
+    const interval = items.slice(fromIndex, recommendedIndex + 1);
+    return interval.every((item): item is TrailNodeItem => item.kind === 'node') ? interval : [];
+  }, [items, fromIndex, recommendedIndex]);
+  const measuredRoute = routeNodes.length > 1 && routeNodes.every(item => rowMeasures.has(rowSignature(item)));
+  const routeIds = new Set(routeNodes.map(item => item.node.id));
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 1 }).current;
   const route = useMemo(() => {
     if (toItem?.kind !== 'node') return undefined;
     const slot = slotSize?.nodeId === toItem.node.id ? slotSize : { width: 0, height: 0 };
@@ -321,19 +420,20 @@ export function JourneyTrail({
       toRadius: medalRadiusFor(toItem.node.type, true),
       slot,
       column: largeText,
-      from: travelsFromAbove && fromItem && measuredFromHeight !== undefined ? {
-        offset: medalOffsetX(fromItem.nodeIndex, halfWidth, largeText),
-        radius: medalRadiusFor(fromItem.node.type, false),
-        rowHeight: measuredFromHeight,
-      } : undefined,
+      columnLane: -(halfWidth - headWidth / 2 - space.s1),
+      rows: measuredRoute ? routeNodes.map(item => ({
+        offset: medalOffsetX(item.nodeIndex, halfWidth, largeText),
+        radius: medalRadiusFor(item.node.type, item.node.id === recommendedNodeId),
+        rowHeight: rowMeasures.get(rowSignature(item))!,
+      })) : undefined,
     });
-  }, [toItem, fromItem, travelsFromAbove, measuredFromHeight, slotSize, halfWidth, largeText]);
+  }, [toItem, slotSize, halfWidth, largeText, headWidth, measuredRoute, routeNodes, recommendedNodeId, rowMeasures, rowSignature]);
   const momentStyles = useTrailMomentStyles(playing, {
     route,
     onFinished: moment?.onDone,
     momentKey: playing ? `${moment.fromNodeId}>${moment.toNodeId}` : undefined,
     ready: measuredWidth !== undefined && slotSize !== undefined && slotSize.nodeId === recommendedNodeId
-      && slotSize.width > 0 && slotSize.height > 0 && (!fromItem || measuredFromHeight !== undefined),
+      && slotSize.width > 0 && slotSize.height > 0 && (routeNodes.length < 2 || measuredRoute),
   });
 
   // A trilha abre no ponto do aluno, e não no começo do currículo. Ela
@@ -401,6 +501,12 @@ export function JourneyTrail({
       onContentSizeChange={handleContentSizeChange}
       onScrollToIndexFailed={handleScrollToIndexFailed}
       data={items}
+      extraData={visibility.visibleNodeIds}
+      onViewableItemsChanged={visibility.onViewableItemsChanged}
+      CellRendererComponent={visibility.CellRenderer}
+      onScroll={visibility.onScroll}
+      scrollEventThrottle={16}
+      viewabilityConfig={viewabilityConfig}
       keyExtractor={item => item.key}
       initialNumToRender={12}
       windowSize={7}
@@ -449,12 +555,18 @@ export function JourneyTrail({
         const isRecommended = item.node.id === recommendedNodeId;
         return (
           <TrailNodeRow
+            key={rowSignature(item)}
+            layoutSignature={rowSignature(item)}
+            visible={visibility.visibleNodeIds.has(item.node.id)}
+            columnClearance={columnClearance}
+            columnContentWidth={columnContentWidth}
+            rowBottom={rowBottom}
             item={item}
             isRecommended={isRecommended}
             action={isRecommended ? recommendedAction : undefined}
             momentStyles={isRecommended ? momentStyles : undefined}
-            litIn={playing && isRecommended}
-            litOut={playing && travelsFromAbove && item.node.id === momentFromId}
+            litIn={playing && (isRecommended || (routeIds.has(item.node.id) && item.node.id !== momentFromId))}
+            litOut={playing && measuredRoute && routeIds.has(item.node.id) && !isRecommended}
             segmentStyle={momentStyles.segment}
             holding={momentStyles.holding}
             onHeight={handleRowHeight}
@@ -477,6 +589,11 @@ export function JourneyTrail({
 
 type TrailNodeRowProps = {
   item: TrailNodeItem;
+  layoutSignature: string;
+  visible: boolean;
+  columnClearance: number;
+  columnContentWidth: number;
+  rowBottom: number;
   isRecommended: boolean;
   /** A palavra de estado do rótulo: a da recomendação ou a do nó. */
   status: string;
@@ -498,7 +615,7 @@ type TrailNodeRowProps = {
   segmentStyle: ReturnType<typeof useTrailMomentStyles>['segment'];
   /** O momento vai começar: as camadas dele esperam escondidas (ver `useTrailMomentStyles`). */
   holding: boolean;
-  onHeight: (nodeId: string, height: number) => void;
+  onHeight: (nodeId: string, signature: string, height: number) => void;
   onSlotLayout?: (nodeId: string, width: number, height: number) => void;
 };
 
@@ -512,6 +629,11 @@ type TrailNodeRowProps = {
  */
 function TrailNodeRow({
   item,
+  layoutSignature,
+  visible,
+  columnClearance,
+  columnContentWidth,
+  rowBottom,
   isRecommended,
   status,
   halfWidth,
@@ -534,8 +656,8 @@ function TrailNodeRow({
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     setRowHeight(previous => (previous === height ? previous : height));
-    onHeight(node.id, height);
-  }, [node.id, onHeight]);
+    onHeight(node.id, layoutSignature, height);
+  }, [node.id, layoutSignature, onHeight]);
   const handleSlotLayout = useCallback((event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;
     onSlotLayout?.(node.id, width, height);
@@ -552,7 +674,7 @@ function TrailNodeRow({
     <View
       testID={`journey-trail-row-${node.id}`}
       onLayout={handleLayout}
-      style={[styles.row, column && item.hasNext ? null : styles.rowBottom]}
+      style={[styles.row, column && item.hasNext ? null : { paddingBottom: rowBottom }]}
     >
       {item.hasNext && !column && rowHeight !== undefined && rowHeight > outTop ? (
         <>
@@ -599,15 +721,16 @@ function TrailNodeRow({
       ) : null}
       <View
         testID={`journey-anchor-${node.id}`}
-        style={[styles.column, column && styles.columnLargeText, { transform: [{ translateX: offset }] }]}
+        style={[styles.column, column && [styles.columnLargeText, { width: columnContentWidth }], { transform: [{ translateX: offset }] }]}
       >
-        <View style={styles.medalBox}>
+        <View style={[styles.medalBox, { width: radius * 2 }]}>
           <MotionView testID={`journey-medal-${node.id}`} style={momentStyles?.medal}>
             <JourneyMedal
               node={node}
               theme={resolveNodeTheme(node, item.unit)}
               state={medalStateFor(node, isRecommended)}
               pulsing={isRecommended}
+              visible={visible}
               stars={stars}
               size={isRecommended ? radius : undefined}
               unitNumber={node.type === 'checkpoint' ? item.unitNumber : undefined}
@@ -622,7 +745,9 @@ function TrailNodeRow({
             <View
               pointerEvents="box-none"
               {...hiddenFromReader}
-              style={[styles.slot, offset > 0 ? styles.slotRight : styles.slotLeft, momentStyles && holding && styles.held]}
+              style={[styles.slot, { height: radius * 2 + depth.medalLip },
+                offset > 0 ? { left: radius * 2 + space.s1 } : { right: radius * 2 + space.s1 },
+                momentStyles && holding && styles.held]}
             >
               <MotionView
                 testID={`journey-pixel-slot-${node.id}`}
@@ -647,6 +772,11 @@ function TrailNodeRow({
         >
           {node.title}
         </Text>
+        {getScheduledReviewCopy(node) ? (
+          <Text {...hiddenFromReader} style={[styles.scheduledReview,
+            column ? styles.nodeTitleLargeText : { maxWidth: trailTitleWidth(halfWidth) },
+          ]}>{getScheduledReviewCopy(node)}</Text>
+        ) : null}
         {action ? (
           // Fora do bloco escondido: é um botão, e o leitor de tela o alcança.
           <View style={[styles.action, momentStyles && holding && styles.held]}>
@@ -657,7 +787,8 @@ function TrailNodeRow({
         ) : null}
       </View>
       {item.hasNext && column ? (
-        <View>
+        <View style={{ paddingTop: columnClearance }}>
+          <View>
           <JourneyPathSegment part="out" fromX={0} toX={0} height={TRAIL_COLUMN_TAIL} traveled={item.nextTraveled && !litOut} />
           {litOut ? (
             <View pointerEvents="none" style={[styles.inPiece, holding && styles.held]}>
@@ -666,6 +797,7 @@ function TrailNodeRow({
               </MotionView>
             </View>
           ) : null}
+          </View>
         </View>
       ) : null}
     </View>
@@ -683,23 +815,21 @@ const styles = StyleSheet.create({
   spacedHeader: { marginBottom: TRAIL_GAP },
   spaced: { marginVertical: TRAIL_GAP / 2 },
   row: { alignItems: 'center' },
-  rowBottom: { paddingBottom: TRAIL_ROW_BOTTOM },
   // Sem `overflow: 'hidden'` em lugar nenhum da linha: o anel da próxima sai
   // da caixa da medalha, e a folga de cima é o que o mantém inteiro.
   outPiece: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   inPiece: { position: 'absolute', left: 0, right: 0, top: 0 },
   column: { alignItems: 'center', paddingTop: TRAIL_MEDAL_TOP },
-  columnLargeText: { alignSelf: 'stretch' },
-  medalBox: { alignItems: 'center' },
-  slot: { position: 'absolute', top: 0, bottom: 0, justifyContent: 'center' },
-  slotLeft: { right: '100%', marginRight: space.s1 },
-  slotRight: { left: '100%', marginLeft: space.s1 },
+  columnLargeText: { alignSelf: 'center' },
+  medalBox: { position: 'relative', alignItems: 'center' },
+  slot: { position: 'absolute', top: 0, justifyContent: 'center' },
   nodeTitle: {
     ...typography.caption,
     color: galaxyColors.textPrimary,
     textAlign: 'center',
     marginTop: space.s0,
   },
+  scheduledReview: { ...typography.caption, color: galaxyColors.textSecondary, textAlign: 'center', marginTop: space.s0 },
   nodeTitleLargeText: { maxWidth: '100%' },
   action: { marginTop: space.s1 },
   held: { opacity: 0 },

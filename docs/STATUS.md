@@ -253,23 +253,36 @@ mudaram o texto do plano e pendências.
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.
 - **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas**, commit
-  `7615827`; o segundo run da 6 aprovou 15/15 validadores após corrigir o mock
-  consumidor ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
-  **Tarefa 7 com coleta executada e aceite pendente** em 2026-10-22:
-  a cabeça 48×46 está montada fora da tela (x=-249,75 pt no iOS); a primeira
-  execução Maestro passou; dia 2 passou após vencer naturalmente às 13h56
-  (as duas tentativas anteriores foram prematuras); vidas falhou no
-  toque da medalha sob o HUD. Um probe centralizado reabriu a aula. O AVD
-  mediu ~59,88–59,93 FPS estimados em três rodadas, pior quadro capturado
-  67,185 ms, com apenas três nós desbloqueados; não aprova 40 medalhas
-  animadas. Veja [capturas, vídeo, logs e limites](evidence/2026-10-22-trilha-medalhao.md).
-  **Revisão final não aprovada.** A onda de correção precisa tratar posição
-  nativa do Pixel, ocupação inteira da cabeça na coluna, playback fora do
-  viewport, data futura visível e contraste/token da faixa; depois repetir
-  a evidência e os três roteiros até seus cenários esperados. O aceite
-  estático da 6 não comprovou a composição nativa. O registro documental da
-  7 passou 15/15 e foi aprovado pela revisão independente forte como evidência
-  com defeitos pendentes, sem aprovação funcional.
+  `7615827`; gate da 6 aprovado em 15/15 no segundo run
+  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
+  **Pausa solicitada pelo dono em 2026-10-23.** A onda final implementou as
+  correções do encaixe nativo de 48×46, reservas para texto grande, medidas
+  atuais de todas as linhas, percurso L1 → revisão futura → L2, pausa das
+  ilustrações fora do viewport, data visível, faixa da barra e reconciliação
+  do lembrete após falha. Fonte congelada com parecer independente favorável,
+  sem novo P1/P2 confirmado; 8 suítes/260 testes focais, lembrete 13/13,
+  contrato Maestro final 37/37, typecheck e lint passaram.
+  **Aceite nativo e revisão final do plano continuam pendentes.** iOS normal:
+  cabeça inteira passa sobre a área de outra célula sem corte; a origem L1
+  está fora da janela pela ancoragem existente. Vídeos de movimento reduzido
+  e texto máximo foram preservados, ainda sem revisão independente integral.
+  Android: cabeça/data visíveis e captura em fonte 200%; vídeo do momento
+  inconclusivo (142 quadros/19,5985 s, lacuna decisiva de 1,785622 s), sem causa
+  de produto demonstrada. Não corrigir uma hipótese de clipping/tempo sem
+  medir. O cenário sintético de 40 concluídas existe em Storybook, **não foi
+  medido**. Não reutilizar o benchmark antigo de três desbloqueadas como40.
+  Maestro atual: primeira execução iOS **PASS**, vidas esgotadas iOS **PASS**;
+  segundo dia Android **FAIL apenas na assert final após revisão3/3**, antes
+  de corrigir o enquadramento. O YAML passou a esperar a trilha e centralizar
+  a mesma medalha, preservando o seletor completo; checkpoint complementar
+  com assentamento500ms **PASS**, sem converter o flow inteiro em PASS.
+  Rerun integral exige revisão naturalmente devida, sem editar relógio/dados.
+  [Evidência consolidada e limites](evidence/2026-10-22-trilha-medalhao-final.md).
+  **Validação do fechamento:** não executada nesta última janela. A pedido
+  do dono, o run `run-1792746135751-b2cdee88` fecha sem validação para a pausa;
+  a retomada precisa executar o gate configurado antes de concluir a onda.
+  O [prompt versionado de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23)
+  contém a ordem das pendências, comandos e restrições.
 - **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,

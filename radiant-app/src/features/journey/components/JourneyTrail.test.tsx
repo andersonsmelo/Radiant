@@ -140,6 +140,14 @@ function offsetOf(screen: ReturnType<typeof render>, nodeId: string): number {
   return transform.find((entry) => entry.translateX !== undefined)?.translateX ?? 0;
 }
 
+function nativeParents(node: ReturnType<ReturnType<typeof render>['getByTestId']>) {
+  const result = [];
+  for (let parent = node.parent; parent; parent = parent.parent) {
+    if (typeof parent.type === 'string') result.push(parent);
+  }
+  return result;
+}
+
 describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () => {
   // O JourneyMap que este componente substituiu quebrava o percurso em seções:
   // uma por unidade, cada uma com título próprio e trilho próprio. O aluno via
@@ -503,8 +511,8 @@ describe('JourneyTrail — o encaixe do Pixel', () => {
     };
 
     // u1-node-0 está à esquerda: o encaixe vai à esquerda dela; u1-node-1, à direita.
-    expect(side('u1-node-0').right).toBe('100%');
-    expect(side('u1-node-1').left).toBe('100%');
+    expect(side('u1-node-0').right).toBe(MEDAL_RADIUS * 2 + space.s1);
+    expect(side('u1-node-1').left).toBe(NEXT_MEDAL_RADIUS * 2 + space.s1);
   });
 });
 
@@ -576,6 +584,8 @@ describe('JourneyTrail — o momento do Pixel', () => {
     fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
       nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
     });
+    // Medir a cabeça pode reservar respiro na coluna e remontar a origem.
+    medirLinhas(screen, ROW);
     // O estilo animado chega à vista no quadro seguinte: o primeiro quadro do momento.
     act(() => { jest.advanceTimersByTime(16); });
     return { screen, onDone };
@@ -608,6 +618,52 @@ describe('JourneyTrail — o momento do Pixel', () => {
   /** A linha do trecho que sai do nó concluído, na altura do centro dele. */
   const lineY = -ROW + TRAIL_MEDAL_TOP + MEDAL_RADIUS;
   const advance = (ms: number) => act(() => { jest.advanceTimersByTime(ms); });
+
+  it.each([370, 400])('o encaixe nativo usa a caixa da medalha, não os % da linha de %i pt', width => {
+    const { screen } = renderMoment();
+    medirLargura(screen, width);
+    const slot = screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN);
+    const [holderNode, boxNode] = nativeParents(slot);
+    const holder = StyleSheet.flatten(holderNode.props.style);
+    const box = StyleSheet.flatten(boxNode.props.style);
+    expect(box).toMatchObject({ position: 'relative', width: NEXT_MEDAL_RADIUS * 2 });
+    expect(holder.right).toBe(NEXT_MEDAL_RADIUS * 2 + space.s1);
+    expect(holder.left).toBeUndefined();
+    // Caixa real: centro da linha + offset da medalha − raio − folga − cabeça.
+    const left = width / 2 + offsetOf(screen, 'u1-node-2') - box.width / 2
+      + box.width - holder.right - HEAD.width;
+    expect(left).toBeGreaterThanOrEqual(0);
+    expect(left + HEAD.width).toBeLessThan(width);
+  });
+
+  it('descarta a altura em cache da recomendada anterior antes de congelar a rota', () => {
+    const onDone = jest.fn();
+    const pixelSlot = (id: string) => <View testID={`pixel-${id}`} />;
+    const action = <Pressable testID="acao" />;
+    const before = [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])];
+    const screen = renderTrail(before, 'u1-node-1', { pixelSlot, recommendedAction: action });
+    medirLargura(screen);
+    medirLinhas(screen, 260);
+    const staleLayout = screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN).props.onLayout;
+    screen.rerender(<JourneyTrail segments={trilha()} recommendedNodeId="u1-node-2"
+      onNodePress={onNodePress} isNodeDisabled={isNodeDisabled as never} pixelSlot={pixelSlot}
+      recommendedAction={action} starsByLessonId={{ 'u1-node-1': 3 }}
+      moment={{ fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2', onDone }} />);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    act(() => staleLayout({ nativeEvent: { layout: { x: 0, y: 0, width: 400, height: 260 } } }));
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    medirLinhas(screen, ROW);
+    advance(16);
+    const out = screen.getByTestId('journey-moment-segment-out', HIDDEN);
+    const start = /^M([^,]+),([^ ]+)/u.exec(out.findByType(Path).props.d)!;
+    const pathTop = StyleSheet.flatten(nativeParents(out)[0].props.style).top;
+    expect(pixelCenter(screen).y + HEAD.height / 2).toBeCloseTo(-ROW + pathTop + Number(start[2]) + 4, 1);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
 
   it('fora do momento, tudo está no estado final: o Pixel ao lado da medalha e o botão à vista', () => {
     const { screen } = renderMoment();
@@ -699,14 +755,112 @@ describe('JourneyTrail — o momento do Pixel', () => {
     expect(pathPieces(screen, 'in').map((props) => props.traveled)).toEqual([true, false, true]);
   });
 
-  it('se o concluído não é o nó logo acima, o Pixel desce só o trecho que chega', () => {
+  it('se há outro nó entre concluído e próximo, ilumina todos os conectores e parte da origem', () => {
     const { screen } = renderMoment({ fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2' });
     const start = pixelCenter(screen);
 
-    expect(start.x).toBeCloseTo(-OFFSET, 1);
-    expect(start.y).toBeLessThan(TRAIL_LEAD);
-    expect(screen.queryByTestId('journey-moment-segment-out', HIDDEN)).toBeNull();
-    expect(screen.getByTestId('journey-moment-segment-in', HIDDEN)).toBeTruthy();
+    expect(start.x).toBeCloseTo(-OFFSET + MEDAL_RADIUS + TRAIL_SIDE_GAP + HEAD.width / 2, 1);
+    expect(start.y).toBeLessThan(-ROW);
+    expect(screen.getAllByTestId('journey-moment-segment-out', HIDDEN)).toHaveLength(2);
+    expect(screen.getAllByTestId('journey-moment-segment-in', HIDDEN)).toHaveLength(2);
+  });
+
+  function topology() {
+    const current = unit('u1', 'Unidade 1', ['completed', 'locked', 'available']);
+    current.nodes[1] = { ...current.nodes[1], type: 'review', title: 'Revisão futura com data e título completos', reviewAvailableAtMs: new Date(2035, 8, 20, 13, 56).getTime() };
+    return [segment('t1', 'Fundamentos', [current])];
+  }
+
+  it.each([false, true])('reserva corredores estáveis para cabeça48×46 antes/depois do momento, coluna=%s', column => {
+    mockWindow.fontScale = column ? 1.65 : 1;
+    const screen = renderTrail(topology(), 'u1-node-2', { pixelSlot: () => <View /> });
+    medirLargura(screen, 320);
+    const row = StyleSheet.flatten(screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN).props.style);
+    const anchor = StyleSheet.flatten(screen.getByTestId('journey-anchor-u1-node-1', HIDDEN).props.style);
+    if (column) {
+      const width = anchor.width ?? 320;
+      expect(width).toBeLessThanOrEqual(320 - 2 * (HEAD.width + 16));
+      expect(anchor.alignSelf).toBe('center');
+      expect(screen.getByText('Revisão futura com data e título completos', HIDDEN).props.numberOfLines).toBeUndefined();
+    } else {
+      // Troca de lado acima do corpo: caixa y=-27..19; o título anterior
+      // deve terminar até-31, deixando4pt antes do topo da cabeça.
+      expect(row.paddingBottom).toBeGreaterThanOrEqual(HEAD.height - TRAIL_LEAD - 4 + 4);
+    }
+  });
+
+  it.each([false, true])('contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=%s', column => {
+    mockWindow.fontScale = column ? 1.65 : 1;
+    const screen = renderTrail(topology(), 'u1-node-2', {
+      pixelSlot: id => id === 'u1-node-2' ? <View /> : null,
+      moment: { fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2', onDone: jest.fn() },
+    });
+    medirLargura(screen, 320);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, ...HEAD } } });
+    for (const [index, height] of [180, 220, 200].entries()) fireEvent(screen.getByTestId(`journey-trail-row-u1-node-${index}`, HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 320, height } } });
+    advance(16);
+    const destination = offsetOf(screen, 'u1-node-2');
+    const final = { x: destination - NEXT_MEDAL_RADIUS - space.s1 - HEAD.width / 2, y: rest.y };
+    const center = () => {
+      const transform = transformOf(screen, 'journey-pixel-slot-u1-node-2');
+      return { x: final.x + transform.x, y: final.y + transform.y };
+    };
+    const start = center();
+    expect(start.y).toBeLessThan(-220);
+    const anchor = StyleSheet.flatten(screen.getByTestId('journey-anchor-u1-node-1', HIDDEN).props.style);
+    const row = StyleSheet.flatten(screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN).props.style);
+    const nodeX = offsetOf(screen, 'u1-node-1');
+    const blockWidth = column ? anchor.width as number : 144;
+    const tailPadding = screen.getAllByTestId('journey-path-out', HIDDEN)
+      .flatMap(path => nativeParents(path).map(parent => StyleSheet.flatten(parent.props.style)?.paddingTop))
+      .find(value => value !== undefined) ?? 0;
+    const block = { left: nodeX - blockWidth / 2, right: nodeX + blockWidth / 2,
+      top: -220 + TRAIL_MEDAL_TOP, bottom: column ? -24 - tailPadding : -row.paddingBottom };
+    const samples = [start];
+    for (let elapsed = 16; elapsed < TRAIL_MOMENT_MS; elapsed += 4) { advance(4); samples.push(center()); }
+    for (const point of samples) {
+      const box = { left: point.x - 24, right: point.x + 24, top: point.y - 23, bottom: point.y + 23 };
+      expect(box.left).toBeGreaterThanOrEqual(-160);
+      expect(box.right).toBeLessThanOrEqual(160);
+      expect(box.right <= block.left - 4 || box.left >= block.right + 4
+        || box.bottom <= block.top - 4 || box.top >= block.bottom + 4).toBe(true);
+    }
+    // Depois do contorno, chega à parte vertical real do próximo pontilhado.
+    expect(samples.some(point => Math.abs(point.x - destination) < 1 && point.y > -30 && point.y < -4)).toBe(true);
+    expect(center().x).toBeCloseTo(final.x, 1);
+    expect(center().y).toBeCloseTo(final.y, 1);
+    expect(screen.getAllByTestId('journey-moment-segment-out', HIDDEN)).toHaveLength(2);
+    expect(screen.getAllByTestId('journey-moment-segment-in', HIDDEN)).toHaveLength(2);
+  });
+
+  it('não congela rota nem consome tempo enquanto a revisão intermediária não tem altura atual', () => {
+    const onDone = jest.fn();
+    const screen = renderTrail(topology(), 'u1-node-2', {
+      pixelSlot: () => <View />, moment: { fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2', onDone },
+    });
+    medirLargura(screen);
+    for (const index of [0, 2]) fireEvent(screen.getByTestId(`journey-trail-row-u1-node-${index}`, HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 400, height: 180 } } });
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, ...HEAD } } });
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    fireEvent(screen.getByTestId('journey-trail-row-u1-node-1', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 400, height: 220 } } });
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it('não aceita altura0 de montagem como geometria válida do percurso', () => {
+    const onDone = jest.fn();
+    const screen = renderTrail(topology(), 'u1-node-2', {
+      pixelSlot: () => <View />, moment: { fromNodeId: 'u1-node-0', toNodeId: 'u1-node-2', onDone },
+    });
+    medirLargura(screen);
+    medirLinhas(screen, 0);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', { nativeEvent: { layout: { x: 0, y: 0, ...HEAD } } });
+    advance(TRAIL_MOMENT_MS + 500);
+    expect(onDone).not.toHaveBeenCalled();
+    medirLinhas(screen, ROW);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
   });
 
   it('espera o destino virtualizado medir antes de consumir o tempo do momento', () => {
@@ -786,6 +940,12 @@ describe('JourneyTrail — o momento do Pixel', () => {
     expect(start.x).toBeCloseTo(0, 1);
     // A base da cabeça apoia 4pt sobre a linha (mesmo apoio do zigue-zague).
     expect(start.y + HEAD.height / 2).toBeCloseTo(lineStartY + 4, 1);
+    const padding = nativeParents(tail).map(parent => StyleSheet.flatten(parent.props.style)?.paddingTop)
+      .find(value => value !== undefined) ?? 0;
+    // O título/estrelas terminam antes do respiro real da cauda. A caixa toda,
+    // e não só seu apoio, precisa ficar abaixo dele com pelo menos 4pt livres.
+    const previousBlockBottom = -tailHeight - padding;
+    expect(start.y - HEAD.height / 2).toBeGreaterThanOrEqual(previousBlockBottom + 4);
     const samples: { x: number; y: number }[] = [];
     for (let elapsed = 16; elapsed < TRAIL_MOMENT_MS; elapsed += 16) {
       advance(16);
@@ -887,6 +1047,64 @@ describe('JourneyTrail — texto grande', () => {
 
     expect(StyleSheet.flatten(title.props.style).maxWidth).toBe(200 - 16);
     expect(title.props.numberOfLines).toBe(2);
+  });
+});
+
+describe('JourneyTrail — visibilidade e revisão agendada', () => {
+  it('só liga as medalhas efetivamente visíveis, inclusive ao sair e voltar ao viewport', () => {
+    const screen = renderTrail([segment('t1', 'Trilha', [unit('u1', 'Unidade', ['completed', 'available', 'completed'])])], 'u1-node-1');
+    medirLargura(screen);
+    fireEvent(screen.getByTestId('journey-trail-cell-node:u1-node-1'), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 200, width: 400, height: 400 } },
+    });
+    const list = screen.UNSAFE_getByType(FlatList);
+    expect(medalProps(screen, 'u1-node-0').visible).toBe(false);
+    const item = list.props.data.find((entry: { key: string }) => entry.key === 'node:u1-node-1');
+    act(() => list.props.onViewableItemsChanged({ viewableItems: [{ item, isViewable: true }], changed: [] }));
+    expect(medalProps(screen, 'u1-node-1').visible).toBe(true);
+    expect(medalProps(screen, 'u1-node-0').visible).toBe(false);
+    // A linha segue visível pelo título longo, mas a medalha já saiu por cima.
+    fireEvent(screen.getByTestId('journey-trail'), 'scroll', {
+      nativeEvent: { contentOffset: { x: 0, y: 400 }, layoutMeasurement: { width: 400, height: 800 }, contentSize: { width: 400, height: 1600 } },
+    });
+    expect(medalProps(screen, 'u1-node-1').visible).toBe(false);
+    act(() => list.props.onViewableItemsChanged({ viewableItems: [], changed: [{ item, isViewable: false }] }));
+    expect(medalProps(screen, 'u1-node-1').visible).toBe(false);
+  });
+
+  it('desenha a data futura como Text, mesmo com o nó desativado', () => {
+    const future = new Date(2035, 8, 20, 13, 56).getTime();
+    const review: JourneyNode = { id: 'review', unitId: 'u1', type: 'review', title: 'Revisão da aula', status: 'locked', reviewAvailableAtMs: future };
+    const screen = renderTrail([segment('t1', 'Trilha', [{ ...unit('u1', 'Unidade', []), nodes: [review] }])]);
+    const text = screen.getByText('Disponível em 20/09/2035 às 13:56', HIDDEN);
+    expect(text.type).toBe('Text');
+    expect(screen.getByLabelText('Revisão da aula. Disponível em 20/09/2035 às 13:56.').props.accessibilityState.disabled).toBe(true);
+  });
+
+  it.each([false, true])('em320pt a data inteira cabe à esquerda/direita e na coluna=%s', column => {
+    mockWindow.fontScale = column ? 1.65 : 1;
+    const future = new Date(2035, 8, 20, 13, 56).getTime();
+    const reviews = [0, 1].map((index): JourneyNode => ({
+      id: `review-${index}`, unitId: 'u1', type: 'review', title: `Revisão ${index}`,
+      status: 'locked', reviewAvailableAtMs: future,
+    }));
+    const screen = renderTrail([segment('t1', 'Trilha', [{ ...unit('u1', 'Unidade', []), nodes: reviews }])]);
+    medirLargura(screen, 320);
+    const dates = screen.getAllByText('Disponível em 20/09/2035 às 13:56', HIDDEN);
+    expect(dates).toHaveLength(2);
+    dates.forEach((date, index) => {
+      const style = StyleSheet.flatten(date.props.style);
+      const title = screen.getByText(`Revisão ${index}`, HIDDEN);
+      const titleWidth = StyleSheet.flatten(title.props.style).maxWidth;
+      // O mesmo limite efetivamente entregue ao título, sem cortar a data.
+      expect(style.maxWidth).toBe(titleWidth);
+      expect(style.maxWidth).toBe(column ? '100%' : 144);
+      expect(date.props.numberOfLines).toBeUndefined();
+      const width = column ? 320 : style.maxWidth as number;
+      const center = 160 + offsetOf(screen, `review-${index}`);
+      expect(center - width / 2).toBeGreaterThanOrEqual(0);
+      expect(center + width / 2).toBeLessThanOrEqual(320);
+    });
   });
 });
 

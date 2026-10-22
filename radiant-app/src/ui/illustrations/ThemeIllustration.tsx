@@ -105,10 +105,13 @@ export function ThemeIllustration({
   theme,
   state,
   size,
+  playing = true,
 }: {
   theme: IllustrationTheme;
   state: IllustrationState;
   size: number;
+  /** Visibilidade real do host: fora da tela conserva a pose sem relógio. */
+  playing?: boolean;
 }) {
   const animation = useMemo(() => makeAnimation(theme), [theme]);
   const motion = useReducedMotionPreferenceState();
@@ -123,7 +126,7 @@ export function ThemeIllustration({
   const posterFrame = animation
     ? posterFrameOrDefault(illustrationAssets[theme]?.meta?.posterFrame, { totalFrames, label: theme })
     : DEFAULT_POSTER_FRAME;
-  const playback = resolvePlayback({ state, reducedMotion, posterFrame });
+  const playback = resolvePlayback({ state, reducedMotion: reducedMotion || !playing, posterFrame });
 
   // O laço (relógio, foco, reduzir movimento) mora em `motion.ts`.
   const frame = useLottieFrameLoop({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
 
-import { galaxyColors, pixelColors } from '../../../ui/theme';
+import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { space, typography } from '../../../ui/styles';
 import { LABEL_MAX_FONT_SCALE, useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
@@ -34,9 +34,14 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
   // Agora a contagem mora dentro da barra, então o título já tem a linha toda.
   const largeText = useLargeTextLayout();
   const [trackWidth, setTrackWidth] = useState(0);
+  const [countBounds, setCountBounds] = useState<{ x: number; width: number } | undefined>(undefined);
   // O realce só existe se couber dentro do preenchimento, com as margens da
   // prancheta: num preenchimento estreito ele vazaria para fora da ponta redonda.
   const showHighlight = trackWidth * ratio >= HIGHLIGHT_MIN_FILL;
+  const fillWidth = trackWidth * ratio;
+  const stripeWidth = Math.max(0, fillWidth - HIGHLIGHT_INSET * 2);
+  const leftWidth = countBounds ? Math.max(0, Math.min(stripeWidth, countBounds.x - COUNT_CLEARANCE - HIGHLIGHT_INSET)) : 0;
+  const rightStart = countBounds ? Math.max(0, countBounds.x + countBounds.width + COUNT_CLEARANCE - HIGHLIGHT_INSET) : stripeWidth;
 
   return (
     <View
@@ -60,10 +65,19 @@ export function JourneyStageHeader({ title, completed, total }: JourneyStageHead
           testID="journey-stage-progress-fill"
           style={[styles.progressFill, { width: `${Math.round(ratio * 100)}%` }]}
         >
-          {showHighlight ? <View testID="journey-stage-progress-highlight" style={styles.progressHighlight} /> : null}
+          {showHighlight ? <View testID="journey-stage-progress-highlight" style={styles.progressHighlight}>
+            {leftWidth > 0 ? <View testID="journey-stage-progress-highlight-left"
+              style={[styles.highlightColor, { left: 0, width: leftWidth }]} /> : null}
+            {rightStart < stripeWidth ? <View testID="journey-stage-progress-highlight-right"
+              style={[styles.highlightColor, { left: rightStart, width: stripeWidth - rightStart }]} /> : null}
+          </View> : null}
         </View>
         {/* A barra tem 22 pt fixos: o número cresce até 1,3×, o que ainda cabe. */}
-        <Text style={styles.count} maxFontSizeMultiplier={COUNT_MAX_FONT_SCALE}>{`${completed} de ${total}`}</Text>
+        <Text style={styles.count} maxFontSizeMultiplier={COUNT_MAX_FONT_SCALE}
+          onLayout={(event: LayoutChangeEvent) => {
+            const { x, width } = event.nativeEvent.layout;
+            setCountBounds(previous => previous?.x === x && previous.width === width ? previous : { x, width });
+          }}>{`${completed} de ${total}`}</Text>
       </View>
     </View>
   );
@@ -77,6 +91,7 @@ const BAR_HEIGHT = 22;
 const HIGHLIGHT_INSET = 8;
 const HIGHLIGHT_HEIGHT = 5;
 const HIGHLIGHT_MIN_FILL = HIGHLIGHT_INSET * 2 + 6;
+const COUNT_CLEARANCE = 4;
 
 const styles = StyleSheet.create({
   header: {
@@ -115,8 +130,12 @@ const styles = StyleSheet.create({
     // mesmo desenho sem um raio fora da escala de `radius.*`.
     borderRadius: HIGHLIGHT_HEIGHT / 2,
     // Faixa de luz do preenchimento: branco a 28%, sem sombra nem brilho.
-    backgroundColor: pixelColors.coat.light,
     opacity: 0.28,
+  },
+  highlightColor: {
+    position: 'absolute', top: 0, bottom: 0,
+    borderRadius: HIGHLIGHT_HEIGHT / 2,
+    backgroundColor: semanticColors.galaxy.textOnAccent,
   },
   count: {
     ...typography.label,

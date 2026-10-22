@@ -65,13 +65,18 @@ describe('ReminderRow', () => {
     expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(true);
   });
 
-  it('se a leitura falhar, mostra o interruptor desligado', async () => {
+  it('se a leitura falhar, permite consultar novamente sem inventar uma escolha', async () => {
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
     push.getOptIn.mockRejectedValue(new Error('storage'));
     try {
       await renderRow();
 
-      expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(false);
+      expect(screen.queryByRole('switch')).toBeNull();
+      expect(screen.getByRole('alert')).toHaveTextContent('Não foi possível consultar o lembrete.');
+      push.getOptIn.mockResolvedValue(true);
+      fireEvent.press(screen.getByRole('button', { name: 'Tentar novamente' }));
+      await waitFor(() => expect(screen.getByRole('switch').props.value).toBe(true));
+      expect(push.setOptIn).not.toHaveBeenCalled();
     } finally {
       errorSpy.mockRestore();
     }
@@ -123,6 +128,60 @@ describe('ReminderRow', () => {
 
       await waitFor(() => expect(errorSpy).toHaveBeenCalled());
       expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(false);
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
+  it('preserva a preferência persistida e informa falha no agendamento, inclusive ao reabrir', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    let persisted = false;
+    push.getOptIn.mockImplementation(async () => persisted);
+    push.setOptIn.mockImplementation(async (value) => { persisted = value; });
+    push.scheduleDailyIfEligible.mockRejectedValue(new Error('schedule'));
+    try {
+      const view = await renderRow();
+      fireEvent(screen.getByRole('switch'), 'valueChange', true);
+      await waitFor(() => expect(errorSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByRole('switch').props.value).toBe(persisted));
+      expect(screen.getByRole('alert')).toHaveTextContent('Não foi possível atualizar o lembrete.');
+      view.unmount();
+      await renderRow();
+      expect(screen.getByRole('switch').props.value).toBe(true);
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
+  it('restaura a escolha guardada se desligar falhar antes da persistência', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    push.getOptIn.mockResolvedValue(true);
+    push.setOptIn.mockRejectedValue(new Error('storage'));
+    try {
+      await renderRow();
+      fireEvent(screen.getByRole('switch'), 'valueChange', false);
+      await waitFor(() => expect(errorSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByRole('switch').props.value).toBe(true));
+      expect(screen.getByRole('alert')).toHaveTextContent('Não foi possível atualizar o lembrete.');
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
+  it('não inventa estado se a reconciliação falhar e a nova consulta recupera a escolha real', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    push.getOptIn.mockResolvedValueOnce(false).mockRejectedValueOnce(new Error('read'));
+    push.scheduleDailyIfEligible.mockRejectedValue(new Error('schedule'));
+    try {
+      await renderRow();
+      fireEvent(screen.getByRole('switch'), 'valueChange', true);
+      await waitFor(() => expect(screen.queryByRole('switch')).toBeNull());
+      expect(screen.getByRole('alert')).toBeTruthy();
+      push.getOptIn.mockResolvedValue(true);
+      fireEvent.press(screen.getByRole('button', { name: 'Tentar novamente' }));
+      await waitFor(() => expect(screen.getByRole('switch').props.value).toBe(true));
+      expect(push.setOptIn).toHaveBeenCalledTimes(1);
+      expect(screen.queryByRole('alert')).toBeNull();
     } finally {
       errorSpy.mockRestore();
     }

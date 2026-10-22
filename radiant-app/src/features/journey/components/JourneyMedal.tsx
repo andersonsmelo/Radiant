@@ -36,6 +36,8 @@ type JourneyMedalProps = {
   state: MedalState;
   /** Liga o anel que pulsa. Só vale com `state="next"`. */
   pulsing: boolean;
+  /** A janela montada da lista é maior que o viewport. */
+  visible?: boolean;
   /** `undefined` não desenha estrela; 0 desenha as três apagadas. */
   stars?: LessonStars;
   /** O raio da medalha. Padrão 34 (30 na revisão). */
@@ -151,6 +153,7 @@ export function JourneyMedal({
   theme,
   state,
   pulsing,
+  visible = true,
   stars,
   size,
   unitNumber,
@@ -164,7 +167,7 @@ export function JourneyMedal({
   const palette = paletteFor(node.type, state);
   const tones = glyphTonesFor(state);
   const showRing = pulsing && state === 'next';
-  const ringStyle = useMedalPulse(showRing);
+  const ringStyle = useMedalPulse(showRing && visible);
   const clipId = useId().replace(/[^A-Za-z0-9_-]/g, '');
   const isDisabled = disabled ?? state === 'locked';
   const interactive = onPress !== undefined;
@@ -234,7 +237,7 @@ export function JourneyMedal({
             style={[styles.overlay, { width: diameter, height: diameter }]}
           >
             <View style={{ transform: [{ translateY: -3 * scale }] }}>
-              <ThemeIllustration theme={theme} state={state} size={diameter * ILLUSTRATION_RATIO} />
+              <ThemeIllustration theme={theme} state={state} size={diameter * ILLUSTRATION_RATIO} playing={visible} />
             </View>
           </View>
         ) : null}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { galaxyColors } from '../../../ui/theme';
 import { space, typography } from '../../../ui/styles';
@@ -20,8 +20,9 @@ type ReminderRowProps = {
  * janela, e "às 19h" prometeria o que ele não faz.
  */
 export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement | null {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState<boolean | null>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   // O interruptor só aparece depois da leitura do que o aluno já escolheu:
   // nascer desligado e virar ligado mostrava um salto na tela.
   const [settled, setSettled] = useState(false);
@@ -36,7 +37,10 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
       .then((decision) => {
         if (active && !touchedRef.current) setEnabled(decision === true);
       })
-      .catch((cause) => console.error('[ReminderRow] Falha ao ler o lembrete:', cause))
+      .catch((cause) => {
+        console.error('[ReminderRow] Falha ao ler o lembrete:', cause);
+        if (active) setError('Não foi possível consultar o lembrete.');
+      })
       .finally(() => {
         if (active) setSettled(true);
       });
@@ -48,19 +52,14 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
   const handleChange = useCallback(async (next: boolean) => {
     touchedRef.current = true;
     setEnabled(next);
-
-    if (!next) {
-      void TelemetryService.track('push_optin_declined');
-      try {
-        await PushService.setOptIn(false);
-      } catch (cause) {
-        console.error('[ReminderRow] Falha ao desligar o lembrete:', cause);
-      }
-      return;
-    }
-
+    setError(null);
     setBusy(true);
     try {
+      if (!next) {
+        void TelemetryService.track('push_optin_declined');
+        await PushService.setOptIn(false);
+        return;
+      }
       await PushService.setOptIn(true);
       const permission = await PushService.requestPermissionIfNeeded();
       if (permission !== 'granted') {
@@ -73,8 +72,29 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
       void TelemetryService.track('push_optin_accepted');
       await PushService.scheduleDailyIfEligible({ reason: 'optin_immediate' });
     } catch (cause) {
-      console.error('[ReminderRow] Falha ao ativar o lembrete:', cause);
-      setEnabled(false);
+      console.error('[ReminderRow] Falha ao atualizar o lembrete:', cause);
+      setError('Não foi possível atualizar o lembrete.');
+      // A gravação pode ter ocorrido antes da falha de permissão, cancelamento
+      // ou agendamento. Releia a preferência que o próximo foco usará.
+      try {
+        setEnabled((await PushService.getOptIn()) === true);
+      } catch (readCause) {
+        console.error('[ReminderRow] Falha ao reconciliar o lembrete:', readCause);
+        setEnabled(null);
+      }
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  const retryRead = useCallback(async () => {
+    setBusy(true);
+    try {
+      setEnabled((await PushService.getOptIn()) === true);
+      setError(null);
+    } catch (cause) {
+      console.error('[ReminderRow] Falha ao consultar o lembrete:', cause);
+      setError('Não foi possível consultar o lembrete.');
     } finally {
       setBusy(false);
     }
@@ -83,20 +103,31 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
   if (!visible || !settled) return null;
 
   return (
-    <View style={styles.row}>
-      <Text style={styles.text} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Lembrete diário</Text>
-      <Switch
-        accessibilityLabel="Lembrete diário"
-        value={enabled}
-        onValueChange={(next) => void handleChange(next)}
-        disabled={busy}
-        trackColor={{ true: galaxyColors.nodeCompletedAccent, false: galaxyColors.surfaceActive }}
-      />
+    <View>
+      <View style={styles.row}>
+        <Text style={styles.text} maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>Lembrete diário</Text>
+        {enabled !== null && (
+          <Switch
+            accessibilityLabel="Lembrete diário"
+            value={enabled}
+            onValueChange={(next) => void handleChange(next)}
+            disabled={busy}
+            trackColor={{ true: galaxyColors.nodeCompletedAccent, false: galaxyColors.surfaceActive }}
+          />
+        )}
+      </View>
+      {error && <Text accessibilityRole="alert" style={styles.text}>{error}</Text>}
+      {enabled === null && (
+        <Pressable accessibilityRole="button" disabled={busy} onPress={() => void retryRead()} style={styles.retry}>
+          <Text style={styles.text}>Tentar novamente</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  retry: { minHeight: 48, justifyContent: 'center' },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

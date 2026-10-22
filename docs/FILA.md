@@ -513,11 +513,20 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - a retomada da 6 (`7615827`) passou os 15 validadores no segundo run,
       após corrigir o mock consumidor; a revisão independente aprovou a
       correção;
-    - a tarefa 7 foi medida, **com aceite pendente**: Pixel fora da tela no
-      nativo, Maestro 2 PASS / 1 FAIL (dia2 passou depois do vencimento real); AVD ~59,88–59,93 FPS estimados, apenas
-      três nós desbloqueados. A revisão final e a onda de correção continuam
-      abertas ([evidência nativa](evidence/2026-10-22-trilha-medalhao.md));
-      planos 3 e 5 continuam não iniciados.
+    - em 2026-10-23, o dono pediu pausa. As correções finais estão
+      implementadas e receberam parecer favorável de fonte; o aceite da7 e
+      a revisão final do Plano 2 continuam pendentes;
+    - primeira execução e vidas iOS passaram. Segundo dia Android terminou
+      a revisão3/3 e falhou na assert final; o enquadramento foi corrigido,
+      contrato37/37 e checkpoint complementar passaram. Falta rerun integral
+      em vencimento natural, sem relógio/dados injetados;
+    - falta resolver a prova inconclusiva do momento Android, revisar os
+      vídeos de texto máximo/redução e medir40 concluídas (Storybook pronto,
+      benchmark não executado). Não há novo defeito de produto confirmado
+      pelo vídeo Android de baixa densidade;
+    - [evidência da pausa](evidence/2026-10-22-trilha-medalhao-final.md) e
+      [prompt de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23).
+      Planos 3 e5 não iniciados; Plano 4 só depois do3.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;

@@ -103,4 +103,16 @@ tags:
 # Desde `a366295` (2026-10-12), o nó de revisão com a próxima data no futuro
 # anuncia essa data no lugar de "Concluído" (`getStatusCopy`, em
 # `nodeCopy.ts`). O ícone continua o selo de concluído.
+# O retorno ancora a próxima aula. Com título e data visíveis, a medalha da
+# revisão pode ficar acima do viewport; reencontre o mesmo rótulo completo.
+# O prazo curto de assentamento evita esperar o laço decorativo do Android.
+- assertVisible:
+    id: journey-trail
+- scrollUntilVisible:
+    element:
+      text: '^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$'
+    direction: UP
+    centerElement: true
+    visibilityPercentage: 100
+    waitToSettleTimeoutMs: 500
 - assertVisible: '^Revisar Fundamentos de Radiologia\. Disponível em \d{2}/\d{2}/\d{4} às \d{2}:\d{2}\.$'

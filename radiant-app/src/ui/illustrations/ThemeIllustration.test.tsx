@@ -245,6 +245,22 @@ describe('ThemeIllustration', () => {
     expect(animation.seekFrame).not.toHaveBeenCalledWith(0);
   });
 
+  it('fora do viewport mantém a pose, desmonta o Skottie e só volta ao laço ao ficar visível', () => {
+    const animation = fakeAnimation();
+    make.mockReturnValue(animation);
+    illustrationAssets.tubo = { meta: { posterFrame: 37 } };
+    const screen = render(<ThemeIllustration theme="tubo" state="done" size={96} playing={false} />);
+    expect(screen.queryByTestId('skia-Skottie', HIDDEN)).toBeNull();
+    expect(screen.getByTestId('skia-Picture', HIDDEN)).toBeTruthy();
+    expect(animation.calls).toEqual(['seek:37', 'render:luz=100']);
+    screen.rerender(<ThemeIllustration theme="tubo" state="done" size={96} playing />);
+    expect(screen.getByTestId('skia-Skottie', HIDDEN)).toBeTruthy();
+    expect(screen.queryByTestId('skia-Picture', HIDDEN)).toBeNull();
+    screen.rerender(<ThemeIllustration theme="tubo" state="done" size={96} playing={false} />);
+    expect(screen.queryByTestId('skia-Skottie', HIDDEN)).toBeNull();
+    expect(screen.getByTestId('skia-Picture', HIDDEN)).toBeTruthy();
+  });
+
   it('antes de saber a preferência de movimento, não começa a animar', () => {
     make.mockReturnValue(fakeAnimation());
     setReducedMotion({ reducedMotionEnabled: false, resolved: false });

@@ -104,6 +104,31 @@ describe('JourneyStageHeader — o aluno se localiza também pelo número', () =
       expect(Object.keys(stripe).filter((key) => key.startsWith('shadow'))).toEqual([]);
     });
 
+    it.each([0.6, 0.8, 1])('a faixa composta preserva 4,5:1 em toda a caixa real da contagem com preenchimento %f', ratio => {
+      const screen = renderHeader({ completed: ratio * 20, total: 20 });
+      layout(screen, 300);
+      const count = screen.getByText(`${ratio * 20} de 20`);
+      const bounds = { x: 110, y: 0, width: 80, height: 22 };
+      // A caixa vem do layout nativo do Text (inclui o fontScale), não de
+      // estimativa por número de caracteres.
+      if (count.props.onLayout) fireEvent(count, 'layout', { nativeEvent: { layout: bounds } });
+      const stripe = screen.getByTestId('journey-stage-progress-highlight');
+      const style = StyleSheet.flatten(stripe.props.style);
+      const fill = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style);
+      const foreground = StyleSheet.flatten(count.props.style).color;
+      const segments = screen.queryAllByTestId(/^journey-stage-progress-highlight-(left|right)$/u);
+      const coloredRegions = segments.length > 0 ? segments.map(piece => {
+        const s = StyleSheet.flatten(piece.props.style);
+        return { left: style.left + s.left, right: style.left + s.left + s.width };
+      }) : [{ left: style.left, right: 300 * ratio - style.right }];
+      // A faixa a28% mede só3,368:1. Ela deve parar antes dos glifos, deixando
+      // o azul puro (5,75:1) atrás de toda a caixa, com folga de4pt.
+      expect(coloredRegions.every(region => region.right <= bounds.x - 4 || region.left >= bounds.x + bounds.width + 4)).toBe(true);
+      expect(contrastRatio(foreground, fill.backgroundColor)).toBeGreaterThanOrEqual(4.5);
+      expect(style.opacity).toBe(0.28);
+      expect(coloredRegions.some(region => region.right > region.left)).toBe(true);
+    });
+
     it('não existe antes de a barra ser medida', () => {
       const screen = renderHeader({ completed: 10, total: 20 });
 

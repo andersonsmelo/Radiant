@@ -847,9 +847,13 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
     return { id, unitId: 'u1', type: 'lesson', title: `Aula ${id}`, status, blockId: `block-${id}` };
   }
   /** O aluno com `recommended` como próxima aula e `completed` concluídas. */
-  function estado(recommended: string, completed: string[]) {
+  function estado(recommended: string, completed: string[], futureReview = false) {
     const nodes = ['l1', 'l2', 'l3'].map((id) =>
       lesson(id, completed.includes(id) ? 'completed' : id === recommended ? 'available' : 'locked'));
+    if (futureReview) nodes.splice(1, 0, {
+      id: 'l1-review', unitId: 'u1', type: 'review', title: 'Revisar Aula l1', status: 'locked',
+      reviewAvailableAtMs: new Date(2035, 8, 20, 13, 56).getTime(),
+    } as never);
     const snapshot = createSnapshot('track-radiology-foundations', `Aula ${recommended}`, recommended, `block-${recommended}`);
     snapshot.track.units = [{ id: 'u1', title: 'Fundamentos', nodes }];
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue({
@@ -902,6 +906,22 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
     // O botão existe durante o momento: o momento só anima a entrada dele.
     expect(screen.getByTestId('journey-recommendation-action')).toBeTruthy();
     await waitFor(() => expect(momento()).toBeNull(), { timeout: TRAIL_MOMENT_MS + 1000 });
+  });
+
+  it('percorre L1 → revisão futura → L2 sem encurtar a volta real para15pt', async () => {
+    estado('l1', []);
+    renderWithProviders(<JourneyHomeScreen />);
+    await screen.findByRole('button', { name: 'Aula l1. Próximo passo.' }, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    estado('l2', ['l1'], true);
+    voltarParaATela();
+    await screen.findByRole('button', { name: 'Aula l2. Próximo passo.' });
+    medirMomento('l2');
+    const hidden = { includeHiddenElements: true };
+    expect(screen.getByText('Disponível em 20/09/2035 às 13:56', hidden)).toBeTruthy();
+    expect(screen.getAllByTestId('journey-moment-segment-out', hidden)).toHaveLength(2);
+    expect(screen.getAllByTestId('journey-moment-segment-in', hidden)).toHaveLength(2);
+    expect(screen.getByTestId('journey-recommendation-action')).toBeTruthy();
+    await waitFor(() => expect(screen.queryAllByTestId(/^journey-moment-segment-/u, hidden)).toHaveLength(0), { timeout: TRAIL_MOMENT_MS + 1000 });
   });
 
   it('não toca de novo quando a aba ganha foco com o mesmo recomendado', async () => {
