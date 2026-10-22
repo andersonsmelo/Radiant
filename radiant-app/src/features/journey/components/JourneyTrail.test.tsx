@@ -1,16 +1,46 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { act, fireEvent, render } from '@testing-library/react-native';
-import { galaxyColors } from '../../../ui/theme';
+import { Path } from 'react-native-svg';
+import { galaxyColors, medalColors } from '../../../ui/theme';
 import { JourneyTrail } from './JourneyTrail';
+import { JourneyMedal } from './JourneyMedal';
+import { JourneyPathSegment } from './JourneyPathSegment';
 import type { CurriculumSegment } from '../services/JourneyCurriculumService';
-import type { JourneyNodeStatus } from '../../../types/journey';
+import type { JourneyNode, JourneyNodeStatus, JourneyUnit } from '../../../types/journey';
+import type { LessonStars } from '../../quiz/services/resolveLessonStars';
 
-function unit(id: string, title: string, statuses: JourneyNodeStatus[]) {
+// Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
+// `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
+const mockWindow = { width: 402, height: 874, scale: 3, fontScale: 1 };
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: () => mockWindow,
+}));
+afterEach(() => {
+  mockWindow.fontScale = 1;
+});
+
+jest.mock('../../../components/ui/DecorativeIcon', () => ({ DecorativeIcon: () => null }));
+// O Jest não rasteriza Skia nem toca Lottie: a ilustração da medalha é um dublê.
+jest.mock('../../../ui/illustrations/ThemeIllustration', () => ({ ThemeIllustration: () => null }));
+// A preferência de "reduzir movimento" resolve depois do primeiro quadro; aqui
+// ela já nasce resolvida, para o anel da próxima não atualizar fora do `act`.
+jest.mock('../../../ui/accessibility/useReducedMotionPreference', () => ({
+  useReducedMotionPreference: jest.fn(() => false),
+  useReducedMotionPreferenceState: jest.fn(() => ({ reducedMotionEnabled: false, resolved: true })),
+}));
+
+// O rótulo do título fica fora da árvore de acessibilidade (a medalha já o
+// diz), e a biblioteca de testes, por padrão, não acha o que está escondido.
+const HIDDEN = { includeHiddenElements: true };
+
+function unit(id: string, title: string, statuses: JourneyNodeStatus[], extra: Partial<JourneyUnit> = {}) {
   return {
     id,
     title,
-    nodes: statuses.map((status, index) => ({
+    ...extra,
+    nodes: statuses.map((status, index): JourneyNode => ({
       id: `${id}-node-${index}`,
       unitId: id,
       type: 'lesson' as const,
@@ -37,37 +67,50 @@ function segment(
   };
 }
 
-/** O estado de cada segmento da linha, de cima para baixo. */
-function spineStates(screen: ReturnType<typeof render>): string[] {
-  return screen
-    .getAllByTestId('journey-spine', { includeHiddenElements: true })
-    .map((spine) =>
-      StyleSheet.flatten(spine.props.style).backgroundColor === galaxyColors.nodeCompletedAccent
-        ? 'percorrido'
-        : 'pendente',
-    );
-}
-
-jest.mock('../../../components/ui/DecorativeIcon', () => ({ DecorativeIcon: () => null }));
-
 const onNodePress = jest.fn();
 const isNodeDisabled = (node: { status: JourneyNodeStatus }) => node.status === 'locked';
 
-function renderTrail(segments: CurriculumSegment[], recommendedNodeId?: string) {
+type TrailProps = Partial<React.ComponentProps<typeof JourneyTrail>>;
+
+function renderTrail(segments: CurriculumSegment[], recommendedNodeId?: string, props: TrailProps = {}) {
   return render(
     <JourneyTrail
       segments={segments}
       recommendedNodeId={recommendedNodeId}
       onNodePress={onNodePress}
       isNodeDisabled={isNodeDisabled as never}
+      {...props}
     />,
   );
 }
 
+/** A lista mede 400 de largura: meia-largura 200, deslocamentos de 44 e 60. */
+function medirLargura(screen: ReturnType<typeof render>, width = 400) {
+  fireEvent(screen.getByTestId('journey-trail'), 'layout', {
+    nativeEvent: { layout: { x: 0, y: 0, width, height: 800 } },
+  });
+}
+
+function pathSegments(screen: ReturnType<typeof render>) {
+  return screen.UNSAFE_getAllByType(JourneyPathSegment).map((element) => element.props as React.ComponentProps<typeof JourneyPathSegment>);
+}
+
+function medalProps(screen: ReturnType<typeof render>, nodeId: string) {
+  const medal = screen.UNSAFE_getAllByType(JourneyMedal).find((element) => element.props.node.id === nodeId);
+  if (!medal) throw new Error(`medalha ${nodeId} não encontrada`);
+  return medal.props as React.ComponentProps<typeof JourneyMedal>;
+}
+
+function offsetOf(screen: ReturnType<typeof render>, nodeId: string): number {
+  const style = StyleSheet.flatten(screen.getByTestId(`journey-anchor-${nodeId}`, HIDDEN).props.style);
+  const transform = (style.transform ?? []) as { translateX?: number }[];
+  return transform.find((entry) => entry.translateX !== undefined)?.translateX ?? 0;
+}
+
 describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () => {
-  // O JourneyMap que este componente substitui quebrava o percurso em seções:
-  // uma por unidade, cada uma com título próprio e trilho próprio, tudo dentro
-  // de um card com borda. O aluno via trechos separados, não um caminho.
+  // O JourneyMap que este componente substituiu quebrava o percurso em seções:
+  // uma por unidade, cada uma com título próprio e trilho próprio. O aluno via
+  // trechos separados, não um caminho.
 
   it('renderiza os nós de todos os segmentos, na ordem', () => {
     const screen = renderTrail([
@@ -75,9 +118,8 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
       segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['locked'])], { unlocked: false, order: 1 }),
     ]);
 
-    expect(screen.getByText('Unidade 1 — nó 1')).toBeTruthy();
-    expect(screen.getByText('Unidade 1 — nó 2')).toBeTruthy();
-    expect(screen.getByText('Unidade 2 — nó 1')).toBeTruthy();
+    const titles = screen.getAllByText(/— nó \d$/u, HIDDEN).map((text) => text.props.children);
+    expect(titles).toEqual(['Unidade 1 — nó 1', 'Unidade 1 — nó 2', 'Unidade 2 — nó 1']);
   });
 
   it('não acrescenta navegação de unidades ao percurso legado de uma unidade por área', () => {
@@ -89,23 +131,6 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.queryByText('Unidade 1')).toBeNull();
     expect(screen.queryByText('Unidade 2')).toBeNull();
-  });
-
-  it('alterna os lados de forma contínua, sem reiniciar a cada unidade', () => {
-    // Duas unidades de um nó cada. Se o índice reiniciasse por unidade, os dois
-    // nós cairiam do mesmo lado; num caminho só, o segundo alterna.
-    const screen = renderTrail([
-      segment('t1', 'Fundamentos', [
-        unit('u1', 'Unidade 1', ['completed']),
-        unit('u2', 'Unidade 2', ['available']),
-      ]),
-    ]);
-
-    const primeiro = screen.getByTestId('journey-trail-row-u1-node-0');
-    const segundo = screen.getByTestId('journey-trail-row-u2-node-0');
-
-    expect(primeiro.props.accessibilityValue?.text).toBe('esquerda');
-    expect(segundo.props.accessibilityValue?.text).toBe('direita');
   });
 
   it('mostra a faixa de próximo nível entre segmentos, e não depois do último', () => {
@@ -135,99 +160,7 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.queryAllByTestId(/^journey-level-band-/)).toHaveLength(0);
   });
-  it('preenche a linha até a posição do aluno, com UMA fronteira', () => {
-    const screen = renderTrail(
-      [
-        segment('t1', 'Fundamentos', [
-          unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked']),
-        ]),
-      ],
-      'u1-node-2',
-    );
 
-    expect(spineStates(screen)).toEqual([
-      'percorrido',
-      'percorrido',
-      'percorrido',
-      'pendente',
-    ]);
-  });
-
-  it('não listra a linha quando um nó pendente aparece no meio do trecho já andado', () => {
-    // O defeito que este caso trava, visto no simulador em 2026-08-21: colorir
-    // cada trecho pelo estado do nó vizinho produzia verde-cinza-verde-cinza,
-    // porque revisões bloqueadas se intercalam entre lições concluídas. Uma
-    // linha listrada não responde "onde eu estou" — a informação está na
-    // FRONTEIRA, e duas ou mais fronteiras não são fronteira nenhuma.
-    const screen = renderTrail(
-      [
-        segment('t1', 'Fundamentos', [
-          unit('u1', 'Unidade 1', ['completed', 'locked', 'completed', 'available', 'locked']),
-        ]),
-      ],
-      'u1-node-3',
-    );
-
-    const estados = spineStates(screen);
-    expect(estados).toEqual([
-      'percorrido',
-      'percorrido',
-      'percorrido',
-      'percorrido',
-      'pendente',
-    ]);
-
-    const trocas = estados.filter((estado, i) => i > 0 && estado !== estados[i - 1]);
-    expect(trocas).toHaveLength(1);
-  });
-
-  it('sem nó recomendado, preenche até o último concluído', () => {
-    const screen = renderTrail([
-      segment('t1', 'Fundamentos', [
-        unit('u1', 'Unidade 1', ['completed', 'completed', 'locked']),
-      ]),
-    ]);
-
-    expect(spineStates(screen)).toEqual(['percorrido', 'percorrido', 'pendente']);
-  });
-
-  it('dá um segmento de linha a cada nó, para que eles se encostem', () => {
-    // A linha é contínua porque cada nó carrega o seu pedaço e transborda para a
-    // folga seguinte. Um nó sem segmento é um corte visível na linha.
-    const screen = renderTrail([
-      segment('t1', 'Fundamentos', [
-        unit('u1', 'Unidade 1', ['completed', 'available']),
-        unit('u2', 'Unidade 2', ['locked']),
-      ]),
-    ]);
-
-    expect(spineStates(screen)).toHaveLength(3);
-  });
-
-  it('não desenha linha nenhuma num percurso de um nó só', () => {
-    const screen = renderTrail([
-      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
-    ]);
-
-    expect(
-      screen.queryAllByTestId('journey-spine', { includeHiddenElements: true }),
-    ).toHaveLength(0);
-  });
-
-  it('liga a linha ATRAVÉS da fronteira entre trilhas', () => {
-    // A costura entre segmentos é onde o percurso mais corre risco de voltar a
-    // parecer dois pedaços.
-    const screen = renderTrail(
-      [
-        segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed'])]),
-        segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['available'])], { order: 1 }),
-      ],
-      'u2-node-0',
-    );
-
-    expect(spineStates(screen)).toEqual(['percorrido', 'percorrido']);
-  });
-});
   it('usa uma lista virtualizada como superfície rolável', () => {
     const screen = renderTrail([
       segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available'])]),
@@ -235,6 +168,322 @@ describe('JourneyTrail — um caminho só, do começo ao fim do currículo', () 
 
     expect(screen.UNSAFE_getByType(FlatList)).toBeTruthy();
   });
+});
+
+describe('JourneyTrail — o zigue-zague', () => {
+  it('desloca as medalhas no ciclo da prancheta, pela meia-largura medida', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked', 'locked'])]),
+    ], 'u1-node-2');
+    medirLargura(screen);
+
+    expect([0, 1, 2, 3, 4].map((index) => offsetOf(screen, `u1-node-${index}`)))
+      .toEqual([0, 44, 60, 44, 0].map((value) => expect.closeTo(value, 6)));
+  });
+
+  it('segue o índice do percurso inteiro, sem reiniciar a cada unidade', () => {
+    // Duas unidades de um nó cada. Se o índice reiniciasse por unidade, os dois
+    // nós cairiam no centro; num caminho só, o segundo já sai para o lado.
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [
+        unit('u1', 'Unidade 1', ['completed']),
+        unit('u2', 'Unidade 2', ['available']),
+      ]),
+    ]);
+    medirLargura(screen);
+
+    expect(offsetOf(screen, 'u1-node-0')).toBe(0);
+    expect(offsetOf(screen, 'u2-node-0')).toBeCloseTo(44, 6);
+  });
+
+  it('cada trecho sai do deslocamento do nó anterior e chega ao do seguinte', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked', 'locked'])]),
+    ], 'u1-node-2');
+    medirLargura(screen);
+
+    const pairs = pathSegments(screen).map(({ fromX, toX }) => [Math.round(fromX), Math.round(toX)]);
+    expect(pairs).toEqual([[0, 44], [44, 60], [60, 44], [44, 0]]);
+  });
+});
+
+describe('JourneyTrail — o caminho percorrido', () => {
+  it('com cinco nós desenha quatro trechos, os dois primeiros percorridos quando o recomendado é o terceiro', () => {
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'available', 'locked', 'locked'])])],
+      'u1-node-2',
+    );
+
+    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, true, false, false]);
+  });
+
+  it('não listra o caminho quando um nó pendente aparece no meio do trecho já andado', () => {
+    // O defeito que este caso trava, visto no simulador em 2026-08-21: colorir
+    // cada trecho pelo estado do nó vizinho produzia aceso-apagado-aceso,
+    // porque revisões bloqueadas se intercalam entre lições concluídas. A
+    // informação está na FRONTEIRA, e duas fronteiras não são fronteira nenhuma.
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'locked', 'completed', 'available', 'locked'])])],
+      'u1-node-3',
+    );
+
+    const estados = pathSegments(screen).map((props) => props.traveled);
+    expect(estados).toEqual([true, true, true, false]);
+    expect(estados.filter((estado, i) => i > 0 && estado !== estados[i - 1])).toHaveLength(1);
+  });
+
+  it('sem nó recomendado, acende até o último concluído', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'completed', 'locked'])]),
+    ]);
+
+    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, false]);
+  });
+
+  it('não desenha caminho nenhum num percurso de um nó só', () => {
+    const screen = renderTrail([
+      segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available'])]),
+    ]);
+
+    expect(screen.UNSAFE_queryAllByType(JourneyPathSegment)).toHaveLength(0);
+  });
+
+  it('liga o caminho ATRAVÉS da fronteira entre trilhas e entre unidades', () => {
+    // A costura entre segmentos é onde o percurso mais corre risco de voltar a
+    // parecer dois pedaços.
+    const screen = renderTrail(
+      [
+        segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed']), unit('u3', 'Unidade 3', ['completed'])]),
+        segment('t2', 'Tórax', [unit('u2', 'Unidade 2', ['available'])], { order: 1 }),
+      ],
+      'u2-node-0',
+    );
+
+    expect(pathSegments(screen).map((props) => props.traveled)).toEqual([true, true]);
+  });
+});
+
+describe('JourneyTrail — a medalha de cada nó', () => {
+  it('o recomendado pulsa, mede 40 e diz "<título>. Próximo passo."', () => {
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])],
+      'u1-node-1',
+    );
+
+    const next = medalProps(screen, 'u1-node-1');
+    expect(next.pulsing).toBe(true);
+    expect(next.state).toBe('next');
+    expect(next.size).toBe(40);
+    expect(screen.getByRole('button', { name: 'Unidade 1 — nó 2. Próximo passo.' })).toBeTruthy();
+    expect(medalProps(screen, 'u1-node-0').pulsing).toBe(false);
+    expect(medalProps(screen, 'u1-node-2').pulsing).toBe(false);
+    expect(medalProps(screen, 'u1-node-0').state).toBe('done');
+    expect(medalProps(screen, 'u1-node-2').state).toBe('locked');
+  });
+
+  it('o rótulo da revisão devida continua "Revisar <título>. Revisão devida · 2 devidas."', () => {
+    const review = unit('u1', 'Unidade 1', ['completed', 'due-review']);
+    review.nodes[1] = { ...review.nodes[1], type: 'review', title: 'Revisar Fundamentos de Radiologia' };
+    const screen = renderTrail([segment('t1', 'Fundamentos', [review])], 'u1-node-1', {
+      recommendationReason: 'due-review',
+      dueReviewCount: 2,
+    });
+
+    expect(screen.getByRole('button', { name: 'Revisar Fundamentos de Radiologia. Revisão devida · 2 devidas.' })).toBeTruthy();
+  });
+
+  it('explica a retomada sem substituir o título da lição', () => {
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'resumable'])])],
+      'u1-node-1',
+      { recommendationReason: 'paused-lesson' },
+    );
+
+    expect(screen.getByRole('button', { name: 'Unidade 1 — nó 2. Continuar de onde parou.' })).toBeTruthy();
+  });
+
+  it('mostra o instante da revisão futura ao leitor de tela e mantém o botão desativado', () => {
+    const clock = jest.spyOn(Date, 'now').mockReturnValue(new Date(2026, 9, 12, 23, 59).getTime());
+    try {
+      const pending = unit('u1', 'Unidade 1', ['completed', 'locked']);
+      pending.nodes[1] = {
+        ...pending.nodes[1],
+        type: 'review',
+        title: 'Revisar Fundamentos de Radiologia',
+        reviewAvailableAtMs: new Date(2026, 9, 13, 0, 5).getTime(),
+      };
+      const screen = renderTrail([segment('t1', 'Fundamentos', [pending])]);
+      const button = screen.getByRole('button', {
+        name: 'Revisar Fundamentos de Radiologia. Disponível em 13/10/2026 às 00:05.',
+      });
+
+      expect(button.props.accessibilityState.disabled).toBe(true);
+    } finally {
+      clock.mockRestore();
+    }
+  });
+
+  it('cada nó é um botão só: o título, o caminho e o encaixe do Pixel ficam fora do leitor de tela', () => {
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])],
+      'u1-node-1',
+      { pixelSlot: (nodeId) => (nodeId === 'u1-node-1' ? <View testID="pixel-no-encaixe" /> : null) },
+    );
+
+    expect(screen.getAllByRole('button')).toHaveLength(3);
+    expect(screen.queryByText('Unidade 1 — nó 1')).toBeNull();
+    expect(screen.getByText('Unidade 1 — nó 1', HIDDEN)).toBeTruthy();
+    expect(screen.queryByTestId('journey-path-segment')).toBeNull();
+    expect(screen.getAllByTestId('journey-path-segment', HIDDEN)).toHaveLength(2);
+    expect(screen.queryByTestId('pixel-no-encaixe')).toBeNull();
+    expect(screen.getByTestId('pixel-no-encaixe', HIDDEN)).toBeTruthy();
+  });
+
+  it('não dispara navegação a partir de um nó bloqueado, e dispara do liberado', () => {
+    onNodePress.mockClear();
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available', 'locked'])])],
+      'u1-node-0',
+    );
+
+    const locked = screen.getByRole('button', { name: 'Unidade 1 — nó 2. Bloqueado.' });
+    expect(locked.props.accessibilityState.disabled).toBe(true);
+    fireEvent.press(locked);
+    expect(onNodePress).not.toHaveBeenCalled();
+
+    fireEvent.press(screen.getByRole('button', { name: 'Unidade 1 — nó 1. Próximo passo.' }));
+    expect(onNodePress).toHaveBeenCalledWith(expect.objectContaining({ id: 'u1-node-0' }));
+  });
+
+  it('não apaga o título do nó bloqueado com opacidade global', () => {
+    // `opacity` apagaria o título junto, e o contrato de contraste não pega
+    // isso porque calcula tokens, não runtime. O título continua legível: é o
+    // que permite decidir se vale a pena destravar aquele ponto.
+    const screen = renderTrail([segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['available', 'locked'])])]);
+    const title = screen.getByText('Unidade 1 — nó 2', HIDDEN);
+
+    for (let node: typeof title | null = title; node; node = node.parent) {
+      const style = StyleSheet.flatten(node.props.style);
+      expect(style?.opacity).toBeUndefined();
+    }
+    expect(StyleSheet.flatten(title.props.style).color).toBe(galaxyColors.textSecondary);
+  });
+
+  it('dá a cada medalha o tema do nó e, sem ele, o da unidade', () => {
+    const themed = unit('u1', 'Unidade 1', ['completed', 'available'], { theme: 'tubo' });
+    themed.nodes[1] = { ...themed.nodes[1], theme: 'tomografia' };
+    const screen = renderTrail([segment('t1', 'Fundamentos', [themed])]);
+
+    expect(medalProps(screen, 'u1-node-0').theme).toBe('tubo');
+    expect(medalProps(screen, 'u1-node-1').theme).toBe('tomografia');
+  });
+
+  it('o checkpoint traz o número da unidade dentro da área', () => {
+    const second = unit('u2', 'Segunda', ['available']);
+    second.nodes[0] = { ...second.nodes[0], type: 'checkpoint' };
+    const screen = renderTrail([segment('t1', 'Área', [unit('u1', 'Primeira', ['completed']), second])]);
+
+    expect(medalProps(screen, 'u2-node-0').unitNumber).toBe(2);
+  });
+});
+
+describe('JourneyTrail — estrelas', () => {
+  function withLessons() {
+    const lessons = unit('u1', 'Unidade 1', ['completed', 'completed', 'available']);
+    lessons.nodes = lessons.nodes.map((node, index) => ({ ...node, lessonId: `lesson-${index + 1}` as never }));
+    return [segment('t1', 'Fundamentos', [lessons])];
+  }
+
+  it('passa o recorde só às lições concluídas', () => {
+    const stars: Record<string, LessonStars> = { 'lesson-1': 2, 'lesson-3': 3 };
+    const screen = renderTrail(withLessons(), 'u1-node-2', { starsByLessonId: stars });
+
+    expect(medalProps(screen, 'u1-node-0').stars).toBe(2);
+    // Concluída sem tentativa registrada: ouro sem estrela, nunca zero estrelas.
+    expect(medalProps(screen, 'u1-node-1').stars).toBeUndefined();
+    // Não concluída: o recorde de uma tentativa antiga não aparece.
+    expect(medalProps(screen, 'u1-node-2').stars).toBeUndefined();
+  });
+
+  it('sem o mapa, nenhuma medalha desenha estrela', () => {
+    const screen = renderTrail(withLessons(), 'u1-node-2');
+
+    expect(medalProps(screen, 'u1-node-0').stars).toBeUndefined();
+  });
+});
+
+describe('JourneyTrail — o encaixe do Pixel', () => {
+  it('pergunta pelo encaixe de cada nó e desenha o que vier ao lado da medalha', () => {
+    const pixelSlot = jest.fn((nodeId: string) => (nodeId === 'u1-node-1' ? <View testID="pixel-no-encaixe" /> : null));
+    const screen = renderTrail(
+      [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available'])])],
+      'u1-node-1',
+      { pixelSlot },
+    );
+
+    expect(pixelSlot.mock.calls.map(([nodeId]) => nodeId)).toEqual(expect.arrayContaining(['u1-node-0', 'u1-node-1']));
+    const pixel = screen.getByTestId('pixel-no-encaixe', HIDDEN);
+    let insideAnchor = false;
+    for (let node = pixel.parent; node; node = node.parent) {
+      if (node.props.testID === 'journey-anchor-u1-node-1') insideAnchor = true;
+    }
+    expect(insideAnchor).toBe(true);
+  });
+});
+
+describe('JourneyPathSegment', () => {
+  function strokeOf(traveled: boolean) {
+    const screen = render(<JourneyPathSegment fromX={0} toX={44} height={40} traveled={traveled} />);
+    return screen.UNSAFE_getByType(Path).props;
+  }
+
+  it('pontilhado de traço 10, intervalo 18 e ponta redonda', () => {
+    const path = strokeOf(true);
+
+    expect(path.strokeWidth).toBe(10);
+    expect(path.strokeDasharray).toBe('1 18');
+    expect(path.strokeLinecap).toBe('round');
+  });
+
+  it('o percorrido é da cor da unidade, e o restante, apagado', () => {
+    expect(strokeOf(true).stroke).toBe(medalColors.unit.face);
+    expect(strokeOf(false).stroke).toBe(galaxyColors.surfaceMuted);
+  });
+
+  it('ocupa a altura pedida e fica fora do leitor de tela', () => {
+    const screen = render(<JourneyPathSegment fromX={-44} toX={0} height={40} traveled={false} />);
+    const view = screen.getByTestId('journey-path-segment', HIDDEN);
+
+    expect(StyleSheet.flatten(view.props.style).height).toBe(40);
+    expect(view.props.accessibilityElementsHidden).toBe(true);
+    expect(view.props.importantForAccessibility).toBe('no-hide-descendants');
+  });
+});
+
+// Achado 2 do gate H4 (2026-09-24): com texto grande, o zigue-zague partia as
+// palavras. Nos tamanhos grandes a trilha vira uma coluna centrada, sem
+// deslocamento, com o título sem limite de linhas.
+describe('JourneyTrail — texto grande', () => {
+  const trilha = () => [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])];
+
+  it('vira coluna: nenhuma medalha sai do centro e o caminho desce reto', () => {
+    mockWindow.fontScale = 1.65;
+    const screen = renderTrail(trilha(), 'u1-node-1');
+    medirLargura(screen);
+
+    expect([0, 1, 2].map((index) => offsetOf(screen, `u1-node-${index}`))).toEqual([0, 0, 0]);
+    expect(pathSegments(screen).every(({ fromX, toX }) => fromX === 0 && toX === 0)).toBe(true);
+    expect(screen.getByText('Unidade 1 — nó 2', HIDDEN).props.numberOfLines).toBeUndefined();
+  });
+
+  it('mantém o zigue-zague e o limite de linhas no tamanho padrão', () => {
+    const screen = renderTrail(trilha(), 'u1-node-1');
+    medirLargura(screen);
+
+    expect(offsetOf(screen, 'u1-node-1')).toBeCloseTo(44, 6);
+    expect(screen.getByText('Unidade 1 — nó 2', HIDDEN).props.numberOfLines).toBeGreaterThan(0);
+  });
+});
 
 // O cabeçalho que a tela passa à trilha rola junto com ela (achado 2 do gate H4:
 // fixo acima, com texto grande, ele ocupava a tela e escondia a trilha).
@@ -298,6 +547,17 @@ describe('JourneyTrail — abre no ponto do aluno', () => {
     // medição arrancaria o aluno do lugar para onde ele rolou.
     const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
     medirConteudo(screen);
+    medirConteudo(screen);
+
+    expect(scrollToIndex).toHaveBeenCalledTimes(1);
+  });
+
+  it('não volta a centralizar quando a largura medida desloca as medalhas', () => {
+    // A primeira medida da largura troca o zigue-zague estimado pelo real; isso
+    // muda posições, não a recomendação.
+    const screen = renderTrail(trilhaComDuasTrilhas(), 'u2-node-1');
+    medirConteudo(screen);
+    medirLargura(screen, 360);
     medirConteudo(screen);
 
     expect(scrollToIndex).toHaveBeenCalledTimes(1);
@@ -400,6 +660,15 @@ describe('JourneyTrail — navegação por unidades compostas', () => {
       expect(screen.getByText(/Bloqueada/)).toBeTruthy();
     } finally { scroll.mockRestore(); }
   });
+
+  it('o cabeçalho da unidade abre pelo título, sem etiqueta acima dele', () => {
+    const screen = renderTrail([segment('t', 'Área', [unit('u1', 'Primeira unidade', ['completed']), unit('u2', 'Segunda unidade', ['locked'])])]);
+    const header = screen.getByRole('header', { name: /Unidade 1 de 2: Primeira unidade/ });
+    const texts = header.findAllByType(Text).map((node: { props: { children?: unknown } }) => node.props.children);
+
+    expect(texts[0]).toBe('Primeira unidade');
+  });
+
   it('reinicia a recuperação de rolagem ao escolher outra unidade distante', async () => {
     jest.useFakeTimers();
     const scroll = jest.spyOn(FlatList.prototype, 'scrollToIndex').mockImplementation(() => {});

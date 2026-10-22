@@ -242,6 +242,18 @@ describe('JourneyMedal — a forma', () => {
     expect(circles(renderMedal({ state: 'locked', disabled: true }))[1].fill).toBe(medalColors.locked.face);
   });
 
+  it('concluída e bloqueada nunca dividem a cor, e a bloqueada nunca é azul', () => {
+    // Herdado do cartão que a medalha substituiu: até 2026-08-14 feito e
+    // impedido eram o mesmo cartão cinza, e o azul num nó bloqueado o fazia
+    // parecer clicável.
+    for (const type of ['lesson', 'review', 'checkpoint', 'reward'] as const) {
+      const done = circles(renderMedal({ node: { id: 'n1', type }, state: 'done' }))[1].fill;
+      const locked = circles(renderMedal({ node: { id: 'n1', type }, state: 'locked', disabled: true }))[1].fill;
+      expect(locked).not.toBe(done);
+      expect(locked).not.toBe(medalColors.unit.face);
+    }
+  });
+
   it('o raio padrão é 34 e o Svg cobre a medalha mais o lábio', () => {
     const svg = renderMedal().UNSAFE_getByType(Svg);
     expect(Number(svg.props.width)).toBe(68);
