@@ -209,6 +209,19 @@ export const feedbackColors = {
   error: { fill: '#FF8298', lip: '#C9566B', surface: '#2c1820', onFill: '#3a0d17' },
 } as const;
 
+// O Pixel, em três tons por material (base, sombra, luz), como as peças do
+// Medalhão. Valores `pixel-*` do DESIGN.md, aprovados na prancheta de
+// 2026-10-21. `glow` é o ciano do rosto e da luz da tela: só existe sobre
+// `visor`. O desenho vive em `PixelBody`; as cores vivem aqui.
+export const pixelColors = {
+  coat: { base: '#EEF2F9', shade: '#C3CDE0', light: '#FFFFFF' },
+  blue: { base: '#6FB2FF', shade: '#3F86E8', light: '#A9D2FF' },
+  visor: { base: '#0E1A3D', light: '#24366B' },
+  metal: { base: '#D6DDEA', shade: '#9AA6BF' },
+  stethoscope: '#1F2B57',
+  glow: '#5CF0FF',
+} as const;
+
 // Profundidade em pontos: lábio de 5 no botão e de 8 na medalha.
 export const depth = { lip: 5, medalLip: 8 } as const;
 
