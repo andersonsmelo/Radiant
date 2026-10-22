@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { JourneyReviewRow } from './JourneyReviewRow';
@@ -27,6 +28,14 @@ describe('JourneyReviewRow', () => {
     render(<JourneyReviewRow dueCount={2} onPress={jest.fn()} />);
 
     expect(screen.getByRole('button', { name: '2 itens para revisar. Revisar.' })).toBeTruthy();
+  });
+
+  it('escreve "Revisar" em frase, sem caixa alta', () => {
+    render(<JourneyReviewRow dueCount={2} onPress={jest.fn()} />);
+    const action = StyleSheet.flatten(screen.getByText('Revisar').props.style);
+
+    expect(action.textTransform).toBe('none');
+    expect(action.letterSpacing).toBe(0);
   });
 
   it('abre a revisão ao tocar na linha', () => {

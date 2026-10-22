@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
   },
   action: {
     ...typography.label,
+    // Ação em frase, não em etiqueta de caixa alta.
+    textTransform: 'none',
+    letterSpacing: 0,
+    fontSize: 13,
+    lineHeight: 18,
     marginLeft: 'auto',
     color: galaxyColors.navBlue,
     fontWeight: '700',

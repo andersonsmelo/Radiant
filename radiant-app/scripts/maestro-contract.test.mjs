@@ -521,10 +521,12 @@ test('keeps the journey trail on the dark galaxy theme it renders inside', async
   for (const file of files) {
     const source = await readAppFile(file);
 
-    // A proibição vale para TODO componente da trilha, sempre.
+    // A proibição vale para TODO componente da trilha, sempre. O `(?<!-)` deixa
+    // passar o caminho `ui/semantic-colors`, que é o papel escuro `galaxy` e não
+    // o token claro; `colors` sozinho continua proibido.
     assert.doesNotMatch(
       source,
-      /\bcolors\b/,
+      /(?<!-)\bcolors\b/,
       `${file} must not use the light \`colors\` theme inside the dark journey screen`
     );
 

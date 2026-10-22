@@ -22,6 +22,9 @@ type ReminderRowProps = {
 export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement | null {
   const [enabled, setEnabled] = useState(false);
   const [busy, setBusy] = useState(false);
+  // O interruptor só aparece depois da leitura do que o aluno já escolheu:
+  // nascer desligado e virar ligado mostrava um salto na tela.
+  const [settled, setSettled] = useState(false);
   // Uma escolha do aluno feita antes da leitura inicial terminar não pode ser
   // sobrescrita por ela.
   const touchedRef = useRef(false);
@@ -33,7 +36,10 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
       .then((decision) => {
         if (active && !touchedRef.current) setEnabled(decision === true);
       })
-      .catch((cause) => console.error('[ReminderRow] Falha ao ler o lembrete:', cause));
+      .catch((cause) => console.error('[ReminderRow] Falha ao ler o lembrete:', cause))
+      .finally(() => {
+        if (active) setSettled(true);
+      });
     return () => {
       active = false;
     };
@@ -74,7 +80,7 @@ export function ReminderRow({ visible }: ReminderRowProps): React.ReactElement |
     }
   }, []);
 
-  if (!visible) return null;
+  if (!visible || !settled) return null;
 
   return (
     <View style={styles.row}>

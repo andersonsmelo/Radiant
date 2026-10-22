@@ -53,6 +53,30 @@ describe('ReminderRow', () => {
     expect(screen.queryByText(/\d{1,2}h|\d{1,2}:\d{2}/u)).toBeNull();
   });
 
+  it('só desenha o interruptor depois de ler a escolha guardada, sem saltar de desligado a ligado', async () => {
+    let resolveOptIn: (value: boolean | null) => void = () => undefined;
+    push.getOptIn.mockReturnValue(new Promise((resolve) => { resolveOptIn = resolve; }));
+    render(<ReminderRow visible />);
+
+    expect(screen.queryByRole('switch', { name: 'Lembrete diário' })).toBeNull();
+
+    await act(async () => resolveOptIn(true));
+
+    expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(true);
+  });
+
+  it('se a leitura falhar, mostra o interruptor desligado', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    push.getOptIn.mockRejectedValue(new Error('storage'));
+    try {
+      await renderRow();
+
+      expect(screen.getByRole('switch', { name: 'Lembrete diário' }).props.value).toBe(false);
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
   it('abre ligado para quem já aceitou antes', async () => {
     push.getOptIn.mockResolvedValue(true);
     await renderRow();

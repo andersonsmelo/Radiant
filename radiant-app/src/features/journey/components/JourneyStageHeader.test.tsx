@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { JourneyStageHeader } from './JourneyStageHeader';
-import { galaxyColors } from '../../../ui/theme';
+import { semanticColors } from '../../../ui/semantic-colors';
 
 // Tamanho de fonte do sistema simulado: `fontScale` é o que o iOS entrega a
 // `useWindowDimensions` quando o aluno aumenta o texto (XXXL ≈ 1,35; AX5 ≈ 3,1).
@@ -24,6 +24,18 @@ function hostAncestors(node: HostNode): HostNode[] {
   return chain;
 }
 
+
+function luminance(hex: string): number {
+  const channels = [1, 3, 5].map((index) => {
+    const value = parseInt(hex.slice(index, index + 2), 16) / 255;
+    return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+}
+function contrastRatio(a: string, b: string): number {
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (light + 0.05) / (dark + 0.05);
+}
 
 function renderHeader(props: Partial<React.ComponentProps<typeof JourneyStageHeader>> = {}) {
   return render(
@@ -53,16 +65,85 @@ describe('JourneyStageHeader — o aluno se localiza também pelo número', () =
     ).toBeTruthy();
   });
 
-  it('desenha a barra de 22 pt com o "N de M" dentro e o brilho do verde de concluído', () => {
+  it('desenha a barra de 22 pt com o "N de M" dentro', () => {
     const screen = renderHeader();
     const track = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-track').props.style);
-    const fill = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style);
 
     expect(track.height).toBe(22);
-    expect(fill.shadowColor).toBe(galaxyColors.nodeCompletedAccent);
     expect(hostAncestors(screen.getByText('7 de 21'))).toContain(
       screen.getByTestId('journey-stage-progress-track'),
     );
+  });
+
+  it('preenche com o azul da ação primária, sem sombra nem brilho', () => {
+    const screen = renderHeader();
+    const fill = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style);
+
+    expect(fill.backgroundColor).toBe(semanticColors.galaxy.actionPrimary);
+    // DESIGN.md: sombra só na barra de abas; brilho sem fonte de luz é sinal de template.
+    expect(Object.keys(fill).filter((key) => key.startsWith('shadow') || key === 'elevation')).toEqual([]);
+    const count = StyleSheet.flatten(screen.getByText('7 de 21').props.style);
+    expect(Object.keys(count).filter((key) => key.startsWith('textShadow'))).toEqual([]);
+  });
+
+  describe('realce do preenchimento', () => {
+    function layout(screen: ReturnType<typeof renderHeader>, width: number) {
+      fireEvent(screen.getByTestId('journey-stage-progress-track'), 'layout', {
+        nativeEvent: { layout: { x: 0, y: 0, width, height: 22 } },
+      });
+    }
+
+    it('é a faixa branca a 28% da prancheta, dentro do preenchimento', () => {
+      const screen = renderHeader({ completed: 10, total: 20 });
+      layout(screen, 300);
+
+      const stripe = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-highlight').props.style);
+      expect(stripe).toMatchObject({ left: 8, right: 8, top: 4, height: 5, borderRadius: 2.5, opacity: 0.28 });
+      expect(hostAncestors(screen.getByTestId('journey-stage-progress-highlight')))
+        .toContain(screen.getByTestId('journey-stage-progress-fill'));
+      expect(Object.keys(stripe).filter((key) => key.startsWith('shadow'))).toEqual([]);
+    });
+
+    it('não existe antes de a barra ser medida', () => {
+      const screen = renderHeader({ completed: 10, total: 20 });
+
+      expect(screen.queryByTestId('journey-stage-progress-highlight')).toBeNull();
+    });
+
+    it('some quando o preenchimento é estreito demais para conter a faixa', () => {
+      // 1 de 21 numa barra de 300 pt: ~14 pt de preenchimento, menos que 8 + 8 de margem.
+      const screen = renderHeader({ completed: 1, total: 21 });
+      layout(screen, 300);
+
+      expect(screen.queryByTestId('journey-stage-progress-highlight')).toBeNull();
+    });
+
+    it('some com a barra vazia', () => {
+      const screen = renderHeader({ completed: 0, total: 21 });
+      layout(screen, 300);
+
+      expect(screen.queryByTestId('journey-stage-progress-highlight')).toBeNull();
+    });
+  });
+
+  it('escreve a contagem em minúsculas, em negrito, sem espaçamento e com algarismos tabulares', () => {
+    const screen = renderHeader();
+    const count = StyleSheet.flatten(screen.getByText('7 de 21').props.style);
+
+    expect(count.textTransform).toBe('none');
+    expect(count.letterSpacing).toBe(0);
+    expect(count.fontWeight).toBe('700');
+    expect(count.fontVariant).toContain('tabular-nums');
+  });
+
+  it('a cor da contagem passa de 4,5:1 sobre o preenchimento e sobre a trilha', () => {
+    const screen = renderHeader();
+    const count = StyleSheet.flatten(screen.getByText('7 de 21').props.style);
+    const fill = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-fill').props.style);
+    const track = StyleSheet.flatten(screen.getByTestId('journey-stage-progress-track').props.style);
+
+    expect(contrastRatio(count.color as string, fill.backgroundColor as string)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(count.color as string, track.backgroundColor as string)).toBeGreaterThanOrEqual(4.5);
   });
 
   it('preenche a barra na proporção do percurso', () => {
