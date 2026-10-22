@@ -7,8 +7,8 @@
         "screen": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -23,8 +23,8 @@
         "paddingVertical:10": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -33,8 +33,8 @@
         "screen": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -57,8 +57,8 @@
         "padding:10": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -71,8 +71,8 @@
         "borderRadius:6": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -81,8 +81,8 @@
         "screen": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -91,8 +91,8 @@
         "gap:6": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -101,8 +101,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -111,8 +111,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -121,8 +121,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -131,8 +131,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -153,8 +153,8 @@
         "gap:10": 2
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -163,8 +163,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -175,8 +175,8 @@
         "borderRadius:11": 2
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -185,8 +185,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -195,8 +195,8 @@
         "gap:6": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R1",
@@ -210,8 +210,8 @@
         "gap:3": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Token migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Token migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -220,8 +220,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -230,8 +230,8 @@
         "screen": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -240,8 +240,8 @@
         "container": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R2",
@@ -250,8 +250,8 @@
         "screen": 1
       },
       "owner": "design-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Primitive migration tracked in the continuation roadmap."
+      "expiresOn": "2026-11-30",
+      "reason": "Primitive migration tracked in the continuation roadmap. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     }
   ],
   "exceptions": [
@@ -259,15 +259,15 @@
       "rule": "R4",
       "file": "src/ui/characters/**",
       "owner": "motion-system",
-      "expiresOn": "2026-10-23",
-      "reason": "Character primitives own their local animation loop."
+      "expiresOn": "2026-11-30",
+      "reason": "Character primitives own their local animation loop. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     },
     {
       "rule": "R4",
       "file": "src/ui/components/StarfieldBackground.tsx",
       "owner": "motion-system",
-      "expiresOn": "2026-10-23",
-      "reason": "The background primitive owns its local animation loop."
+      "expiresOn": "2026-11-30",
+      "reason": "The background primitive owns its local animation loop. Renewed on 2026-10-21 until the end of plan 5 of the Medalhão track (FILA 67): the record is removed when its file is rebuilt, and whatever is left is re-reviewed then."
     }
   ]
 }
