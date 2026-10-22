@@ -1,3 +1,4 @@
+import type { IllustrationTheme } from '../ui/illustrations/illustrationPlayback';
 import type { QuizLessonId } from './quiz';
 
 export const JOURNEY_PROGRESS_SCHEMA_VERSION = 'journey-progress.v2';
@@ -39,6 +40,8 @@ export type JourneyNodeDefinition = {
     unlockRule?: UnlockRule;
     /** Apenas conquistas marcadas pelo catálogo composto deixam de ser portão. */
     optionalForProgression?: boolean;
+    /** Tema da ilustração da medalha. Sem ele, vale o da unidade (`resolveNodeTheme`). */
+    theme?: IllustrationTheme;
 };
 
 export type JourneyNode = JourneyNodeDefinition & {
