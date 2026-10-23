@@ -252,37 +252,37 @@ mudaram o texto do plano e pendências.
 
 - **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
   dela (`a294d97`). O aceno foi conferido no simulador.
-- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas**, commit
-  `7615827`; gate da 6 aprovado em 15/15 no segundo run
-  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
-  **Pausa solicitada pelo dono em 2026-10-23.** A onda final implementou as
-  correções do encaixe nativo de 48×46, reservas para texto grande, medidas
-  atuais de todas as linhas, percurso L1 → revisão futura → L2, pausa das
-  ilustrações fora do viewport, data visível, faixa da barra e reconciliação
-  do lembrete após falha. Fonte congelada com parecer independente favorável,
-  sem novo P1/P2 confirmado; 8 suítes/260 testes focais, lembrete 13/13,
-  contrato Maestro final 37/37, typecheck e lint passaram.
-  **Aceite nativo e revisão final do plano continuam pendentes.** iOS normal:
-  cabeça inteira passa sobre a área de outra célula sem corte; a origem L1
-  está fora da janela pela ancoragem existente. Vídeos de movimento reduzido
-  e texto máximo foram preservados, ainda sem revisão independente integral.
-  Android: cabeça/data visíveis e captura em fonte 200%; vídeo do momento
-  inconclusivo (142 quadros/19,5985 s, lacuna decisiva de 1,785622 s), sem causa
-  de produto demonstrada. Não corrigir uma hipótese de clipping/tempo sem
-  medir. O cenário sintético de 40 concluídas existe em Storybook, **não foi
-  medido**. Não reutilizar o benchmark antigo de três desbloqueadas como40.
-  Maestro atual: primeira execução iOS **PASS**, vidas esgotadas iOS **PASS**;
-  segundo dia Android **FAIL apenas na assert final após revisão3/3**, antes
-  de corrigir o enquadramento. O YAML passou a esperar a trilha e centralizar
-  a mesma medalha, preservando o seletor completo; checkpoint complementar
-  com assentamento500ms **PASS**, sem converter o flow inteiro em PASS.
-  Rerun integral exige revisão naturalmente devida, sem editar relógio/dados.
-  [Evidência consolidada e limites](evidence/2026-10-22-trilha-medalhao-final.md).
-  **Validação do fechamento:** não executada nesta última janela. A pedido
-  do dono, o run `run-1792746135751-b2cdee88` fecha sem validação para a pausa;
-  a retomada precisa executar o gate configurado antes de concluir a onda.
-  O [prompt versionado de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23)
-  contém a ordem das pendências, comandos e restrições.
+- **Plano 2 (trilha): tarefa 7 executada, exceto o segundo dia iOS (vence em
+  30/10/2026); aceite pendente** (medido
+  em 2026-10-23, writer `run-1792757625819-e00263ec`;
+  [evidência da retomada](evidence/2026-10-23-trilha-medalhao-retomada.md)).
+  - **Segundo dia integral Android: PASS** em relógio real, com o YAML
+    corrigido. O simulador iOS reservado só vence em 30/10/2026, às 14:07.
+  - **Momento Android demonstrado.** A lacuna de 2026-10-22 era da gravação. O
+    gravador do emulador a 60 fps, com a linha do tempo instrumentada, mostra o
+    percurso completo.
+  - **Defeito novo, não resolvido:** um quadro do estado final antes do
+    percurso, em 2 de 4 gravações sem instrumentação. O conserto parcial em
+    `useTrailMomentStyles` (a espera guardava o fim) tem teste vermelho e
+    parecer independente favorável, mas o quadro continua em 1 de 4 gravações
+    com o conserto. Com logs, ele não aparece (0 de 10), e a causa restante
+    não foi observada. Próximo instrumento: rastreamento nativo sem log JS.
+  - **40 concluídas:** só as medalhas visíveis avançam quadros (contador
+    nativo). Desempenho de ≈59,7 quadros/s e jank de 0,11–0,50%, em emulador
+    Debug.
+  - **Bloqueiam o aceite:** o quadro antecipado acima, o segundo dia iOS e a
+    **decisão do dono sobre o texto máximo**. No AX5 e no
+    Android a 200%, o texto da coluna quebra no meio da palavra
+    ("Princípio / s", "24/10/20 / 26", "Com / putadorizada"), e "Lembrete
+    diário" sai cortado no Android. Os corredores de 64 pt e a fonte integral
+    foram preservados, como pedido.
+  - **Gate de 2026-10-23:** `npm run quality` PASS na 2ª rodada (190 suítes,
+    2163 testes). A 1ª reprovou num teste de fluxo do momento que é frágil sob
+    carga e anterior ao conserto: com a CPU limitada, os três testes de fluxo
+    do momento falham também no HEAD. Isso é risco para o CI da PR #66.
+  - **Achado à parte:** o bundle do Storybook não monta na branch nem na
+    `main`, porque duas stories importam `lesson-xray-panel.png`, que não
+    existe.
 - **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,

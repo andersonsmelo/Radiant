@@ -6,6 +6,11 @@ em 2026-10-23. **Plano 2 e tarefa 7 não estão aprovados nem concluídos.**
 Este registro complementa a [coleta anterior](2026-10-22-trilha-medalhao.md);
 `docs/STATUS.md` continua sendo o único estado vivo.
 
+**Retomada em 2026-10-23:** a [evidência da retomada](2026-10-23-trilha-medalhao-retomada.md)
+mede as pendências abaixo. O segundo dia passou inteiro, a lacuna do vídeo
+Android era da gravação e as 40 concluídas foram medidas. Ela também registra o
+quadro final antecipado (corrigido) e o achado de texto máximo.
+
 ## Proveniência e escopo
 
 O produto publicado anteriormente era `7615827`; `83de747` registrou a coleta

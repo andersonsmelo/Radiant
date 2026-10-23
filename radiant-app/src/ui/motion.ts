@@ -786,11 +786,11 @@ export type TrailMomentRoute = {
  * `ready` espera as medidas nativas da origem e do destino; a virtualização
  * não gasta a duração antes de montar a cabeça. A rota é congelada na partida.
  * `holding` cobre o quadro antes da partida. Um estilo animado só chega à
- * vista no quadro seguinte à troca dos valores, e uma vista que acaba de montar
- * nasce com o primeiro estilo que o hook calculou, o final: sem a espera, o
- * Pixel, o trecho aceso e o botão piscariam no lugar final antes de voltar ao
- * começo. Quem desenha esconde essas camadas, com estilo comum, enquanto
- * `holding` for verdadeiro. `momentKey` recomeça o momento quando outro
+ * vista no quadro seguinte à troca dos valores: quem desenha esconde essas
+ * camadas, com estilo comum, enquanto `holding` for verdadeiro. E enquanto
+ * espera, os valores já estão no começo, e não no fim: tirar o `held` pode
+ * chegar à tela antes do reinício no thread de UI, e um fim guardado ali
+ * aparecia por um quadro (medido no AVD em 2026-10-23). `momentKey` recomeça o momento quando outro
  * começa sem o anterior ter acabado.
  *
  * O trecho é um estilo (opacidade da camada acesa sobre a apagada), e não
@@ -840,8 +840,24 @@ export function useTrailMomentStyles(
         };
 
         if (!animate) {
-            settle();
             setStartedKey(undefined);
+            setActiveRoute(undefined);
+            if (wantsMotion) {
+                // Esperando a medição, escondido: as camadas já guardam o
+                // começo. Tirar o `held` chega à tela antes do reinício no
+                // thread de UI, e um fim guardado aqui aparecia por um quadro
+                // (medido no AVD em 2026-10-23).
+                cancelAnimation(segment);
+                cancelAnimation(travel);
+                cancelAnimation(medal);
+                cancelAnimation(cta);
+                segment.value = 0;
+                travel.value = 0;
+                medal.value = 1;
+                cta.value = 0;
+                return undefined;
+            }
+            settle();
             if (finishAtOnce) onFinishedRef.current?.();
             return undefined;
         }
@@ -887,14 +903,15 @@ export function useTrailMomentStyles(
             clearTimeout(timer);
             settle();
         };
-    }, [animate, finishAtOnce, runKey, segment, travel, medal, cta]);
+    }, [animate, finishAtOnce, wantsMotion, runKey, segment, travel, medal, cta]);
 
     const outgoing = useAnimatedStyle(() => ({ opacity: segment.value }));
     const incoming = useAnimatedStyle(() => ({ opacity: segment.value }));
     const pixel = useAnimatedStyle(() => {
         const t = travel.value;
         if (!activeRoute || activeRoute.progress.length < 2) {
-            return { opacity: 1, transform: [{ translateX: 0 }, { translateY: 0 }] };
+            // Sem rota, só o fim tem lugar: o ponto de descanso ao lado da medalha.
+            return { opacity: t >= 1 ? 1 : 0, transform: [{ translateX: 0 }, { translateY: 0 }] };
         }
         return {
             opacity: activeRoute.fadeIn ? interpolate(t, [0, 0.15], [0, 1], Extrapolation.CLAMP) : 1,

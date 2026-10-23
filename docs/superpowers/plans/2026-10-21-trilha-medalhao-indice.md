@@ -13,7 +13,7 @@ não existem.
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
 | 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
-| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefas 0-6 implementadas e revisadas** em 2026-10-22; gate da 6 aprovado em 15/15; coleta parcial22/23; correções implementadas, fonte favorável; pausa23/10, aceite nativo e revisão final pendentes |
+| 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefa 7 executada, menos o segundo dia iOS (vence em 30/10)** (retomada de 2026-10-23: dia 2 Android PASS, momento Android demonstrado, quadro final antecipado só parcialmente corrigido (1 de 4 gravações), 40 concluídas medidas); **aceite pendente** da decisão do dono sobre o texto máximo na coluna |
 | 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | escrito, não começado |
 | 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | a escrever, quando o 3 terminar |
 | 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | escrito, não começado; recebeu entradas da execução (fim do plano) |
@@ -48,10 +48,19 @@ com o dono. Build e distribuição continuam com o dono.
 ## Como continuar (atualizado em 2026-10-23)
 
 **Ordem:**
-1. Plano 2: fonte corrigida e revisão de fonte favorável; fechar a evidência nativa pendente, conforme o prompt abaixo. Tarefa6 conserva gate15/15 anterior.
-2. Momento Android inconclusivo, revisão dos vídeosAX5/reduzido, benchmark 40/playback, segundo dia integral em vencimento natural e revisão final forte do Plano 2.
-3. Plano 3 (motor da aula-bancada), depois Plano 5 conforme dependências. Nenhum começou.
-4. Plano 4 só é escrito após o3; inventário depende do dono antes de remover conteúdo.
+1. Plano 2: o dono decide o texto máximo da coluna. No AX5 e no Android a 200%,
+   o texto quebra no meio da palavra, com os corredores de 64 pt preservados
+   ([retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md), seção 3).
+   Também faltam o quadro final antecipado no Android (1 de 4 gravações com o
+   conserto parcial, investigar por rastreamento nativo sem log JS) e o segundo
+   dia iOS, que vence em 30/10/2026. Com os três resolvidos, o Plano 2 fecha
+   com uma revisão final curta.
+2. Plano 3 (motor da aula-bancada), depois Plano 5, conforme as dependências.
+   Nenhum começou.
+3. Plano 4 só é escrito depois do 3; o inventário depende do dono antes de
+   remover conteúdo.
+4. À parte: o bundle do Storybook não monta (`lesson-xray-panel.png`
+   ausente na branch e na `main`).
 
 **Antes de cada plano, a varredura do texto.** O plano é o argumento, e a spec
 é a autoridade. Na execução dos planos 6 e 2, a varredura achou conflitos entre
@@ -75,6 +84,8 @@ plano. Leia esses registros antes de continuar.
 
 
 ## Prompt de continuidade — pausa de 2026-10-23
+
+**Executado na retomada de 2026-10-23.** O que restou está em "Como continuar", acima, e a medição está na [evidência da retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md). O texto abaixo é histórico.
 
 Copie a seção abaixo para a próxima IA. O STATUS é a fonte de estado vivo;
 este prompt organiza a retomada e não substitui medições atuais.

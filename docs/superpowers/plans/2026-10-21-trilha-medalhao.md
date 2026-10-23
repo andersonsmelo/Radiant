@@ -436,24 +436,24 @@ git commit -m "feat(trilha): o Pixel percorre o caminho até a próxima aula"
 **Arquivos:**
 - Criar: `docs/evidence/<data>-trilha-medalhao.md` e a pasta de capturas
 
-- [ ] **Passo 1: Simulador iOS**
+- [x] **Passo 1: Simulador iOS** (2026-10-22/23; revisão integral em 2026-10-23, com achado de texto máximo, ver retomada)
 
 Capture a trilha na abertura, depois de concluir uma aula (o momento, em três
 quadros), com "reduzir movimento" e com o maior tamanho de texto.
 
-- [ ] **Passo 2: AVD de entrada**
+- [x] **Passo 2: AVD de entrada** (2026-10-23, 40 concluídas no Storybook, três rodadas)
 
 No `radiant-entrada-api34`, com o medidor do G6 (PR #59), role a trilha de
 ponta a ponta com as medalhas visíveis. Registre fps médio e o pior quadro.
 Esta é também a remedição de quadros com rolagem que ficou do plano 1 (R22).
 Rode com a tela do Mac desbloqueada.
 
-- [ ] **Passo 3: Rodar os roteiros Maestro da trilha**
+- [ ] **Passo 3: Rodar os roteiros Maestro da trilha** (primeira execução e vidas iOS PASS em 2026-10-22; segundo dia Android PASS integral em 2026-10-23; o segundo dia iOS só vence em 30/10/2026)
 
 Run: `maestro test .maestro/radiant-1-4-primeira-execucao.yaml .maestro/radiant-1-4-segundo-dia.yaml .maestro/radiant-1-4-vidas-esgotadas.yaml`
 Expected: os três passam.
 
-- [ ] **Passo 4: Escrever a evidência e fazer commit**
+- [x] **Passo 4: Escrever a evidência e fazer commit** ([retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md))
 
 ```bash
 git add docs/evidence/
@@ -676,3 +676,40 @@ nenhuma memória nova foi gravada nesta onda. Reabrir contexto/sessão e writer
 para o próximo objetivo, depois de reconciliar a árvore e o remoto.
 
 Prompt completo: [continuidade](2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23).
+
+## Retomada — 2026-10-23
+
+Writer `run-1792757625819-e00263ec`, a partir do WIP `8ad10e8`. Medições e
+limites na [evidência da retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md).
+**Passos 1, 2 e 4 da tarefa 7 executados; no passo 3, falta o segundo dia
+iOS (30/10/2026). O Plano 2 não está aceito:** falta a decisão do dono sobre o
+texto máximo (item 3 abaixo).
+
+1. **Segundo dia integral, Android:** PASS em relógio real, com o YAML
+   corrigido, sem editar relógio, store ou snapshot. O simulador iOS reservado
+   tem revisão só em 30/10/2026 às 14:07.
+2. **Momento Android:** a lacuna de 2026-10-22 era da gravação
+   (`adb shell screenrecord` emite quadro só quando a tela muda). Com o
+   gravador do emulador a 60 fps e uma linha do tempo instrumentada, o
+   percurso aparece completo: âncora antes da partida, cabeça inteira entrando
+   pelo topo e chegada com o botão. Isso revelou outro defeito: em 2 de 4
+   gravações sem instrumentação, aparece um quadro do estado final antes do
+   percurso. Houve um **conserto parcial** em `useTrailMomentStyles`, com o
+   vermelho específico: durante a espera, as camadas guardam o começo; o Pixel
+   sem rota só aparece no fim; e a rota de um momento anterior é descartada.
+   **O quadro continua** em 1 de 4 gravações com o conserto. Com logs, o
+   defeito some (0 de 10), e a causa restante não foi observada. O próximo
+   instrumento é o rastreamento nativo sem log JS.
+3. **Texto máximo (AX5 e Android a 200%):** a cabeça está inteira, mas o
+   texto da coluna quebra no meio da palavra ("Princípio / s", "24/10/20 / 26",
+   "Com / putadorizada"), e "Lembrete diário" sai cortado no Android. A causa
+   provável é a largura que sobra entre os corredores de 64 pt. **Decisão do
+   dono:** os corredores e a fonte integral não foram mexidos, porque o prompt
+   da retomada manda preservá-los.
+4. **40 concluídas:** um contador nativo no thread de UI prova que só as
+   medalhas com corpo visível avançam quadros, nenhuma fora do conjunto. Três
+   rodadas sem instrumentação deram ≈59,7 quadros/s, jank de 0,11–0,50% no
+   gfxinfo e pior quadro de 50 ms, em emulador Debug.
+5. **Achado à parte:** o bundle do Storybook não monta na branch nem na
+   `main`, porque duas stories importam `lesson-xray-panel.png`, que não existe.
+

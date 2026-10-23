@@ -1,0 +1,13 @@
+Playback das ilustrações com 40 medalhas concluídas — Storybook Trilha/JourneyTrail/QuarentaConcluidas, AVD radiant-entrada-api34, 2026-10-23 ~09:05 -03.
+Cenário sintético (40 nós 'completed', cinco temas), sem ler/gravar progresso. Debug, emulador.
+Fonte: cópia descartável em 8ad10e8 + instrumentacao-playback.patch (contador no thread de UI: useAnimatedReaction sobre o relógio de cada ilustração, lido a cada 1 s; 'pb-state' registra playing/still/running por medalha) + storybook-asset-stub.patch.
+Sem o stub, o bundle do Storybook não monta: ComparisonStepRenderer/HotspotStepRenderer.stories.tsx importam ../assets/lesson-xray-panel.png, ausente da branch e da origin/main (achado à parte).
+Conjunto visível = cálculo de useVisibleMedals (corpo da medalha dentro da janela), registrado como visible-calc.
+
+Percurso: 4 s parado no topo, 26 deslizes para baixo, 4 s, 26 para cima, 4 s; depois paradas de 6 s no fim e no meio.
+janela 74.4 s; eventos de ticks 1090; medalhas que avançaram quadros 40/40; violações (avançou fora do conjunto visível da janela) 0
+
+Paradas (janela de 6 s depois de 2 s de assentamento; um único conjunto visível na janela):
+  fim: visíveis ['benchmark-medal-36', 'benchmark-medal-37', 'benchmark-medal-38', 'benchmark-medal-39', 'benchmark-medal-40']; avançaram quadros ['benchmark-medal-36', 'benchmark-medal-37', 'benchmark-medal-38', 'benchmark-medal-39', 'benchmark-medal-40']; iguais=True; quadros por medalha [244, 305]; montadas com running=false 35
+  meio: visíveis ['benchmark-medal-16', 'benchmark-medal-17', 'benchmark-medal-18', 'benchmark-medal-19', 'benchmark-medal-20']; avançaram quadros ['benchmark-medal-16', 'benchmark-medal-17', 'benchmark-medal-18', 'benchmark-medal-19', 'benchmark-medal-20']; iguais=True; quadros por medalha [244, 305]; montadas com running=false 35
+Conclusão: só as medalhas com corpo visível avançam quadros (≈61/s cada); as demais montadas ficam com o relógio parado. Medido por contador nativo no thread de UI, não só por props.

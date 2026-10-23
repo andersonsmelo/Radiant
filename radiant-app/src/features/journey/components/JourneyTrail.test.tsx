@@ -885,6 +885,74 @@ describe('JourneyTrail — o momento do Pixel', () => {
     expect(onDone).toHaveBeenCalledTimes(1);
   });
 
+  // Medido no AVD em 2026-10-23, em 2 de 4 gravações sem instrumentação: o
+  // momento esperava a medição com as camadas escondidas no estado FINAL. Ao
+  // tirar o `held`, o React chegava à tela antes do reinício no thread de UI, e
+  // um quadro mostrava o Pixel no destino, o botão e o trecho aceso.
+  const heldOpacity = (screen: ReturnType<typeof render>, testID: string) =>
+    StyleSheet.flatten(nativeParents(screen.getByTestId(testID, HIDDEN))[0].props.style).opacity;
+
+  it('enquanto espera a medição, o que está escondido já é o começo do momento', () => {
+    const onDone = jest.fn();
+    const screen = renderTrail(trilha(), 'u1-node-2', {
+      pixelSlot: nodeId => nodeId === 'u1-node-2' ? <View testID="pixel" /> : null,
+      recommendedAction: <Pressable testID="acao" />,
+      moment: { fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2', onDone },
+    });
+    medirLargura(screen);
+    medirLinhas(screen, ROW);
+    advance(16);
+
+    // Ainda escondido: sem isso, o estado das camadas não importaria.
+    expect(heldOpacity(screen, 'journey-pixel-slot-u1-node-2')).toBe(0);
+    expect(heldOpacity(screen, 'journey-action-u1-node-2')).toBe(0);
+    // E por baixo já está o começo: o botão apagado e o Pixel invisível sem
+    // rota. O trecho não é conferido aqui: as peças dele montam depois do
+    // começo, e no Jest o Reanimated copia para a vista nova o estilo inicial
+    // do hook (`style.initial`, em `AnimatedComponent`), sem rodar o mapa.
+    expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+    expect(styleOf(screen, 'journey-pixel-slot-u1-node-2').opacity).toBe(0);
+
+    // A medição chega e o momento corre inteiro, até o estado final.
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    advance(16);
+    expect(heldOpacity(screen, 'journey-pixel-slot-u1-node-2')).not.toBe(0);
+    expect(pixelCenter(screen).y).toBeLessThan(lineY);
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it('o segundo momento não espera escondido com a rota do primeiro', () => {
+    const pixelSlot = (nodeId: string) => <View testID={`pixel-${nodeId}`} />;
+    const action = <Pressable testID="acao" />;
+    const quatro = (statuses: JourneyNodeStatus[]) => [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', statuses)])];
+    const firstDone = jest.fn();
+    const screen = renderTrail(quatro(['completed', 'completed', 'available', 'locked']), 'u1-node-2', {
+      pixelSlot, recommendedAction: action,
+      moment: { fromNodeId: 'u1-node-1', toNodeId: 'u1-node-2', onDone: firstDone },
+    });
+    medirLargura(screen);
+    medirLinhas(screen, ROW);
+    fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+      nativeEvent: { layout: { x: 0, y: 0, ...HEAD } },
+    });
+    advance(TRAIL_MOMENT_MS + 32);
+    expect(firstDone).toHaveBeenCalledTimes(1);
+
+    screen.rerender(<JourneyTrail segments={quatro(['completed', 'completed', 'completed', 'available'])}
+      recommendedNodeId="u1-node-3" onNodePress={onNodePress} isNodeDisabled={isNodeDisabled as never}
+      pixelSlot={pixelSlot} recommendedAction={action}
+      moment={{ fromNodeId: 'u1-node-2', toNodeId: 'u1-node-3', onDone: jest.fn() }} />);
+    medirLinhas(screen, ROW);
+    advance(16);
+
+    expect(heldOpacity(screen, 'journey-pixel-slot-u1-node-3')).toBe(0);
+    expect(styleOf(screen, 'journey-pixel-slot-u1-node-3').opacity).toBe(0);
+    expect(styleOf(screen, 'journey-action-u1-node-3').opacity).toBe(0);
+  });
+
   it('espera também a origem adjacente medir, mesmo com o destino já montado', () => {
     const onDone = jest.fn();
     const screen = renderTrail(trilha(), 'u1-node-2', {

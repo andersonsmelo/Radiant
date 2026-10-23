@@ -513,20 +513,26 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - a retomada da 6 (`7615827`) passou os 15 validadores no segundo run,
       após corrigir o mock consumidor; a revisão independente aprovou a
       correção;
-    - em 2026-10-23, o dono pediu pausa. As correções finais estão
-      implementadas e receberam parecer favorável de fonte; o aceite da7 e
-      a revisão final do Plano 2 continuam pendentes;
-    - primeira execução e vidas iOS passaram. Segundo dia Android terminou
-      a revisão3/3 e falhou na assert final; o enquadramento foi corrigido,
-      contrato37/37 e checkpoint complementar passaram. Falta rerun integral
-      em vencimento natural, sem relógio/dados injetados;
-    - falta resolver a prova inconclusiva do momento Android, revisar os
-      vídeos de texto máximo/redução e medir40 concluídas (Storybook pronto,
-      benchmark não executado). Não há novo defeito de produto confirmado
-      pelo vídeo Android de baixa densidade;
-    - [evidência da pausa](evidence/2026-10-22-trilha-medalhao-final.md) e
-      [prompt de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23).
-      Planos 3 e5 não iniciados; Plano 4 só depois do3.
+    - em 2026-10-23, o dono pediu pausa, e a retomada do mesmo dia executou
+      a tarefa 7, menos o segundo dia iOS, que vence em 30/10/2026
+      ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)):
+      - o segundo dia Android passou inteiro, em relógio real;
+      - o momento Android foi demonstrado com gravação densa;
+      - o quadro do estado final antes do percurso teve um conserto parcial,
+        com teste vermelho, mas continua em 1 de 4 gravações. A causa restante
+        não foi observada, e o próximo passo é o rastreamento nativo sem log JS;
+      - as 40 concluídas foram medidas, com prova nativa de que só as medalhas
+        visíveis tocam;
+    - **dono:** decidir o texto máximo da coluna. No AX5 e no Android a 200%, o
+      texto quebra no meio da palavra, com os corredores de 64 pt preservados.
+      Sem essa decisão, o Plano 2 não é aceito;
+    - **agente, à parte:** o bundle do Storybook não monta na branch nem na
+      `main`, porque `lesson-xray-panel.png` não existe;
+    - **agente:** os três testes de fluxo do momento em
+      `JourneyHomeScreen.flow.test.tsx` usam relógio real com prazo de
+      `TRAIL_MOMENT_MS + 1000` e falham com a CPU limitada, também no HEAD.
+      Isso é risco para o CI da PR #66;
+    - Planos 3 e 5 não iniciados; Plano 4 só depois do 3.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;
