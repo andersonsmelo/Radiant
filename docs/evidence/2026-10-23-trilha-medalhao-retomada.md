@@ -221,8 +221,10 @@ A medição usou um stub só na cópia descartável
   CPU limitada (`taskpolicy -b`), os mesmos três testes de fluxo do momento
   falham tanto com o `motion.ts` do HEAD quanto com o conserto. Isso é risco
   para o CI da PR #66. O arquivo ficou fora do escopo deste writer.
-- **Loop:** `loop validate` com os 15 validadores. O resultado está no STATUS e
-  no fechamento do run.
+- **Loop:** `loop validate --run run-1792757625819-e00263ec` deu
+  `VALIDATION_PASSED`, com os 15 validadores `passed`. Depois vieram
+  `STEP_SUCCEEDED`, `MEMORY_WRITTEN` e `RUN_CLOSED`. O commit é o `60e034e`,
+  enviado a `origin/claude/trilha-medalhao-design`.
 - **Revisão independente:** aprovou o conserto no código com ressalvas e
   reprovou o aceite do Plano 2 agora. Os achados e o que se fez com eles estão
   [aqui](2026-10-23-trilha-medalhao-retomada/revisao-independente.md).

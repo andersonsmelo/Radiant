@@ -243,9 +243,10 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
     | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
   ```
 
-## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
+## Execução dos planos da trilha Medalhão (medido em 2026-10-23)
 
-Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável. Os planos
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável, com head
+`60e034e` (medido em 2026-10-23 com `gh pr view 66`). Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
@@ -277,7 +278,7 @@ mudaram o texto do plano e pendências.
     diário" sai cortado no Android. Os corredores de 64 pt e a fonte integral
     foram preservados, como pedido.
   - **Gate de 2026-10-23:** `npm run quality` PASS na 2ª rodada (190 suítes,
-    2163 testes). A 1ª reprovou num teste de fluxo do momento que é frágil sob
+    2163 testes), e `loop validate` 15/15 no run `run-1792757625819-e00263ec`. A 1ª reprovou num teste de fluxo do momento que é frágil sob
     carga e anterior ao conserto: com a CPU limitada, os três testes de fluxo
     do momento falham também no HEAD. Isso é risco para o CI da PR #66.
   - **Achado à parte:** o bundle do Storybook não monta na branch nem na

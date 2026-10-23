@@ -3596,3 +3596,9 @@ O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
   a retomada precisa executar o gate configurado antes de concluir a onda.
   O [prompt versionado de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23)
   contém a ordem das pendências, comandos e restrições.
+
+## Saiu do STATUS em 2026-10-23 — cabeçalho da execução dos planos da trilha Medalhão
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
+
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável.
