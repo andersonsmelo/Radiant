@@ -735,3 +735,15 @@ O `37e7688` mudou só o teste:
 Os 5 passam com a CPU limitada. Com o fim do momento desligado em `motion.ts`,
 "acaba sozinho" continua reprovando. CI verde em `37e7688`.
 
+**Quadro antecipado, remedido no nativo (2026-10-23, à noite):** 0 de 13
+rodadas válidas, 9 com `atrace` ou Perfetto e 4 sem instrumentação. **A causa
+não foi observada, e por isso nenhum segundo conserto foi feito.** O
+rastreamento separa os commits do React dos quadros do Reanimated. Em todas
+as rodadas, o primeiro quadro de animação vem de 24 a 101 ms depois do último
+commit do React, e a tela mostrou o começo nesse intervalo. Duas hipóteses
+caíram lendo o Reanimated 4.1.6: a vista nova é atualizada ao se registrar, e
+o objeto de estilo é estável. Sob carga, a volta do resumo mostra o estado
+antigo da trilha por cerca de 1,5 s antes do novo. O roteiro de preparo salvo
+não abre o app no AVD; a cópia usada está na evidência
+([evidência](../../evidence/2026-10-23-trilha-medalhao-quadro.md)). **Decisão
+do dono:** se o quadro, não reproduzido, ainda bloqueia o aceite.

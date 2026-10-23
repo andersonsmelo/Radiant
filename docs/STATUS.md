@@ -268,7 +268,14 @@ mudaram o texto do plano e pendências.
     `useTrailMomentStyles` (a espera guardava o fim) tem teste vermelho e
     parecer independente favorável, mas o quadro continua em 1 de 4 gravações
     com o conserto. Com logs, ele não aparece (0 de 10), e a causa restante
-    não foi observada. Próximo instrumento: rastreamento nativo sem log JS.
+    não foi observada. **Remedido em 2026-10-23 à tarde e à noite, com o
+    rastreamento nativo** (`atrace` e Perfetto) **e sem instrumentação: 0 de 13
+    rodadas válidas** (9 rastreadas, 4 limpas). A causa continua sem
+    observação, e nenhum segundo conserto foi feito. O rastreamento mostrou que
+    o primeiro quadro de animação chega de 24 a 101 ms depois do último commit
+    do React, e que nesse intervalo a tela mostrou o começo, não o fim
+    ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)). Se isso basta para o aceite é
+    decisão do dono.
   - **40 concluídas:** só as medalhas visíveis avançam quadros (contador
     nativo). Desempenho de ≈59,7 quadros/s e jank de 0,11–0,50%, em emulador
     Debug.

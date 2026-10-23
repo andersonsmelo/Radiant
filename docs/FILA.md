@@ -520,7 +520,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       - o momento Android foi demonstrado com gravação densa;
       - o quadro do estado final antes do percurso teve um conserto parcial,
         com teste vermelho, mas continua em 1 de 4 gravações. A causa restante
-        não foi observada, e o próximo passo é o rastreamento nativo sem log JS;
+        não foi observada. **Remedido em 2026-10-23 à noite:** 0 de 13 rodadas
+        válidas, 9 com rastreamento nativo e 4 sem instrumentação, ainda sem
+        causa e sem segundo conserto ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)).
+        Se isso basta para o aceite é decisão do dono;
       - as 40 concluídas foram medidas, com prova nativa de que só as medalhas
         visíveis tocam;
     - **dono:** decidir o texto máximo da coluna. No AX5 e no Android a 200%, o

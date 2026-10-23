@@ -1,0 +1,12 @@
+b1: cabeça no vídeo 3.225; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.902 s do toque; 1º lote de animação: +0.943 s; intervalo 42 ms
+c1: cabeça no vídeo 2.93; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.585 s do toque; 1º lote de animação: +0.687 s; intervalo 101 ms
+c2: cabeça no vídeo 2.834; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.621 s do toque; 1º lote de animação: +0.645 s; intervalo 24 ms
+c3: cabeça no vídeo 2.934; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.586 s do toque; 1º lote de animação: +0.683 s; intervalo 97 ms
+c5: cabeça no vídeo 2.949; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.626 s do toque; 1º lote de animação: +0.726 s; intervalo 99 ms
+c6: cabeça no vídeo 3.041; quadro antecipado no vídeo: nenhum
+  último lote do React antes do momento: +0.760 s do toque; 1º lote de animação: +0.802 s; intervalo 42 ms

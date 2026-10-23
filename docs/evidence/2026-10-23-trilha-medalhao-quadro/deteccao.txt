@@ -1,0 +1,43 @@
+Detecção do quadro antecipado em 2026-10-23, tarde e noite (America/Bahia). Detector: ../2026-10-23-trilha-medalhao-retomada/detectar.py, mesmos recortes.
+CTA HEAD antes de '--- HEAD' = quadro antecipado. Rodadas c/b/a/r: atrace ou Perfetto; l: sem instrumentação.
+== r1
+7.715 --- HEAD cta=(19, 21, 27) head=(97, 107, 123)
+8.255 CTA HEAD cta=(60, 105, 228) head=(98, 109, 125)
+== a1
+7.554 --- HEAD cta=(19, 21, 27) head=(96, 106, 122)
+8.161 CTA HEAD cta=(60, 105, 228) head=(98, 109, 125)
+== b1
+3.225 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+3.717 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== c1
+2.930 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+3.428 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== c2
+2.834 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+3.332 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== c3
+2.934 --- HEAD cta=(19, 21, 27) head=(93, 102, 116)
+3.424 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== c4
+6.029 --- HEAD cta=(19, 21, 27) head=(97, 108, 124)
+6.591 CTA HEAD cta=(60, 105, 228) head=(98, 109, 125)
+== c5
+2.949 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+3.444 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== c6
+3.041 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+3.546 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== l1
+7.845 --- HEAD cta=(19, 21, 27) head=(96, 106, 122)
+8.376 CTA HEAD cta=(60, 105, 228) head=(98, 109, 125)
+== l2
+7.600 --- HEAD cta=(19, 21, 27) head=(96, 107, 123)
+8.241 CTA HEAD cta=(52, 95, 215) head=(98, 109, 125)
+== l3
+7.079 --- HEAD cta=(19, 21, 27) head=(93, 102, 116)
+7.563 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== l4
+== l5
+== l6
+7.868 --- HEAD cta=(19, 21, 27) head=(96, 106, 122)
+8.385 CTA HEAD cta=(40, 75, 174) head=(98, 109, 125)
