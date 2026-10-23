@@ -528,10 +528,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       Sem essa decisão, o Plano 2 não é aceito;
     - **agente, à parte:** o bundle do Storybook não monta na branch nem na
       `main`, porque `lesson-xray-panel.png` não existe;
-    - **agente:** os três testes de fluxo do momento em
-      `JourneyHomeScreen.flow.test.tsx` usam relógio real com prazo de
-      `TRAIL_MOMENT_MS + 1000` e falham com a CPU limitada, também no HEAD.
-      Isso é risco para o CI da PR #66;
+    - **resolvido em 2026-10-23:** os testes de fluxo do momento em
+      `JourneyHomeScreen.flow.test.tsx` estouravam o prazo com a CPU limitada,
+      e o CI da PR #66 reprovou por isso em `ef40365`. O `37e7688` deu a eles
+      um prazo que cobre as próprias esperas, e o CI ficou verde;
     - Planos 3 e 5 não iniciados; Plano 4 só depois do 3.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha

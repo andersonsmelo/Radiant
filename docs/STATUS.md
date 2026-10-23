@@ -246,7 +246,8 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 ## Execução dos planos da trilha Medalhão (medido em 2026-10-23)
 
 Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável, com head
-`60e034e` (medido em 2026-10-23 com `gh pr view 66`). Os planos
+`37e7688` e CI verde (`quality` e `content`, medido em 2026-10-23 com
+`gh pr checks 66`). Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
@@ -279,8 +280,13 @@ mudaram o texto do plano e pendências.
     foram preservados, como pedido.
   - **Gate de 2026-10-23:** `npm run quality` PASS na 2ª rodada (190 suítes,
     2163 testes), e `loop validate` 15/15 no run `run-1792757625819-e00263ec`. A 1ª reprovou num teste de fluxo do momento que é frágil sob
-    carga e anterior ao conserto: com a CPU limitada, os três testes de fluxo
-    do momento falham também no HEAD. Isso é risco para o CI da PR #66.
+    carga. **O risco se confirmou e foi resolvido no mesmo dia:** o CI da PR
+    #66 reprovou em `ef40365` por tempo-limite do Jest no teste "percorre L1 →
+    revisão futura → L2". Com `taskpolicy -b`, 3 dos 5 testes do momento
+    reprovavam. O `37e7688` deu a esses testes um prazo que cobre as próprias
+    esperas e incluiu o tempo de renderização na espera do fim. Os 5 passam com
+    a CPU limitada, e "acaba sozinho" continua reprovando quando o fim do
+    momento é desligado. CI verde em `37e7688`.
   - **Achado à parte:** o bundle do Storybook não monta na branch nem na
     `main`, porque duas stories importam `lesson-xray-panel.png`, que não
     existe.
@@ -294,11 +300,18 @@ mudaram o texto do plano e pendências.
 
   ```bash
   git log --oneline origin/main..origin/claude/trilha-medalhao-design | head -40
-  git log --oneline -1 origin/claude/trilha-t6-wip
+  gh pr checks 66 --repo andersonsmelo/Radiant
   ```
+
+  A branch `claude/trilha-t6-wip` (`5ffefee`) é histórica: o WIP foi
+  reaplicado na tarefa 6 (`7615827`) e não precisa mais ser consultado.
 
 ## Prazos de relógio
 
+- **2026-10-30, 14:07: o simulador iOS reservado libera o segundo dia** da
+  tarefa 7 do plano 2 da trilha Medalhão. É o que falta, junto com o quadro
+  antecipado do momento e a decisão do dono sobre o texto máximo, para o plano
+  2 ser aceito ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)).
 - **2026-11-30: vence a política de visual QA.** Os 23 registros de
   `radiant-app/scripts/visual-qa-policy.json` venciam em 2026-10-23 e foram
   renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha
@@ -307,7 +320,7 @@ mudaram o texto do plano e pendências.
   qualquer branch que ainda tenha esses arquivos. **Remede com:**
   `grep -c '"expiresOn": "2026-11-30"' radiant-app/scripts/visual-qa-policy.json`.
 
-Além desse, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+Além desses, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
 de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
 aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
 assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),

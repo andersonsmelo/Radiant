@@ -713,3 +713,17 @@ texto máximo (item 3 abaixo).
 5. **Achado à parte:** o bundle do Storybook não monta na branch nem na
    `main`, porque duas stories importam `lesson-xray-panel.png`, que não existe.
 
+**CI da PR #66 (2026-10-23):** reprovou em `ef40365` por tempo-limite do Jest
+em "percorre L1 → revisão futura → L2". Os testes de fluxo do momento esperam
+a animação em relógio real: a primeira renderização, a volta à tela e o
+momento inteiro, às vezes duas vezes. A soma passa dos 5 s padrão do Jest, e o
+fim do momento só começa a contar depois que a trilha re-renderiza com a
+medida. Com `taskpolicy -b`, 3 dos 5 testes reprovavam, entre 5,9 e 8,2 s.
+
+O `37e7688` mudou só o teste:
+- a espera do fim passou a `TRAIL_MOMENT_MS + FIRST_RENDER_TIMEOUT_MS`;
+- cada teste ganhou um prazo que cobre as próprias esperas.
+
+Os 5 passam com a CPU limitada. Com o fim do momento desligado em `motion.ts`,
+"acaba sozinho" continua reprovando. CI verde em `37e7688`.
+
