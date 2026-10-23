@@ -59,8 +59,10 @@ com o dono. Build e distribuição continuam com o dono.
    Nenhum começou.
 3. Plano 4 só é escrito depois do 3; o inventário depende do dono antes de
    remover conteúdo.
-4. À parte: o bundle do Storybook não monta (`lesson-xray-panel.png`
-   ausente na branch e na `main`).
+4. À parte, **resolvido em 2026-10-23 na branch:** o bundle do Storybook não
+   montava (`lesson-xray-panel.png`, removido em `b06c7eb`). As stories
+   deixaram de usá-lo, com guarda AST
+   ([evidência](../../evidence/2026-10-23-trilha-medalhao-storybook.md)).
 
 **Antes de cada plano, a varredura do texto.** O plano é o argumento, e a spec
 é a autoridade. Na execução dos planos 6 e 2, a varredura achou conflitos entre

@@ -710,8 +710,16 @@ texto máximo (item 3 abaixo).
    medalhas com corpo visível avançam quadros, nenhuma fora do conjunto. Três
    rodadas sem instrumentação deram ≈59,7 quadros/s, jank de 0,11–0,50% no
    gfxinfo e pior quadro de 50 ms, em emulador Debug.
-5. **Achado à parte:** o bundle do Storybook não monta na branch nem na
-   `main`, porque duas stories importam `lesson-xray-panel.png`, que não existe.
+5. **Achado à parte, resolvido em 2026-10-23 (`28c1083`):** o bundle do
+   Storybook não montava, porque duas stories importavam
+   `lesson-xray-panel.png`. O arquivo foi removido de propósito em `b06c7eb`
+   (mockup com texto em inglês). **Decisão:** não restaurar nem desenhar
+   imagem; a story de Comparação fica só com texto (o `imageRef` é opcional) e
+   a de Hotspot mostra a moldura vazia com as regiões. A guarda
+   `src/test/assetRequires.contract.test.ts` lê por AST as imagens pedidas por
+   `src` e reprovou com as duas stories antigas. Bundle num Metro
+   recém-iniciado: 500 antes, 200 depois
+   ([evidência](../../evidence/2026-10-23-trilha-medalhao-storybook.md)).
 
 **CI da PR #66 (2026-10-23):** reprovou em `ef40365` por tempo-limite do Jest
 em "percorre L1 → revisão futura → L2". Os testes de fluxo do momento esperam

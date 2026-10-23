@@ -287,9 +287,14 @@ mudaram o texto do plano e pendências.
     esperas e incluiu o tempo de renderização na espera do fim. Os 5 passam com
     a CPU limitada, e "acaba sozinho" continua reprovando quando o fim do
     momento é desligado. CI verde em `37e7688`.
-  - **Achado à parte:** o bundle do Storybook não monta na branch nem na
-    `main`, porque duas stories importam `lesson-xray-panel.png`, que não
-    existe.
+  - **Storybook, resolvido na branch em 2026-10-23:** o bundle não montava
+    porque duas stories importavam `lesson-xray-panel.png`, removido de
+    propósito em `b06c7eb` (mockup em inglês). As stories deixaram de usá-lo,
+    sem arte nova, e `src/test/assetRequires.contract.test.ts` reprova
+    qualquer imagem pedida que não exista. Medido num Metro recém-iniciado com
+    `STORYBOOK_ENABLED=true`: 500 antes, 200 depois, no Android e no iOS
+    ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, o defeito continua até o merge
+    da #66.
 - **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,

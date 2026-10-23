@@ -526,8 +526,11 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     - **dono:** decidir o texto máximo da coluna. No AX5 e no Android a 200%, o
       texto quebra no meio da palavra, com os corredores de 64 pt preservados.
       Sem essa decisão, o Plano 2 não é aceito;
-    - **agente, à parte:** o bundle do Storybook não monta na branch nem na
-      `main`, porque `lesson-xray-panel.png` não existe;
+    - **resolvido em 2026-10-23, na branch:** o bundle do Storybook não
+      montava porque duas stories importavam `lesson-xray-panel.png`, removido
+      de propósito em `b06c7eb`. Elas deixaram de usá-lo, sem arte nova, e uma
+      guarda AST reprova qualquer imagem pedida que não exista
+      ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, continua até o merge;
     - **resolvido em 2026-10-23:** os testes de fluxo do momento em
       `JourneyHomeScreen.flow.test.tsx` estouravam o prazo com a CPU limitada,
       e o CI da PR #66 reprovou por isso em `ef40365`. O `37e7688` deu a eles
