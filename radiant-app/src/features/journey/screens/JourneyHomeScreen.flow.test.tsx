@@ -838,6 +838,19 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
 // O momento do Pixel (spec, seção 4). Toca uma vez por conclusão: ao voltar à
 // aba com a aula concluída e outra recomendada. Não toca na primeira abertura
 // nem a cada foco da aba.
+// Estes testes esperam o momento de verdade, sem relógio falso: a primeira
+// renderização (até FIRST_RENDER_TIMEOUT_MS), a volta à tela (até 1 s do
+// findBy) e o momento inteiro (TRAIL_MOMENT_MS + 1 s), às vezes duas vezes. A
+// soma passa dos 5 s padrão do Jest, e no CI, ou com `taskpolicy -b`, eles
+// estouravam o prazo do teste no meio da espera (medido em 2026-10-23: 5,9 a
+// 8,2 s). O orçamento do teste cobre as próprias esperas, com folga.
+// O fim do momento é contado a partir de quando ele COMEÇA, e ele só começa
+// depois que a trilha re-renderiza com a medida; sob carga essa renderização
+// leva 1 a 2 s. A janela de espera do fim inclui esse orçamento de render, e
+// continua finita: um momento que não acaba ainda reprova.
+const MOMENT_END_TIMEOUT_MS = TRAIL_MOMENT_MS + FIRST_RENDER_TIMEOUT_MS;
+const MOMENT_TEST_TIMEOUT_MS = FIRST_RENDER_TIMEOUT_MS + 1000 + 2 * MOMENT_END_TIMEOUT_MS + 5000;
+
 describe('JourneyHomeScreen — o momento do Pixel', () => {
   const { JourneyCurriculumService } = jest.requireMock('../services/JourneyCurriculumService') as {
     JourneyCurriculumService: { getCurriculumTrail: jest.Mock };
@@ -905,8 +918,8 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
     expect(momento()).toBeTruthy();
     // O botão existe durante o momento: o momento só anima a entrada dele.
     expect(screen.getByTestId('journey-recommendation-action')).toBeTruthy();
-    await waitFor(() => expect(momento()).toBeNull(), { timeout: TRAIL_MOMENT_MS + 1000 });
-  });
+    await waitFor(() => expect(momento()).toBeNull(), { timeout: MOMENT_END_TIMEOUT_MS });
+  }, MOMENT_TEST_TIMEOUT_MS);
 
   it('percorre L1 → revisão futura → L2 sem encurtar a volta real para15pt', async () => {
     estado('l1', []);
@@ -921,8 +934,8 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
     expect(screen.getAllByTestId('journey-moment-segment-out', hidden)).toHaveLength(2);
     expect(screen.getAllByTestId('journey-moment-segment-in', hidden)).toHaveLength(2);
     expect(screen.getByTestId('journey-recommendation-action')).toBeTruthy();
-    await waitFor(() => expect(screen.queryAllByTestId(/^journey-moment-segment-/u, hidden)).toHaveLength(0), { timeout: TRAIL_MOMENT_MS + 1000 });
-  });
+    await waitFor(() => expect(screen.queryAllByTestId(/^journey-moment-segment-/u, hidden)).toHaveLength(0), { timeout: MOMENT_END_TIMEOUT_MS });
+  }, MOMENT_TEST_TIMEOUT_MS);
 
   it('não toca de novo quando a aba ganha foco com o mesmo recomendado', async () => {
     estado('l1', []);
@@ -932,13 +945,13 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
     voltarParaATela();
     await screen.findByRole('button', { name: 'Aula l2. Próximo passo.' });
     medirMomento('l2');
-    await waitFor(() => expect(momento()).toBeNull(), { timeout: TRAIL_MOMENT_MS + 1000 });
+    await waitFor(() => expect(momento()).toBeNull(), { timeout: MOMENT_END_TIMEOUT_MS });
 
     voltarParaATela();
     await act(async () => {});
 
     expect(momento()).toBeNull();
-  });
+  }, MOMENT_TEST_TIMEOUT_MS);
 
   it('não toca quando o recomendado muda sem a aula anterior ter sido concluída', async () => {
     estado('l1', []);
