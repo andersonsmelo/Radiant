@@ -1664,6 +1664,18 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     };
   }
 
+  // O valor inicial da bancada só sobe ao player por um efeito depois da
+  // montagem, e até lá o botão está desabilitado. `fireEvent.press` descarta em
+  // silêncio o toque num Pressable desabilitado, e o `accessibilityState` do nó
+  // ainda pode dizer `disabled: false` nessa janela. Medido com
+  // `taskpolicy -b`: o toque logo depois do `findByText` caía antes do efeito e
+  // o teste reprovava 2 de 2. Espera-se a porta que o `fireEvent` consulta.
+  async function esperarBotaoApto(name: string) {
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name }).props.onStartShouldSetResponder?.()).toBe(true);
+    });
+  }
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockedLessonFlowService.getBlockById.mockReturnValue(hybridShell);
@@ -1689,6 +1701,7 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
     renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
     await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Continuar');
 
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
 
@@ -1706,6 +1719,7 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(60));
     renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
     await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Continuar');
 
     fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
 
