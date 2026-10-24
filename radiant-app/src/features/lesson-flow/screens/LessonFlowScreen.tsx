@@ -643,7 +643,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 />
                             ) : null}
 
-                            {player.showingFeedback && currentInteraction?.type === 'multiple-choice' ? (
+                            {player.showingFeedback && (currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench') ? (
                                 <View testID="lesson-item-feedback" accessibilityLiveRegion="polite"
                                     style={[styles.itemFeedback, player.lastFeedback?.correct ? styles.itemFeedbackCorrect : styles.itemFeedbackIncorrect]}
                                     onLayout={event => scrollRef.current?.scrollTo({
@@ -653,8 +653,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
                                         {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
                                     </Text>
-                                    <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
-                                    <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                    {currentInteraction.type === 'multiple-choice' ? (
+                                        <>
+                                            <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
+                                            <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                        </>
+                                    ) : null}
                                     <Text style={styles.feedbackText}>{player.lastFeedback?.message}</Text>
                                 </View>
                             ) : null}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react-native';
 import { AccessibilityInfo, StyleSheet } from 'react-native';
 import type { LessonBlock } from '../../../types/lessonFlow';
 import type { LearningActivityV2 } from '../../../types/learningActivity';
@@ -56,6 +56,25 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
+
+// A bancada desenha com Skia, que o Jest não rasteriza: o dublê deixa a tela da
+// lição montar a bancada. O que se mede aqui é o texto do retorno, não a imagem.
+jest.mock('@shopify/react-native-skia', () => {
+  const ReactInMock = require('react');
+  const { View } = require('react-native');
+  const host = (name: string) => {
+    const Host = ({ children, ...props }: { children?: unknown }) =>
+      ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
+    Host.displayName = name;
+    return Host;
+  };
+  return {
+    Canvas: host('Canvas'),
+    Fill: host('Fill'),
+    Shader: host('Shader'),
+    Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
+  };
+});
 
 jest.mock('../../../ui/motion', () => ({
   duration: { micro: 0, ui: 0, celebrate: 0 },
@@ -1585,4 +1604,114 @@ describe('FILA 58 — integração do motor híbrido', () => {
     expect(mockedOutcome.recordCompletion).not.toHaveBeenCalled();
   });
 
+});
+
+describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', () => {
+  const closing = promotedActivityFixture.steps[2];
+  // `sessionMode` liga o retorno por item (o bloco `lesson-item-feedback`).
+  // Sem passos legados, o player lê só a atividade v2.
+  const hybridShell = { ...blockFixture, sessionMode: 'hybrid-lesson', steps: [] } as unknown as LessonBlock;
+
+  function choiceActivity(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    return {
+      ...promotedActivityFixture,
+      steps: [
+        { kind: 'interaction', interaction: { ...original.interaction, payload: {
+          ...original.interaction.payload,
+          options: [
+            { id: 'proton', label: 'Próton', explanation: 'O próton tem carga positiva, não negativa.' },
+            { id: 'eletron', label: 'Elétron' },
+          ],
+        } } },
+        closing,
+      ],
+    };
+  }
+
+  function benchActivity(atLeast: number): LearningActivityV2 {
+    return {
+      ...promotedActivityFixture,
+      steps: [
+        {
+          kind: 'interaction',
+          interaction: {
+            id: 'activity-bench',
+            type: 'bench',
+            competencyIds: ['competency:bancada'],
+            evidenceKind: 'guided-practice',
+            completionRule: 'answered',
+            criticalSafety: false,
+            feedback: { correct: 'Contraste certo.', incorrect: 'Reveja o kV.' },
+            accessibility: { label: 'Bancada de exposição' },
+            payload: {
+              prompt: 'Suba o kV até o alvo.',
+              simulator: 'exposure',
+              mode: 'challenge',
+              controls: [
+                { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 },
+                { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 },
+              ],
+              goal: { kind: 'reach', control: 'kv', atLeast },
+              phantomLabel: 'Fantoma simulado',
+              hints: { tooLow: 'Suba o kV.', tooHigh: 'Desça o kV.' },
+            },
+          },
+        },
+        closing,
+      ],
+    };
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedLessonFlowService.getBlockById.mockReturnValue(hybridShell);
+  });
+
+  it('escolha errada: o bloco mostra a explicação da alternativa marcada, e o anúncio diz o mesmo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(choiceActivity());
+    renderWithProviders(<LessonFlowScreen blockId="activity:escolha" nodeId="node:escolha" />);
+    await screen.findByText('Qual partícula tem carga negativa?');
+
+    fireEvent.press(screen.getByLabelText('Próton'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('O próton tem carga positiva, não negativa.')).toBeTruthy();
+    expect(within(bloco).queryByText('Compare as cargas.')).toBeNull();
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
+      expect.stringContaining('O próton tem carga positiva, não negativa.'),
+    ));
+  });
+
+  it('bancada errada: o bloco mostra a dica do lado certo, sem as linhas de resposta da escolha', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('Vamos reforçar')).toBeTruthy();
+    expect(within(bloco).getByText('Suba o kV.')).toBeTruthy();
+    expect(within(bloco).queryByText(/Sua resposta|Resposta certa/)).toBeNull();
+    expect(within(bloco).queryByText('Reveja o kV.')).toBeNull();
+    await waitFor(() => expect(announceForAccessibility).toHaveBeenCalledWith(
+      expect.stringContaining('Suba o kV.'),
+    ));
+  });
+
+  it('bancada certa: o bloco mostra feedback.correct, sem dica', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(60));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText('Resposta correta')).toBeTruthy();
+    expect(within(bloco).getByText('Contraste certo.')).toBeTruthy();
+    expect(within(bloco).queryByText('Suba o kV.')).toBeNull();
+  });
 });
