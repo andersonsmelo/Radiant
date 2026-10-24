@@ -87,6 +87,24 @@ Para o dono decidir:
    campo à direita. A primeira versão desta aula enquadrava só os ossos (17 a
    20 cm), e cortava as partes moles.
 
+## O que a tela ainda não mostra
+
+A spec (seção 5) e o roteiro do plano pedem coisas que esta versão das aulas
+ainda não faz. Nenhuma está nas tabelas abaixo, porque não há frase a revisar:
+
+- **A medalha do tema na abertura** e **o Pixel nomeando o efeito no
+  explorar.** A abertura é só o título e o texto. Os dois ficam para o plano 5,
+  o dos momentos do Pixel.
+- **A imagem granulada no passo de leitura crítica.** O passo é só texto: a
+  imagem é descrita no enunciado e só aparece de fato no passo seguinte.
+- **O fechamento aparece antes dos itens que voltam.** Quem erra a primeira
+  resposta de um item o refaz depois do fechamento, que já disse "O que cada
+  controle faz".
+- **As dicas de erro do explorar e do corrigir.** O botão desses dois passos só
+  habilita quando o alvo é atingido, como na prancheta, então o aluno não erra
+  ali e as dicas (`tooLow` e `tooHigh`) não aparecem. Só o desafio mostra a
+  dica do lado certo.
+
 ## Aula de exposição (`bancada:exposicao`)
 
 | Passo | Frase | Ok do dono |

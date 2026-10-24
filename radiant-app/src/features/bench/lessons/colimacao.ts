@@ -20,7 +20,7 @@ import { DETECTOR_HEIGHT_CM, DETECTOR_WIDTH_CM } from '../collimationModel';
  * "Dose" sozinha não aparece: a grandeza que a tela mostra, e que cai com a
  * área, é o produto dose-área. A única exceção é "a dose do feixe direto", a
  * afirmação de que ela não muda num ponto dentro do campo. A dose total num
- * ponto cai um pouco ao colimar, porque soma o espalhamento (Ruling 15).
+ * ponto cai um pouco ao colimar, porque soma o espalhamento do tecido vizinho.
  *
  * O texto inteiro vai, igual, ao documento em que o dono revisa cada frase
  * (`docs/conteudo-bancada/2026-10-24-aulas-de-exemplo.md`); o teste do
@@ -62,7 +62,7 @@ const widthControl: BenchControl = {
  * lados: 23 cm no passo do controle. O fantoma não é centrado, e com 23 cm
  * ainda sobra 1,6 cm de campo à direita. Com 25 cm ou mais sobra campo dos
  * dois lados. Sem o mínimo, fechar até 5 cm também acertaria e cortaria a
- * anatomia (Ruling 15).
+ * anatomia.
  */
 const FRAME_MIN_CM = 23;
 const FRAME_MAX_CM = 24;

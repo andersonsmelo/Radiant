@@ -12,7 +12,7 @@
  *   proporcional à área irradiada: um campo com metade da área tem metade do
  *   produto dose-área;
  * - a dose do feixe direto num ponto dentro do campo não muda ao colimar. O
- *   que cai é a área que recebe esse feixe (Ruling 15);
+ *   que cai é a área que recebe esse feixe;
  * - um campo menor reduz a radiação espalhada, porque menos tecido é
  *   irradiado e menos tecido espalha o feixe;
  * - colimar até a região de interesse é proteção radiológica: o que fica fora
@@ -30,8 +30,8 @@
  *   que soma o espalhamento do tecido vizinho, cai um pouco ao colimar; o
  *   modelo não a calcula, e a tela não fala dela;
  * - fora do campo, a imagem é um tom claro uniforme (`UNEXPOSED_LUMINANCE`):
- *   sem feixe não há sinal, e na convenção do `exposureModel` quanto menos
- *   sinal, mais claro. Muitos equipamentos digitais escurecem essa faixa por
+ *   sem feixe primário não há sinal, e na convenção do `exposureModel` quanto
+ *   menos sinal, mais claro. Muitos equipamentos digitais escurecem essa faixa por
  *   processamento; aqui ela fica clara, como num filme sem exposição;
  * - a imagem do fantoma, 270 × 330 unidades da prancheta, cobre 27 × 33 cm:
  *   10 unidades por centímetro. O desenho do joelho não tem as espessuras do

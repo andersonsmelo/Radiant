@@ -22,11 +22,12 @@
  * SIMPLIFICAÇÃO (o que o modelo faz de conta):
  * - o fantoma é estilizado, nunca uma incidência real: uma coluna de 10 cm de
  *   partes moles, com 3 cm dela ocupados por osso. As espessuras são fixas;
- * - o código não calcula a exponencial. A luminância exibida é proporcional à
- *   integral de atenuação ∫μ dl, ou seja, a −ln(transmissão), normalizada pelo
- *   processamento: é a imagem de um detector com exibição logarítmica, como a
- *   da prancheta. Isso também dá a polaridade da imagem: quanto mais atenua,
- *   mais claro, daí osso claro e fundo escuro;
+ * - o código não calcula a exponencial. Ele soma a integral de atenuação
+ *   ∫μ dl (= −ln da transmissão) de cada coluna e a normaliza pelo osso, que
+ *   cai sempre em `BONE_WHITE`. A luminância exibida vem dessa fração por uma
+ *   curva de gama de 0,85, com o preto do detector em 0,02: é a curva da
+ *   prancheta, e não uma exibição logarítmica. Isso também dá a polaridade da
+ *   imagem: quanto mais atenua, mais claro, daí osso claro e fundo escuro;
  * - a atenuação é monocromática. Os coeficientes (`MU_SOFT_60`, `MU_BONE_60` e
  *   os expoentes) são os da prancheta, de ordem de grandeza plausível mas não
  *   medidos. O feixe real é polienergético e tem dispersão;

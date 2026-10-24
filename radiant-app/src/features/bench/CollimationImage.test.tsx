@@ -80,7 +80,7 @@ describe('CollimationReadout', () => {
         expect(getByText('Produto dose-área: 48% do campo todo')).toBeTruthy();
     });
 
-    it('não chama de dose o que é produto dose-área: a dose num ponto não cai ao colimar', () => {
+    it('não chama de dose o que é produto dose-área: a dose do feixe direto num ponto não cai ao colimar', () => {
         const { queryByText, toJSON } = render(<CollimationReadout field={{ fieldWidth: 10, fieldHeight: 12 }} />);
         const shown = JSON.stringify(toJSON());
 

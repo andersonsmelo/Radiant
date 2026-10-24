@@ -1706,9 +1706,9 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
     renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
     await screen.findByText('Suba o kV até o alvo.');
-    await esperarBotaoApto('Continuar');
+    await esperarBotaoApto('Conferir resposta');
 
-    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
 
     const bloco = await screen.findByTestId('lesson-item-feedback');
     expect(within(bloco).getByText('Vamos reforçar')).toBeTruthy();
@@ -1724,14 +1724,101 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(60));
     renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
     await screen.findByText('Suba o kV até o alvo.');
-    await esperarBotaoApto('Continuar');
+    await esperarBotaoApto('Conferir resposta');
 
-    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
 
     const bloco = await screen.findByTestId('lesson-item-feedback');
     expect(within(bloco).getByText('Resposta correta')).toBeTruthy();
     expect(within(bloco).getByText('Contraste certo.')).toBeTruthy();
     expect(within(bloco).queryByText('Suba o kV.')).toBeNull();
+  });
+
+  // O botão da bancada é o "Conferir" da prancheta: o valor inicial já sobe ao
+  // player, então um toque sem mexer no controle contaria como primeira resposta
+  // errada e custaria a estrela daquele item.
+  function benchActivityMode(mode: 'explore' | 'challenge' | 'correct', atLeast: number): LearningActivityV2 {
+    const base = benchActivity(atLeast);
+    const [first, ...rest] = base.steps;
+    if (first.kind !== 'interaction' || first.interaction.type !== 'bench') {
+      throw new Error('benchActivity deve começar por uma bancada.');
+    }
+    return {
+      ...base,
+      steps: [
+        { ...first, interaction: { ...first.interaction, payload: { ...first.interaction.payload, mode } } },
+        ...rest,
+      ],
+    };
+  }
+
+  function estadoDoBotao(name: string) {
+    return screen.getByRole('button', { name }).props.accessibilityState;
+  }
+
+  it('bancada: o botão diz "Conferir resposta", a mesma etiqueta da múltipla escolha', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivity(100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    expect(await screen.findByRole('button', { name: 'Conferir resposta' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Continuar' })).toBeNull();
+  });
+
+  it('bancada guiada (explorar): o botão fica desabilitado no valor inicial e habilita ao atingir o alvo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('explore', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    // O valor inicial (70 kV) sobe ao player por um efeito. Esperar o botão
+    // existir não basta: o desabilitado tem de continuar assim depois dele.
+    await waitFor(() => expect(screen.getByLabelText('Tensão')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    // 70 -> 90 ainda não chega ao alvo de 100 kV.
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await waitFor(() => expect(screen.getByText('90 kV')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await esperarBotaoApto('Conferir resposta');
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBeFalsy();
+  });
+
+  it('bancada de corrigir: o botão também espera o alvo', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('correct', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    await waitFor(() => expect(screen.getByLabelText('Tensão')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+
+    // Depois de mexer o passo está completo, e o botão ainda espera o alvo.
+    fireEvent.press(screen.getByRole('button', { name: 'Aumentar Tensão' }));
+    await waitFor(() => expect(screen.getByText('80 kV')).toBeTruthy());
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBe(true);
+  });
+
+  it('bancada de desafio: o botão fica habilitado no valor inicial, porque o erro indica a direção', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('challenge', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+
+    await esperarBotaoApto('Conferir resposta');
+    expect(estadoDoBotao('Conferir resposta')?.disabled).toBeFalsy();
+  });
+
+  it('bancada: depois de conferir, o botão volta a "Continuar"', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(benchActivityMode('challenge', 100));
+    renderWithProviders(<LessonFlowScreen blockId="activity:bancada" nodeId="node:bancada" />);
+    await screen.findByText('Suba o kV até o alvo.');
+    await esperarBotaoApto('Conferir resposta');
+
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+    await screen.findByTestId('lesson-item-feedback');
+    expect(screen.getByRole('button', { name: 'Continuar' })).toBeTruthy();
   });
 });
 
@@ -1828,7 +1915,7 @@ describe('LessonFlowScreen — a conclusão da aula híbrida conta a primeira re
   });
 });
 
-describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha (Ruling 13b)', () => {
+describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha', () => {
   // `learn.tsx` passa `nodeId=''` quando o deep link não traz o nó, como em
   // `radiantapp://learn?blockId=bancada:exposicao`. Gravar o nó vazio como atual
   // ou como retomada sobrescreveria o ponto real em que o aluno parou na trilha.
@@ -1929,23 +2016,22 @@ describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', (
     JourneyDefinitionService: { getNodeType: jest.Mock };
   };
   const steps = EXPOSICAO.steps;
-  const hook = steps[0];
-  const explore = steps[1];
+  const challenge = steps[2];
   const reading = steps[3];
   const closing = steps[5];
-  if (hook.kind !== 'presentation' || explore.kind !== 'interaction' || explore.interaction.type !== 'bench'
+  if (challenge.kind !== 'interaction' || challenge.interaction.type !== 'bench'
     || reading.kind !== 'interaction' || reading.interaction.type !== 'multiple-choice' || closing.kind !== 'presentation') {
     throw new Error('A aula de exposição mudou de roteiro: abertura, explorar, desafio, leitura, corrigir, fechamento.');
   }
-  const benchPayload = explore.interaction.payload;
+  const benchPayload = challenge.interaction.payload;
   const readingPayload = reading.interaction.payload;
   const rightLabel = readingPayload.options.find(option => option.id === readingPayload.correctOptionId)?.label ?? '';
 
   // O mesmo motivo de `esperarBotaoApto` acima: o valor inicial da bancada sobe
   // ao player por um efeito depois da montagem.
-  async function esperarContinuarApto() {
+  async function esperarConferirApto() {
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true);
+      expect(screen.getByRole('button', { name: 'Conferir resposta' }).props.onStartShouldSetResponder?.()).toBe(true);
     });
   }
 
@@ -1958,18 +2044,18 @@ describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', (
   });
 
   it('a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida', async () => {
-    mockedLessonFlowService.getActivityById.mockReturnValue(EXPOSICAO);
+    // O desafio, e não o explorar: no explorar o botão espera o alvo, então o
+    // aluno não erra ali. No desafio o erro é permitido e indica o lado.
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...EXPOSICAO, steps: [challenge, closing] });
     renderWithProviders(<LessonFlowScreen blockId="bancada:exposicao" nodeId="" />);
-    expect(await screen.findByText(hook.payload.body ?? '')).toBeTruthy();
-    fireEvent.press(screen.getByText('Continuar'));
     expect(await screen.findByText(benchPayload.prompt)).toBeTruthy();
-    await esperarContinuarApto();
+    await esperarConferirApto();
 
-    // O kV parte de 60, abaixo do alvo de 100: errar pelo lado baixo.
-    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+    // O kV parte de 110, acima dos 70 da referência: errar pelo lado alto.
+    fireEvent.press(screen.getByRole('button', { name: 'Conferir resposta' }));
 
     const bloco = await screen.findByTestId('lesson-item-feedback');
-    expect(within(bloco).getByText(benchPayload.hints.tooLow)).toBeTruthy();
+    expect(within(bloco).getByText(benchPayload.hints.tooHigh)).toBeTruthy();
     expect(heartsRepository.spend).not.toHaveBeenCalled();
   });
 

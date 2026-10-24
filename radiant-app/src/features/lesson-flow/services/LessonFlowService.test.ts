@@ -621,7 +621,7 @@ describe('LessonFlowService — contrato legado preservado', () => {
     });
 });
 
-describe('LessonFlowService — aulas-bancada de exemplo (Ruling 13a)', () => {
+describe('LessonFlowService — aulas-bancada de exemplo, só em desenvolvimento até o dono revisar', () => {
     const globalWithDev = globalThis as unknown as { __DEV__: boolean };
     const original = globalWithDev.__DEV__;
 

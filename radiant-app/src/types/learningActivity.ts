@@ -102,7 +102,7 @@ export type ChoiceOption = {
     id: string;
     label: string;
     imageRef?: string;
-    /** Por que esta opção está certa ou errada. Ainda não é exibida. */
+    /** Por que esta opção está certa ou errada. Aparece no retorno quando o aluno a marca. */
     explanation?: string;
 };
 

@@ -266,14 +266,23 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
-    const canContinue = player.canContinue;
     const currentInteraction = player.currentStep?.kind === 'interaction'
         ? player.currentStep.interaction
         : null;
+    // O valor inicial da bancada já sobe ao player, então o passo está completo
+    // antes de o aluno mexer. No explorar e no corrigir o botão confere, e um
+    // toque sem mexer no controle valeria como primeira resposta errada: ele
+    // espera o alvo, como na prancheta. No desafio fica livre, porque o erro ali
+    // indica o lado certo.
+    const benchWaitsForGoal = !player.showingFeedback
+        && currentInteraction?.type === 'bench'
+        && currentInteraction.payload.mode !== 'challenge'
+        && !isCorrectInteractionValue(currentInteraction, player.value);
+    const canContinue = player.canContinue && !benchWaitsForGoal;
 
     const confirmationLabel = player.showingFeedback
         ? isLastStep ? 'Concluir e voltar' : 'Continuar'
-        : currentInteraction?.type === 'multiple-choice'
+        : currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench'
         ? 'Conferir resposta'
         : isLastStep ? 'Concluir e voltar' : 'Continuar';
 

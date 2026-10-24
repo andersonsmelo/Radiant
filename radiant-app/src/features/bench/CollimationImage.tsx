@@ -32,9 +32,9 @@ export function CollimationImage({
 
 /**
  * O campo, a área e o produto dose-área em texto: o que a máscara mostra, dito
- * em palavras (spec, seção 8). Não diz "dose": a dose num ponto dentro do campo
- * não cai ao colimar; o que cai, com a área, é o produto dose-área. A linha dele
- * é uma região viva, para quem não vê a imagem ouvir o efeito de cada passo.
+ * em palavras (spec, seção 8). Não diz "dose": a dose do feixe direto num ponto
+ * dentro do campo não cai ao colimar; o que cai, com a área, é o produto
+ * dose-área. A linha dele é uma região viva, para quem não vê a imagem ouvir o efeito de cada passo.
  */
 export function CollimationReadout({ field }: { field: CollimationInput }): React.ReactElement {
   const out = collimationModel(field);

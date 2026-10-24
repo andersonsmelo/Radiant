@@ -126,7 +126,7 @@ function reviewRows(lessonId: string): string[][] {
     .map((line) => line.replace(/^\|/, '').replace(/\|$/, '').split('|').map((cell) => cell.trim()));
 }
 
-describe('BenchLessonCatalog — só em build de desenvolvimento (Ruling 13a)', () => {
+describe('BenchLessonCatalog — só em build de desenvolvimento, porque o dono ainda não revisou o texto', () => {
   const original = globalWithDev.__DEV__;
   afterEach(() => {
     globalWithDev.__DEV__ = original;
@@ -280,13 +280,13 @@ describe('o texto das aulas (A Regra Sem Cara de IA)', () => {
     // Só duas formas passam: "dose-área" (o produto) e "dose do feixe direto",
     // a afirmação de que a dose do feixe direto num ponto dentro do campo não
     // muda ao colimar. A dose total num ponto cai um pouco, porque soma o
-    // espalhamento (Ruling 15).
+    // espalhamento do tecido vizinho.
     const loose = phrasesOf(COLIMACAO).filter((phrase) => /\bdoses?\b(?!-área| do feixe direto)/i.test(phrase.text));
     expect(loose).toEqual([]);
   });
 });
 
-describe('o desafio de enquadrar da colimação cobre o joelho inteiro, com as partes moles (Ruling 15)', () => {
+describe('o desafio de enquadrar da colimação cobre o joelho inteiro, com as partes moles', () => {
   // A silhueta de partes moles do fantoma, lida do próprio shader: um círculo
   // de raio `softR` em torno de x = centro, e o raio é máximo na altura do
   // joelho (96 + 10). O campo é centrado na imagem.
