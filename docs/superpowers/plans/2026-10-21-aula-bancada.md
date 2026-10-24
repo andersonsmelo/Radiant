@@ -49,6 +49,12 @@ valem todas. E mais:
     partes moles;
   - a convenção é a da radiografia: mais exposição, imagem mais escura; osso
     claro.
+
+  **Mudado na execução (2026-10-23):** as três linhas acima descrevem o filme.
+  A spec manda a prancheta, e o simulador dela é de radiografia **digital**: o
+  processamento normaliza o brilho, o kV muda o contraste e o mAs muda só o
+  ruído. O `exposureModel` segue a prancheta (ver "Registro de execução", no
+  fim).
 - **Regras do player que continuam:** primeiro contato sem custo de vida, o item
   errado volta uma vez no fim, estrelas pela primeira resposta, explicação junto
   da resposta e a frase de 0 estrela sem "quase" (FILA 47).
@@ -423,8 +429,79 @@ git commit -m "docs(aula): evidência da aula-bancada no simulador e no AVD"
 
 ---
 
-## Estado em 2026-10-22
+## Registro de execução (2026-10-23 e 24)
 
-Não começado. O pré-requisito da tarefa 6 está cumprido: a `runtimeVersion` é
-`fingerprint` desde `e10a553` (plano 2, tarefa 0). `@react-native-community/slider`
-5.x continua dependência sem uso em `src`, como o plano supõe.
+**Estado:** tarefas 1 a 6 concluídas e revisadas; tarefa 7 feita no simulador
+iOS, **menos o VoiceOver e a medição no AVD de entrada** (pendentes); revisão
+final do plano feita, com a onda de correção revisada. **Gate do dono pendente:**
+a revisão do conteúdo das duas aulas, frase por frase
+([documento](../../conteudo-bancada/2026-10-24-aulas-de-exemplo.md)). Branch `claude/trilha-medalhao-design`,
+de `74bc858` a `3ec1293`, cada entrega com `loop validate` 15/15.
+
+Execução com subagentes: um implementador e um revisor independente por tarefa,
+rodadas de correção com re-revisão de escopo fechado, e uma revisão final do
+plano inteiro no modelo mais forte.
+
+| Tarefa | Commits | Observação |
+| --- | --- | --- |
+| 1 | `b7a22fe`, `35c22a6` | modelo de exposição; o comentário passou a descrever a integral de atenuação |
+| 2 | `f52dabe`, `b4bef04` | `bench` no contrato v2; regra `invalid-goal` |
+| 3 | `8f1ba18`, `f1654a8` | shader do fantoma, controles e renderizador; o shader deixou de usar `pow` com base negativa |
+| 4 | `d218ad6`, `78e279f`, `8cb7092` | retorno pela direção e explicação por alternativa, também na tela |
+| 5 | `3fb646b`, `9a26b30` | colimação, escolhida pelo custo ([evidência](../../evidence/2026-10-24-segunda-bancada.md)); "produto dose-área" |
+| 6 | `5563260`, `ef4da21`, `0fbede2`, `e209118` | as duas aulas, só em `__DEV__`; sem nó, sem progresso da trilha; modo híbrido |
+| 7 | `36fa2e5` | estrelas pela primeira resposta, achado no simulador ([evidência](../../evidence/2026-10-24-aula-bancada.md)) |
+| revisão final | `3ec1293` | "Conferir resposta" na bancada; frases de física; sem jargão de processo |
+
+**Decisões que mudam ou completam o texto do plano.** Valem para quem
+continuar:
+- **Física (tarefa 1):** radiografia digital, como a prancheta: brilho
+  normalizado, kV no contraste, mAs só no ruído (∝ 1/√mAs). As restrições
+  globais acima trazem a nota.
+- **Faixas (tarefa 6):** o modelo aceita kV 40–120 e mAs 1–40; as aulas usam as
+  faixas da prancheta, kV 50–120 e mAs 1–20.
+- **Tipo novo (tarefa 2):** `bench`, e não o `parameter-lab` que já existia no
+  contrato sem renderizador nem conteúdo. O `parameter-lab` fica para o
+  inventário do plano 4.
+- **Validação (tarefa 2 e 4):** além de `invalid-controls`, `invalid-initial` e
+  `missing-hints`, há `invalid-goal` (alvo ausente, controle inexistente, limite
+  fora da faixa, `match` sem referência válida ou sem tolerância positiva) e
+  `invalid-simulator`. O aviso `missing-option-explanation` mora em
+  `learningActivityWarnings`, fora da validação, porque reprovaria o catálogo de
+  produção; o teste do catálogo exige zero avisos nas aulas novas.
+- **Retorno (tarefa 4):** o que o aluno vê e o que o leitor de tela ouve vêm do
+  mesmo `feedbackFor`. O bloco de retorno aparece também na bancada.
+  Comparação e decisão de caso seguem sem bloco visível até o plano 5.
+- **`require` preguiçoso (tarefa 3):** `BenchStepRenderer` entra no registro por
+  `require` dentro do componente, porque o Skia real não carrega no Jest. Não
+  muda bundle nem tipagem. A saída limpa (dublê global do Skia no
+  `jest.config.cjs`) fica como item da FILA.
+- **Segunda bancada (tarefa 5):** colimação, pela contagem no código, sem o
+  protótipo descartável que o plano pedia. O que cresce com a área é o
+  **produto dose-área**; a dose do feixe direto num ponto dentro do campo não
+  muda ao colimar.
+- **Aulas (tarefa 6):** só em build de desenvolvimento (`__DEV__`). Sem `nodeId`,
+  a tela não grava progresso da trilha (o deep link sem nó sobrescreveria o
+  ponto de retomada). As aulas correm como lição híbrida: retorno por item,
+  primeiro erro sem custo de vida e item errado de volta no fim. O desafio de
+  colimação enquadra o joelho inteiro com as partes moles (23 a 24 cm).
+- **Estrelas (tarefa 7):** o modo híbrido levou a lição de atividade a ter
+  itens errados e refeitos, e `activityToQuizResult` contava as respostas
+  finais. Agora conta a primeira, como o caminho dos blocos.
+- **Conferir (revisão final):** na bancada, o botão é "Conferir resposta"; no
+  explorar e no corrigir fica desabilitado até o alvo, como a prancheta; no
+  desafio, fica livre. Por isso as dicas de erro do explorar e do corrigir não
+  aparecem mais.
+- **Ficam para o plano 5:** a medalha do tema na abertura e o Pixel nomeando o
+  efeito no explorar (os momentos do Pixel). Declarado no documento do dono.
+
+**Pendências:**
+- **dono:** a revisão do conteúdo das duas aulas e as perguntas do fim do
+  documento, em especial se a aula deve dizer que a dose cresce com o mAs;
+- **agente, antes de liberar (spec §8):** VoiceOver e TalkBack lendo os
+  controles, e a medição de quadros com arrasto no AVD de entrada;
+- **para o plano que escrever conteúdo novo:** a validação não confere se a
+  grade dos botões alcança o alvo; hoje só o teste do catálogo guarda isso;
+- **menores:** os pareceres de cada tarefa ficaram no registro local da
+  execução; a revisão final separou os que precisavam sair antes do merge, e
+  eles saíram em `3ec1293`.

@@ -302,7 +302,17 @@ mudaram o texto do plano e pendências.
     `STORYBOOK_ENABLED=true`: 500 antes, 200 depois, no Android e no iOS
     ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, o defeito continua até o merge
     da #66.
-- **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
+- **Plano 3 (aula-bancada): feito em 2026-10-24, aguardando o dono.** As
+  tarefas 1 a 7 foram feitas e revisadas, com uma revisão final do plano e a
+  onda de correção dela (`74bc858..3ec1293`, cada entrega com `loop validate`
+  15/15). As duas aulas de exemplo, exposição e colimação, abrem só em build
+  de desenvolvimento por `radiantapp://learn?blockId=bancada:exposicao` e
+  `…:colimacao`. Elas foram feitas inteiras no simulador iOS, e isso achou e
+  corrigiu as estrelas contadas pela resposta final (`36fa2e5`)
+  ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo dono,
+  frase por frase ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e, antes de liberar, o
+  VoiceOver e a medição no AVD de entrada.
+- **Plano 5: não começado.** O 4 é escrito agora que o 3 terminou.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
   relatórios) ficam em `.superpowers/sdd/` do worktree

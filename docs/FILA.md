@@ -538,7 +538,14 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       `JourneyHomeScreen.flow.test.tsx` estouravam o prazo com a CPU limitada,
       e o CI da PR #66 reprovou por isso em `ef40365`. O `37e7688` deu a eles
       um prazo que cobre as próprias esperas, e o CI ficou verde;
-    - Planos 3 e 5 não iniciados; Plano 4 só depois do 3.
+    - em 2026-10-24, o plano 3 (aula-bancada) foi feito e revisado, com as
+      duas aulas de exemplo, que abrem só em build de desenvolvimento
+      ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo
+      **dono** ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e o VoiceOver e o AVD de
+      entrada pelo **agente**. Plano 5 não iniciado; o 4 pode ser escrito;
+    - **agente, à parte:** o `require` preguiçoso de `BenchStepRenderer` no
+      registro de renderizadores sai com um dublê global do Skia no
+      `jest.config.cjs`, que hoje está como mock local em seis arquivos.
 
     O estado detalhado está no STATUS ("Execução dos planos da trilha
     Medalhão") e nos registros de execução de cada plano;
