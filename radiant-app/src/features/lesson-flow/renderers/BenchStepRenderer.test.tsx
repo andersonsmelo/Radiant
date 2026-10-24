@@ -332,13 +332,13 @@ describe('BenchStepRenderer', () => {
             expect(fieldOf(rendered)).toEqual([[1, 1]]);
         });
 
-        it('mostra em texto o campo e a dose, e o rótulo da imagem diz o campo', () => {
+        it('mostra em texto o campo e o produto dose-área, e o rótulo da imagem diz o campo', () => {
             const { getByText, getByLabelText } = render(<Player interaction={collimation()} onChange={jest.fn()} />);
 
             expect(getByText('27 cm')).toBeTruthy();
             expect(getByText('33 cm')).toBeTruthy();
             expect(getByText('Campo de 27 × 33 cm, 891 cm²')).toBeTruthy();
-            expect(getByText('Dose relativa: 100% (campo todo = 100%)')).toBeTruthy();
+            expect(getByText('Produto dose-área: 100% do campo todo')).toBeTruthy();
             expect(getByLabelText('Fantoma simulado: campo de 27 × 33 cm').props.accessibilityRole).toBe('image');
         });
 
@@ -349,7 +349,7 @@ describe('BenchStepRenderer', () => {
             expect(onChange).toHaveBeenCalledWith('{"fieldWidth":27,"fieldHeight":33}');
         });
 
-        it('fechar a largura em 9 cm encolhe a máscara, baixa a dose no texto e entrega o JSON', () => {
+        it('fechar a largura em 9 cm encolhe a máscara, baixa o produto dose-área no texto e entrega o JSON', () => {
             const onChange = jest.fn();
             const rendered = render(<Player interaction={collimation()} onChange={onChange} />);
 
@@ -363,7 +363,7 @@ describe('BenchStepRenderer', () => {
             expect(height).toBe(1);
             // 18 × 33 = 594 cm², 594 / 891 = 67%.
             expect(rendered.getByText('Campo de 18 × 33 cm, 594 cm²')).toBeTruthy();
-            expect(rendered.getByText('Dose relativa: 67% (campo todo = 100%)')).toBeTruthy();
+            expect(rendered.getByText('Produto dose-área: 67% do campo todo')).toBeTruthy();
         });
 
         it('no arrasto, a máscara acompanha o dedo e o texto fica no valor do passo', () => {

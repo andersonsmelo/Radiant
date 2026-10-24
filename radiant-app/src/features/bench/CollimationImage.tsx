@@ -31,14 +31,15 @@ export function CollimationImage({
 }
 
 /**
- * O campo, a área e a dose relativa em texto: o que a máscara mostra, dito em
- * palavras (spec, seção 8). A dose é uma região viva, para quem não vê a
- * imagem ouvir o efeito de cada passo.
+ * O campo, a área e o produto dose-área em texto: o que a máscara mostra, dito
+ * em palavras (spec, seção 8). Não diz "dose": a dose num ponto dentro do campo
+ * não cai ao colimar; o que cai, com a área, é o produto dose-área. A linha dele
+ * é uma região viva, para quem não vê a imagem ouvir o efeito de cada passo.
  */
 export function CollimationReadout({ field }: { field: CollimationInput }): React.ReactElement {
   const out = collimationModel(field);
   const area = Math.round(out.area);
-  const dose = Math.round(out.relativeDose * 100);
+  const doseArea = Math.round(out.relativeDoseArea * 100);
 
   return (
     <View style={styles.readout}>
@@ -46,7 +47,7 @@ export function CollimationReadout({ field }: { field: CollimationInput }): Reac
         {`Campo de ${centimeters(out.fieldWidth)} × ${centimeters(out.fieldHeight)} cm, ${area} cm²`}
       </Text>
       <Text style={styles.line} accessibilityLiveRegion="polite">
-        {`Dose relativa: ${dose}% (campo todo = 100%)`}
+        {`Produto dose-área: ${doseArea}% do campo todo`}
       </Text>
     </View>
   );

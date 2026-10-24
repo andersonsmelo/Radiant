@@ -161,7 +161,7 @@ function BenchScreen({
  * A bancada: o fantoma simulado, uma linha de controle por parâmetro e, no
  * modo `challenge` com alvo `match`, a imagem de referência ao lado. A imagem
  * sai do `simulator`: na colimação, o fantoma com a máscara do campo, e a área e
- * a dose relativa em texto.
+ * o produto dose-área em texto.
  *
  * Não guarda a resposta: `value` chega de fora (o JSON dos controles) e
  * `onChange` o devolve. O único estado local é o valor bruto do arrasto, que

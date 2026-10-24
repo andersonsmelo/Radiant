@@ -72,19 +72,29 @@ describe('CollimationImage', () => {
 });
 
 describe('CollimationReadout', () => {
-    it('diz em texto o campo, a área e a dose relativa', () => {
+    it('diz em texto o campo, a área e o produto dose-área', () => {
         const { getByText } = render(<CollimationReadout field={{ fieldWidth: 18, fieldHeight: 24 }} />);
 
-        // 18 × 24 = 432 cm², e 432 / 891 ≈ 48% da dose do campo todo.
+        // 18 × 24 = 432 cm², e 432 / 891 ≈ 48% do produto dose-área do campo todo.
         expect(getByText('Campo de 18 × 24 cm, 432 cm²')).toBeTruthy();
-        expect(getByText('Dose relativa: 48% (campo todo = 100%)')).toBeTruthy();
+        expect(getByText('Produto dose-área: 48% do campo todo')).toBeTruthy();
+    });
+
+    it('não chama de dose o que é produto dose-área: a dose num ponto não cai ao colimar', () => {
+        const { queryByText, toJSON } = render(<CollimationReadout field={{ fieldWidth: 10, fieldHeight: 12 }} />);
+        const shown = JSON.stringify(toJSON());
+
+        // Ausência casada pela forma mais larga: nenhuma "dose" solta, só dentro de "dose-área".
+        expect(shown.replace(/dose-área/gi, '')).not.toMatch(/dose/i);
+        // Validade: o texto da grandeza está na tela.
+        expect(queryByText(/^Produto dose-área: \d+% do campo todo$/)).toBeTruthy();
     });
 
     it('o campo todo é 100%', () => {
         const { getByText } = render(<CollimationReadout field={FULL_FIELD} />);
 
         expect(getByText('Campo de 27 × 33 cm, 891 cm²')).toBeTruthy();
-        expect(getByText('Dose relativa: 100% (campo todo = 100%)')).toBeTruthy();
+        expect(getByText('Produto dose-área: 100% do campo todo')).toBeTruthy();
     });
 
     it('mostra o meio centímetro com vírgula, e não arredonda a medida', () => {
@@ -93,9 +103,9 @@ describe('CollimationReadout', () => {
         expect(getByText('Campo de 12,5 × 20 cm, 250 cm²')).toBeTruthy();
     });
 
-    it('a dose fala sozinha ao mudar, para quem não vê a imagem', () => {
+    it('o produto dose-área fala sozinho ao mudar, para quem não vê a imagem', () => {
         const { getByText } = render(<CollimationReadout field={FULL_FIELD} />);
 
-        expect(getByText(/^Dose relativa/).props.accessibilityLiveRegion).toBe('polite');
+        expect(getByText(/^Produto dose-área/).props.accessibilityLiveRegion).toBe('polite');
     });
 });

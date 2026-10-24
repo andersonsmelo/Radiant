@@ -8,8 +8,11 @@
  * mAs: muda só a área que o feixe cobre.
  *
  * AFIRMAÇÃO FÍSICA (o que a tela pode dizer ao aluno):
- * - com kV e mAs fixos, a dose entregue ao paciente é proporcional à área
- *   irradiada: um campo com metade da área entrega metade da radiação;
+ * - com kV e mAs fixos, o produto dose-área (PDA, ou kerma-área) é
+ *   proporcional à área irradiada: um campo com metade da área tem metade do
+ *   produto dose-área;
+ * - a dose num ponto dentro do campo não muda ao colimar. O que cai é a área
+ *   que recebe essa dose;
  * - um campo menor reduz a radiação espalhada, porque menos tecido é
  *   irradiado e menos tecido espalha o feixe;
  * - colimar até a região de interesse é proteção radiológica: o que fica fora
@@ -18,9 +21,9 @@
  * SIMPLIFICAÇÃO (o que o modelo faz de conta):
  * - o campo é um retângulo ideal, centrado na imagem, sem penumbra: a borda é
  *   um degrau, e fora dela não chega nada;
- * - a dose relativa não tem unidade: é a área do campo dividida pela área do
- *   campo todo (a imagem inteira), que vale 1. É a dose somada sobre o campo,
- *   e não a dose num ponto: num ponto dentro do campo ela não cai ao colimar;
+ * - o produto dose-área é relativo e não tem unidade (o real é em Gy·cm²): é
+ *   a área do campo dividida pela área do campo todo (a imagem inteira), que
+ *   vale 1;
  * - o espalhamento não é calculado. A imagem dentro do campo é a mesma com
  *   qualquer campo, embora na prática menos espalhamento melhore um pouco o
  *   contraste;
@@ -43,8 +46,8 @@ export type CollimationOutput = {
   fieldHeight: number;
   /** A área do campo, em cm². */
   area: number;
-  /** A dose relativa ao campo todo, de 0 a 1 (o campo todo vale 1). */
-  relativeDose: number;
+  /** O produto dose-área relativo ao campo todo, de 0 a 1 (o campo todo vale 1). */
+  relativeDoseArea: number;
   /** A fração da imagem que o campo cobre, em cada lado, de 0 a 1. */
   fieldFraction: { width: number; height: number };
 };
@@ -53,7 +56,7 @@ export type CollimationOutput = {
 export const DETECTOR_WIDTH_CM = 27;
 export const DETECTOR_HEIGHT_CM = 33;
 
-/** O campo todo: a imagem inteira. É o ponto de partida e o que vale dose 1. */
+/** O campo todo: a imagem inteira. É o ponto de partida, e o seu produto dose-área vale 1. */
 export const FULL_FIELD: CollimationInput = Object.freeze({
   fieldWidth: DETECTOR_WIDTH_CM,
   fieldHeight: DETECTOR_HEIGHT_CM,
@@ -89,7 +92,7 @@ export function collimationModel(input: CollimationInput): CollimationOutput {
     fieldWidth,
     fieldHeight,
     area,
-    relativeDose: area / FULL_AREA,
+    relativeDoseArea: area / FULL_AREA,
     fieldFraction: {
       width: fieldWidth / DETECTOR_WIDTH_CM,
       height: fieldHeight / DETECTOR_HEIGHT_CM,

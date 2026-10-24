@@ -22,18 +22,18 @@ implementado.
 
 | Medida | Colimação (medido no diff) | Posicionamento (estimado sobre o código atual) |
 | --- | --- | --- |
-| Componentes novos | 1 arquivo, `CollimationImage.tsx` (60 linhas): a imagem, que é o `ExposureImage` com máscara, e o texto de área e dose. `BenchControlRow` sem nenhuma linha mudada. | 2: a imagem do fantoma girado e um indicador da rotação do paciente, porque o aluno precisa ver o paciente girar, e não só a radiografia. O controle de ângulo cabe no `BenchControlRow`. |
+| Componentes novos | 1 arquivo, `CollimationImage.tsx` (61 linhas): a imagem, que é o `ExposureImage` com máscara, e o texto de área e produto dose-área. `BenchControlRow` sem nenhuma linha mudada. | 2: a imagem do fantoma girado e um indicador da rotação do paciente, porque o aluno precisa ver o paciente girar, e não só a radiografia. O controle de ângulo cabe no `BenchControlRow`. |
 | Mudanças no shader | 1 uniforme (`field`), 1 constante (`UNEXPOSED`) e 3 linhas de código: a máscara retangular centrada. A geometria do fantoma não mudou. | Reescrever a geometria. Hoje cada estrutura é a corda de um cilindro de eixo vertical, com centro fixo em x (fêmur em 122, tíbia em 132, partes moles em 128, patela em (196, 140)), sem profundidade. Girar o paciente exige uma profundidade z para cada estrutura, rotação por um uniforme de ângulo, os dois côndilos separados (hoje são um alargamento só de `femurR`) e a fíbula, que o fantoma não tem. O fallback de `View`s (`PHANTOM_BONES`) teria de se mover com o ângulo. |
 | Campos novos em `BenchPayload` | 0. Só se alargaram as uniões: `simulator` ganhou `'collimation'`, e `BenchControl.id` e `BenchGoal.control` ganharam `fieldWidth` e `fieldHeight`. O alvo `reach` já serve. | 1 ou 2. Controle `rotation` em graus e, provavelmente, o nome da incidência-alvo para a tela. Comparar com uma imagem de referência por ângulo pediria outro tipo de alvo. |
-| Afirmações físicas ou anatômicas para o dono revisar | 3, todas de proteção radiológica: a dose é proporcional à área irradiada; campo menor reduz a radiação espalhada; colimar até a região de interesse é proteção radiológica. Mais 6 simplificações declaradas no topo de `collimationModel.ts`. | Pelo menos 6, anatômicas: a profundidade relativa de fêmur, tíbia, patela e fíbula; que rotação dá a incidência AP e qual dá o perfil; os critérios de sobreposição (côndilos sobrepostos no perfil verdadeiro, patela de perfil, cabeça da fíbula parcialmente coberta pela tíbia na AP); o sentido da rotação interna e externa. |
-| Cabe no `exposureModel`? | Sim. Os tons do fantoma saem do mesmo modelo, na exposição de referência (70 kV, 10 mAs). A área e a dose saem de um modelo puro novo, `collimationModel.ts` (98 linhas, das quais 49 de comentário). | Só os tons. A posição de cada estrutura em função do ângulo seria um modelo geométrico novo, e os testes dele afirmariam anatomia, e não física. |
+| Afirmações físicas ou anatômicas para o dono revisar | 4, de proteção radiológica: o produto dose-área é proporcional à área irradiada; a dose num ponto dentro do campo não muda ao colimar; campo menor reduz a radiação espalhada; colimar até a região de interesse é proteção radiológica. Mais 6 simplificações declaradas no topo de `collimationModel.ts`. | Pelo menos 6, anatômicas: a profundidade relativa de fêmur, tíbia, patela e fíbula; que rotação dá a incidência AP e qual dá o perfil; os critérios de sobreposição (côndilos sobrepostos no perfil verdadeiro, patela de perfil, cabeça da fíbula parcialmente coberta pela tíbia na AP); o sentido da rotação interna e externa. |
+| Cabe no `exposureModel`? | Sim. Os tons do fantoma saem do mesmo modelo, na exposição de referência (70 kV, 10 mAs). A área e o produto dose-área saem de um modelo puro novo, `collimationModel.ts` (101 linhas, das quais 52 de comentário). | Só os tons. A posição de cada estrutura em função do ângulo seria um modelo geométrico novo, e os testes dele afirmariam anatomia, e não física. |
 | Conflito com o rigor da spec | Nenhum: o fantoma continua estilizado, e a máscara não o torna uma incidência real. | Sim. "Girar até a incidência" ensina uma incidência real, e a spec manda que o fantoma seja estilizado, "nunca uma incidência real". |
 
 ## Decisão
 
 **Colimação.** A contagem confirma a recomendação de 2026-10-21. A colimação
 custou um componente, cinco linhas de shader, nenhum campo novo no payload e
-três afirmações de proteção radiológica. O posicionamento pediria reescrever a
+quatro afirmações de proteção radiológica. O posicionamento pediria reescrever a
 geometria do fantoma em três dimensões, um segundo componente e pelo menos seis
 afirmações anatômicas novas. E esbarraria na regra de rigor, porque o alvo dele
 é uma incidência real.
@@ -43,13 +43,13 @@ afirmações anatômicas novas. E esbarraria na regra de rigor, porque o alvo de
 - `simulator: 'collimation'`, com controles `fieldWidth` e `fieldHeight` em
   cm. O domínio do modelo vai de 1 cm até o tamanho da imagem: 27 × 33 cm, a
   10 unidades da prancheta por cm. Fora dele, a entrada é limitada.
-- `collimationModel(input)`, puro: área em cm², dose relativa igual à área
-  dividida pela do campo todo (o campo todo vale 1) e a fração da imagem que o
-  campo cobre.
+- `collimationModel(input)`, puro: área em cm², produto dose-área relativo
+  (`relativeDoseArea`), igual à área dividida pela do campo todo (o campo todo
+  vale 1), e a fração da imagem que o campo cobre.
 - A máscara no shader. Fora do campo, a imagem fica num tom claro uniforme, sem
   grão. Na bancada de exposição, `field` vale (1, 1) e a máscara não cobre nada.
-- A tela mostra, além da imagem, "Campo de 18 × 24 cm, 432 cm²" e "Dose
-  relativa: 48% (campo todo = 100%)". O texto segue o valor do passo, como o
+- A tela mostra, além da imagem, "Campo de 18 × 24 cm, 432 cm²" e "Produto
+  dose-área: 48% do campo todo". O texto segue o valor do passo, como o
   rótulo do controle, e a máscara acompanha o dedo no arrasto.
 - A validação recusa a mistura: um controle de exposição numa colimação, ou o
   contrário, é `invalid-controls`. Um `reach` sobre controle de outro simulador
@@ -59,14 +59,14 @@ afirmações anatômicas novas. E esbarraria na regra de rigor, porque o alvo de
 
 ## Para o dono revisar
 
-As três afirmações e as seis simplificações estão no comentário do topo de
+As quatro afirmações e as seis simplificações estão no comentário do topo de
 `radiant-app/src/features/bench/collimationModel.ts`. Três pontos pedem olhar
 de quem conhece o equipamento:
 
-1. **A dose relativa é a dose somada sobre o campo, e não a dose num ponto.**
-   Num ponto dentro do campo, a dose não cai ao colimar. A frase da tela diz só
-   "dose relativa", e a aula da tarefa 6 precisa de uma frase que não sugira o
-   contrário.
+1. **O que cai com a área é o produto dose-área, e não a dose.** Num ponto
+   dentro do campo, a dose não muda ao colimar. A tela diz "Produto dose-área",
+   e não "dose", e as frases da aula da tarefa 6 precisam fazer a mesma
+   distinção.
 2. **A faixa fora do campo é clara.** Sem feixe não há sinal, e na convenção da
    imagem (quanto menos sinal, mais claro) ela sai clara, como num filme sem
    exposição. Muitos equipamentos digitais a escurecem por processamento. Se a
@@ -82,3 +82,12 @@ de quem conhece o equipamento:
   também acerta e corta a anatomia. A aula precisa dar a faixa inteira
   (`atLeast` e `atMost`).
 - A imagem não desenha a região de interesse. A aula a nomeia no enunciado.
+
+## Correção de 2026-10-24
+
+A primeira versão (`3fb646b`) dizia "Dose relativa: N%" na tela e afirmava que
+a dose entregue ao paciente é proporcional à área. A grandeza proporcional à
+área é o produto dose-área. A dose num ponto dentro do campo não cai ao
+colimar. A revisão da tarefa apontou o erro, e a tela, o modelo
+(`relativeDose` virou `relativeDoseArea`) e esta evidência foram corrigidos. As
+contagens de linhas acima são as de depois da correção.

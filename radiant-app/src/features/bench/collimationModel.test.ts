@@ -14,55 +14,55 @@ function range(min: number, max: number): number[] {
   return Array.from({ length: max - min + 1 }, (_, index) => min + index);
 }
 
-describe('collimationModel — a dose relativa acompanha a área do campo', () => {
-  it('a dose sobe a cada centímetro de largura, com a altura fixa', () => {
-    const doses = range(1, DETECTOR_WIDTH_CM).map(
-      (fieldWidth) => collimationModel({ fieldWidth, fieldHeight: 20 }).relativeDose,
+describe('collimationModel — o produto dose-área acompanha a área do campo', () => {
+  it('o produto dose-área sobe a cada centímetro de largura, com a altura fixa', () => {
+    const values = range(1, DETECTOR_WIDTH_CM).map(
+      (fieldWidth) => collimationModel({ fieldWidth, fieldHeight: 20 }).relativeDoseArea,
     );
 
-    doses.slice(1).forEach((dose, index) => {
-      expect(dose).toBeGreaterThan(doses[index]);
-      expect(dose).toBeGreaterThan(0);
+    values.slice(1).forEach((value, index) => {
+      expect(value).toBeGreaterThan(values[index]);
+      expect(value).toBeGreaterThan(0);
     });
   });
 
-  it('a dose sobe a cada centímetro de altura, com a largura fixa', () => {
-    const doses = range(1, DETECTOR_HEIGHT_CM).map(
-      (fieldHeight) => collimationModel({ fieldWidth: 15, fieldHeight }).relativeDose,
+  it('o produto dose-área sobe a cada centímetro de altura, com a largura fixa', () => {
+    const values = range(1, DETECTOR_HEIGHT_CM).map(
+      (fieldHeight) => collimationModel({ fieldWidth: 15, fieldHeight }).relativeDoseArea,
     );
 
-    doses.slice(1).forEach((dose, index) => {
-      expect(dose).toBeGreaterThan(doses[index]);
-      expect(dose).toBeGreaterThan(0);
+    values.slice(1).forEach((value, index) => {
+      expect(value).toBeGreaterThan(values[index]);
+      expect(value).toBeGreaterThan(0);
     });
   });
 
-  it('fechar o campo baixa a dose: 18 × 24 cm dá menos que o campo todo', () => {
-    const open = collimationModel(FULL_FIELD).relativeDose;
-    const closed = collimationModel({ fieldWidth: 18, fieldHeight: 24 }).relativeDose;
+  it('fechar o campo baixa o produto dose-área: 18 × 24 cm dá menos que o campo todo', () => {
+    const open = collimationModel(FULL_FIELD).relativeDoseArea;
+    const closed = collimationModel({ fieldWidth: 18, fieldHeight: 24 }).relativeDoseArea;
 
     expect(closed).toBeGreaterThan(0);
     expect(closed).toBeLessThan(open);
   });
 
-  it('a dose é proporcional à área: dobrar a largura dobra a dose', () => {
-    const narrow = collimationModel({ fieldWidth: 6, fieldHeight: 20 }).relativeDose;
-    const wide = collimationModel({ fieldWidth: 12, fieldHeight: 20 }).relativeDose;
+  it('o produto dose-área é proporcional à área: dobrar a largura o dobra', () => {
+    const narrow = collimationModel({ fieldWidth: 6, fieldHeight: 20 }).relativeDoseArea;
+    const wide = collimationModel({ fieldWidth: 12, fieldHeight: 20 }).relativeDoseArea;
 
     expect(wide / narrow).toBeCloseTo(2, 9);
   });
 
-  it('a dose depende só da área: 10 × 20 e 20 × 10 dão a mesma', () => {
-    expect(collimationModel({ fieldWidth: 10, fieldHeight: 20 }).relativeDose).toBeCloseTo(
-      collimationModel({ fieldWidth: 20, fieldHeight: 10 }).relativeDose,
+  it('o produto dose-área depende só da área: 10 × 20 e 20 × 10 dão o mesmo', () => {
+    expect(collimationModel({ fieldWidth: 10, fieldHeight: 20 }).relativeDoseArea).toBeCloseTo(
+      collimationModel({ fieldWidth: 20, fieldHeight: 10 }).relativeDoseArea,
       12,
     );
   });
 
-  it('a dose é a área dividida pela do campo todo, e o campo todo vale 1', () => {
+  it('o produto dose-área relativo é a área dividida pela do campo todo, que vale 1', () => {
     const fullArea = DETECTOR_WIDTH_CM * DETECTOR_HEIGHT_CM;
 
-    expect(collimationModel(FULL_FIELD).relativeDose).toBe(1);
+    expect(collimationModel(FULL_FIELD).relativeDoseArea).toBe(1);
     [
       { fieldWidth: 1, fieldHeight: 1 },
       { fieldWidth: 18, fieldHeight: 24 },
@@ -70,7 +70,7 @@ describe('collimationModel — a dose relativa acompanha a área do campo', () =
     ].forEach((input) => {
       const out = collimationModel(input);
       expect(out.area).toBe(input.fieldWidth * input.fieldHeight);
-      expect(out.relativeDose).toBeCloseTo(out.area / fullArea, 12);
+      expect(out.relativeDoseArea).toBeCloseTo(out.area / fullArea, 12);
     });
   });
 });
@@ -115,7 +115,7 @@ describe('collimationModel — o domínio', () => {
     );
   });
 
-  it('a dose e as frações ficam entre 0 e 1, nos limites e fora deles', () => {
+  it('o produto dose-área e as frações ficam entre 0 e 1, nos limites e fora deles', () => {
     const inputs: CollimationInput[] = [
       { fieldWidth: 1, fieldHeight: 1 },
       { fieldWidth: 27, fieldHeight: 33 },
@@ -126,7 +126,7 @@ describe('collimationModel — o domínio', () => {
 
     inputs.forEach((input) => {
       const out = collimationModel(input);
-      [out.relativeDose, out.fieldFraction.width, out.fieldFraction.height].forEach((measure) => {
+      [out.relativeDoseArea, out.fieldFraction.width, out.fieldFraction.height].forEach((measure) => {
         expect(Number.isFinite(measure)).toBe(true);
         expect(measure).toBeGreaterThan(0);
         expect(measure).toBeLessThanOrEqual(1);
