@@ -53,6 +53,7 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
@@ -152,10 +153,15 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
         return Math.max(0, Math.min(privacySafeIndex, activity.steps.length - 1));
     }, [activity, resumeCursorId]);
-    const hybrid = Boolean(block?.sessionMode);
+    // As aulas-bancada de exemplo não têm bloco legado, e é o modo da sessão que
+    // liga o retorno por item, o primeiro contato sem custo de vida e a volta do
+    // item errado (spec, seção 5). Elas correm como lição híbrida.
+    const sessionMode = block?.sessionMode
+        ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
+    const hybrid = Boolean(sessionMode);
     const player = useLearningActivity(activity, resumeStepIndex, {
         feedbackPerItem: hybrid,
-        repeatIncorrect: block?.sessionMode === 'hybrid-lesson' && !isReview,
+        repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
     });
 
     useEffect(() => {
@@ -216,7 +222,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const currentStep = player.currentStep;
     // A lista de cursores compatíveis é estável: acrescentar um retorno não
     // deve criar outro checkpoint da mesma sessão. Reservamos até um por item.
-    const checkpointCapacity = block?.sessionMode === 'hybrid-lesson' && activity
+    const checkpointCapacity = sessionMode === 'hybrid-lesson' && activity
         ? activity.steps.length + activity.steps.filter(step => step.kind === 'interaction').length
         : totalSteps;
     const shadowCursorIds = Array.from(
@@ -686,6 +692,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 <AdvanceStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
 
+                            {/*
+                              Na lição híbrida, o retorno de cada item já apareceu
+                              junto da resposta: o fechamento mostra o próprio
+                              título e texto, e não repete o da última interação.
+                            */}
                             {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' ? (
                                 <ReinforceStepRenderer
                                     payload={{
@@ -693,8 +704,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         body: currentStep.payload.body ?? '',
                                         tone: currentStep.payload.tone ?? 'neutral',
                                     }}
-                                    answeredCorrectly={player.lastFeedback?.correct}
-                                    explanation={player.lastFeedback?.message}
+                                    answeredCorrectly={hybrid ? undefined : player.lastFeedback?.correct}
+                                    explanation={hybrid ? undefined : player.lastFeedback?.message}
                                 />
                             ) : null}
                         </View>

@@ -17,6 +17,7 @@ import LearnRoute from '../../../app/learn';
 import { NextNodeResolver } from '../../journey/services/NextNodeResolver';
 import type { JourneySnapshot } from '../../../types/journey';
 import { semanticColors } from '../../../ui/semantic-colors';
+import { EXPOSICAO } from '../../bench/lessons/exposicao';
 
 const mockedSubscription = subscriptionService as jest.Mocked<typeof subscriptionService>;
 
@@ -1816,5 +1817,78 @@ describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha (R
       start.mockRestore();
       modeSpy.mockRestore();
     }
+  });
+});
+
+describe('LessonFlowScreen — as aulas-bancada correm como lição híbrida', () => {
+  // As aulas de exemplo não têm bloco legado, e é o `sessionMode` do bloco que
+  // liga o retorno por item, o primeiro contato sem custo e a volta do item
+  // errado (spec, seção 5). Sem ele, a dica da bancada nunca aparecia.
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  const steps = EXPOSICAO.steps;
+  const hook = steps[0];
+  const explore = steps[1];
+  const reading = steps[3];
+  const closing = steps[5];
+  if (hook.kind !== 'presentation' || explore.kind !== 'interaction' || explore.interaction.type !== 'bench'
+    || reading.kind !== 'interaction' || reading.interaction.type !== 'multiple-choice' || closing.kind !== 'presentation') {
+    throw new Error('A aula de exposição mudou de roteiro: abertura, explorar, desafio, leitura, corrigir, fechamento.');
+  }
+  const benchPayload = explore.interaction.payload;
+  const readingPayload = reading.interaction.payload;
+  const rightLabel = readingPayload.options.find(option => option.id === readingPayload.correctOptionId)?.label ?? '';
+
+  // O mesmo motivo de `esperarBotaoApto` acima: o valor inicial da bancada sobe
+  // ao player por um efeito depois da montagem.
+  async function esperarContinuarApto() {
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Continuar' }).props.onStartShouldSetResponder?.()).toBe(true);
+    });
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+  });
+
+  it('a bancada errada no primeiro contato mostra a dica do lado certo e não custa vida', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue(EXPOSICAO);
+    renderWithProviders(<LessonFlowScreen blockId="bancada:exposicao" nodeId="" />);
+    expect(await screen.findByText(hook.payload.body ?? '')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    expect(await screen.findByText(benchPayload.prompt)).toBeTruthy();
+    await esperarContinuarApto();
+
+    // O kV parte de 60, abaixo do alvo de 100: errar pelo lado baixo.
+    fireEvent.press(screen.getByRole('button', { name: 'Continuar' }));
+
+    const bloco = await screen.findByTestId('lesson-item-feedback');
+    expect(within(bloco).getByText(benchPayload.hints.tooLow)).toBeTruthy();
+    expect(heartsRepository.spend).not.toHaveBeenCalled();
+  });
+
+  it('o fechamento mostra o próprio título e texto, e não o retorno da última interação', async () => {
+    mockedLessonFlowService.getActivityById.mockReturnValue({ ...EXPOSICAO, steps: [reading, closing] });
+    renderWithProviders(<LessonFlowScreen blockId="bancada:exposicao" nodeId="" />);
+    expect(await screen.findByText(readingPayload.prompt)).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText(rightLabel));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    expect(await screen.findByTestId('lesson-item-feedback')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+
+    expect(await screen.findByText(closing.payload.title)).toBeTruthy();
+    expect(screen.getByText(closing.payload.body ?? '')).toBeTruthy();
+    expect(screen.queryByText('Resposta correta')).toBeNull();
+    expect(screen.queryByText(reading.interaction.feedback.correct)).toBeNull();
   });
 });
