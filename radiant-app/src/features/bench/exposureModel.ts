@@ -14,14 +14,22 @@
  * - o mAs controla a quantidade de fótons. O ruído quântico (o mosqueado) cai
  *   com 1/√mAs: quadruplicar o mAs divide o ruído por dois;
  * - com processamento digital, o mAs não muda o brilho final da imagem, nem o
- *   contraste entre osso e partes moles. Muda só o ruído.
+ *   contraste entre osso e partes moles. Muda só o ruído;
+ * - o feixe é atenuado de forma exponencial ao atravessar o tecido (lei de
+ *   Beer-Lambert): a transmissão é exp(−∫μ dl), onde μ é a atenuação do
+ *   material e a integral soma μ ao longo do caminho do feixe.
  *
  * SIMPLIFICAÇÃO (o que o modelo faz de conta):
  * - o fantoma é estilizado, nunca uma incidência real: uma coluna de 10 cm de
  *   partes moles, com 3 cm dela ocupados por osso. As espessuras são fixas;
- * - a atenuação é exponencial e monocromática. Os coeficientes (`MU_SOFT_60`,
- *   `MU_BONE_60` e os expoentes) são os da prancheta, de ordem de grandeza
- *   plausível mas não medidos. O feixe real é polienergético e tem dispersão;
+ * - o código não calcula a exponencial. A luminância exibida é proporcional à
+ *   integral de atenuação ∫μ dl, ou seja, a −ln(transmissão), normalizada pelo
+ *   processamento: é a imagem de um detector com exibição logarítmica, como a
+ *   da prancheta. Isso também dá a polaridade da imagem: quanto mais atenua,
+ *   mais claro, daí osso claro e fundo escuro;
+ * - a atenuação é monocromática. Os coeficientes (`MU_SOFT_60`, `MU_BONE_60` e
+ *   os expoentes) são os da prancheta, de ordem de grandeza plausível mas não
+ *   medidos. O feixe real é polienergético e tem dispersão;
  * - a normalização do processamento é ideal: o osso sempre cai no mesmo nível
  *   (`BONE_WHITE`), e o fundo no mesmo nível (`BLACK_LEVEL`), em qualquer kV;
  * - o ruído depende só do mAs. Na prática o kV também muda quantos fótons
@@ -95,7 +103,8 @@ export function exposureModel(input: ExposureInput): ExposureOutput {
   const muSoft = MU_SOFT_60 * Math.pow(60 / kv, SOFT_KV_EXPONENT);
   const muBone = MU_BONE_60 * Math.pow(60 / kv, BONE_KV_EXPONENT);
 
-  // Integral da atenuação ao longo de cada coluna: é o que o detector "vê".
+  // Integral de atenuação ∫μ dl ao longo de cada coluna (= −ln da transmissão).
+  // É o que o processamento exibe; a exponencial não é calculada (ver topo).
   const softPath = muSoft * SOFT_PATH_CM;
   const bonePath = muSoft * (SOFT_PATH_CM - BONE_PATH_CM) + muBone * BONE_PATH_CM;
 
