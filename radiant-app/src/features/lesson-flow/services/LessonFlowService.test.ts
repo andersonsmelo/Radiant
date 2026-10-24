@@ -6,6 +6,8 @@ import type {
     PresentationRole,
 } from '../../../types/learningActivity';
 import { validateLearningActivity } from '../../../types/learningActivity';
+import { COLIMACAO } from '../../bench/lessons/colimacao';
+import { EXPOSICAO } from '../../bench/lessons/exposicao';
 
 // O serviço legado alcança AsyncStorage por JourneyDefinitionService →
 // LessonCatalogService → TelemetryService. A validação v2 é pura e não depende
@@ -616,6 +618,36 @@ describe('LessonFlowService — contrato legado preservado', () => {
             provenance: { contentVersion: 'h4-materia-energia-e-radiacao-candidate-2026-08-13' },
         });
         expect(LessonFlowService.getBlockById('activity:materia-energia-e-radiacao:01')).toBeNull();
+    });
+});
+
+describe('LessonFlowService — aulas-bancada de exemplo (Ruling 13a)', () => {
+    const globalWithDev = globalThis as unknown as { __DEV__: boolean };
+    const original = globalWithDev.__DEV__;
+
+    beforeEach(() => {
+        const { JourneyDefinitionService } = jest.requireMock('../../journey/services/JourneyDefinitionService');
+        JourneyDefinitionService.getBlockById.mockReturnValue(null);
+    });
+
+    afterEach(() => {
+        globalWithDev.__DEV__ = original;
+    });
+
+    it('em build de desenvolvimento, serve as duas aulas do catálogo de exemplo', () => {
+        globalWithDev.__DEV__ = true;
+
+        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBe(EXPOSICAO);
+        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBe(COLIMACAO);
+    });
+
+    it('fora de __DEV__, não serve as aulas de exemplo: elas não saem do catálogo sem o ok do dono', () => {
+        globalWithDev.__DEV__ = false;
+
+        expect(LessonFlowService.getActivityById('bancada:exposicao')).toBeNull();
+        expect(LessonFlowService.getActivityById('bancada:colimacao')).toBeNull();
+        // O catálogo de produção continua respondendo no mesmo build.
+        expect(LessonFlowService.getActivityById('activity:materia-energia-e-radiacao:01')).not.toBeNull();
     });
 });
 
