@@ -298,6 +298,19 @@ test('centers the due review node before the second-day tap', async () => {
     `${message} — and scrolls it back when the centering swipe overshoots`);
 });
 
+test('exposes the scheduled review before the final second-day assertion', async () => {
+  const node = '^Revisar Fundamentos de Radiologia\\. Disponível em \\d{2}/\\d{2}/\\d{4} às \\d{2}:\\d{2}\\.$';
+  const commands = await flowCommands('radiant-1-4-segundo-dia.yaml');
+  assert.deepEqual(commands.at(-1), { assertVisible: node }, 'preserve the full review label and date assertion');
+  assert.deepEqual(commands.at(-3), { assertVisible: { id: 'journey-trail' } }, 'wait for the trail before scrolling');
+  assert.deepEqual(commands.at(-2), {
+    scrollUntilVisible: {
+      element: { text: node }, direction: 'UP', centerElement: true,
+      visibilityPercentage: 100, waitToSettleTimeoutMs: 500,
+    },
+  }, 'bring the review medal back into the viewport after anchoring the next lesson');
+});
+
 /**
  * O botão da recomendação centrado, e de volta se o centramento passou dele.
  * O `centerElement` do Maestro 2.7 dá UM deslize fixo quando o centro do
@@ -319,15 +332,44 @@ function assertCenteredRecommendation(commands, index, message) {
     `${message} — and scrolls it back from under the HUD when the centering swipe overshoots`);
 }
 
+test('centers every completed lesson replay above the HUD in the lives flow', async () => {
+  const node = '^Fundamentos de Radiologia\\. Concluído\\.$';
+  const commands = await flowCommands('radiant-1-4-vidas-esgotadas.yaml');
+  const centered = {
+    element: node, direction: 'UP', centerElement: true, visibilityPercentage: 100,
+  };
+  const taps = commands.flatMap((command, index) => command?.tapOn === node ? [index] : []);
+  assert.equal(taps.length, 5, 'preserve all five real replays that spend the remaining hearts');
+  for (const index of taps) {
+    assert.deepEqual(commands[index - 1]?.scrollUntilVisible, centered,
+      'bring the completed medal back below the HUD immediately before tapping it');
+  }
+  const scrolls = commands.filter(command => command?.scrollUntilVisible?.element === node);
+  assert.equal(scrolls.length, 6, 'include the final completed medal assertion after the zero-heart pause');
+  for (const command of scrolls) assert.deepEqual(command.scrollUntilVisible, centered);
+});
+
+/**
+ * Os rótulos que os roteiros tocam pelo texto, lidos da fonte. A ação mora em
+ * `getRecommendationActionCopy` (`nodeCopy.ts`) desde que o cartão de
+ * recomendação saiu (trilha Medalhão, tarefa 6), e o botão que a usa é o
+ * `AppButton` sob a medalha recomendada, montado pela Home dentro do
+ * `journey-recommendation-action` que os roteiros centram antes de tocar.
+ */
 async function recommendationActionLabels() {
-  const source = ts.createSourceFile('JourneyRecommendationCard.tsx',
-    await readAppFile('src/features/journey/components/JourneyRecommendationCard.tsx'),
-    ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const nodes = [];
-  const visit = node => { nodes.push(node); ts.forEachChild(node, visit); };
-  visit(source);
-  const copy = nodes.find(node => ts.isFunctionDeclaration(node) && node.name?.text === 'recommendationCopy');
-  assert.ok(copy?.body, 'expected the recommendation copy function');
+  const parse = async (file) => {
+    const source = ts.createSourceFile(path.basename(file), await readAppFile(file),
+      ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    const nodes = [];
+    const visit = node => { nodes.push(node); ts.forEachChild(node, visit); };
+    visit(source);
+    return { source, nodes };
+  };
+
+  const copySource = await parse('src/features/journey/components/nodeCopy.ts');
+  const copy = copySource.nodes.find(node => ts.isFunctionDeclaration(node) && node.name?.text === 'getRecommendationActionCopy');
+  assert.ok(copy?.body, 'expected the recommendation action copy function');
+  assert.ok(copy.modifiers?.some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword), 'the action copy is exported for the Home');
   const defaults = [];
   const findDefaults = node => {
     if (ts.isDefaultClause(node)) defaults.push(node);
@@ -335,23 +377,38 @@ async function recommendationActionLabels() {
   };
   findDefaults(copy.body);
   assert.equal(defaults.length, 1);
-  const returned = defaults[0].statements.find(ts.isReturnStatement)?.expression;
-  assert.ok(returned && ts.isObjectLiteralExpression(returned));
-  const action = returned.properties.find(node => ts.isPropertyAssignment(node) && node.name.getText(source) === 'action')?.initializer;
+  const action = defaults[0].statements.find(ts.isReturnStatement)?.expression;
   assert.ok(action && ts.isConditionalExpression(action), 'default action distinguishes resume from the next lesson');
   assert.ok(ts.isStringLiteral(action.whenFalse));
   const lessonLabel = action.whenFalse.text;
-  const button = nodes.find(node => ts.isJsxSelfClosingElement(node) && node.tagName.getText(source) === 'AppButton');
-  assert.ok(button, 'expected the actual rendered recommendation button');
-  for (const name of ['label', 'accessibilityLabel']) {
-    const attribute = button.attributes.properties.find(node => ts.isJsxAttribute(node) && node.name.getText(source) === name);
-    assert.equal(attribute?.initializer?.expression?.getText(source), 'copy.action', `${name} must use the computed action`);
-  }
-  const rewardCase = nodes.find(node => ts.isCaseClause(node) && ts.isStringLiteral(node.expression) && node.expression.text === 'reward');
-  const rewardReturn = rewardCase?.statements.find(ts.isReturnStatement)?.expression;
-  assert.ok(rewardReturn && ts.isObjectLiteralExpression(rewardReturn));
-  const rewardAction = rewardReturn.properties.find(node => ts.isPropertyAssignment(node) && node.name.getText(source) === 'action')?.initializer;
+  const rewardCase = copySource.nodes.find(node => ts.isCaseClause(node) && ts.isStringLiteral(node.expression) && node.expression.text === 'reward');
+  const rewardAction = rewardCase?.statements.find(ts.isReturnStatement)?.expression;
   assert.ok(rewardAction && ts.isStringLiteral(rewardAction));
+
+  const home = await parse('src/features/journey/screens/JourneyHomeScreen.tsx');
+  const attributeOf = (element, name) => element.attributes.properties
+    .find(node => ts.isJsxAttribute(node) && node.name.getText(home.source) === name);
+  // A variável que guarda a ação computada para o nó recomendado.
+  const computed = home.nodes.filter(node => ts.isVariableDeclaration(node) && node.initializer
+    && home.nodes.some(call => ts.isCallExpression(call) && call.expression.getText(home.source) === 'getRecommendationActionCopy'
+      && call.pos >= node.initializer.pos && call.end <= node.initializer.end));
+  assert.equal(computed.length, 1, 'the Home computes the action copy once');
+  const actionName = computed[0].name.getText(home.source);
+  const buttons = home.nodes.filter(node => (ts.isJsxSelfClosingElement(node) || ts.isJsxOpeningElement(node))
+    && node.tagName.getText(home.source) === 'AppButton'
+    && attributeOf(node, 'label')?.initializer?.expression?.getText(home.source) === actionName);
+  assert.equal(buttons.length, 1, 'expected the actual rendered recommendation button');
+  const [button] = buttons;
+  for (const name of ['label', 'accessibilityLabel']) {
+    assert.equal(attributeOf(button, name)?.initializer?.expression?.getText(home.source), actionName, `${name} must use the computed action`);
+  }
+  // O botão é o que os roteiros centram por id antes do toque semântico.
+  let wrapper = button.parent;
+  while (wrapper && !(ts.isJsxElement(wrapper)
+    && attributeOf(wrapper.openingElement, 'testID')?.initializer?.getText(home.source) === '"journey-recommendation-action"')) {
+    wrapper = wrapper.parent;
+  }
+  assert.ok(wrapper, 'the recommendation button lives inside journey-recommendation-action');
   return { lessonLabel, rewardLabel: rewardAction.text };
 }
 
@@ -521,10 +578,12 @@ test('keeps the journey trail on the dark galaxy theme it renders inside', async
   for (const file of files) {
     const source = await readAppFile(file);
 
-    // A proibição vale para TODO componente da trilha, sempre.
+    // A proibição vale para TODO componente da trilha, sempre. O `(?<!-)` deixa
+    // passar o caminho `ui/semantic-colors`, que é o papel escuro `galaxy` e não
+    // o token claro; `colors` sozinho continua proibido.
     assert.doesNotMatch(
       source,
-      /\bcolors\b/,
+      /(?<!-)\bcolors\b/,
       `${file} must not use the light \`colors\` theme inside the dark journey screen`
     );
 
@@ -1337,10 +1396,10 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   const present = (await listMaestroFlows()).filter((name) => name.startsWith('radiant-1-4-'));
   assert.deepEqual(present, GOLDEN, 'the 1.4 golden paths are exactly the three of spec §8 item 6');
 
-  const [first, second, hearts, summary, card, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
+  const [first, second, hearts, summary, nodeCopy, sheet, heartsService, lessons, blocks, hud] = await Promise.all([
     ...GOLDEN.map((name) => readAppFile(`.maestro/${name}`)),
     readAppFile('src/features/quiz/components/LessonSummary.tsx'),
-    readAppFile('src/features/journey/components/JourneyNodeCard.tsx'),
+    readAppFile('src/features/journey/components/nodeCopy.ts'),
     readAppFile('src/features/hearts/components/HeartsSheet.tsx'),
     readAppFile('src/features/hearts/HeartsService.ts'),
     readAppFile('src/data/lessons.ts'),
@@ -1373,7 +1432,7 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   assert.match(first, /^- assertVisible: '\^Próxima revisão em \\d\+ \(dia\|dias\)\$'$/m);
   const reviewTitle = blocks.match(/eyebrow: 'Revisão',\s*title: `Revisar \$\{lesson1\.title\}`/);
   assert.ok(reviewTitle, 'expected the lesson-1 review block to be titled "Revisar ${lesson1.title}"');
-  assert.match(card, /default:\s*return 'Bloqueado';/);
+  assert.match(nodeCopy, /default:\s*return 'Bloqueado';/);
   // O fim do caminho 1 é o dia 1 do caminho 2: a revisão agendada e fechada.
   assert.ok((await flowCommands('radiant-1-4-primeira-execucao.yaml')).some(command => typeof command.assertVisible === 'string' && new RegExp(command.assertVisible).test('Revisar Fundamentos de Radiologia. Disponível em 15/10/2026 às 08:00.')), 'scheduled review must display its availability date');
 
@@ -1383,8 +1442,8 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   // Só a CHAVE conta: o comentário do flow explica o clearState e não pode
   // nem satisfazer nem reprovar esta guarda.
   assert.doesNotMatch(second, /^\s+clearState:/m, 'path 2 starts from the state path 1 left one day earlier; clearing it makes day 2 unreachable');
-  const dueCopy = card.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
-  assert.ok(dueCopy, 'expected JourneyNodeCard to announce a due review');
+  const dueCopy = nodeCopy.match(/return `(Revisão devida · )\$\{dueReviewCount\}/)?.[1];
+  assert.ok(dueCopy, 'expected nodeCopy.ts to announce a due review');
   const secondSteps = topLevel(second);
   const firstAssertion = secondSteps.find((line) => line.startsWith('- assertVisible:'));
   const firstTap = secondSteps.findIndex((line) => line.startsWith('- tapOn:'));
@@ -1436,8 +1495,8 @@ test('ties the three 1.4 golden paths to the rules and copy they exist to exerci
   // reaberta e abandonada pela folha, voltava como retomável, com o cabeçalho em
   // "0 de N". Depois da folha, o caminho 3 afirma o estado certo — a L1 concluída
   // e o cabeçalho contando a etapa —, e não mais um padrão que casa com os dois.
-  const completedCopy = card.match(/case 'completed':\s*return '([^']+)';/)?.[1];
-  assert.ok(completedCopy, 'expected JourneyNodeCard to label the completed status');
+  const completedCopy = nodeCopy.match(/case 'completed':\s*return '([^']+)';/)?.[1];
+  assert.ok(completedCopy, 'expected nodeCopy.ts to label the completed status');
   const stageHeader = await readAppFile('src/features/journey/components/JourneyStageHeader.tsx');
   assert.match(stageHeader, /accessibilityLabel=\{`\$\{title\}\. \$\{completed\} de \$\{total\} etapas concluídas\.`\}/);
   const afterSheet = hearts.slice(closeAt);

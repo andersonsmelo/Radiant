@@ -1,0 +1,269 @@
+# 2026-10-23T09:17:47-0300 HEAD 8ad10e8; teste final; motion.ts = HEAD (sem conserto)
+$ EXPO_NO_DOTENV=1 npx jest --runInBand src/features/journey/components/JourneyTrail.test.tsx -t 'escondido'
+FAIL src/features/journey/components/JourneyTrail.test.tsx
+  JourneyTrail — um caminho só, do começo ao fim do currículo
+    ○ skipped renderiza os nós de todos os segmentos, na ordem
+    ○ skipped não acrescenta navegação de unidades ao percurso legado de uma unidade por área
+    ○ skipped mostra a faixa de próximo nível entre segmentos, e não depois do último
+    ○ skipped a faixa fechada nomeia a trilha anterior como o que falta
+    ○ skipped não desenha faixa nenhuma quando há um único segmento
+    ○ skipped usa uma lista virtualizada como superfície rolável
+  JourneyTrail — o zigue-zague
+    ○ skipped alterna as medalhas entre esquerda e direita, a 35% da meia-largura medida
+    ○ skipped segue o índice do percurso inteiro, sem reiniciar a cada unidade
+    ○ skipped cada trecho sai da lateral de um nó e a descida continua no topo do seguinte, na mesma vertical
+    ○ skipped o trecho que sai só aparece depois de a linha ser medida
+  JourneyTrail — o caminho percorrido
+    ○ skipped com cinco nós desenha quatro trechos, os dois primeiros percorridos quando o recomendado é o terceiro
+    ○ skipped não listra o caminho quando um nó pendente aparece no meio do trecho já andado
+    ○ skipped sem nó recomendado, acende até o último concluído
+    ○ skipped não desenha caminho nenhum num percurso de um nó só
+    ○ skipped liga o caminho ATRAVÉS da fronteira entre trilhas e entre unidades
+  JourneyTrail — a medalha de cada nó
+    ○ skipped o recomendado pulsa, mede 40 e diz "<título>. Próximo passo."
+    ○ skipped o rótulo da revisão devida continua "Revisar <título>. Revisão devida · 2 devidas."
+    ○ skipped explica a retomada sem substituir o título da lição
+    ○ skipped mostra o instante da revisão futura ao leitor de tela e mantém o botão desativado
+    ○ skipped cada nó é um botão só: o título, o caminho e o encaixe do Pixel ficam fora do leitor de tela
+    ○ skipped não dispara navegação a partir de um nó bloqueado, e dispara do liberado
+    ○ skipped não apaga o título do nó bloqueado com opacidade global
+    ○ skipped dá a cada medalha o tema do nó e, sem ele, o da unidade
+    ○ skipped o checkpoint traz o número da unidade dentro da área
+  JourneyTrail — estrelas
+    ○ skipped passa o recorde só às lições concluídas
+    ○ skipped sem o mapa, nenhuma medalha desenha estrela
+  JourneyTrail — o encaixe do Pixel
+    ○ skipped pergunta pelo encaixe de cada nó e desenha o que vier ao lado da medalha
+    ○ skipped fica do lado de fora da trilha, porque do lado de dentro corre o pontilhado
+  JourneyTrail — a ação sob a medalha recomendada
+    ✓ o leitor de tela alcança o botão, fora do bloco escondido do Pixel (24 ms)
+    ○ skipped fica sob a medalha recomendada, e só nela
+    ○ skipped sem recomendado, não há ação
+  JourneyTrail — o momento do Pixel
+    ✕ enquanto espera a medição, o que está escondido já é o começo do momento (70 ms)
+    ✕ o segundo momento não espera escondido com a rota do primeiro (134 ms)
+    ○ skipped o encaixe nativo usa a caixa da medalha, não os % da linha de 370 pt
+    ○ skipped o encaixe nativo usa a caixa da medalha, não os % da linha de 400 pt
+    ○ skipped descarta a altura em cache da recomendada anterior antes de congelar a rota
+    ○ skipped fora do momento, tudo está no estado final: o Pixel ao lado da medalha e o botão à vista
+    ○ skipped o Pixel parte do lado da medalha concluída, montado no pontilhado
+    ○ skipped percorre o caminho: corre na horizontal, desce a vertical da próxima e para ao lado dela
+    ○ skipped em sequência: o trecho acende, o Pixel anda, a medalha cresce e volta, e o botão entra
+    ○ skipped durante o momento, o trecho debaixo do aceso é o apagado
+    ○ skipped se há outro nó entre concluído e próximo, ilumina todos os conectores e parte da origem
+    ○ skipped reserva corredores estáveis para cabeça48×46 antes/depois do momento, coluna=false
+    ○ skipped reserva corredores estáveis para cabeça48×46 antes/depois do momento, coluna=true
+    ○ skipped contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=false
+    ○ skipped contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=true
+    ○ skipped não congela rota nem consome tempo enquanto a revisão intermediária não tem altura atual
+    ○ skipped não aceita altura0 de montagem como geometria válida do percurso
+    ○ skipped espera o destino virtualizado medir antes de consumir o tempo do momento
+    ○ skipped espera também a origem adjacente medir, mesmo com o destino já montado
+    ○ skipped uma nova medição da origem não reposiciona o Pixel depois da partida
+    ○ skipped com texto grande, parte da cauda desenhada depois do título e segue a coluna
+    ○ skipped com "reduzir movimento", o primeiro quadro já é o final e o momento acaba na hora
+  JourneyPathSegment
+    ○ skipped linha de 10 com traço 1 e intervalo 18 de ponta redonda: pontos redondos de 10 a cada 19
+    ○ skipped o percorrido é da cor da unidade, e o restante, apagado, nas duas partes
+    ○ skipped a parte que sai acerta o passo dos pontos para a costura com a de baixo
+    ○ skipped ocupa a altura pedida e fica fora do leitor de tela
+  JourneyTrail — texto grande
+    ○ skipped vira coluna: nenhuma medalha sai do centro e o caminho desce reto
+    ○ skipped mantém o zigue-zague e o limite de linhas no tamanho padrão
+    ○ skipped no zigue-zague o título vai até a meia-largura menos 16, em até duas linhas
+  JourneyTrail — visibilidade e revisão agendada
+    ○ skipped só liga as medalhas efetivamente visíveis, inclusive ao sair e voltar ao viewport
+    ○ skipped desenha a data futura como Text, mesmo com o nó desativado
+    ○ skipped em320pt a data inteira cabe à esquerda/direita e na coluna=false
+    ○ skipped em320pt a data inteira cabe à esquerda/direita e na coluna=true
+  JourneyTrail — cabeçalho na rolagem
+    ○ skipped renderiza o cabeçalho dentro da lista rolável
+  JourneyTrail — abre no ponto do aluno
+    ○ skipped centraliza o nó recomendado quando o conteúdo é medido
+    ○ skipped não volta a centralizar enquanto a recomendação é a mesma
+    ○ skipped não volta a centralizar quando a largura medida desloca as medalhas
+    ○ skipped centraliza o novo PRÓXIMO quando a recomendação muda
+    ○ skipped centraliza o novo PRÓXIMO mesmo quando o conteúdo não muda de tamanho
+    ○ skipped não centraliza antes de a lista ser medida
+    ○ skipped sem nó recomendado, não rola
+    ○ skipped recomendação que não está na trilha não vira índice inválido
+    ○ skipped quando o nó ainda não foi medido, aproxima pela altura média e tenta de novo
+  JourneyTrail — navegação por unidades compostas
+    ○ skipped identifica as unidades e permite consultar a bloqueada sem disparar um nó
+    ○ skipped o cabeçalho da unidade abre pelo título, sem etiqueta acima dele
+    ○ skipped reinicia a recuperação de rolagem ao escolher outra unidade distante
+
+  ● JourneyTrail — o momento do Pixel › enquanto espera a medição, o que está escondido já é o começo do momento
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      911 |     // começo, e o mock do Reanimated entrega a uma vista nova o estilo inicial
+      912 |     // do hook, sem rodar o mapa de novo.
+    > 913 |     expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+          |                                                                 ^
+      914 |     expect(styleOf(screen, 'journey-pixel-slot-u1-node-2').opacity).toBe(0);
+      915 |
+      916 |     // A medição chega e o momento corre inteiro, até o estado final.
+
+      at Object.toBe (src/features/journey/components/JourneyTrail.test.tsx:913:65)
+
+  ● JourneyTrail — o momento do Pixel › o segundo momento não espera escondido com a rota do primeiro
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      950 |
+      951 |     expect(heldOpacity(screen, 'journey-pixel-slot-u1-node-3')).toBe(0);
+    > 952 |     expect(styleOf(screen, 'journey-pixel-slot-u1-node-3').opacity).toBe(0);
+          |                                                                     ^
+      953 |     expect(styleOf(screen, 'journey-action-u1-node-3').opacity).toBe(0);
+      954 |   });
+      955 |
+
+      at Object.toBe (src/features/journey/components/JourneyTrail.test.tsx:952:69)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 74 skipped, 1 passed, 77 total
+Snapshots:   0 total
+Time:        1.211 s, estimated 3 s
+Ran all test suites matching /src\/features\/journey\/components\/JourneyTrail.test.tsx/i with tests matching "escondido".
+
+# VARIANTE: conserto inteiro MENOS a regra do Pixel sem rota (opacidade 1 fixa); 2026-10-23T09:31:35-0300
+$ EXPO_NO_DOTENV=1 npx jest --runInBand src/features/journey/components/JourneyTrail.test.tsx -t 'escondido'
+FAIL src/features/journey/components/JourneyTrail.test.tsx
+  JourneyTrail — um caminho só, do começo ao fim do currículo
+    ○ skipped renderiza os nós de todos os segmentos, na ordem
+    ○ skipped não acrescenta navegação de unidades ao percurso legado de uma unidade por área
+    ○ skipped mostra a faixa de próximo nível entre segmentos, e não depois do último
+    ○ skipped a faixa fechada nomeia a trilha anterior como o que falta
+    ○ skipped não desenha faixa nenhuma quando há um único segmento
+    ○ skipped usa uma lista virtualizada como superfície rolável
+  JourneyTrail — o zigue-zague
+    ○ skipped alterna as medalhas entre esquerda e direita, a 35% da meia-largura medida
+    ○ skipped segue o índice do percurso inteiro, sem reiniciar a cada unidade
+    ○ skipped cada trecho sai da lateral de um nó e a descida continua no topo do seguinte, na mesma vertical
+    ○ skipped o trecho que sai só aparece depois de a linha ser medida
+  JourneyTrail — o caminho percorrido
+    ○ skipped com cinco nós desenha quatro trechos, os dois primeiros percorridos quando o recomendado é o terceiro
+    ○ skipped não listra o caminho quando um nó pendente aparece no meio do trecho já andado
+    ○ skipped sem nó recomendado, acende até o último concluído
+    ○ skipped não desenha caminho nenhum num percurso de um nó só
+    ○ skipped liga o caminho ATRAVÉS da fronteira entre trilhas e entre unidades
+  JourneyTrail — a medalha de cada nó
+    ○ skipped o recomendado pulsa, mede 40 e diz "<título>. Próximo passo."
+    ○ skipped o rótulo da revisão devida continua "Revisar <título>. Revisão devida · 2 devidas."
+    ○ skipped explica a retomada sem substituir o título da lição
+    ○ skipped mostra o instante da revisão futura ao leitor de tela e mantém o botão desativado
+    ○ skipped cada nó é um botão só: o título, o caminho e o encaixe do Pixel ficam fora do leitor de tela
+    ○ skipped não dispara navegação a partir de um nó bloqueado, e dispara do liberado
+    ○ skipped não apaga o título do nó bloqueado com opacidade global
+    ○ skipped dá a cada medalha o tema do nó e, sem ele, o da unidade
+    ○ skipped o checkpoint traz o número da unidade dentro da área
+  JourneyTrail — estrelas
+    ○ skipped passa o recorde só às lições concluídas
+    ○ skipped sem o mapa, nenhuma medalha desenha estrela
+  JourneyTrail — o encaixe do Pixel
+    ○ skipped pergunta pelo encaixe de cada nó e desenha o que vier ao lado da medalha
+    ○ skipped fica do lado de fora da trilha, porque do lado de dentro corre o pontilhado
+  JourneyTrail — a ação sob a medalha recomendada
+    ✓ o leitor de tela alcança o botão, fora do bloco escondido do Pixel (31 ms)
+    ○ skipped fica sob a medalha recomendada, e só nela
+    ○ skipped sem recomendado, não há ação
+  JourneyTrail — o momento do Pixel
+    ✕ enquanto espera a medição, o que está escondido já é o começo do momento (81 ms)
+    ✕ o segundo momento não espera escondido com a rota do primeiro (118 ms)
+    ○ skipped o encaixe nativo usa a caixa da medalha, não os % da linha de 370 pt
+    ○ skipped o encaixe nativo usa a caixa da medalha, não os % da linha de 400 pt
+    ○ skipped descarta a altura em cache da recomendada anterior antes de congelar a rota
+    ○ skipped fora do momento, tudo está no estado final: o Pixel ao lado da medalha e o botão à vista
+    ○ skipped o Pixel parte do lado da medalha concluída, montado no pontilhado
+    ○ skipped percorre o caminho: corre na horizontal, desce a vertical da próxima e para ao lado dela
+    ○ skipped em sequência: o trecho acende, o Pixel anda, a medalha cresce e volta, e o botão entra
+    ○ skipped durante o momento, o trecho debaixo do aceso é o apagado
+    ○ skipped se há outro nó entre concluído e próximo, ilumina todos os conectores e parte da origem
+    ○ skipped reserva corredores estáveis para cabeça48×46 antes/depois do momento, coluna=false
+    ○ skipped reserva corredores estáveis para cabeça48×46 antes/depois do momento, coluna=true
+    ○ skipped contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=false
+    ○ skipped contorna revisão futura entre L1/L2 com caixa inteira livre e volta ao pontilhado, coluna=true
+    ○ skipped não congela rota nem consome tempo enquanto a revisão intermediária não tem altura atual
+    ○ skipped não aceita altura0 de montagem como geometria válida do percurso
+    ○ skipped espera o destino virtualizado medir antes de consumir o tempo do momento
+    ○ skipped espera também a origem adjacente medir, mesmo com o destino já montado
+    ○ skipped uma nova medição da origem não reposiciona o Pixel depois da partida
+    ○ skipped com texto grande, parte da cauda desenhada depois do título e segue a coluna
+    ○ skipped com "reduzir movimento", o primeiro quadro já é o final e o momento acaba na hora
+  JourneyPathSegment
+    ○ skipped linha de 10 com traço 1 e intervalo 18 de ponta redonda: pontos redondos de 10 a cada 19
+    ○ skipped o percorrido é da cor da unidade, e o restante, apagado, nas duas partes
+    ○ skipped a parte que sai acerta o passo dos pontos para a costura com a de baixo
+    ○ skipped ocupa a altura pedida e fica fora do leitor de tela
+  JourneyTrail — texto grande
+    ○ skipped vira coluna: nenhuma medalha sai do centro e o caminho desce reto
+    ○ skipped mantém o zigue-zague e o limite de linhas no tamanho padrão
+    ○ skipped no zigue-zague o título vai até a meia-largura menos 16, em até duas linhas
+  JourneyTrail — visibilidade e revisão agendada
+    ○ skipped só liga as medalhas efetivamente visíveis, inclusive ao sair e voltar ao viewport
+    ○ skipped desenha a data futura como Text, mesmo com o nó desativado
+    ○ skipped em320pt a data inteira cabe à esquerda/direita e na coluna=false
+    ○ skipped em320pt a data inteira cabe à esquerda/direita e na coluna=true
+  JourneyTrail — cabeçalho na rolagem
+    ○ skipped renderiza o cabeçalho dentro da lista rolável
+  JourneyTrail — abre no ponto do aluno
+    ○ skipped centraliza o nó recomendado quando o conteúdo é medido
+    ○ skipped não volta a centralizar enquanto a recomendação é a mesma
+    ○ skipped não volta a centralizar quando a largura medida desloca as medalhas
+    ○ skipped centraliza o novo PRÓXIMO quando a recomendação muda
+    ○ skipped centraliza o novo PRÓXIMO mesmo quando o conteúdo não muda de tamanho
+    ○ skipped não centraliza antes de a lista ser medida
+    ○ skipped sem nó recomendado, não rola
+    ○ skipped recomendação que não está na trilha não vira índice inválido
+    ○ skipped quando o nó ainda não foi medido, aproxima pela altura média e tenta de novo
+  JourneyTrail — navegação por unidades compostas
+    ○ skipped identifica as unidades e permite consultar a bloqueada sem disparar um nó
+    ○ skipped o cabeçalho da unidade abre pelo título, sem etiqueta acima dele
+    ○ skipped reinicia a recuperação de rolagem ao escolher outra unidade distante
+
+  ● JourneyTrail — o momento do Pixel › enquanto espera a medição, o que está escondido já é o começo do momento
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      912 |     // do hook (`style.initial`, em `AnimatedComponent`), sem rodar o mapa.
+      913 |     expect(styleOf(screen, 'journey-action-u1-node-2').opacity).toBe(0);
+    > 914 |     expect(styleOf(screen, 'journey-pixel-slot-u1-node-2').opacity).toBe(0);
+          |                                                                     ^
+      915 |
+      916 |     // A medição chega e o momento corre inteiro, até o estado final.
+      917 |     fireEvent(screen.getByTestId('journey-pixel-slot-u1-node-2', HIDDEN), 'layout', {
+
+      at Object.toBe (src/features/journey/components/JourneyTrail.test.tsx:914:69)
+
+  ● JourneyTrail — o momento do Pixel › o segundo momento não espera escondido com a rota do primeiro
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      950 |
+      951 |     expect(heldOpacity(screen, 'journey-pixel-slot-u1-node-3')).toBe(0);
+    > 952 |     expect(styleOf(screen, 'journey-pixel-slot-u1-node-3').opacity).toBe(0);
+          |                                                                     ^
+      953 |     expect(styleOf(screen, 'journey-action-u1-node-3').opacity).toBe(0);
+      954 |   });
+      955 |
+
+      at Object.toBe (src/features/journey/components/JourneyTrail.test.tsx:952:69)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 74 skipped, 1 passed, 77 total
+Snapshots:   0 total
+Time:        2.788 s, estimated 6 s
+Ran all test suites matching /src\/features\/journey\/components\/JourneyTrail.test.tsx/i with tests matching "escondido".

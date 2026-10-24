@@ -210,9 +210,129 @@ app); e `SENTRY_DISABLE_AUTO_UPLOAD=true`. O `expo run:ios` também trava ao
 consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 `xcrun simctl`.
 
+## Branch da trilha Medalhão — dependência nativa (medido em 2026-10-21)
+
+- **Decidido pelo dono em 2026-10-21 e aplicado:** `runtimeVersion` agora é
+  `{"policy":"fingerprint"}` no `app.json` (era `appVersion`). A `version`
+  continua `1.4.0` e o `buildNumber` não mudou. O motivo: a branch
+  `claude/trilha-medalhao-design` traz o `@shopify/react-native-skia` 2.2.12,
+  uma dependência **nativa**, e com `appVersion` um `eas update` de uma rota com
+  Skia chegaria aos binários 1.4.0 da loja, que não têm o Skia, e derrubaria o
+  app. **Desde 2026-10-22 a aba Estude usa o Skia:** a `JourneyMedal` do plano
+  2 desenha o `ThemeIllustration`, e por isso a política acima deixou de ser
+  opcional. Nenhuma build saiu com isso ainda.
+- **O que muda no `eas update`:** o runtime deixa de ser o número da versão e
+  passa a ser a impressão digital do projeto nativo. Um binário sem Skia tem
+  outro runtime que um binário com Skia, então uma atualização com Skia nunca
+  chega ao primeiro. Vale o inverso também: qualquer mudança nativa futura
+  (módulo, plugin, `app.json` nativo) cria um runtime novo, e quem ficou num
+  binário antigo para de receber atualizações até instalar o build novo. O
+  binário 1.4.0 da loja hoje foi publicado sob o runtime `1.4.0`: ele só recebe
+  atualização publicada para esse runtime, e o primeiro build feito com
+  `fingerprint` ganha um runtime próprio, que ainda não foi medido. Build e
+  distribuição seguem com o dono. O splash novo também só chega com build
+  nativa.
+- **Remede com**, na raiz do repositório:
+
+  ```bash
+  node -e "const a=require('./radiant-app/app.json').expo;console.log(a.version, JSON.stringify(a.runtimeVersion))"
+  # esperado em 2026-10-21: 1.4.0 {"policy":"fingerprint"}
+  grep -n '"@shopify/react-native-skia"' radiant-app/package.json
+  # importadores fora do módulo (em 2026-10-22: JourneyMedal.tsx, resolveNodeTheme.ts e types/journey.ts):
+  grep -rlE "illustrations/|react-native-skia" radiant-app/src --include='*.ts' --include='*.tsx' \
+    | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
+  ```
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-23)
+
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável, com head
+`37e7688` e CI verde (`quality` e `content`, medido em 2026-10-23 com
+`gh pr checks 66`). Os planos
+estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
+cada plano tem uma seção "Registro de execução" com commits, decisões que
+mudaram o texto do plano e pendências.
+
+- **Plano 6 (Pixel): concluído e revisado**, com a revisão final e a correção
+  dela (`a294d97`). O aceno foi conferido no simulador.
+- **Plano 2 (trilha): tarefa 7 executada, exceto o segundo dia iOS (vence em
+  30/10/2026); aceite pendente** (medido
+  em 2026-10-23, writer `run-1792757625819-e00263ec`;
+  [evidência da retomada](evidence/2026-10-23-trilha-medalhao-retomada.md)).
+  - **Segundo dia integral Android: PASS** em relógio real, com o YAML
+    corrigido. O simulador iOS reservado só vence em 30/10/2026, às 14:07.
+  - **Momento Android demonstrado.** A lacuna de 2026-10-22 era da gravação. O
+    gravador do emulador a 60 fps, com a linha do tempo instrumentada, mostra o
+    percurso completo.
+  - **Defeito novo, não resolvido:** um quadro do estado final antes do
+    percurso, em 2 de 4 gravações sem instrumentação. O conserto parcial em
+    `useTrailMomentStyles` (a espera guardava o fim) tem teste vermelho e
+    parecer independente favorável, mas o quadro continua em 1 de 4 gravações
+    com o conserto. Com logs, ele não aparece (0 de 10), e a causa restante
+    não foi observada. **Remedido em 2026-10-23 à tarde e à noite, com o
+    rastreamento nativo** (`atrace` e Perfetto) **e sem instrumentação: 0 de 13
+    rodadas válidas** (9 rastreadas, 4 limpas). A causa continua sem
+    observação, e nenhum segundo conserto foi feito. O rastreamento mostrou que
+    o primeiro quadro de animação chega de 24 a 101 ms depois do último commit
+    do React, e que nesse intervalo a tela mostrou o começo, não o fim
+    ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)). Se isso basta para o aceite é
+    decisão do dono.
+  - **40 concluídas:** só as medalhas visíveis avançam quadros (contador
+    nativo). Desempenho de ≈59,7 quadros/s e jank de 0,11–0,50%, em emulador
+    Debug.
+  - **Bloqueiam o aceite:** o quadro antecipado acima, o segundo dia iOS e a
+    **decisão do dono sobre o texto máximo**. No AX5 e no
+    Android a 200%, o texto da coluna quebra no meio da palavra
+    ("Princípio / s", "24/10/20 / 26", "Com / putadorizada"), e "Lembrete
+    diário" sai cortado no Android. Os corredores de 64 pt e a fonte integral
+    foram preservados, como pedido.
+  - **Gate de 2026-10-23:** `npm run quality` PASS na 2ª rodada (190 suítes,
+    2163 testes), e `loop validate` 15/15 no run `run-1792757625819-e00263ec`. A 1ª reprovou num teste de fluxo do momento que é frágil sob
+    carga. **O risco se confirmou e foi resolvido no mesmo dia:** o CI da PR
+    #66 reprovou em `ef40365` por tempo-limite do Jest no teste "percorre L1 →
+    revisão futura → L2". Com `taskpolicy -b`, 3 dos 5 testes do momento
+    reprovavam. O `37e7688` deu a esses testes um prazo que cobre as próprias
+    esperas e incluiu o tempo de renderização na espera do fim. Os 5 passam com
+    a CPU limitada, e "acaba sozinho" continua reprovando quando o fim do
+    momento é desligado. CI verde em `37e7688`.
+  - **Storybook, resolvido na branch em 2026-10-23:** o bundle não montava
+    porque duas stories importavam `lesson-xray-panel.png`, removido de
+    propósito em `b06c7eb` (mockup em inglês). As stories deixaram de usá-lo,
+    sem arte nova, e `src/test/assetRequires.contract.test.ts` reprova
+    qualquer imagem pedida que não exista. Medido num Metro recém-iniciado com
+    `STORYBOOK_ENABLED=true`: 500 antes, 200 depois, no Android e no iOS
+    ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, o defeito continua até o merge
+    da #66.
+- **Planos 3 e 5: não começados.** O 4 é escrito depois do 3.
+- **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
+  revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
+  relatórios) ficam em `.superpowers/sdd/` do worktree
+  `.claude/worktrees/trilha-2026-10-20`, que o git ignora. O que importa deles
+  está nos registros de execução dos planos.
+- **Remede com:**
+
+  ```bash
+  git log --oneline origin/main..origin/claude/trilha-medalhao-design | head -40
+  gh pr checks 66 --repo andersonsmelo/Radiant
+  ```
+
+  A branch `claude/trilha-t6-wip` (`5ffefee`) é histórica: o WIP foi
+  reaplicado na tarefa 6 (`7615827`) e não precisa mais ser consultado.
+
 ## Prazos de relógio
 
-Nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
+- **2026-10-30, 14:07: o simulador iOS reservado libera o segundo dia** da
+  tarefa 7 do plano 2 da trilha Medalhão. É o que falta, junto com o quadro
+  antecipado do momento e a decisão do dono sobre o texto máximo, para o plano
+  2 ser aceito ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)).
+- **2026-11-30: vence a política de visual QA.** Os 23 registros de
+  `radiant-app/scripts/visual-qa-policy.json` venciam em 2026-10-23 e foram
+  renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha
+  Medalhão (FILA 67). Cada registro sai quando o plano refaz o arquivo dele, e
+  o que sobrar é revisto nessa data. Depois dela, `npm run quality` reprova em
+  qualquer branch que ainda tenha esses arquivos. **Remede com:**
+  `grep -c '"expiresOn": "2026-11-30"' radiant-app/scripts/visual-qa-policy.json`.
+
+Além desses, nenhum aberto (medido em 2026-09-24). **A verificação de desenvolvedor Android
 de 30/09/2026 está cumprida.** No Play Console, `com.ascendcreative.radiant`
 aparece "Registrado" com 4 chaves "Verificada", entre elas a chave de
 assinatura do Play (`5F:CE:13:…`) e o keystore Default do EAS (`49:CB:9C:2A:…`),

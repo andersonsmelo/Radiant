@@ -206,7 +206,7 @@ function printBaselineTemplate(issues) {
     for (const [key, count] of counts) {
         const [rule, file, signature] = key.split('\u0000');
         const groupKey = `${rule}\u0000${file}`;
-        const group = grouped.get(groupKey) || { rule, file, allowances: {}, owner: 'design-system', expiresOn: '2026-10-23', reason: 'Token migration tracked in docs/plans/2026-07-23-radiant-continuation-roadmap.md.' };
+        const group = grouped.get(groupKey) || { rule, file, allowances: {}, owner: 'design-system', expiresOn: '2026-11-30', reason: 'Token migration tracked in plan 5 of the Medalhão track (FILA 67).' };
         group.allowances[signature] = count;
         grouped.set(groupKey, group);
     }

@@ -27,6 +27,13 @@ produção escalável. Aulas piloto não são condição de avanço desta frente
 [decisão](adr/ADR-2026-10-16-evolucao-global-da-trilha-sem-pilotos.md).
 G0/G1 já tem inventário, cobertura e contrato de composição multiunidade; a continuidade está no item 54.
 
+**Atualizada em 2026-10-21:** o dono decidiu redesenhar a trilha e a aula e
+recomeçar o conteúdo. A trilha vai para a direção Medalhão e a aula para o
+formato bancada. O mundo visual novo vale para o app inteiro, e todas as aulas
+atuais saem, com a fonte. A execução é o item 67
+([ADR](adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md),
+[spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)).
+
 A decisão de coordenação de 2026-10-18 está na
 [ADR](adr/ADR-2026-10-18-claude-planejador-e-executor.md). A entrega da FILA 61
 e sua documentação foram continuadas pelo Codex a pedido do dono; os gates do
@@ -462,6 +469,79 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     ([evidência](evidence/2026-10-19-fila66-guarda-glifos-ast.md)).
     **Remede com** o `injetar.mjs` da evidência, que termina com código 1 se
     alguma injeção sair do esperado;
+  - **67.** agente, aberto em 2026-10-21: **trilha Medalhão e aula-bancada**, em
+    duas fases. A primeira tem tokens, DESIGN.md, a trilha, o motor da bancada
+    e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
+    Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer
+    build: o **inventário do que sai** e a **revisão do conteúdo** das aulas de
+    exemplo. Nenhuma build de loja sai sem o primeiro lote do currículo novo.
+    Os cinco planos e as dependências entre eles estão no
+    [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md). O primeiro,
+    a [fundação visual](superpowers/plans/2026-10-21-fundacao-visual-medalhao.md),
+    teve as sete tarefas executadas em 2026-10-21 na branch
+    `claude/trilha-medalhao-design`: tokens, botões com lábio, fundo grafite,
+    HUD e abas desenhados, Skia com as cinco ilustrações e o
+    [DESIGN.md](DESIGN.md) novo
+    ([spec](superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md),
+    [evidência](evidence/2026-10-21-fundacao-medalhao.md)). **A rodada de
+    correção da revisão final foi feita em 2026-10-21**, na mesma branch: o
+    lábio do botão passou para trás da face, o `ghost` ganhou retorno de
+    pressão e rótulo que passa AA, o desabilitado compõe em grupo no Android,
+    o coração e os números do HUD foram para os tons do Medalhão e a mesa da
+    ressonância voltou para dentro do quadro
+    ([evidência](evidence/2026-10-21-fundacao-medalhao.md#rodada-de-correção-final)).
+    Dos achados da evidência, o 1 (rótulo do `ghost` reprovando AA) foi
+    corrigido nessa rodada. O 2 (cartão laranja do Missions), o 3 (Perfil no
+    maior texto) e o 4 (`PushOptInCard`) vão para o plano 5 (R21). A
+    remedição de quadros **com rolagem**, no AVD e com a tela do Mac
+    desbloqueada, vai para o plano 2 (R22). **Falta, em 2026-10-21:** o olhar
+    do dono sobre as ilustrações e as capturas, e o merge. A PR é aberta pelo
+    agente quando a frente fica pronta, sem esperar o dono; **só o merge é do
+    dono**. **Em 2026-10-21, à noite, o dono aprovou o Pixel redesenhado e a
+    prancheta do app inteiro sem cara de IA**
+    ([Pixel](design/2026-10-21-pixel-medalhao.html),
+    [app](design/2026-10-21-app-medalhao.html), seção 11 da spec, decisões 8 e
+    9 da ADR). Os planos 2, 3, 5 e o novo 6 (Pixel) estão escritos; o 4 é
+    escrito quando o 3 terminar. Ordem sugerida: 6, depois 2 e 3, depois 5,
+    depois 4. **Gates do dono pela frente:** a política de versão nativa
+    (tarefa 0 do plano 2), a revisão do conteúdo das aulas-bancada (plano 3) e
+    o inventário (plano 4). **Em 2026-10-22:**
+    - o dono escolheu `fingerprint` para a versão nativa, e isso já foi
+      aplicado;
+    - o plano 6 (Pixel) está concluído e revisado;
+    - o plano 2 está com as tarefas 0 a 6 implementadas e revisadas;
+    - a retomada da 6 (`7615827`) passou os 15 validadores no segundo run,
+      após corrigir o mock consumidor; a revisão independente aprovou a
+      correção;
+    - em 2026-10-23, o dono pediu pausa, e a retomada do mesmo dia executou
+      a tarefa 7, menos o segundo dia iOS, que vence em 30/10/2026
+      ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)):
+      - o segundo dia Android passou inteiro, em relógio real;
+      - o momento Android foi demonstrado com gravação densa;
+      - o quadro do estado final antes do percurso teve um conserto parcial,
+        com teste vermelho, mas continua em 1 de 4 gravações. A causa restante
+        não foi observada. **Remedido em 2026-10-23 à noite:** 0 de 13 rodadas
+        válidas, 9 com rastreamento nativo e 4 sem instrumentação, ainda sem
+        causa e sem segundo conserto ([evidência](evidence/2026-10-23-trilha-medalhao-quadro.md)).
+        Se isso basta para o aceite é decisão do dono;
+      - as 40 concluídas foram medidas, com prova nativa de que só as medalhas
+        visíveis tocam;
+    - **dono:** decidir o texto máximo da coluna. No AX5 e no Android a 200%, o
+      texto quebra no meio da palavra, com os corredores de 64 pt preservados.
+      Sem essa decisão, o Plano 2 não é aceito;
+    - **resolvido em 2026-10-23, na branch:** o bundle do Storybook não
+      montava porque duas stories importavam `lesson-xray-panel.png`, removido
+      de propósito em `b06c7eb`. Elas deixaram de usá-lo, sem arte nova, e uma
+      guarda AST reprova qualquer imagem pedida que não exista
+      ([evidência](evidence/2026-10-23-trilha-medalhao-storybook.md)). Na `main`, continua até o merge;
+    - **resolvido em 2026-10-23:** os testes de fluxo do momento em
+      `JourneyHomeScreen.flow.test.tsx` estouravam o prazo com a CPU limitada,
+      e o CI da PR #66 reprovou por isso em `ef40365`. O `37e7688` deu a eles
+      um prazo que cobre as próprias esperas, e o CI ficou verde;
+    - Planos 3 e 5 não iniciados; Plano 4 só depois do 3.
+
+    O estado detalhado está no STATUS ("Execução dos planos da trilha
+    Medalhão") e nos registros de execução de cada plano;
   - **45.** dono: decisões curriculares e de governança da produção em série,
     com revisão de conteúdo e banco de imagens de licença verificada. A direção
     global de 2026-10-16 retirou o piloto/7b desta dependência; ver FILA 54;

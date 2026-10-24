@@ -3562,3 +3562,43 @@ cd radiant-app && npx jest src/storage src/features/student-checkpoints/reposito
 
 O código está na branch `claude/g7-vidas-meta-diaria`, ainda não integrada
 ([evidência](evidence/2026-10-19-g7-vidas-e-meta-diaria.md)).
+
+## Saiu do STATUS em 2026-10-23 — o Plano 2 da trilha Medalhão na pausa
+
+- **Plano 2 (trilha): tarefas 0 a 6 implementadas e revisadas**, commit
+  `7615827`; gate da 6 aprovado em 15/15 no segundo run
+  ([evidência](evidence/2026-10-22-trilha-medalhao-t6.md)).
+  **Pausa solicitada pelo dono em 2026-10-23.** A onda final implementou as
+  correções do encaixe nativo de 48×46, reservas para texto grande, medidas
+  atuais de todas as linhas, percurso L1 → revisão futura → L2, pausa das
+  ilustrações fora do viewport, data visível, faixa da barra e reconciliação
+  do lembrete após falha. Fonte congelada com parecer independente favorável,
+  sem novo P1/P2 confirmado; 8 suítes/260 testes focais, lembrete 13/13,
+  contrato Maestro final 37/37, typecheck e lint passaram.
+  **Aceite nativo e revisão final do plano continuam pendentes.** iOS normal:
+  cabeça inteira passa sobre a área de outra célula sem corte; a origem L1
+  está fora da janela pela ancoragem existente. Vídeos de movimento reduzido
+  e texto máximo foram preservados, ainda sem revisão independente integral.
+  Android: cabeça/data visíveis e captura em fonte 200%; vídeo do momento
+  inconclusivo (142 quadros/19,5985 s, lacuna decisiva de 1,785622 s), sem causa
+  de produto demonstrada. Não corrigir uma hipótese de clipping/tempo sem
+  medir. O cenário sintético de 40 concluídas existe em Storybook, **não foi
+  medido**. Não reutilizar o benchmark antigo de três desbloqueadas como40.
+  Maestro atual: primeira execução iOS **PASS**, vidas esgotadas iOS **PASS**;
+  segundo dia Android **FAIL apenas na assert final após revisão3/3**, antes
+  de corrigir o enquadramento. O YAML passou a esperar a trilha e centralizar
+  a mesma medalha, preservando o seletor completo; checkpoint complementar
+  com assentamento500ms **PASS**, sem converter o flow inteiro em PASS.
+  Rerun integral exige revisão naturalmente devida, sem editar relógio/dados.
+  [Evidência consolidada e limites](evidence/2026-10-22-trilha-medalhao-final.md).
+  **Validação do fechamento:** não executada nesta última janela. A pedido
+  do dono, o run `run-1792746135751-b2cdee88` fecha sem validação para a pausa;
+  a retomada precisa executar o gate configurado antes de concluir a onda.
+  O [prompt versionado de continuidade](superpowers/plans/2026-10-21-trilha-medalhao-indice.md#prompt-de-continuidade--pausa-de-2026-10-23)
+  contém a ordem das pendências, comandos e restrições.
+
+## Saiu do STATUS em 2026-10-23 — cabeçalho da execução dos planos da trilha Medalhão
+
+## Execução dos planos da trilha Medalhão (medido em 2026-10-22)
+
+Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável.

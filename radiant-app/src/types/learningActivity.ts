@@ -2,7 +2,7 @@
  * Contrato de atividade v2 do motor de aprendizagem.
  *
  * Substitui gradualmente o `LessonBlock` legado, que exige exatamente uma
- * múltipla escolha por bloco. Aqui a interação é uma união discriminada dos oito
+ * múltipla escolha por bloco. Aqui a interação é uma união discriminada dos nove
  * tipos da biblioteca, e os jogos são renderizadores destes tipos — não um
  * produto paralelo com catálogo próprio.
  *
@@ -13,6 +13,8 @@
  * `scripts/content/`, para que uma violação signifique a mesma coisa dos dois
  * lados do pipeline.
  */
+
+import type { ExposureInput } from '../features/bench/exposureModel';
 
 export type ValidationIssue = {
     path: string;
@@ -67,6 +69,7 @@ export type InteractionType =
     | 'matching'
     | 'ordering'
     | 'parameter-lab'
+    | 'bench'
     | 'risk-hunt'
     | 'case-decision';
 
@@ -95,7 +98,13 @@ export type NormalizedRegion = {
     height: number;
 };
 
-export type ChoiceOption = { id: string; label: string; imageRef?: string };
+export type ChoiceOption = {
+    id: string;
+    label: string;
+    imageRef?: string;
+    /** Por que esta opção está certa ou errada. Ainda não é exibida. */
+    explanation?: string;
+};
 
 export type MultipleChoiceV2Payload = {
     prompt: string;
@@ -133,6 +142,60 @@ export type ParameterLabPayload = {
     expectedOutcome: string;
 };
 
+/** Os simuladores da bancada: exposição (kV e mAs) e colimação (o campo). */
+export type BenchSimulator = 'exposure' | 'collimation';
+
+/**
+ * Os controles que cada simulador aceita. Um controle de colimação numa
+ * bancada de exposição, ou o contrário, não move nada na imagem: a validação
+ * o recusa (`invalid-controls`).
+ */
+export const BENCH_SIMULATOR_CONTROLS = {
+    exposure: ['kv', 'mas'],
+    collimation: ['fieldWidth', 'fieldHeight'],
+} as const satisfies Record<BenchSimulator, readonly string[]>;
+
+export type BenchControlId = (typeof BENCH_SIMULATOR_CONTROLS)[BenchSimulator][number];
+
+/**
+ * Um controle numérico da bancada, com sua faixa e ponto de partida: kV e mAs
+ * na exposição; largura e altura do campo, em cm, na colimação.
+ */
+export type BenchControl = {
+    id: BenchControlId;
+    label: string;
+    unit: string;
+    min: number;
+    max: number;
+    step: number;
+    initial: number;
+};
+
+/**
+ * O que o aluno precisa alcançar na bancada.
+ * - `reach`: um controle passa de um limite (`atLeast`) ou fica sob ele (`atMost`);
+ * - `match`: a imagem simulada iguala a da referência. Compara o contraste entre
+ *   osso e partes moles (`subjectContrast`) e o fundo (`background`) de
+ *   `exposureModel`, cada um dentro de `tolerance`. O mAs só muda o ruído, então
+ *   não entra na comparação. Só vale na exposição: a colimação não muda o
+ *   contraste, e um `match` nela é `invalid-goal`.
+ */
+export type BenchGoal =
+    | { kind: 'reach'; control: BenchControlId; atLeast?: number; atMost?: number }
+    | { kind: 'match'; reference: ExposureInput; tolerance: number };
+
+export type BenchPayload = {
+    prompt: string;
+    simulator: BenchSimulator;
+    mode: 'explore' | 'challenge' | 'correct';
+    controls: BenchControl[];
+    goal: BenchGoal;
+    /** Rótulo do fantoma na tela: ele é simulado, nunca uma incidência real. */
+    phantomLabel: string;
+    /** Para que lado o aluno errou: valor baixo demais ou alto demais. */
+    hints: { tooLow: string; tooHigh: string };
+};
+
 export type RiskHuntPayload = {
     prompt: string;
     imageRef: string;
@@ -164,6 +227,7 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'matching'; payload: MatchingPayload })
     | (InteractionBase & { type: 'ordering'; payload: OrderingPayload })
     | (InteractionBase & { type: 'parameter-lab'; payload: ParameterLabPayload })
+    | (InteractionBase & { type: 'bench'; payload: BenchPayload })
     | (InteractionBase & { type: 'risk-hunt'; payload: RiskHuntPayload })
     | (InteractionBase & { type: 'case-decision'; payload: CaseDecisionPayload });
 
@@ -198,6 +262,78 @@ const MIN_INTERACTIONS = 1;
 const MAX_INTERACTIONS = 4;
 const PRESENTATION_ROLES = new Set<string>(['hook', 'concept', 'closing']);
 const COMPLETION_RULES = new Set<string>(['displayed', 'answered', 'confirmed']);
+
+/** Número finito dentro de [min, max]; NaN e infinito ficam de fora. */
+function isWithinRange(value: unknown, min: number, max: number): boolean {
+    return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max;
+}
+
+/**
+ * A referência de um `match` precisa trazer kV e mAs numéricos finitos. Sem ela
+ * o "Conferir" lançaria `TypeError` (ou, com um campo só, compararia contra
+ * `NaN`), então a validação a recusa e os leitores da resposta a conferem de novo.
+ */
+export function isExposureReference(reference: unknown): reference is ExposureInput {
+    if (typeof reference !== 'object' || reference === null) {
+        return false;
+    }
+    const { kv, mas } = reference as Partial<Record<keyof ExposureInput, unknown>>;
+    return typeof kv === 'number' && Number.isFinite(kv) && typeof mas === 'number' && Number.isFinite(mas);
+}
+
+/** O simulador, se for um que a bancada conhece; `null` para qualquer outro valor. */
+function benchSimulatorOf(value: unknown): BenchSimulator | null {
+    return typeof value === 'string' && Object.prototype.hasOwnProperty.call(BENCH_SIMULATOR_CONTROLS, value)
+        ? (value as BenchSimulator)
+        : null;
+}
+
+function isSimulatorControl(simulator: BenchSimulator, id: unknown): boolean {
+    return (BENCH_SIMULATOR_CONTROLS[simulator] as readonly unknown[]).includes(id);
+}
+
+/**
+ * O `goal` da bancada é o "pronto" da lição, e um alvo defeituoso não aparece
+ * em lugar nenhum: vira lição impossível (controle que não existe, limite fora
+ * da faixa, tolerância que nunca é cumprida) ou que se responde sozinha (`reach`
+ * sem limite). Como o conteúdo é escrito à mão, este é o único portão.
+ */
+function isBenchGoalValid(
+    goal: BenchGoal | undefined,
+    controls: BenchControl[],
+    simulator: BenchSimulator | null,
+): boolean {
+    if (goal === undefined || goal === null) {
+        return false;
+    }
+    if (goal.kind === 'match') {
+        // O `match` compara o contraste da exposição. Com simulador desconhecido
+        // o defeito já é `invalid-simulator`, e não se repete aqui.
+        return simulator !== 'collimation'
+            && isExposureReference(goal.reference)
+            && typeof goal.tolerance === 'number' && Number.isFinite(goal.tolerance) && goal.tolerance > 0;
+    }
+    if (goal.kind !== 'reach') {
+        return false;
+    }
+
+    const target = controls.find((control) => control.id === goal.control);
+    if (target === undefined || (goal.atLeast === undefined && goal.atMost === undefined)) {
+        return false;
+    }
+    // O alvo olha um controle de outro simulador: mesmo presente na lista (e
+    // apontado por `invalid-controls`), ele não move a imagem desta bancada.
+    if (simulator !== null && !isSimulatorControl(simulator, goal.control)) {
+        return false;
+    }
+    // Faixa inválida do controle já é apontada por `invalid-controls`; sem
+    // faixa não há como dizer se o limite cabe nela.
+    if (!(target.min < target.max)) {
+        return true;
+    }
+    return (goal.atLeast === undefined || isWithinRange(goal.atLeast, target.min, target.max))
+        && (goal.atMost === undefined || isWithinRange(goal.atMost, target.min, target.max));
+}
 
 function push(issues: ValidationIssue[], path: string, rule: string): void {
     if (!issues.some((issue) => issue.path === path && issue.rule === rule)) {
@@ -333,6 +469,35 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             }
             break;
         }
+        case 'bench': {
+            const controls = Array.isArray(interaction.payload.controls) ? interaction.payload.controls : [];
+            const simulator = benchSimulatorOf(interaction.payload.simulator);
+            if (simulator === null) {
+                push(issues, path, 'invalid-simulator');
+            }
+            // `!(min < max)` também reprova NaN, que `min >= max` deixaria passar.
+            // Um controle de outro simulador não move a imagem desta bancada. Com
+            // simulador desconhecido não há lista a conferir: o defeito é o simulador.
+            if (controls.length === 0
+                || controls.some((control) => !(control.min < control.max))
+                || (simulator !== null && controls.some((control) => !isSimulatorControl(simulator, control.id)))) {
+                push(issues, path, 'invalid-controls');
+            }
+            // Só confere o ponto de partida onde a faixa é válida: a faixa
+            // inválida já foi apontada, e repetir o defeito em outra regra
+            // esconderia qual dos dois o conteudista precisa corrigir.
+            if (controls.some((control) => control.min < control.max
+                && !(control.initial >= control.min && control.initial <= control.max))) {
+                push(issues, path, 'invalid-initial');
+            }
+            if (!isFilled(interaction.payload.hints?.tooLow) || !isFilled(interaction.payload.hints?.tooHigh)) {
+                push(issues, path, 'missing-hints');
+            }
+            if (!isBenchGoalValid(interaction.payload.goal, controls, simulator)) {
+                push(issues, path, 'invalid-goal');
+            }
+            break;
+        }
     }
 }
 
@@ -378,6 +543,39 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             }
         } else {
             validateInteraction(issues, step.interaction);
+        }
+    }
+
+    return issues;
+}
+
+const CHOICE_TYPES = new Set<string>(['multiple-choice', 'comparison', 'case-decision']);
+
+/**
+ * Avisos editoriais: o que o conteudista deveria corrigir, mas que **não**
+ * reprova a atividade. Ficam fora de `validateLearningActivity` de propósito:
+ * `ValidationIssue` não tem severidade, e quem chama a validação (catálogo de
+ * produção, auditoria da jornada, lote editorial) trata qualquer item como
+ * reprovação. O conteúdo de produção existente não tem explicação por
+ * alternativa, e passar a recusá-lo derrubaria o catálogo inteiro.
+ *
+ * - `missing-option-explanation`: escolha com alguma alternativa errada sem
+ *   `explanation`. O player, então, cai na frase genérica de `feedback.incorrect`.
+ */
+export function learningActivityWarnings(activity: LearningActivityV2): ValidationIssue[] {
+    const issues: ValidationIssue[] = [];
+    const steps = Array.isArray(activity?.steps) ? activity.steps : [];
+
+    for (const step of steps) {
+        if (step.kind !== 'interaction' || !CHOICE_TYPES.has(step.interaction.type)) {
+            continue;
+        }
+        const { options, correctOptionId } = step.interaction.payload as {
+            options?: ChoiceOption[];
+            correctOptionId?: string;
+        };
+        if (Array.isArray(options) && options.some((option) => option.id !== correctOptionId && !isFilled(option.explanation))) {
+            push(issues, step.interaction.id, 'missing-option-explanation');
         }
     }
 

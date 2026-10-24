@@ -1,0 +1,249 @@
+diff --git a/radiant-app/src/debugMoment.ts b/radiant-app/src/debugMoment.ts
+new file mode 100644
+index 0000000..40c94e0
+--- /dev/null
++++ b/radiant-app/src/debugMoment.ts
+@@ -0,0 +1,6 @@
++// INSTRUMENTAÇÃO DESCARTÁVEL (scratch), não versionada: linha do tempo do momento.
++export function mlog(tag: string, data?: unknown) {
++  const p = (globalThis as { performance?: { now?: () => number } }).performance?.now?.();
++  // eslint-disable-next-line no-console
++  console.log(`[MOMENT] t=${Date.now()} p=${p?.toFixed(1)} ${tag} ${data === undefined ? '' : JSON.stringify(data)}`);
++}
+diff --git a/radiant-app/src/features/journey/components/JourneyMedal.tsx b/radiant-app/src/features/journey/components/JourneyMedal.tsx
+index 617eadf..09718e5 100644
+--- a/radiant-app/src/features/journey/components/JourneyMedal.tsx
++++ b/radiant-app/src/features/journey/components/JourneyMedal.tsx
+@@ -237,7 +237,7 @@ export function JourneyMedal({
+             style={[styles.overlay, { width: diameter, height: diameter }]}
+           >
+             <View style={{ transform: [{ translateY: -3 * scale }] }}>
+-              <ThemeIllustration theme={theme} state={state} size={diameter * ILLUSTRATION_RATIO} playing={visible} />
++              <ThemeIllustration theme={theme} state={state} size={diameter * ILLUSTRATION_RATIO} playing={visible} debugId={node.id} />
+             </View>
+           </View>
+         ) : null}
+diff --git a/radiant-app/src/features/journey/components/JourneyTrail.tsx b/radiant-app/src/features/journey/components/JourneyTrail.tsx
+index 41ba293..ca50849 100644
+--- a/radiant-app/src/features/journey/components/JourneyTrail.tsx
++++ b/radiant-app/src/features/journey/components/JourneyTrail.tsx
+@@ -11,6 +11,7 @@ import { resolveNodeTheme } from '../services/resolveNodeTheme';
+ import { space, typography } from '../../../ui/styles';
+ import { useLargeTextLayout } from '../../../ui/accessibility/useLargeTextLayout';
+ import { MotionView, useTrailMomentStyles, type TrailMomentRoute } from '../../../ui/motion';
++import { mlog } from '../../../debugMoment';
+ import { JourneyLevelBand } from './JourneyLevelBand';
+ import { JourneyMedal, medalStateFor } from './JourneyMedal';
+ import { JourneyPathSegment } from './JourneyPathSegment';
+@@ -171,6 +172,7 @@ function useVisibleMedals(items: TrailItem[], recommendedNodeId?: string) {
+       const medalBottom = medalTop + medalRadiusFor(item.node.type, item.node.id === recommendedRef.current) * 2 + depth.medalLip;
+       if (medalBottom > top && medalTop < top + height) ids.add(item.node.id);
+     }
++    mlog('visible-calc', { ids: [...ids] });
+     setVisibleNodeIds(previous => previous.size === ids.size && [...ids].every(id => previous.has(id)) ? previous : ids);
+   }, []);
+   const onCellLayout = useCallback((key: string, layout: { y: number; height: number }) => {
+@@ -191,6 +193,7 @@ function useVisibleMedals(items: TrailItem[], recommendedNodeId?: string) {
+     update();
+   }, [update]);
+   const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
++    mlog('scroll', { y: Math.round(event.nativeEvent.contentOffset.y), h: Math.round(event.nativeEvent.layoutMeasurement.height) });
+     viewportRef.current = { top: event.nativeEvent.contentOffset.y, height: event.nativeEvent.layoutMeasurement.height };
+     update();
+   }, [update]);
+@@ -372,6 +375,7 @@ export function JourneyTrail({
+   const momentFromId = playing ? moment.fromNodeId : undefined;
+   const [slotSize, setSlotSize] = useState<{ nodeId: string; width: number; height: number } | undefined>(undefined);
+   const handleSlotLayout = useCallback((nodeId: string, width: number, height: number) => {
++    mlog('slot-layout', { nodeId, width, height });
+     setSlotSize(previous => (previous?.nodeId === nodeId && previous.width === width && previous.height === height
+       ? previous
+       : { nodeId, width, height }));
+@@ -394,6 +398,7 @@ export function JourneyTrail({
+   validSignaturesRef.current = new Set(items.flatMap(item => item.kind === 'node' ? [rowSignature(item)] : []));
+   const [rowMeasures, setRowMeasures] = useState<ReadonlyMap<string, number>>(() => new Map());
+   const handleRowHeight = useCallback((_nodeId: string, signature: string, height: number) => {
++    mlog('row-height', { nodeId: _nodeId, height, valid: validSignaturesRef.current.has(signature) });
+     if (!validSignaturesRef.current.has(signature) || !Number.isFinite(height) || height <= 0) return;
+     setRowMeasures(previous => {
+       if (previous.get(signature) === height) return previous;
+@@ -436,6 +441,14 @@ export function JourneyTrail({
+       && slotSize.width > 0 && slotSize.height > 0 && (routeNodes.length < 2 || measuredRoute),
+   });
+ 
++  const dbgReady = measuredWidth !== undefined && slotSize !== undefined && slotSize.nodeId === recommendedNodeId
++    && slotSize.width > 0 && slotSize.height > 0 && (routeNodes.length < 2 || measuredRoute);
++  useEffect(() => {
++    mlog('trail-state', { recommendedNodeId, recommendedIndex, playing, from: momentFromId, ready: dbgReady, holding: momentStyles.holding,
++      measuredWidth, slot: slotSize, routeNodes: routeNodes.map(i => i.node.id), measuredRoute,
++      routeLen: route?.progress.length, routeX: route ? [route.x[0], route.x[route.x.length - 1]] : undefined,
++      routeY: route ? [route.y[0], route.y[route.y.length - 1]] : undefined, visible: [...visibility.visibleNodeIds] });
++  });
+   // A trilha abre no ponto do aluno, e não no começo do currículo. Ela
+   // centraliza uma vez por recomendação: recentralizar a cada medição
+   // arrancaria o aluno do lugar para onde ele rolou. Quando a recomendação
+@@ -453,6 +466,7 @@ export function JourneyTrail({
+ 
+   const centerOn = useCallback((index: number, viewPosition = requestedPositionRef.current) => {
+     requestedPositionRef.current = viewPosition;
++    mlog('anchor-request', { index, viewPosition });
+     listRef.current?.scrollToIndex({ index, viewPosition, animated: false });
+   }, []);
+ 
+@@ -477,13 +491,15 @@ export function JourneyTrail({
+     if (measuredRef.current) anchorToRecommended();
+   }, [anchorToRecommended]);
+ 
+-  const handleContentSizeChange = useCallback(() => {
++  const handleContentSizeChange = useCallback((w?: number, h?: number) => {
++    mlog('content-size', { w, h });
+     measuredRef.current = true;
+     anchorToRecommended();
+   }, [anchorToRecommended]);
+ 
+   const handleScrollToIndexFailed = useCallback(
+     ({ index, averageItemLength }: { index: number; averageItemLength: number }) => {
++      mlog('scroll-index-failed', { index, averageItemLength, retries: retriesRef.current });
+       listRef.current?.scrollToOffset({ offset: averageItemLength * index, animated: false });
+       if (retriesRef.current >= ANCHOR_MAX_RETRIES) return;
+       retriesRef.current += 1;
+diff --git a/radiant-app/src/features/journey/hooks/useTrailMoment.ts b/radiant-app/src/features/journey/hooks/useTrailMoment.ts
+index 3c917fe..d359420 100644
+--- a/radiant-app/src/features/journey/hooks/useTrailMoment.ts
++++ b/radiant-app/src/features/journey/hooks/useTrailMoment.ts
+@@ -1,4 +1,5 @@
+ import { useCallback, useState } from 'react';
++import { mlog } from '../../../debugMoment';
+ 
+ export type TrailMoment = {
+   /** O momento está tocando: o Pixel anda do nó concluído até o recomendado. */
+@@ -41,12 +42,14 @@ export function useTrailMoment(
+   if (recommendedNodeId !== undefined && recommendedNodeId !== state.last) {
+     const previous = state.last;
+     const completedStep = previous !== undefined && completedIds.has(previous);
++    mlog('hook-decide', { previous, next: recommendedNodeId, completedStep });
+     setState(completedStep
+       ? { last: recommendedNodeId, from: previous, to: recommendedNodeId }
+       : { last: recommendedNodeId });
+   }
+ 
+   const done = useCallback(() => {
++    mlog('hook-done');
+     setState(current => (current.to === undefined ? current : { last: current.last }));
+   }, []);
+ 
+diff --git a/radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx b/radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx
+index 9a85a4e..d3b21d1 100644
+--- a/radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx
++++ b/radiant-app/src/features/journey/screens/JourneyHomeScreen.tsx
+@@ -26,6 +26,7 @@ import { subscriptionService } from '../../subscription/SubscriptionService';
+ import { PixelIllustration } from '../../../ui/characters/PixelIllustration';
+ import { getRecommendationActionCopy } from '../components/nodeCopy';
+ import { useTrailMoment } from '../hooks/useTrailMoment';
++import { mlog } from '../../../debugMoment';
+ import { PushService } from '../../push/services/PushService';
+ import { ReminderRow } from '../../push/components/ReminderRow';
+ import { JourneyReviewRow } from '../components/JourneyReviewRow';
+@@ -96,6 +97,7 @@ export default function JourneyHomeScreen() {
+ 
+   useFocusEffect(
+     useCallback(() => {
++      mlog('screen-focus');
+       void TelemetryService.track('screen_view', { screen: 'journey_home' });
+       void PushService.scheduleDailyIfEligible({ reason: 'journey_focus' });
+       void loadSnapshot();
+diff --git a/radiant-app/src/ui/illustrations/ThemeIllustration.tsx b/radiant-app/src/ui/illustrations/ThemeIllustration.tsx
+index 2852d02..6ffb10e 100644
+--- a/radiant-app/src/ui/illustrations/ThemeIllustration.tsx
++++ b/radiant-app/src/ui/illustrations/ThemeIllustration.tsx
+@@ -106,7 +106,9 @@ export function ThemeIllustration({
+   state,
+   size,
+   playing = true,
++  debugId,
+ }: {
++  debugId?: string;
+   theme: IllustrationTheme;
+   state: IllustrationState;
+   size: number;
+@@ -134,6 +136,7 @@ export function ThemeIllustration({
+     fps,
+     posterFrame,
+     playing: playback.mode === 'animate',
++    debugId,
+   });
+ 
+   const still = useMemo(
+diff --git a/radiant-app/src/ui/motion.ts b/radiant-app/src/ui/motion.ts
+index ff2bba2..e51cc4f 100644
+--- a/radiant-app/src/ui/motion.ts
++++ b/radiant-app/src/ui/motion.ts
+@@ -27,6 +27,8 @@ import { G, Path } from 'react-native-svg';
+ import { useReducedMotionPreference, useReducedMotionPreferenceState } from './accessibility/useReducedMotionPreference';
+ import { useScreenFocused } from './useScreenFocused';
+ import { galaxyColors, hudIconTones } from './theme';
++import { mlog } from '../debugMoment';
++import { useAnimatedReaction, runOnJS } from 'react-native-reanimated';
+ 
+ // ============================================================================
+ // DURATION TOKENS (milliseconds)
+@@ -690,7 +692,9 @@ export function useLottieFrameLoop({
+     fps,
+     posterFrame,
+     playing,
++    debugId,
+ }: {
++    debugId?: string;
+     /** Quadros do laço (`duration() * fps()` da animação). */
+     totalFrames: number;
+     fps: number;
+@@ -706,6 +710,14 @@ export function useLottieFrameLoop({
+     const still = !playing || reduced || !valid;
+     const running = !still && focused;
+     const clock = useSharedValue(0);
++    const dbgTicks = useSharedValue(0);
++    useAnimatedReaction(() => clock.value, (v, p) => { if (p !== null && v !== p) dbgTicks.value += 1; });
++    useEffect(() => { mlog('pb-state', { id: debugId, playing, still, running, focused }); }, [debugId, playing, still, running, focused]);
++    useEffect(() => {
++        if (!debugId) return undefined;
++        const t = setInterval(() => { const n = dbgTicks.value; if (n > 0) { dbgTicks.value = 0; mlog('pb-ticks', { id: debugId, n }); } }, 1000);
++        return () => clearInterval(t);
++    }, [debugId, dbgTicks]);
+ 
+     useEffect(() => {
+         if (still) {
+@@ -840,6 +852,7 @@ export function useTrailMomentStyles(
+         };
+ 
+         if (!animate) {
++            mlog('styles-not-animate', { playing, wantsMotion, ready, finishAtOnce, resolved: preference.resolved });
+             settle();
+             setStartedKey(undefined);
+             if (finishAtOnce) onFinishedRef.current?.();
+@@ -851,6 +864,7 @@ export function useTrailMomentStyles(
+         const ctaAt = medalAt + TRAIL_MOMENT_MEDAL_RISE_MS + TRAIL_MOMENT_MEDAL_SETTLE_MS;
+ 
+         // A geometria fica fixa após a medição do destino virtualizado.
++        mlog('styles-animate-start', { runKey, routeLen: routeRef.current?.progress.length, fadeIn: routeRef.current?.fadeIn });
+         setActiveRoute(routeRef.current);
+         segment.value = 0;
+         travel.value = 0;
+@@ -882,13 +896,17 @@ export function useTrailMomentStyles(
+         // O fim é contado no relógio do JS, e não no retorno da animação: quem
+         // ouve é a tela, e ela precisa saber mesmo que a linha saia da janela
+         // virtualizada no meio do caminho.
+-        const timer = setTimeout(() => onFinishedRef.current?.(), TRAIL_MOMENT_MS);
++        const timer = setTimeout(() => { mlog('styles-timer-finished', { runKey }); onFinishedRef.current?.(); }, TRAIL_MOMENT_MS);
+         return () => {
++            mlog('styles-cleanup', { runKey });
+             clearTimeout(timer);
+             settle();
+         };
+     }, [animate, finishAtOnce, runKey, segment, travel, medal, cta]);
+ 
++    useAnimatedReaction(() => [segment.value, travel.value, medal.value, cta.value], (v, prev) => {
++        if (!prev || v[0] !== prev[0] || v[1] !== prev[1] || v[2] !== prev[2] || v[3] !== prev[3]) runOnJS(mlog)('ui-frame', { seg: Math.round(v[0] * 1000) / 1000, travel: Math.round(v[1] * 1000) / 1000, medal: Math.round(v[2] * 1000) / 1000, cta: Math.round(v[3] * 1000) / 1000 });
++    });
+     const outgoing = useAnimatedStyle(() => ({ opacity: segment.value }));
+     const incoming = useAnimatedStyle(() => ({ opacity: segment.value }));
+     const pixel = useAnimatedStyle(() => {

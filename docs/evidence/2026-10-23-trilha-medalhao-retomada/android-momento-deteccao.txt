@@ -1,0 +1,36 @@
+Detecção do quadro de estado final antecipado, Android, antes do conserto (2026-10-23).
+Gravação: adb emu screenrecord start --fps 60 (gravador do emulador), 1080x2340, webm VFR. Detector: detectar.py (cor média de duas áreas por quadro, passthrough):
+  CTA = botão sob L2 (crop 546x162+90+1374); HEAD = cabeça ao lado de L2 (crop 120x135+105+1050). Transições impressas em s do vídeo.
+  Quadro antecipado = 'CTA HEAD' seguido de '--- ----' antes da chegada ('--- HEAD') e da entrada do botão ('CTA HEAD').
+
+== android-momento-denso-1 (instrumentado); sha256 dfd87fc4ea099022…; toque no vídeo ≈ 2.067s
+   quadros 344 em 11.244s; maior lacuna 0.2140s
+   2.099 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.952 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.448 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== run2-limpo (sem instrumentação, worktree 8ad10e8); sha256 48b74aa1b8029a4f…; toque no vídeo ≈ 2.067s
+   quadros 331 em 11.196s; maior lacuna 0.2150s
+   2.084 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.497 CTA HEAD cta=(60, 105, 228) head=(96, 106, 122)
+   3.521 --- ---- cta=(19, 21, 27) head=(19, 21, 27)
+   4.198 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.694 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== run3-limpo (sem instrumentação, worktree 8ad10e8); sha256 d811f85795ce6aa9…; toque no vídeo ≈ 2.059s
+   quadros 306 em 11.258s; maior lacuna 0.2160s
+   2.180 --- ---- cta=(35, 38, 47) head=(39, 41, 51)
+   3.563 --- HEAD cta=(19, 21, 27) head=(93, 102, 116)
+   4.054 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== run4-limpo (sem instrumentação, worktree 8ad10e8); sha256 3ad98a697706dd2e…; toque no vídeo ≈ 2.039s
+   quadros 620 em 11.159s; maior lacuna 0.0210s
+   2.051 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.097 CTA HEAD cta=(60, 105, 228) head=(96, 106, 121)
+   3.116 --- ---- cta=(19, 21, 27) head=(19, 21, 27)
+   3.805 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.310 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+== run5-limpo (sem instrumentação, worktree 8ad10e8); sha256 7075b79b9c86ad4b…; toque no vídeo ≈ 2.048s
+   quadros 618 em 11.157s; maior lacuna 0.0210s
+   2.049 --- ---- cta=(30, 34, 42) head=(30, 33, 41)
+   3.513 --- HEAD cta=(19, 21, 27) head=(79, 88, 102)
+   4.025 CTA HEAD cta=(30, 54, 121) head=(98, 109, 125)
+
+Resumo: quadro antecipado em 2 de 4 gravações sem instrumentação (run2, run4), 0 de 1 instrumentada. Duração do quadro: ~0,02 s (um quadro).

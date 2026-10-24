@@ -14,6 +14,7 @@ const meta = {
   argTypes: {
     state: { control: 'select', options: ['idle', 'thinking', 'guide', 'happy', 'celebrate', 'oops'] },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
+    variant: { control: 'select', options: ['full', 'head'] },
   },
   decorators: [
     (Story) => (
@@ -39,4 +40,12 @@ export const Thinking: Story = {
 
 export const Oops: Story = {
   args: { state: 'oops' },
+};
+
+export const Head: Story = {
+  args: { state: 'idle', size: 'sm', variant: 'head' },
+};
+
+export const Happy: Story = {
+  args: { state: 'happy', size: 'lg' },
 };

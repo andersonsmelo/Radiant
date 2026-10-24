@@ -2,21 +2,19 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
+  useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withSequence,
   withTiming,
-  useAnimatedStyle,
 } from 'react-native-reanimated';
-import { Image } from 'expo-image';
 import type { CharacterSize, CharacterState, CharacterTier } from './types';
-import { resolvePixelAsset } from './pixelAssets';
+import { PixelBody, PIXEL_HEAD_WINDOW, PIXEL_VIEWBOX } from './PixelBody';
 import { PixelFace } from './PixelFace';
 import type { PixelExpression } from './pixelExpressions';
+import { poseForState } from './pixelPoses';
 import { PIXEL_FRAME_RATIO, PIXEL_IMAGE_RATIO } from './pixelScreenGeometry';
-import { colors } from '../theme';
-import { radius, space } from '../styles';
-import { useReducedMotionPreference } from '../accessibility/useReducedMotionPreference';
+import { useReducedMotionPreferenceState } from '../accessibility/useReducedMotionPreference';
 
 /**
  * Largura renderizada de cada tamanho. Exportado porque quem coloca o Pixel
@@ -29,353 +27,151 @@ export const PIXEL_SIZE_MAP: Record<CharacterSize, number> = {
   lg: 176,
 };
 
-const SIZE_MAP = PIXEL_SIZE_MAP;
-
-/** Curva do movimento de respirar: sobe e desce, então entra e sai suave nas duas pontas. */
-const RESPIRA = { easing: Easing.inOut(Easing.quad) } as const;
-/** Curva do pulso de `celebrate` e do tremor de `oops`: reage rápido, desacelera no fim. */
-const REAGE = { easing: Easing.out(Easing.quad) } as const;
-
-const GRID_LINES = Array.from({ length: 6 }, (_, index) => index);
-const PARTICLES = [
-  { top: 18, right: 20 },
-  { top: 42, right: 2 },
-  { top: 112, left: 16 },
-];
-
-type PixelStateSpec = {
-  glowColor: string;
-  accentColor: string;
-  faceColor: string;
-  showPanel: boolean;
-  showParticles: boolean;
-  imageOffsetY: number;
-  imageScale: number;
-  imageRotation: string;
+/**
+ * Largura da JANELA da cabeça em cada tamanho (variante `head`). Exportado pelo
+ * mesmo motivo de `PIXEL_SIZE_MAP`: quem põe a cabeça ao lado de uma medalha
+ * reserva a coluna. A altura sai da proporção da janela, não é escolhida.
+ */
+export const PIXEL_HEAD_SIZE_MAP: Record<CharacterSize, number> = {
+  sm: 48,
+  md: 64,
+  lg: 96,
 };
 
-const STATE_SPECS: Record<CharacterState, PixelStateSpec> = {
-  idle: {
-    glowColor: colors.highlight,
-    accentColor: colors.accent,
-    faceColor: colors.accentStrong,
-    showPanel: false,
-    showParticles: false,
-    imageOffsetY: -6,
-    imageScale: 1,
-    imageRotation: '0deg',
-  },
-  thinking: {
-    glowColor: colors.accent,
-    accentColor: colors.primary,
-    faceColor: colors.primary,
-    showPanel: true,
-    showParticles: false,
-    imageOffsetY: -8,
-    imageScale: 1.01,
-    imageRotation: '2deg',
-  },
-  guide: {
-    glowColor: colors.highlight,
-    accentColor: colors.primary,
-    faceColor: colors.accentStrong,
-    showPanel: true,
-    showParticles: false,
-    imageOffsetY: -8,
-    imageScale: 1.02,
-    imageRotation: '0deg',
-  },
-  happy: {
-    glowColor: colors.highlight,
-    accentColor: colors.success,
-    faceColor: colors.accentStrong,
-    showPanel: false,
-    showParticles: true,
-    imageOffsetY: -10,
-    imageScale: 1.02,
-    imageRotation: '-2deg',
-  },
-  celebrate: {
-    glowColor: colors.highlight,
-    accentColor: colors.success,
-    faceColor: colors.primary,
-    showPanel: true,
-    showParticles: true,
-    imageOffsetY: -12,
-    imageScale: 1.06,
-    imageRotation: '-4deg',
-  },
-  oops: {
-    glowColor: colors.warningSoft,
-    accentColor: colors.warning,
-    faceColor: colors.warning,
-    showPanel: false,
-    showParticles: false,
-    imageOffsetY: -4,
-    imageScale: 0.99,
-    imageRotation: '1deg',
-  },
-};
+/** Quanto o Pixel sobe no ponto mais alto da flutuação, em unidades da caixa de 576 × 864. */
+const FLOAT_RISE = 10;
+/** Meio ciclo: subir ou descer. O ciclo inteiro dura 3,2 s. */
+const FLOAT_HALF_CYCLE_MS = 1600;
+/** Curva do flutuar: sobe e desce, então entra e sai suave nas duas pontas. */
+const FLUTUA = { easing: Easing.inOut(Easing.quad) } as const;
 
-function resolveTier(state: CharacterState, tier?: CharacterTier): CharacterTier {
-  if (tier) {
-    return tier;
-  }
-
-  switch (state) {
-    case 'celebrate':
-      return 'advanced';
-    case 'guide':
-    case 'thinking':
-    case 'happy':
-      return 'intermediate';
-    default:
-      return 'starter';
-  }
-}
+/** `full` é o corpo inteiro; `head`, só a cabeça recortada da mesma caixa. */
+export type PixelVariant = 'full' | 'head';
 
 interface PixelIllustrationProps {
   state?: CharacterState;
   size?: CharacterSize;
+  /** Segue na API porque quem chama o passa; deixou de mudar o desenho em 2026-10-21. */
   tier?: CharacterTier;
   accessibilityLabel?: string;
   expression?: PixelExpression;
+  /**
+   * `full` mostra o corpo inteiro; `head` recorta só a cabeça (antena, orelhas
+   * e tela) da MESMA caixa, em vez de redesenhá-la.
+   */
+  variant?: PixelVariant;
+}
+
+/**
+ * Onde a caixa do corpo cai dentro do frame, e que tamanho tem o frame.
+ *
+ * Em `full`, o frame é o de sempre (`dimension` × `dimension × 1,38`) e a caixa,
+ * maior, é centrada nele e transborda para cima e para baixo. Em `head`, o
+ * frame é uma janela de `overflow: hidden` do tamanho da cabeça e a caixa
+ * INTEIRA fica deslocada para que a cabeça caia dentro dela. O `PixelFace`
+ * recebe o tamanho da caixa inteira nos dois casos, e por isso não muda.
+ */
+function layoutFor(size: CharacterSize, variant: PixelVariant) {
+  if (variant === 'head') {
+    const width = PIXEL_HEAD_SIZE_MAP[size];
+    const scale = width / PIXEL_HEAD_WINDOW.width;
+
+    return {
+      frameWidth: width,
+      frameHeight: Math.round(PIXEL_HEAD_WINDOW.height * scale),
+      imageWidth: PIXEL_VIEWBOX.width * scale,
+      imageHeight: PIXEL_VIEWBOX.height * scale,
+      offsetLeft: -PIXEL_HEAD_WINDOW.x * scale,
+      offsetTop: -PIXEL_HEAD_WINDOW.y * scale,
+    };
+  }
+
+  const dimension = PIXEL_SIZE_MAP[size];
+
+  return {
+    frameWidth: dimension,
+    frameHeight: Math.round(dimension * PIXEL_FRAME_RATIO),
+    imageWidth: dimension,
+    imageHeight: Math.round(dimension * PIXEL_IMAGE_RATIO),
+    offsetLeft: undefined,
+    offsetTop: undefined,
+  };
 }
 
 export function PixelIllustration({
   state = 'guide',
   size = 'md',
-  tier,
   accessibilityLabel = 'Mascote Pixel',
   expression = 'neutro',
+  variant = 'full',
 }: PixelIllustrationProps) {
-  const dimension = SIZE_MAP[size];
-  const tierValue = resolveTier(state, tier);
-  const stateSpec = STATE_SPECS[state];
-  const asset = resolvePixelAsset(state, tierValue, size);
-  const tierGlowOpacity = tierValue === 'advanced' ? 0.34 : tierValue === 'intermediate' ? 0.27 : 0.18;
-  const gridOpacity = tierValue === 'advanced' ? 0.28 : tierValue === 'intermediate' ? 0.18 : 0.08;
-  const shouldShowPanel = !asset.isDedicated && (stateSpec.showPanel || tierValue === 'advanced');
-  const shouldShowGrid = !asset.isDedicated;
-  const shouldShowParticles = !asset.isDedicated && stateSpec.showParticles;
-  const imageWidth = dimension;
-  const imageHeight = Math.round(dimension * PIXEL_IMAGE_RATIO);
+  const { frameWidth, frameHeight, imageWidth, imageHeight, offsetLeft, offsetTop } = layoutFor(size, variant);
+  const isHead = variant === 'head';
 
+  // O laço só se agenda depois que a preferência de movimento respondeu, senão
+  // ele começaria antes de saber se pode.
+  const { reducedMotionEnabled, resolved } = useReducedMotionPreferenceState();
+  const shouldFloat = resolved && !reducedMotionEnabled;
+  const rise = (-FLOAT_RISE * imageHeight) / PIXEL_VIEWBOX.height;
   const translateY = useSharedValue(0);
-  const scale = useSharedValue(1);
-  const rotate = useSharedValue(0);
-  const reducedMotion = useReducedMotionPreference();
 
   useEffect(() => {
-    // Reset to defaults first
-    translateY.value = 0;
-    scale.value = 1;
-    rotate.value = 0;
-
-    // Com reduced motion o Pixel adota a POSE de cada estado (inclinação,
-    // escala) sem os loops infinitos de flutuar, pulsar e tremer. A expressão
-    // do personagem sobrevive; o movimento perpétuo, não.
-    if (reducedMotion) {
-      switch (state) {
-        case 'happy':
-          scale.value = 1.03;
-          break;
-        case 'guide':
-          rotate.value = -3;
-          break;
-        case 'thinking':
-          rotate.value = 4;
-          scale.value = 0.97;
-          break;
-        case 'celebrate':
-          scale.value = 1.08;
-          break;
-        case 'oops':
-          rotate.value = -2;
-          break;
-        default:
-          break;
-      }
+    if (!shouldFloat) {
+      // Atribuir um número cancela o laço em andamento: a pose fica parada.
+      translateY.value = 0;
       return;
     }
 
-    switch (state) {
-      case 'idle':
-        translateY.value = withRepeat(
-          withSequence(
-            withTiming(-8, { duration: 2250, ...RESPIRA }),
-            withTiming(0, { duration: 2250, ...RESPIRA }),
-          ), -1, false
-        );
-        break;
-      case 'happy':
-        translateY.value = withRepeat(
-          withSequence(
-            withTiming(-8, { duration: 1500, ...RESPIRA }),
-            withTiming(0, { duration: 1500, ...RESPIRA }),
-          ), -1, false
-        );
-        scale.value = 1.03;
-        break;
-      case 'guide':
-        translateY.value = withRepeat(
-          withSequence(
-            withTiming(-8, { duration: 2500, ...RESPIRA }),
-            withTiming(0, { duration: 2500, ...RESPIRA }),
-          ), -1, false
-        );
-        rotate.value = -3;
-        break;
-      case 'thinking':
-        translateY.value = withRepeat(
-          withSequence(
-            withTiming(-8, { duration: 3000, ...RESPIRA }),
-            withTiming(0, { duration: 3000, ...RESPIRA }),
-          ), -1, false
-        );
-        rotate.value = 4;
-        scale.value = 0.97;
-        break;
-      case 'celebrate':
-        scale.value = withRepeat(
-          withSequence(
-            withTiming(1.08, { duration: 600, ...REAGE }),
-            withTiming(1, { duration: 600, ...REAGE }),
-          ), -1, false
-        );
-        break;
-      case 'oops':
-        translateY.value = withRepeat(
-          withSequence(
-            withTiming(-6, { duration: 180, ...REAGE }),
-            withTiming(6, { duration: 180, ...REAGE }),
-            withTiming(-4, { duration: 180, ...REAGE }),
-            withTiming(4, { duration: 180, ...REAGE }),
-            withTiming(0, { duration: 180, ...REAGE }),
-          ), -1, false
-        );
-        rotate.value = -2;
-        scale.value = 0.96;
-        break;
-    }
-  }, [state, reducedMotion]);
+    // Todos os estados flutuam igual. `celebrate` não pulsa mais e `oops` não
+    // treme: quem diz o estado é a pose dos braços e o rosto.
+    translateY.value = withRepeat(
+      withSequence(
+        withTiming(rise, { duration: FLOAT_HALF_CYCLE_MS, ...FLUTUA }),
+        withTiming(0, { duration: FLOAT_HALF_CYCLE_MS, ...FLUTUA }),
+      ),
+      -1,
+      false,
+    );
 
-  const animStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateY: translateY.value },
-      { scale: scale.value },
-      { rotate: `${rotate.value}deg` },
-    ],
+    return () => {
+      translateY.value = 0;
+    };
+  }, [rise, shouldFloat, translateY]);
+
+  // Sobe o conteúdo do frame inteiro, corpo e rosto juntos. Se só o SVG
+  // flutuasse, o rosto, desenhado fora dele, ficaria para trás e sairia da tela.
+  const floatStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
   }));
 
   return (
-    <Animated.View style={[styles.frame, { width: dimension, height: Math.round(dimension * PIXEL_FRAME_RATIO) }, animStyle]}>
-      <View
-        style={[
-          styles.haloPrimary,
-          {
-            backgroundColor: stateSpec.glowColor,
-            opacity: tierGlowOpacity,
-            width: Math.round(dimension * 1.12),
-            height: Math.round(dimension * 1.12),
-          },
-        ]}
-      />
-      <View
-        style={[
-          styles.haloSecondary,
-          {
-            backgroundColor: stateSpec.accentColor,
-            opacity: tierGlowOpacity * 0.74,
-            width: Math.round(dimension * 0.66),
-            height: Math.round(dimension * 0.66),
-          },
-        ]}
-      />
-
-      {shouldShowPanel ? (
+    <View
+      accessible
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel}
+      style={[styles.frame, { width: frameWidth, height: frameHeight }, isHead && styles.window]}
+    >
+      <Animated.View style={[styles.float, { width: frameWidth, height: frameHeight }, floatStyle]}>
         <View
           style={[
-            styles.holoPanel,
-            {
-              borderColor: `${stateSpec.accentColor}88`,
-              backgroundColor: `${colors.surface}AA`,
-            },
+            styles.imageBox,
+            { width: imageWidth, height: imageHeight },
+            isHead && { position: 'absolute', left: offsetLeft, top: offsetTop },
           ]}
         >
-          {GRID_LINES.map((lineIndex) => (
-            <View
-              key={`panel-line-${lineIndex}`}
-              style={[
-                styles.holoLine,
-                {
-                  backgroundColor: `${stateSpec.accentColor}${lineIndex % 2 === 0 ? '55' : '2A'}`,
-                },
-              ]}
-            />
-          ))}
-        </View>
-      ) : null}
-
-      {shouldShowGrid ? (
-        <View
-          style={[
-            styles.gridLayer,
-            {
-              opacity: gridOpacity,
-              borderColor: `${stateSpec.accentColor}55`,
-            },
-          ]}
-        >
-          {GRID_LINES.map((lineIndex) => (
-            <View
-              key={`grid-line-${lineIndex}`}
-              style={[
-                styles.gridLine,
-                {
-                  backgroundColor: `${stateSpec.accentColor}${lineIndex === 2 ? '66' : '33'}`,
-                },
-              ]}
-            />
-          ))}
-        </View>
-      ) : null}
-
-      <View style={[styles.imageBox, { width: imageWidth, height: imageHeight }]}>
-        <Image
-          source={asset.source}
-          contentFit="contain"
-          accessibilityLabel={accessibilityLabel}
-          style={[styles.image, { width: imageWidth, height: imageHeight }]}
-        />
-        {!asset.isDedicated ? (
-          <PixelFace
-            expression={expression}
-            imageWidth={imageWidth}
-            imageHeight={imageHeight}
+          {/* A janela da cabeça pega a altura dos ombros: em `acena` e `comemora`
+              mangas e mãos entrariam no recorte. Como na prancheta, a cabeça é
+              sempre `repouso`, sem aceno. */}
+          <PixelBody
+            pose={isHead ? 'repouso' : poseForState(state)}
+            width={imageWidth}
+            height={imageHeight}
+            waving={!isHead && state === 'happy'}
           />
-        ) : null}
-      </View>
-
-      {shouldShowParticles ? (
-        <>
-          {PARTICLES.map((particle, index) => (
-            <View
-              key={`particle-${index}`}
-              style={[
-                styles.particle,
-                {
-                  top: particle.top,
-                  right: particle.right,
-                  left: particle.left,
-                  backgroundColor: index === 0 ? stateSpec.accentColor : stateSpec.faceColor,
-                },
-              ]}
-            />
-          ))}
-        </>
-      ) : null}
-    </Animated.View>
+          <PixelFace expression={expression} imageWidth={imageWidth} imageHeight={imageHeight} />
+        </View>
+      </Animated.View>
+    </View>
   );
 }
 
@@ -385,54 +181,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'visible',
   },
-  haloPrimary: {
-    position: 'absolute',
-    borderRadius: 999,
-  },
-  haloSecondary: {
-    position: 'absolute',
-    top: '18%',
-    borderRadius: 999,
-  },
-  holoPanel: {
-    position: 'absolute',
-    right: 0,
-    top: '18%',
-    width: 56,
-    paddingHorizontal: space.s1,
-    paddingVertical: space.s1,
-    borderRadius: radius.rMd,
-    borderWidth: 1,
-    gap: space.s0,
-  },
-  holoLine: {
-    height: 3,
-    borderRadius: 999,
-  },
-  gridLayer: {
-    position: 'absolute',
-    top: '14%',
-    width: '78%',
-    height: '68%',
-    borderRadius: radius.rXl,
-    borderWidth: 1,
-    justifyContent: 'space-evenly',
+  // A janela da cabeça corta o que a caixa inteira tem fora dela.
+  window: {
     overflow: 'hidden',
   },
-  gridLine: {
-    height: 1,
+  float: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imageBox: {
     position: 'relative',
-  },
-  image: {
-    zIndex: 2,
-  },
-  particle: {
-    position: 'absolute',
-    width: 8,
-    height: 8,
-    borderRadius: 999,
-    opacity: 0.88,
   },
 });

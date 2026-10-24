@@ -4,6 +4,41 @@ Material visual de referência. **Nada aqui é código de produção** e nada aq
 importado pelo app — o app vive em `radiant-app/`, e a fonte de verdade do
 sistema visual são os tokens em `radiant-app/src/ui/`.
 
+## Trilha Medalhão e aula-bancada — aprovadas em 2026-10-21
+
+As pranchetas da [trilha](2026-10-21-trilha-medalhao.html) e da
+[aula-bancada](2026-10-21-aula-bancada.html) foram aprovadas por Anderson em
+2026-10-21, junto com a
+[spec](../superpowers/specs/2026-10-21-trilha-medalhao-e-aula-bancada-design.md)
+e a [ADR](../adr/ADR-2026-10-21-trilha-medalhao-aula-bancada-e-recomeco.md).
+O Medalhão substitui o "céu navegável" no app inteiro.
+
+Cada HTML abre sozinho no navegador e é o arquivo avaliado, com a imagem do
+Pixel embutida. Na aula, a radiografia é um fantoma estilizado calculado no
+navegador. Não é incidência real nem conteúdo aprovado: números, textos e
+temas são de demonstração. As pranchetas anteriores abaixo ficam como registro
+histórico.
+
+## O Pixel e o app inteiro no Medalhão — aprovados em 2026-10-21
+
+Mais duas pranchetas, aprovadas por Anderson em 2026-10-21, à noite:
+- **[O Pixel no Medalhão](2026-10-21-pixel-medalhao.html):** o mesmo personagem
+  redesenhado em três tons, com a luz de cima à esquerda. Mostra quatro poses,
+  as sete expressões e o Pixel em três tamanhos. A tela do rosto fica onde está
+  hoje, 168 × 112 numa caixa de 576 × 864. Resposta do dono: "Aprovado o Pixel.
+  Siga para a prancheta do app inteiro."
+- **[O app inteiro no Medalhão](2026-10-21-app-medalhao.html):** as regras que
+  tiram a cara de app feito por IA, o glossário de texto e nove telas ao lado
+  da captura de como estavam em 2026-10-21. Resposta do dono: "Aprovada a
+  prancheta do app inteiro. Registre no repositório e escreva os planos."
+
+As duas são as cópias exatas dos arquivos avaliados no companion, com as
+capturas embutidas. SHA-256: Pixel
+`46fe2809dda0c61e2b7d4990c6f9ff5feb4f74815f14eaa5ff1c9f05fe19eddd`; app
+`e5bc554ec8f7d96403ebf2f4f63307ce80a7f899a15530e558785a362c30ba00`. Os números
+nelas ("8 perguntas, passa com 6", "23 min", "1 de 4 aulas") são de
+demonstração e não mudam regra nenhuma do app.
+
 ## Experiência de estudo — proposta de 2026-10-12
 
 [Prancheta navegável](2026-10-12-study-experience.html) e

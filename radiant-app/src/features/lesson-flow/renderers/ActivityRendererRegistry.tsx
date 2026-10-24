@@ -102,6 +102,20 @@ function OrderingInteraction({ interaction, value, onChange }: InteractionRender
     return <OrderingStepRenderer payload={interaction.payload} value={value} onChange={onChange} />;
 }
 
+function BenchInteraction(props: InteractionRendererProps) {
+    if (props.interaction.type !== 'bench') {
+        return <UnsupportedInteraction interaction={props.interaction} />;
+    }
+
+    // A bancada desenha com Skia, que o Jest não carrega sem dublê. O módulo só
+    // é avaliado quando uma bancada é renderizada, e não por quem apenas importa
+    // o registro (a tela da lição, a guarda de conclusão do nó e seus testes).
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { BenchStepRenderer } = require('./BenchStepRenderer') as typeof import('./BenchStepRenderer');
+
+    return <BenchStepRenderer {...props} />;
+}
+
 /**
  * Erro seguro: tipo sem renderizador não derruba a lição.
  *
@@ -128,6 +142,7 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     comparison: ComparisonInteraction,
     matching: MatchingInteraction,
     ordering: OrderingInteraction,
+    bench: BenchInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

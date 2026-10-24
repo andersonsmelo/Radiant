@@ -11,6 +11,24 @@ import { ReinforceStepRenderer } from './ReinforceStepRenderer';
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+// A bancada desenha o fantoma com Skia, que o Jest não rasteriza.
+jest.mock('@shopify/react-native-skia', () => {
+    const ReactInMock = require('react');
+    const { View } = require('react-native');
+    const host = (name: string) => {
+        const Host = ({ children, ...props }: { children?: unknown }) =>
+            ReactInMock.createElement(View, { ...props, testID: `skia-${name}` }, children);
+        Host.displayName = name;
+        return Host;
+    };
+    return {
+        Canvas: host('Canvas'),
+        Fill: host('Fill'),
+        Shader: host('Shader'),
+        Skia: { RuntimeEffect: { Make: jest.fn(() => ({ kind: 'effect' })) } },
+    };
+});
+
 function multipleChoice(overrides: Partial<LearningInteractionV2> = {}): LearningInteractionV2 {
     return {
         type: 'multiple-choice',
@@ -112,15 +130,46 @@ describe('ActivityRendererRegistry', () => {
         expect(getByText(/jogo-que-nao-existe/)).toBeTruthy();
     });
 
-    it('declara os cinco tipos que já têm renderizador', () => {
+    it('declara os seis tipos que já têm renderizador', () => {
         expect(isInteractionTypeRegistered('multiple-choice')).toBe(true);
         expect(isInteractionTypeRegistered('hotspot')).toBe(true);
         expect(isInteractionTypeRegistered('comparison')).toBe(true);
         expect(isInteractionTypeRegistered('matching')).toBe(true);
         expect(isInteractionTypeRegistered('ordering')).toBe(true);
+        expect(isInteractionTypeRegistered('bench')).toBe(true);
         expect(isInteractionTypeRegistered('parameter-lab')).toBe(false);
         expect(REGISTERED_INTERACTION_TYPES).toContain('multiple-choice');
-        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(5);
+        expect(REGISTERED_INTERACTION_TYPES).toContain('bench');
+        expect(REGISTERED_INTERACTION_TYPES).toHaveLength(6);
+    });
+
+    it('renderiza a bancada pelo registro: enunciado, fantoma e o JSON inicial no onChange', () => {
+        const onChange = jest.fn();
+        const bancada = {
+            ...multipleChoice(),
+            type: 'bench',
+            payload: {
+                prompt: 'Suba o kV até 100.',
+                simulator: 'exposure',
+                mode: 'explore',
+                controls: [
+                    { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 10, initial: 70 },
+                    { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 },
+                ],
+                goal: { kind: 'reach', control: 'kv', atLeast: 100 },
+                phantomLabel: 'Fantoma simulado',
+                hints: { tooLow: 'Suba.', tooHigh: 'Desça.' },
+            },
+        } as unknown as LearningInteractionV2;
+
+        const { getByText, queryByText } = render(
+            <ActivityInteractionRenderer interaction={bancada} value={undefined} onChange={onChange} />,
+        );
+
+        expect(getByText('Suba o kV até 100.')).toBeTruthy();
+        expect(getByText('Fantoma simulado')).toBeTruthy();
+        expect(queryByText('Esta atividade não pode ser exibida')).toBeNull();
+        expect(onChange).toHaveBeenCalledWith('{"kv":70,"mas":10}');
     });
 
     it('mantém a pergunta e o gabarito visíveis junto à explicação no passo de reforço', () => {

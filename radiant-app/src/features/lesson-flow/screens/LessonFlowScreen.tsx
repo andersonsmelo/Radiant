@@ -22,6 +22,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import { feedbackFor } from '../services/feedbackFor';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
 // nenhum aluno os alcançava. `/learn` é o caminho vivo, e é aqui que eles
@@ -52,6 +53,7 @@ import {
 import { useActiveCheckpoint } from '../../student-checkpoints/useActiveCheckpoint';
 import { heartsRepository } from '../../hearts/HeartsRepository';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
+import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
 import { HeartsSheet } from '../../hearts/components/HeartsSheet';
@@ -95,6 +97,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
     // revisão levou de 5 para 4 vidas. ADR de 2026-10-16.
     const isReview = useMemo(() => JourneyDefinitionService.getNodeType(nodeId) === 'review', [nodeId]);
+    // Sem nó, a aula não pertence à trilha: `learn.tsx` passa `nodeId=''`
+    // quando o deep link não o traz (`radiantapp://learn?blockId=…`, como nas
+    // aulas-bancada de exemplo). Gravar o nó vazio como atual ou como retomada,
+    // ou zerar os dois na conclusão, apagaria o ponto real em que o aluno parou.
+    // A conclusão em `LessonOutcomeService` já não premia nó desconhecido.
+    const tracksJourney = nodeId !== '';
 
     // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
     // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
@@ -145,10 +153,15 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         const privacySafeIndex = interactionIndex >= 0 ? Math.min(requestedIndex, interactionIndex) : requestedIndex;
         return Math.max(0, Math.min(privacySafeIndex, activity.steps.length - 1));
     }, [activity, resumeCursorId]);
-    const hybrid = Boolean(block?.sessionMode);
+    // As aulas-bancada de exemplo não têm bloco legado, e é o modo da sessão que
+    // liga o retorno por item, o primeiro contato sem custo de vida e a volta do
+    // item errado (spec, seção 5). Elas correm como lição híbrida.
+    const sessionMode = block?.sessionMode
+        ?? (activity && isBenchLessonId(activity.id) ? 'hybrid-lesson' : undefined);
+    const hybrid = Boolean(sessionMode);
     const player = useLearningActivity(activity, resumeStepIndex, {
         feedbackPerItem: hybrid,
-        repeatIncorrect: block?.sessionMode === 'hybrid-lesson' && !isReview,
+        repeatIncorrect: sessionMode === 'hybrid-lesson' && !isReview,
     });
 
     useEffect(() => {
@@ -158,8 +171,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             try {
                 setLoading(true);
                 setError(null);
-                await JourneyProgressService.setCurrentNode(nodeId);
-                await JourneyProgressService.setResumableNode(nodeId);
+                if (tracksJourney) {
+                    await JourneyProgressService.setCurrentNode(nodeId);
+                    await JourneyProgressService.setResumableNode(nodeId);
+                }
                 const nextBlock = LessonFlowService.getBlockById(blockId);
                 // Durante a migração, consumidores legados (inclusive integrações
                 // que substituem apenas getBlockById) continuam válidos. A
@@ -197,7 +212,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         return () => {
             alive = false;
         };
-    }, [blockId, nodeId]);
+    }, [blockId, nodeId, tracksJourney]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
     useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
@@ -207,7 +222,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     const currentStep = player.currentStep;
     // A lista de cursores compatíveis é estável: acrescentar um retorno não
     // deve criar outro checkpoint da mesma sessão. Reservamos até um por item.
-    const checkpointCapacity = block?.sessionMode === 'hybrid-lesson' && activity
+    const checkpointCapacity = sessionMode === 'hybrid-lesson' && activity
         ? activity.steps.length + activity.steps.filter(step => step.kind === 'interaction').length
         : totalSteps;
     const shadowCursorIds = Array.from(
@@ -226,7 +241,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        // Sem nó, o checkpoint seria uma retomada sem nó para onde voltar.
+        enabled: Boolean(activity && currentStep) && tracksJourney,
     });
     const handleRestoreFallback = useCallback(() => {
         Alert.alert(
@@ -246,7 +262,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        enabled: Boolean(activity && currentStep) && tracksJourney,
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
@@ -318,7 +334,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 emit('correct');
             }
 
-            const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
+            const message = feedbackFor(currentInteraction, player.value, correct);
             const choice = currentInteraction.type === 'multiple-choice'
                 ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
             const answer = currentInteraction.type === 'multiple-choice'
@@ -337,7 +353,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
         if (!isLastStep) {
             if (costsHeart && nextHearts.status === 'empty') {
-                await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
+                if (tracksJourney) await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
             return;
@@ -368,9 +384,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // escrita, e a leitura pode terminar antes de a marcação pousar —
             // mostrando a unidade sem a lição que acabou de fechar. Encadear a
             // partir da própria marcação elimina a corrida.
-            const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
-            await JourneyProgressService.setCurrentNode(null);
-            await JourneyProgressService.setResumableNode(undefined);
+            const snapshot = tracksJourney ? await JourneyProgressService.markNodeCompleted(nodeId) : null;
+            if (tracksJourney) {
+                await JourneyProgressService.setCurrentNode(null);
+                await JourneyProgressService.setResumableNode(undefined);
+            }
             await activeCheckpoint.finish();
 
             setJourneySnapshot(snapshot);
@@ -381,12 +399,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
     const exitLesson = useCallback(() => {
         void (async () => {
-            if (!outcome) {
+            if (!outcome && tracksJourney) {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex);
             }
             router.dismissTo('/(tabs)');
         })();
-    }, [nodeId, outcome, stepIndex]);
+    }, [nodeId, outcome, stepIndex, tracksJourney]);
 
     // Carrega as vidas para a barra do topo. Errar consome vida durante a
     // atividade, e o aluno precisa ver isso acontecer. Relê a cada foco, não
@@ -642,7 +660,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 />
                             ) : null}
 
-                            {player.showingFeedback && currentInteraction?.type === 'multiple-choice' ? (
+                            {player.showingFeedback && (currentInteraction?.type === 'multiple-choice' || currentInteraction?.type === 'bench') ? (
                                 <View testID="lesson-item-feedback" accessibilityLiveRegion="polite"
                                     style={[styles.itemFeedback, player.lastFeedback?.correct ? styles.itemFeedbackCorrect : styles.itemFeedbackIncorrect]}
                                     onLayout={event => scrollRef.current?.scrollTo({
@@ -652,8 +670,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         accessibilityRole="header" maxFontSizeMultiplier={LABEL_MAX_FONT_SCALE}>
                                         {player.lastFeedback?.correct ? 'Resposta correta' : 'Vamos reforçar'}
                                     </Text>
-                                    <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
-                                    <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                    {currentInteraction.type === 'multiple-choice' ? (
+                                        <>
+                                            <Text style={styles.feedbackText}>{`Sua resposta: ${currentInteraction.payload.options.find(option => option.id === player.value)?.label ?? ''}`}</Text>
+                                            <Text style={styles.feedbackText}>{`Resposta certa: ${currentInteraction.payload.options.find(option => option.id === currentInteraction.payload.correctOptionId)?.label ?? ''}`}</Text>
+                                        </>
+                                    ) : null}
                                     <Text style={styles.feedbackText}>{player.lastFeedback?.message}</Text>
                                 </View>
                             ) : null}
@@ -670,6 +692,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                 <AdvanceStepRenderer payload={legacyStep.step.payload} />
                             ) : null}
 
+                            {/*
+                              Na lição híbrida, o retorno de cada item já apareceu
+                              junto da resposta: o fechamento mostra o próprio
+                              título e texto, e não repete o da última interação.
+                            */}
                             {!legacyStep && currentStep.kind === 'presentation' && currentStep.role === 'closing' ? (
                                 <ReinforceStepRenderer
                                     payload={{
@@ -677,8 +704,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                         body: currentStep.payload.body ?? '',
                                         tone: currentStep.payload.tone ?? 'neutral',
                                     }}
-                                    answeredCorrectly={player.lastFeedback?.correct}
-                                    explanation={player.lastFeedback?.message}
+                                    answeredCorrectly={hybrid ? undefined : player.lastFeedback?.correct}
+                                    explanation={hybrid ? undefined : player.lastFeedback?.message}
                                 />
                             ) : null}
                         </View>
