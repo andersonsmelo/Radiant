@@ -250,6 +250,19 @@ function isWithinRange(value: unknown, min: number, max: number): boolean {
 }
 
 /**
+ * A referência de um `match` precisa trazer kV e mAs numéricos finitos. Sem ela
+ * o "Conferir" lançaria `TypeError` (ou, com um campo só, compararia contra
+ * `NaN`), então a validação a recusa e os leitores da resposta a conferem de novo.
+ */
+export function isExposureReference(reference: unknown): reference is ExposureInput {
+    if (typeof reference !== 'object' || reference === null) {
+        return false;
+    }
+    const { kv, mas } = reference as Partial<Record<keyof ExposureInput, unknown>>;
+    return typeof kv === 'number' && Number.isFinite(kv) && typeof mas === 'number' && Number.isFinite(mas);
+}
+
+/**
  * O `goal` da bancada é o "pronto" da lição, e um alvo defeituoso não aparece
  * em lugar nenhum: vira lição impossível (controle que não existe, limite fora
  * da faixa, tolerância que nunca é cumprida) ou que se responde sozinha (`reach`
@@ -260,7 +273,8 @@ function isBenchGoalValid(goal: BenchGoal | undefined, controls: BenchControl[])
         return false;
     }
     if (goal.kind === 'match') {
-        return typeof goal.tolerance === 'number' && Number.isFinite(goal.tolerance) && goal.tolerance > 0;
+        return isExposureReference(goal.reference)
+            && typeof goal.tolerance === 'number' && Number.isFinite(goal.tolerance) && goal.tolerance > 0;
     }
     if (goal.kind !== 'reach') {
         return false;
@@ -479,6 +493,39 @@ export function validateLearningActivity(activity: LearningActivityV2): Validati
             }
         } else {
             validateInteraction(issues, step.interaction);
+        }
+    }
+
+    return issues;
+}
+
+const CHOICE_TYPES = new Set<string>(['multiple-choice', 'comparison', 'case-decision']);
+
+/**
+ * Avisos editoriais: o que o conteudista deveria corrigir, mas que **não**
+ * reprova a atividade. Ficam fora de `validateLearningActivity` de propósito:
+ * `ValidationIssue` não tem severidade, e quem chama a validação (catálogo de
+ * produção, auditoria da jornada, lote editorial) trata qualquer item como
+ * reprovação. O conteúdo de produção existente não tem explicação por
+ * alternativa, e passar a recusá-lo derrubaria o catálogo inteiro.
+ *
+ * - `missing-option-explanation`: escolha com alguma alternativa errada sem
+ *   `explanation`. O player, então, cai na frase genérica de `feedback.incorrect`.
+ */
+export function learningActivityWarnings(activity: LearningActivityV2): ValidationIssue[] {
+    const issues: ValidationIssue[] = [];
+    const steps = Array.isArray(activity?.steps) ? activity.steps : [];
+
+    for (const step of steps) {
+        if (step.kind !== 'interaction' || !CHOICE_TYPES.has(step.interaction.type)) {
+            continue;
+        }
+        const { options, correctOptionId } = step.interaction.payload as {
+            options?: ChoiceOption[];
+            correctOptionId?: string;
+        };
+        if (Array.isArray(options) && options.some((option) => option.id !== correctOptionId && !isFilled(option.explanation))) {
+            push(issues, step.interaction.id, 'missing-option-explanation');
         }
     }
 

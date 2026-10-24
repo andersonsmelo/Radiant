@@ -224,6 +224,25 @@ describe('InteractionAnswerValue', () => {
             });
         });
 
+        // Conteúdo escrito à mão pode chegar sem `reference` válida; a validação o
+        // recusa (`invalid-goal`), mas o player não pode lançar se ele passar.
+        const semReferencia: [string, unknown][] = [
+            ['ausente', undefined],
+            ['nula', null],
+            ['sem kv', { mas: 10 }],
+            ['sem mas', { kv: 70 }],
+            ['com kv NaN', { kv: Number.NaN, mas: 10 }],
+        ];
+
+        describe('match com referência inválida', () => {
+            it.each(semReferencia)('isCorrectInteractionValue devolve false, sem lançar, com referência %s', (_nome, reference) => {
+                const quebrada = bench({ kind: 'match', tolerance: 0.05, reference } as unknown as BenchGoal);
+                const value = encodeBenchValue({ kv: 70, mas: 10 });
+                expect(() => isCorrectInteractionValue(quebrada, value)).not.toThrow();
+                expect(isCorrectInteractionValue(quebrada, value)).toBe(false);
+            });
+        });
+
         describe('benchDirection', () => {
             it('80 kV está abaixo do mínimo de 100: tooLow', () => {
                 expect(benchDirection(reach, encodeBenchValue({ kv: 80, mas: 10 }))).toBe('tooLow');
@@ -251,6 +270,12 @@ describe('InteractionAnswerValue', () => {
                     expect(benchDirection(reach, value) === 'ok').toBe(isCorrectInteractionValue(reach, value));
                     expect(benchDirection(match, value) === 'ok').toBe(isCorrectInteractionValue(match, value));
                 }
+            });
+
+            it.each(semReferencia)('devolve ok, sem lançar, para match com referência %s', (_nome, reference) => {
+                const quebrada = bench({ kind: 'match', tolerance: 0.05, reference } as unknown as BenchGoal);
+                expect(() => benchDirection(quebrada, encodeBenchValue({ kv: 50, mas: 10 }))).not.toThrow();
+                expect(benchDirection(quebrada, encodeBenchValue({ kv: 50, mas: 10 }))).toBe('ok');
             });
 
             it('devolve ok para interação que não é bancada', () => {

@@ -22,6 +22,7 @@ import { JourneyProgressService } from '../../journey/services/JourneyProgressSe
 import { LessonOutcomeService } from '../services/LessonOutcomeService';
 import { resolveNextReviewInDays } from '../services/nextReviewInDays';
 import { isCorrectInteractionValue } from '../renderers/InteractionAnswerValue';
+import { feedbackFor } from '../services/feedbackFor';
 // A atividade e a conclusão vêm do sub-projeto 1. Eles nasceram montados no
 // `QuizScreen`, na rota `/quiz`, que não tem ponto de entrada in-app — então
 // nenhum aluno os alcançava. `/learn` é o caminho vivo, e é aqui que eles
@@ -318,7 +319,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                 emit('correct');
             }
 
-            const message = correct ? currentInteraction.feedback.correct : currentInteraction.feedback.incorrect;
+            const message = feedbackFor(currentInteraction, player.value, correct);
             const choice = currentInteraction.type === 'multiple-choice'
                 ? currentInteraction.payload.options.find(option => option.id === player.value)?.label : undefined;
             const answer = currentInteraction.type === 'multiple-choice'

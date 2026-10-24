@@ -1,4 +1,5 @@
 import type { BenchControl, LearningInteractionV2 } from '../../../types/learningActivity';
+import { isExposureReference } from '../../../types/learningActivity';
 import { exposureModel, subjectContrast } from '../../bench/exposureModel';
 
 /**
@@ -85,6 +86,12 @@ function isBenchGoalMet(interaction: Extract<LearningInteractionV2, { type: 'ben
             && (goal.atMost === undefined || current <= goal.atMost);
     }
 
+    // `match` sem referência válida é conteúdo defeituoso (`invalid-goal`): nunca
+    // acerta, em vez de lançar ou comparar contra NaN.
+    if (!isExposureReference(goal.reference)) {
+        return false;
+    }
+
     // Controle que a bancada não oferece fica na referência: só se compara o que o aluno ajusta.
     const student = benchImage(values.kv ?? goal.reference.kv, values.mas ?? goal.reference.mas);
     const target = benchImage(goal.reference.kv, goal.reference.mas);
@@ -114,6 +121,11 @@ export function benchDirection(
             return 'tooLow';
         }
         return 'tooHigh';
+    }
+
+    // Sem referência válida não há lado a indicar; o retorno cai no genérico.
+    if (!isExposureReference(goal.reference)) {
+        return 'ok';
     }
 
     const kv = values.kv ?? goal.reference.kv;

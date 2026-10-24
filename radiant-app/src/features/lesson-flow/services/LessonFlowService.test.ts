@@ -506,6 +506,20 @@ describe('validateLearningActivity', () => {
                     .toEqual(['invalid-goal']);
             });
 
+            it.each([
+                ['ausente', undefined],
+                ['nula', null],
+                ['sem kv', { mas: 10 }],
+                ['sem mas', { kv: 70 }],
+                ['com kv que não é número', { kv: '70', mas: 10 }],
+                ['com mas NaN', { kv: 70, mas: Number.NaN }],
+                ['com kv infinito', { kv: Number.POSITIVE_INFINITY, mas: 10 }],
+            ])('recusa match com referência %s', (_nome, reference) => {
+                // Sem referência o "Conferir" lançaria TypeError ao ler `reference.kv`.
+                expect(rulesFor(issuesFor(bench({ goal: { kind: 'match', tolerance: 0.05, reference } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
             it('recusa um tipo de alvo desconhecido', () => {
                 expect(rulesFor(issuesFor(bench({ goal: { kind: 'sempre' } })), 'interaction:bench-1'))
                     .toEqual(['invalid-goal']);
