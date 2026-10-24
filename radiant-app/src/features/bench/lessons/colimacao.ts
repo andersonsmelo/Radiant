@@ -6,19 +6,21 @@ import { DETECTOR_HEIGHT_CM, DETECTOR_WIDTH_CM } from '../collimationModel';
  * (`docs/evidence/2026-10-24-segunda-bancada.md`).
  *
  * Roteiro no molde da aula de exposição: abertura, explorar (fechar a altura e
- * ver o produto dose-área cair), ler o que mudou, enquadrar os ossos pela
+ * ver o produto dose-área cair), ler o que mudou, enquadrar o joelho pela
  * largura e fechamento. Cinco passos e três interações.
  *
  * Cada frase de física afirma só o que o topo de `collimationModel.ts` lista
- * como AFIRMAÇÃO FÍSICA: o produto dose-área cresce com a área; a dose num
- * ponto dentro do campo não muda ao colimar; campo menor reduz a radiação
- * espalhada; colimar até a região de interesse é proteção radiológica. Nada
- * do que ele lista como simplificação vira frase: em especial, nenhuma diz que
- * a imagem dentro do campo melhora ou piora ao colimar.
+ * como AFIRMAÇÃO FÍSICA: o produto dose-área cresce com a área; a dose do
+ * feixe direto num ponto dentro do campo não muda ao colimar; campo menor
+ * reduz a radiação espalhada; colimar até a região de interesse é proteção
+ * radiológica. Nada do que ele lista como simplificação vira frase: em
+ * especial, nenhuma diz que a imagem dentro do campo melhora ou piora ao
+ * colimar.
  *
  * "Dose" sozinha não aparece: a grandeza que a tela mostra, e que cai com a
- * área, é o produto dose-área. A única exceção é "a dose num ponto", a
- * afirmação de que ela não muda.
+ * área, é o produto dose-área. A única exceção é "a dose do feixe direto", a
+ * afirmação de que ela não muda num ponto dentro do campo. A dose total num
+ * ponto cai um pouco ao colimar, porque soma o espalhamento (Ruling 15).
  *
  * O texto inteiro vai, igual, ao documento em que o dono revisa cada frase
  * (`docs/conteudo-bancada/2026-10-24-aulas-de-exemplo.md`); o teste do
@@ -53,15 +55,17 @@ const widthControl: BenchControl = {
 };
 
 /**
- * A largura que enquadra os ossos do fantoma, medida no desenho do shader
- * (`exposureShader.ts`, 10 unidades por cm, campo centrado em x = 135): a
- * patela vai até x = 215, então abaixo de 16 cm o campo a corta, e com 17 cm
- * sobra meio centímetro de cada lado; acima de 20 cm o campo já passa dos
- * ossos e cobre quase só partes moles. Sem o mínimo, fechar até 5 cm também
- * acertaria e cortaria a anatomia.
+ * A largura que enquadra o joelho inteiro, com as partes moles, medida no
+ * desenho do shader (`exposureShader.ts`, 10 unidades por cm, campo centrado
+ * em x = 135). A pele vai de x = 22 a x = 234 na altura do joelho (raio 106 em
+ * torno de x = 128), então o campo precisa de 22,6 cm para cobrir os dois
+ * lados: 23 cm no passo do controle. O fantoma não é centrado, e com 23 cm
+ * ainda sobra 1,6 cm de campo à direita. Com 25 cm ou mais sobra campo dos
+ * dois lados. Sem o mínimo, fechar até 5 cm também acertaria e cortaria a
+ * anatomia (Ruling 15).
  */
-const FRAME_MIN_CM = 17;
-const FRAME_MAX_CM = 20;
+const FRAME_MIN_CM = 23;
+const FRAME_MAX_CM = 24;
 
 export const COLIMACAO: LearningActivityV2 = {
   id: 'bancada:colimacao',
@@ -128,8 +132,8 @@ export const COLIMACAO: LearningActivityV2 = {
             { id: 'produto-dose-area', label: 'O produto dose-área' },
             {
               id: 'dose-no-ponto',
-              label: 'A dose num ponto dentro do campo',
-              explanation: 'A dose num ponto dentro do campo não muda ao colimar. O que cai é a área irradiada, e com ela o produto dose-área.',
+              label: 'A dose do feixe direto num ponto dentro do campo',
+              explanation: 'A dose do feixe direto num ponto dentro do campo não muda ao colimar. O que cai é a área irradiada, e com ela o produto dose-área.',
             },
             {
               id: 'kv',
@@ -151,20 +155,20 @@ export const COLIMACAO: LearningActivityV2 = {
         completionRule: 'answered',
         criticalSafety: false,
         feedback: {
-          correct: 'O campo cobre os ossos, inclusive a patela, e o que ficou fora dele não recebe o feixe direto. Colimar até a região de interesse é proteção radiológica.',
-          incorrect: 'Ajuste a largura até o campo cobrir os ossos, inclusive a patela, sem sobra dos lados.',
+          correct: 'O campo cobre o joelho inteiro, com as partes moles, e o que ficou fora dele não recebe o feixe direto. Colimar até a região de interesse é proteção radiológica.',
+          incorrect: 'Ajuste a largura até o campo cobrir o joelho inteiro, com as partes moles, sem sobrar campo fora dele.',
         },
-        accessibility: { label: 'Bancada de colimação: enquadre os ossos pela largura do campo' },
+        accessibility: { label: 'Bancada de colimação: enquadre o joelho inteiro pela largura do campo' },
         payload: {
-          prompt: 'Feche a largura do campo até ele cobrir os ossos, inclusive a patela, sem cortar nenhum.',
+          prompt: 'Feche a largura do campo até ele cobrir o joelho do fantoma inteiro, com as partes moles dos dois lados, sem cortar nada dele.',
           simulator: 'collimation',
           mode: 'challenge',
           controls: [widthControl],
           goal: { kind: 'reach', control: 'fieldWidth', atLeast: FRAME_MIN_CM, atMost: FRAME_MAX_CM },
           phantomLabel: PHANTOM_LABEL,
           hints: {
-            tooLow: 'O campo encosta na patela ou a corta. Abra um pouco a largura.',
-            tooHigh: 'Ainda sobra campo dos lados dos ossos. Feche mais a largura.',
+            tooLow: 'O campo corta as partes moles do joelho. Abra um pouco a largura.',
+            tooHigh: 'Ainda sobra campo fora do joelho. Feche mais a largura.',
           },
         },
       },

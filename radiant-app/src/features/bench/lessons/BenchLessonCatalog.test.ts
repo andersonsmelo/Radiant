@@ -13,7 +13,9 @@ import {
   isCorrectInteractionValue,
   type BenchValues,
 } from '../../lesson-flow/renderers/InteractionAnswerValue';
+import { DETECTOR_WIDTH_CM } from '../collimationModel';
 import { REFERENCE_EXPOSURE } from '../exposureModel';
+import { EXPOSURE_SKSL, PHANTOM_WIDTH } from '../exposureShader';
 import { BENCH_LESSON_IDS, BenchLessonCatalog, isBenchLessonId } from './BenchLessonCatalog';
 import { COLIMACAO } from './colimacao';
 import { EXPOSICAO } from './exposicao';
@@ -275,10 +277,52 @@ describe('o texto das aulas (A Regra Sem Cara de IA)', () => {
   });
 
   it('na colimação, nenhuma frase diz "dose" solta: a grandeza que cai com a área é o produto dose-área', () => {
-    // Só duas formas passam: "dose-área" (o produto) e "dose num ponto", a
-    // afirmação de que a dose num ponto dentro do campo não muda ao colimar.
-    const loose = phrasesOf(COLIMACAO).filter((phrase) => /\bdoses?\b(?!-área| num ponto)/i.test(phrase.text));
+    // Só duas formas passam: "dose-área" (o produto) e "dose do feixe direto",
+    // a afirmação de que a dose do feixe direto num ponto dentro do campo não
+    // muda ao colimar. A dose total num ponto cai um pouco, porque soma o
+    // espalhamento (Ruling 15).
+    const loose = phrasesOf(COLIMACAO).filter((phrase) => /\bdoses?\b(?!-área| do feixe direto)/i.test(phrase.text));
     expect(loose).toEqual([]);
+  });
+});
+
+describe('o desafio de enquadrar da colimação cobre o joelho inteiro, com as partes moles (Ruling 15)', () => {
+  // A silhueta de partes moles do fantoma, lida do próprio shader: um círculo
+  // de raio `softR` em torno de x = centro, e o raio é máximo na altura do
+  // joelho (96 + 10). O campo é centrado na imagem.
+  const silhouette = /float softR = ([\d.]+) \+ ([\d.]+) \* exp\(-\(knee \* knee\)\);\s*float soft_chord = chord\(softR, abs\(x - ([\d.]+)\)\);/
+    .exec(EXPOSURE_SKSL);
+  if (silhouette === null) throw new Error('a silhueta de partes moles do shader mudou de forma: refaça esta medida');
+  const radius = Number(silhouette[1]) + Number(silhouette[2]);
+  const center = Number(silhouette[3]);
+  const unitsPerCm = PHANTOM_WIDTH / DETECTOR_WIDTH_CM;
+  const fieldCenter = PHANTOM_WIDTH / 2;
+  /** A menor largura, em cm, de um campo centrado que cobre a pele dos dois lados. */
+  const skinWidthCm = (2 * Math.max(fieldCenter - (center - radius), center + radius - fieldCenter)) / unitsPerCm;
+
+  const frame = benchesOf(COLIMACAO).find((bench) => bench.id === 'bancada:colimacao:enquadrar');
+  if (frame === undefined) throw new Error('a aula de colimação perdeu o desafio de enquadrar');
+  const width = frame.payload.controls.find((control) => control.id === 'fieldWidth');
+  if (width === undefined) throw new Error('o desafio de enquadrar perdeu o controle de largura');
+  const accepted = grid(width).filter((value) => isCorrectInteractionValue(frame, encodeBenchValue({ fieldWidth: value })));
+
+  it('a medida da pele bate com a do revisor: 22,6 cm', () => {
+    expect(skinWidthCm).toBeCloseTo(22.6, 5);
+  });
+
+  it('toda largura aceita cobre a pele dos dois lados', () => {
+    expect(accepted.length).toBeGreaterThan(0);
+    expect(accepted.filter((value) => value < skinWidthCm)).toEqual([]);
+  });
+
+  it('a menor largura que cobre a pele, no passo do controle, é aceita', () => {
+    const smallest = grid(width).find((value) => value >= skinWidthCm);
+    expect(smallest).toBe(23);
+    expect(accepted).toContain(smallest);
+  });
+
+  it('o campo todo não é aceito: ainda sobra campo fora do joelho', () => {
+    expect(accepted).not.toContain(width.max);
   });
 });
 

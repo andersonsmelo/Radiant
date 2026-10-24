@@ -11,8 +11,8 @@
  * - com kV e mAs fixos, o produto dose-área (PDA, ou kerma-área) é
  *   proporcional à área irradiada: um campo com metade da área tem metade do
  *   produto dose-área;
- * - a dose num ponto dentro do campo não muda ao colimar. O que cai é a área
- *   que recebe essa dose;
+ * - a dose do feixe direto num ponto dentro do campo não muda ao colimar. O
+ *   que cai é a área que recebe esse feixe (Ruling 15);
  * - um campo menor reduz a radiação espalhada, porque menos tecido é
  *   irradiado e menos tecido espalha o feixe;
  * - colimar até a região de interesse é proteção radiológica: o que fica fora
@@ -26,7 +26,9 @@
  *   vale 1;
  * - o espalhamento não é calculado. A imagem dentro do campo é a mesma com
  *   qualquer campo, embora na prática menos espalhamento melhore um pouco o
- *   contraste;
+ *   contraste. Pelo mesmo motivo, a dose TOTAL num ponto dentro do campo,
+ *   que soma o espalhamento do tecido vizinho, cai um pouco ao colimar; o
+ *   modelo não a calcula, e a tela não fala dela;
  * - fora do campo, a imagem é um tom claro uniforme (`UNEXPOSED_LUMINANCE`):
  *   sem feixe não há sinal, e na convenção do `exposureModel` quanto menos
  *   sinal, mais claro. Muitos equipamentos digitais escurecem essa faixa por
