@@ -58,6 +58,10 @@ jest.mock('expo-router', () => ({
 
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
+// O serviço real de conclusão (ver a suíte da primeira resposta) importa módulos
+// que leem o AsyncStorage na carga; o dublê oficial evita o módulo nativo.
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest/async-storage-mock'));
+
 // A bancada desenha com Skia, que o Jest não rasteriza: o dublê deixa a tela da
 // lição montar a bancada. O que se mede aqui é o texto do retorno, não a imagem.
 jest.mock('@shopify/react-native-skia', () => {
@@ -1728,6 +1732,99 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     expect(within(bloco).getByText('Resposta correta')).toBeTruthy();
     expect(within(bloco).getByText('Contraste certo.')).toBeTruthy();
     expect(within(bloco).queryByText('Suba o kV.')).toBeNull();
+  });
+});
+
+describe('LessonFlowScreen — a conclusão da aula híbrida conta a primeira resposta de cada item', () => {
+  // Defeito medido no simulador em 2026-10-24, na aula `bancada:exposicao`: o
+  // aluno errou a primeira resposta de dois itens, acertou na volta e a
+  // conclusão mostrou "Três estrelas. Nada passou despercebido." e "4 de 4
+  // corretas". A régua (spec §5, ADR de 2026-10-18) pontua a PRIMEIRA resposta.
+  // O serviço fica mockado neste arquivo; aqui `recordActivityCompletion`
+  // delega ao real, para o placar que a tela mostra sair de
+  // `activityToQuizResult` e não de um fixture que repete o que se quer provar.
+  function duasEscolhas(): LearningActivityV2 {
+    const original = promotedActivityFixture.steps[1];
+    if (original.kind !== 'interaction' || original.interaction.type !== 'multiple-choice') throw new Error('Fixture sem escolha');
+    const item = (id: string, prompt: string, certa: string, errada: string): LearningActivityV2['steps'][number] => ({
+      kind: 'interaction',
+      interaction: { ...original.interaction, id, type: 'multiple-choice' as const, accessibility: { label: prompt }, payload: {
+        prompt,
+        options: [{ id: 'errada', label: errada }, { id: 'certa', label: certa }],
+        correctOptionId: 'certa',
+      } },
+    });
+    // O id da aula de exemplo é o que liga o modo híbrido, como no deep link
+    // `radiantapp://learn?blockId=bancada:exposicao`, que não traz bloco nem nó.
+    return {
+      ...promotedActivityFixture,
+      id: EXPOSICAO.id,
+      steps: [
+        item('item-um', 'Primeiro item?', 'Certa um', 'Errada um'),
+        item('item-dois', 'Segundo item?', 'Certa dois', 'Errada dois'),
+      ],
+    };
+  }
+
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as { getSnapshot: jest.Mock; spend: jest.Mock };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+  let warnSpy: jest.SpyInstance;
+  let errorSpy: jest.SpyInstance;
+
+  async function responder(label: string) {
+    fireEvent.press(screen.getByLabelText(label));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    await screen.findByTestId('lesson-item-feedback');
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    const { LessonOutcomeService: real } = jest.requireActual('../services/LessonOutcomeService');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(duasEscolhas());
+    mockedOutcome.recordActivityCompletion.mockImplementation((input) => real.recordActivityCompletion(input));
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+    // Sem a trilha montada, o serviço real avisa que não achou o nó e segue; o
+    // aviso é ruído, o placar sai igual.
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    warnSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
+
+  it('errar a primeira resposta de um item e acertar na volta não dá três estrelas', async () => {
+    renderWithProviders(<LessonFlowScreen blockId={EXPOSICAO.id} nodeId="" />);
+    await screen.findByText('Primeiro item?');
+
+    await responder('Errada um');
+    fireEvent.press(screen.getByText('Continuar'));
+    await screen.findByText('Segundo item?');
+    await responder('Certa dois');
+    fireEvent.press(screen.getByText('Continuar'));
+    // O item errado volta ao fim, e o aluno acerta.
+    await screen.findByText('Primeiro item?');
+    await responder('Certa um');
+    fireEvent.press(screen.getByText('Concluir e voltar'));
+
+    // 1 de 2 pela primeira resposta: a régua dá 1 estrela, e não as 3 de "2 de 2".
+    expect(await screen.findByText('1 de 2 corretas')).toBeTruthy();
+    expect(screen.queryByText('2 de 2 corretas')).toBeNull();
+    expect(screen.getByLabelText('1 de 3 estrelas')).toBeTruthy();
+    expect(screen.queryByText(/Nada passou despercebido|Perfeito|Marca cheia/u)).toBeNull();
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledWith(expect.objectContaining({
+      confirmedAnswers: { 'item-um': true, 'item-dois': true },
+      firstConfirmedAnswers: { 'item-um': false, 'item-dois': true },
+    }));
   });
 });
 
