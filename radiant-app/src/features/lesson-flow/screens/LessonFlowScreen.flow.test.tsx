@@ -1729,3 +1729,92 @@ describe('LessonFlowScreen — o retorno que o aluno vê vem de feedbackFor', ()
     expect(within(bloco).queryByText('Suba o kV.')).toBeNull();
   });
 });
+
+describe('LessonFlowScreen — sem nó, a tela não grava progresso da trilha (Ruling 13b)', () => {
+  // `learn.tsx` passa `nodeId=''` quando o deep link não traz o nó, como em
+  // `radiantapp://learn?blockId=bancada:exposicao`. Gravar o nó vazio como atual
+  // ou como retomada sobrescreveria o ponto real em que o aluno parou na trilha.
+  const heartsRepository = require('../../hearts/HeartsRepository').heartsRepository as {
+    getSnapshot: jest.Mock;
+    spend: jest.Mock;
+  };
+  const { JourneyDefinitionService } = require('../../journey/services/JourneyDefinitionService') as {
+    JourneyDefinitionService: { getNodeType: jest.Mock };
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    JourneyDefinitionService.getNodeType.mockReturnValue('lesson');
+    mockedLessonFlowService.getBlockById.mockReturnValue(null);
+    mockedLessonFlowService.getActivityById.mockReturnValue(promotedActivityFixture);
+    mockedOutcome.recordActivityCompletion.mockResolvedValue(outcomeFixture);
+    mockedJourneyProgress.markNodeCompleted.mockResolvedValue({ track: { units: [] } } as never);
+    heartsRepository.getSnapshot.mockResolvedValue({ count: 5, status: 'full', nextRefillAt: null, unlimitedUntil: null });
+    heartsRepository.spend.mockResolvedValue({ count: 4, status: 'recovering', nextRefillAt: null, unlimitedUntil: null });
+    (LearningAttemptsRepository.getAll as jest.Mock).mockResolvedValue([]);
+    (LessonRatingService.getRating as jest.Mock).mockResolvedValue(null);
+  });
+
+  function expectNoJourneyWrites() {
+    expect(mockedJourneyProgress.setCurrentNode).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.setResumableNode).not.toHaveBeenCalled();
+    expect(mockedJourneyProgress.markNodeCompleted).not.toHaveBeenCalled();
+  }
+
+  it('abrir e concluir a aula sem nó não marca nó nem toca no ponto de retomada', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+    fireEvent.press(screen.getByText('Continuar'));
+    fireEvent.press(await screen.findByLabelText('Elétron'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+    fireEvent.press(await screen.findByText('Concluir e voltar'));
+
+    // A aula chega à conclusão: a guarda não impede o aluno de terminar.
+    expect(await screen.findByText('1 de 1 corretas')).toBeTruthy();
+    expect(mockedOutcome.recordActivityCompletion).toHaveBeenCalledTimes(1);
+    expectNoJourneyWrites();
+  });
+
+  it('fechar a aula sem nó sai para a trilha sem gravar o passo', async () => {
+    renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+    expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText('Fechar quiz'));
+
+    await waitFor(() => expect(mockedRouter.dismissTo).toHaveBeenCalledWith('/(tabs)'));
+    expectNoJourneyWrites();
+  });
+
+  it('pausar sem vidas, sem nó, abre a folha sem gravar o passo', async () => {
+    mockedLessonFlowService.getBlockById.mockReturnValue(blockFixture);
+    mockedLessonFlowService.getActivityById.mockReturnValue(null);
+    heartsRepository.spend.mockResolvedValue({ count: 0, status: 'empty', nextRefillAt: null, unlimitedUntil: null });
+    renderWithProviders(<LessonFlowScreen blockId="block-1" nodeId="" />);
+    expect(await screen.findByText('Qual padrão radiográfico está presente?')).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText('Pneumotórax'));
+    fireEvent.press(screen.getByText('Conferir resposta'));
+
+    expect(await screen.findByText('Sua lição está pausada')).toBeTruthy();
+    expectNoJourneyWrites();
+  });
+
+  it('sem nó, o checkpoint ativo não começa: ele viraria uma retomada sem nó para onde voltar', async () => {
+    const mode = require('../../student-checkpoints/mode');
+    const runtime = require('../../student-checkpoints/ActiveCheckpointRuntime');
+    const modeSpy = jest.spyOn(mode, 'resolveStudentCheckpointRuntimeMode').mockReturnValue('active');
+    const start = jest.spyOn(runtime.ActiveCheckpointRuntime.prototype, 'start').mockResolvedValue({ status: 'off', handle: null });
+    try {
+      renderWithProviders(<LessonFlowScreen blockId="activity:materia-energia-e-radiacao:01" nodeId="" />);
+      expect(await screen.findByText('Átomos têm partículas com cargas diferentes.')).toBeTruthy();
+      fireEvent.press(screen.getByText('Continuar'));
+      expect(await screen.findByLabelText('Elétron')).toBeTruthy();
+
+      expect(start).not.toHaveBeenCalled();
+    } finally {
+      start.mockRestore();
+      modeSpy.mockRestore();
+    }
+  });
+});

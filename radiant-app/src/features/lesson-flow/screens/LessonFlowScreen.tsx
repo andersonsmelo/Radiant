@@ -96,6 +96,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
     // da trilha e cobrava todo erro: no simulador em 2026-10-16, errar a
     // revisão levou de 5 para 4 vidas. ADR de 2026-10-16.
     const isReview = useMemo(() => JourneyDefinitionService.getNodeType(nodeId) === 'review', [nodeId]);
+    // Sem nó, a aula não pertence à trilha: `learn.tsx` passa `nodeId=''`
+    // quando o deep link não o traz (`radiantapp://learn?blockId=…`, como nas
+    // aulas-bancada de exemplo). Gravar o nó vazio como atual ou como retomada,
+    // ou zerar os dois na conclusão, apagaria o ponto real em que o aluno parou.
+    // A conclusão em `LessonOutcomeService` já não premia nó desconhecido.
+    const tracksJourney = nodeId !== '';
 
     // Som e vibração da lição: a mesma camada do piloto do V3 (spec 2026-09-23,
     // §5.2), ligada às lições do aluno em 2026-09-28 (decisão B do dono). Os
@@ -159,8 +165,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             try {
                 setLoading(true);
                 setError(null);
-                await JourneyProgressService.setCurrentNode(nodeId);
-                await JourneyProgressService.setResumableNode(nodeId);
+                if (tracksJourney) {
+                    await JourneyProgressService.setCurrentNode(nodeId);
+                    await JourneyProgressService.setResumableNode(nodeId);
+                }
                 const nextBlock = LessonFlowService.getBlockById(blockId);
                 // Durante a migração, consumidores legados (inclusive integrações
                 // que substituem apenas getBlockById) continuam válidos. A
@@ -198,7 +206,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         return () => {
             alive = false;
         };
-    }, [blockId, nodeId]);
+    }, [blockId, nodeId, tracksJourney]);
 
     const { stepIndex, totalSteps, isLastStep, progress } = player;
     useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, [stepIndex]);
@@ -227,7 +235,8 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        // Sem nó, o checkpoint seria uma retomada sem nó para onde voltar.
+        enabled: Boolean(activity && currentStep) && tracksJourney,
     });
     const handleRestoreFallback = useCallback(() => {
         Alert.alert(
@@ -247,7 +256,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         totalStepCount: Math.max(totalSteps, 1),
         lessonId: block?.lessonId ?? activity?.id,
         journeyNodeId: nodeId,
-        enabled: Boolean(activity && currentStep),
+        enabled: Boolean(activity && currentStep) && tracksJourney,
         resumeCheckpointId,
         onRestoreFallback: handleRestoreFallback,
     });
@@ -338,7 +347,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
         if (!isLastStep) {
             if (costsHeart && nextHearts.status === 'empty') {
-                await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
+                if (tracksJourney) await JourneyProgressService.setResumableNode(nodeId, stepIndex + 1);
                 setHeartsSheetVisible(true);
             }
             return;
@@ -369,9 +378,11 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
             // escrita, e a leitura pode terminar antes de a marcação pousar —
             // mostrando a unidade sem a lição que acabou de fechar. Encadear a
             // partir da própria marcação elimina a corrida.
-            const snapshot = await JourneyProgressService.markNodeCompleted(nodeId);
-            await JourneyProgressService.setCurrentNode(null);
-            await JourneyProgressService.setResumableNode(undefined);
+            const snapshot = tracksJourney ? await JourneyProgressService.markNodeCompleted(nodeId) : null;
+            if (tracksJourney) {
+                await JourneyProgressService.setCurrentNode(null);
+                await JourneyProgressService.setResumableNode(undefined);
+            }
             await activeCheckpoint.finish();
 
             setJourneySnapshot(snapshot);
@@ -382,12 +393,12 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
 
     const exitLesson = useCallback(() => {
         void (async () => {
-            if (!outcome) {
+            if (!outcome && tracksJourney) {
                 await JourneyProgressService.setResumableNode(nodeId, stepIndex);
             }
             router.dismissTo('/(tabs)');
         })();
-    }, [nodeId, outcome, stepIndex]);
+    }, [nodeId, outcome, stepIndex, tracksJourney]);
 
     // Carrega as vidas para a barra do topo. Errar consome vida durante a
     // atividade, e o aluno precisa ver isso acontecer. Relê a cada foco, não
