@@ -388,6 +388,80 @@ describe('validateLearningActivity', () => {
         expect(rulesFor(issues, 'interaction:ordering-1')).toContain('invalid-correct-order');
     });
 
+    describe('interação bench', () => {
+        const kvControl = { id: 'kv', label: 'Tensão', unit: 'kV', min: 40, max: 120, step: 5, initial: 70 };
+        const masControl = { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 10 };
+
+        function bench(payload: Record<string, unknown> = {}): LearningInteractionV2 {
+            return multipleChoice({
+                type: 'bench',
+                id: 'interaction:bench-1',
+                payload: {
+                    prompt: 'Ajuste o kV até o contraste cair.',
+                    simulator: 'exposure',
+                    mode: 'challenge',
+                    controls: [kvControl, masControl],
+                    goal: { kind: 'reach', control: 'kv', atLeast: 100 },
+                    phantomLabel: 'Fantoma simulado',
+                    hints: { tooLow: 'Suba o kV.', tooHigh: 'Desça o kV.' },
+                    ...payload,
+                },
+            } as Partial<LearningInteractionV2>);
+        }
+
+        function issuesFor(interaction: LearningInteractionV2) {
+            return validateLearningActivity(
+                activity({
+                    steps: [
+                        presentation('step:hook', 'hook'),
+                        interactionStep(interaction),
+                        presentation('step:closing', 'closing'),
+                    ],
+                }),
+            );
+        }
+
+        it('aceita uma bancada íntegra', () => {
+            expect(issuesFor(bench())).toEqual([]);
+        });
+
+        it('recusa bancada sem controles', () => {
+            expect(rulesFor(issuesFor(bench({ controls: [] })), 'interaction:bench-1'))
+                .toEqual(['invalid-controls']);
+        });
+
+        it.each([
+            ['min igual a max', { ...kvControl, min: 70, max: 70 }],
+            ['min maior que max', { ...kvControl, min: 120, max: 40 }],
+            ['min que não é número', { ...kvControl, min: Number.NaN }],
+        ])('recusa controle com %s', (_nome, control) => {
+            expect(rulesFor(issuesFor(bench({ controls: [control, masControl] })), 'interaction:bench-1'))
+                .toEqual(['invalid-controls']);
+        });
+
+        it.each([
+            ['acima do máximo', 130],
+            ['abaixo do mínimo', 30],
+        ])('recusa controle com initial %s', (_nome, initial) => {
+            expect(rulesFor(issuesFor(bench({ controls: [{ ...kvControl, initial }, masControl] })), 'interaction:bench-1'))
+                .toEqual(['invalid-initial']);
+        });
+
+        it('aceita initial exatamente nos limites da faixa', () => {
+            expect(issuesFor(bench({ controls: [{ ...kvControl, initial: 40 }, { ...masControl, initial: 40 }] })))
+                .toEqual([]);
+        });
+
+        it.each([
+            ['sem hints', undefined],
+            ['com tooLow vazio', { tooLow: '', tooHigh: 'Desça o kV.' }],
+            ['com tooHigh em branco', { tooLow: 'Suba o kV.', tooHigh: '   ' }],
+        ])('recusa bancada %s', (_nome, hints) => {
+            expect(rulesFor(issuesFor(bench({ hints })), 'interaction:bench-1'))
+                .toEqual(['missing-hints']);
+        });
+    });
+
     it('exige proveniência com versão de conteúdo', () => {
         const issues = validateLearningActivity(
             activity({ provenance: { contentVersion: '', sourceIds: [] } }),

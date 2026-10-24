@@ -2,7 +2,7 @@
  * Contrato de atividade v2 do motor de aprendizagem.
  *
  * Substitui gradualmente o `LessonBlock` legado, que exige exatamente uma
- * múltipla escolha por bloco. Aqui a interação é uma união discriminada dos oito
+ * múltipla escolha por bloco. Aqui a interação é uma união discriminada dos nove
  * tipos da biblioteca, e os jogos são renderizadores destes tipos — não um
  * produto paralelo com catálogo próprio.
  *
@@ -13,6 +13,8 @@
  * `scripts/content/`, para que uma violação signifique a mesma coisa dos dois
  * lados do pipeline.
  */
+
+import type { ExposureInput } from '../features/bench/exposureModel';
 
 export type ValidationIssue = {
     path: string;
@@ -67,6 +69,7 @@ export type InteractionType =
     | 'matching'
     | 'ordering'
     | 'parameter-lab'
+    | 'bench'
     | 'risk-hunt'
     | 'case-decision';
 
@@ -95,7 +98,13 @@ export type NormalizedRegion = {
     height: number;
 };
 
-export type ChoiceOption = { id: string; label: string; imageRef?: string };
+export type ChoiceOption = {
+    id: string;
+    label: string;
+    imageRef?: string;
+    /** Por que esta opção está certa ou errada. Ainda não é exibida. */
+    explanation?: string;
+};
 
 export type MultipleChoiceV2Payload = {
     prompt: string;
@@ -133,6 +142,41 @@ export type ParameterLabPayload = {
     expectedOutcome: string;
 };
 
+/** Um controle numérico da bancada (kV ou mAs), com sua faixa e ponto de partida. */
+export type BenchControl = {
+    id: 'kv' | 'mas';
+    label: string;
+    unit: string;
+    min: number;
+    max: number;
+    step: number;
+    initial: number;
+};
+
+/**
+ * O que o aluno precisa alcançar na bancada.
+ * - `reach`: um controle passa de um limite (`atLeast`) ou fica sob ele (`atMost`);
+ * - `match`: a imagem simulada iguala a da referência. Compara o contraste entre
+ *   osso e partes moles (`subjectContrast`) e o fundo (`background`) de
+ *   `exposureModel`, cada um dentro de `tolerance`. O mAs só muda o ruído, então
+ *   não entra na comparação.
+ */
+export type BenchGoal =
+    | { kind: 'reach'; control: 'kv' | 'mas'; atLeast?: number; atMost?: number }
+    | { kind: 'match'; reference: ExposureInput; tolerance: number };
+
+export type BenchPayload = {
+    prompt: string;
+    simulator: 'exposure';
+    mode: 'explore' | 'challenge' | 'correct';
+    controls: BenchControl[];
+    goal: BenchGoal;
+    /** Rótulo do fantoma na tela: ele é simulado, nunca uma incidência real. */
+    phantomLabel: string;
+    /** Para que lado o aluno errou: valor baixo demais ou alto demais. */
+    hints: { tooLow: string; tooHigh: string };
+};
+
 export type RiskHuntPayload = {
     prompt: string;
     imageRef: string;
@@ -164,6 +208,7 @@ export type LearningInteractionV2 =
     | (InteractionBase & { type: 'matching'; payload: MatchingPayload })
     | (InteractionBase & { type: 'ordering'; payload: OrderingPayload })
     | (InteractionBase & { type: 'parameter-lab'; payload: ParameterLabPayload })
+    | (InteractionBase & { type: 'bench'; payload: BenchPayload })
     | (InteractionBase & { type: 'risk-hunt'; payload: RiskHuntPayload })
     | (InteractionBase & { type: 'case-decision'; payload: CaseDecisionPayload });
 
@@ -330,6 +375,24 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             }
             if (!isFilled(interaction.payload.expectedOutcome)) {
                 push(issues, path, 'missing-expected-outcome');
+            }
+            break;
+        }
+        case 'bench': {
+            const controls = Array.isArray(interaction.payload.controls) ? interaction.payload.controls : [];
+            // `!(min < max)` também reprova NaN, que `min >= max` deixaria passar.
+            if (controls.length === 0 || controls.some((control) => !(control.min < control.max))) {
+                push(issues, path, 'invalid-controls');
+            }
+            // Só confere o ponto de partida onde a faixa é válida: a faixa
+            // inválida já foi apontada, e repetir o defeito em outra regra
+            // esconderia qual dos dois o conteudista precisa corrigir.
+            if (controls.some((control) => control.min < control.max
+                && !(control.initial >= control.min && control.initial <= control.max))) {
+                push(issues, path, 'invalid-initial');
+            }
+            if (!isFilled(interaction.payload.hints?.tooLow) || !isFilled(interaction.payload.hints?.tooHigh)) {
+                push(issues, path, 'missing-hints');
             }
             break;
         }
