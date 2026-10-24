@@ -27,8 +27,15 @@
  *   há tecido, como na prancheta. O sorteio é uma função de hash determinística
  *   de `seed` e da célula: a mesma imagem sai igual a cada quadro;
  * - o ruído é somado depois da curva de exibição, e não antes como na
- *   prancheta.
+ *   prancheta;
+ * - a máscara da colimação (`field`) é um retângulo centrado, com a fração da
+ *   imagem que o feixe cobre em cada lado. Fora dele o pixel é o tom sem feixe
+ *   (`UNEXPOSED`), sem grão. Com `field` em (1, 1), a bancada de exposição, a
+ *   máscara não cobre nada. A física e as simplificações dela estão no topo de
+ *   `collimationModel.ts`.
  */
+
+import { UNEXPOSED_LUMINANCE } from './collimationModel';
 
 /** Dimensões do espaço da prancheta, em unidades de desenho. */
 export const PHANTOM_WIDTH = 270;
@@ -44,6 +51,7 @@ uniform float background;
 uniform float noise;
 uniform float seed;
 uniform float2 size;
+uniform float2 field;
 
 const float PHANTOM_W = ${PHANTOM_WIDTH}.0;
 const float PHANTOM_H = ${PHANTOM_HEIGHT}.0;
@@ -53,6 +61,7 @@ const float MARROW_WEIGHT = 0.3;
 const float GRAIN_CELLS_PER_UNIT = 2.0;
 const float GRAIN_GAIN = 1.4;
 const float COOL_TINT = 0.016;
+const float UNEXPOSED = ${UNEXPOSED_LUMINANCE.toFixed(3)};
 
 float chord(float r, float dx) {
   return dx < r ? 2.0 * sqrt(r * r - dx * dx) : 0.0;
@@ -125,7 +134,10 @@ half4 main(float2 fragCoord) {
     lum += grain * noise * GRAIN_GAIN;
   }
 
-  lum = clamp(lum, 0.0, 1.0);
+  // Colimação: fora do retângulo centrado que o feixe cobre, não há sinal.
+  float2 offCenter = abs(fragCoord / size - 0.5);
+  bool outside = offCenter.x > 0.5 * field.x || offCenter.y > 0.5 * field.y;
+  lum = outside ? UNEXPOSED : clamp(lum, 0.0, 1.0);
   return half4(half(lum), half(lum), half(min(1.0, lum + COOL_TINT)), 1.0);
 }
 `;

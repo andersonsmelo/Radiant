@@ -534,6 +534,59 @@ describe('validateLearningActivity', () => {
             expect(rulesFor(issuesFor(bench({ hints })), 'interaction:bench-1'))
                 .toEqual(['missing-hints']);
         });
+
+        describe('simulador de colimação', () => {
+            const widthControl = { id: 'fieldWidth', label: 'Largura do campo', unit: 'cm', min: 5, max: 27, step: 1, initial: 27 };
+            const heightControl = { id: 'fieldHeight', label: 'Altura do campo', unit: 'cm', min: 5, max: 33, step: 1, initial: 33 };
+
+            function collimation(payload: Record<string, unknown> = {}): LearningInteractionV2 {
+                return bench({
+                    prompt: 'Feche o campo até a região de interesse.',
+                    simulator: 'collimation',
+                    controls: [widthControl, heightControl],
+                    goal: { kind: 'reach', control: 'fieldWidth', atMost: 18 },
+                    hints: { tooLow: 'Abra um pouco o campo.', tooHigh: 'Feche mais o campo.' },
+                    ...payload,
+                });
+            }
+
+            it('aceita uma bancada de colimação íntegra', () => {
+                expect(issuesFor(collimation())).toEqual([]);
+                expect(issuesFor(collimation({ goal: { kind: 'reach', control: 'fieldHeight', atLeast: 10, atMost: 24 } })))
+                    .toEqual([]);
+            });
+
+            it('recusa um controle de exposição numa bancada de colimação', () => {
+                // O alvo olha a largura, que existe: o defeito é só o kV fora do simulador.
+                expect(rulesFor(issuesFor(collimation({ controls: [widthControl, kvControl] })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls']);
+            });
+
+            it('recusa um controle de colimação numa bancada de exposição', () => {
+                expect(rulesFor(issuesFor(bench({ controls: [kvControl, widthControl] })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls']);
+            });
+
+            it('recusa reach sobre o kV numa bancada de colimação, mesmo com o kV entre os controles', () => {
+                // Os dois defeitos aparecem: o controle estranho e o alvo que olha para ele.
+                const goal = { kind: 'reach', control: 'kv', atLeast: 100 };
+                expect(rulesFor(issuesFor(collimation({ controls: [widthControl, kvControl], goal })), 'interaction:bench-1'))
+                    .toEqual(['invalid-controls', 'invalid-goal']);
+            });
+
+            it('recusa match numa bancada de colimação: o match compara contraste, e a colimação não o mexe', () => {
+                const goal = { kind: 'match', reference: { kv: 70, mas: 10 }, tolerance: 0.05 };
+                expect(rulesFor(issuesFor(collimation({ goal })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa um simulador desconhecido, e só por ele', () => {
+                expect(rulesFor(issuesFor(bench({ simulator: 'posicionamento' })), 'interaction:bench-1'))
+                    .toEqual(['invalid-simulator']);
+                expect(rulesFor(issuesFor(bench({ simulator: undefined })), 'interaction:bench-1'))
+                    .toEqual(['invalid-simulator']);
+            });
+        });
     });
 
     it('exige proveniência com versão de conteúdo', () => {

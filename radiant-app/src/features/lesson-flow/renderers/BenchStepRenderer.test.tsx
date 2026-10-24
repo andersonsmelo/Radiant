@@ -285,4 +285,102 @@ describe('BenchStepRenderer', () => {
             expect(uniformsOf({ getAllByTestId })[0]).toMatchObject({ bone: settled.bone, soft: settled.soft });
         });
     });
+
+    describe('a bancada de colimação', () => {
+        const field: BenchControl[] = [
+            { id: 'fieldWidth', label: 'Largura do campo', unit: 'cm', min: 5, max: 27, step: 1, initial: 27 },
+            { id: 'fieldHeight', label: 'Altura do campo', unit: 'cm', min: 5, max: 33, step: 1, initial: 33 },
+        ];
+
+        function collimation(
+            goal: BenchGoal = { kind: 'reach', control: 'fieldWidth', atMost: 18 },
+            mode: 'explore' | 'challenge' | 'correct' = 'challenge',
+        ): LearningInteractionV2 {
+            return {
+                ...base,
+                id: 'interaction:colimacao',
+                type: 'bench',
+                payload: {
+                    prompt: 'Feche o campo até o joelho.',
+                    simulator: 'collimation',
+                    mode,
+                    controls: field,
+                    goal,
+                    phantomLabel: 'Fantoma simulado',
+                    hints: { tooLow: 'Abra.', tooHigh: 'Feche.' },
+                },
+            } as LearningInteractionV2;
+        }
+
+        function fieldOf(rendered: { getAllByTestId: (id: string) => { props: { uniforms: Record<string, unknown> } }[] }) {
+            return rendered.getAllByTestId('skia-Shader').map((node) => node.props.uniforms.field as number[]);
+        }
+
+        it('escolhe a imagem pelo simulador: o fantoma de referência com a máscara do campo', () => {
+            const rendered = render(<Player interaction={collimation()} onChange={jest.fn()} />);
+            const [only, ...rest] = uniformsOf(rendered);
+            const out = exposureModel(REFERENCE_EXPOSURE);
+
+            expect(rest).toHaveLength(0);
+            expect(only).toMatchObject({ bone: out.bone, soft: out.soft, noise: out.noise });
+            expect(fieldOf(rendered)).toEqual([[1, 1]]);
+        });
+
+        it('a bancada de exposição continua sem máscara', () => {
+            const rendered = render(<Player interaction={bench(reach)} onChange={jest.fn()} />);
+
+            expect(fieldOf(rendered)).toEqual([[1, 1]]);
+        });
+
+        it('mostra em texto o campo e a dose, e o rótulo da imagem diz o campo', () => {
+            const { getByText, getByLabelText } = render(<Player interaction={collimation()} onChange={jest.fn()} />);
+
+            expect(getByText('27 cm')).toBeTruthy();
+            expect(getByText('33 cm')).toBeTruthy();
+            expect(getByText('Campo de 27 × 33 cm, 891 cm²')).toBeTruthy();
+            expect(getByText('Dose relativa: 100% (campo todo = 100%)')).toBeTruthy();
+            expect(getByLabelText('Fantoma simulado: campo de 27 × 33 cm').props.accessibilityRole).toBe('image');
+        });
+
+        it('emite o JSON do campo ao montar', () => {
+            const onChange = jest.fn();
+            render(<Player interaction={collimation()} onChange={onChange} />);
+
+            expect(onChange).toHaveBeenCalledWith('{"fieldWidth":27,"fieldHeight":33}');
+        });
+
+        it('fechar a largura em 9 cm encolhe a máscara, baixa a dose no texto e entrega o JSON', () => {
+            const onChange = jest.fn();
+            const rendered = render(<Player interaction={collimation()} onChange={onChange} />);
+
+            for (let i = 0; i < 9; i += 1) {
+                fireEvent.press(rendered.getByLabelText('Diminuir Largura do campo'));
+            }
+
+            expect(onChange).toHaveBeenLastCalledWith('{"fieldWidth":18,"fieldHeight":33}');
+            const [[width, height]] = fieldOf(rendered);
+            expect(width).toBeCloseTo(18 / 27, 12);
+            expect(height).toBe(1);
+            // 18 × 33 = 594 cm², 594 / 891 = 67%.
+            expect(rendered.getByText('Campo de 18 × 33 cm, 594 cm²')).toBeTruthy();
+            expect(rendered.getByText('Dose relativa: 67% (campo todo = 100%)')).toBeTruthy();
+        });
+
+        it('no arrasto, a máscara acompanha o dedo e o texto fica no valor do passo', () => {
+            const rendered = render(<Player interaction={collimation()} onChange={jest.fn()} />);
+
+            fireEvent(rendered.getByTestId('bench-slider-fieldWidth', HIDDEN), 'valueChange', 20.3);
+
+            expect(fieldOf(rendered)[0][0]).toBeCloseTo(20.3 / 27, 12);
+            expect(rendered.getByText('Campo de 20 × 33 cm, 660 cm²')).toBeTruthy();
+        });
+
+        it('match numa colimação (conteúdo defeituoso) não abre imagem de referência', () => {
+            const wrong: BenchGoal = { kind: 'match', reference: { kv: 90, mas: 20 }, tolerance: 0.05 };
+            const rendered = render(<Player interaction={collimation(wrong, 'challenge')} onChange={jest.fn()} />);
+
+            expect(uniformsOf(rendered)).toHaveLength(1);
+            expect(rendered.queryByText('Referência')).toBeNull();
+        });
+    });
 });

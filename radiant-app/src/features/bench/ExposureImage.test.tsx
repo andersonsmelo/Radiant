@@ -5,7 +5,13 @@ import { Skia } from '@shopify/react-native-skia';
 
 import { ExposureImage } from './ExposureImage';
 import { exposureModel } from './exposureModel';
+import { UNEXPOSED_LUMINANCE } from './collimationModel';
 import { EXPOSURE_SKSL, grayTone } from './exposureShader';
+
+/** Os nomes dos uniformes que o SkSL declara, para comparar com os que a imagem passa. */
+function declaredUniforms(sksl: string): string[] {
+    return [...sksl.matchAll(/^\s*uniform\s+\w+\s+(\w+)\s*;/gm)].map((match) => match[1]).sort();
+}
 
 // O fantoma radiográfico da bancada. O Jest não rasteriza Skia: o módulo é
 // trocado por um dublê em que `Skia.RuntimeEffect.Make` é controlável, e as
@@ -100,6 +106,34 @@ describe('ExposureImage', () => {
             expect(highMasUniforms.bone - highMasUniforms.soft).toBe(baseUniforms.bone - baseUniforms.soft);
         });
 
+        it('passa exatamente os uniformes que o SkSL declara, nem um a mais nem um a menos', () => {
+            // Uniforme declarado e não passado faz o Skia lançar ao desenhar, fora
+            // do try que leva ao fallback: a tela quebraria em vez de cair nas Views.
+            const declared = declaredUniforms(EXPOSURE_SKSL);
+            const plain = render(<ExposureImage input={INPUT} size={200} label="x" />);
+            expect(Object.keys(plain.getByTestId('skia-Shader').props.uniforms).sort()).toEqual(declared);
+            plain.unmount();
+
+            const masked = render(<ExposureImage input={INPUT} size={200} label="x" field={{ width: 0.5, height: 0.4 }} />);
+            expect(Object.keys(masked.getByTestId('skia-Shader').props.uniforms).sort()).toEqual(declared);
+            // Validade: a lista lida do SkSL não está vazia e tem o campo.
+            expect(declared).toEqual(['background', 'bone', 'field', 'noise', 'seed', 'size', 'soft']);
+        });
+
+        it('sem campo, a máscara cobre a imagem toda: field é [1, 1]', () => {
+            const { getByTestId } = render(<ExposureImage input={INPUT} size={200} label="x" />);
+
+            expect(getByTestId('skia-Shader').props.uniforms.field).toEqual([1, 1]);
+        });
+
+        it('com campo, passa ao shader a fração da imagem que o feixe cobre', () => {
+            const { getByTestId } = render(
+                <ExposureImage input={INPUT} size={200} label="x" field={{ width: 0.5, height: 0.25 }} />,
+            );
+
+            expect(getByTestId('skia-Shader').props.uniforms.field).toEqual([0.5, 0.25]);
+        });
+
         it('passa o tamanho do fantoma, na proporção da prancheta (270 por 330)', () => {
             const { getByTestId } = render(<ExposureImage input={INPUT} size={270} label="x" />);
             const { uniforms } = getByTestId('skia-Shader').props;
@@ -119,12 +153,19 @@ describe('ExposureImage', () => {
     });
 
     describe('SkSL', () => {
-        it('declara os seis uniformes que a imagem alimenta', () => {
+        it('declara os sete uniformes que a imagem alimenta', () => {
             for (const name of ['bone', 'soft', 'background', 'noise', 'seed']) {
                 expect(EXPOSURE_SKSL).toMatch(new RegExp(`uniform float ${name};`));
             }
             expect(EXPOSURE_SKSL).toMatch(/uniform float2 size;/);
+            expect(EXPOSURE_SKSL).toMatch(/uniform float2 field;/);
             expect(EXPOSURE_SKSL).toMatch(/half4 main\(float2 \w+\)/);
+        });
+
+        it('fora do campo pinta o tom sem feixe do modelo de colimação, como float', () => {
+            // Um inteiro ("1") numa `const float` não compila em SkSL.
+            expect(EXPOSURE_SKSL).toContain(`const float UNEXPOSED = ${UNEXPOSED_LUMINANCE.toFixed(3)};`);
+            expect(EXPOSURE_SKSL).toMatch(/outside\s*\?\s*UNEXPOSED\s*:/);
         });
 
         it('não usa pow(): com base negativa ele é indefinido e pode dar NaN na GPU', () => {
@@ -183,6 +224,38 @@ describe('ExposureImage', () => {
                 color('exposure-fallback-soft'),
                 color('exposure-fallback-bone'),
             ]).size).toBe(3);
+        });
+
+        it('sem campo, não desenha faixa colimada', () => {
+            make.mockReturnValue(null);
+            const { queryByTestId } = render(<ExposureImage input={INPUT} size={200} label="x" />);
+
+            for (const side of ['top', 'bottom', 'left', 'right']) {
+                expect(queryByTestId(`exposure-fallback-mask-${side}`)).toBeNull();
+            }
+        });
+
+        it('com campo, cobre fora dele com o tom sem feixe, em quatro faixas centradas', () => {
+            make.mockReturnValue(null);
+            // 270 de largura dá 330 de altura; o campo cobre metade da largura e 40% da altura.
+            const { getByTestId } = render(
+                <ExposureImage input={INPUT} size={270} label="x" field={{ width: 0.5, height: 0.4 }} />,
+            );
+            const box = (side: string) => StyleSheet.flatten(getByTestId(`exposure-fallback-mask-${side}`).props.style);
+
+            for (const side of ['top', 'bottom', 'left', 'right']) {
+                expect(box(side).backgroundColor).toBe(grayTone(UNEXPOSED_LUMINANCE));
+            }
+            expect(box('top')).toMatchObject({ top: 0, left: 0, width: 270 });
+            expect(box('top').height).toBeCloseTo(99, 9);
+            expect(box('bottom').height).toBeCloseTo(99, 9);
+            expect(box('bottom').bottom).toBe(0);
+            expect(box('left')).toMatchObject({ left: 0, width: 67.5 });
+            expect(box('right')).toMatchObject({ right: 0, width: 67.5 });
+            expect(box('left').top).toBeCloseTo(99, 9);
+            expect(box('left').height).toBeCloseTo(132, 9);
+            // O tom sem feixe é diferente do osso: a faixa não some contra ele.
+            expect(grayTone(UNEXPOSED_LUMINANCE)).not.toBe(grayTone(exposureModel(INPUT).bone));
         });
 
         it('segue sendo uma imagem para o leitor de tela, com o rótulo recebido', () => {

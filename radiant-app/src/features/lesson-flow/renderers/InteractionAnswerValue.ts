@@ -86,9 +86,10 @@ function isBenchGoalMet(interaction: Extract<LearningInteractionV2, { type: 'ben
             && (goal.atMost === undefined || current <= goal.atMost);
     }
 
-    // `match` sem referência válida é conteúdo defeituoso (`invalid-goal`): nunca
-    // acerta, em vez de lançar ou comparar contra NaN.
-    if (!isExposureReference(goal.reference)) {
+    // `match` sem referência válida, ou fora da bancada de exposição, é conteúdo
+    // defeituoso (`invalid-goal`): nunca acerta, em vez de lançar, comparar contra
+    // NaN ou comparar um contraste que a colimação não muda.
+    if (interaction.payload.simulator !== 'exposure' || !isExposureReference(goal.reference)) {
         return false;
     }
 
@@ -100,8 +101,9 @@ function isBenchGoalMet(interaction: Extract<LearningInteractionV2, { type: 'ben
 }
 
 /**
- * Para que lado o aluno errou. Em `reach`, olha o controle do alvo. Em `match`,
- * olha o kV, que é quem move o contraste: abaixo da referência é `tooLow`.
+ * Para que lado o aluno errou. Em `reach`, olha o controle do alvo (o kV, o mAs
+ * ou um lado do campo). Em `match`, olha o kV, que é quem move o contraste:
+ * abaixo da referência é `tooLow`.
  * Quem alcança o alvo, e qualquer interação que não seja a bancada, é `ok`.
  */
 export function benchDirection(
@@ -123,8 +125,9 @@ export function benchDirection(
         return 'tooHigh';
     }
 
-    // Sem referência válida não há lado a indicar; o retorno cai no genérico.
-    if (!isExposureReference(goal.reference)) {
+    // Sem referência válida, ou fora da exposição, não há lado a indicar; o
+    // retorno cai no genérico.
+    if (interaction.payload.simulator !== 'exposure' || !isExposureReference(goal.reference)) {
         return 'ok';
     }
 

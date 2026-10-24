@@ -5,6 +5,8 @@ import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { radius, space, typography } from '../../../ui/styles';
 import { BenchControlRow } from '../../bench/BenchControlRow';
+import { CollimationImage, CollimationReadout } from '../../bench/CollimationImage';
+import { FULL_FIELD, type CollimationInput } from '../../bench/collimationModel';
 import { ExposureImage } from '../../bench/ExposureImage';
 import { REFERENCE_EXPOSURE, type ExposureInput } from '../../bench/exposureModel';
 import type { InteractionRendererProps } from './ActivityRendererRegistry';
@@ -29,6 +31,19 @@ function warnMissingReference(interactionId: string) {
 /** Os controles que a bancada não oferece ficam no ponto de partida do modelo. */
 function exposureFrom(values: BenchValues): ExposureInput {
   return { kv: values.kv ?? REFERENCE_EXPOSURE.kv, mas: values.mas ?? REFERENCE_EXPOSURE.mas };
+}
+
+/** O lado do campo que a bancada não oferece fica aberto, do tamanho da imagem. */
+function fieldFrom(values: BenchValues): CollimationInput {
+  return {
+    fieldWidth: values.fieldWidth ?? FULL_FIELD.fieldWidth,
+    fieldHeight: values.fieldHeight ?? FULL_FIELD.fieldHeight,
+  };
+}
+
+/** Medida do campo para o rótulo da imagem, arredondada ao centímetro. */
+function fieldText(field: CollimationInput): string {
+  return `${Math.round(field.fieldWidth)} × ${Math.round(field.fieldHeight)} cm`;
 }
 
 function BenchScreen({
@@ -65,9 +80,12 @@ function BenchScreen({
     if (raw !== undefined) live[control.id] = raw;
   }
   const studentExposure = exposureFrom(live);
+  const collimation = payload.simulator === 'collimation';
 
+  // A referência ao lado só existe na exposição: um `match` na colimação é
+  // conteúdo defeituoso (`invalid-goal`), e não abre segunda imagem.
   let referenceExposure: ExposureInput | null = null;
-  if (mode === 'challenge' && goal.kind === 'match') {
+  if (!collimation && mode === 'challenge' && goal.kind === 'match') {
     if (goal.reference) {
       referenceExposure = goal.reference;
     } else {
@@ -95,15 +113,25 @@ function BenchScreen({
             </View>
           ) : null}
           <View style={styles.imageColumn}>
-            <ExposureImage
-              input={studentExposure}
-              size={imageSize}
-              label={`${payload.phantomLabel}: ${studentExposure.kv} kV e ${studentExposure.mas} mAs`}
-            />
+            {collimation ? (
+              <CollimationImage
+                field={fieldFrom(live)}
+                size={imageSize}
+                label={`${payload.phantomLabel}: campo de ${fieldText(fieldFrom(values))}`}
+              />
+            ) : (
+              <ExposureImage
+                input={studentExposure}
+                size={imageSize}
+                label={`${payload.phantomLabel}: ${studentExposure.kv} kV e ${studentExposure.mas} mAs`}
+              />
+            )}
             <Text style={styles.caption}>{referenceExposure ? 'Sua imagem' : payload.phantomLabel}</Text>
           </View>
         </View>
         {referenceExposure ? <Text style={styles.caption}>{payload.phantomLabel}</Text> : null}
+        {/* O texto segue o valor do passo, como o rótulo do controle; só a máscara acompanha o dedo. */}
+        {collimation ? <CollimationReadout field={fieldFrom(values)} /> : null}
       </View>
 
       <View style={styles.controls}>
@@ -131,7 +159,9 @@ function BenchScreen({
 
 /**
  * A bancada: o fantoma simulado, uma linha de controle por parâmetro e, no
- * modo `challenge` com alvo `match`, a imagem de referência ao lado.
+ * modo `challenge` com alvo `match`, a imagem de referência ao lado. A imagem
+ * sai do `simulator`: na colimação, o fantoma com a máscara do campo, e a área e
+ * a dose relativa em texto.
  *
  * Não guarda a resposta: `value` chega de fora (o JSON dos controles) e
  * `onChange` o devolve. O único estado local é o valor bruto do arrasto, que

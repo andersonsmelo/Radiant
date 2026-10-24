@@ -287,5 +287,62 @@ describe('InteractionAnswerValue', () => {
                 expect(benchDirection(choice, 'b')).toBe('ok');
             });
         });
+
+        describe('colimação', () => {
+            const field: BenchControl[] = [
+                { id: 'fieldWidth', label: 'Largura do campo', unit: 'cm', min: 5, max: 27, step: 1, initial: 27 },
+                { id: 'fieldHeight', label: 'Altura do campo', unit: 'cm', min: 5, max: 33, step: 1, initial: 33 },
+            ];
+
+            function collimation(goal: BenchGoal): LearningInteractionV2 {
+                return {
+                    ...base,
+                    type: 'bench',
+                    payload: {
+                        prompt: 'Feche o campo.',
+                        simulator: 'collimation',
+                        mode: 'challenge',
+                        controls: field,
+                        goal,
+                        phantomLabel: 'Fantoma simulado',
+                        hints: { tooLow: 'Abra.', tooHigh: 'Feche.' },
+                    },
+                };
+            }
+
+            const closeWidth = collimation({ kind: 'reach', control: 'fieldWidth', atMost: 18 });
+
+            it('decodifica os controles do campo e completa com o initial', () => {
+                expect(decodeBenchValue(undefined, field)).toEqual({ fieldWidth: 27, fieldHeight: 33 });
+                expect(decodeBenchValue('{"fieldWidth":18,"kv":70}', field)).toEqual({ fieldWidth: 18, fieldHeight: 33 });
+                expect(encodeBenchValue({ fieldWidth: 18, fieldHeight: 24 })).toBe('{"fieldWidth":18,"fieldHeight":24}');
+            });
+
+            it('reach atMost: 19 cm não fecha o bastante, 18 cm fecha', () => {
+                expect(isCorrectInteractionValue(closeWidth, encodeBenchValue({ fieldWidth: 19, fieldHeight: 33 }))).toBe(false);
+                expect(isCorrectInteractionValue(closeWidth, encodeBenchValue({ fieldWidth: 18, fieldHeight: 33 }))).toBe(true);
+            });
+
+            it('benchDirection: campo largo demais é tooHigh, curto demais é tooLow, e o certo é ok', () => {
+                expect(benchDirection(closeWidth, encodeBenchValue({ fieldWidth: 27, fieldHeight: 33 }))).toBe('tooHigh');
+                expect(benchDirection(closeWidth, encodeBenchValue({ fieldWidth: 18, fieldHeight: 33 }))).toBe('ok');
+                const faixa = collimation({ kind: 'reach', control: 'fieldHeight', atLeast: 20, atMost: 24 });
+                expect(benchDirection(faixa, encodeBenchValue({ fieldWidth: 27, fieldHeight: 10 }))).toBe('tooLow');
+            });
+
+            it('match numa colimação é conteúdo defeituoso: nunca acerta, não indica lado e não lança', () => {
+                // `invalid-goal` o recusa na validação. Se passar, o player não pode
+                // comparar contraste (a colimação não o muda), nem lançar.
+                const spy = jest.spyOn(exposure, 'exposureModel');
+                const wrong = collimation({ kind: 'match', reference: { kv: 70, mas: 10 }, tolerance: 0.05 });
+                // A referência dá contraste igual ao do aluno: o modelo de exposição diria "acertou".
+                const value = encodeBenchValue({ fieldWidth: 27, fieldHeight: 33 });
+
+                expect(() => isCorrectInteractionValue(wrong, value)).not.toThrow();
+                expect(isCorrectInteractionValue(wrong, value)).toBe(false);
+                expect(benchDirection(wrong, value)).toBe('ok');
+                expect(spy).not.toHaveBeenCalled();
+            });
+        });
     });
 });
