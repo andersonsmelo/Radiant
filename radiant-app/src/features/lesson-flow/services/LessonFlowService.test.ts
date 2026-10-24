@@ -426,7 +426,10 @@ describe('validateLearningActivity', () => {
         });
 
         it('recusa bancada sem controles', () => {
-            expect(rulesFor(issuesFor(bench({ controls: [] })), 'interaction:bench-1'))
+            // Alvo `match` para o defeito ser só a lista vazia: um `reach` sobre
+            // controle inexistente dispara também `invalid-goal`.
+            const goal = { kind: 'match', reference: { kv: 70, mas: 10 }, tolerance: 0.05 };
+            expect(rulesFor(issuesFor(bench({ controls: [], goal })), 'interaction:bench-1'))
                 .toEqual(['invalid-controls']);
         });
 
@@ -450,6 +453,63 @@ describe('validateLearningActivity', () => {
         it('aceita initial exatamente nos limites da faixa', () => {
             expect(issuesFor(bench({ controls: [{ ...kvControl, initial: 40 }, { ...masControl, initial: 40 }] })))
                 .toEqual([]);
+        });
+
+        describe('alvo (goal)', () => {
+            const reachKv = { kind: 'reach', control: 'kv' } as const;
+            const match = { kind: 'match', reference: { kv: 70, mas: 10 } } as const;
+
+            it('aceita reach nas pontas da faixa e match com tolerância positiva', () => {
+                expect(issuesFor(bench({ goal: { ...reachKv, atLeast: 40, atMost: 120 } }))).toEqual([]);
+                expect(issuesFor(bench({ goal: { ...reachKv, atMost: 60 } }))).toEqual([]);
+                expect(issuesFor(bench({ goal: { ...match, tolerance: 0.05 } }))).toEqual([]);
+            });
+
+            it('recusa goal ausente', () => {
+                expect(rulesFor(issuesFor(bench({ goal: undefined })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa reach cujo controle não está entre os controles', () => {
+                // Só o kV existe; o alvo olha o mAs, e o aluno nunca o alcançaria.
+                expect(rulesFor(
+                    issuesFor(bench({ controls: [kvControl], goal: { kind: 'reach', control: 'mas', atLeast: 5 } })),
+                    'interaction:bench-1',
+                )).toEqual(['invalid-goal']);
+            });
+
+            it('recusa reach sem atLeast e sem atMost', () => {
+                expect(rulesFor(issuesFor(bench({ goal: reachKv })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it.each([
+                ['atLeast acima do máximo', { atLeast: 130 }],
+                ['atLeast abaixo do mínimo', { atLeast: 30 }],
+                ['atMost acima do máximo', { atMost: 130 }],
+                ['atMost abaixo do mínimo', { atMost: 30 }],
+                ['atLeast que não é número', { atLeast: Number.NaN }],
+                ['limite válido ao lado de outro fora da faixa', { atLeast: 100, atMost: 130 }],
+            ])('recusa reach com %s', (_nome, limits) => {
+                expect(rulesFor(issuesFor(bench({ goal: { ...reachKv, ...limits } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it.each([
+                ['zero', 0],
+                ['negativa', -0.05],
+                ['NaN', Number.NaN],
+                ['infinita', Number.POSITIVE_INFINITY],
+                ['ausente', undefined],
+            ])('recusa match com tolerância %s', (_nome, tolerance) => {
+                expect(rulesFor(issuesFor(bench({ goal: { ...match, tolerance } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
+
+            it('recusa um tipo de alvo desconhecido', () => {
+                expect(rulesFor(issuesFor(bench({ goal: { kind: 'sempre' } })), 'interaction:bench-1'))
+                    .toEqual(['invalid-goal']);
+            });
         });
 
         it.each([

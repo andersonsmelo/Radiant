@@ -244,6 +244,41 @@ const MAX_INTERACTIONS = 4;
 const PRESENTATION_ROLES = new Set<string>(['hook', 'concept', 'closing']);
 const COMPLETION_RULES = new Set<string>(['displayed', 'answered', 'confirmed']);
 
+/** Número finito dentro de [min, max]; NaN e infinito ficam de fora. */
+function isWithinRange(value: unknown, min: number, max: number): boolean {
+    return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max;
+}
+
+/**
+ * O `goal` da bancada é o "pronto" da lição, e um alvo defeituoso não aparece
+ * em lugar nenhum: vira lição impossível (controle que não existe, limite fora
+ * da faixa, tolerância que nunca é cumprida) ou que se responde sozinha (`reach`
+ * sem limite). Como o conteúdo é escrito à mão, este é o único portão.
+ */
+function isBenchGoalValid(goal: BenchGoal | undefined, controls: BenchControl[]): boolean {
+    if (goal === undefined || goal === null) {
+        return false;
+    }
+    if (goal.kind === 'match') {
+        return typeof goal.tolerance === 'number' && Number.isFinite(goal.tolerance) && goal.tolerance > 0;
+    }
+    if (goal.kind !== 'reach') {
+        return false;
+    }
+
+    const target = controls.find((control) => control.id === goal.control);
+    if (target === undefined || (goal.atLeast === undefined && goal.atMost === undefined)) {
+        return false;
+    }
+    // Faixa inválida do controle já é apontada por `invalid-controls`; sem
+    // faixa não há como dizer se o limite cabe nela.
+    if (!(target.min < target.max)) {
+        return true;
+    }
+    return (goal.atLeast === undefined || isWithinRange(goal.atLeast, target.min, target.max))
+        && (goal.atMost === undefined || isWithinRange(goal.atMost, target.min, target.max));
+}
+
 function push(issues: ValidationIssue[], path: string, rule: string): void {
     if (!issues.some((issue) => issue.path === path && issue.rule === rule)) {
         issues.push({ path, rule });
@@ -393,6 +428,9 @@ function validateInteraction(issues: ValidationIssue[], interaction: LearningInt
             }
             if (!isFilled(interaction.payload.hints?.tooLow) || !isFilled(interaction.payload.hints?.tooHigh)) {
                 push(issues, path, 'missing-hints');
+            }
+            if (!isBenchGoalValid(interaction.payload.goal, controls)) {
+                push(issues, path, 'invalid-goal');
             }
             break;
         }
