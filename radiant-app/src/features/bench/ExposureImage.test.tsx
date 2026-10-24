@@ -126,6 +126,15 @@ describe('ExposureImage', () => {
             expect(EXPOSURE_SKSL).toMatch(/uniform float2 size;/);
             expect(EXPOSURE_SKSL).toMatch(/half4 main\(float2 \w+\)/);
         });
+
+        it('não usa pow(): com base negativa ele é indefinido e pode dar NaN na GPU', () => {
+            // O Jest não executa SkSL, então a guarda é sobre o texto. `pow(x, y)`
+            // em GLSL/SkSL é indefinido para x < 0, e `(y - 170) / 40` é negativo
+            // na metade de cima do fantoma: em alguns aparelhos o resultado é NaN,
+            // que apaga as partes moles e o ruído. O shader compila mesmo assim, e
+            // não cai no fallback. Quadrados saem de `d * d`.
+            expect(EXPOSURE_SKSL).not.toMatch(/\bpow\s*\(/);
+        });
     });
 
     describe('sem o shader (fallback de Views)', () => {

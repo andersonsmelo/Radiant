@@ -87,7 +87,8 @@ half4 main(float2 fragCoord) {
   float y = fragCoord.y / size.y * PHANTOM_H;
 
   // Partes moles: a corda da silhueta, que alarga um pouco na altura do joelho.
-  float softR = 96.0 + 10.0 * exp(-pow((y - 170.0) / 40.0, 2.0));
+  float knee = (y - 170.0) / 40.0;
+  float softR = 96.0 + 10.0 * exp(-(knee * knee));
   float soft_chord = chord(softR, abs(x - 128.0));
 
   // Osso cortical (bf) e medula (bm), somados ao longo da corda.
