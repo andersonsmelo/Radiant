@@ -76,11 +76,11 @@ describe('getRecommendationCopy', () => {
 
 // A ação sob a medalha recomendada. Ela saiu do cartão de recomendação, que a
 // trilha substituiu, com as mesmas palavras: os roteiros Maestro tocam
-// "Continuar jornada" e "Receber conquista" pelo texto.
+// "Continuar trilha" e "Receber conquista" pelo texto.
 describe('getRecommendationActionCopy', () => {
   it.each([
-    ['lesson', 'available', 'next-lesson', 'Continuar jornada'],
-    ['lesson', 'active', undefined, 'Continuar jornada'],
+    ['lesson', 'available', 'next-lesson', 'Continuar trilha'],
+    ['lesson', 'active', undefined, 'Continuar trilha'],
     ['lesson', 'resumable', 'next-lesson', 'Retomar lição'],
     ['lesson', 'available', 'paused-lesson', 'Retomar lição'],
     ['review', 'due-review', 'due-review', 'Fazer revisão'],

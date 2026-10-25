@@ -245,6 +245,21 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Execução dos planos da trilha Medalhão (medido em 2026-10-25)
 
+**Execução autorizada pelo dono em 25/10:** T00 reconciliado e revisado
+independentemente. T01 implementada, revisada (R4: spec/qualidade APPROVED) e
+validada pelos 15 validadores configurados do Loop, incluindo `app-quality`
+e `app-test`, no Node 20.20.2. Guarda AST no quality, baseline de 135 achados
+em 40 arquivos e CTA “Continuar trilha” com seus seis YAMLs/contratos.
+[Resultados, limites e continuação](evidence/2026-10-25-medalhao-t01.md).
+Writer `run-1792947283114-3566f047`; sessão de leitura encerrada antes dele.
+Próxima tarefa: T02 HUD; T02–T22/T04a permanecem pendentes. Nenhum gate G1–G8
+foi consumido; segundo dia fica no fechamento, reservado intocado.
+
+**Base remota desta execução:** `e3dca6e`; App Quality `40212275739` e Content
+Scripts `40212275878` concluídos com sucesso nesse SHA. PRs #66/#67 abertas e
+mergeáveis na leitura MCP do preflight. Esses checks não provam o futuro SHA
+da entrega T01; a evidência desta entrega é a validação local do Loop.
+
 **Ordem decidida pelo dono em 2026-10-25:** avançar no restante do layout e
 fazer a conferência de segundo dia no fechamento. A data do simulador não
 interrompe a implementação; a prova continua pendente, sem alterar relógio ou

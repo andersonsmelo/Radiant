@@ -102,7 +102,7 @@ export function extractMaestroPerformanceSamples(commandRuns, mode) {
 
     const tapIndex = commands.findIndex((entry) => (
       completed(entry)
-      && entry.command?.tapOnElement?.selector?.textRegex === 'Continuar jornada'
+      && entry.command?.tapOnElement?.selector?.textRegex === 'Continuar trilha'
     ));
     const lessonReady = tapIndex < 0 ? undefined : commands.slice(tapIndex + 1).find((entry) => (
       completed(entry)

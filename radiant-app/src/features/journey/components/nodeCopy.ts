@@ -53,7 +53,7 @@ export function getRecommendationCopy(
 /**
  * O que o botão sob a medalha recomendada diz: a ação, pelo tipo do nó e por
  * ele estar pausado. Veio do cartão de recomendação, que a trilha substituiu,
- * com as mesmas palavras: os roteiros Maestro tocam "Continuar jornada" e
+ * com as mesmas palavras: os roteiros Maestro tocam "Continuar trilha" e
  * "Receber conquista" pelo texto, e o `maestro-contract` lê esta função.
  */
 export function getRecommendationActionCopy(
@@ -69,6 +69,6 @@ export function getRecommendationActionCopy(
     case 'reward':
       return 'Receber conquista';
     default:
-      return resuming ? 'Retomar lição' : 'Continuar jornada';
+      return resuming ? 'Retomar lição' : 'Continuar trilha';
   }
 }

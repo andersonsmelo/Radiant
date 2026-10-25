@@ -3,7 +3,8 @@
 **Continuação de 2026-10-25:** executar junto do
 [plano integrador](../../plans/2026-10-25-medalhao-pendencias-e-fechamento.md),
 que resolve premissas antigas, explicita as lacunas da aula e põe a
-conferência de segundo dia no fechamento. O plano 5 continua não iniciado.
+conferência de segundo dia no fechamento. A execução do plano 5 começou em
+25/10 pela T01 (guarda/vocabulário), após autorização posterior do dono.
 Os exemplos abaixo não autorizam API de histórico inexistente, parsing de
 preço localizado, hooks em callback ou mudança da identidade aprovada.
 
@@ -139,7 +140,7 @@ git commit -m "chore(qa): prazos da política de visual QA amarrados ao plano 5"
   contagem passar do teto, e avisa (sem reprovar) quando ela cair, para o teto
   ser baixado.
 
-- [ ] **Passo 1: Enumerar antes de escrever o teto**
+- [x] **Passo 1: Enumerar antes de escrever o teto**
 
 Objetivo: a contagem real das três classes. Critério de completude: duas
 buscas por convenções diferentes (a do AST e um `grep` de texto) e uma
@@ -147,14 +148,14 @@ diferença entre elas que você consiga explicar caso a caso. A auditoria de
 2026-10-21 mediu 29 etiquetas em 18 arquivos, 20 travessões e 20 jargões; use
 esses números como conferência, não como resposta.
 
-- [ ] **Passo 2: Escrever o contrato com três casos que falham**
+- [x] **Passo 2: Escrever o contrato com três casos que falham**
 
 Um arquivo temporário em memória (não no disco do app) com
 `<Text>Volte para a jornada</Text>`, `title="Vidas — e só isso"` e
 `eyebrow="MISSÕES"` precisa produzir uma contagem de cada classe. Veja cada
 asserção falhar antes de a contagem existir.
 
-- [ ] **Passo 3: Gravar o teto medido e ver passar**
+- [x] **Passo 3: Gravar o teto medido e ver passar**
 
 Run: `cd radiant-app && npm run test:copy-style-contract`
 Expected: PASS com o teto igual à contagem do passo 1.
@@ -719,3 +720,19 @@ Vistas no simulador iOS ao fazer as duas aulas-bancada de exemplo
   - o botão desabilitado até o alvo não tem dica de acessibilidade nem anúncio
     quando habilita.
 
+
+## Registro de execução — 2026-10-25
+
+T00 reconciliado e aprovado por revisor independente. **T01 implementada,
+revisada (R4: spec/qualidade APPROVED) e validada (15/15 Loop)**. Guarda AST
+no quality, baseline medida por arquivo/classe: 135 achados em 40 arquivos.
+CTA “Continuar trilha”, seis YAMLs consumidores e contratos/performance
+alinhados; os demais rótulos ficam medidos até suas tarefas. T17 exige zero
+e revisão da fronteira estática. Não houve alteração de tela para absorver
+achado; dois dashes omitidos pela primeira análise passaram a ser medidos.
+
+A [evidência](../../evidence/2026-10-25-medalhao-t01.md) contém vermelho/verde,
+pareceres R1–R4 e validação. O passo de commit do checklist antigo acompanha
+o fechamento desta transação pelo controlador; o ledger registra o SHA final.
+O número antigo de sete roteiros/rótulos não define o escopo atual.
+Próxima: T02 HUD. Nenhum aceite humano ou resultado nativo inferido.

@@ -95,7 +95,7 @@ tags:
     visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 # Sem checkpoint entre as lições desde a ADR de 2026-09-28: o próximo nó
-# recomendado é a lição seguinte, e o CTA da home diz "Continuar jornada"
+# recomendado é a lição seguinte, e o CTA da home diz "Continuar trilha"
 # (`continueLabel` em `JourneyHomeScreen`, pinado pelo contrato).
 # A recomendação agora está no header rolável. Centralizar os bounds nativos
 # do botão antes de tocar evita a barra de abas em telas curtas e texto grande.
@@ -120,7 +120,7 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave

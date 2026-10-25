@@ -476,7 +476,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     renderWithProviders(<JourneyHomeScreen />);
 
     await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
-    expect(screen.queryByText('Continuar jornada')).toBeNull();
+    expect(screen.queryByText('Continuar trilha')).toBeNull();
   });
 
   it('quando a revisão é a única coisa aberta, o botão diz o que vai abrir', async () => {
@@ -489,7 +489,7 @@ describe('JourneyHomeScreen — a trilha soberana decide o próximo nó', () => 
     renderWithProviders(<JourneyHomeScreen />);
 
     await waitFor(() => expect(screen.getByText('Fazer revisão')).toBeTruthy());
-    expect(screen.queryByText('Continuar jornada')).toBeNull();
+    expect(screen.queryByText('Continuar trilha')).toBeNull();
   });
 
   it('mostra um esqueleto sem inventar estado enquanto carrega', async () => {
@@ -691,7 +691,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaDo(snapshot));
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
     renderWithProviders(<JourneyHomeScreen />);
-    await screen.findByRole('button', { name: 'Continuar jornada' });
+    await screen.findByRole('button', { name: 'Continuar trilha' });
 
     const pixels = screen.UNSAFE_getAllByType(PixelIllustration);
     expect(pixels).toHaveLength(1);
@@ -719,7 +719,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
     renderWithProviders(<JourneyHomeScreen />);
 
-    const action = await screen.findByRole('button', { name: 'Continuar jornada' });
+    const action = await screen.findByRole('button', { name: 'Continuar trilha' });
     let anchor: string | undefined;
     for (let node = action.parent; node; node = node.parent) {
       if (/^journey-anchor-/u.test(node.props.testID ?? '')) { anchor = node.props.testID; break; }
@@ -790,7 +790,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
     renderWithProviders(<JourneyHomeScreen />);
 
-    const action = await screen.findByRole('button', { name: 'Continuar jornada' });
+    const action = await screen.findByRole('button', { name: 'Continuar trilha' });
     expect(screen.getByRole('button', { name: `Revisar Lição atual. Disponível em ${dataDe(availableAt)}.` })).toBeTruthy();
     fireEvent.press(action);
     await waitFor(() => expect(mockedRouter.push).toHaveBeenCalledWith({ pathname: '/learn', params: { nodeId: 'lesson-1', blockId: 'block-1' } }));
@@ -819,7 +819,7 @@ describe('JourneyHomeScreen — recomendação acionável', () => {
     JourneyCurriculumService.getCurriculumTrail.mockResolvedValue(trilhaDo(snapshot));
     mockedJourneyProgressService.bootstrap.mockResolvedValue(snapshot);
     renderWithProviders(<JourneyHomeScreen />);
-    await screen.findByRole('button', { name: 'Continuar jornada' });
+    await screen.findByRole('button', { name: 'Continuar trilha' });
     expect(screen.queryByRole('button', { name: /Disponível em/u })).toBeNull();
   });
 
@@ -899,7 +899,7 @@ describe('JourneyHomeScreen — o momento do Pixel', () => {
   it('não toca na primeira abertura, mesmo com aulas já concluídas', async () => {
     estado('l2', ['l1']);
     renderWithProviders(<JourneyHomeScreen />);
-    await screen.findByRole('button', { name: 'Continuar jornada' }, { timeout: FIRST_RENDER_TIMEOUT_MS });
+    await screen.findByRole('button', { name: 'Continuar trilha' }, { timeout: FIRST_RENDER_TIMEOUT_MS });
 
     expect(momento()).toBeNull();
   });

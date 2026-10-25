@@ -479,6 +479,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     [roteiro de execução por subagentes](plans/2026-10-25-medalhao-execucao-subagentes.md)
     define recursos, papéis e revisão por tarefa; sua escrita não inicia as
     tarefas nem consome os gates específicos ainda pendentes.
+    **Execução iniciada em 25/10 por autorização posterior do dono:** T00
+    reconciliado/revisado; T01 guarda AST e CTA revisados e validados (15/15 Loop).
+    Próxima: T02 HUD. Estado e evidências em STATUS; gates G1–G8 preservados.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
     Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer

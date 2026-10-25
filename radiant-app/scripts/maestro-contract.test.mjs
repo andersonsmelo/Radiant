@@ -267,14 +267,14 @@ test('centers the recommendation header action before each native tap', async ()
     const rewardScreen = commands.findIndex(command => command?.assertVisible === 'Conquista da unidade');
     const actions = commands.flatMap((command, index) =>
       (rewardScreen < 0 || index < rewardScreen)
-      && ['Continuar jornada', 'Receber conquista'].includes(command?.tapOn) ? [index] : []);
+      && ['Continuar trilha', 'Receber conquista'].includes(command?.tapOn) ? [index] : []);
     assert.equal(actions.length, name === 'reward-unlock.yaml' ? 7 : 1);
     for (const index of actions) {
       assertCenteredRecommendation(commands, index, `${name}: center the native button bounds immediately before its semantic tap`);
     }
   }
   const offline = await flowCommands('offline-relaunch.yaml');
-  const index = offline.findIndex(command => command?.assertVisible === 'Continuar jornada');
+  const index = offline.findIndex(command => command?.assertVisible === 'Continuar trilha');
   assert.ok(index > 0);
   assertCenteredRecommendation(offline, index, 'offline relaunch must expose the restored recommendation');
 });
@@ -414,7 +414,7 @@ async function recommendationActionLabels() {
 
 test('keeps the critical path walking lesson to lesson on the CTA the home renders for a lesson', async () => {
   const { lessonLabel } = await recommendationActionLabels();
-  assert.equal(lessonLabel, 'Continuar jornada');
+  assert.equal(lessonLabel, 'Continuar trilha');
   const commands = await flowCommands('learning-critical-path.yaml');
   assert.ok(commands.some(command => command?.tapOn === lessonLabel));
   assert.doesNotMatch(JSON.stringify(commands), /checkpoint|CONQUISTA DESBLOQUEADA/i,
@@ -675,10 +675,10 @@ test('keeps the active and baseline performance flows on the same cold-start and
   assert.match(active, /setAirplaneMode: enabled/);
   assert.match(active, /- killApp\n- launchApp/);
   assert.match(active, /- tapOn: Retomar estudo/);
-  assert.match(active, /- tapOn: Continuar jornada\n- assertVisible: Fundamentos de Radiologia/);
+  assert.match(active, /- tapOn: Continuar trilha\n- assertVisible: Fundamentos de Radiologia/);
   assert.doesNotMatch(baseline, /Retomar estudo|setAirplaneMode/);
   assert.match(baseline, /clearState: true/);
-  assert.match(baseline, /- tapOn: Continuar jornada\n- assertVisible: Fundamentos de Radiologia/);
+  assert.match(baseline, /- tapOn: Continuar trilha\n- assertVisible: Fundamentos de Radiologia/);
 });
 
 test('keeps lesson-answer selectors accessible and deterministic', async () => {

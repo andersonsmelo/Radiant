@@ -143,5 +143,5 @@ tags:
     direction: UP
     centerElement: true
     visibilityPercentage: 100
-- assertVisible: Continuar jornada
+- assertVisible: Continuar trilha
 - setAirplaneMode: disabled

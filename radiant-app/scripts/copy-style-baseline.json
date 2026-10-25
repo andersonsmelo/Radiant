@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "measuredAt": "2026-10-25",
+  "policy": {
+    "roots": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "relative and @/* imports reachable from src (root, then src, per tsconfig)"
+    ],
+    "excludedSources": [
+      "*.test.*",
+      "*.spec.*",
+      "*.stories.*",
+      "__tests__",
+      "__mocks__",
+      "test-utils",
+      "*.d.ts"
+    ],
+    "clinical": [
+      {
+        "sources": [
+          "src/data/lessons.ts",
+          "src/data/ai-lessons.ts"
+        ],
+        "fields": [
+          "questions.*"
+        ]
+      },
+      {
+        "sources": [
+          "src/data/journey/defaultBlocks.ts"
+        ],
+        "fields": [
+          "payload.prompt",
+          "payload.explanation",
+          "payload.options.*",
+          "teach/reinforce.payload.body"
+        ]
+      },
+      {
+        "sources": [
+          "src/features/bench/lessons/exposicao.ts",
+          "src/features/bench/lessons/colimacao.ts"
+        ],
+        "fields": [
+          "prompt",
+          "body",
+          "explanation",
+          "options.*"
+        ]
+      },
+      {
+        "sources": [
+          "src/features/curriculum-v3/l1-body-reference/l1BodyReferenceContent.ts",
+          "src/features/curriculum-v3/l2-slicing-space/l2SlicingSpaceContent.ts"
+        ],
+        "fields": [
+          "challenges.*",
+          "relationships.*",
+          "modelLayers.*",
+          "sources.*"
+        ]
+      }
+    ],
+    "legal": {
+      "source": "src/features/subscription/screens/SubscriptionScreen.tsx",
+      "fields": [
+        "CANCEL_COPY",
+        "Text[style=styles.legal].children"
+      ]
+    },
+    "metadata": {
+      "source": "src/features/student-checkpoints/EditorialCurriculumCandidate.ts",
+      "fields": [
+        "sources.*",
+        "LICENSE.label"
+      ]
+    },
+    "infrastructure": [
+      "fetch request init/body (including its serialized payload)"
+    ],
+    "internal": [
+      "comments",
+      "types",
+      "imports",
+      "conditions/discriminants",
+      "routes",
+      "testIDs",
+      "storage keys",
+      "icon names"
+    ]
+  },
+  "ceilings": {
+    "src/app/_layout.tsx": {
+      "eyebrow": 0,
+      "dash": 0,
+      "jargon": 3
+    },
+    "src/components/ui/PixelHeroSplit.tsx": {
+      "eyebrow": 2,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/components/ui/StatItem.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/data/journey/defaultBlocks.ts": {
+      "eyebrow": 4,
+      "dash": 0,
+      "jargon": 1
+    },
+    "src/data/journey/defaultTrack.ts": {
+      "eyebrow": 0,
+      "dash": 0,
+      "jargon": 1
+    },
+    "src/features/beta/screens/BetaGateScreen.tsx": {
+      "eyebrow": 0,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/features/checkpoint/screens/CheckpointScreen.tsx": {
+      "eyebrow": 6,
+      "dash": 0,
+      "jargon": 16
+    },
+    "src/features/curriculum-v3/hybrid-l1/HybridLessonScreen.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/curriculum-v3/l1-body-reference/BodyReferenceLessonPreview.tsx": {
+      "eyebrow": 1,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/features/curriculum-v3/l2-slicing-space/SlicingSpaceLessonPreview.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/dev-console/screens/DevConsoleScreen.tsx": {
+      "eyebrow": 2,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/home/screens/HomeScreen.tsx": {
+      "eyebrow": 8,
+      "dash": 0,
+      "jargon": 3
+    },
+    "src/features/journey/components/JourneyLevelBand.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/journey/screens/JourneyHomeScreen.tsx": {
+      "eyebrow": 0,
+      "dash": 0,
+      "jargon": 3
+    },
+    "src/features/journey/services/JourneyDefinitionService.ts": {
+      "eyebrow": 2,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/lesson-flow/renderers/ContextStepRenderer.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/lesson-flow/renderers/MatchingStepRenderer.tsx": {
+      "eyebrow": 0,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/features/lesson-flow/renderers/TeachStepRenderer.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/lesson-flow/screens/LessonFlowScreen.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 1
+    },
+    "src/features/lesson-flow/services/LegacyLessonAdapter.ts": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/missions/screens/MissionsScreen.tsx": {
+      "eyebrow": 5,
+      "dash": 2,
+      "jargon": 0
+    },
+    "src/features/paywall/components/PaywallOfferCard.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/paywall/PaywallPlan.ts": {
+      "eyebrow": 0,
+      "dash": 2,
+      "jargon": 0
+    },
+    "src/features/pixel-mood/pixelPhrases.ts": {
+      "eyebrow": 0,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/features/profile/components/FeedbackPreferencesCard.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/profile/components/ProfileIdentityHeader.tsx": {
+      "eyebrow": 2,
+      "dash": 0,
+      "jargon": 1
+    },
+    "src/features/progress-sync/components/ICloudBackupCard.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/progress/screens/ProgressScreen.tsx": {
+      "eyebrow": 10,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/quiz/components/QuizFeedback.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/quiz/components/QuizQuestion.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/quiz/screens/QuizScreen.tsx": {
+      "eyebrow": 0,
+      "dash": 0,
+      "jargon": 2
+    },
+    "src/features/review/components/ReviewCard.tsx": {
+      "eyebrow": 2,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/features/review/screens/ReviewScreen.tsx": {
+      "eyebrow": 3,
+      "dash": 0,
+      "jargon": 5
+    },
+    "src/features/rewards/screens/RewardScreen.tsx": {
+      "eyebrow": 5,
+      "dash": 0,
+      "jargon": 12
+    },
+    "src/features/settings/screens/SettingsScreen.tsx": {
+      "eyebrow": 0,
+      "dash": 0,
+      "jargon": 1
+    },
+    "src/features/subscription/components/SubscriptionCard.tsx": {
+      "eyebrow": 1,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/features/subscription/screens/SubscriptionScreen.tsx": {
+      "eyebrow": 0,
+      "dash": 6,
+      "jargon": 0
+    },
+    "src/features/telemetry/screens/TelemetryDebugScreen.tsx": {
+      "eyebrow": 2,
+      "dash": 1,
+      "jargon": 0
+    },
+    "src/ui/components/GalaxyStatRow.tsx": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    },
+    "src/ui/styles.ts": {
+      "eyebrow": 1,
+      "dash": 0,
+      "jargon": 0
+    }
+  }
+}

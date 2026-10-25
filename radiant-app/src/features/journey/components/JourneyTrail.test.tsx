@@ -518,7 +518,7 @@ describe('JourneyTrail — o encaixe do Pixel', () => {
 
 describe('JourneyTrail — a ação sob a medalha recomendada', () => {
   const trilha = () => [segment('t1', 'Fundamentos', [unit('u1', 'Unidade 1', ['completed', 'available', 'locked'])])];
-  const acao = <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar jornada" />;
+  const acao = <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar trilha" />;
 
   it('fica sob a medalha recomendada, e só nela', () => {
     const screen = renderTrail(trilha(), 'u1-node-1', { recommendedAction: acao });
@@ -539,7 +539,7 @@ describe('JourneyTrail — a ação sob a medalha recomendada', () => {
     });
 
     // Sem `includeHiddenElements`: o que está escondido não é achado.
-    expect(screen.getByRole('button', { name: 'Continuar jornada' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Continuar trilha' })).toBeTruthy();
     expect(screen.queryByTestId('pixel')).toBeNull();
   });
 
@@ -576,7 +576,7 @@ describe('JourneyTrail — o momento do Pixel', () => {
   function renderMoment(moment?: { fromNodeId: string; toNodeId: string }, onDone = jest.fn()) {
     const screen = renderTrail(trilha(), 'u1-node-2', {
       pixelSlot: (nodeId) => (nodeId === 'u1-node-2' ? <View testID="pixel" /> : null),
-      recommendedAction: <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar jornada" />,
+      recommendedAction: <Pressable testID="acao" accessibilityRole="button" accessibilityLabel="Continuar trilha" />,
       moment: moment ? { ...moment, onDone } : undefined,
     });
     medirLargura(screen);

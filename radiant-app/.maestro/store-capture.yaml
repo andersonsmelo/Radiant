@@ -39,8 +39,8 @@ tags:
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 
 # A recomendação fica no header rolável; aguarde o botão antes de tocar.
-- assertVisible: Continuar jornada
-- tapOn: Continuar jornada
+- assertVisible: Continuar trilha
+- tapOn: Continuar trilha
 
 - assertVisible: Fundamentos de Radiologia
 - takeScreenshot: shots/02-licao
@@ -125,7 +125,7 @@ tags:
     direction: DOWN
     centerElement: true
     visibilityPercentage: 100
-- tapOn: Continuar jornada
+- tapOn: Continuar trilha
 - assertVisible: Princípios de Tomografia Computadorizada
 - tapOn: Continuar
 - assertVisible: Ideia-chave

@@ -1,0 +1,233 @@
+[
+  {
+    "path": "radiant-app/scripts/copy-style-contract.mjs",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 26888,
+    "sha256": "ac35f044eadaa91aa3ce98cc0b1986a76225c2891b5903365a1564ba2ddcd2f5"
+  },
+  {
+    "path": "radiant-app/scripts/copy-style-contract.test.mjs",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 15739,
+    "sha256": "a529819da76e389f9cd7d113e212fefbdb4aa179462b611072c4fed5e39c53ba"
+  },
+  {
+    "path": "radiant-app/scripts/copy-style-baseline.json",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 6922,
+    "sha256": "cb12e284d03b68597e7f93e9c5261b8f1bb3fca3925c52133881de031591acc4"
+  },
+  {
+    "path": "radiant-app/package.json",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 6236,
+    "sha256": "bc3f2889da4d4f9fb0ad73797bf47cf1e93fe72f754fb466a0388f88c780dc0a"
+  },
+  {
+    "path": "radiant-app/scripts/maestro-contract.test.mjs",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 86374,
+    "sha256": "7d21af05f822d6cc2e3e7ec233320839803412a258438e140dfe096a40ff510b"
+  },
+  {
+    "path": "radiant-app/scripts/checkpoint-performance-report.mjs",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 17019,
+    "sha256": "eda4564263ce4b2d837a04a82605374af68422184fc75f5f4648721115d6e425"
+  },
+  {
+    "path": "radiant-app/scripts/checkpoint-performance-report.test.mjs",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 25239,
+    "sha256": "e39f6524f01b28cda3004eabc54c1eefc76cbcd9422052da44f868cbba813018"
+  },
+  {
+    "path": "radiant-app/src/features/journey/components/nodeCopy.ts",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 2650,
+    "sha256": "7bba2685db18a48ac76b06f91140745e5124871227974c1eb426c839ae9770fb"
+  },
+  {
+    "path": "radiant-app/src/features/journey/components/nodeCopy.test.ts",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 4584,
+    "sha256": "272a89c973c07d1282ddaaa3d149d2130d4723a40bc1995c84b45acba840d9ac"
+  },
+  {
+    "path": "radiant-app/src/features/journey/components/JourneyTrail.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 66646,
+    "sha256": "31ca73319b7eb28770af3e1082792293e3e007bb44c6eafd425b306a368ce7e2"
+  },
+  {
+    "path": "radiant-app/src/features/journey/screens/JourneyHomeScreen.flow.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 46459,
+    "sha256": "b239a93f33f1b109073f7cbf28a8230a6252491a5cebc54e48392c30025d85c4"
+  },
+  {
+    "path": "radiant-app/src/components/ui/AppButton.test.tsx",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 16580,
+    "sha256": "32ecee643ddc757704d1bb15e3f3b1442eed1b4bc3313a2179ab7ae73c4448f7"
+  },
+  {
+    "path": "radiant-app/.maestro/learning-critical-path.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 8175,
+    "sha256": "5637500065c9c986683bcacd026527fe519faeac5a1ea22fe8ff438aa92ddf40"
+  },
+  {
+    "path": "radiant-app/.maestro/offline-relaunch.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 5891,
+    "sha256": "64a1fbec2a529690c9dc6fe24daa80640112fa8d10420b2b72ec762d2552535e"
+  },
+  {
+    "path": "radiant-app/.maestro/reward-unlock.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 24487,
+    "sha256": "a2cd964ca0909093d6844f7af11a5f0187a21ccb6e07f0f98cf09dfa7717a6d8"
+  },
+  {
+    "path": "radiant-app/.maestro/store-capture.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 7593,
+    "sha256": "5c0025bb9cec4418b62441f1308f7ae82f0fd09895da3497903a1b1445100fcd"
+  },
+  {
+    "path": "radiant-app/.maestro/student-checkpoint-active-resume.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 1601,
+    "sha256": "5a61f0757f2af29ea5d79c2be4a325317e4163e48592e433c2e2e6956a49792e"
+  },
+  {
+    "path": "radiant-app/.maestro/student-checkpoint-performance-baseline.yaml",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 1218,
+    "sha256": "8f0ca3d17d8845f302b00dcbdb94cc1e092bc3e2fe9674573d094bc70a750d72"
+  },
+  {
+    "path": "docs/STATUS.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 61670,
+    "sha256": "5046dbdfadf83f211a0f05a6468631edbbc1ab636528f88ec98a428621cf141d"
+  },
+  {
+    "path": "docs/FILA.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 75955,
+    "sha256": "c5be469995599140e4bd59fec547d3d65f47ec0618d6bb44eb7fcb61499132a4"
+  },
+  {
+    "path": "docs/plans/2026-07-27-radiant-launch-roadmap.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 136172,
+    "sha256": "57361328e39a54c5f1d458e4a1062225e973c743b83e2e9b80d7e70baa2d9757"
+  },
+  {
+    "path": "docs/superpowers/plans/2026-10-21-trilha-medalhao-indice.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 17112,
+    "sha256": "ceac930c7b5faf42cfdd980b3083e3e655c089b4c817e71503c5a9836b177b6c"
+  },
+  {
+    "path": "docs/superpowers/plans/2026-10-21-demais-telas-medalhao.md",
+    "exists": true,
+    "trackedAtBase": true,
+    "size": 31671,
+    "sha256": "b5f16d078c9d692d3bcf55715d1c7cf7bcee1ba273b21fb8f0f2c462e6747059"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 4388,
+    "sha256": "a9eccea3721aad7645bf49d05c88f28374846a3f1e82e15bc82ef14ee9353b23"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/preflight-scan.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 53481,
+    "sha256": "d74740e46bc82f9605cc403b80cc1b90fb3490c900481d4c11ab907560bba9e3"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/bases-por-plano.json",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 111230,
+    "sha256": "be4a75c6ec0b9b305dbb6f94a5d756535f390b09d53bec1a5db04f3496f7bc82"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/preflight-review.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 4014,
+    "sha256": "6fb1bc1908ca7f38999ac648932f3cb7ba7341e97eb01910736ddf0d2154e28d"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/remote-state.json",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 1152,
+    "sha256": "43e5120ac27c857ad3a06c5688e82eb126eb0bce5d62866ee48e4a7042e5ffa7"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/red.txt",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 359848,
+    "sha256": "9d8ceab27c6981438ce79e51dc2dd327ded06b8a2043ce10e41de2b429a7d5ca"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/green.txt",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 88103,
+    "sha256": "a062725c96406d4a9265adc75ca3dd272e55d1d1a04a38ebe8e1d1a09c5c17c9"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/audit.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 23276,
+    "sha256": "b2237561fb5e4d5cca6768c4d3c2b5e46a864a49186244e28c5098c690aa960d"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/implementation-report.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 2105,
+    "sha256": "b45c4ca7fc3bcae6201f073f026911b58f73997a47a82f004223bf0f73a45c5e"
+  },
+  {
+    "path": "docs/evidence/2026-10-25-medalhao-t01/review.md",
+    "exists": true,
+    "trackedAtBase": false,
+    "size": 16490,
+    "sha256": "40106d203079cd63e016f26fca6e01bd6cc190f9a050f8bd1ec84b4091ad25cc"
+  }
+]

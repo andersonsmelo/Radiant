@@ -42,6 +42,6 @@ tags:
     visibilityPercentage: 100
 - assertVisible: '^.+\. \d+ de \d+ etapas concluídas\.$'
 - setAirplaneMode: disabled
-- assertVisible: Continuar jornada
-- tapOn: Continuar jornada
+- assertVisible: Continuar trilha
+- tapOn: Continuar trilha
 - assertVisible: Fundamentos de Radiologia
