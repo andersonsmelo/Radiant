@@ -454,7 +454,8 @@ plano inteiro no modelo mais forte.
 | revisão final | `3ec1293` | "Conferir resposta" na bancada; frases de física; sem jargão de processo |
 
 **Decisões que mudam ou completam o texto do plano.** Valem para quem
-continuar:
+continuar. A física e a escolha da segunda bancada estão também na
+[ADR de 2026-10-24](../../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md):
 - **Física (tarefa 1):** radiografia digital, como a prancheta: brilho
   normalizado, kV no contraste, mAs só no ruído (∝ 1/√mAs). As restrições
   globais acima trazem a nota.

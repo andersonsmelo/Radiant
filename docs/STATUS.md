@@ -243,11 +243,12 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
     | grep -vE '\.(test|stories)\.tsx?$|src/ui/illustrations/'
   ```
 
-## Execução dos planos da trilha Medalhão (medido em 2026-10-23)
+## Execução dos planos da trilha Medalhão (medido em 2026-10-25)
 
 Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável, com head
-`37e7688` e CI verde (`quality` e `content`, medido em 2026-10-23 com
-`gh pr checks 66`). Os planos
+`732b728` e CI verde (`quality` e `content`, medido em 2026-10-25 com
+`gh pr view 66`). A PR #67 continua aberta e mergeável, e a `main` está em
+`bcf1a90`, sem nada da frente. Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
@@ -311,7 +312,9 @@ mudaram o texto do plano e pendências.
   corrigiu as estrelas contadas pela resposta final (`36fa2e5`)
   ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo dono,
   frase por frase ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e, antes de liberar, o
-  VoiceOver e a medição no AVD de entrada.
+  VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
+  plano (física de radiografia digital e colimação como segunda bancada) estão
+  na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
 - **Plano 5: não começado.** O 4 é escrito agora que o 3 terminou.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,

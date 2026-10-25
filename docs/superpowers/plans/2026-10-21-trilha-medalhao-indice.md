@@ -9,7 +9,7 @@ acrescentou um sexto, o Pixel. Cada plano entrega software que funciona e pode s
 depende termina. Um plano escrito antes disso descreveria interfaces que ainda
 não existem.
 
-| # | Plano | Depende de | Gate do dono | Estado medido em 2026-10-22 |
+| # | Plano | Depende de | Gate do dono | Estado medido em 2026-10-25 |
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
 | 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
@@ -45,7 +45,7 @@ confere o prazo antes de começar.
 `main` **e** existir o primeiro lote do currículo novo, que é o projeto seguinte,
 com o dono. Build e distribuição continuam com o dono.
 
-## Como continuar (atualizado em 2026-10-23)
+## Como continuar (atualizado em 2026-10-25)
 
 **Ordem:**
 1. Plano 2: o dono decide o texto máximo da coluna. No AX5 e no Android a 200%,
@@ -60,7 +60,9 @@ com o dono. Build e distribuição continuam com o dono.
    três resolvidos, o Plano 2 fecha com uma revisão final curta.
 2. Plano 3: feito em 2026-10-24, com revisão final; falta o dono revisar o
    conteúdo das duas aulas, e o agente fazer o VoiceOver e o AVD de entrada.
-   Depois, o Plano 5, que também traz a medalha da abertura e o Pixel da aula.
+   Depois, o Plano 5, que também traz a medalha da abertura e o Pixel da aula
+   (as entradas do plano 3 estão no fim do plano 5). As decisões de produto do
+   plano 3 estão na [ADR de 2026-10-24](../../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md).
 3. Plano 4 só é escrito depois do 3; o inventário depende do dono antes de
    remover conteúdo.
 4. À parte, **resolvido em 2026-10-23 na branch:** o bundle do Storybook não

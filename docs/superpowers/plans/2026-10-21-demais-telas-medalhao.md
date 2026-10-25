@@ -689,3 +689,23 @@ planos e entram nas tarefas indicadas:
   `unitNumber` para a medalha de avaliação. As tarefas 4, 7 e 8 usam assim.
 - **O HUD (tarefa 2)** ainda mostra os cinco corações e o "5" embaixo, visto em
   2026-10-22.
+
+## Entradas vindas da execução do plano 3 (2026-10-24)
+
+Vistas no simulador iOS ao fazer as duas aulas-bancada de exemplo
+([evidência](../../evidence/2026-10-24-aula-bancada.md)):
+
+- **Tarefa 4 (Pixel):** a abertura da aula não mostra a medalha do tema, e o
+  Pixel não aparece nomeando o efeito no passo de explorar. A spec §5 pede os
+  dois, e a §11.1 põe "a explicação na aula" entre os quatro momentos do Pixel.
+- **Tarefa 5 (resultado):** a conclusão ainda usa o Pixel antigo em PNG. Sem nó
+  da trilha, ela mostra "Sem XP nesta tentativa".
+- **Player:** o fechamento da aula aparece antes dos itens que voltam. A
+  comparação e a decisão de caso ainda não têm bloco de retorno visível (só a
+  múltipla escolha e a bancada têm).
+- **Bancada:**
+  - "Produto dose-área: 100% do campo todo" quebra em duas linhas num iPhone de
+    402 pt;
+  - o botão desabilitado até o alvo não tem dica de acessibilidade nem anúncio
+    quando habilita.
+

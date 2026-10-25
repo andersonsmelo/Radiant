@@ -542,7 +542,9 @@ com autorização do dono. O item 40 está encerrado; o console mostra
       duas aulas de exemplo, que abrem só em build de desenvolvimento
       ([evidência](evidence/2026-10-24-aula-bancada.md)). **Pendem:** a revisão do conteúdo pelo
       **dono** ([documento](conteudo-bancada/2026-10-24-aulas-de-exemplo.md)), e o VoiceOver e o AVD de
-      entrada pelo **agente**. Plano 5 não iniciado; o 4 pode ser escrito;
+      entrada pelo **agente**. As decisões de produto do plano estão na
+      [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md). Plano 5 não iniciado; o 4 pode ser
+      escrito;
     - **agente, à parte:** o `require` preguiçoso de `BenchStepRenderer` no
       registro de renderizadores sai com um dublê global do Skia no
       `jest.config.cjs`, que hoje está como mock local em seis arquivos.
