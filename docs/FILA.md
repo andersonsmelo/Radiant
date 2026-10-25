@@ -470,7 +470,12 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     **Remede com** o `injetar.mjs` da evidência, que termina com código 1 se
     alguma injeção sair do esperado;
   - **67.** agente, aberto em 2026-10-21: **trilha Medalhão e aula-bancada**, em
-    duas fases. A primeira tem tokens, DESIGN.md, a trilha, o motor da bancada
+    duas fases. **Ordem atual, decidida pelo dono em 2026-10-25:** avançar no
+    restante do layout e deixar a conferência de segundo dia para o fechamento,
+    preservando a preparação. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+    cobre as pendências, os gates humanos e o inventário/recomeço; esta entrega
+    apenas planeja, sem implementar produto ou autorizar retirada/build/merge.
+    A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
     Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer
     build: o **inventário do que sai** e a **revisão do conteúdo** das aulas de

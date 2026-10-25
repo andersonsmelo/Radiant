@@ -464,6 +464,14 @@ git commit -m "docs(trilha): evidência da trilha Medalhão no simulador e no AV
 
 ## Registro de execução (2026-10-22)
 
+**Ordem de continuidade atualizada em 2026-10-25, por decisão do dono:**
+avançar no restante do layout e rodar a conferência de segundo dia no
+fechamento, conforme T18 do
+[plano integrador](../../plans/2026-10-25-medalhao-pendencias-e-fechamento.md).
+O adiamento não aprova a tarefa 7 nem autoriza alterar relógio, limpar a
+preparação ou substituir o teste integral por uma sonda. Os registros datados
+abaixo permanecem como evidência histórica.
+
 **Estado:**
 - **Tarefas 0 a 5:** concluídas e revisadas.
 - **Tarefa 6:** implementada e revisada em 2026-10-22; gate completo aprovado no segundo run (15/15), após corrigir o mock consumidor. Prova nativa é da tarefa 7.

@@ -9,13 +9,20 @@ acrescentou um sexto, o Pixel. Cada plano entrega software que funciona e pode s
 depende termina. Um plano escrito antes disso descreveria interfaces que ainda
 não existem.
 
+**Continuação, decidida em 2026-10-25:** o
+[plano integrador de pendências e fechamento](../../plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza as tarefas restantes e detalha inventário/recomeço. Por decisão do
+dono, a conferência de segundo dia fica no fechamento e não interrompe o
+avanço das demais telas. A preparação é preservada; o teste não está aprovado
+por adiamento. A entrega deste plano é apenas documental.
+
 | # | Plano | Depende de | Gate do dono | Estado medido em 2026-10-25 |
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |
 | 6 | [Pixel no Medalhão](2026-10-21-pixel-medalhao.md): corpo vetorial em três tons, poses e a variante cabeça, com o mesmo rosto | 1 | — | **concluído e revisado** (2026-10-22), ver o registro de execução no plano |
 | 2 | [Trilha Medalhão](2026-10-21-trilha-medalhao.md): medalhas, caminho, estrelas, cabeçalho, linhas de revisão e de lembrete, e o momento do Pixel, sobre o `JourneyProgressService` | 1; 6 na tarefa 6 | **política de versão nativa** (tarefa 0), antes de o Skia entrar numa rota (feito: `fingerprint`) | **tarefa 7 executada, menos o segundo dia iOS (vence em 30/10)** (retomada de 2026-10-23: dia 2 Android PASS, momento Android demonstrado, quadro final antecipado só parcialmente corrigido (1 de 4 gravações; 0 de 13 na remedição nativa da noite, causa não observada), 40 concluídas medidas); **aceite pendente** da decisão do dono sobre o texto máximo na coluna |
 | 3 | [Aula-bancada](2026-10-21-aula-bancada.md): a interação `bench`, o modelo de exposição, o shader, a segunda bancada e as duas aulas de exemplo | 1; a tarefa 0 do 2 antes da tarefa 6 | **revisão do conteúdo** das aulas de exemplo | **tarefas 1 a 7 feitas e revisadas** (2026-10-24), menos o VoiceOver e o AVD de entrada; **aguarda a revisão do conteúdo pelo dono** ([documento](../../conteudo-bancada/2026-10-24-aulas-de-exemplo.md), [evidência](../../evidence/2026-10-24-aula-bancada.md)) |
-| 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | a escrever, quando o 3 terminar |
+| 4 | Retirada e recomeço: inventário, remoção do conteúdo e dos validadores, recomeço dos stores, Maestro e testes | inventário: nenhum; remoção: 3 | **aprovação do inventário** antes de apagar, e mudança do `.loop/project.yaml` | sequência detalhada em T15/T19–T22 do plano integrador; inventário sai/fica ainda não produzido nem aprovado |
 | 5 | [Demais telas no Medalhão, sem cara de IA](2026-10-21-demais-telas-medalhao.md): HUD, boas-vindas, resultado, recompensa, revisão, avaliação, Perfil, Ajustes, assinatura e vidas, com a guarda de texto | 1; 6 nas tarefas 4 e 5; 3 na tarefa 3; a tarefa 3 do 2 | — | escrito, não começado; recebeu entradas da execução (fim do plano) |
 
 O plano 6 nasceu do adendo de 2026-10-21 à noite (ADR, decisão 8), quando o dono
@@ -47,7 +54,13 @@ com o dono. Build e distribuição continuam com o dono.
 
 ## Como continuar (atualizado em 2026-10-25)
 
-**Ordem:**
+**Ordem atual:** seguir T00–T18 do plano integrador, avançando nas telas
+independentes enquanto decisões específicas aguardam o dono. Segundo dia iOS
+fica em T18, no fechamento visual. T19–T22 dependem do inventário aprovado e
+do contrato do currículo substituto; prova legada não substitui a do conteúdo
+novo. Não acessar o simulador reservado durante as tarefas anteriores.
+
+**Pendências que essa ordem preserva:**
 1. Plano 2: o dono decide o texto máximo da coluna. No AX5 e no Android a 200%,
    o texto quebra no meio da palavra, com os corredores de 64 pt preservados
    ([retomada](../../evidence/2026-10-23-trilha-medalhao-retomada.md), seção 3).
@@ -63,8 +76,8 @@ com o dono. Build e distribuição continuam com o dono.
    Depois, o Plano 5, que também traz a medalha da abertura e o Pixel da aula
    (as entradas do plano 3 estão no fim do plano 5). As decisões de produto do
    plano 3 estão na [ADR de 2026-10-24](../../adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md).
-3. Plano 4 só é escrito depois do 3; o inventário depende do dono antes de
-   remover conteúdo.
+3. O plano integrador detalha a sequência do plano 4; produzir o inventário
+   de arquivos sai/fica em T15 e obter aprovação antes da política/remoção.
 4. À parte, **resolvido em 2026-10-23 na branch:** o bundle do Storybook não
    montava (`lesson-xray-panel.png`, removido em `b06c7eb`). As stories
    deixaram de usá-lo, com guarda AST

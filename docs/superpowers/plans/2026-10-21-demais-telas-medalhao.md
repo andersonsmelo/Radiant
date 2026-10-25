@@ -1,5 +1,12 @@
 # Demais telas no Medalhão, sem cara de IA — plano de implementação (plano 5)
 
+**Continuação de 2026-10-25:** executar junto do
+[plano integrador](../../plans/2026-10-25-medalhao-pendencias-e-fechamento.md),
+que resolve premissas antigas, explicita as lacunas da aula e põe a
+conferência de segundo dia no fechamento. O plano 5 continua não iniciado.
+Os exemplos abaixo não autorizam API de histórico inexistente, parsing de
+preço localizado, hooks em callback ou mudança da identidade aprovada.
+
 > **Para agentes:** sub-skill obrigatória: superpowers:subagent-driven-development
 > (recomendada) ou superpowers:executing-plans, tarefa por tarefa. Os passos
 > usam caixas (`- [ ]`) para acompanhamento.
@@ -695,11 +702,14 @@ planos e entram nas tarefas indicadas:
 Vistas no simulador iOS ao fazer as duas aulas-bancada de exemplo
 ([evidência](../../evidence/2026-10-24-aula-bancada.md)):
 
-- **Tarefa 4 (Pixel):** a abertura da aula não mostra a medalha do tema, e o
+- **Integração da aula (T04 do plano integrador):** a abertura da aula não mostra a medalha do tema, e o
   Pixel não aparece nomeando o efeito no passo de explorar. A spec §5 pede os
   dois, e a §11.1 põe "a explicação na aula" entre os quatro momentos do Pixel.
-- **Tarefa 5 (resultado):** a conclusão ainda usa o Pixel antigo em PNG. Sem nó
-  da trilha, ela mostra "Sem XP nesta tentativa".
+- **Tarefa 4 (resultado):** a captura de 24/10 mostra o Pixel antigo em PNG;
+  em `b5ac9bf`, o `LessonSummary` já importa `PixelIllustration` vetorial.
+  Falta a composição Medalhão do resultado, não refazer a troca do mascote.
+  Sem nó da trilha, a conclusão mostra "Sem XP nesta tentativa"; mudar o
+  desenho/copy não autoriza conceder XP nem gravar progresso sem nó.
 - **Player:** o fechamento da aula aparece antes dos itens que voltam. A
   comparação e a decisão de caso ainda não têm bloco de retorno visível (só a
   múltipla escolha e a bancada têm).

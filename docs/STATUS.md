@@ -245,10 +245,21 @@ consultar o Simulador por AppleScript: compile com `xcodebuild` e instale com
 
 ## Execução dos planos da trilha Medalhão (medido em 2026-10-25)
 
-Branch `claude/trilha-medalhao-design`, PR #66 aberta e mergeável, com head
-`732b728` e CI verde (`quality` e `content`, medido em 2026-10-25 com
-`gh pr view 66`). A PR #67 continua aberta e mergeável, e a `main` está em
-`bcf1a90`, sem nada da frente. Os planos
+**Ordem decidida pelo dono em 2026-10-25:** avançar no restante do layout e
+fazer a conferência de segundo dia no fechamento. A data do simulador não
+interrompe a implementação; a prova continua pendente, sem alterar relógio ou
+dados. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza as tarefas faltantes, o inventário/recomeço e os aceites humanos.
+Esta entrega é documental; nenhum item de produto foi executado por ela.
+
+Branch `claude/trilha-medalhao-design`: base da leitura local e ref remoto
+antes desta entrega documental medidos em 2026-10-25 em `b5ac9bf`; a ref
+remota da `main` foi medida em `bcf1a90`.
+O registro anterior da PR #66 apontava `732b728`, com CI verde em `quality`
+e `content`; esse CI não é prova do HEAD posterior, e não foi remedido nesta
+entrega de planejamento. As PRs #66 e #67 permanecem referências da frente;
+o estado aberto/mergeável registrado anteriormente precisa ser consultado
+novamente antes de qualquer decisão de merge. Os planos
 estão no [índice](superpowers/plans/2026-10-21-trilha-medalhao-indice.md), e
 cada plano tem uma seção "Registro de execução" com commits, decisões que
 mudaram o texto do plano e pendências.
@@ -315,7 +326,9 @@ mudaram o texto do plano e pendências.
   VoiceOver e a medição no AVD de entrada. As duas decisões de produto do
   plano (física de radiografia digital e colimação como segunda bancada) estão
   na [ADR de 2026-10-24](adr/ADR-2026-10-24-aula-bancada-fisica-digital-e-colimacao.md), pendentes do aval do dono.
-- **Plano 5: não começado.** O 4 é escrito agora que o 3 terminou.
+- **Plano 5: não começado.** O plano integrador detalha o restante e a
+  preparação do plano 4; o inventário sai/fica ainda precisa ser produzido e
+  aprovado antes de qualquer retirada. As decisões de conteúdo seguem pendentes.
 - **Execução:** subagentes, um implementador e um revisor por tarefa, e uma
   revisão final por plano. Os registros locais dessa execução (ledgers, briefs,
   relatórios) ficam em `.superpowers/sdd/` do worktree
@@ -333,10 +346,13 @@ mudaram o texto do plano e pendências.
 
 ## Prazos de relógio
 
-- **2026-10-30, 14:07: o simulador iOS reservado libera o segundo dia** da
-  tarefa 7 do plano 2 da trilha Medalhão. É o que falta, junto com o quadro
-  antecipado do momento e a decisão do dono sobre o texto máximo, para o plano
-  2 ser aceito ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)).
+- **Segundo dia iOS: conferência no fechamento, por decisão do dono em
+  2026-10-25.** A data medida no simulador reservado foi 30/10/2026 às 14:07
+  ([evidência](evidence/2026-10-23-trilha-medalhao-retomada.md)); é uma
+  pré-condição do cenário preparado, não um prazo de execução nem bloqueio
+  para avançar nas demais telas. Preservar o container e verificar a revisão
+  naturalmente devida só na conferência final. A retirada do conteúdo não
+  pode destruir a preparação; o teste legado não aprova o catálogo novo.
 - **2026-11-30: vence a política de visual QA.** Os 23 registros de
   `radiant-app/scripts/visual-qa-policy.json` venciam em 2026-10-23 e foram
   renovados em 2026-10-21, a pedido do dono, até o fim do plano 5 da trilha

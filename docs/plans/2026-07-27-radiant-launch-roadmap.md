@@ -32,6 +32,13 @@ está no [levantamento](../trilha/2026-10-18-levantamento-do-que-foi-feito.md).
 Desde 18/10, o Claude planeja e executa
 ([ADR](../adr/ADR-2026-10-18-claude-planejador-e-executor.md)).
 
+**Medalhão — planejamento de 2026-10-25:** o
+[plano integrador das pendências](2026-10-25-medalhao-pendencias-e-fechamento.md)
+organiza o restante do layout, a aula-bancada e o inventário/recomeço. O dono
+moveu a conferência de segundo dia para o fechamento, sem bloquear o avanço
+das telas. Nenhuma tarefa de implementação ou gate de loja foi concluído por
+essa entrega documental; o estado vivo segue no STATUS.
+
 **FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como
 candidato para revisão do Claude, com M7 pendente da aprovação do dono. A
 [especificação](../trilha/plano/2026-10-18-pacote-motor-hibrido-na-licao.md) e a

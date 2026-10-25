@@ -50,6 +50,10 @@ Quando documentos divergirem, use esta ordem:
 
 ### Qualidade e evidências locais
 
+- [Medalhão — pendências e fechamento](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
+  — plano integrador de 2026-10-25: telas restantes, aula-bancada,
+  inventário/recomeço e conferência de segundo dia no fechamento; sem execução
+  das tarefas de produto nesta entrega.
 - [Remediação de QA de 2026-10-14](evidence/2026-10-14-qa-remediacao.md) —
   pacote `13ee173`, resultados nativos, comparação de memória e fechamento Loop;
   as pendências executáveis permanecem em [FILA](FILA.md).
