@@ -475,6 +475,10 @@ com autorização do dono. O item 40 está encerrado; o console mostra
     preservando a preparação. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md)
     cobre as pendências, os gates humanos e o inventário/recomeço; esta entrega
     apenas planeja, sem implementar produto ou autorizar retirada/build/merge.
+    **Plano revisado pelo dono em 25/10:** o
+    [roteiro de execução por subagentes](plans/2026-10-25-medalhao-execucao-subagentes.md)
+    define recursos, papéis e revisão por tarefa; sua escrita não inicia as
+    tarefas nem consome os gates específicos ainda pendentes.
     A primeira fase tem tokens, DESIGN.md, a trilha, o motor da bancada
     e duas ou três aulas de exemplo; a segunda, as demais telas no mundo novo.
     Os dois gates do dono vêm antes de apagar qualquer coisa e de qualquer

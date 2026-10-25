@@ -16,6 +16,11 @@ Plano escrito em **2026-10-25, America/Bahia**, por solicitação de Anderson.
 É um plano de implementação; **nenhuma tarefa de produto abaixo foi executada nesta entrega**.
 O estado vivo continua em [STATUS](../STATUS.md); este documento contém sequência e aceites.
 
+**Revisado pelo dono em 2026-10-25.** A execução será por subagentes, conforme
+o [roteiro operacional](2026-10-25-medalhao-execucao-subagentes.md), com
+atribuições, skills, plugins, MCPs e pacotes de revisão por tarefa. O aceite
+deste plano não resolve G1–G8 nem inicia implementação por si só.
+
 Decisão literal do dono nesta conversa:
 
 > nao ha necessidade dessa data vamos avançar no restante do projeto e então ao terminar rodamos essa conferencia

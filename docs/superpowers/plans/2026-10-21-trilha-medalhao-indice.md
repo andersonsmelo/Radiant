@@ -16,6 +16,11 @@ dono, a conferência de segundo dia fica no fechamento e não interrompe o
 avanço das demais telas. A preparação é preservada; o teste não está aprovado
 por adiamento. A entrega deste plano é apenas documental.
 
+**Plano integrador revisado pelo dono em 25/10:** usar o
+[roteiro de execução por subagentes](../../plans/2026-10-25-medalhao-execucao-subagentes.md)
+para a operação de cada tarefa, com skills, plugins, MCPs e revisões definidos.
+Nenhuma tarefa de implementação foi iniciada pela escrita desse roteiro.
+
 | # | Plano | Depende de | Gate do dono | Estado medido em 2026-10-25 |
 | --- | --- | --- | --- | --- |
 | 1 | [Fundação visual Medalhão](2026-10-21-fundacao-visual-medalhao.md): tokens, relevo, fundo, ícones, Skia com Skottie, as cinco ilustrações e o DESIGN.md | — | olhar as ilustrações no simulador (tarefa 7) | executado e revisado, PR #66 |

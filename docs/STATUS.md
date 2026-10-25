@@ -252,6 +252,13 @@ dados. O [plano integrador](plans/2026-10-25-medalhao-pendencias-e-fechamento.md
 organiza as tarefas faltantes, o inventário/recomeço e os aceites humanos.
 Esta entrega é documental; nenhum item de produto foi executado por ela.
 
+**Planejamento revisado pelo dono em 2026-10-25:** solicitada a execução por
+subagentes; o [roteiro operacional](plans/2026-10-25-medalhao-execucao-subagentes.md)
+define controlador, implementador/revisor por tarefa, recursos e evidências.
+A entrega do roteiro também é apenas documental: T00–T22/T04a não foram
+iniciadas por ela. Permanecem os aceites específicos de conteúdo, texto máximo,
+inventário/política, binário e liberação descritos no plano integrador.
+
 Branch `claude/trilha-medalhao-design`: base da leitura local e ref remoto
 antes desta entrega documental medidos em 2026-10-25 em `b5ac9bf`; a ref
 remota da `main` foi medida em `bcf1a90`.

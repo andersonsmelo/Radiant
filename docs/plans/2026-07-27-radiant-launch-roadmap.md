@@ -38,6 +38,9 @@ organiza o restante do layout, a aula-bancada e o inventário/recomeço. O dono
 moveu a conferência de segundo dia para o fechamento, sem bloquear o avanço
 das telas. Nenhuma tarefa de implementação ou gate de loja foi concluído por
 essa entrega documental; o estado vivo segue no STATUS.
+O [roteiro de execução por subagentes](2026-10-25-medalhao-execucao-subagentes.md)
+detalha a operação após a revisão do plano pelo dono em 25/10, sem iniciar
+as tarefas de implementação nesta entrega.
 
 **FILA 58 — 2026-10-18 (registro da entrega):** motor híbrido nas lições legadas implementado como
 candidato para revisão do Claude, com M7 pendente da aprovação do dono. A

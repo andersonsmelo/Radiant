@@ -54,6 +54,9 @@ Quando documentos divergirem, use esta ordem:
   — plano integrador de 2026-10-25: telas restantes, aula-bancada,
   inventário/recomeço e conferência de segundo dia no fechamento; sem execução
   das tarefas de produto nesta entrega.
+- [Medalhão — execução por subagentes](plans/2026-10-25-medalhao-execucao-subagentes.md)
+  — roteiro operacional do plano revisado: atribuições, despachos, revisão,
+  skills, plugins, MCPs e fechamento; a implementação ainda não foi iniciada.
 - [Remediação de QA de 2026-10-14](evidence/2026-10-14-qa-remediacao.md) —
   pacote `13ee173`, resultados nativos, comparação de memória e fechamento Loop;
   as pendências executáveis permanecem em [FILA](FILA.md).
